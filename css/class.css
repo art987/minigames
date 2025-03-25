@@ -1,0 +1,28 @@
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.main {
+		
+	flex: 1;
+}
+@media (max-width:1000px) {
+	.main{
+		width: 95% !important;
+		margin: 55px auto 0;
+	}
+}
+@media (min-width:1000px) {
+	.list1 {
+		justify-content: flex-start;
+	}
+	.li-box{
+		margin-right: 25px;
+	}
+	
+	.li-box:nth-of-type(8n) {
+		margin-right: 0px;
+	}
+}
