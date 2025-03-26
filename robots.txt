@@ -1,2 +1,5 @@
 User-agent: *
 Sitemap: https://peacelove.top/sitemap.xml
+
+Allow: /sitemap.xml  # 必须存在
+Disallow: /admin     # 示例，不应限制sitemap
