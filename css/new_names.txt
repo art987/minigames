@@ -1,0 +1,6 @@
+beauty1.html
+beauty2.html
+beauty3.html
+beauty4.html
+beauty5.html
+beauty6.html

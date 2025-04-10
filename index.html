@@ -1,91 +1,356 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- 仅限过渡期使用 -->
-    <meta name="googlebot" content="index, follow, noimageindex, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
-	<meta content="yes" name="apple-mobile-web-app-capable">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="css/base.css?v=121" />
-	<link rel="stylesheet" href="css/banner.css?v=1">
-	<link rel="stylesheet" href="css/swiper-bundle.min.css">
-	<link rel="stylesheet" type="text/css" href="css/list.css" />
-	<title>MiniFun Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PeaceLove Top Insights is a global platform delivering in-depth analysis on healthcare innovation, ethical tech, and cultural convergence. Combining data-driven insights with expert contributions, we empower readers to navigate complex global issues through trusted, multilingual resources.">
+    <!-- SEO增强 -->
+	<meta name="keywords" content="healthcare innovation, ethical technology, cultural analysis, data-driven insights, global perspectives">
+    <meta name="google-site-verification" content="your_verification_code">
+    <meta property="og:title" content="PeaceLove Top Insights">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://peacelove.top">
+    <meta property="og:image" content="https://peacelove.top/og-image.jpg">
+    <title>PeaceLove Top Insights - Global Analysis Platform</title>
+    
+    <!-- Schema结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PeaceLove Top Insights",
+        "url": "https://peacelove.top",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
 
+    <style>
+        :root {
+            --brand-red: #e63946;
+            --white: #ffffff;
+            --dark-gray: #2d3436;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* 增强语义化导航 */
+        header {
+            background: var(--brand-red);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            padding: 8px 12px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* 移动端菜单优化 */
+        .mobile-menu {
+            display: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 50%;
+                background: #222;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links li {
+                text-align: center;
+                margin: 8px 0;
+            }
+        }
+
+        /* 主要内容SEO优化 */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1.hero-title {
+            font-size: 2.5rem;
+            color: #000;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+         /* 符合Web Vitals的样式设计 */
+  .category-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 2rem 0;
+  }
+
+  .category-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-header {
+    background:#e1e1e1;
+    color: #000;
+    padding: 1.5rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    border-top: 1px solid #eee;
+    padding: 1rem 1.5rem;
+    text-align: right;
+  }
+
+  .card-footer a {
+    color: var(--brand-red);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  footer{ background:#222; text-align:center; padding:40px 0 ; text-align:center}
+  footer p{ color:#fff;}
+  
+  
+    </style>
 </head>
-
 <body>
-	<header class="header">
-		<div class="h-box">
-			<div class="hb">
-				<div class="title">
-					<h1>MiniFun Game</h1>
-				</div>
-				<img src="image/seach.png" alt="" class="seach">
-				<img src="image/menu.png" class="menu">
-			</div>
-			<div class="menu-box">
-				<div class="menu_list"></div>
-			</div>
+    <header>
+        <nav class="nav-container" aria-label="Main navigation">
+            <a href="/" class="logo" aria-label="Home">PeaceLove Top Insights</a>
+            <ul class="nav-links" id="mainNav">
+                <li><a href="#health" aria-current="page">Health Pulse</a></li>
+                <li><a href="#tech">Tech Frontier</a></li>
+                <li><a href="#global">Global Voices</a></li>
+                <li><a href="#data">Data Lens</a></li>
+                <li><a href="#ethics">Ethical Debates</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()" aria-label="Open menu">☰</div>
+        </nav>
+    </header>
 
-		</div>
-		<div class="search-box">
-			<div class="seachdiv">
-				<input type="search" id="seach" data-http="" placeholder="Search your favorite games">
-				<div class="seach-img" onClick="doSeach()"> <img src="image/seach.png"></div>
-			</div>
-		</div>
-	</header>
-	 
-	<div class="banner" style="display: none;">
-		<div class="swiper mySwiper">
-			<div class="swiper-wrapper">
-				<a href="games.html?game=141" class="swiper-slide">
-					<img src="image/bp4.jpg" alt="">
-				</a>
-				<a href="games.html?game=138" class="swiper-slide">
-					<img src="image/bp5.jpg" alt="">
-				</a>
-				<a href="games.html?game=117" class="swiper-slide">
-					<img src="image/bp.jpg" alt="">
-				</a>
-				<a href="games.html?game=54" class="swiper-slide">
-					<img src="image/bp2.jpg" alt="">
-				</a>
-				<a href="games.html?game=103" class="swiper-slide">
-					<img src="image/bp3.jpg" alt="">
-				</a>
-			</div>
-			<div class="swiper-button-next"></div>
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-pagination"></div>
-		</div>
-	</div>
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">Global Insights for Tomorrow's Challenges</h1>
+            <p>Data-driven analysis across healthcare, technology and global culture</p>
+        </section>
 
+   
 
-	<div class="main">
+        <!-- 栏目卡片容器 -->
+<section class="category-grid" aria-label="Content Categories">
+  <!-- Health Pulse -->
+  <article class="category-card" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="card-header">
+      <h2 itemprop="name">Health Pulse</h2>
+      <meta itemprop="keywords" content="Mental wellness, Chronic care, Biotech breakthroughs">
+    </div>
+    <div class="card-body" itemprop="description">
+      <p>Latest breakthroughs in medical innovation and public health policy</p>
+    </div>
+    <div class="card-footer">
+      <a href="/health-pulse" itemprop="url" aria-label="Explore Health Pulse articles">
+        Explore →
+      </a>
+    </div>
+  </article>
 
-	</div>
-	<footer class="footer">
-		<div class="f-inner">
-			<div>©2023 MiniFun Game All Rights Reserved</div>
-			<div class="about">
-				<a href="Privacy.html">Privacy Policy</a>
-				<a href="Terms.html">Terms of Service</a>
-			</div>
-		</div>
-	</footer>
+  <!-- Tech Frontier -->
+  <article class="category-card" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="card-header">
+      <h2 itemprop="name">Tech Frontier</h2>
+      <meta itemprop="keywords" content="AI governance, Green energy, Web3 ethics">
+    </div>
+    <div class="card-body" itemprop="description">
+      <p>Ethical implications of emerging technologies</p>
+    </div>
+    <div class="card-footer">
+      <a href="/tech-frontier" itemprop="url" aria-label="Discover Tech Frontier insights">
+        Discover →
+      </a>
+    </div>
+  </article>
+
+  <!-- Global Voices -->
+  <article class="category-card" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="card-header">
+      <h2 itemprop="name">Global Voices</h2>
+      <meta itemprop="keywords" content="Cross-cultural dialogue, Geopolitics, Social movements">
+    </div>
+    <div class="card-body" itemprop="description">
+      <p>Cross-cultural perspectives on contemporary issues</p>
+    </div>
+    <div class="card-footer">
+      <a href="/global-voices" itemprop="url" aria-label="View Global Voices perspectives">
+        View →
+      </a>
+    </div>
+  </article>
+
+  <!-- Data Lens -->
+  <article class="category-card" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="card-header">
+      <h2 itemprop="name">Data Lens</h2>
+      <meta itemprop="keywords" content="Interactive dashboards, Industry trends, Data storytelling">
+    </div>
+    <div class="card-body" itemprop="description">
+      <p>Visualizing complex datasets for clearer understanding</p>
+    </div>
+    <div class="card-footer">
+      <a href="/data-lens" itemprop="url" aria-label="Analyze through Data Lens">
+        Analyze →
+      </a>
+    </div>
+  </article>
+
+  <!-- Ethical Debates -->
+  <article class="category-card" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="card-header">
+      <h2 itemprop="name">Ethical Debates</h2>
+      <meta itemprop="keywords" content="AI morality, Climate justice, Genetic editing">
+    </div>
+    <div class="card-body" itemprop="description">
+      <p>Critical discussions on technology and society</p>
+    </div>
+    <div class="card-footer">
+      <a href="/ethical-debates" itemprop="url" aria-label="Join Ethical Debates">
+        Join →
+      </a>
+    </div>
+  </article>
+</section>
+
+<style>
+ 
+</style>
+   </main>
+
+    <footer>
+        <p>© 2025 PeaceLove Top Insights. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 增强移动端菜单功能
+        function toggleMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            // 点击外部区域关闭菜单
+            document.addEventListener('click', (e) => {
+                if (!nav.contains(e.target) && !e.target.closest('.mobile-menu')) {
+                    nav.classList.remove('active');
+                }
+            });
+        }
+
+        // 确保SEO友好的链接跟踪
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
-<script src="js/jquery-3.6.0.js"></script>
-<script src="js/swiper-bundle.min.js"></script>
-<script src="js/banner.js"></script>
-<script src="js/base.js?v=1121"></script>
-<script src="js/seach.js?v=11"></script>
-<script src="js/fadein.js?v=121"></script>
-<script src="js/list.js?v=11"></script>
-<script src="js/echo.min.js"></script>
-<script src="js/baseecho.js"></script>
-
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="css/base.css?v=21" />
+		<link rel="stylesheet" type="text/css" href="css/gotop.css" />
+		<link rel="stylesheet" type="text/css" href="css/list.css" />
+		<link rel="stylesheet" href="css/banner.css?v=1">
+		<link rel="stylesheet" href="css/search.css?v=1">
+		<title>MiniFun Game</title>
+	</head>
+
+	<body>
+		<header class="header">
+			<div class="h-box">
+				<div class="hb">
+					<div class="title">
+						<h1>MiniFun Game</h1>
+					</div>
+					<img src="image/seach.png" alt="" class="seach">
+					<img src="image/menu.png" class="menu">
+				</div>
+				<div class="menu-box">
+					<div class="menu_list"></div>
+				</div>
+			</div>
+			<div class="search-box">
+				<div class="seachdiv">
+					<input type="search" id="seach" data-http="" placeholder="Search your favorite games">
+					<div class="seach-img" onClick="doSeach()"> <img src="image/seach.png"></div>
+				</div>
+			</div>
+		</header>
+		<div class="main">
+			<div class="m-title">
+				<div class="mt-left">
+					
+				</div>
+			</div>
+			<div class="list1"></div>
+			<div class="nodate">
+				Not found~
+			</div>
+		</div>
+
+		<div class="gotop" id="gotop"></div>
+		<footer class="footer">
+			<div class="f-inner">
+				<div>©2023 MiniFun Game All Rights Reserved</div>
+				<div class="about">
+					<a href="Privacy.html">Privacy Policy</a>
+					<a href="Terms.html">Terms of Service</a>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script src="js/jquery-3.6.0.js"></script>
+	<script src="js/base.js?v=1121?v=11"></script>
+	<script src="js/seach.js?v=112"></script>
+	<script src="js/fadein.js?v=121"></script>
+	<script src="js/lazy.js"></script>
+	<script>
+		var key = location.search.split("=")[1]
+		if (key) {
+			creat(key)
+		}
+		// onclickFn2()
+	</script>
+
+</html>
