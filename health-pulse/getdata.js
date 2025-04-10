@@ -6,11 +6,11 @@ const siteHeader = `
         <nav class="nav-container" aria-label="Main navigation">
             <a href="/" class="logo" aria-label="Home">PeaceLove Top Insights</a>
             <ul class="nav-links" id="mainNav">
-                <li><a href="/health-pulse" aria-current="page">Health Pulse</a></li>
-                <li><a href="/tech-frontier">Tech Frontier</a></li>
-                <li><a href="/global-voices">Global Voices</a></li>
-                <li><a href="/data-lens">Data Lens</a></li>
-                <li><a href="/ethical-debates">Ethical Debates</a></li>
+                <li><a href="/health-pulse/" aria-current="page">Health Pulse</a></li>
+                <li><a href="/tech-frontier/">Tech Frontier</a></li>
+                <li><a href="/global-voices/">Global Voices</a></li>
+                <li><a href="/data-lens/">Data Lens</a></li>
+                <li><a href="/ethical-debates/">Ethical Debates</a></li>
             </ul>
             <div class="mobile-menu" onClick="toggleMenu()" aria-label="Open menu">☰</div>
         </nav>
