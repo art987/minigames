@@ -92,7 +92,7 @@ main {
 }
 
 #article-image {
-    max-width: 100%;max-height: 300px;
+    max-width: 100%;
     display: block;
     margin: 0 auto;
     border-radius: 5px;
@@ -101,7 +101,7 @@ main {
 #article-description {
     font-size: 16px;
     line-height: 2.5;
-    color: #555;
+    color: #000000;
 }
 
 /* “猜你喜欢”列表 */
@@ -120,7 +120,7 @@ section h3 {
 #related-articles li {
     background: #fff;
     margin: 10px 0;
-    padding: 12px 15px;
+    padding: 0 15px;
     border-left: 4px solid #ff6f61;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -128,7 +128,7 @@ section h3 {
 }
 
 #related-articles li:hover {
-    background: #ffefed;
+    background: #ff6f61;
     transform: translateX(5px);
 }
 
@@ -137,6 +137,9 @@ section h3 {
     font-size: 16px;
     color: #333;
     font-weight: bold;
+	display: block;
+    height: 40px;
+    line-height: 40px;
 }
 
 #related-articles li a:hover {
@@ -190,6 +193,9 @@ footer p {
     align-items: center;
     text-decoration: none;
     color: #333; margin-top:15px;
+	border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 #next-article-image {

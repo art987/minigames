@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const articleDate = document.getElementById("article-date");
         if (article.date && articleDate) {
-            articleDate.textContent = `发布时间：${article.date}`;
+            articleDate.textContent = `PeaceLove.Top Insights :${article.date}`;
         }
 
         const articleImage = document.getElementById("article-image");
