@@ -92,16 +92,16 @@ main {
 }
 
 #article-image {
-    max-width: 100%;max-height: 300px;
+    max-width: 100%;
     display: block;
-    margin: 0 auto;
+    margin: 10px auto;
     border-radius: 5px;
 }
 
 #article-description {
     font-size: 16px;
     line-height: 2.5;
-    color: #555;
+    color: #000;
 }
 
 /* “猜你喜欢”列表 */
