@@ -80,8 +80,8 @@ main {
 #article-title {
     font-size: 24px;
     color: #333;
-    text-align: center;
-    margin-bottom: 15px;
+    text-align: center;margin-bottom: 25px;
+    line-height: 33px;
 }
 
 .article-date{
@@ -100,10 +100,51 @@ main {
 
 #article-description {
     font-size: 16px;
-    line-height: 2.5;
+    line-height: 2;
     color: #000;
 }
 
+
+#article-description h2{}
+#article-description h3{     line-height: 25px;
+    padding: 23px 0;}
+#article-description h4{     line-height: 25px;
+    padding: 15px 0;}
+
+#article-description ul{
+    padding: 10px 17px;
+}
+
+#article-description ul li{list-style: decimal;color: #a91b1b;text-decoration: underline;}
+
+#article-description ol{
+    padding: 10px 0px;
+}
+
+#article-description ol li{list-style: none;color: #000000;border: 1px solid #ccc;padding: 7px 15px;margin-bottom: 12px;border-radius: 12px;border-left: 3px solid #c50000;line-height: 24px;}
+
+
+
+#article-description table{
+    background: #e7e7e7;
+}
+#article-description table tr{
+}
+#article-description table thead{
+    background: #f7f7f7;
+}
+#article-description table thead tr{}
+#article-description table tbody{
+    background: #ffffff;
+}
+#article-description table tbody tr{
+    
+    padding-left: 10px;}
+
+#article-description table thead tr td{ }	
+#article-description table tbody tr td{    padding-left: 14px;}	
+	
+	
 /* “猜你喜欢”列表 */
 section h3 {
     font-size: 20px;
@@ -120,7 +161,7 @@ section h3 {
 #related-articles li {
     background: #fff;
     margin: 10px 0;
-    padding: 12px 15px;
+    padding: 12px 15px;border: 1px solid #ccc;
     border-left: 4px solid #ff6f61;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -189,7 +230,9 @@ footer p {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #333; margin-top:15px;
+    color: #333; margin-top:15px;border: 1px solid #ccc;
+    padding: 14px;
+    border-radius: 13px;
 }
 
 #next-article-image {
@@ -249,7 +292,7 @@ footer p {
             font-size: 1.8rem;
             font-weight: 700;
             text-decoration: none;
-            letter-spacing: 1px;
+            letter-spacing: 1px;line-height: 2.1rem;
         }
 
         .nav-links {

@@ -150,7 +150,7 @@ h1 {
             font-size: 1.8rem;
             font-weight: 700;
             text-decoration: none;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.5px;line-height: 2.1rem;
         }
 
         .nav-links {
@@ -295,3 +295,38 @@ footer p {
     font-size: 14px;
 }	
 		
+
+ .quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 11px 7px;
+    padding-left: 10px;
+  }
+  .quick-tags .tag {
+    background-color: #e3e3e3;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  #scrollToTop {
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    background-color: #555;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+  .quick-tags .tag.active {
+  background-color: #e74c3c;
+  color: white;
+}
+
