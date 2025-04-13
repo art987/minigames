@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // 配置你的站点域名（末尾不要加 /）
-const siteUrl = "https://p.peacelove.top/health-pulse";
+const siteUrl = "https://peacelove.top/health-pulse";
 
 // 可排除的页面（不生成 sitemap 链接）
 const exclude = ["template.html", "404.html"];
