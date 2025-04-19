@@ -2,21 +2,20 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-adsense-account" content="ca-pub-1724082263959164">
-    <meta name="google-adsense-account" content="ca-pub-1724082263959164">
+	<meta name="google-adsense-account" content="ca-pub-1724082263959164">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>页面加载中...</title>
+    <title>The page is lost...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let path = window.location.pathname;
             let page = path.split("/").pop().replace(".html", "");
 
             // 解析 slug，重定向到 beauty.html
-            window.location.replace("/health/beauty.html?article=" + encodeURIComponent(page));
+            window.location.replace("/" );
         });
     </script>
 </head>
 <body>
-    <p>页面加载中，请稍候...</p>
+    <p>loading...</p>
 </body>
 </html>
