@@ -4,7 +4,7 @@
 const siteHeader = `
  <header>
         <nav class="nav-container" aria-label="Main navigation">
-            <a href="/" class="logo" aria-label="Home"><h1>PeaceLove Top Insights</h1></a>
+            <h1><a href="/" class="logo" aria-label="Home">PeaceLove Top Insights</a></h1>
             <ul class="nav-links" id="mainNav">
                 <li><a href="/health-pulse/" >Health Pulse</a></li>
                 <li><a href="/tech-frontier/" aria-current="page">Tech Frontier</a></li>
@@ -22,7 +22,13 @@ const siteHeader = `
 // footer 模板
 const siteFooter = `
 <footer>
-   <p>© 2025 PeaceLove Top Insights. All rights reserved.</p>
+    <p>© 2025 PeaceLove Top Insights. All rights reserved.</p>
+    <p>
+        <a href="/about.html" >About</a>
+        <a href="/contact.html" >Contact</a>
+        <a href="/privacy-policy.html" >Privacy Policy</a>
+        <a href="/terms-of-service.html" >Terms of Service</a>
+    </p>
 </footer>
 `;
 

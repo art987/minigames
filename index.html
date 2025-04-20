@@ -12,6 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://peacelove.top">
     <meta property="og:image" content="https://peacelove.top/og-image.jpg">
+	<link rel="stylesheet" href="css/index.css">
     <title>PeaceLove Top Insights - Global Analysis Platform</title>
     
     <!-- Schema结构化数据 -->
@@ -29,195 +30,12 @@
     }
     </script>
 
-    <style>
-        :root {
-            --brand-red: #e63946;
-            --white: #ffffff;
-            --dark-gray: #2d3436;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background: var(--white);
-            color: var(--dark-gray);
-            line-height: 1.6;
-        }
-
-        /* 增强语义化导航 */
-        header {
-            background: var(--brand-red);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .logo {
-            color: var(--white);
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-decoration: none;
-            letter-spacing: 1.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-            padding: 8px 12px;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-
-        /* 移动端菜单优化 */
-        .mobile-menu {
-            display: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 50%;
-                background: #222;
-                flex-direction: column;
-                padding: 1rem 0;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .nav-links li {
-                text-align: center;
-                margin: 8px 0;
-            }
-        }
-
-        /* 主要内容SEO优化 */
-        main {
-            margin-top: 80px;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 80px auto 0;
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 4rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        h1.hero-title {
-            font-size: 2.5rem;
-            color: #000;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-         /* 符合Web Vitals的样式设计 */
-  .category-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    padding: 2rem 0;
-  }
-
-  .category-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    overflow: hidden;
-    break-inside: avoid;
-  }
-
-  .category-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .card-header {
-    background:#e1e1e1;
-    color: #000;
-    padding: 1.5rem;
-  }
-
-  .card-header h2 {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-
-  .card-body {
-    padding: 1.5rem;
-    line-height: 1.6;
-  }
-
-  .card-footer {
-    border-top: 1px solid #eee;
-    padding: 1rem 1.5rem;
-    text-align: right;
-  }
-
-  .card-footer a {
-    color: var(--brand-red);
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.3s;
-  }
-
-  @media (max-width: 768px) {
-    .category-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  footer{ background:#222; text-align:center; padding:40px 0 ; text-align:center}
-  footer p{ color:#fff;}
-  
-  
-    </style>
+ 
 </head>
 <body>
-    <header>
+   <header>
         <nav class="nav-container" aria-label="Main navigation">
-            <a href="/" class="logo" aria-label="Home">PeaceLove Top Insights</a>
+           <h1> <a href="/" class="logo" aria-label="Home">PeaceLove Top Insights</a></h1>
             <ul class="nav-links" id="mainNav">
                  <li><a href="/health-pulse/" aria-current="page">Health Pulse</a></li>
                 <li><a href="/tech-frontier/">Tech Frontier</a></li>
@@ -320,14 +138,18 @@
   </article>
 </section>
 
-<style>
- 
-</style>
+
    </main>
 
-    <footer>
-        <p>© 2025 PeaceLove Top Insights. All rights reserved.</p>
-    </footer>
+<footer>
+    <p>© 2025 PeaceLove Top Insights. All rights reserved.</p>
+    <p>
+        <a href="/about.html" >About</a>
+        <a href="/contact.html" >Contact</a>
+        <a href="/privacy-policy.html" >Privacy Policy</a>
+        <a href="/terms-of-service.html" >Terms of Service</a>
+    </p>
+</footer>
 
     <script>
         // 增强移动端菜单功能
