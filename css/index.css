@@ -20,7 +20,7 @@
         /* 增强语义化导航 */
         header {
             background: var(--brand-red);
-            padding: 1rem 2rem;
+            padding: 1rem 1rem;
             position: fixed;
             width: 100%;
             top: 0;
