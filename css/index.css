@@ -142,32 +142,45 @@
   }
 
   .card-header {
-    background:#e1e1e1;
+    background: #f1f1f1;
     color: #000;
     padding: 1.5rem;
+    text-decoration:none;
   }
 
   .card-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     margin: 0;
+    color:#000;
+    line-height: 1.5rem;
+    padding: .8rem 0 1rem;
   }
 
   .card-body {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem 0;
     line-height: 1.6;
   }
 
   .card-footer {
-    border-top: 1px solid #eee;
-    padding: 1rem 1.5rem;
-    text-align: right;
+    padding: 0.7rem 1.5rem;
+    text-align: center;
+    height: 82px;
   }
 
   .card-footer a {
-    color: var(--brand-red);
+    color: #ffffff;
     text-decoration: none;
     font-weight: 500;
     transition: opacity 0.3s;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    background: var(--brand-red);
+    width: 40%;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 14px;
+    float: right;
   }
 
   @media (max-width: 768px) {
@@ -191,5 +204,10 @@
  
   .aritcle_content ul{padding:15px 20px;}
   .aritcle_content ul li{ list-style:decimal; line-height:1.8em;}
+  .imgbox{
+    height: 16rem;
+    overflow: hidden;
+}
+  .imgbox img{width:100%;margin-top: -1rem;}
   
   
