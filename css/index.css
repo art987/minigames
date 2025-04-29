@@ -144,7 +144,7 @@
   .card-header {
     background: #f1f1f1;
     color: #000;
-    padding: 1.5rem;
+    padding: 1rem 1rem .5rem;
     text-decoration:none;
   }
 
@@ -205,9 +205,9 @@
   .aritcle_content ul{padding:15px 20px;}
   .aritcle_content ul li{ list-style:decimal; line-height:1.8em;}
   .imgbox{
-    height: 16rem;
+    /* height: 16rem; */
     overflow: hidden;
 }
-  .imgbox img{width:100%;margin-top: -1rem;}
+  .imgbox img{width:100%;}
   
   
