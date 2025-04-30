@@ -20,7 +20,7 @@
         /* 增强语义化导航 */
         header {
             background: var(--brand-red);
-            padding: 1rem 1rem;
+            padding: .2rem 1rem .5rem;
             position: fixed;
             width: 100%;
             top: 0;
@@ -43,7 +43,7 @@
             font-weight: 700;
             text-decoration: none;
             letter-spacing: 1.5px;
-			display:block;background: url(https://peacelove.top/css/logo.png) no-repeat;background-size: cover;width: 288px;height: 83px;font-size:0;
+			display:block;background: url(https://peacelove.top/css/logo.png) no-repeat;background-size: cover;width: 240px;height: 67px;font-size:0;
         }
 		
 		
