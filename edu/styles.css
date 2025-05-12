@@ -42,8 +42,8 @@ body {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     }
-	.keywords .tip{background:none;font-weight:bold;font-size: 14px;padding: 4px 0 0 0;}
-		
+	.keywords .tip{background:none;font-weight:bold;font-size: 17px;padding:  2px 0 0 8px;}
+	.tags .tip{background:none;font-weight:bold;font-size: 17px;padding:  2px 0 0 8px;}	
 		
         .tag{
             padding: 5px 6px;
@@ -72,28 +72,32 @@ body {
     margin-bottom: 15px;
 }
 .category h3 {
-    margin: 0 0 5px;
-    font-size: 18px;
+    margin: 0 0 2px;
+    font-size: 20px;
     color: #000000;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 7px;
 }
 .category ul {
     list-style-type: none;
     padding: 0;
 }
 .category ul li {
-    margin-bottom: 19px;
-    font-size: 15px;
-    border: 1px solid #e3e3e3;
-    line-height: 34px;
+    margin-bottom: 6px;
+    font-size: 16px;
+    border-bottom: 1px dashed #717171;
+    line-height: 32px;
     background: #ffffff;
-    border-radius: 9px;
     letter-spacing: 1px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10px 11px 13px;
+    padding: 0px 0px 17px 0px;
     position: relative;
     min-height: 55px;
+    /* font-weight: bold; */
+    /* list-style: decimal; */
+    /* margin-left: 14px; */
 }
 .clear-btn {
     cursor: pointer;

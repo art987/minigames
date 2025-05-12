@@ -9,7 +9,7 @@ const data = {
         description: "一个帮助家长轻松培养孩子内驱力的万能话术辞典。"
     },
     tags: [
-        { name: "全部", category: "all" },
+        
         { name: "生活习惯", category: "生活习惯" },
         { name: "学习习惯", category: "学习习惯" },
         { name: "品质品德", category: "品质品德" },
