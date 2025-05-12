@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夸娃万能模板</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        #search-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 25px;
+            border: none;
+            height: 36px;
+            color: #df0007;
+            line-height: 36px;
+        }
+        .tags, .keywords {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 14px;
+            margin-bottom: 19px;
+        }
+        .tag{
+            padding: 5px 10px;
+            background-color: #ebebeb;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+		.keyword {
+            padding: 5px 10px;
+            background-color: #efefef;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .tag.active, .keyword.active {
+            background-color: #df0007;
+            color: white;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .category {
+            margin-bottom: 15px;
+        }
+        .category h3 {
+            margin: 0 0 5px;
+            font-size: 25px;
+        }
+        .category ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .category ul li {
+            margin-bottom: 21px;
+            font-size: 19px;
+            border: 1px solid #ababab;
+            line-height: 44px;
+            padding-left: 18px;
+            background: #ffffff;
+            border-radius: 14px;
+        }
+        .clear-btn {
+            cursor: pointer;
+            color: #c5464a;
+            position: absolute;
+            right: 45px;
+            top: 45px;
+            font-size: 22px;
+        }
+        @media (max-width: 600px) {
+            .search-container {
+                flex-direction: column;
+            }
+            #search-input {
+                width: 100%;
+				height: 35px;
+        border: 1px solid #ccc;
+            }
+        }
+		
+		.title{height: 119px;line-height:80px;text-align:center;}
+		.title h1{font-size:40px;line-height: 41px;}
+		.title p{font-size: 23px;line-height: 7px;padding: 0;margin: 0;letter-spacing: 6px;}
+    </style>
+    </style>
+</head>
+<body>
+<div class="title"><h1>夸娃话术模板汇总</h1><p>轻松培养孩子的内驱力</p></div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="搜索句子...">
+        <div class="clear-btn" id="clear-search" style="display: none;">X</div>
+    </div>
+    <div class="tags">
+        <div class="tag active" data-category="all">全部</div>
+        <div class="tag" data-category="生活习惯">生活习惯</div>
+        <div class="tag" data-category="学习习惯">学习习惯</div>
+        <div class="tag" data-category="品质品德">品质品德</div>
+        <div class="tag" data-category="家庭表现">家庭表现</div>
+        <div class="tag" data-category="学校情况">学校情况</div>
+        <div class="tag" data-category="理想目标">理想目标</div>
+        <div class="tag" data-category="万能表扬语">万能表扬语</div>
+    </div>
+    <div class="keywords">
+ <div class="keyword" data-keyword="能干">能干</div>
+<div class="keyword" data-keyword="珍惜粮食">珍惜粮食</div>
+<div class="keyword" data-keyword="合作">合作</div>
+<div class="keyword" data-keyword="爱护环境">爱护环境</div>
+<div class="keyword" data-keyword="自理能力">自理能力</div>
+<div class="keyword" data-keyword="作息规律">作息规律</div>
+<div class="keyword" data-keyword="高效率">高效率</div>
+<div class="keyword" data-keyword="讲卫生">讲卫生</div>
+<div class="keyword" data-keyword="有条理">有条理</div>
+<div class="keyword" data-keyword="规划">规划</div>
+<div class="keyword" data-keyword="习惯">习惯</div>
+<div class="keyword" data-keyword="细心">细心</div>
+<div class="keyword" data-keyword="专注力">专注力</div>
+<div class="keyword" data-keyword="目标">目标</div>
+<div class="keyword" data-keyword="自律">自律</div>
+<div class="keyword" data-keyword="运动">运动</div>
+<div class="keyword" data-keyword="阅读">阅读</div>
+<div class="keyword" data-keyword="思考">思考</div>
+<div class="keyword" data-keyword="勇敢">勇敢</div>
+<div class="keyword" data-keyword="爱心">爱心</div>
+<div class="keyword" data-keyword="礼貌">礼貌</div>
+<div class="keyword" data-keyword="守约">守约</div>
+<div class="keyword" data-keyword="责任心">责任心</div>
+<div class="keyword" data-keyword="大方">大方</div>
+<div class="keyword" data-keyword="修养">修养</div>
+<div class="keyword" data-keyword="体贴">体贴</div>
+<div class="keyword" data-keyword="主见">主见</div>
+<div class="keyword" data-keyword="聆听">聆听</div>
+<div class="keyword" data-keyword="亲情">亲情</div>
+<div class="keyword" data-keyword="孝顺">孝顺</div>
+<div class="keyword" data-keyword="帮助">帮助</div>
+<div class="keyword" data-keyword="贴心">贴心</div>
+<div class="keyword" data-keyword="人缘">人缘</div>
+<div class="keyword" data-keyword="用心">用心</div>
+<div class="keyword" data-keyword="付出">付出</div>
+<div class="keyword" data-keyword="成长">成长</div>
+<div class="keyword" data-keyword="坦诚">坦诚</div>
+<div class="keyword" data-keyword="感恩">感恩</div>
+<div class="keyword" data-keyword="乐于助人">乐于助人</div>
+<div class="keyword" data-keyword="知错能改">知错能改</div>
+<div class="keyword" data-keyword="独立">独立</div>
+<div class="keyword" data-keyword="优势">优势</div>
+<div class="keyword" data-keyword="好学">好学</div>
+<div class="keyword" data-keyword="理想">理想</div>
+<div class="keyword" data-keyword="愿望">愿望</div>
+<div class="keyword" data-keyword="效率">效率</div>
+<div class="keyword" data-keyword="爱好">爱好</div>
+<div class="keyword" data-keyword="行动力">行动力</div>
+<div class="keyword" data-keyword="积极">积极</div>
+<div class="keyword" data-keyword="努力">努力</div>
+<div class="keyword" data-keyword="勇气">勇气</div>
+    </div>
+<div class="content">
+        <div class="category" data-category="生活习惯">
+            <h3>生活习惯</h3>
+            <ul>
+                <li>你今天主动帮家里做家务，这叫【能干】</li>
+                <li>今天把饭吃得好干净呀，一点都没剩，这叫【珍惜粮食】</li>
+                <li>你今天和小伙伴一起玩拼图，这叫【善于合作】</li>
+                <li>你宁愿一直把垃圾拿手里也不随地乱丢，这叫【爱护环境】</li>
+                <li>你都能自己穿衣服，袜子了，这叫【自理能力强】</li>
+                <li>你每天晚上能在9点前睡觉，这叫【作息规律】</li>
+                <li>早上你只用5分钟就完成洗漱了，这叫【高效率】</li>
+                <li>你刷牙刷得好认真、好仔细呀，这叫【讲卫生】</li>
+                <li>你把玩完的玩具收拾的好整齐呀，这叫【有条理】</li>
+                <li>明天一整天的日程你都安排好了，这叫【做事有规划】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="学习习惯">
+            <h3>学习习惯</h3>
+            <ul>
+                <li>每次你做完题都会认真检查，这叫【好的学习习惯】</li>
+                <li>这么容易错的题你都做对了，这叫【细心】</li>
+                <li>你写字的时候坐得好端正呀，这叫【好的写字习惯】</li>
+                <li>你能花整整1个小时的时间投入画画，这叫【专注力强】</li>
+                <li>天啊你都会给自己定学习目标了，这叫【有目标有规划】</li>
+                <li>你每天不用妈妈提醒就能坚持晨读，这叫【自律】</li>
+                <li>今天学习完你主动把学习工具收拾好了呀，这叫【有条理】</li>
+                <li>你这几天每天都会跳绳耶，这叫【坚持运动】</li>
+                <li>妈妈发现你最近能坚持每天阅读，这叫【好的阅读习惯】</li>
+                <li>遇到不会的题你也能多想几遍，这叫【善于独立思考】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="品质品德">
+            <h3>品质品德</h3>
+            <ul>
+                <li>你今天打针竟然没哭，这叫【勇敢】</li>
+                <li>遇到流浪的小猫小狗，你会去喂吃的，这叫【有爱心】</li>
+                <li>今天在路上遇到邻居阿姨，你主动问好了，这叫【有礼貌】</li>
+                <li>今天看完两集动画片你主动关了电视，这叫【守约定】</li>
+                <li>和朋友一起玩时你知道要保护比你小的，这叫【有责任心】</li>
+                <li>你今天给好朋友分享了好吃的耶，这叫【大方】</li>
+                <li>你今天看到同学当众出丑没有嘲笑他，这叫【有修养】</li>
+                <li>妈妈今天不舒服，你主动帮家里打扫卫生，这叫【体贴】</li>
+                <li>和别人的想法发生碰撞时，能坚持不动摇，这叫【有主见】</li>
+                <li>每次妈妈说话你都能认真听，真好，这叫【懂得聆听】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="家庭表现">
+            <h3>家庭表现</h3>
+            <ul>
+                <li>你总是主动照顾妹妹，妈妈能看出来你很爱她，这叫【亲情】</li>
+                <li>你今天给爷爷奶奶做按摩了耶，这叫【孝顺】</li>
+                <li>你今天主动给妹妹分享学到的知识，这叫【帮助与传授】</li>
+                <li>你今天策划了一个家庭会议，这叫【有创意】</li>
+                <li>你给妈妈送上了洗好的水果，这叫【贴心】</li>
+                <li>我发现姑姑小姨她们都很喜欢你，这叫【人缘好】</li>
+                <li>你给家人准备了节日礼物哇，这叫【用心】</li>
+                <li>你现在会帮家里做很多家务活了，这叫【付出】</li>
+                <li>你能表达出很多自己的感受了，这叫【成长】</li>
+                <li>你愿意分享你的心里话给妈妈，这叫【坦诚】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="学校情况">
+            <h3>学校情况</h3>
+            <ul>
+                <li>老师说你在课上很积极，不怕错是对的，这叫【勇敢】</li>
+                <li>你给老师准备了教师节礼物呀，这叫【感恩】</li>
+                <li>听说你会记住老师的各种嘱托，这叫【细心】</li>
+                <li>听说你在幼儿园吃饭可乖了，这叫【自理能力强】</li>
+                <li>老师说你在班里总是积极帮助同学，这叫【乐于助人】</li>
+                <li>你犯错能主动和老师承认，这叫【知错能改】</li>
+                <li>妈妈听说你会主动帮老师的忙，这叫【付出】</li>
+                <li>老师说你最近在幼儿园的表现可好了，这叫【独立】</li>
+                <li>老师说你的阅读能力很强，这叫【优势】</li>
+                <li>妈妈听说你遇到不明白的总能及时问老师，这叫【好学】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="理想目标">
+            <h3>理想目标</h3>
+            <ul>
+                <li>你说未来想成为一名老师，祝贺你，这叫【有理想】</li>
+                <li>你今天写下了下次要达成的成果，这叫【有目标】</li>
+                <li>你画下那幅"我的未来"，这叫【有愿望】</li>
+                <li>你前两天定下来的目标这么快就实现啦，这叫【有效率】</li>
+                <li>你这么早就有自己的理想啦，这叫【有目标】</li>
+                <li>你每天都会做自己喜欢的事情，这叫【有爱好】</li>
+                <li>妈妈发现你制定了计划会立马去做，这叫【行动力强】</li>
+                <li>你总对自己说鼓励的话，这叫【积极向上】</li>
+                <li>你会为了目标不断前行，累了也不放弃，这叫【努力】</li>
+                <li>你遇到挑战总能迎难而上，这叫【勇气和毅力】</li>
+            </ul>
+        </div>
+        <div class="category" data-category="万能表扬语">
+            <h3>万能表扬语</h3>
+            <ul>
+                <li>妈妈永远为你骄傲</li>
+                <li>你永远是独一无二的</li>
+                <li>真好，你一直在我身边</li>
+                <li>我永远是你最坚强的后盾</li>
+                <li>我真的很喜欢和你在一起</li>
+                <li>不论发生什么，我都爱你</li>
+                <li>妈妈永远相信你</li>
+                <li>在我眼里，你是最优秀的</li>
+                <li>妈妈好幸运能遇到你</li>
+                <li>做得好！我们为你骄傲</li>
+                <li>你最近好努力，继续加油</li>
+                <li>谢谢你的关心，有你真好</li>
+                <li>你一直在坚持，好样的</li>
+                <li>我真为你自豪</li>
+                <li>你真贴心，为你的懂事点赞</li>
+                <li>你在XX方面这么有天赋呀</li>
+                <li>我就知道，你一定可以做到</li>
+                <li>你真是个善良真诚的好孩子</li>
+                <li>你进步比我预料的还要快呢</li>
+                <li>只要你愿意努力往前走，没有什么可以阻挡你</li>
+                <li>你总是可以给我带来惊喜呢</li>
+                <li>有你在身边真让我安心</li>
+                <li>诚实是做人的第一美德</li>
+                <li>妈妈看到了你的努力</li>
+                <li>加油，我会一直在你身边</li>
+                <li>你表现的很好</li>
+                <li>这是你做的？也太牛了</li>
+                <li>很开心看到如此懂事的你</li>
+                <li>你很有天赋，能把感受表达的这么恰当</li>
+                <li>你一定会成为你想成为的人</li>
+                <li>妈妈相信你说到做到</li>
+                <li>你好厉害，我都没有想出来</li>
+                <li>勇于承担责任，太了不起了</li>
+                <li>如果想去做就做吧</li>
+                <li>你有什么好主意，说来听听</li>
+                <li>妈妈永远支持你</li>
+                <li>自信，是迈向成功的第一步</li>
+                <li>你这个想法很好，我赞同</li>
+                <li>这是做的最好的一次</li>
+                <li>充满自信，并勤奋努力，一切困难都会迎刃而解</li>
+                <li>失败很正常，记住教训就好</li>
+                <li>我相信你会做的更好</li>
+                <li>能尊重别人的想法，很棒</li>
+                <li>你的观察力很强</li>
+                <li>没事，不要着急，慢慢来</li>
+                <li>妈妈相信你</li>
+                <li>你要先相信你自己，然后别人才会相信你</li>
+                <li>你真努力，请继续保持</li>
+                <li>这件事很难，但你没有放弃</li>
+                <li>这个方法值得肯定</li>
+                <li>你真是我的得力助手</li>
+                <li>我想你已经掌握到窍门啦</li>
+                <li>你能反思，愿意改变，真好</li>
+                <li>你做的已经很好了</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.getElementById('clear-search');
+        const tags = document.querySelectorAll('.tag');
+        const keywords = document.querySelectorAll('.keyword');
+        const categories = document.querySelectorAll('.category');
+
+        // 初始化：显示所有内容
+        categories.forEach(category => {
+            category.style.display = 'block';
+        });
+
+        // 搜索框功能
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            if (searchTerm === '') {
+                clearSearchBtn.style.display = 'none';
+                resetDisplay();
+            } else {
+                clearSearchBtn.style.display = 'inline';
+                filterContent(searchTerm);
+            }
+        });
+
+        // 清空搜索框功能
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearchBtn.style.display = 'none';
+            resetDisplay();
+        });
+
+        // 标签筛选功能
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                tags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                const categoryToShow = tag.getAttribute('data-category');
+                categories.forEach(category => {
+                    if (categoryToShow === 'all') {
+                        category.style.display = 'block';
+                        category.querySelectorAll('li').forEach(item => item.style.display = 'block');
+                    } else {
+                        category.style.display = category.getAttribute('data-category') === categoryToShow ? 'block' : 'none';
+                        if (category.getAttribute('data-category') === categoryToShow) {
+                            category.querySelectorAll('li').forEach(item => item.style.display = 'block');
+                        }
+                    }
+                });
+            });
+        });
+
+        // 关键词筛选功能
+        keywords.forEach(keyword => {
+            keyword.addEventListener('click', () => {
+                const keywordText = keyword.getAttribute('data-keyword');
+                searchInput.value = keywordText;
+                clearSearchBtn.style.display = 'inline';
+                filterContent(keywordText);
+            });
+        });
+
+        // 标红关键词
+        function highlightKeyword(text, keyword) {
+            const regex = new RegExp(keyword, 'gi');
+            return text.replace(regex, `<span style="color: red;">${keyword}</span>`);
+        }
+
+        // 过滤内容
+        function filterContent(keyword) {
+            categories.forEach(category => {
+                const items = category.querySelectorAll('li');
+                let hasVisibleItem = false;
+                items.forEach(item => {
+                    const originalText = item.getAttribute('data-original-text');
+                    if (originalText.toLowerCase().includes(keyword.toLowerCase())) {
+                        item.innerHTML = highlightKeyword(originalText, keyword);
+                        item.style.display = 'block';
+                        hasVisibleItem = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                category.style.display = hasVisibleItem ? 'block' : 'none';
+            });
+        }
+
+        // 重置显示
+        function resetDisplay() {
+            categories.forEach(category => {
+                category.style.display = 'block';
+                category.querySelectorAll('li').forEach(item => {
+                    item.style.display = 'block';
+                    item.innerHTML = item.getAttribute('data-original-text');
+                });
+            });
+        }
+
+        // 初始化：为每个句子保存原始文本
+        categories.forEach(category => {
+            category.querySelectorAll('li').forEach(item => {
+                item.setAttribute('data-original-text', item.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
