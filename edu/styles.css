@@ -24,7 +24,7 @@ body {
 }
  .tags{
             display: flex;
-            gap: 8px;
+            gap: 8px 5px;
             flex-wrap: wrap;
             border-bottom: 1px solid #efefef;
             padding-bottom: 14px;
@@ -32,7 +32,7 @@ body {
         }
 		.keywords {
     display: flex;
-    gap: 5px;
+    gap: 8px 5px;
     flex-wrap: wrap;
     border-bottom: 1px solid #f1f1f1;
     margin-bottom: 16px;
@@ -42,11 +42,11 @@ body {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     }
-	.keywords .tip{background:none;font-weight:bold;font-size: 15px;padding: 2px;}
+	.keywords .tip{background:none;font-weight:bold;font-size: 14px;padding: 4px 0 0 0;}
 		
 		
         .tag{
-            padding: 5px 8px;
+            padding: 5px 6px;
             background-color: #f9f9f9;
             border-radius: 5px;
             cursor: pointer;
@@ -54,11 +54,11 @@ body {
             font-size: 13px;
         }
 		.keyword {
-            padding: 5px 10px;
+            padding: 5px 6px;
             background-color: #f9f9f9;
             border-radius: 5px;
             cursor: pointer;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-size: 13px;
         }
         .tag:hover, .keyword:hover {
@@ -82,17 +82,18 @@ body {
 }
 .category ul li {
     margin-bottom: 19px;
-    font-size: 16px;
+    font-size: 15px;
     border: 1px solid #e3e3e3;
     line-height: 34px;
     background: #ffffff;
     border-radius: 9px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px 10px 11px 13px;
     position: relative;
+    min-height: 55px;
 }
 .clear-btn {
     cursor: pointer;
@@ -134,10 +135,10 @@ body {
 }
 .actions {
     display: flex;
-    gap: 9px;
+    gap: 6px;
     position: absolute;
     right: 14px;
-    bottom: 7px;
+    bottom: 5px;
 }
 .actions button {
     background-color: #ffffff;

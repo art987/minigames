@@ -136,7 +136,12 @@ function initSearch() {
 }
 
 function readText(text) {
-    responsiveVoice.speak(text, 'Chinese Female');
+    // 使用 responsiveVoice.js 朗读文本
+    responsiveVoice.speak(text, 'Chinese Female', {
+        rate: 0.8, // 语速
+        pitch: 1,  // 音调
+        volume: 1  // 音量
+    });
 }
 
 function copyText(text, button) {
