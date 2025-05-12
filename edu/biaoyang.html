@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>夸娃万能模板</title>
-   <style>
+    <title>夸娃万能话术辞典</title>
+  <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
@@ -14,18 +14,19 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc;position: relative;border-radius: 12px;
         }
         #search-input {
             width: 70%;
             padding: 10px;
-            font-size: 25px;
+            font-size: 22px;
             border: none;
             height: 36px;
             color: #df0007;
             line-height: 36px;
+            border-radius: 12px;
         }
-        .tags, .keywords {
+        .tags{
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
@@ -33,17 +34,33 @@
             padding-bottom: 14px;
             margin-bottom: 19px;
         }
+		.keywords {display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 19px;
+    height: 47px;
+    flex-direction: column;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    }
+	.keywords .tip{ background:none; font-weight:bold; font-size:18px;}
+		
+		
         .tag{
             padding: 5px 10px;
             background-color: #ebebeb;
             border-radius: 5px;
             cursor: pointer;
+            letter-spacing: 2px;
         }
 		.keyword {
             padding: 5px 10px;
             background-color: #efefef;
             border-radius: 5px;
             cursor: pointer;
+            letter-spacing: 2px;
         }
         .tag.active, .keyword.active {
             background-color: #df0007;
@@ -71,13 +88,14 @@
             padding-left: 18px;
             background: #ffffff;
             border-radius: 14px;
+            letter-spacing: 2px;
         }
         .clear-btn {
             cursor: pointer;
             color: #c5464a;
             position: absolute;
-            right: 45px;
-            top: 45px;
+            right: 26px;
+            top: 18px;
             font-size: 22px;
         }
         @media (max-width: 600px) {
@@ -92,15 +110,14 @@
         }
 		
 		.title{height: 119px;line-height:80px;text-align:center;}
-		.title h1{font-size:40px;line-height: 41px;}
-		.title p{font-size: 23px;line-height: 7px;padding: 0;margin: 0;letter-spacing: 6px;}
-    </style>
+		.title h1{font-size:40px;line-height: 72px;padding: 0 0px;margin: 0;}
+		.title p{font-size: 20px;line-height: 10px;padding: 0;margin: 0;letter-spacing: 6px;color:#8f8f8f}
     </style>
 </head>
 <body>
-<div class="title"><h1>夸娃话术模板汇总</h1><p>轻松培养孩子的内驱力</p></div>
+<div class="title"><h1>夸娃万能话术辞典</h1><p>轻松培养孩子的内驱力</p></div>
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="搜索句子...">
+        <input type="text" id="search-input" placeholder="输入关键词自动搜索...">
         <div class="clear-btn" id="clear-search" style="display: none;">X</div>
     </div>
     <div class="tags">
@@ -114,6 +131,7 @@
         <div class="tag" data-category="万能表扬语">万能表扬语</div>
     </div>
     <div class="keywords">
+	<div class="keyword tip"   >关键词：</div>
  <div class="keyword" data-keyword="能干">能干</div>
 <div class="keyword" data-keyword="珍惜粮食">珍惜粮食</div>
 <div class="keyword" data-keyword="合作">合作</div>
