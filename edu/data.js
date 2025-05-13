@@ -10,12 +10,12 @@ const data = {
     },
     tags: [
         
-		{ name: "万能表扬语", category: "万能表扬语" },
-        { name: "生活习惯", category: "生活好习惯认知养成" },
-        { name: "学习习惯", category: "学习好习惯认知养成" },
-        { name: "品质品德", category: "品质品德认知养成" },
-        { name: "家庭表现", category: "家庭优良表现认知养成" },
-        { name: "学校行为", category: "学校优良行为认知养成" },
+		{ name: "万能表扬", category: "万能表扬语" },
+        { name: "生活表扬", category: "表扬生活好习惯,促进认知养成" },
+        { name: "学习表扬", category: "表扬学习好习惯,促进认知养成" },
+        { name: "品德表扬", category: "表扬品质品德,促进认知养成" },
+        { name: "家庭表扬", category: "表扬家庭优良表现,促进认知养成" },
+        { name: "学校表扬", category: "表扬学校优良行为,促进认知养成" },
         { name: "理想目标", category: "理想目标意识树立" },
 		{ name: "引导思考", category: "引导思考强化认知巩固" },
 		{ name: "感谢表达", category: "感谢表达强化认知形成" },
