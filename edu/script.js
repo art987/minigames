@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     renderPage();
     initSearch();
+    initBackToTop();
 });
 
 function renderPage() {
@@ -68,6 +69,37 @@ function renderPage() {
         categoryElement.appendChild(categoryList);
         contentContainer.appendChild(categoryElement);
     });
+
+    // Show all keywords button
+    const showAllKeywordsButton = document.getElementById('show-all-keywords');
+    showAllKeywordsButton.addEventListener('click', () => {
+        const modal = document.getElementById('keyword-modal');
+        const modalKeywordsContainer = document.getElementById('modal-keywords-container');
+        modalKeywordsContainer.innerHTML = ''; // Clear existing keywords
+
+        data.keywords.forEach(keyword => {
+            const keywordElement = document.createElement('div');
+            keywordElement.classList.add('keyword');
+            keywordElement.dataset.keyword = keyword;
+            keywordElement.textContent = keyword;
+            keywordElement.onclick = () => {
+                document.getElementById('search-input').value = keyword;
+                document.getElementById('clear-search').style.display = 'inline';
+                filterContent(keyword);
+                modal.style.display = 'none';
+            };
+            modalKeywordsContainer.appendChild(keywordElement);
+        });
+
+        modal.style.display = 'block';
+    });
+
+    // Close modal button
+    const closeModalButton = document.getElementById('close-modal');
+    closeModalButton.addEventListener('click', () => {
+        const modal = document.getElementById('keyword-modal');
+        modal.style.display = 'none';
+    });
 }
 
 function initSearch() {
@@ -131,6 +163,27 @@ function initSearch() {
             searchInput.value = keywordText;
             clearSearchBtn.style.display = 'inline';
             filterContent(keywordText);
+        });
+    });
+}
+
+function initBackToTop() {
+    const backToTopButton = document.getElementById('back-to-top');
+
+    // 监听滚动事件
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > window.innerHeight) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    // 点击按钮滚动到顶部
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 }
