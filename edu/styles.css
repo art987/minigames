@@ -35,11 +35,11 @@ body {
     gap: 8px 5px;
     flex-wrap: wrap;
     border-bottom: 1px solid #f1f1f1;
-    margin-bottom: 16px;
-    height: 44px;
+    margin-bottom: 6px;
+    height: 37px;
     flex-direction: column;
     display: inline-block; /* 允许使用宽度 */
-    animation: scrollText 140s linear infinite; /* 应用动画 */
+    animation: scrollText 140s linear infinite;  /* 应用动画 */
     }
 	
 /*			.keywords {
@@ -55,8 +55,8 @@ body {
     -webkit-overflow-scrolling: touch;
     }
 	*/
-	.keywords .tip{background:none;font-weight:bold;font-size: 17px;padding: 2px 0 0 4px;}
-	.tags .tip{background:none;font-weight:bold;font-size: 17px;padding:  2px 0 0 8px;}	
+	.keywords .tip{background:none;font-weight:bold;/* font-size: 16px; */padding: 2px 0 0 0px;margin-right: 0;border: none;}
+	.marquee .tip{background: #ffffff;font-size: 15px;padding: 5px 0 0 3px;position: absolute;z-index: 999;color: #000000;left: -1px;}	
 		
         .tag{
             padding: 6px 4px;
@@ -193,71 +193,3 @@ body {
 .actions button:hover { color:#CC0000;
 }
 
-.animate {
-    font-size: 12px;
-    color: #abcf74;
-	text-align:left;
-    /*white-space: nowrap;*/
-    animation: 20s wordsLoop linear infinite normal;
-}
-
-@keyframes wordsLoop {
-    0% {
-        transform: translateX(0%);
-        -webkit-transform: translateY(0%);
-    }
-	
-	25% {
-        transform: translateY(0%);
-        -webkit-transform: translateY(0%);
-    }
-	
-	50% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-38%);
-    }
-	
-	70% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-38%);
-    }
-	
-	85% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-72%);
-  
-    }
-	
-    100% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-72%);
-    }
-}
-
-@-webkit-keyframes wordsLoop {
-    0% {
-        transform: translateX(0%);
-        -webkit-transform: translateY(0%);
-    }
-	25% {
-        transform: translateX(0%);
-        -webkit-transform: translateY(0%);
-    }
-	50% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-38%);
-    }
-	70% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-38%);
-    }
-	85% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-72%);
-    }
-    100% {
-        transform: translateY(0%);
-        -webkit-transform: translateX(-72%);
-    }
-}	
-	
