@@ -273,7 +273,7 @@ body {
 
 /* 回到顶部按钮样式 */
 
-#back-to-top {
+#back-to-top { 
     display: none;
     position: fixed;
     bottom: 26px;
@@ -290,7 +290,7 @@ body {
 }
 
 #back-to-top:hover {
-    background-color: #a50006;
+    background-color: #a50006 ;
 }
 .category ul li  c{text-decoration: none;display: block;line-height: 23px;padding: 6px 0 5px;}
 .category ul li  i{ color: #9b9797; text-align: right; display: block; line-height: 16px; font-size:12px;}
