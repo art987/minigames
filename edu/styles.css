@@ -18,7 +18,7 @@ body {
     font-size: 16px;
     border: none;
     height: 36px;
-    color: #ab0005;
+    color: #ed2424;
     line-height: 36px;
     border-radius: 12px;
 }
@@ -139,7 +139,7 @@ body {
 }
 .clear-btn {
     cursor: pointer;
-    color: #c5464a;
+    color: #ed2424;
     position: absolute;
     right: 6px;
     top: 3px;
@@ -292,3 +292,7 @@ body {
 #back-to-top:hover {
     background-color: #a50006;
 }
+.category ul li  c{text-decoration: none;display: block;line-height: 23px;padding: 6px 0 5px;}
+.category ul li  i{ color: #9b9797; text-align: right; display: block; line-height: 16px; font-size:12px;}
+.category ul li  b{color: #ab0000;display: block;font-weight: normal;font-size: 14px;}
+

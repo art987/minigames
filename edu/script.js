@@ -43,10 +43,10 @@ function renderPage() {
         const categoryList = document.createElement('ul');
         data.content[category].forEach(sentence => {
             const listItem = document.createElement('li');
-            listItem.setAttribute('data-original-text', sentence); // 确保设置 data-original-text
+            listItem.setAttribute('data-original-text', sentence); // 保存原始HTML内容
 
             const sentenceText = document.createElement('span');
-            sentenceText.textContent = sentence;
+            sentenceText.innerHTML = sentence; // 使用 innerHTML 插入HTML内容
             listItem.appendChild(sentenceText);
 
             const actions = document.createElement('div');
@@ -59,7 +59,7 @@ function renderPage() {
 
             const copyButton = document.createElement('button');
             copyButton.textContent = '复制';
-            copyButton.onclick = () => copyText(sentence, copyButton); // 传递按钮元素
+            copyButton.onclick = () => copyText(sentence, copyButton);
             actions.appendChild(copyButton);
 
             listItem.appendChild(actions);
@@ -75,7 +75,7 @@ function renderPage() {
     showAllKeywordsButton.addEventListener('click', () => {
         const modal = document.getElementById('keyword-modal');
         const modalKeywordsContainer = document.getElementById('modal-keywords-container');
-        modalKeywordsContainer.innerHTML = ''; // Clear existing keywords
+        modalKeywordsContainer.innerHTML = '';
 
         data.keywords.forEach(keyword => {
             const keywordElement = document.createElement('div');
@@ -144,7 +144,7 @@ function initSearch() {
                     category.style.display = 'block';
                     category.querySelectorAll('li').forEach(item => {
                         item.style.display = 'block';
-                        item.querySelector('span').textContent = item.getAttribute('data-original-text');
+                        item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
                     });
                 } else {
                     category.style.display = category.getAttribute('data-category') === categoryToShow ? 'block' : 'none';
@@ -189,24 +189,31 @@ function initBackToTop() {
 }
 
 function readText(text) {
-    // 使用 responsiveVoice.js 朗读文本
     responsiveVoice.speak(text, 'Chinese Female', {
-        rate: 0.8, // 语速
-        pitch: 1,  // 音调
-        volume: 1  // 音量
+        rate: 0.8,
+        pitch: 1,
+        volume: 1
     });
 }
 
+
+
 function copyText(text, button) {
-    navigator.clipboard.writeText(text).then(() => {
-        button.textContent = '✔已复制'; // 更改按钮文字
+    // 使用DOM解析来清除HTML标签
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text; // 将HTML内容插入到临时div中
+    const plainText = tempDiv.textContent || tempDiv.innerText; // 获取纯文本内容
+
+    navigator.clipboard.writeText(plainText).then(() => {
+        button.textContent = '✔已复制';
         setTimeout(() => {
-            button.textContent = '复制'; // 三秒后恢复
+            button.textContent = '复制';
         }, 3000);
     }).catch(err => {
         console.error('复制失败', err);
     });
 }
+
 
 function highlightKeyword(text, keyword) {
     const regex = new RegExp(keyword, 'gi');
@@ -238,7 +245,7 @@ function resetDisplay() {
         category.style.display = 'block';
         category.querySelectorAll('li').forEach(item => {
             item.style.display = 'block';
-            item.querySelector('span').textContent = item.getAttribute('data-original-text');
+            item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
         });
     });
 }
