@@ -130,9 +130,8 @@ body {
     /* display: flex; */
     align-items: center;
     justify-content: space-between;
-    padding: 0px 0px 17px 0px;
+    padding: 0px 0px 9px 0px;
     position: relative;
-    min-height: 55px;
     /* font-weight: bold; */
     /* list-style: decimal; */
     /* margin-left: 14px; */
@@ -177,14 +176,14 @@ body {
 }
 .actions {
     display: flex;
-    gap: 6px;
+    gap: 6px 3px;
     position: absolute;
     right: 0px;
-    bottom: 5px;
+    bottom: 12px;
 }
 .actions button {
     background-color: #ffffff;
-    color: #999999;
+    color: #919191;
     border: 1px solid #e3e3e3;
     padding: 3px 4px;
     border-radius: 5px;
@@ -294,8 +293,8 @@ body {
 }
 .category ul li  c{text-decoration: none;display: block;line-height: 27px;padding: 6px 0 5px;max-height: 120px;overflow-y: auto;}
 .category ul li  c b{color:#000;font-weight: bold;font-size: 16px;/* top: auto; */}
-.category ul li  i{color: #9b9797;text-align: right;display: block;line-height: 16px;font-size:12px;margin-bottom: 7px;}
-.category ul li  b{color: #ab0000;display: block;font-weight: normal;font-size: 14px;}
+.category ul li  i{color: #777777;text-align: right;display: block;line-height: 15px;font-size:12px;margin-bottom: 7px;padding-top: 6px;}
+.category ul li  b{color: #ab0000;display: block;font-weight: normal;font-size: 14px;padding-top: 1px;}
 
 
 
