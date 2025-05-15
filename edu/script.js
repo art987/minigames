@@ -62,6 +62,12 @@ function renderPage() {
             copyButton.onclick = () => copyText(sentence, copyButton);
             actions.appendChild(copyButton);
 
+            // 添加显示全部按钮
+            const showAllButton = document.createElement('button');
+            showAllButton.textContent = '全文';
+            showAllButton.onclick = () => showAllText(sentence);
+            actions.appendChild(showAllButton);
+
             listItem.appendChild(actions);
             categoryList.appendChild(listItem);
         });
@@ -196,8 +202,6 @@ function readText(text) {
     });
 }
 
-
-
 function copyText(text, button) {
     // 使用DOM解析来清除HTML标签
     const tempDiv = document.createElement('div');
@@ -213,7 +217,6 @@ function copyText(text, button) {
         console.error('复制失败', err);
     });
 }
-
 
 function highlightKeyword(text, keyword) {
     const regex = new RegExp(keyword, 'gi');
@@ -248,4 +251,56 @@ function resetDisplay() {
             item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
         });
     });
+}
+
+function showAllText(sentence) {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.style.display = 'block';
+    modal.style.position = 'fixed';
+    modal.style.zIndex = '1000';
+    modal.style.left = '0';
+    modal.style.top = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.overflow = 'auto';
+    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+    modalContent.style.background = '#fefefe';
+    modalContent.style.margin = '15% auto';
+    modalContent.style.padding = '20px';
+    modalContent.style.border = '1px solid #888';
+    modalContent.style.width = '80%';
+    modalContent.style.height = '60%';
+    modalContent.style.overflowY = 'auto';
+    modalContent.style.borderRadius = '21px';
+
+    const closeButton = document.createElement('span');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = '×';
+    closeButton.style.color = '#ffffff';
+    closeButton.style.fontSize = '29px';
+    closeButton.style.marginTop = '-16px';
+    closeButton.style.display = 'block';
+    closeButton.style.padding = '0px 8px';
+    closeButton.style.marginRight = '-19px';
+    closeButton.style.position = 'fixed';
+    closeButton.style.right = '36px';
+    closeButton.style.top = '69px';
+    closeButton.style.borderRadius = '40px';
+    closeButton.style.background = '#c70000';
+    closeButton.onclick = () => {
+        modal.remove();
+    };
+
+    modalContent.appendChild(closeButton);
+
+    const sentenceDiv = document.createElement('div');
+    sentenceDiv.innerHTML = sentence; // 直接插入HTML内容
+    modalContent.appendChild(sentenceDiv);
+
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
 }
