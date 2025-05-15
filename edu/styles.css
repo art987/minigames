@@ -276,7 +276,7 @@ body {
 #back-to-top { 
     display: none;
     position: fixed;
-    bottom: 26px;
+    bottom: 100px;
     right: 20px;
     background-color: #c10006;
     color: white;
