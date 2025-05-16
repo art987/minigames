@@ -4,6 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
 });
 
+
+function loadResponsiveVoice() {
+    const script = document.createElement('script');
+    script.src = 'https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw';
+    script.onload = () => {
+        console.log('responsiveVoice.js 加载完成');
+    };
+    document.head.appendChild(script);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadResponsiveVoice();
+    renderPage();
+    initSearch();
+    initBackToTop();
+});
+
+
+
+
 function renderPage() {
     // Render title
     document.getElementById('title-h1').innerText = data.title.h1;
