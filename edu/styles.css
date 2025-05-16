@@ -62,7 +62,7 @@ body {
     }
 	*/
 	.keywords .tip{background:none;font-weight:bold;/* font-size: 16px; */padding: 2px 0 0 0px;margin-right: 0;border: none;}
-	.marquee .tip{background: #ffffff;font-size: 15px;padding: 5px 0 0 3px;position: absolute;z-index: 999;color: #000000;left: -1px;}	
+	.marquee .tip{background: #ffffff;font-size: 15px;padding: 5px 0 0 3px;position: absolute;z-index: 100;color: #000000;left: -1px;}	
 		
         .tag{
             padding: 6px 4px;
@@ -282,7 +282,7 @@ body {
 #back-to-top { 
     display: none;
     position: fixed;
-    bottom: 100px;
+    bottom: 200px;
     right: 20px;
     background-color: #c10006;
     color: white;
@@ -292,7 +292,7 @@ body {
     cursor: pointer;
     font-size: 13px;
     width: 30px;
-    height: 77px;
+    height: 77px; z-index:100;
 }
 
 #back-to-top:hover {

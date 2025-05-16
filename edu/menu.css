@@ -1,16 +1,20 @@
 @charset "utf-8";
 /* CSS Document */
+#navbar-container{
+    position: absolute;
+    left: 0;
+}
 
  .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #333;
+            /* background-color: #333; */
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 0;
             box-sizing: border-box;
             z-index: 1000;
             transition: top 0.3s;
@@ -26,18 +30,24 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            background: #9f0000;
+            height: 37px;
+            margin-top: 0px;
+            padding: 0 10px;
+            margin-right: 2px;
+            border-radius: 0 0 10px 10px;
         }
         .menu-icon {
             margin-right: 5px;
         }
         .sidebar {
             position: fixed;
-            top: 50px; /* 确保菜单从横条下方开始 */
+            top: 0; /* 确保菜单从横条下方开始 */
             right: -200px;
             width: 200px;
-            height: calc(100% - 50px); /* 减去横条的高度 */
+            height: calc(100% - 2px); /* 减去横条的高度 */
             background-color: #f4f4f4;
-            padding: 20px;
+            padding: 63px 20px 20px 20px;
             box-sizing: border-box;
             transition: right 0.3s;
             z-index: 500;
@@ -71,12 +81,8 @@
             padding: 10px; /* 增加高度 */
             border-bottom: none; /* 去掉二级菜单的分隔线 */
         }
-        .content {
-            margin-top: 60px;
-            padding: 20px;
-            position: relative;
-            z-index: 1; /* Ensure content is above the overlay */
-        }
+      
+     
         .overlay {
             position: fixed;
             top: 0;
