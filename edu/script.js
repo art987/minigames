@@ -195,7 +195,12 @@ function initBackToTop() {
 }
 
 function readText(text) {
-    responsiveVoice.speak(text, 'Chinese Female', {
+    // 使用DOM解析来清除HTML标签
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text; // 将HTML内容插入到临时div中
+    const plainText = tempDiv.textContent || tempDiv.innerText; // 获取纯文本内容
+
+    responsiveVoice.speak(plainText, 'Chinese Female', {
         rate: 0.8,
         pitch: 1,
         volume: 1
