@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+
+ .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        .navbar.hidden {
+            top: -50px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .menu-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .menu-icon {
+            margin-right: 5px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 50px; /* 确保菜单从横条下方开始 */
+            right: -200px;
+            width: 200px;
+            height: calc(100% - 50px); /* 减去横条的高度 */
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: right 0.3s;
+            z-index: 500;
+            overflow-y: auto; /* 允许在菜单区域内部滚动 */
+        }
+        .sidebar.open {
+            right: 0;
+        }
+        .menu-item {
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10px; /* 增加高度 */
+            border-bottom: 1px solid #ddd; /* 添加分隔线 */
+        }
+        .menu-item:last-child {
+            border-bottom: none; /* 去掉最后一个菜单项的分隔线 */
+        }
+        .menu-item .expand-icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .submenu {
+            margin-left: 20px;
+            display: none;
+            padding: 0 10px; /* 增加内边距 */
+        }
+        .submenu .menu-item {
+            padding: 10px; /* 增加高度 */
+            border-bottom: none; /* 去掉二级菜单的分隔线 */
+        }
+        .content {
+            margin-top: 60px;
+            padding: 20px;
+            position: relative;
+            z-index: 1; /* Ensure content is above the overlay */
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* 90% 透明遮罩 */
+            display: none;
+            z-index: 400;
