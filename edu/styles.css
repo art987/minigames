@@ -128,16 +128,16 @@ body {
 }
 .category ul li {
     margin-bottom: 6px;
-    font-size: 16px;
+    font-size: 18px;
     border-bottom: 1px dashed #717171;
     line-height: 32px;
     background: #ffffff;
-    letter-spacing: 1px;
+    letter-spacing: 1px; font-family: cursive;
     /* display: flex; */
     align-items: center;
     justify-content: space-between;
     padding: 0px 0px 9px 0px;
-    position: relative;min-height: 60px;
+    position: relative;min-height: 67px;
 }
     /* font-weight: bold; */
     /* list-style: decimal; */
@@ -168,16 +168,20 @@ body {
     text-align: center;
 }
 .title h1 {
-    font-size: 28px;
+    font-size: 31px;
     line-height: 57px;
+    font-family: cursive;
     padding: 0 0px;
-    margin: 0;    text-shadow: 0 0 4px #FFF;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 4px #FFF;
 }
 .title p {
     font-size: 15px;
     line-height: 10px;
     padding: 0;
     margin: 0;
+    font-family: fangsong;
     letter-spacing: 3px;
     color: #8f8f8f;
 }
@@ -299,6 +303,7 @@ body {
     background-color: #a50006 ;
 }
 .category ul li  c{text-decoration: none;display: block;line-height: 27px;padding: 6px 0 5px;max-height: 120px;overflow-y: auto;}
+.category ul li  c p{ padding:0; margin:0;}
 .category ul li  c b{color:#000;font-weight: bold;font-size: 16px;/* top: auto; */}
 .category ul li  i{color: #777777;text-align: right;display: block;line-height: 15px;font-size:12px;margin-bottom: 7px;padding-top: 6px;}
 .category ul li  b{color: #ab0000;display: block;font-weight: normal;font-size: 14px;padding-top: 1px;}

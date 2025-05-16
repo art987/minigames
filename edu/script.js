@@ -14,12 +14,6 @@ function loadResponsiveVoice() {
     document.head.appendChild(script);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadResponsiveVoice();
-    renderPage();
-    initSearch();
-    initBackToTop();
-});
 
 
 
@@ -214,16 +208,27 @@ function initBackToTop() {
     });
 }
 
-function readText(text) {
-    // 使用DOM解析来清除HTML标签
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = text; // 将HTML内容插入到临时div中
-    const plainText = tempDiv.textContent || tempDiv.innerText; // 获取纯文本内容
 
+function readText(text) {
+    // 创建一个临时的 div 元素来解析 HTML 内容
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text;
+
+    // 移除所有 <i> 和 <b> 标签及其内容
+    const iTags = tempDiv.querySelectorAll('i');
+    const bTags = tempDiv.querySelectorAll('b');
+
+    iTags.forEach(tag => tag.remove());
+    bTags.forEach(tag => tag.remove());
+
+    // 获取移除 <i> 和 <b> 标签后的纯文本内容
+    const plainText = tempDiv.textContent || tempDiv.innerText;
+
+    // 调用 responsiveVoice.speak() 方法朗读纯文本内容
     responsiveVoice.speak(plainText, 'Chinese Female', {
-        rate: 0.8,
-        pitch: 1,
-        volume: 1
+        rate: 0.8,   // 朗读速度
+        pitch: 1,    // 语调
+        volume: 1    // 音量
     });
 }
 
