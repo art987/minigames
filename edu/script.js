@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPage();
     initSearch();
     initBackToTop();
-});
 
+    // 监听滚动事件
+    window.addEventListener('scroll', updateFloatingTags);
+});
 
 function loadResponsiveVoice() {
     const script = document.createElement('script');
@@ -14,9 +16,52 @@ function loadResponsiveVoice() {
     document.head.appendChild(script);
 }
 
+function updateFloatingTags() {
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    const tagsContainer = document.getElementById('tags-container');
+    const contentContainer = document.getElementById('content-container'); // 获取 content-container
 
+    // 获取屏幕高度的 70%
+    const threshold = window.innerHeight * 0.7;
 
+    // 如果页面向上滑动超过 70% 的屏幕高度，显示浮动标签
+    if (window.scrollY > threshold) {
+        floatingTagsContainer.style.display = 'block';
+        floatingTagsContainer.innerHTML = ''; // 清空浮动标签内容
 
+        // 动态生成浮动标签
+        data.tags.forEach(tag => {
+            const tagElement = document.createElement('div');
+            tagElement.classList.add('tag');
+            tagElement.textContent = tag.name;
+            tagElement.dataset.category = tag.category;
+
+            // 检查当前是否是激活的标签
+            if (document.querySelector('.tag.active')?.dataset.category === tag.category) {
+                tagElement.classList.add('active');
+            }
+
+            tagElement.addEventListener('click', () => {
+                // 同步点击事件到原始标签
+                const originalTag = document.querySelector(`.tag[data-category="${tag.category}"]`);
+                if (originalTag) {
+                    originalTag.click();
+                }
+
+                // 页面滚动到 content-container 的开始位置
+                window.scrollTo({
+                    top: contentContainer.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+
+            floatingTagsContainer.appendChild(tagElement);
+        });
+    } else {
+        // 如果页面向下滚动且未超过 70% 的屏幕高度，隐藏浮动标签
+        floatingTagsContainer.style.display = 'none';
+    }
+}
 
 function renderPage() {
     // Render title
@@ -57,10 +102,10 @@ function renderPage() {
         const categoryList = document.createElement('ul');
         data.content[category].forEach(sentence => {
             const listItem = document.createElement('li');
-            listItem.setAttribute('data-original-text', sentence); // 保存原始HTML内容
+            listItem.setAttribute('data-original-text', sentence);
 
             const sentenceText = document.createElement('span');
-            sentenceText.innerHTML = sentence; // 使用 innerHTML 插入HTML内容
+            sentenceText.innerHTML = sentence;
             listItem.appendChild(sentenceText);
 
             const actions = document.createElement('div');
@@ -76,7 +121,6 @@ function renderPage() {
             copyButton.onclick = () => copyText(sentence, copyButton);
             actions.appendChild(copyButton);
 
-            // 添加显示全部按钮
             const showAllButton = document.createElement('button');
             showAllButton.textContent = '全文';
             showAllButton.onclick = () => showAllText(sentence);
@@ -120,6 +164,9 @@ function renderPage() {
         const modal = document.getElementById('keyword-modal');
         modal.style.display = 'none';
     });
+
+    // 初始化浮动标签
+    updateFloatingTags();
 }
 
 function initSearch() {
@@ -129,12 +176,10 @@ function initSearch() {
     const keywords = document.querySelectorAll('.keyword');
     const categories = document.querySelectorAll('.category');
 
-    // 初始化：显示所有内容
     categories.forEach(category => {
         category.style.display = 'block';
     });
 
-    // 搜索框功能
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         if (searchTerm === '') {
@@ -146,18 +191,24 @@ function initSearch() {
         }
     });
 
-    // 清空搜索框功能
     clearSearchBtn.addEventListener('click', () => {
         searchInput.value = '';
         clearSearchBtn.style.display = 'none';
         resetDisplay();
     });
 
-    // 标签筛选功能
     tags.forEach(tag => {
         tag.addEventListener('click', () => {
             tags.forEach(t => t.classList.remove('active'));
             tag.classList.add('active');
+
+            // 同步浮动标签的状态
+            const floatingTag = document.getElementById('floating-tags-container').querySelector(`.tag[data-category="${tag.dataset.category}"]`);
+            if (floatingTag) {
+                document.getElementById('floating-tags-container').querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+                floatingTag.classList.add('active');
+            }
+
             const categoryToShow = tag.getAttribute('data-category');
             categories.forEach(category => {
                 if (categoryToShow === 'all') {
@@ -176,7 +227,6 @@ function initSearch() {
         });
     });
 
-    // 关键词筛选功能
     keywords.forEach(keyword => {
         keyword.addEventListener('click', () => {
             const keywordText = keyword.getAttribute('data-keyword');
@@ -190,7 +240,6 @@ function initSearch() {
 function initBackToTop() {
     const backToTopButton = document.getElementById('back-to-top');
 
-    // 监听滚动事件
     window.addEventListener('scroll', () => {
         if (window.scrollY > window.innerHeight) {
             backToTopButton.style.display = 'block';
@@ -199,7 +248,6 @@ function initBackToTop() {
         }
     });
 
-    // 点击按钮滚动到顶部
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
@@ -208,35 +256,29 @@ function initBackToTop() {
     });
 }
 
-
 function readText(text) {
-    // 创建一个临时的 div 元素来解析 HTML 内容
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
 
-    // 移除所有 <i> 和 <b> 标签及其内容
     const iTags = tempDiv.querySelectorAll('i');
     const bTags = tempDiv.querySelectorAll('b');
 
     iTags.forEach(tag => tag.remove());
     bTags.forEach(tag => tag.remove());
 
-    // 获取移除 <i> 和 <b> 标签后的纯文本内容
     const plainText = tempDiv.textContent || tempDiv.innerText;
 
-    // 调用 responsiveVoice.speak() 方法朗读纯文本内容
     responsiveVoice.speak(plainText, 'Chinese Female', {
-        rate: 0.8,   // 朗读速度
-        pitch: 1,    // 语调
-        volume: 1    // 音量
+        rate: 0.8,
+        pitch: 1,
+        volume: 1
     });
 }
 
 function copyText(text, button) {
-    // 使用DOM解析来清除HTML标签
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = text; // 将HTML内容插入到临时div中
-    const plainText = tempDiv.textContent || tempDiv.innerText; // 获取纯文本内容
+    tempDiv.innerHTML = text;
+    const plainText = tempDiv.textContent || tempDiv.innerText;
 
     navigator.clipboard.writeText(plainText).then(() => {
         button.textContent = '✔已复制';
@@ -328,7 +370,7 @@ function showAllText(sentence) {
     modalContent.appendChild(closeButton);
 
     const sentenceDiv = document.createElement('div');
-    sentenceDiv.innerHTML = sentence; // 直接插入HTML内容
+    sentenceDiv.innerHTML = sentence;
     modalContent.appendChild(sentenceDiv);
 
     modal.appendChild(modalContent);
