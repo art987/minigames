@@ -27,9 +27,7 @@ const data = {
 { name: "友情", category: "歌颂真挚友情的古风诗句" },
 { name: "追思古人", category: "追思先贤古人的古风诗句" },
 { name: "佛家经典", category: "佛家经典哲理的古风诗句" },
-{ name: "道家经典", category: "道家经典智慧的古风诗句" },
-{ name: "经典谚语", category: "描述人世间的处世智慧" }
-
+{ name: "道家经典", category: "道家经典智慧的古风诗句" }
 
 
 

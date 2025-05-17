@@ -19,7 +19,7 @@ function loadResponsiveVoice() {
 function updateFloatingTags() {
     const floatingTagsContainer = document.getElementById('floating-tags-container');
     const tagsContainer = document.getElementById('tags-container');
-    const contentContainer = document.getElementById('content-container'); // 获取 content-container
+    const titleP = document.getElementById('title-p'); // 获取 title-p
 
     // 获取屏幕高度的 70%
     const threshold = window.innerHeight * 0.7;
@@ -48,9 +48,9 @@ function updateFloatingTags() {
                     originalTag.click();
                 }
 
-                // 页面滚动到 content-container 的开始位置
+                // 页面滚动到 title-p 的开始位置
                 window.scrollTo({
-                    top: contentContainer.offsetTop,
+                    top: titleP.offsetTop,
                     behavior: 'smooth'
                 });
             });
@@ -257,17 +257,37 @@ function initBackToTop() {
 }
 
 function readText(text) {
+    // 检查输入是否为空
+    if (!text || text.trim() === '') {
+        console.warn('朗读内容为空');
+        return;
+    }
+
+    // 创建一个临时的 div 元素来解析 HTML 内容
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
 
+    // 移除所有 <i> 和 <b> 标签及其内容
     const iTags = tempDiv.querySelectorAll('i');
     const bTags = tempDiv.querySelectorAll('b');
-
     iTags.forEach(tag => tag.remove());
     bTags.forEach(tag => tag.remove());
 
-    const plainText = tempDiv.textContent || tempDiv.innerText;
+    // 获取纯文本内容
+    let plainText = tempDiv.textContent || tempDiv.innerText;
 
+    // 移除指定的表情符号
+    const specificEmojis = ['😜', '📖', '🧠', '👍'];
+    const emojiRegex = new RegExp(`[${specificEmojis.join('')}]`, 'g');
+    plainText = plainText.replace(emojiRegex, '');
+
+    // 再次检查处理后的文本是否为空
+    if (plainText.trim() === '') {
+        console.warn('朗读内容为空');
+        return;
+    }
+
+    // 使用 responsiveVoice.speak() 方法朗读纯文本内容
     responsiveVoice.speak(plainText, 'Chinese Female', {
         rate: 0.8,
         pitch: 1,
