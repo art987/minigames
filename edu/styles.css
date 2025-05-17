@@ -380,17 +380,18 @@ body {
 
 /*浮动的标签*/
 
+
 .floating-tags {
     display: none; /* 默认隐藏 */
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     height: 20px;
     width: 100%;
     background-color: #ffffff;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ededed;
     padding: 11px 12px;
-    box-shadow: 0 2px 3px #00000021;
+    box-shadow: 0 -2px 3px #c7c7c721;
     z-index: 990; /* 确保在最顶层 */
     overflow-x: auto; /* 允许水平滚动 */
     white-space: nowrap; /* 防止换行 */
