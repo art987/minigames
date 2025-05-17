@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPage();
     initSearch();
     initBackToTop();
+    initAutoScroll(); // 初始化自动滚动功能
 
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
@@ -253,6 +254,36 @@ function initBackToTop() {
             top: 0,
             behavior: 'smooth'
         });
+    });
+}
+
+function initAutoScroll() {
+    const autoScrollButton = document.getElementById('auto-scroll-button');
+    let isScrolling = false;
+
+    autoScrollButton.addEventListener('click', () => {
+        if (isScrolling) {
+            // 停止滚动
+            clearInterval(autoScrollInterval);
+            autoScrollButton.textContent = '👇';
+            isScrolling = false;
+        } else {
+            // 开始滚动
+            autoScrollInterval = setInterval(() => {
+                window.scrollBy(0, 1); // 每次滚动 10px
+            }, 80); // 每 100ms 滚动一次
+            autoScrollButton.textContent = '停';
+            isScrolling = true;
+        }
+    });
+
+    // 如果用户手动滚动页面，停止自动滚动
+    window.addEventListener('wheel', () => {
+        if (isScrolling) {
+            clearInterval(autoScrollInterval);
+            autoScrollButton.textContent = '👇';
+            isScrolling = false;
+        }
     });
 }
 

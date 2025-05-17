@@ -142,6 +142,8 @@ body {
     padding: 0px 0px 9px 0px;
     position: relative;min-height: 67px;
 }
+
+.category ul li span{ padding:0px 0 23px; display: block;}
     /* font-weight: bold; */
     /* list-style: decimal; */
     /* margin-left: 14px; */
@@ -289,23 +291,23 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 200px;
+    bottom: 245px;
     right: 20px;
     background-color: #fff;
     color: #c10006;
-    padding: 5px 6px;
+    padding: 5px 2px;
     border: none;
     border-radius: 5px;
-    border: 1px solid;
+    border: 1px solid #5f5f5f;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 22px;
     width: 30px;
-    height: 82px;
+    height: 42px;
     z-index:100;
 }
 
 #back-to-top:hover {
-    background-color: #a50006 ;
+    background-color: #a50006 ; color:#fff;
 }
 .category ul li  c{text-decoration: none;display: block;line-height: 27px;padding: 6px 0 5px;max-height: 120px;overflow-y: auto;}
 .category ul li  c p{ padding:0; margin:0;}
@@ -387,9 +389,9 @@ body {
     left: 0;
     height: 36px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #252525;
     border-top: 1px solid #ededed;
-    padding: 11px 12px;
+    padding: 14px 12px;
     box-shadow: 0 -2px 3px #c7c7c721;
     z-index: 990; /* 确保在最顶层 */
     overflow-x: auto; /* 允许水平滚动 */
@@ -399,10 +401,12 @@ body {
 .floating-tags .tag {
     padding: 6px 8px;
     margin-right: 8px;
-    background-color: #f9f9f9;
+    background-color: #6f6f6f;
     border-radius: 5px;
     cursor: pointer;
+    border: 1px solid #898989;
     letter-spacing: 1px;
+    color: #ffffff;
     font-size: 15px;
     display: inline;
 }
@@ -410,4 +414,31 @@ body {
 .floating-tags .tag.active {
     background-color: #c10006;
     color: white;
+    border: 1px solid #cb5b5b;
+}
+
+
+
+
+#auto-scroll-button {
+    position: fixed;
+    right: 20px;
+    bottom: 314px; /* 位于页面中间 */
+    transform: translateY(50%);
+    background-color: #ffffff;
+    color: #252525;
+    padding: 2px 5px;
+    border: 1px solid #5f5f5f;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30px;
+    font-size: 19px;
+    height: 39px;
+    text-align: center;
+    z-index: 1000;
+}
+
+#auto-scroll-button:hover {
+    /* background-color: #ad4346; */
+    /* color: #Fff; */
 }
