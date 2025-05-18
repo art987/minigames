@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PeaceLove Menu</title>
+    <title>Menu</title>
     <link rel="stylesheet" href="menu.css">
 </head>
 <body>
     <div class="navbar" id="navbar">
-        <div class="logo">PeaceLove.Top</div>
-        <div class="menu-button" onclick="toggleMenu()">
+        <div class="logo">小本本备忘录</div>
+        <div class="menu-button" onClick="toggleMenu()">
             <span class="menu-icon" id="menu-icon">☰</span>
             <span id="menu-text">菜单</span>
         </div>
     </div>
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="overlay" id="overlay" onClick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
-        <div class="menu-item" onclick="toggleSubmenu('submenu1')">
-            风格 <span class="expand-icon">+</span>
+        <div class="menu-item" onClick="toggleSubmenu('submenu1')">
+            语言表达 <span class="expand-icon">+</span>
         </div>
         <div class="submenu" id="submenu1">
-            <div class="menu-item">购物</div>
-            <div class="menu-item">新品上市</div>
-            <div class="menu-item">250 美元以下</div>
+            <div class="menu-item"><a href="/edu/biaoyang.html">夸娃话术</a></div>
+            <div class="menu-item"><a href="/edu/tuweiqinghua.html">土味情话</a></div>
+            <div class="menu-item"><a href="/edu/shici.html">情感诗词表达</a></div>
             <div class="menu-item">办公风格</div>
             <div class="menu-item">编辑愿望清单</div>
             <div class="menu-item">手表</div>
@@ -30,14 +30,13 @@
             <div class="menu-item">现在销售</div>
             <div class="menu-item">所有购物</div>
         </div>
-        <div class="menu-item" onclick="toggleSubmenu('submenu2')">
-            文化 <span class="expand-icon">+</span>
+        <div class="menu-item" onClick="toggleSubmenu('submenu2')">
+            处事智慧 <span class="expand-icon">+</span>
         </div>
         <div class="submenu" id="submenu2">
-            <div class="menu-item">美容</div>
-            <div class="menu-item">健康</div>
+            <div class="menu-item"><a href="/edu/zhenyan.html">人性箴言</a></div>
         </div>
-        <div class="menu-item" onclick="toggleSubmenu('submenu3')">
+        <div class="menu-item" onClick="toggleSubmenu('submenu3')">
             科技 <span class="expand-icon">+</span>
         </div>
         <div class="submenu" id="submenu3">
@@ -45,7 +44,7 @@
             <div class="menu-item">科技产品</div>
             <div class="menu-item">科技新闻</div>
         </div>
-        <div class="menu-item" onclick="toggleSubmenu('submenu4')">
+        <div class="menu-item" onClick="toggleSubmenu('submenu4')">
             旅游 <span class="expand-icon">+</span>
         </div>
         <div class="submenu" id="submenu4">
