@@ -39,8 +39,7 @@ body {
     display: flex;
     gap: 8px 5px;
     flex-wrap: wrap;
-    border-bottom: 1px solid #f1f1f1;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     height: 37px;
     flex-direction: column;
     display: inline-block; /* 允许使用宽度 */
