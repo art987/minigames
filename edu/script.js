@@ -212,6 +212,7 @@ function initSearch() {
 
             const categoryToShow = tag.getAttribute('data-category');
             categories.forEach(category => {
+
                 if (categoryToShow === 'all') {
                     category.style.display = 'block';
                     category.querySelectorAll('li').forEach(item => {
@@ -271,7 +272,7 @@ function initAutoScroll() {
             // 开始滚动
             autoScrollInterval = setInterval(() => {
                 window.scrollBy(0, 1); // 每次滚动 10px
-            }, 80); // 每 100ms 滚动一次
+            }, 120); // 每 100ms 滚动一次
             autoScrollButton.textContent = '停';
             isScrolling = true;
         }

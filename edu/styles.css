@@ -142,10 +142,9 @@ body {
     padding: 0px 0px 9px 0px;
     position: relative;min-height: 67px;
 }
-.category ul li b span,.category ul li  span c span,.category ul li  span i span,.category ul li  span span { padding:0; display: inline;text-decoration: underline;}
-    /* font-weight: bold; */
-    /* list-style: decimal; */
-    /* margin-left: 14px; */
+.category ul li span{ display: block;    padding-bottom: 25px;}
+.category ul li b span,.category ul li  span c span,.category ul li  span i span,.category ul li  span span { height:auto; padding:0; display: inline;text-decoration: underline;}
+
 
 .clear-btn {
     cursor: pointer;
