@@ -142,7 +142,9 @@ body {
     padding: 0px 0px 9px 0px;
     position: relative;min-height: 67px;
 }
-
+.category ul li b span{ padding:0; display: inline;text-decoration: underline;}
+.category ul li  span c span{ padding:0; display: inline;text-decoration: underline;}
+.category ul li  span i span{ padding:0; display: inline;text-decoration: underline;}
 .category ul li span{ padding:0px 0 23px; display: block;}
     /* font-weight: bold; */
     /* list-style: decimal; */
@@ -171,6 +173,7 @@ body {
     height: 91px;
     line-height: 80px;
     text-align: center;
+    margin-top: 31px;
 }
 .title h1 {
     font-size: 31px;
@@ -296,9 +299,8 @@ body {
     background-color: #fff;
     color: #c10006;
     padding: 5px 2px;
-    border: none;
     border-radius: 5px;
-    border: 1px solid #5f5f5f;
+    border: 1px solid #e7e7e7;
     cursor: pointer;
     font-size: 22px;
     width: 30px;
@@ -428,7 +430,7 @@ body {
     background-color: #ffffff;
     color: #252525;
     padding: 2px 5px;
-    border: 1px solid #5f5f5f;
+    border: 1px solid #e7e7e7;
     border-radius: 5px;
     cursor: pointer;
     width: 30px;
