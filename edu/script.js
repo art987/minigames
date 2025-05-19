@@ -309,7 +309,7 @@ function readText(text) {
     let plainText = tempDiv.textContent || tempDiv.innerText;
 
     // 移除指定的表情符号
-    const specificEmojis = ['😜', '📖', '💡', '👍'];
+    const specificEmojis = ['😜', '📖', '💡', '👍','😠','👍','😠','👱‍♀️','😠','👍','😠','👍','😠']; 
     const emojiRegex = new RegExp(`[${specificEmojis.join('')}]`, 'g');
     plainText = plainText.replace(emojiRegex, '');
 
