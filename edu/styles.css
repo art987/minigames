@@ -134,7 +134,7 @@ body {
     border-bottom: 1px dashed #717171;
     line-height: 32px;
     background: #ffffff;
-    letter-spacing: 1px; font-family: cursive;
+    letter-spacing: 1px; 
     /* display: flex; */
     align-items: center;
     justify-content: space-between;
