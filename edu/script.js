@@ -113,8 +113,9 @@ function renderPage() {
         categoryElement.appendChild(categoryList);
         contentContainer.appendChild(categoryElement);
     });
-
-    // Show all keywords button
+	
+	
+ // Show all keywords button
     const showAllKeywordsButton = document.getElementById('show-all-keywords');
     showAllKeywordsButton.addEventListener('click', () => {
         const modal = document.getElementById('keyword-modal');
@@ -127,15 +128,13 @@ function renderPage() {
             keywordElement.dataset.keyword = keyword;
             keywordElement.textContent = keyword;
             keywordElement.onclick = () => {
-                // 清空搜索条件
-                document.getElementById('search-input').value = '';
-                // 清除所有关键词的 active 类
+                // 新增：将关键词设置到搜索框
+                document.getElementById('search-input').value = keyword;
+                
+                // 原有逻辑
                 document.querySelectorAll('.keyword').forEach(k => k.classList.remove('active'));
-                // 添加 active 类到当前关键词
                 keywordElement.classList.add('active');
-                // 清除之前的筛选结果，显示全部内容
                 resetDisplay();
-                // 筛选当前关键词的内容
                 filterContent(keyword);
                 modal.style.display = 'none';
             };
@@ -144,6 +143,7 @@ function renderPage() {
 
         modal.style.display = 'block';
     });
+
 
     // Close modal button
     const closeModalButton = document.getElementById('close-modal');
@@ -219,7 +219,8 @@ function initSearch() {
             resetDisplay();
             // 将关键词文本赋予搜索框
             const keywordText = keyword.dataset.keyword;
-            document.getElementById('search-input').value = keywordText;            
+            document.getElementById('search-input').value = keywordText;
+            
             // 触发input事件以执行搜索（确保筛选逻辑正常执行）
             const event = new Event('input', { bubbles: true });
             document.getElementById('search-input').dispatchEvent(event);
