@@ -8,74 +8,40 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateFloatingTags);
 });
 
-function loadResponsiveVoice() {
-    const script = document.createElement('script');
-    script.src = 'https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw';
-    script.onload = () => {
-        console.log('responsiveVoice.js 加载完成');
-    };
-    document.head.appendChild(script);
-}
-
-function updateFloatingTags() {
-    const floatingTagsContainer = document.getElementById('floating-tags-container');
-    const tagsContainer = document.getElementById('tags-container');
-    const titleP = document.getElementById('title-p'); // 获取 title-p
-
-    // 获取屏幕高度的 70%
-    const threshold = window.innerHeight * 0.7;
-
-    // 如果页面向上滑动超过 70% 的屏幕高度，显示浮动标签
-    if (window.scrollY > threshold) {
-        floatingTagsContainer.style.display = 'block';
-        floatingTagsContainer.innerHTML = ''; // 清空浮动标签内容
-
-        // 动态生成浮动标签
-        data.tags.forEach(tag => {
-            const tagElement = document.createElement('div');
-            tagElement.classList.add('tag');
-            tagElement.textContent = tag.name;
-            tagElement.dataset.category = tag.category;
-
-            // 检查当前是否是激活的标签
-            if (document.querySelector('.tag.active')?.dataset.category === tag.category) {
-                tagElement.classList.add('active');
-            }
-
-            tagElement.addEventListener('click', () => {
-                // 同步点击事件到原始标签
-                const originalTag = document.querySelector(`.tag[data-category="${tag.category}"]`);
-                if (originalTag) {
-                    originalTag.click();
-                }
-
-                // 页面滚动到 title-p 的开始位置
-                window.scrollTo({
-                    top: titleP.offsetTop,
-                    behavior: 'smooth'
-                });
-            });
-
-            floatingTagsContainer.appendChild(tagElement);
-        });
-    } else {
-        // 如果页面向下滚动且未超过 70% 的屏幕高度，隐藏浮动标签
-        floatingTagsContainer.style.display = 'none';
-    }
-}
-
 function renderPage() {
     // Render title
     document.getElementById('title-h1').innerText = data.title.h1;
     document.getElementById('title-p').innerText = data.title.p;
 
-    // Render tags
+    // Render tags from content
     const tagsContainer = document.getElementById('tags-container');
-    data.tags.forEach(tag => {
+    Object.keys(data.content).forEach(key => {
+        const [name, category] = key.split('|');
         const tagElement = document.createElement('div');
         tagElement.classList.add('tag');
-        tagElement.dataset.category = tag.category;
-        tagElement.textContent = tag.name;
+        tagElement.textContent = name;
+        tagElement.dataset.category = category;
+        tagElement.addEventListener('click', () => {
+            // 清空搜索条件
+            document.getElementById('search-input').value = '';
+            // 清除所有标签和关键词的 active 类
+            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+            // 添加 active 类到当前标签
+            tagElement.classList.add('active');
+            // 清除之前的筛选结果，显示全部内容
+            resetDisplay();
+            // 筛选当前标签的内容
+            filterContentByCategory(category);
+            // 滚动到 search-container 的位置
+            document.getElementById('search-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // 同时在普通标签容器中设置 active
+            // 同时在 floating-tags-container 中也设置 active 状态
+            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${category}"]`);
+            if (floatingTagsContainerTag) {
+                floatingTagsContainerTag.classList.add('active');
+            }
+        });
         tagsContainer.appendChild(tagElement);
     });
 
@@ -86,12 +52,25 @@ function renderPage() {
         keywordElement.classList.add('keyword');
         keywordElement.dataset.keyword = keyword;
         keywordElement.textContent = keyword;
+        keywordElement.addEventListener('click', () => {
+            // 清空搜索条件
+            document.getElementById('search-input').value = '';
+            // 清除所有标签和关键词的 active 类
+            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+            // 添加 active 类到当前关键词
+            keywordElement.classList.add('active');
+            // 清除之前的筛选结果，显示全部内容
+            resetDisplay();
+            // 筛选当前关键词的内容
+            filterContent(keyword);
+        });
         keywordsContainer.appendChild(keywordElement);
     });
 
     // Render content
     const contentContainer = document.getElementById('content-container');
-    Object.keys(data.content).forEach(category => {
+    Object.keys(data.content).forEach(categoryKey => {
+        const [name, category] = categoryKey.split('|');
         const categoryElement = document.createElement('div');
         categoryElement.classList.add('category');
         categoryElement.dataset.category = category;
@@ -101,7 +80,7 @@ function renderPage() {
         categoryElement.appendChild(categoryTitle);
 
         const categoryList = document.createElement('ul');
-        data.content[category].forEach(sentence => {
+        data.content[categoryKey].forEach(sentence => {
             const listItem = document.createElement('li');
             listItem.setAttribute('data-original-text', sentence);
 
@@ -148,8 +127,15 @@ function renderPage() {
             keywordElement.dataset.keyword = keyword;
             keywordElement.textContent = keyword;
             keywordElement.onclick = () => {
-                document.getElementById('search-input').value = keyword;
-                document.getElementById('clear-search').style.display = 'inline';
+                // 清空搜索条件
+                document.getElementById('search-input').value = '';
+                // 清除所有关键词的 active 类
+                document.querySelectorAll('.keyword').forEach(k => k.classList.remove('active'));
+                // 添加 active 类到当前关键词
+                keywordElement.classList.add('active');
+                // 清除之前的筛选结果，显示全部内容
+                resetDisplay();
+                // 筛选当前关键词的内容
                 filterContent(keyword);
                 modal.style.display = 'none';
             };
@@ -200,41 +186,43 @@ function initSearch() {
 
     tags.forEach(tag => {
         tag.addEventListener('click', () => {
-            tags.forEach(t => t.classList.remove('active'));
+            // 清空搜索条件
+            document.getElementById('search-input').value = '';
+            // 清除所有标签和关键词的 active 类
+            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+            // 添加 active 类到当前标签
             tag.classList.add('active');
+            // 清除之前的筛选结果，显示全部内容
+            resetDisplay();
+            // 筛选当前标签的内容
+            filterContentByCategory(tag.dataset.category);
+            // 滚动到 tags-container 的位置
+            document.getElementById('tags-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // 同步浮动标签的状态
-            const floatingTag = document.getElementById('floating-tags-container').querySelector(`.tag[data-category="${tag.dataset.category}"]`);
-            if (floatingTag) {
-                document.getElementById('floating-tags-container').querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-                floatingTag.classList.add('active');
+            // 同时在 floating-tags-container 中也设置 active 状态
+            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
+            if (floatingTagsContainerTag) {
+                floatingTagsContainerTag.classList.add('active');
             }
-
-            const categoryToShow = tag.getAttribute('data-category');
-            categories.forEach(category => {
-
-                if (categoryToShow === 'all') {
-                    category.style.display = 'block';
-                    category.querySelectorAll('li').forEach(item => {
-                        item.style.display = 'block';
-                        item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
-                    });
-                } else {
-                    category.style.display = category.getAttribute('data-category') === categoryToShow ? 'block' : 'none';
-                    if (category.getAttribute('data-category') === categoryToShow) {
-                        category.querySelectorAll('li').forEach(item => item.style.display = 'block');
-                    }
-                }
-            });
         });
     });
 
     keywords.forEach(keyword => {
         keyword.addEventListener('click', () => {
-            const keywordText = keyword.getAttribute('data-keyword');
-            searchInput.value = keywordText;
-            clearSearchBtn.style.display = 'inline';
-            filterContent(keywordText);
+            // 清空搜索条件
+            document.getElementById('search-input').value = '';
+            // 清除所有标签和关键词的 active 类
+            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+            // 添加 active 类到当前关键词
+            keyword.classList.add('active');
+            // 清除之前的筛选结果，显示全部内容
+            resetDisplay();
+            // 将关键词文本赋予搜索框
+            const keywordText = keyword.dataset.keyword;
+            document.getElementById('search-input').value = keywordText;            
+            // 触发input事件以执行搜索（确保筛选逻辑正常执行）
+            const event = new Event('input', { bubbles: true });
+            document.getElementById('search-input').dispatchEvent(event);
         });
     });
 }
@@ -288,43 +276,34 @@ function initAutoScroll() {
     });
 }
 
-function readText(text) {
-    // 检查输入是否为空
-    if (!text || text.trim() === '') {
-        console.warn('朗读内容为空');
-        return;
-    }
 
-    // 创建一个临时的 div 元素来解析 HTML 内容
+function readText(text) {
+    // 创建临时div处理HTML
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
-
-    // 移除所有 <i> 和 <b> 标签及其内容
-    const iTags = tempDiv.querySelectorAll('i');
-    const bTags = tempDiv.querySelectorAll('b');
-    iTags.forEach(tag => tag.remove());
-    bTags.forEach(tag => tag.remove());
-
+    
+    // 移除所有<i>和<b>标签及其内容
+    const elementsToRemove = tempDiv.querySelectorAll('i, b');
+    elementsToRemove.forEach(el => el.remove());
+    
     // 获取纯文本内容
     let plainText = tempDiv.textContent || tempDiv.innerText;
-
-    // 移除指定的表情符号
-    const specificEmojis = ['😜', '📖', '💡', '👍','😠','👍','😠','👱‍♀️','😠','👍','😠','👍','😠']; 
-    const emojiRegex = new RegExp(`[${specificEmojis.join('')}]`, 'g');
+    
+    // 使用更全面的正则表达式移除表情符号（包含各种类型的Unicode表情）
+    const emojiRegex = /[\p{Emoji}\u200d\uFE0F]/gu;
     plainText = plainText.replace(emojiRegex, '');
-
-    // 再次检查处理后的文本是否为空
-    if (plainText.trim() === '') {
-        console.warn('朗读内容为空');
-        return;
+    
+    // 移除多余空格并修剪文本
+    plainText = plainText.replace(/\s+/g, ' ').trim();
+    
+    // 执行朗读
+    if (plainText) {
+        responsiveVoice.speak(plainText, 'Chinese Female', {
+            rate: 0.8,
+            pitch: 1,
+            volume: 1
+        });
     }
-
-    // 使用 responsiveVoice.speak() 方法朗读纯文本内容
-    responsiveVoice.speak(plainText, 'Chinese Female', {
-        rate: 0.8,
-        pitch: 1,
-        volume: 1
-    });
 }
 
 function copyText(text, button) {
@@ -363,6 +342,21 @@ function filterContent(keyword) {
             }
         });
         category.style.display = hasVisibleItem ? 'block' : 'none';
+    });
+}
+
+function filterContentByCategory(category) {
+    const categories = document.querySelectorAll('.category');
+    categories.forEach(categoryElement => {
+        if (categoryElement.dataset.category === category) {
+            categoryElement.style.display = 'block';
+            categoryElement.querySelectorAll('li').forEach(item => {
+                item.style.display = 'block';
+                item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
+            });
+        } else {
+            categoryElement.style.display = 'none';
+        }
     });
 }
 
@@ -427,4 +421,46 @@ function showAllText(sentence) {
 
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
+}
+
+function updateFloatingTags() {
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    const tagsContainer = document.getElementById('tags-container');
+    const titleP = document.getElementById('title-p');
+    const threshold = window.innerHeight * 0.7;
+
+    if (window.scrollY > threshold) {
+        floatingTagsContainer.style.display = 'block';
+        floatingTagsContainer.innerHTML = '';
+        Object.keys(data.content).forEach(key => {
+            const [name, category] = key.split('|');
+            const tagElement = document.createElement('div');
+            tagElement.classList.add('tag');
+            tagElement.textContent = name;
+            tagElement.dataset.category = category;
+            tagElement.addEventListener('click', () => {
+                // 清空搜索条件
+                document.getElementById('search-input').value = '';
+                // 清除所有标签和关键词的 active 类
+                document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+                // 添加 active 类到当前标签
+                tagElement.classList.add('active');
+                // 清除之前的筛选结果，显示全部内容
+                resetDisplay();
+                // 筛选当前标签的内容
+                filterContentByCategory(category);
+                // 滚动到 tags-container 的位置
+                tagsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // 同时在 tags-container 中也设置 active 状态
+                const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
+                if (tagsContainerTag) {
+                    tagsContainerTag.classList.add('active');
+                }
+            });
+            floatingTagsContainer.appendChild(tagElement);
+        });
+    } else {
+        floatingTagsContainer.style.display = 'none';
+    }
 }
