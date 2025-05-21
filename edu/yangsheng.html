@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活健康养生备忘录</title>
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://peacelove.top/menu.css">
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw"></script>
+    <script src="data-yangsheng.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body style="   background: url(biaoyangbg.png) no-repeat top center;">
+ <div id="navbar-container"></div>
+
+    <div class="title">
+        <h1 id="title-h1"></h1>
+        <p id="title-p"></p>
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" id="search-input" placeholder="输入关键词搜索...">
+        <div class="clear-btn" id="clear-search" style="display: none;">X</div>
+    </div>
+    <div class="marquee">
+        <div class="tip">热搜：</div>
+        <div class="keywords" id="keywords-container"></div>
+        <button id="show-all-keywords" class="show-all-keywords">全部</button>
+    </div>
+    <div class="tags" id="tags-container">
+         <div class="tag tip" >分类：</div> 
+    </div>
+	<div id="floating-tags-container" class="floating-tags"></div>
+    <div class="content" id="content-container"></div>
+    <div id="keyword-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <div id="modal-keywords-container"></div>
+        </div>
+    </div>
+	<button id="auto-scroll-button">👇</button>
+	  <button id="back-to-top">☝️</button>
+	  
+	  <script>
+        // 动态加载横栏条
+        async function loadNavbar() {
+            try {
+                const response = await fetch('https://peacelove.top/menu.html');
+                const navbarHtml = await response.text();
+
+                // 提取 HTML 中的脚本内容
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(navbarHtml, 'text/html');
+                const scripts = doc.querySelectorAll('script');
+                const scriptContent = [];
+                scripts.forEach(script => {
+                    scriptContent.push(script.textContent);
+                    script.remove(); // 移除原脚本
+                });
+
+                // 将 HTML 插入到页面中
+                document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+                // 动态创建并执行脚本
+                scriptContent.forEach(content => {
+                    const script = document.createElement('script');
+                    script.textContent = content;
+                    document.body.appendChild(script);
+                });
+            } catch (error) {
+                console.error('加载横栏条时出错：', error);
+            }
+        }
+
+        // 确保 DOM 完全加载后再调用 loadNavbar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNavbar();
+        });
+    </script>
+</body>
+</html>
