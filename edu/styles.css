@@ -188,6 +188,34 @@ body {
     letter-spacing: 3px;
     color: #8f8f8f;
 }
+#title-p {
+  /* 基础样式 */
+  font-family: monospace;     /* 等宽字体保证字符对齐 */
+  white-space: nowrap;        /* 禁止文字换行 */
+  overflow: hidden;           /* 隐藏溢出内容 */
+  opacity: 1;                 /* 初始完全可见 */
+  
+  /* 动画参数 */
+  animation: 
+    fadeOut 3s 5s forwards;        /* 第15秒开始淡出(持续1秒) */
+  animation-iteration-count: infinite; /* 无限循环 */
+}
+
+@keyframes fadeOut {
+  from { 
+    opacity: 1;             /* 完全可见 */
+    mask: none;             /* 不使用遮罩 */
+  }
+  to { 
+    opacity: 0;            /* 完全透明 */
+    mask: linear-gradient(to right, 
+      transparent 5%, 
+      #000 20%, 
+      #000 80%, 
+      transparent 95%
+    );                      /* 中间渐变遮罩 */
+  }
+}
 .actions {
     display: flex;
     gap: 6px 8px;
@@ -293,13 +321,14 @@ body {
     right: 20px;
     background-color: #fff;
     color: #c10006;
-    padding: 5px 2px;
+    padding: 5px 0px;
     border-radius: 5px;
     border: 1px solid #e7e7e7;
     cursor: pointer;
-    font-size: 22px;
-    width: 30px;
-    height: 42px;
+    font-size: 12px;
+    width: 35px;
+    height: 35px;
+    font-weight: bold;
     z-index:100;
 }
 
@@ -420,22 +449,22 @@ body {
 #auto-scroll-button {
     position: fixed;
     right: 20px;
-    bottom: 314px; /* 位于页面中间 */
+    bottom: 301px; /* 位于页面中间 */
     transform: translateY(50%);
     background-color: #ffffff;
-    color: #252525;
-    padding: 2px 5px;
+    color: #b20000;
+    padding: 2px 0px;
     border: 1px solid #e7e7e7;
     border-radius: 5px;
     cursor: pointer;
-    width: 30px;
-    font-size: 19px;
-    height: 39px;
+    width: 35px;
+    font-size: 13px;
+    height: 35px;
     text-align: center;
     z-index: 1000;
 }
 
 #auto-scroll-button:hover {
-    /* background-color: #ad4346; */
-    /* color: #Fff; */
+    background-color: #ad4346; 
+ color: #Fff; 
 }

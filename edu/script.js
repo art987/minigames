@@ -255,14 +255,14 @@ function initAutoScroll() {
         if (isScrolling) {
             // 停止滚动
             clearInterval(autoScrollInterval);
-            autoScrollButton.textContent = '👇';
+            autoScrollButton.textContent = '↓滚动';
             isScrolling = false;
         } else {
             // 开始滚动
             autoScrollInterval = setInterval(() => {
                 window.scrollBy(0, 1); // 每次滚动 10px
             }, 120); // 每 100ms 滚动一次
-            autoScrollButton.textContent = '停';
+            autoScrollButton.textContent = '停止';
             isScrolling = true;
         }
     });
@@ -271,7 +271,7 @@ function initAutoScroll() {
     window.addEventListener('wheel', () => {
         if (isScrolling) {
             clearInterval(autoScrollInterval);
-            autoScrollButton.textContent = '👇';
+            autoScrollButton.textContent = '↓滚动';
             isScrolling = false;
         }
     });
