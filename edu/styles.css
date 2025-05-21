@@ -188,34 +188,7 @@ body {
     letter-spacing: 3px;
     color: #8f8f8f;
 }
-#title-p {
-  /* 基础样式 */
-  font-family: monospace;     /* 等宽字体保证字符对齐 */
-  white-space: nowrap;        /* 禁止文字换行 */
-  overflow: hidden;           /* 隐藏溢出内容 */
-  opacity: 1;                 /* 初始完全可见 */
-  
-  /* 动画参数 */
-  animation: 
-    fadeOut 3s 5s forwards;        /* 第15秒开始淡出(持续1秒) */
-  animation-iteration-count: infinite; /* 无限循环 */
-}
 
-@keyframes fadeOut {
-  from { 
-    opacity: 1;             /* 完全可见 */
-    mask: none;             /* 不使用遮罩 */
-  }
-  to { 
-    opacity: 0;            /* 完全透明 */
-    mask: linear-gradient(to right, 
-      transparent 5%, 
-      #000 20%, 
-      #000 80%, 
-      transparent 95%
-    );                      /* 中间渐变遮罩 */
-  }
-}
 .actions {
     display: flex;
     gap: 6px 8px;
