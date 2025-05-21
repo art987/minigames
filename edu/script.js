@@ -298,8 +298,9 @@ function readText(text) {
     plainText = plainText.replace(/\s+/g, ' ').trim();
     
     // 执行朗读
+     const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
     if (plainText) {
-        responsiveVoice.speak(plainText, 'Chinese Female', {
+        responsiveVoice.speak(plainText, voice, {
             rate: 0.8,
             pitch: 1,
             volume: 1
