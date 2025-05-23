@@ -31,6 +31,12 @@ function renderPage() {
             // 清除之前的筛选结果，显示全部内容
             resetDisplay();
 
+            // 滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
             // 创建加载动画
             const contentContainer = document.getElementById('content-container');
             const loadingOverlay = document.createElement('div');
@@ -58,6 +64,7 @@ function renderPage() {
         });
         tagsContainer.appendChild(tagElement);
     });
+
 
     // Render keywords
     const keywordsContainer = document.getElementById('keywords-container');
@@ -509,9 +516,15 @@ function showAllText(sentence) {
 
 function updateFloatingTags() {
     const floatingTagsContainer = document.getElementById('floating-tags-container');
-    const tagsContainer = document.getElementById('tags-container');
     const contentContainer = document.getElementById('content-container');
     const threshold = window.innerHeight * 0.7;
+
+    // 检查当前筛选的内容
+    let currentActiveCategory = null;
+    const activeTag = document.querySelector('.tag.active');
+    if (activeTag) {
+        currentActiveCategory = activeTag.dataset.category;
+    }
 
     if (window.scrollY > threshold) {
         floatingTagsContainer.style.display = 'block';
@@ -523,22 +536,57 @@ function updateFloatingTags() {
             tagElement.textContent = name;
             tagElement.dataset.category = category;
             tagElement.addEventListener('click', () => {
-                showLoadingAnimation();
+                // 清空搜索条件
+                document.getElementById('search-input').value = '';
+                // 清除所有标签和关键词的 active 类
+                document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+                // 添加 active 类到当前标签
+                tagElement.classList.add('active');
+                // 清除之前的筛选结果，显示全部内容
+                resetDisplay();
+
+                // 滚动到顶部
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
+
+                // 创建加载动画
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.classList.add('loading-overlay');
+                const loadingSpinner = document.createElement('div');
+                loadingSpinner.classList.add('loading-spinner');
+                loadingOverlay.appendChild(loadingSpinner);
+                contentContainer.appendChild(loadingOverlay);
+
+                // 显示加载动画
+                loadingOverlay.style.display = 'flex';
+
+                // 1.5秒后隐藏加载动画并显示内容
                 setTimeout(() => {
-                    hideLoadingAnimation();
+                    loadingOverlay.style.display = 'none';
+                    contentContainer.removeChild(loadingOverlay);
                     filterContentByCategory(category);
                 }, 1000);
+
+                // 同时在 tags-container 中也设置 active 状态
+                const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
+                if (tagsContainerTag) {
+                    tagsContainerTag.classList.add('active');
+                }
             });
             floatingTagsContainer.appendChild(tagElement);
+
+            // 如果当前筛选的内容与该标签的 category 相同，则添加 active 类
+            if (currentActiveCategory === category) {
+                tagElement.classList.add('active');
+            }
         });
     } else {
         floatingTagsContainer.style.display = 'none';
     }
 }
+
 
 function showLoadingAnimation() {
     const contentContainer = document.getElementById('content-container');
@@ -582,7 +630,7 @@ function initSearch() {
             setTimeout(() => {
                 hideLoadingAnimation();
                 filterContent(searchTerm);
-            }, 300);
+            }, 1000);
         }
     });
 

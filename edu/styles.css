@@ -83,7 +83,6 @@ body {
             margin-left: 48px;
             margin-right: 27px;
             scroll-behavior: smooth;
-            width: 259px;
             -webkit-overflow-scrolling: touch;
         }
 		.keywords {
