@@ -16,7 +16,7 @@ body {
 #search-input {
     width: 70%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     height: 18px;
     color: #ed2424;
@@ -79,9 +79,12 @@ body {
             gap: 7px;
             padding-bottom: 5px;
             margin-bottom: 1px;
-            overflow-x: auto;
+            overflow-x: scroll;
             margin-left: 48px;
             margin-right: 27px;
+            scroll-behavior: smooth;
+            width: 259px;
+            -webkit-overflow-scrolling: touch;
         }
 		.keywords {
     display: flex;
@@ -119,6 +122,7 @@ body {
             color: #000;
             border: 1px solid #efefef;
             font-size: 13px;
+            display: inline;
         }
 		
 		.marquee {
@@ -166,11 +170,11 @@ body {
 }
 .category h3 {
     margin: 0 0 2px;
-    font-size: 14px;
+    font-size: 16px;
     color: #000000;
     border-bottom: 4px solid #f1f1f1;
     letter-spacing: 2px;
-    padding-bottom: 7px; font-weight:normal;
+    padding-bottom: 15px; 
 }
 .category ul {
     list-style-type: none;
@@ -178,7 +182,7 @@ body {
 }
 .category ul li {
     margin-bottom: 6px;
-    font-size: 18px;
+    font-size: 16px;
     border-bottom: 1px dashed #717171;
     line-height: 32px;
     background: #ffffff;
@@ -363,7 +367,7 @@ body {
 .category ul li  c h4{ padding:0; margin:0; }
 
 .category ul li  i{color: #777777;text-align: right;display: block;line-height: 15px;font-size:12px;margin-bottom: 7px;padding-top: 6px;letter-spacing: 0px;font-style: normal;}
-.category ul li  b{color: #658ba7;display: block;font-weight: normal;font-size: 14px;line-height: 21px;padding-bottom: 10px;letter-spacing: 0;overflow: hidden;}
+.category ul li  b{color: #658ba7;display: block;font-weight: normal;font-size: 14px;line-height: 21px;padding-bottom: 10px;letter-spacing: 0;overflow: hidden;    padding-top: 5px;}
 
 
 

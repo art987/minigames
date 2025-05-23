@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderPage() {
-    // Render title
+      // Render title
     document.getElementById('title-h1').innerText = data.title.h1;
     document.getElementById('title-p').innerText = data.title.p;
 
@@ -32,10 +32,7 @@ function renderPage() {
             resetDisplay();
             // 筛选当前标签的内容
             filterContentByCategory(category);
-            // 滚动到 search-container 的位置
-            document.getElementById('search-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // 同时在普通标签容器中设置 active
             // 同时在 floating-tags-container 中也设置 active 状态
             const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${category}"]`);
             if (floatingTagsContainerTag) {
@@ -184,28 +181,26 @@ function initSearch() {
         resetDisplay();
     });
 
-    tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-            // 清空搜索条件
-            document.getElementById('search-input').value = '';
-            // 清除所有标签和关键词的 active 类
-            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
-            // 添加 active 类到当前标签
-            tag.classList.add('active');
-            // 清除之前的筛选结果，显示全部内容
-            resetDisplay();
-            // 筛选当前标签的内容
-            filterContentByCategory(tag.dataset.category);
-            // 滚动到 tags-container 的位置
-            document.getElementById('tags-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+        // 清空搜索条件
+        document.getElementById('search-input').value = '';
+        // 清除所有标签和关键词的 active 类
+        document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+        // 添加 active 类到当前标签
+        tag.classList.add('active');
+        // 清除之前的筛选结果，显示全部内容
+        resetDisplay();
+        // 筛选当前标签的内容
+        filterContentByCategory(tag.dataset.category);
 
-            // 同时在 floating-tags-container 中也设置 active 状态
-            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
-            if (floatingTagsContainerTag) {
-                floatingTagsContainerTag.classList.add('active');
-            }
-        });
+        // 同时在 floating-tags-container 中也设置 active 状态
+        const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
+        if (floatingTagsContainerTag) {
+            floatingTagsContainerTag.classList.add('active');
+        }
     });
+});
 
     keywords.forEach(keyword => {
         keyword.addEventListener('click', () => {
@@ -451,8 +446,11 @@ function updateFloatingTags() {
                 resetDisplay();
                 // 筛选当前标签的内容
                 filterContentByCategory(category);
-                // 滚动到 tags-container 的位置
-                tagsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // 滚动到页面最顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
 
                 // 同时在 tags-container 中也设置 active 状态
                 const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
