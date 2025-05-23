@@ -1,9 +1,10 @@
 @charset "utf-8";
-/* CSS Document */
+
 #navbar-container{
     position: absolute;
     left: 0;
 }
+body{ margin:0;padding:0;}
 
  .navbar {
             position: fixed;
@@ -77,15 +78,16 @@
             cursor: pointer;
         }
         .submenu {
-            margin-left: 20px;
+            margin-left: 10px;
             display: none;
             padding: 0 10px; /* 增加内边距 */
         }
         .submenu .menu-item {
-            padding: 10px; /* 增加高度 */
-            border-bottom: none; /* 去掉二级菜单的分隔线 */
+            padding: 10px 0; /* 增加高度 */
+            border-bottom: 1px solid #faf7f7; /* 去掉二级菜单的分隔线 */
+            font-size: 13px;
         }
-      
+      .submenu .menu-item a{ color:#000000; text-decoration:none;}
      
         .overlay {
             position: fixed;
