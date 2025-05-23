@@ -50,24 +50,29 @@ body {
     left: -2px;
     box-shadow: 0px 0px 17px #0a0a0a21;
     }
-    .tagsbox .show-all-tags{
+   .tagsbox .show-all-tags{
     background-color: #ffffff;
+    background-size: 20px;
+    background-image: url(scroll.gif);
+    background-repeat: no-repeat;
+    background-position: 4px 12px;
     color: #101010;
     border: none;
     padding: 7px 2px;
     cursor: pointer;
-    font-size: 19px;
+    font-size: 0;
     position: absolute;
     box-shadow: 0px 0px 26px #a5a5a58c;
     z-index: 99;
     display: block;
-    width: 28px;
+    width: 30px;
     height: 33px;
     top: -8px;
-    right: -3px;
+    right: -5px;
     text-align: center;
     line-height: 27px;
     }
+
 
  .tags{
             display: flex;
