@@ -84,7 +84,7 @@ function renderPage() {
                 loadingOverlay.style.display = 'none';
                 contentContainer.removeChild(loadingOverlay);
                 filterContent(keyword);
-            }, 300);
+            }, 350);
 
             // 显示清空按钮
             document.getElementById('clear-search').style.display = 'inline';
@@ -177,7 +177,7 @@ function renderPage() {
                     loadingOverlay.style.display = 'none';
                     contentContainer.removeChild(loadingOverlay);
                     filterContent(keyword);
-                }, 300);
+                }, 350);
 
                 // 显示清空按钮
                 document.getElementById('clear-search').style.display = 'inline';
@@ -222,7 +222,7 @@ function initSearch() {
             setTimeout(() => {
                 hideLoadingAnimation();
                 filterContent(searchTerm);
-            }, 300);
+            }, 350);
         }
 
         // 清除所有标签和关键词的 active 类
@@ -240,30 +240,49 @@ function initSearch() {
 
     tags.forEach(tag => {
         tag.addEventListener('click', () => {
-            // 清空搜索条件
-            document.getElementById('search-input').value = '';
-            // 清除所有标签和关键词的 active 类
-            document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
-            // 添加 active 类到当前标签
-            tag.classList.add('active');
-            // 清除之前的筛选结果，显示全部内容
-            resetDisplay();
+    // 清空搜索条件
+    document.getElementById('search-input').value = '';
+    // 清除所有标签和关键词的 active 类
+    document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+    // 添加 active 类到当前标签
+    tag.classList.add('active');
+    // 清除之前的筛选结果，显示全部内容
+    resetDisplay();
 
-            // 滚动到距离顶部180像素的位置
-            window.scrollTo({
-                top: 180,
-                behavior: 'smooth'
-            });
+    // 滚动到距离顶部180像素的位置
+    window.scrollTo({
+        top: 180,
+        behavior: 'smooth'
+    });
 
-            // 筛选当前标签的内容
+    // 创建加载动画
+    const contentContainer = document.getElementById('content-container');
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.classList.add('loading-overlay');
+    const loadingSpinner = document.createElement('div');
+    loadingSpinner.classList.add('loading-spinner');
+    loadingOverlay.appendChild(loadingSpinner);
+    contentContainer.appendChild(loadingOverlay);
+
+    // 显示加载动画
+    loadingOverlay.style.display = 'flex';
+
+    // 1.5秒后隐藏加载动画并显示内容
+    setTimeout(() => {
+        loadingOverlay.style.display = 'none';
+        contentContainer.removeChild(loadingOverlay);
+        // 延迟调用 filterContentByCategory 方法
+        setTimeout(() => {
             filterContentByCategory(tag.dataset.category);
+        }, 100);
+    }, 300);
 
-            // 同时在 floating-tags-container 中也设置 active 状态
-            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
-            if (floatingTagsContainerTag) {
-                floatingTagsContainerTag.classList.add('active');
-            }
-        });
+    // 同时在 floating-tags-container 中也设置 active 状态
+    const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
+    if (floatingTagsContainerTag) {
+        floatingTagsContainerTag.classList.add('active');
+    }
+});
     });
 
     keywords.forEach(keyword => {
