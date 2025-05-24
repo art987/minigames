@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px; margin:0;
+    padding: 20px; margin:0; 
 }
 .search-container {
     display: flex;
@@ -406,7 +406,8 @@ body {
 
 
 
-.modal-content   c{text-decoration: none;display: block;line-height: 28px;padding: 6px 21px 5px 5px;position: absolute;font-size: 15px;top: 115px;}
+.modal-content   c{text-decoration: none;display: block;line-height: 28px;padding: 6px 21px 5px 5px;position: absolute;font-size: 15px;top:20px;}
+.modal-content   c u{ text-decoration:none;}
 .modal-content   c b{color:#000;display: none;position: relative;top: auto;}
 
 .modal-content   i{color: #000000;text-align: right;display: block;line-height: 29px;font-size: 16px;position: absolute;top: 49px;text-decoration: none;font-style: normal;font-weight: bold;text-align: left;}

@@ -31,40 +31,23 @@ function renderPage() {
             // 清除之前的筛选结果，显示全部内容
             resetDisplay();
 
-            // 滚动到顶部
+            // 滚动到距离顶部180像素的位置
             window.scrollTo({
-                top: 0,
+                top: 180,
                 behavior: 'smooth'
             });
 
-            // 创建加载动画
-            const contentContainer = document.getElementById('content-container');
-            const loadingOverlay = document.createElement('div');
-            loadingOverlay.classList.add('loading-overlay');
-            const loadingSpinner = document.createElement('div');
-            loadingSpinner.classList.add('loading-spinner');
-            loadingOverlay.appendChild(loadingSpinner);
-            contentContainer.appendChild(loadingOverlay);
-
-            // 显示加载动画
-            loadingOverlay.style.display = 'flex';
-
-            // 1.5秒后隐藏加载动画并显示内容
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                contentContainer.removeChild(loadingOverlay);
-                filterContentByCategory(category);
-            }, 300);
+            // 筛选当前标签的内容
+            filterContentByCategory(tag.dataset.category);
 
             // 同时在 floating-tags-container 中也设置 active 状态
-            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${category}"]`);
+            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
             if (floatingTagsContainerTag) {
                 floatingTagsContainerTag.classList.add('active');
             }
         });
         tagsContainer.appendChild(tagElement);
     });
-
 
     // Render keywords
     const keywordsContainer = document.getElementById('keywords-container');
@@ -83,6 +66,7 @@ function renderPage() {
             keywordElement.classList.add('active');
             // 清除之前的筛选结果，显示全部内容
             resetDisplay();
+
             // 创建加载动画
             const contentContainer = document.getElementById('content-container');
             const loadingOverlay = document.createElement('div');
@@ -240,16 +224,19 @@ function initSearch() {
                 filterContent(searchTerm);
             }, 300);
         }
+
+        // 清除所有标签和关键词的 active 类
+        document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
     });
 
     clearSearchBtn.addEventListener('click', () => {
-    // 清空搜索条件
-    searchInput.value = '';
-    // 清除所有标签和关键词的 active 类
-    document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
-    // 清除之前的筛选结果，显示全部内容
-    resetDisplay();
-});
+        searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        resetDisplay();
+
+        // 清除所有标签和关键词的 active 类
+        document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+    });
 
     tags.forEach(tag => {
         tag.addEventListener('click', () => {
@@ -261,6 +248,13 @@ function initSearch() {
             tag.classList.add('active');
             // 清除之前的筛选结果，显示全部内容
             resetDisplay();
+
+            // 滚动到距离顶部180像素的位置
+            window.scrollTo({
+                top: 180,
+                behavior: 'smooth'
+            });
+
             // 筛选当前标签的内容
             filterContentByCategory(tag.dataset.category);
 
@@ -283,6 +277,7 @@ function initSearch() {
             keyword.classList.add('active');
             // 清除之前的筛选结果，显示全部内容
             resetDisplay();
+
             // 创建加载动画
             const contentContainer = document.getElementById('content-container');
             const loadingOverlay = document.createElement('div');
@@ -307,6 +302,7 @@ function initSearch() {
         });
     });
 }
+
 function initBackToTop() {
     const backToTopButton = document.getElementById('back-to-top');
 
@@ -356,7 +352,6 @@ function initAutoScroll() {
     });
 }
 
-
 function readText(text) {
     // 创建临时div处理HTML
     const tempDiv = document.createElement('div');
@@ -377,7 +372,7 @@ function readText(text) {
     plainText = plainText.replace(/\s+/g, ' ').trim();
     
     // 执行朗读
-     const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
+    const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
     if (plainText) {
         responsiveVoice.speak(plainText, voice, {
             rate: 0.8,
@@ -535,9 +530,9 @@ function updateFloatingTags() {
                 // 清除之前的筛选结果，显示全部内容
                 resetDisplay();
 
-                // 滚动到顶部
+                // 滚动到距离顶部180像素的位置
                 window.scrollTo({
-                    top: 0,
+                    top: 180,
                     behavior: 'smooth'
                 });
 
@@ -577,7 +572,6 @@ function updateFloatingTags() {
     }
 }
 
-
 function showLoadingAnimation() {
     const contentContainer = document.getElementById('content-container');
     const loadingOverlay = document.createElement('div');
@@ -596,37 +590,4 @@ function hideLoadingAnimation() {
         loadingOverlay.style.display = 'none';
         contentContainer.removeChild(loadingOverlay);
     }
-}
-
-function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    const clearSearchBtn = document.getElementById('clear-search');
-    const tags = document.querySelectorAll('.tag');
-    const keywords = document.querySelectorAll('.keyword');
-    const categories = document.querySelectorAll('.category');
-
-    categories.forEach(category => {
-        category.style.display = 'block';
-    });
-
-    searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        if (searchTerm === '') {
-            clearSearchBtn.style.display = 'none';
-            resetDisplay();
-        } else {
-            clearSearchBtn.style.display = 'inline';
-            showLoadingAnimation();
-            setTimeout(() => {
-                hideLoadingAnimation();
-                filterContent(searchTerm);
-            }, 1000);
-        }
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        clearSearchBtn.style.display = 'none';
-        resetDisplay();
-    });
 }
