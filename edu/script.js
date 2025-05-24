@@ -234,32 +234,22 @@ function initSearch() {
             resetDisplay();
         } else {
             clearSearchBtn.style.display = 'inline';
-            // 创建加载动画
-            const contentContainer = document.getElementById('content-container');
-            const loadingOverlay = document.createElement('div');
-            loadingOverlay.classList.add('loading-overlay');
-            const loadingSpinner = document.createElement('div');
-            loadingSpinner.classList.add('loading-spinner');
-            loadingOverlay.appendChild(loadingSpinner);
-            contentContainer.appendChild(loadingOverlay);
-
-            // 显示加载动画
-            loadingOverlay.style.display = 'flex';
-
-            // 1.5秒后隐藏加载动画并显示内容
+            showLoadingAnimation();
             setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                contentContainer.removeChild(loadingOverlay);
+                hideLoadingAnimation();
                 filterContent(searchTerm);
             }, 300);
         }
     });
 
     clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        clearSearchBtn.style.display = 'none';
-        resetDisplay();
-    });
+    // 清空搜索条件
+    searchInput.value = '';
+    // 清除所有标签和关键词的 active 类
+    document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+    // 清除之前的筛选结果，显示全部内容
+    resetDisplay();
+});
 
     tags.forEach(tag => {
         tag.addEventListener('click', () => {
