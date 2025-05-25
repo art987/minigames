@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initBackToTop();
     initAutoScroll(); // 初始化自动滚动功能
-
+    initRemainingCounter(); // 新增初始化
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
 });
@@ -13,17 +13,26 @@ function renderPage() {
     document.getElementById('title-h1').innerText = data.title.h1;
     document.getElementById('title-p').innerText = data.title.p;
 
-    // Render tags from content
-    const tagsContainer = document.getElementById('tags-container');
-    Object.keys(data.content).forEach(key => {
-        const [name, category] = key.split('|');
-        const tagElement = document.createElement('div');
-        tagElement.classList.add('tag');
-        tagElement.dataset.category = category;
+// 创建剩余计数器元素（如果不存在）
+    if (!document.getElementById('remaining-counter')) {
+        const counter = document.createElement('div');
+        counter.id = 'remaining-counter';
+        counter.innerHTML = '<span id="remaining-count">0</span>/<span id="total-count">0</span>';
+        document.body.appendChild(counter);
+    }
 
-        // 添加分类名称和记录统计数
-        const tagText = document.createTextNode(`${name} (${data.content[key].length})`);
-        tagElement.appendChild(tagText);
+
+    // Render tags from content
+ const tagsContainer = document.getElementById('tags-container');
+Object.keys(data.content).forEach(key => {
+    const [name, category] = key.split('|');
+    const tagElement = document.createElement('div');
+    tagElement.classList.add('tag');
+    tagElement.dataset.category = category;
+
+        // 修复：正确显示标签名称和数量
+        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
 
         tagElement.addEventListener('click', () => {
             // 清空搜索条件
@@ -70,7 +79,7 @@ function renderPage() {
     });
 
     // Render keywords
-    const keywordsContainer = document.getElementById('keywords-container');
+   const keywordsContainer = document.getElementById('keywords-container');
     data.keywords.forEach(keyword => {
         const keywordElement = document.createElement('div');
         keywordElement.classList.add('keyword');
@@ -113,20 +122,20 @@ function renderPage() {
     });
 
     // Render content
-    const contentContainer = document.getElementById('content-container');
-    Object.keys(data.content).forEach(categoryKey => {
-        const [name, category] = categoryKey.split('|');
+const contentContainer = document.getElementById('content-container');
+    Object.keys(data.content).forEach(key => {
+        const [name, category] = key.split('|');
         const categoryElement = document.createElement('div');
         categoryElement.classList.add('category');
         categoryElement.dataset.category = category;
 
         const categoryTitle = document.createElement('h3');
-        // 使用 data-category 的值来显示 h3 标签的内容
-        categoryTitle.textContent = `${category} (${data.content[categoryKey].length}条记录)`;
+    // 使用 data-category 的值来显示 h3 标签的内容
+        categoryTitle.textContent = `${category} (${data.content[key].length}条记录)`;
         categoryElement.appendChild(categoryTitle);
 
         const categoryList = document.createElement('ul');
-        data.content[categoryKey].forEach(sentence => {
+        data.content[key].forEach(sentence => {
             const listItem = document.createElement('li');
             listItem.setAttribute('data-original-text', sentence);
 
@@ -331,11 +340,20 @@ function initSearch() {
             loadingOverlay.style.display = 'flex';
 
             // 1.5秒后隐藏加载动画并显示内容
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                contentContainer.removeChild(loadingOverlay);
-                filterContent(keyword.dataset.keyword);
-            }, 300);
+           setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+            contentContainer.removeChild(loadingOverlay);
+            const matchCount = filterContent(keyword.dataset.keyword);
+            if (matchCount === 0) {
+                // 如果没有匹配项，显示提示
+                const noResults = document.createElement('div');
+                noResults.textContent = '没有找到匹配的内容';
+                noResults.style.textAlign = 'center';
+                noResults.style.padding = '20px';
+                noResults.style.color = '#666';
+                contentContainer.appendChild(noResults);
+            }
+        }, 300);
 
             // 显示清空按钮
             document.getElementById('clear-search').style.display = 'inline';
@@ -444,9 +462,30 @@ function highlightKeyword(text, keyword) {
 
 function filterContent(keyword) {
     const categories = document.querySelectorAll('.category');
+    let totalMatches = 0;
+    
+    // 先统计每个分类的匹配数
+    const categoryMatches = {};
+    categories.forEach(category => {
+        const items = category.querySelectorAll('li');
+        let matchCount = 0;
+        
+        items.forEach(item => {
+            const originalText = item.getAttribute('data-original-text');
+            if (originalText && originalText.toLowerCase().includes(keyword.toLowerCase())) {
+                matchCount++;
+            }
+        });
+        
+        categoryMatches[category.dataset.category] = matchCount;
+        totalMatches += matchCount;
+    });
+    
+    // 然后更新显示
     categories.forEach(category => {
         const items = category.querySelectorAll('li');
         let hasVisibleItem = false;
+        
         items.forEach(item => {
             const originalText = item.getAttribute('data-original-text');
             if (originalText && originalText.toLowerCase().includes(keyword.toLowerCase())) {
@@ -457,29 +496,80 @@ function filterContent(keyword) {
                 item.style.display = 'none';
             }
         });
+        
+        // 修复：正确更新分类标题
+        const categoryTitle = category.querySelector('h3');
+        if (categoryTitle) {
+            // 从原始数据中获取分类名称
+            const categoryKey = Object.keys(data.content).find(key => 
+                key.includes(category.dataset.category)
+            );
+            
+            if (categoryKey) {
+                const [name, originalCategory] = categoryKey.split('|');
+                const matchCount = categoryMatches[category.dataset.category] || 0;
+                categoryTitle.textContent = `${originalCategory} (${matchCount}条记录)`;
+            }
+        }
+        
         category.style.display = hasVisibleItem ? 'block' : 'none';
     });
+    
+    return totalMatches;
 }
 
-function filterContentByCategory(category) {
+function filterContentByCategory(categoryName) {
     const categories = document.querySelectorAll('.category');
-    categories.forEach(categoryElement => {
-        if (categoryElement.dataset.category === category) {
-            categoryElement.style.display = 'block';
-            categoryElement.querySelectorAll('li').forEach(item => {
+    categories.forEach(category => {
+        if (category.dataset.category === categoryName) {
+            category.style.display = 'block';
+            
+            // 更新分类标题中的统计数字为实际显示的数量
+            const items = category.querySelectorAll('li');
+            const visibleCount = items.length;
+            const categoryTitle = category.querySelector('h3');
+            if (categoryTitle) {
+                // 获取原始分类名称
+                const categoryKey = Object.keys(data.content).find(key => 
+                    key.includes(category.dataset.category)
+                );
+                if (categoryKey) {
+                    const [name, originalCategory] = categoryKey.split('|');
+                    // 保留原始分类名称，只更新记录数
+                    categoryTitle.textContent = `${originalCategory} (${visibleCount}条记录)`;
+                }
+            }
+            
+            items.forEach(item => {
                 item.style.display = 'block';
                 item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
             });
         } else {
-            categoryElement.style.display = 'none';
+            category.style.display = 'none';
         }
     });
 }
-
 function resetDisplay() {
     const categories = document.querySelectorAll('.category');
     categories.forEach(category => {
         category.style.display = 'block';
+        
+        // 恢复分类标题中的原始统计数字
+        const categoryTitle = category.querySelector('h3');
+        if (categoryTitle) {
+            // 直接从 data.content 中获取原始分类名称和记录数
+            const categoryKey = Object.keys(data.content).find(key => 
+                key.includes(category.dataset.category)
+            );
+            
+            if (categoryKey) {
+                const [name, originalCategory] = categoryKey.split('|');
+                const originalCount = data.content[categoryKey].length;
+                // 确保使用完整的分类名称和记录数
+                categoryTitle.textContent = `${originalCategory} (${originalCount}条记录)`;
+            }
+        }
+        
         category.querySelectorAll('li').forEach(item => {
             item.style.display = 'block';
             item.querySelector('span').innerHTML = item.getAttribute('data-original-text');
@@ -554,15 +644,16 @@ function updateFloatingTags() {
     if (window.scrollY > threshold) {
         floatingTagsContainer.style.display = 'block';
         floatingTagsContainer.innerHTML = '';
+        
+        // 正确渲染浮动标签
         Object.keys(data.content).forEach(key => {
             const [name, category] = key.split('|');
             const tagElement = document.createElement('div');
             tagElement.classList.add('tag');
             tagElement.dataset.category = category;
 
-            // 添加分类名称和记录统计数
-            const tagText = document.createTextNode(`${name} (${data.content[key].length})`);
-            tagElement.appendChild(tagText);
+            // 修复：显示标签名称(name)而不是分类(category)，并显示数量
+            tagElement.textContent = `${name} (${data.content[key].length})`;
 
             tagElement.addEventListener('click', () => {
                 // 清空搜索条件
@@ -596,7 +687,7 @@ function updateFloatingTags() {
                     loadingOverlay.style.display = 'none';
                     contentContainer.removeChild(loadingOverlay);
                     filterContentByCategory(category);
-                }, 1000);
+                }, 300); // 缩短为300ms
 
                 // 同时在 tags-container 中也设置 active 状态
                 const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
@@ -604,6 +695,7 @@ function updateFloatingTags() {
                     tagsContainerTag.classList.add('active');
                 }
             });
+            
             floatingTagsContainer.appendChild(tagElement);
 
             // 如果当前筛选的内容与该标签的 category 相同，则添加 active 类
@@ -634,4 +726,94 @@ function hideLoadingAnimation() {
         loadingOverlay.style.display = 'none';
         contentContainer.removeChild(loadingOverlay);
     }
+}
+
+
+// 剩余计数器功能
+function initRemainingCounter() {
+    const counter = document.getElementById('remaining-counter');
+    
+    // 计算总可见条目数
+    function calculateTotalVisible() {
+        const visibleCategories = Array.from(document.querySelectorAll('.category')).filter(cat => 
+            cat.style.display !== 'none'
+        );
+        return visibleCategories.reduce((total, category) => {
+            const visibleItems = Array.from(category.querySelectorAll('li')).filter(li => 
+                li.style.display !== 'none'
+            );
+            return total + visibleItems.length;
+        }, 0);
+    }
+    
+    // 计算当前屏幕底部的条目索引
+    function findCurrentBottomItem() {
+        const viewportBottom = window.innerHeight + window.scrollY;
+        let passedItems = 0;
+        let foundBottom = false;
+        
+        document.querySelectorAll('.category').forEach(category => {
+            if (category.style.display === 'none') return;
+            
+            category.querySelectorAll('li').forEach(item => {
+                if (item.style.display === 'none') return;
+                if (foundBottom) return;
+                
+                const rect = item.getBoundingClientRect();
+                const itemBottom = rect.bottom + window.scrollY;
+                
+                if (itemBottom <= viewportBottom) {
+                    passedItems++;
+                } else {
+                    foundBottom = true;
+                }
+            });
+        });
+        
+        return passedItems;
+    }
+    
+    // 更新计数器显示
+    function updateCounter() {
+        const total = calculateTotalVisible();
+        const passed = findCurrentBottomItem();
+        const remaining = total - passed;
+        
+        if (total > 0) {
+            document.getElementById('remaining-count').textContent = `剩余${remaining}`;
+            document.getElementById('total-count').textContent = total;
+            counter.style.display = 'block';
+        } else {
+            counter.style.display = 'none';
+        }
+    }
+    
+    // 初始更新
+    updateCounter();
+    
+    // 添加事件监听
+    window.addEventListener('scroll', updateCounter);
+    window.addEventListener('resize', updateCounter);
+    
+    // 包装原有筛选函数以自动更新计数器
+    const originalFunctions = {
+        filterContent: filterContent,
+        filterContentByCategory: filterContentByCategory,
+        resetDisplay: resetDisplay
+    };
+    
+    filterContent = function(keyword) {
+        originalFunctions.filterContent(keyword);
+        setTimeout(updateCounter, 100);
+    };
+    
+    filterContentByCategory = function(category) {
+        originalFunctions.filterContentByCategory(category);
+        setTimeout(updateCounter, 100);
+    };
+    
+    resetDisplay = function() {
+        originalFunctions.resetDisplay();
+        setTimeout(updateCounter, 100);
+    };
 }

@@ -346,7 +346,7 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 245px;
+    bottom: 80px;
     right: 20px;
     background-color: #fff;
     color: #c10006;
@@ -354,10 +354,12 @@ body {
     border-radius: 5px;
     border: 1px solid #e7e7e7;
     cursor: pointer;
-    font-size: 25px; line-height:25px;
-    width: 35px;
-    height: 35px;
+    font-size: 25px;
+    line-height: 18px;
+    width: 36px;
+    height: 30px;
     font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index:100;
 }
 
@@ -462,10 +464,10 @@ body {
 .floating-tags .tag {
     padding: 6px 8px;
     margin-right: 8px;
-    background-color: #6f6f6f;
+    background-color: #4b4a4a;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #898989;
+    border: 1px solid #6d6c6c;
     letter-spacing: 1px;
     color: #ffffff;
     font-size: 15px;
@@ -531,4 +533,29 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+/* 剩余计数器样式 - 通过JS动态创建 */
+#remaining-counter {
+    position: fixed;
+    bottom: 80px;
+    right: 65px;
+    background-color: #ffffffe8;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#remaining-counter #remaining-count {
+    /* color: #aa0000; */
+    /* font-weight: bold; */
+}
+
+#remaining-counter #total-count {
+    color: #575757;
 }
