@@ -19,8 +19,12 @@ function renderPage() {
         const [name, category] = key.split('|');
         const tagElement = document.createElement('div');
         tagElement.classList.add('tag');
-        tagElement.textContent = name;
         tagElement.dataset.category = category;
+
+        // 添加分类名称和记录统计数
+        const tagText = document.createTextNode(`${name} (${data.content[key].length})`);
+        tagElement.appendChild(tagText);
+
         tagElement.addEventListener('click', () => {
             // 清空搜索条件
             document.getElementById('search-input').value = '';
@@ -37,11 +41,27 @@ function renderPage() {
                 behavior: 'smooth'
             });
 
-            // 筛选当前标签的内容
-            filterContentByCategory(tag.dataset.category);
+            // 创建加载动画
+            const contentContainer = document.getElementById('content-container');
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.classList.add('loading-overlay');
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.classList.add('loading-spinner');
+            loadingOverlay.appendChild(loadingSpinner);
+            contentContainer.appendChild(loadingOverlay);
+
+            // 显示加载动画
+            loadingOverlay.style.display = 'flex';
+
+            // 1.5秒后隐藏加载动画并显示内容
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+                contentContainer.removeChild(loadingOverlay);
+                filterContentByCategory(category);
+            }, 300);
 
             // 同时在 floating-tags-container 中也设置 active 状态
-            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${tag.dataset.category}"]`);
+            const floatingTagsContainerTag = document.querySelector(`#floating-tags-container .tag[data-category="${category}"]`);
             if (floatingTagsContainerTag) {
                 floatingTagsContainerTag.classList.add('active');
             }
@@ -84,7 +104,7 @@ function renderPage() {
                 loadingOverlay.style.display = 'none';
                 contentContainer.removeChild(loadingOverlay);
                 filterContent(keyword);
-            }, 350);
+            }, 300);
 
             // 显示清空按钮
             document.getElementById('clear-search').style.display = 'inline';
@@ -101,7 +121,8 @@ function renderPage() {
         categoryElement.dataset.category = category;
 
         const categoryTitle = document.createElement('h3');
-        categoryTitle.textContent = category;
+        // 使用 data-category 的值来显示 h3 标签的内容
+        categoryTitle.textContent = `${category} (${data.content[categoryKey].length}条记录)`;
         categoryElement.appendChild(categoryTitle);
 
         const categoryList = document.createElement('ul');
@@ -177,7 +198,7 @@ function renderPage() {
                     loadingOverlay.style.display = 'none';
                     contentContainer.removeChild(loadingOverlay);
                     filterContent(keyword);
-                }, 350);
+                }, 300);
 
                 // 显示清空按钮
                 document.getElementById('clear-search').style.display = 'inline';
