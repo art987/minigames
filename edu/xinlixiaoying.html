@@ -11,8 +11,13 @@
     <script src="data-xinlixiaoying.js" defer></script>
     <script src="script.js" defer></script>
 </head>
-
-<body style="   background: url(biaoyangbg.png) no-repeat top center;">
+<style> 
+body{background: url(biaoyangbg.png) no-repeat top center;}
+#content-container .category ul li c{max-height: 200px;}
+.navbar{ background-color:#4596ae;    border-bottom: 3px solid #397e9c;}
+.logo{ color:#fff;}
+.menu-button{ color:#fff;}
+</style>
  <div id="navbar-container"></div>
 
     <div class="title">
@@ -36,7 +41,7 @@
 	</div>
 	<div id="floating-tags-container" class="floating-tags"></div>
     <div class="content" id="content-container"></div>
-	<style> #content-container .category ul li c{max-height: 200px;}</style>
+	
     <div id="keyword-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="close-modal">&times;</span>

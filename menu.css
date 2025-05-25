@@ -10,16 +10,17 @@ body{ margin:0;padding:0;}
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #ffffffad;
+            background-color: #282828d4;
             color: white;
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #ededed;
+            border-bottom: 2px solid #8b888830;
             align-items: center;
             padding: 0;
             box-sizing: border-box;
             z-index: 10000;
             transition: top 0.3s;
+            box-shadow: 0 0 20px #0000004f;
         }
         .navbar.hidden {
             top: -50px;
@@ -27,14 +28,14 @@ body{ margin:0;padding:0;}
         .logo {
             font-size: 14px;
             font-weight: bold;
-            color: #000;
+            color: #ffffff;
             margin-left: 19px;
         }
         .menu-button {
             cursor: pointer;
             display: flex;
             align-items: center;
-            color: #000000;
+            color: #ffffff;
             height: 37px;
             margin-top: 0px;
             z-index: 2999;
