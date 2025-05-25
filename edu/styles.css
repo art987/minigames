@@ -346,13 +346,13 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 80px;
+    bottom: 52px;
     right: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     color: #c10006;
     padding: 5px 0px;
     border-radius: 5px;
-    border: 1px solid #e7e7e7;
+    border: 1px solid #c27b7b;
     cursor: pointer;
     font-size: 25px;
     line-height: 18px;
@@ -444,22 +444,30 @@ body {
 
 /*浮动的标签*/
 
-
 .floating-tags {
-    display: none; /* 默认隐藏 */
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 36px;
+    height: 23px;
     width: 100%;
     background-color: #252525;
     border-top: 1px solid #ededed;
-    padding: 14px 12px;
+    padding: 11px 12px;
     box-shadow: 0 -2px 3px #c7c7c721;
-    z-index: 990; /* 确保在最顶层 */
-    overflow-x: auto; /* 允许水平滚动 */
-    white-space: nowrap; /* 防止换行 */
+    z-index: 990;
+    overflow-x: auto;
+    white-space: nowrap;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(100%);
+    opacity: 0;
 }
+
+.floating-tags.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 
 .floating-tags .tag {
     padding: 6px 8px;
@@ -539,14 +547,15 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: 80px;
-    right: 65px;
+    bottom: 12px;
+    right: 19px;
     background-color: #ffffffe8;
     border: 1px solid #e7e7e7;
     border-radius: 5px;
     padding: 5px 10px;
-    font-size: 14px;
-    z-index: 999;
+    font-size: 12px;
+    letter-spacing: 1px;
+    z-index: 983;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: none;
 }

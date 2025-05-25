@@ -629,84 +629,118 @@ function showAllText(sentence) {
     document.body.appendChild(modal);
 }
 
+// 在 script.js 文件中找到 updateFloatingTags 函数，替换为以下代码：
+
+let lastScrollTop = 0;
+let isScrollingDown = false;
+let scrollTimeout;
+
 function updateFloatingTags() {
     const floatingTagsContainer = document.getElementById('floating-tags-container');
     const contentContainer = document.getElementById('content-container');
-    const threshold = window.innerHeight * 0.7;
-
-    // 检查当前筛选的内容
-    let currentActiveCategory = null;
-    const activeTag = document.querySelector('.tag.active');
-    if (activeTag) {
-        currentActiveCategory = activeTag.dataset.category;
-    }
-
-    if (window.scrollY > threshold) {
-        floatingTagsContainer.style.display = 'block';
-        floatingTagsContainer.innerHTML = '';
+    const threshold = window.innerHeight * .5; // 50%屏幕高度阈值
+    
+    // 获取当前滚动位置
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // 判断滚动方向
+    isScrollingDown = scrollTop > lastScrollTop;
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    
+    // 清除之前的定时器
+    clearTimeout(scrollTimeout);
+    
+    // 如果正在向下滚动且超过阈值，隐藏浮动标签
+    if (isScrollingDown && scrollTop > threshold) {
+        floatingTagsContainer.style.transform = 'translateY(100%)';
+        floatingTagsContainer.style.opacity = '0';
         
-        // 正确渲染浮动标签
-        Object.keys(data.content).forEach(key => {
-            const [name, category] = key.split('|');
-            const tagElement = document.createElement('div');
-            tagElement.classList.add('tag');
-            tagElement.dataset.category = category;
-
-            // 修复：显示标签名称(name)而不是分类(category)，并显示数量
-            tagElement.textContent = `${name} (${data.content[key].length})`;
-
-            tagElement.addEventListener('click', () => {
-                // 清空搜索条件
-                document.getElementById('search-input').value = '';
-                // 清除所有标签和关键词的 active 类
-                document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
-                // 添加 active 类到当前标签
-                tagElement.classList.add('active');
-                // 清除之前的筛选结果，显示全部内容
-                resetDisplay();
-
-                // 滚动到距离顶部180像素的位置
-                window.scrollTo({
-                    top: 180,
-                    behavior: 'smooth'
-                });
-
-                // 创建加载动画
-                const loadingOverlay = document.createElement('div');
-                loadingOverlay.classList.add('loading-overlay');
-                const loadingSpinner = document.createElement('div');
-                loadingSpinner.classList.add('loading-spinner');
-                loadingOverlay.appendChild(loadingSpinner);
-                contentContainer.appendChild(loadingOverlay);
-
-                // 显示加载动画
-                loadingOverlay.style.display = 'flex';
-
-                // 1.5秒后隐藏加载动画并显示内容
-                setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                    contentContainer.removeChild(loadingOverlay);
-                    filterContentByCategory(category);
-                }, 300); // 缩短为300ms
-
-                // 同时在 tags-container 中也设置 active 状态
-                const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
-                if (tagsContainerTag) {
-                    tagsContainerTag.classList.add('active');
-                }
-            });
+        // 延迟隐藏以确保动画完成
+        scrollTimeout = setTimeout(() => {
+            floatingTagsContainer.style.display = 'none';
+        }, 300);
+    } 
+    // 如果向上滚动或未达到阈值，显示浮动标签
+    else {
+        // 如果标签栏尚未创建，则创建它
+        if (floatingTagsContainer.children.length === 0) {
+            floatingTagsContainer.innerHTML = '';
             
-            floatingTagsContainer.appendChild(tagElement);
+            // 正确渲染浮动标签
+            Object.keys(data.content).forEach(key => {
+                const [name, category] = key.split('|');
+                const tagElement = document.createElement('div');
+                tagElement.classList.add('tag');
+                tagElement.dataset.category = category;
+                tagElement.textContent = `${name} (${data.content[key].length})`;
+                
+                tagElement.addEventListener('click', () => {
+                    // 清空搜索条件
+                    document.getElementById('search-input').value = '';
+                    // 清除所有标签和关键词的 active 类
+                    document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+                    // 添加 active 类到当前标签
+                    tagElement.classList.add('active');
+                    // 清除之前的筛选结果，显示全部内容
+                    resetDisplay();
 
-            // 如果当前筛选的内容与该标签的 category 相同，则添加 active 类
-            if (currentActiveCategory === category) {
-                tagElement.classList.add('active');
-            }
-        });
-    } else {
-        floatingTagsContainer.style.display = 'none';
+                    // 滚动到距离顶部180像素的位置
+                    window.scrollTo({
+                        top: 180,
+                        behavior: 'smooth'
+                    });
+
+                    // 创建加载动画
+                    const loadingOverlay = document.createElement('div');
+                    loadingOverlay.classList.add('loading-overlay');
+                    const loadingSpinner = document.createElement('div');
+                    loadingSpinner.classList.add('loading-spinner');
+                    loadingOverlay.appendChild(loadingSpinner);
+                    contentContainer.appendChild(loadingOverlay);
+
+                    // 显示加载动画
+                    loadingOverlay.style.display = 'flex';
+
+                    // 1.5秒后隐藏加载动画并显示内容
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        contentContainer.removeChild(loadingOverlay);
+                        filterContentByCategory(category);
+                    }, 300);
+
+                    // 同时在 tags-container 中也设置 active 状态
+                    const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
+                    if (tagsContainerTag) {
+                        tagsContainerTag.classList.add('active');
+                    }
+                });
+                
+                floatingTagsContainer.appendChild(tagElement);
+            });
+        }
+        
+        // 显示浮动标签栏并添加动画
+        floatingTagsContainer.style.display = 'block';
+        setTimeout(() => {
+            floatingTagsContainer.style.transform = 'translateY(0)';
+            floatingTagsContainer.style.opacity = '1';
+        }, 10);
     }
 }
+
+// 确保在 DOMContentLoaded 事件监听器中已经添加了滚动监听
+document.addEventListener('DOMContentLoaded', () => {
+    renderPage();
+    initSearch();
+    initBackToTop();
+    initAutoScroll();
+    initRemainingCounter();
+    
+    // 监听滚动事件
+    window.addEventListener('scroll', updateFloatingTags);
+});
+
+
 
 function showLoadingAnimation() {
     const contentContainer = document.getElementById('content-container');
