@@ -558,8 +558,12 @@ function updateFloatingTags() {
             const [name, category] = key.split('|');
             const tagElement = document.createElement('div');
             tagElement.classList.add('tag');
-            tagElement.textContent = name;
             tagElement.dataset.category = category;
+
+            // 添加分类名称和记录统计数
+            const tagText = document.createTextNode(`${name} (${data.content[key].length})`);
+            tagElement.appendChild(tagText);
+
             tagElement.addEventListener('click', () => {
                 // 清空搜索条件
                 document.getElementById('search-input').value = '';
