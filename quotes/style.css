@@ -36,9 +36,9 @@
             max-width: 600px;
             width: 90%;
             height: 300px;
-            padding: 40px;
+            padding: 16px 20px 40px;
             background: rgba(255, 255, 255, 0.7); /* 半透明背景 */
-            box-shadow: 0 4px 8px rgb(0 0 0 / 23%);
+            box-shadow: 0 4px 8px rgb(0 0 0 / 26%);
             border-radius: 10px;
             margin: -78px 20px 20px;
             text-align: left;
@@ -47,17 +47,20 @@
             flex-direction: column;
         }
         .title {
-            font-size: 15px;
-            text-align: center;
+            font-size: 14px;
+            line-height: 27px;
             margin-bottom: 20px;
+            border-bottom: 1px solid #28282830;
         }
         .quote-author {
-            font-size: 1.4em; color:#000000; 
+            font-size: 1.4em;
+            color:#000000;
             font-weight: bold;
             line-height: 1.8;
             white-space: pre-wrap;
+            padding: 0 15px;
             word-wrap: break-word;
-            text-indent: 20px;
+            text-indent: 27px;
             opacity: 1;
             display: inline;
             transition: opacity 2s ease-in-out;
@@ -81,14 +84,18 @@
         /* 音量控制按钮 */
         .sound-toggle-btn {
             /* transform: translateX(-50%); */
-            padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
+            padding: 7px 11px;
+            background-color: rgb(0 0 0 / 0%);
+            color: #333333;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 20px;
+            font-size: 12px;
             cursor: pointer;
+            /* border: 1px solid #abababd1; */
             z-index: 10;
+            position: fixed;
+            top: 106px;
+            right: 23px;
         }
 		
 		
@@ -103,19 +110,21 @@
 
 /* 主题按钮样式 */
 .theme-btn {
-    padding: 10px 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
+    padding: 6px 20px;
+    background-color: rgb(255 255 255 / 50%);
+    color: #a90909;
+    border: 1px solid #fff;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
+    position: fixed;
+    top: 409px;
 }
 
 /* 主题弹窗样式 */
 .theme-modal {
     position: fixed;
-    top: 331px;
+    top: 320px;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 83%;
@@ -192,3 +201,60 @@
 }	
 		
 		
+/* 音乐按钮浮动效果 */
+.sound-toggle-btn b {
+    display: inline-block;
+    font-size: 26px;
+    color: #d72d2d;
+    animation: float 1s ease-in-out infinite alternate;
+    padding-right: 4px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-3px);
+    }
+}
+
+
+/* 在.quote-controls样式中添加以下内容 */
+.quote-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: absolute;
+    top: 225px;
+    padding: 0 0px;
+    width: calc(100% - 38px); /* 新增：确保按钮容器宽度适应 */
+}
+
+/* 调整按钮宽度以适应新增的暂停按钮 */
+.quote-controls button {
+    padding: 5px 4px;
+    background: rgb(255 255 255 / 52%);
+    border: 1px solid rgb(255 255 255 / 80%);
+    border-radius: 4px;
+    color: #292929;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.3s;
+    width: 57px; /* 修改：调整按钮宽度 */
+    flex-grow: 1; /* 新增：让按钮自动填充空间 */
+}
+
+.quote-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+.quote-controls #copy-btn {
+    /* transition: color 0.3s; */
+}
+
+.quote-controls #copy-btn.copied {
+    color: #4CAF50; /* 绿色表示成功 */
+}

@@ -23,188 +23,27 @@
         Your browser does not support the audio element.
     </audio>
 
-    <div class="container">
+    <div class="container" id="quote-container">
         <div class="title" id="title"></div>
         <div class="quote-author" id="quote-author"></div>
     </div>
+	
+	
 
     <!-- 替换原来的按钮部分 -->
 
 
-<div class="button-container">
+
     <button class="theme-btn" id="theme-btn">更多主题</button>
-    <button class="sound-toggle-btn" id="sound-toggle-btn">开启背景音乐</button>
-</div>
+    <button class="sound-toggle-btn" id="sound-toggle-btn"><b>♪</b>开启背景音乐</button>
 
-    <script src="quotedata.js"></script>
-    <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const seriesId = parseInt(urlParams.get('s'), 10) || 1; // 获取参数 s，默认值为 1
 
-    const data = quotedata[seriesId] || quotedata[1]; // 默认使用系列 1 的数据
+<script src="quotedata.js"></script>
 
-    // 设置标题
-    document.getElementById('title').textContent = data.title;
+<script src="script.js"></script>
 
-    const quoteAuthorElement = document.getElementById('quote-author');
-
-    // 设置背景
-    if (data.background.video) {
-        document.getElementById('background-video').src = data.background.video;
-        document.getElementById('background-video').style.display = 'block';
-    } else if (data.background.image) {
-        document.getElementById('background-image').src = data.background.image;
-        document.getElementById('background-image').style.display = 'block';
-    }
-
-    // 背景音乐控制
-    const musicElement = document.getElementById('background-music');
-    const audioSource = document.getElementById('audio-source');
-    const soundToggleBtn = document.getElementById('sound-toggle-btn');
-    let isMuted = true;
-
-    // 根据是否有背景音乐来决定是否播放
-    if (data.background.music) {
-        audioSource.src = data.background.music; // 设置背景音乐
-        soundToggleBtn.textContent = "开启背景音乐"; // 设置按钮文本为"开启背景音乐"
-        musicElement.load(); // 强制加载音频
-    } else {
-        musicElement.muted = true; // 没有背景音乐时静音
-        soundToggleBtn.textContent = "开启声音"; // 设置按钮文本为"开启声音"
-    }
-
-    // 音量控制按钮点击事件
-    soundToggleBtn.addEventListener('click', () => {
-        if (data.background.music) {
-            // 背景音乐
-            if (musicElement.paused) {
-                musicElement.play(); // 播放音乐
-                musicElement.muted = false; // 不静音
-                soundToggleBtn.textContent = "关闭背景音乐";
-            } else {
-                musicElement.pause(); // 停止播放音乐
-                soundToggleBtn.textContent = "开启背景音乐";
-            }
-        } else {
-            // 视频声音
-            isMuted = !isMuted;
-            document.getElementById('background-video').muted = isMuted;
-            soundToggleBtn.textContent = isMuted ? "开启声音" : "关闭声音";
-        }
-    });
-
-    let currentQuoteIndex = 0;
-
-    function typeText(text, element, callback) {
-        let i = 0;
-        element.innerHTML = '';
-
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text[i];
-                i++;
-                setTimeout(type, 200); // 减慢打字速度
-            } else if (callback) {
-                callback();
-            }
-        }
-
-        type();
-    }
-
-    function displayNextQuote() {
-        if (currentQuoteIndex >= data.quotes.length) {
-            currentQuoteIndex = 0; // 循环显示
-        }
-
-        const { text, author } = data.quotes[currentQuoteIndex];
-
-        // 显示名言和作者信息
-        typeText(text + " " + author, quoteAuthorElement, () => {
-            setTimeout(() => {
-                // 渐变隐去
-                setTimeout(() => {
-                    quoteAuthorElement.style.opacity = 0;
-                    setTimeout(() => {
-                        quoteAuthorElement.style.opacity = 1;
-                        currentQuoteIndex++;
-                        displayNextQuote();
-                    }, 1000); // 1秒渐隐效果
-                }, 4000); // 等待4秒后进行渐变隐去
-            }, 0);
-        });
-    }
-
-    displayNextQuote();
-
-    // 更多主题按钮功能
-    const themeBtn = document.getElementById('theme-btn');
-    
-    function createThemeModal() {
-        // 创建遮罩层
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-        
-        // 创建弹窗
-        const modal = document.createElement('div');
-        modal.className = 'theme-modal';
-        
-        // 弹窗内容
-        modal.innerHTML = `
-            <div class="theme-modal-header">
-                <h3>选择主题</h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <ul class="theme-list" id="theme-list"></ul>
-        `;
-        
-        // 添加到body
-        document.body.appendChild(overlay);
-        document.body.appendChild(modal);
-        
-        // 填充主题列表
-        const themeList = document.getElementById('theme-list');
-        for (const [id, data] of Object.entries(quotedata)) {
-            const li = document.createElement('li');
-            li.className = 'theme-item';
-            li.textContent = data.title;
-            li.dataset.id = id;
-            themeList.appendChild(li);
-            
-            // 点击主题项
-            li.addEventListener('click', () => {
-                // 更新URL参数并重新加载页面
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('s', id);
-                window.location.href = newUrl.toString();
-            });
-        }
-        
-        // 关闭按钮事件
-        const closeBtn = modal.querySelector('.close-btn');
-        closeBtn.addEventListener('click', () => {
-            modal.classList.add('closing');
-            overlay.style.animation = 'fadeOut 0.3s ease-out ';
-            
-            setTimeout(() => {
-                modal.remove();
-                overlay.remove();
-            }, 100);
-        });
-        
-        // 点击遮罩层也关闭
-        overlay.addEventListener('click', () => {
-            closeBtn.click();
-        });
-    }
-    
-    // 主题按钮点击事件
-    themeBtn.addEventListener('click', createThemeModal);
-
-   
-</script>
 	
-	 <script>
+<script>
         // 动态加载横栏条
         async function loadNavbar() {
             try {
