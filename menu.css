@@ -71,6 +71,7 @@ body{ margin:0;padding:0;}
             padding: 15px 10px; /* 增加高度 */
             border-bottom: 1px solid #ddd; /* 添加分隔线 */
         }
+		 .menu-item a{ color:#000;}
         .menu-item:last-child {
             border-bottom: none; /* 去掉最后一个菜单项的分隔线 */
         }

@@ -20,7 +20,8 @@ a {
 
 .right {
   float: right;
-  margin-top: -16px;
+  margin-top: -24px;
+  position: relative;
 }
 
 .clear {
@@ -107,7 +108,9 @@ a {
   opacity: 0.6;
   cursor: pointer;
   width: 25px;
+  font-size: 10px;
   height: 24px;
+  line-height: 11px;
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -164,20 +167,25 @@ a {
   margin-top: 1px;
   margin-bottom: 29px;
   padding: 0px 23px;
+  position: relative;
 }
 #player .ctrl .progress .timer {
   font-size: 12px;
   color: #ccc;
-  margin-top: 20px;
-  display: none;
-  /* margin-right: 9px; */
+  margin-top: 9px;
+  display: inline;
+  position: absolute;
+  left: 20px;
+  top: -22px;
+  padding: 0 4px;
 }
 #player .ctrl .progress .repeat, #player .ctrl .progress .shuffle {
   background-position: center bottom;
+
 }
 #player .ctrl .progress .repeat {
   background-image: url(images/repeat.png);
-  margin-right: -11px;
+  margin-right: -13px;
 }
 #player .ctrl .progress .repeat.once, #player .ctrl .progress .repeat.all {
   opacity: 1;
@@ -194,13 +202,54 @@ a {
 }
 #player .ctrl .progress .shuffle {
   background-image: url(images/shuffle.png);
-
+  background-position: 21px bottom;
 }
+
+/* 重复按钮文字提示 */
+.repeat.icon::after {
+  content: "歌单循环";
+  font-size: 10px;
+  position: absolute;
+  bottom: -11px;
+  left: 21px;
+  transform: translateX(-50%);
+  color: #ccc;
+  white-space: nowrap;
+}
+
+.repeat.icon.once::after {
+  content: "单曲循环";
+  bottom: -14px;
+}
+
+.repeat.icon.all::after {
+  content: "歌单循环";
+}
+
+/* 随机按钮文字提示 */
+.shuffle.icon::after {
+  content: "顺序播放";
+  font-size: 10px;
+  position: absolute;
+  bottom: -11px;
+  left: 65px;
+  transform: translateX(-50%);
+  color: #ccc;
+  white-space: nowrap;
+}
+
+.shuffle.icon.enable::after {
+  content: "随机播放";
+}
+
+
+
 
 .slider {
   background: rgba(0, 0, 0, 0.3);
   height: 5px;
   width: 76%;
+  margin-top: 8px;
   position: relative;
   cursor: pointer;
   float: left;
@@ -273,7 +322,7 @@ a {
   -o-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   
-max-height: calc(100vh - 370px); /* 限制高度为视口高度减去370px */
+max-height: calc(100vh - 480px); /* 限制高度为视口高度减去370px */
   overflow-y: auto; /* 启用垂直滚动 */
   scroll-behavior: smooth; /* 平滑滚动 */
   overscroll-behavior: contain; /* 防止滚动传播到父元素 */
@@ -346,7 +395,7 @@ footer a:hover {
 }
 .play-button {
   background-color: #4CAF50; /* 绿色播放按钮 */
-  color: #42ffc4; 
+  color: #fff; 
   text-indent: 0;
     font-size: 17px;
     line-height: 21px;
@@ -354,14 +403,14 @@ footer a:hover {
     background: #02020285;
     border: 3px solid #fff;
     padding: 10px 20px;
-    width: 80px;
+    width: 80px;  display: block;
     height: 80px;opacity: 1; font-weight:bold;
 	animation: breathing 2s ease-in-out infinite;
 }
 
 .pause-button {
    /* 红色暂停按钮 */
-   color: white;
+   color: white; display:none;
    text-indent: -14px;
    font-size: 29px;
    line-height: 11px;
@@ -377,7 +426,7 @@ footer a:hover {
 #playButton {
   border-radius: 60px;
   cursor: pointer;text-shadow: 0 0 31px #ffffff;
-  display: block;
+
   transition: background-color 0.3s;opacity: 1;
  
   
