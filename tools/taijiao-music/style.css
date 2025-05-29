@@ -28,7 +28,7 @@ a {
   clear: both;
 }
 
-
+.sr-only{ display:none;}
 
 
 #background {

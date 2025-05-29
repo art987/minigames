@@ -80,10 +80,7 @@
         }
         /* 音量控制按钮 */
         .sound-toggle-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            /* transform: translateX(-50%); */
             padding: 10px 20px;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
@@ -93,3 +90,105 @@
             cursor: pointer;
             z-index: 10;
         }
+		
+		
+		
+	/* 按钮容器样式 */
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    gap: 10px;
+    z-index: 10;
+}
+
+/* 主题按钮样式 */
+.theme-btn {
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 主题弹窗样式 */
+.theme-modal {
+    position: fixed;
+    top: 331px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 83%;
+    max-width: 500px;
+    height: 399px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 11px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.theme-modal.closing {
+    animation: shrinkToButton 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes shrinkToButton {
+    to {
+        transform: translate(calc(-50% + 50px), calc(-50% + 100px)) scale(0);
+        opacity: 0;
+    }
+}
+
+.theme-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.theme-modal-header h3{padding:0;margin:0;line-height: 20px;font-size: 14px;text-indent: 10px;}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 41px;
+    cursor: pointer;
+    color: #c50303;
+    line-height: 30px;
+}
+
+.theme-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.theme-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.theme-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}	
+		
+		

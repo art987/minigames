@@ -1,17 +1,113 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>精选经典胎教音乐</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://peacelove.top/menu.css">
-<script src="jquery-1.7.2.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- 主要SEO优化部分 -->
+    <title>精选经典胎教音乐 - 促进胎儿发育的优质音乐合集</title>
+    <meta name="description" content="精选最适合胎教的经典音乐合集，包括莫扎特、巴赫等大师作品，科学证明能促进胎儿大脑发育，帮助孕妇放松心情。">
+    <meta name="keywords" content="胎教音乐,孕妇音乐,胎儿发育,莫扎特效,古典音乐,放松音乐">
+    
+    <!-- 开放图谱和Twitter卡片 -->
+    <meta property="og:title" content="精选经典胎教音乐 - 促进胎儿发育的优质音乐合集">
+    <meta property="og:description" content="精选最适合胎教的经典音乐合集，包括莫扎特、巴赫等大师作品，科学证明能促进胎儿大脑发育，帮助孕妇放松心情。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://peacelove.top/tools/taijiao-music/index.html">
+    <meta property="og:image" content="www.peacelove.top/tools/taijiao-music/img/mzt.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="精选经典胎教音乐 - 促进胎儿发育的优质音乐合集">
+    <meta name="twitter:description" content="精选最适合胎教的经典音乐合集，包括莫扎特、巴赫等大师作品，科学证明能促进胎儿大脑发育，帮助孕妇放松心情。">
+    <meta name="twitter:image" content="www.peacelove.top/tools/taijiao-music/img/mzt.jpg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicPlaylist",
+      "name": "精选经典胎教音乐",
+      "description": "精选最适合胎教的经典音乐合集，科学证明能促进胎儿大脑发育",
+      "author": {
+        "@type": "Organization",
+        "name": "Your Website"
+      },
+      "image": "www.peacelove.top/tools/taijiao-music/img/mzt.jpg",
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": "https://peacelove.top/tools/taijiao-music/index.html"
+      }
+    }
+    </script>
+    
+    <!-- 网站图标 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://www.peacelove.top//" />
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://peacelove.top/menu.css">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="jquery-1.7.2.min.js" as="script">
+    <link rel="preload" href="script.js" as="script">
 </head>
 <body>
- <script>
+    <header id="navbar-container" role="banner"></header>
+    
+    <main role="main">
+        <section aria-label="胎教音乐播放器">
+            <div class="start">
+                <button id="playButton" class="play-button" aria-label="播放/暂停">▸</button>
+            </div>
+
+            <div id="player" itemscope itemtype="https://schema.org/MusicPlaylist">
+                <div class="cover" itemprop="image"></div>
+                <div class="ctrl">
+                    <div class="tag">
+                        <strong itemprop="name">Title</strong>
+                        <span class="artist" itemprop="byArtist">Artist</span>
+                        <span class="album" itemprop="inAlbum"></span>
+                    </div>
+                    <div class="control">
+                        <div class="left">
+                            <div class="rewind icon" aria-label="上一首"></div>
+                            <div class="playback icon" aria-label="播放/暂停"></div>
+                            <div class="fastforward icon" aria-label="下一首"></div>
+                        </div>
+                        <div class="volume right">
+                            <div class="mute icon left" aria-label="静音/取消静音"></div>
+                            <div class="slider left">
+                                <div class="pace"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="slider">
+                            <div class="loaded"></div>
+                            <div class="pace"></div>
+                        </div>
+                        <div class="timer left">0:00</div>
+                        <div class="right">
+                            <div class="repeat icon" aria-label="重复播放"></div>
+                            <div class="shuffle icon" aria-label="随机播放"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="sr-only">精选胎教音乐列表</h1>
+            <ul id="playlist" role="list" aria-label="胎教音乐列表"></ul>
+        </section>
+    </main>
+
+    <script src="jquery-1.7.2.min.js"></script>
+    <script src="jquery-ui-1.8.17.custom.min.js"></script>
+    
+    <script>
         // 动态加载横栏条
         async function loadNavbar() {
             try {
@@ -45,49 +141,23 @@
         // 确保 DOM 完全加载后再调用 loadNavbar
         document.addEventListener('DOMContentLoaded', () => {
             loadNavbar();
+            
+            // 延迟加载非关键脚本
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = 'script.js';
+                document.body.appendChild(script);
+            }, 1000);
         });
     </script>
-<div id="navbar-container"></div> 
-<div class="start"><button id="playButton" class="play-button">▸</button></div>
-
-<div id="player">
-	<div class="cover"></div>
-	<div class="ctrl">
-		<div class="tag">
-			<strong>Title</strong>
-			<span class="artist">Artist</span>
-			<span class="album"></span>
-		</div>
-		<div class="control">
-			<div class="left">
-				<div class="rewind icon"></div>
-				<div class="playback icon"></div>
-				<div class="fastforward icon"></div>
-			</div>
-			<div class="volume right">
-				<div class="mute icon left"></div>
-				<div class="slider left">
-					<div class="pace"></div>
-				</div>
-			</div>
-		</div>
-		<div class="progress">
-			<div class="slider">
-				<div class="loaded"></div>
-				<div class="pace"></div>
-			</div>
-			<div class="timer left">0:00</div>
-			<div class="right">
-				<div class="repeat icon"></div>
-				<div class="shuffle icon"></div>
-			</div>
-		</div>
-	</div>
-</div>
-<ul id="playlist"></ul>
-
-<script src="jquery-ui-1.8.17.custom.min.js"></script>
-<script src="script.js"></script>
- 
+    
+    <!-- 延迟加载的Google Analytics（示例） -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
 </body>
 </html>
