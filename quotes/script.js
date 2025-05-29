@@ -62,8 +62,51 @@ function initPage() {
         }
     });
 
+    // 添加计数器
+    const counterElement = document.createElement('div');
+    counterElement.className = 'quote-counter';
+    counterElement.id = 'quote-counter';
+    document.getElementById('quote-container').appendChild(counterElement);
+    
+    // 更新计数器
+    updateCounter();
+
+    // 添加主题切换按钮事件
+    document.getElementById('prev-theme-btn').addEventListener('click', () => {
+        const currentSeriesId = parseInt(Object.keys(quotedata).find(key => quotedata[key] === currentData));
+        const prevSeriesId = currentSeriesId - 1;
+        
+        if (quotedata[prevSeriesId]) {
+            loadThemeData(prevSeriesId);
+        } else {
+            // 如果没有上一主题，跳到最后一个主题
+            const lastSeriesId = Math.max(...Object.keys(quotedata).map(Number));
+            loadThemeData(lastSeriesId);
+        }
+    });
+    
+    document.getElementById('next-theme-btn').addEventListener('click', () => {
+        const currentSeriesId = parseInt(Object.keys(quotedata).find(key => quotedata[key] === currentData));
+        const nextSeriesId = currentSeriesId + 1;
+        
+        if (quotedata[nextSeriesId]) {
+            loadThemeData(nextSeriesId);
+        } else {
+            // 如果没有下一主题，跳到第一个主题
+            loadThemeData(1);
+        }
+    });
+
     // 添加控制按钮
     addControlButtons();
+}
+
+// 更新计数器
+function updateCounter() {
+    const counterElement = document.getElementById('quote-counter');
+    if (counterElement) {
+        counterElement.textContent = `(${currentQuoteIndex + 1}/${currentData.quotes.length})`;
+    }
 }
 
 function addControlButtons() {
@@ -77,10 +120,10 @@ function addControlButtons() {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'quote-controls';
     buttonContainer.innerHTML = `
-        <button id="prev-btn">上一句</button>
-        <button id="pause-btn">暂停播放</button>
-        <button id="copy-btn">复制句子</button>
-        <button id="next-btn">下一句</button>
+        <button id="prev-btn">➣</button>
+        <button id="pause-btn">▌▌</button>
+        <button id="copy-btn">复制</button>
+        <button id="next-btn">➣</button>
     `;
     
     quoteContainer.appendChild(buttonContainer);
@@ -97,7 +140,7 @@ function addControlButtons() {
     const pauseBtn = document.getElementById('pause-btn');
     pauseBtn.addEventListener('click', () => {
         isAutoPlaying = !isAutoPlaying;
-        pauseBtn.textContent = isAutoPlaying ? "暂停播放" : "继续播放";
+        pauseBtn.textContent = isAutoPlaying ? "▌▌" : "▶";
         
         if (isAutoPlaying) {
             // 如果恢复自动播放，立即显示下一句
@@ -171,6 +214,9 @@ function displayCurrentQuote() {
     // 打字效果，200ms是每个字符的间隔时间（可修改）
     typeText(text + " " + author, quoteAuthorElement);
     
+    // 更新计数器
+    updateCounter();
+    
     // 如果是自动播放状态，设置7秒后显示下一句（7000是可修改的停顿时间）
     if (isAutoPlaying) {
         if (autoPlayTimeout) {
@@ -185,7 +231,7 @@ function displayCurrentQuote() {
                 // 如果是最后一句，尝试切换到下一组
                 trySwitchToNextSeries();
             }
-        }, 7000);
+        }, 10000);
     }
 }
 
@@ -278,7 +324,7 @@ function createThemeModal() {
     
     modal.innerHTML = `
         <div class="theme-modal-header">
-            <h3>选择主题</h3>
+            <h3>选择要播放的句子系列</h3>
             <button class="close-btn">&times;</button>
         </div>
         <ul class="theme-list" id="theme-list"></ul>
@@ -298,6 +344,9 @@ function createThemeModal() {
         li.addEventListener('click', () => {
             loadThemeData(id);
             
+			
+			
+			
             modal.classList.add('closing');
             overlay.style.animation = 'fadeOut 0.3s ease-out';
             
