@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>精选经典胎教音乐</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://peacelove.top/menu.css">
+<script src="jquery-1.7.2.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+ <script>
+        // 动态加载横栏条
+        async function loadNavbar() {
+            try {
+                const response = await fetch('https://peacelove.top/menu.html');
+                const navbarHtml = await response.text();
+
+                // 提取 HTML 中的脚本内容
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(navbarHtml, 'text/html');
+                const scripts = doc.querySelectorAll('script');
+                const scriptContent = [];
+                scripts.forEach(script => {
+                    scriptContent.push(script.textContent);
+                    script.remove(); // 移除原脚本
+                });
+
+                // 将 HTML 插入到页面中
+                document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+
+                // 动态创建并执行脚本
+                scriptContent.forEach(content => {
+                    const script = document.createElement('script');
+                    script.textContent = content;
+                    document.body.appendChild(script);
+                });
+            } catch (error) {
+                console.error('加载横栏条时出错：', error);
+            }
+        }
+
+        // 确保 DOM 完全加载后再调用 loadNavbar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNavbar();
+        });
+    </script>
+<div id="navbar-container"></div> 
+<div class="start"><button id="playButton" class="play-button">▸</button></div>
+
+<div id="player">
+	<div class="cover"></div>
+	<div class="ctrl">
+		<div class="tag">
+			<strong>Title</strong>
+			<span class="artist">Artist</span>
+			<span class="album"></span>
+		</div>
+		<div class="control">
+			<div class="left">
+				<div class="rewind icon"></div>
+				<div class="playback icon"></div>
+				<div class="fastforward icon"></div>
+			</div>
+			<div class="volume right">
+				<div class="mute icon left"></div>
+				<div class="slider left">
+					<div class="pace"></div>
+				</div>
+			</div>
+		</div>
+		<div class="progress">
+			<div class="slider">
+				<div class="loaded"></div>
+				<div class="pace"></div>
+			</div>
+			<div class="timer left">0:00</div>
+			<div class="right">
+				<div class="repeat icon"></div>
+				<div class="shuffle icon"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<ul id="playlist"></ul>
+
+<script src="jquery-ui-1.8.17.custom.min.js"></script>
+<script src="script.js"></script>
+ 
+</body>
+</html>

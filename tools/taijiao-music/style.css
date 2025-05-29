@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14px "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  background: #333;
+ 
+}
+
+a {
+  outline: none;
+  text-decoration: none;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+  margin-top: -16px;
+}
+
+.clear {
+  clear: both;
+}
+
+
+
+
+#background {
+
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#player {
+  width: 100%;
+  color: #fff;
+  /* height: 130px; */
+  margin: 51px auto 27px;
+}
+#player .cover {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  overflow: hidden;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  margin: 19px auto 15px;
+  width: 315px;
+  height: 315px;
+  -moz-box-shadow: 0 2px 10px black;
+  -webkit-box-shadow: 0 2px 10px black;
+  -o-box-shadow: 0 2px 10px black;
+  box-shadow: 0 2px 10px black;
+}
+#player .cover img {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+#player .ctrl {
+  text-shadow: 0 1px 2px #000;
+  line-height: 16px;
+  text-align: center;    margin-top: -61px;
+  /* padding-top: 16px; */
+}
+
+#player .ctrl .tag{ margin-bottom:25px;}
+#player .ctrl .tag strong, #player .ctrl .tag span {
+  display: block;
+  text-overflow: ellipsis;
+  /* float: left; */
+}
+#player .ctrl .tag span {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #ccc;
+  /* float: left; */
+}
+
+#player .ctrl .tag .album{ display:none;}
+#player .ctrl .icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  opacity: 0.6;
+  cursor: pointer;
+  width: 25px;
+  height: 24px;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  padding-left: 16px;
+}
+#player .ctrl .icon:hover, #player .ctrl .icon.enable {
+  opacity: 0.3;
+}
+
+#player .ctrl .progress  .enable{ opacity:1;}
+#player .ctrl .icon:active {
+  opacity: 0.3;
+}
+#player .ctrl .control {
+  margin-top: 7px;
+  height: 25px;
+  padding: 0px 16px 18px;
+  clear: both;
+}
+#player .ctrl .control .rewind {
+  background-image: url(images/rewind.png);
+}
+#player .ctrl .control .playback {
+  background-image: url(images/play.png);
+  /* zoom: 1.2; */
+  padding: 0px 23px;
+}
+#player .ctrl .control .playback.playing {
+  background-image: url(images/pause.png);
+}
+#player .ctrl .control .fastforward {
+  background-image: url(images/fastforward.png);
+}
+#player .ctrl .control .volume{ margin-top:0;}
+
+#player .ctrl .control .volume .mute {
+  background-image: url(images/volume.png);
+}
+#player .ctrl .control .volume .mute.enable {
+  background-image: url(images/mute.png);
+}
+#player .ctrl .control .volume .slider {
+  margin-top: 11px;
+  margin-left: 10px;
+  width: 100px;
+}
+#player .ctrl .progress {
+  margin-top: 1px;
+  margin-bottom: 29px;
+  padding: 0px 23px;
+}
+#player .ctrl .progress .timer {
+  font-size: 12px;
+  color: #ccc;
+  margin-top: 20px;
+  display: none;
+  /* margin-right: 9px; */
+}
+#player .ctrl .progress .repeat, #player .ctrl .progress .shuffle {
+  background-position: center bottom;
+}
+#player .ctrl .progress .repeat {
+  background-image: url(images/repeat.png);
+  margin-right: -11px;
+}
+#player .ctrl .progress .repeat.once, #player .ctrl .progress .repeat.all {
+  opacity: 1;
+}
+#player .ctrl .progress .repeat.once {
+  position: relative;
+}
+#player .ctrl .progress .repeat.once:before {
+  content: "1";
+  position: absolute;
+  top: 3px;
+  right: -2px;
+  font-size: 12px;
+}
+#player .ctrl .progress .shuffle {
+  background-image: url(images/shuffle.png);
+
+}
+
+.slider {
+  background: rgba(0, 0, 0, 0.3);
+  height: 5px;
+  width: 76%;
+  position: relative;
+  cursor: pointer;
+  float: left;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
+  -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
+}
+.slider:hover a, .slider.enable a {
+  opacity: 1;
+}
+.slider a {
+  background: #fff;
+  margin-left: -2.5px;
+  box-shadow: 0px 0px 15px #fff;
+  position: absolute;
+  opacity: 0;
+  width: 12px;
+  height: 12px;
+  top: -4px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  border-radius: 50%;
+  -moz-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.slider .loaded, .slider .pace {
+  position: absolute;
+  height: 100%;
+  opacity: 0.7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+.slider .loaded {
+  background: rgba(255, 255, 255, 0.1);
+}
+.slider .pace {
+  background: #ffffff;
+}
+
+#playlist {
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0 auto 0;
+  padding: 11px 0px;
+  list-style: none;
+  /* position: relative; */
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  
+max-height: calc(100vh - 370px); /* 限制高度为视口高度减去370px */
+  overflow-y: auto; /* 启用垂直滚动 */
+  scroll-behavior: smooth; /* 平滑滚动 */
+  overscroll-behavior: contain; /* 防止滚动传播到父元素 */
+  -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+
+  
+}
+
+/* 自定义滚动条样式（可选） */
+#playlist::-webkit-scrollbar {
+  width: 6px;
+}
+#playlist::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+#playlist::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+#playlist li {
+  color: #aaa;
+  font-size: 13px;
+  line-height: 2;
+  padding-left: 25px;
+  padding: 8px 0 8px 25px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  border-bottom: 1px solid #ffffff1c;
+}
+#playlist li:hover {
+  color: #fff;
+}
+#playlist li.playing {
+  background: url(images/playing.png) no-repeat 14px center #313131;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 0 8px 38px;
+}
+
+footer {
+  position: relative;
+  font-size: 12px;
+  color: white;
+  margin-top:160px;
+  text-shadow: 0 1px 2px #000;
+  text-align: center;
+}
+footer a {
+  color: #fff;
+  font-weight: bold;
+}
+footer a:hover {
+  text-decoration: none;
+}
+
+.start{ position:absolute; width:100%; 
+
+
+
+
+
+
+
+
+}
+.play-button {
+  background-color: #4CAF50; /* 绿色播放按钮 */
+  color: #42ffc4; 
+  text-indent: 0;
+    font-size: 17px;
+    line-height: 21px;
+    margin: 109px auto;
+    background: #02020285;
+    border: 3px solid #fff;
+    padding: 10px 20px;
+    width: 80px;
+    height: 80px;opacity: 1; font-weight:bold;
+	animation: breathing 2s ease-in-out infinite;
+}
+
+.pause-button {
+   /* 红色暂停按钮 */
+   color: white;
+   text-indent: -14px;
+   font-size: 29px;
+   line-height: 11px;
+   margin:216px auto 0px;
+   background: #29292985;
+   border: 2px solid #fff;
+   padding: 0px 20px;
+   width: 40px;
+   height: 44px;
+}
+
+
+#playButton {
+  border-radius: 60px;
+  cursor: pointer;text-shadow: 0 0 31px #ffffff;
+  display: block;
+  transition: background-color 0.3s;opacity: 1;
+ 
+  
+  
+}
+
+#playButton:hover {
+  
+}
+
+ .thumbnail{
+    background-size: 50px;
+    width: 45px;
+    height: 45px;
+    float: left;
+    border: 1px solid #4d4d4d;
+    margin-right: 13px;
+    border-radius: 12px;
+    }
+	.song-info{}
+	
+	
+/* 呼吸动画 */
+@keyframes breathing {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+}	
