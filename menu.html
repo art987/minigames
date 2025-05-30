@@ -6,11 +6,10 @@
     <title>Menu</title>
     <link rel="stylesheet" href="menu.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="menudata.js"></script>
 </head>
 <body>
     <div class="navbar" id="navbar">
-        <div class="logo" id="menu-logo"></div>
+        <div class="logo" id="menu-logo">📙 小本本备忘录</div>
         <div class="menu-button" onClick="toggleMenu()">
             <span class="menu-icon" id="menu-icon">☰</span>
             <span id="menu-text">菜单</span>
@@ -20,8 +19,13 @@
     <div class="sidebar" id="sidebar"></div>
 
     <script>
-        // 初始化菜单
+        // 初始化菜单函数
         function initMenu() {
+            if (typeof menuData === 'undefined') {
+                console.error('menuData is not defined');
+                return;
+            }
+            
             // 设置logo
             document.getElementById('menu-logo').textContent = menuData.logo;
             
@@ -63,6 +67,7 @@
             });
         }
 
+        // 菜单交互功能
         let isMenuOpen = false;
         let lastScrollY = window.scrollY;
         const navbar = document.getElementById('navbar');
@@ -100,8 +105,17 @@
             event.stopPropagation();
         });
 
-        // 初始化菜单
-        document.addEventListener('DOMContentLoaded', initMenu);
+        // 确保数据加载后初始化菜单
+        function checkDataAndInit() {
+            if (typeof menuData !== 'undefined') {
+                initMenu();
+            } else {
+                setTimeout(checkDataAndInit, 100);
+            }
+        }
+
+        // 开始检查数据并初始化
+        checkDataAndInit();
     </script>
 </body>
 </html>

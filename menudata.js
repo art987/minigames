@@ -1,4 +1,3 @@
-// JavaScript Document
 // menudata.js
 const menuData = {
   logo: "📙 小本本备忘录",
