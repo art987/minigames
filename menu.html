@@ -5,64 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="menu.css">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="menudata.js"></script>
+</head>
 <body>
     <div class="navbar" id="navbar">
-        <div class="logo">📙 小本本备忘录</div>
+        <div class="logo" id="menu-logo"></div>
         <div class="menu-button" onClick="toggleMenu()">
             <span class="menu-icon" id="menu-icon">☰</span>
             <span id="menu-text">菜单</span>
         </div>
     </div>
     <div class="overlay" id="overlay" onClick="toggleMenu()"></div>
-    <div class="sidebar" id="sidebar">
-        <div class="menu-item" onClick="toggleSubmenu('submenu1')">
-            语言表达 <span class="expand-icon">+</span>
-        </div>
-        <div class="submenu" id="submenu1">
-            <div class="menu-item"><a href="/edu/biaoyang.html">👍夸娃话术</a></div>
-            <div class="menu-item"><a href="/edu/tuweiqinghua.html">😜土味情话</a></div>
-            <div class="menu-item"><a href="/edu/shici.html">📖情感诗词表达</a></div>           
-            <div class="menu-item"><a href="/edu/yingyukouyu.html">👱‍♀️英语口语</a></div>
-          
-        </div>
-        <div class="menu-item" onClick="toggleSubmenu('submenu2')">
-            处事智慧 <span class="expand-icon">+</span>
-        </div>
-        <div class="submenu" id="submenu2">
-		
-			 <div class="menu-item"><a href="/edu/guliziji.html">🌟鼓励自己</a></div>
-            <div class="menu-item"><a href="/edu/zhenyan.html">🧘🏻‍♂️人性箴言</a></div>
-<div class="menu-item"><a href="/edu/xinlixiaoying.html">💖心理效应汇总</a></div>
-<div class="menu-item"><a href="/edu/renxingyinan.html">👀人性阴暗行为洞察</a></div>
-			 <div class="menu-item"><a href="/edu/maxingziji.html">🤬骂醒自己</a></div>
-			 <div class="menu-item"><a href="/edu/yangsheng.html">🌷健康养生</a></div>
-        </div>
-        <div class="menu-item" onClick="toggleSubmenu('submenu3')">
-            基础常识 <span class="expand-icon">+</span>
-        </div>
-        <div class="submenu" id="submenu3">
-            <div class="menu-item"><a href="/edu/ertonganquan.html">🌡儿童安全教育</a></div>
-        </div>
-        <div class="menu-item" onClick="toggleSubmenu('submenu4')">
-            知识<span class="expand-icon">+</span>
-        </div>
-        <div class="submenu" id="submenu4">
-		    <div class="menu-item"><a href="/edu/jiajufengshui.html">家居风水备忘录</a></div>
-			<div class="menu-item"><a href="/edu/dianpufengshui.html">店铺风水备忘录</a></div>
-            <div class="menu-item"><a href="/edu/cnart.html">中国美术史</a></div>
-<div class="menu-item"><a href="/edu/guohuakoujue.html">国画口诀汇总</a></div>
-        </div>
-        <div class="menu-item"><a href="/tools/gonggong-rexian.html">电话求助热线汇总</a></div>
-        <div class="menu-item"><a href="/tools/taijiao-music/index.html">胎教音乐合集</a></div>
-        <div class="menu-item"><a href="/quotes/index.html">心灵加油站</a></div>
-        <div class="menu-item"></div>
-        <div class="menu-item"></div>
-        <div class="menu-item"></div>
-    </div>
-    
+    <div class="sidebar" id="sidebar"></div>
 
     <script>
+        // 初始化菜单
+        function initMenu() {
+            // 设置logo
+            document.getElementById('menu-logo').textContent = menuData.logo;
+            
+            // 构建菜单项
+            const sidebar = document.getElementById('sidebar');
+            menuData.menuItems.forEach((item, index) => {
+                if (item.singleItem) {
+                    // 单个菜单项
+                    const div = document.createElement('div');
+                    div.className = 'menu-item';
+                    div.innerHTML = `<a href="${item.href}" class="${item.icon}">${item.text}</a>`;
+                    sidebar.appendChild(div);
+                } else {
+                    // 带子菜单的项
+                    const submenuId = `submenu${index + 1}`;
+                    
+                    // 主菜单项
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item';
+                    menuItem.setAttribute('onClick', `toggleSubmenu('${submenuId}')`);
+                    menuItem.innerHTML = `${item.title} <span class="expand-icon">+</span>`;
+                    sidebar.appendChild(menuItem);
+                    
+                    // 子菜单
+                    const submenu = document.createElement('div');
+                    submenu.className = 'submenu';
+                    submenu.id = submenuId;
+                    submenu.style.display = 'none';
+                    
+                    item.items.forEach(subItem => {
+                        const subMenuItem = document.createElement('div');
+                        subMenuItem.className = 'menu-item';
+                        subMenuItem.innerHTML = `<a href="${subItem.href}" class="${subItem.icon}">${subItem.text}</a>`;
+                        submenu.appendChild(subMenuItem);
+                    });
+                    
+                    sidebar.appendChild(submenu);
+                }
+            });
+        }
+
         let isMenuOpen = false;
         let lastScrollY = window.scrollY;
         const navbar = document.getElementById('navbar');
@@ -99,6 +99,9 @@
         overlay.addEventListener('scroll', (event) => {
             event.stopPropagation();
         });
+
+        // 初始化菜单
+        document.addEventListener('DOMContentLoaded', initMenu);
     </script>
 </body>
 </html>
