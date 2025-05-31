@@ -13,6 +13,61 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateFloatingTags);
 });
 
+
+  // ===== 从这里开始添加放大镜效果 =====
+   
+ document.addEventListener('DOMContentLoaded', () => {
+    // 添加CSS样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .content li {
+            transition: opacity 1s ease;
+            opacity: 0.3;
+        }
+        .content li.highlight-effect {
+            opacity: 1;
+        }
+        /* 确保actions按钮不受透明度影响 */
+        .content li .actions {
+            opacity: 1 !important;
+        }
+    `;
+    document.head.appendChild(style);
+
+    function updateOpacityEffects() {
+        const viewportHeight = window.innerHeight;
+        const triggerTop = viewportHeight * 0.3;
+        const triggerBottom = viewportHeight * 0.5;
+        
+        const lis = document.querySelectorAll('.content li');
+        
+        lis.forEach(li => {
+            const rect = li.getBoundingClientRect();
+            const liTop = rect.top;
+            const liBottom = rect.bottom;
+            
+            // 检查是否进入30%-35%区域
+            if (liTop <= triggerBottom && liBottom >= triggerTop) {
+                li.classList.add('highlight-effect');
+            } else {
+                li.classList.remove('highlight-effect');
+            }
+        });
+    }
+
+    // 添加滚动事件监听
+    window.addEventListener('scroll', updateOpacityEffects);
+    window.addEventListener('resize', updateOpacityEffects);
+    
+    // 初始设置
+    updateOpacityEffects();
+});
+   
+    // ===== 放大镜效果代码结束 =====
+
+
+
+
 function renderPage() {
     // 渲染标题
     document.getElementById('title-h1').innerText = data.title.h1;

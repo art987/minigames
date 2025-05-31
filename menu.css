@@ -1,8 +1,12 @@
 @charset "utf-8";
 
-#navbar-container{
-    position: absolute;
+#navbar-container {
+    position: fixed;
+    top: 0;
     left: 0;
+    width: 100%;
+    transition: top 0.3s;
+    z-index: 1000;
 }
 body{ margin:0;padding:0;}
 

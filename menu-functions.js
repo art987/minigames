@@ -124,6 +124,27 @@ window.loadScript = function(url) {
     });
 };
 
+// 滚动方向检测和导航栏隐藏功能
+window.setupNavbarScrollBehavior = function() {
+    const navbar = document.getElementById('navbar-container');
+    let lastScrollTop = 0;
+    const navbarHeight = navbar.offsetHeight;
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
+            // 向下滚动
+            navbar.style.top = `-${navbarHeight}px`;
+        } else {
+            // 向上滚动
+            navbar.style.top = '0';
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+};
+
 // 动态加载菜单
 window.loadNavbar = async function() {
     try {
@@ -146,6 +167,8 @@ window.loadNavbar = async function() {
         // 4. 手动初始化菜单
         if (typeof menuData !== 'undefined') {
             initMenu();
+            // 5. 设置滚动行为
+            setupNavbarScrollBehavior();
         } else {
             console.error('menuData is not defined');
         }
