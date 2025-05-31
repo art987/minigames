@@ -494,24 +494,25 @@ body {
 #auto-scroll-button {
     position: fixed;
     right: 20px;
-    bottom: 301px; /* 位于页面中间 */
-    transform: translateY(50%);
+    bottom: 150px; /* 位于页面中间 */
+    transform: rotate(90deg);
     background-color: #ffffff;
     color: #b20000;
     padding: 2px 0px;
     border: 1px solid #e7e7e7;
-    border-radius: 5px;
+    border-radius: 21px;
     cursor: pointer;
     width: 35px;
-    font-size: 13px;
+    font-size: 24px;
     height: 35px;
     text-align: center;
+    font-weight: bold;
     z-index: 1000; display:none;
 }
 
 #auto-scroll-button:hover {
-    background-color: #ad4346; 
- color: #Fff; 
+    background-color: #ffffff;
+    color: #c10808;
 }
 
 

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const style = document.createElement('style');
     style.textContent = `
         .content li {
-            transition: opacity 1s ease;
+            transition: opacity 0.7s ease;
             opacity: 0.3;
         }
         .content li.highlight-effect {
@@ -336,12 +336,12 @@ function initAutoScroll() {
     autoScrollButton.addEventListener('click', () => {
         if (isScrolling) {
             clearInterval(autoScrollInterval);
-            autoScrollButton.textContent = '↓滚动';
+            autoScrollButton.textContent = '⇢';
         } else {
             autoScrollInterval = setInterval(() => {
-                window.scrollBy(0, 1);
-            }, 120);
-            autoScrollButton.textContent = '停止';
+                window.scrollBy(0, 80);
+            }, 6000);
+            autoScrollButton.textContent = '⇥';
         }
         isScrolling = !isScrolling;
     });
@@ -349,7 +349,7 @@ function initAutoScroll() {
     window.addEventListener('wheel', () => {
         if (isScrolling) {
             clearInterval(autoScrollInterval);
-            autoScrollButton.textContent = '↓滚动';
+            autoScrollButton.textContent = '⇢';
             isScrolling = false;
         }
     });
