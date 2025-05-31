@@ -140,10 +140,10 @@ window.loadScript = function(url) {
 window.loadNavbar = async function() {
     try {
         // 1. 加载 menudata.js
-        await loadScript('../menudata.js');
+        await loadScript('https://peacelove.top/menudata.js');
         
         // 2. 加载 menu.html 的 HTML 结构
-        const response = await fetch('../menu.html');
+        const response = await fetch('https://peacelove.top/menu.html');
         const navbarHtml = await response.text();
 
         // 3. 提取并插入 HTML（移除 script 避免冲突）
