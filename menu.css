@@ -102,4 +102,33 @@ body{ margin:0;padding:0;}
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9); /* 90% 透明遮罩 */
             display: none;
-            z-index: 400;
+            z-index: 400;}
+			
+			
+/* 应用图标样式 */
+.app-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 24px;
+    vertical-align: middle;
+}
+
+/* 如果有icon类，隐藏文字 */
+.app-icon[class*="icon"] {
+    font-size: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* 示例icon类 - 你需要为每个icon类添加对应的背景图片 */
+.icon01 {
+    background-image: url('path/to/icon01.png');
+}
+.icon02 {
+    background-image: url('path/to/icon02.png');
+}
+/* 添加更多icon类... */			
