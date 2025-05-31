@@ -1,6 +1,6 @@
 // menudata.js
 const menuData = {
-  logo: "📙 小本本备忘录",
+  logo: "📙 小本本・备忘录",
   menuItems: [
 			  
 			  
