@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 创建全标签弹窗元素
+    createAllTagsModal();
+    
     renderPage();
     initSearch();
     initBackToTop();
@@ -11,7 +14,120 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
+    
+    // 页面加载后显示全标签弹窗（放在事件监听器内部）
+    setTimeout(() => {
+        showAllTagsModal();
+    }, 500);
 });
+
+// ===== 全标签弹窗相关函数 =====
+
+function createAllTagsModal() {
+    // 检查是否已存在弹窗
+    if (document.getElementById('all-tags-modal')) return;
+    
+    // 创建弹窗元素
+    const modal = document.createElement('div');
+    modal.id = 'all-tags-modal';
+    modal.className = 'modal';
+  
+    
+    // 创建弹窗内容
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+   
+    
+    // 创建关闭按钮
+    const closeButton = document.createElement('span');
+    closeButton.className = 'close-button';
+    closeButton.id = 'close-all-tags-modal';
+    closeButton.innerHTML = '&times;';
+   
+    
+    // 创建标题
+    const title = document.createElement('h3');
+    title.textContent = '所有分类标签';
+    title.style.marginTop = '0';
+    
+    // 创建标签容器
+    const tagsContainer = document.createElement('div');
+    tagsContainer.id = 'all-tags-container';
+   
+    
+    // 组装弹窗
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(title);
+    modalContent.appendChild(tagsContainer);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // 关闭按钮事件
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    // 点击外部关闭
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+function showAllTagsModal() {
+    const modal = document.getElementById('all-tags-modal');
+    const container = document.getElementById('all-tags-container');
+    
+    // 清空容器
+    container.innerHTML = '';
+    
+    // 添加"全部"标签
+    const allTagElement = document.createElement('div');
+    allTagElement.className = 'tag active';
+    allTagElement.dataset.category = 'all';
+    allTagElement.textContent = '全部';
+
+    allTagElement.addEventListener('click', () => {
+        // 找到所有地方的"全部"标签并点击
+        const allTags = document.querySelectorAll('.tag[data-category="all"]');
+        allTags.forEach(tag => {
+            tag.classList.add('active');
+            handleTagClick(tag, 'all');
+        });
+        modal.style.display = 'none';
+    });
+    container.appendChild(allTagElement);
+    
+    // 添加其他标签
+    Object.keys(data.content).forEach(key => {
+        const [name, category] = key.split('|');
+        const tagElement = document.createElement('div');
+        tagElement.className = 'tag';
+        tagElement.dataset.category = category;
+        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
+        
+        tagElement.addEventListener('click', () => {
+            // 找到所有相同分类的标签并点击
+            const sameTags = document.querySelectorAll(`.tag[data-category="${category}"]`);
+            sameTags.forEach(tag => {
+                tag.classList.add('active');
+                handleTagClick(tag, category);
+            });
+            modal.style.display = 'none';
+        });
+        container.appendChild(tagElement);
+    });
+    
+    // 显示弹窗
+    modal.style.display = 'block';
+}
+
+
+
+
+
 
 
   // ===== 从这里开始添加放大镜效果 =====
@@ -66,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 放大镜效果代码结束 =====
 
 
-
+// ===== 原有函数修改 =====
 
 function renderPage() {
     // 渲染标题
@@ -178,13 +294,30 @@ function renderPage() {
         document.getElementById('keyword-modal').style.display = 'none';
     });
 
+    // 为show-all-tags按钮添加事件
+    const showAllTagsButton = document.getElementById('show-all-tags');
+    if (showAllTagsButton) {
+        showAllTagsButton.addEventListener('click', showAllTagsModal);
+    }
+
     updateFloatingTags();
 }
 
 function handleTagClick(tagElement, category) {
-    document.getElementById('search-input').value = '';
-    document.querySelectorAll('.tag, .keyword').forEach(el => el.classList.remove('active'));
+    // 移除所有标签的active类
+    document.querySelectorAll('.tag').forEach(el => el.classList.remove('active'));
+    
+    // 为当前点击的标签添加active类
     tagElement.classList.add('active');
+    
+    // 同步其他相同分类标签的状态
+    if (category !== 'all') {
+        document.querySelectorAll(`.tag[data-category="${category}"]`).forEach(el => {
+            el.classList.add('active');
+        });
+    }
+    
+    document.getElementById('search-input').value = '';
     resetDisplay();
 
     window.scrollTo({
@@ -206,6 +339,10 @@ function handleTagClick(tagElement, category) {
         scrollToCenter(floatingTag);
     }
 }
+
+
+
+
 
 function handleKeywordClick(keywordElement, keyword) {
     const searchInput = document.getElementById('search-input');
