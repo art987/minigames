@@ -1,0 +1,409 @@
+/* 基础样式 */
+:root {
+    --brand-color: #d21402;
+    --white: #ffffff;
+    --dark-gray: #2d3436;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: #ffffff;
+    color: var(--dark-gray);
+    line-height: 1.2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 顶部标题 */
+.page-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 2rem;
+    font-size: 1.8rem;
+    color: var(--dark-gray);
+}
+
+.logo-icon {
+    color: var(--brand-color);
+    margin-right: 0.5rem;
+    font-size: 1.5em;
+}
+
+.logo-text {
+    font-weight: bold;
+}
+
+/* 搜索区域 */
+.search-container {
+    background: var(--white);
+    padding: 0 24px;
+    border-radius: 8px;
+    margin: 0 1rem 2rem;
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex-grow: 1;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: .8rem;
+}
+
+.search-input-wrapper button {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+}
+
+.search-bar button {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    color: #e50000;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 26px;
+    transition: background 0.3s;
+    position: absolute;
+}
+
+.search-bar button:hover {
+    background: #e05a4d;
+}
+
+#clearInputBtn{
+    right: .26rem;
+    font-size: 2.2rem;
+    line-height: 1.2rem;
+    background: #f3f3f3;
+    top: 1.32rem;
+    padding: 0.5rem 1.29rem;
+    z-index: 9;
+    }
+#searchBtn{
+    right: .16rem;
+    font-size: .95rem;
+    line-height: 1.2rem;
+    background: #e9e9e9;
+    top: .19rem;
+    padding: 0.5rem 1rem;
+}
+#resetBtn{right: .26rem;
+    font-size: .95rem;
+    line-height: 1.2rem;
+    background: #e9e9e9;
+    top: .26rem;
+    padding: 0.5rem 1rem;}
+/* 快捷标签 */
+.quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    display: none;
+    gap: 0.2rem;
+    /* margin-bottom: 0.5rem; */
+}
+
+.tag {
+    padding: 0.5rem 1rem;
+    background: var(--light-gray);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tag:hover, .tag.active {
+    background: var(--brand-color);
+    color: white;
+}
+
+/* 应用列表 */
+#appListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem 0;
+    margin: 0 1rem;
+}
+
+.category-title {
+    font-size: .9rem;
+    color: #5d5d5d;
+    margin-bottom: 0;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    border-radius: .3rem;
+    line-height: 2.4em;
+    text-indent: 10px;
+    height: 2rem;
+    /* text-align: center; */
+    background: #fbf8f8;
+}
+
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.5rem;
+    background: var(--white);
+    padding: 0 .4em;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.app-item {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+
+.app-item:hover {
+    transform: translateY(-5px);
+}
+
+.app-item a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: box-shadow 0.3s;
+}
+
+.app-item a:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.app-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto .1rem;
+    border-radius: 30%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    justify-content: center;
+    font-size: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.emoji-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.app-name {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    margin-top: .3rem;
+    text-align: center;
+    color: #000000;
+}
+
+.app-describ {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    flex-grow: 1;
+    display: none;
+}
+
+/* 单独应用项样式 */
+.single-app-item {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+.single-app-item:hover {
+    transform: translateY(-3px);
+}
+
+.single-app-item a {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.single-app-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.single-app-info {
+    flex-grow: 1;
+}
+
+.single-app-info h3 {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.3rem;
+}
+
+.single-app-info p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 高亮文本 */
+.highlight {
+    background-color: #fff2a8;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1.3rem;
+    }
+    
+    .category-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+    
+    .app-icon {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .app-name {
+        font-size: 0.9rem;
+    }
+    
+    .app-describ {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        flex-direction: column;
+    }
+    
+    .quick-tags {
+        justify-content: center;
+    }
+    
+    .tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .category-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .app-item a {
+        padding: 0;
+    }
+
+}
+
+
+
+/* 回到顶部按钮 */
+#scrollToTop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--brand-color);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: opacity 0.3s;
+}
+
+#scrollToTop:hover {
+    opacity: 0.8;
+}
+
+/* 页脚 */
+footer {
+    background: #2d2d2d;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+footer a {
+    color: #aaa;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+}
+
+footer a:hover {
+    color: white;
+}
+
+
+
+/* 图标样式 - 示例，您需要根据实际情况调整 */
+.icon01 {
+    background-image: url('icons/icon01.png');
+}
+.icon02 {
+    background-image: url('icons/icon02.png');
+}
+/* 添加更多图标样式... */
