@@ -31,6 +31,9 @@ body{ margin:0;padding:0;}
             color: #ffffff;
             margin-left: 19px;
         }
+		.logo a{ text-decoration:none; color:#FFFFFF;}
+		.logo a b{font-size: 19px;font-weight: bold;transform: scaleX(-1);padding-left: 5px;display: inline-block;}
+		.logo a h1{font-size: 17px;margin:0;padding:0;line-height:16px;display: inline;}
         .menu-button {
             cursor: pointer;
             display: flex;
