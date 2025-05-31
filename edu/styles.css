@@ -455,7 +455,7 @@ body {
     border-top: 1px solid #ededed;
     padding: 11px 12px;
     box-shadow: 0 -2px 3px #c7c7c721;
-    z-index: 990;
+    z-index: 385;
     overflow-x: auto;
     white-space: nowrap;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -555,7 +555,7 @@ body {
     padding: 5px 10px;
     font-size: 12px;
     letter-spacing: 1px;
-    z-index: 983;
+    z-index: 283;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: none;
 }

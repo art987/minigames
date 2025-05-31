@@ -66,15 +66,19 @@ body{ margin:0;padding:0;}
             right: 0;
         }
         .menu-item {
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 10px; /* 增加高度 */
+            padding: 15px 0px; /* 增加高度 */
             border-bottom: 1px solid #ddd; /* 添加分隔线 */
         }
-		 .menu-item a{ color:#000; text-decoration:none;}
+		
+		.menu-item span{font-weight:bold;text-indent: 6px;letter-spacing: 3px;}
+		.menu-item .expand-icon{font-size: 25px;font-weight: normal;color: #666;}
+		
+		 .menu-item a{ color:#000; text-decoration:none; font-size:13px;}
         .menu-item:last-child {
             border-bottom: none; /* 去掉最后一个菜单项的分隔线 */
         }
@@ -83,16 +87,17 @@ body{ margin:0;padding:0;}
             cursor: pointer;
         }
         .submenu {
-            margin-left: 10px;
+            margin-left: 5px;
             display: none;
-            padding: 0 10px; /* 增加内边距 */
+            padding: 0px 1px; /* 增加内边距 */
         }
         .submenu .menu-item {
             padding: 10px 0; /* 增加高度 */
             border-bottom: 1px solid #faf7f7; /* 去掉二级菜单的分隔线 */
             font-size: 13px;
+            position: relative;
         }
-      .submenu .menu-item a{ color:#000000; text-decoration:none;}
+      .submenu .menu-item a{color:#000000;text-decoration:none;display: block;position: absolute;padding-left: 42px;}
      
         .overlay {
             position: fixed;
@@ -108,17 +113,20 @@ body{ margin:0;padding:0;}
 /* 应用图标样式 */
 .app-icon {
     display: inline-block;
-    width: 24px;
-    height: 24px;
+    font-size: 21px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    width: 30px;
+    height: 30px;
     margin-right: 10px;
     text-align: center;
-    line-height: 24px;
+    line-height: 30px;
     vertical-align: middle;
 }
 
 /* 如果有icon类，隐藏文字 */
 .app-icon[class*="icon"] {
-    font-size: 0;
+    /* font-size: 0; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

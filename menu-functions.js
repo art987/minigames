@@ -18,7 +18,6 @@ window.toggleSubmenu = function(submenuId) {
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
 };
 
-// 修改后的 initMenu（添加 app-icon 支持）
 window.initMenu = function() {
     if (typeof menuData === 'undefined') {
         console.error('menuData is not defined');
@@ -32,7 +31,7 @@ window.initMenu = function() {
     const sidebar = document.getElementById('sidebar');
     menuData.menuItems.forEach((item, index) => {
         if (item.singleItem) {
-            // 单个菜单项（添加 app-icon）
+            // ✅ 单个菜单项（添加 app-icon）
             const div = document.createElement('div');
             div.className = 'menu-item';
             
@@ -56,25 +55,15 @@ window.initMenu = function() {
             div.appendChild(link);
             sidebar.appendChild(div);
         } else {
-            // 带子菜单的项（主菜单 + 子菜单）
+            // ✅ 带子菜单的项（主菜单 + 子菜单）
             const submenuId = `submenu${index + 1}`;
             
-            // 主菜单项（添加 app-icon）
+            // 主菜单项（⚠️ 不添加 app-icon）
             const menuItem = document.createElement('div');
             menuItem.className = 'menu-item';
-            menuItem.setAttribute('onClick', `toggleSubmenu('${submenuId}')`);
+            menuItem.setAttribute('onclick', `toggleSubmenu('${submenuId}')`);
             
-            // 创建 app-icon
-            const appIcon = document.createElement('div');
-            appIcon.className = 'app-icon';
-            if (item.icon) {
-                appIcon.classList.add(item.icon);
-                appIcon.textContent = '';
-            } else if (item.emoji) {
-                appIcon.textContent = item.emoji;
-            }
-            
-            // 创建标题和展开图标
+            // ❌ 特别注意：这里不添加 app-icon
             const titleSpan = document.createElement('span');
             titleSpan.textContent = item.title;
             
@@ -82,8 +71,7 @@ window.initMenu = function() {
             expandIcon.className = 'expand-icon';
             expandIcon.textContent = '+';
             
-            // 组装主菜单
-            menuItem.appendChild(appIcon);
+            // 组装主菜单（只有标题和展开图标）
             menuItem.appendChild(titleSpan);
             menuItem.appendChild(expandIcon);
             sidebar.appendChild(menuItem);
@@ -92,10 +80,10 @@ window.initMenu = function() {
             const submenu = document.createElement('div');
             submenu.className = 'submenu';
             submenu.id = submenuId;
-            submenu.style.display = 'block';
+            submenu.style.display = 'block'; // 默认隐藏
             
             item.items.forEach(subItem => {
-                // 子菜单项（添加 app-icon）
+                // ✅ 子菜单项（添加 app-icon）
                 const subMenuItem = document.createElement('div');
                 subMenuItem.className = 'menu-item';
                 
