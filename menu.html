@@ -53,7 +53,7 @@
                     const submenu = document.createElement('div');
                     submenu.className = 'submenu';
                     submenu.id = submenuId;
-                    submenu.style.display = 'none';
+                    submenu.style.display = 'block';
                     
                     item.items.forEach(subItem => {
                         const subMenuItem = document.createElement('div');
@@ -65,6 +65,8 @@
                     sidebar.appendChild(submenu);
                 }
             });
+			
+	
         }
 
         // 菜单交互功能
