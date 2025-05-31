@@ -26,8 +26,21 @@ function renderPage() {
         document.body.appendChild(counter);
     }
 
-    // 渲染标签
+    // 渲染标签 - 先添加"全部"标签
     const tagsContainer = document.getElementById('tags-container');
+    
+    // 添加"全部"标签
+    const allTagElement = document.createElement('div');
+    allTagElement.classList.add('tag', 'active');
+    allTagElement.dataset.category = 'all';
+    allTagElement.textContent = '全部';
+    allTagElement.addEventListener('click', () => {
+        handleTagClick(allTagElement, 'all');
+        resetDisplay();
+    });
+    tagsContainer.appendChild(allTagElement);
+
+    // 添加其他标签
     Object.keys(data.content).forEach(key => {
         const [name, category] = key.split('|');
         const tagElement = document.createElement('div');
@@ -35,7 +48,10 @@ function renderPage() {
         tagElement.dataset.category = category;
         tagElement.textContent = `${name} (${data.content[key].length})`;
         
-        tagElement.addEventListener('click', () => handleTagClick(tagElement, category));
+        tagElement.addEventListener('click', () => {
+            handleTagClick(tagElement, category);
+            scrollToCenter(tagElement);
+        });
         tagsContainer.appendChild(tagElement);
     });
 
@@ -122,11 +138,18 @@ function handleTagClick(tagElement, category) {
     });
 
     showLoadingAnimation(() => {
-        filterContentByCategory(category);
+        if (category === 'all') {
+            resetDisplay();
+        } else {
+            filterContentByCategory(category);
+        }
     });
 
     const floatingTag = document.querySelector(`#floating-tags-container .tag[data-category="${category}"]`);
-    if (floatingTag) floatingTag.classList.add('active');
+    if (floatingTag) {
+        floatingTag.classList.add('active');
+        scrollToCenter(floatingTag);
+    }
 }
 
 function handleKeywordClick(keywordElement, keyword) {
@@ -503,27 +526,44 @@ function updateFloatingTags() {
     } 
     // 如果向上滚动且已滚动过半屏，显示浮动标签
     else {
-        // 如果标签栏尚未创建，则创建它
-        if (floatingTagsContainer.children.length === 0) {
-            floatingTagsContainer.innerHTML = '';
+       // 在updateFloatingTags函数中找到创建浮动标签的部分，修改为：
+if (floatingTagsContainer.children.length === 0) {
+    floatingTagsContainer.innerHTML = '';
+    
+    // 添加"全部"标签
+    const allTagElement = document.createElement('div');
+    allTagElement.classList.add('tag', 'active');
+    allTagElement.dataset.category = 'all';
+    allTagElement.textContent = '全部';
+    allTagElement.addEventListener('click', () => {
+        handleTagClick(allTagElement, 'all');
+        resetDisplay();
+        scrollToCenter(allTagElement);
+    });
+    floatingTagsContainer.appendChild(allTagElement);
+    
+    // 添加其他标签
+    Object.keys(data.content).forEach(key => {
+        const [name, category] = key.split('|');
+        const tagElement = document.createElement('div');
+        tagElement.classList.add('tag');
+        tagElement.dataset.category = category;
+        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
+        tagElement.addEventListener('click', () => {
+            handleTagClick(tagElement, category);
+            scrollToCenter(tagElement);
             
-            Object.keys(data.content).forEach(key => {
-                const [name, category] = key.split('|');
-                const tagElement = document.createElement('div');
-                tagElement.classList.add('tag');
-                tagElement.dataset.category = category;
-                tagElement.textContent = `${name} (${data.content[key].length})`;
-                
-                tagElement.addEventListener('click', () => {
-                    handleTagClick(tagElement, category);
-                    
-                    const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
-                    if (tagsContainerTag) tagsContainerTag.classList.add('active');
-                });
-                
-                floatingTagsContainer.appendChild(tagElement);
-            });
-        }
+            const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
+            if (tagsContainerTag) {
+                tagsContainerTag.classList.add('active');
+                scrollToCenter(tagsContainerTag);
+            }
+        });
+        
+        floatingTagsContainer.appendChild(tagElement);
+    });
+}
         
         // 显示浮动标签栏并添加动画
         floatingTagsContainer.style.display = 'block';
@@ -650,3 +690,24 @@ function initRemainingCounter() {
         setTimeout(updateCounter, 100);
     };
 }
+
+
+
+
+
+function scrollToCenter(element) {
+    const container = element.parentElement;
+    const containerWidth = container.offsetWidth;
+    const elementLeft = element.offsetLeft;
+    const elementWidth = element.offsetWidth;
+    
+    // 计算滚动位置使元素居中
+    const scrollLeft = elementLeft - (containerWidth / 2) + (elementWidth / 2);
+    
+    container.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+    });
+}
+
+
