@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医传世小偏方</title>
+    <link rel="stylesheet" href="https://peacelove.top/menu.css">
+    <link rel="stylesheet" href="styles.css">
+	
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw"></script>
+    <script src="data-zhongyipianfang.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<style> 
+body{background: url(biaoyangbg.png) no-repeat top center;}
+#content-container .category ul li c{max-height: 400px;}
+.keywords{animation:scrollText 300s linear infinite}
+#content-container .category ul li c p{margin-bottom:20px;list-style: circle;border-left: 5px solid #e9e9e9;padding-left: 11px;}
+.category ul li b{ color:#CC0000}
+.navbar{     background-color: #c90404d6;    border-bottom: 3px solid #ad0101;}
+.logo{ color:#fff;}
+.menu-button{ color:#fff;}
+
+.content li.highlight-effect span c  h4{ font-weight:bolder; font-size:19px; letter-spacing:2px;}
+</style>
+</style>
+
+
+<body >
+ <div id="navbar-container"></div>
+
+    <div class="title">
+        <h1 id="title-h1"></h1>
+        <p id="title-p"></p>
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" id="search-input" placeholder="输入关键词搜索...">
+        <div class="clear-btn" id="clear-search" style="display: none;">X</div>
+    </div>
+    <div class="marquee">
+        <div class="tip">热搜：</div>
+        <div class="keywords" id="keywords-container"></div>
+        <button id="show-all-keywords" class="show-all-keywords">⚓︎</button>
+    </div>
+	<div class="tagsbox" >
+		<div class="tip" >分类：</div> 
+		<div class="tags" id="tags-container">
+		</div>
+		<button id="show-all-tags" class="show-all-tags">☸</button>
+	</div>
+	<div id="floating-tags-container" class="floating-tags"></div>
+    <div class="content" id="content-container"></div>
+    <div id="keyword-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <div id="modal-keywords-container"></div>
+        </div>
+    </div>
+	<button id="auto-scroll-button">⇢</button>
+	  <button id="back-to-top">⇪</button>
+	  
+<script src="https://peacelove.top/menu-functions.js"></script>
+</body>
+</html>

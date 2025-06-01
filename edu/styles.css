@@ -655,7 +655,7 @@ body {
 #all-tags-container .tag.active {
     background-color: #ffffff;
     color: #000000;
-    border-color: #ddd;
+    border-color: #ddd; display:none;
 }
 
 

@@ -28,7 +28,7 @@ const menuData = {
         { text: "心理效应汇总", href: "/edu/xinlixiaoying.html", icon: "" , emoji:"💖",  describ: "" , keyword: "" },
         { text: "人性阴暗行为洞察", href: "/edu/renxingyinan.html", icon: "" , emoji:"👀",  describ: "" , keyword: "" },
         { text: "骂醒自己", href: "/edu/maxingziji.html", icon: "" , emoji:"🤬",  describ: "" , keyword: "" },
-        { text: "健康养生", href: "/edu/yangsheng.html", icon: "" , emoji:"🌷",  describ: "" , keyword: "" },
+       
       ]
     },
 	
@@ -46,7 +46,9 @@ const menuData = {
 	    {
       title: "健康养生",
       items: [
-        { text: "中医养生调理", href: "/tools/zhongyiyangsheng.html", icon: "" , emoji:"🌿",  describ: "" , keyword: "" },
+		 { text: "中医传世小偏方", href: "/edu/zhongyipianfang.html", icon: "" , emoji:"🌿",  describ: "" , keyword: "" },
+		  { text: "健康养生", href: "/edu/yangsheng.html", icon: "" , emoji:"🌷",  describ: "" , keyword: "" },
+        { text: "中医养生调理", href: "/tools/zhongyiyangsheng.html", icon: "" , emoji:"🌺",  describ: "" , keyword: "" },
       ]
     },
 	
