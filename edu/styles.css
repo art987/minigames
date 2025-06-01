@@ -63,7 +63,7 @@ body {
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid #dddddd;
-    font-size: 20px;
+    font-size: 16px;
     position: absolute;
     /* box-shadow: 0px 0px 26px #a5a5a58c; */
     z-index: 99;
@@ -334,7 +334,7 @@ body {
     border: 1px solid #dddddd;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 19px;
+    font-size: 16px;
     position: absolute;
     z-index: 99;
     display: block;
@@ -356,8 +356,8 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 78px;
-    left: 16px;
+    bottom: 188px;
+    right: 31px;
     background-color: #ffffff;
     color: #a7050a;
     padding: 5px 0px;
@@ -366,8 +366,8 @@ body {
     cursor: pointer;
     font-size: 24px;
     line-height: 18px;
-    width: 32px;
-    height: 30px;
+    width: 34px;
+    height: 33px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index:100;
@@ -558,12 +558,12 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: 137px;
-    left: 42px;
-    background: #ffffffe8;
+    bottom: 165px;
+    left: -6px;
+    background: #ffffff;
     border: 1px solid #e7e7e7;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 0 19px 20px 0;
+    padding: 5px 10px 5px 21px;
     font-size: 12px;
     letter-spacing: 1px;
     z-index: 283;
@@ -662,8 +662,8 @@ body {
 /* 在 style.css 文件末尾添加 */
 #scroll-down-button {
     position: fixed;
-    left: 16px;
-    bottom: 134px;
+    right: 30px;
+    bottom: 238px;
     background-color: #ffffff;
     color: #b20000;
     border: 1px solid #c3c3c3;
