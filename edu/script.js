@@ -138,7 +138,7 @@ function showAllTagsModal() {
     style.textContent = `
         .content li {
             transition: opacity 0.7s ease;
-            opacity: 0.3;
+            opacity: 0.35;
         }
         .content li.highlight-effect {
             opacity: 1;
@@ -153,7 +153,7 @@ function showAllTagsModal() {
     function updateOpacityEffects() {
         const viewportHeight = window.innerHeight;
         const triggerTop = viewportHeight * 0.3;
-        const triggerBottom = viewportHeight * 0.5;
+        const triggerBottom = viewportHeight * 0.65;
         
         const lis = document.querySelectorAll('.content li');
         
@@ -818,21 +818,18 @@ function initRemainingCounter() {
     function findCurrentBottomItem() {
         const viewportBottom = window.innerHeight + window.scrollY;
         let passedItems = 0;
-        let foundBottom = false;
         
         document.querySelectorAll('.category').forEach(category => {
             if (category.style.display === 'none') return;
             
             category.querySelectorAll('li').forEach(item => {
-                if (item.style.display === 'none' || foundBottom) return;
+                if (item.style.display === 'none') return;
                 
                 const rect = item.getBoundingClientRect();
                 const itemBottom = rect.bottom + window.scrollY;
                 
                 if (itemBottom <= viewportBottom) {
                     passedItems++;
-                } else {
-                    foundBottom = true;
                 }
             });
         });
@@ -843,10 +840,15 @@ function initRemainingCounter() {
     function updateCounter() {
         const total = calculateTotalVisible();
         const passed = findCurrentBottomItem();
-        const remaining = total - passed;
         
         if (total > 0) {
-            document.getElementById('remaining-count').textContent = `剩余${remaining}`;
+            document.getElementById('remaining-count').textContent = `已阅${passed}`;
+			
+//			注意：如果你还想保留"剩余X/总数"的显示方式，只需将 
+//			     document.getElementById('remaining-count').textContent = 已阅passed‘;‘
+//			改为‘document.getElementById( ′remaining−count′ ).textContent=‘剩余{total - passed}; 即可。
+			
+			
             document.getElementById('total-count').textContent = total;
             counter.style.display = 'block';
         } else {
@@ -882,8 +884,6 @@ function initRemainingCounter() {
         setTimeout(updateCounter, 100);
     };
 }
-
-
 
 
 

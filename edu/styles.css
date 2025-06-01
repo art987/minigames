@@ -187,7 +187,7 @@ body {
 .category ul li {
     margin-bottom: 6px;
     font-size: 16px;
-    border-bottom: 1px dashed #717171;
+    border-bottom:1px dashed #d1d1d1;
     line-height: 32px;
     background: #ffffff;
     letter-spacing: 1px; 
@@ -197,6 +197,12 @@ body {
     padding: 0px 0px 9px 0px;
     position: relative;min-height: 67px;
 }
+
+.content li.highlight-effect {   line-height:25px;  }
+
+.content li.highlight-effect span c h4{ font-weight:bolder;}
+
+
 .category ul li span{ display: block;    padding-bottom: 25px;}
 .category ul li b span,.category ul li  span c span,.category ul li  span i span,.category ul li  span span { height:auto; padding:0; display: inline;text-decoration: underline;}
 
@@ -548,16 +554,16 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: 12px;
-    right: 19px;
-    background-color: #ffffffe8;
+    bottom: 120px;
+    left: -2px;
+    background: #ffffffe8;
     border: 1px solid #e7e7e7;
     border-radius: 5px;
     padding: 5px 10px;
     font-size: 12px;
     letter-spacing: 1px;
     z-index: 283;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 11%);
     display: none;
 }
 
