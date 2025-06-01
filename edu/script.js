@@ -14,11 +14,42 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
+	
     
     // 页面加载后显示全标签弹窗（放在事件监听器内部）
     setTimeout(() => {
         showAllTagsModal();
     }, 500);
+	
+	
+	
+	
+	// 创建向下滚动按钮
+const scrollDownButton = document.createElement('button');
+scrollDownButton.id = 'scroll-down-button';
+scrollDownButton.textContent = '⇪';
+document.body.appendChild(scrollDownButton);
+
+// 添加点击事件
+scrollDownButton.addEventListener('click', () => {
+    const scrollAmount = window.innerHeight * 0.2; // 35% 屏幕高度
+    window.scrollBy({
+        top: scrollAmount,
+        behavior: 'smooth'
+    });
+});
+
+// 初始显示状态
+window.addEventListener('scroll', () => {
+    // 当页面滚动到底部时隐藏按钮
+    const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    scrollDownButton.style.display = isAtBottom ? 'none' : 'flex';
+});
+	
+	
+	
+	
+	
 });
 
 // ===== 全标签弹窗相关函数 =====

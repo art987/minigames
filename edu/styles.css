@@ -352,20 +352,20 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 52px;
-    right: 20px;
+    bottom: 78px;
+    left: 16px;
     background-color: #ffffff;
-    color: #c10006;
+    color: #a7050a;
     padding: 5px 0px;
-    border-radius: 5px;
-    border: 1px solid #c27b7b;
+    border-radius: 50px;
+    border: 1px solid #b7b7b7;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 24px;
     line-height: 18px;
-    width: 36px;
+    width: 32px;
     height: 30px;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index:100;
 }
 
@@ -554,8 +554,8 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: 120px;
-    left: -2px;
+    bottom: 137px;
+    left: 42px;
     background: #ffffffe8;
     border: 1px solid #e7e7e7;
     border-radius: 5px;
@@ -652,4 +652,33 @@ body {
     background-color: #f9f9f9;
     color: #000000;
     border-color: #ddd;
+}
+
+
+/* 在 style.css 文件末尾添加 */
+#scroll-down-button {
+    position: fixed;
+    left: 16px;
+    bottom: 134px;
+    background-color: #ffffff;
+    color: #b20000;
+    border: 1px solid #c3c3c3;
+    border-radius: 21px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bolder;
+    transform: rotate(180deg);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#scroll-down-button:hover {
+    background-color: #ffffff;
+    color: #c10808;
 }
