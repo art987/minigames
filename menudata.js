@@ -46,7 +46,7 @@ const menuData = {
 	    {
       title: "健康养生",
       items: [
-        { text: "中医养生调理", href: "https://m.xjlz365.com/", icon: "" , emoji:"🌿",  describ: "" , keyword: "" },
+        { text: "中医养生调理", href: "/tools/zhongyiyangsheng.html", icon: "" , emoji:"🌿",  describ: "" , keyword: "" },
       ]
     },
 	
