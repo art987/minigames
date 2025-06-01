@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px; margin:0; 
+    /* padding: 20px; */
+    margin:0;
 }
 .search-container {
     display: flex;
@@ -10,9 +11,9 @@ body {
     border: 1px solid #e4e4e4;
     position: relative;
     border-radius: 12px;
-    padding: 0 6px;
+    padding: 0 16px;
     height: 40px;
-    width: 73%;
+    width: 53%;
 }
 #search-input {
     width: 70%;
@@ -31,12 +32,11 @@ body {
 
 
  .tagsbox{
-    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
     height: 25px;
-    margin-bottom: 13px;
+    margin: 0 20px 13px;
     }
   .tagsbox .tip{
     /* background: #ffffff; */
@@ -128,10 +128,11 @@ body {
         }
 		
 		.marquee {
-  width: 100%; /* 容器宽度 */
+   /* 容器宽度 */
   overflow: hidden; /* 隐藏溢出的内容 */
   white-space: nowrap; /* 防止文本换行 */
   position: relative; /* 相对定位 */
+  margin: 0 20px;
 }
 		
 			.keyword {
@@ -139,7 +140,7 @@ body {
             background-color: #ffffff;
             border-radius: 5px;
             cursor: pointer;
-            color: #575757;
+            color: #000000;
             letter-spacing: 1px;
             font-size: 13px;
             display: inline-block;
@@ -165,7 +166,7 @@ body {
             color: white;
         }
 .content {
-    padding-top: 15px;padding-bottom: 50px;
+    padding: 15px 20px 50px;
 }
 .category {
     margin-bottom: 15px;
@@ -233,6 +234,7 @@ body {
     line-height: 80px;
     text-align: center;
     margin-top: 31px;
+    padding: 20px 20px 0 20px;
 }
 .title h1 {
     font-size: 29px;
@@ -402,14 +404,14 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0 0 0 / 0%);
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
+    background-color: #fbfbfb;
+    margin: 132px auto 0;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #e3e3e3;
     width: 80%;
     height: 60%;
     border-radius: 21px;
@@ -434,12 +436,12 @@ body {
 .close-button {
     color: #ffffff;
     font-size: 29px;
-    margin-top: -16px;
+    margin-top: 53px;
     display: block;
     padding: 0px 8px;
     margin-right: -19px;
     position: fixed;
-    right: 36px;
+    right: 29px;
     top: 69px;
     border-radius: 40px;
     background: #c70000;
@@ -603,12 +605,12 @@ body {
     }
 
 #all-tags-modal .modal-content {
-    background-color: #fefefe;
-    margin: 138px auto 0;
-    padding: 15px 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
+    background-color: #f9f9f9;
+    margin: 137px auto 0;
+    padding: 13px 14px;
+    border: 1px solid #e3e3e3;
+    width: 82%;
+    max-width: 631px;
     border-radius: 12px;
     max-height: 70vh;
     overflow-y: hidden;
@@ -623,12 +625,10 @@ body {
     /* border-radius: 50%; */
     width: 15px;
     height: 30px;
-    position: absolute;
+    position: fixed;
     text-align: center;
     line-height: 30px;
-    margin-top: -64px;
-    top: 1;
-    margin-right: -28px;
+    top: 76px;
 }
 
 #all-tags-container {
@@ -642,7 +642,7 @@ body {
 
 #all-tags-container .tag {
     padding: 8px 11px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     border: 1px solid #ddd;
@@ -653,7 +653,7 @@ body {
 }
 
 #all-tags-container .tag.active {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     color: #000000;
     border-color: #ddd;
 }
@@ -675,7 +675,7 @@ body {
     text-align: center;
     font-weight: bolder;
     transform: rotate(180deg);
-    z-index: 1000;
+    z-index: 900;
     display: flex;
     justify-content: center;
     align-items: center;

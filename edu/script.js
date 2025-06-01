@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 创建全标签弹窗元素
+   
+   setupNavbarScrollBehavior();
+   
+   // 创建全标签弹窗元素
     createAllTagsModal();
     
     renderPage();
@@ -15,11 +18,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
 	
+	
     
     // 页面加载后显示全标签弹窗（放在事件监听器内部）
     setTimeout(() => {
         showAllTagsModal();
     }, 500);
+	
+	
+	
+	
+	
+	
+	
+	// 在 script.js 中替换原有的滚动监听器
+function setupNavbarScrollBehavior() {
+    const navbar = document.getElementById('navbar-container');
+    if (!navbar) return;
+
+    // 移除可能存在的旧监听器
+    window.removeEventListener('scroll', handleNavbarScroll);
+    
+    let lastScrollTop = 0;
+    const navbarHeight = navbar.offsetHeight;
+
+    function handleNavbarScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop <= 0) {
+            navbar.style.top = '0';
+            return;
+        }
+
+        if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
+            navbar.style.top = `-${navbarHeight}px`;
+        } else {
+            navbar.style.top = '0';
+        }
+
+        lastScrollTop = scrollTop;
+    }
+
+    window.addEventListener('scroll', handleNavbarScroll);
+}
+	
+	
+	
+	
+	
 	
 	
 	

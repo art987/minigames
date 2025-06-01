@@ -124,54 +124,76 @@ window.loadScript = function(url) {
     });
 };
 
-// 滚动方向检测和导航栏隐藏功能
 window.setupNavbarScrollBehavior = function() {
     const navbar = document.getElementById('navbar-container');
+    const navbarContent = navbar.querySelector('.navbar'); // 获取实际的导航栏内容
     let lastScrollTop = 0;
-    const navbarHeight = navbar.offsetHeight;
+    const navbarHeight = navbarContent.offsetHeight;
+    let isHidden = false;
+    
+    // 初始化样式
+    navbarContent.style.position = 'fixed';
+    navbarContent.style.top = '0';
+    navbarContent.style.transition = 'top 0.3s ease-in-out';
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
-            // 向下滚动
-            navbar.style.top = `-${navbarHeight}px`;
+        // 在顶部时始终显示
+        if (scrollTop <= 0) {
+            navbarContent.style.position = 'fixed';
+            navbarContent.style.top = '0';
+            isHidden = false;
+            return;
+        }
+        
+        // 滚动方向判断
+        if (scrollTop > lastScrollTop) {
+            // 向下滚动 - 隐藏
+            if (!isHidden && scrollTop > navbarHeight) {
+                navbarContent.style.position = 'absolute'; // 改为absolute避免占用空间
+                navbarContent.style.top = `-${navbarHeight}px`;
+                isHidden = true;
+            }
         } else {
-            // 向上滚动
-            navbar.style.top = '0';
+            // 向上滚动 - 显示
+            if (isHidden) {
+                navbarContent.style.position = 'fixed';
+                navbarContent.style.top = '0';
+                isHidden = false;
+            }
         }
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
 };
 
+
 // 动态加载菜单
 window.loadNavbar = async function() {
     try {
-        // 1. 加载 menudata.js
         await loadScript('https://peacelove.top/menudata.js');
-        
-        // 2. 加载 menu.html 的 HTML 结构
         const response = await fetch('https://peacelove.top/menu.html');
         const navbarHtml = await response.text();
-
-        // 3. 提取并插入 HTML（移除 script 避免冲突）
+        
         const parser = new DOMParser();
         const doc = parser.parseFromString(navbarHtml, 'text/html');
         const scripts = doc.querySelectorAll('script');
         scripts.forEach(script => script.remove());
         
-        // 插入到页面
-        document.getElementById('navbar-container').innerHTML = doc.body.innerHTML;
+        const navbarContainer = document.getElementById('navbar-container');
+        navbarContainer.innerHTML = doc.body.innerHTML;
 
-        // 4. 手动初始化菜单
-        if (typeof menuData !== 'undefined') {
-            initMenu();
-            // 5. 设置滚动行为
-            setupNavbarScrollBehavior();
-        } else {
-            console.error('menuData is not defined');
-        }
+        // 确保DOM完全加载
+        setTimeout(() => {
+            if (typeof menuData !== 'undefined') {
+                initMenu();
+                setupNavbarScrollBehavior();
+                
+                // 添加一个resize监听器来处理可能的布局变化
+                window.addEventListener('resize', setupNavbarScrollBehavior);
+            }
+        }, 100);
     } catch (error) {
         console.error('加载菜单时出错：', error);
     }

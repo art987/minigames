@@ -1,18 +1,16 @@
 @charset "utf-8";
 
+/* 确保navbar-container是相对定位，作为fixed导航栏的容器 */
 #navbar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: top 0.3s;
+    position: relative;
+    height: 0; /* 不占用实际空间 */
     z-index: 1000;
 }
+
+
 body{ margin:0;padding:0;}
 
  .navbar {
-            position: fixed;
-            top: 0;
             width: 100%;
             background-color: #282828d4;
             color: white;
