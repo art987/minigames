@@ -12,7 +12,14 @@
     <script src="data-biaoyang.js" defer></script>
     <script src="script.js" defer></script>
 </head>
-<body style="   background: url(biaoyangbg.png) no-repeat top center;">
+<style> 
+body{background: url(biaoyang.png) no-repeat top center;}
+#content-container .category ul li c{max-height: 1000px;}
+.navbar{ background-color: #c63a3a;  border-bottom: 3px solid #8b2424;}
+.category ul li b{ color:#CC0000;}
+.content li.highlight-effect span c { font-weight:bolder; letter-spacing:2px;}
+</style>
+<body>
  <div id="navbar-container"></div>
 
     <div class="title">
@@ -26,12 +33,12 @@
     <div class="marquee">
         <div class="tip">表扬：</div>
         <div class="keywords" id="keywords-container"></div>
-        <button id="show-all-keywords" class="show-all-keywords">全部</button>
+        <button id="show-all-keywords" class="show-all-keywords">⚓︎</button>
     </div>
 	<div class="tagsbox" >
 		<div class="tip" >分类：</div> 
 		<div class="tags" id="tags-container">		</div>
-		<button id="show-all-tags" class="show-all-tags">↹</button>
+		<button id="show-all-tags" class="show-all-tags">☸</button>
 	</div>
 	<div id="floating-tags-container" class="floating-tags"></div>
     <div class="content" id="content-container"></div>
