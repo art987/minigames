@@ -690,3 +690,121 @@ body {
     background-color: #ffffff;
     color: #c10808;
 }
+
+
+
+
+
+/* 今日推荐弹窗样式 */
+#today-recommend-modal {background-color: rgb(0 0 0 / 23%);}
+
+#today-recommend-modal .modal-content {
+    background-color: #ffffff;
+    margin: 124px auto 0;
+    padding: 20px;
+    border: 1px solid #d7d7d7;
+    width: 82%;
+    max-width: 631px;
+    border-radius: 12px;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 15px #ccc;
+}
+
+#today-recommend-modal h3 {
+    text-align: center;
+    color: #333;
+    font-size: 15px;
+    position: absolute;
+    top: 13px;
+    padding-bottom: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+#today-recommend-container {
+    max-height: 355px;
+    overflow-y: auto;
+    padding: 0;
+    padding-top: 0;
+    margin-top: 19px;
+    border-top: 1px solid #e5e5e5;
+    position: relative;
+}
+
+#today-recommend-container li {list-style: none;height: auto;margin-bottom: 2px;font-size: 16px;border-bottom: 1px dashed #d1d1d1;line-height: 32px;background: #ffffff;letter-spacing: 1px;align-items: center;justify-content: space-between;padding: 0px 0px 3px 0px;position: relative;display: block;}
+
+#today-recommend-container li span{
+    position: relative;
+    display: block;
+    min-height: auto;
+}
+#today-recommend-container li span i{
+    position: absolute;
+    font-size: 12px;
+    color: #959595;
+    right: 1px;
+    top: 32px;
+    font-weight: lighter;
+}
+#today-recommend-container li span b{
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+}
+ #today-recommend-container li c {
+    text-decoration: none;
+    display: block;
+    line-height: 27px;
+    padding: 0px 0 23px;
+    height: auto;
+    position: relative;
+    top: 11px;
+    }
+    
+    #today-recommend-container li c h4{ margin:0; padding:0;}
+	    #today-recommend-container li c p{margin:0; padding:0;}
+    
+
+
+#today-recommend-container .actions {
+    margin-top: 1px;
+    height: 35px;
+    bottom: 0;
+    position: relative;
+    display: block;
+}
+
+#today-recommend-container .actions button {    padding: 3px 8px;    background-color: #ffffff;    border: 1px solid #ddd;    border-radius: 3px;  cursor: pointer;   font-size: 12px; float: right;  display: inline block;    width: 50px;
+    color: #737373;    height: 30px;    margin-left: 6px;}
+
+#today-recommend-container .actions button:hover {
+    background-color: #e0e0e0;
+}
+
+.bottom-close-button {display: block;float: left;height: 33px;padding: 0px 22px;font-size: 16px;background: #ffffff;border: 1px solid #b3b3b3;border-radius: 16px;color: #cd0202;margin-right: 0px;}
+.refresh-button {
+    display: block;
+    float: left;
+    height: 33px;
+    padding: 0px 29px;
+    font-size: 16px;
+    background: #000000;
+    border: 1px solid #000000;
+    border-radius: 16px;
+    color: #fff;
+    margin-right: 17px;
+}
+.bottom-buttons{
+    border-top: 1px solid #ccc;
+    padding-top: 9px;
+    padding: 9px 30px;
+}
+
+
+
+
+
+
+
+

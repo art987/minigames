@@ -1,9 +1,150 @@
+
+	
+	
+// 创建今日推荐弹窗
+function createTodayRecommendModal() {
+    // 检查是否已存在弹窗
+    if (document.getElementById('today-recommend-modal')) return;
+    
+    // 创建弹窗元素
+    const modal = document.createElement('div');
+    modal.id = 'today-recommend-modal';
+    modal.className = 'modal';
+    
+    // 创建弹窗内容
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    
+    // 创建关闭按钮
+    const closeButton = document.createElement('span');
+    closeButton.className = 'close-button';
+    closeButton.id = 'close-today-recommend-modal';
+    closeButton.innerHTML = '&times;';
+    
+    // 创建标题
+    const title = document.createElement('h3');
+    title.textContent = '今日推荐';
+    title.style.marginTop = '0';
+    
+    // 创建推荐内容容器
+    const recommendContainer = document.createElement('ul');
+    recommendContainer.id = 'today-recommend-container';
+
+    
+    // 创建底部按钮容器
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'bottom-buttons';
+
+    // 创建换一组按钮
+    const refreshButton = document.createElement('button');
+	refreshButton.className = 'refresh-button';
+    refreshButton.textContent = '换一组';
+
+    
+    // 创建关闭按钮
+    const closeBtn = document.createElement('button');
+	closeBtn.className = 'bottom-close-button';
+    closeBtn.textContent = '自己看看';
+
+    
+    // 组装弹窗
+    buttonContainer.appendChild(refreshButton);
+    buttonContainer.appendChild(closeBtn);
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(title);
+    modalContent.appendChild(recommendContainer);
+    modalContent.appendChild(buttonContainer);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // 关闭按钮事件
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    // 换一组按钮事件
+    refreshButton.addEventListener('click', () => {
+        showTodayRecommendations();
+    });
+    
+    // 点击外部关闭
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// 显示今日推荐内容
+function showTodayRecommendations() {
+    const modal = document.getElementById('today-recommend-modal');
+    const container = document.getElementById('today-recommend-container');
+    
+    // 清空容器
+    container.innerHTML = '';
+    
+    // 收集所有可能的推荐项
+    let allRecommendations = [];
+    Object.values(data.content).forEach(category => {
+        allRecommendations = allRecommendations.concat(category);
+    });
+    
+    // 随机选择5条不重复的推荐
+    const selectedRecommendations = [];
+    const usedIndices = new Set();
+    
+    while (selectedRecommendations.length < 5 && selectedRecommendations.length < allRecommendations.length) {
+        const randomIndex = Math.floor(Math.random() * allRecommendations.length);
+        if (!usedIndices.has(randomIndex)) {
+            usedIndices.add(randomIndex);
+            selectedRecommendations.push(allRecommendations[randomIndex]);
+        }
+    }
+    
+    // 添加推荐项到容器
+    selectedRecommendations.forEach(recommendation => {
+        const listItem = document.createElement('li');
+        
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = recommendation;
+        listItem.appendChild(textSpan);
+        
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+        
+        const readButton = document.createElement('button');
+        readButton.textContent = '朗读';
+        readButton.onclick = () => readText(recommendation);
+        actions.appendChild(readButton);
+        
+        const copyButton = document.createElement('button');
+        copyButton.textContent = '复制';
+        copyButton.onclick = () => copyText(recommendation, copyButton);
+        actions.appendChild(copyButton);
+        
+        const showAllButton = document.createElement('button');
+        showAllButton.textContent = '全文';
+        showAllButton.onclick = () => showAllText(recommendation);
+        actions.appendChild(showAllButton);
+        
+        listItem.appendChild(actions);
+        container.appendChild(listItem);
+    });
+    
+    // 显示弹窗
+    modal.style.display = 'block';
+}
+
+// 在DOMContentLoaded事件中替换原来的弹窗代码
 document.addEventListener('DOMContentLoaded', () => {
-   
-   setupNavbarScrollBehavior();
-   
-   // 创建全标签弹窗元素
-    createAllTagsModal();
+    setupNavbarScrollBehavior();
+    
+    // 创建今日推荐弹窗
+    createTodayRecommendModal();
     
     renderPage();
     initSearch();
@@ -17,16 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 监听滚动事件
     window.addEventListener('scroll', updateFloatingTags);
-	
-	
     
-    // 页面加载后显示全标签弹窗（放在事件监听器内部）
+    // 页面加载后显示今日推荐弹窗
     setTimeout(() => {
-        showAllTagsModal();
+        showTodayRecommendations();
     }, 500);
-	
-	
-	
+});	
 	
 	
 	
@@ -94,9 +231,7 @@ window.addEventListener('scroll', () => {
 	
 	
 	
-	
-	
-});
+
 
 // ===== 全标签弹窗相关函数 =====
 
