@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     /* padding: 20px; */
     margin:0;
+    background-color: #fff;
 }
 .search-container {
     display: flex;
@@ -167,6 +168,7 @@ body {
         }
 .content {
     padding: 15px 20px 200px;
+    /* background: #fff; */
 }
 .category {
     margin-bottom: 15px;
@@ -358,18 +360,18 @@ body {
 #back-to-top {
     display: none;
     position: fixed;
-    bottom: 188px;
+    bottom: 134px;
     right: 31px;
-    background-color: #ffffff;
+    background-color: #ffffff91;
     color: #a7050a;
     padding: 5px 0px;
     border-radius: 50px;
-    border: 1px solid #b7b7b7;
+    border: 1px solid #b7b7b78c;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 27px;
     line-height: 18px;
-    width: 34px;
-    height: 33px;
+    width: 45px;
+    height: 45px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index:100;
@@ -459,14 +461,15 @@ body {
 .floating-tags {
     display: none;
     position: fixed;
-    bottom: 0;
+    bottom: 162px;
     left: 0;
-    height: 23px;
+    height: 25px;
     width: 100%;
-    background-color: #252525;
-    border-top: 1px solid #ededed;
-    padding: 11px 12px;
-    box-shadow: 0 -2px 3px #c7c7c721;
+    background-color: #ffffffde;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 17px 12px;
+    box-shadow: 0 2px 21px #ff9f9f8c;
     z-index: 385;
     overflow-x: auto;
     white-space: nowrap;
@@ -482,15 +485,16 @@ body {
 
 
 .floating-tags .tag {
-    padding: 6px 8px;
+    padding: 9px 8px;
     margin-right: 8px;
-    background-color: #4b4a4a;
-    border-radius: 5px;
+    background-color: #fbfbfb;
+    border-radius: 15px;
     cursor: pointer;
-    border: 1px solid #6d6c6c;
+    border: 1px solid #b1b1b161;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: #000000;
     font-size: 15px;
+    box-shadow: 0 0 5px #cccccc82;
     display: inline;
 }
 
@@ -663,23 +667,23 @@ body {
 #scroll-down-button {
     position: fixed;
     right: 30px;
-    bottom: 238px;
-    background-color: #ffffff;
+    bottom: 233px;
+    background-color: #ffffffe6;
     color: #b20000;
-    border: 1px solid #c3c3c3;
+    border: 1px solid #b7b7b78c;
     border-radius: 21px;
     cursor: pointer;
-    width: 35px;
-    height: 35px;
-    font-size: 24px;
+    width: 45px;
+    height: 45px;
+    font-size: 28px;
     text-align: center;
     font-weight: bolder;
     transform: rotate(180deg);
-    z-index: 900;
+    z-index: 844;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #scroll-down-button:hover {
