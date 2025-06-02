@@ -388,7 +388,7 @@ body {
     line-height: 55px;}
 
 .category ul li  i{color: #777777;text-align: right;display: block;line-height: 15px;font-size:12px;margin-bottom: 7px;padding-top: 6px;letter-spacing: 0px;font-style: normal;}
-.category ul li  b{color: ##818181;display: block;font-weight: normal;font-size: 14px;line-height: 21px;padding-bottom: 10px;letter-spacing: 0;overflow: hidden;    padding-top: 5px;}
+.category ul li  b{color: ##818181;display: block;font-weight: normal;font-size: 14px;line-height: 21px;padding-bottom: 10px;letter-spacing: 2px;overflow: hidden;padding-top: 5px;}
 
 
 
@@ -409,7 +409,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fbfbfb;
+    background-color: #ffffff;
     margin: 132px auto 0;
     padding: 20px;
     border: 1px solid #e3e3e3;
@@ -609,7 +609,7 @@ body {
     }
 
 #all-tags-modal .modal-content {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     margin: 137px auto 0;
     padding: 13px 14px;
     border: 1px solid #e3e3e3;
