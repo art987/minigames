@@ -163,7 +163,7 @@ body {
 }
 		
         .tag:hover, .keyword:hover , .active{
-            background-color: #df0007;
+            background-color: #000000;
             color: white;
         }
 .content {
@@ -239,21 +239,20 @@ body {
     padding: 20px 20px 0 20px;
 }
 .title h1 {
-    font-size: 29px;
+    font-size: 25px;
     line-height: 39px;
-    font-family: cursive;
     padding: 10px 0px 0;
     font-weight: bold;
+    letter-spacing: 1px;
     margin: 0;
     text-shadow: 0 0 4px #FFF;
 }
 .title p {
     font-size: 14px;
     line-height: 10px;
-    padding: 10px 0 0;
+    padding: 7px 0 0;
     margin: 0;
-    font-family: fangsong;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     color: #8f8f8f;
 }
 
@@ -363,12 +362,12 @@ body {
     bottom: 134px;
     right: 31px;
     background-color: #ffffff91;
-    color: #a7050a;
+    color: #000000;
     padding: 5px 0px;
     border-radius: 50px;
     border: 1px solid #b7b7b78c;
     cursor: pointer;
-    font-size: 27px;
+    font-size: 22px;
     line-height: 18px;
     width: 45px;
     height: 45px;
@@ -461,7 +460,7 @@ body {
 .floating-tags {
     display: none;
     position: fixed;
-    bottom: 162px;
+    bottom: 0;
     left: 0;
     height: 25px;
     width: 100%;
@@ -469,7 +468,7 @@ body {
     border-top: 1px solid #e3e3e3;
     border-bottom: 1px solid #e5e5e5;
     padding: 17px 12px;
-    box-shadow: 0 2px 21px #ff9f9f8c;
+    box-shadow: 0 2px 21px #31313145;
     z-index: 385;
     overflow-x: auto;
     white-space: nowrap;
@@ -499,9 +498,10 @@ body {
 }
 
 .floating-tags .tag.active {
-    background-color: #c10006;
-    color: white;
-    border: 1px solid #cb5b5b;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    border: 1px solid #181818;
 }
 
 
@@ -669,13 +669,13 @@ body {
     right: 30px;
     bottom: 233px;
     background-color: #ffffffe6;
-    color: #b20000;
+    color: #000000;
     border: 1px solid #b7b7b78c;
     border-radius: 21px;
     cursor: pointer;
     width: 45px;
     height: 45px;
-    font-size: 28px;
+    font-size: 22px;
     text-align: center;
     font-weight: bolder;
     transform: rotate(180deg);
