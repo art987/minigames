@@ -229,7 +229,7 @@ function showAllTagsModal() {
 
     function updateOpacityEffects() {
         const viewportHeight = window.innerHeight;
-        const triggerTop = viewportHeight * 0.3;
+        const triggerTop = viewportHeight * 0.1;
         const triggerBottom = viewportHeight * 0.65;
         
         const lis = document.querySelectorAll('.content li');

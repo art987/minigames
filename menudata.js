@@ -47,6 +47,8 @@ const menuData = {
 	    {
       title: "健康养生",
       items: [
+			   { text: "100个中医诊断公式", href: "/edu/zhongyizhenduan.html", icon: "" , emoji:"👴",  describ: "" , keyword: "" },
+			    { text: "420个西医诊断公式", href: "/edu/xiyizhenduan.html", icon: "" , emoji:"👨‍⚕️",  describ: "" , keyword: "" },
 		 { text: "中医传世小偏方", href: "/edu/zhongyipianfang.html", icon: "" , emoji:"🌿",  describ: "" , keyword: "" },
 		  { text: "健康养生", href: "/edu/yangsheng.html", icon: "" , emoji:"🌷",  describ: "" , keyword: "" },
         { text: "中医养生调理", href: "/tools/zhongyiyangsheng.html", icon: "" , emoji:"🌺",  describ: "" , keyword: "" },

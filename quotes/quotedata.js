@@ -1,6 +1,6 @@
 const quotedata = {
     1: {
-        title: "治愈系短句",
+        title: "骂醒拖延症",
         quotes: [
             { text: "人生自是有情痴，此恨不关风与月。", author: "— 苏轼" },
     { text: "一切都能过去，除非你把它放在心上。", author: "— 梁实秋" },

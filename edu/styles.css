@@ -166,7 +166,7 @@ body {
             color: white;
         }
 .content {
-    padding: 15px 20px 50px;
+    padding: 15px 20px 200px;
 }
 .category {
     margin-bottom: 15px;
@@ -560,12 +560,12 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: 165px;
-    left: -6px;
-    background: #ffffff;
+    bottom: -13px;
+    left: 135px;
+    background: #f3f3f3;
     border: 1px solid #e7e7e7;
-    border-radius: 0 19px 20px 0;
-    padding: 5px 10px 5px 21px;
+    border-radius: 10px;
+    padding: 5px 10px 15px 10px;
     font-size: 12px;
     letter-spacing: 1px;
     z-index: 283;
