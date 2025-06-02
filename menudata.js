@@ -24,6 +24,7 @@ const menuData = {
       title: "处事智慧",
       items: [
         { text: "鼓励自己", href: "/edu/guliziji.html", icon: "" , emoji:"🌟",  describ: "" , keyword: "" },
+		 { text: "拖延症治疗备忘", href: "/edu/tuoyanzheng.html", icon: "" , emoji:"😎",  describ: "" , keyword: "" },
         { text: "人性箴言", href: "/edu/zhenyan.html", icon: "" , emoji:"🧘🏻‍♂️",  describ: "" , keyword: "" },
         { text: "心理效应汇总", href: "/edu/xinlixiaoying.html", icon: "" , emoji:"💖",  describ: "" , keyword: "" },
         { text: "人性阴暗行为洞察", href: "/edu/renxingyinan.html", icon: "" , emoji:"👀",  describ: "" , keyword: "" },
