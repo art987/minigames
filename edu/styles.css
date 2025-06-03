@@ -204,7 +204,7 @@ body {
     padding: 0px 0px 9px 0px;
     position: relative;min-height: 67px;
 }
-
+.category ul li nav{ display:none;}
 .content li.highlight-effect {   line-height:25px;  }
 
 .content li.highlight-effect span c h4{ font-weight:bolder;}
@@ -781,7 +781,7 @@ body {
     
     #today-recommend-container li c h4{ margin:0; padding:0;}
 	    #today-recommend-container li c p{margin:0; padding:0;}
-    
+    #today-recommend-container li c u{    color: #25829c;    font-size: 14px;  text-decoration: none;}
 
 
 #today-recommend-container .actions {

@@ -72,6 +72,10 @@ const menuData = {
 	
 	
     {  singleItem: true, text: "电话求助热线汇总",  href: "/tools/gonggong-rexian.html", icon: "" , emoji:"📞",  describ: "" , keyword: "" },
+	
+	{  singleItem: true, text: "超实用免费在线工具导航",  href: "/edu/wangzhidaonghang.html", icon: "" , emoji:"🌐",  describ: "" , keyword: "" },
+	
+	
     {  singleItem: true, text: "胎教音乐合集",     href: "/tools/taijiao-music/index.html",  icon: "" , emoji:"🤰",  describ: "" , keyword: "" },
     { singleItem: true,  text: "心灵加油站",   href: "/quotes/index.html",  icon: "" , emoji:"⛽",  describ: "" , keyword: "" },
 	

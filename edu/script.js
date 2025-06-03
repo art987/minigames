@@ -84,12 +84,11 @@ function createTodayRecommendModal() {
 
 // 显示今日推荐内容
 
-
 function showTodayRecommendations() {
     const modal = document.getElementById('today-recommend-modal');
     const container = document.getElementById('today-recommend-container');
     
-	  // 添加加载动画
+    // 添加加载动画
     container.innerHTML = '<div class="loading-animation"></div>';
     
     // 添加加载动画样式
@@ -101,11 +100,11 @@ function showTodayRecommendations() {
             margin: 50px auto;
             border: 4px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            border-top: 4px solid   #cd0202;
+            border-top: 4px solid #cd0202;
             animation: spin .5s linear infinite;
         }
         @keyframes spin {
-			0% { transform: rotate(0deg); }
+            0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
     `;
@@ -115,71 +114,94 @@ function showTodayRecommendations() {
     setTimeout(() => {
         // 移除加载动画样式
         document.head.removeChild(style);
-	
-	
-	
-	
-	
-    // 清空容器
-    container.innerHTML = '';
-    
-    // 收集所有可能的推荐项
-    let allRecommendations = [];
-    Object.values(data.content).forEach(category => {
-        allRecommendations = allRecommendations.concat(category);
-    });
-    
-    // 随机选择5条不重复的推荐
-    const selectedRecommendations = [];
-    const usedIndices = new Set();
-    
-    while (selectedRecommendations.length < 10 && selectedRecommendations.length < allRecommendations.length) {
-        const randomIndex = Math.floor(Math.random() * allRecommendations.length);
-        if (!usedIndices.has(randomIndex)) {
-            usedIndices.add(randomIndex);
-            selectedRecommendations.push(allRecommendations[randomIndex]);
+        
+        // 清空容器
+        container.innerHTML = '';
+        
+        // 收集所有可能的推荐项
+        let allRecommendations = [];
+        Object.values(data.content).forEach(category => {
+            allRecommendations = allRecommendations.concat(category);
+        });
+        
+        // 随机选择10条不重复的推荐
+        const selectedRecommendations = [];
+        const usedIndices = new Set();
+        
+        while (selectedRecommendations.length < 10 && selectedRecommendations.length < allRecommendations.length) {
+            const randomIndex = Math.floor(Math.random() * allRecommendations.length);
+            if (!usedIndices.has(randomIndex)) {
+                usedIndices.add(randomIndex);
+                selectedRecommendations.push(allRecommendations[randomIndex]);
+            }
         }
-    }
-    
-    // 添加推荐项到容器
-    selectedRecommendations.forEach(recommendation => {
-        const listItem = document.createElement('li');
         
-        const textSpan = document.createElement('span');
-        textSpan.innerHTML = recommendation;
-        listItem.appendChild(textSpan);
+        // 添加推荐项到容器
+        selectedRecommendations.forEach(recommendation => {
+            const listItem = document.createElement('li');
+            listItem.setAttribute('data-original-text', recommendation);
+            
+            const textSpan = document.createElement('span');
+            textSpan.innerHTML = recommendation.replace(/<nav>.*?<\/nav>/, ''); // 移除nav标签显示
+            listItem.appendChild(textSpan);
+            
+            const actions = document.createElement('div');
+            actions.className = 'actions';
+            
+            // 检查是否有nav标签
+            const navMatch = recommendation.match(/<nav>(.*?)<\/nav>/);
+            if (navMatch) {
+                const url = navMatch[1];
+                
+                // 添加复制网址按钮
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.textContent = '复制网址';
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(url)
+                        .then(() => alert('网址已复制'))
+                        .catch(err => console.error('复制失败:', err));
+                });
+                actions.appendChild(copyBtn);
+                
+                // 添加直达网站按钮
+                const openBtn = document.createElement('button');
+                openBtn.className = 'open-btn';
+                openBtn.textContent = '直达网站';
+                openBtn.addEventListener('click', () => {
+                    window.open(url, '_blank');
+                });
+                actions.appendChild(openBtn);
+            } else {
+                // 如果没有nav标签，添加默认的朗读和复制按钮
+                const readButton = document.createElement('button');
+                readButton.textContent = '朗读';
+                readButton.onclick = () => readText(recommendation);
+                actions.appendChild(readButton);
+                
+                const copyButton = document.createElement('button');
+                copyButton.textContent = '复制';
+                copyButton.onclick = () => copyText(recommendation, copyButton);
+                actions.appendChild(copyButton);
+            }
+            
+            listItem.appendChild(actions);
+            container.appendChild(listItem);
+        });
         
-        const actions = document.createElement('div');
-        actions.className = 'actions';
+        // 显示弹窗
+        modal.style.display = 'block';
         
-        const readButton = document.createElement('button');
-        readButton.textContent = '朗读';
-        readButton.onclick = () => readText(recommendation);
-        actions.appendChild(readButton);
+        // 新增代码 - 滚动到顶部
+        container.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
         
-        const copyButton = document.createElement('button');
-        copyButton.textContent = '复制';
-        copyButton.onclick = () => copyText(recommendation, copyButton);
-        actions.appendChild(copyButton);
-        
-    
-        
-        listItem.appendChild(actions);
-        container.appendChild(listItem);
-    });
-    
-    // 显示弹窗
-    modal.style.display = 'block';
-	
-	
-	 // 新增代码 - 滚动到顶部
-    container.scrollTo({
-        top: 0,
-        behavior: 'smooth'  // 平滑滚动效果
-    });
-	
-	   }, 300); // 1秒延迟
+    }, 300); // 0.3秒延迟
 }
+
+
 
 // 在DOMContentLoaded事件中替换原来的弹窗代码
 document.addEventListener('DOMContentLoaded', () => {
@@ -555,10 +577,10 @@ if (showAllTagsButton) {
             copyButton.onclick = () => copyText(sentence, copyButton);
             actions.appendChild(copyButton);
 
-            const showAllButton = document.createElement('button');
-            showAllButton.textContent = '全文';
-            showAllButton.onclick = () => showAllText(sentence);
-            actions.appendChild(showAllButton);
+//            const showAllButton = document.createElement('button');
+//            showAllButton.textContent = '全文';
+//            showAllButton.onclick = () => showAllText(sentence);
+//            actions.appendChild(showAllButton);
 
             listItem.appendChild(actions);
             categoryList.appendChild(listItem);
@@ -578,7 +600,12 @@ if (showAllTagsButton) {
         document.getElementById('keyword-modal').style.display = 'none';
     });
 
-  
+   // 渲染内容后处理nav标签
+    Object.keys(data.content).forEach(key => {
+        data.content[key].forEach(sentence => {
+          
+        });
+    });
 
     updateFloatingTags();
 }
@@ -1180,3 +1207,55 @@ function scrollToCenter(element) {
 }
 
 
+ // 处理遇到nav标签自动更换按钮。
+function processNavTags() {
+  
+
+  // 处理所有包含nav标签的内容
+  document.querySelectorAll('.content li').forEach(item => {
+    const content = item.getAttribute('data-original-text');
+    const navRegex = /<nav>(.*?)<\/nav>/;
+    const match = content.match(navRegex);
+    
+    if (match) {
+      let url = match[1];
+      // 自动添加https://协议（如果原网址没有协议）
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      
+      const actionsDiv = item.querySelector('.actions');
+      if (actionsDiv) {
+        actionsDiv.innerHTML = `
+          <button class="copy-btn" data-url="${url}">复制网址</button>
+          <button class="open-btn" data-url="${url}">直达网站</button>
+        `;
+        
+        // 复制按钮功能
+        const copyBtn = actionsDiv.querySelector('.copy-btn');
+        copyBtn.addEventListener('click', function() {
+          navigator.clipboard.writeText(url)
+            .then(() => {
+              // 改变按钮文字为"✔已复制"，3秒后恢复
+              const originalText = copyBtn.innerText;
+              copyBtn.innerHTML = '✔已复制';
+              setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+              }, 3000);
+            })
+            .catch(err => console.error('复制失败:', err));
+        });
+        
+        // 打开网站功能
+        actionsDiv.querySelector('.open-btn').addEventListener('click', function() {
+          window.open(url, '_blank');
+        });
+      }
+    }
+  });
+}
+
+// 在DOM加载完成后执行
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(processNavTags, 1000); // 延迟1秒确保所有元素已渲染
+});
