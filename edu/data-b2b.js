@@ -15,17 +15,14 @@ const data = {
         "🎯综合批发|🎯 多元品类综合批发平台": [
             "<c> <h4>阿里巴巴1688</h4> <p>全球知名B2B电商品牌，覆盖多行业大类，提供商机与交易市场</p> <nav>https://www.1688.com</nav></c>",
             "<c> <h4>中国制造网</h4> <p>国内综合B2B平台，为供需双方提供服务，提升采购效率</p> <nav>https://cn.made-in-china.com</nav></c>",
-            "<c> <h4>慧聪网</h4> <p>提供B2B行业资讯、供需信息，是企业网络贸易门户</p> <nav>https://www.hc360.com</nav></c>",
+            "<c> <h4>慧聪网</h4> <p>提供B2B行业资讯、供需信息，是企业网络贸易门户</p> <nav>https://www.hczyw.com/</nav></c>",
             "<c> <h4>马可波罗网</h4> <p>精确采购搜索引擎，助力中小企业达成交易</p> <nav>http://china.makepolo.com</nav></c>",
             "<c> <h4>环球资源网</h4> <p>知名的国际贸易平台，连接全球买家与供应商</p> <nav>https://www.globalsources.com</nav></c>",
             "<c> <h4>敦煌网</h4> <p>专注跨境B2B贸易，为中小企业提供出口电商服务</p> <nav>https://www.dhgate.com</nav></c>",
             "<c> <h4>生意宝</h4> <p>提供行业资讯、交易平台等服务，助力企业拓展业务</p> <nav>https://www.toocle.com</nav></c>"
         ],
         "👙成人用品|👙 成人用品专业批发平台": [
-            "<c> <h4>百晓猫性商网</h4> <p>成人用品批发B2B网站，涵盖多种性保健品</p> <nav>http://www.chinasexq.com</nav></c>",
-            "<c> <h4>爱向上成人用品批发网</h4> <p>提供丰富的成人用品货源，支持批发业务</p> <nav>https://www.axs168.com</nav></c>",
-            "<c> <h4>成人用品批发商城</h4> <p>专注成人用品批发，产品质量有保障</p> <nav>https://www.adultgoodswholesale.com</nav></c>",
-            "<c> <h4>性趣屋成人用品批发</h4> <p>多种成人用品可供选择，满足不同需求</p> <nav>https://www.sexylifehouse.com</nav></c>"
+            "<c> <h4>百晓猫性商网</h4> <p>成人用品批发B2B网站，涵盖多种性保健品</p> <nav>http://www.chinasexq.com</nav></c>"
         ],
         "👚服装批发|👚 丰富多样服装批发平台": [
             "<c> <h4>众人店</h4> <p>免费发布电商运营教程和本地商店信息的分类平台</p> <nav>http://www.zhongrendian.com</nav></c>",
