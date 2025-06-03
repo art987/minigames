@@ -23,7 +23,7 @@ function createTodayRecommendModal() {
     
     // 创建标题
     const title = document.createElement('h3');
-    title.textContent = '☀今日推荐';
+    title.textContent = '☀今日推荐（10）';
     title.style.marginTop = '0';
     
     // 创建推荐内容容器
@@ -133,7 +133,7 @@ function showTodayRecommendations() {
     const selectedRecommendations = [];
     const usedIndices = new Set();
     
-    while (selectedRecommendations.length < 8 && selectedRecommendations.length < allRecommendations.length) {
+    while (selectedRecommendations.length < 10 && selectedRecommendations.length < allRecommendations.length) {
         const randomIndex = Math.floor(Math.random() * allRecommendations.length);
         if (!usedIndices.has(randomIndex)) {
             usedIndices.add(randomIndex);
@@ -1120,24 +1120,22 @@ function initRemainingCounter() {
     function updateCounter() {
         const total = calculateTotalVisible();
         const passed = findCurrentBottomItem();
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const triggerHeight = window.innerHeight * 1.5; // 1.5倍屏幕高度
         
-        if (total > 0) {
+        if (total > 0 && scrollY >= triggerHeight) {
             document.getElementById('remaining-count').textContent = `已阅${passed}`;
-			
-//			注意：如果你还想保留"剩余X/总数"的显示方式，只需将 
-//			     document.getElementById('remaining-count').textContent = 已阅passed‘;‘
-//			改为‘document.getElementById( ′remaining−count′ ).textContent=‘剩余{total - passed}; 即可。
-			
-			
             document.getElementById('total-count').textContent = total;
-            counter.style.display = 'block';
+            counter.style.display = 'block'; // 显示计数器
         } else {
-            counter.style.display = 'none';
+            counter.style.display = 'none'; // 隐藏计数器
         }
     }
     
+    // 初始检查
     updateCounter();
     
+    // 监听滚动和窗口大小变化
     window.addEventListener('scroll', updateCounter);
     window.addEventListener('resize', updateCounter);
     
@@ -1164,7 +1162,6 @@ function initRemainingCounter() {
         setTimeout(updateCounter, 100);
     };
 }
-
 
 
 function scrollToCenter(element) {
