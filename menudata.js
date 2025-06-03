@@ -72,10 +72,8 @@ const menuData = {
       items: [
         
 		{ text: "免费在线工具备忘",  href: "/edu/wangzhidaohang.html", icon: "" , emoji:"🌐",  describ: "" , keyword: "" },
-		{ text: "电商货源站点备忘", href: "/edu/b2b.html", icon: "" , emoji:"🎒",  describ: "" , keyword: "" },
-        { text: "店铺风水备忘录", href: "/edu/dianpufengshui.html", icon: "" , emoji:"🏬",  describ: "" , keyword: "" },
-        { text: "中国美术史", href: "/edu/cnart.html", icon: "" , emoji:"🏮",  describ: "" , keyword: "" },
-        { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "" , keyword: "" },
+		{ text: "电商货源站点备忘", href: "/edu/b2b.html", icon: "" , emoji:"📦️",  describ: "" , keyword: "" },
+		{ text: "兼职接单站点备忘录", href: "/edu/job.html", icon: "" , emoji:"💰️",  describ: "" , keyword: "" }
       ]
     },
 	
