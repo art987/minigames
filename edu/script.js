@@ -83,10 +83,43 @@ function createTodayRecommendModal() {
 }
 
 // 显示今日推荐内容
+
+
 function showTodayRecommendations() {
     const modal = document.getElementById('today-recommend-modal');
     const container = document.getElementById('today-recommend-container');
     
+	  // 添加加载动画
+    container.innerHTML = '<div class="loading-animation"></div>';
+    
+    // 添加加载动画样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .loading-animation {
+            width: 40px;
+            height: 40px;
+            margin: 50px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid   #cd0202;
+            animation: spin .5s linear infinite;
+        }
+        @keyframes spin {
+			0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // 延迟1秒后显示新内容
+    setTimeout(() => {
+        // 移除加载动画样式
+        document.head.removeChild(style);
+	
+	
+	
+	
+	
     // 清空容器
     container.innerHTML = '';
     
@@ -137,6 +170,15 @@ function showTodayRecommendations() {
     
     // 显示弹窗
     modal.style.display = 'block';
+	
+	
+	 // 新增代码 - 滚动到顶部
+    container.scrollTo({
+        top: 0,
+        behavior: 'smooth'  // 平滑滚动效果
+    });
+	
+	   }, 300); // 1秒延迟
 }
 
 // 在DOMContentLoaded事件中替换原来的弹窗代码
