@@ -68,12 +68,22 @@ const menuData = {
       ]
     },
 	
+	    title: "站点备忘",
+      items: [
+        
+		{ text: "免费在线工具备忘",  href: "/edu/wangzhidaohang.html", icon: "" , emoji:"🌐",  describ: "" , keyword: "" },
+		{ text: "电商货源站点备忘", href: "/edu/b2b.html", icon: "" , emoji:"🎒",  describ: "" , keyword: "" },
+        { text: "店铺风水备忘录", href: "/edu/dianpufengshui.html", icon: "" , emoji:"🏬",  describ: "" , keyword: "" },
+        { text: "中国美术史", href: "/edu/cnart.html", icon: "" , emoji:"🏮",  describ: "" , keyword: "" },
+        { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "" , keyword: "" },
+      ]
+    },
 	
 	
 	
     {  singleItem: true, text: "电话求助热线汇总",  href: "/tools/gonggong-rexian.html", icon: "" , emoji:"📞",  describ: "" , keyword: "" },
 	
-	{  singleItem: true, text: "超实用免费在线工具导航",  href: "/edu/wangzhidaonghang.html", icon: "" , emoji:"🌐",  describ: "" , keyword: "" },
+	
 	
 	
     {  singleItem: true, text: "胎教音乐合集",     href: "/tools/taijiao-music/index.html",  icon: "" , emoji:"🤰",  describ: "" , keyword: "" },
