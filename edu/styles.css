@@ -177,13 +177,14 @@ body {
     margin: 0 0 2px;
     font-size: 15px;
     color: #000000;
-    border-bottom: 2px solid #1a1a1a;
+    border-bottom: 2px solid #c3c3c3;
     letter-spacing: 2px;
     line-height: 31px;
     height: 32px;
     background: #ffffff;
     text-indent: 0px;
     font-weight: normal;
+    overflow: hidden;
 }
 .category ul {
     list-style-type: none;
@@ -402,7 +403,7 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 111%;
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgb(0 0 0 / 0%);
@@ -437,7 +438,7 @@ body {
 .close-button {
     color: #ffffff;
     font-size: 29px;
-    margin-top: 53px;
+    margin-top: 23px;
     display: block;
     padding: 0px 8px;
     margin-right: -19px;
@@ -564,12 +565,12 @@ body {
 /* 剩余计数器样式 - 通过JS动态创建 */
 #remaining-counter {
     position: fixed;
-    bottom: -13px;
-    left: 135px;
-    background: #f3f3f3;
-    border: 1px solid #e7e7e7;
+    bottom: 105px;
+    right: 13px;
+    background: #ffffff;
+    /* border: 1px solid #e7e7e7; */
     border-radius: 10px;
-    padding: 5px 10px 15px 10px;
+    padding: 5px 10px 4px 10px;
     font-size: 12px;
     letter-spacing: 1px;
     z-index: 283;
@@ -700,10 +701,10 @@ body {
 
 #today-recommend-modal .modal-content {
     background-color: #ffffff;
-    margin: 124px auto 0;
-    padding: 20px;
+    margin: 98px auto 0;
+    padding: 20px 0 20px;
     border: 1px solid #d7d7d7;
-    width: 82%;
+    width: 90%;
     max-width: 631px;
     border-radius: 12px;
     height: 100%;
@@ -717,16 +718,16 @@ body {
     font-size: 15px;
     position: absolute;
     top: 13px;
+    left: 19px;
     padding-bottom: 6px;
     margin: 0;
     padding: 0;
 }
 
 #today-recommend-container {
-    max-height: 355px;
+    max-height: 398px;
     overflow-y: auto;
-    padding: 0;
-    padding-top: 0;
+    padding: 0px 20px 0px;
     margin-top: 19px;
     border-top: 1px solid #e5e5e5;
     position: relative;
@@ -769,14 +770,27 @@ body {
 
 #today-recommend-container .actions {
     margin-top: 1px;
-    height: 35px;
+    height: 27px;
     bottom: 0;
     position: relative;
     display: block;
 }
 
-#today-recommend-container .actions button {    padding: 3px 8px;    background-color: #ffffff;    border: 1px solid #ddd;    border-radius: 3px;  cursor: pointer;   font-size: 12px; float: right;  display: inline block;    width: 50px;
-    color: #737373;    height: 30px;    margin-left: 6px;}
+#today-recommend-container .actions button {
+    padding: 3px 2px;
+    height: 29px;-
+    color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    float: right;
+    display: inline block;
+    width: 53px;
+    color: #737373;
+    height: 24px;
+    margin-left: 6px;
+    }
 
 #today-recommend-container .actions button:hover {
     background-color: #e0e0e0;

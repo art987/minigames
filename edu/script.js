@@ -97,7 +97,7 @@ function showTodayRecommendations() {
     const selectedRecommendations = [];
     const usedIndices = new Set();
     
-    while (selectedRecommendations.length < 5 && selectedRecommendations.length < allRecommendations.length) {
+    while (selectedRecommendations.length < 4 && selectedRecommendations.length < allRecommendations.length) {
         const randomIndex = Math.floor(Math.random() * allRecommendations.length);
         if (!usedIndices.has(randomIndex)) {
             usedIndices.add(randomIndex);
@@ -126,10 +126,7 @@ function showTodayRecommendations() {
         copyButton.onclick = () => copyText(recommendation, copyButton);
         actions.appendChild(copyButton);
         
-        const showAllButton = document.createElement('button');
-        showAllButton.textContent = '全文';
-        showAllButton.onclick = () => showAllText(recommendation);
-        actions.appendChild(showAllButton);
+    
         
         listItem.appendChild(actions);
         container.appendChild(listItem);
@@ -173,37 +170,38 @@ function setupNavbarScrollBehavior() {
     const navbar = document.getElementById('navbar-container');
     if (!navbar) return;
 
-    // 移除可能存在的旧监听器
-    window.removeEventListener('scroll', handleNavbarScroll);
-    
     let lastScrollTop = 0;
     const navbarHeight = navbar.offsetHeight;
 
-    function handleNavbarScroll() {
+    window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
+        // 如果滚动到页面顶部，确保显示navbar
         if (scrollTop <= 0) {
+            navbar.style.position = 'fixed';
             navbar.style.top = '0';
             return;
         }
 
-        if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
-            navbar.style.top = `-${navbarHeight}px`;
+        // 判断滚动方向
+        if (scrollTop > lastScrollTop) {
+            // 向下滚动 - 隐藏navbar
+            navbar.style.position = '';
+            navbar.style.top = '';
         } else {
+            // 向上滚动 - 显示navbar
+            navbar.style.position = 'fixed';
             navbar.style.top = '0';
         }
 
         lastScrollTop = scrollTop;
-    }
-
-    window.addEventListener('scroll', handleNavbarScroll);
+    });
 }
-	
-	
-	
-	
-	
-	
+
+// 在DOM加载完成后调用
+document.addEventListener('DOMContentLoaded', function() {
+    setupNavbarScrollBehavior();
+});
 	
 	
 	
@@ -288,8 +286,17 @@ function createAllTagsModal() {
 }
 
 function showAllTagsModal() {
+    // 确保弹窗已创建
+    createAllTagsModal();
+    
     const modal = document.getElementById('all-tags-modal');
     const container = document.getElementById('all-tags-container');
+    
+    // 添加额外的检查
+    if (!modal || !container) {
+        console.error('Modal elements not found');
+        return;
+    }
     
     // 清空容器
     container.innerHTML = '';
@@ -319,7 +326,6 @@ function showAllTagsModal() {
         tagElement.dataset.category = category;
         tagElement.textContent = `${name} (${data.content[key].length})`;
         
-        
         tagElement.addEventListener('click', () => {
             // 找到所有相同分类的标签并点击
             const sameTags = document.querySelectorAll(`.tag[data-category="${category}"]`);
@@ -335,8 +341,6 @@ function showAllTagsModal() {
     // 显示弹窗
     modal.style.display = 'block';
 }
-
-
 
 
 
@@ -411,6 +415,12 @@ function renderPage() {
 
     // 渲染标签 - 先添加"全部"标签
     const tagsContainer = document.getElementById('tags-container');
+	
+	// 在renderPage函数中确保有这段代码
+const showAllTagsButton = document.getElementById('show-all-tags');
+if (showAllTagsButton) {
+    showAllTagsButton.addEventListener('click', showAllTagsModal);
+}
     
     // 添加"全部"标签
     const allTagElement = document.createElement('div');
@@ -506,11 +516,7 @@ function renderPage() {
         document.getElementById('keyword-modal').style.display = 'none';
     });
 
-    // 为show-all-tags按钮添加事件
-    const showAllTagsButton = document.getElementById('show-all-tags');
-    if (showAllTagsButton) {
-        showAllTagsButton.addEventListener('click', showAllTagsModal);
-    }
+  
 
     updateFloatingTags();
 }

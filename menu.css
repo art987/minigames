@@ -4,7 +4,7 @@
 #navbar-container {
     position: relative;
     height: 0; /* 不占用实际空间 */
-    z-index: 1000;
+    z-index: 1000;  width: 100%;
 }
 
 
@@ -22,7 +22,7 @@ body{ margin:0;padding:0;}
             box-sizing: border-box;
             z-index: 10000;
             transition: top 0.3s;
-            box-shadow: 0 0 20px #0000004f;
+            box-shadow: 0 0 20px #0000004f; position:relative;
         }
         .navbar.hidden {
             top: -50px;
