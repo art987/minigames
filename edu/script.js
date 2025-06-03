@@ -23,7 +23,7 @@ function createTodayRecommendModal() {
     
     // 创建标题
     const title = document.createElement('h3');
-    title.textContent = '今日推荐';
+    title.textContent = '☀今日推荐';
     title.style.marginTop = '0';
     
     // 创建推荐内容容器
@@ -35,16 +35,19 @@ function createTodayRecommendModal() {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'bottom-buttons';
 
-    // 创建换一组按钮
-    const refreshButton = document.createElement('button');
-	refreshButton.className = 'refresh-button';
-    refreshButton.textContent = '换一组';
+   
 
     
     // 创建关闭按钮
     const closeBtn = document.createElement('button');
 	closeBtn.className = 'bottom-close-button';
     closeBtn.textContent = '自己看看';
+	
+	
+	 // 创建换一组按钮
+    const refreshButton = document.createElement('button');
+	refreshButton.className = 'refresh-button';
+    refreshButton.textContent = '换一组';
 
     
     // 组装弹窗
@@ -97,7 +100,7 @@ function showTodayRecommendations() {
     const selectedRecommendations = [];
     const usedIndices = new Set();
     
-    while (selectedRecommendations.length < 4 && selectedRecommendations.length < allRecommendations.length) {
+    while (selectedRecommendations.length < 8 && selectedRecommendations.length < allRecommendations.length) {
         const randomIndex = Math.floor(Math.random() * allRecommendations.length);
         if (!usedIndices.has(randomIndex)) {
             usedIndices.add(randomIndex);
@@ -143,6 +146,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 创建今日推荐弹窗
     createTodayRecommendModal();
     
+	// 新增代码开始 - 创建并添加今日推荐按钮
+    const recommendBtn = document.createElement('button');
+    recommendBtn.className = 'today-recommend-button';
+    recommendBtn.id = 'today-recommend-button';
+    recommendBtn.textContent = '☀';
+    document.body.appendChild(recommendBtn);
+    
+    // 添加点击事件
+    recommendBtn.addEventListener('click', () => {
+        showTodayRecommendations();
+    });
+    // 新增代码结束
+	
+	
+	
+	
+	
     renderPage();
     initSearch();
     initBackToTop();

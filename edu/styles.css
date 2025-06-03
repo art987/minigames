@@ -436,9 +436,9 @@ body {
 
 
 .close-button {
-    color: #ffffff;
+    color: #e31616;
     font-size: 29px;
-    margin-top: 23px;
+    margin-top: 9px;
     display: block;
     padding: 0px 8px;
     margin-right: -19px;
@@ -446,7 +446,8 @@ body {
     right: 29px;
     top: 69px;
     border-radius: 40px;
-    background: #c70000;
+    background: #ffffff;
+    border: 1px solid #cbcbcb;
 }
 
 .close-button:hover,
@@ -455,6 +456,7 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+#keyword-modal .close-button{ top:110px;}
 
 /*浮动的标签*/
 
@@ -622,18 +624,20 @@ body {
 }
 
 #all-tags-modal .close-button {
-    color: #ffffff;
-    font-size: 24px;
+   
+	color: #df0505;
+    font-size: 26px;
     float: right;
     cursor: pointer;
-    background: #c70000;
+    background: #ffffff;
     /* border-radius: 50%; */
     width: 15px;
     height: 30px;
     position: fixed;
     text-align: center;
     line-height: 30px;
-    top: 76px;
+    width: 15px;
+    top: 116px;
 }
 
 #all-tags-container {
@@ -701,7 +705,7 @@ body {
 
 #today-recommend-modal .modal-content {
     background-color: #ffffff;
-    margin: 98px auto 0;
+    margin: 84px auto 0;
     padding: 20px 0 20px;
     border: 1px solid #d7d7d7;
     width: 90%;
@@ -721,16 +725,22 @@ body {
     left: 19px;
     padding-bottom: 6px;
     margin: 0;
-    padding: 0;
+    padding: 0; font-weight:normal; letter-spacing:2px;
+	
+	
+	
 }
 
 #today-recommend-container {
-    max-height: 398px;
+	
+	    height: 411px;
     overflow-y: auto;
     padding: 0px 20px 0px;
     margin-top: 19px;
+    margin-bottom: 0;
     border-top: 1px solid #e5e5e5;
     position: relative;
+	
 }
 
 #today-recommend-container li {list-style: none;height: auto;margin-bottom: 2px;font-size: 16px;border-bottom: 1px dashed #d1d1d1;line-height: 32px;background: #ffffff;letter-spacing: 1px;align-items: center;justify-content: space-between;padding: 0px 0px 3px 0px;position: relative;display: block;}
@@ -796,15 +806,15 @@ body {
     background-color: #e0e0e0;
 }
 
-.bottom-close-button {display: block;float: left;height: 33px;padding: 0px 22px;font-size: 16px;background: #ffffff;border: 1px solid #b3b3b3;border-radius: 16px;color: #cd0202;margin-right: 0px;}
+.bottom-close-button { color:#252525;display: block;float: left;height: 33px;padding: 0px 22px;font-size: 14px;background: #ffffff;border: 1px solid #b3b3b3;border-radius: 16px;color: #000;margin-right: 0px;}
 .refresh-button {
     display: block;
-    float: left;
+    float: right;
     height: 33px;
     padding: 0px 29px;
-    font-size: 16px;
-    background: #000000;
-    border: 1px solid #000000;
+    font-size: 14px;
+    background: #000;
+    border: 1px solid #616161;
     border-radius: 16px;
     color: #fff;
     margin-right: 17px;
@@ -818,6 +828,23 @@ body {
 
 
 
+.today-recommend-button{
+
+    position: absolute;
+    right: 19px;
+    top: 137px;
+    width: 33px;
+    height: 32px;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #313131;
+    font-size: 18px;
+    border: 1px solid #dfdfdf;
+    cursor: pointer;
+    z-index: 999;
+    line-height: 29px;
+
+}
 
 
 
