@@ -73,7 +73,7 @@ const menuData = {
       items: [
         
 		{ text: "免费在线工具备忘",  href: "/edu/wangzhidaohang.html", icon: "" , emoji:"🌐",  describ: "" , keyword: "" },
-		{ text: "电商货源站点备忘", href: "/edu/b2b.html", icon: "" , emoji:"📦️",  describ: "" , keyword: "" },
+		{ text: "120个常用货源网站备忘", href: "/edu/b2b.html", icon: "" , emoji:"📦️",  describ: "" , keyword: "" },
 		{ text: "兼职接单站点备忘录", href: "/edu/job.html", icon: "" , emoji:"💰️",  describ: "" , keyword: "" }
       ]
     },
