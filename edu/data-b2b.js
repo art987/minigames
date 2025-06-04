@@ -97,7 +97,7 @@ const data = {
             "<c><h4>爱搜鞋</h4><p>一手鞋类货源平台</p><nav>https://www.sooxie.com</nav></c>",
             "<c><h4>新款网</h4><p>鞋类网销货源及一件代发</p><nav>https://www.xingfujie.cn/web</nav></c>",
             "<c><h4>爱买卖</h4><p>温岭女鞋批发平台</p><nav>https://www.2mm.cn</nav></c>",
-            "<c><h4>美美淘</h4><p>女鞋厂家及分销平台</p><nav>https://www.mmgg.com</nav></c>",
+            "<c><h4>美美淘</h4><p>女鞋厂家及分销平台</p><nav>https://www.mmgg.com</nav></c>", 
             "<c><h4>中国鞋库网</h4><p>鞋类批发相关网站</p><nav>https://www.cnxieku.com/index</nav></c>",
             "<c><h4>购途网</h4><p>女鞋批发及货源平台</p><nav>https://www.go2.cn</nav></c>",
             "<c><h4>鞋裤网</h4><p>鞋类批发相关网站</p><nav>https://www.cnxieku.com/index</nav></c>",
