@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自然风景画廊</title>
+    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <!-- 卡片轮播区域 -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="swiper-wrapper">
+                <!-- 卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 独立的内容描述区域 -->
+        <div class="card-description">
+            <h3 class="card-title" id="card-title">深圳生活通</h3>
+            <p class="card-subtitle" id="card-subtitle">便捷的城市生活服务平台</p>
+        </div>
+        
+        <!-- 独立操作按钮区域 -->
+        <div class="action-buttons">
+            <button class="action-btn" id="zoom-btn">放大查看</button>
+            <button class="action-btn" id="download-btn">下载图片</button>
+        </div>
+    </div>
+
+    <!-- 引入数据文件和主JS -->
+    <script src="gallery-data.js"></script>
+    <script src="swiper.js"></script>
+    <script src="main.js"></script>
+
+    <!-- 修复后的模态框结构 -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-container">
+            
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+    </div>
+</body>
+</html>
