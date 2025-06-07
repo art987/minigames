@@ -23,7 +23,7 @@ function createTodayRecommendModal() {
     
     // 创建标题
     const title = document.createElement('h3');
-    title.textContent = '☀今日推荐（10）';
+    title.textContent = '☀今日学习掌握（10）';
     title.style.marginTop = '0';
     
     // 创建推荐内容容器
@@ -207,6 +207,31 @@ function showTodayRecommendations() {
 document.addEventListener('DOMContentLoaded', () => {
     setupNavbarScrollBehavior();
     
+	
+	
+	// 设置文档head信息
+    document.title = data.head.title;
+    
+    // 设置或创建meta标签
+    const setMetaTag = (name, content) => {
+        let meta = document.querySelector(`meta[name="${name}"]`);
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.name = name;
+            document.head.appendChild(meta);
+        }
+        meta.content = content;
+    };
+    
+    setMetaTag('keywords', data.head.keywords);
+    setMetaTag('description', data.head.description);
+	
+	
+	
+	
+	
+	
+	
     // 创建今日推荐弹窗
     createTodayRecommendModal();
     

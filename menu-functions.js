@@ -26,7 +26,9 @@ window.initMenu = function() {
     
     // 设置 logo
     document.getElementById('menu-logo').textContent = menuData.logo;
-    
+    // 设置 slogon
+    document.getElementById('slogon').textContent = menuData.slogon;
+	
     // 构建菜单项
     const sidebar = document.getElementById('sidebar');
     menuData.menuItems.forEach((item, index) => {
