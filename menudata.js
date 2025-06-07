@@ -1,7 +1,7 @@
 // menudata.js
 const menuData = {
   logo: "📙 小本本",
-  slogon: "记忆学习备忘录",
+  slogon: "做个有才华的俗人",
   menuItems: [
 			  
 			  
