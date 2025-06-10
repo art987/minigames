@@ -1040,7 +1040,7 @@ function updateFloatingTags() {
     
     // 如果正在向下滚动，隐藏浮动标签
     if (isScrollingDown) {
-        floatingTagsContainer.style.transform = 'translateY(100%)';
+        floatingTagsContainer.style.transform = 'translateX(-100%)';
         floatingTagsContainer.style.opacity = '0';
         
         // 延迟隐藏以确保动画完成
@@ -1092,7 +1092,7 @@ if (floatingTagsContainer.children.length === 0) {
         // 显示浮动标签栏并添加动画
         floatingTagsContainer.style.display = 'block';
         setTimeout(() => {
-            floatingTagsContainer.style.transform = 'translateY(0)';
+            floatingTagsContainer.style.transform = 'translateX(0)';
             floatingTagsContainer.style.opacity = '1';
         }, 10);
     }

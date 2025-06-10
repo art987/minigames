@@ -464,41 +464,46 @@ body {
 .floating-tags {
     display: none;
     position: fixed;
-    bottom: 0;
+    top: 40px;
     left: 0;
-    height: 25px;
-    width: 100%;
+    height: 90%;
+    width: 42px;
     background-color: #ffffffde;
     border-top: 1px solid #e3e3e3;
     border-bottom: 1px solid #e5e5e5;
-    padding: 17px 12px;
+    padding: 17px 9px;
     box-shadow: 0 2px 21px #31313145;
     z-index: 385;
     overflow-x: auto;
-    white-space: nowrap;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: translateY(100%);
+    transform: translateX(100%);
     opacity: 0;
 }
 
+
+
 .floating-tags.visible {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
 }
 
 
 .floating-tags .tag {
-    padding: 9px 8px;
-    margin-right: 8px;
+    padding: 7px 1px;
+    /* margin-right: 8px; */
     background-color: #fbfbfb;
     border-radius: 15px;
     cursor: pointer;
     border: 1px solid #b1b1b161;
     letter-spacing: 1px;
+    text-align: center;
     color: #000000;
+    width: 39px;
     font-size: 15px;
     box-shadow: 0 0 5px #cccccc82;
-    display: inline;
+    display: block;
+    line-height: 26px;
+    margin-bottom: 10px; position:relative;
 }
 
 .floating-tags .tag.active {
@@ -509,7 +514,15 @@ body {
 }
 
 
-
+.floating-tags .tag::after{content: "";
+    display: block;
+    width: 1px;
+    height: 10px;
+    background-color: #696969;
+    position: absolute;
+    left: 20px;
+    bottom: -11px;
+}
 
 #auto-scroll-button {
     position: fixed;
