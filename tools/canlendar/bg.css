@@ -1,0 +1,368 @@
+
+.b101{background-image:url(images/101.png);background-position-y: -2px; } 
+.b102{background-image:url(images/102.png);background-position-y: -187px;} 
+.b103{background-image:url(images/103.png);background-position-y: -244px;} 
+.b104{background-image:url(images/104.png);background-position-y: -11px;} 
+.b105{background-image:url(images/105.png);background-position-y: -9px;} 
+.b106{background-image:url(images/106.png);background-position-y: -60px;} 
+.b107{background-image:url(images/107.png);background-position-y: -187px;} 
+.b108{background-image:url(images/108.png);background-position-y: -202px;} 
+.b109{background-image:url(images/109.png);background-position-y: -136px;} 
+.b110{background-image:url(images/110.png);background-position-y: -1px; } 
+.b111{background-image:url(images/111.png);background-position-y: -202px;} 
+.b112{background-image:url(images/112.png);background-position-y: -204px;} 
+.b113{background-image:url(images/113.png);background-position-y: -190px;} 
+.b114{background-image:url(images/114.png);background-position-y: -206px;} 
+.b115{background-image:url(images/115.png);background-position-y: -203px;} 
+.b116{background-image:url(images/116.png);background-position-y: -205px;} 
+.b117{background-image:url(images/117.png);background-position-y: -204px;} 
+.b118{background-image:url(images/118.png);background-position-y: -1px; } 
+.b119{background-image:url(images/119.png);background-position-y: -201px;} 
+.b120{background-image:url(images/120.png);background-position-y: -117px;} 
+.b121{background-image:url(images/121.png);background-position-y: -113px;} 
+.b122{background-image:url(images/122.png);background-position-y: -242px;} 
+.b123{background-image:url(images/123.png);background-position-y: -199px;} 
+.b124{background-image:url(images/124.png);background-position-y: 0px;} 
+.b125{background-image:url(images/125.png);background-position-y: -43px;} 
+.b126{background-image:url(images/126.png);background-position-y: -17px;background-position-x: -3px;} 
+.b127{background-image:url(images/127.png);background-position-y: -1px; } 
+.b128{background-image:url(images/128.png);background-position-y: -51px;} 
+.b129{background-image:url(images/129.png);background-position-y: -178px;} 
+.b130{background-image:url(images/130.png);background-position-y: -227px;} 
+.b131{background-image:url(images/131.png);background-position-y: -27px;} 
+.b201{background-image:url(images/201.png);background-position-y: -199px;} 
+.b202{background-image:url(images/202.png);background-position-y: -1px; } 
+.b203{background-image:url(images/203.png);background-position-y: -1px; } 
+.b204{background-image:url(images/204.png);background-position-y: -200px;} 
+.b205{background-image:url(images/205.png);background-position-y: -203px;} 
+.b206{background-image:url(images/206.png);background-position-y: -221px;} 
+.b207{background-image:url(images/207.png);background-position-y: -33px;} 
+.b208{background-image:url(images/208.png);background-position-y: -191px;} 
+.b209{background-image:url(images/209.png);background-position-y: -198px;} 
+.b210{background-image:url(images/210.png);background-position-y: -176px;} 
+.b211{background-image:url(images/211.png);background-position-y: -203px;} 
+.b212{background-image:url(images/212.png);background-position-y: -200px;} 
+.b213{background-image:url(images/213.png);background-position-y: -186px;} 
+.b214{background-image:url(images/214.png);background-position-y: -135px;} 
+.b215{background-image:url(images/215.png);background-position-y: -1px; } 
+.b216{background-image:url(images/216.png);background-position-y: -193px;} 
+.b217{background-image:url(images/217.png);background-position-y: -183px;} 
+.b218{background-image:url(images/218.png);background-position-y: -55px;} 
+.b219{background-image:url(images/219.png);background-position-y: -1px; } 
+.b220{background-image:url(images/220.png);background-position-y: -1px; } 
+.b221{background-image:url(images/221.png);background-position-y: -161px;} 
+.b222{background-image:url(images/222.png);background-position-y: -1px; } 
+.b223{background-image:url(images/223.png);background-position-y: -1px; } 
+.b224{background-image:url(images/224.png);background-position-y: -202px;} 
+.b225{background-image:url(images/225.png);background-position-y: -50px; } 
+.b226{background-image:url(images/226.png);background-position-y: -1px; } 
+.b227{background-image:url(images/227.png);background-position-y: -48px;} 
+.b228{background-image:url(images/228.png);background-position-y: -201px;} 
+.b229{background-image:url(images/229.png);background-position-y: -121px;} 
+.b301{background-image:url(images/301.png);background-position-y: -1px; } 
+.b302{background-image:url(images/302.png);background-position-y: -1px; } 
+.b303{background-image:url(images/303.png);background-position-y: -1px; } 
+.b304{background-image:url(images/304.png);background-position-y: -1px; } 
+.b305{background-image:url(images/305.png);background-position-y: -1px; } 
+.b306{background-image:url(images/306.png);background-position-y: -1px; } 
+.b307{background-image:url(images/307.png);background-position-y: -1px; } 
+.b308{background-image:url(images/308.png);background-position-y: -1px; } 
+.b309{background-image:url(images/309.png);background-position-y: -1px; } 
+.b310{background-image:url(images/310.png);background-position-y: -1px; } 
+.b311{background-image:url(images/311.png);background-position-y: -1px; } 
+.b312{background-image:url(images/312.png);background-position-y: -153px;} 
+.b313{background-image:url(images/313.png);background-position-y: -200px;} 
+.b314{background-image:url(images/314.png);background-position-y: -1px; } 
+.b315{background-image:url(images/315.png);background-position-y: -1px; } 
+.b316{background-image:url(images/316.png);background-position-y: -1px; } 
+.b317{background-image:url(images/317.png);background-position-y: -1px; } 
+.b318{background-image:url(images/318.png);background-position-y: -1px; } 
+.b319{background-image:url(images/319.png);background-position-y: -1px; } 
+.b320{background-image:url(images/320.png);background-position-y: -1px; } 
+.b321{background-image:url(images/321.png);background-position-y: -1px; } 
+.b322{background-image:url(images/322.png);background-position-y: -1px; } 
+.b323{background-image:url(images/323.png);background-position-y: -1px; } 
+.b324{background-image:url(images/324.png);background-position-y: -1px; } 
+.b325{background-image:url(images/325.png);background-position-y: -1px; } 
+.b326{background-image:url(images/326.png);background-position-y: -1px; } 
+.b327{background-image:url(images/327.png);background-position-y: -1px; } 
+.b328{background-image:url(images/328.png);background-position-y: -1px; } 
+.b329{background-image:url(images/329.png);background-position-y: -1px; } 
+.b330{background-image:url(images/330.png);background-position-y: -1px; } 
+.b331{background-image:url(images/331.png);background-position-y: -1px; } 
+.b401{background-image:url(images/401.png);background-position-y: -28px; } 
+.b402{background-image:url(images/402.png);background-position-y: -203px;} 
+.b403{background-image:url(images/403.png);background-position-y: -177px;} 
+.b404{background-image:url(images/404.png);background-position-y: -1px; } 
+.b405{background-image:url(images/405.png);background-position-y: -1px; } 
+.b406{background-image:url(images/406.png);background-position-y: -148px;} 
+.b407{background-image:url(images/407.png);background-position-y: -1px; } 
+.b408{background-image:url(images/408.png);background-position-y: -1px; } 
+.b409{background-image:url(images/409.png);background-position-y: -1px; } 
+.b410{background-image:url(images/410.png);background-position-y: -1px; } 
+.b411{background-image:url(images/411.png);background-position-y: -1px; } 
+.b412{background-image:url(images/412.png);background-position-y: -1px; } 
+.b413{background-image:url(images/413.png);background-position-y: -1px; } 
+.b414{background-image:url(images/414.png);background-position-y: -172px;} 
+.b415{background-image:url(images/415.png);background-position-y: -203px;} 
+.b416{background-image:url(images/416.png);background-position-y: -1px; } 
+.b417{background-image:url(images/417.png);background-position-y: -205px;} 
+.b418{background-image:url(images/418.png);background-position-y: -201px; } 
+.b419{background-image:url(images/419.png);background-position-y: -1px; } 
+.b420{background-image:url(images/420.png);background-position-y: -173px;} 
+.b421{background-image:url(images/421.png);background-position-y: -91px;} 
+.b422{background-image:url(images/422.png);background-position-y: -1px; } 
+.b423{background-image:url(images/423.png);background-position-y: -1px; } 
+.b424{background-image:url(images/424.png);background-position-y: -1px; } 
+.b425{background-image:url(images/425.png);background-position-y: -141px;} 
+.b426{background-image:url(images/426.png);background-position-y: -203px;} 
+.b427{background-image:url(images/427.png);background-position-y: -201px;} 
+.b428{background-image:url(images/428.png);background-position-y: -204px;} 
+.b429{background-image:url(images/429.png);background-position-y: -1px; } 
+.b430{background-image:url(images/430.png);background-position-y: -124px;} 
+.b501{background-image:url(images/501.png);background-position-y: -1px; } 
+.b502{background-image:url(images/502.png);background-position-y: -1px; } 
+.b503{background-image:url(images/503.png);background-position-y: -106px;} 
+.b504{background-image:url(images/504.png);background-position-y: -1px; } 
+.b505{background-image:url(images/505.png);background-position-y: -205px;} 
+.b506{background-image:url(images/506.png);background-position-y: 14px;} 
+.b507{background-image:url(images/507.png);background-position-y: -158px;} 
+.b508{background-image:url(images/508.png);background-position-y: -195px; } 
+.b509{background-image:url(images/509.png);background-position-y: -77px;} 
+.b510{background-image:url(images/510.png);background-position-y: -201px;} 
+.b511{background-image:url(images/511.png);background-position-y: -1px; } 
+.b512{background-image:url(images/512.png);background-position-y: -76px; } 
+.b513{background-image:url(images/513.png);background-position-y: -203px;} 
+.b514{background-image:url(images/514.png);background-position-y: -163px;} 
+.b515{background-image:url(images/515.png);background-position-y: -150px; } 
+.b516{background-image:url(images/516.png);background-position-y: -73px;} 
+.b517{background-image:url(images/517.png);background-position-y: 0px;} 
+.b518{background-image:url(images/518.png);background-position-y: -1px; } 
+.b519{background-image:url(images/519.png);background-position-y: -1px; } 
+.b520{background-image:url(images/520.png);background-position-y: -212px;} 
+.b521{background-image:url(images/521.png);background-position-y: -156px;} 
+.b522{background-image:url(images/522.png);background-position-y: -95px;} 
+.b523{background-image:url(images/523.png);background-position-y: -16px;} 
+.b524{background-image:url(images/524.png);background-position-y: -94px;} 
+.b525{background-image:url(images/525.png);background-position-y: -1px; } 
+.b526{background-image:url(images/526.png);background-position-y: -1px; } 
+.b527{background-image:url(images/527.png);background-position-y: 0;} 
+.b528{background-image:url(images/528.png);background-position-y: -4px;} 
+.b529{background-image:url(images/529.png);background-position-y: -1px; } 
+.b530{background-image:url(images/530.png);background-position-y: -1px; } 
+.b531{background-image:url(images/531.png);background-position-y: -199px;} 
+.b601{background-image:url(images/601.png);background-position-y: -116px; } 
+.b602{background-image:url(images/602.png);background-position-y: -1px; } 
+.b603{background-image:url(images/603.png);background-position-y: -202px;} 
+.b604{background-image:url(images/604.png);background-position-y: -1px; } 
+.b605{background-image:url(images/605.png);background-position-y: -1px; } 
+.b606{background-image:url(images/606.png);background-position-y: -1px; } 
+.b607{background-image:url(images/607.png);background-position-y: -1px; } 
+.b608{background-image:url(images/608.png);background-position-y: -1px; } 
+.b609{background-image:url(images/609.png);background-position-y: -1px; } 
+.b610{background-image:url(images/610.png);background-position-y: -1px; } 
+.b611{background-image:url(images/611.png);background-position-y: -127px; } 
+.b612{background-image:url(images/612.png);background-position-y: -1px; } 
+.b613{background-image:url(images/613.png);background-position-y: -1px; } 
+.b614{background-image:url(images/614.png);background-position-y: -222px;} 
+.b615{background-image:url(images/615.png);background-position-y: -1px; } 
+.b616{background-image:url(images/616.png);background-position-y: -1px; } 
+.b617{background-image:url(images/617.png);background-position-y: -1px; } 
+.b618{background-image:url(images/618.png);background-position-y: -185px;} 
+.b619{background-image:url(images/619.png);background-position-y: -1px; } 
+.b620{background-image:url(images/620.png);background-position-y: -1px; } 
+.b621{background-image:url(images/621.png);background-position-y: -1px; } 
+.b622{background-image:url(images/622.png);background-position-y: -1px; } 
+.b623{background-image:url(images/623.png);background-position-y: -1px; } 
+.b624{background-image:url(images/624.png);background-position-y: -168px; } 
+.b625{background-image:url(images/625.png);background-position-y: -1px; } 
+.b626{background-image:url(images/626.png);background-position-y: -1px; } 
+.b627{background-image:url(images/627.png);background-position-y: -1px; } 
+.b628{background-image:url(images/628.png);background-position-y: -1px; } 
+.b629{background-image:url(images/629.png);background-position-y: -1px; } 
+.b630{background-image:url(images/630.png);background-position-y: -1px; } 
+.b701{background-image:url(images/701.png);background-position-y: -1px; } 
+.b702{background-image:url(images/702.png);background-position-y: -1px; } 
+.b703{background-image:url(images/703.png);background-position-y: -64px;} 
+.b704{background-image:url(images/704.png);background-position-y: -147px;} 
+
+.b705{background-image:url(images/705.png);background-position-y: -96px;} 
+.b706{background-image:url(images/706.png);background-position-y: -1px; } 
+.b707{background-image:url(images/707.png);background-position-y: -1px; } 
+.b708{background-image:url(images/708.png);background-position-y: -160px;} 
+.b709{background-image:url(images/709.png);background-position-y: -215px; } 
+.b710{background-image:url(images/710.png);background-position-y: -1px; } 
+.b711{background-image:url(images/711.png);background-position-y: -1px; } 
+.b712{background-image:url(images/712.png);background-position-y: -242px; } 
+.b713{background-image:url(images/713.png);background-position-y: -1px; } 
+.b714{background-image:url(images/714.png);background-position-y: -36px;} 
+.b715{background-image:url(images/715.png);background-position-y: -79px; } 
+.b716{background-image:url(images/716.png);background-position-y: -29px;} 
+.b717{background-image:url(images/717.png);background-position-y: -92px;} 
+.b718{background-image:url(images/718.png);background-position-y: -204px;} 
+.b719{background-image:url(images/719.png);background-position-y: -93px;} 
+.b720{background-image:url(images/720.png);background-position-y: -125px;} 
+.b721{background-image:url(images/721.png);background-position-y: -126px;} 
+.b722{background-image:url(images/722.png);background-position-y: -84px;} 
+.b723{background-image:url(images/723.png);background-position-y: -34px;} 
+.b724{background-image:url(images/724.png);background-position-y: -77px;} 
+.b725{background-image:url(images/725.png);background-position-y: -1px; } 
+.b726{background-image:url(images/726.png);background-position-y: -204px;} 
+.b727{background-image:url(images/727.png);background-position-y: -202px;} 
+.b728{background-image:url(images/728.png);background-position-y: -200px;} 
+.b729{background-image:url(images/729.png);background-position-y: -204px;} 
+.b730{background-image:url(images/730.png);background-position-y: -119px;} 
+.b731{background-image:url(images/731.png);background-position-y: -123px;} 
+.b801{background-image:url(images/801.png);background-position-y: -1px; } 
+.b802{background-image:url(images/802.png);background-position-y: -1px; } 
+.b803{background-image:url(images/803.png);background-position-y: -203px;} 
+.b804{background-image:url(images/804.png);background-position-y: -160px;} 
+.b805{background-image:url(images/805.png);background-position-y: -191px;} 
+.b806{background-image:url(images/806.png);background-position-y: -1px; } 
+.b807{background-image:url(images/807.png);background-position-y: -1px; } 
+.b808{background-image:url(images/808.png);background-position-y: -8px;} 
+.b809{background-image:url(images/809.png);background-position-y: -1px;} 
+.b810{background-image:url(images/810.png);background-position-y: -125px;} 
+.b811{background-image:url(images/811.png);background-position-y: -60px;} 
+.b812{background-image:url(images/812.png);background-position-y: -187px;} 
+.b813{background-image:url(images/813.png);background-position-y: -199px;} 
+.b814{background-image:url(images/814.png);background-position-y: -201px;} 
+.b815{background-image:url(images/815.png);background-position-y: -1px; } 
+.b816{background-image:url(images/816.png);background-position-y: -20px; } 
+.b817{background-image:url(images/817.png);background-position-y: -207px;} 
+.b818{background-image:url(images/818.png);background-position-y: -1px; } 
+.b819{background-image:url(images/819.png);background-position-y: -133px;} 
+.b820{background-image:url(images/820.png);background-position-y: -84px;} 
+.b821{background-image:url(images/821.png);background-position-y: -1px; } 
+.b822{background-image:url(images/822.png);background-position-y: -1px; } 
+.b823{background-image:url(images/823.png);background-position-y: -206px;} 
+.b824{background-image:url(images/824.png);background-position-y: -123px;} 
+.b825{background-image:url(images/825.png);background-position-y: -1px; } 
+.b826{background-image:url(images/826.png);background-position-y: -1px; } 
+.b827{background-image:url(images/827.png);background-position-y: -1px; } 
+.b828{background-image:url(images/828.png);background-position-y: -180px; } 
+.b829{background-image:url(images/829.png);background-position-y: -1px; } 
+.b830{background-image:url(images/830.png);background-position-y: -204px;} 
+.b831{background-image:url(images/831.png);background-position-y: 0px;} 
+.b901{background-image:url(images/901.png);background-position-y: -1px; } 
+.b902{background-image:url(images/902.png);background-position-y: -1px; } 
+.b903{background-image:url(images/903.png);background-position-y: -1px; } 
+.b904{background-image:url(images/904.png);background-position-y: -1px; } 
+.b905{background-image:url(images/905.png);background-position-y: -1px; } 
+.b906{background-image:url(images/906.png);background-position-y: -1px; } 
+.b907{background-image:url(images/907.png);background-position-y: -1px; } 
+.b908{background-image:url(images/908.png);background-position-y: -1px; } 
+.b909{background-image:url(images/909.png);background-position-y: -1px; } 
+.b910{background-image:url(images/910.png);background-position-y: -1px; } 
+.b911{background-image:url(images/911.png);background-position-y: -1px; } 
+.b912{background-image:url(images/912.png);background-position-y: -1px; } 
+.b913{background-image:url(images/913.png);background-position-y: -1px; } 
+.b914{background-image:url(images/914.png);background-position-y: -1px; } 
+.b915{background-image:url(images/915.png);background-position-y: -1px; } 
+.b916{background-image:url(images/916.png);background-position-y: -1px; } 
+.b917{background-image:url(images/917.png);background-position-y: -37px; } 
+.b918{background-image:url(images/918.png);background-position-y: -1px; } 
+.b919{background-image:url(images/919.png);background-position-y: -1px; } 
+.b920{background-image:url(images/920.png);background-position-y: -240px; } 
+.b921{background-image:url(images/921.png);background-position-y: -124px; } 
+.b922{background-image:url(images/922.png);background-position-y: -1px; } 
+.b923{background-image:url(images/923.png);background-position-y: -1px; } 
+.b924{background-image:url(images/924.png);background-position-y: -1px; } 
+.b925{background-image:url(images/925.png);background-position-y: -1px; } 
+.b926{background-image:url(images/926.png);background-position-y: -1px; } 
+.b927{background-image:url(images/927.png);background-position-y: -1px; } 
+.b928{background-image:url(images/928.png);background-position-y: -1px; } 
+.b929{background-image:url(images/929.png);background-position-y: -1px; } 
+.b930{background-image:url(images/930.png);background-position-y: -1px; } 
+.b1001{background-image:url(images/1001.png);background-position-y: -1px; } 
+.b1002{background-image:url(images/1002.png);background-position-y: -1px; } 
+.b1003{background-image:url(images/1003.png);background-position-y: -197px;} 
+.b1004{background-image:url(images/1004.png);background-position-y: -1px; } 
+.b1005{background-image:url(images/1005.png);background-position-y: -1px; } 
+.b1006{background-image:url(images/1006.png);background-position-y: -14px;} 
+.b1007{background-image:url(images/1007.png);background-position-y: -236px;} 
+.b1008{background-image:url(images/1008.png);background-position-y: -148px;} 
+.b1009{background-image:url(images/1009.png);background-position-y: -202px;} 
+.b1010{background-image:url(images/1010.png);background-position-y: -1px; } 
+.b1011{background-image:url(images/1011.png);background-position-y: -1px; } 
+.b1012{background-image:url(images/1012.png);background-position-y: -1px; } 
+.b1013{background-image:url(images/1013.png);background-position-y: -191px; } 
+.b1014{background-image:url(images/1014.png);background-position-y: -1px; } 
+.b1015{background-image:url(images/1015.png);background-position-y: -195px; } 
+.b1016{background-image:url(images/1016.png);background-position-y: -1px; } 
+.b1017{background-image:url(images/1017.png);background-position-y: -124px; } 
+.b1018{background-image:url(images/1018.png);background-position-y: -100px; } 
+.b1019{background-image:url(images/1019.png);background-position-y: -1px; } 
+.b1020{background-image:url(images/1020.png);background-position-y: -1px; } 
+.b1021{background-image:url(images/1021.png);background-position-y: -1px; } 
+.b1022{background-image:url(images/1022.png);background-position-y: -1px; } 
+.b1023{background-image:url(images/1023.png);background-position-y: -1px; } 
+.b1024{background-image:url(images/1024.png);background-position-y: -23px; } 
+.b1025{background-image:url(images/1025.png);background-position-y: -205px;} 
+.b1026{background-image:url(images/1026.png);background-position-y: -1px; } 
+.b1027{background-image:url(images/1027.png);background-position-y: -1px; } 
+.b1028{background-image:url(images/1028.png);background-position-y: -1px; } 
+.b1029{background-image:url(images/1029.png);background-position-y: -1px; } 
+.b1030{background-image:url(images/1030.png);background-position-y: -1px; } 
+.b1031{background-image:url(images/1031.png);background-position-y: -1px; } 
+.b1101{background-image:url(images/1101.png);background-position-y: -211px;} 
+.b1102{background-image:url(images/1102.png);background-position-y: -191px;} 
+.b1103{background-image:url(images/1103.png);background-position-y: -1px; } 
+.b1104{background-image:url(images/1104.png);background-position-y: -78px;} 
+.b1105{background-image:url(images/1105.png);background-position-y: -157px;} 
+.b1106{background-image:url(images/1106.png);background-position-y: -92px;} 
+.b1107{background-image:url(images/1107.png);background-position-y: -144px;} 
+.b1108{background-image:url(images/1108.png);background-position-y: -52px; } 
+.b1109{background-image:url(images/1109.png);background-position-y: -224px;} 
+.b1110{background-image:url(images/1110.png);background-position-y: -1px; } 
+.b1111{background-image:url(images/1111.png);background-position-y: -1px; } 
+.b1112{background-image:url(images/1112.png);background-position-y: -1px; } 
+.b1113{background-image:url(images/1113.png);background-position-y: -1px; } 
+.b1114{background-image:url(images/1114.png);background-position-y: -1px; } 
+.b1115{background-image:url(images/1115.png);background-position-y: -1px; } 
+.b1116{background-image:url(images/1116.png);background-position-y: -1px; } 
+.b1117{background-image:url(images/1117.png);background-position-y: -1px; } 
+.b1118{background-image:url(images/1118.png);background-position-y: -1px; } 
+.b1119{background-image:url(images/1119.png);background-position-y: -1px; } 
+.b1120{background-image:url(images/1120.png);background-position-y: -1px; } 
+.b1121{background-image:url(images/1121.png);background-position-y: -1px; } 
+.b1122{background-image:url(images/1122.png);background-position-y: -1px; } 
+.b1123{background-image:url(images/1123.png);background-position-y: -1px; } 
+.b1124{background-image:url(images/1124.png);background-position-y: -147px;} 
+.b1125{background-image:url(images/1125.png);background-position-y: -172px;} 
+.b1126{background-image:url(images/1126.png);background-position-y: -66px;} 
+.b1127{background-image:url(images/1127.png);background-position-y: -1px; } 
+.b1128{background-image:url(images/1128.png);background-position-y: -7px;} 
+.b1129{background-image:url(images/1129.png);background-position-y: -137px;} 
+.b1130{background-image:url(images/1130.png);background-position-y: -1px; } 
+.b1201{background-image:url(images/1201.png);background-position-y: -1px; } 
+.b1202{background-image:url(images/1202.png);background-position-y: -1px; } 
+.b1203{background-image:url(images/1203.png);background-position-y: -1px; } 
+.b1204{background-image:url(images/1204.png);background-position-y: -1px; } 
+.b1205{background-image:url(images/1205.png);background-position-y: -1px; } 
+.b1206{background-image:url(images/1206.png);background-position-y: -1px; } 
+.b1207{background-image:url(images/1207.png);background-position-y: -1px; } 
+.b1208{background-image:url(images/1208.png);background-position-y: -125px; } 
+.b1209{background-image:url(images/1209.png);background-position-y: -1px; } 
+.b1210{background-image:url(images/1210.png);background-position-y: -1px; } 
+.b1211{background-image:url(images/1211.png);background-position-y: -150px;} 
+.b1212{background-image:url(images/1212.png);background-position-y: -221px;} 
+.b1213{background-image:url(images/1213.png);background-position-y: -1px; } 
+.b1214{background-image:url(images/1214.png);background-position-y: -147px;} 
+.b1215{background-image:url(images/1215.png);background-position-y: -115px;} 
+.b1216{background-image:url(images/1216.png);background-position-y: -234px;} 
+.b1217{background-image:url(images/1217.png);background-position-y: -73px;} 
+.b1218{background-image:url(images/1218.png);background-position-y: -1px; } 
+.b1219{background-image:url(images/1219.png);background-position-y: -246px;} 
+.b1220{background-image:url(images/1220.png);background-position-y: -87px;} 
+.b1221{background-image:url(images/1221.png);background-position-y: -151px;} 
+.b1222{background-image:url(images/1222.png);background-position-y: -189px;} 
+.b1223{background-image:url(images/1223.png);background-position-y: -1px; } 
+.b1224{background-image:url(images/1224.png);background-position-y: -1px; } 
+.b1225{background-image:url(images/1225.png);background-position-y: -89px;} 
+.b1226{background-image:url(images/1226.png);background-position-y: -1px; } 
+.b1227{background-image:url(images/1227.png);background-position-y: -1px; } 
+.b1228{background-image:url(images/1228.png);background-position-y: -245px;} 
+.b1229{background-image:url(images/1229.png);background-position-y: -1px; } 
+.b1230{background-image:url(images/1230.png);background-position-y: -1px; } 
+.b1231{background-image:url(images/1231.png);background-position-y: -1px; } 

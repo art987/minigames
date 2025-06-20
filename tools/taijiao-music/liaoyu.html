@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- 主要SEO优化部分 -->
+    <title>疗愈音乐养生曲目单</title>
+    <meta name="description" content="一份涵盖古今各类音乐的养生治疗曲目单，助您通过音乐调节身心，促进健康。">
+    <meta name="keywords" content="音乐养生，治疗曲目，古今音乐，身心健康">
+    
+   
+   
+
+   
+   
+   
+    
+    <!-- 网站图标 -->
+    <link rel="canonical" href="https://www.peacelove.top//" />
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://peacelove.top/menu.css">
+    
+</head>
+<body>
+ <script src="https://peacelove.top/menu-functions.js"></script>
+    <div id="navbar-container" ></div>
+    
+    <main role="main">
+        <section aria-label="胎教音乐播放器">
+            <div class="start">
+                <button id="playButton" class="play-button" aria-label="播放/暂停">▸</button>
+            </div>
+
+            <div id="player" itemscope itemtype="https://schema.org/MusicPlaylist">
+                <div class="cover" itemprop="image"></div>
+                <div class="ctrl">
+                    <div class="tag">
+                        <strong itemprop="name">Title</strong>
+                        <span class="artist" itemprop="byArtist">Artist</span>
+                        <span class="album" itemprop="inAlbum"></span>
+                    </div>
+                    <div class="control">
+                        <div class="left">
+                            <div class="rewind icon" aria-label="上一首"></div>
+                            <div class="playback icon" aria-label="播放/暂停"></div>
+                            <div class="fastforward icon" aria-label="下一首"></div>
+                        </div>
+                        <div class="volume right">
+                            <div class="mute icon left" aria-label="静音/取消静音"></div>
+                            <div class="slider left">
+                                <div class="pace"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="slider">
+                            <div class="loaded"></div>
+                            <div class="pace"></div>
+                        </div>
+                        <div class="timer left">0:00</div>
+                        <div class="right">
+                            <div class="repeat icon" aria-label="重复播放"></div>
+                            <div class="shuffle icon" aria-label="随机播放"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="sr-only">精选胎教音乐列表</h1>
+            <ul id="playlist" role="list" aria-label="胎教音乐列表"></ul>
+        </section>
+    </main>
+
+    <script src="jquery-1.7.2.min.js"></script>
+    <script src="jquery-ui-1.8.17.custom.min.js"></script>
+    <script src="script-liaoyu.js"></script>
+   
+    
+    <!-- 延迟加载的Google Analytics（示例） -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+</body>
+</html>

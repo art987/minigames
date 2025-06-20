@@ -1,0 +1,359 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 阿里东方大楷 */
+@font-face {
+	font-family:ali;
+	src: url( otf/AlimamaDongFangDaKai-Regular.otf);
+}
+
+
+/* 手写*/
+@font-face {
+	font-family:can1; 
+	src:url( otf/ChillDuanHeiSongProJP_Regular.otf);
+}
+
+/* 寒蝉黑宋常规 */
+@font-face {
+	font-family:can2;
+	src:url( otf/ChillDuanHeiSongRegular.otf);
+}
+
+/* 抖音快乐体 */
+@font-face {
+	font-family:douyin;
+	src:url( otf/DouyinSansBold.otf);
+}
+
+/* 空心英文字体 */
+@font-face {
+	font-family:ge;
+	src:url( otf/GenEi-P-Heavy_ver8.otf);
+}
+/* 谍影英文字体 */
+@font-face {
+	font-family:moon;
+	src:url( otf/Monoton-Regular.otf);
+}
+
+/* 谍影英文字体 */
+@font-face {
+	font-family:mq;
+	src:url( otf/MFQingShuF_Noncommercial-Regular.otf);
+}
+
+/* 康熙字典字体 */
+
+@font-face {
+	font-family:kx;
+	src:url( otf/nzgrKangxi.otf);
+}
+
+body {
+      font-family: Arial, sans-serif;
+      /*background: url("https://www.toptal.com/designers/subtlepatterns/uploads/wood_pattern.png");*/
+	  background:#000
+    }
+.h25000{ clear:both; height:0px;}
+.date_unit{
+    width: 700px;
+    /* margin:0px; */
+    margin: 50px 47px;
+    float: left;
+    /*box-shadow: 0 0 38px #00000070;*/
+}
+
+.imgbox{
+    height: 889px;
+    background: #dbdbdb;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 824px;
+    position: relative;
+    }
+	
+.imgbox .s1{/* 小寒*/top: -33px;right: 79px;color: #21526bd6;text-shadow: 0 0 20px #fff;}
+.imgbox .s2{/* 大寒*/top: -2px;left: 72px;color: #000000d6;text-shadow: 0 0 20px #f3f3f3;}
+.imgbox .s3{/* 立春*/top: -45px;right: 117px;color: #ffffffd6;text-shadow: 0 0 20px #fff;}
+.imgbox .s4{/* 雨水*/top: -12px;left: 76px;color: #ffffffd6;text-shadow: 0 0 20px #fff;}
+.imgbox .s5{/* 惊蛰*/top: -19px;left: 99px;color: #000000;text-shadow: 0 0 30px #fffc;}
+.imgbox .s6{/* 春分*/top: 17px;left: 115px;color: #ffffff;text-shadow: 0 0 20px #53f520fa;}
+.imgbox .s7{/* 清明*/top: -3px;left: 76px;color: #ffffff;text-shadow: 0 0 17px #0c3a3d70;}
+.imgbox .s8{/* 谷雨*/top: -35px;right: 99px;color: #ffffff;text-shadow: 0 0 17px #0e250b59;}
+.imgbox .s9{/* 立夏*/top: 21px;left: 137px;color: #ffffffd6;text-shadow: 0 0 11px #e5e5e5;}
+.imgbox .s10{/* 小满*/top: -32px;left: 99px;color: #ededed;text-shadow: 0 0 20px #eb5c2f;}
+.imgbox .s11{/* 芒种*/top: -26px;left: 99px;color: #ffffff;text-shadow: 0 0 20px #e16900;}
+.imgbox .s12{/* 夏至*/top: 5px;right: 103px;color: #ffffff;text-shadow: 0 0 20px #1c7f17;}
+.imgbox .s13{/* 小暑*/top: -23px;right: 99px;color: #ffffff;text-shadow: 0 0 19px #3f1a09;}
+.imgbox .s14{/* 大暑*/top: 8px;left: 71px;color: #ffffff;text-shadow: 0 0 17px #f53102;}
+.imgbox .s15{/* 立秋*/top: 17px;right: 99px;color: #ffffff;text-shadow: 0 0 18px #f9f300;}
+.imgbox .s16{/* 处暑*/top: -21px;right: 94px;color: #ffffff;text-shadow: 0 0 20px #ff2d2d;}
+.imgbox .s17{/* 白露*/top: -25px;left: 73px;color: #fffefb;text-shadow: 0 0 20px #ffffff2e;}
+.imgbox .s18{/* 秋分*/top: 17px;right: 99px;color: #000000d6;text-shadow: 0 0 20px #fff; }
+.imgbox .s19{/* 寒露*/top: -15px;right: 68px;color: #ffffff;text-shadow: 0 0 18px #bebfbf;}
+.imgbox .s20{/* 霜降*/top: 84px;right: 291px;color: #ffffff;text-shadow: 0 0 20px #ff9595;}
+.imgbox .s21{/* 立冬*/top: -33px;left: 99px;color: #ffffff;text-shadow: 0 0 20px #8ea5bd;}
+.imgbox .s22{/* 小雪*/top: -25px;left: 118px;color: #fdfdfd;text-shadow: 0 0 20px #9d9191;}
+.imgbox .s23{/* 大雪*/top: 10px;right: 242px;color: #f9f9f9;text-shadow: 0 0 20px #fff;}
+.imgbox .s24{/* 冬至*/top: 17px;right: 99px; color: #000000d6;text-shadow: 0 0 20px #fff;}
+	
+	
+	
+.imgbox h1{display:block;width:90px;position: absolute;font-family: 'ali';font-size: 116px;line-height: 138px;font-weight: normal;color: #000000d6;text-shadow: 0 0 20px #fff;}
+
+
+.festival{
+    display: none; 
+    clear: both;
+    background: #ffffffa3;
+    border: 1px solid #fff;
+    line-height: 33px;
+    padding: 0 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+/*.quotes{
+    display: block;
+    clear: both;
+    text-decoration: none;
+    line-height: 35px;
+    padding: 0 19px;
+    margin: 10px 0 18px;
+    position: absolute;
+    bottom: 0;
+}*/
+
+.quotes{
+    display: block;
+    clear: both;
+    text-decoration: none;
+    line-height: 35px;
+    padding: 8px 10px;
+    margin: 10px 20px 18px;
+    position: absolute;
+    top: -60px;
+    border-radius: 9px;
+    width: 522px;
+    background: url(mm.png) no-repeat;
+    height: 800px;
+    left: -102px;
+    opacity: 0.4;
+}
+
+.quotes b{
+    background: #ffd981;
+    /* font-weight: normal; */
+    display: block;
+    float: left;
+    padding: 0 7px;
+    border-radius: 10px;
+    margin-right: 16px;
+    font-size: 17px;
+    color: #000000cc;
+    /* font-family: 'douyin'; */
+    display: none;
+}
+.quotes span{
+    letter-spacing: 3px;
+    /* font-family: 'can1'; */
+    color: #000;
+    font-size: 21px;
+    text-shadow: 1px 1px 3px #fff;
+    line-height: 29px;
+    display: none;
+}
+.con{
+    background: #fff;
+    height: 428px;
+    padding-top: 15px;
+    position: relative;
+}
+.date{
+    width: 163px;
+    float: left;
+    margin-left: 42px;
+    margin-right: 25px;
+    position: absolute;
+    top: -398px;
+    left: 52px;
+    background: #ffffffbf;
+    padding: 48px 20px 20px 20px;
+    zoom: 1.8;
+    border-radius: 27px;
+    box-shadow: 0 0 23px #0006;
+    border: 1px solid #ffff;
+}
+
+
+.red .date h1{color: #c11707;}
+.red .date span{background-color: #c92404;color: #fff;border: none;text-shadow: 1px 2px #7e1402;}
+
+.green .date h1{color: #e36000;}
+.green .date span{background-color: #e14e0b;color: #fff;border: none;text-shadow: 1px 2px #572200;}
+.date h1{
+    font-size: 105px;
+    line-height: 92px;
+    text-align: center;
+    margin: 10px auto 18px;
+    font-family: ge;
+    color: #000;
+    text-shadow: 1px 2px #fff;
+}
+
+.m2 .date span{background-position-x: 5px;background-position-y: -4px;}
+.m3 .date span{background-position-x: 7px;background-position-y: -44px;}
+.m4 .date span{background-position-x: 4px;background-position-y: -82px;}
+.m5 .date span{background-position-x: 5px;background-position-y: -118px;}
+.m6 .date span{background-position-x: 5px;background-position-y: -154px;}
+.m7 .date span{background-position-x: 5px;background-position-y: -192px;}
+.m8 .date span{background-position-x: 5px;background-position-y: -229px;}
+.m9 .date span{background-position-x: 4px;background-position-y: -267px;}
+.m10 .date span{background-position-x: 4px;background-position-y: -305px;}
+.m11 .date span{background-position-x: 5px;background-position-y: -343px;}
+.m12 .date span{background-position-x: 5px;background-position-y: -381px;}
+.m13 .date span{background-position-x: 5px;background-position-y: -419px;}
+.m14 .date span{background-position-x: 5px;background-position-y: -457px;}
+.m15 .date span{background-position-x: 5px;background-position-y: -495px;}
+.m16 .date span{background-position-x: 5px;background-position-y: -534px;}
+.m17 .date span{background-position-x: 5px;background-position-y: -571px;}
+.m18 .date span{background-position-x: 5px;background-position-y: -607px;}
+.m19 .date span{background-position-x: 5px;background-position-y: -644px;}
+.m20 .date span{background-position-x: 6px;background-position-y: -682px;}
+.m21 .date span{background-position-x: 7px;background-position-y: -719px;}
+.m22 .date span{background-position-x: 6px;background-position-y: -757px;}
+.m23 .date span{background-position-x: 6px;background-position-y: -794px;}
+.m24 .date span{background-position-x: 7px;background-position-y: -834px;}
+.m25 .date span{background-position-x: 6px;background-position-y: -872px;}
+.m26 .date span{background-position-x: 9px;background-position-y: -909px;}
+.m27 .date span{background-position-x: 6px;background-position-y: -949px;}
+.m28 .date span{background-position-x: 5px;background-position-y: -987px;}
+.m29 .date span{background-position-x: 5px;background-position-y: -1026px;}
+.m30 .date span{background-position-x: 11px;background-position-y: -1063px;}
+.m1 .date span{background-position-x: 5px;background-position-y: -1144px;}
+
+
+
+
+
+
+.date span{
+ background-image:url(moon.png);
+ background-repeat:no-repeat;
+ background-size: 35px;
+ background-color: #222;
+ display: block;
+ color: #fff;
+ border: 2px double#202020;
+ height: 38px;
+ line-height: 40px;
+ text-align: center;
+ letter-spacing: 5px;
+ font-size: 30px;
+ text-indent: 41px;
+ font-family: 'ali';
+ border-radius: 3px;
+ text-shadow: 2px 2px #0000001a;
+}
+
+
+
+
+
+
+.date b{
+    display: block;
+    height: 30px;
+    line-height: 41px;
+    letter-spacing: 6px;
+    text-align: center;
+    font-size: 21px;
+    text-indent: -2px;
+    font-family: kx;
+    font-weight: 200;
+    text-shadow: 1px 1px #fff;
+}
+.date u{
+    display: block;
+    line-height: 30px;
+    height: 30px;
+    font-size: 17px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-family: 'kx';
+    text-shadow: 1px 1px #fff;
+}
+.date h3{
+    padding: 3px 0;
+    margin: 0 0;
+    text-align: center;
+    letter-spacing: 3px;
+    font-family: 'can2';
+    font-size: 13px;
+    border-top: 1px solid #eee;
+    color: #c93321;
+    line-height: 18px;
+}
+
+.caledar{
+    float: left;
+    width: 507px;
+    position: absolute;
+    left: 24px;
+    zoom: 1.5;
+    top: -24px;
+}
+.caledar h2{
+    padding: -2px 0px 3px;
+    letter-spacing: 5px;
+    margin: 6px 0;
+    font-family: 'douyin';
+    position: absolute;
+    line-height: 29px;
+    text-shadow: 1px 1px #fff;
+    top: -1165px;
+    left: 99px;
+    zoom: 1.2;
+}
+.caledar h2 u{
+    font-size: 22px;
+    font-weight:normal;
+    text-decoration: none;
+    font-family: moon;
+}
+.caledar h2 b{
+    font-weight: normal;
+    font-size: 19px;
+    font-family: 'douyin';
+    padding: 0 6px;
+    line-height: 37px;
+}
+.caledar iframe{
+    display: block;
+    overflow: hidden;
+    width: 1009px;
+    scale: 0.67;
+    float: left;
+    border: 0;
+    height: 525px;
+    position: absolute;
+    left: -180px;
+    top: -49px;
+}
+.note{height: 150px;width: 695px;/* float: left; */margin-left: 31px;/* display: none; */clear: both;overflow: hidden;bottom: 0px;position: absolute;display: none;}
+.note h1{
+    font-family: 'douyin';
+    padding-bottom: 12px;
+    margin: 27px 0 0px;
+    font-weight: normal;
+    font-size: 23px;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 20px;
+    color: #b5b5b5;
+}
+.note li {
+    height: 30px;
+    list-style: none;
+    border-bottom: 1px solid #e5e5e5;
+    font-family: 'can1';
+}

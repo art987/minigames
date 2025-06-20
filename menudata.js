@@ -12,7 +12,9 @@ const menuData = {
         { text: "夸娃话术", href: "/edu/biaoyang.html", icon: "" , emoji:"👍", describ: "一个帮助家长轻松培养孩子内驱力的万能话术辞典。" , keyword: "店铺风水, 店面朝向, 招牌设计, 收银台位置, 商品陈列"},
         { text: "土味情话", href: "/edu/tuweiqinghua.html", icon: "", emoji:"😜",  describ: "" , keyword: "" },
         { text: "情感诗词表达", href: "/edu/shici.html", icon: "" , emoji:"📖",  describ: "" , keyword: "" },
-        { text: "英语口语", href: "/edu/yingyukouyu.html", icon: "" , emoji:"👱‍",  describ: "" , keyword: "" }
+		 { text: "16天记7000词", href: "/edu/800sentences.html", icon: "" , emoji:"📅‍",  describ: "" , keyword: "" },
+		  { text: "英语口语", href: "/edu/yingyukouyu.html", icon: "" , emoji:"👱‍",  describ: "" , keyword: "" }
+       
       ]
     },
 	
