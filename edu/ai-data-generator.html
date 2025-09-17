@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI数据生成器 - 知识点备忘录</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        textarea {
+            height: 200px;
+            resize: vertical;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        .copy-btn {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .copy-btn:hover {
+            background: #38a169;
+        }
+        .instructions {
+            background: #e6f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3182ce;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #2c5282;
+        }
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin: 5px 0;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI数据生成器</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">将任意文章或主题自动转换为符合data.js规范的网页数据文件</p>
+        
+        <div class="instructions">
+            <h3>📋 使用说明</h3>
+            <ul>
+                <li><strong>输入内容：</strong>粘贴你的文章、知识点列表或主题描述</li>
+                <li><strong>主题名称：</strong>输入页面的主题（如：Python编程、英语语法等）</li>
+                <li><strong>分类数量：</strong>设置自动生成的分类数量（建议8-12个）</li>
+                <li><strong>每类条数：</strong>设置每个分类下的内容条数（建议5-10条）</li>
+                <li><strong>点击生成：</strong>AI将自动分析内容并生成标准化的data.js文件</li>
+            </ul>
+        </div>
+
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="content">📝 输入内容（文章、知识点列表或主题描述）：</label>
+                <textarea id="content" placeholder="请粘贴你的文章内容、知识点列表或主题描述...&#10;&#10;示例：&#10;1. 变量定义：Python中变量的定义和命名规则&#10;2. 数据类型：字符串、数字、布尔值等基本数据类型&#10;3. 运算符：算术、比较、逻辑运算符的使用&#10;..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="themeName">🎯 主题名称：</label>
+                <input type="text" id="themeName" placeholder="例如：Python编程、英语语法、历史知识等" value="Python编程">
+            </div>
+
+            <div class="form-group">
+                <label for="categoryCount">📊 分类数量：</label>
+                <input type="number" id="categoryCount" value="8" min="4" max="20">
+            </div>
+
+            <div class="form-group">
+                <label for="itemCount">📄 每类条数：</label>
+                <input type="number" id="itemCount" value="6" min="3" max="15">
+            </div>
+
+            <button type="button" class="btn" onclick="generateData()">🚀 生成数据文件</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h3>📁 生成的数据文件</h3>
+            <div class="code-block" id="dataCode"></div>
+            <button class="copy-btn" onclick="copyToClipboard('dataCode')">📋 复制数据文件</button>
+            <button class="copy-btn" onclick="downloadFile('data.js', document.getElementById('dataCode').textContent)">💾 下载数据文件</button>
+        </div>
+
+        <div id="htmlResult" class="result" style="display: none;">
+            <h3>🌐 生成的HTML文件</h3>
+            <div class="code-block" id="htmlCode"></div>
+            <button class="copy-btn" onclick="copyToClipboard('htmlCode')">📋 复制HTML文件</button>
+            <button class="copy-btn" onclick="downloadFile('index.html', document.getElementById('htmlCode').textContent)">💾 下载HTML文件</button>
+        </div>
+    </div>
+
+    <script>
+        // 模拟AI分析函数（实际应用中需要调用真实的AI API）
+        function analyzeContent(content, themeName, categoryCount, itemCount) {
+            // 这里模拟AI分析过程
+            // 实际应用中应该调用OpenAI、Claude或其他AI API
+            
+            // 提取关键词
+            const keywords = extractKeywords(content, themeName);
+            
+            // 生成分类
+            const categories = generateCategories(content, themeName, categoryCount);
+            
+            // 生成内容
+            const contentData = generateContentData(content, categories, itemCount);
+            
+            return {
+                title: {
+                    h1: `${themeName}备忘录`,
+                    p: `掌握核心要点，提升学习效率`
+                },
+                head: {
+                    title: `${themeName}备忘录`,
+                    keywords: keywords.slice(0, 6).join(', '),
+                    description: `一份涵盖${themeName}核心知识点的备忘录，帮助用户快速掌握重要内容。`
+                },
+                keywords: keywords,
+                content: contentData
+            };
+        }
+
+        function extractKeywords(content, themeName) {
+            // 简单的关键词提取逻辑
+            const commonWords = ['的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', '自己', '这'];
+            const words = content.replace(/[^\u4e00-\u9fa5a-zA-Z]/g, ' ').split(/\s+/)
+                .filter(word => word.length > 1 && !commonWords.includes(word));
+            
+            const wordCount = {};
+            words.forEach(word => {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            });
+            
+            return Object.keys(wordCount)
+                .sort((a, b) => wordCount[b] - wordCount[a])
+                .slice(0, 10);
+        }
+
+        function generateCategories(content, themeName, categoryCount) {
+            // 根据主题和内容生成分类
+            const categoryTemplates = [
+                { icon: '📚', name: '基础概念', desc: '掌握核心基础，奠定学习根基' },
+                { icon: '🔧', name: '实用技巧', desc: '掌握实用技巧，提升应用能力' },
+                { icon: '⚠️', name: '常见问题', desc: '了解常见问题，避免常见错误' },
+                { icon: '📖', name: '进阶学习', desc: '深入学习进阶，拓展知识边界' },
+                { icon: '💡', name: '核心要点', desc: '抓住核心要点，快速掌握精髓' },
+                { icon: '🎯', name: '实战应用', desc: '理论结合实践，提升实战能力' },
+                { icon: '🔍', name: '深度解析', desc: '深入分析理解，掌握本质规律' },
+                { icon: '⚡', name: '快速入门', desc: '快速入门指南，轻松上手学习' },
+                { icon: '🌟', name: '重点难点', desc: '攻克重点难点，突破学习瓶颈' },
+                { icon: '🚀', name: '高级技巧', desc: '掌握高级技巧，成为领域专家' }
+            ];
+            
+            return categoryTemplates.slice(0, categoryCount);
+        }
+
+        function generateContentData(content, categories, itemCount) {
+            const contentData = {};
+            
+            // 将内容按行分割
+            const lines = content.split('\n').filter(line => line.trim());
+            
+            categories.forEach(category => {
+                const items = [];
+                
+                // 为每个分类生成指定数量的内容
+                for (let i = 0; i < itemCount; i++) {
+                    const lineIndex = i % lines.length;
+                    const line = lines[lineIndex] || `知识点 ${i + 1}`;
+                    
+                    // 解析行内容
+                    const parts = line.split(/[：:]/);
+                    const title = parts[0]?.trim() || `要点 ${i + 1}`;
+                    const description = parts[1]?.trim() || `这是关于${category.name}的重要知识点`;
+                    
+                    // 生成链接（示例）
+                    const link = `https://example.com/${category.name.toLowerCase()}-${i + 1}`;
+                    
+                    items.push(`<c> <h4>${title}</h4> <p>${description}</p> <nav>${link}</nav></c>`);
+                }
+                
+                contentData[`${category.icon}${category.name}|${category.icon} ${category.desc}`] = items;
+            });
+            
+            return contentData;
+        }
+
+        function generateData() {
+            const content = document.getElementById('content').value.trim();
+            const themeName = document.getElementById('themeName').value.trim();
+            const categoryCount = parseInt(document.getElementById('categoryCount').value);
+            const itemCount = parseInt(document.getElementById('itemCount').value);
+            
+            if (!content || !themeName) {
+                alert('请填写内容主题和主题名称！');
+                return;
+            }
+            
+            // 生成数据
+            const data = analyzeContent(content, themeName, categoryCount, itemCount);
+            
+            // 生成JavaScript代码
+            const jsCode = `const data = ${JSON.stringify(data, null, 4)};`;
+            
+            // 显示结果
+            document.getElementById('dataCode').textContent = jsCode;
+            document.getElementById('result').style.display = 'block';
+            
+            // 生成HTML文件
+            const htmlCode = generateHtmlFile(themeName);
+            document.getElementById('htmlCode').textContent = htmlCode;
+            document.getElementById('htmlResult').style.display = 'block';
+        }
+
+        function generateHtmlFile(themeName) {
+            const fileName = themeName.toLowerCase().replace(/\s+/g, '-');
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${themeName}备忘录</title>
+    <link rel="stylesheet" href="https://peacelove.top/menu.css">
+    <link rel="stylesheet" href="styles.css">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw"></script>
+    <script src="data-${fileName}.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body style="background: url(${fileName}-bg.png) no-repeat top center;">
+ <div id="navbar-container"></div>
+
+    <div class="title">
+        <h1 id="title-h1"></h1>
+        <p id="title-p"></p>
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" id="search-input" placeholder="输入关键词搜索...">
+        <div class="clear-btn" id="clear-search" style="display: none;">X</div>
+    </div>
+    <div class="marquee">
+        <div class="tip">热搜：</div>
+        <div class="keywords" id="keywords-container"></div>
+        <button id="show-all-keywords" class="show-all-keywords">⚓︎</button>
+    </div>
+	<div class="tagsbox" >
+		<div class="tip" >分类：</div> 
+		<div class="tags" id="tags-container">
+		</div>
+		<button id="show-all-tags" class="show-all-tags">☸</button>
+	</div>
+	<div id="floating-tags-container" class="floating-tags"></div>
+    <div class="content" id="content-container"></div>
+    <div id="keyword-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <div id="modal-keywords-container"></div>
+        </div>
+    </div>
+	<button id="auto-scroll-button">⇢</button>
+	  <button id="back-to-top">⇪</button>
+	  
+<script src="https://peacelove.top/menu-functions.js"></script>
+</body>
+</html>`;
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板！');
+            }).catch(err => {
+                console.error('复制失败:', err);
+                // 备用方案
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('已复制到剪贴板！');
+            });
+        }
+
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

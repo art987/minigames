@@ -23,7 +23,7 @@ function createTodayRecommendModal() {
     
     // 创建标题
     const title = document.createElement('h3');
-    title.textContent = '☀每天学一点，今天学点啥？（10）';
+    title.textContent = '☀今日推荐（10）';
     title.style.marginTop = '0';
     
     // 创建推荐内容容器

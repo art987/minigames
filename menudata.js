@@ -69,7 +69,24 @@ const menuData = {
         { text: "家居风水备忘录", href: "/edu/jiajufengshui.html", icon: "" , emoji:"🏠",  describ: "" , keyword: "" },
         { text: "店铺风水备忘录", href: "/edu/dianpufengshui.html", icon: "" , emoji:"🏬",  describ: "" , keyword: "" },
         { text: "中国美术史", href: "/edu/cnart.html", icon: "" , emoji:"🏮",  describ: "" , keyword: "" },
-        { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "" , keyword: "" }
+        { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "" , keyword: "" },
+        { text: "历代画家汇集", href: "/edu/huajia-huiji.html", icon: "" , emoji:"🖼️",  describ: "梳理历代画家代表人物与风格" , keyword: "画家, 历代, 山水, 花鸟" }
+      ]
+    },
+
+    {
+      title: "方法论",
+      items: [
+        { text: "《易经》方法论", href: "/edu/yijing-fangfalun.html", icon: "" , emoji:"📜",  describ: "探寻《易经》智慧，掌握实用方法论" , keyword: "易经, 方法论, 阴阳, 变化" },
+        { text: "毛选方法论", href: "/edu/maoxuan-fangfalun.html", icon: "" , emoji:"🧭",  describ: "学习毛选精髓，提升实践能力" , keyword: "毛选, 实事求是, 群众路线" },
+        { text: "资治通鉴方法论", href: "/edu/zizhitongjian-fangfalun.html", icon: "" , emoji:"🏛️",  describ: "借鉴历史智慧，提升决策能力" , keyword: "资治通鉴, 决策, 领导" }
+      ]
+    },
+
+    {
+      title: "益智",
+      items: [
+        { text: "脑筋急转弯", href: "/edu/naojinjizhuanwan.html", icon: "" , emoji:"🧩",  describ: "孩子越玩越聪明的趣味题库" , keyword: "益智, 趣味, 思维" }
       ]
     },
 	
