@@ -185,7 +185,7 @@ body {
 .category ul li {
     margin-bottom: 6px;
     font-size: 16px;
-    border-bottom:1px dashed #d1d1d1;
+    border: 1px solid #fff;
     line-height: 32px;
     background: #ffffff;
     letter-spacing: 1px;
@@ -456,11 +456,11 @@ body {
 .floating-tags {
     display: none;
     position: fixed;
-    top: 40px;
+    top: 38px;
     left: 0;
     height: 90%;
     width: 41px;
-    background-color: #c1c1c1de;
+    background-color: #000000ed;
     border-top: 1px solid #e3e3e3;
     border-bottom: 1px solid #e5e5e5;
     padding: 17px 9px;

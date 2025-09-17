@@ -79,7 +79,8 @@ const menuData = {
       items: [
         { text: "《易经》方法论", href: "/edu/yijing-fangfalun.html", icon: "" , emoji:"📜",  describ: "探寻《易经》智慧，掌握实用方法论" , keyword: "易经, 方法论, 阴阳, 变化" },
         { text: "毛选方法论", href: "/edu/maoxuan-fangfalun.html", icon: "" , emoji:"🧭",  describ: "学习毛选精髓，提升实践能力" , keyword: "毛选, 实事求是, 群众路线" },
-        { text: "资治通鉴方法论", href: "/edu/zizhitongjian-fangfalun.html", icon: "" , emoji:"🏛️",  describ: "借鉴历史智慧，提升决策能力" , keyword: "资治通鉴, 决策, 领导" }
+        { text: "资治通鉴方法论", href: "/edu/zizhitongjian-fangfalun.html", icon: "" , emoji:"🏛️",  describ: "借鉴历史智慧，提升决策能力" , keyword: "资治通鉴, 决策, 领导" },
+        { text: "世界最神奇24堂课", href: "/edu/shenqi-24-lessons.html", icon: "" , emoji:"✨",  describ: "24堂课自我提升与心灵成长" , keyword: "成长, 潜意识, 目标, 行动力" }
       ]
     },
 
