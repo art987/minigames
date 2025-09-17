@@ -414,7 +414,7 @@ function showAllTagsModal() {
     const allTagElement = document.createElement('div');
     allTagElement.className = 'tag active';
     allTagElement.dataset.category = 'all';
-    allTagElement.textContent = '全部';
+    allTagElement.textContent = '全部分类';
 
     allTagElement.addEventListener('click', () => {
         // 找到所有地方的"全部"标签并点击
