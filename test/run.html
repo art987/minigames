@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开始测试</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <a href="index.html" class="back">← 返回</a>
+            <h1 id="test-title">加载中…</h1>
+        </div>
+        <div class="progress-info">
+            <div id="progress-text" style="font-size: 14px; color: var(--muted);">题目 0/0</div>
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="test-intro" class="intro" style="display: none;"></div>
+
+        <form id="test-form" class="test-form">
+            <!-- 问题将被动态添加到这里 -->
+        </form>
+
+        <div class="question-nav">
+            <button id="prev-btn" class="secondary" disabled>上一题</button>
+            <button id="next-btn" class="primary">下一题</button>
+        </div>
+
+        <div class="actions">
+            <button id="submit-btn" class="primary" style="display: none;">提交并查看结果</button>
+            <button id="reset-btn" type="button" class="secondary">重置</button>
+        </div>
+
+        <section id="result-section" class="result hidden">
+            <h2>测试结果</h2>
+            <div id="result-card" class="certificate">
+                <div class="certificate-header">
+                    <div class="certificate-logo">🧠</div>
+                    <h2 class="certificate-title">能力测评证书</h2>
+                </div>
+                <div class="certificate-content">
+                    <div class="certificate-decoration left-decoration"></div>
+                    <div class="certificate-main">
+                        <p class="certificate-intro">兹证明，您已完成</p>
+                        <h3 id="certificate-test-name" class="certificate-test-name">智力测试</h3>
+                        <div class="certificate-score-container">
+                            <div class="certificate-score-circle">
+                                <span id="total-score" class="certificate-score">0</span>
+                            </div>
+                            <p class="certificate-level">等级：<span id="score-level" class="certificate-level-value">-</span></p>
+                        </div>
+                        <div class="certificate-text" id="result-text"></div>
+                        <div class="certificate-advice" id="result-advice"></div>
+                        <div class="certificate-date">测试日期：<span id="test-date"></span></div>
+                    </div>
+                    <div class="certificate-decoration right-decoration"></div>
+                </div>
+                <div class="certificate-footer">
+                    <div class="certificate-seal"></div>
+                    <div class="certificate-signature">
+                        <div class="signature-line"></div>
+                        <p>心理测试中心</p>
+                    </div>
+                </div>
+            </div>
+            <div class="actions certificate-actions">
+                <button id="save-image" type="button" class="primary">保存证书</button>
+                <button id="share-result" type="button" class="secondary">分享结果</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/tests.js"></script>
+    <script src="js/runner.js"></script>
+    <script src="data/iq.js"></script>
+    <script src="data/eq.js"></script>
+    <script src="data/iq60.js"></script>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        // 初始化全局变量
+        window.questionContainers = [];
+        window.currentQuestionIndex = 0;
+        window.totalQuestions = 0;
+        
+        // 正常通过TestRunner加载测试
+        if (window.TestRunner) {
+            window.TestRunner.bootstrap();
+        }
+        
+        // 如果URL参数是iq60但没有正确加载，直接使用TestDatasets加载
+        if (location.search.indexOf('test=iq60') !== -1 && document.getElementById('test-form').children.length === 0) {
+            var dataset = window.TestDatasets && window.TestDatasets['iq60'];
+            if (dataset) {
+                document.getElementById('test-title').textContent = '60题标准智商测试';
+                document.getElementById('test-intro').textContent = '经典60题智商测试，全面评估逻辑推理、空间想象、数字运算和模式识别能力。测试时间约30分钟。';
+                
+                var form = document.getElementById('test-form');
+                dataset.questions.forEach(function(q, idx) {
+                    var wrap = document.createElement('div');
+                    wrap.className = 'q';
+                    
+                    var title = document.createElement('p');
+                    title.className = 'q-title';
+                    title.textContent = (idx+1) + '. ' + q.text;
+                    wrap.appendChild(title);
+                    
+                    var options = document.createElement('div');
+                    options.className = 'options';
+                    q.options.forEach(function(opt, oi) {
+                        var label = document.createElement('label');
+                        label.className = 'option';
+                        var input = document.createElement('input');
+                        input.type = q.multi ? 'checkbox' : 'radio';
+                        input.name = 'q_' + idx;
+                        input.value = String(oi);
+                        label.appendChild(input);
+                        var span = document.createElement('span');
+                        span.textContent = opt.label;
+                        label.appendChild(span);
+                        options.appendChild(label);
+                    });
+                    wrap.appendChild(options);
+                    form.appendChild(wrap);
+                });
+            }
+        }
+        
+        // 初始化进度条和导航
+        var submitBtn = document.getElementById('submit-btn');
+        if (submitBtn) {
+            submitBtn.style.display = 'none';
+        }
+
+        // 设置当前日期
+        document.getElementById('test-date').textContent = formatDate(new Date());
+
+        // 添加分享功能
+        document.getElementById('share-result').addEventListener('click', function() {
+            shareResult();
+        });
+
+        // 增强保存图片功能
+        var saveImageBtn = document.getElementById('save-image');
+        if (saveImageBtn) {
+            saveImageBtn.addEventListener('click', function() {
+                var resultCard = document.getElementById('result-card');
+                
+                // 添加水印
+                var watermark = document.createElement('div');
+                watermark.className = 'certificate-watermark';
+                watermark.textContent = '心理测试中心';
+                resultCard.appendChild(watermark);
+                
+                html2canvas(resultCard, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    onclone: function(clonedDoc) {
+                        var clonedResult = clonedDoc.getElementById('result-card');
+                        clonedResult.style.transform = 'scale(1)';
+                        clonedResult.style.borderRadius = '0';
+                    }
+                }).then(function(canvas) {
+                    // 移除水印
+                    resultCard.removeChild(watermark);
+                    
+                    // 保存图片
+                    var link = document.createElement('a');
+                    link.download = '心理测试证书_' + new Date().getTime() + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            });
+        }
+    });
+
+    // 格式化日期为 YYYY年MM月DD日
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return year + '年' + (month < 10 ? '0' + month : month) + '月' + (day < 10 ? '0' + day : day) + '日';
+    }
+
+    // 分享结果
+    function shareResult() {
+        var testName = document.getElementById('certificate-test-name').textContent;
+        var score = document.getElementById('total-score').textContent;
+        var level = document.getElementById('score-level').textContent;
+        
+        var shareText = '我在心理测试中心完成了【' + testName + '】测试，获得了' + score + '分，等级为【' + level + '】，快来测试一下你的能力吧！';
+        
+        // 检查是否支持Web Share API
+        if (navigator.share) {
+            navigator.share({
+                title: '心理测试结果分享',
+                text: shareText,
+                url: window.location.href
+            }).catch(function(error) {
+                console.log('分享失败:', error);
+                fallbackShare(shareText);
+            });
+        } else {
+            fallbackShare(shareText);
+        }
+    }
+
+    // 备用分享方法
+    function fallbackShare(text) {
+        // 创建临时输入框
+        var input = document.createElement('textarea');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        alert('分享文本已复制到剪贴板，您可以粘贴到社交媒体分享！');
+    }
+    </script>
+</body>
+</html>
+
+
+

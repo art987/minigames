@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>60题智商测试</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="index.html" class="back">← 返回测试列表</a>
+        <h1 id="test-title">60题标准智商测试</h1>
+    </header>
+
+    <main class="container">
+        <div id="test-intro" class="intro">经典60题智商测试，全面评估逻辑推理、空间想象、数字运算和模式识别能力。测试时间约30分钟。</div>
+
+        <form id="test-form" class="test-form"></form>
+
+        <div class="actions">
+            <button id="submit-btn" class="primary">提交并查看结果</button>
+            <button id="reset-btn" type="button" class="secondary">重置</button>
+        </div>
+
+        <section id="result-section" class="result hidden">
+            <h2>测试结果</h2>
+            <div id="result-card" class="result-card">
+                <div class="result-basic">
+                    <p><strong>总分：</strong><span id="total-score">0</span></p>
+                    <p><strong>等级：</strong><span id="score-level">-</span></p>
+                </div>
+                <div class="result-text" id="result-text"></div>
+                <div class="result-advice" id="result-advice"></div>
+            </div>
+            <div class="actions">
+                <button id="save-image" type="button" class="primary">保存结果为图片</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/tests.js"></script>
+    <script src="js/runner.js"></script>
+    <script src="data/iq60.js"></script>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        var dataset = window.TestDatasets['iq60'];
+        if (!dataset){
+            document.getElementById('test-intro').textContent = '题库加载失败';
+            return;
+        }
+
+        var form = document.getElementById('test-form');
+        form.innerHTML = '';
+        dataset.questions.forEach(function(q, idx){ 
+            var wrap = document.createElement('div');
+            wrap.className = 'q';
+
+            var title = document.createElement('p');
+            title.className = 'q-title';
+            title.textContent = (idx+1) + '. ' + q.text;
+            wrap.appendChild(title);
+
+            var options = document.createElement('div');
+            options.className = 'options';
+            q.options.forEach(function(opt, oi){
+                var label = document.createElement('label');
+                label.className = 'option';
+                var input = document.createElement('input');
+                input.type = q.multi ? 'checkbox' : 'radio';
+                input.name = 'q_' + idx;
+                input.value = String(oi);
+                label.appendChild(input);
+                var span = document.createElement('span');
+                span.textContent = opt.label;
+                label.appendChild(span);
+                options.appendChild(label);
+            });
+            wrap.appendChild(options);
+            form.appendChild(wrap);
+        });
+
+        var submitBtn = document.getElementById('submit-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var resultSection = document.getElementById('result-section');
+        var totalSpan = document.getElementById('total-score');
+        var levelSpan = document.getElementById('score-level');
+        var textDiv = document.getElementById('result-text');
+        var adviceDiv = document.getElementById('result-advice');
+        var saveBtn = document.getElementById('save-image');
+
+        submitBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            var total = 0;
+            dataset.questions.forEach(function(q, qi){
+                var name = 'q_' + qi;
+                var inputs = document.querySelectorAll('input[name="'+name+'"]');
+                var selected = [];
+                inputs.forEach(function(inp){ if (inp.checked) selected.push(parseInt(inp.value,10)); });
+                if (!selected.length) return;
+                var qScore = 0;
+                selected.forEach(function(idx){ qScore += q.options[idx].score; });
+                total += qScore;
+            });
+
+            var range = null;
+            for (var i=0;i<dataset.resultRanges.length;i++){
+                var r = dataset.resultRanges[i];
+                var minOk = (typeof r.min === 'number') ? total >= r.min : true;
+                var maxOk = (typeof r.max === 'number') ? total <= r.max : true;
+                if (minOk && maxOk) { range = r; break; }
+            }
+            range = range || {label:'未匹配', text:'', advice:''};
+
+            totalSpan.textContent = String(total);
+            levelSpan.textContent = range.label || '-';
+            textDiv.textContent = range.text || '';
+            adviceDiv.textContent = range.advice || '';
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({behavior:'smooth'});
+        });
+
+        resetBtn.addEventListener('click', function(){
+            form.reset();
+            document.getElementById('result-section').classList.add('hidden');
+        });
+
+        saveBtn.addEventListener('click', function(){
+            var card = document.getElementById('result-card');
+            if (!window.html2canvas){ alert('html2canvas 加载失败'); return; }
+            html2canvas(card,{backgroundColor:'#161b22',scale:2}).then(function(canvas){
+                var link = document.createElement('a');
+                link.download = '60题标准智商测试结果.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        });
+    });
+    </script>
+</body>
+</html>
