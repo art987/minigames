@@ -5,21 +5,23 @@
 (function() {
     // 定义分类目录映射
     const CATEGORY_DIRS = {
-        'iq': 'iq',
-        'eq': 'eq',
-        'knowledge': 'knowledge',
-        'psychology': 'psychology',
-        'personality': 'personality',
-        'career': 'career'
+        '心理测评类': '心理测评类',
+        '职业与学习类': '职业与学习类',
+        '爱情与人际关系类': '爱情与人际关系类',
+        '趣味娱乐类': '趣味娱乐类',
+        '健康与生活习惯类': '健康与生活习惯类',
+        '智力与逻辑类': '智力与逻辑类'
     };
     
     // 测试文件映射表 - 初始包含已知测试文件
     // 系统会自动扫描并更新此映射表
     let TEST_FILES_MAP = {
-        'knowledge': [],
-        'iq': [ 'iq60.js'],
-        'eq': [ 'eq30.js']
-        // psychology、personality、career 目录目前为空
+        '心理测评类': ['eq30.js', 'mbti_short.js'],
+        '智力与逻辑类': ['iq60.js'],
+        '职业与学习类': [],
+        '爱情与人际关系类': [],
+        '趣味娱乐类': [],
+        '健康与生活习惯类': []
     };
     
     // 存储已注册的测试数据文件路径

@@ -69,7 +69,8 @@
             });
             label.appendChild(input);
             var span = document.createElement('span');
-            span.textContent = opt.label;
+            // 兼容label和text两种选项文本格式
+            span.textContent = opt.label || opt.text || '';
             label.appendChild(span);
             options.appendChild(label);
         });
@@ -238,14 +239,14 @@
             if (selected.length === 0) {
                 userAnswerText += '未回答';
             } else {
-                var selectedLabels = selected.map(function(idx) { return q.options[idx].label; }).join('、');
+                var selectedLabels = selected.map(function(idx) { return q.options[idx].label || q.options[idx].text || ''; }).join('、');
                 userAnswerText += selectedLabels;
             }
             answerItem.innerHTML += '<p class="answer-user">' + userAnswerText + '</p>';
             
             // 添加正确答案信息
-            var correctAnswerText = '正确答案: ';
-            var correctLabels = correctAnswers.map(function(idx) { return q.options[idx].label; }).join('、');
+            var correctAnswerText = '高分答案: ';
+            var correctLabels = correctAnswers.map(function(idx) { return q.options[idx].label || q.options[idx].text || ''; }).join('、');
             correctAnswerText += correctLabels;
             
             // 判断答案是否正确
@@ -318,12 +319,21 @@
         currentDataset = dataset;
         
         // 设置测试标题和描述
+        var testTitle = '';
         if (meta) {
-            document.getElementById('test-title').textContent = meta.title;
+            testTitle = meta.title;
+            document.getElementById('test-title').textContent = testTitle;
             document.getElementById('test-intro').textContent = meta.description || '';
         } else if (dataset.title) {
-            document.getElementById('test-title').textContent = dataset.title;
+            testTitle = dataset.title;
+            document.getElementById('test-title').textContent = testTitle;
             document.getElementById('test-intro').textContent = dataset.description || '';
+        }
+        
+        // 同步设置证书中的测试名称
+        var certificateTestName = document.getElementById('certificate-test-name');
+        if (certificateTestName && testTitle) {
+            certificateTestName.textContent = testTitle;
         }
         
         console.log('TestRunner.bootstrap: 测试数据加载成功，开始渲染题目');
@@ -364,6 +374,26 @@
             var res = computeScore(dataset);
             var range = matchRange(dataset.resultRanges, res.total) || {label:'未匹配', text:'', advice:''};
             totalSpan.textContent = String(res.total);
+            
+            // 计算总分值
+            var maxTotalScore = 0;
+            dataset.questions.forEach(function(q) {
+                // 计算每道题的总分值（所有选项的最高分）
+                var maxQuestionScore = 0;
+                q.options.forEach(function(opt) {
+                    if (opt.score > maxQuestionScore) {
+                        maxQuestionScore = opt.score;
+                    }
+                });
+                maxTotalScore += maxQuestionScore;
+            });
+            
+            // 设置总分值显示
+            var totalPossibleScoreEl = document.getElementById('total-possible-score');
+            if (totalPossibleScoreEl) {
+                totalPossibleScoreEl.textContent = '总分' + maxTotalScore;
+            }
+            
             levelSpan.textContent = range.label || '-';
             textDiv.textContent = range.text || '';
             adviceDiv.textContent = range.advice || '';
@@ -377,7 +407,7 @@
                 var month = now.getMonth() + 1;
                 var day = now.getDate();
                 var formattedDate = year + '年' + (month < 10 ? '0' + month : month) + '月' + (day < 10 ? '0' + day : day) + '日';
-                dateElement.textContent = '测试日期：' + formattedDate;
+                dateElement.textContent = '颁证日期：' + formattedDate;
             }
             
             // 渲染答题详情
@@ -394,6 +424,26 @@
             var res = computeScore(dataset);
             var range = matchRange(dataset.resultRanges, res.total) || {label:'未匹配', text:'', advice:''};
             totalSpan.textContent = String(res.total);
+            
+            // 计算总分值
+            var maxTotalScore = 0;
+            dataset.questions.forEach(function(q) {
+                // 计算每道题的总分值（所有选项的最高分）
+                var maxQuestionScore = 0;
+                q.options.forEach(function(opt) {
+                    if (opt.score > maxQuestionScore) {
+                        maxQuestionScore = opt.score;
+                    }
+                });
+                maxTotalScore += maxQuestionScore;
+            });
+            
+            // 设置总分值显示
+            var totalPossibleScoreEl = document.getElementById('total-possible-score');
+            if (totalPossibleScoreEl) {
+                totalPossibleScoreEl.textContent = '总分' + maxTotalScore;
+            }
+            
             levelSpan.textContent = range.label || '-';
             textDiv.textContent = range.text || '';
             adviceDiv.textContent = range.advice || '';

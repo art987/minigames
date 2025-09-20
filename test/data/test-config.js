@@ -5,57 +5,79 @@
 window.TestConfig = {
     // 测试分类配置
     categories: {
-        'psychology': {
-            name: '心理测试',
+        '心理测评类': {
+            name: '心理测评类',
             icon: '🧠',
-            description: '探索内心世界，了解自我性格特点和心理倾向的测试集合'
+            description: '探索你的内心世界，发现隐藏的性格特质与心理优势，帮助你更了解自己'
         },
-        'knowledge': {
-            name: '知识测试',
-            icon: '📚',
-            description: '检验各领域知识储备，从历史到科学，全方位挑战你的知识面'
+        '职业与学习类': {
+            name: '职业与学习类',
+            icon: '🎓',
+            description: '测测你的职业潜力与学习方式，找到适合的发展方向和成长路径'
         },
-        'iq': {
-            name: '智力测试',
-            icon: '💡',
-            description: '通过逻辑推理和模式识别，评估思维能力和解决问题的智力水平'
+        '爱情与人际关系类': {
+            name: '爱情与人际关系类',
+            icon: '💑',
+            description: '揭开你的人际交往密码，了解恋爱观与沟通风格，发现真实的亲密关系需求'
         },
-        'eq': {
-            name: '情商测试',
-            icon: '❤️',
-            description: '测量情绪识别和人际交往能力，提升社交关系和自我情绪管理'
+        '趣味娱乐类': {
+            name: '趣味娱乐类',
+            icon: '🎉',
+            description: '轻松有趣的脑洞测试，带你玩转个性标签，解锁独一无二的趣味身份'
         },
-        'personality': {
-            name: '性格测试',
-            icon: '🔍',
-            description: '揭示你的性格特质和行为模式，帮助更好地认识自己的优势和特点'
+        '健康与生活习惯类': {
+            name: '健康与生活习惯类',
+            icon: '🏃',
+            description: '检视日常习惯与健康指数，帮你发现潜在问题，养成更科学的生活方式'
         },
-        'career': {
-            name: '职业倾向',
-            icon: '💼',
-            description: '分析你的职业兴趣和能力特点，找到最适合的职业发展方向'
+        '智力与逻辑类': {
+            name: '智力与逻辑类',
+            icon: '🧩',
+            description: '挑战思维与脑力极限，提升逻辑推理、专注力与创造力，让大脑持续活跃'
         }
     },
     
     // 测试项目配置 - 按分类组织
     testsByCategory: {
-        'knowledge': [
+        '心理测评类': [
+            
             {
-                id: 'knowledge23',
-                title: '基础情商倾向测试（示例）',
-                description: '基于自我感知、人际理解与情绪调节的自评题，仅作娱乐参考。',
-                questionCount: 3,
-                estimateMinutes: 3
+                id: 'mbti_short',
+                title: 'MBTI性格类型测试（简版）',
+                description: '本测试基于MBTI人格理论，通过28道题目帮助你了解自己的性格偏好类型。',
+                questionCount: 28,
+                estimateMinutes: 5
+            },
+            {
+                id: 'emotion_stability',
+                title: '情绪稳定度测验',
+                description: '本测试包含20道题目，全面评估您的情绪稳定性水平。',
+                questionCount: 20,
+                estimateMinutes: 5
+            },
+            {
+                id: 'stress_tolerance',
+                title: '压力承受能力测试',
+                description: '评估您在面对压力时的应对能力和心理韧性',
+                questionCount: 20,
+                estimateMinutes: 5
+            },
+            {
+                id: 'self_confidence',
+                title: '自信心指数测试',
+                description: '评估您的自信心水平，了解自己的自我认知和应对挑战的能力',
+                questionCount: 20,
+                estimateMinutes: 5
+            },
+            {
+                id: 'introversion_extroversion',
+                title: '内向外向测验',
+                description: '评估您的性格倾向，帮助您了解自己是更偏向内向还是外向',
+                questionCount: 20,
+                estimateMinutes: 5
             }
         ],
-        'iq': [
-            {
-                id: 'iq',
-                title: '基础智商倾向测试（示例）',
-                description: '通过若干逻辑与推理题，粗略评估逻辑推理与模式识别倾向，仅作娱乐参考。',
-                questionCount: 3,
-                estimateMinutes: 3
-            },
+        '智力与逻辑类': [
             {
                 id: 'iq60',
                 title: '60题标准智商测试',
@@ -64,18 +86,18 @@ window.TestConfig = {
                 estimateMinutes: 10
             }
         ],
-        'eq': [
+        '职业与学习类': [],
+        '爱情与人际关系类': [
             {
-                id: 'eq30',
-                title: '全面情商评估测试',
-                description: '本测试包含30道题目，全面评估您的情绪识别、管理、理解和运用能力。',
-                questionCount: 30,
-                estimateMinutes: 8
+                id: 'love_philosophy',
+                title: '爱情观测试',
+                description: '本测试将评估您的爱情价值观、态度和行为倾向，帮助您了解自己在爱情中的偏好。',
+                questionCount: 20,
+                estimateMinutes: 5
             }
         ],
-        'psychology': [],
-        'personality': [],
-        'career': []
+        '趣味娱乐类': [],
+        '健康与生活习惯类': []
     },
     
     // 获取所有测试项目

@@ -4,6 +4,13 @@
 // 2. 重命名文件为您想要的测试ID（例如：my_test.js，则测试ID为my_test）
 // 3. 修改title、description等内容，但不要修改id属性的赋值方式
 
+/**
+ * 重要注意事项：
+ * - 必须使用 window.TestDatasets（首字母大写）存储测试数据
+ * - 不要使用 window.testDatasets（首字母小写），因为 hasValidDataset 函数检查的是首字母大写的版本
+ * - 使用错误的变量名会导致测试无法在首页分类列表中显示
+ */
+
 (function() {
     // 从文件名获取测试ID（自动提取，无需手动修改）
     const getTestIdFromFilename = function() {
@@ -62,7 +69,9 @@
         ]
     };
 
-    // 注册测试数据集
+    // 注册测试数据集 - 注意：必须使用首字母大写的 TestDatasets！
+    // 错误用法：window.testDatasets（首字母小写）- 会导致测试无法显示
+    // 正确用法：window.TestDatasets（首字母大写）- 确保测试能被正确识别
     window.TestDatasets = window.TestDatasets || {};
     window.TestDatasets[dataset.id] = dataset;
 })();

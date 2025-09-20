@@ -44,12 +44,11 @@
             }
             
             // 尝试直接获取数据集
-            const dataset = window.TestDatasets[testId];
+            let dataset = window.TestDatasets[testId];
             
             // 如果找不到，尝试获取兼容性版本
             if (!dataset && !testId.endsWith('-compat')) {
-                const dataset = window.TestDatasets[testId + '-compat'];
-                return !!dataset && !!dataset.questions && dataset.questions.length > 0;
+                dataset = window.TestDatasets[testId + '-compat'];
             }
             
             // 确保数据集包含有效的问题列表
@@ -60,8 +59,13 @@
     <script src="js/tests.js"></script>
     
     <!-- 加载测试数据文件 -->
-    <script src="data/iq/iq60.js"></script>
-    <script src="data/eq/eq30.js"></script>
+    <script src="data/智力与逻辑类/iq60.js"></script>
+    <script src="data/心理测评类/mbti_short.js"></script>
+    <script src="data/心理测评类/emotion_stability.js"></script>
+    <script src="data/心理测评类/stress_tolerance.js"></script>
+    <script src="data/心理测评类/self_confidence.js"></script>
+    <script src="data/心理测评类/introversion_extroversion.js"></script>
+    <script src="data/爱情与人际关系类/love_philosophy.js"></script>
     
     <!-- 引入简化的测试配置文件 -->
     <script src="data/test-config.js"></script>
