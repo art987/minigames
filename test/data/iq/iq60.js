@@ -1,13 +1,40 @@
 (function(){
-    window.TestRegistry && window.TestRegistry.register({
-        id: 'iq60',
-        title: '60题标准智商测试',
-        description: '经典60题智商测试，全面评估逻辑推理、空间想象、数字运算和模式识别能力。测试时间约30分钟。',
-        estimateMinutes: 30
-    });
+    // 从文件名获取测试ID（自动提取，无需手动修改）
+    const getTestIdFromFilename = function() {
+        // 获取当前脚本文件名
+        const scripts = document.getElementsByTagName('script');
+        const currentScript = scripts[scripts.length - 1];
+        const scriptSrc = currentScript.src;
+        const fileName = scriptSrc.split('/').pop();
+        const testId = fileName.replace('.js', '');
+        return testId;
+    };
+    
+    // 提取测试ID
+    const testId = getTestIdFromFilename();
+    console.log('IQ60测试ID:', testId);
 
+    // 注册测试元数据
+    if (window.TestRegistry && typeof window.TestRegistry.register === 'function') {
+        window.TestRegistry.register({
+            id: testId,  // 自动从文件名获取，无需修改
+            title: '60题标准智商测试',
+            description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
+            estimateMinutes: 10
+        });
+        console.log('已注册测试元数据');
+    } else {
+        console.warn('TestRegistry不存在或register函数不可用');
+    }
+
+    // 确保TestDatasets对象存在
+    window.TestDatasets = window.TestDatasets || {};
+    
+    // 创建测试数据集
     var dataset = {
-        id: 'iq60',
+        id: testId,
+        title: '60题标准智商测试',
+        description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
         questions: [
             {
                 text: '找出规律：1, 4, 9, 16, 25, ?',
@@ -617,7 +644,16 @@
             { label: '优秀水平', min: 101, max: 120, text: '您具备出色的逻辑思维和问题解决能力。', advice: '您的思维方式灵活，可以尝试参加一些智力竞赛。' }
         ]
     };
-
+    
+    // 确保所有必要的对象存在
     window.TestDatasets = window.TestDatasets || {};
+    
+    // 保存数据到所有可能的位置，确保测试运行器能找到它
     window.TestDatasets[dataset.id] = dataset;
+    window.TestDatasets[testId] = dataset;  // 额外的安全保障
+    window.testDataset = dataset;  // 兼容旧版代码
+    window.dataset = dataset;  // 兼容旧版代码
+    
+    console.log('测试数据已保存到window.TestDatasets');
+    console.log('TestDatasets内容:', window.TestDatasets);
 })();

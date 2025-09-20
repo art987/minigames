@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>心理测试中心</title>
+    <title>小本本测试中心</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="site-header">
-        <h1>心理测试中心</h1>
-        <p class="subtitle">多维度能力测评平台（纯前端，无需登录）</p>
+        <h1>小本本测试中心</h1>
+        <p class="subtitle">公益测试平台，无需登录注册</p>
     </header>
 
     <main class="container">
         <section id="categories-section">
-            <h2>测试分类</h2>
+            
             <div id="categories-container" class="categories-container">
                 <!-- 分类将通过JS动态生成 -->
             </div>
@@ -30,108 +30,116 @@
     </main>
 
     <footer class="site-footer">
-        <p>结果不上传服务器。可选择保存为图片至本地。</p>
+        <p>测试结果不做保存，如有需要请测试完自行存储至手机设备。</p>
     </footer>
 
+    <!-- 检查测试是否有可用的数据集 -->
+    <script>
+        // 全局函数：检查测试是否有可用的数据集
+        window.hasValidDataset = function(testId) {
+            // 检查TestDatasets对象是否存在
+            if (!window.TestDatasets) {
+                console.warn('TestDatasets对象不存在');
+                return false;
+            }
+            
+            // 尝试直接获取数据集
+            const dataset = window.TestDatasets[testId];
+            
+            // 如果找不到，尝试获取兼容性版本
+            if (!dataset && !testId.endsWith('-compat')) {
+                const dataset = window.TestDatasets[testId + '-compat'];
+                return !!dataset && !!dataset.questions && dataset.questions.length > 0;
+            }
+            
+            // 确保数据集包含有效的问题列表
+            return !!dataset && !!dataset.questions && dataset.questions.length > 0;
+        };
+    </script>
+    
     <script src="js/tests.js"></script>
     
-    <!-- 预加载示例测试注册表（仅包含元数据，实际题库在 run.html 按需加载） -->
-    <script src="data/iq.js"></script>
-    <script src="data/eq.js"></script>
-    <script src="data/iq60.js"></script>
+    <!-- 加载测试数据文件 -->
+    <script src="data/iq/iq60.js"></script>
+    <script src="data/eq/eq30.js"></script>
+    
+    <!-- 引入简化的测试配置文件 -->
+    <script src="data/test-config.js"></script>
+    
+    <!-- 测试管理器工具 - 提供便捷的测试管理功能 <script src="js/test-manager.js"></script>-->
+    
     
     <script>
     (function() {
-        // 定义测试分类
-        var categories = {
-            'psychology': {
-                name: '心理测试',
-                icon: '🧠',
-                tests: [],
-                description: '探索内心世界，了解自我性格特点和心理倾向的测试集合'
-            },
-            'knowledge': {
-                name: '知识测试',
-                icon: '📚',
-                tests: [],
-                description: '检验各领域知识储备，从历史到科学，全方位挑战你的知识面'
-            },
-            'iq': {
-                name: '智力测试',
-                icon: '💡',
-                tests: [],
-                description: '通过逻辑推理和模式识别，评估思维能力和解决问题的智力水平'
-            },
-            'eq': {
-                name: '情商测试',
-                icon: '❤️',
-                tests: [],
-                description: '测量情绪识别和人际交往能力，提升社交关系和自我情绪管理'
-            },
-            'personality': {
-                name: '性格测试',
-                icon: '🔍',
-                tests: [],
-                description: '揭示你的性格特质和行为模式，帮助更好地认识自己的优势和特点'
-            },
-            'career': {
-                name: '职业倾向',
-                icon: '💼',
-                tests: [],
-                description: '分析你的职业兴趣和能力特点，找到最适合的职业发展方向'
+        // 等待TestConfig加载完成
+        function waitForTestConfig() {
+            if (window.TestConfig) {
+                console.log('TestConfig已加载，开始初始化应用...');
+                initializeApp();
+            } else {
+                console.log('等待TestConfig加载...');
+                setTimeout(waitForTestConfig, 100);
             }
-        };
+        }
         
-        // 根据ID分配测试到不同分类
-        function categorizeTests(tests) {
-            tests.forEach(function(test) {
-                if (test.id.includes('iq')) {
-                    categories.iq.tests.push(test);
-                } else if (test.id.includes('eq')) {
-                    categories.eq.tests.push(test);
-                } else {
-                    categories.psychology.tests.push(test);
-                }
-                
-                // 添加题目数量属性
-                if (!test.questionCount) {
-                    // 默认题目数量，实际应从数据中获取
-                    test.questionCount = test.id === 'iq60' ? 60 : 10;
-                }
+        // 初始化应用
+        function initializeApp() {
+            console.log('初始化应用程序...');
+            
+            // 渲染分类列表
+            renderCategories();
+            
+            // 返回分类页面事件监听
+            document.getElementById('back-to-categories').addEventListener('click', function() {
+                document.getElementById('tests-section').classList.add('hidden');
+                document.getElementById('categories-section').classList.remove('hidden');
             });
         }
         
         // 渲染分类列表
         function renderCategories() {
-            var container = document.getElementById('categories-container');
+            const container = document.getElementById('categories-container');
+            const categories = window.TestConfig.getAllCategories();
             
-            Object.keys(categories).forEach(function(key) {
-                // 显示所有分类，即使没有测试项目
-                var category = categories[key];
-                var card = document.createElement('div');
-                card.className = 'category-card';
-                card.dataset.category = key;
+            console.log('渲染分类列表:', categories);
+            
+            container.innerHTML = ''; // 清空容器
+            
+            Object.keys(categories).forEach(function(categoryKey) {
+                const category = categories[categoryKey];
+                const testCount = window.TestConfig.getTestCountByCategory(categoryKey);
                 
-                var icon = document.createElement('div');
+                // 创建分类卡片
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.dataset.category = categoryKey;
+                
+                // 分类图标
+                const icon = document.createElement('div');
                 icon.className = 'category-icon';
                 icon.textContent = category.icon;
                 
-                var content = document.createElement('div');
+                // 分类内容
+                const content = document.createElement('div');
                 content.className = 'category-content';
                 
-                var title = document.createElement('h3');
+                // 分类标题
+                const title = document.createElement('h3');
                 title.textContent = category.name;
                 
-                var desc = document.createElement('p');
+                // 分类描述
+                const desc = document.createElement('p');
                 desc.className = 'category-desc';
                 desc.textContent = category.description;
                 
-                var count = document.createElement('p');
+                // 测试数量
+                const count = document.createElement('p');
                 count.className = 'category-count';
-                count.textContent = (category.tests.length > 0) ? 
-                    category.tests.length + '个测试' : 
+                count.textContent = (testCount > 0) ? 
+                    testCount + '个测试' : 
                     '即将推出';
                 
+                // 组装分类卡片
                 content.appendChild(title);
                 content.appendChild(desc);
                 content.appendChild(count);
@@ -140,69 +148,94 @@
                 card.appendChild(content);
                 container.appendChild(card);
                 
-                // 添加点击事件
+                // 添加点击事件，跳转到测试列表
                 card.addEventListener('click', function() {
-                    showTestsForCategory(key);
+                    showTestsForCategory(categoryKey, category.name);
                 });
             });
         }
         
-        // 显示特定分类的测试
-        function showTestsForCategory(categoryKey) {
+        // 显示特定分类的测试列表
+        function showTestsForCategory(categoryKey, categoryName) {
             document.getElementById('categories-section').classList.add('hidden');
             document.getElementById('tests-section').classList.remove('hidden');
-            document.getElementById('current-category').textContent = categories[categoryKey].name;
+            document.getElementById('current-category').textContent = categoryName;
             
-            renderTestList(categories[categoryKey].tests);
+            renderTestList(categoryKey);
         }
         
+        // 使用全局的hasValidDataset函数来检查测试是否有可用的数据集
+        
         // 渲染测试列表
-        function renderTestList(tests) {
-            var list = document.getElementById('test-list');
-            list.innerHTML = '';
+        function renderTestList(categoryKey) {
+            const listContainer = document.getElementById('test-list');
+            listContainer.innerHTML = '';
             
-            if (!tests.length) {
-                var li = document.createElement('li');
-                li.textContent = '该分类暂无测试';
-                list.appendChild(li);
+            // 获取该分类下的所有测试
+            const tests = window.TestConfig.getTestsByCategory(categoryKey);
+            
+            // 过滤出有有效数据集的测试
+            const validTests = tests.filter(test => {
+                const hasDataset = hasValidDataset(test.id);
+                if (!hasDataset) {
+                    console.log(`测试 ${test.id} 没有有效的数据集，跳过渲染`);
+                }
+                return hasDataset;
+            });
+            
+            console.log(`渲染分类 ${categoryKey} 的测试列表，原始测试数量: ${tests.length}，有效测试数量: ${validTests.length}`);
+            
+            if (validTests.length === 0) {
+                const emptyItem = document.createElement('li');
+                emptyItem.textContent = '该分类暂无可用测试';
+                listContainer.appendChild(emptyItem);
                 return;
             }
             
-            tests.forEach(function(item) {
-                var li = document.createElement('li');
-                var a = document.createElement('a');
-                a.href = 'run.html?test=' + encodeURIComponent(item.id);
+            // 为每个测试创建列表项
+            validTests.forEach(function(test, index) {
+                console.log('处理测试项', index, ':', test);
                 
-                var titleSpan = document.createElement('span');
-                titleSpan.className = 'test-title';
-                titleSpan.textContent = item.title;
+                const testItem = document.createElement('li');
+                testItem.className = 'test-item';
                 
-                var infoSpan = document.createElement('span');
-                infoSpan.className = 'test-info';
-                infoSpan.textContent = item.questionCount + '题 · 约' + item.estimateMinutes + '分钟';
+                const testLink = document.createElement('a');
+                // 创建正确的测试链接，包含测试ID和分类信息
+                const targetUrl = `run.html?testId=${test.id}&category=${categoryKey}`;
+                testLink.href = targetUrl;
+                testLink.className = 'test-link';
                 
-                a.appendChild(titleSpan);
-                a.appendChild(infoSpan);
-                li.appendChild(a);
+                console.log('创建测试链接:', targetUrl);
                 
-                var p = document.createElement('p');
-                p.className = 'desc';
-                p.textContent = item.description;
-                li.appendChild(p);
-                list.appendChild(li);
+                // 测试标题
+                const testTitle = document.createElement('span');
+                testTitle.className = 'test-title';
+                testTitle.textContent = test.title || '未命名测试';
+                
+                // 测试描述
+                const testDescription = document.createElement('p');
+                testDescription.className = 'desc';
+                testDescription.textContent = test.description || '暂无描述';
+                
+                // 测试信息（题目数量和估计时间）
+                const testInfo = document.createElement('span');
+                testInfo.className = 'test-info';
+                testInfo.textContent = `${test.questionCount || 0}题 · 约${test.estimateMinutes || 5}分钟`;
+                
+                // 组装测试项
+                testLink.appendChild(testTitle);
+                testLink.appendChild(testInfo);
+                
+                testItem.appendChild(testLink);
+                testItem.appendChild(testDescription);
+                listContainer.appendChild(testItem);
             });
         }
         
-        // 返回分类页面
-        document.getElementById('back-to-categories').addEventListener('click', function() {
-            document.getElementById('tests-section').classList.add('hidden');
-            document.getElementById('categories-section').classList.remove('hidden');
+        // 页面加载完成后开始初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            waitForTestConfig();
         });
-        
-        // 初始化
-        var all = window.TestRegistry ? window.TestRegistry.list() : [];
-        categorizeTests(all);
-        renderCategories();
     })();
     </script>
 </body>

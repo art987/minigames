@@ -1,15 +1,9 @@
 /* Generic test runner: render questions, collect answers, score with ranges */
 (function(){
-    // 当前问题索引
-    var currentQuestionIndex = 0;
-    var totalQuestions = 0;
-    var questionContainers = [];
-    var currentDataset = null;
-
     // 全局变量
-    var questionContainers = [];
     var currentQuestionIndex = 0;
     var totalQuestions = 0;
+    var questionContainers = [];
     var currentDataset = null;
     
     function getQueryParam(key){
@@ -42,6 +36,8 @@
         
         if (idx === 0) {
             container.classList.add('active');
+        } else {
+            container.classList.add('hidden'); // 添加hidden类，默认隐藏
         }
 
         var wrap = document.createElement('div');
@@ -97,13 +93,16 @@
         var nextBtn = document.getElementById('next-btn');
         var prevBtn = document.getElementById('prev-btn');
         var submitBtn = document.getElementById('submit-btn');
+        var completionModal = document.getElementById('completion-modal');
         
         prevBtn.disabled = (currentQuestionIndex === 0);
         
-        // 如果是最后一题且已回答，显示提交按钮
+        // 如果是最后一题且已回答
         if (currentQuestionIndex === totalQuestions - 1 && answered) {
             nextBtn.style.display = 'none';
-            submitBtn.style.display = 'block';
+            submitBtn.style.display = 'none'; // 隐藏原来的提交按钮
+            // 显示完成提示弹窗
+            completionModal.classList.remove('hidden');
         } else {
             nextBtn.style.display = 'block';
             submitBtn.style.display = 'none';
@@ -136,11 +135,13 @@
         // 隐藏所有问题
         questionContainers.forEach(function(container) {
             container.classList.remove('active');
+            container.classList.add('hidden');
         });
         
         // 显示当前问题
         if (questionContainers[idx]) {
             questionContainers[idx].classList.add('active');
+            questionContainers[idx].classList.remove('hidden');
             currentQuestionIndex = idx;
             updateQuestionStatus(idx);
         }
@@ -202,38 +203,139 @@
         return null;
     }
 
+    function renderAnswerDetails(dataset, scores) {
+        var answersDetail = document.getElementById('answers-detail');
+        answersDetail.innerHTML = '<h3 class="answers-title">答题详情</h3>';
+        
+        dataset.questions.forEach(function(q, qi) {
+            var answerItem = document.createElement('div');
+            answerItem.className = 'answer-item';
+            
+            // 获取用户选择的选项
+            var name = 'q_' + qi;
+            var inputs = document.querySelectorAll('input[name="'+name+'"]');
+            var selected = [];
+            inputs.forEach(function(inp) { 
+                if (inp.checked) selected.push(parseInt(inp.value, 10)); 
+            });
+            
+            // 找出正确答案
+            var correctAnswers = [];
+            q.options.forEach(function(opt, oi) {
+                if (opt.score > 0) correctAnswers.push(oi);
+            });
+            
+            // 构建题目信息
+            var questionText = (qi + 1) + '. ' + q.text + ' (分值: ' + q.options.reduce(function(sum, opt) { return sum + opt.score; }, 0) + ')';
+            answerItem.innerHTML = '<p class="answer-question">' + questionText + '</p>';
+            
+            // 添加得分信息
+            var scoreText = '得分: ' + scores.perQuestionScores[qi];
+            answerItem.innerHTML += '<p class="answer-score">' + scoreText + '</p>';
+            
+            // 添加用户答题信息
+            var userAnswerText = '您的答案: ';
+            if (selected.length === 0) {
+                userAnswerText += '未回答';
+            } else {
+                var selectedLabels = selected.map(function(idx) { return q.options[idx].label; }).join('、');
+                userAnswerText += selectedLabels;
+            }
+            answerItem.innerHTML += '<p class="answer-user">' + userAnswerText + '</p>';
+            
+            // 添加正确答案信息
+            var correctAnswerText = '正确答案: ';
+            var correctLabels = correctAnswers.map(function(idx) { return q.options[idx].label; }).join('、');
+            correctAnswerText += correctLabels;
+            
+            // 判断答案是否正确
+            var isCorrect = selected.length > 0 && selected.every(function(idx) { return correctAnswers.includes(idx); });
+            var correctClass = isCorrect ? 'answer-correct' : 'answer-correct answer-incorrect';
+            answerItem.innerHTML += '<p class="' + correctClass + '">' + correctAnswerText + '</p>';
+            
+            answersDetail.appendChild(answerItem);
+        });
+    }
+    
     function saveAsImage(){
         var card = document.getElementById('result-card');
-        if (!window.html2canvas){ alert('html2canvas 加载失败'); return; }
-        html2canvas(card,{backgroundColor:'white',scale:2}).then(function(canvas){
-            var link = document.createElement('a');
-            link.download = (document.getElementById('test-title').textContent||'result') + '.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
+        if (!window.html2canvas){
+            alert('html2canvas 加载失败，无法保存图片'); 
+            return;
+        }
+        try {
+            html2canvas(card,{backgroundColor:'white',scale:2}).then(function(canvas){
+                var link = document.createElement('a');
+                link.download = (document.getElementById('test-title').textContent||'result') + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        } catch (e) {
+            console.error('保存图片失败:', e);
+            alert('保存图片失败，请重试');
+        }
     }
 
     function bootstrap(){
-        var id = getQueryParam('test');
-        var meta = findTestById(id);
-        if (!meta){
-            document.getElementById('test-title').textContent = '未找到该测试';
+        console.log('TestRunner.bootstrap: 开始初始化测试');
+        
+        // 获取测试ID，支持test和testId两种参数
+        var id = getQueryParam('test') || getQueryParam('testId');
+        if (!id) {
+            document.getElementById('test-title').textContent = '未指定测试ID';
+            document.getElementById('test-form').innerHTML = '<p class="error-message">未指定测试ID</p>';
             return;
         }
-        document.getElementById('test-title').textContent = meta.title;
+        
+        console.log('TestRunner.bootstrap: 尝试加载测试ID:', id);
+        
+        // 尝试查找测试元数据
+        var meta = findTestById(id);
+        if (!meta) {
+            // 元数据查找失败，尝试直接从TestDatasets加载
+            console.log('TestRunner.bootstrap: 未在TestRegistry中找到测试，尝试直接从TestDatasets加载');
+        }
+        
+        // 加载数据集
         var dataset = loadDataset(id);
         if (!dataset){
-            document.getElementById('test-intro').textContent = '题库加载失败';
-            return;
+            // 确保TestDatasets对象存在
+            window.TestDatasets = window.TestDatasets || {};
+            
+            // 尝试所有可能的加载方式
+            dataset = window.TestDatasets[id] || 
+                      window.TestDatasets[id + '-compat'] || 
+                      window.testDataset || 
+                      window.dataset;
+            
+            if (!dataset) {
+                console.error('TestRunner.bootstrap: 题库加载失败');
+                document.getElementById('test-intro').textContent = '题库加载失败';
+                return;
+            }
         }
-        document.getElementById('test-intro').textContent = meta.description;
+        
         currentDataset = dataset;
-
+        
+        // 设置测试标题和描述
+        if (meta) {
+            document.getElementById('test-title').textContent = meta.title;
+            document.getElementById('test-intro').textContent = meta.description || '';
+        } else if (dataset.title) {
+            document.getElementById('test-title').textContent = dataset.title;
+            document.getElementById('test-intro').textContent = dataset.description || '';
+        }
+        
+        console.log('TestRunner.bootstrap: 测试数据加载成功，开始渲染题目');
+        
+        // 渲染题目
         var form = document.getElementById('test-form');
         form.innerHTML = '';
         dataset.questions.forEach(function(q, idx){ renderQuestion(form, q, idx); });
         totalQuestions = dataset.questions.length;
-
+        
+        console.log('TestRunner.bootstrap: 题目渲染完成，共', totalQuestions, '题');
+        
         var submitBtn = document.getElementById('submit-btn');
         var resetBtn = document.getElementById('reset-btn');
         var resultSection = document.getElementById('result-section');
@@ -247,6 +349,46 @@
         setupNavigation();
         updateProgressBar();
 
+        // 弹窗按钮事件处理
+        var completionModal = document.getElementById('completion-modal');
+        var reviewBtn = document.getElementById('review-btn');
+        var submitResultBtn = document.getElementById('submit-result-btn');
+        
+        // 再检查看看按钮
+        reviewBtn.addEventListener('click', function() {
+            completionModal.classList.add('hidden');
+        });
+        
+        // 提交并查看结果按钮
+        submitResultBtn.addEventListener('click', function() {
+            var res = computeScore(dataset);
+            var range = matchRange(dataset.resultRanges, res.total) || {label:'未匹配', text:'', advice:''};
+            totalSpan.textContent = String(res.total);
+            levelSpan.textContent = range.label || '-';
+            textDiv.textContent = range.text || '';
+            adviceDiv.textContent = range.advice || '';
+            
+            // 更新测试日期
+            var dateElement = document.getElementById('test-date');
+            if (dateElement) {
+                // 格式化当前日期为 YYYY年MM月DD日 格式
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var day = now.getDate();
+                var formattedDate = year + '年' + (month < 10 ? '0' + month : month) + '月' + (day < 10 ? '0' + day : day) + '日';
+                dateElement.textContent = '测试日期：' + formattedDate;
+            }
+            
+            // 渲染答题详情
+            renderAnswerDetails(dataset, res);
+            
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({behavior:'smooth'});
+            completionModal.classList.add('hidden');
+        });
+        
+        // 原来的提交按钮也保留，以备不时之需
         submitBtn.addEventListener('click', function(e){
             e.preventDefault();
             var res = computeScore(dataset);
@@ -255,6 +397,22 @@
             levelSpan.textContent = range.label || '-';
             textDiv.textContent = range.text || '';
             adviceDiv.textContent = range.advice || '';
+            
+            // 更新测试日期
+            var dateElement = document.getElementById('test-date');
+            if (dateElement) {
+                // 格式化当前日期为 YYYY年MM月DD日 格式
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var day = now.getDate();
+                var formattedDate = year + '年' + (month < 10 ? '0' + month : month) + '月' + (day < 10 ? '0' + day : day) + '日';
+                dateElement.textContent = '测试日期：' + formattedDate;
+            }
+            
+            // 渲染答题详情
+            renderAnswerDetails(dataset, res);
+            
             resultSection.classList.remove('hidden');
             resultSection.scrollIntoView({behavior:'smooth'});
         });
@@ -266,10 +424,17 @@
             showQuestion(0);
         });
 
-        saveBtn.addEventListener('click', saveAsImage);
+        if (saveBtn) {
+            saveBtn.addEventListener('click', saveAsImage);
+        }
     }
 
+    // 暴露到window对象
     window.TestRunner = { bootstrap: bootstrap };
+    // 同时暴露关键函数供外部使用
+    window.computeScore = computeScore;
+    window.matchRange = matchRange;
+    window.currentDataset = currentDataset;
 })();
 
 
