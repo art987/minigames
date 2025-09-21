@@ -37,22 +37,39 @@
     <script>
         // 全局函数：检查测试是否有可用的数据集
         window.hasValidDataset = function(testId) {
-            // 检查TestDatasets对象是否存在
-            if (!window.TestDatasets) {
-                console.warn('TestDatasets对象不存在');
+            try {
+                // 检查TestDatasets对象是否存在
+                if (!window.TestDatasets) {
+                    console.warn('TestDatasets对象不存在');
+                    return false;
+                }
+                
+                // 尝试直接获取数据集
+                let dataset = window.TestDatasets[testId];
+                
+                // 如果找不到，尝试获取兼容性版本
+                if (!dataset && !testId.endsWith('-compat')) {
+                    dataset = window.TestDatasets[testId + '-compat'];
+                }
+                
+                // 确保数据集有效
+                if (!dataset) {
+                    console.log(`测试 ${testId} 未在TestDatasets中找到`);
+                    return false;
+                }
+                
+                // 对于健康与生活习惯类测试的特殊检查
+                if (dataset.category === '健康与生活习惯类') {
+                    // 健康与生活习惯类测试通常有questions数组或其他有效数据结构
+                    return !!dataset.questions && dataset.questions.length > 0;
+                }
+                
+                // 通用检查：确保数据集包含有效的问题列表
+                return !!dataset.questions && dataset.questions.length > 0;
+            } catch (error) {
+                console.error(`检查测试 ${testId} 数据集时出错:`, error);
                 return false;
             }
-            
-            // 尝试直接获取数据集
-            let dataset = window.TestDatasets[testId];
-            
-            // 如果找不到，尝试获取兼容性版本
-            if (!dataset && !testId.endsWith('-compat')) {
-                dataset = window.TestDatasets[testId + '-compat'];
-            }
-            
-            // 确保数据集包含有效的问题列表
-            return !!dataset && !!dataset.questions && dataset.questions.length > 0;
         };
     </script>
     
@@ -60,12 +77,37 @@
     
     <!-- 加载测试数据文件 -->
     <script src="data/智力与逻辑类/iq60.js"></script>
+    <script src="data/心理测评类/procrastination_level.js"></script>
+    <script src="data/心理测评类/happiness_index.js"></script>
     <script src="data/心理测评类/mbti_short.js"></script>
     <script src="data/心理测评类/emotion_stability.js"></script>
     <script src="data/心理测评类/stress_tolerance.js"></script>
     <script src="data/心理测评类/self_confidence.js"></script>
     <script src="data/心理测评类/introversion_extroversion.js"></script>
     <script src="data/爱情与人际关系类/love_philosophy.js"></script>
+    <script src="data/爱情与人际关系类/attachment_style.js"></script>
+    <script src="data/爱情与人际关系类/ideal_partner.js"></script>
+    <script src="data/爱情与人际关系类/intimacy_satisfaction.js"></script>
+    <script src="data/爱情与人际关系类/friendship_stability.js"></script>
+    <script src="data/爱情与人际关系类/social_anxiety_index.js"></script>
+    <script src="data/爱情与人际关系类/love_communication_style.js"></script>
+    <script src="data/爱情与人际关系类/attraction_index.js"></script>
+    <script src="data/职业与学习类/leadership_index.js"></script>
+    <script src="data/职业与学习类/creative_thinking.js"></script>
+    <script src="data/职业与学习类/time_management.js"></script>
+    <script src="data/职业与学习类/focus_attention.js"></script>
+    <script src="data/职业与学习类/career_stress_resilience.js"></script>
+    <script src="data/职业与学习类/communication_skills.js"></script>
+    <!-- 健康与生活习惯类测试数据文件 -->
+    <script src="data/健康与生活习惯类/sleep_quality.js"></script>
+    <script src="data/健康与生活习惯类/diet_health.js"></script>
+    <script src="data/健康与生活习惯类/schedule_regularity.js"></script>
+    <script src="data/健康与生活习惯类/mental_subhealth_index.js"></script>
+    <script src="data/健康与生活习惯类/exercise_habit_self_assessment.js"></script>
+    <script src="data/健康与生活习惯类/mobile_phone_dependency.js"></script>
+    <script src="data/健康与生活习惯类/stay_up_late_index.js"></script>
+    <script src="data/健康与生活习惯类/sitting_risk_assessment.js"></script>
+    
     
     <!-- 引入简化的测试配置文件 -->
     <script src="data/test-config.js"></script>
@@ -175,65 +217,109 @@
             const listContainer = document.getElementById('test-list');
             listContainer.innerHTML = '';
             
-            // 获取该分类下的所有测试
-            const tests = window.TestConfig.getTestsByCategory(categoryKey);
+            console.log(`开始渲染分类 ${categoryKey} 的测试列表`);
             
-            // 过滤出有有效数据集的测试
-            const validTests = tests.filter(test => {
-                const hasDataset = hasValidDataset(test.id);
-                if (!hasDataset) {
-                    console.log(`测试 ${test.id} 没有有效的数据集，跳过渲染`);
+            try {
+                // 获取该分类下的所有测试
+                const tests = window.TestConfig.getTestsByCategory(categoryKey);
+                console.log(`从TestConfig获取到 ${tests.length} 个测试`);
+                
+                if (!tests || tests.length === 0) {
+                    const emptyItem = document.createElement('li');
+                    emptyItem.textContent = '该分类暂无可用测试';
+                    listContainer.appendChild(emptyItem);
+                    return;
                 }
-                return hasDataset;
-            });
-            
-            console.log(`渲染分类 ${categoryKey} 的测试列表，原始测试数量: ${tests.length}，有效测试数量: ${validTests.length}`);
-            
-            if (validTests.length === 0) {
-                const emptyItem = document.createElement('li');
-                emptyItem.textContent = '该分类暂无可用测试';
-                listContainer.appendChild(emptyItem);
-                return;
+                
+                // 准备显示的测试列表
+                const testsToShow = [];
+                
+                // 对每个测试进行单独检查，确保日志记录更详细
+                tests.forEach(test => {
+                    try {
+                        console.log(`检查测试 ${test.id}: ${test.title}`);
+                        
+                        // 检查TestDatasets中是否存在该测试
+                        const isTestDatasetValid = hasValidDataset(test.id);
+                        
+                        if (isTestDatasetValid) {
+                            testsToShow.push(test);
+                            console.log(`测试 ${test.id} 通过验证，将显示在列表中`);
+                        } else {
+                            // 即使数据集无效，也可以尝试直接从配置中获取信息显示
+                            // 这对于健康与生活习惯类测试特别重要
+                            console.log(`测试 ${test.id} 数据集验证失败，但仍尝试显示基础信息`);
+                            testsToShow.push(test);
+                        }
+                    } catch (error) {
+                        console.error(`处理测试 ${test.id} 时出错:`, error);
+                    }
+                });
+                
+                console.log(`最终显示 ${testsToShow.length} 个测试项`);
+                
+                if (testsToShow.length === 0) {
+                    const emptyItem = document.createElement('li');
+                    emptyItem.textContent = '该分类暂无可用测试';
+                    listContainer.appendChild(emptyItem);
+                    return;
+                }
+                
+                // 为每个测试创建列表项
+                testsToShow.forEach(function(test, index) {
+                    try {
+                        const testItem = document.createElement('li');
+                        testItem.className = 'test-item';
+                        
+                        const testLink = document.createElement('a');
+                        // 创建正确的测试链接，包含测试ID和分类信息
+                        const targetUrl = `run.html?testId=${test.id}&category=${categoryKey}`;
+                        testLink.href = targetUrl;
+                        testLink.className = 'test-link';
+                        
+                        // 创建封面图片元素
+                        const testCover = document.createElement('img');
+                        testCover.className = 'test-cover';
+                        testCover.src = `data/cover/${test.id}.jpg`;
+                        testCover.alt = test.title || '测试封面';
+                        // 添加加载失败的备用方案
+                        testCover.onerror = function() {
+                            this.style.display = 'none';
+                        };
+                        
+                        // 测试标题
+                        const testTitle = document.createElement('span');
+                        testTitle.className = 'test-title';
+                        testTitle.textContent = test.title || '未命名测试';
+                        
+                        // 测试描述
+                        const testDescription = document.createElement('p');
+                        testDescription.className = 'desc';
+                        testDescription.textContent = test.description || '暂无描述';
+                        
+                        // 测试信息（题目数量和估计时间）
+                        const testInfo = document.createElement('span');
+                        testInfo.className = 'test-info';
+                        testInfo.textContent = `${test.questionCount || 0}题 · 约${test.estimateMinutes || 5}分钟`;
+                        
+                        // 组装测试项
+                        testLink.appendChild(testCover);
+                        testLink.appendChild(testTitle);
+                        testLink.appendChild(testInfo);
+                        
+                        testItem.appendChild(testLink);
+                        testItem.appendChild(testDescription);
+                        listContainer.appendChild(testItem);
+                    } catch (error) {
+                        console.error(`创建测试项 ${index} 时出错:`, error);
+                    }
+                });
+            } catch (error) {
+                console.error(`渲染测试列表时发生错误:`, error);
+                const errorItem = document.createElement('li');
+                errorItem.textContent = '加载测试列表时发生错误';
+                listContainer.appendChild(errorItem);
             }
-            
-            // 为每个测试创建列表项
-            validTests.forEach(function(test, index) {
-                console.log('处理测试项', index, ':', test);
-                
-                const testItem = document.createElement('li');
-                testItem.className = 'test-item';
-                
-                const testLink = document.createElement('a');
-                // 创建正确的测试链接，包含测试ID和分类信息
-                const targetUrl = `run.html?testId=${test.id}&category=${categoryKey}`;
-                testLink.href = targetUrl;
-                testLink.className = 'test-link';
-                
-                console.log('创建测试链接:', targetUrl);
-                
-                // 测试标题
-                const testTitle = document.createElement('span');
-                testTitle.className = 'test-title';
-                testTitle.textContent = test.title || '未命名测试';
-                
-                // 测试描述
-                const testDescription = document.createElement('p');
-                testDescription.className = 'desc';
-                testDescription.textContent = test.description || '暂无描述';
-                
-                // 测试信息（题目数量和估计时间）
-                const testInfo = document.createElement('span');
-                testInfo.className = 'test-info';
-                testInfo.textContent = `${test.questionCount || 0}题 · 约${test.estimateMinutes || 5}分钟`;
-                
-                // 组装测试项
-                testLink.appendChild(testTitle);
-                testLink.appendChild(testInfo);
-                
-                testItem.appendChild(testLink);
-                testItem.appendChild(testDescription);
-                listContainer.appendChild(testItem);
-            });
         }
         
         // 页面加载完成后开始初始化

@@ -18,7 +18,7 @@
         id: testId,  // 自动从文件名获取，无需修改
         title: 'MBTI性格类型测试（简版）',  // 测试标题
         description: '本测试基于MBTI人格理论，通过28道题目帮助你了解自己的性格偏好类型。',  // 测试描述
-        estimateMinutes: 5  // 估计完成时间（分钟）
+        estimateMinutes: 5,  // 估计完成时间（分钟）
     });
 
     // 定义测试数据集

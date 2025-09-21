@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript语法检查器</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #333; }
+        .log-container { 
+            background-color: #f5f5f5; 
+            padding: 15px; 
+            border-radius: 5px; 
+            height: 500px; 
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+        }
+        .error { color: #d9534f; }
+        .success { color: #5cb85c; }
+        .info { color: #337ab7; }
+        .warning { color: #f0ad4e; }
+        button { 
+            padding: 10px 20px; 
+            margin: 10px 10px 10px 0; 
+            background-color: #3498db; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+        }
+        button:hover { background-color: #2980b9; }
+        .file-item { 
+            padding: 5px; 
+            margin: 2px 0; 
+            border-radius: 3px; 
+        }
+        .file-item.success { background-color: #dff0d8; }
+        .file-item.error { background-color: #f2dede; }
+        .file-list { 
+            max-height: 200px; 
+            overflow-y: auto; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            padding: 10px; 
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript语法检查器</h1>
+        <p>此工具将使用浏览器的JavaScript引擎来检查所有测试数据文件的语法是否正确</p>
+        
+        <div>
+            <button id="check-all-btn">检查所有文件</button>
+            <button id="check-categories-btn">检查分类文件</button>
+            <button id="check-data-btn">检查测试数据文件</button>
+            <button onclick="location.reload()">重置</button>
+        </div>
+        
+        <div class="file-list" id="file-list">
+            <p>文件列表将在这里显示...</p>
+        </div>
+        
+        <div class="log-container" id="log-container"></div>
+    </div>
+
+    <script>
+        // 日志记录功能
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 文件列表管理
+        function addFileToList(fileName, status) {
+            const fileList = document.getElementById('file-list');
+            const fileItem = document.createElement('div');
+            fileItem.className = `file-item ${status}`;
+            fileItem.textContent = `${status === 'success' ? '✅' : '❌'} ${fileName}`;
+            fileList.appendChild(fileItem);
+        }
+
+        // 初始化文件列表
+        function initFileList() {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+        }
+
+        // 检查单个文件的语法
+        function checkFileSyntax(fileUrl) {
+            return new Promise((resolve, reject) => {
+                const fileName = fileUrl.split('/').pop();
+                
+                log(`开始检查文件: ${fileName}`);
+                
+                fetch(fileUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`无法加载文件: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        try {
+                            // 创建一个临时的函数来检查语法，但不执行它
+                            // 使用new Function会立即检查语法
+                            new Function(content);
+                            
+                            // 额外检查一下是否有estimateMinutes和questions的问题
+                            if (content.includes('estimateMinutes') && content.includes('questions')) {
+                                const estimateMinutesRegex = /estimateMinutes:\s*\d+\s*\/\/.*$/m;
+                                const match = content.match(estimateMinutesRegex);
+                                if (match && !match[0].includes(',')) {
+                                    log(`⚠️ 警告: ${fileName} 中可能存在estimateMinutes后缺少逗号的问题`);
+                                }
+                            }
+                            
+                            log(`✅ 文件语法正确: ${fileName}`);
+                            addFileToList(fileName, 'success');
+                            resolve({ fileName, success: true });
+                        } catch (error) {
+                            log(`❌ 语法错误: ${fileName} - ${error.message}`);
+                            
+                            // 尝试定位错误位置
+                            const errorLine = extractErrorLine(error.message);
+                            if (errorLine) {
+                                const lines = content.split('\n');
+                                const lineIndex = Math.max(0, Math.min(lines.length - 1, errorLine - 1));
+                                const startLine = Math.max(0, lineIndex - 2);
+                                const endLine = Math.min(lines.length - 1, lineIndex + 2);
+                                
+                                log(`错误位置附近的代码:`);
+                                for (let i = startLine; i <= endLine; i++) {
+                                    log(`${i+1}: ${lines[i]}`, i === lineIndex ? 'error' : 'info');
+                                }
+                            }
+                            
+                            addFileToList(fileName, 'error');
+                            reject({ fileName, error: error.message });
+                        }
+                    })
+                    .catch(error => {
+                        log(`❌ 加载失败: ${fileName} - ${error.message}`);
+                        addFileToList(fileName, 'error');
+                        reject({ fileName, error: error.message });
+                    });
+            });
+        }
+
+        // 从错误消息中提取行号
+        function extractErrorLine(errorMessage) {
+            const lineMatch = errorMessage.match(/line\s+(\d+)/i);
+            if (lineMatch) {
+                return parseInt(lineMatch[1]);
+            }
+            return null;
+        }
+
+        // 批量检查文件
+        async function checkFiles(files) {
+            initFileList();
+            log('开始批量检查文件语法...');
+            
+            const startTime = Date.now();
+            const results = {
+                total: files.length,
+                success: 0,
+                failed: 0
+            };
+            
+            // 逐个检查文件
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                log(`\n检查文件 ${i+1}/${files.length}: ${file}`);
+                
+                try {
+                    await checkFileSyntax(file);
+                    results.success++;
+                } catch (err) {
+                    results.failed++;
+                }
+            }
+            
+            const endTime = Date.now();
+            const duration = (endTime - startTime) / 1000;
+            
+            log(`\n\n===== 检查总结 =====`);
+            log(`总文件数: ${results.total}`);
+            log(`成功: ${results.success}`);
+            log(`失败: ${results.failed}`);
+            log(`耗时: ${duration}秒`);
+        }
+
+        // 测试数据文件列表
+        const testDataFiles = [
+            // 基础配置文件
+            'data/test-categories.js',
+            'data/data-scanner.js',
+            'data/test-config.js',
+            
+            // 测试数据文件
+            'data/心理测评类/procrastination_level.js',
+            'data/心理测评类/happiness_index.js',
+            'data/心理测评类/mbti_short.js',
+            'data/心理测评类/emotion_stability.js',
+            'data/心理测评类/stress_tolerance.js',
+            'data/心理测评类/self_confidence.js',
+            'data/心理测评类/introversion_extroversion.js',
+            'data/爱情与人际关系类/love_philosophy.js',
+            'data/爱情与人际关系类/attachment_style.js',
+            'data/爱情与人际关系类/ideal_partner.js',
+            'data/爱情与人际关系类/intimacy_satisfaction.js',
+            'data/爱情与人际关系类/friendship_stability.js',
+            'data/爱情与人际关系类/social_anxiety_index.js',
+            'data/爱情与人际关系类/love_communication_style.js',
+            'data/爱情与人际关系类/attraction_index.js',
+            'data/职业与学习类/leadership_index.js',
+            'data/职业与学习类/creative_thinking.js',
+            'data/职业与学习类/time_management.js',
+            'data/职业与学习类/focus_attention.js',
+            'data/职业与学习类/career_stress_resilience.js',
+            'data/职业与学习类/communication_skills.js',
+            'data/健康与生活习惯类/sleep_quality.js',
+            'data/健康与生活习惯类/diet_health.js',
+            'data/健康与生活习惯类/schedule_regularity.js',
+            'data/健康与生活习惯类/mental_subhealth_index.js',
+            'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+            'data/健康与生活习惯类/mobile_phone_dependency.js',
+            'data/健康与生活习惯类/stay_up_late_index.js',
+            'data/健康与生活习惯类/sitting_risk_assessment.js',
+            'data/智力与逻辑类/iq60.js'
+        ];
+
+        // 分类相关文件
+        const categoryFiles = [
+            'data/test-categories.js',
+            'data/data-scanner.js',
+            'data/test-config.js'
+        ];
+
+        // 事件监听器
+        document.getElementById('check-all-btn').addEventListener('click', () => {
+            checkFiles(testDataFiles);
+        });
+
+        document.getElementById('check-categories-btn').addEventListener('click', () => {
+            checkFiles(categoryFiles);
+        });
+
+        document.getElementById('check-data-btn').addEventListener('click', () => {
+            const dataFiles = testDataFiles.filter(file => 
+                file.includes('心理测评类') || 
+                file.includes('爱情与人际关系类') || 
+                file.includes('职业与学习类') || 
+                file.includes('健康与生活习惯类') || 
+                file.includes('智力与逻辑类')
+            );
+            checkFiles(dataFiles);
+        });
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            log('语法检查器已就绪。请点击上方按钮开始检查文件。');
+        });
+    </script>
+</body>
+</html>

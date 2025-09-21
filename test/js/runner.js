@@ -178,6 +178,36 @@
     }
 
     function computeScore(dataset){
+        // 检查是否存在自定义的结果计算函数
+        if (dataset.calculateResult && typeof dataset.calculateResult === 'function') {
+            // 收集用户答案
+            var answers = [];
+            dataset.questions.forEach(function(q, qi){
+                var name = 'q_' + qi;
+                var inputs = document.querySelectorAll('input[name="'+name+'"]');
+                var selected = null;
+                inputs.forEach(function(inp){
+                    if (inp.checked) selected = parseInt(inp.value, 10);
+                });
+                if (selected !== null) {
+                    answers.push({
+                        questionId: q.id,
+                        optionId: q.options[selected].id
+                    });
+                }
+            });
+            // 使用自定义函数计算结果
+            var customResult = dataset.calculateResult(answers);
+            // 确保返回的结果对象包含必要的字段
+            return {
+                total: customResult.totalScore || 0,
+                perQuestionScores: customResult.perQuestionScores || Array(dataset.questions.length).fill(0),
+                // 保留原始的自定义结果数据
+                ...customResult
+            };
+        }
+        
+        // 标准计分逻辑
         var total = 0;
         var perQuestionScores = [];
         dataset.questions.forEach(function(q, qi){
@@ -187,7 +217,16 @@
             inputs.forEach(function(inp){ if (inp.checked) selected.push(parseInt(inp.value,10)); });
             if (!selected.length) { perQuestionScores.push(0); return; }
             var qScore = 0;
-            selected.forEach(function(idx){ qScore += q.options[idx].score; });
+            
+            // 处理对象类型的score
+            if (q.options[0] && typeof q.options[0].score === 'object') {
+                // 对象类型的score处理（针对角色类型测试）
+                qScore = 1; // 至少得1分，避免计算问题
+            } else {
+                // 标准数字类型的score
+                selected.forEach(function(idx){ qScore += q.options[idx].score; });
+            }
+            
             perQuestionScores.push(qScore);
             total += qScore;
         });
@@ -197,9 +236,19 @@
     function matchRange(resultRanges, total){
         for (var i=0;i<resultRanges.length;i++){
             var r = resultRanges[i];
-            var minOk = (typeof r.min === 'number') ? total >= r.min : true;
-            var maxOk = (typeof r.max === 'number') ? total <= r.max : true;
-            if (minOk && maxOk) return r;
+            // 兼容min/max和minScore/maxScore两种属性命名
+            var min = typeof r.min === 'number' ? r.min : r.minScore;
+            var max = typeof r.max === 'number' ? r.max : r.maxScore;
+            var minOk = (typeof min === 'number') ? total >= min : true;
+            var maxOk = (typeof max === 'number') ? total <= max : true;
+            if (minOk && maxOk) {
+                // 统一结果对象的属性命名，确保label/text/advice可用
+                return {
+                    label: r.label || r.title || '未命名',
+                    text: r.text || r.description || '',
+                    advice: r.advice || (r.suggestions ? r.suggestions.join('\n') : '')
+                };
+            }
         }
         return null;
     }
@@ -220,14 +269,32 @@
                 if (inp.checked) selected.push(parseInt(inp.value, 10)); 
             });
             
-            // 找出正确答案
+            // 找出得分最高的答案
             var correctAnswers = [];
-            q.options.forEach(function(opt, oi) {
-                if (opt.score > 0) correctAnswers.push(oi);
+            var maxScore = -1;
+            
+            // 首先找到最高分
+            q.options.forEach(function(opt) {
+                if (opt.score > maxScore) {
+                    maxScore = opt.score;
+                }
             });
             
-            // 构建题目信息
-            var questionText = (qi + 1) + '. ' + q.text + ' (分值: ' + q.options.reduce(function(sum, opt) { return sum + opt.score; }, 0) + ')';
+            // 然后收集所有得到最高分的选项
+            q.options.forEach(function(opt, oi) {
+                if (opt.score === maxScore && maxScore > 0) {
+                    correctAnswers.push(oi);
+                }
+            });
+            
+            // 构建题目信息 - 计算每道题的最高分作为满分
+            var maxQuestionScore = 0;
+            q.options.forEach(function(opt) {
+                if (typeof opt.score === 'number' && opt.score > maxQuestionScore) {
+                    maxQuestionScore = opt.score;
+                }
+            });
+            var questionText = (qi + 1) + '. ' + q.text + ' (分值: ' + maxQuestionScore + ')';
             answerItem.innerHTML = '<p class="answer-question">' + questionText + '</p>';
             
             // 添加得分信息
@@ -235,18 +302,18 @@
             answerItem.innerHTML += '<p class="answer-score">' + scoreText + '</p>';
             
             // 添加用户答题信息
-            var userAnswerText = '您的答案: ';
+            var userAnswerText = '您的选择: ';
             if (selected.length === 0) {
                 userAnswerText += '未回答';
             } else {
-                var selectedLabels = selected.map(function(idx) { return q.options[idx].label || q.options[idx].text || ''; }).join('、');
+                var selectedLabels = selected.map(function(idx) { return q.options[idx] ? (q.options[idx].label || q.options[idx].text || '') : '无效选项'; }).join('、');
                 userAnswerText += selectedLabels;
             }
             answerItem.innerHTML += '<p class="answer-user">' + userAnswerText + '</p>';
             
             // 添加正确答案信息
-            var correctAnswerText = '高分答案: ';
-            var correctLabels = correctAnswers.map(function(idx) { return q.options[idx].label || q.options[idx].text || ''; }).join('、');
+            var correctAnswerText = '高分选项: ';
+            var correctLabels = correctAnswers.map(function(idx) { return q.options[idx] ? (q.options[idx].label || q.options[idx].text || '') : '无效选项'; }).join('、');
             correctAnswerText += correctLabels;
             
             // 判断答案是否正确
@@ -336,6 +403,26 @@
             certificateTestName.textContent = testTitle;
         }
         
+        // 更新证书logo为测试封面图
+        var certificateLogo = document.querySelector('.certificate-logo');
+        if (certificateLogo && dataset.cover) {
+            // 创建图片元素
+            var logoImg = document.createElement('img');
+            logoImg.src = 'data/cover/' + dataset.cover;
+            logoImg.alt = testTitle + ' 封面';
+            logoImg.style.maxWidth = '100%';
+            logoImg.style.maxHeight = '100%';
+            
+            // 清空原有内容并添加图片
+            certificateLogo.innerHTML = '';
+            certificateLogo.appendChild(logoImg);
+            
+            // 添加图片加载失败的备用方案
+            logoImg.onerror = function() {
+                certificateLogo.innerHTML = '🧠'; // 恢复默认表情符号
+            };
+        }
+        
         console.log('TestRunner.bootstrap: 测试数据加载成功，开始渲染题目');
         
         // 渲染题目
@@ -372,31 +459,82 @@
         // 提交并查看结果按钮
         submitResultBtn.addEventListener('click', function() {
             var res = computeScore(dataset);
-            var range = matchRange(dataset.resultRanges, res.total) || {label:'未匹配', text:'', advice:''};
-            totalSpan.textContent = String(res.total);
             
-            // 计算总分值
-            var maxTotalScore = 0;
-            dataset.questions.forEach(function(q) {
-                // 计算每道题的总分值（所有选项的最高分）
-                var maxQuestionScore = 0;
-                q.options.forEach(function(opt) {
-                    if (opt.score > maxQuestionScore) {
-                        maxQuestionScore = opt.score;
-                    }
+            // 处理自定义计算结果（角色类型测试）
+            if (res.primaryRole) {
+                // 显示角色类型结果
+                levelSpan.textContent = res.primaryRole.title;
+                textDiv.innerHTML = res.primaryRole.description + '<br><br>';
+                
+                // 添加角色特征
+                if (res.primaryRole.characteristics && res.primaryRole.characteristics.length > 0) {
+                    textDiv.innerHTML += '<strong>主要特征：</strong><br>';
+                    res.primaryRole.characteristics.forEach(function(char) {
+                        textDiv.innerHTML += '• ' + char + '<br>';
+                    });
+                }
+                
+                // 显示得分分布
+                textDiv.innerHTML += '<br><strong>各角色类型得分：</strong><br>';
+                Object.keys(res.roleScores).forEach(function(roleType) {
+                    const roleConfig = dataset.roleTypes.find(role => role.type === roleType);
+                    const roleName = roleConfig ? roleConfig.title : roleType;
+                    textDiv.innerHTML += roleName + ': ' + res.roleScores[roleType] + '<br>';
                 });
-                maxTotalScore += maxQuestionScore;
-            });
-            
-            // 设置总分值显示
-            var totalPossibleScoreEl = document.getElementById('total-possible-score');
-            if (totalPossibleScoreEl) {
-                totalPossibleScoreEl.textContent = '总分' + maxTotalScore;
+                
+                // 设置总分显示
+                totalSpan.textContent = String(res.totalScore);
+                
+                // 设置总分值显示
+                const totalPossibleScoreEl = document.getElementById('total-possible-score');
+                if (totalPossibleScoreEl) {
+                    totalPossibleScoreEl.textContent = '总分100';
+                }
+            } else {
+                // 标准结果处理逻辑
+                // 计算并缩放到0-100分范围
+                let maxTotalScore = 0;
+                dataset.questions.forEach(function(q) {
+                    let maxQuestionScore = 0;
+                    q.options.forEach(function(opt) {
+                        if (typeof opt.score === 'number' && opt.score > maxQuestionScore) {
+                            maxQuestionScore = opt.score;
+                        }
+                    });
+                    maxTotalScore += maxQuestionScore;
+                });
+                
+                // 缩放分数到0-100分
+                let scaledScore = maxTotalScore > 0 ? Math.round((res.total / maxTotalScore) * 100) : 0;
+                scaledScore = Math.max(0, Math.min(100, scaledScore)); // 确保在0-100范围内
+                
+                // 只显示百分制分数
+                totalSpan.textContent = String(scaledScore);
+                
+                // 设置总分显示为100
+                const totalPossibleScoreElement = document.getElementById('total-possible-score');
+                if (totalPossibleScoreElement) {
+                    totalPossibleScoreElement.textContent = '总分100';
+                }
+                
+                range = dataset.resultRanges ? matchRange(dataset.resultRanges, scaledScore) : {label:'未匹配', text:'', advice:''};
+                // 防止range为null导致错误
+                if (range && range.label) {
+                    levelSpan.textContent = range.label;
+                    textDiv.textContent = range.text || '';
+                    adviceDiv.textContent = range.advice || '';
+                } else {
+                    levelSpan.textContent = '未匹配';
+                    textDiv.textContent = '无法匹配到对应的结果范围';
+                    adviceDiv.textContent = '';
+                }
             }
             
-            levelSpan.textContent = range.label || '-';
-            textDiv.textContent = range.text || '';
-            adviceDiv.textContent = range.advice || '';
+            // 设置总分值显示
+            const totalPossibleScoreEl = document.getElementById('total-possible-score');
+            if (totalPossibleScoreEl) {
+                totalPossibleScoreEl.textContent = '总分100';
+            }
             
             // 更新测试日期
             var dateElement = document.getElementById('test-date');
@@ -441,7 +579,7 @@
             // 设置总分值显示
             var totalPossibleScoreEl = document.getElementById('total-possible-score');
             if (totalPossibleScoreEl) {
-                totalPossibleScoreEl.textContent = '总分' + maxTotalScore;
+                totalPossibleScoreEl.textContent = '总分100';
             }
             
             levelSpan.textContent = range.label || '-';

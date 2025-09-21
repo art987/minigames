@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级语法分析器 - Questions错误定位</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #444;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab:hover {
+            background-color: #e9ecef;
+        }
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom: 2px solid #007bff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        #log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        .warning {
+            color: #ffc107;
+        }
+        .info {
+            color: #17a2b8;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #007bff;
+            width: 0%;
+            transition: width 0.3s ease;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+        }
+        .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .file-item {
+            padding: 5px 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .file-item:hover {
+            background-color: #e9ecef;
+        }
+        .file-item.error {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        .file-item.success {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+        .error-details {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            display: none;
+        }
+        .error-details.visible {
+            display: block;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .error-line {
+            background-color: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .statistics {
+            background-color: #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>高级语法分析器 - Questions错误定位</h1>
+        <p>这个工具使用AST解析技术深度检查测试数据文件的语法，特别是与questions相关的部分，帮助定位"SyntaxError: Unexpected identifier 'questions'"错误。</p>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="main">主要分析</div>
+            <div class="tab" data-tab="categories">按分类分析</div>
+            <div class="tab" data-tab="file-types">按文件类型分析</div>
+            <div class="tab" data-tab="statistics">统计信息</div>
+        </div>
+        
+        <div class="tab-content active" id="main-content">
+            <div class="controls">
+                <button id="analyzeAllBtn">分析所有文件</button>
+                <button id="analyzeQuestionsBtn">只分析Questions定义</button>
+                <button id="stopAnalysisBtn" disabled>停止分析</button>
+                <button id="clearLogBtn">清空日志</button>
+            </div>
+            
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar">0%</div>
+            </div>
+            
+            <div id="log"></div>
+        </div>
+        
+        <div class="tab-content" id="categories-content">
+            <h2>按分类分析</h2>
+            <div class="controls">
+                <button id="analyzeMentalBtn">分析心理测评类</button>
+                <button id="analyzeLoveBtn">分析爱情与人际关系类</button>
+                <button id="analyzeHealthBtn">分析健康与生活习惯类</button>
+                <button id="analyzeIQBtn">分析智力与逻辑类</button>
+                <button id="analyzeCareerBtn">分析职业与学习类</button>
+            </div>
+            
+            <div class="progress-container">
+                <div id="categoryProgressBar" class="progress-bar">0%</div>
+            </div>
+            
+            <div id="categoryLog"></div>
+        </div>
+        
+        <div class="tab-content" id="file-types-content">
+            <h2>按文件类型分析</h2>
+            <div class="controls">
+                <button id="analyzeDataFilesBtn">分析数据文件</button>
+                <button id="analyzeConfigFilesBtn">分析配置文件</button>
+                <button id="analyzeJsFilesBtn">分析JS文件</button>
+            </div>
+            
+            <div class="progress-container">
+                <div id="typeProgressBar" class="progress-bar">0%</div>
+            </div>
+            
+            <div id="typeLog"></div>
+        </div>
+        
+        <div class="tab-content" id="statistics-content">
+            <h2>统计信息</h2>
+            <div class="statistics">
+                <div class="stat-item"><strong>总文件数：</strong><span id="totalFilesCount">0</span></div>
+                <div class="stat-item"><strong>成功分析：</strong><span id="successFilesCount">0</span></div>
+                <div class="stat-item"><strong>语法错误：</strong><span id="errorFilesCount">0</span></div>
+                <div class="stat-item"><strong>Questions相关错误：</strong><span id="questionsErrorFilesCount">0</span></div>
+                <div class="stat-item"><strong>解析耗时：</strong><span id="totalTimeCount">0</span>秒</div>
+            </div>
+            
+            <h3>错误文件列表</h3>
+            <div id="errorFilesList" class="file-list">
+                <p>暂无错误文件</p>
+            </div>
+            
+            <h3>Questions相关错误文件</h3>
+            <div id="questionsErrorFilesList" class="file-list">
+                <p>暂无questions相关错误文件</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let isAnalyzing = false;
+        let totalFiles = 0;
+        let successFiles = 0;
+        let errorFiles = 0;
+        let questionsErrorFiles = 0;
+        let startTime = 0;
+        let analyzedFiles = {};
+        let errorFileDetails = {};
+        
+        // 所有要分析的文件列表
+        const allFiles = [
+            // 心理测评类
+            'data/心理测评类/procrastination_level.js',
+            'data/心理测评类/happiness_index.js',
+            'data/心理测评类/mbti_short.js',
+            'data/心理测评类/emotion_stability.js',
+            'data/心理测评类/stress_tolerance.js',
+            'data/心理测评类/self_confidence.js',
+            'data/心理测评类/introversion_extroversion.js',
+            
+            // 爱情与人际关系类
+            'data/爱情与人际关系类/love_philosophy.js',
+            'data/爱情与人际关系类/attachment_style.js',
+            'data/爱情与人际关系类/ideal_partner.js',
+            'data/爱情与人际关系类/intimacy_satisfaction.js',
+            'data/爱情与人际关系类/friendship_stability.js',
+            'data/爱情与人际关系类/social_anxiety_index.js',
+            'data/爱情与人际关系类/love_communication_style.js',
+            'data/爱情与人际关系类/attraction_index.js',
+            
+            // 职业与学习类
+            'data/职业与学习类/leadership_index.js',
+            'data/职业与学习类/creative_thinking.js',
+            'data/职业与学习类/time_management.js',
+            'data/职业与学习类/focus_attention.js',
+            'data/职业与学习类/career_stress_resilience.js',
+            'data/职业与学习类/communication_skills.js',
+            
+            // 健康与生活习惯类
+            'data/健康与生活习惯类/sleep_quality.js',
+            'data/健康与生活习惯类/diet_health.js',
+            'data/健康与生活习惯类/schedule_regularity.js',
+            'data/健康与生活习惯类/mental_subhealth_index.js',
+            'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+            'data/健康与生活习惯类/mobile_phone_dependency.js',
+            'data/健康与生活习惯类/stay_up_late_index.js',
+            'data/健康与生活习惯类/sitting_risk_assessment.js',
+            
+            // 智力与逻辑类
+            'data/智力与逻辑类/iq60.js',
+            
+            // 配置文件
+            'data/test-config.js',
+            'data/test-categories.js',
+            'data/data-scanner.js',
+            
+            // JS文件
+            'js/tests.js',
+            'js/runner.js',
+            'js/test-manager.js'
+        ];
+        
+        // 按分类分组的文件
+        const filesByCategory = {
+            mental: [
+                'data/心理测评类/procrastination_level.js',
+                'data/心理测评类/happiness_index.js',
+                'data/心理测评类/mbti_short.js',
+                'data/心理测评类/emotion_stability.js',
+                'data/心理测评类/stress_tolerance.js',
+                'data/心理测评类/self_confidence.js',
+                'data/心理测评类/introversion_extroversion.js'
+            ],
+            love: [
+                'data/爱情与人际关系类/love_philosophy.js',
+                'data/爱情与人际关系类/attachment_style.js',
+                'data/爱情与人际关系类/ideal_partner.js',
+                'data/爱情与人际关系类/intimacy_satisfaction.js',
+                'data/爱情与人际关系类/friendship_stability.js',
+                'data/爱情与人际关系类/social_anxiety_index.js',
+                'data/爱情与人际关系类/love_communication_style.js',
+                'data/爱情与人际关系类/attraction_index.js'
+            ],
+            health: [
+                'data/健康与生活习惯类/sleep_quality.js',
+                'data/健康与生活习惯类/diet_health.js',
+                'data/健康与生活习惯类/schedule_regularity.js',
+                'data/健康与生活习惯类/mental_subhealth_index.js',
+                'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+                'data/健康与生活习惯类/mobile_phone_dependency.js',
+                'data/健康与生活习惯类/stay_up_late_index.js',
+                'data/健康与生活习惯类/sitting_risk_assessment.js'
+            ],
+            iq: [
+                'data/智力与逻辑类/iq60.js'
+            ],
+            career: [
+                'data/职业与学习类/leadership_index.js',
+                'data/职业与学习类/creative_thinking.js',
+                'data/职业与学习类/time_management.js',
+                'data/职业与学习类/focus_attention.js',
+                'data/职业与学习类/career_stress_resilience.js',
+                'data/职业与学习类/communication_skills.js'
+            ]
+        };
+        
+        // 按文件类型分组的文件
+        const filesByType = {
+            data: allFiles.filter(file => file.startsWith('data/') && !file.includes('config') && !file.includes('categories') && !file.includes('scanner')),
+            config: [
+                'data/test-config.js',
+                'data/test-categories.js',
+                'data/data-scanner.js'
+            ],
+            js: [
+                'js/tests.js',
+                'js/runner.js',
+                'js/test-manager.js'
+            ]
+        };
+        
+        // 日志记录函数
+        function log(message, type = 'info', target = 'log') {
+            const logElement = document.getElementById(target);
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            // 也输出到控制台
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        // 清空日志
+        function clearLog(target = 'log') {
+            document.getElementById(target).innerHTML = '';
+            log('日志已清空', 'info', target);
+        }
+        
+        // 更新进度条
+        function updateProgressBar(percentage, target = 'progressBar') {
+            const progressBar = document.getElementById(target);
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // 更新统计信息
+        function updateStatistics() {
+            document.getElementById('totalFilesCount').textContent = totalFiles;
+            document.getElementById('successFilesCount').textContent = successFiles;
+            document.getElementById('errorFilesCount').textContent = errorFiles;
+            document.getElementById('questionsErrorFilesCount').textContent = questionsErrorFiles;
+            
+            // 更新总耗时
+            const totalTime = startTime ? ((Date.now() - startTime) / 1000).toFixed(2) : '0';
+            document.getElementById('totalTimeCount').textContent = totalTime;
+            
+            // 更新错误文件列表
+            updateErrorFilesList();
+        }
+        
+        // 更新错误文件列表
+        function updateErrorFilesList() {
+            const errorFilesList = document.getElementById('errorFilesList');
+            const questionsErrorFilesList = document.getElementById('questionsErrorFilesList');
+            
+            // 清空列表
+            errorFilesList.innerHTML = '';
+            questionsErrorFilesList.innerHTML = '';
+            
+            // 添加普通错误文件
+            if (errorFiles > 0) {
+                Object.keys(errorFileDetails).forEach(fileName => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item error';
+                    fileItem.textContent = fileName;
+                    fileItem.addEventListener('click', () => showErrorDetails(fileName));
+                    errorFilesList.appendChild(fileItem);
+                });
+            } else {
+                errorFilesList.innerHTML = '<p>暂无错误文件</p>';
+            }
+            
+            // 添加questions相关错误文件
+            if (questionsErrorFiles > 0) {
+                Object.keys(errorFileDetails).forEach(fileName => {
+                    if (errorFileDetails[fileName].isQuestionsError) {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item error';
+                        fileItem.textContent = fileName;
+                        fileItem.addEventListener('click', () => showErrorDetails(fileName));
+                        questionsErrorFilesList.appendChild(fileItem);
+                    }
+                });
+            } else {
+                questionsErrorFilesList.innerHTML = '<p>暂无questions相关错误文件</p>';
+            }
+        }
+        
+        // 显示错误详情
+        function showErrorDetails(fileName) {
+            const details = errorFileDetails[fileName];
+            if (!details) return;
+            
+            // 创建错误详情弹窗
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '1000';
+            
+            const content = document.createElement('div');
+            content.style.backgroundColor = 'white';
+            content.style.padding = '20px';
+            content.style.borderRadius = '8px';
+            content.style.maxWidth = '80%';
+            content.style.maxHeight = '80%';
+            content.style.overflow = 'auto';
+            
+            content.innerHTML = `
+                <h3>文件错误详情: ${fileName}</h3>
+                <p><strong>错误类型:</strong> ${details.isQuestionsError ? 'Questions相关错误' : '普通语法错误'}</p>
+                <p><strong>错误信息:</strong> ${details.errorMessage}</p>
+                <p><strong>错误行号:</strong> ${details.lineNumber || '未知'}</p>
+                <p><strong>错误列号:</strong> ${details.columnNumber || '未知'}</p>
+                <div class="code-block">${details.codeSnippet || '暂无代码片段'}</div>
+                <button id="closeModalBtn">关闭</button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // 关闭弹窗
+            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        }
+        
+        // 停止分析
+        function stopAnalysis() {
+            isAnalyzing = false;
+            
+            // 更新UI
+            document.getElementById('analyzeAllBtn').disabled = false;
+            document.getElementById('analyzeQuestionsBtn').disabled = false;
+            document.getElementById('stopAnalysisBtn').disabled = true;
+            updateProgressBar(0);
+            
+            log('分析已停止', 'info');
+        }
+        
+        // 简单的AST解析（使用try-catch模拟）
+        function parseSyntax(content, fileName) {
+            // 创建一个临时函数来解析JavaScript
+            try {
+                // 尝试使用Function构造函数来解析代码
+                new Function(content);
+                return { success: true, isQuestionsError: false };
+            } catch (error) {
+                // 捕获语法错误
+                const errorMessage = error.message;
+                
+                // 检查是否是questions相关的错误
+                const isQuestionsError = errorMessage.includes('questions') || 
+                                       errorMessage.includes('Unexpected identifier');
+                
+                // 尝试提取行号和列号
+                let lineNumber = null;
+                let columnNumber = null;
+                const positionMatch = /line\s+(\d+)/i.exec(errorMessage);
+                if (positionMatch && positionMatch[1]) {
+                    lineNumber = parseInt(positionMatch[1], 10);
+                    // 尝试提取列号
+                    const columnMatch = /column\s+(\d+)/i.exec(errorMessage);
+                    if (columnMatch && columnMatch[1]) {
+                        columnNumber = parseInt(columnMatch[1], 10);
+                    }
+                }
+                
+                // 提取错误行附近的代码
+                const lines = content.split('\n');
+                let codeSnippet = '';
+                
+                if (lineNumber && lines.length >= lineNumber) {
+                    const errorLine = lineNumber - 1; // 转换为0-based索引
+                    const startLine = Math.max(0, errorLine - 2);
+                    const endLine = Math.min(lines.length - 1, errorLine + 2);
+                    
+                    for (let i = startLine; i <= endLine; i++) {
+                        const prefix = (i === errorLine) ? '❌ ' : '   ';
+                        codeSnippet += `${prefix}${i+1}: ${lines[i]}\n`;
+                    }
+                } else if (lines.length > 0) {
+                    // 如果没有行号信息，显示前5行
+                    const displayLines = lines.slice(0, 5);
+                    codeSnippet = displayLines.map((line, index) => `${index+1}: ${line}`).join('\n');
+                }
+                
+                return {
+                    success: false,
+                    errorMessage: errorMessage,
+                    isQuestionsError: isQuestionsError,
+                    lineNumber: lineNumber,
+                    columnNumber: columnNumber,
+                    codeSnippet: codeSnippet
+                };
+            }
+        }
+        
+        // 专用的Questions语法检查
+        function checkQuestionsSyntax(content, fileName) {
+            // 检查questions数组的定义格式
+            const questionsRegex = /questions\s*[:=]\s*\[/;
+            const hasValidQuestions = questionsRegex.test(content);
+            
+            if (!hasValidQuestions) {
+                return {
+                    success: false,
+                    errorMessage: '未找到有效的questions数组定义，应为 questions: [...] 或 questions = [...]',
+                    isQuestionsError: true,
+                    lineNumber: null,
+                    columnNumber: null,
+                    codeSnippet: null
+                };
+            }
+            
+            // 检查是否存在可能导致"Unexpected identifier 'questions'"错误的模式
+            const problematicPatterns = [
+                /questions\s+\{/, // questions 后面直接跟 { 而不是 : 或 =
+                /questions\s*\.[a-zA-Z0-9_]+/, // questions. 前面没有正确的引用
+                /questions\s*\(/, // questions( 可能是函数调用但语法错误
+                /,\s*questions\s*:/, // 前面有多余的逗号
+                /\}\s*questions\s*:/ // }后面直接跟questions:，可能缺少逗号
+            ];
+            
+            for (let i = 0; i < problematicPatterns.length; i++) {
+                const pattern = problematicPatterns[i];
+                const match = pattern.exec(content);
+                if (match) {
+                    // 尝试计算行号
+                    const lines = content.substring(0, match.index).split('\n');
+                    const lineNumber = lines.length;
+                    
+                    return {
+                        success: false,
+                        errorMessage: `发现可能的问题语法："${match[0]}"，可能导致 "Unexpected identifier 'questions'" 错误`,
+                        isQuestionsError: true,
+                        lineNumber: lineNumber,
+                        columnNumber: match.index - lines[lines.length - 1].length,
+                        codeSnippet: match[0]
+                    };
+                }
+            }
+            
+            return { success: true, isQuestionsError: false };
+        }
+        
+        // 分析单个文件
+        function analyzeFile(fileUrl, onlyQuestions = false, logTarget = 'log') {
+            return new Promise((resolve) => {
+                fetch(fileUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`无法加载文件: ${response.status} ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        const fileName = fileUrl.split('/').pop();
+                        
+                        let parseResult;
+                        if (onlyQuestions) {
+                            // 只检查questions语法
+                            parseResult = checkQuestionsSyntax(content, fileName);
+                        } else {
+                            // 检查完整语法
+                            parseResult = parseSyntax(content, fileName);
+                        }
+                        
+                        if (parseResult.success) {
+                            successFiles++;
+                            log(`✅ 成功分析: ${fileName}`, 'success', logTarget);
+                        } else {
+                            errorFiles++;
+                            if (parseResult.isQuestionsError) {
+                                questionsErrorFiles++;
+                                log(`❌ 发现Questions相关错误: ${fileName} - ${parseResult.errorMessage}`, 'error', logTarget);
+                            } else {
+                                log(`❌ 发现语法错误: ${fileName} - ${parseResult.errorMessage}`, 'error', logTarget);
+                            }
+                            
+                            // 保存错误详情
+                            errorFileDetails[fileName] = parseResult;
+                        }
+                        
+                        analyzedFiles[fileName] = parseResult;
+                        resolve(parseResult);
+                    })
+                    .catch(error => {
+                        const fileName = fileUrl.split('/').pop();
+                        errorFiles++;
+                        log(`❌ 分析文件失败: ${fileName} - ${error.message}`, 'error', logTarget);
+                        resolve({ success: false, errorMessage: error.message });
+                    });
+            });
+        }
+        
+        // 批量分析文件
+        async function analyzeFiles(files, onlyQuestions = false, logTarget = 'log', progressTarget = 'progressBar') {
+            if (isAnalyzing) return;
+            
+            // 重置状态
+            isAnalyzing = true;
+            totalFiles = files.length;
+            successFiles = 0;
+            errorFiles = 0;
+            questionsErrorFiles = 0;
+            startTime = Date.now();
+            analyzedFiles = {};
+            errorFileDetails = {};
+            
+            // 更新UI
+            document.getElementById('analyzeAllBtn').disabled = true;
+            document.getElementById('analyzeQuestionsBtn').disabled = true;
+            document.getElementById('stopAnalysisBtn').disabled = false;
+            
+            clearLog(logTarget);
+            updateProgressBar(0, progressTarget);
+            
+            log(`开始分析 ${totalFiles} 个文件...${onlyQuestions ? ' (仅分析Questions定义)' : ''}`, 'info', logTarget);
+            
+            // 逐个分析文件
+            let currentIndex = 0;
+            
+            for (const fileUrl of files) {
+                if (!isAnalyzing) break;
+                
+                await analyzeFile(fileUrl, onlyQuestions, logTarget);
+                currentIndex++;
+                
+                // 更新进度
+                const progress = (currentIndex / totalFiles) * 100;
+                updateProgressBar(progress, progressTarget);
+                
+                // 更新统计信息
+                updateStatistics();
+                
+                // 添加短暂延迟，防止请求过快
+                await new Promise(resolve => setTimeout(resolve, 50));
+            }
+            
+            if (isAnalyzing) {
+                const totalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                log(`分析完成！共分析 ${totalFiles} 个文件，成功 ${successFiles} 个，失败 ${errorFiles} 个，其中Questions相关错误 ${questionsErrorFiles} 个，耗时 ${totalTime} 秒`, 'success', logTarget);
+            }
+            
+            // 重置分析状态
+            isAnalyzing = false;
+            
+            // 更新UI
+            document.getElementById('analyzeAllBtn').disabled = false;
+            document.getElementById('analyzeQuestionsBtn').disabled = false;
+            document.getElementById('stopAnalysisBtn').disabled = true;
+        }
+        
+        // 初始化标签页
+        function initTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有活动标签和内容
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 激活当前标签和内容
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-content`).classList.add('active');
+                });
+            });
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化标签页
+            initTabs();
+            
+            // 绑定按钮事件
+            document.getElementById('analyzeAllBtn').addEventListener('click', () => analyzeFiles(allFiles, false));
+            document.getElementById('analyzeQuestionsBtn').addEventListener('click', () => analyzeFiles(allFiles, true));
+            document.getElementById('stopAnalysisBtn').addEventListener('click', stopAnalysis);
+            document.getElementById('clearLogBtn').addEventListener('click', clearLog);
+            
+            // 分类分析按钮
+            document.getElementById('analyzeMentalBtn').addEventListener('click', () => analyzeFiles(filesByCategory.mental, false, 'categoryLog', 'categoryProgressBar'));
+            document.getElementById('analyzeLoveBtn').addEventListener('click', () => analyzeFiles(filesByCategory.love, false, 'categoryLog', 'categoryProgressBar'));
+            document.getElementById('analyzeHealthBtn').addEventListener('click', () => analyzeFiles(filesByCategory.health, false, 'categoryLog', 'categoryProgressBar'));
+            document.getElementById('analyzeIQBtn').addEventListener('click', () => analyzeFiles(filesByCategory.iq, false, 'categoryLog', 'categoryProgressBar'));
+            document.getElementById('analyzeCareerBtn').addEventListener('click', () => analyzeFiles(filesByCategory.career, false, 'categoryLog', 'categoryProgressBar'));
+            
+            // 文件类型分析按钮
+            document.getElementById('analyzeDataFilesBtn').addEventListener('click', () => analyzeFiles(filesByType.data, false, 'typeLog', 'typeProgressBar'));
+            document.getElementById('analyzeConfigFilesBtn').addEventListener('click', () => analyzeFiles(filesByType.config, false, 'typeLog', 'typeProgressBar'));
+            document.getElementById('analyzeJsFilesBtn').addEventListener('click', () => analyzeFiles(filesByType.js, false, 'typeLog', 'typeProgressBar'));
+            
+            log('高级语法分析器已准备就绪，可以开始分析文件了', 'info');
+        });
+    </script>
+</body>
+</html>

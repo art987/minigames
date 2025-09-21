@@ -1,77 +1,53 @@
-// 测试文件模板
-// 使用说明：
-// 1. 将此文件复制到对应分类目录下
-// 2. 重命名文件为您想要的测试ID（例如：my_test.js，则测试ID为my_test）
-// 3. 修改title、description等内容，但不要修改id属性的赋值方式
-
-/**
- * 重要注意事项：
- * - 必须使用 window.TestDatasets（首字母大写）存储测试数据
- * - 不要使用 window.testDatasets（首字母小写），因为 hasValidDataset 函数检查的是首字母大写的版本
- * - 使用错误的变量名会导致测试无法在首页分类列表中显示
- */
-
 (function() {
-    // 从文件名获取测试ID（自动提取，无需手动修改）
-    const getTestIdFromFilename = function() {
-        // 获取当前脚本文件名
-        const scripts = document.getElementsByTagName('script');
-        const currentScript = scripts[scripts.length - 1];
-        const scriptSrc = currentScript.src;
-        const fileName = scriptSrc.split('/').pop();
-        const testId = fileName.replace('.js', '');
-        return testId;
-    };
-    
-    // 提取测试ID
-    const testId = getTestIdFromFilename();
-    
-    // 注册测试元数据
-    window.TestRegistry && window.TestRegistry.register({
-        id: testId,  // 自动从文件名获取，无需修改
-        title: '测试标题',  // 修改为您的测试标题
-        description: '测试描述信息',  // 修改为您的测试描述
-        estimateMinutes: 5  // 估计完成时间（分钟）
-    });
+    // 1. 直接设置测试ID，确保与文件名一致
+    const testId = 'your_test_id';
 
-    // 定义测试数据集
-    var dataset = {
-        id: testId,  // 自动从文件名获取，无需修改
+    // 2. 完整的测试数据结构
+    const testData = {
+        id: testId,
+        title: '测试标题',
+        description: '测试描述内容...',
+        category: '测试分类', // 如：爱情与人际关系类
+        questionCount: 10,    // 题目数量
+        totalScore: 100,      // 总分（必须明确设置）
+        estimateMinutes: 5,   // 估计完成时间（分钟）
+        cover: testId + '.jpg', // 封面图片文件名，默认与测试ID同名，存放在data/cover/目录下
+        
+        // 3. 题目数组
         questions: [
-            // 添加您的测试题目
             {
-                text: '示例题目1',
-                multi: false,  // 是否多选题
+                id: 'q1',
+                text: '问题内容',
+                multi: false, // 是否为多选题
                 options: [
-                    { label: '选项A', score: 0 },
-                    { label: '选项B', score: 1 },
-                    { label: '选项C', score: 2 },
-                    { label: '选项D', score: 3 }
-                ]
-            },
-            {
-                text: '示例题目2',
-                multi: false,
-                options: [
-                    { label: '选项A', score: 0 },
-                    { label: '选项B', score: 1 },
-                    { label: '选项C', score: 2 },
-                    { label: '选项D', score: 3 }
+                    { id: 'q1a1', text: '选项A', score: 10 },
+                    { id: 'q1a2', text: '选项B', score: 0 }
+                    // 更多选项...
                 ]
             }
-            // 可以添加更多题目...
+            // 更多题目...
         ],
+        
+        // 4. 结果范围配置
         resultRanges: [
-            // 定义测试结果范围
-            { label: '初级', min: 0, max: 1, text: '测试结果描述1', advice: '改进建议1' },
-            { label: '中级', min: 2, max: 3, text: '测试结果描述2', advice: '改进建议2' },
-            { label: '高级', min: 4, max: 6, text: '测试结果描述3', advice: '改进建议3' }
+            {
+                minScore: 0,
+                maxScore: 50,
+                title: '结果类型标题',
+                description: '结果描述内容...',
+                suggestions: ['建议1', '建议2']
+            }
+            // 更多结果类型...
         ]
     };
 
-    // 注册测试数据集 - 注意：必须使用首字母大写的 TestDatasets！
-    // 错误用法：window.testDatasets（首字母小写）- 会导致测试无法显示
-    // 正确用法：window.TestDatasets（首字母大写）- 确保测试能被正确识别
-    window.TestDatasets = window.TestDatasets || {};
-    window.TestDatasets[dataset.id] = dataset;
+    // 5. 安全注册测试数据（避免覆盖全局对象）
+    if (window.TestRegistry) {
+        window.TestRegistry.register(testData);
+    }
+
+    if (!window.TestDatasets) {
+        window.TestDatasets = {};
+    }
+    window.TestDatasets[testData.id] = testData;
 })();

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单调试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .log {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>简单调试页面</h1>
+    <p>此页面用于简单测试单个JavaScript文件的加载。</p>
+    
+    <div>
+        <p>加载状态: <span id="status">等待开始</span></p>
+        <div id="log" class="log">日志将显示在这里...</div>
+    </div>
+    
+    <script>
+        // 添加日志函数
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logLine = `[${timestamp}] ${message}\n`;
+            
+            logElement.textContent += logLine;
+            logElement.scrollTop = logElement.scrollHeight; // 滚动到底部
+            
+            // 同时在控制台显示
+            if (type === 'error') {
+                console.error(message);
+            } else if (type === 'success') {
+                console.log('%c' + message, 'color: green');
+            } else {
+                console.log(message);
+            }
+        }
+        
+        // 初始化日志
+        log('页面加载完成，开始执行脚本');
+        
+        // 创建测试注册表
+        window.TestRegistry = window.TestRegistry || {
+            register: function(data) {
+                log(`TestRegistry.register: 成功注册测试: ${data.id}`, 'success');
+            },
+            list: function() { return []; }
+        };
+        
+        window.TestDatasets = window.TestDatasets || {};
+        
+        // 尝试加载单个测试文件
+        function loadTestFile() {
+            log('准备加载测试文件: data/职业与学习类/creative_thinking.js');
+            
+            try {
+                const script = document.createElement('script');
+                script.src = 'data/职业与学习类/creative_thinking.js';
+                
+                script.onload = function() {
+                    log('测试文件加载成功', 'success');
+                    document.getElementById('status').innerHTML = '<span class="success">加载成功</span>';
+                    
+                    // 检查数据集是否加载成功
+                    setTimeout(() => {
+                        if (window.TestDatasets && window.TestDatasets['creative_thinking']) {
+                            log(`数据集已加载: ${JSON.stringify(Object.keys(window.TestDatasets))}`, 'success');
+                            log(`creative_thinking 数据结构: ${typeof window.TestDatasets['creative_thinking']}`);
+                            log(`包含questions: ${'questions' in window.TestDatasets['creative_thinking']}`);
+                        } else {
+                            log('数据集未加载或为空', 'error');
+                        }
+                    }, 500);
+                };
+                
+                script.onerror = function(e) {
+                    log(`测试文件加载失败: ${e.type}`, 'error');
+                    document.getElementById('status').innerHTML = '<span class="error">加载失败</span>';
+                };
+                
+                // 添加全局错误捕获
+                window.addEventListener('error', function(e) {
+                    log(`JavaScript错误: ${e.error?.message || '未知错误'}`, 'error');
+                    log(`错误发生在: ${e.filename}, 行: ${e.lineno}, 列: ${e.colno}`, 'error');
+                    if (e.error?.stack) {
+                        log(`错误栈: ${e.error.stack}`, 'error');
+                    }
+                });
+                
+                log('将script元素添加到文档');
+                document.head.appendChild(script);
+            } catch (e) {
+                log(`加载过程中发生异常: ${e.message}`, 'error');
+            }
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', function() {
+            log('DOM内容加载完成，准备加载测试文件');
+            loadTestFile();
+        });
+    </script>
+</body>
+</html>

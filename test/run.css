@@ -26,7 +26,6 @@ body {
         .header h1 {
             color: #ffffff;
             font-size: 18px;
-            display: inline-block;
             margin-bottom: 10px;
             float: left;
             margin-top: 6px;
@@ -364,7 +363,7 @@ body {
         }
         
 
- .nav-link{background-color: #ffffff08;border: 1px solid #ffffff4d;color: #ffffff;padding: 0.5rem 0.5rem;text-decoration: none;display: inline-block;border-radius:6px;cursor:pointer;margin-right:1rem;font-weight: 500;font-size: 14px;transition:background-color 0.2s;float: left;}
+ .nav-link{background-color: #ffffff08;border: 1px solid #ffffff4d;color: #ffffff;padding: 0.5rem 0.5rem;text-decoration: none;border-radius:6px;cursor:pointer;margin-right:1rem;font-weight: 500;font-size: 14px;transition:background-color 0.2s;float: left;}
 
 .nav-link:hover{background-color: #ffffff1f;}
 
@@ -443,7 +442,6 @@ body {
            letter-spacing: 2px;
            display: inline-block;
            position: absolute;
-           float: left;
            left: 117px;
            top: -3px;
         }
@@ -453,7 +451,6 @@ body {
     padding: 0;
     margin: 0;
     display: inline-block;
-    float: left;
     color: #6a3de8;
     font-weight: normal;
     position: absolute;

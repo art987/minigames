@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真实环境调试 - 测试加载问题</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #333; }
+        .log-container { 
+            background-color: #f5f5f5; 
+            padding: 15px; 
+            border-radius: 5px; 
+            height: 400px; 
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .error { color: #d9534f; }
+        .success { color: #5cb85c; }
+        .info { color: #337ab7; }
+        .loading { 
+            display: inline-block; 
+            width: 20px; 
+            height: 20px; 
+            border: 3px solid #f3f3f3; 
+            border-top: 3px solid #3498db; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        button { padding: 10px 15px; margin: 10px 0; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>真实环境调试 - 测试加载问题</h1>
+        <p>此页面按照原始index.html的结构和顺序加载文件，用于定位"SyntaxError: Unexpected identifier 'questions'"错误</p>
+        
+        <div id="status">
+            <div class="loading"></div>
+            <span>加载中...</span>
+        </div>
+        
+        <div class="log-container" id="log-container"></div>
+        
+        <button onclick="location.reload()">重新加载</button>
+    </div>
+
+    <script>
+        // 日志记录功能
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 全局变量存储加载状态
+        window.DebugState = {
+            loadedFiles: [],
+            errorFiles: [],
+            startTime: Date.now(),
+            totalFiles: 0,
+            currentFileIndex: 0,
+            // 添加一个计数器来跟踪错误
+            errorCount: {
+                total: 0,
+                syntax: 0,
+                questionsRelated: 0
+            }
+        };
+
+        // 重写console.log，捕获所有日志输出
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        const originalConsoleWarn = console.warn;
+
+        console.log = function(...args) {
+            log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'info');
+            originalConsoleLog.apply(console, args);
+        };
+
+        console.error = function(...args) {
+            log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'error');
+            originalConsoleError.apply(console, args);
+        };
+
+        console.warn = function(...args) {
+            log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'warning');
+            originalConsoleWarn.apply(console, args);
+        };
+
+        // 创建一个增强的错误处理器来捕获未捕获的异常
+        window.addEventListener('error', function(e) {
+            window.DebugState.errorCount.total++;
+            
+            console.error(`捕获到全局错误: ${e.message} (行号: ${e.lineno}, 列号: ${e.colno}, 文件: ${e.filename})`);
+            
+            // 特别关注questions相关的语法错误
+            if (e.message && e.message.includes('questions')) {
+                window.DebugState.errorCount.questionsRelated++;
+                console.error('🚨 发现与questions相关的语法错误，这可能是我们要找的问题!');
+                
+                // 尝试获取并分析出错的文件内容
+                if (e.filename) {
+                    fetch(e.filename)
+                        .then(response => response.text())
+                        .then(content => {
+                            // 找到出错的行附近的代码
+                            const lines = content.split('\n');
+                            const errorLine = e.lineno - 1; // 转换为0-based索引
+                            const startLine = Math.max(0, errorLine - 5);
+                            const endLine = Math.min(lines.length - 1, errorLine + 5);
+                            
+                            console.error(`\n📋 出错文件的相关代码: ${e.filename}`);
+                            for (let i = startLine; i <= endLine; i++) {
+                                const prefix = (i === errorLine) ? '❌ ' : '   ';
+                                console.error(`${prefix}${i+1}: ${lines[i]}`);
+                            }
+                        })
+                        .catch(err => console.error('无法获取出错文件的内容:', err));
+                }
+            } else if (e.message && e.message.includes('SyntaxError')) {
+                window.DebugState.errorCount.syntax++;
+                console.error('⚠️ 发现语法错误');
+            }
+        });
+
+        // 文件加载完成时的回调
+        function onFileLoaded(fileName) {
+            window.DebugState.loadedFiles.push(fileName);
+            console.log(`✅ 成功加载: ${fileName} (已加载 ${window.DebugState.loadedFiles.length}/${window.DebugState.totalFiles} 个文件)`);
+            
+            // 检查当前加载的文件是否包含questions相关内容
+            setTimeout(() => {
+                checkQuestionsInFile(fileName);
+            }, 100);
+            
+            checkAllFilesLoaded();
+        }
+
+        // 文件加载错误时的回调
+        function onFileError(fileName, error) {
+            window.DebugState.errorFiles.push({ fileName, error: error.message || '未知错误' });
+            window.DebugState.errorCount.total++;
+            
+            if (error.message && error.message.includes('SyntaxError')) {
+                window.DebugState.errorCount.syntax++;
+                console.error(`❌ 语法错误: ${fileName} - ${error.message}`);
+            } else {
+                console.error(`❌ 加载失败: ${fileName} - ${error.message || '未知错误'}`);
+            }
+            
+            checkAllFilesLoaded();
+        }
+
+        // 检查所有文件是否加载完成
+        function checkAllFilesLoaded() {
+            const totalLoaded = window.DebugState.loadedFiles.length + window.DebugState.errorFiles.length;
+            if (totalLoaded === window.DebugState.totalFiles) {
+                const loadTime = (Date.now() - window.DebugState.startTime) / 1000;
+                document.getElementById('status').innerHTML = '<span>加载完成</span>';
+                
+                console.log(`
+===== 加载总结 =====`);
+                console.log(`总文件数: ${window.DebugState.totalFiles}`);
+                console.log(`成功加载: ${window.DebugState.loadedFiles.length}`);
+                console.log(`加载失败: ${window.DebugState.errorFiles.length}`);
+                console.log(`加载耗时: ${loadTime}秒`);
+                
+                // 错误统计
+                console.log(`
+===== 错误统计 =====`);
+                console.log(`总错误数: ${window.DebugState.errorCount.total}`);
+                console.log(`语法错误: ${window.DebugState.errorCount.syntax}`);
+                console.log(`Questions相关错误: ${window.DebugState.errorCount.questionsRelated}`);
+                
+                if (window.DebugState.errorFiles.length > 0) {
+                    console.log(`\n失败文件列表:`);
+                    window.DebugState.errorFiles.forEach(({ fileName, error }) => {
+                        console.error(`- ${fileName}: ${error}`);
+                    });
+                }
+                
+                // 检查TestDatasets对象
+                console.log(`\n===== TestDatasets 检查 =====`);
+                if (window.TestDatasets) {
+                    const datasetKeys = Object.keys(window.TestDatasets);
+                    console.log(`TestDatasets 包含 ${datasetKeys.length} 个数据集`);
+                    // 列出前5个数据集作为示例
+                    if (datasetKeys.length > 0) {
+                        console.log(`前5个数据集:`);
+                        datasetKeys.slice(0, 5).forEach(key => {
+                            const dataset = window.TestDatasets[key];
+                            const hasQuestions = dataset && dataset.questions && Array.isArray(dataset.questions);
+                            console.log(`- ${key}: ${hasQuestions ? `有 ${dataset.questions.length} 个问题` : '数据结构不完整'}`);
+                        });
+                    }
+                } else {
+                    console.error(`❌ TestDatasets 对象不存在`);
+                }
+                
+                // 检查TestConfig对象
+                console.log(`\n===== TestConfig 检查 =====`);
+                if (window.TestConfig) {
+                    console.log(`TestConfig 已加载`);
+                    try {
+                        const categories = window.TestConfig.getAllCategories();
+                        console.log(`TestConfig 包含 ${Object.keys(categories).length} 个分类`);
+                    } catch (e) {
+                        console.error(`TestConfig 功能异常: ${e.message}`);
+                    }
+                } else {
+                    console.error(`❌ TestConfig 对象不存在`);
+                }
+            }
+        }
+
+        // 增强的脚本加载函数，添加语法预检查
+        function loadScript(url, callback, errorCallback) {
+            const fileName = url.split('/').pop();
+            console.log(`开始加载: ${fileName}`);
+            
+            // 先尝试获取文件内容进行预检查
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`网络错误: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    try {
+                        // 预检查语法（不会执行代码）
+                        new Function(content);
+                        console.log(`语法预检查通过: ${fileName}`);
+                        
+                        // 特别检查estimateMinutes和questions相关的语法
+                        checkEstimateMinutesAndQuestions(content, fileName);
+                        
+                        // 创建并加载脚本
+                        const script = document.createElement('script');
+                        script.src = url;
+                        
+                        const startTime = Date.now();
+                        
+                        script.onload = function() {
+                            const loadTime = (Date.now() - startTime) / 1000;
+                            callback(fileName, loadTime);
+                        };
+                        
+                        script.onerror = function(error) {
+                            errorCallback(fileName, error);
+                        };
+                        
+                        document.head.appendChild(script);
+                    } catch (error) {
+                        console.error(`语法预检查失败: ${fileName} - ${error.message}`);
+                        window.DebugState.errorCount.syntax++;
+                        errorCallback(fileName, error);
+                    }
+                })
+                .catch(error => {
+                    console.error(`预检查失败: ${fileName} - ${error.message}`);
+                    errorCallback(fileName, error);
+                });
+        }
+        
+        // 检查estimateMinutes和questions相关的语法
+        function checkEstimateMinutesAndQuestions(content, fileName) {
+            // 检查estimateMinutes后面是否有逗号，特别是在有注释的情况下
+            const estimateMinutesRegex = /estimateMinutes:\s*\d+\s*(\/\/.*)?$/gm;
+            let match;
+            let hasPotentialIssue = false;
+            
+            while ((match = estimateMinutesRegex.exec(content)) !== null) {
+                const line = match[0];
+                if (!line.includes(',') && !line.includes('{') && !line.includes('}') && !line.includes(';')) {
+                    console.warn(`⚠️ 潜在问题: ${fileName} 中的estimateMinutes后面可能缺少逗号`);
+                    console.warn(`   代码行: ${line}`);
+                    hasPotentialIssue = true;
+                }
+            }
+            
+            // 检查questions数组的定义
+            const questionsRegex = /questions\s*[:=]\s*\[/;
+            if (content.includes('questions') && !questionsRegex.test(content)) {
+                console.warn(`⚠️ 潜在问题: ${fileName} 中可能存在questions定义的语法问题`);
+                hasPotentialIssue = true;
+            }
+            
+            return hasPotentialIssue;
+        }
+        
+        // 检查文件中questions数据结构的完整性
+        function checkQuestionsInFile(fileName) {
+            // 尝试从文件名中提取测试ID
+            const testId = fileName.replace('.js', '');
+            
+            // 检查TestDatasets中是否存在该测试的数据
+            if (window.TestDatasets && window.TestDatasets[testId]) {
+                const dataset = window.TestDatasets[testId];
+                
+                if (!dataset.questions) {
+                    console.warn(`⚠️ 警告: ${fileName} 中没有questions数组`);
+                } else if (!Array.isArray(dataset.questions)) {
+                    console.warn(`⚠️ 警告: ${fileName} 中的questions不是数组`);
+                } else if (dataset.questions.length === 0) {
+                    console.warn(`⚠️ 警告: ${fileName} 中的questions数组为空`);
+                } else {
+                    // 检查前几个问题的结构是否正确
+                    const sampleQuestions = dataset.questions.slice(0, 3);
+                    sampleQuestions.forEach((question, index) => {
+                        if (!question.text) {
+                            console.warn(`⚠️ 警告: ${fileName} 中的问题${index+1}没有text属性`);
+                        }
+                        if (!question.options) {
+                            console.warn(`⚠️ 警告: ${fileName} 中的问题${index+1}没有options属性`);
+                        }
+                    });
+                }
+            }
+        }
+
+        // 按照原始index.html的顺序加载所有文件，但添加更细致的错误处理
+        function loadAllFiles() {
+            log('开始加载所有文件...');
+            
+            // 文件加载顺序
+            const files = [
+                // 首先加载基础配置文件
+                'js/tests.js',
+                'data/test-categories.js',
+                
+                // 然后按顺序加载所有测试数据文件（分组加载，便于定位问题）
+                // 心理测评类
+                'data/心理测评类/procrastination_level.js',
+                'data/心理测评类/happiness_index.js',
+                'data/心理测评类/mbti_short.js',
+                'data/心理测评类/emotion_stability.js',
+                'data/心理测评类/stress_tolerance.js',
+                'data/心理测评类/self_confidence.js',
+                'data/心理测评类/introversion_extroversion.js',
+                
+                // 爱情与人际关系类
+                'data/爱情与人际关系类/love_philosophy.js',
+                'data/爱情与人际关系类/attachment_style.js',
+                'data/爱情与人际关系类/ideal_partner.js',
+                'data/爱情与人际关系类/intimacy_satisfaction.js',
+                'data/爱情与人际关系类/friendship_stability.js',
+                'data/爱情与人际关系类/social_anxiety_index.js',
+                'data/爱情与人际关系类/love_communication_style.js',
+                'data/爱情与人际关系类/attraction_index.js',
+                
+                // 职业与学习类
+                'data/职业与学习类/leadership_index.js',
+                'data/职业与学习类/creative_thinking.js',
+                'data/职业与学习类/time_management.js',
+                'data/职业与学习类/focus_attention.js',
+                'data/职业与学习类/career_stress_resilience.js',
+                'data/职业与学习类/communication_skills.js',
+                
+                // 健康与生活习惯类
+                'data/健康与生活习惯类/sleep_quality.js',
+                'data/健康与生活习惯类/diet_health.js',
+                'data/健康与生活习惯类/schedule_regularity.js',
+                'data/健康与生活习惯类/mental_subhealth_index.js',
+                'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+                'data/健康与生活习惯类/mobile_phone_dependency.js',
+                'data/健康与生活习惯类/stay_up_late_index.js',
+                'data/健康与生活习惯类/sitting_risk_assessment.js',
+                
+                // 智力与逻辑类
+                'data/智力与逻辑类/iq60.js',
+                
+                // 扫描工具和配置文件
+                'data/data-scanner.js',
+                'data/test-config.js'
+            ];
+            
+            // 设置总文件数
+            window.DebugState.totalFiles = files.length;
+            window.DebugState.currentFileIndex = 0;
+            
+            // 按顺序逐个加载文件，而不是并行加载，以便更容易定位问题
+            function loadNextFile() {
+                if (window.DebugState.currentFileIndex >= files.length) {
+                    checkAllFilesLoaded();
+                    return;
+                }
+                
+                const currentFile = files[window.DebugState.currentFileIndex];
+                const fileName = currentFile.split('/').pop();
+                
+                console.log(`\n加载文件 ${window.DebugState.currentFileIndex + 1}/${files.length}: ${fileName}`);
+                
+                loadScript(currentFile, 
+                    function() {
+                        window.DebugState.currentFileIndex++;
+                        // 短暂延迟后加载下一个文件
+                        setTimeout(loadNextFile, 100);
+                    }, 
+                    function() {
+                        window.DebugState.currentFileIndex++;
+                        // 即使出现错误，也继续加载下一个文件
+                        setTimeout(loadNextFile, 100);
+                    }
+                );
+            }
+            
+            // 开始逐个加载文件
+            loadNextFile();
+        }
+
+        // 页面加载完成后开始加载文件
+        document.addEventListener('DOMContentLoaded', loadAllFiles);
+    </script>
+</body>
+</html>

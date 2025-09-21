@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简化调试 - 定位语法错误</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #333; }
+        .log-container { 
+            background-color: #f5f5f5; 
+            padding: 15px; 
+            border-radius: 5px; 
+            height: 400px; 
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .error { color: #d9534f; }
+        .success { color: #5cb85c; }
+        .info { color: #337ab7; }
+        button { padding: 10px 15px; margin: 10px 0; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>简化调试 - 定位语法错误</h1>
+        <p>此页面只加载基本文件，用于逐步定位"SyntaxError: Unexpected identifier 'questions'"错误</p>
+        
+        <div class="log-container" id="log-container"></div>
+        
+        <button onclick="location.reload()">重新加载</button>
+    </div>
+
+    <script>
+        // 日志记录功能
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 重写console.log，捕获所有日志输出
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+
+        console.log = function(...args) {
+            log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'info');
+            originalConsoleLog.apply(console, args);
+        };
+
+        console.error = function(...args) {
+            log(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '), 'error');
+            originalConsoleError.apply(console, args);
+        };
+
+        // 创建一个错误处理器来捕获未捕获的异常
+        window.addEventListener('error', function(e) {
+            console.error(`捕获到全局错误: ${e.message} (行号: ${e.lineno}, 列号: ${e.colno}, 文件: ${e.filename})`);
+            
+            // 特别关注questions相关的语法错误
+            if (e.message && e.message.includes('questions')) {
+                console.error('🚨 发现与questions相关的语法错误，这可能是我们要找的问题!');
+                
+                // 尝试获取并分析出错的文件内容
+                if (e.filename) {
+                    fetch(e.filename)
+                        .then(response => response.text())
+                        .then(content => {
+                            // 找到出错的行附近的代码
+                            const lines = content.split('\n');
+                            const errorLine = e.lineno - 1; // 转换为0-based索引
+                            const startLine = Math.max(0, errorLine - 5);
+                            const endLine = Math.min(lines.length - 1, errorLine + 5);
+                            
+                            console.error(`\n📋 出错文件的相关代码: ${e.filename}`);
+                            for (let i = startLine; i <= endLine; i++) {
+                                const prefix = (i === errorLine) ? '❌ ' : '   ';
+                                console.error(`${prefix}${i+1}: ${lines[i]}`);
+                            }
+                        })
+                        .catch(err => console.error('无法获取出错文件的内容:', err));
+                }
+            }
+        });
+
+        // 文件加载函数
+        function loadScript(url, callback, errorCallback) {
+            const script = document.createElement('script');
+            script.src = url;
+            const fileName = url.split('/').pop();
+            
+            script.onload = function() {
+                console.log(`✅ 成功加载: ${fileName}`);
+                callback && callback();
+            };
+            
+            script.onerror = function() {
+                console.error(`❌ 加载失败: ${fileName}`);
+                errorCallback && errorCallback();
+            };
+            
+            document.head.appendChild(script);
+        }
+
+        // 按顺序加载文件以定位错误
+        function loadFilesSequentially() {
+            log('开始加载基础文件...');
+            
+            // 1. 先加载基础的TestRegistry
+            loadScript('js/tests.js', function() {
+                log('\n基础文件加载完成，开始测试...');
+                
+                // 2. 测试基础对象是否存在
+                if (window.TestRegistry) {
+                    console.log('TestRegistry 已成功加载');
+                } else {
+                    console.error('TestRegistry 未加载');
+                }
+                
+                // 3. 开始逐步加载测试数据文件
+                log('\n开始加载第一个测试数据文件...');
+                
+                // 按顺序加载测试数据文件，逐个添加来定位错误
+                const testFiles = [
+                    'data/心理测评类/procrastination_level.js',
+                    'data/心理测评类/happiness_index.js',
+                    'data/心理测评类/mbti_short.js',
+                    'data/心理测评类/emotion_stability.js',
+                    'data/心理测评类/stress_tolerance.js',
+                    'data/爱情与人际关系类/love_philosophy.js',
+                    'data/爱情与人际关系类/attachment_style.js',
+                    'data/爱情与人际关系类/social_anxiety_index.js',
+                    'data/健康与生活习惯类/stay_up_late_index.js',
+                    'data/智力与逻辑类/iq60.js'
+                ];
+                
+                let currentFileIndex = 0;
+                
+                function loadNextFile() {
+                    if (currentFileIndex >= testFiles.length) {
+                        console.log('\n✅ 所有文件加载完成，没有发现语法错误!');
+                        console.log('\n===== 最终环境状态 =====');
+                        console.log(`TestRegistry: ${window.TestRegistry ? '存在' : '不存在'}`);
+                        console.log(`TestDatasets: ${window.TestDatasets ? '存在' : '不存在'}`);
+                        if (window.TestDatasets) {
+                            console.log(`TestDatasets 中的测试: ${Object.keys(window.TestDatasets).join(', ')}`);
+                        }
+                        return;
+                    }
+                    
+                    const nextFile = testFiles[currentFileIndex];
+                    const fileName = nextFile.split('/').pop();
+                    
+                    console.log(`\n加载文件 ${currentFileIndex + 1}/${testFiles.length}: ${fileName}`);
+                    
+                    loadScript(nextFile, function() {
+                        console.log(`✅ 成功加载: ${fileName}`);
+                        currentFileIndex++;
+                        
+                        // 如果加载成功，继续加载下一个文件
+                        setTimeout(loadNextFile, 100); // 短暂延迟，确保日志清晰可见
+                    });
+                }
+                
+                // 开始逐个加载文件
+                loadNextFile();
+            });
+        }
+
+        // 页面加载完成后开始加载文件
+        document.addEventListener('DOMContentLoaded', loadFilesSequentially);
+    </script>
+</body>
+</html>

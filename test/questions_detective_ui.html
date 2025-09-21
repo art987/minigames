@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions Detective - 调试工具</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            margin-top: 10px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+        }
+        
+        button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .info-panel {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel h3 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 1.2rem;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .status-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 6px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .status-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .status-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        #questions-detective-log {
+            height: 400px;
+            overflow-y: auto;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-error {
+            color: #e53e3e;
+        }
+        
+        .log-success {
+            color: #38a169;
+        }
+        
+        .log-warning {
+            color: #d69e2e;
+        }
+        
+        .file-list {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .file-list h4 {
+            margin-top: 0;
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .file-list-item {
+            padding: 5px 0;
+            font-size: 0.9rem;
+            color: #2d3748;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        .file-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .loading-indicator {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-files {
+            margin-top: 20px;
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        
+        .error-files h4 {
+            color: #c53030;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .error-file-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+            color: #c53030;
+        }
+        
+        .error-file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .analysis-summary {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .analysis-summary h4 {
+            color: #2b6cb0;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .recommendations {
+            background: #fffaf0;
+            border: 1px solid #feebc8;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .recommendations h4 {
+            color: #9c4221;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .recommendations ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .recommendations li {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Questions Detective</h1>
+        <div class="subtitle">专门用于检测和分析questions相关语法错误的调试工具</div>
+    </header>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="info-panel">
+                <h3>调试控制</h3>
+                <button id="start-analysis-btn">开始分析</button>
+                <button id="stop-analysis-btn" disabled>停止分析</button>
+                <button id="clear-log-btn">清除日志</button>
+                <button id="download-results-btn" disabled>下载结果</button>
+            </div>
+            
+            <div class="info-panel">
+                <h3>分析状态</h3>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="status-number" id="total-files">0</span>
+                        <span class="status-label">总文件数</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-number" id="checked-files">0</span>
+                        <span class="status-label">已检查</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-number" id="success-files">0</span>
+                        <span class="status-label">通过</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-number" id="error-files">0</span>
+                        <span class="status-label">错误</span>
+                    </div>
+                    <div class="status-item" style="grid-column: 1 / -1;">
+                        <span class="status-number" id="questions-error-files">0</span>
+                        <span class="status-label">Questions相关错误</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div id="loading-indicator" style="display: none;">
+                <div class="loading-spinner"></div>
+                <div id="loading-text">加载调试工具...</div>
+            </div>
+            
+            <h2>分析日志</h2>
+            <div id="questions-detective-log"></div>
+            
+            <div id="error-files-section" style="display: none;">
+                <div class="error-files">
+                    <h4>检测到的错误文件</h4>
+                    <div id="error-files-list"></div>
+                </div>
+            </div>
+            
+            <div id="analysis-summary-section" style="display: none;">
+                <div class="analysis-summary">
+                    <h4>分析总结</h4>
+                    <div id="analysis-summary-content"></div>
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h4>使用建议</h4>
+                <ul>
+                    <li>点击"开始分析"按钮启动全面的语法检查</li>
+                    <li>查看分析日志了解详细的检查过程</li>
+                    <li>如有错误，会在下方显示错误文件及其详情</li>
+                    <li>分析完成后可下载完整报告</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 显示加载指示器
+        document.getElementById('loading-indicator').style.display = 'block';
+        document.getElementById('loading-text').textContent = '正在加载Questions Detective工具...';
+        
+        // 等待页面加载完成
+        document.addEventListener('DOMContentLoaded', function() {
+            // 等待调试脚本加载
+            function loadDebugScript() {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'questions_detective.js';
+                    script.onload = resolve;
+                    script.onerror = () => reject(new Error('无法加载questions_detective.js'));
+                    document.body.appendChild(script);
+                });
+            }
+            
+            loadDebugScript()
+                .then(() => {
+                    document.getElementById('loading-indicator').style.display = 'none';
+                    initUI();
+                })
+                .catch(error => {
+                    document.getElementById('loading-text').textContent = '加载失败: ' + error.message;
+                    document.getElementById('loading-text').style.color = '#e53e3e';
+                });
+        });
+        
+        function initUI() {
+            const startBtn = document.getElementById('start-analysis-btn');
+            const stopBtn = document.getElementById('stop-analysis-btn');
+            const clearLogBtn = document.getElementById('clear-log-btn');
+            const downloadResultsBtn = document.getElementById('download-results-btn');
+            const logContainer = document.getElementById('questions-detective-log');
+            const errorFilesSection = document.getElementById('error-files-section');
+            const errorFilesList = document.getElementById('error-files-list');
+            const analysisSummarySection = document.getElementById('analysis-summary-section');
+            const analysisSummaryContent = document.getElementById('analysis-summary-content');
+            
+            // 更新状态显示
+            function updateStatus() {
+                if (!window.QuestionsDetective) return;
+                
+                const results = window.QuestionsDetective.getResults();
+                document.getElementById('total-files').textContent = results.totalFiles;
+                document.getElementById('checked-files').textContent = window.QuestionsDetective.checkedFiles || 0;
+                document.getElementById('success-files').textContent = results.successFiles;
+                document.getElementById('error-files').textContent = results.errorFiles;
+                document.getElementById('questions-error-files').textContent = results.questionsErrorFiles;
+                
+                // 更新按钮状态
+                if (window.QuestionsDetective.isActive) {
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                } else {
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    downloadResultsBtn.disabled = results.totalFiles === 0;
+                }
+                
+                // 更新错误文件列表
+                if (results.errorFiles > 0) {
+                    errorFilesSection.style.display = 'block';
+                    errorFilesList.innerHTML = '';
+                    
+                    for (const fileName in results.errorDetails) {
+                        const details = results.errorDetails[fileName];
+                        const errorItem = document.createElement('div');
+                        errorItem.className = 'error-file-item';
+                        errorItem.innerHTML = `
+                            <strong>${fileName}</strong><br>
+                            ${details.errorMessage}${details.lineNumber ? `<br>行号: ${details.lineNumber}` : ''}
+                            ${details.matchText ? `<br>匹配文本: "${details.matchText}"` : ''}
+                        `;
+                        errorFilesList.appendChild(errorItem);
+                    }
+                } else {
+                    errorFilesSection.style.display = 'none';
+                }
+                
+                // 更新分析总结
+                if (!window.QuestionsDetective.isActive && results.totalFiles > 0) {
+                    analysisSummarySection.style.display = 'block';
+                    const totalTime = ((Date.now() - window.QuestionsDetective.startTime) / 1000).toFixed(2);
+                    
+                    let summaryHTML = `
+                        <p><strong>总文件数:</strong> ${results.totalFiles}</p>
+                        <p><strong>成功通过:</strong> ${results.successFiles}</p>
+                        <p><strong>分析失败:</strong> ${results.errorFiles}</p>
+                        <p><strong>Questions相关错误:</strong> ${results.questionsErrorFiles}</p>
+                        <p><strong>总耗时:</strong> ${totalTime}秒</p>
+                    `;
+                    
+                    if (results.questionsErrorFiles === 0 && results.errorFiles === 0) {
+                        summaryHTML += `
+                            <div style="color: #38a169; margin-top: 10px;">
+                                <strong>🎉 恭喜！所有文件都通过了分析，没有检测到语法错误。</strong>
+                            </div>
+                        `;
+                    }
+                    
+                    analysisSummaryContent.innerHTML = summaryHTML;
+                }
+            }
+            
+            // 开始分析
+            startBtn.addEventListener('click', function() {
+                if (window.QuestionsDetective) {
+                    // 清空之前的日志
+                    logContainer.innerHTML = '';
+                    errorFilesSection.style.display = 'none';
+                    analysisSummarySection.style.display = 'none';
+                    
+                    // 开始分析
+                    window.QuestionsDetective.startAnalysis();
+                    updateStatus();
+                    
+                    // 定期更新状态
+                    const statusInterval = setInterval(() => {
+                        updateStatus();
+                        
+                        if (!window.QuestionsDetective.isActive) {
+                            clearInterval(statusInterval);
+                            updateStatus(); // 最后更新一次
+                        }
+                    }, 500);
+                }
+            });
+            
+            // 停止分析
+            stopBtn.addEventListener('click', function() {
+                if (window.QuestionsDetective) {
+                    window.QuestionsDetective.stopAnalysis();
+                    updateStatus();
+                }
+            });
+            
+            // 清除日志
+            clearLogBtn.addEventListener('click', function() {
+                logContainer.innerHTML = '';
+            });
+            
+            // 下载结果
+            downloadResultsBtn.addEventListener('click', function() {
+                if (window.QuestionsDetective) {
+                    const results = window.QuestionsDetective.getResults();
+                    const logText = results.logs.map(log => log.message).join('\n');
+                    
+                    const blob = new Blob([logText], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `questions-detective-results-${new Date().toISOString().slice(0, 10)}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            });
+            
+            // 初始化状态
+            updateStatus();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生产环境调试器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        #log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        .warning {
+            color: #ffc107;
+        }
+        .info {
+            color: #17a2b8;
+        }
+        .loading-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #007bff;
+            width: 0%;
+            transition: width 0.3s ease;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生产环境调试器</h1>
+        <p>这个工具模拟了生产环境中index.html加载测试数据文件的顺序，用于定位"SyntaxError: Unexpected identifier 'questions'"错误。</p>
+        
+        <div class="controls">
+            <button id="startDebugBtn">开始调试</button>
+            <button id="stopDebugBtn" disabled>停止调试</button>
+            <button id="clearLogBtn">清空日志</button>
+            <button id="showSummaryBtn" disabled>显示总结</button>
+        </div>
+        
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar">0%</div>
+        </div>
+        
+        <div id="loadingStatus"></div>
+        
+        <div>
+            <h3>调试日志:</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let isDebugging = false;
+        let scriptElements = [];
+        let startTime = 0;
+        let loadCount = 0;
+        let totalFiles = 0;
+        let errorCount = 0;
+        let questionsErrorCount = 0;
+        let loadSequence = [];
+        
+        // 日志记录函数
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            // 也输出到控制台
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        // 更新加载状态
+        function updateLoadingStatus(message) {
+            const statusElement = document.getElementById('loadingStatus');
+            statusElement.innerHTML = `<div class="loading-indicator"></div>${message}`;
+        }
+        
+        // 更新进度条
+        function updateProgressBar(percentage) {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // 清空日志
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+            log('日志已清空');
+        }
+        
+        // 显示总结
+        function showSummary() {
+            const totalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+            
+            log(`\n===== 调试总结 =====`, 'info');
+            log(`总文件数: ${totalFiles}`, 'info');
+            log(`成功加载: ${loadCount}`, 'info');
+            log(`加载失败: ${errorCount}`, 'error');
+            log(`Questions相关错误: ${questionsErrorCount}`, 'error');
+            log(`总耗时: ${totalTime}秒`, 'info');
+            
+            if (errorCount > 0) {
+                log(`\n失败的文件:`, 'error');
+                loadSequence.forEach(item => {
+                    if (item.status === 'error') {
+                        log(`  - ${item.fileName}: ${item.error}`, 'error');
+                    }
+                });
+            }
+        }
+        
+        // 停止调试
+        function stopDebugging() {
+            if (!isDebugging) return;
+            
+            isDebugging = false;
+            
+            // 移除所有动态创建的脚本
+            scriptElements.forEach(script => {
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
+            });
+            scriptElements = [];
+            
+            // 重置全局变量
+            window.TestDatasets = {};
+            window.TestConfig = {};
+            window.TestRegistry = {};
+            window.TestCategories = {};
+            
+            // 更新UI
+            document.getElementById('startDebugBtn').disabled = false;
+            document.getElementById('stopDebugBtn').disabled = true;
+            document.getElementById('showSummaryBtn').disabled = false;
+            updateLoadingStatus('调试已停止');
+            updateProgressBar(0);
+            
+            log('调试已停止');
+        }
+        
+        // 动态加载脚本文件
+        function loadScript(url, callback, errorCallback) {
+            const script = document.createElement('script');
+            script.src = url;
+            scriptElements.push(script);
+            
+            const fileName = url.split('/').pop();
+            log(`开始加载文件: ${fileName}`);
+            updateLoadingStatus(`正在加载: ${fileName}`);
+            
+            script.onload = function() {
+                loadCount++;
+                const progress = (loadCount / totalFiles) * 100;
+                updateProgressBar(progress);
+                
+                log(`✅ 成功加载: ${fileName} (${loadCount}/${totalFiles})`, 'success');
+                
+                // 记录加载顺序
+                loadSequence.push({
+                    fileName,
+                    url,
+                    status: 'success',
+                    timestamp: new Date().toLocaleTimeString()
+                });
+                
+                callback();
+            };
+            
+            script.onerror = function(error) {
+                loadCount++;
+                errorCount++;
+                const progress = (loadCount / totalFiles) * 100;
+                updateProgressBar(progress);
+                
+                const errorMessage = error.message || '未知错误';
+                log(`❌ 加载失败: ${fileName} - ${errorMessage} (${loadCount}/${totalFiles})`, 'error');
+                
+                // 记录加载顺序
+                loadSequence.push({
+                    fileName,
+                    url,
+                    status: 'error',
+                    error: errorMessage,
+                    timestamp: new Date().toLocaleTimeString()
+                });
+                
+                errorCallback(error);
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // 开始调试
+        function startDebugging() {
+            if (isDebugging) return;
+            
+            // 重置状态
+            isDebugging = true;
+            scriptElements = [];
+            startTime = Date.now();
+            loadCount = 0;
+            errorCount = 0;
+            questionsErrorCount = 0;
+            loadSequence = [];
+            
+            // 重置全局变量
+            window.TestDatasets = {};
+            window.TestConfig = {};
+            window.TestRegistry = {};
+            window.TestCategories = {};
+            
+            // 更新UI
+            document.getElementById('startDebugBtn').disabled = true;
+            document.getElementById('stopDebugBtn').disabled = false;
+            document.getElementById('showSummaryBtn').disabled = true;
+            clearLog();
+            updateProgressBar(0);
+            
+            // 按照index.html的顺序加载文件
+            const files = [
+                // 首先加载基础文件
+                'js/tests.js',
+                
+                // 然后按顺序加载所有测试数据文件
+                'data/智力与逻辑类/iq60.js',
+                'data/心理测评类/procrastination_level.js',
+                'data/心理测评类/happiness_index.js',
+                'data/心理测评类/mbti_short.js',
+                'data/心理测评类/emotion_stability.js',
+                'data/心理测评类/stress_tolerance.js',
+                'data/心理测评类/self_confidence.js',
+                'data/心理测评类/introversion_extroversion.js',
+                'data/爱情与人际关系类/love_philosophy.js',
+                'data/爱情与人际关系类/attachment_style.js',
+                'data/爱情与人际关系类/ideal_partner.js',
+                'data/爱情与人际关系类/intimacy_satisfaction.js',
+                'data/爱情与人际关系类/friendship_stability.js',
+                'data/爱情与人际关系类/social_anxiety_index.js',
+                'data/爱情与人际关系类/love_communication_style.js',
+                'data/爱情与人际关系类/attraction_index.js',
+                'data/职业与学习类/leadership_index.js',
+                'data/职业与学习类/creative_thinking.js',
+                'data/职业与学习类/time_management.js',
+                'data/职业与学习类/focus_attention.js',
+                'data/职业与学习类/career_stress_resilience.js',
+                'data/职业与学习类/communication_skills.js',
+                // 健康与生活习惯类测试数据文件
+                'data/健康与生活习惯类/sleep_quality.js',
+                'data/健康与生活习惯类/diet_health.js',
+                'data/健康与生活习惯类/schedule_regularity.js',
+                'data/健康与生活习惯类/mental_subhealth_index.js',
+                'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+                'data/健康与生活习惯类/mobile_phone_dependency.js',
+                'data/健康与生活习惯类/stay_up_late_index.js',
+                'data/健康与生活习惯类/sitting_risk_assessment.js',
+                
+                // 最后加载test-config.js
+                'data/test-config.js'
+            ];
+            
+            totalFiles = files.length;
+            log(`开始按照生产环境顺序加载 ${totalFiles} 个文件...`);
+            
+            // 逐个加载文件
+            let currentIndex = 0;
+            
+            function loadNextFile() {
+                if (!isDebugging || currentIndex >= files.length) {
+                    if (isDebugging) {
+                        updateLoadingStatus('所有文件加载完成');
+                        updateProgressBar(100);
+                        log('所有文件加载完成！', 'success');
+                        showSummary();
+                        
+                        // 启用显示总结按钮
+                        document.getElementById('showSummaryBtn').disabled = false;
+                    }
+                    return;
+                }
+                
+                const currentFile = files[currentIndex];
+                currentIndex++;
+                
+                // 添加短暂延迟，让我们有时间观察加载过程
+                setTimeout(() => {
+                    loadScript(currentFile, loadNextFile, function() {
+                        // 即使出错，也要继续加载下一个文件
+                        loadNextFile();
+                    });
+                }, 100);
+            }
+            
+            // 开始加载文件
+            loadNextFile();
+        }
+        
+        // 添加全局错误处理器，专门捕获questions相关的错误
+        window.addEventListener('error', function(e) {
+            // 记录所有错误
+            if (e.message && e.message.includes('questions')) {
+                questionsErrorCount++;
+                log(`🚨 捕获到与questions相关的全局错误: ${e.message} (行号: ${e.lineno}, 列号: ${e.colno}, 文件: ${e.filename})`, 'error');
+                
+                // 尝试获取出错文件的内容来分析
+                if (e.filename) {
+                    fetch(e.filename)
+                        .then(response => response.text())
+                        .then(content => {
+                            // 找到出错的行附近的代码
+                            const lines = content.split('\n');
+                            const errorLine = e.lineno - 1; // 转换为0-based索引
+                            const startLine = Math.max(0, errorLine - 5);
+                            const endLine = Math.min(lines.length - 1, errorLine + 5);
+                            
+                            log(`\n📋 出错文件的相关代码: ${e.filename}`, 'error');
+                            for (let i = startLine; i <= endLine; i++) {
+                                const prefix = (i === errorLine) ? '❌ ' : '   ';
+                                log(`${prefix}${i+1}: ${lines[i]}`, (i === errorLine) ? 'error' : 'info');
+                            }
+                        })
+                        .catch(err => log('无法获取出错文件的内容:', 'error'));
+                }
+            }
+        });
+        
+        // 添加全局未捕获的Promise拒绝处理器
+        window.addEventListener('unhandledrejection', function(e) {
+            log(`🚨 捕获到未处理的Promise拒绝: ${e.reason?.message || '未知原因'}`, 'error');
+        });
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 绑定按钮事件
+            document.getElementById('startDebugBtn').addEventListener('click', startDebugging);
+            document.getElementById('stopDebugBtn').addEventListener('click', stopDebugging);
+            document.getElementById('clearLogBtn').addEventListener('click', clearLog);
+            document.getElementById('showSummaryBtn').addEventListener('click', showSummary);
+            
+            log('生产环境调试器已准备就绪，可以开始调试了');
+        });
+    </script>
+</body>
+</html>

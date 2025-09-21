@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions语法错误调试器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        #log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        .warning {
+            color: #ffc107;
+        }
+        .info {
+            color: #17a2b8;
+        }
+        .file-list {
+            margin-top: 20px;
+        }
+        .file-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .file-item:hover {
+            background-color: #e9ecef;
+        }
+        .file-item.running {
+            background-color: #d1ecf1;
+        }
+        .file-item.error {
+            background-color: #f8d7da;
+        }
+        .file-item.success {
+            background-color: #d4edda;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Questions语法错误调试器</h1>
+        <p>这个工具用于检测和定位测试数据文件中的questions相关语法错误。</p>
+        
+        <div class="controls">
+            <button id="checkAllBtn">检查所有文件</button>
+            <button id="checkOneByOneBtn">逐个检查文件</button>
+            <button id="clearLogBtn">清空日志</button>
+        </div>
+        
+        <div class="file-list">
+            <h3>文件列表:</h3>
+            <div id="fileItems">
+                <!-- 文件列表将动态生成 -->
+            </div>
+        </div>
+        
+        <div>
+            <h3>调试日志:</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentFileIndex = 0;
+        let isChecking = false;
+        
+        // 测试数据文件列表
+        const testFiles = [
+            'data/心理测评类/procrastination_level.js',
+            'data/心理测评类/happiness_index.js',
+            'data/心理测评类/mbti_short.js',
+            'data/心理测评类/emotion_stability.js',
+            'data/心理测评类/stress_tolerance.js',
+            'data/心理测评类/self_confidence.js',
+            'data/心理测评类/introversion_extroversion.js',
+            'data/爱情与人际关系类/love_philosophy.js',
+            'data/爱情与人际关系类/attachment_style.js',
+            'data/爱情与人际关系类/ideal_partner.js',
+            'data/爱情与人际关系类/intimacy_satisfaction.js',
+            'data/爱情与人际关系类/friendship_stability.js',
+            'data/爱情与人际关系类/social_anxiety_index.js',
+            'data/爱情与人际关系类/love_communication_style.js',
+            'data/爱情与人际关系类/attraction_index.js',
+            'data/职业与学习类/leadership_index.js',
+            'data/职业与学习类/creative_thinking.js',
+            'data/职业与学习类/time_management.js',
+            'data/职业与学习类/focus_attention.js',
+            'data/职业与学习类/career_stress_resilience.js',
+            'data/职业与学习类/communication_skills.js',
+            'data/健康与生活习惯类/sleep_quality.js',
+            'data/健康与生活习惯类/diet_health.js',
+            'data/健康与生活习惯类/schedule_regularity.js',
+            'data/健康与生活习惯类/mental_subhealth_index.js',
+            'data/健康与生活习惯类/exercise_habit_self_assessment.js',
+            'data/健康与生活习惯类/mobile_phone_dependency.js',
+            'data/健康与生活习惯类/stay_up_late_index.js',
+            'data/健康与生活习惯类/sitting_risk_assessment.js',
+            'data/智力与逻辑类/iq60.js'
+        ];
+        
+        // 初始化文件列表
+        function initFileList() {
+            const fileItemsContainer = document.getElementById('fileItems');
+            fileItemsContainer.innerHTML = '';
+            
+            testFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.textContent = `${index + 1}. ${file}`;
+                fileItem.dataset.fileIndex = index;
+                fileItem.onclick = function() {
+                    checkSingleFile(index);
+                };
+                fileItemsContainer.appendChild(fileItem);
+            });
+        }
+        
+        // 日志记录函数
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            // 也输出到控制台
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        // 清空日志
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+            log('日志已清空');
+        }
+        
+        // 检查单个文件
+        async function checkSingleFile(index) {
+            if (isChecking) return;
+            
+            const file = testFiles[index];
+            const fileName = file.split('/').pop();
+            
+            // 更新UI
+            const fileItems = document.querySelectorAll('.file-item');
+            fileItems.forEach(item => item.className = 'file-item');
+            fileItems[index].className = 'file-item running';
+            
+            log(`开始检查文件: ${file}`);
+            
+            try {
+                isChecking = true;
+                
+                // 获取文件内容
+                const response = await fetch(file);
+                if (!response.ok) {
+                    throw new Error(`无法获取文件: ${response.status}`);
+                }
+                
+                const content = await response.text();
+                log(`成功获取文件内容，大小: ${content.length} 字符`);
+                
+                // 检查语法
+                try {
+                    // 使用new Function()来预检查语法（不会执行代码）
+                    new Function(content);
+                    log(`✓ 语法检查通过: ${fileName}`, 'success');
+                    
+                    // 专门检查questions相关的语法
+                    checkQuestionsSyntax(content, fileName);
+                    
+                    // 标记为成功
+                    fileItems[index].className = 'file-item success';
+                } catch (syntaxError) {
+                    log(`✗ 语法错误: ${fileName} - ${syntaxError.message}`, 'error');
+                    
+                    // 尝试精确定位错误位置
+                    locateError(content, syntaxError, fileName);
+                    
+                    // 标记为失败
+                    fileItems[index].className = 'file-item error';
+                }
+                
+            } catch (error) {
+                log(`✗ 获取文件失败: ${fileName} - ${error.message}`, 'error');
+                fileItems[index].className = 'file-item error';
+            } finally {
+                isChecking = false;
+            }
+        }
+        
+        // 检查questions相关的语法
+        function checkQuestionsSyntax(content, fileName) {
+            // 检查questions数组的定义
+            const questionsRegex = /questions\s*[:=]\s*\[/;
+            if (!questionsRegex.test(content)) {
+                log(`⚠️ 警告: ${fileName} 中没有找到标准的questions数组定义`, 'warning');
+            } else {
+                log(`✓ 找到questions数组定义`, 'success');
+            }
+            
+            // 检查estimateMinutes后面的逗号
+            const estimateMinutesRegex = /estimateMinutes:\s*\d+\s*(\/\/.*)?$/gm;
+            let match;
+            let hasIssue = false;
+            
+            while ((match = estimateMinutesRegex.exec(content)) !== null) {
+                const line = match[0];
+                if (!line.includes(',') && !line.includes('{') && !line.includes('}') && !line.includes(';')) {
+                    log(`⚠️ 潜在问题: ${fileName} 中的estimateMinutes后面可能缺少逗号`, 'warning');
+                    log(`   代码行: ${line}`, 'warning');
+                    hasIssue = true;
+                }
+            }
+            
+            return hasIssue;
+        }
+        
+        // 尝试精确定位错误位置
+        function locateError(content, error, fileName) {
+            log(`开始定位错误位置...`, 'info');
+            
+            // 将内容按行分割
+            const lines = content.split('\n');
+            
+            // 尝试从错误消息中提取行号
+            const lineNumberMatch = error.stack?.match(/line (\d+)/);
+            let errorLine = lineNumberMatch ? parseInt(lineNumberMatch[1]) - 1 : -1;
+            
+            if (errorLine >= 0 && errorLine < lines.length) {
+                log(`错误出现在第 ${errorLine + 1} 行`, 'error');
+                
+                // 显示错误行附近的代码
+                const startLine = Math.max(0, errorLine - 3);
+                const endLine = Math.min(lines.length - 1, errorLine + 3);
+                
+                log(`\n错误行附近的代码:`, 'error');
+                for (let i = startLine; i <= endLine; i++) {
+                    const prefix = (i === errorLine) ? '❌ ' : '   ';
+                    log(`${prefix}${i + 1}: ${lines[i]}`, (i === errorLine) ? 'error' : 'info');
+                }
+                
+                // 特别检查questions相关的错误
+                if (error.message && error.message.includes('questions')) {
+                    log(`\n🚨 这是一个与questions相关的错误，可能是我们要找的问题!`, 'error');
+                }
+            } else {
+                // 尝试查找可能包含错误的代码段
+                log(`无法精确确定错误行号，尝试查找可能的语法问题...`, 'info');
+                
+                // 检查常见的语法错误模式
+                const possibleIssues = [
+                    { regex: /questions\s*\[/, desc: 'questions数组定义前缺少冒号' },
+                    { regex: /estimateMinutes:\s*\d+\s*$/gm, desc: 'estimateMinutes后面缺少逗号' },
+                    { regex: /},\s*\]/, desc: '数组末尾的逗号问题' },
+                    { regex: /\[\s*\]/, desc: '空数组定义' },
+                    { regex: /"\s*:\s*\{/, desc: '对象属性后面缺少逗号' }
+                ];
+                
+                possibleIssues.forEach(issue => {
+                    if (issue.regex.test(content)) {
+                        log(`⚠️ 检测到可能的问题: ${issue.desc}`, 'warning');
+                    }
+                });
+            }
+        }
+        
+        // 检查所有文件
+        async function checkAllFiles() {
+            if (isChecking) return;
+            
+            log('开始检查所有文件...');
+            
+            try {
+                isChecking = true;
+                
+                let successCount = 0;
+                let errorCount = 0;
+                
+                for (let i = 0; i < testFiles.length; i++) {
+                    await checkSingleFile(i);
+                    
+                    // 检查当前文件是否有错误
+                    const fileItems = document.querySelectorAll('.file-item');
+                    if (fileItems[i].classList.contains('error')) {
+                        errorCount++;
+                    } else {
+                        successCount++;
+                    }
+                }
+                
+                log(`\n检查完成! 成功: ${successCount}, 失败: ${errorCount}`, 'info');
+                
+            } finally {
+                isChecking = false;
+            }
+        }
+        
+        // 逐个检查文件（交互式）
+        function startOneByOneCheck() {
+            if (isChecking) return;
+            
+            currentFileIndex = 0;
+            isChecking = true;
+            log('开始逐个检查文件（按顺序点击文件进行检查）...');
+        }
+        
+        // 添加全局错误处理器
+        window.addEventListener('error', function(e) {
+            log(`捕获到全局错误: ${e.message} (行号: ${e.lineno}, 文件: ${e.filename})`, 'error');
+            
+            // 特别关注questions相关的错误
+            if (e.message && e.message.includes('questions')) {
+                log(`🚨 这是一个与questions相关的错误!`, 'error');
+            }
+        });
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initFileList();
+            
+            // 绑定按钮事件
+            document.getElementById('checkAllBtn').addEventListener('click', checkAllFiles);
+            document.getElementById('checkOneByOneBtn').addEventListener('click', startOneByOneCheck);
+            document.getElementById('clearLogBtn').addEventListener('click', clearLog);
+            
+            log('调试器已准备就绪，可以开始检查文件了');
+        });
+    </script>
+</body>
+</html>
