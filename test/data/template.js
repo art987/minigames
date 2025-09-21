@@ -12,6 +12,7 @@
         totalScore: 100,      // 总分（必须明确设置）
         estimateMinutes: 5,   // 估计完成时间（分钟）
         cover: testId + '.jpg', // 封面图片文件名，默认与测试ID同名，存放在data/cover/目录下
+        enableRealTimeScoring: false, // 是否启用实时批卷开关，默认不启用
         
         // 3. 题目数组
         questions: [

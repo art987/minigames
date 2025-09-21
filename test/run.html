@@ -68,7 +68,14 @@
        
        
         
-        <div id="progress-text">题目 0/0</div>
+        <div class="progress-header">
+            <div id="progress-text">题目 0/0</div>
+            <label id="realtime-scoring-toggle" class="toggle-switch hidden">
+                <input type="checkbox" id="realtime-checkbox">
+                <span class="toggle-slider round"></span>
+                <span class="toggle-text">实时批卷</span>
+            </label>
+        </div>
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
         </div>

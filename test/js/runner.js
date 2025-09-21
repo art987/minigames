@@ -5,6 +5,7 @@
     var totalQuestions = 0;
     var questionContainers = [];
     var currentDataset = null;
+    var realTimeScoringEnabled = false; // 实时批卷模式开关状态
     
     function getQueryParam(key){
         var search = location.search.replace(/^\?/,'');
@@ -60,11 +61,16 @@
             input.addEventListener('change', function() {
                 updateQuestionStatus(idx);
                 
-                // 自动跳转到下一题
-                if (currentQuestionIndex < totalQuestions - 1) {
+                // 实时批卷逻辑
+                if (realTimeScoringEnabled && currentDataset) {
+                    highlightCorrectAnswer(q, idx, currentDataset);
+                }
+                
+                // 实时批卷模式下不自动跳转
+                if (!realTimeScoringEnabled && currentQuestionIndex < totalQuestions - 1) {
                     setTimeout(function() {
                         showQuestion(currentQuestionIndex + 1);
-                    }, 300); // 短暂延迟，让用户看到选择效果
+                    }, 300); // 普通模式下的短暂延迟
                 }
             });
             label.appendChild(input);
@@ -145,7 +151,77 @@
             questionContainers[idx].classList.remove('hidden');
             currentQuestionIndex = idx;
             updateQuestionStatus(idx);
+            
+            // 在实时批卷模式下，检查当前题目是否已回答，如果已回答则显示批卷标记
+            if (realTimeScoringEnabled && currentDataset) {
+                var name = 'q_' + idx;
+                var inputs = document.querySelectorAll('input[name="'+name+'"]');
+                var answered = false;
+                inputs.forEach(function(inp){ if (inp.checked) answered = true; });
+                
+                if (answered) {
+                    highlightCorrectAnswer(currentDataset.questions[idx], idx, currentDataset);
+                }
+            }
         }
+    }
+    
+    // 高亮显示正确答案
+    function highlightCorrectAnswer(question, questionIndex, dataset) {
+        // 清除之前的标记
+        clearAnswerHighlights(question, questionIndex);
+        
+        // 找出最高分
+        var maxScore = -1;
+        var correctOptionIndices = [];
+        
+        question.options.forEach(function(opt, idx) {
+            if (typeof opt.score === 'number' && opt.score > maxScore) {
+                maxScore = opt.score;
+            }
+        });
+        
+        // 收集所有最高分选项的索引
+        question.options.forEach(function(opt, idx) {
+            if (typeof opt.score === 'number' && opt.score === maxScore) {
+                correctOptionIndices.push(idx);
+            }
+        });
+        
+        // 获取当前问题的所有选项元素
+        var container = document.querySelector('.question-container[data-index="' + questionIndex + '"]');
+        var options = container.querySelectorAll('label.option');
+        
+        options.forEach(function(option, idx) {
+            if (correctOptionIndices.includes(idx)) {
+                // 在正确选项右上角添加标记
+                var mark = document.createElement('div');
+                mark.className = 'correct-answer-mark';
+                mark.textContent = '正确答案';
+                option.style.position = 'relative';
+                option.appendChild(mark);
+            } else {
+                // 非正确选项添加透明度和删除线
+                option.classList.add('incorrect-option');
+            }
+        });
+    }
+    
+    // 清除答案高亮标记
+    function clearAnswerHighlights(question, questionIndex) {
+        var container = document.querySelector('.question-container[data-index="' + questionIndex + '"]');
+        var options = container.querySelectorAll('label.option');
+        
+        options.forEach(function(option) {
+            // 移除正确答案标记
+            var mark = option.querySelector('.correct-answer-mark');
+            if (mark) {
+                option.removeChild(mark);
+            }
+            
+            // 移除非正确选项样式
+            option.classList.remove('incorrect-option');
+        });
     }
     
     function setupNavigation() {
@@ -445,6 +521,9 @@
         // 设置导航和进度条
         setupNavigation();
         updateProgressBar();
+        
+        // 配置实时批卷开关
+        setupRealTimeScoringToggle();
 
         // 弹窗按钮事件处理
         var completionModal = document.getElementById('completion-modal');
@@ -619,10 +698,49 @@
 
     // 暴露到window对象
     window.TestRunner = { bootstrap: bootstrap };
-    // 同时暴露关键函数供外部使用
-    window.computeScore = computeScore;
-    window.matchRange = matchRange;
-    window.currentDataset = currentDataset;
+    // 设置实时批卷开关
+        function setupRealTimeScoringToggle() {
+            var toggleElement = document.getElementById('realtime-scoring-toggle');
+            var checkboxElement = document.getElementById('realtime-checkbox');
+            
+            // 根据数据集配置决定是否显示开关
+            if (currentDataset && currentDataset.enableRealTimeScoring) {
+                if (toggleElement) {
+                    toggleElement.classList.remove('hidden');
+                }
+                
+                // 设置开关的事件监听
+                if (checkboxElement) {
+                    checkboxElement.addEventListener('change', function() {
+                        realTimeScoringEnabled = this.checked;
+                        
+                        // 如果开启实时批卷，为所有已回答的题目显示批卷标记
+                        if (realTimeScoringEnabled) {
+                            for (var i = 0; i < totalQuestions; i++) {
+                                var name = 'q_' + i;
+                                var inputs = document.querySelectorAll('input[name="'+name+'"]');
+                                var answered = false;
+                                inputs.forEach(function(inp){ if (inp.checked) answered = true; });
+                                
+                                if (answered) {
+                                    highlightCorrectAnswer(currentDataset.questions[i], i, currentDataset);
+                                }
+                            }
+                        } else {
+                            // 如果关闭实时批卷，清除所有批卷标记
+                            for (var i = 0; i < totalQuestions; i++) {
+                                clearAnswerHighlights(currentDataset.questions[i], i);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+        
+        // 同时暴露关键函数供外部使用
+        window.computeScore = computeScore;
+        window.matchRange = matchRange;
+        window.currentDataset = currentDataset;
 })();
 
 

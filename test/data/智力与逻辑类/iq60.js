@@ -21,6 +21,7 @@
             title: '60题标准智商测试',
             description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
             estimateMinutes: 10,
+            enableRealTimeScoring: true, // 是否启用实时批卷开关，默认不启用
         });
         console.log('已注册测试元数据');
     } else {
@@ -35,6 +36,7 @@
         id: testId,
         title: '60题标准智商测试',
         description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
+        enableRealTimeScoring: true, // 是否启用实时批卷开关
         questions: [
             {
                 text: '找出规律：1, 4, 9, 16, 25, ?',
