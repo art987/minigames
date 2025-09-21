@@ -545,7 +545,7 @@
                 var month = now.getMonth() + 1;
                 var day = now.getDate();
                 var formattedDate = year + '年' + (month < 10 ? '0' + month : month) + '月' + (day < 10 ? '0' + day : day) + '日';
-                dateElement.textContent = '颁证日期：' + formattedDate;
+                dateElement.textContent =  formattedDate;
             }
             
             // 渲染答题详情

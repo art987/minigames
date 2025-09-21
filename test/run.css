@@ -135,8 +135,8 @@ body {
         /* 选中时的文字样式 */
         .option input[type="radio"]:checked + span,
         .option input[type="checkbox"]:checked + span {
-            color: #6a3de8;
-            font-weight: 500;
+            color: #000000;
+            font-weight: 900;
         }
         .navigation {
             display: flex;
@@ -156,11 +156,11 @@ body {
             flex: 1;
         }
         .btn-primary {
-            background-color: #6a3de8;
-            color: white;
+            background-color: #ffffff;
+            color: #333;
         }
         .btn-primary:hover:not(:disabled) {
-            background-color: #6a3de8;
+            background-color: #6a3de8;color: #fff;
         }
         .btn-primary:disabled {
             background-color: #ffffff;
@@ -168,15 +168,15 @@ body {
             color: #ccc;
         }
         .btn-secondary {
-            background-color: #6a3de8;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #333;
         }
         .btn-secondary:hover:not(:disabled) {
             background-color: #6a3de8;
             color: #fff;
         }
         .btn-secondary:disabled {
-            background-color: #ffffff;
+            background-color: #e9ecef;
             cursor: not-allowed;
         }
         .btn-submit {
@@ -206,7 +206,7 @@ body {
         }
         .btn-reset {
             background-color: #ffffff;
-            color: #6a3de8;
+            color: #333;
             margin-top: 20px;
             width: 100%;
         }

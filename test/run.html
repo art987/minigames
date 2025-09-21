@@ -60,7 +60,7 @@
     <script src="js/runner.js"></script>
 </head>
 <body> <div class="header">
-           <a href="index.html" class="nav-link">← 返回首页</a>
+           <a href="#" id="back-to-category" class="nav-link">← 返回分类列表</a>
              <h1 id="test-title"></h1>
             <p class="intro" id="test-intro" style="display: none;"></p>
         </div>
@@ -236,6 +236,21 @@
             
             // 给TestRunner一些时间来加载数据文件，增加初始延迟时间以确保数据文件加载完成
             setTimeout(initTest, initialDelay);
+        });
+        
+        // 给返回分类列表按钮添加功能
+        document.getElementById('back-to-category').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 获取URL中的category参数
+            const category = getQueryParam('category');
+            
+            // 如果有category参数，返回该分类的列表页；否则返回首页
+            if (category) {
+                window.location.href = 'index.html?showCategory=' + encodeURIComponent(category);
+            } else {
+                window.location.href = 'index.html';
+            }
         });
     </script>
 </body>

@@ -128,7 +128,13 @@
             }
         }
         
-        // 初始化应用
+        // 从URL参数获取要直接显示的分类
+        function getShowCategoryFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('showCategory');
+        }
+        
+        // 修改initializeApp函数，添加URL参数处理
         function initializeApp() {
             console.log('初始化应用程序...');
             
@@ -140,6 +146,22 @@
                 document.getElementById('tests-section').classList.add('hidden');
                 document.getElementById('categories-section').classList.remove('hidden');
             });
+            
+            // 检查URL中是否有showCategory参数
+            const showCategory = getShowCategoryFromUrl();
+            if (showCategory) {
+                console.log(`URL参数要求直接显示分类: ${showCategory}`);
+                const categories = window.TestConfig.getAllCategories();
+                const category = categories[showCategory];
+                if (category) {
+                    // 延迟执行，确保所有分类数据都已加载完成
+                    setTimeout(() => {
+                        showTestsForCategory(showCategory, category.name);
+                    }, 100);
+                } else {
+                    console.warn(`未找到分类: ${showCategory}`);
+                }
+            }
         }
         
         // 渲染分类列表
