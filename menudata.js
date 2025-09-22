@@ -5,8 +5,11 @@ const menuData = {
   menuItems: [
 			  
 			  
-			 {  singleItem: true, text: "答题测试",  href: "/test/index.html", icon: "" , emoji:"📝",  describ: "" , keyword: "" },  
-    {
+			 {  singleItem: true, text: "答题测试",  href: "/test/index.html", icon: "" , emoji:"📝",  describ: "" , keyword: "" }, 
+        {  singleItem: true, text: "在线导游",  href: "https://app-6cv2gtzpihvl.appmiaoda.com/", icon: "" , emoji:"🌍",  describ: "" , keyword: "" },  
+    
+    
+       {
       title: "语言表达",
       items: [
         { text: "夸娃话术", href: "/edu/biaoyang.html", icon: "" , emoji:"👍", describ: "一个帮助家长轻松培养孩子内驱力的万能话术辞典。" , keyword: "店铺风水, 店面朝向, 招牌设计, 收银台位置, 商品陈列"},
