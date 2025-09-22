@@ -44,12 +44,7 @@
         var wrap = document.createElement('div');
         wrap.className = 'q';
 
-        var title = document.createElement('p');
-        title.className = 'q-title';
-        title.textContent = (idx+1) + '. ' + q.text;
-        wrap.appendChild(title);
-
-        // 添加朗读按钮
+        // 添加朗读按钮（放在题目左边）
         var readButton = document.createElement('button');
         readButton.type = 'button'; // 明确设置为button类型，防止触发表单提交
         readButton.className = 'read-button';
@@ -62,6 +57,11 @@
         });
         wrap.appendChild(readButton);
 
+        var title = document.createElement('p');
+        title.className = 'q-title';
+        title.textContent = (idx+1) + '. ' + q.text;
+        wrap.appendChild(title);
+
         var options = document.createElement('div');
         options.className = 'options';
         q.options.forEach(function(opt, oi){
@@ -72,12 +72,19 @@
             input.name = 'q_' + idx;
             input.value = String(oi);
             input.addEventListener('change', function() {
-                updateQuestionStatus(idx);
-                
-                // 实时批卷逻辑
-                if (realTimeScoringEnabled && currentDataset) {
-                    highlightCorrectAnswer(q, idx, currentDataset);
-                }
+            // 只有在非实时批卷模式下才播放click音效
+            if (!realTimeScoringEnabled) {
+                playSound('click');
+            }
+            
+            updateQuestionStatus(idx);
+            
+            // 实时批卷逻辑
+            if (realTimeScoringEnabled && currentDataset) {
+                highlightCorrectAnswer(q, idx, currentDataset);
+                // 在实时批卷模式下，用户选择后立即设置题目为只读
+                setQuestionReadOnly(idx, true);
+            }
                 
                 // 实时批卷模式下不自动跳转
                 if (!realTimeScoringEnabled && currentQuestionIndex < totalQuestions - 1) {
@@ -209,6 +216,28 @@
         // 获取当前问题的所有选项元素
         var container = document.querySelector('.question-container[data-index="' + questionIndex + '"]');
         var options = container.querySelectorAll('label.option');
+        
+        // 检查用户是否选择了正确答案
+        var name = 'q_' + questionIndex;
+        var inputs = document.querySelectorAll('input[name="'+name+'"]');
+        var isCorrect = false;
+        var hasSelected = false;
+        
+        inputs.forEach(function(input, idx) {
+            if (input.checked) {
+                hasSelected = true;
+                if (correctOptionIndices.includes(idx)) {
+                    isCorrect = true;
+                }
+            }
+        });
+        
+        // 在实时批卷模式下，根据答题结果播放不同音效
+        if (realTimeScoringEnabled && hasSelected) {
+            setTimeout(function() {
+                playSound(isCorrect ? 'correct' : 'wrong');
+            }, 100); // 延迟播放，让用户先听到点击音效
+        }
         
         options.forEach(function(option, idx) {
             if (correctOptionIndices.includes(idx)) {
@@ -564,6 +593,10 @@
         
         // 配置实时批卷开关
         setupRealTimeScoringToggle();
+        
+        // 初始化音效系统
+        createSoundElements();
+        ensureSoundFiles();
 
         // 弹窗按钮事件处理
         var completionModal = document.getElementById('completion-modal');
@@ -793,48 +826,179 @@
         window.speechSynthesis.getVoices();
     }
     
-    // 暴露到window对象
-    window.TestRunner = { bootstrap: bootstrap };
-    // 设置实时批卷开关
-        function setupRealTimeScoringToggle() {
-            var toggleElement = document.getElementById('realtime-scoring-toggle');
-            var checkboxElement = document.getElementById('realtime-checkbox');
+    // 音效控制变量
+    var soundEnabled = true;
+    
+    // 创建音效元素
+    function createSoundElements() {
+        // 创建选项点击音效
+        var clickSound = document.createElement('audio');
+        clickSound.id = 'option-click-sound';
+        clickSound.src = 'data/sounds/click.mp3'; // 假设音效文件路径
+        clickSound.preload = 'auto';
+        document.body.appendChild(clickSound);
+        
+        // 添加错误处理
+        clickSound.onerror = function() {
+            console.log('点击音效文件加载失败，使用默认音效');
+            // 可以在这里添加fallback逻辑，比如使用Web Audio API生成简单音效
+        };
+        
+        // 创建答对音效
+        var correctSound = document.createElement('audio');
+        correctSound.id = 'correct-sound';
+        correctSound.src = 'data/sounds/correct.mp3'; // 假设音效文件路径
+        correctSound.preload = 'auto';
+        document.body.appendChild(correctSound);
+        
+        correctSound.onerror = function() {
+            console.log('答对音效文件加载失败，使用默认音效');
+        };
+        
+        // 创建答错音效
+        var wrongSound = document.createElement('audio');
+        wrongSound.id = 'wrong-sound';
+        wrongSound.src = 'data/sounds/wrong.mp3'; // 假设音效文件路径
+        wrongSound.preload = 'auto';
+        document.body.appendChild(wrongSound);
+        
+        wrongSound.onerror = function() {
+            console.log('答错音效文件加载失败，使用默认音效');
+        };
+    }
+    
+    // 播放音效函数
+    function playSound(soundType) {
+        if (!soundEnabled) return;
+        
+        var soundElement;
+        switch(soundType) {
+            case 'click':
+                soundElement = document.getElementById('option-click-sound');
+                break;
+            case 'correct':
+                soundElement = document.getElementById('correct-sound');
+                break;
+            case 'wrong':
+                soundElement = document.getElementById('wrong-sound');
+                break;
+        }
+        
+        if (soundElement) {
+            // 停止任何正在播放的音效
+            soundElement.pause();
+            soundElement.currentTime = 0;
             
-            // 根据数据集配置决定是否显示开关
-            if (currentDataset && currentDataset.enableRealTimeScoring) {
-                if (toggleElement) {
-                    toggleElement.classList.remove('hidden');
-                }
-                
-                // 设置开关的事件监听
-                if (checkboxElement) {
-                    checkboxElement.addEventListener('change', function() {
-                        realTimeScoringEnabled = this.checked;
-                        
-                        // 如果开启实时批卷，为所有已回答的题目显示批卷标记并设为只读
-                        if (realTimeScoringEnabled) {
-                            for (var i = 0; i < totalQuestions; i++) {
-                                var name = 'q_' + i;
-                                var inputs = document.querySelectorAll('input[name="'+name+'"]');
-                                var answered = false;
-                                inputs.forEach(function(inp){ if (inp.checked) answered = true; });
-                                
-                                if (answered) {
-                                    highlightCorrectAnswer(currentDataset.questions[i], i, currentDataset);
-                                    setQuestionReadOnly(i, true);
-                                }
-                            }
-                        } else {
-                            // 如果关闭实时批卷，清除所有批卷标记并恢复所有题目可编辑
-                            for (var i = 0; i < totalQuestions; i++) {
-                                clearAnswerHighlights(currentDataset.questions[i], i);
-                                setQuestionReadOnly(i, false);
-                            }
-                        }
-                    });
-                }
+            // 播放音效
+            try {
+                soundElement.play().catch(function(e) {
+                    console.warn('无法播放音效:', e);
+                });
+            } catch (error) {
+                console.warn('播放音效出错:', error);
             }
         }
+    }
+    
+    // 创建临时音效文件（如果需要）
+    function ensureSoundFiles() {
+        // 检查音效目录是否存在
+        // 这里简单创建音效文件，实际项目中应该由服务器提供
+        var soundsDir = 'data/sounds';
+        
+        // 为了演示，我们可以在控制台提示用户添加音效文件
+        console.log('请确保在data/sounds目录下添加click.mp3、correct.mp3和wrong.mp3音效文件');
+    }
+    
+    // 暴露到window对象
+    window.TestRunner = { bootstrap: bootstrap };
+    // 设置实时批卷开关和音效开关
+    function setupRealTimeScoringToggle() {
+        var toggleElement = document.getElementById('realtime-scoring-toggle');
+        var checkboxElement = document.getElementById('realtime-checkbox');
+        
+        // 创建音效开关
+        if (toggleElement && !document.getElementById('sound-toggle')) {
+            // 获取progress-header容器，这是实时批卷开关的父元素
+            var progressHeader = toggleElement.parentElement;
+            
+            // 创建音效开关，作为一个独立的label元素
+            var soundToggle = document.createElement('label');
+            soundToggle.id = 'sound-toggle';
+            soundToggle.className = 'toggle-switch';
+            soundToggle.style.marginRight = '-55px';
+            
+            // 音效图标
+            var soundIcon = document.createElement('span');
+            soundIcon.textContent = '🔊';
+            soundIcon.style.marginRight = '5px';
+            soundToggle.appendChild(soundIcon);
+            
+            // 音效复选框
+            var soundCheckbox = document.createElement('input');
+            soundCheckbox.type = 'checkbox';
+            soundCheckbox.id = 'sound-checkbox';
+            soundCheckbox.checked = soundEnabled;
+            
+            // 音效开关滑块
+            var soundSpan = document.createElement('span');
+            soundSpan.className = 'toggle-slider';
+            soundSpan.title = '音效开关';
+
+            // 添加音效开关文字
+            var soundTextSpan = document.createElement('span');
+            soundTextSpan.className = 'toggle-text';
+            soundTextSpan.textContent = '音效开关';
+
+            soundToggle.appendChild(soundCheckbox);
+            soundToggle.appendChild(soundSpan);
+            soundToggle.appendChild(soundTextSpan);
+            
+            // 在实时批卷开关之前添加音效开关
+            progressHeader.insertBefore(soundToggle, toggleElement);
+            
+            // 设置音效开关的事件监听
+            soundCheckbox.addEventListener('change', function() {
+                soundEnabled = this.checked;
+                console.log('音效已' + (soundEnabled ? '开启' : '关闭'));
+            });
+        }
+        
+        // 根据数据集配置决定是否显示开关
+        if (currentDataset && currentDataset.enableRealTimeScoring) {
+            if (toggleElement) {
+                toggleElement.classList.remove('hidden');
+            }
+            
+            // 设置开关的事件监听
+            if (checkboxElement) {
+                checkboxElement.addEventListener('change', function() {
+                    realTimeScoringEnabled = this.checked;
+                    
+                    // 如果开启实时批卷，为所有已回答的题目显示批卷标记并设为只读
+                    if (realTimeScoringEnabled) {
+                        for (var i = 0; i < totalQuestions; i++) {
+                            var name = 'q_' + i;
+                            var inputs = document.querySelectorAll('input[name="'+name+'"]');
+                            var answered = false;
+                            inputs.forEach(function(inp){ if (inp.checked) answered = true; });
+                            
+                            if (answered) {
+                                highlightCorrectAnswer(currentDataset.questions[i], i, currentDataset);
+                                setQuestionReadOnly(i, true);
+                            }
+                        }
+                    } else {
+                        // 如果关闭实时批卷，清除所有批卷标记并恢复所有题目可编辑
+                        for (var i = 0; i < totalQuestions; i++) {
+                            clearAnswerHighlights(currentDataset.questions[i], i);
+                            setQuestionReadOnly(i, false);
+                        }
+                    }
+                });
+            }
+        }
+    }
         
         // 同时暴露关键函数供外部使用
         window.computeScore = computeScore;
