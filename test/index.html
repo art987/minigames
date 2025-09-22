@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小本本测试中心</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://peacelove.top/menu.css">
 </head>
 <body>
     <header class="site-header">
-        <h1>小本本测试中心</h1>
-        <p class="subtitle">公益测试平台，无需登录注册</p>
+        <h1>小本本公益测试平台</h1>
+        <p class="subtitle">完全免费无套路，无需注册即可测试</p>
     </header>
 
     <main class="container">
@@ -22,7 +23,7 @@
         
         <section id="tests-section" class="hidden">
             <div class="category-header">
-                <button id="back-to-categories" class="back-button">返回分类</button>
+                <button id="back-to-categories" class="back-button">←其它分类</button>
                 <h2 id="current-category">测试列表</h2>
             </div>
             <ul id="test-list" class="test-list"></ul>
@@ -76,7 +77,12 @@
     <script src="js/tests.js"></script>
     
     <!-- 加载测试数据文件 -->
-    <script src="data/智力与逻辑类/iq60.js"></script>
+    <!-- 闯关学习类测试数据 -->
+    <script src="data/闯关学习类/iq60.js"></script>
+    <script src="data/闯关学习类/safety60.js"></script>
+    <script src="data/闯关学习类/literature100.js"></script>
+    <script src="data/闯关学习类/firstaid50.js"></script>
+    <script src="data/闯关学习类/folklore50.js"></script>
     <script src="data/心理测评类/procrastination_level.js"></script>
     <script src="data/心理测评类/happiness_index.js"></script>
     <script src="data/心理测评类/mbti_short.js"></script>
@@ -350,6 +356,9 @@
         });
     })();
     </script>
+
+    <script src="https://peacelove.top/menu-functions.js"></script>
+<div id="navbar-container"></div> 
 </body>
 </html>
 
