@@ -49,6 +49,19 @@
         title.textContent = (idx+1) + '. ' + q.text;
         wrap.appendChild(title);
 
+        // 添加朗读按钮
+        var readButton = document.createElement('button');
+        readButton.type = 'button'; // 明确设置为button类型，防止触发表单提交
+        readButton.className = 'read-button';
+        readButton.title = '朗读题目';
+        readButton.innerHTML = '🔊';
+        readButton.addEventListener('click', function(e) {
+            e.preventDefault(); // 阻止默认行为
+            e.stopPropagation(); // 阻止事件冒泡
+            readAloud(q.text);
+        });
+        wrap.appendChild(readButton);
+
         var options = document.createElement('div');
         options.className = 'options';
         q.options.forEach(function(opt, oi){
@@ -732,6 +745,54 @@
         }
     }
 
+    // 朗读题目功能
+    function readAloud(text) {
+        // 检查文本是否为空
+        if (!text || typeof text !== 'string') {
+            console.warn('无法朗读空文本或非字符串内容');
+            return;
+        }
+        
+        // 检查浏览器是否支持Web Speech API
+        if ('speechSynthesis' in window) {
+            try {
+                // 停止任何正在进行的朗读
+                window.speechSynthesis.cancel();
+                
+                // 创建新的朗读实例
+                var utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN'; // 设置中文朗读
+                
+                // 选择中文语音（如果可用）
+                var voices = window.speechSynthesis.getVoices();
+                var chineseVoice = voices.find(function(voice) {
+                    return voice.lang === 'zh-CN' || voice.lang.includes('zh');
+                });
+                
+                if (chineseVoice) {
+                    utterance.voice = chineseVoice;
+                }
+                
+                // 朗读文本
+                window.speechSynthesis.speak(utterance);
+            } catch (error) {
+                console.error('朗读功能出错:', error);
+            }
+        } else {
+            console.warn('您的浏览器不支持文本朗读功能');
+        }
+    }
+    
+    // 预加载语音列表
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = function() {
+            window.speechSynthesis.getVoices();
+        };
+        
+        // 初始化时获取一次语音列表
+        window.speechSynthesis.getVoices();
+    }
+    
     // 暴露到window对象
     window.TestRunner = { bootstrap: bootstrap };
     // 设置实时批卷开关

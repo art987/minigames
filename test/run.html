@@ -30,8 +30,10 @@
             var category = getQueryParam('category');
             
             if (!testId) {
-                testId = 'knowledge23';
-                category = 'knowledge';
+                // 不设置默认值，而是显示错误提示
+                document.querySelector('.error-message').classList.remove('hidden');
+                document.querySelector('.error-message').textContent = '请选择一个测试项目开始';
+                return;
             }
             
             // 创建数据文件的script标签

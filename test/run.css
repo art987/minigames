@@ -65,9 +65,37 @@ body {
             font-size: 18px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 19px;
             line-height: 1.6rem;
             margin-top: 4px;
+            margin-bottom: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .read-button {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            transition: all 0.2s ease;
+        }
+        
+        .read-button:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+            transform: scale(1.1);
+        }
+        
+        .read-button:active {
+            transform: scale(0.95);
         }
         .options {
             display: flex;
