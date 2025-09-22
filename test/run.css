@@ -22,7 +22,7 @@ body {
             background: #6a3de8;
             padding: 10px;
         }
-#progress-text{font-size:14px;display: block;clear: both;color: #959595;padding-bottom: 7px;}
+#progress-text{font-size:14px;display: block;clear: both;color: #2b2b2b;padding-bottom: 7px;}
         .header h1 {
             color: #ffffff;
             font-size: 18px;
@@ -78,16 +78,17 @@ body {
             display: flex;
             align-items: center;
             padding: 12px 16px;
-            border: 1px solid #e8e8e8;
+            box-shadow: 0 0 3px #ccc;
             border-radius: 6px;
             cursor: pointer;
             letter-spacing: 1px;
+            color: #000;
             transition: all 0.2s ease;
             font-size: 16px;
         }
         .option:hover {
             border-color: #6a3de8;
-            background-color: #f0f7ff;
+            background-color: #ffffff;
         }
         /* 自定义单选按钮样式 - 方框勾选效果 */
         .option input[type="radio"] {
@@ -99,7 +100,7 @@ body {
             -webkit-appearance: none;
             -moz-appearance: none;
             /* 创建方框 */
-            border: 1px solid #ccc;
+            border: 1px solid #e5e5e5;
             border-radius: 4px;
             background-color: white;
             position: relative;
@@ -716,7 +717,7 @@ body {
             top: 50%;
             transform: translateY(-50%);
             font-size: 14px;
-            color: #666;
+            color: #6a3de8;
             white-space: nowrap;
         }
 
@@ -737,7 +738,7 @@ body {
 
         /* 非正确答案的样式 */
         .incorrect-option {
-            opacity: 0.4 !important;
+            opacity: 0.2 !important;
         }
 
         .incorrect-option span {
@@ -752,7 +753,6 @@ body {
         
         label.option input:disabled + span {
             cursor: not-allowed;
-            opacity: 0.7;
         }
         
         /* 已回答的题目容器样式 */
