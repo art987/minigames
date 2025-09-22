@@ -112,6 +112,20 @@ window.TestConfig = {
                 description: '这是一个测试您文学常识的测验，包含100个题目，涵盖中国古代文学、现当代文学和世界文学等多个方面的知识。通过这个测验，您可以了解自己的文学素养水平。',
                 questionCount: 100,
                 estimateMinutes: 25
+            },
+            {
+                id: 'firstaid50',
+                title: '急救与安全测验',
+                description: '本测验包含50道关于急救与安全的常识题目，涵盖心肺复苏、烧伤处理、溺水急救等方面的知识，帮助您了解和掌握基本的急救技能。',
+                questionCount: 50,
+                estimateMinutes: 15
+            },
+            {
+                id: 'folklore50',
+                title: '中国民俗文化测验',
+                description: '本测验包含50道关于中国民俗文化的题目，涵盖传统节日、民间习俗、传统艺术、饮食文化等方面的知识，帮助您了解和传承中华民族的优秀传统文化。',
+                questionCount: 50,
+                estimateMinutes: 15
             }
         ],
         '职业与学习类': [
