@@ -156,8 +156,8 @@ body {
             flex: 1;
         }
         .btn-primary {
-            background-color: #ffffff;
-            color: #333;
+            background-color: #6a3de8;
+    color: #ffffff;
         }
         .btn-primary:hover:not(:disabled) {
             background-color: #6a3de8;color: #fff;
@@ -165,18 +165,21 @@ body {
         .btn-primary:disabled {
             background-color: #ffffff;
             cursor: not-allowed;
-            color: #ccc;
+            color: #ffffff;
+            border: 1px solid #fff;
         }
         .btn-secondary {
             background-color: #ffffff;
-            color: #333;
+            color: #6a3de8;
         }
         .btn-secondary:hover:not(:disabled) {
             background-color: #6a3de8;
             color: #fff;
         }
         .btn-secondary:disabled {
-            background-color: #e9ecef;
+            background-color: #ffffff;
+            color: #fff;
+            border: 1px solid #fff;
             cursor: not-allowed;
         }
         .btn-submit {

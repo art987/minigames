@@ -714,6 +714,15 @@
         resetBtn.addEventListener('click', function(){
             form.reset();
             document.getElementById('result-section').classList.add('hidden');
+            
+            // 清除所有题目的批卷标记并取消只读状态
+            if (currentDataset && totalQuestions > 0) {
+                for (var i = 0; i < totalQuestions; i++) {
+                    clearAnswerHighlights(currentDataset.questions[i], i);
+                    setQuestionReadOnly(i, false);
+                }
+            }
+            
             // 重置后回到第一题
             showQuestion(0);
         });
