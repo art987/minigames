@@ -324,7 +324,7 @@ function createThemeModal() {
     
     modal.innerHTML = `
         <div class="theme-modal-header">
-            <h3>选择要播放的句子系列</h3>
+            <h3>请下方选择：</h3>
             <button class="close-btn">&times;</button>
         </div>
         <ul class="theme-list" id="theme-list"></ul>
