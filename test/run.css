@@ -740,3 +740,35 @@ body {
         .incorrect-option span {
             text-decoration: line-through;
         }
+        
+        /* 禁用的选项样式 - 实时批卷模式下已回答题目 */
+        input[type="radio"]:disabled,
+        input[type="checkbox"]:disabled {
+            cursor: not-allowed;
+        }
+        
+        label.option input:disabled + span {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        /* 已回答的题目容器样式 */
+        .question-container.answered {
+            position: relative;
+        }
+        
+        .question-container.answered::before {
+            content: "已回答（不可修改）";
+            position: absolute;
+            top: 1px;
+            right: -9px;
+            background-color: #ffffff00;
+            color: #6a3de8;
+            border: 1px dashed #a384fa;
+            font-size: 12px;
+            padding: 2px 0px 2px 5px;
+            opacity: 0.8;
+            border-radius: 11px;
+            font-weight: bold;
+            transform: rotate(5deg);
+        }

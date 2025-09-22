@@ -152,7 +152,7 @@
             currentQuestionIndex = idx;
             updateQuestionStatus(idx);
             
-            // 在实时批卷模式下，检查当前题目是否已回答，如果已回答则显示批卷标记
+            // 在实时批卷模式下，检查当前题目是否已回答
             if (realTimeScoringEnabled && currentDataset) {
                 var name = 'q_' + idx;
                 var inputs = document.querySelectorAll('input[name="'+name+'"]');
@@ -161,6 +161,11 @@
                 
                 if (answered) {
                     highlightCorrectAnswer(currentDataset.questions[idx], idx, currentDataset);
+                    // 在实时批卷模式下，已回答的题目设为只读
+                    setQuestionReadOnly(idx, true);
+                } else {
+                    // 未回答的题目保持可编辑
+                    setQuestionReadOnly(idx, false);
                 }
             }
         }
@@ -222,6 +227,28 @@
             // 移除非正确选项样式
             option.classList.remove('incorrect-option');
         });
+    }
+    
+    // 设置题目选项的只读状态
+    function setQuestionReadOnly(questionIndex, isReadOnly) {
+        var name = 'q_' + questionIndex;
+        var inputs = document.querySelectorAll('input[name="'+name+'"]');
+        
+        // 获取题目容器
+        var container = document.querySelector('.question-container[data-index="' + questionIndex + '"]');
+        
+        inputs.forEach(function(input) {
+            input.disabled = isReadOnly;
+        });
+        
+        // 为已回答的题目容器添加或移除'answered'类
+        if (container) {
+            if (isReadOnly) {
+                container.classList.add('answered');
+            } else {
+                container.classList.remove('answered');
+            }
+        }
     }
     
     function setupNavigation() {
@@ -714,7 +741,7 @@
                     checkboxElement.addEventListener('change', function() {
                         realTimeScoringEnabled = this.checked;
                         
-                        // 如果开启实时批卷，为所有已回答的题目显示批卷标记
+                        // 如果开启实时批卷，为所有已回答的题目显示批卷标记并设为只读
                         if (realTimeScoringEnabled) {
                             for (var i = 0; i < totalQuestions; i++) {
                                 var name = 'q_' + i;
@@ -724,12 +751,14 @@
                                 
                                 if (answered) {
                                     highlightCorrectAnswer(currentDataset.questions[i], i, currentDataset);
+                                    setQuestionReadOnly(i, true);
                                 }
                             }
                         } else {
-                            // 如果关闭实时批卷，清除所有批卷标记
+                            // 如果关闭实时批卷，清除所有批卷标记并恢复所有题目可编辑
                             for (var i = 0; i < totalQuestions; i++) {
                                 clearAnswerHighlights(currentDataset.questions[i], i);
+                                setQuestionReadOnly(i, false);
                             }
                         }
                     });
