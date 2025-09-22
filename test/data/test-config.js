@@ -5,6 +5,11 @@
 window.TestConfig = {
     // 测试分类配置
     categories: {
+        '闯关学习类': {
+                name: '闯关学习类',
+                icon: '📚',
+                description: '学习各类基本常识，包括文学、地理、健康、生活、安全等知识，在做题中掌握实用信息'
+            },
         '心理测评类': {
             name: '心理测评类',
             icon: '🧠',
@@ -29,11 +34,6 @@ window.TestConfig = {
             name: '健康与生活习惯类',
             icon: '🏃',
             description: '检视日常习惯与健康指数，帮你发现潜在问题，养成更科学的生活方式'
-        },
-        '智力与逻辑类': {
-            name: '智力与逻辑类',
-            icon: '🧩',
-            description: '挑战思维与脑力极限，提升逻辑推理、专注力与创造力，让大脑持续活跃'
         }
     },
     
@@ -91,13 +91,27 @@ window.TestConfig = {
                 estimateMinutes: 5
             }
         ],
-        '智力与逻辑类': [
+        '闯关学习类': [
             {
                 id: 'iq60',
                 title: '60题标准智商测试',
                 description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
                 questionCount: 60,
                 estimateMinutes: 10
+            },
+            {
+                id: 'safety60',
+                title: '日常安全常识测验',
+                description: '这是一个测试您日常安全知识的测验，包含60个题目，涵盖生活中各种安全场景的应对方法。通过这个测验，您可以了解自己的安全意识水平，提高安全防范能力。',
+                questionCount: 60,
+                estimateMinutes: 15
+            },
+            {
+                id: 'literature100',
+                title: '文学常识测验',
+                description: '这是一个测试您文学常识的测验，包含100个题目，涵盖中国古代文学、现当代文学和世界文学等多个方面的知识。通过这个测验，您可以了解自己的文学素养水平。',
+                questionCount: 100,
+                estimateMinutes: 25
             }
         ],
         '职业与学习类': [
