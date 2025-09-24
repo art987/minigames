@@ -6,7 +6,7 @@ const menuData = {
 			  
 			  
 			 {  singleItem: true, text: "答题测试",  href: "/test/index.html", icon: "" , emoji:"📝",  describ: "" , keyword: "" }, 
-        {  singleItem: true, text: "在线导游",  href: "https://app-6cv2gtzpihvl.appmiaoda.com/", icon: "" , emoji:"🌍",  describ: "" , keyword: "" },  
+        {  singleItem: true, text: "人生认知问答库",  href: "/answer-article/index.html", icon: "" , emoji:"🦉",  describ: "在一问一答中了解世界的真相" , keyword: "" },  
     
     
        {

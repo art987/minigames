@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400">
+  <rect width="500" height="400" fill="#87CEFA"/>
+  <rect x="100" y="100" width="300" height="200" rx="20" ry="20" fill="white"/>
+  <text x="250" y="180" font-family="Arial" font-size="36" fill="#4682B4" text-anchor="middle" font-weight="bold">生日快乐!</text>
+  <text x="250" y="220" font-family="Arial" font-size="20" fill="#4682B4" text-anchor="middle">缩略图</text>
+  <!-- 气球装饰 -->
+  <path d="M150,320 C150,280 170,260 200,260" stroke="#FF6347" stroke-width="3" fill="none"/>
+  <circle cx="200" cy="240" r="20" fill="#FF6347"/>
+  <path d="M250,320 C250,280 270,260 300,260" stroke="#32CD32" stroke-width="3" fill="none"/>
+  <circle cx="300" cy="240" r="20" fill="#32CD32"/>
+  <path d="M350,320 C350,280 370,260 400,260" stroke="#FFD700" stroke-width="3" fill="none"/>
+  <circle cx="400" cy="240" r="20" fill="#FFD700"/>
+</svg>

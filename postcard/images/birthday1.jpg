@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1300" viewBox="0 0 1000 1300">
+  <rect width="1000" height="1300" fill="#FF9EAA"/>
+  <!-- 装饰元素 -->
+  <circle cx="200" cy="300" r="80" fill="#FFD700"/>
+  <circle cx="800" cy="300" r="60" fill="#FFD700"/>
+  <circle cx="200" cy="1000" r="70" fill="#FFD700"/>
+  <circle cx="800" cy="1000" r="90" fill="#FFD700"/>
+  
+  <!-- 中间装饰 -->
+  <rect x="100" y="600" width="800" height="300" rx="50" ry="50" fill="#FFD1DC"/>
+  
+  <!-- 生日快乐文字 -->
+  <text x="500" y="500" font-family="Arial" font-size="72" fill="#FF6B8B" text-anchor="middle" font-weight="bold">生日快乐!</text>
+  
+  <!-- 更多装饰 -->
+  <path d="M150,200 Q500,50 850,200" stroke="#FF6B8B" stroke-width="5" fill="none"/>
+  <path d="M150,1100 Q500,1250 850,1100" stroke="#FF6B8B" stroke-width="5" fill="none"/>
+  
+  <!-- 装饰性小圆点 -->
+  <circle cx="100" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="200" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="300" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="700" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="800" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="900" cy="100" r="10" fill="#FF6B8B"/>
+  <circle cx="100" cy="1200" r="10" fill="#FF6B8B"/>
+  <circle cx="200" cy="1200" r="10" fill="#FF6B8B"/>
+  <circle cx="300" cy="1200" r="10" fill="#FF6B8B"/>
+  <circle cx="700" cy="1200" r="10" fill="#FF6B8B"/>
+  <circle cx="800" cy="1200" r="10" fill="#FF6B8B"/>
+  <circle cx="900" cy="1200" r="10" fill="#FF6B8B"/>
+</svg>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节日贺卡DIY工具</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入html2canvas库 -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- 初始对话框 -->
+    <div id="nickname-modal" class="modal">
+        <div class="modal-content">
+            <h2>请输入收卡人的昵称</h2>
+            <input type="text" id="recipient-nickname" value="亲爱的宝贝" placeholder="请输入昵称">
+            <button id="confirm-nickname">确定</button>
+        </div>
+    </div>
+
+    <!-- 贺卡选择页面 -->
+    <div id="card-selection" class="hidden">
+        <header>
+            <h1>节日贺卡DIY</h1>
+            <p>为您的亲友制作一张特别的贺卡</p>
+        </header>
+        
+        <!-- 导航菜单 -->
+        <nav class="category-nav">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="birthday">生日贺卡</button>
+            <button class="category-btn" data-category="newyear">新年贺卡</button>
+            <button class="category-btn" data-category="valentine">情人节贺卡</button>
+            <button class="category-btn" data-category="thanksgiving">感恩节贺卡</button>
+        </nav>
+        
+        <!-- 贺卡列表 -->
+        <div class="card-grid">
+            <!-- 生日贺卡 -->
+            <div class="card-item" data-category="birthday" data-id="birthday1">
+                <img src="images/birthday1_thumb.jpg" alt="生日快乐贺卡1">
+                <p>生日快乐贺卡1</p>
+            </div>
+            <div class="card-item" data-category="birthday" data-id="birthday2">
+                <img src="images/birthday2_thumb.jpg" alt="生日快乐贺卡2">
+                <p>生日快乐贺卡2</p>
+            </div>
+            
+            <!-- 新年贺卡 -->
+            <div class="card-item" data-category="newyear" data-id="newyear1">
+                <img src="images/newyear1_thumb.jpg" alt="新年贺卡1">
+                <p>新年贺卡1</p>
+            </div>
+            <div class="card-item" data-category="newyear" data-id="newyear2">
+                <img src="images/newyear2_thumb.jpg" alt="新年贺卡2">
+                <p>新年贺卡2</p>
+            </div>
+            
+            <!-- 情人节贺卡 -->
+            <div class="card-item" data-category="valentine" data-id="valentine1">
+                <img src="images/valentine1_thumb.jpg" alt="情人节贺卡1">
+                <p>情人节贺卡1</p>
+            </div>
+            
+            <!-- 感恩节贺卡 -->
+            <div class="card-item" data-category="thanksgiving" data-id="thanksgiving1">
+                <img src="images/thanksgiving1_thumb.jpg" alt="感恩节贺卡1">
+                <p>感恩节贺卡1</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 贺卡编辑页面 -->
+    <div id="card-editor" class="hidden">
+        <!-- 顶部导航栏 -->
+        <div class="editor-header">
+            <button id="back-to-selection" class="back-btn">← 返回选择</button>
+            <div class="view-toggle">
+                <button id="edit-toggle" class="toggle-btn active">编辑</button>
+                <button id="preview-toggle" class="toggle-btn">预览</button>
+            </div>
+        </div>
+        
+        <div class="editor-container">
+            <!-- 左侧编辑面板 -->
+            <div id="edit-panel" class="edit-panel">
+                <h3>编辑贺卡</h3>
+                
+                <div class="edit-section">
+                    <label for="recipient-name">收卡人：</label>
+                    <input type="text" id="recipient-name" placeholder="请输入收卡人昵称">
+                </div>
+                
+                <div class="edit-section">
+                    <label>背景图片：</label>
+                    <div class="background-options">
+                        <img src="images/birthday1.jpg" alt="背景1" class="background-option" data-img="images/birthday1.jpg">
+                        <img src="images/birthday2.jpg" alt="背景2" class="background-option" data-img="images/birthday2.jpg">
+                        <img src="images/newyear1.jpg" alt="背景3" class="background-option" data-img="images/newyear1.jpg">
+                        <img src="images/newyear2.jpg" alt="背景4" class="background-option" data-img="images/newyear2.jpg">
+                    </div>
+                    <button id="upload-background" class="upload-btn">从本地选择图片</button>
+                    <input type="file" id="background-file-input" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="edit-section">
+                    <label for="greeting-text">祝福语：</label>
+                    <select id="greeting-template">
+                        <option value="">选择模板</option>
+                        <option value="生日快乐！愿您的每一天都充满阳光和快乐！">生日快乐！愿您的每一天都充满阳光和快乐！</option>
+                        <option value="新年快乐！身体健康，万事如意！">新年快乐！身体健康，万事如意！</option>
+                        <option value="情人节快乐！爱你到永远！">情人节快乐！爱你到永远！</option>
+                        <option value="感谢有你！你的陪伴是我最大的幸福！">感谢有你！你的陪伴是我最大的幸福！</option>
+                    </select>
+                    <textarea id="greeting-text" rows="4" placeholder="输入祝福语..."></textarea>
+                </div>
+                
+                <div class="edit-section">
+                    <label for="sender-name">署名：</label>
+                    <input type="text" id="sender-name" placeholder="您的名字（可选）">
+                </div>
+                
+                <div class="edit-section">
+                    <label for="card-date">日期：</label>
+                    <input type="date" id="card-date">
+                </div>
+            </div>
+            
+            <!-- 右侧预览区 -->
+            <div id="preview-panel" class="preview-panel">
+                <div id="card-preview" class="card-preview">
+                    <div class="card-content">
+                        <h2 class="recipient-name">亲爱的宝贝</h2>
+                        <p class="greeting-message">选择一段祝福语，或者自己输入想说的话...</p>
+                        <div class="card-footer">
+                            <p class="sender-name"></p>
+                            <p class="card-date"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 固定在底部的生成按钮 -->
+        <div class="bottom-action">
+            <button id="generate-card" class="generate-btn">生成并下载贺卡</button>
+        </div>
+    </div>
+
+    <!-- 图片调整模态框 -->
+    <div id="image-adjust-modal" class="modal hidden">
+        <div class="modal-content modal-lg">
+            <h2>调整背景图片</h2>
+            <div class="image-adjust-container">
+                <div class="image-preview-area">
+                    <div id="image-adjust-wrapper" style="position: relative; width: 100%; height: 400px; overflow: hidden; background-color: #f0f0f0;">
+                        <img id="adjustable-image" style="position: absolute; transform-origin: center; object-fit: cover; width: 100%; height: 100%;">
+                    </div>
+                </div>
+                
+                <div class="image-controls">
+                    <div class="control-group">
+                        <button id="zoom-in" class="control-btn">放大</button>
+                        <button id="zoom-out" class="control-btn">缩小</button>
+                    </div>
+                    <div class="control-group">
+                        <button id="move-up" class="control-btn">↑</button>
+                    </div>
+                    <div class="control-group">
+                        <button id="move-left" class="control-btn">←</button>
+                        <button id="move-right" class="control-btn">→</button>
+                    </div>
+                    <div class="control-group">
+                        <button id="move-down" class="control-btn">↓</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-adjust" class="cancel-btn">取消</button>
+                <button id="confirm-adjust" class="confirm-btn">确认裁剪</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

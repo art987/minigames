@@ -41,13 +41,7 @@ window.TestConfig = {
     testsByCategory: {
         '心理测评类': [
             
-            {
-                id: 'procrastination_level',
-                title: '拖延症程度测验',
-                description: '这个测试将帮助你了解自己的拖延习惯和程度，以便更好地管理时间和提高效率。请根据实际情况回答以下问题。',
-                questionCount: 10,
-                estimateMinutes: 3
-            },
+            
             {
                 id: 'happiness_index',
                 title: '幸福感指数测试',

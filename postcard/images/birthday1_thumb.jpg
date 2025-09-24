@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400">
+  <rect width="500" height="400" fill="#FF9EAA"/>
+  <circle cx="250" cy="200" r="150" fill="#FFD1DC"/>
+  <text x="250" y="180" font-family="Arial" font-size="36" fill="#FF6B8B" text-anchor="middle" font-weight="bold">生日快乐!</text>
+  <text x="250" y="220" font-family="Arial" font-size="20" fill="#FF6B8B" text-anchor="middle">缩略图</text>
+  <!-- 装饰元素 -->
+  <circle cx="150" cy="150" r="30" fill="#FFD700"/>
+  <circle cx="350" cy="150" r="30" fill="#FFD700"/>
+  <circle cx="150" cy="250" r="30" fill="#FFD700"/>
+  <circle cx="350" cy="250" r="30" fill="#FFD700"/>
+</svg>

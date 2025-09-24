@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情 - Answer Article</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header" style="display: none;">
+        <div class="container">
+            <div class="logo">
+                <h1>Answer Article</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="index.html#about">关于我们</a></li>
+                    <li><a href="index.html#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 文章详情内容 -->
+    <div class="article-detail-container">
+        <a href="index.html" class="back-to-home">返回首页</a>
+        
+        <div class="article-detail-header">
+            <h2 id="article-title" class="article-detail-title"></h2>
+            <div class="article-detail-meta">
+                <span id="article-date"></span>
+                <span id="article-category"></span>
+                <span id="article-views"></span>
+                <span id="article-likes"></span>
+            </div>
+        </div>
+        
+        <div id="article-questions" class="article-questions">
+            <!-- 问题列表将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="display: none;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Answer Article</h3>
+                    <p>让知识学习更有趣</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="index.html#about">关于我们</a></li>
+                        <li><a href="index.html#contact">联系我们</a></li>
+                        <li><a href="index.html#privacy">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <p>邮箱：contact@answerarticle.com</p>
+                    <p>微信：AnswerArticle</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Answer Article. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="article-detail.js"></script>
+</body>
+</html>

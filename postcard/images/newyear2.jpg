@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1300" viewBox="0 0 1000 1300">
+  <rect width="1000" height="1300" fill="#FF9EAA"/>
+  
+  <!-- 装饰性曲线 -->
+  <path d="M100,300 Q500,100 900,300" stroke="#FFD700" stroke-width="15" fill="none"/>
+  <path d="M100,400 Q500,200 900,400" stroke="#FFD700" stroke-width="15" fill="none"/>
+  
+  <!-- 中间卡片区域 -->
+  <rect x="150" y="500" width="700" height="500" rx="30" ry="30" fill="rgba(255, 255, 255, 0.7)"/>
+  
+  <!-- 新年文字 -->
+  <text x="500" y="400" font-family="Arial" font-size="80" fill="#FFD700" text-anchor="middle" font-weight="bold">新年快乐!</text>
+  
+  <!-- 装饰性圆形 -->
+  <circle cx="200" cy="700" r="80" fill="#4ECDC4"/>
+  <circle cx="800" cy="700" r="80" fill="#4ECDC4"/>
+  <circle cx="200" cy="900" r="60" fill="#4ECDC4"/>
+  <circle cx="800" cy="900" r="60" fill="#4ECDC4"/>
+  
+  <!-- 底部装饰 -->
+  <rect x="0" y="1100" width="1000" height="200" fill="#292F36"/>
+  <circle cx="200" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="300" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="400" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="500" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="600" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="700" cy="1150" r="30" fill="#FFD700"/>
+  <circle cx="800" cy="1150" r="30" fill="#FFD700"/>
+</svg>

@@ -16,7 +16,7 @@
     // 测试文件映射表 - 初始包含已知测试文件
     // 系统会自动扫描并更新此映射表
     let TEST_FILES_MAP = {
-        '闯关学习类': ['iq60.js', 'safety60.js', 'literature100.js', 'firstaid50.js', 'folklore50.js'],
+        '闯关学习类': [ 'safety60.js', 'literature100.js', 'firstaid50.js', 'folklore50.js'],
         '心理测评类': ['eq30.js', 'mbti_short.js'],
         '职业与学习类': [],
         '爱情与人际关系类': [],
