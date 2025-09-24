@@ -393,7 +393,7 @@ body {
 }
 
 .read-answer-btn.reading:hover {
-    background-color: #ff7875;
+    background-color: #fff;
 }
 
 .answer-content {
@@ -411,7 +411,10 @@ body {
 .answer-content.expanded {
     display: block;
 }
-
+.answer-content p{
+    line-height: 46px;
+    font-size: 18px;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;

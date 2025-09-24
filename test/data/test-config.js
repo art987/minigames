@@ -87,13 +87,6 @@ window.TestConfig = {
         ],
         '闯关学习类': [
             {
-                id: 'iq60',
-                title: '60题标准智商测试',
-                description: '通过60道标准化题目全面评估逻辑推理、数字计算、空间想象等多维度能力。',
-                questionCount: 60,
-                estimateMinutes: 10
-            },
-            {
                 id: 'safety60',
                 title: '日常安全常识测验',
                 description: '这是一个测试您日常安全知识的测验，包含60个题目，涵盖生活中各种安全场景的应对方法。通过这个测验，您可以了解自己的安全意识水平，提高安全防范能力。',
