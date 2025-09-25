@@ -295,8 +295,15 @@
 
 /* 调整原来的 theme-btn 位置 */
 .theme-btn {
-    /* left: 123px; */
-    /* 其他样式保持不变 */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 123px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #252525;
 }
 
 /* 添加计数器样式 */

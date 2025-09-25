@@ -21,6 +21,69 @@ const articles = [
         date: '2023-11-20',
         views: 18562,
         likes: 1452,
+        guide: {
+            title: '贫穷与拖延的思维导读',
+            nodes: [
+                {
+                    id: 'node1',
+                    title: '贫穷与拖延的关系',
+                    type: 'main',
+                    content: '<p>贫穷的本质是拖延。很多人有能力改变，但总在关键时拖一拖，最终机会全没了。</p><p style="font-weight: bold; color: #cb0000;">记住：拖延不是懒，是一种需要打破的行为模式。</p>',
+                    children: [
+                        {
+                            id: 'node1-1',
+                            title: '拖延的表现：为什么控制不住想刷手机？',
+                            type: 'sub',
+                            content: '<p>因为长期焦虑（愁钱、愁未来）会让大脑像卡了的手机，根本没法思考长远。</p><p>刷视频、打游戏这种"一秒就爽"的事，成了唯一的心理安慰——<span style="font-weight: bold;">就像麻药能暂时止痛，却解决不了病根。</span></p>'
+                        },
+                        {
+                            id: 'node1-2',
+                            title: '拖延的生理机制：大脑在发生什么？',
+                            type: 'sub',
+                            content: '<p>是两个系统在"打架"：</p><p>• 🐒动物脑（原始系统）：就想"现在爽就行！"</p><p>• 👨💼人类脑（理性系统）：负责长远规划，但特别耗精力</p><p style="color: #cb0000;">你越焦虑，人类脑就越虚弱，动物脑就越容易赢，拖着你继续刷手机。</p>'
+                        }
+                    ]
+                },
+                {
+                    id: 'node2',
+                    title: '反拖延实用方法',
+                    type: 'main',
+                    content: '<p>四步让你立刻行动：</p>',
+                    children: [
+                        {
+                            id: 'node2-1',
+                            title: '目标微型化',
+                            type: 'sub',
+                            content: '<p>🎯 把"做自媒体"改成"写100字"，小到不可能失败</p>'
+                        },
+                        {
+                            id: 'node2-2',
+                            title: '物理隔绝干扰',
+                            type: 'sub',
+                            content: '<p>🚫 手机调飞行模式放客厅，电脑只开当前任务页面</p>'
+                        },
+                        {
+                            id: 'node2-3',
+                            title: '每天充电',
+                            type: 'sub',
+                            content: '<p>🔋 学个小技能（比如10个Excel函数），给理性脑补充能量</p>'
+                        },
+                        {
+                            id: 'node2-4',
+                            title: '保证睡眠',
+                            type: 'sub',
+                            content: '<p>😴 睡够7小时：睡眠是意志力的电池，缺觉肯定拖延</p>'
+                        }
+                    ]
+                },
+                {
+                    id: 'node3',
+                    title: '行动的核心动力',
+                    type: 'main',
+                    content: '<p style="font-weight: bold; color: #cb0000;">你拖掉的不是时间，是改变命运的机会。</p><p style="font-weight: bold; color: #cb0000;">现在，放下手机，去做那件5分钟就能开始的小事。</p><p style="font-weight: bold; color: #cb0000;">这场战争，是你和自己的较量。</p>'
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -57,6 +120,35 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 23781,
         likes: 1876,
+        guide: {
+            title: '沟通秘诀思维导图',
+            nodes: [
+                {
+                    title: '核心原则',
+                    nodes: [
+                        { title: '不自证：不解释、不辩护、不证明' },
+                        { title: '只反击：针对对方逻辑漏洞' },
+                        { title: '保持冷静：情绪稳定是关键' }
+                    ]
+                },
+                {
+                    title: '常见陷阱',
+                    nodes: [
+                        { title: '自证陷阱：越解释越被动' },
+                        { title: '情绪陷阱：被激怒失去理智' },
+                        { title: '道德绑架：被对方带节奏' }
+                    ]
+                },
+                {
+                    title: '实用技巧',
+                    nodes: [
+                        { title: '提问法：把问题抛回给对方' },
+                        { title: '聚焦法：专注于核心矛盾' },
+                        { title: '退出法：及时止损不纠缠' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -93,6 +185,35 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 12456,
         likes: 987,
+        guide: {
+            title: '突破舒适区思维导图',
+            nodes: [
+                {
+                    title: '舒适区的本质',
+                    nodes: [
+                        { title: '心理安全感的惯性' },
+                        { title: '恐惧未知的本能反应' },
+                        { title: '自我设限的思维模式' }
+                    ]
+                },
+                {
+                    title: '突破方法',
+                    nodes: [
+                        { title: '微习惯法：每天进步一点点' },
+                        { title: '环境改变法：创造新的外部刺激' },
+                        { title: '目标分解法：把大目标变小' }
+                    ]
+                },
+                {
+                    title: '持续成长',
+                    nodes: [
+                        { title: '建立反馈机制' },
+                        { title: '找到成长伙伴' },
+                        { title: '庆祝每一次进步' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -124,6 +245,37 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 15678,
         likes: 1234,
+        guide: {
+            title: '科学睡眠思维导图',
+            nodes: [
+                {
+                    title: '睡眠原理',
+                    nodes: [
+                        { title: '睡眠周期的组成' },
+                        { title: '深度睡眠的重要性' },
+                        { title: 'REM睡眠与记忆巩固' }
+                    ]
+                },
+                {
+                    title: '睡眠障碍原因',
+                    nodes: [
+                        { title: '蓝光暴露过多' },
+                        { title: '睡前饮食不当' },
+                        { title: '压力和焦虑' },
+                        { title: '睡眠环境不佳' }
+                    ]
+                },
+                {
+                    title: '改善方法',
+                    nodes: [
+                        { title: '建立规律作息' },
+                        { title: '优化睡眠环境' },
+                        { title: '睡前放松仪式' },
+                        { title: '饮食和运动调整' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -165,6 +317,37 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 27890,
         likes: 2143,
+        guide: {
+            title: '财富思维思维导图',
+            nodes: [
+                {
+                    title: '财富误区',
+                    nodes: [
+                        { title: '拼命加班=赚更多钱' },
+                        { title: '高收入=财务自由' },
+                        { title: '欲望越多越幸福' }
+                    ]
+                },
+                {
+                    title: '财富本质',
+                    nodes: [
+                        { title: '控制欲望比增加收入更重要' },
+                        { title: '被动收入是关键' },
+                        { title: '时间比金钱更宝贵' },
+                        { title: '财富是认知的变现' }
+                    ]
+                },
+                {
+                    title: '财富策略',
+                    nodes: [
+                        { title: '消费降级与价值升级' },
+                        { title: '投资自己的核心能力' },
+                        { title: '建立被动收入管道' },
+                        { title: '延迟满足的艺术' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -201,6 +384,37 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 9532,
         likes: 765,
+        guide: {
+            title: '闭环思维思维导图',
+            nodes: [
+                {
+                    title: '闭环思维的定义',
+                    nodes: [
+                        { title: '完整的问题解决流程' },
+                        { title: '有始有终的执行习惯' },
+                        { title: '持续优化的反馈机制' }
+                    ]
+                },
+                {
+                    title: '闭环的四个步骤',
+                    nodes: [
+                        { title: '明确问题：界定核心矛盾' },
+                        { title: '制定方案：多角度思考' },
+                        { title: '执行落地：专注行动' },
+                        { title: '复盘总结：提炼经验' }
+                    ]
+                },
+                {
+                    title: '常见阻碍',
+                    nodes: [
+                        { title: '完美主义导致拖延' },
+                        { title: '缺乏反馈机制' },
+                        { title: '执行力度不够' },
+                        { title: '思维局限' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -242,6 +456,37 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 8956,
         likes: 678,
+        guide: {
+            title: '情绪管理思维导图',
+            nodes: [
+                {
+                    title: '情绪的本质',
+                    nodes: [
+                        { title: '情绪是大脑的保护机制' },
+                        { title: '情绪本身没有好坏' },
+                        { title: '情绪=感受+生理反应' }
+                    ]
+                },
+                {
+                    title: '情绪稳定的方法',
+                    nodes: [
+                        { title: '情绪识别：快速命名情绪' },
+                        { title: '情绪接纳：不压抑不放大' },
+                        { title: '情绪调节：生理调节法' },
+                        { title: '情绪转化：认知重构' }
+                    ]
+                },
+                {
+                    title: '长期练习',
+                    nodes: [
+                        { title: '记录情绪日记' },
+                        { title: '建立情绪缓冲区' },
+                        { title: '降低对外界的期待' },
+                        { title: '培养正念习惯' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -283,6 +528,37 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 10245,
         likes: 876,
+        guide: {
+            title: '自我认同思维导图',
+            nodes: [
+                {
+                    title: '自我认同的定义',
+                    nodes: [
+                        { title: '了解自己是谁' },
+                        { title: '明确自己的价值观' },
+                        { title: '接纳自己的独特性' }
+                    ]
+                },
+                {
+                    title: '自我认同不稳定的原因',
+                    nodes: [
+                        { title: '比较式教育的影响' },
+                        { title: '过度迎合他人' },
+                        { title: '缺乏自我探索' }
+                    ]
+                },
+                {
+                    title: '建立自我认同的方法',
+                    nodes: [
+                        { title: '写自我清单' },
+                        { title: '记录情绪瞬间' },
+                        { title: '做假设测试' },
+                        { title: '定义核心价值观' },
+                        { title: '定期自我校准' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',
@@ -324,6 +600,36 @@ const articles = [
         date: new Date().toISOString().split('T')[0],
         views: 0,
         likes: 0,
+        guide: {
+            title: '自我认知思维导图',
+            nodes: [
+                {
+                    title: '自我认知的重要性',
+                    nodes: [
+                        { title: '无法改变不了解的东西' },
+                        { title: '找到适合自己的发展方向' },
+                        { title: '提升自我接纳度' }
+                    ]
+                },
+                {
+                    title: '发现优点的方法',
+                    nodes: [
+                        { title: '写成就清单' },
+                        { title: '询问信任的人' },
+                        { title: '观察能量时刻' }
+                    ]
+                },
+                {
+                    title: '面对盲点的策略',
+                    nodes: [
+                        { title: '接纳不完美' },
+                        { title: '区分可改变与不可改变' },
+                        { title: '制定小目标逐步改善' },
+                        { title: '寻找镜子朋友' }
+                    ]
+                }
+            ]
+        },
         questions: [
             {
                 id: 'q1',

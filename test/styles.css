@@ -351,7 +351,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   .container{padding: 1px 12px;}
   .test-form{padding:16px 12px}
   .actions{flex-direction:column}
-  button{}
+  button{margin-bottom:8px}
   .question-nav{flex-direction:row}
   .question-nav button{width:48%}
 }

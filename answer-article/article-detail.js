@@ -7,6 +7,21 @@ const articleCategory = document.getElementById('article-category');
 const articleViews = document.getElementById('article-views');
 const articleLikes = document.getElementById('article-likes');
 const articleQuestions = document.getElementById('article-questions');
+const articleDetailContainer = document.querySelector('.article-detail-container');
+
+// 创建思维导读容器
+let articleGuideContainer = null;
+function createGuideContainer() {
+    if (!articleGuideContainer) {
+        articleGuideContainer = document.createElement('div');
+        articleGuideContainer.id = 'article-guide';
+        articleGuideContainer.className = 'article-guide';
+        
+        // 插入到问题列表之前
+        articleQuestions.parentNode.insertBefore(articleGuideContainer, articleQuestions);
+    }
+    return articleGuideContainer;
+}
 
 // 初始化函数
 function init() {
@@ -51,8 +66,129 @@ function displayArticleInfo(article) {
     articleViews.textContent = `👁️ ${article.views}`;
     articleLikes.textContent = `❤️ ${article.likes}`;
     
+    // 如果有思维导读数据，渲染思维导读
+    if (article.guide && article.guide.nodes && article.guide.nodes.length > 0) {
+        renderGuide(article.guide);
+    }
+    
     // 渲染问题列表
     renderQuestions(article.questions);
+}
+
+// 渲染思维导读
+function renderGuide(guide) {
+    const container = createGuideContainer();
+    container.innerHTML = '';
+    
+    // 创建思维导读标题
+    const guideTitle = document.createElement('h3');
+    guideTitle.className = 'guide-title';
+    guideTitle.textContent = guide.title || '思维导读';
+    container.appendChild(guideTitle);
+    
+    // 创建思维导读内容
+    const guideContent = document.createElement('div');
+    guideContent.className = 'guide-content';
+    
+    // 渲染每个节点
+    guide.nodes.forEach(node => {
+        const nodeElement = renderGuideNode(node);
+        guideContent.appendChild(nodeElement);
+    });
+    
+    container.appendChild(guideContent);
+}
+
+// 渲染思维导读节点
+function renderGuideNode(node) {
+    const nodeElement = document.createElement('div');
+    nodeElement.className = `guide-node guide-node-${node.type}`;
+    nodeElement.setAttribute('data-node-id', node.id);
+    
+    // 创建节点标题
+    const nodeTitle = document.createElement('div');
+    nodeTitle.className = 'guide-node-title';
+    
+    // 如果是主要节点，添加展开/折叠按钮
+    if (node.children && node.children.length > 0) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'guide-toggle-btn';
+        toggleBtn.textContent = '▼';
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const contentElement = nodeElement.querySelector('.guide-node-content');
+            const childrenElement = nodeElement.querySelector('.guide-node-children');
+            const isExpanded = contentElement.classList.contains('expanded');
+            
+            if (isExpanded) {
+                toggleBtn.textContent = '▶';
+                contentElement.classList.remove('expanded');
+                if (childrenElement) {
+                    childrenElement.classList.remove('expanded');
+                }
+            } else {
+                toggleBtn.textContent = '▼';
+                contentElement.classList.add('expanded');
+                if (childrenElement) {
+                    childrenElement.classList.add('expanded');
+                }
+            }
+        });
+        nodeTitle.appendChild(toggleBtn);
+    }
+    
+    // 添加标题文本
+    const titleText = document.createElement('span');
+    titleText.className = 'guide-node-title-text';
+    titleText.textContent = node.title;
+    nodeTitle.appendChild(titleText);
+    
+    nodeElement.appendChild(nodeTitle);
+    
+    // 创建节点内容
+    const nodeContent = document.createElement('div');
+    nodeContent.className = 'guide-node-content';
+    nodeContent.innerHTML = node.content;
+    nodeElement.appendChild(nodeContent);
+    
+    // 如果有子节点，渲染子节点
+    if (node.children && node.children.length > 0) {
+        const childrenElement = document.createElement('div');
+        childrenElement.className = 'guide-node-children';
+        
+        node.children.forEach(childNode => {
+            const childElement = renderGuideNode(childNode);
+            childrenElement.appendChild(childElement);
+        });
+        
+        nodeElement.appendChild(childrenElement);
+    }
+    
+    // 添加点击标题展开/折叠内容的功能
+    nodeTitle.addEventListener('click', () => {
+        const contentElement = nodeElement.querySelector('.guide-node-content');
+        const childrenElement = nodeElement.querySelector('.guide-node-children');
+        const isExpanded = contentElement.classList.contains('expanded');
+        const toggleBtn = nodeElement.querySelector('.guide-toggle-btn');
+        
+        if (toggleBtn) {
+            toggleBtn.textContent = isExpanded ? '▶' : '▼';
+        }
+        
+        if (isExpanded) {
+            contentElement.classList.remove('expanded');
+            if (childrenElement) {
+                childrenElement.classList.remove('expanded');
+            }
+        } else {
+            contentElement.classList.add('expanded');
+            if (childrenElement) {
+                childrenElement.classList.add('expanded');
+            }
+        }
+    });
+    
+    return nodeElement;
 }
 
 // 渲染问题列表
