@@ -102,15 +102,18 @@ function renderGuide(guide) {
 // 渲染思维导读节点
 function renderGuideNode(node) {
     const nodeElement = document.createElement('div');
-    nodeElement.className = `guide-node guide-node-${node.type}`;
-    nodeElement.setAttribute('data-node-id', node.id);
+    // 适配数据结构，使用默认值避免undefined
+    nodeElement.className = `guide-node guide-node-${node.type || 'default'}`;
+    nodeElement.setAttribute('data-node-id', node.id || '');
     
     // 创建节点标题
     const nodeTitle = document.createElement('div');
     nodeTitle.className = 'guide-node-title';
     
     // 如果是主要节点，添加展开/折叠按钮
-    if (node.children && node.children.length > 0) {
+    // 适配数据结构，同时检查children和nodes
+    const hasChildren = (node.children && node.children.length > 0) || (node.nodes && node.nodes.length > 0);
+    if (hasChildren) {
         const toggleBtn = document.createElement('button');
         toggleBtn.className = 'guide-toggle-btn';
         toggleBtn.textContent = '▼';
@@ -140,7 +143,7 @@ function renderGuideNode(node) {
     // 添加标题文本
     const titleText = document.createElement('span');
     titleText.className = 'guide-node-title-text';
-    titleText.textContent = node.title;
+    titleText.textContent = node.title || '';
     nodeTitle.appendChild(titleText);
     
     nodeElement.appendChild(nodeTitle);
@@ -148,15 +151,18 @@ function renderGuideNode(node) {
     // 创建节点内容
     const nodeContent = document.createElement('div');
     nodeContent.className = 'guide-node-content';
-    nodeContent.innerHTML = node.content;
+    // 适配数据结构，使用空字符串代替undefined
+    nodeContent.innerHTML = node.content || '';
     nodeElement.appendChild(nodeContent);
     
     // 如果有子节点，渲染子节点
-    if (node.children && node.children.length > 0) {
+    // 适配数据结构，优先使用nodes（我们实际的数据结构），其次使用children
+    const childNodes = node.nodes || node.children || [];
+    if (childNodes.length > 0) {
         const childrenElement = document.createElement('div');
         childrenElement.className = 'guide-node-children';
         
-        node.children.forEach(childNode => {
+        childNodes.forEach(childNode => {
             const childElement = renderGuideNode(childNode);
             childrenElement.appendChild(childElement);
         });
