@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据测试页面</title>
+    <script src="gallery.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .loading { text-align: center; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>数据测试页面</h1>
+        
+        <div class="loading" id="loading-indicator">
+            正在加载数据...
+        </div>
+        
+        <div id="test-results" style="display: none;">
+            <div id="data-count"></div>
+            <div id="first-item"></div>
+            <div id="last-item"></div>
+            <div id="errors" class="test-result error" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 尝试直接访问 famousPaintings 数组
+        try {
+            if (typeof famousPaintings !== 'undefined') {
+                // 如果数组已定义，显示数据信息
+                document.getElementById('loading-indicator').style.display = 'none';
+                document.getElementById('test-results').style.display = 'block';
+                
+                document.getElementById('data-count').innerHTML = `
+                    <div class="test-result success">
+                        <strong>✓ 数据加载成功</strong><br>
+                        famousPaintings 数组长度: ${famousPaintings.length}
+                    </div>
+                `;
+                
+                if (famousPaintings.length > 0) {
+                    const firstItem = famousPaintings[0];
+                    document.getElementById('first-item').innerHTML = `
+                        <div class="test-result">
+                            <strong>第一个元素:</strong><br>
+                            ID: ${firstItem.id}<br>
+                            标题: ${firstItem.title}<br>
+                            时期: ${firstItem.period}<br>
+                            图片URL: ${firstItem.imageUrl}
+                        </div>
+                    `;
+                    
+                    const lastItem = famousPaintings[famousPaintings.length - 1];
+                    document.getElementById('last-item').innerHTML = `
+                        <div class="test-result">
+                            <strong>最后一个元素:</strong><br>
+                            ID: ${lastItem.id}<br>
+                            标题: ${lastItem.title}<br>
+                            时期: ${lastItem.period}<br>
+                            图片URL: ${lastItem.imageUrl}
+                        </div>
+                    `;
+                }
+            } else {
+                throw new Error('famousPaintings 数组未定义');
+            }
+        } catch (error) {
+            document.getElementById('loading-indicator').style.display = 'none';
+            document.getElementById('test-results').style.display = 'block';
+            document.getElementById('errors').innerHTML = `
+                <strong>✗ 数据加载失败</strong><br>
+                错误: ${error.message}
+            `;
+            document.getElementById('errors').style.display = 'block';
+            
+            // 尝试动态加载 gallery.js 并检查数据
+            try {
+                const script = document.createElement('script');
+                script.src = 'gallery.js';
+                script.onload = function() {
+                    if (typeof famousPaintings !== 'undefined') {
+                        document.getElementById('data-count').innerHTML = `
+                            <div class="test-result success">
+                                <strong>✓ 动态加载后数据可用</strong><br>
+                                famousPaintings 数组长度: ${famousPaintings.length}
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('errors').innerHTML += `<br><br>动态加载后依然无法访问 famousPaintings 数组`;
+                    }
+                };
+                script.onerror = function() {
+                    document.getElementById('errors').innerHTML += `<br><br>无法加载 gallery.js 文件`;
+                };
+                document.body.appendChild(script);
+            } catch (loadError) {
+                document.getElementById('errors').innerHTML += `<br><br>动态加载脚本失败: ${loadError.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

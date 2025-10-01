@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>famousPaintings 数组测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .result { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        pre { background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        button { padding: 8px 16px; margin-top: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>famousPaintings 数组测试</h1>
+        
+        <div id="initial-check" class="result">
+            <strong>初始状态检查:</strong> 等待页面加载...
+        </div>
+        
+        <div id="data-info" class="result" style="display: none;"></div>
+        
+        <div id="sample-data" class="result" style="display: none;"></div>
+        
+        <div id="error-info" class="result error" style="display: none;"></div>
+        
+        <button id="reload-btn">重新加载并测试</button>
+    </div>
+    
+    <!-- 首先尝试同步加载 gallery.js -->
+    <script src="gallery.js"></script>
+    
+    <script>
+        // 页面加载完成后执行测试
+        document.addEventListener('DOMContentLoaded', function() {
+            runTest();
+            
+            // 重新加载按钮事件
+            document.getElementById('reload-btn').addEventListener('click', function() {
+                // 重置页面状态
+                document.getElementById('initial-check').textContent = "重新加载中...";
+                document.getElementById('data-info').style.display = 'none';
+                document.getElementById('sample-data').style.display = 'none';
+                document.getElementById('error-info').style.display = 'none';
+                
+                // 重新运行测试
+                setTimeout(runTest, 500);
+            });
+        });
+        
+        function runTest() {
+            try {
+                // 检查 gallery.js 是否已加载
+                const scriptLoaded = document.querySelector('script[src="gallery.js"]') !== null;
+                document.getElementById('initial-check').innerHTML = `
+                    <strong>初始状态检查:</strong><br>
+                    - script 标签存在: ${scriptLoaded}<br>
+                    - famousPaintings 变量类型: ${typeof famousPaintings}<br>
+                    - 时间戳: ${new Date().toLocaleTimeString()}
+                `;
+                
+                // 检查 famousPaintings 是否可用
+                if (typeof famousPaintings !== 'undefined') {
+                    
+                    // 显示数据基本信息
+                    const dataInfoElement = document.getElementById('data-info');
+                    dataInfoElement.className = 'result success';
+                    dataInfoElement.innerHTML = `
+                        <strong>✓ 数据访问成功</strong><br>
+                        - 数据类型: ${Array.isArray(famousPaintings) ? '数组' : typeof famousPaintings}<br>
+                        - 数组长度: ${famousPaintings.length}<br>
+                        - 第一个元素: ${famousPaintings.length > 0 ? '存在' : '不存在'}
+                    `;
+                    dataInfoElement.style.display = 'block';
+                    
+                    // 如果数组有元素，显示一些样本数据
+                    if (famousPaintings.length > 0) {
+                        const sampleDataElement = document.getElementById('sample-data');
+                        const firstItem = famousPaintings[0];
+                        
+                        // 检查第一个元素的属性
+                        const hasTitle = 'title' in firstItem;
+                        const hasImageUrl = 'imageUrl' in firstItem;
+                        
+                        sampleDataElement.innerHTML = `
+                            <strong>样本数据 (第一个元素):</strong><br>
+                            - ID: ${firstItem.id || '无'}<br>
+                            - 标题: ${hasTitle ? firstItem.title : '属性不存在'}<br>
+                            - 时期: ${firstItem.period || '无'}<br>
+                            - 图片URL: ${hasImageUrl ? firstItem.imageUrl : '属性不存在'}<br>
+                            <br>
+                            <strong>元素结构:</strong><br>
+                            <pre>${JSON.stringify(Object.keys(firstItem), null, 2)}</pre>
+                        `;
+                        sampleDataElement.style.display = 'block';
+                    }
+                    
+                } else {
+                    // famousPaintings 未定义，显示错误信息
+                    throw new Error('famousPaintings 数组未定义');
+                }
+                
+            } catch (error) {
+                // 显示错误信息
+                const errorElement = document.getElementById('error-info');
+                errorElement.innerHTML = `
+                    <strong>✗ 错误:</strong><br>
+                    ${error.message}<br>
+                    <br>
+                    <strong>尝试动态加载 gallery.js:</strong>
+                `;
+                errorElement.style.display = 'block';
+                
+                // 尝试动态加载 gallery.js
+                try {
+                    const script = document.createElement('script');
+                    script.src = 'gallery.js';
+                    
+                    script.onload = function() {
+                        errorElement.innerHTML += `<br>- 脚本已加载<br>- 加载后 famousPaintings 类型: ${typeof famousPaintings}`;
+                        
+                        if (typeof famousPaintings !== 'undefined') {
+                            errorElement.innerHTML += `<br><br><strong>✓ 动态加载后数据可用!</strong><br>数组长度: ${famousPaintings.length}`;
+                        }
+                    };
+                    
+                    script.onerror = function() {
+                        errorElement.innerHTML += '<br>- 无法加载 gallery.js 文件';
+                    };
+                    
+                    document.body.appendChild(script);
+                    
+                } catch (loadError) {
+                    errorElement.innerHTML += `<br>- 动态加载脚本失败: ${loadError.message}`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

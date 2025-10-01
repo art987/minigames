@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单测试 - famousPaintings</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .result { padding: 15px; margin: 10px 0; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        pre { background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>famousPaintings 数组简单测试</h1>
+        
+        <div id="loading">
+            正在加载 gallery.js 文件...
+        </div>
+        
+        <div id="test-results" style="display: none;">
+            <div id="variable-check" class="result"></div>
+            <div id="array-info" class="result" style="display: none;"></div>
+            <div id="console-log" style="margin-top: 20px;">
+                <h3>控制台输出:</h3>
+                <pre id="log-content"></pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 引入 gallery.js 文件 -->
+    <script src="gallery.js"></script>
+    
+    <script>
+        // 重写 console.log 以便在页面上显示输出
+        const originalConsoleLog = console.log;
+        const logElement = document.getElementById('log-content');
+        
+        console.log = function(message) {
+            originalConsoleLog.apply(console, arguments);
+            if (typeof message === 'string') {
+                logElement.textContent += message + '\n';
+            } else {
+                logElement.textContent += JSON.stringify(message) + '\n';
+            }
+        };
+        
+        // 页面加载完成后执行测试
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(runSimpleTest, 500); // 给一点时间让 gallery.js 加载
+        });
+        
+        function runSimpleTest() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('test-results').style.display = 'block';
+            
+            const variableCheckElement = document.getElementById('variable-check');
+            const arrayInfoElement = document.getElementById('array-info');
+            
+            try {
+                // 检查 famousPaintings 是否存在
+                if (typeof famousPaintings !== 'undefined') {
+                    variableCheckElement.className = 'result success';
+                    variableCheckElement.innerHTML = '<strong>✓ 成功:</strong> famousPaintings 变量已定义';
+                    
+                    // 检查是否为数组
+                    if (Array.isArray(famousPaintings)) {
+                        variableCheckElement.innerHTML += '<br><strong>✓ 成功:</strong> 是一个数组类型';
+                        
+                        // 显示数组信息
+                        arrayInfoElement.className = 'result success';
+                        arrayInfoElement.innerHTML = `
+                            <strong>数组信息:</strong><br>
+                            - 长度: ${famousPaintings.length}<br>
+                            - 第一个元素: ${famousPaintings.length > 0 ? JSON.stringify(famousPaintings[0], null, 2) : '空数组'}
+                        `;
+                        arrayInfoElement.style.display = 'block';
+                        
+                        // 输出到控制台
+                        console.log('famousPaintings 数组长度:', famousPaintings.length);
+                        if (famousPaintings.length > 0) {
+                            console.log('第一个元素:', famousPaintings[0]);
+                        }
+                    } else {
+                        variableCheckElement.className = 'result error';
+                        variableCheckElement.innerHTML = '<strong>✗ 错误:</strong> famousPaintings 不是一个数组';
+                        console.log('famousPaintings 类型:', typeof famousPaintings);
+                    }
+                } else {
+                    variableCheckElement.className = 'result error';
+                    variableCheckElement.innerHTML = '<strong>✗ 错误:</strong> famousPaintings 变量未定义';
+                    console.log('famousPaintings 未定义');
+                    
+                    // 尝试动态加载 gallery.js
+                    console.log('尝试动态加载 gallery.js...');
+                    const script = document.createElement('script');
+                    script.src = 'gallery.js';
+                    script.onload = function() {
+                        console.log('动态加载完成后 famousPaintings 类型:', typeof famousPaintings);
+                        if (typeof famousPaintings !== 'undefined') {
+                            variableCheckElement.innerHTML += '<br><strong>✓ 动态加载后成功:</strong> famousPaintings 现在可用';
+                            console.log('动态加载后数组长度:', famousPaintings.length);
+                        } else {
+                            variableCheckElement.innerHTML += '<br><strong>✗ 动态加载后仍然失败:</strong> famousPaintings 仍未定义';
+                        }
+                    };
+                    script.onerror = function() {
+                        console.log('无法加载 gallery.js');
+                    };
+                    document.body.appendChild(script);
+                }
+            } catch (error) {
+                variableCheckElement.className = 'result error';
+                variableCheckElement.innerHTML = `<strong>✗ 发生异常:</strong> ${error.message}`;
+                console.log('测试过程中发生错误:', error.message);
+            }
+        }
+    </script>
+</body>
+</html>

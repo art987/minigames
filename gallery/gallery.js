@@ -1,3 +1,5 @@
+// 中国美术史100幅名画数据
+// 定义名画数组
 const famousPaintings = [
     {
         id: 1,
@@ -901,6 +903,11 @@ const famousPaintings = [
     }
 ];
 
+// 将数组添加到window对象，确保可以被外部脚本访问
+if (typeof window !== 'undefined') {
+    window.famousPaintings = famousPaintings;
+}
+
 // 生成随机颜色（备用）
 function getRandomColor() {
     const letters = 'BCDEF'; // 避免使用太暗的颜色
@@ -911,99 +918,118 @@ function getRandomColor() {
     return color;
 }
 
+// 3D 幻灯片配置
+const sliderConfig = {
+    currentIndex: 0,
+    totalPaintings: 0,
+    cardWidth: 300,
+    cardHeight: 450,
+    spacing: 40,
+    rotationRange: 40,
+    scaleRange: 0.2
+};
+
 // 主函数 - 初始化画廊
 function initGallery() {
-    // 隐藏加载状态
+    console.log('Initializing gallery with', famousPaintings.length, 'paintings');
+    
+    // 初始化画廊
     setTimeout(() => {
-        document.getElementById('loading-indicator').style.display = 'none';
-        renderFilters();
-        renderGallery(famousPaintings);
+        // 设置总画作数量
+        sliderConfig.totalPaintings = famousPaintings.length;
+        
+        // 创建 3D 幻灯片容器
+        create3DSlider();
+        
+        // 初始化幻灯片
+        updateSlider();
+        
+        // 添加触摸滑动支持
+        addTouchSupport();
+        
+        // 隐藏加载状态
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
     }, 800); // 模拟加载延迟
 }
 
-// 动态生成筛选按钮
-function renderFilters() {
-    const filtersContainer = document.getElementById('filters-container');
+// 创建 3D 幻灯片容器
+function create3DSlider() {
+    console.log('Creating 3D slider container');
     
-    // 获取所有朝代并去重
-    const periods = [...new Set(famousPaintings.map(p => p.period))];
-    periods.sort(); // 按朝代排序
-    
-    // 创建"全部"按钮
-    const allBtn = document.createElement('button');
-    allBtn.className = 'filter-btn active';
-    allBtn.textContent = '全部';
-    allBtn.dataset.type = 'all';
-    allBtn.addEventListener('click', () => {
-        applyFilter('all', null);
-    });
-    filtersContainer.appendChild(allBtn);
-    
-    // 创建朝代筛选按钮
-    periods.forEach(period => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.textContent = period;
-        btn.dataset.type = 'period';
-        btn.dataset.value = period;
-        btn.addEventListener('click', () => {
-            applyFilter('period', period);
-        });
-        filtersContainer.appendChild(btn);
-    });
-}
-
-// 应用筛选条件
-function applyFilter(type, value) {
-    // 重置所有筛选按钮样式
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // 高亮当前选中的筛选按钮
-    if (type === 'all') {
-        document.querySelector('.filter-btn[data-type="all"]').classList.add('active');
-    } else {
-        document.querySelector(`.filter-btn[data-type="${type}"][data-value="${value}"]`).classList.add('active');
-    }
-    
-    // 根据筛选条件过滤数据
-    let filteredPaintings = famousPaintings;
-    if (type === 'period' && value) {
-        filteredPaintings = famousPaintings.filter(p => p.period === value);
-    }
-    
-    // 重新渲染画廊
-    renderGallery(filteredPaintings);
-}
-
-// 动态生成名画卡片
-function renderGallery(paintings) {
-    const galleryContainer = document.getElementById('gallery-container');
-    galleryContainer.innerHTML = ''; // 清空容器
-    
-    if (paintings.length === 0) {
-        // 如果没有匹配的作品，显示提示信息
-        const emptyState = document.createElement('div');
-        emptyState.className = 'empty-state';
-        emptyState.style.textAlign = 'center';
-        emptyState.style.padding = '50px 20px';
-        emptyState.style.gridColumn = '1 / -1';
-        emptyState.innerHTML = `
-            <div style="font-size: 48px; margin-bottom: 15px;">📚</div>
-            <p style="font-size: 18px; color: #666;">暂无匹配的名画作品</p>
-        `;
-        galleryContainer.appendChild(emptyState);
+    // 获取容器 - 使用更具体的选择器来确保获取正确的容器
+    const container = document.querySelector('.container:not(header .container)');
+    if (!container) {
+        console.error('Main container element not found');
         return;
     }
     
-    // 动态生成画作卡片
-    paintings.forEach(painting => {
-        const card = document.createElement('div');
-        card.className = 'art-card';
+    // 创建幻灯片容器
+    const sliderContainer = document.createElement('div');
+    sliderContainer.className = 'slider-container';
+    
+    // 创建滑块
+    const slider = document.createElement('div');
+    slider.className = 'slider';
+    slider.id = 'slider';
+    
+    // 创建导航按钮
+    const nav = document.createElement('div');
+    nav.className = 'slider-nav';
+    nav.innerHTML = `
+        <button id="prev-btn">&lt;</button>
+        <button id="next-btn">&gt;</button>
+    `;
+    
+    // 将滑块和导航添加到容器
+    sliderContainer.appendChild(slider);
+    sliderContainer.appendChild(nav);
+    
+    // 使用appendChild代替insertBefore，直接添加到容器末尾，避免节点关系问题
+    container.appendChild(sliderContainer);
+    
+    // 添加导航事件
+    document.getElementById('prev-btn').addEventListener('click', () => {
+        sliderConfig.currentIndex = (sliderConfig.currentIndex - 1 + sliderConfig.totalPaintings) % sliderConfig.totalPaintings;
+        updateSlider();
+        updateThumbnailNavigation();
+    });
+    
+    document.getElementById('next-btn').addEventListener('click', () => {
+        sliderConfig.currentIndex = (sliderConfig.currentIndex + 1) % sliderConfig.totalPaintings;
+        updateSlider();
+        updateThumbnailNavigation();
+    });
+    
+    // 创建缩略图导航
+    createThumbnailNavigation();
+}
+
+// 更新幻灯片
+function updateSlider() {
+    console.log('Updating slider with', famousPaintings.length, 'paintings');
+    
+    const slider = document.getElementById('slider');
+    if (!slider) {
+        console.error('Slider element not found');
+        return;
+    }
+    
+    slider.innerHTML = '';
+    
+    // 为每个画作创建 3D 卡片
+    famousPaintings.forEach((painting, index) => {
+        // 计算卡片位置和样式
+        const position = getCardPosition(index);
         
-        // 为每个卡片添加动画延迟，实现错落有致的出现效果
-        card.style.animationDelay = `${Math.random() * 0.5}s`;
+        // 创建卡片
+        const card = document.createElement('div');
+        card.className = 'art-card-3d';
+        card.style.transform = position.transform;
+        card.style.opacity = position.opacity;
+        card.style.zIndex = position.zIndex;
         
         // 卡片内容
         card.innerHTML = `
@@ -1015,18 +1041,156 @@ function renderGallery(paintings) {
                 <div class="art-meta">
                     ${painting.period}
                     ${painting.author ? ` · ${painting.author}` : ''}
-                    ${painting.type ? ` · ${painting.type}` : ''}
-                </div>
-                <p class="art-desc">${painting.description}</p>
-                <div class="art-footer">
-                    <span class="cover-text">${painting.coverText}</span>
-                    <button class="details-btn" onclick="showPaintingDetails(${painting.id})">查看详情</button>
                 </div>
             </div>
         `;
         
-        galleryContainer.appendChild(card);
+        // 添加点击事件
+        card.addEventListener('click', () => {
+            showPaintingDetails(painting.id);
+        });
+        
+        slider.appendChild(card);
     });
+}
+
+// 获取卡片位置和样式
+function getCardPosition(index) {
+    // 计算相对位置
+    let diff = (index - sliderConfig.currentIndex + sliderConfig.totalPaintings) % sliderConfig.totalPaintings;
+    
+    // 如果在另一侧更近，使用另一侧
+    if (diff > sliderConfig.totalPaintings / 2) {
+        diff = diff - sliderConfig.totalPaintings;
+    }
+    
+    // 限制在一定范围内，使效果更流畅
+    if (Math.abs(diff) > 4) {
+        return {
+            transform: `translate(-50%, -50%) translateX(${(diff > 0 ? 1 : -1) * 500}px) scale(0.5)`,
+            opacity: 0,
+            zIndex: 0
+        };
+    }
+    
+    // 计算位置、旋转和缩放
+    const translateX = diff * (sliderConfig.cardWidth + sliderConfig.spacing);
+    const rotateY = -diff * (sliderConfig.rotationRange / 4);
+    const scale = 1 - Math.abs(diff) * sliderConfig.scaleRange;
+    const opacity = 1 - Math.abs(diff) * 0.15;
+    const zIndex = sliderConfig.totalPaintings - Math.abs(diff);
+    
+    return {
+        transform: `translate(-50%, -50%) translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
+        opacity: opacity,
+        zIndex: zIndex
+    };
+}
+
+// 添加触摸滑动支持
+function addTouchSupport() {
+    const sliderContainer = document.querySelector('.slider-container');
+    const slider = document.getElementById('slider');
+    
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    let isDragging = false;
+    let initialTranslateX = 0;
+    let startDragTime = 0;
+    
+    // 防止在滑动时页面滚动
+    sliderContainer.style.touchAction = 'none';
+    
+    // 触摸开始
+    sliderContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        isDragging = true;
+        startDragTime = Date.now();
+        
+        // 记录初始位置，用于拖动时的实时反馈
+        const transform = window.getComputedStyle(slider).transform;
+        if (transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            initialTranslateX = matrix.e;
+        } else {
+            initialTranslateX = 0;
+        }
+        
+        // 停止任何正在进行的过渡动画
+        slider.style.transition = 'none';
+    });
+    
+    // 触摸移动（添加实时拖动效果）
+    sliderContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        
+        // 计算水平和垂直移动距离
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        
+        // 只有在水平移动距离明显大于垂直移动距离时才处理滑动（避免误触）
+        if (Math.abs(diffX) > Math.abs(diffY) * 2) {
+            e.preventDefault(); // 防止页面滚动
+            
+            // 应用拖动效果
+            slider.style.transform = `translateX(${initialTranslateX + diffX}px)`;
+        }
+    });
+    
+    // 触摸结束
+    sliderContainer.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        
+        touchEndX = e.changedTouches[0].screenX;
+        isDragging = false;
+        const dragDuration = Date.now() - startDragTime;
+        
+        // 恢复过渡动画
+        slider.style.transition = 'transform 0.3s ease-out';
+        
+        handleSwipe(touchEndX - touchStartX, dragDuration);
+    });
+    
+    // 触摸取消（意外情况，如来电）
+    sliderContainer.addEventListener('touchcancel', () => {
+        if (isDragging) {
+            isDragging = false;
+            slider.style.transition = 'transform 0.3s ease-out';
+            slider.style.transform = 'translateX(0)';
+        }
+    });
+    
+    // 处理滑动
+function handleSwipe(diffX, duration) {
+    const swipeThreshold = 50; // 最小滑动距离
+    const fastSwipeThreshold = 150; // 快速滑动的速度阈值（像素/毫秒）
+    const fastSwipeMinDistance = 30; // 快速滑动的最小距离
+    
+    const isFastSwipe = Math.abs(diffX) > fastSwipeMinDistance && 
+                      Math.abs(diffX) / duration > fastSwipeThreshold;
+    
+    // 重置滑块位置
+    slider.style.transform = 'translateX(0)';
+    
+    // 判断滑动方向并更新当前索引
+    if (diffX < -swipeThreshold || isFastSwipe && diffX < 0) {
+        // 向左滑动
+        sliderConfig.currentIndex = (sliderConfig.currentIndex + 1) % sliderConfig.totalPaintings;
+        updateSlider();
+        updateThumbnailNavigation();
+    } else if (diffX > swipeThreshold || isFastSwipe && diffX > 0) {
+        // 向右滑动
+        sliderConfig.currentIndex = (sliderConfig.currentIndex - 1 + sliderConfig.totalPaintings) % sliderConfig.totalPaintings;
+        updateSlider();
+        updateThumbnailNavigation();
+    }
+}
 }
 
 // 显示画作详情
@@ -1092,6 +1256,70 @@ function closeModal() {
     if (modal) {
         modal.style.display = 'none';
         document.removeEventListener('keydown', handleEscKey);
+    }
+}
+
+// 创建缩略图导航
+function createThumbnailNavigation() {
+    console.log('Creating thumbnail navigation');
+    
+    // 获取容器
+    const container = document.querySelector('.container:not(header .container)');
+    if (!container) {
+        console.error('Main container element not found');
+        return;
+    }
+    
+    // 创建缩略图导航容器
+    const thumbnailContainer = document.createElement('div');
+    thumbnailContainer.className = 'thumbnail-navigation';
+    thumbnailContainer.id = 'thumbnail-navigation';
+    
+    // 添加到容器
+    container.appendChild(thumbnailContainer);
+    
+    // 更新缩略图导航
+    updateThumbnailNavigation();
+}
+
+// 更新缩略图导航
+function updateThumbnailNavigation() {
+    const thumbnailContainer = document.getElementById('thumbnail-navigation');
+    if (!thumbnailContainer) {
+        console.error('Thumbnail navigation container not found');
+        return;
+    }
+    
+    // 清空现有内容
+    thumbnailContainer.innerHTML = '';
+    
+    // 为每个画作创建缩略图
+    famousPaintings.forEach((painting, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = `thumbnail ${index === sliderConfig.currentIndex ? 'active' : ''}`;
+        thumbnail.dataset.index = index;
+        
+        thumbnail.innerHTML = `
+            <img src="${painting.imageUrl}" alt="${painting.title}">
+        `;
+        
+        // 添加点击事件
+        thumbnail.addEventListener('click', () => {
+            // 设置当前索引
+            sliderConfig.currentIndex = index;
+            // 更新幻灯片
+            updateSlider();
+            // 更新缩略图导航状态
+            updateThumbnailNavigation();
+        });
+        
+        thumbnailContainer.appendChild(thumbnail);
+    });
+    
+    // 自动滚动到当前活动的缩略图
+    const activeThumbnail = thumbnailContainer.querySelector('.thumbnail.active');
+    if (activeThumbnail) {
+        activeThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 }
 

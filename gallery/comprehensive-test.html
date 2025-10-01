@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名画数组综合测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>名画数组(famousPaintings)综合测试页面</h1>
+    
+    <p>此页面用于全面测试<code>famousPaintings</code>数组是否能被正确访问和使用。</p>
+    
+    <div id="results-container">
+        <div id="array-existence" class="result">测试中...</div>
+        <div id="array-length" class="result">测试中...</div>
+        <div id="array-type" class="result">测试中...</div>
+        <div id="sample-data" class="result info">测试中...</div>
+    </div>
+    
+    <script src="gallery.js"></script>
+    <script>
+        // 等待页面加载完成
+        document.addEventListener('DOMContentLoaded', function() {
+            // 测试1: 检查数组是否存在
+            const existenceElement = document.getElementById('array-existence');
+            if (typeof famousPaintings !== 'undefined') {
+                existenceElement.textContent = '✅ 成功: famousPaintings数组存在于全局作用域';
+                existenceElement.className = 'result success';
+            } else if (typeof window.famousPaintings !== 'undefined') {
+                existenceElement.textContent = '✅ 成功: famousPaintings数组存在于window对象中';
+                existenceElement.className = 'result success';
+            } else {
+                existenceElement.textContent = '❌ 失败: famousPaintings数组不存在';
+                existenceElement.className = 'result error';
+            }
+            
+            // 测试2: 检查数组长度
+            const lengthElement = document.getElementById('array-length');
+            const paintings = window.famousPaintings || famousPaintings;
+            if (paintings && Array.isArray(paintings)) {
+                lengthElement.textContent = `📊 数组长度: ${paintings.length} 个元素`;
+                lengthElement.className = 'result success';
+            } else {
+                lengthElement.textContent = '❌ 失败: 无法获取数组长度或不是数组类型';
+                lengthElement.className = 'result error';
+            }
+            
+            // 测试3: 检查数组类型
+            const typeElement = document.getElementById('array-type');
+            if (paintings) {
+                typeElement.textContent = `📋 数据类型: ${typeof paintings}, 是否为数组: ${Array.isArray(paintings)}`;
+                typeElement.className = 'result success';
+            } else {
+                typeElement.textContent = '❌ 失败: 无法获取数据类型';
+                typeElement.className = 'result error';
+            }
+            
+            // 测试4: 显示一些示例数据
+            const sampleElement = document.getElementById('sample-data');
+            if (paintings && Array.isArray(paintings) && paintings.length > 0) {
+                let sampleHTML = '<h3>🔍 示例数据 (前3个元素):</h3><ul>';
+                const sampleCount = Math.min(3, paintings.length);
+                
+                for (let i = 0; i < sampleCount; i++) {
+                    const painting = paintings[i];
+                    sampleHTML += `<li><strong>${painting.title}</strong> (${painting.period}, ID: ${painting.id})</li>`;
+                }
+                
+                sampleHTML += '</ul>';
+                sampleElement.innerHTML = sampleHTML;
+                sampleElement.className = 'result info';
+            } else {
+                sampleElement.textContent = '❌ 失败: 无法显示示例数据';
+                sampleElement.className = 'result error';
+            }
+        });
+    </script>
+</body>
+</html>

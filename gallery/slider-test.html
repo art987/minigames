@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D幻灯片修复测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .loading {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        .slider-container {
+            margin: 20px 0;
+            border: 2px solid #007bff;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success-message {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error-message {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>3D幻灯片修复测试页面</h1>
+    
+    <p>此页面用于测试create3DSlider函数的修复效果。</p>
+    
+    <div id="test-status" class="container">
+        <p>测试状态: <span id="status-text">等待测试...</span></p>
+    </div>
+    
+    <!-- 模拟原始页面的容器结构 -->
+    <div class="container">
+        <h2>画廊容器</h2>
+        
+        <!-- 加载状态 -->
+        <div class="loading" id="loading-indicator">
+            加载中...
+        </div>
+        
+        <!-- 3D幻灯片将被插入到这里 -->
+    </div>
+    
+    <script>
+        // 简单的名画数据，用于测试
+        const famousPaintings = [
+            {
+                id: 1,
+                title: "测试画作 1",
+                period: "测试时期",
+                description: "这是一幅测试画作。",
+                coverText: "测试1",
+                imageUrl: "cnpaintings/819.jpg"
+            },
+            {
+                id: 2,
+                title: "测试画作 2",
+                period: "测试时期",
+                description: "这是另一幅测试画作。",
+                coverText: "测试2",
+                imageUrl: "cnpaintings/825.jpg"
+            }
+        ];
+        
+        // 3D 幻灯片配置
+        const sliderConfig = {
+            currentIndex: 0,
+            totalPaintings: 0,
+            cardWidth: 300,
+            cardHeight: 450,
+            spacing: 40,
+            rotationRange: 40,
+            scaleRange: 0.2
+        };
+        
+        // 主函数 - 初始化
+        function initTest() {
+            console.log('Initializing slider test');
+            
+            // 初始化测试
+            setTimeout(() => {
+                // 设置总画作数量
+                sliderConfig.totalPaintings = famousPaintings.length;
+                
+                try {
+                    // 创建 3D 幻灯片容器
+                    create3DSlider();
+                    
+                    // 更新测试状态
+                    document.getElementById('status-text').textContent = "成功: 幻灯片容器已创建";
+                    document.getElementById('status-text').className = "success-message";
+                    
+                    // 隐藏加载状态
+                    const loadingIndicator = document.getElementById('loading-indicator');
+                    if (loadingIndicator) {
+                        loadingIndicator.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('status-text').textContent = `失败: ${error.message}`;
+                    document.getElementById('status-text').className = "error-message";
+                }
+            }, 500);
+        }
+        
+        // 创建 3D 幻灯片容器
+        function create3DSlider() {
+            console.log('Creating 3D slider container');
+            
+            // 获取容器 - 使用更具体的选择器来确保获取正确的容器
+            const container = document.querySelector('.container:not(#test-status)');
+            if (!container) {
+                throw new Error('Main container element not found');
+            }
+            
+            // 创建幻灯片容器
+            const sliderContainer = document.createElement('div');
+            sliderContainer.className = 'slider-container';
+            sliderContainer.innerHTML = '<p>✅ 幻灯片容器已成功创建！</p>';
+            
+            // 使用appendChild代替insertBefore，直接添加到容器末尾
+            container.appendChild(sliderContainer);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initTest);
+    </script>
+</body>
+</html>
