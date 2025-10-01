@@ -926,7 +926,9 @@ const sliderConfig = {
     cardHeight: 450,
     spacing: 40,
     rotationRange: 40,
-    scaleRange: 0.2
+    scaleRange: 0.2,
+    transitionSpeed: 500, // 过渡动画速度（毫秒）
+    perspective: 1000 // 3D透视效果
 };
 
 // 主函数 - 初始化画廊
@@ -1007,7 +1009,7 @@ function create3DSlider() {
     createThumbnailNavigation();
 }
 
-// 更新幻灯片
+// 更新幻灯片（增强3D切换动画）
 function updateSlider() {
     console.log('Updating slider with', famousPaintings.length, 'paintings');
     
@@ -1017,40 +1019,54 @@ function updateSlider() {
         return;
     }
     
-    slider.innerHTML = '';
+    // 设置滑块容器的透视效果
+    slider.style.perspective = `${sliderConfig.perspective}px`;
+    slider.style.transformStyle = 'preserve-3d';
     
-    // 为每个画作创建 3D 卡片
+    // 为每个画作创建或更新 3D 卡片
     famousPaintings.forEach((painting, index) => {
         // 计算卡片位置和样式
         const position = getCardPosition(index);
         
-        // 创建卡片
-        const card = document.createElement('div');
-        card.className = 'art-card-3d';
+        // 检查卡片是否已存在
+        let card = slider.children[index];
+        
+        if (!card) {
+            // 创建新卡片
+            card = document.createElement('div');
+            card.className = 'art-card-3d';
+            card.dataset.index = index;
+            
+            // 设置3D变换样式
+            card.style.transformStyle = 'preserve-3d';
+            card.style.transition = `transform ${sliderConfig.transitionSpeed}ms ease, opacity ${sliderConfig.transitionSpeed}ms ease, z-index 0ms linear ${sliderConfig.transitionSpeed / 2}ms`;
+            
+            // 卡片内容
+            card.innerHTML = `
+                <div class="art-image">
+                    <img src="${painting.imageUrl}" alt="${painting.title}">
+                </div>
+                <div class="art-info">
+                    <h3 class="art-title">${painting.title}</h3>
+                    <div class="art-meta">
+                        ${painting.period}
+                        ${painting.author ? ` · ${painting.author}` : ''}
+                    </div>
+                </div>
+            `;
+            
+            // 添加点击事件
+            card.addEventListener('click', () => {
+                showPaintingDetails(painting.id);
+            });
+            
+            slider.appendChild(card);
+        }
+        
+        // 更新卡片样式（添加过渡动画效果）
         card.style.transform = position.transform;
         card.style.opacity = position.opacity;
         card.style.zIndex = position.zIndex;
-        
-        // 卡片内容
-        card.innerHTML = `
-            <div class="art-image">
-                <img src="${painting.imageUrl}" alt="${painting.title}">
-            </div>
-            <div class="art-info">
-                <h3 class="art-title">${painting.title}</h3>
-                <div class="art-meta">
-                    ${painting.period}
-                    ${painting.author ? ` · ${painting.author}` : ''}
-                </div>
-            </div>
-        `;
-        
-        // 添加点击事件
-        card.addEventListener('click', () => {
-            showPaintingDetails(painting.id);
-        });
-        
-        slider.appendChild(card);
     });
 }
 
@@ -1067,13 +1083,13 @@ function getCardPosition(index) {
     // 限制在一定范围内，使效果更流畅
     if (Math.abs(diff) > 4) {
         return {
-            transform: `translate(-50%, -50%) translateX(${(diff > 0 ? 1 : -1) * 500}px) scale(0.5)`,
+            transform: `translate(-50%, -50%) translateX(${(diff > 0 ? 1 : -1) * 500}px) scale(0.5) rotateY(${(diff > 0 ? 1 : -1) * 60}deg)`,
             opacity: 0,
             zIndex: 0
         };
     }
     
-    // 计算位置、旋转和缩放
+    // 计算位置、旋转和缩放，增强3D效果
     const translateX = diff * (sliderConfig.cardWidth + sliderConfig.spacing);
     const rotateY = -diff * (sliderConfig.rotationRange / 4);
     const scale = 1 - Math.abs(diff) * sliderConfig.scaleRange;

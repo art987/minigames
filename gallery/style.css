@@ -144,7 +144,7 @@ header {
 
 .modal-content {
     width: 100%;
-    height: 100%;
+    height: 95%;
     padding: 0;
     border-radius: 0;
     margin: 0;
@@ -157,6 +157,7 @@ header {
     background-color: #ff3b30;
     width: 40px;
     height: 40px;
+    line-height: 34px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -176,24 +177,24 @@ header {
 
 .detail-container {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
-    padding: 20px;
+    padding: 30px 20px 30px;
 }
 
 .detail-image {
     max-width: 90%;
-    max-height: 70vh;
-    margin-bottom: 30px;
+    /* max-height: 70vh; */
+    margin-bottom: 0px;
 }
 
 .detail-image img {
     max-width: 100%;
-    max-height: 100%;
+    /* max-height: 100%; */
     object-fit: contain;
     border-radius: 8px;
 }
@@ -457,11 +458,11 @@ footer p {
 
 .modal-content {
     background-color: #fff;
-    margin: 5% auto;
+    margin: 4% auto;
     padding: 20px;
     border-radius: 8px;
     max-width: 900px;
-    max-height: 90vh;
+    /* max-height: 90vh; */
     overflow-y: auto;
     position: relative;
     animation: modalOpen 0.3s ease-out;
@@ -479,15 +480,17 @@ footer p {
 }
 
 .close-btn {
-    color: #aaa;
+    color: #fff;
     float: right;
-    font-size: 28px;
+    font-size: 41px;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease;
     position: sticky;
-    top: 10px;
+    top: 1px;
     z-index: 10;
+    display: block;
+    text-align: center;
 }
 
 .close-btn:hover,
@@ -501,11 +504,12 @@ footer p {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: absolute;
 }
 
 .detail-image {
     width: 100%;
-    max-height: 500px;
+    /* max-height: 500px; */
     background-color: #f8f8f8;
     border-radius: 4px;
     display: flex;
@@ -516,13 +520,14 @@ footer p {
 
 .detail-image img {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     object-fit: contain;
 }
 
 .detail-info h2 {
     font-size: 2rem;
     margin-bottom: 10px;
+    color: #000;
 }
 
 .detail-info .meta {
@@ -554,13 +559,13 @@ footer p {
     }
     
     .modal-content {
-        margin: 10% auto;
-        padding: 15px;
+        /* margin: 2% auto; */
+        padding: 6px 0 70px;
         width: 95%;
     }
     
     .detail-info h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 }
 
@@ -593,12 +598,12 @@ footer p {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: -24px;
     justify-content: center;
     padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* background-color: #fff; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
 }
 
 .filter-btn {
@@ -619,4 +624,215 @@ footer p {
     background-color: #333;
     color: #fff;
     border-color: #333;
+}
+
+/* 3D 幻灯片样式 */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    touch-action: pan-y;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.art-card-3d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    transform-origin: center center;
+    transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s linear 0.25s;
+    will-change: transform, opacity;
+}
+
+.art-card-3d .art-image {
+    width: 100%;
+    height: 75%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.art-card-3d .art-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.art-card-3d:hover .art-image img {
+    transform: scale(1.05);
+}
+
+.art-card-3d .art-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.art-card-3d .art-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.art-card-3d .art-meta {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* 滑块导航按钮样式 */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.slider-nav button {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    touch-action: manipulation;
+}
+
+.slider-nav button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+/* 缩略图导航样式 */
+.thumbnail-navigation {
+    width: 100%;
+    height: 80px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-top: 20px;
+    padding: 10px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 自定义滚动条 */
+.thumbnail-navigation::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumbnail-navigation::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.thumbnail-navigation::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.thumbnail-navigation::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.thumbnail:hover {
+    transform: scale(1.1);
+    border-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail.active {
+    transform: scale(1.2);
+    border-color: #0066cc;
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.4);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .slider-container {
+        height: 400px;
+    }
+    
+    .art-card-3d {
+        width: 250px;
+        height: 375px;
+    }
+    
+    .slider-nav button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        margin: 0 10px;
+    }
+    
+    .thumbnail {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        height: 350px;
+    }
+    
+    .art-card-3d {
+        width: 200px;
+        height: 300px;
+    }
 }
