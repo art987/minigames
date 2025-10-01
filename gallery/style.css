@@ -9,14 +9,14 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #000000;
     background-color: #f5f5f5;
 }
 
 /* 头部样式 */
 header {
-    background-color: #fff;
-    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 23px 0 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -310,6 +310,7 @@ header {
     margin-bottom: 15px;
     font-size: 1.5rem;
     text-align: center;
+    display: none;
 }
 
 /* 触摸滑动样式 */
@@ -334,7 +335,7 @@ header {
 h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #333;
+    color: #fff;
     font-weight: 700;
 }
 
@@ -344,6 +345,7 @@ h1 {
     margin-bottom: 40px;
     max-width: 800px;
     margin-left: auto;
+    display: none;
     margin-right: auto;
 }
 
@@ -433,7 +435,7 @@ h1 {
 footer {
     text-align: center;
     padding: 30px 0;
-    margin-top: 50px;
+    margin-top: 28px;
     background-color: #333;
     color: #fff;
 }
@@ -542,7 +544,9 @@ footer p {
     line-height: 1.8;
     color: #333;
 }
-
+.detail-info .description p {
+    text-indent: 39px;
+}
 /* 响应式设计 */
 @media (max-width: 768px) {
     .gallery {
@@ -555,7 +559,7 @@ footer p {
     }
     
     .container {
-        padding: 15px;
+        padding: 1px 15px;
     }
     
     .modal-content {
@@ -684,7 +688,7 @@ footer p {
 }
 
 .art-card-3d .art-info {
-    padding: 15px;
+    /* padding: 15px; */
     text-align: center;
 }
 
@@ -745,7 +749,7 @@ footer p {
     height: 80px;
     overflow-x: auto;
     overflow-y: hidden;
-    margin-top: 20px;
+    margin-top: 0px;
     padding: 10px 0;
     display: flex;
     gap: 10px;
@@ -805,12 +809,12 @@ footer p {
 /* 响应式调整 */
 @media (max-width: 768px) {
     .slider-container {
-        height: 400px;
+        height: 554px;
     }
     
     .art-card-3d {
-        width: 250px;
-        height: 375px;
+        width: 284px;
+        height: 454px;
     }
     
     .slider-nav button {
