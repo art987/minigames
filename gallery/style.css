@@ -76,7 +76,7 @@ header {
 }
 
 .art-card-3d .art-info {
-    padding: 15px;
+    padding: 9px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -833,11 +833,11 @@ footer p {
 
 @media (max-width: 480px) {
     .slider-container {
-        height: 350px;
+        height: 518px;
     }
     
     .art-card-3d {
-        width: 200px;
-        height: 300px;
+        width: 280px;
+        height: 462px;
     }
 }
