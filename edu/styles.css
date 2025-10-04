@@ -834,7 +834,7 @@ body {
     background-color: #e0e0e0;
 }
 
-.bottom-close-button { color:#252525;display: block;float: left;height: 33px;padding: 0px 22px;font-size: 14px;background: #ffffff;border: 1px solid #b3b3b3;border-radius: 16px;color: #000;margin-right: 0px;}
+.bottom-close-button {color:#252525;display: block;float: left;height: 33px;padding: 0px 22px;font-size: 14px;background: #cc0000;border: 1px solid #b3b3b3;border-radius: 16px;color: #ffffff;margin-right: 0px;}
 .refresh-button {
     display: block;
     float: right;
