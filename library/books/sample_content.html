@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>示例PDF内容</title>
+    <style>
+        body {
+            font-family: 'SimSun', '宋体', serif;
+            line-height: 1.6;
+            margin: 2cm;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-indent: 2em;
+            margin-bottom: 1em;
+        }
+        .page {
+            page-break-after: always;
+        }
+        .page:last-child {
+            page-break-after: avoid;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>3D翻书阅读器示例文档</h1>
+        <p>这是一个示例文档，用于测试3D翻书阅读器的功能。您可以将此HTML文件保存为PDF格式，然后使用阅读器打开进行测试。</p>
+        <p>3D翻书阅读器支持以下功能：</p>
+        <ul>
+            <li>逼真的3D翻页效果</li>
+            <li>翻页时播放声音</li>
+            <li>通过双指缩放页面</li>
+            <li>通过小图预览所有页面</li>
+        </ul>
+    </div>
+    
+    <div class="page">
+        <h2>第二页</h2>
+        <p>欢迎使用3D翻书阅读器！这是一个基于HTML、CSS和JavaScript开发的PDF阅读器，旨在提供沉浸式的阅读体验。</p>
+        <p>您可以使用左侧区域的按钮来控制翻页、缩放和查看页面预览。在触摸屏设备上，您还可以使用双指手势来缩放页面。</p>
+    </div>
+    
+    <div class="page">
+        <h2>第三页</h2>
+        <p>为了获得最佳体验，请确保您的浏览器支持HTML5、CSS3 3D变换和触摸事件。主流现代浏览器如Chrome、Firefox、Safari和Edge都能很好地支持这些功能。</p>
+        <p>祝您阅读愉快！</p>
+    </div>
+</body>
+</html>

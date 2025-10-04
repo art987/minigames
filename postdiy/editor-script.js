@@ -1074,44 +1074,297 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 转换为图片并下载
   function convertToImageAndDownload() {
+    // 获取元素
     if (!elements.posterFrame) return;
     
-    // 复制海报容器
-    const clonedContainer = elements.posterFrame.cloneNode(true);
+    // 获取海报尺寸
+    const posterWidth = elements.posterFrame.offsetWidth;
+    const posterHeight = elements.posterFrame.offsetHeight;
     
-    // 设置克隆容器的样式
-    clonedContainer.style.position = 'absolute';
-    clonedContainer.style.top = '-9999px';
-    clonedContainer.style.left = '-9999px';
+    // 创建高分辨率canvas
+    const canvas = document.createElement('canvas');
+    const scale = 2; // 提高分辨率
+    canvas.width = posterWidth * scale;
+    canvas.height = posterHeight * scale;
+    const ctx = canvas.getContext('2d');
     
-    // 添加到body
-    document.body.appendChild(clonedContainer);
+    // 设置canvas缩放
+    ctx.scale(scale, scale);
     
-    // 使用html2canvas转换为图片
-    html2canvas(clonedContainer, {
-      backgroundColor: null,
-      scale: 2, // 提高分辨率
-      useCORS: true, // 允许跨域图片
-      logging: false
-    }).then(canvas => {
-      // 创建下载链接
-      const link = document.createElement('a');
-      link.download = `海报_${new Date().getTime()}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+    // 1. 绘制背景图片（使用Canvas API确保正确裁剪）
+    const backgroundImg = elements.posterFrame.querySelector('#posterBackground');
+    if (backgroundImg && backgroundImg.src) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        // 计算正确的裁剪和缩放比例
+        const targetWidth = posterWidth;
+        const targetHeight = posterHeight;
+        const imgRatio = img.width / img.height;
+        const targetRatio = targetWidth / targetHeight;
+        
+        let drawWidth, drawHeight, drawX, drawY;
+        
+        if (imgRatio > targetRatio) {
+          // 图片更宽，按高度缩放，裁剪宽度
+          drawHeight = targetHeight;
+          drawWidth = img.width * (targetHeight / img.height);
+          drawX = (targetWidth - drawWidth) / 2;
+          drawY = 0;
+        } else {
+          // 图片更高，按宽度缩放，裁剪高度
+          drawWidth = targetWidth;
+          drawHeight = img.height * (targetWidth / img.width);
+          drawX = 0;
+          drawY = (targetHeight - drawHeight) / 2;
+        }
+        
+        // 保存当前状态
+        ctx.save();
+        
+        // 设置透明度
+        const opacity = backgroundImg.style.opacity ? parseFloat(backgroundImg.style.opacity) : 1;
+        ctx.globalAlpha = opacity;
+        
+        // 绘制背景图片（模拟object-fit: cover）
+        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+        
+        // 恢复状态
+        ctx.restore();
+        
+        // 2. 绘制海报内容区域（使用html2canvas处理非背景元素）
+        drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
+      };
       
-      // 清理克隆的容器
-      document.body.removeChild(clonedContainer);
+      img.onerror = function() {
+        console.error('背景图片加载失败');
+        // 即使背景图片加载失败，也继续绘制其他内容
+        drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
+      };
       
-      // 显示成功提示
-      showToast('海报下载成功');
-    }).catch(error => {
-      console.error('生成图片失败:', error);
-      showToast('生成图片失败，请重试');
+      // 加载图片
+      img.src = backgroundImg.src;
+    } else {
+      // 如果没有背景图片，直接绘制海报内容
+      drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
+    }
+  }
+  
+  // 绘制海报内容的辅助函数
+  function drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale) {
+    // 创建一个新的canvas用于绘制logo和内容
+    const logoCanvas = document.createElement('canvas');
+    logoCanvas.width = posterWidth * scale;
+    logoCanvas.height = posterHeight * scale;
+    const logoCtx = logoCanvas.getContext('2d');
+    logoCtx.scale(scale, scale);
+    
+    // 绘制非logo内容到临时canvas
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.top = '-9999px';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.width = posterWidth + 'px';
+    tempContainer.style.height = posterHeight + 'px';
+    tempContainer.style.margin = '0';
+    tempContainer.style.padding = '0';
+    tempContainer.style.boxSizing = 'border-box';
+    tempContainer.style.backgroundColor = 'transparent';
+    
+    // 克隆内容区域
+    const clonedContent = document.createElement('div');
+    clonedContent.style.width = '100%';
+    clonedContent.style.height = '100%';
+    clonedContent.style.position = 'relative';
+    
+    // 手动构建内容区域
+    const originalContent = elements.posterFrame.querySelector('#posterContent');
+    if (originalContent) {
+      const contentClone = originalContent.cloneNode(true);
       
-      // 清理克隆的容器
-      document.body.removeChild(clonedContainer);
-    });
+      // 移除可能的背景
+      const contentBackground = contentClone.querySelector('#posterBackground');
+      if (contentBackground) {
+        contentBackground.remove();
+      }
+      
+      // 保存logo信息，然后从克隆内容中移除logo
+      let logoInfo = null;
+      
+      // 首先尝试在原始DOM中获取logo信息（更可靠）
+      if (elements.posterLogoImg && elements.posterLogo && elements.posterLogoImg.src) {
+        // 获取logo容器的位置、尺寸和样式
+        const logoRect = elements.posterLogo.getBoundingClientRect();
+        const posterRect = elements.posterFrame.getBoundingClientRect();
+        
+        // 使用实际元素而非克隆元素来获取准确的样式信息
+        const computedStyle = window.getComputedStyle(elements.posterLogo);
+        
+        logoInfo = {
+          src: elements.posterLogoImg.src,
+          left: (logoRect.left - posterRect.left) / posterRect.width * posterWidth,
+          top: (logoRect.top - posterRect.top) / posterRect.height * posterHeight,
+          width: logoRect.width / posterRect.width * posterWidth,
+          height: logoRect.height / posterRect.height * posterHeight,
+          opacity: parseFloat(computedStyle.opacity) || 1,
+          borderRadius: computedStyle.borderRadius || '0px'
+        };
+        
+        // 然后在克隆内容中移除logo（如果存在）
+        const clonedLogoContainer = contentClone.querySelector('#posterLogo');
+        if (clonedLogoContainer) {
+          clonedLogoContainer.remove();
+        }
+      } else {
+        console.log('未找到有效的logo元素或图片源');
+      }
+      
+      clonedContent.appendChild(contentClone);
+      
+      // 添加到临时容器
+      tempContainer.appendChild(clonedContent);
+      document.body.appendChild(tempContainer);
+      
+      // 使用html2canvas绘制非logo内容
+      html2canvas(tempContainer, {
+        backgroundColor: null,
+        scale: scale,
+        useCORS: true,
+        allowTaint: true,
+        logging: false
+      }).then(contentCanvas => {
+        // 将内容绘制到logoCanvas上
+        logoCtx.drawImage(contentCanvas, 0, 0, posterWidth, posterHeight);
+        
+        // 单独处理并绘制logo
+        if (logoInfo && logoInfo.src) {
+          drawLogoWithProperFit(logoCanvas, logoCtx, logoInfo, posterWidth, posterHeight, scale, () => {
+            // 将最终结果绘制到主canvas
+            ctx.drawImage(logoCanvas, 0, 0, posterWidth, posterHeight);
+            
+            // 完成处理
+            finalizeImage(canvas, tempContainer);
+          });
+        } else {
+          // 没有logo，直接使用内容canvas
+          ctx.drawImage(logoCanvas, 0, 0, posterWidth, posterHeight);
+          finalizeImage(canvas, tempContainer);
+        }
+      }).catch(error => {
+        console.error('生成海报内容失败:', error);
+        showToast('生成图片失败，请重试');
+        
+        // 清理临时容器
+        setTimeout(() => {
+          if (tempContainer.parentNode) {
+            document.body.removeChild(tempContainer);
+          }
+        }, 500);
+      });
+    }
+  }
+  
+  // 绘制logo并确保保持原始比例的辅助函数
+  function drawLogoWithProperFit(canvas, ctx, logoInfo, posterWidth, posterHeight, scale, callback) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+      // 保存当前状态
+      ctx.save();
+      
+      // 设置透明度
+      ctx.globalAlpha = logoInfo.opacity;
+      
+      // 设置圆角 - 确保正确处理像素单位
+      if (logoInfo.borderRadius) {
+        ctx.beginPath();
+        // 尝试从borderRadius字符串中提取数值
+        const radiusStr = logoInfo.borderRadius;
+        const radiusMatch = radiusStr.match(/(\d+)px/);
+        const radius = radiusMatch ? parseInt(radiusMatch[1]) : 0;
+        
+        ctx.moveTo(logoInfo.left + radius, logoInfo.top);
+        ctx.lineTo(logoInfo.left + logoInfo.width - radius, logoInfo.top);
+        ctx.arcTo(logoInfo.left + logoInfo.width, logoInfo.top, logoInfo.left + logoInfo.width, logoInfo.top + radius, radius);
+        ctx.lineTo(logoInfo.left + logoInfo.width, logoInfo.top + logoInfo.height - radius);
+        ctx.arcTo(logoInfo.left + logoInfo.width, logoInfo.top + logoInfo.height, logoInfo.left + logoInfo.width - radius, logoInfo.top + logoInfo.height, radius);
+        ctx.lineTo(logoInfo.left + radius, logoInfo.top + logoInfo.height);
+        ctx.arcTo(logoInfo.left, logoInfo.top + logoInfo.height, logoInfo.left, logoInfo.top + logoInfo.height - radius, radius);
+        ctx.lineTo(logoInfo.left, logoInfo.top + radius);
+        ctx.arcTo(logoInfo.left, logoInfo.top, logoInfo.left + radius, logoInfo.top, radius);
+        ctx.closePath();
+        ctx.clip();
+      }
+      
+      // 计算logo的正确缩放，保持原始比例
+      const targetWidth = logoInfo.width;
+      const targetHeight = logoInfo.height;
+      
+      // 直接使用图片的原始宽高比，确保正方形logo不会变形
+      const imgRatio = img.width / img.height;
+      
+      let drawWidth, drawHeight, drawX, drawY;
+      
+      // 确保至少有一个合理的尺寸值
+      if (isNaN(targetWidth) || targetWidth <= 0) {
+        drawWidth = 100; // 默认宽度
+      }
+      if (isNaN(targetHeight) || targetHeight <= 0) {
+        drawHeight = 100; // 默认高度
+      }
+      
+      // 改进：完全基于图片的原始比例进行缩放
+      // 确保logo始终保持其原始宽高比，无论容器尺寸如何
+      if (imgRatio >= 1) {
+        // 正方形或横版图片，按宽度缩放
+        drawWidth = targetWidth;
+        drawHeight = targetWidth / imgRatio;
+      } else {
+        // 竖版图片，按高度缩放
+        drawHeight = targetHeight;
+        drawWidth = targetHeight * imgRatio;
+      }
+      
+      // 居中显示
+      drawX = logoInfo.left + (targetWidth - drawWidth) / 2;
+      drawY = logoInfo.top + (targetHeight - drawHeight) / 2;
+      
+      // 绘制logo图片，确保保持原始比例
+      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      
+      // 恢复状态
+      ctx.restore();
+      
+      // 回调继续处理
+      callback();
+    };
+    
+    img.onerror = function() {
+      console.error('logo图片加载失败');
+      callback(); // 即使logo加载失败，也继续处理
+    };
+    
+    // 加载图片
+    img.src = logoInfo.src;
+  }
+  
+  // 完成图片生成并清理的辅助函数
+  function finalizeImage(canvas, tempContainer) {
+    // 创建下载链接
+    const link = document.createElement('a');
+    link.download = `海报_${new Date().getTime()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    // 清理临时容器
+    setTimeout(() => {
+      if (tempContainer.parentNode) {
+        document.body.removeChild(tempContainer);
+      }
+    }, 500);
+    
+    // 显示成功提示
+    showToast('海报下载成功');
   }
   
   // 移除重复的showToast函数定义

@@ -74,7 +74,8 @@ const menuData = {
         { text: "中国美术史", href: "/edu/cnart.html", icon: "" , emoji:"🏮",  describ: "中国美术发展历程和重要流派、作品介绍" , keyword: "中国美术史, 绘画, 书法, 艺术流派" },
         { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "国画绘画技巧和创作秘诀的口诀式总结" , keyword: "国画, 绘画技巧, 口诀, 艺术创作" },
         { text: "历代画家汇集", href: "/edu/huajia-huiji.html", icon: "" , emoji:"🖼️",  describ: "梳理历代画家代表人物与风格" , keyword: "画家, 历代, 山水, 花鸟" },
-         { text: "中国美术史百幅名画", href: "/gallery/index.html", icon: "" , emoji:"🖼️",  describ: "100幅中国名画" , keyword: "" }
+         { text: "中国美术史百幅名画", href: "/gallery/index.html", icon: "" , emoji:"🖼️",  describ: "100幅中国名画" , keyword: "" },
+         { text: "电子书库", href: "/library/index.html", icon: "" , emoji:"📚",  describ: "100本电子书" , keyword: "" }
       ]
     },
 
@@ -110,7 +111,8 @@ const menuData = {
     {  singleItem: true, text: "电话求助热线汇总",  href: "/tools/gonggong-rexian.html", icon: "" , emoji:"📞",  describ: "全国各类紧急求助和服务热线电话大全" , keyword: "求助热线, 紧急电话, 服务热线, 便民电话" },	
     {  singleItem: true, text: "胎教音乐合集",     href: "/tools/taijiao-music/index.html",  icon: "" , emoji:"🤰",  describ: "精选适合孕期听的胎教音乐，促进胎儿智力发育" , keyword: "胎教音乐, 孕期保健, 胎儿发育, 音乐胎教" },
     { singleItem: true,  text: "心灵加油站",   href: "/quotes/index.html",  icon: "" , emoji:"⛽",  describ: "正能量名言和心灵鸡汤，给你前行的动力" , keyword: "心灵鸡汤, 正能量, 励志名言, 情绪调节" },
-    
+    { singleItem: true,  text: "朋友圈海报DIY",   href: "/postdiy/index.html",  icon: "" , emoji:"📷",  describ: "自定义商家logo、二维码及促销信息" , keyword: "" }
+    ,
     {
       title: "AI智能体",
       items: [

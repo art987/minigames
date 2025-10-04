@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>阅读 - 我的书库</title>
+    <!-- 引入PDF.js库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="css/reader.css">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 阅读视图容器 -->
+    <div class="reader-container">
+        <!-- 顶部导航栏（阅读模式） -->
+        <div class="reader-header">
+            <button id="back-btn" class="reader-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 id="book-title" class="reader-title">加载中...</h1>
+            <div class="reader-controls">
+                <button id="toggle-preview-btn" class="reader-btn">
+                    <i class="fas fa-th-large"></i>
+                </button>
+                <button id="zoom-controls-btn" class="reader-btn">
+                    <i class="fas fa-expand-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 阅读内容区域 -->
+        <div class="reader-content">
+            <!-- 加载指示器 -->
+            <div id="loading-indicator" class="loading-indicator">
+                <div class="spinner"></div>
+                <p>正在加载书籍...</p>
+            </div>
+            
+            <!-- 翻书容器 -->
+            <div id="book-container" class="book-container hidden">
+                <!-- PDF页面将通过JavaScript动态添加 -->
+            </div>
+        </div>
+
+        <!-- 底部控制栏 -->
+        <div class="reader-footer">
+            <div class="page-info">
+                <span id="current-page">1</span>
+                <span>/</span>
+                <span id="total-pages">0</span>
+            </div>
+            <div class="navigation-controls">
+                <button id="prev-page-btn" class="nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="next-page-btn" class="nav-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 页面预览区域（默认隐藏） -->
+        <div id="page-preview" class="page-preview hidden">
+            <div class="preview-header">
+                <h3>页面预览</h3>
+                <button id="close-preview-btn" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="preview-grid" class="preview-grid">
+                <!-- 预览图将通过JavaScript动态添加 -->
+            </div>
+        </div>
+
+        <!-- 缩放控制面板（默认隐藏） -->
+        <div id="zoom-controls" class="zoom-controls hidden">
+            <button id="zoom-in-btn" class="zoom-btn">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <button id="zoom-out-btn" class="zoom-btn">
+                <i class="fas fa-search-minus"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 引入自定义脚本 -->
+    <script src="js/reader.js"></script>
+</body>
+</html>
