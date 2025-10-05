@@ -192,7 +192,7 @@ body {
     /* display: flex; */
     align-items: center;
     justify-content: space-between;
-    padding: 0px 5px 9px 5px;
+    padding: 20px;
     position: relative;
     min-height: 67px;
 }
