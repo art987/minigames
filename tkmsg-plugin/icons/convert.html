@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG到PNG转换工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #007BFF;
+            text-align: center;
+        }
+        .container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .icon-preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .icon-container {
+            text-align: center;
+        }
+        svg {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .instructions {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+        }
+        ol {
+            margin-bottom: 0;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG到PNG转换工具</h1>
+    
+    <div class="container">
+        <p>使用此工具将SVG图标转换为Chrome插件所需的PNG格式：</p>
+        
+        <div class="icon-preview">
+            <div class="icon-container">
+                <h4>16x16</h4>
+                <svg id="icon16" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="16" height="16" rx="4" fill="#007BFF"/>
+                    <path d="M4 6L8 8L12 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 9L8 11L12 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <button onclick="saveAsPng('icon16', 'icon16.png')">保存PNG</button>
+            </div>
+            
+            <div class="icon-container">
+                <h4>48x48</h4>
+                <svg id="icon48" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="12" fill="#007BFF"/>
+                    <path d="M12 18L24 24L36 18" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 27L24 33L36 27" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <button onclick="saveAsPng('icon48', 'icon48.png')">保存PNG</button>
+            </div>
+            
+            <div class="icon-container">
+                <h4>128x128</h4>
+                <svg id="icon128" width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="128" height="128" rx="32" fill="#007BFF"/>
+                    <path d="M32 48L64 64L96 48" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M32 72L64 88L96 72" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <button onclick="saveAsPng('icon128', 'icon128.png')">保存PNG</button>
+            </div>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+    
+    <div class="instructions">
+        <h3>转换步骤：</h3>
+        <ol>
+            <li>分别点击每个图标的「保存PNG」按钮</li>
+            <li>将下载的PNG文件保存到当前文件夹</li>
+            <li>确保文件名为：icon16.png、icon48.png、icon128.png</li>
+            <li>完成后即可加载Chrome插件</li>
+        </ol>
+    </div>
+
+    <script>
+        function saveAsPng(svgId, filename) {
+            const svg = document.getElementById(svgId);
+            const serializer = new XMLSerializer();
+            let svgString = serializer.serializeToString(svg);
+            
+            // 添加必要的命名空间
+            if (!svgString.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
+                svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            }
+            
+            if (!svgString.match(/^<svg[^>]+xmlns:xlink="http:\/\/www\.w3\.org\/1999\/xlink"/)) {
+                svgString = svgString.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+            }
+            
+            // 将SVG转换为Blob
+            const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svgBlob);
+            
+            // 创建图像对象
+            const img = new Image();
+            img.onload = function() {
+                // 创建Canvas
+                const canvas = document.createElement('canvas');
+                const size = svg.getAttribute('width');
+                canvas.width = size;
+                canvas.height = size;
+                
+                // 绘制图像到Canvas
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, size, size);
+                
+                // 下载PNG
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    URL.revokeObjectURL(link.href);
+                    
+                    // 显示成功消息
+                    document.getElementById('status').textContent = `${filename} 已保存！`;
+                    document.getElementById('status').className = 'status success';
+                    setTimeout(() => {
+                        document.getElementById('status').textContent = '';
+                        document.getElementById('status').className = 'status';
+                    }, 2000);
+                }, 'image/png');
+            };
+            img.onerror = function() {
+                alert('图像转换失败，请重试');
+            };
+            img.src = url;
+        }
+    </script>
+</body>
+</html>

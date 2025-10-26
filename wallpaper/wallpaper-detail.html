@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="壁纸详情 - 壁纸星球提供高质量壁纸系列，包含多种风格的高清壁纸供您免费下载使用。">
+    <meta name="keywords" content="壁纸详情,高清壁纸,壁纸下载,桌面壁纸,手机壁纸">
+    <meta name="author" content="壁纸星球">
+    <meta name="robots" content="index, follow">
+    <title>壁纸详情 - 壁纸星球</title>
+    <link rel="stylesheet" href="css/style.css">
+  <style>
+        /* 用于详情页的临时图片样式 */
+        .wallpaper-preview {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            height: 300px; /* 设置固定高度 */
+        }
+        
+        /* 竖向壁纸卡片样式 */
+        .wallpaper-item {
+            display: flex;
+            flex-direction: column;
+             /* 两列布局 */
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .wallpaper-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wallpaper-actions {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .action-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .preview-button {
+            background: #f5f5f5;
+            color: #171717;
+        }
+        
+        .preview-button:hover {
+            background: #0056b3;
+        }
+        
+        .download-button {
+            background: #f5f5f5;
+            color: #e80505;
+        }
+        
+        .download-button:hover {
+            background: #1e7e34;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .wallpaper-item {
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">壁纸星球</a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#contact">联系方式</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <section class="wallpaper-detail">
+            <div class="container">
+                <!-- 壁纸系列详情头部 -->
+                <div class="detail-header" id="detailHeader">
+                    <!-- 将通过JavaScript动态生成 -->
+                </div>
+                
+                <!-- 壁纸图片网格 -->
+                <div class="wallpaper-images" id="wallpaperImages">
+                    <!-- 壁纸图片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 广告弹窗 -->
+    <div id="adModal" class="ad-modal">
+        <div class="ad-container">
+            <button id="closeAdButton" class="close-button">×</button>
+            <div class="ad-content">
+                <div class="ad-space">
+                    <div class="ad-placeholder">
+                        <!-- 这里可以放置广告代码 -->
+                        <p>【赞助商广告】</p>
+                        <p>探索更多精美壁纸资源</p>
+                    </div>
+                </div>
+                <div class="download-progress">
+                    <p class="progress-text">图片下载中，请稍后 <span id="downloadCountdown">3</span> 秒</p>
+                    <button id="finalDownloadButton" class="final-download-button">下载到手机</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>壁纸星球 - 为您提供高质量壁纸资源</p>
+                <div class="footer-links">
+                    <a href="index.html">首页</a>
+                    <a href="#about">关于我们</a>
+                    <a href="#contact">联系方式</a>
+                </div>
+                <p>&copy; 2025 壁纸星球 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript文件 -->
+    <script type="module">
+        // 导入壁纸数据和主函数
+        import wallpaperData from './js/data.js';
+        import { openAdModal, previewImage } from './js/main.js';
+        
+        // 获取URL参数中的壁纸ID
+        function getWallpaperId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('id'));
+        }
+        
+        // 渲染壁纸详情头部
+        function renderDetailHeader(series) {
+            const headerContainer = document.getElementById('detailHeader');
+            if (!headerContainer || !series) return;
+            
+            headerContainer.innerHTML = `
+                <h1 class="detail-title">${series.title}</h1>
+                <div class="detail-meta">
+                    <span>创建时间：${series.createTime}</span>
+                    <span>图片数量：${series.images.length} 张</span>
+                </div>
+                <p class="detail-description">${series.description}</p>
+                <div class="detail-tags">
+                    ${series.tags.map(tag => 
+                        `<span class="detail-tag">${tag}</span>`
+                    ).join('')}
+                </div>
+            `;
+        }
+        
+        // 渲染壁纸图片网格
+        function renderWallpaperImages(images) {
+            const imagesContainer = document.getElementById('wallpaperImages');
+            if (!imagesContainer || !images) return;
+            
+            // 清空容器
+            imagesContainer.innerHTML = '';
+            
+            // 遍历图片数据，创建图片项
+            images.forEach((image, index) => {
+                const imageItem = document.createElement('div');
+                imageItem.className = 'wallpaper-item';
+                
+                // 创建图片项内容
+                imageItem.innerHTML = `
+                    <div class="wallpaper-preview">
+                        <div>壁纸 ${index + 1}</div>
+                    </div>
+                    <div class="wallpaper-actions">
+                        <button class="action-button preview-button" data-index="${index}">
+                            预览
+                        </button>
+                        <button class="action-button download-button" data-index="${index}">
+                            下载
+                        </button>
+                    </div>
+                `;
+                
+                imagesContainer.appendChild(imageItem);
+            });
+            
+            // 添加按钮点击事件监听
+            document.querySelectorAll('.preview-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = parseInt(e.currentTarget.dataset.index);
+                    previewImage(images[index].preview);
+                });
+            });
+            
+            document.querySelectorAll('.download-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = parseInt(e.currentTarget.dataset.index);
+                    openAdModal(images[index].download);
+                });
+            });
+        }
+        
+        // 页面加载完成后渲染详情内容
+        document.addEventListener('DOMContentLoaded', () => {
+            const wallpaperId = getWallpaperId();
+            
+            // 查找对应ID的壁纸系列
+            const wallpaperSeries = wallpaperData.find(series => series.id === wallpaperId);
+            
+            if (wallpaperSeries) {
+                // 设置页面标题和SEO元信息
+                document.title = `${wallpaperSeries.title} - 壁纸星球`;
+                
+                // 更新description元标签
+                const descriptionMeta = document.querySelector('meta[name="description"]');
+                if (descriptionMeta) {
+                    descriptionMeta.content = `${wallpaperSeries.title} - ${wallpaperSeries.description} - 壁纸星球为您提供高清壁纸下载服务。`;
+                }
+                
+                // 更新keywords元标签
+                const keywordsMeta = document.querySelector('meta[name="keywords"]');
+                if (keywordsMeta) {
+                    keywordsMeta.content = `${wallpaperSeries.tags.join(',')},高清壁纸,壁纸下载,桌面壁纸,手机壁纸`;
+                }
+                
+                // 渲染详情头部和图片网格
+                renderDetailHeader(wallpaperSeries);
+                renderWallpaperImages(wallpaperSeries.images);
+            } else {
+                // 如果找不到对应的壁纸系列，显示错误信息
+                document.getElementById('detailHeader').innerHTML = `
+                    <h1 class="detail-title">壁纸系列不存在</h1>
+                    <p class="detail-description">抱歉，您访问的壁纸系列不存在或已被删除。</p>
+                    <a href="index.html" class="action-button preview-button" style="display: inline-block; margin-top: 20px;">
+                        返回首页
+                    </a>
+                `;
+                document.getElementById('wallpaperImages').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

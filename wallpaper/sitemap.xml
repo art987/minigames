@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- 首页 -->
+    <url>
+        <loc>http://127.0.0.1:8080/index.html</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- 壁纸详情页 - 自然风光壁纸系列 -->
+    <url>
+        <loc>http://127.0.0.1:8080/wallpaper-detail.html?id=1</loc>
+        <lastmod>2025-10-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 壁纸详情页 - 抽象艺术壁纸系列 -->
+    <url>
+        <loc>http://127.0.0.1:8080/wallpaper-detail.html?id=2</loc>
+        <lastmod>2025-10-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 壁纸详情页 - 星空宇宙壁纸系列 -->
+    <url>
+        <loc>http://127.0.0.1:8080/wallpaper-detail.html?id=3</loc>
+        <lastmod>2025-10-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

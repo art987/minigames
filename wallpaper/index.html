@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="壁纸星球 - 精选高质量壁纸合集，包含自然风光、抽象艺术、星空宇宙等多种壁纸系列，为您提供高清壁纸下载服务。">
+    <meta name="keywords" content="壁纸,高清壁纸,自然风光,抽象艺术,星空宇宙,桌面壁纸,手机壁纸">
+    <meta name="author" content="壁纸星球">
+    <meta name="robots" content="index, follow">
+    <title>壁纸星球 - 精选高清壁纸合集</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 用于首页的临时图片样式 */
+        .card-image {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* 标签筛选样式 */
+        .tags-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .tags-filter.floating {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        
+        .filter-tag {
+            padding: 8px 16px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .filter-tag:hover {
+            background: #dee2e6;
+        }
+        
+        .filter-tag.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        /* 调整容器样式以适应浮动标签栏 */
+        .container {
+            transition: padding-top 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">壁纸星球</a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#contact">联系方式</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 壁纸系列展示区域 -->
+        <section class="wallpaper-grid">
+            <div class="container">
+                <h1 class="section-title">精选壁纸系列</h1>
+                <div class="tags-filter" id="tagsFilter">
+                    <!-- 标签将通过JavaScript动态生成 -->
+                </div>
+                <div class="wallpaper-cards" id="wallpaperSeries">
+                    <!-- 壁纸系列卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 广告弹窗 -->
+    <div id="adModal" class="ad-modal">
+        <div class="ad-container">
+            <button id="closeAdButton" class="close-button">×</button>
+            <div class="ad-content">
+                <div class="ad-space">
+                    <div class="ad-placeholder">
+                        <!-- 这里可以放置广告代码 -->
+                        <p>【赞助商广告】</p>
+                        <p>探索更多精美壁纸资源</p>
+                    </div>
+                </div>
+                <div class="download-progress">
+                    <p class="progress-text">图片下载中，请稍后 <span id="downloadCountdown">3</span> 秒</p>
+                    <button id="finalDownloadButton" class="final-download-button">下载到手机</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>壁纸星球 - 为您提供高质量壁纸资源</p>
+                <div class="footer-links">
+                    <a href="index.html">首页</a>
+                    <a href="#about">关于我们</a>
+                    <a href="#contact">联系方式</a>
+                </div>
+                <p>&copy; 2025 壁纸星球 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript文件 -->
+    <script type="module">
+        // 导入壁纸数据和主函数
+        import wallpaperData from './js/data.js';
+        import { openAdModal, previewImage } from './js/main.js';
+        
+        // 获取DOM元素
+        const wallpaperSeriesContainer = document.getElementById('wallpaperSeries');
+        const tagsFilterContainer = document.getElementById('tagsFilter');
+        
+        // 存储当前选中的标签
+        let selectedTag = null;
+        
+        // 获取所有唯一标签
+        function getAllUniqueTags() {
+            const tagSet = new Set();
+            wallpaperData.forEach(series => {
+                series.tags.forEach(tag => tagSet.add(tag));
+            });
+            return Array.from(tagSet);
+        }
+        
+        // 渲染标签筛选栏
+        function renderTagsFilter() {
+            if (!tagsFilterContainer) return;
+            
+            // 获取所有唯一标签
+            const allTags = getAllUniqueTags();
+            
+            // 创建并添加标签按钮
+            allTags.forEach(tag => {
+                const tagButton = document.createElement('button');
+                tagButton.className = 'filter-tag';
+                tagButton.textContent = tag;
+                tagButton.addEventListener('click', () => toggleTagSelection(tag, tagButton));
+                tagsFilterContainer.appendChild(tagButton);
+            });
+        }
+        
+        // 切换标签选中状态
+        function toggleTagSelection(tag, button) {
+            // 如果点击的是当前选中的标签，则取消选中
+            if (selectedTag === tag) {
+                selectedTag = null;
+                button.classList.remove('active');
+            } else {
+                // 移除之前选中标签的active类
+                const activeButton = tagsFilterContainer.querySelector('.filter-tag.active');
+                if (activeButton) {
+                    activeButton.classList.remove('active');
+                }
+                
+                // 设置新的选中标签
+                selectedTag = tag;
+                button.classList.add('active');
+            }
+            
+            // 根据选中标签重新渲染壁纸系列
+            renderWallpaperSeries();
+        }
+        
+        // 渲染壁纸系列卡片
+        function renderWallpaperSeries() {
+            if (!wallpaperSeriesContainer) return;
+            
+            // 清空容器
+            wallpaperSeriesContainer.innerHTML = '';
+            
+            // 根据选中标签筛选壁纸系列
+            const filteredSeries = selectedTag 
+                ? wallpaperData.filter(series => series.tags.includes(selectedTag))
+                : wallpaperData;
+            
+            // 如果没有符合条件的壁纸系列，显示提示信息
+            if (filteredSeries.length === 0) {
+                const noResultMessage = document.createElement('div');
+                noResultMessage.className = 'no-results';
+                noResultMessage.textContent = `没有找到包含标签「${selectedTag}」的壁纸系列`;
+                wallpaperSeriesContainer.appendChild(noResultMessage);
+                return;
+            }
+            
+            // 遍历筛选后的壁纸数据，创建卡片
+            filteredSeries.forEach(series => {
+                const card = document.createElement('a');
+                card.href = `wallpaper-detail.html?id=${series.id}`;
+                card.className = 'wallpaper-card';
+                
+                // 创建卡片内容
+                card.innerHTML = `
+                    <div class="card-image">
+                        <div>壁纸系列 ${series.id}</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${series.title}</h3>
+                        <p class="card-description">${series.description}</p>
+                        <div class="card-meta">
+                            <div class="card-tags">
+                                ${series.tags.slice(0, 3).map(tag => 
+                                    `<span class="card-tag">${tag}</span>`
+                                ).join('')}
+                            </div>
+                            <span>${series.createTime}</span>
+                        </div>
+                    </div>
+                `;
+                
+                wallpaperSeriesContainer.appendChild(card);
+            });
+        }
+        
+        // 处理标签栏浮动效果
+        function handleScrollFloating() {
+            const tagsFilter = document.getElementById('tagsFilter');
+            const container = document.querySelector('.container');
+            
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                
+                // 当往上滑超过当前屏幕高度的50%时，标签栏浮动
+                if (scrollPosition > windowHeight * 0.5) {
+                    tagsFilter.classList.add('floating');
+                    container.style.paddingTop = '70px'; // 为浮动标签栏留出空间
+                } else {
+                    tagsFilter.classList.remove('floating');
+                    container.style.paddingTop = '0';
+                }
+            });
+        }
+        
+        // 页面加载完成后执行初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTagsFilter();
+            renderWallpaperSeries();
+            handleScrollFloating();
+        });
+    </script>
+</body>
+</html>

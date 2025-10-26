@@ -1,0 +1,424 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* 容器样式 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 头部样式 */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px 0;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+/* 首页横幅卡片样式 */
+.wallpaper-grid {
+    padding: 40px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #222;
+}
+
+.wallpaper-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.wallpaper-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.wallpaper-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.wallpaper-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.card-description {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.card-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.card-tag {
+    background-color: #f0f0f0;
+    padding: 3px 10px;
+    border-radius: 15px;
+    color: #666;
+}
+
+/* 壁纸详情页样式 */
+.wallpaper-detail {
+    padding: 40px 0;
+    background-color: #fff;
+}
+
+.detail-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.detail-title {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.detail-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.detail-description {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.detail-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.detail-tag {
+    background-color: #f0f0f0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 壁纸图片网格 */
+.wallpaper-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin-top: 40px;
+}
+
+.wallpaper-item {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.wallpaper-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.wallpaper-preview {
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallpaper-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.wallpaper-item:hover .wallpaper-preview img {
+    transform: scale(1.03);
+}
+
+.wallpaper-actions {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.preview-button {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.preview-button:hover {
+    background-color: #e0e0e0;
+}
+
+.download-button {
+    background-color: #3498db;
+    color: white;
+}
+
+.download-button:hover {
+    background-color: #2980b9;
+}
+
+/* 广告弹窗样式 */
+.ad-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.ad-modal.show {
+    display: flex;
+}
+
+.ad-container {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.close-button:hover {
+    background-color: #c0392b;
+}
+
+.ad-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.ad-space {
+    width: 100%;
+    height: 250px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.ad-placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.download-progress {
+    margin-top: 20px;
+}
+
+.progress-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.final-download-button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.final-download-button.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.final-download-button:hover {
+    background-color: #219a52;
+}
+
+/* 底部样式 */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .wallpaper-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .wallpaper-images {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .detail-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
