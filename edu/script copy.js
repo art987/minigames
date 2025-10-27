@@ -203,18 +203,12 @@ function showTodayRecommendations() {
 
 
 
-// 配置参数 - 可自行修改控制功能
-const CONFIG = {
-    showTodayRecommend: 0, // 0不显示弹窗，1显示弹窗
-    enableFloatingTags: 0  // 0不启用浮动标签，1启用浮动标签
-};
-
 // 在DOMContentLoaded事件中替换原来的弹窗代码
 document.addEventListener('DOMContentLoaded', () => {
     setupNavbarScrollBehavior();
     
-    
-    
+	
+	
 	// 设置文档head信息
     document.title = data.head.title;
     
@@ -231,11 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setMetaTag('keywords', data.head.keywords);
     setMetaTag('description', data.head.description);
-    
-    
-    
-    
-    
+	
+	
+	
+	
+	
+	
+	
     // 创建今日推荐弹窗
     createTodayRecommendModal();
     
@@ -251,32 +247,28 @@ document.addEventListener('DOMContentLoaded', () => {
         showTodayRecommendations();
     });
     // 新增代码结束
-    
-    
-    
-    
-    
+	
+	
+	
+	
+	
     renderPage();
     initSearch();
     initBackToTop();
     initAutoScroll();
     initRemainingCounter();
     
-    // 处理浮动标签功能
-    if (CONFIG.enableFloatingTags === 1) {
-        const floatingTagsContainer = document.getElementById('floating-tags-container');
-        floatingTagsContainer.style.display = 'none';
-        
-        // 监听滚动事件
-        window.addEventListener('scroll', updateFloatingTags);
-    }
+    // 初始隐藏浮动标签
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    floatingTagsContainer.style.display = 'none';
     
-    // 根据配置决定是否显示今日推荐弹窗
-    if (CONFIG.showTodayRecommend === 1) {
-        setTimeout(() => {
-            showTodayRecommendations();
-        }, 500);
-    }
+    // 监听滚动事件
+    window.addEventListener('scroll', updateFloatingTags);
+    
+    // 页面加载后显示今日推荐弹窗
+    setTimeout(() => {
+        showTodayRecommendations();
+    }, 500);
 });	
 	
 	

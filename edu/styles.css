@@ -85,11 +85,8 @@ body {
             padding-bottom: 5px;
             height: auto;
             margin-bottom: 1px;
-            overflow-x: scroll;
             margin-left: 0px;
             margin-right: 0px;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
 		.keywords {
     display: none;
@@ -131,6 +128,7 @@ body {
             font-size: 13px;
             display: inline;
             float: left;
+            margin: 0 5px 10px 0;
         }
 		
 		.marquee {
@@ -361,17 +359,16 @@ body {
     position: fixed;
     bottom: 134px;
     right: 31px;
-    background-color: #fff;
-    color: #000000;
+    background-color: #000000;
+    color: #ffffff;
     padding: 5px 0px;
     border-radius: 50px;
     border: 1px solid #b7b7b78c;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 31px;
     line-height: 18px;
     width: 45px;
     height: 45px;
-    font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index:100;
 }
@@ -612,10 +609,6 @@ body {
 
 
 
-#remaining-counter #remaining-count {
-    /* color: #aa0000; */
-    /* font-weight: bold; */
-}
 
 #remaining-counter #total-count {
     color: #575757;
