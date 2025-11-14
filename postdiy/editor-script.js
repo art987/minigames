@@ -750,7 +750,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // 选择模板
   function selectTemplate(template) {
     state.currentTemplate = template;
-    // 无论是否有自定义背景，都更新模板显示
+    // 清除自定义背景，确保使用模板的背景图片
+    state.customBackground = null;
+    // 更新模板显示
     updateTemplateDisplay();
   }
   
@@ -938,7 +940,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 创建清除按钮
     clearButton = document.createElement('button');
-    clearButton.className = 'clear-button absolute right-2 top-1/2 transform -translate-y-1/2 text-red-500 hover:text-red-600 focus:outline-none';
+    clearButton.className = 'clear-button';
     clearButton.textContent = '✕';
     clearButton.style.cursor = 'pointer';
     clearButton.style.display = 'none'; // 默认隐藏

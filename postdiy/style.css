@@ -241,22 +241,23 @@ main {
   border-radius: 9999px;
 }
 
-/* 模板网格布局 */
+/* 模板网格布局 - 改为一行2列竖状排列 */
 .templates-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
+/* 保持所有屏幕尺寸下都是2列布局 */
 @media (min-width: 768px) {
   .templates-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
   .templates-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -528,7 +529,7 @@ footer {
 
 @media (max-width: 480px) {
   .templates-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
