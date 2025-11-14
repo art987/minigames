@@ -745,16 +745,16 @@ footer {
 
 /* 底部按钮栏 - 针对移动端优化 */
 .bottom-actions {
+  /* width: 70px; */
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #ffffff;
-  border-top: 1px solid #e0e0e0;
-  padding: 12px 10px;
+  background-color: #ffffff7d;
+  padding: 6px 15px;
   display: flex;
   justify-content: space-around;
-  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 19px #000000;
   z-index: 100;
   /* 适配底部安全区域 */
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
@@ -762,12 +762,12 @@ footer {
 
 /* 操作按钮 - 更大的触摸区域 */
 .action-btn {
-  flex: 1;
-  padding: 16px 8px;
+  flex: 4;
+  padding: 9px 8px;
   margin: 0 4px;
   border: none;
-  border-radius: 10px;
-  background-color: #1976d2;
+  border-radius: 27px;
+  background-color: #1d1d1d;
   color: white;
   font-size: 12px;
   font-weight: 600;
@@ -777,7 +777,7 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 70px;
+  min-height: 29px;
   /* 确保足够的触摸区域 */
   touch-action: manipulation;
   user-select: none;
@@ -789,7 +789,8 @@ footer {
   margin-bottom: 4px;
 }
 
-/* 按钮触摸反馈 */
+#downloadBtn{ background-color: #ad0404;}
+
 .action-btn:active {
   background-color: #1565c0;
   transform: scale(0.95);
@@ -804,7 +805,7 @@ footer {
 }
 
 #backToHomeBtn {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(0 0 0 / 90%);
   border: none;
   border-radius: 50%;
   width: 45px;
@@ -819,7 +820,7 @@ footer {
 
 #backToHomeBtn i {
   font-size: 18px;
-  color: #333;
+  color: #ffffff;
 }
 
 /* 模态框样式 */
@@ -1184,8 +1185,8 @@ footer {
 @media (max-width: 480px) {
   /* 小屏幕上的按钮调整 */
   .action-btn {
-    padding: 12px 6px;
-    min-height: 65px;
+    padding: 13px 6px;
+    min-height: 31px;
   }
   
   .action-btn i {
@@ -1263,8 +1264,8 @@ input.hidden {
 /* 编辑页面特有样式 - 从内联CSS提取 */
 .back-button-container {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 11px;
+  left: 6px;
   z-index: 100;
 }
 
