@@ -111,6 +111,8 @@ const menuData = {
     {  singleItem: true, text: "电话求助热线汇总",  href: "/tools/gonggong-rexian.html", icon: "" , emoji:"📞",  describ: "全国各类紧急求助和服务热线电话大全" , keyword: "求助热线, 紧急电话, 服务热线, 便民电话" },	
     {  singleItem: true, text: "胎教音乐合集",     href: "/tools/taijiao-music/index.html",  icon: "" , emoji:"🤰",  describ: "精选适合孕期听的胎教音乐，促进胎儿智力发育" , keyword: "胎教音乐, 孕期保健, 胎儿发育, 音乐胎教" },
     { singleItem: true,  text: "心灵加油站",   href: "/quotes/index.html",  icon: "" , emoji:"⛽",  describ: "正能量名言和心灵鸡汤，给你前行的动力" , keyword: "心灵鸡汤, 正能量, 励志名言, 情绪调节" },
+    
+    { singleItem: true,  text: "节庆贺卡DIY",   href: "/postcard/index.html",  icon: "" , emoji:"📧",  describ: "自定义您专属的祝福贺卡" , keyword: "" },
     { singleItem: true,  text: "朋友圈海报DIY",   href: "/postdiy/index.html",  icon: "" , emoji:"📷",  describ: "自定义商家logo、二维码及促销信息" , keyword: "" }
     ,
     {

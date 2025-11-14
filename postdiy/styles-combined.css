@@ -1,0 +1,1366 @@
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 全局变量 */
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #6366f1;
+  --accent-color: #ec4899;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+  --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* 基础样式 */
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.editorbg{
+      /* 白底黑线重复小格子纹背景 */
+  background-image: linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+                    linear-gradient(to bottom, #e0e0e0 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: white;
+}
+
+/* 编辑器特殊样式 */
+.editor-body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f5f5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 布局容器 */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 头部样式 */
+header {
+  background-color: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 2rem;
+  height: 2rem;
+  fill: var(--primary-color);
+}
+
+/* 主内容区域 */
+main {
+  padding: 2rem 0;
+}
+
+/* 分类导航系统 */
+.category-nav {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.category-header {
+  margin-bottom: 1.5rem;
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.category-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* 月份导航 */
+.month-nav {
+  margin-bottom: 1.5rem;
+}
+
+.month-nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.month-buttons {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+.month-buttons::-webkit-scrollbar {
+  height: 4px;
+}
+
+.month-buttons::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.month-buttons::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 20px;
+}
+
+.month-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.month-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.month-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* 节日标签 */
+.festival-tags {
+  margin-bottom: 1rem;
+}
+
+.festival-tags-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.festival-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.festival-tag {
+  padding: 0.375rem 0.875rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+}
+
+.festival-tag:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary-color);
+}
+
+.festival-tag.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* 模板展示区域 */
+.templates-section {
+  margin-bottom: 2rem;
+}
+
+.templates-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.templates-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.templates-count {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+/* 模板网格布局 */
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .templates-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .templates-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* 模板卡片 */
+.template-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.template-thumbnail-container {
+  position: relative;
+  padding-bottom: 150%; /* 2:3 宽高比 */
+  overflow: hidden;
+}
+
+.template-thumbnail {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.template-card:hover .template-thumbnail {
+  transform: scale(1.05);
+}
+
+.template-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.template-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.template-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: auto;
+}
+
+.template-type-tag {
+  padding: 0.125rem 0.375rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.template-festival-tag {
+  padding: 0.125rem 0.375rem;
+  background-color: rgba(236, 72, 153, 0.1);
+  color: var(--accent-color);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-icon {
+  width: 6rem;
+  height: 6rem;
+  fill: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-message {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+/* 底部样式 */
+footer {
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  background: #fff;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+  color: var(--primary-color);
+}
+
+.footer-copyright {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* 提示框样式 */
+.toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  color: white;
+  font-weight: 500;
+  z-index: 1000;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-info {
+  background-color: var(--primary-color);
+}
+
+.toast-success {
+  background-color: var(--success-color);
+}
+
+.toast-warning {
+  background-color: var(--warning-color);
+}
+
+.toast-error {
+  background-color: var(--error-color);
+}
+
+/* 加载动画 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--bg-tertiary);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+  .header-content {
+    padding: 0.75rem 1rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  main {
+    padding: 1rem 0;
+  }
+  
+  .category-nav {
+    padding: 1rem;
+  }
+  
+  .month-buttons {
+    display: flex;
+    gap: 0.375rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 0.375rem 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .month-btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .templates-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .template-card {
+    min-height: 0;
+  }
+  
+  .toast {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    transform: translateY(-100%);
+  }
+  
+  .toast.show {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .templates-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  header, footer, .category-nav {
+    display: none;
+  }
+  
+  .templates-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ====== 编辑器页面样式 ====== */
+
+/* 预览容器 - 响应式设计 */
+.preview-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+
+}
+
+/* 海报框架 - 自适应屏幕大小 */
+#posterFrame {
+  width: min(90vw, 300px);
+  height: min(calc(90vw * 2), 600px);
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+ 
+  overflow: hidden;
+  background-color: #ffffff;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+
+/* 海报框架悬停效果 */
+#posterFrame:hover {
+  transform: translateY(-5px);
+}
+
+/* 海报内部元素 */
+#posterBackground {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#posterContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* 海报头部样式 */
+.poster-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+#posterBusinessName {
+  position: absolute;
+  top: 30px;
+  left: 57px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 2px 11px rgb(0 0 0 / 76%);
+  padding: 0 20px;
+  word-wrap: break-word;
+}
+
+/* 海报Logo样式 */
+#posterLogo {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 0;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: rgb(255 255 255 / 48%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#posterLogoImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ffffff57;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+#logoPlaceholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 海报底部样式 */
+.poster-footer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+/* 海报二维码样式 */
+#posterQrcode {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#posterQrcodeImg {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+#qrcodePlaceholder {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 40px;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 促销信息样式 */
+#posterPromoText {
+  position: absolute;
+  bottom: 22px;
+  left: 102px;
+  right: 18px;
+  color: #FFFFFE;
+  background: #be0000;
+  width: auto;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  word-wrap: break-word;
+}
+
+/* 底部按钮栏 - 针对移动端优化 */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  padding: 12px 10px;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  /* 适配底部安全区域 */
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* 操作按钮 - 更大的触摸区域 */
+.action-btn {
+  flex: 1;
+  padding: 16px 8px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1976d2;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
+  /* 确保足够的触摸区域 */
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* 按钮图标更大 */
+.action-btn i {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+/* 按钮触摸反馈 */
+.action-btn:active {
+  background-color: #1565c0;
+  transform: scale(0.95);
+}
+
+/* 返回按钮样式 */
+.back-button-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+#backToHomeBtn {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#backToHomeBtn i {
+  font-size: 18px;
+  color: #333;
+}
+
+/* 模态框样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-overlay:not(.hidden) {
+  display: flex;
+}
+
+/* 模态框容器 - 移动端优化 */
+.modal {
+  background-color: #ffffff;
+  border-radius: 20px;
+  width: 95vw;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+/* 模态框动画 */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 模态框头部 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 模态框标题 */
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* 模态框关闭按钮 */
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-close:active {
+  transform: scale(0.9);
+}
+
+/* 模态框内容 */
+.modal-body {
+  padding: 20px;
+}
+
+/* 模态框底部 */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 20px;
+  border-top: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+/* 编辑器按钮样式 */
+.editor-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+  text-align: center;
+}
+
+.editor-button:not(.editor-button-secondary) {
+  background-color: #1976d2;
+  color: white;
+}
+
+.editor-button:not(.editor-button-secondary):active {
+  background-color: #1565c0;
+  transform: scale(0.95);
+}
+
+.editor-button-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.editor-button-secondary:active {
+  background-color: #e0e0e0;
+  transform: scale(0.95);
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+/* 上传区域样式 */
+.upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.upload-area:hover {
+  border-color: #1976d2;
+  background-color: #f5f9ff;
+}
+
+.upload-icon {
+  width: 50px;
+  height: 50px;
+  color: #888;
+  margin: 0 auto 15px;
+}
+
+.upload-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.upload-hint {
+  font-size: 13px;
+  color: #888;
+}
+
+/* 上传预览样式 */
+.upload-preview {
+  position: relative;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.upload-preview-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.upload-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-remove-btn:hover {
+  background-color: rgba(255, 0, 0, 1);
+}
+
+.upload-remove-btn:active {
+  transform: scale(0.9);
+}
+
+/* 月份和节日选择样式 */
+.modal-months-container {
+  margin-bottom: 20px;
+}
+
+.modal-months-grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+/* 隐藏滚动条但保持滚动功能 */
+.modal-months-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.modal-months-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-months-grid::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.modal-months-grid::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}
+
+/* 节日标签保持网格布局 */
+.modal-festivals-container {
+  margin-bottom: 20px;
+}
+
+.modal-festivals-scroll {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.modal-festivals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+/* 模板网格样式 */
+#modalTemplatesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* 模板项样式 */
+.template-item {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.template-item:hover {
+  border-color: #1976d2;
+  transform: translateY(-2px);
+}
+
+.template-item.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+}
+
+.template-item:active {
+  transform: scale(0.98);
+}
+
+/* 文本错误颜色 */
+.text-error-color {
+  color: #f44336;
+}
+
+/* Toast消息样式 */
+.toast-message {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translate(-50%, 20px);
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+  /* 小屏幕上的按钮调整 */
+  .action-btn {
+    padding: 12px 6px;
+    min-height: 65px;
+  }
+  
+  .action-btn i {
+    font-size: 18px;
+  }
+  
+  .action-btn span {
+    font-size: 11px;
+  }
+  
+  /* 小屏幕上的模态框调整 */
+  .modal {
+    width: 98vw;
+    max-height: 95vh;
+    border-radius: 16px;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 15px;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+  }
+  
+  /* 小屏幕上的模板网格调整 */
+  #modalTemplatesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  /* 小屏幕上的月份和节日网格调整 */
+  .modal-months-grid,
+  .modal-festivals-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  /* 小屏幕上的模板缩略图高度调整 */
+  .template-thumbnail {
+    height: 140px;
+  }
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* 隐藏类 */
+.hidden {
+  display: none !important;
+}
+
+/* 隐藏输入框 */
+input.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* 编辑页面特有样式 - 从内联CSS提取 */
+.back-button-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.back-button {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button i {
+  font-size: 18px;
+  color: #333;
+}
+
+/* 海报样式 - 从内联CSS提取 */
+.poster-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.poster-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.poster-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#logoPlaceholder {
+  font-size: 30px;
+}
+
+.poster-footer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.poster-qrcode {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-qrcode img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#qrcodePlaceholder {
+  font-size: 40px;
+}
+
+.poster-promo-text {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}

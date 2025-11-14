@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // DOM元素缓存
   const elements = {
+    // 修复：添加缺失的removeBackgroundBtn元素
+    removeBackgroundBtn: document.getElementById('removeBackgroundBtn'),
     // 返回按钮
     backToHomeBtn: document.getElementById('backToHomeBtn'),
     
@@ -76,6 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeEditor();
   }
   
+  // 调用初始化函数
+  init();
+  
   // 绑定事件处理函数
   function bindEvents() {
     // 返回按钮事件
@@ -130,9 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (elements.backgroundInput) {
       elements.backgroundInput.addEventListener('change', handleBackgroundUpload);
-    }
-    if (elements.removeBackgroundBtn) {
-      elements.removeBackgroundBtn.addEventListener('click', removeBackground);
     }
     
     // Logo上传相关事件
@@ -326,7 +328,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 根据当前日期自动选择月份和节日（与首页逻辑保持一致）
     autoSelectDateInModal();
     
-    // 显示弹窗
+    // 显示弹窗 - 通过移除hidden类
+    elements.templateModal.classList.remove('hidden');
+    // 同时设置display确保兼容性
     elements.templateModal.style.display = 'flex';
   }
   
@@ -472,14 +476,21 @@ document.addEventListener('DOMContentLoaded', function() {
       festivalTag.className = 'festival-tag';
       festivalTag.textContent = festival;
       festivalTag.dataset.festival = festival;
-      festivalTag.addEventListener('click', function() {
+      
+      // 创建事件处理函数引用，便于后续移除
+      const tagClickHandler = function() {
         // 移除所有标签的选中状态
         document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
         // 添加当前标签的选中状态
         this.classList.add('active');
         // 筛选显示该节日的模板
         filterTemplatesByFestival(festival);
-      });
+      };
+      
+      festivalTag.addEventListener('click', tagClickHandler);
+      // 存储事件处理函数引用，便于后续移除
+      festivalTag._clickHandler = tagClickHandler;
+      
       elements.modalFestivalTags.appendChild(festivalTag);
     });
   }
@@ -677,15 +688,48 @@ document.addEventListener('DOMContentLoaded', function() {
   // 关闭模板选择弹窗
   function closeTemplateModal() {
     if (elements.templateModal) {
+      // 移除动态创建的节日标签及其事件监听器
+      const festivalTags = document.querySelectorAll('.festival-tag');
+      festivalTags.forEach(tag => {
+        if (tag._clickHandler) {
+          tag.removeEventListener('click', tag._clickHandler);
+          delete tag._clickHandler;
+        }
+      });
+      
+      // 清空模板网格和标签容器
+      if (elements.templateGrid) {
+        elements.templateGrid.innerHTML = '';
+      }
+      if (elements.modalFestivalTags) {
+        elements.modalFestivalTags.innerHTML = '';
+      }
+      
+      elements.templateModal.classList.add('hidden');
       elements.templateModal.style.display = 'none';
     }
   }
   
   // 为输入框添加清除按钮和改进提示语交互
   function enhanceInputWithClearButton(inputElement, placeholderText) {
+    // 移除之前可能存在的事件监听器，防止重复绑定
+    if (inputElement._inputHandler) {
+      inputElement.removeEventListener('input', inputElement._inputHandler);
+    }
+    if (inputElement._focusHandler) {
+      inputElement.removeEventListener('focus', inputElement._focusHandler);
+    }
+    if (inputElement._blurHandler) {
+      inputElement.removeEventListener('blur', inputElement._blurHandler);
+    }
+    
     // 如果清除按钮已存在，则移除它
     let clearButton = inputElement.parentNode.querySelector('.clear-button');
     if (clearButton) {
+      // 移除清除按钮的事件监听器
+      if (clearButton._clickHandler) {
+        clearButton.removeEventListener('click', clearButton._clickHandler);
+      }
       inputElement.parentNode.removeChild(clearButton);
     }
     
@@ -700,19 +744,21 @@ document.addEventListener('DOMContentLoaded', function() {
     clearButton.style.cursor = 'pointer';
     clearButton.style.display = 'none'; // 默认隐藏
     
-    // 添加清除按钮点击事件
-    clearButton.addEventListener('click', function() {
+    // 添加清除按钮点击事件，并保存引用
+    clearButton._clickHandler = function() {
       inputElement.value = '';
       clearButton.style.display = 'none';
-    });
+    };
+    clearButton.addEventListener('click', clearButton._clickHandler);
     
-    // 添加输入事件，控制清除按钮显示/隐藏
-    inputElement.addEventListener('input', function() {
+    // 添加输入事件，控制清除按钮显示/隐藏，保存引用
+    inputElement._inputHandler = function() {
       clearButton.style.display = this.value ? 'block' : 'none';
-    });
+    };
+    inputElement.addEventListener('input', inputElement._inputHandler);
     
-    // 添加焦点事件，当获得焦点且内容是默认提示语时，自动清空
-    inputElement.addEventListener('focus', function() {
+    // 添加焦点事件，保存引用
+    inputElement._focusHandler = function() {
       if (this.value === placeholderText) {
         this.value = '';
       }
@@ -720,15 +766,17 @@ document.addEventListener('DOMContentLoaded', function() {
       if (this.value) {
         clearButton.style.display = 'block';
       }
-    });
+    };
+    inputElement.addEventListener('focus', inputElement._focusHandler);
     
-    // 添加失去焦点事件，如果输入框为空，则恢复默认提示语
-    inputElement.addEventListener('blur', function() {
+    // 添加失去焦点事件，保存引用
+    inputElement._blurHandler = function() {
       if (!this.value.trim()) {
         this.value = placeholderText;
         clearButton.style.display = 'none';
       }
-    });
+    };
+    inputElement.addEventListener('blur', inputElement._blurHandler);
     
     // 将清除按钮添加到输入框容器
     container.appendChild(clearButton);
@@ -767,21 +815,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (elements.qrcodeUploadArea && elements.qrcodePreview) {
       if (state.businessInfo.qrcode) {
         elements.qrcodeUploadArea.style.display = 'none';
+        // 移除hidden类
+        elements.qrcodePreview.classList.remove('hidden');
         elements.qrcodePreview.style.display = 'block';
         elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
       } else {
         elements.qrcodeUploadArea.style.display = 'block';
+        // 添加hidden类
+        elements.qrcodePreview.classList.add('hidden');
         elements.qrcodePreview.style.display = 'none';
       }
     }
     
-    // 显示弹窗
+    // 显示弹窗 - 通过移除hidden类
+    elements.businessInfoModal.classList.remove('hidden');
+    // 同时设置display确保兼容性
     elements.businessInfoModal.style.display = 'flex';
   }
   
   // 关闭商家信息编辑弹窗
   function closeBusinessInfoModal() {
     if (elements.businessInfoModal) {
+      elements.businessInfoModal.classList.add('hidden');
       elements.businessInfoModal.style.display = 'none';
     }
   }
@@ -823,10 +878,17 @@ document.addEventListener('DOMContentLoaded', function() {
     toast.style.opacity = '1';
     toast.style.transform = 'translate(-50%, 0)';
     
-    // 3秒后隐藏
+    // 3秒后隐藏并从DOM中移除
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.style.transform = 'translate(-50%, 20px)';
+      
+      // 动画完成后从DOM中完全移除
+      setTimeout(() => {
+        if (toast.parentNode) {
+          document.body.removeChild(toast);
+        }
+      }, 300);
     }, 3000);
   }
   
@@ -948,6 +1010,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // 显示预览，隐藏上传区域
       if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
         elements.qrcodePreviewImg.src = e.target.result;
+        // 移除hidden类
+        elements.qrcodePreview.classList.remove('hidden');
         elements.qrcodePreview.style.display = 'block';
         elements.qrcodeUploadArea.style.display = 'none';
       }
@@ -970,6 +1034,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 隐藏预览，显示上传区域
     if (elements.qrcodePreview && elements.qrcodeUploadArea) {
+      // 添加hidden类
+      elements.qrcodePreview.classList.add('hidden');
       elements.qrcodePreview.style.display = 'none';
       elements.qrcodeUploadArea.style.display = 'block';
     }
@@ -1048,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // 下载海报
-  function downloadPoster() {
+  async function downloadPoster() {
     if (!state.currentTemplate) {
       showToast('请先选择一个模板');
       return;
@@ -1060,314 +1126,330 @@ document.addEventListener('DOMContentLoaded', function() {
       elements.downloadBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> 正在生成...';
     }
     
-    // 转换为图片并下载
-    convertToImageAndDownload();
-    
-    // 重置下载按钮状态
-    setTimeout(() => {
+    try {
+      // 转换为图片并下载，等待操作完成
+      await convertToImageAndDownload();
+    } catch (error) {
+      console.error('下载海报过程中出错:', error);
+      showToast('下载海报失败，请重试');
+    } finally {
+      // 重置下载按钮状态
       if (elements.downloadBtn) {
         elements.downloadBtn.disabled = false;
         elements.downloadBtn.innerHTML = '<i class="fa fa-download"></i> 下载海报';
       }
-    }, 2000);
-  }
-  
-  // 转换为图片并下载
-  function convertToImageAndDownload() {
-    // 获取元素
-    if (!elements.posterFrame) return;
-    
-    // 获取海报尺寸
-    const posterWidth = elements.posterFrame.offsetWidth;
-    const posterHeight = elements.posterFrame.offsetHeight;
-    
-    // 创建高分辨率canvas
-    const canvas = document.createElement('canvas');
-    const scale = 2; // 提高分辨率
-    canvas.width = posterWidth * scale;
-    canvas.height = posterHeight * scale;
-    const ctx = canvas.getContext('2d');
-    
-    // 设置canvas缩放
-    ctx.scale(scale, scale);
-    
-    // 1. 绘制背景图片（使用Canvas API确保正确裁剪）
-    const backgroundImg = elements.posterFrame.querySelector('#posterBackground');
-    if (backgroundImg && backgroundImg.src) {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = function() {
-        // 计算正确的裁剪和缩放比例
-        const targetWidth = posterWidth;
-        const targetHeight = posterHeight;
-        const imgRatio = img.width / img.height;
-        const targetRatio = targetWidth / targetHeight;
-        
-        let drawWidth, drawHeight, drawX, drawY;
-        
-        if (imgRatio > targetRatio) {
-          // 图片更宽，按高度缩放，裁剪宽度
-          drawHeight = targetHeight;
-          drawWidth = img.width * (targetHeight / img.height);
-          drawX = (targetWidth - drawWidth) / 2;
-          drawY = 0;
-        } else {
-          // 图片更高，按宽度缩放，裁剪高度
-          drawWidth = targetWidth;
-          drawHeight = img.height * (targetWidth / img.width);
-          drawX = 0;
-          drawY = (targetHeight - drawHeight) / 2;
-        }
-        
-        // 保存当前状态
-        ctx.save();
-        
-        // 设置透明度
-        const opacity = backgroundImg.style.opacity ? parseFloat(backgroundImg.style.opacity) : 1;
-        ctx.globalAlpha = opacity;
-        
-        // 绘制背景图片（模拟object-fit: cover）
-        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-        
-        // 恢复状态
-        ctx.restore();
-        
-        // 2. 绘制海报内容区域（使用html2canvas处理非背景元素）
-        drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
-      };
-      
-      img.onerror = function() {
-        console.error('背景图片加载失败');
-        // 即使背景图片加载失败，也继续绘制其他内容
-        drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
-      };
-      
-      // 加载图片
-      img.src = backgroundImg.src;
-    } else {
-      // 如果没有背景图片，直接绘制海报内容
-      drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale);
     }
   }
   
-  // 绘制海报内容的辅助函数
-  function drawPosterContent(canvas, ctx, elements, posterWidth, posterHeight, scale) {
-    // 创建一个新的canvas用于绘制logo和内容
-    const logoCanvas = document.createElement('canvas');
-    logoCanvas.width = posterWidth * scale;
-    logoCanvas.height = posterHeight * scale;
-    const logoCtx = logoCanvas.getContext('2d');
-    logoCtx.scale(scale, scale);
+  // 转换为图片并下载 - 简化版：直接使用html2canvas对整个posterFrame进行截图
+  async function convertToImageAndDownload() {
+    // 获取元素
+    if (!elements.posterFrame) {
+      showToast('未找到海报元素');
+      return;
+    }
     
-    // 绘制非logo内容到临时canvas
-    const tempContainer = document.createElement('div');
-    tempContainer.style.position = 'absolute';
-    tempContainer.style.top = '-9999px';
-    tempContainer.style.left = '-9999px';
-    tempContainer.style.width = posterWidth + 'px';
-    tempContainer.style.height = posterHeight + 'px';
-    tempContainer.style.margin = '0';
-    tempContainer.style.padding = '0';
-    tempContainer.style.boxSizing = 'border-box';
-    tempContainer.style.backgroundColor = 'transparent';
+    // 提高分辨率，设置一个更高的缩放比例
+    const scale = window.devicePixelRatio * 1.5 || 3;
     
-    // 克隆内容区域
-    const clonedContent = document.createElement('div');
-    clonedContent.style.width = '100%';
-    clonedContent.style.height = '100%';
-    clonedContent.style.position = 'relative';
+    // 保存原始样式信息
+    const originalBusinessNameTransform = elements.posterBusinessName ? elements.posterBusinessName.style.transform : '';
+    const originalPromoTextTransform = elements.posterPromoText ? elements.posterPromoText.style.transform : '';
+    const originalPromoTextPadding = elements.posterPromoText ? elements.posterPromoText.style.padding : '';
     
-    // 手动构建内容区域
-    const originalContent = elements.posterFrame.querySelector('#posterContent');
-    if (originalContent) {
-      const contentClone = originalContent.cloneNode(true);
-      
-      // 移除可能的背景
-      const contentBackground = contentClone.querySelector('#posterBackground');
-      if (contentBackground) {
-        contentBackground.remove();
+    // 查找并保存背景图片元素的原始样式和src
+    const backgroundImageElement = document.getElementById('posterBackground') || null;
+    const originalBackgroundImageStyle = backgroundImageElement ? { ...backgroundImageElement.style } : null;
+    const originalBackgroundImageSrc = backgroundImageElement ? backgroundImageElement.src : '';
+    let tempCanvasElement = null;
+    
+    // 恢复样式的函数
+    function cleanupStyles() {
+      // 恢复原始样式
+      if (elements.posterBusinessName) {
+        elements.posterBusinessName.style.transform = originalBusinessNameTransform;
       }
-      
-      // 保存logo信息，然后从克隆内容中移除logo
-      let logoInfo = null;
-      
-      // 首先尝试在原始DOM中获取logo信息（更可靠）
-      if (elements.posterLogoImg && elements.posterLogo && elements.posterLogoImg.src) {
-        // 获取logo容器的位置、尺寸和样式
-        const logoRect = elements.posterLogo.getBoundingClientRect();
-        const posterRect = elements.posterFrame.getBoundingClientRect();
-        
-        // 使用实际元素而非克隆元素来获取准确的样式信息
-        const computedStyle = window.getComputedStyle(elements.posterLogo);
-        
-        logoInfo = {
-          src: elements.posterLogoImg.src,
-          left: (logoRect.left - posterRect.left) / posterRect.width * posterWidth,
-          top: (logoRect.top - posterRect.top) / posterRect.height * posterHeight,
-          width: logoRect.width / posterRect.width * posterWidth,
-          height: logoRect.height / posterRect.height * posterHeight,
-          opacity: parseFloat(computedStyle.opacity) || 1,
-          borderRadius: computedStyle.borderRadius || '0px'
+      if (elements.posterPromoText) {
+        elements.posterPromoText.style.transform = originalPromoTextTransform;
+        elements.posterPromoText.style.padding = originalPromoTextPadding;
+      }
+      // 恢复背景图片原始样式并移除临时canvas
+      if (backgroundImageElement) {
+        backgroundImageElement.style.display = '';
+        if (originalBackgroundImageStyle) {
+          Object.assign(backgroundImageElement.style, originalBackgroundImageStyle);
+        }
+      }
+      if (tempCanvasElement && tempCanvasElement.parentNode) {
+        tempCanvasElement.parentNode.removeChild(tempCanvasElement);
+      }
+    }
+    
+    // 执行html2canvas的函数
+      function executeHtml2Canvas() {
+        // 使用html2canvas配置参数，增加更多优化选项
+        const options = {
+          backgroundColor: null, // 透明背景
+          scale: scale, // 高分辨率
+          useCORS: true, // 允许跨域图片
+          allowTaint: true, // 允许图片污染
+          logging: false, // 禁用日志
+          width: elements.posterFrame.offsetWidth,
+          height: elements.posterFrame.offsetHeight,
+          imageTimeout: 30000, // 增加图片加载超时时间
+          removeContainer: false, // 保留容器
+          letterRendering: true, // 启用字母渲染优化
+          useRecursiveClone: true, // 使用递归克隆提高渲染质量
+          preserveDrawingBuffer: true, // 保留绘图缓冲区
+          disableWindowResize: true, // 禁用窗口调整大小的影响
+          disableAutoScale: false // 允许自动缩放
         };
+      
+      // 使用html2canvas截图
+        return html2canvas(elements.posterFrame, options).then(canvas => {
+          // 创建下载链接
+          const link = document.createElement('a');
+          
+          // 生成最高质量的PNG图像，确保清晰度
+          link.href = canvas.toDataURL('image/png', 1.0);
+          
+          // 设置文件名，添加high_quality标识
+          link.download = `poster_high_quality_${Date.now()}.png`;
         
-        // 然后在克隆内容中移除logo（如果存在）
-        const clonedLogoContainer = contentClone.querySelector('#posterLogo');
-        if (clonedLogoContainer) {
-          clonedLogoContainer.remove();
-        }
-      } else {
-        console.log('未找到有效的logo元素或图片源');
-      }
-      
-      clonedContent.appendChild(contentClone);
-      
-      // 添加到临时容器
-      tempContainer.appendChild(clonedContent);
-      document.body.appendChild(tempContainer);
-      
-      // 使用html2canvas绘制非logo内容
-      html2canvas(tempContainer, {
-        backgroundColor: null,
-        scale: scale,
-        useCORS: true,
-        allowTaint: true,
-        logging: false
-      }).then(contentCanvas => {
-        // 将内容绘制到logoCanvas上
-        logoCtx.drawImage(contentCanvas, 0, 0, posterWidth, posterHeight);
+        // 触发下载
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         
-        // 单独处理并绘制logo
-        if (logoInfo && logoInfo.src) {
-          drawLogoWithProperFit(logoCanvas, logoCtx, logoInfo, posterWidth, posterHeight, scale, () => {
-            // 将最终结果绘制到主canvas
-            ctx.drawImage(logoCanvas, 0, 0, posterWidth, posterHeight);
-            
-            // 完成处理
-            finalizeImage(canvas, tempContainer);
-          });
-        } else {
-          // 没有logo，直接使用内容canvas
-          ctx.drawImage(logoCanvas, 0, 0, posterWidth, posterHeight);
-          finalizeImage(canvas, tempContainer);
-        }
+        // 显示成功提示
+        showToast('海报生成成功！');
       }).catch(error => {
-        console.error('生成海报内容失败:', error);
-        showToast('生成图片失败，请重试');
-        
-        // 清理临时容器
-        setTimeout(() => {
-          if (tempContainer.parentNode) {
-            document.body.removeChild(tempContainer);
-          }
-        }, 500);
+        console.error('生成海报时出错:', error);
+        showToast('生成海报失败，请重试');
+        throw error;
+      }).finally(() => {
+        cleanupStyles();
       });
     }
-  }
-  
-  // 绘制logo并确保保持原始比例的辅助函数
-  function drawLogoWithProperFit(canvas, ctx, logoInfo, posterWidth, posterHeight, scale, callback) {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() {
-      // 保存当前状态
-      ctx.save();
+    
+    try {
+      // 临时调整商家名称位置和促销信息的padding
+      if (elements.posterBusinessName) {
+        elements.posterBusinessName.style.transform = `translateY(-12px)`;
+      }
+      if (elements.posterPromoText) {
+        // 减少padding-top 8px，增加padding-bottom 6px
+        elements.posterPromoText.style.padding = `0px 12px 15px 12px`;
+      }
       
-      // 设置透明度
-      ctx.globalAlpha = logoInfo.opacity;
+      // 保存logo和二维码的原始样式
+      const logoImgElement = elements.posterLogoImg;
+      const qrcodeImgElement = elements.posterQrcodeImg;
+      const originalLogoStyle = logoImgElement ? { ...logoImgElement.style } : null;
+      const originalQrcodeStyle = qrcodeImgElement ? { ...qrcodeImgElement.style } : null;
+      let tempLogoCanvas = null;
+      let tempQrcodeCanvas = null;
       
-      // 设置圆角 - 确保正确处理像素单位
-      if (logoInfo.borderRadius) {
-        ctx.beginPath();
-        // 尝试从borderRadius字符串中提取数值
-        const radiusStr = logoInfo.borderRadius;
-        const radiusMatch = radiusStr.match(/(\d+)px/);
-        const radius = radiusMatch ? parseInt(radiusMatch[1]) : 0;
+      // 辅助函数：创建canvas来正确显示图片（保持宽高比）
+      async function createProperlyScaledCanvas(imgElement) {
+        if (!imgElement || !imgElement.src) return null;
         
-        ctx.moveTo(logoInfo.left + radius, logoInfo.top);
-        ctx.lineTo(logoInfo.left + logoInfo.width - radius, logoInfo.top);
-        ctx.arcTo(logoInfo.left + logoInfo.width, logoInfo.top, logoInfo.left + logoInfo.width, logoInfo.top + radius, radius);
-        ctx.lineTo(logoInfo.left + logoInfo.width, logoInfo.top + logoInfo.height - radius);
-        ctx.arcTo(logoInfo.left + logoInfo.width, logoInfo.top + logoInfo.height, logoInfo.left + logoInfo.width - radius, logoInfo.top + logoInfo.height, radius);
-        ctx.lineTo(logoInfo.left + radius, logoInfo.top + logoInfo.height);
-        ctx.arcTo(logoInfo.left, logoInfo.top + logoInfo.height, logoInfo.left, logoInfo.top + logoInfo.height - radius, radius);
-        ctx.lineTo(logoInfo.left, logoInfo.top + radius);
-        ctx.arcTo(logoInfo.left, logoInfo.top, logoInfo.left + radius, logoInfo.top, radius);
-        ctx.closePath();
-        ctx.clip();
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            try {
+              // 创建临时canvas
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              
+              // 获取元素容器的尺寸
+              const container = imgElement.parentElement;
+              const containerWidth = container.offsetWidth;
+              const containerHeight = container.offsetHeight;
+              
+              // 提高临时canvas分辨率
+              canvas.width = containerWidth * scale;
+              canvas.height = containerHeight * scale;
+              // 设置canvas的CSS尺寸与容器相同
+              canvas.style.width = containerWidth + 'px';
+              canvas.style.height = containerHeight + 'px';
+              // 缩放上下文以匹配高分辨率
+              ctx.scale(scale, scale);
+              
+              // 计算object-fit:cover的裁剪参数
+              const imgRatio = img.width / img.height;
+              const containerRatio = containerWidth / containerHeight;
+              
+              let drawWidth, drawHeight, offsetX, offsetY;
+              
+              if (imgRatio > containerRatio) {
+                // 图片更宽，按高度缩放，裁剪宽度
+                drawHeight = containerHeight;
+                drawWidth = img.width * (containerHeight / img.height);
+                offsetX = (containerWidth - drawWidth) / 2;
+                offsetY = 0;
+              } else {
+                // 图片更高，按宽度缩放，裁剪高度
+                drawWidth = containerWidth;
+                drawHeight = img.height * (containerWidth / img.width);
+                offsetX = 0;
+                offsetY = (containerHeight - drawHeight) / 2;
+              }
+              
+              // 绘制图片（实现object-fit:cover效果）
+              ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              
+              // 隐藏原始图片，显示canvas
+              imgElement.style.display = 'none';
+              canvas.style.position = 'absolute';
+              canvas.style.top = '0';
+              canvas.style.left = '0';
+              canvas.style.width = '100%';
+              canvas.style.height = '100%';
+              container.insertBefore(canvas, imgElement);
+              
+              resolve(canvas);
+            } catch (error) {
+              reject(error);
+            }
+          };
+          
+          img.onerror = function() {
+            reject(new Error('无法加载图片'));
+          };
+          
+          img.src = imgElement.src;
+        });
       }
       
-      // 计算logo的正确缩放，保持原始比例
-      const targetWidth = logoInfo.width;
-      const targetHeight = logoInfo.height;
-      
-      // 直接使用图片的原始宽高比，确保正方形logo不会变形
-      const imgRatio = img.width / img.height;
-      
-      let drawWidth, drawHeight, drawX, drawY;
-      
-      // 确保至少有一个合理的尺寸值
-      if (isNaN(targetWidth) || targetWidth <= 0) {
-        drawWidth = 100; // 默认宽度
+      // 处理背景图片
+      if (backgroundImageElement && backgroundImageElement.src) {
+        // 创建一个新的Image对象来加载背景图片
+        const img = new Image();
+        // 设置crossOrigin以允许跨域图片
+        img.crossOrigin = 'anonymous';
+        
+        // 使用Promise来处理图片加载
+        await new Promise((resolve, reject) => {
+          img.onload = function() {
+            try {
+              // 创建临时canvas元素
+        tempCanvasElement = document.createElement('canvas');
+        const ctx = tempCanvasElement.getContext('2d');
+        
+        // 获取海报框架尺寸
+        const posterWidth = elements.posterFrame.offsetWidth;
+        const posterHeight = elements.posterFrame.offsetHeight;
+        
+        // 提高临时canvas分辨率
+        tempCanvasElement.width = posterWidth * scale;
+        tempCanvasElement.height = posterHeight * scale;
+        // 设置canvas的CSS尺寸与容器相同
+        tempCanvasElement.style.width = posterWidth + 'px';
+        tempCanvasElement.style.height = posterHeight + 'px';
+        // 缩放上下文以匹配高分辨率
+        ctx.scale(scale, scale);
+              
+              // 计算object-fit:cover的裁剪参数
+              const imgRatio = img.width / img.height;
+              const posterRatio = posterWidth / posterHeight;
+              
+              let drawWidth, drawHeight, offsetX, offsetY;
+              
+              if (imgRatio > posterRatio) {
+                // 图片更宽，按高度缩放，裁剪宽度
+                drawHeight = posterHeight;
+                drawWidth = img.width * (posterHeight / img.height);
+                offsetX = (posterWidth - drawWidth) / 2;
+                offsetY = 0;
+              } else {
+                // 图片更高，按宽度缩放，裁剪高度
+                drawWidth = posterWidth;
+                drawHeight = img.height * (posterWidth / img.width);
+                offsetX = 0;
+                offsetY = (posterHeight - drawHeight) / 2;
+              }
+              
+              // 绘制图片（实现object-fit:cover效果）
+              ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              
+              // 隐藏原始图片，显示canvas
+              backgroundImageElement.style.display = 'none';
+              tempCanvasElement.style.position = 'absolute';
+              tempCanvasElement.style.top = '0';
+              tempCanvasElement.style.left = '0';
+              tempCanvasElement.style.width = '100%';
+              tempCanvasElement.style.height = '100%';
+              backgroundImageElement.parentNode.insertBefore(tempCanvasElement, backgroundImageElement);
+              
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          };
+          
+          img.onerror = function() {
+            reject(new Error('无法加载背景图片'));
+          };
+          
+          // 加载图片
+          img.src = backgroundImageElement.src;
+        });
       }
-      if (isNaN(targetHeight) || targetHeight <= 0) {
-        drawHeight = 100; // 默认高度
+      
+      // 处理Logo图片
+      if (logoImgElement && logoImgElement.src) {
+        tempLogoCanvas = await createProperlyScaledCanvas(logoImgElement);
       }
       
-      // 改进：完全基于图片的原始比例进行缩放
-      // 确保logo始终保持其原始宽高比，无论容器尺寸如何
-      if (imgRatio >= 1) {
-        // 正方形或横版图片，按宽度缩放
-        drawWidth = targetWidth;
-        drawHeight = targetWidth / imgRatio;
-      } else {
-        // 竖版图片，按高度缩放
-        drawHeight = targetHeight;
-        drawWidth = targetHeight * imgRatio;
+      // 处理二维码图片
+      if (qrcodeImgElement && qrcodeImgElement.src) {
+        tempQrcodeCanvas = await createProperlyScaledCanvas(qrcodeImgElement);
       }
       
-      // 居中显示
-      drawX = logoInfo.left + (targetWidth - drawWidth) / 2;
-      drawY = logoInfo.top + (targetHeight - drawHeight) / 2;
+      // 更新cleanupStyles函数以包含logo和二维码的清理
+      const originalCleanupStyles = cleanupStyles;
+      cleanupStyles = function() {
+        // 调用原始清理函数
+        originalCleanupStyles();
+        
+        // 恢复logo原始样式并移除临时canvas
+        if (logoImgElement) {
+          logoImgElement.style.display = '';
+          if (originalLogoStyle) {
+            Object.assign(logoImgElement.style, originalLogoStyle);
+          }
+        }
+        if (tempLogoCanvas && tempLogoCanvas.parentNode) {
+          tempLogoCanvas.parentNode.removeChild(tempLogoCanvas);
+        }
+        
+        // 恢复二维码原始样式并移除临时canvas
+        if (qrcodeImgElement) {
+          qrcodeImgElement.style.display = '';
+          if (originalQrcodeStyle) {
+            Object.assign(qrcodeImgElement.style, originalQrcodeStyle);
+          }
+        }
+        if (tempQrcodeCanvas && tempQrcodeCanvas.parentNode) {
+          tempQrcodeCanvas.parentNode.removeChild(tempQrcodeCanvas);
+        }
+      };
       
-      // 绘制logo图片，确保保持原始比例
-      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      // 执行html2canvas
+      await executeHtml2Canvas();
+    } catch (error) {
+      console.error('处理海报生成时出错:', error);
+      showToast('生成海报失败，请重试');
       
-      // 恢复状态
-      ctx.restore();
-      
-      // 回调继续处理
-      callback();
-    };
-    
-    img.onerror = function() {
-      console.error('logo图片加载失败');
-      callback(); // 即使logo加载失败，也继续处理
-    };
-    
-    // 加载图片
-    img.src = logoInfo.src;
+      // 确保恢复原始样式
+      cleanupStyles();
+      throw error; // 重新抛出错误，让调用者知道操作失败
+    }
   }
   
-  // 完成图片生成并清理的辅助函数
-  function finalizeImage(canvas, tempContainer) {
-    // 创建下载链接
-    const link = document.createElement('a');
-    link.download = `海报_${new Date().getTime()}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    
-    // 清理临时容器
-    setTimeout(() => {
-      if (tempContainer.parentNode) {
-        document.body.removeChild(tempContainer);
-      }
-    }, 500);
-    
-    // 显示成功提示
-    showToast('海报下载成功');
-  }
-  
-  // 移除重复的showToast函数定义
+  // 移除复杂的辅助函数，只保留必要的功能
   
   // 辅助函数：防抖
   function debounce(func, wait) {
@@ -1379,6 +1461,15 @@ document.addEventListener('DOMContentLoaded', function() {
       timeout = setTimeout(() => func.apply(context, args), wait);
     };
   }
+  
+  // 在页面卸载时清理事件监听器，防止内存泄漏
+    window.addEventListener('beforeunload', function() {
+      // 清理全局事件监听器
+      if (elements.downloadBtn) {
+        elements.downloadBtn.removeEventListener('click', downloadPoster);
+      }
+      // 其他需要清理的事件监听器可以在这里添加
+    });
   
   // 辅助函数：节流
   function throttle(func, limit) {
