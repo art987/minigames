@@ -1185,8 +1185,8 @@ footer {
 @media (max-width: 480px) {
   /* 小屏幕上的按钮调整 */
   .action-btn {
-    padding: 13px 6px;
-    min-height: 31px;
+    padding: 5px 6px;
+    min-height: 30px;
   }
   
   .action-btn i {
