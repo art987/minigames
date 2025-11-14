@@ -125,28 +125,179 @@ document.addEventListener('DOMContentLoaded', function() {
       elements.saveBusinessInfoBtn.addEventListener('click', saveBusinessInfo);
     }
     
+    // 添加标志变量防止重复触发
+    let isFileDialogOpen = false;
+    let activeFileInput = null;
+    
     // 背景上传相关事件
     if (elements.uploadBackgroundBtn) {
-      elements.uploadBackgroundBtn.addEventListener('click', function() {
-        if (elements.backgroundInput) {
-          elements.backgroundInput.click();
+      elements.uploadBackgroundBtn.addEventListener('click', function(event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        
+        // 重置状态，允许用户再次点击
+        if (isFileDialogOpen) {
+          // 如果之前有打开的对话框，先清理
+          cleanupFileInput();
         }
+        
+        // 标记文件对话框已打开
+        isFileDialogOpen = true;
+        
+        // 移除旧的输入框（如果存在），避免多个输入框导致的重复触发
+        const existingInput = document.getElementById('backgroundInput');
+        if (existingInput) {
+          existingInput.removeEventListener('change', handleBackgroundUpload);
+          existingInput.removeEventListener('focusout', cleanupFileInput);
+          if (existingInput.parentNode) {
+            existingInput.parentNode.removeChild(existingInput);
+          }
+        }
+        
+        // 重置活动输入框引用
+        activeFileInput = null;
+        
+        // 创建全新的输入框元素
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.accept = 'image/*';
+        newInput.id = 'backgroundInput';
+        newInput.style.display = 'none'; // 隐藏输入框
+        
+        // 添加change事件监听器
+        newInput.addEventListener('change', function(event) {
+          // 调用原始的处理函数
+          handleBackgroundUpload(event);
+          // 清理标志和引用
+          setTimeout(() => {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }, 100);
+        });
+        
+        // 添加focusout事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('focusout', cleanupFileInput);
+        
+        // 添加到DOM中
+        document.body.appendChild(newInput);
+        
+        // 更新elements对象中的引用
+        elements.backgroundInput = newInput;
+        activeFileInput = newInput;
+        
+        // 使用setTimeout确保DOM完全更新后再触发点击
+        setTimeout(() => {
+          // 再次检查，确保输入框仍然存在
+          if (newInput && document.body.contains(newInput)) {
+            newInput.click();
+          } else {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }
+        }, 50); // 增加延迟时间
       });
     }
-    if (elements.backgroundInput) {
-      elements.backgroundInput.addEventListener('change', handleBackgroundUpload);
+    
+    // 清理文件输入框的函数
+    function cleanupFileInput() {
+      // 立即重置状态标志，不等待延迟
+      isFileDialogOpen = false;
+      
+      // 使用setTimeout让浏览器有时间处理取消操作
+      setTimeout(() => {
+        // 无条件清理状态，确保用户可以再次点击上传按钮
+        if (activeFileInput) {
+          try {
+            // 使用cloneNode方法彻底移除事件监听器
+            const newActiveFileInput = activeFileInput.cloneNode(true);
+            if (activeFileInput.parentNode) {
+              activeFileInput.parentNode.replaceChild(newActiveFileInput, activeFileInput);
+            }
+          } catch (e) {
+            console.log('清理活动输入框时出错，但不影响功能', e);
+          } finally {
+            activeFileInput = null;
+          }
+        }
+        
+        // 移除所有临时创建的file input元素
+        const tempInputs = ['backgroundInput', 'logoInput', 'qrcodeInput'];
+        tempInputs.forEach(id => {
+          try {
+            const input = document.getElementById(id);
+            if (input && input.parentNode) {
+              input.parentNode.removeChild(input);
+            }
+          } catch (e) {
+            console.log(`移除${id}时出错，但不影响功能`, e);
+          }
+        });
+        
+        // 确保所有上传按钮可点击
+        const uploadButtons = document.querySelectorAll('#uploadBackgroundBtn, #uploadLogoBtn, #uploadQrcodeBtn');
+        uploadButtons.forEach(button => {
+          button.style.pointerEvents = 'auto';
+        });
+      }, 100); // 减少延迟时间，提供更快的响应
     }
     
     // Logo上传相关事件
     if (elements.logoUploadArea) {
-      elements.logoUploadArea.addEventListener('click', function() {
-        if (elements.logoInput) {
-          elements.logoInput.click();
+      elements.logoUploadArea.addEventListener('click', function(event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        
+        // 如果已经有文件对话框打开，则不执行任何操作
+        if (isFileDialogOpen) return;
+        
+        // 标记文件对话框已打开
+        isFileDialogOpen = true;
+        
+        // 移除旧的输入框（如果存在），避免多个输入框导致的重复触发
+        const existingInput = document.getElementById('logoInput');
+        if (existingInput) {
+          existingInput.removeEventListener('change', handleLogoUpload);
+          existingInput.removeEventListener('focusout', cleanupFileInput);
+          existingInput.parentNode.removeChild(existingInput);
         }
+        
+        // 创建全新的输入框元素
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.accept = 'image/*';
+        newInput.id = 'logoInput';
+        newInput.style.display = 'none'; // 隐藏输入框
+        
+        // 添加change事件监听器
+        newInput.addEventListener('change', function(event) {
+          // 调用原始的处理函数
+          handleLogoUpload(event);
+          // 清理标志
+          setTimeout(() => {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }, 100);
+        });
+        
+        // 添加focusout事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('focusout', cleanupFileInput);
+        
+        // 添加到DOM中
+        document.body.appendChild(newInput);
+        
+        // 更新elements对象中的引用
+        elements.logoInput = newInput;
+        activeFileInput = newInput;
+        
+        // 使用setTimeout确保DOM完全更新后再触发点击
+        setTimeout(() => {
+          // 再次检查，确保输入框仍然存在
+          if (newInput && document.body.contains(newInput)) {
+            newInput.click();
+          } else {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }
+        }, 50); // 增加延迟时间，确保DOM完全更新
       });
-    }
-    if (elements.logoInput) {
-      elements.logoInput.addEventListener('change', handleLogoUpload);
     }
     if (elements.removeLogoBtn) {
       elements.removeLogoBtn.addEventListener('click', removeLogo);
@@ -154,14 +305,62 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 二维码上传相关事件
     if (elements.qrcodeUploadArea) {
-      elements.qrcodeUploadArea.addEventListener('click', function() {
-        if (elements.qrcodeInput) {
-          elements.qrcodeInput.click();
+      elements.qrcodeUploadArea.addEventListener('click', function(event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        
+        // 如果已经有文件对话框打开，则不执行任何操作
+        if (isFileDialogOpen) return;
+        
+        // 标记文件对话框已打开
+        isFileDialogOpen = true;
+        
+        // 移除旧的输入框（如果存在），避免多个输入框导致的重复触发
+        const existingInput = document.getElementById('qrcodeInput');
+        if (existingInput) {
+          existingInput.removeEventListener('change', handleQrcodeUpload);
+          existingInput.removeEventListener('focusout', cleanupFileInput);
+          existingInput.parentNode.removeChild(existingInput);
         }
+        
+        // 创建全新的输入框元素
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.accept = 'image/*';
+        newInput.id = 'qrcodeInput';
+        newInput.style.display = 'none'; // 隐藏输入框
+        
+        // 添加change事件监听器
+        newInput.addEventListener('change', function(event) {
+          // 调用原始的处理函数
+          handleQrcodeUpload(event);
+          // 清理标志
+          setTimeout(() => {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }, 100);
+        });
+        
+        // 添加focusout事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('focusout', cleanupFileInput);
+        
+        // 添加到DOM中
+        document.body.appendChild(newInput);
+        
+        // 更新elements对象中的引用
+        elements.qrcodeInput = newInput;
+        activeFileInput = newInput;
+        
+        // 使用setTimeout确保DOM完全更新后再触发点击
+        setTimeout(() => {
+          // 再次检查，确保输入框仍然存在
+          if (newInput && document.body.contains(newInput)) {
+            newInput.click();
+          } else {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }
+        }, 50); // 增加延迟时间，确保DOM完全更新
       });
-    }
-    if (elements.qrcodeInput) {
-      elements.qrcodeInput.addEventListener('change', handleQrcodeUpload);
     }
     if (elements.removeQrcodeBtn) {
       elements.removeQrcodeBtn.addEventListener('click', removeQrcode);
@@ -862,6 +1061,42 @@ document.addEventListener('DOMContentLoaded', function() {
     showToast('商家信息保存成功');
   }
 
+  // 重置文件输入框的函数 - 返回新创建的文件输入框
+  function resetFileInput(fileInput) {
+    // 移除旧的事件监听器，避免潜在的重复绑定
+    if (fileInput.id === 'backgroundInput') {
+      fileInput.removeEventListener('change', handleBackgroundUpload);
+    } else if (fileInput.id === 'logoInput') {
+      fileInput.removeEventListener('change', handleLogoUpload);
+    } else if (fileInput.id === 'qrcodeInput') {
+      fileInput.removeEventListener('change', handleQrcodeUpload);
+    }
+    
+    const parent = fileInput.parentNode;
+    
+    // 创建全新的输入框元素，而不是克隆，避免任何潜在的状态残留
+    const newFileInput = document.createElement('input');
+    newFileInput.type = 'file';
+    newFileInput.accept = fileInput.accept;
+    newFileInput.id = fileInput.id;
+    newFileInput.style.display = fileInput.style.display;
+    
+    // 替换原始元素
+    parent.replaceChild(newFileInput, fileInput);
+    
+    // 更新elements对象中的引用
+    if (fileInput.id === 'backgroundInput') {
+      elements.backgroundInput = newFileInput;
+    } else if (fileInput.id === 'logoInput') {
+      elements.logoInput = newFileInput;
+    } else if (fileInput.id === 'qrcodeInput') {
+      elements.qrcodeInput = newFileInput;
+    }
+    
+    // 返回新创建的文件输入框，以便直接使用它
+    return newFileInput;
+  }
+
   // 显示提示消息
   function showToast(message) {
     // 检查是否已存在toast元素
@@ -912,11 +1147,11 @@ document.addEventListener('DOMContentLoaded', function() {
       updateTemplateDisplay();
       
       showToast('背景图片上传成功');
+      
+      // 移除了手动重置，因为我们现在使用resetFileInput函数来处理重置
+      // 在下次点击上传按钮时会通过resetFileInput函数正确重置文件输入框
     };
     reader.readAsDataURL(file);
-    
-    // 重置文件输入，以便可以再次选择相同的文件
-    event.target.value = '';
   }
   
   // 移除背景图片
@@ -964,11 +1199,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // 显示成功提示
       showToast('Logo上传成功');
+      
+      // 重置文件输入
+      event.target.value = '';
     };
     reader.readAsDataURL(file);
-    
-    // 重置文件输入
-    event.target.value = '';
   }
   
   // 移除Logo
@@ -1018,11 +1253,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // 显示成功提示
       showToast('二维码上传成功');
+      
+      // 重置文件输入
+      event.target.value = '';
     };
     reader.readAsDataURL(file);
-    
-    // 重置文件输入
-    event.target.value = '';
   }
   
   // 移除二维码
@@ -1235,11 +1470,11 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       // 临时调整商家名称位置和促销信息的padding
       if (elements.posterBusinessName) {
-        elements.posterBusinessName.style.transform = `translateY(-12px)`;
+        elements.posterBusinessName.style.transform = `translateY(-8px)`;
       }
       if (elements.posterPromoText) {
         // 减少padding-top 8px，增加padding-bottom 6px
-        elements.posterPromoText.style.padding = `0px 12px 15px 12px`;
+        elements.posterPromoText.style.padding = `0px 6px 15px 6px`;
       }
       
       // 保存logo和二维码的原始样式
