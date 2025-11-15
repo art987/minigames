@@ -709,6 +709,7 @@ footer {
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   display: none;
+  object-fit: contain; /* 确保二维码保持宽高比 */
 }
 
 #qrcodePlaceholder {
@@ -742,7 +743,6 @@ footer {
   /* border-radius: 6px; */
   word-wrap: break-word;
   border-left: 5px solid #c60000;
-  border-right: 5px solid #c60000;
 }
 
 /* 底部按钮栏 - 针对移动端优化 */
@@ -1124,7 +1124,6 @@ footer {
 }
 
 .template-item:hover {
-  border-color: #1976d2;
   transform: translateY(-2px);
 }
 
@@ -1385,4 +1384,38 @@ input.hidden {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+/* 圆形勾选按钮样式 */
+.template-check-button {
+  position: absolute;
+  bottom: 5px;
+    right: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-fast);
+  font-size: 16px;
+  color: var(--text-muted); /* 灰色勾选标记 */
+  z-index: 10;
+}
+
+.template-check-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+.template-check-button.checked {
+  color: var(--error-color); /* 红色勾选标记 */
+  background-color: white;
+}
+
+.template-check-button.checked i {
+  font-weight: bold;
 }

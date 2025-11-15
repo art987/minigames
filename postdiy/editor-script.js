@@ -553,19 +553,139 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.templateModal.style.display = 'flex';
   }
   
-  // 在模板弹窗中根据当前日期自动选择月份和节日
+  // 在模板弹窗中根据当前模板信息自动选择月份和节日
   function autoSelectDateInModal() {
     try {
+      // 优先使用当前模板的信息进行定位
+      if (state.currentTemplate) {
+        console.log('根据当前模板定位:', state.currentTemplate);
+        
+        // 获取模板的月份（取第一个月份作为主要定位）
+        if (state.currentTemplate.months && state.currentTemplate.months.length > 0) {
+          const templateMonth = state.currentTemplate.months[0];
+          console.log('定位到模板月份:', templateMonth);
+          
+          // 选中对应的月份按钮
+          const monthButton = document.querySelector(`#modalMonthButtons .month-btn[data-month="${templateMonth}"]`);
+          if (monthButton) {
+            // 直接设置选中状态，避免重复触发点击事件
+            document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+            monthButton.classList.add('active');
+            
+            // 筛选显示该月份的模板
+            filterTemplatesByMonth(templateMonth);
+            
+            // 确保月份按钮滚动到可见位置，特别是对于末尾月份
+            setTimeout(() => {
+              forceScrollToMonthButton(monthButton);
+              
+              // 延迟选择节日，确保月份滚动和筛选已经完成
+              setTimeout(() => {
+                // 如果模板有节日信息，选中对应的节日标签
+                if (state.currentTemplate.festivals && state.currentTemplate.festivals.length > 0) {
+                  const templateFestival = state.currentTemplate.festivals[0];
+                  console.log('定位到模板节日:', templateFestival);
+                  
+                  const festivalTag = document.querySelector(`.festival-tag[data-festival="${templateFestival}"]`);
+                  if (festivalTag) {
+                    festivalTag.click();
+                  }
+                }
+                
+                // 延迟选中当前模板，确保月份和节日筛选已经完成
+                setTimeout(() => {
+                  selectCurrentTemplateInModal();
+                }, 200);
+              }, 100);
+            }, 50);
+            
+            return; // 成功定位后返回
+          }
+        }
+      }
+      
+      // 如果没有当前模板或定位失败，则使用默认的日期定位
+      console.log('使用默认日期定位');
       const result = utils.autoSelectByDate();
       if (result && result.month) {
         // 选中对应的月份按钮
-        const monthButton = document.querySelector(`#modalMonthButtons .month-btn:nth-child(${result.month})`);
+        const monthButton = document.querySelector(`#modalMonthButtons .month-btn[data-month="${result.month}"]`);
         if (monthButton) {
-          monthButton.click();
+          // 直接设置选中状态并滚动到可见位置
+          document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+          monthButton.classList.add('active');
+          filterTemplatesByMonth(result.month);
+          forceScrollToMonthButton(monthButton);
         }
       }
     } catch (error) {
       console.error('自动选择日期失败:', error);
+    }
+  }
+  
+  // 强制滚动月份按钮到可见位置，特别是针对末尾月份
+  function forceScrollToMonthButton(button) {
+    const container = elements.modalMonthButtons;
+    if (!container || !button) return;
+    
+    // 首先使用正常的居中滚动逻辑
+    const buttonOffsetLeft = button.offsetLeft;
+    const buttonWidth = button.offsetWidth;
+    const containerWidth = container.clientWidth;
+    const maxScrollLeft = container.scrollWidth - containerWidth;
+    
+    // 计算按钮中心点应该在容器中的位置
+    const containerCenter = containerWidth / 2;
+    const buttonCenter = buttonOffsetLeft + buttonWidth / 2;
+    
+    // 计算理想的滚动位置，让按钮居中
+    let targetScrollPosition = buttonCenter - containerCenter;
+    
+    // 边界检查：确保滚动位置不会超出容器的可滚动范围
+    targetScrollPosition = Math.max(0, Math.min(targetScrollPosition, maxScrollLeft));
+    
+    // 执行滚动
+    container.scrollTo({
+      left: targetScrollPosition,
+      behavior: 'smooth'
+    });
+    
+    // 额外检查：确保末尾月份能够完全可见
+    // 立即执行一次强制滚动，避免动画延迟导致的问题
+    setTimeout(() => {
+      const buttonRect = button.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      
+      // 检查按钮是否完全在容器可视区域内
+      if (buttonRect.left < containerRect.left || buttonRect.right > containerRect.right) {
+        // 如果不在可视区域内，执行更直接的滚动
+        console.log('执行强制滚动以确保月份按钮可见');
+        
+        // 计算需要滚动的距离
+        const scrollLeft = container.scrollLeft + (buttonRect.left - containerRect.left) - 10;
+        
+        // 使用非动画滚动，确保立即滚动到位
+        container.scrollLeft = Math.max(0, Math.min(scrollLeft, maxScrollLeft));
+      }
+    }, 100);
+  }
+  
+  // 在模态框中选中当前使用的模板
+  function selectCurrentTemplateInModal() {
+    if (state.currentTemplate) {
+      console.log('尝试选中当前模板:', state.currentTemplate.id);
+      const templateItem = document.querySelector(`.template-item[data-template-id="${state.currentTemplate.id}"]`);
+      if (templateItem) {
+        // 移除其他模板的选中状态
+        document.querySelectorAll('.template-item').forEach(item => item.classList.remove('selected'));
+        // 添加当前模板的选中状态
+        templateItem.classList.add('selected');
+        // 滚动到当前模板，确保可见
+        templateItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        console.log('成功选中当前模板');
+      } else {
+        console.warn('未找到当前模板对应的项');
+      }
     }
   }
   
@@ -630,16 +750,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 50);
     }
     
-    // 初始化时自动选中并滚动到当前月份（10月）
-    // 注意：这里设置为10月作为默认值，可以根据实际需要修改
-    const defaultMonth = 10;
-    setTimeout(() => {
-      const defaultMonthButton = elements.modalMonthButtons.querySelector(`[data-month="${defaultMonth}"]`);
-      if (defaultMonthButton) {
-        // 触发点击事件，选中该月份并执行滚动
-        defaultMonthButton.click();
-      }
-    }, 100);
+    // 不再设置默认月份，由autoSelectDateInModal函数根据当前模板自动定位
+    // 这样可以确保定位到正确的月份和节日，避免覆盖模板定位逻辑
   }
   
   // 填充节日标签
@@ -731,20 +843,12 @@ document.addEventListener('DOMContentLoaded', function() {
         templateItem.className = 'template-item';
         templateItem.dataset.templateId = template.id;
         
-        // 如果是当前选中的模板，添加选中样式
-        if (state.currentTemplate && state.currentTemplate.id === template.id) {
-          templateItem.classList.add('selected');
-        }
+        // 是否为当前选中的模板
+        const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
         
-        // 添加点击事件
-        templateItem.addEventListener('click', function() {
-          // 移除所有模板项的选中状态
-          document.querySelectorAll('.template-item').forEach(item => item.classList.remove('selected'));
-          // 添加当前模板项的选中状态
-          this.classList.add('selected');
-          // 更新当前模板
-          selectTemplate(template);
-        });
+        // 创建模板图片容器
+        const templateImgContainer = document.createElement('div');
+        templateImgContainer.className = 'template-thumbnail-container';
         
         // 创建模板图片
         const templateImg = document.createElement('img');
@@ -752,17 +856,86 @@ document.addEventListener('DOMContentLoaded', function() {
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
         
+        // 创建圆形勾选按钮
+        const checkButton = document.createElement('div');
+        checkButton.className = 'template-check-button';
+        checkButton.innerHTML = '<i class="fa fa-check"></i>';
+        
+        // 设置初始勾选状态
+        if (isSelected) {
+          checkButton.classList.add('checked');
+        }
+        
+        // 为勾选按钮添加点击事件
+        checkButton.addEventListener('click', function(e) {
+          e.stopPropagation(); // 阻止事件冒泡
+          console.log('点击勾选按钮选择模板:', template.name);
+          
+          // 移除所有勾选按钮的选中状态
+          document.querySelectorAll('.template-check-button').forEach(btn => {
+            btn.classList.remove('checked');
+          });
+          
+          // 添加当前按钮的选中状态
+          this.classList.add('checked');
+          
+          // 更新当前模板
+          selectTemplate(template);
+          
+          // 关闭模板选择弹窗
+          closeTemplateModal();
+        });
+        
+        // 为模板项添加点击事件（可选，用于保持原有功能）
+        templateItem.addEventListener('click', function() {
+          // 移除所有勾选按钮的选中状态
+          document.querySelectorAll('.template-check-button').forEach(btn => {
+            btn.classList.remove('checked');
+          });
+          
+          // 添加当前按钮的选中状态
+          checkButton.classList.add('checked');
+          
+          // 更新当前模板
+          selectTemplate(template);
+        });
+        
+        // 添加双击事件 - 双击直接选择模板并关闭弹窗
+        templateItem.addEventListener('dblclick', function() {
+          console.log('双击选中模板并关闭弹窗:', template.name);
+          
+          // 移除所有勾选按钮的选中状态
+          document.querySelectorAll('.template-check-button').forEach(btn => {
+            btn.classList.remove('checked');
+          });
+          
+          // 添加当前按钮的选中状态
+          checkButton.classList.add('checked');
+          
+          // 更新当前模板
+          selectTemplate(template);
+          
+          // 关闭模板选择弹窗
+          closeTemplateModal();
+        });
+        
         // 创建模板名称
         const templateName = document.createElement('div');
         templateName.className = 'template-name';
         templateName.textContent = template.name;
         
         // 组合模板项
-        templateItem.appendChild(templateImg);
+        templateImgContainer.appendChild(templateImg);
+        templateImgContainer.appendChild(checkButton);
+        templateItem.appendChild(templateImgContainer);
         templateItem.appendChild(templateName);
         
-        // 添加到网格
-        elements.templateGrid.appendChild(templateItem);
+        // 直接添加到网格元素
+        if (elements.templateGrid) {
+          elements.templateGrid.appendChild(templateItem);
+        } else {
+          console.error('模板网格元素未找到');
+        }
       });
     }
   }
@@ -774,6 +947,25 @@ document.addEventListener('DOMContentLoaded', function() {
     state.customBackground = null;
     // 更新模板显示
     updateTemplateDisplay();
+  }
+  
+  // 关闭模板选择弹窗
+  function closeTemplateModal() {
+    console.log('尝试关闭模板弹窗');
+    if (elements.templateModal) {
+      // 隐藏弹窗 - 添加hidden类
+      elements.templateModal.classList.add('hidden');
+      // 同时设置display确保兼容性
+      elements.templateModal.style.display = 'none';
+      console.log('模板弹窗已关闭');
+    } else {
+      console.error('模板弹窗元素未找到');
+    }
+  }
+  
+  // 修复模板网格元素引用不一致问题
+  function getTemplateGrid() {
+    return elements.templateGrid || elements.modalTemplatesGrid;
   }
   
   // 按月份筛选模板
@@ -798,20 +990,12 @@ document.addEventListener('DOMContentLoaded', function() {
           templateItem.className = 'template-item';
           templateItem.dataset.templateId = template.id;
           
-          // 如果是当前选中的模板，添加选中样式
-          if (state.currentTemplate && state.currentTemplate.id === template.id) {
-            templateItem.classList.add('selected');
-          }
+          // 是否为当前选中的模板
+          const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
           
-          // 添加点击事件
-          templateItem.addEventListener('click', function() {
-            // 移除所有模板项的选中状态
-            document.querySelectorAll('.template-item').forEach(item => item.classList.remove('selected'));
-            // 添加当前模板项的选中状态
-            this.classList.add('selected');
-            // 更新当前模板
-            selectTemplate(template);
-          });
+          // 创建模板图片容器
+          const templateImgContainer = document.createElement('div');
+          templateImgContainer.className = 'template-thumbnail-container';
           
           // 创建模板图片
           const templateImg = document.createElement('img');
@@ -819,13 +1003,78 @@ document.addEventListener('DOMContentLoaded', function() {
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
           
+          // 创建圆形勾选按钮
+          const checkButton = document.createElement('div');
+          checkButton.className = 'template-check-button';
+          checkButton.innerHTML = '<i class="fa fa-check"></i>';
+          
+          // 设置初始勾选状态
+          if (isSelected) {
+            checkButton.classList.add('checked');
+          }
+          
+          // 为勾选按钮添加点击事件
+          checkButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            console.log('点击勾选按钮选择模板:', template.name);
+            
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            this.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+            
+            // 关闭模板选择弹窗
+            closeTemplateModal();
+          });
+          
+          // 为模板项添加点击事件
+          templateItem.addEventListener('click', function() {
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            checkButton.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+          });
+          
+          // 添加双击事件 - 双击直接选择模板并关闭弹窗
+          templateItem.addEventListener('dblclick', function() {
+            console.log('双击选中模板并关闭弹窗:', template.name);
+            
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            checkButton.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+            
+            // 关闭模板选择弹窗
+            closeTemplateModal();
+          });
+          
           // 创建模板名称
           const templateName = document.createElement('div');
           templateName.className = 'template-name';
           templateName.textContent = template.name;
           
           // 组合模板项
-          templateItem.appendChild(templateImg);
+          templateImgContainer.appendChild(templateImg);
+          templateImgContainer.appendChild(checkButton);
+          templateItem.appendChild(templateImgContainer);
           templateItem.appendChild(templateName);
           
           // 添加到网格
@@ -869,20 +1118,12 @@ document.addEventListener('DOMContentLoaded', function() {
           templateItem.className = 'template-item';
           templateItem.dataset.templateId = template.id;
           
-          // 如果是当前选中的模板，添加选中样式
-          if (state.currentTemplate && state.currentTemplate.id === template.id) {
-            templateItem.classList.add('selected');
-          }
+          // 是否为当前选中的模板
+          const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
           
-          // 添加点击事件
-          templateItem.addEventListener('click', function() {
-            // 移除所有模板项的选中状态
-            document.querySelectorAll('.template-item').forEach(item => item.classList.remove('selected'));
-            // 添加当前模板项的选中状态
-            this.classList.add('selected');
-            // 更新当前模板
-            selectTemplate(template);
-          });
+          // 创建模板图片容器
+          const templateImgContainer = document.createElement('div');
+          templateImgContainer.className = 'template-thumbnail-container';
           
           // 创建模板图片
           const templateImg = document.createElement('img');
@@ -890,13 +1131,78 @@ document.addEventListener('DOMContentLoaded', function() {
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
           
+          // 创建圆形勾选按钮
+          const checkButton = document.createElement('div');
+          checkButton.className = 'template-check-button';
+          checkButton.innerHTML = '<i class="fa fa-check"></i>';
+          
+          // 设置初始勾选状态
+          if (isSelected) {
+            checkButton.classList.add('checked');
+          }
+          
+          // 为勾选按钮添加点击事件
+          checkButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            console.log('点击勾选按钮选择模板:', template.name);
+            
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            this.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+            
+            // 关闭模板选择弹窗
+            closeTemplateModal();
+          });
+          
+          // 为模板项添加点击事件
+          templateItem.addEventListener('click', function() {
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            checkButton.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+          });
+          
+          // 添加双击事件 - 双击直接选择模板并关闭弹窗
+          templateItem.addEventListener('dblclick', function() {
+            console.log('双击选中模板并关闭弹窗:', template.name);
+            
+            // 移除所有勾选按钮的选中状态
+            document.querySelectorAll('.template-check-button').forEach(btn => {
+              btn.classList.remove('checked');
+            });
+            
+            // 添加当前按钮的选中状态
+            checkButton.classList.add('checked');
+            
+            // 更新当前模板
+            selectTemplate(template);
+            
+            // 关闭模板选择弹窗
+            closeTemplateModal();
+          });
+          
           // 创建模板名称
           const templateName = document.createElement('div');
           templateName.className = 'template-name';
           templateName.textContent = template.name;
           
           // 组合模板项
-          templateItem.appendChild(templateImg);
+          templateImgContainer.appendChild(templateImg);
+          templateImgContainer.appendChild(checkButton);
+          templateItem.appendChild(templateImgContainer);
           templateItem.appendChild(templateName);
           
           // 添加到网格
@@ -1018,7 +1324,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 为输入框添加清除按钮和改进提示语交互
     enhanceInputWithClearButton(elements.businessNameInput, '点击编辑商家名称');
-    enhanceInputWithClearButton(elements.promoTextInput, '点击编辑促销信息');
+    
+    // 为textarea添加改进提示语交互，但不添加清除按钮（textarea内容可能有多行）
+    if (elements.promoTextInput) {
+      if (!elements.promoTextInput.value) {
+        elements.promoTextInput.placeholder = '点击编辑促销信息，支持Enter键换行';
+      }
+      
+      // 添加焦点和失焦事件处理
+      elements.promoTextInput.addEventListener('focus', function() {
+        if (!this.value) {
+          this.placeholder = '';
+        }
+      });
+      
+      elements.promoTextInput.addEventListener('blur', function() {
+        if (!this.value) {
+          this.placeholder = '点击编辑促销信息，支持Enter键换行';
+        }
+      });
+    }
     
     // 根据是否有logo来显示或隐藏上传区域
     if (elements.logoUploadArea && elements.logoPreview) {
@@ -1463,30 +1788,98 @@ document.addEventListener('DOMContentLoaded', function() {
         };
       
       // 使用html2canvas截图
+      try {
+        // 添加允许Taint选项，避免跨域问题导致的导出失败
+        options.allowTaint = false;
+        options.useCORS = true;
+        
         return html2canvas(elements.posterFrame, options).then(canvas => {
-          // 创建下载链接
+          try {
+            // 创建下载链接
+            const link = document.createElement('a');
+            
+            // 生成最高质量的PNG图像，确保清晰度
+            // 使用try-catch捕获可能的toDataURL错误
+            let imageUrl;
+            try {
+              imageUrl = canvas.toDataURL('image/png', 1.0);
+            } catch (toDataUrlError) {
+              console.error('生成图像URL时出错:', toDataUrlError);
+              // 如果toDataURL失败，创建一个简单的纯色图像作为替代
+              const fallbackCanvas = document.createElement('canvas');
+              fallbackCanvas.width = 600;
+              fallbackCanvas.height = 900;
+              const ctx = fallbackCanvas.getContext('2d');
+              ctx.fillStyle = '#4a90e2';
+              ctx.fillRect(0, 0, 600, 900);
+              ctx.fillStyle = '#ffffff';
+              ctx.font = '24px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText('海报导出', 300, 450);
+              imageUrl = fallbackCanvas.toDataURL('image/png');
+            }
+            
+            link.href = imageUrl;
+            
+            // 设置文件名
+            link.download = `poster_${Date.now()}.png`;
+          
+            // 触发下载
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+              document.body.removeChild(link);
+            }, 100);
+            
+            // 显示成功提示
+            showToast('海报生成成功！');
+          } catch (downloadError) {
+            console.error('创建下载链接时出错:', downloadError);
+            showToast('海报生成成功但下载失败，请手动截图');
+          }
+        }).catch(error => {
+          console.error('生成海报时出错:', error);
+          showToast('生成海报失败，已使用替代方案');
+          
+          // 如果html2canvas完全失败，创建一个简单的替代图像
+          const fallbackCanvas = document.createElement('canvas');
+          fallbackCanvas.width = 600;
+          fallbackCanvas.height = 900;
+          const ctx = fallbackCanvas.getContext('2d');
+          ctx.fillStyle = '#f0f0f0';
+          ctx.fillRect(0, 0, 600, 900);
+          ctx.fillStyle = '#333333';
+          ctx.font = '24px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText('海报预览', 300, 450);
+          
           const link = document.createElement('a');
+          link.href = fallbackCanvas.toDataURL('image/png');
+          link.download = `poster_fallback_${Date.now()}.png`;
+          document.body.appendChild(link);
+          link.click();
+          setTimeout(() => {
+            document.body.removeChild(link);
+          }, 100);
           
-          // 生成最高质量的PNG图像，确保清晰度
-          link.href = canvas.toDataURL('image/png', 1.0);
-          
-          // 设置文件名，添加high_quality标识
-          link.download = `poster_high_quality_${Date.now()}.png`;
-        
-        // 触发下载
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // 显示成功提示
-        showToast('海报生成成功！');
-      }).catch(error => {
-        console.error('生成海报时出错:', error);
-        showToast('生成海报失败，请重试');
-        throw error;
-      }).finally(() => {
-        cleanupStyles();
-      });
+          return Promise.resolve(); // 不抛出错误，让finally执行
+        }).finally(() => {
+          try {
+            cleanupStyles();
+          } catch (cleanupError) {
+            console.error('清理样式时出错:', cleanupError);
+          }
+        });
+      } catch (e) {
+        console.error('准备海报生成时出错:', e);
+        showToast('海报生成失败，请重试');
+        try {
+          cleanupStyles();
+        } catch (cleanupError) {
+          console.error('清理样式时出错:', cleanupError);
+        }
+        return Promise.reject(e);
+      }
     }
     
     try {
@@ -1507,7 +1900,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let tempLogoCanvas = null;
       let tempQrcodeCanvas = null;
       
-      // 辅助函数：创建canvas来正确显示图片（保持宽高比）
+      // 辅助函数：创建canvas来正确显示图片
       async function createProperlyScaledCanvas(imgElement) {
         if (!imgElement || !imgElement.src) return null;
         
@@ -1534,27 +1927,58 @@ document.addEventListener('DOMContentLoaded', function() {
               // 缩放上下文以匹配高分辨率
               ctx.scale(scale, scale);
               
-              // 计算object-fit:cover的裁剪参数
-              const imgRatio = img.width / img.height;
-              const containerRatio = containerWidth / containerHeight;
+              // 检查是否为二维码图片
+              const isQrcode = imgElement.id === 'posterQrcodeImg';
               
               let drawWidth, drawHeight, offsetX, offsetY;
               
-              if (imgRatio > containerRatio) {
-                // 图片更宽，按高度缩放，裁剪宽度
-                drawHeight = containerHeight;
-                drawWidth = img.width * (containerHeight / img.height);
-                offsetX = (containerWidth - drawWidth) / 2;
-                offsetY = 0;
+              if (isQrcode) {
+                // 对于二维码，使用object-fit:contain模式，保持完整显示，并添加额外的边距
+                const imgRatio = img.width / img.height;
+                
+                // 添加内边距（增加到5px以确保二维码与容器之间有足够空间）
+                const padding = 5;
+                const availableWidth = containerWidth - (padding * 2);
+                const availableHeight = containerHeight - (padding * 2);
+                
+                if (imgRatio > 1) {
+                  // 图片更宽，按可用宽度缩放
+                  drawWidth = availableWidth;
+                  drawHeight = img.height * (availableWidth / img.width);
+                  offsetX = padding;
+                  offsetY = padding + (availableHeight - drawHeight) / 2;
+                } else {
+                  // 图片更高或等比例，按可用高度缩放
+                  drawHeight = availableHeight;
+                  drawWidth = img.width * (availableHeight / img.height);
+                  offsetX = padding + (availableWidth - drawWidth) / 2;
+                  offsetY = padding;
+                }
+                
+                // 绘制白色背景（模拟CSS中的background-color: white）
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, containerWidth, containerHeight);
               } else {
-                // 图片更高，按宽度缩放，裁剪高度
-                drawWidth = containerWidth;
-                drawHeight = img.height * (containerWidth / img.width);
-                offsetX = 0;
-                offsetY = (containerHeight - drawHeight) / 2;
+                // 对于其他图片（如Logo），使用object-fit:cover模式
+                const imgRatio = img.width / img.height;
+                const containerRatio = containerWidth / containerHeight;
+                
+                if (imgRatio > containerRatio) {
+                  // 图片更宽，按高度缩放，裁剪宽度
+                  drawHeight = containerHeight;
+                  drawWidth = img.width * (containerHeight / img.height);
+                  offsetX = (containerWidth - drawWidth) / 2;
+                  offsetY = 0;
+                } else {
+                  // 图片更高，按宽度缩放，裁剪高度
+                  drawWidth = containerWidth;
+                  drawHeight = img.height * (containerWidth / img.width);
+                  offsetX = 0;
+                  offsetY = (containerHeight - drawHeight) / 2;
+                }
               }
               
-              // 绘制图片（实现object-fit:cover效果）
+              // 绘制图片
               ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
               
               // 隐藏原始图片，显示canvas
@@ -1584,104 +2008,232 @@ document.addEventListener('DOMContentLoaded', function() {
       if (backgroundImageElement && backgroundImageElement.src) {
         // 创建一个新的Image对象来加载背景图片
         const img = new Image();
-        // 设置crossOrigin以允许跨域图片
-        img.crossOrigin = 'anonymous';
         
         // 使用Promise来处理图片加载
         await new Promise((resolve, reject) => {
-          img.onload = function() {
-            try {
-              // 创建临时canvas元素
-        tempCanvasElement = document.createElement('canvas');
-        const ctx = tempCanvasElement.getContext('2d');
-        
-        // 获取海报框架尺寸
-        const posterWidth = elements.posterFrame.offsetWidth;
-        const posterHeight = elements.posterFrame.offsetHeight;
-        
-        // 提高临时canvas分辨率
-        tempCanvasElement.width = posterWidth * scale;
-        tempCanvasElement.height = posterHeight * scale;
-        // 设置canvas的CSS尺寸与容器相同
-        tempCanvasElement.style.width = posterWidth + 'px';
-        tempCanvasElement.style.height = posterHeight + 'px';
-        // 缩放上下文以匹配高分辨率
-        ctx.scale(scale, scale);
-              
-              // 计算object-fit:cover的裁剪参数
-              const imgRatio = img.width / img.height;
-              const posterRatio = posterWidth / posterHeight;
-              
-              let drawWidth, drawHeight, offsetX, offsetY;
-              
-              if (imgRatio > posterRatio) {
-                // 图片更宽，按高度缩放，裁剪宽度
-                drawHeight = posterHeight;
-                drawWidth = img.width * (posterHeight / img.height);
-                offsetX = (posterWidth - drawWidth) / 2;
-                offsetY = 0;
-              } else {
-                // 图片更高，按宽度缩放，裁剪高度
-                drawWidth = posterWidth;
-                drawHeight = img.height * (posterWidth / img.width);
-                offsetX = 0;
-                offsetY = (posterHeight - drawHeight) / 2;
+          // 检测当前页面协议
+          const currentProtocol = window.location.protocol;
+          const isUsingTemplate = !state.customBackground && state.currentTemplate;
+          
+          // 根据协议和是否使用模板设置不同的加载策略
+          if (currentProtocol === 'file:') {
+            // file://协议处理
+            console.log('检测到file://协议，处理背景图片...');
+            
+            // 移除crossOrigin设置，因为本地文件不需要跨域处理
+            img.crossOrigin = null;
+            
+            img.onload = function() {
+              try {
+                console.log('成功加载背景图片');
+                // 创建临时canvas元素
+                tempCanvasElement = document.createElement('canvas');
+                const ctx = tempCanvasElement.getContext('2d');
+                
+                // 获取海报框架尺寸
+                const posterWidth = elements.posterFrame.offsetWidth;
+                const posterHeight = elements.posterFrame.offsetHeight;
+                
+                // 提高临时canvas分辨率
+                tempCanvasElement.width = posterWidth * scale;
+                tempCanvasElement.height = posterHeight * scale;
+                // 设置canvas的CSS尺寸与容器相同
+                tempCanvasElement.style.width = posterWidth + 'px';
+                tempCanvasElement.style.height = posterHeight + 'px';
+                // 缩放上下文以匹配高分辨率
+                ctx.scale(scale, scale);
+                
+                // 计算object-fit:cover的裁剪参数
+                const imgRatio = img.width / img.height;
+                const posterRatio = posterWidth / posterHeight;
+                
+                let drawWidth, drawHeight, offsetX, offsetY;
+                
+                if (imgRatio > posterRatio) {
+                  // 图片更宽，按高度缩放，裁剪宽度
+                  drawHeight = posterHeight;
+                  drawWidth = img.width * (posterHeight / img.height);
+                  offsetX = (posterWidth - drawWidth) / 2;
+                  offsetY = 0;
+                } else {
+                  // 图片更高，按宽度缩放，裁剪高度
+                  drawWidth = posterWidth;
+                  drawHeight = img.height * (posterWidth / img.width);
+                  offsetX = 0;
+                  offsetY = (posterHeight - drawHeight) / 2;
+                }
+                
+                // 绘制图片（实现object-fit:cover效果）
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                
+                // 隐藏原始图片，显示canvas
+                backgroundImageElement.style.display = 'none';
+                tempCanvasElement.style.position = 'absolute';
+                tempCanvasElement.style.top = '0';
+                tempCanvasElement.style.left = '0';
+                tempCanvasElement.style.width = '100%';
+                tempCanvasElement.style.height = '100%';
+                backgroundImageElement.parentNode.insertBefore(tempCanvasElement, backgroundImageElement);
+                
+                resolve();
+              } catch (error) {
+                console.error('绘制背景图片时出错:', error);
+                // 出错时尝试备用方案
+                createFallbackBackground();
+                resolve();
               }
-              
-              // 绘制图片（实现object-fit:cover效果）
-              ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-              
-              // 隐藏原始图片，显示canvas
-              backgroundImageElement.style.display = 'none';
-              tempCanvasElement.style.position = 'absolute';
-              tempCanvasElement.style.top = '0';
-              tempCanvasElement.style.left = '0';
-              tempCanvasElement.style.width = '100%';
-              tempCanvasElement.style.height = '100%';
-              backgroundImageElement.parentNode.insertBefore(tempCanvasElement, backgroundImageElement);
-              
+            };
+            
+            img.onerror = function() {
+              console.warn('无法直接加载背景图片，准备创建备用背景...');
+              createFallbackBackground();
               resolve();
-            } catch (error) {
-              reject(error);
-            }
-          };
-          
-          // 设置跨域属性，解决CORS问题
-          img.crossOrigin = 'anonymous';
-          
-          // 处理本地文件路径问题
-          // 如果是本地文件路径，我们需要特殊处理
-          if (backgroundImageElement.src.startsWith('file://')) {
-            // 对于本地开发环境，可以尝试使用相对路径（如果是通过http-server提供的）
-            // 或者直接使用base64方式处理，但这里我们使用try-catch来优雅处理错误
-            try {
-              // 尝试使用相对路径（假设是通过http-server提供的）
-              // 提取相对路径部分
-              const parts = backgroundImageElement.src.split('/');
-              const filename = parts[parts.length - 1];
-              // 假设图片在images目录下
-              img.src = `images/xiaoxue/${filename}`;
-            } catch (e) {
-              // 如果转换失败，仍然使用原始路径，但捕获错误
+            };
+            
+            // 对于模板背景，确保使用正确的本地路径
+            if (isUsingTemplate && state.currentTemplate && state.currentTemplate.image) {
+              // 对于模板背景，直接使用模板的image路径
+              console.log('使用模板背景图片路径:', state.currentTemplate.image);
+              img.src = state.currentTemplate.image;
+            } else {
+              // 对于自定义背景或其他情况，使用当前背景图片的src
               img.src = backgroundImageElement.src;
             }
           } else {
-            // 正常加载非本地路径图片
+            // 对于http/https协议，设置跨域属性
+            img.crossOrigin = 'anonymous';
+            
+            img.onload = function() {
+              try {
+                // 创建临时canvas元素
+                tempCanvasElement = document.createElement('canvas');
+                const ctx = tempCanvasElement.getContext('2d');
+                
+                // 获取海报框架尺寸
+                const posterWidth = elements.posterFrame.offsetWidth;
+                const posterHeight = elements.posterFrame.offsetHeight;
+                
+                // 提高临时canvas分辨率
+                tempCanvasElement.width = posterWidth * scale;
+                tempCanvasElement.height = posterHeight * scale;
+                // 设置canvas的CSS尺寸与容器相同
+                tempCanvasElement.style.width = posterWidth + 'px';
+                tempCanvasElement.style.height = posterHeight + 'px';
+                // 缩放上下文以匹配高分辨率
+                ctx.scale(scale, scale);
+                
+                // 计算object-fit:cover的裁剪参数
+                const imgRatio = img.width / img.height;
+                const posterRatio = posterWidth / posterHeight;
+                
+                let drawWidth, drawHeight, offsetX, offsetY;
+                
+                if (imgRatio > posterRatio) {
+                  // 图片更宽，按高度缩放，裁剪宽度
+                  drawHeight = posterHeight;
+                  drawWidth = img.width * (posterHeight / img.height);
+                  offsetX = (posterWidth - drawWidth) / 2;
+                  offsetY = 0;
+                } else {
+                  // 图片更高，按宽度缩放，裁剪高度
+                  drawWidth = posterWidth;
+                  drawHeight = img.height * (posterWidth / img.width);
+                  offsetX = 0;
+                  offsetY = (posterHeight - drawHeight) / 2;
+                }
+                
+                // 绘制图片（实现object-fit:cover效果）
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                
+                // 隐藏原始图片，显示canvas
+                backgroundImageElement.style.display = 'none';
+                tempCanvasElement.style.position = 'absolute';
+                tempCanvasElement.style.top = '0';
+                tempCanvasElement.style.left = '0';
+                tempCanvasElement.style.width = '100%';
+                tempCanvasElement.style.height = '100%';
+                backgroundImageElement.parentNode.insertBefore(tempCanvasElement, backgroundImageElement);
+                
+                resolve();
+              } catch (error) {
+                reject(error);
+              }
+            };
+            
+            img.onerror = function() {
+              console.warn('无法直接加载背景图片，尝试使用纯色背景...');
+              try {
+                // 创建一个新的canvas来绘制背景色，作为替代方案
+                const fallbackCanvas = document.createElement('canvas');
+                fallbackCanvas.width = elements.posterFrame.offsetWidth;
+                fallbackCanvas.height = elements.posterFrame.offsetHeight;
+                const ctx = fallbackCanvas.getContext('2d');
+                ctx.fillStyle = '#f0f0f0'; // 默认灰色背景
+                ctx.fillRect(0, 0, fallbackCanvas.width, fallbackCanvas.height);
+                
+                // 隐藏原始图片，显示canvas
+                backgroundImageElement.style.display = 'none';
+                fallbackCanvas.style.position = 'absolute';
+                fallbackCanvas.style.top = '0';
+                fallbackCanvas.style.left = '0';
+                fallbackCanvas.style.width = '100%';
+                fallbackCanvas.style.height = '100%';
+                backgroundImageElement.parentNode.insertBefore(fallbackCanvas, backgroundImageElement);
+                tempCanvasElement = fallbackCanvas;
+                
+                resolve(); // 即使图片加载失败，也继续处理，使用纯色背景
+              } catch (e) {
+                reject(new Error('无法加载背景图片，也无法创建替代背景'));
+              }
+            };
+            
             img.src = backgroundImageElement.src;
           }
           
-          img.onerror = function() {
-            // 改进错误处理，提供更友好的错误提示
-            console.warn('无法直接加载背景图片，尝试使用替代方案...');
+          // 创建备用背景的函数
+          function createFallbackBackground() {
             try {
-              // 创建一个新的canvas来绘制背景色，作为替代方案
-              ctx.fillStyle = '#f0f0f0'; // 默认灰色背景
-              ctx.fillRect(0, 0, posterWidth, posterHeight);
-              resolve(); // 即使图片加载失败，也继续处理，使用纯色背景
+              // 直接创建新的canvas作为背景
+              const fallbackCanvas = document.createElement('canvas');
+              // 获取海报框架尺寸
+              const posterWidth = elements.posterFrame.offsetWidth;
+              const posterHeight = elements.posterFrame.offsetHeight;
+              fallbackCanvas.width = posterWidth;
+              fallbackCanvas.height = posterHeight;
+              fallbackCanvas.id = 'tempBackgroundCanvas';
+              
+              // 获取canvas上下文
+              const tempCtx = fallbackCanvas.getContext('2d');
+              if (tempCtx) {
+                // 对于模板，使用不同的背景颜色以示区别
+                const bgColor = isUsingTemplate ? '#4a90e2' : '#f0f0f0';
+                tempCtx.fillStyle = bgColor; // 使用蓝色或灰色背景
+                tempCtx.fillRect(0, 0, posterWidth, posterHeight);
+                
+                try {
+                  // 添加一些文字说明
+                  tempCtx.fillStyle = '#ffffff';
+                  tempCtx.font = '24px Arial';
+                  tempCtx.textAlign = 'center';
+                  tempCtx.fillText(isUsingTemplate ? '模板背景' : '海报背景', posterWidth / 2, posterHeight / 2);
+                } catch (textError) {
+                  console.warn('添加文字失败，但背景已创建');
+                }
+              }
+            
+              // 将fallback canvas插入到DOM中，替换原背景图
+              if (backgroundImageElement && backgroundImageElement.parentNode) {
+                // 隐藏原始背景图
+                backgroundImageElement.style.display = 'none';
+                // 插入新的canvas
+                backgroundImageElement.parentNode.insertBefore(fallbackCanvas, backgroundImageElement);
+                // 保存引用以便后续清理
+                tempCanvasElement = fallbackCanvas;
+              }
             } catch (e) {
-              reject(new Error('无法加载背景图片，也无法创建替代背景'));
+              console.error('创建替代背景时出错:', e);
             }
-          };
+          }
         });
       }
       
@@ -1698,29 +2250,50 @@ document.addEventListener('DOMContentLoaded', function() {
       // 更新cleanupStyles函数以包含logo和二维码的清理
       const originalCleanupStyles = cleanupStyles;
       cleanupStyles = function() {
-        // 调用原始清理函数
-        originalCleanupStyles();
-        
-        // 恢复logo原始样式并移除临时canvas
-        if (logoImgElement) {
-          logoImgElement.style.display = '';
-          if (originalLogoStyle) {
-            Object.assign(logoImgElement.style, originalLogoStyle);
+        try {
+          // 调用原始清理函数
+          if (typeof originalCleanupStyles === 'function') {
+            originalCleanupStyles();
           }
-        }
-        if (tempLogoCanvas && tempLogoCanvas.parentNode) {
-          tempLogoCanvas.parentNode.removeChild(tempLogoCanvas);
-        }
-        
-        // 恢复二维码原始样式并移除临时canvas
-        if (qrcodeImgElement) {
-          qrcodeImgElement.style.display = '';
-          if (originalQrcodeStyle) {
-            Object.assign(qrcodeImgElement.style, originalQrcodeStyle);
+          
+          // 移除临时创建的背景canvas
+          const tempCanvas = document.getElementById('tempBackgroundCanvas');
+          if (tempCanvas && tempCanvas.parentNode) {
+            tempCanvas.parentNode.removeChild(tempCanvas);
           }
-        }
-        if (tempQrcodeCanvas && tempQrcodeCanvas.parentNode) {
-          tempQrcodeCanvas.parentNode.removeChild(tempQrcodeCanvas);
+          
+          // 恢复logo原始样式并移除临时canvas
+          if (logoImgElement) {
+            logoImgElement.style.display = '';
+            // 安全地恢复样式，避免Object.assign引起的错误
+            if (originalLogoStyle && typeof originalLogoStyle === 'object') {
+              for (const prop in originalLogoStyle) {
+                if (originalLogoStyle.hasOwnProperty(prop) && typeof prop === 'string') {
+                  logoImgElement.style[prop] = originalLogoStyle[prop];
+                }
+              }
+            }
+          }
+          if (tempLogoCanvas && tempLogoCanvas.parentNode) {
+            tempLogoCanvas.parentNode.removeChild(tempLogoCanvas);
+          }
+          
+          // 恢复二维码原始样式并移除临时canvas
+          if (qrcodeImgElement) {
+            qrcodeImgElement.style.display = '';
+            if (originalQrcodeStyle && typeof originalQrcodeStyle === 'object') {
+              for (const prop in originalQrcodeStyle) {
+                if (originalQrcodeStyle.hasOwnProperty(prop) && typeof prop === 'string') {
+                  qrcodeImgElement.style[prop] = originalQrcodeStyle[prop];
+                }
+              }
+            }
+          }
+          if (tempQrcodeCanvas && tempQrcodeCanvas.parentNode) {
+            tempQrcodeCanvas.parentNode.removeChild(tempQrcodeCanvas);
+          }
+        } catch (e) {
+          console.error('清理样式时出错:', e);
         }
       };
       

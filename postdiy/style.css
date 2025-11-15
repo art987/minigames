@@ -279,8 +279,10 @@ main {
   box-shadow: var(--shadow-md);
 }
 
+/* 模板图片容器 */
 .template-thumbnail-container {
   position: relative;
+  width: 100%;
   padding-bottom: 150%; /* 2:3 宽高比 */
   overflow: hidden;
 }
@@ -294,6 +296,8 @@ main {
   object-fit: cover;
   transition: transform var(--transition-slow);
 }
+
+
 
 .template-card:hover .template-thumbnail {
   transform: scale(1.05);

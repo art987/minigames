@@ -1,4 +1,4 @@
- /* 全局样式重置 */
+/* 全局样式重置 */
     * {
       margin: 0;
       padding: 0;
@@ -120,6 +120,7 @@
       left: 17px;
       border-radius: 8px;
       overflow: hidden;
+      background-color: white;
     }
     
     
@@ -127,7 +128,7 @@
       width: 80px;
       height: 80px;
       background-color: white;
-      padding: 5px;
+      padding: 15px;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
@@ -348,6 +349,14 @@
       border-radius: 8px;
       font-size: 16px;
       transition: border-color 0.2s ease;
+      resize: vertical; /* 允许用户垂直调整textarea大小 */
+      min-height: 60px; /* 为textarea设置最小高度 */
+    }
+    
+    /* textarea特殊样式 */
+    .form-input:is(textarea) {
+      min-height: 80px; /* 为textarea设置更大的最小高度 */
+      line-height: 1.4; /* 改善多行文本的行高 */
     }
     
     .form-input:focus {
