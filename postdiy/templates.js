@@ -436,11 +436,71 @@ window.templates = {
     {
       id: 'xiaoxue-2024-001',
       name: '小雪初降',
-      thumbnail: 'https://picsum.photos/id/163/400/600',
-      image: 'https://picsum.photos/id/163/800/1200',
+      thumbnail: 'images/xiaoxue/thumbnails/1.jpg',
+      image: 'images/xiaoxue/1.jpg',
       months: [11],
       festivals: ['小雪'],
       description: '小雪节气初雪主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-002',
+      name: '小雪雪景',
+      thumbnail: 'images/xiaoxue/thumbnails/2.jpg',
+      image: 'images/xiaoxue/2.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气雪景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-003',
+      name: '小雪冬韵',
+      thumbnail: 'images/xiaoxue/thumbnails/3.jpg',
+      image: 'images/xiaoxue/3.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气冬韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-004',
+      name: '小雪诗意',
+      thumbnail: 'images/xiaoxue/thumbnails/4.jpg',
+      image: 'images/xiaoxue/4.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气诗意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-005',
+      name: '小雪温馨',
+      thumbnail: 'images/xiaoxue/thumbnails/5.jpg',
+      image: 'images/xiaoxue/5.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气温馨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-006',
+      name: '小雪静谧',
+      thumbnail: 'images/xiaoxue/thumbnails/6.jpg',
+      image: 'images/xiaoxue/6.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气静谧主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoxue-2024-007',
+      name: '小雪丰年',
+      thumbnail: 'images/xiaoxue/thumbnails/7.jpg',
+      image: 'images/xiaoxue/7.jpg',
+      months: [11],
+      festivals: ['小雪'],
+      description: '小雪节气瑞雪兆丰年主题海报模板',
       type: '节气'
     }
   ],

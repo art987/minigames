@@ -298,8 +298,10 @@ function getAllTemplates() {
 
 // 获取指定模板ID的模板数据
 function getTemplateById(templateId) {
+  // 先获取所有模板的扁平数组
   const allTemplates = getAllTemplates();
-  return allTemplates.find(template => template.id === templateId);
+  // 直接在扁平数组中查找匹配ID的模板
+  return allTemplates.find(template => template.id === templateId) || null;
 }
 
 // 获取指定月份和节日的模板

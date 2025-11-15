@@ -12,8 +12,13 @@
   <link rel="stylesheet" href="styles-combined.css">
   <!-- 节日数据 -->
   <script src="festivals.js"></script>
-  <!-- 模板数据 -->
-  <script src="templates.js"></script>
+  <!-- 模板数据 - 动态加载防止缓存 -->
+  <script>
+    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本
+    const templateScript = document.createElement('script');
+    templateScript.src = 'templates.js?t=' + new Date().getTime();
+    document.head.appendChild(templateScript);
+  </script>
   <!-- 工具函数 -->
   <script src="utils.js"></script>
 </head>

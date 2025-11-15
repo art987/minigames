@@ -398,21 +398,41 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const templateId = urlParams.get('templateId');
     
-    if (templateId && window.getTemplateById) {
-      // 尝试根据ID加载指定模板
-      const selectedTemplate = window.getTemplateById(templateId);
-      if (selectedTemplate) {
-        state.currentTemplate = selectedTemplate;
-        updateTemplateDisplay();
-        console.log('已加载指定模板:', selectedTemplate.name);
-        return; // 加载成功后直接返回
+    // 等待模板数据加载完成的函数
+    function waitForTemplatesAndLoad() {
+      // 检查是否满足加载模板的条件
+      if (window.utils && window.utils.getTemplateById && window.templates) {
+        console.log('模板数据已加载，尝试获取模板...');
+        
+        if (templateId) {
+          // 尝试根据ID加载指定模板
+          const selectedTemplate = window.utils.getTemplateById(templateId);
+          if (selectedTemplate) {
+            state.currentTemplate = selectedTemplate;
+            updateTemplateDisplay();
+            console.log('已加载指定模板:', selectedTemplate.name);
+            return; // 加载成功后直接返回
+          } else {
+            console.warn('未找到指定ID的模板:', templateId);
+          }
+        }
+        
+        // 如果没有指定模板或指定模板不存在，加载当前月份的第一个模板
+        loadDefaultTemplate();
       } else {
-        console.warn('未找到指定ID的模板:', templateId);
+        // 记录当前状态，帮助调试
+        console.log('等待模板数据加载...');
+        console.log('- window.utils存在:', !!window.utils);
+        console.log('- window.utils.getTemplateById存在:', !!(window.utils && window.utils.getTemplateById));
+        console.log('- window.templates存在:', !!window.templates);
+        
+        // 使用setTimeout继续等待，确保模板数据加载完成
+        setTimeout(waitForTemplatesAndLoad, 100);
       }
     }
     
-    // 如果没有指定模板或指定模板不存在，加载当前月份的第一个模板
-    loadDefaultTemplate();
+    // 开始等待和加载过程
+    waitForTemplatesAndLoad();
     
     // 检查是否需要自动弹出商家信息编辑框（如果是第一次打开或信息为空）
     if (!savedBusinessInfo || 
@@ -1626,12 +1646,42 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           };
           
-          img.onerror = function() {
-            reject(new Error('无法加载背景图片'));
-          };
+          // 设置跨域属性，解决CORS问题
+          img.crossOrigin = 'anonymous';
           
-          // 加载图片
-          img.src = backgroundImageElement.src;
+          // 处理本地文件路径问题
+          // 如果是本地文件路径，我们需要特殊处理
+          if (backgroundImageElement.src.startsWith('file://')) {
+            // 对于本地开发环境，可以尝试使用相对路径（如果是通过http-server提供的）
+            // 或者直接使用base64方式处理，但这里我们使用try-catch来优雅处理错误
+            try {
+              // 尝试使用相对路径（假设是通过http-server提供的）
+              // 提取相对路径部分
+              const parts = backgroundImageElement.src.split('/');
+              const filename = parts[parts.length - 1];
+              // 假设图片在images目录下
+              img.src = `images/xiaoxue/${filename}`;
+            } catch (e) {
+              // 如果转换失败，仍然使用原始路径，但捕获错误
+              img.src = backgroundImageElement.src;
+            }
+          } else {
+            // 正常加载非本地路径图片
+            img.src = backgroundImageElement.src;
+          }
+          
+          img.onerror = function() {
+            // 改进错误处理，提供更友好的错误提示
+            console.warn('无法直接加载背景图片，尝试使用替代方案...');
+            try {
+              // 创建一个新的canvas来绘制背景色，作为替代方案
+              ctx.fillStyle = '#f0f0f0'; // 默认灰色背景
+              ctx.fillRect(0, 0, posterWidth, posterHeight);
+              resolve(); // 即使图片加载失败，也继续处理，使用纯色背景
+            } catch (e) {
+              reject(new Error('无法加载背景图片，也无法创建替代背景'));
+            }
+          };
         });
       }
       
