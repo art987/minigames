@@ -1,11 +1,7 @@
 // 海报DIY编辑器 - 全新实现
 // 模块化设计，避免变量重复声明问题
 
-// DOM加载完成后初始化编辑器
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('海报编辑器初始化...');
-  
-  // 全局状态管理
+// 全局状态管理 - 移到最前面确保优先初始化
   let state = {
     currentTemplate: null,
     businessInfo: {
@@ -18,77 +14,234 @@ document.addEventListener('DOMContentLoaded', function() {
     textColor: '#000000' // 默认黑色
   };
   
-  // DOM元素缓存
-  const elements = {
-    // 修复：添加缺失的removeBackgroundBtn元素
-    removeBackgroundBtn: document.getElementById('removeBackgroundBtn'),
-    // 返回按钮
-    backToHomeBtn: document.getElementById('backToHomeBtn'),
-    
-    // 底部按钮
-    changeTemplateBtn: document.getElementById('changeTemplateBtn'),
-    editBusinessInfoBtn: document.getElementById('editBusinessInfoBtn'),
-    uploadBackgroundBtn: document.getElementById('uploadBackgroundBtn'),
-    backgroundInput: document.getElementById('backgroundInput'),
-    downloadBtn: document.getElementById('downloadBtn'),
-    
-    // 预览区域
-    posterFrame: document.getElementById('posterFrame'),
-    posterBackground: document.getElementById('posterBackground'),
-    posterBusinessName: document.getElementById('posterBusinessName'),
-    posterPromoText: document.getElementById('posterPromoText'),
-    posterLogo: document.getElementById('posterLogo'),
-    posterLogoImg: document.getElementById('posterLogoImg'),
-    logoPlaceholder: document.getElementById('logoPlaceholder'),
-    posterQrcode: document.getElementById('posterQrcode'),
-    posterQrcodeImg: document.getElementById('posterQrcodeImg'),
-    qrcodePlaceholder: document.getElementById('qrcodePlaceholder'),
-    
-    // 模态框
-    templateModal: document.getElementById('templateModal'),
-    closeTemplateModalBtn: document.getElementById('closeTemplateModalBtn'),
-    cancelTemplateBtn: document.getElementById('cancelTemplateBtn'),
-    confirmTemplateBtn: document.getElementById('confirmTemplateBtn'),
-    templateGrid: document.getElementById('modalTemplatesGrid'),
-    modalMonthButtons: document.getElementById('modalMonthButtons'),
-    modalFestivalTags: document.getElementById('modalFestivalTags'),
-    
-    businessInfoModal: document.getElementById('businessInfoModal'),
-    closeBusinessInfoModalBtn: document.getElementById('closeBusinessInfoModalBtn'),
-    cancelBusinessInfoBtn: document.getElementById('cancelBusinessInfoBtn'),
-    saveBusinessInfoBtn: document.getElementById('saveBusinessInfoBtn'),
-    businessInfoForm: document.getElementById('businessInfoForm'),
-    businessNameInput: document.getElementById('business-name'),
-    fontColorSelector: document.getElementById('color-selector'),
-    promoTextInput: document.getElementById('promotion-text'),
-    logoUploadArea: document.getElementById('logoUploadArea'),
-    logoInput: document.getElementById('logoInput'),
-    logoPreview: document.getElementById('logoPreview'),
-    logoPreviewImg: document.getElementById('logoPreviewImg'),
-    removeLogoBtn: document.getElementById('removeLogoBtn'),
-    qrcodeUploadArea: document.getElementById('qrcodeUploadArea'),
-    qrcodeInput: document.getElementById('qrcodeInput'),
-    qrcodePreview: document.getElementById('qrcodePreview'),
-    qrcodePreviewImg: document.getElementById('qrcodePreviewImg'),
-    removeQrcodeBtn: document.getElementById('removeQrcodeBtn'),
-    
-    // 字体颜色选择弹窗
-    fontColorModal: document.getElementById('fontColorModal'),
-    closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
-    fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group')
-  };
+  // 促销信息文案模板数据
+  const PROMO_TEMPLATES = [
+    '扫码送惊喜，福利拿到手软！',
+    '感恩钜惠，全场3折起嗨购！',
+    '限时福利，到店立领暖心礼！',
+    '劲爆折扣，错过今天等一年！',
+    '扫码抢券，超值套餐省翻天！',
+    '老友回馈，买一送一别错过！',
+    '新店福利，首单立减笑开花！',
+    '扫码即送，甜蜜小礼物抱走！',
+    '年终清仓，全场低至骨折价！',
+    '限时秒杀，手慢无心跳加速！',
+    '扫码抽奖，iPhone 等你带回家！',
+    '会员专享，折上再折薅到爽！',
+    '早鸟福利，前50名免单狂欢！',
+    '扫码立减，现金红包直接抵！',
+    '闺蜜同行，第二件0元白送！',
+    '夜场福利，21点后买一赠二！',
+    '扫码集赞，满30送隐藏福利！',
+    '生日特惠，凭身份证免单嗨！',
+    '打卡送券，发圈再返30元！',
+    '扫码入会，终身享VIP特价！'
+  ];
   
-  // 初始化编辑器
-  function init() {
-    console.log('编辑器初始化完成，开始绑定事件...');
+  // DOM元素缓存
+  const elements = {};
+  
+  // DOM加载完成后初始化编辑器
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('海报编辑器初始化...');
+    
+    // 初始化DOM元素缓存
+    initializeElements();
+    
+    // 先从本地存储加载数据
+    loadBusinessInfoFromLocalStorage();
+    
+    // 然后更新显示
+    updateBusinessInfoDisplay();
+    
+    // 最后绑定事件和初始化
     bindEvents();
     initializeEditor();
+  
+  // 初始化DOM元素缓存
+  function initializeElements() {
+    Object.assign(elements, {
+      // 修复：添加缺失的removeBackgroundBtn元素
+      removeBackgroundBtn: document.getElementById('removeBackgroundBtn'),
+      // 返回按钮
+      backToHomeBtn: document.getElementById('backToHomeBtn'),
+      
+      // 底部按钮
+      changeTemplateBtn: document.getElementById('changeTemplateBtn'),
+      editBusinessInfoBtn: document.getElementById('editBusinessInfoBtn'),
+      uploadBackgroundBtn: document.getElementById('uploadBackgroundBtn'),
+      backgroundInput: document.getElementById('backgroundInput'),
+      downloadBtn: document.getElementById('downloadBtn'),
+      
+      // 预览区域
+      posterFrame: document.getElementById('posterFrame'),
+      posterBackground: document.getElementById('posterBackground'),
+      posterBusinessName: document.getElementById('posterBusinessName'),
+      posterPromoText: document.getElementById('posterPromoText'),
+      posterLogo: document.getElementById('posterLogo'),
+      posterLogoImg: document.getElementById('posterLogoImg'),
+      logoPlaceholder: document.getElementById('logoPlaceholder'),
+      posterQrcode: document.getElementById('posterQrcode'),
+      posterQrcodeImg: document.getElementById('posterQrcodeImg'),
+      qrcodePlaceholder: document.getElementById('qrcodePlaceholder'),
+      
+      // 模态框
+      templateModal: document.getElementById('templateModal'),
+      closeTemplateModalBtn: document.getElementById('closeTemplateModalBtn'),
+      cancelTemplateBtn: document.getElementById('cancelTemplateBtn'),
+      // 促销信息编辑模态框
+      promoTextModal: document.getElementById('promoTextModal'),
+      closePromoTextModal: document.getElementById('closePromoTextModal'),
+      cancelPromoTextBtn: document.getElementById('cancelPromoTextBtn'),
+      savePromoTextBtn: document.getElementById('savePromoTextBtn'),
+      promoTextInput: document.getElementById('promoTextInput'), // 促销编辑模态框中的输入框
+      promoTemplatesList: document.getElementById('promoTemplatesList'),
+      confirmTemplateBtn: document.getElementById('confirmTemplateBtn'),
+      templateGrid: document.getElementById('modalTemplatesGrid'),
+      modalMonthButtons: document.getElementById('modalMonthButtons'),
+      modalFestivalTags: document.getElementById('modalFestivalTags'),
+      
+      businessInfoModal: document.getElementById('businessInfoModal'),
+      closeBusinessInfoModalBtn: document.getElementById('closeBusinessInfoModalBtn'),
+      cancelBusinessInfoBtn: document.getElementById('cancelBusinessInfoBtn'),
+      saveBusinessInfoBtn: document.getElementById('saveBusinessInfoBtn'),
+      businessInfoForm: document.getElementById('businessInfoForm'),
+      businessNameInput: document.getElementById('business-name'),
+      fontColorSelector: document.getElementById('color-selector'),
+      businessPromoTextInput: document.getElementById('promotion-text'), // 商家信息模态框中的促销文本输入框
+      logoUploadArea: document.getElementById('logoUploadArea'),
+      logoInput: document.getElementById('logoInput'),
+      logoPreview: document.getElementById('logoPreview'),
+      logoPreviewImg: document.getElementById('logoPreviewImg'),
+      removeLogoBtn: document.getElementById('removeLogoBtn'),
+      qrcodeUploadArea: document.getElementById('qrcodeUploadArea'),
+      qrcodeInput: document.getElementById('qrcodeInput'),
+      qrcodePreview: document.getElementById('qrcodePreview'),
+      qrcodePreviewImg: document.getElementById('qrcodePreviewImg'),
+      removeQrcodeBtn: document.getElementById('removeQrcodeBtn'),
+      
+      // 字体颜色选择弹窗
+      fontColorModal: document.getElementById('fontColorModal'),
+      closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
+      fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group')
+    });
+    console.log('DOM元素缓存初始化完成');
   }
   
-  // 调用初始化函数
-  init();
+  // 保存促销信息到本地存储
+  function saveBusinessInfoToLocalStorage() {
+    try {
+      console.log('准备保存到本地存储:', state.businessInfo);
+      localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
+      console.log('促销信息已成功保存到本地存储');
+      // 验证保存是否成功
+      const testSave = localStorage.getItem('posterBusinessInfo');
+      if (testSave) {
+        console.log('保存验证成功，存储的数据:', testSave);
+      }
+    } catch (error) {
+      console.error('保存本地存储失败:', error);
+      alert('保存失败，请检查浏览器存储空间');
+    }
+  }
   
-  // 绑定事件处理函数
+  // 从本地存储加载促销信息
+  function loadBusinessInfoFromLocalStorage() {
+    try {
+      console.log('尝试从本地存储加载数据...');
+      const savedInfo = localStorage.getItem('posterBusinessInfo');
+      if (savedInfo) {
+        console.log('找到本地存储数据:', savedInfo);
+        const parsedInfo = JSON.parse(savedInfo);
+        state.businessInfo = {
+          ...state.businessInfo,
+          ...parsedInfo
+        };
+        console.log('从本地存储加载完成:', state.businessInfo);
+      } else {
+        console.log('本地存储中没有找到数据');
+      }
+    } catch (error) {
+      console.error('加载本地存储失败:', error);
+    }
+  }
+  
+  // 初始化促销信息文案模板
+  function initializePromoTemplates() {
+    if (!elements.promoTemplatesList) return;
+    
+    // 清空现有内容
+    elements.promoTemplatesList.innerHTML = '';
+    
+    // 渲染20条文案模板
+    PROMO_TEMPLATES.forEach((template, index) => {
+      const templateItem = document.createElement('div');
+      templateItem.className = 'promo-template-item';
+      templateItem.textContent = template;
+      templateItem.addEventListener('click', function() {
+        console.log('点击了模板:', template);
+        if (elements.promoTextInput) {
+          elements.promoTextInput.value = template;
+          console.log('已将模板内容填充到输入框:', template);
+        }
+      });
+      elements.promoTemplatesList.appendChild(templateItem);
+    });
+  }
+  
+  // 打开促销信息编辑模态框
+  function openPromoTextModal() {
+    if (!elements.promoTextModal || !elements.promoTextInput) return;
+    
+    // 加载当前促销信息到输入框
+    elements.promoTextInput.value = state.businessInfo.promoText;
+    
+    // 确保文案模板已渲染
+    initializePromoTemplates();
+    
+    // 显示模态框
+    elements.promoTextModal.classList.remove('hidden');
+    
+    // 聚焦到输入框
+    elements.promoTextInput.focus();
+  }
+  
+  // 关闭促销信息编辑模态框
+  function closePromoTextModal() {
+    if (!elements.promoTextModal) return;
+    elements.promoTextModal.classList.add('hidden');
+  }
+  
+
+  
+  // 保存促销信息
+  function savePromoText() {
+    if (!elements.promoTextInput) return;
+    
+    const newPromoText = elements.promoTextInput.value.trim() || '点击编辑促销信息';
+    console.log('保存促销信息:', newPromoText);
+    
+    // 更新状态
+    state.businessInfo.promoText = newPromoText;
+    
+    // 更新显示
+    updateBusinessInfoDisplay();
+    
+    // 同步到商家信息编辑弹窗
+    if (elements.businessPromoTextInput) {
+      elements.businessPromoTextInput.value = newPromoText;
+    }
+    
+    // 保存到本地存储
+    saveBusinessInfoToLocalStorage();
+    
+    // 关闭模态框
+    closePromoTextModal();
+  }
+  
+
+  
+  // 这里是其他函数定义...
   function bindEvents() {
     // 返回按钮事件
     if (elements.backToHomeBtn) {
@@ -166,6 +319,29 @@ document.addEventListener('DOMContentLoaded', function() {
           updateBusinessInfoDisplay();
         }
       });
+    }
+    
+    // 促销信息编辑相关事件
+    // 点击海报上的促销信息，打开编辑模态框
+    if (elements.posterPromoText) {
+      elements.posterPromoText.addEventListener('click', function() {
+        openPromoTextModal();
+      });
+    }
+    
+    // 关闭促销信息编辑模态框
+    if (elements.closePromoTextModal) {
+      elements.closePromoTextModal.addEventListener('click', closePromoTextModal);
+    }
+    
+    // 取消编辑促销信息
+    if (elements.cancelPromoTextBtn) {
+      elements.cancelPromoTextBtn.addEventListener('click', closePromoTextModal);
+    }
+    
+    // 保存促销信息
+    if (elements.savePromoTextBtn) {
+      elements.savePromoTextBtn.addEventListener('click', savePromoText);
     }
     
     // 商家名称点击事件 - 弹出字体颜色选择弹窗
@@ -477,13 +653,27 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 初始化编辑器状态
   function initializeEditor() {
-    // 从本地存储加载商家信息
-    const savedBusinessInfo = localStorage.getItem('businessInfo');
+    // 从本地存储加载商家信息 - 与saveBusinessInfoToLocalStorage保持一致的键名
+    const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
     if (savedBusinessInfo) {
       try {
         state.businessInfo = JSON.parse(savedBusinessInfo);
+        console.log('从posterBusinessInfo加载成功:', state.businessInfo);
       } catch (e) {
         console.error('加载保存的商家信息失败:', e);
+        // 尝试从旧键名迁移数据
+        try {
+          const oldSavedInfo = localStorage.getItem('businessInfo');
+          if (oldSavedInfo) {
+            state.businessInfo = JSON.parse(oldSavedInfo);
+            console.log('从businessInfo迁移数据:', state.businessInfo);
+            // 迁移后保存到新键名
+            localStorage.setItem('posterBusinessInfo', oldSavedInfo);
+            localStorage.removeItem('businessInfo'); // 清除旧数据
+          }
+        } catch (ee) {
+          console.error('迁移旧数据失败:', ee);
+        }
       }
     }
     
@@ -638,8 +828,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 更新促销信息
     if (elements.posterPromoText && state.businessInfo.promoText) {
-      elements.posterPromoText.textContent = state.businessInfo.promoText;
+      // 将换行符转换为<br>标签，以便在预览中正确显示换行
+      elements.posterPromoText.innerHTML = state.businessInfo.promoText.replace(/\n/g, '<br>');
       elements.posterPromoText.style.color = state.textColor;
+    }
+    
+    // 同时更新商家信息弹窗中的促销信息输入框
+    if (elements.promoTextInput && state.businessInfo.promoText) {
+      elements.promoTextInput.value = state.businessInfo.promoText;
     }
     
     // 更新商家信息编辑弹窗中的颜色选择器状态
@@ -1516,11 +1712,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 打开商家信息编辑弹窗
   function openBusinessInfoModal() {
-    if (!elements.businessInfoModal || !elements.businessNameInput || !elements.promoTextInput) return;
+    if (!elements.businessInfoModal || !elements.businessNameInput || !elements.businessPromoTextInput) return;
     
     // 填充表单数据
     elements.businessNameInput.value = state.businessInfo.name || '';
-    elements.promoTextInput.value = state.businessInfo.promoText || '';
+    elements.businessPromoTextInput.value = state.businessInfo.promoText || '';
     
     // 初始化颜色色块选中状态 - 确保与state.textColor同步
     const colorSwatches = document.querySelectorAll('.color-swatch');
@@ -1633,11 +1829,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 保存商家信息
   function saveBusinessInfo() {
-    if (!elements.businessNameInput || !elements.promoTextInput) return;
+    if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
     // 获取表单数据
     state.businessInfo.name = elements.businessNameInput.value.trim() || '点击编辑商家名称';
-    state.businessInfo.promoText = elements.promoTextInput.value.trim() || '点击编辑促销信息';
+    state.businessInfo.promoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
     
     // 从选中的色块获取颜色值（已通过点击事件更新到state中）
     
@@ -2602,8 +2798,14 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
   
-  // 初始化编辑器
-  init();
+  // 确保在DOM完全加载后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeEditor();
+    });
+  } else {
+    initializeEditor();
+  }
   
   // 导出全局调试器对象
   window.editorDebugger = {

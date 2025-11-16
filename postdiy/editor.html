@@ -69,19 +69,19 @@
   <!-- 底部固定按钮栏 -->
   <div class="bottom-actions">
     <button id="changeTemplateBtn" class="action-btn">
-    
+      <i class="fa fa-th-large"></i>
       <span>选择模板</span>
     </button>
     <button id="editBusinessInfoBtn" class="action-btn">
-     
+      <i class="fa fa-building"></i>
       <span>商家信息</span>
     </button>
     <button id="uploadBackgroundBtn" class="action-btn">
-      
+      <i class="fa fa-upload"></i>
       <span>上传背景</span>
     </button>
     <button id="downloadBtn" class="action-btn">
-    
+      <i class="fa fa-download"></i>
       <span>下载海报</span>
     </button>
   </div>
@@ -263,5 +263,35 @@
       console.log('编辑器调试器已加载:', window.editorDebugger);
     });
   </script>
+  
+  <!-- 促销信息编辑模态框 -->
+  <div id="promoTextModal" class="modal-overlay hidden">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>编辑促销信息</h3>
+        <button id="closePromoTextModal" class="modal-close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- 促销信息输入区域 -->
+        <div class="input-section">
+          <textarea id="promoTextInput" class="promo-text-input" rows="3" placeholder="请输入促销信息..."></textarea>
+        </div>
+        
+        <!-- 文案模板区域 -->
+        <div class="templates-section">
+          <h4>促销文案模板（点选再编辑）：</h4>
+          <div id="promoTemplatesList" class="promo-templates-list">
+            <!-- 文案模板将通过JavaScript动态生成 -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelPromoTextBtn" class="btn-secondary">取消</button>
+        <button id="savePromoTextBtn" class="btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

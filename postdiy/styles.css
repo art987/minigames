@@ -236,7 +236,7 @@ main {
 
 /* 模板展示区域 */
 .templates-section {
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
 }
 
 .templates-header {
@@ -1381,7 +1381,7 @@ footer {
   }
   
   .action-btn i {
-    font-size: 14px;
+    font-size: 12px;
   }
   
   .action-btn span {
@@ -1451,6 +1451,163 @@ input.hidden {
   display: none;
   visibility: hidden;
   opacity: 0;
+}
+
+/* 促销信息编辑模态框样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.input-section {
+  margin-bottom: 11px;
+}
+
+.input-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.promo-text-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+.templates-section h4 {
+  margin-top: 0;
+  margin-bottom: 7px;
+  font-size: 16px;
+  color: #787878;
+}
+
+.promo-templates-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  max-height: 194px;
+  overflow-y: auto;
+}
+
+.promo-template-item {
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.promo-template-item:hover {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #ca0c0c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4096ff;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* 使海报上的促销信息可点击 */
+.poster-promo-text {
+  cursor: pointer;
+}
+
+.poster-promo-text:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* 编辑页面特有样式 - 从内联CSS提取 */
@@ -1609,3 +1766,6 @@ input.hidden {
 .template-check-button.checked i {
   font-weight: bold;
 }
+
+.fa-remove:before, .fa-close:before, .fa-times:before {
+       color: #e30000;}
