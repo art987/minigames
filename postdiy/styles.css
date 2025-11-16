@@ -1211,12 +1211,16 @@ footer {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
+  min-height: 120px; /* 与上传区域保持一致 */
+  max-height: 150px; /* 与上传区域保持一致 */
 }
 
 .upload-preview-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: contain; /* 保持图片完整显示并保持宽高比 */
 }
 
 .upload-remove-btn {
@@ -1514,9 +1518,9 @@ input.hidden {
 }
 
 .poster-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 #logoPlaceholder {
