@@ -752,8 +752,9 @@ footer {
   bottom: 22px;
   left: 102px;
   right: 18px;
-  color: #ffffff !important;
-  background: #00000087;
+    color: #000000 !important;
+    background: #ffffffd6;
+    border-radius: 0px 8px;
   width: auto;
   text-align: left;
   font-size: 12px;

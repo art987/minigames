@@ -511,6 +511,10 @@ document.addEventListener('DOMContentLoaded', function() {
           const selectedTemplate = window.utils.getTemplateById(templateId);
           if (selectedTemplate) {
             state.currentTemplate = selectedTemplate;
+            // 重置字体颜色为黑色
+            state.textColor = '#000000';
+            // 更新本地存储中的字体颜色
+            localStorage.setItem('textColor', '#000000');
             updateTemplateDisplay();
             console.log('已加载指定模板:', selectedTemplate.name);
             return; // 加载成功后直接返回
@@ -554,6 +558,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 尝试加载当前月份的第一个模板
     if (window.templates && window.templates[monthKey] && window.templates[monthKey].length > 0) {
       state.currentTemplate = window.templates[monthKey][0];
+      // 重置字体颜色为黑色
+      state.textColor = '#000000';
+      // 更新本地存储中的字体颜色
+      localStorage.setItem('textColor', '#000000');
       updateTemplateDisplay();
       console.log('已加载默认模板:', state.currentTemplate.name);
     } else {
@@ -561,6 +569,10 @@ document.addEventListener('DOMContentLoaded', function() {
       for (const key in window.templates) {
         if (window.templates[key] && window.templates[key].length > 0) {
           state.currentTemplate = window.templates[key][0];
+          // 重置字体颜色为黑色
+          state.textColor = '#000000';
+          // 更新本地存储中的字体颜色
+          localStorage.setItem('textColor', '#000000');
           updateTemplateDisplay();
           console.log('已加载备用模板:', state.currentTemplate.name);
           break;
