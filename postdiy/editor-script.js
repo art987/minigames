@@ -109,11 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (elements.confirmTemplateBtn) {
       elements.confirmTemplateBtn.addEventListener('click', function() {
-        // 确认模板选择并更新预览
+        // 确认模板选择并带ID重定向
         if (state.currentTemplate) {
-          updateTemplateDisplay();
-          closeTemplateModal();
-          showToast('模板已选择');
+          window.location.href = `editor.html?templateId=${state.currentTemplate.id}`;
         }
       });
     }
@@ -1135,15 +1133,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 选择模板
   function selectTemplate(template) {
-    state.currentTemplate = template;
-    // 清除自定义背景，确保使用模板的背景图片
-    state.customBackground = null;
-    // 恢复字体颜色为黑色
-    state.textColor = '#000000';
-    // 更新本地存储中的字体颜色
-    localStorage.setItem('textColor', '#000000');
-    // 更新模板显示
-    updateTemplateDisplay();
+    // 选择新模板时，带模板ID重定向到新页面
+    window.location.href = `editor.html?templateId=${template.id}`;
   }
   
   // 关闭模板选择弹窗
