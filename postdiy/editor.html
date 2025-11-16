@@ -203,6 +203,33 @@
       </div>
     </div>
   </div>
+  
+  <!-- 字体颜色选择弹窗 -->
+  <div id="fontColorModal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">选择字体颜色</h2>
+        <button id="closeFontColorModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">可用颜色:</label>
+          <div class="color-select-container">
+            <div class="color-swatch-group">
+              <div class="color-swatch" data-color="#000000" style="background-color: #000000; border: 2px solid #333;" title="黑色"></div>
+              <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;" title="白色"></div>
+              <div class="color-swatch" data-color="#b50000" style="background-color: #b50000;" title="玫瑰红"></div>
+              <div class="color-swatch" data-color="#800080" style="background-color: #800080;" title="紫色"></div>
+              <div class="color-swatch" data-color="#0000CD" style="background-color: #0000CD;" title="普蓝"></div>
+              <div class="color-swatch" data-color="#FFA500" style="background-color: #FFA500;" title="橘黄"></div>
+              <div class="color-swatch" data-color="#8B4513" style="background-color: #8B4513;" title="深褐"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 移除底部按钮，因为点击颜色后立即应用并关闭弹窗 -->
+    </div>
+  </div>
 
   <!-- 编辑器脚本 -->
   <script src="editor-script.js"></script>

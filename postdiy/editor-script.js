@@ -70,7 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
     qrcodeInput: document.getElementById('qrcodeInput'),
     qrcodePreview: document.getElementById('qrcodePreview'),
     qrcodePreviewImg: document.getElementById('qrcodePreviewImg'),
-    removeQrcodeBtn: document.getElementById('removeQrcodeBtn')
+    removeQrcodeBtn: document.getElementById('removeQrcodeBtn'),
+    
+    // 字体颜色选择弹窗
+    fontColorModal: document.getElementById('fontColorModal'),
+    closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
+    fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group')
   };
   
   // 初始化编辑器
@@ -161,6 +166,45 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // 实时更新预览
           updateBusinessInfoDisplay();
+        }
+      });
+    }
+    
+    // 商家名称点击事件 - 弹出字体颜色选择弹窗
+    if (elements.posterBusinessName) {
+      elements.posterBusinessName.addEventListener('click', function() {
+        // 打开字体颜色选择弹窗
+        openFontColorModal();
+      });
+    }
+    
+    // 字体颜色选择弹窗关闭按钮事件
+    if (elements.closeFontColorModalBtn) {
+      elements.closeFontColorModalBtn.addEventListener('click', closeFontColorModal);
+    }
+    
+    // 移除按钮事件监听，因为现在点击颜色直接应用并关闭弹窗
+    
+    // 字体颜色选择弹窗内的颜色选择事件
+    if (elements.fontColorModalSelector) {
+      elements.fontColorModalSelector.addEventListener('click', function(e) {
+        if (e.target.classList.contains('color-swatch')) {
+          // 直接获取颜色并应用
+          const selectedColor = e.target.getAttribute('data-color');
+          
+          if (selectedColor) {
+            // 更新状态
+            state.textColor = selectedColor;
+            
+            // 更新预览
+            updateBusinessInfoDisplay();
+            
+            // 显示成功提示
+            showToast('字体颜色已更新');
+            
+            // 立即关闭弹窗
+            closeFontColorModal();
+          }
         }
       });
     }
@@ -573,6 +617,50 @@ document.addEventListener('DOMContentLoaded', function() {
       elements.posterPromoText.textContent = state.businessInfo.promoText;
       elements.posterPromoText.style.color = state.textColor;
     }
+  }
+  
+  // 打开字体颜色选择弹窗
+  function openFontColorModal() {
+    if (!elements.fontColorModal || !elements.fontColorModalSelector) return;
+    
+    // 初始化颜色选择器状态
+    const colorOptions = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
+    colorOptions.forEach(option => {
+      const color = option.getAttribute('data-color');
+      
+      // 移除所有选中状态
+      option.classList.remove('selected');
+      
+      // 为当前颜色添加选中边框效果
+      if (color === state.textColor) {
+        option.style.border = '2px solid #333';
+      } else {
+        // 重置其他颜色的边框
+        if (color === '#FFFFFF') {
+          option.style.border = '1px solid #ddd';
+        } else {
+          option.style.border = '1px solid transparent';
+        }
+      }
+    });
+    
+    // 显示弹窗
+    elements.fontColorModal.classList.remove('hidden');
+    elements.fontColorModal.style.display = 'flex';
+  }
+  
+  // 关闭字体颜色选择弹窗
+  function closeFontColorModal() {
+    if (!elements.fontColorModal) return;
+    
+    elements.fontColorModal.classList.add('hidden');
+    elements.fontColorModal.style.display = 'none';
+  }
+  
+  // 保存字体颜色函数保留但简化，因为现在点击颜色直接应用
+  function saveFontColor() {
+    // 直接关闭弹窗
+    closeFontColorModal();
   }
   
   // 打开模板选择弹窗

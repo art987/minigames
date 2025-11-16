@@ -633,6 +633,27 @@ footer {
   font-weight: bold;
   padding: 0 20px;
   word-wrap: break-word;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#posterBusinessName:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+#posterBusinessName:active {
+  transform: scale(0.98);
+}
+
+/* 字体颜色选择弹窗特定样式 */
+#fontColorModal .modal {
+  max-width: 400px;
+}
+
+#fontColorModal .color-swatch-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* 海报Logo样式 */
