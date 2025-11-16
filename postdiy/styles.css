@@ -785,7 +785,7 @@ footer {
 /* 操作按钮 - 更大的触摸区域 */
 .action-btn {
   flex: 4;
-  padding: 9px 8px;
+  padding: 9px 12px;
   margin: 0 4px;
   border: none;
   border-radius: 27px;
@@ -796,7 +796,7 @@ footer {
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   min-height: 29px;
@@ -807,8 +807,8 @@ footer {
 
 /* 按钮图标更大 */
 .action-btn i {
-  font-size: 22px;
-  margin-bottom: 4px;
+  font-size: 18px;
+  margin-right: 1px;
 }
 
 #downloadBtn{ background-color: #ad0404;}
@@ -1371,12 +1371,12 @@ footer {
 @media (max-width: 480px) {
   /* 小屏幕上的按钮调整 */
   .action-btn {
-    padding: 5px 6px;
+    padding: 5px 0px;
     min-height: 30px;
   }
   
   .action-btn i {
-    font-size: 18px;
+    font-size: 14px;
   }
   
   .action-btn span {

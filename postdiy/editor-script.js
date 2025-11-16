@@ -196,8 +196,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // 更新状态
             state.textColor = selectedColor;
             
+            // 保存到本地存储
+            localStorage.setItem('textColor', state.textColor);
+            
             // 更新预览
             updateBusinessInfoDisplay();
+            
+            // 同步更新商家信息编辑弹窗中的颜色选择器状态
+            const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
+            businessInfoColorSwatches.forEach(swatch => {
+              const color = swatch.getAttribute('data-color');
+              if (color === selectedColor) {
+                swatch.classList.add('selected');
+              } else {
+                swatch.classList.remove('selected');
+              }
+            });
             
             // 显示成功提示
             showToast('字体颜色已更新');
@@ -617,6 +631,39 @@ document.addEventListener('DOMContentLoaded', function() {
       elements.posterPromoText.textContent = state.businessInfo.promoText;
       elements.posterPromoText.style.color = state.textColor;
     }
+    
+    // 更新商家信息编辑弹窗中的颜色选择器状态
+    const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
+    businessInfoColorSwatches.forEach(swatch => {
+      const color = swatch.getAttribute('data-color');
+      if (color === state.textColor) {
+        swatch.classList.add('selected');
+      } else {
+        swatch.classList.remove('selected');
+      }
+    });
+    
+    // 更新字体颜色选择弹窗中的颜色选择器状态
+    const fontColorModalSwatches = document.querySelectorAll('#fontColorModal .color-swatch');
+    fontColorModalSwatches.forEach(swatch => {
+      const color = swatch.getAttribute('data-color');
+      // 为当前颜色添加选中边框效果
+      if (color === state.textColor) {
+        swatch.style.border = '2px solid #333';
+      } else {
+        // 重置其他颜色的边框
+        if (color === '#FFFFFF') {
+          swatch.style.border = '1px solid #ddd';
+        } else {
+          swatch.style.border = '1px solid transparent';
+        }
+      }
+    });
+    
+    // 更新字体颜色选择器的值
+    if (elements.fontColorSelector) {
+      elements.fontColorSelector.value = state.textColor;
+    }
   }
   
   // 打开字体颜色选择弹窗
@@ -641,6 +688,17 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           option.style.border = '1px solid transparent';
         }
+      }
+    });
+    
+    // 同步更新商家信息编辑弹窗中的颜色选择器
+    const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
+    businessInfoColorSwatches.forEach(swatch => {
+      const color = swatch.getAttribute('data-color');
+      if (color === state.textColor) {
+        swatch.classList.add('selected');
+      } else {
+        swatch.classList.remove('selected');
       }
     });
     
@@ -1080,6 +1138,10 @@ document.addEventListener('DOMContentLoaded', function() {
     state.currentTemplate = template;
     // 清除自定义背景，确保使用模板的背景图片
     state.customBackground = null;
+    // 恢复字体颜色为黑色
+    state.textColor = '#000000';
+    // 更新本地存储中的字体颜色
+    localStorage.setItem('textColor', '#000000');
     // 更新模板显示
     updateTemplateDisplay();
   }
@@ -1457,7 +1519,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.businessNameInput.value = state.businessInfo.name || '';
     elements.promoTextInput.value = state.businessInfo.promoText || '';
     
-    // 初始化颜色色块选中状态
+    // 初始化颜色色块选中状态 - 确保与state.textColor同步
     const colorSwatches = document.querySelectorAll('.color-swatch');
     colorSwatches.forEach(swatch => {
       if (swatch.dataset.color === state.textColor) {
@@ -1466,6 +1528,11 @@ document.addEventListener('DOMContentLoaded', function() {
         swatch.classList.remove('selected');
       }
     });
+    
+    // 确保字体颜色选择器与state.textColor同步
+    if (elements.fontColorSelector) {
+      elements.fontColorSelector.value = state.textColor;
+    }
     
     // 绑定颜色色块点击事件
     colorSwatches.forEach(swatch => {
@@ -1481,7 +1548,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 更新状态并实时预览
         state.textColor = this.dataset.color;
+        
+        // 保存到本地存储
+        localStorage.setItem('textColor', state.textColor);
+        
         updateBusinessInfoDisplay();
+        
+        // 同步更新字体颜色选择器的值
+        if (elements.fontColorSelector) {
+          elements.fontColorSelector.value = state.textColor;
+        }
       });
     });
     
@@ -1658,6 +1734,11 @@ document.addEventListener('DOMContentLoaded', function() {
     reader.onload = function(e) {
       state.customBackground = e.target.result;
       
+      // 恢复字体颜色为黑色
+      state.textColor = '#000000';
+      // 更新本地存储中的字体颜色
+      localStorage.setItem('textColor', '#000000');
+      
       // 更新背景显示
       updateTemplateDisplay();
       
@@ -1672,6 +1753,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // 移除背景图片
   function removeBackground() {
     state.customBackground = null;
+    
+    // 恢复字体颜色为黑色
+    state.textColor = '#000000';
+    // 更新本地存储中的字体颜色
+    localStorage.setItem('textColor', '#000000');
     
     // 更新背景显示
     updateTemplateDisplay();
