@@ -1001,12 +1001,50 @@ footer {
   font-size: 12px;
   color: #666;
   margin-right: 8px;
+  margin-bottom: 5px;
 }
 
 .color-select-container {
-  display: flex;
+  display: block;
+  clear: both;
   align-items: center;
   white-space: nowrap;
+}
+
+.color-swatch-group {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+}
+
+.color-swatch {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch.selected {
+  border: 2px solid #ffffff !important;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch[data-color="#FFFFFF"] {
+  border: 1px solid #ddd;
+}
+
+.color-swatch[data-color="#FFFFFF"].selected {
+  border: 2px solid #333 !important;
 }
 
 .form-input:focus {
@@ -1513,12 +1551,11 @@ input.hidden {
 /* 圆形勾选按钮样式 */
 .template-check-button {
   position: absolute;
-  bottom: 5px;
-    right: 30px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: white;
+  bottom: 0px;
+  right: 0;
+  width: 100%;
+  height: 141px;
+  background-color: #ffffff00;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1534,10 +1571,13 @@ input.hidden {
   transform: scale(1.1);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
 }
+.fa-check:before {
+    color: #ffffff00;
+}
 
 .template-check-button.checked {
-  color: var(--error-color); /* 红色勾选标记 */
-  background-color: white;
+  color: #ef444400; /* 红色勾选标记 */
+  background-color: #ffffff00;
 }
 
 .template-check-button.checked i {

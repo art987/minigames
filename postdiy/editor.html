@@ -90,19 +90,19 @@
   <div id="templateModal" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-header">
-        <h2 class="modal-title">选择模板</h2>
+        <h2 class="modal-title">选择模板(根据月份及节日)</h2>
         <button id="closeTemplateModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
         <!-- 月份选择 -->
         <div class="modal-months-container">
-          <h3 class="text-lg font-medium mb-3">选择月份</h3>
+          <h3 class="text-lg font-medium mb-3" style="display: none;">选择月份</h3>
           <div class="modal-months-grid" id="modalMonthButtons"></div>
         </div>
         
         <!-- 节日选择 -->
         <div class="modal-festivals-container">
-          <h3 class="text-lg font-medium mb-3">选择节日</h3>
+          <h3 class="text-lg font-medium mb-3" style="display: none;">选择节日</h3>
           <div class="modal-festivals-scroll">
             <div class="modal-festivals-grid" id="modalFestivalTags"></div>
           </div>
@@ -110,11 +110,11 @@
         
         <!-- 模板列表 -->
         <div class="mt-6">
-          <h3 class="text-lg font-medium mb-3">可用模板</h3>
+          <h3 class="text-lg font-medium mb-3" >可用模板</h3>
           <div id="modalTemplatesGrid"></div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="display: none;">
         <button id="cancelTemplateBtn" class="editor-button editor-button-secondary">取消</button>
         <button id="confirmTemplateBtn" class="editor-button">确定</button>
       </div>
@@ -132,20 +132,20 @@
         <form id="businessInfoForm">
           <div class="form-group">
             <label class="form-label" for="business-name">商家名称（含字体颜色） <span class="text-error-color">*</span></label>
-            <div class="flex items-center gap-4">
-              
+            <div class="items-center">
+              <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
               <div class="color-select-container">
-               
-                <select id="business-name-color" class="form-select">
-                  <option value="#000000" selected>黑色</option>
-                  <option value="#FFFFFF">白色</option>
-                  <option value="#FF69B4">玫瑰红</option>
-                  <option value="#800080">紫色</option>
-                  <option value="#0000CD">普蓝</option>
-                  <option value="#FFA500">橘黄</option>
-                  <option value="#8B4513">深褐</option>
-                </select>
-                <input type="text" id="business-name" class="form-input flex-1" placeholder="请输入商家名称" required>
+                <label class="form-label-sm">字体颜色:</label>
+                <div class="color-swatch-group">
+                  <div class="color-swatch" data-color="#000000" style="background-color: #000000; border: 2px solid #333;" title="黑色"></div>
+                  <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;" title="白色"></div>
+                  <div class="color-swatch" data-color="#b50000" style="background-color: #b50000;" title="玫瑰红"></div>
+                  <div class="color-swatch" data-color="#800080" style="background-color: #800080;" title="紫色"></div>
+                  <div class="color-swatch" data-color="#0000CD" style="background-color: #0000CD;" title="普蓝"></div>
+                  <div class="color-swatch" data-color="#FFA500" style="background-color: #FFA500;" title="橘黄"></div>
+                  <div class="color-swatch" data-color="#8B4513" style="background-color: #8B4513;" title="深褐"></div>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" >
         <button id="cancelBusinessInfoBtn" class="editor-button editor-button-secondary">取消</button>
         <button id="saveBusinessInfoBtn" class="editor-button">保存</button>
       </div>
