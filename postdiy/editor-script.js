@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
       qrcode: null,
       promoText: '点击编辑促销信息'
     },
-    customBackground: null
+    customBackground: null,
+    textColor: '#000000' // 默认黑色
   };
   
   // DOM元素缓存
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     saveBusinessInfoBtn: document.getElementById('saveBusinessInfoBtn'),
     businessInfoForm: document.getElementById('businessInfoForm'),
     businessNameInput: document.getElementById('business-name'),
+    fontColorSelector: document.getElementById('color-selector'),
     promoTextInput: document.getElementById('promotion-text'),
     logoUploadArea: document.getElementById('logoUploadArea'),
     logoInput: document.getElementById('logoInput'),
@@ -123,6 +125,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (elements.saveBusinessInfoBtn) {
       elements.saveBusinessInfoBtn.addEventListener('click', saveBusinessInfo);
+    }
+    // 颜色选择事件
+    if (elements.fontColorSelector) {
+      elements.fontColorSelector.addEventListener('click', function(e) {
+        if (e.target.classList.contains('color-option')) {
+          // 更新状态
+          state.textColor = e.target.getAttribute('data-color');
+          // 更新UI选中状态
+          document.querySelectorAll('.color-option').forEach(option => {
+            option.classList.remove('selected');
+            // 移除之前的打勾图标
+            const existingCheckmark = option.querySelector('.checkmark');
+            if (existingCheckmark) {
+              existingCheckmark.remove();
+            }
+          });
+          
+          // 添加选中状态
+          e.target.classList.add('selected');
+          
+          // 创建打勾图标
+          const checkmark = document.createElement('span');
+          checkmark.className = 'checkmark';
+          checkmark.textContent = '✓';
+          
+          // 白色色块特殊处理 - 使用黑色打勾
+          if (e.target.getAttribute('data-color') === '#FFFFFF') {
+            checkmark.style.color = '#000000';
+          } else {
+            checkmark.style.color = '#FFFFFF';
+          }
+          
+          e.target.appendChild(checkmark);
+          
+          // 实时更新预览
+          updateBusinessInfoDisplay();
+        }
+      });
     }
     
     // 添加标志变量防止重复触发
@@ -391,6 +431,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
+    // 从本地存储加载文本颜色设置
+    const savedTextColor = localStorage.getItem('textColor');
+    if (savedTextColor) {
+      state.textColor = savedTextColor;
+    }
+    
     // 更新商家信息显示
     updateBusinessInfoDisplay();
     
@@ -495,6 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新商家名称
     if (elements.posterBusinessName && state.businessInfo.name) {
       elements.posterBusinessName.textContent = state.businessInfo.name;
+      elements.posterBusinessName.style.color = state.textColor || '#000000';
     }
     
     // 更新商家Logo
@@ -1325,6 +1372,98 @@ document.addEventListener('DOMContentLoaded', function() {
     // 为输入框添加清除按钮和改进提示语交互
     enhanceInputWithClearButton(elements.businessNameInput, '点击编辑商家名称');
     
+    // 重新实现颜色选择器，使用嵌套结构确保3像素边距
+    if (elements.fontColorSelector) {
+      // 清空现有的颜色选择器
+      elements.fontColorSelector.innerHTML = '';
+      
+      // 预定义的颜色列表
+      const colors = ['#000000', '#FFFFFF', '#FF0000', '#800080', '#0000FF', '#008000', '#FFFF00', '#8B4513'];
+      
+      // 为每个颜色创建选项
+      colors.forEach(color => {
+        // 创建外部容器（用于边框和缩放）
+        const outerDiv = document.createElement('div');
+        outerDiv.className = 'color-option';
+        outerDiv.setAttribute('data-color', color);
+        
+        // 创建内部色块（3像素边距的效果）
+        const innerDiv = document.createElement('div');
+        innerDiv.className = 'color-inner';
+        innerDiv.style.backgroundColor = color;
+        
+        // 为白色色块添加边框，使其在白色背景上可见
+        if (color === '#FFFFFF') {
+          innerDiv.style.border = '1px solid #ddd';
+        }
+        
+        outerDiv.appendChild(innerDiv);
+        elements.fontColorSelector.appendChild(outerDiv);
+        
+        // 如果是当前选中的颜色
+        if (color === state.textColor) {
+          outerDiv.classList.add('selected');
+          
+          // 创建打勾图标
+           const checkmark = document.createElement('span');
+           checkmark.className = 'checkmark';
+           checkmark.textContent = '✓';
+           // 确保白色色块使用黑色打勾，其他使用白色打勾
+           if (color === '#FFFFFF') {
+             checkmark.style.color = '#000000';
+             checkmark.style.fontSize = '16px'; // 稍微小一点，更清晰
+           } else {
+             checkmark.style.color = '#FFFFFF';
+             checkmark.style.fontSize = '16px';
+           }
+           outerDiv.appendChild(checkmark);
+        }
+      });
+      
+      // 重新绑定点击事件
+      elements.fontColorSelector.addEventListener('click', function(e) {
+        let target = e.target;
+        // 如果点击的是内部色块，找到父元素
+        if (target.classList.contains('color-inner')) {
+          target = target.parentElement;
+        }
+        
+        if (target.classList.contains('color-option')) {
+          // 更新状态
+          state.textColor = target.getAttribute('data-color');
+          
+          // 移除所有选项的选中状态和打勾图标
+          document.querySelectorAll('.color-option').forEach(option => {
+            option.classList.remove('selected');
+            const checkmark = option.querySelector('.checkmark');
+            if (checkmark) {
+              checkmark.remove();
+            }
+          });
+          
+          // 添加选中状态
+          target.classList.add('selected');
+          
+          // 创建打勾图标
+          const checkmark = document.createElement('span');
+          checkmark.className = 'checkmark';
+          checkmark.textContent = '✓';
+          // 确保白色色块使用黑色打勾，其他使用白色打勾
+          if (target.getAttribute('data-color') === '#FFFFFF') {
+            checkmark.style.color = '#000000';
+            checkmark.style.fontSize = '16px'; // 稍微小一点，更清晰
+          } else {
+            checkmark.style.color = '#FFFFFF';
+            checkmark.style.fontSize = '16px';
+          }
+          target.appendChild(checkmark);
+          
+          // 实时更新预览
+          updateBusinessInfoDisplay();
+        }
+      });
+    }
+    
     // 为textarea添加改进提示语交互，但不添加清除按钮（textarea内容可能有多行）
     if (elements.promoTextInput) {
       if (!elements.promoTextInput.value) {
@@ -1397,6 +1536,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 保存到本地存储
     localStorage.setItem('businessInfo', JSON.stringify(state.businessInfo));
+    localStorage.setItem('textColor', state.textColor);
     
     // 更新显示
     updateBusinessInfoDisplay();

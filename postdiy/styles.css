@@ -732,7 +732,7 @@ footer {
   bottom: 22px;
   left: 102px;
   right: 18px;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #00000087;
   width: auto;
   text-align: left;
@@ -995,6 +995,102 @@ footer {
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: #fafafa;
+}
+
+/* 上传区域容器样式 - 确保logo和二维码并排显示 */
+.upload-container {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: nowrap; /* 强制不换行 */
+  margin-bottom: 8px;
+}
+
+.upload-container > div {
+  flex: 1;
+  min-width: 0; /* 允许flex项缩小到内容大小 */
+}
+
+#logoUploadArea, #qrcodeUploadArea {
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 120px; /* 确保有足够的高度 */
+  max-height: 150px; /* 限制最大高度 */
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+#logoUploadArea:hover, #qrcodeUploadArea:hover {
+  border-color: #1976d2;
+  background-color: #f5f9ff;
+}
+
+/* 颜色选择器样式 */
+.color-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* 颜色选项外部容器 - 负责边框和缩放效果 */
+.color-option {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+/* 内部颜色块 - 实现3像素边距效果 */
+.color-inner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 0;
+}
+
+/* 鼠标悬停效果 */
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+/* 选中状态 - 红色边框 */
+.color-option.selected {
+  border-color: #ff0000 !important;
+  border-width: 3px !important;
+  transform: scale(1.2);
+}
+
+/* 打勾图标样式 - 居中显示 */
+.color-option.selected .checkmark {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .upload-area:hover {
@@ -1367,7 +1463,7 @@ input.hidden {
 
 .poster-promo-text {
   font-size: 16px;
-  color: #333;
+  color: #ffffff !important;
   margin: 0;
 }
 .clear-button {

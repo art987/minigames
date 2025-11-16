@@ -9,7 +9,7 @@
   <!-- Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <!-- 整合后的样式文件 -->
-  <link rel="stylesheet" href="styles-combined.css">
+  <link rel="stylesheet" href="styles.css">
   <!-- html2canvas 用于图片导出 -->
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <!-- 节日数据 -->
@@ -135,39 +135,44 @@
             <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
           </div>
           
-          <div class="form-group">
-            <label class="form-label" for="business-logo">商家Logo</label>
-            <div id="logoUploadArea" class="upload-area">
-              <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12,19.2A6.8,6.8 0 0,1 5.2,12.4A6.806,6.806 0 0,1 12,5.6C17.3,5.6 21.6,10 21.6,15.2C21.6,17.5 20.8,19.7 19.2,21.2L12,21.2L12,19.2M12,17.73C10.8,17.73 9.73,16.67 9.73,15.47C9.73,14.27 10.8,13.2 12,13.2C13.2,13.2 14.27,14.27 14.27,15.47C14.27,16.67 13.2,17.73 12,17.73M12,4.93C7.13,4.93 3.14,8.87 3.14,13.67C3.14,18.47 7.13,22.4 12,22.4C16.87,22.4 20.86,18.47 20.86,13.67C20.86,8.87 16.87,4.93 12,4.93Z"/>
-              </svg>
-              <p class="upload-text">上传商家Logo</p>
-              <p class="upload-hint">支持JPG、PNG、GIF格式，最大10MB</p>
-              <input type="file" id="logoInput" accept="image/*" class="hidden">
+          <!-- 并排的上传区域 -->
+          <div class="upload-container">
+            <!-- Logo上传区域 -->
+            <div>
+              <label class="form-label" for="business-logo">商家Logo</label>
+              <div id="logoUploadArea" class="upload-area">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,19.2A6.8,6.8 0 0,1 5.2,12.4A6.806,6.806 0 0,1 12,5.6C17.3,5.6 21.6,10 21.6,15.2C21.6,17.5 20.8,19.7 19.2,21.2L12,21.2L12,19.2M12,17.73C10.8,17.73 9.73,16.67 9.73,15.47C9.73,14.27 10.8,13.2 12,13.2C13.2,13.2 14.27,14.27 14.27,15.47C14.27,16.67 13.2,17.73 12,17.73M12,4.93C7.13,4.93 3.14,8.87 3.14,13.67C3.14,18.47 7.13,22.4 12,22.4C16.87,22.4 20.86,18.47 20.86,13.67C20.86,8.87 16.87,4.93 12,4.93Z"/>
+                </svg>
+                <p class="upload-text">上传Logo</p>
+                <p class="upload-hint">支持JPG、PNG格式</p>
+                <input type="file" id="logoInput" accept="image/*" class="hidden">
+              </div>
+              <div id="logoPreview" class="upload-preview">
+                <img id="logoPreviewImg" src="" alt="Logo预览" class="upload-preview-image">
+                <button type="button" id="removeLogoBtn" class="upload-remove-btn">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
             </div>
-            <div id="logoPreview" class="upload-preview">
-              <img id="logoPreviewImg" src="" alt="Logo预览" class="upload-preview-image">
-              <button type="button" id="removeLogoBtn" class="upload-remove-btn">
-                <i class="fa fa-times"></i>
-              </button>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label" for="business-qrcode">二维码</label>
-            <div id="qrcodeUploadArea" class="upload-area">
-              <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4.2,16.8C4.2,18.79 5.8,20.4 7.8,20.4H16.2C18.2,20.4 19.8,18.8 19.8,16.8V7.2C19.8,5.2 18.2,3.6 16.2,3.6H7.8C5.8,3.6 4.2,5.2 4.2,7.2V16.8M7.8,16.8V7.2H16.2V16.8H7.8M7.8,10.8H16.2V13.8H7.8V10.8M19.8,16.8V13.8H21.6V16.8C21.6,19.8 19.2,22.2 16.2,22.2H7.8C4.8,22.2 2.4,19.8 2.4,16.8V13.8H4.2V16.8C4.2,18.8 5.8,20.4 7.8,20.4H16.2C18.2,20.4 19.8,18.8 19.8,16.8M7.8,22.2V20.4H16.2V22.2H7.8M22.2,4.8V7.2H24V4.8H22.2M0,4.8V7.2H1.8V4.8H0M4.8,0V1.8H7.2V0H4.8M16.8,0V1.8H19.2V0H16.8M16.8,22.2V24H19.2V22.2H16.8M4.8,22.2V24H7.2V22.2H4.8Z"/>
-              </svg>
-              <p class="upload-text">上传二维码</p>
-              <p class="upload-hint">支持JPG、PNG、GIF格式，最大10MB</p>
-              <input type="file" id="qrcodeInput" accept="image/*" class="hidden">
-            </div>
-            <div id="qrcodePreview" class="upload-preview hidden">
-              <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
-              <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
-                <i class="fa fa-times"></i>
-              </button>
+            
+            <!-- 二维码上传区域 -->
+            <div>
+              <label class="form-label" for="business-qrcode">二维码</label>
+              <div id="qrcodeUploadArea" class="upload-area">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M4.2,16.8C4.2,18.79 5.8,20.4 7.8,20.4H16.2C18.2,20.4 19.8,18.8 19.8,16.8V7.2C19.8,5.2 18.2,3.6 16.2,3.6H7.8C5.8,3.6 4.2,5.2 4.2,7.2V16.8M7.8,16.8V7.2H16.2V16.8H7.8M7.8,10.8H16.2V13.8H7.8V10.8M19.8,16.8V13.8H21.6V16.8C21.6,19.8 19.2,22.2 16.2,22.2H7.8C4.8,22.2 2.4,19.8 2.4,16.8V13.8H4.2V16.8C4.2,18.8 5.8,20.4 7.8,20.4H16.2C18.2,20.4 19.8,18.8 19.8,16.8M7.8,22.2V20.4H16.2V22.2H7.8M22.2,4.8V7.2H24V4.8H22.2M0,4.8V7.2H1.8V4.8H0M4.8,0V1.8H7.2V0H4.8M16.8,0V1.8H19.2V0H16.8M16.8,22.2V24H19.2V22.2H16.8M4.8,22.2V24H7.2V22.2H4.8Z"/>
+                </svg>
+                <p class="upload-text">上传二维码</p>
+                <p class="upload-hint">支持JPG、PNG格式</p>
+                <input type="file" id="qrcodeInput" accept="image/*" class="hidden">
+              </div>
+              <div id="qrcodePreview" class="upload-preview hidden">
+                <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
+                <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
             </div>
           </div>
           
