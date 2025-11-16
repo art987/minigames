@@ -131,8 +131,23 @@
       <div class="modal-body">
         <form id="businessInfoForm">
           <div class="form-group">
-            <label class="form-label" for="business-name">商家名称 <span class="text-error-color">*</span></label>
-            <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
+            <label class="form-label" for="business-name">商家名称（含字体颜色） <span class="text-error-color">*</span></label>
+            <div class="flex items-center gap-4">
+              
+              <div class="color-select-container">
+               
+                <select id="business-name-color" class="form-select">
+                  <option value="#000000" selected>黑色</option>
+                  <option value="#FFFFFF">白色</option>
+                  <option value="#FF69B4">玫瑰红</option>
+                  <option value="#800080">紫色</option>
+                  <option value="#0000CD">普蓝</option>
+                  <option value="#FFA500">橘黄</option>
+                  <option value="#8B4513">深褐</option>
+                </select>
+                <input type="text" id="business-name" class="form-input flex-1" placeholder="请输入商家名称" required>
+              </div>
+            </div>
           </div>
           
           <!-- 并排的上传区域 -->

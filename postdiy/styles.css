@@ -631,7 +631,6 @@ footer {
   color: white;
   font-size: 14px;
   font-weight: bold;
-  text-shadow: 0 2px 11px rgb(0 0 0 / 76%);
   padding: 0 20px;
   word-wrap: break-word;
 }
@@ -979,6 +978,35 @@ footer {
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.2s ease;
+}
+
+.form-select {
+  padding: 10px 5px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 17px;
+  width: 68px;
+  margin-right: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.form-label-sm {
+  font-size: 12px;
+  color: #666;
+  margin-right: 8px;
+}
+
+.color-select-container {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .form-input:focus {
@@ -1471,7 +1499,7 @@ input.hidden {
   width: 45px;
   right: 0px;
   position: absolute;
-  top: 33px;
+  top: 1px;
   color: #ad1f1f;
   font-size: 24px;
   height: 45px;

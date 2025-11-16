@@ -1369,6 +1369,18 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.businessNameInput.value = state.businessInfo.name || '';
     elements.promoTextInput.value = state.businessInfo.promoText || '';
     
+    // 初始化颜色下拉框选中状态
+    const businessNameColorSelect = document.getElementById('business-name-color');
+    if (businessNameColorSelect) {
+      businessNameColorSelect.value = state.textColor || '#000000';
+      
+      // 添加颜色选择变化事件监听器
+      businessNameColorSelect.onchange = function() {
+        state.textColor = this.value;
+        updateBusinessInfoDisplay();
+      };
+    }
+    
     // 为输入框添加清除按钮和改进提示语交互
     enhanceInputWithClearButton(elements.businessNameInput, '点击编辑商家名称');
     
@@ -1533,6 +1545,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 获取表单数据
     state.businessInfo.name = elements.businessNameInput.value.trim() || '点击编辑商家名称';
     state.businessInfo.promoText = elements.promoTextInput.value.trim() || '点击编辑促销信息';
+    
+    // 从颜色下拉框获取并保存颜色值
+    const businessNameColorSelect = document.getElementById('business-name-color');
+    if (businessNameColorSelect) {
+      state.textColor = businessNameColorSelect.value;
+    }
     
     // 保存到本地存储
     localStorage.setItem('businessInfo', JSON.stringify(state.businessInfo));
