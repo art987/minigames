@@ -67,22 +67,22 @@ window.chineseTraditionalFestivals = {
   '腊八节': {
     name: '腊八节',
     description: '喝腊八粥',
-    month: 12,
-    day: 8, // 农历腊月初八
+    month: 1,
+    day: 26, // 农历腊月初八
     format: 'lunar'
   },
   '小年': {
     name: '小年',
     description: '祭灶、扫尘',
-    month: 12,
-    day: 23, // 农历腊月廿三或廿四
+    month: 2,
+    day: 10, // 农历腊月廿三或廿四
     format: 'lunar'
   },
   '除夕': {
     name: '除夕',
     description: '团圆饭、守岁、贴春联、看春晚',
-    month: 12,
-    day: 31, // 农历腊月最后一天
+    month: 2,
+    day: 16, // 农历腊月最后一天
     format: 'lunar'
   }
 };
@@ -321,7 +321,7 @@ window.westernFestivals = {
     name: '感恩节',
     description: '感恩、火鸡大餐',
     month: 11,
-    day: 4, // 第四个星期四
+    day: 27, // 第四个星期四
     format: 'solar-week'
   },
   '圣诞节': {

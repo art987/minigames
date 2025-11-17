@@ -1209,12 +1209,31 @@
       return;
     }
     
-    // 创建节日标签
-    festivals.forEach(festival => {
-      const festivalTag = document.createElement('div');
-      festivalTag.className = 'festival-tag';
-      festivalTag.textContent = festival;
-      festivalTag.dataset.festival = festival;
+    // 获取节日数据并按日期排序
+      const allFestivals = utils.getAllFestivals();
+      const festivalsWithDate = festivals.map(festival => {
+        const festivalData = allFestivals[festival] || { month: 1, day: 1 }; // 默认值，防止数据缺失
+        return {
+          name: festival,
+          month: festivalData.month,
+          day: festivalData.day
+        };
+      });
+      
+      // 按日期排序
+      festivalsWithDate.sort((a, b) => {
+        if (a.month !== b.month) {
+          return a.month - b.month;
+        }
+        return a.day - b.day;
+      });
+      
+      // 创建节日标签
+      festivalsWithDate.forEach(festival => {
+        const festivalTag = document.createElement('div');
+        festivalTag.className = 'festival-tag';
+        festivalTag.textContent = festival.name;
+        festivalTag.dataset.festival = festival.name;
       
       // 创建事件处理函数引用，便于后续移除
       const tagClickHandler = function() {
@@ -1223,7 +1242,7 @@
         // 添加当前标签的选中状态
         this.classList.add('active');
         // 筛选显示该节日的模板
-        filterTemplatesByFestival(festival);
+        filterTemplatesByFestival(festival.name);
       };
       
       festivalTag.addEventListener('click', tagClickHandler);

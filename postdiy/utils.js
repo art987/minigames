@@ -54,10 +54,26 @@ function getFestivalsByMonth(month) {
   return festivalsInMonth;
 }
 
-// 获取指定月份内的所有节日名称数组
+// 获取指定月份内的所有节日名称数组（按日期排序）
 function getFestivalNamesByMonth(month) {
   const festivalsInMonth = getFestivalsByMonth(month);
-  return Object.keys(festivalsInMonth);
+  // 获取节日数组并按日期排序
+  const festivalsArray = Object.keys(festivalsInMonth).map(festivalName => ({
+    name: festivalName,
+    month: festivalsInMonth[festivalName].month,
+    day: festivalsInMonth[festivalName].day
+  }));
+  
+  // 按日期排序
+  festivalsArray.sort((a, b) => {
+    if (a.month !== b.month) {
+      return a.month - b.month;
+    }
+    return a.day - b.day;
+  });
+  
+  // 确保返回字符串数组，以兼容updateFestivalTags函数
+  return festivalsArray.map(festival => festival.name);
 }
 
 // 计算两个日期之间的天数差

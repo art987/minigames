@@ -32,6 +32,186 @@ window.templates = {
       festivals: ['大寒'],
       description: '大寒节气温暖主题海报模板',
       type: '节气'
+    },
+    {
+      id: 'labajie-2024-002',
+      name: '腊八粥香',
+      thumbnail: 'images/labajie/thumbnails/2.jpg',
+      image: 'images/labajie/2.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八粥香主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-003',
+      name: '腊八祈福',
+      thumbnail: 'images/labajie/thumbnails/3.jpg',
+      image: 'images/labajie/3.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节祈福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-004',
+      name: '腊八温暖',
+      thumbnail: 'images/labajie/thumbnails/4.jpg',
+      image: 'images/labajie/4.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节温暖主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-005',
+      name: '腊八习俗',
+      thumbnail: 'images/labajie/thumbnails/5.jpg',
+      image: 'images/labajie/5.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节传统习俗主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-006',
+      name: '腊八团圆',
+      thumbnail: 'images/labajie/thumbnails/6.jpg',
+      image: 'images/labajie/6.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节团圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-007',
+      name: '腊八养生',
+      thumbnail: 'images/labajie/thumbnails/7.jpg',
+      image: 'images/labajie/7.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节养生主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-008',
+      name: '腊八祝福',
+      thumbnail: 'images/labajie/thumbnails/8.jpg',
+      image: 'images/labajie/8.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-009',
+      name: '腊八飘香',
+      thumbnail: 'images/labajie/thumbnails/9.jpg',
+      image: 'images/labajie/9.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节粥香四溢主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-010',
+      name: '腊八吉祥',
+      thumbnail: 'images/labajie/thumbnails/10.jpg',
+      image: 'images/labajie/10.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节吉祥主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-011',
+      name: '腊八文化',
+      thumbnail: 'images/labajie/thumbnails/11.jpg',
+      image: 'images/labajie/11.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节传统文化主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'labajie-2024-012',
+      name: '腊八感恩',
+      thumbnail: 'images/labajie/thumbnails/12.jpg',
+      image: 'images/labajie/12.jpg',
+      months: [1],
+      festivals: ['腊八节'],
+      description: '腊八节感恩主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-001',
+      name: '小年吉祥',
+      thumbnail: 'images/xiaonian/thumbnails/1.jpg',
+      image: 'images/xiaonian/1.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年传统节日海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-002',
+      name: '小年除尘',
+      thumbnail: 'images/xiaonian/thumbnails/2.jpg',
+      image: 'images/xiaonian/2.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年除尘习俗海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-003',
+      name: '小年祭灶',
+      thumbnail: 'images/xiaonian/thumbnails/3.jpg',
+      image: 'images/xiaonian/3.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年祭灶王爷海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-004',
+      name: '小年团圆',
+      thumbnail: 'images/xiaonian/thumbnails/4.jpg',
+      image: 'images/xiaonian/4.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年团圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-005',
+      name: '小年扫房',
+      thumbnail: 'images/xiaonian/thumbnails/5.jpg',
+      image: 'images/xiaonian/5.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年扫房备年海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-006',
+      name: '小年糖瓜',
+      thumbnail: 'images/xiaonian/thumbnails/6.jpg',
+      image: 'images/xiaonian/6.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年糖瓜祭灶海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'xiaonian-2024-007',
+      name: '小年迎春',
+      thumbnail: 'images/xiaonian/thumbnails/7.jpg',
+      image: 'images/xiaonian/7.jpg',
+      months: [2],
+      festivals: ['小年'],
+      description: '小年迎接春节海报模板',
+      type: '传统节日'
     }
   ],
 
@@ -415,24 +595,185 @@ window.templates = {
   '11月': [
     {
       id: 'thanksgiving-2024-001',
-      name: '感恩节',
-      thumbnail: 'https://picsum.photos/id/161/400/600',
-      image: 'https://picsum.photos/id/161/800/1200',
+      name: '感恩节感恩',
+      thumbnail: 'images/ganenjie/thumbnails/1.jpg',
+      image: 'images/ganenjie/1.jpg',
       months: [11],
       festivals: ['感恩节'],
       description: '感恩节感恩主题海报模板',
       type: '西方节日'
     },
     {
-      id: 'lidong-2024-001',
-      name: '立冬迎冬',
-      thumbnail: 'https://picsum.photos/id/162/400/600',
-      image: 'https://picsum.photos/id/162/800/1200',
+      id: 'thanksgiving-2024-002',
+      name: '感恩节火鸡',
+      thumbnail: 'images/ganenjie/thumbnails/2.jpg',
+      image: 'images/ganenjie/2.jpg',
       months: [11],
-      festivals: ['立冬'],
-      description: '立冬节气迎冬主题海报模板',
-      type: '节气'
+      festivals: ['感恩节'],
+      description: '感恩节火鸡主题海报模板',
+      type: '西方节日'
     },
+    {
+      id: 'thanksgiving-2024-003',
+      name: '感恩家人',
+      thumbnail: 'images/ganenjie/thumbnails/3.jpg',
+      image: 'images/ganenjie/3.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节家庭团聚主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-004',
+      name: '感恩丰收',
+      thumbnail: 'images/ganenjie/thumbnails/4.jpg',
+      image: 'images/ganenjie/4.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节丰收主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-005',
+      name: '感恩晚宴',
+      thumbnail: 'images/ganenjie/thumbnails/5.jpg',
+      image: 'images/ganenjie/5.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节晚宴主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-006',
+      name: '感恩祝福',
+      thumbnail: 'images/ganenjie/thumbnails/6.jpg',
+      image: 'images/ganenjie/6.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节祝福主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-007',
+      name: '感恩生活',
+      thumbnail: 'images/ganenjie/thumbnails/7.jpg',
+      image: 'images/ganenjie/7.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节生活感恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-008',
+      name: '感恩有你',
+      thumbnail: 'images/ganenjie/thumbnails/8.jpg',
+      image: 'images/ganenjie/8.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节感谢有你主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-009',
+      name: '感恩节派对',
+      thumbnail: 'images/ganenjie/thumbnails/9.jpg',
+      image: 'images/ganenjie/9.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节派对主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-010',
+      name: '感恩节玉米',
+      thumbnail: 'images/ganenjie/thumbnails/10.jpg',
+      image: 'images/ganenjie/10.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节玉米装饰主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-011',
+      name: '感恩自然',
+      thumbnail: 'images/ganenjie/thumbnails/11.jpg',
+      image: 'images/ganenjie/11.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节自然感恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-012',
+      name: '感恩节南瓜',
+      thumbnail: 'images/ganenjie/thumbnails/12.jpg',
+      image: 'images/ganenjie/12.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节南瓜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-013',
+      name: '感恩陪伴',
+      thumbnail: 'images/ganenjie/thumbnails/13.jpg',
+      image: 'images/ganenjie/13.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节陪伴主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-014',
+      name: '感恩节餐桌',
+      thumbnail: 'images/ganenjie/thumbnails/14.jpg',
+      image: 'images/ganenjie/14.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节餐桌布置主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-015',
+      name: '感恩节贺卡',
+      thumbnail: 'images/ganenjie/thumbnails/15.jpg',
+      image: 'images/ganenjie/15.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节贺卡风格海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-016',
+      name: '感恩节枫叶',
+      thumbnail: 'images/ganenjie/thumbnails/16.jpg',
+      image: 'images/ganenjie/16.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节枫叶主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-017',
+      name: '感恩相遇',
+      thumbnail: 'images/ganenjie/thumbnails/17.jpg',
+      image: 'images/ganenjie/17.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节相遇主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'thanksgiving-2024-018',
+      name: '感恩节快乐',
+      thumbnail: 'images/ganenjie/thumbnails/18.jpg',
+      image: 'images/ganenjie/18.jpg',
+      months: [11],
+      festivals: ['感恩节'],
+      description: '感恩节快乐主题海报模板',
+      type: '西方节日'
+    },
+    
     {
       id: 'xiaoxue-2024-001',
       name: '小雪初降',
@@ -542,11 +883,184 @@ window.templates = {
 
   // 12月模板
   '12月': [
+    
+    
+    
+    { id: 'daxue-2024-001',
+      name: '大雪纷飞',
+      thumbnail: 'images/daxue/thumbnails/1.jpg',
+      image: 'images/daxue/1.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气雪景主题海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-002',
+      name: '大雪冬日',
+      thumbnail: 'images/daxue/thumbnails/2.jpg',
+      image: 'images/daxue/2.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气冬日风光海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-003',
+      name: '大雪银装',
+      thumbnail: 'images/daxue/thumbnails/3.jpg',
+      image: 'images/daxue/3.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气银装素裹海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-004',
+      name: '大雪寒梅',
+      thumbnail: 'images/daxue/thumbnails/4.jpg',
+      image: 'images/daxue/4.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气寒梅绽放海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-005',
+      name: '大雪冬韵',
+      thumbnail: 'images/daxue/thumbnails/5.jpg',
+      image: 'images/daxue/5.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气冬日韵味海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-006',
+      name: '大雪雪景',
+      thumbnail: 'images/daxue/thumbnails/6.jpg',
+      image: 'images/daxue/6.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气雪景风光海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-007',
+      name: '大雪静谧',
+      thumbnail: 'images/daxue/thumbnails/7.jpg',
+      image: 'images/daxue/7.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气静谧雪景海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-008',
+      name: '大雪冬至',
+      thumbnail: 'images/daxue/thumbnails/8.jpg',
+      image: 'images/daxue/8.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气冬至临近海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-009',
+      name: '大雪养生',
+      thumbnail: 'images/daxue/thumbnails/9.jpg',
+      image: 'images/daxue/9.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气养生保健海报模板',
+      type: '节气'
+    },
+    { id: 'daxue-2024-010',
+      name: '大雪迎年',
+      thumbnail: 'images/daxue/thumbnails/10.jpg',
+      image: 'images/daxue/10.jpg',
+      months: [12],
+      festivals: ['大雪'],
+      description: '大雪节气迎接新年海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-001',
+      name: '冬至团圆',
+      thumbnail: 'images/dongzhi/thumbnails/1.png',
+      image: 'images/dongzhi/1.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气团圆主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-002',
+      name: '冬至饺子',
+      thumbnail: 'images/dongzhi/thumbnails/2.png',
+      image: 'images/dongzhi/2.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气饺子主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-003',
+      name: '冬至汤圆',
+      thumbnail: 'images/dongzhi/thumbnails/3.png',
+      image: 'images/dongzhi/3.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气汤圆主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-004',
+      name: '冬至养生',
+      thumbnail: 'images/dongzhi/thumbnails/4.png',
+      image: 'images/dongzhi/4.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-005',
+      name: '冬至冬至',
+      thumbnail: 'images/dongzhi/thumbnails/5.png',
+      image: 'images/dongzhi/5.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气传统习俗海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-006',
+      name: '冬至温暖',
+      thumbnail: 'images/dongzhi/thumbnails/6.png',
+      image: 'images/dongzhi/6.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气温暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-007',
+      name: '冬至祝福',
+      thumbnail: 'images/dongzhi/thumbnails/7.png',
+      image: 'images/dongzhi/7.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气祝福主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dongzhi-2024-008',
+      name: '冬至迎年',
+      thumbnail: 'images/dongzhi/thumbnails/8.png',
+      image: 'images/dongzhi/8.jpg',
+      months: [12],
+      festivals: ['冬至'],
+      description: '冬至节气迎接新年海报模板',
+      type: '节气'
+    },
     {
       id: 'christmas-2024-001',
       name: '圣诞快乐',
-      thumbnail: 'https://picsum.photos/id/171/400/600',
-      image: 'https://picsum.photos/id/171/800/1200',
+      thumbnail: 'images/shengdan/thumbnails/1.jpg',
+      image: 'images/shengdan/1.jpg',
       months: [12],
       festivals: ['圣诞节'],
       description: '圣诞节快乐主题海报模板',
@@ -555,42 +1069,192 @@ window.templates = {
     {
       id: 'christmas-2024-002',
       name: '圣诞温馨',
-      thumbnail: 'https://picsum.photos/id/172/400/600',
-      image: 'https://picsum.photos/id/172/800/1200',
+      thumbnail: 'images/shengdan/thumbnails/2.jpg',
+      image: 'images/shengdan/2.jpg',
       months: [12],
       festivals: ['圣诞节'],
       description: '圣诞节温馨主题海报模板',
       type: '西方节日'
     },
     {
-      id: 'labal-2024-001',
-      name: '腊八节',
-      thumbnail: 'https://picsum.photos/id/173/400/600',
-      image: 'https://picsum.photos/id/173/800/1200',
+      id: 'christmas-2024-003',
+      name: '圣诞祝福',
+      thumbnail: 'images/shengdan/thumbnails/3.jpg',
+      image: 'images/shengdan/3.jpg',
       months: [12],
-      festivals: ['腊八节'],
-      description: '腊八节传统主题海报模板',
-      type: '传统节日'
+      festivals: ['圣诞节'],
+      description: '圣诞节祝福主题海报模板',
+      type: '西方节日'
     },
     {
-      id: 'daxue-2024-001',
-      name: '大雪纷飞',
-      thumbnail: 'https://picsum.photos/id/174/400/600',
-      image: 'https://picsum.photos/id/174/800/1200',
+      id: 'christmas-2024-004',
+      name: '圣诞礼物',
+      thumbnail: 'images/shengdan/thumbnails/4.jpg',
+      image: 'images/shengdan/4.jpg',
       months: [12],
-      festivals: ['大雪'],
-      description: '大雪节气雪景主题海报模板',
-      type: '节气'
+      festivals: ['圣诞节'],
+      description: '圣诞节礼物主题海报模板',
+      type: '西方节日'
     },
     {
-      id: 'dongzhi-2024-001',
-      name: '冬至团圆',
-      thumbnail: 'https://picsum.photos/id/175/400/600',
-      image: 'https://picsum.photos/id/175/800/1200',
+      id: 'christmas-2024-005',
+      name: '圣诞装饰',
+      thumbnail: 'images/shengdan/thumbnails/5.jpg',
+      image: 'images/shengdan/5.jpg',
       months: [12],
-      festivals: ['冬至'],
-      description: '冬至节气团圆主题海报模板',
-      type: '节气'
+      festivals: ['圣诞节'],
+      description: '圣诞节装饰主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-006',
+      name: '圣诞派对',
+      thumbnail: 'images/shengdan/thumbnails/6.jpg',
+      image: 'images/shengdan/6.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节派对主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-007',
+      name: '圣诞雪人',
+      thumbnail: 'images/shengdan/thumbnails/7.jpg',
+      image: 'images/shengdan/7.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节雪人主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-008',
+      name: '圣诞钟声',
+      thumbnail: 'images/shengdan/thumbnails/8.jpg',
+      image: 'images/shengdan/8.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节钟声主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-009',
+      name: '圣诞树',
+      thumbnail: 'images/shengdan/thumbnails/9.jpg',
+      image: 'images/shengdan/9.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞树主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-010',
+      name: '圣诞狂欢',
+      thumbnail: 'images/shengdan/thumbnails/10.jpg',
+      image: 'images/shengdan/10.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节狂欢主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-011',
+      name: '圣诞之夜',
+      thumbnail: 'images/shengdan/thumbnails/11.jpg',
+      image: 'images/shengdan/11.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节之夜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-012',
+      name: '圣诞雪花',
+      thumbnail: 'images/shengdan/thumbnails/12.jpg',
+      image: 'images/shengdan/12.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节雪花主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-013',
+      name: '圣诞感恩',
+      thumbnail: 'images/shengdan/thumbnails/13.jpg',
+      image: 'images/shengdan/13.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节感恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-014',
+      name: '圣诞家庭',
+      thumbnail: 'images/shengdan/thumbnails/14.jpg',
+      image: 'images/shengdan/14.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节家庭团聚主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-015',
+      name: '圣诞心愿',
+      thumbnail: 'images/shengdan/thumbnails/15.jpg',
+      image: 'images/shengdan/15.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节心愿主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-016',
+      name: '圣诞惊喜',
+      thumbnail: 'images/shengdan/thumbnails/16.jpg',
+      image: 'images/shengdan/16.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节惊喜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-017',
+      name: '圣诞欢乐',
+      thumbnail: 'images/shengdan/thumbnails/17.jpg',
+      image: 'images/shengdan/17.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节欢乐主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-018',
+      name: '圣诞星光',
+      thumbnail: 'images/shengdan/thumbnails/18.jpg',
+      image: 'images/shengdan/18.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节星光主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-019',
+      name: '圣诞希望',
+      thumbnail: 'images/shengdan/thumbnails/19.jpg',
+      image: 'images/shengdan/19.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节希望主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-020',
+      name: '圣诞团圆',
+      thumbnail: 'images/shengdan/thumbnails/20.jpg',
+      image: 'images/shengdan/20.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
     }
   ]
 };
