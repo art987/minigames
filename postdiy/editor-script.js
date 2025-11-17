@@ -2347,11 +2347,13 @@
     try {
       // 临时调整商家名称位置和促销信息的padding
       if (elements.posterBusinessName) {
-        elements.posterBusinessName.style.transform = `translateY(-8px)`;
+        elements.posterBusinessName.style.transform = `translateY(-5px)`;
+        elements.posterBusinessName.style.fontSize = `12px`;
       }
       if (elements.posterPromoText) {
         // 减少padding-top 8px，增加padding-bottom 6px
-        elements.posterPromoText.style.padding = `0px 6px 15px 6px`;
+        elements.posterPromoText.style.padding = `0 10px 12px 10px`;
+         elements.posterPromoText.style.lineHeight = `15px`;
       }
       
       // 保存logo和二维码的原始样式

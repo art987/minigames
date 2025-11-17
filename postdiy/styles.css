@@ -961,7 +961,7 @@ footer {
 }
 
 .editor-button:not(.editor-button-secondary) {
-  background-color: #b40804;
+  background-color: #bd0e0a;
   color: white;
 }
 
@@ -982,14 +982,17 @@ footer {
 
 /* 表单样式 */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  position: relative;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   font-size: 15px;
   font-weight: 600;
+  margin-top: 9px;
+  height: 24px;
   color: #333;
 }
 
@@ -1494,9 +1497,9 @@ input.hidden {
 .modal-close {
   background: none;
   border: none;
- font-size: 44px;
-    color: #d80202;
-    margin-top: -8px;
+  font-size: 28px;
+  color: #d80202;
+  margin-top: -4px;
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -1504,12 +1507,14 @@ input.hidden {
   justify-content: center;
 }
 
+#businessInfoModal .modal-close{ font-size: 44px; }
+#fontColorModal .modal-close{ font-size: 44px; }
 .modal-close:hover {
   color: #333;
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 0px 20px 30px;
 }
 
 .input-section {
@@ -1711,11 +1716,7 @@ input.hidden {
   font-size: 40px;
 }
 
-.poster-promo-text {
-  font-size: 16px;
-  color: #ffffff !important;
-  margin: 0;
-}
+
 .clear-button {
   border: none;
   width: 45px;
@@ -1770,3 +1771,5 @@ input.hidden {
 
 #promoTextModal .fa-times:before {
        color: #e30000;}
+
+#selectPromoTemplateBtn{position: absolute;right: 0;bottom: -35px;background: #fff;color: #292929;border: 1px solid #ccc;padding: 5px 10px;font-weight: normal;margin-top: 0;width: 100%;}
