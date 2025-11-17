@@ -8,34 +8,34 @@
       name: '点击编辑商家名称',
       logo: null,
       qrcode: null,
-      promoText: '点击编辑促销信息'
+      promoText: '扫码加好友享VIP待遇！\n全年免费清洗空调，\n加氟6折 到店再领惊喜好礼！'
     },
     customBackground: null,
     textColor: '#000000' // 默认黑色
   };
   
-  // 促销信息文案模板数据
+  // 促销信息文案模板数据 - 每组3句话，包含换行
   const PROMO_TEMPLATES = [
-    '扫码送惊喜，福利拿到手软！',
-    '感恩钜惠，全场3折起嗨购！',
-    '限时福利，到店立领暖心礼！',
-    '劲爆折扣，错过今天等一年！',
-    '扫码抢券，超值套餐省翻天！',
-    '老友回馈，买一送一别错过！',
-    '新店福利，首单立减笑开花！',
-    '扫码即送，甜蜜小礼物抱走！',
-    '年终清仓，全场低至骨折价！',
-    '限时秒杀，手慢无心跳加速！',
-    '扫码抽奖，iPhone 等你带回家！',
-    '会员专享，折上再折薅到爽！',
-    '早鸟福利，前50名免单狂欢！',
-    '扫码立减，现金红包直接抵！',
-    '闺蜜同行，第二件0元白送！',
-    '夜场福利，21点后买一赠二！',
-    '扫码集赞，满30送隐藏福利！',
-    '生日特惠，凭身份证免单嗨！',
-    '打卡送券，发圈再返30元！',
-    '扫码入会，终身享VIP特价！'
+    '扫码加好友享VIP待遇！\n全年免费清洗空调，\n加氟6折 到店再领惊喜好礼！',
+    '感恩大回馈来袭！\n全场爆款买一送一，\n扫码预约立减现金，',
+    '劲爆福利享不停！\n超值套餐低至19.9元，\n数量有限抢完即止！',
+    '年终清仓大甩卖！\n全场商品低至1折起，\n扫码领券再减20元！',
+    '会员专享福利日！\n折上再折省到尖叫，\n扫码升级会员送双倍积分！',
+    '闺蜜同行特惠！\n两人同行一人免单，\n扫码预约再送美妆礼包，周末限时狂欢！',
+    '夜场福利加码！\n每晚8点后买一赠二，\n扫码下单再返现金红包，越夜越划算！',
+    '生日专属宠爱！\n凭身份证当月免单一次，\n扫码登记再送生日蛋糕券！',
+    '扫码抽奖赢大奖！\n100%中奖率，iPhone15等你拿，\n进店兑换再送神秘盲盒！',
+    '早鸟福利限时抢！\n每天前50名免单狂欢，\n扫码预约锁定名额，手慢无！',
+    '打卡送券无门槛！\n发圈集赞满30再返30元，\n扫码参与即送饮品券，线上线下同享！',
+    '超值套餐上新！\n单人套餐省40%，双人套餐省60%，\n扫码预订再送小菜！',
+    '扫码入会立享特权！\n终身VIP特价+生日礼，\n首次消费再返50%积分，超值到哭！',
+    '限时秒杀疯抢中！\n爆款商品9.9元秒，\n扫码提前加购，开抢前5分钟提醒！',
+    '老友回归福利！\n半年未到店送100元代金券，\n扫码激活再送招牌菜！',
+    '亲子同行特惠！\n带孩子到店送儿童套餐，\n扫码报名再送玩具！',
+    '扫码集章换豪礼！\n集满5次消费送空气炸锅，\n每次到店再返10元券！',
+    '隐藏福利解锁！\n暗号"省钱"立减15元，\n扫码获取暗号代码+赠送甜品！',
+    '周末狂欢加码！\n周六日全场8折再抽奖，\n扫码支付抽免单！',
+    '年终会员日暴击！\n积分当钱花，1000分抵100元，\n扫码兑换再送购物袋！'
   ];
   
   // DOM元素缓存
@@ -109,6 +109,7 @@
       businessNameInput: document.getElementById('business-name'),
       fontColorSelector: document.getElementById('color-selector'),
       businessPromoTextInput: document.getElementById('promotion-text'), // 商家信息模态框中的促销文本输入框
+      selectPromoTemplateBtn: document.getElementById('selectPromoTemplateBtn'), // 选择促销文案模板按钮
       logoUploadArea: document.getElementById('logoUploadArea'),
       logoInput: document.getElementById('logoInput'),
       logoPreview: document.getElementById('logoPreview'),
@@ -282,6 +283,14 @@
     if (elements.saveBusinessInfoBtn) {
       elements.saveBusinessInfoBtn.addEventListener('click', saveBusinessInfo);
     }
+    // 促销文案模板按钮事件
+    if (elements.selectPromoTemplateBtn) {
+      elements.selectPromoTemplateBtn.addEventListener('click', function() {
+        console.log('点击选择促销文案模板按钮');
+        openPromoTextModal();
+      });
+    }
+    
     // 颜色选择事件
     if (elements.fontColorSelector) {
       elements.fontColorSelector.addEventListener('click', function(e) {

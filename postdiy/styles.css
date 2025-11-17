@@ -1494,8 +1494,9 @@ input.hidden {
 .modal-close {
   background: none;
   border: none;
-  font-size: 20px;
-  color: #999;
+ font-size: 44px;
+    color: #d80202;
+    margin-top: -8px;
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -1767,5 +1768,5 @@ input.hidden {
   font-weight: bold;
 }
 
-.fa-remove:before, .fa-close:before, .fa-times:before {
+#promoTextModal .fa-times:before {
        color: #e30000;}
