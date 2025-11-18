@@ -1865,8 +1865,8 @@
     
     // 从选中的色块获取颜色值（已通过点击事件更新到state中）
     
-    // 保存到本地存储
-    localStorage.setItem('businessInfo', JSON.stringify(state.businessInfo));
+    // 保存到本地存储 - 修复：使用与loadBusinessInfoFromLocalStorage一致的键名
+    localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
     localStorage.setItem('textColor', state.textColor);
     
     // 更新显示
