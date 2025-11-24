@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title id="pageTitle">主题转盘</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button class="single-button back-button" id="backBtn"><</button>
+    
+    <div class="header">
+        <h1 id="themeTitle">主题转盘</h1>
+        <div class="subtitle" id="themeSubtitle">转动指针，开启你的幸运之旅</div>
+    </div>
+    
+    <div class="wheel-wrapper">
+        <div class="wheel-frame">
+            <div class="frame-decoration"></div>
+        </div>
+        
+        <div class="frame-ornaments" id="frameOrnaments"></div>
+        
+        <div class="wheel-container" id="wheelContainer">
+            <canvas id="wheelCanvas" width="450" height="450"></canvas>
+            
+            <!-- 中心图片装饰 -->
+            <div class="center-image" id="centerImage">
+                <img id="centerStaticImg" src="https://picsum.photos/100?image=100" alt="转盘中心">
+                <img id="centerGifImg" src="https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.gif" alt="旋转动画" style="display: none;">
+            </div>
+            
+            <div class="pointer-container">
+                <div class="pointer-glow"></div>
+                <div class="heart-pointer"></div>
+                <div class="pointer-stem"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="timer" id="timer">转盘将在 <span id="countdown">5</span> 秒后停止...</div>
+    
+    <div class="controls">
+        <button class="single-button" id="spinBtn">开始转动</button>
+    </div>
+    
+
+    
+    <div class="modal" id="resultModal">
+        <div class="card">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <img id="prizeImage" src="" alt="奖品图片">
+            <h3 id="prizeTitle">惊喜内容</h3>
+            <p id="prizeDescription">这份特别的礼物正等待着你的开启</p>
+        </div>
+    </div>
+
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- 音效元素 -->
+    <audio id="spinSound" loop>
+        <source src="sound/spin.wav" type="audio/mpeg">
+    </audio>
+    <audio id="winSound">
+        <source src="sound/win2.wav" type="audio/wav">
+    </audio>
+    <audio id="explosionSound">
+        <source src="sound/win1.wav" type="audio/wav">
+     </audio>
+    <audio id="magicSound">
+        <source src="sound/magic.wav" type="audio/wav">
+     </audio>
+    <audio id="romanticMusic">
+        <source src="sound/spin.wav" type="audio/wav">
+     </audio>
+
+    <script type="module" src="theme.js"></script>
+</body>
+</html>

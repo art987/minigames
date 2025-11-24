@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浪漫华丽大转盘</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <h1>华丽浪漫大转盘</h1>
+    <div class="subtitle">转动心形指针，揭开属于你的浪漫惊喜</div>
+    
+    <div class="wheel-wrapper">
+        <div class="wheel-frame">
+            <div class="frame-decoration"></div>
+        </div>
+        
+        <div class="frame-ornaments" id="frameOrnaments"></div>
+        
+        <div class="wheel-container" id="wheelContainer">
+            <canvas id="wheelCanvas" width="450" height="450"></canvas>
+            
+            <!-- 中心图片装饰 -->
+            <div class="center-image" id="centerImage">
+                <img id="centerStaticImg" src="https://picsum.photos/100?image=100" alt="转盘中心">
+                <img id="centerGifImg" src="https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.gif" alt="旋转动画" style="display: none;">
+            </div>
+            
+            <div class="pointer-container">
+                <div class="pointer-glow"></div>
+                <div class="heart-pointer"></div>
+                <div class="pointer-stem"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="timer" id="timer">转盘将在 <span id="countdown">5</span> 秒后停止...</div>
+    
+    <div class="controls">
+        <button class="single-button" id="spinBtn">开启浪漫之旅</button>
+    </div>
+    
+    <div class="romantic-text">"每一个分区都藏着一份惊喜，让命运之轮带你邂逅美好"</div>
+    
+    <div class="modal" id="resultModal">
+        <div class="card">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <img id="prizeImage" src="" alt="奖品图片">
+            <h3 id="prizeTitle">浪漫惊喜</h3>
+            <p id="prizeDescription">这份特别的礼物正等待着你的开启</p>
+        </div>
+    </div>
+
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- 音效元素 -->
+    <audio id="spinSound" loop>
+        <source src="sound/spin.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="winSound">
+        <source src="sound/win.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="tickSound">
+        <source src="sound/tick.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="buttonSound">
+        <source src="sound/button.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="explosionSound">
+        <source src="sound/explosion.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="magicSound">
+        <source src="sound/magic.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="romanticMusic" loop>
+        <source src="sound/romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 获取DOM元素
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const resultModal = document.getElementById('resultModal');
+        const closeModal = document.getElementById('closeModal');
+        const prizeImage = document.getElementById('prizeImage');
+        const prizeTitle = document.getElementById('prizeTitle');
+        const prizeDescription = document.getElementById('prizeDescription');
+        const floatingHearts = document.getElementById('floatingHearts');
+        const wheelContainer = document.getElementById('wheelContainer');
+        const timer = document.getElementById('timer');
+        const countdown = document.getElementById('countdown');
+        const frameOrnaments = document.getElementById('frameOrnaments');
+        const centerImage = document.getElementById('centerImage');
+        const centerStaticImg = document.getElementById('centerStaticImg');
+        const centerGifImg = document.getElementById('centerGifImg');
+        
+        // 音效元素
+        const spinSound = document.getElementById('spinSound');
+        const winSound = document.getElementById('winSound');
+        const tickSound = document.getElementById('tickSound');
+        const buttonSound = document.getElementById('buttonSound');
+        const explosionSound = document.getElementById('explosionSound');
+        const magicSound = document.getElementById('magicSound');
+        const romanticMusic = document.getElementById('romanticMusic');
+        
+        // 转盘参数
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 10;
+        const totalSections = 365;
+        const sectionAngle = (2 * Math.PI) / totalSections;
+        
+        // 转盘状态
+        let isSpinning = false;
+        let currentAngle = 0;
+        let spinAnimation;
+        let slowdownTimer;
+        let targetSection = 0;
+        let lastTickSection = -1;
+        let countdownValue = 5;
+        let audioContextUnlocked = false;
+        
+        // 浪漫主题的分区数据
+        const romanticThemes = [
+            "星空下的约定", "花海中的邂逅", "月光奏鸣曲", "彩虹之巅的誓言", 
+            "晨曦中的微笑", "海边日落时光", "森林秘境探险", "城堡奇缘", 
+            "热气球之旅", "雪山之恋", "古镇情缘", "田园诗话"
+        ];
+        
+        const sectionData = Array.from({length: totalSections}, (_, i) => {
+            const theme = romanticThemes[i % romanticThemes.length];
+            return {
+                id: i + 1,
+                title: `${theme} - 第${i+1}天`,
+                description: `这是属于你的第${i+1}个浪漫时刻！${theme}的惊喜正等待着你，愿这份美好如繁星般点亮你的每一天。`,
+                imageUrl: `https://picsum.photos/350/200?random=${i + 1}&t=${Date.now()}`
+            };
+        });
+        
+        // 创建转盘边框装饰
+        function createFrameOrnaments() {
+            const ornamentCount = 12;
+            for (let i = 0; i < ornamentCount; i++) {
+                const ornament = document.createElement('div');
+                ornament.className = 'ornament';
+                frameOrnaments.appendChild(ornament);
+                
+                const angle = (i * 2 * Math.PI) / ornamentCount;
+                const distance = 240; // 距离中心的距离
+                
+                ornament.style.left = `calc(50% + ${Math.cos(angle) * distance}px)`;
+                ornament.style.top = `calc(50% + ${Math.sin(angle) * distance}px)`;
+                ornament.style.animationDelay = `${i * 0.5}s`;
+                
+                // 添加悬浮动画
+                ornament.animate([
+                    { transform: 'translateY(0) scale(1)' },
+                    { transform: 'translateY(-15px) scale(1.2)' },
+                    { transform: 'translateY(0) scale(1)' }
+                ], {
+                    duration: 2000 + Math.random() * 1000,
+                    iterations: Infinity,
+                    delay: i * 200
+                });
+            }
+        }
+        
+        // 绘制浪漫风格的转盘
+        function drawWheel(angle = 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(angle);
+            
+            // 绘制彩虹渐变背景
+            const gradient = ctx.createRadialGradient(0, 0, radius * 0.3, 0, 0, radius);
+            gradient.addColorStop(0, '#ff9a9e');
+            gradient.addColorStop(0.3, '#fad0c4');
+            gradient.addColorStop(0.6, '#a1c4fd');
+            gradient.addColorStop(1, '#c2e9fb');
+            
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // 绘制365个连续分区（无间隔）
+            for (let i = 0; i < totalSections; i++) {
+                const startAngle = i * sectionAngle;
+                const endAngle = (i + 1) * sectionAngle;
+                
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, radius, startAngle, endAngle);
+                ctx.closePath();
+                
+                // 使用柔和浪漫的渐变色
+                const hue = (i * 360 / totalSections) % 360;
+                ctx.fillStyle = `hsla(${hue}, 70%, 75%, 0.9)`;
+                ctx.fill();
+                
+                // 绘制细线
+                if (i % 5 === 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(Math.cos(startAngle) * radius, Math.sin(startAngle) * radius);
+                    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+                
+                // 添加浪漫符号替代数字
+                if (i % 30 === 0) {
+                    ctx.save();
+                    ctx.rotate(startAngle + sectionAngle / 2);
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = "#fff";
+                    ctx.font = "bold 16px Arial";
+                    const symbols = ["❤", "★", "✦", "❀", "♡", "✿"];
+                    ctx.fillText(symbols[i/30 % symbols.length], radius - 25, 5);
+                    ctx.restore();
+                }
+            }
+            
+            // 绘制华丽中心圆
+            ctx.beginPath();
+            ctx.arc(0, 0, 25, 0, Math.PI * 2);
+            const centerGradient = ctx.createRadialGradient(0, 0, 5, 0, 0, 25);
+            centerGradient.addColorStop(0, '#ff9a9e');
+            centerGradient.addColorStop(1, '#ff6b6b');
+            ctx.fillStyle = centerGradient;
+            ctx.fill();
+            
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // 添加中心装饰
+            ctx.beginPath();
+            ctx.arc(0, 0, 10, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff";
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        // 切换中心图片为动态GIF
+        function switchToGif() {
+            centerStaticImg.style.display = 'none';
+            centerGifImg.style.display = 'block';
+            centerImage.classList.add('spinning');
+        }
+        
+        // 切换中心图片为静态图片
+        function switchToStatic() {
+            centerGifImg.style.display = 'none';
+            centerStaticImg.style.display = 'block';
+            centerImage.classList.remove('spinning');
+        }
+        
+        // 创建漂浮爱心效果
+        function createFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createHeart();
+                }, i * 200);
+            }
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            floatingHearts.appendChild(heart);
+            
+            const startX = Math.random() * 100;
+            const size = Math.random() * 15 + 10;
+            const duration = Math.random() * 5 + 5;
+            
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = startX + 'vw';
+            heart.style.top = '100vh';
+            heart.style.background = `hsl(${Math.random() * 360}, 70%, 65%)`;
+            
+            // 爱心动画
+            const animation = heart.animate([
+                { transform: 'translateY(0) rotate(45deg)', opacity: 0 },
+                { transform: `translateY(-${Math.random() * 30 + 70}vh) rotate(45deg)`, opacity: 1 },
+                { transform: `translateY(-${Math.random() * 30 + 100}vh) rotate(45deg)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+            });
+            
+            animation.onfinish = () => heart.remove();
+        }
+        
+        // 创建爱心爆炸效果
+        function createHeartExplosion() {
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                document.body.appendChild(heart);
+                
+                const size = Math.random() * 20 + 15;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 100;
+                
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.background = `hsl(${Math.random() * 360}, 70%, 65%)`;
+                
+                // 爱心爆炸动画
+                const animation = heart.animate([
+                    { transform: 'translate(-50%, -50%) rotate(45deg) scale(0)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) rotate(45deg) scale(1)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 1000 + 1000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                animation.onfinish = () => heart.remove();
+            }
+        }
+        
+        // 创建闪烁星星效果
+        function createSparkles() {
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                document.body.appendChild(sparkle);
+                
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const size = Math.random() * 5 + 3;
+                const duration = Math.random() * 2 + 1;
+                
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+                sparkle.style.left = startX + 'vw';
+                sparkle.style.top = startY + 'vh';
+                sparkle.style.background = `hsl(${Math.random() * 60 + 40}, 100%, 60%)`;
+                
+                // 星星闪烁动画
+                const animation = sparkle.animate([
+                    { transform: 'scale(0.5)', opacity: 0 },
+                    { transform: 'scale(1.2)', opacity: 1 },
+                    { transform: 'scale(0.5)', opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    iterations: 3
+                });
+                
+                animation.onfinish = () => sparkle.remove();
+            }
+        }
+        
+        // 解锁音频上下文
+        function unlockAudio() {
+            if (audioContextUnlocked) return;
+            
+            // 创建一个短暂的音频并播放以解锁音频上下文
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 440;
+            gainNode.gain.value = 0.001; // 几乎听不到
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+            
+            audioContextUnlocked = true;
+            
+            // 尝试播放背景音乐
+            romanticMusic.volume = 0.3;
+            romanticMusic.play().catch(e => console.log("背景音乐播放失败，需要用户交互"));
+        }
+        
+        // 更新倒计时显示
+        function updateCountdown() {
+            countdown.textContent = countdownValue;
+            if (countdownValue > 0) {
+                countdownValue--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+        
+        // 旋转转盘
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            // 解锁音频
+            unlockAudio();
+            
+            // 播放按钮音效
+            buttonSound.currentTime = 0;
+            buttonSound.play().catch(e => console.log("按钮音效播放失败"));
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            lastTickSection = -1;
+            countdownValue = 5;
+            
+            // 显示倒计时
+            timer.style.display = 'block';
+            updateCountdown();
+            
+            // 添加转盘发光效果
+            wheelContainer.classList.add('spinning');
+            
+            // 切换中心图片为动态GIF
+            switchToGif();
+            
+            // 播放旋转音效
+            spinSound.currentTime = 0;
+            spinSound.volume = 0.7;
+            spinSound.play().catch(e => console.log("旋转音效播放失败"));
+            
+            // 播放魔法音效
+            magicSound.currentTime = 0;
+            magicSound.volume = 0.8;
+            magicSound.play().catch(e => console.log("魔法音效播放失败"));
+            
+            // 创建漂浮爱心
+            createFloatingHearts();
+            
+            // 随机选择目标分区
+            targetSection = Math.floor(Math.random() * totalSections);
+            const extraRotations = 5 + Math.floor(Math.random() * 5);
+            const targetAngle = (targetSection * sectionAngle) + (extraRotations * 2 * Math.PI);
+            
+            // 初始速度
+            let speed = 0.15;
+            let currentRotation = 0;
+            const maxSpeed = 0.25;
+            const acceleration = 0.0015;
+            let startTime = null;
+            let isDecelerating = false;
+            
+            function animate(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                
+                // 加速阶段
+                if (elapsed < 1500 && speed < maxSpeed) {
+                    speed += acceleration;
+                }
+                
+                // 匀速阶段
+                if (elapsed > 1500 && elapsed < 3000 && !isDecelerating) {
+                    speed = maxSpeed;
+                }
+                
+                // 5秒后开始减速
+                if (elapsed > 5000 && !isDecelerating) {
+                    isDecelerating = true;
+                    timer.style.display = 'none';
+                }
+                
+                // 减速阶段
+                if (isDecelerating) {
+                    speed *= 0.96;
+                    
+                    if (speed < 0.005) {
+                        speed = 0;
+                        stopWheel();
+                        return;
+                    }
+                }
+                
+                currentRotation += speed;
+                drawWheel(currentRotation);
+                
+                // 播放滴答声效
+                const currentSection = Math.floor((currentRotation % (2 * Math.PI)) / sectionAngle);
+                if (currentSection !== lastTickSection && isDecelerating) {
+                    lastTickSection = currentSection;
+                    tickSound.currentTime = 0;
+                    tickSound.volume = 0.5;
+                    tickSound.play().catch(e => console.log("滴答音效播放失败"));
+                }
+                
+                if (speed > 0) {
+                    spinAnimation = requestAnimationFrame(animate);
+                }
+            }
+            
+            spinAnimation = requestAnimationFrame(animate);
+        }
+        
+        // 停止转盘并显示结果
+        function stopWheel() {
+            if (!isSpinning) return;
+            
+            cancelAnimationFrame(spinAnimation);
+            isSpinning = false;
+            
+            // 移除转盘发光效果
+            wheelContainer.classList.remove('spinning');
+            
+            // 切换中心图片为静态图片
+            switchToStatic();
+            
+            // 停止旋转音效，播放胜利音效
+            spinSound.pause();
+            winSound.currentTime = 0;
+            winSound.volume = 0.8;
+            winSound.play().catch(e => console.log("胜利音效播放失败"));
+            
+            // 播放爆炸音效
+            explosionSound.currentTime = 0;
+            explosionSound.volume = 0.7;
+            explosionSound.play().catch(e => console.log("爆炸音效播放失败"));
+            
+            // 创建爱心爆炸效果
+            createHeartExplosion();
+            
+            // 创建闪烁星星效果
+            createSparkles();
+            
+            // 显示结果卡片
+            setTimeout(() => {
+                showResultCard(targetSection);
+            }, 1000);
+            
+            // 重置按钮状态
+            spinBtn.disabled = false;
+        }
+        
+        // 显示结果卡片
+        function showResultCard(sectionIndex) {
+            const section = sectionData[sectionIndex];
+            
+            prizeImage.src = section.imageUrl;
+            prizeImage.alt = section.title;
+            prizeTitle.textContent = section.title;
+            prizeDescription.textContent = section.description;
+            
+            resultModal.style.display = 'flex';
+            
+            // 创建更多漂浮爱心
+            createFloatingHearts();
+        }
+        
+        // 事件监听
+        spinBtn.addEventListener('click', spinWheel);
+        closeModal.addEventListener('click', () => {
+            resultModal.style.display = 'none';
+        });
+        
+        // 点击模态框外部关闭
+        resultModal.addEventListener('click', (e) => {
+            if (e.target === resultModal) {
+                resultModal.style.display = 'none';
+            }
+        });
+        
+        // 页面加载时绘制初始转盘并创建一些初始效果
+        window.addEventListener('load', () => {
+            drawWheel();
+            createFloatingHearts();
+            createSparkles();
+            createFrameOrnaments();
+            
+            // 预加载第一张图片
+            const preloadImage = new Image();
+            preloadImage.src = sectionData[0].imageUrl;
+            
+            // 预加载中心GIF图片
+            const preloadGif = new Image();
+            preloadGif.src = centerGifImg.src;
+        });
+        
+        // 定期创建漂浮爱心
+        setInterval(createFloatingHearts, 10000);
+        
+        // 处理音效自动播放策略 - 页面点击时解锁音频
+        document.addEventListener('click', function initAudio() {
+            unlockAudio();
+            // 尝试播放背景音乐
+            romanticMusic.volume = 0.3;
+            romanticMusic.play().catch(e => console.log("背景音乐需要用户交互后播放"));
+            
+            // 移除事件监听器，只需执行一次
+            document.removeEventListener('click', initAudio);
+        });
+    </script>
+</body>
+</html>

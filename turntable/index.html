@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多彩转盘 - 选择你的主题</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="index-page" >
+    <header>
+        <h1>多彩转盘</h1>
+        <p class="subtitle">选择一个主题，开始你的幸运之旅</p>
+    </header>
+    
+    <div class="themes-container">
+        <!-- 浪漫主题转盘 -->
+        <div class="theme-card" onclick="window.location.href='theme.html?theme=romantic'">
+            <img class="theme-image" src="https://picsum.photos/600/400?random=1" alt="浪漫主题">
+            <div class="theme-content">
+                <h2 class="theme-title">浪漫主题</h2>
+                <p class="theme-description">365天的浪漫惊喜，每一天都有不同的甜蜜体验。</p>
+                <div class="theme-details">
+                    <span>365个选项</span>
+                    <a href="theme.html?theme=romantic" class="theme-button">开始</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 美食主题转盘 -->
+        <div class="theme-card" onclick="window.location.href='theme.html?theme=food'">
+            <img class="theme-image" src="https://picsum.photos/600/400?random=2" alt="美食主题">
+            <div class="theme-content">
+                <h2 class="theme-title">美食主题</h2>
+                <p class="theme-description">各种美食推荐，帮你决定今天吃什么。</p>
+                <div class="theme-details">
+                    <span>12个选项</span>
+                    <a href="theme.html?theme=food" class="theme-button">开始</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 旅行主题转盘 -->
+        <div class="theme-card" onclick="window.location.href='theme.html?theme=travel'">
+            <img class="theme-image" src="https://picsum.photos/600/400?random=3" alt="旅行主题">
+            <div class="theme-content">
+                <h2 class="theme-title">旅行主题</h2>
+                <p class="theme-description">精选旅行目的地，为你的下一次旅行提供灵感。</p>
+                <div class="theme-details">
+                    <span>8个选项</span>
+                    <a href="theme.html?theme=travel" class="theme-button">开始</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 多彩转盘 - 每天都有新惊喜</p>
+    </footer>
+</body>
+</html>

@@ -1,12 +1,13 @@
 // menudata.js
 const menuData = {
   logo: "📙 小本本",
-  slogon: "做个有才华的俗人",
+  slogon: "趣味内涵兼具的备忘录",
   menuItems: [
 			  
 			  
 			 {  singleItem: true, text: "答题测试",  href: "/test/index.html", icon: "" , emoji:"📝",  describ: "在闯关答题过程中记住常识" , keyword: "" }, 
         {  singleItem: true, text: "人生认知问答库",  href: "/answer-article/index.html", icon: "" , emoji:"🦉",  describ: "在一问一答中了解世界的真相" , keyword: "" },  
+    {  singleItem: true, text: "趣味大转盘",  href: "/turntable/index.html", icon: "" , emoji:"🎡",  describ: "趣味大转盘，给你意想不到的答案" , keyword: "" },  
     
     
        {
