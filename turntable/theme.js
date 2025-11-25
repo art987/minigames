@@ -643,9 +643,9 @@ function spinWheel() {
     // 随机选择目标分区
     const targetSection = Math.floor(Math.random() * totalSections);
     const extraRotations = 5 + Math.floor(Math.random() * 5);
-    // 调整目标角度以补偿指针位置，确保停止时指针指向分区中心
-    // 减去sectionAngle/2来让指针指向分区中心而不是分区边界
-    const targetAngle = (targetSection * sectionAngle) - (sectionAngle / 2) + (extraRotations * 2 * Math.PI);
+    // 设置目标角度，让转盘旋转多圈后逐渐减速
+    // 不再需要特殊调整，因为我们会在停止时根据实际角度计算分区
+    const targetAngle = (targetSection * sectionAngle) + (extraRotations * 2 * Math.PI);
     
     // 初始速度
     let speed = 0.15;
@@ -681,7 +681,8 @@ function spinWheel() {
             
             if (speed < 0.005) {
                 speed = 0;
-                stopWheel(targetSection);
+                // 传递最终的旋转角度给stopWheel函数，而不是目标分区
+                stopWheel(currentRotation);
                 return;
             }
         }
@@ -690,7 +691,7 @@ function spinWheel() {
         drawWheel(currentRotation);
         
         // 播放滴答声效
-        const currentSection = Math.floor((currentRotation % (2 * Math.PI)) / sectionAngle);
+        const currentSection = getSectionFromAngle(currentRotation);
         if (currentSection !== lastTickSection && isDecelerating) {
             lastTickSection = currentSection;
             try {
@@ -710,8 +711,35 @@ function spinWheel() {
     spinAnimation = requestAnimationFrame(animate);
 }
 
+// 根据转盘的当前旋转角度计算指针指向的分区
+// 使用更简单直接的方法：指针在顶部，我们可以计算每个分区的中心线相对于指针位置的关系
+function getSectionFromAngle(angle) {
+    // 规范化角度到0到2π之间
+    const normalizedAngle = ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    
+    // 在Canvas坐标系中，0弧度指向右侧（3点钟方向），π/2指向下方
+    // 根据用户反馈，指针样式朝向实际是底部，需要调整计算
+    
+    // 计算从3点钟方向到底部的偏移（顺时针方向为正）
+    const pointerOffset = Math.PI / 2;
+    
+    // 计算当前旋转后的有效角度（考虑指针位置）
+    const effectiveAngle = (normalizedAngle + pointerOffset) % (2 * Math.PI);
+    
+    // 由于Canvas坐标系中角度是顺时针增加的，我们需要取反使其符合数学上的逆时针增加
+    const adjustedAngle = (2 * Math.PI - effectiveAngle) % (2 * Math.PI);
+    
+    // 计算当前角度对应的分区索引
+    let sectionIndex = Math.floor(adjustedAngle / sectionAngle);
+    
+    // 确保分区索引在有效范围内
+    sectionIndex = sectionIndex % totalSections;
+    
+    return sectionIndex;
+}
+
 // 停止转盘并显示结果
-function stopWheel(targetSection) {
+function stopWheel(finalRotationAngle) {
     if (!isSpinning) return;
     
     cancelAnimationFrame(spinAnimation);
@@ -737,13 +765,12 @@ function stopWheel(targetSection) {
     createHeartExplosion();
     createSparkles();
     
-    // 调整目标分区以确保与指针位置正确对齐
-    // 考虑指针位于顶部，需要调整分区索引以匹配指针位置
-    const adjustedSection = (targetSection + Math.floor(totalSections / 4)) % totalSections;
+    // 根据最终旋转角度精确计算指针指向的分区
+    const actualSection = getSectionFromAngle(finalRotationAngle);
     
     // 显示结果模态框
     setTimeout(() => {
-        showResultModal(adjustedSection);
+        showResultModal(actualSection);
         spinBtn.disabled = false;
     }, 1500);
 }
