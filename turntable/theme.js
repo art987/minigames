@@ -1,6 +1,129 @@
 // 全局变量存储当前主题数据
 let currentThemeData = null;
 
+// 本地存储键名
+const HISTORY_STORAGE_KEY = 'turntable_history';
+
+// 保存历史记录到本地存储
+function saveToHistory(result) {
+    try {
+        // 获取现有历史记录
+        let history = getHistory();
+        
+        // 创建新记录对象
+        const record = {
+            id: Date.now(), // 使用时间戳作为唯一ID
+            theme: currentTheme,
+            title: result.title,
+            description: result.description,
+            image: result.imageUrl || result.image, // 同时保存imageUrl和image以确保兼容性
+            imageUrl: result.imageUrl || result.image,
+            timestamp: new Date().toISOString()
+        };
+        
+        // 添加到历史记录数组开头（最新的在前）
+        history.unshift(record);
+        
+        // 限制历史记录数量，最多保存50条
+        if (history.length > 50) {
+            history = history.slice(0, 50);
+        }
+        
+        // 保存回本地存储
+        localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
+    } catch (error) {
+        console.log('保存历史记录失败:', error);
+    }
+}
+
+// 从本地存储获取历史记录
+function getHistory() {
+    try {
+        const historyStr = localStorage.getItem(HISTORY_STORAGE_KEY);
+        return historyStr ? JSON.parse(historyStr) : [];
+    } catch (error) {
+        console.log('获取历史记录失败:', error);
+        return [];
+    }
+}
+
+// 清除所有历史记录
+function clearHistory() {
+    try {
+        if (confirm('确定要清空所有历史记录吗？')) {
+            localStorage.removeItem(HISTORY_STORAGE_KEY);
+            renderHistoryList();
+        }
+    } catch (error) {
+        console.log('清除历史记录失败:', error);
+    }
+}
+
+// 渲染历史记录列表
+function renderHistoryList() {
+    const history = getHistory();
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<div class="no-history">暂无历史记录</div>';
+        return;
+    }
+    
+    let html = '';
+    history.forEach(record => {
+        const date = new Date(record.timestamp);
+        const formattedTime = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+        
+        html += `
+            <div class="history-item" data-id="${record.id}">
+                <img src="${record.imageUrl}" alt="${record.title}" class="history-item-image">
+                <div class="history-item-info">
+                    <div class="history-item-title">${record.title}</div>
+                    <div class="history-item-time">${formattedTime}</div>
+                    <span class="history-item-theme">${record.description ? (record.description.length > 30 ? record.description.substring(0, 30) + '...' : record.description) : ''}</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    historyList.innerHTML = html;
+    
+    // 为每个历史记录项添加点击事件
+    document.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const recordId = parseInt(this.dataset.id);
+            const record = history.find(r => r.id === recordId);
+            if (record) {
+                showHistoryRecordDetails(record);
+            }
+        });
+    });
+}
+
+// 显示历史记录详情（重新使用现有的结果模态框）
+function showHistoryRecordDetails(record) {
+    // 关闭历史记录弹窗
+    historyModal.style.display = 'none';
+    
+    // 使用现有的结果显示方式
+    prizeImage.src = record.imageUrl;
+    prizeTitle.textContent = record.title;
+    prizeDescription.innerHTML = record.description;
+    
+    resultModal.style.display = 'flex';
+    resultModal.classList.add('show');
+}
+
+// 打开历史记录弹窗
+function openHistoryModal() {
+    renderHistoryList();
+    historyModal.style.display = 'flex';
+}
+
+// 关闭历史记录弹窗
+function closeHistoryModalHandler() {
+    historyModal.style.display = 'none';
+}
+
 // 支持的主题列表
 const supportedThemes = ['romantic', 'food', 'travel'];
 
@@ -15,6 +138,11 @@ const prizeImage = document.getElementById('prizeImage');
 const prizeTitle = document.getElementById('prizeTitle');
 const prizeDescription = document.getElementById('prizeDescription');
 const floatingHearts = document.getElementById('floatingHearts');
+const historyBtn = document.getElementById('historyBtn');
+const historyModal = document.getElementById('historyModal');
+const historyList = document.getElementById('historyList');
+const closeHistoryModal = document.getElementById('closeHistoryModal');
+const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 const wheelContainer = document.getElementById('wheelContainer');
 const timer = document.getElementById('timer');
 const countdown = document.getElementById('countdown');
@@ -77,6 +205,7 @@ let spinAnimation;
 let lastTickSection = -1;
 let countdownValue = 5;
 let audioContextUnlocked = false;
+let lastSection = -1; // 记录上一次转到的分区，初始为-1表示没有上一次结果
 
 // 获取URL参数中的主题
 function getThemeFromUrl() {
@@ -607,7 +736,7 @@ function spinWheel() {
     isSpinning = true;
     spinBtn.disabled = true;
     lastTickSection = -1;
-    countdownValue = 5;
+    countdownValue = 3;
     
     // 显示倒计时
     timer.style.display = 'block';
@@ -640,9 +769,27 @@ function spinWheel() {
     // 创建漂浮爱心
     createFloatingHearts();
     
-    // 随机选择目标分区
-    const targetSection = Math.floor(Math.random() * totalSections);
-    const extraRotations = 5 + Math.floor(Math.random() * 5);
+    // 增强随机性：结合时间戳生成更随机的种子
+    const timestamp = Date.now();
+    // 使用当前时间戳和一个小的随机数增加随机性
+    const randomSeed = (Math.random() + (timestamp % 1000) / 1000) * 1000;
+    
+    // 避免连续转到同一个分区
+    let targetSection;
+    const maxAttempts = 10; // 最大尝试次数
+    let attempts = 0;
+    
+    do {
+        // 使用增强的随机种子生成目标分区
+        targetSection = Math.floor((Math.random() * randomSeed) % totalSections);
+        attempts++;
+    } while (targetSection === lastSection && attempts < maxAttempts && totalSections > 1);
+    
+    // 记录本次结果用于下次比较
+    lastSection = targetSection;
+    
+    // 增加额外旋转圈数的随机性
+    const extraRotations = 5 + Math.floor(Math.random() * 8); // 5-12圈的随机变化
     // 设置目标角度，让转盘旋转多圈后逐渐减速
     // 不再需要特殊调整，因为我们会在停止时根据实际角度计算分区
     const targetAngle = (targetSection * sectionAngle) + (extraRotations * 2 * Math.PI);
@@ -664,16 +811,16 @@ function spinWheel() {
             speed += acceleration;
         }
         
-        // 匀速阶段
-        if (elapsed > 1500 && elapsed < 3000 && !isDecelerating) {
-            speed = maxSpeed;
-        }
-        
-        // 5秒后开始减速
-        if (elapsed > 5000 && !isDecelerating) {
-            isDecelerating = true;
-            timer.style.display = 'none';
-        }
+        // 匀速阶段 - 延长匀速时间以适应3秒总时长
+    if (elapsed > 1000 && elapsed < 2000 && !isDecelerating) {
+        speed = maxSpeed;
+    }
+    
+    // 3秒后开始减速
+    if (elapsed > 3000 && !isDecelerating) {
+        isDecelerating = true;
+        timer.style.display = 'none';
+    }
         
         // 减速阶段
         if (isDecelerating) {
@@ -776,10 +923,12 @@ function stopWheel(finalRotationAngle) {
 }
 
 // 显示结果模态框 - 支持富文本
-function showResultModal(sectionIndex) {
-    const result = sectionData[sectionIndex];
+function showResultModal(data) {
+    // 支持传入sectionIndex或直接传入结果对象
+    const result = typeof data === 'number' ? sectionData[data] : data;
     
-    prizeImage.src = result.imageUrl;
+    // 确保使用正确的图片属性
+    prizeImage.src = result.imageUrl || result.image;
     prizeTitle.textContent = result.title;
     
     // 支持富文本内容
@@ -787,6 +936,11 @@ function showResultModal(sectionIndex) {
     
     resultModal.style.display = 'flex';
     resultModal.classList.add('show');
+    
+    // 只有在传入sectionIndex时才保存到历史记录（避免从历史记录打开时重复保存）
+    if (typeof data === 'number') {
+        saveToHistory(result);
+    }
 }
 
 // 绑定事件
@@ -812,6 +966,28 @@ function bindEvents() {
     // 点击页面时解锁音频
     document.body.addEventListener('click', unlockAudio);
     document.body.addEventListener('touchstart', unlockAudio);
+    
+    // 添加历史记录相关事件监听器
+    if (historyBtn) {
+        historyBtn.addEventListener('click', openHistoryModal);
+    }
+    
+    if (closeHistoryModal) {
+        closeHistoryModal.addEventListener('click', closeHistoryModalHandler);
+    }
+    
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', clearHistory);
+    }
+    
+    // 点击历史记录模态框外部关闭
+    if (historyModal) {
+        historyModal.addEventListener('click', function(e) {
+            if (e.target === historyModal) {
+                closeHistoryModalHandler();
+            }
+        });
+    }
 }
 
 // 初始化应用

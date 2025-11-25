@@ -12,6 +12,7 @@
     <div class="header">
         <h1 id="themeTitle">主题转盘</h1>
         <div class="subtitle" id="themeSubtitle">转动指针，开启你的幸运之旅</div>
+        <button class="history-button" id="historyBtn">历史记录</button>
     </div>
     
     <div class="wheel-wrapper">
@@ -56,6 +57,22 @@
     </div>
 
     <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- 历史记录弹窗 -->
+    <div class="modal history-modal" id="historyModal">
+        <div class="history-container">
+            <div class="history-header">
+                <h3>历史记录</h3>
+                <div class="history-actions">
+                    <button class="clear-history-btn" id="clearHistoryBtn">清空记录</button>
+                    <button class="close-btn" id="closeHistoryModal">&times;</button>
+                </div>
+            </div>
+            <div class="history-content" id="historyList">
+                <div class="no-history">暂无历史记录</div>
+            </div>
+        </div>
+    </div>
 
     <!-- 音效元素 -->
     <audio id="spinSound" loop>
