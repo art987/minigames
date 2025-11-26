@@ -905,24 +905,28 @@ function unlockAudio() {
 
 // 更新倒计时显示
 function updateCountdown() {
-    countdown.textContent = countdownValue.toFixed(1);
+    // 将倒计时显示在按钮文本上，对于1秒来说显示到0.1秒足够精确
+    spinBtn.textContent = countdownValue.toFixed(1);
     if (countdownValue > 0) {
-        countdownValue -= 0.1; // 以0.1秒为单位更新，使显示更平滑
-        setTimeout(updateCountdown, 100);
+        countdownValue -= 0.05; // 更快的更新频率，使1秒内的动画更平滑
+        setTimeout(updateCountdown, 50); // 更新间隔改为50毫秒
     } else {
-        // 当剩余时间为0时，重置按钮状态
+        // 倒计时结束，立即停止旋转
+        // 注意：在spinWheel函数中定义的currentRotation局部变量在外部不可见
+        // 我们需要通过动画帧停止来获取最终角度
+        if (isSpinning && spinAnimation) {
+            cancelAnimationFrame(spinAnimation);
+            stopWheel(currentAngle); // 使用全局变量currentAngle作为当前旋转角度
+        }
+        // 重置按钮状态
         resetButtonState();
     }
 }
 
 // 重置按钮状态函数
 function resetButtonState() {
-    if (isSpinning) {
-        // 恢复开始按钮的位置和显示
-        spinBtn.style.left = '0';
-        // 隐藏互动按钮
-        actionButtons.style.display = 'none';
-    }
+    // 保持按钮可见，将按钮文本恢复为"开始转动"
+    spinBtn.textContent = '开始转动';
 }
 
 // 旋转转盘
@@ -948,15 +952,11 @@ function spinWheel() {
     
     isSpinning = true;
     spinBtn.disabled = true;
-    // 将开始按钮移动到左边-300px
-    spinBtn.style.left = '-300px';
-    // 显示互动按钮
-    actionButtons.style.display = 'flex';
+    // 保持按钮可见，不移动位置
     lastTickSection = -1;
-    countdownValue = 3;
+    countdownValue = 1;
     
-    // 显示倒计时
-    timer.style.display = 'block';
+    // 开始倒计时，直接在按钮上显示
     updateCountdown();
     
     // 添加转盘发光效果
@@ -1011,17 +1011,17 @@ function spinWheel() {
         const elapsed = timestamp - startTime;
         
         // 加速阶段
-        if (elapsed < 1500 && speed < maxSpeed) {
+        if (elapsed < 400 && speed < maxSpeed) {
             speed += acceleration;
         }
         
-        // 匀速阶段 - 延长匀速时间以适应3秒总时长
-    if (elapsed > 1000 && elapsed < 2000 && !isDecelerating) {
+        // 匀速阶段 - 适应1秒总时长
+    if (elapsed > 300 && elapsed < 700 && !isDecelerating) {
         speed = maxSpeed;
     }
     
-    // 3秒后开始减速
-    if (elapsed > 3000 && !isDecelerating) {
+    // 1秒后开始减速
+    if (elapsed > 1000 && !isDecelerating) {
         isDecelerating = true;
         timer.style.display = 'none';
     }
@@ -1096,8 +1096,6 @@ function stopWheel(finalRotationAngle) {
     cancelAnimationFrame(spinAnimation);
     isSpinning = false;
     // 重置按钮状态
-    spinBtn.style.left = '0';
-    actionButtons.style.display = 'none';
     spinBtn.disabled = false;
     
     // 移除转盘发光效果
@@ -1169,49 +1167,75 @@ function stopWheel(finalRotationAngle) {
     createHeartExplosion();
     createSparkles();
     
-    // 显示结果模态框
-    setTimeout(() => {
-        showResultModal(actualSection);
-        spinBtn.disabled = false;
-    }, 1500);
+    // 立即显示结果模态框
+    showResultModal(actualSection);
+    spinBtn.disabled = false;
 }
 
 // 显示结果模态框 - 支持富文本
 function showResultModal(data) {
-    // 支持传入sectionIndex或直接传入结果对象
-    const result = typeof data === 'number' ? sectionData[data] : data;
-    
-    // 确保使用正确的图片属性
-    prizeImage.src = result.imageUrl || result.image;
-    prizeTitle.textContent = result.title;
-    
-    // 支持富文本内容
-    prizeDescription.innerHTML = result.description; // 使用innerHTML代替textContent以支持富文本
-    
-    resultModal.style.display = 'flex';
-    resultModal.classList.add('show');
-    
-    // 只有在传入sectionIndex时才保存到历史记录（避免从历史记录打开时重复保存）
-    if (typeof data === 'number') {
-        saveToHistory(result);
+    try {
+        // 检查必要的DOM元素是否存在
+        if (!resultModal || !prizeImage || !prizeTitle || !prizeDescription) {
+            console.error('结果模态框必要元素未找到');
+            return;
+        }
+        
+        // 支持传入sectionIndex或直接传入结果对象
+        const result = typeof data === 'number' ? (sectionData && sectionData[data]) : data;
+        
+        // 检查结果数据是否有效
+        if (!result) {
+            console.error('无效的结果数据:', data);
+            return;
+        }
+        
+        // 确保使用正确的图片属性
+        prizeImage.src = result.imageUrl || result.image || '';
+        prizeImage.alt = result.title || '奖品图片';
+        
+        // 设置标题和描述
+        prizeTitle.textContent = result.title || '未设置标题';
+        
+        // 支持富文本内容，添加安全检查
+        prizeDescription.innerHTML = result.description || '暂无描述';
+        
+        // 确保模态框显示
+        resultModal.style.display = 'flex';
+        resultModal.style.opacity = '0'; // 重置透明度以便动画效果
+        
+        // 强制重排以确保动画效果
+        void resultModal.offsetWidth;
+        
+        // 添加动画类
+        resultModal.classList.add('show');
+        resultModal.style.opacity = '1';
+        
+        // 只有在传入sectionIndex时才保存到历史记录（避免从历史记录打开时重复保存）
+        if (typeof data === 'number') {
+            saveToHistory(result);
+        }
+    } catch (error) {
+        console.error('显示结果模态框时出错:', error);
     }
 }
 
 // 绑定事件
 function bindEvents() {
-    spinBtn.addEventListener('click', spinWheel);
-powerBtn.addEventListener('click', handlePowerButton);
-stopBtn.addEventListener('click', handleStopButton);
-backBtn.addEventListener('click', () => {
+    // 确保DOM元素存在再绑定事件
+    if (spinBtn) spinBtn.addEventListener('click', spinWheel);
+    if (backBtn) backBtn.addEventListener('click', () => {
         window.location.href = 'index.html';
     });
     
-    closeModal.addEventListener('click', () => {
-        resultModal.style.display = 'none';
-        resultModal.classList.remove('show');
+    if (closeModal) closeModal.addEventListener('click', () => {
+        if (resultModal) {
+            resultModal.style.display = 'none';
+            resultModal.classList.remove('show');
+        }
     });
     
-    resultModal.addEventListener('click', (e) => {
+    if (resultModal) resultModal.addEventListener('click', (e) => {
         if (e.target === resultModal) {
             resultModal.style.display = 'none';
             resultModal.classList.remove('show');
@@ -1224,14 +1248,17 @@ backBtn.addEventListener('click', () => {
     
     // 添加历史记录相关事件监听器
     if (historyBtn) {
+        historyBtn.removeEventListener('click', openHistoryModal); // 移除可能存在的旧监听器
         historyBtn.addEventListener('click', openHistoryModal);
     }
     
     if (closeHistoryModal) {
+        closeHistoryModal.removeEventListener('click', closeHistoryModalHandler);
         closeHistoryModal.addEventListener('click', closeHistoryModalHandler);
     }
     
     if (clearHistoryBtn) {
+        clearHistoryBtn.removeEventListener('click', clearHistory);
         clearHistoryBtn.addEventListener('click', clearHistory);
     }
     
@@ -1246,11 +1273,13 @@ backBtn.addEventListener('click', () => {
     
     // 所有选项按钮点击事件
     if (allOptionsBtn) {
+        allOptionsBtn.removeEventListener('click', openAllOptionsModal); // 移除可能存在的旧监听器
         allOptionsBtn.addEventListener('click', openAllOptionsModal);
     }
     
     // 关闭所有选项弹窗
     if (closeAllOptionsModal) {
+        closeAllOptionsModal.removeEventListener('click', closeAllOptionsModalHandler);
         closeAllOptionsModal.addEventListener('click', closeAllOptionsModalHandler);
     }
 }
