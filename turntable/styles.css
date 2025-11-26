@@ -36,9 +36,9 @@
         }
 
         .history-button {
-            position: absolute;
-            top: -45px;
-            right: -47px;
+            position: fixed;
+            top: 22px;
+            right: 19px;
             background: linear-gradient(135deg, #958fe0 0%, #ea00df 100%);
             border: 1px solid #ffffff5c;
             border-radius: 20px;
@@ -1106,4 +1106,7 @@
   
 .index-page {
     height: auto; background: linear-gradient(45deg, #de25da, #5f2de7, #fd197bf2, #9537f3);
+}
+.no-themes{
+    display: none;
 }
