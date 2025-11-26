@@ -153,6 +153,9 @@ const centerGifImg = document.getElementById('centerGifImg');
 const themeTitle = document.getElementById('themeTitle');
 const themeSubtitle = document.getElementById('themeSubtitle');
 const pageTitle = document.getElementById('pageTitle');
+const actionButtons = document.getElementById('actionButtons');
+const powerBtn = document.getElementById('powerBtn');
+const stopBtn = document.getElementById('stopBtn');
 
 // 获取音效元素并添加错误处理
 const spinSound = document.getElementById('spinSound');
@@ -184,6 +187,54 @@ function pauseSound(soundElement) {
         } catch (e) {
             // 忽略音频错误
         }
+    }
+}
+
+// 大力按钮点击事件处理函数
+function handlePowerButton() {
+    if (!isSpinning) return;
+    
+    // 增加剩余时间0.3秒
+    countdownValue += 1;
+    countdown.textContent = countdownValue.toFixed(1);
+    
+    // 播放按钮音效
+    try {
+        buttonSound.currentTime = 0;
+        playSound(buttonSound);
+    } catch (e) {
+        console.log("播放按钮音效失败:", e);
+    }
+    
+    // 添加视觉反馈效果
+    powerBtn.classList.add('power-boost');
+    setTimeout(() => {
+        powerBtn.classList.remove('power-boost');
+    }, 200);
+}
+
+// 停按钮点击事件处理函数
+function handleStopButton() {
+    if (!isSpinning) return;
+    
+    // 将剩余时间减至1秒
+    if (countdownValue > 1) {
+        countdownValue = 1;
+        countdown.textContent = countdownValue.toFixed(1);
+        
+        // 播放按钮音效
+        try {
+            buttonSound.currentTime = 0;
+            playSound(buttonSound);
+        } catch (e) {
+            // 忽略音频错误
+        }
+        
+        // 添加视觉反馈效果
+        stopBtn.classList.add('stop-press');
+        setTimeout(() => {
+            stopBtn.classList.remove('stop-press');
+        }, 200);
     }
 }
 
@@ -711,10 +762,23 @@ function unlockAudio() {
 
 // 更新倒计时显示
 function updateCountdown() {
-    countdown.textContent = countdownValue;
+    countdown.textContent = countdownValue.toFixed(1);
     if (countdownValue > 0) {
-        countdownValue--;
-        setTimeout(updateCountdown, 1000);
+        countdownValue -= 0.1; // 以0.1秒为单位更新，使显示更平滑
+        setTimeout(updateCountdown, 100);
+    } else {
+        // 当剩余时间为0时，重置按钮状态
+        resetButtonState();
+    }
+}
+
+// 重置按钮状态函数
+function resetButtonState() {
+    if (isSpinning) {
+        // 恢复开始按钮的位置和显示
+        spinBtn.style.left = '0';
+        // 隐藏互动按钮
+        actionButtons.style.display = 'none';
     }
 }
 
@@ -735,6 +799,10 @@ function spinWheel() {
     
     isSpinning = true;
     spinBtn.disabled = true;
+    // 将开始按钮移动到左边-300px
+    spinBtn.style.left = '-300px';
+    // 显示互动按钮
+    actionButtons.style.display = 'flex';
     lastTickSection = -1;
     countdownValue = 3;
     
@@ -891,6 +959,10 @@ function stopWheel(finalRotationAngle) {
     
     cancelAnimationFrame(spinAnimation);
     isSpinning = false;
+    // 重置按钮状态
+    spinBtn.style.left = '0';
+    actionButtons.style.display = 'none';
+    spinBtn.disabled = false;
     
     // 移除转盘发光效果
     wheelContainer.classList.remove('spinning');
@@ -946,8 +1018,9 @@ function showResultModal(data) {
 // 绑定事件
 function bindEvents() {
     spinBtn.addEventListener('click', spinWheel);
-    
-    backBtn.addEventListener('click', () => {
+powerBtn.addEventListener('click', handlePowerButton);
+stopBtn.addEventListener('click', handleStopButton);
+backBtn.addEventListener('click', () => {
         window.location.href = 'index.html';
     });
     
