@@ -457,8 +457,8 @@
             border-radius: 50%;
             overflow: hidden;
             z-index: 77777;
-            border: 4px solid white;
-            box-shadow: 0 0 20px rgb(226 26 205 / 80%);
+            border: 4px solid #ffffff87;
+            box-shadow: 0 0 20px rgb(228 21 21 / 80%);
             transition: all 0.5s;
         }
         
@@ -979,8 +979,8 @@
             }
             
             .center-image {
-                width: 80px;
-                height: 80px;
+                width: 110px;
+                height: 110px;
             }
             
             .center-image.spinning {

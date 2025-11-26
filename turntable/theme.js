@@ -7,6 +7,179 @@ const HISTORY_STORAGE_KEY = 'turntable_history';
 // 存储最近选择的分区索引，用于避免重复
 let recentSections = [];
 
+// 时间窗口限制（分钟）
+const TIME_WINDOW_MINUTES = 60; // 一小时
+
+// 每个选项在时间窗口内的最大出现次数
+const MAX_OCCURRENCES_PER_HOUR = 1;
+
+// 本地存储键名 - 用于存储选项出现记录
+const OCCURRENCES_STORAGE_KEY = 'turntable_option_occurrences';
+
+// 存储选项出现记录的数据结构
+function getOptionOccurrences() {
+    try {
+        const occurrencesStr = localStorage.getItem(OCCURRENCES_STORAGE_KEY);
+        return occurrencesStr ? JSON.parse(occurrencesStr) : {};
+    } catch (error) {
+        console.log('获取选项出现记录失败:', error);
+        return {};
+    }
+}
+
+// 清理过期的选项出现记录
+function cleanExpiredOccurrences() {
+    try {
+        const occurrences = getOptionOccurrences();
+        const currentTime = Date.now();
+        const timeWindowMs = TIME_WINDOW_MINUTES * 60 * 1000;
+        let hasChanges = false;
+
+        // 遍历所有选项记录
+        for (const optionId in occurrences) {
+            // 过滤出过期的记录
+            const validOccurrences = occurrences[optionId].filter(timestamp => 
+                currentTime - timestamp < timeWindowMs
+            );
+            
+            // 如果记录被修改，标记为有变化
+            if (validOccurrences.length !== occurrences[optionId].length) {
+                occurrences[optionId] = validOccurrences;
+                hasChanges = true;
+            }
+            
+            // 如果某个选项的记录为空，删除该选项
+            if (validOccurrences.length === 0) {
+                delete occurrences[optionId];
+                hasChanges = true;
+            }
+        }
+        
+        // 如果有变化，保存到本地存储
+        if (hasChanges) {
+            localStorage.setItem(OCCURRENCES_STORAGE_KEY, JSON.stringify(occurrences));
+        }
+    } catch (error) {
+        console.log('清理过期记录失败:', error);
+    }
+}
+
+// 获取特定选项在过去一小时内的出现次数
+function getOptionOccurrenceCount(optionId) {
+    try {
+        // 先清理过期记录
+        cleanExpiredOccurrences();
+        
+        const occurrences = getOptionOccurrences();
+        if (!occurrences[optionId]) {
+            return 0;
+        }
+        
+        // 过滤出在时间窗口内的记录
+        const currentTime = Date.now();
+        const timeWindowMs = TIME_WINDOW_MINUTES * 60 * 1000;
+        const validOccurrences = occurrences[optionId].filter(timestamp => 
+            currentTime - timestamp < timeWindowMs
+        );
+        
+        return validOccurrences.length;
+    } catch (error) {
+        console.log('获取选项出现次数失败:', error);
+        return 0;
+    }
+}
+
+// 记录选项出现
+function recordOptionOccurrence(optionId) {
+    try {
+        // 先清理过期记录
+        cleanExpiredOccurrences();
+        
+        const occurrences = getOptionOccurrences();
+        const currentTime = Date.now();
+        
+        // 如果该选项还没有记录，创建一个空数组
+        if (!occurrences[optionId]) {
+            occurrences[optionId] = [];
+        }
+        
+        // 添加当前时间戳
+        occurrences[optionId].push(currentTime);
+        
+        // 保存回本地存储
+        localStorage.setItem(OCCURRENCES_STORAGE_KEY, JSON.stringify(occurrences));
+    } catch (error) {
+        console.log('记录选项出现失败:', error);
+    }
+}
+
+// 检查选项是否可以被选择（在过去一小时内出现次数不超过限制）
+function canSelectOption(optionId) {
+    const count = getOptionOccurrenceCount(optionId);
+    // 添加调试日志
+    console.log(`选项 ${optionId} 在过去一小时内出现了 ${count} 次，限制为 ${MAX_OCCURRENCES_PER_HOUR} 次，是否可选择: ${count < MAX_OCCURRENCES_PER_HOUR}`);
+    return count < MAX_OCCURRENCES_PER_HOUR;
+}
+
+// 调试函数：显示所有选项的出现次数
+function debugShowAllOptionOccurrences() {
+    try {
+        cleanExpiredOccurrences();
+        const occurrences = getOptionOccurrences();
+        console.log('=== 一小时内选项出现次数 ===');
+        for (const optionId in occurrences) {
+            console.log(`${optionId}: ${occurrences[optionId].length} 次`);
+            // 显示每次出现的时间戳
+            occurrences[optionId].forEach((timestamp, index) => {
+                const timeStr = new Date(timestamp).toLocaleTimeString();
+                console.log(`  - 第 ${index + 1} 次: ${timeStr}`);
+            });
+        }
+        console.log('============================');
+    } catch (error) {
+        console.log('显示选项出现次数失败:', error);
+    }
+}
+
+// 调试函数：重置选项出现记录
+function debugResetOptionOccurrences() {
+    try {
+        localStorage.removeItem(OCCURRENCES_STORAGE_KEY);
+        console.log('已重置所有选项出现记录');
+    } catch (error) {
+        console.log('重置选项出现记录失败:', error);
+    }
+}
+
+// 添加全局调试方法，方便在浏览器控制台调用
+window.debugTurntable = {
+    showOccurrences: debugShowAllOptionOccurrences,
+    resetOccurrences: debugResetOptionOccurrences,
+    // 测试辅助函数：将指定选项设置为已达到限制
+    setOptionToLimit: function(optionId) {
+        try {
+            // 先清理过期记录
+            cleanExpiredOccurrences();
+            
+            const occurrences = getOptionOccurrences();
+            const currentTime = Date.now();
+            
+            // 设置选项出现次数达到限制（3次）
+            occurrences[optionId] = [];
+            for (let i = 0; i < MAX_OCCURRENCES_PER_HOUR; i++) {
+                // 添加时间戳，确保都在时间窗口内
+                occurrences[optionId].push(currentTime - (i * 60 * 1000)); // 每分钟一次
+            }
+            
+            // 保存回本地存储
+            localStorage.setItem(OCCURRENCES_STORAGE_KEY, JSON.stringify(occurrences));
+            console.log(`已将选项 "${optionId}" 设置为一小时内出现 ${MAX_OCCURRENCES_PER_HOUR} 次（达到限制）`);
+        } catch (error) {
+            console.log('设置选项限制失败:', error);
+        }
+    }
+};
+
 // 根据分区数量动态确定需要排除的最近选择数量
 function getExclusionCount() {
     // 分区数量较少时，排除更多的最近选择
@@ -23,23 +196,59 @@ function getNonRepeatingRandomSection() {
     // 获取需要排除的分区索引数组
     const excludedSections = recentSections.slice(0, exclusionCount);
     
-    // 如果所有分区都被排除，或者分区数量较少时，允许重复
-    if (excludedSections.length >= totalSections - 1) {
-        // 当分区数量接近用尽时，允许重复
-        return Math.floor(Math.random() * totalSections);
-    }
-    
-    // 创建可用分区数组
+    // 创建可用分区数组 - 考虑一小时内重复限制
     const availableSections = [];
+    const limitedSections = []; // 存储达到限制但未在最近排除中的分区
+    let hasAvailableSection = false;
+    
     for (let i = 0; i < totalSections; i++) {
-        if (!excludedSections.includes(i)) {
+        // 检查是否在最近选择中被排除
+        const isRecentlyExcluded = excludedSections.includes(i);
+        
+        // 检查是否在一小时内出现次数超过限制
+        const optionId = sectionData[i] ? sectionData[i].title : `section_${i}`;
+        const canSelectDueToTimeLimit = canSelectOption(optionId);
+        
+        // 如果不在最近排除中，且没有超过时间限制，则可以选择
+        if (!isRecentlyExcluded && canSelectDueToTimeLimit) {
             availableSections.push(i);
+            hasAvailableSection = true;
+        } else if (!isRecentlyExcluded && !canSelectDueToTimeLimit) {
+            // 如果不在最近排除中，但已达到时间限制，放入限制数组
+            limitedSections.push(i);
         }
     }
     
-    // 从可用分区中随机选择一个
-    const randomIndex = Math.floor(Math.random() * availableSections.length);
-    const selectedSection = availableSections[randomIndex];
+    let selectedSection;
+    
+    // 优先从可用分区中选择
+    if (hasAvailableSection) {
+        // 从可用分区中随机选择一个
+        const randomIndex = Math.floor(Math.random() * availableSections.length);
+        selectedSection = availableSections[randomIndex];
+    } else {
+        // 如果没有完全可用的分区，考虑两种情况：
+        // 1. 有达到限制但未在最近排除中的分区
+        // 2. 所有分区都被最近排除或达到限制
+        
+        if (limitedSections.length > 0) {
+            // 如果有达到限制但未在最近排除中的分区，降低权重选择
+            // 给予较低概率（20%）选择这些分区
+            if (Math.random() < 0.2) {
+                const randomIndex = Math.floor(Math.random() * limitedSections.length);
+                selectedSection = limitedSections[randomIndex];
+            } else {
+                // 否则从所有分区中选择（忽略所有限制）
+                selectedSection = Math.floor(Math.random() * totalSections);
+            }
+            
+            // 记录所有选项都达到限制的情况
+            console.log('警告: 大多数选项已在一小时内达到出现限制，系统正在调整选择权重');
+        } else {
+            // 当所有分区都被限制或最近排除时，忽略限制，选择任意分区
+            selectedSection = Math.floor(Math.random() * totalSections);
+        }
+    }
     
     // 更新最近选择的分区记录
     recentSections.unshift(selectedSection);
@@ -158,6 +367,65 @@ function showHistoryRecordDetails(record) {
     
     resultModal.style.display = 'flex';
     resultModal.classList.add('show');
+}
+
+// 检查指定分区是否可用（未达到一小时内出现次数限制）
+function isSectionAvailable(sectionIndex) {
+    try {
+        if (!sectionData || !sectionData[sectionIndex]) {
+            return false;
+        }
+        const optionId = sectionData[sectionIndex].title;
+        return canSelectOption(optionId);
+    } catch (error) {
+        console.log('检查分区可用性失败:', error);
+        return false;
+    }
+}
+
+// 显示选项限制警告提示
+function showLimitWarning(optionId) {
+    try {
+        // 检查是否已存在警告元素
+        let warningElement = document.getElementById('limitWarning');
+        if (!warningElement) {
+            // 创建警告元素
+            warningElement = document.createElement('div');
+            warningElement.id = 'limitWarning';
+            warningElement.style.position = 'fixed';
+            warningElement.style.bottom = '20px';
+            warningElement.style.left = '50%';
+            warningElement.style.transform = 'translateX(-50%)';
+            warningElement.style.backgroundColor = '#ff6b6b';
+            warningElement.style.color = 'white';
+            warningElement.style.padding = '12px 24px';
+            warningElement.style.borderRadius = '8px';
+            warningElement.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            warningElement.style.zIndex = '10000';
+            warningElement.style.fontSize = '14px';
+            warningElement.style.opacity = '0';
+            warningElement.style.transition = 'opacity 0.3s ease-in-out';
+            document.body.appendChild(warningElement);
+        }
+        
+        // 设置警告内容
+        warningElement.textContent = `"${optionId}" 在过去一小时内已出现 ${MAX_OCCURRENCES_PER_HOUR} 次，将暂时减少出现概率。`;
+        
+        // 显示警告
+        warningElement.style.opacity = '1';
+        
+        // 3秒后自动隐藏
+        setTimeout(() => {
+            warningElement.style.opacity = '0';
+            setTimeout(() => {
+                if (warningElement.parentNode) {
+                    warningElement.parentNode.removeChild(warningElement);
+                }
+            }, 300);
+        }, 3000);
+    } catch (error) {
+        console.log('显示限制警告失败:', error);
+    }
 }
 
 // 打开历史记录弹窗
@@ -1156,11 +1424,48 @@ function stopWheel(finalRotationAngle) {
     // 移除转盘发光效果
     wheelContainer.classList.remove('spinning');
     
-    // 根据最终旋转角度精确计算指针指向的分区
-    const actualSection = getSectionFromAngle(finalRotationAngle);
+    // 顺时针旋转查找可用分区
+    let currentRotation = finalRotationAngle;
+    let actualSection = getSectionFromAngle(currentRotation);
+    let attempts = 0;
+    const maxAttempts = totalSections * 2; // 设置最大尝试次数，避免无限循环
+    const rotationStep = (15 * Math.PI) / 180; // 5度转换为弧度
+    
+    // 记录初始分区
+    const initialSection = actualSection;
+    const initialSectionTitle = sectionData[initialSection] ? sectionData[initialSection].title : '未知';
+    
+    console.log(`初始停止分区: ${initialSection} (${initialSectionTitle}), 是否可用: ${isSectionAvailable(actualSection)}`);
+    
+    // 检查当前分区是否可用，如果不可用则顺时针旋转5度
+    while (!isSectionAvailable(actualSection) && attempts < maxAttempts) {
+        // 顺时针旋转5度
+        currentRotation += rotationStep;
+        // 重新计算当前分区
+        actualSection = getSectionFromAngle(currentRotation);
+        attempts++;
+        
+        console.log(`顺时针旋转5度后，当前分区: ${actualSection} (${sectionData[actualSection]?.title || '未知'}), 尝试次数: ${attempts}`);
+    }
+    
+    const finalSectionTitle = sectionData[actualSection] ? sectionData[actualSection].title : '未知';
+    console.log(`最终选择分区: ${actualSection} (${finalSectionTitle})`);
     
     // 获取中奖结果数据
     const result = sectionData[actualSection];
+    
+    // 记录选项出现（使用标题作为选项ID）
+    if (result) {
+        const optionId = result.title;
+        // 检查是否已经达到一小时内的最大出现次数
+        const currentCount = getOptionOccurrenceCount(optionId);
+        recordOptionOccurrence(optionId);
+        
+        // 如果达到或超过限制，显示提示信息
+        if (currentCount >= MAX_OCCURRENCES_PER_HOUR) {
+            showLimitWarning(optionId);
+        }
+    }
     
     // 切换回静态图片
     switchToStatic();
@@ -1207,6 +1512,9 @@ function stopWheel(finalRotationAngle) {
             centerImage.appendChild(prizeOverlay);
         }
     }
+    
+    // 重新绘制转盘，确保停在最终计算的角度位置
+    drawWheel(currentRotation);
     
     // 停止旋转音效，播放胜利音效
     try {
