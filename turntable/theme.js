@@ -4,6 +4,53 @@ let currentThemeData = null;
 // 本地存储键名
 const HISTORY_STORAGE_KEY = 'turntable_history';
 
+// 存储最近选择的分区索引，用于避免重复
+let recentSections = [];
+
+// 根据分区数量动态确定需要排除的最近选择数量
+function getExclusionCount() {
+    // 分区数量较少时，排除更多的最近选择
+    if (totalSections <= 6) return Math.min(recentSections.length, 3); // 最多排除前3个
+    if (totalSections <= 12) return Math.min(recentSections.length, 5); // 最多排除前5个
+    return Math.min(recentSections.length, 8); // 分区数量较多时，最多排除前8个
+}
+
+// 获取非重复的随机分区索引
+function getNonRepeatingRandomSection() {
+    // 获取需要排除的最近选择数量
+    const exclusionCount = getExclusionCount();
+    
+    // 获取需要排除的分区索引数组
+    const excludedSections = recentSections.slice(0, exclusionCount);
+    
+    // 如果所有分区都被排除，或者分区数量较少时，允许重复
+    if (excludedSections.length >= totalSections - 1) {
+        // 当分区数量接近用尽时，允许重复
+        return Math.floor(Math.random() * totalSections);
+    }
+    
+    // 创建可用分区数组
+    const availableSections = [];
+    for (let i = 0; i < totalSections; i++) {
+        if (!excludedSections.includes(i)) {
+            availableSections.push(i);
+        }
+    }
+    
+    // 从可用分区中随机选择一个
+    const randomIndex = Math.floor(Math.random() * availableSections.length);
+    const selectedSection = availableSections[randomIndex];
+    
+    // 更新最近选择的分区记录
+    recentSections.unshift(selectedSection);
+    // 限制数组长度，最多保存10个最近的选择
+    if (recentSections.length > 10) {
+        recentSections = recentSections.slice(0, 10);
+    }
+    
+    return selectedSection;
+}
+
 // 保存历史记录到本地存储
 function saveToHistory(result) {
     try {
@@ -124,6 +171,89 @@ function closeHistoryModalHandler() {
     historyModal.style.display = 'none';
 }
 
+// 当前已加载的选项数量
+let loadedOptionsCount = 0;
+const optionsPerPage = 5;
+
+// 打开所有选项弹窗
+function openAllOptionsModal() {
+    // 重置加载计数
+    loadedOptionsCount = 0;
+    allOptionsList.innerHTML = '';
+    
+    // 显示弹窗
+    allOptionsModal.style.display = 'flex';
+    
+    // 首次加载5个选项
+    loadMoreOptions();
+    
+    // 添加滚动监听以实现无限加载
+    setupScrollListener();
+}
+
+// 关闭所有选项弹窗
+function closeAllOptionsModalHandler() {
+    allOptionsModal.style.display = 'none';
+    // 移除滚动监听
+    allOptionsList.removeEventListener('scroll', handleOptionsScroll);
+}
+
+// 设置滚动监听
+function setupScrollListener() {
+    allOptionsList.addEventListener('scroll', handleOptionsScroll);
+}
+
+// 处理滚动事件
+function handleOptionsScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = this;
+    
+    // 当滚动到接近底部时加载更多
+    if (scrollHeight - scrollTop - clientHeight < 100 && loadedOptionsCount < sectionData.length) {
+        loadMoreOptions();
+    }
+}
+
+// 加载更多选项
+function loadMoreOptions() {
+    // 显示加载指示器
+    loadingIndicator.style.display = 'flex';
+    
+    // 模拟加载延迟，使体验更流畅
+    setTimeout(() => {
+        const optionsToLoad = sectionData.slice(loadedOptionsCount, loadedOptionsCount + optionsPerPage);
+        
+        optionsToLoad.forEach((option, index) => {
+            const optionIndex = loadedOptionsCount + index;
+            const optionElement = createOptionElement(option, optionIndex);
+            allOptionsList.appendChild(optionElement);
+        });
+        
+        loadedOptionsCount += optionsToLoad.length;
+        
+        // 隐藏加载指示器
+        loadingIndicator.style.display = 'none';
+    }, 300);
+}
+
+// 创建单个选项元素
+function createOptionElement(option, index) {
+    const optionCard = document.createElement('div');
+    optionCard.className = 'option-card';
+    optionCard.dataset.index = index;
+    
+    // 设置选项卡片HTML内容，类似于结果详情页
+    optionCard.innerHTML = `
+        <div class="option-header">
+            <span class="option-number">第${index + 1}个选项</span>
+        </div>
+        <img src="${option.imageUrl || option.image || 'https://picsum.photos/350/200?random=' + index}" alt="${option.title}" class="option-image">
+        <h4 class="option-title">${option.title}</h4>
+        <div class="option-description">${option.description || '暂无描述'}</div>
+    `;
+    
+    return optionCard;
+}
+
 // 支持的主题列表
 const supportedThemes = ['romantic', 'food', 'travel'];
 
@@ -151,6 +281,12 @@ const centerImage = document.getElementById('centerImage');
 const centerStaticImg = document.getElementById('centerStaticImg');
 const centerGifImg = document.getElementById('centerGifImg');
 const themeTitle = document.getElementById('themeTitle');
+// 所有选项相关元素
+const allOptionsBtn = document.getElementById('allOptionsBtn');
+const allOptionsModal = document.getElementById('allOptionsModal');
+const closeAllOptionsModal = document.getElementById('closeAllOptionsModal');
+const allOptionsList = document.getElementById('allOptionsList');
+const loadingIndicator = document.getElementById('loadingIndicator');
 const themeSubtitle = document.getElementById('themeSubtitle');
 const pageTitle = document.getElementById('pageTitle');
 const actionButtons = document.getElementById('actionButtons');
@@ -850,23 +986,10 @@ function spinWheel() {
     // 创建漂浮爱心
     createFloatingHearts();
     
-    // 增强随机性：结合时间戳生成更随机的种子
-    const timestamp = Date.now();
-    // 使用当前时间戳和一个小的随机数增加随机性
-    const randomSeed = (Math.random() + (timestamp % 1000) / 1000) * 1000;
+    // 使用改进的随机选择算法，避免最近重复的选择
+    const targetSection = getNonRepeatingRandomSection();
     
-    // 避免连续转到同一个分区
-    let targetSection;
-    const maxAttempts = 10; // 最大尝试次数
-    let attempts = 0;
-    
-    do {
-        // 使用增强的随机种子生成目标分区
-        targetSection = Math.floor((Math.random() * randomSeed) % totalSections);
-        attempts++;
-    } while (targetSection === lastSection && attempts < maxAttempts && totalSections > 1);
-    
-    // 记录本次结果用于下次比较
+    // 仍然保留lastSection的更新，以确保与现有代码的兼容性
     lastSection = targetSection;
     
     // 增加额外旋转圈数的随机性
@@ -1119,6 +1242,16 @@ backBtn.addEventListener('click', () => {
                 closeHistoryModalHandler();
             }
         });
+    }
+    
+    // 所有选项按钮点击事件
+    if (allOptionsBtn) {
+        allOptionsBtn.addEventListener('click', openAllOptionsModal);
+    }
+    
+    // 关闭所有选项弹窗
+    if (closeAllOptionsModal) {
+        closeAllOptionsModal.addEventListener('click', closeAllOptionsModalHandler);
     }
 }
 
