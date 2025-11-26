@@ -322,7 +322,7 @@ async function initializeTheme(theme) {
         themeSubtitle.textContent = config.subtitle;
         
         // 更新中心图片
-        centerStaticImg.src = config.centerImage;
+        centerStaticImg.src = config.centerImage; // 设置默认静态图片
         centerGifImg.src = config.centerGif;
         
         // 更新转盘参数
@@ -591,6 +591,12 @@ function drawWheel(angle = 0) {
 
 // 切换中心图片为动态GIF
 function switchToGif() {
+    // 移除中奖图片覆盖层（如果存在）
+    const existingOverlay = document.getElementById('prizeImageOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+    
     centerStaticImg.style.display = 'none';
     centerGifImg.style.display = 'block';
     centerImage.classList.add('spinning');
@@ -601,6 +607,7 @@ function switchToStatic() {
     centerGifImg.style.display = 'none';
     centerStaticImg.style.display = 'block';
     centerImage.classList.remove('spinning');
+    // 注意：此处不再重置centerStaticImg.src，以保留中奖结果图片
 }
 
 // 创建漂浮符号效果
@@ -786,6 +793,12 @@ function resetButtonState() {
 function spinWheel() {
     if (isSpinning) return;
     
+    // 移除中奖图片覆盖层（如果存在）
+    const existingOverlay = document.getElementById('prizeImageOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+    
     // 解锁音频
     unlockAudio();
     
@@ -967,8 +980,57 @@ function stopWheel(finalRotationAngle) {
     // 移除转盘发光效果
     wheelContainer.classList.remove('spinning');
     
-    // 切换中心图片为静态图片
+    // 根据最终旋转角度精确计算指针指向的分区
+    const actualSection = getSectionFromAngle(finalRotationAngle);
+    
+    // 获取中奖结果数据
+    const result = sectionData[actualSection];
+    
+    // 切换回静态图片
     switchToStatic();
+    
+    // 检查是否已有中奖图片覆盖层，如果有则移除
+    let prizeOverlay = document.getElementById('prizeImageOverlay');
+    if (prizeOverlay) {
+        prizeOverlay.remove();
+    }
+    
+    // 创建中奖图片覆盖层
+    prizeOverlay = document.createElement('img');
+    prizeOverlay.id = 'prizeImageOverlay';
+    prizeOverlay.style.position = 'absolute';
+    prizeOverlay.style.top = '0';
+    prizeOverlay.style.left = '0';
+    prizeOverlay.style.width = '100%';
+    prizeOverlay.style.height = '100%';
+    prizeOverlay.style.objectFit = 'cover';
+    prizeOverlay.style.borderRadius = '50%';
+    prizeOverlay.style.opacity = '0';
+    prizeOverlay.style.transition = 'opacity 0.5s ease-in-out';
+    
+    // 设置中奖图片
+    if (result) {
+        const resultImage = result.imageUrl || result.image;
+        if (resultImage) {
+            prizeOverlay.src = resultImage;
+            
+            // 添加错误处理，图片加载失败时不显示覆盖层
+            prizeOverlay.onerror = function() {
+                console.log('中奖图片加载失败，不显示覆盖层');
+                prizeOverlay.remove();
+            };
+            
+            // 图片加载成功后显示覆盖层
+            prizeOverlay.onload = function() {
+                setTimeout(() => {
+                    prizeOverlay.style.opacity = '1';
+                }, 100); // 轻微延迟以确保图片已完全加载
+            };
+            
+            // 添加覆盖层到centerImage容器
+            centerImage.appendChild(prizeOverlay);
+        }
+    }
     
     // 停止旋转音效，播放胜利音效
     try {
@@ -983,9 +1045,6 @@ function stopWheel(finalRotationAngle) {
     // 创建爱心爆炸和星星效果
     createHeartExplosion();
     createSparkles();
-    
-    // 根据最终旋转角度精确计算指针指向的分区
-    const actualSection = getSectionFromAngle(finalRotationAngle);
     
     // 显示结果模态框
     setTimeout(() => {

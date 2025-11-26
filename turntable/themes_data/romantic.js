@@ -7,7 +7,7 @@ const romanticThemeData = {
         totalSections: 20,
         colorBase: "#ff4081",
         centerImage: "./themes_data/images/sexypose/cover.jpg",
-        centerGif: "./themes_data/images/sexypose/2.gif",
+        centerGif: "./themes_data/images/sexypose/turn.gif",
         symbols: {
             floatingSymbol: '❤',
             explosionSymbol: '✨',
