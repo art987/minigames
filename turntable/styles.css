@@ -366,10 +366,10 @@
         }
         
         .wheel-wrapper {
-            position: relative;
+            position: fixed;
             width: 500px;
             height: 500px;
-            margin: 17px auto;
+            top: 181px;
         }
         
         .wheel-frame {
@@ -514,6 +514,13 @@
         .controls {
             margin-top: 7px;
             display: flex;
+            position: fixed;
+            top: 490px;
+            border: 1px solid #ffffff24;
+            border-bottom: 2px solid #cb17bdc7;
+            background: linear-gradient(357deg, #49e8ba00 0%, #fec7aa82 100%);
+            padding: 12px 29px 11px;
+            border-radius: 65px 65px 25px 25px;
         }
         
         .single-button {
@@ -936,12 +943,20 @@
         
         .ornament {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #ff9a9e, #fad0c4);
-            border-radius: 50%;
+            font-size: 14px;
+            line-height: 1;
+            color: rgb(255 255 255 / 51%);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
             animation: float 6s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(255, 154, 158, 0.7);
+            transition: transform 0.3s ease;
+            width: auto;
+            height: auto;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         @keyframes float {
@@ -955,108 +970,6 @@
                 height: 350px;
                 box-shadow: 0 0 60px #f200df;
                 border-radius: 350px;
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 box-shadow: 0 0 30px #fff;
             }
             
@@ -1082,7 +995,7 @@
             
             h1 {
                 font-size: 2.2rem;
-                text-shadow: 0 0 10px #f2da74;
+                text-shadow: 0 0 10px #d8d8d8;
             }
             
             .single-button {
@@ -1098,7 +1011,7 @@
     top: 0;
     position: relative;
     background: linear-gradient(135deg, #f054fb 0%, #f10736 100%);
-    box-shadow: 0 0 21px #fe74ff;
+    box-shadow: 0 0 21px #d3f2cc;
     border: 3px solid #ffffff66;
     text-shadow: 0 0 8px #ffffff;
 }

@@ -556,13 +556,23 @@ function getDescriptionForTheme(theme, index) {
 
 // 创建转盘边框装饰
 function createFrameOrnaments() {
+    // 确保frameOrnaments元素存在
+    if (!frameOrnaments) return;
+    
     // 清空现有装饰
     frameOrnaments.innerHTML = '';
+    
+    // 获取当前主题的浮动符号
+    const floatingSymbol = getThemeSymbols().floatingSymbol;
     
     const ornamentCount = 12;
     for (let i = 0; i < ornamentCount; i++) {
         const ornament = document.createElement('div');
         ornament.className = 'ornament';
+        
+        // 设置浮动符号作为内容
+        ornament.textContent = floatingSymbol;
+        
         frameOrnaments.appendChild(ornament);
         
         const angle = (i * 2 * Math.PI) / ornamentCount;
@@ -581,6 +591,15 @@ function createFrameOrnaments() {
             duration: 2000 + Math.random() * 1000,
             iterations: Infinity,
             delay: i * 200
+        });
+        
+        // 添加鼠标悬浮效果
+        ornament.addEventListener('mouseover', () => {
+            ornament.style.transform = 'scale(1.3)';
+        });
+        
+        ornament.addEventListener('mouseout', () => {
+            ornament.style.transform = 'scale(1)';
         });
     }
 }
@@ -903,13 +922,15 @@ function unlockAudio() {
     }
 }
 
+// 全局变量用于存储倒计时定时器
+let countdownTimer = null;
+
 // 更新倒计时显示
 function updateCountdown() {
-    // 将倒计时显示在按钮文本上，对于1秒来说显示到0.1秒足够精确
-    spinBtn.textContent = countdownValue.toFixed(1);
+    // 不再更新按钮文本为倒计时数字，保持"不要停 继续转"
     if (countdownValue > 0) {
         countdownValue -= 0.05; // 更快的更新频率，使1秒内的动画更平滑
-        setTimeout(updateCountdown, 50); // 更新间隔改为50毫秒
+        countdownTimer = setTimeout(updateCountdown, 50); // 更新间隔改为50毫秒
     } else {
         // 倒计时结束，立即停止旋转
         // 注意：在spinWheel函数中定义的currentRotation局部变量在外部不可见
@@ -929,9 +950,41 @@ function resetButtonState() {
     spinBtn.textContent = '开始转动';
 }
 
+// 处理转动时的按钮点击事件
+function handleSpinWhileSpinning() {
+    if (!isSpinning) return;
+    
+    // 延长倒计时时间1秒
+    countdownValue += 1;
+    
+    // 取消之前的定时器，重新开始倒计时
+    if (countdownTimer) {
+        clearTimeout(countdownTimer);
+    }
+    
+    // 重新开始倒计时
+    updateCountdown();
+    
+    // 添加爆炸粒子效果，提供视觉反馈
+    createHeartExplosion();
+    createSparkles();
+    
+    // 播放按钮点击音效
+    try {
+        buttonSound.currentTime = 0;
+        playSound(buttonSound);
+    } catch (e) {
+        console.log("播放按钮音效失败:", e);
+    }
+}
+
 // 旋转转盘
 function spinWheel() {
-    if (isSpinning) return;
+    if (isSpinning) {
+        // 如果正在转动，调用推迟暂停的函数
+        handleSpinWhileSpinning();
+        return;
+    }
     
     // 移除中奖图片覆盖层（如果存在）
     const existingOverlay = document.getElementById('prizeImageOverlay');
@@ -951,12 +1004,14 @@ function spinWheel() {
     }
     
     isSpinning = true;
-    spinBtn.disabled = true;
+    // 转动时按钮文字改为"不要停 继续转"
+    spinBtn.textContent = '加大火力';
+    spinBtn.disabled = false; // 允许点击以推迟暂停
     // 保持按钮可见，不移动位置
     lastTickSection = -1;
     countdownValue = 1;
     
-    // 开始倒计时，直接在按钮上显示
+    // 开始倒计时，但不再显示倒计时数字
     updateCountdown();
     
     // 添加转盘发光效果

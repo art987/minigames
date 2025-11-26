@@ -1,7 +1,7 @@
 // 性爱姿势教学主题数据配置
 const romanticThemeData = {
     config: {
-        title: "情趣姿势转转乐",
+        title: "啪啪七十二势",
         subtitle: "转动转盘，探索不同的性爱姿势",
         description: "每一个分区都展示一种性爱姿势，包括详细说明和图示",
         totalSections: 72,
@@ -11,7 +11,7 @@ const romanticThemeData = {
         symbols: {
             floatingSymbol: '❤',
             explosionSymbol: '✨',
-            sparkleSymbol: '💫'
+            sparkleSymbol: '❤'
         }
     },
     options: [

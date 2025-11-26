@@ -65,17 +65,20 @@
         
         .option-header {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+            /* justify-content: flex-end; */
+            margin-bottom: -5px;
         }
         
         .option-number {
-            background: linear-gradient(135deg, #958fe0 0%, #ea00df 100%);
+            background: linear-gradient(135deg, #f881e4 0%, #ba8cfb 100%);
             color: white;
             padding: 7px 10px;
-            border-radius: 15px;
+            border-radius: 15px 10px 0 0;
             font-size: 0.8rem;
-            font-weight: bold;
+            /* font-weight: bold; */
+            line-height: 19px;
+            height: 34px;
+            /* margin-left: 5px; */
         }
         
         .option-image {
@@ -131,7 +134,8 @@
         
         /* 美化按钮间距 */
         .header {
-            position: relative;
+            position: fixed;
+            top: 80px;
         }
         
         .history-button {
@@ -141,6 +145,7 @@
         .history-button:last-child {
             margin-right: 0;
         }
+    
     </style>
 </head>
 <body>
