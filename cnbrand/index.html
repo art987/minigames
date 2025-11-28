@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国货品牌推荐 - 支持国货，传承经典</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1 class="site-title">国货品牌推荐</h1>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索品牌或分类..." class="search-input">
+                <button id="search-btn" class="search-btn">搜索</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <aside class="sidebar">
+            <nav class="category-nav">
+                <h2 class="category-title">品牌分类</h2>
+                <ul class="category-list" id="category-list">
+                    <!-- 分类将通过JavaScript动态生成 -->
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <div class="search-results" id="search-results">
+                <!-- 搜索结果将在这里显示 -->
+            </div>
+            
+            <div class="brand-sections" id="brand-sections">
+                <!-- 各分类品牌将通过JavaScript动态生成 -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 国货品牌推荐 | 支持国货，传承经典</p>
+    </footer>
+
+    <script src="js/brandData.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

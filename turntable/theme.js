@@ -523,7 +523,7 @@ function createOptionElement(option, index) {
 }
 
 // 支持的主题列表
-const supportedThemes = ['romantic', 'food', 'travel'];
+const supportedThemes = ['romantic', 'food', 'travel', 'mood'];
 
 // 获取DOM元素
 const canvas = document.getElementById('wheelCanvas');
@@ -705,6 +705,12 @@ function getThemeSymbols() {
             explosionSymbol: '🌍',
             sparkleSymbol: '✨'
         };
+    } else if (currentTheme === 'mood') {
+        return {
+            floatingSymbol: '😊',
+            explosionSymbol: '✨',
+            sparkleSymbol: '🌟'
+        };
     }
     
     return defaultSymbols;
@@ -804,6 +810,11 @@ function generateSectionData(config) {
             };
         });
     }
+    
+    // 对于心情主题，确保显示70个选项
+    if (currentTheme === 'mood' && sectionData.length < 70 && currentThemeData && currentThemeData.options) {
+        sectionData = currentThemeData.options;
+    }
 }
 
 // 根据主题获取描述（兼容模式）
@@ -899,6 +910,13 @@ function drawWheel(angle = 0) {
         gradient.addColorStop(0.3, '#44a08d');
         gradient.addColorStop(0.6, '#69f727ff');
         gradient.addColorStop(1, '#3a00dbff');
+    } else if (currentTheme === 'mood') {
+        // 为心情主题设置温暖明亮的渐变色彩
+        gradient.addColorStop(0, '#FF9500'); // 温暖的橙色
+        gradient.addColorStop(0.2, '#FFD700'); // 明亮的金色
+        gradient.addColorStop(0.5, '#FF6B6B'); // 柔和的红色
+        gradient.addColorStop(0.8, '#4ECDC4'); // 清新的青绿色
+        gradient.addColorStop(1, '#845EC2'); // 神秘的紫色
     }
     
     ctx.beginPath();
@@ -926,7 +944,13 @@ function drawWheel(angle = 0) {
         ctx.fill();
         
         // 绘制分区线（根据分区数量调整显示频率）
-        const lineFrequency = totalSections > 100 ? 10 : (totalSections > 20 ? 5 : 1);
+        let lineFrequency = 1;
+        if (currentTheme === 'mood') {
+            // 对于心情主题（70个选项），每5个分区显示一次分区线
+            lineFrequency = 5;
+        } else {
+            lineFrequency = totalSections > 100 ? 10 : (totalSections > 20 ? 5 : 1);
+        }
         if (i % lineFrequency === 0) {
             ctx.beginPath();
             ctx.moveTo(0, 0);
@@ -936,7 +960,7 @@ function drawWheel(angle = 0) {
             ctx.stroke();
         }
         
-        // 为每个分区显示选项title
+        // 为分区显示选项信息
         ctx.save();
         ctx.rotate(startAngle + sectionAngle / 2);
         ctx.textAlign = "center";
@@ -960,31 +984,45 @@ function drawWheel(angle = 0) {
         // 计算可用文本宽度（留出一些边距）
         const availableTextWidth = partitionWidth * 0.9;
         
-        // 截断过长的文本
-        let displayText = title;
-        if (ctx.measureText(title).width > availableTextWidth) {
-            // 二分查找适合的文本长度
-            let start = 0;
-            let end = title.length;
-            let bestLength = start;
-            
-            while (start <= end) {
-                const mid = Math.floor((start + end) / 2);
-                const testText = title.substring(0, mid) + '...';
-                const textWidth = ctx.measureText(testText).width;
-                
-                if (textWidth <= availableTextWidth) {
-                    bestLength = mid;
-                    start = mid + 1;
-                } else {
-                    end = mid - 1;
-                }
+        let displayText = '';
+        
+        // 对于心情主题的特殊处理
+        if (currentTheme === 'mood') {
+            // 对于心情主题，只显示序号，这样更清晰
+            if (i % 5 === 0) { // 每5个分区显示一次
+                displayText = (i + 1).toString();
+            } else {
+                // 其他分区可以显示简短的符号或不显示
+                ctx.restore();
+                continue;
             }
-            
-            displayText = bestLength > 0 ? title.substring(0, bestLength) + '...' : '...';
+        } else {
+            // 其他主题的正常处理
+            displayText = title;
+            if (ctx.measureText(title).width > availableTextWidth) {
+                // 二分查找适合的文本长度
+                let start = 0;
+                let end = title.length;
+                let bestLength = start;
+                
+                while (start <= end) {
+                    const mid = Math.floor((start + end) / 2);
+                    const testText = title.substring(0, mid) + '...';
+                    const textWidth = ctx.measureText(testText).width;
+                    
+                    if (textWidth <= availableTextWidth) {
+                        bestLength = mid;
+                        start = mid + 1;
+                    } else {
+                        end = mid - 1;
+                    }
+                }
+                
+                displayText = bestLength > 0 ? title.substring(0, bestLength) + '...' : '...';
+            }
         }
         
-        // 将标题绘制在分区中心，确保离边缘有20像素距离
+        // 将文本绘制在分区中心，确保离边缘有20像素距离
         ctx.fillText(displayText, textRadius - 10, 5);
         ctx.restore();
     }
@@ -1012,7 +1050,7 @@ function drawWheel(angle = 0) {
     ctx.restore();
 }
 
-// 切换中心图片为动态GIF
+// 更新中心图片状态（旋转时）
 function switchToGif() {
     // 移除中奖图片覆盖层（如果存在）
     const existingOverlay = document.getElementById('prizeImageOverlay');
@@ -1020,17 +1058,17 @@ function switchToGif() {
         existingOverlay.remove();
     }
     
-    centerStaticImg.style.display = 'none';
-    centerGifImg.style.display = 'block';
+    // 不显示GIF，始终使用静态图片
+    centerStaticImg.style.display = 'block';
+    centerGifImg.style.display = 'none';
     centerImage.classList.add('spinning');
 }
 
-// 切换中心图片为静态图片
+// 切换中心图片为静态图片（停止旋转时）
 function switchToStatic() {
     centerGifImg.style.display = 'none';
     centerStaticImg.style.display = 'block';
     centerImage.classList.remove('spinning');
-    // 注意：此处不再重置centerStaticImg.src，以保留中奖结果图片
 }
 
 // 创建漂浮符号效果
@@ -1067,6 +1105,10 @@ function createHeart() {
         heart.style.color = `hsl(${Math.random() * 60 + 30}, 80%, 60%)`;
     } else if (currentTheme === 'travel') {
         heart.style.color = `hsl(${Math.random() * 120 + 180}, 70%, 60%)`;
+    } else if (currentTheme === 'mood') {
+        // 为心情主题设置多彩的颜色
+        const colors = ['#FF9500', '#FFD700', '#FF6B6B', '#4ECDC4', '#845EC2'];
+        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
     }
     
     // 符号动画
@@ -1144,7 +1186,22 @@ function createSparkles() {
         sparkle.style.fontSize = size + 'px';
         sparkle.style.left = startX + 'vw';
         sparkle.style.top = startY + 'vh';
-        sparkle.style.color = `hsl(${Math.random() * 60 + 40}, 100%, 60%)`;
+        
+        // 根据主题设置不同颜色
+        if (currentTheme === 'romantic') {
+            sparkle.style.color = `hsl(${Math.random() * 20 + 340}, 100%, 60%)`;
+        } else if (currentTheme === 'food') {
+            sparkle.style.color = `hsl(${Math.random() * 60 + 30}, 100%, 60%)`;
+        } else if (currentTheme === 'travel') {
+            sparkle.style.color = `hsl(${Math.random() * 120 + 180}, 100%, 60%)`;
+        } else if (currentTheme === 'mood') {
+            // 为心情主题设置多彩的闪烁颜色
+            const colors = ['#FF9500', '#FFD700', '#FF6B6B', '#4ECDC4', '#845EC2'];
+            sparkle.style.color = colors[Math.floor(Math.random() * colors.length)];
+        } else {
+            // 默认颜色
+            sparkle.style.color = `hsl(${Math.random() * 60 + 40}, 100%, 60%)`;
+        }
         
         // 闪烁动画
         const animation = sparkle.animate([
@@ -1321,11 +1378,14 @@ function spinWheel() {
     // 不再需要特殊调整，因为我们会在停止时根据实际角度计算分区
     const targetAngle = (targetSection * sectionAngle) + (extraRotations * 2 * Math.PI);
     
-    // 初始速度
-    let speed = 0.15;
+    // 生成1-100的随机数用于干预旋转参数
+    const randomFactor = 1 + Math.floor(Math.random() * 100) / 1000; // 1.001-1.1之间的随机因子
+    
+    // 初始速度（添加随机干预）
+    let speed = 0.15 + (Math.random() * 0.05); // 0.15-0.2之间随机
     let currentRotation = 0;
-    const maxSpeed = 0.25;
-    const acceleration = 0.0015;
+    const maxSpeed = 0.25 * randomFactor; // 最大速度添加随机干预
+    const acceleration = 0.0015 * randomFactor; // 加速度添加随机干预
     let startTime = null;
     let isDecelerating = false;
     
@@ -1349,9 +1409,11 @@ function spinWheel() {
         timer.style.display = 'none';
     }
         
-        // 减速阶段
+        // 减速阶段（添加随机干预）
         if (isDecelerating) {
-            speed *= 0.96;
+            // 生成0.95-0.97之间的随机减速系数
+            const decelerationFactor = 0.95 + (Math.random() * 0.02);
+            speed *= decelerationFactor;
             
             if (speed < 0.005) {
                 speed = 0;
@@ -1470,48 +1532,14 @@ function stopWheel(finalRotationAngle) {
     // 切换回静态图片
     switchToStatic();
     
-    // 检查是否已有中奖图片覆盖层，如果有则移除
-    let prizeOverlay = document.getElementById('prizeImageOverlay');
-    if (prizeOverlay) {
-        prizeOverlay.remove();
+    // 移除中奖图片覆盖层（如果存在）
+    const existingOverlay = document.getElementById('prizeImageOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
     }
     
-    // 创建中奖图片覆盖层
-    prizeOverlay = document.createElement('img');
-    prizeOverlay.id = 'prizeImageOverlay';
-    prizeOverlay.style.position = 'absolute';
-    prizeOverlay.style.top = '0';
-    prizeOverlay.style.left = '0';
-    prizeOverlay.style.width = '100%';
-    prizeOverlay.style.height = '100%';
-    prizeOverlay.style.objectFit = 'cover';
-    prizeOverlay.style.borderRadius = '50%';
-    prizeOverlay.style.opacity = '0';
-    prizeOverlay.style.transition = 'opacity 0.5s ease-in-out';
-    
-    // 设置中奖图片
-    if (result) {
-        const resultImage = result.imageUrl || result.image;
-        if (resultImage) {
-            prizeOverlay.src = resultImage;
-            
-            // 添加错误处理，图片加载失败时不显示覆盖层
-            prizeOverlay.onerror = function() {
-                console.log('中奖图片加载失败，不显示覆盖层');
-                prizeOverlay.remove();
-            };
-            
-            // 图片加载成功后显示覆盖层
-            prizeOverlay.onload = function() {
-                setTimeout(() => {
-                    prizeOverlay.style.opacity = '1';
-                }, 100); // 轻微延迟以确保图片已完全加载
-            };
-            
-            // 添加覆盖层到centerImage容器
-            centerImage.appendChild(prizeOverlay);
-        }
-    }
+    // 不再创建中奖图片覆盖层，保持显示原来的静态图片
+    // 根据需求3：停止旋转时不使用卡片详情的封面进行展示
     
     // 重新绘制转盘，确保停在最终计算的角度位置
     drawWheel(currentRotation);

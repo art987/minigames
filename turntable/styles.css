@@ -473,12 +473,17 @@
             height: 120px;
             border: 4px solid rgba(255, 255, 255, 0.74);
             box-shadow: 0 0 30px rgba(255, 215, 0, 1);
-            animation: center-pulse 1s infinite alternate;
+            animation: center-pulse 1s infinite alternate, center-rotate 0.5s linear infinite;
         }
         
         @keyframes center-pulse {
             from { transform: translate(-50%, -50%) scale(1); }
             to { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        @keyframes center-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
         
         .pointer-container {
@@ -994,7 +999,7 @@
             }
             
             h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
                 text-shadow: 0 0 10px #d8d8d8;
             }
             
