@@ -155,6 +155,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 brandCard.setAttribute('data-category', category);
                 brandCard.setAttribute('data-description', brand.description);
                 
+                // 创建brandcontent1（上半部分）
+                const brandContent1 = document.createElement('div');
+                brandContent1.className = 'brand-content1';
+                
                 const brandLogo = document.createElement('div');
                 brandLogo.className = 'brand-logo';
                 
@@ -190,21 +194,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 brandName.className = 'brand-name';
                 brandName.textContent = brand.name;
                 
+                const brandFounded = document.createElement('p');
+                brandFounded.className = 'brand-founded';
+                brandFounded.textContent = brand.founded ? `${brand.founded}成立` : '成立时间未知';
+                
                 const brandHonors = document.createElement('p');
                 brandHonors.className = 'brand-description';
                 brandHonors.textContent = brand.honors || '暂无荣誉信息';
                 
+                // 创建右侧内容容器
+                const brandContent1Right = document.createElement('div');
+                brandContent1Right.className = 'brand-content1-right';
+                brandContent1Right.appendChild(brandName);
+                brandContent1Right.appendChild(brandFounded);
+                brandContent1Right.appendChild(brandHonors);
+                
+                // 将左侧logo和右侧内容添加到brandContent1
+                brandContent1.appendChild(brandLogo);
+                brandContent1.appendChild(brandContent1Right);
+                
+                // 创建brandcontent2（下半部分）
+                const brandContent2 = document.createElement('div');
+                brandContent2.className = 'brand-content2';
+                
                 const brandReputation = document.createElement('p');
                 brandReputation.className = 'brand-reputation';
                 brandReputation.textContent = brand.reputation || '暂无口碑信息';
-
-                const brandInfo = document.createElement('div');
-                brandInfo.className = 'brand-info';
-
-                brandInfo.appendChild(brandName);
-                brandInfo.appendChild(brandHonors);
-                brandInfo.appendChild(brandReputation);
-
+                
                 // 添加详情按钮
                 const detailsBtn = document.createElement('button');
                 detailsBtn.className = 'details-btn';
@@ -213,9 +229,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     showBrandDetails(brand);
                 };
                 
-                brandCard.appendChild(brandLogo);
-                brandCard.appendChild(brandInfo);
-                brandCard.appendChild(detailsBtn);
+                // 将口碑信息和详情按钮添加到brandContent2
+                brandContent2.appendChild(brandReputation);
+                brandContent2.appendChild(detailsBtn);
+                
+                // 将两个内容版块添加到brandCard
+                brandCard.appendChild(brandContent1);
+                brandCard.appendChild(brandContent2);
                 
                 brandGrid.appendChild(brandCard);
             });
@@ -275,6 +295,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const brandCard = document.createElement('div');
                     brandCard.className = 'brand-card';
                     
+                    // 创建brandcontent1（上半部分）
+                    const brandContent1 = document.createElement('div');
+                    brandContent1.className = 'brand-content1';
+                    
                     const brandLogo = document.createElement('div');
                     brandLogo.className = 'brand-logo';
                     
@@ -304,25 +328,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     // 默认显示首字母
                     brandLogo.textContent = brand.name.charAt(0);
                     
-                    const brandInfo = document.createElement('div');
-                    brandInfo.className = 'brand-info';
-                    
                     const brandName = document.createElement('h3');
                     brandName.className = 'brand-name';
                     // 高亮搜索词
                     brandName.innerHTML = highlightText(brand.name, query);
                     
+                    const brandFounded = document.createElement('p');
+                    brandFounded.className = 'brand-founded';
+                    brandFounded.innerHTML = highlightText(brand.founded ? `${brand.founded}成立` : '成立时间未知', query);
+                    
                     const brandHonors = document.createElement('p');
                     brandHonors.className = 'brand-description';
                     brandHonors.innerHTML = highlightText(brand.honors || '暂无荣誉信息', query);
                     
+                    // 创建右侧内容容器
+                    const brandContent1Right = document.createElement('div');
+                    brandContent1Right.className = 'brand-content1-right';
+                    brandContent1Right.appendChild(brandName);
+                    brandContent1Right.appendChild(brandFounded);
+                    brandContent1Right.appendChild(brandHonors);
+                    
+                    // 将左侧logo和右侧内容添加到brandContent1
+                    brandContent1.appendChild(brandLogo);
+                    brandContent1.appendChild(brandContent1Right);
+                    
+                    // 创建brandcontent2（下半部分）
+                    const brandContent2 = document.createElement('div');
+                    brandContent2.className = 'brand-content2';
+                    
                     const brandReputation = document.createElement('p');
                     brandReputation.className = 'brand-reputation';
                     brandReputation.innerHTML = highlightText(brand.reputation || '暂无口碑信息', query);
-                    
-                    brandInfo.appendChild(brandName);
-                    brandInfo.appendChild(brandHonors);
-                    brandInfo.appendChild(brandReputation);
                     
                     // 添加详情按钮
                     const detailsBtn = document.createElement('button');
@@ -332,9 +368,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         showBrandDetails(brand);
                     };
                     
-                    brandCard.appendChild(brandLogo);
-                    brandCard.appendChild(brandInfo);
-                    brandCard.appendChild(detailsBtn);
+                    // 将口碑信息和详情按钮添加到brandContent2
+                    brandContent2.appendChild(brandReputation);
+                    brandContent2.appendChild(detailsBtn);
+                    
+                    // 将两个内容版块添加到brandCard
+                    brandCard.appendChild(brandContent1);
+                    brandCard.appendChild(brandContent2);
                     
                     resultsGrid.appendChild(brandCard);
                 }
