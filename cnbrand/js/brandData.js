@@ -1,547 +1,239 @@
 // 品牌数据
 const brandData = {
   "护肤品": [
-    {
-      "name": "戴春林",
-      "logo": "logos/skincare/daichunlin.png",
-      "description": "三百多年历史的传统美妆品牌。",
-      "founded": "1628年",
-      "city": "江苏扬州",
-      "honors": "中国历史文化名品",
-      "reputation": "三百多年历史，传统工艺，产品天然安全，文化底蕴深厚。"
-    },
-    {
-      "name": "孔凤春",
-      "logo": "logos/skincare/kongfengchun.png",
-      "description": "百年历史的老字号护肤品牌。",
-      "founded": "1862年",
-      "city": "浙江杭州",
-      "honors": "中国历史文化名品",
-      "reputation": "百年老字号，传统配方，产品温和有效，深受消费者信赖。"
-    },
-    {
-      "name": "双妹",
-      "logo": "logos/skincare/shuangmei.png",
-      "description": "百年历史的高端护肤品牌，重现东方美。",
-      "founded": "1898年",
-      "city": "上海",
-      "honors": "中国历史文化名品",
-      "reputation": "百年老牌，东方美学代表，产品高端奢华，传承经典配方。"
-    },
-    {
-      "name": "五羊",
-      "logo": "logos/skincare/wuyang.png",
-      "description": "专注于母婴护理的品牌。",
-      "founded": "1920年",
-      "city": "广东广州",
-      "honors": "中国母婴护理知名品牌",
-      "reputation": "百年历史，专注母婴护理，产品温和安全，深受妈妈们信赖。"
-    },
-    {
-      "name": "百雀羚",
-      "logo": "logos/skincare/baiqueling.png",
-      "description": "拥有80多年历史的老牌国货，以草本护肤著称。",
-      "founded": "1931年",
-      "city": "上海",
-      "honors": "中国驰名商标、上海市著名商标",
-      "reputation": "老牌国货典范，产品线丰富，草本配方温和有效，深受各年龄段消费者喜爱。"
-    },
-    {
-      "name": "雅霜",
-      "logo": "logos/skincare/yashuang.png",
-      "description": "传统面霜品牌，具有浓郁的怀旧气息。",
-      "founded": "1932年",
-      "city": "上海",
-      "honors": "中国历史文化名品",
-      "reputation": "经典怀旧面霜，香气独特，滋润效果好，中老年消费者喜爱。"
-    },
-    {
-      "name": "七日香",
-      "logo": "logos/skincare/qirixiang.png",
-      "description": "经典老牌，产品温和滋润。",
-      "founded": "1937年",
-      "city": "广东广州",
-      "honors": "中国老牌护肤名品",
-      "reputation": "老牌国货，产品温和滋润，价格亲民，深受中老年人喜爱。"
-    },
-    {
-      "name": "永芳",
-      "logo": "logos/skincare/yongfang.png",
-      "description": "老牌国货，以珍珠膏闻名。",
-      "founded": "1942年",
-      "city": "新加坡（华人创办）",
-      "honors": "东南亚知名华人品牌",
-      "reputation": "老牌珍珠膏闻名，滋润保湿效果好，深受中老年人喜爱。"
-    },
-    {
-      "name": "万紫千红",
-      "logo": "logos/skincare/wanziqianhong.png",
-      "description": "经典老牌护肤脂，滋润保湿效果好。",
-      "founded": "1950年",
-      "city": "天津",
-      "honors": "中国老牌护肤名品",
-      "reputation": "经典护肤脂，滋润保湿效果极佳，冬季必备，价格亲民。"
-    },
-    {
-      "name": "美加净",
-      "logo": "logos/skincare/maxam.png",
-      "description": "经典国货，以护手霜和面霜闻名。",
-      "founded": "1962年",
-      "city": "上海",
-      "honors": "中国驰名商标",
-      "reputation": "国民级护肤品牌，护手霜和面霜口碑极佳，性价比高。"
-    },
-    {
-      "name": "宫灯",
-      "logo": "logos/skincare/gongdeng.png",
-      "description": "老牌国货，以杏仁蜜闻名。",
-      "founded": "1963年",
-      "city": "上海",
-      "honors": "中国老牌护肤名品",
-      "reputation": "杏仁蜜经典产品，滋润保湿，价格亲民，口碑良好。"
-    },
-    {
-      "name": "欧诗漫",
-      "logo": "logos/skincare/osm.png",
-      "description": "珍珠护肤专家，专注于珍珠美白产品。",
-      "founded": "1967年",
-      "city": "浙江湖州",
-      "honors": "中国珍珠护肤领导品牌",
-      "reputation": "珍珠护肤专家，产品温和有效，美白保湿效果显著。"
-    },
-    {
-      "name": "郁美净",
-      "logo": "logos/skincare/yumeijing.png",
-      "description": "专注于温和护肤，适合各种肤质使用的经典国货品牌。",
-      "founded": "1980年",
-      "city": "天津",
-      "honors": "中国名牌产品、国家免检产品",
-      "reputation": "国民级婴幼儿护肤品，以郁美净儿童霜闻名，温和安全，口碑极佳。"
-    },
-    {
-      "name": "春娟",
-      "logo": "logos/skincare/chunjuan.png",
-      "description": "以黄芪为主要成分的护肤品牌。",
-      "founded": "1980年",
-      "city": "四川成都",
-      "honors": "四川省著名商标",
-      "reputation": "黄芪草本配方，产品温和滋润，适合敏感肌，口碑稳定。"
-    },
-    {
-      "name": "西施美",
-      "logo": "logos/skincare/xishimei.png",
-      "description": "传统中药护肤配方的代表。",
-      "founded": "1980年",
-      "city": "浙江诸暨",
-      "honors": "中国中药护肤知名品牌",
-      "reputation": "传统中药配方，产品温和有效，适合各种肤质。"
-    },
-    {
-      "name": "片仔癀",
-      "logo": "logos/skincare/pianzaihuang.png",
-      "description": "中药护肤专家，具有祛痘功效。",
-      "founded": "1980年",
-      "city": "福建漳州",
-      "honors": "中国驰名商标、国家非物质文化遗产",
-      "reputation": "漳州片仔癀为核心成分，祛痘效果显著，口碑极佳。"
-    },
-    {
-      "name": "高姿",
-      "logo": "logos/skincare/gogir.png",
-      "description": "以美白和保湿为主打的护肤品牌。",
-      "founded": "1984年",
-      "city": "上海",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "美白保湿产品效果显著，性价比高，深受消费者喜爱。"
-    },
-    {
-      "name": "安安",
-      "logo": "logos/skincare/an'an.png",
-      "description": "平价而有效的护肤品牌。",
-      "founded": "1985年",
-      "city": "广东佛山",
-      "honors": "广东省著名商标",
-      "reputation": "平价路线，产品多样，效果可靠，深受大众喜爱。"
-    },
-    {
-      "name": "隆力奇",
-      "logo": "logos/skincare/longrich.png",
-      "description": "多元化的日化品牌，产品线丰富。",
-      "founded": "1986年",
-      "city": "江苏常熟",
-      "honors": "中国驰名商标",
-      "reputation": "产品线丰富，从个人护理到家居清洁，性价比高，市场占有率高。"
-    },
-    {
-      "name": "迷奇",
-      "logo": "logos/skincare/micky.png",
-      "description": "出口日本的高品质护肤品牌。",
-      "founded": "1987年",
-      "city": "北京",
-      "honors": "中国出口免检产品",
-      "reputation": "产品品质高，曾出口日本市场，口碑良好，性价比高。"
-    },
-    {
-      "name": "东洋之花",
-      "logo": "logos/skincare/dongyangzhihua.png",
-      "description": "专注于基础护肤的品牌。",
-      "founded": "1992年",
-      "city": "江苏南通",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "基础护肤为主，产品温和有效，价格亲民，适合大众消费。"
-    },
+    
     {
       "name": "精心",
       "logo": "logos/skincare/jingxin.png",
-      "description": "医院研制的护肤品，安全可靠。",
+      "description": "北京协和医院背景，价格实在，效果扎实。尤其推荐“精心硅霜”。",
       "founded": "1992年",
       "city": "北京",
       "honors": "北京协和医院研制",
-      "reputation": "北京协和医院研制，产品安全可靠，针对敏感肌，口碑极佳。"
-    },
-    {
-      "name": "馥珮",
-      "logo": "logos/skincare/fupei.png",
-      "description": "结合草本精华的护肤和个人护理品牌。",
-      "founded": "1993年",
-      "city": "广西柳州",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "草本配方，产品温和有效，个人护理系列丰富。"
-    },
-    {
-      "name": "兰亭",
-      "logo": "logos/skincare/lanting.png",
-      "description": "专注于天然成分的护肤品牌。",
-      "founded": "1993年",
-      "city": "浙江宁波",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "天然成分理念，产品温和安全，价格适中，用户评价好。"
+      "reputation": "北京协和医院背景，价格实在，效果扎实。尤其推荐“精心硅霜”。",
+      "products": [
+        {"name": "精心硅霜", "spec": "100g", "price": "¥25-35元", "feature": "万能霜，保湿隔离，可作妆前"},
+        {"name": "协和维生素E乳", "spec": "100ml", "price": "¥15-20元", "feature": "经典保湿乳液，身体脸部均可"}
+      ]
     },
     {
       "name": "标婷",
       "logo": "logos/skincare/biaoting.png",
-      "description": "医院研制的维生素E乳等产品。",
+      "description": "北京医院研发，维生素E乳是国货经典中的经典，保湿效果一流，价格极致便宜。",
       "founded": "1993年",
       "city": "北京",
       "honors": "北京医院研制",
-      "reputation": "北京医院研制，维生素E乳口碑极佳，滋润保湿，价格亲民。"
+      "reputation": "北京医院研发，维生素E乳是国货经典中的经典，保湿效果一流，价格极致便宜。",
+      "products": [
+        {"name": "标婷维生素E乳", "spec": "100ml", "price": "¥10-15元", "feature": "国货保湿之王，无限回购"}
+      ]
     },
     {
-      "name": "京润",
-      "logo": "logos/skincare/jingrun.png",
-      "description": "珍珠护肤专家，产品天然温和。",
-      "founded": "1994年",
-      "city": "海南海口",
-      "honors": "中国珍珠护肤知名品牌",
-      "reputation": "海南珍珠资源优势，产品天然温和，珍珠美白效果好。"
+      "name": "郁美净",
+      "logo": "logos/skincare/yumeijing.png",
+      "description": "老牌国货，儿童霜陪伴了几代人，保湿滋润，温和不刺激。",
+      "founded": "1980年",
+      "city": "天津",
+      "honors": "中国名牌产品、国家免检产品",
+      "reputation": "老牌国货，儿童霜陪伴了几代人，保湿滋润，温和不刺激。",
+      "products": [
+        {"name": "郁美净儿童霜", "spec": "25g*5袋", "price": "¥10-15元", "feature": "袋装经典，滋润保湿"},
+        {"name": "郁美净儿童霜", "spec": "60g 瓶装", "price": "¥15-20元", "feature": "成分更优，使用更方便"}
+      ]
     },
     {
-      "name": "孩儿面",
-      "logo": "logos/skincare/haiermian.png",
-      "description": "经典儿童护肤品牌，产品可爱有效。",
-      "founded": "1994年",
+      "name": "美加净",
+      "logo": "logos/skincare/maxam.png",
+      "description": "经典品牌，护手霜和面霜产品线丰富，价格便宜，使用感好。",
+      "founded": "1962年",
       "city": "上海",
-      "honors": "中国儿童护理知名品牌",
-      "reputation": "经典儿童面霜，包装可爱，产品温和有效，深受儿童和家长喜爱。"
+      "honors": "中国驰名商标",
+      "reputation": "经典品牌，护手霜和面霜产品线丰富，价格便宜，使用感好。",
+      "products": [
+        {"name": "美加净滋养护手霜", "spec": "80g", "price": "¥10-15元", "feature": "深度滋润，改善粗糙"},
+        {"name": "美加净银耳珍珠滋养霜", "spec": "80g", "price": "¥15-20元", "feature": "高滋润面霜，适合熟龄肌或极干季节"}
+      ]
     },
     {
-      "name": "丁家宜",
-      "logo": "logos/skincare/dingjiayi.png",
-      "description": "专注于美白护肤，产品温和有效。",
-      "founded": "1995年",
-      "city": "苏州",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "以美白产品著称，配方温和，效果显著，深受女性消费者青睐。"
+      "name": "隆力奇",
+      "logo": "logos/skincare/longrich.png",
+      "description": "蛇油护手霜是性价比之王，身体护理产品非常出色。",
+      "founded": "1986年",
+      "city": "江苏常熟",
+      "honors": "中国驰名商标",
+      "reputation": "蛇油护手霜是性价比之王，身体护理产品非常出色。",
+      "products": [
+        {"name": "隆力奇蛇油护手霜", "spec": "150g", "price": "¥10-15元", "feature": "便宜大碗，滋润防裂"},
+        {"name": "隆力奇蛇油膏", "spec": "50g/100g", "price": "¥5-15元", "feature": "针对脚后跟等极度干燥部位"}
+      ]
     },
     {
-      "name": "采诗",
-      "logo": "logos/skincare/caishi.png",
-      "description": "平价护肤品牌，适合学生党使用。",
-      "founded": "1997年",
-      "city": "广东广州",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "平价路线，产品多样，适合年轻消费者，性价比极高。"
+      "name": "春娟",
+      "logo": "logos/skincare/chunjuan.png",
+      "description": "四川老牌，经典产品“黄芪霜”是很多人的祛痘、去痘印神器。",
+      "founded": "1980年",
+      "city": "四川成都",
+      "honors": "四川省著名商标",
+      "reputation": "四川老牌，经典产品“黄芪霜”是很多人的祛痘、去痘印神器。",
+      "products": [
+        {"name": "春娟黄芪霜", "spec": "30g/60g", "price": "¥15-30元", "feature": "经典祛痘、去痘印神器，保湿力强"}
+      ]
     },
     {
-      "name": "佰草集",
-      "logo": "logos/skincare/herborist.png",
-      "description": "高端草本护肤品牌，融合传统中医理念。",
-      "founded": "1998年",
+      "name": "安安",
+      "logo": "logos/skincare/an'an.png",
+      "description": "经典老牌，代表产品“安安粉刺露”和“安安补水霜”，价格几十年如一日地便宜。",
+      "founded": "1985年",
+      "city": "广东佛山",
+      "honors": "广东省著名商标",
+      "reputation": "经典老牌，代表产品“安安粉刺露”和“安安补水霜”，价格几十年如一日地便宜。",
+      "products": [
+        {"name": "安安粉刺露", "spec": "60ml", "price": "¥10-15元", "feature": "经典祛痘水，针对粉刺"},
+        {"name": "安安补水霜", "spec": "50g", "price": "¥10-15元", "feature": "清爽啫喱霜，可作睡眠面膜"}
+      ]
+    },
+    {
+      "name": "启初",
+      "logo": "logos/skincare/qichu.png",
+      "description": "上海家化出品，专为婴幼儿设计，成分温和，敏感肌成人也常用来做基础保湿，口碑爆棚。",
+      "founded": "2013年",
       "city": "上海",
-      "honors": "中国高端护肤品代表品牌",
-      "reputation": "将中国传统草药精华与现代科技完美结合，产品高端定位，品质卓越。"
+      "honors": "上海家化旗下品牌",
+      "reputation": "上海家化出品，专为婴幼儿设计，成分温和，敏感肌成人也常用来做基础保湿，口碑爆棚。",
+      "products": [
+        {"name": "启初婴儿水润/多效倍润面霜", "spec": "40g", "price": "¥30-40元", "feature": "明星产品，修护屏障，温和保湿"}
+      ]
     },
     {
-      "name": "京卫本草",
-      "logo": "logos/skincare/jingweibencao.png",
-      "description": "医院研制的药妆品牌，安全有效。",
-      "founded": "1998年",
-      "city": "北京",
-      "honors": "中国药妆领先品牌",
-      "reputation": "军事医学科学院研制，产品安全有效，针对各种肌肤问题。"
-    },
-    {
-      "name": "美肤宝",
-      "logo": "logos/skincare/meifubao.png",
-      "description": "温和护肤，适合各种肤质。",
-      "founded": "1999年",
-      "city": "广东广州",
-      "honors": "中国化妆品行业知名品牌",
-      "reputation": "产品温和不刺激，适合各种肤质，价格适中，口碑稳定。"
-    },
-    {
-      "name": "青蛙王子",
-      "logo": "logos/skincare/frogprince.png",
-      "description": "儿童护肤专家，产品温和无刺激。",
-      "founded": "1999年",
-      "city": "福建漳州",
-      "honors": "中国儿童护理领导品牌",
-      "reputation": "儿童护理专家，产品温和无刺激，安全可靠，家长信赖。"
-    },
-    {
-      "name": "相宜本草",
-      "logo": "logos/skincare/xiangyibencao.png",
-      "description": "采用中医药理论研制的天然草本护肤品。",
-      "founded": "2000年",
+      "name": "宫灯",
+      "logo": "logos/skincare/gongdeng.png",
+      "description": "经典产品“宫灯杏仁蜜”，清爽好吸收，全身可涂，味道怀旧。",
+      "founded": "1963年",
       "city": "上海",
-      "honors": "中国化妆品行业领军企业",
-      "reputation": "将中医药理念与现代科技结合，产品天然温和，性价比高，口碑良好。"
-    },
-    {
-      "name": "韩束",
-      "logo": "logos/skincare/kanebao.png",
-      "description": "主打补水保湿的现代护肤品牌。",
-      "founded": "2002年",
-      "city": "上海",
-      "honors": "中国化妆品行业影响力品牌",
-      "reputation": "以补水保湿产品为主，科技创新，产品线丰富，年轻消费者喜爱。"
-    },
-    {
-      "name": "法兰琳卡",
-      "logo": "logos/skincare/franic.png",
-      "description": "天然有机护肤理念的代表品牌。",
-      "founded": "2002年",
-      "city": "广东广州",
-      "honors": "中国有机护肤领先品牌",
-      "reputation": "天然有机理念，产品温和安全，深受环保人士喜爱。"
-    },
-    {
-      "name": "贝倍舒",
-      "logo": "logos/skincare/beibeishu.png",
-      "description": "专注于婴幼儿护肤的品牌。",
-      "founded": "2002年",
-      "city": "江苏无锡",
-      "honors": "中国婴幼儿护理知名品牌",
-      "reputation": "专注婴幼儿护肤，产品温和安全，针对婴幼儿肌肤特点研发。"
-    },
-    {
-      "name": "珀莱雅",
-      "logo": "logos/skincare/proya.png",
-      "description": "海洋护肤理念，主打深层补水。",
-      "founded": "2003年",
-      "city": "浙江杭州",
-      "honors": "中国化妆品行业领军企业",
-      "reputation": "海洋护肤理念，产品补水保湿效果好，年轻时尚，口碑良好。"
-    },
-    {
-      "name": "林清轩",
-      "logo": "logos/skincare/forest cabin.png",
-      "description": "以山茶花油为核心成分的高端护肤品牌。",
-      "founded": "2003年",
-      "city": "上海",
-      "honors": "中国高端护肤新锐品牌",
-      "reputation": "山茶花油为核心，产品高端定位，品质卓越，口碑良好。"
-    },
-    {
-      "name": "森宝",
-      "logo": "logos/skincare/senbao.png",
-      "description": "天然植物护肤理念的品牌。",
-      "founded": "2005年",
-      "city": "浙江杭州",
-      "honors": "中国天然护肤新锐品牌",
-      "reputation": "天然植物配方，产品温和安全，环保理念，用户评价好。"
-    },
-    {
-      "name": "润本",
-      "logo": "logos/skincare/runben.png",
-      "description": "温和无刺激，适合敏感肌肤使用。",
-      "founded": "2006年",
-      "city": "广东广州",
-      "honors": "中国母婴护理知名品牌",
-      "reputation": "产品温和无刺激，适合婴幼儿和敏感肌，安全可靠。"
-    },
-    {
-      "name": "御泥坊",
-      "logo": "logos/skincare/yunixiang.png",
-      "description": "以矿物泥面膜闻名的护肤品牌。",
-      "founded": "2006年",
-      "city": "湖南长沙",
-      "honors": "中国面膜行业领导品牌",
-      "reputation": "矿物泥面膜口碑极佳，清洁保湿效果好，年轻人喜爱。"
-    },
-    {
-      "name": "水密码",
-      "logo": "logos/skincare/wetcode.png",
-      "description": "专注于补水保湿的护肤品品牌。",
-      "founded": "2008年",
-      "city": "广东广州",
-      "honors": "中国补水护肤领导品牌",
-      "reputation": "以补水保湿为核心，产品清爽不油腻，深受年轻女性喜爱。"
-    },
-    {
-      "name": "薇诺娜",
-      "logo": "logos/skincare/winona.png",
-      "description": "专注于敏感肌肤护理的医学护肤品牌。",
-      "founded": "2008年",
-      "city": "云南昆明",
-      "honors": "中国医学护肤领导品牌",
-      "reputation": "针对敏感肌肤研发，医学背景强，产品安全有效，口碑极佳。"
-    },
-    {
-      "name": "衡美肤",
-      "logo": "logos/skincare/hengmeifu.png",
-      "description": "平衡肌肤状态的护肤品牌。",
-      "founded": "2010年",
-      "city": "广东广州",
-      "honors": "中国药妆护肤新锐品牌",
-      "reputation": "平衡肌肤理念，产品温和有效，适合问题肌肤使用。"
-    },
-    {
-      "name": "半亩花田",
-      "logo": "logos/skincare/banmuhuatian.png",
-      "description": "以身体护理产品为主的护肤品牌。",
-      "founded": "2010年",
-      "city": "山东济南",
-      "honors": "中国身体护理领先品牌",
-      "reputation": "身体护理产品口碑极佳，尤其是磨砂膏和身体乳，价格适中。"
+      "honors": "中国老牌护肤名品",
+      "reputation": "经典产品“宫灯杏仁蜜”，清爽好吸收，全身可涂，味道怀旧。",
+      "products": [
+        {"name": "宫灯杏仁蜜", "spec": "200ml", "price": "¥10-15元", "feature": "清爽身体乳，夏季必备"}
+      ]
     }
   ],
   "美妆类": [
     {
-      "name": "戴春林",
-      "logo": "logos/cosmetics/daichunlin.png",
-      "description": "三百多年历史的传统美妆品牌。",
-      "founded": "1628年",
-      "city": "江苏扬州",
-      "honors": "中国历史文化名品",
-      "reputation": "三百多年历史，传统工艺，产品天然安全，文化底蕴深厚。"
-    },
-    {
-      "name": "谢馥春",
-      "logo": "logos/cosmetics/xiefuchun.png",
-      "description": "百年历史的传统美妆品牌。",
-      "founded": "1830年",
-      "city": "江苏扬州",
-      "honors": "中国历史文化名品",
-      "reputation": "百年老字号，传统工艺，产品天然安全，文化底蕴深厚。"
-    },
-    {
-      "name": "孔凤春",
-      "logo": "logos/cosmetics/kongfengchun.png",
-      "description": "传统国货美妆品牌，有悠久历史。",
-      "founded": "1862年",
-      "city": "浙江杭州",
-      "honors": "中国历史文化名品",
-      "reputation": "百年老字号，传统配方，产品温和有效，深受消费者信赖。"
-    },
-    {
-      "name": "霞飞",
-      "logo": "logos/cosmetics/xiafei.png",
-      "description": "老牌彩妆品牌，经典回归。",
-      "founded": "1985年",
-      "city": "上海",
-      "honors": "中国老牌彩妆名品",
-      "reputation": "老牌回归，经典产品，价格亲民，品质可靠。"
-    },
-    {
-      "name": "毛戈平",
-      "logo": "logos/cosmetics/maogeping.png",
-      "description": "高端专业彩妆品牌，品质卓越。",
-      "founded": "2000年",
-      "city": "浙江杭州",
-      "honors": "中国高端彩妆领导品牌",
-      "reputation": "专业彩妆大师创办，产品品质卓越，适合专业化妆师和高端消费者。"
-    },
-    {
-      "name": "火烈鸟",
-      "logo": "logos/cosmetics/huolieniao.png",
-      "description": "以睫毛膏闻名的彩妆品牌。",
-      "founded": "2000年",
-      "city": "上海",
-      "honors": "中国睫毛膏领导品牌",
-      "reputation": "睫毛膏口碑极佳，浓密纤长效果好，价格亲民。"
-    },
-    {
-      "name": "深蓝",
-      "logo": "logos/cosmetics/shenlan.png",
-      "description": "专业彩妆品牌，品质可靠。",
-      "founded": "2000年",
-      "city": "上海",
-      "honors": "中国专业彩妆领先品牌",
-      "reputation": "专业彩妆，品质可靠，色彩饱满，适合专业化妆需求。"
-    },
-    {
       "name": "卡姿兰",
       "logo": "logos/cosmetics/kazilan.png",
-      "description": "知名彩妆品牌，产品线全面。",
+      "description": "国民彩妆品牌，产品线齐全，性价比高。",
       "founded": "2001年",
       "city": "广东深圳",
       "honors": "中国彩妆行业领军企业",
-      "reputation": "产品线全面，色彩丰富，性价比高，市场占有率高。"
-    },
-    {
-      "name": "ZFC",
-      "logo": "logos/cosmetics/zfc.png",
-      "description": "专业彩妆品牌，适合化妆师使用。",
-      "founded": "2004年",
-      "city": "广东深圳",
-      "honors": "中国专业彩妆知名品牌",
-      "reputation": "专业彩妆，品质可靠，适合化妆师和专业场合使用。"
-    },
-    {
-      "name": "俏美人",
-      "logo": "logos/cosmetics/qiaomeiren.png",
-      "description": "平价彩妆品牌，性价比高。",
-      "founded": "2005年",
-      "city": "广东广州",
-      "honors": "中国平价彩妆知名品牌",
-      "reputation": "平价路线，产品多样，适合学生党和年轻消费者。"
+      "reputation": "国民彩妆品牌，产品线齐全，性价比高。",
+      "products": [
+        {"name": "大眼睛浓卷丰1号双头睫毛膏", "spec": "支", "price": "¥80-100元", "feature": "经典畅销款，能刷出浓密卷翘的效果"},
+        {"name": "水吻唇膏 (小辣椒)", "spec": "支", "price": "¥70-90元", "feature": "经典口红系列，色号齐全，质地滋润"},
+        {"name": "丝绒持妆粉底液", "spec": "30ml", "price": "¥100-130元", "feature": "平价好用的粉底液，遮瑕和控油能力不错"}
+      ]
     },
     {
       "name": "玛丽黛佳",
       "logo": "logos/cosmetics/malidaidai.png",
-      "description": "创新彩妆品牌，注重产品体验。",
+      "description": "富有艺术感的国产彩妆，色彩大胆，设计新颖。",
       "founded": "2006年",
       "city": "上海",
       "honors": "中国彩妆行业创新品牌",
-      "reputation": "产品创新，体验感好，包装设计独特，年轻消费者喜爱。"
+      "reputation": "富有艺术感的国产彩妆，色彩大胆，设计新颖。",
+      "products": [
+        {"name": "多米诺眼影", "spec": "颗", "price": "¥20-40元/颗", "feature": "单色眼影，粉质细腻，可自由组合，性价比极高"},
+        {"name": "先锋眼线笔", "spec": "支", "price": "¥50-70元", "feature": "笔触流畅，出水均匀，防晕染效果好"},
+        {"name": "国风复刻唇釉", "spec": "支", "price": "¥70-90元", "feature": "包装极具中国特色，质地多样，色彩饱和"}
+      ]
     },
     {
-      "name": "兰瑟",
-      "logo": "logos/cosmetics/lanse.png",
-      "description": "中高端彩妆品牌，产品质感好。",
-      "founded": "2006年",
-      "city": "广东深圳",
-      "honors": "中国中高端彩妆知名品牌",
-      "reputation": "中高端定位，产品质感好，持久度高，适合成熟女性。"
+      "name": "火烈鸟",
+      "logo": "logos/cosmetics/huolieniao.png",
+      "description": "经典老牌，以眼妆产品闻名，性价比之王。",
+      "founded": "2000年",
+      "city": "上海",
+      "honors": "中国睫毛膏领导品牌",
+      "reputation": "经典老牌，以眼妆产品闻名，性价比之王。",
+      "products": [
+        {"name": "精细入微眼线笔", "spec": "支", "price": "¥20-30元", "feature": "明星产品，笔尖极细，适合画内眼线和精细线条，口碑爆棚"},
+        {"name": "魔力纤长睫毛膏", "spec": "支", "price": "¥25-40元", "feature": "经典组合（白色纤维+黑色膏体），能刷出纤长效果"}
+      ]
+    },
+    {
+      "name": "卡婷",
+      "logo": "logos/cosmetics/kating.png",
+      "description": "以国风雕花口红出圈，包装精美。",
+      "founded": "2017年",
+      "city": "广东广州",
+      "honors": "中国国风彩妆知名品牌",
+      "reputation": "以国风雕花口红出圈，包装精美。",
+      "products": [
+        {"name": "长相思雕花口红", "spec": "支", "price": "¥80-100元", "feature": "品牌代表作，膏体有精美雕花，质地顺滑，色号多为中国风"},
+        {"name": "气垫BB霜", "spec": "盒", "price": "¥100-120元", "feature": "包装华丽，妆感轻薄，适合日常通勤"}
+      ]
     },
     {
       "name": "凯芙兰",
       "logo": "logos/cosmetics/kaifulan.png",
-      "description": "时尚彩妆品牌，产品色彩丰富。",
+      "description": "卡姿兰旗下年轻潮妆品牌。",
       "founded": "2008年",
       "city": "广东深圳",
       "honors": "中国时尚彩妆知名品牌",
-      "reputation": "时尚色彩，产品丰富，适合年轻女性，性价比高。"
+      "reputation": "卡姿兰旗下年轻潮妆品牌。",
+      "products": [
+        {"name": "水吻冰唇釉", "spec": "支", "price": "¥70-90元", "feature": "镜面唇釉，成膜后水光感强，色彩鲜艳"},
+        {"name": "萌趣控油粉饼", "spec": "盒", "price": "¥90-110元", "feature": "包装可爱，粉质细腻，控油定妆效果好"}
+      ]
     },
     {
-      "name": "稚优泉",
-      "logo": "logos/cosmetics/zhiyouquan.png",
-      "description": "年轻时尚的彩妆品牌，性价比高。",
-      "founded": "2010年",
+      "name": "霞飞",
+      "logo": "logos/cosmetics/xiafei.png",
+      "description": "经典老牌复出，极致平价，学生党挚爱。",
+      "founded": "1985年",
       "city": "上海",
-      "honors": "中国新锐彩妆品牌",
-      "reputation": "年轻时尚，价格亲民，产品更新快，深受学生党和年轻女性喜爱。"
+      "honors": "中国老牌彩妆名品",
+      "reputation": "经典老牌复出，极致平价，学生党挚爱。",
+      "products": [
+        {"name": "柔光炫色腮红", "spec": "盒", "price": "¥10-15元", "feature": "颜色日常，粉质对得起价格，性价比超高"},
+        {"name": "超细头眉笔", "spec": "支", "price": "¥10-15元", "feature": "笔芯极细，适合勾勒眉流，价格便宜"}
+      ]
+    },
+    {
+      "name": "ZFC",
+      "logo": "logos/cosmetics/zfc.png",
+      "description": "专业彩妆品牌，尤其受影楼和化妆师喜爱。",
+      "founded": "2004年",
+      "city": "广东深圳",
+      "honors": "中国专业彩妆知名品牌",
+      "reputation": "专业彩妆品牌，尤其受影楼和化妆师喜爱。",
+      "products": [
+        {"name": "完美遮瑕粉底膏", "spec": "盒", "price": "¥30-50元", "feature": "遮瑕力强，妆感较重，适合舞台、摄影等专业场合"},
+        {"name": "艺术家眼影", "spec": "色", "price": "¥15-30元/色", "feature": "单色眼影，显色度强，色号齐全"}
+      ]
+    },
+    {
+      "name": "兰瑟",
+      "logo": "logos/cosmetics/lanse.png",
+      "description": "大众彩妆品牌。",
+      "founded": "2006年",
+      "city": "广东深圳",
+      "honors": "中国彩妆知名品牌",
+      "reputation": "大众彩妆品牌。",
+      "products": [
+        {"name": "纯净之心唇釉", "spec": "支", "price": "¥60-80元", "feature": "哑光丝绒质地，上嘴舒适，颜色持久"}
+      ]
+    },
+    {
+      "name": "俏美人",
+      "logo": "logos/cosmetics/qiaomeiren.png",
+      "description": "主打极致性价比的彩妆品牌。",
+      "founded": "2005年",
+      "city": "广东广州",
+      "honors": "中国平价彩妆知名品牌",
+      "reputation": "主打极致性价比的彩妆品牌。",
+      "products": [
+        {"name": "各类化妆刷", "spec": "支", "price": "¥10-30元/支", "feature": "刷具性价比高，是新手入门的不错选择"},
+        {"name": "口红、眼影盘", "spec": "个", "price": "¥20-50元", "feature": "产品价格非常低廉，适合预算极其有限或想尝新的人群"}
+      ]
     }
   ],
   "洗发水": [

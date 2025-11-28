@@ -14,11 +14,10 @@ body {
 
 /* 头部样式 */
 .header {
-    background: linear-gradient(
-130deg, #fd4b4b, #d00332);
+    background: linear-gradient(130deg, #f83b3b, #aa0404);
     color: white;
     padding: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgb(56 56 56 / 9%);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -27,7 +26,7 @@ body {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 19px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,6 +36,11 @@ body {
     font-size: 28px;
     font-weight: 700;
     white-space: nowrap;
+    display: block;
+    color: #fff0f0;
+    width: 100px;
+    text-shadow: 3px 2px 0px #ae0000;
+    float: left;
 }
 
 .search-box {
@@ -45,7 +49,9 @@ body {
     background: white;
     border-radius: 25px;
     overflow: hidden;
-    margin: 0 20px;
+    border: 2px solid #ffdbdb;
+    height: 43px;
+    margin-left: 18px;
 }
 
 .search-input {
@@ -54,10 +60,11 @@ body {
     border: none;
     outline: none;
     font-size: 16px;
+    width: 64%;
 }
 
 .search-btn {
-    background: #ff6b6b;
+    background: #cf0000;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -72,7 +79,7 @@ body {
 
 /* 主容器布局 */
 .main-container {
-    margin: 20px 0;
+    margin: 0px 0;
     padding: 0;
     display: flex;
     width: 100%;
@@ -83,9 +90,9 @@ body {
     width: 25%;
     background: white;
     box-shadow: 2px 0 10px rgb(147 147 147 / 5%);
-    padding: 20px 10px 50px;
+    padding: 8px 10px 50px;
     position: fixed;
-    top: 115px;
+    top: 67px;
     left: 0;
     height: calc(100vh - 80px);
     z-index: 900;
@@ -93,11 +100,12 @@ body {
 }
 
 .category-title {
-    font-size: 18px;
+    font-size: 15px;
     margin-bottom: 0px;
     color: #000000;
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #c6c6c6;
     padding-bottom: 4px;
+    text-indent: 4px;
 }
 
 .category-list {
@@ -112,8 +120,9 @@ body {
 
 .category-link {
     display: block;
-    padding: 10px 15px;
-    color: #333;
+    padding: 8px 6px;
+    color: #4b4b4b;
+    margin: 6px 0;
     text-decoration: none;
     line-height: 20px;
     border-radius: 6px;
@@ -123,10 +132,12 @@ body {
 
 .category-link:hover,
 .category-link.active {
-    background: #fdfdfd;
-    color: #d91137;
+    background: #f6f6f6;
+    color: #da0707;
     font-weight: bold;
     transform: translateX(5px);
+    border-radius: 0 35px 35px 0;
+    /* position: absolute; */
 }
 
 /* 内容区域样式 */
@@ -153,7 +164,7 @@ body {
 
 /* 品牌分类区域样式 */
 .brand-section {
-    margin-bottom: 40px;
+    margin-bottom: 9px;
 }
 
 .section-title {
@@ -162,7 +173,7 @@ body {
     margin-bottom: 20px;
     padding-bottom: 7px;
     text-indent: 10px;
-    padding-top: 130px;
+    padding-top: 11px;
     border-bottom: 2px solid #eee;
 }
 
@@ -232,21 +243,103 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding-left: 13px;
+    padding-left: 19px;
     text-align: left;
 }
 
 /* 品牌卡片下半部分 */
 .brand-content2 {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* 商品信息容器样式 */
+.brand-products {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* 商品标题样式 */
+.products-title {
+    font-size: 12px;
+    font-weight: normal;
+    color: #e57823;
+    margin: 0px 0 6px 0;
+    background: #f4f4f4;
+    text-align: left;
+    padding: 2px 7px;
+}
+
+/* 商品列表样式 */
+.products-list {
+    list-style: none;
+    padding: 0 4px;
+    margin: 0;
+}
+
+/* 单个商品项样式 */
+.product-item {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 6px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+/* 商品基本信息容器 */
+.product-basic-info {
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+/* 商品各部分样式 */
+.product-name {
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+}
+
+.product-spec,
+.product-price {
+    display: inline-block;
+}
+
+.product-spec {
+    color: #6c757d;
+    margin-right: 8px;
+    background: #e9ecef;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.product-price {
+    color: #dc3545;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.product-feature {
+    color: #a2a2a2;
+    display: block;
+    margin-top: 2px;
+    text-align: left;
+    border-left: 3px solid #ededed;
+    padding-left: 6px;
 }
 
 .brand-name {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 0px;
+    margin-bottom: 1px;
     color: #000000;
     display: inline-block;
 }
@@ -267,7 +360,7 @@ body {
     color: #e20909;
     line-height: 18px;
     letter-spacing: 0px;
-    margin-top: -3px;
+    margin-top: 1px;
     word-break: break-word;
     font-weight: bold;
 }
@@ -315,14 +408,9 @@ body {
 /* 响应式设计 */
 @media (max-width: 1200px) {
     .header-container {
-        flex-direction: column;
-        gap: 15px;
     }
     
     .search-box {
-        width: 100%;
-        max-width: 600px;
-        margin: 0;
     }
     
     .main-container {
@@ -344,7 +432,7 @@ body {
     }
     
     .category-link {
-        padding: 13px 6px;
+        padding: 7px 6px;
         /* white-space: nowrap; */
     }
     
@@ -355,7 +443,7 @@ body {
 
 @media (max-width: 768px) {
     .header {
-        padding: 15px 0;
+        padding: 10px 0;
     }
     
     .site-title {
@@ -363,13 +451,13 @@ body {
     }
     
     .search-input {
-        padding: 10px 15px;
+        padding: 10px 13px;
         font-size: 14px;
     }
     
     .search-btn {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 10px 13px;
+        /* font-size: 14px; */
     }
     
     .main-container {

@@ -217,9 +217,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 const brandContent2 = document.createElement('div');
                 brandContent2.className = 'brand-content2';
                 
+                // 添加品牌口碑（放在商品信息上方）
                 const brandReputation = document.createElement('p');
                 brandReputation.className = 'brand-reputation';
-                brandReputation.textContent = brand.reputation || '暂无口碑信息';
+                brandReputation.textContent = brand.reputation;
+                brandContent2.appendChild(brandReputation);
+                
+                // 添加商品信息（如果有）
+                if (brand.products && brand.products.length > 0) {
+                    const productsContainer = document.createElement('div');
+                    productsContainer.className = 'brand-products';
+                    
+                    const productsTitle = document.createElement('h4');
+                    productsTitle.className = 'products-title';
+                    productsTitle.textContent = '热销商品：';
+                    productsContainer.appendChild(productsTitle);
+                    
+                    const productsList = document.createElement('ul');
+                    productsList.className = 'products-list';
+                    
+                    brand.products.forEach(product => {
+                        const productItem = document.createElement('li');
+                        productItem.className = 'product-item';
+                        
+                        // 创建商品基本信息容器
+                        const productBasicInfo = document.createElement('div');
+                        productBasicInfo.className = 'product-basic-info';
+                        
+                        const productName = document.createElement('span');
+                        productName.className = 'product-name';
+                        productName.textContent = product.name;
+                        
+                        const productSpec = document.createElement('span');
+                        productSpec.className = 'product-spec';
+                        productSpec.textContent = product.spec;
+                        
+                        const productPrice = document.createElement('span');
+                        productPrice.className = 'product-price';
+                        productPrice.textContent = product.price;
+                        
+                        const productFeature = document.createElement('span');
+                        productFeature.className = 'product-feature';
+                        productFeature.textContent = product.feature;
+                        
+                        productBasicInfo.appendChild(productName);
+                        productBasicInfo.appendChild(productSpec);
+                        productBasicInfo.appendChild(productPrice);
+                        productItem.appendChild(productBasicInfo);
+                        productItem.appendChild(productFeature);
+                        productsList.appendChild(productItem);
+                    });
+                    
+                    productsContainer.appendChild(productsList);
+                    brandContent2.appendChild(productsContainer);
+                }
                 
                 // 添加详情按钮
                 const detailsBtn = document.createElement('button');
@@ -229,8 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showBrandDetails(brand);
                 };
                 
-                // 将口碑信息和详情按钮添加到brandContent2
-                brandContent2.appendChild(brandReputation);
+                // 将详情按钮添加到brandContent2
                 brandContent2.appendChild(detailsBtn);
                 
                 // 将两个内容版块添加到brandCard
@@ -353,24 +403,74 @@ document.addEventListener('DOMContentLoaded', function() {
                     brandContent1.appendChild(brandContent1Right);
                     
                     // 创建brandcontent2（下半部分）
-                    const brandContent2 = document.createElement('div');
-                    brandContent2.className = 'brand-content2';
+                const brandContent2 = document.createElement('div');
+                brandContent2.className = 'brand-content2';
+                
+                // 添加品牌口碑（放在商品信息上方）
+                const brandReputation = document.createElement('p');
+                brandReputation.className = 'brand-reputation';
+                brandReputation.innerHTML = highlightText(brand.reputation || '暂无口碑信息', query);
+                brandContent2.appendChild(brandReputation);
+                
+                // 添加商品信息（如果有）
+                if (brand.products && brand.products.length > 0) {
+                    const productsContainer = document.createElement('div');
+                    productsContainer.className = 'brand-products';
                     
-                    const brandReputation = document.createElement('p');
-                    brandReputation.className = 'brand-reputation';
-                    brandReputation.innerHTML = highlightText(brand.reputation || '暂无口碑信息', query);
+                    const productsTitle = document.createElement('h4');
+                    productsTitle.className = 'products-title';
+                    productsTitle.textContent = '热销商品：';
+                    productsContainer.appendChild(productsTitle);
                     
-                    // 添加详情按钮
-                    const detailsBtn = document.createElement('button');
-                    detailsBtn.className = 'details-btn';
-                    detailsBtn.textContent = '详情';
-                    detailsBtn.onclick = function() {
-                        showBrandDetails(brand);
-                    };
+                    const productsList = document.createElement('ul');
+                    productsList.className = 'products-list';
                     
-                    // 将口碑信息和详情按钮添加到brandContent2
-                    brandContent2.appendChild(brandReputation);
-                    brandContent2.appendChild(detailsBtn);
+                    brand.products.forEach(product => {
+                        const productItem = document.createElement('li');
+                        productItem.className = 'product-item';
+                        
+                        // 创建商品基本信息容器
+                        const productBasicInfo = document.createElement('div');
+                        productBasicInfo.className = 'product-basic-info';
+                        
+                        const productName = document.createElement('span');
+                        productName.className = 'product-name';
+                        productName.innerHTML = highlightText(product.name, query);
+                        
+                        const productSpec = document.createElement('span');
+                        productSpec.className = 'product-spec';
+                        productSpec.textContent = product.spec;
+                        
+                        const productPrice = document.createElement('span');
+                        productPrice.className = 'product-price';
+                        productPrice.textContent = product.price;
+                        
+                        const productFeature = document.createElement('span');
+                        productFeature.className = 'product-feature';
+                        productFeature.innerHTML = highlightText(product.feature, query);
+                        
+                        productBasicInfo.appendChild(productName);
+                        productBasicInfo.appendChild(productSpec);
+                        productBasicInfo.appendChild(productPrice);
+                        productItem.appendChild(productBasicInfo);
+                        productItem.appendChild(productFeature);
+                        productsList.appendChild(productItem);
+                    });
+                    
+                    productsContainer.appendChild(productsList);
+                    brandContent2.appendChild(productsContainer);
+                }
+                
+                // 添加详情按钮
+                const detailsBtn = document.createElement('button');
+                detailsBtn.className = 'details-btn';
+                detailsBtn.textContent = '详情';
+                detailsBtn.onclick = function() {
+                    showBrandDetails(brand);
+                };
+                
+                // 将详情按钮添加到brandContent2
+                brandContent2.appendChild(detailsBtn);
                     
                     // 将两个内容版块添加到brandCard
                     brandCard.appendChild(brandContent1);
