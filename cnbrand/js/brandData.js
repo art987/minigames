@@ -197,31 +197,8 @@ const brandData = {
         {"name": "超细头眉笔", "spec": "支", "price": "¥10-15元", "feature": "笔芯极细，适合勾勒眉流，价格便宜"}
       ]
     },
-    {
-      "name": "ZFC",
-      "logo": "logos/cosmetics/zfc.png",
-      "description": "专业彩妆品牌，尤其受影楼和化妆师喜爱。",
-      "founded": "2004年",
-      "city": "广东深圳",
-      "honors": "中国专业彩妆知名品牌",
-      "reputation": "专业彩妆品牌，尤其受影楼和化妆师喜爱。",
-      "products": [
-        {"name": "完美遮瑕粉底膏", "spec": "盒", "price": "¥30-50元", "feature": "遮瑕力强，妆感较重，适合舞台、摄影等专业场合"},
-        {"name": "艺术家眼影", "spec": "色", "price": "¥15-30元/色", "feature": "单色眼影，显色度强，色号齐全"}
-      ]
-    },
-    {
-      "name": "兰瑟",
-      "logo": "logos/cosmetics/lanse.png",
-      "description": "大众彩妆品牌。",
-      "founded": "2006年",
-      "city": "广东深圳",
-      "honors": "中国彩妆知名品牌",
-      "reputation": "大众彩妆品牌。",
-      "products": [
-        {"name": "纯净之心唇釉", "spec": "支", "price": "¥60-80元", "feature": "哑光丝绒质地，上嘴舒适，颜色持久"}
-      ]
-    },
+   
+   
     {
       "name": "俏美人",
       "logo": "logos/cosmetics/qiaomeiren.png",
@@ -233,6 +210,30 @@ const brandData = {
       "products": [
         {"name": "各类化妆刷", "spec": "支", "price": "¥10-30元/支", "feature": "刷具性价比高，是新手入门的不错选择"},
         {"name": "口红、眼影盘", "spec": "个", "price": "¥20-50元", "feature": "产品价格非常低廉，适合预算极其有限或想尝新的人群"}
+      ]
+    },
+    {
+      "name": "诗佩妮",
+      "logo": "",
+      "description": "国产平价彩妆品牌，以高性价比的遮瑕产品著称。",
+      "founded": "2015年",
+      "city": "广东广州",
+      "honors": "国货彩妆性价比标杆",
+      "reputation": "国产平价彩妆品牌，产品好用实惠，深受学生党和彩妆新手喜爱。",
+      "products": [
+        {"name": "老版三色遮瑕", "spec": "盒", "price": "¥46元", "feature": "质地润，不需要任何工具、不需要调色，就用一根手指去拍，黑眼圈的地方用橘色，再用浅肤色覆盖一层，其它瑕疵的地方用深肤色，再用浅肤色盖一层"}
+      ]
+    },
+    {
+      "name": "foreverkey",
+      "logo": "",
+      "description": "国产新锐彩妆品牌，专注于遮瑕产品研发。",
+      "founded": "2020年",
+      "city": "上海",
+      "honors": "国产遮瑕新锐品牌",
+      "reputation": "国产新锐彩妆品牌，产品设计时尚，遮瑕效果出色。",
+      "products": [
+        {"name": "遮瑕", "spec": "盒", "price": "¥39.9元", "feature": "很黏的质地，妆感扒脸，遮瑕力强"}
       ]
     }
   ],
