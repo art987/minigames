@@ -4,7 +4,7 @@ const brandData = {
     
     {
       "name": "精心",
-      "logo": "logos/skincare/jingxin.png",
+      "logo": "logos/skincare/jingxin.jpg",
       "description": "北京协和医院背景，价格实在，效果扎实。尤其推荐“精心硅霜”。",
       "founded": "1992年",
       "city": "北京",
@@ -17,7 +17,7 @@ const brandData = {
     },
     {
       "name": "标婷",
-      "logo": "logos/skincare/biaoting.png",
+      "logo": "logos/skincare/biaoting.jpg",
       "description": "北京医院研发，维生素E乳是国货经典中的经典，保湿效果一流，价格极致便宜。",
       "founded": "1993年",
       "city": "北京",
@@ -42,7 +42,7 @@ const brandData = {
     },
     {
       "name": "美加净",
-      "logo": "logos/skincare/maxam.png",
+      "logo": "logos/skincare/meijiajing.png",
       "description": "经典品牌，护手霜和面霜产品线丰富，价格便宜，使用感好。",
       "founded": "1962年",
       "city": "上海",
@@ -55,7 +55,7 @@ const brandData = {
     },
     {
       "name": "隆力奇",
-      "logo": "logos/skincare/longrich.png",
+      "logo": "logos/skincare/longliqi.png",
       "description": "蛇油护手霜是性价比之王，身体护理产品非常出色。",
       "founded": "1986年",
       "city": "江苏常熟",
@@ -80,7 +80,7 @@ const brandData = {
     },
     {
       "name": "安安",
-      "logo": "logos/skincare/an'an.png",
+      "logo": "logos/skincare/anan.png",
       "description": "经典老牌，代表产品“安安粉刺露”和“安安补水霜”，价格几十年如一日地便宜。",
       "founded": "1985年",
       "city": "广东佛山",
@@ -240,110 +240,154 @@ const brandData = {
     {
       "name": "霸王",
       "logo": "logos/shampoo/bawang.png",
-      "description": "专注于防脱发和乌发的洗护品牌。",
+      "description": "防脱发领域的国民品牌，主打中草药\"育发防脱\"概念。",
       "founded": "1928年",
       "city": "广东广州",
       "honors": "中国防脱发领导品牌",
-      "reputation": "中药配方，防脱发效果好，口碑极佳，深受中老年消费者喜爱。"
+      "reputation": "中药配方，防脱发效果好，口碑极佳，深受中老年消费者喜爱。",
+      "products": [
+        {"name": "霸王生姜洗发水", "spec": "1L", "price": "¥40-50元", "feature": "品牌最经典的产品，浓郁的生姜味，主打防脱、控油、强韧发根。"},
+        {"name": "霸王育发防脱发液", "spec": "60ml", "price": "¥60-80元", "feature": "配合洗发水使用，滴在头皮上按摩，是品牌的核心防脱精华产品。"}
+      ]
     },
     {
       "name": "章华",
       "logo": "logos/shampoo/zhanghua.png",
-      "description": "专注于染发和护发的品牌。",
+      "description": "专业染发剂品牌，在染发、护发领域有多年历史。",
       "founded": "1981年",
       "city": "浙江温州",
       "honors": "中国染发行业领军企业",
-      "reputation": "染发产品品质卓越，温和不刺激，口碑极佳。"
+      "reputation": "染发产品品质卓越，温和不刺激，口碑极佳。",
+      "products": [
+        {"name": "章华生态焗油染发霜", "spec": "盒", "price": "¥30-50元", "feature": "植物染发，颜色选择多，是很多中老年人信赖的染发产品。"},
+        {"name": "章华汉草精华护发素", "spec": "500ml", "price": "¥15-25元", "feature": "滋养型护发素，配合染发使用。"}
+      ]
     },
     {
       "name": "蜂花",
       "logo": "logos/shampoo/fenghua.png",
-      "description": "经典国货洗护发品牌，以护发素闻名。",
+      "description": "国民老牌，极致性价比的代名词，成分党新宠。",
       "founded": "1985年",
       "city": "上海",
       "honors": "中国名牌产品",
-      "reputation": "经典老牌，产品温和有效，价格亲民，护发素口碑极佳。"
+      "reputation": "经典老牌，产品温和有效，价格亲民，护发素口碑极佳。",
+      "products": [
+        {"name": "蜂花无硅油健发洗发露", "spec": "750ml", "price": "¥25-35元", "feature": "无硅油配方，清爽控油，搭配护发素使用，是很多人的\"洗护黄金搭档\"。"},
+        {"name": "蜂花小麦蛋白护发素", "spec": "1L", "price": "¥20-25元", "feature": "经典中的经典，便宜大碗，用于发中至发尾，柔顺不打结，可做水疗发膜。"},
+        {"name": "蜂花啤酒花生姜健发洗发露", "spec": "750ml", "price": "¥25-35元", "feature": "主打生姜和啤酒花，宣称有防脱固发效果，是热销的防脱系列。"}
+      ]
     },
     {
       "name": "好迪",
       "logo": "logos/shampoo/haodi.png",
-      "description": "知名洗护发品牌，以焗油膏闻名。",
+      "description": "大家好才是真的好家喻户晓，经典老牌。",
       "founded": "1992年",
       "city": "广东广州",
       "honors": "中国焗油膏领导品牌",
-      "reputation": "焗油膏效果好，深层滋养，价格亲民，口碑极佳。"
+      "reputation": "焗油膏效果好，深层滋养，价格亲民，口碑极佳。",
+      "products": [
+        {"name": "好迪去屑止痒洗发水", "spec": "750ml", "price": "¥25-35元", "feature": "经典去屑系列，是很多家庭的长期选择。"},
+        {"name": "好迪人参精华护发素", "spec": "750ml", "price": "¥20-30元", "feature": "滋养型护发素，改善发质。"}
+      ]
     },
     {
       "name": "蒂花之秀",
       "logo": "logos/shampoo/dihuazhixiu.png",
-      "description": "时尚洗护发品牌，产品线全面。",
+      "description": "经典老牌，产品线丰富，价格实惠。",
       "founded": "1993年",
       "city": "广东汕头",
       "honors": "中国洗护行业知名品牌",
-      "reputation": "产品线全面，适合各种发质，价格适中，年轻消费者喜爱。"
+      "reputation": "产品线全面，适合各种发质，价格适中，年轻消费者喜爱。",
+      "products": [
+        {"name": "蒂花之秀去屑止痒洗发水", "spec": "750ml", "price": "¥25-35元", "feature": "经典去屑系列，针对头屑头痒问题。"},
+        {"name": "蒂花之秀焗油膏", "spec": "500g", "price": "¥15-25元", "feature": "深层滋养，修复干枯发质，是很多人的家庭护理选择。"}
+      ]
     },
     {
       "name": "康王",
       "logo": "logos/shampoo/kangwang.png",
-      "description": "专注于去屑的洗护品牌。",
+      "description": "药用去屑品牌，属于药品，需在药店购买。",
       "founded": "1993年",
       "city": "云南昆明",
       "honors": "中国去屑领导品牌",
-      "reputation": "去屑效果显著，专业可靠，深受头屑困扰者喜爱。"
+      "reputation": "去屑效果显著，专业可靠，深受头屑困扰者喜爱。",
+      "products": [
+        {"name": "康王酮康唑洗剂", "spec": "50ml/100ml", "price": "¥20-40元", "feature": "针对顽固性头屑、脂溢性皮炎，效果显著，但需遵医嘱或按说明书使用，不可长期作为日常洗发水。"}
+      ]
     },
     {
       "name": "索芙特",
       "logo": "logos/shampoo/suofute.png",
-      "description": "专注于功能性洗护的品牌。",
+      "description": "老牌日化，曾以\"防脱\"概念闻名。",
       "founded": "1993年",
       "city": "广西梧州",
       "honors": "中国功能性洗护知名品牌",
-      "reputation": "功能性强，效果明显，价格适中，口碑良好。"
+      "reputation": "功能性强，效果明显，价格适中，口碑良好。",
+      "products": [
+        {"name": "索芙特防脱育发洗发水", "spec": "400ml", "price": "¥40-60元", "feature": "品牌核心产品，主打防脱育发。"}
+      ]
     },
     {
       "name": "澳宝",
       "logo": "logos/shampoo/aobao.png",
-      "description": "专注于香氛洗护的品牌。",
+      "description": "经典国货，以其\"一分钟焗油\"发膜闻名。",
       "founded": "1994年",
       "city": "广东珠海",
       "honors": "中国香氛洗护知名品牌",
-      "reputation": "香氛持久，洗护效果好，价格适中，深受年轻女性喜爱。"
+      "reputation": "香氛持久，洗护效果好，价格适中，深受年轻女性喜爱。",
+      "products": [
+        {"name": "澳宝一分钟焗油", "spec": "500ml", "price": "¥20-30元", "feature": "品牌王牌产品，快速滋养，柔顺效果立竿见影，是很多人的家庭常备品。"}
+      ]
     },
     {
       "name": "舒蕾",
       "logo": "logos/shampoo/shulei.png",
-      "description": "专注于秀发护理的品牌。",
+      "description": "主打\"山茶花\"等植物精华，以滋养修护闻名。",
       "founded": "1996年",
       "city": "湖北武汉",
       "honors": "中国秀发护理知名品牌",
-      "reputation": "秀发护理专业，产品温和有效，价格适中，深受女性消费者喜爱。"
+      "reputation": "秀发护理专业，产品温和有效，价格适中，深受女性消费者喜爱。",
+      "products": [
+        {"name": "舒蕾山茶花焗油修护洗发露", "spec": "650ml", "price": "¥30-40元", "feature": "明星产品，山茶花香味，针对干枯受损发质，滋养效果显著。"},
+        {"name": "舒蕾蚕丝柔顺护发素", "spec": "650ml", "price": "¥25-35元", "feature": "配合使用，让头发顺滑易梳。"}
+      ]
     },
     {
       "name": "飘影",
       "logo": "logos/shampoo/piaoying.png",
-      "description": "时尚洗护发品牌，产品创新。",
+      "description": "经典老牌，主打去屑和清爽。",
       "founded": "1996年",
       "city": "广东汕头",
       "honors": "中国洗护行业创新品牌",
-      "reputation": "产品创新，体验感好，价格适中，年轻消费者喜爱。"
+      "reputation": "产品创新，体验感好，价格适中，年轻消费者喜爱。",
+      "products": [
+        {"name": "飘影去屑洗发水", "spec": "750ml", "price": "¥25-35元", "feature": "经典去屑系列，清凉控油。"}
+      ]
     },
     {
       "name": "花世界",
       "logo": "logos/shampoo/huashijie.png",
-      "description": "专注于女性洗护的品牌。",
+      "description": "经典香水沐浴露品牌。",
       "founded": "1997年",
       "city": "广东广州",
       "honors": "中国女性洗护知名品牌",
-      "reputation": "女性护理专业，温和不刺激，价格适中，深受女性消费者喜爱。"
+      "reputation": "女性护理专业，温和不刺激，价格适中，深受女性消费者喜爱。",
+      "products": [
+        {"name": "花世界香水沐浴露", "spec": "750ml", "price": "¥20-30元", "feature": "香味浓郁持久，是很多人的童年记忆。"}
+      ]
     },
     {
       "name": "迪彩",
       "logo": "logos/shampoo/dicai.png",
-      "description": "专注于染发和护发的品牌。",
+      "description": "专业洗护品牌，在发膜、弹力素等品类有优势。",
       "founded": "1998年",
       "city": "广东广州",
       "honors": "中国染发护发知名品牌",
-      "reputation": "染发产品温和，护发效果好，价格适中，深受消费者信赖。"
+      "reputation": "染发产品温和，护发效果好，价格适中，深受消费者信赖。",
+      "products": [
+        {"name": "迪彩冰海泥发膜", "spec": "500g", "price": "¥30-40元", "feature": "深层清洁，控油蓬松，适合油性发质。"},
+        {"name": "迪彩弹力素", "spec": "150g", "price": "¥15-25元", "feature": "卷发定型必备，能维持卷度，增加弹性，防止毛躁。"}
+      ]
     },
     {
       "name": "柏丽丝",
@@ -357,38 +401,51 @@ const brandData = {
     {
       "name": "拉芳",
       "logo": "logos/shampoo/lafang.png",
-      "description": "知名洗护发品牌，产品多样化。",
+      "description": "爱生活，爱拉芳深入人心，国民品牌。",
       "founded": "1999年",
       "city": "广东汕头",
       "honors": "中国洗护行业领军企业",
-      "reputation": "产品多样化，适合各种发质，价格亲民，市场占有率高。"
+      "reputation": "产品多样化，适合各种发质，价格亲民，市场占有率高。",
+      "products": [
+        {"name": "拉芳水光嘭嘭瓶洗发水", "spec": "550ml", "price": "¥30-40元", "feature": "主打玻尿酸成分，深层补水，适合干枯毛躁发质。"},
+        {"name": "拉芳营养焗油护发素", "spec": "750ml", "price": "¥20-30元", "feature": "经典护发素，柔顺亮泽，性价比高。"}
+      ]
     },
     {
       "name": "滋采",
       "logo": "logos/shampoo/zicai.png",
-      "description": "专注于天然洗护的品牌。",
+      "description": "经典老牌，主打植物精华。",
       "founded": "1999年",
       "city": "广东广州",
       "honors": "中国天然洗护知名品牌",
-      "reputation": "天然配方，温和不刺激，价格亲民，适合全家使用。"
+      "reputation": "天然配方，温和不刺激，价格亲民，适合全家使用。",
+      "products": [
+        {"name": "滋采橄榄油润发精华素", "spec": "750ml", "price": "¥20-30元", "feature": "滋养型护发素，改善干枯。"}
+      ]
     },
     {
       "name": "馥佩",
       "logo": "logos/shampoo/fupei.png",
-      "description": "专注于天然植物洗护的品牌。",
+      "description": "经典国货，产品线涵盖护肤和洗护。",
       "founded": "2000年",
       "city": "广东广州",
       "honors": "中国植物洗护知名品牌",
-      "reputation": "天然植物配方，温和不刺激，适合各种发质，性价比高。"
+      "reputation": "天然植物配方，温和不刺激，适合各种发质，性价比高。",
+      "products": [
+        {"name": "馥珮去屑止痒洗发水", "spec": "750ml", "price": "¥25-35元", "feature": "基础去屑系列，价格便宜。"}
+      ]
     },
     {
       "name": "亮荘",
       "logo": "logos/shampoo/liangzhuang.png",
-      "description": "专注于男士洗护的品牌。",
+      "description": "经典老牌，主打植物护理。",
       "founded": "2000年",
       "city": "广东广州",
       "honors": "中国男士洗护领先品牌",
-      "reputation": "男士洗护专业，控油效果好，价格适中，口碑良好。"
+      "reputation": "男士洗护专业，控油效果好，价格适中，口碑良好。",
+      "products": [
+        {"name": "亮荘人参精华洗发水", "spec": "750ml", "price": "¥25-35元", "feature": "滋养修护，改善干枯发质。"}
+      ]
     },
     {
       "name": "卫新",
@@ -402,20 +459,27 @@ const brandData = {
     {
       "name": "雨洁",
       "logo": "logos/shampoo/yujie.png",
-      "description": "专注于去屑的洗护品牌。",
+      "description": "专注去屑的洗护品牌。",
       "founded": "2001年",
       "city": "广东广州",
       "honors": "中国去屑知名品牌",
-      "reputation": "去屑效果好，价格亲民，性价比高。"
+      "reputation": "去屑效果好，价格亲民，性价比高。",
+      "products": [
+        {"name": "雨洁净屑去油洗发水", "spec": "700ml", "price": "¥30-40元", "feature": "主打去屑控油，是品牌的热销系列。"}
+      ]
     },
     {
       "name": "100年润发",
       "logo": "logos/shampoo/100nianrunfa.png",
-      "description": "专注于中药洗护的品牌。",
+      "description": "纳爱斯旗下品牌，主打中草药护理。",
       "founded": "2003年",
       "city": "浙江杭州",
       "honors": "中国中药洗护知名品牌",
-      "reputation": "中药配方，滋养修护，价格适中，口碑良好。"
+      "reputation": "中药配方，滋养修护，价格适中，口碑良好。",
+      "products": [
+        {"name": "100年润发青丝卫防掉发洗发水", "spec": "750ml", "price": "¥40-50元", "feature": "主打防脱固发，是品牌的热销系列。"},
+        {"name": "100年润发何首乌柔亮洗发水", "spec": "750ml", "price": "¥30-40元", "feature": "何首乌成分，滋养乌发，适合干枯发质。"}
+      ]
     }
   ],
   "奶制品": [

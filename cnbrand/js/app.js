@@ -164,17 +164,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 尝试创建img元素加载logo
                 const logoImg = document.createElement('img');
-                const categoryDir = category === '护肤品' ? 'skincare' : 'other'; // 根据分类确定目录
-                logoImg.src = `images/${categoryDir}/${brand.name}.png`;
+                // 直接使用brandData中的logo路径
+                logoImg.src = brand.logo || '';
                 logoImg.alt = `${brand.name} logo`;
                 logoImg.style.maxWidth = '100%';
                 logoImg.style.maxHeight = '100%';
-                logoImg.style.display = 'none'; // 初始隐藏
                 
                 // 图片加载成功事件
                 logoImg.onload = function() {
-                    logoImg.style.display = 'block';
                     brandLogo.textContent = ''; // 清空首字母
+                    brandLogo.appendChild(logoImg);
                 };
                 
                 // 图片加载失败事件（回退到首字母）
@@ -183,12 +182,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     brandLogo.textContent = initial;
                 };
                 
-                // 添加图片到logo容器
-                brandLogo.appendChild(logoImg);
-                
-                // 如果没有设置回退，默认显示首字母
-                const initial = brand.name.charAt(0);
-                brandLogo.textContent = initial;
+                // 如果有logo路径，直接添加图片元素到容器
+                if (brand.logo) {
+                    brandLogo.appendChild(logoImg);
+                } else {
+                    // 没有logo时显示首字母
+                    const initial = brand.name.charAt(0);
+                    brandLogo.textContent = initial;
+                }
                 
                 const brandName = document.createElement('h3');
                 brandName.className = 'brand-name';
@@ -354,17 +355,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // 尝试创建img元素加载logo
                     const logoImg = document.createElement('img');
-                    const categoryDir = category === '护肤品' ? 'skincare' : 'other'; // 根据分类确定目录
-                    logoImg.src = `images/${categoryDir}/${brand.name}.png`;
+                    // 直接使用brandData中的logo路径
+                    logoImg.src = brand.logo || '';
                     logoImg.alt = `${brand.name} logo`;
                     logoImg.style.maxWidth = '100%';
                     logoImg.style.maxHeight = '100%';
-                    logoImg.style.display = 'none'; // 初始隐藏
                     
                     // 图片加载成功事件
                     logoImg.onload = function() {
-                        logoImg.style.display = 'block';
                         brandLogo.textContent = ''; // 清空首字母
+                        brandLogo.appendChild(logoImg);
                     };
                     
                     // 图片加载失败事件（回退到首字母）
@@ -372,11 +372,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         brandLogo.textContent = brand.name.charAt(0);
                     };
                     
-                    // 添加图片到logo容器
-                    brandLogo.appendChild(logoImg);
-                    
-                    // 默认显示首字母
-                    brandLogo.textContent = brand.name.charAt(0);
+                    // 如果有logo路径，直接添加图片元素到容器
+                    if (brand.logo) {
+                        brandLogo.appendChild(logoImg);
+                    } else {
+                        // 没有logo时显示首字母
+                        brandLogo.textContent = brand.name.charAt(0);
+                    }
                     
                     const brandName = document.createElement('h3');
                     brandName.className = 'brand-name';
@@ -613,6 +615,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const logoImg = document.createElement('img');
         logoImg.src = brand.logo || '';
         logoImg.alt = brand.name + ' logo';
+        logoImg.style.maxWidth = '100%';
+        logoImg.style.maxHeight = '100%';
+        
         logoImg.onload = function() {
             brandLogo.textContent = '';
             brandLogo.appendChild(logoImg);
@@ -621,8 +626,13 @@ document.addEventListener('DOMContentLoaded', function() {
             brandLogo.textContent = brand.name.charAt(0);
         };
         
-        brandLogo.appendChild(logoImg);
-        brandLogo.textContent = brand.name.charAt(0); // 默认显示首字母
+        // 如果有logo路径，直接添加图片元素到容器
+        if (brand.logo) {
+            brandLogo.appendChild(logoImg);
+        } else {
+            // 没有logo时显示首字母
+            brandLogo.textContent = brand.name.charAt(0);
+        }
         
         // 创建品牌名称
         const brandName = document.createElement('h2');
