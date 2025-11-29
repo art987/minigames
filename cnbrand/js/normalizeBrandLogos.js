@@ -3,6 +3,7 @@ const categoryMapping = {
     "护肤品": "skincare",
     "美妆类": "cosmetics",
     "洗发水": "shampoo",
+  "沐浴露": "bath",
     "奶制品": "dairy",
     "饮料": "beverage",
     "调味品": "condiment",

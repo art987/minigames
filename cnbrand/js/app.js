@@ -8,6 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchBtn = document.getElementById('search-btn');
     const searchResults = document.getElementById('search-results');
     
+    // 用于跟踪已加载的分类
+    const loadedCategories = new Set();
+    // 保存所有主分类的顺序
+    const allMainCategories = Object.keys(brandData);
+    // 当前已加载的主分类索引
+    let currentLoadedIndex = 0;
+    // 用于控制滚动时是否更新active状态的标志
+    let isUpdatingActive = false;
+    
     // 添加返回顶部按钮
     function addBackToTopButton() {
         const backToTop = document.createElement('button');
@@ -49,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const backToTopButton = addBackToTopButton();
 
-    // 监听滚动事件，控制返回顶部按钮显示
+    // 监听滚动事件，控制返回顶部按钮显示和上滑加载更多
     function handleScroll() {
         if (window.scrollY > 300) {
             backToTopButton.style.opacity = '1';
@@ -57,24 +66,68 @@ document.addEventListener('DOMContentLoaded', function() {
             backToTopButton.style.opacity = '0';
         }
         
-        // 滚动时更新active分类
-        const sections = document.querySelectorAll('.brand-section');
-        let currentSection = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= sectionTop - 200) {
-                currentSection = section.getAttribute('id');
-            }
-        });
-        
-        if (currentSection) {
-            document.querySelectorAll('.category-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-category') === currentSection) {
-                    link.classList.add('active');
+        // 只有当不是通过点击触发的滚动时，才更新active分类
+        if (!isUpdatingActive) {
+            // 获取屏幕顶部可见区域的判断范围（屏幕顶部到屏幕高度的10%处）
+            const viewportTop = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const viewportCutoff = viewportTop + viewportHeight * 0.1;
+            
+            // 找到所有h3标签（子分类标题）
+            const subCategoryTitles = document.querySelectorAll('h3.sub-section-title');
+            let targetSubCategory = null;
+            
+            // 遍历所有h3标签，找到在屏幕顶部10%范围内的标题
+            subCategoryTitles.forEach(title => {
+                const titleTop = title.getBoundingClientRect().top + window.scrollY;
+                const titleBottom = titleTop + title.offsetHeight;
+                
+                // 如果标题在屏幕顶部的可见区域内（顶部到屏幕10%高度处）
+                if (titleTop <= viewportCutoff && titleBottom >= viewportTop) {
+                    // 获取对应的子分类区域
+                    const subSection = title.closest('.sub-category-section');
+                    if (subSection) {
+                        targetSubCategory = subSection;
+                    }
                 }
             });
+            
+            // 如果找到了新的目标子分类，才更新active状态
+            if (targetSubCategory) {
+                const subCategoryId = targetSubCategory.getAttribute('id');
+                
+                // 检查是否与当前活跃的分类不同
+                const currentActiveLink = document.querySelector('.sub-category-link.active');
+                const currentActiveId = currentActiveLink ? currentActiveLink.getAttribute('data-category') : null;
+                
+                // 只有遇到新的h3标题时才更新active状态
+                if (currentActiveId !== subCategoryId) {
+                    // 移除当前活跃链接的active类
+                    if (currentActiveLink) {
+                        currentActiveLink.classList.remove('active');
+                    }
+                    
+                    // 为新的目标子分类对应的a标签添加active类
+                    const targetLink = document.querySelector(`.sub-category-link[data-category="${subCategoryId}"]`);
+                    if (targetLink) {
+                        targetLink.classList.add('active');
+                    }
+                }
+            }
+        }
+        
+        // 检测是否滚动到页面底部，触发加载更多
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+            loadMoreCategories();
+        }
+    }
+    
+    // 加载更多分类
+    function loadMoreCategories() {
+        // 检查是否还有未加载的主分类
+        if (currentLoadedIndex + 1 < allMainCategories.length) {
+            currentLoadedIndex++;
+            generateMainCategorySection(allMainCategories[currentLoadedIndex]);
         }
     }
     
@@ -83,436 +136,606 @@ document.addEventListener('DOMContentLoaded', function() {
     // 生成分类导航
     function generateCategories() {
         categoryList.innerHTML = '';
-        Object.keys(brandData).forEach(category => {
-            const li = document.createElement('li');
-            li.className = 'category-item';
+        
+        // 遍历所有主分类
+        allMainCategories.forEach(mainCategory => {
+            // 创建主分类项
+            const mainLi = document.createElement('li');
+            mainLi.className = 'category-item main-category';
             
-            const a = document.createElement('a');
-            a.className = 'category-link';
-            a.href = `#${category}`;
-            a.textContent = category;
-            a.setAttribute('data-category', category);
+            const mainA = document.createElement('a');
+            mainA.className = 'category-link main-category-link';
+            mainA.href = `#${mainCategory}`;
+            mainA.textContent = mainCategory;
+            mainA.setAttribute('data-category', mainCategory);
             
-            // 添加点击事件
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // 移除所有active类
-                document.querySelectorAll('.category-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                
-                // 添加当前active类
-                this.classList.add('active');
-                
-                // 滚动到对应分类
-                const section = document.getElementById(category);
-                if (section) {
-                    // 隐藏搜索结果
-                    searchResults.classList.remove('active');
+            // 添加主分类点击事件
+                mainA.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    section.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
+                    // 设置标志，防止滚动时更新active状态
+                    isUpdatingActive = true;
+                    
+                    // 移除所有子分类链接的active类
+                    document.querySelectorAll('.sub-category-link').forEach(link => {
+                        link.classList.remove('active');
                     });
-                }
-            });
+                    
+                    // 检查主分类是否已加载
+                    const section = document.getElementById(mainCategory);
+                    if (!section) {
+                        // 如果未加载，则生成该主分类
+                        generateMainCategorySection(mainCategory);
+                        
+                        // 更新currentLoadedIndex到当前主分类的索引
+                        const categoryIndex = allMainCategories.indexOf(mainCategory);
+                        if (categoryIndex > currentLoadedIndex) {
+                            currentLoadedIndex = categoryIndex;
+                        }
+                    }
+                    
+                    // 滚动到对应主分类
+                    const targetSection = document.getElementById(mainCategory);
+                    if (targetSection) {
+                        // 隐藏搜索结果
+                        searchResults.classList.remove('active');
+                        
+                        targetSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                    
+                    // 滚动动画完成后重新允许滚动更新active状态
+                    setTimeout(() => {
+                        isUpdatingActive = false;
+                    }, 1000); // 1秒后恢复，足够覆盖大多数滚动动画
+                });
             
             // 添加触摸反馈（移动端优化）
-            a.addEventListener('touchstart', function() {
+            mainA.addEventListener('touchstart', function() {
                 this.style.transform = 'scale(0.98)';
             });
             
-            a.addEventListener('touchend', function() {
+            mainA.addEventListener('touchend', function() {
                 this.style.transform = 'scale(1)';
             });
             
-            li.appendChild(a);
-            categoryList.appendChild(li);
+            mainLi.appendChild(mainA);
+            
+            // 创建子分类列表
+            const subCategoryUl = document.createElement('ul');
+            subCategoryUl.className = 'sub-category-list';
+            
+            // 获取当前主分类下的所有子分类
+            const subCategories = Object.keys(brandData[mainCategory]);
+            
+            // 遍历所有子分类
+            subCategories.forEach(subCategory => {
+                const subLi = document.createElement('li');
+                subLi.className = 'category-item sub-category';
+                
+                const subA = document.createElement('a');
+                subA.className = 'category-link sub-category-link';
+                subA.href = `#${mainCategory}-${subCategory}`;
+                subA.textContent = subCategory;
+                subA.setAttribute('data-category', `${mainCategory}-${subCategory}`);
+                subA.setAttribute('data-main-category', mainCategory);
+                subA.setAttribute('data-sub-category', subCategory);
+                
+                // 添加子分类点击事件
+                subA.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 设置标志，防止滚动时更新active状态
+                    isUpdatingActive = true;
+                    
+                    // 移除所有子分类链接的active类
+                    document.querySelectorAll('.sub-category-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    // 添加当前active类
+                    this.classList.add('active');
+                    
+                    // 检查主分类是否已加载
+                    const mainSection = document.getElementById(mainCategory);
+                    if (!mainSection) {
+                        // 如果未加载，则生成该主分类
+                        generateMainCategorySection(mainCategory);
+                    }
+                    
+                    // 滚动到对应子分类
+                    const targetSubSection = document.getElementById(`${mainCategory}-${subCategory}`);
+                    if (targetSubSection) {
+                        // 隐藏搜索结果
+                        searchResults.classList.remove('active');
+                        
+                        targetSubSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                    
+                    // 滚动动画完成后重新允许滚动更新active状态
+                    setTimeout(() => {
+                        isUpdatingActive = false;
+                    }, 1000); // 1秒后恢复，足够覆盖大多数滚动动画
+                });
+                
+                // 添加触摸反馈（移动端优化）
+                subA.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                subA.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                subLi.appendChild(subA);
+                subCategoryUl.appendChild(subLi);
+            });
+            
+            mainLi.appendChild(subCategoryUl);
+            categoryList.appendChild(mainLi);
         });
+    }
+
+    // 创建品牌卡片
+    function createBrandCard(container, brand, mainCategory, subCategory) {
+        const brandCard = document.createElement('div');
+        brandCard.className = 'brand-card';
+        brandCard.setAttribute('data-brand', brand.name);
+        brandCard.setAttribute('data-main-category', mainCategory);
+        brandCard.setAttribute('data-sub-category', subCategory);
+        brandCard.setAttribute('data-description', brand.description || '');
+        
+        // 创建brandcontent1（上半部分）
+        const brandContent1 = document.createElement('div');
+        brandContent1.className = 'brand-content1';
+        
+        const brandLogo = document.createElement('div');
+        brandLogo.className = 'brand-logo';
+        
+        // 尝试创建img元素加载logo
+        const logoImg = document.createElement('img');
+        // 直接使用brandData中的logo路径
+        logoImg.src = brand.logo || '';
+        logoImg.alt = `${brand.name} logo`;
+        logoImg.style.maxWidth = '100%';
+        logoImg.style.maxHeight = '100%';
+        
+        // 图片加载成功事件
+        logoImg.onload = function() {
+            brandLogo.textContent = ''; // 清空首字母
+            brandLogo.appendChild(logoImg);
+        };
+        
+        // 图片加载失败事件（回退到首字母）
+        logoImg.onerror = function() {
+            brandLogo.textContent = brand.name.charAt(0);
+        };
+        
+        // 如果有logo路径，直接添加图片元素到容器
+        if (brand.logo) {
+            brandLogo.appendChild(logoImg);
+        } else {
+            // 没有logo时显示首字母
+            brandLogo.textContent = brand.name.charAt(0);
+        }
+        
+        const brandName = document.createElement('h3');
+        brandName.className = 'brand-name';
+        brandName.textContent = brand.name;
+        
+        const brandFounded = document.createElement('p');
+        brandFounded.className = 'brand-founded';
+        brandFounded.textContent = brand.founded ? `${brand.founded}成立` : '成立时间未知';
+        
+        const brandHonors = document.createElement('p');
+        brandHonors.className = 'brand-description';
+        brandHonors.textContent = brand.honors || '暂无荣誉信息';
+        
+        // 创建右侧内容容器
+        const brandContent1Right = document.createElement('div');
+        brandContent1Right.className = 'brand-content1-right';
+        brandContent1Right.appendChild(brandName);
+        brandContent1Right.appendChild(brandFounded);
+        brandContent1Right.appendChild(brandHonors);
+        
+        // 将左侧logo和右侧内容添加到brandContent1
+        brandContent1.appendChild(brandLogo);
+        brandContent1.appendChild(brandContent1Right);
+        
+        // 创建brandcontent2（下半部分）
+        const brandContent2 = document.createElement('div');
+        brandContent2.className = 'brand-content2';
+        
+        // 添加商品信息（如果有）
+        if (brand.products && brand.products.length > 0) {
+            const productsContainer = document.createElement('div');
+            productsContainer.className = 'brand-products';
+            
+            // 添加品牌口碑 - 移到商品标题前面
+            const brandReputation = document.createElement('p');
+            brandReputation.className = 'brand-reputation';
+            brandReputation.textContent = brand.reputation || '暂无口碑信息';
+            productsContainer.appendChild(brandReputation);
+            
+            const productsTitle = document.createElement('h4');
+            productsTitle.className = 'products-title';
+            productsTitle.textContent = '热销商品：';
+            productsContainer.appendChild(productsTitle);
+            
+            const productsList = document.createElement('ul');
+            productsList.className = 'products-list';
+            
+            brand.products.forEach(product => {
+                const productItem = document.createElement('li');
+                productItem.className = 'product-item';
+                
+                // 创建商品基本信息容器
+                const productBasicInfo = document.createElement('div');
+                productBasicInfo.className = 'product-basic-info';
+                
+                const productName = document.createElement('span');
+                productName.className = 'product-name';
+                productName.textContent = product.name;
+                
+                const productSpec = document.createElement('span');
+                productSpec.className = 'product-spec';
+                productSpec.textContent = product.spec;
+                
+                const productPrice = document.createElement('span');
+                productPrice.className = 'product-price';
+                productPrice.textContent = product.price;
+                
+                productBasicInfo.appendChild(productName);
+                productBasicInfo.appendChild(productSpec);
+                productBasicInfo.appendChild(productPrice);
+                
+                const productFeature = document.createElement('span');
+                productFeature.className = 'product-feature';
+                productFeature.textContent = product.feature;
+                
+                productItem.appendChild(productBasicInfo);
+                productItem.appendChild(productFeature);
+                productsList.appendChild(productItem);
+            });
+            
+            productsContainer.appendChild(productsList);
+            brandContent2.appendChild(productsContainer);
+        } else {
+            // 如果没有商品，仍然显示品牌口碑
+            const brandReputation = document.createElement('p');
+            brandReputation.className = 'brand-reputation';
+            brandReputation.textContent = brand.reputation || '暂无口碑信息';
+            brandContent2.appendChild(brandReputation);
+        }
+        
+        // 添加详情按钮
+        const detailsBtn = document.createElement('button');
+        detailsBtn.className = 'details-btn';
+        detailsBtn.textContent = '详情';
+        detailsBtn.onclick = function() {
+            showBrandDetails(brand);
+        };
+        
+        // 将详情按钮添加到brandContent2
+        brandContent2.appendChild(detailsBtn);
+        
+        // 将两个内容版块添加到brandCard
+        brandCard.appendChild(brandContent1);
+        brandCard.appendChild(brandContent2);
+        
+        container.appendChild(brandCard);
+    }
+
+    // 生成单个主分类的展示区域
+    function generateMainCategorySection(mainCategory) {
+        // 检查主分类是否已加载
+        if (loadedCategories.has(mainCategory)) {
+            return;
+        }
+        
+        const section = document.createElement('section');
+        section.className = 'main-brand-section';
+        section.id = mainCategory;
+        
+        // 主分类标题使用h2标签
+        const sectionTitle = document.createElement('h2');
+        sectionTitle.className = 'main-section-title';
+        sectionTitle.textContent = mainCategory;
+        
+        section.appendChild(sectionTitle);
+        
+        // 获取主分类下的所有子分类
+        const subCategories = Object.keys(brandData[mainCategory]);
+        
+        // 遍历所有子分类
+        subCategories.forEach(subCategory => {
+            const subSection = document.createElement('div');
+            subSection.className = 'sub-category-section';
+            subSection.id = `${mainCategory}-${subCategory}`;
+            
+            // 子分类标题
+            const subSectionTitle = document.createElement('h3');
+            subSectionTitle.className = 'sub-section-title';
+            subSectionTitle.textContent = subCategory;
+            
+            const brandGrid = document.createElement('div');
+            brandGrid.className = 'brand-grid';
+            
+            // 获取子分类下的所有品牌
+            const brands = brandData[mainCategory][subCategory];
+            
+            if (brands && brands.length > 0) {
+                brands.forEach(brand => {
+                    createBrandCard(brandGrid, brand, mainCategory, subCategory);
+                });
+            } else {
+                // 没有品牌数据时显示提示信息
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.textContent = '暂无品牌数据';
+                brandGrid.appendChild(emptyState);
+            }
+            
+            subSection.appendChild(subSectionTitle);
+            subSection.appendChild(brandGrid);
+            section.appendChild(subSection);
+        });
+        
+        brandSections.appendChild(section);
+        
+        // 标记该主分类已加载
+        loadedCategories.add(mainCategory);
+    
+        // 为新加载的部分添加进入动画
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        // 触发重排后设置最终状态
+        setTimeout(() => {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+        }, 50);
     }
 
     // 生成品牌展示区域
     function generateBrandSections() {
         brandSections.innerHTML = '';
+        loadedCategories.clear();
+        currentLoadedIndex = 0;
         
-        Object.keys(brandData).forEach(category => {
-            const section = document.createElement('section');
-            section.className = 'brand-section';
-            section.id = category;
-            
-            const sectionTitle = document.createElement('h2');
-            sectionTitle.className = 'section-title';
-            sectionTitle.textContent = category;
-            
-            const brandGrid = document.createElement('div');
-            brandGrid.className = 'brand-grid';
-            
-            brandData[category].forEach(brand => {
-                const brandCard = document.createElement('div');
-                brandCard.className = 'brand-card';
-                brandCard.setAttribute('data-brand', brand.name);
-                brandCard.setAttribute('data-category', category);
-                brandCard.setAttribute('data-description', brand.description);
-                
-                // 创建brandcontent1（上半部分）
-                const brandContent1 = document.createElement('div');
-                brandContent1.className = 'brand-content1';
-                
-                const brandLogo = document.createElement('div');
-                brandLogo.className = 'brand-logo';
-                
-                // 尝试创建img元素加载logo
-                const logoImg = document.createElement('img');
-                // 直接使用brandData中的logo路径
-                logoImg.src = brand.logo || '';
-                logoImg.alt = `${brand.name} logo`;
-                logoImg.style.maxWidth = '100%';
-                logoImg.style.maxHeight = '100%';
-                
-                // 图片加载成功事件
-                logoImg.onload = function() {
-                    brandLogo.textContent = ''; // 清空首字母
-                    brandLogo.appendChild(logoImg);
-                };
-                
-                // 图片加载失败事件（回退到首字母）
-                logoImg.onerror = function() {
-                    const initial = brand.name.charAt(0);
-                    brandLogo.textContent = initial;
-                };
-                
-                // 如果有logo路径，直接添加图片元素到容器
-                if (brand.logo) {
-                    brandLogo.appendChild(logoImg);
-                } else {
-                    // 没有logo时显示首字母
-                    const initial = brand.name.charAt(0);
-                    brandLogo.textContent = initial;
-                }
-                
-                const brandName = document.createElement('h3');
-                brandName.className = 'brand-name';
-                brandName.textContent = brand.name;
-                
-                const brandFounded = document.createElement('p');
-                brandFounded.className = 'brand-founded';
-                brandFounded.textContent = brand.founded ? `${brand.founded}成立` : '成立时间未知';
-                
-                const brandHonors = document.createElement('p');
-                brandHonors.className = 'brand-description';
-                brandHonors.textContent = brand.honors || '暂无荣誉信息';
-                
-                // 创建右侧内容容器
-                const brandContent1Right = document.createElement('div');
-                brandContent1Right.className = 'brand-content1-right';
-                brandContent1Right.appendChild(brandName);
-                brandContent1Right.appendChild(brandFounded);
-                brandContent1Right.appendChild(brandHonors);
-                
-                // 将左侧logo和右侧内容添加到brandContent1
-                brandContent1.appendChild(brandLogo);
-                brandContent1.appendChild(brandContent1Right);
-                
-                // 创建brandcontent2（下半部分）
-                const brandContent2 = document.createElement('div');
-                brandContent2.className = 'brand-content2';
-                
-                // 添加品牌口碑（放在商品信息上方）
-                const brandReputation = document.createElement('p');
-                brandReputation.className = 'brand-reputation';
-                brandReputation.textContent = brand.reputation;
-                brandContent2.appendChild(brandReputation);
-                
-                // 添加商品信息（如果有）
-                if (brand.products && brand.products.length > 0) {
-                    const productsContainer = document.createElement('div');
-                    productsContainer.className = 'brand-products';
-                    
-                    const productsTitle = document.createElement('h4');
-                    productsTitle.className = 'products-title';
-                    productsTitle.textContent = '热销商品：';
-                    productsContainer.appendChild(productsTitle);
-                    
-                    const productsList = document.createElement('ul');
-                    productsList.className = 'products-list';
-                    
-                    brand.products.forEach(product => {
-                        const productItem = document.createElement('li');
-                        productItem.className = 'product-item';
-                        
-                        // 创建商品基本信息容器
-                        const productBasicInfo = document.createElement('div');
-                        productBasicInfo.className = 'product-basic-info';
-                        
-                        const productName = document.createElement('span');
-                        productName.className = 'product-name';
-                        productName.textContent = product.name;
-                        
-                        const productSpec = document.createElement('span');
-                        productSpec.className = 'product-spec';
-                        productSpec.textContent = product.spec;
-                        
-                        const productPrice = document.createElement('span');
-                        productPrice.className = 'product-price';
-                        productPrice.textContent = product.price;
-                        
-                        const productFeature = document.createElement('span');
-                        productFeature.className = 'product-feature';
-                        productFeature.textContent = product.feature;
-                        
-                        productBasicInfo.appendChild(productName);
-                        productBasicInfo.appendChild(productSpec);
-                        productBasicInfo.appendChild(productPrice);
-                        productItem.appendChild(productBasicInfo);
-                        productItem.appendChild(productFeature);
-                        productsList.appendChild(productItem);
-                    });
-                    
-                    productsContainer.appendChild(productsList);
-                    brandContent2.appendChild(productsContainer);
-                }
-                
-                // 添加详情按钮
-                const detailsBtn = document.createElement('button');
-                detailsBtn.className = 'details-btn';
-                detailsBtn.textContent = '详情';
-                detailsBtn.onclick = function() {
-                    showBrandDetails(brand);
-                };
-                
-                // 将详情按钮添加到brandContent2
-                brandContent2.appendChild(detailsBtn);
-                
-                // 将两个内容版块添加到brandCard
-                brandCard.appendChild(brandContent1);
-                brandCard.appendChild(brandContent2);
-                
-                brandGrid.appendChild(brandCard);
-            });
-            
-            section.appendChild(sectionTitle);
-            section.appendChild(brandGrid);
-            
-            brandSections.appendChild(section);
-        });
+        // 初始只加载第一个主分类
+        if (allMainCategories.length > 0) {
+            generateMainCategorySection(allMainCategories[0]);
+        }
     }
 
     // 实现搜索功能
     function search(query) {
-        query = query.toLowerCase().trim();
+        query = query.trim().toLowerCase();
+        
+        // 如果搜索词为空，则返回
         if (!query) {
             searchResults.classList.remove('active');
             return;
         }
         
-        // 添加搜索加载动画
+        // 清空搜索结果
         searchResults.innerHTML = '';
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'search-loading';
-        loadingDiv.style.cssText = `
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        `;
-        loadingDiv.textContent = '搜索中...';
-        searchResults.appendChild(loadingDiv);
         
-        // 使用setTimeout模拟搜索延迟，提升用户体验
+        // 显示加载动画
+        const loading = document.createElement('div');
+        loading.className = 'search-loading';
+        loading.innerHTML = '<div class="loading-spinner"></div><p>搜索中...</p>';
+        searchResults.appendChild(loading);
+        
+        // 模拟搜索延迟，提高用户体验
         setTimeout(() => {
+            // 清空搜索结果
             searchResults.innerHTML = '';
-            const resultsTitle = document.createElement('h2');
-            resultsTitle.textContent = `"${query}" 的搜索结果`;
-            searchResults.appendChild(resultsTitle);
-        
-        const resultsGrid = document.createElement('div');
-        resultsGrid.className = 'brand-grid';
-        
-        let hasResults = false;
-        
-        // 搜索逻辑
-        Object.keys(brandData).forEach(category => {
-            brandData[category].forEach(brand => {
-                const categoryLower = category.toLowerCase();
-                const brandNameLower = brand.name.toLowerCase();
-                const descriptionLower = brand.description.toLowerCase();
+            
+            const resultsGrid = document.createElement('div');
+            resultsGrid.className = 'brand-grid';
+            
+            let hasResults = false;
+            
+            // 搜索逻辑 - 适配新的数据结构
+            allMainCategories.forEach(mainCategory => {
+                const mainCategoryLower = mainCategory.toLowerCase();
                 
-                if (categoryLower.includes(query) || 
-                    brandNameLower.includes(query) || 
-                    descriptionLower.includes(query)) {
+                // 遍历主分类下的所有子分类
+                Object.keys(brandData[mainCategory]).forEach(subCategory => {
+                    const subCategoryLower = subCategory.toLowerCase();
+                    const brands = brandData[mainCategory][subCategory];
                     
-                    hasResults = true;
-                    
-                    const brandCard = document.createElement('div');
-                    brandCard.className = 'brand-card';
-                    
-                    // 创建brandcontent1（上半部分）
-                    const brandContent1 = document.createElement('div');
-                    brandContent1.className = 'brand-content1';
-                    
-                    const brandLogo = document.createElement('div');
-                    brandLogo.className = 'brand-logo';
-                    
-                    // 尝试创建img元素加载logo
-                    const logoImg = document.createElement('img');
-                    // 直接使用brandData中的logo路径
-                    logoImg.src = brand.logo || '';
-                    logoImg.alt = `${brand.name} logo`;
-                    logoImg.style.maxWidth = '100%';
-                    logoImg.style.maxHeight = '100%';
-                    
-                    // 图片加载成功事件
-                    logoImg.onload = function() {
-                        brandLogo.textContent = ''; // 清空首字母
-                        brandLogo.appendChild(logoImg);
-                    };
-                    
-                    // 图片加载失败事件（回退到首字母）
-                    logoImg.onerror = function() {
-                        brandLogo.textContent = brand.name.charAt(0);
-                    };
-                    
-                    // 如果有logo路径，直接添加图片元素到容器
-                    if (brand.logo) {
-                        brandLogo.appendChild(logoImg);
-                    } else {
-                        // 没有logo时显示首字母
-                        brandLogo.textContent = brand.name.charAt(0);
+                    if (brands && Array.isArray(brands)) {
+                        brands.forEach(brand => {
+                            const brandNameLower = brand.name?.toLowerCase() || '';
+                            const descriptionLower = brand.description?.toLowerCase() || '';
+                            
+                            if (mainCategoryLower.includes(query) || 
+                                subCategoryLower.includes(query) ||
+                                brandNameLower.includes(query) || 
+                                descriptionLower.includes(query)) {
+                                
+                                hasResults = true;
+                                
+                                const brandCard = document.createElement('div');
+                                brandCard.className = 'brand-card';
+                                
+                                // 创建brandcontent1（上半部分）
+                                const brandContent1 = document.createElement('div');
+                                brandContent1.className = 'brand-content1';
+                                
+                                const brandLogo = document.createElement('div');
+                                brandLogo.className = 'brand-logo';
+                                
+                                // 尝试创建img元素加载logo
+                                const logoImg = document.createElement('img');
+                                logoImg.src = brand.logo || '';
+                                logoImg.alt = `${brand.name} logo`;
+                                logoImg.style.maxWidth = '100%';
+                                logoImg.style.maxHeight = '100%';
+                                
+                                // 图片加载成功事件
+                                logoImg.onload = function() {
+                                    brandLogo.textContent = '';
+                                    brandLogo.appendChild(logoImg);
+                                };
+                                
+                                // 图片加载失败事件（回退到首字母）
+                                logoImg.onerror = function() {
+                                    brandLogo.textContent = brand.name.charAt(0);
+                                };
+                                
+                                // 如果有logo路径，直接添加图片元素到容器
+                                if (brand.logo) {
+                                    brandLogo.appendChild(logoImg);
+                                } else {
+                                    // 没有logo时显示首字母
+                                    brandLogo.textContent = brand.name.charAt(0);
+                                }
+                                
+                                const brandName = document.createElement('h3');
+                                brandName.className = 'brand-name';
+                                // 高亮搜索词
+                                brandName.innerHTML = highlightText(brand.name, query);
+                                
+                                const brandFounded = document.createElement('p');
+                                brandFounded.className = 'brand-founded';
+                                brandFounded.innerHTML = highlightText(brand.founded ? `${brand.founded}成立` : '成立时间未知', query);
+                                
+                                const brandHonors = document.createElement('p');
+                                brandHonors.className = 'brand-description';
+                                brandHonors.innerHTML = highlightText(brand.honors || '暂无荣誉信息', query);
+                                
+                                // 创建右侧内容容器
+                                const brandContent1Right = document.createElement('div');
+                                brandContent1Right.className = 'brand-content1-right';
+                                brandContent1Right.appendChild(brandName);
+                                brandContent1Right.appendChild(brandFounded);
+                                brandContent1Right.appendChild(brandHonors);
+                                
+                                // 将左侧logo和右侧内容添加到brandContent1
+                                brandContent1.appendChild(brandLogo);
+                                brandContent1.appendChild(brandContent1Right);
+                                
+                                // 创建brandcontent2（下半部分）
+                                const brandContent2 = document.createElement('div');
+                                brandContent2.className = 'brand-content2';
+                                
+                                // 添加品牌口碑
+                                const brandReputation = document.createElement('p');
+                                brandReputation.className = 'brand-reputation';
+                                brandReputation.innerHTML = highlightText(brand.reputation || '暂无口碑信息', query);
+                                brandContent2.appendChild(brandReputation);
+                                
+                                // 添加商品信息（如果有）
+                                if (brand.products && brand.products.length > 0) {
+                                    const productsContainer = document.createElement('div');
+                                    productsContainer.className = 'brand-products';
+                                    
+                                    const productsTitle = document.createElement('h4');
+                                    productsTitle.className = 'products-title';
+                                    productsTitle.textContent = '热销商品：';
+                                    productsContainer.appendChild(productsTitle);
+                                    
+                                    const productsList = document.createElement('ul');
+                                    productsList.className = 'products-list';
+                                    
+                                    brand.products.forEach(product => {
+                                        const productItem = document.createElement('li');
+                                        productItem.className = 'product-item';
+                                        
+                                        // 创建商品基本信息容器
+                                        const productBasicInfo = document.createElement('div');
+                                        productBasicInfo.className = 'product-basic-info';
+                                        
+                                        const productName = document.createElement('span');
+                                        productName.className = 'product-name';
+                                        productName.innerHTML = highlightText(product.name, query);
+                                        
+                                        const productSpec = document.createElement('span');
+                                        productSpec.className = 'product-spec';
+                                        productSpec.textContent = product.spec;
+                                        
+                                        const productPrice = document.createElement('span');
+                                        productPrice.className = 'product-price';
+                                        productPrice.textContent = product.price;
+                                        
+                                        const productFeature = document.createElement('span');
+                                        productFeature.className = 'product-feature';
+                                        productFeature.innerHTML = highlightText(product.feature, query);
+                                        
+                                        productBasicInfo.appendChild(productName);
+                                        productBasicInfo.appendChild(productSpec);
+                                        productBasicInfo.appendChild(productPrice);
+                                        productItem.appendChild(productBasicInfo);
+                                        productItem.appendChild(productFeature);
+                                        productsList.appendChild(productItem);
+                                    });
+                                    
+                                    productsContainer.appendChild(productsList);
+                                    brandContent2.appendChild(productsContainer);
+                                }
+                                
+                                // 添加详情按钮
+                                const detailsBtn = document.createElement('button');
+                                detailsBtn.className = 'details-btn';
+                                detailsBtn.textContent = '详情';
+                                detailsBtn.onclick = function() {
+                                    showBrandDetails(brand);
+                                };
+                                
+                                // 将详情按钮添加到brandContent2
+                                brandContent2.appendChild(detailsBtn);
+                                
+                                // 将两个内容版块添加到brandCard
+                                brandCard.appendChild(brandContent1);
+                                brandCard.appendChild(brandContent2);
+                                
+                                resultsGrid.appendChild(brandCard);
+                            }
+                        });
                     }
-                    
-                    const brandName = document.createElement('h3');
-                    brandName.className = 'brand-name';
-                    // 高亮搜索词
-                    brandName.innerHTML = highlightText(brand.name, query);
-                    
-                    const brandFounded = document.createElement('p');
-                    brandFounded.className = 'brand-founded';
-                    brandFounded.innerHTML = highlightText(brand.founded ? `${brand.founded}成立` : '成立时间未知', query);
-                    
-                    const brandHonors = document.createElement('p');
-                    brandHonors.className = 'brand-description';
-                    brandHonors.innerHTML = highlightText(brand.honors || '暂无荣誉信息', query);
-                    
-                    // 创建右侧内容容器
-                    const brandContent1Right = document.createElement('div');
-                    brandContent1Right.className = 'brand-content1-right';
-                    brandContent1Right.appendChild(brandName);
-                    brandContent1Right.appendChild(brandFounded);
-                    brandContent1Right.appendChild(brandHonors);
-                    
-                    // 将左侧logo和右侧内容添加到brandContent1
-                    brandContent1.appendChild(brandLogo);
-                    brandContent1.appendChild(brandContent1Right);
-                    
-                    // 创建brandcontent2（下半部分）
-                const brandContent2 = document.createElement('div');
-                brandContent2.className = 'brand-content2';
-                
-                // 添加品牌口碑（放在商品信息上方）
-                const brandReputation = document.createElement('p');
-                brandReputation.className = 'brand-reputation';
-                brandReputation.innerHTML = highlightText(brand.reputation || '暂无口碑信息', query);
-                brandContent2.appendChild(brandReputation);
-                
-                // 添加商品信息（如果有）
-                if (brand.products && brand.products.length > 0) {
-                    const productsContainer = document.createElement('div');
-                    productsContainer.className = 'brand-products';
-                    
-                    const productsTitle = document.createElement('h4');
-                    productsTitle.className = 'products-title';
-                    productsTitle.textContent = '热销商品：';
-                    productsContainer.appendChild(productsTitle);
-                    
-                    const productsList = document.createElement('ul');
-                    productsList.className = 'products-list';
-                    
-                    brand.products.forEach(product => {
-                        const productItem = document.createElement('li');
-                        productItem.className = 'product-item';
-                        
-                        // 创建商品基本信息容器
-                        const productBasicInfo = document.createElement('div');
-                        productBasicInfo.className = 'product-basic-info';
-                        
-                        const productName = document.createElement('span');
-                        productName.className = 'product-name';
-                        productName.innerHTML = highlightText(product.name, query);
-                        
-                        const productSpec = document.createElement('span');
-                        productSpec.className = 'product-spec';
-                        productSpec.textContent = product.spec;
-                        
-                        const productPrice = document.createElement('span');
-                        productPrice.className = 'product-price';
-                        productPrice.textContent = product.price;
-                        
-                        const productFeature = document.createElement('span');
-                        productFeature.className = 'product-feature';
-                        productFeature.innerHTML = highlightText(product.feature, query);
-                        
-                        productBasicInfo.appendChild(productName);
-                        productBasicInfo.appendChild(productSpec);
-                        productBasicInfo.appendChild(productPrice);
-                        productItem.appendChild(productBasicInfo);
-                        productItem.appendChild(productFeature);
-                        productsList.appendChild(productItem);
-                    });
-                    
-                    productsContainer.appendChild(productsList);
-                    brandContent2.appendChild(productsContainer);
-                }
-                
-                // 添加详情按钮
-                const detailsBtn = document.createElement('button');
-                detailsBtn.className = 'details-btn';
-                detailsBtn.textContent = '详情';
-                detailsBtn.onclick = function() {
-                    showBrandDetails(brand);
-                };
-                
-                // 将详情按钮添加到brandContent2
-                brandContent2.appendChild(detailsBtn);
-                    
-                    // 将两个内容版块添加到brandCard
-                    brandCard.appendChild(brandContent1);
-                    brandCard.appendChild(brandContent2);
-                    
-                    resultsGrid.appendChild(brandCard);
-                }
+                });
             });
-        });
-        
-        if (!hasResults) {
-            const noResults = document.createElement('div');
-            noResults.style.cssText = `
-                text-align: center;
-                padding: 60px 20px;
-                color: #666;
-                font-size: 16px;
-            `;
-            noResults.innerHTML = `
-                <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
-                <p>没有找到相关品牌或分类</p>
-                <p style="margin-top: 10px; font-size: 14px;">请尝试使用其他关键词搜索</p>
-            `;
-            searchResults.appendChild(noResults);
-        } else {
-            // 为搜索结果添加进入动画
-            resultsGrid.style.opacity = '0';
-            resultsGrid.style.transition = 'opacity 0.5s ease';
-            searchResults.appendChild(resultsGrid);
-            setTimeout(() => {
-                resultsGrid.style.opacity = '1';
-            }, 100);
-        }
-        
-        searchResults.classList.add('active');
-        
-        // 滚动到搜索结果顶部
-        searchResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        }, 300); // 300ms延迟，让用户感知搜索过程
+            
+            if (!hasResults) {
+                const noResults = document.createElement('div');
+                noResults.style.cssText = `
+                    text-align: center;
+                    padding: 60px 20px;
+                    color: #666;
+                    font-size: 16px;
+                `;
+                noResults.innerHTML = `
+                    <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+                    <p>没有找到相关品牌或分类</p>
+                    <p style="margin-top: 10px; font-size: 14px;">请尝试使用其他关键词搜索</p>
+                `;
+                searchResults.appendChild(noResults);
+            } else {
+                // 为搜索结果添加进入动画
+                resultsGrid.style.opacity = '0';
+                resultsGrid.style.transition = 'opacity 0.5s ease';
+                searchResults.appendChild(resultsGrid);
+                setTimeout(() => {
+                    resultsGrid.style.opacity = '1';
+                }, 100);
+            }
+            
+            searchResults.classList.add('active');
+            
+            // 滚动到搜索结果顶部
+            searchResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+        }, 300);
     }
 
     // 高亮搜索词
@@ -704,10 +927,10 @@ document.addEventListener('DOMContentLoaded', function() {
     generateCategories();
     generateBrandSections();
     
-    // 设置第一个分类为活动状态
-    const firstCategory = document.querySelector('.category-link');
-    if (firstCategory) {
-        firstCategory.classList.add('active');
+    // 默认给第一个子分类添加active类（如果存在）
+    const firstSubCategory = document.querySelector('.sub-category-link');
+    if (firstSubCategory) {
+        firstSubCategory.classList.add('active');
     }
     
     // 初始检查滚动位置

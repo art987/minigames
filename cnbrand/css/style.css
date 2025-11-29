@@ -87,16 +87,16 @@ body {
 
 /* 侧边栏样式 */
 .sidebar {
-    width: 25%;
     background: white;
     box-shadow: 2px 0 10px rgb(147 147 147 / 5%);
     padding: 8px 10px 50px;
     position: fixed;
     top: 67px;
-    left: 0;
+    left: -5px;
     height: calc(100vh - 80px);
     z-index: 900;
     overflow-y: auto;
+    width: 90px;
 }
 
 .category-title {
@@ -106,6 +106,7 @@ body {
     border-bottom: 2px solid #c6c6c6;
     padding-bottom: 4px;
     text-indent: 4px;
+    display: none;
 }
 
 .category-list {
@@ -117,27 +118,25 @@ body {
 .category-item {
     margin-bottom: 8px;
 }
-
+#category-list .main-category-link{font-weight:bold;border-bottom: 2px solid #ccc;font-size: 13px;text-indent: -6px;}
 .category-link {
     display: block;
     padding: 8px 6px;
-    color: #4b4b4b;
+    color: #000000;
     margin: 6px 0;
     text-decoration: none;
     line-height: 20px;
-    border-radius: 6px;
     transition: all 0.3s ease;
     font-size: 15px;
 }
 
-.category-link:hover,
 .category-link.active {
-    background: #f6f6f6;
     color: #da0707;
     font-weight: bold;
     transform: translateX(5px);
     border-radius: 0 35px 35px 0;
     /* position: absolute; */
+    padding-left: 0px;
 }
 
 /* 内容区域样式 */
@@ -258,15 +257,14 @@ body {
 /* 商品信息容器样式 */
 .brand-products {
     width: 100%;
-    margin: 10px 0;
 }
 
 /* 商品标题样式 */
 .products-title {
     font-size: 12px;
     font-weight: normal;
-    color: #e57823;
-    margin: 0px 0 6px 0;
+    color: #646464;
+    margin: 0px 0 4px 0;
     background: #f4f4f4;
     text-align: left;
     padding: 2px 7px;
@@ -328,7 +326,7 @@ body {
 }
 
 .product-feature {
-    color: #a2a2a2;
+    color: #727272;
     display: block;
     margin-top: 2px;
     text-align: left;
@@ -370,7 +368,8 @@ body {
     font-size: 12px;
     color: #050505;
     line-height: 1.4;
-    margin-top: 8px;
+    margin-bottom: 9px;
+    margin-top: 6px;
     word-break: break-word;
     text-align: left;
 }
@@ -417,8 +416,7 @@ body {
         flex-direction: column;
     }
     
-    
-    
+  
     .category-list {
         flex-wrap: wrap;
         gap: 10px;
@@ -432,7 +430,7 @@ body {
     }
     
     .category-link {
-        padding: 7px 6px;
+        padding: 7px 0 7px 9px;
         /* white-space: nowrap; */
     }
     
@@ -660,6 +658,12 @@ body {
 }
 
 /* 信息列表样式 */
+.empty-state{
+    font-size: 12px;
+    line-height: 24px;
+    color: #CCC;
+    text-indent: 11px;
+}
 .info-list {
     display: grid;
     gap: 20px;
@@ -692,6 +696,12 @@ body {
     font-size: 15px;
     color: #555;
     line-height: 1.6;
+}
+  .main-section-title{ display:none;}
+    .sub-section-title{
+    line-height: 55px;
+    text-indent: 12px;
+    padding-top: 69px;
 }
 
 /* 响应式弹窗设计 */
