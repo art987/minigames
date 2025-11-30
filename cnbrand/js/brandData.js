@@ -3,7 +3,7 @@ const brandData = {
     "洗发水": [
       {
         "name": "蜂花",
-        "logo": "logos/shampoo/fenghua.png",
+        "logo": "logos/fenghua.png",
         "description": "国民老牌，极致性价比的代名词，成分简单有效。",
         "founded": "1985年",
         "city": "上海",
@@ -32,7 +32,7 @@ const brandData = {
       },
       {
         "name": "霸王",
-        "logo": "logos/shampoo/bawang.png",
+        "logo": "logos/bawang.png",
         "description": "防脱发领域的国民品牌，主打中草药'育发防脱'概念。",
         "founded": "1989年",
         "city": "广东广州",
@@ -42,7 +42,7 @@ const brandData = {
           {
             "name": "霸王生姜洗发水",
             "spec": "1L",
-            "price": "¥40-50元",
+            "price": "¥22.9-30元",
             "feature": "最经典产品，浓郁生姜味，主打防脱、控油。"
           },
           {
@@ -54,54 +54,8 @@ const brandData = {
         ]
       },
       {
-        "name": "拉芳",
-        "logo": "logos/shampoo/lafang.png",
-        "description": "'爱生活，爱拉芳'深入人心，国民洗护品牌。",
-        "founded": "1992年",
-        "city": "广东汕头",
-        "honors": "中国名牌产品",
-        "reputation": "洗护产品种类丰富，价格适中，消费者喜爱，滋养系列表现优秀。",
-        "products": [
-          {
-            "name": "拉芳水光嘭嘭瓶洗发水",
-            "spec": "550ml",
-            "price": "¥30-40元",
-            "feature": "主打玻尿酸成分，深层补水，适合干枯发质。"
-          },
-          {
-            "name": "拉芳营养焗油护发素",
-            "spec": "750ml",
-            "price": "¥20-30元",
-            "feature": "经典护发素，柔顺亮泽。"
-          }
-        ]
-      },
-      {
-        "name": "蒂花之秀",
-        "logo": "logos/shampoo/dihuazhixiu.png",
-        "description": "经典老牌，产品线丰富，价格实惠。",
-        "founded": "1993年",
-        "city": "广东汕头",
-        "honors": "中国名牌产品",
-        "reputation": "洗护产品种类丰富，价格适中，消费者喜爱，提供非常基础且便宜的去屑选择。",
-        "products": [
-          {
-            "name": "蒂花之秀去屑止痒洗发水",
-            "spec": "750ml",
-            "price": "¥25-35元",
-            "feature": "经典去屑系列，解决头屑头痒问题。"
-          },
-          {
-            "name": "蒂花之秀焗油膏",
-            "spec": "500g",
-            "price": "¥15-25元",
-            "feature": "深层滋养，修复干枯发质。"
-          }
-        ]
-      },
-      {
         "name": "舒蕾",
-        "logo": "logos/shampoo/shulei.png",
+        "logo": "logos/shulei.png",
         "description": "主打'山茶花'等植物精华，以滋养修护闻名。",
         "founded": "1996年",
         "city": "湖北武汉",
@@ -121,142 +75,11 @@ const brandData = {
             "feature": "配合使用，令头发顺滑易梳。"
           }
         ]
-      },
-      {
-        "name": "青蛙王子",
-        "logo": "logos/shampoo/qingwa.png",
-        "description": "专业儿童护理品牌，成分温和，安全可靠。",
-        "founded": "1999年",
-        "city": "福建晋江",
-        "honors": "中国名牌产品",
-        "reputation": "儿童洗护产品温和安全，家长信赖，是儿童专用的专业且安全的选择。",
-        "products": [
-          {
-            "name": "青蛙王子儿童倍润洗发沐浴露",
-            "spec": "500ml",
-            "price": "¥25-35元",
-            "feature": "二合一配方，方便快捷，温和不刺激宝宝眼睛和皮肤。"
-          }
-        ]
-      },
-      {
-        "name": "馥珮",
-        "logo": "logos/shampoo/fupei.png",
-        "description": "经典国货，产品线涵盖护肤和基础洗护。",
-        "founded": "2000年",
-        "city": "广西梧州",
-        "honors": "中国名牌产品",
-        "reputation": "中草药配方，洗护效果好，消费者喜爱，提供非常基础且便宜的去屑选择。",
-        "products": [
-          {
-            "name": "馥珮去屑止痒洗发水",
-            "spec": "750ml",
-            "price": "¥25-35元",
-            "feature": "基础去屑系列，价格非常便宜。"
-          },
-          {
-            "name": "馥珮绵羊油护手霜",
-            "spec": "80g",
-            "price": "¥10-15元",
-            "feature": "经典护手霜，滋润保湿。"
-          }
-        ]
-      },
-      {
-        "name": "高姿",
-        "logo": "logos/shampoo/gaozi.png",
-        "description": "主要为护肤品牌，其最知名的并非洗护发产品。",
-        "founded": "1986年",
-        "city": "上海",
-        "honors": "中国知名护肤品牌",
-        "reputation": "以护肤品为主，尤其是美白防晒产品较为知名。",
-        "products": [
-          {
-            "name": "高姿美白防晒喷雾",
-            "spec": "120g",
-            "price": "¥80-100元",
-            "feature": "品牌明星产品，身体防晒，方便补涂。"
-          }
-        ]
       }
     ]
   },
   "沐浴洁齿": {
     "沐浴露": [
-      {
-        "name": "澳雪",
-        "logo": "logos/bath/aoxue.png",
-        "description": "经典沐浴露品牌，以香氛和清爽肤感闻名。",
-        "founded": "1994年",
-        "city": "广东中山",
-        "honors": "中国名牌产品",
-        "reputation": "沐浴露种类丰富，香氛持久，消费者喜爱。",
-        "products": [
-          {
-            "name": "澳雪经典芬芳沐浴露",
-            "capacity": "1kg",
-            "price": "¥20-30元",
-            "feature": "经典系列，味道清新，留香持久，性价比极高。"
-          },
-          {
-            "name": "澳雪保湿滋润沐浴露",
-            "capacity": "1kg",
-            "price": "¥20-30元",
-            "feature": "添加保湿成分，洗后肌肤不紧绷。"
-          }
-        ]
-      },
-      {
-        "name": "拉芳",
-        "logo": "logos/shampoo/lafang.png",
-        "description": "国民洗护品牌，产品线全面。",
-        "founded": "1992年",
-        "city": "广东汕头",
-        "honors": "中国名牌产品",
-        "reputation": "沐浴露种类丰富，价格适中，消费者喜爱。",
-        "products": [
-          {
-            "name": "拉芳香氛沐浴露",
-            "capacity": "1L",
-            "price": "¥25-35元",
-            "feature": "主打香氛体验，泡沫丰富，清洁力好。"
-          }
-        ]
-      },
-      {
-        "name": "蒂花之秀",
-        "logo": "logos/shampoo/dihuazhixiu.png",
-        "description": "老牌日化，产品实惠。",
-        "founded": "1993年",
-        "city": "广东汕头",
-        "honors": "中国名牌产品",
-        "reputation": "沐浴露种类丰富，价格适中，消费者喜爱。",
-        "products": [
-          {
-            "name": "蒂花之秀滋润保湿沐浴露",
-            "capacity": "750ml",
-            "price": "¥20-30元",
-            "feature": "基础保湿沐浴露，价格亲民。"
-          }
-        ]
-      },
-      {
-        "name": "青蛙王子",
-        "logo": "logos/shampoo/frog.png",
-        "description": "专业儿童护理品牌，成分温和安全。",
-        "founded": "1999年",
-        "city": "福建晋江",
-        "honors": "中国名牌产品",
-        "reputation": "儿童沐浴露温和安全，家长信赖。",
-        "products": [
-          {
-            "name": "青蛙王子儿童洗发沐浴露",
-            "capacity": "500ml",
-            "price": "¥25-35元",
-            "feature": "二合一配方，无泪配方，方便温和，是品牌最核心的产品。"
-          }
-        ]
-      },
       {
         "name": "蜂花",
         "logo": "logos/shampoo/fenghua.png",
@@ -266,20 +89,128 @@ const brandData = {
         "honors": "中国名牌产品",
         "reputation": "沐浴露温和不刺激，价格实惠，消费者喜爱。"
       },
+      
+      
       {
-        "name": "亮莊",
-        "logo": "logos/bath/liangzhuang.png",
-        "description": "经典老牌，主打清凉清爽。",
-        "founded": "1996年",
-        "city": "广东汕头",
-        "honors": "中国名牌产品",
-        "reputation": "沐浴露香氛持久，价格适中，消费者喜爱。",
+        "name": "白云山",
+        "logo": "logos/baiyunshan.png",
+        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
+        "founded": "2010年",
+        "city": "广东广州",
+        "honors": "高新技术企业、医药行业知名品牌",
+        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
         "products": [
           {
-            "name": "亮莊清爽沐浴露",
-            "capacity": "750ml",
-            "price": "¥20-30元",
-            "feature": "洗感清凉，适合夏季使用。"
+            "name": "白云山玻色因精华液",
+            "spec": "30ml",
+            "price": "¥238元",
+            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
+          },
+          {
+            "name": "白云山玻色因修护精华",
+            "spec": "40ml",
+            "price": "¥198元",
+            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
+          },
+          {
+            "name": "白云山玻色因眼霜精华",
+            "spec": "15ml",
+            "price": "¥168元",
+            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
+          },
+          {
+            "name": "白云山玻色因精华面膜",
+            "spec": "25ml*6片",
+            "price": "¥158元",
+            "feature": "一片精华液，密集修护，提亮肤色。"
+          },
+          {
+            "name": "白云山玻色因精华乳",
+            "spec": "50ml",
+            "price": "¥218元",
+            "feature": "轻薄质地，易吸收，持久滋润。"
+          }
+        ]
+      },
+      {
+        "name": "白云山",
+        "logo": "logos/skincare/baiyunshan.png",
+        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
+        "founded": "2010年",
+        "city": "广东广州",
+        "honors": "高新技术企业、医药行业知名品牌",
+        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
+        "products": [
+          {
+            "name": "白云山玻色因精华液",
+            "spec": "30ml",
+            "price": "¥238元",
+            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
+          },
+          {
+            "name": "白云山玻色因修护精华",
+            "spec": "40ml",
+            "price": "¥198元",
+            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
+          },
+          {
+            "name": "白云山玻色因眼霜精华",
+            "spec": "15ml",
+            "price": "¥168元",
+            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
+          },
+          {
+            "name": "白云山玻色因精华面膜",
+            "spec": "25ml*6片",
+            "price": "¥158元",
+            "feature": "一片精华液，密集修护，提亮肤色。"
+          },
+          {
+            "name": "白云山玻色因精华乳",
+            "spec": "50ml",
+            "price": "¥218元",
+            "feature": "轻薄质地，易吸收，持久滋润。"
+          }
+        ]
+      },
+      {
+        "name": "白云山",
+        "logo": "logos/skincare/baiyunshan.png",
+        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
+        "founded": "2010年",
+        "city": "广东广州",
+        "honors": "高新技术企业、医药行业知名品牌",
+        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
+        "products": [
+          {
+            "name": "白云山玻色因精华液",
+            "spec": "30ml",
+            "price": "¥238元",
+            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
+          },
+          {
+            "name": "白云山玻色因修护精华",
+            "spec": "40ml",
+            "price": "¥198元",
+            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
+          },
+          {
+            "name": "白云山玻色因眼霜精华",
+            "spec": "15ml",
+            "price": "¥168元",
+            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
+          },
+          {
+            "name": "白云山玻色因精华面膜",
+            "spec": "25ml*6片",
+            "price": "¥158元",
+            "feature": "一片精华液，密集修护，提亮肤色。"
+          },
+          {
+            "name": "白云山玻色因精华乳",
+            "spec": "50ml",
+            "price": "¥218元",
+            "feature": "轻薄质地，易吸收，持久滋润。"
           }
         ]
       }
@@ -287,7 +218,7 @@ const brandData = {
     "牙膏": [
       {
         "name": "白玉",
-        "logo": "logos/toothpaste/baiyu.png",
+        "logo": "logos/baiyu.png",
         "description": "极致性价比，基础清洁，国民老牌。",
         "founded": "1956年",
         "city": "上海",
@@ -304,7 +235,7 @@ const brandData = {
       },
       {
         "name": "冷酸灵",
-        "logo": "logos/toothpaste/lengsuanling.png",
+        "logo": "logos/lengsuanling.png",
         "description": "专业抗敏感牙膏的国民品牌，深耕抗敏领域。",
         "founded": "1968年",
         "city": "重庆",
@@ -327,7 +258,7 @@ const brandData = {
       },
       {
         "name": "两面针",
-        "logo": "logos/toothpaste/liangmianzhen.png",
+        "logo": "logos/liangmianzhen.png",
         "description": "主打中药护龈，以\"四味针火\"系列闻名。",
         "founded": "1980年",
         "city": "广西柳州",
@@ -348,105 +279,6 @@ const brandData = {
           }
         ]
       },
-      {
-        "name": "六必治",
-        "logo": "logos/toothpaste/liubizhi.png",
-        "description": "百年国货，主打中草药清火护龈。",
-        "founded": "1914年",
-        "city": "天津",
-        "honors": "中国历史文化名品",
-        "reputation": "百年老品牌，中草药配方，护龈效果好，价格亲民。",
-        "products": [
-          {
-            "name": "六必治中草药多效护理牙膏",
-            "capacity": "120g",
-            "price": "¥9-16元",
-            "feature": "基础款，能改善牙龈红肿、出血等多种口腔问题，是家庭实惠装的热门选择。"
-          },
-          {
-            "name": "六必治立白小苏打盐白牙膏",
-            "capacity": "120g",
-            "price": "¥8-10元",
-            "feature": "添加小苏打和盐，主打清新口气和亮白牙齿，价格亲民。"
-          }
-        ]
-      },
-      {
-        "name": "黑妹",
-        "logo": "logos/toothpaste/heimei.png",
-        "description": "经典老牌，产品线丰富，以植物精粹为特色。",
-        "founded": "1986年",
-        "city": "广东广州",
-        "honors": "广东著名商标",
-        "reputation": "经典老牌，植物成分，温和护齿，深受消费者喜爱。",
-        "products": [
-          {
-            "name": "黑妹小苏打牙膏",
-            "capacity": "200g",
-            "price": "¥10-15元",
-            "feature": "大容量家庭装，添加小苏打和酵素，清洁去渍，清新口气，性价比高。"
-          },
-          {
-            "name": "黑妹野菊花牙膏",
-            "capacity": "230g",
-            "price": "¥15-20元",
-            "feature": "经典系列，野菊花精华，护龈清新，是很多人的童年记忆。"
-          }
-        ]
-      },
-      {
-        "name": "田七",
-        "logo": "logos/toothpaste/tianqi.png",
-        "description": "以\"田七\"中药成分为核心，主打消肿去火。",
-        "founded": "1945年",
-        "city": "广西梧州",
-        "honors": "广西著名商标",
-        "reputation": "中药牙膏代表，消肿去火效果好，价格实惠。",
-        "products": [
-          {
-            "name": "田七特效中药牙膏",
-            "capacity": "200g",
-            "price": "¥6-10元",
-            "feature": "大容量基础款，添加田七提取物，针对牙龈上火、出血等问题，价格非常便宜。"
-          },
-          {
-            "name": "田七清木系列含氟防龋牙膏",
-            "capacity": "120g",
-            "price": "¥15-25元",
-            "feature": "升级系列，含氟防蛀，添加益生元，平衡口腔环境，适合有防蛀需求的人群。"
-          }
-        ]
-      },
-      {
-        "name": "松达",
-        "logo": "logos/toothpaste/songda.png",
-        "description": "专注儿童护理，成分温和安全。",
-        "founded": "2003年",
-        "city": "浙江杭州",
-        "honors": "中国母婴行业知名品牌",
-        "reputation": "儿童护理专家，产品安全温和，家长信赖。",
-        "products": [
-          {
-            "name": "松达儿童防蛀牙膏",
-            "capacity": "50g",
-            "price": "¥20-30元",
-            "feature": "明星产品，低氟配方，添加益生菌，有效防蛀，水果口味，不辣嘴，适合3-12岁儿童。"
-          }
-        ]
-      },
-      {
-        "name": "白云山",
-        "logo": "logos/toothpaste/baiyunshan.png",
-        "description": "广药集团旗下，主打美白去渍。",
-        "founded": "1973年",
-        "city": "广东广州",
-        "honors": "中国名牌产品",
-        "reputation": "药企背景，产品配方科学，美白效果好，消费者认可。",
-        "products": [
-          {
-            "name": "白云山雪莲美白牙膏",
-            "capacity": "120g",
-            "price": "¥13-20元",
             "feature": "品牌热销款，添加天山雪莲提取物，主打去黄美白，清新口气，是很多人的美白首选。"
           },
           {
@@ -464,7 +296,7 @@ const brandData = {
      
       {
         "name": "活力28",
-        "logo": "logos/detergent/huoli28.png",
+        "logo": "logos/huoli28.png",
         "description": "国民老牌，极致性价比的代名词，成分简单有效。",
         "founded": "1950年",
         "city": "湖北沙市",
@@ -486,14 +318,14 @@ const brandData = {
           {
             "name": "活力28薰衣芬芳洗衣粉",
             "spec": "3kg/6斤",
-            "price": "¥25.9元",
+            "price": "¥12-24元",
             "feature": "经典洗衣粉，薰衣草香味，深度清洁，倍柔护衣，低泡易漂。"
           }
         ]
       },
       {
         "name": "白猫",
-        "logo": "logos/detergent/baimao.png",
+        "logo": "logos/baimao.png",
         "description": "经典老牌，以高效去油和速溶配方闻名。",
         "founded": "1963年",
         "city": "上海",
@@ -516,7 +348,7 @@ const brandData = {
       },
       {
         "name": "奇强",
-        "logo": "logos/detergent/qiqiang.png",
+        "logo": "logos/qiqiang.png",
         "description": "老牌日化，产品线丰富，在除螨和香氛领域有特色。",
         "founded": "1992年",
         "city": "山西运城",
@@ -539,7 +371,7 @@ const brandData = {
       },
       {
         "name": "立白",
-        "logo": "logos/detergent/libai.png",
+        "logo": "logos/libai.png",
         "description": "国民洗涤巨头，产品线齐全，技术成熟。",
         "founded": "1994年",
         "city": "广东广州",
@@ -562,7 +394,7 @@ const brandData = {
       },
       {
         "name": "裕华",
-        "logo": "logos/detergent/yuhua.png",
+        "logo": "logos/yuhua.png",
         "description": "经典国货，产品以高效速溶和家庭实惠装为主。",
         "founded": "1986年",
         "city": "河北石家庄",
@@ -579,7 +411,7 @@ const brandData = {
       },
       {
         "name": "雕牌",
-        "logo": "logos/detergent/diaopai.png",
+        "logo": "logos/diaopai.png",
         "description": "纳爱斯集团旗下国民品牌，以\"雕牌\"深入人心。",
         "founded": "1997年",
         "city": "浙江丽水",
@@ -602,7 +434,7 @@ const brandData = {
       },
       {
         "name": "绿伞",
-        "logo": "logos/detergent/lvsan.png",
+        "logo": "logos/lvsan.png",
         "description": "专业清洁品牌，在衣物护理和特殊污渍处理上口碑好。",
         "founded": "1993年",
         "city": "北京",
@@ -612,7 +444,7 @@ const brandData = {
           {
             "name": "绿伞手洗内衣洗衣液",
             "spec": "480g",
-            "price": "¥12.9元",
+            "price": "¥9.9-12.9元",
             "feature": "内衣裤专用，洁净去污，温和亲肤，是品牌的热销产品。"
           },
           {
@@ -684,7 +516,7 @@ const brandData = {
       },
       {
         "name": "红玫瑰",
-        "logo": "logos/detergent/hongmeigui.png",
+        "logo": "logos/hongmeigui.png",
         "description": "四川老牌，以除菌和去腥功能为特色，性价比高。",
         "founded": "1980年",
         "city": "四川",
@@ -707,7 +539,7 @@ const brandData = {
       },
       {
         "name": "久荣",
-        "logo": "logos/detergent/jiurong.png",
+        "logo": "logos/jiurong.png",
         "description": "经典国货，产品线涵盖消毒和清洁，在特定领域有优势。",
         "founded": "1996年",
         "city": "江苏南京",
@@ -755,7 +587,7 @@ const brandData = {
     "纸巾": [
       {
         "name": "维达",
-        "logo": "logos/tissue/weida.png",
+        "logo": "logos/weida.png",
         "description": "国民纸品巨头，产品线齐全，技术成熟，以\"超韧\"系列闻名。",
         "founded": "1985年",
         "city": "广东江门",
@@ -765,7 +597,7 @@ const brandData = {
           {
             "name": "维达超韧抽纸",
             "spec": "3层100抽*24包",
-            "price": "¥49.9元",
+            "price": "¥22.9-39.9元",
             "feature": "品牌王牌产品，湿水不易破，韧性好，可作洗脸巾使用，是家庭日常囤货的首选。"
           },
           {
@@ -784,7 +616,7 @@ const brandData = {
       },
       {
         "name": "心相印",
-        "logo": "logos/tissue/xinxiangyin.png",
+        "logo": "logos/xinxiangyin.png",
         "description": "国民品牌，以\"茶语系列\"和\"厨房纸巾\"为特色，产品设计富有艺术感。",
         "founded": "1985年",
         "city": "福建晋江",
@@ -813,7 +645,7 @@ const brandData = {
       },
       {
         "name": "洁柔",
-        "logo": "logos/tissue/jierou.png",
+        "logo": "logos/jierou.png",
         "description": "国民高端纸品品牌，以\"黑Face\"和\"粉Face\"系列闻名，湿水不易破技术领先。",
         "founded": "1999年",
         "city": "广东中山",
@@ -842,7 +674,7 @@ const brandData = {
       },
       {
         "name": "清风",
-        "logo": "logos/tissue/qingfeng.png",
+        "logo": "logos/qingfeng.png",
         "description": "国民老牌，以\"原木纯品\"系列为代表，主打天然亲肤，性价比高。",
         "founded": "1998年",
         "city": "江苏苏州",
@@ -871,7 +703,7 @@ const brandData = {
       },
       {
         "name": "植护",
-        "logo": "logos/tissue/zhihu.png",
+        "logo": "logos/zhihu.png",
         "description": "主打高性价比，产品线丰富，尤其以\"气垫纸巾\"和\"竹浆本色纸\"为特色。",
         "founded": "2014年",
         "city": "福建福州",
@@ -900,7 +732,7 @@ const brandData = {
       },
       {
         "name": "欧姿雅",
-        "logo": "logos/tissue/ouziya.png",
+        "logo": "logos/ouziya.png",
         "description": "主打极致性价比，产品以大容量和悬挂式设计为特色。",
         "founded": "2015年",
         "city": "浙江杭州",
@@ -923,7 +755,7 @@ const brandData = {
       },
       {
         "name": "力邦",
-        "logo": "logos/tissue/libang.png",
+        "logo": "logos/libang.png",
         "description": "河北知名纸巾品牌。",
         "founded": "2005年",
         "city": "河北保定",
@@ -934,7 +766,7 @@ const brandData = {
     "私护": [
       {
         "name": "舒莱",
-        "logo": "logos/tissue/shulai.png",
+        "logo": "logos/shulai.png",
         "description": "国民老牌，极致性价比的代名词，成分党新宠。",
         "founded": "1998年",
         "city": "河南漯河",
@@ -957,7 +789,7 @@ const brandData = {
       },
       {
         "name": "倍舒特",
-        "logo": "logos/tissue/beishute.png",
+        "logo": "logos/beishute.png",
         "description": "专业私护品牌，主打医护级品质和仿肤质底膜。",
         "founded": "1998年",
         "city": "北京",
@@ -986,7 +818,7 @@ const brandData = {
       },
       {
         "name": "ABC",
-        "logo": "logos/tissue/abc.png",
+        "logo": "logos/abc.png",
         "description": "以\"KMS健康配方\"和\"清凉感\"闻名，主打清爽体验。",
         "founded": "1998年",
         "city": "广东佛山",
@@ -1015,7 +847,7 @@ const brandData = {
       },
       {
         "name": "自由点",
-        "logo": "logos/tissue/ziyouxian.png",
+        "logo": "logos/ziyouxian.png",
         "description": "主打\"超薄\"和\"空气感\"，以轻薄无感为特色。",
         "founded": "2002年",
         "city": "重庆",
@@ -1044,7 +876,7 @@ const brandData = {
       },
       {
         "name": "凸凸棉",
-        "logo": "logos/tissue/tutumian.png",
+        "logo": "logos/tutumian.png",
         "description": "舒莱旗下品牌，主打\"凸凸棉\"和\"芯呼吸\"技术，以干爽透气闻名。",
         "founded": "2014年",
         "city": "河南漯河",
@@ -1073,7 +905,7 @@ const brandData = {
       },
       {
         "name": "洁伶",
-        "logo": "logos/tissue/jieling.png",
+        "logo": "logos/jieling.png",
         "description": "主打\"全程护理\"概念，产品线涵盖少女、干爽、棉柔等多个系列。",
         "founded": "1993年",
         "city": "广西桂林",
@@ -1096,7 +928,7 @@ const brandData = {
       },
       {
         "name": "七度空间",
-        "logo": "logos/tissue/qidukongjian.png",
+        "logo": "logos/qidukongjian.png",
         "description": "国民少女品牌，以\"少女系列\"和\"优雅系列\"闻名，包装可爱，深受年轻女性喜爱。",
         "founded": "2002年",
         "city": "福建晋江",
@@ -1106,13 +938,13 @@ const brandData = {
           {
             "name": "七度空间优雅系列丝柔棉层超薄夜用套装",
             "spec": "40片",
-            "price": "¥39.9元",
+            "price": "¥20.9-39.9元",
             "feature": "275mm超长巾身，防止侧漏，丝柔棉层柔软舒适。"
           },
           {
             "name": "七度空间少女系列卫生巾",
             "spec": "纯棉超薄 5盒组合",
-            "price": "¥22.5元",
+            "price": "¥7-22.5元",
             "feature": "100%纯棉表层，超薄巾身，舒适无感。"
           },
           {
@@ -1127,7 +959,7 @@ const brandData = {
     "成人护理": [
       {
         "name": "爱舒乐",
-        "logo": "logos/tissue/aishule.png",
+        "logo": "logos/aishule.png",
         "description": "辽宁知名成人护理品牌。",
         "founded": "2008年",
         "city": "辽宁大连",
@@ -1136,7 +968,7 @@ const brandData = {
       },
       {
         "name": "喜玫瑰",
-        "logo": "logos/tissue/ximeigui.png",
+        "logo": "logos/ximeigui.png",
         "description": "湖南知名卫生巾品牌。",
         "founded": "2010年",
         "city": "湖南长沙",
@@ -1146,43 +978,305 @@ const brandData = {
     ]
   },
   "面部护理": {
-    "洁面": [],
-    "补水": [],
-    "乳霜": [
+    "洁面": [
+      {
+        "name": "孔凤春",
+        "logo": "logos/kongfengchun.png",
+        "description": "百年老字号护肤品品牌，中国历史悠久的日化企业。",
+        "founded": "1862年",
+        "city": "浙江杭州",
+        "honors": "中华老字号、非物质文化遗产",
+        "reputation": "传承古法配方，温和不刺激，适合敏感肌肤，口碑极佳。",
+        "products": [
+          {
+            "name": "孔凤春珍珠洁面乳",
+            "spec": "100ml",
+            "price": "¥39.9元",
+            "feature": "添加珍珠粉，深层清洁，提亮肤色，温和不紧绷。"
+          },
+          {
+            "name": "孔凤春马齿苋洁面泡",
+            "spec": "150ml",
+            "price": "¥45.8元",
+            "feature": "富含马齿苋提取物，舒缓保湿，泡沫丰富，清洁彻底。"
+          },
+          {
+            "name": "孔凤春金盏花洁面啫喱",
+            "spec": "120ml",
+            "price": "¥49.9元",
+            "feature": "金盏花精华，控油平衡，舒缓敏感，适合油性及混合性肌肤。"
+          }
+        ]
+      },
+      {
+        "name": "至本",
+        "logo": "logos/zb.png",
+        "description": "专注于敏感肌肤护理的国产护肤品牌，以科学配方著称。",
+        "founded": "2012年",
+        "city": "上海",
+        "honors": "中国敏感肌护理领先品牌",
+        "reputation": "成分安全，配方温和，效果显著，深受敏感肌肤消费者信赖。",
+        "products": [
+          {
+            "name": "至本舒颜修护洁面乳",
+            "spec": "120g",
+            "price": "¥68元",
+            "feature": "氨基酸表活，温和清洁，修护屏障，适合所有肤质，尤其是敏感肌。"
+          },
+          {
+            "name": "至本多元优效洁面泡",
+            "spec": "150ml",
+            "price": "¥78元",
+            "feature": "按压式设计，泡沫绵密，深层清洁，控油保湿，使用便捷。"
+          },
+          {
+            "name": "至本特安修护洁面啫喱",
+            "spec": "100ml",
+            "price": "¥65元",
+            "feature": "无皂基配方，弱酸性，舒缓敏感，清洁温和，不紧绷。"
+          }
+        ]
+      },
+
+      {
+        "name": "上海硫磺皂",
+        "logo": "logos/shanghai_liuhuang.png",
+        "description": "经典国货洁面皂品牌，以硫磺成分闻名。",
+        "founded": "1923年",
+        "city": "上海",
+        "honors": "上海老字号、中华老字号",
+        "reputation": "深层清洁，控油杀菌，价格实惠，口碑相传。",
+        "products": [
+          {
+            "name": "上海硫磺皂经典款",
+            "spec": "125g*5块",
+            "price": "¥24.9元",
+            "feature": "经典配方，含硫磺成分，深层清洁，控油祛痘，适合油性肌肤。"
+          },
+          {
+            "name": "上海硫磺皂药皂",
+            "spec": "130g*3块",
+            "price": "¥19.9元",
+            "feature": "杀菌消毒，清洁护肤，适合日常使用。"
+          },
+          {
+            "name": "上海硫磺皂芦荟款",
+            "spec": "125g*4块",
+            "price": "¥29.8元",
+            "feature": "硫磺配方结合芦荟精华，清洁同时保湿，减少刺激。"
+          }
+        ]
+      }
+    ],
+    "补水": [
+     
+      {
+        "name": "郁美净",
+        "logo": "logos/yumeijing.png",
+        "description": "天津知名老牌护肤品牌，以温和配方和补水保湿著称。",
+        "founded": "1979年",
+        "city": "天津",
+        "honors": "中国名牌产品、中国驰名商标",
+        "reputation": "老品牌，品质可靠，产品温和滋润，适合全家使用，补水保湿效果好。",
+        "products": [
+          {
+            "name": "郁美净儿童面霜",
+            "spec": "25g×5袋",
+            "price": "¥15.8元",
+            "feature": "经典产品，温和滋润，补水保湿，适合儿童和敏感肌肤。"
+          },
+          {
+            "name": "郁美净鲜奶保湿乳",
+            "spec": "220ml",
+            "price": "¥39.9元",
+            "feature": "含鲜奶成分，深层补水，适合干皮使用。"
+          },
+          {
+            "name": "郁美净橄榄保湿水",
+            "spec": "150ml",
+            "price": "¥29.9元",
+            "feature": "橄榄精华，补水舒缓，改善肌肤干燥。"
+          },
+          {
+            "name": "郁美净金牌儿童霜",
+            "spec": "40g",
+            "price": "¥29.9元",
+            "feature": "升级配方，加倍滋润，适合秋冬季节使用。"
+          },
+          {
+            "name": "郁美净保湿护手霜",
+            "spec": "60g",
+            "price": "¥12.9元",
+            "feature": "补水滋润，预防手部干燥，性价比高。"
+          }
+        ]
+      },
+        {
+          "name": "孔凤春",
+          "logo": "logos/skincare/kongfengchun.png",
+          "description": "百年历史的中华老字号品牌，专注草本护肤。",
+          "founded": "1862年",
+          "city": "浙江杭州",
+          "honors": "中华老字号、国家非物质文化遗产",
+          "reputation": "传承古法配方，结合现代科技，产品温和有效，补水保湿效果显著。",
+          "products": [
+            {
+              "name": "孔凤春珍珠补水爽肤水",
+              "spec": "120ml",
+              "price": "¥68元",
+              "feature": "明星产品，含珍珠成分，深层补水，提亮肤色。"
+            },
+            {
+              "name": "孔凤春马齿苋保湿精华液",
+              "spec": "30ml",
+              "price": "¥88元",
+              "feature": "马齿苋提取物，舒缓补水，适合敏感肌。"
+            },
+            {
+              "name": "孔凤春金盏花保湿面膜",
+              "spec": "25ml*10片",
+              "price": "¥79元",
+              "feature": "金盏花精华，密集补水，改善肌肤干燥。"
+            },
+            {
+              "name": "孔凤春积雪草修护水",
+              "spec": "150ml",
+              "price": "¥72元",
+              "feature": "积雪草成分，补水修护，增强肌肤屏障。"
+            },
+            {
+              "name": "孔凤春桂花保湿露",
+              "spec": "100ml",
+              "price": "¥59元",
+              "feature": "桂花精油，补水锁水，香气宜人。"
+            }
+          ]
+        }
+      ],
+      "乳霜": [
+      {
+        "name": "相宜本草",
+        "logo": "logos/xianyi.png",
+        "description": "专注于天然草本护肤的国货品牌，将中医理论与现代科技相结合。",
+        "founded": "2000年",
+        "city": "上海",
+        "honors": "中国驰名商标、上海市著名商标、中国化妆品行业领军品牌",
+        "reputation": "以本草养肤理念著称，产品温和不刺激，适合各种肤质。",
+        "products": [
+          {
+            "name": "相宜本草四倍蚕丝保湿霜",
+            "spec": "50g",
+            "price": "¥49元",
+            "feature": "蚕丝蛋白，深层保湿，提亮肤色。"
+          },
+          {
+            "name": "相宜本草红景天幼白面霜",
+            "spec": "50g",
+            "price": "¥78元",
+            "feature": "红景天精华，美白淡斑，改善暗沉。"
+          },
+          {
+            "name": "相宜本草金缕梅控油保湿霜",
+            "spec": "50g",
+            "price": "¥45元",
+            "feature": "控油补水，收缩毛孔，平衡水油。"
+          },
+          {
+            "name": "相宜本草百合高保湿修护霜",
+            "spec": "50g",
+            "price": "¥68元",
+            "feature": "百合精华，舒缓修护，深层滋养。"
+          },
+          {
+            "name": "相宜本草山茶花焕活菁华霜",
+            "spec": "50g",
+            "price": "¥128元",
+            "feature": "山茶花精华，抗老化，提升肌肤弹性。"
+          }
+        ]
+      },
       {
         "name": "精心",
-        "logo": "logos/skincare/jingxin.png",
-        "description": "北京协和医院研发的护肤品牌。",
-        "founded": "1992年",
-        "city": "北京",
-        "honors": "中国医学护肤领导品牌",
-        "reputation": "温和不刺激，适合敏感肌肤，消费者信赖。",
-        "products": [
-          {
-            "name": "精心硅E乳",
-            "spec": "100ml",
-            "price": "¥29.8元",
-            "feature": "协和医院研制，含硅油和维生素E，滋润保湿效果好。"
-          }
-        ]
-      },
-      {
-        "name": "标婷",
-        "logo": "logos/skincare/biaoting.png",
-        "description": "北京医院研制的护肤品牌。",
-        "founded": "1993年",
-        "city": "北京",
-        "honors": "中国医学护肤知名品牌",
-        "reputation": "配方温和，滋润保湿效果好，消费者信赖。",
-        "products": [
-          {
-            "name": "标婷维生素E乳",
-            "spec": "100ml",
-            "price": "¥12.8元",
-            "feature": "北京医院研制，含维生素E，滋润保湿效果好。"
-          }
-        ]
-      },
+          "logo": "logos/jingxin.png",
+          "description": "北京协和医院研发的专业护肤品牌。",
+          "founded": "1992年",
+          "city": "北京",
+          "honors": "医院专业研发、医学级护肤认证",
+          "reputation": "依托北京协和医院强大的医学背景，产品温和不刺激，适合各类肌肤，尤其是敏感肌和问题肌。",
+          "products": [
+            {
+              "name": "精心硅霜",
+              "spec": "100g",
+              "price": "¥38元",
+              "feature": "明星产品，医用级配方，强效锁水，修护受损肌肤屏障，缓解干燥起皮。"
+            },
+            {
+              "name": "精心维生素E乳",
+              "spec": "100ml",
+              "price": "¥22元",
+              "feature": "富含维生素E，深层滋润，改善肌肤粗糙，适合全身使用。"
+            },
+            {
+              "name": "精心硅E乳",
+              "spec": "100ml",
+              "price": "¥29.8元",
+              "feature": "协和医院研制，含硅油和维生素E，滋润保湿效果好。"
+            },
+            {
+              "name": "精心保湿霜",
+              "spec": "50g",
+              "price": "¥35元",
+              "feature": "轻薄质地，长效保湿，不油腻，适合日常护理。"
+            },
+            {
+              "name": "精心修护精华乳",
+              "spec": "30ml",
+              "price": "¥89元",
+              "feature": "医学级修护，舒缓敏感，增强肌肤抵抗力。"
+            }
+          ]
+        },
+        {
+          "name": "标婷",
+          "logo": "logos/biaoting.png",
+          "description": "北京医院研制的专业护肤品牌，以医药级标准生产。",
+          "founded": "1993年",
+          "city": "北京",
+          "honors": "中国医学护肤知名品牌、医院推荐品牌",
+          "reputation": "产品温和无刺激，维生素E乳是明星产品，深受消费者信赖。",
+          "products": [
+            {
+              "name": "标婷维生素E乳",
+              "spec": "100ml",
+              "price": "¥12.9-39.9元",
+              "feature": "明星产品，保湿滋润，改善肌肤干燥。"
+            },
+            {
+              "name": "标婷维生素E尿囊素乳膏",
+              "spec": "80g",
+              "price": "¥32元",
+              "feature": "舒缓修护，缓解肌肤敏感不适。"
+            },
+            {
+              "name": "标婷维生素E+C乳",
+              "spec": "100ml",
+              "price": "¥20-35元",
+              "feature": "双重营养，提亮肤色，保湿滋润。"
+            },
+            {
+              "name": "标婷保湿修护霜",
+              "spec": "50g",
+              "price": "¥45元",
+              "feature": "深层修护，增强肌肤屏障。"
+            },
+            {
+              "name": "标婷护手霜",
+              "spec": "60g",
+              "price": "¥18元",
+              "feature": "滋润双手，预防干裂。"
+            }
+          ]
+        },
       {
         "name": "郁美净",
         "logo": "logos/skincare/yumeijing.png",
@@ -1202,7 +1296,7 @@ const brandData = {
       },
       {
         "name": "美加净",
-        "logo": "logos/skincare/meijiajing.png",
+        "logo": "logos/meijiajing.png",
         "description": "上海知名护肤品牌。",
         "founded": "1962年",
         "city": "上海",
@@ -1219,7 +1313,7 @@ const brandData = {
       },
       {
         "name": "隆力奇",
-        "logo": "logos/skincare/longliqi.png",
+        "logo": "logos/longliqi.png",
         "description": "江苏知名日化品牌。",
         "founded": "1986年",
         "city": "江苏常熟",
@@ -1227,17 +1321,8 @@ const brandData = {
         "reputation": "蛇油膏效果显著，滋润保湿，消费者喜爱。"
       },
       {
-        "name": "春娟",
-        "logo": "logos/skincare/chunjuan.png",
-        "description": "四川知名护肤品牌。",
-        "founded": "1980年",
-        "city": "四川成都",
-        "honors": "四川著名商标",
-        "reputation": "黄芪霜效果显著，滋润保湿，消费者喜爱。"
-      },
-      {
         "name": "片仔癀",
-        "logo": "logos/skincare/pianzaihuang.png",
+        "logo": "logos/pianzaihuang.png",
         "description": "福建知名护肤品牌。",
         "founded": "1980年",
         "city": "福建漳州",
@@ -1245,8 +1330,49 @@ const brandData = {
         "reputation": "含片仔癀成分，功效显著，消费者信赖。"
       },
       {
+        "name": "百雀羚",
+        "logo": "logos/baiqueling.png",
+        "description": "中国历史悠久的草本护肤品牌，以传统配方结合现代科技著称。",
+        "founded": "1931年",
+        "city": "上海",
+        "honors": "中国驰名商标、国家级非物质文化遗产、中国经典国货品牌",
+        "reputation": "传承东方护肤智慧，产品温和有效，深受消费者信赖。",
+        "products": [
+          {
+            "name": "百雀羚凡士林保湿润肤霜",
+            "spec": "50g",
+            "price": "¥25元",
+            "feature": "经典配方，深层保湿，适合各种肤质。"
+          },
+          {
+            "name": "百雀羚甘油一号护肤啫喱",
+            "spec": "170g",
+            "price": "¥18元",
+            "feature": "清爽保湿，不油腻，多用途护理。"
+          },
+          {
+            "name": "百雀羚水嫩倍现保湿精华霜",
+            "spec": "50g",
+            "price": "¥88元",
+            "feature": "草本精华，补水保湿，改善肌肤干燥。"
+          },
+          {
+            "name": "百雀羚肌初赋活抗皱菁华霜",
+            "spec": "50g",
+            "price": "¥198元",
+            "feature": "抗皱紧致，提升肌肤弹性。"
+          },
+          {
+            "name": "百雀羚三生花舒缓细肤柔润面霜",
+            "spec": "50g",
+            "price": "¥78元",
+            "feature": "舒缓敏感，修护肌肤屏障。"
+          }
+        ]
+      },
+      {
         "name": "大宝",
-        "logo": "logos/skincare/dabao.png",
+        "logo": "logos/dabao.png",
         "description": "北京知名护肤品牌。",
         "founded": "1990年",
         "city": "北京",
@@ -1256,7 +1382,7 @@ const brandData = {
           {
             "name": "大宝SOD蜜",
             "spec": "200ml",
-            "price": "¥29.9元",
+            "price": "¥15-25元",
             "feature": "含SOD成分，滋润保湿效果好，是品牌的经典产品。"
           }
         ]
@@ -1271,16 +1397,154 @@ const brandData = {
         "reputation": "护肤品温和不刺激，价格实惠，消费者喜爱。"
       }
     ],
-    "面膜": [],
+    "面膜": [
+      {
+        "name": "孔凤春",
+        "logo": "logos/skincare/kongfengchun.png",
+        "description": "中国历史悠久的美妆品牌，专注于传统配方与现代科技结合。",
+        "founded": "1862年",
+        "city": "浙江杭州",
+        "honors": "中华老字号、非物质文化遗产",
+        "reputation": "传承百年配方，产品温和有效，深受消费者信赖。",
+        "products": [
+          {
+            "name": "孔凤春珍珠补水面膜",
+            "spec": "25ml*10片",
+            "price": "¥98元",
+            "feature": "珍珠精华，深层补水，提亮肤色。"
+          },
+          {
+            "name": "孔凤春玻尿酸保湿面膜",
+            "spec": "25ml*10片",
+            "price": "¥88元",
+            "feature": "深层保湿，舒缓肌肤，适合干性肌肤。"
+          },
+          {
+            "name": "孔凤春积雪草修护面膜",
+            "spec": "25ml*10片",
+            "price": "¥108元",
+            "feature": "修护受损肌肤，改善敏感泛红。"
+          },
+          {
+            "name": "孔凤春烟酰胺美白面膜",
+            "spec": "25ml*10片",
+            "price": "¥118元",
+            "feature": "美白淡斑，提亮肤色，改善暗沉。"
+          },
+          {
+            "name": "孔凤春金盏花舒缓面膜",
+            "spec": "25ml*10片",
+            "price": "¥98元",
+            "feature": "舒缓敏感，镇静肌肤，缓解泛红。"
+          }
+        ]
+      }
+    ],
     "精华": [],
+
     "眼护": [],
-    "防晒": []
+
+    "防晒": [
+      {
+        "name": "薇诺娜",
+        "logo": "logos/weinuona.png",
+        "description": "专注于敏感肌肤护理的国产品牌，以医学护肤品著称。",
+        "founded": "2008年",
+        "city": "云南昆明",
+        "honors": "高新技术企业、中国敏感肌护理领导品牌",
+        "reputation": "产品温和不刺激，适合敏感肌使用，防晒效果好。",
+        "products": [
+          {
+            "name": "薇诺娜清透防晒乳",
+            "spec": "50g",
+            "price": "¥108-238元",
+            "feature": "SPF50+ PA+++，清透不油腻，敏感肌适用。"
+          },
+          {
+            "name": "薇诺娜舒缓保湿防晒乳",
+            "spec": "50ml",
+            "price": "¥198元",
+            "feature": "SPF30 PA+++，保湿修护，舒缓敏感。"
+          },
+          {
+            "name": "薇诺娜防晒喷雾",
+            "spec": "120ml",
+            "price": "¥168元",
+            "feature": "SPF45 PA+++，快速成膜，方便补涂。"
+          },
+          {
+            "name": "薇诺娜儿童防晒乳",
+            "spec": "50g",
+            "price": "¥158元",
+            "feature": "SPF40 PA+++，温和配方，适合儿童使用。"
+          },
+          {
+            "name": "薇诺娜美白防晒隔离霜",
+            "spec": "40ml",
+            "price": "¥218元",
+            "feature": "SPF50+ PA+++，美白提亮，隔离防护。"
+          }
+        ]
+      }]
+
   },
   "妆卸": {
     "彩妆": [
       {
+        "name": "谢馥春",
+        "logo": "logos/xiefuchun.png",
+        "description": "中国历史悠久的传统美妆品牌，始于1830年。",
+        "founded": "1830年",
+        "city": "江苏扬州",
+        "honors": "中华老字号、国家级非物质文化遗产",
+        "reputation": "传统工艺与现代科技结合，天然成分，温和不刺激，深受消费者喜爱。",
+        "products": [
+          {
+            "name": "谢馥春胭脂水粉",
+            "spec": "50g",
+            "price": "¥128-158元",
+            "feature": "传统工艺制作，轻薄服帖，自然红润，持久不脱妆。"
+          },
+          {
+            "name": "谢馥春桂花头油",
+            "spec": "60ml",
+            "price": "¥68-88元",
+            "feature": "天然桂花精油，滋养秀发，香气持久，传统配方。"
+          },
+          {
+            "name": "谢馥春鸭蛋粉",
+            "spec": "40g",
+            "price": "¥78-233元",
+            "feature": "经典国货，粉质细腻，控油定妆，提亮肤色。"
+          }
+        ]
+      },
+      {
+        "name": "戴春林",
+        "logo": "logos/dailin.png",
+        "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
+        "founded": "1628年",
+        "city": "江苏扬州",
+        "honors": "中华老字号、江苏省非物质文化遗产",
+        "reputation": "传承古法，天然成分，品质卓越，是中国传统美妆的代表品牌。",
+        "products": [
+          {
+            "name": "戴春林香粉黛",
+            "spec": "30g",
+            "price": "¥148-178元",
+            "feature": "传统香粉工艺，轻薄透气，遮瑕提亮，持久妆容。"
+          },
+          {
+            "name": "戴春林玉容粉饼",
+            "spec": "10g",
+            "price": "¥128-158元",
+            "feature": "天然成分，粉质细腻，控油保湿，适合各种肤质。"
+          }
+        ]
+      },
+      {
         "name": "卡姿兰",
-        "logo": "logos/cosmetics/kazilan.png",
+        "logo": "logos/kazilan.png",
         "description": "广东知名彩妆品牌。",
         "founded": "2001年",
         "city": "广东广州",
@@ -1289,7 +1553,7 @@ const brandData = {
       },
       {
         "name": "玛丽黛佳",
-        "logo": "logos/cosmetics/marleda.png",
+        "logo": "logos/marleda.png",
         "description": "上海知名彩妆品牌。",
         "founded": "2006年",
         "city": "上海",
@@ -1298,7 +1562,7 @@ const brandData = {
       },
       {
         "name": "火烈鸟",
-        "logo": "logos/cosmetics/huolie.png",
+        "logo": "logos/huolie.png",
         "description": "上海知名彩妆品牌。",
         "founded": "1996年",
         "city": "上海",
@@ -1307,7 +1571,7 @@ const brandData = {
       },
       {
         "name": "俏美人",
-        "logo": "logos/cosmetics/qiaomeiren.png",
+        "logo": "logos/qiaomeiren.png",
         "description": "广东知名彩妆品牌。",
         "founded": "2000年",
         "city": "广东广州",
@@ -1316,7 +1580,7 @@ const brandData = {
       },
       {
         "name": "诗佩妮",
-        "logo": "logos/cosmetics/shipeini.png",
+        "logo": "logos/shipeini.png",
         "description": "江苏知名彩妆品牌。",
         "founded": "2010年",
         "city": "江苏苏州",
@@ -1325,7 +1589,7 @@ const brandData = {
       },
       {
         "name": "foreverkey",
-        "logo": "logos/cosmetics/foreverkey.png",
+        "logo": "logos/foreverkey.png",
         "description": "上海知名彩妆品牌。",
         "founded": "2018年",
         "city": "上海",
@@ -1333,39 +1597,486 @@ const brandData = {
         "reputation": "彩妆效果好，设计时尚，年轻消费者喜爱。"
       }
     ],
-    "卸妆": []
+    "卸妆": [
+      {
+        "name": "月里嫦娥",
+        "logo": "logos/yuelichang.png",
+        "description": "源自清朝宫廷秘方的传统护肤品牌。",
+        "founded": "2015年",
+        "city": "北京",
+        "honors": "中国传统美容文化传承品牌",
+        "reputation": "宫廷配方，天然草本，温和不刺激，适合敏感肌肤。",
+        "products": [
+          {
+            "name": "月里嫦娥水漾净颜卸妆油",
+            "spec": "120ml",
+            "price": "¥138-168元",
+            "feature": "天然植物精油，温和卸妆，深层清洁，不紧绷。"
+          },
+          {
+            "name": "月里嫦娥玫瑰卸妆湿巾",
+            "spec": "30片",
+            "price": "¥68-88元",
+            "feature": "玫瑰精华，一次性使用，方便携带，温和卸妆。"
+          }
+        ]
+      },
+      {
+        "name": "精心",
+        "logo": "logos/jingxin.png",
+        "description": "北京协和医院研制的药妆品牌。",
+        "founded": "1992年",
+        "city": "北京",
+        "honors": "中国药妆行业知名品牌",
+        "reputation": "医学背景，安全可靠，温和配方，适合敏感肌肤。",
+        "products": [
+          {
+            "name": "精心温和卸妆水",
+            "spec": "200ml",
+            "price": "¥58-78元",
+            "feature": "医学配方，温和不刺激，深层清洁，适合各种肤质。"
+          },
+          {
+            "name": "精心卸妆乳",
+            "spec": "100g",
+            "price": "¥68-88元",
+            "feature": "质地温和，卸妆彻底，滋润保湿，不紧绷。"
+          }
+        ]
+      },
+      {
+        "name": "戴春林",
+        "logo": "logos/dailin.png",
+        "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
+        "founded": "1628年",
+        "city": "江苏扬州",
+        "honors": "中华老字号、江苏省非物质文化遗产",
+        "reputation": "传承古法，天然成分，品质卓越，是中国传统美妆的代表品牌。",
+        "products": [
+          {
+            "name": "戴春林玉容卸妆油",
+            "spec": "100ml",
+            "price": "¥148-178元",
+            "feature": "传统草本配方，温和卸妆，滋养肌肤，不刺激。"
+          },
+          {
+            "name": "戴春林香氛卸妆膏",
+            "spec": "50g",
+            "price": "¥158-188元",
+            "feature": "质地细腻，卸妆彻底，香气宜人，滋润保湿。"
+          }
+        ]
+      },
+      {
+        "name": "至本",
+        "logo": "logos/zhiben.png",
+        "description": "专注于敏感肌肤护理的国产护肤品牌。",
+        "founded": "2012年",
+        "city": "上海",
+        "honors": "中国敏感肌肤护理领域知名品牌",
+        "reputation": "成分安全，配方温和，专注修复，敏感肌友好。",
+        "products": [
+          {
+            "name": "至本舒颜修护卸妆膏",
+            "spec": "120g",
+            "price": "¥108-138元",
+            "feature": "温和不刺激，卸妆彻底，修护肌肤，敏感肌适用。"
+          },
+          {
+            "name": "至本氨基酸洁面乳",
+            "spec": "120g",
+            "price": "¥44-55元",
+            "feature": "氨基酸配方，温和清洁，卸妆保湿，不紧绷。"
+          },
+          {
+            "name": "至本清透卸妆水",
+            "spec": "300ml",
+            "price": "¥88-108元",
+            "feature": "深层清洁，温和不刺激，适合日常淡妆卸妆。"
+          }
+        ]
+      }
+    ]
   },
   "儿童": {
     "儿童专用": [
       {
-        "name": "青蛙王子",
-        "logo": "logos/children/qingwa.png",
-        "description": "福建知名儿童护理品牌。",
-        "founded": "1999年",
-        "city": "福建晋江",
-        "honors": "中国名牌产品",
-        "reputation": "儿童洗护产品温和安全，家长信赖。"
-      },
-      {
         "name": "郁美净",
-        "logo": "logos/children/yumeijing.png",
+        "logo": "logos/yumeijing.png",
         "description": "天津知名婴幼儿护肤品牌。",
         "founded": "1979年",
         "city": "天津",
         "honors": "中国名牌产品",
-        "reputation": "婴幼儿护肤品温和安全，家长信赖。"
+        "reputation": "婴幼儿护肤品温和安全，家长信赖。",
+        "products": [
+          {
+            "name": "郁美净儿童霜",
+            "spec": "25g*5袋",
+            "price": "¥15-25元",
+            "feature": "经典国货，温和滋润，预防湿疹，适合婴幼儿。"
+          },
+          {
+            "name": "郁美净金牌儿童嫩肤露",
+            "spec": "100g",
+            "price": "¥28-38元",
+            "feature": "质地轻薄，易吸收，深层滋养，不油腻。"
+          },
+          {
+            "name": "郁美净婴儿洗发沐浴露",
+            "spec": "200ml",
+            "price": "¥25-35元",
+            "feature": "二合一配方，温和清洁，滋润保湿，无泪配方。"
+          }
+        ]
+      },
+      {
+        "name": "松达",
+        "logo": "logos/songda.png",
+        "description": "专注于婴儿山茶油护肤产品的国产品牌。",
+        "founded": "2003年",
+        "city": "浙江杭州",
+        "honors": "中国婴幼儿护理领域知名品牌",
+        "reputation": "山茶油配方，天然温和，适合敏感肌肤，深受家长喜爱。",
+        "products": [
+          {
+            "name": "松达婴儿山茶油霜",
+            "spec": "68g",
+            "price": "¥58-78元",
+            "feature": "山茶油精华，深层滋润，修护肌肤，预防湿疹。"
+          },
+          {
+            "name": "松达婴儿爽身粉",
+            "spec": "128g",
+            "price": "¥45-55元",
+            "feature": "玉米淀粉配方，吸汗干爽，预防红屁屁，安全无刺激。"
+          },
+          {
+            "name": "松达婴儿山茶油",
+            "spec": "50ml",
+            "price": "¥78-98元",
+            "feature": "100%山茶油，多用途护理，滋润修护，天然安全。"
+          }
+        ]
       }
     ]
   },
   "手足体护": {
-    "手护": [],
-    "体护": []
+    "手护": [
+        {
+            name: "馥佩",
+            logo: "",
+            description: "专注于草本护肤的知名国产品牌，致力于将传统草本精粹与现代科技相结合。",
+            founded: "1996年",
+            city: "广东中山",
+            honors: "中国化妆品行业领军品牌",
+            reputation: "草本配方温和有效，产品线丰富，价格亲民，深受消费者喜爱。",
+            products: [
+                {
+                    name: "馥佩护手霜套装",
+                    spec: "60ml*4支",
+                    price: "¥39.9",
+                    feature: "天然草本精华，深层滋润，持久保湿"
+                },
+                {
+                    name: "馥佩芦荟保湿护手霜",
+                    spec: "60g",
+                    price: "¥12.9",
+                    feature: "芦荟精华，清爽不油腻，快速吸收"
+                }
+            ]
+        },
+        {
+            name: "隆力奇",
+            logo: "",
+            description: "以蛇油系列产品闻名的国货老品牌，专注于个人护理和健康产品。",
+            founded: "1986年",
+            city: "江苏常熟",
+            honors: "中国名牌产品，中国驰名商标",
+            reputation: "蛇油配方经典有效，性价比高，是护手产品的首选品牌之一。",
+            products: [
+                {
+                    name: "隆力奇蛇油护手霜",
+                    spec: "100g",
+                    price: "¥9.9",
+                    feature: "经典蛇油配方，滋润修复，防干裂"
+                },
+                {
+                    name: "隆力奇蛇油果酸护手霜",
+                    spec: "50g",
+                    price: "¥19.9",
+                    feature: "蛇油+果酸双重滋养，软化角质，改善粗糙"
+                },
+                {
+                    name: "隆力奇蛇油精华护手霜",
+                    spec: "80ml",
+                    price: "¥15.9",
+                    feature: "浓缩蛇油精华，深层渗透，持久滋养"
+                }
+            ]
+        }
+    ],
+    "体护": [
+        {
+            name: "馥佩",
+            logo: "",
+            description: "专注于草本护肤的知名国产品牌，致力于将传统草本精粹与现代科技相结合。",
+            founded: "1996年",
+            city: "广东中山",
+            honors: "中国化妆品行业领军品牌",
+            reputation: "草本配方温和有效，产品线丰富，价格亲民，深受消费者喜爱。",
+            products: [
+                {
+                    name: "馥佩身体乳",
+                    spec: "250ml",
+                    price: "¥29.9",
+                    feature: "草本精华滋养，深层保湿，持久留香"
+                },
+                {
+                    name: "馥佩芦荟胶",
+                    spec: "200g",
+                    price: "¥19.9",
+                    feature: "芦荟精华，舒缓修护，多效护理"
+                },
+                {
+                    name: "馥佩沐浴露套装",
+                    spec: "600ml*2瓶",
+                    price: "¥59.9",
+                    feature: "草本植物配方，温和清洁，滋润保湿"
+                }
+            ]
+        }
+    ]
   },
   "饮品乳品": {
     "牛奶": [
       {
+        "name": "山花",
+        "logo": "",
+        "description": "贵州知名乳制品品牌。",
+        "founded": "1956年",
+        "city": "贵州贵阳",
+        "honors": "贵州著名商标",
+        "reputation": "本地品牌，鲜奶新鲜，口感好，消费者喜爱。",
+        "products": [
+          {
+            "name": "山花纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥48.9-64.9",
+            "feature": "营养丰富，口感醇厚"
+          },
+          {
+            "name": "山花酸牛奶",
+            "spec": "200g*12盒",
+            "price": "¥59.9",
+            "feature": "发酵充分，口感酸甜"
+          }
+        ]
+      },
+      {
+        "name": "天友",
+        "logo": "",
+        "description": "重庆知名乳制品品牌。",
+        "founded": "1931年",
+        "city": "重庆",
+        "honors": "中国名牌产品",
+        "reputation": "本地品牌，鲜奶新鲜，口感好，品种丰富。",
+        "products": [
+          {
+            "name": "天友纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥31.7-38.2",
+            "feature": "营养均衡，奶香浓郁"
+          },
+          {
+            "name": "天友酸奶",
+            "spec": "200g*24盒",
+            "price": "¥99.9",
+            "feature": "益生菌发酵，有助于肠道健康"
+          },
+          {
+            "name": "天友甜牛奶",
+            "spec": "200ml*24盒",
+            "price": "¥69.9",
+            "feature": "口感清甜，适合大众"
+          }
+        ]
+      },
+      {
+        "name": "天润",
+        "logo": "",
+        "description": "新疆知名乳制品品牌。",
+        "founded": "1983年",
+        "city": "新疆乌鲁木齐",
+        "honors": "新疆著名商标",
+        "reputation": "新疆奶源，品质优良，酸奶口感特别。",
+        "products": [
+          {
+            "name": "天润浓缩酸奶",
+            "spec": "200g*12盒",
+            "price": "¥89.9",
+            "feature": "浓缩工艺，口感醇厚"
+          },
+          {
+            "name": "天润纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥89.9",
+            "feature": "新疆奶源，营养丰富"
+          }
+        ]
+      },
+      {
+        "name": "欧亚",
+        "logo": "",
+        "description": "云南知名乳制品品牌。",
+        "founded": "1992年",
+        "city": "云南大理",
+        "honors": "云南著名商标",
+        "reputation": "高原奶源，品质纯净，口感好。",
+        "products": [
+          {
+            "name": "欧亚纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥79.9",
+            "feature": "高原奶源，营养丰富"
+          },
+          {
+            "name": "欧亚酸奶",
+            "spec": "200g*24盒",
+            "price": "¥89.9",
+            "feature": "口感酸甜适中"
+          },
+          {
+            "name": "欧亚全脂牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥85.9",
+            "feature": "全脂营养，口感浓郁"
+          }
+        ]
+      },
+      {
+        "name": "辉山",
+        "logo": "",
+        "description": "辽宁知名乳制品品牌。",
+        "founded": "1951年",
+        "city": "辽宁沈阳",
+        "honors": "中国名牌产品",
+        "reputation": "本地品牌，鲜奶新鲜，质量稳定。",
+        "products": [
+          {
+            "name": "辉山纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥72.9",
+            "feature": "营养均衡，口感纯正"
+          },
+          {
+            "name": "辉山酸奶",
+            "spec": "200g*24盒",
+            "price": "¥95.9",
+            "feature": "益生菌发酵，有助于消化"
+          }
+        ]
+      },
+      {
+        "name": "菊乐",
+        "logo": "",
+        "description": "四川知名乳制品品牌。",
+        "founded": "1985年",
+        "city": "四川成都",
+        "honors": "四川著名商标",
+        "reputation": "本地品牌，口感好，价格亲民。",
+        "products": [
+          {
+            "name": "菊乐纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥23.9-55.9",
+            "feature": "营养丰富，口感顺滑"
+          },
+          {
+            "name": "菊乐酸牛奶",
+            "spec": "200g*24盒",
+            "price": "¥89.9",
+            "feature": "口感酸甜，清爽不腻"
+          }
+        ]
+      },
+      {
+        "name": "银桥",
+        "logo": "",
+        "description": "陕西知名乳制品品牌。",
+        "founded": "1978年",
+        "city": "陕西西安",
+        "honors": "中国名牌产品",
+        "reputation": "本地品牌，鲜奶新鲜，消费者信赖。",
+        "products": [
+          {
+            "name": "银桥纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥35-65",
+            "feature": "营养均衡，口感醇厚"
+          },
+          {
+            "name": "银桥酸奶",
+            "spec": "200g*24盒",
+            "price": "¥92.9",
+            "feature": "益生菌发酵，有助于肠道健康"
+          },
+          {
+            "name": "银桥甜牛奶",
+            "spec": "200ml*24盒",
+            "price": "¥65.9",
+            "feature": "口感清甜，适合早餐"
+          }
+        ]
+      },
+      {
+        "name": "皇氏",
+        "logo": "",
+        "description": "广西知名乳制品品牌。",
+        "founded": "2001年",
+        "city": "广西南宁",
+        "honors": "广西著名商标",
+        "reputation": "本地品牌，鲜奶新鲜，品种丰富。",
+        "products": [
+          {
+            "name": "皇氏纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥79.9",
+            "feature": "营养丰富，口感醇厚"
+          },
+          {
+            "name": "皇氏酸奶",
+            "spec": "200g*24盒",
+            "price": "¥95.9",
+            "feature": "口感酸甜适中"
+          }
+        ]
+      },
+      {
+        "name": "子承",
+        "logo": "",
+        "description": "内蒙古新兴乳制品品牌。",
+        "founded": "2015年",
+        "city": "内蒙古呼和浩特",
+        "honors": "内蒙古新锐品牌",
+        "reputation": "草原奶源，品质优良，口感好。",
+        "products": [
+          {
+            "name": "子承纯牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥89.9",
+            "feature": "草原奶源，营养丰富"
+          },
+          {
+            "name": "子承全脂牛奶",
+            "spec": "250ml*24盒",
+            "price": "¥95.9",
+            "feature": "全脂营养，口感浓郁"
+          }
+        ]
+      },
+      {
         "name": "风行",
-        "logo": "logos/milk/fengxing.png",
+        "logo": "logos/fengxing.png",
         "description": "广东知名乳制品品牌。",
         "founded": "1927年",
         "city": "广东广州",
@@ -1374,7 +2085,7 @@ const brandData = {
       },
       {
         "name": "卫岗",
-        "logo": "logos/milk/weigang.png",
+        "logo": "logos/weigang.png",
         "description": "江苏知名乳制品品牌。",
         "founded": "1928年",
         "city": "江苏南京",
@@ -1383,7 +2094,7 @@ const brandData = {
       },
       {
         "name": "佳宝",
-        "logo": "logos/milk/jiabao.png",
+        "logo": "logos/jiabao.png",
         "description": "广东知名乳制品品牌。",
         "founded": "1956年",
         "city": "广东汕头",
@@ -1392,7 +2103,7 @@ const brandData = {
       },
       {
         "name": "燕塘",
-        "logo": "logos/milk/yantang.png",
+        "logo": "logos/yantang.png",
         "description": "广东知名乳制品品牌。",
         "founded": "1956年",
         "city": "广东广州",
@@ -1401,7 +2112,7 @@ const brandData = {
       },
       {
         "name": "海河",
-        "logo": "logos/milk/haihe.png",
+        "logo": "logos/haihe.png",
         "description": "天津知名乳制品品牌。",
         "founded": "1957年",
         "city": "天津",
@@ -1410,7 +2121,7 @@ const brandData = {
       },
       {
         "name": "晨光",
-        "logo": "logos/milk/chenguang.png",
+        "logo": "logos/chenguang.png",
         "description": "广东知名乳制品品牌。",
         "founded": "1962年",
         "city": "广东深圳",
@@ -1419,7 +2130,7 @@ const brandData = {
       },
       {
         "name": "完达山",
-        "logo": "logos/milk/wandashan.png",
+        "logo": "logos/wandashan.png",
         "description": "黑龙江知名乳制品品牌。",
         "founded": "1963年",
         "city": "黑龙江哈尔滨",
@@ -1428,7 +2139,7 @@ const brandData = {
       },
       {
         "name": "三元",
-        "logo": "logos/milk/sanyuan.png",
+        "logo": "logos/sanyuan.png",
         "description": "北京知名乳制品品牌。",
         "founded": "1956年",
         "city": "北京",
@@ -1437,7 +2148,7 @@ const brandData = {
       },
       {
         "name": "光明",
-        "logo": "logos/milk/guangming.png",
+        "logo": "logos/guangming.png",
         "description": "上海知名乳制品品牌。",
         "founded": "1956年",
         "city": "上海",
@@ -1446,7 +2157,7 @@ const brandData = {
       },
       {
         "name": "新希望",
-        "logo": "logos/milk/xinxiwang.png",
+        "logo": "logos/xinxiwang.png",
         "description": "四川知名乳制品品牌。",
         "founded": "1982年",
         "city": "四川成都",
@@ -1455,7 +2166,7 @@ const brandData = {
       },
       {
         "name": "妙士",
-        "logo": "logos/milk/miaoshi.png",
+        "logo": "logos/miaoshi.png",
         "description": "河北知名乳制品品牌。",
         "founded": "1992年",
         "city": "河北保定",
@@ -1464,7 +2175,7 @@ const brandData = {
       },
       {
         "name": "伊利",
-        "logo": "logos/milk/yili.png",
+        "logo": "logos/yili.png",
         "description": "内蒙古知名乳制品品牌。",
         "founded": "1993年",
         "city": "内蒙古呼和浩特",
@@ -1473,7 +2184,7 @@ const brandData = {
       },
       {
         "name": "蒙牛",
-        "logo": "logos/milk/mengniu.png",
+        "logo": "logos/mengniu.png",
         "description": "内蒙古知名乳制品品牌。",
         "founded": "1999年",
         "city": "内蒙古呼和浩特",
@@ -1482,7 +2193,7 @@ const brandData = {
       },
       {
         "name": "旺仔",
-        "logo": "logos/milk/wangzai.png",
+        "logo": "logos/wangzai.png",
         "description": "台湾知名乳制品品牌。",
         "founded": "1962年",
         "city": "台湾台北",
@@ -1491,7 +2202,7 @@ const brandData = {
       },
       {
         "name": "天友",
-        "logo": "logos/milk/tianyou.png",
+        "logo": "logos/tianyou.png",
         "description": "重庆知名乳制品品牌。",
         "founded": "1931年",
         "city": "重庆",
@@ -1500,7 +2211,7 @@ const brandData = {
       },
       {
         "name": "银桥",
-        "logo": "logos/milk/yinqiao.png",
+        "logo": "logos/yinqiao.png",
         "description": "陕西知名乳制品品牌。",
         "founded": "1979年",
         "city": "陕西西安",
@@ -1509,7 +2220,7 @@ const brandData = {
       },
       {
         "name": "香满楼",
-        "logo": "logos/milk/xiangmanlou.png",
+        "logo": "logos/xiangmanlou.png",
         "description": "广东知名乳制品品牌。",
         "founded": "1982年",
         "city": "广东广州",
@@ -1518,7 +2229,7 @@ const brandData = {
       },
       {
         "name": "李子园",
-        "logo": "logos/milk/liziyuan.png",
+        "logo": "logos/liziyuan.png",
         "description": "浙江知名乳制品品牌。",
         "founded": "1994年",
         "city": "浙江金华",
@@ -1527,7 +2238,7 @@ const brandData = {
       },
       {
         "name": "夏进",
-        "logo": "logos/milk/xiajing.png",
+        "logo": "logos/xiajing.png",
         "description": "宁夏知名乳制品品牌。",
         "founded": "1994年",
         "city": "宁夏吴忠",
@@ -1545,7 +2256,7 @@ const brandData = {
       },
       {
         "name": "君乐宝",
-        "logo": "logos/milk/junlebao.png",
+        "logo": "logos/junlebao.png",
         "description": "河北知名乳制品品牌。",
         "founded": "1995年",
         "city": "河北石家庄",
@@ -1553,170 +2264,1796 @@ const brandData = {
         "reputation": "酸奶口感好，消费者喜爱。"
       }
     ],
-    "饮料": []
+    "饮料": [
+      {
+        "name": "汇源",
+        "logo": "",
+        "description": "全国知名果汁饮料品牌。",
+        "founded": "1992年",
+        "city": "北京",
+        "honors": "中国名牌产品",
+        "reputation": "果汁浓度高，口感好，营养丰富，消费者信赖。",
+        "products": [
+          {
+            "name": "汇源100%苹果汁",
+            "spec": "1L*12盒",
+            "price": "¥99-159",
+            "feature": "100%纯果汁，无添加"
+          },
+          {
+            "name": "汇源桃汁",
+            "spec": "1L*12盒",
+            "price": "¥99-159",
+            "feature": "桃香浓郁，口感清甜"
+          },
+          {
+            "name": "汇源橙汁",
+            "spec": "1L*12盒",
+            "price": "¥99-159",
+            "feature": "富含维生素C"
+          }
+        ]
+      },
+      {
+        "name": "娃哈哈",
+        "logo": "",
+        "description": "全国知名食品饮料品牌。",
+        "founded": "1987年",
+        "city": "浙江杭州",
+        "honors": "中国名牌产品",
+        "reputation": "产品种类丰富，口感好，价格亲民，市场占有率高。",
+        "products": [
+          {
+            "name": "娃哈哈营养快线",
+            "spec": "500ml*15瓶",
+            "price": "¥45.9-66.8",
+            "feature": "营养丰富，口感顺滑"
+          },
+          {
+            "name": "娃哈哈AD钙奶",
+            "spec": "220ml*24瓶",
+            "price": "¥44.9",
+            "feature": "酸甜可口，补充钙质"
+          },
+          {
+            "name": "娃哈哈纯净水",
+            "spec": "596ml*24瓶",
+            "price": "¥34.8",
+            "feature": "纯净健康，适合日常饮用"
+          }
+        ]
+      },
+      {
+        "name": "椰树",
+        "logo": "",
+        "description": "海南特色饮品品牌。",
+        "founded": "1956年",
+        "city": "海南海口",
+        "honors": "中国名牌产品",
+        "reputation": "海南特色，椰汁口感纯正，历史悠久，消费者喜爱。",
+        "products": [
+          {
+            "name": "椰树椰汁",
+            "spec": "245ml*24盒",
+            "price": "¥64.4-76.9",
+            "feature": "纯正椰香，口感醇厚"
+          },
+          {
+            "name": "椰树果肉椰汁",
+            "spec": "245ml*24盒",
+            "price": "¥75-95",
+            "feature": "果肉丰富，口感更佳"
+          }
+        ]
+      },
+      {
+        "name": "冰泉",
+        "logo": "",
+        "description": "广西特色饮品品牌。",
+        "founded": "1956年",
+        "city": "广西梧州",
+        "honors": "广西著名商标",
+        "reputation": "广西特色，豆浆晶历史悠久，口感好，营养丰富。",
+        "products": [
+          {
+            "name": "冰泉豆浆晶",
+            "spec": "360g*12袋",
+            "price": "¥88-110",
+            "feature": "速溶便捷，营养丰富"
+          },
+          {
+            "name": "冰泉纯豆浆粉",
+            "spec": "400g*12袋",
+            "price": "¥149-720",
+            "feature": "纯黄豆制作，无添加"
+          }
+        ]
+      },
+      {
+        "name": "津威",
+        "logo": "",
+        "description": "广东特色乳酸菌饮品品牌。",
+        "founded": "1990年",
+        "city": "广东惠州",
+        "honors": "广东著名商标",
+        "reputation": "乳酸菌饮品，口感好，有助于消化，儿童和家庭喜爱。",
+        "products": [
+          {
+            "name": "津威乳酸菌饮料",
+            "spec": "100ml*48瓶",
+            "price": "¥58-65",
+            "feature": "益生菌发酵，有助于肠道健康"
+          },
+          {
+            "name": "津威葡萄糖酸锌饮料",
+            "spec": "100ml*48瓶",
+            "price": "¥55-70",
+            "feature": "补锌佳品，酸甜可口"
+          }
+        ]
+      },
+      {
+        "name": "天府可乐",
+        "logo": "",
+        "description": "重庆特色碳酸饮料品牌。",
+        "founded": "1936年",
+        "city": "重庆",
+        "honors": "重庆著名商标",
+        "reputation": "老品牌，中药配方，口感独特，消费者怀旧喜爱。",
+        "products": [
+          {
+            "name": "天府可乐原味",
+            "spec": "330ml*24罐",
+            "price": "¥40.6-47.7",
+            "feature": "中药配方，口感独特"
+          },
+          {
+            "name": "天府可乐无糖",
+            "spec": "330ml*24罐",
+            "price": "¥25-40.6",
+            "feature": "零糖零脂，健康选择"
+          }
+        ]
+      },
+      {
+        "name": "崂山可乐",
+        "logo": "",
+        "description": "山东特色碳酸饮料品牌。",
+        "founded": "1956年",
+        "city": "山东青岛",
+        "honors": "山东著名商标",
+        "reputation": "老品牌，中药配方，口感独特，消费者怀旧喜爱。",
+        "products": [
+          {
+            "name": "崂山可乐原味",
+            "spec": "330ml*24罐",
+            "price": "¥99.9",
+            "feature": "中药配方，口感醇厚"
+          },
+          {
+            "name": "崂山可乐玻璃瓶",
+            "spec": "250ml*24瓶",
+            "price": "¥149.9",
+            "feature": "经典包装，怀旧味道"
+          }
+        ]
+      },
+      {
+        "name": "豆本豆",
+        "logo": "",
+        "description": "植物蛋白饮品品牌。",
+        "founded": "2017年",
+        "city": "北京",
+        "honors": "中国植物奶新锐品牌",
+        "reputation": "植物蛋白饮品，健康营养，口感好，适合素食者和健康人群。",
+        "products": [
+          {
+            "name": "豆本豆原味豆奶",
+            "spec": "250ml*24盒",
+            "price": "¥35-50",
+            "feature": "植物蛋白，营养健康"
+          },
+          {
+            "name": "豆本豆有机豆奶",
+            "spec": "250ml*12盒",
+            "price": "¥25-40",
+            "feature": "有机认证，品质保证"
+          },
+          {
+            "name": "豆本豆豆奶植物蛋白饮料",
+            "spec": "250ml*24盒",
+            "price": "¥35-50",
+            "feature": "营养丰富，口感顺滑"
+          }
+        ]
+      },
+      {
+        "name": "高乐高",
+        "logo": "",
+        "description": "西班牙知名冲调饮品品牌。",
+        "founded": "1946年",
+        "city": "西班牙巴塞罗那",
+        "honors": "国际知名冲调品牌",
+        "reputation": "巧克力冲饮品，口感好，营养丰富，深受儿童和年轻人喜爱。",
+        "products": [
+          {
+            "name": "高乐高巧克力粉",
+            "spec": "500g*6罐",
+            "price": "¥180-300",
+            "feature": "经典巧克力味，营养丰富"
+          },
+          {
+            "name": "高乐高草莓味",
+            "spec": "500g*6罐",
+            "price": "¥180-300",
+            "feature": "草莓风味，口感酸甜"
+          },
+          {
+            "name": "高乐高香草味",
+            "spec": "500g*6罐",
+            "price": "¥180-300",
+            "feature": "香草风味，口感清新"
+          }
+        ]
+      }
+    ]
   },
   "厨房调味": {
-    "味精": [],
-    "底料": [],
-    "酱油": [],
+    
+    "调味料": [
+      {
+        "name": "王守义十三香",
+        "logo": "logos/wangshouyi.png",
+        "description": "中华老字号，汇聚花椒、丁香、八角等十三种香料精华，香气浓郁，口感层次丰富，是中华烹饪文化的瑰宝。",
+        "founded": "1959年",
+        "city": "河南驻马店",
+        "honors": "中华老字号",
+        "reputation": "中华老字号，经典香料组合，香气浓郁，是中式烹饪必备调料。",
+        "products": [
+          {
+            "name": "王守义十三香",
+            "spec": "45g*3盒",
+            "price": "¥11.7元",
+            "feature": "经典款，香气独特，口感丰富，适合炖肉、炒菜、煲汤等多种烹饪方式。"
+          }
+        ]
+      },
+      {
+        "name": "老干妈",
+        "logo": "logos/laoganma.png",
+        "description": "贵州特产，国民级辣酱品牌，凭借独特风味和稳定品质，受到消费者喜爱。",
+        "founded": "1996年",
+        "city": "贵州贵阳",
+        "honors": "中国名牌产品",
+        "reputation": "国民级辣酱品牌，风味独特，品质稳定，消费者喜爱。",
+        "products": [
+          {
+            "name": "老干妈风味豆豉油制辣椒",
+            "spec": "280g",
+            "price": "¥11.2元",
+            "feature": "经典口味，口感劲道，性价比高，是下饭、炒菜的绝佳伴侣。"
+          },
+          {
+            "name": "老干妈香辣脆油辣椒酱",
+            "spec": "210g",
+            "price": "¥9.8元",
+            "feature": "豆豉的咸香与辣椒的香辣完美融合，口感丰富，味道浓郁。"
+          }
+        ]
+      }
+    ],
+    "味精": [
+      {
+        "name": "莲花味精",
+        "logo": "logos/lianhua.png",
+        "description": "国民老牌，极致性价比的代名词，成分简单纯粹，谷氨酸钠含量高达99%以上，是真正意义上的'纯粮酿造'。",
+        "founded": "1983年",
+        "city": "河南周口",
+        "honors": "中国名牌产品",
+        "reputation": "国民老牌，极致性价比，纯粮酿造，消费者信赖。",
+        "products": [
+          {
+            "name": "莲花味精",
+            "spec": "100g*3袋",
+            "price": "¥9.4元",
+            "feature": "小袋装，纯粮酿造无添加，99%高纯度不含盐，适合家庭日常使用。"
+          },
+          {
+            "name": "莲花味精",
+            "spec": "2000g",
+            "price": "¥27-28元",
+            "feature": "大包装，4斤装，纯粮酿造无添加，99%高纯度不额外加盐，适合家庭囤货或餐饮使用。"
+          }
+        ]
+      },
+      {
+        "name": "松鲜鲜",
+        "logo": "logos/songxianxian.png",
+        "description": "专注于健康调味领域，以天然食材替代化学增鲜剂，是味精和鸡精的健康替代品。",
+        "founded": "2019年",
+        "city": "浙江杭州",
+        "honors": "中国健康食品推荐品牌",
+        "reputation": "健康调味领域领先品牌，天然食材，零添加，深受健康人士喜爱。",
+        "products": [
+          {
+            "name": "松鲜鲜松茸调味料",
+            "spec": "150g",
+            "price": "¥40-50元",
+            "feature": "品牌明星产品，以松茸等多种天然食材为原料，不添加蔗糖、甜味剂、防腐剂，减钠29%，适合老人、孩子、孕妇等追求健康的人群。"
+          }
+        ]
+      },
+      {
+        "name": "天调本味",
+        "logo": "logos/tiandiaobenwei.png",
+        "description": "高科技营养与健康产业核心配料企业，采用国家火炬计划专项提取物技术，从天然肉类和海鲜中提取'美味肽'，实现真正的零添加。",
+        "founded": "2005年",
+        "city": "广东广州",
+        "honors": "国家高新技术企业",
+        "reputation": "高科技调味品企业，零添加，天然提取物，高端健康选择。",
+        "products": [
+          {
+            "name": "天调本味锦凤（鸡肉提取物）",
+            "spec": "1kg",
+            "price": "价格待定",
+            "feature": "提取新鲜鸡胸肉中的天然精华，富含美味肽与氨基酸，易于人体吸收，是健康调味品中的高端选择。"
+          }
+        ]
+      }
+    ],
+    
+    "酱油": [
+      {
+        "name": "千禾",
+        "logo": "logos/qianhe.png",
+        "description": "国内较早聚焦'零添加'赛道的知名品牌，市场认知度高，产品线丰富，性价比突出。",
+        "founded": "1996年",
+        "city": "四川眉山",
+        "honors": "中国调味品行业领先品牌",
+        "reputation": "零添加酱油知名品牌，产品线丰富，性价比高，消费者信赖。",
+        "products": [
+          {
+            "name": "千禾零添加380天特级生抽",
+            "spec": "500ml",
+            "price": "¥15-20元",
+            "feature": "明星产品，酿造周期长，酱香醇厚，是家庭日常提鲜的放心之选。"
+          },
+          {
+            "name": "千禾零添加御藏本酿老抽",
+            "spec": "500ml",
+            "price": "¥18-25元",
+            "feature": "上色自然，酱香浓郁，适合红烧、卤味等菜肴。"
+          }
+        ]
+      },
+      {
+        "name": "莲花酱油",
+        "logo": "logos/lianhua_jiangyou.png",
+        "description": "国民老牌莲花旗下的酱油产品，同样秉承'纯粮酿造、零添加'的理念，配料表干净，性价比极高。",
+        "founded": "1983年",
+        "city": "河南周口",
+        "honors": "中国名牌产品",
+        "reputation": "国民老牌，纯粮酿造，零添加，性价比高，消费者信赖。",
+        "products": [
+          {
+            "name": "莲花零添加酿造酱油",
+            "spec": "500ml",
+            "price": "¥6.9元",
+            "feature": "特级品质，纯粮酿造，无添加，是家庭日常炒菜、凉拌的实惠之选。"
+          },
+          {
+            "name": "莲花零添加酿造酱油",
+            "spec": "1L",
+            "price": "¥14.9元",
+            "feature": "大容量装，特级酿造，黄豆原酿生抽，满足家庭长期使用需求。"
+          }
+        ]
+      },
+      {
+        "name": "欣和",
+        "logo": "logos/xinhe.png",
+        "description": "旗下'六月鲜·轻'系列主打健康减盐，在坚持'零添加'的基础上，显著降低钠含量，深受注重健康管理的现代家庭青睐。",
+        "founded": "1992年",
+        "city": "山东烟台",
+        "honors": "中国调味品行业领军品牌",
+        "reputation": "高端调味品品牌，减盐健康，零添加，深受健康家庭喜爱。",
+        "products": [
+          {
+            "name": "欣和六月鲜·轻12克轻盐原汁酱油",
+            "spec": "500ml",
+            "price": "¥25-35元",
+            "feature": "减盐30%的同时尽可能保留酱油的鲜香本味，口感清雅纯净。"
+          }
+        ]
+      }
+    ],
     "醋": [
       {
         "name": "恒顺",
-        "logo": "logos/condiment/hengshun.png",
-        "description": "江苏知名醋业品牌。",
+        "logo": "logos/hengshun.png",
+        "description": "中国'四大名醋'之首（镇江香醋），国家级非物质文化遗产，以糯米为原料，采用传统工艺酿造，风味'酸而不涩、香而微甜'。",
         "founded": "1840年",
         "city": "江苏镇江",
-        "honors": "中国名牌产品",
-        "reputation": "老品牌，醋质优良，消费者信赖。"
-      }
-    ],
-    "豆瓣酱": [],
-    "粮油": [
-      {
-        "name": "中粮",
-        "logo": "logos/foodstuff/zhongliang.png",
-        "description": "中国知名粮油品牌。",
-        "founded": "1949年",
-        "city": "北京",
-        "honors": "中国名牌产品",
-        "reputation": "国字头企业，质量有保障，消费者信赖。"
+        "honors": "国家级非物质文化遗产，中国名牌产品",
+        "reputation": "四大名醋之首，百年老字号，传统工艺，品质上乘，消费者信赖。",
+        "products": [
+          {
+            "name": "恒顺镇江香醋",
+            "spec": "500ml",
+            "price": "¥7.5元",
+            "feature": "经典款，采用优质糯米为原料，酸而不涩，香而微甜，是烹饪美食的得力助手。"
+          },
+          {
+            "name": "恒顺三年陈镇江香醋",
+            "spec": "580ml",
+            "price": "¥22.5元",
+            "feature": "陈酿款，醋香浓郁，口感醇厚，品质上乘，是烹饪佳肴的必备调料。"
+          }
+        ]
       },
       {
-        "name": "陈克明",
-        "logo": "logos/foodstuff/chenkeming.png",
-        "description": "湖南知名面条品牌。",
-        "founded": "1984年",
-        "city": "湖南南县",
+        "name": "水塔",
+        "logo": "logos/shuitag.png",
+        "description": "北方陈醋规模化标杆，坚持'纯粮酿造、零添加'，自动化与传统工艺结合，性价比优势显著。",
+        "founded": "1976年",
+        "city": "山西清徐",
         "honors": "中国名牌产品",
-        "reputation": "面条质量好，消费者信赖。"
-      },
-      {
-        "name": "福临门",
-        "logo": "logos/foodstuff/fulinmen.png",
-        "description": "中粮集团旗下食用油品牌。",
-        "founded": "1993年",
-        "city": "北京",
-        "honors": "中国名牌产品",
-        "reputation": "食用油质量好，消费者信赖。"
+        "reputation": "北方陈醋代表品牌，纯粮酿造，零添加，性价比高，消费者喜爱。",
+        "products": [
+          {
+            "name": "水塔老陈醋",
+            "spec": "2.3L",
+            "price": "¥30-40元",
+            "feature": "大容量家庭装，配料干净，无添加剂、着色剂，色、香、醇、浓、酸等特点显著，价格亲民。"
+          }
+        ]
       },
       {
         "name": "鲁花",
-        "logo": "logos/foodstuff/luhua.png",
-        "description": "山东知名食用油品牌。",
+        "logo": "logos/luhua.png",
+        "description": "鲁花集团是我国最大的花生油专业生产企业，其黑糯米醋配料表干净，没有添加剂、防腐剂，大品牌，值得信赖。",
         "founded": "1986年",
         "city": "山东莱阳",
         "honors": "中国名牌产品",
-        "reputation": "花生油质量好，消费者信赖。"
+        "reputation": "知名粮油企业，黑糯米醋品质优良，零添加，消费者信赖。",
+        "products": [
+          {
+            "name": "鲁花黑糯米醋",
+            "spec": "500ml",
+            "price": "¥16-18元",
+            "feature": "配料为水、黑糯米、小麦麸皮、食用盐，无添加，适合追求健康品质的家庭。"
+          }
+        ]
+      }
+    ],
+    
+    "料酒": [
+      {
+        "name": "老恒河",
+        "logo": "logos/laohenghe.png",
+        "description": "中华老字号，专注于黄酒和料酒的生产，采用传统工艺酿造，去腥提鲜效果显著。",
+        "founded": "1919年",
+        "city": "上海",
+        "honors": "中华老字号",
+        "reputation": "中华老字号，传统工艺，去腥提鲜效果好，消费者信赖。",
+        "products": [
+          {
+            "name": "老恒河料酒",
+            "spec": "1.75L",
+            "price": "¥18.5元",
+            "feature": "大瓶装，解膻去腥，提鲜增香，是厨房常备的调味品。"
+          },
+          {
+            "name": "老恒河0添加料酒",
+            "spec": "1.28L*2桶",
+            "price": "价格待定",
+            "feature": "原酿特级料酒，零添加，去腥增香效果更佳。"
+          }
+        ]
+      }
+    ],
+    "蚝油": [
+      {
+        "name": "沙井蚝油",
+        "logo": "logos/shajing.png",
+        "description": "深圳特产，以'千年蚝乡'为品牌，蚝汁含量高，是高品质蚝油的代表。",
+        "founded": "1980年",
+        "city": "广东深圳",
+        "honors": "广东老字号",
+        "reputation": "深圳特产，高品质蚝油代表，蚝汁含量高，消费者喜爱。",
+        "products": [
+          {
+            "name": "沙井蚝油",
+            "spec": "500g",
+            "price": "¥22.93元",
+            "feature": "70%蚝汁含量，玻璃瓶装，咸蚝油口味，是山姆同款旧庄耗油的替代选择。"
+          }
+        ]
+      },
+      {
+        "name": "珠江桥头牌",
+        "logo": "logos/zhujiangqiaotou.png",
+        "description": "中华老字号，远销国内外，其零添加蚝油系列严选新鲜优质生蚝，浓缩蚝汁精华，蚝香浓郁。",
+        "founded": "1954年",
+        "city": "广东中山",
+        "honors": "中华老字号",
+        "reputation": "中华老字号，零添加蚝油，蚝香浓郁，品质上乘，远销海外。",
+        "products": [
+          {
+            "name": "珠江桥牌零添加蚝油",
+            "spec": "250g*2瓶",
+            "price": "¥28.06元",
+            "feature": "40%蚝汁含量，零添加，蚝香浓郁，味道鲜美。"
+          }
+        ]
+      }
+    ],
+    "芝麻油": [
+      {
+        "name": "崔字牌",
+        "logo": "logos/cuizipai.png",
+        "description": "中华老字号，传承600余年，采用传统水代法、石磨工艺制作，100%纯芝麻油，香气醇厚，是香油中的佼佼者。",
+        "founded": "1400年",
+        "city": "山东安丘",
+        "honors": "中华老字号，国家级非物质文化遗产",
+        "reputation": "中华老字号，传统工艺，纯芝麻香油，香气醇厚，品质上乘。",
+        "products": [
+          {
+            "name": "崔字牌小磨香油",
+            "spec": "448ml",
+            "price": "价格待定",
+            "feature": "一级品质，精选芝麻，香味浓郁，是凉拌、火锅蘸料的绝佳选择。"
+          },
+          {
+            "name": "崔字牌小磨香油",
+            "spec": "1L",
+            "price": "价格待定",
+            "feature": "大容量装，拉盖设计，密封性好，适合家庭长期使用。"
+          }
+        ]
+      }
+    ],
+    "豆瓣酱": [
+      {
+        "name": "鹃城牌",
+        "logo": "logos/juanchengpai.png",
+        "description": "中华老字号，中国非物质文化遗产郫县豆瓣传统制作技艺的传承企业之一，有'川菜之魂'的美誉，品质有保障。",
+        "founded": "1688年",
+        "city": "四川成都",
+        "honors": "中华老字号，国家级非物质文化遗产",
+        "reputation": "郫县豆瓣代表品牌，百年老字号，非遗传承，品质上乘，是川菜之魂。",
+        "products": [
+          {
+            "name": "鹃城牌特级郫县豆瓣酱",
+            "spec": "1000g",
+            "price": "¥30-40元",
+            "feature": "特级豆瓣，晒足1095天，零添加，做菜时可少加盐，十分省心。"
+          },
+          {
+            "name": "鹃城牌红油豆瓣酱",
+            "spec": "500g",
+            "price": "¥15-20元",
+            "feature": "红油油亮，酱香浓郁，能为菜肴增添独特风味，是川菜必备的调味品。"
+          }
+        ]
+      },
+      {
+        "name": "绍丰和",
+        "logo": "logos/shaofenhe.png",
+        "description": "中华老字号，始于1666年，堪称豆瓣鼻祖，坚持传统'翻、晒、露'工序，产品周期至少一年以上，是郫县豆瓣中的精品。",
+        "founded": "1666年",
+        "city": "四川成都",
+        "honors": "中华老字号",
+        "reputation": "豆瓣鼻祖，中华老字号，传统工艺，精品豆瓣，消费者推崇。",
+        "products": [
+          {
+            "name": "绍丰和郫县豆瓣酱",
+            "spec": "600g",
+            "price": "¥14.9元",
+            "feature": "3年陈酿，纯手工黑豆瓣酱，是品牌的热销基础款。"
+          },
+          {
+            "name": "绍丰和郫县豆瓣酱",
+            "spec": "500g",
+            "price": "¥42元",
+            "feature": "特级品质，手工酿造，无任何添加剂，酱香溢口，醇厚浓郁。"
+          }
+        ]
+      },
+      {
+        "name": "丹丹",
+        "logo": "logos/dandan.png",
+        "description": "四川本土知名豆瓣酱品牌，采用传统工艺与现代技术相结合的方式发酵酿制，荣获'中国绿色食品'称号。",
+        "founded": "1984年",
+        "city": "四川成都",
+        "honors": "中国绿色食品",
+        "reputation": "四川本土知名品牌，传统工艺与现代技术结合，绿色食品认证，消费者喜爱。",
+        "products": [
+          {
+            "name": "丹丹红油郫县豆瓣酱",
+            "spec": "500g",
+            "price": "¥12-18元",
+            "feature": "0添加防腐剂，保留豆瓣酱自然风味，适合炒菜、火锅、红烧等多种烹饪方式。"
+          }
+        ]
+      }
+    ],
+    "粮油": [
+      {
+        "name": "鲁花",
+        "logo": "logos/luhua.png",
+        "description": "国货之光，独创'5S物理压榨'工艺，全程不加一滴化学溶剂，从筛选、烘炒到压榨，每一步都精益求精，将花生的浓郁香气牢牢锁住。",
+        "founded": "1986年",
+        "city": "山东莱阳",
+        "honors": "中国名牌产品",
+        "reputation": "国货之光，物理压榨工艺，品质卓越，消费者信赖的高端食用油品牌。",
+        "products": [
+          {
+            "name": "鲁花5S压榨一级花生油",
+            "spec": "5L",
+            "price": "¥159.8元",
+            "feature": "明星产品，甄选颗粒饱满优质大花生，采用物理压榨工艺，生香、留香技术，恒温保鲜存储，炒菜更鲜香。"
+          },
+          {
+            "name": "鲁花高油酸花生油",
+            "spec": "750ml*2礼盒",
+            "price": "¥109.8元",
+            "feature": "油酸含量高于75%，是追求更高健康品质的选择。"
+          }
+        ]
       },
       {
         "name": "金龙鱼",
-        "logo": "logos/foodstuff/jinlongyu.png",
-        "description": "知名食用油品牌。",
+        "logo": "logos/jinlongyu.png",
+        "description": "家喻户晓的国民品牌，其'零反式脂肪酸'系列通过精准控温的精炼技术，将反式脂肪酸含量降为零，让烹饪更安心。",
         "founded": "1991年",
         "city": "上海",
         "honors": "中国名牌产品",
-        "reputation": "食用油质量好，消费者信赖。"
+        "reputation": "国民品牌，产品种类丰富，零反式脂肪酸，消费者信赖。",
+        "products": [
+          {
+            "name": "金龙鱼零反式脂肪酸玉米油",
+            "spec": "5L",
+            "price": "¥70-85元",
+            "feature": "烟点高达230℃，高温煎炸不易冒烟，炸油条不起沫，煎带鱼不腥气。"
+          },
+          {
+            "name": "金龙鱼1:1:1调和油",
+            "spec": "5L",
+            "price": "¥80-95元",
+            "feature": "将菜籽油、葵花油、玉米油按黄金比例调配，适合追求便捷的家庭，一油多用。"
+          }
+        ]
+      },
+      {
+        "name": "多力",
+        "logo": "logos/duoli.png",
+        "description": "以'充氮保鲜'技术闻名，灌装时注入氮气，大大减缓氧化速度，开瓶后放三个月依然清亮，保持新鲜好味。",
+        "founded": "1986年",
+        "city": "上海",
+        "honors": "中国名牌产品",
+        "reputation": "充氮保鲜技术领先，产品新鲜度高，消费者喜爱。",
+        "products": [
+          {
+            "name": "多力葵花籽油",
+            "spec": "5L",
+            "price": "¥75-90元",
+            "feature": "适用性强，凉拌不抢味，热炒不发苦，是健身党和办公室带饭族的理想选择。"
+          }
+        ]
+      }
+    ],
+    "火锅底料": [
+      {
+        "name": "臻鲜",
+        "logo": "logos/zhenxian.png",
+        "description": "2025年火锅底料市场的'黑马'，以'零添加、高还原度'为核心卖点，采用低温慢熬技术，最大程度保留食材本味，是健康火锅底料的代表品牌。",
+        "founded": "2018年",
+        "city": "四川成都",
+        "honors": "中国火锅底料创新品牌",
+        "reputation": "新兴品牌，零添加，高还原度，健康火锅底料的代表。",
+        "products": [
+          {
+            "name": "臻鲜菌汤火锅底料",
+            "spec": "300g",
+            "price": "¥15-20元",
+            "feature": "明星产品，采用云南野生菌等天然原料，主打'能喝汤的火锅'概念，汤底鲜美醇厚。"
+          },
+          {
+            "name": "臻鲜麻辣牛油火锅底料",
+            "spec": "300g",
+            "price": "¥18-25元",
+            "feature": "与四川、云南等地优质辣椒、花椒种植基地合作，确保原料新鲜度，辣而不燥，醇厚回甘。"
+          }
+        ]
+      },
+      {
+        "name": "海琦王",
+        "logo": "logos/haiqiwang.png",
+        "description": "主打0添加，原料采用非转基因大豆油和大豆，无防腐剂、甜味剂、增味剂，让消费者吃得安心。",
+        "founded": "2015年",
+        "city": "辽宁大连",
+        "honors": "中国零添加火锅底料领先品牌",
+        "reputation": "零添加火锅底料品牌，安全健康，消费者信赖。",
+        "products": [
+          {
+            "name": "海琦王香辣火锅底料",
+            "spec": "138g",
+            "price": "¥10-15元",
+            "feature": "香辣口味，红油香气浓郁，味道正宗，适合家庭煮火锅。"
+          },
+          {
+            "name": "海琦王番茄火锅底料",
+            "spec": "138g",
+            "price": "¥10-15元",
+            "feature": "番茄味浓郁，酸甜开胃，适合不吃辣的人群和儿童。"
+          }
+        ]
+      },
+      {
+        "name": "小龙坎",
+        "logo": "logos/xiaolongkan.png",
+        "description": "知名火锅连锁品牌，其底料产品运用创新研发的微生物发酵酵藏工艺，历经4000小时深度发酵，不添加防腐剂、人工香精及化学调味剂。",
+        "founded": "2008年",
+        "city": "四川成都",
+        "honors": "中国火锅领军品牌",
+        "reputation": "知名火锅连锁品牌，发酵工艺独特，味道醇厚，消费者喜爱。",
+        "products": [
+          {
+            "name": "小龙坎酵藏老坛发酵纯牛油火锅底料",
+            "spec": "300g",
+            "price": "¥20-30元",
+            "feature": "运用陶坛发酵技术，打造'辣而不燥、醇厚回甘'的味觉享受。"
+          }
+        ]
       }
     ]
   },
   "速食糕点零食": {
-    "方便": [
-      {
-        "name": "幸运方便面",
-        "logo": "logos/instantfood/xingyun.png",
-        "description": "广东知名方便面品牌。",
-        "founded": "1989年",
-        "city": "广东肇庆",
-        "honors": "中国名牌产品",
-        "reputation": "口感好，价格实惠，消费者喜爱。"
-      },
-      {
-        "name": "泰奇",
-        "logo": "logos/instantfood/taiqi.png",
-        "description": "广东知名方便粥品牌。",
-        "founded": "1992年",
-        "city": "广东广州",
-        "honors": "中国名牌产品",
-        "reputation": "方便粥口感好，营养丰富，消费者喜爱。"
-      },
+    "方便食品类": [
       {
         "name": "白象",
-        "logo": "logos/instantfood/baixiang.png",
-        "description": "河南知名方便面品牌。",
+        "logo": "logos/baixiang.png",
+        "description": "国货之光，民族企业，口碑极好，价格亲民。",
         "founded": "1997年",
         "city": "河南郑州",
-        "honors": "中国名牌产品",
-        "reputation": "口感好，价格实惠，消费者喜爱。"
-      }
-    ],
-    "糕点": [
+        "honors": "中国名牌产品、河南省著名商标",
+        "reputation": "国货之光，民族企业，口碑极好，价格亲民，消费者信赖。",
+        "products": [
+          {
+            "name": "白象经典红烧牛肉面",
+            "spec": "108g*24袋",
+            "price": "¥79.9元",
+            "feature": "经典口味，牛肉鲜香，价格亲民，是家庭常备速食。"
+          },
+          {
+            "name": "白象汤好喝老母鸡汤面",
+            "spec": "112g*24袋",
+            "price": "¥99.9元",
+            "feature": "浓郁鸡汤，口感醇厚，不添加防腐剂，营养健康。"
+          },
+          {
+            "name": "白象大辣娇韩式火鸡面",
+            "spec": "133g*5袋",
+            "price": "¥29.9元",
+            "feature": "韩式风味，香辣过瘾，网红爆款，深受年轻人喜爱。"
+          }
+        ]
+      },
       {
-        "name": "陶陶居",
-        "logo": "logos/pastry/taotaoju.png",
-        "description": "广东知名糕点品牌。",
-        "founded": "1880年",
+        "name": "五谷道场",
+        "logo": "logos/wugudaochang.png",
+        "description": "中粮旗下，主打'非油炸'概念，品控稳定。",
+        "founded": "2004年",
+        "city": "北京",
+        "honors": "中国方便食品行业十大影响力品牌",
+        "reputation": "中粮旗下，非油炸健康理念，品控稳定，消费者喜爱。",
+        "products": [
+          {
+            "name": "五谷道场番茄鸡蛋面",
+            "spec": "115g*12盒",
+            "price": "¥79.9元",
+            "feature": "非油炸，低脂肪，番茄酸甜，鸡蛋鲜香，健康美味。"
+          },
+          {
+            "name": "五谷道场红烧牛肉面",
+            "spec": "118g*12盒",
+            "price": "¥79.9元",
+            "feature": "非油炸，口感劲道，牛肉汤汁浓郁，营养健康。"
+          }
+        ]
+      },
+      {
+        "name": "泰奇八宝粥",
+        "logo": "logos/taiqi.png",
+        "description": "广东老品牌，品控稳定，价格实惠。",
+        "founded": "1992年",
         "city": "广东广州",
-        "honors": "中国历史文化名品",
-        "reputation": "老品牌，糕点风味独特，消费者信赖。"
+        "honors": "中国名牌产品、广东省著名商标",
+        "reputation": "广东老品牌，品控稳定，价格实惠，消费者信赖。",
+        "products": [
+          {
+            "name": "泰奇原味八宝粥",
+            "spec": "370g*12罐",
+            "price": "¥49.9元",
+            "feature": "经典原味，食材丰富，营养均衡，方便即食。"
+          },
+          {
+            "name": "泰奇低糖八宝粥",
+            "spec": "370g*12罐",
+            "price": "¥59.9元",
+            "feature": "低糖配方，适合控糖人群，口感软糯，营养健康。"
+          },
+          {
+            "name": "泰奇莲子百合粥",
+            "spec": "370g*12罐",
+            "price": "¥55.9元",
+            "feature": "莲子百合，清润养身，口感清甜，老少皆宜。"
+          }
+        ]
       },
       {
-        "name": "荣欣堂",
-        "logo": "logos/pastry/rongxintang.png",
-        "description": "山西知名糕点品牌。",
-        "founded": "1895年",
-        "city": "山西太原",
-        "honors": "中国历史文化名品",
-        "reputation": "老品牌，糕点风味独特，消费者信赖。"
+        "name": "华丰三鲜伊面",
+        "logo": "logos/huafeng.png",
+        "description": "经典怀旧国货，价格实惠，无负面新闻。",
+        "founded": "1986年",
+        "city": "广东珠海",
+        "honors": "中国名牌产品、广东省著名商标",
+        "reputation": "经典怀旧国货，价格实惠，品质稳定，无负面新闻。",
+        "products": [
+          {
+            "name": "华丰三鲜伊面原味",
+            "spec": "78g*24袋",
+            "price": "¥49.9元",
+            "feature": "经典原味，8090怀旧记忆，价格亲民，方便快捷。"
+          },
+          {
+            "name": "华丰三鲜伊面香辣味",
+            "spec": "78g*24袋",
+            "price": "¥59.9元",
+            "feature": "香辣可口，经典升级，适合喜欢辣味的消费者。"
+          }
+        ]
       },
       {
-        "name": "老香斋",
-        "logo": "logos/pastry/laoxiangzhai.png",
-        "description": "上海知名糕点品牌。",
-        "founded": "1910年",
-        "city": "上海",
-        "honors": "中国历史文化名品",
-        "reputation": "老品牌，糕点风味独特，消费者信赖。"
-      },
-      {
-        "name": "三牛",
-        "logo": "logos/pastry/sanniu.png",
-        "description": "上海知名饼干品牌。",
-        "founded": "1936年",
-        "city": "上海",
-        "honors": "中国名牌产品",
-        "reputation": "老品牌，饼干口感好，消费者信赖。"
-      }
-    ],
-    "香嘴": [
-      {
-        "name": "喜之郎",
-        "logo": "logos/snack/xizhilang.png",
-        "description": "广东知名果冻品牌。",
-        "founded": "1993年",
-        "city": "广东深圳",
-        "honors": "中国名牌产品",
-        "reputation": "果冻口感好，种类丰富，消费者喜爱。"
-      },
-      {
-        "name": "伟龙",
-        "logo": "logos/snack/weilong.png",
-        "description": "山东知名饼干品牌。",
+        "name": "今麦郎",
+        "logo": "logos/jinmailang.png",
+        "description": "已完全脱离外资背景，产品线丰富，性价比高。",
         "founded": "1994年",
-        "city": "山东潍坊",
-        "honors": "山东著名商标",
-        "reputation": "饼干口感好，价格实惠，消费者喜爱。"
-      },
-      {
-        "name": "运康",
-        "logo": "logos/snack/yunkang.png",
-        "description": "山西知名锅巴品牌。",
-        "founded": "1995年",
-        "city": "山西运城",
-        "honors": "山西著名商标",
-        "reputation": "锅巴口感好，消费者喜爱。"
+        "city": "河北邢台",
+        "honors": "中国名牌产品、河北省著名商标",
+        "reputation": "完全脱离外资背景，产品线丰富，性价比高，消费者喜爱。",
+        "products": [
+          {
+            "name": "今麦郎一桶半红烧牛肉面",
+            "spec": "145g*12桶",
+            "price": "¥79.9元",
+            "feature": "大份量，一桶半满足，牛肉鲜香，价格实惠。"
+          },
+          {
+            "name": "今麦郎重庆小面",
+            "spec": "136g*12桶",
+            "price": "¥89.9元",
+            "feature": "正宗重庆风味，麻辣鲜香，口感劲道。"
+          },
+          {
+            "name": "今麦郎老坛酸菜牛肉面",
+            "spec": "145g*12桶",
+            "price": "¥79.9元",
+            "feature": "酸爽开胃，牛肉香浓，经典口味。"
+          }
+        ]
       }
     ],
-    "肉干肠": []
+    "糕点类": [
+        {
+          "name": "嘉顿",
+          "logo": "logos/jiadun.png",
+          "description": "香港民族企业，品控严格，口碑极佳。",
+          "founded": "1926年",
+          "city": "中国香港",
+          "honors": "香港名牌产品、中国驰名商标",
+          "reputation": "香港民族企业，品控严格，口碑极佳，消费者信赖。",
+          "products": [
+            {
+              "name": "嘉顿香葱薄饼",
+              "spec": "100g*6盒",
+              "price": "¥49.9元",
+              "feature": "经典香葱味，薄脆口感，咸香适中，是办公室常备零食。"
+            },
+            {
+              "name": "嘉顿生命面包",
+              "spec": "450g*2袋",
+              "price": "¥39.9元",
+              "feature": "营养均衡，松软可口，早餐必备，全家喜爱。"
+            },
+            {
+              "name": "嘉顿威化饼干",
+              "spec": "200g*3盒",
+              "price": "¥49.9元",
+              "feature": "层层酥脆，巧克力味浓，经典口味，老少皆宜。"
+            }
+          ]
+        },
+        {
+          "name": "冠生园",
+          "logo": "logos/guanshengyuan.png",
+          "description": "上海老字号，大白兔奶糖母公司，基础产品线值得信赖。",
+          "founded": "1915年",
+          "city": "上海",
+          "honors": "中华老字号、中国驰名商标",
+          "reputation": "上海老字号，大白兔奶糖母公司，基础产品线值得信赖，消费者喜爱。",
+          "products": [
+            {
+              "name": "冠生园大白兔奶糖",
+              "spec": "454g*2袋",
+              "price": "¥69.9元",
+              "feature": "经典原味，奶香浓郁，口感细腻，童年回忆。"
+            },
+            {
+              "name": "冠生园压缩饼干",
+              "spec": "200g*5袋",
+              "price": "¥39.9元",
+              "feature": "高能量，耐储存，方便携带，户外必备。"
+            },
+            {
+              "name": "冠生园月饼礼盒",
+              "spec": "8饼8味640g",
+              "price": "¥129.9元",
+              "feature": "传统工艺，口味多样，包装精美，送礼佳品。"
+            }
+          ]
+        },
+        {
+          "name": "盼盼",
+          "logo": "logos/panpan.png",
+          "description": "国民度高，品控稳定，性价比高。",
+          "founded": "1996年",
+          "city": "福建晋江",
+          "honors": "中国驰名商标、福建省著名商标",
+          "reputation": "国民度高，品控稳定，性价比高，消费者喜爱。",
+          "products": [
+            {
+              "name": "盼盼法式小面包",
+              "spec": "2000g/箱",
+              "price": "¥69.9元",
+              "feature": "松软可口，奶香浓郁，早餐搭档，价格实惠。"
+            },
+            {
+              "name": "盼盼瑞士卷",
+              "spec": "120g*6盒",
+              "price": "¥59.9元",
+              "feature": "奶油夹心，口感细腻，独立包装，方便携带。"
+            },
+            {
+              "name": "盼盼梅尼耶干蛋糕",
+              "spec": "100g*6盒",
+              "price": "¥59.9元",
+              "feature": "法式工艺，酥脆可口，鸡蛋含量高，营养美味。"
+            }
+          ]
+        },
+        {
+          "name": "九度七",
+          "logo": "logos/jiuduqi.png",
+          "description": "新兴国货，主打'低糖'中式糕点，口碑较好。",
+          "founded": "2016年",
+          "city": "广东广州",
+          "honors": "中国烘焙行业新锐品牌",
+          "reputation": "新兴国货，主打低糖中式糕点，健康理念，口碑较好。",
+          "products": [
+            {
+              "name": "九度七低糖蛋黄酥",
+              "spec": "6枚装300g",
+              "price": "¥49.9元",
+              "feature": "低糖配方，蛋黄酥香，口感丰富，健康美味。"
+            },
+            {
+              "name": "九度七低糖核桃酥",
+              "spec": "200g*3盒",
+              "price": "¥59.9元",
+              "feature": "传统工艺，核桃香浓，低糖健康，适合中老年人。"
+            },
+            {
+              "name": "九度七低糖绿豆糕",
+              "spec": "240g*2盒",
+              "price": "¥49.9元",
+              "feature": "清爽绿豆味，入口即化，低糖配方，夏季消暑佳品。"
+            }
+          ]
+        }
+      ],
+    "香嘴零食类": [
+        {
+          "name": "运康锅巴",
+          "logo": "logos/yunkang.png",
+          "description": "山西品牌，口味偏向'原切'，配料相对简单。",
+          "founded": "1992年",
+          "city": "山西太原",
+          "honors": "山西省著名商标、中国绿色食品认证",
+          "reputation": "山西品牌，口味偏向'原切'，配料相对简单，消费者喜爱。",
+          "products": [
+            {
+              "name": "运康锅巴麻辣味",
+              "spec": "102g*10袋",
+              "price": "¥59.9元",
+              "feature": "传统工艺，米香浓郁，麻辣可口，脆度适中，怀旧经典。"
+            },
+            {
+              "name": "运康锅巴五香味",
+              "spec": "102g*10袋",
+              "price": "¥59.9元",
+              "feature": "咸香适中，米香纯正，配料简单，健康休闲零食。"
+            },
+            {
+              "name": "运康锅巴番茄味",
+              "spec": "102g*10袋",
+              "price": "¥59.9元",
+              "feature": "酸甜可口，番茄味浓郁，小朋友喜爱，追剧必备。"
+            }
+          ]
+        },
+        {
+          "name": "噜咪啦薯片",
+          "logo": "logos/lumila.png",
+          "description": "云南品牌，原切薯片，香精味不重。",
+          "founded": "1998年",
+          "city": "云南昆明",
+          "honors": "云南省著名商标、绿色食品认证",
+          "reputation": "云南品牌，原切薯片，香精味不重，健康美味。",
+          "products": [
+            {
+              "name": "噜咪啦原切薯片原味",
+              "spec": "50g*10袋",
+              "price": "¥69.9元",
+              "feature": "原切工艺，保留土豆原汁原味，口感酥脆，天然健康。"
+            },
+            {
+              "name": "噜咪啦原切薯片麻辣味",
+              "spec": "50g*10袋",
+              "price": "¥69.9元",
+              "feature": "麻辣鲜香，薯片薄脆，香精味轻，追剧好搭档。"
+            },
+            {
+              "name": "噜咪啦原切薯片番茄味",
+              "spec": "50g*10袋",
+              "price": "¥69.9元",
+              "feature": "番茄味清新自然，薯片松脆，无重口味香精。"
+            }
+          ]
+        },
+        {
+          "name": "子弟薯片",
+          "logo": "logos/zidipu.png",
+          "description": "云南品牌，与噜咪啦类似，口味更天然。",
+          "founded": "2001年",
+          "city": "云南昆明",
+          "honors": "云南省著名商标、中国消费者信赖品牌",
+          "reputation": "云南品牌，口味更天然，深受消费者喜爱。",
+          "products": [
+            {
+              "name": "子弟薯片麻辣味",
+              "spec": "45g*15袋",
+              "price": "¥79.9元",
+              "feature": "麻辣适中，天然香料，口感松脆，健康美味。"
+            },
+            {
+              "name": "子弟薯片黄瓜味",
+              "spec": "45g*15袋",
+              "price": "¥79.9元",
+              "feature": "清爽黄瓜香，口味天然，薯片薄脆，夏日必备。"
+            },
+            {
+              "name": "子弟薯片烤肉味",
+              "spec": "45g*15袋",
+              "price": "¥79.9元",
+              "feature": "烤肉香浓郁，天然调味料，口感酥脆，聚会分享。"
+            }
+          ]
+        },
+        {
+          "name": "香鸽瓜子",
+          "logo": "logos/xiangge.png",
+          "description": "炒货类国货，品控有保障，无负面新闻。",
+          "founded": "2003年",
+          "city": "安徽合肥",
+          "honors": "安徽省著名商标、食品安全示范企业",
+          "reputation": "炒货类国货，品控有保障，无负面新闻，消费者信赖。",
+          "products": [
+            {
+              "name": "香鸽瓜子原味",
+              "spec": "200g*5袋",
+              "price": "¥49.9元",
+              "feature": "精选大粒葵花籽，原味炒制，颗粒饱满，口感香脆。"
+            },
+            {
+              "name": "香鸽瓜子焦糖味",
+              "spec": "200g*5袋",
+              "price": "¥49.9元",
+              "feature": "焦糖香甜，瓜子酥脆，追剧必备，休闲零食。"
+            },
+            {
+              "name": "香鸽瓜子山核桃味",
+              "spec": "200g*5袋",
+              "price": "¥49.9元",
+              "feature": "山核桃味浓郁，瓜子均匀，炒制到位，聚会分享。"
+            }
+          ]
+        },
+        {
+          "name": "渝兄怪味豆",
+          "logo": "logos/yuxiong.png",
+          "description": "炒货类国货，区域强势品牌，口碑良好。",
+          "founded": "1998年",
+          "city": "重庆",
+          "honors": "重庆市著名商标、中国食品行业名牌产品",
+          "reputation": "炒货类国货，区域强势品牌，口碑良好，消费者喜爱。",
+          "products": [
+            {
+              "name": "渝兄怪味胡豆",
+              "spec": "450g*3袋",
+              "price": "¥59.9元",
+              "feature": "麻辣鲜香，口感酥脆，多味复合，重庆特色。"
+            },
+            {
+              "name": "渝兄盐焗腰果",
+              "spec": "100g*5袋",
+              "price": "¥79.9元",
+              "feature": "精选腰果，盐焗工艺，咸香可口，营养丰富。"
+            },
+            {
+              "name": "渝兄麻辣花生",
+              "spec": "300g*4袋",
+              "price": "¥49.9元",
+              "feature": "麻辣鲜香，花生酥脆，颗粒饱满，下酒小菜。"
+            }
+          ]
+        }
+      ],
+    "肉干肠类": [
+        {
+          "name": "美好",
+          "logo": "logos/meihuao.png",
+          "description": "新希望六和旗下，品控有保障，大众化选择。",
+          "founded": "2003年",
+          "city": "四川成都",
+          "honors": "中国驰名商标、食品安全示范企业",
+          "reputation": "新希望六和旗下，品控有保障，大众化选择，消费者喜爱。",
+          "products": [
+            {
+              "name": "美好火腿肠",
+              "spec": "400g*5袋",
+              "price": "¥59.9元",
+              "feature": "肉质细腻，口感Q弹，适合炒菜、烧烤，家常必备。"
+            },
+            {
+              "name": "美好辣子鸡",
+              "spec": "100g*10袋",
+              "price": "¥69.9元",
+              "feature": "麻辣鲜香，鸡肉紧实，独立包装，方便携带。"
+            },
+            {
+              "name": "美好午餐肉",
+              "spec": "340g*3罐",
+              "price": "¥59.9元",
+              "feature": "含肉量高，口感扎实，早餐、火锅、三明治百搭。"
+            }
+          ]
+        },
+        {
+          "name": "育青",
+          "logo": "logos/yuqing.png",
+          "description": "北京老字号，肉质含量高，口感扎实。",
+          "founded": "1992年",
+          "city": "北京",
+          "honors": "北京市著名商标、中华老字号",
+          "reputation": "北京老字号，肉质含量高，口感扎实，消费者信赖。",
+          "products": [
+            {
+              "name": "育青鸡小胸",
+              "spec": "100g*6袋",
+              "price": "¥79.9元",
+              "feature": "鸡胸肉含量95%以上，低脂高蛋白，健康零食。"
+            },
+            {
+              "name": "育青牛肉干",
+              "spec": "100g*3袋",
+              "price": "¥89.9元",
+              "feature": "内蒙古牛肉，肉质紧实，越嚼越香，休闲佳品。"
+            },
+            {
+              "name": "育青香辣鸭脖",
+              "spec": "150g*4袋",
+              "price": "¥69.9元",
+              "feature": "麻辣入味，鸭脖肉质鲜嫩，追剧必备。"
+            }
+          ]
+        },
+        {
+          "name": "秋林",
+          "logo": "logos/qiulin.png",
+          "description": "哈尔滨老字号，红肠工艺传统，风味独特。",
+          "founded": "1900年",
+          "city": "黑龙江哈尔滨",
+          "honors": "中华老字号、中国驰名商标",
+          "reputation": "哈尔滨老字号，红肠工艺传统，风味独特，消费者喜爱。",
+          "products": [
+            {
+              "name": "秋林里道斯红肠",
+              "spec": "500g*2袋",
+              "price": "¥99.9元",
+              "feature": "传统工艺，烟熏风味，蒜香浓郁，哈尔滨特产。"
+            },
+            {
+              "name": "秋林儿童肠",
+              "spec": "300g*2袋",
+              "price": "¥69.9元",
+              "feature": "肉质细腻，咸淡适中，适合儿童食用。"
+            },
+            {
+              "name": "秋林干肠",
+              "spec": "250g*2袋",
+              "price": "¥79.9元",
+              "feature": "传统风干工艺，越嚼越香，下酒良品。"
+            }
+          ]
+        },
+        {
+          "name": "三丰午餐肉",
+          "logo": "logos/sanfeng.png",
+          "description": "上海梅林旗下，国货老品牌，品质稳定。",
+          "founded": "1998年",
+          "city": "上海",
+          "honors": "上海市著名商标、中国食品行业名牌",
+          "reputation": "上海梅林旗下，国货老品牌，品质稳定，消费者信赖。",
+          "products": [
+            {
+              "name": "三丰梅林午餐肉",
+              "spec": "340g*5罐",
+              "price": "¥89.9元",
+              "feature": "百年工艺，含肉量高，口感细腻，早餐必备。"
+            },
+            {
+              "name": "三丰火腿午餐肉",
+              "spec": "340g*3罐",
+              "price": "¥69.9元",
+              "feature": "添加火腿，风味独特，适合火锅、烧烤。"
+            },
+            {
+              "name": "三丰精致午餐肉",
+              "spec": "200g*4罐",
+              "price": "¥59.9元",
+              "feature": "小罐便携，肉质鲜嫩，方便食用，旅行必备。"
+            }
+          ]
+        },
+        {
+          "name": "太丰肉干",
+          "logo": "logos/taifeng.png",
+          "description": "浙江品牌，地方特色，品控稳定。",
+          "founded": "1995年",
+          "city": "浙江杭州",
+          "honors": "浙江省著名商标、食品安全示范企业",
+          "reputation": "浙江品牌，地方特色，品控稳定，消费者喜爱。",
+          "products": [
+            {
+              "name": "太丰牛肉干原味",
+              "spec": "100g*5袋",
+              "price": "¥89.9元",
+              "feature": "精选黄牛肉，肉质紧实，原味自然，越嚼越香。"
+            },
+            {
+              "name": "太丰猪肉脯蜜汁味",
+              "spec": "100g*5袋",
+              "price": "¥69.9元",
+              "feature": "蜜汁香甜，肉质细腻，薄厚均匀，休闲零食。"
+            },
+            {
+              "name": "太丰麻辣牛肉干",
+              "spec": "100g*5袋",
+              "price": "¥89.9元",
+              "feature": "麻辣鲜香，牛肉干紧实，追剧必备。"
+            }
+          ]
+        },
+        {
+          "name": "天一角肉干",
+          "logo": "logos/tianyijiao.png",
+          "description": "浙江品牌，地方特色，无负面新闻。",
+          "founded": "2000年",
+          "city": "浙江温州",
+          "honors": "浙江省著名商标、温州市名牌产品",
+          "reputation": "浙江品牌，地方特色，无负面新闻，消费者信赖。",
+          "products": [
+            {
+              "name": "天一角牛肉干五香味",
+              "spec": "100g*6袋",
+              "price": "¥99.9元",
+              "feature": "五香味浓，牛肉干耐嚼，传统工艺，温州特产。"
+            },
+            {
+              "name": "天一角猪肉干原味",
+              "spec": "100g*6袋",
+              "price": "¥79.9元",
+              "feature": "肉质细腻，原味鲜香，包装精美，送礼佳品。"
+            },
+            {
+              "name": "天一角鸭舌",
+              "spec": "200g*3袋",
+              "price": "¥89.9元",
+              "feature": "温州特色，酱香浓郁，鸭舌肉质鲜嫩。"
+            }
+          ]
+        },
+        {
+          "name": "追肉记",
+          "logo": "logos/zhuirouji.png",
+          "description": "强烈推荐，0添加，不含淀粉、防腐剂，性价比极高。",
+          "founded": "2018年",
+          "city": "浙江杭州",
+          "honors": "新锐品牌、消费者喜爱产品",
+          "reputation": "0添加，不含淀粉、防腐剂，性价比极高，消费者喜爱。",
+          "products": [
+            {
+              "name": "追肉记猪肉脯0添加",
+              "spec": "80g*6袋",
+              "price": "¥79.9元",
+              "feature": "0添加防腐剂、淀粉，纯猪肉制作，肉质紧实，健康零食。"
+            },
+            {
+              "name": "追肉记牛肉干0添加",
+              "spec": "60g*6袋",
+              "price": "¥99.9元",
+              "feature": "0添加，纯牛肉制作，口感扎实，营养健康。"
+            },
+            {
+              "name": "追肉记鸡胸肉干0添加",
+              "spec": "50g*8袋",
+              "price": "¥69.9元",
+              "feature": "0添加，低脂高蛋白，口感鲜嫩，健身必备。"
+            }
+          ]
+        },
+        {
+          "name": "本味鲜物",
+          "logo": "logos/benweixianwu.png",
+          "description": "不添加淀粉，全猪肉制作，口感紧实。",
+          "founded": "2019年",
+          "city": "浙江杭州",
+          "honors": "新锐品牌、健康食品认证",
+          "reputation": "不添加淀粉，全猪肉制作，口感紧实，消费者喜爱。",
+          "products": [
+            {
+              "name": "本味鲜物火山石烤肠",
+              "spec": "500g*3盒",
+              "price": "¥129.9元",
+              "feature": "不添加淀粉，全猪肉制作，肉质紧实，烧烤口感。"
+            },
+            {
+              "name": "本味鲜物黑松露烤肠",
+              "spec": "400g*3盒",
+              "price": "¥149.9元",
+              "feature": "添加黑松露，风味独特，全猪肉制作，高端品质。"
+            },
+            {
+              "name": "本味鲜物芝士烤肠",
+              "spec": "400g*3盒",
+              "price": "¥139.9元",
+              "feature": "芝士爆浆，全猪肉制作，口感丰富，儿童喜爱。"
+            }
+          ]
+        },
+        {
+          "name": "锋味派",
+          "logo": "logos/fengweipai.png",
+          "description": "谢霆锋创立的国货品牌，黑猪肉含量高，品质有保障。",
+          "founded": "2018年",
+          "city": "广东广州",
+          "honors": "新锐品牌、消费者信赖产品",
+          "reputation": "谢霆锋创立的国货品牌，黑猪肉含量高，品质有保障。",
+          "products": [
+            {
+              "name": "锋味派黑猪肉烤肠",
+              "spec": "500g*3盒",
+              "price": "¥139.9元",
+              "feature": "黑猪肉含量90%以上，无淀粉添加，口感紧实，品质保证。"
+            },
+            {
+              "name": "锋味派黑松露黑猪烤肠",
+              "spec": "400g*3盒",
+              "price": "¥159.9元",
+              "feature": "黑猪肉+黑松露，双重美味，高端品质，送礼佳品。"
+            },
+            {
+              "name": "锋味派芝士烤肠",
+              "spec": "400g*3盒",
+              "price": "¥149.9元",
+              "feature": "黑猪肉+芝士，口感丰富，爆浆流心，小朋友喜爱。"
+            }
+          ]
+        },
+        {
+          "name": "喜旺火腿肠",
+          "logo": "logos/xiwang.png",
+          "description": "山东品牌，以'短保质期、少添加剂'闻名。",
+          "founded": "1996年",
+          "city": "山东烟台",
+          "honors": "中国驰名商标、食品安全示范企业",
+          "reputation": "山东品牌，以'短保质期、少添加剂'闻名，消费者信赖。",
+          "products": [
+            {
+              "name": "喜旺冷切肠",
+              "spec": "200g*6根",
+              "price": "¥79.9元",
+              "feature": "短保质期，少添加剂，肉质鲜嫩，切片即食。"
+            },
+            {
+              "name": "喜旺蒜肠",
+              "spec": "300g*4根",
+              "price": "¥69.9元",
+              "feature": "蒜香浓郁，肉质紧实，少添加剂，传统风味。"
+            },
+            {
+              "name": "喜旺儿童肠",
+              "spec": "150g*5根",
+              "price": "¥59.9元",
+              "feature": "低添加剂，肉质细腻，适合儿童食用，营养健康。"
+            }
+          ]
+        },
+        {
+          "name": "波尼亚火腿肠",
+          "logo": "logos/bonia.png",
+          "description": "青岛品牌，原料讲究，生态养殖可追溯。",
+          "founded": "1994年",
+          "city": "山东青岛",
+          "honors": "山东省著名商标、生态养殖认证",
+          "reputation": "青岛品牌，原料讲究，生态养殖可追溯，消费者喜爱。",
+          "products": [
+            {
+              "name": "波尼亚黑猪火腿",
+              "spec": "300g*3袋",
+              "price": "¥89.9元",
+              "feature": "生态黑猪，可追溯源头，肉质鲜嫩，切片即食。"
+            },
+            {
+              "name": "波尼亚烤肠",
+              "spec": "500g*2袋",
+              "price": "¥79.9元",
+              "feature": "原料讲究，口味地道，适合烧烤、煎制。"
+            },
+            {
+              "name": "波尼亚热狗肠",
+              "spec": "500g*3袋",
+              "price": "¥69.9元",
+              "feature": "肉质细腻，口感Q弹，热狗专用，早餐必备。"
+            }
+          ]
+        },
+        {
+          "name": "得利斯火腿肠",
+          "logo": "logos/delisi.png",
+          "description": "山东品牌，率先研制低温火腿肠，肉质鲜嫩。",
+          "founded": "1986年",
+          "city": "山东潍坊",
+          "honors": "中国驰名商标、中华老字号",
+          "reputation": "山东品牌，率先研制低温火腿肠，肉质鲜嫩，消费者信赖。",
+          "products": [
+            {
+              "name": "得利斯低温火腿肠",
+              "spec": "200g*6根",
+              "price": "¥79.9元",
+              "feature": "低温工艺，肉质鲜嫩，少添加剂，即食美味。"
+            },
+            {
+              "name": "得利斯圆火腿",
+              "spec": "400g*3根",
+              "price": "¥89.9元",
+              "feature": "传统工艺，肉质紧实，切片即食，下酒良品。"
+            },
+            {
+              "name": "得利斯鸡肉肠",
+              "spec": "200g*6根",
+              "price": "¥59.9元",
+              "feature": "低脂鸡肉，口感细腻，健康选择，适合减脂人群。"
+            }
+          ]
+        }
+      ],
+    "速冻食品类": [
+        {
+          "name": "三全食品",
+          "logo": "logos/sanquan.png",
+          "description": "速冻食品行业开创者，品控严格，产品线丰富。",
+          "founded": "1992年",
+          "city": "河南郑州",
+          "honors": "中国驰名商标、中国速冻食品行业领军品牌",
+          "reputation": "速冻食品行业开创者，品控严格，产品线丰富，消费者信赖。",
+          "products": [
+            {
+              "name": "三全凌汤圆黑芝麻味",
+              "spec": "500g*3袋",
+              "price": "¥59.9元",
+              "feature": "传统工艺，黑芝麻馅料饱满，口感软糯，甜而不腻。"
+            },
+            {
+              "name": "三全灌汤水饺猪肉白菜味",
+              "spec": "1kg*2袋",
+              "price": "¥69.9元",
+              "feature": "皮薄馅大，汤汁丰富，猪肉白菜鲜香，家常必备。"
+            },
+            {
+              "name": "三全手抓饼原味",
+              "spec": "1.2kg*2袋",
+              "price": "¥79.9元",
+              "feature": "层次分明，口感酥脆，无需放油，早餐方便。"
+            }
+          ]
+        },
+        {
+          "name": "思念食品",
+          "logo": "logos/sinian.png",
+          "description": "国内大型速冻食品企业，品控稳定，产品多样。",
+          "founded": "1997年",
+          "city": "河南郑州",
+          "honors": "中国驰名商标、中国速冻食品行业十强",
+          "reputation": "国内大型速冻食品企业，品控稳定，产品多样，消费者喜爱。",
+          "products": [
+            {
+              "name": "思念黑芝麻汤圆",
+              "spec": "500g*4袋",
+              "price": "¥69.9元",
+              "feature": "圆润饱满，黑芝麻香浓郁，口感细腻，营养丰富。"
+            },
+            {
+              "name": "思念金牌虾水饺",
+              "spec": "480g*3袋",
+              "price": "¥89.9元",
+              "feature": "整只虾仁，鲜香美味，皮薄馅大，高端品质。"
+            },
+            {
+              "name": "思念油条速冻装",
+              "spec": "450g*4袋",
+              "price": "¥59.9元",
+              "feature": "外酥里嫩，无需油炸，早餐快捷，口感地道。"
+            }
+          ]
+        },
+        {
+          "name": "安井食品",
+          "logo": "logos/anjing.png",
+          "description": "火锅料领域专家，品控体系完善。",
+          "founded": "2001年",
+          "city": "福建厦门",
+          "honors": "中国驰名商标、火锅料行业领导品牌",
+          "reputation": "火锅料领域专家，品控体系完善，消费者信赖。",
+          "products": [
+            {
+              "name": "安井撒尿牛丸",
+              "spec": "500g*3袋",
+              "price": "¥79.9元",
+              "feature": "汤汁丰富，口感Q弹，牛肉味浓，火锅必备。"
+            },
+            {
+              "name": "安井鱼豆腐",
+              "spec": "500g*4袋",
+              "price": "¥69.9元",
+              "feature": "鲜嫩可口，口感细腻，豆香浓郁，火锅、煮汤皆宜。"
+            },
+            {
+              "name": "安井速冻饺子猪肉香菇味",
+              "spec": "1kg*2袋",
+              "price": "¥79.9元",
+              "feature": "传统工艺，馅料鲜美，口感丰富，家常必备。"
+            }
+          ]
+        },
+        {
+          "name": "海欣食品",
+          "logo": "logos/haixin.png",
+          "description": "福州老字号，以速冻鱼糜制品为核心，品控稳定。",
+          "founded": "1903年",
+          "city": "福建福州",
+          "honors": "中华老字号、中国驰名商标",
+          "reputation": "福州老字号，以速冻鱼糜制品为核心，品控稳定，消费者喜爱。",
+          "products": [
+            {
+              "name": "海欣蟹肉棒",
+              "spec": "270g*5袋",
+              "price": "¥69.9元",
+              "feature": "模拟蟹肉，口感鲜甜，火锅、凉拌皆宜，方便食用。"
+            },
+            {
+              "name": "海欣鱼丸组合装",
+              "spec": "1kg*2袋",
+              "price": "¥89.9元",
+              "feature": "多种鱼丸，口感丰富，传统工艺，煮汤鲜美。"
+            },
+            {
+              "name": "海欣虾滑",
+              "spec": "200g*5袋",
+              "price": "¥99.9元",
+              "feature": "虾肉含量高，口感细腻，Q弹有嚼劲，火锅佳品。"
+            }
+          ]
+        },
+        {
+          "name": "千味央厨",
+          "logo": "logos/qianweiyangchu.png",
+          "description": "为餐饮提供专业解决方案，品控体系完善。",
+          "founded": "2012年",
+          "city": "河南郑州",
+          "honors": "中国餐饮供应链优秀企业、食品安全示范单位",
+          "reputation": "为餐饮提供专业解决方案，品控体系完善，消费者信赖。",
+          "products": [
+            {
+              "name": "千味央厨小油条",
+              "spec": "800g*3袋",
+              "price": "¥79.9元",
+              "feature": "外酥里嫩，黄金酥脆，早餐搭档，方便快捷。"
+            },
+            {
+              "name": "千味央厨红糖发糕",
+              "spec": "300g*4袋",
+              "price": "¥69.9元",
+              "feature": "松软可口，红糖香浓，传统风味，加热即食。"
+            },
+            {
+              "name": "千味央厨蒸煎饺猪肉韭菜味",
+              "spec": "400g*4袋",
+              "price": "¥79.9元",
+              "feature": "蒸煮煎皆可，口感丰富，馅料鲜香，早餐午餐皆宜。"
+            }
+          ]
+        }
+      ],
+    "零食类": [
+        {
+          "name": "亿堡坚果零食",
+          "logo": "logos/yibao.png",
+          "description": "强烈推荐，坚持0添加剂理念，无人工色素、防腐剂、香精。",
+          "founded": "2015年",
+          "city": "浙江杭州",
+          "honors": "中国健康零食品牌、无添加零食领先者",
+          "reputation": "坚持0添加剂理念，无人工色素、防腐剂、香精，健康零食首选。",
+          "products": [
+            {
+              "name": "亿堡原味混合坚果",
+              "spec": "500g/罐",
+              "price": "¥89.9元",
+              "feature": "0添加剂，多种坚果混合，营养均衡，口感丰富。"
+            },
+            {
+              "name": "亿堡原味开心果",
+              "spec": "400g/罐",
+              "price": "¥79.9元",
+              "feature": "自然开口，无漂白，原味烘焙，坚果清香。"
+            },
+            {
+              "name": "亿堡原味夏威夷果",
+              "spec": "350g/罐",
+              "price": "¥89.9元",
+              "feature": "优质原料，0添加剂，奶香浓郁，口感酥脆。"
+            }
+          ]
+        },
+        {
+          "name": "劲仔食品",
+          "logo": "logos/jingzai.png",
+          "description": "创新\"三零工艺\"（0防腐剂、0色素、0蔗糖），营养价值高。",
+          "founded": "2000年",
+          "city": "湖南岳阳",
+          "honors": "中国驰名商标、湖南省农业产业化龙头企业",
+          "reputation": "创新\"三零工艺\"，营养价值高，年轻消费者喜爱。",
+          "products": [
+            {
+              "name": "劲仔深海小鱼干麻辣味",
+              "spec": "15g*20包",
+              "price": "¥39.9元",
+              "feature": "三零工艺，深海小鱼，麻辣鲜香，独立小包装。"
+            },
+            {
+              "name": "劲仔厚豆干烧烤味",
+              "spec": "25g*15包",
+              "price": "¥29.9元",
+              "feature": "传统工艺，口感厚实，烧烤风味，豆香浓郁。"
+            },
+            {
+              "name": "劲仔素毛肚山椒味",
+              "spec": "18g*20包",
+              "price": "¥29.9元",
+              "feature": "三零工艺，Q弹口感，山椒风味，素食新选择。"
+            }
+          ]
+        },
+        {
+          "name": "良品铺子",
+          "logo": "logos/liangpinpuzi.png",
+          "description": "发布\"自然健康新零食\"品牌主张，计划去除一切非必要添加。",
+          "founded": "2006年",
+          "city": "湖北武汉",
+          "honors": "中国休闲零食领导品牌、中国质量奖提名奖",
+          "reputation": "发布\"自然健康新零食\"品牌主张，产品丰富，品质可靠。",
+          "products": [
+            {
+              "name": "良品铺子蟹黄味瓜子仁",
+              "spec": "110g*5袋",
+              "price": "¥39.9元",
+              "feature": "精选原料，蟹黄风味，酥脆可口，追剧必备。"
+            },
+            {
+              "name": "良品铺子原切牛肉干",
+              "spec": "80g*3袋",
+              "price": "¥69.9元",
+              "feature": "原切牛肉，肉质紧实，口感醇香，高蛋白零食。"
+            },
+            {
+              "name": "良品铺子水果干组合",
+              "spec": "60g*6袋",
+              "price": "¥49.9元",
+              "feature": "多种水果，自然风干，保留营养，酸甜可口。"
+            }
+          ]
+        },
+        {
+          "name": "金晔食品",
+          "logo": "logos/jinye.png",
+          "description": "主打\"无添加零食王国\"，配料表干净，如山楂条、地瓜干等。",
+          "founded": "2003年",
+          "city": "山东济南",
+          "honors": "山东省著名商标、无添加零食标杆品牌",
+          "reputation": "主打\"无添加零食王国\"，配料表干净，消费者信赖。",
+          "products": [
+            {
+              "name": "金晔原味山楂条",
+              "spec": "280g*3袋",
+              "price": "¥39.9元",
+              "feature": "无添加，纯山楂制作，酸甜适中，开胃消食。"
+            },
+            {
+              "name": "金晔地瓜干",
+              "spec": "280g*3袋",
+              "price": "¥35.9元",
+              "feature": "无添加，自然晾晒，软糯香甜，保留原味。"
+            },
+            {
+              "name": "金晔陈皮梅片",
+              "spec": "40g*6盒",
+              "price": "¥49.9元",
+              "feature": "无添加，陈皮风味，酸甜可口，独立包装。"
+            }
+          ]
+        },
+        {
+          "name": "首农小王子",
+          "logo": "logos/xiaowangzi.png",
+          "description": "国企背景，配料干净，无多余添加剂，价格亲民。",
+          "founded": "1999年",
+          "city": "北京",
+          "honors": "北京市著名商标、国企品质保证",
+          "reputation": "国企背景，配料干净，无多余添加剂，价格亲民，性价比高。",
+          "products": [
+            {
+              "name": "首农小王子薯片原味",
+              "spec": "108g*5袋",
+              "price": "¥29.9元",
+              "feature": "原切工艺，配料简单，口感酥脆，价格亲民。"
+            },
+            {
+              "name": "首农小王子锅巴麻辣味",
+              "spec": "100g*6袋",
+              "price": "¥25.9元",
+              "feature": "传统工艺，麻辣鲜香，口感松脆，追剧必备。"
+            },
+            {
+              "name": "首农小王子混合坚果",
+              "spec": "200g*5袋",
+              "price": "¥59.9元",
+              "feature": "国企品质，配料干净，多种坚果，营养均衡。"
+            }
+          ]
+        }
+      ]
   },
   "穿戴日用": {
     "鞋服": [

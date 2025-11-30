@@ -111,6 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const targetLink = document.querySelector(`.sub-category-link[data-category="${subCategoryId}"]`);
                     if (targetLink) {
                         targetLink.classList.add('active');
+                        // 滚动到active元素，使其位于屏幕顶部30%的位置
+                        scrollToActiveElement(targetLink);
                     }
                 }
             }
@@ -132,6 +134,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.addEventListener('scroll', handleScroll);
+    
+    // 预加载所有分类，确保彩妆和卸妆等分类能够立即显示
+    function preloadAllCategories() {
+        allMainCategories.forEach(category => {
+            generateMainCategorySection(category);
+        });
+        currentLoadedIndex = allMainCategories.length - 1; // 更新索引，避免重复加载
+    }
+    
+    // 调用预加载函数
+    preloadAllCategories();
     
     // 生成分类导航
     function generateCategories() {
@@ -237,6 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // 添加当前active类
                     this.classList.add('active');
+                    // 滚动到active元素，使其位于屏幕顶部30%的位置
+                    scrollToActiveElement(this);
                     
                     // 检查主分类是否已加载
                     const mainSection = document.getElementById(mainCategory);
@@ -931,6 +946,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const firstSubCategory = document.querySelector('.sub-category-link');
     if (firstSubCategory) {
         firstSubCategory.classList.add('active');
+        // 滚动到active元素，使其位于屏幕顶部30%的位置
+        setTimeout(() => {
+            scrollToActiveElement(firstSubCategory);
+        }, 100);
+    }
+
+    // 滚动到active元素的函数，使其位于屏幕顶部30%的位置
+    function scrollToActiveElement(activeElement) {
+        if (!activeElement) return;
+        
+        const sidebar = document.querySelector('.sidebar');
+        if (!sidebar) return;
+        
+        // 计算目标滚动位置：元素顶部距离减去屏幕高度的30%
+        const elementTop = activeElement.getBoundingClientRect().top;
+        const viewportHeight = window.innerHeight;
+        const targetPosition = sidebar.scrollTop + elementTop - (viewportHeight * 0.3);
+        
+        // 平滑滚动
+        sidebar.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
     }
     
     // 初始检查滚动位置
