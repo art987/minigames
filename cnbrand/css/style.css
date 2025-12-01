@@ -136,7 +136,7 @@ body {
     transform: translateX(5px);
     border-radius: 0 35px 35px 0;
     /* position: absolute; */
-    padding-left: 0px;
+    padding-left: 8px;
 }
 
 /* 内容区域样式 */
@@ -232,7 +232,7 @@ body {
 .brand-content1 {
     display: flex;
     align-items: flex-start;
-    margin-bottom: -14px;
+    margin-bottom: 0;
     width: 100%;
 }
 
@@ -698,11 +698,15 @@ body {
     line-height: 1.6;
 }
   .main-section-title{ display:none;}
-    .sub-section-title{
+
+   .sub-section-title{
     line-height: 55px;
-    text-indent: 12px;
+    text-indent: 6px;
+    font-size: 14px;
     padding-top: 69px;
+    font-size: 20px;
 }
+h3 span{font-size:12px;padding-left: 10px;color: #c72222;}
 
 /* 响应式弹窗设计 */
 @media (max-width: 768px) {

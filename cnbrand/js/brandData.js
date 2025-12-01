@@ -1,6 +1,6 @@
 const brandData = {
   "洗护发": {
-    "洗发水": [
+    "洗发水|性价比国民老牌": [
       {
         "name": "蜂花",
         "logo": "logos/fenghua.png",

@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const progressPercentage = Math.round((loadedCount / totalCategories) * 100);
         
         const progressText = loadingProgressBar.querySelector('.progress-text');
-        progressText.textContent = `加载中... ${progressPercentage}%`;
+        progressText.textContent = `品牌数据加载中... ${progressPercentage}%`;
         
         // 显示进度条
         loadingProgressBar.style.opacity = '1';
@@ -310,7 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const subA = document.createElement('a');
                 subA.className = 'category-link sub-category-link';
                 subA.href = `#${mainCategory}-${subCategory}`;
-                subA.textContent = subCategory;
+                // 只显示分类名称中"|"左边的文字
+                if (subCategory.includes('|')) {
+                    subA.textContent = subCategory.split('|')[0].trim();
+                } else {
+                    subA.textContent = subCategory;
+                }
                 subA.setAttribute('data-category', `${mainCategory}-${subCategory}`);
                 subA.setAttribute('data-main-category', mainCategory);
                 subA.setAttribute('data-sub-category', subCategory);
@@ -613,7 +618,25 @@ document.addEventListener('DOMContentLoaded', function() {
             // 子分类标题
             const subSectionTitle = document.createElement('h3');
             subSectionTitle.className = 'sub-section-title';
-            subSectionTitle.textContent = subCategory;
+            
+            // 解析主标题和副标题
+            let mainTitle, subTitle;
+            if (subCategory.includes('|')) {
+                const parts = subCategory.split('|');
+                mainTitle = parts[0].trim();
+                subTitle = parts[1].trim();
+            } else {
+                mainTitle = subCategory;
+                subTitle = '平价口碑国货，品质安心有保证';
+            }
+            
+            // 设置主标题文本
+            subSectionTitle.textContent = mainTitle;
+            
+            // 创建并添加副标题span元素
+            const subTitleSpan = document.createElement('span');
+            subTitleSpan.textContent = subTitle;
+            subSectionTitle.appendChild(subTitleSpan);
             
             const brandGrid = document.createElement('div');
             brandGrid.className = 'brand-grid';
