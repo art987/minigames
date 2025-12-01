@@ -16,6 +16,66 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentLoadedIndex = 0;
     // 用于控制滚动时是否更新active状态的标志
     let isUpdatingActive = false;
+    // 加载完成标志
+    let isAllCategoriesLoaded = false;
+    
+    // 添加加载进度条
+    function addLoadingProgressBar() {
+        const progressBar = document.createElement('div');
+        progressBar.id = 'loading-progress';
+        progressBar.className = 'loading-progress';
+        progressBar.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+        
+        // 进度百分比文本
+        const progressText = document.createElement('span');
+        progressText.className = 'progress-text';
+        progressText.textContent = '加载中...';
+        
+        progressBar.appendChild(progressText);
+        document.body.appendChild(progressBar);
+        
+        return progressBar;
+    }
+    
+    const loadingProgressBar = addLoadingProgressBar();
+    
+    // 更新加载进度
+    function updateLoadingProgress() {
+        const totalCategories = allMainCategories.length;
+        const loadedCount = loadedCategories.size;
+        const progressPercentage = Math.round((loadedCount / totalCategories) * 100);
+        
+        const progressText = loadingProgressBar.querySelector('.progress-text');
+        progressText.textContent = `加载中... ${progressPercentage}%`;
+        
+        // 显示进度条
+        loadingProgressBar.style.opacity = '1';
+        
+        // 如果所有分类都已加载，隐藏进度条
+        if (loadedCount >= totalCategories) {
+            isAllCategoriesLoaded = true;
+            setTimeout(() => {
+                loadingProgressBar.style.opacity = '0';
+            }, 1000);
+        }
+    }
     
     // 添加返回顶部按钮
     function addBackToTopButton() {
@@ -135,16 +195,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('scroll', handleScroll);
     
-    // 预加载所有分类，确保彩妆和卸妆等分类能够立即显示
-    function preloadAllCategories() {
-        allMainCategories.forEach(category => {
-            generateMainCategorySection(category);
-        });
-        currentLoadedIndex = allMainCategories.length - 1; // 更新索引，避免重复加载
+    // 异步加载剩余分类
+    function asyncLoadRemainingCategories() {
+        // 从第二个分类开始加载
+        for (let i = 1; i < allMainCategories.length; i++) {
+            // 使用setTimeout实现异步加载，每个分类之间有延迟
+            setTimeout(() => {
+                if (i <= allMainCategories.length - 1) {
+                    generateMainCategorySection(allMainCategories[i]);
+                    currentLoadedIndex = i;
+                    
+                    // 更新加载进度
+                    updateLoadingProgress();
+                }
+            }, i * 300); // 每个分类加载间隔300ms
+        }
     }
     
-    // 调用预加载函数
-    preloadAllCategories();
+    // 初始化时只加载第一个分类，然后异步加载其他分类
+    // 第一个分类会在generateBrandSections中加载
+    // 启动异步加载剩余分类
+    setTimeout(() => {
+        asyncLoadRemainingCategories();
+    }, 500); // 页面初始化后500ms开始异步加载
     
     // 生成分类导航
     function generateCategories() {
@@ -165,6 +238,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // 添加主分类点击事件
                 mainA.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
+                    // 如果分类正在加载中且尚未加载完成，显示提示
+                    if (!isAllCategoriesLoaded && !loadedCategories.has(mainCategory)) {
+                        showLoadingNotification(mainCategory);
+                        return;
+                    }
                     
                     // 设置标志，防止滚动时更新active状态
                     isUpdatingActive = true;
@@ -239,6 +318,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 添加子分类点击事件
                 subA.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
+                    // 如果分类正在加载中且尚未加载完成，显示提示
+                    if (!isAllCategoriesLoaded && !loadedCategories.has(mainCategory)) {
+                        showLoadingNotification(mainCategory);
+                        return;
+                    }
                     
                     // 设置标志，防止滚动时更新active状态
                     isUpdatingActive = true;
@@ -446,6 +531,58 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(brandCard);
     }
 
+    // 显示加载提示通知
+    function showLoadingNotification(categoryName) {
+        // 检查是否已存在通知，如果存在则移除
+        let notification = document.getElementById('loading-notification');
+        if (notification) {
+            notification.remove();
+        }
+        
+        // 创建通知元素
+        notification = document.createElement('div');
+        notification.id = 'loading-notification';
+        notification.className = 'loading-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        `;
+        
+        notification.innerHTML = `
+            <div style="font-size: 24px; margin-bottom: 10px;">⏳</div>
+            <p>${categoryName}还需几秒钟加载完成</p>
+            <p style="font-size: 14px; margin-top: 5px; opacity: 0.8;">先随便逛逛吧~</p>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // 显示通知
+        setTimeout(() => {
+            notification.style.opacity = '1';
+        }, 10);
+        
+        // 3秒后隐藏通知
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
     // 生成单个主分类的展示区域
     function generateMainCategorySection(mainCategory) {
         // 检查主分类是否已加载
