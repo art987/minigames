@@ -527,7 +527,7 @@ const brandData = {
       },
       {
         "name": "绿伞",
-        "logo": "logos/lvsan.jpg",
+        "logo": "logos/lvshan.jpg",
         "description": "专业清洁品牌，在衣物护理和特殊污渍处理上口碑好。",
         "founded": "1993年",
         "city": "北京",
@@ -605,7 +605,7 @@ const brandData = {
       },
       {
         "name": "奇强",
-        "logo": "logos/qiqiang.jpg",
+        "logo": "logos/qiqiang.webp",
         "description": "国民洗护品牌，其洗洁精产品同样以高性价比著称。",
         "founded": "1992年",
         "city": "山西运城",
@@ -688,7 +688,7 @@ const brandData = {
       },
       {
         "name": "洁柔",
-        "logo": "logos/jierou.jpg",
+        "logo": "logos/jierou.avif",
         "description": "国民高端纸品品牌，以\"黑Face\"和\"粉Face\"系列闻名，湿水不易破技术领先。",
         "founded": "1999年",
         "city": "广东中山",
@@ -772,38 +772,6 @@ const brandData = {
             "feature": "量大耐用，厚实，是卫生间常年必备的实惠选择。"
           }
         ]
-      },
-      {
-        "name": "欧姿雅",
-        "logo": "logos/ouziya.jpg",
-        "description": "主打极致性价比，产品以大容量和悬挂式设计为特色。",
-        "founded": "2015年",
-        "city": "浙江杭州",
-        "honors": "消费者信得过产品",
-        "reputation": "纸巾价格实惠，量大耐用，适合家庭和办公场所使用，性价比极高。",
-        "products": [
-          {
-            "name": "欧姿雅悬挂式抽纸",
-            "spec": "10大提",
-            "price": "¥19.9元",
-            "feature": "品牌热销款，大容量装，原生木浆制作，干湿两用，母婴可用，悬挂式设计节省空间，是家庭和办公场所的实惠之选。"
-          },
-          {
-            "name": "欧姿雅大包抽纸",
-            "spec": "30大包",
-            "price": "¥29.5元",
-            "feature": "超值大包装，单包680张，采用环保原生木浆，柔软坚韧，不伤皮肤，适合敏感肌和幼儿使用，吸水性能好。"
-          }
-        ]
-      },
-      {
-        "name": "力邦",
-        "logo": "logos/libang.jpg",
-        "description": "河北知名纸巾品牌。",
-        "founded": "2005年",
-        "city": "河北保定",
-        "honors": "河北著名商标",
-        "reputation": "纸巾质量好，价格亲民，适合家庭使用，消费者喜爱。"
       }
     ],
     "私护": [
