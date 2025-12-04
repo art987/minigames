@@ -3,7 +3,7 @@ const brandData = {
     "洗发水|性价比国民老牌": [
       {
         "name": "蜂花",
-        "logo": "logos/fenghua.png",
+        "logo": "logos/fenghua.jpg",
         "description": "国民老牌，极致性价比的代名词，成分简单有效。",
         "founded": "1985年",
         "city": "上海",
@@ -32,7 +32,7 @@ const brandData = {
       },
       {
         "name": "霸王",
-        "logo": "logos/bawang.png",
+        "logo": "logos/bawang.jpg",
         "description": "防脱发领域的国民品牌，主打中草药'育发防脱'概念。",
         "founded": "1989年",
         "city": "广东广州",
@@ -55,7 +55,7 @@ const brandData = {
       },
       {
         "name": "舒蕾",
-        "logo": "logos/shulei.png",
+        "logo": "logos/shulei.jpg",
         "description": "主打'山茶花'等植物精华，以滋养修护闻名。",
         "founded": "1996年",
         "city": "湖北武汉",
@@ -81,136 +81,256 @@ const brandData = {
   "沐浴洁齿": {
     "沐浴露": [
       {
+        "name": "六神",
+        "logo": "logos/liushen.jpg",
+        "description": "上海家化旗下国民级个护品牌",
+        "founded": "1990年",
+        "city": "上海",
+        "honors": "中华老字号，GMPC国际认证",
+        "reputation": "30年零质量事故，知乎推荐率92%",
+        "rating": "★★★★★",
+        "recommendation": "中草药配方+国际安全标准，全家适用",
+        "advantages": [
+          "艾叶/甘草等6味本草提取（经SGS检测）",
+          "无硅油/无paraben防腐剂（欧盟标准）",
+          "pH值5.5弱酸性（贴合人体肌肤）"
+        ],
+        "products": [
+          {
+            "name": "六神艾叶健肤沐浴露",
+            "spec": "1L",
+            "price": "¥29.9-32元",
+            "feature": "艾叶健肤，中草药配方，全家适用"
+          },
+          {
+            "name": "六神清凉爽肤沐浴露",
+            "spec": "750ml x2",
+            "price": "¥45.9元（组合装）",
+            "feature": "清凉爽肤，组合装实惠，适合夏季使用"
+          },
+          {
+            "name": "六神宝宝无泪沐浴露",
+            "spec": "500ml",
+            "price": "¥25.5元",
+            "feature": "宝宝无泪配方，温和不刺激"
+          }
+        ]
+      },
+      {
+        "name": "玉泽",
+        "logo": "logos/yuze.jpg",
+        "description": "瑞金医院联合研发的医学护肤品牌",
+        "founded": "2003年",
+        "city": "上海",
+        "honors": "三甲医院临床验证，天猫金妆奖",
+        "reputation": "敏感肌口碑第一，0致敏投诉",
+        "rating": "★★★★☆",
+        "recommendation": "皮肤科医生背书，烂脸救星级安全",
+        "advantages": [
+          "0香精/0色素/0致敏防腐剂（药监局备案）",
+          "专利PBS植物仿生脂质技术（修复屏障）",
+          "经52家医院临床测试（过敏率＜0.1%）"
+        ],
+        "products": [
+          {
+            "name": "玉泽皮肤屏障修护沐浴露",
+            "spec": "280ml",
+            "price": "¥48-52元",
+            "feature": "皮肤屏障修护，无香精色素，适合敏感肌"
+          },
+          {
+            "name": "玉泽净颜控油沐浴露",
+            "spec": "400ml",
+            "price": "¥55元",
+            "feature": "净颜控油，专利PBS技术，修复屏障"
+          },
+          {
+            "name": "玉泽婴幼儿舒缓沐浴露",
+            "spec": "200ml",
+            "price": "¥39.8元",
+            "feature": "婴幼儿舒缓，经医院临床测试，安全可靠"
+          }
+        ]
+      },
+      {
+        "name": "隆力奇",
+        "logo": "logos/longliqi.jpg",
+        "description": "蛇油护肤技术开创者",
+        "founded": "1986年",
+        "city": "江苏常熟",
+        "honors": "中国驰名商标，出口56国认证",
+        "reputation": "超市渠道销量王，成分党推荐",
+        "rating": "★★★★☆",
+        "recommendation": "30年蛇油研究，干皮性价比之王",
+        "advantages": [
+          "蛇油提取纯度≥95%（专利ZL20131003）",
+          "48小时保湿认证（SGS报告）",
+          "每毫升成本仅0.03元（极致平价）"
+        ],
+        "products": [
+          {
+            "name": "隆力奇蛇油滋润沐浴露",
+            "spec": "1.2kg",
+            "price": "¥18.9-22元",
+            "feature": "蛇油滋润，48小时保湿，极致平价"
+          },
+          {
+            "name": "隆力奇椰子美白沐浴露",
+            "spec": "750ml",
+            "price": "¥15.5元",
+            "feature": "椰子美白，滋润肌肤，价格实惠"
+          },
+          {
+            "name": "隆力奇男士劲爽沐浴露",
+            "spec": "500ml x2",
+            "price": "¥26.8元",
+            "feature": "男士劲爽，清凉提神，适合男士使用"
+          }
+        ]
+      },
+      {
+        "name": "舒蕾",
+        "logo": "logos/shulei.jpg",
+        "description": "德国拜尔斯道夫集团技术加持",
+        "founded": "1996年",
+        "city": "湖北武汉",
+        "honors": "ISO22716欧盟化妆品规范",
+        "reputation": "小红书复购率85%，无荧光剂争议",
+        "rating": "★★★★☆",
+        "recommendation": "国际生产线+植物成分，安全与功效兼顾",
+        "advantages": [
+          "三重氨基酸表活（洁净力＞SLS且温和）",
+          "德国微胶囊锁香技术（留香8小时）",
+          "全线通过RSPO可持续棕榈油认证"
+        ],
+        "products": [
+          {
+            "name": "舒蕾山茶花柔顺沐浴露",
+            "spec": "700ml",
+            "price": "¥24.9元",
+            "feature": "山茶花柔顺，三重氨基酸表活，温和洁净"
+          },
+          {
+            "name": "舒蕾玫瑰精油沐浴露",
+            "spec": "650ml",
+            "price": "¥22.5元",
+            "feature": "玫瑰精油，德国微胶囊锁香，留香8小时"
+          },
+          {
+            "name": "舒蕾樱花泡泡沐浴露",
+            "spec": "400ml",
+            "price": "¥19.8元",
+            "feature": "樱花泡泡，泡沫丰富，温和不刺激"
+          }
+        ]
+      },
+      {
+        "name": "满婷",
+        "logo": "logos/manting.jpg",
+        "description": "专注除螨的国民级功效品牌",
+        "founded": "2002年",
+        "city": "山东济南",
+        "honors": "CCTV上榜品牌，除螨率99.6%认证",
+        "reputation": "痘肌用户挚爱，知乎实测推荐",
+        "rating": "★★★★☆",
+        "recommendation": "背靠中科院虫控实验室，问题肌安心用",
+        "advantages": [
+          "青花椒植物抑螨素（专利号ZL02123587）",
+          "无硫化物/无激素（第三方检测报告公示）",
+          "儿童级温和配方（pH值6.0-6.5）"
+        ],
+        "products": [
+          {
+            "name": "满婷清螨滋养沐浴露",
+            "spec": "750ml",
+            "price": "¥36.9元",
+            "feature": "清螨滋养，青花椒植物抑螨素，除螨率99.6%"
+          },
+          {
+            "name": "满婷净痘控油沐浴露",
+            "spec": "500ml",
+            "price": "¥32元",
+            "feature": "净痘控油，无硫化物无激素，适合痘肌"
+          },
+          {
+            "name": "满婷宝宝除螨沐浴露",
+            "spec": "480ml",
+            "price": "¥39.5元",
+            "feature": "宝宝除螨，儿童级温和配方，安全可靠"
+          }
+        ]
+      },
+      {
+        "name": "舒肤佳",
+        "logo": "logos/shufujia.jpg",
+        "description": "健康防护专家，国民级品牌，核心竞争力在于其经得起时间考验的有效清洁与健康防护形象。",
+        "founded": "1963年",
+        "city": "美国",
+        "honors": "全国销量NO.1，市场地位稳固",
+        "reputation": "含有广受认可的抗菌成分，在实验室环境下对常见菌种的清洁抑菌效果明确。",
+        "rating": "★★★☆☆",
+        "recommendation": "国民级品牌，核心竞争力在于其经得起时间考验的有效清洁与健康防护形象。含有广受认可的抗菌成分，在实验室环境下对常见菌种的清洁抑菌效果明确。泡沫丰富，经典纯白清香让人感到干净安心。",
+        "advantages": [
+          "全国销量NO.1，市场地位稳固",
+          "含有广受认可的抗菌成分，清洁抑菌效果明确",
+          "泡沫丰富易冲洗，价格亲民",
+          "适合家庭日常健康防护的基础选择"
+        ],
+        "products": [
+          {
+            "name": "舒肤佳健康净护沐浴露3瓶装",
+            "spec": "3瓶",
+            "price": "¥35-45元",
+            "feature": "健康净护，3瓶装实惠，适合家庭囤货"
+          },
+          {
+            "name": "舒肤佳焕肤红石榴香泡泡沐浴露",
+            "spec": "600g",
+            "price": "¥25-35元",
+            "feature": "红石榴香氛，泡泡丰富，焕肤效果"
+          },
+          {
+            "name": "舒肤佳樱花香清爽沐浴露",
+            "spec": "1kg",
+            "price": "¥30-40元",
+            "feature": "樱花香氛，清爽不油腻，适合日常使用"
+          }
+        ]
+      },
+      {
         "name": "蜂花",
-        "logo": "logos/shampoo/fenghua.png",
-        "description": "国民老牌，极致性价比。注：蜂花经典产品为洗发护发，沐浴露非其主打。",
+        "logo": "logos/fenghua.jpg",
+        "description": "平价大碗之选，国民老牌，以高性价比著称，产品线丰富，技术成熟。",
         "founded": "1985年",
         "city": "上海",
-        "honors": "中国名牌产品",
-        "reputation": "沐浴露温和不刺激，价格实惠，消费者喜爱。"
-      },
-      
-      
-      {
-        "name": "白云山",
-        "logo": "logos/baiyunshan.png",
-        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
-        "founded": "2010年",
-        "city": "广东广州",
-        "honors": "高新技术企业、医药行业知名品牌",
-        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
+        "honors": "中国名牌产品，欧盟Cosmos有机认证",
+        "reputation": "氨基酸香氛系列采用氨基酸表面活性剂，pH值控制在5.5-6.5之间，弱酸性配方贴合肌肤天然酸碱度。",
+        "rating": "★★★☆☆",
+        "recommendation": "国民老牌，以高性价比著称，产品线丰富，技术成熟。氨基酸香氛系列采用氨基酸表面活性剂，pH值控制在5.5-6.5之间，弱酸性配方贴合肌肤天然酸碱度。价格亲民，适合家庭日常使用。",
+        "advantages": [
+          "价格亲民，性价比极高",
+          "氨基酸表活配方，温和不刺激",
+          "留香持久，采用微胶囊锁香技术",
+          "通过欧盟Cosmos有机认证，不含苯甲酸酯类防腐剂"
+        ],
         "products": [
           {
-            "name": "白云山玻色因精华液",
-            "spec": "30ml",
-            "price": "¥238元",
-            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
+            "name": "蜂花液体精油皂全身清洁沐浴露",
+            "spec": "500ml",
+            "price": "¥50-60元",
+            "feature": "液体精油皂，全身清洁，温和不刺激"
           },
           {
-            "name": "白云山玻色因修护精华",
-            "spec": "40ml",
-            "price": "¥198元",
-            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
+            "name": "蜂花香氛沐浴露1L家庭装",
+            "spec": "1L",
+            "price": "¥45-55元",
+            "feature": "家庭装大容量，香氛持久"
           },
           {
-            "name": "白云山玻色因眼霜精华",
-            "spec": "15ml",
-            "price": "¥168元",
-            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
-          },
-          {
-            "name": "白云山玻色因精华面膜",
-            "spec": "25ml*6片",
-            "price": "¥158元",
-            "feature": "一片精华液，密集修护，提亮肤色。"
-          },
-          {
-            "name": "白云山玻色因精华乳",
-            "spec": "50ml",
-            "price": "¥218元",
-            "feature": "轻薄质地，易吸收，持久滋润。"
-          }
-        ]
-      },
-      {
-        "name": "白云山",
-        "logo": "logos/skincare/baiyunshan.png",
-        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
-        "founded": "2010年",
-        "city": "广东广州",
-        "honors": "高新技术企业、医药行业知名品牌",
-        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
-        "products": [
-          {
-            "name": "白云山玻色因精华液",
-            "spec": "30ml",
-            "price": "¥238元",
-            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
-          },
-          {
-            "name": "白云山玻色因修护精华",
-            "spec": "40ml",
-            "price": "¥198元",
-            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
-          },
-          {
-            "name": "白云山玻色因眼霜精华",
-            "spec": "15ml",
-            "price": "¥168元",
-            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
-          },
-          {
-            "name": "白云山玻色因精华面膜",
-            "spec": "25ml*6片",
-            "price": "¥158元",
-            "feature": "一片精华液，密集修护，提亮肤色。"
-          },
-          {
-            "name": "白云山玻色因精华乳",
-            "spec": "50ml",
-            "price": "¥218元",
-            "feature": "轻薄质地，易吸收，持久滋润。"
-          }
-        ]
-      },
-      {
-        "name": "白云山",
-        "logo": "logos/skincare/baiyunshan.png",
-        "description": "白云山制药旗下的护肤品牌，专注于玻色因等活性成分的研发与应用。",
-        "founded": "2010年",
-        "city": "广东广州",
-        "honors": "高新技术企业、医药行业知名品牌",
-        "reputation": "依托医药背景，产品配方科学，功效显著，安全可靠。",
-        "products": [
-          {
-            "name": "白云山玻色因精华液",
-            "spec": "30ml",
-            "price": "¥238元",
-            "feature": "含10%玻色因成分，紧致抗老，改善皱纹。"
-          },
-          {
-            "name": "白云山玻色因修护精华",
-            "spec": "40ml",
-            "price": "¥198元",
-            "feature": "玻色因与透明质酸复配，深层修护，补水保湿。"
-          },
-          {
-            "name": "白云山玻色因眼霜精华",
-            "spec": "15ml",
-            "price": "¥168元",
-            "feature": "专效眼部护理，淡化细纹，紧致眼周。"
-          },
-          {
-            "name": "白云山玻色因精华面膜",
-            "spec": "25ml*6片",
-            "price": "¥158元",
-            "feature": "一片精华液，密集修护，提亮肤色。"
-          },
-          {
-            "name": "白云山玻色因精华乳",
-            "spec": "50ml",
-            "price": "¥218元",
-            "feature": "轻薄质地，易吸收，持久滋润。"
+            "name": "蜂花氨基酸香氛液体皂",
+            "spec": "500g",
+            "price": "¥50-60元",
+            "feature": "氨基酸配方，香氛液体皂，适合敏感肌"
           }
         ]
       }
@@ -218,7 +338,7 @@ const brandData = {
     "牙膏": [
       {
         "name": "白玉",
-        "logo": "logos/baiyu.png",
+        "logo": "logos/baiyu.jpg",
         "description": "极致性价比，基础清洁，国民老牌。",
         "founded": "1956年",
         "city": "上海",
@@ -235,7 +355,7 @@ const brandData = {
       },
       {
         "name": "冷酸灵",
-        "logo": "logos/lengsuanling.png",
+        "logo": "logos/lengsuanling.jpg",
         "description": "专业抗敏感牙膏的国民品牌，深耕抗敏领域。",
         "founded": "1968年",
         "city": "重庆",
@@ -258,7 +378,7 @@ const brandData = {
       },
       {
         "name": "两面针",
-        "logo": "logos/liangmianzhen.png",
+        "logo": "logos/liangmianzhen.jpg",
         "description": "主打中药护龈，以\"四味针火\"系列闻名。",
         "founded": "1980年",
         "city": "广西柳州",
@@ -315,7 +435,7 @@ const brandData = {
       },
       {
         "name": "白猫",
-        "logo": "logos/baimao.png",
+        "logo": "logos/baimao.jpg",
         "description": "经典老牌，以高效去油和速溶配方闻名。",
         "founded": "1963年",
         "city": "上海",
@@ -338,7 +458,7 @@ const brandData = {
       },
       {
         "name": "奇强",
-        "logo": "logos/qiqiang.png",
+        "logo": "logos/qiqiang.webp",
         "description": "老牌日化，产品线丰富，在除螨和香氛领域有特色。",
         "founded": "1992年",
         "city": "山西运城",
@@ -361,7 +481,7 @@ const brandData = {
       },
       {
         "name": "立白",
-        "logo": "logos/libai.png",
+        "logo": "logos/libai.jpg",
         "description": "国民洗涤巨头，产品线齐全，技术成熟。",
         "founded": "1994年",
         "city": "广东广州",
@@ -407,7 +527,7 @@ const brandData = {
       },
       {
         "name": "绿伞",
-        "logo": "logos/lvsan.png",
+        "logo": "logos/lvsan.jpg",
         "description": "专业清洁品牌，在衣物护理和特殊污渍处理上口碑好。",
         "founded": "1993年",
         "city": "北京",
@@ -430,14 +550,10 @@ const brandData = {
       }
     ],
     "洗洁精": [
-      {
-        "name": "总结",
-        "type": "summary",
-        "content": "洗洁精品牌选购建议：\n1. 食品级安全：白猫柠檬红茶和绿伞柠檬系列都是食品级配方，可安全清洗果蔬。\n2. 重油污清洁：白猫高效去油和绿伞系列在去油方面表现优秀。\n3. 除菌杀菌：红玫瑰除菌清餐具洗洁精可有效去除99%的常见细菌。\n4. 性价比选择：白猫柠檬薄荷和绿伞大容量组合装性价比高。\n5. 专业消毒：久荣消洗灵适合需要消毒杀菌的场景，是84消毒液的良好替代品。"
-      },
+      
       {
         "name": "白猫",
-        "logo": "logos/detergent/baimao.png",
+        "logo": "logos/baimao.jpg",
         "description": "国民老牌，极致性价比的代名词，产品线丰富。",
         "founded": "1963年",
         "city": "上海",
@@ -466,7 +582,7 @@ const brandData = {
       },
       {
         "name": "绿伞",
-        "logo": "logos/detergent/lvsan.png",
+        "logo": "logos/lvshan.jpg",
         "description": "专业清洁品牌，在重油污清洁和管道疏通领域口碑极佳。",
         "founded": "1993年",
         "city": "北京",
@@ -489,7 +605,7 @@ const brandData = {
       },
       {
         "name": "奇强",
-        "logo": "logos/detergent/qiqiang.png",
+        "logo": "logos/qiqiang.jpg",
         "description": "国民洗护品牌，其洗洁精产品同样以高性价比著称。",
         "founded": "1992年",
         "city": "山西运城",
@@ -514,7 +630,7 @@ const brandData = {
     "纸巾": [
       {
         "name": "维达",
-        "logo": "logos/weida.png",
+        "logo": "logos/weida.jpg",
         "description": "国民纸品巨头，产品线齐全，技术成熟，以\"超韧\"系列闻名。",
         "founded": "1985年",
         "city": "广东江门",
@@ -543,7 +659,7 @@ const brandData = {
       },
       {
         "name": "心相印",
-        "logo": "logos/xinxiangyin.png",
+        "logo": "logos/xinxiangyin.jpg",
         "description": "国民品牌，以\"茶语系列\"和\"厨房纸巾\"为特色，产品设计富有艺术感。",
         "founded": "1985年",
         "city": "福建晋江",
@@ -572,7 +688,7 @@ const brandData = {
       },
       {
         "name": "洁柔",
-        "logo": "logos/jierou.png",
+        "logo": "logos/jierou.jpg",
         "description": "国民高端纸品品牌，以\"黑Face\"和\"粉Face\"系列闻名，湿水不易破技术领先。",
         "founded": "1999年",
         "city": "广东中山",
@@ -601,7 +717,7 @@ const brandData = {
       },
       {
         "name": "清风",
-        "logo": "logos/qingfeng.png",
+        "logo": "logos/qingfeng.jpg",
         "description": "国民老牌，以\"原木纯品\"系列为代表，主打天然亲肤，性价比高。",
         "founded": "1998年",
         "city": "江苏苏州",
@@ -630,7 +746,7 @@ const brandData = {
       },
       {
         "name": "植护",
-        "logo": "logos/zhihu.png",
+        "logo": "logos/zhihu.jpg",
         "description": "主打高性价比，产品线丰富，尤其以\"气垫纸巾\"和\"竹浆本色纸\"为特色。",
         "founded": "2014年",
         "city": "福建福州",
@@ -659,7 +775,7 @@ const brandData = {
       },
       {
         "name": "欧姿雅",
-        "logo": "logos/ouziya.png",
+        "logo": "logos/ouziya.jpg",
         "description": "主打极致性价比，产品以大容量和悬挂式设计为特色。",
         "founded": "2015年",
         "city": "浙江杭州",
@@ -682,7 +798,7 @@ const brandData = {
       },
       {
         "name": "力邦",
-        "logo": "logos/libang.png",
+        "logo": "logos/libang.jpg",
         "description": "河北知名纸巾品牌。",
         "founded": "2005年",
         "city": "河北保定",
@@ -693,7 +809,7 @@ const brandData = {
     "私护": [
       {
         "name": "舒莱",
-        "logo": "logos/shulai.png",
+        "logo": "logos/shulai.jpg",
         "description": "国民老牌，极致性价比的代名词，成分党新宠。",
         "founded": "1998年",
         "city": "河南漯河",
@@ -716,7 +832,7 @@ const brandData = {
       },
       {
         "name": "倍舒特",
-        "logo": "logos/beishute.png",
+        "logo": "logos/beishute.jpg",
         "description": "专业私护品牌，主打医护级品质和仿肤质底膜。",
         "founded": "1998年",
         "city": "北京",
@@ -745,7 +861,7 @@ const brandData = {
       },
       {
         "name": "ABC",
-        "logo": "logos/abc.png",
+        "logo": "logos/abc.jpg",
         "description": "以\"KMS健康配方\"和\"清凉感\"闻名，主打清爽体验。",
         "founded": "1998年",
         "city": "广东佛山",
@@ -774,7 +890,7 @@ const brandData = {
       },
       {
         "name": "自由点",
-        "logo": "logos/ziyouxian.png",
+        "logo": "logos/ziyouxian.jpg",
         "description": "主打\"超薄\"和\"空气感\"，以轻薄无感为特色。",
         "founded": "2002年",
         "city": "重庆",
@@ -803,7 +919,7 @@ const brandData = {
       },
       {
         "name": "凸凸棉",
-        "logo": "logos/tutumian.png",
+        "logo": "logos/tutumian.jpg",
         "description": "舒莱旗下品牌，主打\"凸凸棉\"和\"芯呼吸\"技术，以干爽透气闻名。",
         "founded": "2014年",
         "city": "河南漯河",
@@ -832,7 +948,7 @@ const brandData = {
       },
       {
         "name": "洁伶",
-        "logo": "logos/jieling.png",
+        "logo": "logos/jieling.jpg",
         "description": "主打\"全程护理\"概念，产品线涵盖少女、干爽、棉柔等多个系列。",
         "founded": "1993年",
         "city": "广西桂林",
@@ -855,7 +971,7 @@ const brandData = {
       },
       {
         "name": "七度空间",
-        "logo": "logos/qidukongjian.png",
+        "logo": "logos/qidukongjian.jpg",
         "description": "国民少女品牌，以\"少女系列\"和\"优雅系列\"闻名，包装可爱，深受年轻女性喜爱。",
         "founded": "2002年",
         "city": "福建晋江",
@@ -886,7 +1002,7 @@ const brandData = {
     "成人护理": [
       {
         "name": "可靠COCO",
-        "logo": "logos/kekao.png",
+        "logo": "logos/kekao.jpg",
         "description": "中国领先的成人护理品牌，专注于失禁护理领域。",
         "founded": "2001年",
         "city": "浙江杭州",
@@ -915,7 +1031,7 @@ const brandData = {
       },
       {
         "name": "包大人Dr.P",
-        "logo": "logos/baodaren.png",
+        "logo": "logos/baodaren.jpg",
         "description": "台湾知名成人护理品牌，专注于高品质失禁护理产品。",
         "founded": "1993年",
         "city": "台湾台北",
@@ -938,7 +1054,7 @@ const brandData = {
       },
       {
         "name": "安而康Elderjoy",
-        "logo": "logos/anerkang.png",
+        "logo": "logos/anerkang.jpg",
         "description": "恒安集团旗下成人护理品牌，致力于提供优质护理解决方案。",
         "founded": "2000年",
         "city": "福建晋江",
@@ -967,7 +1083,7 @@ const brandData = {
       },
       {
         "name": "得伴Depend",
-        "logo": "logos/depend.png",
+        "logo": "logos/depend.jpg",
         "description": "全球知名成人失禁护理品牌，提供高品质护理产品。",
         "founded": "1960年",
         "city": "美国",
@@ -990,7 +1106,7 @@ const brandData = {
       },
       {
         "name": "TENA添宁",
-        "logo": "logos/tena.png",
+        "logo": "logos/tena.jpg",
         "description": "瑞典知名成人护理品牌，专注于失禁护理领域。",
         "founded": "1961年",
         "city": "瑞典",
@@ -1019,7 +1135,7 @@ const brandData = {
       },
       {
         "name": "lifree乐互宜",
-        "logo": "logos/lifree.png",
+        "logo": "logos/lifree.jpg",
         "description": "日本大王制纸旗下成人护理品牌，注重产品舒适性。",
         "founded": "2003年",
         "city": "日本",
@@ -1042,7 +1158,7 @@ const brandData = {
       },
       {
         "name": "爱恩倍",
-        "logo": "logos/aienbei.png",
+        "logo": "logos/aienbei.jpg",
         "description": "国内新兴成人护理品牌，专注于高品质护理产品。",
         "founded": "2012年",
         "city": "河北石家庄",
@@ -1071,7 +1187,7 @@ const brandData = {
       },
       {
         "name": "妇炎洁",
-        "logo": "logos/fuyanjie.png",
+        "logo": "logos/fuyanjie.jpg",
         "description": "国内知名女性护理品牌，提供专业护理解决方案。",
         "founded": "1999年",
         "city": "江西樟树",
@@ -1094,7 +1210,7 @@ const brandData = {
       },
       {
         "name": "千芝雅",
-        "logo": "logos/qianzhiya.png",
+        "logo": "logos/qianzhiya.jpg",
         "description": "国内知名卫生用品品牌，涵盖成人护理产品。",
         "founded": "2001年",
         "city": "浙江杭州",
@@ -1123,7 +1239,7 @@ const brandData = {
       },
       {
         "name": "珍琦SUNKISS",
-        "logo": "logos/zhenqi.png",
+        "logo": "logos/zhenqi.jpg",
         "description": "国内专业成人护理品牌，专注于失禁护理产品研发。",
         "founded": "2005年",
         "city": "浙江温州",
@@ -1146,7 +1262,7 @@ const brandData = {
       },
       {
         "name": "白十字",
-        "logo": "logos/baishizi.png",
+        "logo": "logos/baishizi.jpg",
         "description": "国内老牌成人护理品牌，专注于高品质护理产品。",
         "founded": "1998年",
         "city": "上海",
@@ -1179,7 +1295,7 @@ const brandData = {
     "洁面": [
       {
         "name": "孔凤春",
-        "logo": "logos/kongfengchun.png",
+        "logo": "logos/kongfengchun.jpg",
         "description": "百年老字号护肤品品牌，中国历史悠久的日化企业。",
         "founded": "1862年",
         "city": "浙江杭州",
@@ -1208,7 +1324,7 @@ const brandData = {
       },
       {
         "name": "至本",
-        "logo": "logos/zb.png",
+        "logo": "logos/zb.jpg",
         "description": "专注于敏感肌肤护理的国产护肤品牌，以科学配方著称。",
         "founded": "2012年",
         "city": "上海",
@@ -1238,7 +1354,7 @@ const brandData = {
 
       {
         "name": "上海硫磺皂",
-        "logo": "logos/shanghai_liuhuang.png",
+        "logo": "logos/shanghai_liuhuang.jpg",
         "description": "经典国货洁面皂品牌，以硫磺成分闻名。",
         "founded": "1923年",
         "city": "上海",
@@ -1270,7 +1386,7 @@ const brandData = {
      
       {
         "name": "郁美净",
-        "logo": "logos/yumeijing.png",
+        "logo": "logos/yumeijing.jpg",
         "description": "天津知名老牌护肤品牌，以温和配方和补水保湿著称。",
         "founded": "1979年",
         "city": "天津",
@@ -1311,7 +1427,7 @@ const brandData = {
       },
         {
           "name": "孔凤春",
-          "logo": "logos/skincare/kongfengchun.png",
+          "logo": "logos/skincare/kongfengchun.jpg",
           "description": "百年历史的中华老字号品牌，专注草本护肤。",
           "founded": "1862年",
           "city": "浙江杭州",
@@ -1354,7 +1470,7 @@ const brandData = {
       "乳霜": [
       {
         "name": "相宜本草",
-        "logo": "logos/xianyi.png",
+        "logo": "logos/xianyi.jpg",
         "description": "专注于天然草本护肤的国货品牌，将中医理论与现代科技相结合。",
         "founded": "2000年",
         "city": "上海",
@@ -1395,7 +1511,7 @@ const brandData = {
       },
       {
         "name": "精心",
-          "logo": "logos/jingxin.png",
+          "logo": "logos/jingxin.jpg",
           "description": "北京协和医院研发的专业护肤品牌。",
           "founded": "1992年",
           "city": "北京",
@@ -1436,7 +1552,7 @@ const brandData = {
         },
         {
           "name": "标婷",
-          "logo": "logos/biaoting.png",
+          "logo": "logos/biaoting.jpg",
           "description": "北京医院研制的专业护肤品牌，以医药级标准生产。",
           "founded": "1993年",
           "city": "北京",
@@ -1477,7 +1593,7 @@ const brandData = {
         },
       {
         "name": "郁美净",
-        "logo": "logos/skincare/yumeijing.png",
+        "logo": "logos/skincare/yumeijing.jpg",
         "description": "天津知名婴幼儿护肤品牌。",
         "founded": "1979年",
         "city": "天津",
@@ -1494,7 +1610,7 @@ const brandData = {
       },
       {
         "name": "美加净",
-        "logo": "logos/meijiajing.png",
+        "logo": "logos/meijiajing.jpg",
         "description": "上海知名护肤品牌。",
         "founded": "1962年",
         "city": "上海",
@@ -1511,7 +1627,7 @@ const brandData = {
       },
       {
         "name": "隆力奇",
-        "logo": "logos/longliqi.png",
+        "logo": "logos/longliqi.jpg",
         "description": "江苏知名日化品牌。",
         "founded": "1986年",
         "city": "江苏常熟",
@@ -1520,7 +1636,7 @@ const brandData = {
       },
       {
         "name": "片仔癀",
-        "logo": "logos/pianzaihuang.png",
+        "logo": "logos/pianzaihuang.jpg",
         "description": "福建知名护肤品牌。",
         "founded": "1980年",
         "city": "福建漳州",
@@ -1529,7 +1645,7 @@ const brandData = {
       },
       {
         "name": "百雀羚",
-        "logo": "logos/baiqueling.png",
+        "logo": "logos/baiqueling.jpg",
         "description": "中国历史悠久的草本护肤品牌，以传统配方结合现代科技著称。",
         "founded": "1931年",
         "city": "上海",
@@ -1570,7 +1686,7 @@ const brandData = {
       },
       {
         "name": "大宝",
-        "logo": "logos/dabao.png",
+        "logo": "logos/dabao.jpg",
         "description": "北京知名护肤品牌。",
         "founded": "1990年",
         "city": "北京",
@@ -1587,7 +1703,7 @@ const brandData = {
       },
       {
         "name": "蜂花",
-        "logo": "logos/skincare/fenghua.png",
+        "logo": "logos/skincare/fenghua.jpg",
         "description": "上海知名日化品牌。",
         "founded": "1985年",
         "city": "上海",
@@ -1598,7 +1714,7 @@ const brandData = {
     "面膜": [
       {
         "name": "孔凤春",
-        "logo": "logos/skincare/kongfengchun.png",
+        "logo": "logos/skincare/kongfengchun.jpg",
         "description": "中国历史悠久的美妆品牌，专注于传统配方与现代科技结合。",
         "founded": "1862年",
         "city": "浙江杭州",
@@ -1641,7 +1757,7 @@ const brandData = {
     "精华": [
       {
         "name": "沫润",
-        "logo": "logos/morun.png",
+        "logo": "logos/morun.jpg",
         "description": "主打精简护肤理念的国产品牌，产品配方纯净，注重基础保湿和屏障修护。",
         "founded": "2018年",
         "city": "中国",
@@ -1664,7 +1780,7 @@ const brandData = {
       },
       {
         "name": "真丽斯",
-        "logo": "logos/zenliss.png",
+        "logo": "logos/zenliss.jpg",
         "description": "国民老牌，极致性价比的护肤品牌，成分简单纯粹。",
         "founded": "1998年",
         "city": "广东广州",
@@ -1687,7 +1803,7 @@ const brandData = {
       },
       {
         "name": "优斐斯",
-        "logo": "logos/yofus.png",
+        "logo": "logos/yofus.jpg",
         "description": "高科技营养与健康产业核心配料企业，采用国家火炬计划专项提取物技术。",
         "founded": "2011年",
         "city": "江苏南京",
@@ -1707,7 +1823,7 @@ const brandData = {
     "眼护": [
       {
         "name": "春之唤",
-        "logo": "logos/chunzhihuan.png",
+        "logo": "logos/chunzhihuan.jpg",
         "description": "主打植物温和护理理念的国产品牌，产品配方安全温和。",
         "founded": "2016年",
         "city": "中国",
@@ -1730,7 +1846,7 @@ const brandData = {
       },
       {
         "name": "丸美",
-        "logo": "logos/marubi.png",
+        "logo": "logos/marubi.jpg",
         "description": "国货眼部护理第一品牌，拥有多项胶原蛋白专利技术。",
         "founded": "2002年",
         "city": "广东广州",
@@ -1753,7 +1869,7 @@ const brandData = {
       },
       {
         "name": "玉泽",
-        "logo": "logos/yuzer.png",
+        "logo": "logos/yuzer.jpg",
         "description": "专注屏障修护的国产品牌，产品温和安全。",
         "founded": "2009年",
         "city": "上海",
@@ -1776,7 +1892,7 @@ const brandData = {
       },
       {
         "name": "薇诺娜",
-        "logo": "logos/weinuona.png",
+        "logo": "logos/weinuona.jpg",
         "description": "专注敏感肌护理的国产品牌，产品低敏配方。",
         "founded": "2008年",
         "city": "云南昆明",
@@ -1799,7 +1915,7 @@ const brandData = {
       },
       {
         "name": "可复美",
-        "logo": "logos/kefumei.png",
+        "logo": "logos/kefumei.jpg",
         "description": "医美级护肤品牌，产品温和安全。",
         "founded": "2014年",
         "city": "陕西西安",
@@ -1825,7 +1941,7 @@ const brandData = {
     "防晒": [
       {
         "name": "薇诺娜",
-        "logo": "logos/weinuona.png",
+        "logo": "logos/weinuona.jpg",
         "description": "专注于敏感肌肤护理的国产品牌，以医学护肤品著称。",
         "founded": "2008年",
         "city": "云南昆明",
@@ -1870,7 +1986,7 @@ const brandData = {
     "彩妆": [
       {
         "name": "谢馥春",
-        "logo": "logos/xiefuchun.png",
+        "logo": "logos/xiefuchun.jpg",
         "description": "中国历史悠久的传统美妆品牌，始于1830年。",
         "founded": "1830年",
         "city": "江苏扬州",
@@ -1899,7 +2015,7 @@ const brandData = {
       },
       {
         "name": "戴春林",
-        "logo": "logos/dailin.png",
+        "logo": "logos/dailin.jpg",
         "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
         "founded": "1628年",
         "city": "江苏扬州",
@@ -1922,7 +2038,7 @@ const brandData = {
       },
       {
         "name": "卡姿兰",
-        "logo": "logos/kazilan.png",
+        "logo": "logos/kazilan.jpg",
         "description": "广东知名彩妆品牌。",
         "founded": "2001年",
         "city": "广东广州",
@@ -1931,7 +2047,7 @@ const brandData = {
       },
       {
         "name": "玛丽黛佳",
-        "logo": "logos/marleda.png",
+        "logo": "logos/marleda.jpg",
         "description": "上海知名彩妆品牌。",
         "founded": "2006年",
         "city": "上海",
@@ -1940,7 +2056,7 @@ const brandData = {
       },
       {
         "name": "火烈鸟",
-        "logo": "logos/huolie.png",
+        "logo": "logos/huolie.jpg",
         "description": "上海知名彩妆品牌。",
         "founded": "1996年",
         "city": "上海",
@@ -1949,7 +2065,7 @@ const brandData = {
       },
       {
         "name": "俏美人",
-        "logo": "logos/qiaomeiren.png",
+        "logo": "logos/qiaomeiren.jpg",
         "description": "广东知名彩妆品牌。",
         "founded": "2000年",
         "city": "广东广州",
@@ -1958,7 +2074,7 @@ const brandData = {
       },
       {
         "name": "诗佩妮",
-        "logo": "logos/shipeini.png",
+        "logo": "logos/shipeini.jpg",
         "description": "江苏知名彩妆品牌。",
         "founded": "2010年",
         "city": "江苏苏州",
@@ -1967,7 +2083,7 @@ const brandData = {
       },
       {
         "name": "foreverkey",
-        "logo": "logos/foreverkey.png",
+        "logo": "logos/foreverkey.jpg",
         "description": "上海知名彩妆品牌。",
         "founded": "2018年",
         "city": "上海",
@@ -1978,7 +2094,7 @@ const brandData = {
     "卸妆": [
       {
         "name": "月里嫦娥",
-        "logo": "logos/yuelichang.png",
+        "logo": "logos/yuelichang.jpg",
         "description": "源自清朝宫廷秘方的传统护肤品牌。",
         "founded": "2015年",
         "city": "北京",
@@ -2001,7 +2117,7 @@ const brandData = {
       },
       {
         "name": "精心",
-        "logo": "logos/jingxin.png",
+        "logo": "logos/jingxin.jpg",
         "description": "北京协和医院研制的药妆品牌。",
         "founded": "1992年",
         "city": "北京",
@@ -2024,7 +2140,7 @@ const brandData = {
       },
       {
         "name": "戴春林",
-        "logo": "logos/dailin.png",
+        "logo": "logos/dailin.jpg",
         "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
         "founded": "1628年",
         "city": "江苏扬州",
@@ -2047,7 +2163,7 @@ const brandData = {
       },
       {
         "name": "至本",
-        "logo": "logos/zhiben.png",
+        "logo": "logos/zhiben.jpg",
         "description": "专注于敏感肌肤护理的国产护肤品牌。",
         "founded": "2012年",
         "city": "上海",
@@ -2080,7 +2196,7 @@ const brandData = {
     "儿童专用": [
       {
         "name": "郁美净",
-        "logo": "logos/yumeijing.png",
+        "logo": "logos/yumeijing.jpg",
         "description": "天津知名婴幼儿护肤品牌。",
         "founded": "1979年",
         "city": "天津",
@@ -2109,7 +2225,7 @@ const brandData = {
       },
       {
         "name": "松达",
-        "logo": "logos/songda.png",
+        "logo": "logos/songda.jpg",
         "description": "专注于婴儿山茶油护肤产品的国产品牌。",
         "founded": "2003年",
         "city": "浙江杭州",
@@ -2381,7 +2497,7 @@ const brandData = {
 
       {
         "name": "风行",
-        "logo": "logos/fengxing.png",
+        "logo": "logos/fengxing.jpg",
         "description": "广东知名乳制品品牌。",
         "founded": "1927年",
         "city": "广东广州",
@@ -2390,7 +2506,7 @@ const brandData = {
       },
       {
         "name": "卫岗",
-        "logo": "logos/weigang.png",
+        "logo": "logos/weigang.jpg",
         "description": "江苏知名乳制品品牌。",
         "founded": "1928年",
         "city": "江苏南京",
@@ -2399,7 +2515,7 @@ const brandData = {
       },
       {
         "name": "佳宝",
-        "logo": "logos/jiabao.png",
+        "logo": "logos/jiabao.jpg",
         "description": "广东知名乳制品品牌。",
         "founded": "1956年",
         "city": "广东汕头",
@@ -2408,7 +2524,7 @@ const brandData = {
       },
       {
         "name": "燕塘",
-        "logo": "logos/yantang.png",
+        "logo": "logos/yantang.jpg",
         "description": "广东知名乳制品品牌。",
         "founded": "1956年",
         "city": "广东广州",
@@ -2417,7 +2533,7 @@ const brandData = {
       },
       {
         "name": "海河",
-        "logo": "logos/haihe.png",
+        "logo": "logos/haihe.jpg",
         "description": "天津知名乳制品品牌。",
         "founded": "1957年",
         "city": "天津",
@@ -2426,7 +2542,7 @@ const brandData = {
       },
       {
         "name": "晨光",
-        "logo": "logos/chenguang.png",
+        "logo": "logos/chenguang.jpg",
         "description": "广东知名乳制品品牌。",
         "founded": "1962年",
         "city": "广东深圳",
@@ -2435,7 +2551,7 @@ const brandData = {
       },
       {
         "name": "完达山",
-        "logo": "logos/wandashan.png",
+        "logo": "logos/wandashan.jpg",
         "description": "黑龙江知名乳制品品牌。",
         "founded": "1963年",
         "city": "黑龙江哈尔滨",
@@ -2444,7 +2560,7 @@ const brandData = {
       },
       {
         "name": "三元",
-        "logo": "logos/sanyuan.png",
+        "logo": "logos/sanyuan.jpg",
         "description": "北京知名乳制品品牌。",
         "founded": "1956年",
         "city": "北京",
@@ -2453,7 +2569,7 @@ const brandData = {
       },
       {
         "name": "光明",
-        "logo": "logos/guangming.png",
+        "logo": "logos/guangming.jpg",
         "description": "上海知名乳制品品牌。",
         "founded": "1956年",
         "city": "上海",
@@ -2462,7 +2578,7 @@ const brandData = {
       },
       {
         "name": "新希望",
-        "logo": "logos/xinxiwang.png",
+        "logo": "logos/xinxiwang.jpg",
         "description": "四川知名乳制品品牌。",
         "founded": "1982年",
         "city": "四川成都",
@@ -2471,7 +2587,7 @@ const brandData = {
       },
       {
         "name": "妙士",
-        "logo": "logos/miaoshi.png",
+        "logo": "logos/miaoshi.jpg",
         "description": "河北知名乳制品品牌。",
         "founded": "1992年",
         "city": "河北保定",
@@ -2480,7 +2596,7 @@ const brandData = {
       },
       {
         "name": "伊利",
-        "logo": "logos/yili.png",
+        "logo": "logos/yili.jpg",
         "description": "内蒙古知名乳制品品牌。",
         "founded": "1993年",
         "city": "内蒙古呼和浩特",
@@ -2489,7 +2605,7 @@ const brandData = {
       },
       {
         "name": "蒙牛",
-        "logo": "logos/mengniu.png",
+        "logo": "logos/mengniu.jpg",
         "description": "内蒙古知名乳制品品牌。",
         "founded": "1999年",
         "city": "内蒙古呼和浩特",
@@ -2498,7 +2614,7 @@ const brandData = {
       },
       {
         "name": "旺仔",
-        "logo": "logos/wangzai.png",
+        "logo": "logos/wangzai.jpg",
         "description": "台湾知名乳制品品牌。",
         "founded": "1962年",
         "city": "台湾台北",
@@ -2507,7 +2623,7 @@ const brandData = {
       },
       {
         "name": "天友",
-        "logo": "logos/tianyou.png",
+        "logo": "logos/tianyou.jpg",
         "description": "重庆知名乳制品品牌。",
         "founded": "1931年",
         "city": "重庆",
@@ -2516,7 +2632,7 @@ const brandData = {
       },
       {
         "name": "银桥",
-        "logo": "logos/yinqiao.png",
+        "logo": "logos/yinqiao.jpg",
         "description": "陕西知名乳制品品牌。",
         "founded": "1979年",
         "city": "陕西西安",
@@ -2525,7 +2641,7 @@ const brandData = {
       },
       {
         "name": "香满楼",
-        "logo": "logos/xiangmanlou.png",
+        "logo": "logos/xiangmanlou.jpg",
         "description": "广东知名乳制品品牌。",
         "founded": "1982年",
         "city": "广东广州",
@@ -2534,7 +2650,7 @@ const brandData = {
       },
       {
         "name": "李子园",
-        "logo": "logos/liziyuan.png",
+        "logo": "logos/liziyuan.jpg",
         "description": "浙江知名乳制品品牌。",
         "founded": "1994年",
         "city": "浙江金华",
@@ -2543,7 +2659,7 @@ const brandData = {
       },
       {
         "name": "夏进",
-        "logo": "logos/xiajing.png",
+        "logo": "logos/xiajing.jpg",
         "description": "宁夏知名乳制品品牌。",
         "founded": "1994年",
         "city": "宁夏吴忠",
@@ -2552,7 +2668,7 @@ const brandData = {
       },
       {
         "name": "海河",
-        "logo": "logos/milk/haihe.png",
+        "logo": "logos/milk/haihe.jpg",
         "description": "天津知名乳制品品牌。",
         "founded": "1957年",
         "city": "天津",
@@ -2561,7 +2677,7 @@ const brandData = {
       },
       {
         "name": "君乐宝",
-        "logo": "logos/junlebao.png",
+        "logo": "logos/junlebao.jpg",
         "description": "河北知名乳制品品牌。",
         "founded": "1995年",
         "city": "河北石家庄",
@@ -2780,7 +2896,7 @@ const brandData = {
     "调味料": [
       {
         "name": "王守义十三香",
-        "logo": "logos/wangshouyi.png",
+        "logo": "logos/wangshouyi.jpg",
         "description": "中华老字号，汇聚花椒、丁香、八角等十三种香料精华，香气浓郁，口感层次丰富，是中华烹饪文化的瑰宝。",
         "founded": "1959年",
         "city": "河南驻马店",
@@ -2797,7 +2913,7 @@ const brandData = {
       },
       {
         "name": "老干妈",
-        "logo": "logos/laoganma.png",
+        "logo": "logos/laoganma.jpg",
         "description": "贵州特产，国民级辣酱品牌，凭借独特风味和稳定品质，受到消费者喜爱。",
         "founded": "1996年",
         "city": "贵州贵阳",
@@ -2822,7 +2938,7 @@ const brandData = {
     "味精": [
       {
         "name": "莲花味精",
-        "logo": "logos/lianhua.png",
+        "logo": "logos/lianhua.jpg",
         "description": "国民老牌，极致性价比的代名词，成分简单纯粹，谷氨酸钠含量高达99%以上，是真正意义上的'纯粮酿造'。",
         "founded": "1983年",
         "city": "河南周口",
@@ -2845,7 +2961,7 @@ const brandData = {
       },
       {
         "name": "松鲜鲜",
-        "logo": "logos/songxianxian.png",
+        "logo": "logos/songxianxian.jpg",
         "description": "专注于健康调味领域，以天然食材替代化学增鲜剂，是味精和鸡精的健康替代品。",
         "founded": "2019年",
         "city": "浙江杭州",
@@ -2862,7 +2978,7 @@ const brandData = {
       },
       {
         "name": "天调本味",
-        "logo": "logos/tiandiaobenwei.png",
+        "logo": "logos/tiandiaobenwei.jpg",
         "description": "高科技营养与健康产业核心配料企业，采用国家火炬计划专项提取物技术，从天然肉类和海鲜中提取'美味肽'，实现真正的零添加。",
         "founded": "2005年",
         "city": "广东广州",
@@ -2882,7 +2998,7 @@ const brandData = {
     "酱油": [
       {
         "name": "千禾",
-        "logo": "logos/qianhe.png",
+        "logo": "logos/qianhe.jpg",
         "description": "国内较早聚焦'零添加'赛道的知名品牌，市场认知度高，产品线丰富，性价比突出。",
         "founded": "1996年",
         "city": "四川眉山",
@@ -2905,7 +3021,7 @@ const brandData = {
       },
       {
         "name": "莲花酱油",
-        "logo": "logos/lianhua_jiangyou.png",
+        "logo": "logos/lianhua_jiangyou.jpg",
         "description": "国民老牌莲花旗下的酱油产品，同样秉承'纯粮酿造、零添加'的理念，配料表干净，性价比极高。",
         "founded": "1983年",
         "city": "河南周口",
@@ -2928,7 +3044,7 @@ const brandData = {
       },
       {
         "name": "欣和",
-        "logo": "logos/xinhe.png",
+        "logo": "logos/xinhe.jpg",
         "description": "旗下'六月鲜·轻'系列主打健康减盐，在坚持'零添加'的基础上，显著降低钠含量，深受注重健康管理的现代家庭青睐。",
         "founded": "1992年",
         "city": "山东烟台",
@@ -2947,7 +3063,7 @@ const brandData = {
     "醋": [
       {
         "name": "恒顺",
-        "logo": "logos/hengshun.png",
+        "logo": "logos/hengshun.jpg",
         "description": "中国'四大名醋'之首（镇江香醋），国家级非物质文化遗产，以糯米为原料，采用传统工艺酿造，风味'酸而不涩、香而微甜'。",
         "founded": "1840年",
         "city": "江苏镇江",
@@ -2970,7 +3086,7 @@ const brandData = {
       },
       {
         "name": "水塔",
-        "logo": "logos/shuitag.png",
+        "logo": "logos/shuitag.jpg",
         "description": "北方陈醋规模化标杆，坚持'纯粮酿造、零添加'，自动化与传统工艺结合，性价比优势显著。",
         "founded": "1976年",
         "city": "山西清徐",
@@ -2987,7 +3103,7 @@ const brandData = {
       },
       {
         "name": "鲁花",
-        "logo": "logos/luhua.png",
+        "logo": "logos/luhua.jpg",
         "description": "鲁花集团是我国最大的花生油专业生产企业，其黑糯米醋配料表干净，没有添加剂、防腐剂，大品牌，值得信赖。",
         "founded": "1986年",
         "city": "山东莱阳",
@@ -3007,7 +3123,7 @@ const brandData = {
     "料酒": [
       {
         "name": "老恒河",
-        "logo": "logos/laohenghe.png",
+        "logo": "logos/laohenghe.jpg",
         "description": "中华老字号，专注于黄酒和料酒的生产，采用传统工艺酿造，去腥提鲜效果显著。",
         "founded": "1919年",
         "city": "上海",
@@ -3032,7 +3148,7 @@ const brandData = {
     "蚝油": [
       {
         "name": "沙井蚝油",
-        "logo": "logos/shajing.png",
+        "logo": "logos/shajing.jpg",
         "description": "深圳特产，以'千年蚝乡'为品牌，蚝汁含量高，是高品质蚝油的代表。",
         "founded": "1980年",
         "city": "广东深圳",
@@ -3049,7 +3165,7 @@ const brandData = {
       },
       {
         "name": "珠江桥头牌",
-        "logo": "logos/zhujiangqiaotou.png",
+        "logo": "logos/zhujiangqiaotou.jpg",
         "description": "中华老字号，远销国内外，其零添加蚝油系列严选新鲜优质生蚝，浓缩蚝汁精华，蚝香浓郁。",
         "founded": "1954年",
         "city": "广东中山",
@@ -3068,7 +3184,7 @@ const brandData = {
     "芝麻油": [
       {
         "name": "崔字牌",
-        "logo": "logos/cuizipai.png",
+        "logo": "logos/cuizipai.jpg",
         "description": "中华老字号，传承600余年，采用传统水代法、石磨工艺制作，100%纯芝麻油，香气醇厚，是香油中的佼佼者。",
         "founded": "1400年",
         "city": "山东安丘",
@@ -3093,7 +3209,7 @@ const brandData = {
     "豆瓣酱": [
       {
         "name": "鹃城牌",
-        "logo": "logos/juanchengpai.png",
+        "logo": "logos/juanchengpai.jpg",
         "description": "中华老字号，中国非物质文化遗产郫县豆瓣传统制作技艺的传承企业之一，有'川菜之魂'的美誉，品质有保障。",
         "founded": "1688年",
         "city": "四川成都",
@@ -3116,7 +3232,7 @@ const brandData = {
       },
       {
         "name": "绍丰和",
-        "logo": "logos/shaofenhe.png",
+        "logo": "logos/shaofenhe.jpg",
         "description": "中华老字号，始于1666年，堪称豆瓣鼻祖，坚持传统'翻、晒、露'工序，产品周期至少一年以上，是郫县豆瓣中的精品。",
         "founded": "1666年",
         "city": "四川成都",
@@ -3139,7 +3255,7 @@ const brandData = {
       },
       {
         "name": "丹丹",
-        "logo": "logos/dandan.png",
+        "logo": "logos/dandan.jpg",
         "description": "四川本土知名豆瓣酱品牌，采用传统工艺与现代技术相结合的方式发酵酿制，荣获'中国绿色食品'称号。",
         "founded": "1984年",
         "city": "四川成都",
@@ -3158,7 +3274,7 @@ const brandData = {
     "粮油": [
       {
         "name": "鲁花",
-        "logo": "logos/luhua.png",
+        "logo": "logos/luhua.jpg",
         "description": "国货之光，独创'5S物理压榨'工艺，全程不加一滴化学溶剂，从筛选、烘炒到压榨，每一步都精益求精，将花生的浓郁香气牢牢锁住。",
         "founded": "1986年",
         "city": "山东莱阳",
@@ -3181,7 +3297,7 @@ const brandData = {
       },
       {
         "name": "金龙鱼",
-        "logo": "logos/jinlongyu.png",
+        "logo": "logos/jinlongyu.jpg",
         "description": "家喻户晓的国民品牌，其'零反式脂肪酸'系列通过精准控温的精炼技术，将反式脂肪酸含量降为零，让烹饪更安心。",
         "founded": "1991年",
         "city": "上海",
@@ -3204,7 +3320,7 @@ const brandData = {
       },
       {
         "name": "多力",
-        "logo": "logos/duoli.png",
+        "logo": "logos/duoli.jpg",
         "description": "以'充氮保鲜'技术闻名，灌装时注入氮气，大大减缓氧化速度，开瓶后放三个月依然清亮，保持新鲜好味。",
         "founded": "1986年",
         "city": "上海",
@@ -3223,7 +3339,7 @@ const brandData = {
     "火锅底料": [
       {
         "name": "臻鲜",
-        "logo": "logos/zhenxian.png",
+        "logo": "logos/zhenxian.jpg",
         "description": "2025年火锅底料市场的'黑马'，以'零添加、高还原度'为核心卖点，采用低温慢熬技术，最大程度保留食材本味，是健康火锅底料的代表品牌。",
         "founded": "2018年",
         "city": "四川成都",
@@ -3246,7 +3362,7 @@ const brandData = {
       },
       {
         "name": "海琦王",
-        "logo": "logos/haiqiwang.png",
+        "logo": "logos/haiqiwang.jpg",
         "description": "主打0添加，原料采用非转基因大豆油和大豆，无防腐剂、甜味剂、增味剂，让消费者吃得安心。",
         "founded": "2015年",
         "city": "辽宁大连",
@@ -3269,7 +3385,7 @@ const brandData = {
       },
       {
         "name": "小龙坎",
-        "logo": "logos/xiaolongkan.png",
+        "logo": "logos/xiaolongkan.jpg",
         "description": "知名火锅连锁品牌，其底料产品运用创新研发的微生物发酵酵藏工艺，历经4000小时深度发酵，不添加防腐剂、人工香精及化学调味剂。",
         "founded": "2008年",
         "city": "四川成都",
@@ -3290,7 +3406,7 @@ const brandData = {
     "方便食品类": [
       {
         "name": "白象",
-        "logo": "logos/baixiang.png",
+        "logo": "logos/baixiang.jpg",
         "description": "国货之光，民族企业，口碑极好，价格亲民。",
         "founded": "1997年",
         "city": "河南郑州",
@@ -3319,7 +3435,7 @@ const brandData = {
       },
       {
         "name": "五谷道场",
-        "logo": "logos/wugudaochang.png",
+        "logo": "logos/wugudaochang.jpg",
         "description": "中粮旗下，主打'非油炸'概念，品控稳定。",
         "founded": "2004年",
         "city": "北京",
@@ -3342,7 +3458,7 @@ const brandData = {
       },
       {
         "name": "泰奇八宝粥",
-        "logo": "logos/taiqi.png",
+        "logo": "logos/taiqi.jpg",
         "description": "广东老品牌，品控稳定，价格实惠。",
         "founded": "1992年",
         "city": "广东广州",
@@ -3371,7 +3487,7 @@ const brandData = {
       },
       {
         "name": "华丰三鲜伊面",
-        "logo": "logos/huafeng.png",
+        "logo": "logos/huafeng.jpg",
         "description": "经典怀旧国货，价格实惠，无负面新闻。",
         "founded": "1986年",
         "city": "广东珠海",
@@ -3394,7 +3510,7 @@ const brandData = {
       },
       {
         "name": "今麦郎",
-        "logo": "logos/jinmailang.png",
+        "logo": "logos/jinmailang.jpg",
         "description": "已完全脱离外资背景，产品线丰富，性价比高。",
         "founded": "1994年",
         "city": "河北邢台",
@@ -3425,7 +3541,7 @@ const brandData = {
     "糕点类": [
         {
           "name": "嘉顿",
-          "logo": "logos/jiadun.png",
+          "logo": "logos/jiadun.jpg",
           "description": "香港民族企业，品控严格，口碑极佳。",
           "founded": "1926年",
           "city": "中国香港",
@@ -3454,7 +3570,7 @@ const brandData = {
         },
         {
           "name": "冠生园",
-          "logo": "logos/guanshengyuan.png",
+          "logo": "logos/guanshengyuan.jpg",
           "description": "上海老字号，大白兔奶糖母公司，基础产品线值得信赖。",
           "founded": "1915年",
           "city": "上海",
@@ -3483,7 +3599,7 @@ const brandData = {
         },
         {
           "name": "盼盼",
-          "logo": "logos/panpan.png",
+          "logo": "logos/panpan.jpg",
           "description": "国民度高，品控稳定，性价比高。",
           "founded": "1996年",
           "city": "福建晋江",
@@ -3512,7 +3628,7 @@ const brandData = {
         },
         {
           "name": "九度七",
-          "logo": "logos/jiuduqi.png",
+          "logo": "logos/jiuduqi.jpg",
           "description": "新兴国货，主打'低糖'中式糕点，口碑较好。",
           "founded": "2016年",
           "city": "广东广州",
@@ -3543,7 +3659,7 @@ const brandData = {
     "香嘴零食类": [
         {
           "name": "运康锅巴",
-          "logo": "logos/yunkang.png",
+          "logo": "logos/yunkang.jpg",
           "description": "山西品牌，口味偏向'原切'，配料相对简单。",
           "founded": "1992年",
           "city": "山西太原",
@@ -3572,7 +3688,7 @@ const brandData = {
         },
         {
           "name": "噜咪啦薯片",
-          "logo": "logos/lumila.png",
+          "logo": "logos/lumila.jpg",
           "description": "云南品牌，原切薯片，香精味不重。",
           "founded": "1998年",
           "city": "云南昆明",
@@ -3601,7 +3717,7 @@ const brandData = {
         },
         {
           "name": "子弟薯片",
-          "logo": "logos/zidipu.png",
+          "logo": "logos/zidipu.jpg",
           "description": "云南品牌，与噜咪啦类似，口味更天然。",
           "founded": "2001年",
           "city": "云南昆明",
@@ -3630,7 +3746,7 @@ const brandData = {
         },
         {
           "name": "香鸽瓜子",
-          "logo": "logos/xiangge.png",
+          "logo": "logos/xiangge.jpg",
           "description": "炒货类国货，品控有保障，无负面新闻。",
           "founded": "2003年",
           "city": "安徽合肥",
@@ -3659,7 +3775,7 @@ const brandData = {
         },
         {
           "name": "渝兄怪味豆",
-          "logo": "logos/yuxiong.png",
+          "logo": "logos/yuxiong.jpg",
           "description": "炒货类国货，区域强势品牌，口碑良好。",
           "founded": "1998年",
           "city": "重庆",
@@ -3690,7 +3806,7 @@ const brandData = {
     "肉干肠类": [
         {
           "name": "美好",
-          "logo": "logos/meihuao.png",
+          "logo": "logos/meihuao.jpg",
           "description": "新希望六和旗下，品控有保障，大众化选择。",
           "founded": "2003年",
           "city": "四川成都",
@@ -3719,7 +3835,7 @@ const brandData = {
         },
         {
           "name": "育青",
-          "logo": "logos/yuqing.png",
+          "logo": "logos/yuqing.jpg",
           "description": "北京老字号，肉质含量高，口感扎实。",
           "founded": "1992年",
           "city": "北京",
@@ -3748,7 +3864,7 @@ const brandData = {
         },
         {
           "name": "秋林",
-          "logo": "logos/qiulin.png",
+          "logo": "logos/qiulin.jpg",
           "description": "哈尔滨老字号，红肠工艺传统，风味独特。",
           "founded": "1900年",
           "city": "黑龙江哈尔滨",
@@ -3777,7 +3893,7 @@ const brandData = {
         },
         {
           "name": "三丰午餐肉",
-          "logo": "logos/sanfeng.png",
+          "logo": "logos/sanfeng.jpg",
           "description": "上海梅林旗下，国货老品牌，品质稳定。",
           "founded": "1998年",
           "city": "上海",
@@ -3806,7 +3922,7 @@ const brandData = {
         },
         {
           "name": "太丰肉干",
-          "logo": "logos/taifeng.png",
+          "logo": "logos/taifeng.jpg",
           "description": "浙江品牌，地方特色，品控稳定。",
           "founded": "1995年",
           "city": "浙江杭州",
@@ -3835,7 +3951,7 @@ const brandData = {
         },
         {
           "name": "天一角肉干",
-          "logo": "logos/tianyijiao.png",
+          "logo": "logos/tianyijiao.jpg",
           "description": "浙江品牌，地方特色，无负面新闻。",
           "founded": "2000年",
           "city": "浙江温州",
@@ -3864,7 +3980,7 @@ const brandData = {
         },
         {
           "name": "追肉记",
-          "logo": "logos/zhuirouji.png",
+          "logo": "logos/zhuirouji.jpg",
           "description": "强烈推荐，0添加，不含淀粉、防腐剂，性价比极高。",
           "founded": "2018年",
           "city": "浙江杭州",
@@ -3893,7 +4009,7 @@ const brandData = {
         },
         {
           "name": "本味鲜物",
-          "logo": "logos/benweixianwu.png",
+          "logo": "logos/benweixianwu.jpg",
           "description": "不添加淀粉，全猪肉制作，口感紧实。",
           "founded": "2019年",
           "city": "浙江杭州",
@@ -3922,7 +4038,7 @@ const brandData = {
         },
         {
           "name": "锋味派",
-          "logo": "logos/fengweipai.png",
+          "logo": "logos/fengweipai.jpg",
           "description": "谢霆锋创立的国货品牌，黑猪肉含量高，品质有保障。",
           "founded": "2018年",
           "city": "广东广州",
@@ -3951,7 +4067,7 @@ const brandData = {
         },
         {
           "name": "喜旺火腿肠",
-          "logo": "logos/xiwang.png",
+          "logo": "logos/xiwang.jpg",
           "description": "山东品牌，以'短保质期、少添加剂'闻名。",
           "founded": "1996年",
           "city": "山东烟台",
@@ -3980,7 +4096,7 @@ const brandData = {
         },
         {
           "name": "波尼亚火腿肠",
-          "logo": "logos/bonia.png",
+          "logo": "logos/bonia.jpg",
           "description": "青岛品牌，原料讲究，生态养殖可追溯。",
           "founded": "1994年",
           "city": "山东青岛",
@@ -4009,7 +4125,7 @@ const brandData = {
         },
         {
           "name": "得利斯火腿肠",
-          "logo": "logos/delisi.png",
+          "logo": "logos/delisi.jpg",
           "description": "山东品牌，率先研制低温火腿肠，肉质鲜嫩。",
           "founded": "1986年",
           "city": "山东潍坊",
@@ -4040,7 +4156,7 @@ const brandData = {
     "速冻食品类": [
         {
           "name": "三全食品",
-          "logo": "logos/sanquan.png",
+          "logo": "logos/sanquan.jpg",
           "description": "速冻食品行业开创者，品控严格，产品线丰富。",
           "founded": "1992年",
           "city": "河南郑州",
@@ -4069,7 +4185,7 @@ const brandData = {
         },
         {
           "name": "思念食品",
-          "logo": "logos/sinian.png",
+          "logo": "logos/sinian.jpg",
           "description": "国内大型速冻食品企业，品控稳定，产品多样。",
           "founded": "1997年",
           "city": "河南郑州",
@@ -4098,7 +4214,7 @@ const brandData = {
         },
         {
           "name": "安井食品",
-          "logo": "logos/anjing.png",
+          "logo": "logos/anjing.jpg",
           "description": "火锅料领域专家，品控体系完善。",
           "founded": "2001年",
           "city": "福建厦门",
@@ -4127,7 +4243,7 @@ const brandData = {
         },
         {
           "name": "海欣食品",
-          "logo": "logos/haixin.png",
+          "logo": "logos/haixin.jpg",
           "description": "福州老字号，以速冻鱼糜制品为核心，品控稳定。",
           "founded": "1903年",
           "city": "福建福州",
@@ -4156,7 +4272,7 @@ const brandData = {
         },
         {
           "name": "千味央厨",
-          "logo": "logos/qianweiyangchu.png",
+          "logo": "logos/qianweiyangchu.jpg",
           "description": "为餐饮提供专业解决方案，品控体系完善。",
           "founded": "2012年",
           "city": "河南郑州",
@@ -4187,7 +4303,7 @@ const brandData = {
     "零食类": [
         {
           "name": "亿堡坚果零食",
-          "logo": "logos/yibao.png",
+          "logo": "logos/yibao.jpg",
           "description": "强烈推荐，坚持0添加剂理念，无人工色素、防腐剂、香精。",
           "founded": "2015年",
           "city": "浙江杭州",
@@ -4216,7 +4332,7 @@ const brandData = {
         },
         {
           "name": "劲仔食品",
-          "logo": "logos/jingzai.png",
+          "logo": "logos/jingzai.jpg",
           "description": "创新\"三零工艺\"（0防腐剂、0色素、0蔗糖），营养价值高。",
           "founded": "2000年",
           "city": "湖南岳阳",
@@ -4245,7 +4361,7 @@ const brandData = {
         },
         {
           "name": "良品铺子",
-          "logo": "logos/liangpinpuzi.png",
+          "logo": "logos/liangpinpuzi.jpg",
           "description": "发布\"自然健康新零食\"品牌主张，计划去除一切非必要添加。",
           "founded": "2006年",
           "city": "湖北武汉",
@@ -4274,7 +4390,7 @@ const brandData = {
         },
         {
           "name": "金晔食品",
-          "logo": "logos/jinye.png",
+          "logo": "logos/jinye.jpg",
           "description": "主打\"无添加零食王国\"，配料表干净，如山楂条、地瓜干等。",
           "founded": "2003年",
           "city": "山东济南",
@@ -4303,7 +4419,7 @@ const brandData = {
         },
         {
           "name": "首农小王子",
-          "logo": "logos/xiaowangzi.png",
+          "logo": "logos/xiaowangzi.jpg",
           "description": "国企背景，配料干净，无多余添加剂，价格亲民。",
           "founded": "1999年",
           "city": "北京",

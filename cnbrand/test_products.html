@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试沐浴露产品信息</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .brand {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .product {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #007bff;
+        }
+        .price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>沐浴露品牌及产品信息</h1>
+    <div id="products-container"></div>
+
+    <script src="js/brandData.js"></script>
+    <script>
+        // 获取沐浴露分类的品牌数据
+        const brandData = window.brandData || {};
+        const bathroomProducts = brandData['沐浴洁齿'] && brandData['沐浴洁齿']['沐浴露'];
+        
+        if (bathroomProducts) {
+            const container = document.getElementById('products-container');
+            
+            bathroomProducts.forEach(brand => {
+                const brandDiv = document.createElement('div');
+                brandDiv.className = 'brand';
+                
+                brandDiv.innerHTML = `
+                    <h2>${brand.name}</h2>
+                    <p><strong>推荐理由:</strong> ${brand.recommendation}</p>
+                    <p><strong>核心优势:</strong> ${brand.advantages}</p>
+                    <h3>产品信息:</h3>
+                `;
+                
+                if (brand.products && Array.isArray(brand.products)) {
+                    brand.products.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.className = 'product';
+                        productDiv.innerHTML = `
+                            <strong>${product.name}</strong><br>
+                            <span>规格: ${product.spec}</span><br>
+                            <span class="price">价格: ${product.price}</span><br>
+                            <span>特点: ${product.feature}</span>
+                        `;
+                        brandDiv.appendChild(productDiv);
+                    });
+                }
+                
+                container.appendChild(brandDiv);
+            });
+        } else {
+            document.getElementById('products-container').innerHTML = '<p>未找到沐浴露产品数据</p>';
+        }
+    </script>
+</body>
+</html>
