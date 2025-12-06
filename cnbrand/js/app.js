@@ -12,11 +12,9 @@ function hideLoadingPage() {
 }
 
 // 监听页面加载状态变化
-document.addEventListener('readystatechange', function() {
-    // 当页面变为interactive状态时，DOM已经构建完成，此时可以隐藏加载页面
-    if (document.readyState === 'interactive') {
-        hideLoadingPage();
-    }
+// 当DOM结构构建完成后就隐藏加载页面，让用户看到页面框架，图片会逐渐加载
+window.addEventListener('DOMContentLoaded', function() {
+    hideLoadingPage();
 });
 
 // DOMContentLoaded事件监听
