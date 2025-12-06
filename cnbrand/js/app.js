@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            z-index: 9999;
+            z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
         `;
@@ -77,20 +77,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 添加返回顶部按钮
+    // 添加返回顶部按钮和地图按钮
     function addBackToTopButton() {
-        const backToTop = document.createElement('button');
-        backToTop.id = 'back-to-top';
-        backToTop.className = 'back-to-top';
-        backToTop.textContent = '↑';
-        backToTop.style.cssText = `
+        // 创建地图图标按钮
+        const mapButton = document.createElement('button');
+        mapButton.id = 'map-button';
+        mapButton.className = 'map-button';
+        mapButton.textContent = '⊞';
+        mapButton.style.cssText = `
             position: fixed;
-            bottom: 30px;
+            bottom: 90px;
             right: 30px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #ff6b6b;
+            background: #e81818ff;
             color: white;
             border: none;
             font-size: 24px;
@@ -104,6 +105,37 @@ document.addEventListener('DOMContentLoaded', function() {
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         `;
         
+        // 添加点击事件，显示品牌地图弹窗
+        mapButton.addEventListener('click', showBrandMap);
+        
+        // 创建回到顶部按钮
+        const backToTop = document.createElement('button');
+        backToTop.id = 'back-to-top';
+        backToTop.className = 'back-to-top';
+        backToTop.textContent = '↑';
+        backToTop.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e81818ff;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+        
+        // 添加到页面
+        document.body.appendChild(mapButton);
         document.body.appendChild(backToTop);
         
         backToTop.addEventListener('click', function() {
@@ -113,17 +145,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        return backToTop;
+        return { backToTop, mapButton };
     }
     
-    const backToTopButton = addBackToTopButton();
+    const { backToTop: backToTopButton, mapButton } = addBackToTopButton();
 
-    // 监听滚动事件，控制返回顶部按钮显示和上滑加载更多
+    // 监听滚动事件，控制返回顶部按钮和地图按钮显示和上滑加载更多
     function handleScroll() {
         if (window.scrollY > 300) {
             backToTopButton.style.opacity = '1';
+            mapButton.style.opacity = '1';
         } else {
             backToTopButton.style.opacity = '0';
+            mapButton.style.opacity = '0';
         }
         
         // 只有当不是通过点击触发的滚动时，才更新active分类
