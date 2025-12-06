@@ -588,6 +588,99 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
+    // 品牌地图导航弹窗HTML结构
+    const brandMapModalHTML = `
+        <div id="brand-map-modal" class="brand-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>品牌地图导航</h2>
+                    <span class="close-btn">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="brand-map-content"></div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // 添加品牌地图弹窗到页面
+    document.body.insertAdjacentHTML('beforeend', brandMapModalHTML);
+
+    // 获取弹窗元素
+    const brandMapModal = document.getElementById('brand-map-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const brandMapContent = document.getElementById('brand-map-content');
+
+    // 生成品牌地图内容
+    function generateBrandMap() {
+        let content = '';
+        const categories = Object.keys(brandData);
+        
+        categories.forEach(mainCategory => {
+            content += `<div class="brand-map-category-item">
+                <h3 class="brand-map-main-category" data-category="${mainCategory}">
+                    ${mainCategory}
+                </h3>
+                <div class="brand-map-subcategories">
+            `;
+            
+            Object.keys(brandData[mainCategory]).forEach(subCategory => {
+                const displayName = subCategory.includes('|') ? subCategory.split('|')[0].trim() : subCategory;
+                content += `<a href="#${mainCategory}-${subCategory}" class="brand-map-sub-category" data-main-category="${mainCategory}" data-sub-category="${subCategory}">
+                    ${displayName}
+                </a>`;
+            });
+            
+            content += '</div></div>';
+        });
+        
+        brandMapContent.innerHTML = content;
+    }
+
+    // 显示品牌地图弹窗
+    function showBrandMap() {
+        brandMapModal.style.display = 'flex';
+    }
+
+    // 隐藏品牌地图弹窗
+    function hideBrandMap() {
+        brandMapModal.style.display = 'none';
+    }
+
+    // 点击关闭按钮
+    closeBtn.addEventListener('click', hideBrandMap);
+
+    // 点击弹窗外部关闭
+    window.addEventListener('click', (e) => {
+        if (e.target === brandMapModal) {
+            hideBrandMap();
+        }
+    });
+
+    // 点击子分类链接
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('brand-map-sub-category')) {
+            e.preventDefault();
+            const mainCategory = e.target.getAttribute('data-main-category');
+            const subCategory = e.target.getAttribute('data-sub-category');
+            
+            // 隐藏弹窗
+            hideBrandMap();
+            
+            // 跳转到对应区域
+            const targetSection = document.getElementById(`${mainCategory}-${subCategory}`);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+
+    // 页面加载时显示品牌地图弹窗
+    window.addEventListener('load', () => {
+        generateBrandMap();
+        showBrandMap();
+    });
+
     // 生成单个主分类的展示区域
     function generateMainCategorySection(mainCategory) {
         // 检查主分类是否已加载
@@ -598,6 +691,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const section = document.createElement('section');
         section.className = 'main-brand-section';
         section.id = mainCategory;
+        
+        // 只在第一个section添加品牌地图导航按钮
+        const allSections = document.querySelectorAll('.main-brand-section');
+        if (allSections.length === 0) {
+            const brandMapBtn = document.createElement('button');
+            brandMapBtn.textContent = '品牌地图导航';
+            brandMapBtn.className = 'brand-map-btn';
+            brandMapBtn.style.cssText = '';
+            
+            // 按钮点击事件
+            brandMapBtn.addEventListener('click', () => {
+                generateBrandMap();
+                showBrandMap();
+            });
+            
+            section.appendChild(brandMapBtn);
+        }
         
         // 主分类标题使用h2标签
         const sectionTitle = document.createElement('h2');
