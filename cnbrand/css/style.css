@@ -599,6 +599,9 @@ body {
 /* 弹窗主体样式 */
 .modal-body {
     padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* 品牌地图弹窗样式 */

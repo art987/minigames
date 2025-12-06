@@ -674,11 +674,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 显示品牌地图弹窗
     function showBrandMap() {
         brandMapModal.style.display = 'flex';
+        // 阻止背景页面滚动
+        document.body.style.overflow = 'hidden';
     }
 
     // 隐藏品牌地图弹窗
     function hideBrandMap() {
         brandMapModal.style.display = 'none';
+        // 恢复背景页面滚动
+        document.body.style.overflow = '';
     }
 
     // 点击关闭按钮
