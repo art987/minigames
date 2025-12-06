@@ -1,4 +1,25 @@
 // 使用全局变量brandData（在HTML中先加载brandData.js）
+
+// 页面加载完成后隐藏加载页面
+function hideLoadingPage() {
+    const loadingPage = document.getElementById('loading-page');
+    if (loadingPage) {
+        loadingPage.style.opacity = '0';
+        setTimeout(() => {
+            loadingPage.style.display = 'none';
+        }, 500); // 等待过渡动画完成
+    }
+}
+
+// 监听页面加载状态变化
+document.addEventListener('readystatechange', function() {
+    // 当页面变为interactive状态时，DOM已经构建完成，此时可以隐藏加载页面
+    if (document.readyState === 'interactive') {
+        hideLoadingPage();
+    }
+});
+
+// DOMContentLoaded事件监听
 document.addEventListener('DOMContentLoaded', function() {
 
     // 获取DOM元素

@@ -800,7 +800,7 @@ const brandData = {
       },
       {
         "name": "倍舒特",
-        "logo": "logos/beishute.jpg",
+        "logo": "logos/beishute.png",
         "description": "专业私护品牌，主打医护级品质和仿肤质底膜。",
         "founded": "1998年",
         "city": "北京",
@@ -916,7 +916,7 @@ const brandData = {
       },
       {
         "name": "洁伶",
-        "logo": "logos/jieling.jpg",
+        "logo": "logos/jieling.avif",
         "description": "主打\"全程护理\"概念，产品线涵盖少女、干爽、棉柔等多个系列。",
         "founded": "1993年",
         "city": "广西桂林",
@@ -939,7 +939,7 @@ const brandData = {
       },
       {
         "name": "七度空间",
-        "logo": "logos/qidukongjian.jpg",
+        "logo": "logos/qidukongjian.avif",
         "description": "国民少女品牌，以\"少女系列\"和\"优雅系列\"闻名，包装可爱，深受年轻女性喜爱。",
         "founded": "2002年",
         "city": "福建晋江",
