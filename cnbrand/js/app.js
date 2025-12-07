@@ -379,16 +379,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // 滚动到对应主分类
-                    const targetSection = document.getElementById(mainCategory);
-                    if (targetSection) {
-                        // 隐藏搜索结果
-                        searchResults.classList.remove('active');
-                        
-                        targetSection.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
+                    const scrollToMainCategory = () => {
+                        const targetSection = document.getElementById(mainCategory);
+                        if (targetSection) {
+                            // 隐藏搜索结果
+                            searchResults.classList.remove('active');
+                            
+                            // 使用window.scrollTo替代scrollIntoView，确保兼容性和准确性
+                            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    };
+                    
+                    // 使用requestAnimationFrame确保DOM已更新，然后执行滚动
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            scrollToMainCategory();
+                        }, 100);
+                    });
                     
                     // 滚动动画完成后重新允许滚动更新active状态
                     setTimeout(() => {
@@ -463,16 +474,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // 滚动到对应子分类
-                    const targetSubSection = document.getElementById(`${mainCategory}-${subCategory}`);
-                    if (targetSubSection) {
-                        // 隐藏搜索结果
-                        searchResults.classList.remove('active');
-                        
-                        targetSubSection.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
+                    const scrollToSubCategory = () => {
+                        const targetSubSection = document.getElementById(`${mainCategory}-${subCategory}`);
+                        if (targetSubSection) {
+                            // 隐藏搜索结果
+                            searchResults.classList.remove('active');
+                            
+                            // 使用window.scrollTo替代scrollIntoView，确保兼容性和准确性
+                            const targetPosition = targetSubSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    };
+                    
+                    // 使用requestAnimationFrame确保DOM已更新，然后执行滚动
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            scrollToSubCategory();
+                        }, 100);
+                    });
                     
                     // 滚动动画完成后重新允许滚动更新active状态
                     setTimeout(() => {
@@ -596,15 +618,35 @@ document.addEventListener('DOMContentLoaded', function() {
             productsContainer.className = 'brand-products';
             
             // 添加品牌口碑 - 移到商品标题前面
-            const brandReputation = document.createElement('p');
-            brandReputation.className = 'brand-reputation';
-            brandReputation.textContent = brand.reputation || '暂无口碑信息';
-            productsContainer.appendChild(brandReputation);
-            
-            const productsTitle = document.createElement('h4');
-            productsTitle.className = 'products-title';
-            productsTitle.textContent = '热销商品：';
-            productsContainer.appendChild(productsTitle);
+                const brandReputation = document.createElement('p');
+                brandReputation.className = 'brand-reputation';
+                brandReputation.textContent = brand.reputation || '暂无口碑信息';
+                productsContainer.appendChild(brandReputation);
+                
+                // 添加核心优势（如果有）
+                if (brand.advantages && brand.advantages.length > 0) {
+                    const advantagesTitle = document.createElement('h4');
+                    advantagesTitle.className = 'products-title';
+                    advantagesTitle.textContent = '核心优势：';
+                    productsContainer.appendChild(advantagesTitle);
+                    
+                    const advantagesList = document.createElement('ul');
+                    advantagesList.className = 'advantages-list';
+                    
+                    brand.advantages.forEach(advantage => {
+                        const advantageItem = document.createElement('li');
+                        advantageItem.className = 'advantage-item';
+                        advantageItem.textContent = advantage;
+                        advantagesList.appendChild(advantageItem);
+                    });
+                    
+                    productsContainer.appendChild(advantagesList);
+                }
+                
+                const productsTitle = document.createElement('h4');
+                productsTitle.className = 'products-title';
+                productsTitle.textContent = '热销商品：';
+                productsContainer.appendChild(productsTitle);
             
             const productsList = document.createElement('ul');
             productsList.className = 'products-list';
@@ -650,6 +692,26 @@ document.addEventListener('DOMContentLoaded', function() {
             brandReputation.className = 'brand-reputation';
             brandReputation.textContent = brand.reputation || '暂无口碑信息';
             brandContent2.appendChild(brandReputation);
+            
+            // 添加核心优势（如果有）
+            if (brand.advantages && brand.advantages.length > 0) {
+                const advantagesTitle = document.createElement('h4');
+                advantagesTitle.className = 'products-title';
+                advantagesTitle.textContent = '核心优势：';
+                brandContent2.appendChild(advantagesTitle);
+                
+                const advantagesList = document.createElement('ul');
+                advantagesList.className = 'advantages-list';
+                
+                brand.advantages.forEach(advantage => {
+                    const advantageItem = document.createElement('li');
+                    advantageItem.className = 'advantage-item';
+                    advantageItem.textContent = advantage;
+                    advantagesList.appendChild(advantageItem);
+                });
+                
+                brandContent2.appendChild(advantagesList);
+            }
         }
         
         // 添加详情按钮
