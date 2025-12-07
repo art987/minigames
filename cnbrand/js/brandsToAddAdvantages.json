@@ -1,0 +1,137 @@
+[
+  {
+    "mainCategory": "洗护发",
+    "subCategory": "洗发水|性价比国民老牌",
+    "brand": {
+      "name": "蜂花",
+      "description": "国民老牌，极致性价比的代名词，成分简单有效。",
+      "reputation": "国产经典，价格实惠，效果良好，消费者信赖，是极致性价比的首选品牌。"
+    }
+  },
+  {
+    "mainCategory": "洗护发",
+    "subCategory": "洗发水|性价比国民老牌",
+    "brand": {
+      "name": "霸王",
+      "description": "防脱发领域的国民品牌，主打中草药'育发防脱'概念。",
+      "reputation": "中草药配方，防脱发效果显著，消费者信赖，是市场认知度最高的防脱固发品牌。"
+    }
+  },
+  {
+    "mainCategory": "洗护发",
+    "subCategory": "洗发水|性价比国民老牌",
+    "brand": {
+      "name": "舒蕾",
+      "description": "主打'山茶花'等植物精华，以滋养修护闻名。",
+      "reputation": "洗护产品种类丰富，价格适中，消费者喜爱，滋养系列表现优秀。"
+    }
+  },
+  {
+    "mainCategory": "沐浴洁齿",
+    "subCategory": "牙膏",
+    "brand": {
+      "name": "白玉",
+      "description": "极致性价比，基础清洁，国民老牌。",
+      "reputation": "价格极致便宜，基础清洁效果好，是很多家庭的日常选择。"
+    }
+  },
+  {
+    "mainCategory": "沐浴洁齿",
+    "subCategory": "牙膏",
+    "brand": {
+      "name": "冷酸灵",
+      "description": "专业抗敏感牙膏的国民品牌，深耕抗敏领域。",
+      "reputation": "抗敏感领域的佼佼者，产品性价比高，深受敏感人群喜爱。"
+    }
+  },
+  {
+    "mainCategory": "沐浴洁齿",
+    "subCategory": "牙膏",
+    "brand": {
+      "name": "两面针",
+      "description": "主打中药护龈，以\"四味针火\"系列闻名。",
+      "reputation": "中药护龈领域的代表品牌，产品效果显著，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "活力28",
+      "description": "国民老牌，极致性价比的代名词，成分简单有效。",
+      "reputation": "价格极致便宜，基础清洁效果好，是很多家庭的日常选择。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "白猫",
+      "description": "经典老牌，以高效去油和速溶配方闻名。",
+      "reputation": "洗涤效果好，去油能力强，速溶配方，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "奇强",
+      "description": "老牌日化，产品线丰富，在除螨和香氛领域有特色。",
+      "reputation": "除螨和香氛领域表现优秀，产品线丰富，满足不同需求。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "立白",
+      "description": "国民洗涤巨头，产品线齐全，技术成熟。",
+      "reputation": "国民洗涤巨头，技术成熟，产品线齐全，满足各类洗涤需求。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "雕牌",
+      "description": "纳爱斯集团旗下国民品牌，以\"雕牌\"深入人心。",
+      "reputation": "纳爱斯集团旗下国民品牌，以'雕牌'深入人心，其除菌系列在除菌除螨方面表现优秀，香氛系列是热销产品。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗衣粉",
+    "brand": {
+      "name": "绿伞",
+      "description": "专业清洁品牌，在衣物护理和特殊污渍处理上口碑好。",
+      "reputation": "专业清洁品牌，内衣专用产品和衣物护理口碑好。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗洁精",
+    "brand": {
+      "name": "白猫",
+      "description": "国民老牌，极致性价比的代名词，产品线丰富。",
+      "reputation": "国民老牌，极致性价比的代名词，产品线丰富，洗洁精产品以去油效果好、食品级配方著称。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗洁精",
+    "brand": {
+      "name": "绿伞",
+      "description": "专业清洁品牌，在重油污清洁和管道疏通领域口碑极佳。",
+      "reputation": "专业清洁品牌，在重油污清洁和管道疏通领域口碑极佳，洗洁精产品以强效去油和食品级安全著称。"
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "洗洁精",
+    "brand": {
+      "name": "奇强",
+      "description": "国民洗护品牌，其洗洁精产品同样以高性价比著称。",
+      "reputation": "国民洗护品牌，其洗洁精产品同样以高性价比著称，去污效果好，温和不伤手。"
+    }
+  }
+]

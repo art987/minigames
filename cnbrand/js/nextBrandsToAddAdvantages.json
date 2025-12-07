@@ -1,0 +1,521 @@
+[
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "得伴Depend",
+      "logo": "logos/depend.jpg",
+      "description": "全球知名成人失禁护理品牌，提供高品质护理产品。",
+      "founded": "1960年",
+      "city": "美国",
+      "honors": "全球成人护理市场领导者",
+      "reputation": "国际知名品牌，技术先进，舒适干爽，值得信赖。",
+      "products": [
+        {
+          "name": "得伴Depend基础型成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥79.9元",
+          "feature": "美国进口技术，超强吸收，透气外层，减少闷热感，舒适度高。"
+        },
+        {
+          "name": "得伴Depend提拉式成人尿裤L码",
+          "spec": "8片/包",
+          "price": "¥89.9元",
+          "feature": "360°弹性腰带，贴身舒适，如内裤般便捷，适合活动人士。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "TENA添宁",
+      "logo": "logos/tena.jpg",
+      "description": "瑞典知名成人护理品牌，专注于失禁护理领域。",
+      "founded": "1961年",
+      "city": "瑞典",
+      "honors": "全球成人护理行业领导者",
+      "reputation": "欧洲进口品质，舒适贴身，吸收力强，消费者满意度高。",
+      "products": [
+        {
+          "name": "TENA添宁干爽舒适成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥89.9元",
+          "feature": "欧洲进口原料，瞬吸锁水技术，透气底膜，减少异味产生。"
+        },
+        {
+          "name": "TENA添宁夜用型成人纸尿裤L码",
+          "spec": "8片/包",
+          "price": "¥99.9元",
+          "feature": "超长吸收层，夜间干爽长达12小时，减少起床次数。"
+        },
+        {
+          "name": "TENA添宁成人护理垫60x90cm",
+          "spec": "20片/包",
+          "price": "¥59.9元",
+          "feature": "德国工艺，超强吸收，防水底膜，适合卧床护理使用。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "lifree乐互宜",
+      "logo": "logos/lifree.jpg",
+      "description": "日本大王制纸旗下成人护理品牌，注重产品舒适性。",
+      "founded": "2003年",
+      "city": "日本",
+      "honors": "日本成人护理市场知名品牌",
+      "reputation": "日本技术，轻薄透气，舒适贴身，适合长期使用。",
+      "products": [
+        {
+          "name": "lifree乐互宜成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥79.9元",
+          "feature": "日本技术，超薄设计，瞬吸防漏，透气底层，减少闷热感。"
+        },
+        {
+          "name": "lifree乐互宜成人拉拉裤L码",
+          "spec": "8片/包",
+          "price": "¥89.9元",
+          "feature": "360°弹性腰围，贴身舒适，如内裤般便捷，适合活动人士。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "爱恩倍",
+      "logo": "logos/aienbei.jpg",
+      "description": "国内新兴成人护理品牌，专注于高品质护理产品。",
+      "founded": "2012年",
+      "city": "河北石家庄",
+      "honors": "中国成人护理新锐品牌",
+      "reputation": "产品温和不刺激，舒适透气，性价比高，消费者好评如潮。",
+      "products": [
+        {
+          "name": "爱恩倍成人纸尿裤M码",
+          "spec": "12片/包",
+          "price": "¥39.9元",
+          "feature": "超薄透气，瞬吸锁水，防漏侧边，性价比超高。"
+        },
+        {
+          "name": "爱恩倍成人拉拉裤L码",
+          "spec": "10片/包",
+          "price": "¥45.9元",
+          "feature": "弹性腰围，舒适贴身，易穿脱设计，适合活动自如的用户。"
+        },
+        {
+          "name": "爱恩倍成人护理垫60x90cm",
+          "spec": "30片/包",
+          "price": "¥35.9元",
+          "feature": "超大容量包装，加厚设计，防滑底膜，经济实惠。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "妇炎洁",
+      "logo": "logos/fuyanjie.jpg",
+      "description": "国内知名女性护理品牌，提供专业护理解决方案。",
+      "founded": "1999年",
+      "city": "江西樟树",
+      "honors": "中国女性护理领域知名品牌",
+      "reputation": "产品温和安全，效果显著，市场占有率高。",
+      "products": [
+        {
+          "name": "妇炎洁女性护理液260ml",
+          "spec": "260ml/瓶",
+          "price": "¥32.9元",
+          "feature": "经典款护理液，温和配方，深层清洁，抑菌止痒，维护私密健康。"
+        },
+        {
+          "name": "妇炎洁私密湿巾20片装",
+          "spec": "20片/包",
+          "price": "¥15.9元",
+          "feature": "便携装湿巾，独立包装，温和配方，适合外出使用，清洁抑菌。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "千芝雅",
+      "logo": "logos/qianzhiya.jpg",
+      "description": "国内知名卫生用品品牌，涵盖成人护理产品。",
+      "founded": "2001年",
+      "city": "浙江杭州",
+      "honors": "浙江省著名商标",
+      "reputation": "产品性价比高，吸收性好，舒适透气，消费者认可。",
+      "products": [
+        {
+          "name": "千芝雅成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥42.9元",
+          "feature": "瞬吸干爽，透气底膜，立体防漏，适合中重度失禁人群。"
+        },
+        {
+          "name": "千芝雅成人拉拉裤L码",
+          "spec": "8片/包",
+          "price": "¥49.9元",
+          "feature": "弹性腰围，舒适贴身，易穿脱设计，适合活动人士。"
+        },
+        {
+          "name": "千芝雅成人护理垫60x90cm",
+          "spec": "25片/包",
+          "price": "¥39.9元",
+          "feature": "加厚设计，超强吸收，防滑底膜，经济实惠。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "珍琦SUNKISS",
+      "logo": "logos/zhenqi.jpg",
+      "description": "国内专业成人护理品牌，专注于失禁护理产品研发。",
+      "founded": "2005年",
+      "city": "浙江温州",
+      "honors": "中国成人护理行业优秀品牌",
+      "reputation": "产品舒适透气，吸收力强，价格适中，市场口碑良好。",
+      "products": [
+        {
+          "name": "珍琦SUNKISS成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥45.9元",
+          "feature": "超强吸收，透气底膜，防漏侧边，舒适贴身，适合中重度失禁。"
+        },
+        {
+          "name": "珍琦SUNKISS成人拉拉裤L码",
+          "spec": "8片/包",
+          "price": "¥52.9元",
+          "feature": "360°弹性腰围，贴身舒适，易穿脱设计，适合活动人士。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "洁净护家",
+    "subCategory": "成人护理",
+    "brand": {
+      "name": "白十字",
+      "logo": "logos/baishizi.jpg",
+      "description": "国内老牌成人护理品牌，专注于高品质护理产品。",
+      "founded": "1998年",
+      "city": "上海",
+      "honors": "上海名牌产品",
+      "reputation": "品质稳定，舒适可靠，深受中老年消费者喜爱。",
+      "products": [
+        {
+          "name": "白十字成人纸尿裤M码",
+          "spec": "10片/包",
+          "price": "¥48.9元",
+          "feature": "上海老牌品质，瞬吸干爽，透气底膜，防漏设计，舒适可靠。"
+        },
+        {
+          "name": "白十字成人护理垫60x90cm",
+          "spec": "20片/包",
+          "price": "¥42.9元",
+          "feature": "加厚设计，超强吸收，防滑底膜，适合长期护理使用。"
+        },
+        {
+          "name": "白十字成人拉拉裤L码",
+          "spec": "8片/包",
+          "price": "¥55.9元",
+          "feature": "弹性腰围，舒适贴身，易穿脱设计，适合活动自如的用户。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "洁面",
+    "brand": {
+      "name": "孔凤春",
+      "logo": "logos/kongfengchun.jpg",
+      "description": "百年老字号护肤品品牌，中国历史悠久的日化企业。",
+      "founded": "1862年",
+      "city": "浙江杭州",
+      "honors": "中华老字号、非物质文化遗产",
+      "reputation": "传承古法配方，温和不刺激，适合敏感肌肤，口碑极佳。",
+      "products": [
+        {
+          "name": "孔凤春珍珠洁面乳",
+          "spec": "100ml",
+          "price": "¥39.9元",
+          "feature": "添加珍珠粉，深层清洁，提亮肤色，温和不紧绷。"
+        },
+        {
+          "name": "孔凤春马齿苋洁面泡",
+          "spec": "150ml",
+          "price": "¥45.8元",
+          "feature": "富含马齿苋提取物，舒缓保湿，泡沫丰富，清洁彻底。"
+        },
+        {
+          "name": "孔凤春金盏花洁面啫喱",
+          "spec": "120ml",
+          "price": "¥49.9元",
+          "feature": "金盏花精华，控油平衡，舒缓敏感，适合油性及混合性肌肤。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "洁面",
+    "brand": {
+      "name": "至本",
+      "logo": "logos/zb.jpg",
+      "description": "专注于敏感肌肤护理的国产护肤品牌，以科学配方著称。",
+      "founded": "2012年",
+      "city": "上海",
+      "honors": "中国敏感肌护理领先品牌",
+      "reputation": "成分安全，配方温和，效果显著，深受敏感肌肤消费者信赖。",
+      "products": [
+        {
+          "name": "至本舒颜修护洁面乳",
+          "spec": "120g",
+          "price": "¥68元",
+          "feature": "氨基酸表活，温和清洁，修护屏障，适合所有肤质，尤其是敏感肌。"
+        },
+        {
+          "name": "至本多元优效洁面泡",
+          "spec": "150ml",
+          "price": "¥78元",
+          "feature": "按压式设计，泡沫绵密，深层清洁，控油保湿，使用便捷。"
+        },
+        {
+          "name": "至本特安修护洁面啫喱",
+          "spec": "100ml",
+          "price": "¥65元",
+          "feature": "无皂基配方，弱酸性，舒缓敏感，清洁温和，不紧绷。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "洁面",
+    "brand": {
+      "name": "上海硫磺皂",
+      "logo": "logos/shanghai_liuhuang.jpg",
+      "description": "经典国货洁面皂品牌，以硫磺成分闻名。",
+      "founded": "1923年",
+      "city": "上海",
+      "honors": "上海老字号、中华老字号",
+      "reputation": "深层清洁，控油杀菌，价格实惠，口碑相传。",
+      "products": [
+        {
+          "name": "上海硫磺皂经典款",
+          "spec": "125g*5块",
+          "price": "¥24.9元",
+          "feature": "经典配方，含硫磺成分，深层清洁，控油祛痘，适合油性肌肤。"
+        },
+        {
+          "name": "上海硫磺皂药皂",
+          "spec": "130g*3块",
+          "price": "¥19.9元",
+          "feature": "杀菌消毒，清洁护肤，适合日常使用。"
+        },
+        {
+          "name": "上海硫磺皂芦荟款",
+          "spec": "125g*4块",
+          "price": "¥29.8元",
+          "feature": "硫磺配方结合芦荟精华，清洁同时保湿，减少刺激。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "补水",
+    "brand": {
+      "name": "郁美净",
+      "logo": "logos/yumeijing.jpg",
+      "description": "天津知名老牌护肤品牌，以温和配方和补水保湿著称。",
+      "founded": "1979年",
+      "city": "天津",
+      "honors": "中国名牌产品、中国驰名商标",
+      "reputation": "老品牌，品质可靠，产品温和滋润，适合全家使用，补水保湿效果好。",
+      "products": [
+        {
+          "name": "郁美净儿童面霜",
+          "spec": "25g×5袋",
+          "price": "¥15.8元",
+          "feature": "经典产品，温和滋润，补水保湿，适合儿童和敏感肌肤。"
+        },
+        {
+          "name": "郁美净鲜奶保湿乳",
+          "spec": "220ml",
+          "price": "¥39.9元",
+          "feature": "含鲜奶成分，深层补水，适合干皮使用。"
+        },
+        {
+          "name": "郁美净橄榄保湿水",
+          "spec": "150ml",
+          "price": "¥29.9元",
+          "feature": "橄榄精华，补水舒缓，改善肌肤干燥。"
+        },
+        {
+          "name": "郁美净金牌儿童霜",
+          "spec": "40g",
+          "price": "¥29.9元",
+          "feature": "升级配方，加倍滋润，适合秋冬季节使用。"
+        },
+        {
+          "name": "郁美净保湿护手霜",
+          "spec": "60g",
+          "price": "¥12.9元",
+          "feature": "补水滋润，预防手部干燥，性价比高。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "补水",
+    "brand": {
+      "name": "孔凤春",
+      "logo": "logos/skincare/kongfengchun.jpg",
+      "description": "百年历史的中华老字号品牌，专注草本护肤。",
+      "founded": "1862年",
+      "city": "浙江杭州",
+      "honors": "中华老字号、国家非物质文化遗产",
+      "reputation": "传承古法配方，结合现代科技，产品温和有效，补水保湿效果显著。",
+      "products": [
+        {
+          "name": "孔凤春珍珠补水爽肤水",
+          "spec": "120ml",
+          "price": "¥68元",
+          "feature": "明星产品，含珍珠成分，深层补水，提亮肤色。"
+        },
+        {
+          "name": "孔凤春马齿苋保湿精华液",
+          "spec": "30ml",
+          "price": "¥88元",
+          "feature": "马齿苋提取物，舒缓补水，适合敏感肌。"
+        },
+        {
+          "name": "孔凤春金盏花保湿面膜",
+          "spec": "25ml*10片",
+          "price": "¥79元",
+          "feature": "金盏花精华，密集补水，改善肌肤干燥。"
+        },
+        {
+          "name": "孔凤春积雪草修护水",
+          "spec": "150ml",
+          "price": "¥72元",
+          "feature": "积雪草成分，补水修护，增强肌肤屏障。"
+        },
+        {
+          "name": "孔凤春桂花保湿露",
+          "spec": "100ml",
+          "price": "¥59元",
+          "feature": "桂花精油，补水锁水，香气宜人。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "乳霜",
+    "brand": {
+      "name": "相宜本草",
+      "logo": "logos/xianyi.jpg",
+      "description": "专注于天然草本护肤的国货品牌，将中医理论与现代科技相结合。",
+      "founded": "2000年",
+      "city": "上海",
+      "honors": "中国驰名商标、上海市著名商标、中国化妆品行业领军品牌",
+      "reputation": "以本草养肤理念著称，产品温和不刺激，适合各种肤质。",
+      "products": [
+        {
+          "name": "相宜本草四倍蚕丝保湿霜",
+          "spec": "50g",
+          "price": "¥49元",
+          "feature": "蚕丝蛋白，深层保湿，提亮肤色。"
+        },
+        {
+          "name": "相宜本草红景天幼白面霜",
+          "spec": "50g",
+          "price": "¥78元",
+          "feature": "红景天精华，美白淡斑，改善暗沉。"
+        },
+        {
+          "name": "相宜本草金缕梅控油保湿霜",
+          "spec": "50g",
+          "price": "¥45元",
+          "feature": "控油补水，收缩毛孔，平衡水油。"
+        },
+        {
+          "name": "相宜本草百合高保湿修护霜",
+          "spec": "50g",
+          "price": "¥68元",
+          "feature": "百合精华，舒缓修护，深层滋养。"
+        },
+        {
+          "name": "相宜本草山茶花焕活菁华霜",
+          "spec": "50g",
+          "price": "¥128元",
+          "feature": "山茶花精华，抗老化，提升肌肤弹性。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "乳霜",
+    "brand": {
+      "name": "精心",
+      "logo": "logos/jingxin.jpg",
+      "description": "北京协和医院研发的专业护肤品牌。",
+      "founded": "1992年",
+      "city": "北京",
+      "honors": "医院专业研发、医学级护肤认证",
+      "reputation": "依托北京协和医院强大的医学背景，产品温和不刺激，适合各类肌肤，尤其是敏感肌和问题肌。",
+      "products": [
+        {
+          "name": "精心硅霜",
+          "spec": "100g",
+          "price": "¥38元",
+          "feature": "明星产品，医用级配方，强效锁水，修护受损肌肤屏障，缓解干燥起皮。"
+        },
+        {
+          "name": "精心维生素E乳",
+          "spec": "100ml",
+          "price": "¥22元",
+          "feature": "富含维生素E，深层滋润，改善肌肤粗糙，适合全身使用。"
+        },
+        {
+          "name": "精心硅E乳",
+          "spec": "100ml",
+          "price": "¥29.8元",
+          "feature": "协和医院研制，含硅油和维生素E，滋润保湿效果好。"
+        },
+        {
+          "name": "精心保湿霜",
+          "spec": "50g",
+          "price": "¥35元",
+          "feature": "轻薄质地，长效保湿，不油腻，适合日常护理。"
+        },
+        {
+          "name": "精心修护精华乳",
+          "spec": "30ml",
+          "price": "¥89元",
+          "feature": "医学级修护，舒缓敏感，增强肌肤抵抗力。"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,359 @@
+[
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "眼护",
+    "brand": {
+      "name": "可复美",
+      "logo": "logos/kefumei.jpg",
+      "description": "医美级护肤品牌，产品温和安全。",
+      "founded": "2014年",
+      "city": "陕西西安",
+      "honors": "医美级护肤代表品牌、医用敷料标准生产",
+      "reputation": "适合术后护理和敏感状态使用，质地轻盈不挑肤质，是学生党追求高品质眼霜的选择。",
+      "products": [
+        {
+          "name": "可复美眼部舒润啫喱",
+          "spec": "15g",
+          "price": "¥200-280元",
+          "feature": "啫喱质地轻盈，适合术后护理，也适合日常使用，是学生党追求温和护理的优质选择。"
+        },
+        {
+          "name": "可复美胶原蛋白眼膜",
+          "spec": "5片",
+          "price": "¥150-200元",
+          "feature": "密集修护，改善眼周问题，适合学生党熬夜后急救使用。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "面部护理",
+    "subCategory": "防晒",
+    "brand": {
+      "name": "薇诺娜",
+      "logo": "logos/weinuona.jpg",
+      "description": "专注于敏感肌肤护理的国产品牌，以医学护肤品著称。",
+      "founded": "2008年",
+      "city": "云南昆明",
+      "honors": "高新技术企业、中国敏感肌护理领导品牌",
+      "reputation": "产品温和不刺激，适合敏感肌使用，防晒效果好。",
+      "products": [
+        {
+          "name": "薇诺娜清透防晒乳",
+          "spec": "50g",
+          "price": "¥108-238元",
+          "feature": "SPF50+ PA+++，清透不油腻，敏感肌适用。"
+        },
+        {
+          "name": "薇诺娜舒缓保湿防晒乳",
+          "spec": "50ml",
+          "price": "¥198元",
+          "feature": "SPF30 PA+++，保湿修护，舒缓敏感。"
+        },
+        {
+          "name": "薇诺娜防晒喷雾",
+          "spec": "120ml",
+          "price": "¥168元",
+          "feature": "SPF45 PA+++，快速成膜，方便补涂。"
+        },
+        {
+          "name": "薇诺娜儿童防晒乳",
+          "spec": "50g",
+          "price": "¥158元",
+          "feature": "SPF40 PA+++，温和配方，适合儿童使用。"
+        },
+        {
+          "name": "薇诺娜美白防晒隔离霜",
+          "spec": "40ml",
+          "price": "¥218元",
+          "feature": "SPF50+ PA+++，美白提亮，隔离防护。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "谢馥春",
+      "logo": "logos/xiefuchun.jpg",
+      "description": "中国历史悠久的传统美妆品牌，始于1830年。",
+      "founded": "1830年",
+      "city": "江苏扬州",
+      "honors": "中华老字号、国家级非物质文化遗产",
+      "reputation": "传统工艺与现代科技结合，天然成分，温和不刺激，深受消费者喜爱。",
+      "products": [
+        {
+          "name": "谢馥春胭脂水粉",
+          "spec": "50g",
+          "price": "¥128-158元",
+          "feature": "传统工艺制作，轻薄服帖，自然红润，持久不脱妆。"
+        },
+        {
+          "name": "谢馥春桂花头油",
+          "spec": "60ml",
+          "price": "¥68-88元",
+          "feature": "天然桂花精油，滋养秀发，香气持久，传统配方。"
+        },
+        {
+          "name": "谢馥春鸭蛋粉",
+          "spec": "40g",
+          "price": "¥78-233元",
+          "feature": "经典国货，粉质细腻，控油定妆，提亮肤色。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "戴春林",
+      "logo": "logos/dailin.jpg",
+      "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
+      "founded": "1628年",
+      "city": "江苏扬州",
+      "honors": "中华老字号、江苏省非物质文化遗产",
+      "reputation": "传承古法，天然成分，品质卓越，是中国传统美妆的代表品牌。",
+      "products": [
+        {
+          "name": "戴春林香粉黛",
+          "spec": "30g",
+          "price": "¥148-178元",
+          "feature": "传统香粉工艺，轻薄透气，遮瑕提亮，持久妆容。"
+        },
+        {
+          "name": "戴春林玉容粉饼",
+          "spec": "10g",
+          "price": "¥128-158元",
+          "feature": "天然成分，粉质细腻，控油保湿，适合各种肤质。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "卡姿兰",
+      "logo": "logos/kazilan.jpg",
+      "description": "广东知名彩妆品牌。",
+      "founded": "2001年",
+      "city": "广东广州",
+      "honors": "中国彩妆行业知名品牌",
+      "reputation": "彩妆效果好，价格适中，年轻消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "玛丽黛佳",
+      "logo": "logos/marleda.jpg",
+      "description": "上海知名彩妆品牌。",
+      "founded": "2006年",
+      "city": "上海",
+      "honors": "中国彩妆行业知名品牌",
+      "reputation": "彩妆效果好，设计时尚，年轻消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "火烈鸟",
+      "logo": "logos/huolie.jpg",
+      "description": "上海知名彩妆品牌。",
+      "founded": "1996年",
+      "city": "上海",
+      "honors": "中国彩妆行业知名品牌",
+      "reputation": "睫毛膏效果好，价格实惠，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "俏美人",
+      "logo": "logos/qiaomeiren.jpg",
+      "description": "广东知名彩妆品牌。",
+      "founded": "2000年",
+      "city": "广东广州",
+      "honors": "中国彩妆行业知名品牌",
+      "reputation": "彩妆效果好，价格适中，年轻消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "诗佩妮",
+      "logo": "logos/shipeini.jpg",
+      "description": "江苏知名彩妆品牌。",
+      "founded": "2010年",
+      "city": "江苏苏州",
+      "honors": "中国彩妆行业新锐品牌",
+      "reputation": "彩妆效果好，性价比高，年轻消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "彩妆",
+    "brand": {
+      "name": "foreverkey",
+      "logo": "logos/foreverkey.jpg",
+      "description": "上海知名彩妆品牌。",
+      "founded": "2018年",
+      "city": "上海",
+      "honors": "中国彩妆行业新锐品牌",
+      "reputation": "彩妆效果好，设计时尚，年轻消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "卸妆",
+    "brand": {
+      "name": "月里嫦娥",
+      "logo": "logos/yuelichang.jpg",
+      "description": "源自清朝宫廷秘方的传统护肤品牌。",
+      "founded": "2015年",
+      "city": "北京",
+      "honors": "中国传统美容文化传承品牌",
+      "reputation": "宫廷配方，天然草本，温和不刺激，适合敏感肌肤。",
+      "products": [
+        {
+          "name": "月里嫦娥水漾净颜卸妆油",
+          "spec": "120ml",
+          "price": "¥138-168元",
+          "feature": "天然植物精油，温和卸妆，深层清洁，不紧绷。"
+        },
+        {
+          "name": "月里嫦娥玫瑰卸妆湿巾",
+          "spec": "30片",
+          "price": "¥68-88元",
+          "feature": "玫瑰精华，一次性使用，方便携带，温和卸妆。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "卸妆",
+    "brand": {
+      "name": "精心",
+      "logo": "logos/jingxin.jpg",
+      "description": "北京协和医院研制的药妆品牌。",
+      "founded": "1992年",
+      "city": "北京",
+      "honors": "中国药妆行业知名品牌",
+      "reputation": "医学背景，安全可靠，温和配方，适合敏感肌肤。",
+      "products": [
+        {
+          "name": "精心温和卸妆水",
+          "spec": "200ml",
+          "price": "¥58-78元",
+          "feature": "医学配方，温和不刺激，深层清洁，适合各种肤质。"
+        },
+        {
+          "name": "精心卸妆乳",
+          "spec": "100g",
+          "price": "¥68-88元",
+          "feature": "质地温和，卸妆彻底，滋润保湿，不紧绷。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "卸妆",
+    "brand": {
+      "name": "戴春林",
+      "logo": "logos/dailin.jpg",
+      "description": "创建于1628年，中国历史最悠久的化妆品品牌之一。",
+      "founded": "1628年",
+      "city": "江苏扬州",
+      "honors": "中华老字号、江苏省非物质文化遗产",
+      "reputation": "传承古法，天然成分，品质卓越，是中国传统美妆的代表品牌。",
+      "products": [
+        {
+          "name": "戴春林玉容卸妆油",
+          "spec": "100ml",
+          "price": "¥148-178元",
+          "feature": "传统草本配方，温和卸妆，滋养肌肤，不刺激。"
+        },
+        {
+          "name": "戴春林香氛卸妆膏",
+          "spec": "50g",
+          "price": "¥158-188元",
+          "feature": "质地细腻，卸妆彻底，香气宜人，滋润保湿。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "妆卸",
+    "subCategory": "卸妆",
+    "brand": {
+      "name": "至本",
+      "logo": "logos/zhiben.jpg",
+      "description": "专注于敏感肌肤护理的国产护肤品牌。",
+      "founded": "2012年",
+      "city": "上海",
+      "honors": "中国敏感肌肤护理领域知名品牌",
+      "reputation": "成分安全，配方温和，专注修复，敏感肌友好。",
+      "products": [
+        {
+          "name": "至本舒颜修护卸妆膏",
+          "spec": "120g",
+          "price": "¥108-138元",
+          "feature": "温和不刺激，卸妆彻底，修护肌肤，敏感肌适用。"
+        },
+        {
+          "name": "至本氨基酸洁面乳",
+          "spec": "120g",
+          "price": "¥44-55元",
+          "feature": "氨基酸配方，温和清洁，卸妆保湿，不紧绷。"
+        },
+        {
+          "name": "至本清透卸妆水",
+          "spec": "300ml",
+          "price": "¥88-108元",
+          "feature": "深层清洁，温和不刺激，适合日常淡妆卸妆。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "儿童",
+    "subCategory": "儿童专用",
+    "brand": {
+      "name": "郁美净",
+      "logo": "logos/yumeijing.jpg",
+      "description": "天津知名婴幼儿护肤品牌。",
+      "founded": "1979年",
+      "city": "天津",
+      "honors": "中国名牌产品",
+      "reputation": "婴幼儿护肤品温和安全，家长信赖。",
+      "products": [
+        {
+          "name": "郁美净儿童霜",
+          "spec": "25g*5袋",
+          "price": "¥15-25元",
+          "feature": "经典国货，温和滋润，预防湿疹，适合婴幼儿。"
+        },
+        {
+          "name": "郁美净金牌儿童嫩肤露",
+          "spec": "100g",
+          "price": "¥28-38元",
+          "feature": "质地轻薄，易吸收，深层滋养，不油腻。"
+        },
+        {
+          "name": "郁美净婴儿洗发沐浴露",
+          "spec": "200ml",
+          "price": "¥25-35元",
+          "feature": "二合一配方，温和清洁，滋润保湿，无泪配方。"
+        }
+      ]
+    }
+  }
+]
