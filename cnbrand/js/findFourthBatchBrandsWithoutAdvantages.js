@@ -16,8 +16,10 @@ fs.readFile(brandDataPath, 'utf8').then(brandDataContent => {
     return fs.writeFile(tempFilePath, modifiedContent, 'utf8').then(() => tempFilePath);
 }).then(tempFilePath => {
 
+    // 将绝对路径转换为file:// URL
+    const tempFileUrl = `file:///${tempFilePath.replace(/\\/g, '/')}`;
     // 动态导入模块
-    return import(tempFilePath).then(module => {
+    return import(tempFileUrl).then(module => {
         const brandData = module.default;
         
         // 查找没有核心优势的品牌

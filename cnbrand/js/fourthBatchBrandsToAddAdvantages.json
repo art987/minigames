@@ -1,0 +1,197 @@
+[
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "晨光",
+      "logo": "logos/chenguang.jpg",
+      "description": "广东知名乳制品品牌。",
+      "founded": "1962年",
+      "city": "广东深圳",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "完达山",
+      "logo": "logos/wandashan.jpg",
+      "description": "黑龙江知名乳制品品牌。",
+      "founded": "1963年",
+      "city": "黑龙江哈尔滨",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "三元",
+      "logo": "logos/sanyuan.jpg",
+      "description": "北京知名乳制品品牌。",
+      "founded": "1956年",
+      "city": "北京",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "光明",
+      "logo": "logos/guangming.jpg",
+      "description": "上海知名乳制品品牌。",
+      "founded": "1956年",
+      "city": "上海",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "新希望",
+      "logo": "logos/xinxiwang.jpg",
+      "description": "四川知名乳制品品牌。",
+      "founded": "1982年",
+      "city": "四川成都",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "妙士",
+      "logo": "logos/miaoshi.jpg",
+      "description": "河北知名乳制品品牌。",
+      "founded": "1992年",
+      "city": "河北保定",
+      "honors": "河北著名商标",
+      "reputation": "酸奶口感好，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "伊利",
+      "logo": "logos/yili.jpg",
+      "description": "内蒙古知名乳制品品牌。",
+      "founded": "1993年",
+      "city": "内蒙古呼和浩特",
+      "honors": "中国名牌产品",
+      "reputation": "产品线全面，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "蒙牛",
+      "logo": "logos/mengniu.jpg",
+      "description": "内蒙古知名乳制品品牌。",
+      "founded": "1999年",
+      "city": "内蒙古呼和浩特",
+      "honors": "中国名牌产品",
+      "reputation": "产品线全面，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "旺仔",
+      "logo": "logos/wangzai.jpg",
+      "description": "台湾知名乳制品品牌。",
+      "founded": "1962年",
+      "city": "台湾台北",
+      "honors": "中国名牌产品",
+      "reputation": "儿童奶口感好，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "天友",
+      "logo": "logos/tianyou.jpg",
+      "description": "重庆知名乳制品品牌。",
+      "founded": "1931年",
+      "city": "重庆",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "银桥",
+      "logo": "logos/yinqiao.jpg",
+      "description": "陕西知名乳制品品牌。",
+      "founded": "1979年",
+      "city": "陕西西安",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "香满楼",
+      "logo": "logos/xiangmanlou.jpg",
+      "description": "广东知名乳制品品牌。",
+      "founded": "1982年",
+      "city": "广东广州",
+      "honors": "广东著名商标",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "李子园",
+      "logo": "logos/liziyuan.jpg",
+      "description": "浙江知名乳制品品牌。",
+      "founded": "1994年",
+      "city": "浙江金华",
+      "honors": "浙江著名商标",
+      "reputation": "甜牛奶口感好，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "夏进",
+      "logo": "logos/xiajing.jpg",
+      "description": "宁夏知名乳制品品牌。",
+      "founded": "1994年",
+      "city": "宁夏吴忠",
+      "honors": "宁夏著名商标",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "海河",
+      "logo": "logos/milk/haihe.jpg",
+      "description": "天津知名乳制品品牌。",
+      "founded": "1957年",
+      "city": "天津",
+      "honors": "中国名牌产品",
+      "reputation": "老品牌，质量好，消费者信赖。"
+    }
+  }
+]
