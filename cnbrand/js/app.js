@@ -24,12 +24,27 @@ function isBrandDataLoaded() {
            (typeof window.brandData !== 'undefined' && window.brandData !== null);
 }
 
+// 打字机效果函数
+function typewriterEffect(element, text, speed = 100, callback = null) {
+    let index = 0;
+    element.textContent = ''; // 清空元素内容
+    
+    function type() {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        } else if (callback) {
+            setTimeout(callback, 500); // 等待500ms后执行回调
+        }
+    }
+    
+    type();
+}
+
 // DOMContentLoaded事件监听
 document.addEventListener('DOMContentLoaded', function() {
-    // 隐藏加载页面
-    hideLoadingPage();
-    
-    // 检查brandData是否加载完成
+    // 首先检查brandData是否加载完成
     if (!isBrandDataLoaded()) {
         console.error('brandData未加载，请检查brandData.js文件');
         alert('数据加载失败，请检查网络连接或刷新页面重试');
@@ -38,6 +53,28 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('brandData加载成功！');
         // 确保brandData是全局可访问的
         window.brandData = window.brandData || brandData;
+    }
+    
+    // 然后显示打字机动画
+    const loadingTextLine1 = document.querySelector('.loading-text-line1');
+    const loadingTextLine2 = document.querySelector('.loading-text-line2');
+    
+    if (loadingTextLine1 && loadingTextLine2) {
+        // 保存原始文本
+        const line1Text = loadingTextLine1.textContent;
+        const line2Text = loadingTextLine2.textContent;
+        
+        // 清空文本以便开始打字机效果
+        loadingTextLine1.textContent = '';
+        loadingTextLine2.textContent = '';
+        
+        // 第一行打字机效果完成后开始第二行
+        typewriterEffect(loadingTextLine1, line1Text, 80, () => {
+            typewriterEffect(loadingTextLine2, line2Text, 80, () => {
+                // 打字机效果完成后继续执行
+                console.log('打字机效果完成！');
+            });
+        });
     }
     
     // 获取DOM元素
@@ -50,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 用于跟踪已加载的分类
     const loadedCategories = new Set();
     // 保存所有主分类的顺序
-    const allMainCategories = Object.keys(brandData);
+    const allMainCategories = Object.keys(window.brandData);
     // 当前已加载的主分类索引
     let currentLoadedIndex = 0;
     // 用于控制滚动时是否更新active状态的标志
@@ -107,11 +144,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // 显示进度条
         loadingProgressBar.style.opacity = '1';
         
-        // 如果所有分类都已加载，隐藏进度条
+        // 如果所有分类都已加载，隐藏进度条和加载页面
         if (loadedCount >= totalCategories) {
             isAllCategoriesLoaded = true;
             setTimeout(() => {
                 loadingProgressBar.style.opacity = '0';
+                // 所有分类加载完成后，隐藏加载页面
+                hideLoadingPage();
             }, 1000);
         }
     }
@@ -688,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div id="brand-map-modal" class="brand-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>品牌地图导航</h2>
+                    <h2>国货品牌分类导航</h2>
                     <span class="close-btn">&times;</span>
                 </div>
                 <div class="modal-body">
@@ -709,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 生成品牌地图内容
     function generateBrandMap() {
         let content = '';
-        const categories = Object.keys(brandData);
+        const categories = Object.keys(window.brandData);
         
         categories.forEach(mainCategory => {
             content += `<div class="brand-map-category-item">
@@ -795,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const allSections = document.querySelectorAll('.main-brand-section');
         if (allSections.length === 0) {
             const brandMapBtn = document.createElement('button');
-            brandMapBtn.textContent = '品牌地图导航';
+            brandMapBtn.textContent = '国货品牌分类导航';
             brandMapBtn.className = 'brand-map-btn';
             brandMapBtn.style.cssText = '';
             
@@ -816,7 +855,7 @@ document.addEventListener('DOMContentLoaded', function() {
         section.appendChild(sectionTitle);
         
         // 获取主分类下的所有子分类
-        const subCategories = Object.keys(brandData[mainCategory]);
+        const subCategories = Object.keys(window.brandData[mainCategory]);
         
         // 遍历所有子分类
         subCategories.forEach(subCategory => {
@@ -933,9 +972,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const mainCategoryLower = mainCategory.toLowerCase();
                 
                 // 遍历主分类下的所有子分类
-                Object.keys(brandData[mainCategory]).forEach(subCategory => {
+                Object.keys(window.brandData[mainCategory]).forEach(subCategory => {
                     const subCategoryLower = subCategory.toLowerCase();
-                    const brands = brandData[mainCategory][subCategory];
+                    const brands = window.brandData[mainCategory][subCategory];
                     
                     if (brands && Array.isArray(brands)) {
                         brands.forEach(brand => {
