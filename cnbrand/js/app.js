@@ -808,7 +808,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // 跳转到对应区域
             const targetSection = document.getElementById(`${mainCategory}-${subCategory}`);
             if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
+                // 使用更兼容的滚动方法，避免某些浏览器中scrollIntoView的兼容性问题
+                const offsetTop = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: offsetTop - 1, // 减去80像素的偏移量，避免被可能的顶部导航栏或按钮遮挡
+                    behavior: 'smooth'
+                });
             }
         }
     });
