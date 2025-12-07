@@ -11,15 +11,35 @@ function hideLoadingPage() {
     }
 }
 
-// 监听页面加载状态变化
-// 当DOM结构构建完成后就隐藏加载页面，让用户看到页面框架，图片会逐渐加载
-window.addEventListener('DOMContentLoaded', function() {
-    hideLoadingPage();
-});
+// 检查brandData是否加载完成
+function isBrandDataLoaded() {
+    console.log('Checking brandData...');
+    console.log('typeof window.brandData:', typeof window.brandData);
+    console.log('window.brandData:', window.brandData);
+    console.log('typeof brandData:', typeof brandData);
+    console.log('brandData:', brandData);
+    
+    // 先尝试直接访问brandData，如果失败再尝试window.brandData
+    return (typeof brandData !== 'undefined' && brandData !== null) || 
+           (typeof window.brandData !== 'undefined' && window.brandData !== null);
+}
 
 // DOMContentLoaded事件监听
 document.addEventListener('DOMContentLoaded', function() {
-
+    // 隐藏加载页面
+    hideLoadingPage();
+    
+    // 检查brandData是否加载完成
+    if (!isBrandDataLoaded()) {
+        console.error('brandData未加载，请检查brandData.js文件');
+        alert('数据加载失败，请检查网络连接或刷新页面重试');
+        return;
+    } else {
+        console.log('brandData加载成功！');
+        // 确保brandData是全局可访问的
+        window.brandData = window.brandData || brandData;
+    }
+    
     // 获取DOM元素
     const categoryList = document.getElementById('category-list');
     const brandSections = document.getElementById('brand-sections');
@@ -457,11 +477,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 尝试创建img元素加载logo
         const logoImg = document.createElement('img');
-        // 直接使用brandData中的logo路径
-        logoImg.src = brand.logo || '';
         logoImg.alt = `${brand.name} logo`;
         logoImg.style.maxWidth = '100%';
         logoImg.style.maxHeight = '100%';
+        
+        // 添加懒加载属性
+        logoImg.loading = 'lazy';
         
         // 图片加载成功事件
         logoImg.onload = function() {
@@ -474,9 +495,30 @@ document.addEventListener('DOMContentLoaded', function() {
             brandLogo.textContent = brand.name.charAt(0);
         };
         
-        // 如果有logo路径，直接添加图片元素到容器
+        // 如果有logo路径，设置图片src（支持懒加载）
         if (brand.logo) {
-            brandLogo.appendChild(logoImg);
+            // 使用Intersection Observer实现兼容性更好的懒加载
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            logoImg.src = brand.logo;
+                            observer.unobserve(logoImg);
+                        }
+                    });
+                }, {
+                    rootMargin: '100px', // 提前100px开始加载
+                    threshold: 0.1
+                });
+                
+                // 先添加图片到DOM，再开始观察
+                brandLogo.appendChild(logoImg);
+                observer.observe(logoImg);
+            } else {
+                // 浏览器不支持Intersection Observer，直接加载
+                logoImg.src = brand.logo;
+                brandLogo.appendChild(logoImg);
+            }
         } else {
             // 没有logo时显示首字母
             brandLogo.textContent = brand.name.charAt(0);

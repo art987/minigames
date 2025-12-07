@@ -4513,3 +4513,8 @@ const brandData = {
     "床品": []
   }
 };
+
+// 全局暴露变量，供app.js使用
+if (typeof window !== "undefined") {
+    window.brandData = brandData;
+}
