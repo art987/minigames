@@ -87,12 +87,11 @@ const aiPaintingData = {
                 { id: 'hair-style-1', name: '短马尾' },
                 { id: 'hair-style-2', name: '侧马尾辫' },
                 { id: 'hair-style-3', name: '前马尾辫' },
-                { id: 'hair-style-4', name: '分裂马尾辩' },
-                { id: 'hair-style-5', name: '低马尾辩' },
-                { id: 'hair-style-6', name: '短马尾辫' },
+                { id: 'hair-style-4', name: '分裂马尾辫' },
+                { id: 'hair-style-5', name: '低马尾辫' },
                 { id: 'hair-style-7', name: '侧边辫子' },
                 { id: 'hair-style-8', name: '双辫子' },
-                { id: 'hair-style-9', name: '马尾辩' },
+                { id: 'hair-style-9', name: '马尾辫' },
                 { id: 'hair-style-10', name: '编织马尾' },
                 { id: 'hair-style-11', name: '法式辫' },
                 { id: 'hair-style-12', name: '麻花辫' },
@@ -411,7 +410,7 @@ const aiPaintingData = {
                 { id: 'clothing-top-2', name: '背心' },
                 { id: 'clothing-top-3', name: '白衬衫' },
                 { id: 'clothing-top-4', name: '水手衬衫' },
-                { id: 'clothing-top-5', name: 'T恤血' },
+                { id: 'clothing-top-5', name: 'T恤' },
                 { id: 'clothing-top-6', name: '毛衣' },
                 { id: 'clothing-top-7', name: '夏日长裙' },
                 { id: 'clothing-top-8', name: '连帽衫' },
@@ -432,24 +431,15 @@ const aiPaintingData = {
             name: '下装（分体）',
             selectionMode: 'single', // 单选
             tags: [
-                { id: 'clothing-bottom-1', name: '夏日长裙' },
-                { id: 'clothing-bottom-2', name: '无袖连衣裙' },
-                { id: 'clothing-bottom-3', name: '银色连衣裙' },
-                { id: 'clothing-bottom-4', name: 'JK制服裙' }
+                { id: 'clothing-bottom-4', name: 'JK制服裙' },
+                { id: 'clothing-bottom-5', name: '短裤' },
+                { id: 'clothing-bottom-6', name: '长裤' },
+                { id: 'clothing-bottom-7', name: '裙子' },
+                { id: 'clothing-bottom-8', name: '牛仔裤' },
+                { id: 'clothing-bottom-9', name: '百褶裙' }
             ]
         },
-        {
-            id: 'clothing-shoes',
-            name: '鞋饰',
-            selectionMode: 'single', // 单选
-            tags: [
-                { id: 'clothing-shoes-1', name: '透视装' },
-                { id: 'clothing-shoes-2', name: '燕尾服' },
-                { id: 'clothing-shoes-3', name: '女仆装' },
-                { id: 'clothing-shoes-4', name: '尾&翅' },
-                { id: 'clothing-shoes-5', name: '角' }
-            ]
-        },
+
         {
             id: 'clothing-professional',
             name: '职业制服',
@@ -621,7 +611,7 @@ const aiPaintingData = {
                 { id: 'hair-accessories-6', name: '洛丽塔发饰' },
                 { id: 'hair-accessories-7', name: '羽毛发饰' },
                 { id: 'hair-accessories-8', name: '头花' },
-                { id: 'hair-accessories-9', name: '发害' },
+                { id: 'hair-accessories-9', name: '发簪' },
                 { id: 'hair-accessories-10', name: '发夹' },
                 { id: 'hair-accessories-11', name: '发箍' },
                 { id: 'hair-accessories-12', name: '发圈' },
