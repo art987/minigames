@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI绘图指令生成工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>AI绘图指令生成工具</h1>
+        <p>通过选择标签快速生成AI绘图指令</p>
+    </header>
+
+    <main class="main-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-categories" id="sidebarCategories">
+                <!-- 左侧分类导航将通过JavaScript动态生成 -->
+            </div>
+        </aside>
+        <section class="content" id="content">
+            <div class="categories-container" id="categoriesContainer">
+                <!-- 右侧分类内容将通过JavaScript动态生成 -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <button class="btn btn-clear" id="clearBtn">清空选择</button>
+            <button class="btn btn-random" id="randomBtn">随机生成</button>
+            <button class="btn btn-view" id="viewBtn">查看绘图指令</button>
+        </div>
+    </footer>
+
+    <!-- 结果弹窗 -->
+    <div class="modal" id="resultModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>绘图指令</h2>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="selected-tags" id="selectedTags">
+                    <!-- 已选择的标签将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-copy" id="copyBtn">复制指令</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

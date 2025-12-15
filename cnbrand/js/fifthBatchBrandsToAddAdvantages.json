@@ -1,0 +1,393 @@
+[
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "牛奶",
+    "brand": {
+      "name": "君乐宝",
+      "logo": "logos/junlebao.jpg",
+      "description": "河北知名乳制品品牌。",
+      "founded": "1995年",
+      "city": "河北石家庄",
+      "honors": "中国名牌产品",
+      "reputation": "酸奶口感好，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "汇源",
+      "logo": "",
+      "description": "全国知名果汁饮料品牌。",
+      "founded": "1992年",
+      "city": "北京",
+      "honors": "中国名牌产品",
+      "reputation": "果汁浓度高，口感好，营养丰富，消费者信赖。",
+      "products": [
+        {
+          "name": "汇源100%苹果汁",
+          "spec": "1L*12盒",
+          "price": "¥99-159",
+          "feature": "100%纯果汁，无添加"
+        },
+        {
+          "name": "汇源桃汁",
+          "spec": "1L*12盒",
+          "price": "¥99-159",
+          "feature": "桃香浓郁，口感清甜"
+        },
+        {
+          "name": "汇源橙汁",
+          "spec": "1L*12盒",
+          "price": "¥99-159",
+          "feature": "富含维生素C"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "娃哈哈",
+      "logo": "",
+      "description": "全国知名食品饮料品牌。",
+      "founded": "1987年",
+      "city": "浙江杭州",
+      "honors": "中国名牌产品",
+      "reputation": "产品种类丰富，口感好，价格亲民，市场占有率高。",
+      "products": [
+        {
+          "name": "娃哈哈营养快线",
+          "spec": "500ml*15瓶",
+          "price": "¥45.9-66.8",
+          "feature": "营养丰富，口感顺滑"
+        },
+        {
+          "name": "娃哈哈AD钙奶",
+          "spec": "220ml*24瓶",
+          "price": "¥44.9",
+          "feature": "酸甜可口，补充钙质"
+        },
+        {
+          "name": "娃哈哈纯净水",
+          "spec": "596ml*24瓶",
+          "price": "¥34.8",
+          "feature": "纯净健康，适合日常饮用"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "椰树",
+      "logo": "",
+      "description": "海南特色饮品品牌。",
+      "founded": "1956年",
+      "city": "海南海口",
+      "honors": "中国名牌产品",
+      "reputation": "海南特色，椰汁口感纯正，历史悠久，消费者喜爱。",
+      "products": [
+        {
+          "name": "椰树椰汁",
+          "spec": "245ml*24盒",
+          "price": "¥64.4-76.9",
+          "feature": "纯正椰香，口感醇厚"
+        },
+        {
+          "name": "椰树果肉椰汁",
+          "spec": "245ml*24盒",
+          "price": "¥75-95",
+          "feature": "果肉丰富，口感更佳"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "冰泉",
+      "logo": "",
+      "description": "广西特色饮品品牌。",
+      "founded": "1956年",
+      "city": "广西梧州",
+      "honors": "广西著名商标",
+      "reputation": "广西特色，豆浆晶历史悠久，口感好，营养丰富。",
+      "products": [
+        {
+          "name": "冰泉豆浆晶",
+          "spec": "360g*12袋",
+          "price": "¥88-110",
+          "feature": "速溶便捷，营养丰富"
+        },
+        {
+          "name": "冰泉纯豆浆粉",
+          "spec": "400g*12袋",
+          "price": "¥149-720",
+          "feature": "纯黄豆制作，无添加"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "津威",
+      "logo": "",
+      "description": "广东特色乳酸菌饮品品牌。",
+      "founded": "1990年",
+      "city": "广东惠州",
+      "honors": "广东著名商标",
+      "reputation": "乳酸菌饮品，口感好，有助于消化，儿童和家庭喜爱。",
+      "products": [
+        {
+          "name": "津威乳酸菌饮料",
+          "spec": "100ml*48瓶",
+          "price": "¥58-65",
+          "feature": "益生菌发酵，有助于肠道健康"
+        },
+        {
+          "name": "津威葡萄糖酸锌饮料",
+          "spec": "100ml*48瓶",
+          "price": "¥55-70",
+          "feature": "补锌佳品，酸甜可口"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "天府可乐",
+      "logo": "",
+      "description": "重庆特色碳酸饮料品牌。",
+      "founded": "1936年",
+      "city": "重庆",
+      "honors": "重庆著名商标",
+      "reputation": "老品牌，中药配方，口感独特，消费者怀旧喜爱。",
+      "products": [
+        {
+          "name": "天府可乐原味",
+          "spec": "330ml*24罐",
+          "price": "¥40.6-47.7",
+          "feature": "中药配方，口感独特"
+        },
+        {
+          "name": "天府可乐无糖",
+          "spec": "330ml*24罐",
+          "price": "¥25-40.6",
+          "feature": "零糖零脂，健康选择"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "崂山可乐",
+      "logo": "",
+      "description": "山东特色碳酸饮料品牌。",
+      "founded": "1956年",
+      "city": "山东青岛",
+      "honors": "山东著名商标",
+      "reputation": "老品牌，中药配方，口感独特，消费者怀旧喜爱。",
+      "products": [
+        {
+          "name": "崂山可乐原味",
+          "spec": "330ml*24罐",
+          "price": "¥99.9",
+          "feature": "中药配方，口感醇厚"
+        },
+        {
+          "name": "崂山可乐玻璃瓶",
+          "spec": "250ml*24瓶",
+          "price": "¥149.9",
+          "feature": "经典包装，怀旧味道"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "饮品乳品",
+    "subCategory": "饮料",
+    "brand": {
+      "name": "豆本豆",
+      "logo": "",
+      "description": "植物蛋白饮品品牌。",
+      "founded": "2017年",
+      "city": "北京",
+      "honors": "中国植物奶新锐品牌",
+      "reputation": "植物蛋白饮品，健康营养，口感好，适合素食者和健康人群。",
+      "products": [
+        {
+          "name": "豆本豆原味豆奶",
+          "spec": "250ml*24盒",
+          "price": "¥35-50",
+          "feature": "植物蛋白，营养健康"
+        },
+        {
+          "name": "豆本豆有机豆奶",
+          "spec": "250ml*12盒",
+          "price": "¥25-40",
+          "feature": "有机认证，品质保证"
+        },
+        {
+          "name": "豆本豆豆奶植物蛋白饮料",
+          "spec": "250ml*24盒",
+          "price": "¥35-50",
+          "feature": "营养丰富，口感顺滑"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "调味料",
+    "brand": {
+      "name": "王守义十三香",
+      "logo": "logos/wangshouyi.jpg",
+      "description": "中华老字号，汇聚花椒、丁香、八角等十三种香料精华，香气浓郁，口感层次丰富，是中华烹饪文化的瑰宝。",
+      "founded": "1959年",
+      "city": "河南驻马店",
+      "honors": "中华老字号",
+      "reputation": "中华老字号，经典香料组合，香气浓郁，是中式烹饪必备调料。",
+      "products": [
+        {
+          "name": "王守义十三香",
+          "spec": "45g*3盒",
+          "price": "¥11.7元",
+          "feature": "经典款，香气独特，口感丰富，适合炖肉、炒菜、煲汤等多种烹饪方式。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "调味料",
+    "brand": {
+      "name": "老干妈",
+      "logo": "logos/laoganma.jpg",
+      "description": "贵州特产，国民级辣酱品牌，凭借独特风味和稳定品质，受到消费者喜爱。",
+      "founded": "1996年",
+      "city": "贵州贵阳",
+      "honors": "中国名牌产品",
+      "reputation": "国民级辣酱品牌，风味独特，品质稳定，消费者喜爱。",
+      "products": [
+        {
+          "name": "老干妈风味豆豉油制辣椒",
+          "spec": "280g",
+          "price": "¥11.2元",
+          "feature": "经典口味，口感劲道，性价比高，是下饭、炒菜的绝佳伴侣。"
+        },
+        {
+          "name": "老干妈香辣脆油辣椒酱",
+          "spec": "210g",
+          "price": "¥9.8元",
+          "feature": "豆豉的咸香与辣椒的香辣完美融合，口感丰富，味道浓郁。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "味精",
+    "brand": {
+      "name": "莲花味精",
+      "logo": "logos/lianhua.jpg",
+      "description": "国民老牌，极致性价比的代名词，成分简单纯粹，谷氨酸钠含量高达99%以上，是真正意义上的'纯粮酿造'。",
+      "founded": "1983年",
+      "city": "河南周口",
+      "honors": "中国名牌产品",
+      "reputation": "国民老牌，极致性价比，纯粮酿造，消费者信赖。",
+      "products": [
+        {
+          "name": "莲花味精",
+          "spec": "100g*3袋",
+          "price": "¥9.4元",
+          "feature": "小袋装，纯粮酿造无添加，99%高纯度不含盐，适合家庭日常使用。"
+        },
+        {
+          "name": "莲花味精",
+          "spec": "2000g",
+          "price": "¥27-28元",
+          "feature": "大包装，4斤装，纯粮酿造无添加，99%高纯度不额外加盐，适合家庭囤货或餐饮使用。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "味精",
+    "brand": {
+      "name": "松鲜鲜",
+      "logo": "logos/songxianxian.jpg",
+      "description": "专注于健康调味领域，以天然食材替代化学增鲜剂，是味精和鸡精的健康替代品。",
+      "founded": "2019年",
+      "city": "浙江杭州",
+      "honors": "中国健康食品推荐品牌",
+      "reputation": "健康调味领域领先品牌，天然食材，零添加，深受健康人士喜爱。",
+      "products": [
+        {
+          "name": "松鲜鲜松茸调味料",
+          "spec": "150g",
+          "price": "¥40-50元",
+          "feature": "品牌明星产品，以松茸等多种天然食材为原料，不添加蔗糖、甜味剂、防腐剂，减钠29%，适合老人、孩子、孕妇等追求健康的人群。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "味精",
+    "brand": {
+      "name": "天调本味",
+      "logo": "logos/tiandiaobenwei.jpg",
+      "description": "高科技营养与健康产业核心配料企业，采用国家火炬计划专项提取物技术，从天然肉类和海鲜中提取'美味肽'，实现真正的零添加。",
+      "founded": "2005年",
+      "city": "广东广州",
+      "honors": "国家高新技术企业",
+      "reputation": "高科技调味品企业，零添加，天然提取物，高端健康选择。",
+      "products": [
+        {
+          "name": "天调本味锦凤（鸡肉提取物）",
+          "spec": "1kg",
+          "price": "价格待定",
+          "feature": "提取新鲜鸡胸肉中的天然精华，富含美味肽与氨基酸，易于人体吸收，是健康调味品中的高端选择。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "厨房调味",
+    "subCategory": "酱油",
+    "brand": {
+      "name": "千禾",
+      "logo": "logos/qianhe.jpg",
+      "description": "国内较早聚焦'零添加'赛道的知名品牌，市场认知度高，产品线丰富，性价比突出。",
+      "founded": "1996年",
+      "city": "四川眉山",
+      "honors": "中国调味品行业领先品牌",
+      "reputation": "零添加酱油知名品牌，产品线丰富，性价比高，消费者信赖。",
+      "products": [
+        {
+          "name": "千禾零添加380天特级生抽",
+          "spec": "500ml",
+          "price": "¥15-20元",
+          "feature": "明星产品，酿造周期长，酱香醇厚，是家庭日常提鲜的放心之选。"
+        },
+        {
+          "name": "千禾零添加御藏本酿老抽",
+          "spec": "500ml",
+          "price": "¥18-25元",
+          "feature": "上色自然，酱香浓郁，适合红烧、卤味等菜肴。"
+        }
+      ]
+    }
+  }
+]

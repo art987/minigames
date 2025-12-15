@@ -1,0 +1,62 @@
+[
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "ST&SAT星期六",
+      "description": "广东知名女鞋品牌。",
+      "founded": "1990年",
+      "city": "广东佛山",
+      "honors": "中国女鞋行业知名品牌",
+      "reputation": "女鞋时尚优雅，舒适耐穿，年轻女性喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "安踏",
+      "description": "福建知名运动服装品牌。",
+      "founded": "1991年",
+      "city": "福建晋江",
+      "honors": "中国名牌产品",
+      "reputation": "运动服装质量好，设计时尚，市场占有率高，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "鸿星尔克",
+      "description": "福建知名运动服装品牌。",
+      "founded": "2000年",
+      "city": "福建厦门",
+      "honors": "中国名牌产品",
+      "reputation": "运动服装质量好，设计时尚，价格适中，爱国情怀浓厚，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "361",
+      "description": "福建知名运动服装品牌。",
+      "founded": "2003年",
+      "city": "福建厦门",
+      "honors": "中国名牌产品",
+      "reputation": "运动服装质量好，设计时尚，价格适中，消费者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "saltum",
+      "description": "广东知名休闲服装品牌。",
+      "founded": "2005年",
+      "city": "广东广州",
+      "honors": "广东著名商标",
+      "reputation": "休闲服装时尚潮流，质量好，年轻人喜爱。"
+    }
+  }
+]

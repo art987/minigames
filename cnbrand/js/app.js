@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             searchResults.classList.remove('active');
                             
                             // 使用window.scrollTo替代scrollIntoView，确保兼容性和准确性
-                            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - 1;
                             window.scrollTo({
                                 top: targetPosition,
                                 behavior: 'smooth'

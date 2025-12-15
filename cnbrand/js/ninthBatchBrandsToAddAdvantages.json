@@ -1,0 +1,371 @@
+[
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "速冻食品类",
+    "brand": {
+      "name": "思念食品",
+      "logo": "logos/sinian.jpg",
+      "description": "国内大型速冻食品企业，品控稳定，产品多样。",
+      "founded": "1997年",
+      "city": "河南郑州",
+      "honors": "中国驰名商标、中国速冻食品行业十强",
+      "reputation": "国内大型速冻食品企业，品控稳定，产品多样，消费者喜爱。",
+      "products": [
+        {
+          "name": "思念黑芝麻汤圆",
+          "spec": "500g*4袋",
+          "price": "¥69.9元",
+          "feature": "圆润饱满，黑芝麻香浓郁，口感细腻，营养丰富。"
+        },
+        {
+          "name": "思念金牌虾水饺",
+          "spec": "480g*3袋",
+          "price": "¥89.9元",
+          "feature": "整只虾仁，鲜香美味，皮薄馅大，高端品质。"
+        },
+        {
+          "name": "思念油条速冻装",
+          "spec": "450g*4袋",
+          "price": "¥59.9元",
+          "feature": "外酥里嫩，无需油炸，早餐快捷，口感地道。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "速冻食品类",
+    "brand": {
+      "name": "安井食品",
+      "logo": "logos/anjing.jpg",
+      "description": "火锅料领域专家，品控体系完善。",
+      "founded": "2001年",
+      "city": "福建厦门",
+      "honors": "中国驰名商标、火锅料行业领导品牌",
+      "reputation": "火锅料领域专家，品控体系完善，消费者信赖。",
+      "products": [
+        {
+          "name": "安井撒尿牛丸",
+          "spec": "500g*3袋",
+          "price": "¥79.9元",
+          "feature": "汤汁丰富，口感Q弹，牛肉味浓，火锅必备。"
+        },
+        {
+          "name": "安井鱼豆腐",
+          "spec": "500g*4袋",
+          "price": "¥69.9元",
+          "feature": "鲜嫩可口，口感细腻，豆香浓郁，火锅、煮汤皆宜。"
+        },
+        {
+          "name": "安井速冻饺子猪肉香菇味",
+          "spec": "1kg*2袋",
+          "price": "¥79.9元",
+          "feature": "传统工艺，馅料鲜美，口感丰富，家常必备。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "速冻食品类",
+    "brand": {
+      "name": "海欣食品",
+      "logo": "logos/haixin.jpg",
+      "description": "福州老字号，以速冻鱼糜制品为核心，品控稳定。",
+      "founded": "1903年",
+      "city": "福建福州",
+      "honors": "中华老字号、中国驰名商标",
+      "reputation": "福州老字号，以速冻鱼糜制品为核心，品控稳定，消费者喜爱。",
+      "products": [
+        {
+          "name": "海欣蟹肉棒",
+          "spec": "270g*5袋",
+          "price": "¥69.9元",
+          "feature": "模拟蟹肉，口感鲜甜，火锅、凉拌皆宜，方便食用。"
+        },
+        {
+          "name": "海欣鱼丸组合装",
+          "spec": "1kg*2袋",
+          "price": "¥89.9元",
+          "feature": "多种鱼丸，口感丰富，传统工艺，煮汤鲜美。"
+        },
+        {
+          "name": "海欣虾滑",
+          "spec": "200g*5袋",
+          "price": "¥99.9元",
+          "feature": "虾肉含量高，口感细腻，Q弹有嚼劲，火锅佳品。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "速冻食品类",
+    "brand": {
+      "name": "千味央厨",
+      "logo": "logos/qianweiyangchu.jpg",
+      "description": "为餐饮提供专业解决方案，品控体系完善。",
+      "founded": "2012年",
+      "city": "河南郑州",
+      "honors": "中国餐饮供应链优秀企业、食品安全示范单位",
+      "reputation": "为餐饮提供专业解决方案，品控体系完善，消费者信赖。",
+      "products": [
+        {
+          "name": "千味央厨小油条",
+          "spec": "800g*3袋",
+          "price": "¥79.9元",
+          "feature": "外酥里嫩，黄金酥脆，早餐搭档，方便快捷。"
+        },
+        {
+          "name": "千味央厨红糖发糕",
+          "spec": "300g*4袋",
+          "price": "¥69.9元",
+          "feature": "松软可口，红糖香浓，传统风味，加热即食。"
+        },
+        {
+          "name": "千味央厨蒸煎饺猪肉韭菜味",
+          "spec": "400g*4袋",
+          "price": "¥79.9元",
+          "feature": "蒸煮煎皆可，口感丰富，馅料鲜香，早餐午餐皆宜。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "零食类",
+    "brand": {
+      "name": "亿堡坚果零食",
+      "logo": "logos/yibao.jpg",
+      "description": "强烈推荐，坚持0添加剂理念，无人工色素、防腐剂、香精。",
+      "founded": "2015年",
+      "city": "浙江杭州",
+      "honors": "中国健康零食品牌、无添加零食领先者",
+      "reputation": "坚持0添加剂理念，无人工色素、防腐剂、香精，健康零食首选。",
+      "products": [
+        {
+          "name": "亿堡原味混合坚果",
+          "spec": "500g/罐",
+          "price": "¥89.9元",
+          "feature": "0添加剂，多种坚果混合，营养均衡，口感丰富。"
+        },
+        {
+          "name": "亿堡原味开心果",
+          "spec": "400g/罐",
+          "price": "¥79.9元",
+          "feature": "自然开口，无漂白，原味烘焙，坚果清香。"
+        },
+        {
+          "name": "亿堡原味夏威夷果",
+          "spec": "350g/罐",
+          "price": "¥89.9元",
+          "feature": "优质原料，0添加剂，奶香浓郁，口感酥脆。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "零食类",
+    "brand": {
+      "name": "劲仔食品",
+      "logo": "logos/jingzai.jpg",
+      "description": "创新\"三零工艺\"（0防腐剂、0色素、0蔗糖），营养价值高。",
+      "founded": "2000年",
+      "city": "湖南岳阳",
+      "honors": "中国驰名商标、湖南省农业产业化龙头企业",
+      "reputation": "创新\"三零工艺\"，营养价值高，年轻消费者喜爱。",
+      "products": [
+        {
+          "name": "劲仔深海小鱼干麻辣味",
+          "spec": "15g*20包",
+          "price": "¥39.9元",
+          "feature": "三零工艺，深海小鱼，麻辣鲜香，独立小包装。"
+        },
+        {
+          "name": "劲仔厚豆干烧烤味",
+          "spec": "25g*15包",
+          "price": "¥29.9元",
+          "feature": "传统工艺，口感厚实，烧烤风味，豆香浓郁。"
+        },
+        {
+          "name": "劲仔素毛肚山椒味",
+          "spec": "18g*20包",
+          "price": "¥29.9元",
+          "feature": "三零工艺，Q弹口感，山椒风味，素食新选择。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "零食类",
+    "brand": {
+      "name": "良品铺子",
+      "logo": "logos/liangpinpuzi.jpg",
+      "description": "发布\"自然健康新零食\"品牌主张，计划去除一切非必要添加。",
+      "founded": "2006年",
+      "city": "湖北武汉",
+      "honors": "中国休闲零食领导品牌、中国质量奖提名奖",
+      "reputation": "发布\"自然健康新零食\"品牌主张，产品丰富，品质可靠。",
+      "products": [
+        {
+          "name": "良品铺子蟹黄味瓜子仁",
+          "spec": "110g*5袋",
+          "price": "¥39.9元",
+          "feature": "精选原料，蟹黄风味，酥脆可口，追剧必备。"
+        },
+        {
+          "name": "良品铺子原切牛肉干",
+          "spec": "80g*3袋",
+          "price": "¥69.9元",
+          "feature": "原切牛肉，肉质紧实，口感醇香，高蛋白零食。"
+        },
+        {
+          "name": "良品铺子水果干组合",
+          "spec": "60g*6袋",
+          "price": "¥49.9元",
+          "feature": "多种水果，自然风干，保留营养，酸甜可口。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "零食类",
+    "brand": {
+      "name": "金晔食品",
+      "logo": "logos/jinye.jpg",
+      "description": "主打\"无添加零食王国\"，配料表干净，如山楂条、地瓜干等。",
+      "founded": "2003年",
+      "city": "山东济南",
+      "honors": "山东省著名商标、无添加零食标杆品牌",
+      "reputation": "主打\"无添加零食王国\"，配料表干净，消费者信赖。",
+      "products": [
+        {
+          "name": "金晔原味山楂条",
+          "spec": "280g*3袋",
+          "price": "¥39.9元",
+          "feature": "无添加，纯山楂制作，酸甜适中，开胃消食。"
+        },
+        {
+          "name": "金晔地瓜干",
+          "spec": "280g*3袋",
+          "price": "¥35.9元",
+          "feature": "无添加，自然晾晒，软糯香甜，保留原味。"
+        },
+        {
+          "name": "金晔陈皮梅片",
+          "spec": "40g*6盒",
+          "price": "¥49.9元",
+          "feature": "无添加，陈皮风味，酸甜可口，独立包装。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "速食糕点零食",
+    "subCategory": "零食类",
+    "brand": {
+      "name": "首农小王子",
+      "logo": "logos/xiaowangzi.jpg",
+      "description": "国企背景，配料干净，无多余添加剂，价格亲民。",
+      "founded": "1999年",
+      "city": "北京",
+      "honors": "北京市著名商标、国企品质保证",
+      "reputation": "国企背景，配料干净，无多余添加剂，价格亲民，性价比高。",
+      "products": [
+        {
+          "name": "首农小王子薯片原味",
+          "spec": "108g*5袋",
+          "price": "¥29.9元",
+          "feature": "原切工艺，配料简单，口感酥脆，价格亲民。"
+        },
+        {
+          "name": "首农小王子锅巴麻辣味",
+          "spec": "100g*6袋",
+          "price": "¥25.9元",
+          "feature": "传统工艺，麻辣鲜香，口感松脆，追剧必备。"
+        },
+        {
+          "name": "首农小王子混合坚果",
+          "spec": "200g*5袋",
+          "price": "¥59.9元",
+          "feature": "国企品质，配料干净，多种坚果，营养均衡。"
+        }
+      ]
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "百年双星",
+      "description": "青岛知名运动品牌。",
+      "founded": "1921年",
+      "city": "山东青岛",
+      "honors": "中国历史文化名品",
+      "reputation": "历史悠久，产品种类丰富，价格亲民，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "回力",
+      "description": "上海知名运动鞋品牌。",
+      "founded": "1927年",
+      "city": "上海",
+      "honors": "中国历史文化名品",
+      "reputation": "帆布鞋经典时尚，舒适耐穿，价格亲民，年轻人喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "飞跃",
+      "description": "上海知名运动鞋品牌。",
+      "founded": "1931年",
+      "city": "上海",
+      "honors": "中国历史文化名品",
+      "reputation": "帆布鞋经典时尚，舒适耐穿，价格亲民，年轻人喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "三枪",
+      "description": "上海知名内衣品牌。",
+      "founded": "1937年",
+      "city": "上海",
+      "honors": "中国名牌产品",
+      "reputation": "内衣舒适透气，质量好，老品牌，消费者信赖。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "多威",
+      "description": "江苏知名专业跑鞋品牌。",
+      "founded": "1983年",
+      "city": "江苏昆山",
+      "honors": "中国专业跑鞋领导品牌",
+      "reputation": "专业跑鞋舒适耐穿，性能优良，运动员和跑步爱好者喜爱。"
+    }
+  },
+  {
+    "mainCategory": "穿戴日用",
+    "subCategory": "鞋服",
+    "brand": {
+      "name": "人本",
+      "description": "浙江知名鞋类品牌。",
+      "founded": "1986年",
+      "city": "浙江温州",
+      "honors": "浙江著名商标",
+      "reputation": "帆布鞋舒适耐穿，价格亲民，年轻人喜爱。"
+    }
+  }
+]

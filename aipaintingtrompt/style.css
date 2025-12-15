@@ -1,0 +1,486 @@
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 头部样式 */
+.header {
+    background: linear-gradient(135deg, #a14fe9 0%, #d22009 100%);
+    color: white;
+    padding: 0.8rem 1rem;
+    z-index: 9999;
+    text-align: center;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 45%);
+}
+
+.header h1 {
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.header p {
+    display: none; /* 隐藏副标题 */
+}
+
+/* 主内容区样式 */
+.main-container {
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+/* 左侧边栏样式 */
+.sidebar {
+    width: 61px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    height: calc(100vh - 120px); /* 减去头部和底部高度 */
+    position: sticky;
+    top: 0.5rem;
+}
+
+/* 左侧分类导航样式 */
+.sidebar-categories {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-category {
+    padding: 0.5rem 0px 0.5rem 7px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+    text-align: left;
+    border-left: 4px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-category:hover {
+    background-color: #f0f0f0;
+    color: #696969;
+}
+
+.sidebar-category.active {
+    background-color: #faf0ff;
+    color: #e20000;
+    font-weight: bold;
+}
+
+/* 右侧内容区样式 */
+.content {
+    flex: 1;
+    overflow-y: auto;
+    height: calc(100vh - 120px); /* 减去头部和底部高度 */
+    padding-right: 0.5rem;
+}
+
+/* 分类容器样式 */
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 分类样式 */
+.category {
+    background: white;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    scroll-margin-top: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 标签容器样式 */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* 标签项样式 */
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 标签复选框样式 */
+.tag-checkbox {
+    display: none;
+}
+
+/* 标签文本样式 */
+.tag-label {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    background-color: #f0f0f0;
+    color: #666;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* 标签选中状态样式 */
+.tag-checkbox:checked + .tag-label {
+    background-color: #d606b6;
+    color: white;
+    border-color: #d606b6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgb(199 13 109 / 30%);
+}
+
+/* 标签悬停状态样式 */
+.tag-item:hover .tag-label {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.tag-checkbox:checked + .tag-label:hover {
+    background-color: #d606b6;
+}
+
+/* 底部样式 */
+.footer {
+    background: white;
+    padding: 0.5rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+.footer-content {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+}
+
+/* 按钮容器，确保一行显示 */
+.footer-content > button {
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 90px !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+    flex: 1 1 auto !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border: none !important;
+    border-radius: 30px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 清空选择按钮样式 */
+.btn-clear {
+    background: linear-gradient(135deg, #edc41d 0%, #ffbe00 100%);
+    color: #ffffff;
+}
+
+.btn-clear:hover {
+    background: linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 随机生成按钮样式 */
+.btn-random {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+}
+
+.btn-random:hover {
+    background: linear-gradient(135deg, #ee5a52 0%, #c0392b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3) !important;
+}
+
+/* 查看指令按钮样式 */
+.btn-view {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-view:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a3ca5 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* 模态框样式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #fafafa;
+}
+
+.modal-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close-btn {
+    font-size: 2rem;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+}
+
+/* 已选择标签容器样式 */
+.selected-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+/* 已选择标签项样式 */
+.selected-tag-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 25px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.selected-tag-item:hover {
+    background-color: #e9ecef;
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.selected-tag-name {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* 移除标签按钮样式 */
+.remove-tag-btn {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.remove-tag-btn:hover {
+    background-color: #ff6b6b;
+    color: white;
+    transform: scale(1.1);
+}
+
+.remove-icon {
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* 无标签提示样式 */
+.no-tags {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* 复制按钮样式 */
+.btn-copy {
+    background-color: #667eea;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-copy:hover {
+    background-color: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-copy:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .categories-container {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .modal-content {
+        margin: 1rem;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: .5rem 1rem;
+    }
+
+    .header h1 {
+        font-size: 1.2rem;
+        text-align: left;
+    }
+
+    .main-container {
+        padding: 0;
+    }
+
+    .category {
+        padding: 1rem;
+    }
+
+    .tags-container {
+        gap: 0.6rem;
+    }
+
+    .tag-label {
+        padding: 0.2rem .5rem;
+        font-size: 0.9rem;
+    }
+}

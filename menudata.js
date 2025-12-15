@@ -125,6 +125,8 @@ const menuData = {
         { text: "营销策略生成器", href: "https://www.coze.cn/store/agent/7553922985834037294?bot_id=true", icon: "" , emoji:"📈",  describ: "AI助力制定营销策略，提升产品销量和品牌影响力" , keyword: "营销策略, 商业策划, AI营销, 品牌推广" },
         { text: "商品推广视频口播文案生成器", href: "https://www.coze.cn/store/agent/7538712427211587647?bot_id=true", icon: "" , emoji:"🎬",  describ: "生成吸引人的商品推广视频口播文案，提高转化率" , keyword: "口播文案, 视频推广, 商品营销, 文案创作" },
         { text: "虚拟美女主播形象生成器", href: "https://www.coze.cn/store/agent/7545372129563656234?bot_id=true", icon: "" , emoji:"👩",  describ: "创建虚拟美女主播形象，用于直播和视频内容创作" , keyword: "虚拟主播, AI形象, 数字人, 直播助手" },
+        { text: "AI角色口令生成", href: "/aipaintingprompt/index.html", icon: "" , emoji:"🦹‍♀️",  describ: "选择角色标签，生成个性角色" , keyword: "AI角色, 角色生成, 人物定制, 角色口令" },
+        
         { text: "旅游景点为什么", href: "https://www.coze.cn/store/agent/7530964440574476331?bot_id=true", icon: "" , emoji:"🏞️",  describ: "探索旅游景点背后的故事和知识，丰富旅行体验" , keyword: "旅游景点, 景点知识, 旅行攻略, 文化探索" },
         { text: "城市名片介绍", href: "https://www.coze.cn/store/agent/7490518477045235748?bot_id=true", icon: "" , emoji:"🏙️",  describ: "生成城市特色介绍，展示城市文化和旅游资源" , keyword: "城市介绍, 城市文化, 旅游推广, 城市名片" },
         { text: "病症治愈案例查询", href: "https://www.coze.cn/store/agent/7505871166184292402?bot_id=true", icon: "" , emoji:"🏥",  describ: "查询各类病症的治愈案例，获取健康参考信息" , keyword: "病症案例, 健康信息, 医疗参考, 康复经验" }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小吃配方网站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>小吃配方网站</h1>
+        <p>发现美味小吃的制作方法</p>
+    </header>
+
+    <main class="main-container">
+        <aside class="categories-sidebar">
+            <h2>分类导航</h2>
+            <div class="primary-categories" id="primaryCategories">
+                <!-- 一级分类将通过JavaScript动态生成 -->
+            </div>
+        </aside>
+
+        <section class="recipe-content">
+            <div class="secondary-categories" id="secondaryCategories">
+                <!-- 二级分类将通过JavaScript动态生成 -->
+            </div>
+
+            <div class="recipes-grid" id="recipesGrid">
+                <!-- 配方列表将通过JavaScript动态生成 -->
+            </div>
+        </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
