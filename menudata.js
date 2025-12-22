@@ -76,7 +76,8 @@ const menuData = {
         { text: "中国美术史", href: "/edu/cnart.html", icon: "" , emoji:"🏮",  describ: "中国美术发展历程和重要流派、作品介绍" , keyword: "中国美术史, 绘画, 书法, 艺术流派" },
         { text: "国画口诀汇总", href: "/edu/guohuakoujue.html", icon: "" , emoji:"🐉",  describ: "国画绘画技巧和创作秘诀的口诀式总结" , keyword: "国画, 绘画技巧, 口诀, 艺术创作" },
         { text: "历代画家汇集", href: "/edu/huajia-huiji.html", icon: "" , emoji:"🖼️",  describ: "梳理历代画家代表人物与风格" , keyword: "画家, 历代, 山水, 花鸟" },
-         { text: "中国美术史百幅名画", href: "/gallery/index.html", icon: "" , emoji:"🖼️",  describ: "100幅中国名画" , keyword: "" },
+        { text: "人体肌肉学习笔记", href: "/muscle/index.html", icon: "" , emoji:"💪",  describ: "快速查询肌肉起始点，辅助记忆掌握人体部位肌群肌肉" , keyword: "肌肉, 人体结构, 肌群, 艺用人体" },
+          { text: "中国美术史百幅名画", href: "/gallery/index.html", icon: "" , emoji:"🖼️",  describ: "100幅中国名画" , keyword: "" },
          { text: "电子书库", href: "/library/index.html", icon: "" , emoji:"📚",  describ: "100本电子书" , keyword: "" }
       ]
     },

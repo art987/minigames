@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>肌肉速查·智能导航版</title>
+<style>
+:root{--theme:#3f51b5;--gap:10px;--nav:90px;--radius:6px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei";background:#f5f5f5;color:#222;-webkit-tap-highlight-color:transparent}
+.top{position:fixed;top:0;left:0;right:0;height:44px;background: #333;color:#fff;display:flex;align-items:center;padding:0 var(--gap);z-index:9}
+.top button{background:none;border:none;color:#fff;font-size:22px;padding:4px}
+.top h1{flex:1;text-align:center;font-size:17px;font-weight:600}
+.picker{display: none;gap:5px;padding:var(--gap);background:#fff;position:sticky;top:44px;z-index:8}
+.picker select{flex:1;font-size:14px;padding:8px;border:1px solid #ddd;border-radius:var(--radius)}
+.search{padding:0 var(--gap) var(--gap)}
+.search input{width:100%;font-size:14px;padding:8px 10px;border:1px solid #ddd;border-radius:var(--radius)}
+.main{margin-left:var(--nav);padding:0 var(--gap) calc(44px + var(--gap))}
+/* 左侧导航 */
+.nav{position:fixed;left:0;top:44px;bottom:0;width:var(--nav);background:#fff;border-right:1px solid #e5e5e5;overflow-y:auto;padding:var(--gap) 4px}
+.nav-part{font-size:15px;font-weight:600;padding:10px 4px 4px;cursor:pointer}
+.nav-group{font-size:12px;padding: 10px 4px 10px 6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s}
+.nav-group.active{color: #fff;font-weight:600;background: #e70000;}
+/* 列表标题 */
+.part-title{background: #ffffff;color: #000000;padding: 6px 12px;font-size: 20px;font-weight:600;position:sticky;top:44px;z-index:7}
+.group-title{background: #f7f7f7;color: #1b1b1b;padding: 9px 12px;font-size: 17px;font-weight: 600;position:sticky;text-indent: 15px;top:77px;z-index:6}
+/* 肌肉卡片 */
+.card{background:#fff;border-radius:var(--radius);margin-bottom:var(--gap);box-shadow:0 1px 2px rgba(0,0,0,.08);padding:10px 12px;font-size:14px;line-height:1.4}
+.card-head{display:flex;justify-content:space-between;align-items:baseline}
+.muscle{font-weight:600;font-size:15px}
+.meta{font-size:12px;color:#666;white-space:nowrap}
+.row{margin-top: 11px;display:flex;align-items:center;margin-bottom: 7px;}
+.label{color:#666;margin-right:6px;flex-shrink:0}
+.start{color:#e53935;font-weight:500}
+.end{color: #009a22;font-weight:500}
+.action{font-size:12px;color: #202020;margin-top:4px}
+mark{background:#ffeb3b;color:#000}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button id="menuBtn">☰</button>
+  <h1>肌肉速查·智能导航版</h1>
+</header>
+
+<div class="picker">
+  <select id="sel1"><option value="">部位</option></select>
+  <select id="sel2"><option value="">肌群</option></select>
+  <select id="sel3"><option value="">肌肉</option></select>
+</div>
+
+<div class="search">
+  <input id="search" placeholder="搜索肌肉 / 作用 / 部位">
+</div>
+
+<!-- 左侧固定导航 -->
+<aside class="nav" id="nav"></aside>
+
+<!-- 主内容区 -->
+<main class="main" id="list"></main>
+
+<script>
+/* ================= 完整数据（同前） ================= */
+const muscleData = [
+/* 头颈 */
+{part:"头颈",group:"颅面肌",name:"枕额肌",start:"枕骨上项线",end:"额部皮肤",action:"提眉/张冠"},
+{part:"头颈",group:"颅面肌",name:"额肌",start:"额骨前面",end:"眉部皮肤",action:"提眉皱额"},
+{part:"头颈",group:"颅面肌",name:"眼轮匝肌",start:"眶周额骨泪骨",end:"眼睑皮肤",action:"闭眼"},
+{part:"头颈",group:"颅面肌",name:"口轮匝肌",start:"口角上下缘",end:"上下唇皮肤",action:"闭口噘嘴"},
+{part:"头颈",group:"颅面肌",name:"鼻肌",start:"鼻背筋膜",end:"鼻软骨",action:"缩鼻孔"},
+{part:"头颈",group:"颅面肌",name:"耳廓肌",start:"耳周颅骨",end:"耳廓软骨",action:"拉耳"},
+{part:"头颈",group:"咀嚼肌",name:"咬肌",start:"颧弓",end:"下颌角外",action:"闭口"},
+{part:"头颈",group:"咀嚼肌",name:"颞肌",start:"颞窝",end:"下颌冠突",action:"上提/后拉下颌"},
+{part:"头颈",group:"咀嚼肌",name:"翼内肌",start:"蝶骨翼突",end:"下颌支内面",action:"上提下颌"},
+{part:"头颈",group:"咀嚼肌",name:"翼外肌",start:"蝶骨大翼+翼突外侧板",end:"下颌颈+关节盘",action:"前伸下颌"},
+{part:"头颈",group:"颈浅",name:"颈阔肌",start:"胸大肌筋膜",end:"口角下颌",action:"拉口角向下"},
+{part:"头颈",group:"颈浅",name:"胸锁乳突肌",start:"胸骨柄+锁骨头",end:"颞骨乳突",action:"单侧转头，双侧后仰"},
+{part:"头颈",group:"中层",name:"舌骨肌",start:"舌骨体",end:"下颌+胸骨",action:"降舌骨"},
+{part:"头颈",group:"深层",name:"斜角肌",start:"颈椎横突",end:"第1-2肋",action:"提肋/屈颈"},
+{part:"头颈",group:"深层",name:"头长肌",start:"寰椎横突",end:"枕骨底",action:"屈头"},
+{part:"头颈",group:"深层",name:"颈长肌",start:"第3-7颈椎体",end:"寰椎前弓",action:"屈颈"},
+
+/* 躯干 */
+{part:"躯干",group:"背浅",name:"斜方肌",start:"枕外-全部T棘突",end:"锁骨外1/3+肩峰+肩胛冈",action:"提肩收肩降肩"},
+{part:"躯干",group:"背浅",name:"背阔肌",start:"T7-L5+骶骨+髂嵴",end:"肱骨结节间沟",action:"肩伸内收内旋"},
+{part:"躯干",group:"背浅",name:"肩胛提肌",start:"C1-4横突",end:"肩胛骨上角",action:"提肩胛"},
+{part:"躯干",group:"背浅",name:"菱形肌",start:"C7-T5棘突",end:"肩胛骨内侧缘",action:"收肩胛"},
+{part:"躯干",group:"背深",name:"竖脊肌-棘肌",start:"骶骨+髂嵴",end:"胸椎棘突",action:"伸脊柱"},
+{part:"躯干",group:"背深",name:"竖脊肌-最长肌",start:"骶骨+横突",end:"颞骨乳突",action:"伸脊柱"},
+{part:"躯干",group:"背深",name:"竖脊肌-髂肋肌",start:"骶骨+髂嵴",end:"下位肋骨",action:"伸脊柱"},
+{part:"躯干",group:"背深",name:"夹肌",start:"项韧带+T棘突",end:"乳突+上项线",action:"伸头"},
+{part:"躯干",group:"胸上肢肌",name:"胸大肌",start:"锁内+胸骨+1-6肋软骨",end:"肱骨大结节嵴",action:"肩屈内收内旋"},
+{part:"躯干",group:"胸上肢肌",name:"胸小肌",start:"3-5肋骨",end:"肩胛喙突",action:"肩胛前伸下降"},
+{part:"躯干",group:"胸上肢肌",name:"前锯肌",start:"1-9肋外面",end:"肩胛内侧缘",action:"拉肩胛向前"},
+{part:"躯干",group:"胸固有肌",name:"肋间外肌",start:"上位肋下缘",end:"下位肋上缘",action:"提肋吸气"},
+{part:"躯干",group:"胸固有肌",name:"肋间内肌",start:"下位肋上缘",end:"上位肋下缘",action:"降肋呼气"},
+{part:"躯干",group:"膈肌",name:"膈肌",start:"胸骨剑突+下位肋+腰椎",end:"中心腱",action:"吸气"},
+{part:"躯干",group:"腹肌-前外侧",name:"腹直肌",start:"耻骨联合",end:"剑突+5-7肋软骨",action:"脊柱屈；增腹压"},
+{part:"躯干",group:"腹肌-前外侧",name:"腹外斜肌",start:"下8肋外面",end:"髂嵴+腹白线",action:"脊柱屈+旋转"},
+{part:"躯干",group:"腹肌-前外侧",name:"腹内斜肌",start:"髂嵴+胸腰筋膜",end:"下3肋+腹白线",action:"脊柱屈+旋转"},
+{part:"躯干",group:"腹肌-前外侧",name:"腹横肌",start:"髂嵴+胸腰筋膜",end:"腹白线",action:"增腹压"},
+{part:"躯干",group:"腹肌-后群",name:"腰方肌",start:"髂嵴",end:"L1-4横突+12肋",action:"降肋+侧屈"},
+{part:"躯干",group:"腹肌-后群",name:"腰大肌",start:"T12-L5椎体",end:"股骨小转子",action:"屈髋"},
+{part:"躯干",group:"盆底肌",name:"盆底肌",start:"耻骨+坐骨+尾骨",end:"直肠+尿道+阴道",action:"承托盆腔脏器"},
+
+/* 上肢 */
+{part:"上肢",group:"上肢带肌",name:"三角肌",start:"锁骨外1/3+肩峰+肩胛冈",end:"肱骨三角粗隆",action:"肩外展"},
+{part:"上肢",group:"上肢带肌",name:"冈上肌",start:"冈上窝",end:"肱骨大结节上",action:"肩外展15°"},
+{part:"上肢",group:"上肢带肌",name:"冈下肌",start:"冈下窝",end:"肱骨大结节中",action:"肩外旋"},
+{part:"上肢",group:"上肢带肌",name:"小圆肌",start:"肩胛骨外侧缘",end:"肱骨大结节下",action:"肩外旋"},
+{part:"上肢",group:"上肢带肌",name:"大圆肌",start:"肩胛骨外侧缘",end:"肱骨小结节嵴",action:"肩伸内收"},
+{part:"上肢",group:"上肢带肌",name:"肩胛下肌",start:"肩胛骨前面",end:"肱骨小结节",action:"肩内旋"},
+{part:"上肢",group:"上臂肌-屈",name:"肱二头肌",start:"长头-盂上；短头-喙突",end:"桡骨粗隆",action:"屈肘+旋后"},
+{part:"上肢",group:"上臂肌-屈",name:"肱肌",start:"肱骨前面",end:"尺骨粗隆",action:"屈肘"},
+{part:"上肢",group:"上臂肌-伸",name:"肱三头肌",start:"长头-盂下；内外头-肱后",end:"尺骨鹰嘴",action:"伸肘"},
+{part:"上肢",group:"上臂肌-伸",name:"肘肌",start:"肱骨外上髁",end:"尺骨后面",action:"伸肘"},
+{part:"上肢",group:"前臂肌-屈浅",name:"肱桡肌",start:"肱骨外上髁",end:"桡骨茎突",action:"屈肘"},
+{part:"上肢",group:"前臂肌-屈浅",name:"旋前圆肌",start:"肱骨内上髁",end:"桡骨外中",action:"前臂旋前"},
+{part:"上肢",group:"前臂肌-屈浅",name:"桡侧腕屈肌",start:"肱骨内上髁",end:"第2掌骨底",action:"屈腕桡偏"},
+{part:"上肢",group:"前臂肌-屈浅",name:"掌长肌",start:"肱骨内上髁",end:"掌腱膜",action:"屈腕"},
+{part:"上肢",group:"前臂肌-屈浅",name:"指浅屈肌",start:"肱骨内上髁",end:"2-5指中节",action:"屈近指关节"},
+{part:"上肢",group:"前臂肌-屈浅",name:"尺侧腕屈肌",start:"肱骨内上髁",end:"豌豆骨",action:"屈腕尺偏"},
+{part:"上肢",group:"前臂肌-屈深",name:"拇长屈肌",start:"桡骨前面",end:"拇指远节",action:"屈拇指"},
+{part:"上肢",group:"前臂肌-屈深",name:"指深屈肌",start:"尺骨前面",end:"2-5指远节",action:"屈远指关节"},
+{part:"上肢",group:"前臂肌-屈深",name:"旋前方肌",start:"尺骨前面",end:"桡骨前面",action:"前臂旋前"},
+{part:"上肢",group:"前臂肌-伸浅",name:"桡侧腕长伸肌",start:"肱骨外上髁",end:"第2掌骨底",action:"伸腕桡偏"},
+{part:"上肢",group:"前臂肌-伸浅",name:"桡侧腕短伸肌",start:"肱骨外上髁",end:"第3掌骨底",action:"伸腕"},
+{part:"上肢",group:"前臂肌-伸浅",name:"指伸肌",start:"肱骨外上髁",end:"2-5指中远节",action:"伸指"},
+{part:"上肢",group:"前臂肌-伸浅",name:"小指伸肌",start:"肱骨外上髁",end:"小指中远节",action:"伸小指"},
+{part:"上肢",group:"前臂肌-伸浅",name:"尺侧腕伸肌",start:"肱骨外上髁",end:"第5掌骨底",action:"伸腕尺偏"},
+{part:"上肢",group:"前臂肌-伸深",name:"旋后肌",start:"肱骨外上髁",end:"桡骨上1/3",action:"前臂旋后"},
+{part:"上肢",group:"前臂肌-伸深",name:"拇长展肌",start:"尺骨+桡骨后面",end:"第1掌骨底",action:"外展拇指"},
+{part:"上肢",group:"前臂肌-伸深",name:"拇短伸肌",start:"桡骨后面",end:"拇指近节",action:"伸拇指近节"},
+{part:"上肢",group:"前臂肌-伸深",name:"拇长伸肌",start:"尺骨后面",end:"拇指远节",action:"伸拇指远节"},
+{part:"上肢",group:"前臂肌-伸深",name:"示指伸肌",start:"尺骨后面",end:"示指中节",action:"伸示指"},
+{part:"上肢",group:"手肌-外侧",name:"拇短展肌",start:"屈肌支持带",end:"拇指近节",action:"外展拇指"},
+{part:"上肢",group:"手肌-外侧",name:"拇短屈肌",start:"屈肌支持带",end:"拇指近节",action:"屈拇指"},
+{part:"上肢",group:"手肌-外侧",name:"拇对掌肌",start:"屈肌支持带",end:"第1掌骨",action:"拇指对掌"},
+{part:"上肢",group:"手肌-外侧",name:"拇收肌",start:"屈肌支持带",end:"拇指近节",action:"内收拇指"},
+{part:"上肢",group:"手肌-内侧",name:"小指展肌",start:"屈肌支持带",end:"小指近节",action:"外展小趾"},
+{part:"上肢",group:"手肌-内侧",name:"小指短屈肌",start:"屈肌支持带",end:"小指近节",action:"屈小指"},
+{part:"上肢",group:"手肌-内侧",name:"小指对掌肌",start:"屈肌支持带",end:"第5掌骨",action:"小指对掌"},
+{part:"上肢",group:"手肌-中间",name:"蚓状肌",start:"指深屈肌腱",end:"指背腱膜",action:"屈掌指关节"},
+{part:"上肢",group:"手肌-中间",name:"骨间掌侧肌",start:"第2掌骨",end:"第2指近节",action:"内收手指"},
+{part:"上肢",group:"手肌-中间",name:"骨间背侧肌",start:"跖骨相对缘",end:"2-4指近节",action:"外展手指"},
+
+/* 下肢 */
+{part:"下肢",group:"下肢带肌-前",name:"髂腰肌",start:"腰大肌-腰椎；髂肌-髂窝",end:"股骨小转子",action:"屈髋"},
+{part:"下肢",group:"下肢带肌-前",name:"梨状肌",start:"骶骨前面",end:"大转子尖",action:"髋外旋"},
+{part:"下肢",group:"下肢带肌-后",name:"臀大肌",start:"骶骨+髂后",end:"股骨粗隆+髂胫束",action:"髋伸外旋"},
+{part:"下肢",group:"下肢带肌-后",name:"臀中肌",start:"髂骨翼外面",end:"大转子上面",action:"髋外展"},
+{part:"下肢",group:"下肢带肌-后",name:"臀小肌",start:"髂骨翼外面",end:"大转子前面",action:"髋外展"},
+{part:"下肢",group:"大腿前",name:"股四头肌",start:"股直-髂前下；其余-股骨",end:"髌骨→胫骨粗隆",action:"伸膝"},
+{part:"下肢",group:"大腿前",name:"缝匠肌",start:"髂前上棘",end:"胫骨上端内",action:"屈髋屈膝"},
+{part:"下肢",group:"大腿前",name:"阔筋膜张肌",start:"髂前上棘",end:"髂胫束",action:"屈髋外展"},
+{part:"下肢",group:"大腿后",name:"股二头肌",start:"长头-坐骨结节；短头-股骨粗线",end:"腓骨头",action:"伸髋屈膝"},
+{part:"下肢",group:"大腿后",name:"半腱肌",start:"坐骨结节",end:"胫骨上端内",action:"伸髋屈膝"},
+{part:"下肢",group:"大腿后",name:"半膜肌",start:"坐骨结节",end:"胫骨内侧髁",action:"伸髋屈膝"},
+{part:"下肢",group:"大腿内侧",name:"耻骨肌",start:"耻骨上支",end:"股骨粗线",action:"髋内收"},
+{part:"下肢",group:"大腿内侧",name:"长收肌",start:"耻骨前面",end:"股骨粗线",action:"髋内收"},
+{part:"下肢",group:"大腿内侧",name:"短收肌",start:"耻骨下支",end:"股骨粗线",action:"髋内收"},
+{part:"下肢",group:"大腿内侧",name:"大收肌",start:"耻骨+坐骨",end:"股骨粗线+收肌结节",action:"髋内收"},
+{part:"下肢",group:"大腿内侧",name:"股薄肌",start:"耻骨下支",end:"胫骨上端内",action:"髋内收"},
+{part:"下肢",group:"小腿前",name:"胫骨前肌",start:"胫骨外上2/3",end:"第1楔骨+第1跖骨底",action:"踝背屈+内翻"},
+{part:"下肢",group:"小腿前",name:"趾长伸肌",start:"胫骨前面",end:"2-5趾中远节",action:"伸趾+踝背屈"},
+{part:"下肢",group:"小腿前",name:"拇长伸肌",start:"腓骨前面",end:"拇趾远节",action:"伸拇趾+踝背屈"},
+{part:"下肢",group:"小腿后",name:"腓肠肌",start:"股骨内外髁",end:"跟骨（跟腱）",action:"踝跖屈"},
+{part:"下肢",group:"小腿后",name:"比目鱼肌",start:"腓骨+胫骨后面",end:"跟骨（跟腱）",action:"踝跖屈"},
+{part:"下肢",group:"小腿后",name:"趾长屈肌",start:"胫骨后面",end:"2-5趾远节",action:"屈趾+踝跖屈"},
+{part:"下肢",group:"小腿后",name:"拇长屈肌",start:"腓骨后面",end:"拇趾远节",action:"屈拇趾+踝跖屈"},
+{part:"下肢",group:"小腿后",name:"胫骨后肌",start:"胫骨+腓骨后面",end:"舟骨+楔骨",action:"踝跖屈+内翻"},
+{part:"下肢",group:"小腿外侧",name:"腓骨长肌",start:"腓骨上2/3",end:"第1楔骨+第1跖骨底",action:"踝跖屈+外翻"},
+{part:"下肢",group:"小腿外侧",name:"腓骨短肌",start:"腓骨下1/3",end:"第5跖骨粗隆",action:"踝跖屈+外翻"},
+{part:"下肢",group:"足背肌",name:"趾短伸肌",start:"跟骨上面",end:"2-4趾近节",action:"伸趾"},
+{part:"下肢",group:"足背肌",name:"拇短伸肌",start:"跟骨上面",end:"拇趾近节",action:"伸拇趾"},
+{part:"下肢",group:"足底肌-内侧",name:"拇展肌",start:"跟骨结节",end:"拇趾近节",action:"外展拇趾"},
+{part:"下肢",group:"足底肌-内侧",name:"拇短屈肌",start:"跟骨结节",end:"拇趾近节",action:"屈拇趾"},
+{part:"下肢",group:"足底肌-内侧",name:"拇收肌",start:"第2-4跖骨底",end:"拇趾近节",action:"内收拇趾"},
+{part:"下肢",group:"足底肌-外侧",name:"小趾展肌",start:"跟骨结节",end:"小趾近节",action:"外展小趾"},
+{part:"下肢",group:"足底肌-外侧",name:"小趾短屈肌",start:"跟骨结节",end:"小趾近节",action:"屈小趾"},
+{part:"下肢",group:"足底肌-外侧",name:"小趾对跖肌",start:"跟骨结节",end:"第5跖骨",action:"小趾对跖"},
+{part:"下肢",group:"足底肌-中间",name:"趾短屈肌",start:"跟骨结节",end:"2-5趾中节",action:"屈趾"},
+{part:"下肢",group:"足底肌-中间",name:"足底方肌",start:"跟骨",end:"趾长屈肌腱",action:"协助屈趾"},
+{part:"下肢",group:"足底肌-中间",name:"蚓状肌",start:"趾长屈肌腱",end:"趾背腱膜",action:"屈跖伸趾"},
+{part:"下肢",group:"足底肌-中间",name:"骨间足底肌",start:"第3-5跖骨",end:"第3-5趾近节",action:"内收趾"},
+{part:"下肢",group:"足底肌-中间",name:"骨间背侧肌",start:"跖骨相对缘",end:"2-4趾近节",action:"外展趾"}
+];
+
+/* ================= 工具 ================= */
+const $ = s => document.querySelector(s);
+function highlight(txt){
+  const q = $('#search').value.trim();
+  if(!q) return txt;
+  return txt.replace(new RegExp(`(${q})`,'gi'),'<mark>$1</mark>');
+}
+
+/* ================= 渲染左侧导航 ================= */
+function buildNav(){
+  const nav = $('#nav');
+  nav.innerHTML = '';
+  const parts = [...new Set(muscleData.map(m=>m.part))];
+  parts.forEach(p=>{
+    nav.insertAdjacentHTML('beforeend', `<div class="nav-part">${p}</div>`);
+    const groups = [...new Set(muscleData.filter(m=>m.part===p).map(m=>m.group))];
+    groups.forEach(g=>{
+      const id = `${p}-${g}`.replace(/\s+/g,'');
+      nav.insertAdjacentHTML('beforeend', `<div class="nav-group" data-goto="${id}">${g}</div>`);
+    });
+  });
+  // 点击导航 -> 平滑滚动
+  nav.addEventListener('click',e=>{
+    if(e.target.classList.contains('nav-group')){
+      const id = e.target.dataset.goto;
+      const target = document.getElementById(id);
+      if(target){
+        // 让目标位于视口中心偏上 30%
+        const rect = target.getBoundingClientRect();
+        const offset = rect.top - window.innerHeight * 0.3;
+        window.scrollBy({top: offset, behavior: 'smooth'});
+        setActiveNav(id);
+      }
+    }
+  });
+}
+
+/* ================= 主列表（含锚点） ================= */
+function render(list){
+  const box = $('#list');
+  box.innerHTML = '';
+  const parts = [...new Set(list.map(m=>m.part))];
+  parts.forEach(p=>{
+    box.insertAdjacentHTML('beforeend',`<div class="part-title">${p}</div>`);
+    const groups = [...new Set(list.filter(m=>m.part===p).map(m=>m.group))];
+    groups.forEach(g=>{
+      const id = `${p}-${g}`.replace(/\s+/g,'');
+      box.insertAdjacentHTML('beforeend',`<div class="group-title" id="${id}">${g}</div>`);
+      list.filter(m=>m.part===p && m.group===g).forEach(m=>{
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-head">
+            <span class="muscle">${highlight(m.name)}</span>
+            <span class="meta">${m.part} · ${m.group}</span>
+          </div>
+          <div class="row">
+            <span class="label">起止点</span>
+            <span><span class="start">${highlight(m.start)}</span> → <span class="end">${highlight(m.end)}</span></span>
+          </div>
+          <div class="action">${highlight(m.action)}</div>`;
+        box.appendChild(card);
+      });
+    });
+  });
+}
+
+/* ================= 滚动高亮 & 导航自动居中 ================= */
+let navGroups = [];
+let navHeight = 0;
+function initScrollSpy(){
+  navGroups = Array.from(document.querySelectorAll('.nav-group'));
+  navHeight = document.querySelector('.nav').clientHeight;
+  window.addEventListener('scroll',()=>{
+    const center = window.scrollY + window.innerHeight * 0.3;
+    let activeId = '';
+    document.querySelectorAll('.group-title').forEach(gt=>{
+      if(gt.offsetTop <= center) activeId = gt.id;
+    });
+    if(activeId) setActiveNav(activeId);
+  });
+}
+function setActiveNav(id){
+  navGroups.forEach(el=>el.classList.remove('active'));
+  const target = document.querySelector(`.nav-group[data-goto="${id}"]`);
+  if(target){
+    target.classList.add('active');
+    // 自动滚动导航使当前项居中
+    const navTop = target.offsetTop;
+    const navCenter = navHeight / 2;
+    document.querySelector('.nav').scrollTop = navTop - navCenter + target.offsetHeight / 2;
+  }
+}
+
+/* ================= 三级联动下拉 ================= */
+function initPicker(){
+  const parts = [...new Set(muscleData.map(m=>m.part))];
+  parts.forEach(p=> $('#sel1').insertAdjacentHTML('beforeend',`<option value="${p}">${p}</option>`));
+  $('#sel1').onchange = e=>{
+    $('#sel2').innerHTML = '<option value="">肌群</option>';
+    $('#sel3').innerHTML = '<option value="">肌肉</option>';
+    const p = e.target.value;
+    if(!p) return render(muscleData);
+    const groups = [...new Set(muscleData.filter(m=>m.part===p).map(m=>m.group))];
+    groups.forEach(g=> $('#sel2').insertAdjacentHTML('beforeend',`<option value="${g}">${g}</option>`));
+    render(muscleData.filter(m=>m.part===p));
+  };
+  $('#sel2').onchange = e=>{
+    $('#sel3').innerHTML = '<option value="">肌肉</option>';
+    const p=$('#sel1').value, g=e.target.value;
+    if(!g) return render(muscleData.filter(m=>m.part===p));
+    const muscles = [...new Set(muscleData.filter(m=>m.part===p && m.group===g).map(m=>m.name))];
+    muscles.forEach(n=> $('#sel3').insertAdjacentHTML('beforeend',`<option value="${n}">${n}</option>`));
+    render(muscleData.filter(m=>m.part===p && m.group===g));
+  };
+  $('#sel3').onchange = e=>{
+    const p=$('#sel1').value, g=$('#sel2').value, n=e.target.value;
+    render(muscleData.filter(m=>m.part===p && m.group===g && m.name===n));
+  };
+}
+
+/* ================= 搜索 ================= */
+$('#search').addEventListener('input',e=>{
+  const q = e.target.value.trim().toLowerCase();
+  if(!q) return render(muscleData);
+  const filtered = muscleData.filter(m=>
+    m.name.toLowerCase().includes(q) ||
+    m.part.toLowerCase().includes(q) ||
+    m.group.toLowerCase().includes(q) ||
+    m.action.toLowerCase().includes(q)
+  );
+  render(filtered);
+});
+
+/* ================= 初始化 ================= */
+buildNav();
+initPicker();
+render(muscleData);
+initScrollSpy();
+</script>
+</body>
+</html>
