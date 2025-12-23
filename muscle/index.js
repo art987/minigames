@@ -52,7 +52,7 @@ function buildNav(){
         });
         
         // 肌群标题应用指定的红色样式并保持3秒
-        target.style.background = '#dbdbdbff';
+        target.style.background = '#ffffffff';
         target.style.color = '#f40505ff';
         target.style.padding = '7px 12px';
         target.style.fontSize = '17px';
