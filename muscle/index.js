@@ -458,10 +458,14 @@ document.addEventListener('DOMContentLoaded', function() {
 let skeletonMediaList = [];
 let skeletonMediaIndex = 0;
 let skeletonVideoElement = null;
+let skeletonImageElement = null;
+let skeletonTouchStartX = 0;
 
 let muscleMediaList = [];
 let muscleMediaIndex = 0;
 let muscleVideoElement = null;
+let muscleImageElement = null;
+let muscleTouchStartX = 0;
 
 // 打开骨骼弹窗
 function openSkeletonModal() {
@@ -522,7 +526,60 @@ function updateSkeletonMediaDisplay() {
     img.src = currentMedia.url;
     img.alt = `骨骼图片 ${skeletonMediaIndex + 1}`;
     img.className = 'media-content';
+    img.style.transform = 'scale(1)';
+    img.style.transition = 'transform 0.3s ease';
+    img.style.cursor = 'zoom-in';
+    
+    // 添加图片点击缩放功能
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (img.style.transform === 'scale(1)') {
+        img.style.transform = 'scale(2)';
+        img.style.cursor = 'zoom-out';
+      } else {
+        img.style.transform = 'scale(1)';
+        img.style.cursor = 'zoom-in';
+      }
+    });
+    
+    // 添加触摸缩放功能
+    let initialDistance = 0;
+    let currentScale = 1;
+    
+    img.addEventListener('touchstart', function(e) {
+      e.stopPropagation();
+      if (e.touches.length === 2) {
+        initialDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+    });
+    
+    img.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+      if (e.touches.length === 2) {
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        
+        if (initialDistance > 0) {
+          const scale = currentDistance / initialDistance;
+          currentScale = Math.max(0.5, Math.min(3, scale));
+          img.style.transform = `scale(${currentScale})`;
+          img.style.cursor = 'zoom-out';
+        }
+      }
+    });
+    
+    img.addEventListener('touchend', function(e) {
+      e.stopPropagation();
+      initialDistance = 0;
+    });
+    
     mediaContainer.appendChild(img);
+    skeletonImageElement = img;
   } else if (currentMedia.type === 'video') {
     const video = document.createElement('video');
     video.src = currentMedia.url;
@@ -628,7 +685,60 @@ function updateMuscleMediaDisplay() {
     img.src = currentMedia.url;
     img.alt = `肌肉图片 ${muscleMediaIndex + 1}`;
     img.className = 'media-content';
+    img.style.transform = 'scale(1)';
+    img.style.transition = 'transform 0.3s ease';
+    img.style.cursor = 'zoom-in';
+    
+    // 添加图片点击缩放功能
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (img.style.transform === 'scale(1)') {
+        img.style.transform = 'scale(2)';
+        img.style.cursor = 'zoom-out';
+      } else {
+        img.style.transform = 'scale(1)';
+        img.style.cursor = 'zoom-in';
+      }
+    });
+    
+    // 添加触摸缩放功能
+    let initialDistance = 0;
+    let currentScale = 1;
+    
+    img.addEventListener('touchstart', function(e) {
+      e.stopPropagation();
+      if (e.touches.length === 2) {
+        initialDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+    });
+    
+    img.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+      if (e.touches.length === 2) {
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        
+        if (initialDistance > 0) {
+          const scale = currentDistance / initialDistance;
+          currentScale = Math.max(0.5, Math.min(3, scale));
+          img.style.transform = `scale(${currentScale})`;
+          img.style.cursor = 'zoom-out';
+        }
+      }
+    });
+    
+    img.addEventListener('touchend', function(e) {
+      e.stopPropagation();
+      initialDistance = 0;
+    });
+    
     mediaContainer.appendChild(img);
+    muscleImageElement = img;
   } else if (currentMedia.type === 'video') {
     const video = document.createElement('video');
     video.src = currentMedia.url;
@@ -697,6 +807,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // 添加骨骼弹窗触摸滑动事件
+  const skeletonModal = $('#skeletonModal');
+  skeletonModal.addEventListener('touchstart', function(e) {
+    skeletonTouchStartX = e.touches[0].clientX;
+  });
+  
+  skeletonModal.addEventListener('touchmove', function(e) {
+    if (!skeletonTouchStartX) return;
+    
+    const touchEndX = e.touches[0].clientX;
+    const diffX = skeletonTouchStartX - touchEndX;
+    
+    // 滑动距离大于50px时触发切换
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // 向左滑动，显示下一个
+        skeletonNextMedia();
+      } else {
+        // 向右滑动，显示上一个
+        skeletonPrevMedia();
+      }
+      skeletonTouchStartX = null; // 重置触摸状态
+    }
+  });
+  
+  skeletonModal.addEventListener('touchend', function() {
+    skeletonTouchStartX = null;
+  });
+  
   // 肌肉弹窗事件
   $('#musclePrevBtn').addEventListener('click', musclePrevMedia);
   $('#muscleNextBtn').addEventListener('click', muscleNextMedia);
@@ -704,6 +843,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.target === this) {
       closeMuscleModal();
     }
+  });
+  
+  // 添加肌肉弹窗触摸滑动事件
+  const muscleModal = $('#muscleModal');
+  muscleModal.addEventListener('touchstart', function(e) {
+    muscleTouchStartX = e.touches[0].clientX;
+  });
+  
+  muscleModal.addEventListener('touchmove', function(e) {
+    if (!muscleTouchStartX) return;
+    
+    const touchEndX = e.touches[0].clientX;
+    const diffX = muscleTouchStartX - touchEndX;
+    
+    // 滑动距离大于50px时触发切换
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // 向左滑动，显示下一个
+        muscleNextMedia();
+      } else {
+        // 向右滑动，显示上一个
+        musclePrevMedia();
+      }
+      muscleTouchStartX = null; // 重置触摸状态
+    }
+  });
+  
+  muscleModal.addEventListener('touchend', function() {
+    muscleTouchStartX = null;
   });
   
   // ESC键关闭所有弹窗
