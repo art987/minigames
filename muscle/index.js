@@ -526,29 +526,46 @@ function updateSkeletonMediaDisplay() {
     img.src = currentMedia.url;
     img.alt = `骨骼图片 ${skeletonMediaIndex + 1}`;
     img.className = 'media-content';
-    img.style.transform = 'scale(1)';
-    img.style.transition = 'transform 0.3s ease';
+    img.style.transform = 'scale(1) translate(0px, 0px)';
+    img.style.transition = 'transform 0.1s ease';
     img.style.cursor = 'zoom-in';
+    
+    // 图片状态变量
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+    let currentScale = 1;
     
     // 添加图片点击缩放功能
     img.addEventListener('click', function(e) {
       e.stopPropagation();
-      if (img.style.transform === 'scale(1)') {
-        img.style.transform = 'scale(2)';
-        img.style.cursor = 'zoom-out';
+      if (currentScale === 1) {
+        currentScale = 2;
+        img.style.cursor = 'grab';
       } else {
-        img.style.transform = 'scale(1)';
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
         img.style.cursor = 'zoom-in';
       }
+      updateImageTransform();
     });
     
     // 添加触摸缩放功能
     let initialDistance = 0;
-    let currentScale = 1;
     
     img.addEventListener('touchstart', function(e) {
       e.stopPropagation();
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1) {
+        // 单指触摸：开始拖拽
+        isDragging = true;
+        startX = e.touches[0].clientX - translateX;
+        startY = e.touches[0].clientY - translateY;
+        if (currentScale > 1) {
+          img.style.cursor = 'grabbing';
+        }
+      } else if (e.touches.length === 2) {
+        // 双指触摸：开始缩放
         initialDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -558,7 +575,22 @@ function updateSkeletonMediaDisplay() {
     
     img.addEventListener('touchmove', function(e) {
       e.stopPropagation();
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1 && isDragging && currentScale > 1) {
+        // 单指移动：拖拽图片
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        
+        translateX = currentX - startX;
+        translateY = currentY - startY;
+        
+        // 限制移动范围，避免图片移出可视区域
+        const maxTranslate = (currentScale - 1) * 100;
+        translateX = Math.max(-maxTranslate, Math.min(maxTranslate, translateX));
+        translateY = Math.max(-maxTranslate, Math.min(maxTranslate, translateY));
+        
+        updateImageTransform();
+      } else if (e.touches.length === 2) {
+        // 双指移动：缩放图片
         const currentDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -567,16 +599,27 @@ function updateSkeletonMediaDisplay() {
         if (initialDistance > 0) {
           const scale = currentDistance / initialDistance;
           currentScale = Math.max(0.5, Math.min(3, scale));
-          img.style.transform = `scale(${currentScale})`;
-          img.style.cursor = 'zoom-out';
+          img.style.cursor = 'grab';
+          updateImageTransform();
         }
       }
     });
     
     img.addEventListener('touchend', function(e) {
       e.stopPropagation();
+      isDragging = false;
       initialDistance = 0;
+      if (currentScale > 1) {
+        img.style.cursor = 'grab';
+      } else {
+        img.style.cursor = 'zoom-in';
+      }
     });
+    
+    // 更新图片变换
+    function updateImageTransform() {
+      img.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+    }
     
     mediaContainer.appendChild(img);
     skeletonImageElement = img;
@@ -685,29 +728,46 @@ function updateMuscleMediaDisplay() {
     img.src = currentMedia.url;
     img.alt = `肌肉图片 ${muscleMediaIndex + 1}`;
     img.className = 'media-content';
-    img.style.transform = 'scale(1)';
-    img.style.transition = 'transform 0.3s ease';
+    img.style.transform = 'scale(1) translate(0px, 0px)';
+    img.style.transition = 'transform 0.1s ease';
     img.style.cursor = 'zoom-in';
+    
+    // 图片状态变量
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+    let currentScale = 1;
     
     // 添加图片点击缩放功能
     img.addEventListener('click', function(e) {
       e.stopPropagation();
-      if (img.style.transform === 'scale(1)') {
-        img.style.transform = 'scale(2)';
-        img.style.cursor = 'zoom-out';
+      if (currentScale === 1) {
+        currentScale = 2;
+        img.style.cursor = 'grab';
       } else {
-        img.style.transform = 'scale(1)';
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
         img.style.cursor = 'zoom-in';
       }
+      updateImageTransform();
     });
     
     // 添加触摸缩放功能
     let initialDistance = 0;
-    let currentScale = 1;
     
     img.addEventListener('touchstart', function(e) {
       e.stopPropagation();
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1) {
+        // 单指触摸：开始拖拽
+        isDragging = true;
+        startX = e.touches[0].clientX - translateX;
+        startY = e.touches[0].clientY - translateY;
+        if (currentScale > 1) {
+          img.style.cursor = 'grabbing';
+        }
+      } else if (e.touches.length === 2) {
+        // 双指触摸：开始缩放
         initialDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -717,7 +777,22 @@ function updateMuscleMediaDisplay() {
     
     img.addEventListener('touchmove', function(e) {
       e.stopPropagation();
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1 && isDragging && currentScale > 1) {
+        // 单指移动：拖拽图片
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        
+        translateX = currentX - startX;
+        translateY = currentY - startY;
+        
+        // 限制移动范围，避免图片移出可视区域
+        const maxTranslate = (currentScale - 1) * 100;
+        translateX = Math.max(-maxTranslate, Math.min(maxTranslate, translateX));
+        translateY = Math.max(-maxTranslate, Math.min(maxTranslate, translateY));
+        
+        updateImageTransform();
+      } else if (e.touches.length === 2) {
+        // 双指移动：缩放图片
         const currentDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -726,16 +801,27 @@ function updateMuscleMediaDisplay() {
         if (initialDistance > 0) {
           const scale = currentDistance / initialDistance;
           currentScale = Math.max(0.5, Math.min(3, scale));
-          img.style.transform = `scale(${currentScale})`;
-          img.style.cursor = 'zoom-out';
+          img.style.cursor = 'grab';
+          updateImageTransform();
         }
       }
     });
     
     img.addEventListener('touchend', function(e) {
       e.stopPropagation();
+      isDragging = false;
       initialDistance = 0;
+      if (currentScale > 1) {
+        img.style.cursor = 'grab';
+      } else {
+        img.style.cursor = 'zoom-in';
+      }
     });
+    
+    // 更新图片变换
+    function updateImageTransform() {
+      img.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+    }
     
     mediaContainer.appendChild(img);
     muscleImageElement = img;
@@ -819,8 +905,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const touchEndX = e.touches[0].clientX;
     const diffX = skeletonTouchStartX - touchEndX;
     
-    // 滑动距离大于50px时触发切换
-    if (Math.abs(diffX) > 50) {
+    // 优化灵敏度：滑动距离大于20px时触发切换
+    if (Math.abs(diffX) > 20) {
       if (diffX > 0) {
         // 向左滑动，显示下一个
         skeletonNextMedia();
@@ -857,8 +943,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const touchEndX = e.touches[0].clientX;
     const diffX = muscleTouchStartX - touchEndX;
     
-    // 滑动距离大于50px时触发切换
-    if (Math.abs(diffX) > 50) {
+    // 优化灵敏度：滑动距离大于20px时触发切换
+    if (Math.abs(diffX) > 20) {
       if (diffX > 0) {
         // 向左滑动，显示下一个
         muscleNextMedia();
