@@ -6,6 +6,11 @@ function highlight(txt){
   return txt.replace(new RegExp(`(${q})`,'gi'),'<mark>$1</mark>');
 }
 
+// 全局变量跟踪当前选中的肌群
+let currentActiveGroup = null;
+// 全局变量跟踪当前滚动激活的肌群标题
+let currentScrollActiveGroup = null;
+
 /* ================= 渲染左侧导航 ================= */
 function buildNav(){
   const nav = $('#nav');
@@ -19,53 +24,64 @@ function buildNav(){
       nav.insertAdjacentHTML('beforeend', `<div class="nav-group" data-goto="${id}">${g}</div>`);
     });
   });
-  // 点击导航 -> 平滑滚动 + 发光
-  nav.addEventListener('click',e=>{
-    if(e.target.classList.contains('nav-group')){
-      const id = e.target.dataset.goto;
+  // 为每个导航项单独绑定点击事件
+  const navGroups = document.querySelectorAll('.nav-group');
+  navGroups.forEach(navItem => {
+    navItem.addEventListener('click', () => {
+      const id = navItem.dataset.goto;
       const target = document.getElementById(id);
       if(target){
         // 更新导航菜单的active状态
-        document.querySelectorAll('.nav-group').forEach(el => el.classList.remove('active'));
-        e.target.classList.add('active');
+        navGroups.forEach(el => el.classList.remove('active'));
+        navItem.classList.add('active');
         
-        // 计算目标位置，确保肌群标题滚动到部位标题正下方（最顶部可见位置）
-        const headerHeight = 44; // 顶部固定导航高度
-        const partTitleHeight = 32; // part-title高度（sticky定位在header下方）
-        const targetOffset = target.offsetTop;
-        const scrollPosition = targetOffset - headerHeight - partTitleHeight; // 精确计算，肌群标题紧贴部位标题下方
+        // 最简单可靠的滚动方法：使用offsetTop
+        const headerHeight = 44; // 固定头部高度
+        const partTitleHeight = 32; // 部位标题高度
+        const containerOffset = 8; // 分组容器向下偏移量，避免被部位标题挡住
         
+        // 直接使用offsetTop计算滚动位置，添加8像素向下偏移
+        const scrollPosition = target.offsetTop - headerHeight - partTitleHeight - containerOffset;
+        
+
+        
+        // 直接滚动到目标位置
         window.scrollTo({
-          top: scrollPosition,
+          top: Math.max(0, scrollPosition),
           behavior: 'smooth'
         });
         
-        // 自动滚动导航使当前项居中显示（垂直方向中间位置）
+        // 如果之前有选中的肌群，恢复其原本样式
+        if(currentActiveGroup && currentActiveGroup !== target){
+          currentActiveGroup.style.background = 'linear-gradient(135deg, #000000 0%, #aeaeae 100%)';
+          currentActiveGroup.style.color = '#ffffffff';
+          currentActiveGroup.style.padding = '12px 16px';
+          currentActiveGroup.style.fontSize = '16px';
+          currentActiveGroup.style.borderRadius = '10px 10px 0 0';
+        }
+        
+        // 应用新的选中样式
+        target.style.background = 'linear-gradient(135deg, #f90e0e 0%, #ae68f6 100%)';
+        target.style.color = '#ffffff';
+        target.style.padding = '12px 16px';
+        target.style.fontSize = '16px';
+        target.style.borderRadius = '10px 10px 0 0';
+        
+        // 更新当前选中的肌群
+        currentActiveGroup = target;
+        
+        // 自动滚动导航使当前项居中显示
         const navEl = document.querySelector('.nav');
         const navHeight = navEl.clientHeight;
-        const targetHeight = e.target.offsetHeight;
-        const targetOffsetTop = e.target.offsetTop;
+        const targetHeight = navItem.offsetHeight;
+        const targetOffsetTop = navItem.offsetTop;
         const desiredScrollTop = targetOffsetTop - (navHeight / 2) + (targetHeight / 2);
         navEl.scrollTo({
           top: Math.max(0, desiredScrollTop),
           behavior: 'smooth'
         });
-        
-        // 肌群标题应用指定的红色样式并保持3秒
-        target.style.background = '#ffffffff';
-        target.style.color = '#f40505ff';
-        target.style.padding = '7px 12px';
-        target.style.fontSize = '17px';
-        
-        // 3秒后通过动画渐变恢复原本样式
-        setTimeout(()=>{
-          target.style.background = '#f7f7f7';
-          target.style.color = '#1b1b1b';
-          target.style.padding = '7px 12px';
-          target.style.fontSize = '17px';
-        }, 2000);
       }
-    }
+    });
   });
 }
 
@@ -76,10 +92,26 @@ function render(list){
   const parts = [...new Set(list.map(m=>m.part))];
   parts.forEach(p=>{
     box.insertAdjacentHTML('beforeend',`<div class="part-title">${p}</div>`);
-    const groups = [...new Set(list.filter(m=>m.part===p).map(m=>m.group))];
+    // 保持肌群在数据中的原始顺序
+    const groups = [];
+    const seenGroups = new Set();
+    list.filter(m=>m.part===p).forEach(m=>{
+      if(!seenGroups.has(m.group)){
+        seenGroups.add(m.group);
+        groups.push(m.group);
+      }
+    });
     groups.forEach(g=>{
       const id = `${p}-${g}`.replace(/\s+/g,'');
-      box.insertAdjacentHTML('beforeend',`<div class="group-title" id="${id}">${g}</div>`);
+      // 创建肌群分组容器
+      const groupContainer = document.createElement('div');
+      groupContainer.className = 'group-container';
+      groupContainer.innerHTML = `<div class="group-title" id="${id}">${g}</div>`;
+      
+      // 创建肌肉卡片容器
+      const cardsContainer = document.createElement('div');
+      cardsContainer.className = 'cards-container';
+      
       list.filter(m=>m.part===p && m.group===g).forEach(m=>{
         const card = document.createElement('div');
         card.className = 'card';
@@ -93,8 +125,11 @@ function render(list){
             <span><span class="start">${highlight(m.start)}</span> → <span class="end">${highlight(m.end)}</span></span>
           </div>
           <div class="action">${highlight(m.action)}</div>`;
-        box.appendChild(card);
+        cardsContainer.appendChild(card);
       });
+      
+      groupContainer.appendChild(cardsContainer);
+      box.appendChild(groupContainer);
     });
   });
 }
@@ -137,6 +172,30 @@ function setActiveNav(id){
   const target = document.querySelector(`.nav-group[data-goto="${id}"]`);
   if(target){
     target.classList.add('active');
+    
+    // 更新肌群标题样式
+    const groupTitle = document.getElementById(id);
+    if(groupTitle && groupTitle !== currentScrollActiveGroup){
+      // 恢复之前滚动激活的肌群标题样式
+      if(currentScrollActiveGroup){
+        currentScrollActiveGroup.style.background = 'linear-gradient(135deg, #000000 0%, #aeaeae 100%)';
+        currentScrollActiveGroup.style.color = '#ffffffff';
+        currentScrollActiveGroup.style.padding = '12px 16px';
+        currentScrollActiveGroup.style.fontSize = '16px';
+        currentScrollActiveGroup.style.borderRadius = '10px 10px 0 0';
+      }
+      
+      // 应用新的滚动激活样式
+      groupTitle.style.background = 'linear-gradient(135deg, #f90e0e 0%, #ae68f6 100%)';
+      groupTitle.style.color = '#ffffff';
+      groupTitle.style.padding = '12px 16px';
+      groupTitle.style.fontSize = '16px';
+      groupTitle.style.borderRadius = '10px 10px 0 0';
+      
+      // 更新当前滚动激活的肌群标题
+      currentScrollActiveGroup = groupTitle;
+    }
+    
     // 自动滚动导航使当前项居中显示（垂直方向中间位置）
     const navEl = document.querySelector('.nav');
     const navHeight = navEl.clientHeight;
