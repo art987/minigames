@@ -22,6 +22,66 @@
 <!-- 主内容区 -->
 <main class="main" id="list"></main>
 
+<!-- 媒体弹窗 -->
+<div id="mediaModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-header">
+      <h3 id="modalTitle"></h3>
+    </div>
+    <div class="modal-body">
+      <div id="mediaContainer"></div>
+    </div>
+    <div class="modal-footer">
+      <button id="prevBtn" class="nav-btn">上一个</button>
+      <span id="mediaCounter">1 / 1</span>
+      <button id="nextBtn" class="nav-btn">下一个</button>
+    </div>
+  </div>
+</div>
+
+<!-- 浮动按钮 -->
+<div class="floating-buttons">
+  <button class="floating-btn bone-btn" id="boneBtn">骨</button>
+  <button class="floating-btn muscle-btn" id="muscleBtn">肌</button>
+</div>
+
+<!-- 骨骼弹窗 -->
+<div id="skeletonModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeSkeletonModal()">&times;</span>
+    <div class="modal-header">
+      <h3 id="skeletonModalTitle">骨骼图集</h3>
+    </div>
+    <div class="modal-body">
+      <div id="skeletonMediaContainer"></div>
+    </div>
+    <div class="modal-footer">
+      <button id="skeletonPrevBtn" class="nav-btn">上一个</button>
+      <span id="skeletonMediaCounter">1 / 1</span>
+      <button id="skeletonNextBtn" class="nav-btn">下一个</button>
+    </div>
+  </div>
+</div>
+
+<!-- 肌肉弹窗 -->
+<div id="muscleModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeMuscleModal()">&times;</span>
+    <div class="modal-header">
+      <h3 id="muscleModalTitle">肌肉图集</h3>
+    </div>
+    <div class="modal-body">
+      <div id="muscleMediaContainer"></div>
+    </div>
+    <div class="modal-footer">
+      <button id="musclePrevBtn" class="nav-btn">上一个</button>
+      <span id="muscleMediaCounter">1 / 1</span>
+      <button id="muscleNextBtn" class="nav-btn">下一个</button>
+    </div>
+  </div>
+</div>
+
 <script src="data.js"></script>
 <script src="index.js"></script>
 </body>

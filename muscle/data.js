@@ -1,4 +1,28 @@
-// data.js
+// data.js  ,"images":["medias/.jpg"],"videos":["medias/.mp4"]
+
+// 骨骼和肌肉整体媒体数据配置
+const skeletonMedia = {
+  images: ["medias/gu/gu0.jpg","medias/gu/gu1.jpg", "medias/gu/gu2.jpg", "medias/gu/gu3.jpg", "medias/gu/gu4.jpg", "medias/gu/gu5.jpg", "medias/gu/gu6.jpg"],
+    // 示例："medias/skeleton_1.jpg",
+    // 示例："medias/skeleton_2.jpg"
+  
+  videos: [
+    // 示例："medias/skeleton_video_1.mp4",
+    // 示例："medias/skeleton_video_2.mp4"
+  ]
+};
+
+const muscleMedia = {
+  images: [
+    // 示例："medias/muscle_1.jpg",
+    // 示例："medias/muscle_2.jpg"
+  ],
+  videos: [
+    // 示例："medias/muscle_video_1.mp4",
+    // 示例："medias/muscle_video_2.mp4"
+  ]
+};
+
 const muscleData = [
 /* 头颈 */
 {"part":"头颈","group":"颅面肌群","name":"枕额肌","start":"枕骨上项线","end":"额部皮肤","action":"提眉/张冠"},
@@ -11,22 +35,22 @@ const muscleData = [
 {"part":"头颈","group":"咀嚼肌群","name":"颞肌","start":"颞窝","end":"下颌冠突","action":"上提/后拉下颌"},
 {"part":"头颈","group":"咀嚼肌群","name":"翼内肌","start":"蝶骨翼突","end":"下颌支内面","action":"上提下颌"},
 {"part":"头颈","group":"咀嚼肌群","name":"翼外肌","start":"蝶骨大翼+翼突外侧板","end":"下颌颈+关节盘","action":"前伸下颌"},
-{"part":"头颈","group":"颈浅层肌群","name":"颈阔肌","start":"胸大肌筋膜","end":"口角下颌","action":"拉口角向下"},
-{"part":"头颈","group":"颈浅层肌群","name":"胸锁乳突肌","start":"胸骨柄+锁骨头","end":"颞骨乳突","action":"单侧转头，双侧后仰"},
+{"part":"头颈","group":"颈浅层肌群","name":"颈阔肌","start":"胸大肌筋膜","end":"口角下颌","action":"拉口角向下","videos":["medias/jingkuoji.mp4"]},
+{"part":"头颈","group":"颈浅层肌群","name":"胸锁乳突肌","start":"胸骨柄+锁骨头","end":"颞骨乳突","action":"单侧转头，双侧后仰","videos":["medias/chelock.mp4"]},
 {"part":"头颈","group":"舌骨上肌群","name":"舌骨肌","start":"舌骨体","end":"下颌+胸骨","action":"降舌骨"},
 {"part":"头颈","group":"颈深层肌群","name":"斜角肌","start":"颈椎横突","end":"第1-2肋","action":"提肋/屈颈"},
 {"part":"头颈","group":"颈深层肌群","name":"头长肌","start":"寰椎横突","end":"枕骨底","action":"屈头"},
 {"part":"头颈","group":"颈深层肌群","name":"颈长肌","start":"第3-7颈椎体","end":"寰椎前弓","action":"屈颈"},
 
 /* 躯干 */
-{"part":"躯干","group":"背浅层肌群","name":"斜方肌","start":"枕外-全部T棘突","end":"锁骨外1/3+肩峰+肩胛冈","action":"提肩收肩降肩"},
-{"part":"躯干","group":"背浅层肌群","name":"背阔肌","start":"T7-L5+骶骨+髂嵴","end":"肱骨结节间沟","action":"肩伸内收内旋"},
+{"part":"躯干","group":"背浅层肌群","name":"斜方肌","start":"枕外-全部T棘突","end":"锁骨外1/3+肩峰+肩胛冈","action":"提肩收肩降肩","videos":["medias/xiefangji1.mp4","medias/xiefangji2.mp4"]},
+{"part":"躯干","group":"背浅层肌群","name":"背阔肌","start":"T7-L5+骶骨+髂嵴","end":"肱骨结节间沟","action":"肩伸内收内旋","videos":["medias/beiqi1.mp4","medias/beiqi2.mp4"]},
 {"part":"躯干","group":"背浅层肌群","name":"肩胛提肌","start":"C1-4横突","end":"肩胛骨上角","action":"提肩胛"},
 {"part":"躯干","group":"背浅层肌群","name":"菱形肌","start":"C7-T5棘突","end":"肩胛骨内侧缘","action":"收肩胛"},
-{"part":"躯干","group":"背深层肌群","name":"竖脊肌-棘肌","start":"骶骨+髂嵴","end":"胸椎棘突","action":"伸脊柱"},
+{"part":"躯干","group":"背深层肌群","name":"竖脊肌-棘肌","start":"骶骨+髂嵴","end":"胸椎棘突","action":"伸脊柱","videos":["medias/shuji.mp4"]},
 {"part":"躯干","group":"背深层肌群","name":"竖脊肌-最长肌","start":"骶骨+横突","end":"颞骨乳突","action":"伸脊柱"},
 {"part":"躯干","group":"背深层肌群","name":"竖脊肌-髂肋肌","start":"骶骨+髂嵴","end":"下位肋骨","action":"伸脊柱"},
-{"part":"躯干","group":"背深层肌群","name":"夹肌","start":"项韧带+T棘突","end":"乳突+上项线","action":"伸头"},
+{"part":"躯干","group":"背深层肌群","name":"夹肌","start":"项韧带+T棘突","end":"乳突+上项线","action":"伸头","videos":["medias/guai1.mp4"]},
 {"part":"躯干","group":"胸上肢肌群","name":"胸大肌","start":"锁内+胸骨+1-6肋软骨","end":"肱骨大结节嵴","action":"肩屈内收内旋"},
 {"part":"躯干","group":"胸上肢肌群","name":"胸小肌","start":"3-5肋骨","end":"肩胛喙突","action":"肩胛前伸下降"},
 {"part":"躯干","group":"胸上肢肌群","name":"前锯肌","start":"1-9肋外面","end":"肩胛内侧缘","action":"拉肩胛向前"},
@@ -82,7 +106,6 @@ const muscleData = [
 {"part":"上肢","group":"手肌中间群","name":"骨间掌侧肌","start":"第2掌骨","end":"第2指近节","action":"内收手指"},
 {"part":"上肢","group":"手肌中间群","name":"骨间背侧肌","start":"跖骨相对缘","end":"2-4指近节","action":"外展手指"},
 
-/* 下肢 */
 {"part":"下肢","group":"髋肌前群","name":"髂腰肌","start":"腰大肌-腰椎；髂肌-髂窝","end":"股骨小转子","action":"屈髋"},
 {"part":"下肢","group":"髋肌前群","name":"梨状肌","start":"骶骨前面","end":"大转子尖","action":"髋外旋"},
 {"part":"下肢","group":"髋肌后群","name":"臀大肌","start":"骶骨+髂后","end":"股骨粗隆+髂胫束","action":"髋伸外旋"},
@@ -119,7 +142,7 @@ const muscleData = [
 {"part":"下肢","group":"足底肌外侧群","name":"小趾对跖肌","start":"跟骨结节","end":"第5跖骨","action":"小趾对跖"},
 {"part":"下肢","group":"足底肌中间群","name":"趾短屈肌","start":"跟骨结节","end":"2-5趾中节","action":"屈趾"},
 {"part":"下肢","group":"足底肌中间群","name":"足底方肌","start":"跟骨","end":"趾长屈肌腱","action":"协助屈趾"},
-{"part":"下肢","group":"足底肌中间群","name":"蚓状肌","start":"趾长屈肌腱","end":"趾背腱膜","action":"屈跖伸趾"},
-{"part":"下肢","group":"足底肌中间群","name":"骨间足底肌","start":"第3-5跖骨","end":"第3-5趾近节","action":"内收趾"},
-{"part":"下肢","group":"足底肌中间群","name":"骨间背侧肌","start":"跖骨相对缘","end":"2-4趾近节","action":"外展趾"}
+{"part":"下肢","group":"足底肌中间群","name":"蚓状肌","start":"趾长屈肌腱","end":"趾背腱膜","action":"屈跖趾关节+伸趾间关节"},
+{"part":"下肢","group":"足底肌中间群","name":"骨间足底肌","start":"第3-5跖骨","end":"3-5趾近节","action":"内收3-5趾"},
+{"part":"下肢","group":"足底肌中间群","name":"骨间背侧肌","start":"跖骨","end":"2-4趾近节","action":"外展2-4趾"}
 ];
