@@ -77,7 +77,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Aria
 .row{margin-top: 11px;display:flex;align-items:center;margin-bottom: 7px;}
 .label{color:#666;margin-right:6px;flex-shrink:0}
 .start{color:#e53935;font-weight:500}
-.end{color: #009a22;font-weight:500}
+.end{color: #571cdf;font-weight:500}
 .action{font-size:12px;color: #2c3e50;margin-top:4px;line-height:1.5}
 mark{background:#ffeb3b;color:#000}
 
@@ -185,7 +185,6 @@ mark{background:#ffeb3b;color:#000}
   flex: 1;
   padding: 20px 30px;
   display: flex;
-  align-items: center;
   justify-content: center;
   min-height: 300px;
   max-height: calc(95vh - 20px);
@@ -232,8 +231,6 @@ mark{background:#ffeb3b;color:#000}
 }
 
 .nav-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgb(249, 14, 14) 0%, rgb(174, 104, 246) 100%);
-  transform: translateY(-1px);
 }
 
 .nav-btn:disabled {
@@ -244,8 +241,60 @@ mark{background:#ffeb3b;color:#000}
 
 #mediaCounter {
   font-size: 16px;
-  color: #000000;
+  color: #ffffff;
   font-weight: 500;
+}
+
+/* 浮动导航按钮样式 */
+.floating-nav-btn {
+  position: absolute;
+  top: 40%;
+  text-shadow: 0 0 19px #ffffff;
+  width: 34px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  padding: 9px 3px;
+  background: linear-gradient(135deg, rgb(35 35 35) 0%, rgb(79 79 79) 100%);
+  color: white;
+  border: 1px solid #9c9c9c94;
+  border-radius: 21px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.floating-nav-btn:hover {
+}
+
+.floating-nav-left {
+  left: 3px;
+}
+
+.floating-nav-right {
+  right: 3px;
+}
+
+.media-counter-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgb(29 29 29 / 70%);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+}
+
+/* 调整模态框主体样式以适应浮动按钮 */
+.modal-body {
+  position: relative;
+  min-height: 300px;
 }
 
 /* 复制反馈动画 */
@@ -313,6 +362,11 @@ mark{background:#ffeb3b;color:#000}
   justify-content: center;
 }
 
+.guide-btn {
+  background: linear-gradient(135deg, #ff8080, #d63cb8);
+  color: #ffffff;
+}
+
 .bone-btn {
   background: linear-gradient(135deg, #ffffff, #eeeeee);
   color: #000000;
@@ -347,7 +401,7 @@ mark{background:#ffeb3b;color:#000}
   
   .modal-content {
     width: 95%;
-    margin: 10% auto;
+    margin: 3.5% auto;
   }
   
   .modal-body {
@@ -372,4 +426,160 @@ mark{background:#ffeb3b;color:#000}
     font-size: 12px;
     padding: 8px 16px;
   }
+}
+
+/* 导览弹窗样式 */
+.guide-modal-content {
+  max-width: 600px;
+  max-height: 96vh;
+  overflow: hidden;
+}
+
+.guide-modal-body {
+  padding: 0;
+  max-height: calc(96vh - 80px);
+  overflow-y: auto;
+}
+
+#guideContainer {
+  padding: 5px 13px 15px;
+}
+
+.guide-section {
+  margin-bottom: 20px;
+}
+
+.guide-part-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #f0f0f0, #efefef);
+  border-radius: 6px;
+}
+
+.guide-group {
+  margin-left: 7px;
+  margin-bottom: 15px;
+}
+
+.guide-group-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #9f0b0b;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+
+.guide-muscle-list {
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.guide-muscle-item {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+}
+
+.guide-muscle-item .muscle-name {
+  font-size: 14px;
+  padding: 4px 8px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.guide-muscle-item .muscle-name:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.guide-muscle-item:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+/* 精简迷你卡片浮层样式 */
+.mini-card {
+  display: none;
+  position: absolute;
+  z-index: 1002;
+  width: 220px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: miniCardSlideIn 0.3s ease;
+  padding: 12px;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+}
+
+@keyframes miniCardSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mini-card-close {
+  position: absolute;
+  top: -2px;
+  right: 8px;
+  color: #df2626;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.mini-card-close:hover {
+  color: #000;
+}
+
+.mini-card-info p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.mini-card-info p:last-child {
+  margin-bottom: 0;
+}
+
+.mini-card-info strong {
+  color: #666;
+  font-weight: 600;
+}
+}
+
+.guide-muscle-item:hover {
+  background: #388E3C;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 统计数据文字样式 */
+.stats-text {
+  font-size: 0.85em;
+  color: #a2a2a2;
+  margin-left: 4px;
+  font-weight: normal;
+}
+
+.guide-muscle-item:active {
+  transform: translateY(0);
 }

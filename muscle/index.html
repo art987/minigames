@@ -31,17 +31,18 @@
     </div>
     <div class="modal-body">
       <div id="mediaContainer"></div>
-    </div>
-    <div class="modal-footer">
-      <button id="prevBtn" class="nav-btn">上一个</button>
-      <span id="mediaCounter">1 / 1</span>
-      <button id="nextBtn" class="nav-btn">下一个</button>
+      <button id="prevBtn" class="nav-btn floating-nav-btn floating-nav-left"><</button>
+      <button id="nextBtn" class="nav-btn floating-nav-btn floating-nav-right">></button>
+      <div class="media-counter-container">
+        <span id="mediaCounter">1 / 1</span>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- 浮动按钮 -->
 <div class="floating-buttons">
+  <button class="floating-btn guide-btn" id="guideBtn">览</button>
   <button class="floating-btn bone-btn" id="boneBtn">骨</button>
   <button class="floating-btn muscle-btn" id="muscleBtn">肌</button>
 </div>
@@ -55,11 +56,11 @@
     </div>
     <div class="modal-body">
       <div id="skeletonMediaContainer"></div>
-    </div>
-    <div class="modal-footer">
-      <button id="skeletonPrevBtn" class="nav-btn">上一个</button>
-      <span id="skeletonMediaCounter">1 / 1</span>
-      <button id="skeletonNextBtn" class="nav-btn">下一个</button>
+      <button id="skeletonPrevBtn" class="nav-btn floating-nav-btn floating-nav-left"><</button>
+      <button id="skeletonNextBtn" class="nav-btn floating-nav-btn floating-nav-right">></button>
+      <div class="media-counter-container">
+        <span id="skeletonMediaCounter">1 / 1</span>
+      </div>
     </div>
   </div>
 </div>
@@ -73,14 +74,29 @@
     </div>
     <div class="modal-body">
       <div id="muscleMediaContainer"></div>
-    </div>
-    <div class="modal-footer">
-      <button id="musclePrevBtn" class="nav-btn">上一个</button>
-      <span id="muscleMediaCounter">1 / 1</span>
-      <button id="muscleNextBtn" class="nav-btn">下一个</button>
+      <button id="musclePrevBtn" class="nav-btn floating-nav-btn floating-nav-left"><</button>
+      <button id="muscleNextBtn" class="nav-btn floating-nav-btn floating-nav-right">></button>
+      <div class="media-counter-container">
+        <span id="muscleMediaCounter">1 / 1</span>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- 导览弹窗 -->
+<div id="guideModal" class="modal">
+  <div class="modal-content guide-modal-content">
+    <span class="close" onclick="closeGuideModal()">&times;</span>
+    <div class="modal-header">
+      <h3>肌肉导览</h3>
+    </div>
+    <div class="modal-body guide-modal-body">
+      <div id="guideContainer"></div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="data.js"></script>
 <script src="index.js"></script>

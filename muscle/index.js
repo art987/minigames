@@ -871,6 +871,193 @@ function closeMuscleModal() {
   modal.style.display = 'none';
 }
 
+/* ================= 导览功能 ================= */
+// 打开导览弹窗
+function openGuideModal() {
+  const guideContainer = $('#guideContainer');
+  guideContainer.innerHTML = '';
+  
+  // 按部位分组肌肉数据
+  const parts = [...new Set(muscleData.map(m => m.part))];
+  
+  parts.forEach(part => {
+    const partSection = document.createElement('div');
+    partSection.className = 'guide-section';
+    
+    // 计算该部位的统计数据
+    const musclesInPart = muscleData.filter(m => m.part === part);
+    const groupsInPart = [...new Set(musclesInPart.map(m => m.group))];
+    const partStats = `(${groupsInPart.length}个肌群, ${musclesInPart.length}个肌肉)`;
+    
+    const partTitle = document.createElement('div');
+    partTitle.className = 'guide-part-title';
+    partTitle.innerHTML = `${part} <span class="stats-text">${partStats}</span>`;
+    partSection.appendChild(partTitle);
+    
+    // 按肌群分组
+    const groups = [...new Set(muscleData.filter(m => m.part === part).map(m => m.group))];
+    
+    groups.forEach(group => {
+      const groupDiv = document.createElement('div');
+      groupDiv.className = 'guide-group';
+      
+      // 计算该肌群的统计数据
+      const musclesInGroup = muscleData.filter(m => m.part === part && m.group === group);
+      const groupStats = `(${musclesInGroup.length}个肌肉)`;
+      
+      const groupTitle = document.createElement('div');
+      groupTitle.className = 'guide-group-title';
+      groupTitle.innerHTML = `${group} <span class="stats-text">${groupStats}</span>`;
+      groupDiv.appendChild(groupTitle);
+      
+      const muscleList = document.createElement('div');
+      muscleList.className = 'guide-muscle-list';
+      
+      // 该肌群下的所有肌肉（使用已计算的musclesInGroup变量）
+      
+      musclesInGroup.forEach(muscle => {
+        const muscleItem = document.createElement('div');
+        muscleItem.className = 'guide-muscle-item';
+        
+        // 创建肌肉名称文本
+        const muscleNameSpan = document.createElement('span');
+        muscleNameSpan.className = 'muscle-name';
+        muscleNameSpan.textContent = muscle.name;
+        muscleNameSpan.dataset.muscleName = muscle.name;
+        
+        // 创建迷你卡片
+        const miniCard = document.createElement('div');
+        miniCard.className = 'mini-card';
+        miniCard.innerHTML = `
+          <span class="mini-card-close">&times;</span>
+          <div class="mini-card-info">
+            <p><strong>起点：</strong><span class="mini-card-start">${muscle.start || '未提供'}</span></p>
+            <p><strong>止点：</strong><span class="mini-card-end">${muscle.end || '未提供'}</span></p>
+            <p><strong>作用：</strong><span class="mini-card-action">${muscle.action || '未提供'}</span></p>
+          </div>
+        `;
+        
+        // 添加点击事件到肌肉名称
+        muscleNameSpan.addEventListener('click', function(event) {
+          event.stopPropagation();
+          // 显示或隐藏迷你卡片
+          const allMiniCards = document.querySelectorAll('.mini-card');
+          allMiniCards.forEach(card => card.style.display = 'none');
+          
+          if (miniCard.style.display === 'block') {
+            miniCard.style.display = 'none';
+          } else {
+            miniCard.style.display = 'block';
+          }
+        });
+        
+        // 添加关闭按钮事件
+        const closeBtn = miniCard.querySelector('.mini-card-close');
+        closeBtn.addEventListener('click', function(event) {
+          event.stopPropagation();
+          miniCard.style.display = 'none';
+        });
+        
+        muscleItem.appendChild(muscleNameSpan);
+        muscleItem.appendChild(miniCard);
+        muscleList.appendChild(muscleItem);
+      });
+      
+      groupDiv.appendChild(muscleList);
+      partSection.appendChild(groupDiv);
+    });
+    
+    guideContainer.appendChild(partSection);
+  });
+  
+  const modal = $('#guideModal');
+  modal.style.display = 'block';
+}
+
+function navigateToMuscle(muscleName, clickEvent) {
+  // 现在迷你卡片已经集成到肌肉名称中，不需要单独显示
+  
+  // 查找肌肉对应的元素
+  const muscleElements = document.querySelectorAll('.muscle');
+  let targetElement = null;
+  
+  for (let element of muscleElements) {
+    if (element.textContent === muscleName) {
+      targetElement = element;
+      break;
+    }
+  }
+  
+  if (targetElement) {
+    // 找到对应的肌群容器
+    const groupContainer = targetElement.closest('.group-container');
+    if (groupContainer) {
+      // 滚动到该肌群位置
+      const headerHeight = 44; // 固定头部高度
+      const partTitleHeight = 32; // 部位标题高度
+      const containerOffset = 8; // 分组容器向下偏移量
+      
+      const scrollPosition = groupContainer.offsetTop - headerHeight - partTitleHeight - containerOffset;
+      
+      window.scrollTo({
+        top: Math.max(0, scrollPosition),
+        behavior: 'smooth'
+      });
+      
+      // 高亮显示该肌群
+      const groupTitle = groupContainer.querySelector('.group-title');
+      if (groupTitle) {
+        // 移除之前的高亮
+        const allGroupTitles = document.querySelectorAll('.group-title');
+        allGroupTitles.forEach(el => {
+          el.style.background = 'linear-gradient(135deg, #000000 0%, #aeaeae 100%)';
+          el.style.color = '#ffffffff';
+        });
+        
+        // 应用新的高亮
+        groupTitle.style.background = 'linear-gradient(135deg, #f90e0e 0%, #ae68f6 100%)';
+        groupTitle.style.color = '#ffffff';
+        groupTitle.style.padding = '12px 16px';
+        groupTitle.style.fontSize = '16px';
+        groupTitle.style.borderRadius = '10px 10px 0 0';
+        
+        // 更新当前选中的肌群
+        currentActiveGroup = groupContainer;
+      }
+      
+      // 为肌肉卡片添加闪烁指示效果
+      const muscleCard = targetElement.closest('.card');
+      if (muscleCard) {
+        // 保存原始样式
+        const originalBoxShadow = muscleCard.style.boxShadow || '0 2px 6px rgba(0,0,0,.06)';
+        const originalColor = muscleCard.style.color || '';
+        
+        // 应用闪烁样式
+        muscleCard.style.boxShadow = '0 2px 6px rgb(218 51 51 / 73%)';
+        muscleCard.style.color = 'rgb(218 51 51)';
+        muscleCard.style.transition = 'box-shadow 0.3s ease, color 0.3s ease';
+        
+        // 3秒后恢复原始样式
+        setTimeout(() => {
+          muscleCard.style.boxShadow = originalBoxShadow;
+          muscleCard.style.color = originalColor;
+          
+          // 再等0.3秒后移除过渡效果
+          setTimeout(() => {
+            muscleCard.style.transition = '';
+          }, 300);
+        }, 3000);
+      }
+    }
+  }
+}
+
+// 关闭导览弹窗
+function closeGuideModal() {
+  const modal = $('#guideModal');
+  modal.style.display = 'none';
+}
+
 /* ================= 初始化 ================= */
 buildNav();
 render(muscleData);
@@ -878,6 +1065,9 @@ initScrollSpy();
 
 // 绑定浮动按钮事件
 document.addEventListener('DOMContentLoaded', function() {
+  // 导览按钮
+  $('#guideBtn').addEventListener('click', openGuideModal);
+  
   // 骨骼按钮
   $('#boneBtn').addEventListener('click', openSkeletonModal);
   
@@ -960,12 +1150,21 @@ document.addEventListener('DOMContentLoaded', function() {
     muscleTouchStartX = null;
   });
   
+  // 导览弹窗事件
+  $('#guideModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeGuideModal();
+    }
+  });
+  
   // ESC键关闭所有弹窗
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeModal();
       closeSkeletonModal();
       closeMuscleModal();
+      closeGuideModal();
+      closeMiniCard();
     }
   });
 });
