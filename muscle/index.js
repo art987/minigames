@@ -134,7 +134,7 @@ function render(list){
           </div>
           <div class="card-content">
             <div class="card-left">
-              ${m.images && m.images.length > 0 ? `<img src="${m.images[0]}" alt="${m.name}" class="muscle-image">` : '<div class="no-image">暂无图片</div>'}
+              ${m.images && m.images.length > 0 ? `<img src="${m.images[0]}" alt="${m.name}" class="muscle-image" data-muscle="${m.name}" data-group="${m.group}" data-part="${m.part}">` : '<div class="no-image">暂无图片</div>'}
             </div>
             <div class="card-right">
               <div class="row">
@@ -144,6 +144,16 @@ function render(list){
               <div class="action">${highlight(m.action)}</div>
             </div>
           </div>`;
+        
+        // 为图片添加点击事件
+        if (m.images && m.images.length > 0) {
+          const img = card.querySelector('.muscle-image');
+          img.addEventListener('click', () => {
+            openMuscleGroupGallery(m.part, m.group, m.name);
+          });
+          img.style.cursor = 'pointer';
+        }
+        
         cardsContainer.appendChild(card);
       });
       
@@ -1171,7 +1181,185 @@ document.addEventListener('DOMContentLoaded', function() {
       closeSkeletonModal();
       closeMuscleModal();
       closeGuideModal();
+      closeMuscleGroupModal();
       closeMiniCard();
     }
   });
+});
+
+/* ================= 肌群图片集弹窗功能 ================= */
+let muscleGroupMediaList = [];
+let muscleGroupCurrentIndex = 0;
+let muscleGroupTouchStartX = 0;
+
+// 打开肌群图片集弹窗
+function openMuscleGroupGallery(part, group, muscleName) {
+  // 获取该肌群下所有有图片的肌肉
+  muscleGroupMediaList = muscleData.filter(m => 
+    m.part === part && 
+    m.group === group && 
+    m.images && m.images.length > 0
+  );
+  
+  if (muscleGroupMediaList.length === 0) {
+    alert('该肌群暂无图片');
+    return;
+  }
+  
+  // 找到当前点击的肌肉在列表中的位置
+  muscleGroupCurrentIndex = muscleGroupMediaList.findIndex(m => m.name === muscleName);
+  if (muscleGroupCurrentIndex === -1) {
+    muscleGroupCurrentIndex = 0; // 如果没找到，默认显示第一个
+  }
+  
+  // 设置弹窗标题
+  $('#muscleGroupModalTitle').textContent = `${part} · ${group} · 图片集`;
+  
+  // 显示弹窗
+  $('#muscleGroupModal').style.display = 'block';
+  
+  // 显示当前图片
+  showMuscleGroupMedia();
+}
+
+// 显示肌群图片
+function showMuscleGroupMedia() {
+  const container = $('#muscleGroupMediaContainer');
+  const counter = $('#muscleGroupMediaCounter');
+  
+  if (muscleGroupMediaList.length === 0) return;
+  
+  const currentMuscle = muscleGroupMediaList[muscleGroupCurrentIndex];
+  const currentImage = currentMuscle.images[0]; // 使用第一张图片
+  
+  container.innerHTML = '';
+  
+  const img = document.createElement('img');
+  img.src = currentImage;
+  img.alt = currentMuscle.name;
+  img.className = 'media-content';
+  img.style.cursor = 'zoom-in';
+  
+  // 添加图片缩放和移动功能
+  let currentScale = 1;
+  let translateX = 0;
+  let translateY = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let initialDistance = 0;
+  
+  img.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentScale === 1) {
+      currentScale = 2;
+      img.style.cursor = 'grab';
+    } else {
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      img.style.cursor = 'zoom-in';
+    }
+    updateImageTransform();
+  });
+  
+  img.addEventListener('touchstart', function(e) {
+    e.stopPropagation();
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX - translateX;
+      startY = e.touches[0].clientY - translateY;
+    } else if (e.touches.length === 2) {
+      initialDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  });
+  
+  img.addEventListener('touchmove', function(e) {
+    e.stopPropagation();
+    if (e.touches.length === 1 && isDragging) {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      
+      translateX = currentX - startX;
+      translateY = currentY - startY;
+      
+      const maxTranslate = (currentScale - 1) * 100;
+      translateX = Math.max(-maxTranslate, Math.min(maxTranslate, translateX));
+      translateY = Math.max(-maxTranslate, Math.min(maxTranslate, translateY));
+      
+      updateImageTransform();
+    }
+  });
+  
+  img.addEventListener('touchend', function(e) {
+    e.stopPropagation();
+    isDragging = false;
+    initialDistance = 0;
+  });
+  
+  function updateImageTransform() {
+    img.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+  }
+  
+  container.appendChild(img);
+  counter.textContent = `${muscleGroupCurrentIndex + 1} / ${muscleGroupMediaList.length}`;
+}
+
+// 上一个图片
+function muscleGroupPrevMedia() {
+  if (muscleGroupMediaList.length === 0) return;
+  muscleGroupCurrentIndex = (muscleGroupCurrentIndex - 1 + muscleGroupMediaList.length) % muscleGroupMediaList.length;
+  showMuscleGroupMedia();
+}
+
+// 下一个图片
+function muscleGroupNextMedia() {
+  if (muscleGroupMediaList.length === 0) return;
+  muscleGroupCurrentIndex = (muscleGroupCurrentIndex + 1) % muscleGroupMediaList.length;
+  showMuscleGroupMedia();
+}
+
+// 关闭肌群图片集弹窗
+function closeMuscleGroupModal() {
+  $('#muscleGroupModal').style.display = 'none';
+  muscleGroupMediaList = [];
+  muscleGroupCurrentIndex = 0;
+}
+
+// 添加肌群图片集弹窗事件
+$('#muscleGroupPrevBtn').addEventListener('click', muscleGroupPrevMedia);
+$('#muscleGroupNextBtn').addEventListener('click', muscleGroupNextMedia);
+$('#muscleGroupModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeMuscleGroupModal();
+  }
+});
+
+// 添加肌群图片集弹窗触摸滑动事件
+const muscleGroupModal = $('#muscleGroupModal');
+muscleGroupModal.addEventListener('touchstart', function(e) {
+  muscleGroupTouchStartX = e.touches[0].clientX;
+});
+
+muscleGroupModal.addEventListener('touchmove', function(e) {
+  if (!muscleGroupTouchStartX) return;
+  
+  const touchEndX = e.touches[0].clientX;
+  const diffX = muscleGroupTouchStartX - touchEndX;
+  
+  if (Math.abs(diffX) > 20) {
+    if (diffX > 0) {
+      muscleGroupNextMedia();
+    } else {
+      muscleGroupPrevMedia();
+    }
+    muscleGroupTouchStartX = null;
+  }
+});
+
+muscleGroupModal.addEventListener('touchend', function() {
+  muscleGroupTouchStartX = null;
 });
