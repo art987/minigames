@@ -132,11 +132,18 @@ function render(list){
             <span class="muscle">${highlight(m.name)}</span>
             <span class="meta">${m.part} · ${m.group}</span>
           </div>
-          <div class="row">
-            <span class="label">起止点</span>
-            <span><span class="start">${highlight(m.start)}</span> → <span class="end">${highlight(m.end)}</span></span>
-          </div>
-          <div class="action">${highlight(m.action)}</div>`;
+          <div class="card-content">
+            <div class="card-left">
+              ${m.images && m.images.length > 0 ? `<img src="${m.images[0]}" alt="${m.name}" class="muscle-image">` : '<div class="no-image">暂无图片</div>'}
+            </div>
+            <div class="card-right">
+              <div class="row">
+                <span class="label">起止点</span>
+                <span><span class="start">${highlight(m.start)}</span> → <span class="end">${highlight(m.end)}</span></span>
+              </div>
+              <div class="action">${highlight(m.action)}</div>
+            </div>
+          </div>`;
         cardsContainer.appendChild(card);
       });
       
