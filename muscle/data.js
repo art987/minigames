@@ -51,7 +51,7 @@ const muscleData = [
 {"part":"躯干","group":"背深层肌群","name":"竖脊肌-最长肌","start":"骶骨+横突","end":"颞骨乳突","action":"伸脊柱","images":["medias/shujijizuichangji.jpg"]},
 {"part":"躯干","group":"背深层肌群","name":"竖脊肌-髂肋肌","start":"骶骨+髂嵴","end":"下位肋骨","action":"伸脊柱","images":["medias/shujijiqialeiji.jpg"]},
 {"part":"躯干","group":"背深层肌群","name":"夹肌","start":"项韧带+T棘突","end":"乳突+上项线","action":"伸头","images":["medias/jiaji1.jpg","medias/jiaji2.jpg","medias/jiaji3.jpg"],"videos":["medias/jiaji1.mp4","medias/jiaji2.mp4","medias/jiaji3.mp4"]},
-{"part":"躯干","group":"胸上肢肌群","name":"胸大肌","start":"锁内+胸骨+1-6肋软骨","end":"肱骨大结节嵴","action":"肩屈内收内旋","images":["medias/xiongdaiji.jpg"]},
+{"part":"躯干","group":"胸上肢肌群","name":"胸大肌","start":"锁内+胸骨+1-6肋软骨","end":"肱骨大结节嵴","action":"肩屈内收内旋","images":["medias/xiongdaji.jpg"]},
 {"part":"躯干","group":"胸上肢肌群","name":"胸小肌","start":"3-5肋骨","end":"肩胛喙突","action":"肩胛前伸下降","images":["medias/xiongxiaoji.jpg"]},
 {"part":"躯干","group":"胸上肢肌群","name":"前锯肌","start":"1-9肋外面","end":"肩胛内侧缘","action":"拉肩胛向前","images":["medias/qianjuji.jpg"],"videos":["medias/qianjuji.mp4","medias/qianjuji2.mp4"]},
 {"part":"躯干","group":"胸固有肌群","name":"胸外肌","start":"上位肋下缘","end":"下位肋上缘","action":"提肋吸气","images":["medias/leijianwaiji.jpg"]},
