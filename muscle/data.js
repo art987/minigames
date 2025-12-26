@@ -53,8 +53,8 @@ const muscleData = [
 {"part":"躯干","group":"背深层肌群","name":"夹肌","start":"项韧带+T棘突","end":"乳突+上项线","action":"伸头","images":["medias/jiaji1.jpg","medias/jiaji2.jpg","medias/jiaji3.jpg"],"videos":["medias/jiaji1.mp4","medias/jiaji2.mp4","medias/jiaji3.mp4"]},
 {"part":"躯干","group":"胸上肢肌群","name":"胸大肌","start":"锁内+胸骨+1-6肋软骨","end":"肱骨大结节嵴","action":"肩屈内收内旋","images":["medias/xiongdaiji.jpg"]},
 {"part":"躯干","group":"胸上肢肌群","name":"胸小肌","start":"3-5肋骨","end":"肩胛喙突","action":"肩胛前伸下降","images":["medias/xiongxiaoji.jpg"]},
-{"part":"躯干","group":"胸上肢肌群","name":"前锯肌","start":"1-9肋外面","end":"肩胛内侧缘","action":"拉肩胛向前","images":["medias/qianjuji.jpg"]},
-{"part":"躯干","group":"胸固有肌群","name":"肋间外肌","start":"上位肋下缘","end":"下位肋上缘","action":"提肋吸气","images":["medias/leijianwaiji.jpg"]},
+{"part":"躯干","group":"胸上肢肌群","name":"前锯肌","start":"1-9肋外面","end":"肩胛内侧缘","action":"拉肩胛向前","images":["medias/qianjuji.jpg"],"videos":["medias/qianjuji.mp4","medias/qianjuji2.mp4"]},
+{"part":"躯干","group":"胸固有肌群","name":"胸外肌","start":"上位肋下缘","end":"下位肋上缘","action":"提肋吸气","images":["medias/leijianwaiji.jpg"]},
 {"part":"躯干","group":"胸固有肌群","name":"肋间内肌","start":"下位肋上缘","end":"上位肋下缘","action":"降肋呼气","images":["medias/leijianneiji.jpg"]},
 {"part":"躯干","group":"膈肌","name":"膈肌","start":"胸骨剑突+下位肋+腰椎","end":"中心腱","action":"吸气","images":["medias/geji.jpg"]},
 {"part":"躯干","group":"腹前外侧肌群","name":"腹直肌","start":"耻骨联合","end":"剑突+5-7肋软骨","action":"脊柱屈；增腹压","images":["medias/fuzhiji.jpg"]},
@@ -66,7 +66,7 @@ const muscleData = [
 {"part":"躯干","group":"盆底肌群","name":"盆底肌","start":"耻骨+坐骨+尾骨","end":"直肠+尿道+阴道","action":"承托盆腔脏器","images":["medias/pendiji.jpg"]},
 
 /* 上肢 */
-{"part":"上肢","group":"肩带肌群","name":"三角肌","start":"锁骨外1/3+肩峰+肩胛冈","end":"肱骨三角粗隆","action":"肩外展","images":["medias/sanjiaoji.jpg"]},
+{"part":"上肢","group":"肩带肌群","name":"三角肌","start":"锁骨外1/3+肩峰+肩胛冈","end":"肱骨三角粗隆","action":"肩外展","images":["medias/sanjiaoji.jpg"],"videos":["medias/sanjiaoji.mp4"]},
 {"part":"上肢","group":"肩带肌群","name":"冈上肌","start":"冈上窝","end":"肱骨大结节上","action":"肩外展15°","images":["medias/gangshangji.jpg"]},
 {"part":"上肢","group":"肩带肌群","name":"冈下肌","start":"冈下窝","end":"肱骨大结节中","action":"肩外旋","images":["medias/gangxiaji.jpg"]},
 {"part":"上肢","group":"肩带肌群","name":"小圆肌","start":"肩胛骨外侧缘","end":"肱骨大结节下","action":"肩外旋","images":["medias/xiaoyuanji.jpg"]},

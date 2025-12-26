@@ -540,11 +540,6 @@ mark{background:#ffeb3b;color:#000}
   z-index: 1;
 }
 
-.guide-muscle-item .muscle-name:hover {  background: #f0f0f0;}
-
-.guide-muscle-item:hover {
-  background: #f0f0f0;}
-
 /* 精简迷你卡片浮层样式 */
 .mini-card {
   display: none;
