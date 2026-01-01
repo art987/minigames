@@ -10,6 +10,37 @@
     var speechSynth = window.speechSynthesis; // 语音合成对象
     var currentUtterance = null; // 当前朗读对象
     var autoReadModalShown = false; // 自动朗读弹窗是否已显示
+    var speechSupported = false; // 语音合成是否支持
+    
+    // 检测语音合成支持
+    function checkSpeechSupport() {
+        speechSupported = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+        
+        // 如果不支持，显示友好提示
+        if (!speechSupported) {
+            console.log('语音合成功能检测：当前浏览器不支持');
+            // 可以在这里添加降级方案，比如显示文字提示
+        }
+        
+        return speechSupported;
+    }
+    
+    // 显示不支持语音合成的提示
+    function showUnsupportedMessage() {
+        // 创建一个简单的提示元素
+        var message = document.createElement('div');
+        message.className = 'unsupported-message';
+        message.innerHTML = '<p style="color: #666; font-size: 12px; text-align: center; margin: 5px 0;">当前浏览器不支持语音朗读功能</p>';
+        
+        // 将提示添加到进度头部
+        var progressHeader = document.querySelector('.progress-header');
+        if (progressHeader) {
+            progressHeader.appendChild(message);
+        }
+    }
+    
+    // 初始化时检测支持情况
+    checkSpeechSupport();
     
     function getQueryParam(key){
         var search = location.search.replace(/^\?/,'');
@@ -164,20 +195,32 @@
     
     // 朗读题目文本
     function readAloud(text) {
-        // 停止当前朗读
-        if (currentUtterance) {
-            speechSynth.cancel();
+        // 检查语音合成是否支持
+        if (!speechSupported) {
+            console.warn('当前浏览器不支持语音合成功能');
+            return false;
         }
         
-        // 创建新的朗读对象
-        currentUtterance = new SpeechSynthesisUtterance(text);
-        currentUtterance.lang = 'zh-CN'; // 设置为中文
-        currentUtterance.rate = 0.9; // 语速稍慢
-        currentUtterance.pitch = 1.0; // 音调正常
-        currentUtterance.volume = 1.0; // 音量最大
-        
-        // 开始朗读
-        speechSynth.speak(currentUtterance);
+        try {
+            // 停止当前朗读
+            if (currentUtterance) {
+                speechSynth.cancel();
+            }
+            
+            // 创建新的朗读对象
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'zh-CN'; // 设置为中文
+            currentUtterance.rate = 0.9; // 语速稍慢
+            currentUtterance.pitch = 1.0; // 音调正常
+            currentUtterance.volume = 1.0; // 音量最大
+            
+            // 开始朗读
+            speechSynth.speak(currentUtterance);
+            return true;
+        } catch (error) {
+            console.error('语音合成失败:', error);
+            return false;
+        }
     }
     
     // 构建完整的朗读文本（题目 + 带序号的选项）
@@ -212,6 +255,12 @@
     // 显示自动朗读弹窗
     function showAutoReadModal() {
         if (autoReadModalShown) return;
+        
+        // 检查语音合成支持，如果不支持则直接返回
+        if (!speechSupported) {
+            console.log('当前浏览器不支持语音合成，跳过自动朗读弹窗');
+            return;
+        }
         
         var modal = document.getElementById('auto-read-modal');
         if (modal) {
@@ -715,20 +764,30 @@
 
         // 设置自动朗读开关事件
         var autoReadCheckbox = document.getElementById('auto-read-checkbox');
-        if (autoReadCheckbox) {
-            autoReadCheckbox.addEventListener('change', function() {
-                autoReadEnabled = this.checked;
-                
-                // 如果重新开启自动朗读，朗读当前题目
-                if (autoReadEnabled) {
-                    autoReadCurrentQuestion();
-                } else {
-                    // 如果关闭自动朗读，停止当前朗读
-                    if (currentUtterance) {
-                        speechSynth.cancel();
+        var autoReadToggle = document.getElementById('auto-read-toggle');
+        
+        if (autoReadCheckbox && autoReadToggle) {
+            // 检查语音合成支持，如果不支持则隐藏开关并显示提示
+        if (!speechSupported) {
+            autoReadToggle.style.display = 'none';
+            console.log('当前浏览器不支持语音合成，隐藏自动朗读开关');
+            // 显示不支持提示
+            setTimeout(showUnsupportedMessage, 1000);
+        } else {
+                autoReadCheckbox.addEventListener('change', function() {
+                    autoReadEnabled = this.checked;
+                    
+                    // 如果重新开启自动朗读，朗读当前题目
+                    if (autoReadEnabled) {
+                        autoReadCurrentQuestion();
+                    } else {
+                        // 如果关闭自动朗读，停止当前朗读
+                        if (currentUtterance) {
+                            speechSynth.cancel();
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         
         // 设置自动朗读弹窗按钮事件
