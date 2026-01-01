@@ -6,6 +6,10 @@
     var questionContainers = [];
     var currentDataset = null;
     var realTimeScoringEnabled = false; // 实时批卷模式开关状态
+    var autoReadEnabled = false; // 自动朗读开关状态，默认关闭，等待用户选择
+    var speechSynth = window.speechSynthesis; // 语音合成对象
+    var currentUtterance = null; // 当前朗读对象
+    var autoReadModalShown = false; // 自动朗读弹窗是否已显示
     
     function getQueryParam(key){
         var search = location.search.replace(/^\?/,'');
@@ -158,6 +162,121 @@
         progressText.textContent = '题目 ' + (currentQuestionIndex + 1) + '/' + totalQuestions + ' (已完成: ' + answeredCount + ')';
     }
     
+    // 朗读题目文本
+    function readAloud(text) {
+        // 停止当前朗读
+        if (currentUtterance) {
+            speechSynth.cancel();
+        }
+        
+        // 创建新的朗读对象
+        currentUtterance = new SpeechSynthesisUtterance(text);
+        currentUtterance.lang = 'zh-CN'; // 设置为中文
+        currentUtterance.rate = 0.9; // 语速稍慢
+        currentUtterance.pitch = 1.0; // 音调正常
+        currentUtterance.volume = 1.0; // 音量最大
+        
+        // 开始朗读
+        speechSynth.speak(currentUtterance);
+    }
+    
+    // 构建完整的朗读文本（题目 + 带序号的选项）
+    function buildFullQuestionText(question, questionIndex) {
+        if (!question || !question.text) return '';
+        
+        // 构建题目文本，将数字序号转换为"第N题"格式
+        var fullText = '第' + (questionIndex + 1) + '题：' + question.text;
+        
+        // 添加选项（如果有）
+        if (question.options && question.options.length > 0) {
+            fullText += '。';
+            
+            // 中文序号数组
+            var chineseNumbers = ['第一', '第二', '第三', '第四', '第五', '第六', '第七', '第八', '第九', '第十'];
+            
+            question.options.forEach(function(option, index) {
+                var optionText = option.label || option.text || '';
+                if (optionText) {
+                    var chineseNum = chineseNumbers[index] || '第' + (index + 1) + '个';
+                    fullText += chineseNum + '，' + optionText + '。';
+                }
+            });
+            
+            // 在选项后添加"请选答"提示
+            fullText += '请选答。';
+        }
+        
+        return fullText;
+    }
+    
+    // 显示自动朗读弹窗
+    function showAutoReadModal() {
+        if (autoReadModalShown) return;
+        
+        var modal = document.getElementById('auto-read-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+            autoReadModalShown = true;
+        }
+    }
+    
+    // 隐藏自动朗读弹窗
+    function hideAutoReadModal() {
+        var modal = document.getElementById('auto-read-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+    
+    // 启用自动朗读功能
+    function enableAutoRead() {
+        autoReadEnabled = true;
+        hideAutoReadModal();
+        
+        // 更新开关状态
+        var autoReadCheckbox = document.getElementById('auto-read-checkbox');
+        if (autoReadCheckbox) {
+            autoReadCheckbox.checked = true;
+        }
+        
+        // 模拟点击朗读按钮来触发用户交互
+        var currentQuestion = currentDataset.questions[currentQuestionIndex];
+        if (currentQuestion && currentQuestion.text) {
+            // 构建完整的题目文本（包括选项）
+            var fullQuestionText = buildFullQuestionText(currentQuestion, currentQuestionIndex);
+            readAloud(fullQuestionText);
+        }
+    }
+    
+    // 禁用自动朗读功能
+    function disableAutoRead() {
+        autoReadEnabled = false;
+        hideAutoReadModal();
+        
+        // 更新开关状态
+        var autoReadCheckbox = document.getElementById('auto-read-checkbox');
+        if (autoReadCheckbox) {
+            autoReadCheckbox.checked = false;
+        }
+        
+        // 停止当前朗读
+        if (currentUtterance) {
+            speechSynth.cancel();
+        }
+    }
+    
+    // 自动朗读当前题目
+    function autoReadCurrentQuestion() {
+        if (!autoReadEnabled || !currentDataset) return;
+        
+        var currentQuestion = currentDataset.questions[currentQuestionIndex];
+        if (currentQuestion && currentQuestion.text) {
+            // 构建完整的题目文本（包括选项）
+            var fullQuestionText = buildFullQuestionText(currentQuestion, currentQuestionIndex);
+            readAloud(fullQuestionText);
+        }
+    }
+    
     function showQuestion(idx) {
         // 隐藏所有问题
         questionContainers.forEach(function(container) {
@@ -171,6 +290,13 @@
             questionContainers[idx].classList.remove('hidden');
             currentQuestionIndex = idx;
             updateQuestionStatus(idx);
+            
+            // 只有在用户启用了自动朗读时才朗读题目
+            if (autoReadEnabled) {
+                setTimeout(function() {
+                    autoReadCurrentQuestion();
+                }, 300); // 延迟300ms，确保页面渲染完成
+            }
             
             // 在实时批卷模式下，检查当前题目是否已回答
             if (realTimeScoringEnabled && currentDataset) {
@@ -587,8 +713,43 @@
         var adviceDiv = document.getElementById('result-advice');
         var saveBtn = document.getElementById('save-image');
 
+        // 设置自动朗读开关事件
+        var autoReadCheckbox = document.getElementById('auto-read-checkbox');
+        if (autoReadCheckbox) {
+            autoReadCheckbox.addEventListener('change', function() {
+                autoReadEnabled = this.checked;
+                
+                // 如果重新开启自动朗读，朗读当前题目
+                if (autoReadEnabled) {
+                    autoReadCurrentQuestion();
+                } else {
+                    // 如果关闭自动朗读，停止当前朗读
+                    if (currentUtterance) {
+                        speechSynth.cancel();
+                    }
+                }
+            });
+        }
+        
+        // 设置自动朗读弹窗按钮事件
+        var enableReadBtn = document.getElementById('enable-read-btn');
+        var disableReadBtn = document.getElementById('disable-read-btn');
+        
+        if (enableReadBtn) {
+            enableReadBtn.addEventListener('click', enableAutoRead);
+        }
+        
+        if (disableReadBtn) {
+            disableReadBtn.addEventListener('click', disableAutoRead);
+        }
+        
         // 设置导航和进度条
         setupNavigation();
+        
+        // 显示自动朗读提示弹窗
+        setTimeout(function() {
+            showAutoReadModal();
+        }, 500); // 延迟500ms显示弹窗，确保页面完全加载
         updateProgressBar();
         
         // 配置实时批卷开关
@@ -926,13 +1087,9 @@
             var soundToggle = document.createElement('label');
             soundToggle.id = 'sound-toggle';
             soundToggle.className = 'toggle-switch';
-            soundToggle.style.marginRight = '-55px';
+            soundToggle.style.marginRight = '0';
             
-            // 音效图标
-            var soundIcon = document.createElement('span');
-            soundIcon.textContent = '🔊';
-            soundIcon.style.marginRight = '5px';
-            soundToggle.appendChild(soundIcon);
+            // 音效图标已删除
             
             // 音效复选框
             var soundCheckbox = document.createElement('input');

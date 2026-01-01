@@ -72,6 +72,11 @@
         
         <div class="progress-header">
             <div id="progress-text">题目 0/0</div>
+            <label id="auto-read-toggle" class="toggle-switch">
+                <input type="checkbox" id="auto-read-checkbox" checked>
+                <span class="toggle-slider round"></span>
+                <span class="toggle-text">自动朗读</span>
+            </label>
             <label id="realtime-scoring-toggle" class="toggle-switch hidden">
                 <input type="checkbox" id="realtime-checkbox">
                 <span class="toggle-slider round"></span>
@@ -151,6 +156,17 @@
             <div class="answers-detail" id="answers-detail">
                 <h3 class="answers-title">答题详情</h3>
                 <!-- 答题详情将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 自动朗读提示弹窗 -->
+    <div id="auto-read-modal" class="modal-overlay">
+        <div class="modal-content auto-read-modal">
+            <h3 class="modal-title">是否自动朗读题目？</h3>
+            <div class="modal-buttons">
+                <button id="enable-read-btn" class="btn btn-purple">自动朗读</button>
+                <button id="disable-read-btn" class="btn btn-white">不要朗读</button>
             </div>
         </div>
     </div>
@@ -250,6 +266,11 @@
         // 给返回分类列表按钮添加功能
         document.getElementById('back-to-category').addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // 停止当前朗读（如果有）
+            if (window.speechSynthesis && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
             
             // 获取URL中的category参数
             const category = getQueryParam('category');
