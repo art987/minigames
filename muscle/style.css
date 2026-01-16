@@ -599,8 +599,7 @@ mark{background:#ffeb3b;color:#000}
 
 
 .guide-muscle-item:hover {
-  background: #388E3C;
-  transform: translateY(-1px);
+  background: #ffffff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
