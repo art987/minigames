@@ -6,7 +6,7 @@ window.vipData = {
       id: 'pepsi',
       password: '123456',
       name: '百事可乐',
-      logo: 'images/vip-logo.png',
+      logo: 'images/vip/pepsi.jpg',
       validUntil: '2026-12-31',
       isActive: true
     },
@@ -20,9 +20,9 @@ window.vipData = {
     },
     'starbucks': {
       id: 'starbucks',
-      password: 'vip2026',
+      password: '123456',
       name: '星巴克',
-      logo: 'images/vip-logo.png',
+      logo: 'images/vip/starbucks.jpg',
       validUntil: '2026-09-30',
       isActive: true
     },
@@ -106,18 +106,42 @@ function getCurrentVipInfo() {
 
 // 保存VIP登录状态
 function saveVipLogin(user) {
+  // 先清理所有VIP相关缓存
+  const oldVipId = localStorage.getItem('vipId');
+  if (oldVipId) {
+    // 清理旧VIP用户的专属缓存
+    const oldVipBusinessInfoKey = `vipBusinessInfo_${oldVipId}`;
+    localStorage.removeItem(oldVipBusinessInfoKey);
+    console.log('已清理旧VIP用户缓存:', oldVipBusinessInfoKey);
+  }
+  
+  // 保存新VIP用户的基本信息
   localStorage.setItem('vipId', user.id);
   localStorage.setItem('vipValidUntil', user.validUntil);
   localStorage.setItem('vipName', user.name);
   localStorage.setItem('vipLogo', user.logo);
+  
+  console.log('VIP登录状态已保存，用户ID:', user.id);
 }
 
 // 清除VIP登录状态
 function clearVipLogin() {
+  const oldVipId = localStorage.getItem('vipId');
+  
+  // 清理VIP专属缓存
+  if (oldVipId) {
+    const oldVipBusinessInfoKey = `vipBusinessInfo_${oldVipId}`;
+    localStorage.removeItem(oldVipBusinessInfoKey);
+    console.log('已清理VIP专属缓存:', oldVipBusinessInfoKey);
+  }
+  
+  // 清理基本VIP信息
   localStorage.removeItem('vipId');
   localStorage.removeItem('vipValidUntil');
   localStorage.removeItem('vipName');
   localStorage.removeItem('vipLogo');
+  
+  console.log('VIP登录状态已清除');
 }
 
 // 获取VIP固定信息

@@ -133,8 +133,17 @@
   function saveBusinessInfoToLocalStorage() {
     try {
       console.log('准备保存到本地存储:', state.businessInfo);
+      
+      // 如果是VIP用户，保存到VIP专属缓存
+      if (window.isVipActive && window.isVipActive()) {
+        saveVipBusinessInfoToLocalStorage();
+        return;
+      }
+      
+      // 普通用户保存到普通缓存
       localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
       console.log('促销信息已成功保存到本地存储');
+      
       // 验证保存是否成功
       const testSave = localStorage.getItem('posterBusinessInfo');
       if (testSave) {
@@ -146,19 +155,112 @@
     }
   }
   
+  // 保存VIP商家信息到专属本地存储
+  function saveVipBusinessInfoToLocalStorage() {
+    try {
+      const vipId = localStorage.getItem('vipId');
+      if (!vipId) {
+        console.log('未找到VIP ID，无法保存VIP专属缓存');
+        return;
+      }
+      
+      const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+      console.log('准备保存VIP专属缓存，键名:', vipBusinessInfoKey, '数据:', state.businessInfo);
+      
+      localStorage.setItem(vipBusinessInfoKey, JSON.stringify(state.businessInfo));
+      console.log('VIP专属缓存已成功保存');
+      
+      // 验证保存是否成功
+      const testSave = localStorage.getItem(vipBusinessInfoKey);
+      if (testSave) {
+        console.log('VIP专属缓存保存验证成功，存储的数据:', testSave);
+      }
+    } catch (error) {
+      console.error('保存VIP专属缓存失败:', error);
+      alert('VIP信息保存失败，请检查浏览器存储空间');
+    }
+  }
+  
+  // 加载备用商家信息（普通用户或VIP缓存失败时的回退方案）
+  function loadFallbackBusinessInfo() {
+    // 从本地存储加载商家信息 - 与saveBusinessInfoToLocalStorage保持一致的键名
+    const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
+    if (savedBusinessInfo) {
+      try {
+        state.businessInfo = JSON.parse(savedBusinessInfo);
+        console.log('从posterBusinessInfo加载成功:', state.businessInfo);
+      } catch (e) {
+        console.error('加载保存的商家信息失败:', e);
+        // 尝试从旧键名迁移数据
+        try {
+          const oldSavedInfo = localStorage.getItem('businessInfo');
+          if (oldSavedInfo) {
+            state.businessInfo = JSON.parse(oldSavedInfo);
+            console.log('从businessInfo迁移数据:', state.businessInfo);
+            // 迁移后保存到新键名
+            localStorage.setItem('posterBusinessInfo', oldSavedInfo);
+            localStorage.removeItem('businessInfo'); // 清除旧数据
+          }
+        } catch (ee) {
+          console.error('迁移旧数据失败:', ee);
+        }
+      }
+    }
+  }
+  
   // 从本地存储加载促销信息
   function loadBusinessInfoFromLocalStorage() {
     try {
       console.log('尝试从本地存储加载数据...');
+      
+      // 如果是VIP用户，检查是否有VIP专属缓存
+      if (window.isVipActive && window.isVipActive()) {
+        console.log('VIP用户登录，检查VIP专属缓存');
+        
+        const vipId = localStorage.getItem('vipId');
+        const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+        
+        // 先检查是否有VIP专属缓存
+        const vipSavedInfo = localStorage.getItem(vipBusinessInfoKey);
+        if (vipSavedInfo) {
+          console.log('找到VIP专属缓存数据:', vipSavedInfo);
+          const parsedInfo = JSON.parse(vipSavedInfo);
+          state.businessInfo = {
+            ...state.businessInfo,
+            ...parsedInfo
+          };
+          console.log('从VIP专属缓存加载完成:', state.businessInfo);
+          return;
+        }
+        
+        // 如果没有VIP专属缓存，使用VIP固定信息初始化
+        const vipInfo = window.getVipFixedInfo();
+        if (vipInfo) {
+          state.businessInfo = {
+            ...state.businessInfo,
+            name: vipInfo.name,
+            logo: vipInfo.logo,
+            qrcode: state.businessInfo.qrcode, // 保留原有的二维码信息
+            promoText: state.businessInfo.promoText // 保留原有的促销信息
+          };
+          
+          // 将VIP数据保存到VIP专属缓存
+          saveVipBusinessInfoToLocalStorage();
+          console.log('VIP数据已初始化并保存到专属缓存:', state.businessInfo);
+          return;
+        }
+      }
+      
+      // 普通用户或VIP数据加载失败时使用普通本地存储
       const savedInfo = localStorage.getItem('posterBusinessInfo');
       if (savedInfo) {
-        console.log('找到本地存储数据:', savedInfo);
+        console.log('找到普通本地存储数据:', savedInfo);
         const parsedInfo = JSON.parse(savedInfo);
         state.businessInfo = {
           ...state.businessInfo,
           ...parsedInfo
         };
-        console.log('从本地存储加载完成:', state.businessInfo);
+        console.log('从普通本地存储加载完成:', state.businessInfo);
       } else {
         console.log('本地存储中没有找到数据');
       }
@@ -184,6 +286,16 @@
         if (elements.promoTextInput) {
           elements.promoTextInput.value = template;
           console.log('已将模板内容填充到输入框:', template);
+          
+          // 自动滚动到编辑框
+          setTimeout(() => {
+            elements.promoTextInput.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+            elements.promoTextInput.focus();
+            console.log('已滚动到编辑框并聚焦');
+          }, 100);
         }
       });
       elements.promoTemplatesList.appendChild(templateItem);
@@ -665,28 +777,46 @@
     // 检查VIP状态
     checkVipStatus();
     
-    // 从本地存储加载商家信息 - 与saveBusinessInfoToLocalStorage保持一致的键名
-    const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
-    if (savedBusinessInfo) {
-      try {
-        state.businessInfo = JSON.parse(savedBusinessInfo);
-        console.log('从posterBusinessInfo加载成功:', state.businessInfo);
-      } catch (e) {
-        console.error('加载保存的商家信息失败:', e);
-        // 尝试从旧键名迁移数据
-        try {
-          const oldSavedInfo = localStorage.getItem('businessInfo');
-          if (oldSavedInfo) {
-            state.businessInfo = JSON.parse(oldSavedInfo);
-            console.log('从businessInfo迁移数据:', state.businessInfo);
-            // 迁移后保存到新键名
-            localStorage.setItem('posterBusinessInfo', oldSavedInfo);
-            localStorage.removeItem('businessInfo'); // 清除旧数据
+    // 优先加载VIP专属缓存（如果用户是VIP）
+    if (window.isVipActive && window.isVipActive()) {
+      const vipId = localStorage.getItem('vipId');
+      if (vipId) {
+        const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+        const vipSavedInfo = localStorage.getItem(vipBusinessInfoKey);
+        
+        if (vipSavedInfo) {
+          try {
+            state.businessInfo = JSON.parse(vipSavedInfo);
+            console.log('从VIP专属缓存加载成功:', state.businessInfo);
+          } catch (e) {
+            console.error('加载VIP专属缓存失败:', e);
+            // 如果VIP缓存加载失败，回退到普通缓存
+            loadFallbackBusinessInfo();
           }
-        } catch (ee) {
-          console.error('迁移旧数据失败:', ee);
+        } else {
+          console.log('VIP专属缓存不存在，使用VIP固定信息初始化');
+          // 如果没有VIP专属缓存，使用VIP固定信息初始化
+          const vipInfo = window.getVipFixedInfo();
+          if (vipInfo) {
+            state.businessInfo = {
+              ...state.businessInfo,
+              name: vipInfo.name,
+              logo: vipInfo.logo,
+              qrcode: state.businessInfo.qrcode, // 保留原有的二维码信息
+              promoText: state.businessInfo.promoText // 保留原有的促销信息
+            };
+            // 保存到VIP专属缓存
+            saveVipBusinessInfoToLocalStorage();
+          } else {
+            loadFallbackBusinessInfo();
+          }
         }
+      } else {
+        loadFallbackBusinessInfo();
       }
+    } else {
+      // 普通用户加载普通缓存
+      loadFallbackBusinessInfo();
     }
     
     // 从本地存储加载文本颜色设置
@@ -2028,6 +2158,9 @@
     reader.onload = function(e) {
       state.businessInfo.logo = e.target.result;
       
+      // 立即保存到缓存
+      saveBusinessInfoToLocalStorage();
+      
       // 更新显示
       updateBusinessInfoDisplay();
       
@@ -2050,6 +2183,9 @@
   // 移除Logo
   function removeLogo() {
     state.businessInfo.logo = null;
+    
+    // 立即保存到缓存
+    saveBusinessInfoToLocalStorage();
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -2080,6 +2216,9 @@
     reader.onload = function(e) {
       state.businessInfo.qrcode = e.target.result;
       
+      // 立即保存到缓存
+      saveBusinessInfoToLocalStorage();
+      
       // 更新显示
       updateBusinessInfoDisplay();
       
@@ -2104,6 +2243,9 @@
   // 移除二维码
   function removeQrcode() {
     state.businessInfo.qrcode = null;
+    
+    // 立即保存到缓存
+    saveBusinessInfoToLocalStorage();
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -3201,6 +3343,14 @@ function setVipFixedInfo() {
         removeLogoBtn.style.display = 'none';
       }
     }
+  }
+  
+  // 清空二维码，等待用户上传
+  const qrcodePreview = document.getElementById('qrcodePreview');
+  const qrcodeUploadArea = document.getElementById('qrcodeUploadArea');
+  if (qrcodePreview && qrcodeUploadArea) {
+    qrcodePreview.style.display = 'none';
+    qrcodeUploadArea.style.display = 'block';
   }
   
   console.log('VIP固定商家信息已设置');
