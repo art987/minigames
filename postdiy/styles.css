@@ -404,7 +404,7 @@ footer {
 .footer-logo {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: #000000;
   margin-bottom: 1rem;
   background: #fff;
 }
@@ -528,6 +528,7 @@ footer {
   .templates-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    padding: 0 1rem;
   }
   
   .template-card {
@@ -787,13 +788,13 @@ footer {
 /* 操作按钮 - 更大的触摸区域 */
 .action-btn {
   flex: 4;
-  padding: 9px 12px;
+  padding: 9px 5px;
   margin: 0 4px;
   border: none;
   border-radius: 27px;
-  background-color: #1d1d1d;
-  color: white;
-  font-size: 12px;
+  background-color: #2e2e2e;
+  color: #e2e2e2;
+  /* font-size: 17px; */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -813,8 +814,9 @@ footer {
   margin-right: 1px;
 }
 
-#downloadBtn{ background-color: #ad0404;}
-
+#downloadBtn{background-color: #ad0404;font-size: 11px;color: #fff;}
+#downloadBtn span{color: #fff;} 
+ .fa-download:before{color: #fff;}
 .action-btn:active {
   background-color: #1565c0;
   transform: scale(0.95);
@@ -918,8 +920,198 @@ footer {
 
 /* 商家信息编辑弹窗特定样式 */
 .modal.business-info-modal {
-  max-height: 90vh;
+  max-height: 70vh;
 }
+
+/* VIP登录相关样式 */
+.vip-login-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.vip-login-btn {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #8b6914;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.vip-login-btn:hover {
+  background: linear-gradient(135deg, #ffed4e, #ffd700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.vip-login-btn i {
+  margin-right: 5px;
+}
+
+.vip-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #28a745;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.vip-status i {
+  color: #28a745;
+}
+
+.vip-logout-btn {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.vip-logout-btn:hover {
+  background: #f8f9fa;
+  color: #495057;
+  border-color: #adb5bd;
+}
+
+.vip-logout-btn i {
+  margin-right: 4px;
+}
+
+/* VIP登录弹窗样式 */
+.modal.vip-login-modal {
+  max-width: 400px;
+}
+
+.vip-login-form {
+  padding: 20px 0 5px;
+}
+
+.inline-form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.inline-form-group .form-label {
+  width: 42px;
+  margin-right: 10px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.inline-form-group .form-input {
+  flex: 1;
+}
+
+.login-message {
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.login-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.login-actions {
+  display: flex;
+  gap: 12px;
+  margin: 11px 0;
+}
+
+.login-actions .action-btn {
+  flex: 1;
+}
+
+.vip-login-hint {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.vip-login-hint p {
+  margin: 5px 0;
+}
+
+.vip-login-hint strong {
+  color: #495057;
+}
+
+/* VIP按钮样式 */
+.action-btn.vip-button {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #8b6914;
+  border: 2px solid #ffc107;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.action-btn.vip-button:hover {
+  background: linear-gradient(135deg, #ffed4e, #ffd700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.action-btn.vip-button i {
+  color: #8b6914;
+}
+
+/* VIP状态栏样式 */
+.vip-status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #8b6914;
+  padding: 10px 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  border-bottom: 2px solid #ffc107;
+}
+
+.vip-status-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.vip-status-content i {
+  font-size: 16px;
+}
+
+.vip-valid-until {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+
 
 /* 模态框动画 */
 @keyframes modalSlideIn {
@@ -1199,7 +1391,7 @@ footer {
 .form-label {
   display: block;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   margin-top: 9px;
   height: 24px;
@@ -1589,8 +1781,8 @@ footer {
 @media (max-width: 480px) {
   /* 小屏幕上的按钮调整 */
   .action-btn {
-    padding: 5px 0px;
-    min-height: 30px;
+    /* padding: 11px 0px; */
+    min-height: 39px;
   }
   
   .action-btn i {
@@ -1598,7 +1790,7 @@ footer {
   }
   
   .action-btn span {
-    font-size: 11px;
+    font-size: 12px;
   }
   
   /* 小屏幕上的模态框调整 */
@@ -1726,7 +1918,7 @@ input.hidden {
 }
 
 .modal-body {
-  padding: 0px 20px 30px;
+  padding: 0px 20px 9px;
 }
 
 .input-section {

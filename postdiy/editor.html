@@ -25,13 +25,24 @@
   <script src="utils.js"></script>
   <!-- 网站配置数据（包含券码验证） -->
   <script src="config_data.js"></script>
+  <!-- VIP数据 -->
+  <script src="vip_data.js"></script>
 </head>
 <body class="editorbg">
-  <!-- 返回按钮 -->
+  <!-- 顶部返回按钮 -->
   <div class="back-button-container">
-    <button id="backToHomeBtn" class="back-button">
+    <button id="backToHomeBtn" title="返回首页">
       <i class="fa fa-arrow-left"></i>
     </button>
+  </div>
+
+  <!-- VIP状态显示 -->
+  <div id="vipStatusBar" class="vip-status-bar hidden">
+    <div class="vip-status-content">
+      <i class="fa fa-diamond"></i>
+      <span>VIP用户已登录</span>
+      <span class="vip-valid-until">有效期至：<span id="vipValidUntilDate"></span></span>
+    </div>
   </div>
 
   <!-- 预览区域 -->

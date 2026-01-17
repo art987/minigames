@@ -662,6 +662,9 @@
   
   // 初始化编辑器状态
   function initializeEditor() {
+    // 检查VIP状态
+    checkVipStatus();
+    
     // 从本地存储加载商家信息 - 与saveBusinessInfoToLocalStorage保持一致的键名
     const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
     if (savedBusinessInfo) {
@@ -1663,6 +1666,11 @@
   
   // 为输入框添加清除按钮和改进提示语交互
   function enhanceInputWithClearButton(inputElement, placeholderText) {
+    // 如果是VIP用户，不创建清除按钮
+    if (window.isVipActive && window.isVipActive()) {
+      return;
+    }
+    
     // 移除之前可能存在的事件监听器，防止重复绑定
     if (inputElement._inputHandler) {
       inputElement.removeEventListener('input', inputElement._inputHandler);
@@ -1845,6 +1853,11 @@
     elements.businessInfoModal.classList.remove('hidden');
     // 同时设置display确保兼容性
     elements.businessInfoModal.style.display = 'flex';
+    
+    // 如果是VIP用户，隐藏清除按钮
+    if (window.isVipActive && window.isVipActive()) {
+      setTimeout(hideClearButtonsForVip, 0);
+    }
   }
   
   // 关闭商家信息编辑弹窗
@@ -2402,7 +2415,14 @@
   
   // 下载海报
   async function downloadPoster() {
-    showCouponModal();
+    // 检查是否为VIP状态
+    if (window.isVipActive && window.isVipActive()) {
+      // VIP用户直接下载，无需券码验证
+      await downloadPosterAfterVerification();
+    } else {
+      // 普通用户需要券码验证
+      showCouponModal();
+    }
   }
   
   // 转换为图片并下载 - 简化版：直接使用html2canvas对整个posterFrame进行截图
@@ -3072,3 +3092,161 @@
   
   console.log('海报编辑器加载完成，调试器已导出');
 });
+
+// VIP相关功能
+function checkVipStatus() {
+  // 检查URL参数
+  const urlParams = new URLSearchParams(window.location.search);
+  const vipParam = urlParams.get('vip');
+  
+  if (vipParam) {
+    console.log('检测到VIP参数:', vipParam);
+    
+    // 验证VIP参数
+    const user = window.vipData && window.vipData.users ? window.vipData.users[vipParam] : null;
+    if (user && window.isVipActive && window.isVipActive()) {
+      // 保存VIP状态
+      window.saveVipLogin(user);
+      
+      // 显示VIP状态栏
+      showVipStatusBar(user);
+      
+      // 设置固定商家信息
+      setVipFixedInfo();
+    }
+  } else if (window.isVipActive && window.isVipActive()) {
+    // 通过localStorage检查VIP状态
+    const user = window.getCurrentVipInfo ? window.getCurrentVipInfo() : null;
+    if (user) {
+      showVipStatusBar(user);
+      setVipFixedInfo();
+    }
+  }
+}
+
+// 显示VIP状态栏（隐藏状态栏，通过按钮样式显示VIP状态）
+function showVipStatusBar(user) {
+  const vipStatusBar = document.getElementById('vipStatusBar');
+  const vipValidUntilDate = document.getElementById('vipValidUntilDate');
+  
+  if (vipStatusBar && vipValidUntilDate) {
+    // 隐藏VIP状态栏，避免占据空间
+    vipStatusBar.classList.add('hidden');
+    vipValidUntilDate.textContent = user.validUntil;
+    document.body.classList.add('vip-active');
+    
+    // 更新商家信息按钮为VIP样式
+    updateBusinessInfoButtonForVip();
+    
+    console.log('VIP状态已激活，有效期至:', user.validUntil);
+  }
+}
+
+// 设置VIP固定商家信息
+function setVipFixedInfo() {
+  const fixedInfo = window.getVipFixedInfo ? window.getVipFixedInfo() : null;
+  
+  if (!fixedInfo) return;
+  
+  // 设置固定商家名称（允许在名称后添加文字）
+  const businessNameInput = document.getElementById('business-name');
+  if (businessNameInput) {
+    // 保存原始名称，用于后续添加后缀
+    const originalName = fixedInfo.name;
+    businessNameInput.value = originalName;
+    
+    // 允许编辑，但限制只能添加后缀
+    businessNameInput.disabled = false;
+    businessNameInput.title = 'VIP用户：可在商家名称后添加文字（如：-厦门分公司）';
+    
+    // 监听输入变化，限制编辑范围
+    businessNameInput.addEventListener('input', function() {
+      const currentValue = this.value;
+      
+      // 如果用户删除了原始名称，自动恢复
+      if (!currentValue.startsWith(originalName)) {
+        this.value = originalName + (currentValue.replace(originalName, '') || '');
+      }
+    });
+    
+    // 隐藏商家名称输入框的清除按钮
+    hideClearButtonsForVip();
+  }
+  
+  // 设置固定商家名称显示
+  const posterBusinessName = document.getElementById('posterBusinessName');
+  if (posterBusinessName) {
+    posterBusinessName.textContent = fixedInfo.name;
+  }
+  
+  // 设置固定logo（如果有的话）
+  if (fixedInfo.logo) {
+    const businessLogoImg = document.getElementById('businessLogoImg');
+    const businessLogoPlaceholder = document.getElementById('businessLogoPlaceholder');
+    
+    if (businessLogoImg && businessLogoPlaceholder) {
+      businessLogoImg.src = fixedInfo.logo;
+      businessLogoImg.style.display = 'block';
+      businessLogoPlaceholder.style.display = 'none';
+      
+      // 隐藏Logo上传区域
+      const logoUploadArea = document.getElementById('logoUploadArea');
+      if (logoUploadArea) {
+        logoUploadArea.style.display = 'none';
+      }
+      
+      // 隐藏删除按钮
+      const removeLogoBtn = document.getElementById('removeLogoBtn');
+      if (removeLogoBtn) {
+        removeLogoBtn.style.display = 'none';
+      }
+    }
+  }
+  
+  console.log('VIP固定商家信息已设置');
+}
+
+// 隐藏VIP用户的清除按钮
+function hideClearButtonsForVip() {
+  // 隐藏所有清除按钮
+  const clearButtons = document.querySelectorAll('.clear-button');
+  clearButtons.forEach(button => {
+    button.style.display = 'none';
+  });
+  
+  // 隐藏Logo删除按钮
+  const removeLogoBtn = document.getElementById('removeLogoBtn');
+  if (removeLogoBtn) {
+    removeLogoBtn.style.display = 'none';
+  }
+  
+  // 隐藏二维码删除按钮
+  const removeQrcodeBtn = document.getElementById('removeQrcodeBtn');
+  if (removeQrcodeBtn) {
+    removeQrcodeBtn.style.display = 'none';
+  }
+}
+
+// 更新商家信息按钮为VIP样式
+function updateBusinessInfoButtonForVip() {
+  const editBusinessInfoBtn = document.getElementById('editBusinessInfoBtn');
+  if (editBusinessInfoBtn) {
+    // 添加VIP样式类
+    editBusinessInfoBtn.classList.add('vip-button');
+    
+    // 更新图标为钻石图标
+    const icon = editBusinessInfoBtn.querySelector('i');
+    if (icon) {
+      icon.className = 'fa fa-diamond';
+    }
+    
+    // 更新文字
+    const textSpan = editBusinessInfoBtn.querySelector('span');
+    if (textSpan) {
+      textSpan.textContent = '商家信息';
+    }
+    
+    // 添加VIP提示
+    editBusinessInfoBtn.title = 'VIP用户：商家名称和Logo固定，可在名称后添加文字';
+  }
+}

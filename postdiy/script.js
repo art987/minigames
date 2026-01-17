@@ -376,3 +376,128 @@ window.applyFilters = applyFilters;
 window.autoSelectByDate = autoSelectByDate;
 window.loadTemplates = loadTemplates;
 window.showToast = showToast;
+
+// VIP登录功能
+function initVipLogin() {
+  const vipLoginBtn = document.getElementById('vipLoginBtn');
+  const vipStatus = document.getElementById('vipStatus');
+  const vipLoginModal = document.getElementById('vipLoginModal');
+  const closeVipLoginModalBtn = document.getElementById('closeVipLoginModalBtn');
+  const vipLoginCancelBtn = document.getElementById('vipLoginCancelBtn');
+  const vipLoginSubmitBtn = document.getElementById('vipLoginSubmitBtn');
+  const vipIdInput = document.getElementById('vipIdInput');
+  const vipPasswordInput = document.getElementById('vipPasswordInput');
+  const vipLoginMessage = document.getElementById('vipLoginMessage');
+
+  // 检查VIP状态并更新UI
+  function updateVipStatus() {
+    if (window.isVipActive && window.isVipActive()) {
+      vipLoginBtn.classList.add('hidden');
+      vipStatus.classList.remove('hidden');
+      
+      // 显示VIP商家名称和有效期
+      const vipName = localStorage.getItem('vipName');
+      const vipValidUntil = localStorage.getItem('vipValidUntil');
+      const vipStatusText = vipStatus.querySelector('span');
+      if (vipStatusText && vipName && vipValidUntil) {
+        vipStatusText.textContent = `VIP${vipName}已登录 (${vipValidUntil})`;
+      }
+    } else {
+      vipLoginBtn.classList.remove('hidden');
+      vipStatus.classList.add('hidden');
+    }
+  }
+  
+  // VIP退出功能
+  function handleVipLogout() {
+    if (confirm('确定要退出VIP登录吗？')) {
+      window.clearVipLogin();
+      updateVipStatus();
+      showToast('已退出VIP登录', 'success');
+    }
+  }
+
+  // 显示VIP登录弹窗
+  function showVipLoginModal() {
+    vipLoginModal.classList.remove('hidden');
+    vipIdInput.focus();
+  }
+
+  // 关闭VIP登录弹窗
+  function closeVipLoginModal() {
+    vipLoginModal.classList.add('hidden');
+    vipIdInput.value = '';
+    vipPasswordInput.value = '';
+    vipLoginMessage.textContent = '';
+    vipLoginMessage.className = 'login-message';
+  }
+
+  // VIP登录
+  function handleVipLogin() {
+    const id = vipIdInput.value.trim();
+    const password = vipPasswordInput.value.trim();
+
+    if (!id || !password) {
+      vipLoginMessage.textContent = '请输入VIP ID和密码';
+      vipLoginMessage.className = 'login-message error';
+      return;
+    }
+
+    const result = window.validateVipLogin(id, password);
+    
+    if (result.success) {
+      vipLoginMessage.textContent = result.message;
+      vipLoginMessage.className = 'login-message success';
+      
+      // 保存VIP登录状态
+      window.saveVipLogin(result.user);
+      
+      // 延迟关闭弹窗并跳转到编辑器
+      setTimeout(() => {
+        closeVipLoginModal();
+        updateVipStatus();
+        
+        // 跳转到编辑器页面，带上VIP参数
+        window.location.href = `editor.html?vip=${result.user.id}`;
+      }, 1000);
+    } else {
+      vipLoginMessage.textContent = result.message;
+      vipLoginMessage.className = 'login-message error';
+    }
+  }
+
+  // 事件监听
+  vipLoginBtn.addEventListener('click', showVipLoginModal);
+  closeVipLoginModalBtn.addEventListener('click', closeVipLoginModal);
+  vipLoginCancelBtn.addEventListener('click', closeVipLoginModal);
+  vipLoginSubmitBtn.addEventListener('click', handleVipLogin);
+  
+  // VIP退出按钮事件监听
+  const vipLogoutBtn = document.getElementById('vipLogoutBtn');
+  if (vipLogoutBtn) {
+    vipLogoutBtn.addEventListener('click', handleVipLogout);
+  }
+
+  // 按回车键登录
+  vipPasswordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      handleVipLogin();
+    }
+  });
+
+  // 点击背景关闭弹窗
+  vipLoginModal.addEventListener('click', function(e) {
+    if (e.target === vipLoginModal) {
+      closeVipLoginModal();
+    }
+  });
+
+  // 初始化VIP状态
+  updateVipStatus();
+}
+
+// 在页面加载完成后初始化VIP登录功能
+document.addEventListener('DOMContentLoaded', function() {
+  // 延迟初始化VIP登录，确保VIP数据已加载
+  setTimeout(initVipLogin, 100);
+});

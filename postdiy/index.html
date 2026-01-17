@@ -21,6 +21,8 @@
   </script>
   <!-- 工具函数 -->
   <script src="utils.js"></script>
+  <!-- VIP数据 -->
+  <script src="vip_data.js"></script>
 </head>
 <body>
   <!-- 头部导航 -->
@@ -32,6 +34,22 @@
         </svg>
         朋友圈海报制作
       </a>
+      
+      <!-- VIP登录入口 -->
+      <div class="vip-login-section">
+        <button id="vipLoginBtn" class="vip-login-btn">
+          <i class="fa fa-diamond"></i>
+          <span>VIP用户登录</span>
+        </button>
+        <div id="vipStatus" class="vip-status hidden">
+          <i class="fa fa-check-circle"></i>
+          <span>已登录</span>
+          <button id="vipLogoutBtn" class="vip-logout-btn">
+            <i class="fa fa-sign-out"></i>
+            <span>退出</span>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -120,5 +138,33 @@
       console.log('筛选调试器已加载:', window.filtersDebugger);
     });
   </script>
+  
+  <!-- VIP登录弹窗 -->
+  <div id="vipLoginModal" class="modal-overlay hidden">
+    <div class="modal vip-login-modal">
+      <div class="modal-header fixed-header">
+        <h2 class="modal-title">VIP用户登录</h2>
+        <button id="closeVipLoginModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body scrollable-body">
+        <div class="vip-login-form">
+          <div class="form-group inline-form-group">
+            <label for="vipIdInput" class="form-label">VIP ID</label>
+            <input type="text" id="vipIdInput" class="form-input" placeholder="请输入VIP ID">
+          </div>
+          <div class="form-group inline-form-group">
+            <label for="vipPasswordInput" class="form-label">密码</label>
+            <input type="password" id="vipPasswordInput" class="form-input" placeholder="请输入密码">
+          </div>
+          <div id="vipLoginMessage" class="login-message"></div>
+          <div class="login-actions">
+            <button id="vipLoginSubmitBtn" class="action-btn primary">登录</button>
+            <button id="vipLoginCancelBtn" class="action-btn secondary">取消</button>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
