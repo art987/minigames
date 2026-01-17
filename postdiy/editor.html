@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PostDIY - 海报编辑器</title>
+  <title>海报编辑器-朋友圈海报制作中心</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
@@ -23,6 +23,8 @@
   </script>
   <!-- 工具函数 -->
   <script src="utils.js"></script>
+  <!-- 券码库 -->
+  <script src="coupons.js"></script>
 </head>
 <body class="editorbg">
   <!-- 返回按钮 -->
@@ -88,12 +90,12 @@
 
   <!-- 模板选择弹窗 -->
   <div id="templateModal" class="modal-overlay hidden">
-    <div class="modal">
-      <div class="modal-header">
+    <div class="modal template-select-modal">
+      <div class="modal-header fixed-header">
         <h2 class="modal-title">选择模板(根据月份及节日)</h2>
         <button id="closeTemplateModalBtn" class="modal-close">&times;</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body scrollable-body">
         <!-- 月份选择 -->
         <div class="modal-months-container">
           <h3 class="text-lg font-medium mb-3" style="display: none;">选择月份</h3>
@@ -122,12 +124,12 @@
 
   <!-- 商家信息编辑弹窗 -->
   <div id="businessInfoModal" class="modal-overlay hidden">
-    <div class="modal">
-      <div class="modal-header">
+    <div class="modal business-info-modal">
+      <div class="modal-header fixed-header">
         <h2 class="modal-title">编辑商家信息</h2>
         <button id="closeBusinessInfoModalBtn" class="modal-close">&times;</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body scrollable-body">
         <form id="businessInfoForm">
           <div class="form-group">
             <label class="form-label" for="business-name">商家名称（含字体颜色） <span class="text-error-color">*</span></label>
@@ -270,14 +272,14 @@
   
   <!-- 促销信息编辑模态框 -->
   <div id="promoTextModal" class="modal-overlay hidden">
-    <div class="modal-container">
-      <div class="modal-header">
+    <div class="modal-container promo-text-modal">
+      <div class="modal-header fixed-header">
         <h3>编辑促销信息</h3>
         <button id="closePromoTextModal" class="modal-close">
           <i class="fa fa-times"></i>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body scrollable-body">
         <!-- 促销信息输入区域 -->
         <div class="input-section">
           <textarea id="promoTextInput" class="promo-text-input" rows="3" placeholder="请输入促销信息..."></textarea>

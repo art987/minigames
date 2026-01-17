@@ -1,0 +1,33 @@
+{
+  "name": "zhiyuancard",
+  "version": "1.0.0",
+  "description": "高考志愿对冲卡·静态版 - 29.9元扫码，输入位次→1秒出冲/稳/保院校PDF",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8001",
+    "build": "next build && next export",
+    "convert-data": "node scripts/convert-csv-to-json.js",
+    "serve": "serve out -p 3000"
+  },
+  "keywords": [
+    "高考",
+    "志愿",
+    "对冲卡",
+    "PDF",
+    "静态网站"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^13.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "csv-parser": "^3.0.0",
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

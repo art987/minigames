@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高考志愿对冲卡·静态版</title>
+    <meta name="description" content="29.9元扫码，输入位次→1秒出冲/稳/保院校PDF">
+    
+    <!-- 引入外部库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</head>
+<body>
+    <!-- 水墨国风背景 -->
+    <div class="background">
+        <div class="ink-effect"></div>
+    </div>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1 class="title">高考志愿对冲卡</h1>
+            <p class="subtitle">29.9元扫码，输入位次→1秒出冲/稳/保院校PDF</p>
+            <div class="price-tag">¥29.9</div>
+        </header>
+        
+        <!-- 输入表单 -->
+        <section class="input-section">
+            <form id="input-form" class="input-form">
+                <div class="form-group">
+                    <label for="province">省份</label>
+                    <select id="province" name="province" required>
+                        <option value="">请选择省份</option>
+                        <!-- 省份选项将通过JS动态生成 -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">科类</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">请选择科类</option>
+                        <option value="理科">理科</option>
+                        <option value="文科">文科</option>
+                        <option value="综合改革">综合改革</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rank">全省位次</label>
+                    <input type="number" id="rank" name="rank" placeholder="请输入您的全省位次" required min="1" max="1000000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gumroad-key">Gumroad兑换码</label>
+                    <input type="text" id="gumroad-key" name="gumroad-key" placeholder="请输入Gumroad兑换码" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    生成志愿卡
+                </button>
+            </form>
+        </section>
+        
+        <!-- 支付区域 -->
+        <section class="payment-section" id="payment-section">
+            <div class="payment-info">
+                <h3>立即购买</h3>
+                <p>扫码支付29.9元，获取专属志愿卡</p>
+                <!-- Gumroad嵌入式按钮将在这里动态加载 -->
+                <div id="gumroad-embed"></div>
+            </div>
+        </section>
+        
+        <!-- 结果区域 -->
+        <section class="result-section hidden" id="result-section">
+            <div class="result-header">
+                <h2>您的志愿卡</h2>
+                <p>基于您的位次智能推荐冲/稳/保院校</p>
+            </div>
+            
+            <!-- 志愿卡内容 -->
+            <div class="card-content" id="card-content">
+                <div class="card-section">
+                    <h3>冲一冲院校（15所）</h3>
+                    <div id="chong-list" class="school-list"></div>
+                </div>
+                
+                <div class="card-section">
+                    <h3>稳一稳院校（15所）</h3>
+                    <div id="wen-list" class="school-list"></div>
+                </div>
+                
+                <div class="card-section">
+                    <h3>保一保院校（15所）</h3>
+                    <div id="bao-list" class="school-list"></div>
+                </div>
+                
+                <div class="card-footer">
+                    <p>数据仅供参考，最终以考试院官方为准</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="download-pdf" class="download-btn">下载PDF</button>
+                <button id="reset-form" class="reset-btn">重新生成</button>
+            </div>
+        </section>
+        
+        <!-- 加载提示 -->
+        <div class="loading hidden" id="loading">
+            <div class="spinner"></div>
+            <p>正在生成志愿卡...</p>
+        </div>
+    </div>
+    
+    <!-- 引入脚本 -->
+    <script src="data/provinces.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

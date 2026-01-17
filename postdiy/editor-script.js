@@ -2176,8 +2176,204 @@
     showToast('编辑器已重置');
   }
   
-  // 下载海报
-  async function downloadPoster() {
+  // 券码验证弹窗
+  function showCouponModal() {
+    // 创建弹窗HTML
+    const modalHTML = `
+      <div id="couponModal" class="modal-overlay" style="display: flex;">
+        <div class="modal coupon-modal" style="max-width: 400px;">
+          <div class="modal-header fixed-header">
+            <h2 class="modal-title">券码验证</h2>
+            <button id="closeCouponModalBtn" class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body scrollable-body">
+            <div class="coupon-input-group">
+              <label class="coupon-label">请输入4位券码</label>
+              <div class="coupon-input-container">
+                <input type="text" class="coupon-digit" maxlength="1" data-index="0" placeholder="•">
+                <input type="text" class="coupon-digit" maxlength="1" data-index="1" placeholder="•">
+                <input type="text" class="coupon-digit" maxlength="1" data-index="2" placeholder="•">
+                <input type="text" class="coupon-digit" maxlength="1" data-index="3" placeholder="•">
+              </div>
+              <input type="text" id="couponCodeInput" class="coupon-input" maxlength="4" style="display: none;">
+              <div id="couponMessage" class="coupon-message"></div>
+            </div>
+            <div class="coupon-actions">
+              <button id="verifyCouponBtn" class="action-btn primary">验证券码</button>
+              <button id="cancelCouponBtn" class="action-btn secondary">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // 添加到页面
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    const modal = document.getElementById('couponModal');
+    const closeBtn = document.getElementById('closeCouponModalBtn');
+    const cancelBtn = document.getElementById('cancelCouponBtn');
+    const verifyBtn = document.getElementById('verifyCouponBtn');
+    const couponInput = document.getElementById('couponCodeInput');
+    const couponMessage = document.getElementById('couponMessage');
+    const digitInputs = document.querySelectorAll('.coupon-digit');
+    const couponLabel = document.querySelector('.coupon-label');
+    
+    // 自动填充上次成功的券码
+    const lastValidCoupon = window.getLastValidCoupon ? window.getLastValidCoupon() : null;
+    if (lastValidCoupon && lastValidCoupon.length === 4) {
+      for (let i = 0; i < 4; i++) {
+        digitInputs[i].value = lastValidCoupon[i];
+      }
+      couponInput.value = lastValidCoupon;
+      // 如果是上次成功的券码，更新标签和按钮文字
+      updateLabelAndButtonText(lastValidCoupon);
+    }
+    
+    // 处理数字输入框的输入逻辑
+    function handleDigitInput(event, index) {
+      const input = event.target;
+      const value = input.value;
+      
+      // 只允许数字输入
+      if (value && !/^\d$/.test(value)) {
+        input.value = '';
+        return;
+      }
+      
+      // 自动跳转到下一个输入框
+      if (value && index < 3) {
+        digitInputs[index + 1].focus();
+      }
+      
+      // 更新隐藏的输入框
+      updateHiddenInput();
+    }
+    
+    // 处理退格键
+    function handleBackspace(event, index) {
+      if (event.key === 'Backspace' && !event.target.value && index > 0) {
+        digitInputs[index - 1].focus();
+      }
+    }
+    
+    // 更新隐藏的输入框值
+    function updateHiddenInput() {
+      const code = Array.from(digitInputs).map(input => input.value || '').join('');
+      couponInput.value = code;
+    }
+    
+    // 更新标签和按钮文字的函数
+    function updateLabelAndButtonText(currentCode) {
+      const lastValidCoupon = window.getLastValidCoupon ? window.getLastValidCoupon() : null;
+      
+      if (currentCode === lastValidCoupon && currentCode.length === 4) {
+        // 如果是上次成功的券码
+        couponLabel.textContent = '您上次验证通过的券码';
+        verifyBtn.innerHTML = '<i class="fa fa-image"></i> 生成海报';
+      } else {
+        // 恢复默认文字
+        couponLabel.textContent = '请输入4位券码';
+        verifyBtn.innerHTML = '<i class="fa fa-check"></i> 验证券码';
+      }
+    }
+    
+    // 监听输入框变化
+    function handleInputChange() {
+      const currentCode = Array.from(digitInputs).map(input => input.value || '').join('');
+      updateLabelAndButtonText(currentCode);
+    }
+    
+    // 为每个数字输入框添加事件监听
+    digitInputs.forEach((input, index) => {
+      input.addEventListener('input', (event) => {
+        handleDigitInput(event, index);
+        handleInputChange();
+      });
+      input.addEventListener('keydown', (event) => handleBackspace(event, index));
+      
+      // 监听退格键和删除键
+      input.addEventListener('keyup', (event) => {
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+          handleInputChange();
+        }
+      });
+    });
+    
+    // 关闭弹窗函数
+    function closeModal() {
+      modal.remove();
+    }
+    
+    // 验证券码函数
+    function verifyCoupon() {
+      const code = couponInput.value.trim();
+      
+      if (!code) {
+        couponMessage.textContent = '请输入券码';
+        couponMessage.className = 'coupon-message error';
+        return;
+      }
+      
+      if (code.length !== 4 || !/^\d{4}$/.test(code)) {
+        couponMessage.textContent = '券码必须是4位数字';
+        couponMessage.className = 'coupon-message error';
+        return;
+      }
+      
+      // 调用券码验证函数
+      if (window.validateCoupon) {
+        const result = window.validateCoupon(code);
+        
+        if (result.valid) {
+          couponMessage.textContent = result.message;
+          couponMessage.className = 'coupon-message success';
+          
+          // 保存成功的券码
+          if (window.saveLastValidCoupon) {
+            window.saveLastValidCoupon(code);
+          }
+          
+          // 延迟关闭弹窗并开始下载
+          setTimeout(() => {
+            closeModal();
+            downloadPosterAfterVerification();
+          }, 1500);
+        } else {
+          couponMessage.textContent = result.message;
+          couponMessage.className = 'coupon-message error';
+        }
+      } else {
+        couponMessage.textContent = '券码验证功能未加载，请刷新页面重试';
+        couponMessage.className = 'coupon-message error';
+      }
+    }
+    
+    // 事件监听
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    verifyBtn.addEventListener('click', verifyCoupon);
+    
+    // 按回车键验证
+    couponInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        verifyCoupon();
+      }
+    });
+    
+    // 点击背景关闭
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    
+    // 自动聚焦输入框
+    couponInput.focus();
+  }
+  
+  // 券码验证通过后的下载
+  async function downloadPosterAfterVerification() {
     if (!state.currentTemplate) {
       showToast('请先选择一个模板');
       return;
@@ -2202,6 +2398,11 @@
         elements.downloadBtn.innerHTML = '<i class="fa fa-download"></i> 下载海报';
       }
     }
+  }
+  
+  // 下载海报
+  async function downloadPoster() {
+    showCouponModal();
   }
   
   // 转换为图片并下载 - 简化版：直接使用html2canvas对整个posterFrame进行截图
@@ -2302,8 +2503,16 @@
             
             link.href = imageUrl;
             
-            // 设置文件名
-            link.download = `poster_${Date.now()}.png`;
+            // 设置文件名 - 使用模板名称和时间
+            const templateName = state.currentTemplate ? state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_') : 'poster';
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timestamp = `${year}${month}${day}-${hours}${minutes}`;
+            link.download = `${templateName}${timestamp}.png`;
           
             // 触发下载
             document.body.appendChild(link);
@@ -2336,7 +2545,17 @@
           
           const link = document.createElement('a');
           link.href = fallbackCanvas.toDataURL('image/png');
-          link.download = `poster_fallback_${Date.now()}.png`;
+          
+          // 设置文件名 - 使用模板名称和时间（备用方案）
+          const templateName = state.currentTemplate ? state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_') : 'poster';
+          const now = new Date();
+          const year = now.getFullYear();
+          const month = String(now.getMonth() + 1).padStart(2, '0');
+          const day = String(now.getDate()).padStart(2, '0');
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const timestamp = `${year}${month}${day}-${hours}${minutes}`;
+          link.download = `${templateName}${timestamp}_fallback.png`;
           document.body.appendChild(link);
           link.click();
           setTimeout(() => {

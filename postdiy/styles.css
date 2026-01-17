@@ -237,7 +237,7 @@ main {
 /* 模板展示区域 */
 .templates-section {
   margin-bottom: 0rem;
-    padding: 0 18px;
+  padding: 0px 0px;
 }
 
 .templates-header {
@@ -878,6 +878,49 @@ footer {
   animation: modalSlideIn 0.3s ease-out;
 }
 
+/* 弹窗固定头部通用样式 */
+.modal.template-select-modal,
+.modal-container.promo-text-modal,
+.modal.coupon-modal,
+.modal.business-info-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal.template-select-modal .fixed-header,
+.modal-container.promo-text-modal .fixed-header,
+.modal.coupon-modal .fixed-header,
+.modal.business-info-modal .fixed-header {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 10;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal.template-select-modal .scrollable-body,
+.modal-container.promo-text-modal .scrollable-body,
+.modal.coupon-modal .scrollable-body,
+.modal.business-info-modal .scrollable-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* 促销信息编辑弹窗特定样式 */
+.modal-container.promo-text-modal {
+  max-height: 95vh;
+}
+
+/* 券码验证弹窗特定样式 */
+.modal.coupon-modal {
+  max-height: 60vh;
+}
+
+/* 商家信息编辑弹窗特定样式 */
+.modal.business-info-modal {
+  max-height: 90vh;
+}
+
 /* 模态框动画 */
 @keyframes modalSlideIn {
   from {
@@ -903,26 +946,192 @@ footer {
 .modal-title {
   font-size: 20px;
   font-weight: 700;
-  color: #333;
+  color: #ffffff;
 }
 
 /* 模态框关闭按钮 */
 .modal-close {
   background: none;
-  border: none;
-  font-size: 52px;
-  color: #d00000;
-  cursor: pointer;
-  padding: 0;
-  width: 32px;
-  line-height: 9px;
-  height: 32px;
-  padding-bottom: 12px;
+}
+
+/* 券码验证弹窗样式 - 红色渐变主题 */
+.coupon-input-group {
+  margin-bottom: 6px;
+}
+
+.coupon-label {
+  display: block;
+  margin: 20px 0;
+  color: #d32f2f;
+  font-size: 19px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.coupon-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.coupon-digit {
+  width: 60px;
+  height: 80px;
+  border: 2px solid #ffc3c3;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #f1f1f1, #ffffff);
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  color: #d32f2f;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 
+    0 4px 15px rgba(211, 47, 47, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  cursor: text;
+}
+
+.coupon-digit:focus {
+  outline: none;
+  border-color: #d32f2f;
+  background: linear-gradient(145deg, #fff, #ffeaea);
+  box-shadow: 
+    0 0 0 3px rgba(211, 47, 47, 0.2),
+    0 6px 20px rgba(211, 47, 47, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.coupon-digit::placeholder {
+  color: #ffb3b3;
+  font-size: 24px;
+}
+
+/* 隐藏的原始输入框 */
+.coupon-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.coupon-message {
+  margin-top: 12px;
+  font-size: 14px;
+  min-height: 20px;
+  text-align: center;
+  margin-bottom: 18px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.coupon-message.error {
+  color: #d32f2f;
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  border: 1px solid #f44336;
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15);
+}
+
+.coupon-message.success {
+  color: #388e3c;
+  background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+  border: 1px solid #4caf50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+.coupon-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.coupon-actions .action-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.coupon-actions .action-btn.primary {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: white;
+}
+
+.coupon-actions .action-btn.primary:hover {
+  background: linear-gradient(135deg, #b71c1c, #d32f2f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+}
+
+.coupon-actions .action-btn.primary:active {
+  transform: translateY(0);
+}
+
+.coupon-actions .action-btn.secondary {
+  background: linear-gradient(135deg, #dbdbdb, #b8b8b8);
+  color: white;
+}
+
+.coupon-actions .action-btn.secondary:hover {
+  background: linear-gradient(135deg, #616161, #757575);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(97, 97, 97, 0.3);
+}
+
+/* 弹窗头部样式 */
+.modal-header {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: white;
+  border-radius: 12px 12px 0 0;
+  padding: 20px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.3);
+  transform: scale(1.1);
+}
+
+/* 弹窗整体样式 */
+.modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(211, 47, 47, 0.3);
+  border: 2px solid #ee3030a1;
+}
+
+.modal-body {
+  padding: 30px;
 }
 
 .modal-close:hover {
@@ -1473,12 +1682,13 @@ input.hidden {
 
 .modal-container {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 14px;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(211, 47, 47, 0.3);
+  border: 2px solid #ee3030a1;
 }
 
 .modal-header {
@@ -1492,14 +1702,15 @@ input.hidden {
 .modal-header h3 {
   margin: 0;
   font-size: 18px;
-  color: #333;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .modal-close {
   background: none;
   border: none;
-  font-size: 28px;
-  color: #d80202;
+  font-size: 41px;
+  color: #ffffff;
   margin-top: -4px;
   cursor: pointer;
   padding: 4px;
@@ -1520,6 +1731,7 @@ input.hidden {
 
 .input-section {
   margin-bottom: 11px;
+  margin-top: 13px;
 }
 
 .input-section label {
@@ -1540,6 +1752,7 @@ input.hidden {
   font-size: 16px;
   resize: vertical;
   min-height: 80px;
+  color: #be0000;
   box-sizing: border-box;
 }
 
@@ -1554,7 +1767,7 @@ input.hidden {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
-  max-height: 194px;
+  max-height: 290px;
   overflow-y: auto;
 }
 
@@ -1774,6 +1987,8 @@ input.hidden {
 }
 
 #promoTextModal .fa-times:before {
-       color: #e30000;}
+       color: #ffffff;
+       font-size: 35px;
+       }
 
 #selectPromoTemplateBtn{position: absolute;right: 0;bottom: -35px;background: #fff;color: #292929;border: 1px solid #ccc;padding: 5px 10px;font-weight: normal;margin-top: 0;width: 100%;}

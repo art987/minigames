@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>券码库测试</title>
+  <script src="coupons.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+    button { padding: 10px 20px; margin: 5px; }
+    .result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <h1>券码库功能测试</h1>
+  
+  <div class="test-section">
+    <h3>券码验证测试</h3>
+    <input type="text" id="testCode" placeholder="输入4位券码" maxlength="4">
+    <button onclick="testValidation()">测试验证</button>
+    <div id="validationResult"></div>
+  </div>
+  
+  <div class="test-section">
+    <h3>券码库信息</h3>
+    <button onclick="showCouponInfo()">显示券码信息</button>
+    <div id="couponInfo"></div>
+  </div>
+  
+  <div class="test-section">
+    <h3>本地存储测试</h3>
+    <button onclick="testLocalStorage()">测试本地存储</button>
+    <div id="storageResult"></div>
+  </div>
+
+  <script>
+    // 初始化券码库
+    window.initCoupons();
+    
+    function testValidation() {
+      const code = document.getElementById('testCode').value;
+      const resultDiv = document.getElementById('validationResult');
+      
+      if (!code || code.length !== 4) {
+        resultDiv.innerHTML = '<div class="result error">请输入4位券码</div>';
+        return;
+      }
+      
+      const result = window.validateCoupon(code);
+      const className = result.valid ? 'success' : 'error';
+      resultDiv.innerHTML = `<div class="result ${className}">${result.message}</div>`;
+    }
+    
+    function showCouponInfo() {
+      const infoDiv = document.getElementById('couponInfo');
+      const coupons = window.coupons;
+      
+      let html = '<h4>券码统计：</h4>';
+      html += `<p>总券码数量：${Object.keys(coupons).length}</p>`;
+      
+      // 按月份统计
+      const monthCount = {};
+      Object.values(coupons).forEach(coupon => {
+        monthCount[coupon.month] = (monthCount[coupon.month] || 0) + 1;
+      });
+      
+      html += '<h4>各月份券码数量：</h4>';
+      for (let month = 1; month <= 12; month++) {
+        html += `<p>${month}月：${monthCount[month] || 0}个券码</p>`;
+      }
+      
+      // 显示前10个券码作为示例
+      html += '<h4>示例券码（前10个）：</h4>';
+      const sampleCoupons = Object.values(coupons).slice(0, 10);
+      sampleCoupons.forEach(coupon => {
+        html += `<p>券码：${coupon.code} | 月份：${coupon.month}月 | 有效期：${coupon.validUntil} | 已使用：${coupon.used ? '是' : '否'}</p>`;
+      });
+      
+      infoDiv.innerHTML = html;
+    }
+    
+    function testLocalStorage() {
+      const resultDiv = document.getElementById('storageResult');
+      
+      // 测试保存
+      window.saveLastValidCoupon('1234');
+      const savedCode = window.getLastValidCoupon();
+      
+      let html = `<p>保存的券码：${savedCode}</p>`;
+      
+      // 测试清除
+      window.clearLastValidCoupon();
+      const clearedCode = window.getLastValidCoupon();
+      html += `<p>清除后券码：${clearedCode || '无'}</p>`;
+      
+      resultDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
