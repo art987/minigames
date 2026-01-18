@@ -1,89 +1,117 @@
 // 中国传统节日
 // 中国传统节日
 window.chineseTraditionalFestivals = {
-  '春节': {
-    name: '春节',
-    description: '辞旧迎新、团圆、春联、鞭炮、压岁钱、舞龙舞狮',
-    month: 2, // 通常在2月
-    day: 1, // 农历正月初一
-    format: 'lunar'
-  },
-  '元宵节': {
-    name: '元宵节',
-    description: '赏花灯、吃汤圆/元宵、猜灯谜',
-    month: 2,
-    day: 15, // 农历正月十五
-    format: 'lunar'
-  },
-  '龙抬头': {
-    name: '龙抬头',
-    description: '春耕开始、剃头、吃春饼（龙鳞）',
-    month: 3,
-    day: 2, // 农历二月初二
-    format: 'lunar'
-  },
-  '清明节': {
-    name: '清明节',
-    description: '祭祖扫墓、踏青郊游、放风筝、吃青团',
-    month: 4,
-    day: 5, // 通常在4月4-6日
-    format: 'solar'
-  },
-  '端午节': {
-    name: '端午节',
-    description: '赛龙舟、吃粽子、佩香囊、挂艾草',
-    month: 5,
-    day: 5, // 农历五月初五
-    format: 'lunar'
-  },
-  '七夕节': {
-    name: '七夕节',
-    description: '中国情人节、牛郎织女、乞巧',
-    month: 7,
-    day: 7, // 农历七月初七
-    format: 'lunar'
-  },
-  '中元节': {
-    name: '中元节',
-    description: '祭祖、放河灯、祀亡魂',
-    month: 8,
-    day: 15, // 农历七月十五
-    format: 'lunar'
-  },
-  '中秋节': {
-    name: '中秋节',
-    description: '团圆、赏月、吃月饼',
-    month: 9,
-    day: 15, // 农历八月十五
-    format: 'lunar'
-  },
-  '重阳节': {
-    name: '重阳节',
-    description: '登高、赏菊、敬老',
-    month: 10,
-    day: 9, // 农历九月初九
-    format: 'lunar'
-  },
   '腊八节': {
     name: '腊八节',
     description: '喝腊八粥',
     month: 1,
-    day: 26, // 农历腊月初八
-    format: 'lunar'
+    day: 26, // 1月26日
+    format: 'solar'
   },
   '小年': {
     name: '小年',
-    description: '祭灶、扫尘',
+    description: '祭灶、扫尘（北方腊月廿三）',
     month: 2,
-    day: 10, // 农历腊月廿三或廿四
-    format: 'lunar'
+    day: 10, // 2月10日
+    format: 'solar'
+  },
+  '小年南方': {
+    name: '小年（南方）',
+    description: '祭灶、扫尘（南方腊月廿四）',
+    month: 2,
+    day: 11, // 2月11日
+    format: 'solar'
   },
   '除夕': {
     name: '除夕',
     description: '团圆饭、守岁、贴春联、看春晚',
     month: 2,
-    day: 16, // 农历腊月最后一天
-    format: 'lunar'
+    day: 16, // 2月16日
+    format: 'solar'
+  },
+  '春节': {
+    name: '春节',
+    description: '辞旧迎新、团圆、春联、鞭炮、压岁钱、舞龙舞狮',
+    month: 2,
+    day: 17, // 2月17日
+    format: 'solar'
+  },
+  '元宵节': {
+    name: '元宵节',
+    description: '赏花灯、吃汤圆/元宵、猜灯谜',
+    month: 3,
+    day: 3, // 3月3日
+    format: 'solar'
+  },
+  '龙抬头': {
+    name: '龙抬头',
+    description: '春耕开始、剃头、吃春饼（龙鳞）',
+    month: 3,
+    day: 20, // 3月20日
+    format: 'solar'
+  },
+  '清明节': {
+    name: '清明节',
+    description: '祭祖扫墓、踏青郊游、放风筝、吃青团',
+    month: 4,
+    day: 5, // 4月5日
+    format: 'solar'
+  },
+  '端午节': {
+    name: '端午节',
+    description: '赛龙舟、吃粽子、佩香囊、挂艾草',
+    month: 6,
+    day: 19, // 6月19日
+    format: 'solar'
+  },
+  '七夕节': {
+    name: '七夕节',
+    description: '中国情人节、牛郎织女、乞巧',
+    month: 8,
+    day: 19, // 8月19日
+    format: 'solar'
+  },
+  '中元节': {
+    name: '中元节',
+    description: '祭祖、放河灯、祀亡魂',
+    month: 8,
+    day: 27, // 8月27日
+    format: 'solar'
+  },
+  '中秋节': {
+    name: '中秋节',
+    description: '团圆、赏月、吃月饼',
+    month: 9,
+    day: 25, // 9月25日
+    format: 'solar'
+  },
+  '重阳节': {
+    name: '重阳节',
+    description: '登高、赏菊、敬老',
+    month: 10,
+    day: 18, // 10月18日
+    format: 'solar'
+  },
+  '寒衣节': {
+    name: '寒衣节',
+    description: '送寒衣、祭祖、准备过冬',
+    month: 11,
+    day: 9, // 11月9日
+    format: 'solar'
+  },
+  '下元节': {
+    name: '下元节',
+    description: '祭祀水官、祈福消灾',
+    month: 11,
+    day: 23, // 11月23日
+    format: 'solar'
+  },
+  '冬至': {
+    name: '冬至',
+    description: '冬至大如年、吃饺子/汤圆、数九开始',
+    month: 12,
+    day: 22, // 12月22日
+    format: 'solar'
   }
 };
 

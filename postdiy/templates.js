@@ -4,33 +4,253 @@ window.templates = {
   // 1月模板
   '1月': [
     {
-      id: 'new-year-2024-001',
+      id: 'yuandan-2024-001',
       name: '元旦快乐',
-      thumbnail: 'https://picsum.photos/id/1/400/600',
-      image: 'https://picsum.photos/id/1/800/1200',
+      thumbnail: 'images/yuandan/thumbnails/1.jpg',
+      image: 'images/yuandan/1.png',
       months: [1],
       festivals: ['元旦'],
-      description: '喜庆的元旦节日海报模板',
+      description: '元旦快乐主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-002',
+      name: '元旦喜庆',
+      thumbnail: 'images/yuandan/thumbnails/2.jpg',
+      image: 'images/yuandan/2.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦喜庆主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-003',
+      name: '元旦迎新',
+      thumbnail: 'images/yuandan/thumbnails/3.jpg',
+      image: 'images/yuandan/3.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦迎新主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-004',
+      name: '元旦祝福',
+      thumbnail: 'images/yuandan/thumbnails/4.jpg',
+      image: 'images/yuandan/4.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦祝福主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-005',
+      name: '元旦吉祥',
+      thumbnail: 'images/yuandan/thumbnails/5.jpg',
+      image: 'images/yuandan/5.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦吉祥主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-006',
+      name: '元旦团圆',
+      thumbnail: 'images/yuandan/thumbnails/6.jpg',
+      image: 'images/yuandan/6.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦团圆主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-007',
+      name: '元旦安康',
+      thumbnail: 'images/yuandan/thumbnails/7.jpg',
+      image: 'images/yuandan/7.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦安康主题海报模板',
       type: '节日'
     },
     {
       id: 'xiaohan-2024-001',
       name: '小寒养生',
-      thumbnail: 'https://picsum.photos/id/11/400/600',
-      image: 'https://picsum.photos/id/11/800/1200',
+      thumbnail: 'images/xiaohan/thumbnails/1.jpg',
+      image: 'images/xiaohan/1.png',
       months: [1],
       festivals: ['小寒'],
-      description: '小寒节气养生海报模板',
+      description: '小寒节气养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-002',
+      name: '小寒保暖',
+      thumbnail: 'images/xiaohan/thumbnails/2.jpg',
+      image: 'images/xiaohan/2.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒节气保暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-003',
+      name: '小寒节气',
+      thumbnail: 'images/xiaohan/thumbnails/3.jpg',
+      image: 'images/xiaohan/3.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒节气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-004',
+      name: '小寒冷冬',
+      thumbnail: 'images/xiaohan/thumbnails/4.jpg',
+      image: 'images/xiaohan/4.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冷冬主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-005',
+      name: '小寒梅花',
+      thumbnail: 'images/xiaohan/thumbnails/5.jpg',
+      image: 'images/xiaohan/5.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒梅花主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-006',
+      name: '小寒吉祥',
+      thumbnail: 'images/xiaohan/thumbnails/6.jpg',
+      image: 'images/xiaohan/6.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒吉祥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-007',
+      name: '小寒安康',
+      thumbnail: 'images/xiaohan/thumbnails/7.jpg',
+      image: 'images/xiaohan/7.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒安康主题海报模板',
       type: '节气'
     },
     {
       id: 'dahan-2024-001',
       name: '大寒温暖',
-      thumbnail: 'https://picsum.photos/id/21/400/600',
-      image: 'https://picsum.photos/id/21/800/1200',
+      thumbnail: 'images/dahan/thumbnails/1.jpg',
+      image: 'images/dahan/1.png',
       months: [1],
       festivals: ['大寒'],
       description: '大寒节气温暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-002',
+      name: '大寒养生',
+      thumbnail: 'images/dahan/thumbnails/2.jpg',
+      image: 'images/dahan/2.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒节气养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-003',
+      name: '大寒冷冬',
+      thumbnail: 'images/dahan/thumbnails/3.jpg',
+      image: 'images/dahan/3.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒冷冬主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-004',
+      name: '大寒节气',
+      thumbnail: 'images/dahan/thumbnails/4.jpg',
+      image: 'images/dahan/4.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒节气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-005',
+      name: '大寒瑞雪',
+      thumbnail: 'images/dahan/thumbnails/5.jpg',
+      image: 'images/dahan/5.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒瑞雪主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-006',
+      name: '大寒迎春',
+      thumbnail: 'images/dahan/thumbnails/6.jpg',
+      image: 'images/dahan/6.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒迎春主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-007',
+      name: '大寒吉祥',
+      thumbnail: 'images/dahan/thumbnails/7.jpg',
+      image: 'images/dahan/7.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒吉祥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-008',
+      name: '大寒祝福',
+      thumbnail: 'images/dahan/thumbnails/8.jpg',
+      image: 'images/dahan/8.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒祝福主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-009',
+      name: '大寒团圆',
+      thumbnail: 'images/dahan/thumbnails/9.jpg',
+      image: 'images/dahan/9.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒团圆主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-010',
+      name: '大寒安康',
+      thumbnail: 'images/dahan/thumbnails/10.jpg',
+      image: 'images/dahan/10.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒安康主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-011',
+      name: '大寒如意',
+      thumbnail: 'images/dahan/thumbnails/11.jpg',
+      image: 'images/dahan/11.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒如意主题海报模板',
       type: '节气'
     },
     {
