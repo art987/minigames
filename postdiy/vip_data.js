@@ -7,6 +7,7 @@ window.vipData = {
       password: '123456',
       name: '百事可乐',
       logo: 'images/vip/pepsi.jpg',
+      qrcode: 'images/vip/pepsi_qrcode.jpeg',
       validUntil: '2026-12-31',
       isActive: true
     },
@@ -15,14 +16,16 @@ window.vipData = {
       password: 'vip1234',
       name: '可口可乐',
       logo: 'images/vip-logo.png',
+      qrcode: 'images/vip/cocacola_qrcode.jpg',
       validUntil: '2026-06-30',
       isActive: true
     },
     'starbucks': {
       id: 'starbucks',
-      password: '123456',
+      password: 'vip2026',
       name: '星巴克',
       logo: 'images/vip/starbucks.jpg',
+      qrcode: 'images/vip/starbucks_qrcode.jpg',
       validUntil: '2026-09-30',
       isActive: true
     },
@@ -31,6 +34,7 @@ window.vipData = {
       password: 'vip1234',
       name: '麦当劳',
       logo: 'images/vip-logo.png',
+      qrcode: 'images/vip/mcdonalds_qrcode.jpg',
       validUntil: '2026-12-31',
       isActive: true
     }
@@ -151,6 +155,7 @@ function getVipFixedInfo() {
     return {
       name: currentUser.name,
       logo: currentUser.logo,
+      qrcode: currentUser.qrcode,
       validUntil: currentUser.validUntil
     };
   }

@@ -121,6 +121,12 @@
       qrcodePreviewImg: document.getElementById('qrcodePreviewImg'),
       removeQrcodeBtn: document.getElementById('removeQrcodeBtn'),
       
+      // VIP恢复按钮
+      restoreLogoBtnContainer: document.getElementById('restoreLogoBtnContainer'),
+      restoreLogoBtn: document.getElementById('restoreLogoBtn'),
+      restoreQrcodeBtnContainer: document.getElementById('restoreQrcodeBtnContainer'),
+      restoreQrcodeBtn: document.getElementById('restoreQrcodeBtn'),
+      
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),
       closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
@@ -240,7 +246,7 @@
             ...state.businessInfo,
             name: vipInfo.name,
             logo: vipInfo.logo,
-            qrcode: state.businessInfo.qrcode, // 保留原有的二维码信息
+            qrcode: vipInfo.qrcode || state.businessInfo.qrcode, // 优先使用VIP的二维码，如果没有则保留原有的
             promoText: state.businessInfo.promoText // 保留原有的促销信息
           };
           
@@ -696,6 +702,14 @@
       elements.removeLogoBtn.addEventListener('click', removeLogo);
     }
     
+    // VIP恢复按钮事件
+    if (elements.restoreLogoBtn) {
+      elements.restoreLogoBtn.addEventListener('click', restoreOriginalLogo);
+    }
+    if (elements.restoreQrcodeBtn) {
+      elements.restoreQrcodeBtn.addEventListener('click', restoreOriginalQrcode);
+    }
+    
     // 二维码上传相关事件
     if (elements.qrcodeUploadArea) {
       elements.qrcodeUploadArea.addEventListener('click', function(event) {
@@ -802,7 +816,7 @@
               ...state.businessInfo,
               name: vipInfo.name,
               logo: vipInfo.logo,
-              qrcode: state.businessInfo.qrcode, // 保留原有的二维码信息
+              qrcode: vipInfo.qrcode || state.businessInfo.qrcode, // 优先使用VIP的二维码，如果没有则保留原有的
               promoText: state.businessInfo.promoText // 保留原有的促销信息
             };
             // 保存到VIP专属缓存
@@ -1984,9 +1998,9 @@
     // 同时设置display确保兼容性
     elements.businessInfoModal.style.display = 'flex';
     
-    // 如果是VIP用户，隐藏清除按钮
+    // 如果是VIP用户，显示删除按钮（允许用户编辑）
     if (window.isVipActive && window.isVipActive()) {
-      setTimeout(hideClearButtonsForVip, 0);
+      setTimeout(showDeleteButtonsForVip, 0);
     }
   }
   
@@ -2171,6 +2185,11 @@
         elements.logoUploadArea.style.display = 'none';
       }
       
+      // 强制显示恢复按钮（用户上传了新Logo）
+      if (elements.restoreLogoBtnContainer) {
+        elements.restoreLogoBtnContainer.classList.remove('hidden');
+      }
+      
       // 显示成功提示
       showToast('Logo上传成功');
       
@@ -2194,6 +2213,11 @@
     if (elements.logoPreview && elements.logoUploadArea) {
       elements.logoPreview.style.display = 'none';
       elements.logoUploadArea.style.display = 'block';
+    }
+    
+    // 强制显示恢复按钮（用户点击了删除按钮）
+    if (elements.restoreLogoBtnContainer) {
+      elements.restoreLogoBtnContainer.classList.remove('hidden');
     }
     
     // 显示成功提示
@@ -2231,6 +2255,11 @@
         elements.qrcodeUploadArea.style.display = 'none';
       }
       
+      // 强制显示恢复按钮（用户上传了新二维码）
+      if (elements.restoreQrcodeBtnContainer) {
+        elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+      }
+      
       // 显示成功提示
       showToast('二维码上传成功');
       
@@ -2256,6 +2285,11 @@
       elements.qrcodePreview.classList.add('hidden');
       elements.qrcodePreview.style.display = 'none';
       elements.qrcodeUploadArea.style.display = 'block';
+    }
+    
+    // 强制显示恢复按钮（用户点击了删除按钮）
+    if (elements.restoreQrcodeBtnContainer) {
+      elements.restoreQrcodeBtnContainer.classList.remove('hidden');
     }
     
     // 显示成功提示
@@ -3377,6 +3411,24 @@ function hideClearButtonsForVip() {
   }
 }
 
+// 为VIP用户显示删除按钮（允许编辑）
+function showDeleteButtonsForVip() {
+  // 显示Logo删除按钮
+  const removeLogoBtn = document.getElementById('removeLogoBtn');
+  if (removeLogoBtn) {
+    removeLogoBtn.style.display = 'block';
+  }
+  
+  // 显示二维码删除按钮
+  const removeQrcodeBtn = document.getElementById('removeQrcodeBtn');
+  if (removeQrcodeBtn) {
+    removeQrcodeBtn.style.display = 'block';
+  }
+  
+  // 检查并显示恢复按钮
+  checkAndShowRestoreButtons();
+}
+
 // 更新商家信息按钮为VIP样式
 function updateBusinessInfoButtonForVip() {
   const editBusinessInfoBtn = document.getElementById('editBusinessInfoBtn');
@@ -3400,3 +3452,141 @@ function updateBusinessInfoButtonForVip() {
     editBusinessInfoBtn.title = 'VIP用户：商家名称和Logo固定，可在名称后添加文字';
   }
 }
+
+  // 恢复原始Logo
+  function restoreOriginalLogo() {
+    const vipInfo = window.getVipFixedInfo();
+    if (vipInfo && vipInfo.logo) {
+      state.businessInfo.logo = vipInfo.logo;
+      
+      // 立即保存到缓存 - 使用直接保存方式
+      try {
+        if (window.isVipActive && window.isVipActive()) {
+          // VIP用户保存到VIP专属缓存
+          const vipId = localStorage.getItem('vipId');
+          if (vipId) {
+            const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+            localStorage.setItem(vipBusinessInfoKey, JSON.stringify(state.businessInfo));
+          }
+        } else {
+          // 普通用户保存到普通缓存
+          localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
+        }
+      } catch (error) {
+        console.error('保存失败:', error);
+      }
+      
+      // 更新显示 - 直接更新DOM元素
+      updateDisplayForRestore();
+      
+      // 显示预览，隐藏上传区域
+      if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
+        elements.logoPreviewImg.src = vipInfo.logo;
+        elements.logoPreview.style.display = 'block';
+        elements.logoUploadArea.style.display = 'none';
+      }
+      
+      // 显示成功提示
+      showToast('已恢复原始Logo');
+    }
+  }
+
+  // 恢复原始二维码
+  function restoreOriginalQrcode() {
+    const vipInfo = window.getVipFixedInfo();
+    if (vipInfo && vipInfo.qrcode) {
+      state.businessInfo.qrcode = vipInfo.qrcode;
+      
+      // 立即保存到缓存 - 使用直接保存方式
+      try {
+        if (window.isVipActive && window.isVipActive()) {
+          // VIP用户保存到VIP专属缓存
+          const vipId = localStorage.getItem('vipId');
+          if (vipId) {
+            const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+            localStorage.setItem(vipBusinessInfoKey, JSON.stringify(state.businessInfo));
+          }
+        } else {
+          // 普通用户保存到普通缓存
+          localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
+        }
+      } catch (error) {
+        console.error('保存失败:', error);
+      }
+      
+      // 更新显示 - 直接更新DOM元素
+      updateDisplayForRestore();
+      
+      // 显示预览，隐藏上传区域
+      if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
+        elements.qrcodePreviewImg.src = vipInfo.qrcode;
+        elements.qrcodePreview.classList.remove('hidden');
+        elements.qrcodePreview.style.display = 'block';
+        elements.qrcodeUploadArea.style.display = 'none';
+      }
+      
+      // 显示成功提示
+      showToast('已恢复原始二维码');
+    }
+  }
+
+  // 检查并显示恢复按钮（VIP用户始终显示恢复按钮）
+  function checkAndShowRestoreButtons() {
+    if (!window.isVipActive || !window.isVipActive()) {
+      return;
+    }
+    
+    const vipInfo = window.getVipFixedInfo();
+    if (!vipInfo) {
+      return;
+    }
+    
+    // VIP用户始终显示Logo恢复按钮（如果VIP有预设Logo）
+    if (elements.restoreLogoBtnContainer && vipInfo.logo) {
+      elements.restoreLogoBtnContainer.classList.remove('hidden');
+    }
+    
+    // VIP用户始终显示二维码恢复按钮（如果VIP有预设二维码）
+    if (elements.restoreQrcodeBtnContainer && vipInfo.qrcode) {
+      elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+    }
+  }
+
+  // 为恢复功能专门创建的显示更新函数
+  function updateDisplayForRestore() {
+    // 更新商家名称
+    if (elements.posterBusinessName && state.businessInfo.name) {
+      elements.posterBusinessName.textContent = state.businessInfo.name;
+      elements.posterBusinessName.style.color = state.textColor || '#000000';
+    }
+    
+    // 更新商家Logo
+    if (elements.posterLogoImg && elements.logoPlaceholder) {
+      if (state.businessInfo.logo) {
+        elements.posterLogoImg.src = state.businessInfo.logo;
+        elements.posterLogoImg.style.display = 'block';
+        elements.logoPlaceholder.style.display = 'none';
+      } else {
+        elements.posterLogoImg.style.display = 'none';
+        elements.logoPlaceholder.style.display = 'block';
+      }
+    }
+    
+    // 更新二维码
+    if (elements.posterQrcodeImg && elements.qrcodePlaceholder) {
+      if (state.businessInfo.qrcode) {
+        elements.posterQrcodeImg.src = state.businessInfo.qrcode;
+        elements.posterQrcodeImg.style.display = 'block';
+        elements.qrcodePlaceholder.style.display = 'none';
+      } else {
+        elements.posterQrcodeImg.style.display = 'none';
+        elements.qrcodePlaceholder.style.display = 'block';
+      }
+    }
+    
+    // 更新促销信息
+    if (elements.posterPromoText && state.businessInfo.promoText) {
+      elements.posterPromoText.innerHTML = state.businessInfo.promoText.replace(/\n/g, '<br>');
+      elements.posterPromoText.style.color = state.textColor;
+    }
+  }
