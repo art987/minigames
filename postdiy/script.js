@@ -1,5 +1,72 @@
 // 首页脚本
 
+// 微信浏览器检测
+function isWeixinBrowser() {
+  const ua = navigator.userAgent.toLowerCase();
+  return ua.indexOf('micromessenger') !== -1;
+}
+
+// 微信浏览器提示管理
+window.wechatWarning = {
+  isWechat: false,
+  
+  // 初始化微信检测
+  init: function() {
+    this.isWechat = isWeixinBrowser();
+    if (this.isWechat) {
+      this.showWarningModal();
+      this.showTopBar();
+    }
+  },
+  
+  // 显示警告弹窗
+  showWarningModal: function() {
+    // 创建弹窗HTML
+    const modalHTML = `
+      <div id="wechatWarningModal" class="wechat-warning-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div class="wechat-warning-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 320px; text-align: center; position: relative;">
+          <div class="warning-icon" style="font-size: 48px; color: #f6a83b; margin-bottom: 16px;">⚠️</div>
+          <h3 style="margin: 0 0 12px 0; color: #333; font-size: 18px;">微信内不支持图片下载</h3>
+          <p style="margin: 0 0 20px 0; color: #666; font-size: 14px; line-height: 1.4;">如需体验完整功能，请右上角点"..."选择外部浏览器进行访问</p>
+          <div class="arrow-indicator" style="position: absolute; top: -30px; right: 30px; width: 60px; height: 60px; transform: rotate(45deg);">
+            <div style="width: 100%; height: 100%; border-right: 3px solid #f6a83b; border-top: 3px solid #f6a83b;"></div>
+          </div>
+          <button id="continueBrowse" class="continue-btn" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px 20px; color: #6c757d; font-size: 14px; cursor: pointer; width: 100%;">我不下载图片，随便看看</button>
+        </div>
+      </div>
+    `;
+    
+    // 添加到页面
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // 绑定关闭事件
+    document.getElementById('continueBrowse').addEventListener('click', function() {
+      document.getElementById('wechatWarningModal').style.display = 'none';
+    });
+  },
+  
+  // 显示顶部横条
+  showTopBar: function() {
+    // 创建顶部横条HTML
+    const topBarHTML = `
+      <div id="wechatTopBar" class="wechat-top-bar" style="position: fixed; top: 0; left: 0; width: 100%; background: #fff3cd; border-bottom: 1px solid #ffeaa7; padding: 8px 16px; z-index: 9998; text-align: center; font-size: 12px; color: #856404; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <span>微信内不支持下载，右上角点... 选择外部浏览器访问。</span>
+      </div>
+    `;
+    
+    // 添加到页面
+    document.body.insertAdjacentHTML('afterbegin', topBarHTML);
+    
+    // 调整页面内容位置，避免被顶部横条遮挡
+    const topBar = document.getElementById('wechatTopBar');
+    const mainContent = document.querySelector('main') || document.body;
+    if (topBar && mainContent) {
+      const barHeight = topBar.offsetHeight;
+      mainContent.style.marginTop = barHeight + 'px';
+    }
+  }
+};
+
 // 当前筛选条件
 window.currentFilters = {
   month: null,
@@ -11,6 +78,9 @@ let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount,
 
 // 初始化应用
 function initApp() {
+  // 微信浏览器检测
+  window.wechatWarning.init();
+  
   // 获取DOM元素
   monthButtonsContainer = document.getElementById('monthButtons');
   festivalTagsContainer = document.getElementById('festivalTags');
