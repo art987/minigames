@@ -438,23 +438,93 @@ window.templates = {
   // 2月模板
   '2月': [
     {
-      id: 'spring-festival-2024-001',
+      id: 'chunjie-2024-001',
       name: '春节喜庆',
-      thumbnail: 'https://picsum.photos/id/31/400/600',
-      image: 'https://picsum.photos/id/31/800/1200',
+      thumbnail: 'images/chunjie/thumbnails/1.jpg',
+      image: 'images/chunjie/1.png',
       months: [2],
       festivals: ['春节'],
-      description: '红红火火春节海报模板',
+      description: '春节喜庆主题海报模板',
       type: '传统节日'
     },
     {
-      id: 'spring-festival-2024-002',
-      name: '新春团圆',
-      thumbnail: 'https://picsum.photos/id/32/400/600',
-      image: 'https://picsum.photos/id/32/800/1200',
+      id: 'chunjie-2024-002',
+      name: '春节团圆',
+      thumbnail: 'images/chunjie/thumbnails/2.jpg',
+      image: 'images/chunjie/2.png',
       months: [2],
       festivals: ['春节'],
-      description: '温馨团圆春节海报模板',
+      description: '春节团圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-003',
+      name: '春节吉祥',
+      thumbnail: 'images/chunjie/thumbnails/3.jpg',
+      image: 'images/chunjie/3.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节吉祥主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-004',
+      name: '春节祝福',
+      thumbnail: 'images/chunjie/thumbnails/4.jpg',
+      image: 'images/chunjie/4.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-005',
+      name: '春节快乐',
+      thumbnail: 'images/chunjie/thumbnails/5.jpg',
+      image: 'images/chunjie/5.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节快乐主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-006',
+      name: '春节安康',
+      thumbnail: 'images/chunjie/thumbnails/6.jpg',
+      image: 'images/chunjie/6.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节安康主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-007',
+      name: '春节如意',
+      thumbnail: 'images/chunjie/thumbnails/7.jpg',
+      image: 'images/chunjie/7.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节如意主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-008',
+      name: '春节幸福',
+      thumbnail: 'images/chunjie/thumbnails/8.jpg',
+      image: 'images/chunjie/8.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节幸福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chunjie-2024-009',
+      name: '春节迎新',
+      thumbnail: 'images/chunjie/thumbnails/9.jpg',
+      image: 'images/chunjie/9.png',
+      months: [2],
+      festivals: ['春节'],
+      description: '春节迎新主题海报模板',
       type: '传统节日'
     },
     {
@@ -468,23 +538,323 @@ window.templates = {
       type: '传统节日'
     },
     {
-      id: 'valentine-2024-001',
+      id: 'qingrenjie-2024-001',
       name: '浪漫情人节',
-      thumbnail: 'https://picsum.photos/id/51/400/600',
-      image: 'https://picsum.photos/id/51/800/1200',
+      thumbnail: 'images/qingrenjie/thumbnails/1.jpg',
+      image: 'images/qingrenjie/1.png',
       months: [2],
       festivals: ['情人节'],
       description: '情人节浪漫主题海报模板',
       type: '西方节日'
     },
     {
+      id: 'qingrenjie-2024-002',
+      name: '情人节甜蜜',
+      thumbnail: 'images/qingrenjie/thumbnails/2.jpg',
+      image: 'images/qingrenjie/2.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节甜蜜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-003',
+      name: '情人节爱心',
+      thumbnail: 'images/qingrenjie/thumbnails/3.jpg',
+      image: 'images/qingrenjie/3.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节爱心主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-004',
+      name: '情人节玫瑰',
+      thumbnail: 'images/qingrenjie/thumbnails/4.jpg',
+      image: 'images/qingrenjie/4.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节玫瑰主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-005',
+      name: '情人节礼物',
+      thumbnail: 'images/qingrenjie/thumbnails/5.jpg',
+      image: 'images/qingrenjie/5.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节礼物主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-006',
+      name: '情人节约会',
+      thumbnail: 'images/qingrenjie/thumbnails/6.jpg',
+      image: 'images/qingrenjie/6.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节约会主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-007',
+      name: '情人节告白',
+      thumbnail: 'images/qingrenjie/thumbnails/7.jpg',
+      image: 'images/qingrenjie/7.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节告白主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-008',
+      name: '情人节幸福',
+      thumbnail: 'images/qingrenjie/thumbnails/8.jpg',
+      image: 'images/qingrenjie/8.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节幸福主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-009',
+      name: '情人节巧克力',
+      thumbnail: 'images/qingrenjie/thumbnails/9.jpg',
+      image: 'images/qingrenjie/9.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节巧克力主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'qingrenjie-2024-010',
+      name: '情人节祝福',
+      thumbnail: 'images/qingrenjie/thumbnails/10.jpg',
+      image: 'images/qingrenjie/10.png',
+      months: [2],
+      festivals: ['情人节'],
+      description: '情人节祝福主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'chuxi-2024-001',
+      name: '除夕团圆',
+      thumbnail: 'images/chuxi/thumbnails/1.jpg',
+      image: 'images/chuxi/1.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕团圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-002',
+      name: '除夕年夜饭',
+      thumbnail: 'images/chuxi/thumbnails/2.jpg',
+      image: 'images/chuxi/2.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕年夜饭主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-003',
+      name: '除夕守岁',
+      thumbnail: 'images/chuxi/thumbnails/3.jpg',
+      image: 'images/chuxi/3.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕守岁主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-004',
+      name: '除夕吉祥',
+      thumbnail: 'images/chuxi/thumbnails/4.jpg',
+      image: 'images/chuxi/4.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕吉祥主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-005',
+      name: '除夕祝福',
+      thumbnail: 'images/chuxi/thumbnails/5.jpg',
+      image: 'images/chuxi/5.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-006',
+      name: '除夕快乐',
+      thumbnail: 'images/chuxi/thumbnails/6.jpg',
+      image: 'images/chuxi/6.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕快乐主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-007',
+      name: '除夕安康',
+      thumbnail: 'images/chuxi/thumbnails/7.jpg',
+      image: 'images/chuxi/7.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕安康主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-008',
+      name: '除夕如意',
+      thumbnail: 'images/chuxi/thumbnails/8.jpg',
+      image: 'images/chuxi/8.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕如意主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-009',
+      name: '除夕幸福',
+      thumbnail: 'images/chuxi/thumbnails/9.jpg',
+      image: 'images/chuxi/9.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕幸福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chuxi-2024-010',
+      name: '除夕迎新',
+      thumbnail: 'images/chuxi/thumbnails/10.jpg',
+      image: 'images/chuxi/10.png',
+      months: [2],
+      festivals: ['除夕'],
+      description: '除夕迎新主题海报模板',
+      type: '传统节日'
+    },
+    {
       id: 'lichun-2024-001',
       name: '立春迎新',
-      thumbnail: 'https://picsum.photos/id/61/400/600',
-      image: 'https://picsum.photos/id/61/800/1200',
+      thumbnail: 'images/lichun/thumbnails/1.jpg',
+      image: 'images/lichun/1.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春迎新主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-002',
+      name: '立春万物',
+      thumbnail: 'images/lichun/thumbnails/2.jpg',
+      image: 'images/lichun/2.png',
       months: [2],
       festivals: ['立春'],
       description: '立春万物复苏主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-003',
+      name: '立春节气',
+      thumbnail: 'images/lichun/thumbnails/3.jpg',
+      image: 'images/lichun/3.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春节气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-004',
+      name: '立春花开',
+      thumbnail: 'images/lichun/thumbnails/4.jpg',
+      image: 'images/lichun/4.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春花开主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-005',
+      name: '立春吉祥',
+      thumbnail: 'images/lichun/thumbnails/5.jpg',
+      image: 'images/lichun/5.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春吉祥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-006',
+      name: '立春祝福',
+      thumbnail: 'images/lichun/thumbnails/6.jpg',
+      image: 'images/lichun/6.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春祝福主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-007',
+      name: '立春温暖',
+      thumbnail: 'images/lichun/thumbnails/7.jpg',
+      image: 'images/lichun/7.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春温暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-008',
+      name: '立春生机',
+      thumbnail: 'images/lichun/thumbnails/8.jpg',
+      image: 'images/lichun/8.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春生机主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-009',
+      name: '立春如意',
+      thumbnail: 'images/lichun/thumbnails/9.jpg',
+      image: 'images/lichun/9.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春如意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-010',
+      name: '立春安康',
+      thumbnail: 'images/lichun/thumbnails/10.jpg',
+      image: 'images/lichun/10.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春安康主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-011',
+      name: '立春团圆',
+      thumbnail: 'images/lichun/thumbnails/11.jpg',
+      image: 'images/lichun/11.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春团圆主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lichun-2024-012',
+      name: '立春喜庆',
+      thumbnail: 'images/lichun/thumbnails/12.jpg',
+      image: 'images/lichun/12.png',
+      months: [2],
+      festivals: ['立春'],
+      description: '立春喜庆主题海报模板',
       type: '节气'
     }
   ],

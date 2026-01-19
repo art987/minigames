@@ -299,7 +299,7 @@ function removeFromLocalStorage(key) {
   }
 }
 
-// 获取所有模板数据
+// 获取所有模板数据（按节日日期排序）
 function getAllTemplates() {
   const allTemplates = [];
   if (window.templates) {
@@ -309,7 +309,35 @@ function getAllTemplates() {
       });
     });
   }
-  return allTemplates;
+  
+  // 按节日日期排序
+  return allTemplates.sort((a, b) => {
+    // 获取模板对应的主要节日
+    const aFestival = a.festivals && a.festivals.length > 0 ? a.festivals[0] : null;
+    const bFestival = b.festivals && b.festivals.length > 0 ? b.festivals[0] : null;
+    
+    // 获取节日数据
+    const allFestivals = getAllFestivals();
+    const aFestivalData = aFestival ? allFestivals[aFestival] : null;
+    const bFestivalData = bFestival ? allFestivals[bFestival] : null;
+    
+    // 如果都有节日数据，按日期排序
+    if (aFestivalData && bFestivalData) {
+      // 先按月份排序
+      if (aFestivalData.month !== bFestivalData.month) {
+        return aFestivalData.month - bFestivalData.month;
+      }
+      // 同月份按日期排序
+      return aFestivalData.day - bFestivalData.day;
+    }
+    
+    // 如果只有一个有节日数据，有节日数据的排在前面
+    if (aFestivalData && !bFestivalData) return -1;
+    if (!aFestivalData && bFestivalData) return 1;
+    
+    // 都没有节日数据，按模板ID排序
+    return a.id.localeCompare(b.id);
+  });
 }
 
 // 获取指定模板ID的模板数据

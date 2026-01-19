@@ -1,0 +1,1 @@
+我现在想添加 元旦 这个节日的7个模板，大图都存在 `c:\Users\ThinkPad\Documents\GitHub\minigames\postdiy\images\yuandan` ，缩略图放在其文件夹里的thumbnails文件夹里，图片都是以阿拉伯数字命名，你帮我补充到网站模板数据等相关文件里，使用户可以正常使用，原本该节日的模板都是测试数据，要先清除掉。

@@ -10,16 +10,9 @@ window.chineseTraditionalFestivals = {
   },
   '小年': {
     name: '小年',
-    description: '祭灶、扫尘（北方腊月廿三）',
+    description: '祭灶、扫尘（腊月廿三或廿四）',
     month: 2,
     day: 10, // 2月10日
-    format: 'solar'
-  },
-  '小年南方': {
-    name: '小年（南方）',
-    description: '祭灶、扫尘（南方腊月廿四）',
-    month: 2,
-    day: 11, // 2月11日
     format: 'solar'
   },
   '除夕': {
