@@ -528,13 +528,103 @@ window.templates = {
       type: '传统节日'
     },
     {
-      id: 'lantern-festival-2024-001',
+      id: 'yuanxiao-2024-001',
       name: '元宵节灯会',
-      thumbnail: 'https://picsum.photos/id/41/400/600',
-      image: 'https://picsum.photos/id/41/800/1200',
+      thumbnail: 'images/yuanxiao/thumbnails/1.jpg',
+      image: 'images/yuanxiao/1.png',
       months: [2],
       festivals: ['元宵节'],
       description: '元宵节花灯主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-002',
+      name: '元宵节汤圆',
+      thumbnail: 'images/yuanxiao/thumbnails/2.jpg',
+      image: 'images/yuanxiao/2.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节汤圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-003',
+      name: '元宵节团圆',
+      thumbnail: 'images/yuanxiao/thumbnails/3.jpg',
+      image: 'images/yuanxiao/3.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节团圆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-004',
+      name: '元宵节猜灯谜',
+      thumbnail: 'images/yuanxiao/thumbnails/4.jpg',
+      image: 'images/yuanxiao/4.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节猜灯谜主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-005',
+      name: '元宵节舞龙',
+      thumbnail: 'images/yuanxiao/thumbnails/5.jpg',
+      image: 'images/yuanxiao/5.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节舞龙主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-006',
+      name: '元宵节舞狮',
+      thumbnail: 'images/yuanxiao/thumbnails/6.jpg',
+      image: 'images/yuanxiao/6.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节舞狮主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-007',
+      name: '元宵节喜庆',
+      thumbnail: 'images/yuanxiao/thumbnails/7.jpg',
+      image: 'images/yuanxiao/7.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节喜庆主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-008',
+      name: '元宵节祝福',
+      thumbnail: 'images/yuanxiao/thumbnails/8.jpg',
+      image: 'images/yuanxiao/8.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-009',
+      name: '元宵节吉祥',
+      thumbnail: 'images/yuanxiao/thumbnails/9.jpg',
+      image: 'images/yuanxiao/9.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节吉祥主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'yuanxiao-2024-010',
+      name: '元宵节快乐',
+      thumbnail: 'images/yuanxiao/thumbnails/10.jpg',
+      image: 'images/yuanxiao/10.png',
+      months: [2],
+      festivals: ['元宵节'],
+      description: '元宵节快乐主题海报模板',
       type: '传统节日'
     },
     {
@@ -863,22 +953,242 @@ window.templates = {
   '3月': [
     {
       id: 'longtaitou-2024-001',
-      name: '龙抬头',
-      thumbnail: 'https://picsum.photos/id/71/400/600',
-      image: 'https://picsum.photos/id/71/800/1200',
+      name: '龙抬头吉祥',
+      thumbnail: 'images/longtaitou/thumbnails/1.jpg',
+      image: 'images/longtaitou/1.png',
       months: [3],
       festivals: ['龙抬头'],
-      description: '龙抬头传统节日海报模板',
+      description: '龙抬头吉祥主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-002',
+      name: '龙抬头春耕',
+      thumbnail: 'images/longtaitou/thumbnails/2.jpg',
+      image: 'images/longtaitou/2.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头春耕主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-003',
+      name: '龙抬头剃头',
+      thumbnail: 'images/longtaitou/thumbnails/3.jpg',
+      image: 'images/longtaitou/3.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头剃头习俗主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-004',
+      name: '龙抬头春饼',
+      thumbnail: 'images/longtaitou/thumbnails/4.jpg',
+      image: 'images/longtaitou/4.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头吃春饼主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-005',
+      name: '龙抬头祈福',
+      thumbnail: 'images/longtaitou/thumbnails/5.jpg',
+      image: 'images/longtaitou/5.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头祈福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-006',
+      name: '龙抬头祥瑞',
+      thumbnail: 'images/longtaitou/thumbnails/6.jpg',
+      image: 'images/longtaitou/6.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头祥瑞主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-007',
+      name: '龙抬头春意',
+      thumbnail: 'images/longtaitou/thumbnails/7.jpg',
+      image: 'images/longtaitou/7.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头春意主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-008',
+      name: '龙抬头祝福',
+      thumbnail: 'images/longtaitou/thumbnails/8.jpg',
+      image: 'images/longtaitou/8.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-009',
+      name: '龙抬头快乐',
+      thumbnail: 'images/longtaitou/thumbnails/9.jpg',
+      image: 'images/longtaitou/9.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头快乐主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'longtaitou-2024-010',
+      name: '龙抬头安康',
+      thumbnail: 'images/longtaitou/thumbnails/10.jpg',
+      image: 'images/longtaitou/10.png',
+      months: [3],
+      festivals: ['龙抬头'],
+      description: '龙抬头安康主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jingzhe-2024-001',
       name: '惊蛰生机',
-      thumbnail: 'https://picsum.photos/id/72/400/600',
-      image: 'https://picsum.photos/id/72/800/1200',
+      thumbnail: 'images/jingzhe/thumbnails/1.jpg',
+      image: 'images/jingzhe/1.png',
       months: [3],
       festivals: ['惊蛰'],
       description: '惊蛰节气生机主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-002',
+      name: '惊蛰春雷',
+      thumbnail: 'images/jingzhe/thumbnails/2.jpg',
+      image: 'images/jingzhe/2.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气春雷主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-003',
+      name: '惊蛰苏醒',
+      thumbnail: 'images/jingzhe/thumbnails/3.jpg',
+      image: 'images/jingzhe/3.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气万物苏醒主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-004',
+      name: '惊蛰春耕',
+      thumbnail: 'images/jingzhe/thumbnails/4.jpg',
+      image: 'images/jingzhe/4.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气春耕主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-005',
+      name: '惊蛰春意',
+      thumbnail: 'images/jingzhe/thumbnails/5.jpg',
+      image: 'images/jingzhe/5.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气春意盎然主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-006',
+      name: '惊蛰花开',
+      thumbnail: 'images/jingzhe/thumbnails/6.jpg',
+      image: 'images/jingzhe/6.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气花开主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-007',
+      name: '惊蛰虫鸣',
+      thumbnail: 'images/jingzhe/thumbnails/7.jpg',
+      image: 'images/jingzhe/7.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气虫鸣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-008',
+      name: '惊蛰春雨',
+      thumbnail: 'images/jingzhe/thumbnails/8.jpg',
+      image: 'images/jingzhe/8.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气春雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-009',
+      name: '惊蛰养生',
+      thumbnail: 'images/jingzhe/thumbnails/9.jpg',
+      image: 'images/jingzhe/9.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-010',
+      name: '惊蛰节气',
+      thumbnail: 'images/jingzhe/thumbnails/10.jpg',
+      image: 'images/jingzhe/10.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-011',
+      name: '惊蛰吉祥',
+      thumbnail: 'images/jingzhe/thumbnails/11.jpg',
+      image: 'images/jingzhe/11.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气吉祥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-012',
+      name: '惊蛰祝福',
+      thumbnail: 'images/jingzhe/thumbnails/12.jpg',
+      image: 'images/jingzhe/12.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气祝福主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-013',
+      name: '惊蛰快乐',
+      thumbnail: 'images/jingzhe/thumbnails/13.jpg',
+      image: 'images/jingzhe/13.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气快乐主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'jingzhe-2024-014',
+      name: '惊蛰安康',
+      thumbnail: 'images/jingzhe/thumbnails/14.jpg',
+      image: 'images/jingzhe/14.png',
+      months: [3],
+      festivals: ['惊蛰'],
+      description: '惊蛰节气安康主题海报模板',
       type: '节气'
     },
     {

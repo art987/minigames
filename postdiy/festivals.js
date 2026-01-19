@@ -32,8 +32,8 @@ window.chineseTraditionalFestivals = {
   '元宵节': {
     name: '元宵节',
     description: '赏花灯、吃汤圆/元宵、猜灯谜',
-    month: 3,
-    day: 3, // 3月3日
+    month: 2,
+    day: 24, // 2月24日
     format: 'solar'
   },
   '龙抬头': {
