@@ -764,17 +764,17 @@ window.wechatWarning = {
       });
     }
     
-    // Logo图片点击事件 - 弹出商家信息编辑弹窗
-    if (elements.posterLogoImg) {
-      elements.posterLogoImg.addEventListener('click', function() {
+    // Logo区域点击事件 - 弹出商家信息编辑弹窗
+    if (elements.posterLogo) {
+      elements.posterLogo.addEventListener('click', function() {
         // 打开商家信息编辑弹窗
         openBusinessInfoModal();
       });
     }
     
-    // 二维码图片点击事件 - 弹出商家信息编辑弹窗
-    if (elements.posterQrcodeImg) {
-      elements.posterQrcodeImg.addEventListener('click', function() {
+    // 二维码区域点击事件 - 弹出商家信息编辑弹窗
+    if (elements.posterQrcode) {
+      elements.posterQrcode.addEventListener('click', function() {
         // 打开商家信息编辑弹窗
         openBusinessInfoModal();
       });
@@ -3646,6 +3646,9 @@ function checkVipStatus() {
       
       // 设置固定商家信息
       setVipFixedInfo();
+      
+      // 更新恢复按钮显示状态
+      checkAndShowRestoreButtons();
     }
   } else if (window.isVipActive && window.isVipActive()) {
     // 通过localStorage检查VIP状态
@@ -3653,7 +3656,13 @@ function checkVipStatus() {
     if (user) {
       showVipStatusBar(user);
       setVipFixedInfo();
+      
+      // 更新恢复按钮显示状态
+      checkAndShowRestoreButtons();
     }
+  } else {
+    // 非VIP用户，隐藏恢复按钮
+    checkAndShowRestoreButtons();
   }
 }
 
@@ -3887,25 +3896,40 @@ function updateBusinessInfoButtonForVip() {
     }
   }
 
-  // 检查并显示恢复按钮（VIP用户始终显示恢复按钮）
+  // 检查并显示恢复按钮（只有VIP用户登录时才显示恢复按钮）
   function checkAndShowRestoreButtons() {
-    if (!window.isVipActive || !window.isVipActive()) {
-      return;
-    }
-    
-    const vipInfo = window.getVipFixedInfo();
-    if (!vipInfo) {
-      return;
-    }
-    
-    // VIP用户始终显示Logo恢复按钮（如果VIP有预设Logo）
-    if (elements.restoreLogoBtnContainer && vipInfo.logo) {
-      elements.restoreLogoBtnContainer.classList.remove('hidden');
-    }
-    
-    // VIP用户始终显示二维码恢复按钮（如果VIP有预设二维码）
-    if (elements.restoreQrcodeBtnContainer && vipInfo.qrcode) {
-      elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+    // VIP用户登录时显示恢复按钮
+    if (window.isVipActive && window.isVipActive()) {
+      const vipInfo = window.getVipFixedInfo();
+      if (!vipInfo) {
+        return;
+      }
+      
+      // VIP用户显示Logo恢复按钮（如果VIP有预设Logo）
+      if (elements.restoreLogoBtnContainer) {
+        if (vipInfo.logo) {
+          elements.restoreLogoBtnContainer.classList.remove('hidden');
+        } else {
+          elements.restoreLogoBtnContainer.classList.add('hidden');
+        }
+      }
+      
+      // VIP用户显示二维码恢复按钮（如果VIP有预设二维码）
+      if (elements.restoreQrcodeBtnContainer) {
+        if (vipInfo.qrcode) {
+          elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+        } else {
+          elements.restoreQrcodeBtnContainer.classList.add('hidden');
+        }
+      }
+    } else {
+      // 非VIP用户（券码用户）隐藏恢复按钮
+      if (elements.restoreLogoBtnContainer) {
+        elements.restoreLogoBtnContainer.classList.add('hidden');
+      }
+      if (elements.restoreQrcodeBtnContainer) {
+        elements.restoreQrcodeBtnContainer.classList.add('hidden');
+      }
     }
   }
 
