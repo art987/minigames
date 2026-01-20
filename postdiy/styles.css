@@ -2055,6 +2055,143 @@ input.hidden {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* 海报生成加载动画样式 */
+.poster-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.poster-loading-overlay.hidden {
+  display: none;
+}
+
+.loading-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 外围旋转圆点线 */
+.outer-rotation {
+  position: absolute;
+  width: 120px;
+  margin-top: -55px;
+  height: 120px;
+  animation: rotateOuter .2s linear infinite;
+  zoom: 0.75;
+}
+
+.dot-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dot {
+  position: absolute;
+  width: 2px;
+  height: 9px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transform-origin: 60px 60px;
+}
+
+.dot:nth-child(1) { transform: rotate(0deg) translate(60px); }
+.dot:nth-child(2) { transform: rotate(45deg) translate(60px); }
+.dot:nth-child(3) { transform: rotate(90deg) translate(60px); }
+.dot:nth-child(4) { transform: rotate(135deg) translate(60px); }
+.dot:nth-child(5) { transform: rotate(180deg) translate(60px); }
+.dot:nth-child(6) { transform: rotate(225deg) translate(60px); }
+.dot:nth-child(7) { transform: rotate(270deg) translate(60px); }
+.dot:nth-child(8) { transform: rotate(315deg) translate(60px); }
+
+/* 中心Logo旋转 */
+.logo-rotation {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  animation: rotateLogo 4s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo {
+  width: 60px;
+  z-index: 999;
+  height: 60px;
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.logo-placeholder {
+  width: 60px;
+  position: absolute;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgb(235 117 117 / 50%);
+}
+
+.loading-logo:not([src]),
+.loading-logo[src=""] {
+  display: none;
+}
+
+.loading-logo:not([src]) + .logo-placeholder,
+.loading-logo[src=""] + .logo-placeholder {
+  display: flex;
+}
+
+/* 加载文字 */
+.loading-text {
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: pulseText 1.5s ease-in-out infinite;
+}
+
+/* 动画定义 */
+@keyframes rotateOuter {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotateLogo {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
 /* 编辑页面特有样式 - 从内联CSS提取 */
 .back-button-container {
   position: fixed;

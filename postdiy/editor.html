@@ -101,6 +101,36 @@
       <span>下载海报</span>
     </button>
   </div>
+  
+  <!-- 海报生成加载动画 -->
+  <div id="posterLoadingOverlay" class="poster-loading-overlay hidden">
+    <div class="loading-container">
+      <!-- 外围快速旋转的圆点线 -->
+      <div class="outer-rotation">
+        <div class="dot-ring">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+      
+      <!-- 中心商家Logo缓慢旋转 -->
+      <div class="logo-rotation">
+        <img id="loadingLogo" src="" alt="商家Logo" class="loading-logo">
+        <div class="logo-placeholder">
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+      
+      <!-- 加载文字 -->
+      <div class="loading-text">海报生成中，马上就好</div>
+    </div>
+  </div>
 
   <!-- 模板选择弹窗 -->
   <div id="templateModal" class="modal-overlay hidden">

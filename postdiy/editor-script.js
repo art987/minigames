@@ -150,204 +150,9 @@ window.wechatWarning = {
     bindEvents();
     initializeEditor();
   
-  // 图片路径加密函数
-  function encryptImagePath(imagePath) {
-    // 简单的Base64编码 + 时间戳混淆
-    const timestamp = Date.now().toString(36);
-    const encoded = btoa(imagePath + '|' + timestamp);
-    return encoded.replace(/=/g, '');
-  }
-  
-  // 图片路径解密函数
-  function decryptImagePath(encryptedPath) {
-    try {
-      // 补全Base64的等号
-      const padded = encryptedPath + '='.repeat((4 - encryptedPath.length % 4) % 4);
-      const decoded = atob(padded);
-      const parts = decoded.split('|');
-      return parts[0]; // 返回原始路径
-    } catch (e) {
-      console.error('图片路径解密失败:', e);
-      return null;
-    }
-  }
-  
-  // 动态加载图片函数（已弃用，使用增强版）
-  function loadProtectedImage(imgElement, imageUrl) {
-    // 调用增强版函数
-    loadProtectedImageEnhanced(imgElement, imageUrl);
-  }
-  
-  // 验证图片访问权限
-  function validateImageAccess(imgElement) {
-    const encryptedPath = imgElement.dataset.encryptedPath;
-    const originalPath = imgElement.dataset.originalPath;
-    
-    if (!encryptedPath || !originalPath) {
-      console.warn('图片缺少保护信息');
-      return true; // 允许访问
-    }
-    
-    // 验证路径是否被篡改
-    const decryptedPath = decryptImagePath(encryptedPath);
-    if (decryptedPath !== originalPath) {
-      console.warn('图片路径验证失败');
-      return false;
-    }
-    
-    return true;
-  }
-  
-  // 添加图片水印保护
-  function addImageWatermark(imgElement) {
-    // 创建Canvas来添加水印
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // 等待图片加载完成
-    imgElement.onload = function() {
-      canvas.width = imgElement.width;
-      canvas.height = imgElement.height;
-      
-      // 绘制原始图片
-      ctx.drawImage(imgElement, 0, 0);
-      
-      // 添加水印文字
-      ctx.font = '20px Arial';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      
-      // 在图片中心添加水印
-      ctx.fillText('PostDIY 模板', canvas.width / 2, canvas.height / 2);
-      
-      // 添加斜向水印（覆盖整个图片）
-      ctx.save();
-      ctx.rotate(-Math.PI / 4);
-      ctx.font = '40px Arial';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-      
-      // 重复水印覆盖整个图片
-      for (let x = -canvas.width; x < canvas.width * 2; x += 200) {
-        for (let y = -canvas.height; y < canvas.height * 2; y += 100) {
-          ctx.fillText('PostDIY', x, y);
-        }
-      }
-      ctx.restore();
-      
-      // 将Canvas内容替换原始图片
-      imgElement.src = canvas.toDataURL('image/png');
-    };
-  }
-  
-  // 增强的图片保护加载函数
-  function loadProtectedImageEnhanced(imgElement, imageUrl) {
-    // 加密图片路径
-    const encryptedUrl = encryptImagePath(imageUrl);
-    
-    // 创建Blob URL来隐藏真实路径
-    fetch(imageUrl)
-      .then(response => {
-        if (!response.ok) throw new Error('图片加载失败');
-        return response.blob();
-      })
-      .then(blob => {
-        const blobUrl = URL.createObjectURL(blob);
-        
-        // 保存加密信息用于后续验证
-        imgElement.dataset.encryptedPath = encryptedUrl;
-        imgElement.dataset.originalPath = imageUrl;
-        
-        // 设置图片源
-        imgElement.src = blobUrl;
-        
-        // 为背景图片添加水印
-        if (imgElement.id === 'posterBackground') {
-          addImageWatermark(imgElement);
-        }
-        
-        // 定期清理Blob URL以防止内存泄漏
-        setTimeout(() => {
-          URL.revokeObjectURL(blobUrl);
-        }, 60000); // 1分钟后清理
-      })
-      .catch(error => {
-        console.error('图片加载失败:', error);
-        // 降级方案：直接使用原始URL（但会暴露路径）
-        imgElement.src = imageUrl;
-      });
-  }
-  
-  // 检测和阻止开发者工具
-  function detectAndPreventDevTools() {
-    // 检测开发者工具打开
-    const devToolsDetector = function() {
-      const threshold = 160; // 窗口大小阈值
-      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-      
-      if (widthThreshold || heightThreshold) {
-        showProtectionMessage('检测到开发者工具，已启用保护模式');
-        
-        // 禁用复制功能
-        document.addEventListener('copy', function(e) {
-          e.preventDefault();
-          showProtectionMessage('复制功能已禁用');
-        });
-        
-        // 禁用查看源代码
-        document.addEventListener('keydown', function(e) {
-          if (e.ctrlKey && e.key === 'u') {
-            e.preventDefault();
-            showProtectionMessage('查看源代码功能已禁用');
-          }
-        });
-        
-        // 定期检查
-        setInterval(devToolsDetector, 1000);
-      }
-    };
-    
-    // 开始检测
-    setInterval(devToolsDetector, 1000);
-  }
-  
-  // 混淆图片路径
-  function obfuscateImagePaths() {
-    // 重写console.log来隐藏图片路径
-    const originalConsoleLog = console.log;
-    console.log = function(...args) {
-      const filteredArgs = args.map(arg => {
-        if (typeof arg === 'string' && arg.includes('images/')) {
-          return '[图片路径已隐藏]';
-        }
-        return arg;
-      });
-      originalConsoleLog.apply(console, filteredArgs);
-    };
-    
-    // 重写console.dir来隐藏图片元素详情
-    const originalConsoleDir = console.dir;
-    console.dir = function(obj) {
-      if (obj && obj.src && obj.src.includes('images/')) {
-        const clonedObj = {...obj};
-        clonedObj.src = '[图片路径已隐藏]';
-        originalConsoleDir.call(console, clonedObj);
-      } else {
-        originalConsoleDir.apply(console, arguments);
-      }
-    };
-  }
-  
   // 初始化图片保护功能
   function initializeImageProtection() {
     console.log('初始化图片保护功能...');
-    
-    // 启动开发者工具检测
-    detectAndPreventDevTools();
-    
-    // 启动控制台路径混淆
-    obfuscateImagePaths();
     
     // 禁用右键菜单
     document.addEventListener('contextmenu', function(e) {
@@ -474,6 +279,34 @@ window.wechatWarning = {
       }, 2000);
     }
   }
+  
+  // 显示加载动画
+  function showLoadingAnimation() {
+    if (!elements.posterLoadingOverlay || !elements.loadingLogo) return;
+    
+    // 设置Logo图片（如果有的话）
+    if (state.businessInfo.logo) {
+      elements.loadingLogo.src = state.businessInfo.logo;
+      elements.loadingLogo.style.display = 'block';
+    } else {
+      elements.loadingLogo.style.display = 'none';
+    }
+    
+    // 显示加载动画
+    elements.posterLoadingOverlay.classList.remove('hidden');
+    
+    console.log('显示海报生成加载动画');
+  }
+  
+  // 隐藏加载动画
+  function hideLoadingAnimation() {
+    if (!elements.posterLoadingOverlay) return;
+    
+    // 隐藏加载动画
+    elements.posterLoadingOverlay.classList.add('hidden');
+    
+    console.log('隐藏海报生成加载动画');
+  }
 
   // 初始化DOM元素缓存
   function initializeElements() {
@@ -544,6 +377,10 @@ window.wechatWarning = {
       restoreLogoBtn: document.getElementById('restoreLogoBtn'),
       restoreQrcodeBtnContainer: document.getElementById('restoreQrcodeBtnContainer'),
       restoreQrcodeBtn: document.getElementById('restoreQrcodeBtn'),
+      
+      // 加载动画元素
+      posterLoadingOverlay: document.getElementById('posterLoadingOverlay'),
+      loadingLogo: document.getElementById('loadingLogo'),
       
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),
@@ -1385,11 +1222,11 @@ window.wechatWarning = {
       return;
     }
     
-    // 使用自定义背景或模板背景（使用保护加载）
+    // 使用自定义背景或模板背景
     if (state.customBackground) {
-      loadProtectedImage(elements.posterBackground, state.customBackground);
+      elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate.image) {
-      loadProtectedImage(elements.posterBackground, state.currentTemplate.image);
+      elements.posterBackground.src = state.currentTemplate.image;
     } else {
       console.warn('模板没有可用的图片资源');
     }
@@ -1877,11 +1714,9 @@ window.wechatWarning = {
         
         // 创建模板图片
         const templateImg = document.createElement('img');
+        templateImg.src = template.thumbnail;
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
-        
-        // 使用保护加载缩略图
-        loadProtectedImage(templateImg, template.thumbnail);
         
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
@@ -2023,11 +1858,9 @@ window.wechatWarning = {
           
           // 创建模板图片
           const templateImg = document.createElement('img');
+          templateImg.src = template.thumbnail;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
-          
-          // 使用保护加载缩略图
-          loadProtectedImage(templateImg, template.thumbnail);
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
@@ -2153,11 +1986,9 @@ window.wechatWarning = {
           
           // 创建模板图片
           const templateImg = document.createElement('img');
+          templateImg.src = template.thumbnail;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
-          
-          // 使用保护加载缩略图
-          loadProtectedImage(templateImg, template.thumbnail);
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
@@ -3025,6 +2856,9 @@ window.wechatWarning = {
       return;
     }
     
+    // 显示加载动画
+    showLoadingAnimation();
+    
     // 显示加载状态
     if (elements.downloadBtn) {
       elements.downloadBtn.disabled = true;
@@ -3038,6 +2872,9 @@ window.wechatWarning = {
       console.error('下载海报过程中出错:', error);
       showToast('下载海报失败，请重试');
     } finally {
+      // 隐藏加载动画
+      hideLoadingAnimation();
+      
       // 重置下载按钮状态
       if (elements.downloadBtn) {
         elements.downloadBtn.disabled = false;
