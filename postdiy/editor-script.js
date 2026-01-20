@@ -1290,6 +1290,9 @@ window.wechatWarning = {
           posterContent.style.display = 'flex';
         }
         
+        // 应用科技感过渡效果
+        applyTechTransitionEffect();
+        
         // 立即隐藏加载动画
         hideTemplateLoadingAnimation();
         console.log('所有元素加载完成，加载动画已关闭');
@@ -1359,6 +1362,24 @@ window.wechatWarning = {
         }
       });
     });
+  }
+  
+  // 应用像素化过渡效果
+  function applyTechTransitionEffect() {
+    if (!elements.posterBackground) return;
+    
+    // 移除可能存在的旧效果类
+    elements.posterBackground.classList.remove('pixel-transition');
+    
+    // 添加像素化效果类
+    elements.posterBackground.classList.add('pixel-transition');
+    
+    console.log('应用像素化过渡效果');
+    
+    // 动画结束后移除效果类
+    setTimeout(() => {
+      elements.posterBackground.classList.remove('pixel-transition');
+    }, 200); // 动画时间1秒 + 200ms缓冲
   }
   
   // 更新商家信息显示
