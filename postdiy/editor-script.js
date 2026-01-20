@@ -1163,11 +1163,6 @@ window.wechatWarning = {
     const urlParams = new URLSearchParams(window.location.search);
     const templateId = urlParams.get('templateId');
     
-    // 如果有模板ID参数，显示模板加载动画
-    if (templateId) {
-      showTemplateLoadingAnimation();
-    }
-    
     // 等待模板数据加载完成的函数
     function waitForTemplatesAndLoad() {
       // 检查是否满足加载模板的条件
@@ -1185,22 +1180,14 @@ window.wechatWarning = {
             localStorage.setItem('textColor', '#000000');
             updateTemplateDisplay();
             console.log('已加载指定模板:', selectedTemplate.name);
-            
-            // 隐藏模板加载动画
-            hideTemplateLoadingAnimation();
             return; // 加载成功后直接返回
           } else {
             console.warn('未找到指定ID的模板:', templateId);
-            // 隐藏模板加载动画
-            hideTemplateLoadingAnimation();
           }
         }
         
         // 如果没有指定模板或指定模板不存在，加载当前月份的第一个模板
         loadDefaultTemplate();
-        
-        // 隐藏模板加载动画
-        hideTemplateLoadingAnimation();
       } else {
         // 记录当前状态，帮助调试
         console.log('等待模板数据加载...');
@@ -1265,6 +1252,16 @@ window.wechatWarning = {
       return;
     }
     
+    // 显示模板加载动画（最先显示）
+    showTemplateLoadingAnimation();
+    
+    // 隐藏所有海报内容，等待所有元素加载完成
+    elements.posterBackground.style.display = 'none';
+    const posterContent = document.getElementById('posterContent');
+    if (posterContent) {
+      posterContent.style.display = 'none';
+    }
+    
     // 使用自定义背景或模板背景
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
@@ -1272,13 +1269,96 @@ window.wechatWarning = {
       elements.posterBackground.src = state.currentTemplate.image;
     } else {
       console.warn('模板没有可用的图片资源');
+      // 如果没有图片资源，立即隐藏动画
+      hideTemplateLoadingAnimation();
+      // 显示海报内容
+      if (posterContent) {
+        posterContent.style.display = 'flex';
+      }
+      return;
     }
     
-    // 确保海报内容可见
-    const posterContent = document.getElementById('posterContent');
-    if (posterContent) {
-      posterContent.style.display = 'flex';
-    }
+    // 监听图片加载完成事件
+    elements.posterBackground.onload = function() {
+      console.log('背景图片加载完成');
+      
+      // 等待所有元素加载完成
+      waitForAllElementsLoaded().then(() => {
+        // 显示所有海报内容
+        elements.posterBackground.style.display = 'block';
+        if (posterContent) {
+          posterContent.style.display = 'flex';
+        }
+        
+        // 立即隐藏加载动画
+        hideTemplateLoadingAnimation();
+        console.log('所有元素加载完成，加载动画已关闭');
+      });
+    };
+    
+    // 监听图片加载错误事件
+    elements.posterBackground.onerror = function() {
+      console.error('背景图片加载失败');
+      
+      // 即使加载失败也要显示所有内容
+      waitForAllElementsLoaded().then(() => {
+        elements.posterBackground.style.display = 'block';
+        if (posterContent) {
+          posterContent.style.display = 'flex';
+        }
+        
+        // 立即隐藏加载动画
+        hideTemplateLoadingAnimation();
+      });
+    };
+  }
+  
+  // 等待所有元素加载完成的函数
+  function waitForAllElementsLoaded() {
+    return new Promise((resolve) => {
+      const elementsToCheck = [
+        elements.posterBackground,
+        elements.posterLogoImg,
+        elements.posterQrcodeImg
+      ];
+      
+      let loadedCount = 0;
+      const totalElements = elementsToCheck.filter(el => el && el.src).length;
+      
+      if (totalElements === 0) {
+        // 如果没有需要检查的元素，直接解析
+        resolve();
+        return;
+      }
+      
+      elementsToCheck.forEach(element => {
+        if (element && element.src) {
+          if (element.complete) {
+            // 元素已经加载完成
+            loadedCount++;
+            if (loadedCount >= totalElements) {
+              resolve();
+            }
+          } else {
+            // 监听元素的加载事件
+            element.addEventListener('load', () => {
+              loadedCount++;
+              if (loadedCount >= totalElements) {
+                resolve();
+              }
+            });
+            
+            // 监听元素的错误事件（即使加载失败也算完成）
+            element.addEventListener('error', () => {
+              loadedCount++;
+              if (loadedCount >= totalElements) {
+                resolve();
+              }
+            });
+          }
+        }
+      });
+    });
   }
   
   // 更新商家信息显示
@@ -1847,14 +1927,9 @@ window.wechatWarning = {
   
   // 选择模板
   function selectTemplate(template) {
-    // 显示模板加载动画
-    showTemplateLoadingAnimation();
-    
-    // 延迟重定向，确保动画有足够时间显示
-    setTimeout(() => {
-      // 选择新模板时，带模板ID重定向到新页面
-      window.location.href = `editor.html?templateId=${template.id}`;
-    }, 100);
+    // 选择新模板时，直接带模板ID重定向到新页面
+    // 真正的加载动画将在新页面的背景图片加载过程中显示
+    window.location.href = `editor.html?templateId=${template.id}`;
   }
   
   // 关闭模板选择弹窗
