@@ -307,6 +307,34 @@ window.wechatWarning = {
     
     console.log('隐藏海报生成加载动画');
   }
+  
+  // 显示模板加载动画
+  function showTemplateLoadingAnimation() {
+    if (!elements.templateLoadingOverlay || !elements.templateLoadingLogo) return;
+    
+    // 设置Logo图片（如果有的话）
+    if (state.businessInfo.logo) {
+      elements.templateLoadingLogo.src = state.businessInfo.logo;
+      elements.templateLoadingLogo.style.display = 'block';
+    } else {
+      elements.templateLoadingLogo.style.display = 'none';
+    }
+    
+    // 显示模板加载动画
+    elements.templateLoadingOverlay.classList.remove('hidden');
+    
+    console.log('显示模板加载动画');
+  }
+  
+  // 隐藏模板加载动画
+  function hideTemplateLoadingAnimation() {
+    if (!elements.templateLoadingOverlay) return;
+    
+    // 隐藏模板加载动画
+    elements.templateLoadingOverlay.classList.add('hidden');
+    
+    console.log('隐藏模板加载动画');
+  }
 
   // 初始化DOM元素缓存
   function initializeElements() {
@@ -381,6 +409,8 @@ window.wechatWarning = {
       // 加载动画元素
       posterLoadingOverlay: document.getElementById('posterLoadingOverlay'),
       loadingLogo: document.getElementById('loadingLogo'),
+      templateLoadingOverlay: document.getElementById('templateLoadingOverlay'),
+      templateLoadingLogo: document.getElementById('templateLoadingLogo'),
       
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),
@@ -1133,6 +1163,11 @@ window.wechatWarning = {
     const urlParams = new URLSearchParams(window.location.search);
     const templateId = urlParams.get('templateId');
     
+    // 如果有模板ID参数，显示模板加载动画
+    if (templateId) {
+      showTemplateLoadingAnimation();
+    }
+    
     // 等待模板数据加载完成的函数
     function waitForTemplatesAndLoad() {
       // 检查是否满足加载模板的条件
@@ -1150,14 +1185,22 @@ window.wechatWarning = {
             localStorage.setItem('textColor', '#000000');
             updateTemplateDisplay();
             console.log('已加载指定模板:', selectedTemplate.name);
+            
+            // 隐藏模板加载动画
+            hideTemplateLoadingAnimation();
             return; // 加载成功后直接返回
           } else {
             console.warn('未找到指定ID的模板:', templateId);
+            // 隐藏模板加载动画
+            hideTemplateLoadingAnimation();
           }
         }
         
         // 如果没有指定模板或指定模板不存在，加载当前月份的第一个模板
         loadDefaultTemplate();
+        
+        // 隐藏模板加载动画
+        hideTemplateLoadingAnimation();
       } else {
         // 记录当前状态，帮助调试
         console.log('等待模板数据加载...');
@@ -1804,8 +1847,14 @@ window.wechatWarning = {
   
   // 选择模板
   function selectTemplate(template) {
-    // 选择新模板时，带模板ID重定向到新页面
-    window.location.href = `editor.html?templateId=${template.id}`;
+    // 显示模板加载动画
+    showTemplateLoadingAnimation();
+    
+    // 延迟重定向，确保动画有足够时间显示
+    setTimeout(() => {
+      // 选择新模板时，带模板ID重定向到新页面
+      window.location.href = `editor.html?templateId=${template.id}`;
+    }, 100);
   }
   
   // 关闭模板选择弹窗
@@ -2747,11 +2796,11 @@ window.wechatWarning = {
       if (currentCode === lastValidCoupon && currentCode.length === 4) {
         // 如果是上次成功的券码
         couponLabel.textContent = '您上次验证通过的券码';
-        verifyBtn.innerHTML = '<i class="fa fa-image"></i> 生成海报';
+        verifyBtn.innerHTML = ' 生成海报';
       } else {
         // 恢复默认文字
         couponLabel.textContent = '请输入4位券码';
-        verifyBtn.innerHTML = '<i class="fa fa-check"></i> 验证券码';
+        verifyBtn.innerHTML = '验证券码';
       }
     }
     
