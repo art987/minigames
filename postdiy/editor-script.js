@@ -2856,6 +2856,9 @@ window.wechatWarning = {
       return;
     }
     
+    // 记录开始时间
+    const startTime = Date.now();
+    
     // 显示加载动画
     showLoadingAnimation();
     
@@ -2872,6 +2875,17 @@ window.wechatWarning = {
       console.error('下载海报过程中出错:', error);
       showToast('下载海报失败，请重试');
     } finally {
+      // 计算已用时间
+      const elapsedTime = Date.now() - startTime;
+      const minDisplayTime = 3500; // 最少显示5秒
+      
+      // 如果生成时间少于3.5秒，等待剩余时间
+      if (elapsedTime < minDisplayTime) {
+        const remainingTime = minDisplayTime - elapsedTime;
+        console.log(`海报生成完成，但需要继续显示加载动画 ${remainingTime}ms`);
+        await new Promise(resolve => setTimeout(resolve, remainingTime));
+      }
+      
       // 隐藏加载动画
       hideLoadingAnimation();
       

@@ -721,7 +721,7 @@ footer {
 }
 
 .template-trigger-area:hover {
-  background-color: rgba(255, 255, 0, 0.1); /* 悬停时轻微黄色提示 */
+  background-color: rgba(255, 255, 255, 0); /* 悬停时轻微黄色提示 */
 }
 
 /* 海报二维码样式 */
