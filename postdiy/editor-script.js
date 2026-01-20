@@ -134,6 +134,9 @@ window.wechatWarning = {
     // 微信浏览器检测
     window.wechatWarning.init();
     
+    // 初始化图片保护功能
+    initializeImageProtection();
+    
     // 初始化DOM元素缓存
     initializeElements();
     
@@ -147,6 +150,331 @@ window.wechatWarning = {
     bindEvents();
     initializeEditor();
   
+  // 图片路径加密函数
+  function encryptImagePath(imagePath) {
+    // 简单的Base64编码 + 时间戳混淆
+    const timestamp = Date.now().toString(36);
+    const encoded = btoa(imagePath + '|' + timestamp);
+    return encoded.replace(/=/g, '');
+  }
+  
+  // 图片路径解密函数
+  function decryptImagePath(encryptedPath) {
+    try {
+      // 补全Base64的等号
+      const padded = encryptedPath + '='.repeat((4 - encryptedPath.length % 4) % 4);
+      const decoded = atob(padded);
+      const parts = decoded.split('|');
+      return parts[0]; // 返回原始路径
+    } catch (e) {
+      console.error('图片路径解密失败:', e);
+      return null;
+    }
+  }
+  
+  // 动态加载图片函数（已弃用，使用增强版）
+  function loadProtectedImage(imgElement, imageUrl) {
+    // 调用增强版函数
+    loadProtectedImageEnhanced(imgElement, imageUrl);
+  }
+  
+  // 验证图片访问权限
+  function validateImageAccess(imgElement) {
+    const encryptedPath = imgElement.dataset.encryptedPath;
+    const originalPath = imgElement.dataset.originalPath;
+    
+    if (!encryptedPath || !originalPath) {
+      console.warn('图片缺少保护信息');
+      return true; // 允许访问
+    }
+    
+    // 验证路径是否被篡改
+    const decryptedPath = decryptImagePath(encryptedPath);
+    if (decryptedPath !== originalPath) {
+      console.warn('图片路径验证失败');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  // 添加图片水印保护
+  function addImageWatermark(imgElement) {
+    // 创建Canvas来添加水印
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // 等待图片加载完成
+    imgElement.onload = function() {
+      canvas.width = imgElement.width;
+      canvas.height = imgElement.height;
+      
+      // 绘制原始图片
+      ctx.drawImage(imgElement, 0, 0);
+      
+      // 添加水印文字
+      ctx.font = '20px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      // 在图片中心添加水印
+      ctx.fillText('PostDIY 模板', canvas.width / 2, canvas.height / 2);
+      
+      // 添加斜向水印（覆盖整个图片）
+      ctx.save();
+      ctx.rotate(-Math.PI / 4);
+      ctx.font = '40px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      
+      // 重复水印覆盖整个图片
+      for (let x = -canvas.width; x < canvas.width * 2; x += 200) {
+        for (let y = -canvas.height; y < canvas.height * 2; y += 100) {
+          ctx.fillText('PostDIY', x, y);
+        }
+      }
+      ctx.restore();
+      
+      // 将Canvas内容替换原始图片
+      imgElement.src = canvas.toDataURL('image/png');
+    };
+  }
+  
+  // 增强的图片保护加载函数
+  function loadProtectedImageEnhanced(imgElement, imageUrl) {
+    // 加密图片路径
+    const encryptedUrl = encryptImagePath(imageUrl);
+    
+    // 创建Blob URL来隐藏真实路径
+    fetch(imageUrl)
+      .then(response => {
+        if (!response.ok) throw new Error('图片加载失败');
+        return response.blob();
+      })
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        
+        // 保存加密信息用于后续验证
+        imgElement.dataset.encryptedPath = encryptedUrl;
+        imgElement.dataset.originalPath = imageUrl;
+        
+        // 设置图片源
+        imgElement.src = blobUrl;
+        
+        // 为背景图片添加水印
+        if (imgElement.id === 'posterBackground') {
+          addImageWatermark(imgElement);
+        }
+        
+        // 定期清理Blob URL以防止内存泄漏
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+        }, 60000); // 1分钟后清理
+      })
+      .catch(error => {
+        console.error('图片加载失败:', error);
+        // 降级方案：直接使用原始URL（但会暴露路径）
+        imgElement.src = imageUrl;
+      });
+  }
+  
+  // 检测和阻止开发者工具
+  function detectAndPreventDevTools() {
+    // 检测开发者工具打开
+    const devToolsDetector = function() {
+      const threshold = 160; // 窗口大小阈值
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      
+      if (widthThreshold || heightThreshold) {
+        showProtectionMessage('检测到开发者工具，已启用保护模式');
+        
+        // 禁用复制功能
+        document.addEventListener('copy', function(e) {
+          e.preventDefault();
+          showProtectionMessage('复制功能已禁用');
+        });
+        
+        // 禁用查看源代码
+        document.addEventListener('keydown', function(e) {
+          if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+            showProtectionMessage('查看源代码功能已禁用');
+          }
+        });
+        
+        // 定期检查
+        setInterval(devToolsDetector, 1000);
+      }
+    };
+    
+    // 开始检测
+    setInterval(devToolsDetector, 1000);
+  }
+  
+  // 混淆图片路径
+  function obfuscateImagePaths() {
+    // 重写console.log来隐藏图片路径
+    const originalConsoleLog = console.log;
+    console.log = function(...args) {
+      const filteredArgs = args.map(arg => {
+        if (typeof arg === 'string' && arg.includes('images/')) {
+          return '[图片路径已隐藏]';
+        }
+        return arg;
+      });
+      originalConsoleLog.apply(console, filteredArgs);
+    };
+    
+    // 重写console.dir来隐藏图片元素详情
+    const originalConsoleDir = console.dir;
+    console.dir = function(obj) {
+      if (obj && obj.src && obj.src.includes('images/')) {
+        const clonedObj = {...obj};
+        clonedObj.src = '[图片路径已隐藏]';
+        originalConsoleDir.call(console, clonedObj);
+      } else {
+        originalConsoleDir.apply(console, arguments);
+      }
+    };
+  }
+  
+  // 初始化图片保护功能
+  function initializeImageProtection() {
+    console.log('初始化图片保护功能...');
+    
+    // 启动开发者工具检测
+    detectAndPreventDevTools();
+    
+    // 启动控制台路径混淆
+    obfuscateImagePaths();
+    
+    // 禁用右键菜单
+    document.addEventListener('contextmenu', function(e) {
+      // 检查是否点击在图片上
+      const target = e.target;
+      if (target.tagName === 'IMG' && 
+          (target.id === 'posterBackground' || 
+           target.classList.contains('template-thumbnail') ||
+           target.id === 'posterLogoImg' ||
+           target.id === 'posterQrcodeImg')) {
+        e.preventDefault();
+        
+        // 显示保护提示
+        showProtectionMessage('图片已受保护，禁止右键保存');
+        return false;
+      }
+    });
+    
+    // 禁用图片拖拽
+    document.addEventListener('dragstart', function(e) {
+      const target = e.target;
+      if (target.tagName === 'IMG' && 
+          (target.id === 'posterBackground' || 
+           target.classList.contains('template-thumbnail'))) {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // 禁用图片选择
+    document.addEventListener('selectstart', function(e) {
+      const target = e.target;
+      if (target.tagName === 'IMG' && 
+          (target.id === 'posterBackground' || 
+           target.classList.contains('template-thumbnail'))) {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // 禁用开发者工具中的图片查看
+    document.addEventListener('keydown', function(e) {
+      // 禁用F12、Ctrl+Shift+I、Ctrl+U等开发者工具快捷键
+      if ((e.key === 'F12') || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+        showProtectionMessage('开发者工具已禁用');
+        return false;
+      }
+    });
+    
+    // 添加CSS保护样式
+    const style = document.createElement('style');
+    style.textContent = `
+      /* 图片保护样式 */
+      img#posterBackground,
+      img.template-thumbnail {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: auto;
+        position: relative;
+      }
+      
+      /* 添加保护层 */
+      .image-protection-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      
+      /* 保护提示消息 */
+      .protection-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 15px 25px;
+        border-radius: 10px;
+        font-size: 16px;
+        z-index: 10000;
+        animation: fadeInOut 2s ease-in-out;
+        display: none;
+      }
+      
+      @keyframes fadeInOut {
+        0% { opacity: 0; transform: translate(-50%, -60%); }
+        20% { opacity: 1; transform: translate(-50%, -50%); }
+        80% { opacity: 1; transform: translate(-50%, -50%); }
+        100% { opacity: 0; transform: translate(-50%, -40%); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 创建保护提示消息元素
+    const protectionMessage = document.createElement('div');
+    protectionMessage.className = 'protection-message';
+    protectionMessage.id = 'protectionMessage';
+    document.body.appendChild(protectionMessage);
+    
+    console.log('图片保护功能初始化完成');
+  }
+  
+  // 显示保护提示消息
+  function showProtectionMessage(message) {
+    const messageElement = document.getElementById('protectionMessage');
+    if (messageElement) {
+      messageElement.textContent = message;
+      messageElement.style.display = 'block';
+      
+      // 2秒后自动隐藏
+      setTimeout(() => {
+        messageElement.style.display = 'none';
+      }, 2000);
+    }
+  }
+
   // 初始化DOM元素缓存
   function initializeElements() {
     Object.assign(elements, {
@@ -173,6 +501,7 @@ window.wechatWarning = {
       posterQrcode: document.getElementById('posterQrcode'),
       posterQrcodeImg: document.getElementById('posterQrcodeImg'),
       qrcodePlaceholder: document.getElementById('qrcodePlaceholder'),
+      templateTriggerArea: document.getElementById('templateTriggerArea'),
       
       // 模态框
       templateModal: document.getElementById('templateModal'),
@@ -565,6 +894,38 @@ window.wechatWarning = {
       elements.posterBusinessName.addEventListener('click', function() {
         // 打开字体颜色选择弹窗
         openFontColorModal();
+      });
+    }
+    
+    // Logo图片点击事件 - 弹出商家信息编辑弹窗
+    if (elements.posterLogoImg) {
+      elements.posterLogoImg.addEventListener('click', function() {
+        // 打开商家信息编辑弹窗
+        openBusinessInfoModal();
+      });
+    }
+    
+    // 二维码图片点击事件 - 弹出商家信息编辑弹窗
+    if (elements.posterQrcodeImg) {
+      elements.posterQrcodeImg.addEventListener('click', function() {
+        // 打开商家信息编辑弹窗
+        openBusinessInfoModal();
+      });
+    }
+    
+    // 背景图片点击事件 - 弹出模板选择弹窗
+    if (elements.posterBackground) {
+      elements.posterBackground.addEventListener('click', function() {
+        // 打开模板选择弹窗
+        openTemplateModal();
+      });
+    }
+    
+    // 透明触发区域点击事件 - 弹出模板选择弹窗
+    if (elements.templateTriggerArea) {
+      elements.templateTriggerArea.addEventListener('click', function() {
+        // 打开模板选择弹窗
+        openTemplateModal();
       });
     }
     
@@ -976,6 +1337,7 @@ window.wechatWarning = {
     waitForTemplatesAndLoad();
     
     // 检查是否需要自动弹出商家信息编辑框（如果是第一次打开或信息为空）
+    const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
     if (!savedBusinessInfo || 
         (!state.businessInfo.name || state.businessInfo.name === '点击编辑商家名称')) {
       setTimeout(() => {
@@ -1023,11 +1385,11 @@ window.wechatWarning = {
       return;
     }
     
-    // 使用自定义背景或模板背景
+    // 使用自定义背景或模板背景（使用保护加载）
     if (state.customBackground) {
-      elements.posterBackground.src = state.customBackground;
+      loadProtectedImage(elements.posterBackground, state.customBackground);
     } else if (state.currentTemplate.image) {
-      elements.posterBackground.src = state.currentTemplate.image;
+      loadProtectedImage(elements.posterBackground, state.currentTemplate.image);
     } else {
       console.warn('模板没有可用的图片资源');
     }
@@ -1515,9 +1877,11 @@ window.wechatWarning = {
         
         // 创建模板图片
         const templateImg = document.createElement('img');
-        templateImg.src = template.thumbnail;
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
+        
+        // 使用保护加载缩略图
+        loadProtectedImage(templateImg, template.thumbnail);
         
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
@@ -1659,9 +2023,11 @@ window.wechatWarning = {
           
           // 创建模板图片
           const templateImg = document.createElement('img');
-          templateImg.src = template.thumbnail;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
+          
+          // 使用保护加载缩略图
+          loadProtectedImage(templateImg, template.thumbnail);
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
@@ -1787,9 +2153,11 @@ window.wechatWarning = {
           
           // 创建模板图片
           const templateImg = document.createElement('img');
-          templateImg.src = template.thumbnail;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
+          
+          // 使用保护加载缩略图
+          loadProtectedImage(templateImg, template.thumbnail);
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
