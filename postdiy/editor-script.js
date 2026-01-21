@@ -1854,13 +1854,33 @@ window.wechatWarning = {
         
         // 创建模板图片容器
         const templateImgContainer = document.createElement('div');
-        templateImgContainer.className = 'template-thumbnail-container';
+        templateImgContainer.className = 'template-thumbnail-container loading';
+        
+        // 创建加载占位符
+        const loadingPlaceholder = document.createElement('div');
+        loadingPlaceholder.className = 'template-thumbnail-loading';
+        const loadingImg = document.createElement('img');
+        loadingImg.src = 'images/loading.gif';
+        loadingImg.alt = '加载中';
+        loadingPlaceholder.appendChild(loadingImg);
         
         // 创建模板图片
         const templateImg = document.createElement('img');
         templateImg.src = template.thumbnail;
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
+        
+        // 监听图片加载状态
+        templateImg.onload = function() {
+          templateImgContainer.classList.remove('loading');
+          templateImgContainer.classList.add('loaded');
+        };
+        
+        templateImg.onerror = function() {
+          templateImgContainer.classList.remove('loading');
+          templateImgContainer.classList.add('loaded');
+          console.error('模板缩略图加载失败:', template.thumbnail);
+        };
         
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
@@ -1931,6 +1951,7 @@ window.wechatWarning = {
         templateName.textContent = template.name;
         
         // 组合模板项
+        templateImgContainer.appendChild(loadingPlaceholder);
         templateImgContainer.appendChild(templateImg);
         templateImgContainer.appendChild(checkButton);
         templateItem.appendChild(templateImgContainer);
