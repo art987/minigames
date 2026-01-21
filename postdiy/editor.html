@@ -373,6 +373,26 @@
     });
   </script>
   
+  <!-- 行业模板独立弹窗 -->
+  <div id="industryTemplateModal" class="modal-overlay hidden">
+    <div class="modal-container industry-template-modal">
+      <div class="modal-header fixed-header">
+        <h3 id="industryModalTitle">行业促销文案模板</h3>
+        <button id="closeIndustryTemplateModal" class="modal-close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body scrollable-body">
+        <!-- 文案模板卡片区域 -->
+        <div class="templates-section">
+          <div id="industryTemplatesList" class="industry-templates-list">
+            <!-- 文案模板将通过JavaScript动态生成 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 促销信息编辑模态框 -->
   <div id="promoTextModal" class="modal-overlay hidden">
     <div class="modal-container promo-text-modal">
@@ -385,14 +405,26 @@
       <div class="modal-body scrollable-body">
         <!-- 促销信息输入区域 -->
         <div class="input-section">
-          <textarea id="promoTextInput" class="promo-text-input" rows="3" placeholder="请输入促销信息..."></textarea>
-          <button id="savePromoTextBtn" class="btn-primary">保存</button><span>（您可以点选下方模板进行修改））</span>
+          <textarea id="promoTextInput" class="form-input" rows="3" placeholder="请输入促销信息，支持Enter键换行"></textarea>
+          <button id="savePromoTextBtn" class="btn-primary">保存</button>
         </div>
         
-        <!-- 文案模板区域 -->
-        <div class="templates-section">
-          <div id="promoTemplatesList" class="promo-templates-list">
-            <!-- 文案模板将通过JavaScript动态生成 -->
+        <!-- 行业分类导航区域 -->
+        <div class="industry-section">
+          <h4 class="industry-section-title">各行业促销引流文案模板</h4>
+          <div class="industry-nav">
+            <div class="industry-categories">
+              <button class="industry-category" data-category="美妆护肤">美妆护肤</button>
+              <button class="industry-category" data-category="母婴育儿">母婴育儿</button>
+              <button class="industry-category" data-category="健身减脂">健身减脂</button>
+              <button class="industry-category" data-category="茶饮咖啡">茶饮咖啡</button>
+              <button class="industry-category" data-category="宠物用品">宠物用品</button>
+              <button class="industry-category" data-category="服饰穿搭">服饰穿搭</button>
+              <button class="industry-category" data-category="知识付费">知识付费</button>
+              <button class="industry-category" data-category="家居生活">家居生活</button>
+              <button class="industry-category" data-category="数码3C">数码3C</button>
+              <button class="industry-category" data-category="旅游酒店">旅游酒店</button>
+            </div>
           </div>
         </div>
       </div>

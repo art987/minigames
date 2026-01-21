@@ -100,29 +100,98 @@ window.wechatWarning = {
     textColor: '#000000' // 默认黑色
   };
   
-  // 促销信息文案模板数据 - 每组3句话，包含换行
-  const PROMO_TEMPLATES = [
-    '扫码加好友享VIP待遇！\n全年免费清洗空调，\n加氟6折 到店再领惊喜好礼！',
-    '感恩大回馈来袭！\n全场爆款买一送一，\n扫码预约立减现金，',
-    '劲爆福利享不停！\n超值套餐低至19.9元，\n数量有限抢完即止！',
-    '年终清仓大甩卖！\n全场商品低至1折起，\n扫码领券再减20元！',
-    '会员专享福利日！\n折上再折省到尖叫，\n扫码升级会员送双倍积分！',
-    '闺蜜同行特惠！\n两人同行一人免单，\n扫码预约再送美妆礼包，周末限时狂欢！',
-    '夜场福利加码！\n每晚8点后买一赠二，\n扫码下单再返现金红包，越夜越划算！',
-    '生日专属宠爱！\n凭身份证当月免单一次，\n扫码登记再送生日蛋糕券！',
-    '扫码抽奖赢大奖！\n100%中奖率，iPhone15等你拿，\n进店再送神秘盲盒！',
-    '早鸟福利限时抢！\n每天前50名免单狂欢，\n扫码预约锁定名额，手慢无！',
-    '打卡送券无门槛！\n发圈集赞满30再返30元，\n扫码参与即送饮品券！',
-    '超值套餐上新！\n单人套餐省40%，双人套餐省60%，\n扫码预订再送小菜！',
-    '扫码入会立享特权！\n终身VIP特价+生日礼，\n首次消费再返50%积分！',
-    '限时秒杀疯抢中！\n爆款商品9.9元秒，\n扫码提前加购，开抢前5分钟提醒！',
-    '老友回归福利！\n半年未到店送100元代金券，\n扫码激活再送招牌菜！',
-    '亲子同行特惠！\n带孩子到店送儿童套餐，\n扫码报名再送玩具！',
-    '扫码集章换豪礼！\n集满5次消费送空气炸锅，\n每次到店再返10元券！',
-    '隐藏福利解锁！\n暗号"省钱"立减15元，\n扫码获取暗号代码+赠送甜品！',
-    '周末狂欢加码！\n周六日全场8折再抽奖，\n扫码支付抽免单！',
-    '年终会员日暴击！\n积分当钱花，最高抵100元，\n扫码兑换再送购物袋！'
-  ];
+  // 行业分类文案模板数据
+  const INDUSTRY_TEMPLATES = {
+    // 1. 美妆护肤
+    '美妆护肤': [
+      '扫码进群｜每天 1 款妆教\n前 200 位送 xxx 小样\n群满关门槛！',
+      '长按识别｜加微信\n备注【美妆】领 xxx 试用装\n不转发不集赞',
+      '扫码秒进｜限时福利\n进群即送 xxx 旅行套装\n今晚 8 点统一发',
+      '先扫码｜再添加小助手\n0 元拿 xxx 新品面膜\n只送不卖',
+      '微信扫码｜立刻领\n每天抽 5 人送 xxx 正装\n越早进中奖率越高'
+    ],
+    
+    // 2. 母婴育儿
+    '母婴育儿': [
+      '扫码进群｜宝妈互助\n送 xxx 纸尿裤试用装 4 片\n全国包邮',
+      '长按识别｜加微信\n备注【宝妈】领 xxx 湿巾 1 包\n无门槛纯福利',
+      '扫码秒进｜每晚育儿直播\n进群送 xxx 辅食食谱 PDF\n专家在线答疑',
+      '先扫码｜再添加小助手\n送 xxx 宝宝浴巾 1 条\n限 0-3 岁家庭',
+      '微信扫码｜立刻进群\n每周团购价 xxx 玩具\n比电商低 30%'
+    ],
+    
+    // 3. 健身减脂
+    '健身减脂': [
+      '扫码进群｜21 天打卡\n送 xxx 体脂秤 1 台\n坚持返现金',
+      '长按识别｜加微信\n备注【减脂】领 xxx 代餐 3 袋\n不节食也能瘦',
+      '扫码秒进｜教练陪练\n送 xxx 弹力带 1 根\n视频教学',
+      '先扫码｜再添加小助手\n0 元拿 xxx 左旋 1 瓶\n限量 100 份',
+      '微信扫码｜立刻领\n每天抽 3 人送 xxx 私教课\n线下门店通用'
+    ],
+    
+    // 4. 茶饮咖啡
+    '茶饮咖啡': [
+      '扫码进群｜每日隐藏菜单\n送 xxx 招牌饮品 1 杯\n到店即兑',
+      '长按识别｜加微信\n备注【喝茶】领 xxx 5 折券\n可转赠好友',
+      '扫码秒进｜限时秒杀\n9.9 抢 xxx 生椰拿铁\n每日 50 份',
+      '先扫码｜再添加小助手\n送 xxx 周年周边 1 套\n全国邮寄',
+      '微信扫码｜立刻进群\n第二杯半价天天享\n群内暗号 xxx'
+    ],
+    
+    // 5. 宠物用品
+    '宠物用品': [
+      '扫码进群｜猫狗互助\n送 xxx 冻干试吃 50g\n包邮到家',
+      '长按识别｜加微信\n备注【主子】领 xxx 猫砂 1 袋\n无尘可冲厕所',
+      '扫码秒进｜每周拼团\nxxx 驱虫药低于 5 折\n保真可查码',
+      '先扫码｜再添加小助手\n送 xxx 宠物玩具 1 个\n限前 100 名',
+      '微信扫码｜立刻领\n每天教 1 招宠物摄影\n晒照再返 xxx 零食'
+    ],
+    
+    // 6. 服饰穿搭
+    '服饰穿搭': [
+      '扫码进群｜每日穿搭灵感\n送 xxx 防晒衫 1 件\n均码现货',
+      '长按识别｜加微信\n备注【穿搭】领 xxx 20 元无门槛券\n可与折扣叠',
+      '扫码秒进｜限时盲盒\n59 抢 xxx 随机 T 恤\n每件原单 129+',
+      '先扫码｜再添加小助手\n0 元拿 xxx 渔夫帽\n朋友圈晒图返现金',
+      '微信扫码｜立刻进群\n每周团购 xxx 牛仔裤\n显瘦神裤 79 包邮'
+    ],
+    
+    // 7. 知识付费
+    '知识付费': [
+      '扫码进群｜每晚 8 点干货\n送 xxx 课程 3 节\n永久回放',
+      '长按识别｜加微信\n备注【学习】领 xxx 电子书 10 本\n价值 199 元',
+      '扫码秒进｜副业拆解\n送 xxx 赚钱表格 1 套\n直接复制用',
+      '先扫码｜再添加小助手\n0 元听 xxx 直播课\n课后送资料包',
+      '微信扫码｜立刻领\n每天抽 2 人送 xxx 社群年卡\n365 天陪跑'
+    ],
+    
+    // 8. 家居生活
+    '家居生活': [
+      '扫码进群｜收纳技巧日更\n送 xxx 折叠收纳箱 1 个\n包邮 0 元',
+      '长按识别｜加微信\n备注【家居】领 xxx 除螨券\n线下上门 1 次',
+      '扫码秒进｜团购爆款\nxxx 空气炸锅 99 秒杀\n官方联保',
+      '先扫码｜再添加小助手\n送 xxx 香薰 1 瓶\n限前 200 户',
+      '微信扫码｜立刻进群\n每周教 1 招旧物改造\n成品拍照再返 xxx 红包'
+    ],
+    
+    // 9. 数码3C
+    '数码3C': [
+      '扫码进群｜新品内测\n送 xxx 无线耳机 1 副\n写评测再返 50 元',
+      '长按识别｜加微信\n备注【数码】领 xxx 数据线 1 根\n快充不弹窗',
+      '扫码秒进｜限时拼团\nxxx 充电宝 59 包邮\n20000mAh 双向快充',
+      '先扫码｜再添加小助手\n0 元拿 xxx 手机支架\n直播追剧神器',
+      '微信扫码｜立刻领\n每天抽 1 人送 xxx 智能手表\n官方正品可查'
+    ],
+    
+    // 10. 旅游酒店
+    '旅游酒店': [
+      '扫码进群｜机票酒店神价\n送 xxx 无门槛 100 元券\n节假日通用',
+      '长按识别｜加微信\n备注【旅行】领 xxx 行李牌 1 套\n包邮出发地',
+      '扫码秒进｜限时尾单\nxxx 五星酒店 299 含双早\n比携程低 40%',
+      '先扫码｜再添加小助手\n送 xxx 景区门票 1 张\n限本周使用',
+      '微信扫码｜立刻进群\n每天发 1 条冷门路线\n组队成行再返 xxx 红包'
+    ]
+  };
   
   // DOM元素缓存
   const elements = {};
@@ -389,6 +458,11 @@ window.wechatWarning = {
       fontColorSelector: document.getElementById('color-selector'),
       businessPromoTextInput: document.getElementById('promotion-text'), // 商家信息模态框中的促销文本输入框
       selectPromoTemplateBtn: document.getElementById('selectPromoTemplateBtn'), // 选择促销文案模板按钮
+      industryCategories: document.querySelectorAll('.industry-category'), // 行业分类按钮
+      industryTemplateModal: document.getElementById('industryTemplateModal'), // 行业模板独立弹窗
+      closeIndustryTemplateModal: document.getElementById('closeIndustryTemplateModal'), // 关闭行业模板弹窗
+      industryModalTitle: document.getElementById('industryModalTitle'), // 行业弹窗标题
+      industryTemplatesList: document.getElementById('industryTemplatesList'), // 行业模板列表
       logoUploadArea: document.getElementById('logoUploadArea'),
       logoInput: document.getElementById('logoInput'),
       logoPreview: document.getElementById('logoPreview'),
@@ -560,23 +634,73 @@ window.wechatWarning = {
     }
   }
   
-  // 初始化促销信息文案模板
-  function initializePromoTemplates() {
-    if (!elements.promoTemplatesList) return;
+  // 打开行业模板独立弹窗
+  function openIndustryTemplateModal(category) {
+    if (!elements.industryTemplateModal || !elements.industryModalTitle || !elements.industryTemplatesList) return;
+    
+    // 设置弹窗标题
+    elements.industryModalTitle.textContent = category + '促销文案模板';
+    
+    // 渲染对应行业的模板
+    renderIndustryTemplates(category, elements.industryTemplatesList);
+    
+    // 移除关闭动画类
+    elements.industryTemplateModal.classList.remove('closing');
+    elements.industryTemplateModal.querySelector('.modal-container').classList.remove('closing');
+    
+    // 显示弹窗
+    elements.industryTemplateModal.classList.remove('hidden');
+    
+    // 强制重绘以触发动画
+    void elements.industryTemplateModal.offsetWidth;
+  }
+  
+  // 关闭行业模板独立弹窗
+  function closeIndustryTemplateModal() {
+    if (!elements.industryTemplateModal) return;
+    
+    // 添加关闭动画类
+    elements.industryTemplateModal.classList.add('closing');
+    elements.industryTemplateModal.querySelector('.modal-container').classList.add('closing');
+    
+    // 延迟隐藏弹窗
+    setTimeout(() => {
+      elements.industryTemplateModal.classList.add('hidden');
+      // 移除关闭动画类
+      elements.industryTemplateModal.classList.remove('closing');
+      elements.industryTemplateModal.querySelector('.modal-container').classList.remove('closing');
+    }, 400); // 匹配动画时长
+  }
+  
+  // 渲染指定行业的文案模板到指定容器
+  function renderIndustryTemplates(category, container) {
+    if (!container) return;
     
     // 清空现有内容
-    elements.promoTemplatesList.innerHTML = '';
+    container.innerHTML = '';
     
-    // 渲染20条文案模板
-    PROMO_TEMPLATES.forEach((template, index) => {
-      const templateItem = document.createElement('div');
-      templateItem.className = 'promo-template-item';
-      templateItem.textContent = template;
-      templateItem.addEventListener('click', function() {
-        console.log('点击了模板:', template);
+    const templates = INDUSTRY_TEMPLATES[category];
+    if (!templates) return;
+    
+    // 渲染文案模板卡片
+    templates.forEach((template, index) => {
+      const templateCard = document.createElement('div');
+      templateCard.className = 'industry-template-card';
+      
+      templateCard.innerHTML = `
+        <div class="industry-template-content">${template}</div>
+        <button class="industry-template-select-btn" data-template="${template}">选用编辑</button>
+      `;
+      
+      // 添加点击事件
+      templateCard.querySelector('.industry-template-select-btn').addEventListener('click', function() {
+        console.log('选择了模板:', template);
         if (elements.promoTextInput) {
           elements.promoTextInput.value = template;
           console.log('已将模板内容填充到输入框:', template);
+          
+          // 关闭行业模板弹窗
+          closeIndustryTemplateModal();
           
           // 自动滚动到编辑框
           setTimeout(() => {
@@ -589,9 +713,12 @@ window.wechatWarning = {
           }, 100);
         }
       });
-      elements.promoTemplatesList.appendChild(templateItem);
+      
+      container.appendChild(templateCard);
     });
   }
+  
+
   
   // 打开促销信息编辑模态框
   function openPromoTextModal() {
@@ -600,20 +727,52 @@ window.wechatWarning = {
     // 加载当前促销信息到输入框
     elements.promoTextInput.value = state.businessInfo.promoText;
     
-    // 确保文案模板已渲染
-    initializePromoTemplates();
+    // 移除关闭动画类
+    elements.promoTextModal.classList.remove('closing');
+    elements.promoTextModal.querySelector('.modal-container').classList.remove('closing');
     
     // 显示模态框
     elements.promoTextModal.classList.remove('hidden');
+    
+    // 强制重绘以触发动画
+    void elements.promoTextModal.offsetWidth;
     
     // 聚焦到输入框
     elements.promoTextInput.focus();
   }
   
+  // 打开行业分类文案模板模态框
+  function openIndustryTemplatesModal() {
+    if (!elements.industryTemplatesModal || !elements.promoTextInput) return;
+    
+    // 确保行业模板已渲染
+    initializeIndustryTemplates();
+    
+    // 显示模态框
+    elements.industryTemplatesModal.classList.remove('hidden');
+  }
+  
+  // 关闭行业分类文案模板模态框
+  function closeIndustryTemplatesModal() {
+    if (!elements.industryTemplatesModal) return;
+    elements.industryTemplatesModal.classList.add('hidden');
+  }
+  
   // 关闭促销信息编辑模态框
   function closePromoTextModal() {
     if (!elements.promoTextModal) return;
-    elements.promoTextModal.classList.add('hidden');
+    
+    // 添加关闭动画类
+    elements.promoTextModal.classList.add('closing');
+    elements.promoTextModal.querySelector('.modal-container').classList.add('closing');
+    
+    // 延迟隐藏弹窗
+    setTimeout(() => {
+      elements.promoTextModal.classList.add('hidden');
+      // 移除关闭动画类
+      elements.promoTextModal.classList.remove('closing');
+      elements.promoTextModal.querySelector('.modal-container').classList.remove('closing');
+    }, 400); // 匹配动画时长
   }
   
 
@@ -692,6 +851,26 @@ window.wechatWarning = {
         console.log('点击选择促销文案模板按钮');
         openPromoTextModal();
       });
+    }
+    
+    // 行业分类点击事件 - 打开独立弹窗
+    if (elements.industryCategories) {
+      elements.industryCategories.forEach(category => {
+        category.addEventListener('click', function() {
+          // 移除所有active类
+          elements.industryCategories.forEach(cat => cat.classList.remove('active'));
+          // 添加active类到当前分类
+          this.classList.add('active');
+          // 打开对应行业的模板弹窗
+          const categoryName = this.getAttribute('data-category');
+          openIndustryTemplateModal(categoryName);
+        });
+      });
+    }
+    
+    // 关闭行业模板弹窗事件
+    if (elements.closeIndustryTemplateModal) {
+      elements.closeIndustryTemplateModal.addEventListener('click', closeIndustryTemplateModal);
     }
     
     // 颜色选择事件
@@ -1379,7 +1558,7 @@ window.wechatWarning = {
     // 动画结束后移除效果类
     setTimeout(() => {
       elements.posterBackground.classList.remove('pixel-transition');
-    }, 200); // 动画时间1秒 + 200ms缓冲
+    }, 1200); // 1秒动画时间 + 200ms缓冲
   }
   
   // 更新商家信息显示
@@ -1496,17 +1675,34 @@ window.wechatWarning = {
       }
     });
     
+    // 移除关闭动画类
+    elements.fontColorModal.classList.remove('closing');
+    elements.fontColorModal.querySelector('.modal').classList.remove('closing');
+    
     // 显示弹窗
     elements.fontColorModal.classList.remove('hidden');
     elements.fontColorModal.style.display = 'flex';
+    
+    // 强制重绘以触发动画
+    void elements.fontColorModal.offsetWidth;
   }
   
   // 关闭字体颜色选择弹窗
   function closeFontColorModal() {
     if (!elements.fontColorModal) return;
     
-    elements.fontColorModal.classList.add('hidden');
-    elements.fontColorModal.style.display = 'none';
+    // 添加关闭动画类
+    elements.fontColorModal.classList.add('closing');
+    elements.fontColorModal.querySelector('.modal').classList.add('closing');
+    
+    // 延迟隐藏弹窗
+    setTimeout(() => {
+      elements.fontColorModal.classList.add('hidden');
+      elements.fontColorModal.style.display = 'none';
+      // 移除关闭动画类
+      elements.fontColorModal.classList.remove('closing');
+      elements.fontColorModal.querySelector('.modal').classList.remove('closing');
+    }, 400); // 匹配动画时长
   }
   
   // 保存字体颜色函数保留但简化，因为现在点击颜色直接应用
@@ -1534,10 +1730,17 @@ window.wechatWarning = {
     // 根据当前日期自动选择月份和节日（与首页逻辑保持一致）
     autoSelectDateInModal();
     
+    // 移除关闭动画类
+    elements.templateModal.classList.remove('closing');
+    elements.templateModal.querySelector('.modal').classList.remove('closing');
+    
     // 显示弹窗 - 通过移除hidden类
     elements.templateModal.classList.remove('hidden');
     // 同时设置display确保兼容性
     elements.templateModal.style.display = 'flex';
+    
+    // 强制重绘以触发动画
+    void elements.templateModal.offsetWidth;
   }
   
   // 在模板弹窗中根据当前模板信息自动选择月份和节日
@@ -1854,33 +2057,13 @@ window.wechatWarning = {
         
         // 创建模板图片容器
         const templateImgContainer = document.createElement('div');
-        templateImgContainer.className = 'template-thumbnail-container loading';
-        
-        // 创建加载占位符
-        const loadingPlaceholder = document.createElement('div');
-        loadingPlaceholder.className = 'template-thumbnail-loading';
-        const loadingImg = document.createElement('img');
-        loadingImg.src = 'images/loading.gif';
-        loadingImg.alt = '加载中';
-        loadingPlaceholder.appendChild(loadingImg);
+        templateImgContainer.className = 'template-thumbnail-container';
         
         // 创建模板图片
         const templateImg = document.createElement('img');
         templateImg.src = template.thumbnail;
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
-        
-        // 监听图片加载状态
-        templateImg.onload = function() {
-          templateImgContainer.classList.remove('loading');
-          templateImgContainer.classList.add('loaded');
-        };
-        
-        templateImg.onerror = function() {
-          templateImgContainer.classList.remove('loading');
-          templateImgContainer.classList.add('loaded');
-          console.error('模板缩略图加载失败:', template.thumbnail);
-        };
         
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
@@ -1951,7 +2134,6 @@ window.wechatWarning = {
         templateName.textContent = template.name;
         
         // 组合模板项
-        templateImgContainer.appendChild(loadingPlaceholder);
         templateImgContainer.appendChild(templateImg);
         templateImgContainer.appendChild(checkButton);
         templateItem.appendChild(templateImgContainer);
@@ -1978,11 +2160,21 @@ window.wechatWarning = {
   function closeTemplateModal() {
     console.log('尝试关闭模板弹窗');
     if (elements.templateModal) {
-      // 隐藏弹窗 - 添加hidden类
-      elements.templateModal.classList.add('hidden');
-      // 同时设置display确保兼容性
-      elements.templateModal.style.display = 'none';
-      console.log('模板弹窗已关闭');
+      // 添加关闭动画类
+      elements.templateModal.classList.add('closing');
+      elements.templateModal.querySelector('.modal').classList.add('closing');
+      
+      // 延迟隐藏弹窗
+      setTimeout(() => {
+        // 隐藏弹窗 - 添加hidden类
+        elements.templateModal.classList.add('hidden');
+        // 同时设置display确保兼容性
+        elements.templateModal.style.display = 'none';
+        // 移除关闭动画类
+        elements.templateModal.classList.remove('closing');
+        elements.templateModal.querySelector('.modal').classList.remove('closing');
+        console.log('模板弹窗已关闭');
+      }, 400); // 匹配动画时长
     } else {
       console.error('模板弹窗元素未找到');
     }
@@ -2447,10 +2639,17 @@ window.wechatWarning = {
       }
     }
     
+    // 移除关闭动画类
+    elements.businessInfoModal.classList.remove('closing');
+    elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
+    
     // 显示弹窗 - 通过移除hidden类
     elements.businessInfoModal.classList.remove('hidden');
     // 同时设置display确保兼容性
     elements.businessInfoModal.style.display = 'flex';
+    
+    // 强制重绘以触发动画
+    void elements.businessInfoModal.offsetWidth;
     
     // 如果是VIP用户，显示删除按钮（允许用户编辑）
     if (window.isVipActive && window.isVipActive()) {
@@ -2461,8 +2660,18 @@ window.wechatWarning = {
   // 关闭商家信息编辑弹窗
   function closeBusinessInfoModal() {
     if (elements.businessInfoModal) {
-      elements.businessInfoModal.classList.add('hidden');
-      elements.businessInfoModal.style.display = 'none';
+      // 添加关闭动画类
+      elements.businessInfoModal.classList.add('closing');
+      elements.businessInfoModal.querySelector('.modal').classList.add('closing');
+      
+      // 延迟隐藏弹窗
+      setTimeout(() => {
+        elements.businessInfoModal.classList.add('hidden');
+        elements.businessInfoModal.style.display = 'none';
+        // 移除关闭动画类
+        elements.businessInfoModal.classList.remove('closing');
+        elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
+      }, 400); // 匹配动画时长
     }
   }
   
@@ -2824,7 +3033,7 @@ window.wechatWarning = {
     // 创建弹窗HTML
     const modalHTML = `
       <div id="couponModal" class="modal-overlay" style="display: flex;">
-        <div class="modal coupon-modal" style="max-width: 400px;">
+        <div class="modal coupon-modal" style="max-width: 400px; transform-origin: center center;">
           <div class="modal-header fixed-header">
             <h2 class="modal-title">券码验证</h2>
             <button id="closeCouponModalBtn" class="modal-close">&times;</button>
@@ -2945,7 +3154,14 @@ window.wechatWarning = {
     
     // 关闭弹窗函数
     function closeModal() {
-      modal.remove();
+      // 添加关闭动画类
+      modal.classList.add('closing');
+      modal.querySelector('.modal').classList.add('closing');
+      
+      // 延迟移除弹窗
+      setTimeout(() => {
+        modal.remove();
+      }, 400); // 匹配动画时长
     }
     
     // 验证券码函数

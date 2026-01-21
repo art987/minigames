@@ -302,7 +302,6 @@ main {
 .template-thumbnail-container {
   position: relative;
   overflow: hidden;
-  background-color: #f5f5f5;
 }
 
 .template-thumbnail {
@@ -312,38 +311,6 @@ main {
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-slow);
-}
-
-/* 缩略图加载占位符 */
-.template-thumbnail-loading {
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.template-thumbnail-loading img {
-  width: 100%;
-  height: 140px;
-  object-fit: contain;
-}
-
-.template-thumbnail-container.loading .template-thumbnail {
-  opacity: 0;
-}
-
-.template-thumbnail-container.loaded .template-thumbnail {
-  opacity: 1;
-}
-
-.template-thumbnail-container.loaded .template-thumbnail-loading {
-  display: none;
 }
 
 .template-card:hover .template-thumbnail {
@@ -795,8 +762,8 @@ footer {
 }
 
 #posterQrcodeImg {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background-color: white;
   padding: 5px;
   border-radius: 4px;
@@ -961,7 +928,12 @@ footer {
   max-height: 91vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: modalSlideIn 0.3s ease-out;
+  transform-origin: center center;
+  animation: modalScaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.modal.closing {
+  animation: modalScaleOut 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
 }
 
 /* 弹窗固定头部通用样式 */
@@ -1486,6 +1458,7 @@ footer {
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.2s ease;
+  font-weight: bold;
 }
 
 .form-select {
@@ -1502,7 +1475,7 @@ footer {
 
 .form-select:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #e40000;
 }
 
 .form-label-sm {
@@ -1557,7 +1530,7 @@ footer {
 
 .form-input:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #d30606;
 }
 
 /* 上传区域样式 */
@@ -1604,7 +1577,7 @@ footer {
 }
 
 #logoUploadArea:hover, #qrcodeUploadArea:hover {
-  border-color: #1976d2;
+  border-color: #d21919;
   background-color: #f5f9ff;
 }
 
@@ -1668,7 +1641,7 @@ footer {
 }
 
 .upload-area:hover {
-  border-color: #1976d2;
+  border-color: #d21919;
   background-color: #f5f9ff;
 }
 
@@ -1802,7 +1775,7 @@ footer {
 }
 
 .template-item.selected {
-  border-color: #1976d2;
+  border-color: #d21919;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
 }
 
@@ -1939,7 +1912,180 @@ input.hidden {
   opacity: 0;
 }
 
+/* 行业分类文案模板模态框样式 */
+.industry-templates-modal {
+  width: 95%;
+  max-width: 800px;
+  height: 85%;
+  max-height: 700px;
+}
+
+/* 行业模板弹窗覆盖层 - 更高的z-index */
+#industryTemplatesModal.modal-overlay {
+  z-index: 2000;
+}
+
+/* 弹窗动画效果 */
+@keyframes modalScaleIn {
+  0% {
+    transform: scale(0) translateY(-50px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) translateY(0);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(0.95) translateY(0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalScaleOut {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.05) translateY(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0) translateY(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes overlayFadeIn {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes overlayFadeOut {
+  0% {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* 行业分类区域样式 */
+.industry-section {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.industry-section-title {
+  margin: 0 0 1px 0;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+
+/* 行业分类导航样式 */
+.industry-nav {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.industry-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.industry-category {
+  padding: 8px 5px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.industry-category:hover {
+  background: #e9e9e9;
+  transform: translateY(-1px);
+}
+
+.industry-category.active {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: white;
+  border-color: #df2323;
+}
+
+/* 行业文案模板列表样式 */
+.industry-templates-list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.industry-template-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.industry-template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  border-color: #007bff;
+}
+
+.industry-template-content {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: bold;
+  color: #333;
+  white-space: pre-line;
+  margin-bottom: 12px;
+}
+
+.industry-template-select-btn {
+  width: 100%;
+  padding: 7px 16px;
+  background: #ffffff;
+  color: #e30303;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.industry-template-select-btn:hover {
+  background: #eb3e34;
+  color:#ffff
+  
+}
+
 /* 促销信息编辑模态框样式 */
+#industryTemplateModal{ z-index: 2000;}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1962,6 +2108,29 @@ input.hidden {
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(211, 47, 47, 0.3);
   border: 2px solid #ee3030a1;
+  transform-origin: center center;
+  animation: modalScaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.modal-container.closing {
+  animation: modalScaleOut 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+/* 行业模板弹窗动画样式 */
+.modal-container.industry-template-modal {
+  animation: modalScaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.modal-container.industry-template-modal.closing {
+  animation: modalScaleOut 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+.modal-overlay {
+  animation: overlayFadeIn 0.3s ease-out forwards;
+}
+
+.modal-overlay.closing {
+  animation: overlayFadeOut 0.3s ease-out forwards;
 }
 
 .modal-header {
@@ -2071,7 +2240,7 @@ input.hidden {
 }
 
 .btn-primary, .btn-secondary {
-  padding: 8px 20px;
+  padding: 6px 34px;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
@@ -2080,7 +2249,7 @@ input.hidden {
 }
 
 .btn-primary {
-  background-color: #ca0c0c;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
   color: white;
 }
 
@@ -2167,6 +2336,25 @@ input.hidden {
   }
 }
 
+/* 科技感过渡动画 */
+@keyframes techTransition {
+  0% {
+    filter: blur(20px) brightness(0.5) contrast(200%);
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  50% {
+    filter: blur(10px) brightness(0.8) contrast(150%);
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    filter: blur(0) brightness(1) contrast(100%);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* 像素化过渡动画 */
 @keyframes pixelTransition {
   0% {
@@ -2174,10 +2362,20 @@ input.hidden {
     transform: scale(1.2);
     opacity: 0;
   }
+  25% {
+    filter: blur(8px) contrast(300%) brightness(0.5);
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
   50% {
     filter: blur(4px) contrast(200%) brightness(0.7);
     transform: scale(1.05);
     opacity: 0.6;
+  }
+  75% {
+    filter: blur(2px) contrast(150%) brightness(0.9);
+    transform: scale(1.02);
+    opacity: 0.8;
   }
   100% {
     filter: none;
@@ -2185,6 +2383,12 @@ input.hidden {
     opacity: 1;
   }
 }
+
+.poster-background.pixel-transition {
+  animation: pixelTransition 1s ease-out;
+}
+
+
 
 .loading-container {
   position: relative;

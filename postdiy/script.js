@@ -506,17 +506,37 @@ function initVipLogin() {
 
   // 显示VIP登录弹窗
   function showVipLoginModal() {
+    // 移除关闭动画类
+    vipLoginModal.classList.remove('closing');
+    vipLoginModal.querySelector('.modal').classList.remove('closing');
+    
+    // 显示弹窗
     vipLoginModal.classList.remove('hidden');
+    
+    // 强制重绘以触发动画
+    void vipLoginModal.offsetWidth;
+    
     vipIdInput.focus();
   }
 
   // 关闭VIP登录弹窗
   function closeVipLoginModal() {
-    vipLoginModal.classList.add('hidden');
-    vipIdInput.value = '';
-    vipPasswordInput.value = '';
-    vipLoginMessage.textContent = '';
-    vipLoginMessage.className = 'login-message';
+    // 添加关闭动画类
+    vipLoginModal.classList.add('closing');
+    vipLoginModal.querySelector('.modal').classList.add('closing');
+    
+    // 延迟隐藏弹窗
+    setTimeout(() => {
+      vipLoginModal.classList.add('hidden');
+      // 移除关闭动画类
+      vipLoginModal.classList.remove('closing');
+      vipLoginModal.querySelector('.modal').classList.remove('closing');
+      
+      vipIdInput.value = '';
+      vipPasswordInput.value = '';
+      vipLoginMessage.textContent = '';
+      vipLoginMessage.className = 'login-message';
+    }, 400); // 匹配动画时长
   }
 
   // VIP登录
