@@ -102,8 +102,8 @@ window.wechatWarning = {
   
   // 行业分类文案模板数据
   const INDUSTRY_TEMPLATES = {
-    // 1. 美妆护肤
-    '美妆护肤': [
+    // 1. 美容
+    '美容': [
       '扫码进群｜每天 1 款妆教\n前 200 位送 xxx 小样\n群满关门槛！',
       '长按识别｜加微信\n备注【美妆】领 xxx 试用装\n不转发不集赞',
       '扫码秒进｜限时福利\n进群即送 xxx 旅行套装\n今晚 8 点统一发',
@@ -111,8 +111,8 @@ window.wechatWarning = {
       '微信扫码｜立刻领\n每天抽 5 人送 xxx 正装\n越早进中奖率越高'
     ],
     
-    // 2. 母婴育儿
-    '母婴育儿': [
+    // 2. 母婴
+    '母婴': [
       '扫码进群｜宝妈互助\n送 xxx 纸尿裤试用装 4 片\n全国包邮',
       '长按识别｜加微信\n备注【宝妈】领 xxx 湿巾 1 包\n无门槛纯福利',
       '扫码秒进｜每晚育儿直播\n进群送 xxx 辅食食谱 PDF\n专家在线答疑',
@@ -120,8 +120,8 @@ window.wechatWarning = {
       '微信扫码｜立刻进群\n每周团购价 xxx 玩具\n比电商低 30%'
     ],
     
-    // 3. 健身减脂
-    '健身减脂': [
+    // 3. 健身
+    '健身': [
       '扫码进群｜21 天打卡\n送 xxx 体脂秤 1 台\n坚持返现金',
       '长按识别｜加微信\n备注【减脂】领 xxx 代餐 3 袋\n不节食也能瘦',
       '扫码秒进｜教练陪练\n送 xxx 弹力带 1 根\n视频教学',
@@ -129,8 +129,8 @@ window.wechatWarning = {
       '微信扫码｜立刻领\n每天抽 3 人送 xxx 私教课\n线下门店通用'
     ],
     
-    // 4. 茶饮咖啡
-    '茶饮咖啡': [
+    // 4. 茶饮
+    '茶饮': [
       '扫码进群｜每日隐藏菜单\n送 xxx 招牌饮品 1 杯\n到店即兑',
       '长按识别｜加微信\n备注【喝茶】领 xxx 5 折券\n可转赠好友',
       '扫码秒进｜限时秒杀\n9.9 抢 xxx 生椰拿铁\n每日 50 份',
@@ -138,8 +138,8 @@ window.wechatWarning = {
       '微信扫码｜立刻进群\n第二杯半价天天享\n群内暗号 xxx'
     ],
     
-    // 5. 宠物用品
-    '宠物用品': [
+    // 5. 宠物
+    '宠物': [
       '扫码进群｜猫狗互助\n送 xxx 冻干试吃 50g\n包邮到家',
       '长按识别｜加微信\n备注【主子】领 xxx 猫砂 1 袋\n无尘可冲厕所',
       '扫码秒进｜每周拼团\nxxx 驱虫药低于 5 折\n保真可查码',
@@ -147,8 +147,8 @@ window.wechatWarning = {
       '微信扫码｜立刻领\n每天教 1 招宠物摄影\n晒照再返 xxx 零食'
     ],
     
-    // 6. 服饰穿搭
-    '服饰穿搭': [
+    // 6. 服饰
+    '服饰': [
       '扫码进群｜每日穿搭灵感\n送 xxx 防晒衫 1 件\n均码现货',
       '长按识别｜加微信\n备注【穿搭】领 xxx 20 元无门槛券\n可与折扣叠',
       '扫码秒进｜限时盲盒\n59 抢 xxx 随机 T 恤\n每件原单 129+',
@@ -156,8 +156,8 @@ window.wechatWarning = {
       '微信扫码｜立刻进群\n每周团购 xxx 牛仔裤\n显瘦神裤 79 包邮'
     ],
     
-    // 7. 知识付费
-    '知识付费': [
+    // 7. 知识
+    '知识': [
       '扫码进群｜每晚 8 点干货\n送 xxx 课程 3 节\n永久回放',
       '长按识别｜加微信\n备注【学习】领 xxx 电子书 10 本\n价值 199 元',
       '扫码秒进｜副业拆解\n送 xxx 赚钱表格 1 套\n直接复制用',
@@ -165,8 +165,8 @@ window.wechatWarning = {
       '微信扫码｜立刻领\n每天抽 2 人送 xxx 社群年卡\n365 天陪跑'
     ],
     
-    // 8. 家居生活
-    '家居生活': [
+    // 8. 家居
+    '家居': [
       '扫码进群｜收纳技巧日更\n送 xxx 折叠收纳箱 1 个\n包邮 0 元',
       '长按识别｜加微信\n备注【家居】领 xxx 除螨券\n线下上门 1 次',
       '扫码秒进｜团购爆款\nxxx 空气炸锅 99 秒杀\n官方联保',
@@ -174,8 +174,8 @@ window.wechatWarning = {
       '微信扫码｜立刻进群\n每周教 1 招旧物改造\n成品拍照再返 xxx 红包'
     ],
     
-    // 9. 数码3C
-    '数码3C': [
+    // 9. 数码
+    '数码': [
       '扫码进群｜新品内测\n送 xxx 无线耳机 1 副\n写评测再返 50 元',
       '长按识别｜加微信\n备注【数码】领 xxx 数据线 1 根\n快充不弹窗',
       '扫码秒进｜限时拼团\nxxx 充电宝 59 包邮\n20000mAh 双向快充',
@@ -183,8 +183,8 @@ window.wechatWarning = {
       '微信扫码｜立刻领\n每天抽 1 人送 xxx 智能手表\n官方正品可查'
     ],
     
-    // 10. 旅游酒店
-    '旅游酒店': [
+    // 10. 旅游
+    '旅游': [
       '扫码进群｜机票酒店神价\n送 xxx 无门槛 100 元券\n节假日通用',
       '长按识别｜加微信\n备注【旅行】领 xxx 行李牌 1 套\n包邮出发地',
       '扫码秒进｜限时尾单\nxxx 五星酒店 299 含双早\n比携程低 40%',
@@ -692,8 +692,27 @@ window.wechatWarning = {
         <button class="industry-template-select-btn" data-template="${template}">选用编辑</button>
       `;
       
-      // 添加点击事件
-      templateCard.querySelector('.industry-template-select-btn').addEventListener('click', function() {
+      // 添加卡片点击事件 - 触发打字机效果
+      templateCard.addEventListener('click', function() {
+        // 移除其他卡片的选中状态
+        document.querySelectorAll('.industry-template-card').forEach(card => {
+          card.classList.remove('selected');
+          const content = card.querySelector('.industry-template-content');
+          content.classList.remove('typewriter');
+          content.textContent = templates[Array.from(card.parentNode.children).indexOf(card)];
+        });
+        
+        // 设置当前卡片为选中状态
+        this.classList.add('selected');
+        const content = this.querySelector('.industry-template-content');
+        
+        // 触发打字机效果
+        startTypewriterEffect(content, template);
+      });
+      
+      // 添加按钮点击事件
+      templateCard.querySelector('.industry-template-select-btn').addEventListener('click', function(e) {
+        e.stopPropagation(); // 阻止事件冒泡
         console.log('选择了模板:', template);
         if (elements.promoTextInput) {
           elements.promoTextInput.value = template;
@@ -718,7 +737,47 @@ window.wechatWarning = {
     });
   }
   
-
+  // 打字机效果函数
+  function startTypewriterEffect(contentElement, fullText) {
+    // 清空内容
+    contentElement.textContent = '';
+    contentElement.classList.add('typewriter');
+    
+    const lines = fullText.split('\n');
+    let currentLine = 0;
+    let currentChar = 0;
+    
+    function typeNextChar() {
+      if (currentLine < lines.length) {
+        if (currentChar < lines[currentLine].length) {
+          // 添加当前字符
+          if (currentChar === 0 && currentLine > 0) {
+            contentElement.textContent += '\n';
+          }
+          contentElement.textContent += lines[currentLine][currentChar];
+          currentChar++;
+          
+          // 继续下一个字符
+          setTimeout(typeNextChar, 80); // 控制打字速度
+        } else {
+          // 换行
+          currentLine++;
+          currentChar = 0;
+          if (currentLine < lines.length) {
+            setTimeout(typeNextChar, 200); // 行间延迟
+          } else {
+            // 打字完成，保持光标闪烁
+            setTimeout(() => {
+              contentElement.classList.remove('typewriter');
+            }, 1000);
+          }
+        }
+      }
+    }
+    
+    // 开始打字
+    typeNextChar();
+  }
   
   // 打开促销信息编辑模态框
   function openPromoTextModal() {

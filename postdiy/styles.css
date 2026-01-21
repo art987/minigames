@@ -1987,10 +1987,10 @@ input.hidden {
 .industry-section-title {
   margin: 0 0 1px 0;
   padding-bottom: 5px;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   border-bottom: 1px solid #ccc;
-  color: #333;
+  color: #2c2c2c;
 }
 
 /* 行业分类导航样式 */
@@ -2011,7 +2011,7 @@ input.hidden {
 }
 
 .industry-category {
-  padding: 8px 5px;
+  padding: 8px 11px;
   background: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 20px;
@@ -2054,16 +2054,52 @@ input.hidden {
 .industry-template-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  border-color: #007bff;
+    animation:borderGradient 3s ease infinite;
+
 }
 
 .industry-template-content {
   font-size: 18px;
   line-height: 1.5;
+  min-height: 82px;
   font-weight: bold;
   color: #333;
   white-space: pre-line;
   margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 打字机效果样式 */
+.industry-template-content.typewriter {
+  border-right: 2px solid #d30606;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #d30606; }
+}
+
+/* 打字机动画 */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* 逐行显示效果 */
+.industry-template-content.typewriter-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 3s steps(40, end);
+}
+
+/* 选中状态的高亮效果 */
+.industry-template-card.selected {
+  border: 2px solid #d30606;
+  background: linear-gradient(135deg, #fff8f8, #ffffff);
+  box-shadow: 0 0 20px rgba(211, 6, 6, 0.2);
 }
 
 .industry-template-select-btn {
@@ -2251,6 +2287,7 @@ input.hidden {
 .btn-primary {
   background: linear-gradient(135deg, #d32f2f, #f44336);
   color: white;
+  margin-top: 5px;
 }
 
 .btn-primary:hover {
@@ -2703,4 +2740,119 @@ input.hidden {
 
 .restore-btn i {
   font-size: 10px;
+}
+
+/* 促销信息文本框动态渐变边框效果 */
+#promoTextInput {
+  position: relative;
+  border: 2px solid transparent;
+  background: white;
+  background-clip: padding-box;
+  animation: borderGradient 6s ease infinite;
+}
+
+#promoTextInput::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    #ffbaba, #ffe1b3, #ffface, #c0fcf8, 
+    #aef0ff, #c7fde4, #ffcff9, #fcc0f4, #fdd5d5);
+  background-size: 400% 400%;
+  border-radius: 10px;
+  z-index: -1;
+  animation: borderFlow 4s ease infinite;
+  filter: blur(0.5px);
+}
+
+/* 动态渐变边框动画 */
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+  25% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+  50% {
+    background-position: 100% 0%;
+    opacity: 0.9;
+  }
+  75% {
+    background-position: 0% 100%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+}
+
+/* 边框颜色渐变动画 */
+@keyframes borderGradient {
+  0% {
+    border-color: #e79e9e;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  }
+  14% {
+    border-color: #e9d3b3;
+    box-shadow: 0 0 10px rgba(255, 167, 38, 0.3);
+  }
+  28% {
+    border-color: #e4dea7;
+    box-shadow: 0 0 10px rgba(233, 228, 185, 0.3);
+  }
+  42% {
+    border-color: #9ed6aa;
+    box-shadow: 0 0 10px rgba(128, 233, 189, 0.3);
+  }
+  56% {
+    border-color: #b4f0fd;
+    box-shadow: 0 0 10px rgba(182, 230, 241, 0.616);
+  }
+  70% {
+    border-color: #99bbee;
+    box-shadow: 0 0 10px rgba(90, 158, 221, 0.3);
+  }
+  84% {
+    border-color: #ffbdf6;
+    box-shadow: 0 0 10px rgba(255, 159, 243, 0.3);
+  }
+  100% {
+    border-color: #ffb8df;
+    box-shadow: 0 0 10px rgba(241, 177, 177, 0.3);
+  }
+}
+
+/* 聚焦状态下的增强效果 */
+#promoTextInput:focus {
+  animation: borderGradientFocus 6s ease infinite;
+  outline: none;
+}
+
+@keyframes borderGradientFocus {
+  0% {
+    border-color: #ffdada;
+    box-shadow: 0 0 15px rgba(255, 194, 194, 0.5);
+  }
+  25% {
+    border-color: #abece8;
+    box-shadow: 0 0 15px rgba(145, 255, 248, 0.5);
+  }
+  50% {
+    border-color: #f7aeee;
+    box-shadow: 0 0 15px rgba(241, 190, 235, 0.5);
+  }
+  75% {
+    border-color: #f5edb5;
+    box-shadow: 0 0 15px rgba(247, 241, 191, 0.5);
+  }
+  100% {
+    border-color: #ffc8c8;
+    box-shadow: 0 0 15px rgba(255, 198, 198, 0.5);
+  }
 }
