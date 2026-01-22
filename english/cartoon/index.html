@@ -9,217 +9,134 @@
 
 <!-- 图标 emoji -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-:root{
-  --grad1:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);
-  --grad2:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);
-  --grad3:linear-gradient(135deg,#d299c2 0%,#fef9d7 100%);
-  --grad4:linear-gradient(135deg,#89f7fe 0%,#66a6ff 100%);
-  --grad5:linear-gradient(135deg,#ff9a9e 0%,#fecfef 50%,#fecfef 100%);
-  --shadow:0 8px 20px rgba(0,0,0,.08);
-}
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  background:var(--grad1);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:40px 20px;
-  color:#333;
-}
-h1{
-  font-size:2.2rem;
-  margin-bottom:40px;
-  text-align:center;
-  letter-spacing:1px;
-  background:var(--grad5);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.timeline{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
-  width:100%;
-  max-width:1200px;
-}
-.card{
-  background:#fff;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  display:flex;
-  flex-direction:column;
-  transform:scale(1);
-  transition:transform .3s;
-}
-.card:hover{
-  transform:scale(1.03);
-}
-.poster{
-  width:100%;
-  height:170px;
-  object-fit:cover;
-  display:block;
-}
-.info{
-  padding:18px 20px 22px;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-.stage{
-  font-size:.9rem;
-  font-weight:bold;
-  opacity:.7;
-  margin-bottom:6px;
-}
-.title{
-  font-size:1.05rem;
-  margin-bottom:6px;
-}
-.desc{
-  font-size:.85rem;
-  line-height:1.5;
-  opacity:.8;
-  margin-bottom:12px;
-  flex:1;
-}
-.watch-btn{
-  align-self:flex-start;
-  background:#ff5f6d;
-  color:#fff;
-  padding:7px 16px;
-  border-radius:20px;
-  text-decoration:none;
-  font-size:.9rem;
-  font-weight:bold;
-  box-shadow:0 4px 10px rgba(255,95,109,.25);
-  transition:background .2s;
-}
-.watch-btn:hover{
-  background:#ff3c50;
-}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>半年英语通关 · 动画路线图</h1>
+<h1>你就这么看，半年掌握英语</h1>
 
 <section class="timeline">
-  <!-- ①-1 海绵宝宝 -->
-  <div class="card">
-    <img class="poster" src="haimianbaobao.jpg" alt="海绵宝宝">
-    <div class="info">
-      <div class="stage">① 语感破冰</div>
-      <div class="title">海绵宝宝</div>
-      <div class="desc">3–4词短句，语速慢，快速建立语感。</div>
-      <a class="watch-btn" href="https://www.bilibili.com/video/BV1m8YbzcEzc/?share_source=copy_web&vd_source=c76d75e1d1687405382a3bcf4405405b" target="_blank">去观看</a>
+  <!-- 第一阶段：语感破冰 -->
+  <div class="stage-container">
+    <div class="stage">第一阶段：语感破冰</div>
+    
+    <!-- ①-1 海绵宝宝 -->
+    <div class="card">
+      <img class="poster" src="haimianbaobao.jpg" alt="海绵宝宝">
+      <div class="info">
+        <div class="title">海绵宝宝</div>
+        <div class="desc">观看目标：3–4词短句，语速慢，快速建立语感。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1m8YbzcEzc/?share_source=copy_web&vd_source=c76d75e1d1687405382a3bcf4405405b" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
+    </div>
+
+    <!-- ①-2 米奇妙妙屋 -->
+    <div class="card">
+      <img class="poster" src="miqimiaomiaowu.jpg" alt="米奇妙妙屋">
+      <div class="info">
+        <div class="title">米奇妙妙屋</div>
+        <div class="desc">观看目标：互动句式+画面提示，轻松入门。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1rg411w7jX/?share_source=copy_web&vd_source=c76d75e1d1687405382a3bcf4405405b" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
   </div>
 
-  <!-- ①-2 米奇妙妙屋 -->
-  <div class="card">
-    <img class="poster" src="miqimiaomiaowu.jpg" alt="米奇妙妙屋">
-    <div class="info">
-      <div class="stage">① 语感破冰</div>
-      <div class="title">米奇妙妙屋</div>
-      <div class="desc">互动句式+画面提示，轻松入门。</div>
-      <a class="watch-btn" href="https://www.bilibili.com/video/BV1rg411w7jX/?share_source=copy_web&vd_source=c76d75e1d1687405382a3bcf4405405b" target="_blank">去观看</a>
+  <!-- 第二阶段：句型扩容 -->
+  <div class="stage-container">
+    <div class="stage">第二阶段：句型扩容</div>
+    
+    <!-- ②-1 彼得兔 -->
+    <div class="card">
+      <img class="poster" src="bidetu.jpeg" alt="彼得兔">
+      <div class="info">
+        <div class="title">彼得兔</div>
+        <div class="desc">观看目标：简单对话，语速慢，适合跟读。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1ab4y1M7DF/?share_source=copy_web&vd_source=c76d75e1d1687405382a3bcf4405405b" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
+    </div>
+
+    <!-- ②-2 怪诞小镇 -->
+    <div class="card">
+      <img class="poster" src="guaidanxiaozhen.png" alt="怪诞小镇">
+      <div class="info">
+        <div class="title">怪诞小镇</div>
+        <div class="desc">观看目标：青少年日常，句型丰富但用词简单。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1pB4kzrELU/" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
   </div>
 
-  <!-- ②-1 彼得兔 -->
-  <div class="card">
-    <img class="poster" src="bidetu.jpeg" alt="彼得兔">
-    <div class="info">
-      <div class="stage">② 句型扩容</div>
-      <div class="title">彼得兔</div>
-      <div class="desc">8–12词句型重复，听懂简单对话。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
+  <!-- 第三阶段：真实社交 -->
+  <div class="stage-container">
+    <div class="stage">第三阶段：真实社交</div>
+    
+    <!-- ③ 马男波杰克 -->
+    <div class="card">
+      <img class="poster" src="mananbojieke.jpg" alt="马男波杰克">
+      <div class="info">
+        <div class="title">马男波杰克</div>
+        <div class="desc">观看目标：租房/求职/职场，真实社交场景全囊括。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV11gWpz7Es1/?spm_id_from=333.337.search-card.all.click" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
   </div>
 
-  <!-- ②-2 怪诞小镇 -->
-  <div class="card">
-    <img class="poster" src="guaidanxiaozhen.png" alt="怪诞小镇">
-    <div class="info">
-      <div class="stage">② 句型扩容</div>
-      <div class="title">怪诞小镇</div>
-      <div class="desc">青少年日常，句型丰富但用词简单。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
+  <!-- 第四阶段：本土加速 -->
+  <div class="stage-container">
+    <div class="stage">第四阶段：本土加速</div>
+    
+    <!-- ④-1 生活大爆炸 -->
+    <div class="card">
+      <img class="poster" src="shenghuodabaozha.jpg" alt="生活大爆炸">
+      <div class="info">
+        <div class="title">生活大爆炸</div>
+        <div class="desc">观看目标：连读弱读+极客文化梗，语速快。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1wF411S7Dy/" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
+    </div>
+
+    <!-- ④-2 老友记 -->
+    <div class="card">
+      <img class="poster" src="laoyouji.webp" alt="老友记">
+      <div class="info">
+        <div class="title">老友记</div>
+        <div class="desc">观看目标：地道美式日常，经典连读范本。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1CvrvB6ERA/?spm_id_from=333.337.search-card.all.click" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
   </div>
 
-  <!-- ③ 马男波杰克 -->
-  <div class="card">
-    <img class="poster" src="mananbojieke.jpg" alt="马男波杰克">
-    <div class="info">
-      <div class="stage">③ 真实社交</div>
-      <div class="title">马男波杰克</div>
-      <div class="desc">租房/求职/职场，真实社交场景全囊括。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
+  <!-- 第五阶段：流利封顶 -->
+  <div class="stage-container">
+    <div class="stage">第五阶段：流利封顶</div>
+    
+    <!-- ⑤-1 破产姐妹 -->
+    <div class="card">
+      <img class="poster" src="pochanjiemei.jfif" alt="破产姐妹">
+      <div class="info">
+        <div class="title">破产姐妹</div>
+        <div class="desc">观看目标：双关吐槽+快节奏反击，流利度再飙升。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1eu1NBDETx/?spm_id_from=333.337.search-card.all.click" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
-  </div>
 
-  <!-- ④-1 生活大爆炸 -->
-  <div class="card">
-    <img class="poster" src="shenghuodabaozha.jpg" alt="生活大爆炸">
-    <div class="info">
-      <div class="stage">④ 本土加速</div>
-      <div class="title">生活大爆炸</div>
-      <div class="desc">连读弱读+极客文化梗，语速快。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
+    <!-- ⑤-2 摩登家庭（可选加） -->
+    <div class="card">
+      <img class="poster" src="modengjiating.gif" alt="摩登家庭">
+      <div class="info">
+        <div class="title">摩登家庭</div>
+        <div class="desc">观看目标：家庭日常+幽默旁白，语速适中节奏强。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1afqgBVE4E/?spm_id_from=333.337.search-card.all.click" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
-  </div>
 
-  <!-- ④-2 老友记 -->
-  <div class="card">
-    <img class="poster" src="laoyouji.webp" alt="老友记">
-    <div class="info">
-      <div class="stage">④ 本土加速</div>
-      <div class="title">老友记</div>
-      <div class="desc">地道美式日常，经典连读范本。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
-    </div>
-  </div>
-
-  <!-- ⑤-1 破产姐妹 -->
-  <div class="card">
-    <img class="poster" src="pochanjiemei.jfif" alt="破产姐妹">
-    <div class="info">
-      <div class="stage">⑤ 流利封顶</div>
-      <div class="title">破产姐妹</div>
-      <div class="desc">双关吐槽+快节奏反击，流利度再飙升。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
-    </div>
-  </div>
-
-  <!-- ⑤-2 摩登家庭（可选加） -->
-  <div class="card">
-    <img class="poster" src="modengjiating.gif" alt="摩登家庭">
-    <div class="info">
-      <div class="stage">⑤ 流利封顶</div>
-      <div class="title">摩登家庭</div>
-      <div class="desc">家庭日常+幽默旁白，语速适中节奏强。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
-    </div>
-  </div>
-
-  <!-- ⑤-3 老爸老妈浪漫史（可选加） -->
-  <div class="card">
-    <img class="poster" src="laobalaoma.webp" alt="老爸老妈浪漫史">
-    <div class="info">
-      <div class="stage">⑤ 流利封顶</div>
-      <div class="title">老爸老妈浪漫史</div>
-      <div class="desc">友情爱情职场，旁白+反转，语速快。</div>
-      <a class="watch-btn" href="#" target="_blank">去观看</a>
+    <!-- ⑤-3 老爸老妈浪漫史（可选加） -->
+    <div class="card">
+      <img class="poster" src="laobalaoma.webp" alt="老爸老妈浪漫史">
+      <div class="info">
+        <div class="title">老爸老妈浪漫史</div>
+        <div class="desc">观看目标：友情爱情职场，旁白+反转，语速快。</div>
+        <a class="watch-btn" href="https://www.bilibili.com/video/BV1UMvYBfEbr/?spm_id_from=333.337.search-card.all.click" target="_blank">去哔哩哔哩免费观看</a>
+      </div>
     </div>
   </div>
 </section>
@@ -235,6 +152,72 @@ cards.forEach((c,i)=>{
     c.style.opacity='1';
     c.style.transform='translateY(0)';
   },i*120);
+});
+
+// 标题点击复制功能
+const titles = document.querySelectorAll('.title');
+titles.forEach(title => {
+  title.style.cursor = 'pointer';
+  title.style.transition = 'all 0.3s';
+  
+  title.addEventListener('click', async () => {
+    const text = title.textContent;
+    
+    try {
+      // 复制到剪贴板
+      await navigator.clipboard.writeText(text);
+      
+      // 复制成功反馈
+      title.style.color = '#ff5f6d';
+      title.style.transform = 'scale(1.05)';
+      
+      // 显示复制成功提示
+      const originalText = title.textContent;
+      title.textContent = '✓ 已复制';
+      
+      // 2秒后恢复原状
+      setTimeout(() => {
+        title.textContent = originalText;
+        title.style.color = '#333';
+        title.style.transform = 'scale(1)';
+      }, 2000);
+      
+    } catch (err) {
+      // 如果clipboard API不可用，使用备用方法
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      // 备用方法的反馈
+      title.style.color = '#ff5f6d';
+      title.style.transform = 'scale(1.05)';
+      
+      const originalText = title.textContent;
+      title.textContent = '✓ 已复制';
+      
+      setTimeout(() => {
+        title.textContent = originalText;
+        title.style.color = '#333';
+        title.style.transform = 'scale(1)';
+      }, 2000);
+    }
+  });
+  
+  // 悬停效果
+  title.addEventListener('mouseenter', () => {
+    title.style.color = '#ff5f6d';
+    title.style.textShadow = '0 0 10px rgba(255, 95, 109, 0.3)';
+  });
+  
+  title.addEventListener('mouseleave', () => {
+    if (!title.textContent.includes('✓')) {
+      title.style.color = '#333';
+      title.style.textShadow = 'none';
+    }
+  });
 });
 </script>
 </body>
