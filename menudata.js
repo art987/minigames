@@ -18,7 +18,8 @@ const menuData = {
         { text: "土味情话", href: "/edu/tuweiqinghua.html", icon: "", emoji:"😜",  describ: "幽默风趣的表白话术集合，助你增进亲密关系" , keyword: "土味情话, 表白, 恋爱, 情感表达" },
         { text: "情感诗词表达", href: "/edu/shici.html", icon: "" , emoji:"📖",  describ: "精选古典诗词，帮助你优雅地表达各种情感" , keyword: "诗词, 情感表达, 古典文学, 优雅话术" },
 	 { text: "16天记7000词", href: "/edu/800sentences.html", icon: "" , emoji:"📅‍",  describ: "通过800个实用句子快速记忆7000个英语单词" , keyword: "英语单词, 快速记忆, 句子记忆法, 词汇量提升" },
-	  { text: "英语口语", href: "/edu/yingyukouyu.html", icon: "" , emoji:"👱‍",  describ: "日常英语口语会话大全，提升英语交流能力" , keyword: "英语口语, 日常会话, 英语学习, 交流能力" }
+	  { text: "英语口语", href: "/edu/yingyukouyu.html", icon: "" , emoji:"👱‍",  describ: "日常英语口语会话大全，提升英语交流能力" , keyword: "英语口语, 日常会话, 英语学习, 交流能力" },
+     { text: "看动画学英语", href: "/english/cartoon/index.html", icon: "" , emoji:"📺",  describ: "零基础半年刷完10部高分英美动画/美剧，从3词短句到流利对话，免费路线+逐集观看链接，一站式搞定日常口语。" , keyword: "英语动画片,英语美剧,零基础学英语,口语练习,海绵宝宝,老友记,破产姐妹,免费学英语" }
        
       ]
     },
