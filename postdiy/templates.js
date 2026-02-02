@@ -1193,14 +1193,205 @@ window.templates = {
     },
     {
       id: 'chunfen-2024-001',
-      name: '春分踏春',
-      thumbnail: 'https://picsum.photos/id/73/400/600',
-      image: 'https://picsum.photos/id/73/800/1200',
+      name: '春分踏青',
+      thumbnail: 'images/chunfen/thumbnails/1.jpg',
+      image: 'images/chunfen/1.png',
       months: [3],
       festivals: ['春分'],
-      description: '春分节气踏春主题海报模板',
+      description: '春分节气踏青主题海报模板',
       type: '节气'
-    }
+    },
+    {
+      id: 'chunfen-2024-002',
+      name: '春分花开',
+      thumbnail: 'images/chunfen/thumbnails/2.jpg',
+      image: 'images/chunfen/2.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气花开主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-003',
+      name: '春分阳光',
+      thumbnail: 'images/chunfen/thumbnails/3.jpg',
+      image: 'images/chunfen/3.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气阳光主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-004',
+      name: '春分燕子',
+      thumbnail: 'images/chunfen/thumbnails/4.jpg',
+      image: 'images/chunfen/4.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气燕子归来主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-005',
+      name: '春分农耕',
+      thumbnail: 'images/chunfen/thumbnails/5.jpg',
+      image: 'images/chunfen/5.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气农耕主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-006',
+      name: '春分风筝',
+      thumbnail: 'images/chunfen/thumbnails/6.jpg',
+      image: 'images/chunfen/6.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气放风筝主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-007',
+      name: '春分春雨',
+      thumbnail: 'images/chunfen/thumbnails/7.jpg',
+      image: 'images/chunfen/7.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气春雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-008',
+      name: '春分樱花',
+      thumbnail: 'images/chunfen/thumbnails/8.jpg',
+      image: 'images/chunfen/8.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气樱花主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-009',
+      name: '春分茶香',
+      thumbnail: 'images/chunfen/thumbnails/9.jpg',
+      image: 'images/chunfen/9.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气品茶主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-010',
+      name: '春分春游',
+      thumbnail: 'images/chunfen/thumbnails/10.jpg',
+      image: 'images/chunfen/10.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气春游主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-011',
+      name: '春分平衡',
+      thumbnail: 'images/chunfen/thumbnails/11.jpg',
+      image: 'images/chunfen/11.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气昼夜平分主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-012',
+      name: '春分养生',
+      thumbnail: 'images/chunfen/thumbnails/12.jpg',
+      image: 'images/chunfen/12.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-013',
+      name: '春分桃花',
+      thumbnail: 'images/chunfen/thumbnails/13.jpg',
+      image: 'images/chunfen/13.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气桃花盛开主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-014',
+      name: '春分柳絮',
+      thumbnail: 'images/chunfen/thumbnails/14.jpg',
+      image: 'images/chunfen/14.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气柳絮飞舞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-015',
+      name: '春分蝴蝶',
+      thumbnail: 'images/chunfen/thumbnails/15.jpg',
+      image: 'images/chunfen/15.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气蝴蝶飞舞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-016',
+      name: '春分蜜蜂',
+      thumbnail: 'images/chunfen/thumbnails/16.jpg',
+      image: 'images/chunfen/16.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气蜜蜂采蜜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-017',
+      name: '春分绿意',
+      thumbnail: 'images/chunfen/thumbnails/17.jpg',
+      image: 'images/chunfen/17.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气绿意盎然主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-018',
+      name: '春分希望',
+      thumbnail: 'images/chunfen/thumbnails/18.jpg',
+      image: 'images/chunfen/18.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气希望主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-019',
+      name: '春分新生',
+      thumbnail: 'images/chunfen/thumbnails/19.jpg',
+      image: 'images/chunfen/19.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气新生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chunfen-2024-020',
+      name: '春分和谐',
+      thumbnail: 'images/chunfen/thumbnails/20.jpg',
+      image: 'images/chunfen/20.png',
+      months: [3],
+      festivals: ['春分'],
+      description: '春分节气和谐主题海报模板',
+      type: '节气'
+    },
+
   ],
 
   // 4月模板
@@ -1226,15 +1417,206 @@ window.templates = {
       type: '节气'
     },
     {
-      id: 'april-fool-2024-001',
-      name: '愚人节快乐',
-      thumbnail: 'https://picsum.photos/id/91/400/600',
-      image: 'https://picsum.photos/id/91/800/1200',
+      id: 'yurenjie-2024-001',
+      name: '愚人节玩笑',
+      thumbnail: 'images/yurenjie/thumbnails/1.jpg',
+      image: 'images/yurenjie/1.png',
       months: [4],
       festivals: ['愚人节'],
-      description: '愚人节幽默主题海报模板',
+      description: '愚人节幽默玩笑主题海报模板',
       type: '西方节日'
     },
+    {
+      id: 'yurenjie-2024-002',
+      name: '愚人节恶作剧',
+      thumbnail: 'images/yurenjie/thumbnails/2.jpg',
+      image: 'images/yurenjie/2.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节恶作剧主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-003',
+      name: '愚人节幽默',
+      thumbnail: 'images/yurenjie/thumbnails/3.jpg',
+      image: 'images/yurenjie/3.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节幽默搞笑主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-004',
+      name: '愚人节惊喜',
+      thumbnail: 'images/yurenjie/thumbnails/4.jpg',
+      image: 'images/yurenjie/4.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节惊喜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-005',
+      name: '愚人节整蛊',
+      thumbnail: 'images/yurenjie/thumbnails/5.jpg',
+      image: 'images/yurenjie/5.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节整蛊主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-006',
+      name: '愚人节搞笑',
+      thumbnail: 'images/yurenjie/thumbnails/6.jpg',
+      image: 'images/yurenjie/6.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节搞笑主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-007',
+      name: '愚人节快乐',
+      thumbnail: 'images/yurenjie/thumbnails/7.jpg',
+      image: 'images/yurenjie/7.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节快乐主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-008',
+      name: '愚人节调皮',
+      thumbnail: 'images/yurenjie/thumbnails/8.jpg',
+      image: 'images/yurenjie/8.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节调皮主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-009',
+      name: '愚人节趣味',
+      thumbnail: 'images/yurenjie/thumbnails/9.jpg',
+      image: 'images/yurenjie/9.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节趣味主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-010',
+      name: '愚人节欢乐',
+      thumbnail: 'images/yurenjie/thumbnails/10.jpg',
+      image: 'images/yurenjie/10.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-011',
+      name: '愚人节玩笑王',
+      thumbnail: 'images/yurenjie/thumbnails/11.jpg',
+      image: 'images/yurenjie/11.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节玩笑王主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-012',
+      name: '愚人节整人',
+      thumbnail: 'images/yurenjie/thumbnails/12.jpg',
+      image: 'images/yurenjie/12.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节整人主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-013',
+      name: '愚人节反转',
+      thumbnail: 'images/yurenjie/thumbnails/13.jpg',
+      image: 'images/yurenjie/13.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节反转剧情主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-014',
+      name: '愚人节惊喜包',
+      thumbnail: 'images/yurenjie/thumbnails/14.jpg',
+      image: 'images/yurenjie/14.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节惊喜包主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-015',
+      name: '愚人节搞笑图',
+      thumbnail: 'images/yurenjie/thumbnails/15.jpg',
+      image: 'images/yurenjie/15.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节搞笑图片主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-016',
+      name: '愚人节幽默大师',
+      thumbnail: 'images/yurenjie/thumbnails/16.jpg',
+      image: 'images/yurenjie/16.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节幽默大师主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-017',
+      name: '愚人节欢乐时光',
+      thumbnail: 'images/yurenjie/thumbnails/17.jpg',
+      image: 'images/yurenjie/17.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐时光主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-018',
+      name: '愚人节趣味挑战',
+      thumbnail: 'images/yurenjie/thumbnails/18.jpg',
+      image: 'images/yurenjie/18.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节趣味挑战主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-019',
+      name: '愚人节欢乐派对',
+      thumbnail: 'images/yurenjie/thumbnails/19.jpg',
+      image: 'images/yurenjie/19.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐派对主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-020',
+      name: '愚人节欢乐无限',
+      thumbnail: 'images/yurenjie/thumbnails/20.jpg',
+      image: 'images/yurenjie/20.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐无限主题海报模板',
+      type: '西方节日'
+    },
+
     {
       id: 'guyu-2024-001',
       name: '谷雨茶韵',
