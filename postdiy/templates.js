@@ -1985,8 +1985,8 @@ window.templates = {
     {
       id: 'duanwu-2024-001',
       name: '端午龙舟',
-      thumbnail: 'https://picsum.photos/id/101/400/600',
-      image: 'https://picsum.photos/id/101/800/1200',
+      thumbnail: 'images/duanwu/thumbnails/1.jpg',
+      image: 'images/duanwu/1.png',
       months: [5],
       festivals: ['端午节'],
       description: '端午节龙舟主题海报模板',
@@ -1995,13 +1995,144 @@ window.templates = {
     {
       id: 'duanwu-2024-002',
       name: '端午粽香',
-      thumbnail: 'https://picsum.photos/id/102/400/600',
-      image: 'https://picsum.photos/id/102/800/1200',
+      thumbnail: 'images/duanwu/thumbnails/2.jpg',
+      image: 'images/duanwu/2.png',
       months: [5],
       festivals: ['端午节'],
       description: '端午节粽子主题海报模板',
       type: '传统节日'
     },
+    {
+      id: 'duanwu-2024-003',
+      name: '端午艾草',
+      thumbnail: 'images/duanwu/thumbnails/3.jpg',
+      image: 'images/duanwu/3.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节艾草主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-004',
+      name: '端午香囊',
+      thumbnail: 'images/duanwu/thumbnails/4.jpg',
+      image: 'images/duanwu/4.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节香囊主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-005',
+      name: '端午传统',
+      thumbnail: 'images/duanwu/thumbnails/5.jpg',
+      image: 'images/duanwu/5.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节传统文化主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-006',
+      name: '端午屈原',
+      thumbnail: 'images/duanwu/thumbnails/6.jpg',
+      image: 'images/duanwu/6.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节屈原纪念主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-007',
+      name: '端午赛龙舟',
+      thumbnail: 'images/duanwu/thumbnails/7.jpg',
+      image: 'images/duanwu/7.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节赛龙舟主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-008',
+      name: '端午粽子',
+      thumbnail: 'images/duanwu/thumbnails/8.jpg',
+      image: 'images/duanwu/8.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节粽子美食主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-009',
+      name: '端午安康',
+      thumbnail: 'images/duanwu/thumbnails/9.jpg',
+      image: 'images/duanwu/9.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节安康祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-010',
+      name: '端午佳节',
+      thumbnail: 'images/duanwu/thumbnails/10.jpg',
+      image: 'images/duanwu/10.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午佳节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-011',
+      name: '端午民俗',
+      thumbnail: 'images/duanwu/thumbnails/11.jpg',
+      image: 'images/duanwu/11.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节民俗活动主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-012',
+      name: '端午文化',
+      thumbnail: 'images/duanwu/thumbnails/12.jpg',
+      image: 'images/duanwu/12.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节文化传承主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-013',
+      name: '端午节日',
+      thumbnail: 'images/duanwu/thumbnails/13.jpg',
+      image: 'images/duanwu/13.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节节日氛围主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-014',
+      name: '端午传统美食',
+      thumbnail: 'images/duanwu/thumbnails/14.jpg',
+      image: 'images/duanwu/14.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节传统美食主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'duanwu-2024-015',
+      name: '端午纪念',
+      thumbnail: 'images/duanwu/thumbnails/15.jpg',
+      image: 'images/duanwu/15.png',
+      months: [5],
+      festivals: ['端午节'],
+      description: '端午节纪念主题海报模板',
+      type: '传统节日'
+    },
+
     {
       id: 'muqinjie-2024-001',
       name: '感恩母爱',
@@ -2390,6 +2521,266 @@ window.templates = {
       months: [5],
       festivals: ['立夏'],
       description: '立夏节气夏日风情主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-001',
+      name: '小满麦香',
+      thumbnail: 'images/xiaoman/thumbnails/1.jpg',
+      image: 'images/xiaoman/1.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气麦香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-002',
+      name: '小满丰收',
+      thumbnail: 'images/xiaoman/thumbnails/2.jpg',
+      image: 'images/xiaoman/2.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气丰收主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-003',
+      name: '小满谷物',
+      thumbnail: 'images/xiaoman/thumbnails/3.jpg',
+      image: 'images/xiaoman/3.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气谷物饱满主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-004',
+      name: '小满田园',
+      thumbnail: 'images/xiaoman/thumbnails/4.jpg',
+      image: 'images/xiaoman/4.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气田园风光主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-005',
+      name: '小满农忙',
+      thumbnail: 'images/xiaoman/thumbnails/5.jpg',
+      image: 'images/xiaoman/5.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气农忙主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-006',
+      name: '小满麦浪',
+      thumbnail: 'images/xiaoman/thumbnails/6.jpg',
+      image: 'images/xiaoman/6.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气麦浪滚滚主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-007',
+      name: '小满阳光',
+      thumbnail: 'images/xiaoman/thumbnails/7.jpg',
+      image: 'images/xiaoman/7.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气阳光明媚主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-008',
+      name: '小满生机',
+      thumbnail: 'images/xiaoman/thumbnails/8.jpg',
+      image: 'images/xiaoman/8.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气生机勃勃主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-009',
+      name: '小满雨水',
+      thumbnail: 'images/xiaoman/thumbnails/9.jpg',
+      image: 'images/xiaoman/9.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气雨水充沛主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-010',
+      name: '小满绿意',
+      thumbnail: 'images/xiaoman/thumbnails/10.jpg',
+      image: 'images/xiaoman/10.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气绿意盎然主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-011',
+      name: '小满夏日',
+      thumbnail: 'images/xiaoman/thumbnails/11.jpg',
+      image: 'images/xiaoman/11.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气夏日主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-012',
+      name: '小满收获',
+      thumbnail: 'images/xiaoman/thumbnails/12.jpg',
+      image: 'images/xiaoman/12.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气收获主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-013',
+      name: '小满农耕',
+      thumbnail: 'images/xiaoman/thumbnails/13.jpg',
+      image: 'images/xiaoman/13.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气农耕主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-014',
+      name: '小满田野',
+      thumbnail: 'images/xiaoman/thumbnails/14.jpg',
+      image: 'images/xiaoman/14.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气田野主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-015',
+      name: '小满禾苗',
+      thumbnail: 'images/xiaoman/thumbnails/15.jpg',
+      image: 'images/xiaoman/15.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气禾苗生长主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-016',
+      name: '小满清风',
+      thumbnail: 'images/xiaoman/thumbnails/16.jpg',
+      image: 'images/xiaoman/16.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气清风徐来主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-017',
+      name: '小满蝉鸣',
+      thumbnail: 'images/xiaoman/thumbnails/17.jpg',
+      image: 'images/xiaoman/17.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气蝉鸣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-018',
+      name: '小满蛙声',
+      thumbnail: 'images/xiaoman/thumbnails/18.jpg',
+      image: 'images/xiaoman/18.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气蛙声主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-019',
+      name: '小满炎热',
+      thumbnail: 'images/xiaoman/thumbnails/19.jpg',
+      image: 'images/xiaoman/19.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气炎热天气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-020',
+      name: '小满雷雨',
+      thumbnail: 'images/xiaoman/thumbnails/20.jpg',
+      image: 'images/xiaoman/20.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气雷雨天气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-021',
+      name: '小满清凉',
+      thumbnail: 'images/xiaoman/thumbnails/21.jpg',
+      image: 'images/xiaoman/21.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气清凉一夏主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-022',
+      name: '小满星空',
+      thumbnail: 'images/xiaoman/thumbnails/22.jpg',
+      image: 'images/xiaoman/22.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气星空璀璨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-023',
+      name: '小满夏日风情',
+      thumbnail: 'images/xiaoman/thumbnails/23.jpg',
+      image: 'images/xiaoman/23.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气夏日风情主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-024',
+      name: '小满麦田',
+      thumbnail: 'images/xiaoman/thumbnails/24.jpg',
+      image: 'images/xiaoman/24.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气麦田主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-025',
+      name: '小满农事',
+      thumbnail: 'images/xiaoman/thumbnails/25.jpg',
+      image: 'images/xiaoman/25.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气农事活动主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoman-2024-026',
+      name: '小满节气图',
+      thumbnail: 'images/xiaoman/thumbnails/26.jpg',
+      image: 'images/xiaoman/26.png',
+      months: [5],
+      festivals: ['小满'],
+      description: '小满节气节气图主题海报模板',
       type: '节气'
     }
 
