@@ -1399,8 +1399,8 @@ window.templates = {
     {
       id: 'qingming-2024-001',
       name: '清明祭祖',
-      thumbnail: 'https://picsum.photos/id/81/400/600',
-      image: 'https://picsum.photos/id/81/800/1200',
+      thumbnail: 'images/qingming/thumbnails/1.jpg',
+      image: 'images/qingming/1.png',
       months: [4],
       festivals: ['清明'],
       description: '清明节祭祖主题海报模板',
@@ -1409,11 +1409,171 @@ window.templates = {
     {
       id: 'qingming-2024-002',
       name: '清明踏青',
-      thumbnail: 'https://picsum.photos/id/82/400/600',
-      image: 'https://picsum.photos/id/82/800/1200',
+      thumbnail: 'images/qingming/thumbnails/2.jpg',
+      image: 'images/qingming/2.png',
       months: [4],
       festivals: ['清明'],
       description: '清明节踏青主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-003',
+      name: '清明扫墓',
+      thumbnail: 'images/qingming/thumbnails/3.jpg',
+      image: 'images/qingming/3.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节扫墓主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-004',
+      name: '清明风筝',
+      thumbnail: 'images/qingming/thumbnails/4.jpg',
+      image: 'images/qingming/4.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节放风筝主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-005',
+      name: '清明青团',
+      thumbnail: 'images/qingming/thumbnails/5.jpg',
+      image: 'images/qingming/5.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节青团美食主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-006',
+      name: '清明春色',
+      thumbnail: 'images/qingming/thumbnails/6.jpg',
+      image: 'images/qingming/6.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春色主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-007',
+      name: '清明缅怀',
+      thumbnail: 'images/qingming/thumbnails/7.jpg',
+      image: 'images/qingming/7.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节缅怀先人主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-008',
+      name: '清明郊游',
+      thumbnail: 'images/qingming/thumbnails/8.jpg',
+      image: 'images/qingming/8.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节郊游主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-009',
+      name: '清明春意',
+      thumbnail: 'images/qingming/thumbnails/9.jpg',
+      image: 'images/qingming/9.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春意盎然主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-010',
+      name: '清明传统',
+      thumbnail: 'images/qingming/thumbnails/10.jpg',
+      image: 'images/qingming/10.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节传统文化主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-011',
+      name: '清明春雨',
+      thumbnail: 'images/qingming/thumbnails/11.jpg',
+      image: 'images/qingming/11.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-012',
+      name: '清明思念',
+      thumbnail: 'images/qingming/thumbnails/12.jpg',
+      image: 'images/qingming/12.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节思念先人主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-013',
+      name: '清明柳绿',
+      thumbnail: 'images/qingming/thumbnails/13.jpg',
+      image: 'images/qingming/13.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节柳绿花红主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-014',
+      name: '清明春游',
+      thumbnail: 'images/qingming/thumbnails/14.jpg',
+      image: 'images/qingming/14.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春游活动主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-015',
+      name: '清明祭扫',
+      thumbnail: 'images/qingming/thumbnails/15.jpg',
+      image: 'images/qingming/15.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节祭扫主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-016',
+      name: '清明春景',
+      thumbnail: 'images/qingming/thumbnails/16.jpg',
+      image: 'images/qingming/16.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-017',
+      name: '清明追思',
+      thumbnail: 'images/qingming/thumbnails/17.jpg',
+      image: 'images/qingming/17.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节追思先人主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qingming-2024-018',
+      name: '清明春韵',
+      thumbnail: 'images/qingming/thumbnails/18.jpg',
+      image: 'images/qingming/18.png',
+      months: [4],
+      festivals: ['清明'],
+      description: '清明节春韵主题海报模板',
       type: '节气'
     },
     {
@@ -1616,17 +1776,208 @@ window.templates = {
       description: '愚人节欢乐无限主题海报模板',
       type: '西方节日'
     },
-
     {
       id: 'guyu-2024-001',
       name: '谷雨茶韵',
-      thumbnail: 'https://picsum.photos/id/92/400/600',
-      image: 'https://picsum.photos/id/92/800/1200',
+      thumbnail: 'images/guyu/thumbnails/1.jpg',
+      image: 'images/guyu/1.png',
       months: [4],
       festivals: ['谷雨'],
       description: '谷雨节气茶文化主题海报模板',
       type: '节气'
+    },
+    {
+      id: 'guyu-2024-002',
+      name: '谷雨春雨',
+      thumbnail: 'images/guyu/thumbnails/2.jpg',
+      image: 'images/guyu/2.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-003',
+      name: '谷雨播种',
+      thumbnail: 'images/guyu/thumbnails/3.jpg',
+      image: 'images/guyu/3.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气播种主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-004',
+      name: '谷雨谷物',
+      thumbnail: 'images/guyu/thumbnails/4.jpg',
+      image: 'images/guyu/4.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气谷物生长主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-005',
+      name: '谷雨春茶',
+      thumbnail: 'images/guyu/thumbnails/5.jpg',
+      image: 'images/guyu/5.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春茶主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-006',
+      name: '谷雨润物',
+      thumbnail: 'images/guyu/thumbnails/6.jpg',
+      image: 'images/guyu/6.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气润物无声主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-007',
+      name: '谷雨农耕',
+      thumbnail: 'images/guyu/thumbnails/7.jpg',
+      image: 'images/guyu/7.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气农耕主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-008',
+      name: '谷雨春耕',
+      thumbnail: 'images/guyu/thumbnails/8.jpg',
+      image: 'images/guyu/8.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春耕主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-009',
+      name: '谷雨润泽',
+      thumbnail: 'images/guyu/thumbnails/9.jpg',
+      image: 'images/guyu/9.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气润泽万物主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-010',
+      name: '谷雨生机',
+      thumbnail: 'images/guyu/thumbnails/10.jpg',
+      image: 'images/guyu/10.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气生机勃勃主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-011',
+      name: '谷雨田园',
+      thumbnail: 'images/guyu/thumbnails/11.jpg',
+      image: 'images/guyu/11.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气田园风光主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-012',
+      name: '谷雨春色',
+      thumbnail: 'images/guyu/thumbnails/12.jpg',
+      image: 'images/guyu/12.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春色主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-013',
+      name: '谷雨雨露',
+      thumbnail: 'images/guyu/thumbnails/13.jpg',
+      image: 'images/guyu/13.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气雨露滋润主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-014',
+      name: '谷雨丰收',
+      thumbnail: 'images/guyu/thumbnails/14.jpg',
+      image: 'images/guyu/14.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气丰收主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-015',
+      name: '谷雨春华',
+      thumbnail: 'images/guyu/thumbnails/15.jpg',
+      image: 'images/guyu/15.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春华秋实主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-016',
+      name: '谷雨润春',
+      thumbnail: 'images/guyu/thumbnails/16.jpg',
+      image: 'images/guyu/16.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气润春主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-017',
+      name: '谷雨春意',
+      thumbnail: 'images/guyu/thumbnails/17.jpg',
+      image: 'images/guyu/17.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-018',
+      name: '谷雨润土',
+      thumbnail: 'images/guyu/thumbnails/18.jpg',
+      image: 'images/guyu/18.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气润土主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-019',
+      name: '谷雨春耕图',
+      thumbnail: 'images/guyu/thumbnails/19.jpg',
+      image: 'images/guyu/19.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气春耕图主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'guyu-2024-020',
+      name: '谷雨润物细无声',
+      thumbnail: 'images/guyu/thumbnails/20.jpg',
+      image: 'images/guyu/20.png',
+      months: [4],
+      festivals: ['谷雨'],
+      description: '谷雨节气润物细无声主题海报模板',
+      type: '节气'
     }
+
+    
   ],
 
   // 5月模板
@@ -1652,25 +2003,397 @@ window.templates = {
       type: '传统节日'
     },
     {
-      id: 'mother-day-2024-001',
+      id: 'muqinjie-2024-001',
       name: '感恩母爱',
-      thumbnail: 'https://picsum.photos/id/103/400/600',
-      image: 'https://picsum.photos/id/103/800/1200',
+      thumbnail: 'images/muqinjie/thumbnails/1.jpg',
+      image: 'images/muqinjie/1.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节感恩母爱主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-002',
+      name: '母亲节快乐',
+      thumbnail: 'images/muqinjie/thumbnails/2.jpg',
+      image: 'images/muqinjie/2.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节快乐主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-003',
+      name: '母爱永恒',
+      thumbnail: 'images/muqinjie/thumbnails/3.jpg',
+      image: 'images/muqinjie/3.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节母爱永恒主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-004',
+      name: '康乃馨之爱',
+      thumbnail: 'images/muqinjie/thumbnails/4.jpg',
+      image: 'images/muqinjie/4.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节康乃馨之爱主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-005',
+      name: '母亲节感恩',
+      thumbnail: 'images/muqinjie/thumbnails/5.jpg',
+      image: 'images/muqinjie/5.png',
       months: [5],
       festivals: ['母亲节'],
       description: '母亲节感恩主题海报模板',
       type: '西方节日'
     },
     {
+      id: 'muqinjie-2024-006',
+      name: '母爱如海',
+      thumbnail: 'images/muqinjie/thumbnails/6.jpg',
+      image: 'images/muqinjie/6.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节母爱如海主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-007',
+      name: '母亲节祝福',
+      thumbnail: 'images/muqinjie/thumbnails/7.jpg',
+      image: 'images/muqinjie/7.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节祝福主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-008',
+      name: '母爱伟大',
+      thumbnail: 'images/muqinjie/thumbnails/8.jpg',
+      image: 'images/muqinjie/8.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节母爱伟大主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-009',
+      name: '母亲节温馨',
+      thumbnail: 'images/muqinjie/thumbnails/9.jpg',
+      image: 'images/muqinjie/9.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节温馨主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-010',
+      name: '母亲节献礼',
+      thumbnail: 'images/muqinjie/thumbnails/10.jpg',
+      image: 'images/muqinjie/10.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节献礼主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-011',
+      name: '母爱无疆',
+      thumbnail: 'images/muqinjie/thumbnails/11.jpg',
+      image: 'images/muqinjie/11.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节母爱无疆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-012',
+      name: '母亲节感恩卡',
+      thumbnail: 'images/muqinjie/thumbnails/12.jpg',
+      image: 'images/muqinjie/12.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节感恩卡主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-013',
+      name: '母亲节花束',
+      thumbnail: 'images/muqinjie/thumbnails/13.jpg',
+      image: 'images/muqinjie/13.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节花束主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-014',
+      name: '母亲节礼物',
+      thumbnail: 'images/muqinjie/thumbnails/14.jpg',
+      image: 'images/muqinjie/14.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节礼物主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-015',
+      name: '母亲节贺卡',
+      thumbnail: 'images/muqinjie/thumbnails/15.jpg',
+      image: 'images/muqinjie/15.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节贺卡主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-016',
+      name: '母亲节感恩信',
+      thumbnail: 'images/muqinjie/thumbnails/16.jpg',
+      image: 'images/muqinjie/16.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节感恩信主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-017',
+      name: '母亲节家庭',
+      thumbnail: 'images/muqinjie/thumbnails/17.jpg',
+      image: 'images/muqinjie/17.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节家庭主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'muqinjie-2024-018',
+      name: '母亲节温馨时光',
+      thumbnail: 'images/muqinjie/thumbnails/18.jpg',
+      image: 'images/muqinjie/18.png',
+      months: [5],
+      festivals: ['母亲节'],
+      description: '母亲节温馨时光主题海报模板',
+      type: '西方节日'
+    },
+    {
       id: 'lixia-2024-001',
       name: '立夏迎新',
-      thumbnail: 'https://picsum.photos/id/104/400/600',
-      image: 'https://picsum.photos/id/104/800/1200',
+      thumbnail: 'images/lixia/thumbnails/1.jpg',
+      image: 'images/lixia/1.png',
       months: [5],
       festivals: ['立夏'],
-      description: '立夏节气主题海报模板',
+      description: '立夏节气迎新主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-002',
+      name: '立夏生机',
+      thumbnail: 'images/lixia/thumbnails/2.jpg',
+      image: 'images/lixia/2.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气生机勃勃主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-003',
+      name: '立夏万物',
+      thumbnail: 'images/lixia/thumbnails/3.jpg',
+      image: 'images/lixia/3.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气万物生长主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-004',
+      name: '立夏绿意',
+      thumbnail: 'images/lixia/thumbnails/4.jpg',
+      image: 'images/lixia/4.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气绿意盎然主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-005',
+      name: '立夏阳光',
+      thumbnail: 'images/lixia/thumbnails/5.jpg',
+      image: 'images/lixia/5.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气阳光明媚主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-006',
+      name: '立夏田园',
+      thumbnail: 'images/lixia/thumbnails/6.jpg',
+      image: 'images/lixia/6.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气田园风光主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-007',
+      name: '立夏荷花',
+      thumbnail: 'images/lixia/thumbnails/7.jpg',
+      image: 'images/lixia/7.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气荷花盛开主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-008',
+      name: '立夏蝉鸣',
+      thumbnail: 'images/lixia/thumbnails/8.jpg',
+      image: 'images/lixia/8.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气蝉鸣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-009',
+      name: '立夏清风',
+      thumbnail: 'images/lixia/thumbnails/9.jpg',
+      image: 'images/lixia/9.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气清风徐来主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-010',
+      name: '立夏夏日',
+      thumbnail: 'images/lixia/thumbnails/10.jpg',
+      image: 'images/lixia/10.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气夏日来临主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-011',
+      name: '立夏丰收',
+      thumbnail: 'images/lixia/thumbnails/11.jpg',
+      image: 'images/lixia/11.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气丰收在望主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-012',
+      name: '立夏绿荫',
+      thumbnail: 'images/lixia/thumbnails/12.jpg',
+      image: 'images/lixia/12.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气绿荫成片主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-013',
+      name: '立夏花开',
+      thumbnail: 'images/lixia/thumbnails/13.jpg',
+      image: 'images/lixia/13.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气花开满园主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-014',
+      name: '立夏蛙鸣',
+      thumbnail: 'images/lixia/thumbnails/14.jpg',
+      image: 'images/lixia/14.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气蛙鸣声声主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-015',
+      name: '立夏麦浪',
+      thumbnail: 'images/lixia/thumbnails/15.jpg',
+      image: 'images/lixia/15.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气麦浪滚滚主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-016',
+      name: '立夏农忙',
+      thumbnail: 'images/lixia/thumbnails/16.jpg',
+      image: 'images/lixia/16.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气农忙时节主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-017',
+      name: '立夏炎热',
+      thumbnail: 'images/lixia/thumbnails/17.jpg',
+      image: 'images/lixia/17.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气炎热天气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-018',
+      name: '立夏雷雨',
+      thumbnail: 'images/lixia/thumbnails/18.jpg',
+      image: 'images/lixia/18.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气雷雨天气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-019',
+      name: '立夏清凉',
+      thumbnail: 'images/lixia/thumbnails/19.jpg',
+      image: 'images/lixia/19.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气清凉一夏主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-020',
+      name: '立夏星空',
+      thumbnail: 'images/lixia/thumbnails/20.jpg',
+      image: 'images/lixia/20.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气星空璀璨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lixia-2024-021',
+      name: '立夏夏日风情',
+      thumbnail: 'images/lixia/thumbnails/21.jpg',
+      image: 'images/lixia/21.png',
+      months: [5],
+      festivals: ['立夏'],
+      description: '立夏节气夏日风情主题海报模板',
       type: '节气'
     }
+
+    
   ],
 
   // 6月模板
