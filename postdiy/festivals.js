@@ -50,6 +50,13 @@ window.chineseTraditionalFestivals = {
     day: 5, // 4月5日
     format: 'solar'
   },
+  '劳动节': {
+    name: '劳动节',
+    description: '致敬劳动者、五一假期、劳动光荣',
+    month: 5,
+    day: 1, // 5月1日
+    format: 'solar'
+  },
   '端午节': {
     name: '端午节',
     description: '赛龙舟、吃粽子、佩香囊、挂艾草',
@@ -350,6 +357,97 @@ window.westernFestivals = {
     description: '圣诞树、圣诞老人、平安夜',
     month: 12,
     day: 25,
+    format: 'solar'
+  },
+  '儿童节': {
+    name: '儿童节',
+    description: '快乐童年、儿童权益、游戏礼物',
+    month: 6,
+    day: 1,
+    format: 'solar'
+  },
+  '妇女节': {
+    name: '妇女节',
+    description: '女性权益、平等尊重、女性力量',
+    month: 3,
+    day: 8,
+    format: 'solar'
+  },
+  '青年节': {
+    name: '青年节',
+    description: '青春活力、青年责任、五四精神',
+    month: 5,
+    day: 4,
+    format: 'solar'
+  },
+  '建军节': {
+    name: '建军节',
+    description: '军人荣誉、国防力量、爱国精神',
+    month: 8,
+    day: 1,
+    format: 'solar'
+  },
+  '建党节': {
+    name: '建党节',
+    description: '党的生日、红色记忆、爱国教育',
+    month: 7,
+    day: 1,
+    format: 'solar'
+  },
+  '植树节': {
+    name: '植树节',
+    description: '绿化环保、植树造林、生态保护',
+    month: 3,
+    day: 12,
+    format: 'solar'
+  },
+  '护士节': {
+    name: '护士节',
+    description: '白衣天使、医疗护理、健康守护',
+    month: 5,
+    day: 12,
+    format: 'solar'
+  },
+  '世界环境日': {
+    name: '世界环境日',
+    description: '环境保护、可持续发展、生态平衡',
+    month: 6,
+    day: 5,
+    format: 'solar'
+  },
+  '世界读书日': {
+    name: '世界读书日',
+    description: '阅读推广、知识传播、文化传承',
+    month: 4,
+    day: 23,
+    format: 'solar'
+  },
+  '世界地球日': {
+    name: '世界地球日',
+    description: '地球保护、气候变化、环保意识',
+    month: 4,
+    day: 22,
+    format: 'solar'
+  },
+  '双十一': {
+    name: '双十一',
+    description: '购物狂欢、电商促销、光棍节',
+    month: 11,
+    day: 11,
+    format: 'solar'
+  },
+  '双十二': {
+    name: '双十二',
+    description: '电商促销、年终购物、优惠活动',
+    month: 12,
+    day: 12,
+    format: 'solar'
+  },
+  '520': {
+    name: '520',
+    description: '网络情人节、爱情表白、浪漫约会',
+    month: 5,
+    day: 20,
     format: 'solar'
   }
 };

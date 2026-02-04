@@ -2013,32 +2013,18 @@ window.wechatWarning = {
     // 获取节日列表
     let festivals = [];
     
+    // 获取所有节日数据
+    const allFestivalsData = utils.getAllFestivals();
+    
     if (selectedMonth) {
       // 如果指定了月份，只获取该月份的节日
-      const monthFestivals = new Set();
-      for (const monthKey in window.templates) {
-        const monthTemplates = window.templates[monthKey];
-        monthTemplates.forEach(template => {
-          if (template.months && template.months.includes(selectedMonth)) {
-            template.festivals.forEach(festival => {
-              monthFestivals.add(festival);
-            });
-          }
-        });
-      }
-      festivals = Array.from(monthFestivals);
+      festivals = Object.keys(allFestivalsData).filter(festivalName => {
+        const festival = allFestivalsData[festivalName];
+        return festival.month === selectedMonth;
+      });
     } else {
       // 否则获取所有节日
-      const allFestivals = new Set();
-      for (const monthKey in window.templates) {
-        const monthTemplates = window.templates[monthKey];
-        monthTemplates.forEach(template => {
-          template.festivals.forEach(festival => {
-            allFestivals.add(festival);
-          });
-        });
-      }
-      festivals = Array.from(allFestivals);
+      festivals = Object.keys(allFestivalsData);
     }
     
     // 如果没有节日，显示提示
