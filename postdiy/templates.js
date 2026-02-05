@@ -962,6 +962,216 @@ window.templates = {
       type: '传统节日'
     },
     {
+      id: 'funvjie-2024-001',
+      name: '妇女节快乐',
+      thumbnail: 'images/funvjie/thumbnails/1.jpg',
+      image: 'images/funvjie/1.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节快乐祝福主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-002',
+      name: '妇女节平等',
+      thumbnail: 'images/funvjie/thumbnails/2.jpg',
+      image: 'images/funvjie/2.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节平等尊重主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-003',
+      name: '妇女节力量',
+      thumbnail: 'images/funvjie/thumbnails/3.jpg',
+      image: 'images/funvjie/3.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节女性力量主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-004',
+      name: '妇女节康乃馨',
+      thumbnail: 'images/funvjie/thumbnails/4.jpg',
+      image: 'images/funvjie/4.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节康乃馨花束主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-005',
+      name: '妇女节权益',
+      thumbnail: 'images/funvjie/thumbnails/5.jpg',
+      image: 'images/funvjie/5.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节女性权益主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-006',
+      name: '妇女节优雅',
+      thumbnail: 'images/funvjie/thumbnails/6.jpg',
+      image: 'images/funvjie/6.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节优雅女性主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-007',
+      name: '妇女节独立',
+      thumbnail: 'images/funvjie/thumbnails/7.jpg',
+      image: 'images/funvjie/7.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节独立女性主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-008',
+      name: '妇女节职场',
+      thumbnail: 'images/funvjie/thumbnails/8.jpg',
+      image: 'images/funvjie/8.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节职场女性主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-009',
+      name: '妇女节家庭',
+      thumbnail: 'images/funvjie/thumbnails/9.jpg',
+      image: 'images/funvjie/9.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节家庭女性主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-010',
+      name: '妇女节爱心',
+      thumbnail: 'images/funvjie/thumbnails/10.jpg',
+      image: 'images/funvjie/10.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节爱心关怀主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-011',
+      name: '妇女节团结',
+      thumbnail: 'images/funvjie/thumbnails/11.jpg',
+      image: 'images/funvjie/11.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节团结互助主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'funvjie-2024-012',
+      name: '妇女节节日',
+      thumbnail: 'images/funvjie/thumbnails/12.jpg',
+      image: 'images/funvjie/12.png',
+      months: [3],
+      festivals: ['妇女节'],
+      description: '妇女节节日庆祝主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-001',
+      name: '植树节绿化',
+      thumbnail: 'images/zhishujie/thumbnails/1.jpg',
+      image: 'images/zhishujie/1.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节绿化环保主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-002',
+      name: '植树节造林',
+      thumbnail: 'images/zhishujie/thumbnails/2.jpg',
+      image: 'images/zhishujie/2.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节植树造林主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-003',
+      name: '植树节生态',
+      thumbnail: 'images/zhishujie/thumbnails/3.jpg',
+      image: 'images/zhishujie/3.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节生态保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-004',
+      name: '植树节树木',
+      thumbnail: 'images/zhishujie/thumbnails/4.jpg',
+      image: 'images/zhishujie/4.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节树木种植主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-005',
+      name: '植树节森林',
+      thumbnail: 'images/zhishujie/thumbnails/5.jpg',
+      image: 'images/zhishujie/5.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节森林保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-006',
+      name: '植树节环保',
+      thumbnail: 'images/zhishujie/thumbnails/6.jpg',
+      image: 'images/zhishujie/6.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节环保意识主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-007',
+      name: '植树节春天',
+      thumbnail: 'images/zhishujie/thumbnails/7.jpg',
+      image: 'images/zhishujie/7.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节春天植树主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-008',
+      name: '植树节地球',
+      thumbnail: 'images/zhishujie/thumbnails/8.jpg',
+      image: 'images/zhishujie/8.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节地球保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'zhishujie-2024-009',
+      name: '植树节节日',
+      thumbnail: 'images/zhishujie/thumbnails/9.jpg',
+      image: 'images/zhishujie/9.png',
+      months: [3],
+      festivals: ['植树节'],
+      description: '植树节节日庆祝主题海报模板',
+      type: '西方节日'
+    },
+    {
       id: 'longtaitou-2024-002',
       name: '龙抬头春耕',
       thumbnail: 'images/longtaitou/thumbnails/2.jpg',
@@ -1405,6 +1615,106 @@ window.templates = {
       festivals: ['清明'],
       description: '清明节祭祖主题海报模板',
       type: '节气'
+    },
+    {
+      id: 'shijiediqiuri-2024-001',
+      name: '世界地球日环保',
+      thumbnail: 'images/shijiediqiuri/thumbnails/1.jpg',
+      image: 'images/shijiediqiuri/1.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日环保主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-002',
+      name: '世界地球日地球',
+      thumbnail: 'images/shijiediqiuri/thumbnails/2.jpg',
+      image: 'images/shijiediqiuri/2.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日地球保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-003',
+      name: '世界地球日气候',
+      thumbnail: 'images/shijiediqiuri/thumbnails/3.jpg',
+      image: 'images/shijiediqiuri/3.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日气候变化主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-004',
+      name: '世界地球日绿色',
+      thumbnail: 'images/shijiediqiuri/thumbnails/4.jpg',
+      image: 'images/shijiediqiuri/4.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日绿色生活主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-005',
+      name: '世界地球日生态',
+      thumbnail: 'images/shijiediqiuri/thumbnails/5.jpg',
+      image: 'images/shijiediqiuri/5.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日生态平衡主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-006',
+      name: '世界地球日可持续发展',
+      thumbnail: 'images/shijiediqiuri/thumbnails/6.jpg',
+      image: 'images/shijiediqiuri/6.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日可持续发展主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-007',
+      name: '世界地球日自然',
+      thumbnail: 'images/shijiediqiuri/thumbnails/7.jpg',
+      image: 'images/shijiediqiuri/7.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日自然保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-008',
+      name: '世界地球日水资源',
+      thumbnail: 'images/shijiediqiuri/thumbnails/8.jpg',
+      image: 'images/shijiediqiuri/8.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日水资源保护主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-009',
+      name: '世界地球日清洁能源',
+      thumbnail: 'images/shijiediqiuri/thumbnails/9.jpg',
+      image: 'images/shijiediqiuri/9.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日清洁能源主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'shijiediqiuri-2024-010',
+      name: '世界地球日节日',
+      thumbnail: 'images/shijiediqiuri/thumbnails/10.jpg',
+      image: 'images/shijiediqiuri/10.png',
+      months: [4],
+      festivals: ['世界地球日'],
+      description: '世界地球日节日庆祝主题海报模板',
+      type: '西方节日'
     },
     {
       id: 'qingming-2024-002',
@@ -4380,6 +4690,386 @@ window.templates = {
       months: [12],
       festivals: ['圣诞节'],
       description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yushui-2024-001',
+      name: '雨水节气',
+      thumbnail: 'images/yushui/thumbnails/1.jpg',
+      image: 'images/yushui/1.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-002',
+      name: '雨水润物',
+      thumbnail: 'images/yushui/thumbnails/2.jpg',
+      image: 'images/yushui/2.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气润物细无声主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-003',
+      name: '雨水春雨',
+      thumbnail: 'images/yushui/thumbnails/3.jpg',
+      image: 'images/yushui/3.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气春雨贵如油主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-004',
+      name: '雨水降雨',
+      thumbnail: 'images/yushui/thumbnails/4.jpg',
+      image: 'images/yushui/4.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气降雨开始主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-005',
+      name: '雨水滋润',
+      thumbnail: 'images/yushui/thumbnails/5.jpg',
+      image: 'images/yushui/5.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气滋润万物主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-006',
+      name: '雨水节气绿',
+      thumbnail: 'images/yushui/thumbnails/6.jpg',
+      image: 'images/yushui/6.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气绿色主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-007',
+      name: '雨水节气水',
+      thumbnail: 'images/yushui/thumbnails/7.jpg',
+      image: 'images/yushui/7.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气水元素主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-008',
+      name: '雨水节气春',
+      thumbnail: 'images/yushui/thumbnails/8.jpg',
+      image: 'images/yushui/8.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气春天主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-009',
+      name: '雨水节气雨',
+      thumbnail: 'images/yushui/thumbnails/9.jpg',
+      image: 'images/yushui/9.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气雨滴主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-010',
+      name: '雨水节气润',
+      thumbnail: 'images/yushui/thumbnails/10.jpg',
+      image: 'images/yushui/10.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气润泽主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-011',
+      name: '雨水节气生',
+      thumbnail: 'images/yushui/thumbnails/11.jpg',
+      image: 'images/yushui/11.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气生机勃勃主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-012',
+      name: '雨水节气新',
+      thumbnail: 'images/yushui/thumbnails/12.jpg',
+      image: 'images/yushui/12.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气新生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'yushui-2024-013',
+      name: '雨水节气节',
+      thumbnail: 'images/yushui/thumbnails/13.jpg',
+      image: 'images/yushui/13.png',
+      months: [2],
+      festivals: ['雨水'],
+      description: '雨水节气节日主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'laodongjie-2024-001',
+      name: '劳动节快乐',
+      thumbnail: 'images/laodongjie/thumbnails/1.jpg',
+      image: 'images/laodongjie/1.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节快乐主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-002',
+      name: '劳动光荣',
+      thumbnail: 'images/laodongjie/thumbnails/2.jpg',
+      image: 'images/laodongjie/2.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动光荣主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-003',
+      name: '致敬劳动者',
+      thumbnail: 'images/laodongjie/thumbnails/3.jpg',
+      image: 'images/laodongjie/3.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '致敬劳动者主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-004',
+      name: '五一假期',
+      thumbnail: 'images/laodongjie/thumbnails/4.jpg',
+      image: 'images/laodongjie/4.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '五一假期主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-005',
+      name: '劳动节庆祝',
+      thumbnail: 'images/laodongjie/thumbnails/5.jpg',
+      image: 'images/laodongjie/5.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节庆祝主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-006',
+      name: '劳动节工作',
+      thumbnail: 'images/laodongjie/thumbnails/6.jpg',
+      image: 'images/laodongjie/6.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节工作主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-007',
+      name: '劳动节休息',
+      thumbnail: 'images/laodongjie/thumbnails/7.jpg',
+      image: 'images/laodongjie/7.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节休息主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-008',
+      name: '劳动节奋斗',
+      thumbnail: 'images/laodongjie/thumbnails/8.jpg',
+      image: 'images/laodongjie/8.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节奋斗主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-009',
+      name: '劳动节感恩',
+      thumbnail: 'images/laodongjie/thumbnails/9.jpg',
+      image: 'images/laodongjie/9.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节感恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-010',
+      name: '劳动节团结',
+      thumbnail: 'images/laodongjie/thumbnails/10.jpg',
+      image: 'images/laodongjie/10.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节团结主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-011',
+      name: '劳动节奉献',
+      thumbnail: 'images/laodongjie/thumbnails/11.jpg',
+      image: 'images/laodongjie/11.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节奉献主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-012',
+      name: '劳动节创造',
+      thumbnail: 'images/laodongjie/thumbnails/12.jpg',
+      image: 'images/laodongjie/12.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节创造主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-013',
+      name: '劳动节成就',
+      thumbnail: 'images/laodongjie/thumbnails/13.jpg',
+      image: 'images/laodongjie/13.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节成就主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-014',
+      name: '劳动节梦想',
+      thumbnail: 'images/laodongjie/thumbnails/14.jpg',
+      image: 'images/laodongjie/14.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节梦想主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-015',
+      name: '劳动节希望',
+      thumbnail: 'images/laodongjie/thumbnails/15.jpg',
+      image: 'images/laodongjie/15.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节希望主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-016',
+      name: '劳动节未来',
+      thumbnail: 'images/laodongjie/thumbnails/16.jpg',
+      image: 'images/laodongjie/16.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节未来主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-017',
+      name: '劳动节青春',
+      thumbnail: 'images/laodongjie/thumbnails/17.jpg',
+      image: 'images/laodongjie/17.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节青春主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-018',
+      name: '劳动节活力',
+      thumbnail: 'images/laodongjie/thumbnails/18.jpg',
+      image: 'images/laodongjie/18.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节活力主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-019',
+      name: '劳动节创新',
+      thumbnail: 'images/laodongjie/thumbnails/19.jpg',
+      image: 'images/laodongjie/19.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节创新主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-020',
+      name: '劳动节科技',
+      thumbnail: 'images/laodongjie/thumbnails/20.jpg',
+      image: 'images/laodongjie/20.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节科技主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-021',
+      name: '劳动节农业',
+      thumbnail: 'images/laodongjie/thumbnails/21.jpg',
+      image: 'images/laodongjie/21.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节农业主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-022',
+      name: '劳动节工业',
+      thumbnail: 'images/laodongjie/thumbnails/22.jpg',
+      image: 'images/laodongjie/22.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节工业主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-023',
+      name: '劳动节服务',
+      thumbnail: 'images/laodongjie/thumbnails/23.jpg',
+      image: 'images/laodongjie/23.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节服务主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-024',
+      name: '劳动节教育',
+      thumbnail: 'images/laodongjie/thumbnails/24.jpg',
+      image: 'images/laodongjie/24.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节教育主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'laodongjie-2024-025',
+      name: '劳动节医疗',
+      thumbnail: 'images/laodongjie/thumbnails/25.jpg',
+      image: 'images/laodongjie/25.png',
+      months: [5],
+      festivals: ['劳动节'],
+      description: '劳动节医疗主题海报模板',
       type: '西方节日'
     }
   ]
