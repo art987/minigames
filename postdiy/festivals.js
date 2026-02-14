@@ -43,8 +43,8 @@ window.chineseTraditionalFestivals = {
     day: 20, // 3月20日
     format: 'solar'
   },
-  '清明节': {
-    name: '清明节',
+  '清明': {
+    name: '清明',
     description: '祭祖扫墓、踏青郊游、放风筝、吃青团',
     month: 4,
     day: 5, // 4月5日
@@ -159,13 +159,7 @@ window.solarTerms = {
     day: 21, // 通常在3月20-22日
     format: 'solar'
   },
-  '清明': {
-    name: '清明',
-    description: '祭祖扫墓、踏青郊游、放风筝、吃青团',
-    month: 4,
-    day: 5, // 通常在4月4-6日
-    format: 'solar'
-  },
+
   '谷雨': {
     name: '谷雨',
     description: '雨生百谷、谷物生长、春茶',
@@ -401,20 +395,8 @@ window.westernFestivals = {
     day: 12,
     format: 'solar'
   },
-  '护士节': {
-    name: '护士节',
-    description: '白衣天使、医疗护理、健康守护',
-    month: 5,
-    day: 12,
-    format: 'solar'
-  },
-  '世界环境日': {
-    name: '世界环境日',
-    description: '环境保护、可持续发展、生态平衡',
-    month: 6,
-    day: 5,
-    format: 'solar'
-  },
+
+
   '世界读书日': {
     name: '世界读书日',
     description: '阅读推广、知识传播、文化传承',
