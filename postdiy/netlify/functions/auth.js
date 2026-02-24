@@ -41,14 +41,14 @@ exports.handler = async (event) => {
       console.log('开始用户注册流程')
       
       // 用户注册
-      const signUpResponse = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password
       })
       
-      console.log('完整的Supabase注册响应:', JSON.stringify(signUpResponse, null, 2))
+      console.log('完整的Supabase注册响应:', JSON.stringify(data, null, 2))
       
-      const { user, error } = signUpResponse
+      const user = data?.user
 
       if (error) {
         return {
@@ -111,15 +111,27 @@ exports.handler = async (event) => {
 
     if (action === 'login') {
       // 用户登录
-      const { user, session, error } = await supabase.auth.signIn({
+      console.log('开始用户登录流程')
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       })
+      
+      console.log('Supabase登录响应:', JSON.stringify(data, null, 2))
+      
+      const { user, session } = data || {}
 
       if (error) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: error.message })
+        }
+      }
+
+      if (!user || !session) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: '登录失败，请检查邮箱和密码' })
         }
       }
 
