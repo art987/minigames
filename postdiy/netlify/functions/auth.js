@@ -41,17 +41,39 @@ exports.handler = async (event) => {
       console.log('开始用户注册流程')
       
       // 用户注册
-      const { user, error } = await supabase.auth.signUp({
+      const signUpResponse = await supabase.auth.signUp({
         email,
         password
       })
       
-      console.log('Supabase注册响应:', { user: user ? '用户创建成功' : '用户创建失败', error })
+      console.log('完整的Supabase注册响应:', JSON.stringify(signUpResponse, null, 2))
+      
+      const { user, error } = signUpResponse
 
       if (error) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: error.message })
+        }
+      }
+
+      // 检查注册是否成功（支持邮件确认流程）
+      if (!user && !error) {
+        console.log('用户注册成功，等待邮件确认')
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ 
+            message: '注册成功！请检查您的邮箱并点击确认链接激活账户',
+            requiresConfirmation: true
+          })
+        }
+      }
+
+      if (!user && error) {
+        console.error('用户注册失败：', error)
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: error.message || '用户注册失败' })
         }
       }
 
