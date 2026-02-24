@@ -13,13 +13,22 @@ function initSupabase() {
 }
 
 exports.handler = async (event) => {
+  console.log('收到认证请求:', {
+    method: event.httpMethod,
+    path: event.path,
+    body: event.body
+  })
+  
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method Not Allowed' }) }
   }
 
   try {
     const supabase = initSupabase()
+    console.log('Supabase客户端初始化成功')
+    
     const { action, email, password } = JSON.parse(event.body)
+    console.log('解析请求数据:', { action, email: email ? '已提供' : '未提供' })
     
     if (!action || !email || !password) {
       return {
@@ -29,11 +38,15 @@ exports.handler = async (event) => {
     }
 
     if (action === 'register') {
+      console.log('开始用户注册流程')
+      
       // 用户注册
       const { user, error } = await supabase.auth.signUp({
         email,
         password
       })
+      
+      console.log('Supabase注册响应:', { user: user ? '用户创建成功' : '用户创建失败', error })
 
       if (error) {
         return {
@@ -108,9 +121,19 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: 'Invalid action' })
     }
   } catch (error) {
+    console.error('认证函数发生错误:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    })
+    
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' })
+      body: JSON.stringify({ 
+        error: 'Internal Server Error',
+        message: error.message,
+        details: '请查看Netlify Functions日志获取详细信息'
+      })
     }
   }
 }
