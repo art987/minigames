@@ -2122,7 +2122,7 @@ window.wechatWarning = {
         
         // 为勾选按钮添加点击事件
         checkButton.addEventListener('click', function(e) {
-          e.stopPropagation(); // 阻止事件冒泡
+          e.stopPropagation(); // 阻止事件暴泡
           console.log('点击勾选按钮选择模板:', template.name);
           
           // 移除所有勾选按钮的选中状态
@@ -2192,6 +2192,9 @@ window.wechatWarning = {
         }
       });
     }
+    
+    // 在模板列表最后添加自定义背景入口
+    addCustomBackgroundEntryToModal();
   }
   
   // 选择模板
@@ -2345,6 +2348,9 @@ window.wechatWarning = {
       });
     }
     
+    // 在模板列表最后添加自定义背景入口
+    addCustomBackgroundEntryToModal();
+    
     // 尝试自动选择对应月份的节日（与首页逻辑保持一致）
     try {
       const result = utils.autoSelectByDate();
@@ -2472,6 +2478,9 @@ window.wechatWarning = {
         }
       });
     }
+    
+    // 在模板列表最后添加自定义背景入口
+    addCustomBackgroundEntryToModal();
   }
   
   // 关闭模板选择弹窗
@@ -4348,4 +4357,93 @@ function updateBusinessInfoButtonForVip() {
       elements.posterPromoText.innerHTML = state.businessInfo.promoText.replace(/\n/g, '<br>');
       elements.posterPromoText.style.color = state.textColor;
     }
+  }
+
+  // 在编辑器模板选择弹窗中添加自定义背景入口
+  function addCustomBackgroundEntryToModal() {
+    if (!elements.templateGrid) return;
+    
+    // 创建自定义背景入口项
+    const customItem = document.createElement('div');
+    customItem.className = 'template-item custom-background-entry';
+    customItem.dataset.templateId = 'custom-background';
+    
+    // 创建图片容器
+    const templateImgContainer = document.createElement('div');
+    templateImgContainer.className = 'template-thumbnail-container';
+    
+    // 创建自定义背景图标
+    const customIcon = document.createElement('div');
+    customIcon.className = 'custom-background-icon';
+    customIcon.innerHTML = `
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    `;
+    
+    // 创建圆形勾选按钮
+    const checkButton = document.createElement('div');
+    checkButton.className = 'template-check-button';
+    checkButton.innerHTML = '<i class="fa fa-check"></i>';
+    
+    // 为勾选按钮添加点击事件
+    checkButton.addEventListener('click', function(e) {
+      e.stopPropagation(); // 阻止事件冒泡
+      console.log('点击自定义背景入口');
+      
+      // 移除所有勾选按钮的选中状态
+      document.querySelectorAll('.template-check-button').forEach(btn => {
+        btn.classList.remove('checked');
+      });
+      
+      // 添加当前按钮的选中状态
+      this.classList.add('checked');
+      
+      // 设置自定义背景状态
+      state.customBackground = true;
+      state.currentTemplate = null;
+      
+      // 模拟点击上传背景按钮，触发文件选择对话框
+      setTimeout(() => {
+        if (elements.uploadBackgroundBtn) {
+          elements.uploadBackgroundBtn.click();
+        }
+      }, 100);
+    });
+    
+    // 为自定义背景项添加点击事件
+    customItem.addEventListener('click', function() {
+      // 移除所有勾选按钮的选中状态
+      document.querySelectorAll('.template-check-button').forEach(btn => {
+        btn.classList.remove('checked');
+      });
+      
+      // 添加当前按钮的选中状态
+      checkButton.classList.add('checked');
+      
+      // 设置自定义背景状态
+      state.customBackground = true;
+      state.currentTemplate = null;
+      
+      // 模拟点击上传背景按钮，触发文件选择对话框
+      setTimeout(() => {
+        if (elements.uploadBackgroundBtn) {
+          elements.uploadBackgroundBtn.click();
+        }
+      }, 100);
+    });
+    
+    // 创建模板名称
+    const templateName = document.createElement('div');
+    templateName.className = 'template-name';
+    templateName.textContent = '自定义背景';
+    
+    // 组合自定义背景项
+    templateImgContainer.appendChild(customIcon);
+    templateImgContainer.appendChild(checkButton);
+    customItem.appendChild(templateImgContainer);
+    customItem.appendChild(templateName);
+    
+    // 添加到网格
+    elements.templateGrid.appendChild(customItem);
   }

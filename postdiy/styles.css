@@ -325,10 +325,78 @@ main {
 }
 
 .template-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  display: none; /* 隐藏模板名称 */
+}
+
+/* 自定义背景图入口样式 */
+.custom-background-entry {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-background-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-background-icon {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 8px;
+  color: #666;
+}
+
+.custom-background-icon svg {
+  opacity: 0.7;
+}
+
+.custom-background-entry:hover .custom-background-icon {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  color: #1976d2;
+}
+
+.custom-background-entry:hover .custom-background-icon svg {
+  opacity: 1;
+}
+
+/* 编辑器模板选择弹窗中的自定义背景入口样式 */
+.template-item.custom-background-entry {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.template-item.custom-background-entry:hover {
+  transform: translateY(-2px);
+  border-color: #ebebeb;
+}
+
+.template-item.custom-background-entry .template-thumbnail-container {
+  position: relative;
+  overflow: hidden;
+  height: 140px;
+}
+
+.template-item.custom-background-entry .custom-background-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 0;
+  color: #666;
+}
+
+.template-item.custom-background-entry:hover .custom-background-icon {
+     background: linear-gradient(135deg, #ffece4 0%, #eefbbb 100%);
+    color: #de3e18;
 }
 
 .template-tags {
@@ -1766,7 +1834,7 @@ footer {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: pointer; max-height: 140px;
   transition: all 0.2s ease;
 }
 
