@@ -1,0 +1,162 @@
+// 用户认证模块
+class AuthManager {
+  constructor() {
+    this.currentUser = null
+    this.accessToken = null
+    this.isLoggedIn = false
+    this.init()
+  }
+
+  // 初始化认证状态
+  init() {
+    // 从localStorage恢复登录状态
+    const savedToken = localStorage.getItem('postdiy_access_token')
+    const savedUser = localStorage.getItem('postdiy_user')
+    
+    if (savedToken && savedUser) {
+      this.accessToken = savedToken
+      this.currentUser = JSON.parse(savedUser)
+      this.isLoggedIn = true
+      this.updateUI()
+    }
+  }
+
+  // 用户注册
+  async register(email, password) {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'register',
+          email,
+          password
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '注册失败')
+      }
+
+      return data
+    } catch (error) {
+      console.error('注册错误:', error)
+      throw error
+    }
+  }
+
+  // 用户登录
+  async login(email, password) {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'login',
+          email,
+          password
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '登录失败')
+      }
+
+      // 保存登录状态
+      this.currentUser = data.user
+      this.accessToken = data.access_token
+      this.isLoggedIn = true
+
+      // 保存到localStorage
+      localStorage.setItem('postdiy_access_token', this.accessToken)
+      localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
+
+      this.updateUI()
+      return data
+    } catch (error) {
+      console.error('登录错误:', error)
+      throw error
+    }
+  }
+
+  // 用户登出
+  logout() {
+    this.currentUser = null
+    this.accessToken = null
+    this.isLoggedIn = false
+
+    // 清除localStorage
+    localStorage.removeItem('postdiy_access_token')
+    localStorage.removeItem('postdiy_user')
+
+    this.updateUI()
+  }
+
+  // 获取认证头
+  getAuthHeaders() {
+    if (!this.accessToken) {
+      return {}
+    }
+
+    return {
+      'Authorization': `Bearer ${this.accessToken}`
+    }
+  }
+
+  // 更新UI显示
+  updateUI() {
+    const loginBtn = document.getElementById('loginBtn')
+    const userInfo = document.getElementById('userInfo')
+    const logoutBtn = document.getElementById('logoutBtn')
+
+    if (this.isLoggedIn) {
+      // 显示用户信息，隐藏登录按钮
+      if (loginBtn) loginBtn.style.display = 'none'
+      if (userInfo) {
+        userInfo.style.display = 'block'
+        userInfo.textContent = `欢迎，${this.currentUser.email}`
+      }
+      if (logoutBtn) logoutBtn.style.display = 'block'
+    } else {
+      // 显示登录按钮，隐藏用户信息
+      if (loginBtn) loginBtn.style.display = 'block'
+      if (userInfo) userInfo.style.display = 'none'
+      if (logoutBtn) logoutBtn.style.display = 'none'
+    }
+  }
+
+  // 检查VIP状态
+  async checkVIPStatus() {
+    if (!this.isLoggedIn) {
+      return { isVIP: false }
+    }
+
+    try {
+      const response = await fetch('/api/vip-check', {
+        headers: this.getAuthHeaders()
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'VIP状态检查失败')
+      }
+
+      return data
+    } catch (error) {
+      console.error('VIP状态检查错误:', error)
+      return { isVIP: false }
+    }
+  }
+}
+
+// 创建全局认证管理器实例
+window.authManager = new AuthManager()
