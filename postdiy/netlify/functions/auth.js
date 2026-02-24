@@ -57,15 +57,12 @@ exports.handler = async (event) => {
         }
       }
 
-      // 检查注册是否成功（支持邮件确认流程）
+      // 检查注册是否成功（禁用邮件确认后应该直接返回用户）
       if (!user && !error) {
-        console.log('用户注册成功，等待邮件确认')
+        console.error('用户注册异常：user为undefined但无错误')
         return {
-          statusCode: 200,
-          body: JSON.stringify({ 
-            message: '注册成功！请检查您的邮箱并点击确认链接激活账户',
-            requiresConfirmation: true
-          })
+          statusCode: 400,
+          body: JSON.stringify({ error: '注册异常，请稍后重试' })
         }
       }
 

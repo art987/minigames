@@ -42,14 +42,6 @@ class AuthManager {
         throw new Error(data.error || '注册失败')
       }
 
-      // 处理邮件确认情况
-      if (data.requiresConfirmation) {
-        return {
-          ...data,
-          message: data.message || '注册成功！请检查邮箱确认邮件'
-        }
-      }
-
       return data
     } catch (error) {
       console.error('注册错误:', error)

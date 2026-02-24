@@ -340,30 +340,19 @@
           messageEl.textContent = '注册中...'
           messageEl.className = 'auth-message info'
           
-          const result = await window.authManager.register(email, password)
+          await window.authManager.register(email, password)
           
-          if (result.requiresConfirmation) {
-            // 邮件确认流程
-            messageEl.textContent = result.message || '注册成功！请检查邮箱确认邮件'
-            messageEl.className = 'auth-message success'
-            
-            // 不自动切换到登录，让用户等待邮件确认
-            setTimeout(() => {
-              messageEl.textContent = ''
-            }, 5000)
-          } else {
-            // 直接注册成功
-            messageEl.textContent = '注册成功！请登录'
-            messageEl.className = 'auth-message success'
-            
-            // 切换到登录标签
-            document.querySelector('[data-tab="login"]').click()
-            document.getElementById('loginEmail').value = email
-            
-            setTimeout(() => {
-              messageEl.textContent = ''
-            }, 3000)
-          }
+          // 直接注册成功
+          messageEl.textContent = '注册成功！请登录'
+          messageEl.className = 'auth-message success'
+          
+          // 切换到登录标签
+          document.querySelector('[data-tab="login"]').click()
+          document.getElementById('loginEmail').value = email
+          
+          setTimeout(() => {
+            messageEl.textContent = ''
+          }, 3000)
         } catch (error) {
           messageEl.textContent = error.message
           messageEl.className = 'auth-message error'
