@@ -42,21 +42,27 @@ exports.handler = async (event) => {
         }
       }
 
-      // 创建用户资料
+      // 创建用户资料（如果表存在）
       if (user) {
-        const { error: profileError } = await supabase
-          .from('user_profiles')
-          .insert([{
-            id: user.id,
-            business_name: '',
-            logo_url: '',
-            qrcode_url: '',
-            vip_status: false,
-            vip_expiry: null
-          }])
+        try {
+          const { error: profileError } = await supabase
+            .from('user_profiles')
+            .insert([{
+              id: user.id,
+              business_name: '',
+              logo_url: '',
+              qrcode_url: '',
+              vip_status: false,
+              vip_expiry: null
+            }])
 
-        if (profileError) {
-          console.error('创建用户资料失败:', profileError)
+          if (profileError) {
+            console.warn('创建用户资料失败（表可能不存在）:', profileError)
+            // 继续执行，不抛出错误
+          }
+        } catch (tableError) {
+          console.warn('用户资料表可能不存在:', tableError)
+          // 继续执行，不抛出错误
         }
       }
 
