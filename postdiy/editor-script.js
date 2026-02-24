@@ -1485,8 +1485,8 @@ window.wechatWarning = {
   
   // 更新模板显示
   function updateTemplateDisplay() {
-    if (!state.currentTemplate || !elements.posterBackground) {
-      console.error('缺少模板或背景元素');
+    if (!elements.posterBackground) {
+      console.error('缺少背景元素');
       return;
     }
     
@@ -1503,10 +1503,10 @@ window.wechatWarning = {
     // 使用自定义背景或模板背景
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
-    } else if (state.currentTemplate.image) {
+    } else if (state.currentTemplate && state.currentTemplate.image) {
       elements.posterBackground.src = state.currentTemplate.image;
     } else {
-      console.warn('模板没有可用的图片资源');
+      console.warn('没有可用的图片资源');
       // 如果没有图片资源，立即隐藏动画
       hideTemplateLoadingAnimation();
       // 显示海报内容
@@ -2819,6 +2819,13 @@ window.wechatWarning = {
     }, 3000);
   }
   
+  // 检测是否有弹窗打开
+  function isModalOpen() {
+    if (!elements.templateModal) return false;
+    return !elements.templateModal.classList.contains('hidden') && 
+           elements.templateModal.style.display !== 'none';
+  }
+  
   // 处理背景图片上传
   function handleBackgroundUpload(event) {
     const file = event.target.files[0];
@@ -2828,6 +2835,11 @@ window.wechatWarning = {
     if (!file.type.match('image.*')) {
       showToast('请上传有效的图片文件');
       return;
+    }
+    
+    // 如果有弹窗打开，先关闭弹窗
+    if (isModalOpen()) {
+      closeTemplateModal();
     }
     
     // 读取文件
