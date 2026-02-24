@@ -1,9 +1,16 @@
 const { createClient } = require('@supabase/supabase-js')
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-)
+// 初始化Supabase客户端
+function initSupabase() {
+  const supabaseUrl = process.env.SUPABASE_URL
+  const supabaseKey = process.env.SUPABASE_KEY
+  
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Supabase环境变量未配置')
+  }
+  
+  return createClient(supabaseUrl, supabaseKey)
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -11,6 +18,7 @@ exports.handler = async (event) => {
   }
 
   try {
+    const supabase = initSupabase()
     const { action, email, password } = JSON.parse(event.body)
     
     if (!action || !email || !password) {

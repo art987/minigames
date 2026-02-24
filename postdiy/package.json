@@ -1,0 +1,17 @@
+{
+  "name": "postdiy",
+  "version": "1.0.0",
+  "description": "朋友圈海报制作工具",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build process needed for static site'",
+    "dev": "python -m http.server 8000"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {},
+  "keywords": ["海报", "设计", "模板"],
+  "author": "peacelove.top",
+  "license": "MIT"
+}
