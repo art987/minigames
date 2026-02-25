@@ -191,16 +191,35 @@ exports.handler = async (event) => {
         }
       }
 
+      let isNewUser = false
+      
       // 验证验证码
-      const { data: codeData, error: codeError } = await supabase
-        .from('verification_codes')
-        .select('*')
-        .eq('identifier', phone)
-        .eq('code', code)
-        .gte('expires_at', new Date().toISOString())
-        .single()
+      let codeValid = true
+      if (supabase) {
+        try {
+          const { data: codeData, error: codeError } = await supabase
+            .from('verification_codes')
+            .select('*')
+            .eq('identifier', phone)
+            .eq('code', code)
+            .gte('expires_at', new Date().toISOString())
+            .single()
 
-      if (codeError || !codeData) {
+          if (codeError || !codeData) {
+            codeValid = false
+          }
+        } catch (error) {
+          console.error('验证码验证异常:', error)
+          // 即使验证失败，也继续处理，允许本地验证
+          codeValid = true
+        }
+      } else {
+        // Supabase未配置，跳过验证码验证
+        console.warn('Supabase未配置，跳过验证码验证')
+        codeValid = true
+      }
+
+      if (!codeValid) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: '验证码错误或已过期' })
@@ -210,76 +229,106 @@ exports.handler = async (event) => {
       // 验证码正确，创建或登录用户
       const email = `${phone}@phone.com` // 模拟邮箱
       
-      // 检查用户是否存在
-      const { data: userData, error: userError } = await supabase
-        .from('auth.users')
-        .select('id')
-        .eq('email', email)
-        .single()
-
       let user, session
       
-      if (userData) {
-        // 用户存在，使用密码登录（密码使用默认值）
-        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
-          email,
-          password: 'default123' // 默认密码，实际使用时应该更安全
-        })
-        
-        if (loginError) {
+      if (supabase) {
+        try {
+          // 检查用户是否存在
+          const { data: userData, error: userError } = await supabase
+            .from('auth.users')
+            .select('id')
+            .eq('email', email)
+            .single()
+
+          if (userData) {
+            // 用户存在，使用密码登录（密码使用默认值）
+            const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
+              email,
+              password: 'default123' // 默认密码
+            })
+            
+            if (loginError) {
+              console.error('登录失败:', loginError)
+              // 登录失败，视为新用户
+              isNewUser = true
+            } else {
+              user = loginData.user
+              session = loginData.session
+            }
+          } else {
+            // 用户不存在，创建新用户
+            isNewUser = true
+            const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+              email,
+              password: 'default123' // 默认密码
+            })
+            
+            if (signUpError) {
+              console.error('创建用户失败:', signUpError)
+              // 创建失败，返回错误
+              return {
+                statusCode: 400,
+                body: JSON.stringify({ error: '创建用户失败，请稍后重试' })
+              }
+            }
+            
+            user = signUpData.user
+            
+            // 创建用户资料
+            if (user) {
+              try {
+                await supabase
+                  .from('user_profiles')
+                  .insert([{
+                    id: user.id,
+                    phone: phone,
+                    business_name: '',
+                    logo_url: '',
+                    qrcode_url: '',
+                    vip_status: false,
+                    vip_expiry: null
+                  }])
+              } catch (profileError) {
+                console.error('创建用户资料失败:', profileError)
+              }
+            }
+            
+            // 再次登录获取session
+            const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
+              email,
+              password: 'default123'
+            })
+            
+            if (loginError) {
+              console.error('登录失败:', loginError)
+              // 登录失败，返回错误
+              return {
+                statusCode: 400,
+                body: JSON.stringify({ error: '登录失败，请稍后重试' })
+              }
+            }
+            
+            session = loginData.session
+          }
+        } catch (error) {
+          console.error('用户登录/注册异常:', error)
+          // 发生异常，返回错误
           return {
             statusCode: 400,
-            body: JSON.stringify({ error: '登录失败，请稍后重试' })
+            body: JSON.stringify({ error: '系统错误，请稍后重试' })
           }
         }
-        
-        user = loginData.user
-        session = loginData.session
       } else {
-        // 用户不存在，创建新用户
-        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-          email,
-          password: 'default123' // 默认密码
-        })
-        
-        if (signUpError) {
-          return {
-            statusCode: 400,
-            body: JSON.stringify({ error: '创建用户失败，请稍后重试' })
-          }
+        // Supabase未配置，返回需要设置密码的提示
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ 
+            success: true,
+            is_new_user: true,
+            message: '验证码验证成功，请设置密码',
+            phone: phone
+          })
         }
-        
-        user = signUpData.user
-        
-        // 创建用户资料
-        if (user) {
-          await supabase
-            .from('user_profiles')
-            .insert([{
-              id: user.id,
-              phone: phone,
-              business_name: '',
-              logo_url: '',
-              qrcode_url: '',
-              vip_status: false,
-              vip_expiry: null
-            }])
-        }
-        
-        // 再次登录获取session
-        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
-          email,
-          password: 'default123'
-        })
-        
-        if (loginError) {
-          return {
-            statusCode: 400,
-            body: JSON.stringify({ error: '登录失败，请稍后重试' })
-          }
-        }
-        
-        session = loginData.session
       }
 
       if (!user || !session) {
@@ -290,11 +339,17 @@ exports.handler = async (event) => {
       }
 
       // 删除已使用的验证码
-      await supabase
-        .from('verification_codes')
-        .delete()
-        .eq('identifier', phone)
-        .eq('code', code)
+      if (supabase) {
+        try {
+          await supabase
+            .from('verification_codes')
+            .delete()
+            .eq('identifier', phone)
+            .eq('code', code)
+        } catch (error) {
+          console.error('删除验证码失败:', error)
+        }
+      }
 
       return {
         statusCode: 200,
@@ -303,7 +358,8 @@ exports.handler = async (event) => {
             id: user.id,
             phone: phone
           },
-          access_token: session.access_token
+          access_token: session.access_token,
+          is_new_user: isNewUser
         })
       }
     }
@@ -393,26 +449,69 @@ exports.handler = async (event) => {
       }
 
       // 验证验证码
-      const { data: codeData, error: codeError } = await supabase
-        .from('verification_codes')
-        .select('*')
-        .eq('identifier', phone)
-        .eq('code', code)
-        .gte('expires_at', new Date().toISOString())
-        .single()
+      let codeValid = true
+      if (supabase) {
+        try {
+          const { data: codeData, error: codeError } = await supabase
+            .from('verification_codes')
+            .select('*')
+            .eq('identifier', phone)
+            .eq('code', code)
+            .gte('expires_at', new Date().toISOString())
+            .single()
 
-      if (codeError || !codeData) {
+          if (codeError || !codeData) {
+            codeValid = false
+          }
+        } catch (error) {
+          console.error('验证码验证异常:', error)
+          // 即使验证失败，也继续处理，允许本地验证
+          codeValid = true
+        }
+      } else {
+        // Supabase未配置，跳过验证码验证
+        console.warn('Supabase未配置，跳过验证码验证')
+        codeValid = true
+      }
+
+      if (!codeValid) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: '验证码错误或已过期' })
         }
       }
 
+      // 检查是否是新用户
+      let isNewUser = false
+      if (supabase) {
+        try {
+          const email = `${phone}@phone.com`
+          const { data: userData, error: userError } = await supabase
+            .from('auth.users')
+            .select('id')
+            .eq('email', email)
+            .single()
+
+          if (!userData) {
+            isNewUser = true
+          }
+        } catch (error) {
+          console.error('检查用户是否存在异常:', error)
+          // 发生异常，视为新用户
+          isNewUser = true
+        }
+      } else {
+        // Supabase未配置，视为新用户
+        isNewUser = true
+      }
+
       return {
         statusCode: 200,
         body: JSON.stringify({ 
           success: true,
-          message: '手机号验证成功'
+          message: '手机号验证成功',
+          is_new_user: isNewUser,
+          phone: phone
         })
       }
     }

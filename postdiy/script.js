@@ -464,8 +464,50 @@ window.addEventListener('resize', utils.debounce(function() {
   // 可以在这里添加额外的响应式调整逻辑
 }, 300));
 
+// 显示设置密码表单
+function showSetPasswordForm(phone) {
+  try {
+    console.log('显示设置密码表单:', phone);
+    
+    // 填充手机号
+    if (document.getElementById('registerPhone')) {
+      document.getElementById('registerPhone').value = phone;
+    }
+    
+    // 显示注册弹窗
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+      authModal.classList.remove('hidden');
+    }
+    
+    // 切换到注册表单
+    const authTabs = document.querySelectorAll('.auth-tab');
+    authTabs.forEach(tab => {
+      if (tab.dataset.tab === 'register') {
+        tab.click();
+      }
+    });
+    
+    // 显示第二步：设置密码
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    if (step1 && step2) {
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+    }
+    
+    showToast('验证码验证成功，请设置密码', 'success');
+  } catch (error) {
+    console.error('显示设置密码表单失败:', error);
+    showToast('请先注册账号', 'error');
+  }
+}
+
 // 初始化认证相关功能
 function initAuth() {
+  // 暴露showSetPasswordForm函数到全局
+  window.showSetPasswordForm = showSetPasswordForm;
+  
   // 登录方式切换
   const loginMethodTabs = document.querySelectorAll('.login-method-tab');
   loginMethodTabs.forEach(tab => {

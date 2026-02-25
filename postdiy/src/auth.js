@@ -70,6 +70,22 @@ class AuthManager {
         throw new Error(data.error || '登录失败')
       }
 
+      // 检查是否是新用户
+      if (data.is_new_user) {
+        // 新用户，跳转到设置密码界面
+        console.log('新用户登录，需要设置密码')
+        
+        // 触发设置密码流程
+        if (window.showSetPasswordForm) {
+          window.showSetPasswordForm(data.phone)
+        } else {
+          // 如果没有设置密码表单，显示提示
+          throw new Error('验证码验证成功，请设置密码')
+        }
+        
+        return data
+      }
+
       // 保存登录状态
       this.currentUser = data.user
       this.accessToken = data.access_token
@@ -106,6 +122,22 @@ class AuthManager {
 
       if (!response.ok) {
         throw new Error(data.error || '登录失败')
+      }
+
+      // 检查是否是新用户
+      if (data.is_new_user) {
+        // 新用户，跳转到设置密码界面
+        console.log('新用户登录，需要设置密码')
+        
+        // 触发设置密码流程
+        if (window.showSetPasswordForm) {
+          window.showSetPasswordForm(data.phone)
+        } else {
+          // 如果没有设置密码表单，显示提示
+          throw new Error('验证码验证成功，请设置密码')
+        }
+        
+        return data
       }
 
       // 保存登录状态
@@ -172,6 +204,17 @@ class AuthManager {
 
       if (!response.ok) {
         throw new Error(data.error || '验证失败')
+      }
+
+      // 检查是否是新用户
+      if (data.is_new_user) {
+        // 新用户，跳转到设置密码界面
+        console.log('新用户验证，需要设置密码')
+        
+        // 触发设置密码流程
+        if (window.showSetPasswordForm) {
+          window.showSetPasswordForm(data.phone)
+        }
       }
 
       return data
