@@ -87,15 +87,18 @@ class AuthManager {
       }
 
       // 保存登录状态
-      this.currentUser = data.user
-      this.accessToken = data.access_token
-      this.isLoggedIn = true
+      if (data.user && data.access_token) {
+        this.currentUser = data.user
+        this.accessToken = data.access_token
+        this.isLoggedIn = true
 
-      // 保存到localStorage
-      localStorage.setItem('postdiy_access_token', this.accessToken)
-      localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
+        // 保存到localStorage
+        localStorage.setItem('postdiy_access_token', this.accessToken)
+        localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
 
-      this.updateUI()
+        this.updateUI()
+      }
+
       return data
     } catch (error) {
       console.error('登录错误:', error)
@@ -141,15 +144,18 @@ class AuthManager {
       }
 
       // 保存登录状态
-      this.currentUser = data.user
-      this.accessToken = data.access_token
-      this.isLoggedIn = true
+      if (data.user && data.access_token) {
+        this.currentUser = data.user
+        this.accessToken = data.access_token
+        this.isLoggedIn = true
 
-      // 保存到localStorage
-      localStorage.setItem('postdiy_access_token', this.accessToken)
-      localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
+        // 保存到localStorage
+        localStorage.setItem('postdiy_access_token', this.accessToken)
+        localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
 
-      this.updateUI()
+        this.updateUI()
+      }
+
       return data
     } catch (error) {
       console.error('验证码登录错误:', error)

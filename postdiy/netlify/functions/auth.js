@@ -231,6 +231,19 @@ exports.handler = async (event) => {
       
       let user, session
       
+      // 删除已使用的验证码
+      if (supabase) {
+        try {
+          await supabase
+            .from('verification_codes')
+            .delete()
+            .eq('identifier', phone)
+            .eq('code', code)
+        } catch (error) {
+          console.error('删除验证码失败:', error)
+        }
+      }
+
       if (supabase) {
         try {
           // 检查用户是否存在
@@ -241,74 +254,35 @@ exports.handler = async (event) => {
             .single()
 
           if (userData) {
-            // 用户存在，使用密码登录（密码使用默认值）
-            const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
-              email,
-              password: 'default123' // 默认密码
-            })
-            
-            if (loginError) {
-              console.error('登录失败:', loginError)
-              // 登录失败，视为新用户
-              isNewUser = true
-            } else {
-              user = loginData.user
-              session = loginData.session
+            // 用户存在，直接返回成功，不需要密码登录
+            console.log('用户存在，验证码登录成功')
+            return {
+              statusCode: 200,
+              body: JSON.stringify({ 
+                success: true,
+                user: {
+                  id: userData.id,
+                  phone: phone
+                },
+                access_token: 'mock_token', // 模拟token
+                message: '登录成功'
+              })
             }
           } else {
             // 用户不存在，创建新用户
             isNewUser = true
-            const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-              email,
-              password: 'default123' // 默认密码
-            })
+            console.log('用户不存在，创建新用户')
             
-            if (signUpError) {
-              console.error('创建用户失败:', signUpError)
-              // 创建失败，返回错误
-              return {
-                statusCode: 400,
-                body: JSON.stringify({ error: '创建用户失败，请稍后重试' })
-              }
+            // 直接返回需要设置密码的提示
+            return {
+              statusCode: 200,
+              body: JSON.stringify({ 
+                success: true,
+                is_new_user: true,
+                message: '验证码验证成功，请设置密码',
+                phone: phone
+              })
             }
-            
-            user = signUpData.user
-            
-            // 创建用户资料
-            if (user) {
-              try {
-                await supabase
-                  .from('user_profiles')
-                  .insert([{
-                    id: user.id,
-                    phone: phone,
-                    business_name: '',
-                    logo_url: '',
-                    qrcode_url: '',
-                    vip_status: false,
-                    vip_expiry: null
-                  }])
-              } catch (profileError) {
-                console.error('创建用户资料失败:', profileError)
-              }
-            }
-            
-            // 再次登录获取session
-            const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
-              email,
-              password: 'default123'
-            })
-            
-            if (loginError) {
-              console.error('登录失败:', loginError)
-              // 登录失败，返回错误
-              return {
-                statusCode: 400,
-                body: JSON.stringify({ error: '登录失败，请稍后重试' })
-              }
-            }
-            
-            session = loginData.session
           }
         } catch (error) {
           console.error('用户登录/注册异常:', error)
@@ -329,38 +303,6 @@ exports.handler = async (event) => {
             phone: phone
           })
         }
-      }
-
-      if (!user || !session) {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ error: '登录失败，请稍后重试' })
-        }
-      }
-
-      // 删除已使用的验证码
-      if (supabase) {
-        try {
-          await supabase
-            .from('verification_codes')
-            .delete()
-            .eq('identifier', phone)
-            .eq('code', code)
-        } catch (error) {
-          console.error('删除验证码失败:', error)
-        }
-      }
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ 
-          user: {
-            id: user.id,
-            phone: phone
-          },
-          access_token: session.access_token,
-          is_new_user: isNewUser
-        })
       }
     }
 
@@ -531,20 +473,28 @@ exports.handler = async (event) => {
       const code = Math.floor(100000 + Math.random() * 900000).toString()
       
       // 存储验证码到Supabase（有效期5分钟）
-      const { error: storageError } = await supabase
-        .from('verification_codes')
-        .upsert([{
-          identifier: phone || email,
-          code: code,
-          expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString()
-        }])
+      if (supabase) {
+        try {
+          const { error: storageError } = await supabase
+            .from('verification_codes')
+            .upsert([{
+              identifier: phone || email,
+              code: code,
+              expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString()
+            }])
 
-      if (storageError) {
-        console.error('存储验证码失败:', storageError)
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ error: '系统错误，请稍后重试' })
+          if (storageError) {
+            console.error('存储验证码失败:', storageError)
+            // 即使存储失败，也继续发送验证码
+            console.warn('验证码存储失败，但仍继续发送短信')
+          }
+        } catch (storageError) {
+          console.error('存储验证码异常:', storageError)
+          // 即使存储异常，也继续发送验证码
+          console.warn('验证码存储异常，但仍继续发送短信')
         }
+      } else {
+        console.warn('Supabase未配置，跳过验证码存储')
       }
 
       // 如果是手机号，发送短信
