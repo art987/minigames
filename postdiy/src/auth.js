@@ -22,7 +22,7 @@ class AuthManager {
   }
 
   // 用户注册
-  async register(email, password) {
+  async register(phone, password) {
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -31,7 +31,7 @@ class AuthManager {
         },
         body: JSON.stringify({
           action: 'register',
-          email,
+          phone,
           password
         })
       })
@@ -49,8 +49,8 @@ class AuthManager {
     }
   }
 
-  // 用户登录
-  async login(email, password) {
+  // 用户登录（密码登录）
+  async login(phone, password) {
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -59,7 +59,7 @@ class AuthManager {
         },
         body: JSON.stringify({
           action: 'login',
-          email,
+          phone,
           password
         })
       })
@@ -83,6 +83,100 @@ class AuthManager {
       return data
     } catch (error) {
       console.error('登录错误:', error)
+      throw error
+    }
+  }
+
+  // 验证码登录
+  async loginWithCode(phone, code) {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'login_with_code',
+          phone,
+          code
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '登录失败')
+      }
+
+      // 保存登录状态
+      this.currentUser = data.user
+      this.accessToken = data.access_token
+      this.isLoggedIn = true
+
+      // 保存到localStorage
+      localStorage.setItem('postdiy_access_token', this.accessToken)
+      localStorage.setItem('postdiy_user', JSON.stringify(this.currentUser))
+
+      this.updateUI()
+      return data
+    } catch (error) {
+      console.error('验证码登录错误:', error)
+      throw error
+    }
+  }
+
+  // 发送验证码
+  async sendCode(phone, type = 'register') {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'send_code',
+          phone,
+          type
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '发送验证码失败')
+      }
+
+      return data
+    } catch (error) {
+      console.error('发送验证码错误:', error)
+      throw error
+    }
+  }
+
+  // 验证手机号
+  async verifyPhone(phone, code) {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'verify_phone',
+          phone,
+          code
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '验证失败')
+      }
+
+      return data
+    } catch (error) {
+      console.error('验证手机号错误:', error)
       throw error
     }
   }
@@ -122,7 +216,7 @@ class AuthManager {
       if (loginBtn) loginBtn.style.display = 'none'
       if (userInfo) {
         userInfo.style.display = 'block'
-        userInfo.textContent = `欢迎，${this.currentUser.email}`
+        userInfo.textContent = `欢迎，${this.currentUser.phone}`
       }
       if (logoutBtn) logoutBtn.style.display = 'block'
     } else {

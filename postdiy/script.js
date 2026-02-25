@@ -464,11 +464,248 @@ window.addEventListener('resize', utils.debounce(function() {
   // 可以在这里添加额外的响应式调整逻辑
 }, 300));
 
+// 初始化认证相关功能
+function initAuth() {
+  // 登录方式切换
+  const loginMethodTabs = document.querySelectorAll('.login-method-tab');
+  loginMethodTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const method = this.dataset.method;
+      
+      // 更新标签状态
+      loginMethodTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      
+      // 显示对应内容
+      document.getElementById('passwordLoginContent').classList.add('hidden');
+      document.getElementById('codeLoginContent').classList.add('hidden');
+      document.getElementById(`${method}LoginContent`).classList.remove('hidden');
+    });
+  });
+
+  // 发送注册验证码
+  const sendRegisterCodeBtn = document.getElementById('sendRegisterCodeBtn');
+  if (sendRegisterCodeBtn) {
+    sendRegisterCodeBtn.addEventListener('click', async function() {
+      const phone = document.getElementById('registerPhone').value.trim();
+      if (!phone) {
+        showToast('请输入手机号', 'error');
+        return;
+      }
+
+      // 验证手机号格式
+      if (!/^1[3-9]\d{9}$/.test(phone)) {
+        showToast('请输入正确的手机号', 'error');
+        return;
+      }
+
+      // 禁用按钮
+      sendRegisterCodeBtn.disabled = true;
+      sendRegisterCodeBtn.textContent = '发送中...';
+
+      try {
+        const result = await window.authManager.sendCode(phone, 'register');
+        showToast('验证码发送成功', 'success');
+        
+        // 倒计时
+        let countdown = 60;
+        sendRegisterCodeBtn.textContent = `${countdown}秒后重发`;
+        
+        const timer = setInterval(() => {
+          countdown--;
+          sendRegisterCodeBtn.textContent = `${countdown}秒后重发`;
+          if (countdown <= 0) {
+            clearInterval(timer);
+            sendRegisterCodeBtn.disabled = false;
+            sendRegisterCodeBtn.textContent = '发送验证码';
+          }
+        }, 1000);
+      } catch (error) {
+        showToast(error.message || '发送验证码失败', 'error');
+        sendRegisterCodeBtn.disabled = false;
+        sendRegisterCodeBtn.textContent = '发送验证码';
+      }
+    });
+  }
+
+  // 发送登录验证码
+  const sendLoginCodeBtn = document.getElementById('sendLoginCodeBtn');
+  if (sendLoginCodeBtn) {
+    sendLoginCodeBtn.addEventListener('click', async function() {
+      const phone = document.getElementById('loginPhone').value.trim();
+      if (!phone) {
+        showToast('请输入手机号', 'error');
+        return;
+      }
+
+      // 验证手机号格式
+      if (!/^1[3-9]\d{9}$/.test(phone)) {
+        showToast('请输入正确的手机号', 'error');
+        return;
+      }
+
+      // 禁用按钮
+      sendLoginCodeBtn.disabled = true;
+      sendLoginCodeBtn.textContent = '发送中...';
+
+      try {
+        const result = await window.authManager.sendCode(phone, 'login');
+        showToast('验证码发送成功', 'success');
+        
+        // 倒计时
+        let countdown = 60;
+        sendLoginCodeBtn.textContent = `${countdown}秒后重发`;
+        
+        const timer = setInterval(() => {
+          countdown--;
+          sendLoginCodeBtn.textContent = `${countdown}秒后重发`;
+          if (countdown <= 0) {
+            clearInterval(timer);
+            sendLoginCodeBtn.disabled = false;
+            sendLoginCodeBtn.textContent = '发送验证码';
+          }
+        }, 1000);
+      } catch (error) {
+        showToast(error.message || '发送验证码失败', 'error');
+        sendLoginCodeBtn.disabled = false;
+        sendLoginCodeBtn.textContent = '发送验证码';
+      }
+    });
+  }
+
+  // 验证手机号
+  const verifyPhoneBtn = document.getElementById('verifyPhoneBtn');
+  if (verifyPhoneBtn) {
+    verifyPhoneBtn.addEventListener('click', async function() {
+      const phone = document.getElementById('registerPhone').value.trim();
+      const code = document.getElementById('registerCode').value.trim();
+      
+      if (!phone || !code) {
+        showToast('请输入手机号和验证码', 'error');
+        return;
+      }
+
+      // 禁用按钮
+      verifyPhoneBtn.disabled = true;
+      verifyPhoneBtn.textContent = '验证中...';
+
+      try {
+        const result = await window.authManager.verifyPhone(phone, code);
+        showToast('手机号验证成功', 'success');
+        
+        // 切换到步骤2
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+      } catch (error) {
+        showToast(error.message || '验证失败', 'error');
+      } finally {
+        verifyPhoneBtn.disabled = false;
+        verifyPhoneBtn.textContent = '验证手机号';
+      }
+    });
+  }
+
+  // 返回步骤1
+  const backToStep1Btn = document.getElementById('backToStep1Btn');
+  if (backToStep1Btn) {
+    backToStep1Btn.addEventListener('click', function() {
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step1').classList.remove('hidden');
+    });
+  }
+
+  // 注册表单提交
+  const registerForm = document.getElementById('registerForm');
+  if (registerForm) {
+    registerForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const phone = document.getElementById('registerPhone').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (!phone || !password || !confirmPassword) {
+        showToast('请填写完整信息', 'error');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showToast('两次输入的密码不一致', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        showToast('密码至少6位', 'error');
+        return;
+      }
+
+      try {
+        const result = await window.authManager.register(phone, password);
+        showToast('注册成功', 'success');
+        
+        // 关闭弹窗
+        setTimeout(() => {
+          document.getElementById('authModal').style.display = 'none';
+        }, 1000);
+      } catch (error) {
+        showToast(error.message || '注册失败', 'error');
+      }
+    });
+  }
+
+  // 登录表单提交
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const phone = document.getElementById('loginPhone').value.trim();
+      const isPasswordLogin = document.querySelector('.login-method-tab.active').dataset.method === 'password';
+      
+      if (!phone) {
+        showToast('请输入手机号', 'error');
+        return;
+      }
+
+      try {
+        let result;
+        if (isPasswordLogin) {
+          const password = document.getElementById('loginPassword').value;
+          if (!password) {
+            showToast('请输入密码', 'error');
+            return;
+          }
+          result = await window.authManager.login(phone, password);
+        } else {
+          const code = document.getElementById('loginCode').value.trim();
+          if (!code) {
+            showToast('请输入验证码', 'error');
+            return;
+          }
+          result = await window.authManager.loginWithCode(phone, code);
+        }
+        
+        showToast('登录成功', 'success');
+        
+        // 关闭弹窗
+        setTimeout(() => {
+          document.getElementById('authModal').style.display = 'none';
+        }, 1000);
+      } catch (error) {
+        showToast(error.message || '登录失败', 'error');
+      }
+    });
+  }
+}
+
 // 监听页面加载完成事件
 document.addEventListener('DOMContentLoaded', function() {
   try {
     // 初始化应用
     initApp();
+    
+    // 初始化认证功能
+    initAuth();
     
     // 添加键盘快捷键支持
     document.addEventListener('keydown', function(e) {

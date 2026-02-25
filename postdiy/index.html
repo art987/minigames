@@ -202,14 +202,37 @@
 
         <!-- 登录表单 -->
         <form id="loginForm" class="auth-form active">
-          <div class="form-group">
-            <label for="loginEmail" class="form-label">邮箱</label>
-            <input type="email" id="loginEmail" class="form-input" placeholder="请输入邮箱" required>
+          <!-- 登录方式切换 -->
+          <div class="login-method-tabs">
+            <button type="button" class="login-method-tab active" data-method="password">密码登录</button>
+            <button type="button" class="login-method-tab" data-method="code">验证码登录</button>
           </div>
+          
+          <!-- 手机号输入（通用） -->
           <div class="form-group">
-            <label for="loginPassword" class="form-label">密码</label>
-            <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码" required>
+            <label for="loginPhone" class="form-label">手机号</label>
+            <input type="tel" id="loginPhone" class="form-input" placeholder="请输入手机号" required>
           </div>
+          
+          <!-- 密码登录选项 -->
+          <div class="login-method-content" id="passwordLoginContent">
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">密码</label>
+              <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码" required>
+            </div>
+          </div>
+          
+          <!-- 验证码登录选项 -->
+          <div class="login-method-content hidden" id="codeLoginContent">
+            <div class="form-group">
+              <label for="loginCode" class="form-label">验证码</label>
+              <div class="code-input-group">
+                <input type="text" id="loginCode" class="form-input code-input" placeholder="请输入验证码" required>
+                <button type="button" id="sendLoginCodeBtn" class="send-code-btn">发送验证码</button>
+              </div>
+            </div>
+          </div>
+          
           <div id="loginMessage" class="auth-message"></div>
           <div class="auth-actions">
             <button type="submit" class="action-btn primary">登录</button>
@@ -219,22 +242,43 @@
 
         <!-- 注册表单 -->
         <form id="registerForm" class="auth-form">
-          <div class="form-group">
-            <label for="registerEmail" class="form-label">邮箱</label>
-            <input type="email" id="registerEmail" class="form-input" placeholder="请输入邮箱" required>
+          <!-- 步骤1：输入手机号 -->
+          <div class="register-step" id="step1">
+            <h3 class="step-title">步骤1：验证手机号</h3>
+            <div class="form-group">
+              <label for="registerPhone" class="form-label">手机号</label>
+              <input type="tel" id="registerPhone" class="form-input" placeholder="请输入手机号" required>
+            </div>
+            <div class="form-group">
+              <label for="registerCode" class="form-label">验证码</label>
+              <div class="code-input-group">
+                <input type="text" id="registerCode" class="form-input code-input" placeholder="请输入验证码" required>
+                <button type="button" id="sendRegisterCodeBtn" class="send-code-btn">发送验证码</button>
+              </div>
+            </div>
+            <div id="registerMessage" class="auth-message"></div>
+            <div class="auth-actions">
+              <button type="button" id="verifyPhoneBtn" class="action-btn primary">验证手机号</button>
+              <button type="button" id="cancelRegisterBtn" class="action-btn secondary">取消</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="registerPassword" class="form-label">密码</label>
-            <input type="password" id="registerPassword" class="form-input" placeholder="请输入密码（至少6位）" minlength="6" required>
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword" class="form-label">确认密码</label>
-            <input type="password" id="confirmPassword" class="form-input" placeholder="请再次输入密码" required>
-          </div>
-          <div id="registerMessage" class="auth-message"></div>
-          <div class="auth-actions">
-            <button type="submit" class="action-btn primary">注册</button>
-            <button type="button" id="cancelRegisterBtn" class="action-btn secondary">取消</button>
+          
+          <!-- 步骤2：设置密码 -->
+          <div class="register-step hidden" id="step2">
+            <h3 class="step-title">步骤2：设置密码</h3>
+            <div class="form-group">
+              <label for="registerPassword" class="form-label">密码</label>
+              <input type="password" id="registerPassword" class="form-input" placeholder="请输入密码（至少6位）" minlength="6" required>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword" class="form-label">确认密码</label>
+              <input type="password" id="confirmPassword" class="form-input" placeholder="请再次输入密码" required>
+            </div>
+            <div id="passwordMessage" class="auth-message"></div>
+            <div class="auth-actions">
+              <button type="submit" class="action-btn primary">完成注册</button>
+              <button type="button" id="backToStep1Btn" class="action-btn secondary">返回</button>
+            </div>
           </div>
         </form>
       </div>
@@ -299,7 +343,7 @@
       document.getElementById('loginForm')?.addEventListener('submit', async function(e) {
         e.preventDefault()
         
-        const email = document.getElementById('loginEmail').value
+        const phone = document.getElementById('loginPhone').value
         const password = document.getElementById('loginPassword').value
         const messageEl = document.getElementById('loginMessage')
         
@@ -307,7 +351,7 @@
           messageEl.textContent = '登录中...'
           messageEl.className = 'auth-message info'
           
-          await window.authManager.login(email, password)
+          await window.authManager.login(phone, password)
           messageEl.textContent = '登录成功！'
           messageEl.className = 'auth-message success'
           
@@ -325,7 +369,7 @@
       document.getElementById('registerForm')?.addEventListener('submit', async function(e) {
         e.preventDefault()
         
-        const email = document.getElementById('registerEmail').value
+        const phone = document.getElementById('registerPhone').value
         const password = document.getElementById('registerPassword').value
         const confirmPassword = document.getElementById('confirmPassword').value
         const messageEl = document.getElementById('registerMessage')
@@ -340,7 +384,7 @@
           messageEl.textContent = '注册中...'
           messageEl.className = 'auth-message info'
           
-          await window.authManager.register(email, password)
+          await window.authManager.register(phone, password)
           
           // 直接注册成功
           messageEl.textContent = '注册成功！请登录'
@@ -348,7 +392,7 @@
           
           // 切换到登录标签
           document.querySelector('[data-tab="login"]').click()
-          document.getElementById('loginEmail').value = email
+          document.getElementById('loginPhone').value = phone
           
           setTimeout(() => {
             messageEl.textContent = ''
