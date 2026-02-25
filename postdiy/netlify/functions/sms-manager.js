@@ -27,7 +27,14 @@ function initSupabase() {
 
 class SMSManager {
   constructor() {
-    this.supabase = initSupabase()
+    try {
+      this.supabase = initSupabase()
+      this.supabaseEnabled = true
+    } catch (error) {
+      console.warn('Supabase未配置，使用本地模式')
+      this.supabase = null
+      this.supabaseEnabled = false
+    }
     this.providers = [
       {
         name: 'spug',
@@ -42,49 +49,66 @@ class SMSManager {
 
   // 获取当月使用量
   async getMonthlyUsage(provider) {
-    const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM
-    
-    const { data, error } = await this.supabase
-      .from('sms_usage')
-      .select('used_count')
-      .eq('provider', provider)
-      .eq('month', currentMonth)
-      .single()
-    
-    if (error && error.code !== 'PGRST116') {
-      console.error(`获取${provider}使用量失败:`, error)
+    if (!this.supabaseEnabled) {
       return 0
     }
     
-    return data ? data.used_count : 0
+    try {
+      const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM
+      
+      const { data, error } = await this.supabase
+        .from('sms_usage')
+        .select('used_count')
+        .eq('provider', provider)
+        .eq('month', currentMonth)
+        .single()
+      
+      if (error && error.code !== 'PGRST116') {
+        console.error(`获取${provider}使用量失败:`, error)
+        return 0
+      }
+      
+      return data ? data.used_count : 0
+    } catch (error) {
+      console.error('获取使用量失败:', error)
+      return 0
+    }
   }
 
   // 更新使用量
   async updateUsage(provider, count = 1) {
-    const currentMonth = new Date().toISOString().slice(0, 7)
+    if (!this.supabaseEnabled) {
+      return
+    }
     
-    const { data: existing } = await this.supabase
-      .from('sms_usage')
-      .select('id, used_count')
-      .eq('provider', provider)
-      .eq('month', currentMonth)
-      .single()
-    
-    if (existing) {
-      // 更新现有记录
-      await this.supabase
+    try {
+      const currentMonth = new Date().toISOString().slice(0, 7)
+      
+      const { data: existing } = await this.supabase
         .from('sms_usage')
-        .update({ used_count: existing.used_count + count })
-        .eq('id', existing.id)
-    } else {
-      // 创建新记录
-      await this.supabase
-        .from('sms_usage')
-        .insert([{
-          provider,
-          month: currentMonth,
-          used_count: count
-        }])
+        .select('id, used_count')
+        .eq('provider', provider)
+        .eq('month', currentMonth)
+        .single()
+      
+      if (existing) {
+        // 更新现有记录
+        await this.supabase
+          .from('sms_usage')
+          .update({ used_count: existing.used_count + count })
+          .eq('id', existing.id)
+      } else {
+        // 创建新记录
+        await this.supabase
+          .from('sms_usage')
+          .insert([{
+            provider,
+            month: currentMonth,
+            used_count: count
+          }])
+      }
+    } catch (error) {
+      console.error('更新使用量失败:', error)
     }
   }
 

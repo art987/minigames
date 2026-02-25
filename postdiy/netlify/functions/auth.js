@@ -6,7 +6,8 @@ function initSupabase() {
   const supabaseKey = process.env.SUPABASE_KEY
   
   if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Supabase环境变量未配置')
+    console.warn('Supabase环境变量未配置，使用本地模式')
+    return null
   }
   
   return createClient(supabaseUrl, supabaseKey)
@@ -25,7 +26,7 @@ exports.handler = async (event) => {
 
   try {
     const supabase = initSupabase()
-    console.log('Supabase客户端初始化成功')
+    console.log('Supabase客户端初始化:', supabase ? '成功' : '未配置，使用本地模式')
     
     const { action, phone, password, code, type } = JSON.parse(event.body)
     console.log('解析请求数据:', { action, phone: phone ? '已提供' : '未提供' })
@@ -51,6 +52,14 @@ exports.handler = async (event) => {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing required fields' })
+      }
+    }
+    
+    // 对于需要Supabase的功能，检查Supabase是否配置
+    if (!supabase && (action === 'login_with_code' || action === 'verify_phone' || action === 'register' || action === 'login')) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: '系统未完全配置，请联系管理员' })
       }
     }
 
@@ -316,20 +325,28 @@ exports.handler = async (event) => {
       const code = Math.floor(100000 + Math.random() * 900000).toString()
       
       // 存储验证码到Supabase（有效期5分钟）
-      const { error: storageError } = await supabase
-        .from('verification_codes')
-        .upsert([{
-          identifier: phone,
-          code: code,
-          expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString()
-        }])
+      if (supabase) {
+        try {
+          const { error: storageError } = await supabase
+            .from('verification_codes')
+            .upsert([{
+              identifier: phone,
+              code: code,
+              expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString()
+            }])
 
-      if (storageError) {
-        console.error('存储验证码失败:', storageError)
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ error: '系统错误，请稍后重试' })
+          if (storageError) {
+            console.error('存储验证码失败:', storageError)
+            // 即使存储失败，也继续发送验证码
+            console.warn('验证码存储失败，但仍继续发送短信')
+          }
+        } catch (storageError) {
+          console.error('存储验证码异常:', storageError)
+          // 即使存储异常，也继续发送验证码
+          console.warn('验证码存储异常，但仍继续发送短信')
         }
+      } else {
+        console.warn('Supabase未配置，跳过验证码存储')
       }
 
       // 发送短信验证码
