@@ -27,10 +27,27 @@ exports.handler = async (event) => {
     const supabase = initSupabase()
     console.log('Supabase客户端初始化成功')
     
-    const { action, phone, password } = JSON.parse(event.body)
+    const { action, phone, password, code, type } = JSON.parse(event.body)
     console.log('解析请求数据:', { action, phone: phone ? '已提供' : '未提供' })
     
-    if (!action || !phone || !password) {
+    // 根据不同action检查不同的必填字段
+    if (!action || !phone) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing required fields' })
+      }
+    }
+    
+    // 注册和密码登录需要password
+    if ((action === 'register' || action === 'login') && !password) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing required fields' })
+      }
+    }
+    
+    // 验证码登录和验证需要code
+    if ((action === 'login_with_code' || action === 'verify_phone') && !code) {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing required fields' })
