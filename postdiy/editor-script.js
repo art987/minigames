@@ -3379,9 +3379,90 @@ window.wechatWarning = {
       // VIP用户直接下载，无需券码验证
       await downloadPosterAfterVerification();
     } else {
-      // 普通用户需要券码验证
-      showCouponModal();
+      // 普通用户显示广告弹窗，8秒倒计时后可下载
+      showAdModal();
     }
+  }
+
+  // 广告弹窗
+  function showAdModal() {
+    // 移除已存在的广告弹窗
+    let adModal = document.getElementById('adModal');
+    if (adModal) {
+      adModal.remove();
+    }
+
+    // 创建广告弹窗
+    adModal = document.createElement('div');
+    adModal.id = 'adModal';
+    adModal.className = 'ad-modal-overlay';
+
+    adModal.innerHTML = `
+      <div class="ad-modal">
+        <!-- 关闭按钮 -->
+        <button id="closeAdModalBtn" class="ad-modal-close">×</button>
+        
+        <!-- 广告位置 -->
+        <div class="ad-container">
+          <!-- 广告代码将在此处添加 -->
+          <div style="text-align: center;">
+            <i class="fa fa-ad"></i>
+            <p>广告位置</p>
+          </div>
+        </div>
+        
+        <!-- 按钮容器 -->
+        <div class="ad-buttons-container">
+          <!-- 下载按钮 -->
+          <button id="adDownloadBtn" class="ad-download-btn" disabled>
+            （<span id="adCountdown" class="ad-countdown">15</span>秒后）下载海报
+          </button>
+          
+          <!-- 定制VIP品牌账户按钮 -->
+          <button id="customBrandBtn" class="ad-vip-btn">
+            0秒等待，定制您的VIP品牌账号！
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(adModal);
+
+    // 倒计时逻辑
+    let countdown = 15;
+    const countdownElement = document.getElementById('adCountdown');
+    const downloadBtn = document.getElementById('adDownloadBtn');
+
+    const timer = setInterval(() => {
+      countdown--;
+      countdownElement.textContent = countdown;
+      
+      if (countdown <= 0) {
+        clearInterval(timer);
+        downloadBtn.disabled = false;
+        // 更新按钮文字
+        downloadBtn.innerHTML = '下载海报';
+      }
+    }, 1000);
+
+    // 关闭按钮事件
+    document.getElementById('closeAdModalBtn').addEventListener('click', () => {
+      clearInterval(timer);
+      adModal.remove();
+    });
+
+    // 下载按钮事件
+    downloadBtn.addEventListener('click', async () => {
+      clearInterval(timer);
+      adModal.remove();
+      await downloadPosterAfterVerification();
+    });
+
+    // 定制品牌账户按钮事件
+    document.getElementById('customBrandBtn').addEventListener('click', () => {
+      // 这里可以添加跳转到品牌定制页面的逻辑
+      alert('定制品牌账户功能即将上线');
+    });
   }
   
   // 转换为图片并下载 - 简化版：直接使用html2canvas对整个posterFrame进行截图
