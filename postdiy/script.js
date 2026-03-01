@@ -424,18 +424,21 @@ function updateFestivalTags() {
         });
         this.classList.add('active');
         
-        // 添加时间浮动标签
-        const badge = createFestivalDateBadge(selectedFestival);
-        // 设置标签的position为relative，以便浮动标签相对于它定位
-        this.style.position = 'relative';
-        this.appendChild(badge);
-        
-        // 6秒后自动移除浮动标签
-        setTimeout(() => {
-          if (badge.parentNode) {
-            badge.remove();
-          }
-        }, 6000);
+        // 只有非早安分类才显示时间浮动标签
+        if (selectedFestival !== '☀️ 早安') {
+          // 添加时间浮动标签
+          const badge = createFestivalDateBadge(selectedFestival);
+          // 设置标签的position为relative，以便浮动标签相对于它定位
+          this.style.position = 'relative';
+          this.appendChild(badge);
+          
+          // 6秒后自动移除浮动标签
+          setTimeout(() => {
+            if (badge.parentNode) {
+              badge.remove();
+            }
+          }, 6000);
+        }
       }
       
       // 应用筛选

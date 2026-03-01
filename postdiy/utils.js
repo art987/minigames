@@ -72,8 +72,13 @@ function getFestivalNamesByMonth(month) {
     return a.day - b.day;
   });
   
-  // 确保返回字符串数组，以兼容updateFestivalTags函数
-  return festivalsArray.map(festival => festival.name);
+  // 提取节日名称
+  const festivalNames = festivalsArray.map(festival => festival.name);
+  
+  // 添加"早安"分类到第一个位置
+  festivalNames.unshift('☀️ 早安');
+  
+  return festivalNames;
 }
 
 // 计算两个日期之间的天数差
@@ -353,6 +358,11 @@ function getTemplatesByFilters(month, festival) {
   const allTemplates = getAllTemplates();
   
   return allTemplates.filter(template => {
+    // 处理"早安"分类，不考虑月份
+    if (festival === '☀️ 早安') {
+      return template.festivals && template.festivals.includes('早安');
+    }
+    
     // 检查月份匹配
     const monthMatch = !month || (template.months && template.months.includes(month));
     

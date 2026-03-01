@@ -7503,6 +7503,90 @@ window.templates = {
       description: '520节日主题海报模板',
       type: '网络节日'
     }
+  ],
+
+  // 早安模板
+  '早安': [
+    {
+      id: 'zaoan-2024-001',
+      name: '早安问候',
+      thumbnail: 'images/zaoan/thumbnails/1.jpg',
+      image: 'images/zaoan/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安问候主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-002',
+      name: '早安阳光',
+      thumbnail: 'images/zaoan/thumbnails/2.jpg',
+      image: 'images/zaoan/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安阳光主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-003',
+      name: '早安正能量',
+      thumbnail: 'images/zaoan/thumbnails/3.jpg',
+      image: 'images/zaoan/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安正能量主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-004',
+      name: '早安清新',
+      thumbnail: 'images/zaoan/thumbnails/4.jpg',
+      image: 'images/zaoan/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安清新主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-005',
+      name: '早安简约',
+      thumbnail: 'images/zaoan/thumbnails/5.jpg',
+      image: 'images/zaoan/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安简约主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-006',
+      name: '早安活力',
+      thumbnail: 'images/zaoan/thumbnails/6.jpg',
+      image: 'images/zaoan/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安活力主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-007',
+      name: '早安希望',
+      thumbnail: 'images/zaoan/thumbnails/7.jpg',
+      image: 'images/zaoan/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安希望主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'zaoan-2024-008',
+      name: '早安美好',
+      thumbnail: 'images/zaoan/thumbnails/8.jpg',
+      image: 'images/zaoan/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '早安美好主题海报模板',
+      type: '日常'
+    }
   ]
 };
 

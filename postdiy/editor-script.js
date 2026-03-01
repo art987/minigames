@@ -1832,10 +1832,17 @@ window.wechatWarning = {
               setTimeout(() => {
                 // 如果模板有节日信息，选中对应的节日标签
                 if (state.currentTemplate.festivals && state.currentTemplate.festivals.length > 0) {
-                  const templateFestival = state.currentTemplate.festivals[0];
+                  let templateFestival = state.currentTemplate.festivals[0];
                   console.log('定位到模板节日:', templateFestival);
                   
-                  const festivalTag = document.querySelector(`.festival-tag[data-festival="${templateFestival}"]`);
+                  // 处理早安模板的特殊情况
+                  let festivalTag;
+                  if (templateFestival === '早安') {
+                    festivalTag = document.querySelector('.festival-tag[data-festival="☀️ 早安"]');
+                  } else {
+                    festivalTag = document.querySelector(`.festival-tag[data-festival="${templateFestival}"]`);
+                  }
+                  
                   if (festivalTag) {
                     festivalTag.click();
                   }
@@ -2010,6 +2017,28 @@ window.wechatWarning = {
     // 清空现有内容
     elements.modalFestivalTags.innerHTML = '';
     
+    // 首先添加早安标签
+    const zaoanTag = document.createElement('div');
+    zaoanTag.className = 'festival-tag';
+    zaoanTag.textContent = '☀️ 早安';
+    zaoanTag.dataset.festival = '☀️ 早安';
+    
+    // 为早安标签添加点击事件
+    const zaoanClickHandler = function() {
+      // 移除所有标签的选中状态
+      document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
+      // 添加当前标签的选中状态
+      this.classList.add('active');
+      // 筛选显示早安模板
+      filterTemplatesByFestival('☀️ 早安');
+    };
+    
+    zaoanTag.addEventListener('click', zaoanClickHandler);
+    // 存储事件处理函数引用，便于后续移除
+    zaoanTag._clickHandler = zaoanClickHandler;
+    
+    elements.modalFestivalTags.appendChild(zaoanTag);
+    
     // 获取节日列表
     let festivals = [];
     
@@ -2027,41 +2056,32 @@ window.wechatWarning = {
       festivals = Object.keys(allFestivalsData);
     }
     
-    // 如果没有节日，显示提示
-    if (festivals.length === 0) {
-      const noFestivalsText = document.createElement('div');
-      noFestivalsText.className = 'text-text-secondary text-sm';
-      noFestivalsText.textContent = '当前月份暂无节日';
-      elements.modalFestivalTags.appendChild(noFestivalsText);
-      return;
-    }
-    
     // 获取节日数据并按日期排序
-      const allFestivals = utils.getAllFestivals();
-      const festivalsWithDate = festivals.map(festival => {
-        const festivalData = allFestivals[festival] || { month: 1, day: 1 }; // 默认值，防止数据缺失
-        return {
-          name: festival,
-          month: festivalData.month,
-          day: festivalData.day
-        };
-      });
-      
-      // 按日期排序
-      festivalsWithDate.sort((a, b) => {
-        if (a.month !== b.month) {
-          return a.month - b.month;
-        }
-        return a.day - b.day;
-      });
-      
-      // 创建节日标签
-      festivalsWithDate.forEach(festival => {
-        const festivalTag = document.createElement('div');
-        festivalTag.className = 'festival-tag';
-        festivalTag.textContent = festival.name;
-        festivalTag.dataset.festival = festival.name;
-      
+    const allFestivals = utils.getAllFestivals();
+    const festivalsWithDate = festivals.map(festival => {
+      const festivalData = allFestivals[festival] || { month: 1, day: 1 }; // 默认值，防止数据缺失
+      return {
+        name: festival,
+        month: festivalData.month,
+        day: festivalData.day
+      };
+    });
+    
+    // 按日期排序
+    festivalsWithDate.sort((a, b) => {
+      if (a.month !== b.month) {
+        return a.month - b.month;
+      }
+      return a.day - b.day;
+    });
+    
+    // 创建节日标签
+    festivalsWithDate.forEach(festival => {
+      const festivalTag = document.createElement('div');
+      festivalTag.className = 'festival-tag';
+      festivalTag.textContent = festival.name;
+      festivalTag.dataset.festival = festival.name;
+    
       // 创建事件处理函数引用，便于后续移除
       const tagClickHandler = function() {
         // 移除所有标签的选中状态
@@ -2379,8 +2399,15 @@ window.wechatWarning = {
       const monthTemplates = window.templates[monthKey];
       
       monthTemplates.forEach(template => {
-        // 只显示指定节日的模板
-        if (template.festivals.includes(festival)) {
+        // 处理"早安"分类
+        let showTemplate = false;
+        if (festival === '☀️ 早安') {
+          showTemplate = template.festivals.includes('早安');
+        } else {
+          showTemplate = template.festivals.includes(festival);
+        }
+        
+        if (showTemplate) {
           // 创建模板项
           const templateItem = document.createElement('div');
           templateItem.className = 'template-item';
