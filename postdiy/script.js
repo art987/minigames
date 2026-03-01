@@ -1,5 +1,200 @@
 // 首页脚本
 
+// 节日日期数据（2026年和2027年）
+const festivalDates = {
+  // 2026年节日
+  '2026': {
+    '元旦': '2026-01-01 星期四',
+    '小寒': '2026-01-05 星期一',
+    '大寒': '2026-01-20 星期二',
+    '腊八节': '2026-01-26 星期一',
+    '小年': '2026-02-10 星期二',
+    '立春': '2026-02-04 星期三',
+    '情人节': '2026-02-14 星期六',
+    '除夕': '2026-02-16 星期一',
+    '春节': '2026-02-17 星期二',
+    '雨水': '2026-02-18 星期三',
+    '元宵节': '2026-03-03 星期二',
+    '惊蛰': '2026-03-05 星期四',
+    '妇女节': '2026-03-08 星期日',
+    '植树节': '2026-03-12 星期四',
+    '龙抬头': '2026-03-20 星期五',
+    '春分': '2026-03-20 星期五',
+    '愚人节': '2026-04-01 星期三',
+    '清明': '2026-04-05 星期日',
+    '谷雨': '2026-04-20 星期一',
+    '世界地球日': '2026-04-22 星期三',
+    '世界读书日': '2026-04-23 星期四',
+    '立夏': '2026-05-05 星期二',
+    '小满': '2026-05-21 星期四',
+    '劳动节': '2026-05-01 星期五',
+    '青年节': '2026-05-04 星期一',
+    '520': '2026-05-20 星期三',
+    '芒种': '2026-06-05 星期五',
+    '夏至': '2026-06-21 星期日',
+    '端午节': '2026-06-19 星期五',
+    '儿童节': '2026-06-01 星期一',
+    '建党节': '2026-07-01 星期三',
+    '小暑': '2026-07-07 星期二',
+    '大暑': '2026-07-23 星期四',
+    '建军节': '2026-08-01 星期六',
+    '立秋': '2026-08-07 星期五',
+    '处暑': '2026-08-23 星期日',
+    '七夕节': '2026-08-19 星期三',
+    '中元节': '2026-08-27 星期四',
+    '白露': '2026-09-07 星期一',
+    '秋分': '2026-09-23 星期三',
+    '中秋节': '2026-09-25 星期五',
+    '教师节': '2026-09-10 星期三',
+    '国庆节': '2026-10-01 星期四',
+    '寒露': '2026-10-08 星期四',
+    '霜降': '2026-10-23 星期五',
+    '重阳节': '2026-10-18 星期日',
+    '立冬': '2026-11-07 星期六',
+    '小雪': '2026-11-22 星期日',
+    '寒衣节': '2026-11-09 星期一',
+    '下元节': '2026-11-23 星期一',
+    '双十一': '2026-11-11 星期三',
+    '大雪': '2026-12-07 星期一',
+    '冬至': '2026-12-22 星期二',
+    '圣诞节': '2026-12-25 星期五',
+    '双十二': '2026-12-12 星期六'
+  },
+  // 2027年节日
+  '2027': {
+    '元旦': '2027-01-01 星期五',
+    '小寒': '2027-01-05 星期二',
+    '大寒': '2027-01-20 星期三',
+    '腊八节': '2027-01-15 星期五',
+    '小年': '2027-01-30 星期六',
+    '立春': '2027-02-04 星期四',
+    '情人节': '2027-02-14 星期日',
+    '除夕': '2027-02-05 星期五',
+    '春节': '2027-02-06 星期六',
+    '雨水': '2027-02-19 星期五',
+    '元宵节': '2027-02-20 星期六',
+    '惊蛰': '2027-03-06 星期六',
+    '妇女节': '2027-03-08 星期一',
+    '植树节': '2027-03-12 星期五',
+    '龙抬头': '2027-03-21 星期日',
+    '春分': '2027-03-21 星期日',
+    '愚人节': '2027-04-01 星期四',
+    '清明': '2027-04-05 星期一',
+    '谷雨': '2027-04-20 星期二',
+    '世界地球日': '2027-04-22 星期四',
+    '世界读书日': '2027-04-23 星期五',
+    '立夏': '2027-05-06 星期四',
+    '小满': '2027-05-21 星期五',
+    '劳动节': '2027-05-01 星期六',
+    '青年节': '2027-05-04 星期二',
+    '520': '2027-05-20 星期四',
+    '芒种': '2027-06-06 星期日',
+    '夏至': '2027-06-21 星期一',
+    '端午节': '2027-06-09 星期三',
+    '儿童节': '2027-06-01 星期二',
+    '建党节': '2027-07-01 星期四',
+    '小暑': '2027-07-07 星期三',
+    '大暑': '2027-07-23 星期五',
+    '建军节': '2027-08-01 星期日',
+    '立秋': '2027-08-07 星期六',
+    '处暑': '2027-08-23 星期一',
+    '七夕节': '2027-08-08 星期日',
+    '中元节': '2027-08-17 星期二',
+    '白露': '2027-09-07 星期二',
+    '秋分': '2027-09-23 星期四',
+    '中秋节': '2027-10-05 星期二',
+    '教师节': '2027-09-10 星期五',
+    '国庆节': '2027-10-01 星期五',
+    '寒露': '2027-10-08 星期五',
+    '霜降': '2027-10-23 星期六',
+    '重阳节': '2027-10-08 星期五',
+    '立冬': '2027-11-07 星期日',
+    '小雪': '2027-11-22 星期一',
+    '寒衣节': '2027-11-08 星期一',
+    '下元节': '2027-11-22 星期一',
+    '双十一': '2027-11-11 星期四',
+    '大雪': '2027-12-07 星期二',
+    '冬至': '2027-12-22 星期三',
+    '圣诞节': '2027-12-25 星期六',
+    '双十二': '2027-12-12 星期日',
+  }
+};
+
+// 获取节日的未来日期
+function getFestivalFutureDate(festival) {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  
+  // 先检查今年的节日日期
+  if (festivalDates[currentYear] && festivalDates[currentYear][festival]) {
+    const festivalDate = new Date(festivalDates[currentYear][festival].split(' ')[0]);
+    if (festivalDate >= today) {
+      return festivalDates[currentYear][festival];
+    }
+  }
+  
+  // 如果今年节日已过，返回明年的日期
+  const nextYear = currentYear + 1;
+  if (festivalDates[nextYear] && festivalDates[nextYear][festival]) {
+    return festivalDates[nextYear][festival];
+  }
+  
+  return '日期未找到';
+}
+
+// 创建节日时间浮动标签
+function createFestivalDateBadge(festival) {
+  // 移除已存在的标签
+  const existingBadge = document.querySelector('.festival-date-badge');
+  if (existingBadge) {
+    existingBadge.remove();
+  }
+  
+  // 获取节日未来日期
+  const dateStr = getFestivalFutureDate(festival);
+  
+  // 创建标签元素
+  const badge = document.createElement('div');
+  badge.className = 'festival-date-badge';
+  badge.innerHTML = `
+    <div class="badge-content">${dateStr}</div>
+    <div class="badge-arrow"></div>
+  `;
+  badge.style.cssText = `
+    position: absolute;
+    top: -35px;
+    left: 10px;
+    z-index: 1000;
+  `;
+  
+  // 添加样式
+  const style = document.createElement('style');
+  style.textContent = `
+    .festival-date-badge .badge-content {
+      background: white;
+      color: black;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      white-space: nowrap;
+    }
+    .festival-date-badge .badge-arrow {
+      position: absolute;
+      bottom: -5px;
+      left: 10px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid white;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  return badge;
+}
+
 // 微信浏览器检测（支持调试参数）
 function isWeixinBrowser() {
   // 检查URL参数，支持调试模式
@@ -212,11 +407,35 @@ function updateFestivalTags() {
       if (window.currentFilters.festival === selectedFestival) {
         window.currentFilters.festival = null;
         this.classList.remove('active');
+        // 移除浮动标签
+        const existingBadge = this.querySelector('.festival-date-badge');
+        if (existingBadge) {
+          existingBadge.remove();
+        }
       } else {
         window.currentFilters.festival = selectedFestival;
-        // 移除其他标签的active状态
-        document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
+        // 移除其他标签的active状态和浮动标签
+        document.querySelectorAll('.festival-tag').forEach(tag => {
+          tag.classList.remove('active');
+          const existingBadge = tag.querySelector('.festival-date-badge');
+          if (existingBadge) {
+            existingBadge.remove();
+          }
+        });
         this.classList.add('active');
+        
+        // 添加时间浮动标签
+        const badge = createFestivalDateBadge(selectedFestival);
+        // 设置标签的position为relative，以便浮动标签相对于它定位
+        this.style.position = 'relative';
+        this.appendChild(badge);
+        
+        // 6秒后自动移除浮动标签
+        setTimeout(() => {
+          if (badge.parentNode) {
+            badge.remove();
+          }
+        }, 6000);
       }
       
       // 应用筛选
@@ -464,290 +683,11 @@ window.addEventListener('resize', utils.debounce(function() {
   // 可以在这里添加额外的响应式调整逻辑
 }, 300));
 
-// 显示设置密码表单
-function showSetPasswordForm(phone) {
-  try {
-    console.log('显示设置密码表单:', phone);
-    
-    // 填充手机号
-    if (document.getElementById('registerPhone')) {
-      document.getElementById('registerPhone').value = phone;
-    }
-    
-    // 显示注册弹窗
-    const authModal = document.getElementById('authModal');
-    if (authModal) {
-      authModal.classList.remove('hidden');
-    }
-    
-    // 切换到注册表单
-    const authTabs = document.querySelectorAll('.auth-tab');
-    authTabs.forEach(tab => {
-      if (tab.dataset.tab === 'register') {
-        tab.click();
-      }
-    });
-    
-    // 显示第二步：设置密码
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    if (step1 && step2) {
-      step1.classList.add('hidden');
-      step2.classList.remove('hidden');
-    }
-    
-    showToast('验证码验证成功，请设置密码', 'success');
-  } catch (error) {
-    console.error('显示设置密码表单失败:', error);
-    showToast('请先注册账号', 'error');
-  }
-}
-
-// 初始化认证相关功能
-function initAuth() {
-  // 暴露showSetPasswordForm函数到全局
-  window.showSetPasswordForm = showSetPasswordForm;
-  
-  // 登录方式切换
-  const loginMethodTabs = document.querySelectorAll('.login-method-tab');
-  loginMethodTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      const method = this.dataset.method;
-      
-      // 更新标签状态
-      loginMethodTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      
-      // 显示对应内容
-      document.getElementById('passwordLoginContent').classList.add('hidden');
-      document.getElementById('codeLoginContent').classList.add('hidden');
-      document.getElementById(`${method}LoginContent`).classList.remove('hidden');
-    });
-  });
-
-  // 发送注册验证码
-  const sendRegisterCodeBtn = document.getElementById('sendRegisterCodeBtn');
-  if (sendRegisterCodeBtn) {
-    sendRegisterCodeBtn.addEventListener('click', async function() {
-      const phone = document.getElementById('registerPhone').value.trim();
-      if (!phone) {
-        showToast('请输入手机号', 'error');
-        return;
-      }
-
-      // 验证手机号格式
-      if (!/^1[3-9]\d{9}$/.test(phone)) {
-        showToast('请输入正确的手机号', 'error');
-        return;
-      }
-
-      // 禁用按钮
-      sendRegisterCodeBtn.disabled = true;
-      sendRegisterCodeBtn.textContent = '发送中...';
-
-      try {
-        const result = await window.authManager.sendCode(phone, 'register');
-        showToast('验证码发送成功', 'success');
-        
-        // 倒计时
-        let countdown = 60;
-        sendRegisterCodeBtn.textContent = `${countdown}秒后重发`;
-        
-        const timer = setInterval(() => {
-          countdown--;
-          sendRegisterCodeBtn.textContent = `${countdown}秒后重发`;
-          if (countdown <= 0) {
-            clearInterval(timer);
-            sendRegisterCodeBtn.disabled = false;
-            sendRegisterCodeBtn.textContent = '发送验证码';
-          }
-        }, 1000);
-      } catch (error) {
-        showToast(error.message || '发送验证码失败', 'error');
-        sendRegisterCodeBtn.disabled = false;
-        sendRegisterCodeBtn.textContent = '发送验证码';
-      }
-    });
-  }
-
-  // 发送登录验证码
-  const sendLoginCodeBtn = document.getElementById('sendLoginCodeBtn');
-  if (sendLoginCodeBtn) {
-    sendLoginCodeBtn.addEventListener('click', async function() {
-      const phone = document.getElementById('loginPhone').value.trim();
-      if (!phone) {
-        showToast('请输入手机号', 'error');
-        return;
-      }
-
-      // 验证手机号格式
-      if (!/^1[3-9]\d{9}$/.test(phone)) {
-        showToast('请输入正确的手机号', 'error');
-        return;
-      }
-
-      // 禁用按钮
-      sendLoginCodeBtn.disabled = true;
-      sendLoginCodeBtn.textContent = '发送中...';
-
-      try {
-        const result = await window.authManager.sendCode(phone, 'login');
-        showToast('验证码发送成功', 'success');
-        
-        // 倒计时
-        let countdown = 60;
-        sendLoginCodeBtn.textContent = `${countdown}秒后重发`;
-        
-        const timer = setInterval(() => {
-          countdown--;
-          sendLoginCodeBtn.textContent = `${countdown}秒后重发`;
-          if (countdown <= 0) {
-            clearInterval(timer);
-            sendLoginCodeBtn.disabled = false;
-            sendLoginCodeBtn.textContent = '发送验证码';
-          }
-        }, 1000);
-      } catch (error) {
-        showToast(error.message || '发送验证码失败', 'error');
-        sendLoginCodeBtn.disabled = false;
-        sendLoginCodeBtn.textContent = '发送验证码';
-      }
-    });
-  }
-
-  // 验证手机号
-  const verifyPhoneBtn = document.getElementById('verifyPhoneBtn');
-  if (verifyPhoneBtn) {
-    verifyPhoneBtn.addEventListener('click', async function() {
-      const phone = document.getElementById('registerPhone').value.trim();
-      const code = document.getElementById('registerCode').value.trim();
-      
-      if (!phone || !code) {
-        showToast('请输入手机号和验证码', 'error');
-        return;
-      }
-
-      // 禁用按钮
-      verifyPhoneBtn.disabled = true;
-      verifyPhoneBtn.textContent = '验证中...';
-
-      try {
-        const result = await window.authManager.verifyPhone(phone, code);
-        showToast('手机号验证成功', 'success');
-        
-        // 切换到步骤2
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
-      } catch (error) {
-        showToast(error.message || '验证失败', 'error');
-      } finally {
-        verifyPhoneBtn.disabled = false;
-        verifyPhoneBtn.textContent = '验证手机号';
-      }
-    });
-  }
-
-  // 返回步骤1
-  const backToStep1Btn = document.getElementById('backToStep1Btn');
-  if (backToStep1Btn) {
-    backToStep1Btn.addEventListener('click', function() {
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step1').classList.remove('hidden');
-    });
-  }
-
-  // 注册表单提交
-  const registerForm = document.getElementById('registerForm');
-  if (registerForm) {
-    registerForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const phone = document.getElementById('registerPhone').value.trim();
-      const password = document.getElementById('registerPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      
-      if (!phone || !password || !confirmPassword) {
-        showToast('请填写完整信息', 'error');
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        showToast('两次输入的密码不一致', 'error');
-        return;
-      }
-
-      if (password.length < 6) {
-        showToast('密码至少6位', 'error');
-        return;
-      }
-
-      try {
-        const result = await window.authManager.register(phone, password);
-        showToast('注册成功', 'success');
-        
-        // 关闭弹窗
-        setTimeout(() => {
-          document.getElementById('authModal').style.display = 'none';
-        }, 1000);
-      } catch (error) {
-        showToast(error.message || '注册失败', 'error');
-      }
-    });
-  }
-
-  // 登录表单提交
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const phone = document.getElementById('loginPhone').value.trim();
-      const isPasswordLogin = document.querySelector('.login-method-tab.active').dataset.method === 'password';
-      
-      if (!phone) {
-        showToast('请输入手机号', 'error');
-        return;
-      }
-
-      try {
-        let result;
-        if (isPasswordLogin) {
-          const password = document.getElementById('loginPassword').value;
-          if (!password) {
-            showToast('请输入密码', 'error');
-            return;
-          }
-          result = await window.authManager.login(phone, password);
-        } else {
-          const code = document.getElementById('loginCode').value.trim();
-          if (!code) {
-            showToast('请输入验证码', 'error');
-            return;
-          }
-          result = await window.authManager.loginWithCode(phone, code);
-        }
-        
-        showToast('登录成功', 'success');
-        
-        // 关闭弹窗
-        setTimeout(() => {
-          document.getElementById('authModal').style.display = 'none';
-        }, 1000);
-      } catch (error) {
-        showToast(error.message || '登录失败', 'error');
-      }
-    });
-  }
-}
-
 // 监听页面加载完成事件
 document.addEventListener('DOMContentLoaded', function() {
   try {
     // 初始化应用
     initApp();
-    
-    // 初始化认证功能
-    initAuth();
     
     // 添加键盘快捷键支持
     document.addEventListener('keydown', function(e) {
