@@ -3647,13 +3647,13 @@ window.wechatWarning = {
       if (elements.posterBusinessName) {
         // 移除向上位移，保持水平居中对齐
         elements.posterBusinessName.style.transform = `none`;
-        elements.posterBusinessName.style.fontSize = `12px`;
+        elements.posterBusinessName.style.fontSize = `14px`;
       }
       if (elements.posterPromoText) {
         // 减少padding-bottom，避免下方出现空白
-        elements.posterPromoText.style.padding = `5px 2px 5px 8px`;
+        elements.posterPromoText.style.padding = `4px 2px 7px 8px`;
          elements.posterPromoText.style.lineHeight = `15px`;
-         elements.posterPromoText.style.fontSize = `11px`;
+         elements.posterPromoText.style.fontSize = `13px`;
       }
       
       // 保存logo和二维码的原始样式
