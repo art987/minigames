@@ -3645,12 +3645,13 @@ window.wechatWarning = {
     try {
       // 临时调整商家名称位置和促销信息的padding
       if (elements.posterBusinessName) {
-        elements.posterBusinessName.style.transform = `translateY(-5px)`;
+        // 移除向上位移，保持水平居中对齐
+        elements.posterBusinessName.style.transform = `none`;
         elements.posterBusinessName.style.fontSize = `12px`;
       }
       if (elements.posterPromoText) {
-        // 减少padding-top 8px，增加padding-bottom 6px
-        elements.posterPromoText.style.padding = `0 2px 13px 8px`;
+        // 减少padding-bottom，避免下方出现空白
+        elements.posterPromoText.style.padding = `5px 2px 5px 8px`;
          elements.posterPromoText.style.lineHeight = `15px`;
          elements.posterPromoText.style.fontSize = `11px`;
       }

@@ -1,0 +1,16 @@
+{
+  "name": "postdiy",
+  "version": "1.0.0",
+  "description": "一款简洁直观的在线海报设计工具，帮助用户快速创建、编辑和定制节日主题海报。",
+  "main": "config_data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cloudbase/cloudbase-mcp": "^2.11.1"
+  }
+}
