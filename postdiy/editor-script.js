@@ -3673,6 +3673,17 @@ window.wechatWarning = {
       async function createProperlyScaledCanvas(imgElement) {
         if (!imgElement || !imgElement.src) return null;
         
+        // 绘制圆角路径的辅助函数
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+          ctx.beginPath();
+          ctx.moveTo(x + radius, y);
+          ctx.arcTo(x + width, y, x + width, y + height, radius);
+          ctx.arcTo(x + width, y + height, x, y + height, radius);
+          ctx.arcTo(x, y + height, x, y, radius);
+          ctx.arcTo(x, y, x + width, y, radius);
+          ctx.closePath();
+        }
+        
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.crossOrigin = 'anonymous';
@@ -3698,35 +3709,33 @@ window.wechatWarning = {
               
               // 检查是否为二维码图片
               const isQrcode = imgElement.id === 'posterQrcodeImg';
+              const borderRadius = isQrcode ? 10 : 0;
               
               let drawWidth, drawHeight, offsetX, offsetY;
               
               if (isQrcode) {
-                // 对于二维码，使用object-fit:contain模式，保持完整显示，并添加额外的边距
+                // 对于二维码，使用object-fit:cover模式，居中裁切，确保填充正方形区域
                 const imgRatio = img.width / img.height;
+                const containerRatio = containerWidth / containerHeight;
                 
-                // 添加内边距（增加到5px以确保二维码与容器之间有足够空间）
-                const padding = 5;
-                const availableWidth = containerWidth - (padding * 2);
-                const availableHeight = containerHeight - (padding * 2);
-                
-                if (imgRatio > 1) {
-                  // 图片更宽，按可用宽度缩放
-                  drawWidth = availableWidth;
-                  drawHeight = img.height * (availableWidth / img.width);
-                  offsetX = padding;
-                  offsetY = padding + (availableHeight - drawHeight) / 2;
+                if (imgRatio > containerRatio) {
+                  // 图片更宽，按高度缩放，裁剪宽度（左右裁剪）
+                  drawHeight = containerHeight;
+                  drawWidth = img.width * (containerHeight / img.height);
+                  offsetX = (containerWidth - drawWidth) / 2;
+                  offsetY = 0;
                 } else {
-                  // 图片更高或等比例，按可用高度缩放
-                  drawHeight = availableHeight;
-                  drawWidth = img.width * (availableHeight / img.height);
-                  offsetX = padding + (availableWidth - drawWidth) / 2;
-                  offsetY = padding;
+                  // 图片更高，按宽度缩放，裁剪高度（上下裁剪）
+                  drawWidth = containerWidth;
+                  drawHeight = img.height * (containerWidth / img.width);
+                  offsetX = 0;
+                  offsetY = (containerHeight - drawHeight) / 2;
                 }
                 
-                // 绘制白色背景（模拟CSS中的background-color: white）
+                // 绘制圆角白色背景
                 ctx.fillStyle = 'white';
-                ctx.fillRect(0, 0, containerWidth, containerHeight);
+                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
+                ctx.fill();
               } else {
                 // 对于其他图片（如Logo），使用object-fit:cover模式
                 const imgRatio = img.width / img.height;
@@ -3748,7 +3757,32 @@ window.wechatWarning = {
               }
               
               // 绘制图片
-              ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              if (isQrcode) {
+                // 对于二维码，使用圆角裁切来绘制图片
+                ctx.save();
+                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
+                ctx.clip();
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                ctx.restore();
+                
+                // 为二维码添加6像素白色描边（带圆角）
+                ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+                ctx.lineWidth = 6;
+                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
+                ctx.stroke();
+              } else {
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              }
+              
+              // 对于Logo图片，添加3像素白色描边
+              if (!isQrcode && imgElement.id === 'posterLogoImg') {
+                // 绘制描边，覆盖在图片上
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(containerWidth / 2, containerHeight / 2, containerWidth / 2 - 0.5, 0, 2 * Math.PI);
+                ctx.stroke();
+              }
               
               // 隐藏原始图片，显示canvas
               imgElement.style.display = 'none';
