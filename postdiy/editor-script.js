@@ -3326,8 +3326,13 @@ window.wechatWarning = {
   
   // 券码验证通过后的下载
   async function downloadPosterAfterVerification() {
-    if (!state.currentTemplate) {
-      showToast('请先选择一个模板');
+    // 检查是否有背景图片或模板，允许自定义背景的情况
+    const hasBackground = elements.posterBackground && elements.posterBackground.src && 
+                         elements.posterBackground.src !== '' && 
+                         elements.posterBackground.src !== 'undefined';
+    
+    if (!state.currentTemplate && !hasBackground) {
+      showToast('请先选择一个模板或上传背景图片');
       return;
     }
     
@@ -4313,7 +4318,7 @@ function updateBusinessInfoButtonForVip() {
     // 更新图标为钻石图标
     const icon = editBusinessInfoBtn.querySelector('i');
     if (icon) {
-      icon.className = 'fa fa-diamond';
+      icon.className = 'fa fa-gem';
     }
     
     // 更新文字
