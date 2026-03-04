@@ -32,19 +32,31 @@
         朋友圈海报制作
       </a>
       
-      <!-- VIP登录入口 -->
-      <div class="vip-login-section">
-        <button id="vipLoginBtn" class="vip-login-btn">
-          <i class="fa fa-gem"></i>
-          <span>VIP登录</span>
+      <!-- VIP浮动菜单系统 -->
+      <div id="vipMenuContainer" class="vip-menu-container">
+        <!-- 未登录状态：显示登录按钮 -->
+        <button id="vipLoginBtn" class="vip-menu-btn vip-login-btn">
+          
+          <span>登录</span>
         </button>
-        <div id="vipStatus" class="vip-status hidden">
-          <i class="fa fa-check-circle"></i>
-          <span>已登录</span>
-          <button id="vipLogoutBtn" class="vip-logout-btn">
-            <i class="fa fa-sign-out"></i>
-            <span>退出</span>
+        
+        <!-- 已登录状态：显示三道杠菜单按钮 -->
+        <div id="vipLoggedInMenu" class="vip-logged-in-menu hidden">
+          <button id="vipMenuToggle" class="vip-menu-btn vip-menu-toggle">
+            <i class="fa fa-bars"></i>
           </button>
+          
+          <!-- 浮动菜单 -->
+          <div id="vipDropdownMenu" class="vip-dropdown-menu hidden">
+            <button class="vip-menu-item" data-action="userInfo">
+              <i class="fa fa-user"></i>
+              <span>用户信息</span>
+            </button>
+            <button class="vip-menu-item" data-action="logout">
+              <i class="fa fa-sign-out"></i>
+              <span>退出</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -135,6 +147,37 @@
       console.log('筛选调试器已加载:', window.filtersDebugger);
     });
   </script>
+  
+  <!-- 用户信息弹窗 -->
+  <div id="userInfoModal" class="modal-overlay hidden">
+    <div class="modal-container user-info-modal">
+      <div class="modal-header fixed-header">
+        <h3>用户信息</h3>
+        <button id="closeUserInfoModal" class="modal-close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="user-info-content">
+          <div class="info-item">
+            <label>用户ID:</label>
+            <span id="userInfoId">VIP百事可乐</span>
+          </div>
+          <div class="info-item">
+            <label>有效期至:</label>
+            <span id="userInfoExpiry">2026-12-31</span>
+          </div>
+          <div class="info-item">
+            <label>账户类型:</label>
+            <span id="userInfoType">VIP用户</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="closeUserInfoBtn" class="editor-button">关闭</button>
+      </div>
+    </div>
+  </div>
   
   <!-- VIP登录弹窗 -->
   <div id="vipLoginModal" class="modal-overlay hidden">

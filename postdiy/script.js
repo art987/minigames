@@ -143,15 +143,13 @@ function getFestivalFutureDate(festival) {
 }
 
 // 创建节日时间浮动标签
-function createFestivalDateBadge(festival) {
-  // 移除已存在的标签
-  const existingBadge = document.querySelector('.festival-date-badge');
-  if (existingBadge) {
-    existingBadge.remove();
-  }
+function createFestivalDateBadge(festival, tagElement) {
   
   // 获取节日未来日期
   const dateStr = getFestivalFutureDate(festival);
+  
+  // 获取标签位置
+  const tagRect = tagElement.getBoundingClientRect();
   
   // 创建标签元素
   const badge = document.createElement('div');
@@ -161,10 +159,11 @@ function createFestivalDateBadge(festival) {
     <div class="badge-arrow"></div>
   `;
   badge.style.cssText = `
-    position: absolute;
-    top: -35px;
-    left: 10px;
-    z-index: 1000;
+    position: fixed;
+    top: ${tagRect.top - 35}px;
+    left: ${tagRect.left + tagRect.width / 2}px;
+    transform: translateX(-50%);
+    z-index: 9999;
   `;
   
   // 添加样式
@@ -175,18 +174,20 @@ function createFestivalDateBadge(festival) {
       color: black;
       padding: 4px 8px;
       border-radius: 4px;
+      border: 1px solid #e5e5e5;
       font-size: 12px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       white-space: nowrap;
     }
     .festival-date-badge .badge-arrow {
       position: absolute;
-      bottom: -5px;
-      left: 10px;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
+      border-left: 5px solid #e5e5e5;
+      border-right: 5px solid #e5e5e5;
       border-top: 5px solid white;
     }
   `;
@@ -360,9 +361,25 @@ function scrollMonthToCenter(button) {
   const container = monthButtonsContainer;
   const containerRect = container.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
+  
   const scrollLeft = container.scrollLeft + buttonRect.left - containerRect.left - (containerRect.width / 2) + (buttonRect.width / 2);
   
   container.scrollTo({
+    left: scrollLeft,
+    behavior: 'smooth'
+  });
+}
+
+function scrollFestivalTagToView(tag) {
+  if (!tag || !festivalTagsContainer) return;
+  
+  const containerRect = festivalTagsContainer.getBoundingClientRect();
+  const tagRect = tag.getBoundingClientRect();
+  
+  // 计算滚动位置，让标签居中显示
+  const scrollLeft = festivalTagsContainer.scrollLeft + tagRect.left - containerRect.left - (containerRect.width / 2) + (tagRect.width / 2);
+  
+  festivalTagsContainer.scrollTo({
     left: scrollLeft,
     behavior: 'smooth'
   });
@@ -403,34 +420,29 @@ function updateFestivalTags() {
       // 切换节日选择
       const selectedFestival = this.dataset.festival;
       
+      // 先移除所有已存在的浮动标签
+      document.querySelectorAll('.festival-date-badge').forEach(badge => badge.remove());
+      
       // 如果点击的是当前选中的节日，则取消选择
       if (window.currentFilters.festival === selectedFestival) {
         window.currentFilters.festival = null;
         this.classList.remove('active');
-        // 移除浮动标签
-        const existingBadge = this.querySelector('.festival-date-badge');
-        if (existingBadge) {
-          existingBadge.remove();
-        }
       } else {
         window.currentFilters.festival = selectedFestival;
-        // 移除其他标签的active状态和浮动标签
+        // 移除其他标签的active状态
         document.querySelectorAll('.festival-tag').forEach(tag => {
           tag.classList.remove('active');
-          const existingBadge = tag.querySelector('.festival-date-badge');
-          if (existingBadge) {
-            existingBadge.remove();
-          }
         });
         this.classList.add('active');
+        
+        // 滚动到当前选中的标签使其可见
+        scrollFestivalTagToView(this);
         
         // 只有非早安分类才显示时间浮动标签
         if (selectedFestival !== '☀️ 早安') {
           // 添加时间浮动标签
-          const badge = createFestivalDateBadge(selectedFestival);
-          // 设置标签的position为relative，以便浮动标签相对于它定位
-          this.style.position = 'relative';
-          this.appendChild(badge);
+          const badge = createFestivalDateBadge(selectedFestival, this);
+          document.body.appendChild(badge);
           
           // 6秒后自动移除浮动标签
           setTimeout(() => {
@@ -447,6 +459,14 @@ function updateFestivalTags() {
     
     festivalTagsContainer.appendChild(festivalTag);
   });
+  
+  // 如果有活跃的节日标签，滚动到它使其可见
+  setTimeout(() => {
+    const activeTag = festivalTagsContainer.querySelector('.festival-tag.active');
+    if (activeTag) {
+      scrollFestivalTagToView(activeTag);
+    }
+  }, 100);
 }
 
 // 根据当前日期自动选择月份和节日
@@ -722,8 +742,12 @@ window.showToast = showToast;
 
 // VIP登录功能
 function initVipLogin() {
+  const vipMenuContainer = document.getElementById('vipMenuContainer');
   const vipLoginBtn = document.getElementById('vipLoginBtn');
-  const vipStatus = document.getElementById('vipStatus');
+  const vipLoggedInMenu = document.getElementById('vipLoggedInMenu');
+  const vipMenuToggle = document.getElementById('vipMenuToggle');
+  const vipDropdownMenu = document.getElementById('vipDropdownMenu');
+  const vipMenuItems = document.querySelectorAll('.vip-menu-item');
   const vipLoginModal = document.getElementById('vipLoginModal');
   const closeVipLoginModalBtn = document.getElementById('closeVipLoginModalBtn');
   const vipLoginCancelBtn = document.getElementById('vipLoginCancelBtn');
@@ -731,23 +755,23 @@ function initVipLogin() {
   const vipIdInput = document.getElementById('vipIdInput');
   const vipPasswordInput = document.getElementById('vipPasswordInput');
   const vipLoginMessage = document.getElementById('vipLoginMessage');
+  const userInfoModal = document.getElementById('userInfoModal');
+  const closeUserInfoModal = document.getElementById('closeUserInfoModal');
+  const closeUserInfoBtn = document.getElementById('closeUserInfoBtn');
+  const userInfoId = document.getElementById('userInfoId');
+  const userInfoExpiry = document.getElementById('userInfoExpiry');
+  const userInfoType = document.getElementById('userInfoType');
 
   // 检查VIP状态并更新UI
   function updateVipStatus() {
     if (window.isVipActive && window.isVipActive()) {
+      // 显示已登录状态（三道杠菜单按钮）
       vipLoginBtn.classList.add('hidden');
-      vipStatus.classList.remove('hidden');
-      
-      // 显示VIP商家名称和有效期
-      const vipName = localStorage.getItem('vipName');
-      const vipValidUntil = localStorage.getItem('vipValidUntil');
-      const vipStatusText = vipStatus.querySelector('span');
-      if (vipStatusText && vipName && vipValidUntil) {
-        vipStatusText.textContent = `VIP${vipName}已登录 (${vipValidUntil})`;
-      }
+      vipLoggedInMenu.classList.remove('hidden');
     } else {
+      // 显示未登录状态（登录按钮）
       vipLoginBtn.classList.remove('hidden');
-      vipStatus.classList.add('hidden');
+      vipLoggedInMenu.classList.add('hidden');
     }
   }
   
@@ -815,13 +839,11 @@ function initVipLogin() {
       // 保存VIP登录状态
       window.saveVipLogin(result.user);
       
-      // 延迟关闭弹窗并跳转到编辑器
+      // 延迟关闭弹窗并留在当前页面
       setTimeout(() => {
         closeVipLoginModal();
         updateVipStatus();
-        
-        // 跳转到编辑器页面，带上VIP参数
-        window.location.href = `editor.html?vip=${result.user.id}`;
+        showToast('VIP登录成功', 'success');
       }, 1000);
     } else {
       vipLoginMessage.textContent = result.message;
@@ -829,17 +851,94 @@ function initVipLogin() {
     }
   }
 
+  // VIP菜单系统事件
+  function toggleVipDropdown() {
+    if (vipDropdownMenu) {
+      vipDropdownMenu.classList.toggle('hidden');
+    }
+  }
+  
+  function openUserInfoModal() {
+    if (userInfoModal) {
+      // 更新用户信息显示
+      const vipName = localStorage.getItem('vipName');
+      const vipValidUntil = localStorage.getItem('vipValidUntil');
+      
+      if (userInfoId) {
+        userInfoId.textContent = vipName || 'VIP百事可乐';
+      }
+      if (userInfoExpiry) {
+        userInfoExpiry.textContent = vipValidUntil || '2026-12-31';
+      }
+      if (userInfoType) {
+        userInfoType.textContent = 'VIP用户';
+      }
+      
+      userInfoModal.classList.remove('hidden');
+    }
+  }
+  
+  function closeUserInfoModalFunc() {
+    if (userInfoModal) {
+      userInfoModal.classList.add('hidden');
+    }
+  }
+  
+  function handleVipMenuItemClick(action) {
+    switch (action) {
+      case 'userInfo':
+        openUserInfoModal();
+        break;
+      case 'logout':
+        handleVipLogout();
+        break;
+    }
+    
+    // 关闭下拉菜单
+    if (vipDropdownMenu) {
+      vipDropdownMenu.classList.add('hidden');
+    }
+  }
+  
   // 事件监听
   vipLoginBtn.addEventListener('click', showVipLoginModal);
+  
+  if (vipMenuToggle) {
+    vipMenuToggle.addEventListener('click', toggleVipDropdown);
+  }
+  
+  // VIP菜单项点击事件
+  if (vipMenuItems) {
+    vipMenuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const action = this.getAttribute('data-action');
+        handleVipMenuItemClick(action);
+      });
+    });
+  }
+  
+  // 用户信息弹窗事件监听
+  if (closeUserInfoModal) {
+    closeUserInfoModal.addEventListener('click', closeUserInfoModalFunc);
+  }
+  
+  if (closeUserInfoBtn) {
+    closeUserInfoBtn.addEventListener('click', closeUserInfoModalFunc);
+  }
+  
   closeVipLoginModalBtn.addEventListener('click', closeVipLoginModal);
   vipLoginCancelBtn.addEventListener('click', closeVipLoginModal);
   vipLoginSubmitBtn.addEventListener('click', handleVipLogin);
   
-  // VIP退出按钮事件监听
-  const vipLogoutBtn = document.getElementById('vipLogoutBtn');
-  if (vipLogoutBtn) {
-    vipLogoutBtn.addEventListener('click', handleVipLogout);
-  }
+  // 点击页面其他地方关闭VIP下拉菜单
+  document.addEventListener('click', function(e) {
+    if (vipDropdownMenu && vipMenuToggle) {
+      const isClickInsideMenu = vipMenuContainer.contains(e.target);
+      if (!isClickInsideMenu && !vipDropdownMenu.classList.contains('hidden')) {
+        vipDropdownMenu.classList.add('hidden');
+      }
+    }
+  });
 
   // 按回车键登录
   vipPasswordInput.addEventListener('keypress', function(e) {

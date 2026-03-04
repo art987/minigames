@@ -437,6 +437,31 @@ window.wechatWarning = {
       templateModal: document.getElementById('templateModal'),
       closeTemplateModalBtn: document.getElementById('closeTemplateModalBtn'),
       cancelTemplateBtn: document.getElementById('cancelTemplateBtn'),
+      
+      // VIP菜单系统
+      vipMenuContainer: document.getElementById('vipMenuContainer'),
+      vipLoginBtn: document.getElementById('vipLoginBtn'),
+      vipLoggedInMenu: document.getElementById('vipLoggedInMenu'),
+      vipMenuToggle: document.getElementById('vipMenuToggle'),
+      vipDropdownMenu: document.getElementById('vipDropdownMenu'),
+      vipMenuItems: document.querySelectorAll('.vip-menu-item'),
+      
+      // 用户信息弹窗
+      userInfoModal: document.getElementById('userInfoModal'),
+      closeUserInfoModal: document.getElementById('closeUserInfoModal'),
+      closeUserInfoBtn: document.getElementById('closeUserInfoBtn'),
+      userInfoId: document.getElementById('userInfoId'),
+      userInfoExpiry: document.getElementById('userInfoExpiry'),
+      userInfoType: document.getElementById('userInfoType'),
+      
+      // VIP登录弹窗
+      vipLoginModal: document.getElementById('vipLoginModal'),
+      closeVipLoginModalBtn: document.getElementById('closeVipLoginModalBtn'),
+      vipLoginCancelBtn: document.getElementById('vipLoginCancelBtn'),
+      vipLoginSubmitBtn: document.getElementById('vipLoginSubmitBtn'),
+      vipIdInput: document.getElementById('vipIdInput'),
+      vipPasswordInput: document.getElementById('vipPasswordInput'),
+      vipLoginMessage: document.getElementById('vipLoginMessage'),
       // 促销信息编辑模态框
       promoTextModal: document.getElementById('promoTextModal'),
       closePromoTextModal: document.getElementById('closePromoTextModal'),
@@ -492,6 +517,160 @@ window.wechatWarning = {
       fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group')
     });
     console.log('DOM元素缓存初始化完成');
+  }
+  
+  // VIP菜单系统功能函数
+  function showVipLoginModal() {
+    if (elements.vipLoginModal) {
+      elements.vipLoginModal.classList.remove('hidden');
+    }
+  }
+  
+  function closeVipLoginModal() {
+    if (elements.vipLoginModal) {
+      elements.vipLoginModal.classList.add('hidden');
+      if (elements.vipIdInput) {
+        elements.vipIdInput.value = '';
+      }
+      if (elements.vipPasswordInput) {
+        elements.vipPasswordInput.value = '';
+      }
+      if (elements.vipLoginMessage) {
+        elements.vipLoginMessage.textContent = '';
+        elements.vipLoginMessage.className = 'login-message';
+      }
+    }
+  }
+  
+  function handleVipLoginSubmit() {
+    const vipId = elements.vipIdInput.value.trim();
+    const vipPassword = elements.vipPasswordInput.value.trim();
+    
+    if (!vipId || !vipPassword) {
+      if (elements.vipLoginMessage) {
+        elements.vipLoginMessage.textContent = '请输入用户名和密码';
+        elements.vipLoginMessage.className = 'login-message error';
+      }
+      return;
+    }
+    
+    // 验证VIP登录
+    const result = window.validateVipLogin(vipId, vipPassword);
+    
+    if (result.success) {
+      if (elements.vipLoginMessage) {
+        elements.vipLoginMessage.textContent = result.message;
+        elements.vipLoginMessage.className = 'login-message success';
+      }
+      
+      // 保存VIP登录状态
+      window.saveVipLogin(result.user);
+      
+      // 延迟关闭弹窗并更新UI
+      setTimeout(() => {
+        closeVipLoginModal();
+        
+        // 更新菜单状态
+        const vipUser = {
+          id: result.user.name ? `VIP${result.user.name}` : 'VIP用户',
+          validUntil: result.user.validUntil,
+          type: 'VIP用户'
+        };
+        updateVipMenuState(true, vipUser);
+      }, 1000);
+    } else {
+      if (elements.vipLoginMessage) {
+        elements.vipLoginMessage.textContent = result.message;
+        elements.vipLoginMessage.className = 'login-message error';
+      }
+    }
+  }
+  
+  function handleVipLogin() {
+    showVipLoginModal();
+  }
+  
+  function toggleVipDropdown() {
+    if (elements.vipDropdownMenu) {
+      elements.vipDropdownMenu.classList.toggle('hidden');
+    }
+  }
+  
+  function handleVipMenuItemClick(action) {
+    switch (action) {
+      case 'userInfo':
+        openUserInfoModal();
+        break;
+      case 'logout':
+        handleVipLogout();
+        break;
+    }
+    
+    // 关闭下拉菜单
+    if (elements.vipDropdownMenu) {
+      elements.vipDropdownMenu.classList.add('hidden');
+    }
+  }
+  
+  function openUserInfoModal() {
+    if (elements.userInfoModal) {
+      elements.userInfoModal.classList.remove('hidden');
+    }
+  }
+  
+  function closeUserInfoModal() {
+    if (elements.userInfoModal) {
+      elements.userInfoModal.classList.add('hidden');
+    }
+  }
+  
+  function handleVipLogout() {
+    // 更新UI状态为未登录
+    updateVipMenuState(false);
+    
+    // 显示退出成功提示
+    console.log('VIP用户已退出');
+  }
+  
+  function updateVipMenuState(isLoggedIn, user = null) {
+    if (elements.vipLoginBtn && elements.vipLoggedInMenu) {
+      if (isLoggedIn) {
+        // 显示已登录状态
+        elements.vipLoginBtn.classList.add('hidden');
+        elements.vipLoggedInMenu.classList.remove('hidden');
+        
+        // 更新用户信息
+        if (user && elements.userInfoId && elements.userInfoExpiry && elements.userInfoType) {
+          elements.userInfoId.textContent = user.id;
+          elements.userInfoExpiry.textContent = user.validUntil;
+          elements.userInfoType.textContent = user.type;
+        }
+      } else {
+        // 显示未登录状态
+        elements.vipLoginBtn.classList.remove('hidden');
+        elements.vipLoggedInMenu.classList.add('hidden');
+      }
+    }
+  }
+  
+  // 初始化VIP菜单状态
+  function initializeVipMenu() {
+    // 检查是否已有VIP登录状态
+    const isVipLoggedIn = window.isVipActive && window.isVipActive();
+    
+    if (isVipLoggedIn) {
+      // 如果已登录，直接显示三道杠菜单按钮
+      const vipId = localStorage.getItem('vipId');
+      const mockVipUser = {
+        id: vipId || 'VIP百事可乐',
+        validUntil: '2026-12-31',
+        type: 'VIP用户'
+      };
+      updateVipMenuState(true, mockVipUser);
+    } else {
+      // 否则显示登录按钮
+      updateVipMenuState(false);
+    }
   }
   
   // 保存促销信息到本地存储
@@ -1074,6 +1253,57 @@ window.wechatWarning = {
     if (elements.editBusinessInfoBtn) {
       elements.editBusinessInfoBtn.addEventListener('click', openBusinessInfoModal);
     }
+    
+    // VIP菜单系统事件
+    if (elements.vipLoginBtn) {
+      elements.vipLoginBtn.addEventListener('click', handleVipLogin);
+    }
+    
+    // VIP登录弹窗事件
+    if (elements.closeVipLoginModalBtn) {
+      elements.closeVipLoginModalBtn.addEventListener('click', closeVipLoginModal);
+    }
+    
+    if (elements.vipLoginCancelBtn) {
+      elements.vipLoginCancelBtn.addEventListener('click', closeVipLoginModal);
+    }
+    
+    if (elements.vipLoginSubmitBtn) {
+      elements.vipLoginSubmitBtn.addEventListener('click', handleVipLoginSubmit);
+    }
+    
+    if (elements.vipMenuToggle) {
+      elements.vipMenuToggle.addEventListener('click', toggleVipDropdown);
+    }
+    
+    // VIP菜单项点击事件
+    if (elements.vipMenuItems) {
+      elements.vipMenuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const action = this.getAttribute('data-action');
+          handleVipMenuItemClick(action);
+        });
+      });
+    }
+    
+    // 用户信息弹窗关闭事件
+    if (elements.closeUserInfoModal) {
+      elements.closeUserInfoModal.addEventListener('click', closeUserInfoModal);
+    }
+    
+    if (elements.closeUserInfoBtn) {
+      elements.closeUserInfoBtn.addEventListener('click', closeUserInfoModal);
+    }
+    
+    // 点击页面其他地方关闭VIP下拉菜单
+    document.addEventListener('click', function(e) {
+      if (elements.vipDropdownMenu && elements.vipMenuToggle) {
+        const isClickInsideMenu = elements.vipMenuContainer.contains(e.target);
+        if (!isClickInsideMenu && !elements.vipDropdownMenu.classList.contains('hidden')) {
+          elements.vipDropdownMenu.classList.add('hidden');
+        }
+      }
+    });
     if (elements.closeBusinessInfoModalBtn) {
       elements.closeBusinessInfoModalBtn.addEventListener('click', closeBusinessInfoModal);
     }
@@ -1522,6 +1752,9 @@ window.wechatWarning = {
   
   // 初始化编辑器状态
   function initializeEditor() {
+    // 初始化VIP菜单
+    initializeVipMenu();
+    
     // 检查VIP状态
     checkVipStatus();
     
