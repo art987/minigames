@@ -756,9 +756,30 @@ window.wechatWarning = {
     });
   }
   
+  // 全局打字机效果状态管理
+  let globalTypewriterActive = false;
+  let globalTypewriterTimeout = null;
+  
   // 打字机效果函数
   function startTypewriterEffect(contentElement, fullText) {
-    // 清空内容
+    // 如果已经有打字机效果在播放，则忽略新的触发
+    if (globalTypewriterActive) {
+      console.log('打字机效果正在进行中，忽略新触发');
+      return;
+    }
+    
+    // 设置全局状态为活跃
+    globalTypewriterActive = true;
+    
+    // 先停止任何正在进行的打字机效果
+    if (contentElement._typewriterTimeout) {
+      clearTimeout(contentElement._typewriterTimeout);
+    }
+    
+    // 保存原始文本
+    const originalText = fullText;
+    
+    // 清空内容并添加打字机样式
     contentElement.textContent = '';
     contentElement.classList.add('typewriter');
     
@@ -767,31 +788,43 @@ window.wechatWarning = {
     let currentChar = 0;
     
     function typeNextChar() {
-      if (currentLine < lines.length) {
-        if (currentChar < lines[currentLine].length) {
-          // 添加当前字符
-          if (currentChar === 0 && currentLine > 0) {
-            contentElement.textContent += '\n';
-          }
-          contentElement.textContent += lines[currentLine][currentChar];
-          currentChar++;
+      // 检查是否所有行都已处理完
+      if (currentLine >= lines.length) {
+        // 打字完成，保持光标闪烁，然后恢复原始文本
+        contentElement._typewriterTimeout = setTimeout(() => {
+          contentElement.classList.remove('typewriter');
+          // 恢复原始完整文本
+          contentElement.textContent = originalText;
+          delete contentElement._typewriterTimeout;
           
-          // 继续下一个字符
-          setTimeout(typeNextChar, 80); // 控制打字速度
-        } else {
-          // 换行
-          currentLine++;
-          currentChar = 0;
-          if (currentLine < lines.length) {
-            setTimeout(typeNextChar, 200); // 行间延迟
-          } else {
-            // 打字完成，保持光标闪烁
-            setTimeout(() => {
-              contentElement.classList.remove('typewriter');
-            }, 1000);
-          }
-        }
+          // 重置全局状态
+          globalTypewriterActive = false;
+        }, 1000);
+        return;
       }
+      
+      // 检查当前行是否已处理完
+      if (currentChar >= lines[currentLine].length) {
+        // 当前行处理完成，换到下一行
+        currentLine++;
+        currentChar = 0;
+        
+        // 如果不是最后一行，添加换行符
+        if (currentLine < lines.length) {
+          contentElement.textContent += '\n';
+          contentElement._typewriterTimeout = setTimeout(typeNextChar, 200); // 行间延迟
+        } else {
+          contentElement._typewriterTimeout = setTimeout(typeNextChar, 80); // 继续处理
+        }
+        return;
+      }
+      
+      // 添加当前字符
+      contentElement.textContent += lines[currentLine][currentChar];
+      currentChar++;
+      
+      // 继续下一个字符
+      contentElement._typewriterTimeout = setTimeout(typeNextChar, 80); // 控制打字速度
     }
     
     // 开始打字
@@ -900,11 +933,15 @@ window.wechatWarning = {
         // 设置选中状态
         targetCard.classList.add('selected');
         
-        // 触发打字机效果
-        startTypewriterEffect(targetContent, template);
-        
-        // 更新当前播放索引
-        currentPlayingIndex = targetIndex;
+        // 触发打字机效果（如果当前没有打字机效果在播放）
+        if (!globalTypewriterActive) {
+          startTypewriterEffect(targetContent, template);
+          
+          // 更新当前播放索引
+          currentPlayingIndex = targetIndex;
+        } else {
+          console.log('打字机效果正在进行中，跳过新触发');
+        }
       }
       
       isScrolling = false;
