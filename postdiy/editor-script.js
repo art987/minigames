@@ -653,6 +653,25 @@ window.wechatWarning = {
     
     // 强制重绘以触发动画
     void elements.industryTemplateModal.offsetWidth;
+    
+    // 延迟执行，确保DOM已渲染
+    setTimeout(() => {
+      // 自动播放第一个模板的打字机效果
+      const firstTemplateCard = elements.industryTemplatesList.querySelector('.industry-template-card');
+      if (firstTemplateCard) {
+        const content = firstTemplateCard.querySelector('.industry-template-content');
+        const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
+        
+        // 设置选中状态
+        firstTemplateCard.classList.add('selected');
+        
+        // 触发打字机效果
+        startTypewriterEffect(content, template);
+      }
+      
+      // 添加滚动监听
+      setupScrollDetection();
+    }, 100);
   }
   
   // 关闭行业模板独立弹窗
@@ -777,6 +796,129 @@ window.wechatWarning = {
     
     // 开始打字
     typeNextChar();
+  }
+  
+  // 滚动检测函数
+  function setupScrollDetection() {
+    // 正确的滚动容器是 .industry-templates-list
+    const scrollContainer = elements.industryTemplatesList;
+    if (!scrollContainer) {
+      console.log('未找到滚动容器');
+      return;
+    }
+    console.log('找到滚动容器:', scrollContainer);
+    
+    let currentPlayingIndex = 0; // 当前正在播放的模板索引
+    let isScrolling = false;
+    
+    // 防抖函数，避免频繁触发
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    
+    // 检查元素是否在可见区域（顶部5%-8%）
+    function isElementInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      const containerRect = scrollContainer.getBoundingClientRect();
+      
+      // 计算元素相对于滚动容器的位置
+      const elementTopRelative = rect.top - containerRect.top;
+      const elementBottomRelative = rect.bottom - containerRect.top;
+      const containerHeight = containerRect.height;
+      
+      // 可见区域：顶部5%到8%的区域
+      const visibleTop = containerHeight * 0.05;
+      const visibleBottom = containerHeight * 0.08;
+      
+      console.log('元素位置:', {
+        elementTopRelative,
+        elementBottomRelative,
+        containerHeight,
+        visibleTop,
+        visibleBottom
+      });
+      
+      // 检查元素是否与可见区域重叠
+      const isVisible = (elementTopRelative <= visibleBottom && elementBottomRelative >= visibleTop);
+      console.log('可见性计算结果:', isVisible);
+      
+      return isVisible;
+    }
+    
+    // 处理滚动事件
+    function handleScroll() {
+      if (isScrolling) return;
+      isScrolling = true;
+      
+      const templateCards = elements.industryTemplatesList.querySelectorAll('.industry-template-card');
+      let targetIndex = -1;
+      
+      console.log('滚动事件触发，检查模板可见性...');
+      
+      // 查找当前在可见区域的模板
+      templateCards.forEach((card, index) => {
+        const isVisible = isElementInViewport(card);
+        console.log(`模板 ${index}: 可见性 = ${isVisible}`);
+        if (isVisible) {
+          targetIndex = index;
+        }
+      });
+      
+      console.log('找到目标模板索引:', targetIndex, '当前播放索引:', currentPlayingIndex);
+      
+      // 如果找到目标模板且不是当前正在播放的模板
+      if (targetIndex !== -1 && targetIndex !== currentPlayingIndex) {
+        console.log('触发新的打字机效果，目标索引:', targetIndex);
+        
+        // 停止当前播放的模板
+        if (currentPlayingIndex >= 0 && currentPlayingIndex < templateCards.length) {
+          const currentCard = templateCards[currentPlayingIndex];
+          const currentContent = currentCard.querySelector('.industry-template-content');
+          
+          // 移除选中状态和打字机效果
+          currentCard.classList.remove('selected');
+          currentContent.classList.remove('typewriter');
+          
+          // 恢复完整文本
+          const template = currentCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
+          currentContent.textContent = template;
+        }
+        
+        // 播放新的模板
+        const targetCard = templateCards[targetIndex];
+        const targetContent = targetCard.querySelector('.industry-template-content');
+        const template = targetCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
+        
+        // 设置选中状态
+        targetCard.classList.add('selected');
+        
+        // 触发打字机效果
+        startTypewriterEffect(targetContent, template);
+        
+        // 更新当前播放索引
+        currentPlayingIndex = targetIndex;
+      }
+      
+      isScrolling = false;
+    }
+    
+    // 添加滚动监听（防抖处理）
+    scrollContainer.addEventListener('scroll', debounce(handleScroll, 150));
+    console.log('滚动监听已添加到:', scrollContainer);
+    
+    // 手动触发一次滚动检测，测试功能
+    setTimeout(() => {
+      console.log('手动触发滚动检测...');
+      handleScroll();
+    }, 500);
   }
   
   // 打开促销信息编辑模态框
