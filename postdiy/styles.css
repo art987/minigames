@@ -284,8 +284,9 @@ main {
 
 /* 模板展示区域 */
 .templates-section {
-  margin-bottom: 0rem;
-  padding: 0px 0px;
+      margin: 0 auto 2rem;
+    padding: 0px 0px;
+    max-width: 1230px;
 }
 
 .templates-header {
