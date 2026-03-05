@@ -4244,7 +4244,7 @@ window.wechatWarning = {
         // 减少padding-bottom，避免下方出现空白
         elements.posterPromoText.style.padding = `4px 2px 7px 8px`;
          elements.posterPromoText.style.lineHeight = `15px`;
-         elements.posterPromoText.style.fontSize = `13px`;
+         elements.posterPromoText.style.fontSize = `11px`;
       }
       
       // 保存logo和二维码的原始样式
