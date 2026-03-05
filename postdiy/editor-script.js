@@ -414,6 +414,8 @@ window.wechatWarning = {
       backToHomeBtn: document.getElementById('backToHomeBtn'),
       
       // 底部按钮
+      prevTemplateBtn: document.getElementById('prevTemplateBtn'),
+      nextTemplateBtn: document.getElementById('nextTemplateBtn'),
       changeTemplateBtn: document.getElementById('changeTemplateBtn'),
       editBusinessInfoBtn: document.getElementById('editBusinessInfoBtn'),
       uploadBackgroundBtn: document.getElementById('uploadBackgroundBtn'),
@@ -1254,6 +1256,14 @@ window.wechatWarning = {
     // 商家信息相关事件
     if (elements.editBusinessInfoBtn) {
       elements.editBusinessInfoBtn.addEventListener('click', openBusinessInfoModal);
+    }
+    
+    // 模板切换按钮事件
+    if (elements.prevTemplateBtn) {
+      elements.prevTemplateBtn.addEventListener('click', switchToPrevTemplate);
+    }
+    if (elements.nextTemplateBtn) {
+      elements.nextTemplateBtn.addEventListener('click', switchToNextTemplate);
     }
     
     // VIP菜单系统事件
@@ -2737,6 +2747,62 @@ window.wechatWarning = {
     addCustomBackgroundEntryToModal();
   }
   
+  // 获取所有模板的扁平化列表
+  function getAllTemplatesList() {
+    const allTemplates = [];
+    
+    // 遍历所有月份，收集所有模板
+    for (const monthKey in window.templates) {
+      if (window.templates[monthKey]) {
+        allTemplates.push(...window.templates[monthKey]);
+      }
+    }
+    
+    return allTemplates;
+  }
+
+  // 切换到上一个模板
+  function switchToPrevTemplate() {
+    if (!state.currentTemplate) return;
+    
+    const allTemplates = getAllTemplatesList();
+    if (allTemplates.length <= 1) return;
+    
+    // 查找当前模板的索引
+    const currentIndex = allTemplates.findIndex(template => template.id === state.currentTemplate.id);
+    
+    // 计算上一个模板的索引
+    let prevIndex = currentIndex - 1;
+    if (prevIndex < 0) {
+      prevIndex = allTemplates.length - 1; // 循环到最后一个
+    }
+    
+    // 切换到上一个模板
+    const prevTemplate = allTemplates[prevIndex];
+    selectTemplate(prevTemplate);
+  }
+
+  // 切换到下一个模板
+  function switchToNextTemplate() {
+    if (!state.currentTemplate) return;
+    
+    const allTemplates = getAllTemplatesList();
+    if (allTemplates.length <= 1) return;
+    
+    // 查找当前模板的索引
+    const currentIndex = allTemplates.findIndex(template => template.id === state.currentTemplate.id);
+    
+    // 计算下一个模板的索引
+    let nextIndex = currentIndex + 1;
+    if (nextIndex >= allTemplates.length) {
+      nextIndex = 0; // 循环到第一个
+    }
+    
+    // 切换到下一个模板
+    const nextTemplate = allTemplates[nextIndex];
+    selectTemplate(nextTemplate);
+  }
+
   // 选择模板
   function selectTemplate(template) {
     // 选择新模板时，直接带模板ID重定向到新页面
