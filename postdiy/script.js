@@ -120,6 +120,36 @@ const festivalDates = {
   }
 };
 
+// 显示当前日期
+function displayCurrentDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const weekday = weekdays[today.getDay()];
+  
+  const dateStr = `${year}-${month}-${day}  ${weekday}`;
+  if (currentDateDisplay) {
+    currentDateDisplay.textContent = dateStr;
+  }
+}
+
+// 计算两个日期之间的天数差
+function getDaysUntilDate(targetDateStr) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const targetDate = new Date(targetDateStr.split(' ')[0]);
+  targetDate.setHours(0, 0, 0, 0);
+  
+  const timeDiff = targetDate - today;
+  const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  
+  return dayDiff;
+}
+
 // 获取节日的未来日期
 function getFestivalFutureDate(festival) {
   const today = new Date();
@@ -142,58 +172,32 @@ function getFestivalFutureDate(festival) {
   return '日期未找到';
 }
 
-// 创建节日时间浮动标签
-function createFestivalDateBadge(festival, tagElement) {
+
+
+// 初始化置顶按钮
+function initBackToTopButton() {
+  if (!backToTopBtn) return;
   
-  // 获取节日未来日期
-  const dateStr = getFestivalFutureDate(festival);
-  
-  // 获取标签位置
-  const tagRect = tagElement.getBoundingClientRect();
-  
-  // 创建标签元素
-  const badge = document.createElement('div');
-  badge.className = 'festival-date-badge';
-  badge.innerHTML = `
-    <div class="badge-content">${dateStr}</div>
-    <div class="badge-arrow"></div>
-  `;
-  badge.style.cssText = `
-    position: fixed;
-    top: ${tagRect.top - 35}px;
-    left: ${tagRect.left + tagRect.width / 2}px;
-    transform: translateX(-50%);
-    z-index: 9999;
-  `;
-  
-  // 添加样式
-  const style = document.createElement('style');
-  style.textContent = `
-    .festival-date-badge .badge-content {
-      background: white;
-      color: black;
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: 1px solid #e5e5e5;
-      font-size: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      white-space: nowrap;
+  // 滚动监听
+  window.addEventListener('scroll', function() {
+    const screenHeight = window.innerHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // 当滚动超过2倍屏幕高度时显示置顶按钮
+    if (scrollTop > screenHeight * 2) {
+      backToTopBtn.classList.remove('hidden');
+    } else {
+      backToTopBtn.classList.add('hidden');
     }
-    .festival-date-badge .badge-arrow {
-      position: absolute;
-      bottom: -4px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 5px solid #e5e5e5;
-      border-right: 5px solid #e5e5e5;
-      border-top: 5px solid white;
-    }
-  `;
-  document.head.appendChild(style);
+  });
   
-  return badge;
+  // 点击事件
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
 }
 
 // 微信浏览器检测（支持调试参数）
@@ -287,7 +291,7 @@ window.currentFilters = {
 };
 
 // 全局DOM元素引用
-let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount, emptyState, loadingState;
+let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount, emptyState, loadingState, currentDateDisplay, festivalDateDisplay, backToTopBtn;
 
 // 初始化应用
 function initApp() {
@@ -301,6 +305,12 @@ function initApp() {
   templatesCount = document.getElementById('templatesCount');
   emptyState = document.getElementById('emptyState');
   loadingState = document.getElementById('loadingState');
+  currentDateDisplay = document.getElementById('currentDateDisplay');
+  festivalDateDisplay = document.getElementById('festivalDateDisplay');
+  backToTopBtn = document.getElementById('backToTopBtn');
+
+  // 显示当前日期
+  displayCurrentDate();
 
   // 初始化月份按钮
   initMonthButtons();
@@ -310,6 +320,9 @@ function initApp() {
 
   // 加载模板
   loadTemplates();
+
+  // 初始化置顶按钮
+  initBackToTopButton();
 }
 
 // 初始化月份按钮
@@ -420,13 +433,14 @@ function updateFestivalTags() {
       // 切换节日选择
       const selectedFestival = this.dataset.festival;
       
-      // 先移除所有已存在的浮动标签
-      document.querySelectorAll('.festival-date-badge').forEach(badge => badge.remove());
-      
       // 如果点击的是当前选中的节日，则取消选择
       if (window.currentFilters.festival === selectedFestival) {
         window.currentFilters.festival = null;
         this.classList.remove('active');
+        // 清空节日日期显示
+        if (festivalDateDisplay) {
+          festivalDateDisplay.textContent = '';
+        }
       } else {
         window.currentFilters.festival = selectedFestival;
         // 移除其他标签的active状态
@@ -438,18 +452,29 @@ function updateFestivalTags() {
         // 滚动到当前选中的标签使其可见
         scrollFestivalTagToView(this);
         
-        // 只有非早安分类才显示时间浮动标签
+        // 只有非早安分类才显示节日日期
         if (selectedFestival !== '☀️ 早安') {
-          // 添加时间浮动标签
-          const badge = createFestivalDateBadge(selectedFestival, this);
-          document.body.appendChild(badge);
+          // 显示节日日期和倒计时
+          const dateStr = getFestivalFutureDate(selectedFestival);
+          const daysUntil = getDaysUntilDate(dateStr);
           
-          // 6秒后自动移除浮动标签
-          setTimeout(() => {
-            if (badge.parentNode) {
-              badge.remove();
-            }
-          }, 6000);
+          let countdownText = '';
+          if (daysUntil > 0) {
+            countdownText = `（还有${daysUntil}天）`;
+          } else if (daysUntil === 0) {
+            countdownText = `（今天）`;
+          } else {
+            countdownText = `（已过期）`;
+          }
+          
+          if (festivalDateDisplay) {
+            festivalDateDisplay.textContent = `${selectedFestival}：${dateStr} ${countdownText}`;
+          }
+        } else {
+          // 清空节日日期显示
+          if (festivalDateDisplay) {
+            festivalDateDisplay.textContent = '';
+          }
         }
       }
       

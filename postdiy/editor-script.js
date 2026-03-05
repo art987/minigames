@@ -473,6 +473,8 @@ window.wechatWarning = {
       templateGrid: document.getElementById('modalTemplatesGrid'),
       modalMonthButtons: document.getElementById('modalMonthButtons'),
       modalFestivalTags: document.getElementById('modalFestivalTags'),
+      modalCurrentDateDisplay: document.getElementById('modalCurrentDateDisplay'),
+      modalFestivalDateDisplay: document.getElementById('modalFestivalDateDisplay'),
       
       businessInfoModal: document.getElementById('businessInfoModal'),
       closeBusinessInfoModalBtn: document.getElementById('closeBusinessInfoModalBtn'),
@@ -2182,6 +2184,85 @@ window.wechatWarning = {
     closeFontColorModal();
   }
   
+  // 获取节日的未来日期
+  function getFestivalFutureDate(festivalName) {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    
+    // 从全局节日数据中获取节日信息
+    const allFestivals = utils.getAllFestivals();
+    const festival = allFestivals[festivalName];
+    
+    if (!festival || festival.month === undefined || festival.day === undefined) return '';
+    
+    const month = festival.month;
+    const day = festival.day;
+    
+    // 计算今年的节日日期
+    let targetDate = new Date(currentYear, month - 1, day);
+    
+    // 如果今年的节日已经过了，使用明年的日期
+    if (targetDate < today) {
+      targetDate = new Date(currentYear + 1, month - 1, day);
+    }
+    
+    // 格式化日期显示
+    const year = targetDate.getFullYear();
+    const formattedMonth = String(month).padStart(2, '0');
+    const formattedDay = String(day).padStart(2, '0');
+    
+    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const weekday = weekdays[targetDate.getDay()];
+    
+    return `${year}-${formattedMonth}-${formattedDay}  ${weekday}`;
+  }
+
+  // 计算距离指定日期的天数
+  function getDaysUntilDate(dateStr) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // 解析日期字符串
+    const dateParts = dateStr.split(' ')[0].split('-');
+    if (dateParts.length !== 3) return 0;
+    
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1;
+    const day = parseInt(dateParts[2]);
+    
+    const targetDate = new Date(year, month, day);
+    targetDate.setHours(0, 0, 0, 0);
+    
+    // 计算时间差（毫秒）
+    const timeDiff = targetDate.getTime() - today.getTime();
+    
+    // 转换为天数
+    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+    
+    return daysDiff;
+  }
+
+  // 滚动元素到可见区域中间
+  function scrollToElement(element) {
+    if (!element) return;
+    
+    const container = element.closest('.modal-festivals-scroll');
+    if (!container) return;
+    
+    const containerWidth = container.clientWidth;
+    const elementLeft = element.offsetLeft;
+    const elementWidth = element.offsetWidth;
+    
+    // 计算目标滚动位置，使元素位于容器中间
+    const targetScrollLeft = elementLeft - (containerWidth / 2) + (elementWidth / 2);
+    
+    // 平滑滚动
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior: 'smooth'
+    });
+  }
+
   // 打开模板选择弹窗
   function openTemplateModal() {
     if (!elements.templateModal || !elements.templateGrid) return;
@@ -2441,6 +2522,12 @@ window.wechatWarning = {
       document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
       // 添加当前标签的选中状态
       this.classList.add('active');
+      // 清空节日日期显示
+      if (elements.modalFestivalDateDisplay) {
+        elements.modalFestivalDateDisplay.textContent = '';
+      }
+      // 自动滚动到可见区域
+      scrollToElement(this);
       // 筛选显示早安模板
       filterTemplatesByFestival('☀️ 早安');
     };
@@ -2500,6 +2587,27 @@ window.wechatWarning = {
         document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
         // 添加当前标签的选中状态
         this.classList.add('active');
+        
+        // 显示节日日期和倒计时
+        const dateStr = getFestivalFutureDate(festival.name);
+        const daysUntil = getDaysUntilDate(dateStr);
+        
+        let countdownText = '';
+        if (daysUntil > 0) {
+          countdownText = `（还有${daysUntil}天）`;
+        } else if (daysUntil === 0) {
+          countdownText = `（今天）`;
+        } else {
+          countdownText = `（已过期）`;
+        }
+        
+        if (elements.modalFestivalDateDisplay) {
+          elements.modalFestivalDateDisplay.textContent = `${festival.name}：${dateStr} ${countdownText}`;
+        }
+        
+        // 自动滚动到可见区域
+        scrollToElement(this);
+        
         // 筛选显示该节日的模板
         filterTemplatesByFestival(festival.name);
       };
