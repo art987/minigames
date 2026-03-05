@@ -211,7 +211,7 @@ main {
   gap: 0.75rem;
   padding: .5rem 0 0.5rem 0;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-color: rgb(124 162 188 / 20%) transparent;
   -webkit-overflow-scrolling: touch;
   position: relative;
   z-index: 10;
@@ -258,16 +258,17 @@ main {
   /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  margin: .3rem 0 .5rem;
+  margin: .3rem 0 .7rem;
   padding: 0.35rem .7rem;
   background-color: #f8f9fa;
   border-radius: 8px;
   border: 1px solid #e9ecef;
 }
-.templateModal .festival-date{ font-size: 0.675rem;}
+ #templateModal .time-display-area{padding: .3rem .5rem;}
+#templateModal .festival-date{font-size: 0.675rem;font-weight: normal;}
 .current-date {
-  font-size: 0.875rem;
-  color: #495057;
+  font-size: 14px;
+  color: var(--text-primary);
   display: block;
 }
 
@@ -277,8 +278,7 @@ main {
 }
 
 .festival-date {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 14px;
   display: block;
 }
 
@@ -366,7 +366,7 @@ main {
 }
 
 .template-info {
-  padding: 1rem;
+  padding: .5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -938,19 +938,23 @@ footer {
 
 /* 底部按钮栏 - 针对移动端优化 */
 .bottom-actions {
-  /* width: 70px; */
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #ffffff7d;
-  border-top: 1px solid #ccc;
-  padding: 6px 15px;
+  bottom: 2px;
+  right: 0px;
+  transform: translateY(-30%);
+  background-color: #ffffff38;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  padding: 15px 4px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   z-index: 100;
-  /* 适配底部安全区域 */
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* 置顶按钮 */
@@ -996,39 +1000,41 @@ footer {
   transform: translateY(20px);
 }
 
-/* 操作按钮 - 更大的触摸区域 */
+/* 操作按钮 - 垂直排列样式 */
 .action-btn {
-  flex: 4;
+  width: 44px;
   padding: 9px 5px;
-  margin: 0 4px;
-  border: 1px solid #c6c6c6;
-  border-radius: 27px;
-  background-color: #ffffff47;
+  border: 1px solid #fffcfc;
+  border-radius: 15px;
+  background-color: #ffffff96;
   color: #0b0b0b;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 400;
+  backdrop-filter: blur(1px);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 29px;
+  min-height: 50px;
   /* 确保足够的触摸区域 */
   touch-action: manipulation;
   user-select: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 按钮图标更大 */
+/* 按钮图标 - 垂直排列样式 */
 .action-btn i {
-  font-size: 18px;
-  display: none;
-  margin-right: 1px;
+  font-size: 16px;
+  /* display: none; */
+  margin-bottom: 4px;
 }
 
 #downloadBtn{background-color: #ad0404;font-size: 11px;color: #fff; border: 1px solid #ad0404;}
 #downloadBtn span{color: #fff;} 
- .fa-download:before{color: #fff;}
+#downloadBtn i{color: #fff;}
 .action-btn:active {
   background-color: #1565c0;
   transform: scale(0.95);
@@ -1084,9 +1090,9 @@ footer {
 .modal {
   background-color: #ffffff;
   border-radius: 20px;
-  width: 92vw;
+  width: 82vw;
   max-width: 500px;
-  max-height: 91vh;
+  max-height: 82vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transform-origin: center center;
@@ -1612,7 +1618,7 @@ footer {
 
 .modal-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -1702,7 +1708,7 @@ footer {
 
 /* 表单样式 */
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 11px;
   position: relative;
 }
 
@@ -1711,7 +1717,7 @@ footer {
   margin-bottom: 5px;
   font-size: 17px;
   font-weight: 600;
-  margin-top: 9px;
+  margin-top: 13px;
   height: 24px;
   color: #333;
 }
@@ -1759,7 +1765,7 @@ footer {
 
 .color-swatch-group {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-top: 7px;
 }
@@ -1812,7 +1818,7 @@ footer {
 /* 上传区域容器样式 - 确保logo和二维码并排显示 */
 .upload-container {
   display: flex;
-  gap: 16px;
+  gap: 21px;
   width: 100%;
   flex-wrap: nowrap; /* 强制不换行 */
   margin-bottom: 8px;
@@ -1935,6 +1941,7 @@ footer {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
+  padding: 8px;
   width: 100%;
   min-height: 120px; /* 与上传区域保持一致 */
   max-height: 150px; /* 与上传区域保持一致 */
@@ -2145,11 +2152,11 @@ footer {
   /* 小屏幕上的按钮调整 */
   .action-btn {
     /* padding: 11px 0px; */
-    min-height: 39px;
+    min-height: 38px;
   }
   
   .action-btn i {
-    font-size: 12px;
+    font-size: 16px;
   }
   
   .action-btn span {
@@ -2159,7 +2166,7 @@ footer {
   /* 小屏幕上的模态框调整 */
   .modal {
     width: 90vw;
-    max-height: 92vh;
+    max-height: 82vh;
     border-radius: 16px;
   }
   .modal .template-thumbnail{ height: 140px;}
@@ -2171,7 +2178,7 @@ footer {
   }
   
   .modal-title {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   /* 小屏幕上的模板网格调整 */
@@ -2377,7 +2384,7 @@ input.hidden {
 }
 
 .industry-template-content {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.5;
   min-height: 82px;
   font-weight: bold;
@@ -2491,7 +2498,7 @@ input.hidden {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -2522,7 +2529,7 @@ input.hidden {
 }
 
 .modal-body {
-  padding: 0px 20px 9px;
+  padding: 0px 20px 13px;
 }
 
 .input-section {
@@ -2589,7 +2596,7 @@ input.hidden {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 15px 20px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -3029,7 +3036,7 @@ input.hidden {
        font-size: 35px;
        }
 
-#selectPromoTemplateBtn{position: absolute;right: 0;bottom: -35px;background: #fff;color: #292929;border: 1px solid #ccc;padding: 5px 10px;font-weight: normal;margin-top: 0;width: 100%;}
+#selectPromoTemplateBtn{position: absolute;right: 0;margin-bottom: 2px;bottom: -37px;background: #fff;color: #292929;border: 1px solid #ccc;padding: 5px 10px;font-weight: normal;margin-top: 0;width: 100%;}
 
 /* VIP用户恢复按钮样式 */
 .restore-btn-container {
