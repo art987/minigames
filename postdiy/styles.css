@@ -941,9 +941,9 @@ footer {
   position: fixed;
   bottom: 2px;
   right: 0px;
-  transform: translateY(-30%);
-  background-color: #ffffff38;
-  border: 1px solid #ccc;
+  transform: translateY(-10%);
+  /* background-color: #ffffff38; */
+  /* border: 1px solid #ccccccfa; */
   border-right: none;
   border-radius: 20px 0 0 20px;
   padding: 15px 4px;
@@ -952,9 +952,9 @@ footer {
   align-items: center;
   gap: 12px;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 9%);
 }
 
 /* 置顶按钮 */
@@ -1003,9 +1003,9 @@ footer {
 /* 操作按钮 - 垂直排列样式 */
 .action-btn {
   width: 44px;
-  padding: 9px 5px;
+  padding: 7px 5px;
   border: 1px solid #fffcfc;
-  border-radius: 15px;
+  border-radius: 27px;
   background-color: #ffffff96;
   color: #0b0b0b;
   font-size: 11px;
@@ -1028,7 +1028,7 @@ footer {
 /* 按钮图标 - 垂直排列样式 */
 .action-btn i {
   font-size: 16px;
-  /* display: none; */
+  display: none;
   margin-bottom: 4px;
 }
 
