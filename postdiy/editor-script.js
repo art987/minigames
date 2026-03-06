@@ -4331,33 +4331,50 @@ window.wechatWarning = {
               let drawWidth, drawHeight, offsetX, offsetY;
               
               if (isQrcode) {
-                // 对于二维码，调整为canvas尺寸的80%，居中显示
-                const scale = 0.80; // 80%缩放比例
-                const scaledWidth = containerWidth * scale;
-                const scaledHeight = containerHeight * scale;
+                // 对于二维码，使用object-fit: cover模式（居中裁剪，保持原始比例）
+                const targetScale = 0.98; // 80%缩放比例
                 
-                // 计算缩放后的尺寸，保持图片比例
-                const imgRatio = img.width / img.height;
-                const containerRatio = scaledWidth / scaledHeight;
+                // 计算目标区域尺寸（80%的正方形）
+                const targetSize = Math.min(containerWidth, containerHeight) * targetScale;
                 
-                if (imgRatio > containerRatio) {
-                  // 图片更宽，按高度缩放
-                  drawHeight = scaledHeight;
-                  drawWidth = img.width * (scaledHeight / img.height);
-                } else {
-                  // 图片更高，按宽度缩放
-                  drawWidth = scaledWidth;
-                  drawHeight = img.height * (scaledWidth / img.width);
-                }
+                // 绘制区域始终是正方形，确保左右和上下留白一致
+                drawWidth = targetSize;
+                drawHeight = targetSize;
                 
                 // 计算居中偏移量
-                offsetX = (containerWidth - drawWidth) / 2;
-                offsetY = (containerHeight - drawHeight) / 2;
+                offsetX = (containerWidth - targetSize) / 2;
+                offsetY = (containerHeight - targetSize) / 2;
                 
-                // 绘制圆角白色背景
+                // 计算图片的宽高比，用于裁剪
+                const imgRatio = img.width / img.height;
+                
+                // 计算图片的源区域（用于裁剪）
+                let sx, sy, sw, sh;
+                if (imgRatio > 1) {
+                  // 图片更宽：裁剪左右
+                  sh = img.height;
+                  sw = img.height; // 正方形
+                  sx = (img.width - sw) / 2;
+                  sy = 0;
+                } else {
+                  // 图片更高：裁剪上下
+                  sw = img.width;
+                  sh = img.width; // 正方形
+                  sx = 0;
+                  sy = (img.height - sh) / 2;
+                }
+                
+                // 绘制圆角白色背景（在图片绘制区域）
                 ctx.fillStyle = 'white';
-                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
+                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
                 ctx.fill();
+                
+                // 绘制裁剪后的图片
+                ctx.save();
+                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
+                ctx.clip();
+                ctx.drawImage(img, sx, sy, sw, sh, offsetX, offsetY, drawWidth, drawHeight);
+                ctx.restore();
               } else {
                 // 对于其他图片（如Logo），使用object-fit:cover模式
                 const imgRatio = img.width / img.height;
@@ -4380,17 +4397,11 @@ window.wechatWarning = {
               
               // 绘制图片
               if (isQrcode) {
-                // 对于二维码，使用圆角裁切来绘制图片
-                ctx.save();
-                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
-                ctx.clip();
-                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-                ctx.restore();
-                
+                // 二维码已经在上面绘制，这里只需要添加白色描边
                 // 为二维码添加6像素白色描边（带圆角）
                 ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
                 ctx.lineWidth = 6;
-                drawRoundedRect(ctx, 0, 0, containerWidth, containerHeight, borderRadius);
+                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
                 ctx.stroke();
               } else {
                 ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
