@@ -4088,6 +4088,7 @@ window.wechatWarning = {
         elements.posterPromoText.style.transform = originalPromoTextTransform;
         elements.posterPromoText.style.padding = originalPromoTextPadding;
       }
+      
       // 恢复背景图片原始样式并移除临时canvas
       if (backgroundImageElement) {
         backgroundImageElement.style.display = '';
@@ -4097,6 +4098,36 @@ window.wechatWarning = {
       }
       if (tempCanvasElement && tempCanvasElement.parentNode) {
         tempCanvasElement.parentNode.removeChild(tempCanvasElement);
+      }
+      
+      // 移除二维码和Logo的canvas元素，恢复原始图片显示
+      const qrcodeImg = document.getElementById('posterQrcodeImg');
+      const logoImg = document.getElementById('posterLogoImg');
+      
+      if (qrcodeImg) {
+        // 查找并移除二维码canvas
+        const qrcodeContainer = qrcodeImg.parentElement;
+        if (qrcodeContainer) {
+          const qrcodeCanvas = qrcodeContainer.querySelector('canvas');
+          if (qrcodeCanvas && qrcodeCanvas.parentNode) {
+            qrcodeCanvas.parentNode.removeChild(qrcodeCanvas);
+          }
+          // 恢复二维码图片显示
+          qrcodeImg.style.display = '';
+        }
+      }
+      
+      if (logoImg) {
+        // 查找并移除Logo canvas
+        const logoContainer = logoImg.parentElement;
+        if (logoContainer) {
+          const logoCanvas = logoContainer.querySelector('canvas');
+          if (logoCanvas && logoCanvas.parentNode) {
+            logoCanvas.parentNode.removeChild(logoCanvas);
+          }
+          // 恢复Logo图片显示
+          logoImg.style.display = '';
+        }
       }
     }
     
@@ -4300,23 +4331,28 @@ window.wechatWarning = {
               let drawWidth, drawHeight, offsetX, offsetY;
               
               if (isQrcode) {
-                // 对于二维码，使用object-fit:cover模式，居中裁切，确保填充正方形区域
+                // 对于二维码，调整为canvas尺寸的80%，居中显示
+                const scale = 0.80; // 80%缩放比例
+                const scaledWidth = containerWidth * scale;
+                const scaledHeight = containerHeight * scale;
+                
+                // 计算缩放后的尺寸，保持图片比例
                 const imgRatio = img.width / img.height;
-                const containerRatio = containerWidth / containerHeight;
+                const containerRatio = scaledWidth / scaledHeight;
                 
                 if (imgRatio > containerRatio) {
-                  // 图片更宽，按高度缩放，裁剪宽度（左右裁剪）
-                  drawHeight = containerHeight;
-                  drawWidth = img.width * (containerHeight / img.height);
-                  offsetX = (containerWidth - drawWidth) / 2;
-                  offsetY = 0;
+                  // 图片更宽，按高度缩放
+                  drawHeight = scaledHeight;
+                  drawWidth = img.width * (scaledHeight / img.height);
                 } else {
-                  // 图片更高，按宽度缩放，裁剪高度（上下裁剪）
-                  drawWidth = containerWidth;
-                  drawHeight = img.height * (containerWidth / img.width);
-                  offsetX = 0;
-                  offsetY = (containerHeight - drawHeight) / 2;
+                  // 图片更高，按宽度缩放
+                  drawWidth = scaledWidth;
+                  drawHeight = img.height * (scaledWidth / img.width);
                 }
+                
+                // 计算居中偏移量
+                offsetX = (containerWidth - drawWidth) / 2;
+                offsetY = (containerHeight - drawHeight) / 2;
                 
                 // 绘制圆角白色背景
                 ctx.fillStyle = 'white';
@@ -4662,6 +4698,17 @@ window.wechatWarning = {
                 }
               }
             }
+            
+            // 强制移除Logo容器中的所有canvas元素
+            const logoContainer = logoImgElement.parentElement;
+            if (logoContainer) {
+              const canvases = logoContainer.querySelectorAll('canvas');
+              canvases.forEach(canvas => {
+                if (canvas.parentNode) {
+                  canvas.parentNode.removeChild(canvas);
+                }
+              });
+            }
           }
           if (tempLogoCanvas && tempLogoCanvas.parentNode) {
             tempLogoCanvas.parentNode.removeChild(tempLogoCanvas);
@@ -4676,6 +4723,17 @@ window.wechatWarning = {
                   qrcodeImgElement.style[prop] = originalQrcodeStyle[prop];
                 }
               }
+            }
+            
+            // 强制移除二维码容器中的所有canvas元素
+            const qrcodeContainer = qrcodeImgElement.parentElement;
+            if (qrcodeContainer) {
+              const canvases = qrcodeContainer.querySelectorAll('canvas');
+              canvases.forEach(canvas => {
+                if (canvas.parentNode) {
+                  canvas.parentNode.removeChild(canvas);
+                }
+              });
             }
           }
           if (tempQrcodeCanvas && tempQrcodeCanvas.parentNode) {
