@@ -387,6 +387,7 @@ window.wechatWarning = {
       cameraInput: document.getElementById('cameraInput'),
       downloadBtn: document.getElementById('downloadBtn'),
       togglePositionBtn: document.getElementById('togglePositionBtn'),
+      toggleMenuBtn: document.getElementById('toggleMenuBtn'),
       bottomActions: document.getElementById('bottomActions'),
       
       // 预览区域
@@ -1199,6 +1200,17 @@ window.wechatWarning = {
   
   // 这里是其他函数定义...
   function bindEvents() {
+    // 按钮点击反馈效果
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const button = this;
+        button.classList.add('click-bounce');
+        setTimeout(() => {
+          button.classList.remove('click-bounce');
+        }, 200);
+      });
+    });
+    
     // 返回按钮事件
     if (elements.backToHomeBtn) {
       elements.backToHomeBtn.addEventListener('click', function() {
@@ -1797,6 +1809,11 @@ window.wechatWarning = {
       elements.togglePositionBtn.addEventListener('click', toggleActionsPosition);
     }
     
+    // 菜单显示/隐藏按钮事件
+    if (elements.toggleMenuBtn) {
+      elements.toggleMenuBtn.addEventListener('click', toggleMenuVisibility);
+    }
+    
     // 阻止表单默认提交
     if (elements.businessInfoForm) {
       elements.businessInfoForm.addEventListener('submit', function(e) {
@@ -1821,6 +1838,50 @@ window.wechatWarning = {
       elements.bottomActions.classList.add('left-position');
       elements.togglePositionBtn.querySelector('span').textContent = '靠右';
       localStorage.setItem('actionsPosition', 'left');
+    }
+  }
+  
+  // 菜单显示/隐藏功能
+  function toggleMenuVisibility() {
+    if (!elements.toggleMenuBtn) return;
+    
+    const toggleableBtns = Array.from(document.querySelectorAll('.toggleable-btn'));
+    const currentSpan = elements.toggleMenuBtn.querySelector('span');
+    const isVisible = !toggleableBtns[0]?.classList.contains('hidden');
+    
+    // 清除所有按钮的 transition-delay 和 动画类
+    toggleableBtns.forEach(btn => {
+      btn.style.transitionDelay = '0s';
+      btn.classList.remove('jelly-animate', 'jelly-animate-out');
+    });
+    
+    if (isVisible) {
+      // 隐藏其他按钮 - 正向顺序（从上到下，带果冻效果）
+      toggleableBtns.forEach((btn, index) => {
+        setTimeout(() => {
+          btn.classList.add('jelly-animate-out');
+          // 动画结束后添加 hidden 类
+          setTimeout(() => {
+            btn.classList.add('hidden');
+            btn.classList.remove('jelly-animate-out');
+          }, 500);
+        }, index * 60);
+      });
+      currentSpan.textContent = '显示';
+    } else {
+      // 显示其他按钮 - 反向顺序（从下到上，一个一个堆叠上去，带果冻效果）
+      const reversedBtns = [...toggleableBtns].reverse();
+      reversedBtns.forEach((btn, index) => {
+        setTimeout(() => {
+          btn.classList.add('jelly-animate');
+          btn.classList.remove('hidden');
+          // 动画结束后移除动画类
+          setTimeout(() => {
+            btn.classList.remove('jelly-animate');
+          }, 600);
+        }, index * 70);
+      });
+      currentSpan.textContent = '隐藏';
     }
   }
   

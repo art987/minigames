@@ -941,9 +941,8 @@ footer {
 /* 底部按钮栏 - 针对移动端优化 */
 .bottom-actions {
   position: fixed;
-  bottom: 2px;
+  bottom: 15px;
   right: 0px;
-  transform: translateY(-10%);
   /* background-color: #ffffff38; */
   /* border: 1px solid #ccccccfa; */
   border-right: none;
@@ -978,6 +977,88 @@ footer {
   .take-photo-btn {
     display: flex;
   }
+}
+
+/* 菜单切换按钮样式 */
+.toggle-menu-btn {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 可切换按钮的隐藏状态 */
+.toggleable-btn {
+  transition-property: opacity, transform;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.toggleable-btn.hidden {
+  opacity: 0;
+  transform: scale(0.3) translateY(50px);
+  pointer-events: none;
+}
+
+/* 果冻动画效果 - 显示 */
+@keyframes jelly {
+  0% {
+    transform: scale(0.3) translateY(50px);
+  }
+  30% {
+    transform: scale(1.15) translateY(0);
+  }
+  50% {
+    transform: scale(0.95) translateY(0);
+  }
+  70% {
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.toggleable-btn.jelly-animate {
+  transition: none;
+  animation: jelly 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+  opacity: 1 !important;
+}
+
+/* 果冻动画效果 - 隐藏 */
+@keyframes jelly-out {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    transform: scale(1.1) translateY(0);
+  }
+  100% {
+    transform: scale(0.3) translateY(50px);
+  }
+}
+
+.toggleable-btn.jelly-animate-out {
+  transition: none;
+  animation: jelly-out 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+  opacity: 1 !important;
+}
+
+/* 点击时的果冻反馈动画 */
+@keyframes click-bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.action-btn.click-bounce {
+  animation: click-bounce 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
 
 /* 置顶按钮 */
@@ -1067,8 +1148,10 @@ footer {
 }
 
 .action-btn:active {
-  background-color: #1565c0;
+  background-color: #e60707;
   transform: scale(0.95);
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
 }
 
 /* 返回按钮样式 */
@@ -2457,7 +2540,7 @@ input.hidden {
 }
 
 .industry-template-content {
-  font-size: 17px;
+  font-size: 14px;
   line-height: 1.5;
   min-height: 82px;
   font-weight: bold;
