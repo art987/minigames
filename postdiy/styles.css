@@ -957,6 +957,27 @@ footer {
   /* backdrop-filter: blur(10px); */
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgb(0 0 0 / 9%);
+  transition: right 0.3s ease, left 0.3s ease, border-radius 0.3s ease;
+}
+
+.bottom-actions.left-position {
+  right: auto;
+  left: 0px;
+  border-right: inherit;
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+}
+
+/* 拍照按钮 - 默认隐藏（桌面端不显示） */
+.take-photo-btn {
+  display: none;
+}
+
+/* 移动端显示拍照按钮 */
+@media (max-width: 768px) {
+  .take-photo-btn {
+    display: flex;
+  }
 }
 
 /* 置顶按钮 */
@@ -1020,7 +1041,7 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
+  min-height: 35px;
   /* 确保足够的触摸区域 */
   touch-action: manipulation;
   user-select: none;
@@ -1036,9 +1057,15 @@ footer {
 #nextTemplateBtn span {font-size: 17px;}
 #prevTemplateBtn span{font-size: 17px; transform: scaleX(-1);   }
 
-#downloadBtn{background-color: #ad0404;font-size: 11px;color: #fff; border: 1px solid #ad0404;}
+#downloadBtn{background: linear-gradient(135deg, #fb4141, #dd1405);font-size: 11px;color: #fff;border-radius: 14px;border: 1px solid #ff6969;}
 #downloadBtn span{color: #fff;} 
 #downloadBtn i{color: #fff;}
+
+#togglePositionBtn{
+    height: 13px;
+    min-height: 28px;
+}
+
 .action-btn:active {
   background-color: #1565c0;
   transform: scale(0.95);
@@ -1147,7 +1174,7 @@ footer {
 
 /* 商家信息编辑弹窗特定样式 */
 .modal.business-info-modal {
-  max-height: 70vh;
+  max-height: 80vh;
 }
 
 /* VIP登录相关样式 */
@@ -1719,7 +1746,7 @@ footer {
 .form-label {
   display: block;
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
   margin-top: 13px;
   height: 24px;
@@ -1801,6 +1828,48 @@ footer {
 
 .color-swatch[data-color="#FFFFFF"].selected {
   border: 2px solid #333 !important;
+}
+
+/* 更改品牌名称区域 */
+.change-brand-name-section {
+  margin-top: 17px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.change-brand-name-hint {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.change-brand-name-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e2e2 100%);
+  color: #242424;
+  border: 1px solid #e7e7e7;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.change-brand-name-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgb(52 52 52 / 30%);
+}
+
+.change-brand-name-btn:active {
+  transform: translateY(0);
+}
+
+.change-brand-name-btn i {
+  font-size: 14px;
 }
 
 .form-input:focus {
@@ -2156,7 +2225,7 @@ footer {
   /* 小屏幕上的按钮调整 */
   .action-btn {
     /* padding: 11px 0px; */
-    min-height: 38px;
+    min-height: 32px;
   }
   
   .action-btn i {

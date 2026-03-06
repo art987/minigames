@@ -158,10 +158,11 @@
   <!-- 隐藏的背景上传区域 -->
   <div class="hidden">
     <input type="file" id="backgroundInput" accept="image/*" class="hidden">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden">
   </div>
   
   <!-- 底部固定按钮栏 -->
-  <div class="bottom-actions">
+  <div class="bottom-actions" id="bottomActions">
     <button id="prevTemplateBtn" class="action-btn">
       <span>➜</span>
     </button>
@@ -169,16 +170,22 @@
       <span>➜</span>
     </button>
     <button id="changeTemplateBtn" class="action-btn">
-      <span>选择模板</span>
+      <span>模板</span>
     </button>
     <button id="editBusinessInfoBtn" class="action-btn">
-      <span>商家信息</span>
+      <span>品牌</span>
     </button>
     <button id="uploadBackgroundBtn" class="action-btn">
-      <span>上传背景</span>
+      <span>相册</span>
+    </button>
+    <button id="takePhotoBtn" class="action-btn take-photo-btn">
+      <span>拍照</span>
     </button>
     <button id="downloadBtn" class="action-btn">
       <span>下载海报</span>
+    </button>
+    <button id="togglePositionBtn" class="action-btn">
+      <span>靠左</span>
     </button>
   </div>
   
@@ -372,12 +379,12 @@
   <div id="fontColorModal" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-header">
-        <h2 class="modal-title">选择字体颜色</h2>
+        <h2 class="modal-title">更改字体颜色</h2>
         <button id="closeFontColorModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">可用颜色:</label>
+          <label class="form-label">点选颜色即可生效:</label>
           <div class="color-select-container">
             <div class="color-swatch-group">
               <div class="color-swatch" data-color="#000000" style="background-color: #000000; border: 2px solid #333;" title="黑色"></div>
@@ -392,10 +399,20 @@
             </div>
           </div>
         </div>
+        <!-- 更改品牌名称入口 -->
+        <div class="change-brand-name-section">
+          <p class="change-brand-name-hint">我还想：<button id="changeBrandNameBtn" class="change-brand-name-btn">
+            <i class="fa fa-edit"></i> 更改品牌名称
+          </button></p>
+          
+        </div>
       </div>
       <!-- 移除底部按钮，因为点击颜色后立即应用并关闭弹窗 -->
     </div>
   </div>
+
+  <!-- 行业分类文案模板数据 -->
+  <script src="industry-templates.js"></script>
 
   <!-- 编辑器脚本 -->
   <script src="editor-script.js"></script>
@@ -470,18 +487,7 @@
         <div class="industry-section">
           <h4 class="industry-section-title">促销/引流文案模板</h4>
           <div class="industry-nav">
-            <div class="industry-categories">
-              <button class="industry-category" data-category="美容">💄 美容</button>
-              <button class="industry-category" data-category="母婴">👶 母婴</button>
-              <button class="industry-category" data-category="健身">💪 健身</button>
-              <button class="industry-category" data-category="茶饮">🍵 茶饮</button>
-              <button class="industry-category" data-category="宠物">🐾 宠物</button>
-              <button class="industry-category" data-category="服饰">👗 服饰</button>
-              <button class="industry-category" data-category="知识">📚 知识</button>
-              <button class="industry-category" data-category="家居">🏠 家居</button>
-              <button class="industry-category" data-category="数码">📱 数码</button>
-              <button class="industry-category" data-category="旅游">✈️ 旅游</button>
-            </div>
+            <div class="industry-categories" id="industryCategories"></div>
           </div>
         </div>
       </div>

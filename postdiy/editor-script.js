@@ -100,99 +100,6 @@ window.wechatWarning = {
     textColor: '#000000' // 默认黑色
   };
   
-  // 行业分类文案模板数据
-  const INDUSTRY_TEMPLATES = {
-    // 1. 美容
-    '美容': [
-      '扫码进群｜每天 1 款妆教\n前 200 位送 xxx 小样\n群满关门槛！',
-      '长按识别｜加微信\n备注【美妆】领 xxx 试用装\n不转发不集赞',
-      '扫码秒进｜限时福利\n进群即送 xxx 旅行套装\n今晚 8 点统一发',
-      '先扫码｜再添加小助手\n0 元拿 xxx 新品面膜\n只送不卖',
-      '微信扫码｜立刻领\n每天抽 5 人送 xxx 正装\n越早进中奖率越高'
-    ],
-    
-    // 2. 母婴
-    '母婴': [
-      '扫码进群｜宝妈互助\n送 xxx 纸尿裤试用装 4 片\n全国包邮',
-      '长按识别｜加微信\n备注【宝妈】领 xxx 湿巾 1 包\n无门槛纯福利',
-      '扫码秒进｜每晚育儿直播\n进群送 xxx 辅食食谱 PDF\n专家在线答疑',
-      '先扫码｜再添加小助手\n送 xxx 宝宝浴巾 1 条\n限 0-3 岁家庭',
-      '微信扫码｜立刻进群\n每周团购价 xxx 玩具\n比电商低 30%'
-    ],
-    
-    // 3. 健身
-    '健身': [
-      '扫码进群｜21 天打卡\n送 xxx 体脂秤 1 台\n坚持返现金',
-      '长按识别｜加微信\n备注【减脂】领 xxx 代餐 3 袋\n不节食也能瘦',
-      '扫码秒进｜教练陪练\n送 xxx 弹力带 1 根\n视频教学',
-      '先扫码｜再添加小助手\n0 元拿 xxx 左旋 1 瓶\n限量 100 份',
-      '微信扫码｜立刻领\n每天抽 3 人送 xxx 私教课\n线下门店通用'
-    ],
-    
-    // 4. 茶饮
-    '茶饮': [
-      '扫码进群｜每日隐藏菜单\n送 xxx 招牌饮品 1 杯\n到店即兑',
-      '长按识别｜加微信\n备注【喝茶】领 xxx 5 折券\n可转赠好友',
-      '扫码秒进｜限时秒杀\n9.9 抢 xxx 生椰拿铁\n每日 50 份',
-      '先扫码｜再添加小助手\n送 xxx 周年周边 1 套\n全国邮寄',
-      '微信扫码｜立刻进群\n第二杯半价天天享\n群内暗号 xxx'
-    ],
-    
-    // 5. 宠物
-    '宠物': [
-      '扫码进群｜猫狗互助\n送 xxx 冻干试吃 50g\n包邮到家',
-      '长按识别｜加微信\n备注【主子】领 xxx 猫砂 1 袋\n无尘可冲厕所',
-      '扫码秒进｜每周拼团\nxxx 驱虫药低于 5 折\n保真可查码',
-      '先扫码｜再添加小助手\n送 xxx 宠物玩具 1 个\n限前 100 名',
-      '微信扫码｜立刻领\n每天教 1 招宠物摄影\n晒照再返 xxx 零食'
-    ],
-    
-    // 6. 服饰
-    '服饰': [
-      '扫码进群｜每日穿搭灵感\n送 xxx 防晒衫 1 件\n均码现货',
-      '长按识别｜加微信\n备注【穿搭】领 xxx 20 元无门槛券\n可与折扣叠',
-      '扫码秒进｜限时盲盒\n59 抢 xxx 随机 T 恤\n每件原单 129+',
-      '先扫码｜再添加小助手\n0 元拿 xxx 渔夫帽\n朋友圈晒图返现金',
-      '微信扫码｜立刻进群\n每周团购 xxx 牛仔裤\n显瘦神裤 79 包邮'
-    ],
-    
-    // 7. 知识
-    '知识': [
-      '扫码进群｜每晚 8 点干货\n送 xxx 课程 3 节\n永久回放',
-      '长按识别｜加微信\n备注【学习】领 xxx 电子书 10 本\n价值 199 元',
-      '扫码秒进｜副业拆解\n送 xxx 赚钱表格 1 套\n直接复制用',
-      '先扫码｜再添加小助手\n0 元听 xxx 直播课\n课后送资料包',
-      '微信扫码｜立刻领\n每天抽 2 人送 xxx 社群年卡\n365 天陪跑'
-    ],
-    
-    // 8. 家居
-    '家居': [
-      '扫码进群｜收纳技巧日更\n送 xxx 折叠收纳箱 1 个\n包邮 0 元',
-      '长按识别｜加微信\n备注【家居】领 xxx 除螨券\n线下上门 1 次',
-      '扫码秒进｜团购爆款\nxxx 空气炸锅 99 秒杀\n官方联保',
-      '先扫码｜再添加小助手\n送 xxx 香薰 1 瓶\n限前 200 户',
-      '微信扫码｜立刻进群\n每周教 1 招旧物改造\n成品拍照再返 xxx 红包'
-    ],
-    
-    // 9. 数码
-    '数码': [
-      '扫码进群｜新品内测\n送 xxx 无线耳机 1 副\n写评测再返 50 元',
-      '长按识别｜加微信\n备注【数码】领 xxx 数据线 1 根\n快充不弹窗',
-      '扫码秒进｜限时拼团\nxxx 充电宝 59 包邮\n20000mAh 双向快充',
-      '先扫码｜再添加小助手\n0 元拿 xxx 手机支架\n直播追剧神器',
-      '微信扫码｜立刻领\n每天抽 1 人送 xxx 智能手表\n官方正品可查'
-    ],
-    
-    // 10. 旅游
-    '旅游': [
-      '扫码进群｜机票酒店神价\n送 xxx 无门槛 100 元券\n节假日通用',
-      '长按识别｜加微信\n备注【旅行】领 xxx 行李牌 1 套\n包邮出发地',
-      '扫码秒进｜限时尾单\nxxx 五星酒店 299 含双早\n比携程低 40%',
-      '先扫码｜再添加小助手\n送 xxx 景区门票 1 张\n限本周使用',
-      '微信扫码｜立刻进群\n每天发 1 条冷门路线\n组队成行再返 xxx 红包'
-    ]
-  };
-  
   // DOM元素缓存
   const elements = {};
   
@@ -211,6 +118,9 @@ window.wechatWarning = {
     
     // 先从本地存储加载数据
     loadBusinessInfoFromLocalStorage();
+    
+    // 动态生成行业分类按钮
+    initializeIndustryCategories();
     
     // 然后更新显示
     updateBusinessInfoDisplay();
@@ -335,6 +245,59 @@ window.wechatWarning = {
     console.log('图片保护功能初始化完成');
   }
   
+  // 动态生成行业分类按钮
+  function initializeIndustryCategories() {
+    if (!elements.industryCategories) return;
+    
+    console.log('开始动态生成行业分类按钮...');
+    
+    // 清空容器
+    elements.industryCategories.innerHTML = '';
+    
+    // 从 INDUSTRY_TEMPLATES 中获取所有行业分类
+    const categories = Object.keys(INDUSTRY_TEMPLATES);
+    
+    console.log('找到行业分类:', categories);
+    
+    // 为每个分类创建按钮
+    categories.forEach(category => {
+      const button = document.createElement('button');
+      button.className = 'industry-category';
+      button.setAttribute('data-category', category);
+      
+      // 获取对应的 emoji 图标
+      const icon = INDUSTRY_ICONS && INDUSTRY_ICONS[category] ? INDUSTRY_ICONS[category] : '';
+      button.textContent = icon + ' ' + category;
+      
+      elements.industryCategories.appendChild(button);
+    });
+    
+    // 重新绑定事件
+    bindIndustryCategoryEvents();
+    
+    console.log('行业分类按钮生成完成');
+  }
+  
+  // 绑定行业分类按钮事件
+  function bindIndustryCategoryEvents() {
+    if (!elements.industryCategories) return;
+    
+    // 获取所有行业分类按钮
+    const categoryButtons = elements.industryCategories.querySelectorAll('.industry-category');
+    
+    categoryButtons.forEach(category => {
+      category.addEventListener('click', function() {
+        // 移除所有active类
+        categoryButtons.forEach(cat => cat.classList.remove('active'));
+        // 添加active类到当前分类
+        this.classList.add('active');
+        // 打开对应行业的模板弹窗
+        const categoryName = this.getAttribute('data-category');
+        openIndustryTemplateModal(categoryName);
+      });
+    });
+  }
+  
   // 显示保护提示消息
   function showProtectionMessage(message) {
     const messageElement = document.getElementById('protectionMessage');
@@ -420,7 +383,11 @@ window.wechatWarning = {
       editBusinessInfoBtn: document.getElementById('editBusinessInfoBtn'),
       uploadBackgroundBtn: document.getElementById('uploadBackgroundBtn'),
       backgroundInput: document.getElementById('backgroundInput'),
+      takePhotoBtn: document.getElementById('takePhotoBtn'),
+      cameraInput: document.getElementById('cameraInput'),
       downloadBtn: document.getElementById('downloadBtn'),
+      togglePositionBtn: document.getElementById('togglePositionBtn'),
+      bottomActions: document.getElementById('bottomActions'),
       
       // 预览区域
       posterFrame: document.getElementById('posterFrame'),
@@ -487,7 +454,6 @@ window.wechatWarning = {
       fontColorSelector: document.getElementById('color-selector'),
       businessPromoTextInput: document.getElementById('promotion-text'), // 商家信息模态框中的促销文本输入框
       selectPromoTemplateBtn: document.getElementById('selectPromoTemplateBtn'), // 选择促销文案模板按钮
-      industryCategories: document.querySelectorAll('.industry-category'), // 行业分类按钮
       industryTemplateModal: document.getElementById('industryTemplateModal'), // 行业模板独立弹窗
       closeIndustryTemplateModal: document.getElementById('closeIndustryTemplateModal'), // 关闭行业模板弹窗
       industryModalTitle: document.getElementById('industryModalTitle'), // 行业弹窗标题
@@ -509,6 +475,9 @@ window.wechatWarning = {
       restoreQrcodeBtnContainer: document.getElementById('restoreQrcodeBtnContainer'),
       restoreQrcodeBtn: document.getElementById('restoreQrcodeBtn'),
       
+      // 更改品牌名称按钮
+      changeBrandNameBtn: document.getElementById('changeBrandNameBtn'),
+      
       // 加载动画元素
       posterLoadingOverlay: document.getElementById('posterLoadingOverlay'),
       loadingLogo: document.getElementById('loadingLogo'),
@@ -518,7 +487,10 @@ window.wechatWarning = {
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),
       closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
-      fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group')
+      fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group'),
+      
+      // 行业分类容器
+      industryCategories: document.getElementById('industryCategories')
     });
     console.log('DOM元素缓存初始化完成');
   }
@@ -1334,19 +1306,7 @@ window.wechatWarning = {
     }
     
     // 行业分类点击事件 - 打开独立弹窗
-    if (elements.industryCategories) {
-      elements.industryCategories.forEach(category => {
-        category.addEventListener('click', function() {
-          // 移除所有active类
-          elements.industryCategories.forEach(cat => cat.classList.remove('active'));
-          // 添加active类到当前分类
-          this.classList.add('active');
-          // 打开对应行业的模板弹窗
-          const categoryName = this.getAttribute('data-category');
-          openIndustryTemplateModal(categoryName);
-        });
-      });
-    }
+    bindIndustryCategoryEvents();
     
     // 关闭行业模板弹窗事件
     if (elements.closeIndustryTemplateModal) {
@@ -1458,6 +1418,16 @@ window.wechatWarning = {
     // 字体颜色选择弹窗关闭按钮事件
     if (elements.closeFontColorModalBtn) {
       elements.closeFontColorModalBtn.addEventListener('click', closeFontColorModal);
+    }
+    
+    // 更改品牌名称按钮事件
+    if (elements.changeBrandNameBtn) {
+      elements.changeBrandNameBtn.addEventListener('click', function() {
+        // 关闭字体颜色选择弹窗
+        closeFontColorModal();
+        // 打开商家信息编辑弹窗
+        openBusinessInfoModal();
+      });
     }
     
     // 移除按钮事件监听，因为现在点击颜色直接应用并关闭弹窗
@@ -1572,6 +1542,74 @@ window.wechatWarning = {
       });
     }
     
+    // 拍照相关事件
+    if (elements.takePhotoBtn) {
+      elements.takePhotoBtn.addEventListener('click', function(event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        
+        // 重置状态，允许用户再次点击
+        if (isFileDialogOpen) {
+          cleanupFileInput();
+        }
+        
+        // 标记文件对话框已打开
+        isFileDialogOpen = true;
+        
+        // 移除旧的输入框（如果存在），避免多个输入框导致的重复触发
+        const existingInput = document.getElementById('cameraInput');
+        if (existingInput) {
+          existingInput.removeEventListener('change', handleBackgroundUpload);
+          existingInput.removeEventListener('focusout', cleanupFileInput);
+          if (existingInput.parentNode) {
+            existingInput.parentNode.removeChild(existingInput);
+          }
+        }
+        
+        // 重置活动输入框引用
+        activeFileInput = null;
+        
+        // 创建全新的输入框元素（使用capture="environment"打开相机）
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.accept = 'image/*';
+        newInput.capture = 'environment';
+        newInput.id = 'cameraInput';
+        newInput.style.display = 'none'; // 隐藏输入框
+        
+        // 添加change事件监听器
+        newInput.addEventListener('change', function(event) {
+          // 调用原始的处理函数
+          handleBackgroundUpload(event);
+          // 清理标志和引用
+          setTimeout(() => {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }, 100);
+        });
+        
+        // 添加focusout事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('focusout', cleanupFileInput);
+        
+        // 添加到DOM中
+        document.body.appendChild(newInput);
+        
+        // 更新elements对象中的引用
+        elements.cameraInput = newInput;
+        activeFileInput = newInput;
+        
+        // 使用setTimeout确保DOM完全更新后再触发点击
+        setTimeout(() => {
+          // 再次检查，确保输入框仍然存在
+          if (newInput && document.body.contains(newInput)) {
+            newInput.click();
+          } else {
+            isFileDialogOpen = false;
+            activeFileInput = null;
+          }
+        }, 50); // 增加延迟时间
+      });
+    }
+    
     // 清理文件输入框的函数
     function cleanupFileInput() {
       // 立即重置状态标志，不等待延迟
@@ -1595,7 +1633,7 @@ window.wechatWarning = {
         }
         
         // 移除所有临时创建的file input元素
-        const tempInputs = ['backgroundInput', 'logoInput', 'qrcodeInput'];
+        const tempInputs = ['backgroundInput', 'logoInput', 'qrcodeInput', 'cameraInput'];
         tempInputs.forEach(id => {
           try {
             const input = document.getElementById(id);
@@ -1754,11 +1792,35 @@ window.wechatWarning = {
       elements.downloadBtn.addEventListener('click', downloadPoster);
     }
     
+    // 位置切换按钮事件
+    if (elements.togglePositionBtn) {
+      elements.togglePositionBtn.addEventListener('click', toggleActionsPosition);
+    }
+    
     // 阻止表单默认提交
     if (elements.businessInfoForm) {
       elements.businessInfoForm.addEventListener('submit', function(e) {
         e.preventDefault();
       });
+    }
+  }
+  
+  // 切换底部操作按钮位置
+  function toggleActionsPosition() {
+    if (!elements.bottomActions || !elements.togglePositionBtn) return;
+    
+    const isLeft = elements.bottomActions.classList.contains('left-position');
+    
+    if (isLeft) {
+      // 切换到靠右
+      elements.bottomActions.classList.remove('left-position');
+      elements.togglePositionBtn.querySelector('span').textContent = '靠左';
+      localStorage.setItem('actionsPosition', 'right');
+    } else {
+      // 切换到靠左
+      elements.bottomActions.classList.add('left-position');
+      elements.togglePositionBtn.querySelector('span').textContent = '靠右';
+      localStorage.setItem('actionsPosition', 'left');
     }
   }
   
@@ -1816,6 +1878,17 @@ window.wechatWarning = {
     const savedTextColor = localStorage.getItem('textColor');
     if (savedTextColor) {
       state.textColor = savedTextColor;
+    }
+    
+    // 从本地存储加载底部按钮位置设置
+    const savedActionsPosition = localStorage.getItem('actionsPosition');
+    if (savedActionsPosition === 'left') {
+      if (elements.bottomActions) {
+        elements.bottomActions.classList.add('left-position');
+      }
+      if (elements.togglePositionBtn) {
+        elements.togglePositionBtn.querySelector('span').textContent = '靠右';
+      }
     }
     
     // 更新商家信息显示
@@ -2054,6 +2127,17 @@ window.wechatWarning = {
     
     // 更新商家Logo
     if (elements.posterLogoImg && elements.logoPlaceholder) {
+      // 先清理Logo容器中的所有canvas元素
+      const logoContainer = elements.posterLogoImg.parentElement;
+      if (logoContainer) {
+        const canvases = logoContainer.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas);
+          }
+        });
+      }
+      
       if (state.businessInfo.logo) {
         elements.posterLogoImg.src = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
@@ -2066,6 +2150,17 @@ window.wechatWarning = {
     
     // 更新二维码
     if (elements.posterQrcodeImg && elements.qrcodePlaceholder) {
+      // 先清理二维码容器中的所有canvas元素
+      const qrcodeContainer = elements.posterQrcodeImg.parentElement;
+      if (qrcodeContainer) {
+        const canvases = qrcodeContainer.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas);
+          }
+        });
+      }
+      
       if (state.businessInfo.qrcode) {
         elements.posterQrcodeImg.src = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
@@ -5145,6 +5240,17 @@ function updateBusinessInfoButtonForVip() {
     
     // 更新商家Logo
     if (elements.posterLogoImg && elements.logoPlaceholder) {
+      // 先清理Logo容器中的所有canvas元素
+      const logoContainer = elements.posterLogoImg.parentElement;
+      if (logoContainer) {
+        const canvases = logoContainer.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas);
+          }
+        });
+      }
+      
       if (state.businessInfo.logo) {
         elements.posterLogoImg.src = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
@@ -5157,6 +5263,17 @@ function updateBusinessInfoButtonForVip() {
     
     // 更新二维码
     if (elements.posterQrcodeImg && elements.qrcodePlaceholder) {
+      // 先清理二维码容器中的所有canvas元素
+      const qrcodeContainer = elements.posterQrcodeImg.parentElement;
+      if (qrcodeContainer) {
+        const canvases = qrcodeContainer.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas);
+          }
+        });
+      }
+      
       if (state.businessInfo.qrcode) {
         elements.posterQrcodeImg.src = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
