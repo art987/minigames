@@ -927,7 +927,7 @@ footer {
 #posterPromoText::before {
   content: '';
   position: absolute;
-  left: -12px;
+  left: -13px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
