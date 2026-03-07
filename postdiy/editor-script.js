@@ -4482,13 +4482,13 @@ window.wechatWarning = {
               
               // 检查是否为二维码图片
               const isQrcode = imgElement.id === 'posterQrcodeImg';
-              const borderRadius = isQrcode ? 10 : 0;
+              const borderRadius = isQrcode ? 2 : 0;
               
               let drawWidth, drawHeight, offsetX, offsetY;
               
               if (isQrcode) {
                 // 对于二维码，使用object-fit: cover模式（居中裁剪，保持原始比例）
-                const targetScale = 0.98; // 80%缩放比例
+                const targetScale = 0.9; // 80%缩放比例
                 
                 // 计算目标区域尺寸（80%的正方形）
                 const targetSize = Math.min(containerWidth, containerHeight) * targetScale;
