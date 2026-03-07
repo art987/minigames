@@ -941,7 +941,7 @@ footer {
 /* 底部按钮栏 - 针对移动端优化 */
 .bottom-actions {
   position: fixed;
-  bottom: 15px;
+  bottom: 30px;
   right: 0px;
   /* background-color: #ffffff38; */
   /* border: 1px solid #ccccccfa; */
