@@ -282,6 +282,14 @@ main {
   display: block;
 }
 
+.festival-name {
+  font-weight: bold;
+}
+
+.festival-countdown {
+  color: #b40606;
+}
+
 /* 模板展示区域 */
 .templates-section {
       margin: 0 auto 2rem;

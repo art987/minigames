@@ -291,7 +291,7 @@ window.currentFilters = {
 };
 
 // 全局DOM元素引用
-let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount, emptyState, loadingState, currentDateDisplay, festivalDateDisplay, backToTopBtn;
+let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount, emptyState, loadingState, currentDateDisplay, festivalDateDisplay, backToTopBtn, currentDateDiv, festivalDateDiv;
 
 // 初始化应用
 function initApp() {
@@ -308,6 +308,8 @@ function initApp() {
   currentDateDisplay = document.getElementById('currentDateDisplay');
   festivalDateDisplay = document.getElementById('festivalDateDisplay');
   backToTopBtn = document.getElementById('backToTopBtn');
+  currentDateDiv = document.querySelector('.current-date');
+  festivalDateDiv = document.querySelector('.festival-date');
 
   // 显示当前日期
   displayCurrentDate();
@@ -439,7 +441,14 @@ function updateFestivalTags() {
         this.classList.remove('active');
         // 清空节日日期显示
         if (festivalDateDisplay) {
-          festivalDateDisplay.textContent = '';
+          festivalDateDisplay.innerHTML = '';
+        }
+        // 显示今日日期
+        if (currentDateDiv) {
+          currentDateDiv.style.display = 'block';
+        }
+        if (festivalDateDiv) {
+          festivalDateDiv.style.display = 'block';
         }
       } else {
         window.currentFilters.festival = selectedFestival;
@@ -461,19 +470,47 @@ function updateFestivalTags() {
           let countdownText = '';
           if (daysUntil > 0) {
             countdownText = `（还有${daysUntil}天）`;
+            // 不是今天，两个都显示
+            if (currentDateDiv) {
+              currentDateDiv.style.display = 'block';
+            }
+            if (festivalDateDiv) {
+              festivalDateDiv.style.display = 'block';
+            }
           } else if (daysUntil === 0) {
             countdownText = `（今天）`;
+            // 是今天，隐藏今日日期，只显示节日日期
+            if (currentDateDiv) {
+              currentDateDiv.style.display = 'none';
+            }
+            if (festivalDateDiv) {
+              festivalDateDiv.style.display = 'block';
+            }
           } else {
             countdownText = `（已过期）`;
+            // 已过期，两个都显示
+            if (currentDateDiv) {
+              currentDateDiv.style.display = 'block';
+            }
+            if (festivalDateDiv) {
+              festivalDateDiv.style.display = 'block';
+            }
           }
           
           if (festivalDateDisplay) {
-            festivalDateDisplay.textContent = `${selectedFestival}：${dateStr} ${countdownText}`;
+            festivalDateDisplay.innerHTML = `<span class="festival-name">${selectedFestival}</span>：${dateStr} <span class="festival-countdown">${countdownText}</span>`;
           }
         } else {
           // 清空节日日期显示
           if (festivalDateDisplay) {
-            festivalDateDisplay.textContent = '';
+            festivalDateDisplay.innerHTML = '';
+          }
+          // 显示今日日期
+          if (currentDateDiv) {
+            currentDateDiv.style.display = 'block';
+          }
+          if (festivalDateDiv) {
+            festivalDateDiv.style.display = 'block';
           }
         }
       }
@@ -522,6 +559,38 @@ function autoSelectByDate() {
           const festivalTag = document.querySelector(`.festival-tag[data-festival="${result.festival}"]`);
           if (festivalTag) {
             festivalTag.classList.add('active');
+            
+            // 显示节日日期并检查是否是今天
+            const dateStr = getFestivalFutureDate(result.festival);
+            const daysUntil = getDaysUntilDate(dateStr);
+            
+            // 如果是今天，隐藏今日日期，只显示节日日期
+            if (daysUntil === 0) {
+              if (currentDateDiv) {
+                currentDateDiv.style.display = 'none';
+              }
+              if (festivalDateDiv) {
+                festivalDateDiv.style.display = 'block';
+              }
+              
+              let countdownText = `（今天）`;
+              if (festivalDateDisplay) {
+                festivalDateDisplay.innerHTML = `<span class="festival-name">${result.festival}</span>：${dateStr} <span class="festival-countdown">${countdownText}</span>`;
+              }
+            } else {
+              // 不是今天，两个都显示
+              if (currentDateDiv) {
+                currentDateDiv.style.display = 'block';
+              }
+              if (festivalDateDiv) {
+                festivalDateDiv.style.display = 'block';
+              }
+              
+              let countdownText = `（还有${daysUntil}天）`;
+              if (festivalDateDisplay) {
+                festivalDateDisplay.innerHTML = `<span class="festival-name">${result.festival}</span>：${dateStr} <span class="festival-countdown">${countdownText}</span>`;
+              }
+            }
           }
         }, 100);
       }

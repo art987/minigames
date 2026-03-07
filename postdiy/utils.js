@@ -98,17 +98,17 @@ function getNextFestivalInMonth(month) {
   
   Object.keys(festivalsInMonth).forEach(festivalName => {
     const festival = festivalsInMonth[festivalName];
-    // 简化处理，实际应用中需要更复杂的农历日期计算
     const festivalDate = new Date();
     festivalDate.setMonth(festival.month - 1);
     festivalDate.setDate(festival.day);
+    festivalDate.setHours(0, 0, 0, 0);
     
-    // 如果是本年的节日已经过去，则计算下一年的
-    if (festivalDate < currentDate && festival.month <= currentDate.getMonth()) {
-      festivalDate.setFullYear(festivalDate.getFullYear() + 1);
-    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     
-    const daysUntil = getDaysBetweenDates(currentDate, festivalDate);
+    const timeDiff = festivalDate - today;
+    const daysUntil = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
     if (daysUntil >= 0 && daysUntil < minDaysUntil) {
       minDaysUntil = daysUntil;
       nextFestival = festivalName;
@@ -118,14 +118,84 @@ function getNextFestivalInMonth(month) {
   return nextFestival;
 }
 
+// 获取所有节日的日期对象（包含年份处理）
+function getAllFestivalDates() {
+  const allFestivals = getAllFestivals();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const currentYear = today.getFullYear();
+  
+  const festivalDates = [];
+  
+  Object.keys(allFestivals).forEach(festivalName => {
+    const festival = allFestivals[festivalName];
+    
+    let festivalDate = new Date(currentYear, festival.month - 1, festival.day);
+    festivalDate.setHours(0, 0, 0, 0);
+    
+    festivalDates.push({
+      name: festivalName,
+      date: festivalDate,
+      month: festival.month,
+      day: festival.day
+    });
+    
+    let festivalDateNextYear = new Date(currentYear + 1, festival.month - 1, festival.day);
+    festivalDateNextYear.setHours(0, 0, 0, 0);
+    
+    festivalDates.push({
+      name: festivalName,
+      date: festivalDateNextYear,
+      month: festival.month,
+      day: festival.day
+    });
+  });
+  
+  return festivalDates;
+}
+
 // 根据当前日期自动选择月份和节日
 function autoSelectByDate() {
-  const currentMonth = getCurrentMonth();
-  const nextFestival = getNextFestivalInMonth(currentMonth);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const currentYear = today.getFullYear();
+  
+  const festivalDates = getAllFestivalDates();
+  
+  let todayFestival = null;
+  let nextFestival = null;
+  let minDaysToNext = Infinity;
+  
+  festivalDates.forEach(festival => {
+    const festivalDate = festival.date;
+    
+    const timeDiff = festivalDate - today;
+    const daysUntil = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
+    if (daysUntil === 0) {
+      todayFestival = festival;
+    } else if (daysUntil > 0 && daysUntil < minDaysToNext) {
+      minDaysToNext = daysUntil;
+      nextFestival = festival;
+    }
+  });
+  
+  let selectedFestival = null;
+  let selectedMonth = null;
+  
+  if (todayFestival) {
+    selectedFestival = todayFestival.name;
+    selectedMonth = todayFestival.month;
+  } else if (nextFestival) {
+    selectedFestival = nextFestival.name;
+    selectedMonth = nextFestival.month;
+  } else {
+    selectedMonth = getCurrentMonth();
+  }
   
   return {
-    month: currentMonth,
-    festival: nextFestival || null
+    month: selectedMonth,
+    festival: selectedFestival
   };
 }
 

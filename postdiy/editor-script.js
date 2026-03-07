@@ -602,10 +602,16 @@ window.wechatWarning = {
   }
   
   function handleVipLogout() {
+    // 真正清除VIP登录状态
+    if (window.clearVipLogin) {
+      window.clearVipLogin();
+    }
+    
     // 更新UI状态为未登录
     updateVipMenuState(false);
     
     // 显示退出成功提示
+    showToast('已退出VIP登录');
     console.log('VIP用户已退出');
   }
   
