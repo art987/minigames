@@ -153,11 +153,15 @@ function getDaysUntilDate(targetDateStr) {
 // 获取节日的未来日期
 function getFestivalFutureDate(festival) {
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const currentYear = today.getFullYear();
   
   // 先检查今年的节日日期
   if (festivalDates[currentYear] && festivalDates[currentYear][festival]) {
-    const festivalDate = new Date(festivalDates[currentYear][festival].split(' ')[0]);
+    const festivalDateStr = festivalDates[currentYear][festival].split(' ')[0];
+    const festivalDate = new Date(festivalDateStr);
+    festivalDate.setHours(0, 0, 0, 0);
+    
     if (festivalDate >= today) {
       return festivalDates[currentYear][festival];
     }
