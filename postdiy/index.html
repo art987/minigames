@@ -32,6 +32,11 @@
         朋友圈海报制作
       </a>
       
+      <!-- 每日建议按钮 -->
+      <button id="dailySuggestionBtn" class="daily-suggestion-btn">
+        ☸
+      </button>
+      
       <!-- VIP浮动菜单系统 -->
       <div id="vipMenuContainer" class="vip-menu-container">
         <!-- 未登录状态：显示登录按钮 -->
@@ -218,6 +223,33 @@
     </div>
   </div>
 
+  <!-- 首页弹窗 - 每天都是宣传日 -->
+  <div id="homePopup" class="modal-overlay hidden">
+    <div class="modal home-popup-modal">
+      <div class="modal-header fixed-header">
+        <h2 class="modal-title">每天都是品牌宣传日</h2>
+        <button id="closeHomePopup" class="modal-close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body scrollable-body">
+        <!-- 今日发布模块 -->
+        <div class="home-popup-section">
+          <h3 class="home-popup-section-title">今日发布建议<span id="todayDateInTitle"></span></h3>
+          <div id="todayReleaseContent" class="home-popup-section-content"></div>
+        </div>
+        
+        <div class="home-popup-divider"></div>
+        
+        <!-- 未来制作建议模块 -->
+        <div class="home-popup-section">
+          <h3 class="home-popup-section-title">近日品牌宣传建议</h3>
+          <div id="futureSuggestionContent" class="home-popup-section-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <!-- 置顶按钮 -->
   <button id="backToTopBtn" class="back-to-top-btn hidden">
     <i class="fa fa-arrow-up"></i>

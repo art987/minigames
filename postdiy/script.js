@@ -120,6 +120,9 @@ const festivalDates = {
   }
 };
 
+// 将festivalDates暴露到window对象上
+window.festivalDates = festivalDates;
+
 // 显示当前日期
 function displayCurrentDate() {
   const today = new Date();
@@ -465,8 +468,8 @@ function updateFestivalTags() {
         // 滚动到当前选中的标签使其可见
         scrollFestivalTagToView(this);
         
-        // 只有非早安分类才显示节日日期
-        if (selectedFestival !== '☀️ 早安') {
+        // 只有非早安和晚安分类才显示节日日期
+        if (selectedFestival !== '☀️ 早安' && selectedFestival !== '🌙 晚安') {
           // 显示节日日期和倒计时
           const dateStr = getFestivalFutureDate(selectedFestival);
           const daysUntil = getDaysUntilDate(dateStr);
@@ -1060,4 +1063,321 @@ function initVipLogin() {
 document.addEventListener('DOMContentLoaded', function() {
   // 延迟初始化VIP登录，确保VIP数据已加载
   setTimeout(initVipLogin, 100);
+  // 延迟初始化首页弹窗
+  setTimeout(initHomePopup, 200);
 });
+
+// 首页弹窗功能
+  function initHomePopup() {
+    const homePopup = document.getElementById('homePopup');
+    const closeHomePopupBtn = document.getElementById('closeHomePopup');
+    const todayReleaseContent = document.getElementById('todayReleaseContent');
+    const futureSuggestionContent = document.getElementById('futureSuggestionContent');
+    const dailySuggestionBtn = document.getElementById('dailySuggestionBtn');
+    const homePopupModal = homePopup.querySelector('.home-popup-modal');
+    
+    if (!homePopup) return;
+    
+    // 显示弹窗
+    function showHomePopup() {
+      renderTodayRelease();
+      renderFutureSuggestion();
+      
+      if (dailySuggestionBtn && homePopupModal) {
+        const btnRect = dailySuggestionBtn.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const startX = btnRect.left + btnRect.width / 2;
+        const startY = btnRect.top + btnRect.height / 2;
+        
+        homePopupModal.style.transform = `translate(${startX - centerX}px, ${startY - centerY}px) scale(0.1)`;
+        homePopupModal.style.opacity = '0';
+        homePopupModal.style.transition = 'all 0.3s ease-out';
+      }
+      
+      homePopup.classList.remove('hidden');
+      
+      requestAnimationFrame(() => {
+        if (homePopupModal) {
+          homePopupModal.style.transform = 'translate(0, 0) scale(1)';
+          homePopupModal.style.opacity = '1';
+        }
+      });
+    }
+    
+    // 每日建议按钮点击事件
+    if (dailySuggestionBtn) {
+      dailySuggestionBtn.addEventListener('click', showHomePopup);
+    }
+  
+  // 关闭弹窗
+  function closeHomePopup() {
+    homePopup.classList.add('hidden');
+  }
+  
+  // 关闭按钮点击事件
+  if (closeHomePopupBtn) {
+    closeHomePopupBtn.addEventListener('click', closeHomePopup);
+  }
+  
+  // 点击遮罩关闭弹窗
+  homePopup.addEventListener('click', function(e) {
+    if (e.target === homePopup) {
+      closeHomePopup();
+    }
+  });
+  
+  // 获取星期几的中文表示
+  function getWeekdayChinese(day) {
+    const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    return weekdays[day];
+  }
+  
+  // 格式化时间
+  function formatTime(date) {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}点${minutes}分`;
+  }
+  
+  // 检查今天是否有节日
+  function getTodayFestival() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const yearStr = year.toString();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+    
+    if (window.festivalDates && window.festivalDates[yearStr]) {
+      for (const festivalName in window.festivalDates[yearStr]) {
+        if (window.festivalDates[yearStr][festivalName].startsWith(todayStr)) {
+          return festivalName;
+        }
+      }
+    }
+    return null;
+  }
+  
+  // 检查明天是否有节日
+  function getTomorrowFestival() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const year = tomorrow.getFullYear();
+    const yearStr = year.toString();
+    const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+    const day = tomorrow.getDate().toString().padStart(2, '0');
+    const tomorrowStr = `${year}-${month}-${day}`;
+    
+    if (window.festivalDates && window.festivalDates[yearStr]) {
+      for (const festivalName in window.festivalDates[yearStr]) {
+        if (window.festivalDates[yearStr][festivalName].startsWith(tomorrowStr)) {
+          return festivalName;
+        }
+      }
+    }
+    return null;
+  }
+  
+  // 获取未来的节日
+  function getFutureFestivals(count = 3) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const currentYear = today.getFullYear();
+    const festivals = [];
+    
+    const yearsToCheck = [currentYear.toString(), (currentYear + 1).toString()];
+    
+    for (const yearStr of yearsToCheck) {
+      if (window.festivalDates && window.festivalDates[yearStr]) {
+        for (const festivalName in window.festivalDates[yearStr]) {
+          const dateStr = window.festivalDates[yearStr][festivalName].split(' ')[0];
+          const [year, month, day] = dateStr.split('-').map(Number);
+          const festivalDate = new Date(year, month - 1, day);
+          festivalDate.setHours(0, 0, 0, 0);
+          
+          if (festivalDate > today) {
+            const daysUntil = Math.ceil((festivalDate - today) / (1000 * 60 * 60 * 24));
+            festivals.push({
+              name: festivalName,
+              date: festivalDate,
+              daysUntil: daysUntil
+            });
+          }
+        }
+      }
+    }
+    
+    festivals.sort((a, b) => a.date - b.date);
+    return festivals.slice(0, count);
+  }
+  
+  // 定位到节日标签
+  function scrollToFestival(festivalName) {
+    const festivalTags = document.querySelectorAll('.festival-tag');
+    let targetTag = null;
+    
+    festivalTags.forEach(tag => {
+      const tagFestival = tag.dataset.festival || tag.textContent;
+      if (tagFestival === festivalName) {
+        targetTag = tag;
+      }
+    });
+    
+    function ensureFestivalActiveAndScroll(tag) {
+      if (!tag.classList.contains('active')) {
+        tag.click();
+      }
+      tag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    if (targetTag) {
+      ensureFestivalActiveAndScroll(targetTag);
+    } else {
+      const allFestivals = utils.getAllFestivals();
+      if (allFestivals[festivalName]) {
+        const festival = allFestivals[festivalName];
+        const monthButtons = document.querySelectorAll('.month-btn');
+        monthButtons.forEach(btn => {
+          if (parseInt(btn.dataset.month) === festival.month) {
+            btn.click();
+            setTimeout(() => {
+              const newFestivalTags = document.querySelectorAll('.festival-tag');
+              newFestivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                if (tagFestival === festivalName) {
+                  targetTag = tag;
+                }
+              });
+              if (targetTag) {
+                ensureFestivalActiveAndScroll(targetTag);
+              }
+            }, 100);
+          }
+        });
+      }
+    }
+  }
+  
+  // 渲染今日发布模块
+  function renderTodayRelease() {
+    const now = new Date();
+    const todayFestival = getTodayFestival();
+    const isBefore930 = now.getHours() < 9 || (now.getHours() === 9 && now.getMinutes() < 30);
+    const todayDateInTitle = document.getElementById('todayDateInTitle');
+    
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const weekday = getWeekdayChinese(now.getDay());
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const simpleTimeStr = `${hours}:${minutes}`;
+    
+    if (todayDateInTitle) {
+      todayDateInTitle.innerHTML = ` <strong>${month}月${day}日 ${weekday}</strong> <span style="font-weight:normal;color:#666;font-size:0.9rem;">${simpleTimeStr}</span>`;
+    }
+    
+    let html = '';
+    
+    if (todayFestival) {
+      html = `
+        <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <span><strong>${todayFestival}</strong></span>
+          <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+            选择${todayFestival}节日模板
+          </button>
+        </div>
+      `;
+    } else if (isBefore930) {
+      html = `
+        <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <span>（今日没有特别节日，您可以：）</span>
+          <button class="home-popup-btn" data-action="zaoan">
+            制作早安海报
+          </button>
+        </div>
+      `;
+    } else {
+      html = `
+        <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <span>（今日没有特别节日，您可以：）</span>
+          <button class="home-popup-btn" data-action="wanan">
+            制作晚安海报
+          </button>
+        </div>
+      `;
+    }
+    
+    todayReleaseContent.innerHTML = html;
+    
+    todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.dataset.action;
+        closeHomePopup();
+        
+        if (action === 'festival') {
+          scrollToFestival(this.dataset.festival);
+        } else if (action === 'zaoan') {
+          scrollToFestival('☀️ 早安');
+        } else if (action === 'wanan') {
+          scrollToFestival('🌙 晚安');
+        }
+      });
+    });
+  }
+  
+  // 渲染未来制作建议模块
+  function renderFutureSuggestion() {
+    const tomorrowFestival = getTomorrowFestival();
+    const futureFestivals = getFutureFestivals(3);
+    
+    let html = '';
+    
+    html += '<div class="future-suggestion-item">';
+    html += '<div class="future-suggestion-text">明天：</div>';
+    html += '<div class="future-suggestion-buttons">';
+    
+    if (!tomorrowFestival) {
+      html += `<button class="future-suggestion-btn" data-action="zaoan">早安海报</button>`;
+    }
+    html += `<button class="future-suggestion-btn" data-action="wanan">晚安海报</button>`;
+    
+    html += '</div></div>';
+    
+    futureFestivals.forEach(festival => {
+      let daysText = '';
+      if (festival.daysUntil === 1) {
+        daysText = '明天：';
+      } else if (festival.daysUntil === 2) {
+        daysText = '后天：';
+      } else {
+        daysText = `${festival.daysUntil}天后：`;
+      }
+      
+      html += `<div class="future-suggestion-item">`;
+      html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
+      html += `<div class="future-suggestion-buttons">`;
+      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板制作</button>`;
+      html += '</div></div>';
+    });
+    
+    futureSuggestionContent.innerHTML = html;
+    
+    futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.dataset.action;
+        closeHomePopup();
+        
+        if (action === 'festival') {
+          scrollToFestival(this.dataset.festival);
+        } else if (action === 'zaoan') {
+          scrollToFestival('☀️ 早安');
+        } else if (action === 'wanan') {
+          scrollToFestival('🌙 晚安');
+        }
+      });
+    });
+  }
+  
+  showHomePopup();
+}

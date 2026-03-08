@@ -2500,10 +2500,12 @@ window.wechatWarning = {
                   let templateFestival = state.currentTemplate.festivals[0];
                   console.log('定位到模板节日:', templateFestival);
                   
-                  // 处理早安模板的特殊情况
+                  // 处理早安和晚安模板的特殊情况
                   let festivalTag;
                   if (templateFestival === '早安') {
                     festivalTag = document.querySelector('.festival-tag[data-festival="☀️ 早安"]');
+                  } else if (templateFestival === '晚安') {
+                    festivalTag = document.querySelector('.festival-tag[data-festival="🌙 晚安"]');
                   } else {
                     festivalTag = document.querySelector(`.festival-tag[data-festival="${templateFestival}"]`);
                   }
@@ -2709,6 +2711,34 @@ window.wechatWarning = {
     zaoanTag._clickHandler = zaoanClickHandler;
     
     elements.modalFestivalTags.appendChild(zaoanTag);
+    
+    // 添加晚安标签
+    const wananTag = document.createElement('div');
+    wananTag.className = 'festival-tag';
+    wananTag.textContent = '🌙 晚安';
+    wananTag.dataset.festival = '🌙 晚安';
+    
+    // 为晚安标签添加点击事件
+    const wananClickHandler = function() {
+      // 移除所有标签的选中状态
+      document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
+      // 添加当前标签的选中状态
+      this.classList.add('active');
+      // 清空节日日期显示
+      if (elements.modalFestivalDateDisplay) {
+        elements.modalFestivalDateDisplay.textContent = '';
+      }
+      // 自动滚动到可见区域
+      scrollToElement(this);
+      // 筛选显示晚安模板
+      filterTemplatesByFestival('🌙 晚安');
+    };
+    
+    wananTag.addEventListener('click', wananClickHandler);
+    // 存储事件处理函数引用，便于后续移除
+    wananTag._clickHandler = wananClickHandler;
+    
+    elements.modalFestivalTags.appendChild(wananTag);
     
     // 获取节日列表
     let festivals = [];
@@ -3151,6 +3181,8 @@ window.wechatWarning = {
         let showTemplate = false;
         if (festival === '☀️ 早安') {
           showTemplate = template.festivals.includes('早安');
+        } else if (festival === '🌙 晚安') {
+          showTemplate = template.festivals.includes('晚安');
         } else {
           showTemplate = template.festivals.includes(festival);
         }

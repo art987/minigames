@@ -75,8 +75,8 @@ function getFestivalNamesByMonth(month) {
   // 提取节日名称
   const festivalNames = festivalsArray.map(festival => festival.name);
   
-  // 添加"早安"分类到第一个位置
-  festivalNames.unshift('☀️ 早安');
+  // 添加"早安"和"晚安"分类
+  festivalNames.unshift('☀️ 早安', '🌙 晚安');
   
   return festivalNames;
 }
@@ -431,6 +431,11 @@ function getTemplatesByFilters(month, festival) {
     // 处理"早安"分类，不考虑月份
     if (festival === '☀️ 早安') {
       return template.festivals && template.festivals.includes('早安');
+    }
+    
+    // 处理"晚安"分类，不考虑月份
+    if (festival === '🌙 晚安') {
+      return template.festivals && template.festivals.includes('晚安');
     }
     
     // 检查月份匹配
