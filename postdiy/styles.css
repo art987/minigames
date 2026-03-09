@@ -3506,13 +3506,20 @@ input.hidden {
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-.home-popup-section-title strong{
+#todayDateInTitle {
     font-weight: normal;
-    margin-left: 16px;
-    font-size: 16px;
+    margin-left: 8px;
+    font-size: 13px;
     color: #757575;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    padding: 0 6px;
+    border-radius: 6px;
+    margin-top: 5px;
 }
-.home-popup-section-title span{}
+#todayDateInTitle strong{font-size: 13px; font-weight: normal;}
+#todayDateInTitle i{font-size: 13px; font-style: normal;}
+
 .home-popup-section-title::before {
   content: '';
   width: 4px;
@@ -3535,12 +3542,12 @@ input.hidden {
 /* 今日发布内容样式 */
 .today-release-text {
   margin-bottom: 1rem;
-  font-size: 0.95rem;
+  font-size: 13px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-  padding-left: 13px;
+  padding-left: 0px;
   color: #5d5d5d;
 }
 
@@ -3566,6 +3573,7 @@ input.hidden {
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
   width: auto;
+  margin-left: 6px;
 }
 
 .home-popup-btn:hover {

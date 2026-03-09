@@ -14,6 +14,58 @@ function isWeixinBrowser() {
   return ua.indexOf('micromessenger') !== -1;
 }
 
+// 检查今天是否有节日
+function getTodayFestival() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const yearStr = year.toString();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const day = today.getDate().toString().padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
+  
+  if (window.festivalDates && window.festivalDates[yearStr]) {
+    for (const festivalName in window.festivalDates[yearStr]) {
+      if (window.festivalDates[yearStr][festivalName].startsWith(todayStr)) {
+        return festivalName;
+      }
+    }
+  }
+  return null;
+}
+
+// 获取未来的节日
+function getFutureFestivals(count = 3) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const currentYear = today.getFullYear();
+  const festivals = [];
+  
+  const yearsToCheck = [currentYear.toString(), (currentYear + 1).toString()];
+  
+  for (const yearStr of yearsToCheck) {
+    if (window.festivalDates && window.festivalDates[yearStr]) {
+      for (const festivalName in window.festivalDates[yearStr]) {
+        const dateStr = window.festivalDates[yearStr][festivalName].split(' ')[0];
+        const [year, month, day] = dateStr.split('-').map(Number);
+        const festivalDate = new Date(year, month - 1, day);
+        festivalDate.setHours(0, 0, 0, 0);
+        
+        if (festivalDate > today) {
+          const daysUntil = Math.ceil((festivalDate - today) / (1000 * 60 * 60 * 24));
+          festivals.push({
+            name: festivalName,
+            date: festivalDate,
+            daysUntil: daysUntil
+          });
+        }
+      }
+    }
+  }
+  
+  festivals.sort((a, b) => a.date - b.date);
+  return festivals.slice(0, count);
+}
+
 // 微信浏览器提示管理
 window.wechatWarning = {
   isWechat: false,
@@ -2638,6 +2690,77 @@ window.wechatWarning = {
         
         // 自动滚动到当前选中的月份，使其居中显示
         scrollToMonthButton(this);
+        
+        // 定位到对应节日
+        setTimeout(() => {
+          const month = parseInt(this.dataset.month);
+          const today = new Date();
+          const currentMonth = today.getMonth() + 1;
+          
+          if (month === currentMonth) {
+            // 当前月份
+            // 检测当前日期是否属于某个节日
+            const todayFestival = getTodayFestival();
+            if (todayFestival) {
+              // 当前日期有节日，定位到该节日
+              const festivalTags = document.querySelectorAll('.festival-tag');
+              let targetTag = null;
+              festivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                if (tagFestival === todayFestival) {
+                  targetTag = tag;
+                }
+              });
+              if (targetTag) {
+                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!targetTag.classList.contains('active')) {
+                  targetTag.click();
+                }
+              }
+            } else {
+              // 当前日期无节日，定位到距离当前日期最近的未来节日
+              const futureFestivals = getFutureFestivals(1);
+              if (futureFestivals.length > 0) {
+                const festivalTags = document.querySelectorAll('.festival-tag');
+                let targetTag = null;
+                festivalTags.forEach(tag => {
+                  const tagFestival = tag.dataset.festival || tag.textContent;
+                  if (tagFestival === futureFestivals[0].name) {
+                    targetTag = tag;
+                  }
+                });
+                if (targetTag) {
+                  targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  if (!targetTag.classList.contains('active')) {
+                    targetTag.click();
+                  }
+                }
+              }
+            }
+          } else {
+            // 其他月份，定位到该月份的第一个节日（跳过早安和晚安）
+            const festivalsInMonth = utils.getFestivalNamesByMonth(month);
+            // festivalsInMonth的前两个是"☀️ 早安"和"🌙 晚安"，真正的节日从第三个开始
+            const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
+            if (actualFestivals.length > 0) {
+              // 直接查找并点击节日标签
+              const festivalTags = document.querySelectorAll('.festival-tag');
+              let targetTag = null;
+              festivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                if (tagFestival === actualFestivals[0]) {
+                  targetTag = tag;
+                }
+              });
+              if (targetTag) {
+                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!targetTag.classList.contains('active')) {
+                  targetTag.click();
+                }
+              }
+            }
+          }
+        }, 300);
       });
       elements.modalMonthButtons.appendChild(monthBtn);
     }
@@ -2804,7 +2927,7 @@ window.wechatWarning = {
         }
         
         if (elements.modalFestivalDateDisplay) {
-          elements.modalFestivalDateDisplay.textContent = `${festival.name}：${dateStr} ${countdownText}`;
+          elements.modalFestivalDateDisplay.innerHTML = `${festival.name}：${dateStr} <span style="font-weight: bold; color: red;">${countdownText}</span>`;
         }
         
         // 自动滚动到可见区域

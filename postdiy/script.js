@@ -1429,13 +1429,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const month = now.getMonth() + 1;
     const day = now.getDate();
     const weekday = getWeekdayChinese(now.getDay());
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const simpleTimeStr = `${hours}:${minutes}`;
-    
-    if (todayDateInTitle) {
-      todayDateInTitle.innerHTML = ` <strong>${month}月${day}日 ${weekday}</strong> <span style="font-weight:normal;color:#666;font-size:0.9rem;">${simpleTimeStr}</span>`;
+    // 实时更新时间函数
+    function updateRealTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const timeStr = `${hours}:${minutes}:${seconds}`;
+      
+      if (todayDateInTitle) {
+        const currentMonth = now.getMonth() + 1;
+        const currentDay = now.getDate();
+        const currentWeekday = getWeekdayChinese(now.getDay());
+        todayDateInTitle.innerHTML = ` <strong>${currentMonth}月${currentDay}日 ${currentWeekday}</strong> <i>${timeStr}</i>`;
+      }
     }
+    
+    // 首次调用更新时间
+    updateRealTime();
+    
+    // 每秒更新一次时间
+    setInterval(updateRealTime, 1000);
     
     let html = '';
     
@@ -1455,12 +1469,15 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="home-popup-btn" data-action="zaoan">
             制作早安海报
           </button>
+          <button class="home-popup-btn" data-action="wanan">
+            制作晚安海报
+          </button>
         </div>
       `;
     } else {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <span>（今日没有特别节日，您可以：）</span>
+          <span>（今日无特别节日，早安时段已过，您还可以：）</span>
           <button class="home-popup-btn" data-action="wanan">
             制作晚安海报
           </button>
