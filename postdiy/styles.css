@@ -1256,6 +1256,8 @@ footer {
 /* 促销信息编辑弹窗特定样式 */
 .modal-container.promo-text-modal {
   max-height: 95vh;
+      top: 7%;
+    position: fixed;
 }
 
 /* 券码验证弹窗特定样式 */
