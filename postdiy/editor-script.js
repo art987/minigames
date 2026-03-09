@@ -543,7 +543,17 @@ window.wechatWarning = {
       fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group'),
       
       // 行业分类容器
-      industryCategories: document.getElementById('industryCategories')
+      industryCategories: document.getElementById('industryCategories'),
+      
+      // 整合行业模板弹窗元素
+      integratedIndustryTemplateModal: document.getElementById('integratedIndustryTemplateModal'),
+      closeIntegratedIndustryTemplateModal: document.getElementById('closeIntegratedIndustryTemplateModal'),
+      integratedModalTitle: document.getElementById('integratedModalTitle'),
+      industryCategoriesVertical: document.getElementById('industryCategoriesVertical'),
+      integratedIndustryTemplatesList: document.getElementById('integratedIndustryTemplatesList'),
+      
+      // 文案模板按钮
+      promoTemplateBtn: document.getElementById('promoTemplateBtn')
     });
     console.log('DOM元素缓存初始化完成');
   }
@@ -904,6 +914,139 @@ window.wechatWarning = {
       elements.industryTemplateModal.querySelector('.modal-container').classList.remove('closing');
     }, 400); // 匹配动画时长
   }
+
+  // 打开整合行业模板弹窗
+  function openIntegratedIndustryTemplateModal(category = '餐厅') {
+    if (!elements.integratedIndustryTemplateModal || !elements.integratedModalTitle || !elements.integratedIndustryTemplatesList) return;
+    
+    // 设置弹窗标题
+    elements.integratedModalTitle.textContent = '行业促销文案模板';
+    
+    // 渲染左侧行业分类导航
+    renderVerticalIndustryCategories();
+    
+    // 渲染对应行业的模板
+    renderIndustryTemplates(category, elements.integratedIndustryTemplatesList);
+    
+    // 设置当前选中的行业分类
+    setActiveVerticalCategory(category);
+    
+    // 移除关闭动画类
+    elements.integratedIndustryTemplateModal.classList.remove('closing');
+    elements.integratedIndustryTemplateModal.querySelector('.modal-container').classList.remove('closing');
+    
+    // 显示弹窗
+    elements.integratedIndustryTemplateModal.classList.remove('hidden');
+    
+    // 强制重绘以触发动画
+    void elements.integratedIndustryTemplateModal.offsetWidth;
+    
+    // 延迟执行，确保DOM已渲染
+    setTimeout(() => {
+      // 自动播放第一个模板的打字机效果
+      const firstTemplateCard = elements.integratedIndustryTemplatesList.querySelector('.industry-template-card');
+      if (firstTemplateCard) {
+        const content = firstTemplateCard.querySelector('.industry-template-content');
+        const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
+        
+        // 设置选中状态
+        firstTemplateCard.classList.add('selected');
+        
+        // 触发打字机效果
+        startTypewriterEffect(content, template);
+      }
+      
+      // 添加滚动监听
+      setupScrollDetection();
+    }, 100);
+  }
+
+  // 关闭整合行业模板弹窗
+  function closeIntegratedIndustryTemplateModal() {
+    if (!elements.integratedIndustryTemplateModal) return;
+    
+    // 添加关闭动画类
+    elements.integratedIndustryTemplateModal.classList.add('closing');
+    elements.integratedIndustryTemplateModal.querySelector('.modal-container').classList.add('closing');
+    
+    // 延迟隐藏弹窗
+    setTimeout(() => {
+      elements.integratedIndustryTemplateModal.classList.add('hidden');
+      // 移除关闭动画类
+      elements.integratedIndustryTemplateModal.classList.remove('closing');
+      elements.integratedIndustryTemplateModal.querySelector('.modal-container').classList.remove('closing');
+    }, 400); // 匹配动画时长
+  }
+
+  // 渲染垂直行业分类导航
+  function renderVerticalIndustryCategories() {
+    if (!elements.industryCategoriesVertical) return;
+    
+    // 清空现有内容
+    elements.industryCategoriesVertical.innerHTML = '';
+    
+    // 获取所有行业分类
+    const categories = Object.keys(INDUSTRY_TEMPLATES);
+    
+    // 渲染行业分类按钮
+      categories.forEach(category => {
+        const categoryBtn = document.createElement('button');
+        categoryBtn.className = 'industry-category-vertical';
+        categoryBtn.setAttribute('data-category', category);
+        categoryBtn.textContent = `${INDUSTRY_ICONS[category] || '📋'} ${category}`;
+        categoryBtn.title = category;
+      
+      // 添加点击事件
+      categoryBtn.addEventListener('click', function() {
+        const selectedCategory = this.getAttribute('data-category');
+        
+        // 设置当前选中的行业分类
+        setActiveVerticalCategory(selectedCategory);
+        
+        // 渲染对应行业的模板
+        renderIndustryTemplates(selectedCategory, elements.integratedIndustryTemplatesList);
+        
+        // 延迟执行打字机效果
+        setTimeout(() => {
+          const firstTemplateCard = elements.integratedIndustryTemplatesList.querySelector('.industry-template-card');
+          if (firstTemplateCard) {
+            const content = firstTemplateCard.querySelector('.industry-template-content');
+            const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
+            
+            // 移除其他卡片的选中状态
+            document.querySelectorAll('.industry-template-card').forEach(card => {
+              card.classList.remove('selected');
+              const content = card.querySelector('.industry-template-content');
+              content.classList.remove('typewriter');
+              content.textContent = INDUSTRY_TEMPLATES[selectedCategory][Array.from(card.parentNode.children).indexOf(card)];
+            });
+            
+            // 设置选中状态
+            firstTemplateCard.classList.add('selected');
+            
+            // 触发打字机效果
+            startTypewriterEffect(content, template);
+          }
+        }, 50);
+      });
+      
+      elements.industryCategoriesVertical.appendChild(categoryBtn);
+    });
+  }
+
+  // 设置当前选中的垂直行业分类
+  function setActiveVerticalCategory(category) {
+    // 移除所有按钮的选中状态
+    document.querySelectorAll('.industry-category-vertical').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    
+    // 设置当前按钮的选中状态
+    const activeBtn = document.querySelector(`.industry-category-vertical[data-category="${category}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+    }
+  }
   
   // 渲染指定行业的文案模板到指定容器
   function renderIndustryTemplates(category, container) {
@@ -951,8 +1094,8 @@ window.wechatWarning = {
           elements.promoTextInput.value = template;
           console.log('已将模板内容填充到输入框:', template);
           
-          // 关闭行业模板弹窗
-          closeIndustryTemplateModal();
+          // 关闭整合行业模板弹窗
+          closeIntegratedIndustryTemplateModal();
           
           // 自动滚动到编辑框
           setTimeout(() => {
@@ -1381,6 +1524,27 @@ window.wechatWarning = {
     // 关闭行业模板弹窗事件
     if (elements.closeIndustryTemplateModal) {
       elements.closeIndustryTemplateModal.addEventListener('click', closeIndustryTemplateModal);
+    }
+    
+    // 整合行业模板弹窗事件
+    if (elements.closeIntegratedIndustryTemplateModal) {
+      elements.closeIntegratedIndustryTemplateModal.addEventListener('click', closeIntegratedIndustryTemplateModal);
+    }
+    
+    // 文案模板按钮事件 - 打开整合弹窗
+    if (elements.promoTemplateBtn) {
+      elements.promoTemplateBtn.addEventListener('click', function() {
+        console.log('点击文案模板按钮');
+        openIntegratedIndustryTemplateModal();
+      });
+    }
+    
+    // 商家信息编辑弹窗中的促销文案模板按钮事件
+    if (elements.selectPromoTemplateBtn) {
+      elements.selectPromoTemplateBtn.addEventListener('click', function() {
+        console.log('点击选择促销文案模板按钮');
+        openIntegratedIndustryTemplateModal();
+      });
     }
     
     // 颜色选择事件

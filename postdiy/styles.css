@@ -2536,7 +2536,7 @@ input.hidden {
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 16px;
+  padding: 16px 11px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -2552,7 +2552,7 @@ input.hidden {
 .industry-template-content {
   font-size: 14px;
   line-height: 1.5;
-  min-height: 82px;
+  min-height: 66px;
   font-weight: bold;
   color: #333;
   white-space: pre-line;
@@ -2778,7 +2778,6 @@ input.hidden {
 .btn-primary {
   background: linear-gradient(135deg, #d32f2f, #f44336);
   color: white;
-  margin-top: 5px;
 }
 
 .btn-primary:hover {
@@ -3240,6 +3239,7 @@ input.hidden {
   position: relative;
   border: 2px solid transparent;
   background: white;
+  line-height: 28px;
   background-clip: padding-box;
   animation: borderGradient 6s ease infinite;
 }
@@ -3646,6 +3646,140 @@ input.hidden {
 .future-suggestion-btn.primary {
   background: #fff;
   color: #cd0202;
+}
+
+/* 整合行业模板弹窗样式 */
+#integratedIndustryTemplateModal.modal-overlay {
+  z-index: 2001;
+}
+.modal-container.integrated-industry-template-modal {
+  width: 90vw;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.integrated-modal-body {
+  display: flex;
+  flex: 1;
+  padding: 0;
+  min-height: 0;
+}
+
+/* 左侧行业分类导航栏 */
+.industry-sidebar {
+  width: 100px;
+  background: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.industry-categories-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 4px;
+}
+
+.industry-category-vertical {
+  width: 92px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  text-align: left;
+  padding: 6px 8px;
+  line-height: 1.2;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.industry-category-vertical:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.industry-category-vertical.active {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: white;
+  border-color: #df2323;
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+}
+
+/* 右侧模板内容区域 */
+.template-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.template-content-area .templates-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; margin: 0 3px;
+}
+
+.template-content-area .industry-templates-list {
+  flex: 1;
+  max-height: none;
+  overflow-y: auto;
+  padding: 16px 5px;
+}
+
+/* 输入操作区域样式 */
+.input-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* 文案模板按钮样式 */
+.promo-template-btn {
+  background: #ffffff;
+  color: #d32f2f;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.promo-template-btn:hover {
+  background: #f8f9fa;
+  border-color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .modal-container.integrated-industry-template-modal {
+    width: 95vw;
+    max-width: none;
+  }
+  
+  .industry-sidebar {
+    width: 90px;
+  }
+  
+  .industry-category-vertical {
+    width: 82px;
+    min-height: 38px;
+    font-size: 11px;
+    padding: 4px 6px;
+  }
 }
 
 .future-suggestion-btn.primary:hover {
