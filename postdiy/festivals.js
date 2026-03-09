@@ -89,28 +89,14 @@ window.chineseTraditionalFestivals = {
     name: '重阳节',
     description: '登高、赏菊、敬老',
     month: 10,
-    day: 18, // 10月18日
-    format: 'solar'
-  },
-  '寒衣节': {
-    name: '寒衣节',
-    description: '送寒衣、祭祖、准备过冬',
-    month: 11,
-    day: 9, // 11月9日
-    format: 'solar'
-  },
-  '下元节': {
-    name: '下元节',
-    description: '祭祀水官、祈福消灾',
-    month: 11,
-    day: 23, // 11月23日
+    day: 18, // 10 月 18 日
     format: 'solar'
   },
   '冬至': {
     name: '冬至',
     description: '冬至大如年、吃饺子/汤圆、数九开始',
     month: 12,
-    day: 22, // 12月22日
+    day: 22, // 12 月 22 日
     format: 'solar'
   }
 };
