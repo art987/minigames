@@ -1225,8 +1225,8 @@ window.wechatWarning = {
       const containerHeight = containerRect.height;
       
       // 可见区域：顶部5%到8%的区域
-      const visibleTop = containerHeight * 0.05;
-      const visibleBottom = containerHeight * 0.08;
+      const visibleTop = containerHeight * 0.2;
+      const visibleBottom = containerHeight * 0.25;
       
       console.log('元素位置:', {
         elementTopRelative,
