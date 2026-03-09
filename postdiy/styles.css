@@ -1444,10 +1444,16 @@ footer {
 /* VIP登录弹窗样式 */
 .modal.vip-login-modal {
   max-width: 400px;
+  position: fixed;
+  top: 10%;
 }
+.modal.vip-login-modal .scrollable-body{padding-bottom: 14px;}
 
 .vip-login-form {
-  padding: 20px 0 5px;
+  padding: 14px 0 5px;
+}
+.vip-login-form .form-group{
+    margin-bottom: 10px;
 }
 
 .inline-form-group {
@@ -1459,10 +1465,10 @@ footer {
 .inline-form-group .form-label {
   width: 42px;
   margin-right: 10px;
-  margin-bottom: 0;
+  margin-top: 0;
   flex-shrink: 0;
 }
-
+.inline-form-group .form-label label{ margin-top:0;}
 .inline-form-group .form-input {
   flex: 1;
 }
@@ -1488,12 +1494,17 @@ footer {
 
 .login-actions {
   display: flex;
-  gap: 12px;
+  gap: 11px;
   margin: 11px 0;
 }
 
 .login-actions .action-btn {
   flex: 1;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #fff;
+  height: 34px;
+  min-height: 42px;
+  font-size: 15px;
 }
 
 .vip-login-hint {
@@ -2011,7 +2022,11 @@ footer {
   width: 100%;
   min-height: 113px; /* 确保有足够的高度 */
   max-height: 142px; /* 限制最大高度 */
-  position: relative;
+}
+
+/* 确保上传区域内的所有子元素都能触发点击事件 */
+#logoUploadArea *, #qrcodeUploadArea * {
+  pointer-events: none;
 }
 
 .mb-1 {

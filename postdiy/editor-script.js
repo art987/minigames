@@ -5415,12 +5415,26 @@ function setVipFixedInfo() {
     businessNameInput.title = 'VIP用户：可在商家名称后添加文字（如：-厦门分公司）';
     
     // 监听输入变化，限制编辑范围
+    let isUpdating = false; // 防止无限循环
     businessNameInput.addEventListener('input', function() {
+      if (isUpdating) return;
+      
       const currentValue = this.value;
       
-      // 如果用户删除了原始名称，自动恢复
+      // 如果当前值长度小于原始名称，说明用户在删除原始名称
+      if (currentValue.length < originalName.length) {
+        // 阻止删除原始名称，恢复到原始名称
+        isUpdating = true;
+        this.value = originalName;
+        isUpdating = false;
+        return;
+      }
+      
+      // 如果用户修改了原始名称的前缀部分，恢复原始名称
       if (!currentValue.startsWith(originalName)) {
-        this.value = originalName + (currentValue.replace(originalName, '') || '');
+        isUpdating = true;
+        this.value = originalName + (currentValue.substring(originalName.length) || '');
+        isUpdating = false;
       }
     });
     

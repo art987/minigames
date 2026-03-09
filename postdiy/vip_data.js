@@ -119,33 +119,54 @@ function saveVipLogin(user) {
     console.log('已清理旧VIP用户缓存:', oldVipBusinessInfoKey);
   }
   
-  // 保存新VIP用户的基本信息
+  // 保存新 VIP 用户的基本信息
   localStorage.setItem('vipId', user.id);
   localStorage.setItem('vipValidUntil', user.validUntil);
   localStorage.setItem('vipName', user.name);
   localStorage.setItem('vipLogo', user.logo);
   
-  console.log('VIP登录状态已保存，用户ID:', user.id);
+  // 填充海报显示相关的缓存（Logo、名称、二维码）
+  const businessInfo = {
+    name: user.name,
+    logo: user.logo,
+    qrcode: user.qrcode || ''
+  };
+  localStorage.setItem('posterBusinessInfo', JSON.stringify(businessInfo));
+  
+  console.log('VIP 登录状态已保存，用户 ID:', user.id, '海报缓存已填充');
+  
+  // 延迟刷新页面，让缓存保存完成
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
 }
 
-// 清除VIP登录状态
+// 清除 VIP 登录状态
 function clearVipLogin() {
   const oldVipId = localStorage.getItem('vipId');
   
-  // 清理VIP专属缓存
+  // 清理 VIP 专属缓存
   if (oldVipId) {
     const oldVipBusinessInfoKey = `vipBusinessInfo_${oldVipId}`;
     localStorage.removeItem(oldVipBusinessInfoKey);
-    console.log('已清理VIP专属缓存:', oldVipBusinessInfoKey);
+    console.log('已清理 VIP 专属缓存:', oldVipBusinessInfoKey);
   }
   
-  // 清理基本VIP信息
+  // 清理基本 VIP 信息
   localStorage.removeItem('vipId');
   localStorage.removeItem('vipValidUntil');
   localStorage.removeItem('vipName');
   localStorage.removeItem('vipLogo');
   
-  console.log('VIP登录状态已清除');
+  // 清空海报显示相关的缓存（Logo、名称、二维码）
+  localStorage.removeItem('posterBusinessInfo');
+  
+  console.log('VIP 登录状态已清除，海报缓存已清空');
+  
+  // 延迟刷新页面，让缓存清理完成
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
 }
 
 // 获取VIP固定信息
