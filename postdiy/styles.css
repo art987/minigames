@@ -3661,7 +3661,6 @@ input.hidden {
   cursor: pointer;
 }
 
-.daily-suggestion-btn:hover {
-  background: #fff;
-  color:#d32f2f0
-}
+.daily-suggestion-btn:hover {  background: #fff;
+  color:#d32f2f0; }
+

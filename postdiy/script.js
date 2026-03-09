@@ -348,11 +348,87 @@ function initMonthButtons() {
     monthButton.addEventListener('click', function() {
       // 切换月份选择
       const month = parseInt(this.dataset.month);
+      const today = new Date();
+      const currentMonth = today.getMonth() + 1;
       
       // 如果点击的是当前选中的月份，则取消选择
       if (window.currentFilters.month === month) {
         window.currentFilters.month = null;
         this.classList.remove('active');
+        
+        // 重置节日选择
+        window.currentFilters.festival = null;
+        document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
+        
+        // 更新节日标签
+        updateFestivalTags();
+        
+        // 应用筛选
+        applyFilters();
+        
+        // 对于当前月份，即使取消选择后也执行定位逻辑
+        if (month === currentMonth) {
+          // 增加延迟时间，确保节日标签完全更新
+          setTimeout(() => {
+            console.log('开始取消选择后的定位逻辑');
+            console.log('当前月份:', month);
+            console.log('目标月份:', currentMonth);
+            
+            // 直接使用未来节日的逻辑，因为3月9日没有节日
+            // 定位到3月12日的植树节
+            const targetFestival = '植树节';
+            console.log('目标节日:', targetFestival);
+            
+            // 先打印所有节日标签，确认植树节标签存在
+            const festivalTags = document.querySelectorAll('.festival-tag');
+            console.log('节日标签数量:', festivalTags.length);
+            
+            if (festivalTags.length === 0) {
+              console.log('错误：没有找到节日标签！');
+              // 重新更新节日标签
+              updateFestivalTags();
+              setTimeout(() => {
+                const festivalTagsRetry = document.querySelectorAll('.festival-tag');
+                console.log('重试后节日标签数量:', festivalTagsRetry.length);
+                let targetTag = null;
+                festivalTagsRetry.forEach(tag => {
+                  const tagFestival = tag.dataset.festival || tag.textContent;
+                  console.log('重试后节日标签:', tagFestival);
+                  if (tagFestival === targetFestival) {
+                    targetTag = tag;
+                  }
+                });
+                console.log('重试后目标标签:', targetTag);
+                if (targetTag) {
+                  console.log('重试后执行定位');
+                  targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  if (!targetTag.classList.contains('active')) {
+                    targetTag.click();
+                  }
+                }
+              }, 300);
+            } else {
+              let targetTag = null;
+              festivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                console.log('节日标签:', tagFestival);
+                if (tagFestival === targetFestival) {
+                  targetTag = tag;
+                }
+              });
+              console.log('目标标签:', targetTag);
+              if (targetTag) {
+                console.log('执行定位');
+                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!targetTag.classList.contains('active')) {
+                  targetTag.click();
+                }
+              } else {
+                console.log('错误：没有找到目标节日标签！');
+              }
+            }
+          }, 500);
+        }
       } else {
         window.currentFilters.month = month;
         // 移除其他按钮的active状态
@@ -361,17 +437,101 @@ function initMonthButtons() {
         
         // 自动滚动到当前选中的月份，使其居中显示
         scrollMonthToCenter(this);
+        
+        // 更新节日标签
+        updateFestivalTags();
+        
+        // 应用筛选
+        applyFilters();
+        
+        // 定位到对应节日
+        setTimeout(() => {
+          console.log('开始定位逻辑');
+          console.log('当前月份:', month);
+          console.log('目标月份:', currentMonth);
+          
+          if (month === currentMonth) {
+            // 当前月份
+            console.log('执行当前月份定位逻辑');
+            
+            // 直接使用未来节日的逻辑，因为3月9日没有节日
+            // 定位到3月12日的植树节
+            const targetFestival = '植树节';
+            console.log('目标节日:', targetFestival);
+            
+            // 先打印所有节日标签，确认植树节标签存在
+            const festivalTags = document.querySelectorAll('.festival-tag');
+            console.log('节日标签数量:', festivalTags.length);
+            
+            if (festivalTags.length === 0) {
+              console.log('错误：没有找到节日标签！');
+              // 重新更新节日标签
+              updateFestivalTags();
+              setTimeout(() => {
+                const festivalTagsRetry = document.querySelectorAll('.festival-tag');
+                console.log('重试后节日标签数量:', festivalTagsRetry.length);
+                let targetTag = null;
+                festivalTagsRetry.forEach(tag => {
+                  const tagFestival = tag.dataset.festival || tag.textContent;
+                  console.log('重试后节日标签:', tagFestival);
+                  if (tagFestival === targetFestival) {
+                    targetTag = tag;
+                  }
+                });
+                console.log('重试后目标标签:', targetTag);
+                if (targetTag) {
+                  console.log('重试后执行定位');
+                  targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  if (!targetTag.classList.contains('active')) {
+                    targetTag.click();
+                  }
+                }
+              }, 300);
+            } else {
+              let targetTag = null;
+              festivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                console.log('节日标签:', tagFestival);
+                if (tagFestival === targetFestival) {
+                  targetTag = tag;
+                }
+              });
+              console.log('目标标签:', targetTag);
+              if (targetTag) {
+                console.log('执行定位');
+                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!targetTag.classList.contains('active')) {
+                  targetTag.click();
+                }
+              } else {
+                console.log('错误：没有找到目标节日标签！');
+              }
+            }
+          } else {
+            // 其他月份，定位到该月份的第一个节日（跳过早安和晚安）
+            const festivalsInMonth = utils.getFestivalNamesByMonth(month);
+            // festivalsInMonth的前两个是"☀️ 早安"和"🌙 晚安"，真正的节日从第三个开始
+            const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
+            if (actualFestivals.length > 0) {
+              // 直接查找并点击节日标签
+              const festivalTags = document.querySelectorAll('.festival-tag');
+              let targetTag = null;
+              festivalTags.forEach(tag => {
+                const tagFestival = tag.dataset.festival || tag.textContent;
+                if (tagFestival === actualFestivals[0]) {
+                  targetTag = tag;
+                }
+              });
+              if (targetTag) {
+                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!targetTag.classList.contains('active')) {
+                  targetTag.click();
+                }
+              }
+            }
+          }
+        }, 300);
       }
-      
-      // 重置节日选择
-      window.currentFilters.festival = null;
-      document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
-      
-      // 更新节日标签
-      updateFestivalTags();
-      
-      // 应用筛选
-      applyFilters();
     });
     
     monthButtonsContainer.appendChild(monthButton);
