@@ -6210,6 +6210,138 @@ window.templates = {
       type: '西方节日'
     },
     
+    // 立冬节气模板 - 13 个模板
+    {
+      id: 'lidong-2024-001',
+      name: '立冬初冬',
+      thumbnail: 'images/lidong/thumbnails/1.jpg',
+      image: 'images/lidong/1.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气初冬主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-002',
+      name: '立冬冬始',
+      thumbnail: 'images/lidong/thumbnails/2.jpg',
+      image: 'images/lidong/2.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气冬季开始主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-003',
+      name: '立冬收藏',
+      thumbnail: 'images/lidong/thumbnails/3.jpg',
+      image: 'images/lidong/3.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气万物收藏主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-004',
+      name: '立冬补冬',
+      thumbnail: 'images/lidong/thumbnails/4.jpg',
+      image: 'images/lidong/4.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气补冬养生主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-005',
+      name: '立冬饺子',
+      thumbnail: 'images/lidong/thumbnails/5.jpg',
+      image: 'images/lidong/5.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气吃饺子传统主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-006',
+      name: '立冬温暖',
+      thumbnail: 'images/lidong/thumbnails/6.jpg',
+      image: 'images/lidong/6.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气温暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-007',
+      name: '立冬寒意',
+      thumbnail: 'images/lidong/thumbnails/7.jpg',
+      image: 'images/lidong/7.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气寒意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-008',
+      name: '立冬初雪',
+      thumbnail: 'images/lidong/thumbnails/8.jpg',
+      image: 'images/lidong/8.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气初雪主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-009',
+      name: '立冬暖阳',
+      thumbnail: 'images/lidong/thumbnails/9.jpg',
+      image: 'images/lidong/9.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气暖阳主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-010',
+      name: '立冬静美',
+      thumbnail: 'images/lidong/thumbnails/10.jpg',
+      image: 'images/lidong/10.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气静美主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-011',
+      name: '立冬诗意',
+      thumbnail: 'images/lidong/thumbnails/11.jpg',
+      image: 'images/lidong/11.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气诗意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-012',
+      name: '立冬美景',
+      thumbnail: 'images/lidong/thumbnails/12.jpg',
+      image: 'images/lidong/12.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气美景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-013',
+      name: '立冬祝福',
+      thumbnail: 'images/lidong/thumbnails/13.jpg',
+      image: 'images/lidong/13.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气祝福主题海报模板',
+      type: '节气'
+    },
+    
     {
       id: 'xiaoxue-2024-001',
       name: '小雪初降',
