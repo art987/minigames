@@ -2259,8 +2259,36 @@ footer {
 }
 
 .template-item.selected {
-  border-color: #d21919;
-  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  border-color: #e0e0e0;
+  box-shadow: none;
+  position: relative;
+}
+
+/* 选中模板的勾号标记 */
+.template-item.selected::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+  pointer-events: none;
+}
+
+.template-item.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  font-weight: bold;
+  color: #ffffff;
+  z-index: 10;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
 
 .template-item:active {

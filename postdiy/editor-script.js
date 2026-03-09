@@ -2819,8 +2819,8 @@ window.wechatWarning = {
         document.querySelectorAll('.template-item').forEach(item => item.classList.remove('selected'));
         // 添加当前模板的选中状态
         templateItem.classList.add('selected');
-        // 滚动到当前模板，确保可见
-        templateItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 滚动到当前模板，确保可见（已取消滚动功能）
+        // templateItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
         console.log('成功选中当前模板');
       } else {
         console.warn('未找到当前模板对应的项');
