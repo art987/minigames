@@ -1890,7 +1890,8 @@ window.wechatWarning = {
     // Logo上传相关事件
     if (elements.logoUploadArea) {
       elements.logoUploadArea.addEventListener('click', function(event) {
-        event.stopPropagation(); // 阻止事件冒泡
+        // 阻止默认行为但不阻止事件冒泡，让点击整个区域都能触发
+        event.preventDefault();
         
         // 如果已经有文件对话框打开，则不执行任何操作
         if (isFileDialogOpen) return;
@@ -1913,18 +1914,22 @@ window.wechatWarning = {
         newInput.id = 'logoInput';
         newInput.style.display = 'none'; // 隐藏输入框
         
-        // 添加change事件监听器
+        // 添加 change 事件监听器
         newInput.addEventListener('change', function(event) {
           // 调用原始的处理函数
           handleLogoUpload(event);
-          // 清理标志
-          setTimeout(() => {
-            isFileDialogOpen = false;
-            activeFileInput = null;
-          }, 100);
+          // 清理标志 - 立即重置，允许再次点击
+          isFileDialogOpen = false;
+          activeFileInput = null;
         });
         
-        // 添加focusout事件监听器来处理用户取消选择的情况
+        // 添加 cancel 事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('cancel', function() {
+          isFileDialogOpen = false;
+          activeFileInput = null;
+        });
+        
+        // 添加 focusout 事件监听器来处理用户取消选择的情况
         newInput.addEventListener('focusout', cleanupFileInput);
         
         // 添加到DOM中
@@ -1934,16 +1939,26 @@ window.wechatWarning = {
         elements.logoInput = newInput;
         activeFileInput = newInput;
         
-        // 使用setTimeout确保DOM完全更新后再触发点击
+        // 使用 setTimeout 确保 DOM 完全更新后再触发点击
         setTimeout(() => {
           // 再次检查，确保输入框仍然存在
           if (newInput && document.body.contains(newInput)) {
             newInput.click();
+            
+            // 添加一次性监听器，在窗口获得焦点时重置标志（文件对话框关闭后）
+            const resetFlag = () => {
+              setTimeout(() => {
+                isFileDialogOpen = false;
+                activeFileInput = null;
+              }, 50);
+              window.removeEventListener('focus', resetFlag);
+            };
+            window.addEventListener('focus', resetFlag);
           } else {
             isFileDialogOpen = false;
             activeFileInput = null;
           }
-        }, 50); // 增加延迟时间，确保DOM完全更新
+        }, 50);
       });
     }
     if (elements.removeLogoBtn) {
@@ -1961,7 +1976,8 @@ window.wechatWarning = {
     // 二维码上传相关事件
     if (elements.qrcodeUploadArea) {
       elements.qrcodeUploadArea.addEventListener('click', function(event) {
-        event.stopPropagation(); // 阻止事件冒泡
+        // 阻止默认行为但不阻止事件冒泡，让点击整个区域都能触发
+        event.preventDefault();
         
         // 如果已经有文件对话框打开，则不执行任何操作
         if (isFileDialogOpen) return;
@@ -1984,18 +2000,22 @@ window.wechatWarning = {
         newInput.id = 'qrcodeInput';
         newInput.style.display = 'none'; // 隐藏输入框
         
-        // 添加change事件监听器
+        // 添加 change 事件监听器
         newInput.addEventListener('change', function(event) {
           // 调用原始的处理函数
           handleQrcodeUpload(event);
-          // 清理标志
-          setTimeout(() => {
-            isFileDialogOpen = false;
-            activeFileInput = null;
-          }, 100);
+          // 清理标志 - 立即重置，允许再次点击
+          isFileDialogOpen = false;
+          activeFileInput = null;
         });
         
-        // 添加focusout事件监听器来处理用户取消选择的情况
+        // 添加 cancel 事件监听器来处理用户取消选择的情况
+        newInput.addEventListener('cancel', function() {
+          isFileDialogOpen = false;
+          activeFileInput = null;
+        });
+        
+        // 添加 focusout 事件监听器来处理用户取消选择的情况
         newInput.addEventListener('focusout', cleanupFileInput);
         
         // 添加到DOM中
@@ -2005,16 +2025,26 @@ window.wechatWarning = {
         elements.qrcodeInput = newInput;
         activeFileInput = newInput;
         
-        // 使用setTimeout确保DOM完全更新后再触发点击
+        // 使用 setTimeout 确保 DOM 完全更新后再触发点击
         setTimeout(() => {
           // 再次检查，确保输入框仍然存在
           if (newInput && document.body.contains(newInput)) {
             newInput.click();
+            
+            // 添加一次性监听器，在窗口获得焦点时重置标志（文件对话框关闭后）
+            const resetFlag = () => {
+              setTimeout(() => {
+                isFileDialogOpen = false;
+                activeFileInput = null;
+              }, 50);
+              window.removeEventListener('focus', resetFlag);
+            };
+            window.addEventListener('focus', resetFlag);
           } else {
             isFileDialogOpen = false;
             activeFileInput = null;
           }
-        }, 50); // 增加延迟时间，确保DOM完全更新
+        }, 50);
       });
     }
     if (elements.removeQrcodeBtn) {

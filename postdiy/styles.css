@@ -1268,6 +1268,8 @@ footer {
 /* 商家信息编辑弹窗特定样式 */
 .modal.business-info-modal {
   max-height: 80vh;
+  position: fixed;
+    top: 12%;
 }
 
 /* VIP登录相关样式 */
@@ -1832,7 +1834,7 @@ footer {
 
 /* 表单样式 */
 .form-group {
-  margin-bottom: 11px;
+  margin-bottom: 1px;
   position: relative;
 }
 
@@ -1986,7 +1988,7 @@ footer {
 /* 上传区域容器样式 - 确保logo和二维码并排显示 */
 .upload-container {
   display: flex;
-  gap: 21px;
+  gap: 55px;
   width: 100%;
   flex-wrap: nowrap; /* 强制不换行 */
   margin-bottom: 8px;
@@ -2000,15 +2002,16 @@ footer {
 #logoUploadArea, #qrcodeUploadArea {
   border: 2px dashed #ddd;
   border-radius: 10px;
-  padding: 15px;
+  padding: 8px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: #fafafa;
   box-sizing: border-box;
   width: 100%;
-  min-height: 120px; /* 确保有足够的高度 */
-  max-height: 150px; /* 限制最大高度 */
+  min-height: 113px; /* 确保有足够的高度 */
+  max-height: 142px; /* 限制最大高度 */
+  position: relative;
 }
 
 .mb-1 {
@@ -2088,19 +2091,20 @@ footer {
   width: 50px;
   height: 50px;
   color: #888;
-  margin: 0 auto 15px;
+  margin: 0 auto 1px;
 }
 
 .upload-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 5px;
+  font-size: 13px;
+  /* font-weight: 600; */
+  color: #2c2c2c;
+  margin-bottom: -5px;
 }
 
 .upload-hint {
-  font-size: 13px;
+  font-size: 12px;
   color: #888;
+  padding-top: 4px;
 }
 
 /* 上传预览样式 */
@@ -2708,7 +2712,7 @@ input.hidden {
 .modal-close {
   background: none;
   border: none;
-  font-size: 25px;
+  font-size: 30px;
   color: #ffffff;
   margin-top: -4px;
   cursor: pointer;
@@ -2727,7 +2731,7 @@ input.hidden {
 .modal-body {
   padding: 10px 20px 40px;
 }
-
+#businessInfoModal .scrollable-body{padding: 4px 26px;}
 .input-section {
   margin-bottom: 11px;
   margin-top: 13px;
@@ -2792,7 +2796,7 @@ input.hidden {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 15px 20px;
+  padding: 11px 20px 16px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -3262,6 +3266,7 @@ input.hidden {
 
 .restore-btn i {
   font-size: 10px;
+  display: none;
 }
 
 /* 促销信息文本框动态渐变边框效果 */
