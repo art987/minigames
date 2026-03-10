@@ -181,6 +181,9 @@
     <button id="takePhotoBtn" class="action-btn take-photo-btn toggleable-btn">
       <span>拍照</span>
     </button>
+    <button id="stickerBtn" class="action-btn sticker-btn toggleable-btn hidden">
+      <span>贴纸</span>
+    </button>
     <button id="downloadBtn" class="action-btn toggleable-btn">
       <span>下载海报</span>
     </button>
@@ -545,6 +548,28 @@
             <button id="vipLoginCancelBtn" class="action-btn secondary">取消</button>
           </div>
         
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 贴纸选择弹窗 -->
+  <div id="stickerModal" class="modal-overlay hidden">
+    <div class="modal sticker-select-modal">
+      <div class="modal-header fixed-header">
+        <h2 class="modal-title">选择贴纸</h2>
+        <button id="closeStickerModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body scrollable-body">
+        <div class="sticker-category-tabs">
+          <button class="sticker-category-btn active" data-category="zaoan">
+            <i class="fa fa-sun"></i> 早安
+          </button>
+        </div>
+        <div class="sticker-grid-container">
+          <div id="stickerGrid" class="sticker-grid">
+            <!-- 贴纸将通过JavaScript动态生成 -->
+          </div>
         </div>
       </div>
     </div>

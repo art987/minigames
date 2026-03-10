@@ -2293,12 +2293,31 @@ window.wechatWarning = {
     }
   }
   
+  // 更新贴纸按钮显示状态
+  function updateStickerButtonVisibility() {
+    const stickerBtn = document.getElementById('stickerBtn');
+    if (!stickerBtn) return;
+    
+    if (state.customBackground) {
+      // 用户上传的图片，显示按钮并添加霓虹闪烁效果
+      stickerBtn.classList.remove('hidden');
+      stickerBtn.classList.add('neon-glow');
+    } else {
+      // 模板图片，隐藏按钮
+      stickerBtn.classList.add('hidden');
+      stickerBtn.classList.remove('neon-glow');
+    }
+  }
+  
   // 更新模板显示
   function updateTemplateDisplay() {
     if (!elements.posterBackground) {
       console.error('缺少背景元素');
       return;
     }
+    
+    // 更新贴纸按钮显示状态
+    updateStickerButtonVisibility();
     
     // 显示模板加载动画（最先显示）
     showTemplateLoadingAnimation();
@@ -3979,6 +3998,9 @@ window.wechatWarning = {
       // 更新背景显示
       updateTemplateDisplay();
       
+      // 更新贴纸按钮显示状态
+      updateStickerButtonVisibility();
+      
       showToast('背景图片上传成功');
       
       // 移除了手动重置，因为我们现在使用resetFileInput函数来处理重置
@@ -3998,6 +4020,9 @@ window.wechatWarning = {
     
     // 更新背景显示
     updateTemplateDisplay();
+    
+    // 更新贴纸按钮显示状态
+    updateStickerButtonVisibility();
     
     // 显示成功提示
     showToast('背景图片已移除');
@@ -4664,11 +4689,32 @@ window.wechatWarning = {
       
       // 使用html2canvas截图
       try {
+        // 隐藏贴纸的控制控件（删除按钮和缩放控制点）
+        const stickerControls = elements.posterFrame.querySelectorAll('.sticker-controls');
+        stickerControls.forEach(control => {
+          control.style.display = 'none';
+        });
+        
+        // 隐藏缩放控制点
+        const resizeHandles = elements.posterFrame.querySelectorAll('.sticker-resize-handle');
+        resizeHandles.forEach(handle => {
+          handle.style.display = 'none';
+        });
+        
         // 添加允许Taint选项，避免跨域问题导致的导出失败
         options.allowTaint = false;
         options.useCORS = true;
         
         return html2canvas(elements.posterFrame, options).then(canvas => {
+          // 恢复贴纸的控制控件
+          stickerControls.forEach(control => {
+            control.style.display = '';
+          });
+          
+          // 恢复缩放控制点
+          resizeHandles.forEach(handle => {
+            handle.style.display = '';
+          });
           try {
             // 创建下载链接
             const link = document.createElement('a');
@@ -5825,3 +5871,488 @@ function updateBusinessInfoButtonForVip() {
     // 添加到网格
     elements.templateGrid.appendChild(customItem);
   }
+  
+  // 贴纸管理功能
+  window.stickerManager = {
+    stickers: [],
+    selectedStickerId: null,
+    stickerCount: 0,
+    autoHideTimer: null,
+    autoHideDelay: 900,
+    
+    // 初始化贴纸管理器
+    init: function() {
+      this.stickers = [];
+      this.selectedStickerId = null;
+      this.stickerCount = 0;
+      this.autoHideTimer = null;
+    },
+    
+    // 重置自动隐藏计时器
+    resetAutoHideTimer: function() {
+      // 清除现有计时器
+      if (this.autoHideTimer) {
+        clearTimeout(this.autoHideTimer);
+      }
+      
+      // 只有当有选中贴纸被选中时，才设置新计时器
+      if (this.selectedStickerId) {
+        this.autoHideTimer = setTimeout(() => {
+          this.selectedStickerId = null;
+          this.renderStickers();
+        }, this.autoHideDelay);
+      }
+    },
+    
+    // 添加贴纸到海报
+    addSticker: function(imageUrl, x, y, scale) {
+      this.stickerCount++;
+      const stickerId = `sticker-${this.stickerCount}`;
+      
+      const sticker = {
+        id: stickerId,
+        imageUrl: imageUrl,
+        x: x || 50,
+        y: y || 50,
+        scale: scale || 1,
+        rotation: 0,
+        zIndex: 100 + this.stickerCount
+      };
+      
+      this.stickers.push(sticker);
+      this.selectedStickerId = stickerId;
+      
+      this.renderStickers();
+      this.resetAutoHideTimer();
+      return stickerId;
+    },
+    
+    // 从海报移除贴纸
+    removeSticker: function(stickerId) {
+      const index = this.stickers.findIndex(s => s.id === stickerId);
+      if (index !== -1) {
+        this.stickers.splice(index, 1);
+        
+        if (this.selectedStickerId === stickerId) {
+          this.selectedStickerId = null;
+        }
+        
+        this.renderStickers();
+      }
+    },
+    
+    // 选择贴纸
+    selectSticker: function(stickerId) {
+      this.selectedStickerId = stickerId;
+      this.renderStickers();
+      this.resetAutoHideTimer();
+    },
+    
+    // 更新贴纸位置
+    updateStickerPosition: function(stickerId, x, y) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (sticker) {
+        sticker.x = x;
+        sticker.y = y;
+      }
+    },
+    
+    // 更新贴纸缩放
+    updateStickerScale: function(stickerId, scale) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (sticker) {
+        sticker.scale = scale;
+      }
+    },
+    
+    // 更新贴纸旋转
+    updateStickerRotation: function(stickerId, rotation) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (sticker) {
+        sticker.rotation = rotation;
+      }
+    },
+    
+    // 渲染所有贴纸
+    renderStickers: function() {
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      
+      // 清除现有的贴纸
+      const existingStickers = posterFrame.querySelectorAll('.sticker');
+      existingStickers.forEach(sticker => sticker.remove());
+      
+      // 渲染所有贴纸
+      this.stickers.forEach(sticker => {
+        const stickerEl = document.createElement('div');
+        stickerEl.className = 'sticker' + (this.selectedStickerId === sticker.id ? ' selected' : '');
+        stickerEl.dataset.stickerId = sticker.id;
+        stickerEl.style.left = sticker.x + '%';
+        stickerEl.style.top = sticker.y + '%';
+        stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+        stickerEl.style.zIndex = sticker.zIndex;
+        
+        // 贴纸图片
+        const stickerImg = document.createElement('img');
+        stickerImg.src = sticker.imageUrl;
+        stickerImg.style.maxWidth = '100px';
+        stickerImg.style.maxHeight = '100px';
+        stickerImg.style.display = 'block';
+        
+        stickerEl.appendChild(stickerImg);
+        
+        // 如果选中，添加操作控件
+        if (this.selectedStickerId === sticker.id) {
+          const controls = this.createStickerControls(sticker.id);
+          stickerEl.appendChild(controls);
+          
+          // 添加缩放控制点
+          const resizeHandles = ['nw', 'ne', 'sw', 'se'];
+          resizeHandles.forEach(pos => {
+            const handle = document.createElement('div');
+            handle.className = `sticker-resize-handle ${pos}`;
+            handle.dataset.position = pos;
+            stickerEl.appendChild(handle);
+          });
+        }
+        
+        posterFrame.appendChild(stickerEl);
+        
+        // 绑定事件
+        this.bindStickerEvents(stickerEl, sticker.id);
+      });
+    },
+    
+    // 创建贴纸操作控件
+    createStickerControls: function(stickerId) {
+      const controls = document.createElement('div');
+      controls.className = 'sticker-controls';
+      
+      // 删除按钮
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'sticker-delete-btn';
+      deleteBtn.innerHTML = '×';
+      deleteBtn.title = '删除贴纸';
+      deleteBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.removeSticker(stickerId);
+      };
+      
+      controls.appendChild(deleteBtn);
+      
+      return controls;
+    },
+    
+    // 绑定贴纸事件
+    bindStickerEvents: function(stickerEl, stickerId) {
+      // 点击选中贴纸
+      stickerEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.selectSticker(stickerId);
+      });
+      
+      // 拖拽贴纸
+      let isDragging = false;
+      let isResizing = false;
+      let startX, startY, initialX, initialY, initialScale;
+      
+      stickerEl.addEventListener('mousedown', (e) => {
+        // 检查是否点击了删除按钮
+        if (e.target.classList.contains('sticker-delete-btn')) {
+          return;
+        }
+        
+        // 重置自动隐藏计时器
+        this.resetAutoHideTimer();
+        
+        // 检查是否点击了缩放控制点
+        if (e.target.classList.contains('sticker-resize-handle')) {
+          isResizing = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          
+          const sticker = this.stickers.find(s => s.id === stickerId);
+          if (sticker) {
+            initialScale = sticker.scale;
+          }
+          
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
+        
+        // 拖拽贴纸
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const sticker = this.stickers.find(s => s.id === stickerId);
+        if (sticker) {
+          initialX = sticker.x;
+          initialY = sticker.y;
+        }
+        
+        e.preventDefault();
+      });
+      
+      document.addEventListener('mousemove', (e) => {
+        if (isResizing) {
+          // 重置自动隐藏计时器
+          this.resetAutoHideTimer();
+          
+          // 缩放贴纸
+          const deltaX = e.clientX - startX;
+          const deltaY = e.clientY - startY;
+          
+          // 使用最小值作为缩放因子，确保等比例缩放
+          const delta = Math.min(Math.abs(deltaX), Math.abs(deltaY)) / 100;
+          
+          const sticker = this.stickers.find(s => s.id === stickerId);
+          if (sticker) {
+            // 根据拖拽方向调整缩放
+            if (deltaX > 0 || deltaY > 0) {
+              sticker.scale = initialScale + delta;
+            } else {
+              sticker.scale = Math.max(0.2, initialScale - delta);
+            }
+            
+            this.updateStickerScale(stickerId, sticker.scale);
+            stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+          }
+          
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
+        
+        if (!isDragging) return;
+        
+        // 重置自动隐藏计时器
+        this.resetAutoHideTimer();
+        
+        const deltaX = (e.clientX - startX) / (document.getElementById('posterFrame').offsetWidth / 100);
+        const deltaY = (e.clientY - startY) / (document.getElementById('posterFrame').offsetHeight / 100);
+        
+        const sticker = this.stickers.find(s => s.id === stickerId);
+        if (sticker) {
+          sticker.x = initialX + deltaX;
+          sticker.y = initialY + deltaY;
+          this.updateStickerPosition(stickerId, sticker.x, sticker.y);
+          
+          stickerEl.style.left = sticker.x + '%';
+          stickerEl.style.top = sticker.y + '%';
+        }
+      });
+      
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        isResizing = false;
+      });
+    }
+  };
+  
+  // 贴纸资源管理
+  window.stickerResources = {
+    categories: {
+      zaoan: {
+        name: '早安',
+        stickers: [
+          { id: 'zaoan-1', name: '太阳', url: 'sticker/zaoan/1.png' },
+          { id: 'zaoan-2', name: '咖啡', url: 'sticker/zaoan/2.png' },
+          { id: 'zaoan-3', name: '花朵', url: 'sticker/zaoan/3.png' },
+          { id: 'zaoan-4', name: '星星', url: 'sticker/zaoan/4.png' },
+          { id: 'zaoan-5', name: '爱心', url: 'sticker/zaoan/5.png' },
+          { id: 'zaoan-6', name: '笑脸', url: 'sticker/zaoan/6.png' },
+          { id: 'zaoan-7', name: '云朵', url: 'sticker/zaoan/7.png' },
+          { id: 'zaoan-8', name: '彩虹', url: 'sticker/zaoan/8.png' },
+          { id: 'zaoan-9', name: '月亮', url: 'sticker/zaoan/9.png' },
+          { id: 'zaoan-10', name: '星星', url: 'sticker/zaoan/10.png' }
+        ]
+      }
+    },
+    
+    loadedImages: {},
+    
+    // 预加载贴纸图片
+    preloadImages: function(category) {
+      return new Promise((resolve, reject) => {
+        const stickers = this.categories[category].stickers;
+        let loadedCount = 0;
+        let failedCount = 0;
+        
+        stickers.forEach(sticker => {
+          const img = new Image();
+          img.onload = function() {
+            loadedCount++;
+            window.stickerResources.loadedImages[sticker.id] = this.src;
+            if (loadedCount + failedCount === stickers.length) {
+              resolve({ loaded: loadedCount, failed: failedCount });
+            }
+          };
+          img.onerror = function() {
+            failedCount++;
+            if (loadedCount + failedCount === stickers.length) {
+              resolve({ loaded: loadedCount, failed: failedCount });
+            }
+          };
+          img.src = sticker.url + '?' + new Date().getTime();
+        });
+        
+        if (stickers.length === 0) {
+          resolve({ loaded: 0, failed: 0 });
+        }
+      });
+    },
+    
+    // 获取贴纸图片URL
+    getStickerUrl: function(stickerId) {
+      return this.loadedImages[stickerId] || 'sticker/placeholder.png';
+    }
+  };
+  
+  // 贴纸弹窗管理
+  window.stickerModalManager = {
+    init: function() {
+      this.bindEvents();
+    },
+    
+    bindEvents: function() {
+      // 打开贴纸弹窗
+      const stickerBtn = document.getElementById('stickerBtn');
+      if (stickerBtn) {
+        stickerBtn.addEventListener('click', () => {
+          this.openModal();
+        });
+      }
+      
+      // 关闭贴纸弹窗
+      const closeBtn = document.getElementById('closeStickerModalBtn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          this.closeModal();
+        });
+      }
+      
+      // 关闭弹窗的其他方式
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !document.getElementById('stickerModal').classList.contains('hidden')) {
+          this.closeModal();
+        }
+      });
+      
+      document.getElementById('stickerModal').addEventListener('click', (e) => {
+        if (e.target.id === 'stickerModal') {
+          this.closeModal();
+        }
+      });
+      
+      // 分类切换
+      document.querySelectorAll('.sticker-category-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.sticker-category-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          this.loadStickers(e.target.dataset.category);
+        });
+      });
+    },
+    
+    openModal: function() {
+      const modal = document.getElementById('stickerModal');
+      modal.classList.remove('hidden');
+      this.loadStickers('zaoan');
+    },
+    
+    closeModal: function() {
+      const modal = document.getElementById('stickerModal');
+      modal.classList.add('hidden');
+    },
+    
+    loadStickers: function(category) {
+      const grid = document.getElementById('stickerGrid');
+      if (!grid) return;
+      
+      grid.innerHTML = '';
+      
+      const stickers = window.stickerResources.categories[category].stickers;
+      
+      stickers.forEach(sticker => {
+        const card = document.createElement('div');
+        card.className = 'sticker-card';
+        card.dataset.stickerId = sticker.id;
+        
+        const img = document.createElement('img');
+        img.src = sticker.url + '?' + new Date().getTime();
+        img.alt = sticker.name;
+        img.onerror = function() {
+          this.src = 'sticker/placeholder.png';
+        };
+        
+        const name = document.createElement('div');
+        name.className = 'sticker-name';
+        name.textContent = sticker.name;
+        
+        card.appendChild(img);
+        card.appendChild(name);
+        
+        // 添加按钮
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-sticker-btn';
+        addBtn.textContent = '添加';
+        addBtn.onclick = (e) => {
+          e.stopPropagation();
+          this.addStickerToPoster(sticker.url);
+          this.closeModal();
+        };
+        
+        card.appendChild(addBtn);
+        
+        // 点击卡片也添加
+        card.addEventListener('click', (e) => {
+          if (e.target !== addBtn) {
+            this.addStickerToPoster(sticker.url);
+            this.closeModal();
+          }
+        });
+        
+        grid.appendChild(card);
+      });
+    },
+    
+    addStickerToPoster: function(imageUrl) {
+      // 获取海报框架的尺寸
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      
+      // 随机位置（中心附近）
+      const randomX = 40 + Math.random() * 20;
+      const randomY = 30 + Math.random() * 40;
+      
+      // 添加贴纸
+      window.stickerManager.addSticker(imageUrl, randomX, randomY, 1);
+    }
+  };
+  
+  // 初始化贴纸功能
+  document.addEventListener('DOMContentLoaded', function() {
+    window.stickerModalManager.init();
+    window.stickerManager.init();
+    
+    // 初始化贴纸按钮显示状态
+    updateStickerButtonVisibility();
+    
+    // 点击非贴纸区域时隐藏所有贴纸操作控件
+    document.addEventListener('click', (e) => {
+      // 如果点击的是贴纸或贴纸的控件，则不隐藏
+      if (e.target.closest('.sticker')) {
+        return;
+      }
+      
+      // 如果点击的是弹窗内的元素，则不隐藏
+      if (e.target.closest('.modal') || e.target.closest('.modal-overlay')) {
+        return;
+      }
+      
+      // 隐藏所有贴纸的控制控件
+      window.stickerManager.selectSticker(null);
+    });
+  });
