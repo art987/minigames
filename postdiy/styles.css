@@ -1403,7 +1403,6 @@ footer {
   padding: 10px 4px;
   background: #4d4d4d;
   overflow-y: auto;
-  padding-right: 0px;
 }
 
 /* 右侧模板显示区 */
@@ -1415,11 +1414,11 @@ footer {
 
 .sticker-category-btn {
   width: 100%;
-  padding: 10px 8px;
-  background: #000000;
+  padding: 10px 7px;
+  background: #5a5a5a;
   color: #FFFFFF;
   border: 1px solid #333333;
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1436,9 +1435,10 @@ footer {
 }
 
 .sticker-category-btn.active {
-  background: #373737;
-  color: white;
-  border-color: #212121;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #ffffff;
+  text-shadow: 0 0 5px #fff;
+  border-color: #790707;
 }
 
 /* 贴纸网格容器 */

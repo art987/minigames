@@ -6323,6 +6323,21 @@ function updateBusinessInfoButtonForVip() {
           { id: 'zaoan-9', name: '月亮', url: 'sticker/zaoan/9.png' },
           { id: 'zaoan-10', name: '星星', url: 'sticker/zaoan/10.png' }
         ]
+      },
+      wanan: {
+        name: '晚安',
+        stickers: [
+          { id: 'wanan-1', name: '月亮', url: 'sticker/wanan/1.png' },
+          { id: 'wanan-2', name: '星星', url: 'sticker/wanan/2.png' },
+          { id: 'wanan-3', name: '睡眠', url: 'sticker/wanan/3.png' },
+          { id: 'wanan-4', name: '梦境', url: 'sticker/wanan/4.png' },
+          { id: 'wanan-5', name: '晚安', url: 'sticker/wanan/5.png' },
+          { id: 'wanan-6', name: '云朵', url: 'sticker/wanan/6.png' },
+          { id: 'wanan-7', name: '枕头', url: 'sticker/wanan/7.png' },
+          { id: 'wanan-8', name: '星空', url: 'sticker/wanan/8.png' },
+          { id: 'wanan-9', name: '晚安', url: 'sticker/wanan/9.png' },
+          { id: 'wanan-10', name: '月亮', url: 'sticker/wanan/10.png' }
+        ]
       }
     },
     
