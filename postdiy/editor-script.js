@@ -4697,7 +4697,15 @@ window.wechatWarning = {
             link.href = imageUrl;
             
             // 设置文件名 - 使用模板名称和时间
-            const templateName = state.currentTemplate ? state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_') : 'poster';
+            let templateName = 'poster';
+            if (state.currentTemplate) {
+              // 品牌日常模板使用特殊名称
+              if (state.currentTemplate.id === 'dairy-2024-001') {
+                templateName = '品牌日常';
+              } else {
+                templateName = state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_');
+              }
+            }
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -4740,7 +4748,15 @@ window.wechatWarning = {
           link.href = fallbackCanvas.toDataURL('image/png');
           
           // 设置文件名 - 使用模板名称和时间（备用方案）
-          const templateName = state.currentTemplate ? state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_') : 'poster';
+          let templateName = 'poster';
+          if (state.currentTemplate) {
+            // 品牌日常模板使用特殊名称
+            if (state.currentTemplate.id === 'dairy-2024-001') {
+              templateName = '品牌日常';
+            } else {
+              templateName = state.currentTemplate.name.replace(/[\\/:*?"<>|]/g, '_');
+            }
+          }
           const now = new Date();
           const year = now.getFullYear();
           const month = String(now.getMonth() + 1).padStart(2, '0');

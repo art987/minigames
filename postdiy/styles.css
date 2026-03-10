@@ -3638,6 +3638,24 @@ input.hidden {
   transform: translateY(0);
 }
 
+/* 品牌日常按钮样式 */
+.home-popup-btn[data-action="dairy"] {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-popup-btn[data-action="dairy"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #ff7b45, #ffa32e);
+}
+
+.home-popup-btn[data-action="dairy"]:active {
+  transform: translateY(0);
+}
+
 /* 未来建议内容样式 */
 .future-suggestion-item {
   display: flex;

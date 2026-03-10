@@ -1456,6 +1456,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
             选择${todayFestival}节日模板
           </button>
+          <button class="home-popup-btn" data-action="dairy">
+            品牌日常海报
+          </button>
         </div>
       `;
     } else if (isBefore930) {
@@ -1468,6 +1471,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="home-popup-btn" data-action="wanan">
             制作晚安海报
           </button>
+          <button class="home-popup-btn" data-action="dairy">
+            品牌日常海报
+          </button>
         </div>
       `;
     } else {
@@ -1476,6 +1482,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <span>（今日无特别节日，早安时段已过，您还可以：）</span>
           <button class="home-popup-btn" data-action="wanan">
             制作晚安海报
+          </button>
+          <button class="home-popup-btn" data-action="dairy">
+            品牌日常海报
           </button>
         </div>
       `;
@@ -1494,6 +1503,9 @@ document.addEventListener('DOMContentLoaded', function() {
           scrollToFestival('☀️ 早安');
         } else if (action === 'wanan') {
           scrollToFestival('🌙 晚安');
+        } else if (action === 'dairy') {
+          // 品牌日常海报，直接跳转到编辑器页面
+          window.location.href = 'editor.html?templateId=dairy-2024-001';
         }
       });
     });
