@@ -5878,7 +5878,7 @@ function updateBusinessInfoButtonForVip() {
     selectedStickerId: null,
     stickerCount: 0,
     autoHideTimer: null,
-    autoHideDelay: 900,
+    autoHideDelay: 1000,
     
     // 初始化贴纸管理器
     init: function() {
@@ -5898,8 +5898,31 @@ function updateBusinessInfoButtonForVip() {
       // 只有当有选中贴纸被选中时，才设置新计时器
       if (this.selectedStickerId) {
         this.autoHideTimer = setTimeout(() => {
+          const posterFrame = document.getElementById('posterFrame');
+          if (!posterFrame) {
+            this.selectedStickerId = null;
+            this.renderStickers();
+            return;
+          }
+          
+          const sticker = posterFrame.querySelector(`.sticker[data-sticker-id="${this.selectedStickerId}"]`);
+          if (sticker) {
+            sticker.classList.remove('selected');
+            const controls = sticker.querySelector('.sticker-controls');
+            const handles = sticker.querySelectorAll('.sticker-resize-handle');
+            
+            if (controls) {
+              controls.style.opacity = '0';
+              controls.style.transform = 'translateX(-50%) translateY(-10px)';
+            }
+            
+            handles.forEach(handle => {
+              handle.style.opacity = '0';
+              handle.style.transform = 'scale(0)';
+            });
+          }
+          
           this.selectedStickerId = null;
-          this.renderStickers();
         }, this.autoHideDelay);
       }
     },
@@ -5943,8 +5966,56 @@ function updateBusinessInfoButtonForVip() {
     
     // 选择贴纸
     selectSticker: function(stickerId) {
+      // 如果已经选中了这个贴纸，只重置计时器
+      if (this.selectedStickerId === stickerId) {
+        this.resetAutoHideTimer();
+        return;
+      }
+      
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      
+      // 先隐藏之前选中贴纸的控件
+      if (this.selectedStickerId) {
+        const prevSticker = posterFrame.querySelector(`.sticker[data-sticker-id="${this.selectedStickerId}"]`);
+        if (prevSticker) {
+          prevSticker.classList.remove('selected');
+          const prevControls = prevSticker.querySelector('.sticker-controls');
+          const prevHandles = prevSticker.querySelectorAll('.sticker-resize-handle');
+          
+          if (prevControls) {
+            prevControls.style.opacity = '0';
+            prevControls.style.transform = 'translateX(-50%) translateY(-10px)';
+          }
+          
+          prevHandles.forEach(handle => {
+            handle.style.opacity = '0';
+            handle.style.transform = 'scale(0)';
+          });
+        }
+      }
+      
+      // 设置新选中的贴纸
       this.selectedStickerId = stickerId;
-      this.renderStickers();
+      
+      // 显示新选中贴纸的控件
+      const newSticker = posterFrame.querySelector(`.sticker[data-sticker-id="${stickerId}"]`);
+      if (newSticker) {
+        newSticker.classList.add('selected');
+        const newControls = newSticker.querySelector('.sticker-controls');
+        const newHandles = newSticker.querySelectorAll('.sticker-resize-handle');
+        
+        if (newControls) {
+          newControls.style.opacity = '1';
+          newControls.style.transform = 'translateX(-50%) translateY(0)';
+        }
+        
+        newHandles.forEach(handle => {
+          handle.style.opacity = '1';
+          handle.style.transform = 'scale(1)';
+        });
+      }
+      
       this.resetAutoHideTimer();
     },
     
@@ -5985,8 +6056,10 @@ function updateBusinessInfoButtonForVip() {
       // 渲染所有贴纸
       this.stickers.forEach(sticker => {
         const stickerEl = document.createElement('div');
-        stickerEl.className = 'sticker' + (this.selectedStickerId === sticker.id ? ' selected' : '');
+        const isSelected = this.selectedStickerId === sticker.id;
+        stickerEl.className = 'sticker' + (isSelected ? ' selected' : '');
         stickerEl.dataset.stickerId = sticker.id;
+        stickerEl.setAttribute('data-sticker-id', sticker.id);
         stickerEl.style.left = sticker.x + '%';
         stickerEl.style.top = sticker.y + '%';
         stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
@@ -6001,20 +6074,22 @@ function updateBusinessInfoButtonForVip() {
         
         stickerEl.appendChild(stickerImg);
         
-        // 如果选中，添加操作控件
-        if (this.selectedStickerId === sticker.id) {
-          const controls = this.createStickerControls(sticker.id);
-          stickerEl.appendChild(controls);
-          
-          // 添加缩放控制点
-          const resizeHandles = ['nw', 'ne', 'sw', 'se'];
-          resizeHandles.forEach(pos => {
-            const handle = document.createElement('div');
-            handle.className = `sticker-resize-handle ${pos}`;
-            handle.dataset.position = pos;
-            stickerEl.appendChild(handle);
-          });
-        }
+        // 始终添加操作控件，但通过CSS控制显示/隐藏
+        const controls = this.createStickerControls(sticker.id);
+        controls.style.opacity = isSelected ? '1' : '0';
+        controls.style.transform = isSelected ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-10px)';
+        stickerEl.appendChild(controls);
+        
+        // 始终添加缩放控制点，但通过CSS控制显示/隐藏
+        const resizeHandles = ['nw', 'ne', 'sw', 'se'];
+        resizeHandles.forEach(pos => {
+          const handle = document.createElement('div');
+          handle.className = `sticker-resize-handle ${pos}`;
+          handle.dataset.position = pos;
+          handle.style.opacity = isSelected ? '1' : '0';
+          handle.style.transform = isSelected ? 'scale(1)' : 'scale(0)';
+          stickerEl.appendChild(handle);
+        });
         
         posterFrame.appendChild(stickerEl);
         
@@ -6051,16 +6126,39 @@ function updateBusinessInfoButtonForVip() {
         this.selectSticker(stickerId);
       });
       
-      // 拖拽贴纸
+      // 通用状态变量
       let isDragging = false;
       let isResizing = false;
       let startX, startY, initialX, initialY, initialScale;
+      let initialTouchDistance = 0;
       
-      stickerEl.addEventListener('mousedown', (e) => {
+      // 获取触摸坐标
+      const getTouchPos = (e) => {
+        if (e.touches && e.touches.length > 0) {
+          return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+      };
+      
+      // 获取两点之间的距离（用于双指缩放）
+      const getTouchDistance = (e) => {
+        if (e.touches && e.touches.length >= 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          return Math.sqrt(dx * dx + dy * dy);
+        }
+        return 0;
+      };
+      
+      // 开始操作（鼠标/触摸）
+      const startOperation = (e) => {
         // 检查是否点击了删除按钮
         if (e.target.classList.contains('sticker-delete-btn')) {
           return;
         }
+        
+        // 选中贴纸，显示删除按钮
+        this.selectSticker(stickerId);
         
         // 重置自动隐藏计时器
         this.resetAutoHideTimer();
@@ -6068,8 +6166,9 @@ function updateBusinessInfoButtonForVip() {
         // 检查是否点击了缩放控制点
         if (e.target.classList.contains('sticker-resize-handle')) {
           isResizing = true;
-          startX = e.clientX;
-          startY = e.clientY;
+          const pos = getTouchPos(e);
+          startX = pos.x;
+          startY = pos.y;
           
           const sticker = this.stickers.find(s => s.id === stickerId);
           if (sticker) {
@@ -6083,8 +6182,9 @@ function updateBusinessInfoButtonForVip() {
         
         // 拖拽贴纸
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        const pos = getTouchPos(e);
+        startX = pos.x;
+        startY = pos.y;
         
         const sticker = this.stickers.find(s => s.id === stickerId);
         if (sticker) {
@@ -6093,31 +6193,48 @@ function updateBusinessInfoButtonForVip() {
         }
         
         e.preventDefault();
-      });
+      };
       
-      document.addEventListener('mousemove', (e) => {
+      // 移动操作（鼠标/触摸）
+      const moveOperation = (e) => {
         if (isResizing) {
           // 重置自动隐藏计时器
           this.resetAutoHideTimer();
           
-          // 缩放贴纸
-          const deltaX = e.clientX - startX;
-          const deltaY = e.clientY - startY;
-          
-          // 使用最小值作为缩放因子，确保等比例缩放
-          const delta = Math.min(Math.abs(deltaX), Math.abs(deltaY)) / 100;
-          
-          const sticker = this.stickers.find(s => s.id === stickerId);
-          if (sticker) {
-            // 根据拖拽方向调整缩放
-            if (deltaX > 0 || deltaY > 0) {
-              sticker.scale = initialScale + delta;
-            } else {
-              sticker.scale = Math.max(0.2, initialScale - delta);
+          // 检查是否是双指触摸
+          if (e.touches && e.touches.length === 2) {
+            const currentDistance = getTouchDistance(e);
+            if (initialTouchDistance > 0) {
+              const delta = (currentDistance - initialTouchDistance) / 200;
+              const sticker = this.stickers.find(s => s.id === stickerId);
+              if (sticker) {
+                sticker.scale = Math.max(0.2, initialScale + delta);
+                this.updateStickerScale(stickerId, sticker.scale);
+                stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+              }
             }
+            initialTouchDistance = currentDistance;
+          } else {
+            // 单指缩放（通过控制点）
+            const pos = getTouchPos(e);
+            const deltaX = pos.x - startX;
+            const deltaY = pos.y - startY;
             
-            this.updateStickerScale(stickerId, sticker.scale);
-            stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+            // 使用最小值作为缩放因子，确保等比例缩放
+            const delta = Math.min(Math.abs(deltaX), Math.abs(deltaY)) / 100;
+            
+            const sticker = this.stickers.find(s => s.id === stickerId);
+            if (sticker) {
+              // 根据拖拽方向调整缩放
+              if (deltaX > 0 || deltaY > 0) {
+                sticker.scale = initialScale + delta;
+              } else {
+                sticker.scale = Math.max(0.2, initialScale - delta);
+              }
+              
+              this.updateStickerScale(stickerId, sticker.scale);
+              stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+            }
           }
           
           e.stopPropagation();
@@ -6130,8 +6247,9 @@ function updateBusinessInfoButtonForVip() {
         // 重置自动隐藏计时器
         this.resetAutoHideTimer();
         
-        const deltaX = (e.clientX - startX) / (document.getElementById('posterFrame').offsetWidth / 100);
-        const deltaY = (e.clientY - startY) / (document.getElementById('posterFrame').offsetHeight / 100);
+        const pos = getTouchPos(e);
+        const deltaX = (pos.x - startX) / (document.getElementById('posterFrame').offsetWidth / 100);
+        const deltaY = (pos.y - startY) / (document.getElementById('posterFrame').offsetHeight / 100);
         
         const sticker = this.stickers.find(s => s.id === stickerId);
         if (sticker) {
@@ -6142,12 +6260,49 @@ function updateBusinessInfoButtonForVip() {
           stickerEl.style.left = sticker.x + '%';
           stickerEl.style.top = sticker.y + '%';
         }
-      });
+      };
       
-      document.addEventListener('mouseup', () => {
+      // 结束操作（鼠标/触摸）
+      const endOperation = () => {
         isDragging = false;
         isResizing = false;
-      });
+        initialTouchDistance = 0;
+      };
+      
+      // 鼠标事件
+      stickerEl.addEventListener('mousedown', startOperation);
+      document.addEventListener('mousemove', moveOperation);
+      document.addEventListener('mouseup', endOperation);
+      
+      // 触摸事件
+      stickerEl.addEventListener('touchstart', (e) => {
+        // 检查是否点击了删除按钮
+        if (e.target.classList.contains('sticker-delete-btn')) {
+          return;
+        }
+        
+        // 触摸时先选中贴纸，显示删除按钮
+        this.selectSticker(stickerId);
+        
+        if (e.touches.length === 2) {
+          // 双指触摸，直接进入缩放模式
+          isResizing = true;
+          initialTouchDistance = getTouchDistance(e);
+          const sticker = this.stickers.find(s => s.id === stickerId);
+          if (sticker) {
+            initialScale = sticker.scale;
+          }
+          this.resetAutoHideTimer();
+        } else {
+          // 单指触摸
+          startOperation(e);
+        }
+      }, { passive: false });
+      
+      document.addEventListener('touchmove', moveOperation, { passive: false });
+      
+      document.addEventListener('touchend', endOperation);
+      document.addEventListener('touchcancel', endOperation);
     }
   };
   

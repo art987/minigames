@@ -749,6 +749,8 @@ footer {
   display: flex;
   gap: 4px;
   z-index: 102;
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* 删除按钮 */
@@ -766,6 +768,7 @@ footer {
   justify-content: center;
   transition: all 0.2s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  touch-action: manipulation;
 }
 
 .sticker-delete-btn:hover {
@@ -784,7 +787,9 @@ footer {
   border-radius: 50%;
   cursor: nwse-resize;
   z-index: 103;
-  transition: all 0.2s ease;
+  opacity: 1;
+  transition: all 0.2s ease, opacity 0.3s ease;
+  touch-action: none;
 }
 
 .sticker-resize-handle:hover {
