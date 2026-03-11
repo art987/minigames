@@ -278,7 +278,12 @@
       <div class="modal-body scrollable-body">
         <form id="businessInfoForm">
           <div class="form-group">
-            <label class="form-label" for="business-name">品牌/门店名称<span class="text-error-color">*</span></label>
+            <div class="form-label-row">
+              <label class="form-label" for="business-name">品牌/门店名称<span class="text-error-color">*</span></label>
+              <button type="button" id="openVisibilityManagerBtn" class="visibility-manager-btn-inline">
+                <i class="fa fa-eye"></i> 显示管理
+              </button>
+            </div>
             <div class="items-center">
               <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
               <div class="color-select-container">
@@ -303,7 +308,9 @@
           <div class="upload-container">
             <!-- Logo上传区域 -->
             <div>
-              <label class="form-label" for="business-logo">品牌标志/logo</label>
+              <div class="form-label-row">
+                <label class="form-label" for="business-logo">品牌标志/logo</label>
+              </div>
               <div id="logoUploadArea" class="upload-area">
                 <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12,19.2A6.8,6.8 0 0,1 5.2,12.4A6.806,6.806 0 0,1 12,5.6C17.3,5.6 21.6,10 21.6,15.2C21.6,17.5 20.8,19.7 19.2,21.2L12,21.2L12,19.2M12,17.73C10.8,17.73 9.73,16.67 9.73,15.47C9.73,14.27 10.8,13.2 12,13.2C13.2,13.2 14.27,14.27 14.27,15.47C14.27,16.67 13.2,17.73 12,17.73M12,4.93C7.13,4.93 3.14,8.87 3.14,13.67C3.14,18.47 7.13,22.4 12,22.4C16.87,22.4 20.86,18.47 20.86,13.67C20.86,8.87 16.87,4.93 12,4.93Z"/>
@@ -328,7 +335,9 @@
             
             <!-- 二维码上传区域 -->
             <div>
-              <label class="form-label" for="business-qrcode">二维码</label>
+              <div class="form-label-row">
+                <label class="form-label" for="business-qrcode">二维码</label>
+              </div>
               <div id="qrcodeUploadArea" class="upload-area">
                 <svg class="upload-icon" viewBox="0 0 1024 1024" fill="currentColor">
                   <path d="M384 64l-249.6 0c-51.2 0-89.6 41.6-89.6 89.6l0 227.2c0 51.2 41.6 89.6 89.6 89.6l249.6 0c51.2 0 89.6-41.6 89.6-89.6l0-227.2C473.6 105.6 435.2 64 384 64zM428.8 380.8c0 25.6-19.2 44.8-44.8 44.8l-249.6 0c-25.6 0-44.8-19.2-44.8-44.8l0-227.2c0-25.6 19.2-44.8 44.8-44.8l249.6 0c25.6 0 44.8 19.2 44.8 44.8L428.8 380.8z" fill="#cdcdcd"></path>
@@ -367,8 +376,10 @@
             </div>
           </div>
           
-          <div class="form-group" style="display: none;">
-            <label class="form-label" for="promotion-text">促销引流文案</label>
+          <div class="form-group" style="display: none;" >
+            <div class="form-label-row">
+              <label class="form-label" for="promotion-text">促销引流文案</label>
+            </div>
             <textarea id="promotion-text" class="form-input" rows="3" placeholder="请输入促销引流文案，支持Enter键换行（如：全场8折\n限时优惠）"></textarea>
             <button id="selectPromoTemplateBtn" class="editor-button mt-2">选择 促销引流文案模板</button>
           </div>
@@ -377,6 +388,40 @@
       <div class="modal-footer" >
         <button id="cancelBusinessInfoBtn" class="editor-button editor-button-secondary">取消</button>
         <button id="saveBusinessInfoBtn" class="editor-button">保存</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 品牌信息显示管理弹窗 -->
+  <div id="visibilityManagerModal" class="modal-overlay hidden">
+    <div class="modal visibility-manager-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">海报信息元素 显示管理</h2>
+        <button id="closeVisibilityManagerBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body visibility-manager-body">
+        <div class="visibility-list">
+          <div class="visibility-item" data-target="posterBusinessName">
+            <span class="visibility-name">品牌/门店名称：</span>
+            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
+            <button type="button" class="visibility-toggle-switch" data-target="posterBusinessName">不显示</button>
+          </div>
+          <div class="visibility-item" data-target="posterLogo">
+            <span class="visibility-name">品牌标志/logo：</span>
+            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
+            <button type="button" class="visibility-toggle-switch" data-target="posterLogo">不显示</button>
+          </div>
+          <div class="visibility-item" data-target="posterQrcode">
+            <span class="visibility-name">二维码：</span>
+            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
+            <button type="button" class="visibility-toggle-switch" data-target="posterQrcode">不显示</button>
+          </div>
+          <div class="visibility-item" data-target="posterPromoText">
+            <span class="visibility-name">促销引流文案：</span>
+            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
+            <button type="button" class="visibility-toggle-switch" data-target="posterPromoText">不显示</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

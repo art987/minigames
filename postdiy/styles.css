@@ -2147,7 +2147,7 @@ footer {
 
 /* 编辑器按钮样式 */
 .editor-button {
-  padding: 10px 20px;
+  padding: 7px 20px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -2226,6 +2226,134 @@ footer {
   color: #666;
   margin-right: 8px;
   margin-bottom: 5px;
+}
+
+.form-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 7px;
+  height: 24px;
+}
+
+.form-label-row .form-label {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.visibility-manager-btn-inline {
+  padding: 3px 10px;
+  font-size: 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #d40000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 0px;
+}
+
+.visibility-manager-btn-inline:hover {
+  background: #ffffff;
+  border-color: #d3d3d3;
+}
+
+.visibility-manager-btn-inline i {
+  font-size: 12px;
+}
+
+.visibility-manager-modal {
+  max-width: 420px;
+  width: 90%;
+}
+
+.visibility-manager-body {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.visibility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.visibility-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.visibility-item:hover {
+  /* background: #f1f3f4; */
+  border-color: #dee2e6;
+}
+
+.visibility-name {
+  width: 40%;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.visibility-status {
+  font-size: 13px;
+  /* font-weight: 700; */
+  color: #333;
+  margin-right: 12px;
+  width: 21%;
+  text-align: right;
+}
+
+.visibility-toggle-switch {
+  padding: 6px 14px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  color: #e00000;
+  margin-left: 35px;
+  width: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.visibility-toggle-switch:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.visibility-toggle-switch.active {
+  background: #ffffff;
+  color: #dc3545;
+  border-color: #CCC;
+}
+
+.visibility-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.visibility-toast.show {
+  opacity: 1;
 }
 
 .color-select-container {
@@ -3081,7 +3209,7 @@ input.hidden {
 .modal-body {
   padding: 10px 20px 40px;
 }
-#businessInfoModal .scrollable-body{padding: 4px 26px;}
+#businessInfoModal .scrollable-body{padding: 9px 26px 2px;}
 .input-section {
   margin-bottom: 11px;
   margin-top: 13px;
@@ -3146,7 +3274,7 @@ input.hidden {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 11px 20px 16px;
+  padding: 11px 20px 14px;
   border-top: 1px solid #e0e0e0;
 }
 

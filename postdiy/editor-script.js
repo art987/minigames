@@ -3870,6 +3870,12 @@ window.wechatWarning = {
         elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
       }, 400); // 匹配动画时长
     }
+    
+    // 同时关闭显示管理弹窗
+    const visibilityModal = document.getElementById('visibilityManagerModal');
+    if (visibilityModal) {
+      visibilityModal.classList.add('hidden');
+    }
   }
   
   // 保存商家信息
@@ -4610,7 +4616,13 @@ window.wechatWarning = {
     
     // 查找并保存背景图片元素的原始样式和src
     const backgroundImageElement = document.getElementById('posterBackground') || null;
-    const originalBackgroundImageStyle = backgroundImageElement ? { ...backgroundImageElement.style } : null;
+    const originalBackgroundImageStyle = backgroundImageElement ? {
+      display: backgroundImageElement.style.display,
+      opacity: backgroundImageElement.style.opacity,
+      objectFit: backgroundImageElement.style.objectFit,
+      width: backgroundImageElement.style.width,
+      height: backgroundImageElement.style.height
+    } : null;
     const originalBackgroundImageSrc = backgroundImageElement ? backgroundImageElement.src : '';
     let tempCanvasElement = null;
     
@@ -4701,6 +4713,12 @@ window.wechatWarning = {
           handle.style.display = 'none';
         });
         
+        // 隐藏独立的贴纸控件
+        const stickerControlBtns = elements.posterFrame.querySelectorAll('.sticker-control');
+        stickerControlBtns.forEach(btn => {
+          btn.style.display = 'none';
+        });
+        
         // 添加允许Taint选项，避免跨域问题导致的导出失败
         options.allowTaint = false;
         options.useCORS = true;
@@ -4715,6 +4733,12 @@ window.wechatWarning = {
           resizeHandles.forEach(handle => {
             handle.style.display = '';
           });
+          
+          // 恢复独立的贴纸控件
+          stickerControlBtns.forEach(btn => {
+            btn.style.display = '';
+          });
+          
           try {
             // 创建下载链接
             const link = document.createElement('a');
@@ -4854,8 +4878,24 @@ window.wechatWarning = {
       // 保存logo和二维码的原始样式
       const logoImgElement = elements.posterLogoImg;
       const qrcodeImgElement = elements.posterQrcodeImg;
-      const originalLogoStyle = logoImgElement ? { ...logoImgElement.style } : null;
-      const originalQrcodeStyle = qrcodeImgElement ? { ...qrcodeImgElement.style } : null;
+      const originalLogoStyle = logoImgElement ? {
+        display: logoImgElement.style.display,
+        opacity: logoImgElement.style.opacity,
+        visibility: logoImgElement.style.visibility,
+        borderRadius: logoImgElement.style.borderRadius,
+        objectFit: logoImgElement.style.objectFit,
+        width: logoImgElement.style.width,
+        height: logoImgElement.style.height
+      } : null;
+      const originalQrcodeStyle = qrcodeImgElement ? {
+        display: qrcodeImgElement.style.display,
+        opacity: qrcodeImgElement.style.opacity,
+        visibility: qrcodeImgElement.style.visibility,
+        borderRadius: qrcodeImgElement.style.borderRadius,
+        objectFit: qrcodeImgElement.style.objectFit,
+        width: qrcodeImgElement.style.width,
+        height: qrcodeImgElement.style.height
+      } : null;
       let tempLogoCanvas = null;
       let tempQrcodeCanvas = null;
       
@@ -4865,6 +4905,8 @@ window.wechatWarning = {
         
         // 绘制圆角路径的辅助函数
         function drawRoundedRect(ctx, x, y, width, height, radius) {
+          // 确保半径不为负数
+          radius = Math.max(0, radius);
           ctx.beginPath();
           ctx.moveTo(x + radius, y);
           ctx.arcTo(x + width, y, x + width, y + height, radius);
@@ -4986,7 +5028,8 @@ window.wechatWarning = {
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.arc(containerWidth / 2, containerHeight / 2, containerWidth / 2 - 0.5, 0, 2 * Math.PI);
+                const radius = Math.max(0.5, containerWidth / 2 - 0.5);
+                ctx.arc(containerWidth / 2, containerHeight / 2, radius, 0, 2 * Math.PI);
                 ctx.stroke();
               }
               
@@ -6937,3 +6980,177 @@ function updateBusinessInfoButtonForVip() {
       window.stickerManager.selectSticker(null);
     });
   });
+  
+  // 元素显示/隐藏控制功能
+  window.VisibilityController = {
+    storageKey: 'posterElementVisibility',
+    
+    elementNames: {
+      posterBusinessName: '品牌/门店名称',
+      posterLogo: '品牌标志/logo',
+      posterQrcode: '二维码',
+      posterPromoText: '促销引流文案'
+    },
+    
+    defaultVisibility: {
+      posterBusinessName: true,
+      posterLogo: true,
+      posterQrcode: true,
+      posterPromoText: true
+    },
+    
+    init: function() {
+      this.loadVisibility();
+      this.bindEvents();
+      this.bindModalEvents();
+    },
+    
+    loadVisibility: function() {
+      const stored = localStorage.getItem(this.storageKey);
+      const visibility = stored ? JSON.parse(stored) : this.defaultVisibility;
+      
+      Object.keys(visibility).forEach(targetId => {
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+          if (!visibility[targetId]) {
+            element.style.opacity = '0';
+            element.style.pointerEvents = 'none';
+          } else {
+            element.style.opacity = '1';
+            element.style.pointerEvents = '';
+          }
+        }
+      });
+      
+      this.updateModalUI();
+    },
+    
+    updateModalUI: function() {
+      const visibility = this.getVisibility();
+      
+      document.querySelectorAll('.visibility-item').forEach(item => {
+        const targetId = item.dataset.target;
+        const statusEl = item.querySelector('.visibility-status');
+        const btnEl = item.querySelector('.visibility-toggle-switch');
+        
+        if (statusEl && btnEl && visibility[targetId] !== undefined) {
+          if (visibility[targetId]) {
+            statusEl.innerHTML = '<i class="fa fa-eye"></i> 已显示';
+            btnEl.textContent = '不显示';
+            btnEl.classList.remove('active');
+          } else {
+            statusEl.textContent = '已隐藏';
+            btnEl.textContent = '显示';
+            btnEl.classList.add('active');
+          }
+        }
+      });
+    },
+    
+    saveVisibility: function(visibility) {
+      localStorage.setItem(this.storageKey, JSON.stringify(visibility));
+    },
+    
+    getVisibility: function() {
+      const stored = localStorage.getItem(this.storageKey);
+      return stored ? JSON.parse(stored) : { ...this.defaultVisibility };
+    },
+    
+    showToast: function(message, duration) {
+      let toast = document.querySelector('.visibility-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'visibility-toast';
+        document.body.appendChild(toast);
+      }
+      
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, duration);
+    },
+    
+    toggleVisibility: function(targetId) {
+      const element = document.getElementById(targetId);
+      
+      if (!element) return;
+      
+      const visibility = this.getVisibility();
+      const isCurrentlyVisible = visibility[targetId];
+      
+      if (isCurrentlyVisible) {
+        element.style.opacity = '0';
+        element.style.pointerEvents = 'none';
+        visibility[targetId] = false;
+      } else {
+        element.style.opacity = '1';
+        element.style.pointerEvents = '';
+        visibility[targetId] = true;
+      }
+      
+      this.saveVisibility(visibility);
+      this.updateModalUI();
+    },
+    
+    bindEvents: function() {
+      document.querySelectorAll('.visibility-toggle-switch').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = btn.dataset.target;
+          this.toggleVisibility(targetId);
+        });
+      });
+    },
+    
+    bindModalEvents: function() {
+      const modal = document.getElementById('visibilityManagerModal');
+      const openBtn = document.getElementById('openVisibilityManagerBtn');
+      const closeBtn = document.getElementById('closeVisibilityManagerBtn');
+      
+      if (openBtn && modal) {
+        openBtn.addEventListener('click', () => {
+          this.updateModalUI();
+          modal.classList.remove('hidden');
+        });
+      }
+      
+      if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.add('hidden');
+        });
+      }
+      
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+          }
+        });
+      }
+    },
+    
+    isElementVisible: function(targetId) {
+      if (!this.storageKey) {
+        return true;
+      }
+      const visibility = this.getVisibility();
+      return visibility[targetId] !== false;
+    },
+    
+    isInitialized: function() {
+      return !!this.storageKey;
+    }
+  };
+  
+  // 立即初始化 VisibilityController（不等待 DOMContentLoaded）
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      window.VisibilityController.init();
+    });
+  } else {
+    // DOM 已经加载完成，立即初始化
+    window.VisibilityController.init();
+  }
