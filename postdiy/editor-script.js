@@ -5878,7 +5878,7 @@ function updateBusinessInfoButtonForVip() {
     selectedStickerId: null,
     stickerCount: 0,
     autoHideTimer: null,
-    autoHideDelay: 1000,
+    autoHideDelay: 1500,
     
     // 初始化贴纸管理器
     init: function() {
@@ -5908,19 +5908,19 @@ function updateBusinessInfoButtonForVip() {
           const sticker = posterFrame.querySelector(`.sticker[data-sticker-id="${this.selectedStickerId}"]`);
           if (sticker) {
             sticker.classList.remove('selected');
-            const controls = sticker.querySelector('.sticker-controls');
             const handles = sticker.querySelectorAll('.sticker-resize-handle');
-            
-            if (controls) {
-              controls.style.opacity = '0';
-              controls.style.transform = 'translateX(-50%) translateY(-10px)';
-            }
             
             handles.forEach(handle => {
               handle.style.opacity = '0';
               handle.style.transform = 'scale(0)';
             });
           }
+          
+          // 隐藏控件
+          const controls = posterFrame.querySelectorAll(`.sticker-control[data-sticker-id="${this.selectedStickerId}"]`);
+          controls.forEach(control => {
+            control.style.opacity = '0';
+          });
           
           this.selectedStickerId = null;
         }, this.autoHideDelay);
@@ -5939,6 +5939,7 @@ function updateBusinessInfoButtonForVip() {
         y: y || 50,
         scale: scale || 1,
         rotation: 0,
+        mirror: false,
         zIndex: 100 + this.stickerCount
       };
       
@@ -5980,19 +5981,19 @@ function updateBusinessInfoButtonForVip() {
         const prevSticker = posterFrame.querySelector(`.sticker[data-sticker-id="${this.selectedStickerId}"]`);
         if (prevSticker) {
           prevSticker.classList.remove('selected');
-          const prevControls = prevSticker.querySelector('.sticker-controls');
           const prevHandles = prevSticker.querySelectorAll('.sticker-resize-handle');
-          
-          if (prevControls) {
-            prevControls.style.opacity = '0';
-            prevControls.style.transform = 'translateX(-50%) translateY(-10px)';
-          }
           
           prevHandles.forEach(handle => {
             handle.style.opacity = '0';
             handle.style.transform = 'scale(0)';
           });
         }
+        
+        // 隐藏之前的控件
+        const prevControls = posterFrame.querySelectorAll(`.sticker-control[data-sticker-id="${this.selectedStickerId}"]`);
+        prevControls.forEach(control => {
+          control.style.opacity = '0';
+        });
       }
       
       // 设置新选中的贴纸
@@ -6002,19 +6003,19 @@ function updateBusinessInfoButtonForVip() {
       const newSticker = posterFrame.querySelector(`.sticker[data-sticker-id="${stickerId}"]`);
       if (newSticker) {
         newSticker.classList.add('selected');
-        const newControls = newSticker.querySelector('.sticker-controls');
         const newHandles = newSticker.querySelectorAll('.sticker-resize-handle');
-        
-        if (newControls) {
-          newControls.style.opacity = '1';
-          newControls.style.transform = 'translateX(-50%) translateY(0)';
-        }
         
         newHandles.forEach(handle => {
           handle.style.opacity = '1';
           handle.style.transform = 'scale(1)';
         });
       }
+      
+      // 显示新选中贴纸的控件
+      const newControls = posterFrame.querySelectorAll(`.sticker-control[data-sticker-id="${stickerId}"]`);
+      newControls.forEach(control => {
+        control.style.opacity = '1';
+      });
       
       this.resetAutoHideTimer();
     },
@@ -6041,6 +6042,16 @@ function updateBusinessInfoButtonForVip() {
       const sticker = this.stickers.find(s => s.id === stickerId);
       if (sticker) {
         sticker.rotation = rotation;
+        this.updateStickerVisual(stickerId);
+      }
+    },
+    
+    // 更新贴纸镜像
+    toggleStickerMirror: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (sticker) {
+        sticker.mirror = !sticker.mirror;
+        this.updateStickerVisual(stickerId);
       }
     },
     
@@ -6049,9 +6060,9 @@ function updateBusinessInfoButtonForVip() {
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       
-      // 清除现有的贴纸
-      const existingStickers = posterFrame.querySelectorAll('.sticker');
-      existingStickers.forEach(sticker => sticker.remove());
+      // 清除现有的贴纸和控件
+      const existingStickers = posterFrame.querySelectorAll('.sticker, .sticker-control');
+      existingStickers.forEach(el => el.remove());
       
       // 渲染所有贴纸
       this.stickers.forEach(sticker => {
@@ -6062,7 +6073,8 @@ function updateBusinessInfoButtonForVip() {
         stickerEl.setAttribute('data-sticker-id', sticker.id);
         stickerEl.style.left = sticker.x + '%';
         stickerEl.style.top = sticker.y + '%';
-        stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+        const scaleX = sticker.mirror ? -1 : 1;
+        stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale * scaleX}, ${sticker.scale}) rotate(${sticker.rotation}deg)`;
         stickerEl.style.zIndex = sticker.zIndex;
         
         // 贴纸图片
@@ -6073,12 +6085,6 @@ function updateBusinessInfoButtonForVip() {
         stickerImg.style.display = 'block';
         
         stickerEl.appendChild(stickerImg);
-        
-        // 始终添加操作控件，但通过CSS控制显示/隐藏
-        const controls = this.createStickerControls(sticker.id);
-        controls.style.opacity = isSelected ? '1' : '0';
-        controls.style.transform = isSelected ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-10px)';
-        stickerEl.appendChild(controls);
         
         // 始终添加缩放控制点，但通过CSS控制显示/隐藏
         const resizeHandles = ['nw', 'ne', 'sw', 'se'];
@@ -6093,29 +6099,188 @@ function updateBusinessInfoButtonForVip() {
         
         posterFrame.appendChild(stickerEl);
         
+        // 创建独立的控件（不受贴纸旋转影响）
+        this.createStickerControls(sticker.id, isSelected);
+        
         // 绑定事件
         this.bindStickerEvents(stickerEl, sticker.id);
       });
     },
     
-    // 创建贴纸操作控件
-    createStickerControls: function(stickerId) {
-      const controls = document.createElement('div');
-      controls.className = 'sticker-controls';
+    // 创建贴纸操作控件（独立元素）
+    createStickerControls: function(stickerId, isSelected) {
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
       
-      // 删除按钮
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      // 计算贴纸中心位置
+      const frameRect = posterFrame.getBoundingClientRect();
+      const stickerCenterX = (sticker.x / 100) * frameRect.width;
+      const stickerCenterY = (sticker.y / 100) * frameRect.height;
+      
+      // 贴纸尺寸（基于缩放）
+      const baseSize = 100 * sticker.scale;
+      
+      // 删除按钮（顶部居中）
       const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'sticker-delete-btn';
+      deleteBtn.className = 'sticker-control sticker-delete-btn';
       deleteBtn.innerHTML = '×';
       deleteBtn.title = '删除贴纸';
+      deleteBtn.dataset.stickerId = stickerId;
+      deleteBtn.style.cssText = `
+        position: absolute;
+        left: ${stickerCenterX}px;
+        top: ${stickerCenterY - baseSize/2 - 20}px;
+        transform: translate(-50%, -50%);
+        opacity: ${isSelected ? '1' : '0'};
+        z-index: ${sticker.zIndex + 10};
+      `;
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
         this.removeSticker(stickerId);
       };
+      posterFrame.appendChild(deleteBtn);
       
-      controls.appendChild(deleteBtn);
+      // 镜像按钮（左侧居中，红色填充）
+      const mirrorBtn = document.createElement('button');
+      mirrorBtn.className = 'sticker-control sticker-mirror-btn';
+      mirrorBtn.innerHTML = '<i class="fa fa-arrows-h" style="color: #FF4444;"></i>';
+      mirrorBtn.title = '镜像翻转';
+      mirrorBtn.dataset.stickerId = stickerId;
+      mirrorBtn.style.cssText = `
+        position: absolute;
+        left: ${stickerCenterX - baseSize/2 - 20}px;
+        top: ${stickerCenterY}px;
+        transform: translate(-50%, -50%);
+        opacity: ${isSelected ? '1' : '0'};
+        z-index: ${sticker.zIndex + 10};
+      `;
+      mirrorBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.toggleStickerMirror(stickerId);
+      };
+      posterFrame.appendChild(mirrorBtn);
       
-      return controls;
+      // 旋转按钮（右侧居中，红色边框白色背景红色符号）
+      const rotateBtn = document.createElement('button');
+      rotateBtn.className = 'sticker-control sticker-rotate-btn';
+      rotateBtn.innerHTML = '↺';
+      rotateBtn.title = '旋转贴纸';
+      rotateBtn.dataset.stickerId = stickerId;
+      rotateBtn.style.cssText = `
+        position: absolute;
+        left: ${stickerCenterX + baseSize/2 + 20}px;
+        top: ${stickerCenterY}px;
+        transform: translate(-50%, -50%);
+        opacity: ${isSelected ? '1' : '0'};
+        z-index: ${sticker.zIndex + 10};
+      `;
+      
+      // 旋转拖动状态
+      let isRotating = false;
+      let startY = 0;
+      let startRotation = 0;
+      
+      const startRotate = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isRotating = true;
+        const pos = e.touches ? e.touches[0] : e;
+        startY = pos.clientY;
+        startRotation = sticker.rotation;
+        document.body.style.cursor = 'ns-resize';
+      };
+      
+      const doRotate = (e) => {
+        if (!isRotating) return;
+        e.preventDefault();
+        
+        // 获取最新的贴纸状态
+        const currentSticker = this.stickers.find(s => s.id === stickerId);
+        if (!currentSticker) return;
+        
+        const pos = e.touches ? e.touches[0] : e;
+        
+        // 根据镜像状态决定旋转方向
+        // 未镜像：向上拖动逆时针，向下拖动顺时针
+        // 镜像后：向上拖动顺时针，向下拖动逆时针
+        let deltaY;
+        if (currentSticker.mirror) {
+          deltaY = startY - pos.clientY;
+        } else {
+          deltaY = pos.clientY - startY;
+        }
+        
+        const rotation = startRotation + deltaY * 0.5;
+        const clampedRotation = Math.max(-180, Math.min(180, rotation));
+        this.updateStickerRotation(stickerId, clampedRotation);
+        this.updateControlPositions(stickerId);
+      };
+      
+      const endRotate = () => {
+        isRotating = false;
+        document.body.style.cursor = '';
+      };
+      
+      rotateBtn.addEventListener('mousedown', startRotate);
+      rotateBtn.addEventListener('touchstart', startRotate, { passive: false });
+      document.addEventListener('mousemove', doRotate);
+      document.addEventListener('touchmove', doRotate, { passive: false });
+      document.addEventListener('mouseup', endRotate);
+      document.addEventListener('touchend', endRotate);
+      
+      posterFrame.appendChild(rotateBtn);
+    },
+    
+    // 更新控件位置
+    updateControlPositions: function(stickerId) {
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      const controls = posterFrame.querySelectorAll(`.sticker-control[data-sticker-id="${stickerId}"]`);
+      if (controls.length === 0) return;
+      
+      const frameRect = posterFrame.getBoundingClientRect();
+      const stickerCenterX = (sticker.x / 100) * frameRect.width;
+      const stickerCenterY = (sticker.y / 100) * frameRect.height;
+      const baseSize = 100 * sticker.scale;
+      
+      controls.forEach(control => {
+        if (control.classList.contains('sticker-delete-btn')) {
+          control.style.left = `${stickerCenterX}px`;
+          control.style.top = `${stickerCenterY - baseSize/2 - 20}px`;
+        } else if (control.classList.contains('sticker-mirror-btn')) {
+          control.style.left = `${stickerCenterX - baseSize/2 - 20}px`;
+          control.style.top = `${stickerCenterY}px`;
+        } else if (control.classList.contains('sticker-rotate-btn')) {
+          control.style.left = `${stickerCenterX + baseSize/2 + 20}px`;
+          control.style.top = `${stickerCenterY}px`;
+        }
+        control.style.zIndex = sticker.zIndex + 10;
+      });
+    },
+    
+    // 更新贴纸视觉效果
+    updateStickerVisual: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (sticker) {
+        const stickerEl = document.querySelector(`.sticker[data-sticker-id="${stickerId}"]`);
+        if (stickerEl) {
+          const scaleX = sticker.mirror ? -1 : 1;
+          stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale * scaleX}, ${sticker.scale}) rotate(${sticker.rotation}deg)`;
+        }
+        this.updateControlPositions(stickerId);
+      }
+    },
+    
+    // 更新旋转角度显示
+    updateStickerRotationDisplay: function(stickerId, rotation) {
+      // 不再需要角度显示
     },
     
     // 绑定贴纸事件
@@ -6152,12 +6317,15 @@ function updateBusinessInfoButtonForVip() {
       
       // 开始操作（鼠标/触摸）
       const startOperation = (e) => {
-        // 检查是否点击了删除按钮
-        if (e.target.classList.contains('sticker-delete-btn')) {
+        // 检查是否点击了控件按钮
+        if (e.target.classList.contains('sticker-delete-btn') ||
+            e.target.classList.contains('sticker-mirror-btn') ||
+            e.target.classList.contains('sticker-rotate-btn') ||
+            e.target.classList.contains('sticker-control')) {
           return;
         }
         
-        // 选中贴纸，显示删除按钮
+        // 选中贴纸，显示控件
         this.selectSticker(stickerId);
         
         // 重置自动隐藏计时器
@@ -6210,7 +6378,9 @@ function updateBusinessInfoButtonForVip() {
               if (sticker) {
                 sticker.scale = Math.max(0.2, initialScale + delta);
                 this.updateStickerScale(stickerId, sticker.scale);
-                stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+                const scaleX = sticker.mirror ? -1 : 1;
+                stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale * scaleX}, ${sticker.scale}) rotate(${sticker.rotation}deg)`;
+                this.updateControlPositions(stickerId);
               }
             }
             initialTouchDistance = currentDistance;
@@ -6233,7 +6403,9 @@ function updateBusinessInfoButtonForVip() {
               }
               
               this.updateStickerScale(stickerId, sticker.scale);
-              stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale}) rotate(${sticker.rotation}deg)`;
+              const scaleX = sticker.mirror ? -1 : 1;
+              stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale * scaleX}, ${sticker.scale}) rotate(${sticker.rotation}deg)`;
+              this.updateControlPositions(stickerId);
             }
           }
           
@@ -6259,6 +6431,9 @@ function updateBusinessInfoButtonForVip() {
           
           stickerEl.style.left = sticker.x + '%';
           stickerEl.style.top = sticker.y + '%';
+          
+          // 更新控件位置
+          this.updateControlPositions(stickerId);
         }
       };
       
@@ -6408,37 +6583,6 @@ function updateBusinessInfoButtonForVip() {
     
     loadedImages: {},
     
-    // 预加载贴纸图片
-    preloadImages: function(category) {
-      return new Promise((resolve, reject) => {
-        const stickers = this.categories[category].stickers;
-        let loadedCount = 0;
-        let failedCount = 0;
-        
-        stickers.forEach(sticker => {
-          const img = new Image();
-          img.onload = function() {
-            loadedCount++;
-            window.stickerResources.loadedImages[sticker.id] = this.src;
-            if (loadedCount + failedCount === stickers.length) {
-              resolve({ loaded: loadedCount, failed: failedCount });
-            }
-          };
-          img.onerror = function() {
-            failedCount++;
-            if (loadedCount + failedCount === stickers.length) {
-              resolve({ loaded: loadedCount, failed: failedCount });
-            }
-          };
-          img.src = sticker.url + '?' + new Date().getTime();
-        });
-        
-        if (stickers.length === 0) {
-          resolve({ loaded: 0, failed: 0 });
-        }
-      });
-    },
-    
     // 获取贴纸图片URL
     getStickerUrl: function(stickerId) {
       return this.loadedImages[stickerId] || 'sticker/placeholder.png';
@@ -6447,6 +6591,8 @@ function updateBusinessInfoButtonForVip() {
   
   // 贴纸弹窗管理
   window.stickerModalManager = {
+    currentCategory: 'zaoan',
+    
     init: function() {
       this.bindEvents();
     },
@@ -6486,7 +6632,9 @@ function updateBusinessInfoButtonForVip() {
         btn.addEventListener('click', (e) => {
           document.querySelectorAll('.sticker-category-btn').forEach(b => b.classList.remove('active'));
           e.target.classList.add('active');
-          this.loadStickers(e.target.dataset.category);
+          const category = e.target.dataset.category;
+          this.currentCategory = category;
+          this.loadStickers(category);
         });
       });
     },
@@ -6494,7 +6642,7 @@ function updateBusinessInfoButtonForVip() {
     openModal: function() {
       const modal = document.getElementById('stickerModal');
       modal.classList.remove('hidden');
-      this.loadStickers('zaoan');
+      this.loadStickers(this.currentCategory);
     },
     
     closeModal: function() {
@@ -6518,9 +6666,37 @@ function updateBusinessInfoButtonForVip() {
         const img = document.createElement('img');
         img.src = sticker.url + '?' + new Date().getTime();
         img.alt = sticker.name;
+        
+        const loader = document.createElement('div');
+        loader.className = 'sticker-loader';
+        const spinner = document.createElement('div');
+        spinner.className = 'spinner';
+        loader.appendChild(spinner);
+        card.appendChild(loader);
+        
+        let loadTimeout;
+        const clearLoadTimeout = function() {
+          if (loadTimeout) {
+            clearTimeout(loadTimeout);
+            loadTimeout = null;
+          }
+        };
+        
+        img.onload = function() {
+          clearLoadTimeout();
+          loader.classList.add('hidden');
+        };
+        
         img.onerror = function() {
+          clearLoadTimeout();
+          loader.classList.add('hidden');
           this.src = 'sticker/placeholder.png';
         };
+        
+        loadTimeout = setTimeout(function() {
+          loader.classList.add('hidden');
+          loadTimeout = null;
+        }, 5000);
         
         const name = document.createElement('div');
         name.className = 'sticker-name';
@@ -6529,7 +6705,6 @@ function updateBusinessInfoButtonForVip() {
         card.appendChild(img);
         card.appendChild(name);
         
-        // 添加按钮
         const addBtn = document.createElement('button');
         addBtn.className = 'add-sticker-btn';
         addBtn.textContent = '添加';
@@ -6541,7 +6716,6 @@ function updateBusinessInfoButtonForVip() {
         
         card.appendChild(addBtn);
         
-        // 点击卡片也添加
         card.addEventListener('click', (e) => {
           if (e.target !== addBtn) {
             this.addStickerToPoster(sticker.url);
