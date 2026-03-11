@@ -809,6 +809,34 @@ footer {
   color: white;
 }
 
+/* 层级控制按钮 */
+.sticker-bring-forward-btn,
+.sticker-send-backward-btn {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sticker-bring-forward-btn:hover,
+.sticker-send-backward-btn:hover {
+  background: #fdfdfd;
+  color: #FF4444;
+}
+
+/* 禁用状态 */
+.sticker-control.disabled {
+  opacity: 0 !important;
+  cursor: not-allowed;
+  background: #ccc;
+  border-color: #999;
+  color: #999;
+}
+
+.sticker-control.disabled:hover {
+  background: #ccc;
+  color: #999;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 /* 缩放控制点 */
 .sticker-resize-handle {
   position: absolute;

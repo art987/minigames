@@ -6055,6 +6055,129 @@ function updateBusinessInfoButtonForVip() {
       }
     },
     
+    // 上移贴纸层级
+    bringStickerForward: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      // 找到当前贴纸的zIndex
+      const currentZIndex = sticker.zIndex;
+      
+      // 找到比当前贴纸zIndex大的最小贴纸
+      let nextSticker = null;
+      let minHigherZIndex = Infinity;
+      
+      this.stickers.forEach(s => {
+        if (s.id !== stickerId && s.zIndex > currentZIndex && s.zIndex < minHigherZIndex) {
+          minHigherZIndex = s.zIndex;
+          nextSticker = s;
+        }
+      });
+      
+      // 如果存在更高层级的贴纸，交换zIndex
+      if (nextSticker) {
+        const tempZIndex = sticker.zIndex;
+        sticker.zIndex = nextSticker.zIndex;
+        nextSticker.zIndex = tempZIndex;
+        
+        // 更新DOM层级
+        this.updateStickerZIndex(stickerId);
+        this.updateStickerZIndex(nextSticker.id);
+        this.updateLayerButtonStates(stickerId);
+        this.updateLayerButtonStates(nextSticker.id);
+      }
+    },
+    
+    // 下移贴纸层级
+    sendStickerBackward: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      // 找到当前贴纸的zIndex
+      const currentZIndex = sticker.zIndex;
+      
+      // 找到比当前贴纸zIndex小的最大贴纸
+      let prevSticker = null;
+      let maxLowerZIndex = -Infinity;
+      
+      this.stickers.forEach(s => {
+        if (s.id !== stickerId && s.zIndex < currentZIndex && s.zIndex > maxLowerZIndex) {
+          maxLowerZIndex = s.zIndex;
+          prevSticker = s;
+        }
+      });
+      
+      // 如果存在更低层级的贴纸，交换zIndex
+      if (prevSticker) {
+        const tempZIndex = sticker.zIndex;
+        sticker.zIndex = prevSticker.zIndex;
+        prevSticker.zIndex = tempZIndex;
+        
+        // 更新DOM层级
+        this.updateStickerZIndex(stickerId);
+        this.updateStickerZIndex(prevSticker.id);
+        this.updateLayerButtonStates(stickerId);
+        this.updateLayerButtonStates(prevSticker.id);
+      }
+    },
+    
+    // 更新贴纸DOM层级
+    updateStickerZIndex: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      const stickerEl = document.querySelector(`.sticker[data-sticker-id="${stickerId}"]`);
+      if (stickerEl) {
+        stickerEl.style.zIndex = sticker.zIndex;
+      }
+      
+      // 更新控件层级
+      this.updateControlPositions(stickerId);
+    },
+    
+    // 更新层级按钮状态
+    updateLayerButtonStates: function(stickerId) {
+      const sticker = this.stickers.find(s => s.id === stickerId);
+      if (!sticker) return;
+      
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      
+      const bringForwardBtn = posterFrame.querySelector(`.sticker-bring-forward-btn[data-sticker-id="${stickerId}"]`);
+      const sendBackwardBtn = posterFrame.querySelector(`.sticker-send-backward-btn[data-sticker-id="${stickerId}"]`);
+      
+      // 找到最高和最低的zIndex
+      let maxZIndex = -Infinity;
+      let minZIndex = Infinity;
+      
+      this.stickers.forEach(s => {
+        if (s.zIndex > maxZIndex) maxZIndex = s.zIndex;
+        if (s.zIndex < minZIndex) minZIndex = s.zIndex;
+      });
+      
+      // 更新上移按钮状态
+      if (bringForwardBtn) {
+        if (sticker.zIndex >= maxZIndex) {
+          bringForwardBtn.classList.add('disabled');
+          bringForwardBtn.disabled = true;
+        } else {
+          bringForwardBtn.classList.remove('disabled');
+          bringForwardBtn.disabled = false;
+        }
+      }
+      
+      // 更新下移按钮状态
+      if (sendBackwardBtn) {
+        if (sticker.zIndex <= minZIndex) {
+          sendBackwardBtn.classList.add('disabled');
+          sendBackwardBtn.disabled = true;
+        } else {
+          sendBackwardBtn.classList.remove('disabled');
+          sendBackwardBtn.disabled = false;
+        }
+      }
+    },
+    
     // 渲染所有贴纸
     renderStickers: function() {
       const posterFrame = document.getElementById('posterFrame');
@@ -6232,6 +6355,49 @@ function updateBusinessInfoButtonForVip() {
       document.addEventListener('touchend', endRotate);
       
       posterFrame.appendChild(rotateBtn);
+      
+      // 上移层级按钮（底部左侧，距离底边30px）
+      const bringForwardBtn = document.createElement('button');
+      bringForwardBtn.className = 'sticker-control sticker-bring-forward-btn';
+      bringForwardBtn.innerHTML = '↥';
+      bringForwardBtn.title = '上移层级';
+      bringForwardBtn.dataset.stickerId = stickerId;
+      bringForwardBtn.style.cssText = `
+        position: absolute;
+        left: ${stickerCenterX - 20}px;
+        top: ${stickerCenterY + baseSize/2 + 30}px;
+        transform: translate(-50%, -50%);
+        opacity: ${isSelected ? '1' : '0'};
+        z-index: ${sticker.zIndex + 10};
+      `;
+      bringForwardBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.bringStickerForward(stickerId);
+      };
+      posterFrame.appendChild(bringForwardBtn);
+      
+      // 下移层级按钮（底部右侧，距离底边30px）
+      const sendBackwardBtn = document.createElement('button');
+      sendBackwardBtn.className = 'sticker-control sticker-send-backward-btn';
+      sendBackwardBtn.innerHTML = '↧';
+      sendBackwardBtn.title = '下移层级';
+      sendBackwardBtn.dataset.stickerId = stickerId;
+      sendBackwardBtn.style.cssText = `
+        position: absolute;
+        left: ${stickerCenterX + 20}px;
+        top: ${stickerCenterY + baseSize/2 + 30}px;
+        transform: translate(-50%, -50%);
+        opacity: ${isSelected ? '1' : '0'};
+        z-index: ${sticker.zIndex + 10};
+      `;
+      sendBackwardBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.sendStickerBackward(stickerId);
+      };
+      posterFrame.appendChild(sendBackwardBtn);
+      
+      // 更新层级按钮状态
+      this.updateLayerButtonStates(stickerId);
     },
     
     // 更新控件位置
@@ -6260,6 +6426,12 @@ function updateBusinessInfoButtonForVip() {
         } else if (control.classList.contains('sticker-rotate-btn')) {
           control.style.left = `${stickerCenterX + baseSize/2 + 20}px`;
           control.style.top = `${stickerCenterY}px`;
+        } else if (control.classList.contains('sticker-bring-forward-btn')) {
+          control.style.left = `${stickerCenterX - 20}px`;
+          control.style.top = `${stickerCenterY + baseSize/2 + 30}px`;
+        } else if (control.classList.contains('sticker-send-backward-btn')) {
+          control.style.left = `${stickerCenterX + 20}px`;
+          control.style.top = `${stickerCenterY + baseSize/2 + 30}px`;
         }
         control.style.zIndex = sticker.zIndex + 10;
       });
