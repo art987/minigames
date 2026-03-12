@@ -909,6 +909,7 @@ footer {
   word-wrap: break-word;
   cursor: pointer;
   transition: all 0.2s ease;
+  z-index: 200;
 }
 
 #posterBusinessName:hover {
@@ -947,6 +948,7 @@ footer {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 200;
 }
 
 #posterLogo:hover {
@@ -1019,6 +1021,7 @@ footer {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 200;
 }
 
 #posterQrcode:hover {
@@ -1071,6 +1074,7 @@ footer {
   border-radius: 6px;
   word-wrap: break-word;
   border-left: 5px solid #ffffff26;
+  z-index: 200;
 }
 
 #posterPromoText::before {
@@ -1447,10 +1451,12 @@ footer {
 
 .modal.sticker-select-modal .scrollable-body {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 0;
   display: flex;
   gap: 4px;
+  max-height: 70vh;
 }
 
 /* 左侧分类导航区 */
@@ -1463,6 +1469,7 @@ footer {
   padding: 10px 4px;
   background: #4d4d4d;
   overflow-y: auto;
+  max-height: 300px;
   /* 滚动条样式 */
   scrollbar-width: thin;
   scrollbar-color: #666666 #333333;
@@ -1508,6 +1515,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .sticker-category-btn:hover {

@@ -6971,11 +6971,15 @@ function updateBusinessInfoButtonForVip() {
       // 分类切换
       document.querySelectorAll('.sticker-category-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
           document.querySelectorAll('.sticker-category-btn').forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          const category = e.target.dataset.category;
-          this.currentCategory = category;
-          this.loadStickers(category);
+          btn.classList.add('active');
+          const category = btn.dataset.category;
+          if (category) {
+            this.currentCategory = category;
+            this.loadStickers(category);
+          }
         });
       });
       
