@@ -640,6 +640,12 @@ window.wechatWarning = {
       case 'userInfo':
         openUserInfoModal();
         break;
+      case 'visibilityManager':
+        // 打开显示管理弹窗
+        if (window.openVisibilityManager) {
+          window.openVisibilityManager();
+        }
+        break;
       case 'logout':
         handleVipLogout();
         break;
@@ -1633,19 +1639,37 @@ window.wechatWarning = {
       });
     }
     
-    // 背景图片点击事件 - 弹出模板选择弹窗
+    // 背景图片点击事件 - 根据背景模式触发相应功能
     if (elements.posterBackground) {
       elements.posterBackground.addEventListener('click', function() {
-        // 打开模板选择弹窗
-        openTemplateModal();
+        // 检查是否有自定义背景（表示用户选择了自己上传或拍照模式）
+        if (state.customBackground) {
+          // 触发相册选择功能，与上传背景按钮的功能保持一致
+          if (elements.uploadBackgroundBtn) {
+            // 模拟点击相册按钮
+            elements.uploadBackgroundBtn.click();
+          }
+        } else {
+          // 没有自定义背景，打开模板选择弹窗
+          openTemplateModal();
+        }
       });
     }
     
-    // 透明触发区域点击事件 - 弹出模板选择弹窗
+    // 透明触发区域点击事件 - 根据背景模式触发相应功能
     if (elements.templateTriggerArea) {
       elements.templateTriggerArea.addEventListener('click', function() {
-        // 打开模板选择弹窗
-        openTemplateModal();
+        // 检查是否有自定义背景（表示用户选择了自己上传或拍照模式）
+        if (state.customBackground) {
+          // 触发相册选择功能，与上传背景按钮的功能保持一致
+          if (elements.uploadBackgroundBtn) {
+            // 模拟点击相册按钮
+            elements.uploadBackgroundBtn.click();
+          }
+        } else {
+          // 没有自定义背景，打开模板选择弹窗
+          openTemplateModal();
+        }
       });
     }
     
@@ -6860,6 +6884,40 @@ function updateBusinessInfoButtonForVip() {
           { id: 'fighting-24', name: '鼓励24', url: 'sticker/fighting/24.png' },
           { id: 'fighting-25', name: '鼓励25', url: 'sticker/fighting/25.png' }
         ]
+      },
+      flowers: {
+        name: '鲜花',
+        stickers: [
+          { id: 'flowers-1', name: '鲜花1', url: 'sticker/flowers/1.png' },
+          { id: 'flowers-2', name: '鲜花2', url: 'sticker/flowers/2.png' },
+          { id: 'flowers-3', name: '鲜花3', url: 'sticker/flowers/3.png' },
+          { id: 'flowers-4', name: '鲜花4', url: 'sticker/flowers/4.png' },
+          { id: 'flowers-5', name: '鲜花5', url: 'sticker/flowers/5.png' },
+          { id: 'flowers-6', name: '鲜花6', url: 'sticker/flowers/6.png' },
+          { id: 'flowers-7', name: '鲜花7', url: 'sticker/flowers/7.png' },
+          { id: 'flowers-8', name: '鲜花8', url: 'sticker/flowers/8.png' },
+          { id: 'flowers-9', name: '鲜花9', url: 'sticker/flowers/9.png' },
+          { id: 'flowers-10', name: '鲜花10', url: 'sticker/flowers/10.png' },
+          { id: 'flowers-11', name: '鲜花11', url: 'sticker/flowers/11.png' },
+          { id: 'flowers-12', name: '鲜花12', url: 'sticker/flowers/12.png' },
+          { id: 'flowers-13', name: '鲜花13', url: 'sticker/flowers/13.png' },
+          { id: 'flowers-14', name: '鲜花14', url: 'sticker/flowers/14.png' },
+          { id: 'flowers-15', name: '鲜花15', url: 'sticker/flowers/15.png' },
+          { id: 'flowers-16', name: '鲜花16', url: 'sticker/flowers/16.png' },
+          { id: 'flowers-17', name: '鲜花17', url: 'sticker/flowers/17.png' },
+          { id: 'flowers-18', name: '鲜花18', url: 'sticker/flowers/18.png' },
+          { id: 'flowers-19', name: '鲜花19', url: 'sticker/flowers/19.png' },
+          { id: 'flowers-20', name: '鲜花20', url: 'sticker/flowers/20.png' },
+          { id: 'flowers-21', name: '鲜花21', url: 'sticker/flowers/21.png' },
+          { id: 'flowers-22', name: '鲜花22', url: 'sticker/flowers/22.png' },
+          { id: 'flowers-23', name: '鲜花23', url: 'sticker/flowers/23.png' },
+          { id: 'flowers-24', name: '鲜花24', url: 'sticker/flowers/24.png' },
+          { id: 'flowers-25', name: '鲜花25', url: 'sticker/flowers/25.png' },
+          { id: 'flowers-26', name: '鲜花26', url: 'sticker/flowers/26.png' },
+          { id: 'flowers-27', name: '鲜花27', url: 'sticker/flowers/27.png' },
+          { id: 'flowers-28', name: '鲜花28', url: 'sticker/flowers/28.png' },
+          { id: 'flowers-29', name: '鲜花29', url: 'sticker/flowers/29.png' }
+        ]
       }
     },
     
@@ -6874,6 +6932,7 @@ function updateBusinessInfoButtonForVip() {
   // 贴纸弹窗管理
   window.stickerModalManager = {
     currentCategory: 'zaoan',
+    isScrolling: false,
     
     init: function() {
       this.bindEvents();
@@ -6919,6 +6978,115 @@ function updateBusinessInfoButtonForVip() {
           this.loadStickers(category);
         });
       });
+      
+      // 初始化分类标签的阻尼滑动效果
+      this.initializeCategoryScroll();
+    },
+    
+    // 初始化分类标签的阻尼滑动效果
+    initializeCategoryScroll: function() {
+      const tabsContainer = document.querySelector('.sticker-category-tabs');
+      if (!tabsContainer) return;
+      
+      let startY = 0;
+      let startScrollTop = 0;
+      let velocity = 0;
+      let lastY = 0;
+      let lastTime = 0;
+      
+      // 鼠标滚轮事件
+      tabsContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        
+        const deltaY = e.deltaY;
+        const currentTime = performance.now();
+        const timeDelta = currentTime - lastTime;
+        
+        // 计算速度
+        if (timeDelta > 0) {
+          velocity = (deltaY - lastY) / timeDelta;
+        }
+        
+        lastY = deltaY;
+        lastTime = currentTime;
+        
+        // 应用滚动
+        tabsContainer.scrollTop += deltaY * 1.2; // 增加滚动速度
+        
+        // 开始阻尼效果
+        if (!this.isScrolling) {
+          this.isScrolling = true;
+          this.applyDamping(tabsContainer, velocity);
+        }
+      });
+      
+      // 触摸事件
+      tabsContainer.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+        startScrollTop = tabsContainer.scrollTop;
+        velocity = 0;
+        lastY = startY;
+        lastTime = performance.now();
+        this.isScrolling = false;
+      });
+      
+      tabsContainer.addEventListener('touchmove', (e) => {
+        const currentY = e.touches[0].clientY;
+        const deltaY = currentY - startY;
+        const currentTime = performance.now();
+        const timeDelta = currentTime - lastTime;
+        
+        // 计算速度
+        if (timeDelta > 0) {
+          velocity = (deltaY - lastY) / timeDelta;
+        }
+        
+        lastY = deltaY;
+        lastTime = currentTime;
+        
+        // 应用滚动
+        tabsContainer.scrollTop = startScrollTop - deltaY;
+        
+        // 开始阻尼效果
+        if (!this.isScrolling) {
+          this.isScrolling = true;
+        }
+      });
+      
+      tabsContainer.addEventListener('touchend', () => {
+        if (this.isScrolling) {
+          this.applyDamping(tabsContainer, velocity);
+        }
+      });
+    },
+    
+    // 应用阻尼效果
+    applyDamping: function(container, initialVelocity) {
+      let velocity = initialVelocity * 0.1; // 调整速度系数
+      let startTime = performance.now();
+      
+      const self = this;
+      
+      function animate() {
+        const currentTime = performance.now();
+        const elapsedTime = currentTime - startTime;
+        
+        // 计算阻尼系数（随时间增加）
+        const damping = Math.min(0.1 + (elapsedTime / 1000), 0.5);
+        
+        // 应用阻尼减速
+        velocity *= (1 - damping);
+        
+        if (Math.abs(velocity) > 0.1) {
+          container.scrollTop += velocity;
+          requestAnimationFrame(animate);
+        } else {
+          // 滑动结束
+          self.isScrolling = false;
+        }
+      }
+      
+      animate();
     },
     
     openModal: function() {
@@ -7221,3 +7389,12 @@ function updateBusinessInfoButtonForVip() {
     // DOM 已经加载完成，立即初始化
     window.VisibilityController.init();
   }
+  
+  // 全局函数：打开显示管理弹窗
+  window.openVisibilityManager = function() {
+    const modal = document.getElementById('visibilityManagerModal');
+    if (modal && window.VisibilityController) {
+      window.VisibilityController.updateModalUI();
+      modal.classList.remove('hidden');
+    }
+  };

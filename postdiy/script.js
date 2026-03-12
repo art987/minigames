@@ -1146,6 +1146,16 @@ function initVipLogin() {
       case 'userInfo':
         openUserInfoModal();
         break;
+      case 'visibilityManager':
+        // 打开显示管理弹窗，跳转到编辑页面
+        window.location.href = 'editor.html';
+        setTimeout(() => {
+          // 在编辑页面打开显示管理弹窗
+          if (window.openVisibilityManager) {
+            window.openVisibilityManager();
+          }
+        }, 500);
+        break;
       case 'logout':
         handleVipLogout();
         break;
@@ -1390,27 +1400,34 @@ document.addEventListener('DOMContentLoaded', function() {
     if (targetTag) {
       ensureFestivalActiveAndScroll(targetTag);
     } else {
+      // 如果节日标签被隐藏（如植树节），直接应用筛选条件
       const allFestivals = utils.getAllFestivals();
       if (allFestivals[festivalName]) {
         const festival = allFestivals[festivalName];
+        
+        // 先选择对应月份
         const monthButtons = document.querySelectorAll('.month-btn');
         monthButtons.forEach(btn => {
           if (parseInt(btn.dataset.month) === festival.month) {
-            btn.click();
-            setTimeout(() => {
-              const newFestivalTags = document.querySelectorAll('.festival-tag');
-              newFestivalTags.forEach(tag => {
-                const tagFestival = tag.dataset.festival || tag.textContent;
-                if (tagFestival === festivalName) {
-                  targetTag = tag;
-                }
-              });
-              if (targetTag) {
-                ensureFestivalActiveAndScroll(targetTag);
-              }
-            }, 100);
+            if (!btn.classList.contains('active')) {
+              btn.click();
+            }
           }
         });
+        
+        // 直接应用节日筛选条件
+        window.currentFilters.festival = festivalName;
+        
+        // 更新模板显示
+        setTimeout(() => {
+          applyFilters();
+          
+          // 滚动到模板区域
+          const templatesSection = document.querySelector('.templates-section');
+          if (templatesSection) {
+            templatesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
       }
     }
   }
@@ -1452,9 +1469,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (todayFestival) {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <span><strong>${todayFestival}</strong></span>
           <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
-            选择${todayFestival}节日模板
+            选择${todayFestival}模板
           </button>
           <button class="home-popup-btn" data-action="dairy">
             品牌日常海报

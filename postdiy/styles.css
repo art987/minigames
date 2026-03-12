@@ -1463,6 +1463,28 @@ footer {
   padding: 10px 4px;
   background: #4d4d4d;
   overflow-y: auto;
+  /* 滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: #666666 #333333;
+}
+
+/* 滚动条样式 */
+.sticker-category-tabs::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sticker-category-tabs::-webkit-scrollbar-track {
+  background: #333333;
+  border-radius: 3px;
+}
+
+.sticker-category-tabs::-webkit-scrollbar-thumb {
+  background: #666666;
+  border-radius: 3px;
+}
+
+.sticker-category-tabs::-webkit-scrollbar-thumb:hover {
+  background: #888888;
 }
 
 /* 右侧模板显示区 */
@@ -1517,14 +1539,14 @@ footer {
 
 /* 贴纸卡片 */
 .sticker-card {
-  background: #444444;
-  border: 2px solid #555555;
+  background: #2a2929;
+  border: 2px solid #131313;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  background-size: 15px 15px;
+  background-size: 8px 8px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   height: 134px;
 }
