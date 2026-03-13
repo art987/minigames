@@ -1656,24 +1656,236 @@ window.wechatWarning = {
       });
     }
     
-    // 透明触发区域点击事件 - 左右分区功能
+    // 透明触发区域长按检测和点击功能
     if (elements.templateTriggerArea) {
-      elements.templateTriggerArea.addEventListener('click', function(e) {
-        // 获取点击位置相对于触发区域的X坐标
-        const rect = elements.templateTriggerArea.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const areaWidth = rect.width;
+      let longPressTimer = null;
+      let currentTarget = null;
+      let hoverTimer = null;
+      
+      // 通用提示显示函数
+      function showHint(target, text, hintType) {
+        const className = hintType === 'hover' ? 'hover-hint' : 'long-press-hint';
         
-        // 判断点击的是左侧还是右侧
+        // 移除现有的提示
+        const existingHint = target.querySelector('.' + className);
+        if (existingHint) {
+          existingHint.remove();
+        }
+        
+        // 创建新的提示元素
+        const hint = document.createElement('div');
+        hint.className = className;
+        hint.textContent = text;
+        target.appendChild(hint);
+        
+        // 显示动画
+        setTimeout(() => {
+          hint.classList.add('show');
+        }, 10);
+        
+        // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
+        const hideTime = hintType === 'hover' ? 2000 : 3000;
+        setTimeout(() => {
+          hint.classList.remove('show');
+          hint.classList.add('hiding');
+          setTimeout(() => {
+            if (hint.parentNode) {
+              hint.remove();
+            }
+          }, 200);
+        }, hideTime);
+      }
+      
+      // 隐藏提示函数
+      function hideHint(target, hintType) {
+        const className = hintType === 'hover' ? 'hover-hint' : 'long-press-hint';
+        const existingHint = target.querySelector('.' + className);
+        if (existingHint) {
+          existingHint.classList.remove('show');
+          existingHint.classList.add('hiding');
+          setTimeout(() => {
+            if (existingHint.parentNode) {
+              existingHint.remove();
+            }
+          }, 200);
+        }
+      }
+      
+      // 鼠标悬停事件
+      function setupHoverEvents(element, text) {
+        // 鼠标进入
+        element.addEventListener('mouseenter', function() {
+          hoverTimer = setTimeout(() => {
+            showHint(element, text, 'hover');
+          }, 300); // 300毫秒后显示悬停提示
+        });
+        
+        // 鼠标离开
+        element.addEventListener('mouseleave', function() {
+          if (hoverTimer) {
+            clearTimeout(hoverTimer);
+            hoverTimer = null;
+          }
+          hideHint(element, 'hover');
+        });
+      }
+      
+      // 为三个区域设置悬停事件
+      const leftArea = elements.templateTriggerArea.querySelector('.trigger-left');
+      const topArea = elements.templateTriggerArea.querySelector('.trigger-top');
+      const bottomArea = elements.templateTriggerArea.querySelector('.trigger-bottom');
+      
+      if (leftArea) setupHoverEvents(leftArea, '更换模板');
+      if (topArea) setupHoverEvents(topArea, '上传图片');
+      if (bottomArea) setupHoverEvents(bottomArea, '相机拍照');
+      
+      // 触摸开始事件
+      elements.templateTriggerArea.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const rect = elements.templateTriggerArea.getBoundingClientRect();
+        const clickX = touch.clientX - rect.left;
+        const clickY = touch.clientY - rect.top;
+        const areaWidth = rect.width;
+        const areaHeight = rect.height;
+        
+        // 判断点击区域
         if (clickX < areaWidth / 2) {
-          // 点击左侧区域 - 打开模板选择弹窗
-          openTemplateModal();
+          // 左侧区域
+          currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
+          
+          // 立即显示触摸提示
+          showHint(currentTarget, '选择模板', 'hover');
+          
+          // 设置长按定时器
+          longPressTimer = setTimeout(() => {
+            showHint(currentTarget, '选择模板', 'long-press');
+          }, 600); // 600毫秒长按触发
         } else {
-          // 点击右侧区域 - 触发相册选择功能
-          if (elements.uploadBackgroundBtn) {
-            elements.uploadBackgroundBtn.click();
+          // 右侧区域
+          if (clickY < areaHeight / 2) {
+            // 右上区域
+            currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
+            showHint(currentTarget, '相册上传', 'hover');
+            longPressTimer = setTimeout(() => {
+              showHint(currentTarget, '相册上传', 'long-press');
+            }, 600);
+          } else {
+            // 右下区域
+            currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
+            showHint(currentTarget, '拍照上传', 'hover');
+            longPressTimer = setTimeout(() => {
+              showHint(currentTarget, '拍照上传', 'long-press');
+            }, 600);
           }
         }
+      });
+      
+      // 触摸结束事件
+      elements.templateTriggerArea.addEventListener('touchend', function(e) {
+        if (longPressTimer) {
+          clearTimeout(longPressTimer);
+          longPressTimer = null;
+        }
+        
+        // 隐藏触摸提示
+        if (currentTarget) {
+          hideHint(currentTarget, 'hover');
+          
+          // 如果没有触发长按，则执行点击功能
+          const touch = e.changedTouches[0];
+          const rect = elements.templateTriggerArea.getBoundingClientRect();
+          const clickX = touch.clientX - rect.left;
+          const clickY = touch.clientY - rect.top;
+          const areaWidth = rect.width;
+          const areaHeight = rect.height;
+          
+          // 判断点击区域并执行相应功能
+          if (clickX < areaWidth / 2) {
+            // 左侧区域 - 打开模板选择弹窗
+            openTemplateModal();
+          } else {
+            if (clickY < areaHeight / 2) {
+              // 右上区域 - 触发相册选择功能
+              if (elements.uploadBackgroundBtn) {
+                elements.uploadBackgroundBtn.click();
+              }
+            } else {
+              // 右下区域 - 触发拍照功能
+              if (elements.takePhotoBtn) {
+                elements.takePhotoBtn.click();
+              }
+            }
+          }
+        }
+        currentTarget = null;
+      });
+      
+      // 鼠标事件（桌面端）
+      elements.templateTriggerArea.addEventListener('mousedown', function(e) {
+        const rect = elements.templateTriggerArea.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        const areaWidth = rect.width;
+        const areaHeight = rect.height;
+        
+        // 判断点击区域
+        if (clickX < areaWidth / 2) {
+          currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
+          longPressTimer = setTimeout(() => {
+            showHint(currentTarget, '选择模板', 'long-press');
+          }, 600);
+        } else {
+          if (clickY < areaHeight / 2) {
+            currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
+            longPressTimer = setTimeout(() => {
+              showHint(currentTarget, '相册上传', 'long-press');
+            }, 600);
+          } else {
+            currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
+            longPressTimer = setTimeout(() => {
+              showHint(currentTarget, '拍照上传', 'long-press');
+            }, 600);
+          }
+        }
+      });
+      
+      elements.templateTriggerArea.addEventListener('mouseup', function(e) {
+        if (longPressTimer) {
+          clearTimeout(longPressTimer);
+          longPressTimer = null;
+        }
+        
+        if (currentTarget) {
+          const rect = elements.templateTriggerArea.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const clickY = e.clientY - rect.top;
+          const areaWidth = rect.width;
+          const areaHeight = rect.height;
+          
+          if (clickX < areaWidth / 2) {
+            openTemplateModal();
+          } else {
+            if (clickY < areaHeight / 2) {
+              if (elements.uploadBackgroundBtn) {
+                elements.uploadBackgroundBtn.click();
+              }
+            } else {
+              if (elements.takePhotoBtn) {
+                elements.takePhotoBtn.click();
+              }
+            }
+          }
+        }
+        currentTarget = null;
+      });
+      
+      // 鼠标移出时清除定时器
+      elements.templateTriggerArea.addEventListener('mouseleave', function() {
+        if (longPressTimer) {
+          clearTimeout(longPressTimer);
+          longPressTimer = null;
+        }
+        currentTarget = null;
       });
     }
     
@@ -2129,6 +2341,16 @@ window.wechatWarning = {
     const currentSpan = elements.toggleMenuBtn.querySelector('span');
     const isVisible = !toggleableBtns[0]?.classList.contains('hidden');
     
+    // 需要保持可见的按钮
+    const buttonsToKeepVisible = [
+      elements.toggleMenuBtn, // 隐藏按钮本身
+      elements.downloadBtn,   // 下载海报按钮
+      elements.stickerBtn     // 贴纸按钮（如果存在）
+    ].filter(btn => btn !== null);
+    
+    // 需要隐藏的按钮（排除需要保持可见的按钮）
+    const buttonsToHide = toggleableBtns.filter(btn => !buttonsToKeepVisible.includes(btn));
+    
     // 清除所有按钮的 transition-delay 和 动画类
     toggleableBtns.forEach(btn => {
       btn.style.transitionDelay = '0s';
@@ -2137,7 +2359,7 @@ window.wechatWarning = {
     
     if (isVisible) {
       // 隐藏其他按钮 - 正向顺序（从上到下，带果冻效果）
-      toggleableBtns.forEach((btn, index) => {
+      buttonsToHide.forEach((btn, index) => {
         setTimeout(() => {
           btn.classList.add('jelly-animate-out');
           // 动画结束后添加 hidden 类
@@ -2150,7 +2372,7 @@ window.wechatWarning = {
       currentSpan.textContent = '显示';
     } else {
       // 显示其他按钮 - 反向顺序（从下到上，一个一个堆叠上去，带果冻效果）
-      const reversedBtns = [...toggleableBtns].reverse();
+      const reversedBtns = [...buttonsToHide].reverse();
       reversedBtns.forEach((btn, index) => {
         setTimeout(() => {
           btn.classList.add('jelly-animate');
@@ -2162,6 +2384,11 @@ window.wechatWarning = {
         }, index * 70);
       });
       currentSpan.textContent = '隐藏';
+      
+      // 显示完成后，根据背景类型更新贴纸按钮的显示状态
+      setTimeout(() => {
+        updateStickerButtonVisibility();
+      }, (buttonsToHide.length * 70) + 600);
     }
   }
   
@@ -7330,6 +7557,7 @@ function updateBusinessInfoButtonForVip() {
       this.loadVisibility();
       this.bindEvents();
       this.bindModalEvents();
+      this.updateBatchButtons(); // 初始化时更新批量按钮状态
     },
     
     loadVisibility: function() {
@@ -7356,6 +7584,7 @@ function updateBusinessInfoButtonForVip() {
     updateModalUI: function() {
       const visibility = this.getVisibility();
       
+      // 更新单个元素状态
       document.querySelectorAll('.visibility-item').forEach(item => {
         const targetId = item.dataset.target;
         const statusEl = item.querySelector('.visibility-status');
@@ -7373,6 +7602,37 @@ function updateBusinessInfoButtonForVip() {
           }
         }
       });
+      
+      // 更新批量操作按钮显示状态
+      this.updateBatchButtons();
+    },
+    
+    // 更新批量操作按钮显示状态
+    updateBatchButtons: function() {
+      const visibility = this.getVisibility();
+      const batchShowBtn = document.getElementById('batchShowAll');
+      const batchHideBtn = document.getElementById('batchHideAll');
+      
+      if (!batchShowBtn || !batchHideBtn) return;
+      
+      // 检查所有元素的状态
+      const allVisible = Object.values(visibility).every(v => v === true);
+      const allHidden = Object.values(visibility).every(v => v === false);
+      
+      // 根据状态显示/隐藏按钮
+      if (allVisible) {
+        // 所有元素都显示，隐藏"全部显示"按钮
+        batchShowBtn.style.display = 'none';
+        batchHideBtn.style.display = 'flex';
+      } else if (allHidden) {
+        // 所有元素都隐藏，隐藏"全部隐藏"按钮
+        batchShowBtn.style.display = 'flex';
+        batchHideBtn.style.display = 'none';
+      } else {
+        // 部分显示部分隐藏，显示两个按钮
+        batchShowBtn.style.display = 'flex';
+        batchHideBtn.style.display = 'flex';
+      }
     },
     
     saveVisibility: function(visibility) {
@@ -7457,6 +7717,58 @@ function updateBusinessInfoButtonForVip() {
           }
         });
       }
+      
+      // 批量显示按钮事件
+      const batchShowBtn = document.getElementById('batchShowAll');
+      if (batchShowBtn) {
+        batchShowBtn.addEventListener('click', () => {
+          this.batchShowAll();
+        });
+      }
+      
+      // 批量隐藏按钮事件
+      const batchHideBtn = document.getElementById('batchHideAll');
+      if (batchHideBtn) {
+        batchHideBtn.addEventListener('click', () => {
+          this.batchHideAll();
+        });
+      }
+    },
+    
+    // 批量显示所有元素
+    batchShowAll: function() {
+      const visibility = this.getVisibility();
+      
+      // 将所有元素设置为显示状态
+      Object.keys(visibility).forEach(targetId => {
+        visibility[targetId] = true;
+      });
+      
+      // 保存并更新UI
+      this.saveVisibility(visibility);
+      this.loadVisibility();
+      this.updateModalUI();
+      
+      // 显示成功提示
+      this.showToast('所有元素已显示', 2000);
+    },
+    
+    // 批量隐藏所有元素
+    batchHideAll: function() {
+      const visibility = this.getVisibility();
+      
+      // 将所有元素设置为隐藏状态
+      Object.keys(visibility).forEach(targetId => {
+        visibility[targetId] = false;
+      });
+      
+      // 保存并更新UI
+      this.saveVisibility(visibility);
+      this.loadVisibility();
+      this.updateModalUI();
+      
+      // 显示成功提示
+      this.showToast('所有元素已隐藏', 2000);
     },
     
     isElementVisible: function(targetId) {

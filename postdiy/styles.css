@@ -904,7 +904,7 @@ footer {
   text-align: center;
   color: white;
   font-size: 12px;
-  font-weight: normal;
+  font-weight: bold;
   padding: 0 20px;
   word-wrap: break-word;
   cursor: pointer;
@@ -1007,36 +1007,119 @@ footer {
 .trigger-left {
   flex: 1;
   height: 100%;
-  /* background-color: rgba(255, 255, 0, 0.1); */ /* 黄色半透明提示 */
-  /* border-right: 1px dashed rgba(255, 255, 0, 0.3); */
+   /* 黄色半透明提示 */
   transition: all 0.2s ease;
+  position: relative;
 }
 
-/* 右侧触发区域 - 相册上传 */
+/* 右侧触发区域容器 */
 .trigger-right {
   flex: 1;
   height: 100%;
-  /* background-color: rgba(0, 255, 0, 0.1); */ /* 绿色半透明提示 */
-  /* border-left: 1px dashed rgba(0, 255, 0, 0.3); */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 右上触发区域 - 相册上传 */
+.trigger-top {
+  flex: 1;
+   /* 绿色半透明提示 */
   transition: all 0.2s ease;
+  position: relative;
+}
+
+/* 右下触发区域 - 拍照上传 */
+.trigger-bottom {
+  flex: 1;
+   /* 蓝色半透明提示 */
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 /* 悬停效果 */
 .trigger-left:hover {
-  /* background-color: rgba(255, 255, 0, 0.2); */
+  background-color: rgb(6 6 6 / 25%);
 }
 
-.trigger-right:hover {
-  /* background-color: rgba(0, 255, 0, 0.2); */
+.trigger-top:hover {
+  background-color: rgb(0 0 0 / 24%);
+}
+
+.trigger-bottom:hover {
+  background-color: rgb(0 0 0 / 26%);
 }
 
 /* 点击效果 */
 .trigger-left:active {
-  background-color: rgba(255, 255, 0, 0.3);
+  background-color: rgb(0 0 0 / 27%);
 }
 
-.trigger-right:active {
-  background-color: rgba(0, 255, 0, 0.3);
+.trigger-top:active {
+  background-color: rgb(0 0 0 / 26%);
+}
+
+.trigger-bottom:active {
+  background-color: rgb(0 0 0 / 25%);
+}
+
+/* 长按提示文字样式 */
+.long-press-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  color: white;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+  transition: opacity 0.4s ease-in-out;
+  font-weight: bold;
+  background: none !important;
+}
+
+.long-press-hint.show {
+  opacity: 0.9;
+}
+
+.long-press-hint.hiding {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 悬停提示文字样式 */
+.hover-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  color: white;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+  transition: opacity 0.3s ease-in-out;
+  font-weight: bold;
+  background: none !important;
+}
+
+.hover-hint.show {
+  opacity: 0.8;
+}
+
+.hover-hint.hiding {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 /* 海报二维码样式 */
@@ -2342,6 +2425,62 @@ footer {
 .visibility-manager-body {
   max-height: 300px;
   overflow-y: auto;
+}
+
+/* 批量操作行样式 */
+.visibility-batch-actions {
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.batch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.batch-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.batch-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.batch-show-btn, .batch-hide-btn {
+  padding: 8px 7px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.batch-show-btn {
+  color: #dc3545;
+  border-color: #cccccc;
+}
+
+.batch-show-btn:hover {
+  background: #28a745;
+  color: white;
+}
+
+.batch-hide-btn {
+  color: #dc3545;
+  border-color: #cccccc;
+}
+
+.batch-hide-btn:hover {
+  background: #dc3545;
+  color: white;
 }
 
 .visibility-list {
