@@ -1469,7 +1469,7 @@ footer {
   padding: 10px 4px;
   background: #4d4d4d;
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 500px;
   /* 滚动条样式 */
   scrollbar-width: thin;
   scrollbar-color: #666666 #333333;
