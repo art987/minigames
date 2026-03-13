@@ -1818,6 +1818,11 @@ window.wechatWarning = {
           }
         }
         currentTarget = null;
+        
+        // 触摸结束后立即清除焦点，让虚线框消失
+        setTimeout(() => {
+          clearTriggerFocus();
+        }, 100);
       });
       
       // 鼠标事件（桌面端）
@@ -4266,6 +4271,25 @@ window.wechatWarning = {
            elements.templateModal.style.display !== 'none';
   }
   
+  // 清除所有触发区域的焦点状态
+  function clearTriggerFocus() {
+    const triggerAreas = document.querySelectorAll('.trigger-left, .trigger-top, .trigger-bottom');
+    triggerAreas.forEach(area => {
+      area.blur(); // 移除焦点
+    });
+    
+    // 移除任何可能的 active 或 focus 相关类
+    if (elements.templateTriggerArea) {
+      const allTriggers = elements.templateTriggerArea.querySelectorAll('[class*="trigger-"]');
+      allTriggers.forEach(trigger => {
+        trigger.blur();
+      });
+    }
+    
+    // 同时也让 body 获取焦点，确保没有元素保持焦点
+    document.body.focus();
+  }
+  
   // 处理背景图片上传
   function handleBackgroundUpload(event) {
     const file = event.target.files[0];
@@ -4297,6 +4321,9 @@ window.wechatWarning = {
       
       // 更新贴纸按钮显示状态
       updateStickerButtonVisibility();
+      
+      // 关键：上传成功后立即清除所有触发区域的焦点，让虚线框消失
+      clearTriggerFocus();
       
       showToast('背景图片上传成功');
       

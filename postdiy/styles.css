@@ -1037,20 +1037,30 @@ footer {
   position: relative;
 }
 
-/* 悬停效果 */
-.trigger-left:hover {
-  background-color: rgb(6 6 6 / 0%);
-  border:2px dashed #ffffff59;
+/* 悬停效果 - 只在非触摸设备上显示 */
+@media (hover: hover) and (pointer: fine) {
+  .trigger-left:hover,
+  .trigger-top:hover,
+  .trigger-bottom:hover {
+    background-color: rgb(6 6 6 / 0%);
+    border:2px dashed #ffffff59;
+  }
 }
 
-.trigger-top:hover {
-  background-color: rgb(0 0 0 / 0%);
-  border:2px dashed #ffffff59;
-}
-
-.trigger-bottom:hover {
-  background-color: rgb(0 0 0 / 0%);
-  border:2px dashed #ffffff59;
+/* 触摸设备上：不显示持续的悬停效果，只在点击时短暂显示 */
+@media (hover: none) and (pointer: coarse) {
+  .trigger-left,
+  .trigger-top,
+  .trigger-bottom {
+    border: none !important;
+  }
+  
+  /* 触摸激活时的临时效果 */
+  .trigger-left:active,
+  .trigger-top:active,
+  .trigger-bottom:active {
+    border:2px dashed #ffffff59 !important;
+  }
 }
 
 /* 点击效果 */
@@ -1412,8 +1422,23 @@ footer {
 #prevTemplateBtn span{font-size: 17px; transform: scaleX(-1);   }
 
 #downloadBtn{background: linear-gradient(135deg, #f3090999, #f21201eb);font-size: 11px;color: #fff;border-radius: 17px;border: 1px solid #ff6969;animation: borderGradient 3s ease infinite;}
-#downloadBtn span{color: #fff;} 
+#downloadBtn span{
+  color: #fff;
+  display: inline-block;
+  text-shadow: 0 0 3px #a70000;
+  animation: breathe 2.5s ease-in-out infinite;
+} 
 #downloadBtn i{color: #fff;}
+
+/* 呼吸动画 - 慢慢变大变小 */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
 
 #togglePositionBtn{
     height: 13px;
@@ -4628,6 +4653,6 @@ input.hidden {
   display: flex !important;
   opacity: 1 !important;
   visibility: visible !important;
+  pointer-events: auto !important;
   transform: scale(1) translateY(0px) !important;
-
 }
