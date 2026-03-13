@@ -1736,8 +1736,8 @@ window.wechatWarning = {
       const bottomArea = elements.templateTriggerArea.querySelector('.trigger-bottom');
       
       if (leftArea) setupHoverEvents(leftArea, '更换模板');
-      if (topArea) setupHoverEvents(topArea, '上传图片');
-      if (bottomArea) setupHoverEvents(bottomArea, '相机拍照');
+      if (topArea) setupHoverEvents(topArea, '相册上传');
+      if (bottomArea) setupHoverEvents(bottomArea, '拍照上传');
       
       // 触摸开始事件
       elements.templateTriggerArea.addEventListener('touchstart', function(e) {
@@ -1754,11 +1754,11 @@ window.wechatWarning = {
           currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
           
           // 立即显示触摸提示
-          showHint(currentTarget, '选择模板', 'hover');
+          showHint(currentTarget, '更换模板', 'hover');
           
           // 设置长按定时器
           longPressTimer = setTimeout(() => {
-            showHint(currentTarget, '选择模板', 'long-press');
+            showHint(currentTarget, '更换模板', 'long-press');
           }, 600); // 600毫秒长按触发
         } else {
           // 右侧区域
@@ -2341,43 +2341,88 @@ window.wechatWarning = {
     const currentSpan = elements.toggleMenuBtn.querySelector('span');
     const isVisible = !toggleableBtns[0]?.classList.contains('hidden');
     
+    // 关键：直接检查贴纸按钮是否应该可见
+    const shouldShowStickerBtn = elements.stickerBtn && elements.stickerBtn.classList.contains('neon-glow');
+    
+    console.log('toggleMenuVisibility 调试信息:');
+    console.log('  - shouldShowStickerBtn:', shouldShowStickerBtn);
+    if (elements.stickerBtn) {
+      console.log('  - 初始 hidden 类:', elements.stickerBtn.classList.contains('hidden'));
+    }
+    
+    // 简单粗暴的方法：如果贴纸按钮应该可见，直接从一开始就移除它
+    let filteredToggleableBtns = toggleableBtns;
+    if (shouldShowStickerBtn && elements.stickerBtn) {
+      console.log('  - 过滤掉贴纸按钮，不参与隐藏动画');
+      elements.stickerBtn.classList.remove('hidden');
+      filteredToggleableBtns = toggleableBtns.filter(btn => btn !== elements.stickerBtn);
+    }
+    
     // 需要保持可见的按钮
     const buttonsToKeepVisible = [
       elements.toggleMenuBtn, // 隐藏按钮本身
-      elements.downloadBtn,   // 下载海报按钮
-      elements.stickerBtn     // 贴纸按钮（如果存在）
+      elements.downloadBtn   // 下载海报按钮
     ].filter(btn => btn !== null);
     
-    // 需要隐藏的按钮（排除需要保持可见的按钮）
-    const buttonsToHide = toggleableBtns.filter(btn => !buttonsToKeepVisible.includes(btn));
+    // 如果贴纸按钮应该可见，也添加到保持可见列表
+    if (shouldShowStickerBtn && elements.stickerBtn) {
+      buttonsToKeepVisible.push(elements.stickerBtn);
+    }
     
-    // 清除所有按钮的 transition-delay 和 动画类
+    // 需要隐藏的按钮
+    const buttonsToHide = filteredToggleableBtns.filter(btn => !buttonsToKeepVisible.includes(btn));
+    
+    // 清除所有按钮的动画类
     toggleableBtns.forEach(btn => {
       btn.style.transitionDelay = '0s';
       btn.classList.remove('jelly-animate', 'jelly-animate-out');
     });
     
     if (isVisible) {
-      // 隐藏其他按钮 - 正向顺序（从上到下，带果冻效果）
+      // 先确保需要保持可见的按钮没有 hidden 类
+      buttonsToKeepVisible.forEach(btn => {
+        btn.classList.remove('hidden');
+      });
+      
+      // 绝对确保贴纸按钮可见
+      if (shouldShowStickerBtn && elements.stickerBtn) {
+        elements.stickerBtn.classList.remove('hidden');
+      }
+      
+      // 隐藏其他按钮
       buttonsToHide.forEach((btn, index) => {
         setTimeout(() => {
           btn.classList.add('jelly-animate-out');
-          // 动画结束后添加 hidden 类
           setTimeout(() => {
             btn.classList.add('hidden');
             btn.classList.remove('jelly-animate-out');
           }, 500);
         }, index * 60);
       });
+      
+      // 每隔 100ms 检查一次，确保贴纸按钮可见（持续 2 秒）
+      if (shouldShowStickerBtn && elements.stickerBtn) {
+        let checkCount = 0;
+        const checkInterval = setInterval(() => {
+          if (elements.stickerBtn.classList.contains('hidden')) {
+            console.log('  - 发现 hidden 类，立即移除！');
+            elements.stickerBtn.classList.remove('hidden');
+          }
+          checkCount++;
+          if (checkCount >= 20) { // 2秒后停止检查
+            clearInterval(checkInterval);
+          }
+        }, 100);
+      }
+      
       currentSpan.textContent = '显示';
     } else {
-      // 显示其他按钮 - 反向顺序（从下到上，一个一个堆叠上去，带果冻效果）
+      // 显示其他按钮
       const reversedBtns = [...buttonsToHide].reverse();
       reversedBtns.forEach((btn, index) => {
         setTimeout(() => {
           btn.classList.add('jelly-animate');
           btn.classList.remove('hidden');
-          // 动画结束后移除动画类
           setTimeout(() => {
             btn.classList.remove('jelly-animate');
           }, 600);
@@ -2385,8 +2430,15 @@ window.wechatWarning = {
       });
       currentSpan.textContent = '隐藏';
       
-      // 显示完成后，根据背景类型更新贴纸按钮的显示状态
+      // 显示完成后，根据背景类型设置贴纸按钮状态
       setTimeout(() => {
+        if (elements.stickerBtn) {
+          if (shouldShowStickerBtn) {
+            elements.stickerBtn.classList.remove('hidden');
+          } else {
+            elements.stickerBtn.classList.add('hidden');
+          }
+        }
         updateStickerButtonVisibility();
       }, (buttonsToHide.length * 70) + 600);
     }
@@ -2545,22 +2597,6 @@ window.wechatWarning = {
           break;
         }
       }
-    }
-  }
-  
-  // 更新贴纸按钮显示状态
-  function updateStickerButtonVisibility() {
-    const stickerBtn = document.getElementById('stickerBtn');
-    if (!stickerBtn) return;
-    
-    if (state.customBackground) {
-      // 用户上传的图片，显示按钮并添加霓虹闪烁效果
-      stickerBtn.classList.remove('hidden');
-      stickerBtn.classList.add('neon-glow');
-    } else {
-      // 模板图片，隐藏按钮
-      stickerBtn.classList.add('hidden');
-      stickerBtn.classList.remove('neon-glow');
     }
   }
   
@@ -7509,6 +7545,22 @@ function updateBusinessInfoButtonForVip() {
       window.stickerManager.addSticker(imageUrl, randomX, randomY, 1);
     }
   };
+  
+  // 更新贴纸按钮显示状态
+  function updateStickerButtonVisibility() {
+    const stickerBtn = document.getElementById('stickerBtn');
+    if (!stickerBtn) return;
+    
+    if (state.customBackground) {
+      // 用户上传的图片，显示按钮并添加霓虹闪烁效果
+      stickerBtn.classList.remove('hidden');
+      stickerBtn.classList.add('neon-glow');
+    } else {
+      // 模板图片，隐藏按钮
+      stickerBtn.classList.add('hidden');
+      stickerBtn.classList.remove('neon-glow');
+    }
+  }
   
   // 初始化贴纸功能
   document.addEventListener('DOMContentLoaded', function() {
