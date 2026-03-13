@@ -1656,19 +1656,23 @@ window.wechatWarning = {
       });
     }
     
-    // 透明触发区域点击事件 - 根据背景模式触发相应功能
+    // 透明触发区域点击事件 - 左右分区功能
     if (elements.templateTriggerArea) {
-      elements.templateTriggerArea.addEventListener('click', function() {
-        // 检查是否有自定义背景（表示用户选择了自己上传或拍照模式）
-        if (state.customBackground) {
-          // 触发相册选择功能，与上传背景按钮的功能保持一致
+      elements.templateTriggerArea.addEventListener('click', function(e) {
+        // 获取点击位置相对于触发区域的X坐标
+        const rect = elements.templateTriggerArea.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const areaWidth = rect.width;
+        
+        // 判断点击的是左侧还是右侧
+        if (clickX < areaWidth / 2) {
+          // 点击左侧区域 - 打开模板选择弹窗
+          openTemplateModal();
+        } else {
+          // 点击右侧区域 - 触发相册选择功能
           if (elements.uploadBackgroundBtn) {
-            // 模拟点击相册按钮
             elements.uploadBackgroundBtn.click();
           }
-        } else {
-          // 没有自定义背景，打开模板选择弹窗
-          openTemplateModal();
         }
       });
     }
@@ -4890,7 +4894,7 @@ window.wechatWarning = {
       if (elements.posterBusinessName) {
         // 移除向上位移，保持水平居中对齐
         elements.posterBusinessName.style.transform = `none`;
-        elements.posterBusinessName.style.fontSize = `14px`;
+        elements.posterBusinessName.style.fontSize = `12px`;
       }
       if (elements.posterPromoText) {
         // 减少padding-bottom，避免下方出现空白
@@ -6735,7 +6739,41 @@ function updateBusinessInfoButtonForVip() {
           { id: 'zaoan-7', name: '云朵', url: 'sticker/zaoan/7.png' },
           { id: 'zaoan-8', name: '彩虹', url: 'sticker/zaoan/8.png' },
           { id: 'zaoan-9', name: '月亮', url: 'sticker/zaoan/9.png' },
-          { id: 'zaoan-10', name: '星星', url: 'sticker/zaoan/10.png' }
+          { id: 'zaoan-10', name: '星星', url: 'sticker/zaoan/10.png' },
+          { id: 'zaoan-11', name: '早安11', url: 'sticker/zaoan/11.png' },
+          { id: 'zaoan-12', name: '早安12', url: 'sticker/zaoan/12.png' },
+          { id: 'zaoan-13', name: '早安13', url: 'sticker/zaoan/13.png' },
+          { id: 'zaoan-14', name: '早安14', url: 'sticker/zaoan/14.png' },
+          { id: 'zaoan-15', name: '早安15', url: 'sticker/zaoan/15.png' },
+          { id: 'zaoan-16', name: '早安16', url: 'sticker/zaoan/16.png' },
+          { id: 'zaoan-17', name: '早安17', url: 'sticker/zaoan/17.png' },
+          { id: 'zaoan-18', name: '早安18', url: 'sticker/zaoan/18.png' },
+          { id: 'zaoan-19', name: '早安19', url: 'sticker/zaoan/19.png' },
+          { id: 'zaoan-20', name: '早安20', url: 'sticker/zaoan/20.png' },
+          { id: 'zaoan-21', name: '早安21', url: 'sticker/zaoan/21.png' },
+          { id: 'zaoan-22', name: '早安22', url: 'sticker/zaoan/22.png' },
+          { id: 'zaoan-23', name: '早安23', url: 'sticker/zaoan/23.png' },
+          { id: 'zaoan-24', name: '早安24', url: 'sticker/zaoan/24.png' },
+          { id: 'zaoan-25', name: '早安25', url: 'sticker/zaoan/25.png' },
+          { id: 'zaoan-26', name: '早安26', url: 'sticker/zaoan/26.png' },
+          { id: 'zaoan-27', name: '早安27', url: 'sticker/zaoan/27.png' },
+          { id: 'zaoan-28', name: '早安28', url: 'sticker/zaoan/28.png' },
+          { id: 'zaoan-29', name: '早安29', url: 'sticker/zaoan/29.png' },
+          { id: 'zaoan-30', name: '早安30', url: 'sticker/zaoan/30.png' },
+          { id: 'zaoan-31', name: '早安31', url: 'sticker/zaoan/31.png' },
+          { id: 'zaoan-32', name: '早安32', url: 'sticker/zaoan/32.png' },
+          { id: 'zaoan-33', name: '早安33', url: 'sticker/zaoan/33.png' },
+          { id: 'zaoan-34', name: '早安34', url: 'sticker/zaoan/34.png' },
+          { id: 'zaoan-35', name: '早安35', url: 'sticker/zaoan/35.png' },
+          { id: 'zaoan-36', name: '早安36', url: 'sticker/zaoan/36.png' },
+          { id: 'zaoan-37', name: '早安37', url: 'sticker/zaoan/37.png' },
+          { id: 'zaoan-38', name: '早安38', url: 'sticker/zaoan/38.png' },
+          { id: 'zaoan-39', name: '早安39', url: 'sticker/zaoan/39.png' },
+          { id: 'zaoan-40', name: '早安40', url: 'sticker/zaoan/40.png' },
+          { id: 'zaoan-41', name: '早安41', url: 'sticker/zaoan/41.png' },
+          { id: 'zaoan-42', name: '早安42', url: 'sticker/zaoan/42.png' },
+          { id: 'zaoan-43', name: '早安43', url: 'sticker/zaoan/43.png' },
+          { id: 'zaoan-44', name: '早安44', url: 'sticker/zaoan/44.png' }
         ]
       },
       wanan: {
