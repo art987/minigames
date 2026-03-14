@@ -7579,9 +7579,14 @@ function updateBusinessInfoButtonForVip() {
       
       const selectionArea = document.getElementById('stickerSelectionArea');
       const previewArea = document.getElementById('stickerPreviewArea');
+      const categoryTitle = document.getElementById('stickerCategoryTitle');
       
       if (selectionArea) selectionArea.classList.add('hidden');
       if (previewArea) previewArea.classList.remove('hidden');
+      
+      if (categoryTitle && this.currentCategory && window.stickerResources.categories[this.currentCategory]) {
+        categoryTitle.textContent = window.stickerResources.categories[this.currentCategory].name;
+      }
       
       this.initGallery();
       this.bindPreviewEvents();
@@ -7628,6 +7633,10 @@ function updateBusinessInfoButtonForVip() {
       
       slides.forEach((slide, index) => {
         slide.classList.remove('prev', 'current', 'next', 'hidden-slide');
+        slide.style.transition = '';
+        slide.style.transform = '';
+        slide.style.opacity = '';
+        slide.style.zIndex = '';
         
         const diff = index - currentIdx;
         
@@ -7679,7 +7688,7 @@ function updateBusinessInfoButtonForVip() {
         
         container.addEventListener('touchstart', (e) => {
           touchStartX = e.touches[0].clientX;
-        });
+        }, { passive: true });
         
         container.addEventListener('touchend', (e) => {
           const touchEndX = e.changedTouches[0].clientX;
@@ -7692,7 +7701,7 @@ function updateBusinessInfoButtonForVip() {
               this.navigateSticker(-1);
             }
           }
-        });
+        }, { passive: true });
       }
     },
     

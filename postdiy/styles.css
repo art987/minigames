@@ -1759,7 +1759,7 @@ footer {
 .add-sticker-btn {
   width: 80%;
   padding: 6px 9px;
-  background: #21212152;
+  background: #d2000091;
   color: #FFFFFF;
   letter-spacing: 4px;
   border: 1px solid #dddddd29;
@@ -4660,15 +4660,27 @@ input.hidden {
 .sticker-preview-area {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 7px;
   position: relative;
+  height: 70vh;
+}
+
+.sticker-category-title {
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #949494;
+  margin-bottom: 0px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 7px;
 }
 
 .sticker-3d-gallery {
   perspective: 1000px;
   height: 215px;
   display: flex;
-  margin-top: 13px;
+  margin-top: 7px;
   align-items: center;
   justify-content: center;
 }
@@ -4684,9 +4696,10 @@ input.hidden {
   position: absolute;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 25px #ffffffbf;
+  box-shadow: 0 0 25px #909090bf;
   backface-visibility: visible;
   display: flex;
+  padding: 10px;
   align-items: center;
   justify-content: center;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -4702,7 +4715,7 @@ input.hidden {
 
 .gallery-slide.prev {
   transform: translateX(-160px) translateZ(-80px) scale(0.75) rotateY(-25deg);
-  opacity: 0.4;
+  opacity: 0.1;
   z-index: 1;
 }
 
@@ -4716,7 +4729,7 @@ input.hidden {
 
 .gallery-slide.next {
   transform: translateX(160px) translateZ(-80px) scale(0.75) rotateY(25deg);
-  opacity: 0.4;
+  opacity: 0.1;
   z-index: 1;
 }
 
@@ -4733,7 +4746,7 @@ input.hidden {
   gap: 10px;
   position: absolute;
   width: 93%;
-  top: 111px;
+  top: 130px;
 }
 
 .nav-btn {
@@ -4741,7 +4754,7 @@ input.hidden {
   height: 50px;
   border: 1px solid #cccccc61;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8484847d 0%, #353535e0 100%);
+  background: linear-gradient(135deg, #0000004d 0%, #353535e0 100%);
   color: white;
   font-size: 19px;
   cursor: pointer;
@@ -4777,20 +4790,20 @@ input.hidden {
   display: flex;
   /* flex-direction: column; */
   gap: 10px;
-  width: 81%;
-  margin: 0 auto;
+  width: 73%;
+  margin: 14px  auto;
 }
 
 .add-to-poster-btn {
-  padding: 15px 8px;
-  border: 2px solid #656565;
+  padding: 11px 8px;
+  border: 1px solid #cd3d3d;
   border-radius: 25px;
-  background: linear-gradient(135deg, #53535300 0%, #3e3e3e 100%);
-  color: #f44949;
+  background: #d2000091;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  width: 169px;
+  width: 151px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4808,11 +4821,11 @@ input.hidden {
 }
 
 .back-to-grid-btn {
-  padding: 12px 12px;
-  border: 2px solid #656565;
+  padding: 11px 12px;
+  border: 1px solid #656565;
   border-radius: 25px;
   background: transparent;
-  color: #acacac;
+  color: #ececec;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
