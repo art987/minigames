@@ -1472,35 +1472,37 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
             选择${todayFestival}模板
           </button>
-          <button class="home-popup-btn" data-action="dairy">
-            品牌日常海报
+          <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            ☃ 日常海报
           </button>
         </div>
       `;
     } else if (isBefore930) {
       html = `
+       <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <span>（今日没有特别节日，您可以：）</span>
-          <button class="home-popup-btn" data-action="zaoan">
-            制作早安海报
+          
+          <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+            ☀ 早安海报
           </button>
-          <button class="home-popup-btn" data-action="wanan">
-            制作晚安海报
+          <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            ☪ 晚安海报
           </button>
-          <button class="home-popup-btn" data-action="dairy">
-            品牌日常海报
+          <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+            ☃ 日常海报
           </button>
         </div>
       `;
     } else {
       html = `
+       <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <span>（今日无特别节日，早安时段已过，您还可以：）</span>
-          <button class="home-popup-btn" data-action="wanan">
-            制作晚安海报
+         
+          <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            ☪ 晚安海报
           </button>
-          <button class="home-popup-btn" data-action="dairy">
-            品牌日常海报
+          <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            ☃ 日常海报
           </button>
         </div>
       `;

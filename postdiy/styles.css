@@ -4237,6 +4237,7 @@ input.hidden {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 10px 20px 30px;
 }
 
 .home-popup-section {
@@ -4313,8 +4314,8 @@ input.hidden {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  gap: 0.2rem;
+  padding: 0.75rem .5rem;
   background: linear-gradient(135deg, #d40b0b, #ef4444);
   color: white;
   font-size: 0.95rem;
@@ -4354,6 +4355,20 @@ input.hidden {
 
 .home-popup-btn[data-action="dairy"]:active {
   transform: translateY(0);
+}
+
+#zaoanBtn {
+  margin-left: 1px;
+  background: linear-gradient(135deg, #fff64b, #3bbb3e);
+}
+
+#wananBtn {
+  margin-left: 4px;
+  background: linear-gradient(135deg, #c35cfb, #092dc5);
+}
+#dairyBtn {
+  margin-left: 7px;
+  background: linear-gradient(135deg, #ffa167, #f27f00);
 }
 
 /* 未来建议内容样式 */
