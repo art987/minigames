@@ -7473,13 +7473,26 @@ function updateBusinessInfoButtonForVip() {
     
     openModal: function() {
       const modal = document.getElementById('stickerModal');
+      const selectionArea = document.getElementById('stickerSelectionArea');
+      const previewArea = document.getElementById('stickerPreviewArea');
+      
       modal.classList.remove('hidden');
+      
+      if (selectionArea) selectionArea.classList.remove('hidden');
+      if (previewArea) previewArea.classList.add('hidden');
+      
       this.loadStickers(this.currentCategory);
     },
     
     closeModal: function() {
       const modal = document.getElementById('stickerModal');
+      const selectionArea = document.getElementById('stickerSelectionArea');
+      const previewArea = document.getElementById('stickerPreviewArea');
+      
       modal.classList.add('hidden');
+      
+      if (selectionArea) selectionArea.classList.remove('hidden');
+      if (previewArea) previewArea.classList.add('hidden');
     },
     
     loadStickers: function(category) {
@@ -7489,11 +7502,14 @@ function updateBusinessInfoButtonForVip() {
       grid.innerHTML = '';
       
       const stickers = window.stickerResources.categories[category].stickers;
+      this.currentStickers = stickers;
+      this.currentCategory = category;
       
-      stickers.forEach(sticker => {
+      stickers.forEach((sticker, index) => {
         const card = document.createElement('div');
         card.className = 'sticker-card';
         card.dataset.stickerId = sticker.id;
+        card.dataset.stickerIndex = index;
         
         const img = document.createElement('img');
         img.src = sticker.url + '?' + new Date().getTime();
@@ -7550,8 +7566,7 @@ function updateBusinessInfoButtonForVip() {
         
         card.addEventListener('click', (e) => {
           if (e.target !== addBtn) {
-            this.addStickerToPoster(sticker.url);
-            this.closeModal();
+            this.openStickerPreview(index);
           }
         });
         
@@ -7559,16 +7574,154 @@ function updateBusinessInfoButtonForVip() {
       });
     },
     
+    openStickerPreview: function(startIndex) {
+      this.currentPreviewIndex = startIndex;
+      
+      const selectionArea = document.getElementById('stickerSelectionArea');
+      const previewArea = document.getElementById('stickerPreviewArea');
+      
+      if (selectionArea) selectionArea.classList.add('hidden');
+      if (previewArea) previewArea.classList.remove('hidden');
+      
+      this.initGallery();
+      this.bindPreviewEvents();
+    },
+    
+    initGallery: function() {
+      const container = document.getElementById('galleryContainer');
+      const nameDisplay = document.getElementById('stickerPreviewName');
+      
+      if (!container || !this.currentStickers) return;
+      
+      container.innerHTML = '';
+      
+      const stickers = this.currentStickers;
+      
+      stickers.forEach((sticker, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        slide.dataset.index = index;
+        
+        const img = document.createElement('img');
+        img.src = sticker.url + '?' + new Date().getTime();
+        img.alt = sticker.name;
+        slide.appendChild(img);
+        
+        container.appendChild(slide);
+      });
+      
+      this.updateGalleryPositions();
+      
+      if (nameDisplay && stickers[this.currentPreviewIndex]) {
+        nameDisplay.textContent = stickers[this.currentPreviewIndex].name;
+      }
+    },
+    
+    updateGalleryPositions: function() {
+      const container = document.getElementById('galleryContainer');
+      const nameDisplay = document.getElementById('stickerPreviewName');
+      
+      if (!container || !this.currentStickers) return;
+      
+      const slides = container.querySelectorAll('.gallery-slide');
+      const currentIdx = this.currentPreviewIndex;
+      
+      slides.forEach((slide, index) => {
+        slide.classList.remove('prev', 'current', 'next', 'hidden-slide');
+        
+        const diff = index - currentIdx;
+        
+        if (diff === -1) {
+          slide.classList.add('prev');
+        } else if (diff === 0) {
+          slide.classList.add('current');
+          if (nameDisplay && this.currentStickers[index]) {
+            nameDisplay.textContent = this.currentStickers[index].name;
+          }
+        } else if (diff === 1) {
+          slide.classList.add('next');
+        } else {
+          slide.classList.add('hidden-slide');
+        }
+      });
+    },
+    
+    bindPreviewEvents: function() {
+      const prevBtn = document.getElementById('prevSticker');
+      const nextBtn = document.getElementById('nextSticker');
+      const addBtn = document.getElementById('addStickerToPoster');
+      const backBtn = document.getElementById('backToStickerGrid');
+      
+      if (prevBtn) {
+        prevBtn.onclick = () => this.navigateSticker(-1);
+      }
+      
+      if (nextBtn) {
+        nextBtn.onclick = () => this.navigateSticker(1);
+      }
+      
+      if (addBtn) {
+        addBtn.onclick = () => {
+          if (this.currentStickers && this.currentStickers[this.currentPreviewIndex]) {
+            this.addStickerToPoster(this.currentStickers[this.currentPreviewIndex].url);
+            this.closeModal();
+          }
+        };
+      }
+      
+      if (backBtn) {
+        backBtn.onclick = () => this.backToSelection();
+      }
+      
+      const container = document.getElementById('galleryContainer');
+      if (container) {
+        let touchStartX = 0;
+        
+        container.addEventListener('touchstart', (e) => {
+          touchStartX = e.touches[0].clientX;
+        });
+        
+        container.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].clientX;
+          const diff = touchStartX - touchEndX;
+          
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+              this.navigateSticker(1);
+            } else {
+              this.navigateSticker(-1);
+            }
+          }
+        });
+      }
+    },
+    
+    navigateSticker: function(direction) {
+      if (!this.currentStickers) return;
+      
+      const newIndex = this.currentPreviewIndex + direction;
+      
+      if (newIndex >= 0 && newIndex < this.currentStickers.length) {
+        this.currentPreviewIndex = newIndex;
+        this.updateGalleryPositions();
+      }
+    },
+    
+    backToSelection: function() {
+      const selectionArea = document.getElementById('stickerSelectionArea');
+      const previewArea = document.getElementById('stickerPreviewArea');
+      
+      if (selectionArea) selectionArea.classList.remove('hidden');
+      if (previewArea) previewArea.classList.add('hidden');
+    },
+    
     addStickerToPoster: function(imageUrl) {
-      // 获取海报框架的尺寸
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       
-      // 随机位置（中心附近）
       const randomX = 40 + Math.random() * 20;
       const randomY = 30 + Math.random() * 40;
       
-      // 添加贴纸
       window.stickerManager.addSticker(imageUrl, randomX, randomY, 1);
     }
   };

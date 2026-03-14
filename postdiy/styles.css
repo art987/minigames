@@ -1685,7 +1685,7 @@ footer {
 /* 贴纸网格布局 */
 .sticker-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 5px 0;
 }
@@ -1701,7 +1701,7 @@ footer {
   position: relative;
   background-size: 8px 8px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  height: 218px;
+  height: 150px;
 }
 
 .sticker-card:hover {
@@ -1717,7 +1717,6 @@ footer {
 
 .sticker-card img {
   width: 100%;
-  height: 190px;
   object-fit: contain;
   padding: 8px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
@@ -3443,7 +3442,7 @@ input.hidden {
 }
 
 .modal-body {
-  padding: 10px 20px 40px;
+  padding: 10px 10px 29px;
 }
 #businessInfoModal .scrollable-body{padding: 9px 26px 2px;}
 .input-section {
@@ -4655,4 +4654,176 @@ input.hidden {
   visibility: visible !important;
   pointer-events: auto !important;
   transform: scale(1) translateY(0px) !important;
+}
+
+/* 3D 贴纸预览样式 */
+.sticker-preview-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.sticker-3d-gallery {
+  perspective: 1000px;
+  height: 215px;
+  display: flex;
+  margin-top: 13px;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+}
+
+.gallery-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 25px #ffffffbf;
+  backface-visibility: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  transition: filter 0.6s ease;
+}
+
+.gallery-slide.prev {
+  transform: translateX(-160px) translateZ(-80px) scale(0.75) rotateY(-25deg);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.gallery-slide.current {
+  transform: translateX(0) translateZ(0) scale(1) rotateY(0deg);
+  opacity: 1;
+  border: 1px solid #000000;
+  z-index: 3;
+  border-radius: 10px;
+}
+
+.gallery-slide.next {
+  transform: translateX(160px) translateZ(-80px) scale(0.75) rotateY(25deg);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.gallery-slide.hidden-slide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) translateZ(-200px) scale(0.5) rotateY(0deg);
+}
+
+.sticker-preview-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: absolute;
+  width: 93%;
+  top: 111px;
+}
+
+.nav-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #cccccc61;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8484847d 0%, #353535e0 100%);
+  color: white;
+  font-size: 19px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+.sticker-preview-info {
+  flex: 1;
+  text-align: center;
+  display: none;
+}
+
+.sticker-preview-info span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sticker-add-section {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 10px;
+  width: 81%;
+  margin: 0 auto;
+}
+
+.add-to-poster-btn {
+  padding: 15px 8px;
+  border: 2px solid #656565;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #53535300 0%, #3e3e3e 100%);
+  color: #f44949;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 169px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.add-to-poster-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.add-to-poster-btn:active {
+  transform: translateY(0);
+}
+
+.back-to-grid-btn {
+  padding: 12px 12px;
+  border: 2px solid #656565;
+  border-radius: 25px;
+  background: transparent;
+  color: #acacac;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-to-grid-btn:hover {
+  background: #667eea;
+  color: white;
 }

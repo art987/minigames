@@ -410,31 +410,17 @@
         <button id="closeVisibilityManagerBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body visibility-manager-body">
-        <!-- 批量操作行 -->
-        <div class="visibility-batch-actions">
-          <div class="batch-header">
-            <span class="batch-title">元素</span>
-            <div class="batch-buttons">
-              <button type="button" class="batch-show-btn" id="batchShowAll">
-                <i class="fa fa-eye"></i> 全部显示
-              </button>
-              <button type="button" class="batch-hide-btn" id="batchHideAll">
-                <i class="fa fa-eye-slash"></i> 全部不显示
-              </button>
-            </div>
-          </div>
-        </div>
-        
         <div class="visibility-list">
-          <div class="visibility-item" data-target="posterBusinessName">
-            <span class="visibility-name">品牌/门店名称：</span>
-            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
-            <button type="button" class="visibility-toggle-switch" data-target="posterBusinessName">不显示</button>
-          </div>
+          
           <div class="visibility-item" data-target="posterLogo">
             <span class="visibility-name">品牌标志/logo：</span>
             <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
             <button type="button" class="visibility-toggle-switch" data-target="posterLogo">不显示</button>
+          </div>
+          <div class="visibility-item" data-target="posterBusinessName">
+            <span class="visibility-name">品牌/门店名称：</span>
+            <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
+            <button type="button" class="visibility-toggle-switch" data-target="posterBusinessName">不显示</button>
           </div>
           <div class="visibility-item" data-target="posterQrcode">
             <span class="visibility-name">二维码：</span>
@@ -445,6 +431,21 @@
             <span class="visibility-name">促销引流文案：</span>
             <span class="visibility-status"><i class="fa fa-eye"></i> 已显示</span>
             <button type="button" class="visibility-toggle-switch" data-target="posterPromoText">不显示</button>
+          </div>
+        </div>
+        
+        <!-- 批量操作行 -->
+        <div class="visibility-batch-actions">
+          <div class="batch-header">
+            <span class="batch-title">批量操作</span>
+            <div class="batch-buttons">
+              <button type="button" class="batch-show-btn" id="batchShowAll">
+                <i class="fa fa-eye"></i> 全部显示
+              </button>
+              <button type="button" class="batch-hide-btn" id="batchHideAll">
+                <i class="fa fa-eye-slash"></i> 全部不显示
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -630,7 +631,7 @@
         <h2 class="modal-title">选择贴纸</h2>
         <button id="closeStickerModalBtn" class="modal-close">&times;</button>
       </div>
-      <div class="modal-body scrollable-body">
+      <div class="modal-body scrollable-body" id="stickerSelectionArea">
         <div class="sticker-category-tabs">
           <button class="sticker-category-btn active" data-category="zaoan">
             <i class="fa fa-sun"></i> 早安
@@ -661,6 +662,34 @@
           <div id="stickerGrid" class="sticker-grid">
             <!-- 贴纸将通过JavaScript动态生成 -->
           </div>
+        </div>
+      </div>
+      
+      <!-- 3D贴纸预览区域 -->
+      <div class="modal-body sticker-preview-area hidden" id="stickerPreviewArea">
+        <div class="sticker-3d-gallery">
+          <div class="gallery-container" id="galleryContainer">
+            <!-- 3D相册内容将通过JavaScript动态生成 -->
+          </div>
+        </div>
+        <div class="sticker-preview-controls">
+          <button class="nav-btn prev-btn" id="prevSticker">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="sticker-preview-info">
+            <span id="stickerPreviewName">贴纸名称</span>
+          </div>
+          <button class="nav-btn next-btn" id="nextSticker">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="sticker-add-section">
+          <button class="add-to-poster-btn" id="addStickerToPoster">
+            <i class="fa fa-plus"></i> 添加到海报
+          </button>
+          <button class="back-to-grid-btn" id="backToStickerGrid">
+            <i class="fa fa-th"></i> 返回选择
+          </button>
         </div>
       </div>
     </div>
