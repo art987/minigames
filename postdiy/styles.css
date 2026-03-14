@@ -1606,18 +1606,18 @@ footer {
 
 /* 左侧分类导航区 */
 .sticker-category-tabs {
-  width: 85px;
+  width: 86px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 10px 4px;
-  background: #4d4d4d;
+  background: #2f2c2c;
   overflow-y: auto;
   max-height: 500px;
   /* 滚动条样式 */
   scrollbar-width: thin;
-  scrollbar-color: #666666 #333333;
+  scrollbar-color: #202020 #707070;
 }
 
 /* 滚动条样式 */
@@ -1647,10 +1647,10 @@ footer {
 }
 
 .sticker-category-btn {
-  width: 100%;
-  padding: 10px 7px;
-  background: #5a5a5a;
-  color: #FFFFFF;
+  width: 95%;
+  padding: 10px 5px;
+  background: #454141;
+  color: #d8d8d8;
   border: 1px solid #333333;
   border-radius: 8px;
   font-size: 14px;
@@ -1680,6 +1680,8 @@ footer {
 .sticker-grid-container {
   max-height: 500px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #202020 #707070;
 }
 
 /* 贴纸网格布局 */
@@ -1693,15 +1695,15 @@ footer {
 /* 贴纸卡片 */
 .sticker-card {
   background: #2a2929;
-  border: 2px solid #131313;
+  border: 2px solid #3a3a3a;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  background-size: 8px 8px;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  height: 150px;
+  background-size: 6px 6px;
+  background-image: linear-gradient(rgb(82 82 82 / 10%) 1px, #00000000 1px), linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px);
+  height: 177px;
 }
 
 .sticker-card:hover {
@@ -1757,20 +1759,20 @@ footer {
 
 /* 添加贴纸按钮 */
 .add-sticker-btn {
-  width: 80%;
-  padding: 6px 9px;
-  background: #d2000091;
-  color: #FFFFFF;
-  letter-spacing: 4px;
+  width: 50%;
+  padding: 4px 9px;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #ffffff;
+  letter-spacing: 1px;
   border: 1px solid #dddddd29;
-  border-radius: 4px;
+  border-radius: 22px;
   text-align: center;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 0px auto 5px;
+  margin: 0px auto 9px;
   position: absolute;
-  left: 10%;
+  left: 25%;
   bottom: 0;
   display: block;
 }
@@ -4660,9 +4662,23 @@ input.hidden {
 .sticker-preview-area {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  position: relative;
-  height: 70vh;
+  gap: 20px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0 0 0 / 88%);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.sticker-preview-area.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .sticker-category-title {
@@ -4696,7 +4712,7 @@ input.hidden {
   position: absolute;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 25px #909090bf;
+  box-shadow: 0 0 25px #ffffff3b;
   backface-visibility: visible;
   display: flex;
   padding: 10px;
@@ -4722,7 +4738,7 @@ input.hidden {
 .gallery-slide.current {
   transform: translateX(0) translateZ(0) scale(1) rotateY(0deg);
   opacity: 1;
-  border: 1px solid #000000;
+  border: 1px solid #3d3d3d;
   z-index: 3;
   border-radius: 10px;
 }
@@ -4752,7 +4768,7 @@ input.hidden {
 .nav-btn {
   width: 50px;
   height: 50px;
-  border: 1px solid #cccccc61;
+  border: 1px solid #3d3d3d;
   border-radius: 50%;
   background: linear-gradient(135deg, #0000004d 0%, #353535e0 100%);
   color: white;
@@ -4790,15 +4806,15 @@ input.hidden {
   display: flex;
   /* flex-direction: column; */
   gap: 10px;
-  width: 73%;
+  width: 69%;
   margin: 14px  auto;
 }
 
 .add-to-poster-btn {
   padding: 11px 8px;
-  border: 1px solid #cd3d3d;
+  border: 2px solid #cd3d3d;
   border-radius: 25px;
-  background: #d2000091;
+  background: linear-gradient(329deg, #a10303, #d93a2e);
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
@@ -4821,12 +4837,13 @@ input.hidden {
 }
 
 .back-to-grid-btn {
-  padding: 11px 12px;
-  border: 1px solid #656565;
+  padding: 11px 28px;
+  border: 2px solid #e73b3b;
   border-radius: 25px;
-  background: transparent;
-  color: #ececec;
-  font-size: 14px;
+  background: linear-gradient(135deg, #0000004d 0%, #353535e0 100%);
+  color: #ef0000;
+  font-size: 25px;
+  line-height: 18px;
   font-weight: 600;
   cursor: pointer;
   display: flex;

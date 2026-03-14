@@ -6289,7 +6289,7 @@ function updateBusinessInfoButtonForVip() {
     },
     
     // 添加贴纸到海报
-    addSticker: function(imageUrl, x, y, scale) {
+    addSticker: function(imageUrl, x, y, scale, naturalWidth, naturalHeight) {
       this.stickerCount++;
       const stickerId = `sticker-${this.stickerCount}`;
       
@@ -6301,7 +6301,9 @@ function updateBusinessInfoButtonForVip() {
         scale: scale || 1,
         rotation: 0,
         mirror: false,
-        zIndex: 100 + this.stickerCount
+        zIndex: 100 + this.stickerCount,
+        naturalWidth: naturalWidth || 100,
+        naturalHeight: naturalHeight || 100
       };
       
       this.stickers.push(sticker);
@@ -6544,6 +6546,10 @@ function updateBusinessInfoButtonForVip() {
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       
+      const frameRect = posterFrame.getBoundingClientRect();
+      const baseWidth = 1000;
+      const scaleRatio = frameRect.width / baseWidth;
+      
       // 清除现有的贴纸和控件
       const existingStickers = posterFrame.querySelectorAll('.sticker, .sticker-control');
       existingStickers.forEach(el => el.remove());
@@ -6564,9 +6570,13 @@ function updateBusinessInfoButtonForVip() {
         // 贴纸图片
         const stickerImg = document.createElement('img');
         stickerImg.src = sticker.imageUrl;
-        stickerImg.style.maxWidth = '100px';
-        stickerImg.style.maxHeight = '100px';
+        
+        const displayWidth = sticker.naturalWidth * scaleRatio;
+        const displayHeight = sticker.naturalHeight * scaleRatio;
+        stickerImg.style.width = displayWidth + 'px';
+        stickerImg.style.height = displayHeight + 'px';
         stickerImg.style.display = 'block';
+        stickerImg.style.objectFit = 'contain';
         
         stickerEl.appendChild(stickerImg);
         
@@ -6601,11 +6611,16 @@ function updateBusinessInfoButtonForVip() {
       
       // 计算贴纸中心位置
       const frameRect = posterFrame.getBoundingClientRect();
+      const baseWidth = 1000;
+      const scaleRatio = frameRect.width / baseWidth;
+      
       const stickerCenterX = (sticker.x / 100) * frameRect.width;
       const stickerCenterY = (sticker.y / 100) * frameRect.height;
       
-      // 贴纸尺寸（基于缩放）
-      const baseSize = 100 * sticker.scale;
+      // 贴纸尺寸（基于原始尺寸和缩放）
+      const displayWidth = sticker.naturalWidth * scaleRatio * sticker.scale;
+      const displayHeight = sticker.naturalHeight * scaleRatio * sticker.scale;
+      const baseSize = Math.max(displayWidth, displayHeight);
       
       // 删除按钮（顶部居中）
       const deleteBtn = document.createElement('button');
@@ -7645,12 +7660,13 @@ function updateBusinessInfoButtonForVip() {
     openStickerPreview: function(startIndex) {
       this.currentPreviewIndex = startIndex;
       
-      const selectionArea = document.getElementById('stickerSelectionArea');
       const previewArea = document.getElementById('stickerPreviewArea');
       const categoryTitle = document.getElementById('stickerCategoryTitle');
       
-      if (selectionArea) selectionArea.classList.add('hidden');
-      if (previewArea) previewArea.classList.remove('hidden');
+      if (previewArea) {
+        previewArea.classList.remove('hidden');
+        previewArea.classList.add('active');
+      }
       
       if (categoryTitle && this.currentCategory && window.stickerResources.categories[this.currentCategory]) {
         categoryTitle.textContent = window.stickerResources.categories[this.currentCategory].name;
@@ -7785,11 +7801,14 @@ function updateBusinessInfoButtonForVip() {
     },
     
     backToSelection: function() {
-      const selectionArea = document.getElementById('stickerSelectionArea');
       const previewArea = document.getElementById('stickerPreviewArea');
       
-      if (selectionArea) selectionArea.classList.remove('hidden');
-      if (previewArea) previewArea.classList.add('hidden');
+      if (previewArea) {
+        previewArea.classList.remove('active');
+        setTimeout(() => {
+          previewArea.classList.add('hidden');
+        }, 300);
+      }
     },
     
     addStickerToPoster: function(imageUrl) {
@@ -7799,7 +7818,13 @@ function updateBusinessInfoButtonForVip() {
       const randomX = 40 + Math.random() * 20;
       const randomY = 30 + Math.random() * 40;
       
-      window.stickerManager.addSticker(imageUrl, randomX, randomY, 1);
+      const img = new Image();
+      img.onload = () => {
+        const baseWidth = 1000;
+        const scale = img.naturalWidth / baseWidth;
+        window.stickerManager.addSticker(imageUrl, randomX, randomY, 1, img.naturalWidth, img.naturalHeight);
+      };
+      img.src = imageUrl;
     }
   };
   
