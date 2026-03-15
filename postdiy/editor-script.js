@@ -6858,12 +6858,12 @@ function updateBusinessInfoButtonForVip() {
       // 上移层级按钮（底部左侧，距离底边30px）
       const bringForwardBtn = document.createElement('button');
       bringForwardBtn.className = 'sticker-control sticker-bring-forward-btn';
-      bringForwardBtn.innerHTML = '↥';
+      bringForwardBtn.innerHTML = '上移层';
       bringForwardBtn.title = '上移层级';
       bringForwardBtn.dataset.stickerId = stickerId;
       bringForwardBtn.style.cssText = `
         position: absolute;
-        left: ${stickerCenterX - 20}px;
+        left: ${stickerCenterX - 30}px;
         top: ${stickerCenterY + baseSize/2 + 30}px;
         transform: translate(-50%, -50%);
         opacity: ${isSelected ? '1' : '0'};
@@ -6878,12 +6878,12 @@ function updateBusinessInfoButtonForVip() {
       // 下移层级按钮（底部右侧，距离底边30px）
       const sendBackwardBtn = document.createElement('button');
       sendBackwardBtn.className = 'sticker-control sticker-send-backward-btn';
-      sendBackwardBtn.innerHTML = '↧';
+      sendBackwardBtn.innerHTML = '下移层';
       sendBackwardBtn.title = '下移层级';
       sendBackwardBtn.dataset.stickerId = stickerId;
       sendBackwardBtn.style.cssText = `
         position: absolute;
-        left: ${stickerCenterX + 20}px;
+        left: ${stickerCenterX + 30}px;
         top: ${stickerCenterY + baseSize/2 + 30}px;
         transform: translate(-50%, -50%);
         opacity: ${isSelected ? '1' : '0'};
@@ -6926,10 +6926,10 @@ function updateBusinessInfoButtonForVip() {
           control.style.left = `${stickerCenterX + baseSize/2 + 20}px`;
           control.style.top = `${stickerCenterY}px`;
         } else if (control.classList.contains('sticker-bring-forward-btn')) {
-          control.style.left = `${stickerCenterX - 20}px`;
+          control.style.left = `${stickerCenterX - 30}px`;
           control.style.top = `${stickerCenterY + baseSize/2 + 30}px`;
         } else if (control.classList.contains('sticker-send-backward-btn')) {
-          control.style.left = `${stickerCenterX + 20}px`;
+          control.style.left = `${stickerCenterX + 30}px`;
           control.style.top = `${stickerCenterY + baseSize/2 + 30}px`;
         }
         control.style.zIndex = sticker.zIndex + 10;
