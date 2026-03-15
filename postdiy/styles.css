@@ -1042,8 +1042,8 @@ footer {
   .trigger-left:hover,
   .trigger-top:hover,
   .trigger-bottom:hover {
-    background-color: rgb(6 6 6 / 0%);
-    border:2px dashed #ffffff59;
+    background-color: rgb(6 6 6 / 14%);
+    border:2px dashed #ffffffad;
   }
 }
 
@@ -1059,7 +1059,8 @@ footer {
   .trigger-left:active,
   .trigger-top:active,
   .trigger-bottom:active {
-    border:2px dashed #ffffff59 !important;
+    background-color: rgb(6 6 6 / 14%);
+    border:2px dashed #ffffffad;
   }
 }
 
@@ -4575,7 +4576,7 @@ input.hidden {
     color: #4a4a4a;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
-    padding: 5px 7px;
+    padding: 2px 7px;
     font-size: 20px;
     line-height: 20px;
     margin-top: 2px;
@@ -4587,8 +4588,8 @@ input.hidden {
 }
 
 .editorbg .daily-suggestion-btn{ position: fixed;
-   right: 9px; margin-right: 0;
-   top: 55px;z-index: 999;font-size: 28px;  padding: 10px 0px;}
+   right: 9px; margin-right: 0;width: 39px;
+   top: 55px;z-index: 999;font-size: 28px;  padding:5px 0px;}
 
 .daily-suggestion-btn:hover {  background: #fff;
   color:#d32f2f0; }
