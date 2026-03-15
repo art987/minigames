@@ -7385,6 +7385,29 @@ function updateBusinessInfoButtonForVip() {
           { id: 'flowers-29', name: '鲜花29', url: 'sticker/flowers/29.png' }
         ]
       },
+      flowers2: {
+        name: '花丛',
+        stickers: [
+          { id: 'flowers2-1', name: '花丛1', url: 'sticker/flowers2/1.png' },
+          { id: 'flowers2-2', name: '花丛2', url: 'sticker/flowers2/2.png' },
+          { id: 'flowers2-3', name: '花丛3', url: 'sticker/flowers2/3.png' },
+          { id: 'flowers2-4', name: '花丛4', url: 'sticker/flowers2/4.png' },
+          { id: 'flowers2-5', name: '花丛5', url: 'sticker/flowers2/5.png' },
+          { id: 'flowers2-6', name: '花丛6', url: 'sticker/flowers2/6.png' },
+          { id: 'flowers2-7', name: '花丛7', url: 'sticker/flowers2/7.png' },
+          { id: 'flowers2-8', name: '花丛8', url: 'sticker/flowers2/8.png' },
+          { id: 'flowers2-9', name: '花丛9', url: 'sticker/flowers2/9.png' },
+          { id: 'flowers2-10', name: '花丛10', url: 'sticker/flowers2/10.png' },
+          { id: 'flowers2-11', name: '花丛11', url: 'sticker/flowers2/11.png' },
+          { id: 'flowers2-12', name: '花丛12', url: 'sticker/flowers2/12.png' },
+          { id: 'flowers2-13', name: '花丛13', url: 'sticker/flowers2/13.png' },
+          { id: 'flowers2-14', name: '花丛14', url: 'sticker/flowers2/14.png' },
+          { id: 'flowers2-15', name: '花丛15', url: 'sticker/flowers2/15.png' },
+          { id: 'flowers2-16', name: '花丛16', url: 'sticker/flowers2/16.png' },
+          { id: 'flowers2-17', name: '花丛17', url: 'sticker/flowers2/17.png' },
+          { id: 'flowers2-18', name: '花丛18', url: 'sticker/flowers2/18.png' }
+        ]
+      },
       delicious: {
         name: '好吃',
         stickers: [
@@ -7515,7 +7538,7 @@ function updateBusinessInfoButtonForVip() {
   
   // 贴纸弹窗管理
   window.stickerModalManager = {
-    currentCategory: 'zaoan',
+    currentCategory: 'cover',
     isScrolling: false,
     
     init: function() {
