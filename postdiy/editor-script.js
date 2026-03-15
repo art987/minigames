@@ -3028,6 +3028,129 @@ window.wechatWarning = {
     void elements.templateModal.offsetWidth;
   }
   
+  // 打开模板弹窗并自动选择指定节日/类别
+  window.openTemplateModalWithFestival = function(festivalName) {
+    if (!elements.templateModal || !elements.templateGrid) return;
+    
+    // 清空模板网格
+    elements.templateGrid.innerHTML = '';
+    
+    // 填充月份按钮
+    fillMonthButtons();
+    
+    // 填充节日标签
+    fillFestivalTags();
+    
+    // 填充模板网格
+    fillTemplateGrid();
+    
+    // 移除关闭动画类
+    elements.templateModal.classList.remove('closing');
+    elements.templateModal.querySelector('.modal').classList.remove('closing');
+    
+    // 显示弹窗 - 通过移除hidden类
+    elements.templateModal.classList.remove('hidden');
+    // 同时设置display确保兼容性
+    elements.templateModal.style.display = 'flex';
+    
+    // 强制重绘以触发动画
+    void elements.templateModal.offsetWidth;
+    
+    // 延迟选择节日标签，确保DOM已渲染
+    setTimeout(() => {
+      let targetFestivalTag = null;
+      
+      // 根据传入的节日名称查找对应的标签
+      if (festivalName === 'zaoan' || festivalName === '☀️ 早安') {
+        targetFestivalTag = document.querySelector('#modalFestivalTags .festival-tag[data-festival="☀️ 早安"]');
+      } else if (festivalName === 'wanan' || festivalName === '🌙 晚安') {
+        targetFestivalTag = document.querySelector('#modalFestivalTags .festival-tag[data-festival="🌙 晚安"]');
+      } else {
+        // 尝试直接匹配节日名称
+        targetFestivalTag = document.querySelector(`#modalFestivalTags .festival-tag[data-festival="${festivalName}"]`);
+        // 如果没找到，尝试匹配不带emoji的版本
+        if (!targetFestivalTag) {
+          const allTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+          allTags.forEach(tag => {
+            if (tag.textContent.includes(festivalName)) {
+              targetFestivalTag = tag;
+            }
+          });
+        }
+      }
+      
+      if (targetFestivalTag) {
+        // 移除所有标签的选中状态
+        document.querySelectorAll('#modalFestivalTags .festival-tag').forEach(tag => tag.classList.remove('active'));
+        // 添加当前标签的选中状态
+        targetFestivalTag.classList.add('active');
+        
+        // 显示节日日期和倒计时（只有非早安/晚安的节日才显示）
+        const filterFestival = targetFestivalTag.dataset.festival;
+        if (filterFestival !== '☀️ 早安' && filterFestival !== '🌙 晚安') {
+          const dateStr = getFestivalFutureDate(filterFestival);
+          const daysUntil = getDaysUntilDate(dateStr);
+          
+          let countdownText = '';
+          if (daysUntil > 0) {
+            countdownText = `（还有${daysUntil}天）`;
+          } else if (daysUntil === 0) {
+            countdownText = `（今天）`;
+          } else {
+            countdownText = `（已过期）`;
+          }
+          
+          if (elements.modalFestivalDateDisplay) {
+            elements.modalFestivalDateDisplay.innerHTML = `${filterFestival}：${dateStr} <span style="font-weight: bold; color: red;">${countdownText}</span>`;
+          }
+        } else {
+          // 早安/晚安清空日期显示
+          if (elements.modalFestivalDateDisplay) {
+            elements.modalFestivalDateDisplay.textContent = '';
+          }
+        }
+        
+        // 自动滚动到可见区域
+        scrollToElement(targetFestivalTag);
+        
+        // 先筛选节日模板
+        filterTemplatesByFestival(filterFestival);
+        
+        // 获取节日对应的月份并自动选中
+        if (filterFestival !== '☀️ 早安' && filterFestival !== '🌙 晚安') {
+          const allFestivals = utils.getAllFestivals();
+          const festivalInfo = allFestivals[filterFestival];
+          
+          if (festivalInfo && festivalInfo.month) {
+            const targetMonth = festivalInfo.month;
+            const monthButton = document.querySelector(`#modalMonthButtons .month-btn[data-month="${targetMonth}"]`);
+            
+            if (monthButton) {
+              // 移除所有月份的选中状态
+              document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+              // 选中目标月份
+              monthButton.classList.add('active');
+              
+              // 滚动到目标月份
+              scrollToMonthButton(monthButton);
+              
+              // 筛选该月份的模板（这会重新填充节日标签）
+              filterTemplatesByMonth(targetMonth);
+              
+              // 重新选中节日标签（因为filterTemplatesByMonth会重新填充节日标签）
+              const newFestivalTag = document.querySelector(`#modalFestivalTags .festival-tag[data-festival="${filterFestival}"]`);
+              if (newFestivalTag) {
+                document.querySelectorAll('#modalFestivalTags .festival-tag').forEach(tag => tag.classList.remove('active'));
+                newFestivalTag.classList.add('active');
+                scrollToElement(newFestivalTag);
+              }
+            }
+          }
+        }
+      }
+    }, 100);
+  }
+  
   // 在模板弹窗中根据当前模板信息自动选择月份和节日
   function autoSelectDateInModal() {
     try {
@@ -8136,3 +8259,310 @@ function updateBusinessInfoButtonForVip() {
       modal.classList.remove('hidden');
     }
   };
+
+  // 编辑页首页弹窗功能
+  function initEditorHomePopup() {
+    const homePopup = document.getElementById('homePopup');
+    const closeHomePopupBtn = document.getElementById('closeHomePopup');
+    const todayReleaseContent = document.getElementById('todayReleaseContent');
+    const futureSuggestionContent = document.getElementById('futureSuggestionContent');
+    const dailySuggestionBtn = document.getElementById('dailySuggestionBtn');
+    const homePopupModal = homePopup ? homePopup.querySelector('.home-popup-modal') : null;
+    
+    if (!homePopup) return;
+    
+    // 显示弹窗
+    function showHomePopup() {
+      renderTodayRelease();
+      renderFutureSuggestion();
+      
+      if (dailySuggestionBtn && homePopupModal) {
+        const btnRect = dailySuggestionBtn.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const startX = btnRect.left + btnRect.width / 2;
+        const startY = btnRect.top + btnRect.height / 2;
+        
+        homePopupModal.style.transform = `translate(${startX - centerX}px, ${startY - centerY}px) scale(0.1)`;
+        homePopupModal.style.opacity = '0';
+        homePopupModal.style.transition = 'all 0.3s ease-out';
+      }
+      
+      homePopup.classList.remove('hidden');
+      
+      requestAnimationFrame(() => {
+        if (homePopupModal) {
+          homePopupModal.style.transform = 'translate(0, 0) scale(1)';
+          homePopupModal.style.opacity = '1';
+        }
+      });
+    }
+    
+    // 每日建议按钮点击事件
+    if (dailySuggestionBtn) {
+      dailySuggestionBtn.addEventListener('click', showHomePopup);
+    }
+  
+    // 关闭弹窗
+    function closeHomePopup() {
+      homePopup.classList.add('hidden');
+    }
+    
+    // 关闭按钮点击事件
+    if (closeHomePopupBtn) {
+      closeHomePopupBtn.addEventListener('click', closeHomePopup);
+    }
+    
+    // 点击遮罩关闭弹窗
+    homePopup.addEventListener('click', function(e) {
+      if (e.target === homePopup) {
+        closeHomePopup();
+      }
+    });
+    
+    // 获取星期几的中文表示
+    function getWeekdayChinese(day) {
+      const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      return weekdays[day];
+    }
+    
+    // 检查今天是否有节日
+    function getTodayFestival() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const yearStr = year.toString();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      const todayStr = `${year}-${month}-${day}`;
+      
+      if (window.festivalDates && window.festivalDates[yearStr]) {
+        for (const festivalName in window.festivalDates[yearStr]) {
+          if (window.festivalDates[yearStr][festivalName].startsWith(todayStr)) {
+            return festivalName;
+          }
+        }
+      }
+      return null;
+    }
+    
+    // 检查明天是否有节日
+    function getTomorrowFestival() {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const year = tomorrow.getFullYear();
+      const yearStr = year.toString();
+      const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+      const day = tomorrow.getDate().toString().padStart(2, '0');
+      const tomorrowStr = `${year}-${month}-${day}`;
+      
+      if (window.festivalDates && window.festivalDates[yearStr]) {
+        for (const festivalName in window.festivalDates[yearStr]) {
+          if (window.festivalDates[yearStr][festivalName].startsWith(tomorrowStr)) {
+            return festivalName;
+          }
+        }
+      }
+      return null;
+    }
+    
+    // 获取未来的节日
+    function getFutureFestivals(count = 3) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const currentYear = today.getFullYear();
+      const festivals = [];
+      
+      const yearsToCheck = [currentYear.toString(), (currentYear + 1).toString()];
+      
+      for (const yearStr of yearsToCheck) {
+        if (window.festivalDates && window.festivalDates[yearStr]) {
+          for (const festivalName in window.festivalDates[yearStr]) {
+            const dateStr = window.festivalDates[yearStr][festivalName].split(' ')[0];
+            const [year, month, day] = dateStr.split('-').map(Number);
+            const festivalDate = new Date(year, month - 1, day);
+            festivalDate.setHours(0, 0, 0, 0);
+            
+            if (festivalDate > today) {
+              const daysUntil = Math.ceil((festivalDate - today) / (1000 * 60 * 60 * 24));
+              festivals.push({
+                name: festivalName,
+                date: festivalDate,
+                daysUntil: daysUntil
+              });
+            }
+          }
+        }
+      }
+      
+      festivals.sort((a, b) => a.date - b.date);
+      return festivals.slice(0, count);
+    }
+    
+    // 渲染今日发布模块
+    function renderTodayRelease() {
+      const now = new Date();
+      const todayFestival = getTodayFestival();
+      const isBefore930 = now.getHours() < 9 || (now.getHours() === 9 && now.getMinutes() < 30);
+      const todayDateInTitle = document.getElementById('todayDateInTitle');
+      
+      // 实时更新时间函数
+      function updateRealTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeStr = `${hours}:${minutes}:${seconds}`;
+        
+        if (todayDateInTitle) {
+          const currentMonth = now.getMonth() + 1;
+          const currentDay = now.getDate();
+          const currentWeekday = getWeekdayChinese(now.getDay());
+          todayDateInTitle.innerHTML = ` <strong>${currentMonth}月${currentDay}日 ${currentWeekday}</strong> <i>${timeStr}</i>`;
+        }
+      }
+      
+      // 首次调用更新时间
+      updateRealTime();
+      
+      // 每秒更新一次时间
+      setInterval(updateRealTime, 1000);
+      
+      let html = '';
+      
+      if (todayFestival) {
+        html = `
+          <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+              选择${todayFestival}模板
+            </button>
+            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            🌈日常海报
+            </button>
+          </div>
+        `;
+      } else if (isBefore930) {
+        html = `
+         <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
+          <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            
+            <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+            ☀️ 早安海报
+            </button>
+            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            🌙 晚安海报
+            </button>
+            <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+            🌈 日常海报
+            </button>
+          </div>
+        `;
+      } else {
+        html = `
+         <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
+          <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+           
+            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            🌙 晚安海报
+            </button>
+            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            🌈 日常海报
+            </button>
+          </div>
+        `;
+      }
+      
+      todayReleaseContent.innerHTML = html;
+      
+      todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const action = this.dataset.action;
+          closeHomePopup();
+          
+          if (action === 'festival') {
+            const festival = this.dataset.festival;
+            window.openTemplateModalWithFestival(festival);
+          } else if (action === 'zaoan') {
+            window.openTemplateModalWithFestival('zaoan');
+          } else if (action === 'wanan') {
+            window.openTemplateModalWithFestival('wanan');
+          } else if (action === 'dairy') {
+            window.location.href = 'editor.html?templateId=dairy-2024-001';
+          }
+        });
+      });
+    }
+    
+    // 渲染未来制作建议模块
+    function renderFutureSuggestion() {
+      console.log('renderFutureSuggestion 被调用');
+      console.log('window.festivalDates:', window.festivalDates);
+      
+      const tomorrowFestival = getTomorrowFestival();
+      const futureFestivals = getFutureFestivals(3);
+      
+      console.log('tomorrowFestival:', tomorrowFestival);
+      console.log('futureFestivals:', futureFestivals);
+      
+      let html = '';
+      
+      html += '<div class="future-suggestion-item">';
+      html += '<div class="future-suggestion-text">明天：</div>';
+      html += '<div class="future-suggestion-buttons">';
+      
+      if (!tomorrowFestival) {
+        html += `<button class="future-suggestion-btn" data-action="zaoan">早安海报</button>`;
+      }
+      html += `<button class="future-suggestion-btn" data-action="wanan">晚安海报</button>`;
+      
+      html += '</div></div>';
+      
+      if (futureFestivals && futureFestivals.length > 0) {
+        futureFestivals.forEach(festival => {
+          let daysText = '';
+          if (festival.daysUntil === 1) {
+            daysText = '明天：';
+          } else if (festival.daysUntil === 2) {
+            daysText = '后天：';
+          } else {
+            daysText = `${festival.daysUntil}天后：`;
+          }
+          
+          html += `<div class="future-suggestion-item">`;
+          html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
+          html += `<div class="future-suggestion-buttons">`;
+          html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板制作</button>`;
+          html += '</div></div>';
+        });
+      } else {
+        console.log('没有找到未来节日');
+      }
+      
+      console.log('生成的HTML:', html);
+      futureSuggestionContent.innerHTML = html;
+      
+      futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const action = this.dataset.action;
+          closeHomePopup();
+          
+          if (action === 'festival') {
+            const festival = this.dataset.festival;
+            window.openTemplateModalWithFestival(festival);
+          } else if (action === 'zaoan') {
+            window.openTemplateModalWithFestival('zaoan');
+          } else if (action === 'wanan') {
+            window.openTemplateModalWithFestival('wanan');
+          }
+        });
+      });
+    }
+  }
+  
+  // 初始化编辑页首页弹窗
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initEditorHomePopup();
+    });
+  } else {
+    initEditorHomePopup();
+  }

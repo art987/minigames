@@ -1473,7 +1473,7 @@ document.addEventListener('DOMContentLoaded', function() {
             选择${todayFestival}模板
           </button>
           <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-            ☃ 日常海报
+          🌈日常海报
           </button>
         </div>
       `;
@@ -1483,13 +1483,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
           <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-            ☀ 早安海报
+          ☀️ 早安海报
           </button>
           <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☪ 晚安海报
+          🌙 晚安海报
           </button>
           <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-            ☃ 日常海报
+          🌈 日常海报
           </button>
         </div>
       `;
@@ -1499,10 +1499,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
           <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☪ 晚安海报
+          🌙 晚安海报
           </button>
           <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-            ☃ 日常海报
+          🌈 日常海报
           </button>
         </div>
       `;
