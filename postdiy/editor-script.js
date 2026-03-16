@@ -2370,6 +2370,14 @@ window.wechatWarning = {
       elements.downloadBtn   // 下载海报按钮
     ].filter(btn => btn !== null);
     
+    // 添加模板切换按钮到保持可见列表
+    if (elements.prevTemplateBtn) {
+      buttonsToKeepVisible.push(elements.prevTemplateBtn);
+    }
+    if (elements.nextTemplateBtn) {
+      buttonsToKeepVisible.push(elements.nextTemplateBtn);
+    }
+    
     // 如果贴纸按钮应该可见，也添加到保持可见列表
     if (shouldShowStickerBtn && elements.stickerBtn) {
       buttonsToKeepVisible.push(elements.stickerBtn);
@@ -2378,13 +2386,6 @@ window.wechatWarning = {
     // 需要隐藏的按钮
     const buttonsToHide = filteredToggleableBtns.filter(btn => !buttonsToKeepVisible.includes(btn));
     
-    // 添加模板切换按钮到需要隐藏的列表
-    if (elements.prevTemplateBtn) {
-      buttonsToHide.push(elements.prevTemplateBtn);
-    }
-    if (elements.nextTemplateBtn) {
-      buttonsToHide.push(elements.nextTemplateBtn);
-    }
     // 添加每日建议按钮到需要隐藏的列表
     if (elements.dailySuggestionBtn) {
       buttonsToHide.push(elements.dailySuggestionBtn);
