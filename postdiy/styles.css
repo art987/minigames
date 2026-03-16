@@ -1394,14 +1394,15 @@ footer {
 .action-btn {
   width: 44px;
   padding: 7px 5px;
-  border: 1px solid #fffcfc;
+  border: 1px solid #fefefe59;
   border-radius: 27px;
-  background-color: #ffffff96;
-  color: #0b0b0b;
+  background-color: #ffffff30;
+  color: #060606fa;
+  text-shadow: 0 0 4px #fffffff0;
   font-size: 11px;
   line-height: 15px;
   font-weight: 400;
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(3px);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -1412,7 +1413,7 @@ footer {
   /* 确保足够的触摸区域 */
   touch-action: manipulation;
   user-select: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 11%);
 }
 
 /* 按钮图标 - 垂直排列样式 */
@@ -1423,6 +1424,39 @@ footer {
 }
 #nextTemplateBtn span {font-size: 17px;}
 #prevTemplateBtn span{font-size: 17px; transform: scaleX(-1);   }
+
+/* 模板切换按钮 - 放在左右两边，居中偏上10% */
+#prevTemplateBtn, #nextTemplateBtn {
+  position: fixed;
+  top: 35vh;
+  color: #c9c2c2;
+  z-index: 100;
+  text-shadow: 0px 1px 2px #ffffff1c;
+  width: 25px;
+  border: 1px solid #ffffff1c;
+  height: 43px;
+  border-radius: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255 255 255 / 16%);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 11%);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#prevTemplateBtn {
+  left: 4px;
+}
+
+#nextTemplateBtn {
+  right: 0px;
+}
+
+#prevTemplateBtn.hidden, #nextTemplateBtn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
 
 #downloadBtn{background: linear-gradient(135deg, #f3090999, #f21201eb);font-size: 11px;color: #fff;border-radius: 17px;border: 1px solid #ff6969;animation: borderGradient 3s ease infinite;}
 #downloadBtn span{
@@ -1445,7 +1479,7 @@ footer {
 
 #togglePositionBtn{
     height: 13px;
-    min-height: 28px;
+    min-height: 28px; display: none;
 }
 
 .action-btn:active {
@@ -4585,6 +4619,7 @@ input.hidden {
     font-weight: 600;
     cursor: pointer;
     margin-right: 47px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
   
    
 }

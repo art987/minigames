@@ -441,6 +441,7 @@ window.wechatWarning = {
       togglePositionBtn: document.getElementById('togglePositionBtn'),
       toggleMenuBtn: document.getElementById('toggleMenuBtn'),
       bottomActions: document.getElementById('bottomActions'),
+      dailySuggestionBtn: document.getElementById('dailySuggestionBtn'),
       
       // 预览区域
       posterFrame: document.getElementById('posterFrame'),
@@ -2376,6 +2377,18 @@ window.wechatWarning = {
     
     // 需要隐藏的按钮
     const buttonsToHide = filteredToggleableBtns.filter(btn => !buttonsToKeepVisible.includes(btn));
+    
+    // 添加模板切换按钮到需要隐藏的列表
+    if (elements.prevTemplateBtn) {
+      buttonsToHide.push(elements.prevTemplateBtn);
+    }
+    if (elements.nextTemplateBtn) {
+      buttonsToHide.push(elements.nextTemplateBtn);
+    }
+    // 添加每日建议按钮到需要隐藏的列表
+    if (elements.dailySuggestionBtn) {
+      buttonsToHide.push(elements.dailySuggestionBtn);
+    }
     
     // 清除所有按钮的动画类
     toggleableBtns.forEach(btn => {
