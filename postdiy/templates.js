@@ -7791,8 +7791,8 @@ templates['品牌日常'] = [
   {
     id: 'dairy-2024-001',
     name: '品牌日常',
-    thumbnail: 'images/dairy-bg.jpg',
-    image: 'images/dairy-bg.jpg',
+    thumbnail: 'images/statics/dairy-bg.jpg',
+    image: 'images/statics/dairy-bg.jpg',
     months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     festivals: ['品牌日常'],
     description: '品牌日常宣传海报模板',

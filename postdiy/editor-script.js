@@ -143,10 +143,10 @@ window.wechatWarning = {
   let state = {
     currentTemplate: null,
     businessInfo: {
-      name: '点击编辑商家名称',
+      name: '您的品牌名称',
       logo: null,
       qrcode: null,
-      promoText: '扫码加好友享VIP待遇！\n全年免费清洗空调，\n加氟6折 到店再领惊喜好礼！'
+      promoText: '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）'
     },
     customBackground: null,
     textColor: '#000000' // 默认黑色
@@ -1383,18 +1383,19 @@ window.wechatWarning = {
   function savePromoText() {
     if (!elements.promoTextInput) return;
     
-    const newPromoText = elements.promoTextInput.value.trim() || '点击编辑促销信息';
-    console.log('保存促销信息:', newPromoText);
+    const newPromoText = elements.promoTextInput.value.trim();
+    const finalPromoText = newPromoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
+    console.log('保存促销信息:', finalPromoText);
     
     // 更新状态
-    state.businessInfo.promoText = newPromoText;
+    state.businessInfo.promoText = finalPromoText;
     
     // 更新显示
     updateBusinessInfoDisplay();
     
     // 同步到商家信息编辑弹窗
     if (elements.businessPromoTextInput) {
-      elements.businessPromoTextInput.value = newPromoText;
+      elements.businessPromoTextInput.value = finalPromoText;
     }
     
     // 保存到本地存储
@@ -2580,7 +2581,7 @@ window.wechatWarning = {
     // 检查是否需要自动弹出商家信息编辑框（如果是第一次打开或信息为空）
     const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
     if (!savedBusinessInfo || 
-        (!state.businessInfo.name || state.businessInfo.name === '点击编辑商家名称')) {
+        (!state.businessInfo.name || state.businessInfo.name === '您的品牌名称')) {
       setTimeout(() => {
         openBusinessInfoModal();
       }, 800);
@@ -2785,8 +2786,9 @@ window.wechatWarning = {
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
       } else {
-        elements.posterLogoImg.style.display = 'none';
-        elements.logoPlaceholder.style.display = 'block';
+        elements.posterLogoImg.src = 'images/statics/logo-default.gif';
+        elements.posterLogoImg.style.display = 'block';
+        elements.logoPlaceholder.style.display = 'none';
       }
     }
     
@@ -2808,21 +2810,23 @@ window.wechatWarning = {
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
       } else {
-        elements.posterQrcodeImg.style.display = 'none';
-        elements.qrcodePlaceholder.style.display = 'block';
+        elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
+        elements.posterQrcodeImg.style.display = 'block';
+        elements.qrcodePlaceholder.style.display = 'none';
       }
     }
     
     // 更新促销信息
-    if (elements.posterPromoText && state.businessInfo.promoText) {
-      // 将换行符转换为<br>标签，以便在预览中正确显示换行
-      elements.posterPromoText.innerHTML = state.businessInfo.promoText.replace(/\n/g, '<br>');
+    if (elements.posterPromoText) {
+      const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
+      elements.posterPromoText.innerHTML = promoText.replace(/\n/g, '<br>');
       elements.posterPromoText.style.color = state.textColor;
     }
     
     // 同时更新商家信息弹窗中的促销信息输入框
-    if (elements.promoTextInput && state.businessInfo.promoText) {
-      elements.promoTextInput.value = state.businessInfo.promoText;
+    if (elements.promoTextInput) {
+      const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
+      elements.promoTextInput.value = promoText;
     }
     
     // 更新商家信息编辑弹窗中的颜色选择器状态
@@ -4217,7 +4221,7 @@ window.wechatWarning = {
     });
     
     // 为输入框添加清除按钮和改进提示语交互
-    enhanceInputWithClearButton(elements.businessNameInput, '点击编辑商家名称');
+    enhanceInputWithClearButton(elements.businessNameInput, '您的品牌名称');
     
     // 不再需要重新实现颜色选择器，因为我们已经在HTML中静态定义了色块按钮组
     
@@ -4316,7 +4320,7 @@ window.wechatWarning = {
     if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
     // 获取表单数据
-    state.businessInfo.name = elements.businessNameInput.value.trim() || '点击编辑商家名称';
+    state.businessInfo.name = elements.businessNameInput.value.trim() || '您的品牌名称';
     state.businessInfo.promoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
     
     // 从选中的色块获取颜色值（已通过点击事件更新到state中）
@@ -6275,8 +6279,9 @@ function updateBusinessInfoButtonForVip() {
     }
     
     // 更新促销信息
-    if (elements.posterPromoText && state.businessInfo.promoText) {
-      elements.posterPromoText.innerHTML = state.businessInfo.promoText.replace(/\n/g, '<br>');
+    if (elements.posterPromoText) {
+      const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
+      elements.posterPromoText.innerHTML = promoText.replace(/\n/g, '<br>');
       elements.posterPromoText.style.color = state.textColor;
     }
   }
