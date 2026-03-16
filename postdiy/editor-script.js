@@ -923,7 +923,7 @@ window.wechatWarning = {
   }
 
   // 打开整合行业模板弹窗
-  function openIntegratedIndustryTemplateModal(category = '餐厅') {
+  function openIntegratedIndustryTemplateModal(category = '通用') {
     if (!elements.integratedIndustryTemplateModal || !elements.integratedModalTitle || !elements.integratedIndustryTemplatesList) return;
     
     // 设置弹窗标题
