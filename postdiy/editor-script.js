@@ -7866,7 +7866,13 @@ function updateBusinessInfoButtonForVip() {
       this.currentPreviewIndex = startIndex;
       
       const previewArea = document.getElementById('stickerPreviewArea');
+      const container = document.getElementById('galleryContainer');
       const categoryTitle = document.getElementById('stickerCategoryTitle');
+      
+      if (container) {
+        const newContainer = container.cloneNode(true);
+        container.parentNode.replaceChild(newContainer, container);
+      }
       
       if (previewArea) {
         previewArea.classList.remove('hidden');
@@ -7973,15 +7979,6 @@ function updateBusinessInfoButtonForVip() {
       
       const container = document.getElementById('galleryContainer');
       if (container) {
-        container.addEventListener('click', (e) => {
-          if (e.target.tagName === 'IMG') {
-            if (this.currentStickers && this.currentPreviewIndex !== undefined) {
-              this.addStickerToPoster(this.currentStickers[this.currentPreviewIndex].url);
-              this.closeModal();
-            }
-          }
-        });
-        
         let touchStartX = 0;
         
         container.addEventListener('touchstart', (e) => {
@@ -8000,6 +7997,17 @@ function updateBusinessInfoButtonForVip() {
             }
           }
         }, { passive: true });
+        
+        container.addEventListener('click', (e) => {
+          const slide = e.target.closest('.gallery-slide');
+          if (slide) {
+            const index = parseInt(slide.dataset.index);
+            if (this.currentStickers && this.currentStickers[index]) {
+              this.addStickerToPoster(this.currentStickers[index].url);
+              this.closeModal();
+            }
+          }
+        });
       }
     },
     
@@ -8029,8 +8037,8 @@ function updateBusinessInfoButtonForVip() {
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       
-      const randomX = 40 + Math.random() * 20;
-      const randomY = 30 + Math.random() * 40;
+      const randomX = 45 + Math.random() * 10;
+      const randomY = 45 + Math.random() * 10;
       
       const img = new Image();
       img.onload = () => {
