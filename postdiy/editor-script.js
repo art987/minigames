@@ -7427,6 +7427,46 @@ function updateBusinessInfoButtonForVip() {
           { id: 'flowers2-18', name: '花丛18', url: 'sticker/flowers2/18.png' }
         ]
       },
+      zaoantext: {
+        name: '早安短句',
+        stickers: [
+          { id: 'zaoantext-11', name: '早安短句11', url: 'sticker/zaoantext/11.png' },
+          { id: 'zaoantext-12', name: '早安短句12', url: 'sticker/zaoantext/12.png' },
+          { id: 'zaoantext-13', name: '早安短句13', url: 'sticker/zaoantext/13.png' },
+          { id: 'zaoantext-14', name: '早安短句14', url: 'sticker/zaoantext/14.png' },
+          { id: 'zaoantext-15', name: '早安短句15', url: 'sticker/zaoantext/15.png' },
+          { id: 'zaoantext-16', name: '早安短句16', url: 'sticker/zaoantext/16.png' },
+          { id: 'zaoantext-17', name: '早安短句17', url: 'sticker/zaoantext/17.png' },
+          { id: 'zaoantext-18', name: '早安短句18', url: 'sticker/zaoantext/18.png' },
+          { id: 'zaoantext-19', name: '早安短句19', url: 'sticker/zaoantext/19.png' },
+          { id: 'zaoantext-20', name: '早安短句20', url: 'sticker/zaoantext/20.png' },
+          { id: 'zaoantext-21', name: '早安短句21', url: 'sticker/zaoantext/21.png' },
+          { id: 'zaoantext-22', name: '早安短句22', url: 'sticker/zaoantext/22.png' },
+          { id: 'zaoantext-23', name: '早安短句23', url: 'sticker/zaoantext/23.png' },
+          { id: 'zaoantext-24', name: '早安短句24', url: 'sticker/zaoantext/24.png' },
+          { id: 'zaoantext-25', name: '早安短句25', url: 'sticker/zaoantext/25.png' },
+          { id: 'zaoantext-26', name: '早安短句26', url: 'sticker/zaoantext/26.png' },
+          { id: 'zaoantext-27', name: '早安短句27', url: 'sticker/zaoantext/27.png' },
+          { id: 'zaoantext-28', name: '早安短句28', url: 'sticker/zaoantext/28.png' },
+          { id: 'zaoantext-29', name: '早安短句29', url: 'sticker/zaoantext/29.png' },
+          { id: 'zaoantext-30', name: '早安短句30', url: 'sticker/zaoantext/30.png' },
+          { id: 'zaoantext-31', name: '早安短句31', url: 'sticker/zaoantext/31.png' },
+          { id: 'zaoantext-32', name: '早安短句32', url: 'sticker/zaoantext/32.png' },
+          { id: 'zaoantext-33', name: '早安短句33', url: 'sticker/zaoantext/33.png' },
+          { id: 'zaoantext-34', name: '早安短句34', url: 'sticker/zaoantext/34.png' },
+          { id: 'zaoantext-35', name: '早安短句35', url: 'sticker/zaoantext/35.png' },
+          { id: 'zaoantext-36', name: '早安短句36', url: 'sticker/zaoantext/36.png' },
+          { id: 'zaoantext-37', name: '早安短句37', url: 'sticker/zaoantext/37.png' },
+          { id: 'zaoantext-38', name: '早安短句38', url: 'sticker/zaoantext/38.png' },
+          { id: 'zaoantext-39', name: '早安短句39', url: 'sticker/zaoantext/39.png' },
+          { id: 'zaoantext-40', name: '早安短句40', url: 'sticker/zaoantext/40.png' },
+          { id: 'zaoantext-41', name: '早安短句41', url: 'sticker/zaoantext/41.png' },
+          { id: 'zaoantext-42', name: '早安短句42', url: 'sticker/zaoantext/42.png' },
+          { id: 'zaoantext-43', name: '早安短句43', url: 'sticker/zaoantext/43.png' },
+          { id: 'zaoantext-44', name: '早安短句44', url: 'sticker/zaoantext/44.png' },
+          { id: 'zaoantext-45', name: '早安短句45', url: 'sticker/zaoantext/45.png' }
+        ]
+      },
       delicious: {
         name: '好吃',
         stickers: [
@@ -7803,18 +7843,18 @@ function updateBusinessInfoButtonForVip() {
         
         const addBtn = document.createElement('button');
         addBtn.className = 'add-sticker-btn';
-        addBtn.textContent = '添加';
+        addBtn.textContent = '查看';
         addBtn.onclick = (e) => {
           e.stopPropagation();
-          this.addStickerToPoster(sticker.url);
-          this.closeModal();
+          this.openStickerPreview(index);
         };
         
         card.appendChild(addBtn);
         
         card.addEventListener('click', (e) => {
           if (e.target !== addBtn) {
-            this.openStickerPreview(index);
+            this.addStickerToPoster(sticker.url);
+            this.closeModal();
           }
         });
         
@@ -7933,6 +7973,15 @@ function updateBusinessInfoButtonForVip() {
       
       const container = document.getElementById('galleryContainer');
       if (container) {
+        container.addEventListener('click', (e) => {
+          if (e.target.tagName === 'IMG') {
+            if (this.currentStickers && this.currentPreviewIndex !== undefined) {
+              this.addStickerToPoster(this.currentStickers[this.currentPreviewIndex].url);
+              this.closeModal();
+            }
+          }
+        });
+        
         let touchStartX = 0;
         
         container.addEventListener('touchstart', (e) => {
