@@ -4797,8 +4797,11 @@ input.hidden {
   border: 1px solid #3d3d3d;
   z-index: 3;
   border-radius: 10px;
+  cursor: pointer;
 }
-
+.gallery-slide.current  img{
+  cursor: pointer;
+}
 .gallery-slide.next {
   transform: translateX(160px) translateZ(-80px) scale(0.75) rotateY(25deg);
   opacity: 0.1;
@@ -4817,8 +4820,8 @@ input.hidden {
   justify-content: space-between;
   gap: 10px;
   position: absolute;
-  width: 93%;
-  top: 130px;
+  width: 95%;
+  top: 0;
 }
 
 .nav-btn {
@@ -4832,6 +4835,8 @@ input.hidden {
   cursor: pointer;
   display: flex;
   align-items: center;
+  top: 130px;
+  position: absolute;
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -4841,7 +4846,12 @@ input.hidden {
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
-
+.prev-btn{
+    left: 0;
+}
+.next-btn{
+    right: 0;
+}
 .nav-btn:active {
   transform: scale(0.95);
 }
@@ -4860,10 +4870,11 @@ input.hidden {
 
 .sticker-add-section {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: row;
   gap: 10px;
   width: 69%;
-  margin: 14px  auto;
+  margin: 14px auto;
+  justify-content: center;
 }
 
 .add-to-poster-btn {
