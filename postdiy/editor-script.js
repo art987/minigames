@@ -1685,6 +1685,11 @@ window.wechatWarning = {
           hint.classList.add('show');
         }, 10);
         
+        // 如果是长按提示，添加激活样式类
+        if (hintType === 'long-press') {
+          target.classList.add('long-press-active');
+        }
+        
         // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
         const hideTime = hintType === 'hover' ? 2000 : 3000;
         setTimeout(() => {
@@ -1696,6 +1701,13 @@ window.wechatWarning = {
             }
           }, 200);
         }, hideTime);
+        
+        // 长按提示3秒后移除激活样式
+        if (hintType === 'long-press') {
+          setTimeout(() => {
+            target.classList.remove('long-press-active');
+          }, 3000);
+        }
       }
       
       // 隐藏提示函数
@@ -1711,6 +1723,9 @@ window.wechatWarning = {
             }
           }, 200);
         }
+        
+        // 隐藏提示时也移除激活样式
+        target.classList.remove('long-press-active');
       }
       
       // 鼠标悬停事件
@@ -8512,13 +8527,13 @@ function updateBusinessInfoButtonForVip() {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
             <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-            ☀️ 早安海报
+            ☀️早安海报
             </button>
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            🌙 晚安海报
+            🌙晚安海报
             </button>
             <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-            🌈 日常海报
+            🌈日常海报
             </button>
           </div>
         `;
@@ -8528,10 +8543,10 @@ function updateBusinessInfoButtonForVip() {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            🌙 晚安海报
+            🌙晚安海报
             </button>
             <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-            🌈 日常海报
+            🌈日常海报
             </button>
           </div>
         `;
@@ -8576,9 +8591,9 @@ function updateBusinessInfoButtonForVip() {
       html += '<div class="future-suggestion-buttons">';
       
       if (!tomorrowFestival) {
-        html += `<button class="future-suggestion-btn" data-action="zaoan">早安海报</button>`;
+        html += `<button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button>`;
       }
-      html += `<button class="future-suggestion-btn" data-action="wanan">晚安海报</button>`;
+      html += `<button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button>`;
       
       html += '</div></div>';
       
@@ -8596,7 +8611,7 @@ function updateBusinessInfoButtonForVip() {
           html += `<div class="future-suggestion-item">`;
           html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
           html += `<div class="future-suggestion-buttons">`;
-          html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板制作</button>`;
+          html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">👨🏻‍🎨选择模板制作</button>`;
           html += '</div></div>';
         });
       } else {

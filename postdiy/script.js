@@ -1483,13 +1483,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
           <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-          ☀️ 早安海报
+          ☀️早安海报
           </button>
           <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙 晚安海报
+          🌙晚安海报
           </button>
           <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-          🌈 日常海报
+          🌈日常海报
           </button>
         </div>
       `;
@@ -1541,9 +1541,9 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<button class="future-suggestion-btn" data-action="zaoan">早安海报</button>`;
+      html += `<button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button>`;
     }
-    html += `<button class="future-suggestion-btn" data-action="wanan">晚安海报</button>`;
+    html += `<button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button>`;
     
     html += '</div></div>';
     
@@ -1560,7 +1560,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板制作</button>`;
+      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">👨🏻‍🎨选择模板制作</button>`;
       html += '</div></div>';
     });
     

@@ -1109,6 +1109,33 @@ footer {
   transition: opacity 2s ease-in-out;
 }
 
+/* 长按区域样式 - 白色虚线框和发光效果 */
+.trigger-left.long-press-active,
+.trigger-top.long-press-active,
+.trigger-bottom.long-press-active {
+  border: 2px dashed rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background-color: #00000021;
+  animation: borderGradient 3s ease infinite;
+}
+
+@keyframes border-glow {
+  0% {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.6), 0 0 70px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    opacity: 0;
+  }
+}
+
 /* 悬停提示文字样式 */
 .hover-hint {
   position: absolute;
@@ -4425,6 +4452,10 @@ input.hidden {
 .future-suggestion-text {
   font-size: 13px;
   color: var(--text-primary);
+border-left: 14px solid #efefef;
+    padding-left: 8px;
+    line-height: 16px;
+
 }
 
 .future-suggestion-text strong {
