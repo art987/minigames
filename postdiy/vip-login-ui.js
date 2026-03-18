@@ -4,6 +4,7 @@ const VipLoginUI = (function() {
   let elements = {}
   let eventsBound = false
   let switchEventsBound = false
+  let smsSent = false
   
   // 初始化 DOM 元素
   function initElements() {
@@ -109,6 +110,7 @@ const VipLoginUI = (function() {
       elements.sendVipCodeBtn.disabled = false
       elements.sendVipCodeBtn.textContent = '发送验证码'
       elements.sendVipCodeBtn.classList.remove('countdown')
+      smsSent = false
     } else {
       elements.sendVipCodeBtn.disabled = true
       elements.sendVipCodeBtn.textContent = `发送中 (${countdown})`
@@ -718,6 +720,12 @@ const VipLoginUI = (function() {
       elements.sendVipCodeBtn = newSendVipCodeBtn
       
       elements.sendVipCodeBtn.addEventListener('click', async () => {
+        // 如果已经发送过验证码，则不再发送
+        if (smsSent) {
+          showMessage('验证码已发送，请稍后再试')
+          return
+        }
+        
         const phone = elements.vipPhoneInput.value.trim()
         
         if (!phone) {
@@ -735,6 +743,7 @@ const VipLoginUI = (function() {
         const result = await VIPSystem.sendSMS(phone)
         
         if (result.success) {
+          smsSent = true
           showMessage('验证码已发送，请查收', 'success')
           
           // 开始倒计时
