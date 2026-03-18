@@ -748,6 +748,57 @@ const VipLoginUI = (function() {
         }
       })
     }
+    
+    // 重新绑定登录/注册按钮事件
+    if (elements.vipLoginSubmitBtn) {
+      const newVipLoginSubmitBtn = elements.vipLoginSubmitBtn.cloneNode(true)
+      elements.vipLoginSubmitBtn.parentNode.replaceChild(newVipLoginSubmitBtn, elements.vipLoginSubmitBtn)
+      elements.vipLoginSubmitBtn = newVipLoginSubmitBtn
+      
+      elements.vipLoginSubmitBtn.addEventListener('click', async () => {
+        const phone = elements.vipPhoneInput.value.trim()
+        const code = elements.vipCodeInput.value.trim()
+        
+        if (!phone || !code) {
+          showMessage('手机号和验证码不能为空')
+          return
+        }
+        
+        if (!/^1[3-9]\d{9}$/.test(phone)) {
+          showMessage('手机号格式不正确')
+          return
+        }
+        
+        if (code.length !== 6) {
+          showMessage('验证码格式不正确')
+          return
+        }
+        
+        elements.vipLoginSubmitBtn.disabled = true
+        elements.vipLoginSubmitBtn.textContent = '登录中...'
+        
+        const result = await VIPSystem.registerOrLogin(phone, code)
+        
+        elements.vipLoginSubmitBtn.disabled = false
+        elements.vipLoginSubmitBtn.textContent = '登录/注册'
+        
+        if (result.success) {
+          showMessage('登录成功', 'success')
+          
+          setTimeout(() => {
+            hideLoginModal()
+            // 刷新页面或更新 UI
+            if (typeof onVipLoginSuccess === 'function') {
+              onVipLoginSuccess(result.data)
+            } else {
+              location.reload()
+            }
+          }, 1000)
+        } else {
+          showMessage(result.message || '登录失败，请稍后重试')
+        }
+      })
+    }
   }
   
   return {
