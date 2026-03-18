@@ -1,5 +1,20 @@
 // 首页脚本
 
+// 工具函数
+const utils = {
+  debounce: function(func, wait) {
+    let timeout
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout)
+        func(...args)
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
+  }
+}
+
 // 节日日期数据（2026年和2027年）
 const festivalDates = {
   // 2026年节日
@@ -1009,8 +1024,9 @@ function initVipLogin() {
   const closeVipLoginModalBtn = document.getElementById('closeVipLoginModalBtn');
   const vipLoginCancelBtn = document.getElementById('vipLoginCancelBtn');
   const vipLoginSubmitBtn = document.getElementById('vipLoginSubmitBtn');
-  const vipIdInput = document.getElementById('vipIdInput');
-  const vipPasswordInput = document.getElementById('vipPasswordInput');
+  const vipPhoneInput = document.getElementById('vipPhoneInput');
+  const vipCodeInput = document.getElementById('vipCodeInput');
+  const sendVipCodeBtn = document.getElementById('sendVipCodeBtn');
   const vipLoginMessage = document.getElementById('vipLoginMessage');
   const userInfoModal = document.getElementById('userInfoModal');
   const closeUserInfoModal = document.getElementById('closeUserInfoModal');
@@ -1021,7 +1037,7 @@ function initVipLogin() {
 
   // 检查VIP状态并更新UI
   function updateVipStatus() {
-    if (window.isVipActive && window.isVipActive()) {
+    if (VIPSystem.isLoggedIn()) {
       // 显示已登录状态（三道杠菜单按钮）
       vipLoginBtn.classList.add('hidden');
       vipLoggedInMenu.classList.remove('hidden');
@@ -1035,7 +1051,7 @@ function initVipLogin() {
   // VIP退出功能
   function handleVipLogout() {
     if (confirm('确定要退出VIP登录吗？')) {
-      window.clearVipLogin();
+      VIPSystem.logout();
       updateVipStatus();
       showToast('已退出VIP登录', 'success');
     }
@@ -1053,7 +1069,7 @@ function initVipLogin() {
     // 强制重绘以触发动画
     void vipLoginModal.offsetWidth;
     
-    vipIdInput.focus();
+    vipPhoneInput.focus();
   }
 
   // 关闭VIP登录弹窗
@@ -1069,42 +1085,57 @@ function initVipLogin() {
       vipLoginModal.classList.remove('closing');
       vipLoginModal.querySelector('.modal').classList.remove('closing');
       
-      vipIdInput.value = '';
-      vipPasswordInput.value = '';
+      vipPhoneInput.value = '';
+      vipCodeInput.value = '';
       vipLoginMessage.textContent = '';
       vipLoginMessage.className = 'login-message';
+      if (sendVipCodeBtn) {
+        sendVipCodeBtn.disabled = false;
+        sendVipCodeBtn.textContent = '发送验证码';
+      }
     }, 400); // 匹配动画时长
   }
 
   // VIP登录
   function handleVipLogin() {
-    const id = vipIdInput.value.trim();
-    const password = vipPasswordInput.value.trim();
+    const phone = vipPhoneInput.value.trim();
+    const code = vipCodeInput.value.trim();
 
-    if (!id || !password) {
-      vipLoginMessage.textContent = '请输入VIP ID和密码';
+    if (!phone || !code) {
+      vipLoginMessage.textContent = '请输入手机号和验证码';
       vipLoginMessage.className = 'login-message error';
       return;
     }
 
-    const result = window.validateVipLogin(id, password);
-    
-    if (result.success) {
-      vipLoginMessage.textContent = result.message;
-      vipLoginMessage.className = 'login-message success';
-      
-      // 保存VIP登录状态
-      window.saveVipLogin(result.user);
-      
-      // 延迟关闭弹窗并留在当前页面
-      setTimeout(() => {
-        closeVipLoginModal();
-        updateVipStatus();
-        showToast('VIP登录成功', 'success');
-      }, 1000);
-    } else {
-      vipLoginMessage.textContent = result.message;
-      vipLoginMessage.className = 'login-message error';
+    // 调用云函数注册/登录
+    VIPSystem.registerOrLogin(phone, code).then(result => {
+      if (result.success) {
+        vipLoginMessage.textContent = result.message;
+        vipLoginMessage.className = 'login-message success';
+        
+        // 延迟关闭弹窗并留在当前页面
+        setTimeout(() => {
+          closeVipLoginModal();
+          updateVipStatus();
+          showToast(result.message, 'success');
+          
+          // 检查用户是否已设置密码，如果没有则显示密码设置表单
+          setTimeout(() => {
+            checkAndShowPasswordForm();
+          }, 1500);
+        }, 1000);
+      } else {
+        vipLoginMessage.textContent = result.message;
+        vipLoginMessage.className = 'login-message error';
+      }
+    });
+  }
+  
+  // 检查用户是否已设置密码，如果没有则显示密码设置表单
+  function checkAndShowPasswordForm() {
+    const userInfo = VIPSystem.getUserInfo();
+    if (userInfo && !userInfo.hasPassword) {
+      VipLoginUI.showPasswordModal();
     }
   }
 
@@ -1117,21 +1148,20 @@ function initVipLogin() {
   
   function openUserInfoModal() {
     if (userInfoModal) {
-      // 更新用户信息显示
-      const vipName = localStorage.getItem('vipName');
-      const vipValidUntil = localStorage.getItem('vipValidUntil');
+      // 从 localStorage 获取用户信息
+      const userInfo = VIPSystem.getUserInfo()
       
       if (userInfoId) {
-        userInfoId.textContent = vipName || 'VIP百事可乐';
+        userInfoId.textContent = userInfo.phone || '未登录'
       }
       if (userInfoExpiry) {
-        userInfoExpiry.textContent = vipValidUntil || '2026-12-31';
+        userInfoExpiry.textContent = userInfo.vipExpireTime ? new Date(userInfo.vipExpireTime).toLocaleDateString() : '普通用户'
       }
       if (userInfoType) {
-        userInfoType.textContent = 'VIP用户';
+        userInfoType.textContent = userInfo.isVip ? 'VIP用户' : '普通用户'
       }
       
-      userInfoModal.classList.remove('hidden');
+      userInfoModal.classList.remove('hidden')
     }
   }
   
@@ -1197,6 +1227,64 @@ function initVipLogin() {
   vipLoginCancelBtn.addEventListener('click', closeVipLoginModal);
   vipLoginSubmitBtn.addEventListener('click', handleVipLogin);
   
+  // 发送验证码按钮事件
+  if (sendVipCodeBtn) {
+    console.log('sendVipCodeBtn found:', sendVipCodeBtn);
+    sendVipCodeBtn.addEventListener('click', function() {
+      console.log('发送验证码按钮被点击');
+      const phone = vipPhoneInput.value.trim();
+      if (!phone) {
+        vipLoginMessage.textContent = '请输入手机号';
+        vipLoginMessage.className = 'login-message error';
+        return;
+      }
+      
+      console.log('手机号:', phone);
+      
+      // 立即显示"发送中（30）"
+      sendVipCodeBtn.disabled = true;
+      let count = 30;
+      sendVipCodeBtn.textContent = `发送中(${count})`;
+      
+      const timer = setInterval(function() {
+        count--;
+        if (count > 0) {
+          sendVipCodeBtn.textContent = `发送中(${count})`;
+        } else {
+          clearInterval(timer);
+          sendVipCodeBtn.disabled = false;
+          sendVipCodeBtn.textContent = '发送验证码';
+        }
+      }, 1000);
+      
+      // 发送验证码
+      VIPSystem.sendSMS(phone).then(result => {
+        console.log('发送短信结果:', result);
+        if (result.success) {
+          vipLoginMessage.textContent = '验证码已发送，请查收';
+          vipLoginMessage.className = 'login-message success';
+        } else {
+          vipLoginMessage.textContent = result.message;
+          vipLoginMessage.className = 'login-message error';
+          // 发送失败，恢复按钮
+          clearInterval(timer);
+          sendVipCodeBtn.disabled = false;
+          sendVipCodeBtn.textContent = '发送验证码';
+        }
+      }).catch(error => {
+        console.error('发送短信异常:', error);
+        vipLoginMessage.textContent = '发送失败，请稍后重试';
+        vipLoginMessage.className = 'login-message error';
+        // 发送失败，恢复按钮
+        clearInterval(timer);
+        sendVipCodeBtn.disabled = false;
+        sendVipCodeBtn.textContent = '发送验证码';
+      });
+    });
+  } else {
+    console.log('sendVipCodeBtn not found');
+  }
+  
   // 点击页面其他地方关闭VIP下拉菜单
   document.addEventListener('click', function(e) {
     if (vipDropdownMenu && vipMenuToggle) {
@@ -1208,7 +1296,7 @@ function initVipLogin() {
   });
 
   // 按回车键登录
-  vipPasswordInput.addEventListener('keypress', function(e) {
+  vipCodeInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       handleVipLogin();
     }

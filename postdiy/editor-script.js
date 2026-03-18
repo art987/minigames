@@ -567,7 +567,9 @@ window.wechatWarning = {
   }
   
   function closeVipLoginModal() {
-    if (elements.vipLoginModal) {
+    if (typeof VipLoginUI !== 'undefined' && VipLoginUI.hideLoginModal) {
+      VipLoginUI.hideLoginModal();
+    } else if (elements.vipLoginModal) {
       elements.vipLoginModal.classList.add('hidden');
       if (elements.vipIdInput) {
         elements.vipIdInput.value = '';
@@ -627,7 +629,11 @@ window.wechatWarning = {
   }
   
   function handleVipLogin() {
-    showVipLoginModal();
+    if (typeof VipLoginUI !== 'undefined' && VipLoginUI.showLoginModal) {
+      VipLoginUI.showLoginModal();
+    } else {
+      showVipLoginModal();
+    }
   }
   
   function toggleVipDropdown() {

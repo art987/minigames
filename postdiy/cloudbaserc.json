@@ -1,0 +1,79 @@
+{
+  "envId": "postdiy-0g2mftaf6a0fc450",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    {
+      "name": "init-database",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "send-sms",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-register",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-login",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-upgrade",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-get-info",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-update-info",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "set-password",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "login-with-password",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    }
+  ],
+  "region": "ap-shanghai"
+}

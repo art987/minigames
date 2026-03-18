@@ -2037,6 +2037,61 @@ footer {
     margin-bottom: 10px;
 }
 
+.password-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.password-wrapper .form-input {
+  flex: 1;
+}
+
+.password-wrapper .toggle-password-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #6c757d;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.password-wrapper .toggle-password-btn:hover {
+  color: #1890ff;
+}
+
+.code-input-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.code-input-wrapper .form-input {
+  flex: 1;
+}
+
+.code-input-wrapper .send-code-btn {
+  padding: 10px 15px;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.code-input-wrapper .send-code-btn:hover:not(:disabled) {
+  background-color: #40a9ff;
+}
+
+.code-input-wrapper .send-code-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .inline-form-group {
   display: flex;
   align-items: center;
@@ -2086,6 +2141,50 @@ footer {
   height: 34px;
   min-height: 42px;
   font-size: 15px;
+}
+
+.login-method-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #6c757d;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.login-method-switch span {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.login-method-switch .switch-link {
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+}
+
+.login-method-switch .switch-link:hover {
+  background: linear-gradient(135deg, #096dd9, #0050b3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+}
+
+.login-method-switch .switch-link:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
 }
 
 .vip-login-hint {
