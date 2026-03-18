@@ -1476,11 +1476,13 @@ window.wechatWarning = {
     }
     
     if (elements.vipLoginCancelBtn) {
-      elements.vipLoginCancelBtn.addEventListener('click', closeVipLoginModal);
-    }
-    
-    if (elements.vipLoginSubmitBtn) {
-      elements.vipLoginSubmitBtn.addEventListener('click', handleVipLoginSubmit);
+      elements.vipLoginCancelBtn.addEventListener('click', () => {
+        if (typeof VipLoginUI !== 'undefined' && VipLoginUI.hideLoginModal) {
+          VipLoginUI.hideLoginModal();
+        } else if (elements.vipLoginModal) {
+          elements.vipLoginModal.classList.add('hidden');
+        }
+      });
     }
     
     if (elements.vipMenuToggle) {
