@@ -681,7 +681,7 @@ const VipLoginUI = (function() {
     }
   }
   
-  // 重新绑定切换按钮事件
+  // 重新绑定切换按钮和发送验证码按钮事件
   function rebindSwitchEvents() {
     // 移除旧的事件监听器（通过克隆节点的方式）
     if (elements.switchToPasswordBtn) {
@@ -702,6 +702,50 @@ const VipLoginUI = (function() {
       elements.switchToCodeBtn.addEventListener('click', () => {
         renderLoginForm()
         elements.vipPhoneInput.focus()
+      })
+    }
+    
+    // 重新绑定发送验证码按钮事件
+    if (elements.sendVipCodeBtn) {
+      const newSendVipCodeBtn = elements.sendVipCodeBtn.cloneNode(true)
+      elements.sendVipCodeBtn.parentNode.replaceChild(newSendVipCodeBtn, elements.sendVipCodeBtn)
+      elements.sendVipCodeBtn = newSendVipCodeBtn
+      
+      elements.sendVipCodeBtn.addEventListener('click', async () => {
+        const phone = elements.vipPhoneInput.value.trim()
+        
+        if (!phone) {
+          showMessage('手机号不能为空')
+          return
+        }
+        
+        if (!/^1[3-9]\d{9}$/.test(phone)) {
+          showMessage('手机号格式不正确')
+          return
+        }
+        
+        setSendCodeBtnState(30)
+        
+        const result = await VIPSystem.sendSMS(phone)
+        
+        if (result.success) {
+          showMessage('验证码已发送，请查收', 'success')
+          
+          // 开始倒计时
+          let countdown = 30
+          const timer = setInterval(() => {
+            countdown--
+            if (countdown > 0) {
+              setSendCodeBtnState(countdown)
+            } else {
+              clearInterval(timer)
+              setSendCodeBtnState()
+            }
+          }, 1000)
+        } else {
+          setSendCodeBtnState()
+          showMessage(result.message || '发送失败，请稍后重试')
+        }
       })
     }
   }
