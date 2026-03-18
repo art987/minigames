@@ -145,7 +145,7 @@ const VipLoginUI = (function() {
         <div class="form-group">
           <label for="vipCodeInput" class="form-label">验证码</label>
           <div class="code-input-wrapper">
-            <input type="text" id="vipCodeInput" class="form-input code-input" placeholder="请输入验证码">
+            <input type="text" id="vipCodeInput" class="form-input code-input" placeholder="请输入4位验证码" maxlength="4">
             <button id="sendVipCodeBtn" class="send-code-btn">发送验证码</button>
           </div>
         </div>
@@ -693,7 +693,7 @@ const VipLoginUI = (function() {
           return
         }
         
-        if (code.length !== 6) {
+        if (code.length !== 4) {
           showMessage('验证码格式不正确')
           return
         }

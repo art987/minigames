@@ -82,7 +82,7 @@ exports.main = async (event, context) => {
   }
 
   try {
-    const code = Math.random().toString().slice(-6)
+    const code = Math.random().toString().slice(-4)
     
     // 从环境变量获取配置
     const SPUG_TOKEN = process.env.SPUG_TOKEN || '1be7b6a139a242589a4e19fb5569b3ba'
