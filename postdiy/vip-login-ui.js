@@ -115,6 +115,7 @@ const VipLoginUI = (function() {
       elements.sendVipCodeBtn.disabled = true
       elements.sendVipCodeBtn.textContent = `发送中 (${countdown})`
       elements.sendVipCodeBtn.classList.add('countdown')
+      smsSent = true
     }
   }
   
@@ -304,93 +305,6 @@ const VipLoginUI = (function() {
     // 取消按钮
     if (elements.vipLoginCancelBtn) {
       elements.vipLoginCancelBtn.addEventListener('click', hideLoginModal)
-    }
-    
-    // 发送验证码按钮
-    if (elements.sendVipCodeBtn) {
-      elements.sendVipCodeBtn.addEventListener('click', async () => {
-        const phone = elements.vipPhoneInput.value.trim()
-        
-        if (!phone) {
-          showMessage('手机号不能为空')
-          return
-        }
-        
-        if (!/^1[3-9]\d{9}$/.test(phone)) {
-          showMessage('手机号格式不正确')
-          return
-        }
-        
-        setSendCodeBtnState(30)
-        
-        const result = await VIPSystem.sendSMS(phone)
-        
-        if (result.success) {
-          showMessage('验证码已发送，请查收', 'success')
-          
-          // 开始倒计时
-          let countdown = 30
-          const timer = setInterval(() => {
-            countdown--
-            if (countdown > 0) {
-              setSendCodeBtnState(countdown)
-            } else {
-              clearInterval(timer)
-              setSendCodeBtnState()
-            }
-          }, 1000)
-        } else {
-          setSendCodeBtnState()
-          showMessage(result.message || '发送失败，请稍后重试')
-        }
-      })
-    }
-    
-    // 登录/注册按钮
-    if (elements.vipLoginSubmitBtn) {
-      elements.vipLoginSubmitBtn.addEventListener('click', async () => {
-        const phone = elements.vipPhoneInput.value.trim()
-        const code = elements.vipCodeInput.value.trim()
-        
-        if (!phone || !code) {
-          showMessage('手机号和验证码不能为空')
-          return
-        }
-        
-        if (!/^1[3-9]\d{9}$/.test(phone)) {
-          showMessage('手机号格式不正确')
-          return
-        }
-        
-        if (code.length !== 6) {
-          showMessage('验证码格式不正确')
-          return
-        }
-        
-        elements.vipLoginSubmitBtn.disabled = true
-        elements.vipLoginSubmitBtn.textContent = '登录中...'
-        
-        const result = await VIPSystem.registerOrLogin(phone, code)
-        
-        elements.vipLoginSubmitBtn.disabled = false
-        elements.vipLoginSubmitBtn.textContent = '登录/注册'
-        
-        if (result.success) {
-          showMessage('登录成功', 'success')
-          
-          setTimeout(() => {
-            hideLoginModal()
-            // 刷新页面或更新 UI
-            if (typeof onVipLoginSuccess === 'function') {
-              onVipLoginSuccess(result.data)
-            } else {
-              location.reload()
-            }
-          }, 1000)
-        } else {
-          showMessage(result.message || '登录失败，请稍后重试')
-        }
-      })
     }
     
     // 回车键提交
