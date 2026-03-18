@@ -3,6 +3,7 @@ const VipLoginUI = (function() {
   // DOM 元素缓存
   let elements = {}
   let eventsBound = false
+  let switchEventsBound = false
   
   // 初始化 DOM 元素
   function initElements() {
@@ -683,6 +684,11 @@ const VipLoginUI = (function() {
   
   // 重新绑定切换按钮和发送验证码按钮事件
   function rebindSwitchEvents() {
+    // 如果切换按钮事件已经绑定过，则不再绑定
+    if (switchEventsBound) {
+      return
+    }
+    
     // 移除旧的事件监听器（通过克隆节点的方式）
     if (elements.switchToPasswordBtn) {
       const newSwitchToPasswordBtn = elements.switchToPasswordBtn.cloneNode(true)
@@ -799,6 +805,9 @@ const VipLoginUI = (function() {
         }
       })
     }
+    
+    // 标记切换按钮事件已绑定
+    switchEventsBound = true
   }
   
   return {
