@@ -174,6 +174,13 @@ const VipLoginUI = (function() {
       elements.vipLoginSubmitBtn = document.getElementById('vipLoginSubmitBtn')
       elements.vipLoginCancelBtn = document.getElementById('vipLoginCancelBtn')
       
+      // 移除密码登录按钮的事件绑定
+      if (elements.vipPasswordLoginSubmitBtn) {
+        const newVipPasswordLoginSubmitBtn = elements.vipPasswordLoginSubmitBtn.cloneNode(true)
+        elements.vipPasswordLoginSubmitBtn.parentNode.replaceChild(newVipPasswordLoginSubmitBtn, elements.vipPasswordLoginSubmitBtn)
+        elements.vipPasswordLoginSubmitBtn = newVipPasswordLoginSubmitBtn
+      }
+      
       // 重新绑定切换按钮事件
       rebindSwitchEvents()
     }
@@ -272,6 +279,13 @@ const VipLoginUI = (function() {
       elements.vipLoginMessage = document.getElementById('vipLoginMessage')
       elements.vipPasswordLoginSubmitBtn = document.getElementById('vipPasswordLoginSubmitBtn')
       elements.vipPasswordLoginCancelBtn = document.getElementById('vipPasswordLoginCancelBtn')
+      
+      // 移除验证码登录按钮的事件绑定
+      if (elements.vipLoginSubmitBtn) {
+        const newVipLoginSubmitBtn = elements.vipLoginSubmitBtn.cloneNode(true)
+        elements.vipLoginSubmitBtn.parentNode.replaceChild(newVipLoginSubmitBtn, elements.vipLoginSubmitBtn)
+        elements.vipLoginSubmitBtn = newVipLoginSubmitBtn
+      }
       
       // 重新绑定切换按钮事件
       rebindSwitchEvents()
