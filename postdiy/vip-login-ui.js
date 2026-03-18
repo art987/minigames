@@ -174,13 +174,6 @@ const VipLoginUI = (function() {
       elements.vipLoginSubmitBtn = document.getElementById('vipLoginSubmitBtn')
       elements.vipLoginCancelBtn = document.getElementById('vipLoginCancelBtn')
       
-      // 移除密码登录按钮的事件绑定
-      if (elements.vipPasswordLoginSubmitBtn) {
-        const newVipPasswordLoginSubmitBtn = elements.vipPasswordLoginSubmitBtn.cloneNode(true)
-        elements.vipPasswordLoginSubmitBtn.parentNode.replaceChild(newVipPasswordLoginSubmitBtn, elements.vipPasswordLoginSubmitBtn)
-        elements.vipPasswordLoginSubmitBtn = newVipPasswordLoginSubmitBtn
-      }
-      
       // 重新绑定切换按钮事件
       rebindSwitchEvents()
     }
@@ -279,13 +272,6 @@ const VipLoginUI = (function() {
       elements.vipLoginMessage = document.getElementById('vipLoginMessage')
       elements.vipPasswordLoginSubmitBtn = document.getElementById('vipPasswordLoginSubmitBtn')
       elements.vipPasswordLoginCancelBtn = document.getElementById('vipPasswordLoginCancelBtn')
-      
-      // 移除验证码登录按钮的事件绑定
-      if (elements.vipLoginSubmitBtn) {
-        const newVipLoginSubmitBtn = elements.vipLoginSubmitBtn.cloneNode(true)
-        elements.vipLoginSubmitBtn.parentNode.replaceChild(newVipLoginSubmitBtn, elements.vipLoginSubmitBtn)
-        elements.vipLoginSubmitBtn = newVipLoginSubmitBtn
-      }
       
       // 重新绑定切换按钮事件
       rebindSwitchEvents()
@@ -452,154 +438,8 @@ const VipLoginUI = (function() {
         }, 1000)
       }
     }
-    
-    // 切换密码显示/隐藏
-    if (elements.togglePasswordBtn) {
-      elements.togglePasswordBtn.addEventListener('click', togglePasswordVisibility)
-    }
-    
-    if (elements.toggleConfirmPasswordBtn) {
-      elements.toggleConfirmPasswordBtn.addEventListener('click', () => {
-        if (elements.vipConfirmPasswordInput && elements.toggleConfirmPasswordBtn) {
-          if (elements.vipConfirmPasswordInput.type === 'password') {
-            elements.vipConfirmPasswordInput.type = 'text'
-            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye-slash"></i>'
-          } else {
-            elements.vipConfirmPasswordInput.type = 'password'
-            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye"></i>'
-          }
-        }
-      })
-    }
-    
-    // 保存密码
-    if (elements.vipPasswordSubmitBtn) {
-      elements.vipPasswordSubmitBtn.addEventListener('click', async () => {
-        const password = elements.vipPasswordInput.value.trim()
-        const confirmPassword = elements.vipConfirmPasswordInput.value.trim()
-        
-        if (!password || !confirmPassword) {
-          showMessage('密码和确认密码不能为空')
-          return
-        }
-        
-        if (password !== confirmPassword) {
-          showMessage('两次输入的密码不一致')
-          return
-        }
-        
-        if (password.length < 6) {
-          showMessage('密码长度至少为6位')
-          return
-        }
-        
-        elements.vipPasswordSubmitBtn.disabled = true
-        elements.vipPasswordSubmitBtn.textContent = '保存中...'
-        
-        const userId = VIPSystem.getUserId()
-        const result = await VIPSystem.updatePassword(userId, password)
-        
-        elements.vipPasswordSubmitBtn.disabled = false
-        elements.vipPasswordSubmitBtn.textContent = '保存密码'
-        
-        if (result.success) {
-          showMessage('密码设置成功', 'success')
-          
-          setTimeout(() => {
-            hideLoginModal()
-            location.reload()
-          }, 1000)
-        } else {
-          showMessage(result.message || '密码设置失败，请稍后重试')
-        }
-      })
-    }
-    
-    // 密码登录
-    if (elements.vipPasswordLoginSubmitBtn) {
-      elements.vipPasswordLoginSubmitBtn.addEventListener('click', async () => {
-        const phone = elements.vipPhoneInput.value.trim()
-        const password = elements.vipPasswordInput.value.trim()
-        
-        if (!phone || !password) {
-          showMessage('手机号和密码不能为空')
-          return
-        }
-        
-        if (!/^1[3-9]\d{9}$/.test(phone)) {
-          showMessage('手机号格式不正确')
-          return
-        }
-        
-        elements.vipPasswordLoginSubmitBtn.disabled = true
-        elements.vipPasswordLoginSubmitBtn.textContent = '登录中...'
-        
-        const result = await VIPSystem.loginWithPassword(phone, password)
-        
-        elements.vipPasswordLoginSubmitBtn.disabled = false
-        elements.vipPasswordLoginSubmitBtn.textContent = '登录'
-        
-        if (result.success) {
-          showMessage('登录成功', 'success')
-          
-          setTimeout(() => {
-            hideLoginModal()
-            location.reload()
-          }, 1000)
-        } else {
-          showMessage(result.message || '登录失败，请检查手机号和密码')
-        }
-      })
-    }
-    
-    // 密码表单取消按钮
-    if (elements.vipPasswordCancelBtn) {
-      elements.vipPasswordCancelBtn.addEventListener('click', () => {
-        renderLoginForm()
-        elements.vipPhoneInput.focus()
-      })
-    }
-    
-    // 密码登录表单取消按钮
-    if (elements.vipPasswordLoginCancelBtn) {
-      elements.vipPasswordLoginCancelBtn.addEventListener('click', () => {
-        renderLoginForm()
-        elements.vipPhoneInput.focus()
-      })
-    }
-    
-    // 回车键提交
-    if (elements.vipPhoneInput) {
-      elements.vipPhoneInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          if (elements.vipCodeInput) {
-            elements.vipCodeInput.focus()
-          } else if (elements.vipPasswordInput) {
-            elements.vipPasswordInput.focus()
-          }
-        }
-      })
-    }
-    
-    if (elements.vipPasswordInput) {
-      elements.vipPasswordInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          if (elements.vipPasswordSubmitBtn) {
-            elements.vipPasswordSubmitBtn.click()
-          } else if (elements.vipPasswordLoginSubmitBtn) {
-            elements.vipPasswordLoginSubmitBtn.click()
-          }
-        }
-      })
-    }
-    
-    if (elements.vipConfirmPasswordInput) {
-      elements.vipConfirmPasswordInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          elements.vipPasswordSubmitBtn.click()
-        }
-      })
-    }
+
+
   }
   
   // 初始化 UI
@@ -724,16 +564,214 @@ const VipLoginUI = (function() {
           showMessage('登录成功', 'success')
           
           setTimeout(() => {
-            hideLoginModal()
-            // 刷新页面或更新 UI
-            if (typeof onVipLoginSuccess === 'function') {
-              onVipLoginSuccess(result.data)
+            if (result.data.isNewUser || !result.data.hasPassword) {
+              renderPasswordForm()
             } else {
-              location.reload()
+              hideLoginModal()
+              if (typeof onVipLoginSuccess === 'function') {
+                onVipLoginSuccess(result.data)
+              } else {
+                location.reload()
+              }
             }
           }, 1000)
         } else {
           showMessage(result.message || '登录失败，请稍后重试')
+        }
+      })
+    }
+    
+    // 重新绑定切换密码显示/隐藏按钮事件
+    if (elements.togglePasswordBtn) {
+      const newTogglePasswordBtn = elements.togglePasswordBtn.cloneNode(true)
+      elements.togglePasswordBtn.parentNode.replaceChild(newTogglePasswordBtn, elements.togglePasswordBtn)
+      elements.togglePasswordBtn = newTogglePasswordBtn
+      
+      elements.togglePasswordBtn.addEventListener('click', togglePasswordVisibility)
+    }
+    
+    if (elements.toggleConfirmPasswordBtn) {
+      const newToggleConfirmPasswordBtn = elements.toggleConfirmPasswordBtn.cloneNode(true)
+      elements.toggleConfirmPasswordBtn.parentNode.replaceChild(newToggleConfirmPasswordBtn, elements.toggleConfirmPasswordBtn)
+      elements.toggleConfirmPasswordBtn = newToggleConfirmPasswordBtn
+      
+      elements.toggleConfirmPasswordBtn.addEventListener('click', () => {
+        if (elements.vipConfirmPasswordInput && elements.toggleConfirmPasswordBtn) {
+          if (elements.vipConfirmPasswordInput.type === 'password') {
+            elements.vipConfirmPasswordInput.type = 'text'
+            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye-slash"></i>'
+          } else {
+            elements.vipConfirmPasswordInput.type = 'password'
+            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye"></i>'
+          }
+        }
+      })
+    }
+    
+    // 重新绑定保存密码按钮事件
+    if (elements.vipPasswordSubmitBtn) {
+      const newVipPasswordSubmitBtn = elements.vipPasswordSubmitBtn.cloneNode(true)
+      elements.vipPasswordSubmitBtn.parentNode.replaceChild(newVipPasswordSubmitBtn, elements.vipPasswordSubmitBtn)
+      elements.vipPasswordSubmitBtn = newVipPasswordSubmitBtn
+      
+      elements.vipPasswordSubmitBtn.addEventListener('click', async () => {
+        const password = elements.vipPasswordInput.value.trim()
+        const confirmPassword = elements.vipConfirmPasswordInput.value.trim()
+        
+        if (!password || !confirmPassword) {
+          showMessage('密码和确认密码不能为空')
+          return
+        }
+        
+        if (password !== confirmPassword) {
+          showMessage('两次输入的密码不一致')
+          return
+        }
+        
+        if (password.length < 6) {
+          showMessage('密码长度至少为6位')
+          return
+        }
+        
+        elements.vipPasswordSubmitBtn.disabled = true
+        elements.vipPasswordSubmitBtn.textContent = '保存中...'
+        
+        const userId = VIPSystem.getUserId()
+        const result = await VIPSystem.updatePassword(userId, password)
+        
+        elements.vipPasswordSubmitBtn.disabled = false
+        elements.vipPasswordSubmitBtn.textContent = '保存密码'
+        
+        if (result.success) {
+          showMessage('密码设置成功', 'success')
+          
+          setTimeout(() => {
+            hideLoginModal()
+            location.reload()
+          }, 1000)
+        } else {
+          showMessage(result.message || '密码设置失败，请稍后重试')
+        }
+      })
+    }
+    
+    // 重新绑定密码登录按钮事件
+    if (elements.vipPasswordLoginSubmitBtn) {
+      const newVipPasswordLoginSubmitBtn = elements.vipPasswordLoginSubmitBtn.cloneNode(true)
+      elements.vipPasswordLoginSubmitBtn.parentNode.replaceChild(newVipPasswordLoginSubmitBtn, elements.vipPasswordLoginSubmitBtn)
+      elements.vipPasswordLoginSubmitBtn = newVipPasswordLoginSubmitBtn
+      
+      elements.vipPasswordLoginSubmitBtn.addEventListener('click', async () => {
+        const phone = elements.vipPhoneInput.value.trim()
+        const password = elements.vipPasswordInput.value.trim()
+        
+        if (!phone || !password) {
+          showMessage('手机号和密码不能为空')
+          return
+        }
+        
+        if (!/^1[3-9]\d{9}$/.test(phone)) {
+          showMessage('手机号格式不正确')
+          return
+        }
+        
+        elements.vipPasswordLoginSubmitBtn.disabled = true
+        elements.vipPasswordLoginSubmitBtn.textContent = '登录中...'
+        
+        const result = await VIPSystem.loginWithPassword(phone, password)
+        
+        elements.vipPasswordLoginSubmitBtn.disabled = false
+        elements.vipPasswordLoginSubmitBtn.textContent = '登录'
+        
+        if (result.success) {
+          showMessage('登录成功', 'success')
+          
+          setTimeout(() => {
+            hideLoginModal()
+            location.reload()
+          }, 1000)
+        } else {
+          showMessage(result.message || '登录失败，请稍后重试')
+        }
+      })
+    }
+    
+    // 重新绑定取消按钮事件
+    if (elements.vipPasswordCancelBtn) {
+      const newVipPasswordCancelBtn = elements.vipPasswordCancelBtn.cloneNode(true)
+      elements.vipPasswordCancelBtn.parentNode.replaceChild(newVipPasswordCancelBtn, elements.vipPasswordCancelBtn)
+      elements.vipPasswordCancelBtn = newVipPasswordCancelBtn
+      
+      elements.vipPasswordCancelBtn.addEventListener('click', () => {
+        renderLoginForm()
+        elements.vipPhoneInput.focus()
+      })
+    }
+    
+    if (elements.vipPasswordLoginCancelBtn) {
+      const newVipPasswordLoginCancelBtn = elements.vipPasswordLoginCancelBtn.cloneNode(true)
+      elements.vipPasswordLoginCancelBtn.parentNode.replaceChild(newVipPasswordLoginCancelBtn, elements.vipPasswordLoginCancelBtn)
+      elements.vipPasswordLoginCancelBtn = newVipPasswordLoginCancelBtn
+      
+      elements.vipPasswordLoginCancelBtn.addEventListener('click', () => {
+        renderLoginForm()
+        elements.vipPhoneInput.focus()
+      })
+    }
+    
+    // 重新绑定回车键提交
+    if (elements.vipPhoneInput) {
+      const newVipPhoneInput = elements.vipPhoneInput.cloneNode(true)
+      elements.vipPhoneInput.parentNode.replaceChild(newVipPhoneInput, elements.vipPhoneInput)
+      elements.vipPhoneInput = newVipPhoneInput
+      
+      elements.vipPhoneInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          if (elements.vipCodeInput) {
+            elements.vipCodeInput.focus()
+          } else if (elements.vipPasswordInput) {
+            elements.vipPasswordInput.focus()
+          }
+        }
+      })
+    }
+    
+    if (elements.vipCodeInput) {
+      const newVipCodeInput = elements.vipCodeInput.cloneNode(true)
+      elements.vipCodeInput.parentNode.replaceChild(newVipCodeInput, elements.vipCodeInput)
+      elements.vipCodeInput = newVipCodeInput
+      
+      elements.vipCodeInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          elements.vipLoginSubmitBtn.click()
+        }
+      })
+    }
+    
+    if (elements.vipPasswordInput) {
+      const newVipPasswordInput = elements.vipPasswordInput.cloneNode(true)
+      elements.vipPasswordInput.parentNode.replaceChild(newVipPasswordInput, elements.vipPasswordInput)
+      elements.vipPasswordInput = newVipPasswordInput
+      
+      elements.vipPasswordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          if (elements.vipPasswordSubmitBtn) {
+            elements.vipPasswordSubmitBtn.click()
+          } else if (elements.vipPasswordLoginSubmitBtn) {
+            elements.vipPasswordLoginSubmitBtn.click()
+          }
+        }
+      })
+    }
+    
+    if (elements.vipConfirmPasswordInput) {
+      const newVipConfirmPasswordInput = elements.vipConfirmPasswordInput.cloneNode(true)
+      elements.vipConfirmPasswordInput.parentNode.replaceChild(newVipConfirmPasswordInput, elements.vipConfirmPasswordInput)
+      elements.vipConfirmPasswordInput = newVipConfirmPasswordInput
+      
+      elements.vipConfirmPasswordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          elements.vipPasswordSubmitBtn.click()
         }
       })
     }
