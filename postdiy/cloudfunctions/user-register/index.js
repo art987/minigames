@@ -112,7 +112,8 @@ exports.main = async (event, context) => {
           vipExpireTime: null,
           logoUrl: '',
           qrcodeUrl: '',
-          isNewUser
+          isNewUser,
+          hasPassword: userRes.data.length > 0 && userRes.data[0].hasPassword || false
         }
       })
     }

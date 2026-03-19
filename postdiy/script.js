@@ -1,20 +1,5 @@
 // 首页脚本
 
-// 工具函数
-const utils = {
-  debounce: function(func, wait) {
-    let timeout
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout)
-        func(...args)
-      }
-      clearTimeout(timeout)
-      timeout = setTimeout(later, wait)
-    }
-  }
-}
-
 // 节日日期数据（2026年和2027年）
 const festivalDates = {
   // 2026年节日
@@ -520,7 +505,7 @@ function initMonthButtons() {
             }
           } else {
             // 其他月份，定位到该月份的第一个节日（跳过早安和晚安）
-            const festivalsInMonth = utils.getFestivalNamesByMonth(month);
+            const festivalsInMonth = window.utils.getFestivalNamesByMonth(month);
             // festivalsInMonth的前两个是"☀️ 早安"和"🌙 晚安"，真正的节日从第三个开始
             const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
             if (actualFestivals.length > 0) {
@@ -586,10 +571,10 @@ function updateFestivalTags() {
   
   if (window.currentFilters.month) {
     // 获取选中月份的所有节日
-    festivals = utils.getFestivalNamesByMonth(window.currentFilters.month);
+    festivals = window.utils.getFestivalNamesByMonth(window.currentFilters.month);
   } else {
     // 获取所有节日
-    const allFestivals = utils.getAllFestivals();
+    const allFestivals = window.utils.getAllFestivals();
     festivals = Object.keys(allFestivals);
   }
   
@@ -712,7 +697,7 @@ function updateFestivalTags() {
 // 根据当前日期自动选择月份和节日
 function autoSelectByDate() {
   try {
-    const result = utils.autoSelectByDate();
+    const result = window.utils.autoSelectByDate();
     if (result) {
       window.currentFilters.month = result.month;
       window.currentFilters.festival = result.festival;
@@ -785,7 +770,7 @@ function applyFilters() {
   // 使用setTimeout模拟异步加载，提高用户体验
   setTimeout(() => {
     try {
-      const filteredTemplates = utils.getTemplatesByFilters(window.currentFilters.month, window.currentFilters.festival);
+      const filteredTemplates = window.utils.getTemplatesByFilters(window.currentFilters.month, window.currentFilters.festival);
       
       // 更新模板计数
       templatesCount.textContent = `${filteredTemplates.length} 个模板`;
@@ -816,7 +801,7 @@ function loadTemplates() {
   // 使用setTimeout模拟加载延迟
   setTimeout(() => {
     try {
-      const templates = utils.getAllTemplates();
+      const templates = window.utils.getAllTemplates();
       
       // 更新模板计数
       templatesCount.textContent = `${templates.length} 个模板`;
@@ -971,12 +956,12 @@ function showToast(message, type = 'info', duration = 3000) {
 }
 
 // 监听窗口大小变化，优化响应式显示
-window.addEventListener('resize', utils.debounce(function() {
+window.addEventListener('resize', window.utils ? window.utils.debounce(function() {
   // 根据窗口大小调整布局
   const isMobile = window.innerWidth < 640;
   
   // 可以在这里添加额外的响应式调整逻辑
-}, 300));
+}, 300) : function() {});
 
 // 监听页面加载完成事件
 document.addEventListener('DOMContentLoaded', function() {
@@ -1037,14 +1022,34 @@ function initVipLogin() {
 
   // 检查VIP状态并更新UI
   function updateVipStatus() {
+    console.log('updateVipStatus 被调用')
+    console.log('VIPSystem.isLoggedIn():', VIPSystem.isLoggedIn())
+    
+    // 直接从 DOM 获取元素，确保获取到最新的元素
+    const loginBtn = document.getElementById('vipLoginBtn')
+    const loggedInMenu = document.getElementById('vipLoggedInMenu')
+    const dropdownMenu = document.getElementById('vipDropdownMenu')
+    
+    console.log('从 DOM 获取的元素:', { loginBtn, loggedInMenu, dropdownMenu })
+    
     if (VIPSystem.isLoggedIn()) {
+      console.log('显示已登录状态（三道杠菜单按钮）')
       // 显示已登录状态（三道杠菜单按钮）
-      vipLoginBtn.classList.add('hidden');
-      vipLoggedInMenu.classList.remove('hidden');
+      if (loginBtn) loginBtn.classList.add('hidden');
+      if (loggedInMenu) loggedInMenu.classList.remove('hidden');
+      // 确保下拉菜单是隐藏的
+      if (dropdownMenu) {
+        dropdownMenu.style.display = 'none'
+      }
     } else {
+      console.log('显示未登录状态（登录按钮）')
       // 显示未登录状态（登录按钮）
-      vipLoginBtn.classList.remove('hidden');
-      vipLoggedInMenu.classList.add('hidden');
+      if (loginBtn) loginBtn.classList.remove('hidden');
+      if (loggedInMenu) loggedInMenu.classList.add('hidden');
+      // 确保下拉菜单是隐藏的
+      if (dropdownMenu) {
+        dropdownMenu.style.display = 'none'
+      }
     }
   }
   
@@ -1140,9 +1145,30 @@ function initVipLogin() {
   }
 
   // VIP菜单系统事件
-  function toggleVipDropdown() {
-    if (vipDropdownMenu) {
-      vipDropdownMenu.classList.toggle('hidden');
+  function toggleVipDropdown(e) {
+    e && e.stopPropagation()
+    console.log('toggleVipDropdown 被调用')
+    // 直接从 DOM 获取元素
+    const dropdownMenu = document.getElementById('vipDropdownMenu')
+    console.log('vipDropdownMenu (从 DOM 获取):', dropdownMenu)
+    if (dropdownMenu) {
+      // 先移除可能存在的 hidden 类
+      dropdownMenu.classList.remove('hidden')
+      
+      // 用 style.display 来控制，避免 className 的问题
+      const isHidden = dropdownMenu.style.display === 'none' || dropdownMenu.style.display === ''
+      console.log('当前 display:', dropdownMenu.style.display)
+      console.log('是否隐藏:', isHidden)
+      
+      if (isHidden) {
+        dropdownMenu.style.display = 'block'
+        console.log('显示下拉菜单 - display 设置为 block')
+      } else {
+        dropdownMenu.style.display = 'none'
+        console.log('隐藏下拉菜单 - display 设置为 none')
+      }
+    } else {
+      console.error('vipDropdownMenu 不存在！')
     }
   }
   
@@ -1192,22 +1218,33 @@ function initVipLogin() {
     }
     
     // 关闭下拉菜单
-    if (vipDropdownMenu) {
-      vipDropdownMenu.classList.add('hidden');
+    const dropdownMenu = document.getElementById('vipDropdownMenu')
+    if (dropdownMenu) {
+      dropdownMenu.style.display = 'none';
     }
   }
   
   // 事件监听
-  vipLoginBtn.addEventListener('click', showVipLoginModal);
+  if (vipLoginBtn) {
+    vipLoginBtn.addEventListener('click', showVipLoginModal);
+  }
   
   if (vipMenuToggle) {
-    vipMenuToggle.addEventListener('click', toggleVipDropdown);
+    console.log('绑定 vipMenuToggle 点击事件')
+    vipMenuToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleVipDropdown(e);
+    });
+  } else {
+    console.error('vipMenuToggle 元素未找到！')
   }
   
   // VIP菜单项点击事件
   if (vipMenuItems) {
     vipMenuItems.forEach(item => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
         const action = this.getAttribute('data-action');
         handleVipMenuItemClick(action);
       });
@@ -1287,10 +1324,14 @@ function initVipLogin() {
   
   // 点击页面其他地方关闭VIP下拉菜单
   document.addEventListener('click', function(e) {
-    if (vipDropdownMenu && vipMenuToggle) {
-      const isClickInsideMenu = vipMenuContainer.contains(e.target);
-      if (!isClickInsideMenu && !vipDropdownMenu.classList.contains('hidden')) {
-        vipDropdownMenu.classList.add('hidden');
+    const dropdownMenu = document.getElementById('vipDropdownMenu')
+    const menuToggle = document.getElementById('vipMenuToggle')
+    const menuContainer = document.getElementById('vipMenuContainer')
+    if (dropdownMenu && menuToggle && menuContainer) {
+      const isClickInsideMenu = menuContainer.contains(e.target);
+      const isVisible = dropdownMenu.style.display === 'block'
+      if (!isClickInsideMenu && isVisible) {
+        dropdownMenu.style.display = 'none';
       }
     }
   });
@@ -1489,7 +1530,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ensureFestivalActiveAndScroll(targetTag);
     } else {
       // 如果节日标签被隐藏（如植树节），直接应用筛选条件
-      const allFestivals = utils.getAllFestivals();
+      const allFestivals = window.utils.getAllFestivals();
       if (allFestivals[festivalName]) {
         const festival = allFestivals[festivalName];
         

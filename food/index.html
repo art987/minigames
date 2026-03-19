@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日能量需求计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="result-card">
+            <div class="result-content">
+                <div class="result-label">今日推荐摄入热量</div>
+                <div class="calorie-display">
+                    <span class="number-transition" id="calorieValue">2310</span>
+                    <span class="calorie-unit">kcal</span>
+                </div>
+                
+                <div class="diet-ratio-container" id="dietRatioContainer">
+                    <div class="diet-bar carb">
+                        <div class="diet-bar-label">
+                            <span>碳水</span>
+                            <span>350g (60%)</span>
+                        </div>
+                        <div class="diet-bar-bg">
+                            <div class="diet-bar-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="diet-bar protein">
+                        <div class="diet-bar-label">
+                            <span>蛋白质</span>
+                            <span>150g (25%)</span>
+                        </div>
+                        <div class="diet-bar-bg">
+                            <div class="diet-bar-fill" style="width: 25%;"></div>
+                        </div>
+                    </div>
+                    <div class="diet-bar fat">
+                        <div class="diet-bar-label">
+                            <span>脂肪</span>
+                            <span>80g (15%)</span>
+                        </div>
+                        <div class="diet-bar-bg">
+                            <div class="diet-bar-fill" style="width: 15%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="input-group">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span class="input-icon">📏</span>
+                        <span>身体数据</span>
+                    </div>
+                    <div class="level-tag" id="bmiTag">标准体型</div>
+                </div>
+                <div class="dual-input">
+                    <div class="input-field">
+                        <label>身高 (cm)</label>
+                        <input type="number" id="heightInput" value="170" min="100" max="250">
+                    </div>
+                    <div class="input-field">
+                        <label>体重 (kg)</label>
+                        <input type="number" id="weightInput" value="70" min="30" max="200">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span class="input-icon">🎂</span>
+                        <span>年龄阶段</span>
+                    </div>
+                    <div class="level-tag" id="ageTag">青壮年</div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" class="custom-slider" id="ageSlider" min="1" max="7" value="4" step="1">
+                    <div class="slider-labels">
+                        <span class="slider-label active" data-age="1">婴幼儿</span>
+                        <span class="slider-label active" data-age="2">儿童</span>
+                        <span class="slider-label active" data-age="3">青少年</span>
+                        <span class="slider-label active" data-age="4">青壮年</span>
+                        <span class="slider-label" data-age="5">中年</span>
+                        <span class="slider-label" data-age="6">中老年</span>
+                        <span class="slider-label" data-age="7">银发族</span>
+                    </div>
+                </div>
+                <div class="desc-box" id="ageDesc">18-30岁，代谢旺盛，精力充沛</div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span class="input-icon">👤</span>
+                        <span>生理性别</span>
+                    </div>
+                    <div class="level-tag" id="sexTag">男性</div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" class="custom-slider" id="sexSlider" min="1" max="2" value="2" step="1">
+                    <div class="slider-labels">
+                        <span class="slider-label active" data-sex="1">女性</span>
+                        <span class="slider-label active" data-sex="2">男性</span>
+                    </div>
+                </div>
+                <div class="desc-box" id="sexDesc">男性肌肉量通常更高，基础代谢比女性快约10%</div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span class="input-icon">🏃</span>
+                        <span>生活/运动习惯</span>
+                    </div>
+                    <div class="level-tag" id="activityTag">经常运动</div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" class="custom-slider" id="activitySlider" min="1" max="7" value="4" step="1">
+                    <div class="slider-labels">
+                        <span class="slider-label" data-activity="1">长期卧床</span>
+                        <span class="slider-label" data-activity="2">久坐办公</span>
+                        <span class="slider-label" data-activity="3">偶尔散步</span>
+                        <span class="slider-label active" data-activity="4">经常运动</span>
+                        <span class="slider-label" data-activity="5">健身达人</span>
+                        <span class="slider-label" data-activity="6">体力工作</span>
+                        <span class="slider-label" data-activity="7">职业运动员</span>
+                    </div>
+                </div>
+                <div class="desc-box" id="activityDesc">每周3-5次中等强度运动（如慢跑、游泳）</div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span class="input-icon">🎯</span>
+                        <span>身体目标</span>
+                    </div>
+                    <div class="level-tag" id="goalTag">增肌塑形</div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" class="custom-slider" id="goalSlider" min="1" max="7" value="5" step="1">
+                    <div class="slider-labels">
+                        <span class="slider-label" data-goal="1">极速瘦身</span>
+                        <span class="slider-label" data-goal="2">快速减肥</span>
+                        <span class="slider-label" data-goal="3">健康减脂</span>
+                        <span class="slider-label" data-goal="4">维持体重</span>
+                        <span class="slider-label active" data-goal="5">增肌塑形</span>
+                        <span class="slider-label" data-goal="6">强壮增肌</span>
+                        <span class="slider-label" data-goal="7">增重恢复</span>
+                    </div>
+                </div>
+                <div class="desc-box" id="goalDesc">摄入大于消耗，配合力量训练，让肌肉增长</div>
+
+            </div>
+
+            <div class="breakdown">
+                <div class="breakdown-title">计算逻辑</div>
+                <div class="formula" id="formulaText">
+                    基础代谢 × 活动系数 × 目标系数
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

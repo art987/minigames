@@ -149,14 +149,15 @@ const VipLoginUI = (function() {
             <button id="sendVipCodeBtn" class="send-code-btn">发送验证码</button>
           </div>
         </div>
-        <div class="login-method-switch">
-          <span>没有收到验证码？</span>
-          <button id="switchToPasswordBtn" class="switch-link">使用密码登录</button>
-        </div>
+        
         <div id="vipLoginMessage" class="login-message"></div>
         <div class="login-actions">
           <button id="vipLoginSubmitBtn" class="action-btn primary">登录/注册</button>
           <button id="vipLoginCancelBtn" class="action-btn secondary">取消</button>
+        </div>
+        <div class="login-method-switch">
+          <span>没有收到验证码？</span>
+          <button id="switchToPasswordBtn" class="switch-link">使用密码登录</button>
         </div>
       </div>
     `
@@ -248,14 +249,15 @@ const VipLoginUI = (function() {
             </button>
           </div>
         </div>
-        <div class="login-method-switch">
-          <span>忘记密码？</span>
-          <button id="switchToCodeBtn" class="switch-link">使用验证码登录</button>
-        </div>
+        
         <div id="vipLoginMessage" class="login-message"></div>
         <div class="login-actions">
           <button id="vipPasswordLoginSubmitBtn" class="action-btn primary">登录</button>
           <button id="vipPasswordLoginCancelBtn" class="action-btn secondary">取消</button>
+        </div>
+        <div class="login-method-switch">
+          <span>忘记密码？</span>
+          <button id="switchToCodeBtn" class="switch-link">使用验证码登录</button>
         </div>
       </div>
     `
@@ -342,7 +344,8 @@ const VipLoginUI = (function() {
     
     if (elements.vipMenuItems) {
       elements.vipMenuItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function(e) {
+          e.preventDefault()
           const action = this.getAttribute('data-action')
           handleVipMenuItemClick(action)
         })
@@ -402,8 +405,10 @@ const VipLoginUI = (function() {
           openUserInfoModal()
           break
         case 'visibilityManager':
-          // 打开显示管理弹窗，跳转到编辑页面
-          window.location.href = 'editor.html'
+          // 打开显示管理弹窗
+          if (window.openVisibilityManager) {
+            window.openVisibilityManager()
+          }
           break
         case 'logout':
           handleVipLogout()
@@ -411,8 +416,9 @@ const VipLoginUI = (function() {
       }
       
       // 关闭下拉菜单
-      if (elements.vipDropdownMenu) {
-        elements.vipDropdownMenu.classList.add('hidden')
+      const vipDropdownMenu = document.getElementById('vipDropdownMenu')
+      if (vipDropdownMenu) {
+        vipDropdownMenu.style.display = 'none'
       }
     }
     

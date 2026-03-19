@@ -56,15 +56,15 @@
           
           <!-- 浮动菜单 -->
           <div id="vipDropdownMenu" class="vip-dropdown-menu hidden">
-            <button class="vip-menu-item" data-action="userInfo">
+            <button type="button" class="vip-menu-item" data-action="userInfo">
               <i class="fa fa-user"></i>
               <span>用户信息</span>
             </button>
-            <button class="vip-menu-item" data-action="visibilityManager">
+            <button type="button" class="vip-menu-item" data-action="visibilityManager">
               <i class="fa fa-eye"></i>
               <span>显示管理</span>
             </button>
-            <button class="vip-menu-item" data-action="logout">
+            <button type="button" class="vip-menu-item" data-action="logout">
               <i class="fa fa-sign-out"></i>
               <span>退出</span>
             </button>
@@ -195,9 +195,9 @@
             <span id="userInfoType">VIP用户</span>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button id="closeUserInfoBtn" class="editor-button">关闭</button>
+        <div class="modal-footer">
+          <button id="closeUserInfoBtn" class="editor-button">关闭</button>
+        </div>
       </div>
     </div>
   </div>
@@ -209,7 +209,7 @@
         <h2 class="modal-title">VIP登录</h2>
         <button id="closeVipLoginModalBtn" class="modal-close">&times;</button>
       </div>
-      <div class="modal-body scrollable-body">
+      <div class="modal-body">
         <div class="vip-login-form">
           <div class="form-group">
             <label for="vipPhoneInput" class="form-label">手机号</label>
@@ -218,9 +218,13 @@
           <div class="form-group">
             <label for="vipCodeInput" class="form-label">验证码</label>
             <div class="code-input-wrapper">
-              <input type="text" id="vipCodeInput" class="form-input code-input" placeholder="请输入验证码">
+              <input type="text" id="vipCodeInput" class="form-input code-input" placeholder="请输入4位验证码" maxlength="4">
               <button id="sendVipCodeBtn" class="send-code-btn">发送验证码</button>
             </div>
+          </div>
+          <div class="login-method-switch">
+            <span>没有收到验证码？</span>
+            <button id="switchToPasswordBtn" class="switch-link">使用密码登录</button>
           </div>
           <div id="vipLoginMessage" class="login-message"></div>
           <div class="login-actions">

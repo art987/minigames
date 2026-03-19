@@ -637,8 +637,28 @@ window.wechatWarning = {
   }
   
   function toggleVipDropdown() {
-    if (elements.vipDropdownMenu) {
-      elements.vipDropdownMenu.classList.toggle('hidden');
+    console.log('toggleVipDropdown 被调用')
+    // 直接从 DOM 获取元素
+    const vipDropdownMenu = document.getElementById('vipDropdownMenu')
+    console.log('vipDropdownMenu (从 DOM 获取):', vipDropdownMenu)
+    if (vipDropdownMenu) {
+      // 先移除可能存在的 hidden 类
+      vipDropdownMenu.classList.remove('hidden')
+      
+      // 用 style.display 来控制，避免 className 的问题
+      const isHidden = vipDropdownMenu.style.display === 'none' || vipDropdownMenu.style.display === ''
+      console.log('当前 display:', vipDropdownMenu.style.display)
+      console.log('是否隐藏:', isHidden)
+      
+      if (isHidden) {
+        vipDropdownMenu.style.display = 'block'
+        console.log('显示下拉菜单 - display 设置为 block')
+      } else {
+        vipDropdownMenu.style.display = 'none'
+        console.log('隐藏下拉菜单 - display 设置为 none')
+      }
+    } else {
+      console.error('vipDropdownMenu 不存在！')
     }
   }
   
@@ -659,8 +679,9 @@ window.wechatWarning = {
     }
     
     // 关闭下拉菜单
-    if (elements.vipDropdownMenu) {
-      elements.vipDropdownMenu.classList.add('hidden');
+    const vipDropdownMenu = document.getElementById('vipDropdownMenu')
+    if (vipDropdownMenu) {
+      vipDropdownMenu.style.display = 'none'
     }
   }
   
@@ -691,41 +712,68 @@ window.wechatWarning = {
   }
   
   function updateVipMenuState(isLoggedIn, user = null) {
-    if (elements.vipLoginBtn && elements.vipLoggedInMenu) {
+    console.log('updateVipMenuState 被调用，isLoggedIn:', isLoggedIn)
+    
+    const vipLoginBtn = document.getElementById('vipLoginBtn')
+    const vipLoggedInMenu = document.getElementById('vipLoggedInMenu')
+    const vipDropdownMenu = document.getElementById('vipDropdownMenu')
+    
+    console.log('从 DOM 获取的元素:', { vipLoginBtn, vipLoggedInMenu, vipDropdownMenu })
+    
+    if (vipLoginBtn && vipLoggedInMenu) {
       if (isLoggedIn) {
         // 显示已登录状态
-        elements.vipLoginBtn.classList.add('hidden');
-        elements.vipLoggedInMenu.classList.remove('hidden');
+        vipLoginBtn.classList.add('hidden');
+        vipLoggedInMenu.classList.remove('hidden');
+        // 确保下拉菜单是隐藏的
+        if (vipDropdownMenu) {
+          console.log('updateVipMenuState - 隐藏下拉菜单，设置 display 为 none')
+          vipDropdownMenu.style.display = 'none'
+        } else {
+          console.error('updateVipMenuState - vipDropdownMenu 不存在！')
+        }
         
         // 更新用户信息
-        if (user && elements.userInfoId && elements.userInfoExpiry && elements.userInfoType) {
-          elements.userInfoId.textContent = user.id;
-          elements.userInfoExpiry.textContent = user.validUntil;
-          elements.userInfoType.textContent = user.type;
+        const userInfoId = document.getElementById('userInfoId')
+        const userInfoExpiry = document.getElementById('userInfoExpiry')
+        const userInfoType = document.getElementById('userInfoType')
+        if (user && userInfoId && userInfoExpiry && userInfoType) {
+          userInfoId.textContent = user.id;
+          userInfoExpiry.textContent = user.validUntil;
+          userInfoType.textContent = user.type;
         }
       } else {
         // 显示未登录状态
-        elements.vipLoginBtn.classList.remove('hidden');
-        elements.vipLoggedInMenu.classList.add('hidden');
+        vipLoginBtn.classList.remove('hidden');
+        vipLoggedInMenu.classList.add('hidden');
+        // 确保下拉菜单是隐藏的
+        if (vipDropdownMenu) {
+          vipDropdownMenu.style.display = 'none'
+        }
       }
     }
   }
   
   // 初始化VIP菜单状态
   function initializeVipMenu() {
+    console.log('initializeVipMenu 被调用')
+    console.log('VIPSystem.isLoggedIn():', typeof VIPSystem !== 'undefined' ? VIPSystem.isLoggedIn() : 'VIPSystem 未定义')
+    
     // 检查是否已有VIP登录状态
-    const isVipLoggedIn = window.isVipActive && window.isVipActive();
+    const isVipLoggedIn = (typeof VIPSystem !== 'undefined' && VIPSystem.isLoggedIn());
     
     if (isVipLoggedIn) {
       // 如果已登录，直接显示三道杠菜单按钮
-      const vipId = localStorage.getItem('vipId');
-      const mockVipUser = {
-        id: vipId || 'VIP百事可乐',
-        validUntil: '2026-12-31',
-        type: 'VIP用户'
+      const userInfo = typeof VIPSystem !== 'undefined' ? VIPSystem.getUserInfo() : null;
+      const vipUser = {
+        id: userInfo ? userInfo.userId : 'VIP用户',
+        validUntil: userInfo && userInfo.vipExpireTime ? userInfo.vipExpireTime : '2026-12-31',
+        type: userInfo && userInfo.isVip ? 'VIP会员' : '普通用户'
       };
-      updateVipMenuState(true, mockVipUser);
+      console.log('显示已登录状态，用户信息:', vipUser)
+      updateVipMenuState(true, vipUser);
     } else {
+      console.log('显示未登录状态')
       // 否则显示登录按钮
       updateVipMenuState(false);
     }
@@ -1492,7 +1540,8 @@ window.wechatWarning = {
     // VIP菜单项点击事件
     if (elements.vipMenuItems) {
       elements.vipMenuItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
           const action = this.getAttribute('data-action');
           handleVipMenuItemClick(action);
         });
@@ -2600,15 +2649,6 @@ window.wechatWarning = {
     
     // 开始等待和加载过程
     waitForTemplatesAndLoad();
-    
-    // 检查是否需要自动弹出商家信息编辑框（如果是第一次打开或信息为空）
-    const savedBusinessInfo = localStorage.getItem('posterBusinessInfo');
-    if (!savedBusinessInfo || 
-        (!state.businessInfo.name || state.businessInfo.name === '您的品牌名称')) {
-      setTimeout(() => {
-        openBusinessInfoModal();
-      }, 800);
-    }
   }
   
   // 加载默认模板
