@@ -152,6 +152,11 @@ window.wechatWarning = {
     textColor: '#000000' // 默认黑色
   };
   
+  // 弹窗编辑时的临时状态（用于取消时恢复）
+  let tempBusinessInfo = null;
+  let pendingUploads = { logo: null, qrcode: null };
+  let pendingDeletes = { logo: false, qrcode: false };
+  
   // DOM元素缓存
   const elements = {};
   
@@ -4306,6 +4311,11 @@ window.wechatWarning = {
   function openBusinessInfoModal() {
     if (!elements.businessInfoModal || !elements.businessNameInput || !elements.businessPromoTextInput) return;
     
+    // 保存原始数据，用于取消时恢复
+    tempBusinessInfo = JSON.parse(JSON.stringify(state.businessInfo));
+    pendingUploads = { logo: null, qrcode: null };
+    pendingDeletes = { logo: false, qrcode: false };
+    
     // 填充表单数据
     elements.businessNameInput.value = state.businessInfo.name || '';
     elements.businessPromoTextInput.value = state.businessInfo.promoText || '';
@@ -4423,31 +4433,63 @@ window.wechatWarning = {
     }
   }
   
-  // 关闭商家信息编辑弹窗
+  // 关闭商家信息编辑弹窗（不保存）
   function closeBusinessInfoModal() {
+    // 如果有临时数据，说明是从编辑弹窗关闭，需要恢复原数据
+    if (tempBusinessInfo) {
+      state.businessInfo = JSON.parse(JSON.stringify(tempBusinessInfo));
+      tempBusinessInfo = null;
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      
+      // 恢复显示
+      updateBusinessInfoDisplay();
+      
+      // 恢复预览区域显示状态
+      if (elements.logoPreview && elements.logoUploadArea) {
+        if (state.businessInfo.logo) {
+          elements.logoPreviewImg.src = state.businessInfo.logo;
+          elements.logoPreview.style.display = 'block';
+          elements.logoUploadArea.style.display = 'none';
+        } else {
+          elements.logoPreview.style.display = 'none';
+          elements.logoUploadArea.style.display = 'block';
+        }
+      }
+      
+      if (elements.qrcodePreview && elements.qrcodeUploadArea) {
+        if (state.businessInfo.qrcode) {
+          elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+          elements.qrcodePreview.classList.remove('hidden');
+          elements.qrcodePreview.style.display = 'block';
+          elements.qrcodeUploadArea.style.display = 'none';
+        } else {
+          elements.qrcodePreview.classList.add('hidden');
+          elements.qrcodePreview.style.display = 'none';
+          elements.qrcodeUploadArea.style.display = 'block';
+        }
+      }
+    }
+    
     if (elements.businessInfoModal) {
-      // 添加关闭动画类
       elements.businessInfoModal.classList.add('closing');
       elements.businessInfoModal.querySelector('.modal').classList.add('closing');
       
-      // 延迟隐藏弹窗
       setTimeout(() => {
         elements.businessInfoModal.classList.add('hidden');
         elements.businessInfoModal.style.display = 'none';
-        // 移除关闭动画类
         elements.businessInfoModal.classList.remove('closing');
         elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
-      }, 400); // 匹配动画时长
+      }, 400);
     }
     
-    // 同时关闭显示管理弹窗
     const visibilityModal = document.getElementById('visibilityManagerModal');
     if (visibilityModal) {
       visibilityModal.classList.add('hidden');
     }
   }
   
-  // 保存商家信息
+  // 保存商家信息（同步到云端）
   async function saveBusinessInfo() {
     if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
@@ -4457,15 +4499,78 @@ window.wechatWarning = {
     state.businessInfo.name = newName;
     state.businessInfo.promoText = newPromoText;
     
+    // 清除临时数据
+    tempBusinessInfo = null;
+    
+    // 更新显示
     updateBusinessInfoDisplay();
     
-    closeBusinessInfoModal();
+    // 关闭弹窗
+    if (elements.businessInfoModal) {
+      elements.businessInfoModal.classList.add('closing');
+      elements.businessInfoModal.querySelector('.modal').classList.add('closing');
+      
+      setTimeout(() => {
+        elements.businessInfoModal.classList.add('hidden');
+        elements.businessInfoModal.style.display = 'none';
+        elements.businessInfoModal.classList.remove('closing');
+        elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
+      }, 400);
+    }
+    
+    const visibilityModal = document.getElementById('visibilityManagerModal');
+    if (visibilityModal) {
+      visibilityModal.classList.add('hidden');
+    }
     
     // 同步到云端
     if (window.CloudSync) {
+      // 同步品牌名称和促销文案
       await CloudSync.syncBrandnameToCloud(newName);
       await CloudSync.syncPromoTextToCloud(newPromoText);
+      
+      // 处理待上传的图片
+      if (pendingUploads.logo) {
+        const loadingToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
+        const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
+        CloudSync.hideLoadingToast(loadingToast);
+        
+        if (result.success) {
+          state.businessInfo.logo = result.url;
+          await CloudSync.syncLogoUrlToCloud(result.url);
+        }
+      }
+      
+      if (pendingUploads.qrcode) {
+        const loadingToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
+        const result = await CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode);
+        CloudSync.hideLoadingToast(loadingToast);
+        
+        if (result.success) {
+          state.businessInfo.qrcode = result.url;
+          await CloudSync.syncQrcodeUrlToCloud(result.url);
+        }
+      }
+      
+      // 处理待删除的图片
+      if (pendingDeletes.logo) {
+        const result = await CloudSync.deleteImageFromCloud('logo');
+        if (result.success) {
+          await CloudSync.clearUserImageUrl('logo');
+        }
+      }
+      
+      if (pendingDeletes.qrcode) {
+        const result = await CloudSync.deleteImageFromCloud('qrcode');
+        if (result.success) {
+          await CloudSync.clearUserImageUrl('qrcode');
+        }
+      }
     }
+    
+    // 重置待处理状态
+    pendingUploads = { logo: null, qrcode: null };
+    pendingDeletes = { logo: false, qrcode: false };
     
     // 云端同步成功后更新本地存储
     saveBusinessInfoToLocalStorage();
@@ -4627,7 +4732,7 @@ window.wechatWarning = {
     showToast('背景图片已移除');
   }
   
-  // 处理Logo上传
+  // 处理Logo上传（只更新预览，不立即上传云端）
   function handleLogoUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -4639,19 +4744,20 @@ window.wechatWarning = {
     }
     
     // 检查文件大小
-    if (file.size > 10 * 1024 * 1024) { // 10MB
+    if (file.size > 10 * 1024 * 1024) {
       showToast('文件大小不能超过10MB');
       return;
     }
     
     // 读取文件
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = function(e) {
       const imageData = e.target.result;
-      state.businessInfo.logo = imageData;
       
-      // 立即保存到缓存
-      saveBusinessInfoToLocalStorage();
+      // 更新状态和预览
+      state.businessInfo.logo = imageData;
+      pendingUploads.logo = imageData;
+      pendingDeletes.logo = false;
       
       // 更新显示
       updateBusinessInfoDisplay();
@@ -4663,25 +4769,7 @@ window.wechatWarning = {
         elements.logoUploadArea.style.display = 'none';
       }
       
-      // 上传到云端
-      if (window.CloudSync) {
-        const loadingToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
-        const result = await CloudSync.uploadImageToCloud('logo', imageData);
-        CloudSync.hideLoadingToast(loadingToast);
-        
-        if (result.success) {
-          showToast('Logo上传成功并已同步到云端');
-          await CloudSync.syncLogoUrlToCloud(result.url);
-          state.businessInfo.logo = result.url;
-          saveBusinessInfoToLocalStorage();
-        } else if (result.reason !== 'not_logged_in') {
-          showToast('Logo已保存到本地，云端同步失败');
-        } else {
-          showToast('Logo上传成功');
-        }
-      } else {
-        showToast('Logo上传成功');
-      }
+      showToast('Logo已选择，点击保存后上传到云端');
       
       // 重置文件输入
       event.target.value = '';
@@ -4689,12 +4777,11 @@ window.wechatWarning = {
     reader.readAsDataURL(file);
   }
   
-  // 移除Logo
-  async function removeLogo() {
+  // 移除Logo（只更新预览，不立即删除云端）
+  function removeLogo() {
     state.businessInfo.logo = null;
-    
-    // 立即保存到缓存
-    saveBusinessInfoToLocalStorage();
+    pendingUploads.logo = null;
+    pendingDeletes.logo = true;
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -4705,24 +4792,10 @@ window.wechatWarning = {
       elements.logoUploadArea.style.display = 'block';
     }
     
-    // 从云端删除
-    if (window.CloudSync) {
-      const result = await CloudSync.deleteImageFromCloud('logo');
-      if (result.success) {
-        showToast('Logo已从本地和云端移除');
-        await CloudSync.clearUserImageUrl('logo');
-        saveBusinessInfoToLocalStorage();
-      } else if (result.reason !== 'not_logged_in') {
-        showToast('Logo已从本地移除，云端删除失败');
-      } else {
-        showToast('Logo已移除');
-      }
-    } else {
-      showToast('Logo已移除');
-    }
+    showToast('Logo已移除，点击保存后同步到云端');
   }
   
-  // 处理二维码上传
+  // 处理二维码上传（只更新预览，不立即上传云端）
   function handleQrcodeUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -4735,12 +4808,13 @@ window.wechatWarning = {
     
     // 读取文件
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = function(e) {
       const imageData = e.target.result;
-      state.businessInfo.qrcode = imageData;
       
-      // 立即保存到缓存
-      saveBusinessInfoToLocalStorage();
+      // 更新状态和预览
+      state.businessInfo.qrcode = imageData;
+      pendingUploads.qrcode = imageData;
+      pendingDeletes.qrcode = false;
       
       // 更新显示
       updateBusinessInfoDisplay();
@@ -4748,31 +4822,12 @@ window.wechatWarning = {
       // 显示预览，隐藏上传区域
       if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
         elements.qrcodePreviewImg.src = imageData;
-        // 移除hidden类
         elements.qrcodePreview.classList.remove('hidden');
         elements.qrcodePreview.style.display = 'block';
         elements.qrcodeUploadArea.style.display = 'none';
       }
       
-      // 上传到云端
-      if (window.CloudSync) {
-        const loadingToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
-        const result = await CloudSync.uploadImageToCloud('qrcode', imageData);
-        CloudSync.hideLoadingToast(loadingToast);
-        
-        if (result.success) {
-          showToast('二维码上传成功并已同步到云端');
-          await CloudSync.syncQrcodeUrlToCloud(result.url);
-          state.businessInfo.qrcode = result.url;
-          saveBusinessInfoToLocalStorage();
-        } else if (result.reason !== 'not_logged_in') {
-          showToast('二维码已保存到本地，云端同步失败');
-        } else {
-          showToast('二维码上传成功');
-        }
-      } else {
-        showToast('二维码上传成功');
-      }
+      showToast('二维码已选择，点击保存后上传到云端');
       
       // 重置文件输入
       event.target.value = '';
@@ -4780,36 +4835,23 @@ window.wechatWarning = {
     reader.readAsDataURL(file);
   }
   
-  // 移除二维码
-  async function removeQrcode() {
+  // 移除二维码（只更新预览，不立即删除云端）
+  function removeQrcode() {
     state.businessInfo.qrcode = null;
+    pendingUploads.qrcode = null;
+    pendingDeletes.qrcode = true;
     
     // 更新显示
     updateBusinessInfoDisplay();
     
     // 隐藏预览，显示上传区域
     if (elements.qrcodePreview && elements.qrcodeUploadArea) {
-      // 添加hidden类
       elements.qrcodePreview.classList.add('hidden');
       elements.qrcodePreview.style.display = 'none';
       elements.qrcodeUploadArea.style.display = 'block';
     }
     
-    // 从云端删除
-    if (window.CloudSync) {
-      const result = await CloudSync.deleteImageFromCloud('qrcode');
-      if (result.success) {
-        showToast('二维码已从本地和云端移除');
-        await CloudSync.clearUserImageUrl('qrcode');
-        saveBusinessInfoToLocalStorage();
-      } else if (result.reason !== 'not_logged_in') {
-        showToast('二维码已从本地移除，云端删除失败');
-      } else {
-        showToast('二维码已移除');
-      }
-    } else {
-      showToast('二维码已移除');
-    }
+    showToast('二维码已移除，点击保存后同步到云端');
   }
   
   // 更新文字颜色
