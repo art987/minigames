@@ -85,8 +85,8 @@ exports.main = async (event, context) => {
     const code = Math.random().toString().slice(-4)
     
     // 从环境变量获取配置
-    const SPUG_TOKEN = process.env.SPUG_TOKEN || '1be7b6a139a242589a4e19fb5569b3ba'
-    const SPUG_TEMPLATE_CODE = process.env.SPUG_TEMPLATE_CODE || '7ZIldfXjQk-WPl-8eUqGgw'
+    const SPUG_TOKEN = process.env.SPUG_TOKEN
+    const SPUG_TEMPLATE_CODE = process.env.SPUG_TEMPLATE_CODE
     const SPUG_SEND_URL = `https://push.spug.cc/sms/${SPUG_TEMPLATE_CODE}`
     const SPUG_QUERY_URL = `https://push.spug.cc/request/query`
     
