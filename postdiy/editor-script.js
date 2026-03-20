@@ -523,12 +523,6 @@ window.wechatWarning = {
       qrcodePreviewImg: document.getElementById('qrcodePreviewImg'),
       removeQrcodeBtn: document.getElementById('removeQrcodeBtn'),
       
-      // VIP恢复按钮
-      restoreLogoBtnContainer: document.getElementById('restoreLogoBtnContainer'),
-      restoreLogoBtn: document.getElementById('restoreLogoBtn'),
-      restoreQrcodeBtnContainer: document.getElementById('restoreQrcodeBtnContainer'),
-      restoreQrcodeBtn: document.getElementById('restoreQrcodeBtn'),
-      
       // 更改品牌名称按钮
       changeBrandNameBtn: document.getElementById('changeBrandNameBtn'),
       
@@ -668,17 +662,12 @@ window.wechatWarning = {
         openUserInfoModal();
         break;
       case 'visibilityManager':
-        // 打开显示管理弹窗
         if (window.openVisibilityManager) {
           window.openVisibilityManager();
         }
         break;
-      case 'logout':
-        handleVipLogout();
-        break;
     }
     
-    // 关闭下拉菜单
     const vipDropdownMenu = document.getElementById('vipDropdownMenu')
     if (vipDropdownMenu) {
       vipDropdownMenu.style.display = 'none'
@@ -698,17 +687,55 @@ window.wechatWarning = {
   }
   
   function handleVipLogout() {
-    // 真正清除VIP登录状态
-    if (window.clearVipLogin) {
-      window.clearVipLogin();
+    showLogoutConfirm()
+  }
+  
+  function showLogoutConfirm() {
+    const confirmModal = document.getElementById('confirmModal')
+    const confirmTitle = document.getElementById('confirmModalTitle')
+    const confirmMessage = document.getElementById('confirmModalMessage')
+    const confirmBtn = document.getElementById('confirmModalConfirm')
+    const cancelBtn = document.getElementById('confirmModalCancel')
+    
+    if (!confirmModal) {
+      console.error('确认弹窗元素不存在')
+      return
     }
     
-    // 更新UI状态为未登录
-    updateVipMenuState(false);
+    confirmTitle.textContent = '退出确认'
+    confirmMessage.textContent = '确定要退出登录吗？'
+    confirmModal.classList.remove('hidden')
     
-    // 显示退出成功提示
-    showToast('已退出VIP登录');
-    console.log('VIP用户已退出');
+    const closeDialog = () => {
+      confirmModal.classList.add('hidden')
+      confirmBtn.removeEventListener('click', handleConfirm)
+      cancelBtn.removeEventListener('click', handleCancel)
+    }
+    
+    const handleConfirm = () => {
+      closeDialog()
+      executeLogout()
+    }
+    
+    const handleCancel = () => {
+      closeDialog()
+    }
+    
+    confirmBtn.addEventListener('click', handleConfirm)
+    cancelBtn.addEventListener('click', handleCancel)
+  }
+  
+  function executeLogout() {
+    localStorage.clear()
+    
+    updateVipMenuState(false)
+    
+    showToast('已退出登录')
+    console.log('用户已退出')
+    
+    setTimeout(() => {
+      location.reload()
+    }, 1000)
   }
   
   function updateVipMenuState(isLoggedIn, user = null) {
@@ -784,38 +811,32 @@ window.wechatWarning = {
     try {
       console.log('准备保存到本地存储:', state.businessInfo);
       
-      // 如果是VIP用户，保存到VIP专属缓存
-      if (window.isVipActive && window.isVipActive()) {
-        saveVipBusinessInfoToLocalStorage();
-        return;
-      }
+      const userId = localStorage.getItem('postdiy_user_id') || localStorage.getItem('vipId');
       
-      // 普通用户保存到普通缓存
-      localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
-      console.log('促销信息已成功保存到本地存储');
-      
-      // 验证保存是否成功
-      const testSave = localStorage.getItem('posterBusinessInfo');
-      if (testSave) {
-        console.log('保存验证成功，存储的数据:', testSave);
+      if (userId) {
+        const userBusinessInfoKey = `vipBusinessInfo_${userId}`;
+        localStorage.setItem(userBusinessInfoKey, JSON.stringify(state.businessInfo));
+        console.log('商家信息已保存到用户专属缓存:', userBusinessInfoKey);
+      } else {
+        localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
+        console.log('商家信息已保存到普通缓存');
       }
     } catch (error) {
       console.error('保存本地存储失败:', error);
-      alert('保存失败，请检查浏览器存储空间');
     }
   }
   
   // 保存VIP商家信息到专属本地存储
   function saveVipBusinessInfoToLocalStorage() {
     try {
-      const vipId = localStorage.getItem('vipId');
-      if (!vipId) {
-        console.log('未找到VIP ID，无法保存VIP专属缓存');
+      const userId = localStorage.getItem('postdiy_user_id') || localStorage.getItem('vipId');
+      if (!userId) {
+        console.log('未找到用户ID，无法保存专属缓存');
         return;
       }
       
-      const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
-      console.log('准备保存VIP专属缓存，键名:', vipBusinessInfoKey, '数据:', state.businessInfo);
+      const vipBusinessInfoKey = `vipBusinessInfo_${userId}`;
+      console.log('准备保存专属缓存，键名:', vipBusinessInfoKey, '数据:', state.businessInfo);
       
       localStorage.setItem(vipBusinessInfoKey, JSON.stringify(state.businessInfo));
       console.log('VIP专属缓存已成功保存');
@@ -860,63 +881,105 @@ window.wechatWarning = {
   
   // 从本地存储加载促销信息
   function loadBusinessInfoFromLocalStorage() {
-    try {
-      console.log('尝试从本地存储加载数据...');
-      
-      // 如果是VIP用户，检查是否有VIP专属缓存
-      if (window.isVipActive && window.isVipActive()) {
-        console.log('VIP用户登录，检查VIP专属缓存');
-        
-        const vipId = localStorage.getItem('vipId');
-        const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
-        
-        // 先检查是否有VIP专属缓存
-        const vipSavedInfo = localStorage.getItem(vipBusinessInfoKey);
-        if (vipSavedInfo) {
-          console.log('找到VIP专属缓存数据:', vipSavedInfo);
-          const parsedInfo = JSON.parse(vipSavedInfo);
-          state.businessInfo = {
-            ...state.businessInfo,
-            ...parsedInfo
-          };
-          console.log('从VIP专属缓存加载完成:', state.businessInfo);
-          return;
-        }
-        
-        // 如果没有VIP专属缓存，使用VIP固定信息初始化
-        const vipInfo = window.getVipFixedInfo();
-        if (vipInfo) {
-          state.businessInfo = {
-            ...state.businessInfo,
-            name: vipInfo.name,
-            logo: vipInfo.logo,
-            qrcode: vipInfo.qrcode || state.businessInfo.qrcode, // 优先使用VIP的二维码，如果没有则保留原有的
-            promoText: state.businessInfo.promoText // 保留原有的促销信息
-          };
-          
-          // 将VIP数据保存到VIP专属缓存
-          saveVipBusinessInfoToLocalStorage();
-          console.log('VIP数据已初始化并保存到专属缓存:', state.businessInfo);
-          return;
-        }
-      }
-      
-      // 普通用户或VIP数据加载失败时使用普通本地存储
-      const savedInfo = localStorage.getItem('posterBusinessInfo');
-      if (savedInfo) {
-        console.log('找到普通本地存储数据:', savedInfo);
-        const parsedInfo = JSON.parse(savedInfo);
+    console.log('=== 开始加载商家信息 ===');
+    
+    const userId = localStorage.getItem('postdiy_user_id') || localStorage.getItem('vipId');
+    
+    if (!userId) {
+      console.log('用户未登录，使用默认数据');
+      loadDefaultBusinessInfo();
+      return;
+    }
+    
+    console.log('检测到用户ID:', userId);
+    
+    const userBusinessInfoKey = `vipBusinessInfo_${userId}`;
+    const localData = localStorage.getItem(userBusinessInfoKey);
+    
+    if (localData) {
+      try {
+        const parsedInfo = JSON.parse(localData);
         state.businessInfo = {
           ...state.businessInfo,
           ...parsedInfo
         };
-        console.log('从普通本地存储加载完成:', state.businessInfo);
-      } else {
-        console.log('本地存储中没有找到数据');
+        console.log('从本地存储加载完成:', state.businessInfo);
+        updateBusinessInfoDisplay();
+      } catch (e) {
+        console.error('解析本地存储数据失败:', e);
+      }
+    }
+    
+    console.log('开始从云端同步最新数据...');
+    syncFromCloudAndUpdate(userId, userBusinessInfoKey);
+  }
+  
+  // 从云端同步并更新本地存储
+  async function syncFromCloudAndUpdate(userId, cacheKey) {
+    if (!window.CloudSync) {
+      console.log('CloudSync未加载');
+      return;
+    }
+    
+    try {
+      const response = await fetch('https://api.peacelove.top/user-get-info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        const cloudData = result.data;
+        console.log('云端数据获取成功:', cloudData);
+        
+        const newInfo = {
+          name: cloudData.brandname || state.businessInfo.name,
+          logo: cloudData.logoUrl || state.businessInfo.logo,
+          qrcode: cloudData.qrcodeUrl || state.businessInfo.qrcode,
+          promoText: cloudData.promoText || state.businessInfo.promoText
+        };
+        
+        state.businessInfo = newInfo;
+        
+        localStorage.setItem(cacheKey, JSON.stringify(newInfo));
+        console.log('云端数据已保存到本地存储');
+        
+        updateBusinessInfoDisplay();
+        
+        const businessNameInput = document.getElementById('business-name');
+        if (businessNameInput && newInfo.name) {
+          businessNameInput.value = newInfo.name;
+        }
+        
+        if (newInfo.logo && elements.logoPreviewImg && elements.logoPreview && elements.logoUploadArea) {
+          elements.logoPreviewImg.src = newInfo.logo;
+          elements.logoPreview.style.display = 'block';
+          elements.logoUploadArea.style.display = 'none';
+        }
+        
+        if (newInfo.qrcode && elements.qrcodePreviewImg && elements.qrcodePreview && elements.qrcodeUploadArea) {
+          elements.qrcodePreviewImg.src = newInfo.qrcode;
+          elements.qrcodePreview.style.display = 'block';
+          elements.qrcodeUploadArea.style.display = 'none';
+        }
+        
+        console.log('=== 商家信息同步完成 ===');
       }
     } catch (error) {
-      console.error('加载本地存储失败:', error);
+      console.error('从云端同步数据失败:', error);
     }
+  }
+  
+  // 加载默认商家信息
+  function loadDefaultBusinessInfo() {
+    state.businessInfo = {
+      name: '您的品牌名称',
+      logo: null,
+      qrcode: null,
+      promoText: '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）'
+    };
   }
   
   // 打开行业模板独立弹窗
@@ -1454,6 +1517,11 @@ window.wechatWarning = {
     
     // 保存到本地存储
     saveBusinessInfoToLocalStorage();
+    
+    // 同步到云端
+    if (window.CloudSync) {
+      CloudSync.syncPromoTextToCloud(finalPromoText);
+    }
     
     // 关闭模态框
     closePromoTextModal();
@@ -2285,12 +2353,6 @@ window.wechatWarning = {
     }
     
     // VIP恢复按钮事件
-    if (elements.restoreLogoBtn) {
-      elements.restoreLogoBtn.addEventListener('click', restoreOriginalLogo);
-    }
-    if (elements.restoreQrcodeBtn) {
-      elements.restoreQrcodeBtn.addEventListener('click', restoreOriginalQrcode);
-    }
     
     // 二维码上传相关事件
     if (elements.qrcodeUploadArea) {
@@ -2649,6 +2711,13 @@ window.wechatWarning = {
     
     // 开始等待和加载过程
     waitForTemplatesAndLoad();
+    
+    // 如果用户已登录，从云端同步商家信息
+    if (window.CloudSync) {
+      setTimeout(() => {
+        CloudSync.syncAndFillBusinessInfo();
+      }, 1000);
+    }
   }
   
   // 加载默认模板
@@ -4379,26 +4448,28 @@ window.wechatWarning = {
   }
   
   // 保存商家信息
-  function saveBusinessInfo() {
+  async function saveBusinessInfo() {
     if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
-    // 获取表单数据
-    state.businessInfo.name = elements.businessNameInput.value.trim() || '您的品牌名称';
-    state.businessInfo.promoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
+    const newName = elements.businessNameInput.value.trim() || '您的品牌名称';
+    const newPromoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
     
-    // 从选中的色块获取颜色值（已通过点击事件更新到state中）
+    state.businessInfo.name = newName;
+    state.businessInfo.promoText = newPromoText;
     
-    // 保存到本地存储 - 修复：使用与loadBusinessInfoFromLocalStorage一致的键名
-    localStorage.setItem('posterBusinessInfo', JSON.stringify(state.businessInfo));
-    localStorage.setItem('textColor', state.textColor);
-    
-    // 更新显示
     updateBusinessInfoDisplay();
     
-    // 关闭弹窗
     closeBusinessInfoModal();
     
-    // 添加成功提示动画效果
+    // 同步到云端
+    if (window.CloudSync) {
+      await CloudSync.syncBrandnameToCloud(newName);
+      await CloudSync.syncPromoTextToCloud(newPromoText);
+    }
+    
+    // 云端同步成功后更新本地存储
+    saveBusinessInfoToLocalStorage();
+    
     showToast('商家信息保存成功');
   }
 
@@ -4575,8 +4646,9 @@ window.wechatWarning = {
     
     // 读取文件
     const reader = new FileReader();
-    reader.onload = function(e) {
-      state.businessInfo.logo = e.target.result;
+    reader.onload = async function(e) {
+      const imageData = e.target.result;
+      state.businessInfo.logo = imageData;
       
       // 立即保存到缓存
       saveBusinessInfoToLocalStorage();
@@ -4586,18 +4658,30 @@ window.wechatWarning = {
       
       // 显示预览，隐藏上传区域
       if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
-        elements.logoPreviewImg.src = e.target.result;
+        elements.logoPreviewImg.src = imageData;
         elements.logoPreview.style.display = 'block';
         elements.logoUploadArea.style.display = 'none';
       }
       
-      // 强制显示恢复按钮（用户上传了新Logo）
-      if (elements.restoreLogoBtnContainer) {
-        elements.restoreLogoBtnContainer.classList.remove('hidden');
+      // 上传到云端
+      if (window.CloudSync) {
+        const loadingToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
+        const result = await CloudSync.uploadImageToCloud('logo', imageData);
+        CloudSync.hideLoadingToast(loadingToast);
+        
+        if (result.success) {
+          showToast('Logo上传成功并已同步到云端');
+          await CloudSync.syncLogoUrlToCloud(result.url);
+          state.businessInfo.logo = result.url;
+          saveBusinessInfoToLocalStorage();
+        } else if (result.reason !== 'not_logged_in') {
+          showToast('Logo已保存到本地，云端同步失败');
+        } else {
+          showToast('Logo上传成功');
+        }
+      } else {
+        showToast('Logo上传成功');
       }
-      
-      // 显示成功提示
-      showToast('Logo上传成功');
       
       // 重置文件输入
       event.target.value = '';
@@ -4606,7 +4690,7 @@ window.wechatWarning = {
   }
   
   // 移除Logo
-  function removeLogo() {
+  async function removeLogo() {
     state.businessInfo.logo = null;
     
     // 立即保存到缓存
@@ -4621,13 +4705,21 @@ window.wechatWarning = {
       elements.logoUploadArea.style.display = 'block';
     }
     
-    // 强制显示恢复按钮（用户点击了删除按钮）
-    if (elements.restoreLogoBtnContainer) {
-      elements.restoreLogoBtnContainer.classList.remove('hidden');
+    // 从云端删除
+    if (window.CloudSync) {
+      const result = await CloudSync.deleteImageFromCloud('logo');
+      if (result.success) {
+        showToast('Logo已从本地和云端移除');
+        await CloudSync.clearUserImageUrl('logo');
+        saveBusinessInfoToLocalStorage();
+      } else if (result.reason !== 'not_logged_in') {
+        showToast('Logo已从本地移除，云端删除失败');
+      } else {
+        showToast('Logo已移除');
+      }
+    } else {
+      showToast('Logo已移除');
     }
-    
-    // 显示成功提示
-    showToast('Logo已移除');
   }
   
   // 处理二维码上传
@@ -4643,8 +4735,9 @@ window.wechatWarning = {
     
     // 读取文件
     const reader = new FileReader();
-    reader.onload = function(e) {
-      state.businessInfo.qrcode = e.target.result;
+    reader.onload = async function(e) {
+      const imageData = e.target.result;
+      state.businessInfo.qrcode = imageData;
       
       // 立即保存到缓存
       saveBusinessInfoToLocalStorage();
@@ -4654,20 +4747,32 @@ window.wechatWarning = {
       
       // 显示预览，隐藏上传区域
       if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
-        elements.qrcodePreviewImg.src = e.target.result;
+        elements.qrcodePreviewImg.src = imageData;
         // 移除hidden类
         elements.qrcodePreview.classList.remove('hidden');
         elements.qrcodePreview.style.display = 'block';
         elements.qrcodeUploadArea.style.display = 'none';
       }
       
-      // 强制显示恢复按钮（用户上传了新二维码）
-      if (elements.restoreQrcodeBtnContainer) {
-        elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+      // 上传到云端
+      if (window.CloudSync) {
+        const loadingToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
+        const result = await CloudSync.uploadImageToCloud('qrcode', imageData);
+        CloudSync.hideLoadingToast(loadingToast);
+        
+        if (result.success) {
+          showToast('二维码上传成功并已同步到云端');
+          await CloudSync.syncQrcodeUrlToCloud(result.url);
+          state.businessInfo.qrcode = result.url;
+          saveBusinessInfoToLocalStorage();
+        } else if (result.reason !== 'not_logged_in') {
+          showToast('二维码已保存到本地，云端同步失败');
+        } else {
+          showToast('二维码上传成功');
+        }
+      } else {
+        showToast('二维码上传成功');
       }
-      
-      // 显示成功提示
-      showToast('二维码上传成功');
       
       // 重置文件输入
       event.target.value = '';
@@ -4676,11 +4781,8 @@ window.wechatWarning = {
   }
   
   // 移除二维码
-  function removeQrcode() {
+  async function removeQrcode() {
     state.businessInfo.qrcode = null;
-    
-    // 立即保存到缓存
-    saveBusinessInfoToLocalStorage();
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -4693,13 +4795,21 @@ window.wechatWarning = {
       elements.qrcodeUploadArea.style.display = 'block';
     }
     
-    // 强制显示恢复按钮（用户点击了删除按钮）
-    if (elements.restoreQrcodeBtnContainer) {
-      elements.restoreQrcodeBtnContainer.classList.remove('hidden');
+    // 从云端删除
+    if (window.CloudSync) {
+      const result = await CloudSync.deleteImageFromCloud('qrcode');
+      if (result.success) {
+        showToast('二维码已从本地和云端移除');
+        await CloudSync.clearUserImageUrl('qrcode');
+        saveBusinessInfoToLocalStorage();
+      } else if (result.reason !== 'not_logged_in') {
+        showToast('二维码已从本地移除，云端删除失败');
+      } else {
+        showToast('二维码已移除');
+      }
+    } else {
+      showToast('二维码已移除');
     }
-    
-    // 显示成功提示
-    showToast('二维码已移除');
   }
   
   // 更新文字颜色
@@ -6437,6 +6547,74 @@ function updateBusinessInfoButtonForVip() {
     // 添加到网格
     elements.templateGrid.appendChild(customItem);
   }
+  
+  // VIP登录成功后从云端加载商家信息
+  window.onVipLoginSuccess = async function(userData) {
+    console.log('VIP登录成功，开始从云端加载商家信息...', userData);
+    
+    try {
+      // 从云端获取用户信息
+      const response = await fetch('https://api.peacelove.top/user-get-info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: userData.userId })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        const cloudData = result.data;
+        console.log('云端商家信息:', cloudData);
+        
+        // 更新state中的商家信息
+        if (cloudData.brandname) {
+          state.businessInfo.name = cloudData.brandname;
+        }
+        if (cloudData.logoUrl) {
+          state.businessInfo.logo = cloudData.logoUrl;
+        }
+        if (cloudData.qrcodeUrl) {
+          state.businessInfo.qrcode = cloudData.qrcodeUrl;
+        }
+        if (cloudData.promoText) {
+          state.businessInfo.promoText = cloudData.promoText;
+        }
+        
+        // 保存到本地存储
+        const vipId = localStorage.getItem('vipId') || userData.userId;
+        const vipBusinessInfoKey = `vipBusinessInfo_${vipId}`;
+        localStorage.setItem(vipBusinessInfoKey, JSON.stringify(state.businessInfo));
+        console.log('商家信息已保存到本地存储:', vipBusinessInfoKey);
+        
+        // 更新画布显示
+        updateBusinessInfoDisplay();
+        
+        // 更新编辑区域的输入框
+        const businessNameInput = document.getElementById('business-name');
+        if (businessNameInput && state.businessInfo.name) {
+          businessNameInput.value = state.businessInfo.name;
+        }
+        
+        // 更新Logo预览
+        if (state.businessInfo.logo && elements.logoPreviewImg && elements.logoPreview && elements.logoUploadArea) {
+          elements.logoPreviewImg.src = state.businessInfo.logo;
+          elements.logoPreview.style.display = 'block';
+          elements.logoUploadArea.style.display = 'none';
+        }
+        
+        // 更新二维码预览
+        if (state.businessInfo.qrcode && elements.qrcodePreviewImg && elements.qrcodePreview && elements.qrcodeUploadArea) {
+          elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+          elements.qrcodePreview.style.display = 'block';
+          elements.qrcodeUploadArea.style.display = 'none';
+        }
+        
+        console.log('商家信息已从云端同步完成');
+      }
+    } catch (error) {
+      console.error('从云端加载商家信息失败:', error);
+    }
+  };
   
   // 贴纸管理功能
   window.stickerManager = {

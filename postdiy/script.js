@@ -1599,7 +1599,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
-            选择${todayFestival}模板
+            发布${todayFestival}海报
           </button>
           <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           🌈日常海报
@@ -1608,7 +1608,7 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     } else if (isBefore930) {
       html = `
-       <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
+       <div class="today-release-text">（今日没有特别节日，您可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
           <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
@@ -1624,14 +1624,14 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     } else {
       html = `
-       <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
+       <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
           <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙 晚安海报
+          🌙晚安海报
           </button>
           <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-          🌈 日常海报
+          🌈日常海报
           </button>
         </div>
       `;

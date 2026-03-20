@@ -7,7 +7,14 @@ cloud.init({
 const db = cloud.database()
 
 exports.main = async (event, context) => {
-  const { userId } = event
+  let userId
+  
+  try {
+    const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+    userId = body.userId
+  } catch (error) {
+    userId = event.userId
+  }
   
   if (!userId) {
     return {
@@ -63,8 +70,10 @@ exports.main = async (event, context) => {
           phone: user.phone,
           isVip,
           vipExpireTime: user.vipExpireTime,
-          logoUrl: user.logoUrl,
-          qrcodeUrl: user.qrcodeUrl,
+          brandname: user.brandname || '',
+          promoText: user.promoText || '',
+          logoUrl: user.logoUrl || '',
+          qrcodeUrl: user.qrcodeUrl || '',
           hasPassword: user.hasPassword
         }
       })

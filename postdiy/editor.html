@@ -96,8 +96,29 @@
             <label>账户类型:</label>
             <span id="userInfoType">VIP用户</span>
           </div>
+          <div class="info-divider"></div>
+          <div class="info-section-title">商家信息（云端同步）</div>
+          <div class="info-item">
+            <label>商家名称:</label>
+            <span id="userInfoBrandname">-</span>
+          </div>
+          <div class="info-item info-item-image">
+            <label>商家Logo:</label>
+            <div id="userInfoLogoPreview" class="info-image-preview">
+              <img id="userInfoLogoImg" src="" alt="Logo" style="display: none;">
+              <span id="userInfoLogoPlaceholder">未设置</span>
+            </div>
+          </div>
+          <div class="info-item info-item-image">
+            <label>商家二维码:</label>
+            <div id="userInfoQrcodePreview" class="info-image-preview">
+              <img id="userInfoQrcodeImg" src="" alt="二维码" style="display: none;">
+              <span id="userInfoQrcodePlaceholder">未设置</span>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
+          <button id="refreshUserInfoBtn" class="editor-button" style="margin-right: 10px;">刷新云端数据</button>
           <button id="closeUserInfoBtn" class="editor-button">关闭</button>
         </div>
       </div>
@@ -242,6 +263,21 @@
     </div>
   </div>
   
+  <!-- 确认弹窗 -->
+  <div id="confirmModal" class="modal-overlay hidden">
+    <div class="modal confirm-modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirmModalTitle">确认</h3>
+      </div>
+      <div class="modal-body">
+        <p id="confirmModalMessage" class="confirm-message">确定要执行此操作吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button id="confirmModalCancel" class="editor-button editor-button-secondary">取消</button>
+        <button id="confirmModalConfirm" class="editor-button editor-button-danger">确认</button>
+      </div>
+    </div>
+  </div>
 
 
   <!-- 模板选择弹窗 -->
@@ -342,12 +378,6 @@
                   <i class="fa fa-times"></i>
                 </button>
               </div>
-              <!-- VIP用户恢复原始Logo按钮 -->
-              <div id="restoreLogoBtnContainer" class="restore-btn-container hidden">
-                <button type="button" id="restoreLogoBtn" class="restore-btn">
-                  <i class="fa fa-undo"></i> 恢复原始Logo
-                </button>
-              </div>
             </div>
             
             <!-- 二维码上传区域 -->
@@ -382,12 +412,6 @@
                 <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
                 <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
                   <i class="fa fa-times"></i>
-                </button>
-              </div>
-              <!-- VIP用户恢复原始二维码按钮 -->
-              <div id="restoreQrcodeBtnContainer" class="restore-btn-container hidden">
-                <button type="button" id="restoreQrcodeBtn" class="restore-btn">
-                  <i class="fa fa-undo"></i> 恢复原始二维码
                 </button>
               </div>
             </div>
@@ -497,6 +521,12 @@
 
   <!-- 行业分类文案模板数据 -->
   <script src="industry-templates.js"></script>
+
+  <!-- 云端同步模块 -->
+  <script src="cloud-sync.js"></script>
+
+  <!-- 节日日期数据 -->
+  <script src="festival-dates.js"></script>
 
   <!-- 编辑器脚本 -->
   <script src="editor-script.js"></script>

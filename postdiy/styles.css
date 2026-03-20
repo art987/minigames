@@ -2030,6 +2030,50 @@ footer {
   color: #333;
 }
 
+.info-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 15px 0;
+}
+
+.info-section-title {
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.info-item-image {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.info-item-image label {
+  margin-bottom: 8px;
+}
+
+.info-image-preview {
+  width: 100%;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.info-image-preview span {
+  color: #999;
+  font-size: 12px;
+}
+
 /* VIP登录弹窗样式 */
 .modal.vip-login-modal {
   max-width: 400px;
@@ -2570,6 +2614,58 @@ footer {
 .editor-button-secondary:active {
   background-color: #e0e0e0;
   transform: scale(0.95);
+}
+
+.editor-button-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.editor-button-danger:active {
+  background-color: #c82333;
+  transform: scale(0.95);
+}
+
+.confirm-modal {
+  max-width: 400px;
+  text-align: center;
+}
+
+.confirm-modal .modal-header {
+  justify-content: left;
+  padding: 8px 20px 10px 29px;
+  border-bottom: none;
+  text-align: left;
+}
+
+.confirm-modal .modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.confirm-modal .modal-body {
+  padding: 23px 23px 32px;
+}
+
+.confirm-message {
+  font-size: 18px;
+  color: #1e1e1e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.confirm-modal .modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px 20px;
+  border-top: none;
+}
+
+.confirm-modal .modal-footer .editor-button {
+  min-width: 100px;
+  padding: 10px 24px;
 }
 
 /* 表单样式 */

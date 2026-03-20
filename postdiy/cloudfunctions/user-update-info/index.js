@@ -7,7 +7,22 @@ cloud.init({
 const db = cloud.database()
 
 exports.main = async (event, context) => {
-  const { userId, logoUrl, qrcodeUrl } = event
+  let userId, logoUrl, qrcodeUrl, brandname, promoText
+  
+  try {
+    const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+    userId = body.userId
+    logoUrl = body.logoUrl
+    qrcodeUrl = body.qrcodeUrl
+    brandname = body.brandname
+    promoText = body.promoText
+  } catch (error) {
+    userId = event.userId
+    logoUrl = event.logoUrl
+    qrcodeUrl = event.qrcodeUrl
+    brandname = event.brandname
+    promoText = event.promoText
+  }
   
   if (!userId) {
     return {
@@ -37,6 +52,14 @@ exports.main = async (event, context) => {
     if (qrcodeUrl !== undefined) {
       updateData.qrcodeUrl = qrcodeUrl
     }
+    
+    if (brandname !== undefined) {
+      updateData.brandname = brandname
+    }
+    
+    if (promoText !== undefined) {
+      updateData.promoText = promoText
+    }
 
     await db.collection('users').doc(userId).update({
       data: updateData
@@ -63,8 +86,10 @@ exports.main = async (event, context) => {
           phone: user.phone,
           isVip,
           vipExpireTime: user.vipExpireTime,
-          logoUrl: user.logoUrl,
-          qrcodeUrl: user.qrcodeUrl
+          brandname: user.brandname || '',
+          promoText: user.promoText || '',
+          logoUrl: user.logoUrl || '',
+          qrcodeUrl: user.qrcodeUrl || ''
         }
       })
     }

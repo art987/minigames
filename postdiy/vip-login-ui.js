@@ -371,6 +371,80 @@ const VipLoginUI = (function() {
       elements.closeUserInfoBtn.addEventListener('click', closeUserInfoModalFunc)
     }
     
+    // 刷新用户信息按钮
+    const refreshUserInfoBtn = document.getElementById('refreshUserInfoBtn')
+    if (refreshUserInfoBtn) {
+      refreshUserInfoBtn.addEventListener('click', async function() {
+        this.disabled = true
+        this.textContent = '刷新中...'
+        
+        if (window.CloudSync) {
+          await CloudSync.syncAndFillBusinessInfo()
+          await loadUserInfoFromCloud()
+        }
+        
+        this.disabled = false
+        this.textContent = '刷新云端数据'
+      })
+    }
+    
+    // 从云端加载用户信息到弹窗
+    async function loadUserInfoFromCloud() {
+      const userInfoBrandname = document.getElementById('userInfoBrandname')
+      const userInfoLogoImg = document.getElementById('userInfoLogoImg')
+      const userInfoLogoPlaceholder = document.getElementById('userInfoLogoPlaceholder')
+      const userInfoQrcodeImg = document.getElementById('userInfoQrcodeImg')
+      const userInfoQrcodePlaceholder = document.getElementById('userInfoQrcodePlaceholder')
+      
+      if (window.CloudSync) {
+        const result = await CloudSync.loadBusinessInfoFromCloud()
+        if (result.success && result.data) {
+          // 商家名称
+          if (userInfoBrandname) {
+            userInfoBrandname.textContent = result.data.brandname || '-'
+          }
+          
+          // Logo
+          if (result.data.logoUrl) {
+            if (userInfoLogoImg) {
+              userInfoLogoImg.src = result.data.logoUrl
+              userInfoLogoImg.style.display = 'block'
+            }
+            if (userInfoLogoPlaceholder) {
+              userInfoLogoPlaceholder.style.display = 'none'
+            }
+          } else {
+            if (userInfoLogoImg) {
+              userInfoLogoImg.style.display = 'none'
+            }
+            if (userInfoLogoPlaceholder) {
+              userInfoLogoPlaceholder.style.display = 'inline'
+              userInfoLogoPlaceholder.textContent = '未设置'
+            }
+          }
+          
+          // 二维码
+          if (result.data.qrcodeUrl) {
+            if (userInfoQrcodeImg) {
+              userInfoQrcodeImg.src = result.data.qrcodeUrl
+              userInfoQrcodeImg.style.display = 'block'
+            }
+            if (userInfoQrcodePlaceholder) {
+              userInfoQrcodePlaceholder.style.display = 'none'
+            }
+          } else {
+            if (userInfoQrcodeImg) {
+              userInfoQrcodeImg.style.display = 'none'
+            }
+            if (userInfoQrcodePlaceholder) {
+              userInfoQrcodePlaceholder.style.display = 'inline'
+              userInfoQrcodePlaceholder.textContent = '未设置'
+            }
+          }
+        }
+      }
+    }
+    
     // 显示用户信息弹窗
     function openUserInfoModal() {
       if (elements.userInfoModal) {
@@ -386,6 +460,9 @@ const VipLoginUI = (function() {
         if (elements.userInfoType) {
           elements.userInfoType.textContent = userInfo.isVip ? 'VIP用户' : '普通用户'
         }
+        
+        // 加载云端商家信息
+        loadUserInfoFromCloud()
         
         elements.userInfoModal.classList.remove('hidden')
       }
@@ -424,8 +501,9 @@ const VipLoginUI = (function() {
     
     // VIP 退出功能
     function handleVipLogout() {
-      if (confirm('确定要退出 VIP 登录吗？')) {
-        VIPSystem.logout()
+      showConfirmDialog('退出确认', '确定要退出登录吗？', () => {
+        // 清除所有本地存储
+        localStorage.clear()
         
         // 更新 UI
         if (elements.vipLoginBtn && elements.vipLoggedInMenu) {
@@ -438,11 +516,46 @@ const VipLoginUI = (function() {
           elements.vipDropdownMenu.classList.add('hidden')
         }
         
-        showMessage('已退出 VIP 登录', 'success')
+        showMessage('已退出登录', 'success')
         setTimeout(() => {
           location.reload()
         }, 1000)
+      })
+    }
+    
+    // 显示确认弹窗
+    function showConfirmDialog(title, message, onConfirm) {
+      const confirmModal = document.getElementById('confirmModal')
+      const confirmTitle = document.getElementById('confirmModalTitle')
+      const confirmMessage = document.getElementById('confirmModalMessage')
+      const confirmBtn = document.getElementById('confirmModalConfirm')
+      const cancelBtn = document.getElementById('confirmModalCancel')
+      
+      if (!confirmModal) return
+      
+      confirmTitle.textContent = title
+      confirmMessage.textContent = message
+      confirmModal.classList.remove('hidden')
+      
+      const closeDialog = () => {
+        confirmModal.classList.add('hidden')
+        confirmBtn.removeEventListener('click', handleConfirm)
+        cancelBtn.removeEventListener('click', handleCancel)
       }
+      
+      const handleConfirm = () => {
+        closeDialog()
+        if (typeof onConfirm === 'function') {
+          onConfirm()
+        }
+      }
+      
+      const handleCancel = () => {
+        closeDialog()
+      }
+      
+      confirmBtn.addEventListener('click', handleConfirm)
+      cancelBtn.addEventListener('click', handleCancel)
     }
 
 
@@ -569,13 +682,14 @@ const VipLoginUI = (function() {
         if (result.success) {
           showMessage('登录成功', 'success')
           
-          setTimeout(() => {
+          setTimeout(async () => {
             if (result.data.isNewUser || !result.data.hasPassword) {
               renderPasswordForm()
             } else {
               hideLoginModal()
-              if (typeof onVipLoginSuccess === 'function') {
-                onVipLoginSuccess(result.data)
+              // 从云端加载商家信息并填充到画布
+              if (typeof window.onVipLoginSuccess === 'function') {
+                await window.onVipLoginSuccess(result.data)
               } else {
                 location.reload()
               }
