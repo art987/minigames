@@ -8,8 +8,8 @@ cloud.init({
 const db = cloud.database()
 
 const cos = new COS({
-  SecretId: process.env.COS_SECRET_ID || 'AKIDaCeHsbCzfRDoHnDRTIxc8Tk0IlBRXTUV',
-  SecretKey: process.env.COS_SECRET_KEY || '0raWOK9njjnikfUCjATdgljBUoaHNPFs'
+  SecretId: process.env.COS_SECRET_ID,
+  SecretKey: process.env.COS_SECRET_KEY
 })
 
 const BUCKET = 'postdiyavatar-1308395249'

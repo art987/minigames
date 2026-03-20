@@ -78,10 +78,7 @@
       "name": "user-update-image",
       "config": {
         "timeout": 60,
-        "envVariables": {
-          "COS_SECRET_ID": "AKIDaCeHsbCzfRDoHnDRTIxc8Tk0IlBRXTUV",
-          "COS_SECRET_KEY": "0raWOK9njjnikfUCjATdgljBUoaHNPFs"
-        },
+        "envVariables": {},
         "runtime": "Nodejs18.15"
       }
     },
@@ -97,10 +94,7 @@
       "name": "user-delete-image",
       "config": {
         "timeout": 60,
-        "envVariables": {
-          "COS_SECRET_ID": "AKIDaCeHsbCzfRDoHnDRTIxc8Tk0IlBRXTUV",
-          "COS_SECRET_KEY": "0raWOK9njjnikfUCjATdgljBUoaHNPFs"
-        },
+        "envVariables": {},
         "runtime": "Nodejs18.15"
       }
     }
