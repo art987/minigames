@@ -97,6 +97,54 @@
         "envVariables": {},
         "runtime": "Nodejs18.15"
       }
+    },
+    {
+      "name": "user-generate-voucher",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-verify-voucher",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "user-voucher-list",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "check-vip-status",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "admin-generate-vouchers",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
+    },
+    {
+      "name": "admin-manage-vouchers",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs18.15"
+      }
     }
   ],
   "region": "ap-shanghai"

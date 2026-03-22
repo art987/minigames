@@ -139,6 +139,89 @@ window.wechatWarning = {
   }
 };
 
+// 图片本地缓存系统
+const IMAGE_CACHE_KEYS = {
+  logo: 'poster_logo_base64',
+  qrcode: 'poster_qrcode_base64'
+};
+
+async function loadImageAsBase64(url) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
+
+function saveToCache(key, base64) {
+  localStorage.setItem(key, base64);
+}
+
+function getFromCache(key) {
+  return localStorage.getItem(key);
+}
+
+async function initImagesWithCache() {
+  const logoImg = document.getElementById('posterLogoImg');
+  const qrImg = document.getElementById('posterQrcodeImg');
+
+  const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
+  const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+
+  if (cachedLogo && logoImg) {
+    logoImg.src = cachedLogo;
+  }
+
+  if (cachedQr && qrImg) {
+    qrImg.src = cachedQr;
+  }
+}
+
+async function refreshImagesFromCloud() {
+  const logoImg = document.getElementById('posterLogoImg');
+  const qrImg = document.getElementById('posterQrcodeImg');
+
+  if (logoImg && logoImg.dataset.cloudUrl) {
+    try {
+      const base64 = await loadImageAsBase64(logoImg.dataset.cloudUrl);
+      saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+      logoImg.src = base64;
+    } catch (e) {
+      console.error('刷新Logo缓存失败:', e);
+    }
+  }
+
+  if (qrImg && qrImg.dataset.cloudUrl) {
+    try {
+      const base64 = await loadImageAsBase64(qrImg.dataset.cloudUrl);
+      saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+      qrImg.src = base64;
+    } catch (e) {
+      console.error('刷新二维码缓存失败:', e);
+    }
+  }
+}
+
+async function updateImageCache(imgId, key, newUrl) {
+  const img = document.getElementById(imgId);
+  if (!img) return;
+
+  try {
+    const base64 = await loadImageAsBase64(newUrl);
+    saveToCache(key, base64);
+    img.src = base64;
+  } catch (e) {
+    console.error('更新图片缓存失败:', e);
+  }
+}
+
+// 图片裁剪功能 - 全局变量
+let cropper = null;
+let currentCropTarget = null;
+
 // 全局状态管理 - 移到最前面确保优先初始化
   let state = {
     currentTemplate: null,
@@ -181,6 +264,12 @@ window.wechatWarning = {
     
     // 然后更新显示
     updateBusinessInfoDisplay();
+    
+    // 初始化图片缓存
+    initImagesWithCache();
+    
+    // 初始化裁剪事件
+    initCropperEvents();
     
     // 最后绑定事件和初始化
     bindEvents();
@@ -1532,6 +1621,159 @@ window.wechatWarning = {
     closePromoTextModal();
   }
   
+  // 图片裁剪功能函数
+  function openCropper(file, targetType) {
+    console.log('openCropper 被调用, targetType:', targetType);
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      console.log('FileReader onload 触发');
+      const img = document.getElementById('cropImage');
+      img.src = e.target.result;
+
+      const cropModal = document.getElementById('cropModal');
+      if (cropModal) {
+        cropModal.style.display = 'flex';
+        console.log('裁剪弹窗已显示');
+      } else {
+        console.error('找不到裁剪弹窗 #cropModal');
+      }
+
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+
+      console.log('初始化 Cropper...');
+      cropper = new Cropper(img, {
+        aspectRatio: 1,
+        viewMode: 1,
+        autoCropArea: 1,
+        dragMode: 'move',
+        scalable: true,
+        zoomable: true,
+        movable: true,
+        responsive: true,
+        background: false,
+        checkCrossOrigin: false
+      });
+      console.log('Cropper 初始化完成:', cropper);
+
+      currentCropTarget = targetType;
+      console.log('currentCropTarget 设置为:', currentCropTarget);
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  function closeCropper() {
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
+    currentCropTarget = null;
+
+    const cropModal = document.getElementById('cropModal');
+    if (cropModal) {
+      cropModal.style.display = 'none';
+    }
+  }
+
+  function confirmCrop() {
+    console.log('confirmCrop 被调用');
+    console.log('cropper:', cropper);
+    console.log('currentCropTarget:', currentCropTarget);
+    
+    if (!cropper || !currentCropTarget) {
+      console.log('cropper或currentCropTarget为空');
+      return;
+    }
+
+    const canvas = cropper.getCroppedCanvas({
+      width: 500,
+      height: 500,
+      imageSmoothingEnabled: true,
+      imageSmoothingQuality: 'high'
+    });
+
+    console.log('裁剪后的canvas:', canvas);
+
+    if (!canvas) {
+      showToast('裁剪失败，请重试');
+      return;
+    }
+
+    const base64 = canvas.toDataURL('image/png');
+    console.log('生成的base64长度:', base64.length);
+
+    if (currentCropTarget === 'logo') {
+      console.log('处理Logo裁剪');
+      state.businessInfo.logo = base64;
+      pendingUploads.logo = base64;
+      pendingDeletes.logo = false;
+
+      saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+
+      updateBusinessInfoDisplay();
+
+      if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
+        elements.logoPreviewImg.src = base64;
+        elements.logoPreview.style.display = 'block';
+        elements.logoUploadArea.style.display = 'none';
+      }
+
+      showToast('Logo已裁剪，点击保存后上传到云端');
+    }
+
+    if (currentCropTarget === 'qrcode') {
+      console.log('处理二维码裁剪');
+      state.businessInfo.qrcode = base64;
+      pendingUploads.qrcode = base64;
+      pendingDeletes.qrcode = false;
+
+      saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+
+      updateBusinessInfoDisplay();
+
+      if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
+        elements.qrcodePreviewImg.src = base64;
+        elements.qrcodePreview.classList.remove('hidden');
+        elements.qrcodePreview.style.display = 'block';
+        elements.qrcodeUploadArea.style.display = 'none';
+      }
+
+      showToast('二维码已裁剪，点击保存后上传到云端');
+    }
+
+    closeCropper();
+  }
+
+  function initCropperEvents() {
+    const confirmBtn = document.getElementById('confirmCrop');
+    const cancelBtn = document.getElementById('cancelCrop');
+
+    console.log('初始化裁剪事件:', { confirmBtn, cancelBtn });
+
+    if (confirmBtn) {
+      console.log('绑定确认裁剪按钮事件');
+      confirmBtn.addEventListener('click', function() {
+        console.log('确认裁剪按钮被点击');
+        confirmCrop();
+      });
+    } else {
+      console.error('找不到确认裁剪按钮 #confirmCrop');
+    }
+
+    if (cancelBtn) {
+      console.log('绑定取消裁剪按钮事件');
+      cancelBtn.addEventListener('click', function() {
+        console.log('取消裁剪按钮被点击');
+        closeCropper();
+      });
+    } else {
+      console.error('找不到取消裁剪按钮 #cancelCrop');
+    }
+  }
 
   
   // 这里是其他函数定义...
@@ -2096,9 +2338,9 @@ window.wechatWarning = {
       });
     }
     
-    // 添加标志变量防止重复触发
-    let isFileDialogOpen = false;
-    let activeFileInput = null;
+    // 添加标志变量防止重复触发（移到函数外部以便其他函数访问）
+    window.isFileDialogOpen = false;
+    window.activeFileInput = null;
     
     // 背景上传相关事件
     if (elements.uploadBackgroundBtn) {
@@ -2919,11 +3161,15 @@ window.wechatWarning = {
       }
       
       if (state.businessInfo.logo) {
+        elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = state.businessInfo.logo;
+        elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
       } else {
+        elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = 'images/statics/logo-default.gif';
+        elements.posterLogoImg.dataset.cloudUrl = '';
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
       }
@@ -2943,11 +3189,15 @@ window.wechatWarning = {
       }
       
       if (state.businessInfo.qrcode) {
+        elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = state.businessInfo.qrcode;
+        elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
       } else {
+        elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
+        elements.posterQrcodeImg.dataset.cloudUrl = '';
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
       }
@@ -4538,6 +4788,7 @@ window.wechatWarning = {
         if (result.success) {
           state.businessInfo.logo = result.url;
           await CloudSync.syncLogoUrlToCloud(result.url);
+          await updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url);
         }
       }
       
@@ -4549,6 +4800,7 @@ window.wechatWarning = {
         if (result.success) {
           state.businessInfo.qrcode = result.url;
           await CloudSync.syncQrcodeUrlToCloud(result.url);
+          await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
         }
       }
       
@@ -4732,10 +4984,16 @@ window.wechatWarning = {
     showToast('背景图片已移除');
   }
   
-  // 处理Logo上传（只更新预览，不立即上传云端）
+  // 处理Logo上传（打开裁剪界面）
   function handleLogoUpload(event) {
+    console.log('handleLogoUpload 被调用');
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file) {
+      console.log('没有选择文件');
+      return;
+    }
+    
+    console.log('选择的文件:', file.name, file.type, file.size);
     
     // 检查文件类型
     if (!file.type.match('image.*')) {
@@ -4749,32 +5007,12 @@ window.wechatWarning = {
       return;
     }
     
-    // 读取文件
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageData = e.target.result;
-      
-      // 更新状态和预览
-      state.businessInfo.logo = imageData;
-      pendingUploads.logo = imageData;
-      pendingDeletes.logo = false;
-      
-      // 更新显示
-      updateBusinessInfoDisplay();
-      
-      // 显示预览，隐藏上传区域
-      if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
-        elements.logoPreviewImg.src = imageData;
-        elements.logoPreview.style.display = 'block';
-        elements.logoUploadArea.style.display = 'none';
-      }
-      
-      showToast('Logo已选择，点击保存后上传到云端');
-      
-      // 重置文件输入
-      event.target.value = '';
-    };
-    reader.readAsDataURL(file);
+    // 重置文件输入
+    event.target.value = '';
+    
+    // 打开裁剪界面
+    console.log('准备调用 openCropper');
+    openCropper(file, 'logo');
   }
   
   // 移除Logo（只更新预览，不立即删除云端）
@@ -4782,6 +5020,10 @@ window.wechatWarning = {
     state.businessInfo.logo = null;
     pendingUploads.logo = null;
     pendingDeletes.logo = true;
+    
+    // 重置文件对话框标志，确保可以再次点击上传
+    window.isFileDialogOpen = false;
+    window.activeFileInput = null;
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -4795,7 +5037,7 @@ window.wechatWarning = {
     showToast('Logo已移除，点击保存后同步到云端');
   }
   
-  // 处理二维码上传（只更新预览，不立即上传云端）
+  // 处理二维码上传（打开裁剪界面）
   function handleQrcodeUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -4806,33 +5048,11 @@ window.wechatWarning = {
       return;
     }
     
-    // 读取文件
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageData = e.target.result;
-      
-      // 更新状态和预览
-      state.businessInfo.qrcode = imageData;
-      pendingUploads.qrcode = imageData;
-      pendingDeletes.qrcode = false;
-      
-      // 更新显示
-      updateBusinessInfoDisplay();
-      
-      // 显示预览，隐藏上传区域
-      if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
-        elements.qrcodePreviewImg.src = imageData;
-        elements.qrcodePreview.classList.remove('hidden');
-        elements.qrcodePreview.style.display = 'block';
-        elements.qrcodeUploadArea.style.display = 'none';
-      }
-      
-      showToast('二维码已选择，点击保存后上传到云端');
-      
-      // 重置文件输入
-      event.target.value = '';
-    };
-    reader.readAsDataURL(file);
+    // 重置文件输入
+    event.target.value = '';
+    
+    // 打开裁剪界面
+    openCropper(file, 'qrcode');
   }
   
   // 移除二维码（只更新预览，不立即删除云端）
@@ -4840,6 +5060,10 @@ window.wechatWarning = {
     state.businessInfo.qrcode = null;
     pendingUploads.qrcode = null;
     pendingDeletes.qrcode = true;
+    
+    // 重置文件对话框标志，确保可以再次点击上传
+    window.isFileDialogOpen = false;
+    window.activeFileInput = null;
     
     // 更新显示
     updateBusinessInfoDisplay();
@@ -5126,6 +5350,217 @@ window.wechatWarning = {
     couponInput.focus();
   }
   
+  // VIP升级弹窗
+  // 暴露到全局作用域，供其他脚本调用
+  window.showVipUpgradeModal = function() {
+    // 移除已存在的升级弹窗
+    let existingModal = document.getElementById('vipUpgradeModal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+
+    // 创建升级弹窗
+    const modal = document.createElement('div');
+    modal.id = 'vipUpgradeModal';
+    modal.className = 'modal-overlay';
+    modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: flex; align-items: center; justify-content: center;';
+
+    modal.innerHTML = `
+      <div class="modal-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 360px; width: 90%; text-align: center; position: relative;">
+        <!-- 关闭按钮 -->
+        <button id="closeVipUpgradeBtn" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+        
+        <!-- 标题 -->
+        <h3 style="margin: 0 0 20px 0; color: #333; font-size: 20px;">0秒等待升级您的VIP品牌账号</h3>
+        
+        <!-- 升级码输入框 -->
+        <div style="margin-bottom: 20px;">
+          <input type="text" id="voucherCodeInput" placeholder="请输入升级码" style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+        </div>
+        
+        <!-- 验证按钮 -->
+        <button id="verifyVoucherBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">验证</button>
+        
+        <!-- 结果显示 -->
+        <div id="voucherResult" style="margin-top: 16px; padding: 12px; border-radius: 8px; display: none;">
+          <div id="voucherErrorMessage" style="margin-bottom: 10px;"></div>
+          <div id="voucherErrorLog" style="background: #2d3748; color: #e2e8f0; padding: 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; max-height: 200px; overflow-y: auto; margin-bottom: 10px; display: none;"></div>
+          <button id="copyErrorLogBtn" style="font-size: 12px; padding: 6px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">复制错误日志</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // 绑定事件
+    const voucherInput = document.getElementById('voucherCodeInput');
+    const verifyBtn = document.getElementById('verifyVoucherBtn');
+    const resultDiv = document.getElementById('voucherResult');
+    const closeBtn = document.getElementById('closeVipUpgradeBtn');
+
+    // 关闭弹窗
+    closeBtn.addEventListener('click', () => {
+      modal.remove();
+    });
+
+    // 点击背景关闭
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
+
+    // 验证按钮点击
+    verifyBtn.addEventListener('click', async () => {
+      const code = voucherInput.value.trim();
+      if (!code) {
+        showVoucherResult(resultDiv, 'error', '请输入升级码');
+        return;
+      }
+
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = '验证中...';
+
+      try {
+        // 检查用户是否已登录
+        let userId = typeof VIPSystem !== 'undefined' ? VIPSystem.getUserId() : null;
+        
+        console.log('验证升级码时的userId:', userId);
+        console.log('验证升级码时的code:', code);
+        console.log('VIPSystem是否存在:', typeof VIPSystem !== 'undefined');
+        
+        // 检查localStorage中的用户ID
+        console.log('localStorage中的postdiy_user_id:', localStorage.getItem('postdiy_user_id'));
+        console.log('localStorage中的userInfo:', localStorage.getItem('postdiy_user_info'));
+        
+        // 严格检查userId
+        if (!userId || typeof userId !== 'string' || userId.trim() === '') {
+          // 用户未登录，需要先登录
+          showVoucherResult(resultDiv, 'error', '请先登录后再验证升级码');
+          verifyBtn.disabled = false;
+          verifyBtn.textContent = '验证';
+          return;
+        }
+        
+        // 检查code
+        if (!code || typeof code !== 'string' || code.trim() === '') {
+          showVoucherResult(resultDiv, 'error', '请输入有效的升级码');
+          verifyBtn.disabled = false;
+          verifyBtn.textContent = '验证';
+          return;
+        }
+        
+        console.log('开始调用VIPSystem.verifyVoucher');
+        const result = await VIPSystem.verifyVoucher(code, userId);
+        console.log('VIPSystem.verifyVoucher返回结果:', result);
+
+        if (result.success) {
+          if (result.used) {
+            // 验证成功但已使用
+            const usedAt = new Date(result.usedAt);
+            const phone = result.usedByPhone || '';
+            const maskedPhone = phone ? phone.substring(0, 4) + '...' + phone.substring(phone.length - 4) : '';
+            const dateStr = `${usedAt.getFullYear()}年${String(usedAt.getMonth() + 1).padStart(2, '0')}月${String(usedAt.getDate()).padStart(2, '0')}日`;
+            const timeStr = `${String(usedAt.getHours()).padStart(2, '0')}时${String(usedAt.getMinutes()).padStart(2, '0')}分${String(usedAt.getSeconds()).padStart(2, '0')}秒`;
+            
+            showVoucherResult(resultDiv, 'info', `验证码：${code}已于${dateStr} ${timeStr}，账号(${maskedPhone})激活使用，增加时长${result.duration}个月`);
+          } else {
+            // 验证成功且未使用
+            const validUntil = new Date(result.validUntil);
+            const dateStr = `${validUntil.getFullYear()}年${String(validUntil.getMonth() + 1).padStart(2, '0')}月${String(validUntil.getDate()).padStart(2, '0')}日`;
+            
+            showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
+            
+            // 延迟关闭弹窗
+            setTimeout(() => {
+              modal.remove();
+            }, 3000);
+          }
+        } else {
+          // 验证失败
+          showVoucherResult(resultDiv, 'error', '验证失败 请准确复制升级码，或联系客服解决', result);
+        }
+      } catch (error) {
+        console.error('验证升级码失败:', error);
+        showVoucherResult(resultDiv, 'error', '验证失败，请稍后重试', error);
+      } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = '验证';
+      }
+    });
+
+    // 按回车键验证
+    voucherInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        verifyBtn.click();
+      }
+    });
+
+    // 自动聚焦输入框
+    voucherInput.focus();
+  }
+
+  // 显示升级码验证结果
+  function showVoucherResult(element, type, message, errorDetails = null) {
+    element.style.display = 'block';
+    
+    const errorMessageDiv = element.querySelector('#voucherErrorMessage');
+    const errorLogDiv = element.querySelector('#voucherErrorLog');
+    const copyLogBtn = element.querySelector('#copyErrorLogBtn');
+    
+    if (errorMessageDiv) {
+      errorMessageDiv.textContent = message;
+    }
+    
+    if (type === 'success') {
+      element.style.background = '#d4edda';
+      element.style.color = '#155724';
+      element.style.border = '1px solid #c3e6cb';
+      
+      // 隐藏错误日志相关元素
+      if (errorLogDiv) errorLogDiv.style.display = 'none';
+      if (copyLogBtn) copyLogBtn.style.display = 'none';
+    } else if (type === 'error') {
+      element.style.background = '#f8d7da';
+      element.style.color = '#721c24';
+      element.style.border = '1px solid #f5c6cb';
+      
+      // 显示错误日志
+      if (errorLogDiv) {
+        const timestamp = new Date().toLocaleString('zh-CN');
+        const logContent = errorDetails ? 
+          `[${timestamp}] 错误信息：${JSON.stringify(errorDetails)}\n[${timestamp}] 验证失败：${message}` : 
+          `[${timestamp}] 验证失败：${message}`;
+        errorLogDiv.textContent = logContent;
+        errorLogDiv.style.display = 'block';
+      }
+      
+      // 显示复制按钮
+      if (copyLogBtn) {
+        copyLogBtn.style.display = 'inline-block';
+        copyLogBtn.onclick = function() {
+          const logContent = errorLogDiv ? errorLogDiv.textContent : '';
+          if (logContent) {
+            navigator.clipboard.writeText(logContent).then(() => {
+              alert('错误日志已复制到剪贴板');
+            }).catch(err => {
+              console.error('复制失败:', err);
+              alert('复制失败，请手动复制');
+            });
+          }
+        };
+      }
+    } else if (type === 'info') {
+      element.style.background = '#d1ecf1';
+      element.style.color = '#0c5460';
+      element.style.border = '1px solid #bee5eb';
+      
+      // 隐藏错误日志相关元素
+      if (errorLogDiv) errorLogDiv.style.display = 'none';
+      if (copyLogBtn) copyLogBtn.style.display = 'none';
+    }
+  }
+  
   // 券码验证通过后的下载
   async function downloadPosterAfterVerification() {
     // 检查是否有背景图片或模板，允许自定义背景的情况
@@ -5181,12 +5616,42 @@ window.wechatWarning = {
   
   // 下载海报
   async function downloadPoster() {
-    // 检查是否为VIP状态
-    if (window.isVipActive && window.isVipActive()) {
-      // VIP用户直接下载，无需券码验证
-      await downloadPosterAfterVerification();
-    } else {
-      // 普通用户显示广告弹窗，8秒倒计时后可下载
+    try {
+      let isVip = false;
+      if (typeof VIPSystem !== 'undefined') {
+        // 直接从服务器获取最新的VIP状态
+        const userId = VIPSystem.getUserId();
+        const userInfo = VIPSystem.getUserInfo();
+        const phone = userInfo ? userInfo.phone : null;
+        
+        console.log('从服务器获取最新VIP状态...');
+        console.log('用户ID:', userId);
+        console.log('用户手机号:', phone);
+        
+        if (userId || phone) {
+          const result = await VIPSystem.checkVipStatus(userId, phone);
+          console.log('服务器返回结果:', result);
+          
+          if (result.success && result.data) {
+            // 直接使用服务器返回的状态
+            isVip = result.data.isVip || false;
+            console.log('服务器返回的VIP状态:', isVip);
+          }
+        }
+      }
+      
+      if (isVip) {
+        // VIP用户直接下载，无需券码验证
+        console.log('VIP用户，直接下载');
+        await downloadPosterAfterVerification();
+      } else {
+        // 普通用户显示广告弹窗，15秒倒计时后可下载
+        console.log('非VIP用户，显示广告弹窗');
+        showAdModal();
+      }
+    } catch (error) {
+      console.error('检查VIP状态时出错:', error);
+      // 出错时默认显示广告弹窗
       showAdModal();
     }
   }
@@ -5225,9 +5690,9 @@ window.wechatWarning = {
             （<span id="adCountdown" class="ad-countdown">15</span>秒后）下载海报
           </button>
           
-          <!-- 定制VIP品牌账户按钮 -->
+          <!-- 升级VIP品牌账户按钮 -->
           <button id="customBrandBtn" class="ad-vip-btn">
-            0秒等待，定制您的VIP品牌账号！
+            0秒等待升级您的VIP品牌账号
           </button>
         </div>
       </div>
@@ -5265,20 +5730,73 @@ window.wechatWarning = {
       await downloadPosterAfterVerification();
     });
 
-    // 定制品牌账户按钮事件
+    // 升级VIP品牌账户按钮事件
     document.getElementById('customBrandBtn').addEventListener('click', () => {
-      // 这里可以添加跳转到品牌定制页面的逻辑
-      alert('定制品牌账户功能即将上线');
+      clearInterval(timer);
+      adModal.remove();
+      showVipUpgradeModal();
     });
   }
   
+  // 图片Base64缓存
+  const imageBase64Cache = {};
+
+  // 加载图片为Base64
+  async function loadImageAsBase64(url) {
+    if (imageBase64Cache[url]) {
+      return imageBase64Cache[url];
+    }
+
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        imageBase64Cache[url] = reader.result;
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  // 导出前预处理图片
+  async function prepareImages() {
+    const logoImg = document.getElementById('posterLogoImg');
+    const qrImg = document.getElementById('posterQrcodeImg');
+
+    if (logoImg && logoImg.src && logoImg.src.startsWith('http')) {
+      try {
+        logoImg.src = await loadImageAsBase64(logoImg.src);
+      } catch (e) {
+        console.error('Logo图片转换失败:', e);
+      }
+    }
+
+    if (qrImg && qrImg.src && qrImg.src.startsWith('http')) {
+      try {
+        qrImg.src = await loadImageAsBase64(qrImg.src);
+      } catch (e) {
+        console.error('二维码图片转换失败:', e);
+      }
+    }
+  }
+
+
+
   // 转换为图片并下载 - 简化版：直接使用html2canvas对整个posterFrame进行截图
   async function convertToImageAndDownload() {
+    // 预处理图片
+    await prepareImages();
+
     // 获取元素
     if (!elements.posterFrame) {
       showToast('未找到海报元素');
       return;
     }
+    
+    // 声明临时样式元素变量
+    let tempStyledElements = [];
     
     // 提高分辨率，设置一个更高的缩放比例
     const scale = window.devicePixelRatio * 1.5 || 3;
@@ -5573,160 +6091,112 @@ window.wechatWarning = {
       let tempLogoCanvas = null;
       let tempQrcodeCanvas = null;
       
+      // 辅助函数：绘制圆角矩形
+      function drawRoundedRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+      }
+      
       // 辅助函数：创建canvas来正确显示图片
       async function createProperlyScaledCanvas(imgElement) {
         if (!imgElement || !imgElement.src) return null;
-        
-        // 绘制圆角路径的辅助函数
-        function drawRoundedRect(ctx, x, y, width, height, radius) {
-          // 确保半径不为负数
-          radius = Math.max(0, radius);
-          ctx.beginPath();
-          ctx.moveTo(x + radius, y);
-          ctx.arcTo(x + width, y, x + width, y + height, radius);
-          ctx.arcTo(x + width, y + height, x, y + height, radius);
-          ctx.arcTo(x, y + height, x, y, radius);
-          ctx.arcTo(x, y, x + width, y, radius);
-          ctx.closePath();
-        }
-        
+
         return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = function() {
-            try {
-              // 创建临时canvas
+          try {
+            function draw() {
               const canvas = document.createElement('canvas');
               const ctx = canvas.getContext('2d');
-              
-              // 获取元素容器的尺寸
+
               const container = imgElement.parentElement;
-              const containerWidth = container.offsetWidth;
-              const containerHeight = container.offsetHeight;
+              const width = container.offsetWidth;
+              const height = container.offsetHeight;
+
+              const scaleRatio = window.devicePixelRatio || 2;
+
+              canvas.width = width * scaleRatio;
+              canvas.height = height * scaleRatio;
+
+              canvas.style.width = width + 'px';
+              canvas.style.height = height + 'px';
+
+              ctx.scale(scaleRatio, scaleRatio);
               
-              // 提高临时canvas分辨率
-              canvas.width = containerWidth * scale;
-              canvas.height = containerHeight * scale;
-              // 设置canvas的CSS尺寸与容器相同
-              canvas.style.width = containerWidth + 'px';
-              canvas.style.height = containerHeight + 'px';
-              // 缩放上下文以匹配高分辨率
-              ctx.scale(scale, scale);
-              
-              // 检查是否为二维码图片
+              // 判断是否是 Logo 或二维码
+              const isLogo = imgElement.id === 'posterLogoImg';
               const isQrcode = imgElement.id === 'posterQrcodeImg';
-              const borderRadius = isQrcode ? 2 : 0;
               
-              let drawWidth, drawHeight, offsetX, offsetY;
-              
-              if (isQrcode) {
-                // 对于二维码，使用object-fit: cover模式（居中裁剪，保持原始比例）
-                const targetScale = 0.9; // 80%缩放比例
+              if (isLogo) {
+                // Logo：圆形裁剪 + 白色描边
+                const radius = Math.min(width, height) / 2;
+                const borderWidth = 1;
+                const borderColor = 'rgba(255,255,255,0.67)';
                 
-                // 计算目标区域尺寸（80%的正方形）
-                const targetSize = Math.min(containerWidth, containerHeight) * targetScale;
-                
-                // 绘制区域始终是正方形，确保左右和上下留白一致
-                drawWidth = targetSize;
-                drawHeight = targetSize;
-                
-                // 计算居中偏移量
-                offsetX = (containerWidth - targetSize) / 2;
-                offsetY = (containerHeight - targetSize) / 2;
-                
-                // 计算图片的宽高比，用于裁剪
-                const imgRatio = img.width / img.height;
-                
-                // 计算图片的源区域（用于裁剪）
-                let sx, sy, sw, sh;
-                if (imgRatio > 1) {
-                  // 图片更宽：裁剪左右
-                  sh = img.height;
-                  sw = img.height; // 正方形
-                  sx = (img.width - sw) / 2;
-                  sy = 0;
-                } else {
-                  // 图片更高：裁剪上下
-                  sw = img.width;
-                  sh = img.width; // 正方形
-                  sx = 0;
-                  sy = (img.height - sh) / 2;
-                }
-                
-                // 绘制圆角白色背景（在图片绘制区域）
-                ctx.fillStyle = 'white';
-                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
-                ctx.fill();
-                
-                // 绘制裁剪后的图片
                 ctx.save();
-                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
-                ctx.clip();
-                ctx.drawImage(img, sx, sy, sw, sh, offsetX, offsetY, drawWidth, drawHeight);
-                ctx.restore();
-              } else {
-                // 对于其他图片（如Logo），使用object-fit:cover模式
-                const imgRatio = img.width / img.height;
-                const containerRatio = containerWidth / containerHeight;
-                
-                if (imgRatio > containerRatio) {
-                  // 图片更宽，按高度缩放，裁剪宽度
-                  drawHeight = containerHeight;
-                  drawWidth = img.width * (containerHeight / img.height);
-                  offsetX = (containerWidth - drawWidth) / 2;
-                  offsetY = 0;
-                } else {
-                  // 图片更高，按宽度缩放，裁剪高度
-                  drawWidth = containerWidth;
-                  drawHeight = img.height * (containerWidth / img.width);
-                  offsetX = 0;
-                  offsetY = (containerHeight - drawHeight) / 2;
-                }
-              }
-              
-              // 绘制图片
-              if (isQrcode) {
-                // 二维码已经在上面绘制，这里只需要添加白色描边
-                // 为二维码添加6像素白色描边（带圆角）
-                ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-                ctx.lineWidth = 6;
-                drawRoundedRect(ctx, offsetX, offsetY, drawWidth, drawHeight, borderRadius);
-                ctx.stroke();
-              } else {
-                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-              }
-              
-              // 对于Logo图片，添加3像素白色描边
-              if (!isQrcode && imgElement.id === 'posterLogoImg') {
-                // 绘制描边，覆盖在图片上
-                ctx.strokeStyle = 'white';
-                ctx.lineWidth = 3;
                 ctx.beginPath();
-                const radius = Math.max(0.5, containerWidth / 2 - 0.5);
-                ctx.arc(containerWidth / 2, containerHeight / 2, radius, 0, 2 * Math.PI);
+                ctx.arc(radius, radius, radius - borderWidth, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(imgElement, 0, 0, width, height);
+                ctx.restore();
+                
+                // 绘制描边
+                ctx.beginPath();
+                ctx.arc(radius, radius, radius - borderWidth / 2, 0, Math.PI * 2);
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = borderWidth;
                 ctx.stroke();
+              } else if (isQrcode) {
+                // 二维码：圆角 + 白色描边
+                const borderWidth = 1;
+                const borderColor = 'rgba(255,255,255,0.67)';
+                const borderRadius = 10;
+                
+                ctx.save();
+                ctx.beginPath();
+                drawRoundedRect(ctx, borderWidth, borderWidth, width - borderWidth * 2, height - borderWidth * 2, borderRadius - borderWidth);
+                ctx.clip();
+                ctx.drawImage(imgElement, 0, 0, width, height);
+                ctx.restore();
+                
+                // 绘制描边
+                ctx.beginPath();
+                drawRoundedRect(ctx, borderWidth / 2, borderWidth / 2, width - borderWidth, height - borderWidth, borderRadius - borderWidth / 2);
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = borderWidth;
+                ctx.stroke();
+              } else {
+                // 其他图片：直接绘制
+                ctx.drawImage(imgElement, 0, 0, width, height);
               }
-              
-              // 隐藏原始图片，显示canvas
+
+              // 隐藏 img，插入 canvas
               imgElement.style.display = 'none';
-              canvas.style.position = 'absolute';
-              canvas.style.top = '0';
-              canvas.style.left = '0';
-              canvas.style.width = '100%';
-              canvas.style.height = '100%';
               container.insertBefore(canvas, imgElement);
-              
-              resolve(canvas);
-            } catch (error) {
-              reject(error);
+
+              return canvas;
             }
-          };
-          
-          img.onerror = function() {
-            reject(new Error('无法加载图片'));
-          };
-          
-          img.src = imgElement.src;
+
+            // 如果图片还没加载完成，等加载后再绘制
+            if (!imgElement.complete) {
+              imgElement.onload = () => {
+                resolve(draw());
+              };
+            } else {
+              resolve(draw());
+            }
+
+          } catch (err) {
+            console.error('createProperlyScaledCanvas失败:', err);
+            reject(err);
+          }
         });
       }
       
@@ -5965,12 +6435,22 @@ window.wechatWarning = {
       
       // 处理Logo图片
       if (logoImgElement && logoImgElement.src) {
-        tempLogoCanvas = await createProperlyScaledCanvas(logoImgElement);
+        try {
+          tempLogoCanvas = await createProperlyScaledCanvas(logoImgElement);
+        } catch (error) {
+          console.error('处理Logo图片时出错:', error);
+          // 即使Logo加载失败，也继续执行
+        }
       }
       
       // 处理二维码图片
       if (qrcodeImgElement && qrcodeImgElement.src) {
-        tempQrcodeCanvas = await createProperlyScaledCanvas(qrcodeImgElement);
+        try {
+          tempQrcodeCanvas = await createProperlyScaledCanvas(qrcodeImgElement);
+        } catch (error) {
+          console.error('处理二维码图片时出错:', error);
+          // 即使二维码加载失败，也继续执行
+        }
       }
       
       // 更新cleanupStyles函数以包含logo和二维码的清理
@@ -6461,11 +6941,14 @@ function updateBusinessInfoButtonForVip() {
       }
       
       if (state.businessInfo.logo) {
+        elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = state.businessInfo.logo;
+        elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
       } else {
         elements.posterLogoImg.style.display = 'none';
+        elements.posterLogoImg.dataset.cloudUrl = '';
         elements.logoPlaceholder.style.display = 'block';
       }
     }
@@ -6484,11 +6967,14 @@ function updateBusinessInfoButtonForVip() {
       }
       
       if (state.businessInfo.qrcode) {
+        elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = state.businessInfo.qrcode;
+        elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
       } else {
         elements.posterQrcodeImg.style.display = 'none';
+        elements.posterQrcodeImg.dataset.cloudUrl = '';
         elements.qrcodePlaceholder.style.display = 'block';
       }
     }
@@ -6640,6 +7126,7 @@ function updateBusinessInfoButtonForVip() {
         // 更新Logo预览
         if (state.businessInfo.logo && elements.logoPreviewImg && elements.logoPreview && elements.logoUploadArea) {
           elements.logoPreviewImg.src = state.businessInfo.logo;
+          elements.logoPreviewImg.dataset.cloudUrl = state.businessInfo.logo;
           elements.logoPreview.style.display = 'block';
           elements.logoUploadArea.style.display = 'none';
         }
@@ -6647,9 +7134,13 @@ function updateBusinessInfoButtonForVip() {
         // 更新二维码预览
         if (state.businessInfo.qrcode && elements.qrcodePreviewImg && elements.qrcodePreview && elements.qrcodeUploadArea) {
           elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+          elements.qrcodePreviewImg.dataset.cloudUrl = state.businessInfo.qrcode;
           elements.qrcodePreview.style.display = 'block';
           elements.qrcodeUploadArea.style.display = 'none';
         }
+        
+        // 刷新图片缓存
+        await refreshImagesFromCloud();
         
         console.log('商家信息已从云端同步完成');
       }

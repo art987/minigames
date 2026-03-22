@@ -5201,3 +5201,74 @@ border-left: 14px solid #efefef;
   background: #667eea;
   color: white;
 }
+
+/* 图片裁剪弹窗样式 */
+.crop-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.crop-header {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.crop-container {
+  width: 90vw;
+  max-width: 400px;
+  height: 50vh;
+  max-height: 400px;
+  background: #000;
+  margin: 0 auto;
+}
+
+.crop-container img {
+  max-width: 100%;
+  display: block;
+}
+
+.crop-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.crop-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.crop-btn.cancel {
+  background: #666;
+  color: #fff;
+}
+
+.crop-btn.cancel:hover {
+  background: #888;
+}
+
+.crop-btn.confirm {
+  background: linear-gradient(135deg, #f6a83b, #f1b663);
+  color: #fff;
+}
+
+.crop-btn.confirm:hover {
+  background: linear-gradient(135deg, #e8982f, #e0a550);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(246, 168, 59, 0.4);
+}

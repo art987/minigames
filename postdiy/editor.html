@@ -8,8 +8,12 @@
   <link rel="stylesheet" href="styles.css">
   <!-- Font Awesome 图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Cropper.js 裁剪库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
   <!-- html2canvas 用于图片导出 -->
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <!-- Cropper.js 裁剪库 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
   <!-- 节日数据 -->
   <script src="festivals.js"></script>
   <!-- 模板数据 - 动态加载防止缓存 -->
@@ -60,6 +64,10 @@
         <button type="button" class="vip-menu-item" data-action="userInfo">
           <i class="fa fa-user"></i>
           <span>用户信息</span>
+        </button>
+        <button type="button" class="vip-menu-item" data-action="activateVoucher">
+          <i class="fa fa-code"></i>
+          <span>升级码激活</span>
         </button>
         <button type="button" class="vip-menu-item" data-action="visibilityManager">
           <i class="fa fa-eye"></i>
@@ -528,9 +536,6 @@
   <!-- 节日日期数据 -->
   <script src="festival-dates.js"></script>
 
-  <!-- 编辑器脚本 -->
-  <script src="editor-script.js"></script>
-  
   <!-- 调试脚本 -->
   <script>
     // 编辑器加载调试
@@ -757,5 +762,24 @@
     </div>
   </div>
   
+  <!-- 编辑器核心脚本 -->
+  <script src="editor-script.js"></script>
+  <!-- VIP系统脚本 -->
+  <script src="vip-system.js"></script>
+  <script src="vip-login-ui.js"></script>
+  
+  <!-- 图片裁剪弹窗 -->
+  <div id="cropModal" class="crop-modal" style="display:none;">
+    <div class="crop-header">
+      <span>裁剪图片</span>
+    </div>
+    <div class="crop-container">
+      <img id="cropImage">
+    </div>
+    <div class="crop-actions">
+      <button id="cancelCrop" class="crop-btn cancel">取消</button>
+      <button id="confirmCrop" class="crop-btn confirm">确认裁剪</button>
+    </div>
+  </div>
 </body>
 </html>

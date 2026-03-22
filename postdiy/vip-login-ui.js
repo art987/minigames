@@ -446,19 +446,34 @@ const VipLoginUI = (function() {
     }
     
     // 显示用户信息弹窗
-    function openUserInfoModal() {
+    async function openUserInfoModal() {
       if (elements.userInfoModal) {
-        // 从 localStorage 获取用户信息
+        // 先从服务器获取最新的VIP状态
         const userInfo = VIPSystem.getUserInfo()
+        const userId = VIPSystem.getUserId()
+        const phone = userInfo ? userInfo.phone : null
+        
+        if (userId || phone) {
+          try {
+            console.log('从服务器获取最新VIP状态...');
+            const result = await VIPSystem.checkVipStatus(userId, phone);
+            console.log('服务器返回的VIP状态:', result);
+          } catch (error) {
+            console.error('获取VIP状态失败:', error);
+          }
+        }
+        
+        // 重新从本地存储获取更新后的用户信息
+        const updatedUserInfo = VIPSystem.getUserInfo()
         
         if (elements.userInfoId) {
-          elements.userInfoId.textContent = userInfo.phone || '未登录'
+          elements.userInfoId.textContent = updatedUserInfo.phone || '未登录'
         }
         if (elements.userInfoExpiry) {
-          elements.userInfoExpiry.textContent = userInfo.vipExpireTime ? new Date(userInfo.vipExpireTime).toLocaleDateString() : '普通用户'
+          elements.userInfoExpiry.textContent = updatedUserInfo.vipValidUntil ? new Date(updatedUserInfo.vipValidUntil).toLocaleDateString() : '普通用户'
         }
         if (elements.userInfoType) {
-          elements.userInfoType.textContent = userInfo.isVip ? 'VIP用户' : '普通用户'
+          elements.userInfoType.textContent = updatedUserInfo.isVip ? 'VIP用户' : '普通用户'
         }
         
         // 加载云端商家信息
@@ -476,10 +491,16 @@ const VipLoginUI = (function() {
     }
     
     // 处理 VIP 菜单项点击
-    function handleVipMenuItemClick(action) {
+    async function handleVipMenuItemClick(action) {
       switch (action) {
         case 'userInfo':
-          openUserInfoModal()
+          await openUserInfoModal()
+          break
+        case 'activateVoucher':
+          // 打开升级码激活弹窗
+          if (window.showVipUpgradeModal) {
+            window.showVipUpgradeModal()
+          }
           break
         case 'visibilityManager':
           // 打开显示管理弹窗

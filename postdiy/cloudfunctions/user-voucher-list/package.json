@@ -1,0 +1,9 @@
+{
+  "name": "user-voucher-list",
+  "version": "1.0.0",
+  "description": "查询用户升级码列表云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
