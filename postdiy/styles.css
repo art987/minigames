@@ -1169,12 +1169,12 @@ footer {
 /* 海报二维码样式 */
 #posterQrcode {
   position: absolute;
-  bottom: 20px;
-  left: 25px;
+  bottom: 23px;
+  left: 28px;
   border-radius: 8px;
   overflow: hidden;
-  width: 60px;
-  height: 60px;
+  width: 54px;
+  height: 54px;
   background-color: rgba(255, 255, 255, 1);
   display: flex;
   align-items: center;
@@ -5225,7 +5225,7 @@ border-left: 14px solid #efefef;
 .crop-container {
   width: 90vw;
   max-width: 400px;
-  height: 50vh;
+  height: 60vh;
   max-height: 400px;
   background: #000;
   margin: 0 auto;
@@ -5239,12 +5239,12 @@ border-left: 14px solid #efefef;
 .crop-actions {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 20px 0;
+  gap: 15px;
+  padding: 23px 0;
 }
 
 .crop-btn {
-  padding: 12px 30px;
+  padding: 7px 21px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -5254,8 +5254,9 @@ border-left: 14px solid #efefef;
 }
 
 .crop-btn.cancel {
-  background: #666;
+  background: #4d4d4d;
   color: #fff;
+  border: 1px solid #757575;
 }
 
 .crop-btn.cancel:hover {
@@ -5263,12 +5264,13 @@ border-left: 14px solid #efefef;
 }
 
 .crop-btn.confirm {
-  background: linear-gradient(135deg, #f6a83b, #f1b663);
+  background: linear-gradient(135deg, #f10b0b, #a70000);
+  border: 1px solid #ff4a4a;
   color: #fff;
 }
 
 .crop-btn.confirm:hover {
-  background: linear-gradient(135deg, #e8982f, #e0a550);
+  background: linear-gradient(135deg, #ff3c3c, #b20000);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(246, 168, 59, 0.4);
+  box-shadow: 0 4px 12px rgb(255 31 31 / 40%);
 }

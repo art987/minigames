@@ -105,7 +105,7 @@ async function checkVoucherUsage(code) {
 }
 
 // 标记升级码为已使用
-async function markVoucherAsUsed(code, userId, duration, durationName) {
+async function markVoucherAsUsed(code, userId, duration, durationName, userPhone, userName, brandname) {
   try {
     const validUntil = calculateValidUntil(duration);
     const now = new Date();
@@ -116,6 +116,9 @@ async function markVoucherAsUsed(code, userId, duration, durationName) {
       data: {
         used: true,
         usedBy: userId,
+        usedByPhone: userPhone || '',
+        usedByName: userName || '',
+        brandname: brandname || '',
         usedAt: now,
         validUntil: validUntil
       }
@@ -258,7 +261,21 @@ exports.main = async (event, context) => {
   }
   
   // 升级码未使用，进行升级
-  const markResult = await markVoucherAsUsed(code, userId, voucherStatus.duration, voucherStatus.durationName);
+  let userPhone = '';
+  let userName = '';
+  let brandname = '';
+  try {
+    const userResult = await db.collection('users').doc(userId).get();
+    if (userResult.data) {
+      userPhone = userResult.data.phone || '';
+      userName = userResult.data.name || '';
+      brandname = userResult.data.brandname || '';
+    }
+  } catch (e) {
+    console.error('获取用户信息失败:', e);
+  }
+  
+  const markResult = await markVoucherAsUsed(code, userId, voucherStatus.duration, voucherStatus.durationName, userPhone, userName, brandname);
   
   if (!markResult.success) {
     return {

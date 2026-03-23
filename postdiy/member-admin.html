@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员管理后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fa fa-users"></i> 会员管理后台</h1>
+            <button class="btn logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">
+                <i class="fa fa-sign-out"></i> 退出登录
+            </button>
+        </div>
+        
+        <div class="login-section" id="loginSection">
+            <div class="error-message" id="loginError"></div>
+            <h2>管理员登录</h2>
+            <div class="form-group">
+                <label for="userId">用户ID</label>
+                <input type="text" id="userId" placeholder="请输入用户ID" value="15160029349">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="请输入密码">
+            </div>
+            <button class="btn" id="loginBtn" onclick="login()" style="width: 100%;">
+                <i class="fa fa-sign-in"></i> 登录
+            </button>
+        </div>
+        
+        <div class="manage-content" id="manageSection">
+            <div class="stats-row" id="statsRow">
+                <div class="stat-item">
+                    <i class="fa fa-user"></i>
+                    <div>
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-label">总会员数</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa fa-crown" style="color: #ffd700;"></i>
+                    <div>
+                        <div class="stat-value" id="vipCount">0</div>
+                        <div class="stat-label">VIP会员</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa fa-user-times" style="color: #dc3545;"></i>
+                    <div>
+                        <div class="stat-value" id="normalCount">0</div>
+                        <div class="stat-label">普通会员</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-row first-row">
+                    <select id="vipStatusFilter">
+                        <option value="all">全部状态</option>
+                        <option value="vip">VIP会员</option>
+                        <option value="normal">普通会员</option>
+                    </select>
+                    
+                    <select id="sortFilter">
+                        <option value="newest">最新注册</option>
+                        <option value="oldest">最早注册</option>
+                        <option value="vip-expiry">VIP到期最早</option>
+                        <option value="vip-longest">VIP到期最晚</option>
+                    </select>
+                    
+                    <input type="text" id="searchInput" placeholder="输入手机号或用户ID" oninput="debounceSearch()">
+                    
+                    <button class="btn" onclick="loadMembers()">
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i class="fa fa-users"></i>
+                    <h3>暂无会员数据</h3>
+                    <p>请先调整筛选条件或等待会员注册</p>
+                </div>
+                <div class="cards-grid" id="membersGrid">
+                    <div class="loading">
+                        <i class="fa fa-spinner fa-spin"></i> 加载中...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page-info">
+                <div class="info">
+                    共 <span id="totalRecords">0</span> 条记录
+                </div>
+                <div class="pagination">
+                    <button onclick="prevPage()" id="prevBtn"><i class="fa fa-chevron-left"></i></button>
+                    <span>第 <input type="number" id="pageInput" value="1" min="1" onchange="goToPage()"> / <span id="totalPages">1</span> 页</span>
+                    <button onclick="nextPage()" id="nextBtn"><i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="log-float-btn" id="logFloatBtn" style="display: none;" onclick="showLogModal()">
+        <i class="fa fa-terminal"></i>
+    </button>
+    
+    <div class="log-modal" id="logModal">
+        <div class="log-modal-content">
+            <div class="log-modal-header">
+                <h3><i class="fa fa-terminal"></i> 运行日志</h3>
+                <div>
+                    <button class="btn btn-secondary" onclick="clearLog()">
+                        <i class="fa fa-trash"></i> 清空
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyLog()">
+                        <i class="fa fa-copy"></i> 复制
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeLogModal()">
+                        <i class="fa fa-times"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <div class="log-modal-body" id="logContent">
+                <div class="log-entry"><span class="log-time">[系统就绪]</span> <span class="log-info">等待操作...</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="memberDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa fa-user"></i> 会员详情</h2>
+                <button class="modal-close" onclick="closeMemberDetailModal()">&times;</button>
+            </div>
+            
+            <div id="memberDetailContent">
+                <div class="detail-info">
+                    <div class="detail-row">
+                        <span class="detail-label">商家名称:</span>
+                        <span class="detail-value" id="detailUserId">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">手机号:</span>
+                        <span class="detail-value" id="detailPhone">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">会员等级:</span>
+                        <span class="detail-value" id="detailVipStatus">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">注册时间:</span>
+                        <span class="detail-value" id="detailRegisterTime">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">VIP到期时间:</span>
+                        <span class="detail-value" id="detailVipExpiry">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">VIP时长(月):</span>
+                        <span class="detail-value" id="detailVipDuration">-</span>
+                    </div>
+                </div>
+                
+                <div class="detail-actions">
+                    <h3><i class="fa fa-cog"></i> 操作</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="extendVip()">
+                            <i class="fa fa-clock"></i> 延长VIP
+                        </button>
+                        <button class="btn btn-warning" onclick="upgradeToVip()">
+                            <i class="fa fa-crown"></i> 升级VIP
+                        </button>
+                        <button class="btn btn-danger" onclick="freezeAccount()">
+                            <i class="fa fa-lock"></i> 冻结账号
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="extendVipModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa fa-clock"></i> 延长VIP</h2>
+                <button class="modal-close" onclick="closeExtendVipModal()">&times;</button>
+            </div>
+            
+            <div class="success-message" id="extendSuccessMessage"></div>
+            <div class="error-message" id="extendErrorMessage"></div>
+            
+            <div class="generate-form">
+                <div class="form-group">
+                    <label>延长时长</label>
+                    <select id="extendDuration">
+                        <option value="1">1个月</option>
+                        <option value="3">3个月</option>
+                        <option value="6">6个月</option>
+                        <option value="12">1年</option>
+                        <option value="24">2年</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-success" onclick="confirmExtendVip()">
+                        <i class="fa fa-check"></i> 确认延长
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeExtendVipModal()">
+                        <i class="fa fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const ADMIN_USER_ID = '15160029349';
+        const ADMIN_PASSWORD = '123456';
+        
+        let members = [];
+        let currentPage = 1;
+        const pageSize = 20;
+        let searchTimeout = null;
+        let currentMemberId = null;
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleString('zh-CN');
+            const logContent = document.getElementById('logContent');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-${type}">${message}</span>`;
+            logContent.appendChild(entry);
+            logContent.scrollTop = logContent.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        function showLogModal() {
+            document.getElementById('logModal').classList.add('active');
+        }
+        
+        function closeLogModal() {
+            document.getElementById('logModal').classList.remove('active');
+        }
+        
+        function showMessage(elementId, message, isError = true) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.textContent = message;
+                el.className = isError ? 'error-message show' : 'success-message show';
+                setTimeout(() => {
+                    el.className = isError ? 'error-message' : 'success-message';
+                }, 3000);
+            }
+        }
+        
+        function login() {
+            const userId = document.getElementById('userId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            log('开始登录验证...');
+            log(`用户ID: ${userId}`);
+            
+            if (!userId || !password) {
+                log('错误：请输入用户ID和密码', 'error');
+                showMessage('loginError', '请输入用户ID和密码');
+                return;
+            }
+            
+            if (userId !== ADMIN_USER_ID) {
+                log('错误：无权限访问', 'error');
+                showMessage('loginError', '无权限访问此系统');
+                return;
+            }
+            
+            if (password !== ADMIN_PASSWORD) {
+                log('错误：密码错误', 'error');
+                showMessage('loginError', '密码错误');
+                return;
+            }
+            
+            log('登录成功');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('manageSection').classList.add('active');
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('logFloatBtn').style.display = 'flex';
+            
+            log('加载会员列表...');
+            loadMembers();
+        }
+        
+        function logout() {
+            log('用户退出登录');
+            document.getElementById('manageSection').classList.remove('active');
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('logFloatBtn').style.display = 'none';
+            document.getElementById('password').value = '';
+            clearLog();
+        }
+        
+        function clearLog() {
+            document.getElementById('logContent').innerHTML = '<div class="log-entry"><span class="log-time">[已清空]</span> <span class="log-info">日志已清空</span></div>';
+        }
+        
+        function copyLog() {
+            const logContent = document.getElementById('logContent').innerText;
+            navigator.clipboard.writeText(logContent).then(() => {
+                log('日志已复制到剪贴板');
+            }).catch(err => {
+                log('复制失败: ' + err.message, 'error');
+            });
+        }
+        
+        async function loadMembers() {
+            currentPage = 1;
+            const vipStatus = document.getElementById('vipStatusFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+            const search = document.getElementById('searchInput').value.trim();
+            
+            log(`加载数据: 页码=${currentPage}, 状态=${vipStatus}, 排序=${sort}, 搜索=${search || '无'}`);
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('https://api.peacelove.top/user-member-list', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        page: currentPage,
+                        limit: pageSize,
+                        vipStatus: vipStatus,
+                        sort: sort,
+                        search: search
+                    })
+                });
+                
+                const result = await response.json();
+                log(`响应: ${result.success ? '成功' : '失败'} - ${result.message || ''}`);
+                
+                if (result.success && result.data) {
+                    members = result.data.list || [];
+                    renderTable();
+                    updatePagination(result.data.total || 0);
+                    updateStats(result.data.stats);
+                } else {
+                    showMessage('errorMessage', '加载失败: ' + (result.message || '未知错误'));
+                    log('加载失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                log('网络错误: ' + error.message, 'error');
+                showMessage('errorMessage', '网络错误，请重试');
+            }
+        }
+        
+        function updateStats(stats) {
+            if (stats) {
+                document.getElementById('totalCount').textContent = stats.total || 0;
+                document.getElementById('vipCount').textContent = stats.vip || 0;
+                document.getElementById('normalCount').textContent = stats.normal || 0;
+            }
+        }
+        
+        function renderTable() {
+            const grid = document.getElementById('membersGrid');
+            
+            if (!members || members.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                grid.innerHTML = '';
+                return;
+            }
+            
+            document.getElementById('emptyState').style.display = 'none';
+            
+            grid.innerHTML = members.map(member => {
+                const isVip = member.isVip || false;
+                const statusClass = isVip ? 'vip' : 'normal';
+                const statusText = isVip ? 'VIP会员' : '普通会员';
+                const registerTime = member.createdAt ? formatDateTime(member.createdAt) : '-';
+                const vipExpiry = member.vipValidUntil ? formatDateTime(member.vipValidUntil) : '-';
+                const vipDuration = member.vipDuration || '-';
+                
+                return `
+                    <div class="member-card ${statusClass}">
+                        <div class="card-columns">
+                            <div class="card-column">
+                                <div class="card-field">
+                                    <span class="field-label">商家名称</span>
+                                    <span class="field-value code">${member.brandname || member._id || '-'}</span>
+                                </div>
+                                <div class="card-field">
+                                    <span class="field-label">手机号</span>
+                                    <span class="field-value phone">${member.phone || '-'}</span>
+                                </div>
+                            </div>
+                            <div class="card-column">
+                                <div class="card-field">
+                                    <span class="field-label">会员等级</span>
+                                    <span class="field-value ${statusClass}"><span class="status-badge ${statusClass}">${statusText}</span></span>
+                                </div>
+                                <div class="card-field">
+                                    <span class="field-label">注册时间</span>
+                                    <span class="field-value">${registerTime}</span>
+                                </div>
+                                <div class="card-field">
+                                    <span class="field-label">VIP到期</span>
+                                    <span class="field-value">${vipExpiry}</span>
+                                </div>
+                                <div class="card-field">
+                                    <span class="field-label">VIP时长</span>
+                                    <span class="field-value duration">${vipDuration}个月</span>
+                                </div>
+                            </div>
+                            <div class="card-column action-col">
+                                <button class="view-btn" onclick="viewMemberDetail('${member._id}')">
+                                    <i class="fa fa-eye"></i> 查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updatePagination(total) {
+            const totalPages = Math.ceil(total / pageSize) || 1;
+            document.getElementById('totalRecords').textContent = total;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('pageInput').value = currentPage;
+            document.getElementById('pageInput').max = totalPages;
+            
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadMembersWithPage();
+            }
+        }
+        
+        function nextPage() {
+            const totalPages = parseInt(document.getElementById('totalPages').textContent);
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadMembersWithPage();
+            }
+        }
+        
+        function goToPage() {
+            const totalPages = parseInt(document.getElementById('totalPages').textContent);
+            const page = parseInt(document.getElementById('pageInput').value);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                loadMembersWithPage();
+            } else {
+                document.getElementById('pageInput').value = currentPage;
+            }
+        }
+        
+        async function loadMembersWithPage() {
+            const vipStatus = document.getElementById('vipStatusFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+            const search = document.getElementById('searchInput').value.trim();
+            
+            log(`加载数据: 页码=${currentPage}`);
+            showLoading();
+            
+            try {
+                const response = await fetch('https://api.peacelove.top/user-member-list', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        page: currentPage,
+                        limit: pageSize,
+                        vipStatus: vipStatus,
+                        sort: sort,
+                        search: search
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    members = result.data.list || [];
+                    renderTable();
+                    updatePagination(result.data.total || 0);
+                } else {
+                    showMessage('errorMessage', '加载失败: ' + (result.message || '未知错误'));
+                }
+            } catch (error) {
+                log('网络错误: ' + error.message, 'error');
+                showMessage('errorMessage', '网络错误，请重试');
+            }
+        }
+        
+        function showLoading() {
+            document.getElementById('membersGrid').innerHTML = `
+                <div class="loading">
+                    <i class="fa fa-spinner fa-spin"></i> 加载中...
+                </div>
+            `;
+        }
+        
+        function formatDateTime(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+        
+        function debounceSearch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                loadMembers();
+            }, 500);
+        }
+        
+        function viewMemberDetail(memberId) {
+            currentMemberId = memberId;
+            const member = members.find(m => m._id === memberId);
+            
+            if (!member) {
+                log('错误：找不到会员信息', 'error');
+                return;
+            }
+            
+            const isVip = member.isVip || false;
+            const statusText = isVip ? 'VIP会员' : '普通会员';
+            const registerTime = member.createdAt ? formatDateTime(member.createdAt) : '-';
+            const vipExpiry = member.vipValidUntil ? formatDateTime(member.vipValidUntil) : '-';
+            const vipDuration = member.vipDuration || '-';
+            
+            document.getElementById('detailUserId').textContent = member.brandname || member._id || '-';
+            document.getElementById('detailPhone').textContent = member.phone || '-';
+            document.getElementById('detailVipStatus').textContent = statusText;
+            document.getElementById('detailRegisterTime').textContent = registerTime;
+            document.getElementById('detailVipExpiry').textContent = vipExpiry;
+            document.getElementById('detailVipDuration').textContent = vipDuration;
+            
+            document.getElementById('memberDetailModal').classList.add('active');
+            log(`查看会员详情: ${memberId}`);
+        }
+        
+        function closeMemberDetailModal() {
+            document.getElementById('memberDetailModal').classList.remove('active');
+            currentMemberId = null;
+        }
+        
+        function closeExtendVipModal() {
+            document.getElementById('extendVipModal').classList.remove('active');
+            document.getElementById('extendSuccessMessage').className = 'success-message';
+            document.getElementById('extendErrorMessage').className = 'error-message';
+        }
+        
+        function extendVip() {
+            if (!currentMemberId) {
+                log('错误：请选择会员', 'error');
+                return;
+            }
+            document.getElementById('extendVipModal').classList.add('active');
+        }
+        
+        function upgradeToVip() {
+            if (!currentMemberId) {
+                log('错误：请选择会员', 'error');
+                return;
+            }
+            log(`升级会员为VIP: ${currentMemberId}`, 'warn');
+            alert('此功能待实现');
+        }
+        
+        function freezeAccount() {
+            if (!currentMemberId) {
+                log('错误：请选择会员', 'error');
+                return;
+            }
+            log(`冻结账号: ${currentMemberId}`, 'warn');
+            alert('此功能待实现');
+        }
+        
+        async function confirmExtendVip() {
+            const duration = parseInt(document.getElementById('extendDuration').value);
+            
+            if (!currentMemberId) {
+                log('错误：请选择会员', 'error');
+                return;
+            }
+            
+            log(`确认延长VIP: ${currentMemberId}, 时长=${duration}个月`);
+            
+            try {
+                const response = await fetch('https://api.peacelove.top/user-extend-vip', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentMemberId,
+                        duration: duration
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('extendSuccessMessage', '延长成功！', false);
+                    log(`延长成功: ${currentMemberId}, 新到期时间: ${result.validUntil}`);
+                    setTimeout(() => {
+                        closeExtendVipModal();
+                        closeMemberDetailModal();
+                        loadMembers();
+                    }, 1500);
+                } else {
+                    showMessage('extendErrorMessage', '延长失败: ' + (result.message || '未知错误'));
+                    log('延长失败: ' + (result.message || '未知错误'), 'error');
+                }
+            } catch (error) {
+                log('网络错误: ' + error.message, 'error');
+                showMessage('extendErrorMessage', '网络错误，请重试');
+            }
+        }
+    </script>
+</body>
+</html>

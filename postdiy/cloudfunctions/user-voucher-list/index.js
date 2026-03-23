@@ -4,28 +4,30 @@ cloud.init({
 });
 
 const db = cloud.database();
+const _ = db.command;
 
-// 主函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext();
+  console.log('接收到的事件:', JSON.stringify(event));
   
-  // 只有管理员可以查询激活码列表
-  const adminId = process.env.ADMIN_USER_ID;
-  if (wxContext.OPENID !== adminId) {
-    return {
-      success: false,
-      reason: '无权限查询激活码列表'
-    };
+  let params = event;
+  
+  if (event.body) {
+    try {
+      params = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+      console.log('解析后的参数:', JSON.stringify(params));
+    } catch (e) {
+      console.error('解析body失败:', e);
+    }
   }
   
-  const page = event.page || 1;
-  const limit = event.limit || 20;
-  const status = event.status;
-  const duration = event.duration;
-  const search = event.search;
+  const page = params.page || 1;
+  const limit = params.limit || 20;
+  const status = params.status;
+  const duration = params.duration;
+  const exported = params.exported;
+  const search = params.search;
   
   try {
-    // 构建查询条件
     const query = {};
     
     if (status === 'unused') {
@@ -38,25 +40,24 @@ exports.main = async (event, context) => {
       query.duration = duration;
     }
     
-    if (search) {
-      // 模糊搜索激活码或用户ID
+    if (exported === 'unexported') {
+      query.exported = _.neq(true);
+    } else if (exported === 'exported') {
+      query.exported = true;
+    }
+    
+    if (search && typeof search === 'string' && search.trim() !== '') {
+      const searchStr = search.trim();
       query.$or = [
-        { code: new db.RegExp({ 
-          expression: search, 
-          options: 'i' 
-        }) },
-        { usedBy: new db.RegExp({ 
-          expression: search, 
-          options: 'i' 
-        }) }
+        { code: db.RegExp({ regexp: searchStr, options: 'i' }) },
+        { usedBy: db.RegExp({ regexp: searchStr, options: 'i' }) },
+        { usedByPhone: db.RegExp({ regexp: searchStr, options: 'i' }) }
       ];
     }
     
-    // 获取总数
     const totalResult = await db.collection('vip_vouchers').where(query).count();
     const total = totalResult.total;
     
-    // 分页查询
     const skip = (page - 1) * limit;
     const listResult = await db.collection('vip_vouchers')
       .where(query)
@@ -65,18 +66,32 @@ exports.main = async (event, context) => {
       .limit(limit)
       .get();
     
+    const totalStats = await db.collection('vip_vouchers').count();
+    const unusedStats = await db.collection('vip_vouchers').where({ used: false }).count();
+    const usedStats = await db.collection('vip_vouchers').where({ used: true }).count();
+    
+    const stats = {
+      total: totalStats.total,
+      unused: unusedStats.total,
+      used: usedStats.total
+    };
+    
+    console.log(`查询成功: 总数=${total}, 当前页=${listResult.data.length}`);
+    console.log(`统计数据: 总数=${stats.total}, 未使用=${stats.unused}, 已使用=${stats.used}`);
+    
     return {
       success: true,
       data: {
         total: total,
-        list: listResult.data
+        list: listResult.data,
+        stats: stats
       }
     };
   } catch (e) {
     console.error('查询激活码列表失败:', e);
     return {
       success: false,
-      reason: '查询失败: ' + e.message
+      message: '查询失败: ' + e.message
     };
   }
 };

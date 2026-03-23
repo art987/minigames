@@ -5,7 +5,6 @@ cloud.init({
 
 const db = cloud.database();
 
-// 生成升级码
 function generateVoucherCode() {
   const chars = '012356789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const min6Count = 1;
@@ -30,99 +29,78 @@ function generateVoucherCode() {
   }
 }
 
-// 计算有效期截止日期
 function calculateValidUntil(durationMonths) {
   const now = new Date();
   const validUntil = new Date(now);
   validUntil.setMonth(now.getMonth() + durationMonths);
-  
-  // 设置为当月最后一天的24:00:00
   validUntil.setMonth(validUntil.getMonth() + 1);
   validUntil.setDate(0);
   validUntil.setHours(24, 0, 0, 0);
-  
   return validUntil;
 }
 
-// 生成单个升级码
-async function generateVoucher(duration, durationName) {
-  try {
-    const code = generateVoucherCode();
-    const validUntil = calculateValidUntil(duration);
-    
-    await db.collection('vip_vouchers').add({
-      data: {
-        code: code,
-        duration: duration,
-        durationName: durationName,
-        validUntil: validUntil,
-        used: false,
-        createdAt: new Date()
-      }
-    });
-    
-    return {
-      success: true,
-      code: code,
-      duration: duration,
-      durationName: durationName,
-      validUntil: validUntil
-    };
-  } catch (e) {
-    console.error('生成升级码失败:', e);
-    return { success: false, error: e.message };
-  }
-}
-
-// 批量生成升级码
-async function generateBatchVouchers() {
-  const durations = {
-    '1个月': 1,
-    '3个月': 3,
-    '6个月': 6,
-    '1年': 12,
-    '2年': 24
-  };
+exports.main = async (event, context) => {
+  console.log('接收到的事件:', JSON.stringify(event));
   
-  const results = {};
-  
-  for (const durationName in durations) {
-    results[durationName] = [];
-    
-    // 每种类型生成50个升级码
-    for (let i = 0; i < 50; i++) {
-      const result = await generateVoucher(durations[durationName], durationName);
-      
-      if (result.success) {
-        results[durationName].push(result);
-      }
+  let params = event;
+  if (event.body) {
+    try {
+      params = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+      console.log('解析后的参数:', JSON.stringify(params));
+    } catch (e) {
+      console.error('解析body失败:', e);
     }
   }
   
-  return results;
-}
-
-// 主函数
-exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext();
+  const duration = params.duration;
+  const durationName = params.durationName;
+  const count = params.count || 1;
   
-  // 只有管理员可以生成升级码
-  const adminId = process.env.ADMIN_USER_ID;
-  if (adminId && wxContext.OPENID !== adminId) {
+  console.log(`生成参数: duration=${duration}, durationName=${durationName}, count=${count}`);
+  
+  if (!duration || !durationName) {
     return {
       success: false,
-      reason: '无权限生成升级码'
+      message: '缺少必要参数: duration 或 durationName'
     };
   }
   
-  const duration = event.duration;
-  const durationName = event.durationName;
+  const codes = [];
+  const validUntil = calculateValidUntil(duration);
   
-  if (duration && durationName) {
-    // 生成单个升级码
-    return await generateVoucher(duration, durationName);
-  } else {
-    // 批量生成升级码（每种时长50个）
-    return await generateBatchVouchers();
+  try {
+    for (let i = 0; i < count; i++) {
+      const code = generateVoucherCode();
+      
+      await db.collection('vip_vouchers').add({
+        data: {
+          code: code,
+          duration: duration,
+          durationName: durationName,
+          validUntil: validUntil,
+          used: false,
+          createdAt: new Date()
+        }
+      });
+      
+      codes.push(code);
+      console.log(`成功生成第 ${i + 1} 个激活码: ${code}`);
+    }
+    
+    console.log(`成功生成 ${codes.length} 个激活码`);
+    
+    return {
+      success: true,
+      codes: codes,
+      count: codes.length,
+      durationName: durationName,
+      message: `成功生成 ${codes.length} 个激活码`
+    };
+  } catch (e) {
+    console.error('生成激活码失败:', e);
+    return {
+      success: false,
+      message: '生成激活码失败: ' + e.message
+    };
   }
 };

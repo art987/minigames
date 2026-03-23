@@ -1,152 +1,35 @@
 {
   "envId": "postdiy-0g2mftaf6a0fc450",
-  "functionRoot": "./cloudfunctions",
   "functions": [
     {
-      "name": "init-database",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
+      "name": "user-member-list",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     },
     {
-      "name": "send-sms",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
+      "name": "user-extend-vip",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     },
     {
-      "name": "user-register",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-login",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-upgrade",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-get-info",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-update-info",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "set-password",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "login-with-password",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-update-image",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-get-image",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-delete-image",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-generate-voucher",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-verify-voucher",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "user-voucher-list",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "check-vip-status",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "admin-generate-vouchers",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
-    },
-    {
-      "name": "admin-manage-vouchers",
-      "config": {
-        "timeout": 60,
-        "envVariables": {},
-        "runtime": "Nodejs18.15"
-      }
+      "name": "user-export-vouchers",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     }
-  ],
-  "region": "ap-shanghai"
+  ]
 }
-
