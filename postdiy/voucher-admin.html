@@ -389,7 +389,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 log(`响应: ${result.success ? '成功' : '失败'} - ${result.message || ''}`);
                 
                 if (result.success && result.data) {
@@ -563,7 +566,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 
                 if (result.success && result.data) {
                     vouchers = result.data.list || [];
@@ -644,7 +650,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 log(`生成响应: ${result.success ? '成功' : '失败'} - ${result.message || ''}`);
                 
                 if (result.success && result.codes) {
@@ -772,7 +781,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 log(`导出响应: ${result.success ? '成功' : '失败'} - ${result.message || ''}`);
                 
                 if (result.success && result.data && result.data.length > 0) {

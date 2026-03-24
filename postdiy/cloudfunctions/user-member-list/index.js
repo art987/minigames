@@ -4,9 +4,22 @@ cloud.init({
 });
 
 const db = cloud.database();
+const _ = db.command;
 
 exports.main = async (event, context) => {
   console.log('接收到的事件:', JSON.stringify(event));
+  
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
   
   let params = event;
   
@@ -35,15 +48,10 @@ exports.main = async (event, context) => {
     }
     
     if (search && typeof search === 'string' && search.trim() !== '') {
+      const searchStr = search.trim();
       query.$or = [
-        { phone: db.RegExp({ 
-          expression: search.trim(), 
-          options: 'i' 
-        }) },
-        { _id: db.RegExp({ 
-          expression: search.trim(), 
-          options: 'i' 
-        }) }
+        { phone: db.RegExp({ regexp: searchStr, options: 'i' }) },
+        { _id: db.RegExp({ regexp: searchStr, options: 'i' }) }
       ];
     }
     
@@ -91,19 +99,37 @@ exports.main = async (event, context) => {
     console.log(`统计数据: 总数=${stats.total}, VIP=${stats.vip}, 普通=${stats.normal}`);
     
     return {
-      success: true,
-      data: {
-        total: total,
-        list: listResult.data,
-        stats: stats
-      }
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: true,
+        data: {
+          total: total,
+          list: listResult.data,
+          stats: stats
+        }
+      })
     };
   } catch (e) {
     console.error('查询会员列表失败:', e);
     console.error('错误堆栈:', e.stack);
     return {
-      success: false,
-      message: '查询失败: ' + e.message
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '查询失败: ' + e.message
+      })
     };
   }
 };

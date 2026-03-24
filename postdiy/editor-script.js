@@ -5434,7 +5434,7 @@ let currentCropTarget = null;
         console.log('localStorage中的userInfo:', localStorage.getItem('postdiy_user_info'));
         
         // 严格检查userId
-        if (!userId || typeof userId !== 'string' || userId.trim() === '') {
+        if (!userId || typeof userId !== 'string' || userId.trim() === '' || userId.trim() === 'undefined') {
           // 用户未登录，需要先登录
           showVoucherResult(resultDiv, 'error', '请先登录后再验证升级码');
           verifyBtn.disabled = false;
@@ -7146,6 +7146,15 @@ function updateBusinessInfoButtonForVip() {
       }
     } catch (error) {
       console.error('从云端加载商家信息失败:', error);
+    }
+    
+    try {
+      // 从服务器获取最新的VIP状态
+      console.log('从服务器获取最新VIP状态...');
+      const vipStatusResult = await VIPSystem.checkVipStatus(userData.userId, userData.phone);
+      console.log('服务器返回的VIP状态:', vipStatusResult);
+    } catch (error) {
+      console.error('获取VIP状态失败:', error);
     }
   };
   

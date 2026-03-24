@@ -267,8 +267,18 @@ const VIPSystem = (function() {
       }
       
       // 解析响应
-      const result = await response.json()
+      let result = await response.json()
       console.log('响应结果:', result);
+      
+      // 处理新的响应格式
+      if (result.body && typeof result.body === 'string') {
+        try {
+          result = JSON.parse(result.body);
+          console.log('解析后的响应结果:', result);
+        } catch (e) {
+          console.error('解析body失败:', e);
+        }
+      }
       
       if (result.success && result.data) {
         setUserInfo(result.data)
@@ -309,7 +319,12 @@ const VIPSystem = (function() {
       const result = await response.json()
       console.log('checkVipStatus响应结果:', result);
       
-      if (result.code === 200 && result.data) {
+      // 处理不同的响应格式
+      if (result.success && result.data) {
+        setUserInfo(result.data)
+        return { success: true, data: result.data }
+      } else if (result.code === 200 && result.data) {
+        // 兼容旧格式
         setUserInfo(result.data)
         return { success: true, data: result.data }
       } else {

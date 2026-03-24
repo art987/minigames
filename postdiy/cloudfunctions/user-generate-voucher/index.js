@@ -42,6 +42,18 @@ function calculateValidUntil(durationMonths) {
 exports.main = async (event, context) => {
   console.log('接收到的事件:', JSON.stringify(event));
   
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+  
   let params = event;
   if (event.body) {
     try {
@@ -60,8 +72,17 @@ exports.main = async (event, context) => {
   
   if (!duration || !durationName) {
     return {
-      success: false,
-      message: '缺少必要参数: duration 或 durationName'
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '缺少必要参数: duration 或 durationName'
+      })
     };
   }
   
@@ -90,17 +111,35 @@ exports.main = async (event, context) => {
     console.log(`成功生成 ${codes.length} 个激活码`);
     
     return {
-      success: true,
-      codes: codes,
-      count: codes.length,
-      durationName: durationName,
-      message: `成功生成 ${codes.length} 个激活码`
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: true,
+        codes: codes,
+        count: codes.length,
+        durationName: durationName,
+        message: `成功生成 ${codes.length} 个激活码`
+      })
     };
   } catch (e) {
     console.error('生成激活码失败:', e);
     return {
-      success: false,
-      message: '生成激活码失败: ' + e.message
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '生成激活码失败: ' + e.message
+      })
     };
   }
 };

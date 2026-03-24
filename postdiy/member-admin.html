@@ -340,7 +340,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 log(`响应: ${result.success ? '成功' : '失败'} - ${result.message || ''}`);
                 
                 if (result.success && result.data) {
@@ -485,7 +488,10 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 
                 if (result.success && result.data) {
                     members = result.data.list || [];
@@ -610,11 +616,14 @@
                     })
                 });
                 
-                const result = await response.json();
+                let result = await response.json();
+                if (result.body && typeof result.body === 'string') {
+                    result = JSON.parse(result.body);
+                }
                 
                 if (result.success) {
                     showMessage('extendSuccessMessage', '延长成功！', false);
-                    log(`延长成功: ${currentMemberId}, 新到期时间: ${result.validUntil}`);
+                    log(`延长成功: ${currentMemberId}, 新到期时间: ${result.data ? result.data.vipValidUntil : ''}`);
                     setTimeout(() => {
                         closeExtendVipModal();
                         closeMemberDetailModal();

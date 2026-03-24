@@ -189,18 +189,40 @@ async function updateUserVipStatus(userId, duration, validUntil) {
 
 // 主函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext();
+  console.log('接收到的事件:', JSON.stringify(event));
+  
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
   
   // 解析请求体
   let requestBody = event;
   if (event.body) {
     try {
       requestBody = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+      console.log('解析后的参数:', JSON.stringify(requestBody));
     } catch (e) {
       console.error('解析请求体失败:', e);
       return {
-        success: false,
-        reason: '请求体格式错误'
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          success: false,
+          message: '请求体格式错误'
+        })
       };
     }
   }
@@ -210,10 +232,36 @@ exports.main = async (event, context) => {
   
   console.log('接收到的参数:', { userId, code });
   
-  if (!userId || !code) {
+  // 严格检查 userId，确保它不是 undefined、null、空字符串或 "undefined" 字符串
+  if (!userId || typeof userId !== 'string' || userId.trim() === '' || userId.trim() === 'undefined') {
     return {
-      success: false,
-      reason: '缺少必要参数'
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '缺少必要参数: userId'
+      })
+    };
+  }
+  
+  if (!code || typeof code !== 'string' || code.trim() === '') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '缺少必要参数: code'
+      })
     };
   }
   
@@ -221,8 +269,17 @@ exports.main = async (event, context) => {
   const validation = validateVoucherCode(code);
   if (!validation.valid) {
     return {
-      success: false,
-      reason: validation.reason
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: validation.reason
+      })
     };
   }
   
@@ -231,8 +288,17 @@ exports.main = async (event, context) => {
   
   if (!voucherStatus.exists) {
     return {
-      success: false,
-      reason: '升级码不存在'
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '升级码不存在'
+      })
     };
   }
   
@@ -251,12 +317,21 @@ exports.main = async (event, context) => {
     const usedAt = new Date(voucherStatus.usedAt);
     
     return {
-      success: true,
-      used: true,
-      usedBy: voucherStatus.usedBy,
-      usedByPhone: usedByPhone,
-      usedAt: voucherStatus.usedAt,
-      duration: voucherStatus.duration
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: true,
+        used: true,
+        usedBy: voucherStatus.usedBy,
+        usedByPhone: usedByPhone,
+        usedAt: voucherStatus.usedAt,
+        duration: voucherStatus.duration
+      })
     };
   }
   
@@ -265,22 +340,49 @@ exports.main = async (event, context) => {
   let userName = '';
   let brandname = '';
   try {
+    if (!userId) {
+      throw new Error('用户ID不能为空');
+    }
     const userResult = await db.collection('users').doc(userId).get();
     if (userResult.data) {
       userPhone = userResult.data.phone || '';
       userName = userResult.data.name || '';
       brandname = userResult.data.brandname || '';
+    } else {
+      throw new Error('用户不存在');
     }
   } catch (e) {
     console.error('获取用户信息失败:', e);
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '获取用户信息失败: ' + e.message
+      })
+    };
   }
   
   const markResult = await markVoucherAsUsed(code, userId, voucherStatus.duration, voucherStatus.durationName, userPhone, userName, brandname);
   
   if (!markResult.success) {
     return {
-      success: false,
-      reason: markResult.error || '标记升级码失败'
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: markResult.error || '标记升级码失败'
+      })
     };
   }
   
@@ -289,8 +391,17 @@ exports.main = async (event, context) => {
   
   if (!updateResult.success) {
     return {
-      success: false,
-      reason: updateResult.error || '更新VIP状态失败'
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: updateResult.error || '更新VIP状态失败'
+      })
     };
   }
   
@@ -304,10 +415,19 @@ exports.main = async (event, context) => {
   }
   
   return {
-    success: true,
-    used: false,
-    validUntil: updateResult.validUntil,
-    duration: updateResult.duration,
-    data: userData
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      success: true,
+      used: false,
+      validUntil: updateResult.validUntil,
+      duration: updateResult.duration,
+      data: userData
+    })
   };
 };

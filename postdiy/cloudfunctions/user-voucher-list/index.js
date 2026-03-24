@@ -9,6 +9,18 @@ const _ = db.command;
 exports.main = async (event, context) => {
   console.log('接收到的事件:', JSON.stringify(event));
   
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+  
   let params = event;
   
   if (event.body) {
@@ -80,18 +92,36 @@ exports.main = async (event, context) => {
     console.log(`统计数据: 总数=${stats.total}, 未使用=${stats.unused}, 已使用=${stats.used}`);
     
     return {
-      success: true,
-      data: {
-        total: total,
-        list: listResult.data,
-        stats: stats
-      }
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: true,
+        data: {
+          total: total,
+          list: listResult.data,
+          stats: stats
+        }
+      })
     };
   } catch (e) {
     console.error('查询激活码列表失败:', e);
     return {
-      success: false,
-      message: '查询失败: ' + e.message
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
+        message: '查询失败: ' + e.message
+      })
     };
   }
 };
