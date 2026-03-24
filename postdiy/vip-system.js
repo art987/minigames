@@ -280,9 +280,20 @@ const VIPSystem = (function() {
         }
       }
       
-      if (result.success && result.data) {
-        setUserInfo(result.data)
+      // 处理升级码验证成功的情况
+      if (result.success) {
+        // 构建用户信息对象
+        const userInfo = {
+          userId: userId,
+          isVip: true,
+          vipValidUntil: result.validUntil
+        };
+        
+        // 更新本地存储
+        setUserInfo(userInfo);
+        console.log('已更新本地存储中的VIP状态:', userInfo);
       }
+      
       return result
     } catch (error) {
       console.error('验证升级码失败:', error);

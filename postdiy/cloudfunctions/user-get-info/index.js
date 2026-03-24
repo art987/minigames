@@ -53,7 +53,7 @@ exports.main = async (event, context) => {
 
     const user = userRes.data
     const now = new Date()
-    const isVip = user.vipExpireTime && new Date(user.vipExpireTime) > now
+    const isVip = user.vipValidUntil && new Date(user.vipValidUntil) > now
 
     return {
       statusCode: 200,
@@ -69,7 +69,7 @@ exports.main = async (event, context) => {
           userId,
           phone: user.phone,
           isVip,
-          vipExpireTime: user.vipExpireTime,
+          vipValidUntil: user.vipValidUntil,
           brandname: user.brandname || '',
           promoText: user.promoText || '',
           logoUrl: user.logoUrl || '',

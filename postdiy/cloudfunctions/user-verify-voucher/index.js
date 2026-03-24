@@ -172,7 +172,8 @@ async function updateUserVipStatus(userId, duration, validUntil) {
       data: {
         isVip: true,
         vipValidUntil: updatedValidUntil,
-        vipDuration: duration
+        vipDuration: (userData.vipDuration || 0) + duration,
+        updatedAt: now
       }
     });
     
