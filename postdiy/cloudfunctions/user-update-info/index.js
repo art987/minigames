@@ -7,6 +7,19 @@ cloud.init({
 const db = cloud.database()
 
 exports.main = async (event, context) => {
+  // 处理 CORS 预检请求
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+
   let userId, logoUrl, qrcodeUrl, brandname, promoText
   
   try {
@@ -68,7 +81,7 @@ exports.main = async (event, context) => {
     const userRes = await db.collection('users').doc(userId).get()
     const user = userRes.data
     const now = new Date()
-    const isVip = user.vipExpireTime && new Date(user.vipExpireTime) > now
+    const isVip = user.vipValidUntil && new Date(user.vipValidUntil) > now
 
     return {
       statusCode: 200,
@@ -85,7 +98,7 @@ exports.main = async (event, context) => {
           userId,
           phone: user.phone,
           isVip,
-          vipExpireTime: user.vipExpireTime,
+          vipValidUntil: user.vipValidUntil,
           brandname: user.brandname || '',
           promoText: user.promoText || '',
           logoUrl: user.logoUrl || '',

@@ -1109,6 +1109,10 @@ function initVipLogin() {
     if (!phone || !code) {
       vipLoginMessage.textContent = '请输入手机号和验证码';
       vipLoginMessage.className = 'login-message error';
+      setTimeout(function() {
+        vipLoginMessage.textContent = '';
+        vipLoginMessage.className = 'login-message';
+      }, 2000);
       return;
     }
 
@@ -1117,6 +1121,10 @@ function initVipLogin() {
       if (result.success) {
         vipLoginMessage.textContent = result.message;
         vipLoginMessage.className = 'login-message success';
+        setTimeout(function() {
+          vipLoginMessage.textContent = '';
+          vipLoginMessage.className = 'login-message';
+        }, 2000);
         
         // 延迟关闭弹窗并留在当前页面
         setTimeout(() => {
@@ -1132,6 +1140,10 @@ function initVipLogin() {
       } else {
         vipLoginMessage.textContent = result.message;
         vipLoginMessage.className = 'login-message error';
+        setTimeout(function() {
+          vipLoginMessage.textContent = '';
+          vipLoginMessage.className = 'login-message';
+        }, 2000);
       }
     });
   }
@@ -1273,6 +1285,10 @@ function initVipLogin() {
       if (!phone) {
         vipLoginMessage.textContent = '请输入手机号';
         vipLoginMessage.className = 'login-message error';
+        setTimeout(function() {
+          vipLoginMessage.textContent = '';
+          vipLoginMessage.className = 'login-message';
+        }, 2000);
         return;
       }
       
@@ -1300,9 +1316,17 @@ function initVipLogin() {
         if (result.success) {
           vipLoginMessage.textContent = '验证码已发送，请查收';
           vipLoginMessage.className = 'login-message success';
+          setTimeout(function() {
+            vipLoginMessage.textContent = '';
+            vipLoginMessage.className = 'login-message';
+          }, 2000);
         } else {
           vipLoginMessage.textContent = result.message;
           vipLoginMessage.className = 'login-message error';
+          setTimeout(function() {
+            vipLoginMessage.textContent = '';
+            vipLoginMessage.className = 'login-message';
+          }, 2000);
           // 发送失败，恢复按钮
           clearInterval(timer);
           sendVipCodeBtn.disabled = false;
@@ -1312,6 +1336,10 @@ function initVipLogin() {
         console.error('发送短信异常:', error);
         vipLoginMessage.textContent = '发送失败，请稍后重试';
         vipLoginMessage.className = 'login-message error';
+        setTimeout(function() {
+          vipLoginMessage.textContent = '';
+          vipLoginMessage.className = 'login-message';
+        }, 2000);
         // 发送失败，恢复按钮
         clearInterval(timer);
         sendVipCodeBtn.disabled = false;

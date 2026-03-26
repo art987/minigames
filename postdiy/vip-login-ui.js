@@ -93,6 +93,11 @@ const VipLoginUI = (function() {
     if (!elements.vipLoginMessage) return
     elements.vipLoginMessage.textContent = message
     elements.vipLoginMessage.className = 'login-message ' + type
+    
+    // 2秒后自动消失
+    setTimeout(function() {
+      clearMessage()
+    }, 2000)
   }
   
   // 清除消息
@@ -129,6 +134,260 @@ const VipLoginUI = (function() {
         elements.vipPasswordInput.type = 'password'
         elements.togglePasswordBtn.innerHTML = '<i class="fa fa-eye"></i>'
       }
+    }
+  }
+  
+  // 渲染VIP升级弹窗
+  function renderVipUpgradeForm() {
+    if (!elements.vipLoginModal) return
+    
+    const formHTML = `
+      <div class="vip-upgrade-form">
+        <!-- 标题 -->
+        <h3 style="margin: 0 0 24px 0; color: #d32f2f; font-size: 24px; font-weight: bold; text-align: center;">
+          <span style="display: block; margin-bottom: 8px;">🎉 0秒等待升级VIP品牌账号</span>
+          <span style="font-size: 14px; font-weight: normal; color: #666;">尊享多项特权，提升品牌形象</span>
+        </h3>
+        
+        <!-- 升级码输入区域 -->
+        <div style="margin-bottom: 32px; display: flex; gap: 12px;">
+          <input type="text" id="voucherCodeInput" placeholder="请输入升级码" style="flex: 1; padding: 14px 16px; border: 2px solid #ffcdd2; border-radius: 8px; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;">
+          <button id="verifyVoucherBtn" style="padding: 0 24px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">验证</button>
+        </div>
+        
+        <!-- 结果显示 -->
+        <div id="voucherResult" style="margin-bottom: 24px; padding: 16px; border-radius: 8px; display: none; background: #fff3f3; border: 1px solid #ffcdd2;">
+          <div id="voucherErrorMessage" style="margin-bottom: 12px; color: #d32f2f; font-size: 14px;"></div>
+          <div id="voucherErrorLog" style="background: #2d3748; color: #e2e8f0; padding: 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; max-height: 200px; overflow-y: auto; margin-bottom: 12px; display: none;"></div>
+          <button id="copyErrorLogBtn" style="font-size: 12px; padding: 6px 12px; background: #d32f2f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">复制错误日志</button>
+        </div>
+        
+        <!-- VIP会员时长选择模块 -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="margin: 0 0 16px 0; color: #d32f2f; font-size: 18px; font-weight: bold;">💎 VIP会员套餐</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+            <!-- 1个月VIP -->
+            <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+              <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">限时</div>
+              <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">1个月VIP</h5>
+              <div style="margin-bottom: 8px;">
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥9.9</span>
+                <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥20</span>
+              </div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥10.1</div>
+              <button class="select-package-btn" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #d32f2f; color: #d32f2f; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">选择</button>
+            </div>
+            
+            <!-- 3个月VIP -->
+            <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+              <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">热卖</div>
+              <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">3个月VIP</h5>
+              <div style="margin-bottom: 8px;">
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥16.9</span>
+                <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥60</span>
+              </div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥43.1</div>
+              <button class="select-package-btn" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #d32f2f; color: #d32f2f; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">选择</button>
+            </div>
+            
+            <!-- 6个月VIP -->
+            <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+              <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">超值</div>
+              <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">6个月VIP</h5>
+              <div style="margin-bottom: 8px;">
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥19.9</span>
+                <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥120</span>
+              </div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥100.1</div>
+              <button class="select-package-btn" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #d32f2f; color: #d32f2f; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">选择</button>
+            </div>
+            
+            <!-- 1年VIP -->
+            <div class="vip-package" data-duration="12" data-price="23.9" data-original-price="240" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+              <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">推荐</div>
+              <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">1年VIP</h5>
+              <div style="margin-bottom: 8px;">
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥23.9</span>
+                <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥240</span>
+              </div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥216.1</div>
+              <button class="select-package-btn" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #d32f2f; color: #d32f2f; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">选择</button>
+            </div>
+            
+            <!-- 2年VIP -->
+            <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+              <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">终极</div>
+              <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">2年VIP</h5>
+              <div style="margin-bottom: 8px;">
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥33.9</span>
+                <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥480</span>
+              </div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥446.1</div>
+              <button class="select-package-btn" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #d32f2f; color: #d32f2f; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">选择</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 特权说明 -->
+        <div style="margin-bottom: 24px; padding: 16px; background: #fff3f3; border-radius: 8px;">
+          <h5 style="margin: 0 0 12px 0; color: #d32f2f; font-size: 14px; font-weight: bold;">🎁 VIP特权</h5>
+          <ul style="margin: 0; padding-left: 20px; font-size: 12px; color: #666;">
+            <li style="margin-bottom: 4px;">✅ 无水印海报下载</li>
+            <li style="margin-bottom: 4px;">✅ 自定义品牌Logo</li>
+            <li style="margin-bottom: 4px;">✅ 优先体验新功能</li>
+            <li style="margin-bottom: 4px;">✅ 专属客服支持</li>
+          </ul>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div style="display: flex; gap: 12px;">
+          <button id="closeVipUpgradeBtn" style="flex: 1; padding: 14px; background: #f5f5f5; color: #333; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">关闭</button>
+          <button id="proceedToPaymentBtn" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; display: none;">立即支付</button>
+        </div>
+      </div>
+    `
+    
+    const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+    if (formContainer) {
+      formContainer.innerHTML = formHTML
+      
+      // 重新缓存新生成的元素
+      elements.voucherCodeInput = document.getElementById('voucherCodeInput')
+      elements.verifyVoucherBtn = document.getElementById('verifyVoucherBtn')
+      elements.voucherResult = document.getElementById('voucherResult')
+      elements.voucherErrorMessage = document.getElementById('voucherErrorMessage')
+      elements.voucherErrorLog = document.getElementById('voucherErrorLog')
+      elements.copyErrorLogBtn = document.getElementById('copyErrorLogBtn')
+      elements.closeVipUpgradeBtn = document.getElementById('closeVipUpgradeBtn')
+      elements.proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn')
+      
+      // 绑定事件
+      bindVipUpgradeEvents()
+    }
+  }
+  
+  // 绑定VIP升级事件
+  function bindVipUpgradeEvents() {
+    // 验证升级码
+    if (elements.verifyVoucherBtn) {
+      elements.verifyVoucherBtn.addEventListener('click', async function() {
+        const code = elements.voucherCodeInput.value.trim()
+        const userId = VIPSystem.getUserId()
+        
+        if (!code) {
+          showVoucherResult('请输入升级码', 'error')
+          return
+        }
+        
+        if (!userId) {
+          showVoucherResult('请先登录', 'error')
+          return
+        }
+        
+        this.disabled = true
+        this.textContent = '验证中...'
+        
+        const result = await VIPSystem.verifyVoucher(code, userId)
+        
+        this.disabled = false
+        this.textContent = '验证'
+        
+        if (result.success) {
+          if (result.used) {
+            showVoucherResult(`升级码已被使用，使用时间：${new Date(result.usedAt).toLocaleString()}`, 'error')
+          } else {
+            showVoucherResult('升级成功！您现在是VIP用户', 'success')
+            setTimeout(() => {
+              hideLoginModal()
+              location.reload()
+            }, 1500)
+          }
+        } else {
+          showVoucherResult(result.message || '验证失败，请稍后重试', 'error')
+        }
+      })
+    }
+    
+    // 关闭按钮
+    if (elements.closeVipUpgradeBtn) {
+      elements.closeVipUpgradeBtn.addEventListener('click', hideLoginModal)
+    }
+    
+    // 复制错误日志
+    if (elements.copyErrorLogBtn) {
+      elements.copyErrorLogBtn.addEventListener('click', function() {
+        const errorLog = elements.voucherErrorLog.textContent
+        navigator.clipboard.writeText(errorLog).then(() => {
+          alert('错误日志已复制到剪贴板')
+        })
+      })
+    }
+    
+    // VIP套餐选择
+    const vipPackages = document.querySelectorAll('.vip-package')
+    vipPackages.forEach(package => {
+      package.addEventListener('click', function() {
+        // 移除其他套餐的选中状态
+        vipPackages.forEach(p => {
+          p.style.borderColor = '#ffcdd2'
+          p.style.transform = 'scale(1)'
+          p.querySelector('.select-package-btn').style.background = '#fff'
+          p.querySelector('.select-package-btn').style.color = '#d32f2f'
+        })
+        
+        // 添加当前套餐的选中状态
+        this.style.borderColor = '#d32f2f'
+        this.style.transform = 'scale(1.05)'
+        this.style.boxShadow = '0 4px 12px rgba(211, 47, 47, 0.2)'
+        this.querySelector('.select-package-btn').style.background = '#d32f2f'
+        this.querySelector('.select-package-btn').style.color = '#fff'
+        
+        // 显示立即支付按钮
+        if (elements.proceedToPaymentBtn) {
+          elements.proceedToPaymentBtn.style.display = 'block'
+        }
+      })
+    })
+    
+    // 立即支付按钮
+    if (elements.proceedToPaymentBtn) {
+      elements.proceedToPaymentBtn.addEventListener('click', function() {
+        // 获取选中的套餐
+        const selectedPackage = document.querySelector('.vip-package[style*="border-color: #d32f2f"]')
+        if (selectedPackage) {
+          const duration = selectedPackage.dataset.duration
+          const price = selectedPackage.dataset.price
+          const originalPrice = selectedPackage.dataset.originalPrice
+          
+          // 预留支付流程接口
+          console.log('准备支付', {
+            duration,
+            price,
+            originalPrice
+          })
+          
+          // 这里可以添加支付逻辑
+          alert(`您选择了 ${duration} 个月VIP，价格 ¥${price}，正在跳转到支付页面...`)
+        }
+      })
+    }
+  }
+  
+  // 显示升级码验证结果
+  function showVoucherResult(message, type = 'error') {
+    if (!elements.voucherResult || !elements.voucherErrorMessage) return
+    
+    elements.voucherResult.style.display = 'block'
+    elements.voucherErrorMessage.textContent = message
+    
+    if (type === 'success') {
+      elements.voucherResult.style.background = '#e8f5e8'
+      elements.voucherResult.style.borderColor = '#c8e6c9'
+      elements.voucherErrorMessage.style.color = '#2e7d32'
+    } else {
+      elements.voucherResult.style.background = '#fff3f3'
+      elements.voucherResult.style.borderColor = '#ffcdd2'
+      elements.voucherErrorMessage.style.color = '#d32f2f'
     }
   }
   
@@ -477,7 +736,7 @@ const VipLoginUI = (function() {
         }
         
         // 加载云端商家信息
-        loadUserInfoFromCloud()
+        await loadUserInfoFromCloud()
         
         elements.userInfoModal.classList.remove('hidden')
       }

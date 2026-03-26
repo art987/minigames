@@ -680,6 +680,12 @@ let currentCropTarget = null;
       if (elements.vipLoginMessage) {
         elements.vipLoginMessage.textContent = '请输入用户名和密码';
         elements.vipLoginMessage.className = 'login-message error';
+        setTimeout(function() {
+          if (elements.vipLoginMessage) {
+            elements.vipLoginMessage.textContent = '';
+            elements.vipLoginMessage.className = 'login-message';
+          }
+        }, 2000);
       }
       return;
     }
@@ -691,6 +697,12 @@ let currentCropTarget = null;
       if (elements.vipLoginMessage) {
         elements.vipLoginMessage.textContent = result.message;
         elements.vipLoginMessage.className = 'login-message success';
+        setTimeout(function() {
+          if (elements.vipLoginMessage) {
+            elements.vipLoginMessage.textContent = '';
+            elements.vipLoginMessage.className = 'login-message';
+          }
+        }, 2000);
       }
       
       // 保存VIP登录状态
@@ -712,6 +724,12 @@ let currentCropTarget = null;
       if (elements.vipLoginMessage) {
         elements.vipLoginMessage.textContent = result.message;
         elements.vipLoginMessage.className = 'login-message error';
+        setTimeout(function() {
+          if (elements.vipLoginMessage) {
+            elements.vipLoginMessage.textContent = '';
+            elements.vipLoginMessage.className = 'login-message';
+          }
+        }, 2000);
       }
     }
   }
@@ -5366,26 +5384,106 @@ let currentCropTarget = null;
     modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: flex; align-items: center; justify-content: center;';
 
     modal.innerHTML = `
-      <div class="modal-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 360px; width: 90%; text-align: center; position: relative;">
+      <div class="vip-upgrade-modal">
         <!-- 关闭按钮 -->
-        <button id="closeVipUpgradeBtn" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+        <button id="closeVipUpgradeBtn" class="close-modal-btn">&times;</button>
         
         <!-- 标题 -->
-        <h3 style="margin: 0 0 20px 0; color: #333; font-size: 20px;">0秒等待升级您的VIP品牌账号</h3>
+        <h3 class="vip-upgrade-header">
+          0秒等待升级VIP品牌账号
+        </h3>
         
-        <!-- 升级码输入框 -->
-        <div style="margin-bottom: 20px;">
-          <input type="text" id="voucherCodeInput" placeholder="请输入升级码" style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+        <!-- 升级码输入区域 -->
+        <div class="voucher-input-container">
+          <span class="upgrade-channel-label">升级通道一：</span>
+          <div class="input-button-group">
+            <div class="input-wrapper">
+              <input type="text" id="voucherCodeInput" class="voucher-input" placeholder="请输入升级码">
+              <button id="clearInputBtn" class="clear-input-btn" style="display: none;">X</button>
+              <button id="pasteInputBtn" class="paste-input-btn">粘贴</button>
+            </div>
+            <button id="verifyVoucherBtn" class="verify-btn">验证</button>
+          </div>
         </div>
         
-        <!-- 验证按钮 -->
-        <button id="verifyVoucherBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">验证</button>
-        
         <!-- 结果显示 -->
-        <div id="voucherResult" style="margin-top: 16px; padding: 12px; border-radius: 8px; display: none;">
-          <div id="voucherErrorMessage" style="margin-bottom: 10px;"></div>
-          <div id="voucherErrorLog" style="background: #2d3748; color: #e2e8f0; padding: 10px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; max-height: 200px; overflow-y: auto; margin-bottom: 10px; display: none;"></div>
-          <button id="copyErrorLogBtn" style="font-size: 12px; padding: 6px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">复制错误日志</button>
+        <div id="voucherResult" class="voucher-result">
+          <div id="voucherErrorMessage" class="voucher-error-message"></div>
+          <div id="voucherErrorLog" class="voucher-error-log"></div>
+          <button id="copyErrorLogBtn" class="copy-error-log-btn">复制错误日志</button>
+        </div>
+        
+        <!-- VIP会员时长选择模块 -->
+        <div class="vip-packages-section">
+          <div class="vip-packages-title">升级通道二：</div>
+          <div class="vip-packages-wrapper">
+            <div class="vip-packages-container">
+            <!-- 1个月VIP -->
+            <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20">
+              <h5 class="package-title">1个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥9.9</span>
+                <span class="package-original-price">¥20</span>
+              </div>
+              <div class="package-saving">节省 ¥10.1</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+            
+            <!-- 3个月VIP -->
+            <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
+              <h5 class="package-title">3个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥16.9</span>
+                <span class="package-original-price">¥60</span>
+              </div>
+              <div class="package-saving">节省 ¥43.1</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+            
+            <!-- 6个月VIP -->
+            <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120">
+              <h5 class="package-title">6个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥19.9</span>
+                <span class="package-original-price">¥120</span>
+              </div>
+              <div class="package-saving">节省 ¥100.1</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+            
+            <!-- 1年VIP - 主推套餐 -->
+            <div class="vip-package vip-package-featured" data-duration="12" data-price="23.9" data-original-price="240">
+              <div class="package-badge">超值</div>
+              <h5 class="package-title">1年VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥23.9</span>
+                <span class="package-original-price">¥240</span>
+              </div>
+              <div class="package-saving">节省 ¥216.1</div>
+              <button class="select-package-btn">立即支付23.9元</button>
+            </div>
+            
+            <!-- 2年VIP -->
+            <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
+              <h5 class="package-title">2年VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥33.9</span>
+                <span class="package-original-price">¥480</span>
+              </div>
+              <div class="package-saving">节省 ¥446.1</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="vip-upgrade-actions">
+          <button id="closeVipUpgradeBtn" class="close-upgrade-btn">关闭</button>
+          <div class="payment-btn-wrapper">
+            <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付23.9元</button>
+            <div class="discount-badge payment-discount-badge">1折</div>
+          </div>
         </div>
       </div>
     `;
@@ -5397,6 +5495,46 @@ let currentCropTarget = null;
     const verifyBtn = document.getElementById('verifyVoucherBtn');
     const resultDiv = document.getElementById('voucherResult');
     const closeBtn = document.getElementById('closeVipUpgradeBtn');
+    const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
+    const clearInputBtn = document.getElementById('clearInputBtn');
+    const pasteInputBtn = document.getElementById('pasteInputBtn');
+
+    // 输入框内容变化时切换按钮显示
+    function updateInputButtons() {
+      if (voucherInput.value.length > 0) {
+        clearInputBtn.style.display = 'flex';
+        pasteInputBtn.style.display = 'none';
+      } else {
+        clearInputBtn.style.display = 'none';
+        pasteInputBtn.style.display = 'flex';
+      }
+    }
+
+    // 初始化按钮状态
+    updateInputButtons();
+
+    // 监听输入框内容变化
+    voucherInput.addEventListener('input', updateInputButtons);
+
+    // 清除按钮点击事件
+    clearInputBtn.addEventListener('click', () => {
+      voucherInput.value = '';
+      updateInputButtons();
+      voucherInput.focus();
+    });
+
+    // 粘贴按钮点击事件
+    pasteInputBtn.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        voucherInput.value = text;
+        updateInputButtons();
+        voucherInput.focus();
+      } catch (err) {
+        console.error('粘贴失败:', err);
+        alert('无法读取剪贴板内容，请手动输入');
+      }
+    });
 
     // 关闭弹窗
     closeBtn.addEventListener('click', () => {
@@ -5418,6 +5556,7 @@ let currentCropTarget = null;
         return;
       }
 
+      verifyBtn.classList.add('pulse-animation');
       verifyBtn.disabled = true;
       verifyBtn.textContent = '验证中...';
 
@@ -5486,6 +5625,7 @@ let currentCropTarget = null;
       } finally {
         verifyBtn.disabled = false;
         verifyBtn.textContent = '验证';
+        verifyBtn.classList.remove('pulse-animation');
       }
     });
 
@@ -5498,6 +5638,103 @@ let currentCropTarget = null;
 
     // 自动聚焦输入框
     voucherInput.focus();
+    
+    // 弹窗打开后直接滚动到底并选择1年VIP卡片
+    setTimeout(function() {
+      const packages = document.querySelectorAll('.vip-package');
+      const featuredPackage = document.querySelector('.vip-package.vip-package-featured');
+      
+      if (featuredPackage) {
+        // 滚动到1年VIP卡片位置
+        featuredPackage.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        
+        // 选择1年VIP卡片
+        packages.forEach(p => {
+          p.classList.remove('selected');
+          const selectBtn = p.querySelector('.select-package-btn');
+          if (selectBtn) {
+            selectBtn.textContent = '选择';
+          }
+        });
+        
+        featuredPackage.classList.add('selected');
+        
+        const selectBtn = featuredPackage.querySelector('.select-package-btn');
+        if (selectBtn) {
+          selectBtn.textContent = '✔ 已选择';
+        }
+        
+        // 更新支付按钮文字
+        const price = featuredPackage.dataset.price;
+        if (proceedToPaymentBtn) {
+          proceedToPaymentBtn.textContent = `立即支付${price}元`;
+          proceedToPaymentBtn.style.display = 'block';
+        }
+      }
+    }, 500);
+    
+    // VIP套餐选择
+    const vipPackages = document.querySelectorAll('.vip-package');
+    vipPackages.forEach(package => {
+      package.addEventListener('click', function() {
+        // 移除其他套餐的选中状态
+        vipPackages.forEach(p => {
+          p.classList.remove('selected');
+          const selectBtn = p.querySelector('.select-package-btn');
+          if (selectBtn) {
+            selectBtn.textContent = '选择';
+          }
+        });
+        
+        // 添加当前套餐的选中状态
+        this.classList.add('selected');
+        
+        // 更新选择按钮文字
+        const selectBtn = this.querySelector('.select-package-btn');
+        if (selectBtn) {
+          selectBtn.textContent = '✔ 已选择';
+        }
+        
+        // 更新支付按钮文字和价格
+        const price = this.dataset.price;
+        if (proceedToPaymentBtn) {
+          proceedToPaymentBtn.textContent = `立即支付${price}元`;
+        }
+        
+        // 显示立即支付按钮并添加闪烁动画
+        if (proceedToPaymentBtn) {
+          proceedToPaymentBtn.style.display = 'block';
+          // 先移除动画类，然后重新添加以触发动画
+          proceedToPaymentBtn.classList.remove('pulse-animation');
+          setTimeout(() => {
+            proceedToPaymentBtn.classList.add('pulse-animation');
+          }, 10);
+        }
+      });
+    });
+    
+    // 立即支付按钮
+    if (proceedToPaymentBtn) {
+      proceedToPaymentBtn.addEventListener('click', function() {
+        // 获取选中的套餐
+        const selectedPackage = document.querySelector('.vip-package[style*="border-color: #d32f2f"]');
+        if (selectedPackage) {
+          const duration = selectedPackage.dataset.duration;
+          const price = selectedPackage.dataset.price;
+          const originalPrice = selectedPackage.dataset.originalPrice;
+          
+          // 预留支付流程接口
+          console.log('准备支付', {
+            duration,
+            price,
+            originalPrice
+          });
+          
+          // 这里可以添加支付逻辑
+          alert(`您选择了 ${duration} 个月VIP，价格 ¥${price}，正在跳转到支付页面...`);
+        }
+      });
+    }
   }
 
   // 显示升级码验证结果

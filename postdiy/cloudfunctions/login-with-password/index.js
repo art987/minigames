@@ -8,6 +8,19 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
+  // 处理 CORS 预检请求
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+
   let phone, password
   try {
     // 解析 body 中的 JSON 数据
@@ -80,7 +93,7 @@ exports.main = async (event, context) => {
     }
 
     const now = new Date()
-    const isVip = user.vipExpireTime && new Date(user.vipExpireTime) > now
+    const isVip = user.vipValidUntil && new Date(user.vipValidUntil) > now
 
     return {
       statusCode: 200,
@@ -97,7 +110,7 @@ exports.main = async (event, context) => {
           userId: user._id,
           phone: user.phone,
           isVip: isVip,
-          vipExpireTime: user.vipExpireTime,
+          vipValidUntil: user.vipValidUntil,
           logoUrl: user.logoUrl,
           qrcodeUrl: user.qrcodeUrl,
           hasPassword: user.hasPassword

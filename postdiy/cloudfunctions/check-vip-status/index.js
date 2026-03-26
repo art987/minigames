@@ -148,6 +148,19 @@ async function checkVIPPermission(userId, feature) {
 
 // 主函数
 exports.main = async (event, context) => {
+    // 处理 CORS 预检请求
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type'
+            },
+            body: ''
+        };
+    }
+
     // 解析请求体
     let requestBody = event;
     if (event.body) {
@@ -156,23 +169,47 @@ exports.main = async (event, context) => {
         } catch (e) {
             console.error('解析请求体失败:', e);
             return {
-                code: 400,
-                message: '请求体格式错误'
+                statusCode: 200,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: 400,
+                    message: '请求体格式错误'
+                })
             };
         }
     }
     
     const { action, userId, phone, feature } = requestBody;
 
+    let result;
     switch (action) {
         case 'getVIPStatus':
-            return await getUserVIPStatus(userId, phone);
+            result = await getUserVIPStatus(userId, phone);
+            break;
         case 'checkPermission':
-            return await checkVIPPermission(userId, feature);
+            result = await checkVIPPermission(userId, feature);
+            break;
         default:
-            return {
+            result = {
                 code: 400,
                 message: '无效的操作类型'
             };
     }
+
+    // 返回带有 CORS 头的响应
+    return {
+        statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(result)
+    };
 };
