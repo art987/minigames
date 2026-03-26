@@ -2165,11 +2165,11 @@ footer {
 
 .voucher-input {
   flex: 1;
-  padding: 9px 2px;
+  padding: 12px 2px;
   border: 2px solid #ffcdd2;
   border-radius: 8px;
   text-indent: 10px;
-  font-size: 18px;
+  font-size: 15px;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -2199,7 +2199,7 @@ footer {
   transition: all 0.2s ease;
   border-radius: 4px;
 }
- .paste-input-btn{font-size: 14px;width: 42px;background: #f5f5f5;padding: 0 3px;color: #888;}
+ .paste-input-btn{font-size: 13px;width: 42px;background: #f5f5f5;padding: 0 3px;color: #888;}
 
 .clear-input-btn:hover,
 .paste-input-btn:hover {
@@ -2325,6 +2325,7 @@ footer {
   border: none;
   border-radius: 8px;
   font-size: 17px;
+  text-shadow: 0 1px 0 #fff;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2406,17 +2407,17 @@ footer {
 }
 
 .vip-packages-wrapper::-webkit-scrollbar-track {
-  background: #d32f2f;
+  background: rgba(211, 47, 47, 0.38);
   border-radius: 4px;
 }
 
 .vip-packages-wrapper::-webkit-scrollbar-thumb {
-  background: #ff6f00;
+  background: rgba(255, 111, 0, 0.38);
   border-radius: 4px;
 }
 
 .vip-packages-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #f57c00;
+  background: rgba(245, 124, 0, 0.38);
 }
 
 .vip-packages-container {
@@ -2437,22 +2438,22 @@ footer {
 }
 
 .vip-packages-container::-webkit-scrollbar-track {
-  background: #d32f2f;
+  background: rgba(211, 47, 47, 0.38);
   border-radius: 4px;
 }
 
 .vip-packages-container::-webkit-scrollbar-thumb {
-  background: #ff6f00;
+  background: rgba(255, 111, 0, 0.38);
   border-radius: 4px;
 }
 
 .vip-packages-container::-webkit-scrollbar-thumb:hover {
-  background: #f57c00;
+  background: rgba(245, 124, 0, 0.38);
 }
 
 .vip-package {
   padding: 20px 16px;
-  background: linear-gradient(145deg, #fff7c1 0%, #fffac0 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #fffac0 100%);
   border: 2px solid #ffd54f;
   border-radius: 16px;
   text-align: center;
@@ -2538,7 +2539,7 @@ footer {
   right: -10px;
   background: linear-gradient(135deg, #f6f6f6ad 0%, #f7f5f5 100%);
   color: #ff0707;
-  font-size: 17px;
+  font-size: 13px;
   border: 1px solid #ffc24d;
   font-weight: bold;
   padding: 2px 10px;
@@ -2552,6 +2553,10 @@ footer {
   font-size: 14px;
   padding: 6px 14px;
   border: 2px solid #ffeb3b;
+  animation: pulse 2s infinite;
+}
+
+.package-badge.discount-badge.pulse-animation {
   animation: pulse 2s infinite;
 }
 
@@ -2593,18 +2598,18 @@ footer {
 .package-saving {
   font-size: 12px;
   color: #666;
-  margin-bottom: 14px;
+  margin-bottom: 13px;
   font-weight: 500;
 }
 
 .select-package-btn {
-  width: 68%;
+  width: 100%;
   padding: 9px;
   background: linear-gradient(145deg, #fffeb8 0%, #fef918 100%);
   border: 1px solid #ffd3b3;
   color: #d32f2f;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2641,22 +2646,23 @@ footer {
 }
 
 .vip-package.vip-package-featured .select-package-btn:hover {
-  background: linear-gradient(135deg, #fcffad 0%, #ebff7d 100%);
-  color: #ff0909;
+  /* background: linear-gradient(135deg, #fcffad 0%, #ebff7d 100%); */
+  color: #ffffff;
   box-shadow: 2px 2px 6px rgba(255, 111, 0, 0.4), -2px -2px 6px rgba(255, 235, 59, 0.6);
 }
 
 .vip-package.selected .select-package-btn {
-  background: linear-gradient(145deg, #ffffff 0%, #ffffff 100%);
-  color: #fe0000;
-  font-size: 15px;
-  padding: 4px;
+  background: linear-gradient(135deg, #ff7260 0%, #df240c 50%, #f900a7 100%);
+  color: #fbfbfb;
+  font-size: 13px;
+  text-shadow: 1px 0 0 #a3014c;
+  padding: 9px;
   width: 100%;
   border: 1px solid;
 }
 
 .upgrade-channel-label {
-  font-size: 16px;
+  font-size: 14px;
   color: #ffffff;
   margin-right: 8px;
   white-space: nowrap;
@@ -2699,6 +2705,19 @@ footer {
   border-radius: 12px;
   box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
   z-index: 10;
+}
+
+.payment-discount-badge.discount-badge {
+  background: linear-gradient(135deg, #f73282 0%, #ff0c0c 100%);
+  font-size: 13px;
+  color: #fff070;
+  padding: 4px 11px;
+  border: 2px solid #ffeb3b;
+  animation: pulse 2s infinite;
+}
+
+.payment-discount-badge.discount-badge.pulse-animation {
+  animation: pulse 2s infinite;
 }
 
 .close-upgrade-btn {
@@ -2754,6 +2773,7 @@ footer {
   border: 1px solid #ffffff;
   border-radius: 12px;
   font-size: 17px;
+  text-shadow: 0 1px 0 #ffff;
   width: 100%;
   font-weight: bold;
   cursor: pointer;

@@ -5639,6 +5639,45 @@ let currentCropTarget = null;
     // 自动聚焦输入框
     voucherInput.focus();
     
+    // 计算并更新支付按钮的折扣标签
+    function updatePaymentDiscountBadge(selectedPackage) {
+      if (!selectedPackage) return;
+      
+      const price = parseFloat(selectedPackage.dataset.price);
+      const originalPrice = parseFloat(selectedPackage.dataset.originalPrice);
+      
+      if (price && originalPrice) {
+        // 计算折扣：(售卖价 / 原价) * 10，保留1位小数，例如 33.9 / 480 = 0.070625，约等于0.7折
+        const discount = (price / originalPrice * 10).toFixed(1);
+        
+        // 检查是否已有折扣标签
+        let badge = document.querySelector('.payment-discount-badge');
+        
+        // 如果没有折扣标签，创建一个
+        if (!badge) {
+          badge = document.createElement('div');
+          badge.className = 'payment-discount-badge discount-badge';
+          
+          // 找到支付按钮的包装器并添加标签
+          const paymentBtnWrapper = document.querySelector('.payment-btn-wrapper');
+          if (paymentBtnWrapper) {
+            paymentBtnWrapper.appendChild(badge);
+          }
+        }
+        
+        // 更新折扣标签内容
+        if (badge) {
+          badge.textContent = `${discount}折`;
+          
+          // 为折扣标签添加脉冲动画
+          badge.classList.remove('pulse-animation');
+          setTimeout(() => {
+            badge.classList.add('pulse-animation');
+          }, 10);
+        }
+      }
+    }
+    
     // 弹窗打开后直接滚动到底并选择1年VIP卡片
     setTimeout(function() {
       const packages = document.querySelectorAll('.vip-package');
@@ -5655,6 +5694,11 @@ let currentCropTarget = null;
           if (selectBtn) {
             selectBtn.textContent = '选择';
           }
+          // 移除卡片上的折扣标签
+          const badge = p.querySelector('.package-badge.discount-badge');
+          if (badge) {
+            badge.remove();
+          }
         });
         
         featuredPackage.classList.add('selected');
@@ -5663,6 +5707,9 @@ let currentCropTarget = null;
         if (selectBtn) {
           selectBtn.textContent = '✔ 已选择';
         }
+        
+        // 更新支付按钮的折扣标签
+        updatePaymentDiscountBadge(featuredPackage);
         
         // 更新支付按钮文字
         const price = featuredPackage.dataset.price;
@@ -5684,10 +5731,18 @@ let currentCropTarget = null;
           if (selectBtn) {
             selectBtn.textContent = '选择';
           }
+          // 移除卡片上的折扣标签
+          const badge = p.querySelector('.package-badge.discount-badge');
+          if (badge) {
+            badge.remove();
+          }
         });
         
         // 添加当前套餐的选中状态
         this.classList.add('selected');
+        
+        // 滚动卡片到窗口中间
+        this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         
         // 更新选择按钮文字
         const selectBtn = this.querySelector('.select-package-btn');
@@ -5695,20 +5750,18 @@ let currentCropTarget = null;
           selectBtn.textContent = '✔ 已选择';
         }
         
+        // 更新支付按钮的折扣标签
+        updatePaymentDiscountBadge(this);
+        
         // 更新支付按钮文字和价格
         const price = this.dataset.price;
         if (proceedToPaymentBtn) {
           proceedToPaymentBtn.textContent = `立即支付${price}元`;
         }
         
-        // 显示立即支付按钮并添加闪烁动画
+        // 显示立即支付按钮（不添加动画）
         if (proceedToPaymentBtn) {
           proceedToPaymentBtn.style.display = 'block';
-          // 先移除动画类，然后重新添加以触发动画
-          proceedToPaymentBtn.classList.remove('pulse-animation');
-          setTimeout(() => {
-            proceedToPaymentBtn.classList.add('pulse-animation');
-          }, 10);
         }
       });
     });
