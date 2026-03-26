@@ -2134,7 +2134,8 @@ footer {
   border-radius: 16px;
   text-align: center;
   border: 2px solid #ff4141;
-  position: relative;
+  position: absolute;
+    top: 4%;
   box-shadow: 0 8px 32px rgba(211, 47, 47, 0.15);
 }
 
@@ -2574,7 +2575,7 @@ footer {
 }
 
 .package-title {
-  color: #333;
+  color: #e00000;
   font-size: 16px;
   font-weight: 600;
 }
@@ -2584,8 +2585,8 @@ footer {
 }
 
 .package-current-price {
-  color: #d32f2f;
-  font-size: 18px;
+  color: #000000;
+  font-size: 16px;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgb(247 255 85 / 10%);
 }
@@ -2607,7 +2608,7 @@ footer {
 .select-package-btn {
   width: 100%;
   padding: 6px;
-  background: linear-gradient(145deg, #fffeb8 0%, #fef918 100%);
+  background: linear-gradient(145deg, #ffffea 0%, #fffc8a 100%);
   border: 1px solid #ffd3b3;
   color: #d32f2f;
   border-radius: 8px;
@@ -2615,7 +2616,7 @@ footer {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(255,255,255,0.7);
+  /* box-shadow: 2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(255,255,255,0.7); */
 }
 
 .select-package-btn:hover {
@@ -2649,15 +2650,15 @@ footer {
 
 .vip-package.vip-package-featured .select-package-btn:hover {
   /* background: linear-gradient(135deg, #fcffad 0%, #ebff7d 100%); */
-  color: #ffffff;
+  color: #f20a0a;
   box-shadow: 2px 2px 6px rgba(255, 111, 0, 0.4), -2px -2px 6px rgba(255, 235, 59, 0.6);
 }
 
 .vip-package.selected .select-package-btn {
-  background: linear-gradient(135deg, #ff7260 0%, #df240c 50%, #f900a7 100%);
-  color: #fbfbfb;
+  background: linear-gradient(135deg, #ffffd0 0%, #fbf5c2 50%, #f9f19c 100%);
+  color: #f10d0d;
   font-size: 12px;
-  text-shadow: 1px 0 0 #a3014c;
+  /* text-shadow: 1px 0 0 #a3014c; */
   padding: 7px;
   width: 100%;
   border: 1px solid;
