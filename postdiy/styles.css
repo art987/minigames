@@ -2212,7 +2212,7 @@ footer {
 }
 
 .verify-btn {
-  flex: 2;
+  flex: 3;
   padding: 0 24px;
   background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
   color: white;
@@ -2292,7 +2292,7 @@ footer {
 }
 
 .vip-packages-section {
-  margin-bottom: 24px;
+  margin-bottom: 17px;
   padding: 0 20px;
 }
 
@@ -2306,7 +2306,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 31px;
+  margin-bottom: 24px;
   gap: 8px;
   padding: 0 20px;
   width: 100%;
@@ -2318,8 +2318,8 @@ footer {
 }
 
 .verify-btn {
-  flex: 2;
-  padding: 6px 14px;
+  flex: 3;
+  padding: 6px 2px;
   background: linear-gradient(145deg, #fffd81 0%, #ffc239 100%);
   color: #ff0e0e;
   border: none;
@@ -2358,11 +2358,13 @@ footer {
 
 .voucher-result {
   display: none;
-  margin-bottom: 20px;
   padding: 12px;
   border-radius: 8px;
+  position: absolute;
   font-size: 14px;
   line-height: 1.6;
+  z-index: 9999;
+  /* width: 86%; */
 }
 
 .voucher-error-message {
@@ -2424,8 +2426,8 @@ footer {
   display: flex;
   gap: 16px;
   overflow-y: hidden;
-  margin-top: -11px;
-  height: 209px;
+  margin-top: -19px;
+  height: 170px;
   padding: 30px 20px 10px;
   justify-content: flex-start;
   -webkit-overflow-scrolling: touch;
@@ -2452,7 +2454,7 @@ footer {
 }
 
 .vip-package {
-  padding: 20px 16px;
+  padding: 16px 14px;
   background: linear-gradient(145deg, #ffffff 0%, #fffac0 100%);
   border: 2px solid #ffd54f;
   border-radius: 16px;
@@ -2535,17 +2537,17 @@ footer {
 
 .package-badge {
   position: absolute;
-  top: -10px;
-  right: -10px;
-  background: linear-gradient(135deg, #f6f6f6ad 0%, #f7f5f5 100%);
+  top: -3px;
+  right: -6px;
+  background: linear-gradient(135deg, #f6f6f6 0%, #f7f5f5 100%);
   color: #ff0707;
-  font-size: 13px;
+  font-size: 10px;
   border: 1px solid #ffc24d;
   font-weight: bold;
-  padding: 2px 10px;
+  padding: 2px 7px;
   border-radius: 20px;
   box-shadow: 2px 2px 4px rgb(255 0 0 / 20%);
-  z-index: 10;
+  z-index: 99999;
 }
 
 .package-badge.discount-badge {
@@ -2573,7 +2575,7 @@ footer {
 
 .package-title {
   color: #333;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -2583,7 +2585,7 @@ footer {
 
 .package-current-price {
   color: #d32f2f;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgb(247 255 85 / 10%);
 }
@@ -2598,13 +2600,13 @@ footer {
 .package-saving {
   font-size: 12px;
   color: #666;
-  margin-bottom: 13px;
+  margin-bottom: 5px;
   font-weight: 500;
 }
 
 .select-package-btn {
   width: 100%;
-  padding: 9px;
+  padding: 6px;
   background: linear-gradient(145deg, #fffeb8 0%, #fef918 100%);
   border: 1px solid #ffd3b3;
   color: #d32f2f;
@@ -2654,9 +2656,9 @@ footer {
 .vip-package.selected .select-package-btn {
   background: linear-gradient(135deg, #ff7260 0%, #df240c 50%, #f900a7 100%);
   color: #fbfbfb;
-  font-size: 13px;
+  font-size: 12px;
   text-shadow: 1px 0 0 #a3014c;
-  padding: 9px;
+  padding: 7px;
   width: 100%;
   border: 1px solid;
 }
@@ -2674,7 +2676,7 @@ footer {
 }
 
 .vip-packages-title {
-  font-size: 16px;
+  font-size: 14px;
   color: #ffffff;
   margin-bottom: 0px;
   text-align: left;
@@ -2684,7 +2686,7 @@ footer {
 .vip-upgrade-actions {
   display: flex;
   gap: 6px;
-  padding:  0 20px;
+  padding: 0 22px;
 }
 
 .payment-btn-wrapper {
@@ -2694,7 +2696,7 @@ footer {
 
 .payment-discount-badge {
   position: absolute;
-  top: -8px;
+  top: -19px;
   right: -8px;
   background: linear-gradient(135deg, #ffe57a 0%, #ffffff 100%);
   color: #ff0707;
@@ -2727,7 +2729,8 @@ footer {
   color: #ffffff;
   border: 1px solid #ffffff78;
   border-radius: 8px;
-  font-size: 19px;
+  font-size: 17px;
+  height: 2.6rem;
   width: 30%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2741,10 +2744,10 @@ footer {
 
 .close-modal-btn {
   position: absolute;
-  top: 12px;
+  top: 6px;
   right: 12px;
-  background: rgb(255 255 255);
-  border: 2px solid #ffcdd2;
+  background: rgb(202 10 10);
+  border: 2px solid #db162a;
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -2754,8 +2757,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff1616;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(255,255,255,0.7);
+  color: #fcfcfc;
+  /* box-shadow: 2px 2px 4px rgb(255 45 45 / 10%), -2px -2px 4px rgb(240 12 12); */
 }
 
 .close-modal-btn:hover {
@@ -2767,11 +2770,12 @@ footer {
 
 .proceed-to-payment-btn {
   flex: 1;
-  padding: 14px 33px;
   background: linear-gradient(145deg, #fffeb8 0%, #fef918 100%);
   color: #f90000;
   border: 1px solid #ffffff;
   border-radius: 12px;
+  height: 2.7rem;
+  line-height: 2.7rem;
   font-size: 17px;
   text-shadow: 0 1px 0 #ffff;
   width: 100%;
@@ -2816,8 +2820,8 @@ footer {
   }
   
   .vip-package {
-    min-width: 120px;
-    padding: 16px;
+    min-width: 106px;
+    padding: 8px 8px;
   }
   
   .vip-package.vip-package-featured {
