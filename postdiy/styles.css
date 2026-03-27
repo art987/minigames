@@ -44,10 +44,9 @@ body {
 }
 .editorbg{
       /* 白底黑线重复小格子纹背景 */
-  background-image: linear-gradient(to right, #e0e0e0 1px, transparent 1px),
-                    linear-gradient(to bottom, #e0e0e0 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-color: white;
+      background-image: linear-gradient(to right, #7e7e7e24 1px, transparent 1px), linear-gradient(to bottom, #a5a5a514 1px, #00000000 1px);
+      background-size: 6px 6px;
+      background-color: #ffffff;
 }
 
 /* 编辑器特殊样式 */
@@ -1425,7 +1424,7 @@ footer {
   border: 1px solid #fefefe59;
   border-radius: 27px;
   background-color: #ffffff30;
-  color: #060606fa;
+  color: #000000fa;
   text-shadow: 0 0 4px #fffffff0;
   font-size: 11px;
   line-height: 15px;
@@ -1457,7 +1456,8 @@ footer {
 #prevTemplateBtn, #nextTemplateBtn {
   position: fixed;
   top: 35vh;
-  color: #c9c2c2;
+  color: #9f9f9f;
+  /* background: #ffffffb3; */
   z-index: 100;
   text-shadow: 0px 1px 2px #ffffff1c;
   width: 25px;
@@ -1467,7 +1467,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255 255 255 / 16%);
+  background-color: rgb(255 255 255 / 18%);
   box-shadow: 0 4px 12px rgb(0 0 0 / 11%);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
@@ -1934,7 +1934,7 @@ footer {
 
 .vip-menu-btn {
   background: #ffffff7a;
-  color: #4a4a4a;
+  color: #282727;
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   padding: 5px 13px;
@@ -2086,6 +2086,71 @@ footer {
 
 .vip-login-form {
   padding: 9px 5px 10px;
+}
+
+/* 登录选择界面样式 */
+.login-choice-form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.login-choice-section {
+  text-align: center;
+}
+
+.login-choice-hint {
+  color: #181818;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.login-choice-btn {
+  width: 60%;
+  margin: 0 20%;
+  padding: 19px 1px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #f85f17fa, #ba0ddeeb);
+  border-radius: 8px;
+  color: #fff;
+  text-shadow: 0 0 4px #cababaf0;
+}
+
+.login-choice-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e1e1e1, transparent);
+  margin: 3px 0;
+}
+
+/* 表单过渡动画 */
+.form-transition-out {
+  animation: formFadeOut 0.3s ease forwards;
+}
+
+.form-transition-in {
+  animation: formFadeIn 0.3s ease forwards;
+}
+
+@keyframes formFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .vip-login-form .form-group {
@@ -2461,6 +2526,7 @@ footer {
   border-radius: 16px;
   text-align: center;
   cursor: pointer;
+  transform: scale(0.9);
   transition: all 0.3s ease;
   position: relative;
   min-width: 160px;
@@ -2475,8 +2541,8 @@ footer {
 
 .vip-package.selected {
   border-color: #ffffff;
-  transform: scale(1.08);
-  box-shadow: 0 6px 16px rgb(250 76 76 / 73%);
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgb(214 0 0);
 }
 
 .vip-package.vip-package-featured {
@@ -2494,7 +2560,7 @@ footer {
 .vip-package.vip-package-featured.selected {
   border-color: #ffffff;
   transform: scale(1.12);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 1px 6px rgb(255 255 255);
 }
 
 @keyframes featured-glow {
@@ -2566,7 +2632,7 @@ footer {
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+    box-shadow: 0 0 0 0 rgb(235 255 111 / 70%);
   }
   50% {
     transform: scale(1.1);
@@ -2711,11 +2777,11 @@ footer {
 }
 
 .payment-discount-badge.discount-badge {
-  background: linear-gradient(135deg, #f73282 0%, #ff0c0c 100%);
+  background: linear-gradient(135deg, #f50e0e 0%, #e74bce 100%);
   font-size: 13px;
-  color: #fff070;
-  padding: 4px 11px;
-  border: 2px solid #ffeb3b;
+  color: #fff8bc;
+  padding: 2px 8px;
+  border: 2px solid #f8f2bc;
   animation: pulse 2s infinite;
 }
 
@@ -2732,6 +2798,7 @@ footer {
   border-radius: 8px;
   font-size: 17px;
   height: 2.6rem;
+  display: none;
   width: 30%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -2748,7 +2815,7 @@ footer {
   top: 6px;
   right: 12px;
   background: rgb(202 10 10);
-  border: 2px solid #db162a;
+  border: 2px solid #c50014;
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -2771,7 +2838,7 @@ footer {
 
 .proceed-to-payment-btn {
   flex: 1;
-  background: linear-gradient(145deg, #fffeb8 0%, #fef918 100%);
+  background: linear-gradient(145deg, #fffed9 0%, #fffd91 100%);
   color: #f90000;
   border: 1px solid #ffffff;
   border-radius: 12px;
@@ -2781,6 +2848,7 @@ footer {
   text-shadow: 0 1px 0 #ffff;
   width: 100%;
   font-weight: bold;
+  animation: borderGradient 3s ease infinite;
   cursor: pointer;
   transition: all 0.3s ease;
   display: none;
@@ -2813,7 +2881,7 @@ footer {
   }
   
   .vip-upgrade-header {
-    font-size: 18px;
+    font-size: 15px;
   }
   
   .vip-packages-container {
@@ -2827,6 +2895,127 @@ footer {
   
   .vip-package.vip-package-featured {
   }
+}
+
+/* 验证结果弹窗样式 */
+.voucher-result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.voucher-result-modal-content {
+  background: linear-gradient(145deg, #ffffff 0%, #f5f4c7 100%);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 387px;
+  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 150px;
+  position: absolute;
+  top: 19%;
+}
+
+.voucher-result-modal-title {
+  margin-top: 0;
+  margin-bottom: 9px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.voucher-result-message {
+  margin-bottom: 26px;
+  line-height: 1.5;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #e20707;
+}
+
+.voucher-error-log {
+  display: none;
+  background: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.copy-log-btn {
+  display: none;
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.copy-log-btn:hover {
+  background: #5a6268;
+}
+
+.voucher-result-close-btn {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 37px;
+  cursor: pointer;
+  color: #ce0000;
+  padding: 5px;
+  line-height: 1;
+}
+
+.voucher-result-close-btn:hover {
+  color: #000;
+}
+
+.voucher-result-close-btn.x-btn {
+  font-weight: bold;
+}
+
+.voucher-result-close {
+  background: linear-gradient(145deg, #fc1c1c 0%, #d30a0af0 100%);
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  width: 30%;
+  margin: 0 35% 8px;
+}
+
+.voucher-result-close:hover {
+  background: #fd0000;
+}
+
+.voucher-result-modal-content.success {
+  border-left: 4px solid #eb0000;
+}
+
+.voucher-result-modal-content.error {
+  border: 4px solid #feffb3;
+}
+
+.voucher-result-modal-content.info {
+  border-left: 4px solid #f60202;
 }
 
 .password-wrapper .toggle-password-btn {
@@ -2932,6 +3121,7 @@ footer {
   margin: 28px 0 15px;
   font-size: 14px;
   color: #6c757d;
+  display: none;
 }
 
 .login-method-switch span {
@@ -2964,11 +3154,12 @@ footer {
 
 .login-actions .action-btn {
   flex: 1;
-  background: linear-gradient(135deg, #e54848, #d20b0b);
+  background: linear-gradient(135deg, #f85f17fa, #ba0ddeeb);
   color: #fff;
   height: 44px;
   font-size: 15px;
   border: none;
+  text-shadow: 0 0 #fff;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s;
@@ -2976,7 +3167,7 @@ footer {
 }
 
 .login-actions .action-btn:hover {
-  background: linear-gradient(135deg, #e54848, #d20b0b);
+  background: linear-gradient(135deg, #f85f17fa, #ba0ddeeb);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgb(130 130 130 / 40%);
 }
@@ -3387,7 +3578,7 @@ footer {
 }
 
 .form-label {
-  display: block;
+  display: none;
   margin-bottom: 5px;
   font-size: 15px;
   font-weight: 600;
@@ -5213,8 +5404,8 @@ input.hidden {
 .ad-vip-btn {
   padding: 12px;
   border: none;
-  border-radius: 4px;
-  background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #fffed9 0%, #fffd91 100%);
   color: #ff0000;
   font-size: 14px;
   font-weight: bold;
@@ -5627,7 +5818,7 @@ border-left: 14px solid #efefef;
   border: 2px solid transparent;
   background-clip: padding-box;
   animation: borderGradient 6s ease infinite;
-  text-shadow: 1px 1px 0 #fff;
+  text-shadow: 1px 1px 0 #090909;
 }
 
 .action-btn.neon-glow::before {

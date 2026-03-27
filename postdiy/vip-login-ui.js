@@ -38,39 +38,139 @@ const VipLoginUI = (function() {
     elements.userInfoExpiry = document.getElementById('userInfoExpiry')
     elements.userInfoType = document.getElementById('userInfoType')
   }
-  
+
+  // 更新 VIP 登录状态 UI
+  function updateVipStatus() {
+    const loginBtn = document.getElementById('vipLoginBtn')
+    const loggedInMenu = document.getElementById('vipLoggedInMenu')
+    const dropdownMenu = document.getElementById('vipDropdownMenu')
+
+    if (VIPSystem.isLoggedIn()) {
+      if (loginBtn) loginBtn.classList.add('hidden')
+      if (loggedInMenu) loggedInMenu.classList.remove('hidden')
+      if (dropdownMenu) dropdownMenu.style.display = 'none'
+    } else {
+      if (loginBtn) loginBtn.classList.remove('hidden')
+      if (loggedInMenu) loggedInMenu.classList.add('hidden')
+      if (dropdownMenu) dropdownMenu.style.display = 'none'
+    }
+  }
+
   // 显示登录弹窗
   function showLoginModal() {
     if (!elements.vipLoginModal) {
       console.error('VIP 登录弹窗元素不存在')
       return
     }
+    renderLoginChoiceForm()
     elements.vipLoginModal.classList.remove('hidden')
-    elements.vipPhoneInput.focus()
   }
-  
+
+  // 渲染登录选择界面（第一步）
+  function renderLoginChoiceForm() {
+    if (!elements.vipLoginModal) return
+
+    const formHTML = `
+      <div class="vip-login-form login-choice-form">
+        <div class="login-choice-section">
+          <p class="login-choice-hint">还没账号 / 忘记密码</p>
+          <button id="choiceRegisterBtn" class="action-btn primary login-choice-btn">注册账号 / 验证码登录</button>
+        </div>
+        <div class="login-choice-divider"></div>
+        <div class="login-choice-section">
+          <p class="login-choice-hint">已经有账号和密码</p>
+          <button id="choicePasswordLoginBtn" class="action-btn secondary login-choice-btn">密码登录</button>
+        </div>
+      </div>
+    `
+
+    const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+    if (formContainer) {
+      formContainer.innerHTML = formHTML
+      bindLoginChoiceEvents()
+    }
+  }
+
+  // 绑定登录选择界面事件
+  function bindLoginChoiceEvents() {
+    const choiceRegisterBtn = document.getElementById('choiceRegisterBtn')
+    const choicePasswordLoginBtn = document.getElementById('choicePasswordLoginBtn')
+
+    if (choiceRegisterBtn) {
+      choiceRegisterBtn.addEventListener('click', () => {
+        transitionToForm('code')
+      })
+    }
+
+    if (choicePasswordLoginBtn) {
+      choicePasswordLoginBtn.addEventListener('click', () => {
+        transitionToForm('password')
+      })
+    }
+  }
+
+  // 平滑过渡到指定表单
+  function transitionToForm(formType) {
+    const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+    if (!formContainer) return
+
+    formContainer.classList.remove('form-transition-in')
+    formContainer.classList.add('form-transition-out')
+
+    setTimeout(() => {
+      if (formType === 'code') {
+        renderLoginForm()
+      } else if (formType === 'password') {
+        renderPasswordLoginForm()
+      } else if (formType === 'password-set') {
+        renderPasswordForm()
+      }
+      const newFormContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+      if (newFormContainer) {
+        newFormContainer.classList.remove('form-transition-out')
+        void newFormContainer.offsetWidth
+        newFormContainer.classList.add('form-transition-in')
+      }
+    }, 300)
+  }
+
+  // 平滑过渡到登录选择界面
+  function transitionToChoiceForm() {
+    const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+    if (!formContainer) return
+
+    formContainer.classList.remove('form-transition-in')
+    formContainer.classList.add('form-transition-out')
+
+    setTimeout(() => {
+      renderLoginChoiceForm()
+      const newFormContainer = elements.vipLoginModal.querySelector('.vip-login-form')
+      if (newFormContainer) {
+        newFormContainer.classList.remove('form-transition-out')
+        void newFormContainer.offsetWidth
+        newFormContainer.classList.add('form-transition-in')
+      }
+    }, 300)
+  }
+
   // 显示密码设置弹窗
   function showPasswordModal() {
     if (!elements.vipLoginModal) {
       console.error('VIP 登录弹窗元素不存在')
       return
     }
-    renderPasswordForm()
-    elements.vipLoginModal.classList.remove('hidden')
-    elements.vipPasswordInput.focus()
+    transitionToForm('password-set')
   }
-  
+
   // 显示密码登录弹窗
   function showPasswordLoginModal() {
     if (!elements.vipLoginModal) {
       console.error('VIP 登录弹窗元素不存在')
       return
     }
-    renderPasswordLoginForm()
-    elements.vipLoginModal.classList.remove('hidden')
-    elements.vipPhoneInput.focus()
+    transitionToForm('password')
   }
-  
+
   // 隐藏登录弹窗
   function hideLoginModal() {
     if (!elements.vipLoginModal) {
@@ -412,7 +512,7 @@ const VipLoginUI = (function() {
         <div id="vipLoginMessage" class="login-message"></div>
         <div class="login-actions">
           <button id="vipLoginSubmitBtn" class="action-btn primary">登录/注册</button>
-          <button id="vipLoginCancelBtn" class="action-btn secondary">取消</button>
+          <button id="vipLoginCancelBtn" class="action-btn secondary">返回</button>
         </div>
         <div class="login-method-switch">
           <span>没有收到验证码？</span>
@@ -512,7 +612,7 @@ const VipLoginUI = (function() {
         <div id="vipLoginMessage" class="login-message"></div>
         <div class="login-actions">
           <button id="vipPasswordLoginSubmitBtn" class="action-btn primary">登录</button>
-          <button id="vipPasswordLoginCancelBtn" class="action-btn secondary">取消</button>
+          <button id="vipPasswordLoginCancelBtn" class="action-btn secondary">返回</button>
         </div>
         <div class="login-method-switch">
           <span>忘记密码？</span>
@@ -563,9 +663,9 @@ const VipLoginUI = (function() {
       })
     }
     
-    // 取消按钮
+    // 取消按钮 - 返回选择界面
     if (elements.vipLoginCancelBtn) {
-      elements.vipLoginCancelBtn.addEventListener('click', hideLoginModal)
+      elements.vipLoginCancelBtn.addEventListener('click', transitionToChoiceForm)
     }
     
     // 回车键提交
@@ -590,7 +690,8 @@ const VipLoginUI = (function() {
       elements.vipMenuToggle.addEventListener('click', (e) => {
         e.stopPropagation()
         if (elements.vipDropdownMenu) {
-          elements.vipDropdownMenu.classList.toggle('hidden')
+          const isHidden = elements.vipDropdownMenu.style.display === 'none' || elements.vipDropdownMenu.style.display === ''
+          elements.vipDropdownMenu.style.display = isHidden ? 'block' : 'none'
         }
       })
     }
@@ -615,8 +716,9 @@ const VipLoginUI = (function() {
     document.addEventListener('click', function(e) {
       if (elements.vipDropdownMenu && elements.vipMenuToggle) {
         const isClickInsideMenu = elements.vipMenuToggle.parentElement.contains(e.target)
-        if (!isClickInsideMenu && !elements.vipDropdownMenu.classList.contains('hidden')) {
-          elements.vipDropdownMenu.classList.add('hidden')
+        const isVisible = elements.vipDropdownMenu.style.display === 'block'
+        if (!isClickInsideMenu && isVisible) {
+          elements.vipDropdownMenu.style.display = 'none'
         }
       }
     })
@@ -786,15 +888,7 @@ const VipLoginUI = (function() {
         localStorage.clear()
         
         // 更新 UI
-        if (elements.vipLoginBtn && elements.vipLoggedInMenu) {
-          elements.vipLoginBtn.classList.remove('hidden')
-          elements.vipLoggedInMenu.classList.add('hidden')
-        }
-        
-        // 关闭下拉菜单
-        if (elements.vipDropdownMenu) {
-          elements.vipDropdownMenu.classList.add('hidden')
-        }
+        updateVipStatus()
         
         showMessage('已退出登录', 'success')
         setTimeout(() => {
@@ -844,7 +938,8 @@ const VipLoginUI = (function() {
   // 初始化 UI
   function init() {
     initElements()
-    renderLoginForm()
+    updateVipStatus()
+    renderLoginChoiceForm()
     if (!eventsBound) {
       bindEvents()
       eventsBound = true
@@ -858,23 +953,40 @@ const VipLoginUI = (function() {
       const newSwitchToPasswordBtn = elements.switchToPasswordBtn.cloneNode(true)
       elements.switchToPasswordBtn.parentNode.replaceChild(newSwitchToPasswordBtn, elements.switchToPasswordBtn)
       elements.switchToPasswordBtn = newSwitchToPasswordBtn
-      
+
       elements.switchToPasswordBtn.addEventListener('click', () => {
-        showPasswordLoginModal()
+        transitionToForm('password')
       })
     }
-    
+
     if (elements.switchToCodeBtn) {
       const newSwitchToCodeBtn = elements.switchToCodeBtn.cloneNode(true)
       elements.switchToCodeBtn.parentNode.replaceChild(newSwitchToCodeBtn, elements.switchToCodeBtn)
       elements.switchToCodeBtn = newSwitchToCodeBtn
-      
+
       elements.switchToCodeBtn.addEventListener('click', () => {
-        renderLoginForm()
-        elements.vipPhoneInput.focus()
+        transitionToForm('code')
       })
     }
-    
+
+    // 重新绑定验证码登录表单的返回按钮
+    if (elements.vipLoginCancelBtn) {
+      const newVipLoginCancelBtn = elements.vipLoginCancelBtn.cloneNode(true)
+      elements.vipLoginCancelBtn.parentNode.replaceChild(newVipLoginCancelBtn, elements.vipLoginCancelBtn)
+      elements.vipLoginCancelBtn = newVipLoginCancelBtn
+
+      elements.vipLoginCancelBtn.addEventListener('click', transitionToChoiceForm)
+    }
+
+    // 重新绑定密码登录表单的返回按钮
+    if (elements.vipPasswordLoginCancelBtn) {
+      const newVipPasswordLoginCancelBtn = elements.vipPasswordLoginCancelBtn.cloneNode(true)
+      elements.vipPasswordLoginCancelBtn.parentNode.replaceChild(newVipPasswordLoginCancelBtn, elements.vipPasswordLoginCancelBtn)
+      elements.vipPasswordLoginCancelBtn = newVipPasswordLoginCancelBtn
+
+      elements.vipPasswordLoginCancelBtn.addEventListener('click', transitionToChoiceForm)
+    }
+
     // 重新绑定发送验证码按钮事件
     if (elements.sendVipCodeBtn) {
       const newSendVipCodeBtn = elements.sendVipCodeBtn.cloneNode(true)
@@ -963,6 +1075,7 @@ const VipLoginUI = (function() {
           showMessage('登录成功', 'success')
           
           setTimeout(async () => {
+            updateVipStatus()
             if (result.data.isNewUser || !result.data.hasPassword) {
               renderPasswordForm()
             } else {
@@ -1046,6 +1159,7 @@ const VipLoginUI = (function() {
           showMessage('密码设置成功', 'success')
           
           setTimeout(() => {
+            updateVipStatus()
             hideLoginModal()
             location.reload()
           }, 1000)
@@ -1087,6 +1201,7 @@ const VipLoginUI = (function() {
           showMessage('登录成功', 'success')
           
           setTimeout(() => {
+            updateVipStatus()
             hideLoginModal()
             location.reload()
           }, 1000)
@@ -1103,22 +1218,10 @@ const VipLoginUI = (function() {
       elements.vipPasswordCancelBtn = newVipPasswordCancelBtn
       
       elements.vipPasswordCancelBtn.addEventListener('click', () => {
-        renderLoginForm()
-        elements.vipPhoneInput.focus()
+        transitionToChoiceForm()
       })
     }
-    
-    if (elements.vipPasswordLoginCancelBtn) {
-      const newVipPasswordLoginCancelBtn = elements.vipPasswordLoginCancelBtn.cloneNode(true)
-      elements.vipPasswordLoginCancelBtn.parentNode.replaceChild(newVipPasswordLoginCancelBtn, elements.vipPasswordLoginCancelBtn)
-      elements.vipPasswordLoginCancelBtn = newVipPasswordLoginCancelBtn
-      
-      elements.vipPasswordLoginCancelBtn.addEventListener('click', () => {
-        renderLoginForm()
-        elements.vipPhoneInput.focus()
-      })
-    }
-    
+
     // 重新绑定回车键提交
     if (elements.vipPhoneInput) {
       const newVipPhoneInput = elements.vipPhoneInput.cloneNode(true)
@@ -1185,7 +1288,8 @@ const VipLoginUI = (function() {
     hideLoginModal,
     showMessage,
     clearMessage,
-    rebindSwitchEvents
+    rebindSwitchEvents,
+    updateVipStatus
   }
 })()
 

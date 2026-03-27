@@ -570,15 +570,7 @@ let currentCropTarget = null;
       userInfoId: document.getElementById('userInfoId'),
       userInfoExpiry: document.getElementById('userInfoExpiry'),
       userInfoType: document.getElementById('userInfoType'),
-      
-      // VIP登录弹窗
-      vipLoginModal: document.getElementById('vipLoginModal'),
-      closeVipLoginModalBtn: document.getElementById('closeVipLoginModalBtn'),
-      vipLoginCancelBtn: document.getElementById('vipLoginCancelBtn'),
-      vipLoginSubmitBtn: document.getElementById('vipLoginSubmitBtn'),
-      vipIdInput: document.getElementById('vipIdInput'),
-      vipPasswordInput: document.getElementById('vipPasswordInput'),
-      vipLoginMessage: document.getElementById('vipLoginMessage'),
+
       // 促销信息编辑模态框
       promoTextModal: document.getElementById('promoTextModal'),
       closePromoTextModal: document.getElementById('closePromoTextModal'),
@@ -648,100 +640,6 @@ let currentCropTarget = null;
   }
   
   // VIP菜单系统功能函数
-  function showVipLoginModal() {
-    if (elements.vipLoginModal) {
-      elements.vipLoginModal.classList.remove('hidden');
-    }
-  }
-  
-  function closeVipLoginModal() {
-    if (typeof VipLoginUI !== 'undefined' && VipLoginUI.hideLoginModal) {
-      VipLoginUI.hideLoginModal();
-    } else if (elements.vipLoginModal) {
-      elements.vipLoginModal.classList.add('hidden');
-      if (elements.vipIdInput) {
-        elements.vipIdInput.value = '';
-      }
-      if (elements.vipPasswordInput) {
-        elements.vipPasswordInput.value = '';
-      }
-      if (elements.vipLoginMessage) {
-        elements.vipLoginMessage.textContent = '';
-        elements.vipLoginMessage.className = 'login-message';
-      }
-    }
-  }
-  
-  function handleVipLoginSubmit() {
-    const vipId = elements.vipIdInput.value.trim();
-    const vipPassword = elements.vipPasswordInput.value.trim();
-    
-    if (!vipId || !vipPassword) {
-      if (elements.vipLoginMessage) {
-        elements.vipLoginMessage.textContent = '请输入用户名和密码';
-        elements.vipLoginMessage.className = 'login-message error';
-        setTimeout(function() {
-          if (elements.vipLoginMessage) {
-            elements.vipLoginMessage.textContent = '';
-            elements.vipLoginMessage.className = 'login-message';
-          }
-        }, 2000);
-      }
-      return;
-    }
-    
-    // 验证VIP登录
-    const result = window.validateVipLogin(vipId, vipPassword);
-    
-    if (result.success) {
-      if (elements.vipLoginMessage) {
-        elements.vipLoginMessage.textContent = result.message;
-        elements.vipLoginMessage.className = 'login-message success';
-        setTimeout(function() {
-          if (elements.vipLoginMessage) {
-            elements.vipLoginMessage.textContent = '';
-            elements.vipLoginMessage.className = 'login-message';
-          }
-        }, 2000);
-      }
-      
-      // 保存VIP登录状态
-      window.saveVipLogin(result.user);
-      
-      // 延迟关闭弹窗并更新UI
-      setTimeout(() => {
-        closeVipLoginModal();
-        
-        // 更新菜单状态
-        const vipUser = {
-          id: result.user.name ? `VIP${result.user.name}` : 'VIP用户',
-          validUntil: result.user.validUntil,
-          type: 'VIP用户'
-        };
-        updateVipMenuState(true, vipUser);
-      }, 1000);
-    } else {
-      if (elements.vipLoginMessage) {
-        elements.vipLoginMessage.textContent = result.message;
-        elements.vipLoginMessage.className = 'login-message error';
-        setTimeout(function() {
-          if (elements.vipLoginMessage) {
-            elements.vipLoginMessage.textContent = '';
-            elements.vipLoginMessage.className = 'login-message';
-          }
-        }, 2000);
-      }
-    }
-  }
-  
-  function handleVipLogin() {
-    if (typeof VipLoginUI !== 'undefined' && VipLoginUI.showLoginModal) {
-      VipLoginUI.showLoginModal();
-    } else {
-      showVipLoginModal();
-    }
-  }
-  
   function toggleVipDropdown() {
     console.log('toggleVipDropdown 被调用')
     // 直接从 DOM 获取元素
@@ -1846,59 +1744,7 @@ let currentCropTarget = null;
       elements.nextTemplateBtn.addEventListener('click', switchToNextTemplate);
     }
     
-    // VIP菜单系统事件
-    if (elements.vipLoginBtn) {
-      elements.vipLoginBtn.addEventListener('click', handleVipLogin);
-    }
-    
-    // VIP登录弹窗事件
-    if (elements.closeVipLoginModalBtn) {
-      elements.closeVipLoginModalBtn.addEventListener('click', closeVipLoginModal);
-    }
-    
-    if (elements.vipLoginCancelBtn) {
-      elements.vipLoginCancelBtn.addEventListener('click', () => {
-        if (typeof VipLoginUI !== 'undefined' && VipLoginUI.hideLoginModal) {
-          VipLoginUI.hideLoginModal();
-        } else if (elements.vipLoginModal) {
-          elements.vipLoginModal.classList.add('hidden');
-        }
-      });
-    }
-    
-    if (elements.vipMenuToggle) {
-      elements.vipMenuToggle.addEventListener('click', toggleVipDropdown);
-    }
-    
-    // VIP菜单项点击事件
-    if (elements.vipMenuItems) {
-      elements.vipMenuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          const action = this.getAttribute('data-action');
-          handleVipMenuItemClick(action);
-        });
-      });
-    }
-    
-    // 用户信息弹窗关闭事件
-    if (elements.closeUserInfoModal) {
-      elements.closeUserInfoModal.addEventListener('click', closeUserInfoModal);
-    }
-    
-    if (elements.closeUserInfoBtn) {
-      elements.closeUserInfoBtn.addEventListener('click', closeUserInfoModal);
-    }
-    
-    // 点击页面其他地方关闭VIP下拉菜单
-    document.addEventListener('click', function(e) {
-      if (elements.vipDropdownMenu && elements.vipMenuToggle) {
-        const isClickInsideMenu = elements.vipMenuContainer.contains(e.target);
-        if (!isClickInsideMenu && !elements.vipDropdownMenu.classList.contains('hidden')) {
-          elements.vipDropdownMenu.classList.add('hidden');
-        }
-      }
-    });
+    // VIP菜单系统事件 - 由 vip-login-ui.js 统一处理
     if (elements.closeBusinessInfoModalBtn) {
       elements.closeBusinessInfoModalBtn.addEventListener('click', closeBusinessInfoModal);
     }
@@ -5390,7 +5236,7 @@ let currentCropTarget = null;
         
         <!-- 标题 -->
         <h3 class="vip-upgrade-header">
-          0秒等待升级VIP品牌账号
+          提速增效，上千节日海报模板随时可用
         </h3>
         
         <!-- 升级码输入区域 -->
@@ -5790,65 +5636,88 @@ let currentCropTarget = null;
     }
   }
 
-  // 显示升级码验证结果
+  // 显示升级码验证结果（弹窗形式）
   function showVoucherResult(element, type, message, errorDetails = null) {
-    element.style.display = 'block';
+    // 创建弹窗容器
+    const modal = document.createElement('div');
+    modal.className = 'voucher-result-modal';
     
-    const errorMessageDiv = element.querySelector('#voucherErrorMessage');
-    const errorLogDiv = element.querySelector('#voucherErrorLog');
-    const copyLogBtn = element.querySelector('#copyErrorLogBtn');
+    // 创建弹窗内容
+    const modalContent = document.createElement('div');
+    modalContent.className = 'voucher-result-modal-content';
     
-    if (errorMessageDiv) {
-      errorMessageDiv.textContent = message;
-    }
-    
+    // 根据类型添加样式类
     if (type === 'success') {
-      element.style.background = '#d4edda';
-      element.style.color = '#155724';
-      element.style.border = '1px solid #c3e6cb';
-      
-      // 隐藏错误日志相关元素
-      if (errorLogDiv) errorLogDiv.style.display = 'none';
-      if (copyLogBtn) copyLogBtn.style.display = 'none';
+      modalContent.classList.add('success');
     } else if (type === 'error') {
-      element.style.background = '#f8d7da';
-      element.style.color = '#721c24';
-      element.style.border = '1px solid #f5c6cb';
-      
-      // 显示错误日志
-      if (errorLogDiv) {
-        const timestamp = new Date().toLocaleString('zh-CN');
-        const logContent = errorDetails ? 
-          `[${timestamp}] 错误信息：${JSON.stringify(errorDetails)}\n[${timestamp}] 验证失败：${message}` : 
-          `[${timestamp}] 验证失败：${message}`;
-        errorLogDiv.textContent = logContent;
-        errorLogDiv.style.display = 'block';
-      }
-      
-      // 显示复制按钮
-      if (copyLogBtn) {
-        copyLogBtn.style.display = 'inline-block';
-        copyLogBtn.onclick = function() {
-          const logContent = errorLogDiv ? errorLogDiv.textContent : '';
-          if (logContent) {
-            navigator.clipboard.writeText(logContent).then(() => {
-              alert('错误日志已复制到剪贴板');
-            }).catch(err => {
-              console.error('复制失败:', err);
-              alert('复制失败，请手动复制');
-            });
-          }
-        };
-      }
+      modalContent.classList.add('error');
     } else if (type === 'info') {
-      element.style.background = '#d1ecf1';
-      element.style.color = '#0c5460';
-      element.style.border = '1px solid #bee5eb';
-      
-      // 隐藏错误日志相关元素
-      if (errorLogDiv) errorLogDiv.style.display = 'none';
-      if (copyLogBtn) copyLogBtn.style.display = 'none';
+      modalContent.classList.add('info');
     }
+    
+    // 添加右上角关闭打叉按钮
+    const closeXBtn = document.createElement('button');
+    closeXBtn.className = 'voucher-result-close-btn x-btn';
+    closeXBtn.textContent = '×';
+    closeXBtn.onclick = function() {
+      document.body.removeChild(modal);
+    };
+    modalContent.appendChild(closeXBtn);
+    
+    // 设置弹窗标题
+    const modalTitle = document.createElement('h3');
+    modalTitle.className = 'voucher-result-modal-title';
+    modalTitle.textContent = type === 'success' ? '验证成功' : type === 'info' ? '提示信息' : '验证失败';
+    modalContent.appendChild(modalTitle);
+    
+    // 设置消息内容
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'voucher-result-message';
+    messageDiv.textContent = message;
+    modalContent.appendChild(messageDiv);
+    
+    // 设置错误日志（默认隐藏）
+    if (type === 'error' && errorDetails) {
+      const errorLogDiv = document.createElement('div');
+      errorLogDiv.id = 'voucherErrorLog';
+      errorLogDiv.className = 'voucher-error-log';
+      const timestamp = new Date().toLocaleString('zh-CN');
+      const logContent = `[${timestamp}] 错误信息：${JSON.stringify(errorDetails)}
+[${timestamp}] 验证失败：${message}`;
+      errorLogDiv.textContent = logContent;
+      modalContent.appendChild(errorLogDiv);
+      
+      // 添加复制日志按钮
+      const copyLogBtn = document.createElement('button');
+      copyLogBtn.id = 'copyErrorLogBtn';
+      copyLogBtn.className = 'copy-log-btn';
+      copyLogBtn.textContent = '复制错误日志';
+      copyLogBtn.onclick = function() {
+        const logContent = errorLogDiv.textContent;
+        if (logContent) {
+          navigator.clipboard.writeText(logContent).then(() => {
+            alert('错误日志已复制到剪贴板');
+          }).catch(err => {
+            console.error('复制失败:', err);
+            alert('复制失败，请手动复制');
+          });
+        }
+      };
+      modalContent.appendChild(copyLogBtn);
+    }
+    
+    // 添加底部关闭按钮
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'voucher-result-close';
+    closeBtn.textContent = '关闭';
+    closeBtn.onclick = function() {
+      document.body.removeChild(modal);
+    };
+    modalContent.appendChild(closeBtn);
+    
+    // 组装弹窗
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
   }
   
   // 券码验证通过后的下载
@@ -6024,8 +5893,125 @@ let currentCropTarget = null;
     document.getElementById('customBrandBtn').addEventListener('click', () => {
       clearInterval(timer);
       adModal.remove();
-      showVipUpgradeModal();
+      
+      // 检查用户是否已登录
+      const isVipLoggedIn = (typeof VIPSystem !== 'undefined' && VIPSystem.isLoggedIn());
+      
+      if (!isVipLoggedIn) {
+        // 未登录，显示提醒弹窗
+        showLoginReminder();
+      } else {
+        // 已登录，显示VIP升级弹窗
+        showVipUpgradeModal();
+      }
     });
+    
+    // 显示登录提醒弹窗
+    function showLoginReminder() {
+      const modal = document.createElement('div');
+      modal.className = 'login-reminder-modal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10001;
+      `;
+      
+      const modalContent = document.createElement('div');
+      modalContent.className = 'login-reminder-modal-content';
+      modalContent.style.cssText = `
+        background: white;
+        padding: 24px;
+        border-radius: 10px;
+        max-width: 350px;
+        width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      `;
+      
+      // 添加右上角关闭按钮
+      const closeXBtn = document.createElement('button');
+      closeXBtn.className = 'login-reminder-close-btn x-btn';
+      closeXBtn.textContent = '×';
+      closeXBtn.style.cssText = `
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #666;
+        padding: 5px;
+        line-height: 1;
+      `;
+      closeXBtn.onclick = function() {
+        document.body.removeChild(modal);
+      };
+      modalContent.appendChild(closeXBtn);
+      
+      // 标题
+      const title = document.createElement('h3');
+      title.textContent = '温馨提醒';
+      title.style.cssText = `
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+      `;
+      modalContent.appendChild(title);
+      
+      // 内容
+      const message = document.createElement('p');
+      message.textContent = '当前无登录账号，登录后可对账号升级';
+      message.style.cssText = `
+        margin-bottom: 20px;
+        line-height: 1.5;
+        color: #666;
+      `;
+      modalContent.appendChild(message);
+      
+      // 快速登录注册按钮
+      const loginBtn = document.createElement('button');
+      loginBtn.className = 'login-reminder-login-btn';
+      loginBtn.textContent = '快速登录注册，体验完整服务';
+      loginBtn.style.cssText = `
+        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        width: 100%;
+        transition: all 0.3s ease;
+      `;
+      loginBtn.onclick = function() {
+        document.body.removeChild(modal);
+
+        // 显示VIP登录弹窗
+        if (typeof VipLoginUI !== 'undefined' && VipLoginUI.showLoginModal) {
+          VipLoginUI.showLoginModal();
+        }
+      };
+      loginBtn.onmouseover = function() {
+        this.style.transform = 'scale(1.05)';
+      };
+      loginBtn.onmouseout = function() {
+        this.style.transform = 'scale(1)';
+      };
+      modalContent.appendChild(loginBtn);
+      
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+    }
   }
   
   // 图片Base64缓存
