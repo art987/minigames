@@ -31,6 +31,8 @@
   <script src="vip-system.js"></script>
   <!-- VIP 登录 UI 模块 -->
   <script src="vip-login-ui.js"></script>
+  <!-- 应用日志模块 -->
+  <script src="app-logger.js?v=20260329"></script>
 </head>
 <body class="editorbg">
   <!-- 顶部返回按钮 -->
@@ -64,6 +66,10 @@
         <button type="button" class="vip-menu-item" data-action="userInfo">
           <i class="fa fa-user"></i>
           <span>用户信息</span>
+        </button>
+        <button type="button" class="vip-menu-item" data-action="orderHistory">
+          <i class="fa fa-list-alt"></i>
+          <span>订单记录</span>
         </button>
         <button type="button" class="vip-menu-item" data-action="activateVoucher">
           <i class="fa fa-code"></i>
@@ -763,7 +769,7 @@
   </div>
   
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js"></script>
+  <script src="editor-script.js?v=20260329"></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">

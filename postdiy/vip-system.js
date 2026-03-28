@@ -17,7 +17,9 @@ const VIPSystem = (function() {
     checkVipStatus: `${API_BASE_URL}/check-vip-status`,
     generateVoucher: `${API_BASE_URL}/user-generate-voucher`,
     adminGenerateVouchers: `${API_BASE_URL}/admin-generate-vouchers`,
-    adminManageVouchers: `${API_BASE_URL}/admin-manage-vouchers`
+    adminManageVouchers: `${API_BASE_URL}/admin-manage-vouchers`,
+    paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
+    paymentOrderList: `${API_BASE_URL}/payment-order-list`
   };
 
   // 本地存储键名
@@ -384,6 +386,63 @@ const VIPSystem = (function() {
     return userInfo.vipValidUntil || null
   }
 
+  async function createPaymentOrder(money, duration, type, returnUrl) {
+    try {
+      const userId = getUserId()
+      const userInfo = getUserInfo()
+      
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+      
+      const response = await fetch(APIs.paymentCreateOrder, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userId,
+          phone: userInfo ? userInfo.phone : '',
+          money: money,
+          duration: duration,
+          type: type,
+          returnUrl: returnUrl
+        })
+      })
+      
+      const result = await response.json()
+      console.log('payment-create-order 返回:', result)
+      return result
+    } catch (error) {
+      console.error('创建支付订单失败:', error)
+      return { success: false, message: '创建订单失败，请稍后重试' }
+    }
+  }
+
+  async function getPaymentOrderList(page = 1, pageSize = 20) {
+    try {
+      const userId = getUserId()
+      
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+      
+      const response = await fetch(APIs.paymentOrderList, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userId,
+          page: page,
+          pageSize: pageSize
+        })
+      })
+      
+      const result = await response.json()
+      return result
+    } catch (error) {
+      console.error('获取订单列表失败:', error)
+      return { success: false, message: '获取订单列表失败' }
+    }
+  }
+
   return {
     sendSMS,
     registerOrLogin,
@@ -402,7 +461,9 @@ const VIPSystem = (function() {
     getUserId,
     getUserInfo,
     isVip,
-    getVipExpireTime
+    getVipExpireTime,
+    createPaymentOrder,
+    getPaymentOrderList
   };
 })();
 

@@ -451,25 +451,119 @@ const VipLoginUI = (function() {
     
     // 立即支付按钮
     if (elements.proceedToPaymentBtn) {
-      elements.proceedToPaymentBtn.addEventListener('click', function() {
-        // 获取选中的套餐
+      elements.proceedToPaymentBtn.addEventListener('click', async function() {
         const selectedPackage = document.querySelector('.vip-package[style*="border-color: #d32f2f"]')
-        if (selectedPackage) {
-          const duration = selectedPackage.dataset.duration
-          const price = selectedPackage.dataset.price
-          const originalPrice = selectedPackage.dataset.originalPrice
-          
-          // 预留支付流程接口
-          console.log('准备支付', {
-            duration,
-            price,
-            originalPrice
-          })
-          
-          // 这里可以添加支付逻辑
-          alert(`您选择了 ${duration} 个月VIP，价格 ¥${price}，正在跳转到支付页面...`)
+        if (!selectedPackage) {
+          alert('请先选择一个套餐')
+          return
         }
+        
+        if (!VIPSystem.isLoggedIn()) {
+          alert('请先登录')
+          return
+        }
+        
+        const duration = parseInt(selectedPackage.dataset.duration)
+        const price = selectedPackage.dataset.price
+        
+        showPaymentMethodModal(duration, price)
       })
+    }
+  }
+  
+  function showPaymentMethodModal(duration, price) {
+    const existingModal = document.getElementById('paymentMethodModal')
+    if (existingModal) {
+      existingModal.remove()
+    }
+    
+    const modalHTML = `
+      <div id="paymentMethodModal" class="payment-method-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+        <div class="payment-method-content" style="background: #fff; border-radius: 16px; padding: 24px; width: 90%; max-width: 320px; text-align: center;">
+          <h3 style="margin: 0 0 20px; font-size: 18px; color: #333;">选择支付方式</h3>
+          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">支付金额: <span style="color: #d32f2f; font-size: 20px; font-weight: bold;">¥${price}</span></p>
+          <div class="payment-methods" style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="payment-method-btn alipay" data-type="alipay" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #1677FF; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.422 15.358c-3.83-1.153-6.055-1.84-7.373-2.313.566-1.248.983-2.638 1.22-4.078h-3.698V7.3h4.538V6.08h-4.538V3.6h-2.04c-.258 0-.468.21-.468.468v2.012H4.44v1.22h4.623v1.667H5.278v1.22h7.59c-.2 1.09-.528 2.118-.96 3.054-1.85-.55-3.672-.938-5.468-.938-3.36 0-5.4 1.56-5.4 3.6 0 2.04 1.92 3.6 5.16 3.6 2.28 0 4.32-.84 5.88-2.28 2.4 1.08 5.64 2.4 9.6 3.72.36.12.72-.12.84-.48.12-.36-.12-.72-.48-.84l-.6-.18zm-14.88.24c-2.04 0-3.24-.84-3.24-1.92s1.08-1.92 3.12-1.92c1.44 0 3 .3 4.68.84-1.2 1.68-2.88 3-4.56 3z"/>
+              </svg>
+              支付宝支付
+            </button>
+            <button class="payment-method-btn wxpay" data-type="wxpay" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #07C160; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+              </svg>
+              微信支付
+            </button>
+          </div>
+          <button id="cancelPaymentMethodBtn" style="margin-top: 16px; padding: 10px 20px; background: #f5f5f5; color: #666; border: none; border-radius: 8px; font-size: 14px; cursor: pointer;">取消</button>
+        </div>
+      </div>
+    `
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML)
+    
+    const modal = document.getElementById('paymentMethodModal')
+    const cancelBtn = document.getElementById('cancelPaymentMethodBtn')
+    const paymentBtns = modal.querySelectorAll('.payment-method-btn')
+    
+    cancelBtn.addEventListener('click', function() {
+      modal.remove()
+    })
+    
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.remove()
+      }
+    })
+    
+    paymentBtns.forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const type = this.dataset.type
+        modal.remove()
+        
+        await processPayment(duration, price, type)
+      })
+      
+      btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)'
+        this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
+      })
+      
+      btn.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)'
+        this.style.boxShadow = 'none'
+      })
+    })
+  }
+  
+  async function processPayment(duration, price, type) {
+    const loadingModal = document.createElement('div')
+    loadingModal.id = 'paymentLoadingModal'
+    loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;'
+    loadingModal.innerHTML = `
+      <div style="background: #fff; border-radius: 12px; padding: 24px; text-align: center;">
+        <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #d32f2f; border-radius: 50%; margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
+        <p style="margin: 0; color: #333;">正在创建订单...</p>
+      </div>
+    `
+    document.body.appendChild(loadingModal)
+    
+    try {
+      const returnUrl = window.location.href.split('?')[0]
+      const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl)
+      
+      loadingModal.remove()
+      
+      if (result.success && result.data && result.data.payUrl) {
+        window.location.href = result.data.payUrl
+      } else {
+        alert(result.message || '创建订单失败，请稍后重试')
+      }
+    } catch (error) {
+      loadingModal.remove()
+      console.error('支付失败:', error)
+      alert('支付失败，请稍后重试')
     }
   }
   
@@ -857,14 +951,15 @@ const VipLoginUI = (function() {
         case 'userInfo':
           await openUserInfoModal()
           break
+        case 'orderHistory':
+          await showOrderHistoryModal()
+          break
         case 'activateVoucher':
-          // 打开升级码激活弹窗
           if (window.showVipUpgradeModal) {
             window.showVipUpgradeModal()
           }
           break
         case 'visibilityManager':
-          // 打开显示管理弹窗
           if (window.openVisibilityManager) {
             window.openVisibilityManager()
           }
@@ -874,10 +969,100 @@ const VipLoginUI = (function() {
           break
       }
       
-      // 关闭下拉菜单
       const vipDropdownMenu = document.getElementById('vipDropdownMenu')
       if (vipDropdownMenu) {
         vipDropdownMenu.style.display = 'none'
+      }
+    }
+    
+    async function showOrderHistoryModal() {
+      const existingModal = document.getElementById('orderHistoryModal')
+      if (existingModal) {
+        existingModal.remove()
+      }
+      
+      const modalHTML = `
+        <div id="orderHistoryModal" class="order-history-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+          <div class="order-history-content" style="background: #fff; border-radius: 16px; width: 90%; max-width: 420px; max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+            <div class="order-history-header" style="padding: 16px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="margin: 0; font-size: 18px; color: #333;">订单记录</h3>
+              <button id="closeOrderHistoryBtn" style="background: none; border: none; font-size: 24px; color: #999; cursor: pointer;">&times;</button>
+            </div>
+            <div id="orderHistoryList" class="order-history-list" style="flex: 1; overflow-y: auto; padding: 16px;">
+              <div style="text-align: center; padding: 40px 20px; color: #999;">
+                <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #d32f2f; border-radius: 50%; margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
+                <p>加载中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+      
+      document.body.insertAdjacentHTML('beforeend', modalHTML)
+      
+      const modal = document.getElementById('orderHistoryModal')
+      const closeBtn = document.getElementById('closeOrderHistoryBtn')
+      const listContainer = document.getElementById('orderHistoryList')
+      
+      closeBtn.addEventListener('click', () => modal.remove())
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove()
+      })
+      
+      try {
+        const result = await VIPSystem.getPaymentOrderList()
+        
+        if (result.success && result.data && result.data.orders) {
+          if (result.data.orders.length === 0) {
+            listContainer.innerHTML = `
+              <div style="text-align: center; padding: 40px 20px; color: #999;">
+                <i class="fa fa-inbox" style="font-size: 48px; margin-bottom: 16px;"></i>
+                <p>暂无订单记录</p>
+              </div>
+            `
+          } else {
+            const ordersHTML = result.data.orders.map(order => {
+              const statusText = order.status === 1 ? '已支付' : '待支付'
+              const statusColor = order.status === 1 ? '#4caf50' : '#ff9800'
+              const typeText = order.type === 'alipay' ? '支付宝' : '微信'
+              const payTime = order.payTime ? new Date(order.payTime).toLocaleString('zh-CN') : '-'
+              
+              return `
+                <div class="order-item" style="background: #f9f9f9; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                    <div>
+                      <div style="font-weight: 600; color: #333; margin-bottom: 4px;">${order.name}</div>
+                      <div style="font-size: 12px; color: #999;">订单号: ${order.out_trade_no}</div>
+                    </div>
+                    <span style="background: ${statusColor}; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 12px;">${statusText}</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 13px; color: #666;">
+                    <span>${typeText}支付</span>
+                    <span style="color: #d32f2f; font-weight: 600;">¥${order.money}</span>
+                  </div>
+                  <div style="font-size: 12px; color: #999; margin-top: 8px;">支付时间: ${payTime}</div>
+                </div>
+              `
+            }).join('')
+            
+            listContainer.innerHTML = ordersHTML
+          }
+        } else {
+          listContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; color: #999;">
+              <i class="fa fa-exclamation-circle" style="font-size: 48px; margin-bottom: 16px;"></i>
+              <p>${result.message || '加载失败'}</p>
+            </div>
+          `
+        }
+      } catch (error) {
+        console.error('获取订单列表失败:', error)
+        listContainer.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: #999;">
+            <i class="fa fa-exclamation-circle" style="font-size: 48px; margin-bottom: 16px;"></i>
+            <p>加载失败，请稍后重试</p>
+          </div>
+        `
       }
     }
     
@@ -1289,7 +1474,8 @@ const VipLoginUI = (function() {
     showMessage,
     clearMessage,
     rebindSwitchEvents,
-    updateVipStatus
+    updateVipStatus,
+    renderVipUpgradeForm
   }
 })()
 

@@ -1582,7 +1582,7 @@ let currentCropTarget = null;
           updateCropImageFilters();
         }
       });
-      console.log('Cropper 初始化完成:', cropper);
+      console.log('Cropper 初始化完成');
 
       currentCropTarget = targetType;
       console.log('currentCropTarget 设置为:', currentCropTarget);
@@ -1657,7 +1657,7 @@ let currentCropTarget = null;
 
   function confirmCrop() {
     console.log('confirmCrop 被调用');
-    console.log('cropper:', cropper);
+    console.log('cropper exists:', !!cropper);
     console.log('currentCropTarget:', currentCropTarget);
     
     if (!cropper || !currentCropTarget) {
@@ -5321,16 +5321,12 @@ let currentCropTarget = null;
     couponInput.focus();
   }
   
-  // VIP升级弹窗
-  // 暴露到全局作用域，供其他脚本调用
   window.showVipUpgradeModal = function() {
-    // 移除已存在的升级弹窗
     let existingModal = document.getElementById('vipUpgradeModal');
     if (existingModal) {
       existingModal.remove();
     }
 
-    // 创建升级弹窗
     const modal = document.createElement('div');
     modal.id = 'vipUpgradeModal';
     modal.className = 'modal-overlay';
@@ -5338,15 +5334,12 @@ let currentCropTarget = null;
 
     modal.innerHTML = `
       <div class="vip-upgrade-modal">
-        <!-- 关闭按钮 -->
         <button id="closeVipUpgradeBtn" class="close-modal-btn">&times;</button>
         
-        <!-- 标题 -->
         <h3 class="vip-upgrade-header">
           提速增效，上千节日海报模板随时可用
         </h3>
         
-        <!-- 升级码输入区域 -->
         <div class="voucher-input-container">
           <span class="upgrade-channel-label">升级通道一：</span>
           <div class="input-button-group">
@@ -5359,80 +5352,72 @@ let currentCropTarget = null;
           </div>
         </div>
         
-        <!-- 结果显示 -->
         <div id="voucherResult" class="voucher-result">
           <div id="voucherErrorMessage" class="voucher-error-message"></div>
           <div id="voucherErrorLog" class="voucher-error-log"></div>
           <button id="copyErrorLogBtn" class="copy-error-log-btn">复制错误日志</button>
         </div>
         
-        <!-- VIP会员时长选择模块 -->
         <div class="vip-packages-section">
           <div class="vip-packages-title">升级通道二：</div>
           <div class="vip-packages-wrapper">
             <div class="vip-packages-container">
-            <!-- 1个月VIP -->
-            <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20">
-              <h5 class="package-title">1个月VIP</h5>
-              <div class="package-price">
-                <span class="package-current-price">¥9.9</span>
-                <span class="package-original-price">¥20</span>
+              <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20">
+                <h5 class="package-title">1个月VIP</h5>
+                <div class="package-price">
+                  <span class="package-current-price">¥9.9</span>
+                  <span class="package-original-price">¥20</span>
+                </div>
+                <div class="package-saving">节省 ¥10.1</div>
+                <button class="select-package-btn">选择</button>
               </div>
-              <div class="package-saving">节省 ¥10.1</div>
-              <button class="select-package-btn">选择</button>
-            </div>
-            
-            <!-- 3个月VIP -->
-            <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
-              <h5 class="package-title">3个月VIP</h5>
-              <div class="package-price">
-                <span class="package-current-price">¥16.9</span>
-                <span class="package-original-price">¥60</span>
+              
+              <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
+                <h5 class="package-title">3个月VIP</h5>
+                <div class="package-price">
+                  <span class="package-current-price">¥16.9</span>
+                  <span class="package-original-price">¥60</span>
+                </div>
+                <div class="package-saving">节省 ¥43.1</div>
+                <button class="select-package-btn">选择</button>
               </div>
-              <div class="package-saving">节省 ¥43.1</div>
-              <button class="select-package-btn">选择</button>
-            </div>
-            
-            <!-- 6个月VIP -->
-            <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120">
-              <h5 class="package-title">6个月VIP</h5>
-              <div class="package-price">
-                <span class="package-current-price">¥19.9</span>
-                <span class="package-original-price">¥120</span>
+              
+              <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120">
+                <h5 class="package-title">6个月VIP</h5>
+                <div class="package-price">
+                  <span class="package-current-price">¥19.9</span>
+                  <span class="package-original-price">¥120</span>
+                </div>
+                <div class="package-saving">节省 ¥100.1</div>
+                <button class="select-package-btn">选择</button>
               </div>
-              <div class="package-saving">节省 ¥100.1</div>
-              <button class="select-package-btn">选择</button>
-            </div>
-            
-            <!-- 1年VIP - 主推套餐 -->
-            <div class="vip-package vip-package-featured" data-duration="12" data-price="23.9" data-original-price="240">
-              <div class="package-badge">超值</div>
-              <h5 class="package-title">1年VIP</h5>
-              <div class="package-price">
-                <span class="package-current-price">¥23.9</span>
-                <span class="package-original-price">¥240</span>
+              
+              <div class="vip-package vip-package-featured" data-duration="12" data-price="23.9" data-original-price="240">
+                <div class="package-badge">超值</div>
+                <h5 class="package-title">1年VIP</h5>
+                <div class="package-price">
+                  <span class="package-current-price">¥23.9</span>
+                  <span class="package-original-price">¥240</span>
+                </div>
+                <div class="package-saving">节省 ¥216.1</div>
+                <button class="select-package-btn">立即支付23.9元</button>
               </div>
-              <div class="package-saving">节省 ¥216.1</div>
-              <button class="select-package-btn">立即支付23.9元</button>
-            </div>
-            
-            <!-- 2年VIP -->
-            <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
-              <h5 class="package-title">2年VIP</h5>
-              <div class="package-price">
-                <span class="package-current-price">¥33.9</span>
-                <span class="package-original-price">¥480</span>
+              
+              <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
+                <h5 class="package-title">2年VIP</h5>
+                <div class="package-price">
+                  <span class="package-current-price">¥33.9</span>
+                  <span class="package-original-price">¥480</span>
+                </div>
+                <div class="package-saving">节省 ¥446.1</div>
+                <button class="select-package-btn">选择</button>
               </div>
-              <div class="package-saving">节省 ¥446.1</div>
-              <button class="select-package-btn">选择</button>
-            </div>
             </div>
           </div>
         </div>
         
-        <!-- 操作按钮 -->
         <div class="vip-upgrade-actions">
-          <button id="closeVipUpgradeBtn" class="close-upgrade-btn">关闭</button>
+          <button id="closeVipUpgradeBtn2" class="close-upgrade-btn">关闭</button>
           <div class="payment-btn-wrapper">
             <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付23.9元</button>
             <div class="discount-badge payment-discount-badge">1折</div>
@@ -5443,16 +5428,15 @@ let currentCropTarget = null;
 
     document.body.appendChild(modal);
 
-    // 绑定事件
     const voucherInput = document.getElementById('voucherCodeInput');
     const verifyBtn = document.getElementById('verifyVoucherBtn');
     const resultDiv = document.getElementById('voucherResult');
     const closeBtn = document.getElementById('closeVipUpgradeBtn');
+    const closeBtn2 = document.getElementById('closeVipUpgradeBtn2');
     const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
     const clearInputBtn = document.getElementById('clearInputBtn');
     const pasteInputBtn = document.getElementById('pasteInputBtn');
 
-    // 输入框内容变化时切换按钮显示
     function updateInputButtons() {
       if (voucherInput.value.length > 0) {
         clearInputBtn.style.display = 'flex';
@@ -5463,20 +5447,15 @@ let currentCropTarget = null;
       }
     }
 
-    // 初始化按钮状态
     updateInputButtons();
-
-    // 监听输入框内容变化
     voucherInput.addEventListener('input', updateInputButtons);
 
-    // 清除按钮点击事件
     clearInputBtn.addEventListener('click', () => {
       voucherInput.value = '';
       updateInputButtons();
       voucherInput.focus();
     });
 
-    // 粘贴按钮点击事件
     pasteInputBtn.addEventListener('click', async () => {
       try {
         const text = await navigator.clipboard.readText();
@@ -5489,19 +5468,13 @@ let currentCropTarget = null;
       }
     });
 
-    // 关闭弹窗
-    closeBtn.addEventListener('click', () => {
-      modal.remove();
-    });
-
-    // 点击背景关闭
+    const closeModal = () => modal.remove();
+    closeBtn.addEventListener('click', closeModal);
+    closeBtn2.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.remove();
-      }
+      if (e.target === modal) modal.remove();
     });
 
-    // 验证按钮点击
     verifyBtn.addEventListener('click', async () => {
       const code = voucherInput.value.trim();
       if (!code) {
@@ -5514,62 +5487,34 @@ let currentCropTarget = null;
       verifyBtn.textContent = '验证中...';
 
       try {
-        // 检查用户是否已登录
         let userId = typeof VIPSystem !== 'undefined' ? VIPSystem.getUserId() : null;
         
-        console.log('验证升级码时的userId:', userId);
-        console.log('验证升级码时的code:', code);
-        console.log('VIPSystem是否存在:', typeof VIPSystem !== 'undefined');
-        
-        // 检查localStorage中的用户ID
-        console.log('localStorage中的postdiy_user_id:', localStorage.getItem('postdiy_user_id'));
-        console.log('localStorage中的userInfo:', localStorage.getItem('postdiy_user_info'));
-        
-        // 严格检查userId
         if (!userId || typeof userId !== 'string' || userId.trim() === '' || userId.trim() === 'undefined') {
-          // 用户未登录，需要先登录
           showVoucherResult(resultDiv, 'error', '请先登录后再验证升级码');
           verifyBtn.disabled = false;
           verifyBtn.textContent = '验证';
           return;
         }
         
-        // 检查code
-        if (!code || typeof code !== 'string' || code.trim() === '') {
-          showVoucherResult(resultDiv, 'error', '请输入有效的升级码');
-          verifyBtn.disabled = false;
-          verifyBtn.textContent = '验证';
-          return;
-        }
-        
-        console.log('开始调用VIPSystem.verifyVoucher');
         const result = await VIPSystem.verifyVoucher(code, userId);
-        console.log('VIPSystem.verifyVoucher返回结果:', result);
 
         if (result.success) {
           if (result.used) {
-            // 验证成功但已使用
             const usedAt = new Date(result.usedAt);
             const phone = result.usedByPhone || '';
             const maskedPhone = phone ? phone.substring(0, 4) + '...' + phone.substring(phone.length - 4) : '';
             const dateStr = `${usedAt.getFullYear()}年${String(usedAt.getMonth() + 1).padStart(2, '0')}月${String(usedAt.getDate()).padStart(2, '0')}日`;
-            const timeStr = `${String(usedAt.getHours()).padStart(2, '0')}时${String(usedAt.getMinutes()).padStart(2, '0')}分${String(usedAt.getSeconds()).padStart(2, '0')}秒`;
             
-            showVoucherResult(resultDiv, 'info', `验证码：${code}已于${dateStr} ${timeStr}，账号(${maskedPhone})激活使用，增加时长${result.duration}个月`);
+            showVoucherResult(resultDiv, 'info', `验证码：${code}已于${dateStr}，账号(${maskedPhone})激活使用，增加时长${result.duration}个月`);
           } else {
-            // 验证成功且未使用
             const validUntil = new Date(result.validUntil);
             const dateStr = `${validUntil.getFullYear()}年${String(validUntil.getMonth() + 1).padStart(2, '0')}月${String(validUntil.getDate()).padStart(2, '0')}日`;
             
             showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
             
-            // 延迟关闭弹窗
-            setTimeout(() => {
-              modal.remove();
-            }, 3000);
+            setTimeout(() => modal.remove(), 3000);
           }
         } else {
-          // 验证失败
           showVoucherResult(resultDiv, 'error', '验证失败 请准确复制升级码，或联系客服解决', result);
         }
       } catch (error) {
@@ -5582,17 +5527,12 @@ let currentCropTarget = null;
       }
     });
 
-    // 按回车键验证
     voucherInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        verifyBtn.click();
-      }
+      if (e.key === 'Enter') verifyBtn.click();
     });
 
-    // 自动聚焦输入框
     voucherInput.focus();
     
-    // 计算并更新支付按钮的折扣标签
     function updatePaymentDiscountBadge(selectedPackage) {
       if (!selectedPackage) return;
       
@@ -5600,71 +5540,38 @@ let currentCropTarget = null;
       const originalPrice = parseFloat(selectedPackage.dataset.originalPrice);
       
       if (price && originalPrice) {
-        // 计算折扣：(售卖价 / 原价) * 10，保留1位小数，例如 33.9 / 480 = 0.070625，约等于0.7折
         const discount = (price / originalPrice * 10).toFixed(1);
         
-        // 检查是否已有折扣标签
         let badge = document.querySelector('.payment-discount-badge');
         
-        // 如果没有折扣标签，创建一个
-        if (!badge) {
-          badge = document.createElement('div');
-          badge.className = 'payment-discount-badge discount-badge';
-          
-          // 找到支付按钮的包装器并添加标签
-          const paymentBtnWrapper = document.querySelector('.payment-btn-wrapper');
-          if (paymentBtnWrapper) {
-            paymentBtnWrapper.appendChild(badge);
-          }
-        }
-        
-        // 更新折扣标签内容
         if (badge) {
           badge.textContent = `${discount}折`;
-          
-          // 为折扣标签添加脉冲动画
           badge.classList.remove('pulse-animation');
-          setTimeout(() => {
-            badge.classList.add('pulse-animation');
-          }, 10);
+          setTimeout(() => badge.classList.add('pulse-animation'), 10);
         }
       }
     }
     
-    // 弹窗打开后直接滚动到底并选择1年VIP卡片
     setTimeout(function() {
       const packages = document.querySelectorAll('.vip-package');
       const featuredPackage = document.querySelector('.vip-package.vip-package-featured');
       
       if (featuredPackage) {
-        // 滚动到1年VIP卡片位置
         featuredPackage.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         
-        // 选择1年VIP卡片
         packages.forEach(p => {
           p.classList.remove('selected');
           const selectBtn = p.querySelector('.select-package-btn');
-          if (selectBtn) {
-            selectBtn.textContent = '选择';
-          }
-          // 移除卡片上的折扣标签
-          const badge = p.querySelector('.package-badge.discount-badge');
-          if (badge) {
-            badge.remove();
-          }
+          if (selectBtn) selectBtn.textContent = '选择';
         });
         
         featuredPackage.classList.add('selected');
         
         const selectBtn = featuredPackage.querySelector('.select-package-btn');
-        if (selectBtn) {
-          selectBtn.textContent = '✔ 已选择';
-        }
+        if (selectBtn) selectBtn.textContent = '✔ 已选择';
         
-        // 更新支付按钮的折扣标签
         updatePaymentDiscountBadge(featuredPackage);
         
-        // 更新支付按钮文字
         const price = featuredPackage.dataset.price;
         if (proceedToPaymentBtn) {
           proceedToPaymentBtn.textContent = `立即支付${price}元`;
@@ -5673,77 +5580,82 @@ let currentCropTarget = null;
       }
     }, 500);
     
-    // VIP套餐选择
     const vipPackages = document.querySelectorAll('.vip-package');
-    vipPackages.forEach(package => {
-      package.addEventListener('click', function() {
-        // 移除其他套餐的选中状态
+    vipPackages.forEach(pkg => {
+      pkg.addEventListener('click', function() {
         vipPackages.forEach(p => {
           p.classList.remove('selected');
           const selectBtn = p.querySelector('.select-package-btn');
-          if (selectBtn) {
-            selectBtn.textContent = '选择';
-          }
-          // 移除卡片上的折扣标签
-          const badge = p.querySelector('.package-badge.discount-badge');
-          if (badge) {
-            badge.remove();
-          }
+          if (selectBtn) selectBtn.textContent = '选择';
         });
         
-        // 添加当前套餐的选中状态
         this.classList.add('selected');
-        
-        // 滚动卡片到窗口中间
         this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         
-        // 更新选择按钮文字
         const selectBtn = this.querySelector('.select-package-btn');
-        if (selectBtn) {
-          selectBtn.textContent = '✔ 已选择';
-        }
+        if (selectBtn) selectBtn.textContent = '✔ 已选择';
         
-        // 更新支付按钮的折扣标签
         updatePaymentDiscountBadge(this);
         
-        // 更新支付按钮文字和价格
         const price = this.dataset.price;
         if (proceedToPaymentBtn) {
           proceedToPaymentBtn.textContent = `立即支付${price}元`;
-        }
-        
-        // 显示立即支付按钮（不添加动画）
-        if (proceedToPaymentBtn) {
           proceedToPaymentBtn.style.display = 'block';
         }
       });
     });
     
-    // 立即支付按钮
     if (proceedToPaymentBtn) {
-      proceedToPaymentBtn.addEventListener('click', function() {
-        // 获取选中的套餐
-        const selectedPackage = document.querySelector('.vip-package[style*="border-color: #d32f2f"]');
-        if (selectedPackage) {
-          const duration = selectedPackage.dataset.duration;
-          const price = selectedPackage.dataset.price;
-          const originalPrice = selectedPackage.dataset.originalPrice;
+      proceedToPaymentBtn.addEventListener('click', async function() {
+        const selectedPackage = document.querySelector('.vip-package.selected');
+        if (!selectedPackage) {
+          alert('请先选择一个套餐');
+          return;
+        }
+        
+        if (!VIPSystem.isLoggedIn()) {
+          alert('请先登录');
+          return;
+        }
+        
+        const duration = parseInt(selectedPackage.dataset.duration);
+        const price = selectedPackage.dataset.price;
+        const type = 'wxpay';
+        
+        console.log('支付参数:', { duration, price, type, isLoggedIn: VIPSystem.isLoggedIn() });
+        console.log('userId:', VIPSystem.getUserId());
+        
+        const loadingModal = document.createElement('div');
+        loadingModal.id = 'paymentLoadingModal';
+        loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;';
+        loadingModal.innerHTML = `
+          <div style="background: #fff; border-radius: 12px; padding: 24px; text-align: center;">
+            <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #d32f2f; border-radius: 50%; margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
+            <p style="margin: 0; color: #333;">正在创建订单...</p>
+          </div>
+        `;
+        document.body.appendChild(loadingModal);
+        
+        try {
+          const returnUrl = window.location.href.split('?')[0];
+          const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl);
           
-          // 预留支付流程接口
-          console.log('准备支付', {
-            duration,
-            price,
-            originalPrice
-          });
+          loadingModal.remove();
           
-          // 这里可以添加支付逻辑
-          alert(`您选择了 ${duration} 个月VIP，价格 ¥${price}，正在跳转到支付页面...`);
+          if (result.success && result.data && result.data.payUrl) {
+            window.location.href = result.data.payUrl;
+          } else {
+            alert(result.message || '创建订单失败，请稍后重试');
+          }
+        } catch (error) {
+          loadingModal.remove();
+          console.error('支付失败:', error);
+          alert('支付失败，请稍后重试');
         }
       });
     }
-  }
+  };
 
-  // 显示升级码验证结果（弹窗形式）
   function showVoucherResult(element, type, message, errorDetails = null) {
     // 创建弹窗容器
     const modal = document.createElement('div');

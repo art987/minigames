@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk')
-const COS = require('cos-nodejs-sdk-v5')
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3')
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -7,19 +7,27 @@ cloud.init({
 
 const db = cloud.database()
 
-const cos = new COS({
-  SecretId: process.env.COS_SECRET_ID,
-  SecretKey: process.env.COS_SECRET_KEY
-})
+const R2_CONFIG = {
+  endpoint: 'https://13a8e4d0cec2c8548de10e2f701ad6de.r2.cloudflarestorage.com',
+  region: 'auto',
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID || 'ddb4dbf328c422a47d4397da3e2612fd',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || 'b614421cb98236e0b617a2d12ddeb3e73521fd5b5cb399ad4f28459f1bd3a152'
+  },
+  bucket: 'postdiy',
+  publicUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev'
+}
 
-const BUCKET = 'postdiyavatar-1308395249'
-const REGION = 'ap-guangzhou'
+const s3Client = new S3Client({
+  endpoint: R2_CONFIG.endpoint,
+  region: R2_CONFIG.region,
+  credentials: R2_CONFIG.credentials
+})
 
 exports.main = async (event, context) => {
   console.log('环境变量检查:', {
-    hasSecretId: !!process.env.TENCENTCLOUD_SECRETID,
-    hasSecretKey: !!process.env.TENCENTCLOUD_SECRETKEY,
-    secretIdPrefix: process.env.TENCENTCLOUD_SECRETID ? process.env.TENCENTCLOUD_SECRETID.substring(0, 8) + '...' : 'undefined'
+    hasR2AccessKey: !!process.env.R2_ACCESS_KEY_ID,
+    hasR2SecretKey: !!process.env.R2_SECRET_ACCESS_KEY
   })
   
   let userId, imageType, imageData, metadata
@@ -88,63 +96,49 @@ exports.main = async (event, context) => {
     const extension = imageData.includes('image/png') ? 'png' : 
                       imageData.includes('image/webp') ? 'webp' : 'jpg'
     
-    const cosKey = `user-images/${userId}/${imageType}.${extension}`
+    const r2Key = `user-images/${userId}/${imageType}.${extension}`
     
-    let oldCosKey = null
+    let oldR2Key = null
     const existingDoc = await db.collection('user_images').doc(docId).get().catch(() => null)
-    if (existingDoc && existingDoc.data && existingDoc.data.cosKey) {
-      oldCosKey = existingDoc.data.cosKey
+    if (existingDoc && existingDoc.data && existingDoc.data.r2Key) {
+      oldR2Key = existingDoc.data.r2Key
     }
     
     const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '')
     const buffer = Buffer.from(base64Data, 'base64')
     
-    console.log(`开始上传到 COS: ${cosKey}, 大小: ${buffer.length} bytes`)
+    console.log(`开始上传到 R2: ${r2Key}, 大小: ${buffer.length} bytes`)
     
-    const uploadResult = await new Promise((resolve, reject) => {
-      cos.putObject({
-        Bucket: BUCKET,
-        Region: REGION,
-        Key: cosKey,
-        Body: buffer,
-        ContentEncoding: 'base64',
-        ContentType: `image/${extension}`
-      }, (err, data) => {
-        if (err) {
-          console.error('COS 上传错误:', err)
-          reject(err)
-        } else {
-          console.log('COS 上传成功:', data)
-          resolve(data)
-        }
-      })
-    })
+    await s3Client.send(new PutObjectCommand({
+      Bucket: R2_CONFIG.bucket,
+      Key: r2Key,
+      Body: buffer,
+      ContentType: `image/${extension}`
+    }))
     
-    if (oldCosKey && oldCosKey !== cosKey) {
-      console.log(`删除旧的 COS 文件: ${oldCosKey}`)
-      await new Promise((resolve, reject) => {
-        cos.deleteObject({
-          Bucket: BUCKET,
-          Region: REGION,
-          Key: oldCosKey
-        }, (err, data) => {
-          if (err) {
-            console.warn('删除旧文件失败:', err)
-          } else {
-            console.log('旧文件已删除:', data)
-          }
-          resolve()
-        })
-      })
+    console.log('R2 上传成功')
+    
+    if (oldR2Key && oldR2Key !== r2Key) {
+      console.log(`删除旧的 R2 文件: ${oldR2Key}`)
+      try {
+        await s3Client.send(new DeleteObjectCommand({
+          Bucket: R2_CONFIG.bucket,
+          Key: oldR2Key
+        }))
+        console.log('旧文件已删除')
+      } catch (deleteError) {
+        console.warn('删除旧文件失败:', deleteError.message)
+      }
     }
     
-    const imageUrl = `https://${BUCKET}.cos.${REGION}.myqcloud.com/${cosKey}`
+    const imageUrl = `${R2_CONFIG.publicUrl}/${r2Key}`
     
     const imageRecord = {
       userId,
       imageType,
       imageUrl,
-      cosKey,
+      r2Key,
+      storageType: 'r2',
       metadata: {
         ...metadata,
         updatedAt: new Date().toISOString()
@@ -163,14 +157,14 @@ exports.main = async (event, context) => {
       })
     }
     
-    console.log(`用户 ${userId} 的 ${imageType} 图片已上传到 COS: ${imageUrl}`)
+    console.log(`用户 ${userId} 的 ${imageType} 图片已上传到 R2: ${imageUrl}`)
     
     response.body = JSON.stringify({
       success: true,
       data: {
         key: docId,
         url: imageUrl,
-        cosKey: cosKey,
+        r2Key: r2Key,
         message: '图片上传成功'
       }
     })
