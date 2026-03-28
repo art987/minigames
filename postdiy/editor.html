@@ -768,14 +768,32 @@
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">
     <div class="crop-header">
-      <span>裁剪图片</span>
+      <span>编辑图片</span>
     </div>
     <div class="crop-container">
       <img id="cropImage">
     </div>
+    <div class="crop-edit-controls">
+      <div class="crop-control-group">
+        <label class="crop-control-label">亮度</label>
+        <input type="range" id="cropBrightness" class="crop-slider" min="0" max="200" value="100">
+        <span class="crop-control-value" id="cropBrightnessValue">100%</span>
+      </div>
+      <div class="crop-control-group">
+        <label class="crop-control-label">对比度</label>
+        <input type="range" id="cropContrast" class="crop-slider" min="0" max="200" value="100">
+        <span class="crop-control-value" id="cropContrastValue">100%</span>
+      </div>
+      <div class="crop-control-group">
+        <label class="crop-control-label">饱和度</label>
+        <input type="range" id="cropSaturation" class="crop-slider" min="0" max="200" value="100">
+        <span class="crop-control-value" id="cropSaturationValue">100%</span>
+      </div>
+    </div>
     <div class="crop-actions">
+      <button id="resetCropEdit" class="crop-btn reset">重置</button>
       <button id="cancelCrop" class="crop-btn cancel">取消</button>
-      <button id="confirmCrop" class="crop-btn confirm">确认裁剪</button>
+      <button id="confirmCrop" class="crop-btn confirm">确认</button>
     </div>
   </div>
 </body>

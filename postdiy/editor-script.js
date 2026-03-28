@@ -1537,9 +1537,14 @@ let currentCropTarget = null;
     closePromoTextModal();
   }
   
-  // 图片裁剪功能函数
-  function openCropper(file, targetType) {
-    console.log('openCropper 被调用, targetType:', targetType);
+  let cropEditValues = {
+    brightness: 100,
+    contrast: 100,
+    saturation: 100
+  };
+
+  function openCropper(file, targetType, aspectRatio = 1) {
+    console.log('openCropper 被调用, targetType:', targetType, 'aspectRatio:', aspectRatio);
     const reader = new FileReader();
 
     reader.onload = function(e) {
@@ -1562,7 +1567,7 @@ let currentCropTarget = null;
 
       console.log('初始化 Cropper...');
       cropper = new Cropper(img, {
-        aspectRatio: 1,
+        aspectRatio: aspectRatio,
         viewMode: 1,
         autoCropArea: 1,
         dragMode: 'move',
@@ -1571,15 +1576,60 @@ let currentCropTarget = null;
         movable: true,
         responsive: true,
         background: false,
-        checkCrossOrigin: false
+        checkCrossOrigin: false,
+        ready: function() {
+          console.log('Cropper ready');
+          updateCropImageFilters();
+        }
       });
       console.log('Cropper 初始化完成:', cropper);
 
       currentCropTarget = targetType;
       console.log('currentCropTarget 设置为:', currentCropTarget);
+
+      resetCropEditValues();
     };
 
     reader.readAsDataURL(file);
+  }
+
+  function resetCropEditValues() {
+    cropEditValues = {
+      brightness: 100,
+      contrast: 100,
+      saturation: 100
+    };
+
+    const brightnessSlider = document.getElementById('cropBrightness');
+    const contrastSlider = document.getElementById('cropContrast');
+    const saturationSlider = document.getElementById('cropSaturation');
+    const brightnessValue = document.getElementById('cropBrightnessValue');
+    const contrastValue = document.getElementById('cropContrastValue');
+    const saturationValue = document.getElementById('cropSaturationValue');
+
+    if (brightnessSlider) brightnessSlider.value = 100;
+    if (contrastSlider) contrastSlider.value = 100;
+    if (saturationSlider) saturationSlider.value = 100;
+    if (brightnessValue) brightnessValue.textContent = '100%';
+    if (contrastValue) contrastValue.textContent = '100%';
+    if (saturationValue) saturationValue.textContent = '100%';
+
+    updateCropImageFilters();
+  }
+
+  function updateCropImageFilters() {
+    const { brightness, contrast, saturation } = cropEditValues;
+    const filterValue = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+    
+    const img = document.getElementById('cropImage');
+    if (img) {
+      img.style.filter = filterValue;
+    }
+
+    const cropperContainer = document.querySelector('.cropper-container');
+    if (cropperContainer) {
+      cropperContainer.style.filter = filterValue;
+    }
   }
 
   function closeCropper() {
@@ -1592,6 +1642,16 @@ let currentCropTarget = null;
     const cropModal = document.getElementById('cropModal');
     if (cropModal) {
       cropModal.style.display = 'none';
+    }
+
+    const img = document.getElementById('cropImage');
+    if (img) {
+      img.style.filter = '';
+    }
+
+    const cropperContainer = document.querySelector('.cropper-container');
+    if (cropperContainer) {
+      cropperContainer.style.filter = '';
     }
   }
 
@@ -1606,8 +1666,6 @@ let currentCropTarget = null;
     }
 
     const canvas = cropper.getCroppedCanvas({
-      width: 500,
-      height: 500,
       imageSmoothingEnabled: true,
       imageSmoothingQuality: 'high'
     });
@@ -1619,7 +1677,9 @@ let currentCropTarget = null;
       return;
     }
 
-    const base64 = canvas.toDataURL('image/png');
+    const finalCanvas = applyImageFilters(canvas);
+
+    const base64 = finalCanvas.toDataURL('image/png');
     console.log('生成的base64长度:', base64.length);
 
     if (currentCropTarget === 'logo') {
@@ -1661,12 +1721,48 @@ let currentCropTarget = null;
       showToast('二维码已裁剪，点击保存后上传到云端');
     }
 
+    if (currentCropTarget === 'background') {
+      console.log('处理背景图片裁剪');
+      state.customBackground = base64;
+      
+      state.textColor = '#000000';
+      localStorage.setItem('textColor', '#000000');
+      
+      updateTemplateDisplay();
+      updateStickerButtonVisibility();
+      clearTriggerFocus();
+      
+      showToast('背景图片已编辑');
+    }
+
     closeCropper();
+  }
+
+  function applyImageFilters(sourceCanvas) {
+    const { brightness, contrast, saturation } = cropEditValues;
+    
+    if (brightness === 100 && contrast === 100 && saturation === 100) {
+      return sourceCanvas;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = sourceCanvas.width;
+    canvas.height = sourceCanvas.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+    ctx.drawImage(sourceCanvas, 0, 0);
+
+    return canvas;
   }
 
   function initCropperEvents() {
     const confirmBtn = document.getElementById('confirmCrop');
     const cancelBtn = document.getElementById('cancelCrop');
+    const resetBtn = document.getElementById('resetCropEdit');
+    const brightnessSlider = document.getElementById('cropBrightness');
+    const contrastSlider = document.getElementById('cropContrast');
+    const saturationSlider = document.getElementById('cropSaturation');
 
     console.log('初始化裁剪事件:', { confirmBtn, cancelBtn });
 
@@ -1688,6 +1784,36 @@ let currentCropTarget = null;
       });
     } else {
       console.error('找不到取消裁剪按钮 #cancelCrop');
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function() {
+        resetCropEditValues();
+      });
+    }
+
+    if (brightnessSlider) {
+      brightnessSlider.addEventListener('input', function() {
+        cropEditValues.brightness = parseInt(this.value);
+        document.getElementById('cropBrightnessValue').textContent = this.value + '%';
+        updateCropImageFilters();
+      });
+    }
+
+    if (contrastSlider) {
+      contrastSlider.addEventListener('input', function() {
+        cropEditValues.contrast = parseInt(this.value);
+        document.getElementById('cropContrastValue').textContent = this.value + '%';
+        updateCropImageFilters();
+      });
+    }
+
+    if (saturationSlider) {
+      saturationSlider.addEventListener('input', function() {
+        cropEditValues.saturation = parseInt(this.value);
+        document.getElementById('cropSaturationValue').textContent = this.value + '%';
+        updateCropImageFilters();
+      });
     }
   }
 
@@ -4791,42 +4917,23 @@ let currentCropTarget = null;
     const file = event.target.files[0];
     if (!file) return;
     
-    // 检查文件类型
     if (!file.type.match('image.*')) {
       showToast('请上传有效的图片文件');
       return;
     }
     
-    // 如果有弹窗打开，先关闭弹窗
+    if (file.size > 10 * 1024 * 1024) {
+      showToast('文件大小不能超过10MB');
+      return;
+    }
+    
+    event.target.value = '';
+    
     if (isModalOpen()) {
       closeTemplateModal();
     }
     
-    // 读取文件
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      state.customBackground = e.target.result;
-      
-      // 恢复字体颜色为黑色
-      state.textColor = '#000000';
-      // 更新本地存储中的字体颜色
-      localStorage.setItem('textColor', '#000000');
-      
-      // 更新背景显示
-      updateTemplateDisplay();
-      
-      // 更新贴纸按钮显示状态
-      updateStickerButtonVisibility();
-      
-      // 关键：上传成功后立即清除所有触发区域的焦点，让虚线框消失
-      clearTriggerFocus();
-      
-      showToast('背景图片上传成功');
-      
-      // 移除了手动重置，因为我们现在使用resetFileInput函数来处理重置
-      // 在下次点击上传按钮时会通过resetFileInput函数正确重置文件输入框
-    };
-    reader.readAsDataURL(file);
+    openCropper(file, 'background', 0.5);
   }
   
   // 移除背景图片
