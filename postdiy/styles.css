@@ -710,7 +710,7 @@ footer {
   background-color: #ffffff;
   transform-style: preserve-3d;
   perspective: 1000px;
-  box-shadow: 0 0 20px #10101096;
+  box-shadow: 0 0 21px #101010b8;
   transition: transform 0.3s ease;
 }
 
@@ -1115,7 +1115,7 @@ footer {
   border: 2px dashed rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
   border-radius: 20px;
-  background-color: #00000021;
+  background-color: #00000040;
   animation: borderGradient 3s ease infinite;
 }
 
@@ -1239,7 +1239,7 @@ footer {
 #posterPromoText::before {
   content: '';
   position: absolute;
-  left: -13px;
+  left: -12px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
@@ -2665,8 +2665,8 @@ footer {
 }
 
 .package-saving {
-  font-size: 12px;
-  color: #67b000;
+  font-size: 11px;
+  color: #b04d00;
   margin-bottom: 5px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -3436,6 +3436,30 @@ footer {
   font-weight: 700;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.rotating-title {
+  position: relative;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotating-title .title-text {
+  position: absolute;
+  left: 0%;
+  transform: translateX(0);
+  opacity: 0;
+  transition: opacity 0.9s ease-in-out;
+  white-space: nowrap;
+}
+
+.rotating-title .title-text.active {
+  opacity: 1;
+  position: relative;
+  left: auto;
+  transform: none;
 }
 
 .modal-close {
@@ -5603,7 +5627,7 @@ input.hidden {
 .future-suggestion-text {
   font-size: 13px;
   color: var(--text-primary);
-border-left: 14px solid #efefef;
+border-left: 5px solid #efefef;
     padding-left: 8px;
     line-height: 16px;
 
@@ -6153,7 +6177,7 @@ border-left: 14px solid #efefef;
 }
 
 .crop-btn {
-  padding: 7px 21px;
+  padding: 7px 32px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -6165,6 +6189,7 @@ border-left: 14px solid #efefef;
 .crop-btn.cancel {
   background: #121212;
   color: #c93030;
+  padding: 0 16px;
   border: 1px solid #757575;
 }
 
@@ -6187,6 +6212,7 @@ border-left: 14px solid #efefef;
 .crop-btn.reset {
   background: #161616;
   color: #f9c716;
+  padding: 0 16px;
   border: 1px solid #6f7070;
 }
 
@@ -6288,7 +6314,7 @@ border-left: 14px solid #efefef;
   top: 0;
   left: 0;
 }
-
+.crop-modal .cropper-container .cropper-face{background:none;}
 .crop-modal .crop-header,
 .crop-modal .crop-edit-controls,
 .crop-modal .crop-actions {

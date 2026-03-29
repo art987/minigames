@@ -9611,6 +9611,28 @@ function updateBusinessInfoButtonForVip() {
     
     if (!homePopup) return;
     
+    // 标题轮替功能
+    let titleRotationInterval = null;
+    let currentTitleIndex = 0;
+    
+    function startTitleRotation() {
+      const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
+      if (titleTexts.length < 2) return;
+      
+      titleRotationInterval = setInterval(() => {
+        titleTexts[currentTitleIndex].classList.remove('active');
+        currentTitleIndex = (currentTitleIndex + 1) % titleTexts.length;
+        titleTexts[currentTitleIndex].classList.add('active');
+      }, 5000);
+    }
+    
+    function stopTitleRotation() {
+      if (titleRotationInterval) {
+        clearInterval(titleRotationInterval);
+        titleRotationInterval = null;
+      }
+    }
+    
     // 显示弹窗
     function showHomePopup() {
       renderTodayRelease();
@@ -9629,6 +9651,7 @@ function updateBusinessInfoButtonForVip() {
       }
       
       homePopup.classList.remove('hidden');
+      startTitleRotation();
       
       requestAnimationFrame(() => {
         if (homePopupModal) {
@@ -9646,6 +9669,7 @@ function updateBusinessInfoButtonForVip() {
     // 关闭弹窗
     function closeHomePopup() {
       homePopup.classList.add('hidden');
+      stopTitleRotation();
     }
     
     // 关闭按钮点击事件
