@@ -5,6 +5,7 @@ cloud.init({
 })
 
 const db = cloud.database()
+const _ = db.command
 
 const ZPAY_CONFIG = {
   PKEY: 'dUbS7RLclWErZSyH32n00fMi5CCvsIwb'
@@ -28,24 +29,84 @@ function getDaysByDuration(duration) {
   return duration * 30
 }
 
+function createResponse(body, statusCode = 200) {
+  return {
+    statusCode: statusCode,
+    headers: {
+      'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    },
+    body: body
+  }
+}
+
 exports.main = async (event, context) => {
-  console.log('收到支付回调:', JSON.stringify(event))
+  console.log('收到支付回调 event:', JSON.stringify(event))
+  console.log('event.keys:', Object.keys(event))
   
-  const { pid, trade_no, out_trade_no, type, name, money, trade_status, param, sign } = event
+  let params = {}
   
-  if (!out_trade_no || !trade_status || !sign) {
-    return 'fail: 缺少必要参数'
+  if (event.body) {
+    if (typeof event.body === 'string') {
+      if (event.body.startsWith('{')) {
+        try {
+          params = JSON.parse(event.body)
+          console.log('JSON body解析成功:', params)
+        } catch (e) {
+          console.log('JSON解析失败，尝试form-urlencoded')
+        }
+      }
+      if (Object.keys(params).length === 0) {
+        const pairs = event.body.split('&')
+        for (const pair of pairs) {
+          const [key, value] = pair.split('=')
+          if (key) {
+            params[decodeURIComponent(key)] = decodeURIComponent(value || '')
+          }
+        }
+        console.log('form-urlencoded解析成功:', params)
+      }
+    } else if (typeof event.body === 'object') {
+      params = event.body
+      console.log('body是对象:', params)
+    }
   }
   
-  const calculatedSign = generateSign(event, ZPAY_CONFIG.PKEY)
-  if (calculatedSign !== sign) {
+  if (event.queryStringParameters && Object.keys(event.queryStringParameters).length > 0) {
+    params = { ...params, ...event.queryStringParameters }
+    console.log('合并queryStringParameters:', event.queryStringParameters)
+  }
+  
+  for (const key in event) {
+    if (['pid', 'trade_no', 'out_trade_no', 'type', 'name', 'money', 'trade_status', 'param', 'sign', 'sign_type'].includes(key)) {
+      if (event[key] !== undefined) {
+        params[key] = event[key]
+      }
+    }
+  }
+  
+  console.log('最终解析参数:', JSON.stringify(params))
+  
+  const { pid, trade_no, out_trade_no, type, name, money, trade_status, param, sign } = params
+  
+  if (!out_trade_no || !trade_status) {
+    console.error('缺少必要参数')
+    return createResponse('fail: 缺少必要参数')
+  }
+  
+  const calculatedSign = generateSign(params, ZPAY_CONFIG.PKEY)
+  console.log('签名对比:', { calculatedSign, sign })
+  
+  if (sign && calculatedSign !== sign) {
     console.error('签名验证失败', { calculatedSign, sign })
-    return 'fail: 签名验证失败'
+    return createResponse('fail: 签名验证失败')
   }
   
   if (trade_status !== 'TRADE_SUCCESS') {
     console.log('交易状态非成功:', trade_status)
-    return 'success'
+    return createResponse('success')
   }
   
   try {
@@ -57,21 +118,21 @@ exports.main = async (event, context) => {
     
     if (orderRes.data.length === 0) {
       console.error('订单不存在:', out_trade_no)
-      return 'fail: 订单不存在'
+      return createResponse('fail: 订单不存在')
     }
     
     const order = orderRes.data[0]
     
     if (order.status === 1) {
       console.log('订单已处理:', out_trade_no)
-      return 'success'
+      return createResponse('success')
     }
     
     const orderMoney = parseFloat(order.money)
     const callbackMoney = parseFloat(money)
     if (Math.abs(orderMoney - callbackMoney) > 0.01) {
       console.error('金额不一致', { orderMoney, callbackMoney })
-      return 'fail: 金额不一致'
+      return createResponse('fail: 金额不一致')
     }
     
     const userId = param || order.userId
@@ -79,7 +140,7 @@ exports.main = async (event, context) => {
     const userRes = await db.collection('users').doc(userId).get()
     if (!userRes.data) {
       console.error('用户不存在:', userId)
-      return 'fail: 用户不存在'
+      return createResponse('fail: 用户不存在')
     }
     
     const user = userRes.data
@@ -106,15 +167,26 @@ exports.main = async (event, context) => {
         status: 1,
         trade_no: trade_no || '',
         payTime: db.serverDate(),
-        notifyData: event
+        notifyData: _.set({
+          money: params.money || '',
+          name: params.name || '',
+          out_trade_no: params.out_trade_no || '',
+          trade_no: params.trade_no || '',
+          trade_status: params.trade_status || '',
+          type: params.type || '',
+          pid: params.pid || '',
+          sign: params.sign || '',
+          sign_type: params.sign_type || '',
+          param: params.param || ''
+        })
       }
     })
     
     console.log('订单处理成功:', out_trade_no, '用户VIP延长', days, '天')
     
-    return 'success'
+    return createResponse('success')
   } catch (error) {
     console.error('处理支付回调失败:', error)
-    return 'fail: ' + error.message
+    return createResponse('fail: ' + error.message)
   }
 }

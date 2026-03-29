@@ -147,7 +147,10 @@ const IMAGE_CACHE_KEYS = {
 
 async function loadImageAsBase64(url) {
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      mode: 'cors',
+      credentials: 'omit'
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -192,6 +195,15 @@ async function initImagesWithCache() {
   if (logoImg) {
     if (cachedLogo && cachedLogo.startsWith('data:image')) {
       logoImg.src = cachedLogo;
+    } else if (logoImg.dataset.cloudUrl) {
+      // 没有缓存但有云端URL，尝试加载并缓存
+      logoImg.crossOrigin = "anonymous";
+      logoImg.src = logoImg.dataset.cloudUrl;
+      loadImageAsBase64(logoImg.dataset.cloudUrl).then(base64 => {
+        saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+      }).catch(e => {
+        console.error('Logo缓存加载失败:', e);
+      });
     }
     logoImg.onerror = function() {
       console.error('Logo图片加载失败，尝试从云端重新加载');
@@ -204,6 +216,15 @@ async function initImagesWithCache() {
   if (qrImg) {
     if (cachedQr && cachedQr.startsWith('data:image')) {
       qrImg.src = cachedQr;
+    } else if (qrImg.dataset.cloudUrl) {
+      // 没有缓存但有云端URL，尝试加载并缓存
+      qrImg.crossOrigin = "anonymous";
+      qrImg.src = qrImg.dataset.cloudUrl;
+      loadImageAsBase64(qrImg.dataset.cloudUrl).then(base64 => {
+        saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+      }).catch(e => {
+        console.error('二维码缓存加载失败:', e);
+      });
     }
     qrImg.onerror = function() {
       console.error('二维码图片加载失败，尝试从云端重新加载');
@@ -3185,11 +3206,31 @@ let currentCropTarget = null;
       }
       
       if (state.businessInfo.logo) {
-        elements.posterLogoImg.crossOrigin = "anonymous";
-        elements.posterLogoImg.src = state.businessInfo.logo;
         elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
+        
+        // 优先使用缓存的base64数据
+        const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
+        if (cachedLogo && cachedLogo.startsWith('data:image')) {
+          elements.posterLogoImg.src = cachedLogo;
+        } else {
+          // 没有缓存，尝试加载并缓存
+          elements.posterLogoImg.crossOrigin = "anonymous";
+          elements.posterLogoImg.src = state.businessInfo.logo;
+          // 异步加载base64并缓存
+          loadImageAsBase64(state.businessInfo.logo).then(base64 => {
+            saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+          }).catch(e => {
+            console.error('Logo缓存加载失败:', e);
+          });
+        }
+        
+        // 设置错误处理
+        elements.posterLogoImg.onerror = function() {
+          console.error('Logo图片加载失败，尝试从云端重新加载');
+          refreshImagesFromCloud();
+        };
       } else {
         elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = 'images/statics/logo-default.gif';
@@ -3213,11 +3254,31 @@ let currentCropTarget = null;
       }
       
       if (state.businessInfo.qrcode) {
-        elements.posterQrcodeImg.crossOrigin = "anonymous";
-        elements.posterQrcodeImg.src = state.businessInfo.qrcode;
         elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
+        
+        // 优先使用缓存的base64数据
+        const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+        if (cachedQr && cachedQr.startsWith('data:image')) {
+          elements.posterQrcodeImg.src = cachedQr;
+        } else {
+          // 没有缓存，尝试加载并缓存
+          elements.posterQrcodeImg.crossOrigin = "anonymous";
+          elements.posterQrcodeImg.src = state.businessInfo.qrcode;
+          // 异步加载base64并缓存
+          loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
+            saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+          }).catch(e => {
+            console.error('二维码缓存加载失败:', e);
+          });
+        }
+        
+        // 设置错误处理
+        elements.posterQrcodeImg.onerror = function() {
+          console.error('二维码图片加载失败，尝试从云端重新加载');
+          refreshImagesFromCloud();
+        };
       } else {
         elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
@@ -4582,8 +4643,58 @@ let currentCropTarget = null;
   }
   
   // 打开商家信息编辑弹窗
-  function openBusinessInfoModal() {
+  async function openBusinessInfoModal() {
     if (!elements.businessInfoModal || !elements.businessNameInput || !elements.businessPromoTextInput) return;
+    
+    // 先从云端同步最新的商家信息
+    if (window.CloudSync) {
+      try {
+        const result = await CloudSync.loadBusinessInfoFromCloud();
+        if (result.success && result.data) {
+          const oldLogo = state.businessInfo.logo;
+          const oldQrcode = state.businessInfo.qrcode;
+          
+          // 更新state中的商家信息
+          state.businessInfo.name = result.data.brandname || state.businessInfo.name;
+          state.businessInfo.logo = result.data.logoUrl || state.businessInfo.logo;
+          state.businessInfo.qrcode = result.data.qrcodeUrl || state.businessInfo.qrcode;
+          state.businessInfo.promoText = result.data.promoText || state.businessInfo.promoText;
+          
+          // 同步更新本地存储
+          localStorage.setItem('businessName', state.businessInfo.name);
+          localStorage.setItem('businessLogo', state.businessInfo.logo);
+          localStorage.setItem('businessQrcode', state.businessInfo.qrcode);
+          if (result.data.promoText) {
+            localStorage.setItem('promoText', result.data.promoText);
+          }
+          
+          // 如果图片URL变化了，清除旧缓存并重新加载
+          if (state.businessInfo.logo && state.businessInfo.logo !== oldLogo) {
+            localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
+            try {
+              const base64 = await loadImageAsBase64(state.businessInfo.logo);
+              saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+            } catch (e) {
+              console.error('重新加载Logo缓存失败:', e);
+            }
+          }
+          if (state.businessInfo.qrcode && state.businessInfo.qrcode !== oldQrcode) {
+            localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
+            try {
+              const base64 = await loadImageAsBase64(state.businessInfo.qrcode);
+              saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+            } catch (e) {
+              console.error('重新加载二维码缓存失败:', e);
+            }
+          }
+          
+          // 更新显示
+          updateBusinessInfoDisplay();
+        }
+      } catch (e) {
+        console.error('从云端同步商家信息失败:', e);
+      }
+    }
     
     // 保存原始数据，用于取消时恢复
     tempBusinessInfo = JSON.parse(JSON.stringify(state.businessInfo));
@@ -4666,7 +4777,13 @@ let currentCropTarget = null;
       if (state.businessInfo.logo) {
         elements.logoUploadArea.style.display = 'none';
         elements.logoPreview.style.display = 'block';
-        elements.logoPreviewImg.src = state.businessInfo.logo;
+        // 优先使用缓存的base64数据
+        const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
+        if (cachedLogo && cachedLogo.startsWith('data:image')) {
+          elements.logoPreviewImg.src = cachedLogo;
+        } else {
+          elements.logoPreviewImg.src = state.businessInfo.logo;
+        }
       } else {
         elements.logoUploadArea.style.display = 'block';
         elements.logoPreview.style.display = 'none';
@@ -4680,7 +4797,13 @@ let currentCropTarget = null;
         // 移除hidden类
         elements.qrcodePreview.classList.remove('hidden');
         elements.qrcodePreview.style.display = 'block';
-        elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+        // 优先使用缓存的base64数据
+        const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+        if (cachedQr && cachedQr.startsWith('data:image')) {
+          elements.qrcodePreviewImg.src = cachedQr;
+        } else {
+          elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+        }
       } else {
         elements.qrcodeUploadArea.style.display = 'block';
         // 添加hidden类
@@ -6076,7 +6199,10 @@ let currentCropTarget = null;
       return imageBase64Cache[url];
     }
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      mode: 'cors',
+      credentials: 'omit'
+    });
     const blob = await response.blob();
 
     return new Promise((resolve) => {
@@ -7270,11 +7396,29 @@ function updateBusinessInfoButtonForVip() {
       }
       
       if (state.businessInfo.logo) {
-        elements.posterLogoImg.crossOrigin = "anonymous";
-        elements.posterLogoImg.src = state.businessInfo.logo;
         elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
+        
+        // 优先使用缓存的base64数据
+        const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
+        if (cachedLogo && cachedLogo.startsWith('data:image')) {
+          elements.posterLogoImg.src = cachedLogo;
+        } else {
+          // 没有缓存，尝试加载并缓存
+          elements.posterLogoImg.crossOrigin = "anonymous";
+          elements.posterLogoImg.src = state.businessInfo.logo;
+          loadImageAsBase64(state.businessInfo.logo).then(base64 => {
+            saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+          }).catch(e => {
+            console.error('Logo缓存加载失败:', e);
+          });
+        }
+        
+        elements.posterLogoImg.onerror = function() {
+          console.error('Logo图片加载失败，尝试从云端重新加载');
+          refreshImagesFromCloud();
+        };
       } else {
         elements.posterLogoImg.style.display = 'none';
         elements.posterLogoImg.dataset.cloudUrl = '';
@@ -7296,11 +7440,29 @@ function updateBusinessInfoButtonForVip() {
       }
       
       if (state.businessInfo.qrcode) {
-        elements.posterQrcodeImg.crossOrigin = "anonymous";
-        elements.posterQrcodeImg.src = state.businessInfo.qrcode;
         elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
         elements.qrcodePlaceholder.style.display = 'none';
+        
+        // 优先使用缓存的base64数据
+        const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+        if (cachedQr && cachedQr.startsWith('data:image')) {
+          elements.posterQrcodeImg.src = cachedQr;
+        } else {
+          // 没有缓存，尝试加载并缓存
+          elements.posterQrcodeImg.crossOrigin = "anonymous";
+          elements.posterQrcodeImg.src = state.businessInfo.qrcode;
+          loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
+            saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+          }).catch(e => {
+            console.error('二维码缓存加载失败:', e);
+          });
+        }
+        
+        elements.posterQrcodeImg.onerror = function() {
+          console.error('二维码图片加载失败，尝试从云端重新加载');
+          refreshImagesFromCloud();
+        };
       } else {
         elements.posterQrcodeImg.style.display = 'none';
         elements.posterQrcodeImg.dataset.cloudUrl = '';

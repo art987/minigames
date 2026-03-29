@@ -6,6 +6,50 @@ const VipLoginUI = (function() {
   let switchEventsBound = false
   let smsSent = false
   
+  // 检查支付成功状态
+  function checkPaymentSuccess() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const outTradeNo = urlParams.get('out_trade_no')
+    const paySuccess = urlParams.get('pay_success')
+    
+    if (paySuccess === 'true' || outTradeNo) {
+      showPaymentSuccessModal(outTradeNo)
+      const newUrl = window.location.href.split('?')[0]
+      window.history.replaceState({}, '', newUrl)
+    }
+  }
+  
+  // 显示支付成功弹窗
+  function showPaymentSuccessModal(outTradeNo) {
+    const modalHTML = `
+      <div id="paymentSuccessModal" class="payment-success-modal">
+        <div class="payment-success-content">
+          <div class="payment-success-icon">
+            <i class="fa fa-check"></i>
+          </div>
+          <h3 class="payment-success-title">升级成功</h3>
+          <p class="payment-success-message">恭喜您！VIP会员已成功开通，现在可以享受全部特权功能。</p>
+          <button id="closePaymentSuccessBtn" class="payment-success-btn">确定</button>
+        </div>
+      </div>
+    `
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML)
+    
+    const modal = document.getElementById('paymentSuccessModal')
+    const closeBtn = document.getElementById('closePaymentSuccessBtn')
+    
+    const closeModal = () => {
+      modal.remove()
+      updateVipStatus()
+    }
+    
+    closeBtn.addEventListener('click', closeModal)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal()
+    })
+  }
+  
   // 初始化 DOM 元素
   function initElements() {
     elements.vipLoginBtn = document.getElementById('vipLoginBtn')
@@ -859,10 +903,35 @@ const VipLoginUI = (function() {
             userInfoBrandname.textContent = result.data.brandname || '-'
           }
           
-          // Logo
+          // Logo - 优先使用缓存，但需要检查URL是否变化
           if (result.data.logoUrl) {
             if (userInfoLogoImg) {
-              userInfoLogoImg.src = result.data.logoUrl
+              // 获取当前存储的logo URL
+              const storedLogoUrl = localStorage.getItem('businessLogo')
+              const cachedLogo = localStorage.getItem('poster_logo_base64')
+              
+              // 如果URL变化了，需要重新加载缓存
+              if (storedLogoUrl !== result.data.logoUrl || !cachedLogo || !cachedLogo.startsWith('data:image')) {
+                // 尝试加载新的图片并缓存
+                try {
+                  const response = await fetch(result.data.logoUrl, { mode: 'cors', credentials: 'omit' })
+                  const blob = await response.blob()
+                  const base64 = await new Promise((resolve, reject) => {
+                    const reader = new FileReader()
+                    reader.onloadend = () => resolve(reader.result)
+                    reader.onerror = () => reject(new Error('FileReader error'))
+                    reader.readAsDataURL(blob)
+                  })
+                  localStorage.setItem('poster_logo_base64', base64)
+                  localStorage.setItem('businessLogo', result.data.logoUrl)
+                  userInfoLogoImg.src = base64
+                } catch (e) {
+                  console.error('加载Logo失败:', e)
+                  userInfoLogoImg.src = result.data.logoUrl
+                }
+              } else {
+                userInfoLogoImg.src = cachedLogo
+              }
               userInfoLogoImg.style.display = 'block'
             }
             if (userInfoLogoPlaceholder) {
@@ -878,10 +947,35 @@ const VipLoginUI = (function() {
             }
           }
           
-          // 二维码
+          // 二维码 - 优先使用缓存，但需要检查URL是否变化
           if (result.data.qrcodeUrl) {
             if (userInfoQrcodeImg) {
-              userInfoQrcodeImg.src = result.data.qrcodeUrl
+              // 获取当前存储的二维码 URL
+              const storedQrcodeUrl = localStorage.getItem('businessQrcode')
+              const cachedQr = localStorage.getItem('poster_qrcode_base64')
+              
+              // 如果URL变化了，需要重新加载缓存
+              if (storedQrcodeUrl !== result.data.qrcodeUrl || !cachedQr || !cachedQr.startsWith('data:image')) {
+                // 尝试加载新的图片并缓存
+                try {
+                  const response = await fetch(result.data.qrcodeUrl, { mode: 'cors', credentials: 'omit' })
+                  const blob = await response.blob()
+                  const base64 = await new Promise((resolve, reject) => {
+                    const reader = new FileReader()
+                    reader.onloadend = () => resolve(reader.result)
+                    reader.onerror = () => reject(new Error('FileReader error'))
+                    reader.readAsDataURL(blob)
+                  })
+                  localStorage.setItem('poster_qrcode_base64', base64)
+                  localStorage.setItem('businessQrcode', result.data.qrcodeUrl)
+                  userInfoQrcodeImg.src = base64
+                } catch (e) {
+                  console.error('加载二维码失败:', e)
+                  userInfoQrcodeImg.src = result.data.qrcodeUrl
+                }
+              } else {
+                userInfoQrcodeImg.src = cachedQr
+              }
               userInfoQrcodeImg.style.display = 'block'
             }
             if (userInfoQrcodePlaceholder) {
@@ -982,15 +1076,15 @@ const VipLoginUI = (function() {
       }
       
       const modalHTML = `
-        <div id="orderHistoryModal" class="order-history-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-          <div class="order-history-content" style="background: #fff; border-radius: 16px; width: 90%; max-width: 420px; max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
-            <div class="order-history-header" style="padding: 16px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-              <h3 style="margin: 0; font-size: 18px; color: #333;">订单记录</h3>
-              <button id="closeOrderHistoryBtn" style="background: none; border: none; font-size: 24px; color: #999; cursor: pointer;">&times;</button>
+        <div id="orderHistoryModal" class="order-history-modal">
+          <div class="order-history-content">
+            <div class="order-history-header">
+              <h3>订单记录</h3>
+              <button id="closeOrderHistoryBtn">&times;</button>
             </div>
-            <div id="orderHistoryList" class="order-history-list" style="flex: 1; overflow-y: auto; padding: 16px;">
-              <div style="text-align: center; padding: 40px 20px; color: #999;">
-                <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #d32f2f; border-radius: 50%; margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
+            <div id="orderHistoryList" class="order-history-list">
+              <div class="order-loading">
+                <div class="order-loading-spinner"></div>
                 <p>加载中...</p>
               </div>
             </div>
@@ -1015,42 +1109,75 @@ const VipLoginUI = (function() {
         if (result.success && result.data && result.data.orders) {
           if (result.data.orders.length === 0) {
             listContainer.innerHTML = `
-              <div style="text-align: center; padding: 40px 20px; color: #999;">
-                <i class="fa fa-inbox" style="font-size: 48px; margin-bottom: 16px;"></i>
+              <div class="order-empty">
+                <i class="fa fa-inbox"></i>
                 <p>暂无订单记录</p>
               </div>
             `
           } else {
             const ordersHTML = result.data.orders.map(order => {
               const statusText = order.status === 1 ? '已支付' : '待支付'
-              const statusColor = order.status === 1 ? '#4caf50' : '#ff9800'
+              const statusClass = order.status === 1 ? 'paid' : 'unpaid'
               const typeText = order.type === 'alipay' ? '支付宝' : '微信'
               const payTime = order.payTime ? new Date(order.payTime).toLocaleString('zh-CN') : '-'
+              const createTime = order.createTime ? new Date(order.createTime).toLocaleString('zh-CN') : '-'
+              const isUnpaid = order.status !== 1
               
               return `
-                <div class="order-item" style="background: #f9f9f9; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
-                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div class="order-item">
+                  <div class="order-item-header">
                     <div>
-                      <div style="font-weight: 600; color: #333; margin-bottom: 4px;">${order.name}</div>
-                      <div style="font-size: 12px; color: #999;">订单号: ${order.out_trade_no}</div>
+                      <div class="order-item-name">${order.name}</div>
+                      <div class="order-item-no">订单号: ${order.out_trade_no}</div>
                     </div>
-                    <span style="background: ${statusColor}; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 12px;">${statusText}</span>
+                    <span class="order-item-status ${statusClass}">${statusText}</span>
                   </div>
-                  <div style="display: flex; justify-content: space-between; font-size: 13px; color: #666;">
+                  <div class="order-item-info">
                     <span>${typeText}支付</span>
-                    <span style="color: #d32f2f; font-weight: 600;">¥${order.money}</span>
+                    <span class="order-item-price">¥${order.money}</span>
                   </div>
-                  <div style="font-size: 12px; color: #999; margin-top: 8px;">支付时间: ${payTime}</div>
+                  <div class="order-item-time">${order.status === 1 ? '支付时间: ' + payTime : '创建时间: ' + createTime}</div>
+                  ${isUnpaid ? `<button class="continue-pay-btn" data-order-no="${order.out_trade_no}" data-money="${order.money}" data-duration="${order.duration}" data-type="${order.type}">继续支付</button>` : ''}
                 </div>
               `
             }).join('')
             
             listContainer.innerHTML = ordersHTML
+            
+            listContainer.querySelectorAll('.continue-pay-btn').forEach(btn => {
+              btn.addEventListener('click', async function() {
+                const orderNo = this.dataset.orderNo
+                const money = this.dataset.money
+                const duration = this.dataset.duration
+                const type = this.dataset.type
+                
+                this.disabled = true
+                this.textContent = '处理中...'
+                
+                try {
+                  const returnUrl = window.location.href.split('?')[0]
+                  const result = await VIPSystem.createPaymentOrder(money, duration, type, returnUrl)
+                  
+                  if (result.success && result.data && result.data.payUrl) {
+                    modal.remove()
+                    window.location.href = result.data.payUrl
+                  } else {
+                    this.disabled = false
+                    this.textContent = '继续支付'
+                    alert(result.message || '创建订单失败，请稍后重试')
+                  }
+                } catch (error) {
+                  this.disabled = false
+                  this.textContent = '继续支付'
+                  alert('支付失败，请稍后重试')
+                }
+              })
+            })
           }
         } else {
           listContainer.innerHTML = `
-            <div style="text-align: center; padding: 40px 20px; color: #999;">
-              <i class="fa fa-exclamation-circle" style="font-size: 48px; margin-bottom: 16px;"></i>
+            <div class="order-error">
+              <i class="fa fa-exclamation-circle"></i>
               <p>${result.message || '加载失败'}</p>
             </div>
           `
@@ -1058,8 +1185,8 @@ const VipLoginUI = (function() {
       } catch (error) {
         console.error('获取订单列表失败:', error)
         listContainer.innerHTML = `
-          <div style="text-align: center; padding: 40px 20px; color: #999;">
-            <i class="fa fa-exclamation-circle" style="font-size: 48px; margin-bottom: 16px;"></i>
+          <div class="order-error">
+            <i class="fa fa-exclamation-circle"></i>
             <p>加载失败，请稍后重试</p>
           </div>
         `
@@ -1125,6 +1252,7 @@ const VipLoginUI = (function() {
     initElements()
     updateVipStatus()
     renderLoginChoiceForm()
+    checkPaymentSuccess()
     if (!eventsBound) {
       bindEvents()
       eventsBound = true

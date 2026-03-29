@@ -6282,14 +6282,6 @@ border-left: 14px solid #efefef;
   transform: translateY(0);
 }
 
-.order-history-modal .order-item {
-  transition: transform 0.2s ease;
-}
-
-.order-history-modal .order-item:hover {
-  transform: translateX(4px);
-}
-
 .crop-modal .cropper-container {
   position: absolute;
   top: 0;
@@ -6306,4 +6298,244 @@ border-left: 14px solid #efefef;
 
 .crop-modal .crop-btn {
   pointer-events: auto;
+}
+
+.payment-success-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-success-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+}
+
+.payment-success-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-success-icon i {
+  font-size: 32px;
+  color: #fff;
+}
+
+.payment-success-title {
+  margin: 0 0 12px;
+  color: #333;
+  font-size: 20px;
+}
+
+.payment-success-message {
+  margin: 0 0 24px;
+  color: #666;
+  font-size: 14px;
+}
+
+.payment-success-btn {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.payment-success-btn:hover {
+  opacity: 0.9;
+}
+
+.order-history-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-history-content {
+  background: #fff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-history-header {
+  padding: 12px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+}
+
+.order-history-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.order-history-header button {
+  background: none;
+  border: none;
+  font-size: 42px;
+  color: #ffffff;
+  cursor: pointer;
+  line-height: 16px;
+}
+
+.order-history-header button:hover {
+  color: #666;
+}
+
+.order-history-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.order-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.order-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #d32f2f;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+.order-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.order-empty i {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.order-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.order-error i {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.order-item {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  margin-bottom: 21px;
+  transition: transform 0.2s ease;
+}
+
+.order-item:hover {
+  transform: translateX(4px);
+}
+
+.order-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.order-item-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.order-item-no {
+  font-size: 12px;
+  color: #999;
+}
+
+.order-item-status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.order-item-status.paid {
+  background: #4caf50;
+}
+
+.order-item-status.unpaid {
+  background: #ff9800;
+}
+
+.order-item-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #666;
+}
+
+.order-item-price {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.order-item-time {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.continue-pay-btn {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.continue-pay-btn:hover {
+  opacity: 0.9;
+}
+
+.continue-pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

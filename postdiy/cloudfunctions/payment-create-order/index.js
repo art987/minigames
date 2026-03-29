@@ -107,7 +107,8 @@ exports.main = async (event, context) => {
     const name = getDurationName(duration)
     
     const notifyUrl = 'https://api.peacelove.top/payment-notify'
-    const finalReturnUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
+    const baseUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
+    const finalReturnUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}pay_success=true&out_trade_no=${outTradeNo}`
     
     const params = {
       pid: ZPAY_CONFIG.PID,
