@@ -5516,17 +5516,17 @@ let currentCropTarget = null;
         </div>
         
         <div class="vip-packages-section">
-          <div class="vip-packages-title">升级通道二：</div>
+          <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
           <div class="vip-packages-wrapper">
             <div class="vip-packages-container">
-              <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20">
+              <div class="vip-package selected" data-duration="1" data-price="9.9" data-original-price="20">
                 <h5 class="package-title">1个月VIP</h5>
                 <div class="package-price">
                   <span class="package-current-price">¥9.9</span>
-                  <span class="package-original-price">¥20</span>
+                  <span class="package-original-price">¥60</span>
                 </div>
-                <div class="package-saving">节省 ¥10.1</div>
-                <button class="select-package-btn">选择</button>
+                <div class="package-saving">≈半杯奶茶</div>
+                <button class="select-package-btn">✔ 已选择</button>
               </div>
               
               <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
@@ -5535,7 +5535,7 @@ let currentCropTarget = null;
                   <span class="package-current-price">¥16.9</span>
                   <span class="package-original-price">¥60</span>
                 </div>
-                <div class="package-saving">节省 ¥43.1</div>
+                <div class="package-saving">≈买1月送2月</div>
                 <button class="select-package-btn">选择</button>
               </div>
               
@@ -5545,7 +5545,7 @@ let currentCropTarget = null;
                   <span class="package-current-price">¥19.9</span>
                   <span class="package-original-price">¥120</span>
                 </div>
-                <div class="package-saving">节省 ¥100.1</div>
+                <div class="package-saving">≈买1月送5月</div>
                 <button class="select-package-btn">选择</button>
               </div>
               
@@ -5556,8 +5556,8 @@ let currentCropTarget = null;
                   <span class="package-current-price">¥23.9</span>
                   <span class="package-original-price">¥240</span>
                 </div>
-                <div class="package-saving">节省 ¥216.1</div>
-                <button class="select-package-btn">立即支付23.9元</button>
+                <div class="package-saving">≈买1月送11月</div>
+                <button class="select-package-btn">选择</button>
               </div>
               
               <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
@@ -5566,7 +5566,7 @@ let currentCropTarget = null;
                   <span class="package-current-price">¥33.9</span>
                   <span class="package-original-price">¥480</span>
                 </div>
-                <div class="package-saving">节省 ¥446.1</div>
+                <div class="package-saving">≈买2月送22月</div>
                 <button class="select-package-btn">选择</button>
               </div>
             </div>
@@ -5576,7 +5576,7 @@ let currentCropTarget = null;
         <div class="vip-upgrade-actions">
           <button id="closeVipUpgradeBtn2" class="close-upgrade-btn">关闭</button>
           <div class="payment-btn-wrapper">
-            <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付23.9元</button>
+            <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付9.9元</button>
             <div class="discount-badge payment-discount-badge">1折</div>
           </div>
         </div>
