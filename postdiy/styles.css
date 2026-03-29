@@ -6656,8 +6656,9 @@ border-left: 5px solid #efefef;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  --drag-offset: 0px;
 }
 
 .template-gallery-slide img {
@@ -6686,52 +6687,48 @@ border-left: 5px solid #efefef;
 }
 
 .template-gallery-slide.prev-2 {
-  transform: translateX(-280px) translateZ(-150px) scale(0.6);
+  transform: translateX(calc(-280px + var(--drag-offset))) translateZ(-150px) scale(0.6);
   opacity: 0.7;
   z-index: 1;
   border: 1px solid #fff;
-  /* filter: brightness(0.7); */
 }
 
 .template-gallery-slide.prev-1 {
-  transform: translateX(-140px) translateZ(-80px) scale(0.8);
+  transform: translateX(calc(-140px + var(--drag-offset))) translateZ(-80px) scale(0.8);
   opacity: 0.9;
   z-index: 2;
   border: 3px solid #fff;
-  /* filter: brightness(0.85); */
 }
 
 .template-gallery-slide.current {
-  transform: translateX(0) translateZ(0) scale(1);
+  transform: translateX(calc(0px + var(--drag-offset))) translateZ(0) scale(1);
   opacity: 1;
   z-index: 4;
   border: 4px solid #ffffff;
 }
 
 .template-gallery-slide.next-1 {
-  transform: translateX(140px) translateZ(-80px) scale(0.8);
+  transform: translateX(calc(140px + var(--drag-offset))) translateZ(-80px) scale(0.8);
   opacity: 0.95;
   z-index: 2;
   border: 3px solid #ffff;
-  /* filter: brightness(0.95); */
 }
 
 .template-gallery-slide.next-2 {
-  transform: translateX(280px) translateZ(-150px) scale(0.6);
+  transform: translateX(calc(280px + var(--drag-offset))) translateZ(-150px) scale(0.6);
   opacity: 0.9;
   border: 1px solid #fff;
   z-index: 1;
-  /* filter: brightness(0.7); */
 }
 
 .template-gallery-slide.hidden-slide {
   opacity: 0;
   pointer-events: none;
-  transform: translateX(0) translateZ(-200px) scale(0.4);
+  transform: translateX(calc(0px + var(--drag-offset))) translateZ(-200px) scale(0.4);
 }
 
 .template-gallery-slide.current:hover {
-  transform: translateX(0) translateZ(30px) scale(1.05);
+  transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.05);
   box-shadow: 0 12px 40px rgba(211, 47, 47, 0.35);
 }
 

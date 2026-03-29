@@ -4268,47 +4268,130 @@ let currentCropTarget = null;
     if (!container) return;
     
     let touchStartX = 0;
-    let touchEndX = 0;
     let touchStartY = 0;
-    let touchEndY = 0;
-    let isSwiping = false;
+    let isDragging = false;
+    let startTime = 0;
+    let velocityX = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let dragDeltaX = 0;
+    const slideWidth = 140;
     
-    container.addEventListener('touchstart', function(e) {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-      isSwiping = true;
-    }, { passive: true });
-    
-    container.addEventListener('touchend', function(e) {
-      if (!isSwiping) return;
+    function handleTouchStart(e) {
+      if (state.slideAutoPlayInterval) {
+        stopSlideAutoPlay();
+      }
       
-      touchEndX = e.changedTouches[0].screenX;
-      touchEndY = e.changedTouches[0].screenY;
-      isSwiping = false;
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      lastX = touch.clientX;
+      isDragging = true;
+      startTime = Date.now();
+      lastTime = startTime;
+      velocityX = 0;
+      dragDeltaX = 0;
       
-      handleSwipe();
-    }, { passive: true });
+      const slides = container.querySelectorAll('.template-gallery-slide');
+      slides.forEach(slide => {
+        slide.style.transition = 'none';
+      });
+    }
     
-    container.addEventListener('touchcancel', function() {
-      isSwiping = false;
-    }, { passive: true });
-    
-    function handleSwipe() {
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      const minSwipeDistance = 50;
+    function handleTouchMove(e) {
+      if (!isDragging) return;
       
-      // 确保是水平滑动而不是垂直滑动
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-        if (deltaX > 0) {
-          // 向右滑动 - 上一张
-          prevSlide();
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      
+      if (Math.abs(deltaX) < Math.abs(deltaY) && Math.abs(dragDeltaX) < 10) {
+        return;
+      }
+      
+      e.preventDefault();
+      
+      const now = Date.now();
+      const dt = now - lastTime;
+      if (dt > 0) {
+        velocityX = (touch.clientX - lastX) / dt;
+      }
+      lastX = touch.clientX;
+      lastTime = now;
+      
+      dragDeltaX = deltaX;
+      applyDragOffset(deltaX);
+    }
+    
+    function handleTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const touch = e.changedTouches[0];
+      const totalDelta = touch.clientX - touchStartX;
+      const duration = Date.now() - startTime;
+      const speed = Math.abs(totalDelta) / duration;
+      
+      const slides = container.querySelectorAll('.template-gallery-slide');
+      slides.forEach(slide => {
+        slide.style.transition = '';
+      });
+      
+      let targetIndex = state.currentSlideIndex;
+      const total = state.allTemplatesList.length;
+      
+      if (total <= 1) {
+        clearDragOffset();
+        return;
+      }
+      
+      const threshold = slideWidth * 0.4;
+      const fastSwipeSpeed = 0.3;
+      
+      if (speed > fastSwipeSpeed) {
+        const swipeCount = Math.min(Math.ceil(speed * 2), 2);
+        if (velocityX > 0) {
+          targetIndex = (state.currentSlideIndex - swipeCount + total) % total;
         } else {
-          // 向左滑动 - 下一张
-          nextSlide();
+          targetIndex = (state.currentSlideIndex + swipeCount) % total;
+        }
+      } else if (Math.abs(totalDelta) > threshold) {
+        if (totalDelta > 0) {
+          targetIndex = (state.currentSlideIndex - 1 + total) % total;
+        } else {
+          targetIndex = (state.currentSlideIndex + 1) % total;
         }
       }
+      
+      state.currentSlideIndex = targetIndex;
+      clearDragOffset();
+      updateSlidePositions();
+      
+      if (state.slideAutoPlaying) {
+        setTimeout(() => {
+          startSlideAutoPlay();
+        }, 3000);
+      }
     }
+    
+    function applyDragOffset(deltaX) {
+      const slides = container.querySelectorAll('.template-gallery-slide');
+      slides.forEach(slide => {
+        slide.style.setProperty('--drag-offset', `${deltaX}px`);
+      });
+    }
+    
+    function clearDragOffset() {
+      const slides = container.querySelectorAll('.template-gallery-slide');
+      slides.forEach(slide => {
+        slide.style.setProperty('--drag-offset', '0px');
+      });
+    }
+    
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('touchcancel', handleTouchEnd, { passive: true });
   }
   
   // 更新幻灯片位置
