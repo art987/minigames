@@ -4330,9 +4330,13 @@ let currentCropTarget = null;
       }
       
       const units = Math.floor(Math.abs(cumulativeSwipe) / swipeUnit);
-      const direction = cumulativeSwipe > 0 ? -1 : 1;
-      const steps = direction > 0 ? -units : units;
-      const targetIndex = (state.currentSlideIndex + steps + total) % total;
+      let targetIndex = state.currentSlideIndex;
+      
+      if (cumulativeSwipe > 0) {
+        targetIndex = (state.currentSlideIndex - units + total) % total;
+      } else if (cumulativeSwipe < 0) {
+        targetIndex = (state.currentSlideIndex + units) % total;
+      }
       
       clearDragOffset();
       goToSlide(targetIndex);
