@@ -146,22 +146,40 @@ const IMAGE_CACHE_KEYS = {
 };
 
 async function loadImageAsBase64(url) {
-  const response = await fetch(url);
-  const blob = await response.blob();
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const blob = await response.blob();
 
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('FileReader error'));
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) {
+    console.error('loadImageAsBase64 失败:', url, e);
+    throw e;
+  }
 }
 
 function saveToCache(key, base64) {
-  localStorage.setItem(key, base64);
+  try {
+    localStorage.setItem(key, base64);
+  } catch (e) {
+    console.error('保存缓存失败:', key, e);
+  }
 }
 
 function getFromCache(key) {
-  return localStorage.getItem(key);
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.error('读取缓存失败:', key, e);
+    return null;
+  }
 }
 
 async function initImagesWithCache() {
@@ -171,12 +189,28 @@ async function initImagesWithCache() {
   const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
   const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
 
-  if (cachedLogo && logoImg) {
-    logoImg.src = cachedLogo;
+  if (logoImg) {
+    if (cachedLogo && cachedLogo.startsWith('data:image')) {
+      logoImg.src = cachedLogo;
+    }
+    logoImg.onerror = function() {
+      console.error('Logo图片加载失败，尝试从云端重新加载');
+      if (logoImg.dataset.cloudUrl) {
+        refreshImagesFromCloud();
+      }
+    };
   }
 
-  if (cachedQr && qrImg) {
-    qrImg.src = cachedQr;
+  if (qrImg) {
+    if (cachedQr && cachedQr.startsWith('data:image')) {
+      qrImg.src = cachedQr;
+    }
+    qrImg.onerror = function() {
+      console.error('二维码图片加载失败，尝试从云端重新加载');
+      if (qrImg.dataset.cloudUrl) {
+        refreshImagesFromCloud();
+      }
+    };
   }
 }
 
