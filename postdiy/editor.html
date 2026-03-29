@@ -323,7 +323,42 @@
         
         <!-- 模板列表 -->
         <div class="mt-6">
-          <div id="modalTemplatesGrid"></div>
+          <!-- 视图切换按钮 -->
+          <div class="template-view-toggle">
+            <button id="templateGridViewBtn" class="view-toggle-btn" title="平铺视图">
+              <i class="fa fa-th"></i>
+            </button>
+            <button id="templateSlideViewBtn" class="view-toggle-btn active" title="幻灯片视图">
+              <i class="fa fa-film"></i>
+            </button>
+          </div>
+          
+          <!-- 平铺视图容器 -->
+          <div id="modalTemplatesGrid" class="template-grid-view hidden"></div>
+          
+          <!-- 幻灯片视图容器 -->
+          <div id="templateSlideView" class="template-slide-view">
+            <div class="template-3d-gallery">
+              <div class="template-gallery-container" id="templateGalleryContainer"></div>
+            </div>
+            <div class="template-slide-controls">
+              <button class="nav-btn prev-btn" id="prevTemplateSlide">
+                <i class="fa fa-chevron-left"></i>
+              </button>
+              <div class="template-slide-info">
+                <span id="templateSlideName">模板名称</span>
+                <div class="slide-counter-wrapper">
+                  <span id="templateSlideCounter">1 / 1</span>
+                  <button id="slidePlayPauseBtn" class="slide-play-btn" title="播放/暂停">
+                    <i class="fa fa-pause"></i>
+                  </button>
+                </div>
+              </div>
+              <button class="nav-btn next-btn" id="nextTemplateSlide">
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer" style="display: none;">

@@ -287,7 +287,12 @@ let currentCropTarget = null;
       promoText: '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）'
     },
     customBackground: null,
-    textColor: '#000000' // 默认黑色
+    textColor: '#000000',
+    templateViewMode: 'slide',
+    currentSlideIndex: 0,
+    allTemplatesList: [],
+    slideAutoPlaying: true,
+    slideAutoPlayInterval: null
   };
   
   // 弹窗编辑时的临时状态（用于取消时恢复）
@@ -635,6 +640,15 @@ let currentCropTarget = null;
       promoTemplatesList: document.getElementById('promoTemplatesList'),
       confirmTemplateBtn: document.getElementById('confirmTemplateBtn'),
       templateGrid: document.getElementById('modalTemplatesGrid'),
+      templateGalleryContainer: document.getElementById('templateGalleryContainer'),
+      templateSlideView: document.getElementById('templateSlideView'),
+      templateSlideName: document.getElementById('templateSlideName'),
+      templateSlideCounter: document.getElementById('templateSlideCounter'),
+      prevTemplateSlide: document.getElementById('prevTemplateSlide'),
+      nextTemplateSlide: document.getElementById('nextTemplateSlide'),
+      templateGridViewBtn: document.getElementById('templateGridViewBtn'),
+      templateSlideViewBtn: document.getElementById('templateSlideViewBtn'),
+      slidePlayPauseBtn: document.getElementById('slidePlayPauseBtn'),
       modalMonthButtons: document.getElementById('modalMonthButtons'),
       modalFestivalTags: document.getElementById('modalFestivalTags'),
       modalCurrentDateDisplay: document.getElementById('modalCurrentDateDisplay'),
@@ -1905,11 +1919,33 @@ let currentCropTarget = null;
     }
     if (elements.confirmTemplateBtn) {
       elements.confirmTemplateBtn.addEventListener('click', function() {
-        // 确认模板选择并带ID重定向
         if (state.currentTemplate) {
           window.location.href = `editor.html?templateId=${state.currentTemplate.id}`;
         }
       });
+    }
+    
+    // 模板视图切换事件
+    if (elements.templateGridViewBtn) {
+      elements.templateGridViewBtn.addEventListener('click', function() {
+        switchTemplateViewMode('grid');
+      });
+    }
+    if (elements.templateSlideViewBtn) {
+      elements.templateSlideViewBtn.addEventListener('click', function() {
+        switchTemplateViewMode('slide');
+      });
+    }
+    
+    // 幻灯片控制按钮事件
+    if (elements.prevTemplateSlide) {
+      elements.prevTemplateSlide.addEventListener('click', prevSlide);
+    }
+    if (elements.nextTemplateSlide) {
+      elements.nextTemplateSlide.addEventListener('click', nextSlide);
+    }
+    if (elements.slidePlayPauseBtn) {
+      elements.slidePlayPauseBtn.addEventListener('click', toggleSlideAutoPlay);
     }
     
     // 商家信息相关事件
@@ -3505,6 +3541,9 @@ let currentCropTarget = null;
     // 根据当前日期自动选择月份和节日（与首页逻辑保持一致）
     autoSelectDateInModal();
     
+    // 设置默认视图模式（幻灯片模式）
+    switchTemplateViewMode(state.templateViewMode || 'slide');
+    
     // 移除关闭动画类
     elements.templateModal.classList.remove('closing');
     elements.templateModal.querySelector('.modal').classList.remove('closing');
@@ -3533,6 +3572,9 @@ let currentCropTarget = null;
     
     // 填充模板网格
     fillTemplateGrid();
+    
+    // 设置默认视图模式（幻灯片模式）
+    switchTemplateViewMode(state.templateViewMode || 'slide');
     
     // 移除关闭动画类
     elements.templateModal.classList.remove('closing');
@@ -4074,6 +4116,9 @@ let currentCropTarget = null;
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
     
+    // 获取所有模板列表并更新状态
+    state.allTemplatesList = getAllTemplatesList();
+    
     // 遍历所有模板
     for (const monthKey in window.templates) {
       const monthTemplates = window.templates[monthKey];
@@ -4109,54 +4154,38 @@ let currentCropTarget = null;
         
         // 为勾选按钮添加点击事件
         checkButton.addEventListener('click', function(e) {
-          e.stopPropagation(); // 阻止事件暴泡
+          e.stopPropagation();
           console.log('点击勾选按钮选择模板:', template.name);
           
-          // 移除所有勾选按钮的选中状态
           document.querySelectorAll('.template-check-button').forEach(btn => {
             btn.classList.remove('checked');
           });
           
-          // 添加当前按钮的选中状态
           this.classList.add('checked');
-          
-          // 更新当前模板
           selectTemplate(template);
-          
-          // 关闭模板选择弹窗
           closeTemplateModal();
         });
         
-        // 为模板项添加点击事件（可选，用于保持原有功能）
+        // 为模板项添加点击事件
         templateItem.addEventListener('click', function() {
-          // 移除所有勾选按钮的选中状态
           document.querySelectorAll('.template-check-button').forEach(btn => {
             btn.classList.remove('checked');
           });
           
-          // 添加当前按钮的选中状态
           checkButton.classList.add('checked');
-          
-          // 更新当前模板
           selectTemplate(template);
         });
         
-        // 添加双击事件 - 双击直接选择模板并关闭弹窗
+        // 添加双击事件
         templateItem.addEventListener('dblclick', function() {
           console.log('双击选中模板并关闭弹窗:', template.name);
           
-          // 移除所有勾选按钮的选中状态
           document.querySelectorAll('.template-check-button').forEach(btn => {
             btn.classList.remove('checked');
           });
           
-          // 添加当前按钮的选中状态
           checkButton.classList.add('checked');
-          
-          // 更新当前模板
           selectTemplate(template);
-          
-          // 关闭模板选择弹窗
           closeTemplateModal();
         });
         
@@ -4171,17 +4200,195 @@ let currentCropTarget = null;
         templateItem.appendChild(templateImgContainer);
         templateItem.appendChild(templateName);
         
-        // 直接添加到网格元素
         if (elements.templateGrid) {
           elements.templateGrid.appendChild(templateItem);
-        } else {
-          console.error('模板网格元素未找到');
         }
       });
     }
     
-    // 在模板列表最后添加自定义背景入口
+    // 添加自定义背景入口
     addCustomBackgroundEntryToModal();
+    
+    // 初始化幻灯片视图
+    initTemplateSlideView();
+  }
+  
+  // 初始化模板幻灯片视图
+  function initTemplateSlideView() {
+    if (!elements.templateGalleryContainer || !state.allTemplatesList.length) return;
+    
+    elements.templateGalleryContainer.innerHTML = '';
+    
+    state.allTemplatesList.forEach((template, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'template-gallery-slide hidden-slide';
+      slide.dataset.index = index;
+      
+      const img = document.createElement('img');
+      img.src = template.thumbnail;
+      img.alt = template.name;
+      
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slide-name';
+      nameDiv.textContent = template.name;
+      
+      slide.appendChild(img);
+      slide.appendChild(nameDiv);
+      
+      slide.addEventListener('click', function() {
+        if (this.classList.contains('current')) {
+          selectTemplate(template);
+          closeTemplateModal();
+        } else {
+          const clickedIndex = parseInt(this.dataset.index);
+          goToSlide(clickedIndex);
+        }
+      });
+      
+      elements.templateGalleryContainer.appendChild(slide);
+    });
+    
+    // 设置初始幻灯片位置
+    if (state.currentTemplate) {
+      const currentIndex = state.allTemplatesList.findIndex(t => t.id === state.currentTemplate.id);
+      state.currentSlideIndex = currentIndex >= 0 ? currentIndex : 0;
+    } else {
+      state.currentSlideIndex = 0;
+    }
+    
+    updateSlidePositions();
+  }
+  
+  // 更新幻灯片位置
+  function updateSlidePositions() {
+    const slides = elements.templateGalleryContainer?.querySelectorAll('.template-gallery-slide');
+    if (!slides || !slides.length) return;
+    
+    const total = slides.length;
+    const current = state.currentSlideIndex;
+    
+    slides.forEach((slide, index) => {
+      slide.classList.remove('prev-2', 'prev-1', 'current', 'next-1', 'next-2', 'hidden-slide');
+      
+      const prev1Index = (current - 1 + total) % total;
+      const prev2Index = (current - 2 + total) % total;
+      const next1Index = (current + 1) % total;
+      const next2Index = (current + 2) % total;
+      
+      if (index === current) {
+        slide.classList.add('current');
+      } else if (index === prev1Index) {
+        slide.classList.add('prev-1');
+      } else if (index === prev2Index) {
+        slide.classList.add('prev-2');
+      } else if (index === next1Index) {
+        slide.classList.add('next-1');
+      } else if (index === next2Index) {
+        slide.classList.add('next-2');
+      } else {
+        slide.classList.add('hidden-slide');
+      }
+    });
+    
+    if (elements.templateSlideName && state.allTemplatesList[current]) {
+      elements.templateSlideName.textContent = state.allTemplatesList[current].name;
+    }
+    if (elements.templateSlideCounter) {
+      elements.templateSlideCounter.textContent = `${current + 1} / ${total}`;
+    }
+  }
+  
+  // 跳转到指定幻灯片
+  function goToSlide(index) {
+    state.currentSlideIndex = index;
+    updateSlidePositions();
+  }
+  
+  // 上一个幻灯片
+  function prevSlide() {
+    if (!state.allTemplatesList.length) return;
+    state.currentSlideIndex = (state.currentSlideIndex - 1 + state.allTemplatesList.length) % state.allTemplatesList.length;
+    updateSlidePositions();
+  }
+  
+  // 下一个幻灯片
+  function nextSlide() {
+    if (!state.allTemplatesList.length) return;
+    state.currentSlideIndex = (state.currentSlideIndex + 1) % state.allTemplatesList.length;
+    updateSlidePositions();
+  }
+  
+  // 开始幻灯片自动播放
+  function startSlideAutoPlay() {
+    if (state.slideAutoPlayInterval) return;
+    
+    state.slideAutoPlaying = true;
+    updatePlayPauseButton();
+    
+    state.slideAutoPlayInterval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+  }
+  
+  // 停止幻灯片自动播放
+  function stopSlideAutoPlay() {
+    if (state.slideAutoPlayInterval) {
+      clearInterval(state.slideAutoPlayInterval);
+      state.slideAutoPlayInterval = null;
+    }
+    state.slideAutoPlaying = false;
+    updatePlayPauseButton();
+  }
+  
+  // 切换自动播放状态
+  function toggleSlideAutoPlay() {
+    if (state.slideAutoPlaying) {
+      stopSlideAutoPlay();
+    } else {
+      startSlideAutoPlay();
+    }
+  }
+  
+  // 更新播放/暂停按钮状态
+  function updatePlayPauseButton() {
+    const btn = elements.slidePlayPauseBtn;
+    if (!btn) return;
+    
+    const icon = btn.querySelector('i');
+    if (icon) {
+      if (state.slideAutoPlaying) {
+        icon.className = 'fa fa-pause';
+        btn.title = '暂停';
+      } else {
+        icon.className = 'fa fa-play';
+        btn.title = '播放';
+      }
+    }
+  }
+  
+  // 切换视图模式
+  function switchTemplateViewMode(mode) {
+    state.templateViewMode = mode;
+    
+    const gridView = elements.templateGrid;
+    const slideView = elements.templateSlideView;
+    const gridBtn = elements.templateGridViewBtn;
+    const slideBtn = elements.templateSlideViewBtn;
+    
+    if (mode === 'grid') {
+      gridView?.classList.remove('hidden');
+      slideView?.classList.add('hidden');
+      gridBtn?.classList.add('active');
+      slideBtn?.classList.remove('active');
+      stopSlideAutoPlay();
+    } else {
+      gridView?.classList.add('hidden');
+      slideView?.classList.remove('hidden');
+      gridBtn?.classList.remove('active');
+      slideBtn?.classList.add('active');
+      initTemplateSlideView();
+      startSlideAutoPlay();
+    }
   }
   
   // 获取所有模板的扁平化列表
@@ -4250,6 +4457,10 @@ let currentCropTarget = null;
   // 关闭模板选择弹窗
   function closeTemplateModal() {
     console.log('尝试关闭模板弹窗');
+    
+    // 停止自动播放
+    stopSlideAutoPlay();
+    
     if (elements.templateModal) {
       // 添加关闭动画类
       elements.templateModal.classList.add('closing');
@@ -4265,7 +4476,7 @@ let currentCropTarget = null;
         elements.templateModal.classList.remove('closing');
         elements.templateModal.querySelector('.modal').classList.remove('closing');
         console.log('模板弹窗已关闭');
-      }, 400); // 匹配动画时长
+      }, 400);
     } else {
       console.error('模板弹窗元素未找到');
     }
@@ -4390,6 +4601,9 @@ let currentCropTarget = null;
         }
       });
     }
+    
+    // 更新幻灯片视图
+    updateSlideViewFromFilter(month);
     
     // 在模板列表最后添加自定义背景入口
     addCustomBackgroundEntryToModal();
@@ -4533,31 +4747,83 @@ let currentCropTarget = null;
     
     // 在模板列表最后添加自定义背景入口
     addCustomBackgroundEntryToModal();
+    
+    // 更新幻灯片视图
+    updateSlideViewFromFilter(null, festival);
   }
   
-  // 关闭模板选择弹窗
-  function closeTemplateModal() {
-    if (elements.templateModal) {
-      // 移除动态创建的节日标签及其事件监听器
-      const festivalTags = document.querySelectorAll('.festival-tag');
-      festivalTags.forEach(tag => {
-        if (tag._clickHandler) {
-          tag.removeEventListener('click', tag._clickHandler);
-          delete tag._clickHandler;
+  // 根据筛选更新幻灯片视图
+  function updateSlideViewFromFilter(month, festival) {
+    if (!elements.templateGalleryContainer) return;
+    
+    let filteredTemplates = [];
+    
+    if (month) {
+      for (const monthKey in window.templates) {
+        const monthTemplates = window.templates[monthKey];
+        monthTemplates.forEach(template => {
+          if (template.months && template.months.includes(month)) {
+            filteredTemplates.push(template);
+          }
+        });
+      }
+    } else if (festival) {
+      for (const monthKey in window.templates) {
+        const monthTemplates = window.templates[monthKey];
+        monthTemplates.forEach(template => {
+          let showTemplate = false;
+          if (festival === '☀️ 早安') {
+            showTemplate = template.festivals.includes('早安');
+          } else if (festival === '🌙 晚安') {
+            showTemplate = template.festivals.includes('晚安');
+          } else {
+            showTemplate = template.festivals.includes(festival);
+          }
+          if (showTemplate) {
+            filteredTemplates.push(template);
+          }
+        });
+      }
+    } else {
+      filteredTemplates = getAllTemplatesList();
+    }
+    
+    state.allTemplatesList = filteredTemplates;
+    state.currentSlideIndex = 0;
+    
+    // 重新渲染幻灯片
+    elements.templateGalleryContainer.innerHTML = '';
+    
+    filteredTemplates.forEach((template, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'template-gallery-slide hidden-slide';
+      slide.dataset.index = index;
+      
+      const img = document.createElement('img');
+      img.src = template.thumbnail;
+      img.alt = template.name;
+      
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slide-name';
+      nameDiv.textContent = template.name;
+      
+      slide.appendChild(img);
+      slide.appendChild(nameDiv);
+      
+      slide.addEventListener('click', function() {
+        if (this.classList.contains('current')) {
+          selectTemplate(template);
+          closeTemplateModal();
+        } else {
+          const clickedIndex = parseInt(this.dataset.index);
+          goToSlide(clickedIndex);
         }
       });
       
-      // 清空模板网格和标签容器
-      if (elements.templateGrid) {
-        elements.templateGrid.innerHTML = '';
-      }
-      if (elements.modalFestivalTags) {
-        elements.modalFestivalTags.innerHTML = '';
-      }
-      
-      elements.templateModal.classList.add('hidden');
-      elements.templateModal.style.display = 'none';
-    }
+      elements.templateGalleryContainer.appendChild(slide);
+    });
+    
+    updateSlidePositions();
   }
   
   // 为输入框添加清除按钮和改进提示语交互
@@ -6513,13 +6779,15 @@ let currentCropTarget = null;
       if (elements.posterBusinessName) {
         // 移除向上位移，保持水平居中对齐
         elements.posterBusinessName.style.transform = `none`;
-        elements.posterBusinessName.style.fontSize = `12px`;
+        elements.posterBusinessName.style.fontSize = `10px`;
+        
       }
       if (elements.posterPromoText) {
         // 减少padding-bottom，避免下方出现空白
         elements.posterPromoText.style.padding = `4px 2px 7px 8px`;
          elements.posterPromoText.style.lineHeight = `15px`;
-         elements.posterPromoText.style.fontSize = `11px`;
+         elements.posterPromoText.style.fontSize = `10px`;
+         
       }
       
       // 保存logo和二维码的原始样式
