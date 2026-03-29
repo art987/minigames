@@ -4257,6 +4257,58 @@ let currentCropTarget = null;
     }
     
     updateSlidePositions();
+    
+    // 添加触摸滑动支持
+    initSlideTouchEvents();
+  }
+  
+  // 初始化幻灯片触摸滑动事件
+  function initSlideTouchEvents() {
+    const container = elements.templateGalleryContainer;
+    if (!container) return;
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let isSwiping = false;
+    
+    container.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+      isSwiping = true;
+    }, { passive: true });
+    
+    container.addEventListener('touchend', function(e) {
+      if (!isSwiping) return;
+      
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      isSwiping = false;
+      
+      handleSwipe();
+    }, { passive: true });
+    
+    container.addEventListener('touchcancel', function() {
+      isSwiping = false;
+    }, { passive: true });
+    
+    function handleSwipe() {
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const minSwipeDistance = 50;
+      
+      // 确保是水平滑动而不是垂直滑动
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          // 向右滑动 - 上一张
+          prevSlide();
+        } else {
+          // 向左滑动 - 下一张
+          nextSlide();
+        }
+      }
+    }
   }
   
   // 更新幻灯片位置
@@ -4824,6 +4876,9 @@ let currentCropTarget = null;
     });
     
     updateSlidePositions();
+    
+    // 重新绑定触摸事件
+    initSlideTouchEvents();
   }
   
   // 为输入框添加清除按钮和改进提示语交互
