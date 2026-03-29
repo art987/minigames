@@ -4267,15 +4267,15 @@ let currentCropTarget = null;
     const container = elements.templateGalleryContainer;
     if (!container) return;
     
+    if (container.dataset.touchInitialized) return;
+    container.dataset.touchInitialized = 'true';
+    
     let touchStartX = 0;
     let touchStartY = 0;
     let isDragging = false;
-    let startTime = 0;
-    let velocityX = 0;
-    let lastX = 0;
-    let lastTime = 0;
     let dragDeltaX = 0;
-    const slideWidth = 140;
+    let cumulativeSwipe = 0;
+    const swipeUnit = 50;
     
     function handleTouchStart(e) {
       if (state.slideAutoPlayInterval) {
@@ -4285,12 +4285,9 @@ let currentCropTarget = null;
       const touch = e.touches[0];
       touchStartX = touch.clientX;
       touchStartY = touch.clientY;
-      lastX = touch.clientX;
       isDragging = true;
-      startTime = Date.now();
-      lastTime = startTime;
-      velocityX = 0;
       dragDeltaX = 0;
+      cumulativeSwipe = 0;
       
       const slides = container.querySelectorAll('.template-gallery-slide');
       slides.forEach(slide => {
@@ -4305,67 +4302,40 @@ let currentCropTarget = null;
       const deltaX = touch.clientX - touchStartX;
       const deltaY = touch.clientY - touchStartY;
       
-      if (Math.abs(deltaX) < Math.abs(deltaY) && Math.abs(dragDeltaX) < 10) {
+      if (Math.abs(deltaX) < Math.abs(deltaY) && Math.abs(cumulativeSwipe) < 10) {
         return;
       }
       
       e.preventDefault();
       
-      const now = Date.now();
-      const dt = now - lastTime;
-      if (dt > 0) {
-        velocityX = (touch.clientX - lastX) / dt;
-      }
-      lastX = touch.clientX;
-      lastTime = now;
-      
       dragDeltaX = deltaX;
-      applyDragOffset(deltaX);
+      cumulativeSwipe = deltaX;
+      
+      applyDragOffset(cumulativeSwipe);
     }
     
     function handleTouchEnd(e) {
       if (!isDragging) return;
       isDragging = false;
       
-      const touch = e.changedTouches[0];
-      const totalDelta = touch.clientX - touchStartX;
-      const duration = Date.now() - startTime;
-      const speed = Math.abs(totalDelta) / duration;
-      
       const slides = container.querySelectorAll('.template-gallery-slide');
       slides.forEach(slide => {
         slide.style.transition = '';
       });
       
-      let targetIndex = state.currentSlideIndex;
       const total = state.allTemplatesList.length;
-      
       if (total <= 1) {
         clearDragOffset();
         return;
       }
       
-      const threshold = slideWidth * 0.4;
-      const fastSwipeSpeed = 0.3;
+      const units = Math.floor(Math.abs(cumulativeSwipe) / swipeUnit);
+      const direction = cumulativeSwipe > 0 ? -1 : 1;
+      const steps = direction > 0 ? -units : units;
+      const targetIndex = (state.currentSlideIndex + steps + total) % total;
       
-      if (speed > fastSwipeSpeed) {
-        const swipeCount = Math.min(Math.ceil(speed * 2), 2);
-        if (velocityX > 0) {
-          targetIndex = (state.currentSlideIndex - swipeCount + total) % total;
-        } else {
-          targetIndex = (state.currentSlideIndex + swipeCount) % total;
-        }
-      } else if (Math.abs(totalDelta) > threshold) {
-        if (totalDelta > 0) {
-          targetIndex = (state.currentSlideIndex - 1 + total) % total;
-        } else {
-          targetIndex = (state.currentSlideIndex + 1) % total;
-        }
-      }
-      
-      state.currentSlideIndex = targetIndex;
       clearDragOffset();
-      updateSlidePositions();
+      goToSlide(targetIndex);
       
       if (state.slideAutoPlaying) {
         setTimeout(() => {
