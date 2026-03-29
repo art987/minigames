@@ -4115,7 +4115,7 @@ footer {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding: 10px 0;
+  padding: 0px 0 10px;
   scrollbar-width: thin;
   scrollbar-color: #f1f1f1 transparent;
 }
@@ -4323,7 +4323,7 @@ footer {
   /* 小屏幕上的模态框调整 */
   .modal {
     width: 90vw;
-    max-height: 82vh;
+    max-height: 90vh;
     border-radius: 16px;
   }
   .modal .template-thumbnail{ height: 140px;}
@@ -4335,7 +4335,7 @@ footer {
   }
   
   .modal-title {
-    font-size: 14px;
+    font-size: 15px;
   }
   
   /* 小屏幕上的模板网格调整 */
@@ -4655,7 +4655,7 @@ input.hidden {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 7px 20px;
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -4669,7 +4669,7 @@ input.hidden {
 .modal-close {
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 31px;
   color: #ffffff;
   margin-top: -4px;
   cursor: pointer;
@@ -6414,7 +6414,7 @@ border-left: 5px solid #efefef;
 }
 
 .order-history-header {
-  padding: 12px 20px;
+  padding: 8px 20px;
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
@@ -6424,7 +6424,7 @@ border-left: 5px solid #efefef;
 
 .order-history-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 15px;
   color: #ffffff;
 }
 
@@ -6639,8 +6639,8 @@ border-left: 5px solid #efefef;
 
 .template-gallery-container {
   position: relative;
-  width: 160px;
-  height: 220px;
+  width: 158px;
+  height: 304px;
   transform-style: preserve-3d;
 }
 
@@ -6751,7 +6751,7 @@ border-left: 5px solid #efefef;
 
 .template-slide-controls .nav-btn {
   position: absolute;
-  top: -94px;
+  top: -128px;
 }
 
 .template-slide-info {
@@ -6809,16 +6809,17 @@ border-left: 5px solid #efefef;
 /* 响应式调整 */
 @media (max-width: 480px) {
   .template-3d-gallery {
-    height: 237px;
+    height: 293px;
   }
   
   .template-gallery-container {
-    width: 139px;
-    height: 222px;
+    width: 150px;
+    height: 263px;
   }
   
   .template-gallery-slide img {
-    max-height: 246px;
+    max-height: 268px;
+    margin-top: 0px;
   }
   
   .template-gallery-slide.prev-2 {
