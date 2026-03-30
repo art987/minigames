@@ -5538,7 +5538,7 @@ input.hidden {
 
 /* 今日发布内容样式 */
 .today-release-text {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
   font-size: 11px;
   display: flex;
   align-items: center;
@@ -5631,10 +5631,9 @@ input.hidden {
 .future-suggestion-text {
   font-size: 13px;
   color: var(--text-primary);
-border-left: 5px solid #efefef;
-    padding-left: 8px;
-    line-height: 16px;
-
+  border-left: 5px solid #cfcfcf;
+  padding-left: 8px;
+  line-height: 7px;
 }
 
 .future-suggestion-text strong {
@@ -5671,9 +5670,20 @@ border-left: 5px solid #efefef;
 }
 
 .future-suggestion-btn.primary {
-  background: #fff;
-  color: #cd0202;
+  background: linear-gradient(135deg, #fb2828d9, #c120fa);
+  color: #ffffff;
 }
+button.future-suggestion-btn[data-action="zaoan"] {
+    /* 这里是你的样式 */
+    background: linear-gradient(135deg, #85db56, #3bbb3e);
+    color: #fff;
+}
+button.future-suggestion-btn[data-action="wanan"] {
+    /* 这里是你的样式 */
+    background: linear-gradient(135deg, #096affd9, #3400a7);
+    color: #fff;
+}
+
 
 /* 整合行业模板弹窗样式 */
 #integratedIndustryTemplateModal.modal-overlay {
