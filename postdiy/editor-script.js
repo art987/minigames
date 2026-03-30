@@ -145,6 +145,65 @@ const IMAGE_CACHE_KEYS = {
   qrcode: 'poster_qrcode_base64'
 };
 
+const IMAGE_META_KEYS = {
+  logo: 'poster_logo_meta',
+  qrcode: 'poster_qrcode_meta'
+};
+
+const IMAGE_META = {
+  deviceId: 'image_cache_device_id',
+  lastFetch: 'image_cache_last_fetch',
+  forceRefresh: 'image_cache_force_refresh'
+};
+
+function getOrCreateDeviceId() {
+  let deviceId = localStorage.getItem(IMAGE_META.deviceId);
+  if (!deviceId) {
+    deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem(IMAGE_META.deviceId, deviceId);
+  }
+  return deviceId;
+}
+
+function shouldForceRefresh() {
+  const lastFetch = localStorage.getItem(IMAGE_META.lastFetch);
+  const forceRefresh = localStorage.getItem(IMAGE_META.forceRefresh);
+  const currentDeviceId = getOrCreateDeviceId();
+  const storedDeviceId = localStorage.getItem(IMAGE_META.deviceId + '_stored');
+  
+  if (forceRefresh === 'true') {
+    localStorage.removeItem(IMAGE_META.forceRefresh);
+    return true;
+  }
+  
+  if (storedDeviceId && storedDeviceId !== currentDeviceId) {
+    console.log('设备变更，强制刷新图片');
+    return true;
+  }
+  
+  if (lastFetch) {
+    const elapsed = Date.now() - parseInt(lastFetch);
+    const oneHour = 60 * 60 * 1000;
+    if (elapsed > oneHour) {
+      console.log('超过1小时未刷新，强制刷新图片');
+      return true;
+    }
+  } else {
+    return true;
+  }
+  
+  return false;
+}
+
+function updateImageMeta(urlKey) {
+  localStorage.setItem(IMAGE_META.lastFetch, Date.now().toString());
+  localStorage.setItem(IMAGE_META.deviceId + '_stored', getOrCreateDeviceId());
+}
+
+function setForceRefresh() {
+  localStorage.setItem(IMAGE_META.forceRefresh, 'true');
+}
+
 async function loadImageAsBase64(url) {
   try {
     const response = await fetch(url, {
@@ -191,16 +250,17 @@ async function initImagesWithCache() {
 
   const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
   const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+  const needRefresh = shouldForceRefresh();
 
   if (logoImg) {
-    if (cachedLogo && cachedLogo.startsWith('data:image')) {
+    if (cachedLogo && cachedLogo.startsWith('data:image') && !needRefresh) {
       logoImg.src = cachedLogo;
     } else if (logoImg.dataset.cloudUrl) {
-      // 没有缓存但有云端URL，尝试加载并缓存
       logoImg.crossOrigin = "anonymous";
       logoImg.src = logoImg.dataset.cloudUrl;
       loadImageAsBase64(logoImg.dataset.cloudUrl).then(base64 => {
         saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+        updateImageMeta();
       }).catch(e => {
         console.error('Logo缓存加载失败:', e);
       });
@@ -214,14 +274,14 @@ async function initImagesWithCache() {
   }
 
   if (qrImg) {
-    if (cachedQr && cachedQr.startsWith('data:image')) {
+    if (cachedQr && cachedQr.startsWith('data:image') && !needRefresh) {
       qrImg.src = cachedQr;
     } else if (qrImg.dataset.cloudUrl) {
-      // 没有缓存但有云端URL，尝试加载并缓存
       qrImg.crossOrigin = "anonymous";
       qrImg.src = qrImg.dataset.cloudUrl;
       loadImageAsBase64(qrImg.dataset.cloudUrl).then(base64 => {
         saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+        updateImageMeta();
       }).catch(e => {
         console.error('二维码缓存加载失败:', e);
       });
@@ -243,6 +303,7 @@ async function refreshImagesFromCloud() {
     try {
       const base64 = await loadImageAsBase64(logoImg.dataset.cloudUrl);
       saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+      updateImageMeta();
       logoImg.src = base64;
     } catch (e) {
       console.error('刷新Logo缓存失败:', e);
@@ -253,12 +314,30 @@ async function refreshImagesFromCloud() {
     try {
       const base64 = await loadImageAsBase64(qrImg.dataset.cloudUrl);
       saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+      updateImageMeta();
       qrImg.src = base64;
     } catch (e) {
       console.error('刷新二维码缓存失败:', e);
     }
   }
 }
+
+window.forceRefreshImages = async function() {
+  setForceRefresh();
+  await refreshImagesFromCloud();
+  
+  if (elements.logoPreviewImg && state.businessInfo.logo) {
+    const base64 = await loadImageAsBase64(state.businessInfo.logo);
+    saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+    elements.logoPreviewImg.src = base64;
+  }
+  
+  if (elements.qrcodePreviewImg && state.businessInfo.qrcode) {
+    const base64 = await loadImageAsBase64(state.businessInfo.qrcode);
+    saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+    elements.qrcodePreviewImg.src = base64;
+  }
+};
 
 async function updateImageCache(imgId, key, newUrl) {
   const img = document.getElementById(imgId);
@@ -522,13 +601,8 @@ let currentCropTarget = null;
   function showLoadingAnimation() {
     if (!elements.posterLoadingOverlay || !elements.loadingLogo) return;
     
-    // 设置Logo图片（如果有的话）
-    if (state.businessInfo.logo) {
-      elements.loadingLogo.src = state.businessInfo.logo;
-      elements.loadingLogo.style.display = 'block';
-    } else {
-      elements.loadingLogo.style.display = 'none';
-    }
+    elements.loadingLogo.src = 'images/statics/loading2.gif';
+    elements.loadingLogo.style.display = 'block';
     
     // 显示加载动画
     elements.posterLoadingOverlay.classList.remove('hidden');
@@ -550,13 +624,8 @@ let currentCropTarget = null;
   function showTemplateLoadingAnimation() {
     if (!elements.templateLoadingOverlay || !elements.templateLoadingLogo) return;
     
-    // 设置Logo图片（如果有的话）
-    if (state.businessInfo.logo) {
-      elements.templateLoadingLogo.src = state.businessInfo.logo;
-      elements.templateLoadingLogo.style.display = 'block';
-    } else {
-      elements.templateLoadingLogo.style.display = 'none';
-    }
+    elements.templateLoadingLogo.src = 'images/statics/loading2.gif';
+    elements.templateLoadingLogo.style.display = 'block';
     
     // 显示模板加载动画
     elements.templateLoadingOverlay.classList.remove('hidden');
@@ -656,7 +725,7 @@ let currentCropTarget = null;
       
       businessInfoModal: document.getElementById('businessInfoModal'),
       closeBusinessInfoModalBtn: document.getElementById('closeBusinessInfoModalBtn'),
-      cancelBusinessInfoBtn: document.getElementById('cancelBusinessInfoBtn'),
+      refreshDataBtn: document.getElementById('refreshDataBtn'),
       saveBusinessInfoBtn: document.getElementById('saveBusinessInfoBtn'),
       businessInfoForm: document.getElementById('businessInfoForm'),
       businessNameInput: document.getElementById('business-name'),
@@ -1965,8 +2034,16 @@ let currentCropTarget = null;
     if (elements.closeBusinessInfoModalBtn) {
       elements.closeBusinessInfoModalBtn.addEventListener('click', closeBusinessInfoModal);
     }
-    if (elements.cancelBusinessInfoBtn) {
-      elements.cancelBusinessInfoBtn.addEventListener('click', closeBusinessInfoModal);
+    if (elements.refreshDataBtn) {
+      elements.refreshDataBtn.addEventListener('click', async function() {
+        this.disabled = true;
+        this.textContent = '刷新中...';
+        if (window.forceRefreshImages) {
+          await window.forceRefreshImages();
+        }
+        this.textContent = '刷新云端数据';
+        this.disabled = false;
+      });
     }
     if (elements.saveBusinessInfoBtn) {
       elements.saveBusinessInfoBtn.addEventListener('click', saveBusinessInfo);
@@ -4225,8 +4302,15 @@ let currentCropTarget = null;
       slide.dataset.index = index;
       
       const img = document.createElement('img');
-      img.src = template.thumbnail;
+      const realSrc = template.thumbnail;
+      img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
+      img.onload = function() {
+        img.src = realSrc;
+      };
+      img.onerror = function() {
+        img.src = realSrc;
+      };
       
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';
@@ -4909,8 +4993,15 @@ let currentCropTarget = null;
       slide.dataset.index = index;
       
       const img = document.createElement('img');
-      img.src = template.thumbnail;
+      const realSrc = template.thumbnail;
+      img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
+      img.onload = function() {
+        img.src = realSrc;
+      };
+      img.onerror = function() {
+        img.src = realSrc;
+      };
       
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';

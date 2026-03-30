@@ -87,7 +87,7 @@ header {
 
 .logo {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: normal;
   color: #151515;
   text-decoration: none;
   display: flex;
@@ -99,7 +99,7 @@ header {
   width: 2rem;
   height: 2rem;
   fill: #ca0000;
-  transform: scaleX(-1);
+  /* transform: scaleX(-1); */
 }
 
 /* 主内容区域 */
@@ -622,7 +622,7 @@ footer {
   }
   
   .logo {
-    font-size: 1.25rem;
+    font-size: 16px;
   }
   
   .container {
@@ -5633,14 +5633,14 @@ input.hidden {
 
 .future-suggestion-text {
   font-size: 13px;
-  color: var(--text-primary);
+  color: #c00c0c;
   border-left: 5px solid #cfcfcf;
   padding-left: 8px;
   line-height: 7px;
 }
 
 .future-suggestion-text strong {
-  color: #000000;
+  color: #0e0e0e;
   font-weight: normal;
 }
 
@@ -5673,8 +5673,8 @@ input.hidden {
 }
 
 .future-suggestion-btn.primary {
-  background: linear-gradient(135deg, #fb2828d9, #c120fa);
-  color: #ffffff;
+  background: #fff;
+  color: #080808;
 }
 button.future-suggestion-btn[data-action="zaoan"] {
     /* 这里是你的样式 */

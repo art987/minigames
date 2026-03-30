@@ -882,6 +882,10 @@ const VipLoginUI = (function() {
           await loadUserInfoFromCloud()
         }
         
+        if (window.forceRefreshImages) {
+          await window.forceRefreshImages()
+        }
+        
         this.disabled = false
         this.textContent = '刷新云端数据'
       })
