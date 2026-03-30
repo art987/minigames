@@ -942,9 +942,10 @@ footer {
   text-align: center;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 15px;
+  border: 1px solid #ffffff82;
+  background: #ffffff;
   overflow: hidden;
-  background-color: rgb(255 255 255 / 48%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -962,10 +963,7 @@ footer {
 #posterLogoImg {
   width: 45px;
   height: 45px;
-  border-radius: 50%;
-  border: 1px solid #ffffffab;
   object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   display: none;
 }
 
@@ -3510,7 +3508,7 @@ footer {
   display: flex;
   justify-content: flex-end;
   padding: 15px 20px;
-  border-top: 1px solid #e0e0e0;
+  /* border-top: 1px solid #e0e0e0; */
   gap: 10px;
 }
 
@@ -3609,7 +3607,6 @@ footer {
   display: none;
   margin-bottom: 5px;
   font-size: 15px;
-  font-weight: 600;
   margin-top: 7px;
   height: 24px;
   color: #333;
@@ -3620,7 +3617,7 @@ footer {
   padding: 12px 8px 12px 9px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;
   transition: border-color 0.2s ease;
   font-weight: bold;
 }
@@ -3670,7 +3667,7 @@ footer {
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   background: #ffffff;
-  color: #d40000;
+  color: #000000;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -4755,7 +4752,7 @@ input.hidden {
   justify-content: flex-end;
   gap: 12px;
   padding: 11px 20px 14px;
-  border-top: 1px solid #e0e0e0;
+  /* border-top: 1px solid #e0e0e0; */
 }
 
 .btn-primary, .btn-secondary {
@@ -5090,7 +5087,6 @@ input.hidden {
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
