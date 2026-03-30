@@ -99,6 +99,7 @@ header {
   width: 2rem;
   height: 2rem;
   fill: #ca0000;
+  transform: scaleX(-1);
 }
 
 /* 主内容区域 */
@@ -4958,7 +4959,8 @@ input.hidden {
   position: relative;
   width: 80px;
   height: 80px;
-  animation: rotateLogo 4s linear infinite;
+  /* animation: rotateLogo 4s linear infinite; */
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4968,6 +4970,7 @@ input.hidden {
   width: 60px;
   z-index: 999;
   height: 60px;
+  animation: borderGradient 3s ease infinite;
   position: absolute;
   border-radius: 50%;
   object-fit: cover;
