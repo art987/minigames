@@ -1371,7 +1371,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">👨🏻‍🎨选择模板制作</button>`;
+      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button>`;
       html += '</div></div>';
     });
     
