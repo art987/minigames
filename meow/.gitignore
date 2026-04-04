@@ -1,4 +1,6 @@
 node_modules/
+meow/node_modules/
+_site/
 vendor/
 .git/
 .github/

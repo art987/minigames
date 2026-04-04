@@ -17,4 +17,5 @@ exclude:
   - .DS_Store
 
 # 使用捆绑的 Python 版本
+
 use_bundled_python: true
