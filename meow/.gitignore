@@ -1,0 +1,11 @@
+node_modules/
+vendor/
+.git/
+.github/
+android/
+capacitor.config.ts
+package.json
+package-lock.json
+www/
+*.log
+.DS_Store
