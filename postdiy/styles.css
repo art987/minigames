@@ -5479,7 +5479,7 @@ input.hidden {
   overflow-y: auto;
   overflow-x: hidden;
   padding: 10px 20px 30px 125px;
-  background-image: url(images/statics/smgirl.png);
+  background-image: url(images/statics/smgirl.png) !important;
   background-size: 222px;
   background-position: -50px -5px;
   background-repeat: no-repeat;
