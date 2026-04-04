@@ -1,9 +1,10 @@
+# 排除不必要的目录
 exclude:
   - node_modules/
-  - vendor/
+  - meow/node_modules/
   - .git/
   - .github/
-  - android/
-  - capacitor.config.ts
-  - package.json
-  - package-lock.json
+  - vendor/
+  - bower_components/
+  - Gemfile
+  - Gemfile.lock
