@@ -4305,12 +4305,13 @@ let currentCropTarget = null;
       const realSrc = template.thumbnail;
       img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
-      img.onload = function() {
+      img.loading = 'lazy';
+      
+      const realImg = new Image();
+      realImg.onload = function() {
         img.src = realSrc;
       };
-      img.onerror = function() {
-        img.src = realSrc;
-      };
+      realImg.src = realSrc;
       
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';
@@ -4996,12 +4997,13 @@ let currentCropTarget = null;
       const realSrc = template.thumbnail;
       img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
-      img.onload = function() {
+      img.loading = 'lazy';
+      
+      const realImg = new Image();
+      realImg.onload = function() {
         img.src = realSrc;
       };
-      img.onerror = function() {
-        img.src = realSrc;
-      };
+      realImg.src = realSrc;
       
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';
@@ -8467,17 +8469,6 @@ function updateBusinessInfoButtonForVip() {
         
         stickerEl.appendChild(stickerImg);
         
-        // 始终添加缩放控制点，但通过CSS控制显示/隐藏
-        const resizeHandles = ['nw', 'ne', 'sw', 'se'];
-        resizeHandles.forEach(pos => {
-          const handle = document.createElement('div');
-          handle.className = `sticker-resize-handle ${pos}`;
-          handle.dataset.position = pos;
-          handle.style.opacity = isSelected ? '1' : '0';
-          handle.style.transform = isSelected ? 'scale(1)' : 'scale(0)';
-          stickerEl.appendChild(handle);
-        });
-        
         posterFrame.appendChild(stickerEl);
         
         // 创建独立的控件（不受贴纸旋转影响）
@@ -8566,17 +8557,27 @@ function updateBusinessInfoButtonForVip() {
       
       // 旋转拖动状态
       let isRotating = false;
-      let startY = 0;
+      let startAngle = 0;
       let startRotation = 0;
+      
+      const getAngleFromCenter = (clientX, clientY) => {
+        const frameRect = posterFrame.getBoundingClientRect();
+        const stickerCenterX = (sticker.x / 100) * frameRect.width;
+        const stickerCenterY = (sticker.y / 100) * frameRect.height;
+        const centerX = frameRect.left + stickerCenterX;
+        const centerY = frameRect.top + stickerCenterY;
+        
+        return Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+      };
       
       const startRotate = (e) => {
         e.preventDefault();
         e.stopPropagation();
         isRotating = true;
         const pos = e.touches ? e.touches[0] : e;
-        startY = pos.clientY;
+        startAngle = getAngleFromCenter(pos.clientX, pos.clientY);
         startRotation = sticker.rotation;
-        document.body.style.cursor = 'ns-resize';
+        document.body.style.cursor = 'move';
       };
       
       const doRotate = (e) => {
@@ -8588,21 +8589,24 @@ function updateBusinessInfoButtonForVip() {
         if (!currentSticker) return;
         
         const pos = e.touches ? e.touches[0] : e;
+        const currentAngle = getAngleFromCenter(pos.clientX, pos.clientY);
         
-        // 根据镜像状态决定旋转方向
-        // 未镜像：向上拖动逆时针，向下拖动顺时针
-        // 镜像后：向上拖动顺时针，向下拖动逆时针
-        let deltaY;
+        let deltaAngle = currentAngle - startAngle;
+        
         if (currentSticker.mirror) {
-          deltaY = startY - pos.clientY;
-        } else {
-          deltaY = pos.clientY - startY;
+          deltaAngle = -deltaAngle;
         }
         
-        const rotation = startRotation + deltaY * 0.5;
-        const clampedRotation = Math.max(-180, Math.min(180, rotation));
-        this.updateStickerRotation(stickerId, clampedRotation);
+        let rotation = startRotation + deltaAngle;
+        
+        if (rotation > 180) rotation -= 360;
+        if (rotation < -180) rotation += 360;
+        
+        this.updateStickerRotation(stickerId, rotation);
         this.updateControlPositions(stickerId);
+        
+        startAngle = currentAngle;
+        startRotation = rotation;
       };
       
       const endRotate = () => {
@@ -8618,6 +8622,94 @@ function updateBusinessInfoButtonForVip() {
       document.addEventListener('touchend', endRotate);
       
       posterFrame.appendChild(rotateBtn);
+      
+      // 缩放控制点（四个角）
+      const resizePositions = [
+        { name: 'nw', offsetX: -1, offsetY: -1, tooltip: '左上缩放' },
+        { name: 'ne', offsetX: 1, offsetY: -1, tooltip: '右上缩放' },
+        { name: 'sw', offsetX: -1, offsetY: 1, tooltip: '左下缩放' },
+        { name: 'se', offsetX: 1, offsetY: 1, tooltip: '右下缩放' }
+      ];
+      
+      resizePositions.forEach(pos => {
+        const resizeHandle = document.createElement('div');
+        resizeHandle.className = `sticker-control sticker-resize-handle ${pos.name}`;
+        resizeHandle.title = pos.tooltip;
+        resizeHandle.dataset.stickerId = stickerId;
+        resizeHandle.dataset.position = pos.name;
+        
+        const handleX = stickerCenterX + pos.offsetX * (baseSize / 2 + 10);
+        const handleY = stickerCenterY + pos.offsetY * (baseSize / 2 + 10);
+        
+        resizeHandle.style.cssText = `
+          position: absolute;
+          left: ${handleX}px;
+          top: ${handleY}px;
+          transform: translate(-50%, -50%);
+          opacity: ${isSelected ? '1' : '0'};
+          z-index: ${sticker.zIndex + 10};
+        `;
+        
+        let isResizingHandle = false;
+        let initialDistance = 0;
+        let initialHandleScale = 0;
+        
+        const getDistanceFromCenter = (clientX, clientY) => {
+          const frameRect = posterFrame.getBoundingClientRect();
+          const centerX = frameRect.left + (sticker.x / 100) * frameRect.width;
+          const centerY = frameRect.top + (sticker.y / 100) * frameRect.height;
+          const dx = clientX - centerX;
+          const dy = clientY - centerY;
+          return Math.sqrt(dx * dx + dy * dy);
+        };
+        
+        const startResize = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          isResizingHandle = true;
+          const touchPos = e.touches ? e.touches[0] : e;
+          initialDistance = getDistanceFromCenter(touchPos.clientX, touchPos.clientY);
+          initialHandleScale = sticker.scale;
+          document.body.style.cursor = 'move';
+        };
+        
+        const doResize = (e) => {
+          if (!isResizingHandle) return;
+          e.preventDefault();
+          
+          const currentSticker = this.stickers.find(s => s.id === stickerId);
+          if (!currentSticker) return;
+          
+          const touchPos = e.touches ? e.touches[0] : e;
+          const currentDistance = getDistanceFromCenter(touchPos.clientX, touchPos.clientY);
+          
+          const scaleRatio = currentDistance / initialDistance;
+          let newScale = initialHandleScale * scaleRatio;
+          newScale = Math.max(0.2, Math.min(5, newScale));
+          
+          this.updateStickerScale(stickerId, newScale);
+          const scaleX = currentSticker.mirror ? -1 : 1;
+          const stickerEl = document.querySelector(`.sticker[data-sticker-id="${stickerId}"]`);
+          if (stickerEl) {
+            stickerEl.style.transform = `translate(-50%, -50%) scale(${newScale * scaleX}, ${newScale}) rotate(${currentSticker.rotation}deg)`;
+          }
+          this.updateControlPositions(stickerId);
+        };
+        
+        const endResize = () => {
+          isResizingHandle = false;
+          document.body.style.cursor = '';
+        };
+        
+        resizeHandle.addEventListener('mousedown', startResize);
+        resizeHandle.addEventListener('touchstart', startResize, { passive: false });
+        document.addEventListener('mousemove', doResize);
+        document.addEventListener('touchmove', doResize, { passive: false });
+        document.addEventListener('mouseup', endResize);
+        document.addEventListener('touchend', endResize);
+        
+        posterFrame.appendChild(resizeHandle);
+      });
       
       // 上移层级按钮（底部左侧，距离底边30px）
       const bringForwardBtn = document.createElement('button');
@@ -8695,6 +8787,19 @@ function updateBusinessInfoButtonForVip() {
         } else if (control.classList.contains('sticker-send-backward-btn')) {
           control.style.left = `${stickerCenterX + 30}px`;
           control.style.top = `${stickerCenterY + baseSize/2 + 30}px`;
+        } else if (control.classList.contains('sticker-resize-handle')) {
+          const position = control.dataset.position;
+          let offsetX = 0, offsetY = 0;
+          
+          if (position === 'nw') { offsetX = -1; offsetY = -1; }
+          else if (position === 'ne') { offsetX = 1; offsetY = -1; }
+          else if (position === 'sw') { offsetX = -1; offsetY = 1; }
+          else if (position === 'se') { offsetX = 1; offsetY = 1; }
+          
+          const handleX = stickerCenterX + offsetX * (baseSize / 2 + 10);
+          const handleY = stickerCenterY + offsetY * (baseSize / 2 + 10);
+          control.style.left = `${handleX}px`;
+          control.style.top = `${handleY}px`;
         }
         control.style.zIndex = sticker.zIndex + 10;
       });
@@ -8756,7 +8861,8 @@ function updateBusinessInfoButtonForVip() {
         if (e.target.classList.contains('sticker-delete-btn') ||
             e.target.classList.contains('sticker-mirror-btn') ||
             e.target.classList.contains('sticker-rotate-btn') ||
-            e.target.classList.contains('sticker-control')) {
+            e.target.classList.contains('sticker-control') ||
+            e.target.classList.contains('sticker-resize-handle')) {
           return;
         }
         
@@ -8765,23 +8871,6 @@ function updateBusinessInfoButtonForVip() {
         
         // 重置自动隐藏计时器
         this.resetAutoHideTimer();
-        
-        // 检查是否点击了缩放控制点
-        if (e.target.classList.contains('sticker-resize-handle')) {
-          isResizing = true;
-          const pos = getTouchPos(e);
-          startX = pos.x;
-          startY = pos.y;
-          
-          const sticker = this.stickers.find(s => s.id === stickerId);
-          if (sticker) {
-            initialScale = sticker.scale;
-          }
-          
-          e.stopPropagation();
-          e.preventDefault();
-          return;
-        }
         
         // 拖拽贴纸
         isDragging = true;
@@ -8801,11 +8890,11 @@ function updateBusinessInfoButtonForVip() {
       // 移动操作（鼠标/触摸）
       const moveOperation = (e) => {
         if (isResizing) {
-          // 重置自动隐藏计时器
-          this.resetAutoHideTimer();
-          
-          // 检查是否是双指触摸
+          // 只保留双指触摸缩放功能
           if (e.touches && e.touches.length === 2) {
+            // 重置自动隐藏计时器
+            this.resetAutoHideTimer();
+            
             const currentDistance = getTouchDistance(e);
             if (initialTouchDistance > 0) {
               const delta = (currentDistance - initialTouchDistance) / 200;
@@ -8819,34 +8908,11 @@ function updateBusinessInfoButtonForVip() {
               }
             }
             initialTouchDistance = currentDistance;
-          } else {
-            // 单指缩放（通过控制点）
-            const pos = getTouchPos(e);
-            const deltaX = pos.x - startX;
-            const deltaY = pos.y - startY;
             
-            // 使用最小值作为缩放因子，确保等比例缩放
-            const delta = Math.min(Math.abs(deltaX), Math.abs(deltaY)) / 100;
-            
-            const sticker = this.stickers.find(s => s.id === stickerId);
-            if (sticker) {
-              // 根据拖拽方向调整缩放
-              if (deltaX > 0 || deltaY > 0) {
-                sticker.scale = initialScale + delta;
-              } else {
-                sticker.scale = Math.max(0.2, initialScale - delta);
-              }
-              
-              this.updateStickerScale(stickerId, sticker.scale);
-              const scaleX = sticker.mirror ? -1 : 1;
-              stickerEl.style.transform = `translate(-50%, -50%) scale(${sticker.scale * scaleX}, ${sticker.scale}) rotate(${sticker.rotation}deg)`;
-              this.updateControlPositions(stickerId);
-            }
+            e.stopPropagation();
+            e.preventDefault();
+            return;
           }
-          
-          e.stopPropagation();
-          e.preventDefault();
-          return;
         }
         
         if (!isDragging) return;
