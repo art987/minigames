@@ -842,10 +842,10 @@ footer {
 /* 缩放控制点 */
 .sticker-resize-handle {
   position: absolute;
-  width: 14px;
-  height: 14px;
-  background: #fdfdfd;
-  border: 2px solid #FF4444;
+  width: 18px;
+  height: 18px;
+  background: #cf0000;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   cursor: nwse-resize;
   z-index: 103;
@@ -1526,10 +1526,10 @@ footer {
 }
 
 #backToHomeBtn {
-  background-color: rgb(0 0 0 / 90%);
-  border: none;
+  background-color: rgb(0 0 0 / 17%);
   border-radius: 50%;
   width: 45px;
+  border: none;
   height: 45px;
   display: flex;
   align-items: center;
@@ -1560,7 +1560,7 @@ footer {
 }
 
 .modal-overlay:not(.hidden) {
-  display: flex;
+  /* display: flex; */
 }
 
 /* 模态框容器 - 移动端优化 */
@@ -1855,6 +1855,182 @@ footer {
 
 .add-sticker-btn:active {
   transform: scale(0.98);
+}
+
+/* 画框选择弹窗样式 */
+#frameModal{    background: none;
+    backdrop-filter: blur(0px);}
+#frameModal .modal-body{padding:5px 0px 5px}
+.modal.frame-select-modal {
+  max-height: 80vh;
+  position: fixed;
+  top: 33%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-width: 500px;
+  background: #000000d4;
+  overflow: hidden;
+  border-radius: 9px;
+  border: 1px solid #3b3b3b;
+  box-shadow: 0 20px 64px rgb(0 0 0 / 92%);
+  z-index: 2000;
+}
+
+.modal.frame-select-modal .modal-header {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  left: 0;
+  height: 20px;
+  background: transparent;
+  border-bottom: none;
+  padding: 0;
+  z-index: 10;
+}
+
+.modal.frame-select-modal .modal-close {
+  position: absolute;
+  top: 3px;
+  right: -3px;
+  width: 35px;
+  height: 30px;
+  /* background: rgb(236 62 53); */
+  border: none;
+  border-radius: 0  0 0 13px;
+  color: #ff0000;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.frame-select-modal .modal-close:hover {
+  background: rgb(236 63 53);
+}
+
+.frame-selection-container {
+  display: flex;
+  align-items: center;
+  padding: 15px 1px 10px;
+  gap: 1px;
+}
+
+.frame-nav-btn {
+  width: 27px;
+  height: 43px;
+  background: #000000;
+  border: none;
+  border-radius: 21px;
+  color: #ffffff;
+  border: 1px solid #ffffff78;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.frame-nav-btn:hover {
+  background: #FF4444;
+}
+
+.frame-nav-btn:disabled {
+  background: #333333;
+  color: #666666;
+  cursor: not-allowed;
+  border: 1px solid #222;
+}
+
+.frame-scroll-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  margin: 0 4px;
+}
+
+.frame-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 11px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.frame-list::-webkit-scrollbar {
+  display: none;
+}
+
+.frame-item {
+  width: 41px;
+  height: 64px;
+  background: #262626;
+  border: 1px solid #ffffff29;
+  border-radius: 8px;
+  overflow: visible;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame-item:hover {
+  border-color: #FF4444;
+}
+
+.frame-item.selected {
+  box-shadow: 0 0 26px rgb(241 0 0 / 40%);
+  border: 2px solid #fefefe;
+  transform: scale(1.3);
+  z-index: 10;
+}
+
+.frame-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.frame-action-buttons {
+  display: flex;
+  gap: 15px;
+  padding: 3px 42px 10px;
+}
+
+.frame-clear-btn,
+.frame-confirm-btn {
+  flex: 1;
+  padding: 5px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.frame-clear-btn {
+  background: #ffffff36;
+  color: #ffffff;
+  border: 1px solid #676767;
+}
+
+.frame-clear-btn:hover {
+  background: #555555;
+}
+
+.frame-confirm-btn {
+  background: linear-gradient(135deg, #bd1b1b, #d10e00);
+  color: #FFFFFF;
+}
+
+.frame-confirm-btn:hover {
+  background: #FF4444;
 }
 
 /* VIP登录相关样式 */
@@ -3842,6 +4018,12 @@ footer {
 #businessInfoModal .color-select-container{ display: none;}
 
 
+.color-swatch-hint {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
 .color-swatch-group {
   display: flex;
   gap: 6px;
@@ -4608,7 +4790,7 @@ input.hidden {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4642,7 +4824,7 @@ input.hidden {
 }
 
 .modal-overlay {
-  animation: overlayFadeIn 0.3s ease-out forwards;
+  /* animation: overlayFadeIn 0.3s ease-out forwards; */
 }
 
 .modal-overlay.closing {
@@ -4684,7 +4866,7 @@ input.hidden {
 }
 
 .modal-body {
-  padding: 10px 10px 30px;
+  padding: 13px 14px 17px;
 }
 #businessInfoModal .scrollable-body{padding: 9px 26px 2px;}
 .input-section {

@@ -236,6 +236,9 @@
     <button id="takePhotoBtn" class="action-btn take-photo-btn toggleable-btn">
       <span>拍照</span>
     </button>
+    <button id="frameBtn" class="action-btn frame-btn toggleable-btn hidden">
+      <span>画框</span>
+    </button>
     <button id="stickerBtn" class="action-btn sticker-btn toggleable-btn hidden">
       <span>贴纸</span>
     </button>
@@ -393,6 +396,7 @@
               <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
               <div class="color-select-container">
                 <label class="form-label-sm">字体颜色:</label>
+                <div class="color-swatch-hint">黑白为百搭首选，其它可根据画面主色进行选择</div>
                 <div class="color-swatch-group">
                   <div class="color-swatch" data-color="#000000" style="background-color: #000000; border: 2px solid #333;" title="黑色"></div>
                   <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;" title="白色"></div>
@@ -553,6 +557,7 @@
         <div class="form-group">
           <label class="form-label">点选颜色即可生效:</label>
           <div class="color-select-container">
+            <div class="color-swatch-hint">黑白为百搭首选，其它可根据画面主色进行选择</div>
             <div class="color-swatch-group">
               <div class="color-swatch" data-color="#000000" style="background-color: #000000; border: 2px solid #333;" title="黑色"></div>
               <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;" title="白色"></div>
@@ -739,9 +744,7 @@
       </div>
       <div class="modal-body scrollable-body" id="stickerSelectionArea">
         <div class="sticker-category-tabs">
-           <button class="sticker-category-btn active" data-category="cover">遮罩</button>
-          <button class="sticker-category-btn" data-category="flowers2">花丛</button>
-          <button class="sticker-category-btn" data-category="zaoan">早安</button>
+          <button class="sticker-category-btn active" data-category="zaoan">早安</button>
           <button class="sticker-category-btn" data-category="zaoantext">早安短句</button>
           <button class="sticker-category-btn" data-category="wanan">晚安</button>
           <button class="sticker-category-btn" data-category="fighting">鼓励</button>
@@ -793,6 +796,34 @@
     </div>
   </div>
   
+  <!-- 画框选择弹窗 -->
+  <div id="frameModal" class="modal-overlay hidden">
+    <div class="modal frame-select-modal">
+      <div class="modal-header">
+        <button id="closeFrameModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="frame-selection-container">
+          <button class="frame-nav-btn frame-prev-btn" id="framePrevBtn">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="frame-scroll-container" id="frameScrollContainer">
+            <div class="frame-list" id="frameList">
+              <!-- 画框将通过JavaScript动态生成 -->
+            </div>
+          </div>
+          <button class="frame-nav-btn frame-next-btn" id="frameNextBtn">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="frame-action-buttons">
+          <button class="frame-clear-btn" id="frameClearBtn">清空画框</button>
+          <button class="frame-confirm-btn" id="frameConfirmBtn">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 首页弹窗 - 每天都是宣传日 -->
   <div id="homePopup" class="modal-overlay hidden">
     <div class="modal home-popup-modal">

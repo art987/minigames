@@ -367,6 +367,8 @@ let currentCropTarget = null;
     },
     customBackground: null,
     textColor: '#000000',
+    currentFrame: null,
+    pendingFrame: null,
     templateViewMode: 'slide',
     currentSlideIndex: 0,
     allTemplatesList: [],
@@ -660,6 +662,10 @@ let currentCropTarget = null;
       backgroundInput: document.getElementById('backgroundInput'),
       takePhotoBtn: document.getElementById('takePhotoBtn'),
       cameraInput: document.getElementById('cameraInput'),
+      frameBtn: document.getElementById('frameBtn'),
+      frameModal: document.getElementById('frameModal'),
+      frameList: document.getElementById('frameList'),
+      frameScrollContainer: document.getElementById('frameScrollContainer'),
       downloadBtn: document.getElementById('downloadBtn'),
       togglePositionBtn: document.getElementById('togglePositionBtn'),
       toggleMenuBtn: document.getElementById('toggleMenuBtn'),
@@ -1862,14 +1868,20 @@ let currentCropTarget = null;
     if (currentCropTarget === 'background') {
       console.log('处理背景图片裁剪');
       state.customBackground = base64;
-      
+
       state.textColor = '#000000';
       localStorage.setItem('textColor', '#000000');
-      
+
+      if (window.FrameManager) {
+        state.currentFrame = null;
+        state.pendingFrame = null;
+        window.FrameManager.removeFrameFromPreview();
+      }
+
       updateTemplateDisplay();
       updateStickerButtonVisibility();
       clearTriggerFocus();
-      
+
       showToast('背景图片已编辑');
     }
 
@@ -5567,18 +5579,25 @@ let currentCropTarget = null;
   // 移除背景图片
   function removeBackground() {
     state.customBackground = null;
-    
+
     // 恢复字体颜色为黑色
     state.textColor = '#000000';
     // 更新本地存储中的字体颜色
     localStorage.setItem('textColor', '#000000');
-    
+
     // 更新背景显示
     updateTemplateDisplay();
-    
+
     // 更新贴纸按钮显示状态
     updateStickerButtonVisibility();
-    
+
+    // 移除画框
+    if (window.FrameManager) {
+      state.currentFrame = null;
+      state.pendingFrame = null;
+      window.FrameManager.removeFrameFromPreview();
+    }
+
     // 显示成功提示
     showToast('背景图片已移除');
   }
@@ -9179,30 +9198,17 @@ function updateBusinessInfoButtonForVip() {
           { id: 'flowers-26', name: '鲜花26', url: 'sticker/flowers/26.png' },
           { id: 'flowers-27', name: '鲜花27', url: 'sticker/flowers/27.png' },
           { id: 'flowers-28', name: '鲜花28', url: 'sticker/flowers/28.png' },
-          { id: 'flowers-29', name: '鲜花29', url: 'sticker/flowers/29.png' }
-        ]
-      },
-      flowers2: {
-        name: '花丛',
-        stickers: [
-          { id: 'flowers2-1', name: '花丛1', url: 'sticker/flowers2/1.png' },
-          { id: 'flowers2-2', name: '花丛2', url: 'sticker/flowers2/2.png' },
-          { id: 'flowers2-3', name: '花丛3', url: 'sticker/flowers2/3.png' },
-          { id: 'flowers2-4', name: '花丛4', url: 'sticker/flowers2/4.png' },
-          { id: 'flowers2-5', name: '花丛5', url: 'sticker/flowers2/5.png' },
-          { id: 'flowers2-6', name: '花丛6', url: 'sticker/flowers2/6.png' },
-          { id: 'flowers2-7', name: '花丛7', url: 'sticker/flowers2/7.png' },
-          { id: 'flowers2-8', name: '花丛8', url: 'sticker/flowers2/8.png' },
-          { id: 'flowers2-9', name: '花丛9', url: 'sticker/flowers2/9.png' },
-          { id: 'flowers2-10', name: '花丛10', url: 'sticker/flowers2/10.png' },
-          { id: 'flowers2-11', name: '花丛11', url: 'sticker/flowers2/11.png' },
-          { id: 'flowers2-12', name: '花丛12', url: 'sticker/flowers2/12.png' },
-          { id: 'flowers2-13', name: '花丛13', url: 'sticker/flowers2/13.png' },
-          { id: 'flowers2-14', name: '花丛14', url: 'sticker/flowers2/14.png' },
-          { id: 'flowers2-15', name: '花丛15', url: 'sticker/flowers2/15.png' },
-          { id: 'flowers2-16', name: '花丛16', url: 'sticker/flowers2/16.png' },
-          { id: 'flowers2-17', name: '花丛17', url: 'sticker/flowers2/17.png' },
-          { id: 'flowers2-18', name: '花丛18', url: 'sticker/flowers2/18.png' }
+          { id: 'flowers-29', name: '鲜花29', url: 'sticker/flowers/29.png' },
+          { id: 'flowers-30', name: '鲜花30', url: 'sticker/flowers/30.png' },
+          { id: 'flowers-31', name: '鲜花31', url: 'sticker/flowers/31.png' },
+          { id: 'flowers-32', name: '鲜花32', url: 'sticker/flowers/32.png' },
+          { id: 'flowers-33', name: '鲜花33', url: 'sticker/flowers/33.png' },
+          { id: 'flowers-34', name: '鲜花34', url: 'sticker/flowers/34.png' },
+          { id: 'flowers-35', name: '鲜花35', url: 'sticker/flowers/35.png' },
+          { id: 'flowers-36', name: '鲜花36', url: 'sticker/flowers/36.png' },
+          { id: 'flowers-37', name: '鲜花37', url: 'sticker/flowers/37.png' },
+          { id: 'flowers-38', name: '鲜花38', url: 'sticker/flowers/38.png' },
+          { id: 'flowers-39', name: '鲜花39', url: 'sticker/flowers/39.png' }
         ]
       },
       zaoantext: {
@@ -9317,51 +9323,6 @@ function updateBusinessInfoButtonForVip() {
           { id: 'nice-17', name: '好看17', url: 'sticker/nice/17.png' },
           { id: 'nice-18', name: '好看18', url: 'sticker/nice/18.png' }
         ]
-      },
-      cover: {
-        name: '遮罩',
-        stickers: [
-          { id: 'cover-1', name: '遮罩1', url: 'sticker/cover/1.png' },
-          { id: 'cover-2', name: '遮罩2', url: 'sticker/cover/2.png' },
-          { id: 'cover-3', name: '遮罩3', url: 'sticker/cover/3.png' },
-          { id: 'cover-4', name: '遮罩4', url: 'sticker/cover/4.png' },
-          { id: 'cover-5', name: '遮罩5', url: 'sticker/cover/5.png' },
-          { id: 'cover-6', name: '遮罩6', url: 'sticker/cover/6.png' },
-          { id: 'cover-7', name: '遮罩7', url: 'sticker/cover/7.png' },
-          { id: 'cover-8', name: '遮罩8', url: 'sticker/cover/8.png' },
-          { id: 'cover-9', name: '遮罩9', url: 'sticker/cover/9.png' },
-          { id: 'cover-10', name: '遮罩10', url: 'sticker/cover/10.png' },
-          { id: 'cover-11', name: '遮罩11', url: 'sticker/cover/11.png' },
-          { id: 'cover-12', name: '遮罩12', url: 'sticker/cover/12.png' },
-          { id: 'cover-13', name: '遮罩13', url: 'sticker/cover/13.png' },
-          { id: 'cover-14', name: '遮罩14', url: 'sticker/cover/14.png' },
-          { id: 'cover-15', name: '遮罩15', url: 'sticker/cover/15.png' },
-          { id: 'cover-16', name: '遮罩16', url: 'sticker/cover/16.png' },
-          { id: 'cover-17', name: '遮罩17', url: 'sticker/cover/17.png' },
-          { id: 'cover-18', name: '遮罩18', url: 'sticker/cover/18.png' },
-          { id: 'cover-19', name: '遮罩19', url: 'sticker/cover/19.png' },
-          { id: 'cover-20', name: '遮罩20', url: 'sticker/cover/20.png' },
-          { id: 'cover-21', name: '遮罩21', url: 'sticker/cover/21.png' },
-          { id: 'cover-22', name: '遮罩22', url: 'sticker/cover/22.png' },
-          { id: 'cover-23', name: '遮罩23', url: 'sticker/cover/23.png' },
-          { id: 'cover-24', name: '遮罩24', url: 'sticker/cover/24.png' },
-          { id: 'cover-25', name: '遮罩25', url: 'sticker/cover/25.png' },
-          { id: 'cover-26', name: '遮罩26', url: 'sticker/cover/26.png' },
-          { id: 'cover-27', name: '遮罩27', url: 'sticker/cover/27.png' },
-          { id: 'cover-28', name: '遮罩28', url: 'sticker/cover/28.png' },
-          { id: 'cover-29', name: '遮罩29', url: 'sticker/cover/29.png' },
-          { id: 'cover-30', name: '遮罩30', url: 'sticker/cover/30.png' },
-          { id: 'cover-31', name: '遮罩31', url: 'sticker/cover/31.png' },
-          { id: 'cover-32', name: '遮罩32', url: 'sticker/cover/32.png' },
-          { id: 'cover-33', name: '遮罩33', url: 'sticker/cover/33.png' },
-          { id: 'cover-34', name: '遮罩34', url: 'sticker/cover/34.png' },
-          { id: 'cover-35', name: '遮罩35', url: 'sticker/cover/35.png' },
-          { id: 'cover-36', name: '遮罩36', url: 'sticker/cover/36.png' },
-          { id: 'cover-37', name: '遮罩37', url: 'sticker/cover/37.png' },
-          { id: 'cover-38', name: '遮罩38', url: 'sticker/cover/38.png' },
-          { id: 'cover-39', name: '遮罩39', url: 'sticker/cover/39.png' },
-          { id: 'cover-40', name: '遮罩40', url: 'sticker/cover/40.png' }
-        ]
       }
     },
     
@@ -9375,7 +9336,7 @@ function updateBusinessInfoButtonForVip() {
   
   // 贴纸弹窗管理
   window.stickerModalManager = {
-    currentCategory: 'cover',
+    currentCategory: 'zaoan',
     isScrolling: false,
     
     init: function() {
@@ -9831,24 +9792,337 @@ function updateBusinessInfoButtonForVip() {
   // 更新贴纸按钮显示状态
   function updateStickerButtonVisibility() {
     const stickerBtn = document.getElementById('stickerBtn');
+    const frameBtn = document.getElementById('frameBtn');
     if (!stickerBtn) return;
     
     if (state.customBackground) {
       // 用户上传的图片，显示按钮并添加霓虹闪烁效果
       stickerBtn.classList.remove('hidden');
       stickerBtn.classList.add('neon-glow');
+      if (frameBtn) {
+        frameBtn.classList.remove('hidden');
+        frameBtn.classList.add('neon-glow');
+      }
     } else {
       // 模板图片，隐藏按钮
       stickerBtn.classList.add('hidden');
       stickerBtn.classList.remove('neon-glow');
+      if (frameBtn) {
+        frameBtn.classList.add('hidden');
+        frameBtn.classList.remove('neon-glow');
+      }
     }
   }
+
+  // 画框管理功能
+  window.FrameManager = {
+    frameImages: [],
+    currentIndex: 0,
+    scrollUnit: 100,
+
+    init: function() {
+      this.loadFrameImages();
+      this.bindEvents();
+    },
+
+    loadFrameImages: function() {
+      const basePath = 'sticker/cover/';
+      for (let i = 1; i <= 27; i++) {
+        this.frameImages.push({
+          id: i,
+          src: basePath + i + '.png'
+        });
+      }
+    },
+
+    bindEvents: function() {
+      const frameBtn = document.getElementById('frameBtn');
+      const closeBtn = document.getElementById('closeFrameModalBtn');
+      const prevBtn = document.getElementById('framePrevBtn');
+      const nextBtn = document.getElementById('frameNextBtn');
+      const confirmBtn = document.getElementById('frameConfirmBtn');
+      const cancelBtn = document.getElementById('frameCancelBtn');
+      const frameModal = document.getElementById('frameModal');
+
+      if (frameBtn) {
+        frameBtn.addEventListener('click', () => {
+          this.openFrameModal();
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          this.cancelFrame();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          this.scrollFrames(-1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          this.scrollFrames(1);
+        });
+      }
+
+      if (confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+          this.confirmFrame();
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+          this.closeFrameModal();
+        });
+      }
+
+      const clearBtn = document.getElementById('frameClearBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          this.clearFrame();
+        });
+      }
+
+      if (frameModal) {
+        frameModal.addEventListener('click', (e) => {
+          if (e.target === frameModal) {
+            this.cancelFrame();
+          }
+        });
+      }
+    },
+
+    openFrameModal: function() {
+      state.pendingFrame = state.currentFrame;
+      elements.frameModal.classList.remove('hidden');
+      setTimeout(() => {
+        this.renderFrameList();
+        if (state.currentFrame) {
+          const index = this.frameImages.findIndex(f => f.id === state.currentFrame.id);
+          if (index >= 0) {
+            this.scrollToIndex(index);
+          }
+        }
+      }, 150);
+    },
+
+    closeFrameModal: function() {
+      elements.frameModal.classList.add('hidden');
+      state.pendingFrame = null;
+    },
+
+    renderFrameList: function() {
+      const frameList = document.getElementById('frameList');
+      if (!frameList) return;
+
+      frameList.innerHTML = '';
+
+      this.frameImages.forEach((frame, index) => {
+        const item = document.createElement('div');
+        item.className = 'frame-item';
+        if (state.pendingFrame && state.pendingFrame.id === frame.id) {
+          item.classList.add('selected');
+        }
+        item.dataset.index = index;
+
+        const img = document.createElement('img');
+        img.src = frame.src;
+        img.alt = '画框' + frame.id;
+        img.loading = 'lazy';
+
+        item.appendChild(img);
+        item.addEventListener('click', () => {
+          this.selectFrame(index);
+        });
+
+        frameList.appendChild(item);
+      });
+
+      setTimeout(() => {
+        this.updateNavButtons();
+      }, 500);
+
+      frameList.addEventListener('scroll', () => {
+        this.updateNavButtons();
+      });
+    },
+
+    selectFrame: function(index) {
+      document.querySelectorAll('.frame-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+
+      const selectedItem = document.querySelector(`.frame-item[data-index="${index}"]`);
+      if (selectedItem) {
+        selectedItem.classList.add('selected');
+      }
+
+      state.pendingFrame = this.frameImages[index];
+      this.scrollToIndex(index);
+      this.updatePreview();
+    },
+
+    updatePreview: function() {
+      if (state.pendingFrame) {
+        this.renderFrameToPreview(state.pendingFrame);
+      } else {
+        this.removeFrameFromPreview();
+      }
+    },
+
+    scrollFrames: function(direction) {
+      const frameList = document.getElementById('frameList');
+      if (!frameList) return;
+
+      let currentIndex = 0;
+      if (state.pendingFrame) {
+        currentIndex = this.frameImages.findIndex(f => f.id === state.pendingFrame.id);
+      }
+
+      let newIndex = currentIndex + direction;
+      if (newIndex < 0) newIndex = 0;
+      if (newIndex >= this.frameImages.length) newIndex = this.frameImages.length - 1;
+
+      this.selectFrame(newIndex);
+      this.scrollToIndex(newIndex);
+    },
+
+    scrollToIndex: function(index) {
+      const frameList = document.getElementById('frameList');
+      if (!frameList) return;
+
+      const itemWidth = 41;
+      const gap = 12;
+      const containerWidth = frameList.clientWidth;
+      const scaledWidth = itemWidth;
+      const itemPosition = index * (itemWidth + gap) + itemWidth / 2;
+      const scrollLeft = itemPosition - containerWidth / 2;
+
+      const targetScrollLeft = Math.max(0, scrollLeft);
+      frameList.style.scrollBehavior = 'smooth';
+      frameList.scrollLeft = targetScrollLeft;
+
+      setTimeout(() => {
+        this.updateNavButtons();
+      }, 350);
+    },
+
+    updateNavButtons: function() {
+      const frameList = document.getElementById('frameList');
+      const prevBtn = document.getElementById('framePrevBtn');
+      const nextBtn = document.getElementById('frameNextBtn');
+
+      if (!frameList || !prevBtn || !nextBtn) return;
+
+      const scrollLeft = frameList.scrollLeft;
+      const itemCount = this.frameImages.length;
+      const itemWidth = 80;
+      const gap = 12;
+      const totalWidth = itemCount * (itemWidth + gap);
+      const clientWidth = frameList.clientWidth;
+      const scrollWidth = frameList.scrollWidth;
+
+      console.log('updateNavButtons:', {
+        scrollLeft,
+        itemCount,
+        totalWidth,
+        clientWidth,
+        scrollWidth,
+        disabled: totalWidth <= clientWidth
+      });
+
+      if (totalWidth <= clientWidth) {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+      } else {
+        prevBtn.disabled = scrollLeft <= 0;
+        nextBtn.disabled = scrollLeft >= totalWidth - clientWidth;
+      }
+    },
+
+    confirmFrame: function() {
+      state.currentFrame = state.pendingFrame;
+      if (state.currentFrame) {
+        this.renderFrameToPreview(state.currentFrame);
+      }
+      this.closeFrameModal();
+    },
+
+    cancelFrame: function() {
+      state.pendingFrame = null;
+      if (state.currentFrame) {
+        this.renderFrameToPreview(state.currentFrame);
+      } else {
+        this.removeFrameFromPreview();
+      }
+      this.closeFrameModal();
+    },
+
+    clearFrame: function() {
+      state.pendingFrame = null;
+      state.currentFrame = null;
+      this.removeFrameFromPreview();
+      this.renderFrameList();
+    },
+
+    renderFrameToPreview: function(frame) {
+      let frameElement = document.getElementById('posterFrameCover');
+
+      if (!frameElement) {
+        frameElement = document.createElement('div');
+        frameElement.id = 'posterFrameCover';
+        frameElement.style.cssText = `
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          pointer-events: none;
+          z-index: 5;
+        `;
+        elements.posterFrame.appendChild(frameElement);
+      }
+
+      const img = document.createElement('img');
+      img.src = frame.src;
+      img.style.cssText = `
+        width: 100%;
+        height: auto;
+        display: block;
+      `;
+
+      frameElement.innerHTML = '';
+      frameElement.appendChild(img);
+    },
+
+    removeFrameFromPreview: function() {
+      const frameElement = document.getElementById('posterFrameCover');
+      if (frameElement) {
+        frameElement.remove();
+      }
+    },
+
+    updateFrameVisibility: function() {
+      const frameElement = document.getElementById('posterFrameCover');
+      if (frameElement) {
+        if (state.customBackground) {
+          frameElement.style.display = 'block';
+        } else {
+          frameElement.style.display = 'none';
+        }
+      }
+    }
+  };
   
   // 初始化贴纸功能
   document.addEventListener('DOMContentLoaded', function() {
     window.stickerModalManager.init();
     window.stickerManager.init();
-    
+    window.FrameManager.init();
+
     // 初始化贴纸按钮显示状态
     updateStickerButtonVisibility();
     
