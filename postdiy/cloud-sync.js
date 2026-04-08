@@ -53,21 +53,33 @@ async function uploadImageToCloud(imageType, imageData) {
       console.warn('图片压缩失败，使用原图:', compressErr);
     }
     
+    // 生成时间戳，确保每次上传的URL都不同
+    const timestamp = Date.now();
+    
     const response = await fetch(API_BASE_URL + '/user-update-image', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         userId,
         imageType,
-        imageData: compressedData
+        imageData: compressedData,
+        timestamp: timestamp // 添加时间戳参数
       })
     });
     
     const result = await response.json();
     
     if (result.success && result.data) {
-      console.log(imageType + ' 上传成功:', result.data.url);
-      return { success: true, url: result.data.url };
+      // 如果云端返回的URL没有时间戳，手动添加
+      let finalUrl = result.data.url;
+      if (finalUrl && !finalUrl.includes('?')) {
+        finalUrl = finalUrl + '?t=' + timestamp;
+      } else if (finalUrl && finalUrl.includes('?')) {
+        finalUrl = finalUrl + '&t=' + timestamp;
+      }
+      
+      console.log(imageType + ' 上传成功:', finalUrl);
+      return { success: true, url: finalUrl };
     } else {
       console.error(imageType + ' 上传失败:', result.message);
       return { success: false, message: result.message };

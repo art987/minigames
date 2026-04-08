@@ -5500,9 +5500,21 @@ let currentCropTarget = null;
         // 标记正在上传logo
         state.isUploadingLogo = true;
         
-        const loadingToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
-        const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
+        // 先删除旧的logo图片
+        const loadingToast = CloudSync.showLoadingToast('正在删除旧Logo...');
+        const deleteResult = await CloudSync.deleteImageFromCloud('logo');
         CloudSync.hideLoadingToast(loadingToast);
+        
+        if (deleteResult.success) {
+          console.log('旧Logo删除成功');
+        } else {
+          console.log('旧Logo删除失败，继续上传新Logo:', deleteResult.message);
+        }
+        
+        // 上传新logo图片
+        const uploadToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
+        const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
+        CloudSync.hideLoadingToast(uploadToast);
         
         if (result.success) {
           console.log('Logo上传成功，新URL:', result.url);
@@ -5534,9 +5546,21 @@ let currentCropTarget = null;
       }
       
       if (pendingUploads.qrcode) {
-        const loadingToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
+        // 先删除旧的二维码图片
+        const deleteToast = CloudSync.showLoadingToast('正在删除旧二维码...');
+        const deleteResult = await CloudSync.deleteImageFromCloud('qrcode');
+        CloudSync.hideLoadingToast(deleteToast);
+        
+        if (deleteResult.success) {
+          console.log('旧二维码删除成功');
+        } else {
+          console.log('旧二维码删除失败，继续上传新二维码:', deleteResult.message);
+        }
+        
+        // 上传新二维码图片
+        const uploadToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
         const result = await CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode);
-        CloudSync.hideLoadingToast(loadingToast);
+        CloudSync.hideLoadingToast(uploadToast);
         
         if (result.success) {
           state.businessInfo.qrcode = result.url;
