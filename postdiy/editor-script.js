@@ -209,16 +209,42 @@ async function loadImageAsBase64(url, retryCount = 3) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
     
-    const response = await fetch(url, {
-      mode: 'cors',
-      credentials: 'omit',
-      signal: controller.signal
-    });
+    // 尝试多种模式解决CORS问题
+    let response;
+    try {
+      // 首先尝试CORS模式
+      response = await fetch(url, {
+        mode: 'cors',
+        credentials: 'omit',
+        signal: controller.signal
+      });
+    } catch (corsError) {
+      console.log('CORS模式失败，尝试no-cors模式:', corsError);
+      
+      // 如果CORS失败，尝试no-cors模式（但只能获取opaque响应）
+      response = await fetch(url, {
+        mode: 'no-cors',
+        credentials: 'omit',
+        signal: controller.signal
+      });
+      
+      // no-cors模式下无法读取响应内容，需要特殊处理
+      if (response.type === 'opaque') {
+        // 对于no-cors模式，直接使用原始URL作为图片源
+        console.log('使用no-cors模式，直接返回原始URL');
+        return url;
+      }
+    }
     
     clearTimeout(timeoutId);
     
-    if (!response.ok) {
+    if (!response.ok && response.type !== 'opaque') {
       throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    // 如果是opaque响应，直接返回URL
+    if (response.type === 'opaque') {
+      return url;
     }
     
     const blob = await response.blob();
@@ -239,7 +265,9 @@ async function loadImageAsBase64(url, retryCount = 3) {
       return loadImageAsBase64(url, retryCount - 1);
     }
     
-    throw e;
+    // 如果所有方法都失败，返回原始URL作为备用方案
+    console.log('所有方法失败，返回原始URL作为备用');
+    return url;
   }
 }
 
@@ -357,15 +385,29 @@ window.forceRefreshImages = async function() {
   await refreshImagesFromCloud();
   
   if (elements.logoPreviewImg && state.businessInfo.logo) {
-    const base64 = await loadImageAsBase64(state.businessInfo.logo);
-    saveToCache(IMAGE_CACHE_KEYS.logo, base64);
-    elements.logoPreviewImg.src = base64;
+    const imageData = await loadImageAsBase64(state.businessInfo.logo);
+    // 检查返回的是base64还是URL
+    if (imageData.startsWith('data:image')) {
+      saveToCache(IMAGE_CACHE_KEYS.logo, imageData);
+      elements.logoPreviewImg.src = imageData;
+    } else {
+      // 如果是URL，直接使用URL，不缓存base64
+      elements.logoPreviewImg.src = imageData;
+      console.log('Logo使用原始URL（CORS限制）');
+    }
   }
   
   if (elements.qrcodePreviewImg && state.businessInfo.qrcode) {
-    const base64 = await loadImageAsBase64(state.businessInfo.qrcode);
-    saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
-    elements.qrcodePreviewImg.src = base64;
+    const imageData = await loadImageAsBase64(state.businessInfo.qrcode);
+    // 检查返回的是base64还是URL
+    if (imageData.startsWith('data:image')) {
+      saveToCache(IMAGE_CACHE_KEYS.qrcode, imageData);
+      elements.qrcodePreviewImg.src = imageData;
+    } else {
+      // 如果是URL，直接使用URL，不缓存base64
+      elements.qrcodePreviewImg.src = imageData;
+      console.log('二维码使用原始URL（CORS限制）');
+    }
   }
 };
 
@@ -2081,9 +2123,17 @@ let currentCropTarget = null;
       elements.refreshDataBtn.addEventListener('click', async function() {
         this.disabled = true;
         this.textContent = '刷新中...';
+        
+        // 强制刷新商家信息（跳过本地缓存）
+        if (window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo) {
+          window.CloudSync.setForceRefreshBusinessInfo();
+          await window.CloudSync.syncAndFillBusinessInfo(true); // 强制刷新
+        }
+        
         if (window.forceRefreshImages) {
           await window.forceRefreshImages();
         }
+        
         this.textContent = '刷新云端数据';
         this.disabled = false;
       });
@@ -9228,6 +9278,32 @@ function updateBusinessInfoButtonForVip() {
           { id: 'fighting-25', name: '鼓励25', url: 'sticker/fighting/25.png' }
         ]
       },
+      life: {
+        name: '正能量',
+        stickers: [
+          { id: 'life-1', name: '正能量1', url: 'sticker/life/1.png' },
+          { id: 'life-2', name: '正能量2', url: 'sticker/life/2.png' },
+          { id: 'life-3', name: '正能量3', url: 'sticker/life/3.png' },
+          { id: 'life-4', name: '正能量4', url: 'sticker/life/4.png' },
+          { id: 'life-5', name: '正能量5', url: 'sticker/life/5.png' },
+          { id: 'life-6', name: '正能量6', url: 'sticker/life/6.png' },
+          { id: 'life-7', name: '正能量7', url: 'sticker/life/7.png' },
+          { id: 'life-8', name: '正能量8', url: 'sticker/life/8.png' },
+          { id: 'life-9', name: '正能量9', url: 'sticker/life/9.png' },
+          { id: 'life-10', name: '正能量10', url: 'sticker/life/10.png' },
+          { id: 'life-11', name: '正能量11', url: 'sticker/life/11.png' },
+          { id: 'life-12', name: '正能量12', url: 'sticker/life/12.png' },
+          { id: 'life-13', name: '正能量13', url: 'sticker/life/13.png' },
+          { id: 'life-14', name: '正能量14', url: 'sticker/life/14.png' },
+          { id: 'life-15', name: '正能量15', url: 'sticker/life/15.png' },
+          { id: 'life-16', name: '正能量16', url: 'sticker/life/16.png' },
+          { id: 'life-17', name: '正能量17', url: 'sticker/life/17.png' },
+          { id: 'life-18', name: '正能量18', url: 'sticker/life/18.png' },
+          { id: 'life-19', name: '正能量19', url: 'sticker/life/19.png' },
+          { id: 'life-20', name: '正能量20', url: 'sticker/life/20.png' },
+          { id: 'life-21', name: '正能量21', url: 'sticker/life/21.png' }
+        ]
+      },
       flowers: {
         name: '鲜花',
         stickers: [
@@ -9272,46 +9348,7 @@ function updateBusinessInfoButtonForVip() {
           { id: 'flowers-39', name: '鲜花39', url: 'sticker/flowers/39.png' }
         ]
       },
-      zaoantext: {
-        name: '早安短句',
-        stickers: [
-          { id: 'zaoantext-11', name: '早安短句11', url: 'sticker/zaoantext/11.png' },
-          { id: 'zaoantext-12', name: '早安短句12', url: 'sticker/zaoantext/12.png' },
-          { id: 'zaoantext-13', name: '早安短句13', url: 'sticker/zaoantext/13.png' },
-          { id: 'zaoantext-14', name: '早安短句14', url: 'sticker/zaoantext/14.png' },
-          { id: 'zaoantext-15', name: '早安短句15', url: 'sticker/zaoantext/15.png' },
-          { id: 'zaoantext-16', name: '早安短句16', url: 'sticker/zaoantext/16.png' },
-          { id: 'zaoantext-17', name: '早安短句17', url: 'sticker/zaoantext/17.png' },
-          { id: 'zaoantext-18', name: '早安短句18', url: 'sticker/zaoantext/18.png' },
-          { id: 'zaoantext-19', name: '早安短句19', url: 'sticker/zaoantext/19.png' },
-          { id: 'zaoantext-20', name: '早安短句20', url: 'sticker/zaoantext/20.png' },
-          { id: 'zaoantext-21', name: '早安短句21', url: 'sticker/zaoantext/21.png' },
-          { id: 'zaoantext-22', name: '早安短句22', url: 'sticker/zaoantext/22.png' },
-          { id: 'zaoantext-23', name: '早安短句23', url: 'sticker/zaoantext/23.png' },
-          { id: 'zaoantext-24', name: '早安短句24', url: 'sticker/zaoantext/24.png' },
-          { id: 'zaoantext-25', name: '早安短句25', url: 'sticker/zaoantext/25.png' },
-          { id: 'zaoantext-26', name: '早安短句26', url: 'sticker/zaoantext/26.png' },
-          { id: 'zaoantext-27', name: '早安短句27', url: 'sticker/zaoantext/27.png' },
-          { id: 'zaoantext-28', name: '早安短句28', url: 'sticker/zaoantext/28.png' },
-          { id: 'zaoantext-29', name: '早安短句29', url: 'sticker/zaoantext/29.png' },
-          { id: 'zaoantext-30', name: '早安短句30', url: 'sticker/zaoantext/30.png' },
-          { id: 'zaoantext-31', name: '早安短句31', url: 'sticker/zaoantext/31.png' },
-          { id: 'zaoantext-32', name: '早安短句32', url: 'sticker/zaoantext/32.png' },
-          { id: 'zaoantext-33', name: '早安短句33', url: 'sticker/zaoantext/33.png' },
-          { id: 'zaoantext-34', name: '早安短句34', url: 'sticker/zaoantext/34.png' },
-          { id: 'zaoantext-35', name: '早安短句35', url: 'sticker/zaoantext/35.png' },
-          { id: 'zaoantext-36', name: '早安短句36', url: 'sticker/zaoantext/36.png' },
-          { id: 'zaoantext-37', name: '早安短句37', url: 'sticker/zaoantext/37.png' },
-          { id: 'zaoantext-38', name: '早安短句38', url: 'sticker/zaoantext/38.png' },
-          { id: 'zaoantext-39', name: '早安短句39', url: 'sticker/zaoantext/39.png' },
-          { id: 'zaoantext-40', name: '早安短句40', url: 'sticker/zaoantext/40.png' },
-          { id: 'zaoantext-41', name: '早安短句41', url: 'sticker/zaoantext/41.png' },
-          { id: 'zaoantext-42', name: '早安短句42', url: 'sticker/zaoantext/42.png' },
-          { id: 'zaoantext-43', name: '早安短句43', url: 'sticker/zaoantext/43.png' },
-          { id: 'zaoantext-44', name: '早安短句44', url: 'sticker/zaoantext/44.png' },
-          { id: 'zaoantext-45', name: '早安短句45', url: 'sticker/zaoantext/45.png' }
-        ]
-      },
+
       delicious: {
         name: '好吃',
         stickers: [

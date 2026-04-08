@@ -149,7 +149,7 @@ async function loadBusinessInfoFromCloud() {
 }
 
 // 同步并填充商家信息
-async function syncAndFillBusinessInfo() {
+async function syncAndFillBusinessInfo(forceRefresh = false) {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId) {
     console.log('用户未登录，跳过同步商家信息');
@@ -160,16 +160,26 @@ async function syncAndFillBusinessInfo() {
   const businessInfoCacheKey = 'businessInfoCache_' + userId;
   const CACHE_DURATION = 30 * 60 * 1000;
   
-  try {
-    const localCache = localStorage.getItem(localCacheKey);
-    if (localCache) {
-      const cachedData = JSON.parse(localCache);
-      console.log('使用本地缓存的商家信息:', cachedData);
-      fillBusinessInfoToState(cachedData);
-      return { success: true, source: 'cache' };
+  // 检查是否需要强制刷新
+  const shouldForceRefresh = forceRefresh || localStorage.getItem('business_info_force_refresh') === 'true';
+  
+  // 如果不是强制刷新，尝试使用缓存
+  if (!shouldForceRefresh) {
+    try {
+      const localCache = localStorage.getItem(localCacheKey);
+      if (localCache) {
+        const cachedData = JSON.parse(localCache);
+        console.log('使用本地缓存的商家信息:', cachedData);
+        fillBusinessInfoToState(cachedData);
+        return { success: true, source: 'cache' };
+      }
+    } catch (e) {
+      console.log('读取本地缓存失败:', e);
     }
-  } catch (e) {
-    console.log('读取本地缓存失败:', e);
+  } else {
+    console.log('强制刷新商家信息，跳过本地缓存');
+    // 清除强制刷新标记
+    localStorage.removeItem('business_info_force_refresh');
   }
   
   try {
@@ -202,6 +212,11 @@ async function syncAndFillBusinessInfo() {
     console.error('同步商家信息失败:', e);
     return { success: false, error: e.message };
   }
+}
+
+// 设置强制刷新商家信息标记
+function setForceRefreshBusinessInfo() {
+  localStorage.setItem('business_info_force_refresh', 'true');
 }
 
 // 填充商家信息到state和画布

@@ -878,7 +878,11 @@ const VipLoginUI = (function() {
         this.textContent = '刷新中...'
         
         if (window.CloudSync) {
-          await CloudSync.syncAndFillBusinessInfo()
+          // 强制刷新商家信息（跳过本地缓存）
+          if (CloudSync.setForceRefreshBusinessInfo) {
+            CloudSync.setForceRefreshBusinessInfo()
+          }
+          await CloudSync.syncAndFillBusinessInfo(true) // 强制刷新
           await loadUserInfoFromCloud()
         }
         
@@ -907,15 +911,23 @@ const VipLoginUI = (function() {
             userInfoBrandname.textContent = result.data.brandname || '-'
           }
           
-          // Logo - 优先使用缓存，但需要检查URL是否变化
+          // Logo - 优先使用缓存，但需要检查URL是否变化或强制刷新
           if (result.data.logoUrl) {
             if (userInfoLogoImg) {
               // 获取当前存储的logo URL
               const storedLogoUrl = localStorage.getItem('businessLogo')
               const cachedLogo = localStorage.getItem('poster_logo_base64')
               
-              // 如果URL变化了，需要重新加载缓存
-              if (storedLogoUrl !== result.data.logoUrl || !cachedLogo || !cachedLogo.startsWith('data:image')) {
+              // 检查是否需要强制刷新（设备变更、手动刷新等）
+              const shouldForceRefresh = localStorage.getItem('image_cache_force_refresh') === 'true'
+              
+              // 如果URL变化了、缓存不存在、缓存格式错误、或者需要强制刷新，都需要重新加载
+              if (storedLogoUrl !== result.data.logoUrl || !cachedLogo || !cachedLogo.startsWith('data:image') || shouldForceRefresh) {
+                // 清除强制刷新标记
+                if (shouldForceRefresh) {
+                  localStorage.removeItem('image_cache_force_refresh')
+                }
+                
                 // 尝试加载新的图片并缓存
                 try {
                   const response = await fetch(result.data.logoUrl, { mode: 'cors', credentials: 'omit' })
@@ -929,12 +941,15 @@ const VipLoginUI = (function() {
                   localStorage.setItem('poster_logo_base64', base64)
                   localStorage.setItem('businessLogo', result.data.logoUrl)
                   userInfoLogoImg.src = base64
+                  console.log('Logo缓存已更新（URL相同但内容可能已变化）')
                 } catch (e) {
                   console.error('加载Logo失败:', e)
                   userInfoLogoImg.src = result.data.logoUrl
                 }
               } else {
+                // URL相同且不需要强制刷新，使用缓存
                 userInfoLogoImg.src = cachedLogo
+                console.log('使用缓存的Logo（URL未变化）')
               }
               userInfoLogoImg.style.display = 'block'
             }
@@ -951,15 +966,23 @@ const VipLoginUI = (function() {
             }
           }
           
-          // 二维码 - 优先使用缓存，但需要检查URL是否变化
+          // 二维码 - 优先使用缓存，但需要检查URL是否变化或强制刷新
           if (result.data.qrcodeUrl) {
             if (userInfoQrcodeImg) {
               // 获取当前存储的二维码 URL
               const storedQrcodeUrl = localStorage.getItem('businessQrcode')
               const cachedQr = localStorage.getItem('poster_qrcode_base64')
               
-              // 如果URL变化了，需要重新加载缓存
-              if (storedQrcodeUrl !== result.data.qrcodeUrl || !cachedQr || !cachedQr.startsWith('data:image')) {
+              // 检查是否需要强制刷新（设备变更、手动刷新等）
+              const shouldForceRefresh = localStorage.getItem('image_cache_force_refresh') === 'true'
+              
+              // 如果URL变化了、缓存不存在、缓存格式错误、或者需要强制刷新，都需要重新加载
+              if (storedQrcodeUrl !== result.data.qrcodeUrl || !cachedQr || !cachedQr.startsWith('data:image') || shouldForceRefresh) {
+                // 清除强制刷新标记
+                if (shouldForceRefresh) {
+                  localStorage.removeItem('image_cache_force_refresh')
+                }
+                
                 // 尝试加载新的图片并缓存
                 try {
                   const response = await fetch(result.data.qrcodeUrl, { mode: 'cors', credentials: 'omit' })
@@ -973,12 +996,15 @@ const VipLoginUI = (function() {
                   localStorage.setItem('poster_qrcode_base64', base64)
                   localStorage.setItem('businessQrcode', result.data.qrcodeUrl)
                   userInfoQrcodeImg.src = base64
+                  console.log('二维码缓存已更新（URL相同但内容可能已变化）')
                 } catch (e) {
                   console.error('加载二维码失败:', e)
                   userInfoQrcodeImg.src = result.data.qrcodeUrl
                 }
               } else {
+                // URL相同且不需要强制刷新，使用缓存
                 userInfoQrcodeImg.src = cachedQr
+                console.log('使用缓存的二维码（URL未变化）')
               }
               userInfoQrcodeImg.style.display = 'block'
             }
