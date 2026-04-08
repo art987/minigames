@@ -10570,9 +10570,68 @@ function updateBusinessInfoButtonForVip() {
       });
     }
     
+    // 小红点管理功能
+    const RED_DOT_STORAGE_KEY = 'dailySuggestionRedDot';
+    
+    // 检查是否需要显示小红点
+    function checkRedDotVisibility() {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const lastClickHour = localStorage.getItem(RED_DOT_STORAGE_KEY);
+      
+      // 如果用户在当前小时点击过，或者没有记录，则不显示
+      if (lastClickHour && parseInt(lastClickHour) === currentHour) {
+        return false;
+      }
+      
+      // 显示小红点
+      return true;
+    }
+    
+    // 更新小红点显示状态
+    function updateRedDotVisibility() {
+      if (!dailySuggestionBtn) return;
+      
+      const shouldShow = checkRedDotVisibility();
+      if (shouldShow) {
+        dailySuggestionBtn.classList.add('has-red-dot');
+      } else {
+        dailySuggestionBtn.classList.remove('has-red-dot');
+      }
+    }
+    
+    // 记录用户点击时间
+    function recordRedDotClick() {
+      const now = new Date();
+      const currentHour = now.getHours();
+      localStorage.setItem(RED_DOT_STORAGE_KEY, currentHour.toString());
+      updateRedDotVisibility();
+    }
+    
+    // 整点检查函数
+    function checkHourlyRedDot() {
+      const now = new Date();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      
+      // 每分钟检查一次是否到达整点
+      if (minutes === 0 && seconds === 0) {
+        updateRedDotVisibility();
+      }
+    }
+    
+    // 初始化小红点状态
+    updateRedDotVisibility();
+    
+    // 设置整点检查定时器
+    setInterval(checkHourlyRedDot, 60000); // 每分钟检查一次
+    
     // 每日建议按钮点击事件
     if (dailySuggestionBtn) {
-      dailySuggestionBtn.addEventListener('click', showHomePopup);
+      dailySuggestionBtn.addEventListener('click', function() {
+        recordRedDotClick(); // 记录点击时间
+        showHomePopup(); // 显示弹窗
+      });
     }
   
     // 关闭弹窗
