@@ -204,15 +204,23 @@ function setForceRefresh() {
   localStorage.setItem(IMAGE_META.forceRefresh, 'true');
 }
 
-async function loadImageAsBase64(url) {
+async function loadImageAsBase64(url, retryCount = 3) {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
+    
     const response = await fetch(url, {
       mode: 'cors',
-      credentials: 'omit'
+      credentials: 'omit',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    
     const blob = await response.blob();
 
     return new Promise((resolve, reject) => {
@@ -222,7 +230,15 @@ async function loadImageAsBase64(url) {
       reader.readAsDataURL(blob);
     });
   } catch (e) {
-    console.error('loadImageAsBase64 失败:', url, e);
+    console.error('loadImageAsBase64 失败 (重试次数:', retryCount, '):', url, e);
+    
+    // 如果是网络错误且还有重试次数，则重试
+    if (retryCount > 0 && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
+      console.log('正在重试加载图片，剩余重试次数:', retryCount);
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒后重试
+      return loadImageAsBase64(url, retryCount - 1);
+    }
+    
     throw e;
   }
 }
@@ -299,27 +315,41 @@ async function refreshImagesFromCloud() {
   const logoImg = document.getElementById('posterLogoImg');
   const qrImg = document.getElementById('posterQrcodeImg');
 
+  // 并行加载图片，避免一个失败影响另一个
+  const loadPromises = [];
+  
   if (logoImg && logoImg.dataset.cloudUrl) {
-    try {
-      const base64 = await loadImageAsBase64(logoImg.dataset.cloudUrl);
-      saveToCache(IMAGE_CACHE_KEYS.logo, base64);
-      updateImageMeta();
-      logoImg.src = base64;
-    } catch (e) {
-      console.error('刷新Logo缓存失败:', e);
-    }
+    loadPromises.push((async () => {
+      try {
+        const base64 = await loadImageAsBase64(logoImg.dataset.cloudUrl);
+        saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+        updateImageMeta();
+        logoImg.src = base64;
+        console.log('Logo图片刷新成功');
+      } catch (e) {
+        console.error('刷新Logo缓存失败，但继续处理其他图片:', e);
+        // 保留原有图片，不更新
+      }
+    })());
   }
 
   if (qrImg && qrImg.dataset.cloudUrl) {
-    try {
-      const base64 = await loadImageAsBase64(qrImg.dataset.cloudUrl);
-      saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
-      updateImageMeta();
-      qrImg.src = base64;
-    } catch (e) {
-      console.error('刷新二维码缓存失败:', e);
-    }
+    loadPromises.push((async () => {
+      try {
+        const base64 = await loadImageAsBase64(qrImg.dataset.cloudUrl);
+        saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+        updateImageMeta();
+        qrImg.src = base64;
+        console.log('二维码图片刷新成功');
+      } catch (e) {
+        console.error('刷新二维码缓存失败，但继续处理其他图片:', e);
+        // 保留原有图片，不更新
+      }
+    })());
   }
+  
+  // 等待所有图片加载完成
+  await Promise.allSettled(loadPromises);
 }
 
 window.forceRefreshImages = async function() {
@@ -367,6 +397,7 @@ let currentCropTarget = null;
     },
     customBackground: null,
     textColor: '#000000',
+    isUploadingLogo: false,  // 标记是否正在上传logo
     currentFrame: null,
     pendingFrame: null,
     templateViewMode: 'slide',
@@ -5129,19 +5160,23 @@ let currentCropTarget = null;
   async function openBusinessInfoModal() {
     if (!elements.businessInfoModal || !elements.businessNameInput || !elements.businessPromoTextInput) return;
     
-    // 先从云端同步最新的商家信息
-    if (window.CloudSync) {
-      try {
-        const result = await CloudSync.loadBusinessInfoFromCloud();
-        if (result.success && result.data) {
-          const oldLogo = state.businessInfo.logo;
-          const oldQrcode = state.businessInfo.qrcode;
-          
-          // 更新state中的商家信息
-          state.businessInfo.name = result.data.brandname || state.businessInfo.name;
-          state.businessInfo.logo = result.data.logoUrl || state.businessInfo.logo;
-          state.businessInfo.qrcode = result.data.qrcodeUrl || state.businessInfo.qrcode;
-          state.businessInfo.promoText = result.data.promoText || state.businessInfo.promoText;
+    // 如果正在上传logo，避免重新从云端加载数据
+    if (state.isUploadingLogo) {
+      console.log('正在上传logo，跳过云端数据加载');
+    } else {
+      // 先从云端同步最新的商家信息
+      if (window.CloudSync) {
+        try {
+          const result = await CloudSync.loadBusinessInfoFromCloud();
+          if (result.success && result.data) {
+            const oldLogo = state.businessInfo.logo;
+            const oldQrcode = state.businessInfo.qrcode;
+            
+            // 更新state中的商家信息
+            state.businessInfo.name = result.data.brandname || state.businessInfo.name;
+            state.businessInfo.logo = result.data.logoUrl || state.businessInfo.logo;
+            state.businessInfo.qrcode = result.data.qrcodeUrl || state.businessInfo.qrcode;
+            state.businessInfo.promoText = result.data.promoText || state.businessInfo.promoText;
           
           // 同步更新本地存储
           localStorage.setItem('businessName', state.businessInfo.name);
@@ -5177,6 +5212,7 @@ let currentCropTarget = null;
       } catch (e) {
         console.error('从云端同步商家信息失败:', e);
       }
+    }
     }
     
     // 保存原始数据，用于取消时恢复
@@ -5411,15 +5447,40 @@ let currentCropTarget = null;
       
       // 处理待上传的图片
       if (pendingUploads.logo) {
+        // 标记正在上传logo
+        state.isUploadingLogo = true;
+        
         const loadingToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
         const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
         CloudSync.hideLoadingToast(loadingToast);
         
         if (result.success) {
+          console.log('Logo上传成功，新URL:', result.url);
+          console.log('更新state.businessInfo.logo前:', state.businessInfo.logo);
+          
+          // 先更新state和本地缓存，再同步到云端
           state.businessInfo.logo = result.url;
+          console.log('更新state.businessInfo.logo后:', state.businessInfo.logo);
+          
+          // 立即更新预览图片，不等待缓存
+          const posterLogoImg = document.getElementById('posterLogoImg');
+          if (posterLogoImg) {
+            posterLogoImg.src = result.url;
+            console.log('预览图片已更新');
+          }
+          
+          // 异步更新本地缓存
+          updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url).then(() => {
+            console.log('本地缓存更新完成');
+          });
+          
+          // 最后同步到云端
           await CloudSync.syncLogoUrlToCloud(result.url);
-          await updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url);
+          console.log('云端同步完成');
         }
+        
+        // 上传完成，清除标记
+        state.isUploadingLogo = false;
       }
       
       if (pendingUploads.qrcode) {
