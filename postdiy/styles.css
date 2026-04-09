@@ -867,6 +867,158 @@ footer {
   background: #FF4444;
 }
 
+/* 调色控件按钮 */
+.sticker-color-btn {
+  font-size: 21px;
+    padding-bottom: 5px;
+    padding-left: 1px;
+}
+
+.sticker-color-btn i {
+  color: #FF4444;
+}
+
+.sticker-color-btn:hover i {
+  color: white;
+}
+
+/* 贴纸调色面板 */
+.sticker-color-panel {
+  position: absolute;
+  width: 213px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.sticker-color-panel .color-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  background: #f5f5f5;
+  position: static;
+}
+
+.sticker-color-panel .color-panel-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  display: none;
+}
+
+.sticker-color-panel .color-panel-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-size: 32px;
+  cursor: pointer;
+  position: absolute;
+  color: #c90404;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 3px;
+  border-radius: 50%;
+  top: 1px;
+}
+
+.sticker-color-panel .color-panel-close:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.sticker-color-panel .color-panel-body {
+  padding: 9px 10px;
+}
+
+.sticker-color-panel .color-preset {
+  margin-bottom: 9px;
+}
+
+.sticker-color-panel .color-preset span {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.sticker-color-panel .color-swatch-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sticker-color-panel .color-swatch {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 31%);
+}
+
+.sticker-color-panel .color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.sticker-color-panel .color-swatch.active {
+  border-color: #FF4444;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3);
+}
+
+.sticker-color-panel .color-brightness,
+.sticker-color-panel .color-saturation {
+  margin-bottom: 7px;
+}
+
+.sticker-color-panel .color-control-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -8px;
+}
+
+.sticker-color-panel .color-control-label span {
+  font-size: 12px;
+  color: #666;
+}
+
+.sticker-color-panel .brightness-value,
+.sticker-color-panel .saturation-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.sticker-color-panel input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e0e0e0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.sticker-color-panel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 18px;
+  border-radius: 5px;
+  background: #4b4b4b;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.sticker-color-panel input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
 .sticker-resize-handle.nw { top: -7px; left: -7px; }
 .sticker-resize-handle.ne { top: -7px; right: -7px; }
 .sticker-resize-handle.sw { bottom: -7px; left: -7px; }
