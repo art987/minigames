@@ -204,6 +204,8 @@ function setForceRefresh() {
   localStorage.setItem(IMAGE_META.forceRefresh, 'true');
 }
 
+const imageBase64Cache = {};
+
 async function loadImageAsBase64(url, retryCount = 3) {
   try {
     const controller = new AbortController();
@@ -6815,30 +6817,7 @@ let currentCropTarget = null;
     }
   }
   
-  // 图片Base64缓存
-  const imageBase64Cache = {};
 
-  // 加载图片为Base64
-  async function loadImageAsBase64(url) {
-    if (imageBase64Cache[url]) {
-      return imageBase64Cache[url];
-    }
-
-    const response = await fetch(url, {
-      mode: 'cors',
-      credentials: 'omit'
-    });
-    const blob = await response.blob();
-
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        imageBase64Cache[url] = reader.result;
-        resolve(reader.result);
-      };
-      reader.readAsDataURL(blob);
-    });
-  }
 
   // 导出前预处理图片
   async function prepareImages() {
