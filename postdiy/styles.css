@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+/* 移除移动端触摸高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -ms-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
 /* 全局变量 */
 :root {
   --primary-color: #f6a83b;
@@ -1000,7 +1008,7 @@ footer {
   background-color: transparent;
   cursor: pointer;
   z-index: 5;
-  transition: background-color 0.2s ease;
+  transition: none;
   display: flex;
 }
 
@@ -1055,11 +1063,11 @@ footer {
     border: none !important;
   }
   
-  /* 触摸激活时的临时效果 */
+  /* 触摸激活时的临时效果 - 移除背景色变化 */
   .trigger-left:active,
   .trigger-top:active,
   .trigger-bottom:active {
-    background-color: rgb(6 6 6 / 14%);
+    background-color: transparent !important;
     border:2px dashed #ffffffad;
   }
 }
@@ -1093,7 +1101,7 @@ footer {
   pointer-events: none;
   z-index: 100;
   white-space: nowrap;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
   font-weight: bold;
   background: none !important;
   user-select: none;
@@ -1108,7 +1116,7 @@ footer {
 
 .long-press-hint.hiding {
   opacity: 0;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 /* 长按区域样式 - 白色虚线框和发光效果 */
@@ -1118,24 +1126,7 @@ footer {
   border: 2px dashed rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
   border-radius: 20px;
-  background-color: #00000040;
-  animation: borderGradient 3s ease infinite;
-}
-
-@keyframes border-glow {
-  0% {
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-  }
-  50% {
-    border-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.6), 0 0 70px rgba(255, 255, 255, 0.4);
-  }
-  100% {
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    opacity: 0;
-  }
+  background-color: #00000040 !important;
 }
 
 /* 悬停提示文字样式 */
@@ -1157,10 +1148,6 @@ footer {
   transition: opacity 0.3s ease-in-out;
   font-weight: bold;
   background: none !important;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .hover-hint.show {

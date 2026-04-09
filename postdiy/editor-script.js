@@ -2305,15 +2305,15 @@ let currentCropTarget = null;
         hint.textContent = text;
         target.appendChild(hint);
         
-        // 显示动画 - 文字和样式类同时添加
-        requestAnimationFrame(() => {
-          hint.classList.add('show');
-          if (hintType === 'long-press') {
-            target.classList.add('long-press-active');
-          }
-        });
+        // 如果是长按提示，添加激活样式类（立即添加，不等待）
+        if (hintType === 'long-press') {
+          target.classList.add('long-press-active');
+        }
         
-        // 如果是长按提示，3秒后隐藏；悬停提示2秒后隐藏
+        // 显示动画（立即添加，不等待）
+        hint.classList.add('show');
+        
+        // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
         const hideTime = hintType === 'hover' ? 2000 : 3000;
         setTimeout(() => {
           hint.classList.remove('show');
@@ -2393,10 +2393,7 @@ let currentCropTarget = null;
           // 左侧区域
           currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
           
-          // 立即显示触摸提示
-          showHint(currentTarget, '更换模板', 'hover');
-          
-          // 设置长按定时器
+          // 长按时直接显示 long-press 提示
           longPressTimer = setTimeout(() => {
             showHint(currentTarget, '更换模板', 'long-press');
           }, 600); // 600毫秒长按触发
@@ -2405,14 +2402,12 @@ let currentCropTarget = null;
           if (clickY < areaHeight / 2) {
             // 右上区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
-            showHint(currentTarget, '相册上传', 'hover');
             longPressTimer = setTimeout(() => {
               showHint(currentTarget, '相册上传', 'long-press');
             }, 600);
           } else {
             // 右下区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
-            showHint(currentTarget, '拍照上传', 'hover');
             longPressTimer = setTimeout(() => {
               showHint(currentTarget, '拍照上传', 'long-press');
             }, 600);
@@ -5673,6 +5668,18 @@ let currentCropTarget = null;
     const triggerAreas = document.querySelectorAll('.trigger-left, .trigger-top, .trigger-bottom');
     triggerAreas.forEach(area => {
       area.blur(); // 移除焦点
+      
+      // 同时移除长按提示文字
+      const longPressHint = area.querySelector('.long-press-hint');
+      if (longPressHint) {
+        longPressHint.classList.remove('show');
+        longPressHint.classList.add('hiding');
+        setTimeout(() => {
+          if (longPressHint.parentNode) {
+            longPressHint.remove();
+          }
+        }, 200);
+      }
     });
     
     // 移除任何可能的 active 或 focus 相关类
