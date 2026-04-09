@@ -2305,17 +2305,15 @@ let currentCropTarget = null;
         hint.textContent = text;
         target.appendChild(hint);
         
-        // 显示动画
-        setTimeout(() => {
+        // 显示动画 - 文字和样式类同时添加
+        requestAnimationFrame(() => {
           hint.classList.add('show');
-        }, 10);
+          if (hintType === 'long-press') {
+            target.classList.add('long-press-active');
+          }
+        });
         
-        // 如果是长按提示，添加激活样式类
-        if (hintType === 'long-press') {
-          target.classList.add('long-press-active');
-        }
-        
-        // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
+        // 如果是长按提示，3秒后隐藏；悬停提示2秒后隐藏
         const hideTime = hintType === 'hover' ? 2000 : 3000;
         setTimeout(() => {
           hint.classList.remove('show');
@@ -7178,10 +7176,12 @@ let currentCropTarget = null;
               const ctx = canvas.getContext('2d');
 
               const container = imgElement.parentElement;
-              const width = container.offsetWidth;
-              const height = container.offsetHeight;
+              const innerWrapper = container.querySelector('.logo-inner-wrapper, .qrcode-inner-wrapper');
+              const targetElement = innerWrapper || container;
+              const width = targetElement.offsetWidth;
+              const height = targetElement.offsetHeight;
 
-              const scaleRatio = window.devicePixelRatio || 2;
+              const scaleRatio = window.devicePixelRatio * 2 || 4;
 
               canvas.width = width * scaleRatio;
               canvas.height = height * scaleRatio;
@@ -7198,7 +7198,7 @@ let currentCropTarget = null;
               if (isLogo) {
                 // Logo：圆形裁剪 + 白色描边
                 const radius = Math.min(width, height) / 2;
-                const borderWidth = 1;
+                const borderWidth = 0;
                 const borderColor = 'rgba(255,255,255,0.67)';
                 
                 ctx.save();
@@ -7218,7 +7218,7 @@ let currentCropTarget = null;
                 // 二维码：圆角 + 白色描边
                 const borderWidth = 1;
                 const borderColor = 'rgba(255,255,255,0.67)';
-                const borderRadius = 10;
+                
                 
                 ctx.save();
                 ctx.beginPath();
