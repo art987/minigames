@@ -8775,8 +8775,8 @@ function updateBusinessInfoButtonForVip() {
         colorBtn.dataset.position = 'left-bottom';
         colorBtn.style.cssText = `
           position: absolute;
-          left: ${stickerCenterX - actualWidth/2}px;
-          top: ${stickerCenterY + actualHeight/2}px;
+          left: ${stickerCenterX - actualWidth/2 - 20}px;
+          top: ${stickerCenterY + actualHeight/2 + 20}px;
           transform: translate(-50%, -50%);
           opacity: ${isSelected ? '1' : '0'};
           z-index: ${sticker.zIndex + 10};
@@ -9049,9 +9049,9 @@ function updateBusinessInfoButtonForVip() {
           control.style.left = `${stickerCenterX + 30}px`;
           control.style.top = `${stickerCenterY + actualHeight/2 + 30}px`;
         } else if (control.classList.contains('sticker-color-btn')) {
-          // 调色按钮：左下角
-          control.style.left = `${stickerCenterX - actualWidth/2}px`;
-          control.style.top = `${stickerCenterY + actualHeight/2}px`;
+          // 调色按钮：左下角，往左移动20px，往下移动20px
+          control.style.left = `${stickerCenterX - actualWidth/2 - 20}px`;
+          control.style.top = `${stickerCenterY + actualHeight/2 + 20}px`;
         } else if (control.classList.contains('sticker-resize-handle')) {
           const position = control.dataset.position;
           
@@ -9265,13 +9265,14 @@ function updateBusinessInfoButtonForVip() {
       const colors = [
         { name: '黑色', value: '#000000' },
         { name: '白色', value: '#ffffff' },
-        { name: '红色', value: '#ff0000' },
+        { name: '红色', value: '#c70808ff' },
+        { name: '粉色', value: '#ff7c92ff' },
         { name: '橙色', value: '#ff7f00' },
         { name: '黄色', value: '#ffff00' },
-        { name: '绿色', value: '#00ff00' },
-        { name: '青色', value: '#00ffff' },
-        { name: '蓝色', value: '#0000ff' },
-        { name: '紫色', value: '#8b00ff' }
+        { name: '绿色', value: '#01a801ff' },
+        { name: '青色', value: '#07daa5ff' },
+        { name: '蓝色', value: '#1d1d77ff' },
+        { name: '紫色', value: '#720bc7ff' }
       ];
 
       const container = panel.querySelector('.color-swatch-container');

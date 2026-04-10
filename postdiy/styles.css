@@ -870,7 +870,24 @@ footer {
 /* 调色控件按钮 */
 .sticker-color-btn {
   font-size: 16px;
+  color: #ffffff;
+            /*设置盒子的背景颜色*/
+  background-image: linear-gradient(
+133deg, #ffea7e, #fffffe, #c8ffab, #9aebeb, #cfff84, #ffffff, #88ffd6);
+  background-size: 300%;
+            /*通过background-clip属性按照文字轮廓裁剪*/
+  background-clip: padding-box;
+            /*添加动画animation：动画名 动画持续时间 匀速 循环播放 */
+  animation: move 20s linear infinite;
 }
+ @keyframes move {
+            0% {
+                background-position: 300% 0;
+            }
+            100% {
+                background-position: -300% 0;
+            }
+        }
 
 .sticker-color-btn i {
   color: #FF4444;
@@ -1019,7 +1036,7 @@ footer {
 
 .sticker-resize-handle.nw { top: -7px; left: -7px; }
 .sticker-resize-handle.ne { top: -7px; right: -7px; }
-.sticker-resize-handle.sw { bottom: -7px; left: -7px; }
+.sticker-resize-handle.sw {display: none;bottom: -7px;left: -7px;}
 .sticker-resize-handle.se { bottom: -7px; right: -7px; }
 
 /* 海报背景 */
