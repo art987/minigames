@@ -8354,11 +8354,17 @@ function updateBusinessInfoButtonForVip() {
       const index = this.stickers.findIndex(s => s.id === stickerId);
       if (index !== -1) {
         this.stickers.splice(index, 1);
-        
+
         if (this.selectedStickerId === stickerId) {
           this.selectedStickerId = null;
         }
-        
+
+        // 关闭该贴纸的调色面板
+        const panel = document.querySelector(`.sticker-color-panel[data-sticker-id="${stickerId}"]`);
+        if (panel) {
+          panel.remove();
+        }
+
         this.renderStickers();
       }
     },
@@ -9163,36 +9169,51 @@ function updateBusinessInfoButtonForVip() {
           </div>
         </div>
       `;
-      
+
       // 添加到页面
       document.body.appendChild(panel);
-      
+
+      // 6秒无操作自动关闭
+      let autoCloseTimer = setTimeout(() => {
+        panel.remove();
+      }, 6000);
+
+      // 重置自动关闭计时器的函数
+      const resetAutoCloseTimer = () => {
+        clearTimeout(autoCloseTimer);
+        autoCloseTimer = setTimeout(() => {
+          panel.remove();
+        }, 6000);
+      };
+
       // 绑定关闭事件
       const closeBtn = panel.querySelector('.color-panel-close');
       closeBtn.onclick = () => {
+        clearTimeout(autoCloseTimer);
         panel.remove();
       };
-      
+
       // 点击空白区域关闭
       document.addEventListener('click', function closeOnClick(e) {
         if (!panel.contains(e.target) && e.target !== closeBtn) {
+          clearTimeout(autoCloseTimer);
           panel.remove();
           document.removeEventListener('click', closeOnClick);
         }
       });
-      
+
       // 初始化颜色预设
-      this.initColorPresets(panel, sticker);
-      
+      this.initColorPresets(panel, sticker, resetAutoCloseTimer);
+
       // 初始化亮度滑块
-      this.initBrightnessSlider(panel, sticker);
-      
+      this.initBrightnessSlider(panel, sticker, resetAutoCloseTimer);
+
       // 初始化饱和度滑块
-      this.initSaturationSlider(panel, sticker);
-      
+      this.initSaturationSlider(panel, sticker, resetAutoCloseTimer);
+
       // 绑定贴纸移动事件，更新面板位置
       this.bindStickerMoveEventForPanel(panel, sticker.id);
-      
+
       // 初始位置
       this.updateColorPanelPosition(panel, sticker);
     },
@@ -9223,20 +9244,24 @@ function updateBusinessInfoButtonForVip() {
     updateColorPanelPosition: function(panel, sticker) {
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
-      
+
       const stickerEl = document.querySelector(`.sticker[data-sticker-id="${sticker.id}"]`);
       if (!stickerEl) return;
-      
+
       const frameRect = posterFrame.getBoundingClientRect();
       const stickerRect = stickerEl.getBoundingClientRect();
-      
-      // 面板位置：贴纸左下角下方
-      panel.style.left = `${stickerRect.left}px`;
-      panel.style.top = `${stickerRect.bottom + 10}px`;
+      const panelRect = panel.getBoundingClientRect();
+
+      // 面板位置：贴纸底边下方5像素，水平居中
+      const panelLeft = stickerRect.left + (stickerRect.width - panelRect.width) / 2;
+      const panelTop = stickerRect.bottom + 5;
+
+      panel.style.left = `${panelLeft}px`;
+      panel.style.top = `${panelTop}px`;
     },
     
     // 初始化颜色预设
-    initColorPresets: function(panel, sticker) {
+    initColorPresets: function(panel, sticker, resetAutoCloseTimer) {
       const colors = [
         { name: '黑色', value: '#000000' },
         { name: '白色', value: '#ffffff' },
@@ -9248,7 +9273,7 @@ function updateBusinessInfoButtonForVip() {
         { name: '蓝色', value: '#0000ff' },
         { name: '紫色', value: '#8b00ff' }
       ];
-      
+
       const container = panel.querySelector('.color-swatch-container');
       colors.forEach(color => {
         const swatch = document.createElement('div');
@@ -9258,43 +9283,45 @@ function updateBusinessInfoButtonForVip() {
         if (color.value === sticker.color) {
           swatch.classList.add('active');
         }
-        
+
         swatch.onclick = () => {
+          resetAutoCloseTimer();
           sticker.color = color.value;
           this.updateStickerColor(sticker.id);
-          // 更新激活状态
           container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
           swatch.classList.add('active');
         };
-        
+
         container.appendChild(swatch);
       });
     },
-    
+
     // 初始化亮度滑块
-    initBrightnessSlider: function(panel, sticker) {
+    initBrightnessSlider: function(panel, sticker, resetAutoCloseTimer) {
       const slider = panel.querySelector('.brightness-slider');
       const valueDisplay = panel.querySelector('.brightness-value');
-      
+
       slider.value = sticker.brightness;
       valueDisplay.textContent = sticker.brightness.toFixed(1);
-      
+
       slider.oninput = () => {
+        resetAutoCloseTimer();
         sticker.brightness = parseFloat(slider.value);
         valueDisplay.textContent = sticker.brightness.toFixed(1);
         this.updateStickerColor(sticker.id);
       };
     },
-    
+
     // 初始化饱和度滑块
-    initSaturationSlider: function(panel, sticker) {
+    initSaturationSlider: function(panel, sticker, resetAutoCloseTimer) {
       const slider = panel.querySelector('.saturation-slider');
       const valueDisplay = panel.querySelector('.saturation-value');
-      
+
       slider.value = sticker.saturation;
       valueDisplay.textContent = sticker.saturation.toFixed(1);
-      
+
       slider.oninput = () => {
+        resetAutoCloseTimer();
         sticker.saturation = parseFloat(slider.value);
         valueDisplay.textContent = sticker.saturation.toFixed(1);
         this.updateStickerColor(sticker.id);
