@@ -869,9 +869,7 @@ footer {
 
 /* 调色控件按钮 */
 .sticker-color-btn {
-  font-size: 21px;
-    padding-bottom: 5px;
-    padding-left: 1px;
+  font-size: 16px;
 }
 
 .sticker-color-btn i {
@@ -885,7 +883,7 @@ footer {
 /* 贴纸调色面板 */
 .sticker-color-panel {
   position: absolute;
-  width: 213px;
+  width: 183px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
