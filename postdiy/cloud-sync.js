@@ -2,8 +2,7 @@
 
 const API_BASE_URL = 'https://api.peacelove.top';
 
-// 压缩图片到指定宽度
-function compressImage(imageData, maxWidth = 350) {
+function compressImage(imageData, maxWidth = 300) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = function() {
@@ -26,7 +25,20 @@ function compressImage(imageData, maxWidth = 350) {
                           imageData.startsWith('data:image/webp') ? 'image/webp' : 
                           imageData.startsWith('data:image/gif') ? 'image/gif' : 'image/jpeg';
       const useTransparent = originalType !== 'image/jpeg';
-      const compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.8);
+      let compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.8);
+      
+      const maxBase64Size = 4 * 1024 * 1024;
+      if (compressedData.length > maxBase64Size) {
+        console.log('压缩后数据仍然过大，进一步缩小尺寸...');
+        const scale = Math.sqrt(maxBase64Size / compressedData.length);
+        const newWidth = Math.round(width * scale);
+        const newHeight = Math.round(height * scale);
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.7);
+      }
+      
       console.log('图片压缩完成: 原始尺寸 ' + img.width + 'x' + img.height + ' -> ' + width + 'x' + height + ', 格式: ' + (useTransparent ? 'PNG(保留透明)' : 'JPEG'));
       console.log('压缩后数据大小约: ' + Math.round(compressedData.length / 1024) + 'KB');
       

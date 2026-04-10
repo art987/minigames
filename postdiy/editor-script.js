@@ -1773,8 +1773,12 @@ let currentCropTarget = null;
     saturation: 100
   };
 
+  let currentCropImageType = 'jpeg';
+
   function openCropper(file, targetType, aspectRatio = 1) {
     console.log('openCropper 被调用, targetType:', targetType, 'aspectRatio:', aspectRatio);
+    currentCropImageType = file.type === 'image/png' ? 'png' : 'jpeg';
+    console.log('原始图片类型:', currentCropImageType);
     const reader = new FileReader();
 
     reader.onload = function(e) {
@@ -1909,8 +1913,9 @@ let currentCropTarget = null;
 
     const finalCanvas = applyImageFilters(canvas);
 
-    const base64 = finalCanvas.toDataURL('image/png');
-    console.log('生成的base64长度:', base64.length);
+    const useTransparentFormat = currentCropTarget === 'logo' && currentCropImageType === 'png';
+    const base64 = finalCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
+    console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
 
     if (currentCropTarget === 'logo') {
       console.log('处理Logo裁剪');
