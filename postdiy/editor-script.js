@@ -211,10 +211,8 @@ async function loadImageAsBase64(url, retryCount = 3) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
     
-    // 尝试多种模式解决CORS问题
     let response;
     try {
-      // 首先尝试CORS模式
       response = await fetch(url, {
         mode: 'cors',
         credentials: 'omit',
@@ -222,17 +220,13 @@ async function loadImageAsBase64(url, retryCount = 3) {
       });
     } catch (corsError) {
       console.log('CORS模式失败，尝试no-cors模式:', corsError);
-      
-      // 如果CORS失败，尝试no-cors模式（但只能获取opaque响应）
       response = await fetch(url, {
         mode: 'no-cors',
         credentials: 'omit',
         signal: controller.signal
       });
       
-      // no-cors模式下无法读取响应内容，需要特殊处理
       if (response.type === 'opaque') {
-        // 对于no-cors模式，直接使用原始URL作为图片源
         console.log('使用no-cors模式，直接返回原始URL');
         return url;
       }
@@ -244,7 +238,6 @@ async function loadImageAsBase64(url, retryCount = 3) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    // 如果是opaque响应，直接返回URL
     if (response.type === 'opaque') {
       return url;
     }
@@ -258,17 +251,17 @@ async function loadImageAsBase64(url, retryCount = 3) {
       reader.readAsDataURL(blob);
     });
   } catch (e) {
-    console.error('loadImageAsBase64 失败 (重试次数:', retryCount, '):', url, e);
+    console.error('loadImageAsBase64 失败:', url, e);
     
     // 如果是网络错误且还有重试次数，则重试
     if (retryCount > 0 && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
       console.log('正在重试加载图片，剩余重试次数:', retryCount);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒后重试
+      await new Promise(resolve => setTimeout(resolve, 1000));
       return loadImageAsBase64(url, retryCount - 1);
     }
     
-    // 如果所有方法都失败，返回原始URL作为备用方案
-    console.log('所有方法失败，返回原始URL作为备用');
+    // 所有方法都失败时，直接返回原始URL（img标签可以直接加载）
+    console.log('所有方法失败，直接返回原始URL');
     return url;
   }
 }
@@ -3458,12 +3451,6 @@ let currentCropTarget = null;
             console.error('Logo缓存加载失败:', e);
           });
         }
-        
-        // 设置错误处理
-        elements.posterLogoImg.onerror = function() {
-          console.error('Logo图片加载失败，尝试从云端重新加载');
-          refreshImagesFromCloud();
-        };
       } else {
         elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = 'images/statics/logo-default.gif';
@@ -3506,12 +3493,6 @@ let currentCropTarget = null;
             console.error('二维码缓存加载失败:', e);
           });
         }
-        
-        // 设置错误处理
-        elements.posterQrcodeImg.onerror = function() {
-          console.error('二维码图片加载失败，尝试从云端重新加载');
-          refreshImagesFromCloud();
-        };
       } else {
         elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
@@ -5681,26 +5662,20 @@ let currentCropTarget = null;
 
   // 显示提示消息
   function showToast(message) {
-    // 检查是否已存在toast元素
     let toast = document.querySelector('.toast-message');
     if (!toast) {
-      // 创建toast元素
       toast = document.createElement('div');
-      toast.className = 'toast-message fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-black/75 text-white px-4 py-2 rounded-lg z-500';
-      toast.style.transition = 'all 0.3s ease';
+      toast.className = 'toast-message';
+      toast.style.cssText = 'position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); color: white; padding: 6px 12px; border-radius: 4px; z-index: 10000; font-size: 12px; white-space: nowrap;';
       document.body.appendChild(toast);
     }
-    
+
     toast.textContent = message;
     toast.style.opacity = '1';
-    toast.style.transform = 'translate(-50%, 0)';
-    
-    // 3秒后隐藏并从DOM中移除
+    toast.style.display = 'block';
+
     setTimeout(() => {
       toast.style.opacity = '0';
-      toast.style.transform = 'translate(-50%, 20px)';
-      
-      // 动画完成后从DOM中完全移除
       setTimeout(() => {
         if (toast.parentNode) {
           document.body.removeChild(toast);
@@ -8154,11 +8129,6 @@ function updateBusinessInfoButtonForVip() {
             console.error('Logo缓存加载失败:', e);
           });
         }
-        
-        elements.posterLogoImg.onerror = function() {
-          console.error('Logo图片加载失败，尝试从云端重新加载');
-          refreshImagesFromCloud();
-        };
       } else {
         elements.posterLogoImg.style.display = 'none';
         elements.posterLogoImg.dataset.cloudUrl = '';
@@ -8198,11 +8168,6 @@ function updateBusinessInfoButtonForVip() {
             console.error('二维码缓存加载失败:', e);
           });
         }
-        
-        elements.posterQrcodeImg.onerror = function() {
-          console.error('二维码图片加载失败，尝试从云端重新加载');
-          refreshImagesFromCloud();
-        };
       } else {
         elements.posterQrcodeImg.style.display = 'none';
         elements.posterQrcodeImg.dataset.cloudUrl = '';

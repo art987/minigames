@@ -519,7 +519,7 @@ function showLoadingToast(message) {
   if (!loadingToast) {
     loadingToast = document.createElement('div');
     loadingToast.className = 'loading-toast';
-    loadingToast.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 16px 24px; border-radius: 8px; z-index: 10000; font-size: 14px;';
+    loadingToast.style.cssText = 'position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); color: white; padding: 6px 12px; border-radius: 4px; z-index: 10000; font-size: 12px; white-space: nowrap;';
     document.body.appendChild(loadingToast);
   }
   loadingToast.textContent = message;
