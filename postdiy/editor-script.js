@@ -338,7 +338,6 @@ async function refreshImagesFromCloud() {
   const logoImg = document.getElementById('posterLogoImg');
   const qrImg = document.getElementById('posterQrcodeImg');
 
-  // 并行加载图片，避免一个失败影响另一个
   const loadPromises = [];
   
   if (logoImg && logoImg.dataset.cloudUrl) {
@@ -350,8 +349,27 @@ async function refreshImagesFromCloud() {
         logoImg.src = base64;
         console.log('Logo图片刷新成功');
       } catch (e) {
-        console.error('刷新Logo缓存失败，但继续处理其他图片:', e);
-        // 保留原有图片，不更新
+        console.error('刷新Logo缓存失败，尝试从云端获取新URL:', e);
+        if (e.message && e.message.includes('404')) {
+          logoImg.dataset.cloudUrl = '';
+          const userId = localStorage.getItem('postdiy_user_id');
+          if (userId) {
+            const cloudResult = await fetch(API_BASE_URL + '/user-get-info', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId })
+            }).then(r => r.json()).catch(() => null);
+            if (cloudResult && cloudResult.data && cloudResult.data.logoUrl) {
+              const newUrl = cloudResult.data.logoUrl;
+              logoImg.dataset.cloudUrl = newUrl;
+              state.businessInfo.logo = newUrl;
+              const newBase64 = await loadImageAsBase64(newUrl);
+              saveToCache(IMAGE_CACHE_KEYS.logo, newBase64);
+              logoImg.src = newBase64;
+              console.log('Logo图片从云端获取新URL刷新成功:', newUrl);
+            }
+          }
+        }
       }
     })());
   }
@@ -365,13 +383,31 @@ async function refreshImagesFromCloud() {
         qrImg.src = base64;
         console.log('二维码图片刷新成功');
       } catch (e) {
-        console.error('刷新二维码缓存失败，但继续处理其他图片:', e);
-        // 保留原有图片，不更新
+        console.error('刷新二维码缓存失败，尝试从云端获取新URL:', e);
+        if (e.message && e.message.includes('404')) {
+          qrImg.dataset.cloudUrl = '';
+          const userId = localStorage.getItem('postdiy_user_id');
+          if (userId) {
+            const cloudResult = await fetch(API_BASE_URL + '/user-get-info', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId })
+            }).then(r => r.json()).catch(() => null);
+            if (cloudResult && cloudResult.data && cloudResult.data.qrcodeUrl) {
+              const newUrl = cloudResult.data.qrcodeUrl;
+              qrImg.dataset.cloudUrl = newUrl;
+              state.businessInfo.qrcode = newUrl;
+              const newBase64 = await loadImageAsBase64(newUrl);
+              saveToCache(IMAGE_CACHE_KEYS.qrcode, newBase64);
+              qrImg.src = newBase64;
+              console.log('二维码从云端获取新URL刷新成功:', newUrl);
+            }
+          }
+        }
       }
     })());
   }
   
-  // 等待所有图片加载完成
   await Promise.allSettled(loadPromises);
 }
 
@@ -1912,9 +1948,20 @@ let currentCropTarget = null;
     }
 
     const finalCanvas = applyImageFilters(canvas);
+    
+    const targetSize = 350;
+    let scaledCanvas = finalCanvas;
+    if (finalCanvas.width !== targetSize || finalCanvas.height !== targetSize) {
+      scaledCanvas = document.createElement('canvas');
+      scaledCanvas.width = targetSize;
+      scaledCanvas.height = targetSize;
+      const ctx = scaledCanvas.getContext('2d');
+      ctx.drawImage(finalCanvas, 0, 0, targetSize, targetSize);
+      console.log('Logo缩放到目标尺寸:', targetSize + 'x' + targetSize);
+    }
 
     const useTransparentFormat = currentCropTarget === 'logo' && currentCropImageType === 'png';
-    const base64 = finalCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
+    const base64 = scaledCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
     console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
 
     if (currentCropTarget === 'logo') {
@@ -5271,21 +5318,37 @@ let currentCropTarget = null;
             localStorage.setItem('promoText', result.data.promoText);
           }
           
-          // 如果图片URL变化了，清除旧缓存并重新加载
-          if (state.businessInfo.logo && state.businessInfo.logo !== oldLogo) {
-            localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
+          // 清空所有图片缓存并重新获取
+          localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
+          localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
+          
+          // 重新加载logo图片
+          if (state.businessInfo.logo) {
             try {
-              const base64 = await loadImageAsBase64(state.businessInfo.logo);
-              saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+              const logoBase64 = await loadImageAsBase64(state.businessInfo.logo);
+              saveToCache(IMAGE_CACHE_KEYS.logo, logoBase64);
+              const posterLogoImg = document.getElementById('posterLogoImg');
+              if (posterLogoImg) {
+                posterLogoImg.src = logoBase64;
+                posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
+              }
+              console.log('Logo图片已重新加载:', state.businessInfo.logo);
             } catch (e) {
               console.error('重新加载Logo缓存失败:', e);
             }
           }
-          if (state.businessInfo.qrcode && state.businessInfo.qrcode !== oldQrcode) {
-            localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
+          
+          // 重新加载二维码图片
+          if (state.businessInfo.qrcode) {
             try {
-              const base64 = await loadImageAsBase64(state.businessInfo.qrcode);
-              saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+              const qrBase64 = await loadImageAsBase64(state.businessInfo.qrcode);
+              saveToCache(IMAGE_CACHE_KEYS.qrcode, qrBase64);
+              const posterQrcodeImg = document.getElementById('posterQrcodeImg');
+              if (posterQrcodeImg) {
+                posterQrcodeImg.src = qrBase64;
+                posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
+              }
+              console.log('二维码图片已重新加载:', state.businessInfo.qrcode);
             } catch (e) {
               console.error('重新加载二维码缓存失败:', e);
             }
@@ -10404,10 +10467,15 @@ function updateBusinessInfoButtonForVip() {
   function updateStickerButtonVisibility() {
     const stickerBtn = document.getElementById('stickerBtn');
     const frameBtn = document.getElementById('frameBtn');
+    const textTemplateBtn = document.getElementById('textTemplateBtn');
+    
+    if (textTemplateBtn) {
+      textTemplateBtn.classList.remove('hidden');
+    }
+    
     if (!stickerBtn) return;
     
     if (state.customBackground) {
-      // 用户上传的图片，显示按钮并添加霓虹闪烁效果
       stickerBtn.classList.remove('hidden');
       stickerBtn.classList.add('neon-glow');
       if (frameBtn) {
@@ -10415,7 +10483,6 @@ function updateBusinessInfoButtonForVip() {
         frameBtn.classList.add('neon-glow');
       }
     } else {
-      // 模板图片，隐藏按钮
       stickerBtn.classList.add('hidden');
       stickerBtn.classList.remove('neon-glow');
       if (frameBtn) {
@@ -10728,11 +10795,701 @@ function updateBusinessInfoButtonForVip() {
     }
   };
   
+  // 字体管理器
+window.fontManager = {
+  fonts: {
+    'Microsoft YaHei': { name: '微软雅黑', loaded: false },
+    'SimSun': { name: '宋体', loaded: false },
+    'KaiTi': { name: '楷体', loaded: false }
+  },
+
+  checkFontLoaded: function(fontFamily) {
+    if (this.fonts[fontFamily] && this.fonts[fontFamily].loaded) {
+      return true;
+    }
+    const testString = '中文测试字体';
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = '72px sans-serif';
+    const baseWidth = ctx.measureText(testString).width;
+    ctx.font = `72px "${fontFamily}", sans-serif`;
+    const testWidth = ctx.measureText(testString).width;
+    if (baseWidth !== testWidth) {
+      this.fonts[fontFamily].loaded = true;
+      return true;
+    }
+    ctx.font = `72px "${fontFamily}"`;
+    const testWidth2 = ctx.measureText(testString).width;
+    if (baseWidth !== testWidth2) {
+      this.fonts[fontFamily].loaded = true;
+      return true;
+    }
+    return false;
+  },
+
+  isFontAvailable: function(fontFamily) {
+    if (this.fonts[fontFamily] && this.fonts[fontFamily].loaded) {
+      return true;
+    }
+    return this.checkFontLoaded(fontFamily);
+  },
+
+  useFont: function(fontFamily) {
+    if (this.isFontAvailable(fontFamily)) {
+      return fontFamily;
+    }
+    const fallbackFonts = ['Microsoft YaHei', 'SimSun', 'KaiTi', 'PingFang SC', 'STHeiti'];
+    for (const font of fallbackFonts) {
+      if (this.isFontAvailable(font)) {
+        return font;
+      }
+    }
+    return 'sans-serif';
+  },
+
+  getAvailableFonts: function() {
+    const available = [];
+    for (const [key, font] of Object.entries(this.fonts)) {
+      if (this.isFontAvailable(key)) {
+        available.push({ value: key, name: font.name });
+      }
+    }
+    if (available.length === 0) {
+      available.push({ value: 'sans-serif', name: '默认字体' });
+    }
+    return available;
+  }
+};
+  
+  // 文案模板管理器
+window.textTemplateManager = {
+  selectedTemplate: null,
+  currentCategory: '通用',
+
+  init: function() {
+    this.bindEvents();
+    this.renderCategories();
+    this.renderTemplates(this.currentCategory);
+  },
+
+  bindEvents: function() {
+    const textTemplateBtn = document.getElementById('textTemplateBtn');
+    if (textTemplateBtn) {
+      textTemplateBtn.addEventListener('click', () => {
+        this.openModal();
+      });
+    }
+
+    const closeBtn = document.getElementById('closeTextTemplateModal');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.closeModal());
+    }
+
+    const insertBtn = document.getElementById('insertTextToCanvasBtn');
+    if (insertBtn) {
+      insertBtn.addEventListener('click', () => this.insertToCanvas());
+    }
+
+    const copyBtn = document.getElementById('copyTextOnlyBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => this.copyTextOnly());
+    }
+
+    const modal = document.getElementById('textTemplateModal');
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          this.closeModal();
+        }
+      });
+    }
+  },
+
+  openModal: function() {
+    const modal = document.getElementById('textTemplateModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  },
+
+  closeModal: function() {
+    const modal = document.getElementById('textTemplateModal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+    this.selectedTemplate = null;
+    this.clearSelection();
+  },
+
+  renderCategories: function() {
+    const container = document.getElementById('textTemplateCategoriesVertical');
+    if (!container || !window.TextTemplates) return;
+
+    const categories = window.TextTemplates.getAllCategories();
+    container.innerHTML = categories.map(cat => {
+      const icon = this.getCategoryIcon(cat);
+      const isActive = cat === this.currentCategory ? 'active' : '';
+      return `<button class="industry-category-vertical ${isActive}" data-category="${cat}" title="${cat}">${icon} ${cat}</button>`;
+    }).join('');
+
+    container.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.currentCategory = btn.dataset.category;
+        this.renderTemplates(this.currentCategory);
+      });
+    });
+  },
+
+  getCategoryIcon: function(category) {
+    const icons = {
+      '通用': '🌟', '奶茶': '🧋', '餐厅': '🍽️', '少儿画室': '🎨',
+      '音乐教室': '🎵', '直播': '📱', '美容': '💄', '母婴': '👶',
+      '健身': '💪', '茶饮': '🧋', '宠物': '🐱', '服饰': '👗',
+      '知识': '📚', '家居': '🏠', '数码': '📱', '旅游': '✈️',
+      '情感': '💕', '人生感悟': '🌿', '励志奋斗': '🔥', '时代理想': '🌟'
+    };
+    return icons[category] || '📝';
+  },
+
+  renderTemplates: function(category) {
+    const container = document.getElementById('textTemplateList');
+    if (!container || !window.TextTemplates) return;
+
+    const templates = window.TextTemplates.getTemplatesByCategory(category);
+    container.innerHTML = templates.map((template, index) => {
+      const displayText = template.length > 50 ? template.substring(0, 50) + '...' : template;
+      return `<div class="industry-template-card" data-index="${index}">
+        <div class="industry-template-content">${displayText.replace(/\n/g, '<br>')}</div>
+        <div class="template-card-actions">
+          <button class="card-insert-btn" data-index="${index}">插入画布</button>
+          <button class="card-copy-btn" data-index="${index}">仅复制</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    container.querySelectorAll('.card-insert-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.index);
+        const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
+        this.selectedTemplate = templates[index];
+        this.insertToCanvas();
+      });
+    });
+
+    container.querySelectorAll('.card-copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.index);
+        const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
+        this.selectedTemplate = templates[index];
+        this.copyTextOnly();
+      });
+    });
+  },
+
+  escapeHtml: function(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+  },
+
+  selectTemplate: function(card, index) {
+    this.clearSelection();
+    card.classList.add('selected');
+    const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
+    this.selectedTemplate = templates[index];
+  },
+
+  clearSelection: function() {
+    document.querySelectorAll('#textTemplateList .industry-template-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+  },
+
+  copyTextOnly: function() {
+    if (!this.selectedTemplate) {
+      showToast('请先选择文案');
+      return;
+    }
+    navigator.clipboard.writeText(this.selectedTemplate).then(() => {
+      showToast('文案已复制到剪贴板');
+      this.closeModal();
+    }).catch(() => {
+      showToast('复制失败，请重试');
+    });
+  },
+
+  insertToCanvas: function() {
+    if (!this.selectedTemplate) {
+      showToast('请先选择文案');
+      return;
+    }
+
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    const frameRect = posterFrame.getBoundingClientRect();
+    const baseWidth = 1000;
+    const scaleRatio = frameRect.width / baseWidth;
+
+    const textId = 'text_' + Date.now();
+    const randomX = 50;
+    const randomY = 50;
+
+    const textElement = {
+      id: textId,
+      text: this.selectedTemplate,
+      x: randomX,
+      y: randomY,
+      scale: 1,
+      rotation: 0,
+      color: '#FFFFFF',
+      fontFamily: window.fontManager.useFont('Microsoft YaHei'),
+      writingMode: 'horizontal-tb',
+      zIndex: window.stickerManager ? window.stickerManager.stickers.length + 100 : 100
+    };
+
+    if (!window.textElements) {
+      window.textElements = [];
+    }
+    window.textElements.push(textElement);
+
+    this.renderTextElements();
+    this.closeModal();
+    showToast('文案已插入画布，点击文字可编辑');
+  },
+
+  renderTextElements: function() {
+    if (!window.textElements) return;
+
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    posterFrame.querySelectorAll('.canvas-text').forEach(el => el.remove());
+
+    window.textElements.forEach(text => {
+      this.createTextElement(text);
+    });
+  },
+
+  createTextElement: function(text) {
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    const textEl = document.createElement('div');
+    textEl.className = 'canvas-text';
+    textEl.id = text.id;
+    textEl.dataset.textId = text.id;
+
+    const frameRect = posterFrame.getBoundingClientRect();
+    const scaleRatio = frameRect.width / 1000;
+
+    textEl.style.cssText = `
+      position: absolute;
+      left: ${text.x}%;
+      top: ${text.y}%;
+      transform: translate(-50%, -50%) scale(${text.scale}) rotate(${text.rotation}deg);
+      writing-mode: ${text.writingMode};
+      color: ${text.color};
+      font-family: ${text.fontFamily};
+      font-size: 16px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      text-align: center;
+      cursor: move;
+      user-select: none;
+      z-index: ${text.zIndex};
+    `;
+
+    textEl.textContent = text.text;
+
+    textEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.selectTextElement(text.id);
+    });
+
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
+
+    textEl.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn') || e.target.classList.contains('text-resize-handle')) {
+        return;
+      }
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      initialX = text.x;
+      initialY = text.y;
+      this.selectTextElement(text.id);
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      const frameRect = posterFrame.getBoundingClientRect();
+      const deltaX = (e.clientX - startX) / frameRect.width * 100;
+      const deltaY = (e.clientY - startY) / frameRect.height * 100;
+      text.x = initialX + deltaX;
+      text.y = initialY + deltaY;
+      textEl.style.left = `${text.x}%`;
+      textEl.style.top = `${text.y}%`;
+      this.updateTextControlPositions(text.id);
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    this.createTextControls(text);
+
+    posterFrame.appendChild(textEl);
+  },
+
+  createTextControls: function(text) {
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    const existingControls = posterFrame.querySelectorAll(`.text-control[data-text-id="${text.id}"]`);
+    existingControls.forEach(c => c.remove());
+
+    const frameRect = posterFrame.getBoundingClientRect();
+    const baseWidth = 1000;
+    const scaleRatio = frameRect.width / baseWidth;
+
+    const textCenterX = (text.x / 100) * frameRect.width;
+    const textCenterY = (text.y / 100) * frameRect.height;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'text-control text-delete-btn';
+    deleteBtn.innerHTML = '×';
+    deleteBtn.title = '删除文字';
+    deleteBtn.dataset.textId = text.id;
+    deleteBtn.style.cssText = `
+      position: absolute;
+      left: ${textCenterX}px;
+      top: ${textCenterY - 30}px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: ${text.zIndex + 10};
+    `;
+    deleteBtn.onclick = (e) => {
+      e.stopPropagation();
+      this.removeTextElement(text.id);
+    };
+    posterFrame.appendChild(deleteBtn);
+
+    const settingsBtn = document.createElement('button');
+    settingsBtn.className = 'text-control text-settings-btn';
+    settingsBtn.innerHTML = '⚙';
+    settingsBtn.title = '文字设置';
+    settingsBtn.dataset.textId = text.id;
+    settingsBtn.style.cssText = `
+      position: absolute;
+      left: ${textCenterX + 30}px;
+      top: ${textCenterY - 30}px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: ${text.zIndex + 10};
+    `;
+    settingsBtn.onclick = (e) => {
+      e.stopPropagation();
+      this.showTextSettingsPanel(text.id);
+    };
+    posterFrame.appendChild(settingsBtn);
+
+    const rotateBtn = document.createElement('button');
+    rotateBtn.className = 'text-control text-rotate-btn';
+    rotateBtn.innerHTML = '↺';
+    rotateBtn.title = '旋转文字';
+    rotateBtn.dataset.textId = text.id;
+    rotateBtn.style.cssText = `
+      position: absolute;
+      left: ${textCenterX + 60}px;
+      top: ${textCenterY}px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: ${text.zIndex + 10};
+    `;
+
+    let isRotating = false;
+    let startAngle = 0;
+    let startRotation = 0;
+
+    const getAngleFromCenter = (clientX, clientY) => {
+      const rect = posterFrame.getBoundingClientRect();
+      return Math.atan2(clientY - rect.top - textCenterY, clientX - rect.left - textCenterX) * (180 / Math.PI);
+    };
+
+    rotateBtn.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isRotating = true;
+      startAngle = getAngleFromCenter(e.clientX, e.clientY);
+      startRotation = text.rotation;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isRotating) return;
+      const currentAngle = getAngleFromCenter(e.clientX, e.clientY);
+      let rotation = startRotation + (currentAngle - startAngle);
+      if (rotation > 180) rotation -= 360;
+      if (rotation < -180) rotation += 360;
+      text.rotation = rotation;
+      this.updateTextElementStyle(text.id);
+      this.updateTextControlPositions(text.id);
+    });
+
+    document.addEventListener('mouseup', () => {
+      isRotating = false;
+    });
+
+    posterFrame.appendChild(rotateBtn);
+
+    this.createResizeHandles(text);
+  },
+
+  createResizeHandles: function(text) {
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    const frameRect = posterFrame.getBoundingClientRect();
+    const textCenterX = (text.x / 100) * frameRect.width;
+    const textCenterY = (text.y / 100) * frameRect.height;
+
+    const handlePositions = [
+      { name: 'nw', offsetX: -1, offsetY: -1 },
+      { name: 'ne', offsetX: 1, offsetY: -1 },
+      { name: 'sw', offsetX: -1, offsetY: 1 },
+      { name: 'se', offsetX: 1, offsetY: 1 }
+    ];
+
+    handlePositions.forEach(pos => {
+      const handle = document.createElement('div');
+      handle.className = `text-control text-resize-handle ${pos.name}`;
+      handle.dataset.textId = text.id;
+      handle.dataset.position = pos.name;
+      handle.style.cssText = `
+        position: absolute;
+        left: ${textCenterX + pos.offsetX * 40}px;
+        top: ${textCenterY + pos.offsetY * 40}px;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        opacity: 0;
+        z-index: ${text.zIndex + 10};
+        cursor: ${pos.name}-resize;
+      `;
+
+      let isResizing = false;
+      let startX, startY, startScale;
+
+      handle.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startScale = text.scale;
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+        const delta = Math.max(deltaX, deltaY);
+        const scaleChange = delta / 200;
+        text.scale = Math.max(0.05, startScale + scaleChange);
+        this.updateTextElementStyle(text.id);
+        this.updateTextControlPositions(text.id);
+      });
+
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+      });
+
+      posterFrame.appendChild(handle);
+    });
+  },
+
+  selectTextElement: function(textId) {
+    const text = window.textElements.find(t => t.id === textId);
+    if (!text) return;
+
+    document.querySelectorAll('.canvas-text').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.text-control').forEach(el => el.style.opacity = '0');
+
+    const textEl = document.getElementById(textId);
+    if (textEl) {
+      textEl.classList.add('selected');
+    }
+
+    document.querySelectorAll(`.text-control[data-text-id="${textId}"]`).forEach(el => {
+      el.style.opacity = '1';
+    });
+  },
+
+  updateTextElementStyle: function(textId) {
+    const text = window.textElements.find(t => t.id === textId);
+    if (!text) return;
+
+    const textEl = document.getElementById(textId);
+    if (!textEl) return;
+
+    textEl.style.transform = `translate(-50%, -50%) scale(${text.scale}) rotate(${text.rotation}deg)`;
+    textEl.style.writingMode = text.writingMode;
+    textEl.style.color = text.color;
+    textEl.style.fontFamily = text.fontFamily;
+  },
+
+  updateTextControlPositions: function(textId) {
+    const text = window.textElements.find(t => t.id === textId);
+    if (!text) return;
+
+    const posterFrame = document.getElementById('posterFrame');
+    const frameRect = posterFrame.getBoundingClientRect();
+
+    const textCenterX = (text.x / 100) * frameRect.width;
+    const textCenterY = (text.y / 100) * frameRect.height;
+
+    document.querySelectorAll(`.text-control[data-text-id="${textId}"]`).forEach(el => {
+      if (el.classList.contains('text-delete-btn')) {
+        el.style.left = `${textCenterX}px`;
+        el.style.top = `${textCenterY - 30}px`;
+      } else if (el.classList.contains('text-settings-btn')) {
+        el.style.left = `${textCenterX + 30}px`;
+        el.style.top = `${textCenterY - 30}px`;
+      } else if (el.classList.contains('text-rotate-btn')) {
+        el.style.left = `${textCenterX + 60}px`;
+        el.style.top = `${textCenterY}px`;
+      } else if (el.classList.contains('text-resize-handle')) {
+        const pos = el.dataset.position;
+        if (pos === 'nw') {
+          el.style.left = `${textCenterX - 40}px`;
+          el.style.top = `${textCenterY - 40}px`;
+        } else if (pos === 'ne') {
+          el.style.left = `${textCenterX + 40}px`;
+          el.style.top = `${textCenterY - 40}px`;
+        } else if (pos === 'sw') {
+          el.style.left = `${textCenterX - 40}px`;
+          el.style.top = `${textCenterY + 40}px`;
+        } else if (pos === 'se') {
+          el.style.left = `${textCenterX + 40}px`;
+          el.style.top = `${textCenterY + 40}px`;
+        }
+      }
+    });
+  },
+
+  removeTextElement: function(textId) {
+    const index = window.textElements.findIndex(t => t.id === textId);
+    if (index !== -1) {
+      window.textElements.splice(index, 1);
+    }
+
+    const textEl = document.getElementById(textId);
+    if (textEl) {
+      textEl.remove();
+    }
+
+    document.querySelectorAll(`.text-control[data-text-id="${textId}"]`).forEach(el => el.remove());
+  },
+
+  showTextSettingsPanel: function(textId) {
+    const text = window.textElements.find(t => t.id === textId);
+    if (!text) return;
+
+    let panel = document.getElementById('textSettingsPanel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'textSettingsPanel';
+      panel.className = 'text-settings-panel';
+      panel.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        z-index: 3000;
+        min-width: 280px;
+      `;
+      document.body.appendChild(panel);
+    }
+
+    const colors = ['#FFFFFF', '#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    const fonts = window.fontManager.getAvailableFonts();
+
+    panel.innerHTML = `
+      <div style="margin-bottom: 15px; font-weight: bold; font-size: 16px;">文字设置</div>
+      <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 8px; color: #666;">文字颜色</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          ${colors.map(c => `<button class="color-btn ${text.color === c ? 'active' : ''}" data-color="${c}" style="width: 32px; height: 32px; border: 2px solid ${text.color === c ? '#007bff' : '#ddd'}; border-radius: 4px; background: ${c}; cursor: pointer;"></button>`).join('')}
+        </div>
+      </div>
+      <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 8px; color: #666;">字体</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          ${fonts.map(f => `<button class="font-btn ${text.fontFamily === f.value ? 'active' : ''}" data-font="${f.value}" style="padding: 6px 12px; border: 1px solid ${text.fontFamily === f.value ? '#007bff' : '#ddd'}; border-radius: 4px; background: ${text.fontFamily === f.value ? '#e7f1ff' : '#fff'}; cursor: pointer; font-family: ${f.value};">${f.name}</button>`).join('')}
+        </div>
+      </div>
+      <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 8px; color: #666;">排版</div>
+        <div style="display: flex; gap: 8px;">
+          <button class="mode-btn ${text.writingMode === 'horizontal-tb' ? 'active' : ''}" data-mode="horizontal-tb" style="padding: 6px 12px; border: 1px solid ${text.writingMode === 'horizontal-tb' ? '#007bff' : '#ddd'}; border-radius: 4px; background: ${text.writingMode === 'horizontal-tb' ? '#e7f1ff' : '#fff'}; cursor: pointer;">横排</button>
+          <button class="mode-btn ${text.writingMode === 'vertical-rl' ? 'active' : ''}" data-mode="vertical-rl" style="padding: 6px 12px; border: 1px solid ${text.writingMode === 'vertical-rl' ? '#007bff' : '#ddd'}; border-radius: 4px; background: ${text.writingMode === 'vertical-rl' ? '#e7f1ff' : '#fff'}; cursor: pointer;">竖排</button>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <button id="closeTextSettingsBtn" style="padding: 8px 16px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">关闭</button>
+      </div>
+    `;
+
+    panel.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        text.color = btn.dataset.color;
+        this.updateTextElementStyle(textId);
+        this.showTextSettingsPanel(textId);
+      });
+    });
+
+    panel.querySelectorAll('.font-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        text.fontFamily = btn.dataset.font;
+        this.updateTextElementStyle(textId);
+        this.showTextSettingsPanel(textId);
+      });
+    });
+
+    panel.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        text.writingMode = btn.dataset.mode;
+        this.updateTextElementStyle(textId);
+        this.showTextSettingsPanel(textId);
+      });
+    });
+
+    document.getElementById('closeTextSettingsBtn').addEventListener('click', () => {
+      panel.style.display = 'none';
+    });
+  }
+};
+
   // 初始化贴纸功能
   document.addEventListener('DOMContentLoaded', function() {
     window.stickerModalManager.init();
     window.stickerManager.init();
     window.FrameManager.init();
+    window.textTemplateManager.init();
 
     // 初始化贴纸按钮显示状态
     updateStickerButtonVisibility();

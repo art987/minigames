@@ -246,6 +246,9 @@
     <button id="stickerBtn" class="action-btn sticker-btn toggleable-btn hidden">
       <span>贴纸</span>
     </button>
+    <button id="textTemplateBtn" class="action-btn text-template-btn toggleable-btn hidden">
+      <span>文案</span>
+    </button>
     <button id="downloadBtn" class="action-btn toggleable-btn">
       <span>下载海报</span>
     </button>
@@ -711,7 +714,36 @@
       
     </div>
   </div>
-  
+
+  <!-- 文案模板弹窗 -->
+  <div id="textTemplateModal" class="modal-overlay hidden">
+    <div class="modal-container integrated-industry-template-modal text-template-modal">
+      <div class="modal-header fixed-header">
+        <h3 id="textTemplateModalTitle">文案模板</h3>
+        <button id="closeTextTemplateModal" class="modal-close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body integrated-modal-body">
+        <!-- 左侧行业分类导航 -->
+        <div class="industry-sidebar">
+          <div class="industry-categories-vertical" id="textTemplateCategoriesVertical">
+            <!-- 行业分类将通过JavaScript动态生成 -->
+          </div>
+        </div>
+
+        <!-- 右侧模板内容区域 -->
+        <div class="template-content-area">
+          <div class="templates-section">
+            <div id="textTemplateList" class="industry-templates-list">
+              <!-- 文案模板将通过JavaScript动态生成 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- VIP登录弹窗 -->
   <div id="vipLoginModal" class="modal-overlay hidden">
     <div class="modal vip-login-modal">
@@ -849,7 +881,7 @@
       <div class="modal-body scrollable-body">
         <!-- 今日发布模块 -->
         <div class="home-popup-section">
-          <h3 class="home-popup-section-title">优先：当前品牌宣传建议<span id="todayDateInTitle"></span></h3>
+          <h3 class="home-popup-section-title">优先：当前品牌宣传任务<span id="todayDateInTitle"></span></h3>
           <div id="todayReleaseContent" class="home-popup-section-content"></div>
         </div>
         
@@ -857,13 +889,16 @@
         
         <!-- 未来制作建议模块 -->
         <div class="home-popup-section">
-          <h3 class="home-popup-section-title">近日品牌宣传建议</h3>
+          <h3 class="home-popup-section-title">近日品牌宣传任务</h3>
           <div id="futureSuggestionContent" class="home-popup-section-content"></div>
         </div>
       </div>
     </div>
   </div>
   
+  <!-- 文案模板数据 -->
+  <script src="text-templates.js"></script>
+
   <!-- 编辑器核心脚本 -->
   <script src="editor-script.js?v=20260329b"></script>
   
