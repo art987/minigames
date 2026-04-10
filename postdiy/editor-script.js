@@ -436,6 +436,7 @@ let currentCropTarget = null;
     businessInfo: {
       name: '您的品牌名称',
       logo: null,
+      logoTransparent: false,
       qrcode: null,
       promoText: '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）'
     },
@@ -822,6 +823,7 @@ let currentCropTarget = null;
       logoPreview: document.getElementById('logoPreview'),
       logoPreviewImg: document.getElementById('logoPreviewImg'),
       removeLogoBtn: document.getElementById('removeLogoBtn'),
+      logoTransparencyToggle: document.getElementById('logoTransparencyToggle'),
       qrcodeUploadArea: document.getElementById('qrcodeUploadArea'),
       qrcodeInput: document.getElementById('qrcodeInput'),
       qrcodePreview: document.getElementById('qrcodePreview'),
@@ -1167,7 +1169,8 @@ let currentCropTarget = null;
           name: cloudData.brandname || state.businessInfo.name,
           logo: cloudData.logoUrl || state.businessInfo.logo,
           qrcode: cloudData.qrcodeUrl || state.businessInfo.qrcode,
-          promoText: cloudData.promoText || state.businessInfo.promoText
+          promoText: cloudData.promoText || state.businessInfo.promoText,
+          logoTransparent: cloudData.logoTransparent !== undefined ? cloudData.logoTransparent : (state.businessInfo.logoTransparent || false)
         };
         
         state.businessInfo = newInfo;
@@ -1186,6 +1189,21 @@ let currentCropTarget = null;
           elements.logoPreviewImg.src = newInfo.logo;
           elements.logoPreview.style.display = 'block';
           elements.logoUploadArea.style.display = 'none';
+          // 显示透明开关并恢复之前的状态
+          if (elements.logoTransparencyToggle) {
+            elements.logoTransparencyToggle.classList.remove('hidden');
+            if (newInfo.logoTransparent) {
+              elements.logoTransparencyToggle.classList.add('active');
+            } else {
+              elements.logoTransparencyToggle.classList.remove('active');
+            }
+            // 更新滑块文字
+            const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
+            if (thumb) {
+              thumb.textContent = newInfo.logoTransparent ? '透明' : '不透明';
+            }
+            updateLogoTransparencyStyle(newInfo.logoTransparent);
+          }
         }
         
         if (newInfo.qrcode && elements.qrcodePreviewImg && elements.qrcodePreview && elements.qrcodeUploadArea) {
@@ -1915,6 +1933,17 @@ let currentCropTarget = null;
         elements.logoPreviewImg.src = base64;
         elements.logoPreview.style.display = 'block';
         elements.logoUploadArea.style.display = 'none';
+        // 显示透明开关
+        if (elements.logoTransparencyToggle) {
+          elements.logoTransparencyToggle.classList.remove('hidden');
+          elements.logoTransparencyToggle.classList.remove('active');
+          updateLogoTransparencyStyle(false);
+          // 更新滑块文字
+          const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
+          if (thumb) {
+            thumb.textContent = '不透明';
+          }
+        }
       }
 
       showToast('Logo已裁剪，点击保存后上传到云端');
@@ -2843,6 +2872,9 @@ let currentCropTarget = null;
     }
     if (elements.removeLogoBtn) {
       elements.removeLogoBtn.addEventListener('click', removeLogo);
+    }
+    if (elements.logoTransparencyToggle) {
+      elements.logoTransparencyToggle.addEventListener('click', toggleLogoTransparency);
     }
     
     // VIP恢复按钮事件
@@ -5348,9 +5380,29 @@ let currentCropTarget = null;
         } else {
           elements.logoPreviewImg.src = state.businessInfo.logo;
         }
+        // 显示透明开关
+        if (elements.logoTransparencyToggle) {
+          elements.logoTransparencyToggle.classList.remove('hidden');
+          if (state.businessInfo.logoTransparent) {
+            elements.logoTransparencyToggle.classList.add('active');
+            updateLogoTransparencyStyle(true);
+          } else {
+            elements.logoTransparencyToggle.classList.remove('active');
+            updateLogoTransparencyStyle(false);
+          }
+          // 更新滑块文字
+          const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
+          if (thumb) {
+            thumb.textContent = state.businessInfo.logoTransparent ? '透明' : '不透明';
+          }
+        }
       } else {
         elements.logoUploadArea.style.display = 'block';
         elements.logoPreview.style.display = 'none';
+        // 隐藏透明开关
+        if (elements.logoTransparencyToggle) {
+          elements.logoTransparencyToggle.classList.add('hidden');
+        }
       }
     }
     
@@ -5489,6 +5541,7 @@ let currentCropTarget = null;
       // 同步品牌名称和促销文案
       await CloudSync.syncBrandnameToCloud(newName);
       await CloudSync.syncPromoTextToCloud(newPromoText);
+      await CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent);
       
       // 处理待上传的图片
       if (pendingUploads.logo) {
@@ -5793,8 +5846,65 @@ let currentCropTarget = null;
       elements.logoPreview.style.display = 'none';
       elements.logoUploadArea.style.display = 'block';
     }
+    // 隐藏透明开关
+    if (elements.logoTransparencyToggle) {
+      elements.logoTransparencyToggle.classList.add('hidden');
+    }
     
     showToast('Logo已移除，点击保存后同步到云端');
+  }
+  
+  // 切换Logo透明模式
+  function toggleLogoTransparency() {
+    const toggle = elements.logoTransparencyToggle;
+    if (!toggle) return;
+
+    const isTransparent = !state.businessInfo.logoTransparent;
+    state.businessInfo.logoTransparent = isTransparent;
+
+    // 切换开关样式
+    if (isTransparent) {
+      toggle.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
+    }
+
+    // 更新滑块文字
+    const thumb = toggle.querySelector('.toggle-thumb');
+    if (thumb) {
+      thumb.textContent = isTransparent ? '透明' : '不透明';
+    }
+
+    // 更新 posterLogo 和 logo-inner-wrapper 的样式
+    updateLogoTransparencyStyle(isTransparent);
+
+    showToast(isTransparent ? 'Logo已设为透明模式' : 'Logo已设为不透明模式');
+  }
+  
+  // 更新Logo透明样式
+  function updateLogoTransparencyStyle(isTransparent) {
+    const posterLogo = document.getElementById('posterLogo');
+    const logoInnerWrapper = document.querySelector('.logo-inner-wrapper');
+    
+    if (posterLogo) {
+      if (isTransparent) {
+        posterLogo.style.borderRadius = '0';
+        posterLogo.style.border = 'none';
+        posterLogo.style.background = 'none';
+      } else {
+        posterLogo.style.borderRadius = '';
+        posterLogo.style.border = '';
+        posterLogo.style.background = '';
+      }
+    }
+    
+    if (logoInnerWrapper) {
+      if (isTransparent) {
+        logoInnerWrapper.style.borderRadius = '0';
+      } else {
+        logoInnerWrapper.style.borderRadius = '';
+      }
+    }
   }
   
   // 处理二维码上传（打开裁剪界面）
@@ -7203,24 +7313,29 @@ let currentCropTarget = null;
               const isQrcode = imgElement.id === 'posterQrcodeImg';
               
               if (isLogo) {
-                // Logo：圆形裁剪 + 白色描边
-                const radius = Math.min(width, height) / 2;
-                const borderWidth = 0;
-                const borderColor = 'rgba(255,255,255,0.67)';
-                
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(radius, radius, radius - borderWidth, 0, Math.PI * 2);
-                ctx.clip();
-                ctx.drawImage(imgElement, 0, 0, width, height);
-                ctx.restore();
-                
-                // 绘制描边
-                ctx.beginPath();
-                ctx.arc(radius, radius, radius - borderWidth / 2, 0, Math.PI * 2);
-                ctx.strokeStyle = borderColor;
-                ctx.lineWidth = borderWidth;
-                ctx.stroke();
+                // Logo：圆形裁剪 + 白色描边（除非设置了透明模式）
+                if (state.businessInfo.logoTransparent) {
+                  // 透明模式：直接绘制，不做圆角处理
+                  ctx.drawImage(imgElement, 0, 0, width, height);
+                } else {
+                  const radius = Math.min(width, height) / 2;
+                  const borderWidth = 0;
+                  const borderColor = 'rgba(255,255,255,0.67)';
+
+                  ctx.save();
+                  ctx.beginPath();
+                  ctx.arc(radius, radius, radius - borderWidth, 0, Math.PI * 2);
+                  ctx.clip();
+                  ctx.drawImage(imgElement, 0, 0, width, height);
+                  ctx.restore();
+
+                  // 绘制描边
+                  ctx.beginPath();
+                  ctx.arc(radius, radius, radius - borderWidth / 2, 0, Math.PI * 2);
+                  ctx.strokeStyle = borderColor;
+                  ctx.lineWidth = borderWidth;
+                  ctx.stroke();
+                }
               } else if (isQrcode) {
                 // 二维码：圆角 + 白色描边
                 const borderWidth = 1;
@@ -7829,6 +7944,12 @@ function hideClearButtonsForVip() {
   if (removeQrcodeBtn) {
     removeQrcodeBtn.style.display = 'none';
   }
+
+  // 隐藏Logo透明开关
+  const logoTransparencyToggle = document.getElementById('logoTransparencyToggle');
+  if (logoTransparencyToggle) {
+    logoTransparencyToggle.style.display = 'none';
+  }
 }
 
 // 为VIP用户显示删除按钮（允许编辑）
@@ -7837,6 +7958,12 @@ function showDeleteButtonsForVip() {
   const removeLogoBtn = document.getElementById('removeLogoBtn');
   if (removeLogoBtn) {
     removeLogoBtn.style.display = 'block';
+  }
+
+  // 显示Logo透明开关
+  const logoTransparencyToggle = document.getElementById('logoTransparencyToggle');
+  if (logoTransparencyToggle && state.businessInfo.logo) {
+    logoTransparencyToggle.style.display = 'flex';
   }
   
   // 显示二维码删除按钮
@@ -8210,6 +8337,9 @@ function updateBusinessInfoButtonForVip() {
         }
         if (cloudData.promoText) {
           state.businessInfo.promoText = cloudData.promoText;
+        }
+        if (cloudData.logoTransparent !== undefined) {
+          state.businessInfo.logoTransparent = cloudData.logoTransparent;
         }
         
         // 保存到本地存储

@@ -20,13 +20,23 @@ exports.main = async (event, context) => {
     };
   }
 
-  let userId
+  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTransparent
   
   try {
     const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
     userId = body.userId
+    logoUrl = body.logoUrl
+    qrcodeUrl = body.qrcodeUrl
+    brandname = body.brandname
+    promoText = body.promoText
+    logoTransparent = body.logoTransparent
   } catch (error) {
     userId = event.userId
+    logoUrl = event.logoUrl
+    qrcodeUrl = event.qrcodeUrl
+    brandname = event.brandname
+    promoText = event.promoText
+    logoTransparent = event.logoTransparent
   }
   
   if (!userId) {
@@ -46,24 +56,35 @@ exports.main = async (event, context) => {
   }
 
   try {
-    const userRes = await db.collection('users').doc(userId).get()
-
-    if (!userRes.data) {
-      return {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        },
-        body: JSON.stringify({
-          success: false,
-          message: '用户不存在'
-        })
-      }
+    const updateData = {
+      updateTime: db.serverDate()
     }
 
+    if (logoUrl !== undefined) {
+      updateData.logoUrl = logoUrl
+    }
+
+    if (qrcodeUrl !== undefined) {
+      updateData.qrcodeUrl = qrcodeUrl
+    }
+    
+    if (brandname !== undefined) {
+      updateData.brandname = brandname
+    }
+    
+    if (promoText !== undefined) {
+      updateData.promoText = promoText
+    }
+
+    if (logoTransparent !== undefined) {
+      updateData.logoTransparent = logoTransparent
+    }
+
+    await db.collection('users').doc(userId).update({
+      data: updateData
+    })
+
+    const userRes = await db.collection('users').doc(userId).get()
     const user = userRes.data
     const now = new Date()
     const isVip = user.vipValidUntil && new Date(user.vipValidUntil) > now
@@ -78,6 +99,7 @@ exports.main = async (event, context) => {
       },
       body: JSON.stringify({
         success: true,
+        message: '更新成功',
         data: {
           userId,
           phone: user.phone,
@@ -87,13 +109,12 @@ exports.main = async (event, context) => {
           promoText: user.promoText || '',
           logoUrl: user.logoUrl || '',
           qrcodeUrl: user.qrcodeUrl || '',
-          logoTransparent: user.logoTransparent || false,
-          hasPassword: user.hasPassword
+          logoTransparent: user.logoTransparent || false
         }
       })
     }
   } catch (error) {
-    console.error('获取用户信息失败:', error)
+    console.error('更新用户信息失败:', error)
     return {
       statusCode: 200,
       headers: {
@@ -104,7 +125,7 @@ exports.main = async (event, context) => {
       },
       body: JSON.stringify({
         success: false,
-        message: '获取用户信息失败，请稍后重试'
+        message: '更新失败，请稍后重试'
       })
     }
   }

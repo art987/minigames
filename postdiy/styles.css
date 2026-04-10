@@ -4168,6 +4168,83 @@ footer {
   opacity: 1;
 }
 
+/* Logo透明开关样式 */
+.logo-transparency-toggle {
+  position: absolute;
+  bottom: -13px;
+  width: 100%;
+  /* background: #fff; */
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  left: 0;
+}
+
+.logo-transparency-toggle .toggle-track {
+  display: flex;
+  align-items: center;
+  background: #e8e8e8;
+  border-radius: 20px;
+  padding: 4px 7px;
+  border: 1px solid #ccc;
+  width: 100px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logo-transparency-toggle.active .toggle-track {
+  background: #ebedec;
+}
+
+.logo-transparency-toggle .toggle-label {
+  font-size: 11px;
+  color: #acacac;
+  padding: 0 3px;
+  transition: color 0.3s ease;
+}
+
+.logo-transparency-toggle .toggle-label-left {
+  color: #ffffff;
+}
+
+.logo-transparency-toggle .toggle-label-right {
+  color: #999;
+  margin-left: 15px;
+}
+
+.logo-transparency-toggle.active .toggle-label-left {
+  color: #999;
+}
+
+.logo-transparency-toggle.active .toggle-label-right {
+  color: #fff;
+}
+
+.logo-transparency-toggle .toggle-thumb {
+  width: 48px;
+  height: 22px;
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+.logo-transparency-toggle.active .toggle-thumb {
+  transform: translateY(-50%) translateX(40px);
+  background: #4CAF50;
+  color: #fff;
+}
+
 .color-select-container {
   display: block;
   clear: both;
@@ -4408,7 +4485,7 @@ footer {
   position: relative;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 8px;
   width: 100%;
   min-height: 120px; /* 与上传区域保持一致 */

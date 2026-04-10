@@ -22,8 +22,12 @@ function compressImage(imageData, maxWidth = 350) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
       
-      const compressedData = canvas.toDataURL('image/jpeg', 0.8);
-      console.log('图片压缩完成: 原始尺寸 ' + img.width + 'x' + img.height + ' -> ' + width + 'x' + height);
+      const originalType = imageData.startsWith('data:image/png') ? 'image/png' : 
+                          imageData.startsWith('data:image/webp') ? 'image/webp' : 
+                          imageData.startsWith('data:image/gif') ? 'image/gif' : 'image/jpeg';
+      const useTransparent = originalType !== 'image/jpeg';
+      const compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.8);
+      console.log('图片压缩完成: 原始尺寸 ' + img.width + 'x' + img.height + ' -> ' + width + 'x' + height + ', 格式: ' + (useTransparent ? 'PNG(保留透明)' : 'JPEG'));
       console.log('压缩后数据大小约: ' + Math.round(compressedData.length / 1024) + 'KB');
       
       resolve(compressedData);
@@ -148,7 +152,8 @@ async function loadBusinessInfoFromCloud() {
           brandname: result.data.brandname || '',
           promoText: result.data.promoText || '',
           logoUrl: result.data.logoUrl || '',
-          qrcodeUrl: result.data.qrcodeUrl || ''
+          qrcodeUrl: result.data.qrcodeUrl || '',
+          logoTransparent: result.data.logoTransparent || false
         }
       };
     }
@@ -251,6 +256,9 @@ function fillBusinessInfoToState(data) {
     if (data.promoText) {
       window.editorState.businessInfo.promoText = data.promoText;
     }
+    if (data.logoTransparent !== undefined) {
+      window.editorState.businessInfo.logoTransparent = data.logoTransparent;
+    }
   }
   
   // 更新画布显示
@@ -280,6 +288,24 @@ function fillBusinessInfoToState(data) {
     qrcodePreviewImg.src = data.qrcodeUrl;
     qrcodePreview.style.display = 'block';
     qrcodeUploadArea.style.display = 'none';
+  }
+
+  // 更新Logo透明开关UI
+  if (data.logoTransparent !== undefined && window.elements && window.elements.logoTransparencyToggle) {
+    const toggle = window.elements.logoTransparencyToggle;
+    if (data.logoTransparent) {
+      toggle.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
+    }
+    const thumb = toggle.querySelector('.toggle-thumb');
+    if (thumb) {
+      thumb.textContent = data.logoTransparent ? '透明' : '不透明';
+    }
+    // 更新海报上的Logo样式
+    if (typeof window.updateLogoTransparencyStyle === 'function') {
+      window.updateLogoTransparencyStyle(data.logoTransparent);
+    }
   }
 }
 
@@ -416,7 +442,7 @@ async function syncBrandnameToCloud(brandname) {
 async function syncPromoTextToCloud(promoText) {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId) return;
-  
+
   try {
     const response = await fetch(API_BASE_URL + '/user-update-info', {
       method: 'POST',
@@ -429,6 +455,26 @@ async function syncPromoTextToCloud(promoText) {
     }
   } catch (e) {
     console.error('同步促销信息失败:', e);
+  }
+}
+
+// 同步Logo透明状态到云端
+async function syncLogoTransparentToCloud(logoTransparent) {
+  const userId = localStorage.getItem('postdiy_user_id');
+  if (!userId) return;
+
+  try {
+    const response = await fetch(API_BASE_URL + '/user-update-info', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, logoTransparent })
+    });
+    const result = await response.json();
+    if (result.success) {
+      console.log('Logo透明状态已同步到云端:', logoTransparent);
+    }
+  } catch (e) {
+    console.error('同步Logo透明状态失败:', e);
   }
 }
 
@@ -498,6 +544,7 @@ window.CloudSync = {
   syncQrcodeUrlToCloud,
   syncBrandnameToCloud,
   syncPromoTextToCloud,
+  syncLogoTransparentToCloud,
   clearUserImageUrl,
   showLoadingToast,
   hideLoadingToast,
