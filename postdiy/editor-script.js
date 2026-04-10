@@ -4394,33 +4394,28 @@ let currentCropTarget = null;
   // 初始化模板幻灯片视图
   function initTemplateSlideView() {
     if (!elements.templateGalleryContainer || !state.allTemplatesList.length) return;
-    
+
     elements.templateGalleryContainer.innerHTML = '';
-    
+
     state.allTemplatesList.forEach((template, index) => {
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
-      
+      slide.dataset.loaded = 'false';
+      slide.dataset.thumbnail = template.thumbnail;
+
       const img = document.createElement('img');
-      const realSrc = template.thumbnail;
       img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
-      img.loading = 'lazy';
-      
-      const realImg = new Image();
-      realImg.onload = function() {
-        img.src = realSrc;
-      };
-      realImg.src = realSrc;
-      
+      img.className = 'slide-img';
+
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';
       nameDiv.textContent = template.name;
-      
+
       slide.appendChild(img);
       slide.appendChild(nameDiv);
-      
+
       slide.addEventListener('click', function() {
         if (this.classList.contains('current')) {
           selectTemplate(template);
@@ -4430,22 +4425,50 @@ let currentCropTarget = null;
           goToSlide(clickedIndex);
         }
       });
-      
+
       elements.templateGalleryContainer.appendChild(slide);
     });
-    
-    // 设置初始幻灯片位置
+
     if (state.currentTemplate) {
       const currentIndex = state.allTemplatesList.findIndex(t => t.id === state.currentTemplate.id);
       state.currentSlideIndex = currentIndex >= 0 ? currentIndex : 0;
     } else {
       state.currentSlideIndex = 0;
     }
-    
+
     updateSlidePositions();
-    
-    // 添加触摸滑动支持
+    loadSlideImages();
+
     initSlideTouchEvents();
+  }
+
+  // 懒加载幻灯片图片
+  function loadSlideImages() {
+    const slides = elements.templateGalleryContainer?.querySelectorAll('.template-gallery-slide');
+    if (!slides) return;
+
+    slides.forEach((slide, index) => {
+      if (slide.dataset.loaded === 'true') return;
+
+      const shouldLoad = slide.classList.contains('current') ||
+                         slide.classList.contains('prev-1') ||
+                         slide.classList.contains('prev-2') ||
+                         slide.classList.contains('next-1') ||
+                         slide.classList.contains('next-2');
+
+      if (shouldLoad) {
+        const img = slide.querySelector('.slide-img');
+        const thumbnail = slide.dataset.thumbnail;
+        if (img && thumbnail && img.src.includes('loading88.gif')) {
+          const realImg = new Image();
+          realImg.onload = function() {
+            img.src = realImg.src;
+            slide.dataset.loaded = 'true';
+          };
+          realImg.src = thumbnail;
+        }
+      }
+    });
   }
   
   // 初始化幻灯片触摸滑动事件
@@ -4597,20 +4620,23 @@ let currentCropTarget = null;
   function goToSlide(index) {
     state.currentSlideIndex = index;
     updateSlidePositions();
+    loadSlideImages();
   }
-  
+
   // 上一个幻灯片
   function prevSlide() {
     if (!state.allTemplatesList.length) return;
     state.currentSlideIndex = (state.currentSlideIndex - 1 + state.allTemplatesList.length) % state.allTemplatesList.length;
     updateSlidePositions();
+    loadSlideImages();
   }
-  
+
   // 下一个幻灯片
   function nextSlide() {
     if (!state.allTemplatesList.length) return;
     state.currentSlideIndex = (state.currentSlideIndex + 1) % state.allTemplatesList.length;
     updateSlidePositions();
+    loadSlideImages();
   }
   
   // 开始幻灯片自动播放
@@ -5093,26 +5119,21 @@ let currentCropTarget = null;
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
-      
+      slide.dataset.loaded = 'false';
+      slide.dataset.thumbnail = template.thumbnail;
+
       const img = document.createElement('img');
-      const realSrc = template.thumbnail;
       img.src = 'images/statics/loading88.gif';
       img.alt = template.name;
-      img.loading = 'lazy';
-      
-      const realImg = new Image();
-      realImg.onload = function() {
-        img.src = realSrc;
-      };
-      realImg.src = realSrc;
-      
+      img.className = 'slide-img';
+
       const nameDiv = document.createElement('div');
       nameDiv.className = 'slide-name';
       nameDiv.textContent = template.name;
-      
+
       slide.appendChild(img);
       slide.appendChild(nameDiv);
-      
+
       slide.addEventListener('click', function() {
         if (this.classList.contains('current')) {
           selectTemplate(template);
@@ -5122,11 +5143,12 @@ let currentCropTarget = null;
           goToSlide(clickedIndex);
         }
       });
-      
+
       elements.templateGalleryContainer.appendChild(slide);
     });
     
     updateSlidePositions();
+    loadSlideImages();
     
     // 重新绑定触摸事件
     initSlideTouchEvents();
