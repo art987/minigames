@@ -10868,12 +10868,25 @@ window.fontManager = {
   // 文案模板管理器
 window.textTemplateManager = {
   selectedTemplate: null,
-  currentCategory: '通用',
+  currentCategory: '情感',
 
   init: function() {
     this.bindEvents();
     this.renderCategories();
     this.renderTemplates(this.currentCategory);
+  },
+
+  openModal: function() {
+    const modal = document.getElementById('textTemplateModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      const firstCatBtn = modal.querySelector('.industry-category-vertical');
+      if (firstCatBtn) {
+        this.currentCategory = firstCatBtn.dataset.category;
+        this.renderCategories();
+        this.renderTemplates(this.currentCategory);
+      }
+    }
   },
 
   bindEvents: function() {
@@ -10906,13 +10919,6 @@ window.textTemplateManager = {
           this.closeModal();
         }
       });
-    }
-  },
-
-  openModal: function() {
-    const modal = document.getElementById('textTemplateModal');
-    if (modal) {
-      modal.classList.remove('hidden');
     }
   },
 
