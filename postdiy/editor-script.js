@@ -11108,9 +11108,17 @@ window.textTemplateManager = {
       font-size: 16px;
       line-height: 1.5;
       white-space: pre-wrap;
+      word-break: break-word;
       text-align: center;
       cursor: move;
       user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      -webkit-touch-callout: none;
+      width: 200px;
+      min-width: 50px;
+      max-width: 80%;
+      box-sizing: border-box;
       z-index: ${text.zIndex};
     `;
 
@@ -11152,6 +11160,40 @@ window.textTemplateManager = {
     });
 
     document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    textEl.addEventListener('touchstart', (e) => {
+      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn') || e.target.classList.contains('text-resize-handle')) {
+        return;
+      }
+      if (e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        initialX = text.x;
+        initialY = text.y;
+        this.selectTextElement(text.id);
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const posterFrame = document.getElementById('posterFrame');
+      if (!posterFrame) return;
+      const frameRect = posterFrame.getBoundingClientRect();
+      const deltaX = (e.touches[0].clientX - startX) / frameRect.width * 100;
+      const deltaY = (e.touches[0].clientY - startY) / frameRect.height * 100;
+      text.x = initialX + deltaX;
+      text.y = initialY + deltaY;
+      textEl.style.left = `${text.x}%`;
+      textEl.style.top = `${text.y}%`;
+      this.updateTextControlPositions(text.id);
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
       isDragging = false;
     });
 
@@ -11255,6 +11297,32 @@ window.textTemplateManager = {
     });
 
     document.addEventListener('mouseup', () => {
+      isRotating = false;
+    });
+
+    rotateBtn.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        isRotating = true;
+        startAngle = getAngleFromCenter(e.touches[0].clientX, e.touches[0].clientY);
+        startRotation = text.rotation;
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isRotating || e.touches.length !== 1) return;
+      const currentAngle = getAngleFromCenter(e.touches[0].clientX, e.touches[0].clientY);
+      let rotation = startRotation + (currentAngle - startAngle);
+      if (rotation > 180) rotation -= 360;
+      if (rotation < -180) rotation += 360;
+      text.rotation = rotation;
+      this.updateTextElementStyle(text.id);
+      this.updateTextControlPositions(text.id);
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
       isRotating = false;
     });
 

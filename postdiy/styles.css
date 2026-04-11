@@ -6324,18 +6324,18 @@ button.future-suggestion-btn[data-action="wanan"] {
   height: 24px;
   border-radius: 50%;
   background: white;
-  border: 2px solid #007bff;
+  border: 2px solid #dc3545;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 14px;
-  color: #007bff;
+  color: #dc3545;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .text-control:hover {
-  background: #007bff;
+  background: #dc3545;
   color: white;
 }
 
@@ -6355,7 +6355,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   width: 14px;
   height: 14px;
   background: white;
-  border: 2px solid #007bff;
+  border: 2px solid #dc3545;
   border-radius: 50%;
 }
 
@@ -6366,14 +6366,22 @@ button.future-suggestion-btn[data-action="wanan"] {
   font-size: 24px;
   line-height: 1.5;
   white-space: pre-wrap;
+  word-break: break-word;
   text-align: center;
   cursor: move;
   user-select: none;
+  -webkit-user-select: none;
   padding: 10px;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  width: 200px;
+  min-width: 50px;
+  max-width: 80%;
+  box-sizing: border-box;
 }
 
 .canvas-text.selected {
-  outline: 2px dashed #007bff;
+  outline: 2px dashed #ffffff;
 }
 
 .text-settings-panel {
@@ -6395,7 +6403,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .text-template-actions .btn-primary {
-  background: #007bff;
+  background: #ff0000;
   color: white;
   border: none;
   padding: 8px 20px;
@@ -6405,7 +6413,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .text-template-actions .btn-primary:hover {
-  background: #0056b3;
+  background: #d70000;
 }
 
 .text-template-actions .btn-secondary {
