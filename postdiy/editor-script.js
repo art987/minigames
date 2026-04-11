@@ -1949,19 +1949,23 @@ let currentCropTarget = null;
 
     const finalCanvas = applyImageFilters(canvas);
     
-    const targetSize = 350;
-    let scaledCanvas = finalCanvas;
-    if (finalCanvas.width !== targetSize || finalCanvas.height !== targetSize) {
-      scaledCanvas = document.createElement('canvas');
-      scaledCanvas.width = targetSize;
-      scaledCanvas.height = targetSize;
-      const ctx = scaledCanvas.getContext('2d');
-      ctx.drawImage(finalCanvas, 0, 0, targetSize, targetSize);
-      console.log('Logo缩放到目标尺寸:', targetSize + 'x' + targetSize);
+    let outputCanvas = finalCanvas;
+    let useTransparentFormat = false;
+    
+    if (currentCropTarget === 'logo') {
+      const targetSize = 350;
+      if (finalCanvas.width !== targetSize || finalCanvas.height !== targetSize) {
+        outputCanvas = document.createElement('canvas');
+        outputCanvas.width = targetSize;
+        outputCanvas.height = targetSize;
+        const ctx = outputCanvas.getContext('2d');
+        ctx.drawImage(finalCanvas, 0, 0, targetSize, targetSize);
+        console.log('Logo缩放到目标尺寸:', targetSize + 'x' + targetSize);
+      }
+      useTransparentFormat = currentCropImageType === 'png';
     }
-
-    const useTransparentFormat = currentCropTarget === 'logo' && currentCropImageType === 'png';
-    const base64 = scaledCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
+    
+    const base64 = outputCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
     console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
 
     if (currentCropTarget === 'logo') {
