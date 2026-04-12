@@ -1258,7 +1258,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 20px;
+  font-size: 18px;
   color: white;
   text-shadow: 
     0 0 10px rgba(255, 255, 255, 0.8),
@@ -4755,7 +4755,7 @@ footer {
   }
   
   .modal-title {
-    font-size: 15px;
+    font-size: 14px;
   }
   
   /* 小屏幕上的模板网格调整 */
@@ -5075,7 +5075,7 @@ input.hidden {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 20px;
+  padding: 7px 11px;
   border-bottom: 1px solid #e0e0e0;
 }
 

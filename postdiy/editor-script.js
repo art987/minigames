@@ -474,7 +474,7 @@ let currentCropTarget = null;
     isUploadingLogo: false,  // 标记是否正在上传logo
     currentFrame: null,
     pendingFrame: null,
-    templateViewMode: 'slide',
+    templateViewMode: 'grid',
     currentSlideIndex: 0,
     allTemplatesList: [],
     slideAutoPlaying: true,
@@ -2458,9 +2458,9 @@ let currentCropTarget = null;
       const topArea = elements.templateTriggerArea.querySelector('.trigger-top');
       const bottomArea = elements.templateTriggerArea.querySelector('.trigger-bottom');
       
-      if (leftArea) setupHoverEvents(leftArea, '更换模板');
-      if (topArea) setupHoverEvents(topArea, '相册上传');
-      if (bottomArea) setupHoverEvents(bottomArea, '拍照上传');
+      if (leftArea) setupHoverEvents(leftArea, '双击 更换模板');
+      if (topArea) setupHoverEvents(topArea, '双击 打开相册');
+      if (bottomArea) setupHoverEvents(bottomArea, '双击 拍照');
       
       // 触摸开始事件
       elements.templateTriggerArea.addEventListener('touchstart', function(e) {
@@ -2478,7 +2478,7 @@ let currentCropTarget = null;
           
           // 长按时直接显示 long-press 提示
           longPressTimer = setTimeout(() => {
-            showHint(currentTarget, '更换模板', 'long-press');
+            showHint(currentTarget, '双击 更换模板', 'long-press');
           }, 600); // 600毫秒长按触发
         } else {
           // 右侧区域
@@ -2486,13 +2486,13 @@ let currentCropTarget = null;
             // 右上区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
             longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '相册上传', 'long-press');
+              showHint(currentTarget, '双击 打开相册', 'long-press');
             }, 600);
           } else {
             // 右下区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
             longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '拍照上传', 'long-press');
+              showHint(currentTarget, '双击 拍照', 'long-press');
             }, 600);
           }
         }
@@ -2552,9 +2552,9 @@ let currentCropTarget = null;
             
             // 显示双击提示
             const hintMap = {
-              'left': '双击更换模板',
-              'top': '双击相册上传',
-              'bottom': '双击拍照上传'
+              'left': '双击 更换模板',
+              'top': '双击 打开相册',
+              'bottom': '双击 拍照'
             };
             if (currentTarget) {
               showHint(currentTarget, hintMap[tappedArea], 'long-press');
@@ -2570,6 +2570,9 @@ let currentCropTarget = null;
       });
       
       // 鼠标事件（桌面端）
+      let lastMouseClickTime = 0;
+      let lastMouseClickArea = null;
+      
       elements.templateTriggerArea.addEventListener('mousedown', function(e) {
         const rect = elements.templateTriggerArea.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
@@ -2580,30 +2583,16 @@ let currentCropTarget = null;
         // 判断点击区域
         if (clickX < areaWidth / 2) {
           currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
-          longPressTimer = setTimeout(() => {
-            showHint(currentTarget, '选择模板', 'long-press');
-          }, 600);
         } else {
           if (clickY < areaHeight / 2) {
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
-            longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '相册上传', 'long-press');
-            }, 600);
           } else {
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
-            longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '拍照上传', 'long-press');
-            }, 600);
           }
         }
       });
       
       elements.templateTriggerArea.addEventListener('mouseup', function(e) {
-        if (longPressTimer) {
-          clearTimeout(longPressTimer);
-          longPressTimer = null;
-        }
-        
         if (currentTarget) {
           const rect = elements.templateTriggerArea.getBoundingClientRect();
           const clickX = e.clientX - rect.left;
@@ -2611,17 +2600,48 @@ let currentCropTarget = null;
           const areaWidth = rect.width;
           const areaHeight = rect.height;
           
+          // 判断点击区域
+          let clickedArea = null;
           if (clickX < areaWidth / 2) {
-            openTemplateModal();
+            clickedArea = 'left';
           } else {
             if (clickY < areaHeight / 2) {
+              clickedArea = 'top';
+            } else {
+              clickedArea = 'bottom';
+            }
+          }
+          
+          // 双击检测
+          const currentTime = Date.now();
+          if (lastMouseClickArea === clickedArea && (currentTime - lastMouseClickTime) < DOUBLE_TAP_DELAY) {
+            // 双击触发功能
+            if (clickedArea === 'left') {
+              openTemplateModal();
+            } else if (clickedArea === 'top') {
               if (elements.uploadBackgroundBtn) {
                 elements.uploadBackgroundBtn.click();
               }
-            } else {
+            } else if (clickedArea === 'bottom') {
               if (elements.takePhotoBtn) {
                 elements.takePhotoBtn.click();
               }
+            }
+            lastMouseClickTime = 0;
+            lastMouseClickArea = null;
+          } else {
+            // 单击显示提示
+            lastMouseClickTime = currentTime;
+            lastMouseClickArea = clickedArea;
+            
+            // 显示双击提示
+            const hintMap = {
+              'left': '双击 更换模板',
+              'top': '双击 打开相册',
+              'bottom': '双击 拍照'
+            };
+            if (currentTarget) {
+              showHint(currentTarget, hintMap[clickedArea], 'long-press');
             }
           }
         }
@@ -3806,8 +3826,8 @@ let currentCropTarget = null;
     // 根据当前日期自动选择月份和节日（与首页逻辑保持一致）
     autoSelectDateInModal();
     
-    // 设置默认视图模式（幻灯片模式）
-    switchTemplateViewMode(state.templateViewMode || 'slide');
+    // 设置默认视图模式（平铺模式）
+    switchTemplateViewMode(state.templateViewMode || 'grid');
     
     // 移除关闭动画类
     elements.templateModal.classList.remove('closing');
@@ -3838,8 +3858,8 @@ let currentCropTarget = null;
     // 填充模板网格
     fillTemplateGrid();
     
-    // 设置默认视图模式（幻灯片模式）
-    switchTemplateViewMode(state.templateViewMode || 'slide');
+    // 设置默认视图模式（平铺模式）
+    switchTemplateViewMode(state.templateViewMode || 'grid');
     
     // 移除关闭动画类
     elements.templateModal.classList.remove('closing');
