@@ -2367,6 +2367,11 @@ let currentCropTarget = null;
       let currentTarget = null;
       let hoverTimer = null;
       
+      // 双击检测变量
+      let lastTapTime = 0;
+      let lastTapArea = null;
+      const DOUBLE_TAP_DELAY = 300; // 双击间隔时间（毫秒）
+      
       // 通用提示显示函数
       function showHint(target, text, hintType) {
         const className = hintType === 'hover' ? 'hover-hint' : 'long-press-hint';
@@ -2504,7 +2509,6 @@ let currentCropTarget = null;
         if (currentTarget) {
           hideHint(currentTarget, 'hover');
           
-          // 如果没有触发长按，则执行点击功能
           const touch = e.changedTouches[0];
           const rect = elements.templateTriggerArea.getBoundingClientRect();
           const clickX = touch.clientX - rect.left;
@@ -2512,21 +2516,48 @@ let currentCropTarget = null;
           const areaWidth = rect.width;
           const areaHeight = rect.height;
           
-          // 判断点击区域并执行相应功能
+          // 判断点击区域
+          let tappedArea = null;
           if (clickX < areaWidth / 2) {
-            // 左侧区域 - 打开模板选择弹窗
-            openTemplateModal();
+            tappedArea = 'left';
           } else {
             if (clickY < areaHeight / 2) {
-              // 右上区域 - 触发相册选择功能
+              tappedArea = 'top';
+            } else {
+              tappedArea = 'bottom';
+            }
+          }
+          
+          // 双击检测
+          const currentTime = Date.now();
+          if (lastTapArea === tappedArea && (currentTime - lastTapTime) < DOUBLE_TAP_DELAY) {
+            // 双击触发功能
+            if (tappedArea === 'left') {
+              openTemplateModal();
+            } else if (tappedArea === 'top') {
               if (elements.uploadBackgroundBtn) {
                 elements.uploadBackgroundBtn.click();
               }
-            } else {
-              // 右下区域 - 触发拍照功能
+            } else if (tappedArea === 'bottom') {
               if (elements.takePhotoBtn) {
                 elements.takePhotoBtn.click();
               }
+            }
+            lastTapTime = 0;
+            lastTapArea = null;
+          } else {
+            // 单击显示提示
+            lastTapTime = currentTime;
+            lastTapArea = tappedArea;
+            
+            // 显示双击提示
+            const hintMap = {
+              'left': '双击更换模板',
+              'top': '双击相册上传',
+              'bottom': '双击拍照上传'
+            };
+            if (currentTarget) {
+              showHint(currentTarget, hintMap[tappedArea], 'long-press');
             }
           }
         }
@@ -10998,6 +11029,17 @@ window.textTemplateManager = {
         this.copyTextOnly();
       });
     });
+
+    // 双击模板卡片也可以插入画布
+    container.querySelectorAll('.industry-template-card').forEach(card => {
+      card.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+        const index = parseInt(card.dataset.index);
+        const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
+        this.selectedTemplate = templates[index];
+        this.insertToCanvas();
+      });
+    });
   },
 
   escapeHtml: function(text) {
@@ -11052,9 +11094,9 @@ window.textTemplateManager = {
       y: randomY,
       scale: 1,
       rotation: 0,
-      color: '#FFFFFF',
-      fontFamily: window.fontManager.useFont('Microsoft YaHei'),
-      fontSize: 16,
+      color: '#000000',
+      fontFamily: window.fontManager ? window.fontManager.useFont('Microsoft YaHei') : 'sans-serif',
+      fontSize: 12,
       writingMode: 'horizontal-tb',
       textAlign: 'left',
       zIndex: window.stickerManager ? window.stickerManager.stickers.length + 100 : 100
@@ -11067,6 +11109,11 @@ window.textTemplateManager = {
 
     this.renderTextElements();
     this.closeModal();
+
+    // 插入后自动选中文字元素，显示控件和虚线框
+    setTimeout(() => {
+      this.selectTextElement(textId);
+    }, 100);
   },
 
   renderTextElements: function() {
@@ -11108,16 +11155,38 @@ window.textTemplateManager = {
 
     textEl.textContent = text.text;
 
+    // 双击检测变量
+    let lastClickTime = 0;
+    const DOUBLE_CLICK_DELAY = 300;
+
     textEl.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.selectTextElement(text.id);
+      
+      const currentTime = Date.now();
+      if (currentTime - lastClickTime < DOUBLE_CLICK_DELAY) {
+        // 双击切换设置面板
+        const panel = document.getElementById('textSettingsPanel');
+        if (panel && panel.style.display !== 'none') {
+          // 面板已打开，关闭它
+          panel.style.display = 'none';
+        } else {
+          // 面板未打开，打开它
+          this.selectTextElement(text.id);
+          this.showTextSettingsPanel(text.id);
+        }
+        lastClickTime = 0;
+      } else {
+        // 单击选中文字
+        this.selectTextElement(text.id);
+        lastClickTime = currentTime;
+      }
     });
 
     let isDragging = false;
     let startX, startY, initialX, initialY;
 
     textEl.addEventListener('mousedown', (e) => {
-      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn') || e.target.classList.contains('text-resize-handle')) {
+      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn')) {
         return;
       }
       isDragging = true;
@@ -11141,6 +11210,8 @@ window.textTemplateManager = {
       textEl.style.left = `${text.x}%`;
       textEl.style.top = `${text.y}%`;
       this.updateTextControlPositions(text.id);
+      this.updateToolbarPosition(text.id);
+      this.updateSettingsPanelPosition(text.id);
     });
 
     document.addEventListener('mouseup', () => {
@@ -11148,7 +11219,7 @@ window.textTemplateManager = {
     });
 
     textEl.addEventListener('touchstart', (e) => {
-      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn') || e.target.classList.contains('text-resize-handle')) {
+      if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn')) {
         return;
       }
       if (e.touches.length === 1) {
@@ -11162,6 +11233,10 @@ window.textTemplateManager = {
       }
     }, { passive: false });
 
+    // 移动端双击检测变量
+    let lastTapTime = 0;
+    const DOUBLE_TAP_DELAY = 300;
+
     document.addEventListener('touchmove', (e) => {
       if (!isDragging || e.touches.length !== 1) return;
       const posterFrame = document.getElementById('posterFrame');
@@ -11174,10 +11249,34 @@ window.textTemplateManager = {
       textEl.style.left = `${text.x}%`;
       textEl.style.top = `${text.y}%`;
       this.updateTextControlPositions(text.id);
+      this.updateToolbarPosition(text.id);
+      this.updateSettingsPanelPosition(text.id);
       e.preventDefault();
     }, { passive: false });
 
-    document.addEventListener('touchend', () => {
+    document.addEventListener('touchend', (e) => {
+      // 检测是否发生了拖动
+      const didDrag = Math.abs(text.x - initialX) > 0.1 || Math.abs(text.y - initialY) > 0.1;
+      
+      if (!didDrag) {
+        // 没有拖动，检测双击
+        const currentTime = Date.now();
+        if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
+          // 双击切换设置面板
+          const panel = document.getElementById('textSettingsPanel');
+          if (panel && panel.style.display !== 'none') {
+            // 面板已打开，关闭它
+            panel.style.display = 'none';
+          } else {
+            // 面板未打开，打开它
+            this.showTextSettingsPanel(text.id);
+          }
+          lastTapTime = 0;
+        } else {
+          lastTapTime = currentTime;
+        }
+      }
+      
       isDragging = false;
     });
 
@@ -11233,7 +11332,7 @@ window.textTemplateManager = {
     // 设置按钮：左侧边中点的靠外10像素
     const settingsBtn = document.createElement('button');
     settingsBtn.className = 'text-control text-settings-btn';
-    settingsBtn.innerHTML = '⚙';
+    settingsBtn.innerHTML = '✎';
     settingsBtn.title = '文字设置';
     settingsBtn.dataset.textId = text.id;
     settingsBtn.style.cssText = `
@@ -11324,83 +11423,6 @@ window.textTemplateManager = {
     });
 
     posterFrame.appendChild(rotateBtn);
-
-    this.createResizeHandles(text);
-  },
-
-  createResizeHandles: function(text) {
-    const posterFrame = document.getElementById('posterFrame');
-    if (!posterFrame) return;
-
-    const textEl = document.getElementById(text.id);
-    if (!textEl) return;
-
-    const frameRect = posterFrame.getBoundingClientRect();
-    const textRect = textEl.getBoundingClientRect();
-    
-    const textLeft = textRect.left - frameRect.left;
-    const textTop = textRect.top - frameRect.top;
-    const textRight = textRect.right - frameRect.left;
-    const textBottom = textRect.bottom - frameRect.top;
-    const textCenterX = textLeft + textRect.width / 2;
-    const textCenterY = textTop + textRect.height / 2;
-
-    const handlePositions = [
-      { name: 'nw', x: textLeft - 10, y: textTop - 10 },
-      { name: 'ne', x: textRight + 10, y: textTop - 10 },
-      { name: 'sw', x: textLeft - 10, y: textBottom + 10 },
-      { name: 'se', x: textRight + 10, y: textBottom + 10 }
-    ];
-
-    handlePositions.forEach(pos => {
-      const handle = document.createElement('div');
-      handle.className = `text-control text-resize-handle ${pos.name}`;
-      handle.dataset.textId = text.id;
-      handle.dataset.position = pos.name;
-      handle.style.cssText = `
-        position: absolute;
-        left: ${pos.x}px;
-        top: ${pos.y}px;
-        width: 12px;
-        height: 12px;
-        background: white;
-        border: 2px solid #dc3545;
-        border-radius: 50%;
-        opacity: 0;
-        z-index: ${text.zIndex + 10};
-        cursor: ${pos.name}-resize;
-        transform: translate(-50%, -50%);
-      `;
-
-      let isResizing = false;
-      let startX, startY, startScale;
-
-      handle.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        isResizing = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startScale = text.scale;
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!isResizing) return;
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
-        const delta = Math.max(deltaX, deltaY);
-        const scaleChange = delta / 200;
-        text.scale = Math.max(0.05, startScale + scaleChange);
-        this.updateTextElementStyle(text.id);
-        this.updateTextControlPositions(text.id);
-      });
-
-      document.addEventListener('mouseup', () => {
-        isResizing = false;
-      });
-
-      posterFrame.appendChild(handle);
-    });
   },
 
   selectTextElement: function(textId) {
@@ -11470,21 +11492,6 @@ window.textTemplateManager = {
       } else if (el.classList.contains('text-rotate-btn')) {
         el.style.left = `${textRight + 10}px`;
         el.style.top = `${textCenterY}px`;
-      } else if (el.classList.contains('text-resize-handle')) {
-        const pos = el.dataset.position;
-        if (pos === 'nw') {
-          el.style.left = `${textLeft - 10}px`;
-          el.style.top = `${textTop - 10}px`;
-        } else if (pos === 'ne') {
-          el.style.left = `${textRight + 10}px`;
-          el.style.top = `${textTop - 10}px`;
-        } else if (pos === 'sw') {
-          el.style.left = `${textLeft - 10}px`;
-          el.style.top = `${textBottom + 10}px`;
-        } else if (pos === 'se') {
-          el.style.left = `${textRight + 10}px`;
-          el.style.top = `${textBottom + 10}px`;
-        }
       }
     });
     
@@ -11504,6 +11511,12 @@ window.textTemplateManager = {
     }
 
     document.querySelectorAll(`.text-control[data-text-id="${textId}"]`).forEach(el => el.remove());
+
+    // 关闭设置面板
+    const panel = document.getElementById('textSettingsPanel');
+    if (panel) {
+      panel.style.display = 'none';
+    }
 
     // 如果没有文字元素了，隐藏工具栏
     if (!window.textElements || window.textElements.length === 0) {
@@ -11547,7 +11560,7 @@ window.textTemplateManager = {
       const toolbarBottom = toolbarRect.bottom - frameRect.top;
       const toolbarCenterX = toolbarRect.left - frameRect.left + toolbarRect.width / 2;
       
-      panel.style.left = `${toolbarCenterX - panelWidth / 2}px`;
+      panel.style.left = `${toolbarCenterX - panelWidth / 2 + 50}px`;
       panel.style.top = `${toolbarBottom + 10}px`;
     } else if (textEl) {
       const frameRect = posterFrame.getBoundingClientRect();
@@ -11555,7 +11568,7 @@ window.textTemplateManager = {
       const textBottom = rect.bottom - frameRect.top;
       const textCenterX = rect.left - frameRect.left + rect.width / 2;
       
-      panel.style.left = `${textCenterX - 140}px`;
+      panel.style.left = `${textCenterX - 140 + 50}px`;
       panel.style.top = `${textBottom + 60}px`;
     }
 
@@ -11577,20 +11590,6 @@ window.textTemplateManager = {
     document.getElementById('closeTextSettingsBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       panel.style.display = 'none';
-    });
-
-    // 5秒无操作自动关闭
-    let autoCloseTimer = setTimeout(() => {
-      panel.style.display = 'none';
-    }, 5000);
-
-    // 重置计时器
-    panel.addEventListener('mousemove', () => {
-      clearTimeout(autoCloseTimer);
-      autoCloseTimer = setTimeout(() => {
-        panel.style.display = 'none';
-      }, 5000);
-      this.resetToolbarTimer();
     });
   },
 
@@ -11664,6 +11663,45 @@ window.textTemplateManager = {
       // 工具栏放在文字底边虚线外10像素，居中对齐
       toolbar.style.left = `${textCenterX - toolbarWidth / 2}px`;
       toolbar.style.top = `${textBottom + 10}px`;
+    });
+  },
+
+  updateSettingsPanelPosition: function(textId) {
+    const panel = document.getElementById('textSettingsPanel');
+    if (!panel || panel.style.display === 'none') return;
+
+    const text = window.textElements.find(t => t.id === textId);
+    if (!text) return;
+
+    const textEl = document.getElementById(textId);
+    if (!textEl) return;
+
+    const posterFrame = document.getElementById('posterFrame');
+    if (!posterFrame) return;
+
+    requestAnimationFrame(() => {
+      const frameRect = posterFrame.getBoundingClientRect();
+      const textRect = textEl.getBoundingClientRect();
+      const toolbar = document.getElementById('textToolbar');
+      const panelWidth = 280;
+      
+      // 计算文字相对于posterFrame的位置
+      const textBottom = textRect.bottom - frameRect.top;
+      const textCenterX = textRect.left - frameRect.left + textRect.width / 2;
+      
+      // 如果工具栏存在，设置面板在工具栏下方
+      if (toolbar && toolbar.style.opacity !== '0') {
+        const toolbarRect = toolbar.getBoundingClientRect();
+        const toolbarBottom = toolbarRect.bottom - frameRect.top;
+        const toolbarCenterX = toolbarRect.left - frameRect.left + toolbarRect.width / 2;
+        
+        panel.style.left = `${toolbarCenterX - panelWidth / 2 + 50}px`;
+        panel.style.top = `${toolbarBottom + 10}px`;
+      } else {
+        // 否则直接放在文字下方
+        panel.style.left = `${textCenterX - panelWidth / 2 + 50}px`;
+        panel.style.top = `${textBottom + 10}px`;
+      }
     });
   },
 
@@ -11767,11 +11805,13 @@ window.textTemplateManager = {
     const textAlignToggleBtn = document.getElementById('textAlignToggleBtn');
 
     if (colorToggleBtn) {
-      // 白字用黑色背景，黑字用白色背景
+      // 白字用黑色背景显示"白"，黑字用白色背景显示"黑"
       const bgColor = text.color === '#FFFFFF' ? '#000000' : '#FFFFFF';
       const textColor = text.color === '#FFFFFF' ? '#FFFFFF' : '#000000';
+      const label = text.color === '#FFFFFF' ? '白' : '黑';
       colorToggleBtn.style.background = bgColor;
       colorToggleBtn.style.color = textColor;
+      colorToggleBtn.textContent = label;
     }
 
     if (writingModeToggleBtn) {
@@ -11808,6 +11848,16 @@ window.textTemplateManager = {
     if (toolbar) {
       toolbar.style.opacity = '0';
     }
+    
+    // 同时隐藏控制点
+    document.querySelectorAll('.text-control').forEach(el => {
+      el.style.opacity = '0';
+    });
+    
+    // 同时移除选中状态（虚线框）
+    document.querySelectorAll('.canvas-text').forEach(el => {
+      el.classList.remove('selected');
+    });
   },
 
   resetToolbarTimer: function() {
