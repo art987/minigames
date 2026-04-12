@@ -6390,7 +6390,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   z-index: 3000;
-  min-width: 280px;
+  min-width: 220px;
 }
 
 .text-template-actions {
@@ -7507,4 +7507,153 @@ button.future-suggestion-btn[data-action="wanan"] {
     font-size: 12px;
     display: none;
   }
+}
+
+/* 文字工具栏样式 */
+.text-toolbar {
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  background: rgb(255 255 255 / 0%);
+  border-radius: 25px;
+  padding: 6px 20px;
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); */
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.text-toolbar .toolbar-btn {
+  width: 27px;
+  height: 27px;
+  border: 2px solid #dc3545;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.text-toolbar .toolbar-btn:hover {
+  background: #eaeaea;
+  color: #e90808;
+}
+
+.text-toolbar .btn-icon {
+  font-size: 12px;
+  color: #cf0101;
+}
+#colorToggleBtn{box-shadow: 0 0 2px #fff;}
+#textAlignToggleBtn {
+    width: 58px;
+    border-radius: 10px;
+}
+#writingModeToggleBtn{
+    width: 39px;
+    border-radius: 9px;
+}
+#fontSizeDecreaseBtn .btn-icon{
+    font-size: 21px;
+}
+#fontSizeIncreaseBtn .btn-icon{
+    font-size: 21px;
+}
+
+span.btn-icon {}
+/* 文字设置面板样式 */
+.text-settings-panel {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 3000;
+  min-width: 220px;
+}
+
+.text-settings-panel textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 80px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.text-settings-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+  position: absolute;
+}
+
+.text-settings-close-btn {
+  background: #db0303;
+  border: none;
+  border-radius: 28px;
+  font-size: 24px;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  color: #ffffff;
+  position: absolute;
+  top: -29px;
+  left: -19px;
+  line-height: 25px;
+}
+
+.text-settings-close-btn:hover {
+  color: #dc3545;
+}
+
+/* 文字控制点样式 */
+.text-control {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #dc3545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 24px;
+  font-size: 16px;
+  color: #dc3545;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.text-control:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* 文字元素样式 */
+.canvas-text {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  cursor: move;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  width: 200px;
+  min-width: 50px;
+  max-width: 80%;
+  box-sizing: border-box;
+}
+
+.canvas-text.selected {
+  outline: 2px dashed #dc3545;
+  outline-offset: 4px;
 }
