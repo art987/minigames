@@ -11910,7 +11910,7 @@ window.textTemplateManager = {
     }
 
     if (writingModeToggleBtn) {
-      writingModeToggleBtn.innerHTML = `<span class="btn-icon">${text.writingMode === 'horizontal-tb' ? '横排' : '竖排'}</span>`;
+      writingModeToggleBtn.innerHTML = `<span class="btn-icon">${text.writingMode === 'horizontal-tb' ? '竖排' : '横排'}</span>`;
     }
 
     if (textAlignToggleBtn) {

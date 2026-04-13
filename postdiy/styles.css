@@ -1218,7 +1218,7 @@ footer {
   .trigger-top:hover,
   .trigger-bottom:hover {
     background-color: rgb(6 6 6 / 14%);
-    border:2px dashed #ffffffad;
+    border:1px dotted #ffffffad;
   }
 }
 
@@ -1235,7 +1235,7 @@ footer {
   .trigger-top:active,
   .trigger-bottom:active {
     background-color: transparent !important;
-    border:2px dashed #ffffffad;
+    border:1px dotted #ffffffad;
   }
 }
 
@@ -1258,7 +1258,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 18px;
+  font-size: 14px;
   color: white;
   text-shadow: 
     0 0 10px rgba(255, 255, 255, 0.8),
@@ -1290,9 +1290,9 @@ footer {
 .trigger-left.long-press-active,
 .trigger-top.long-press-active,
 .trigger-bottom.long-press-active {
-  border: 2px dashed rgba(255, 255, 255, 0.8) !important;
+  border: 1px dotted rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #00000040 !important;
 }
 
@@ -1302,7 +1302,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 20px;
+  font-size: 14px;
   color: white;
   text-shadow: 
     0 0 10px rgba(255, 255, 255, 0.8),
@@ -7708,6 +7708,6 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 }
 
 .canvas-text.selected {
-  outline: 2px dashed #dc3545;
+  outline: 1px dotted #ffffff;
   outline-offset: 4px;
 }
