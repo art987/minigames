@@ -485,6 +485,9 @@ let currentCropTarget = null;
   let tempBusinessInfo = null;
   let pendingUploads = { logo: null, qrcode: null };
   let pendingDeletes = { logo: false, qrcode: false };
+  let originalTextColor = null;
+  let previewTextColor = null;
+  let colorConfirmed = false;
   
   // DOM元素缓存
   const elements = {};
@@ -871,7 +874,8 @@ let currentCropTarget = null;
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),
       closeFontColorModalBtn: document.getElementById('closeFontColorModalBtn'),
-      fontColorModalSelector: document.querySelector('#fontColorModal .color-swatch-group'),
+      fontColorModalSelector: document.querySelector('#fontColorModal .color-select-container'),
+      confirmFontColorBtn: document.getElementById('confirmFontColorBtn'),
       
       // 行业分类容器
       industryCategories: document.getElementById('industryCategories'),
@@ -2675,22 +2679,33 @@ let currentCropTarget = null;
     
     // 移除按钮事件监听，因为现在点击颜色直接应用并关闭弹窗
     
-    // 字体颜色选择弹窗内的颜色选择事件
+    // 字体颜色选择弹窗内的颜色选择事件 - 实时预览
     if (elements.fontColorModalSelector) {
       elements.fontColorModalSelector.addEventListener('click', function(e) {
-        if (e.target.classList.contains('color-swatch')) {
-          // 直接获取颜色并应用
-          const selectedColor = e.target.getAttribute('data-color');
+        if (e.target.classList.contains('color-swatch') || e.target.classList.contains('checkmark')) {
+          let targetSwatch = e.target;
+          if (e.target.classList.contains('checkmark')) {
+            targetSwatch = e.target.parentElement;
+          }
+          
+          const selectedColor = targetSwatch.getAttribute('data-color');
           
           if (selectedColor) {
-            // 更新状态
-            state.textColor = selectedColor;
+            // 保存预览颜色
+            previewTextColor = selectedColor;
             
-            // 保存到本地存储
-            localStorage.setItem('textColor', state.textColor);
+            // 更新状态用于实时预览（不保存到本地存储）
+            state.textColor = selectedColor;
             
             // 更新预览
             updateBusinessInfoDisplay();
+            
+            // 更新颜色选择器的选中样式
+            const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
+            allSwatches.forEach(swatch => {
+              swatch.classList.remove('selected');
+            });
+            targetSwatch.classList.add('selected');
             
             // 同步更新商家信息编辑弹窗中的颜色选择器状态
             const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
@@ -2702,13 +2717,41 @@ let currentCropTarget = null;
                 swatch.classList.remove('selected');
               }
             });
-            
-            // 显示成功提示
-            showToast('字体颜色已更新');
-            
-            // 立即关闭弹窗
-            closeFontColorModal();
           }
+        }
+      });
+    }
+    
+    // 确认选择按钮事件
+    if (elements.confirmFontColorBtn) {
+      elements.confirmFontColorBtn.addEventListener('click', function() {
+        if (previewTextColor) {
+          // 标记为已确认
+          colorConfirmed = true;
+          
+          // 保存到本地存储
+          state.textColor = previewTextColor;
+          localStorage.setItem('textColor', state.textColor);
+          
+          // 在选中的颜色块上添加确认标记
+          const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
+          allSwatches.forEach(swatch => {
+            swatch.classList.remove('confirmed');
+            const color = swatch.getAttribute('data-color');
+            if (color === previewTextColor) {
+              swatch.classList.add('confirmed');
+            }
+          });
+          
+          // 显示成功提示
+          showToast('字体颜色已更新');
+          
+          // 延迟关闭弹窗，让用户看到✔标记
+          setTimeout(function() {
+            closeFontColorModal();
+          }, 300);
+        } else {
+          showToast('请先选择一个颜色');
         }
       });
     }
@@ -3660,24 +3703,22 @@ let currentCropTarget = null;
   function openFontColorModal() {
     if (!elements.fontColorModal || !elements.fontColorModalSelector) return;
     
+    // 保存原始颜色，用于恢复
+    originalTextColor = state.textColor;
+    previewTextColor = state.textColor;
+    colorConfirmed = false;
+    
     // 初始化颜色选择器状态
     const colorOptions = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
     colorOptions.forEach(option => {
       const color = option.getAttribute('data-color');
       
-      // 移除所有选中状态
-      option.classList.remove('selected');
+      // 移除所有选中和确认状态
+      option.classList.remove('selected', 'confirmed');
       
-      // 为当前颜色添加选中边框效果
+      // 为当前颜色添加选中效果和✔标记
       if (color === state.textColor) {
-        option.style.border = '2px solid #333';
-      } else {
-        // 重置其他颜色的边框
-        if (color === '#FFFFFF') {
-          option.style.border = '1px solid #ddd';
-        } else {
-          option.style.border = '1px solid transparent';
-        }
+        option.classList.add('selected', 'confirmed');
       }
     });
     
@@ -3707,6 +3748,13 @@ let currentCropTarget = null;
   // 关闭字体颜色选择弹窗
   function closeFontColorModal() {
     if (!elements.fontColorModal) return;
+    
+    // 如果没有确认，恢复原始颜色
+    if (!colorConfirmed && originalTextColor !== null) {
+      state.textColor = originalTextColor;
+      localStorage.setItem('textColor', state.textColor);
+      updateBusinessInfoDisplay();
+    }
     
     // 添加关闭动画类
     elements.fontColorModal.classList.add('closing');
@@ -5692,6 +5740,7 @@ let currentCropTarget = null;
         
         if (result.success) {
           console.log('Logo上传成功，新URL:', result.url);
+          console.log('腾讯云URL:', result.tencentUrl);
           console.log('更新state.businessInfo.logo前:', state.businessInfo.logo);
           
           // 先更新state和本地缓存，再同步到云端
@@ -5710,8 +5759,8 @@ let currentCropTarget = null;
             console.log('本地缓存更新完成');
           });
           
-          // 最后同步到云端
-          await CloudSync.syncLogoUrlToCloud(result.url);
+          // 同步到云端（包括腾讯云URL）
+          await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl);
           console.log('云端同步完成');
         }
         
@@ -5738,7 +5787,7 @@ let currentCropTarget = null;
         
         if (result.success) {
           state.businessInfo.qrcode = result.url;
-          await CloudSync.syncQrcodeUrlToCloud(result.url);
+          await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl);
           await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
         }
       }

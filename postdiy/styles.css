@@ -1100,7 +1100,11 @@ footer {
 
 /* 字体颜色选择弹窗特定样式 */
 #fontColorModal .modal {
-  max-width: 400px;
+  max-width: 391px;
+  top: 20%;
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid #d3d3d3;
 }
 
 #fontColorModal .color-swatch-group {
@@ -4254,13 +4258,16 @@ footer {
 }
 #businessInfoModal .color-select-container{ display: none;}
 
-
+#fontColorModal{background:none;backdrop-filter: blur(0px);overflow: auto;}
 .color-swatch-hint {
   font-size: 12px;
   color: #666;
   margin-bottom: 8px;
+  margin-top: -1px;
 }
-
+#fontColorModal .modal-header{padding:0;position: relative;overflow: visible;}
+#fontColorModal .modal-header h2{ display:none }
+#fontColorModal button {}
 .color-swatch-group {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -4269,6 +4276,139 @@ footer {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* 字体颜色弹窗特定的颜色组样式 */
+#fontColorModal .color-swatch-group {
+  margin-bottom: 8px;
+}
+
+/* 第一行（3个颜色）特殊布局 */
+#fontColorModal .color-swatch-group[data-row="1"] {
+  grid-template-columns: repeat(8, 1fr);
+  /* max-width: 200px; */
+}
+
+/* 第2-4行（9个颜色）布局 */
+#fontColorModal .color-swatch-group[data-row="2"],
+#fontColorModal .color-swatch-group[data-row="3"],
+#fontColorModal .color-swatch-group[data-row="4"] {
+  grid-template-columns: repeat(9, 1fr);
+  max-width: 540px;
+}
+
+/* 颜色选择器选中状态 - 边框样式 */
+#fontColorModal .color-swatch.selected {
+  border: 3px solid #333 !important;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+#fontColorModal .color-swatch[data-color="#FFFFFF"].selected {
+  border: 3px solid #333 !important;
+}
+
+/* 颜色选择器中的勾标记 */
+#fontColorModal .color-swatch .checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  display: none;
+}
+
+#fontColorModal .color-swatch.confirmed .checkmark {
+  display: block;
+}
+
+/* 白色背景的勾标记用深色 */
+#fontColorModal .color-swatch[data-color="#FFFFFF"] .checkmark {
+  color: #000;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 深色背景的勾标记用白色 */
+#fontColorModal .color-swatch:not([data-color="#FFFFFF"]) .checkmark {
+  color: #fff;
+}
+
+/* 按钮区域 */
+.font-color-buttons-section {
+  margin-top: 13px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.font-color-buttons-section .btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.font-color-buttons-section .change-brand-name-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e2e2 100%);
+  color: #242424;
+  border: 1px solid #e7e7e7;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-block {
+  width: 100%;
 }
 
 .color-swatch {
@@ -4287,7 +4427,7 @@ footer {
   }
   
   .color-swatch {
-    border-radius: 4px;
+    border-radius: 50%;
   }
 }
 
@@ -4299,7 +4439,7 @@ footer {
 
 @media (max-width: 375px) {
   .color-swatch-group {
-    gap: 2px;
+    gap: 8px;
   }
 }
 
@@ -4767,7 +4907,7 @@ footer {
   
   /* 小屏幕上的模态框调整 */
   .modal {
-    width: 90vw;
+    width: 86vw;
     max-height: 85vh;
     border-radius: 16px;
   }
@@ -5125,7 +5265,7 @@ input.hidden {
 }
 
 #businessInfoModal .modal-close{ font-size: 44px; }
-#fontColorModal .modal-close{ font-size: 44px; }
+#fontColorModal .modal-close{font-size: 34px;position: absolute;right: 4px;padding: 0;top: 8px;height: 30px;display: block;background: #ca0000;line-height: 30px;}
 .modal-close:hover {
   color: #ffffff;
 }

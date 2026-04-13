@@ -1,0 +1,78 @@
+  <!-- 字体颜色选择弹窗 -->
+  <div id="fontColorModal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">更改字体颜色</h2>
+        <button id="closeFontColorModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">点选颜色预览，确认后生效:</label>
+          <div class="color-select-container">
+            <div class="color-swatch-hint"><b style="color: #bc0000;">黑白为百搭首选</b>，其它色可根据画面主色进行选择</div>
+            
+            <!-- 第一行：黑灰白 -->
+            <div class="color-swatch-group" data-row="1">
+              <div class="color-swatch" data-color="#000000" style="background-color: #000000;color:#fff;" title="黑色"></div>
+              <div class="color-swatch" data-color="#444444" style="background-color: #444444;" title="深灰"></div>
+              <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;color: #000;" title="白色"></div>
+            </div>
+            
+            <!-- 第二行：深色系 -->
+            <div class="color-swatch-group" data-row="2">
+              <div class="color-swatch" data-color="#550000" style="background-color: #550000;" title="深棕红"></div>
+              <div class="color-swatch" data-color="#553311" style="background-color: #553311;" title="深棕"></div>
+              <div class="color-swatch" data-color="#664400" style="background-color: #664400;" title="土黄"></div>
+              <div class="color-swatch" data-color="#004422" style="background-color: #004422;" title="深绿"></div>
+              <div class="color-swatch" data-color="#003355" style="background-color: #003355;" title="深蓝"></div>
+              <div class="color-swatch" data-color="#001133" style="background-color: #001133;" title="深蓝黑"></div>
+              <div class="color-swatch" data-color="#330033" style="background-color: #330033;" title="深紫1"></div>
+              <div class="color-swatch" data-color="#440044" style="background-color: #440044;" title="深紫2"></div>
+              <div class="color-swatch" data-color="#330033" style="background-color: #330033;" title="深紫3"></div>
+            </div>
+            
+            <!-- 第三行：中色系 -->
+            <div class="color-swatch-group" data-row="3">
+              <div class="color-swatch" data-color="#bf1e1e" style="background-color: #bf1e1e;" title="酒红"></div>
+              <div class="color-swatch" data-color="#CC6633" style="background-color: #CC6633;" title="橘红"></div>
+              <div class="color-swatch" data-color="#FFFF00" style="background-color: #FFFF00;" title="亮黄"></div>
+              <div class="color-swatch" data-color="#008822" style="background-color: #008822;" title="翠绿"></div>
+              <div class="color-swatch" data-color="#006688" style="background-color: #006688;" title="青蓝"></div>
+              <div class="color-swatch" data-color="#333388" style="background-color: #333388;" title="深蓝"></div>
+              <div class="color-swatch" data-color="#660066" style="background-color: #660066;" title="深紫"></div>
+              <div class="color-swatch" data-color="#CC0066" style="background-color: #CC0066;" title="洋红"></div>
+              <div class="color-swatch" data-color="#CC00CC" style="background-color: #CC00CC;" title="亮紫"></div>
+            </div>
+            
+            <!-- 第四行：浅色系 -->
+            <div class="color-swatch-group" data-row="4">
+              <div class="color-swatch" data-color="#FFDDDD" style="background-color: #FFDDDD;" title="浅粉"></div>
+              <div class="color-swatch" data-color="#FFDDAA" style="background-color: #FFDDAA;" title="浅橘"></div>
+              <div class="color-swatch" data-color="#FFFFCC" style="background-color: #FFFFCC;" title="浅黄"></div>
+              <div class="color-swatch" data-color="#CCEECC" style="background-color: #CCEECC;" title="浅绿"></div>
+              <div class="color-swatch" data-color="#CCDDFF" style="background-color: #CCDDFF;" title="浅蓝"></div>
+              <div class="color-swatch" data-color="#DDCCEE" style="background-color: #DDCCEE;" title="浅紫1"></div>
+              <div class="color-swatch" data-color="#DDCCEE" style="background-color: #DDCCEE;" title="浅紫2"></div>
+              <div class="color-swatch" data-color="#DDCCCC" style="background-color: #DDCCCC;" title="浅粉褐"></div>
+              <div class="color-swatch" data-color="#EEDDEE" style="background-color: #EEDDEE;" title="浅紫白"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 确认选择按钮 -->
+        <div class="font-color-confirm-section">
+          <button id="confirmFontColorBtn" class="btn btn-primary btn-block">
+            <i class="fa fa-check"></i> 确认选择
+          </button>
+        </div>
+        
+        <!-- 更改品牌名称入口 -->
+        <div class="change-brand-name-section">
+          <p class="change-brand-name-hint">我还想：<button id="changeBrandNameBtn" class="change-brand-name-btn">
+            <i class="fa fa-edit"></i> 更改品牌名称
+          </button></p>
+          
+        </div>
+      </div>
+    </div>
+  </div>

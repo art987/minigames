@@ -86,7 +86,9 @@ exports.main = async (event, context) => {
           brandname: user.brandname || '',
           promoText: user.promoText || '',
           logoUrl: user.logoUrl || '',
+          logoTencentUrl: user.logoTencentUrl || '',
           qrcodeUrl: user.qrcodeUrl || '',
+          qrcodeTencentUrl: user.qrcodeTencentUrl || '',
           logoTransparent: user.logoTransparent || false,
           hasPassword: user.hasPassword
         }

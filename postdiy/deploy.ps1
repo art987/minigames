@@ -48,7 +48,7 @@ Write-Host "================================================" -ForegroundColor G
 Write-Host ""
 
 # 1. 部署激活码生成函数
-Write-Host "[1/4] 部署 admin-generate-vouchers..." -ForegroundColor Yellow
+Write-Host "[1/5] 部署 admin-generate-vouchers..." -ForegroundColor Yellow
 Push-Location cloudfunctions/admin-generate-vouchers
 npm install
 Pop-Location
@@ -63,7 +63,7 @@ Write-Host "[√] admin-generate-vouchers 部署成功" -ForegroundColor Green
 Write-Host ""
 
 # 2. 部署激活码管理函数
-Write-Host "[2/4] 部署 admin-manage-vouchers..." -ForegroundColor Yellow
+Write-Host "[2/5] 部署 admin-manage-vouchers..." -ForegroundColor Yellow
 Push-Location cloudfunctions/admin-manage-vouchers
 npm install
 Pop-Location
@@ -78,7 +78,7 @@ Write-Host "[√] admin-manage-vouchers 部署成功" -ForegroundColor Green
 Write-Host ""
 
 # 3. 部署VIP状态检查函数
-Write-Host "[3/4] 部署 check-vip-status..." -ForegroundColor Yellow
+Write-Host "[3/5] 部署 check-vip-status..." -ForegroundColor Yellow
 Push-Location cloudfunctions/check-vip-status
 npm install
 Pop-Location
@@ -92,8 +92,23 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "[√] check-vip-status 部署成功" -ForegroundColor Green
 Write-Host ""
 
-# 4. 更新激活码验证函数
-Write-Host "[4/4] 更新 user-verify-voucher..." -ForegroundColor Yellow
+# 4. 部署用户图片上传到腾讯云函数
+Write-Host "[4/5] 部署 user-update-image-tencent..." -ForegroundColor Yellow
+Push-Location cloudfunctions/user-update-image-tencent
+npm install
+Pop-Location
+tcb functions:deploy user-update-image-tencent -e $ENV
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "部署失败!" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "[√] user-update-image-tencent 部署成功" -ForegroundColor Green
+Write-Host ""
+
+# 5. 更新激活码验证函数
+Write-Host "[5/5] 更新 user-verify-voucher..." -ForegroundColor Yellow
 Push-Location cloudfunctions/user-verify-voucher
 npm install
 Pop-Location
@@ -128,8 +143,14 @@ Write-Host "   SECRETID: $SECRETID"
 Write-Host "   SECRETKEY: $SECRETKEY"
 Write-Host "   ENV: $ENV"
 Write-Host ""
-Write-Host "2. 测试激活码生成功能"
-Write-Host "3. 查看部署日志: tcb functions:log admin-generate-vouchers -e $ENV"
+Write-Host "2. 配置腾讯云 COS 相关环境变量 (user-update-image-tencent 函数):"
+Write-Host "   TENCENT_SECRET_ID: $SECRETID"
+Write-Host "   TENCENT_SECRET_KEY: $SECRETKEY"
+Write-Host "   BUCKET: postdiy-1234567890"
+Write-Host "   REGION: ap-guangzhou"
+Write-Host ""
+Write-Host "3. 测试激活码生成功能"
+Write-Host "4. 查看部署日志: tcb functions:log admin-generate-vouchers -e $ENV"
 Write-Host ""
 
 Read-Host "按Enter键退出"

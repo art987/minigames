@@ -80,7 +80,9 @@ exports.main = async (event, context) => {
           phone,
           vipExpireTime: null,
           logoUrl: '',
+          logoTencentUrl: '',
           qrcodeUrl: '',
+          qrcodeTencentUrl: '',
           createTime: db.serverDate(),
           updateTime: db.serverDate()
         }
@@ -111,7 +113,9 @@ exports.main = async (event, context) => {
           isVip: false,
           vipExpireTime: null,
           logoUrl: '',
+          logoTencentUrl: '',
           qrcodeUrl: '',
+          qrcodeTencentUrl: '',
           isNewUser,
           hasPassword: userRes.data.length > 0 && userRes.data[0].hasPassword || false
         }

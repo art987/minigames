@@ -112,7 +112,9 @@ exports.main = async (event, context) => {
           isVip: isVip,
           vipValidUntil: user.vipValidUntil,
           logoUrl: user.logoUrl,
+          logoTencentUrl: user.logoTencentUrl,
           qrcodeUrl: user.qrcodeUrl,
+          qrcodeTencentUrl: user.qrcodeTencentUrl,
           hasPassword: user.hasPassword
         }
       })
