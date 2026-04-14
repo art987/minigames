@@ -12655,7 +12655,7 @@ window.textTemplateManager = {
     clearTimeout(this.toolbarTimer);
     this.toolbarTimer = setTimeout(() => {
       this.hideTextToolbar();
-    }, 5000);
+    }, 3000);
   }
 };
 
