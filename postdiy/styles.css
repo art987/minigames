@@ -7900,7 +7900,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   -webkit-user-select: none;
   touch-action: none;
   -webkit-touch-callout: none;
-  width: 150px;
+  width: 80px;
   min-width: 50px;
   max-width: 80%;
   box-sizing: border-box;

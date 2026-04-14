@@ -11813,8 +11813,8 @@ window.textTemplateManager = {
       color: '#000000',
       fontFamily: window.fontManager ? window.fontManager.useFont('Microsoft YaHei') : 'sans-serif',
       fontSize: 12,
-      writingMode: 'horizontal-tb',
-      textAlign: 'left',
+      writingMode: 'vertical-rl',
+      textAlign: 'center',
       width: 150,
       zIndex: window.stickerManager ? window.stickerManager.stickers.length + 100 : 100
     };
