@@ -14,6 +14,40 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// 等待图片加载完成
+function waitForImageLoad(imgElement, timeout = 5000) {
+  return new Promise((resolve) => {
+    if (!imgElement || !imgElement.src) {
+      console.log('[等待加载] 图片元素不存在或未设置src');
+      resolve();
+      return;
+    }
+    
+    if (imgElement.complete) {
+      console.log('[等待加载] 图片已加载完成');
+      resolve();
+      return;
+    }
+    
+    const timeoutId = setTimeout(() => {
+      console.log('[等待加载] 超时，继续执行');
+      resolve();
+    }, timeout);
+    
+    imgElement.onload = () => {
+      clearTimeout(timeoutId);
+      console.log('[等待加载] 图片加载成功');
+      resolve();
+    };
+    
+    imgElement.onerror = () => {
+      clearTimeout(timeoutId);
+      console.log('[等待加载] 图片加载失败');
+      resolve();
+    };
+  });
+}
+
 // 微信浏览器检测（支持调试参数）
 function isWeixinBrowser() {
   // 检查URL参数，支持调试模式
@@ -276,75 +310,90 @@ function setForceRefresh() {
 const imageBase64Cache = {};
 
 async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true) {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-    
-    let response;
+  const maxRetries = retryCount;
+  let lastError = null;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      response = await fetch(url, {
-        mode: 'cors',
-        credentials: 'omit',
-        signal: controller.signal
-      });
-    } catch (corsError) {
-      console.log('CORS模式失败，尝试no-cors模式:', corsError);
-      response = await fetch(url, {
-        mode: 'no-cors',
-        credentials: 'omit',
-        signal: controller.signal
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
+      
+      let response;
+      try {
+        response = await fetch(url, {
+          mode: 'cors',
+          credentials: 'omit',
+          signal: controller.signal
+        });
+      } catch (corsError) {
+        console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: CORS模式失败，尝试no-cors模式:`, corsError);
+        response = await fetch(url, {
+          mode: 'no-cors',
+          credentials: 'omit',
+          signal: controller.signal
+        });
+        
+        if (response.type === 'opaque') {
+          console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: 使用no-cors模式成功，直接返回原始URL`);
+          return url;
+        }
+      }
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok && response.type !== 'opaque') {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       
       if (response.type === 'opaque') {
-        console.log('使用no-cors模式，直接返回原始URL');
+        console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: 使用no-cors模式成功`);
         return url;
       }
-    }
-    
-    clearTimeout(timeoutId);
-    
-    if (!response.ok && response.type !== 'opaque') {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    if (response.type === 'opaque') {
-      return url;
-    }
-    
-    const blob = await response.blob();
-
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = () => reject(new Error('FileReader error'));
-      reader.readAsDataURL(blob);
-    });
-  } catch (e) {
-    console.error('loadImageAsBase64 失败:', url, e);
-    
-    // 如果是404错误且启用了腾讯云回退，尝试使用腾讯云URL
-    if (useTencentFallback && e.message && e.message.includes('404')) {
-      console.log('Cloudflare加载失败，尝试从腾讯云加载');
       
-      // 尝试从腾讯云加载
-      const tencentUrl = getTencentImageUrl(url);
-      if (tencentUrl) {
-        console.log('使用腾讯云URL:', tencentUrl);
-        return loadImageAsBase64(tencentUrl, 0, false);
+      const blob = await response.blob();
+
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: 成功`);
+          resolve(reader.result);
+        };
+        reader.onerror = () => {
+          console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: FileReader错误`);
+          reject(new Error('FileReader error'));
+        };
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      lastError = e;
+      console.error(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1} 失败:`, url, e);
+      
+      // 如果是404错误且启用了腾讯云回退，尝试使用腾讯云URL
+      if (useTencentFallback && e.message && e.message.includes('404')) {
+        console.log('[图片加载] Cloudflare加载失败，尝试从腾讯云加载');
+        
+        // 尝试从腾讯云加载
+        const tencentUrl = getTencentImageUrl(url);
+        if (tencentUrl) {
+          console.log('[图片加载] 使用腾讯云URL:', tencentUrl);
+          return loadImageAsBase64(tencentUrl, 0, false);
+        }
       }
+      
+      // 如果是网络错误且还有重试次数，则重试
+      if (attempt < maxRetries && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
+        console.log(`[图片加载] 网络错误，等待后重试，剩余次数: ${maxRetries - attempt}`);
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        continue;
+      }
+      
+      break;
     }
-    
-    // 如果是网络错误且还有重试次数，则重试
-    if (retryCount > 0 && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
-      console.log('正在重试加载图片，剩余重试次数:', retryCount);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return loadImageAsBase64(url, retryCount - 1, false);
-    }
-    
-    // 所有方法都失败时，直接返回原始URL（img标签可以直接加载）
-    console.log('所有方法失败，直接返回原始URL');
-    return url;
   }
+  
+  // 所有方法都失败时，直接返回原始URL（img标签可以直接加载）
+  console.log('[图片加载] 所有重试失败，直接返回原始URL');
+  return url;
 }
 
 // 从Cloudflare URL获取对应的腾讯云URL
@@ -654,7 +703,7 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('Cloudflare 加载超时'));
-      }, 8000); // 8秒超时
+      }, 12000); // 12秒超时
       
       imgElement.onload = () => {
         clearTimeout(timeout);
@@ -680,6 +729,9 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
       console.log(`[加载策略] ${imageType}: 缓存失败，但图片已显示`);
     }
     
+    // 等待图片加载完成
+    await waitForImageLoad(imgElement, 5000);
+    
     return true;
     
   } catch (cloudflareError) {
@@ -699,7 +751,7 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
           await new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
               reject(new Error('腾讯云加载超时'));
-            }, 10000);
+            }, 15000);
             
             imgElement.onload = () => {
               clearTimeout(timeout);
@@ -723,6 +775,9 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
           } catch (cacheErr) {
             console.log(`[加载策略] ${imageType}: 腾讯云缓存失败`);
           }
+          
+          // 等待图片加载完成
+          await waitForImageLoad(imgElement, 5000);
           
           return true;
         }
@@ -784,6 +839,8 @@ async function refreshImagesFromCloud() {
           updateImageMeta();
           logoImg.src = imageData;
           console.log('Logo图片刷新成功');
+          // 等待图片加载完成
+          await waitForImageLoad(logoImg, 5000);
         } else {
           logoImg.src = 'images/statics/logo-default.gif';
         }
@@ -833,6 +890,8 @@ async function refreshImagesFromCloud() {
           updateImageMeta();
           qrImg.src = imageData;
           console.log('二维码图片刷新成功');
+          // 等待图片加载完成
+          await waitForImageLoad(qrImg, 5000);
         } else {
           qrImg.src = 'images/statics/qrcode-default.gif';
         }
@@ -2702,21 +2761,69 @@ let currentCropTarget = null;
     }
     if (elements.refreshDataBtn) {
       elements.refreshDataBtn.addEventListener('click', async function() {
-        this.disabled = true;
-        this.textContent = '刷新中...';
+        let retryCount = 0;
+        const maxRetries = 3;
+        const retryDelay = 1000;
         
-        // 强制刷新商家信息（跳过本地缓存）
-        if (window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo) {
-          window.CloudSync.setForceRefreshBusinessInfo();
-          await window.CloudSync.syncAndFillBusinessInfo(true); // 强制刷新
+        const originalText = '获取最新数据';
+        const loadingText = '获取云端数据';
+        const successText = '更新数据成功';
+        const failText = '获取失败';
+        
+        const btn = this;
+        
+        async function updateButtonText(text, duration = null) {
+          btn.textContent = text;
+          if (duration) {
+            await new Promise(resolve => setTimeout(resolve, duration));
+          }
         }
         
-        if (window.forceRefreshImages) {
-          await window.forceRefreshImages();
+        try {
+          btn.disabled = true;
+          btn.textContent = `${loadingText}...`;
+          
+          while (retryCount < maxRetries) {
+            try {
+              retryCount++;
+              console.log(`[刷新数据] 尝试第 ${retryCount}/${maxRetries} 次`);
+              
+              // 强制刷新商家信息（跳过本地缓存）
+              if (window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo) {
+                window.CloudSync.setForceRefreshBusinessInfo();
+                await window.CloudSync.syncAndFillBusinessInfo(true);
+              }
+              
+              if (window.forceRefreshImages) {
+                await window.forceRefreshImages();
+              }
+              
+              await updateButtonText(successText, 5000);
+              btn.disabled = false;
+              btn.textContent = originalText;
+              return;
+            } catch (error) {
+              console.error(`[刷新数据] 第 ${retryCount} 次尝试失败:`, error);
+              if (retryCount < maxRetries) {
+                await updateButtonText(`${loadingText}(${retryDelay / 1000}s)...`, retryDelay);
+              } else {
+                btn.disabled = false;
+                btn.textContent = failText;
+                setTimeout(() => {
+                  btn.textContent = originalText;
+                }, 3000);
+                return;
+              }
+            }
+          }
+        } catch (error) {
+          console.error('[刷新数据] 错误:', error);
+          btn.disabled = false;
+          btn.textContent = failText;
+          setTimeout(() => {
+            btn.textContent = originalText;
+          }, 3000);
         }
-        
-        this.textContent = '刷新云端数据';
-        this.disabled = false;
       });
     }
     if (elements.saveBusinessInfoBtn) {
@@ -5891,77 +5998,6 @@ let currentCropTarget = null;
   // 打开商家信息编辑弹窗
   async function openBusinessInfoModal() {
     if (!elements.businessInfoModal || !elements.businessNameInput || !elements.businessPromoTextInput) return;
-    
-    // 如果正在上传logo，避免重新从云端加载数据
-    if (state.isUploadingLogo) {
-      console.log('正在上传logo，跳过云端数据加载');
-    } else {
-      // 先从云端同步最新的商家信息
-      if (window.CloudSync) {
-        try {
-          const result = await CloudSync.loadBusinessInfoFromCloud();
-          if (result.success && result.data) {
-            const oldLogo = state.businessInfo.logo;
-            const oldQrcode = state.businessInfo.qrcode;
-            
-            // 更新state中的商家信息
-            state.businessInfo.name = result.data.brandname || state.businessInfo.name;
-            state.businessInfo.logo = result.data.logoUrl || state.businessInfo.logo;
-            state.businessInfo.qrcode = result.data.qrcodeUrl || state.businessInfo.qrcode;
-            state.businessInfo.promoText = result.data.promoText || state.businessInfo.promoText;
-          
-          // 同步更新本地存储
-          localStorage.setItem('businessName', state.businessInfo.name);
-          localStorage.setItem('businessLogo', state.businessInfo.logo);
-          localStorage.setItem('businessQrcode', state.businessInfo.qrcode);
-          if (result.data.promoText) {
-            localStorage.setItem('promoText', result.data.promoText);
-          }
-          
-          // 清空所有图片缓存并重新获取
-          localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
-          localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
-          
-          // 重新加载logo图片
-          if (state.businessInfo.logo) {
-            try {
-              const logoBase64 = await loadImageAsBase64(state.businessInfo.logo);
-              saveToCache(IMAGE_CACHE_KEYS.logo, logoBase64);
-              const posterLogoImg = document.getElementById('posterLogoImg');
-              if (posterLogoImg) {
-                posterLogoImg.src = logoBase64;
-                posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
-              }
-              console.log('Logo图片已重新加载:', state.businessInfo.logo);
-            } catch (e) {
-              console.error('重新加载Logo缓存失败:', e);
-            }
-          }
-          
-          // 重新加载二维码图片
-          if (state.businessInfo.qrcode) {
-            try {
-              const qrBase64 = await loadImageAsBase64(state.businessInfo.qrcode);
-              saveToCache(IMAGE_CACHE_KEYS.qrcode, qrBase64);
-              const posterQrcodeImg = document.getElementById('posterQrcodeImg');
-              if (posterQrcodeImg) {
-                posterQrcodeImg.src = qrBase64;
-                posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
-              }
-              console.log('二维码图片已重新加载:', state.businessInfo.qrcode);
-            } catch (e) {
-              console.error('重新加载二维码缓存失败:', e);
-            }
-          }
-          
-          // 更新显示
-          updateBusinessInfoDisplay();
-        }
-      } catch (e) {
-        console.error('从云端同步商家信息失败:', e);
-      }
-    }
-    }
     
     // 保存原始数据，用于取消时恢复
     tempBusinessInfo = JSON.parse(JSON.stringify(state.businessInfo));

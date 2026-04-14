@@ -3620,6 +3620,9 @@ footer {
   font-size: 20px;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 模态框关闭按钮 */
@@ -3776,6 +3779,9 @@ footer {
   font-weight: 700;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rotating-title {
@@ -3910,6 +3916,9 @@ footer {
   font-size: 18px;
   font-weight: 600;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .confirm-modal .modal-body {
@@ -3998,6 +4007,12 @@ footer {
   margin-top: 0;
   margin-bottom: 0;
   display: block;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .visibility-manager-btn-inline {
@@ -4908,7 +4923,7 @@ footer {
   /* 小屏幕上的模态框调整 */
   .modal {
     width: 86vw;
-    max-height: 85vh;
+    max-height: 77vh;
     border-radius: 16px;
   }
   .modal .template-thumbnail{ height: 140px;}
@@ -4921,6 +4936,9 @@ footer {
   
   .modal-title {
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   /* 小屏幕上的模板网格调整 */

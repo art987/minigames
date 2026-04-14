@@ -397,9 +397,12 @@
           <div class="form-group">
             <div class="form-label-row">
               <label class="form-label" for="business-name">品牌/门店名称<span class="text-error-color">*</span></label>
-              <button type="button" id="openVisibilityManagerBtn" class="visibility-manager-btn-inline">
-                <i class="fa fa-eye"></i> 显示管理
-              </button>
+              <div class="form-actions">
+                <button type="button" id="refreshDataBtn" class="editor-button editor-button-secondary">刷新云端数据</button>
+                <button type="button" id="openVisibilityManagerBtn" class="visibility-manager-btn-inline">
+                  <i class="fa fa-eye"></i> 显示管理
+                </button>
+              </div>
             </div>
             <div class="items-center">
               <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
@@ -519,7 +522,6 @@
           </div>
         </form>
         <div class="modal-footer" >
-          <button id="refreshDataBtn" class="editor-button editor-button-secondary">刷新云端数据</button>
           <button id="saveBusinessInfoBtn" class="editor-button">保存</button>
         </div>
       </div>
