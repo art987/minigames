@@ -2630,6 +2630,9 @@ let currentCropTarget = null;
     canvas.width = sourceCanvas.width;
     canvas.height = sourceCanvas.height;
     const ctx = canvas.getContext('2d');
+    
+    // 确保透明背景 - 先清除画布
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
     ctx.drawImage(sourceCanvas, 0, 0);
