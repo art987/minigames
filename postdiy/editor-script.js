@@ -931,7 +931,7 @@ window.forceRefreshImages = async function() {
     // 第一步：尝试 Cloudflare（免费）
     console.log('[强制刷新] Logo: 尝试 Cloudflare');
     try {
-      imageData = await loadImageAsBase64(state.businessInfo.logo, 1, false);
+      imageData = await loadImageAsBase64(state.businessInfo.logo, 1, true);
       if (imageData && imageData.startsWith('data:image')) {
         console.log('[强制刷新] Logo: Cloudflare 成功');
       } else {
@@ -975,7 +975,7 @@ window.forceRefreshImages = async function() {
     // 第一步：尝试 Cloudflare（免费）
     console.log('[强制刷新] 二维码: 尝试 Cloudflare');
     try {
-      imageData = await loadImageAsBase64(state.businessInfo.qrcode, 1, false);
+      imageData = await loadImageAsBase64(state.businessInfo.qrcode, 1, true);
       if (imageData && imageData.startsWith('data:image')) {
         console.log('[强制刷新] 二维码: Cloudflare 成功');
       } else {
@@ -2535,6 +2535,8 @@ let currentCropTarget = null;
         outputCanvas.width = targetSize;
         outputCanvas.height = targetSize;
         const ctx = outputCanvas.getContext('2d');
+        // 确保透明背景
+        ctx.clearRect(0, 0, targetSize, targetSize);
         ctx.drawImage(finalCanvas, 0, 0, targetSize, targetSize);
         console.log('Logo缩放到目标尺寸:', targetSize + 'x' + targetSize);
       }
@@ -2780,11 +2782,13 @@ let currentCropTarget = null;
         let retryCount = 0;
         const maxRetries = 3;
         const retryDelay = 2000;
+        const failRetryDelay = 30000;
         
         const originalText = '获取最新数据';
         const loadingText = '获取云端数据';
         const successText = '更新数据成功';
         const failText = '获取失败';
+        const retryText = '30秒后重试';
         
         const btn = this;
         
@@ -2864,9 +2868,12 @@ let currentCropTarget = null;
                 btn.disabled = false;
                 btn.textContent = failText;
                 setTimeout(() => {
-                  btn.textContent = originalText;
+                  btn.textContent = retryText;
+                  setTimeout(() => {
+                    btn.textContent = originalText;
+                  }, 30000);
                 }, 3000);
-                console.error('[刷新数据] 所有重试失败');
+                console.error('[刷新数据] 所有重试失败，30秒后可再次尝试');
                 return;
               }
             }
@@ -2876,7 +2883,10 @@ let currentCropTarget = null;
           btn.disabled = false;
           btn.textContent = failText;
           setTimeout(() => {
-            btn.textContent = originalText;
+            btn.textContent = retryText;
+            setTimeout(() => {
+              btn.textContent = originalText;
+            }, 30000);
           }, 3000);
         }
       });
@@ -11557,22 +11567,59 @@ window.fontManager = {
 window.textTemplateManager = {
   selectedTemplate: null,
   currentCategory: '情感',
+  lastCategory: null,
+  lastTemplateIndex: null,
 
   init: function() {
+    this.loadLastPosition();
     this.bindEvents();
     this.renderCategories();
     this.renderTemplates(this.currentCategory);
+  },
+
+  loadLastPosition: function() {
+    try {
+      const saved = localStorage.getItem('textTemplateLastPosition');
+      if (saved) {
+        const position = JSON.parse(saved);
+        if (position.category && window.TextTemplates.getAllCategories().includes(position.category)) {
+          this.currentCategory = position.category;
+          this.lastCategory = position.category;
+          this.lastTemplateIndex = position.index !== undefined ? position.index : null;
+        }
+      }
+    } catch (e) {
+      console.error('恢复文案模板位置失败:', e);
+      this.currentCategory = '情感';
+      this.lastCategory = '情感';
+      this.lastTemplateIndex = null;
+    }
+  },
+
+  saveLastPosition: function() {
+    try {
+      const position = {
+        category: this.currentCategory,
+        index: this.lastTemplateIndex
+      };
+      localStorage.setItem('textTemplateLastPosition', JSON.stringify(position));
+    } catch (e) {
+      console.error('保存文案模板位置失败:', e);
+    }
   },
 
   openModal: function() {
     const modal = document.getElementById('textTemplateModal');
     if (modal) {
       modal.classList.remove('hidden');
-      const firstCatBtn = modal.querySelector('.industry-category-vertical');
-      if (firstCatBtn) {
-        this.currentCategory = firstCatBtn.dataset.category;
-        this.renderCategories();
-        this.renderTemplates(this.currentCategory);
+      this.renderCategories();
+      this.renderTemplates(this.currentCategory);
+      
+      if (this.lastTemplateIndex !== null) {
+        const templateCards = document.querySelectorAll('#textTemplateList .industry-template-card');
+        if (templateCards[this.lastTemplateIndex]) {
+          templateCards[this.lastTemplateIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
     }
   },
@@ -11616,6 +11663,7 @@ window.textTemplateManager = {
       modal.classList.add('hidden');
     }
     this.selectedTemplate = null;
+    this.saveLastPosition();
     this.clearSelection();
   },
 
@@ -11635,6 +11683,8 @@ window.textTemplateManager = {
         container.querySelectorAll('button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         this.currentCategory = btn.dataset.category;
+        this.lastCategory = this.currentCategory;
+        this.lastTemplateIndex = null;
         this.renderTemplates(this.currentCategory);
       });
     });
@@ -11673,6 +11723,8 @@ window.textTemplateManager = {
         const index = parseInt(btn.dataset.index);
         const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
         this.selectedTemplate = templates[index];
+        this.lastTemplateIndex = index;
+        this.saveLastPosition();
         this.insertToCanvas();
       });
     });
@@ -11683,6 +11735,8 @@ window.textTemplateManager = {
         const index = parseInt(btn.dataset.index);
         const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
         this.selectedTemplate = templates[index];
+        this.lastTemplateIndex = index;
+        this.saveLastPosition();
         this.copyTextOnly();
       });
     });
@@ -11694,6 +11748,8 @@ window.textTemplateManager = {
         const index = parseInt(card.dataset.index);
         const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
         this.selectedTemplate = templates[index];
+        this.lastTemplateIndex = index;
+        this.saveLastPosition();
         this.insertToCanvas();
       });
     });

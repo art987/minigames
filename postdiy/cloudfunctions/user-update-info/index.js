@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     };
   }
 
-  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl, logoFileID, qrcodeFileID
+  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl, logoFileID, qrcodeFileID, logoTransparent
   
   try {
     const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
@@ -33,6 +33,7 @@ exports.main = async (event, context) => {
     qrcodeTencentUrl = body.qrcodeTencentUrl
     logoFileID = body.logoFileID
     qrcodeFileID = body.qrcodeFileID
+    logoTransparent = body.logoTransparent
   } catch (error) {
     userId = event.userId
     logoUrl = event.logoUrl
@@ -43,6 +44,7 @@ exports.main = async (event, context) => {
     qrcodeTencentUrl = event.qrcodeTencentUrl
     logoFileID = event.logoFileID
     qrcodeFileID = event.qrcodeFileID
+    logoTransparent = event.logoTransparent
   }
   
   if (!userId) {
@@ -97,6 +99,10 @@ exports.main = async (event, context) => {
     if (promoText !== undefined) {
       updateData.promoText = promoText
     }
+    
+    if (logoTransparent !== undefined) {
+      updateData.logoTransparent = logoTransparent
+    }
 
     await db.collection('users').doc(userId).update({
       data: updateData
@@ -116,23 +122,24 @@ exports.main = async (event, context) => {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization'
       },
       body: JSON.stringify({
-        success: true,
-        message: '更新成功',
-        data: {
-          userId,
-          phone: user.phone,
-          isVip,
-          vipValidUntil: user.vipValidUntil,
-          brandname: user.brandname || '',
-          promoText: user.promoText || '',
-          logoUrl: user.logoUrl || '',
-          logoTencentUrl: user.logoTencentUrl || '',
-          logoFileID: user.logoFileID || '',
-          qrcodeUrl: user.qrcodeUrl || '',
-          qrcodeTencentUrl: user.qrcodeTencentUrl || '',
-          qrcodeFileID: user.qrcodeFileID || ''
-        }
-      })
+          success: true,
+          message: '更新成功',
+          data: {
+            userId,
+            phone: user.phone,
+            isVip,
+            vipValidUntil: user.vipValidUntil,
+            brandname: user.brandname || '',
+            promoText: user.promoText || '',
+            logoUrl: user.logoUrl || '',
+            logoTencentUrl: user.logoTencentUrl || '',
+            logoFileID: user.logoFileID || '',
+            logoTransparent: user.logoTransparent || false,
+            qrcodeUrl: user.qrcodeUrl || '',
+            qrcodeTencentUrl: user.qrcodeTencentUrl || '',
+            qrcodeFileID: user.qrcodeFileID || ''
+          }
+        })
     }
   } catch (error) {
     console.error('更新用户信息失败:', error)
