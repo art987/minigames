@@ -3863,7 +3863,7 @@ footer {
   border: none;
   border-radius: 8px;
   font-size: 12px;
-  font-weight: 600;
+  /* font-weight: 600; */
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 80px;
@@ -3884,9 +3884,10 @@ footer {
   background-color: #ffffff;
   color: #c80000;
   border: 1px solid #ccc;
-  padding: 3px 9px;
-  border-radius: 4px;
+  padding: 3px 10px;
+  border-radius: 10px;
 }
+.editor-button-secondary i{ padding-right:5px}
 
 .editor-button-secondary:active {
   background-color: #e0e0e0;
@@ -3957,7 +3958,7 @@ footer {
 .form-label {
   display: none;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 7px;
   height: 24px;
   color: #333;
@@ -3968,7 +3969,7 @@ footer {
   padding: 12px 8px 12px 9px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 13px;
   transition: border-color 0.2s ease;
   font-weight: bold;
 }
@@ -4001,8 +4002,8 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  margin-top: 7px;
+  margin-bottom: 3px;
+  margin-top: 9px;
   height: 24px;
 }
 
@@ -4016,6 +4017,7 @@ footer {
   display: flex;
   gap: 8px;
   align-items: center;
+  margin-bottom: 11px;
 }
 
 .visibility-manager-btn-inline {
