@@ -906,6 +906,20 @@ async function refreshImagesFromCloud() {
 }
 
 window.forceRefreshImages = async function() {
+  console.log('[强制刷新] 开始强制刷新图片...');
+  
+  // 清空所有图片缓存
+  localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
+  localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
+  localStorage.removeItem('imageMeta_logo');
+  localStorage.removeItem('imageMeta_qrcode');
+  localStorage.removeItem('imageMeta_lastFetch');
+  localStorage.removeItem('imageMeta_forceRefresh');
+  localStorage.removeItem('imageMeta_deviceId');
+  localStorage.removeItem('imageMeta_deviceId_stored');
+  
+  console.log('[强制刷新] 所有图片缓存已清除');
+  
   setForceRefresh();
   await refreshImagesFromCloud();
   
@@ -996,6 +1010,8 @@ window.forceRefreshImages = async function() {
       }
     }
   }
+  
+  console.log('[强制刷新] 图片刷新完成');
 };
 
 async function updateImageCache(imgId, key, newUrl) {
@@ -2763,7 +2779,7 @@ let currentCropTarget = null;
       elements.refreshDataBtn.addEventListener('click', async function() {
         let retryCount = 0;
         const maxRetries = 3;
-        const retryDelay = 1000;
+        const retryDelay = 2000;
         
         const originalText = '获取最新数据';
         const loadingText = '获取云端数据';
@@ -2779,6 +2795,29 @@ let currentCropTarget = null;
           }
         }
         
+        async function verifyDataUpdated() {
+          // 验证品牌信息是否更新
+          const userId = localStorage.getItem('postdiy_user_id');
+          if (!userId) return false;
+          
+          const localCacheKey = 'vipBusinessInfo_' + userId;
+          const cachedData = localStorage.getItem(localCacheKey);
+          if (!cachedData) return false;
+          
+          try {
+            const data = JSON.parse(cachedData);
+            // 检查是否有获取时间戳
+            if (!data.fetchedAt) return false;
+            
+            // 检查图片URL是否存在
+            if (!data.logoUrl && !data.qrcodeUrl) return false;
+            
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        
         try {
           btn.disabled = true;
           btn.textContent = `${loadingText}...`;
@@ -2791,16 +2830,31 @@ let currentCropTarget = null;
               // 强制刷新商家信息（跳过本地缓存）
               if (window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo) {
                 window.CloudSync.setForceRefreshBusinessInfo();
-                await window.CloudSync.syncAndFillBusinessInfo(true);
               }
               
+              const syncResult = await window.CloudSync.syncAndFillBusinessInfo(true);
+              
+              if (!syncResult.success) {
+                throw new Error(`同步商家信息失败: ${syncResult.reason || '未知错误'}`);
+              }
+              
+              console.log(`[刷新数据] 商家信息同步成功: ${syncResult.source}`);
+              
+              // 强制刷新图片
               if (window.forceRefreshImages) {
                 await window.forceRefreshImages();
+              }
+              
+              // 验证数据是否真正更新
+              const dataVerified = await verifyDataUpdated();
+              if (!dataVerified) {
+                throw new Error('数据验证失败: 缓存数据不完整或无效');
               }
               
               await updateButtonText(successText, 5000);
               btn.disabled = false;
               btn.textContent = originalText;
+              console.log('[刷新数据] 刷新成功，数据已验证');
               return;
             } catch (error) {
               console.error(`[刷新数据] 第 ${retryCount} 次尝试失败:`, error);
@@ -2812,6 +2866,7 @@ let currentCropTarget = null;
                 setTimeout(() => {
                   btn.textContent = originalText;
                 }, 3000);
+                console.error('[刷新数据] 所有重试失败');
                 return;
               }
             }

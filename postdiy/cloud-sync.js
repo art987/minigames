@@ -310,28 +310,25 @@ async function syncAndFillBusinessInfo(forceRefresh = false) {
   
   const localCacheKey = 'vipBusinessInfo_' + userId;
   const businessInfoCacheKey = 'businessInfoCache_' + userId;
-  const CACHE_DURATION = 30 * 60 * 1000;
   
-  // 检查是否需要强制刷新
-  const shouldForceRefresh = forceRefresh || localStorage.getItem('business_info_force_refresh') === 'true';
-  
-  // 如果不是强制刷新，尝试使用缓存
-  if (!shouldForceRefresh) {
-    try {
-      const localCache = localStorage.getItem(localCacheKey);
-      if (localCache) {
-        const cachedData = JSON.parse(localCache);
-        console.log('使用本地缓存的商家信息:', cachedData);
-        fillBusinessInfoToState(cachedData);
-        return { success: true, source: 'cache' };
-      }
-    } catch (e) {
-      console.log('读取本地缓存失败:', e);
-    }
-  } else {
-    console.log('强制刷新商家信息，跳过本地缓存');
-    // 清除强制刷新标记
+  // 强制刷新时，先清除所有相关缓存
+  if (forceRefresh) {
+    console.log('强制刷新模式，清除所有本地缓存...');
+    localStorage.removeItem(localCacheKey);
+    localStorage.removeItem(businessInfoCacheKey);
     localStorage.removeItem('business_info_force_refresh');
+    
+    // 清除图片缓存
+    localStorage.removeItem('imageCache_logo');
+    localStorage.removeItem('imageCache_qrcode');
+    localStorage.removeItem('imageMeta_logo');
+    localStorage.removeItem('imageMeta_qrcode');
+    localStorage.removeItem('imageMeta_lastFetch');
+    localStorage.removeItem('imageMeta_forceRefresh');
+    localStorage.removeItem('imageMeta_deviceId');
+    localStorage.removeItem('imageMeta_deviceId_stored');
+    
+    console.log('所有缓存已清除');
   }
   
   try {
