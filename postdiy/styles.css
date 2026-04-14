@@ -3881,8 +3881,11 @@ footer {
 }
 
 .editor-button-secondary {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #ffffff;
+  color: #c80000;
+  border: 1px solid #ccc;
+  padding: 3px 9px;
+  border-radius: 4px;
 }
 
 .editor-button-secondary:active {
@@ -4190,7 +4193,7 @@ footer {
 /* Logo透明开关样式 */
 .logo-transparency-toggle {
   position: absolute;
-  bottom: -13px;
+  bottom: -2px;
   width: 100%;
   /* background: #fff; */
   display: flex;
@@ -5357,7 +5360,7 @@ input.hidden {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 11px 20px 14px;
+  padding: 4px 20px 14px;
   /* border-top: 1px solid #e0e0e0; */
 }
 
