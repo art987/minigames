@@ -1,6 +1,19 @@
 // 海报DIY编辑器 - 全新实现
 // 模块化设计，避免变量重复声明问题
 
+// 注册 Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('[Service Worker] 注册成功:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('[Service Worker] 注册失败:', error);
+      });
+  });
+}
+
 // 微信浏览器检测（支持调试参数）
 function isWeixinBrowser() {
   // 检查URL参数，支持调试模式
@@ -156,6 +169,25 @@ const IMAGE_META = {
   forceRefresh: 'image_cache_force_refresh'
 };
 
+// 分级缓存配置
+const CACHE_CONFIG = {
+  logo: {
+    maxAge: 1 * 60 * 60 * 1000,        // 1小时：缓存新鲜期
+    staleWhileRevalidate: 24 * 60 * 60 * 1000  // 24小时：宽限期，可使用过期缓存
+  },
+  qrcode: {
+    maxAge: 1 * 60 * 60 * 1000,        // 1小时：缓存新鲜期
+    staleWhileRevalidate: 24 * 60 * 60 * 1000  // 24小时：宽限期
+  }
+};
+
+// 缓存状态枚举
+const CACHE_STATUS = {
+  FRESH: 'fresh',           // 新鲜，直接使用
+  STALE: 'stale',           // 过期但在宽限期内，后台更新
+  EXPIRED: 'expired'        // 完全过期，需要同步获取
+};
+
 function getOrCreateDeviceId() {
   let deviceId = localStorage.getItem(IMAGE_META.deviceId);
   if (!deviceId) {
@@ -163,6 +195,43 @@ function getOrCreateDeviceId() {
     localStorage.setItem(IMAGE_META.deviceId, deviceId);
   }
   return deviceId;
+}
+
+// 获取缓存状态
+function getCacheStatus(imageType) {
+  const metaKey = IMAGE_META_KEYS[imageType];
+  const meta = localStorage.getItem(metaKey);
+  
+  if (!meta) {
+    return { status: CACHE_STATUS.EXPIRED, age: Infinity };
+  }
+  
+  try {
+    const metaObj = JSON.parse(meta);
+    const age = Date.now() - (metaObj.timestamp || 0);
+    const config = CACHE_CONFIG[imageType];
+    
+    if (age < config.maxAge) {
+      return { status: CACHE_STATUS.FRESH, age, meta: metaObj };
+    } else if (age < config.staleWhileRevalidate) {
+      return { status: CACHE_STATUS.STALE, age, meta: metaObj };
+    } else {
+      return { status: CACHE_STATUS.EXPIRED, age, meta: metaObj };
+    }
+  } catch (e) {
+    return { status: CACHE_STATUS.EXPIRED, age: Infinity };
+  }
+}
+
+// 保存缓存元数据
+function saveCacheMeta(imageType, source = 'cloudflare') {
+  const metaKey = IMAGE_META_KEYS[imageType];
+  const meta = {
+    timestamp: Date.now(),
+    source: source,
+    deviceId: getOrCreateDeviceId()
+  };
+  localStorage.setItem(metaKey, JSON.stringify(meta));
 }
 
 function shouldForceRefresh() {
@@ -206,7 +275,7 @@ function setForceRefresh() {
 
 const imageBase64Cache = {};
 
-async function loadImageAsBase64(url, retryCount = 3) {
+async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true) {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
@@ -253,17 +322,74 @@ async function loadImageAsBase64(url, retryCount = 3) {
   } catch (e) {
     console.error('loadImageAsBase64 失败:', url, e);
     
+    // 如果是404错误且启用了腾讯云回退，尝试使用腾讯云URL
+    if (useTencentFallback && e.message && e.message.includes('404')) {
+      console.log('Cloudflare加载失败，尝试从腾讯云加载');
+      
+      // 尝试从腾讯云加载
+      const tencentUrl = getTencentImageUrl(url);
+      if (tencentUrl) {
+        console.log('使用腾讯云URL:', tencentUrl);
+        return loadImageAsBase64(tencentUrl, 0, false);
+      }
+    }
+    
     // 如果是网络错误且还有重试次数，则重试
     if (retryCount > 0 && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
       console.log('正在重试加载图片，剩余重试次数:', retryCount);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      return loadImageAsBase64(url, retryCount - 1);
+      return loadImageAsBase64(url, retryCount - 1, false);
     }
     
     // 所有方法都失败时，直接返回原始URL（img标签可以直接加载）
     console.log('所有方法失败，直接返回原始URL');
     return url;
   }
+}
+
+// 从Cloudflare URL获取对应的腾讯云URL
+function getTencentImageUrl(cloudflareUrl) {
+  if (!cloudflareUrl) return null;
+  
+  console.log('尝试获取腾讯云URL:', cloudflareUrl);
+  
+  // 检查state中是否有腾讯云URL
+  if (state && state.businessInfo) {
+    console.log('检查state.businessInfo:', state.businessInfo);
+    if (cloudflareUrl.includes('logo') && state.businessInfo.logoTencentUrl) {
+      console.log('找到腾讯云logo URL:', state.businessInfo.logoTencentUrl);
+      return state.businessInfo.logoTencentUrl;
+    }
+    if (cloudflareUrl.includes('qrcode') && state.businessInfo.qrcodeTencentUrl) {
+      console.log('找到腾讯云qrcode URL:', state.businessInfo.qrcodeTencentUrl);
+      return state.businessInfo.qrcodeTencentUrl;
+    }
+  }
+  
+  // 尝试从本地缓存获取
+  const userId = localStorage.getItem('postdiy_user_id');
+  console.log('userId:', userId);
+  if (userId) {
+    try {
+      const cache = JSON.parse(localStorage.getItem('vipBusinessInfo_' + userId));
+      console.log('本地缓存:', cache);
+      if (cache) {
+        if (cloudflareUrl.includes('logo') && cache.logoTencentUrl) {
+          console.log('找到缓存中的腾讯云logo URL:', cache.logoTencentUrl);
+          return cache.logoTencentUrl;
+        }
+        if (cloudflareUrl.includes('qrcode') && cache.qrcodeTencentUrl) {
+          console.log('找到缓存中的腾讯云qrcode URL:', cache.qrcodeTencentUrl);
+          return cache.qrcodeTencentUrl;
+        }
+      }
+    } catch (e) {
+      console.error('读取腾讯云URL缓存失败:', e);
+    }
+  }
+  
+  console.log('未找到腾讯云URL');
+  return null;
 }
 
 function saveToCache(key, base64) {
@@ -283,6 +409,78 @@ function getFromCache(key) {
   }
 }
 
+// 腾讯云云开发 SDK 初始化
+let tencentCloudApp = null;
+let tencentCloudEnv = 'postdiy-0g2mftaf6a0fc450';
+
+function initTencentCloud() {
+  if (!tencentCloudApp && typeof cloudbase !== 'undefined') {
+    try {
+      tencentCloudApp = cloudbase.init({
+        env: tencentCloudEnv
+      });
+      console.log('腾讯云云开发 SDK 初始化成功');
+    } catch (e) {
+      console.error('腾讯云云开发 SDK 初始化失败:', e);
+    }
+  }
+  return tencentCloudApp;
+}
+
+// 从 fileID 获取临时 URL
+async function getTempUrlFromFileID(fileID) {
+  if (!fileID) return null;
+  
+  // 初始化腾讯云 SDK
+  const app = initTencentCloud();
+  if (!app) {
+    console.error('腾讯云 SDK 未初始化');
+    return null;
+  }
+  
+  try {
+    console.log('从 fileID 获取临时 URL:', fileID);
+    const { fileList } = await app.getTempFileURL({
+      fileList: [fileID],
+      maxAge: 3600 // 1小时
+    });
+    
+    const tempUrl = fileList[0].tempFileURL;
+    console.log('获取到临时 URL:', tempUrl);
+    return tempUrl;
+  } catch (e) {
+    console.error('从 fileID 获取临时 URL 失败:', e);
+    return null;
+  }
+}
+
+// 从数据库获取图片的 fileID 并换取临时 URL
+async function getImageUrlFromDB(imageType) {
+  const userId = localStorage.getItem('postdiy_user_id');
+  if (!userId) return null;
+  
+  try {
+    const response = await fetch(API_BASE_URL + '/user-get-info', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId })
+    });
+    
+    const result = await response.json();
+    if (result.success && result.data) {
+      const fileID = imageType === 'logo' ? result.data.logoFileID : result.data.qrcodeFileID;
+      if (fileID) {
+        console.log(`从数据库获取到 ${imageType} 的 fileID:`, fileID);
+        return await getTempUrlFromFileID(fileID);
+      }
+    }
+  } catch (e) {
+    console.error(`获取 ${imageType} 图片 URL 失败:`, e);
+  }
+  
+  return null;
+}
+
 async function initImagesWithCache() {
   const logoImg = document.getElementById('posterLogoImg');
   const qrImg = document.getElementById('posterQrcodeImg');
@@ -295,20 +493,12 @@ async function initImagesWithCache() {
     if (cachedLogo && cachedLogo.startsWith('data:image') && !needRefresh) {
       logoImg.src = cachedLogo;
     } else if (logoImg.dataset.cloudUrl) {
-      logoImg.crossOrigin = "anonymous";
-      logoImg.src = logoImg.dataset.cloudUrl;
-      loadImageAsBase64(logoImg.dataset.cloudUrl).then(base64 => {
-        saveToCache(IMAGE_CACHE_KEYS.logo, base64);
-        updateImageMeta();
-      }).catch(e => {
-        console.error('Logo缓存加载失败:', e);
-      });
+      // 使用延迟加载策略
+      lazyLoadImage(logoImg, 'logo', logoImg.dataset.cloudUrl);
     }
     logoImg.onerror = function() {
-      console.error('Logo图片加载失败，尝试从云端重新加载');
-      if (logoImg.dataset.cloudUrl) {
-        refreshImagesFromCloud();
-      }
+      console.error('Logo图片加载失败，显示默认图片');
+      logoImg.src = 'images/statics/logo-default.gif';
     };
   }
 
@@ -316,21 +506,236 @@ async function initImagesWithCache() {
     if (cachedQr && cachedQr.startsWith('data:image') && !needRefresh) {
       qrImg.src = cachedQr;
     } else if (qrImg.dataset.cloudUrl) {
-      qrImg.crossOrigin = "anonymous";
-      qrImg.src = qrImg.dataset.cloudUrl;
-      loadImageAsBase64(qrImg.dataset.cloudUrl).then(base64 => {
-        saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
-        updateImageMeta();
-      }).catch(e => {
-        console.error('二维码缓存加载失败:', e);
-      });
+      // 使用延迟加载策略
+      lazyLoadImage(qrImg, 'qrcode', qrImg.dataset.cloudUrl);
     }
     qrImg.onerror = function() {
-      console.error('二维码图片加载失败，尝试从云端重新加载');
-      if (qrImg.dataset.cloudUrl) {
-        refreshImagesFromCloud();
-      }
+      console.error('二维码图片加载失败，显示默认图片');
+      qrImg.src = 'images/statics/qrcode-default.gif';
     };
+  }
+}
+
+// 延迟加载图片（使用 Intersection Observer）
+function lazyLoadImage(imgElement, imageType, cloudflareUrl) {
+  // 先检查缓存状态
+  const cacheStatus = getCacheStatus(imageType);
+  const cachedData = getFromCache(IMAGE_CACHE_KEYS[imageType]);
+  
+  // 如果有缓存，直接使用缓存
+  if (cachedData && cachedData.startsWith('data:image')) {
+    console.log(`[延迟加载] ${imageType}: 使用缓存`);
+    imgElement.src = cachedData;
+    
+    // 如果缓存过期但在宽限期内，后台更新
+    if (cacheStatus.status === CACHE_STATUS.STALE) {
+      const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
+      updateImageInBackground(imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+    }
+    return;
+  }
+  
+  // 无缓存，使用 Intersection Observer 延迟加载
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log(`[延迟加载] ${imageType}: 进入视口，开始加载`);
+          const img = entry.target;
+          const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
+          fetchAndCacheImage(img, imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '100px',  // 提前100px开始加载
+      threshold: 0.01
+    });
+    
+    observer.observe(imgElement);
+    console.log(`[延迟加载] ${imageType}: 已注册观察器`);
+  } else {
+    // 不支持 Intersection Observer，直接加载
+    console.log(`[延迟加载] ${imageType}: 浏览器不支持，直接加载`);
+    const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
+    fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+  }
+}
+
+// 图片加载策略：Cloudflare 优先，腾讯云回退（支持分级缓存）
+async function loadImageWithFallback(imgElement, imageType, cloudflareUrl) {
+  const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
+  const cacheKey = IMAGE_CACHE_KEYS[imageType];
+  
+  // 检查缓存状态
+  const cacheStatus = getCacheStatus(imageType);
+  const cachedData = getFromCache(cacheKey);
+  
+  console.log(`[缓存策略] ${imageType}: 状态=${cacheStatus.status}, 缓存=${cachedData ? '有' : '无'}`);
+  
+  // 策略1：新鲜缓存，直接使用
+  if (cacheStatus.status === CACHE_STATUS.FRESH && cachedData && cachedData.startsWith('data:image')) {
+    console.log(`[缓存策略] ${imageType}: 使用新鲜缓存`);
+    imgElement.src = cachedData;
+    return true;
+  }
+  
+  // 策略2：过期但在宽限期内，先显示旧缓存，后台更新
+  if (cacheStatus.status === CACHE_STATUS.STALE && cachedData && cachedData.startsWith('data:image')) {
+    console.log(`[缓存策略] ${imageType}: 使用过期缓存，后台更新`);
+    imgElement.src = cachedData;
+    
+    // 后台更新（不阻塞）
+    updateImageInBackground(imageType, cloudflareUrl, fileID, cacheKey);
+    return true;
+  }
+  
+  // 策略3：完全过期或无缓存，同步获取
+  console.log(`[加载策略] ${imageType}: 同步获取图片`);
+  return await fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, cacheKey);
+}
+
+// 后台更新图片
+async function updateImageInBackground(imageType, cloudflareUrl, fileID, cacheKey) {
+  console.log(`[后台更新] ${imageType}: 开始后台更新`);
+  
+  try {
+    // 第一步：尝试 Cloudflare（免费）
+    let imageData = null;
+    let source = 'cloudflare';
+    
+    try {
+      imageData = await loadImageAsBase64(cloudflareUrl, 1, false);
+      if (imageData && imageData.startsWith('data:image')) {
+        console.log(`[后台更新] ${imageType}: Cloudflare 成功`);
+      } else {
+        imageData = null;
+      }
+    } catch (cfErr) {
+      console.log(`[后台更新] ${imageType}: Cloudflare 失败 - ${cfErr.message}`);
+    }
+    
+    // 第二步：回退到腾讯云（付费）
+    if (!imageData && fileID) {
+      console.log(`[后台更新] ${imageType}: 回退到腾讯云`);
+      try {
+        const tempUrl = await getTempUrlFromFileID(fileID);
+        if (tempUrl) {
+          imageData = await loadImageAsBase64(tempUrl, 0, false);
+          source = 'tencent';
+          console.log(`[后台更新] ${imageType}: 腾讯云成功`);
+        }
+      } catch (txErr) {
+        console.error(`[后台更新] ${imageType}: 腾讯云失败 - ${txErr.message}`);
+      }
+    }
+    
+    // 更新缓存
+    if (imageData && imageData.startsWith('data:image')) {
+      saveToCache(cacheKey, imageData);
+      saveCacheMeta(imageType, source);
+      console.log(`[后台更新] ${imageType}: 缓存已更新`);
+    }
+  } catch (e) {
+    console.error(`[后台更新] ${imageType}: 更新失败 -`, e);
+  }
+}
+
+// 同步获取并缓存图片
+async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, cacheKey) {
+  // 第一步：尝试从 Cloudflare 加载（免费）
+  console.log(`[加载策略] ${imageType}: 尝试从 Cloudflare 加载（免费）`);
+  
+  try {
+    imgElement.crossOrigin = "anonymous";
+    imgElement.src = cloudflareUrl;
+    
+    // 等待图片加载
+    await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Cloudflare 加载超时'));
+      }, 8000); // 8秒超时
+      
+      imgElement.onload = () => {
+        clearTimeout(timeout);
+        console.log(`[加载策略] ${imageType}: Cloudflare 加载成功`);
+        resolve();
+      };
+      
+      imgElement.onerror = () => {
+        clearTimeout(timeout);
+        reject(new Error('Cloudflare 加载失败'));
+      };
+    });
+    
+    // Cloudflare 加载成功，缓存图片
+    try {
+      const base64 = await loadImageAsBase64(cloudflareUrl, 0, false);
+      if (base64 && base64.startsWith('data:image')) {
+        saveToCache(cacheKey, base64);
+        saveCacheMeta(imageType, 'cloudflare');
+        console.log(`[加载策略] ${imageType}: Cloudflare 图片已缓存`);
+      }
+    } catch (cacheErr) {
+      console.log(`[加载策略] ${imageType}: 缓存失败，但图片已显示`);
+    }
+    
+    return true;
+    
+  } catch (cloudflareError) {
+    console.log(`[加载策略] ${imageType}: Cloudflare 失败 - ${cloudflareError.message}`);
+    
+    // 第二步：回退到腾讯云（付费）
+    if (fileID) {
+      console.log(`[加载策略] ${imageType}: 回退到腾讯云（付费）`);
+      
+      try {
+        const tencentUrl = await getTempUrlFromFileID(fileID);
+        
+        if (tencentUrl) {
+          imgElement.crossOrigin = "anonymous";
+          imgElement.src = tencentUrl;
+          
+          await new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+              reject(new Error('腾讯云加载超时'));
+            }, 10000);
+            
+            imgElement.onload = () => {
+              clearTimeout(timeout);
+              console.log(`[加载策略] ${imageType}: 腾讯云加载成功`);
+              resolve();
+            };
+            
+            imgElement.onerror = () => {
+              clearTimeout(timeout);
+              reject(new Error('腾讯云加载失败'));
+            };
+          });
+          
+          // 缓存腾讯云图片
+          try {
+            const base64 = await loadImageAsBase64(tencentUrl, 0, false);
+            if (base64 && base64.startsWith('data:image')) {
+              saveToCache(cacheKey, base64);
+              saveCacheMeta(imageType, 'tencent');
+            }
+          } catch (cacheErr) {
+            console.log(`[加载策略] ${imageType}: 腾讯云缓存失败`);
+          }
+          
+          return true;
+        }
+      } catch (tencentError) {
+        console.error(`[加载策略] ${imageType}: 腾讯云也失败 - ${tencentError.message}`);
+      }
+    } else {
+      console.log(`[加载策略] ${imageType}: 无 fileID，无法回退到腾讯云`);
+    }
+    
+    // 所有方法都失败，显示默认图片
+    imgElement.src = `images/statics/${imageType === 'logo' ? 'logo' : 'qrcode'}-default.gif`;
+    return false;
   }
 }
 
@@ -343,33 +748,48 @@ async function refreshImagesFromCloud() {
   if (logoImg && logoImg.dataset.cloudUrl) {
     loadPromises.push((async () => {
       try {
-        const base64 = await loadImageAsBase64(logoImg.dataset.cloudUrl);
-        saveToCache(IMAGE_CACHE_KEYS.logo, base64);
-        updateImageMeta();
-        logoImg.src = base64;
-        console.log('Logo图片刷新成功');
-      } catch (e) {
-        console.error('刷新Logo缓存失败，尝试从云端获取新URL:', e);
-        if (e.message && e.message.includes('404')) {
-          logoImg.dataset.cloudUrl = '';
-          const userId = localStorage.getItem('postdiy_user_id');
-          if (userId) {
-            const cloudResult = await fetch(API_BASE_URL + '/user-get-info', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId })
-            }).then(r => r.json()).catch(() => null);
-            if (cloudResult && cloudResult.data && cloudResult.data.logoUrl) {
-              const newUrl = cloudResult.data.logoUrl;
-              logoImg.dataset.cloudUrl = newUrl;
-              state.businessInfo.logo = newUrl;
-              const newBase64 = await loadImageAsBase64(newUrl);
-              saveToCache(IMAGE_CACHE_KEYS.logo, newBase64);
-              logoImg.src = newBase64;
-              console.log('Logo图片从云端获取新URL刷新成功:', newUrl);
+        // Cloudflare 优先，腾讯云回退
+        const logoFileID = window.editorState?.businessInfo?.logoFileID;
+        let imageData = null;
+        
+        // 第一步：尝试 Cloudflare（免费）
+        console.log('[刷新] Logo: 尝试 Cloudflare');
+        try {
+          imageData = await loadImageAsBase64(logoImg.dataset.cloudUrl, 1, false);
+          if (imageData && imageData.startsWith('data:image')) {
+            console.log('[刷新] Logo: Cloudflare 成功');
+          } else {
+            imageData = null;
+          }
+        } catch (cfErr) {
+          console.log('[刷新] Logo: Cloudflare 失败 -', cfErr.message);
+        }
+        
+        // 第二步：回退到腾讯云（付费）
+        if (!imageData && logoFileID) {
+          console.log('[刷新] Logo: 回退到腾讯云');
+          try {
+            const tempUrl = await getTempUrlFromFileID(logoFileID);
+            if (tempUrl) {
+              imageData = await loadImageAsBase64(tempUrl, 0, false);
+              console.log('[刷新] Logo: 腾讯云成功');
             }
+          } catch (txErr) {
+            console.error('[刷新] Logo: 腾讯云失败 -', txErr.message);
           }
         }
+        
+        if (imageData && imageData.startsWith('data:image')) {
+          saveToCache(IMAGE_CACHE_KEYS.logo, imageData);
+          updateImageMeta();
+          logoImg.src = imageData;
+          console.log('Logo图片刷新成功');
+        } else {
+          logoImg.src = 'images/statics/logo-default.gif';
+        }
+      } catch (e) {
+        console.error('刷新Logo缓存失败:', e);
+        logoImg.src = 'images/statics/logo-default.gif';
       }
     })());
   }
@@ -377,33 +797,48 @@ async function refreshImagesFromCloud() {
   if (qrImg && qrImg.dataset.cloudUrl) {
     loadPromises.push((async () => {
       try {
-        const base64 = await loadImageAsBase64(qrImg.dataset.cloudUrl);
-        saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
-        updateImageMeta();
-        qrImg.src = base64;
-        console.log('二维码图片刷新成功');
-      } catch (e) {
-        console.error('刷新二维码缓存失败，尝试从云端获取新URL:', e);
-        if (e.message && e.message.includes('404')) {
-          qrImg.dataset.cloudUrl = '';
-          const userId = localStorage.getItem('postdiy_user_id');
-          if (userId) {
-            const cloudResult = await fetch(API_BASE_URL + '/user-get-info', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId })
-            }).then(r => r.json()).catch(() => null);
-            if (cloudResult && cloudResult.data && cloudResult.data.qrcodeUrl) {
-              const newUrl = cloudResult.data.qrcodeUrl;
-              qrImg.dataset.cloudUrl = newUrl;
-              state.businessInfo.qrcode = newUrl;
-              const newBase64 = await loadImageAsBase64(newUrl);
-              saveToCache(IMAGE_CACHE_KEYS.qrcode, newBase64);
-              qrImg.src = newBase64;
-              console.log('二维码从云端获取新URL刷新成功:', newUrl);
+        // Cloudflare 优先，腾讯云回退
+        const qrcodeFileID = window.editorState?.businessInfo?.qrcodeFileID;
+        let imageData = null;
+        
+        // 第一步：尝试 Cloudflare（免费）
+        console.log('[刷新] 二维码: 尝试 Cloudflare');
+        try {
+          imageData = await loadImageAsBase64(qrImg.dataset.cloudUrl, 1, false);
+          if (imageData && imageData.startsWith('data:image')) {
+            console.log('[刷新] 二维码: Cloudflare 成功');
+          } else {
+            imageData = null;
+          }
+        } catch (cfErr) {
+          console.log('[刷新] 二维码: Cloudflare 失败 -', cfErr.message);
+        }
+        
+        // 第二步：回退到腾讯云（付费）
+        if (!imageData && qrcodeFileID) {
+          console.log('[刷新] 二维码: 回退到腾讯云');
+          try {
+            const tempUrl = await getTempUrlFromFileID(qrcodeFileID);
+            if (tempUrl) {
+              imageData = await loadImageAsBase64(tempUrl, 0, false);
+              console.log('[刷新] 二维码: 腾讯云成功');
             }
+          } catch (txErr) {
+            console.error('[刷新] 二维码: 腾讯云失败 -', txErr.message);
           }
         }
+        
+        if (imageData && imageData.startsWith('data:image')) {
+          saveToCache(IMAGE_CACHE_KEYS.qrcode, imageData);
+          updateImageMeta();
+          qrImg.src = imageData;
+          console.log('二维码图片刷新成功');
+        } else {
+          qrImg.src = 'images/statics/qrcode-default.gif';
+        }
+      } catch (e) {
+        console.error('刷新二维码缓存失败:', e);
+        qrImg.src = 'images/statics/qrcode-default.gif';
       }
     })());
   }
@@ -416,28 +851,90 @@ window.forceRefreshImages = async function() {
   await refreshImagesFromCloud();
   
   if (elements.logoPreviewImg && state.businessInfo.logo) {
-    const imageData = await loadImageAsBase64(state.businessInfo.logo);
+    // Cloudflare 优先，腾讯云回退
+    const logoFileID = state.businessInfo.logoFileID;
+    let imageData = null;
+    
+    // 第一步：尝试 Cloudflare（免费）
+    console.log('[强制刷新] Logo: 尝试 Cloudflare');
+    try {
+      imageData = await loadImageAsBase64(state.businessInfo.logo, 1, false);
+      if (imageData && imageData.startsWith('data:image')) {
+        console.log('[强制刷新] Logo: Cloudflare 成功');
+      } else {
+        imageData = null;
+      }
+    } catch (cfErr) {
+      console.log('[强制刷新] Logo: Cloudflare 失败 -', cfErr.message);
+    }
+    
+    // 第二步：回退到腾讯云（付费）
+    if (!imageData && logoFileID) {
+      console.log('[强制刷新] Logo: 回退到腾讯云');
+      try {
+        const tempUrl = await getTempUrlFromFileID(logoFileID);
+        if (tempUrl) {
+          imageData = await loadImageAsBase64(tempUrl, 0, false);
+          console.log('[强制刷新] Logo: 腾讯云成功');
+        }
+      } catch (txErr) {
+        console.error('[强制刷新] Logo: 腾讯云失败 -', txErr.message);
+      }
+    }
+    
     // 检查返回的是base64还是URL
-    if (imageData.startsWith('data:image')) {
-      saveToCache(IMAGE_CACHE_KEYS.logo, imageData);
-      elements.logoPreviewImg.src = imageData;
-    } else {
-      // 如果是URL，直接使用URL，不缓存base64
-      elements.logoPreviewImg.src = imageData;
-      console.log('Logo使用原始URL（CORS限制）');
+    if (imageData) {
+      if (imageData.startsWith('data:image')) {
+        saveToCache(IMAGE_CACHE_KEYS.logo, imageData);
+        elements.logoPreviewImg.src = imageData;
+      } else {
+        elements.logoPreviewImg.src = imageData;
+        console.log('Logo使用原始URL（CORS限制）');
+      }
     }
   }
   
   if (elements.qrcodePreviewImg && state.businessInfo.qrcode) {
-    const imageData = await loadImageAsBase64(state.businessInfo.qrcode);
+    // Cloudflare 优先，腾讯云回退
+    const qrcodeFileID = state.businessInfo.qrcodeFileID;
+    let imageData = null;
+    
+    // 第一步：尝试 Cloudflare（免费）
+    console.log('[强制刷新] 二维码: 尝试 Cloudflare');
+    try {
+      imageData = await loadImageAsBase64(state.businessInfo.qrcode, 1, false);
+      if (imageData && imageData.startsWith('data:image')) {
+        console.log('[强制刷新] 二维码: Cloudflare 成功');
+      } else {
+        imageData = null;
+      }
+    } catch (cfErr) {
+      console.log('[强制刷新] 二维码: Cloudflare 失败 -', cfErr.message);
+    }
+    
+    // 第二步：回退到腾讯云（付费）
+    if (!imageData && qrcodeFileID) {
+      console.log('[强制刷新] 二维码: 回退到腾讯云');
+      try {
+        const tempUrl = await getTempUrlFromFileID(qrcodeFileID);
+        if (tempUrl) {
+          imageData = await loadImageAsBase64(tempUrl, 0, false);
+          console.log('[强制刷新] 二维码: 腾讯云成功');
+        }
+      } catch (txErr) {
+        console.error('[强制刷新] 二维码: 腾讯云失败 -', txErr.message);
+      }
+    }
+    
     // 检查返回的是base64还是URL
-    if (imageData.startsWith('data:image')) {
-      saveToCache(IMAGE_CACHE_KEYS.qrcode, imageData);
-      elements.qrcodePreviewImg.src = imageData;
-    } else {
-      // 如果是URL，直接使用URL，不缓存base64
-      elements.qrcodePreviewImg.src = imageData;
-      console.log('二维码使用原始URL（CORS限制）');
+    if (imageData) {
+      if (imageData.startsWith('data:image')) {
+        saveToCache(IMAGE_CACHE_KEYS.qrcode, imageData);
+        elements.qrcodePreviewImg.src = imageData;
+      } else {
+        elements.qrcodePreviewImg.src = imageData;
+        console.log('二维码使用原始URL（CORS限制）');
+      }
     }
   }
 };
@@ -5759,8 +6256,8 @@ let currentCropTarget = null;
             console.log('本地缓存更新完成');
           });
           
-          // 同步到云端（包括腾讯云URL）
-          await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl);
+          // 同步到云端（包括腾讯云URL和fileID）
+          await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
           console.log('云端同步完成');
         }
         
@@ -5787,7 +6284,7 @@ let currentCropTarget = null;
         
         if (result.success) {
           state.businessInfo.qrcode = result.url;
-          await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl);
+          await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
           await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
         }
       }
@@ -11060,7 +11557,7 @@ window.textTemplateManager = {
       '知识': '📚', '家居': '🏠', '数码': '📱', '旅游': '✈️',
       '情感': '💕', '人生感悟': '🌿', '励志奋斗': '🔥', '时代理想': '🌟'
     };
-    return icons[category] || '📝';
+    return icons[category] || '';
   },
 
   renderTemplates: function(category) {
@@ -11073,8 +11570,8 @@ window.textTemplateManager = {
       return `<div class="industry-template-card" data-index="${index}">
         <div class="industry-template-content">${displayText.replace(/\n/g, '<br>')}</div>
         <div class="template-card-actions">
-          <button class="card-insert-btn" data-index="${index}">插入画布</button>
-          <button class="card-copy-btn" data-index="${index}">仅复制</button>
+          <button class="card-insert-btn" data-index="${index}">添加</button>
+          <button class="card-copy-btn" data-index="${index}">❏</button>
         </div>
       </div>`;
     }).join('');

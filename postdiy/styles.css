@@ -4299,7 +4299,7 @@ footer {
 
 /* 颜色选择器选中状态 - 边框样式 */
 #fontColorModal .color-swatch.selected {
-  border: 3px solid #333 !important;
+  /* border: 1px dashed #333 !important; */
   transform: scale(1.15);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
@@ -5114,6 +5114,7 @@ input.hidden {
   border-radius: 8px;
   padding: 16px 11px;
   cursor: pointer;
+  position: relative;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -5128,11 +5129,11 @@ input.hidden {
 .industry-template-content {
   font-size: 14px;
   line-height: 1.5;
-  min-height: 63px;
+  min-height: 47px;
   font-weight: bold;
+  padding-right: 30px;
   color: #333;
   white-space: pre-line;
-  margin-bottom: 12px;
   overflow: hidden;
   position: relative;
 }
@@ -6447,7 +6448,6 @@ button.future-suggestion-btn[data-action="wanan"] {
   z-index: 2001;
 }
 
-#textTemplateModal .industry-template-content{min-height: 43px;}
 
 .text-template-modal {
   max-height: 80vh;
@@ -6457,23 +6457,31 @@ button.future-suggestion-btn[data-action="wanan"] {
   display: flex;
   gap: 8px;
   margin-top: 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .template-card-actions .card-insert-btn,
 .template-card-actions .card-copy-btn {
   flex: 1;
-  padding: 6px 12px;
+  padding: 6px 4px;
   border: none;
+  text-align: center;
+  width: 29px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 13px;
   transition: all 0.3s ease;
+  position: absolute;
+  right: 6px;
 }
 
 .template-card-actions .card-insert-btn {
   background: #ffffff;
   color: #c00000;
-  border: 1px solid #c9c9c9;
+  border: 1px solid #e7e7e7;
+  top: 0px;
 }
 
 .template-card-actions .card-insert-btn:hover {
@@ -6483,6 +6491,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 .template-card-actions .card-copy-btn {
   background: #ffffff;
   color: #454545;
+  display: none;
   border: 1px solid #c9c9c9;
 }
 

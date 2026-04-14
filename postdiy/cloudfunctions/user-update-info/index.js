@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     };
   }
 
-  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl
+  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl, logoFileID, qrcodeFileID
   
   try {
     const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
@@ -31,6 +31,8 @@ exports.main = async (event, context) => {
     promoText = body.promoText
     logoTencentUrl = body.logoTencentUrl
     qrcodeTencentUrl = body.qrcodeTencentUrl
+    logoFileID = body.logoFileID
+    qrcodeFileID = body.qrcodeFileID
   } catch (error) {
     userId = event.userId
     logoUrl = event.logoUrl
@@ -39,6 +41,8 @@ exports.main = async (event, context) => {
     promoText = event.promoText
     logoTencentUrl = event.logoTencentUrl
     qrcodeTencentUrl = event.qrcodeTencentUrl
+    logoFileID = event.logoFileID
+    qrcodeFileID = event.qrcodeFileID
   }
   
   if (!userId) {
@@ -78,6 +82,14 @@ exports.main = async (event, context) => {
       updateData.qrcodeTencentUrl = qrcodeTencentUrl
     }
     
+    if (logoFileID !== undefined) {
+      updateData.logoFileID = logoFileID
+    }
+    
+    if (qrcodeFileID !== undefined) {
+      updateData.qrcodeFileID = qrcodeFileID
+    }
+    
     if (brandname !== undefined) {
       updateData.brandname = brandname
     }
@@ -115,8 +127,10 @@ exports.main = async (event, context) => {
           promoText: user.promoText || '',
           logoUrl: user.logoUrl || '',
           logoTencentUrl: user.logoTencentUrl || '',
+          logoFileID: user.logoFileID || '',
           qrcodeUrl: user.qrcodeUrl || '',
-          qrcodeTencentUrl: user.qrcodeTencentUrl || ''
+          qrcodeTencentUrl: user.qrcodeTencentUrl || '',
+          qrcodeFileID: user.qrcodeFileID || ''
         }
       })
     }

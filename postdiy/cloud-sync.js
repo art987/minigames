@@ -2,7 +2,18 @@
 
 const API_BASE_URL = 'https://api.peacelove.top';
 
-function compressImage(imageData, maxWidth = 300) {
+// 检测浏览器是否支持 WebP
+function supportsWebP() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  return canvas.toDataURL('image/webp').startsWith('data:image/webp');
+}
+
+// 缓存 WebP 支持状态
+const WEBP_SUPPORTED = supportsWebP();
+
+function compressImage(imageData, maxWidth = 300, preferWebP = true) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = function() {
@@ -24,8 +35,26 @@ function compressImage(imageData, maxWidth = 300) {
       const originalType = imageData.startsWith('data:image/png') ? 'image/png' : 
                           imageData.startsWith('data:image/webp') ? 'image/webp' : 
                           imageData.startsWith('data:image/gif') ? 'image/gif' : 'image/jpeg';
-      const useTransparent = originalType !== 'image/jpeg';
-      let compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.8);
+      const hasTransparency = originalType === 'image/png' || originalType === 'image/gif' || originalType === 'image/webp';
+      
+      let compressedData;
+      let outputFormat;
+      
+      // 优先使用 WebP 格式（如果支持且用户偏好）
+      if (preferWebP && WEBP_SUPPORTED) {
+        // WebP 质量设置：有透明通道用较低质量保持体积小，无透明用较高质量
+        const quality = hasTransparency ? 0.8 : 0.85;
+        compressedData = canvas.toDataURL('image/webp', quality);
+        outputFormat = 'WebP';
+      } else if (hasTransparency) {
+        // 回退到 PNG（保留透明）
+        compressedData = canvas.toDataURL('image/png');
+        outputFormat = 'PNG';
+      } else {
+        // 回退到 JPEG
+        compressedData = canvas.toDataURL('image/jpeg', 0.8);
+        outputFormat = 'JPEG';
+      }
       
       const maxBase64Size = 4 * 1024 * 1024;
       if (compressedData.length > maxBase64Size) {
@@ -36,10 +65,17 @@ function compressImage(imageData, maxWidth = 300) {
         canvas.width = newWidth;
         canvas.height = newHeight;
         ctx.drawImage(img, 0, 0, newWidth, newHeight);
-        compressedData = canvas.toDataURL(useTransparent ? 'image/png' : 'image/jpeg', useTransparent ? undefined : 0.7);
+        
+        if (preferWebP && WEBP_SUPPORTED) {
+          compressedData = canvas.toDataURL('image/webp', 0.7);
+        } else if (hasTransparency) {
+          compressedData = canvas.toDataURL('image/png');
+        } else {
+          compressedData = canvas.toDataURL('image/jpeg', 0.7);
+        }
       }
       
-      console.log('图片压缩完成: 原始尺寸 ' + img.width + 'x' + img.height + ' -> ' + width + 'x' + height + ', 格式: ' + (useTransparent ? 'PNG(保留透明)' : 'JPEG'));
+      console.log('图片压缩完成: 原始尺寸 ' + img.width + 'x' + img.height + ' -> ' + width + 'x' + height + ', 格式: ' + outputFormat + (hasTransparency ? '(保留透明)' : ''));
       console.log('压缩后数据大小约: ' + Math.round(compressedData.length / 1024) + 'KB');
       
       resolve(compressedData);
@@ -76,9 +112,10 @@ async function uploadImageToCloud(imageType, imageData) {
     const cloudResult = await uploadToCloudflare(imageType, compressedData, timestamp);
     const tencentResult = await uploadToTencent(imageType, compressedData, timestamp);
     
-    // 优先返回 Cloudflare URL，但保存腾讯云 URL 作为备用
+    // 优先返回 Cloudflare URL，但保存腾讯云 URL 和 fileID 作为备用
     let finalUrl = cloudResult.url;
     let tencentUrl = tencentResult.url;
+    let tencentFileID = tencentResult.fileID;
     
     if (finalUrl && !finalUrl.includes('?')) {
       finalUrl = finalUrl + '?t=' + timestamp;
@@ -95,11 +132,18 @@ async function uploadImageToCloud(imageType, imageData) {
     console.log(imageType + ' 上传成功:');
     console.log('  Cloudflare URL:', finalUrl);
     console.log('  腾讯云 URL:', tencentUrl);
+    console.log('  腾讯云 fileID:', tencentFileID);
+    
+    // 保存 fileID 到数据库
+    if (tencentFileID) {
+      await syncTencentFileIDToDB(imageType, tencentFileID);
+    }
     
     return { 
       success: true, 
       url: finalUrl,
-      tencentUrl: tencentUrl
+      tencentUrl: tencentUrl,
+      tencentFileID: tencentFileID
     };
   } catch (e) {
     console.error('上传 ' + imageType + ' 失败:', e);
@@ -156,7 +200,8 @@ async function uploadToTencent(imageType, imageData, timestamp) {
     
     if (result.success && result.data) {
       console.log('腾讯云上传成功，URL:', result.data.url)
-      return { success: true, url: result.data.url }
+      console.log('腾讯云上传成功，fileID:', result.data.fileID)
+      return { success: true, url: result.data.url, fileID: result.data.fileID }
     }
     
     console.warn('腾讯云上传失败:', result.message || '未知错误')
@@ -227,8 +272,10 @@ async function loadBusinessInfoFromCloud() {
           promoText: result.data.promoText || '',
           logoUrl: result.data.logoUrl || '',
           logoTencentUrl: result.data.logoTencentUrl || '',
+          logoFileID: result.data.logoFileID || '',
           qrcodeUrl: result.data.qrcodeUrl || '',
           qrcodeTencentUrl: result.data.qrcodeTencentUrl || '',
+          qrcodeFileID: result.data.qrcodeFileID || '',
           logoTransparent: result.data.logoTransparent || false
         }
       };
@@ -247,6 +294,18 @@ async function syncAndFillBusinessInfo(forceRefresh = false) {
   if (!userId) {
     console.log('用户未登录，跳过同步商家信息');
     return { success: false, reason: 'not_logged_in' };
+  }
+  
+  // 初始化腾讯云 SDK
+  if (typeof cloudbase !== 'undefined') {
+    try {
+      const app = cloudbase.init({
+        env: 'postdiy-0g2mftaf6a0fc450'
+      });
+      console.log('腾讯云云开发 SDK 初始化成功');
+    } catch (e) {
+      console.error('腾讯云云开发 SDK 初始化失败:', e);
+    }
   }
   
   const localCacheKey = 'vipBusinessInfo_' + userId;
@@ -286,12 +345,18 @@ async function syncAndFillBusinessInfo(forceRefresh = false) {
         fetchedAt: Date.now()
       };
       
-      // 保存腾讯云 URL 到本地缓存
+      // 保存腾讯云 URL 和 fileID 到本地缓存
       if (cloudResult.data.logoTencentUrl) {
         cloudData.logoTencentUrl = cloudResult.data.logoTencentUrl;
       }
       if (cloudResult.data.qrcodeTencentUrl) {
         cloudData.qrcodeTencentUrl = cloudResult.data.qrcodeTencentUrl;
+      }
+      if (cloudResult.data.logoFileID) {
+        cloudData.logoFileID = cloudResult.data.logoFileID;
+      }
+      if (cloudResult.data.qrcodeFileID) {
+        cloudData.qrcodeFileID = cloudResult.data.qrcodeFileID;
       }
       
       try {
@@ -336,6 +401,18 @@ function fillBusinessInfoToState(data) {
     }
     if (data.qrcodeUrl) {
       window.editorState.businessInfo.qrcode = data.qrcodeUrl;
+    }
+    if (data.logoTencentUrl) {
+      window.editorState.businessInfo.logoTencentUrl = data.logoTencentUrl;
+    }
+    if (data.qrcodeTencentUrl) {
+      window.editorState.businessInfo.qrcodeTencentUrl = data.qrcodeTencentUrl;
+    }
+    if (data.logoFileID) {
+      window.editorState.businessInfo.logoFileID = data.logoFileID;
+    }
+    if (data.qrcodeFileID) {
+      window.editorState.businessInfo.qrcodeFileID = data.qrcodeFileID;
     }
     if (data.promoText) {
       window.editorState.businessInfo.promoText = data.promoText;
@@ -437,7 +514,7 @@ function updateCanvasDisplay(data) {
 }
 
 // 同步Logo URL到云端（双存储）
-async function syncLogoUrlToCloud(logoUrl, tencentUrl = '') {
+async function syncLogoUrlToCloud(logoUrl, tencentUrl = '', tencentFileID = '') {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId || logoUrl === undefined) return;
   
@@ -448,7 +525,8 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '') {
       body: JSON.stringify({ 
         userId, 
         logoUrl,
-        logoTencentUrl: tencentUrl
+        logoTencentUrl: tencentUrl,
+        logoFileID: tencentFileID
       })
     });
     const result = await response.json();
@@ -456,6 +534,7 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '') {
       console.log('Logo URL 已同步到用户信息:');
       console.log('  Cloudflare:', logoUrl);
       console.log('  腾讯云:', tencentUrl);
+      console.log('  腾讯云 fileID:', tencentFileID);
       
       const localCacheKey = 'businessInfoCache_' + userId;
       try {
@@ -464,6 +543,7 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '') {
           const cache = JSON.parse(cachedData);
           cache.logoUrl = logoUrl;
           cache.logoTencentUrl = tencentUrl;
+          cache.logoFileID = tencentFileID;
           cache.fetchedAt = Date.now();
           localStorage.setItem(localCacheKey, JSON.stringify(cache));
         }
@@ -477,7 +557,7 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '') {
 }
 
 // 同步二维码URL到云端（双存储）
-async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '') {
+async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '', tencentFileID = '') {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId || qrcodeUrl === undefined) return;
   
@@ -488,7 +568,8 @@ async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '') {
       body: JSON.stringify({ 
         userId, 
         qrcodeUrl,
-        qrcodeTencentUrl: tencentUrl
+        qrcodeTencentUrl: tencentUrl,
+        qrcodeFileID: tencentFileID
       })
     });
     const result = await response.json();
@@ -496,6 +577,7 @@ async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '') {
       console.log('二维码 URL 已同步到用户信息:');
       console.log('  Cloudflare:', qrcodeUrl);
       console.log('  腾讯云:', tencentUrl);
+      console.log('  腾讯云 fileID:', tencentFileID);
       
       const localCacheKey = 'businessInfoCache_' + userId;
       try {
@@ -504,6 +586,7 @@ async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '') {
           const cache = JSON.parse(cachedData);
           cache.qrcodeUrl = qrcodeUrl;
           cache.qrcodeTencentUrl = tencentUrl;
+          cache.qrcodeFileID = tencentFileID;
           cache.fetchedAt = Date.now();
           localStorage.setItem(localCacheKey, JSON.stringify(cache));
         }
@@ -608,6 +691,29 @@ async function clearUserImageUrl(imageType) {
     }
   } catch (e) {
     console.error('清除 ' + imageType + ' URL 失败:', e);
+  }
+}
+
+// 同步腾讯云 fileID 到数据库
+async function syncTencentFileIDToDB(imageType, fileID) {
+  const userId = localStorage.getItem('postdiy_user_id');
+  if (!userId || !fileID) return;
+  
+  const fileIDField = imageType === 'logo' ? 'logoFileID' : 'qrcodeFileID';
+  
+  try {
+    const response = await fetch(API_BASE_URL + '/user-update-info', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, [fileIDField]: fileID })
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+      console.log(`${imageType} fileID 已同步到云端:`, fileID);
+    }
+  } catch (e) {
+    console.error(`同步 ${imageType} fileID 失败:`, e);
   }
 }
 
