@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>腾讯云 fileID 测试</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .result {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 3px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    #fileIdInput {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>腾讯云 fileID 测试</h1>
+  
+  <div class="test-section">
+    <h2>测试步骤</h2>
+    <ol>
+      <li>检查本地缓存中是否有 fileID</li>
+      <li>初始化腾讯云 SDK</li>
+      <li>使用 fileID 获取临时 URL</li>
+      <li>测试临时 URL 是否可访问</li>
+    </ol>
+  </div>
+  
+  <div class="test-section">
+    <h2>测试本地缓存</h2>
+    <button onclick="testCache()">测试本地缓存</button>
+    <div id="cacheResult" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>测试腾讯云 SDK 初始化</h2>
+    <button onclick="testSdkInit()">测试 SDK 初始化</button>
+    <div id="sdkResult" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>测试 fileID 获取临时 URL</h2>
+    <input type="text" id="fileIdInput" placeholder="输入 fileID，例如: cloud://postdiy-0g2mftaf6a0fc450.706f-postdiy-0g2mftaf6a0fc450/user-images/7a85e5d469ba9124000882d078de5752/logo.webp">
+    <button onclick="testGetTempUrl()">获取临时 URL</button>
+    <div id="tempUrlResult" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>测试临时 URL 访问</h2>
+    <button onclick="testUrlAccess()">测试 URL 访问</button>
+    <div id="urlAccessResult" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>完整测试流程</h2>
+    <button onclick="runFullTest()">运行完整测试</button>
+    <div id="fullTestResult" class="result"></div>
+  </div>
+  
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/2.10.0/cloudbase.full.js"></script>
+  <script>
+    function log(elementId, message, isError = false) {
+      const element = document.getElementById(elementId);
+      const timestamp = new Date().toLocaleTimeString();
+      const prefix = isError ? '[错误] ' : '[信息] ';
+      element.innerHTML += `<div>${timestamp} ${prefix}${message}</div>`;
+      console.log(prefix + message);
+    }
+    
+    function testCache() {
+      const userId = localStorage.getItem('postdiy_user_id');
+      const resultDiv = document.getElementById('cacheResult');
+      
+      if (!userId) {
+        log('cacheResult', '未找到用户ID', true);
+        return;
+      }
+      
+      log('cacheResult', `找到用户ID: ${userId}`);
+      
+      const cacheKey = 'vipBusinessInfo_' + userId;
+      const cache = JSON.parse(localStorage.getItem(cacheKey));
+      
+      if (cache) {
+        log('cacheResult', '找到本地缓存:');
+        log('cacheResult', `  logoFileID: ${cache.logoFileID || '未找到'}`);
+        log('cacheResult', `  qrcodeFileID: ${cache.qrcodeFileID || '未找到'}`);
+        log('cacheResult', `  logoTencentUrl: ${cache.logoTencentUrl ? cache.logoTencentUrl.substring(0, 50) + '...' : '未找到'}`);
+      } else {
+        log('cacheResult', '未找到本地缓存', true);
+      }
+    }
+    
+    function testSdkInit() {
+      const resultDiv = document.getElementById('sdkResult');
+      
+      if (typeof cloudbase === 'undefined') {
+        log('sdkResult', 'cloudbase 未定义', true);
+        return;
+      }
+      
+      log('sdkResult', 'cloudbase 已定义');
+      
+      try {
+        window.tencentCloudApp = cloudbase.init({
+          env: 'postdiy-0g2mftaf6a0fc450'
+        });
+        log('sdkResult', 'SDK 初始化成功');
+        log('sdkResult', `SDK 实例: ${window.tencentCloudApp ? '已创建' : '未创建'}`);
+      } catch (e) {
+        log('sdkResult', `SDK 初始化失败: ${e.message}`, true);
+      }
+    }
+    
+    async function testGetTempUrl() {
+      const fileIdInput = document.getElementById('fileIdInput');
+      const fileId = fileIdInput.value.trim();
+      const resultDiv = document.getElementById('tempUrlResult');
+      
+      if (!fileId) {
+        log('tempUrlResult', '请输入 fileID', true);
+        return;
+      }
+      
+      if (!window.tencentCloudApp) {
+        log('tempUrlResult', 'SDK 未初始化，请先初始化 SDK', true);
+        return;
+      }
+      
+      log('tempUrlResult', `尝试从 fileID 获取临时 URL: ${fileId.substring(0, 50)}...`);
+      
+      try {
+        const { fileList } = await window.tencentCloudApp.getTempFileURL({
+          fileList: [fileId],
+          maxAge: 3600
+        });
+        
+        const tempUrl = fileList[0].tempFileURL;
+        log('tempUrlResult', `获取成功!`);
+        log('tempUrlResult', `临时 URL: ${tempUrl}`);
+        
+        // 保存到全局变量供后续测试使用
+        window.testTempUrl = tempUrl;
+      } catch (e) {
+        log('tempUrlResult', `获取失败: ${e.message}`, true);
+        console.error(e);
+      }
+    }
+    
+    async function testUrlAccess() {
+      const resultDiv = document.getElementById('urlAccessResult');
+      
+      if (!window.testTempUrl) {
+        log('urlAccessResult', '没有可测试的 URL，请先获取临时 URL', true);
+        return;
+      }
+      
+      log('urlAccessResult', `测试 URL 访问: ${window.testTempUrl.substring(0, 50)}...`);
+      
+      try {
+        const response = await fetch(window.testTempUrl, {
+          method: 'HEAD',
+          mode: 'cors',
+          credentials: 'omit'
+        });
+        
+        log('urlAccessResult', `响应状态: ${response.status} ${response.statusText}`);
+        log('urlAccessResult', `响应类型: ${response.type}`);
+        log('urlAccessResult', `内容类型: ${response.headers.get('content-type')}`);
+        log('urlAccessResult', `内容长度: ${response.headers.get('content-length') || '未知'}`);
+        
+        if (response.ok) {
+          log('urlAccessResult', 'URL 可访问!', false);
+        } else {
+          log('urlAccessResult', 'URL 不可访问', true);
+        }
+      } catch (e) {
+        log('urlAccessResult', `访问失败: ${e.message}`, true);
+        console.error(e);
+      }
+    }
+    
+    async function runFullTest() {
+      const resultDiv = document.getElementById('fullTestResult');
+      resultDiv.innerHTML = '';
+      
+      log('fullTestResult', '=== 开始完整测试 ===');
+      
+      // 测试 1: 检查本地缓存
+      log('fullTestResult', '\n步骤 1: 检查本地缓存');
+      const userId = localStorage.getItem('postdiy_user_id');
+      if (!userId) {
+        log('fullTestResult', '未找到用户ID，测试终止', true);
+        return;
+      }
+      log('fullTestResult', `找到用户ID: ${userId}`);
+      
+      const cacheKey = 'vipBusinessInfo_' + userId;
+      const cache = JSON.parse(localStorage.getItem(cacheKey));
+      
+      if (!cache || !cache.logoFileID || !cache.qrcodeFileID) {
+        log('fullTestResult', '缓存中缺少 fileID，测试终止', true);
+        if (cache) {
+          log('fullTestResult', `logoFileID: ${cache.logoFileID || '未找到'}`);
+          log('fullTestResult', `qrcodeFileID: ${cache.qrcodeFileID || '未找到'}`);
+        }
+        return;
+      }
+      
+      log('fullTestResult', '找到 fileID:');
+      log('fullTestResult', `  logoFileID: ${cache.logoFileID.substring(0, 60)}...`);
+      log('fullTestResult', `  qrcodeFileID: ${cache.qrcodeFileID.substring(0, 60)}...`);
+      
+      // 测试 2: 初始化 SDK
+      log('fullTestResult', '\n步骤 2: 初始化腾讯云 SDK');
+      if (typeof cloudbase === 'undefined') {
+        log('fullTestResult', 'cloudbase 未定义，测试终止', true);
+        return;
+      }
+      log('fullTestResult', 'cloudbase 已定义');
+      
+      try {
+        window.tencentCloudApp = cloudbase.init({
+          env: 'postdiy-0g2mftaf6a0fc450'
+        });
+        log('fullTestResult', 'SDK 初始化成功');
+        
+        // 匿名登录
+        log('fullTestResult', '\n步骤 2.5: 匿名登录');
+        try {
+          await window.tencentCloudApp.auth().signInAnonymously();
+          log('fullTestResult', '匿名登录成功');
+        } catch (e) {
+          log('fullTestResult', `匿名登录失败: ${e.message}`, true);
+          return;
+        }
+      } catch (e) {
+        log('fullTestResult', `SDK 初始化失败: ${e.message}`, true);
+        return;
+      }
+      
+      // 测试 3: 获取临时 URL
+      log('fullTestResult', '\n步骤 3: 获取临时 URL');
+      
+      // 测试 logo
+      try {
+        log('fullTestResult', `测试 logo fileID: ${cache.logoFileID.substring(0, 60)}...`);
+        const { fileList: logoList } = await window.tencentCloudApp.getTempFileURL({
+          fileList: [cache.logoFileID],
+          maxAge: 3600
+        });
+        
+        const logoTempUrl = logoList[0].tempFileURL;
+        log('fullTestResult', `logo 临时 URL 获取成功: ${logoTempUrl.substring(0, 60)}...`);
+        window.testTempUrl = logoTempUrl;
+        
+        // 显示图片
+        log('fullTestResult', '\n步骤 4: 显示图片');
+        const img = document.createElement('img');
+        img.src = logoTempUrl;
+        img.style.maxWidth = '300px';
+        img.onload = function() {
+          log('fullTestResult', '✅ 图片加载成功!');
+        };
+        img.onerror = function(e) {
+          log('fullTestResult', `❌ 图片加载失败: ${e.message}`, true);
+        };
+        document.getElementById('fullTestResult').appendChild(img);
+        
+        log('fullTestResult', '\n✅ 测试成功! 通过 fileID 可以获取临时 URL 并访问图片');
+      } catch (e) {
+        log('fullTestResult', `获取临时 URL 失败: ${e.message}`, true);
+        console.error(e);
+        log('fullTestResult', '\n❌ 测试失败! 无法通过 fileID 获取临时 URL', true);
+      }
+      
+      log('fullTestResult', '\n=== 测试完成 ===');
+    }
+    
+    // 注销 Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (const registration of registrations) {
+          console.log('[Service Worker] 注销:', registration.scope);
+          registration.unregister().then(function(success) {
+            if (success) {
+              console.log('[Service Worker] 注销成功');
+            }
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

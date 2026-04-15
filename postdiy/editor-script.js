@@ -1,19 +1,6 @@
 // 海报DIY编辑器 - 全新实现
 // 模块化设计，避免变量重复声明问题
 
-// 注册 Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('[Service Worker] 注册成功:', registration.scope);
-      })
-      .catch((error) => {
-        console.log('[Service Worker] 注册失败:', error);
-      });
-  });
-}
-
 // 等待图片加载完成
 function waitForImageLoad(imgElement, timeout = 5000) {
   return new Promise((resolve) => {
@@ -315,27 +302,42 @@ async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true)
   
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
+      // 使用AbortController实现3秒超时
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
       
       let response;
       try {
         response = await fetch(url, {
           mode: 'cors',
           credentials: 'omit',
+          cache: 'no-cache',
           signal: controller.signal
         });
       } catch (corsError) {
+        clearTimeout(timeoutId);
         console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: CORS模式失败，尝试no-cors模式:`, corsError);
-        response = await fetch(url, {
-          mode: 'no-cors',
-          credentials: 'omit',
-          signal: controller.signal
-        });
-        
-        if (response.type === 'opaque') {
-          console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: 使用no-cors模式成功，直接返回原始URL`);
-          return url;
+        try {
+          const noCorsController = new AbortController();
+          const noCorsTimeoutId = setTimeout(() => noCorsController.abort(), 3000);
+          
+          response = await fetch(url, {
+            mode: 'no-cors',
+            credentials: 'omit',
+            cache: 'no-cache',
+            signal: noCorsController.signal
+          });
+          
+          clearTimeout(noCorsTimeoutId);
+          
+          if (response.type === 'opaque') {
+            console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: 使用no-cors模式成功，直接返回原始URL`);
+            return url;
+          }
+        } catch (noCorsError) {
+          clearTimeout(timeoutId);
+          console.log(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1}: no-cors模式也失败:`, noCorsError);
+          throw noCorsError;
         }
       }
       
@@ -369,11 +371,11 @@ async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true)
       console.error(`[图片加载] 尝试 ${attempt + 1}/${maxRetries + 1} 失败:`, url, e);
       
       // 如果是404错误且启用了腾讯云回退，尝试使用腾讯云URL
-      if (useTencentFallback && e.message && e.message.includes('404')) {
-        console.log('[图片加载] Cloudflare加载失败，尝试从腾讯云加载');
+      if (useTencentFallback && e.message && (e.message.includes('404') || e.message.includes('Failed to fetch') || e.name === 'AbortError')) {
+        console.log('[图片加载] Cloudflare加载失败或超时，尝试从腾讯云加载');
         
         // 尝试从腾讯云加载
-        const tencentUrl = getTencentImageUrl(url);
+        const tencentUrl = await getTencentImageUrl(url);
         if (tencentUrl) {
           console.log('[图片加载] 使用腾讯云URL:', tencentUrl);
           return loadImageAsBase64(tencentUrl, 0, false);
@@ -383,7 +385,7 @@ async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true)
       // 如果是网络错误且还有重试次数，则重试
       if (attempt < maxRetries && (e.name === 'AbortError' || e.message.includes('Failed to fetch') || e.message.includes('Connection closed'))) {
         console.log(`[图片加载] 网络错误，等待后重试，剩余次数: ${maxRetries - attempt}`);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         continue;
       }
       
@@ -397,25 +399,33 @@ async function loadImageAsBase64(url, retryCount = 3, useTencentFallback = true)
 }
 
 // 从Cloudflare URL获取对应的腾讯云URL
-function getTencentImageUrl(cloudflareUrl) {
+async function getTencentImageUrl(cloudflareUrl) {
   if (!cloudflareUrl) return null;
   
   console.log('尝试获取腾讯云URL:', cloudflareUrl);
   
-  // 检查state中是否有腾讯云URL
+  // 优先检查state中是否有fileID
   if (state && state.businessInfo) {
-    console.log('检查state.businessInfo:', state.businessInfo);
-    if (cloudflareUrl.includes('logo') && state.businessInfo.logoTencentUrl) {
-      console.log('找到腾讯云logo URL:', state.businessInfo.logoTencentUrl);
-      return state.businessInfo.logoTencentUrl;
+    const userId = localStorage.getItem('postdiy_user_id');
+    if (cloudflareUrl.includes('logo') && state.businessInfo.logoFileID) {
+      console.log('使用logoFileID获取腾讯云URL');
+      const tencentUrl = await getTempUrlFromFileID(state.businessInfo.logoFileID);
+      if (tencentUrl) {
+        console.log('获取到腾讯云logo URL:', tencentUrl);
+        return tencentUrl;
+      }
     }
-    if (cloudflareUrl.includes('qrcode') && state.businessInfo.qrcodeTencentUrl) {
-      console.log('找到腾讯云qrcode URL:', state.businessInfo.qrcodeTencentUrl);
-      return state.businessInfo.qrcodeTencentUrl;
+    if (cloudflareUrl.includes('qrcode') && state.businessInfo.qrcodeFileID) {
+      console.log('使用qrcodeFileID获取腾讯云URL');
+      const tencentUrl = await getTempUrlFromFileID(state.businessInfo.qrcodeFileID);
+      if (tencentUrl) {
+        console.log('获取到腾讯云qrcode URL:', tencentUrl);
+        return tencentUrl;
+      }
     }
   }
   
-  // 尝试从本地缓存获取
+  // 尝试从本地缓存获取fileID
   const userId = localStorage.getItem('postdiy_user_id');
   console.log('userId:', userId);
   if (userId) {
@@ -423,17 +433,58 @@ function getTencentImageUrl(cloudflareUrl) {
       const cache = JSON.parse(localStorage.getItem('vipBusinessInfo_' + userId));
       console.log('本地缓存:', cache);
       if (cache) {
-        if (cloudflareUrl.includes('logo') && cache.logoTencentUrl) {
-          console.log('找到缓存中的腾讯云logo URL:', cache.logoTencentUrl);
-          return cache.logoTencentUrl;
+        if (cloudflareUrl.includes('logo') && cache.logoFileID) {
+          console.log('使用缓存中的logoFileID获取腾讯云URL');
+          const tencentUrl = await getTempUrlFromFileID(cache.logoFileID);
+          if (tencentUrl) {
+            console.log('获取到腾讯云logo URL:', tencentUrl);
+            return tencentUrl;
+          }
         }
-        if (cloudflareUrl.includes('qrcode') && cache.qrcodeTencentUrl) {
-          console.log('找到缓存中的腾讯云qrcode URL:', cache.qrcodeTencentUrl);
-          return cache.qrcodeTencentUrl;
+        if (cloudflareUrl.includes('qrcode') && cache.qrcodeFileID) {
+          console.log('使用缓存中的qrcodeFileID获取腾讯云URL');
+          const tencentUrl = await getTempUrlFromFileID(cache.qrcodeFileID);
+          if (tencentUrl) {
+            console.log('获取到腾讯云qrcode URL:', tencentUrl);
+            return tencentUrl;
+          }
         }
       }
     } catch (e) {
       console.error('读取腾讯云URL缓存失败:', e);
+    }
+  }
+  
+  // 如果本地缓存中没有fileID，尝试从Cloudflare URL推断腾讯云URL
+  // Cloudflare URL: https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/user-images/7a85e5d469ba9124000882d078de5752/logo.webp?t=xxx
+  // 腾讯云 URL: https://postdiyavatar-1308395249.cos.ap-guangzhou.myqcloud.com/user-images/7a85e5d469ba9124000882d078de5752/logo_1234567890.jpg
+  if (cloudflareUrl.includes('logo')) {
+    // 从Cloudflare URL中提取用户ID和文件名
+    const match = cloudflareUrl.match(/user-images\/([^/]+)\/logo\.webp/);
+    if (match) {
+      const userId = match[1];
+      // 尝试常见的腾讯云logo URL格式
+      const commonTencentUrls = [
+        `https://postdiyavatar-1308395249.cos.ap-guangzhou.myqcloud.com/user-images/${userId}/logo.jpg`,
+        `https://postdiyavatar-1308395249.cos.ap-guangzhou.myqcloud.com/user-images/${userId}/logo_1773941747275.jpg`
+      ];
+      console.log('尝试推断腾讯云logo URL:', commonTencentUrls);
+      return commonTencentUrls[0]; // 返回第一个尝试的URL
+    }
+  }
+  
+  if (cloudflareUrl.includes('qrcode')) {
+    // 从Cloudflare URL中提取用户ID和文件名
+    const match = cloudflareUrl.match(/user-images\/([^/]+)\/qrcode\.webp/);
+    if (match) {
+      const userId = match[1];
+      // 尝试常见的腾讯云qrcode URL格式
+      const commonTencentUrls = [
+        `https://postdiyavatar-1308395249.cos.ap-guangzhou.myqcloud.com/user-images/${userId}/qrcode.jpg`,
+        `https://postdiyavatar-1308395249.cos.ap-guangzhou.myqcloud.com/user-images/${userId}/qrcode_1773941769041.jpg`
+      ];
+      console.log('尝试推断腾讯云qrcode URL:', commonTencentUrls);
+      return commonTencentUrls[0]; // 返回第一个尝试的URL
     }
   }
   
@@ -459,21 +510,26 @@ function getFromCache(key) {
 }
 
 // 腾讯云云开发 SDK 初始化
-let tencentCloudApp = null;
-let tencentCloudEnv = 'postdiy-0g2mftaf6a0fc450';
-
-function initTencentCloud() {
-  if (!tencentCloudApp && typeof cloudbase !== 'undefined') {
+async function initTencentCloud() {
+  if (!window.tencentCloudApp && typeof cloudbase !== 'undefined') {
     try {
-      tencentCloudApp = cloudbase.init({
-        env: tencentCloudEnv
+      window.tencentCloudApp = cloudbase.init({
+        env: 'postdiy-0g2mftaf6a0fc450'
       });
       console.log('腾讯云云开发 SDK 初始化成功');
+      
+      // 匿名登录
+      try {
+        await window.tencentCloudApp.auth().signInAnonymously();
+        console.log('腾讯云匿名登录成功');
+      } catch (e) {
+        console.warn('腾讯云匿名登录失败:', e);
+      }
     } catch (e) {
       console.error('腾讯云云开发 SDK 初始化失败:', e);
     }
   }
-  return tencentCloudApp;
+  return window.tencentCloudApp;
 }
 
 // 从 fileID 获取临时 URL
@@ -703,7 +759,7 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('Cloudflare 加载超时'));
-      }, 12000); // 12秒超时
+      }, 3000); // 3秒超时
       
       imgElement.onload = () => {
         clearTimeout(timeout);
@@ -1775,7 +1831,11 @@ let currentCropTarget = null;
           logo: cloudData.logoUrl || state.businessInfo.logo,
           qrcode: cloudData.qrcodeUrl || state.businessInfo.qrcode,
           promoText: cloudData.promoText || state.businessInfo.promoText,
-          logoTransparent: cloudData.logoTransparent !== undefined ? cloudData.logoTransparent : (state.businessInfo.logoTransparent || false)
+          logoTransparent: cloudData.logoTransparent !== undefined ? cloudData.logoTransparent : (state.businessInfo.logoTransparent || false),
+          logoTencentUrl: cloudData.logoTencentUrl || '',
+          qrcodeTencentUrl: cloudData.qrcodeTencentUrl || '',
+          logoFileID: cloudData.logoFileID || '',
+          qrcodeFileID: cloudData.qrcodeFileID || ''
         };
         
         state.businessInfo = newInfo;

@@ -297,12 +297,20 @@ async function syncAndFillBusinessInfo(forceRefresh = false) {
   }
   
   // 初始化腾讯云 SDK
-  if (typeof cloudbase !== 'undefined') {
+  if (typeof cloudbase !== 'undefined' && !window.tencentCloudApp) {
     try {
-      const app = cloudbase.init({
+      window.tencentCloudApp = cloudbase.init({
         env: 'postdiy-0g2mftaf6a0fc450'
       });
       console.log('腾讯云云开发 SDK 初始化成功');
+      
+      // 匿名登录
+      try {
+        await window.tencentCloudApp.auth().signInAnonymously();
+        console.log('腾讯云匿名登录成功');
+      } catch (e) {
+        console.warn('腾讯云匿名登录失败:', e);
+      }
     } catch (e) {
       console.error('腾讯云云开发 SDK 初始化失败:', e);
     }
