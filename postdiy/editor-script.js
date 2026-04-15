@@ -11874,8 +11874,8 @@ window.textTemplateManager = {
       fontFamily: window.fontManager ? window.fontManager.useFont('Microsoft YaHei') : 'sans-serif',
       fontSize: 12,
       writingMode: 'vertical-rl',
-      textAlign: 'center',
-      width: 150,
+      textAlign: 'top',
+      width: 80,
       zIndex: window.stickerManager ? window.stickerManager.stickers.length + 100 : 100
     };
 
@@ -11918,6 +11918,19 @@ window.textTemplateManager = {
     const frameRect = posterFrame.getBoundingClientRect();
     const scaleRatio = frameRect.width / 1000;
 
+    // 竖排模式下，使用 text-align 的 start/center/end 实现垂直对齐
+    // 横排模式下，使用 text-align 的 left/center/right 实现水平对齐
+    let effectiveTextAlign = text.textAlign;
+    if (text.writingMode === 'vertical-rl') {
+      if (text.textAlign === 'top') {
+        effectiveTextAlign = 'start';
+      } else if (text.textAlign === 'center') {
+        effectiveTextAlign = 'center';
+      } else if (text.textAlign === 'bottom') {
+        effectiveTextAlign = 'end';
+      }
+    }
+
     textEl.style.cssText = `
       left: ${text.x}%;
       top: ${text.y}%;
@@ -11926,8 +11939,9 @@ window.textTemplateManager = {
       color: ${text.color};
       font-family: ${text.fontFamily};
       font-size: ${text.fontSize}px;
-      text-align: ${text.textAlign};
+      text-align: ${effectiveTextAlign};
       z-index: ${text.zIndex};
+      ${text.writingMode === 'vertical-rl' ? 'width: 80px;' : (text.width ? `width: ${text.width}px;` : '')}
     `;
 
     textEl.textContent = text.text;
@@ -12278,9 +12292,24 @@ window.textTemplateManager = {
     textEl.style.color = text.color;
     textEl.style.fontFamily = text.fontFamily;
     textEl.style.fontSize = `${text.fontSize}px`;
-    textEl.style.textAlign = text.textAlign;
-    if (text.width) {
-      textEl.style.width = `${text.width}px`;
+    
+    // 竖排模式下，使用 text-align 的 start/center/end 实现垂直对齐
+    // 横排模式下，使用 text-align 的 left/center/right 实现水平对齐
+    if (text.writingMode === 'vertical-rl') {
+      textEl.style.width = '80px';
+      // 竖排文本的垂直对齐：top → start，center → center，bottom → end
+      if (text.textAlign === 'top') {
+        textEl.style.textAlign = 'start';
+      } else if (text.textAlign === 'center') {
+        textEl.style.textAlign = 'center';
+      } else if (text.textAlign === 'bottom') {
+        textEl.style.textAlign = 'end';
+      }
+    } else {
+      textEl.style.textAlign = text.textAlign;
+      if (text.width) {
+        textEl.style.width = `${text.width}px`;
+      }
     }
   },
 
@@ -12336,6 +12365,7 @@ window.textTemplateManager = {
     const newWidth = Math.max(50, currentWidth + delta);
     
     textEl.style.width = `${newWidth}px`;
+    text.width = newWidth;
     this.updateTextControlPositions(textId);
     this.updateToolbarPosition(textId);
   },
@@ -12607,8 +12637,11 @@ window.textTemplateManager = {
             const alignments = ['top', 'center', 'bottom'];
             const currentIndex = alignments.indexOf(selectedText.textAlign);
             selectedText.textAlign = alignments[(currentIndex + 1) % alignments.length];
+            // 竖排模式下，无论什么对齐方式，宽度都保持80px
+            selectedText.width = 80;
           }
           this.updateTextElementStyle(selectedText.id);
+          this.updateTextControlPositions(selectedText.id);
           this.updateToolbarIcons(selectedText);
           this.resetToolbarTimer();
         }
