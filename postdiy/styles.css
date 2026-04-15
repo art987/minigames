@@ -5156,7 +5156,7 @@ input.hidden {
   line-height: 1.5;
   min-height: 47px;
   font-weight: bold;
-  padding-right: 30px;
+  padding-right: 43px;
   color: #333;
   white-space: pre-line;
   overflow: hidden;
@@ -6506,7 +6506,16 @@ button.future-suggestion-btn[data-action="wanan"] {
   background: #ffffff;
   color: #c00000;
   border: 1px solid #e7e7e7;
-  top: 0px;
+  top: 8px;
+  padding: 10px;
+  width: 41px;
+  border-radius: 50px;
+  height: 43px;
+  text-align: center;
+  font-weight: lighter;
+  font-size: 32px;
+  line-height: 17px;
+  right: 9px;
 }
 
 .template-card-actions .card-insert-btn:hover {

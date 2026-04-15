@@ -1,6 +1,37 @@
 // 海报DIY编辑器 - 全新实现
 // 模块化设计，避免变量重复声明问题
 
+// 浮动提示函数
+function showToast(message, duration = 3000) {
+  let toast = document.getElementById('floating-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'floating-toast';
+    toast.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      z-index: 10000;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    `;
+    document.body.appendChild(toast);
+  }
+  
+  toast.textContent = message;
+  toast.style.opacity = '1';
+  
+  setTimeout(() => {
+    toast.style.opacity = '0';
+  }, duration);
+}
+
 // 等待图片加载完成
 function waitForImageLoad(imgElement, timeout = 5000) {
   return new Promise((resolve) => {
@@ -2113,13 +2144,26 @@ let currentCropTarget = null;
           content.classList.remove('typewriter');
           content.textContent = templates[Array.from(card.parentNode.children).indexOf(card)];
         });
-        
+
         // 设置当前卡片为选中状态
         this.classList.add('selected');
         const content = this.querySelector('.industry-template-content');
-        
+
         // 触发打字机效果
         startTypewriterEffect(content, template);
+      });
+
+      // 添加内容点击事件 - 复制文案
+      const contentEl = templateCard.querySelector('.industry-template-content');
+      contentEl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (template && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(template).then(() => {
+            showToast('已复制', 2000);
+          }).catch(err => {
+            console.error('[模板复制] 复制失败:', err);
+          });
+        }
       });
       
       // 添加按钮点击事件
@@ -2917,11 +2961,17 @@ let currentCropTarget = null;
               if (!dataVerified) {
                 throw new Error('数据验证失败: 缓存数据不完整或无效');
               }
-              
-              await updateButtonText(successText, 5000);
+
+              await updateButtonText(successText, 1500);
               btn.disabled = false;
               btn.textContent = originalText;
               console.log('[刷新数据] 刷新成功，数据已验证');
+
+              // 显示浮动提示并关闭弹窗
+              showToast('已更新至最新数据', 3000);
+              setTimeout(() => {
+                closeBusinessInfoModal();
+              }, 1500);
               return;
             } catch (error) {
               console.error(`[刷新数据] 第 ${retryCount} 次尝试失败:`, error);
@@ -11774,7 +11824,7 @@ window.textTemplateManager = {
       return `<div class="industry-template-card" data-index="${index}">
         <div class="industry-template-content">${displayText.replace(/\n/g, '<br>')}</div>
         <div class="template-card-actions">
-          <button class="card-insert-btn" data-index="${index}">添加</button>
+          <button class="card-insert-btn" data-index="${index}">+</button>
           <button class="card-copy-btn" data-index="${index}">❏</button>
         </div>
       </div>`;
@@ -11801,6 +11851,31 @@ window.textTemplateManager = {
         this.lastTemplateIndex = index;
         this.saveLastPosition();
         this.copyTextOnly();
+      });
+    });
+
+    // 点击文案内容区域也可以复制
+    container.querySelectorAll('.industry-template-content').forEach(content => {
+      content.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = content.closest('.industry-template-card');
+        if (!card) return;
+        const index = parseInt(card.dataset.index);
+        const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
+        if (templates && templates[index]) {
+          const template = templates[index];
+          console.log('[文案复制] 点击复制:', template);
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(template).then(() => {
+              console.log('[文案复制] 复制成功');
+              showToast('已复制', 2000);
+            }).catch(err => {
+              console.error('[文案复制] 复制失败:', err);
+            });
+          } else {
+            console.error('[文案复制] clipboard API 不可用');
+          }
+        }
       });
     });
 
@@ -11839,12 +11914,21 @@ window.textTemplateManager = {
 
   copyTextOnly: function() {
     if (!this.selectedTemplate) {
+      console.error('[复制] 没有选中的模板');
       return;
     }
-    navigator.clipboard.writeText(this.selectedTemplate).then(() => {
-      this.closeModal();
-    }).catch(() => {
-    });
+    console.log('[复制] 尝试复制:', this.selectedTemplate);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(this.selectedTemplate).then(() => {
+        console.log('[复制] 复制成功');
+        showToast('已复制', 2000);
+        this.closeModal();
+      }).catch(err => {
+        console.error('[复制] 复制失败:', err);
+      });
+    } else {
+      console.error('[复制] clipboard API 不可用');
+    }
   },
 
   insertToCanvas: function() {
@@ -11952,7 +12036,7 @@ window.textTemplateManager = {
 
     textEl.addEventListener('click', (e) => {
       e.stopPropagation();
-      
+
       const currentTime = Date.now();
       if (currentTime - lastClickTime < DOUBLE_CLICK_DELAY) {
         // 双击切换设置面板
@@ -11967,20 +12051,31 @@ window.textTemplateManager = {
         }
         lastClickTime = 0;
       } else {
-        // 单击选中文字
+        // 单击选中文字，并复制到剪贴板
         this.selectTextElement(text.id);
         lastClickTime = currentTime;
+
+        // 复制文案到剪贴板
+        if (text.text && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text.text).then(() => {
+            showToast('已复制', 2000);
+          }).catch(err => {
+            console.error('复制失败:', err);
+          });
+        }
       }
     });
 
     let isDragging = false;
     let startX, startY, initialX, initialY;
+    let hasMoved = false;
 
     textEl.addEventListener('mousedown', (e) => {
       if (e.target.classList.contains('text-control') || e.target.classList.contains('text-delete-btn') || e.target.classList.contains('text-settings-btn') || e.target.classList.contains('text-rotate-btn')) {
         return;
       }
       isDragging = true;
+      hasMoved = false;
       startX = e.clientX;
       startY = e.clientY;
       initialX = text.x;
@@ -11991,6 +12086,7 @@ window.textTemplateManager = {
 
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
+      hasMoved = true;
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       const frameRect = posterFrame.getBoundingClientRect();
@@ -12006,7 +12102,15 @@ window.textTemplateManager = {
     });
 
     document.addEventListener('mouseup', () => {
+      if (isDragging && !hasMoved && text.text && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text.text).then(() => {
+          showToast('已复制', 2000);
+        }).catch(err => {
+          console.error('复制失败:', err);
+        });
+      }
       isDragging = false;
+      hasMoved = false;
     });
 
     textEl.addEventListener('touchstart', (e) => {
@@ -12015,6 +12119,7 @@ window.textTemplateManager = {
       }
       if (e.touches.length === 1) {
         isDragging = true;
+        hasMoved = false;
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         initialX = text.x;
@@ -12030,6 +12135,7 @@ window.textTemplateManager = {
 
     document.addEventListener('touchmove', (e) => {
       if (!isDragging || e.touches.length !== 1) return;
+      hasMoved = true;
       const posterFrame = document.getElementById('posterFrame');
       if (!posterFrame) return;
       const frameRect = posterFrame.getBoundingClientRect();
@@ -12048,7 +12154,7 @@ window.textTemplateManager = {
     document.addEventListener('touchend', (e) => {
       // 检测是否发生了拖动
       const didDrag = Math.abs(text.x - initialX) > 0.1 || Math.abs(text.y - initialY) > 0.1;
-      
+
       if (!didDrag) {
         // 没有拖动，检测双击
         const currentTime = Date.now();
@@ -12065,10 +12171,20 @@ window.textTemplateManager = {
           lastTapTime = 0;
         } else {
           lastTapTime = currentTime;
+
+          // 单击没有移动，执行复制
+          if (text.text && navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text.text).then(() => {
+              showToast('已复制', 2000);
+            }).catch(err => {
+              console.error('复制失败:', err);
+            });
+          }
         }
       }
-      
+
       isDragging = false;
+      hasMoved = false;
     });
 
     posterFrame.appendChild(textEl);
