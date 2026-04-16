@@ -23,13 +23,49 @@ function showToast(message, duration = 3000) {
     `;
     document.body.appendChild(toast);
   }
-  
+
   toast.textContent = message;
   toast.style.opacity = '1';
-  
+
   setTimeout(() => {
     toast.style.opacity = '0';
   }, duration);
+}
+
+// 复制到剪贴板函数（兼容所有浏览器）
+function copyToClipboard(text) {
+  if (!text) return;
+
+  // 尝试使用现代 API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('已复制', 2000);
+    }).catch(() => {
+      // 如果现代 API 失败，使用传统方法
+      fallbackCopy(text);
+    });
+  } else {
+    // 如果不支持，使用传统方法
+    fallbackCopy(text);
+  }
+}
+
+// 传统复制方法（兼容所有浏览器）
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+    showToast('已复制', 2000);
+  } catch (err) {
+    console.error('复制失败:', err);
+    showToast('复制失败', 2000);
+  }
+  document.body.removeChild(textarea);
 }
 
 // 等待图片加载完成
@@ -1983,31 +2019,31 @@ let currentCropTarget = null;
   }
 
   // 打开整合行业模板弹窗
-  function openIntegratedIndustryTemplateModal(category = '通用') {
+  function openIntegratedIndustryTemplateModal(category = '早安') {
     if (!elements.integratedIndustryTemplateModal || !elements.integratedModalTitle || !elements.integratedIndustryTemplatesList) return;
-    
+
     // 设置弹窗标题
     elements.integratedModalTitle.textContent = '行业促销文案模板';
-    
+
     // 渲染左侧行业分类导航
     renderVerticalIndustryCategories();
-    
+
     // 渲染对应行业的模板
     renderIndustryTemplates(category, elements.integratedIndustryTemplatesList);
-    
+
     // 设置当前选中的行业分类
     setActiveVerticalCategory(category);
-    
+
     // 移除关闭动画类
     elements.integratedIndustryTemplateModal.classList.remove('closing');
     elements.integratedIndustryTemplateModal.querySelector('.modal-container').classList.remove('closing');
-    
+
     // 显示弹窗
     elements.integratedIndustryTemplateModal.classList.remove('hidden');
-    
+
     // 强制重绘以触发动画
     void elements.integratedIndustryTemplateModal.offsetWidth;
-    
+
     // 延迟执行，确保DOM已渲染
     setTimeout(() => {
       // 自动播放第一个模板的打字机效果
@@ -2015,14 +2051,14 @@ let currentCropTarget = null;
       if (firstTemplateCard) {
         const content = firstTemplateCard.querySelector('.industry-template-content');
         const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
-        
+
         // 设置选中状态
         firstTemplateCard.classList.add('selected');
-        
+
         // 触发打字机效果
         startTypewriterEffect(content, template);
       }
-      
+
       // 添加滚动监听
       setupScrollDetection();
     }, 100);
@@ -2153,17 +2189,15 @@ let currentCropTarget = null;
         startTypewriterEffect(content, template);
       });
 
-      // 添加内容点击事件 - 复制文案
       const contentEl = templateCard.querySelector('.industry-template-content');
-      contentEl.addEventListener('click', function(e) {
+      contentEl.addEventListener('touchstart', (e) => {
         e.stopPropagation();
-        if (template && navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(template).then(() => {
-            showToast('已复制', 2000);
-          }).catch(err => {
-            console.error('[模板复制] 复制失败:', err);
-          });
-        }
+      }, { passive: true });
+      contentEl.addEventListener('touchend', (e) => {
+        e.stopPropagation();
+      });
+      contentEl.addEventListener('touchcancel', (e) => {
+        e.stopPropagation();
       });
       
       // 添加按钮点击事件
@@ -11678,10 +11712,10 @@ window.fontManager = {
   
   // 文案模板管理器
 window.textTemplateManager = {
-  selectedTemplate: null,
-  currentCategory: '情感',
-  lastCategory: null,
-  lastTemplateIndex: null,
+    selectedTemplate: null,
+    currentCategory: '早安',
+    lastCategory: null,
+    lastTemplateIndex: null,
 
   init: function() {
     this.loadLastPosition();
@@ -11703,8 +11737,8 @@ window.textTemplateManager = {
       }
     } catch (e) {
       console.error('恢复文案模板位置失败:', e);
-      this.currentCategory = '情感';
-      this.lastCategory = '情感';
+      this.currentCategory = '早安';
+      this.lastCategory = '早安';
       this.lastTemplateIndex = null;
     }
   },
@@ -11854,31 +11888,6 @@ window.textTemplateManager = {
       });
     });
 
-    // 点击文案内容区域也可以复制
-    container.querySelectorAll('.industry-template-content').forEach(content => {
-      content.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const card = content.closest('.industry-template-card');
-        if (!card) return;
-        const index = parseInt(card.dataset.index);
-        const templates = window.TextTemplates.getTemplatesByCategory(this.currentCategory);
-        if (templates && templates[index]) {
-          const template = templates[index];
-          console.log('[文案复制] 点击复制:', template);
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(template).then(() => {
-              console.log('[文案复制] 复制成功');
-              showToast('已复制', 2000);
-            }).catch(err => {
-              console.error('[文案复制] 复制失败:', err);
-            });
-          } else {
-            console.error('[文案复制] clipboard API 不可用');
-          }
-        }
-      });
-    });
-
     // 双击模板卡片也可以插入画布
     container.querySelectorAll('.industry-template-card').forEach(card => {
       card.addEventListener('dblclick', (e) => {
@@ -11914,21 +11923,9 @@ window.textTemplateManager = {
 
   copyTextOnly: function() {
     if (!this.selectedTemplate) {
-      console.error('[复制] 没有选中的模板');
       return;
     }
-    console.log('[复制] 尝试复制:', this.selectedTemplate);
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(this.selectedTemplate).then(() => {
-        console.log('[复制] 复制成功');
-        showToast('已复制', 2000);
-        this.closeModal();
-      }).catch(err => {
-        console.error('[复制] 复制失败:', err);
-      });
-    } else {
-      console.error('[复制] clipboard API 不可用');
-    }
+    copyToClipboard(this.selectedTemplate);
   },
 
   insertToCanvas: function() {
@@ -13350,6 +13347,86 @@ window.textTemplateManager = {
       return null;
     }
     
+    // 背景图片配置
+    const backgroundImages = {
+      // 节气节日
+      '谷雨': { folder: 'images/guyu/thumbnails', count: 20, ext: 'jpg' },
+      '立春': { folder: 'images/lichun/thumbnails', count: 20, ext: 'jpg' },
+      '雨水': { folder: 'images/yushui/thumbnails', count: 20, ext: 'jpg' },
+      '惊蛰': { folder: 'images/jingzhe/thumbnails', count: 20, ext: 'jpg' },
+      '春分': { folder: 'images/chunfen/thumbnails', count: 21, ext: 'jpg' },
+      '清明': { folder: 'images/qingming/thumbnails', count: 20, ext: 'jpg' },
+      '立夏': { folder: 'images/lixia/thumbnails', count: 20, ext: 'jpg' },
+      '小满': { folder: 'images/xiaoman/thumbnails', count: 20, ext: 'jpg' },
+      '芒种': { folder: 'images/mangzhong/thumbnails', count: 20, ext: 'jpg' },
+      '夏至': { folder: 'images/xiazhi/thumbnails', count: 20, ext: 'jpg' },
+      '小暑': { folder: 'images/xiaoshu/thumbnails', count: 20, ext: 'jpg' },
+      '大暑': { folder: 'images/dashu/thumbnails', count: 16, ext: 'jpg' },
+      '立秋': { folder: 'images/liqiu/thumbnails', count: 20, ext: 'jpg' },
+      '处暑': { folder: 'images/chushu/thumbnails', count: 11, ext: 'jpg' },
+      '白露': { folder: 'images/bailu/thumbnails', count: 17, ext: 'jpg' },
+      '秋分': { folder: 'images/qiufen/thumbnails', count: 20, ext: 'jpg' },
+      '寒露': { folder: 'images/hanlu/thumbnails', count: 20, ext: 'jpg' },
+      '霜降': { folder: 'images/shuangjiang/thumbnails', count: 20, ext: 'jpg' },
+      '立冬': { folder: 'images/lidong/thumbnails', count: 20, ext: 'jpg' },
+      '小雪': { folder: 'images/xiaoxue/thumbnails', count: 20, ext: 'jpg' },
+      '大雪': { folder: 'images/daxue/thumbnails', count: 10, ext: 'jpg' },
+      '冬至': { folder: 'images/dongzhi/thumbnails', count: 8, ext: 'png' },
+      '小寒': { folder: 'images/xiaohan/thumbnails', count: 20, ext: 'jpg' },
+      '大寒': { folder: 'images/dahan/thumbnails', count: 11, ext: 'jpg' },
+      
+      // 传统节日
+      '春节': { folder: 'images/chunjie/thumbnails', count: 9, ext: 'jpg' },
+      '元宵节': { folder: 'images/yuanxiaojie/thumbnails', count: 20, ext: 'jpg' },
+      '端午节': { folder: 'images/duanwu/thumbnails', count: 15, ext: 'jpg' },
+      '中秋节': { folder: 'images/zhongqiujie/thumbnails', count: 20, ext: 'jpg' },
+      '重阳节': { folder: 'images/chongyang/thumbnails', count: 11, ext: 'jpg' },
+      '除夕': { folder: 'images/chuxi/thumbnails', count: 10, ext: 'jpg' },
+      
+      // 现代节日
+      '元旦': { folder: 'images/yuandan/thumbnails', count: 20, ext: 'jpg' },
+      '情人节': { folder: 'images/qingrenjie/thumbnails', count: 20, ext: 'jpg' },
+      '妇女节': { folder: 'images/funvjie/thumbnails', count: 12, ext: 'jpg' },
+      '劳动节': { folder: 'images/laodongjie/thumbnails', count: 20, ext: 'jpg' },
+      '青年节': { folder: 'images/qingnianjie/thumbnails', count: 20, ext: 'jpg' },
+      '母亲节': { folder: 'images/muqinjie/thumbnails', count: 20, ext: 'jpg' },
+      '儿童节': { folder: 'images/ertongjie/thumbnails', count: 16, ext: 'jpg' },
+      '父亲节': { folder: 'images/fuqinjie/thumbnails', count: 24, ext: 'jpg' },
+      '教师节': { folder: 'images/jiaoshijie/thumbnails', count: 20, ext: 'jpg' },
+      '国庆节': { folder: 'images/guoqingjie/thumbnails', count: 20, ext: 'jpg' },
+      '感恩节': { folder: 'images/ganenjie', count: 18, ext: 'jpg' },
+      '圣诞节': { folder: 'images/shengdanjie/thumbnails', count: 20, ext: 'jpg' },
+      '世界地球日': { folder: 'images/shijiediqiuri/thumbnails', count: 10, ext: 'jpg' },
+      '世界读书日': { folder: 'images/shijiedushuri/thumbnails', count: 15, ext: 'jpg' },
+      
+      // 日常海报
+      'dairy': { folder: 'images/dairy', count: 3, ext: 'jpg' },
+      'zaoan': { folder: 'images/zaoan/thumbnails', count: 8, ext: 'jpg' },
+      'wanan': { folder: 'images/wanan/thumbnails', count: 12, ext: 'jpg' }
+    };
+    
+    // 获取随机背景图片
+    function getRandomBackgroundImage(type) {
+      if (!backgroundImages[type]) return null;
+      
+      const config = backgroundImages[type];
+      const randomNum = Math.floor(Math.random() * config.count) + 1;
+      return `${config.folder}/${randomNum}.${config.ext}`;
+    }
+    
+    // 设置按钮背景图片
+    function setButtonBackground(button, type) {
+      const imageUrl = getRandomBackgroundImage(type);
+      if (imageUrl) {
+        const wrapper = button.closest('.button-wrapper');
+        if (wrapper) {
+          wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+        } else {
+          button.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+        }
+      }
+    }
+    
     // 检查明天是否有节日
     function getTomorrowFestival() {
       const tomorrow = new Date();
@@ -13437,12 +13514,12 @@ window.textTemplateManager = {
       if (todayFestival) {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-            <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+            <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               选择${todayFestival}模板
-            </button>
-            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            </button></div>
+            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             🌈日常海报
-            </button>
+            </button></div>
           </div>
         `;
       } else if (isBefore930) {
@@ -13450,15 +13527,15 @@ window.textTemplateManager = {
          <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
-            <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+            <div class="button-wrapper"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
             ☀️早安海报
-            </button>
-            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            </button></div>
+            <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             🌙晚安海报
-            </button>
-            <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+            </button></div>
+            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             🌈日常海报
-            </button>
+            </button></div>
           </div>
         `;
       } else {
@@ -13466,21 +13543,28 @@ window.textTemplateManager = {
          <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
-            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             🌙晚安海报
-            </button>
-            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            </button></div>
+            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             🌈日常海报
-            </button>
+            </button></div>
           </div>
         `;
       }
       
       todayReleaseContent.innerHTML = html;
       
+      // 设置按钮背景图片
       todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
+        const action = btn.dataset.action;
+        if (action === 'festival') {
+          setButtonBackground(btn, btn.dataset.festival);
+        } else {
+          setButtonBackground(btn, action);
+        }
+        
         btn.addEventListener('click', function() {
-          const action = this.dataset.action;
           closeHomePopup();
           
           if (action === 'festival') {
@@ -13515,9 +13599,9 @@ window.textTemplateManager = {
       html += '<div class="future-suggestion-buttons">';
       
       if (!tomorrowFestival) {
-        html += `<button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button>`;
+        html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button></div>`;
       }
-      html += `<button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button>`;
+      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button></div>`;
       
       html += '</div></div>';
       
@@ -13535,7 +13619,7 @@ window.textTemplateManager = {
           html += `<div class="future-suggestion-item">`;
           html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
           html += `<div class="future-suggestion-buttons">`;
-          html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button>`;
+          html += `<div class="button-wrapper"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button></div>`;
           html += '</div></div>';
         });
       } else {
@@ -13545,9 +13629,16 @@ window.textTemplateManager = {
       console.log('生成的HTML:', html);
       futureSuggestionContent.innerHTML = html;
       
+      // 设置按钮背景图片
       futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
+        const action = btn.dataset.action;
+        if (action === 'festival') {
+          setButtonBackground(btn, btn.dataset.festival);
+        } else {
+          setButtonBackground(btn, action);
+        }
+        
         btn.addEventListener('click', function() {
-          const action = this.dataset.action;
           closeHomePopup();
           
           if (action === 'festival') {

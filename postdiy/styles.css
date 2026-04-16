@@ -6181,10 +6181,7 @@ input.hidden {
 .today-release-text {
   margin-bottom: 10px;
   font-size: 11px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  display: block;
   padding-left: 0px;
   color: #5d5d5d;
 }
@@ -6196,22 +6193,26 @@ input.hidden {
 
 /* 按钮样式 */
 .home-popup-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
-  padding: 6px 0px;
-  background: linear-gradient(135deg, #d40b0b, #ef4444);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 23px;
+  text-shadow: 0 0 5px #000000db;
+  font-weight: 700;
   letter-spacing: 1px;
-  border: none;
+  border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
-  width: 45%;
+  width: 100%;
+  height: 65px;
+  position: relative;
+  z-index: 3;
 }
 
 .home-popup-btn:hover {
@@ -6224,9 +6225,13 @@ input.hidden {
   transform: translateY(0);
 }
 
+.home-popup-btn:active::before {
+  filter: blur(2px);
+}
+
 /* 品牌日常按钮样式 */
 .home-popup-btn[data-action="dairy"] {
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  /* background: linear-gradient(135deg, #ff6b35, #f7931e); */
   color: white;
   position: relative;
   overflow: hidden;
@@ -6243,27 +6248,22 @@ input.hidden {
 }
 
 #zaoanBtn {
-  background: linear-gradient(135deg, #7dc456, #2fa031);
+  background: linear-gradient(135deg, #00000000, #2fa03100);
 }
 
 #wananBtn {
-  background: linear-gradient(135deg, #096affd9, #3400a7);
+  /* background: linear-gradient(135deg, #096affd9, #3400a7); */
 }
 #dairyBtn {
-  background: linear-gradient(135deg, #fac04d, #f68500);
+  /* background: linear-gradient(135deg, #fac04d, #f68500); */
 }
 
 /* 未来建议内容样式 */
 .future-suggestion-item {
-  display: flex;
-  flex-direction: row;
-  /* align-items: center; */
-  gap: 0.75rem;
-  margin-bottom: -4px;
-  /* border-bottom: 1px solid #f2f2f2; */
-  flex-wrap: wrap;
-  padding-bottom: 10px;
-  padding-top: 5px;
+  display: block;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 .future-suggestion-item:last-child {
@@ -6276,6 +6276,7 @@ input.hidden {
   border-left: 5px solid #cfcfcf;
   padding-left: 9px;
   line-height: 34px;
+  margin-bottom: 0.5rem;
 }
 
 .future-suggestion-text strong {
@@ -6284,48 +6285,97 @@ input.hidden {
 }
 
 .future-suggestion-buttons {
-  display: flex;
+  display: block;
   gap: 0.5rem;
-  flex-wrap: wrap;
-  flex: 1;
+}
+
+.button-wrapper {
+  position: relative;
+  margin-bottom: 7px;
+  width: 100%;
+}
+
+.button-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--button-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius-lg);
+  z-index: 1;
+}
+
+.button-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0 0 0 / 5%);
+  border-radius: var(--border-radius-lg);
+  z-index: 2;
 }
 
 .future-suggestion-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.375rem;
-  padding: 7px 6px;
-  background: #fff;
-  color: #bf0000;
-  font-size: 12px;
-  font-weight: 500;
-  border: 1px solid #e6e6e6;
-  border-radius: var(--border-radius-md);
+  padding: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 23px;
+  text-shadow: 0 0 5px #000000db;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius-lg);
   cursor: pointer;
-  transition: all var(--transition-fast);
-  width: auto;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  height: 60px;
+  position: relative;
+  z-index: 3;
 }
 
 .future-suggestion-btn:hover {
-  background: #ffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #d0d0d0;
+}
+
+.future-suggestion-btn:active {
+  transform: translateY(0);
+}
+
+.future-suggestion-btn:active::before {
+  filter: blur(2px);
 }
 
 .future-suggestion-btn.primary {
-  background: linear-gradient(135deg, #d84e4e, #ac0000);
-  color: #ffffff;
+  /* background: linear-gradient(135deg, #4f46e5, #7c3aed); */
+  color: white;
+  border: none;
 }
+
+.future-suggestion-btn.primary:hover {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
 button.future-suggestion-btn[data-action="zaoan"] {
-    /* 这里是你的样式 */
-    background: linear-gradient(135deg, #7dc456, #2fa031);
-    color: #fff;
-    font-size: 10px;
+  /* background: linear-gradient(135deg, #7dc456, #2fa031); */
+  color: #fff;
 }
+
 button.future-suggestion-btn[data-action="wanan"] {
-    /* 这里是你的样式 */
-    background: linear-gradient(135deg, #096affd9, #3400a7);
-    color: #fff;
-    font-size: 10px;
+  /* background: linear-gradient(135deg, #096affd9, #3400a7); */
+  color: #fff;
 }
 
 
@@ -6506,11 +6556,11 @@ button.future-suggestion-btn[data-action="wanan"] {
   background: #ffffff;
   color: #c00000;
   border: 1px solid #e7e7e7;
-  top: 8px;
-  padding: 10px;
-  width: 41px;
+  top: 0px;
+  padding: 9px;
+  width: 38px;
   border-radius: 50px;
-  height: 43px;
+  height: 38px;
   text-align: center;
   font-weight: lighter;
   font-size: 32px;
@@ -6524,9 +6574,13 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 .template-card-actions .card-copy-btn {
   background: #ffffff;
-  color: #454545;
-  display: none;
-  border: 1px solid #c9c9c9;
+  color: #c0c0c0;
+  /* display: none; */
+  /* border: 1px solid #ebebeb; */
+  top: 43px;
+  right: 15px;
+  padding: 1px 6px;
+  border-radius: 12px;
 }
 
 .template-card-actions .card-copy-btn:hover {
