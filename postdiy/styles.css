@@ -6202,7 +6202,7 @@ input.hidden {
   color: #ffffff;
   font-size: 23px;
   text-shadow: 0 0 5px #000000db;
-  font-weight: 700;
+  font-weight: 380;
   letter-spacing: 1px;
   border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--border-radius-lg);
@@ -6335,7 +6335,7 @@ input.hidden {
   color: #ffffff;
   font-size: 23px;
   text-shadow: 0 0 5px #000000db;
-  font-weight: 700;
+  font-weight: 380;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
@@ -6351,26 +6351,31 @@ input.hidden {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   border-color: #d0d0d0;
+  background: transparent;
 }
 
 .future-suggestion-btn:active {
   transform: translateY(0);
+  background: transparent;
 }
 
 .future-suggestion-btn:active::before {
   filter: blur(2px);
+  background: transparent;
 }
 
 .future-suggestion-btn.primary {
-  /* background: linear-gradient(135deg, #4f46e5, #7c3aed); */
   color: white;
   border: none;
+  background: transparent;
 }
 
 .future-suggestion-btn.primary:hover {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+ background: transparent; 
 }
-
+.future-suggestion-btn.primary:active {
+ background: transparent; 
+}
 button.future-suggestion-btn[data-action="zaoan"] {
   /* background: linear-gradient(135deg, #7dc456, #2fa031); */
   color: #fff;
