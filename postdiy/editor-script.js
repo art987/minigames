@@ -12114,18 +12114,9 @@ window.textTemplateManager = {
         }
         lastClickTime = 0;
       } else {
-        // 单击选中文字，并复制到剪贴板
+        // 单击选中文字
         this.selectTextElement(text.id);
         lastClickTime = currentTime;
-
-        // 复制文案到剪贴板
-        if (text.text && navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text.text).then(() => {
-            showToast('已复制', 2000);
-          }).catch(err => {
-            console.error('复制失败:', err);
-          });
-        }
       }
     });
 

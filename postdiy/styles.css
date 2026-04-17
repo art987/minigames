@@ -1105,6 +1105,7 @@ footer {
   position: absolute;
   overflow: hidden;
   border: 1px solid #d3d3d3;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 65%);
 }
 
 #fontColorModal .color-swatch-group {
@@ -1639,7 +1640,8 @@ footer {
 }
 
 #nextTemplateBtn {
-  right: 0px;
+  left: 0px;
+  top: 43vh;
 }
 
 #prevTemplateBtn.hidden, #nextTemplateBtn.hidden {
@@ -4288,15 +4290,24 @@ button#closeFontColorModalBtn.modal-close {
 .color-swatch-hint {
   font-size: 12px;
   color: #666;
+  width: 80%;
   margin-bottom: 8px;
   margin-top: -1px;
+}
+.color-swatch-tip{    background-color: #FFFFFF;
+    width: 238px;
+    color: #d5b57a;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 8px;
 }
 
 /* 字体颜色选择弹窗中的第三个提示文本 */
 div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-select-container > div.color-swatch-hint:nth-child(3) {
   color: #4f4f4f !important;
 }
-#fontColorModal .modal-header{padding:0;position: relative;overflow: visible;}
+#fontColorModal .modal-header{padding:0;position: absolute;overflow: visible;top: 0px;height: 36px;width: 51px;border: none;background: none;right: 0;}
 #fontColorModal .modal-header h2{ display:none }
 #fontColorModal button {}
 .color-swatch-group {
@@ -5302,7 +5313,7 @@ input.hidden {
 }
 
 #businessInfoModal .modal-close{ font-size: 44px; }
-#fontColorModal .modal-close{font-size: 34px;position: absolute;right: 7px;padding: 10px;top: 5px;height: 43px;text-align: center;width: 42px;display: block;background: #ca0000;line-height: 11px;}
+#fontColorModal .modal-close{font-size: 37px;position: absolute;right: 7px;padding: 6px;top: 10px;z-index: 9999;height: 37px;text-align: center;width: 42px;display: block;background: #ca0000;line-height: 11px;}
 .modal-close:hover {
   color: #ffffff;
 }
@@ -6224,6 +6235,7 @@ input.hidden {
   height: 65px;
   position: relative;
   z-index: 3;
+  animation:borderGradient 3s ease infinite;
 }
 
 .home-popup-btn:hover {
