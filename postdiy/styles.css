@@ -3630,6 +3630,12 @@ footer {
   background: none;
 }
 
+/* 字体颜色选择弹窗关闭按钮 */
+button#closeFontColorModalBtn.modal-close {
+  background-color: #ffffff !important;
+  color: #eb0000 !important;
+}
+
 /* 券码验证弹窗样式 - 红色渐变主题 */
 .coupon-input-group {
   margin-bottom: 6px;
@@ -4284,6 +4290,11 @@ footer {
   color: #666;
   margin-bottom: 8px;
   margin-top: -1px;
+}
+
+/* 字体颜色选择弹窗中的第三个提示文本 */
+div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-select-container > div.color-swatch-hint:nth-child(3) {
+  color: #4f4f4f !important;
 }
 #fontColorModal .modal-header{padding:0;position: relative;overflow: visible;}
 #fontColorModal .modal-header h2{ display:none }
@@ -5291,7 +5302,7 @@ input.hidden {
 }
 
 #businessInfoModal .modal-close{ font-size: 44px; }
-#fontColorModal .modal-close{font-size: 34px;position: absolute;right: 4px;padding: 0;top: 8px;height: 30px;display: block;background: #ca0000;line-height: 30px;}
+#fontColorModal .modal-close{font-size: 34px;position: absolute;right: 7px;padding: 10px;top: 5px;height: 43px;text-align: center;width: 42px;display: block;background: #ca0000;line-height: 11px;}
 .modal-close:hover {
   color: #ffffff;
 }
@@ -6218,7 +6229,7 @@ input.hidden {
 .home-popup-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  background: linear-gradient(135deg, #ff4040, #e54141);
+  background: linear-gradient(135deg, #0000006b, #05050500);
 }
 
 .home-popup-btn:active {
@@ -6231,7 +6242,6 @@ input.hidden {
 
 /* 品牌日常按钮样式 */
 .home-popup-btn[data-action="dairy"] {
-  /* background: linear-gradient(135deg, #ff6b35, #f7931e); */
   color: white;
   position: relative;
   overflow: hidden;
@@ -6240,7 +6250,7 @@ input.hidden {
 .home-popup-btn[data-action="dairy"]:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  background: linear-gradient(135deg, #ff7b45, #ffa32e);
+  background: linear-gradient(135deg, #00000040, #00000063);
 }
 
 .home-popup-btn[data-action="dairy"]:active {
@@ -6255,7 +6265,6 @@ input.hidden {
   /* background: linear-gradient(135deg, #096affd9, #3400a7); */
 }
 #dairyBtn {
-  /* background: linear-gradient(135deg, #fac04d, #f68500); */
 }
 
 /* 未来建议内容样式 */
@@ -6710,7 +6719,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .future-suggestion-btn.primary:hover {
-  background: #fff;
+  background: #0000003d;
 }
 
 /* 每日建议按钮样式 */

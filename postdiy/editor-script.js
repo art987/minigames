@@ -3497,6 +3497,9 @@ let currentCropTarget = null;
     
     // 字体颜色选择弹窗内的颜色选择事件 - 实时预览
     if (elements.fontColorModalSelector) {
+      // 双击事件处理
+      let lastClickTime = 0;
+      
       elements.fontColorModalSelector.addEventListener('click', function(e) {
         if (e.target.classList.contains('color-swatch') || e.target.classList.contains('checkmark')) {
           let targetSwatch = e.target;
@@ -3507,6 +3510,69 @@ let currentCropTarget = null;
           const selectedColor = targetSwatch.getAttribute('data-color');
           
           if (selectedColor) {
+            const currentTime = new Date().getTime();
+            
+            // 检查是否为双击（300ms内连续点击）
+            if (currentTime - lastClickTime < 300) {
+              // 双击事件：等同于点击确认选择按钮
+              previewTextColor = selectedColor;
+              
+              // 更新状态用于实时预览
+              state.textColor = selectedColor;
+              
+              // 更新预览
+              updateBusinessInfoDisplay();
+              
+              // 更新颜色选择器的选中样式
+              const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
+              allSwatches.forEach(swatch => {
+                swatch.classList.remove('selected');
+              });
+              targetSwatch.classList.add('selected');
+              
+              // 同步更新商家信息编辑弹窗中的颜色选择器状态
+              const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
+              businessInfoColorSwatches.forEach(swatch => {
+                const color = swatch.getAttribute('data-color');
+                if (color === selectedColor) {
+                  swatch.classList.add('selected');
+                } else {
+                  swatch.classList.remove('selected');
+                }
+              });
+              
+              // 执行确认选择按钮的逻辑
+              colorConfirmed = true;
+              
+              // 保存到本地存储
+              state.textColor = previewTextColor;
+              localStorage.setItem('textColor', state.textColor);
+              
+              // 在选中的颜色块上添加确认标记
+              allSwatches.forEach(swatch => {
+                swatch.classList.remove('confirmed');
+                const color = swatch.getAttribute('data-color');
+                if (color === previewTextColor) {
+                  swatch.classList.add('confirmed');
+                }
+              });
+              
+              // 显示成功提示
+              showToast('字体颜色已更新');
+              
+              // 关闭弹窗
+              if (elements.fontColorModal) {
+                elements.fontColorModal.style.display = 'none';
+              }
+              
+              // 重置双击计时器
+              lastClickTime = 0;
+              return;
+            }
+            
+            // 单机事件：正常预览
+            lastClickTime = currentTime;
+            
             // 保存预览颜色
             previewTextColor = selectedColor;
             
