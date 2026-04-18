@@ -8138,17 +8138,12 @@ let currentCropTarget = null;
           });
           
           try {
-            // 创建下载链接
-            const link = document.createElement('a');
-            
             // 生成最高质量的PNG图像，确保清晰度
-            // 使用try-catch捕获可能的toDataURL错误
             let imageUrl;
             try {
               imageUrl = canvas.toDataURL('image/png', 1.0);
             } catch (toDataUrlError) {
               console.error('生成图像URL时出错:', toDataUrlError);
-              // 如果toDataURL失败，创建一个简单的纯色图像作为替代
               const fallbackCanvas = document.createElement('canvas');
               fallbackCanvas.width = 600;
               fallbackCanvas.height = 900;
@@ -8162,12 +8157,9 @@ let currentCropTarget = null;
               imageUrl = fallbackCanvas.toDataURL('image/png');
             }
             
-            link.href = imageUrl;
-            
             // 设置文件名 - 使用模板名称和时间
             let templateName = 'poster';
             if (state.currentTemplate) {
-              // 品牌日常模板使用特殊名称
               if (state.currentTemplate.id === 'dairy-2024-001') {
                 templateName = '品牌日常';
               } else {
@@ -8181,17 +8173,34 @@ let currentCropTarget = null;
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const timestamp = `${year}${month}${day}-${hours}${minutes}`;
-            link.download = `${templateName}${timestamp}.png`;
+            const fileName = `${templateName}${timestamp}.png`;
           
-            // 触发下载
-            document.body.appendChild(link);
-            link.click();
-            setTimeout(() => {
-              document.body.removeChild(link);
-            }, 100);
-            
-            // 显示成功提示
-            showToast('海报生成成功！');
+            // 检测是否在uni-app的WebView中
+            if (window.uni && window.uni.postMessage) {
+              // 在原生应用中，使用postMessage通知原生端
+              console.log('检测到uni-app环境，使用postMessage下载');
+              window.uni.postMessage({
+                data: {
+                  action: 'downloadImage',
+                  url: imageUrl,
+                  fileName: fileName
+                }
+              });
+              showToast('海报已发送到原生应用处理');
+            } else {
+              // 在浏览器中，使用原来的下载方式
+              const link = document.createElement('a');
+              link.href = imageUrl;
+              link.download = fileName;
+              
+              document.body.appendChild(link);
+              link.click();
+              setTimeout(() => {
+                document.body.removeChild(link);
+              }, 100);
+              
+              showToast('海报生成成功！');
+            }
           } catch (downloadError) {
             console.error('创建下载链接时出错:', downloadError);
             showToast('海报生成成功但下载失败，请手动截图');
