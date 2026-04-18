@@ -13571,10 +13571,10 @@ window.textTemplateManager = {
       if (todayFestival) {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-            <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               选择${todayFestival}模板
             </button></div>
-            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             ☻ 日常海报
             </button></div>
           </div>
@@ -13584,13 +13584,13 @@ window.textTemplateManager = {
          <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
-            <div class="button-wrapper"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
             ☀ 早安海报
             </button></div>
-            <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             ☾ 晚安海报
             </button></div>
-            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             ☻ 日常海报
             </button></div>
           </div>
@@ -13600,10 +13600,10 @@ window.textTemplateManager = {
          <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
-            <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             ☾ 晚安海报
             </button></div>
-            <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             ☻ 日常海报
             </button></div>
           </div>

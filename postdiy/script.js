@@ -1031,6 +1031,84 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!homePopup) return;
     
+    // 背景图片配置（移到函数开头，供所有内部函数使用）
+    const backgroundImages = {
+      // 节气节日
+      '谷雨': { folder: 'images/guyu/thumbnails', count: 20, ext: 'jpg' },
+      '立春': { folder: 'images/lichun/thumbnails', count: 20, ext: 'jpg' },
+      '雨水': { folder: 'images/yushui/thumbnails', count: 20, ext: 'jpg' },
+      '惊蛰': { folder: 'images/jingzhe/thumbnails', count: 20, ext: 'jpg' },
+      '春分': { folder: 'images/chunfen/thumbnails', count: 21, ext: 'jpg' },
+      '清明': { folder: 'images/qingming/thumbnails', count: 20, ext: 'jpg' },
+      '立夏': { folder: 'images/lixia/thumbnails', count: 20, ext: 'jpg' },
+      '小满': { folder: 'images/xiaoman/thumbnails', count: 20, ext: 'jpg' },
+      '芒种': { folder: 'images/mangzhong/thumbnails', count: 20, ext: 'jpg' },
+      '夏至': { folder: 'images/xiazhi/thumbnails', count: 20, ext: 'jpg' },
+      '小暑': { folder: 'images/xiaoshu/thumbnails', count: 20, ext: 'jpg' },
+      '大暑': { folder: 'images/dashu/thumbnails', count: 16, ext: 'jpg' },
+      '立秋': { folder: 'images/liqiu/thumbnails', count: 20, ext: 'jpg' },
+      '处暑': { folder: 'images/chushu/thumbnails', count: 11, ext: 'jpg' },
+      '白露': { folder: 'images/bailu/thumbnails', count: 17, ext: 'jpg' },
+      '秋分': { folder: 'images/qiufen/thumbnails', count: 20, ext: 'jpg' },
+      '寒露': { folder: 'images/hanlu/thumbnails', count: 20, ext: 'jpg' },
+      '霜降': { folder: 'images/shuangjiang/thumbnails', count: 20, ext: 'jpg' },
+      '立冬': { folder: 'images/lidong/thumbnails', count: 20, ext: 'jpg' },
+      '小雪': { folder: 'images/xiaoxue/thumbnails', count: 20, ext: 'jpg' },
+      '大雪': { folder: 'images/daxue/thumbnails', count: 10, ext: 'jpg' },
+      '冬至': { folder: 'images/dongzhi/thumbnails', count: 8, ext: 'png' },
+      '小寒': { folder: 'images/xiaohan/thumbnails', count: 20, ext: 'jpg' },
+      '大寒': { folder: 'images/dahan/thumbnails', count: 11, ext: 'jpg' },
+
+      // 传统节日
+      '春节': { folder: 'images/chunjie/thumbnails', count: 9, ext: 'jpg' },
+      '元宵节': { folder: 'images/yuanxiaojie/thumbnails', count: 20, ext: 'jpg' },
+      '端午节': { folder: 'images/duanwu/thumbnails', count: 15, ext: 'jpg' },
+      '中秋节': { folder: 'images/zhongqiujie/thumbnails', count: 20, ext: 'jpg' },
+      '重阳节': { folder: 'images/chongyang/thumbnails', count: 11, ext: 'jpg' },
+      '除夕': { folder: 'images/chuxi/thumbnails', count: 10, ext: 'jpg' },
+
+      // 现代节日
+      '元旦': { folder: 'images/yuandan/thumbnails', count: 20, ext: 'jpg' },
+      '情人节': { folder: 'images/qingrenjie/thumbnails', count: 20, ext: 'jpg' },
+      '妇女节': { folder: 'images/funvjie/thumbnails', count: 12, ext: 'jpg' },
+      '劳动节': { folder: 'images/laodongjie/thumbnails', count: 20, ext: 'jpg' },
+      '青年节': { folder: 'images/qingnianjie/thumbnails', count: 20, ext: 'jpg' },
+      '母亲节': { folder: 'images/muqinjie/thumbnails', count: 20, ext: 'jpg' },
+      '儿童节': { folder: 'images/ertongjie/thumbnails', count: 16, ext: 'jpg' },
+      '父亲节': { folder: 'images/fuqinjie/thumbnails', count: 24, ext: 'jpg' },
+      '教师节': { folder: 'images/jiaoshijie/thumbnails', count: 20, ext: 'jpg' },
+      '国庆节': { folder: 'images/guoqingjie/thumbnails', count: 20, ext: 'jpg' },
+      '感恩节': { folder: 'images/ganenjie', count: 18, ext: 'jpg' },
+      '圣诞节': { folder: 'images/shengdanjie/thumbnails', count: 20, ext: 'jpg' },
+      '世界地球日': { folder: 'images/shijiediqiuri/thumbnails', count: 10, ext: 'jpg' },
+      '世界读书日': { folder: 'images/shijiedushuri/thumbnails', count: 15, ext: 'jpg' },
+
+      // 日常海报
+      'dairy': { folder: 'images/dairy', count: 3, ext: 'jpg' },
+      'zaoan': { folder: 'images/zaoan/thumbnails', count: 8, ext: 'jpg' },
+      'wanan': { folder: 'images/wanan/thumbnails', count: 12, ext: 'jpg' }
+    };
+
+    // 获取随机背景图片
+    function getRandomBackgroundImage(type) {
+      if (!backgroundImages[type]) return null;
+
+      const config = backgroundImages[type];
+      const randomNum = Math.floor(Math.random() * config.count) + 1;
+      return `${config.folder}/${randomNum}.${config.ext}`;
+    }
+
+    // 设置按钮背景图片
+    function setButtonBackground(button, type) {
+      const imageUrl = getRandomBackgroundImage(type);
+      if (imageUrl) {
+        const wrapper = button.closest('.button-wrapper');
+        if (wrapper) {
+          wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+        }
+      }
+    }
+    
     // 标题轮替功能
     let titleRotationInterval = null;
     let currentTitleIndex = 0;
@@ -1249,10 +1327,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const todayFestival = getTodayFestival();
     const isBefore930 = now.getHours() < 9 || (now.getHours() === 9 && now.getMinutes() < 30);
     const todayDateInTitle = document.getElementById('todayDateInTitle');
-    
+
     const month = now.getMonth() + 1;
     const day = now.getDate();
     const weekday = getWeekdayChinese(now.getDay());
+
     // 实时更新时间函数
     function updateRealTime() {
       const now = new Date();
@@ -1280,12 +1359,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (todayFestival) {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
             发布${todayFestival}海报
-          </button>
-          <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+          </button></div>
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           🌈日常海报
-          </button>
+          </button></div>
         </div>
       `;
     } else if (isBefore930) {
@@ -1293,15 +1372,15 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日没有特别节日，您可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
-          <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
           ☀️早安海报
-          </button>
-          <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          </button></div>
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
           🌙晚安海报
-          </button>
-          <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+          </button></div>
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
           🌈日常海报
-          </button>
+          </button></div>
         </div>
       `;
     } else {
@@ -1309,23 +1388,33 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
-          <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
           🌙晚安海报
-          </button>
-          <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+          </button></div>
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           🌈日常海报
-          </button>
+          </button></div>
         </div>
       `;
     }
     
     todayReleaseContent.innerHTML = html;
-    
+
+    // 设置按钮背景图片
+    todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
+      const action = btn.dataset.action;
+      if (action === 'festival') {
+        setButtonBackground(btn, btn.dataset.festival);
+      } else {
+        setButtonBackground(btn, action);
+      }
+    });
+
     todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const action = this.dataset.action;
         closeHomePopup();
-        
+
         if (action === 'festival') {
           scrollToFestival(this.dataset.festival);
         } else if (action === 'zaoan') {
@@ -1352,9 +1441,9 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button></div>`;
     }
-    html += `<button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button>`;
+    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button></div>`;
     
     html += '</div></div>';
     
@@ -1371,11 +1460,21 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button></div>`;
       html += '</div></div>';
     });
     
     futureSuggestionContent.innerHTML = html;
+    
+    // 设置按钮背景图片
+    futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
+      const action = btn.dataset.action;
+      if (action === 'festival') {
+        setButtonBackground(btn, btn.dataset.festival);
+      } else {
+        setButtonBackground(btn, action);
+      }
+    });
     
     futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
       btn.addEventListener('click', function() {

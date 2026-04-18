@@ -6235,7 +6235,6 @@ input.hidden {
   height: 65px;
   position: relative;
   z-index: 3;
-  animation:borderGradient 3s ease infinite;
 }
 
 .home-popup-btn:hover {
@@ -6317,6 +6316,8 @@ input.hidden {
   position: relative;
   margin-bottom: 2px;
   width: 100%;
+  flex: 1;
+  min-width: 200px;
 }
 
 .button-wrapper::before {
@@ -6341,7 +6342,7 @@ input.hidden {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgb(0 0 0 / 5%);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: var(--border-radius-lg);
   z-index: 2;
 }
