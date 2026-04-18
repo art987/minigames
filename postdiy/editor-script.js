@@ -1215,9 +1215,61 @@ let currentCropTarget = null;
     // 初始化裁剪事件
     initCropperEvents();
     
+    // 初始化动态缩放
+    initDynamicZoom();
+    
     // 最后绑定事件和初始化
     bindEvents();
     initializeEditor();
+  
+  // 初始化动态缩放功能
+  function initDynamicZoom() {
+    const posterFrame = document.getElementById('posterFrame');
+    const bottomActions = document.getElementById('bottomActions');
+    const editorBody = document.body;
+    
+    if (!posterFrame) return;
+    
+    const POSTER_WIDTH = 300;
+    const POSTER_HEIGHT = 600;
+    const BOTTOM_ACTIONS_HEIGHT = 20;
+    const PADDING = 30;
+    
+    function calculateAndSetZoom() {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      const availableWidth = windowWidth - PADDING * 2;
+      const availableHeight = windowHeight - BOTTOM_ACTIONS_HEIGHT - PADDING * 2;
+      
+      const scaleX = availableWidth / POSTER_WIDTH;
+      const scaleY = availableHeight / POSTER_HEIGHT;
+      
+      let zoom = Math.min(scaleX, scaleY);
+      
+      zoom = Math.max(0.5, Math.min(zoom, 2.5));
+      
+      if (windowWidth <= 768) {
+        zoom = Math.min(zoom, 1.2);
+      }
+      
+      editorBody.style.zoom = zoom;
+      
+      console.log(`动态缩放: 窗口 ${windowWidth}x${windowHeight}, 缩放比例 ${zoom.toFixed(2)}`);
+    }
+    
+    calculateAndSetZoom();
+    
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(calculateAndSetZoom, 100);
+    });
+    
+    window.addEventListener('orientationchange', function() {
+      setTimeout(calculateAndSetZoom, 200);
+    });
+  }
   
   // 初始化图片保护功能
   function initializeImageProtection() {
