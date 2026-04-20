@@ -1218,9 +1218,118 @@ let currentCropTarget = null;
     // 初始化动态缩放
     initDynamicZoom();
     
+    // 初始化下载按钮动画
+    initDownloadButtonAnimation();
+    
     // 最后绑定事件和初始化
     bindEvents();
     initializeEditor();
+  
+  // 初始化下载按钮循环动画
+  function initDownloadButtonAnimation() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    if (!downloadBtn) return;
+    
+    const downloadText = '下载海报';
+    const downloadGif = 'images/statics/down.gif';
+    let isShowingText = true;
+    let animationInterval = null;
+    let isAnimating = false;
+    
+    // 添加淡入淡出样式
+    const styleId = 'downloadBtnAnimationStyle';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        #downloadBtn {
+          transition: opacity 0.5s ease, transform 0.3s ease;
+        }
+        #downloadBtn.fade-out {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        #downloadBtn.fade-in {
+          opacity: 1;
+          transform: scale(1);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    function toggleButtonContent() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      // 第一步：淡出
+      downloadBtn.classList.add('fade-out');
+      downloadBtn.classList.remove('fade-in');
+      
+      // 等待淡出完成（0.5 秒）
+      setTimeout(() => {
+        // 切换内容
+        if (isShowingText) {
+          downloadBtn.innerHTML = `<img src="${downloadGif}" alt="下载" style=" height: 29px;">`;
+        } else {
+          downloadBtn.innerHTML = `<span>${downloadText}</span>`;
+        }
+        isShowingText = !isShowingText;
+        
+        // 第二步：淡入
+        downloadBtn.classList.remove('fade-out');
+        downloadBtn.classList.add('fade-in');
+        
+        // 等待淡入完成
+        setTimeout(() => {
+          isAnimating = false;
+        }, 500);
+      }, 500);
+    }
+    
+    // 启动循环动画（5 秒切换一次）
+    function startAnimation() {
+      if (animationInterval) clearInterval(animationInterval);
+      animationInterval = setInterval(toggleButtonContent, 5000);
+    }
+    
+    // 停止动画
+    function stopAnimation() {
+      if (animationInterval) {
+        clearInterval(animationInterval);
+        animationInterval = null;
+      }
+      isAnimating = false;
+    }
+    
+    // 恢复为文字
+    function resetToText() {
+      stopAnimation();
+      downloadBtn.innerHTML = `<span>${downloadText}</span>`;
+      downloadBtn.classList.remove('fade-out', 'fade-in');
+      isShowingText = true;
+      isAnimating = false;
+    }
+    
+    // 恢复为下载图标
+    function resetToDownloadIcon() {
+      stopAnimation();
+      downloadBtn.innerHTML = `<i class="fa fa-download"></i> <span>${downloadText}</span>`;
+      downloadBtn.classList.remove('fade-out', 'fade-in');
+      isShowingText = true;
+      isAnimating = false;
+    }
+    
+    // 启动动画
+    startAnimation();
+    
+    // 暴露给外部调用
+    window.downloadButtonAnimation = {
+      start: startAnimation,
+      stop: stopAnimation,
+      resetToText: resetToText,
+      resetToDownloadIcon: resetToDownloadIcon
+    };
+  }
   
   // 初始化动态缩放功能
   function initDynamicZoom() {
@@ -7719,6 +7828,13 @@ let currentCropTarget = null;
       if (elements.downloadBtn) {
         elements.downloadBtn.disabled = false;
         elements.downloadBtn.innerHTML = '<i class="fa fa-download"></i> 下载海报';
+        
+        // 重启按钮动画
+        if (window.downloadButtonAnimation) {
+          setTimeout(() => {
+            window.downloadButtonAnimation.start();
+          }, 3000);
+        }
       }
     }
   }

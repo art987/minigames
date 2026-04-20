@@ -708,6 +708,7 @@ footer {
   align-items: center;
   padding: 30px 15px;
   overflow: hidden;
+  position: relative;
 }
 
 /* 海报框架 - 自适应屏幕大小 */
@@ -5447,10 +5448,9 @@ input.hidden {
 
 /* 模板加载动画样式 */
 .template-loading-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 30px;
+  /* left: 50%; */
   width: min(90vw, 300px);
   height: min(calc(90vw * 2), 600px);
   background: linear-gradient(45deg,  #5fe5de, #8dbcf9, #cdb3ff, #ffa3f2, #f7a1a1);
@@ -5591,18 +5591,19 @@ input.hidden {
   position: relative;
   width: 80px;
   height: 80px;
-  /* animation: rotateLogo 4s linear infinite; */
-  
+  animation: rotateLogo 4s linear infinite;
+  animation: borderGradient 3s ease infinite;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .loading-logo {
-  width: 60px;
+  width: 50px;
   z-index: 999;
-  height: 60px;
-  animation: borderGradient 3s ease infinite;
+  height: 50px;
+  /* animation: borderGradient 3s ease infinite; */
   position: absolute;
   border-radius: 50%;
   object-fit: cover;
@@ -6342,7 +6343,7 @@ input.hidden {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: var(--border-radius-lg);
   z-index: 2;
 }

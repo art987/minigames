@@ -144,7 +144,11 @@
     </div>
   </div>
 
-  <!-- 模板加载动画（覆盖整个页面） -->
+ 
+  
+  <!-- 预览区域 -->
+  <div class="preview-wrapper">
+     <!-- 模板加载动画（覆盖整个页面） -->
   <div id="templateLoadingOverlay" class="template-loading-overlay" style="display: flex;">
     <div class="loading-container">
       <!-- 外围快速旋转的圆点线 -->
@@ -174,8 +178,6 @@
     </div>
   </div>
   
-  <!-- 预览区域 -->
-  <div class="preview-wrapper">
     <div id="posterFrame" class="poster-frame">
       <!-- 海报背景 -->
       <img id="posterBackground" class="poster-background" src="" alt="海报背景">
@@ -594,8 +596,8 @@
             
             <!-- 第一行：黑灰白 -->
             <div class="color-swatch-group" data-row="1">
-              <div class="color-swatch" data-color="#000000" style="background-color: #000000;color:#fff;" title="黑色"><span class="checkmark">✔</span></div>
-              <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ddd;color: #000;" title="白色"><span class="checkmark">✔</span></div>
+              <div class="color-swatch" data-color="#000000" style="background-color: #000000;width: 30px; height: 30px; margin-right: 10px; color:#fff;" title="黑色"><span class="checkmark">✔</span></div>
+              <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF;width: 30px; height: 30px; border: 1px solid #ddd;color: #000;" title="白色"><span class="checkmark">✔</span></div>
              <div class="color-swatch-tip" >单击：预览，双击：确认</div>
               
             </div>
