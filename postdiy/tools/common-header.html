@@ -89,8 +89,17 @@ function initCommonHeader() {
   backBtn.addEventListener('click', function() {
     // 直接返回频道首页，避免历史记录问题
     const currentPath = window.location.pathname;
+    // 检查是否在tools目录下
     if (currentPath.includes('/tools/')) {
-      window.location.href = '/tools/index.html';
+      // 获取当前目录的绝对路径
+      const currentDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+      // 如果当前目录是tools，则返回首页
+      if (currentDir.endsWith('/tools')) {
+        window.location.href = '/tools/index.html';
+      } else {
+        // 否则返回上一级目录
+        window.location.href = currentDir + '/index.html';
+      }
     } else if (currentPath.includes('/business/')) {
       window.location.href = '/business/index.html';
     } else {

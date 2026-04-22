@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能抠图工具</title>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入公共标题头 -->
+    <script>
+        // 动态加载公共标题头
+        fetch('common-header.html')
+            .then(response => response.text())
+            .then(html => {
+                // 创建临时 div 来解析 HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                
+                // 提取样式和内容
+                const style = tempDiv.querySelector('style').outerHTML;
+                const header = tempDiv.querySelector('header').outerHTML;
+                const script = tempDiv.querySelector('script').textContent;
+                
+                // 插入到页面中
+                document.head.insertAdjacentHTML('beforeend', style);
+                document.body.insertAdjacentHTML('afterbegin', header);
+                
+                // 直接执行初始化函数
+                eval(script);
+                initCommonHeader(); // 手动调用初始化函数
+            })
+            .catch(error => console.error('加载公共标题头失败:', error));
+    </script>
+    <!-- 引入独立 CSS 文件 -->
+    <link rel="stylesheet" href="bg-remove.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>智能抠图工具</h1>
+            <p class="subtitle">免费在线智能抠图工具，支持人像、商品、物品等各种场景</p>
+        </header>
+
+        <div class="tool-container">
+            <iframe id="bgRemoveIframe" src="https://uutool.cn/bg-remove/" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="info-section">
+            <h2>工具特点</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fa fa-magic"></i>
+                    <h3>AI智能抠图</h3>
+                    <p>基于先进AI算法，快速精准分离主体与背景</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-users"></i>
+                    <h3>适用广泛</h3>
+                    <p>支持人像、商品、Logo、卡通形象等各种场景</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-bolt"></i>
+                    <h3>快速高效</h3>
+                    <p>几秒钟内完成抠图，生成透明背景图像</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-download"></i>
+                    <h3>一键下载</h3>
+                    <p>支持下载透明背景PNG图片</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-image"></i>
+                    <h3>细节保留</h3>
+                    <p>保留发丝等细微细节，抠图效果自然</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-paint-brush"></i>
+                    <h3>背景替换</h3>
+                    <p>支持更换背景颜色或自定义背景</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>适用场景</h2>
+            <div class="scene-grid">
+                <div class="scene-card">
+                    <i class="fa fa-shopping-cart"></i>
+                    <h3>电商产品图片</h3>
+                    <p>去掉杂乱背景，突出商品主体，让产品图片更加干净专业</p>
+                </div>
+                <div class="scene-card">
+                    <i class="fa fa-user"></i>
+                    <h3>人物头像与证件照</h3>
+                    <p>自动抠取人像主体，保留面部和发丝细节，可快速换背景</p>
+                </div>
+                <div class="scene-card">
+                    <i class="fa fa-ad"></i>
+                    <h3>营销与设计素材</h3>
+                    <p>将图片主体快速分离，轻松应用于海报、广告或社交媒体宣传图</p>
+                </div>
+                <div class="scene-card">
+                    <i class="fa fa-palette"></i>
+                    <h3>卡通、Logo设计</h3>
+                    <p>准确抠出卡通形象或Logo，生成透明背景素材</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h2>使用小贴士</h2>
+            <div class="tips-list">
+                <div class="tip-card">
+                    <i class="fa fa-lightbulb"></i>
+                    <div class="tip-content">
+                        <h3>主体清晰</h3>
+                        <p>确保主体轮廓清晰，与背景有明显区分</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fa fa-lightbulb"></i>
+                    <div class="tip-content">
+                        <h3>光线充足</h3>
+                        <p>选择光线充足的图片，避免阴影过重</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <i class="fa fa-lightbulb"></i>
+                    <div class="tip-content">
+                        <h3>分辨率适中</h3>
+                        <p>图片分辨率不宜过高或过低，推荐500-2000像素</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
