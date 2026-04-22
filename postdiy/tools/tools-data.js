@@ -28,7 +28,7 @@ window.toolsData = {
    
     {
       id: 2,
-      image: 'https://via.placeholder.com/400x200/4ECDC4/FFFFFF?text=二维码生成',
+      image: 'qrcode-generator.png',
       title: '二维码生成工具',
       description: '快速生成各种二维码，支持自定义样式',
       tags: ['工具', '二维码', '便捷'],
@@ -38,7 +38,7 @@ window.toolsData = {
     
     {
       id: 4,
-      image: 'https://via.placeholder.com/400x200/96CEB4/FFFFFF?text=图片压缩',
+      image: 'image-compress.png',
       title: '图片压缩工具',
       description: '在线压缩图片，保持质量减小体积',
       tags: ['图片', '压缩', '工具'],
@@ -49,7 +49,7 @@ window.toolsData = {
     
     {
       id: 9,
-      image: 'https://via.placeholder.com/400x200/FF6B6B/FFFFFF?text=开店计算',
+      image: 'shop_calculator.png',
       title: '开店必备60个计算公式',
       description: '帮助商家计算开店成本，优化经营',
       tags: ['开店', '计算', '财务'],
@@ -58,7 +58,7 @@ window.toolsData = {
     },
     {
       id: 10,
-      image: 'https://via.placeholder.com/400x200/4ECDC4/FFFFFF?text=销售话术',
+      image: 'xiaoshouhuashu1.png',
       title: '高情商客户回复话术库',
       description: '帮助商家与客户建立情感联系，提升销售效率',
       tags: ['销售', '话术', '情商'],
@@ -67,30 +67,12 @@ window.toolsData = {
     },
     {
       id: 11,
-      image: 'https://via.placeholder.com/400x200/FFB347/FFFFFF?text=销冠话术',
+      image: 'sales-tips.png',
       title: '销冠成交话术100句',
       description: '精选80句销冠成交话术，助你提升销售业绩',
       tags: ['销售', '话术', '成交'],
       link: 'sales-tips.html',
       category: '销售工具'
-    },
-    {
-      id: 12,
-      image: 'https://via.placeholder.com/400x200/9C27B0/FFFFFF?text=二维码',
-      title: '二维码生成工具',
-      description: '简单实用的在线二维码生成器，支持多种内容类型',
-      tags: ['二维码', '生成', '工具', '在线'],
-      link: 'qrcode-generator.html',
-      category: '实用工具'
-    },
-    {
-      id: 13,
-      image: 'https://via.placeholder.com/400x200/FF9800/FFFFFF?text=图片压缩',
-      title: '图片压缩工具',
-      description: '在线免费图片压缩工具，批量压缩JPG PNG WebP',
-      tags: ['图片', '压缩', '工具', '在线'],
-      link: 'image-compress.html',
-      category: '实用工具'
     }
   ]
 };
