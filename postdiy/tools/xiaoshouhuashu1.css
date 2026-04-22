@@ -1,0 +1,112 @@
+/* 高情商客户回复话术库页面样式 */
+
+/* 调整页面内容位置 */
+body {
+    padding-top: 80px; /* 为公共标题头预留空间 */
+}
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --bg-light: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-muted: #6c757d;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--primary-color);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
+}
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+.card {
+    background: var(--bg-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-header {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-body {
+    padding: 20px;
+}
+.scene-desc {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    border-left: 3px solid var(--secondary-color);
+    padding-left: 10px;
+}
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: white;
+}
+.tag-low { background-color: #e74c3c; }
+.tag-high { background-color: #27ae60; }
+
+.reply-box {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 12px;
+    margin-top: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.reply-box:hover {
+    background-color: #f1f1f1;
+}
+.reply-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+.copy-notice {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: none;
+    z-index: 1000;
+}

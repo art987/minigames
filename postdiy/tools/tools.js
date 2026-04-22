@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.handleCardClick = function(link) {
     // 跳转到对应的工具页面
     console.log('跳转到工具:', link);
-    // window.location.href = link; // 取消注释以启用跳转
+    window.location.href = link; // 启用跳转
   };
   
   // 键盘事件 - 回车搜索

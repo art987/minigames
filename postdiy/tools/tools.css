@@ -190,7 +190,7 @@ body {
 .content-area {
   max-width: 1200px;
   margin: 2px auto 30px;
-  padding: 0 20px;
+  padding: 0 20px; background-color: #fff;
 }
 
 .cards-container {

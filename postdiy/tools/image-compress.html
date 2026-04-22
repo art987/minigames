@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片压缩工具</title>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入公共标题头 -->
+    <script>
+        // 动态加载公共标题头
+        fetch('common-header.html')
+            .then(response => response.text())
+            .then(html => {
+                // 创建临时 div 来解析 HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                
+                // 提取样式和内容
+                const style = tempDiv.querySelector('style').outerHTML;
+                const header = tempDiv.querySelector('header').outerHTML;
+                const script = tempDiv.querySelector('script').textContent;
+                
+                // 插入到页面中
+                document.head.insertAdjacentHTML('beforeend', style);
+                document.body.insertAdjacentHTML('afterbegin', header);
+                
+                // 直接执行初始化函数
+                eval(script);
+                initCommonHeader(); // 手动调用初始化函数
+            })
+            .catch(error => console.error('加载公共标题头失败:', error));
+    </script>
+    <!-- 引入独立 CSS 文件 -->
+    <link rel="stylesheet" href="image-compress.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>图片压缩工具</h1>
+            <p class="subtitle">在线免费图片压缩工具，批量压缩 JPG PNG WebP</p>
+        </header>
+
+        <div class="tool-container">
+            <iframe id="imageCompressIframe" src="https://gallery.selfboot.cn/zh/tools/imagecompress" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="info-section">
+            <h2>工具特点</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fa fa-check-circle"></i>
+                    <h3>批量压缩</h3>
+                    <p>支持同时上传多张图片进行压缩</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-shield-alt"></i>
+                    <h3>本地处理</h3>
+                    <p>所有图片压缩都在浏览器本地完成，无需上传服务器</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-cogs"></i>
+                    <h3>多种模式</h3>
+                    <p>快速压缩、高质量压缩、极限压缩三种模式可选</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-download"></i>
+                    <h3>一键下载</h3>
+                    <p>支持单张下载或打包成ZIP下载全部结果</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-image"></i>
+                    <h3>多种格式</h3>
+                    <p>支持JPG、PNG、WebP等多种图片格式</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa fa-sliders-h"></i>
+                    <h3>自定义设置</h3>
+                    <p>可调整压缩质量、最大边长和输出格式</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>使用说明</h2>
+            <ol class="guide-list">
+                <li>
+                    <div class="guide-step">
+                        <i class="fa fa-upload"></i>
+                        <div class="step-content">
+                            <h3>上传图片</h3>
+                            <p>点击上传区域，选择一张或多张JPG、PNG、WebP图片</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="guide-step">
+                        <i class="fa fa-cog"></i>
+                        <div class="step-content">
+                            <h3>选择模式</h3>
+                            <p>根据用途选择压缩模式，日常使用可保持默认的快速压缩</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="guide-step">
+                        <i class="fa fa-sliders-h"></i>
+                        <div class="step-content">
+                            <h3>调整设置</h3>
+                            <p>选择输出格式、图片质量和最大边长</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="guide-step">
+                        <i class="fa fa-play"></i>
+                        <div class="step-content">
+                            <h3>开始压缩</h3>
+                            <p>点击压缩图片，等待结果生成</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="guide-step">
+                        <i class="fa fa-download"></i>
+                        <div class="step-content">
+                            <h3>下载结果</h3>
+                            <p>单张下载需要的图片，或点击下载全部ZIP一次保存所有结果</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

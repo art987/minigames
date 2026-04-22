@@ -1,0 +1,209 @@
+/* 图片压缩工具页面样式 */
+
+/* 调整页面内容位置 */
+body {
+    padding-top: 80px; /* 为公共标题头预留空间 */
+}
+
+:root {
+    --primary-color: #2196f3;
+    --secondary-color: #4caf50;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), #1976d2);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+.tool-container {
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: var(--card-bg);
+}
+
+#imageCompressIframe {
+    width: 100%;
+    height: 800px;
+    border: none;
+}
+
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.feature-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.guide-section {
+    margin-top: 40px;
+}
+
+.guide-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.guide-list {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.guide-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.guide-step:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.guide-step i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.step-content h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.step-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    .subtitle {
+        font-size: 1rem;
+    }
+    #imageCompressIframe {
+        height: 600px;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    .guide-step {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .guide-step i {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    #imageCompressIframe {
+        height: 2290px;
+        margin-top: -240px;
+    }
+    .feature-card i {
+        font-size: 2.5rem;
+    }
+    .guide-step i {
+        font-size: 1.5rem;
+    }
+}

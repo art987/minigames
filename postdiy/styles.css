@@ -6749,10 +6749,10 @@ button.future-suggestion-btn[data-action="wanan"] {
     padding: 2px 7px;
     font-size: 20px;
     line-height: 20px;
-    margin-top: 2px;
+    margin-top: -4x;
     font-weight: 600;
     cursor: pointer;
-    margin-right: 47px;
+    margin-right: 53px;
     transition: opacity 0.4s ease, transform 0.4s ease;
   
    
