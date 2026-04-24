@@ -195,9 +195,9 @@ main {
 }
 
 .month-btn.active {
-  background-color: #1a1a1a;
+  background: linear-gradient(135deg, #666666, #000000);
   color: white;
-  border-color: #0b0b0b;
+  /* border-color: #0b0b0b; */
 }
 
 /* 节日标签 */
@@ -239,12 +239,12 @@ main {
 }
 
 .festival-tag {
-  padding: 0.375rem 0.75rem;
+  padding: 3px 10px;
   background-color: var(--bg-tertiary);
   color: #000000;
   border-radius: 9px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 300;
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -257,7 +257,7 @@ main {
 
 
 .festival-tag.active {
-  background-color: #b40606;
+  background: linear-gradient(135deg, #de2929, #cc180b);
   color: white;
 }
 
@@ -383,9 +383,9 @@ main {
 }
 
 .template-info {
-  padding: .5rem;
+  /* padding: .5rem; */
   flex: 1;
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 
@@ -4995,7 +4995,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   
   /* 小屏幕上的模板缩略图高度调整 */
   .template-thumbnail {
-    height: 250px;
+    /* height: 242px; */
   }
 }
 
