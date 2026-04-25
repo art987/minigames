@@ -90,19 +90,14 @@ function initCommonHeader() {
     // 直接返回频道首页，避免历史记录问题
     const currentPath = window.location.pathname;
     // 检查是否在tools目录下
-    if (currentPath.includes('/tools/')) {
-      // 获取当前目录的绝对路径
-      const currentDir = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-      // 如果当前目录是tools，则返回首页
-      if (currentDir.endsWith('/tools')) {
-        window.location.href = '/tools/index.html';
-      } else {
-        // 否则返回上一级目录
-        window.location.href = currentDir + '/index.html';
-      }
-    } else if (currentPath.includes('/business/')) {
-      window.location.href = '/business/index.html';
+    if (currentPath.includes('/postdiy/tools/')) {
+      // 直接返回tools频道首页
+      window.location.href = '/postdiy/tools/index.html';
+    } else if (currentPath.includes('/postdiy/business/')) {
+      // 直接返回business频道首页
+      window.location.href = '/postdiy/business/index.html';
     } else {
+      // 其他情况返回首页
       window.location.href = '/index.html';
     }
   });
@@ -116,9 +111,9 @@ function initCommonHeader() {
   
   // 检测当前频道，自动设置标题
   const currentPath = window.location.pathname;
-  if (currentPath.includes('/tools/') && !customTitle) {
+  if (currentPath.includes('/postdiy/tools/') && !customTitle) {
     headerTitle.textContent = '闪喵工具箱';
-  } else if (currentPath.includes('/business/') && !customTitle) {
+  } else if (currentPath.includes('/postdiy/business/') && !customTitle) {
     headerTitle.textContent = '闪喵生意经';
   }
 }
