@@ -7384,56 +7384,6 @@ window.templates = {
       description: '世界读书日阅读习惯主题海报模板',
       type: '西方节日'
     },
-    {
-      id: 'shijiedushuri-2024-011',
-      name: '知识分享',
-      thumbnail: 'images/shijiedushuri/thumbnails/11.jpg',
-      image: 'images/shijiedushuri/11.png',
-      months: [4],
-      festivals: ['世界读书日'],
-      description: '世界读书日知识分享主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'shijiedushuri-2024-012',
-      name: '阅读教育',
-      thumbnail: 'images/shijiedushuri/thumbnails/12.jpg',
-      image: 'images/shijiedushuri/12.png',
-      months: [4],
-      festivals: ['世界读书日'],
-      description: '世界读书日阅读教育主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'shijiedushuri-2024-013',
-      name: '读书成长',
-      thumbnail: 'images/shijiedushuri/thumbnails/13.jpg',
-      image: 'images/shijiedushuri/13.png',
-      months: [4],
-      festivals: ['世界读书日'],
-      description: '世界读书日读书成长主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'shijiedushuri-2024-014',
-      name: '阅读改变',
-      thumbnail: 'images/shijiedushuri/thumbnails/14.jpg',
-      image: 'images/shijiedushuri/14.png',
-      months: [4],
-      festivals: ['世界读书日'],
-      description: '世界读书日阅读改变主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'shijiedushuri-2024-015',
-      name: '读书节日',
-      thumbnail: 'images/shijiedushuri/thumbnails/15.jpg',
-      image: 'images/shijiedushuri/15.png',
-      months: [4],
-      festivals: ['世界读书日'],
-      description: '世界读书日节日主题海报模板',
-      type: '西方节日'
-    },
     
     {
       id: '520-2024-001',
