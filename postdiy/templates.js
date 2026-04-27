@@ -2544,26 +2544,6 @@ window.templates = {
       type: '西方节日'
     },
     {
-      id: 'muqinjie-2024-017',
-      name: '母亲节家庭',
-      thumbnail: 'images/muqinjie/thumbnails/17.jpg',
-      image: 'images/muqinjie/17.png',
-      months: [5],
-      festivals: ['母亲节'],
-      description: '母亲节家庭主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'muqinjie-2024-018',
-      name: '母亲节温馨时光',
-      thumbnail: 'images/muqinjie/thumbnails/18.jpg',
-      image: 'images/muqinjie/18.png',
-      months: [5],
-      festivals: ['母亲节'],
-      description: '母亲节温馨时光主题海报模板',
-      type: '西方节日'
-    },
-    {
       id: 'lixia-2024-001',
       name: '立夏迎新',
       thumbnail: 'images/lixia/thumbnails/1.jpg',
