@@ -7335,7 +7335,59 @@ window.templates = {
       festivals: ['520'],
       description: '520节日主题海报模板',
       type: '网络节日'
+    },
+    {
+      id: '520-2024-015',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/15.jpg',
+      image: 'images/520/15.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
+      type: '网络节日'
+    },
+    {
+      id: '520-2024-016',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/16.jpg',
+      image: 'images/520/16.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
+      type: '网络节日'
+    },
+    {
+      id: '520-2024-017',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/17.jpg',
+      image: 'images/520/17.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
+      type: '网络节日'
+    },
+    {
+      id: '520-2024-018',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/18.jpg',
+      image: 'images/520/18.png',
+      type: '网络节日'
+    },
+    {
+      id: '520-2024-019',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/19.jpg',
+      image: 'images/520/19.png',
+      type: '网络节日'
+    },
+    {
+      id: '520-2024-020',
+      name: '520节日',
+      thumbnail: 'images/520/thumbnails/20.jpg',
+      image: 'images/520/20.png',
+      type: '网络节日'
     }
+    
   ],
 
   // 早安模板
