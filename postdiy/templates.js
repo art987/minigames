@@ -7371,6 +7371,9 @@ window.templates = {
       name: '520节日',
       thumbnail: 'images/520/thumbnails/18.jpg',
       image: 'images/520/18.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
       type: '网络节日'
     },
     {
@@ -7378,6 +7381,9 @@ window.templates = {
       name: '520节日',
       thumbnail: 'images/520/thumbnails/19.jpg',
       image: 'images/520/19.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
       type: '网络节日'
     },
     {
@@ -7385,6 +7391,9 @@ window.templates = {
       name: '520节日',
       thumbnail: 'images/520/thumbnails/20.jpg',
       image: 'images/520/20.png',
+      months: [5],
+      festivals: ['520'],
+      description: '520节日主题海报模板',
       type: '网络节日'
     }
     
