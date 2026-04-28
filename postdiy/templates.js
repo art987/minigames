@@ -2674,86 +2674,6 @@ window.templates = {
       type: '节气'
     },
     {
-      id: 'lixia-2024-014',
-      name: '立夏蛙鸣',
-      thumbnail: 'images/lixia/thumbnails/14.jpg',
-      image: 'images/lixia/14.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气蛙鸣声声主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-015',
-      name: '立夏麦浪',
-      thumbnail: 'images/lixia/thumbnails/15.jpg',
-      image: 'images/lixia/15.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气麦浪滚滚主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-016',
-      name: '立夏农忙',
-      thumbnail: 'images/lixia/thumbnails/16.jpg',
-      image: 'images/lixia/16.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气农忙时节主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-017',
-      name: '立夏炎热',
-      thumbnail: 'images/lixia/thumbnails/17.jpg',
-      image: 'images/lixia/17.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气炎热天气主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-018',
-      name: '立夏雷雨',
-      thumbnail: 'images/lixia/thumbnails/18.jpg',
-      image: 'images/lixia/18.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气雷雨天气主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-019',
-      name: '立夏清凉',
-      thumbnail: 'images/lixia/thumbnails/19.jpg',
-      image: 'images/lixia/19.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气清凉一夏主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-020',
-      name: '立夏星空',
-      thumbnail: 'images/lixia/thumbnails/20.jpg',
-      image: 'images/lixia/20.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气星空璀璨主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'lixia-2024-021',
-      name: '立夏夏日风情',
-      thumbnail: 'images/lixia/thumbnails/21.jpg',
-      image: 'images/lixia/21.png',
-      months: [5],
-      festivals: ['立夏'],
-      description: '立夏节气夏日风情主题海报模板',
-      type: '节气'
-    },
-    {
       id: 'xiaoman-2024-001',
       name: '小满麦香',
       thumbnail: 'images/xiaoman/thumbnails/1.jpg',
@@ -7174,16 +7094,7 @@ window.templates = {
       description: '青年节青年成长主题海报模板',
       type: '西方节日'
     },
-    {
-      id: 'qingnianjie-2024-014',
-      name: '青年节日',
-      thumbnail: 'images/qingnianjie/thumbnails/14.jpg',
-      image: 'images/qingnianjie/14.png',
-      months: [5],
-      festivals: ['青年节'],
-      description: '青年节节日主题海报模板',
-      type: '西方节日'
-    },
+    
     {
       id: 'shijiedushuri-2024-001',
       name: '世界读书日快乐',
