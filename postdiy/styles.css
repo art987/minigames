@@ -1641,8 +1641,7 @@ footer {
 }
 
 #nextTemplateBtn {
-  left: 0px;
-  top: 43vh;
+  right: 0px;
 }
 
 #prevTemplateBtn.hidden, #nextTemplateBtn.hidden {

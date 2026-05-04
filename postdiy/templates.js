@@ -4496,6 +4496,136 @@ window.templates = {
       festivals: ['七夕节'],
       description: '七夕永恒主题海报模板',
       type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-001',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/1.jpg',
+      image: 'images/jianjunjie/1.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-002',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/2.jpg',
+      image: 'images/jianjunjie/2.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-003',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/3.jpg',
+      image: 'images/jianjunjie/3.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-004',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/4.jpg',
+      image: 'images/jianjunjie/4.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-005',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/5.jpg',
+      image: 'images/jianjunjie/5.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-006',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/6.jpg',
+      image: 'images/jianjunjie/6.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-007',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/7.jpg',
+      image: 'images/jianjunjie/7.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-008',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/8.jpg',
+      image: 'images/jianjunjie/8.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-009',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/9.jpg',
+      image: 'images/jianjunjie/9.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-010',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/10.jpg',
+      image: 'images/jianjunjie/10.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-011',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/11.jpg',
+      image: 'images/jianjunjie/11.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-012',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/12.jpg',
+      image: 'images/jianjunjie/12.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-013',
+      name: '建军节',
+      thumbnail: 'images/jianjunjie/thumbnails/13.jpg',
+      image: 'images/jianjunjie/13.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军节主题海报模板',
+      type: '传统节日'
     }
   ],
 
