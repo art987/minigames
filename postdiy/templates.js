@@ -3080,46 +3080,6 @@ window.templates = {
       type: '节气'
     },
     {
-      id: 'mangzhong-2024-015',
-      name: '芒种节气',
-      thumbnail: 'images/mangzhong/thumbnails/15.jpg',
-      image: 'images/mangzhong/15.png',
-      months: [6],
-      festivals: ['芒种'],
-      description: '芒种节气主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'mangzhong-2024-016',
-      name: '芒种乡村',
-      thumbnail: 'images/mangzhong/thumbnails/16.jpg',
-      image: 'images/mangzhong/16.png',
-      months: [6],
-      festivals: ['芒种'],
-      description: '芒种节气乡村生活主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'mangzhong-2024-017',
-      name: '芒种田园风光',
-      thumbnail: 'images/mangzhong/thumbnails/17.jpg',
-      image: 'images/mangzhong/17.png',
-      months: [6],
-      festivals: ['芒种'],
-      description: '芒种节气田园风光主题海报模板',
-      type: '节气'
-    },
-    {
-      id: 'mangzhong-2024-018',
-      name: '芒种农忙时节',
-      thumbnail: 'images/mangzhong/thumbnails/18.jpg',
-      image: 'images/mangzhong/18.png',
-      months: [6],
-      festivals: ['芒种'],
-      description: '芒种节气农忙时节主题海报模板',
-      type: '节气'
-    },
-    {
       id: 'mangzhong-2024-019',
       name: '芒种谷物成熟',
       thumbnail: 'images/mangzhong/thumbnails/19.jpg',
@@ -4646,6 +4606,126 @@ window.templates = {
       name: '中秋祝福',
       thumbnail: 'images/zhongqiu/thumbnails/10.jpg',
       image: 'images/zhongqiu/10.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-011',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/11.jpg',
+      image: 'images/zhongqiu/11.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-012',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/12.jpg',
+      image: 'images/zhongqiu/12.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-013',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/13.jpg',
+      image: 'images/zhongqiu/13.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-014',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/14.jpg',
+      image: 'images/zhongqiu/14.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-015',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/15.jpg',
+      image: 'images/zhongqiu/15.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-016',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/16.jpg',
+      image: 'images/zhongqiu/16.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-017',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/17.jpg',
+      image: 'images/zhongqiu/17.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-018',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/18.jpg',
+      image: 'images/zhongqiu/18.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-019',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/19.jpg',
+      image: 'images/zhongqiu/19.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-020',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/20.jpg',
+      image: 'images/zhongqiu/20.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-021',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/21.jpg',
+      image: 'images/zhongqiu/21.png',
+      months: [9],
+      festivals: ['中秋节'],
+      description: '中秋节祝福主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'zhongqiu-2024-022',
+      name: '中秋祝福',
+      thumbnail: 'images/zhongqiu/thumbnails/22.jpg',
+      image: 'images/zhongqiu/22.png',
       months: [9],
       festivals: ['中秋节'],
       description: '中秋节祝福主题海报模板',
