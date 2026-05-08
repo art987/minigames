@@ -4882,46 +4882,6 @@ window.templates = {
       type: '西方节日'
     },
     {
-      id: 'jiaoshi-2024-016',
-      name: '教师节传承',
-      thumbnail: 'images/jiaoshi/thumbnails/16.jpg',
-      image: 'images/jiaoshi/16.png',
-      months: [9],
-      festivals: ['教师节'],
-      description: '教师节传承主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'jiaoshi-2024-017',
-      name: '教师节园丁',
-      thumbnail: 'images/jiaoshi/thumbnails/17.jpg',
-      image: 'images/jiaoshi/17.png',
-      months: [9],
-      festivals: ['教师节'],
-      description: '教师节园丁主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'jiaoshi-2024-018',
-      name: '教师节蜡烛',
-      thumbnail: 'images/jiaoshi/thumbnails/18.jpg',
-      image: 'images/jiaoshi/18.png',
-      months: [9],
-      festivals: ['教师节'],
-      description: '教师节蜡烛主题海报模板',
-      type: '西方节日'
-    },
-    {
-      id: 'jiaoshi-2024-019',
-      name: '教师节春蚕',
-      thumbnail: 'images/jiaoshi/thumbnails/19.jpg',
-      image: 'images/jiaoshi/19.png',
-      months: [9],
-      festivals: ['教师节'],
-      description: '教师节春蚕主题海报模板',
-      type: '西方节日'
-    },
-    {
       id: 'bailu-2024-001',
       name: '白露节气',
       thumbnail: 'images/bailu/thumbnails/1.jpg',
