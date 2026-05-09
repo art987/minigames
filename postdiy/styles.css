@@ -6305,6 +6305,13 @@ input.hidden {
   font-weight: bold;
 }
 
+.future-suggestion-text .festival-date {
+  color: #888;
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 4px;
+  display: inline;}
+
 .future-suggestion-buttons {
   display: block;
   gap: 0.5rem;
