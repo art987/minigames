@@ -4098,26 +4098,6 @@ window.templates = {
       type: '传统节日'
     },
     {
-      id: 'zhongyuan-2024-014',
-      name: '中元祭拜',
-      thumbnail: 'images/zhongyuan/thumbnails/14.jpg',
-      image: 'images/zhongyuan/14.png',
-      months: [8],
-      festivals: ['中元节'],
-      description: '中元节祭拜主题海报模板',
-      type: '传统节日'
-    },
-    {
-      id: 'zhongyuan-2024-015',
-      name: '中元祭奠',
-      thumbnail: 'images/zhongyuan/thumbnails/15.jpg',
-      image: 'images/zhongyuan/15.png',
-      months: [8],
-      festivals: ['中元节'],
-      description: '中元节祭奠主题海报模板',
-      type: '传统节日'
-    },
-    {
       id: 'chushu-2024-001',
       name: '处暑节气',
       thumbnail: 'images/chushu/thumbnails/1.jpg',
