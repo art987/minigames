@@ -13874,100 +13874,171 @@ window.textTemplateManager = {
         });
       });
       
-      // 设置滚动加载
-      setupScrollToLoad();
+      // 显示"加载更多"按钮
+      showLoadMoreButton();
     }
     
     // 追加更多节日
     function appendMoreFestivals() {
       if (isLoadingMore) return;
       
-      const previousCount = loadedFestivalCount;
-      loadedFestivalCount += 3;
-      
-      const futureFestivals = getFutureFestivals(loadedFestivalCount);
-      
-      if (!futureFestivals || futureFestivals.length <= previousCount) {
-        loadedFestivalCount = previousCount;
-        return;
-      }
-      
       isLoadingMore = true;
       
-      // 只获取新增的节日
-      const newFestivals = futureFestivals.slice(previousCount);
+      // 显示加载动画（并移到最后）
+      showLoadingIndicator();
       
-      let html = '';
-      
-      newFestivals.forEach(festival => {
-        let daysText = `${festival.daysUntil}天后：`;
+      // 1秒后加载新内容
+      setTimeout(() => {
+        const previousCount = loadedFestivalCount;
+        loadedFestivalCount += 3;
         
-        // 格式化日期
-        const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
-        const year = festival.date.getFullYear();
-        const month = festival.date.getMonth() + 1;
-        const day = festival.date.getDate();
-        const weekDay = weekDays[festival.date.getDay()];
-        const dateStr = `（${year}年${month}月${day}日 星期${weekDay}）`;
+        const futureFestivals = getFutureFestivals(loadedFestivalCount);
         
-        html += `<div class="future-suggestion-item">`;
-        html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
-        html += `<div class="future-suggestion-buttons">`;
-        html += `<div class="button-wrapper"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选模板</button></div>`;
-        html += '</div></div>';
-      });
-      
-      if (html) {
-        futureSuggestionContent.insertAdjacentHTML('beforeend', html);
+        if (!futureFestivals || futureFestivals.length <= previousCount) {
+          loadedFestivalCount = previousCount;
+          hideLoadingIndicator();
+          showLoadMoreButton();
+          isLoadingMore = false;
+          return;
+        }
         
-        // 为新增按钮设置背景图片和事件
-        const newButtons = futureSuggestionContent.querySelectorAll('.future-suggestion-btn:not([data-initialized])');
-        newButtons.forEach(btn => {
-          btn.dataset.initialized = 'true';
-          const action = btn.dataset.action;
-          if (action === 'festival') {
-            setButtonBackground(btn, btn.dataset.festival);
-          } else {
-            setButtonBackground(btn, action);
+        // 只获取新增的节日
+        const newFestivals = futureFestivals.slice(previousCount);
+        
+        // 先隐藏加载动画
+        hideLoadingIndicator();
+        
+        // 逐个添加节日卡片（带动画）
+        let index = 0;
+        const addItemWithAnimation = () => {
+          if (index >= newFestivals.length) {
+            // 所有卡片添加完成后，显示"加载更多"按钮
+            showLoadMoreButton();
+            isLoadingMore = false;
+            return;
           }
           
-          btn.addEventListener('click', function() {
-            closeHomePopup();
-            
-            if (action === 'festival') {
-              const festival = this.dataset.festival;
-              window.openTemplateModalWithFestival(festival);
-            } else if (action === 'zaoan') {
-              window.openTemplateModalWithFestival('zaoan');
-            } else if (action === 'wanan') {
-              window.openTemplateModalWithFestival('wanan');
+          const festival = newFestivals[index];
+          let daysText = `${festival.daysUntil}天后：`;
+          
+          // 格式化日期
+          const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+          const year = festival.date.getFullYear();
+          const month = festival.date.getMonth() + 1;
+          const day = festival.date.getDate();
+          const weekDay = weekDays[festival.date.getDay()];
+          const dateStr = `（${year}年${month}月${day}日 星期${weekDay}）`;
+          
+          const itemHtml = `<div class="future-suggestion-item festival-item-animate">` +
+            `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>` +
+            `<div class="future-suggestion-buttons">` +
+            `<div class="button-wrapper"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选模板</button></div>` +
+            '</div></div>';
+          
+          // 在加载更多按钮前插入
+          const loadMoreBtn = document.getElementById('loadMoreFestivalsBtn');
+          if (loadMoreBtn) {
+            loadMoreBtn.insertAdjacentHTML('beforebegin', itemHtml);
+          } else {
+            futureSuggestionContent.insertAdjacentHTML('beforeend', itemHtml);
+          }
+          
+          // 为新增按钮设置背景图片和事件
+          const newItems = futureSuggestionContent.querySelectorAll('.festival-item-animate:not([data-initialized])');
+          const newItem = newItems[newItems.length - 1];
+          if (newItem) {
+            newItem.dataset.initialized = 'true';
+            const btn = newItem.querySelector('.future-suggestion-btn');
+            if (btn) {
+              const action = btn.dataset.action;
+              if (action === 'festival') {
+                setButtonBackground(btn, btn.dataset.festival);
+              } else {
+                setButtonBackground(btn, action);
+              }
+              
+              btn.addEventListener('click', function() {
+                closeHomePopup();
+                
+                if (action === 'festival') {
+                  const festival = this.dataset.festival;
+                  window.openTemplateModalWithFestival(festival);
+                } else if (action === 'zaoan') {
+                  window.openTemplateModalWithFestival('zaoan');
+                } else if (action === 'wanan') {
+                  window.openTemplateModalWithFestival('wanan');
+                }
+              });
             }
+          }
+          
+          // 滚动到底部
+          scrollToBottom();
+          
+          index++;
+          // 等待动画完成后添加下一个
+          setTimeout(addItemWithAnimation, 500);
+        };
+        
+        addItemWithAnimation();
+      }, 1000);
+    }
+    
+    // 滚动到底部
+    function scrollToBottom() {
+      const scrollContainer = homePopup.querySelector('.modal-body.scrollable-body');
+      if (scrollContainer) {
+        setTimeout(() => {
+          scrollContainer.scrollTo({
+            top: scrollContainer.scrollHeight,
+            behavior: 'smooth'
           });
-        });
+        }, 100);
       }
-      
-      isLoadingMore = false;
     }
     
-    // 设置滚动加载更多节日
-    function setupScrollToLoad() {
-      const scrollContainer = homePopup.querySelector('.modal-body.scrollable-body');
-      if (!scrollContainer) return;
-      
-      scrollContainer.removeEventListener('scroll', handleScrollToLoad);
-      scrollContainer.addEventListener('scroll', handleScrollToLoad);
+    // 显示"加载更多"按钮
+    function showLoadMoreButton() {
+      let loadMoreBtn = document.getElementById('loadMoreFestivalsBtn');
+      if (!loadMoreBtn) {
+        loadMoreBtn = document.createElement('div');
+        loadMoreBtn.id = 'loadMoreFestivalsBtn';
+        loadMoreBtn.className = 'load-more-festivals-btn';
+        loadMoreBtn.innerHTML = '<span>加载更多</span>';
+        loadMoreBtn.addEventListener('click', appendMoreFestivals);
+        futureSuggestionContent.appendChild(loadMoreBtn);
+      }
+      loadMoreBtn.style.display = 'flex';
     }
     
-    // 滚动加载处理
-    function handleScrollToLoad() {
-      const scrollContainer = homePopup.querySelector('.modal-body.scrollable-body');
-      if (!scrollContainer) return;
-      
-      const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-      
-      // 当滚动到距离底部50px时加载更多
-      if (scrollTop + clientHeight >= scrollHeight - 50) {
-        appendMoreFestivals();
+    // 隐藏"加载更多"按钮
+    function hideLoadMoreButton() {
+      const loadMoreBtn = document.getElementById('loadMoreFestivalsBtn');
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+    
+    // 显示加载动画（始终放在最后）
+    function showLoadingIndicator() {
+      hideLoadMoreButton();
+      let loadingDiv = document.getElementById('festivalLoadingIndicator');
+      if (!loadingDiv) {
+        loadingDiv = document.createElement('div');
+        loadingDiv.id = 'festivalLoadingIndicator';
+        loadingDiv.className = 'festival-loading-indicator';
+        loadingDiv.innerHTML = '<div class="loading-spinner"></div><span>加载中...</span>';
+      }
+      // 移到最后
+      futureSuggestionContent.appendChild(loadingDiv);
+      loadingDiv.style.display = 'flex';
+    }
+    
+    // 隐藏加载动画
+    function hideLoadingIndicator() {
+      const loadingDiv = document.getElementById('festivalLoadingIndicator');
+      if (loadingDiv) {
+        loadingDiv.style.display = 'none';
       }
     }
   }
