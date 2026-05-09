@@ -5304,6 +5304,15 @@ window.templates = {
       festivals: ['国庆节'],
       description: '国庆节繁荣主题海报模板',
       type: '传统节日'
+    },{
+      id: 'guoqing-2024-015',
+      name: '国庆繁荣',
+      thumbnail: 'images/guoqing/thumbnails/15.jpg',
+      image: 'images/guoqing/15.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节繁荣主题海报模板',
+      type: '传统节日'
     },
     {
       id: 'hanlu-2024-001',

@@ -13581,71 +13581,48 @@ window.textTemplateManager = {
       return null;
     }
     
-    // 背景图片配置
-    const backgroundImages = {
-      // 节气节日
-      '谷雨': { folder: 'images/guyu/thumbnails', count: 20, ext: 'jpg' },
-      '立春': { folder: 'images/lichun/thumbnails', count: 20, ext: 'jpg' },
-      '雨水': { folder: 'images/yushui/thumbnails', count: 20, ext: 'jpg' },
-      '惊蛰': { folder: 'images/jingzhe/thumbnails', count: 20, ext: 'jpg' },
-      '春分': { folder: 'images/chunfen/thumbnails', count: 21, ext: 'jpg' },
-      '清明': { folder: 'images/qingming/thumbnails', count: 20, ext: 'jpg' },
-      '立夏': { folder: 'images/lixia/thumbnails', count: 20, ext: 'jpg' },
-      '小满': { folder: 'images/xiaoman/thumbnails', count: 20, ext: 'jpg' },
-      '芒种': { folder: 'images/mangzhong/thumbnails', count: 20, ext: 'jpg' },
-      '夏至': { folder: 'images/xiazhi/thumbnails', count: 20, ext: 'jpg' },
-      '小暑': { folder: 'images/xiaoshu/thumbnails', count: 20, ext: 'jpg' },
-      '大暑': { folder: 'images/dashu/thumbnails', count: 16, ext: 'jpg' },
-      '立秋': { folder: 'images/liqiu/thumbnails', count: 20, ext: 'jpg' },
-      '处暑': { folder: 'images/chushu/thumbnails', count: 11, ext: 'jpg' },
-      '白露': { folder: 'images/bailu/thumbnails', count: 17, ext: 'jpg' },
-      '秋分': { folder: 'images/qiufen/thumbnails', count: 20, ext: 'jpg' },
-      '寒露': { folder: 'images/hanlu/thumbnails', count: 20, ext: 'jpg' },
-      '霜降': { folder: 'images/shuangjiang/thumbnails', count: 20, ext: 'jpg' },
-      '立冬': { folder: 'images/lidong/thumbnails', count: 20, ext: 'jpg' },
-      '小雪': { folder: 'images/xiaoxue/thumbnails', count: 20, ext: 'jpg' },
-      '大雪': { folder: 'images/daxue/thumbnails', count: 10, ext: 'jpg' },
-      '冬至': { folder: 'images/dongzhi/thumbnails', count: 8, ext: 'png' },
-      '小寒': { folder: 'images/xiaohan/thumbnails', count: 20, ext: 'jpg' },
-      '大寒': { folder: 'images/dahan/thumbnails', count: 11, ext: 'jpg' },
-      
-      // 传统节日
-      '春节': { folder: 'images/chunjie/thumbnails', count: 9, ext: 'jpg' },
-      '元宵节': { folder: 'images/yuanxiaojie/thumbnails', count: 20, ext: 'jpg' },
-      '端午节': { folder: 'images/duanwu/thumbnails', count: 15, ext: 'jpg' },
-      '中秋节': { folder: 'images/zhongqiujie/thumbnails', count: 20, ext: 'jpg' },
-      '重阳节': { folder: 'images/chongyang/thumbnails', count: 11, ext: 'jpg' },
-      '除夕': { folder: 'images/chuxi/thumbnails', count: 10, ext: 'jpg' },
-      
-      // 现代节日
-      '元旦': { folder: 'images/yuandan/thumbnails', count: 20, ext: 'jpg' },
-      '情人节': { folder: 'images/qingrenjie/thumbnails', count: 20, ext: 'jpg' },
-      '妇女节': { folder: 'images/funvjie/thumbnails', count: 12, ext: 'jpg' },
-      '劳动节': { folder: 'images/laodongjie/thumbnails', count: 20, ext: 'jpg' },
-      '青年节': { folder: 'images/qingnianjie/thumbnails', count: 20, ext: 'jpg' },
-      '母亲节': { folder: 'images/muqinjie/thumbnails', count: 20, ext: 'jpg' },
-      '儿童节': { folder: 'images/ertongjie/thumbnails', count: 16, ext: 'jpg' },
-      '父亲节': { folder: 'images/fuqinjie/thumbnails', count: 24, ext: 'jpg' },
-      '教师节': { folder: 'images/jiaoshijie/thumbnails', count: 20, ext: 'jpg' },
-      '国庆节': { folder: 'images/guoqingjie/thumbnails', count: 20, ext: 'jpg' },
-      '感恩节': { folder: 'images/ganenjie', count: 18, ext: 'jpg' },
-      '圣诞节': { folder: 'images/shengdanjie/thumbnails', count: 20, ext: 'jpg' },
-      '世界地球日': { folder: 'images/shijiediqiuri/thumbnails', count: 10, ext: 'jpg' },
-      '世界读书日': { folder: 'images/shijiedushuri/thumbnails', count: 15, ext: 'jpg' },
-      
-      // 日常海报
-      'dairy': { folder: 'images/dairy', count: 3, ext: 'jpg' },
-      'zaoan': { folder: 'images/zaoan/thumbnails', count: 8, ext: 'jpg' },
-      'wanan': { folder: 'images/wanan/thumbnails', count: 12, ext: 'jpg' }
-    };
-    
-    // 获取随机背景图片
+    // 从 templates 对象中动态获取指定节日的随机背景图片
     function getRandomBackgroundImage(type) {
-      if (!backgroundImages[type]) return null;
+      // 特殊处理 dairy（日常海报没有在 templates 中定义）
+      if (type === 'dairy') {
+        const randomNum = Math.floor(Math.random() * 3) + 1;
+        return `images/dairy/${randomNum}.jpg`;
+      }
       
-      const config = backgroundImages[type];
-      const randomNum = Math.floor(Math.random() * config.count) + 1;
-      return `${config.folder}/${randomNum}.${config.ext}`;
+      if (typeof window.templates === 'undefined') {
+        console.log('templates 对象未定义');
+        return null;
+      }
+      
+      // action 到 festival 的映射
+      const actionToFestival = {
+        'zaoan': '早安',
+        'wanan': '晚安'
+      };
+      
+      // 如果是 action，转换为 festival 名称
+      const festivalType = actionToFestival[type] || type;
+      
+      let matchedTemplates = [];
+      
+      for (const month in window.templates) {
+        if (Array.isArray(window.templates[month])) {
+          window.templates[month].forEach(template => {
+            if (template.festivals && template.festivals.includes(festivalType)) {
+              matchedTemplates.push(template);
+            }
+          });
+        }
+      }
+      
+      if (matchedTemplates.length === 0) {
+        console.log('未找到匹配的模板:', type, '->', festivalType);
+        return null;
+      }
+      
+      const randomTemplate = matchedTemplates[Math.floor(Math.random() * matchedTemplates.length)];
+      console.log('找到模板:', type, '->', festivalType, randomTemplate.thumbnail);
+      return randomTemplate.thumbnail;
     }
     
     // 设置按钮背景图片
