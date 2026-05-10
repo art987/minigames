@@ -1,6 +1,6 @@
 // 模板数据
 // 海报模板数据
-window.templates = {
+var templates = {
   // 1月模板
   '1月': [
     {

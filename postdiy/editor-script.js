@@ -5500,6 +5500,12 @@ let currentCropTarget = null;
       const monthTemplates = window.templates[monthKey];
       
       monthTemplates.forEach(template => {
+        // 跳过无效模板
+        if (!template || !template.thumbnail) {
+          console.warn('跳过无效模板:', monthKey, template);
+          return;
+        }
+        
         // 创建模板项
         const templateItem = document.createElement('div');
         templateItem.className = 'template-item';
@@ -5596,6 +5602,11 @@ let currentCropTarget = null;
     elements.templateGalleryContainer.innerHTML = '';
 
     state.allTemplatesList.forEach((template, index) => {
+      if (!template || !template.thumbnail) {
+        console.warn('跳过无效模板:', index, template);
+        return;
+      }
+      
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
@@ -5917,7 +5928,9 @@ let currentCropTarget = null;
     // 遍历所有月份，收集所有模板
     for (const monthKey in window.templates) {
       if (window.templates[monthKey]) {
-        allTemplates.push(...window.templates[monthKey]);
+        // 过滤掉无效模板
+        const validTemplates = window.templates[monthKey].filter(t => t && t.thumbnail);
+        allTemplates.push(...validTemplates);
       }
     }
     
