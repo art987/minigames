@@ -5543,6 +5543,66 @@ window.templates = {
       festivals: ['重阳节'],
       description: '重阳节长寿主题海报模板',
       type: '传统节日'
+    },,
+    {
+      id: 'chongyang-2024-011',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/11.jpg',
+      image: 'images/chongyang/11.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chongyang-2024-012',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/12.jpg',
+      image: 'images/chongyang/12.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chongyang-2024-013',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/13.jpg',
+      image: 'images/chongyang/13.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chongyang-2024-014',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/14.jpg',
+      image: 'images/chongyang/14.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chongyang-2024-015',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/15.jpg',
+      image: 'images/chongyang/15.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'chongyang-2024-016',
+      name: '重阳长寿',
+      thumbnail: 'images/chongyang/thumbnails/16.jpg',
+      image: 'images/chongyang/16.png',
+      months: [10],
+      festivals: ['重阳节'],
+      description: '重阳节长寿主题海报模板',
+      type: '传统节日'
     },
     {
       id: 'shuangjiang-2024-001',
