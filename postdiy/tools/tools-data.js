@@ -46,6 +46,15 @@ window.toolsData = {
       category: '图片处理'
     },
     
+    {
+      id: 5,
+      image: 'bg-remove.png',
+      title: '在线抠图工具',
+      description: 'AI智能抠图，自动识别主体，一键去除背景',
+      tags: ['图片', '抠图', 'AI'],
+      link: 'bg-remove.html',
+      category: '图片处理'
+    },
     
     {
       id: 9,
