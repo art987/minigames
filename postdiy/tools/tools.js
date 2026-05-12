@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <button class="modal-close-btn" onclick="closeExternalModal()">
               <i class="fa fa-times"></i>
             </button>
-            <p class="external-modal-text">应用内无法使用完整功能，请从手机浏览器打开</p>
+            <p class="external-modal-text">第三方工具推荐，<br>请复制网址后在手机浏览器打开。</p>
             <button class="external-copy-btn" id="externalCopyBtn" onclick="copyExternalUrl()">
               <i class="fa fa-copy"></i>
               <span id="externalCopyText">复制网址</span>
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
         <div class="external-toast" id="externalToast">
-          <span id="externalToastText">已复制，请打开浏览器粘贴访问</span>
+          <span id="externalToastText">已复制，请打开浏览器 粘贴访问。</span>
         </div>
       `;
       document.body.insertAdjacentHTML('beforeend', modalHtml);
