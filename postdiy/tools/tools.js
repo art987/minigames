@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     noResults.style.display = 'none';
     
     cardsContainer.innerHTML = cards.map(card => `
-      <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}')">
+      <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}', ${card.external ? 'true' : 'false'})">
         <img src="${card.image}" alt="${card.title}" class="card-image" onerror="this.src='https://via.placeholder.com/400x200/CCCCCC/666666?text=暂无图片'">
         <div class="card-content">
           <h3 class="card-title">${card.title}</h3>
@@ -189,11 +189,108 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // 卡片点击处理
-  window.handleCardClick = function(link) {
-    // 跳转到对应的工具页面
-    console.log('跳转到工具:', link);
-    window.location.href = link; // 启用跳转
+  window.handleCardClick = function(link, isExternal) {
+    if (isExternal) {
+      showExternalModal(link);
+    } else {
+      window.location.href = link;
+    }
   };
+  
+  // 显示外部链接弹窗
+  function showExternalModal(url) {
+    let modal = document.getElementById('externalModal');
+    if (!modal) {
+      const modalHtml = `
+        <div class="modal-overlay" id="externalModal">
+          <div class="external-modal-box">
+            <button class="modal-close-btn" onclick="closeExternalModal()">
+              <i class="fa fa-times"></i>
+            </button>
+            <p class="external-modal-text">应用内无法使用完整功能，请从手机浏览器打开</p>
+            <button class="external-copy-btn" id="externalCopyBtn" onclick="copyExternalUrl()">
+              <i class="fa fa-copy"></i>
+              <span id="externalCopyText">复制网址</span>
+            </button>
+          </div>
+        </div>
+        <div class="external-toast" id="externalToast">
+          <span id="externalToastText">已复制，请打开浏览器粘贴访问</span>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      modal = document.getElementById('externalModal');
+    }
+    
+    window.currentExternalUrl = url;
+    modal.classList.remove('hidden');
+    
+    const btn = document.getElementById('externalCopyBtn');
+    const btnText = document.getElementById('externalCopyText');
+    if (btn) {
+      btn.classList.remove('copied');
+      btnText.textContent = '复制网址';
+    }
+  }
+  
+  // 关闭外部链接弹窗
+  window.closeExternalModal = function() {
+    const modal = document.getElementById('externalModal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  };
+  
+  // 复制外部网址
+  window.copyExternalUrl = function() {
+    const url = window.currentExternalUrl;
+    const btn = document.getElementById('externalCopyBtn');
+    const btnText = document.getElementById('externalCopyText');
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast();
+      }).catch(() => {
+        fallbackCopy(url);
+      });
+    } else {
+      fallbackCopy(url);
+    }
+  };
+  
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast();
+    } catch (err) {
+      alert('复制失败，请手动复制网址：' + text);
+    }
+    document.body.removeChild(textarea);
+  }
+  
+  function showToast() {
+    const btn = document.getElementById('externalCopyBtn');
+    const btnText = document.getElementById('externalCopyText');
+    btn.classList.add('copied');
+    btnText.textContent = '已复制';
+    
+    setTimeout(() => {
+      closeExternalModal();
+    }, 100);
+    
+    const toast = document.getElementById('externalToast');
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
   
   // 键盘事件 - 回车搜索
   searchInput.addEventListener('keypress', function(e) {

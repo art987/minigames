@@ -1,0 +1,66 @@
+{
+  "tabBarItems": [
+    {
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "showText": true,
+      "webviewUrl": "https://peacelove.top/postdiy/index.html",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/logo.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/logo.gif",
+      "enablePullDownRefresh": false
+    },
+    {
+      "pagePath": "pages/business/index",
+      "text": "生意经",
+      "showText": true,
+      "webviewUrl": "https://peacelove.top/postdiy/business/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/business-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
+      "enablePullDownRefresh": true
+    },
+    {
+      "pagePath": "pages/tools/index",
+      "text": "工具箱",
+      "showText": true,
+      "webviewUrl": "https://peacelove.top/postdiy/tools/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/tools-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/tools.png",
+      "enablePullDownRefresh": true
+    },
+    {
+      "pagePath": "pages/about/index",
+      "text": "关于",
+      "showText": true,
+      "webviewUrl": "https://peacelove.top/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
+      "enablePullDownRefresh": true
+    }
+  ],
+  "tabBarStyle": {
+    "backgroundColor": "#ffffff",
+    "borderTopColor": "#ececec",
+    "activeTextColor": "#111111",
+    "inactiveTextColor": "#8a8f98",
+    "textFontSize": "22rpx",
+    "iconWidth": "52rpx",
+    "iconHeight": "52rpx",
+    "height": "120rpx",
+    "paddingTop": "10rpx",
+    "paddingBottom": "10rpx",
+    "statusBarBackgroundColor": "#ffffff",
+    "safeAreaBackgroundColor": "#ffffff"
+  },
+  "webviewLoadingStyle": {
+    "showNativeProgress": true,
+    "progressBarColor": "#b41408ff",
+    "splashBackgroundColor": "#ffffff",
+    "remoteSplashImageUrl": "https://peacelove.top/postdiy/images/statics/applogo.png",
+    "defaultSplashImageUrl": "/static/splash-default.png",
+    "splashImageWidth": "180rpx",
+    "splashImageHeight": "180rpx",
+    "loadingText": "闪喵~每天都是品牌宣传日...",
+    "loadingTextColor": "#666666",
+    "loadingTextFontSize": "26rpx"
+  }
+}
