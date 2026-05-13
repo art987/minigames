@@ -35,28 +35,27 @@ window.toolsData = {
       link: 'qrcode-generator.html',
       category: '效率工具'
     },
-    
     {
-      id: 4,
-      image: 'image-compress.png',
-      title: '图片压缩工具',
-      description: '在线压缩图片，保持质量减小体积',
-      tags: ['图片', '压缩', '工具'],
-      link: 'https://gallery.selfboot.cn/zh/tools/imagecompress',
-      category: '图片处理',
-      external: true
-    },
-    
-{
-      id: 5,
+      id: 3,
       image: 'bg-remove.png',
       title: '在线抠图工具',
       description: 'AI智能抠图，自动识别主体，一键去除背景',
       tags: ['图片', '抠图', 'AI'],
       link: 'https://zh.bgsub.com/webapp/',
       category: '图片处理',
-      external: true
+      external: false
     },
+    {
+      id: 4,
+      image: 'cnbrands.png',
+      title: '国货品牌',
+      description: '国货品牌导航 - 高性价比 口碑老牌 放心使用 支持国货，点亮生活',
+      tags: ['购物', '品牌', '国货'],
+      link: 'https://peacelove.top/cnbrand/index.html',
+      category: '购物工具'
+    },
+    
+,
     
     {
       id: 9,
