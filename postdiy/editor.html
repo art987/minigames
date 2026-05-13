@@ -470,9 +470,9 @@
                 </button>
                 <div id="logoTransparencyToggle" class="logo-transparency-toggle hidden">
                   <div class="toggle-track">
-                    <span class="toggle-label toggle-label-left">不透明</span>
-                    <div class="toggle-thumb">不透明</div>
-                    <span class="toggle-label toggle-label-right">透明</span>
+                    <span class="toggle-label toggle-label-left">圆角</span>
+                    <div class="toggle-thumb">圆角</div>
+                    <span class="toggle-label toggle-label-right">原图</span>
                   </div>
                 </div>
               </div>
@@ -1001,5 +1001,65 @@
       });
     }
   </script>
+
+  <div id="logoSuggestModal" class="logo-suggest-modal">
+    <div class="logo-suggest-panel">
+      <div class="logo-suggest-header">
+        <span>💡 美化建议</span>
+      </div>
+      <div class="logo-suggest-body">
+        <p>为了更好的效果，选择原图logo最好是透明背景。</p>
+      </div>
+      <div class="logo-suggest-footer">
+        <button class="logo-suggest-btn logo-suggest-btn-secondary" id="logoSuggestTransparentBtn">已经是透明logo</button>
+        <button class="logo-suggest-btn logo-suggest-btn-primary" id="logoSuggestCutoutBtn">马上抠图</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="logoCutoutModal" class="logo-cutout-modal">
+    <div class="logo-cutout-panel">
+      <div class="logo-cutout-header">
+        <span>🎨 Logo抠图</span>
+        <button class="logo-cutout-close" id="logoCutoutClose">✕</button>
+      </div>
+      <div class="logo-cutout-body">
+        <div class="logo-cutout-canvas-area">
+          <div class="logo-cutout-half">
+            <p class="logo-cutout-label">点击吸色</p>
+            <div class="logo-cutout-canvas-wrap" id="logoCutoutSrcWrap">
+              <canvas id="logoCutoutSrcCanvas"></canvas>
+              <div class="logo-cutout-crosshair" id="logoCutoutCrosshair"></div>
+            </div>
+          </div>
+          <div class="logo-cutout-half">
+            <p class="logo-cutout-label">抠图结果</p>
+            <canvas id="logoCutoutResultCanvas"></canvas>
+          </div>
+        </div>
+        <div class="logo-cutout-controls">
+          <div class="logo-cutout-mode-row" id="logoCutoutModeRow">
+            <button class="logo-cutout-mode-btn active" data-mode="auto">自动</button>
+            <button class="logo-cutout-mode-btn" data-mode="white">白色</button>
+            <button class="logo-cutout-mode-btn" data-mode="black">黑色</button>
+            <button class="logo-cutout-mode-btn" data-mode="custom">吸色</button>
+          </div>
+          <div class="logo-cutout-color-row" id="logoCutoutColorRow" style="display:none;">
+            <div class="logo-cutout-swatch" id="logoCutoutSwatch"></div>
+            <span class="logo-cutout-color-val" id="logoCutoutColorVal">#FFFFFF</span>
+          </div>
+          <div class="logo-cutout-tolerance-row">
+            <span>容差</span>
+            <input type="range" id="logoCutoutTolerance" min="0" max="100" value="80">
+            <span id="logoCutoutToleranceVal">80%</span>
+          </div>
+        </div>
+      </div>
+      <div class="logo-cutout-footer">
+        <button class="logo-cutout-btn logo-cutout-btn-primary" id="logoCutoutConfirmBtn">确定使用</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

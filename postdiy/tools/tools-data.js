@@ -39,9 +39,9 @@ window.toolsData = {
       id: 3,
       image: 'bg-remove.png',
       title: '在线抠图工具',
-      description: 'AI智能抠图，自动识别主体，一键去除背景',
+      description: 'AI智能抠图，自动识别主体，一键去除背景（需编译 Rembg WASM）',
       tags: ['图片', '抠图', 'AI'],
-      link: 'https://zh.bgsub.com/webapp/',
+      link: 'removebg/index.html',
       category: '图片处理',
       external: false
     },

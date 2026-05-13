@@ -2093,7 +2093,7 @@ let currentCropTarget = null;
             // 更新滑块文字
             const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
             if (thumb) {
-              thumb.textContent = newInfo.logoTransparent ? '透明' : '不透明';
+              thumb.textContent = newInfo.logoTransparent ? '原图' : '圆角';
             }
             updateLogoTransparencyStyle(newInfo.logoTransparent);
           }
@@ -2828,17 +2828,28 @@ let currentCropTarget = null;
     let useTransparentFormat = false;
     
     if (currentCropTarget === 'logo') {
-      const targetSize = 350;
-      if (finalCanvas.width !== targetSize || finalCanvas.height !== targetSize) {
-        outputCanvas = document.createElement('canvas');
-        outputCanvas.width = targetSize;
-        outputCanvas.height = targetSize;
-        const ctx = outputCanvas.getContext('2d');
-        // 确保透明背景
-        ctx.clearRect(0, 0, targetSize, targetSize);
-        ctx.drawImage(finalCanvas, 0, 0, targetSize, targetSize);
-        console.log('Logo缩放到目标尺寸:', targetSize + 'x' + targetSize);
+      const minHeight = 300;
+      let cropWidth = finalCanvas.width;
+      let cropHeight = finalCanvas.height;
+
+      if (cropHeight < minHeight) {
+        const scale = minHeight / cropHeight;
+        cropWidth = Math.round(cropWidth * scale);
+        cropHeight = minHeight;
       }
+
+      if (cropWidth < cropHeight) {
+        cropWidth = cropHeight;
+      }
+
+      outputCanvas = document.createElement('canvas');
+      outputCanvas.width = cropWidth;
+      outputCanvas.height = cropHeight;
+      const ctx = outputCanvas.getContext('2d');
+      ctx.clearRect(0, 0, cropWidth, cropHeight);
+      ctx.drawImage(finalCanvas, 0, 0, cropWidth, cropHeight);
+      console.log('Logo输出尺寸:', cropWidth + 'x' + cropHeight);
+
       useTransparentFormat = currentCropImageType === 'png';
     }
     
@@ -2854,6 +2865,7 @@ let currentCropTarget = null;
       saveToCache(IMAGE_CACHE_KEYS.logo, base64);
 
       updateBusinessInfoDisplay();
+      updateLogoSize();
 
       if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
         elements.logoPreviewImg.src = base64;
@@ -2867,7 +2879,7 @@ let currentCropTarget = null;
           // 更新滑块文字
           const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
           if (thumb) {
-            thumb.textContent = '不透明';
+            thumb.textContent = '圆角';
           }
         }
       }
@@ -4062,6 +4074,82 @@ let currentCropTarget = null;
     if (elements.logoTransparencyToggle) {
       elements.logoTransparencyToggle.addEventListener('click', toggleLogoTransparency);
     }
+
+    const logoSuggestTransparentBtn = document.getElementById('logoSuggestTransparentBtn');
+    if (logoSuggestTransparentBtn) {
+      logoSuggestTransparentBtn.addEventListener('click', function() {
+        const suggestModal = document.getElementById('logoSuggestModal');
+        if (suggestModal) suggestModal.classList.remove('active');
+        applyLogoTransparentMode();
+      });
+    }
+
+    const logoSuggestCutoutBtn = document.getElementById('logoSuggestCutoutBtn');
+    if (logoSuggestCutoutBtn) {
+      logoSuggestCutoutBtn.addEventListener('click', function() {
+        const suggestModal = document.getElementById('logoSuggestModal');
+        if (suggestModal) suggestModal.classList.remove('active');
+        openLogoCutoutModal();
+      });
+    }
+
+    const logoCutoutClose = document.getElementById('logoCutoutClose');
+    if (logoCutoutClose) {
+      logoCutoutClose.addEventListener('click', closeLogoCutoutModal);
+    }
+
+    const logoCutoutConfirmBtn = document.getElementById('logoCutoutConfirmBtn');
+    if (logoCutoutConfirmBtn) {
+      logoCutoutConfirmBtn.addEventListener('click', confirmLogoCutout);
+    }
+
+    const logoCutoutTolerance = document.getElementById('logoCutoutTolerance');
+    if (logoCutoutTolerance) {
+      logoCutoutTolerance.addEventListener('input', function() {
+        const val = parseInt(this.value);
+        document.getElementById('logoCutoutToleranceVal').textContent = val + '%';
+        if (logoCutoutState.selectedColor) {
+          performLogoCutout();
+        }
+      });
+    }
+
+    const logoCutoutSrcCanvas = document.getElementById('logoCutoutSrcCanvas');
+    if (logoCutoutSrcCanvas) {
+      logoCutoutSrcCanvas.addEventListener('click', handleLogoCutoutPick);
+      logoCutoutSrcCanvas.addEventListener('mousemove', handleLogoCutoutPickMove);
+      logoCutoutSrcCanvas.addEventListener('touchstart', handleLogoCutoutTouchPick, { passive: false });
+      logoCutoutSrcCanvas.addEventListener('touchmove', handleLogoCutoutTouchPick, { passive: false });
+    }
+
+    const logoCutoutModeRow = document.getElementById('logoCutoutModeRow');
+    if (logoCutoutModeRow) {
+      logoCutoutModeRow.addEventListener('click', function(e) {
+        const btn = e.target.closest('.logo-cutout-mode-btn');
+        if (!btn) return;
+
+        document.querySelectorAll('.logo-cutout-mode-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const mode = btn.dataset.mode;
+        logoCutoutState.mode = mode;
+
+        const colorRow = document.getElementById('logoCutoutColorRow');
+        const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
+        const crosshair = document.getElementById('logoCutoutCrosshair');
+
+        if (mode === 'custom') {
+          if (colorRow) colorRow.style.display = 'flex';
+          if (srcCanvas) srcCanvas.style.cursor = 'crosshair';
+          if (crosshair) crosshair.style.display = 'block';
+        } else {
+          if (colorRow) colorRow.style.display = 'none';
+          if (srcCanvas) srcCanvas.style.cursor = 'default';
+          if (crosshair) crosshair.style.display = 'none';
+          performLogoCutout();
+        }
+      });
+    }
     
     // VIP恢复按钮事件
     
@@ -4613,7 +4701,10 @@ let currentCropTarget = null;
     
     // 更新商家Logo
     if (elements.posterLogoImg && elements.logoPlaceholder) {
-      // 先清理Logo容器中的所有canvas元素
+      elements.posterLogoImg.onload = function() {
+        updateLogoSize();
+      };
+
       const logoContainer = elements.posterLogoImg.parentElement;
       if (logoContainer) {
         const canvases = logoContainer.querySelectorAll('canvas');
@@ -4651,6 +4742,8 @@ let currentCropTarget = null;
         elements.posterLogoImg.style.display = 'block';
         elements.logoPlaceholder.style.display = 'none';
       }
+
+      updateLogoSize();
     }
     
     // 更新二维码
@@ -6552,7 +6645,7 @@ let currentCropTarget = null;
           // 更新滑块文字
           const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
           if (thumb) {
-            thumb.textContent = state.businessInfo.logoTransparent ? '透明' : '不透明';
+            thumb.textContent = state.businessInfo.logoTransparent ? '原图' : '圆角';
           }
         }
       } else {
@@ -6979,7 +7072,7 @@ let currentCropTarget = null;
     
     // 打开裁剪界面
     console.log('准备调用 openCropper');
-    openCropper(file, 'logo');
+    openCropper(file, 'logo', NaN);
   }
   
   // 移除Logo（只更新预览，不立即删除云端）
@@ -7014,25 +7107,304 @@ let currentCropTarget = null;
     if (!toggle) return;
 
     const isTransparent = !state.businessInfo.logoTransparent;
-    state.businessInfo.logoTransparent = isTransparent;
 
-    // 切换开关样式
     if (isTransparent) {
-      toggle.classList.add('active');
-    } else {
-      toggle.classList.remove('active');
+      const suggestModal = document.getElementById('logoSuggestModal');
+      if (suggestModal) {
+        suggestModal.classList.add('active');
+      }
+      return;
     }
 
-    // 更新滑块文字
+    state.businessInfo.logoTransparent = false;
+    toggle.classList.remove('active');
+
     const thumb = toggle.querySelector('.toggle-thumb');
     if (thumb) {
-      thumb.textContent = isTransparent ? '透明' : '不透明';
+      thumb.textContent = '圆角';
     }
 
-    // 更新 posterLogo 和 logo-inner-wrapper 的样式
-    updateLogoTransparencyStyle(isTransparent);
+    updateLogoTransparencyStyle(false);
+    showToast('Logo已设为圆角模式');
+  }
 
-    showToast(isTransparent ? 'Logo已设为透明模式' : 'Logo已设为不透明模式');
+  function applyLogoTransparentMode() {
+    const toggle = elements.logoTransparencyToggle;
+    if (!toggle) return;
+
+    state.businessInfo.logoTransparent = true;
+    toggle.classList.add('active');
+
+    const thumb = toggle.querySelector('.toggle-thumb');
+    if (thumb) {
+      thumb.textContent = '原图';
+    }
+
+    updateLogoTransparencyStyle(true);
+    showToast('Logo已设为原图模式');
+  }
+
+  const logoCutoutState = {
+    originalImageData: null,
+    selectedColor: null,
+    tolerance: 80,
+    imgWidth: 0,
+    imgHeight: 0,
+    mode: 'auto'
+  };
+
+  function openLogoCutoutModal() {
+    const logoImg = document.getElementById('posterLogoImg');
+    if (!logoImg || !logoImg.src || !logoImg.naturalWidth) {
+      showToast('请先上传Logo');
+      return;
+    }
+
+    const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
+    const resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    if (!srcCanvas || !resultCanvas) return;
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+      const maxDim = 400;
+      let w = img.width;
+      let h = img.height;
+      if (w > maxDim || h > maxDim) {
+        const scale = maxDim / Math.max(w, h);
+        w = Math.round(w * scale);
+        h = Math.round(h * scale);
+      }
+
+      logoCutoutState.imgWidth = w;
+      logoCutoutState.imgHeight = h;
+
+      srcCanvas.width = w;
+      srcCanvas.height = h;
+      const ctx = srcCanvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      logoCutoutState.originalImageData = ctx.getImageData(0, 0, w, h);
+
+      resultCanvas.width = w;
+      resultCanvas.height = h;
+      const rCtx = resultCanvas.getContext('2d');
+      rCtx.drawImage(img, 0, 0, w, h);
+
+      logoCutoutState.selectedColor = null;
+      logoCutoutState.tolerance = 50;
+      logoCutoutState.mode = 'auto';
+
+      const toleranceSlider = document.getElementById('logoCutoutTolerance');
+      if (toleranceSlider) toleranceSlider.value = 80;
+      const toleranceVal = document.getElementById('logoCutoutToleranceVal');
+      if (toleranceVal) toleranceVal.textContent = '80%';
+
+      const swatch = document.getElementById('logoCutoutSwatch');
+      if (swatch) swatch.style.background = '#ffffff';
+      const colorVal = document.getElementById('logoCutoutColorVal');
+      if (colorVal) colorVal.textContent = '#FFFFFF';
+
+      const crosshair = document.getElementById('logoCutoutCrosshair');
+      if (crosshair) crosshair.style.display = 'none';
+
+      const colorRow = document.getElementById('logoCutoutColorRow');
+      if (colorRow) colorRow.style.display = 'none';
+
+      document.querySelectorAll('.logo-cutout-mode-btn').forEach(b => b.classList.remove('active'));
+      const autoBtn = document.querySelector('.logo-cutout-mode-btn[data-mode="auto"]');
+      if (autoBtn) autoBtn.classList.add('active');
+
+      srcCanvas.style.cursor = 'default';
+
+      const cutoutModal = document.getElementById('logoCutoutModal');
+      if (cutoutModal) cutoutModal.classList.add('active');
+
+      performLogoCutout();
+    };
+    img.src = logoImg.src;
+  }
+
+  function closeLogoCutoutModal() {
+    const cutoutModal = document.getElementById('logoCutoutModal');
+    if (cutoutModal) cutoutModal.classList.remove('active');
+  }
+
+  function handleLogoCutoutPick(e) {
+    if (logoCutoutState.mode !== 'custom') return;
+
+    const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
+    if (!srcCanvas || !logoCutoutState.originalImageData) return;
+
+    const rect = srcCanvas.getBoundingClientRect();
+    const scaleX = srcCanvas.width / rect.width;
+    const scaleY = srcCanvas.height / rect.height;
+    const x = Math.floor((e.clientX - rect.left) * scaleX);
+    const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+    pickLogoCutoutColor(x, y);
+
+    const crosshair = document.getElementById('logoCutoutCrosshair');
+    if (crosshair) {
+      crosshair.style.display = 'block';
+      crosshair.style.left = e.clientX + 'px';
+      crosshair.style.top = e.clientY + 'px';
+    }
+  }
+
+  function handleLogoCutoutPickMove(e) {
+    if (e.buttons !== 1) return;
+    handleLogoCutoutPick(e);
+  }
+
+  function handleLogoCutoutTouchPick(e) {
+    if (logoCutoutState.mode !== 'custom') return;
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
+    if (!srcCanvas || !logoCutoutState.originalImageData) return;
+
+    const rect = srcCanvas.getBoundingClientRect();
+    const scaleX = srcCanvas.width / rect.width;
+    const scaleY = srcCanvas.height / rect.height;
+    const x = Math.floor((touch.clientX - rect.left) * scaleX);
+    const y = Math.floor((touch.clientY - rect.top) * scaleY);
+
+    pickLogoCutoutColor(x, y);
+
+    const crosshair = document.getElementById('logoCutoutCrosshair');
+    if (crosshair) {
+      crosshair.style.display = 'block';
+      crosshair.style.left = touch.clientX + 'px';
+      crosshair.style.top = touch.clientY + 'px';
+    }
+  }
+
+  function pickLogoCutoutColor(x, y) {
+    const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
+    if (!srcCanvas) return;
+
+    const ctx = srcCanvas.getContext('2d');
+    const pixel = ctx.getImageData(x, y, 1, 1).data;
+
+    const hex = '#' + [pixel[0], pixel[1], pixel[2]]
+      .map(v => v.toString(16).padStart(2, '0'))
+      .join('');
+
+    logoCutoutState.selectedColor = hex;
+
+    const swatch = document.getElementById('logoCutoutSwatch');
+    if (swatch) swatch.style.background = hex;
+    const colorVal = document.getElementById('logoCutoutColorVal');
+    if (colorVal) colorVal.textContent = hex.toUpperCase();
+
+    performLogoCutout();
+  }
+
+  function performLogoCutout() {
+    if (!logoCutoutState.originalImageData) return;
+
+    const resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    if (!resultCanvas) return;
+
+    const toleranceSlider = document.getElementById('logoCutoutTolerance');
+    const tolerance = toleranceSlider ? parseInt(toleranceSlider.value) : 50;
+
+    const imageData = new ImageData(
+      new Uint8ClampedArray(logoCutoutState.originalImageData.data),
+      logoCutoutState.originalImageData.width,
+      logoCutoutState.originalImageData.height
+    );
+
+    const data = imageData.data;
+    const width = imageData.width;
+    const height = imageData.height;
+    const mode = logoCutoutState.mode;
+
+    let targetR, targetG, targetB;
+
+    if (mode === 'auto') {
+      const corners = [
+        { x: 0, y: 0 },
+        { x: width - 1, y: 0 },
+        { x: 0, y: height - 1 },
+        { x: width - 1, y: height - 1 },
+      ];
+      let r = 0, g = 0, b = 0, count = 0;
+      corners.forEach(({ x, y }) => {
+        const i = (y * width + x) * 4;
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        count++;
+      });
+      targetR = Math.round(r / count);
+      targetG = Math.round(g / count);
+      targetB = Math.round(b / count);
+    } else if (mode === 'white') {
+      targetR = 255;
+      targetG = 255;
+      targetB = 255;
+    } else if (mode === 'black') {
+      targetR = 0;
+      targetG = 0;
+      targetB = 0;
+    } else if (mode === 'custom' && logoCutoutState.selectedColor) {
+      const hex = logoCutoutState.selectedColor.replace('#', '');
+      targetR = parseInt(hex.substr(0, 2), 16);
+      targetG = parseInt(hex.substr(2, 2), 16);
+      targetB = parseInt(hex.substr(4, 2), 16);
+    } else {
+      return;
+    }
+
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+
+      const distance = Math.sqrt(
+        Math.pow(r - targetR, 2) +
+        Math.pow(g - targetG, 2) +
+        Math.pow(b - targetB, 2)
+      );
+
+      if (distance < tolerance) {
+        data[i + 3] = 0;
+      }
+    }
+
+    const ctx = resultCanvas.getContext('2d');
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  function confirmLogoCutout() {
+    const resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    if (!resultCanvas || !logoCutoutState.originalImageData) {
+      showToast('请先进行抠图操作');
+      return;
+    }
+
+    const base64 = resultCanvas.toDataURL('image/png');
+
+    state.businessInfo.logo = base64;
+    pendingUploads.logo = base64;
+    pendingDeletes.logo = false;
+
+    saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+
+    const logoPreviewImg = document.getElementById('logoPreviewImg');
+    if (logoPreviewImg) {
+      logoPreviewImg.src = base64;
+    }
+
+    updateBusinessInfoDisplay();
+    applyLogoTransparentMode();
+
+    closeLogoCutoutModal();
+    showToast('抠图结果已应用为Logo');
   }
   
   // 更新Logo透明样式
@@ -7050,6 +7422,7 @@ let currentCropTarget = null;
         posterLogo.style.border = '';
         posterLogo.style.background = '';
       }
+      updateLogoSize();
     }
     
     if (logoInnerWrapper) {
@@ -7058,6 +7431,52 @@ let currentCropTarget = null;
       } else {
         logoInnerWrapper.style.borderRadius = '';
       }
+    }
+
+    const logoPreviewImg = document.getElementById('logoPreviewImg');
+    if (logoPreviewImg) {
+      if (isTransparent) {
+        logoPreviewImg.style.borderRadius = '0';
+      } else {
+        const applyRadius = () => {
+          const h = logoPreviewImg.offsetHeight;
+          if (h > 0) {
+            logoPreviewImg.style.borderRadius = h + 'px';
+          }
+        };
+        if (logoPreviewImg.complete && logoPreviewImg.offsetHeight > 0) {
+          applyRadius();
+        } else {
+          logoPreviewImg.onload = applyRadius;
+        }
+      }
+    }
+  }
+
+  function updateLogoSize() {
+    const posterLogo = document.getElementById('posterLogo');
+    const posterLogoImg = document.getElementById('posterLogoImg');
+    const posterBusinessName = document.getElementById('posterBusinessName');
+    if (!posterLogo || !posterLogoImg) return;
+
+    const baseHeight = 26;
+    const nw = posterLogoImg.naturalWidth;
+    const nh = posterLogoImg.naturalHeight;
+
+    if (!nw || !nh) return;
+
+    let ratio = nw / nh;
+    if (ratio < 1) ratio = 1;
+
+    const calculatedWidth = Math.round(baseHeight * ratio);
+
+    posterLogo.style.width = calculatedWidth + 'px';
+    posterLogo.style.height = baseHeight + 'px';
+    posterLogoImg.style.width = calculatedWidth + 'px';
+    posterLogoImg.style.height = baseHeight + 'px';
+
+    if (posterBusinessName) {
+      posterBusinessName.style.left = (12 + calculatedWidth) + 'px';
     }
   }
   
@@ -8407,9 +8826,10 @@ let currentCropTarget = null;
       }
       if (elements.posterPromoText) {
         // 减少padding-bottom，避免下方出现空白
-        elements.posterPromoText.style.padding = `4px 2px 7px 8px`;
-         elements.posterPromoText.style.lineHeight = `15px`;
-         elements.posterPromoText.style.fontSize = `10px`;
+        elements.posterPromoText.style.padding = `4px 3px 7px 5px`;
+         elements.posterPromoText.style.lineHeight = `13px`;
+         elements.posterPromoText.style.fontSize = `9px`;
+         elements.posterPromoText.style.bottom = `24px`;
          
       }
       
@@ -8483,25 +8903,22 @@ let currentCropTarget = null;
               const isQrcode = imgElement.id === 'posterQrcodeImg';
               
               if (isLogo) {
-                // Logo：圆形裁剪 + 白色描边（除非设置了透明模式）
                 if (state.businessInfo.logoTransparent) {
-                  // 透明模式：直接绘制，不做圆角处理
                   ctx.drawImage(imgElement, 0, 0, width, height);
                 } else {
-                  const radius = Math.min(width, height) / 2;
+                  const borderRadius = Math.min(width, height) * 0.15;
                   const borderWidth = 0;
                   const borderColor = 'rgba(255,255,255,0.67)';
 
                   ctx.save();
                   ctx.beginPath();
-                  ctx.arc(radius, radius, radius - borderWidth, 0, Math.PI * 2);
+                  drawRoundedRect(ctx, borderWidth, borderWidth, width - borderWidth * 2, height - borderWidth * 2, borderRadius);
                   ctx.clip();
                   ctx.drawImage(imgElement, 0, 0, width, height);
                   ctx.restore();
 
-                  // 绘制描边
                   ctx.beginPath();
-                  ctx.arc(radius, radius, radius - borderWidth / 2, 0, Math.PI * 2);
+                  drawRoundedRect(ctx, borderWidth / 2, borderWidth / 2, width - borderWidth, height - borderWidth, borderRadius);
                   ctx.strokeStyle = borderColor;
                   ctx.lineWidth = borderWidth;
                   ctx.stroke();
