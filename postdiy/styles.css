@@ -4199,15 +4199,39 @@ button#closeFontColorModalBtn.modal-close {
 }
 
 /* Logo透明开关样式 */
-.logo-transparency-toggle {
+.logo-actions-row {
   position: absolute;
   bottom: -2px;
   width: 100%;
-  /* background: #fff; */
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 6px;
   z-index: 10;
+}
+
+.logo-transparency-toggle {
+  display: flex;
+  justify-content: center;
   left: 0;
+}
+
+.logo-cutout-toggle-btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.logo-cutout-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
 }
 
 .logo-transparency-toggle .toggle-track {

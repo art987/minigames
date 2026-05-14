@@ -2096,6 +2096,7 @@ let currentCropTarget = null;
               thumb.textContent = newInfo.logoTransparent ? '原图' : '圆角';
             }
             updateLogoTransparencyStyle(newInfo.logoTransparent);
+            showLogoActionButtons(newInfo.logoTransparent);
           }
         }
         
@@ -2711,10 +2712,11 @@ let currentCropTarget = null;
       }
 
       console.log('初始化 Cropper...');
+      const isLogoCrop = targetType === 'logo';
       cropper = new Cropper(img, {
-        aspectRatio: aspectRatio,
+        aspectRatio: isLogoCrop ? 1 : aspectRatio,
         viewMode: 1,
-        autoCropArea: 1,
+        autoCropArea: isLogoCrop ? 0.8 : 1,
         dragMode: 'move',
         scalable: true,
         zoomable: true,
@@ -2724,6 +2726,9 @@ let currentCropTarget = null;
         checkCrossOrigin: false,
         ready: function() {
           console.log('Cropper ready');
+          if (isLogoCrop) {
+            cropper.setAspectRatio(NaN);
+          }
           updateCropImageFilters();
         }
       });
@@ -2881,6 +2886,7 @@ let currentCropTarget = null;
           if (thumb) {
             thumb.textContent = '圆角';
           }
+          showLogoActionButtons(false);
         }
       }
 
@@ -4073,6 +4079,13 @@ let currentCropTarget = null;
     }
     if (elements.logoTransparencyToggle) {
       elements.logoTransparencyToggle.addEventListener('click', toggleLogoTransparency);
+    }
+
+    const logoCutoutBtn = document.getElementById('logoCutoutBtn');
+    if (logoCutoutBtn) {
+      logoCutoutBtn.addEventListener('click', function() {
+        openLogoCutoutModal();
+      });
     }
 
     const logoSuggestTransparentBtn = document.getElementById('logoSuggestTransparentBtn');
@@ -6647,6 +6660,7 @@ let currentCropTarget = null;
           if (thumb) {
             thumb.textContent = state.businessInfo.logoTransparent ? '原图' : '圆角';
           }
+          showLogoActionButtons(state.businessInfo.logoTransparent);
         }
       } else {
         elements.logoUploadArea.style.display = 'block';
@@ -6655,6 +6669,7 @@ let currentCropTarget = null;
         if (elements.logoTransparencyToggle) {
           elements.logoTransparencyToggle.classList.add('hidden');
         }
+        showLogoActionButtons(false);
       }
     }
     
@@ -7097,6 +7112,7 @@ let currentCropTarget = null;
     if (elements.logoTransparencyToggle) {
       elements.logoTransparencyToggle.classList.add('hidden');
     }
+    showLogoActionButtons(false);
     
     showToast('Logo已移除，点击保存后同步到云端');
   }
@@ -7107,25 +7123,34 @@ let currentCropTarget = null;
     if (!toggle) return;
 
     const isTransparent = !state.businessInfo.logoTransparent;
+    state.businessInfo.logoTransparent = isTransparent;
 
     if (isTransparent) {
-      const suggestModal = document.getElementById('logoSuggestModal');
-      if (suggestModal) {
-        suggestModal.classList.add('active');
-      }
-      return;
+      toggle.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
     }
-
-    state.businessInfo.logoTransparent = false;
-    toggle.classList.remove('active');
 
     const thumb = toggle.querySelector('.toggle-thumb');
     if (thumb) {
-      thumb.textContent = '圆角';
+      thumb.textContent = isTransparent ? '原图' : '圆角';
     }
 
-    updateLogoTransparencyStyle(false);
-    showToast('Logo已设为圆角模式');
+    showLogoActionButtons(isTransparent);
+
+    updateLogoTransparencyStyle(isTransparent);
+    showToast(isTransparent ? 'Logo已设为原图模式' : 'Logo已设为圆角模式');
+  }
+
+  function showLogoActionButtons(show) {
+    const cutoutBtn = document.getElementById('logoCutoutBtn');
+    if (cutoutBtn) {
+      if (show) {
+        cutoutBtn.classList.remove('hidden');
+      } else {
+        cutoutBtn.classList.add('hidden');
+      }
+    }
   }
 
   function applyLogoTransparentMode() {
@@ -7191,7 +7216,7 @@ let currentCropTarget = null;
       rCtx.drawImage(img, 0, 0, w, h);
 
       logoCutoutState.selectedColor = null;
-      logoCutoutState.tolerance = 50;
+      logoCutoutState.tolerance = 80;
       logoCutoutState.mode = 'auto';
 
       const toleranceSlider = document.getElementById('logoCutoutTolerance');
@@ -7437,6 +7462,9 @@ let currentCropTarget = null;
     if (logoPreviewImg) {
       if (isTransparent) {
         logoPreviewImg.style.borderRadius = '0';
+        logoPreviewImg.style.border = 'none';
+        logoPreviewImg.style.background = 'none';
+        logoPreviewImg.style.boxShadow = 'none';
       } else {
         const applyRadius = () => {
           const h = logoPreviewImg.offsetHeight;
@@ -7449,6 +7477,9 @@ let currentCropTarget = null;
         } else {
           logoPreviewImg.onload = applyRadius;
         }
+        logoPreviewImg.style.border = '1px solid #ccc';
+        logoPreviewImg.style.background = '#fff';
+        logoPreviewImg.style.boxShadow = '0 0 10px #cccccc8a';
       }
     }
   }
@@ -9537,6 +9568,11 @@ function hideClearButtonsForVip() {
   if (logoTransparencyToggle) {
     logoTransparencyToggle.style.display = 'none';
   }
+
+  const logoCutoutBtn = document.getElementById('logoCutoutBtn');
+  if (logoCutoutBtn) {
+    logoCutoutBtn.style.display = 'none';
+  }
 }
 
 // 为VIP用户显示删除按钮（允许编辑）
@@ -9551,6 +9587,11 @@ function showDeleteButtonsForVip() {
   const logoTransparencyToggle = document.getElementById('logoTransparencyToggle');
   if (logoTransparencyToggle && state.businessInfo.logo) {
     logoTransparencyToggle.style.display = 'flex';
+  }
+
+  const logoCutoutBtnEl = document.getElementById('logoCutoutBtn');
+  if (logoCutoutBtnEl && state.businessInfo.logo && state.businessInfo.logoTransparent) {
+    logoCutoutBtnEl.style.display = 'inline-block';
   }
   
   // 显示二维码删除按钮
