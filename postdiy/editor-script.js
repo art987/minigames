@@ -12804,13 +12804,6 @@ window.textTemplateManager = {
     });
 
     document.addEventListener('mouseup', () => {
-      if (isDragging && !hasMoved && text.text && navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text.text).then(() => {
-          showToast('已复制', 2000);
-        }).catch(err => {
-          console.error('复制失败:', err);
-        });
-      }
       isDragging = false;
       hasMoved = false;
     });
@@ -12873,15 +12866,6 @@ window.textTemplateManager = {
           lastTapTime = 0;
         } else {
           lastTapTime = currentTime;
-
-          // 单击没有移动，执行复制
-          if (text.text && navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text.text).then(() => {
-              showToast('已复制', 2000);
-            }).catch(err => {
-              console.error('复制失败:', err);
-            });
-          }
         }
       }
 
