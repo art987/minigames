@@ -2880,6 +2880,8 @@ let currentCropTarget = null;
         if (elements.logoTransparencyToggle) {
           elements.logoTransparencyToggle.classList.remove('hidden');
           elements.logoTransparencyToggle.classList.remove('active');
+          // 更新状态为圆角模式（false）
+          state.businessInfo.logoTransparent = false;
           updateLogoTransparencyStyle(false);
           // 更新滑块文字
           const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
@@ -6773,6 +6775,15 @@ let currentCropTarget = null;
   async function saveBusinessInfo() {
     if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
+    const saveBtn = elements.saveBusinessInfoBtn;
+    const originalBtnText = saveBtn ? saveBtn.textContent : '';
+    
+    // 更新按钮状态为保存中
+    if (saveBtn) {
+      saveBtn.textContent = '保存中...';
+      saveBtn.disabled = true;
+    }
+    
     const newName = elements.businessNameInput.value.trim() || '您的品牌名称';
     const newPromoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
     
@@ -6785,130 +6796,141 @@ let currentCropTarget = null;
     // 更新显示
     updateBusinessInfoDisplay();
     
-    // 关闭弹窗
-    if (elements.businessInfoModal) {
-      elements.businessInfoModal.classList.add('closing');
-      elements.businessInfoModal.querySelector('.modal').classList.add('closing');
-      
-      setTimeout(() => {
-        elements.businessInfoModal.classList.add('hidden');
-        elements.businessInfoModal.style.display = 'none';
-        elements.businessInfoModal.classList.remove('closing');
-        elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
-      }, 400);
-    }
-    
-    const visibilityModal = document.getElementById('visibilityManagerModal');
-    if (visibilityModal) {
-      visibilityModal.classList.add('hidden');
-    }
-    
-    // 同步到云端
-    if (window.CloudSync) {
-      // 同步品牌名称和促销文案
-      await CloudSync.syncBrandnameToCloud(newName);
-      await CloudSync.syncPromoTextToCloud(newPromoText);
-      await CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent);
-      
-      // 处理待上传的图片
-      if (pendingUploads.logo) {
-        // 标记正在上传logo
-        state.isUploadingLogo = true;
+    try {
+      // 同步到云端
+      if (window.CloudSync) {
+        // 同步品牌名称和促销文案
+        await CloudSync.syncBrandnameToCloud(newName);
+        await CloudSync.syncPromoTextToCloud(newPromoText);
+        await CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent);
         
-        // 先删除旧的logo图片
-        const loadingToast = CloudSync.showLoadingToast('正在删除旧Logo...');
-        const deleteResult = await CloudSync.deleteImageFromCloud('logo');
-        CloudSync.hideLoadingToast(loadingToast);
-        
-        if (deleteResult.success) {
-          console.log('旧Logo删除成功');
-        } else {
-          console.log('旧Logo删除失败，继续上传新Logo:', deleteResult.message);
-        }
-        
-        // 上传新logo图片
-        const uploadToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
-        const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
-        CloudSync.hideLoadingToast(uploadToast);
-        
-        if (result.success) {
-          console.log('Logo上传成功，新URL:', result.url);
-          console.log('腾讯云URL:', result.tencentUrl);
-          console.log('更新state.businessInfo.logo前:', state.businessInfo.logo);
+        // 处理待上传的图片
+        if (pendingUploads.logo) {
+          // 标记正在上传logo
+          state.isUploadingLogo = true;
           
-          // 先更新state和本地缓存，再同步到云端
-          state.businessInfo.logo = result.url;
-          console.log('更新state.businessInfo.logo后:', state.businessInfo.logo);
+          // 先删除旧的logo图片
+          const loadingToast = CloudSync.showLoadingToast('正在删除旧Logo...');
+          const deleteResult = await CloudSync.deleteImageFromCloud('logo');
+          CloudSync.hideLoadingToast(loadingToast);
           
-          // 立即更新预览图片，不等待缓存
-          const posterLogoImg = document.getElementById('posterLogoImg');
-          if (posterLogoImg) {
-            posterLogoImg.src = result.url;
-            console.log('预览图片已更新');
+          if (deleteResult.success) {
+            console.log('旧Logo删除成功');
+          } else {
+            console.log('旧Logo删除失败，继续上传新Logo:', deleteResult.message);
           }
           
-          // 异步更新本地缓存
-          updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url).then(() => {
-            console.log('本地缓存更新完成');
-          });
+          // 上传新logo图片
+          const uploadToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
+          const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
+          CloudSync.hideLoadingToast(uploadToast);
           
-          // 同步到云端（包括腾讯云URL和fileID）
-          await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
-          console.log('云端同步完成');
+          if (result.success) {
+            console.log('Logo上传成功，新URL:', result.url);
+            console.log('腾讯云URL:', result.tencentUrl);
+            console.log('更新state.businessInfo.logo前:', state.businessInfo.logo);
+            
+            // 先更新state和本地缓存，再同步到云端
+            state.businessInfo.logo = result.url;
+            console.log('更新state.businessInfo.logo后:', state.businessInfo.logo);
+            
+            // 立即更新预览图片，不等待缓存
+            const posterLogoImg = document.getElementById('posterLogoImg');
+            if (posterLogoImg) {
+              posterLogoImg.src = result.url;
+              console.log('预览图片已更新');
+            }
+            
+            // 异步更新本地缓存
+            updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url).then(() => {
+              console.log('本地缓存更新完成');
+            });
+            
+            // 同步到云端（包括腾讯云URL和fileID）
+            await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
+            console.log('云端同步完成');
+          }
+          
+          // 上传完成，清除标记
+          state.isUploadingLogo = false;
         }
         
-        // 上传完成，清除标记
-        state.isUploadingLogo = false;
+        if (pendingUploads.qrcode) {
+          // 先删除旧的二维码图片
+          const deleteToast = CloudSync.showLoadingToast('正在删除旧二维码...');
+          const deleteResult = await CloudSync.deleteImageFromCloud('qrcode');
+          CloudSync.hideLoadingToast(deleteToast);
+          
+          if (deleteResult.success) {
+            console.log('旧二维码删除成功');
+          } else {
+            console.log('旧二维码删除失败，继续上传新二维码:', deleteResult.message);
+          }
+          
+          // 上传新二维码图片
+          const uploadToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
+          const result = await CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode);
+          CloudSync.hideLoadingToast(uploadToast);
+          
+          if (result.success) {
+            state.businessInfo.qrcode = result.url;
+            await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
+            await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
+          }
+        }
+        
+        // 处理待删除的图片
+        if (pendingDeletes.logo) {
+          const result = await CloudSync.deleteImageFromCloud('logo');
+          if (result.success) {
+            await CloudSync.clearUserImageUrl('logo');
+          }
+        }
+        
+        if (pendingDeletes.qrcode) {
+          const result = await CloudSync.deleteImageFromCloud('qrcode');
+          if (result.success) {
+            await CloudSync.clearUserImageUrl('qrcode');
+          }
+        }
       }
       
-      if (pendingUploads.qrcode) {
-        // 先删除旧的二维码图片
-        const deleteToast = CloudSync.showLoadingToast('正在删除旧二维码...');
-        const deleteResult = await CloudSync.deleteImageFromCloud('qrcode');
-        CloudSync.hideLoadingToast(deleteToast);
+      // 重置待处理状态
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      
+      // 云端同步成功后更新本地存储
+      saveBusinessInfoToLocalStorage();
+      
+      showToast('商家信息保存成功');
+      
+      // 云端同步成功后才关闭弹窗
+      if (elements.businessInfoModal) {
+        elements.businessInfoModal.classList.add('closing');
+        elements.businessInfoModal.querySelector('.modal').classList.add('closing');
         
-        if (deleteResult.success) {
-          console.log('旧二维码删除成功');
-        } else {
-          console.log('旧二维码删除失败，继续上传新二维码:', deleteResult.message);
-        }
-        
-        // 上传新二维码图片
-        const uploadToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
-        const result = await CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode);
-        CloudSync.hideLoadingToast(uploadToast);
-        
-        if (result.success) {
-          state.businessInfo.qrcode = result.url;
-          await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
-          await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
-        }
+        setTimeout(() => {
+          elements.businessInfoModal.classList.add('hidden');
+          elements.businessInfoModal.style.display = 'none';
+          elements.businessInfoModal.classList.remove('closing');
+          elements.businessInfoModal.querySelector('.modal').classList.remove('closing');
+        }, 400);
       }
       
-      // 处理待删除的图片
-      if (pendingDeletes.logo) {
-        const result = await CloudSync.deleteImageFromCloud('logo');
-        if (result.success) {
-          await CloudSync.clearUserImageUrl('logo');
-        }
+      const visibilityModal = document.getElementById('visibilityManagerModal');
+      if (visibilityModal) {
+        visibilityModal.classList.add('hidden');
       }
-      
-      if (pendingDeletes.qrcode) {
-        const result = await CloudSync.deleteImageFromCloud('qrcode');
-        if (result.success) {
-          await CloudSync.clearUserImageUrl('qrcode');
-        }
+    } catch (error) {
+      console.error('保存商家信息失败:', error);
+      showToast('保存失败，请重试');
+    } finally {
+      // 恢复按钮状态
+      if (saveBtn) {
+        saveBtn.textContent = originalBtnText;
+        saveBtn.disabled = false;
       }
     }
-    
-    // 重置待处理状态
-    pendingUploads = { logo: null, qrcode: null };
-    pendingDeletes = { logo: false, qrcode: false };
-    
-    // 云端同步成功后更新本地存储
-    saveBusinessInfoToLocalStorage();
-    
-    showToast('商家信息保存成功');
   }
 
   // 重置文件输入框的函数 - 返回新创建的文件输入框
