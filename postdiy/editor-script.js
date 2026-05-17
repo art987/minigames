@@ -1166,9 +1166,19 @@ let currentCropTarget = null;
     },
     customBackground: null,
     textColor: '#000000',
-    isUploadingLogo: false,  // 标记是否正在上传logo
+    isUploadingLogo: false,
     currentFrame: null,
     pendingFrame: null,
+    frameColorAdjust: {
+      hue: 0,
+      saturation: 0,
+      contrast: 0
+    },
+    pendingFrameColorAdjust: {
+      hue: 0,
+      saturation: 0,
+      contrast: 0
+    },
     templateViewMode: 'grid',
     currentSlideIndex: 0,
     allTemplatesList: [],
@@ -12085,6 +12095,7 @@ function updateBusinessInfoButtonForVip() {
 
     init: function() {
       this.loadFrameImages();
+      this.loadColorAdjustFromStorage();
       this.bindEvents();
     },
 
@@ -12157,10 +12168,144 @@ function updateBusinessInfoButtonForVip() {
           }
         });
       }
+
+      // 绑定调色滑杆事件
+      this.bindColorAdjustEvents();
+    },
+
+    bindColorAdjustEvents: function() {
+      const hueSlider = document.getElementById('frameHue');
+      const saturationSlider = document.getElementById('frameSaturation');
+      const contrastSlider = document.getElementById('frameContrast');
+      const hueResetBtn = document.getElementById('frameHueResetBtn');
+      const saturationResetBtn = document.getElementById('frameSaturationResetBtn');
+      const contrastResetBtn = document.getElementById('frameContrastResetBtn');
+
+      if (hueSlider) {
+        hueSlider.addEventListener('input', (e) => {
+          state.pendingFrameColorAdjust.hue = parseInt(e.target.value);
+          this.updatePreview();
+          this.updateResetButtons();
+        });
+      }
+
+      if (saturationSlider) {
+        saturationSlider.addEventListener('input', (e) => {
+          state.pendingFrameColorAdjust.saturation = parseInt(e.target.value);
+          this.updatePreview();
+          this.updateResetButtons();
+        });
+      }
+
+      if (contrastSlider) {
+        contrastSlider.addEventListener('input', (e) => {
+          state.pendingFrameColorAdjust.contrast = parseInt(e.target.value);
+          this.updatePreview();
+          this.updateResetButtons();
+        });
+      }
+
+      if (hueResetBtn) {
+        hueResetBtn.addEventListener('click', () => {
+          this.resetSingleColor('hue');
+        });
+      }
+
+      if (saturationResetBtn) {
+        saturationResetBtn.addEventListener('click', () => {
+          this.resetSingleColor('saturation');
+        });
+      }
+
+      if (contrastResetBtn) {
+        contrastResetBtn.addEventListener('click', () => {
+          this.resetSingleColor('contrast');
+        });
+      }
+    },
+
+    updateResetButtons: function() {
+      const { hue, saturation, contrast } = state.pendingFrameColorAdjust;
+      
+      const hueResetBtn = document.getElementById('frameHueResetBtn');
+      const saturationResetBtn = document.getElementById('frameSaturationResetBtn');
+      const contrastResetBtn = document.getElementById('frameContrastResetBtn');
+      
+      if (hueResetBtn) {
+        hueResetBtn.disabled = hue === 0;
+      }
+      if (saturationResetBtn) {
+        saturationResetBtn.disabled = saturation === 0;
+      }
+      if (contrastResetBtn) {
+        contrastResetBtn.disabled = contrast === 0;
+      }
+    },
+
+    resetSingleColor: function(type) {
+      state.pendingFrameColorAdjust[type] = 0;
+      
+      const slider = document.getElementById('frame' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (slider) {
+        slider.value = 0;
+      }
+      
+      this.updatePreview();
+      this.updateResetButtons();
+    },
+
+    resetColorAdjust: function() {
+      state.pendingFrameColorAdjust = { hue: 0, saturation: 0, contrast: 0 };
+      
+      const hueSlider = document.getElementById('frameHue');
+      const saturationSlider = document.getElementById('frameSaturation');
+      const contrastSlider = document.getElementById('frameContrast');
+      
+      if (hueSlider) hueSlider.value = 0;
+      if (saturationSlider) saturationSlider.value = 0;
+      if (contrastSlider) contrastSlider.value = 0;
+      
+      this.updatePreview();
+      this.updateResetButtons();
+    },
+
+    showColorAdjustPanel: function() {
+      const panel = document.getElementById('frameColorAdjust');
+      if (panel) {
+        panel.classList.remove('hidden');
+      }
+    },
+
+    hideColorAdjustPanel: function() {
+      const panel = document.getElementById('frameColorAdjust');
+      if (panel) {
+        panel.classList.add('hidden');
+      }
+    },
+
+    loadColorAdjustValues: function() {
+      const adjust = state.pendingFrameColorAdjust;
+      
+      const hueSlider = document.getElementById('frameHue');
+      const saturationSlider = document.getElementById('frameSaturation');
+      const contrastSlider = document.getElementById('frameContrast');
+      
+      if (hueSlider) {
+        hueSlider.value = adjust.hue;
+      }
+      if (saturationSlider) {
+        saturationSlider.value = adjust.saturation;
+      }
+      if (contrastSlider) {
+        contrastSlider.value = adjust.contrast;
+      }
+      
+      this.updateResetButtons();
     },
 
     openFrameModal: function() {
       state.pendingFrame = state.currentFrame;
+      state.pendingFrameColorAdjust = { ...state.frameColorAdjust };
       elements.frameModal.classList.remove('hidden');
       setTimeout(() => {
         this.renderFrameList();
@@ -12169,6 +12314,10 @@ function updateBusinessInfoButtonForVip() {
           if (index >= 0) {
             this.scrollToIndex(index);
           }
+          this.showColorAdjustPanel();
+          this.loadColorAdjustValues();
+        } else {
+          this.hideColorAdjustPanel();
         }
       }, 150);
     },
@@ -12176,6 +12325,7 @@ function updateBusinessInfoButtonForVip() {
     closeFrameModal: function() {
       elements.frameModal.classList.add('hidden');
       state.pendingFrame = null;
+      this.hideColorAdjustPanel();
     },
 
     renderFrameList: function() {
@@ -12226,6 +12376,8 @@ function updateBusinessInfoButtonForVip() {
 
       state.pendingFrame = this.frameImages[index];
       this.scrollToIndex(index);
+      this.showColorAdjustPanel();
+      this.resetColorAdjust();
       this.updatePreview();
     },
 
@@ -12309,14 +12461,17 @@ function updateBusinessInfoButtonForVip() {
 
     confirmFrame: function() {
       state.currentFrame = state.pendingFrame;
+      state.frameColorAdjust = { ...state.pendingFrameColorAdjust };
       if (state.currentFrame) {
         this.renderFrameToPreview(state.currentFrame);
+        this.saveColorAdjustToStorage();
       }
       this.closeFrameModal();
     },
 
     cancelFrame: function() {
       state.pendingFrame = null;
+      state.pendingFrameColorAdjust = { ...state.frameColorAdjust };
       if (state.currentFrame) {
         this.renderFrameToPreview(state.currentFrame);
       } else {
@@ -12328,8 +12483,12 @@ function updateBusinessInfoButtonForVip() {
     clearFrame: function() {
       state.pendingFrame = null;
       state.currentFrame = null;
+      state.frameColorAdjust = { hue: 0, saturation: 0, contrast: 0 };
+      state.pendingFrameColorAdjust = { hue: 0, saturation: 0, contrast: 0 };
       this.removeFrameFromPreview();
       this.renderFrameList();
+      this.hideColorAdjustPanel();
+      this.saveColorAdjustToStorage();
     },
 
     renderFrameToPreview: function(frame) {
@@ -12357,8 +12516,53 @@ function updateBusinessInfoButtonForVip() {
         display: block;
       `;
 
+      // 应用调色效果
+      const adjust = state.pendingFrame ? state.pendingFrameColorAdjust : state.frameColorAdjust;
+      const filterStyle = this.buildFilterStyle(adjust);
+      img.style.filter = filterStyle;
+
       frameElement.innerHTML = '';
       frameElement.appendChild(img);
+    },
+
+    buildFilterStyle: function(adjust) {
+      const { hue, saturation, contrast } = adjust;
+      
+      // 色相旋转: hue-rotate()
+      // 饱和度: saturate() - 基础值100%，调整范围0-200%
+      // 对比度: contrast() - 基础值100%，调整范围0-200%
+      
+      const hueRotate = hue;
+      const saturate = 100 + saturation;
+      const contrastValue = 100 + contrast;
+      
+      return `hue-rotate(${hueRotate}deg) saturate(${saturate}%) contrast(${contrastValue}%)`;
+    },
+
+    saveColorAdjustToStorage: function() {
+      try {
+        const adjust = state.frameColorAdjust;
+        localStorage.setItem('frameColorAdjust', JSON.stringify(adjust));
+      } catch (e) {
+        console.error('保存画框调色参数失败:', e);
+      }
+    },
+
+    loadColorAdjustFromStorage: function() {
+      try {
+        const saved = localStorage.getItem('frameColorAdjust');
+        if (saved) {
+          const adjust = JSON.parse(saved);
+          state.frameColorAdjust = {
+            hue: adjust.hue || 0,
+            saturation: adjust.saturation || 0,
+            contrast: adjust.contrast || 0
+          };
+          state.pendingFrameColorAdjust = { ...state.frameColorAdjust };
+        }
+      } catch (e) {
+        console.error('加载画框调色参数失败:', e);
+      }
     },
 
     removeFrameFromPreview: function() {

@@ -466,7 +466,7 @@
               <div id="logoPreview" class="upload-preview">
                 <img id="logoPreviewImg" src="" alt="Logo预览" class="upload-preview-image">
                 <button type="button" id="removeLogoBtn" class="upload-remove-btn">
-                  <i class="fa fa-times"></i>
+                  <span style="color: red; font-size: 11px;">更换</span>
                 </button>
                 <div class="logo-actions-row">
                   <div id="logoTransparencyToggle" class="logo-transparency-toggle hidden">
@@ -512,7 +512,7 @@
               <div id="qrcodePreview" class="upload-preview hidden">
                 <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
                 <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
-                  <i class="fa fa-times"></i>
+                  <span style="color: red; font-size: 11px;">更换</span>
                 </button>
               </div>
             </div>
@@ -912,6 +912,23 @@
           <button class="frame-nav-btn frame-next-btn" id="frameNextBtn">
             <i class="fa fa-chevron-right"></i>
           </button>
+        </div>
+        <div class="frame-color-adjust hidden" id="frameColorAdjust">
+          <div class="frame-color-row">
+            <span class="frame-color-label">色相</span>
+            <input type="range" id="frameHue" min="-180" max="180" value="0" class="frame-color-slider">
+            <button class="frame-color-reset-btn" id="frameHueResetBtn">重置</button>
+          </div>
+          <div class="frame-color-row">
+            <span class="frame-color-label">饱和度</span>
+            <input type="range" id="frameSaturation" min="-100" max="100" value="0" class="frame-color-slider">
+            <button class="frame-color-reset-btn" id="frameSaturationResetBtn">重置</button>
+          </div>
+          <div class="frame-color-row">
+            <span class="frame-color-label">对比度</span>
+            <input type="range" id="frameContrast" min="-100" max="100" value="0" class="frame-color-slider">
+            <button class="frame-color-reset-btn" id="frameContrastResetBtn">重置</button>
+          </div>
         </div>
         <div class="frame-action-buttons">
           <button class="frame-clear-btn" id="frameClearBtn">清空画框</button>
