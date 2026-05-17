@@ -7,7 +7,7 @@
       "webviewUrl": "https://peacelove.top/postdiy/index.html",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/logo.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/logo.gif",
-      "enablePullDownRefresh": false
+      "enableTopBar": false
     },
     {
       "pagePath": "pages/business/index",
@@ -16,7 +16,7 @@
       "webviewUrl": "https://peacelove.top/postdiy/business/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/business-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
-      "enablePullDownRefresh": true
+      "enableTopBar": true
     },
     {
       "pagePath": "pages/tools/index",
@@ -25,7 +25,7 @@
       "webviewUrl": "https://peacelove.top/postdiy/tools/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/tools-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/tools.png",
-      "enablePullDownRefresh": true
+      "enableTopBar": true
     },
     {
       "pagePath": "pages/about/index",
@@ -34,7 +34,7 @@
       "webviewUrl": "https://peacelove.top/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
-      "enablePullDownRefresh": true
+      "enableTopBar": true
     }
   ],
   "tabBarStyle": {
@@ -57,9 +57,9 @@
     "splashBackgroundColor": "#ffffff",
     "remoteSplashImageUrl": "https://peacelove.top/postdiy/images/statics/applogo.png",
     "defaultSplashImageUrl": "/static/splash-default.png",
-    "splashImageWidth": "180rpx",
-    "splashImageHeight": "180rpx",
-    "loadingText": "闪喵~每天都是品牌宣传日...",
+    "splashImageWidth": "220rpx",
+    "splashImageHeight": "220rpx",
+    "loadingText": "每天都是品牌宣传日...",
     "loadingTextColor": "#666666",
     "loadingTextFontSize": "26rpx"
   }
