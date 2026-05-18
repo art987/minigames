@@ -12378,12 +12378,12 @@ function updateBusinessInfoButtonForVip() {
       this.scrollToIndex(index);
       this.showColorAdjustPanel();
       this.resetColorAdjust();
-      this.updatePreview();
+      this.updatePreview(true);
     },
 
-    updatePreview: function() {
+    updatePreview: function(animate = false) {
       if (state.pendingFrame) {
-        this.renderFrameToPreview(state.pendingFrame);
+        this.renderFrameToPreview(state.pendingFrame, animate);
       } else {
         this.removeFrameFromPreview();
       }
@@ -12491,7 +12491,7 @@ function updateBusinessInfoButtonForVip() {
       this.saveColorAdjustToStorage();
     },
 
-    renderFrameToPreview: function(frame) {
+    renderFrameToPreview: function(frame, animate = false) {
       let frameElement = document.getElementById('posterFrameCover');
 
       if (!frameElement) {
@@ -12521,8 +12521,10 @@ function updateBusinessInfoButtonForVip() {
       const filterStyle = this.buildFilterStyle(adjust);
       img.style.filter = filterStyle;
 
-      // 应用果冻动画效果
-      img.style.animation = 'frame-drop-jelly 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+      // 只有在选择新画框时才应用下落动画
+      if (animate) {
+        img.style.animation = 'frame-drop-jelly 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+      }
 
       frameElement.innerHTML = '';
       frameElement.appendChild(img);
