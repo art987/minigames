@@ -12521,6 +12521,9 @@ function updateBusinessInfoButtonForVip() {
       const filterStyle = this.buildFilterStyle(adjust);
       img.style.filter = filterStyle;
 
+      // 应用果冻动画效果
+      img.style.animation = 'frame-drop-jelly 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+
       frameElement.innerHTML = '';
       frameElement.appendChild(img);
     },

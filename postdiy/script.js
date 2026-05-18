@@ -1465,7 +1465,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>`;
       html += '</div></div>';
     });
     
@@ -1554,7 +1554,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const itemHtml = `<div class="future-suggestion-item festival-item-animate">` +
             `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>` +
             `<div class="future-suggestion-buttons">` +
-            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">制作</button></div>` +
+            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>` +
             '</div></div>';
           
           // 在加载更多按钮前插入
