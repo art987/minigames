@@ -1,0 +1,585 @@
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: warning
+ipv6: false
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 'https://doh.pub/dns-query'
+    - 'https://dns.alidns.com/dns-query'
+  fallback:
+    - 'https://1.1.1.1/dns-query'
+    - 'https://dns.google/dns-query'
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+  proxy-server-nameserver:
+    - 'https://doh.pub/dns-query'
+    - 'https://dns.alidns.com/dns-query'
+  fake-ip-filter:
+    - +.lan
+    - +.local
+    - +.localdomain
+    - +.push.apple.com
+    - +.msftncsi.com
+    - +.msftconnecttest.com
+    - localhost.ptlogin2.qq.com
+    - +.pool.ntp.org
+
+proxies:
+  - name: '🌐 官网地址：ncink.cc'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32321
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇭🇰 香港01-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32321
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇭🇰 香港02-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32322
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇹🇼 台湾-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32323
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇰🇷 韩国-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32324
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇯🇵 日本01-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32325
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇯🇵 日本02-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32326
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇸🇬 狮城01-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32327
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇸🇬 狮城02-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32328
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇺🇸 美国01-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32329
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇺🇸 美国02-BGP|IEPL中继'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32330
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /static/js/main.js
+      headers:
+        Host: azure.microsoft.com
+
+  - name: '🇭🇰 香港[直连|备用]'
+    type: vless
+    server: edge-hkbn.cdncorex.online
+    port: 12688
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    encryption: none
+    tls: true
+    skip-cert-verify: false
+    servername: www.sony.com
+    reality-opts:
+      public-key: vwABfYueLVD7E-fYfFLORnBrRaWHhLFxYfjdHQR1FRA
+      short-id: 4041a680
+    client-fingerprint: chrome
+    network: tcp
+
+  - name: '🇻🇳 越南-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32531
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇹🇭 泰国-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32532
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇮🇳 印度-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32533
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇮🇩 印尼-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32534
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇬🇧 英国-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32535
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇩🇪 德国-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32536
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇫🇷 法国-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32537
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇨🇦 加拿大-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32538
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇷🇺 俄罗斯-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32539
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇹🇷 土耳其-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32540
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇦🇷 阿根廷-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32541
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇲🇾 马来西亚-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32542
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+  - name: '🇦🇺 澳大利亚-边缘节点'
+    type: vless
+    server: ncgdbgp.gdsxrk.com
+    port: 32543
+    uuid: 2968ba69-aeb7-4ac8-87e3-5a7b65efe100
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: null
+    encryption: none
+    tls: false
+    network: ws
+    ws-opts:
+      path: /assets/js/app.js
+      headers:
+        Host: login.microsoftonline.com
+
+proxy-groups:
+  - name: Nice Cloud
+    type: select
+    proxies:
+      - 自动选择
+      - 故障转移
+      - '🌐 官网地址：ncink.cc'
+      - '🇭🇰 香港01-BGP|IEPL中继'
+      - '🇭🇰 香港02-BGP|IEPL中继'
+      - '🇹🇼 台湾-BGP|IEPL中继'
+      - '🇰🇷 韩国-BGP|IEPL中继'
+      - '🇯🇵 日本01-BGP|IEPL中继'
+      - '🇯🇵 日本02-BGP|IEPL中继'
+      - '🇸🇬 狮城01-BGP|IEPL中继'
+      - '🇸🇬 狮城02-BGP|IEPL中继'
+      - '🇺🇸 美国01-BGP|IEPL中继'
+      - '🇺🇸 美国02-BGP|IEPL中继'
+      - '🇭🇰 香港[直连|备用]'
+      - '🇻🇳 越南-边缘节点'
+      - '🇹🇭 泰国-边缘节点'
+      - '🇮🇳 印度-边缘节点'
+      - '🇮🇩 印尼-边缘节点'
+      - '🇬🇧 英国-边缘节点'
+      - '🇩🇪 德国-边缘节点'
+      - '🇫🇷 法国-边缘节点'
+      - '🇨🇦 加拿大-边缘节点'
+      - '🇷🇺 俄罗斯-边缘节点'
+      - '🇹🇷 土耳其-边缘节点'
+      - '🇦🇷 阿根廷-边缘节点'
+      - '🇲🇾 马来西亚-边缘节点'
+      - '🇦🇺 澳大利亚-边缘节点'
+
+  - name: 自动选择
+    type: url-test
+    proxies:
+      - '🌐 官网地址：ncink.cc'
+      - '🇭🇰 香港01-BGP|IEPL中继'
+      - '🇭🇰 香港02-BGP|IEPL中继'
+      - '🇹🇼 台湾-BGP|IEPL中继'
+      - '🇰🇷 韩国-BGP|IEPL中继'
+      - '🇯🇵 日本01-BGP|IEPL中继'
+      - '🇯🇵 日本02-BGP|IEPL中继'
+      - '🇸🇬 狮城01-BGP|IEPL中继'
+      - '🇸🇬 狮城02-BGP|IEPL中继'
+      - '🇺🇸 美国01-BGP|IEPL中继'
+      - '🇺🇸 美国02-BGP|IEPL中继'
+      - '🇭🇰 香港[直连|备用]'
+      - '🇻🇳 越南-边缘节点'
+      - '🇹🇭 泰国-边缘节点'
+      - '🇮🇳 印度-边缘节点'
+      - '🇮🇩 印尼-边缘节点'
+      - '🇬🇧 英国-边缘节点'
+      - '🇩🇪 德国-边缘节点'
+      - '🇫🇷 法国-边缘节点'
+      - '🇨🇦 加拿大-边缘节点'
+      - '🇷🇺 俄罗斯-边缘节点'
+      - '🇹🇷 土耳其-边缘节点'
+      - '🇦🇷 阿根廷-边缘节点'
+      - '🇲🇾 马来西亚-边缘节点'
+      - '🇦🇺 澳大利亚-边缘节点'
+    url: 'http://cp.cloudflare.com/generate_204'
+    interval: 300
+    tolerance: 50
+
+  - name: 故障转移
+    type: fallback
+    proxies:
+      - '🌐 官网地址：ncink.cc'
+      - '🇭🇰 香港01-BGP|IEPL中继'
+      - '🇭🇰 香港02-BGP|IEPL中继'
+      - '🇹🇼 台湾-BGP|IEPL中继'
+      - '🇰🇷 韩国-BGP|IEPL中继'
+      - '🇯🇵 日本01-BGP|IEPL中继'
+      - '🇯🇵 日本02-BGP|IEPL中继'
+      - '🇸🇬 狮城01-BGP|IEPL中继'
+      - '🇸🇬 狮城02-BGP|IEPL中继'
+      - '🇺🇸 美国01-BGP|IEPL中继'
+      - '🇺🇸 美国02-BGP|IEPL中继'
+      - '🇭🇰 香港[直连|备用]'
+      - '🇻🇳 越南-边缘节点'
+      - '🇹🇭 泰国-边缘节点'
+      - '🇮🇳 印度-边缘节点'
+      - '🇮🇩 印尼-边缘节点'
+      - '🇬🇧 英国-边缘节点'
+      - '🇩🇪 德国-边缘节点'
+      - '🇫🇷 法国-边缘节点'
+      - '🇨🇦 加拿大-边缘节点'
+      - '🇷🇺 俄罗斯-边缘节点'
+      - '🇹🇷 土耳其-边缘节点'
+      - '🇦🇷 阿根廷-边缘节点'
+      - '🇲🇾 马来西亚-边缘节点'
+      - '🇦🇺 澳大利亚-边缘节点'
+    url: 'http://cp.cloudflare.com/generate_204'
+    interval: 300
+
+rules:
+  - 'DOMAIN,nclink.bysubink.com,DIRECT'
+  - 'DOMAIN-SUFFIX,local,DIRECT'
+  - 'DOMAIN,thumb-cdn77.xvideos-cdn.com,DIRECT'
+  - 'DOMAIN,hls-cdn77.xvideos-cdn.com,DIRECT'
+  - 'DOMAIN,assets-cdn77.xvideos-cdn.com,DIRECT'
+  - 'DOMAIN,video.sacdnssedge.com,DIRECT'
+  - 'DOMAIN,z6v2p9a8.bkcdn.net,DIRECT'
+  - 'DOMAIN,bkcdn.net,DIRECT'
+  - 'DOMAIN-SUFFIX,xvideos-cdn.com,DIRECT'
+  - 'IP-CIDR,127.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,172.16.0.0/12,DIRECT,no-resolve'
+  - 'IP-CIDR,192.168.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,10.0.0.0/8,DIRECT,no-resolve'
+  - 'GEOSITE,cn,DIRECT'
+  - 'GEOSITE,private,DIRECT'
+  - 'GEOSITE,geolocation-!cn,Nice Cloud'
+  - 'GEOIP,private,DIRECT,no-resolve'
+  - 'GEOIP,cn,DIRECT'
+  - 'MATCH,Nice Cloud'
