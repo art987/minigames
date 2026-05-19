@@ -12101,7 +12101,7 @@ function updateBusinessInfoButtonForVip() {
 
     loadFrameImages: function() {
       const basePath = 'sticker/cover/';
-      for (let i = 1; i <= 27; i++) {
+      for (let i = 1; i <= 43; i++) {
         this.frameImages.push({
           id: i,
           src: basePath + i + '.png'
