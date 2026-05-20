@@ -12898,7 +12898,7 @@ window.textTemplateManager = {
       rotation: 0,
       color: '#000000',
       fontFamily: window.fontManager ? window.fontManager.useFont('Microsoft YaHei') : 'sans-serif',
-      fontSize: 12,
+      fontSize: 10,
       writingMode: 'vertical-rl',
       textAlign: 'top',
       width: 80,
