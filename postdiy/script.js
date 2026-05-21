@@ -879,9 +879,12 @@ function createTemplateCard(template) {
   card.className = 'template-card';
   
   // 卡片内容
+  const thumbnailPath = template.thumbnail || template.image;
+  const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnailPath) : thumbnailPath;
+  
   card.innerHTML = `
     <div class="template-thumbnail-container">
-      <img class="template-thumbnail" src="${template.thumbnail || template.image}" alt="${template.name}" loading="lazy">
+      <img class="template-thumbnail" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
     </div>
     <div class="template-info">
       <h3 class="template-name">${template.name}</h3>
@@ -891,6 +894,17 @@ function createTemplateCard(template) {
       </div>
     </div>
   `;
+  
+  // 添加图片加载失败回退处理
+  const img = card.querySelector('.template-thumbnail');
+  if (img && window.imageConfig) {
+    img.addEventListener('error', function() {
+      const originalPath = this.getAttribute('data-original-path');
+      if (originalPath) {
+        window.imageConfig.handleImageError(this, originalPath);
+      }
+    });
+  }
   
   // 添加点击事件
   card.addEventListener('click', function() {
@@ -1094,11 +1108,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 设置按钮背景图片
     function setButtonBackground(button, type) {
-      const imageUrl = getRandomBackgroundImage(type);
-      if (imageUrl) {
+      const localPath = getRandomBackgroundImage(type);
+      if (localPath) {
+        const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath;
         const wrapper = button.closest('.button-wrapper');
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+          wrapper.setAttribute('data-original-path', localPath);
         }
       }
     }

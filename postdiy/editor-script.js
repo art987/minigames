@@ -4600,7 +4600,9 @@ let currentCropTarget = null;
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate && state.currentTemplate.image) {
-      elements.posterBackground.src = state.currentTemplate.image;
+      const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+      elements.posterBackground.src = imageUrl;
+      elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
     } else {
       console.warn('没有可用的图片资源');
       // 如果没有图片资源，立即隐藏动画
@@ -4611,6 +4613,14 @@ let currentCropTarget = null;
       }
       return;
     }
+    
+    // 图片加载失败回退处理
+    elements.posterBackground.onerror = function() {
+      const originalPath = this.getAttribute('data-original-path');
+      if (originalPath && window.imageConfig) {
+        window.imageConfig.handleImageError(this, originalPath);
+      }
+    };
     
     // 监听图片加载完成事件
     elements.posterBackground.onload = function() {
@@ -5638,9 +5648,19 @@ let currentCropTarget = null;
         
         // 创建模板图片
         const templateImg = document.createElement('img');
-        templateImg.src = template.thumbnail;
+        const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+        templateImg.src = thumbnailUrl;
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail';
+        templateImg.dataset.originalPath = template.thumbnail;
+        
+        // 图片加载失败回退处理
+        templateImg.addEventListener('error', function() {
+          const originalPath = this.getAttribute('data-original-path');
+          if (originalPath && window.imageConfig) {
+            window.imageConfig.handleImageError(this, originalPath);
+          }
+        });
         
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
@@ -5792,7 +5812,22 @@ let currentCropTarget = null;
             img.src = realImg.src;
             slide.dataset.loaded = 'true';
           };
-          realImg.src = thumbnail;
+          realImg.onerror = function() {
+            // 尝试回退到本地路径
+            if (window.imageConfig) {
+              const fallbackUrl = window.imageConfig.getFallbackUrl(thumbnail);
+              if (fallbackUrl) {
+                const fallbackImg = new Image();
+                fallbackImg.onload = function() {
+                  img.src = fallbackUrl;
+                  slide.dataset.loaded = 'true';
+                };
+                fallbackImg.src = fallbackUrl;
+              }
+            }
+          };
+          const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnail) : thumbnail;
+          realImg.src = imageUrl;
         }
       }
     });
@@ -6168,9 +6203,19 @@ let currentCropTarget = null;
           
           // 创建模板图片
           const templateImg = document.createElement('img');
-          templateImg.src = template.thumbnail;
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+          templateImg.src = thumbnailUrl;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
+          templateImg.dataset.originalPath = template.thumbnail;
+          
+          // 图片加载失败回退处理
+          templateImg.addEventListener('error', function() {
+            const originalPath = this.getAttribute('data-original-path');
+            if (originalPath && window.imageConfig) {
+              window.imageConfig.handleImageError(this, originalPath);
+            }
+          });
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
@@ -6311,9 +6356,19 @@ let currentCropTarget = null;
           
           // 创建模板图片
           const templateImg = document.createElement('img');
-          templateImg.src = template.thumbnail;
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+          templateImg.src = thumbnailUrl;
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail';
+          templateImg.dataset.originalPath = template.thumbnail;
+          
+          // 图片加载失败回退处理
+          templateImg.addEventListener('error', function() {
+            const originalPath = this.getAttribute('data-original-path');
+            if (originalPath && window.imageConfig) {
+              window.imageConfig.handleImageError(this, originalPath);
+            }
+          });
           
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
@@ -9123,7 +9178,24 @@ let currentCropTarget = null;
             if (isUsingTemplate && state.currentTemplate && state.currentTemplate.image) {
               // 对于模板背景，直接使用模板的image路径
               console.log('使用模板背景图片路径:', state.currentTemplate.image);
-              img.src = state.currentTemplate.image;
+              const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+              img.src = imageUrl;
+              img.dataset.originalPath = state.currentTemplate.image;
+              
+              // 图片加载失败回退处理
+              img.onerror = function() {
+                const originalPath = this.getAttribute('data-original-path');
+                if (originalPath && window.imageConfig) {
+                  const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
+                  if (fallbackUrl) {
+                    this.src = fallbackUrl;
+                    return;
+                  }
+                }
+                console.warn('无法直接加载背景图片，准备创建备用背景...');
+                createFallbackBackground();
+                resolve();
+              };
             } else {
               // 对于自定义背景或其他情况，使用当前背景图片的src
               img.src = backgroundImageElement.src;

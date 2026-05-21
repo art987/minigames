@@ -1,3 +1,77 @@
+// 图片加载配置
+var imageConfig = {
+  mode: 'cloudflare-first',
+  cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
+  localBaseUrl: '',
+  failedImages: new Set(),
+  
+  getImageUrl: function(localPath) {
+    const cloudflareUrl = this.cloudflareBaseUrl + localPath;
+    const localUrl = this.localBaseUrl + localPath;
+    
+    switch (this.mode) {
+      case 'cloudflare-only':
+        return cloudflareUrl;
+      case 'local-only':
+        return localUrl;
+      case 'cloudflare-first':
+      default:
+        if (this.failedImages.has(cloudflareUrl)) {
+          return localUrl;
+        }
+        return cloudflareUrl;
+    }
+  },
+  
+  getFallbackUrl: function(localPath) {
+    if (this.mode === 'cloudflare-first') {
+      const cloudflareUrl = this.cloudflareBaseUrl + localPath;
+      this.failedImages.add(cloudflareUrl);
+      return this.localBaseUrl + localPath;
+    }
+    return null;
+  },
+  
+  handleImageError: function(img, localPath) {
+    const fallbackUrl = this.getFallbackUrl(localPath);
+    if (fallbackUrl && img.src !== fallbackUrl) {
+      img.src = fallbackUrl;
+      return true;
+    }
+    return false;
+  },
+  
+  preloadImage: function(localPath) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const primaryUrl = this.getImageUrl(localPath);
+      
+      img.onload = () => resolve(primaryUrl);
+      img.onerror = () => {
+        const fallbackUrl = this.getFallbackUrl(localPath);
+        if (fallbackUrl) {
+          const fallbackImg = new Image();
+          fallbackImg.onload = () => resolve(fallbackUrl);
+          fallbackImg.onerror = () => reject(new Error('Failed to load image: ' + localPath));
+          fallbackImg.src = fallbackUrl;
+        } else {
+          reject(new Error('Failed to load image: ' + localPath));
+        }
+      };
+      
+      img.src = primaryUrl;
+    });
+  },
+  
+  setMode: function(mode) {
+    if (['cloudflare-first', 'local-only', 'cloudflare-only'].includes(mode)) {
+      this.mode = mode;
+      this.failedImages.clear();
+      console.log('图片加载模式已切换为:', mode);
+    }
+  }
+};
+
 // 模板数据
 // 海报模板数据
 var templates = {
