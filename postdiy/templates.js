@@ -4,6 +4,7 @@ var imageConfig = {
   cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
   localBaseUrl: '',
   failedImages: new Set(),
+  timeout: 5000,
   
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;
@@ -45,19 +46,46 @@ var imageConfig = {
     return new Promise((resolve, reject) => {
       const img = new Image();
       const primaryUrl = this.getImageUrl(localPath);
+      let timeoutId = null;
+      let resolved = false;
       
-      img.onload = () => resolve(primaryUrl);
-      img.onerror = () => {
+      const cleanup = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+      };
+      
+      const finishResolve = (url) => {
+        if (resolved) return;
+        resolved = true;
+        cleanup();
+        resolve(url);
+      };
+      
+      const finishReject = (error) => {
+        if (resolved) return;
+        resolved = true;
+        cleanup();
+        reject(error);
+      };
+      
+      const loadFallback = () => {
         const fallbackUrl = this.getFallbackUrl(localPath);
         if (fallbackUrl) {
           const fallbackImg = new Image();
-          fallbackImg.onload = () => resolve(fallbackUrl);
-          fallbackImg.onerror = () => reject(new Error('Failed to load image: ' + localPath));
+          fallbackImg.onload = () => finishResolve(fallbackUrl);
+          fallbackImg.onerror = () => finishReject(new Error('Failed to load image: ' + localPath));
           fallbackImg.src = fallbackUrl;
         } else {
-          reject(new Error('Failed to load image: ' + localPath));
+          finishReject(new Error('Failed to load image: ' + localPath));
         }
       };
+      
+      img.onload = () => finishResolve(primaryUrl);
+      img.onerror = () => loadFallback();
+      
+      timeoutId = setTimeout(() => {
+        console.log('图片预加载超时，切换到本地:', primaryUrl);
+        loadFallback();
+      }, this.timeout);
       
       img.src = primaryUrl;
     });
@@ -3153,16 +3181,7 @@ var templates = {
       description: '芒种节气农耕文化主题海报模板',
       type: '节气'
     },
-    {
-      id: 'mangzhong-2024-019',
-      name: '芒种谷物成熟',
-      thumbnail: 'images/mangzhong/thumbnails/19.jpg',
-      image: 'images/mangzhong/19.png',
-      months: [6],
-      festivals: ['芒种'],
-      description: '芒种节气谷物成熟主题海报模板',
-      type: '节气'
-    },
+  
     {
       id: 'ertongjie-2024-001',
       name: '儿童节快乐',

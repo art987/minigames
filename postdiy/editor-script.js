@@ -1154,6 +1154,98 @@ async function updateImageCache(imgId, key, newUrl) {
 let cropper = null;
 let currentCropTarget = null;
 
+// 图片预加载管理器 - 支持优先级和取消
+const ThumbnailLoader = {
+  currentLoadId: 0,
+  loadingImages: new Map(),
+  abortController: null,
+  timeout: 5000,
+  
+  generateLoadId() {
+    return ++this.currentLoadId;
+  },
+  
+  cancelCurrentLoad() {
+    this.loadingImages.forEach((img, key) => {
+      img.src = '';
+      img.onload = null;
+      img.onerror = null;
+    });
+    this.loadingImages.clear();
+  },
+  
+  async loadThumbnail(img, url, fallbackUrl, loadId, priority = 0) {
+    if (loadId !== this.currentLoadId) {
+      return false;
+    }
+    
+    const key = url + '_' + loadId;
+    this.loadingImages.set(key, img);
+    
+    return new Promise((resolve) => {
+      let timeoutId = null;
+      let resolved = false;
+      
+      const cleanup = () => {
+        this.loadingImages.delete(key);
+        if (timeoutId) clearTimeout(timeoutId);
+      };
+      
+      const finishLoad = (success) => {
+        if (resolved) return;
+        resolved = true;
+        cleanup();
+        img.classList.remove('loading');
+        const spinner = img.parentElement.querySelector('.thumbnail-spinner');
+        if (spinner) spinner.remove();
+        resolve(success);
+      };
+      
+      const loadFallback = () => {
+        if (resolved) return;
+        if (fallbackUrl && img.src !== fallbackUrl) {
+          img.src = fallbackUrl;
+        } else {
+          finishLoad(false);
+        }
+      };
+      
+      img.onload = () => {
+        finishLoad(true);
+      };
+      
+      img.onerror = () => {
+        loadFallback();
+      };
+      
+      timeoutId = setTimeout(() => {
+        console.log('图片加载超时，切换到本地:', url);
+        loadFallback();
+      }, this.timeout);
+      
+      img.classList.add('loading');
+      img.src = url;
+    });
+  },
+  
+  async loadBatch(items, loadId, batchSize = 6) {
+    if (loadId !== this.currentLoadId) return;
+    
+    for (let i = 0; i < items.length; i += batchSize) {
+      if (loadId !== this.currentLoadId) return;
+      
+      const batch = items.slice(i, i + batchSize);
+      await Promise.all(batch.map(item => 
+        this.loadThumbnail(item.img, item.url, item.fallbackUrl, loadId, i)
+      ));
+      
+      if (loadId !== this.currentLoadId) return;
+      
+      await new Promise(r => setTimeout(r, 50));
+    }
+  }
+};
+
 // 全局状态管理 - 移到最前面确保优先初始化
   let state = {
     currentTemplate: null,
@@ -6179,6 +6271,13 @@ let currentCropTarget = null;
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
     
+    // 取消之前的加载任务
+    ThumbnailLoader.cancelCurrentLoad();
+    const loadId = ThumbnailLoader.generateLoadId();
+    
+    // 收集需要加载的图片
+    const loadQueue = [];
+    
     // 更新节日标签，只显示选中月份的节日
     fillFestivalTags(month);
     
@@ -6201,20 +6300,26 @@ let currentCropTarget = null;
           const templateImgContainer = document.createElement('div');
           templateImgContainer.className = 'template-thumbnail-container';
           
+          // 创建加载动画
+          const spinner = document.createElement('div');
+          spinner.className = 'thumbnail-spinner';
+          spinner.innerHTML = '<div class="spinner-ring"></div>';
+          
           // 创建模板图片
           const templateImg = document.createElement('img');
-          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          templateImg.src = thumbnailUrl;
           templateImg.alt = template.name;
-          templateImg.className = 'template-thumbnail';
+          templateImg.className = 'template-thumbnail loading';
           templateImg.dataset.originalPath = template.thumbnail;
           
-          // 图片加载失败回退处理
-          templateImg.addEventListener('error', function() {
-            const originalPath = this.getAttribute('data-original-path');
-            if (originalPath && window.imageConfig) {
-              window.imageConfig.handleImageError(this, originalPath);
-            }
+          // 获取图片URL
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+          const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(template.thumbnail) : null;
+          
+          // 添加到加载队列
+          loadQueue.push({
+            img: templateImg,
+            url: thumbnailUrl,
+            fallbackUrl: fallbackUrl
           });
           
           // 创建圆形勾选按钮
@@ -6286,6 +6391,7 @@ let currentCropTarget = null;
           templateName.textContent = template.name;
           
           // 组合模板项
+          templateImgContainer.appendChild(spinner);
           templateImgContainer.appendChild(templateImg);
           templateImgContainer.appendChild(checkButton);
           templateItem.appendChild(templateImgContainer);
@@ -6302,6 +6408,9 @@ let currentCropTarget = null;
     
     // 在模板列表最后添加自定义背景入口
     addCustomBackgroundEntryToModal();
+    
+    // 开始批量加载图片
+    ThumbnailLoader.loadBatch(loadQueue, loadId, 6);
     
     // 尝试自动选择对应月份的节日（与首页逻辑保持一致）
     try {
@@ -6325,6 +6434,13 @@ let currentCropTarget = null;
     
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
+    
+    // 取消之前的加载任务
+    ThumbnailLoader.cancelCurrentLoad();
+    const loadId = ThumbnailLoader.generateLoadId();
+    
+    // 收集需要加载的图片
+    const loadQueue = [];
     
     // 遍历所有模板
     for (const monthKey in window.templates) {
@@ -6354,20 +6470,26 @@ let currentCropTarget = null;
           const templateImgContainer = document.createElement('div');
           templateImgContainer.className = 'template-thumbnail-container';
           
+          // 创建加载动画
+          const spinner = document.createElement('div');
+          spinner.className = 'thumbnail-spinner';
+          spinner.innerHTML = '<div class="spinner-ring"></div>';
+          
           // 创建模板图片
           const templateImg = document.createElement('img');
-          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          templateImg.src = thumbnailUrl;
           templateImg.alt = template.name;
-          templateImg.className = 'template-thumbnail';
+          templateImg.className = 'template-thumbnail loading';
           templateImg.dataset.originalPath = template.thumbnail;
           
-          // 图片加载失败回退处理
-          templateImg.addEventListener('error', function() {
-            const originalPath = this.getAttribute('data-original-path');
-            if (originalPath && window.imageConfig) {
-              window.imageConfig.handleImageError(this, originalPath);
-            }
+          // 获取图片URL
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+          const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(template.thumbnail) : null;
+          
+          // 添加到加载队列
+          loadQueue.push({
+            img: templateImg,
+            url: thumbnailUrl,
+            fallbackUrl: fallbackUrl
           });
           
           // 创建圆形勾选按钮
@@ -6439,6 +6561,7 @@ let currentCropTarget = null;
           templateName.textContent = template.name;
           
           // 组合模板项
+          templateImgContainer.appendChild(spinner);
           templateImgContainer.appendChild(templateImg);
           templateImgContainer.appendChild(checkButton);
           templateItem.appendChild(templateImgContainer);
@@ -6452,6 +6575,9 @@ let currentCropTarget = null;
     
     // 在模板列表最后添加自定义背景入口
     addCustomBackgroundEntryToModal();
+    
+    // 开始批量加载图片
+    ThumbnailLoader.loadBatch(loadQueue, loadId, 6);
     
     // 更新幻灯片视图
     updateSlideViewFromFilter(null, festival);

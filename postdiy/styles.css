@@ -382,6 +382,34 @@ main {
   transition: transform var(--transition-slow);
 }
 
+.template-thumbnail.loading {
+  opacity: 0;
+}
+
+.thumbnail-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+.spinner-ring {
+  width: 100%;
+  height: 100%;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ca1818;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .template-card:hover .template-thumbnail {
   transform: scale(1.05);
 }
@@ -5003,7 +5031,6 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   position: relative;
 }
 
-/* é€‰ä¸­æ¨¡æ¿çš„å‹¾å·æ ‡è®° */
 .template-item.selected::before {
   content: '';
   position: absolute;
@@ -5017,7 +5044,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 }
 
 .template-item.selected::after {
-  content: 'âœ“';
+  content: '✔';
   position: absolute;
   top: 50%;
   left: 50%;

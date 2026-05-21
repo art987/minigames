@@ -881,6 +881,7 @@ function createTemplateCard(template) {
   // 卡片内容
   const thumbnailPath = template.thumbnail || template.image;
   const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnailPath) : thumbnailPath;
+  const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(thumbnailPath) : null;
   
   card.innerHTML = `
     <div class="template-thumbnail-container">
@@ -895,15 +896,35 @@ function createTemplateCard(template) {
     </div>
   `;
   
-  // 添加图片加载失败回退处理
+  // 添加图片加载失败回退处理和超时处理
   const img = card.querySelector('.template-thumbnail');
   if (img && window.imageConfig) {
-    img.addEventListener('error', function() {
-      const originalPath = this.getAttribute('data-original-path');
-      if (originalPath) {
-        window.imageConfig.handleImageError(this, originalPath);
+    let timeoutId = null;
+    let loaded = false;
+    
+    const loadFallback = () => {
+      if (loaded) return;
+      const originalPath = img.getAttribute('data-original-path');
+      if (originalPath && window.imageConfig) {
+        const fallback = window.imageConfig.localBaseUrl + originalPath;
+        if (img.src !== fallback) {
+          img.src = fallback;
+        }
       }
+    };
+    
+    img.addEventListener('load', function() {
+      loaded = true;
+      if (timeoutId) clearTimeout(timeoutId);
     });
+    
+    img.addEventListener('error', function() {
+      loadFallback();
+    });
+    
+    timeoutId = setTimeout(() => {
+      loadFallback();
+    }, 5000);
   }
   
   // 添加点击事件
