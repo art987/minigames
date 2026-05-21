@@ -38,6 +38,7 @@ body {
     position: relative;
     height: auto;
     margin: 0 20px 13px;
+    width: 90%;
     }
   .tagsbox .tip{
     /* background: #ffffff; */
@@ -54,14 +55,14 @@ body {
     }
    .tagsbox .show-all-tags{
     background-color: #ffffff;
-    /* background-size: 20px; */
+    background-size: 20px;
     /* background-image: url(scroll.gif); */
-    /* background-repeat: no-repeat; */
-    /* background-position: 4px 12px; */
+    background-repeat: no-repeat;
+    background-position: 4px 12px;
     color: #575757;
     border: none;
     padding: 7px 0px;
-    display: none;
+    /* display: none; */
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid #dddddd;
@@ -70,8 +71,8 @@ body {
     /* box-shadow: 0px 0px 26px #a5a5a58c; */
     z-index: 99;
     /* display: none; */
-    width: 30px;
-    height: 25px;
+    width: 38px;
+    height: 34px;
     top: 0px;
     right: 0px;
     text-align: center;
@@ -80,17 +81,32 @@ body {
 
 
  .tags{
-            /* display: flex; */
+            display: flex;
             gap: 7px;
             padding-bottom: 5px;
-            height: auto;
+            height: 40px;
             margin-bottom: 1px;
-            /* overflow-x: scroll; */
+            overflow: hidden;
             margin-left: 0px;
             margin-right: 0px;
-            /* scroll-behavior: smooth; */
-            -webkit-overflow-scrolling: touch;
+            flex-wrap: wrap;
+            align-content: flex-start;
         }
+        
+        .tags .tag {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .tags .tag.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        
+        .tags .tag.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+		
 		.keywords {
     display: none;
     display: flex;
@@ -129,8 +145,8 @@ body {
             color: #000;
             border: 1px solid #efefef;
             font-size: 13px;
-            display: inline;
-            float: left;
+            display: inline-block;
+            white-space: nowrap;
             margin: 0 5px 10px 0;
         }
 		
@@ -301,6 +317,31 @@ body {
 	overflow-x:hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; position:relative;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.modal-content.jelly-show {
+    animation: jellyPopup 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes jellyPopup {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(0.95);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 .modal-content .keyword{  margin: 0 8px 8px 0;}
 
@@ -463,14 +504,15 @@ body {
 .floating-tags {
     display: none;
     position: fixed;
-    top: 38px;
+    top: 0;
     left: 0;
-    height: 90%;
-    width: 41px;
-    background-color: #dededeed;
+    height: 100%;
+    width: auto;
+    max-width: 300px;
+    background-color: #ffffffed;
     border-top: 1px solid #e3e3e3;
     border-bottom: 1px solid #e5e5e5;
-    padding: 17px 9px;
+    padding: 8px 9px;
     box-shadow: 0 2px 21px #31313145;
     z-index: 385;
     overflow-x: auto;
@@ -500,12 +542,11 @@ body {
  letter-spacing: 0px;
  text-align: center;
  color: #000000;
- width: 26px;
  font-size: 15px;
  box-shadow: 0 0 5px #cccccc82;
  display: block;
  line-height: 21px;
- margin-bottom: 10px;
+ margin-bottom: 16px;
  position:relative;
 }
 
@@ -534,9 +575,9 @@ body {
     display: block;
     width: 1px;
     height: 10px;
-    background-color: #696969;
+    background-color: #e1e1e1;
     position: absolute;
-    left: 20px;
+    left: 28px;
     bottom: -11px;
 }
 
@@ -654,19 +695,33 @@ body {
 
 #all-tags-modal .close-button {
    
-	color: #df0505;
-    font-size: 26px;
-    float: right;
-    cursor: pointer;
-    background: #ffffff;
-    /* border-radius: 50%; */
-    width: 15px;
-    height: 30px;
-    position: fixed;
-    text-align: center;
-    line-height: 30px;
-    width: 15px;
-    top: 116px;
+color: #df0505;
+   
+font-size: 26px;
+   
+float: right;
+   
+cursor: pointer;
+   
+background: #ffffff;
+   
+/* border-radius: 50%; */
+   
+width: 15px;
+   
+height: 30px;
+   
+border: none;
+   
+position: fixed;
+   
+text-align: center;
+   
+line-height: 30px;
+   
+width: 15px;
+   
+top: 0;
 }
 
 #all-tags-container {
@@ -734,42 +789,62 @@ body {
 
 #today-recommend-modal .modal-content {
     background-color: #ffffff;
-    margin: 84px auto 0;
-    padding: 20px 0 20px;
+    margin: 5vh auto;
+    padding: 0;
     border: 1px solid #8f8f8f;
     width: 90%;
     max-width: 631px;
     border-radius: 12px;
-    height: 100%;
-    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 0 15px #ccc;
+    overflow: hidden;
+    position: relative;
 }
 
 #today-recommend-modal h3 {
     text-align: center;
     color: #333;
     font-size: 15px;
-    position: absolute;
-    top: 13px;
-    left: 19px;
-    padding-bottom: 6px;
+    padding: 15px 20px;
     margin: 0;
-    padding: 0; font-weight:bold; letter-spacing:2px;
-	
-	
-	
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
+}
+
+#today-recommend-modal .close-button {
+    position: absolute;
+    top: 2px;
+    right: 30px;
+    color: #cd0000;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border: none;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+#today-recommend-modal .close-button:hover {
+    color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
 }
 
 #today-recommend-container {
-	
-	    height: 411px;
+    flex: 1;
     overflow-y: auto;
-    padding: 0px 20px 0px;
-    margin-top: 19px;
-    margin-bottom: 0;
-    border-top: 1px solid #e5e5e5;
-    position: relative;
-	
+    overflow-x: hidden;
+    padding: 10px 20px;
+    min-height: 200px;
 }
 
 #today-recommend-container li {list-style: none;height: auto;margin-bottom: 2px;font-size: 16px;border-bottom: 1px dashed #d1d1d1;line-height: 32px;background: #ffffff;letter-spacing: 1px;align-items: center;justify-content: space-between;padding: 0px 0px 3px 0px;position: relative;display: block;}
@@ -852,8 +927,12 @@ body {
 }
 .bottom-buttons{
     border-top: 1px solid #ccc;
-    padding-top: 9px;
-    padding: 9px 30px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
+    background: #ffffff;
 }
 
 
@@ -878,4 +957,89 @@ body {
 }
 
 
+.floating-player {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(327deg, #f7f7f7 0%, #f4f4f4 100%);
+    border-radius: 50px;
+    padding: 12px 20px;
+    box-shadow: 0 1px 0px rgb(177 177 177 / 48%), 0 1px 25px rgb(0 0 0 / 3%);
+    display: flex;
+    border: 1px solid #d1d1d1;
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+}
 
+.floating-player.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.floating-player button {
+    background: rgb(50 50 50 / 28%);
+    border: none;
+    color: #ffffff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.floating-player button:hover {
+    background: rgba(255, 255, 255, 0.86);
+    transform: scale(1.1);
+    color: #000;
+}
+
+.floating-player button:active {
+    transform: scale(0.95);
+}
+
+.floating-player .play-pause-btn {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 20px;
+    background: rgb(222 13 13 / 68%);
+}
+
+.floating-player .play-pause-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.floating-player button.active {
+    background: rgb(0 255 169 / 50%);
+}
+.floating-player button.menu-toggle-btn {
+    background: rgb(41 41 41 / 76%);
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+}
+li.playing-highlight {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+    border: 2px solid #667eea;
+}
+
+
+.floating-player .top-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    background: rgb(7 126 80 / 68%);
+}

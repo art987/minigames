@@ -63,10 +63,20 @@ function createTodayRecommendModal() {
     // 关闭按钮事件
     closeButton.addEventListener('click', () => {
         modal.style.display = 'none';
+        // 移除果冻动画类
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('jelly-show');
+        }
     });
     
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
+        // 移除果冻动画类
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('jelly-show');
+        }
     });
     
     // 换一组按钮事件
@@ -78,6 +88,11 @@ function createTodayRecommendModal() {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
+            // 移除果冻动画类
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.classList.remove('jelly-show');
+            }
         }
     });
 }
@@ -176,7 +191,32 @@ function showTodayRecommendations() {
                 // 如果没有nav标签，添加默认的朗读和复制按钮
                 const readButton = document.createElement('button');
                 readButton.textContent = '朗读';
-                readButton.onclick = () => readText(recommendation);
+                readButton.onclick = () => {
+                    // 如果点击的是正在朗读的按钮，则停止
+                    if (currentReadingButton === readButton) {
+                        stopReading();
+                        readButton.textContent = '朗读';
+                        currentReadingButton = null;
+                        isPlaying = false;
+                        updatePlayPauseButton();
+                    } else {
+                        // 如果有其他按钮正在朗读，先停止它
+                        if (currentReadingButton) {
+                            stopReading();
+                            currentReadingButton.textContent = '朗读';
+                        }
+                        
+                        // 开始新的朗读
+                        currentReadingButton = readButton;
+                        readButton.textContent = '停止';
+                        readText(recommendation, () => {
+                            readButton.textContent = '朗读';
+                            if (currentReadingButton === readButton) {
+                                currentReadingButton = null;
+                            }
+                        }, readButton);
+                    }
+                };
                 actions.appendChild(readButton);
                 
                 const copyButton = document.createElement('button');
@@ -192,6 +232,12 @@ function showTodayRecommendations() {
         // 显示弹窗
         modal.style.display = 'block';
         
+        // 添加果冻动画
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.classList.add('jelly-show');
+        }
+        
         // 新增代码 - 滚动到顶部
         container.scrollTo({
             top: 0,
@@ -206,12 +252,38 @@ function showTodayRecommendations() {
 // 配置参数 - 可自行修改控制功能
 const CONFIG = {
     showTodayRecommend: 0, // 0不显示弹窗，1显示弹窗
-    enableFloatingTags: 0  // 0不启用浮动标签，1启用浮动标签
+    enableFloatingTags: 1,  // 0不启用浮动标签，1启用浮动标签
+    enableNavbar: 0  // 0不启用顶部导航栏，1启用顶部导航栏
 };
 
 // 在DOMContentLoaded事件中替换原来的弹窗代码
 document.addEventListener('DOMContentLoaded', () => {
-    setupNavbarScrollBehavior();
+    // 根据配置决定是否启用navbar
+    if (CONFIG.enableNavbar === 1) {
+        setupNavbarScrollBehavior();
+        // 动态加载menu-functions.js
+        const menuScript = document.createElement('script');
+        menuScript.src = 'https://peacelove.top/menu-functions.js';
+        document.body.appendChild(menuScript);
+    } else {
+        // 如果不启用navbar，隐藏navbar-container
+        const navbarContainer = document.getElementById('navbar-container');
+        if (navbarContainer) {
+            navbarContainer.style.display = 'none';
+        }
+    }
+    
+    // 预加载语音（提升首次朗读响应速度）
+    if ('speechSynthesis' in window) {
+        // 某些浏览器需要先调用getVoices()才能加载语音列表
+        speechSynthesis.getVoices();
+        
+        // 监听语音列表加载完成
+        speechSynthesis.onvoiceschanged = () => {
+            const voices = speechSynthesis.getVoices();
+            console.log(`已加载 ${voices.length} 个语音`);
+        };
+    }
     
     
     
@@ -267,8 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const floatingTagsContainer = document.getElementById('floating-tags-container');
         floatingTagsContainer.style.display = 'none';
         
-        // 监听滚动事件
-        window.addEventListener('scroll', updateFloatingTags);
+        // 监听滚动事件 - 已禁用，改为通过播放控制条手动控制
+        // window.addEventListener('scroll', updateFloatingTags);
     }
     
     // 根据配置决定是否显示今日推荐弹窗
@@ -392,12 +464,22 @@ function createAllTagsModal() {
     // 关闭按钮事件
     closeButton.addEventListener('click', () => {
         modal.style.display = 'none';
+        // 移除果冻动画类
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('jelly-show');
+        }
     });
     
     // 点击外部关闭
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
+            // 移除果冻动画类
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.classList.remove('jelly-show');
+            }
         }
     });
 }
@@ -457,6 +539,12 @@ function showAllTagsModal() {
     
     // 显示弹窗
     modal.style.display = 'block';
+    
+    // 添加果冻动画
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.classList.add('jelly-show');
+    }
 }
 
 
@@ -539,17 +627,6 @@ if (showAllTagsButton) {
     showAllTagsButton.addEventListener('click', showAllTagsModal);
 }
     
-    // 添加"全部"标签
-    const allTagElement = document.createElement('div');
-    allTagElement.classList.add('tag', 'active');
-    allTagElement.dataset.category = 'all';
-    allTagElement.textContent = '全部';
-    allTagElement.addEventListener('click', () => {
-        handleTagClick(allTagElement, 'all');
-        resetDisplay();
-    });
-    tagsContainer.appendChild(allTagElement);
-
     // 添加其他标签
     Object.keys(data.content).forEach(key => {
         const [name, category] = key.split('|');
@@ -602,7 +679,46 @@ if (showAllTagsButton) {
 
             const readButton = document.createElement('button');
             readButton.textContent = '朗读';
-            readButton.onclick = () => readText(sentence);
+            readButton.onclick = () => {
+                // 如果点击的是正在朗读的按钮，则停止
+                if (currentReadingButton === readButton) {
+                    stopReading();
+                    readButton.textContent = '朗读';
+                    currentReadingButton = null;
+                    isPlaying = false;
+                    updatePlayPauseButton();
+                } else {
+                    // 如果有其他按钮正在朗读，先停止它
+                    if (currentReadingButton) {
+                        stopReading();
+                        currentReadingButton.textContent = '朗读';
+                    }
+                    
+                    // 找到当前卡片的索引
+                    const visibleItems = getVisibleItems();
+                    const cardIndex = visibleItems.indexOf(listItem);
+                    
+                    // 同步播放器状态
+                    if (cardIndex !== -1) {
+                        syncPlayerFromCard(listItem, cardIndex);
+                    }
+                    
+                    // 开始新的朗读
+                    currentReadingButton = readButton;
+                    readButton.textContent = '停止';
+                    readText(sentence, () => {
+                        // 朗读完成后恢复按钮文本
+                        readButton.textContent = '朗读';
+                        if (currentReadingButton === readButton) {
+                            currentReadingButton = null;
+                        }
+                        // 如果播放器正在播放，自动播放下一条
+                        if (isPlaying) {
+                            playNext();
+                        }
+                    }, readButton);
+                }
+            };
             actions.appendChild(readButton);
 
             const copyButton = document.createElement('button');
@@ -641,9 +757,142 @@ if (showAllTagsButton) {
     });
 
     updateFloatingTags();
+    
+    initTagsAutoScroll();
+}
+
+function initTagsAutoScroll() {
+    const tagsContainer = document.getElementById('tags-container');
+    if (!tagsContainer) return;
+    
+    const tags = tagsContainer.querySelectorAll('.tag');
+    if (tags.length === 0) return;
+    
+    let currentRow = 0;
+    let rows = []; // 存储每行的tag索引
+    let autoScrollInterval;
+    let isHovering = false;
+    
+    // 将tag分组到不同的行
+    function groupTagsIntoRows() {
+        rows = [];
+        const containerWidth = tagsContainer.clientWidth;
+        const gap = 7;
+        let currentRowTags = [];
+        let currentWidth = 0;
+        
+        tags.forEach((tag, index) => {
+            // 临时显示tag以获取宽度
+            tag.style.display = 'block';
+            const tagWidth = tag.offsetWidth + gap;
+            
+            if (currentWidth + tagWidth > containerWidth && currentRowTags.length > 0) {
+                // 当前行放不下，开始新行
+                rows.push(currentRowTags);
+                currentRowTags = [];
+                currentWidth = 0;
+            }
+            
+            currentRowTags.push(index);
+            currentWidth += tagWidth;
+        });
+        
+        // 添加最后一行
+        if (currentRowTags.length > 0) {
+            rows.push(currentRowTags);
+        }
+        
+        // 隐藏所有tag
+        tags.forEach(tag => {
+            tag.style.display = 'none';
+        });
+        
+        return rows.length;
+    }
+    
+    // 显示指定行
+    function showRow(rowIndex) {
+        if (rowIndex < 0 || rowIndex >= rows.length) return;
+        
+        // 淡出所有tag
+        tags.forEach(tag => {
+            tag.classList.add('fade-out');
+            tag.classList.remove('fade-in');
+        });
+        
+        // 等待淡出完成后，隐藏所有tag并显示新的行
+        setTimeout(() => {
+            tags.forEach(tag => {
+                tag.style.display = 'none';
+                tag.classList.remove('fade-out');
+            });
+            
+            // 显示当前行的tag并淡入
+            rows[rowIndex].forEach(tagIndex => {
+                tags[tagIndex].style.display = 'block';
+                tags[tagIndex].classList.add('fade-in');
+            });
+        }, 500);
+    }
+    
+    // 自动翻页
+    function autoScroll() {
+        if (isHovering) return;
+        
+        currentRow = (currentRow + 1) % rows.length;
+        showRow(currentRow);
+    }
+    
+    // 初始化
+    function init() {
+        groupTagsIntoRows();
+        if (rows.length > 0) {
+            showRow(0);
+            if (rows.length > 1) {
+                autoScrollInterval = setInterval(autoScroll, 3000);
+            }
+        }
+    }
+    
+    // 鼠标悬停时暂停
+    tagsContainer.addEventListener('mouseenter', () => {
+        isHovering = true;
+    });
+    
+    tagsContainer.addEventListener('mouseleave', () => {
+        isHovering = false;
+    });
+    
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', () => {
+        clearInterval(autoScrollInterval);
+        currentRow = 0;
+        groupTagsIntoRows();
+        if (rows.length > 0) {
+            showRow(0);
+            if (rows.length > 1) {
+                autoScrollInterval = setInterval(autoScroll, 3000);
+            }
+        }
+    });
+    
+    // 延迟初始化，确保DOM已完全渲染
+    setTimeout(init, 100);
 }
 
 function handleTagClick(tagElement, category) {
+    // 如果正在播放，停止播放
+    if (isPlaying) {
+        stopReading();
+        isPlaying = false;
+        updatePlayPauseButton();
+        currentReadingButton = null;
+    }
+    
+    // 重置播放索引，确保下次播放从第一条开始
+    currentPlayingIndex = -1;
+    currentVisibleItems = [];
+    
     // 移除所有标签的active类
     document.querySelectorAll('.tag').forEach(el => el.classList.remove('active'));
     
@@ -678,6 +927,16 @@ function handleTagClick(tagElement, category) {
         floatingTag.classList.add('active');
         scrollToCenter(floatingTag);
     }
+    
+    // 隐藏浮动菜单，提升阅读体验
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    if (floatingTagsContainer) {
+        floatingTagsContainer.style.transform = 'translateX(-100%)';
+        floatingTagsContainer.style.opacity = '0';
+        setTimeout(() => {
+            floatingTagsContainer.style.display = 'none';
+        }, 300);
+    }
 }
 
 
@@ -685,6 +944,18 @@ function handleTagClick(tagElement, category) {
 
 
 function handleKeywordClick(keywordElement, keyword) {
+    // 如果正在播放，停止播放
+    if (isPlaying) {
+        stopReading();
+        isPlaying = false;
+        updatePlayPauseButton();
+        currentReadingButton = null;
+    }
+    
+    // 重置播放索引，确保下次播放从第一条开始
+    currentPlayingIndex = -1;
+    currentVisibleItems = [];
+    
     const searchInput = document.getElementById('search-input');
     searchInput.value = keyword;
     
@@ -748,6 +1019,12 @@ function showAllKeywordsModal() {
     });
 
     modal.style.display = 'block';
+    
+    // 添加果冻动画
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.classList.add('jelly-show');
+    }
 }
 
 function initSearch() {
@@ -757,6 +1034,18 @@ function initSearch() {
     const keywords = document.querySelectorAll('.keyword');
 
     searchInput.addEventListener('input', () => {
+        // 重置播放索引，确保下次播放从第一条开始
+        currentPlayingIndex = -1;
+        currentVisibleItems = [];
+        
+        // 如果正在播放，停止播放
+        if (isPlaying) {
+            stopReading();
+            isPlaying = false;
+            updatePlayPauseButton();
+            currentReadingButton = null;
+        }
+        
         const searchTerm = searchInput.value.toLowerCase();
         if (searchTerm === '') {
             clearSearchBtn.style.display = 'none';
@@ -832,7 +1121,32 @@ function initAutoScroll() {
     });
 }
 
-function readText(text) {
+// 停止朗读功能
+function stopReading() {
+    // 停止Web Speech API
+    if ('speechSynthesis' in window) {
+        // 先取消所有正在播放的语音
+        speechSynthesis.cancel();
+        
+        // 某些浏览器需要额外处理
+        // 创建一个空的utterance来确保停止
+        const emptyUtterance = new SpeechSynthesisUtterance('');
+        speechSynthesis.speak(emptyUtterance);
+        speechSynthesis.cancel();
+    }
+    
+    // 停止ResponsiveVoice
+    if (typeof responsiveVoice !== 'undefined') {
+        responsiveVoice.cancel();
+    }
+    
+    console.log('朗读已停止');
+}
+
+// 全局变量：跟踪当前正在朗读的按钮
+let currentReadingButton = null;
+
+function readText(text, callback, button) {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
     
@@ -843,14 +1157,78 @@ function readText(text) {
     const emojiRegex = /[\p{Emoji}\u200d\uFE0F]/gu;
     plainText = plainText.replace(emojiRegex, '').replace(/\s+/g, ' ').trim();
     
-    if (plainText) {
-        const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
-        responsiveVoice.speak(plainText, voice, {
-            rate: 0.8,
-            pitch: 1,
-            volume: 1
-        });
+    if (!plainText) return;
+    
+    // 优先使用Web Speech API（原生支持，嵌套环境兼容性更好）
+    if ('speechSynthesis' in window) {
+        // 确保停止之前的朗读
+        speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(plainText);
+        
+        // 获取中文语音
+        const voices = speechSynthesis.getVoices();
+        const chineseVoice = voices.find(voice => 
+            voice.lang.includes('zh') || voice.lang.includes('cmn')
+        ) || voices.find(voice => voice.lang.includes('CN'));
+        
+        if (chineseVoice) {
+            utterance.voice = chineseVoice;
+        }
+        
+        // 优化参数，提升自然度
+        utterance.rate = 0.85;      // 语速：稍慢一点，更清晰
+        utterance.pitch = 1.05;     // 音调：略微提高，更自然
+        utterance.volume = isMuted ? 0 : 0.9;  // 音量：静音时为0，否则略微降低，避免刺耳
+        
+        // 添加事件监听，提升用户体验
+        utterance.onstart = () => {
+            console.log('开始朗读');
+        };
+        
+        utterance.onend = () => {
+            console.log('朗读完成');
+            if (callback) callback();
+        };
+        
+        utterance.onerror = (event) => {
+            // interrupted错误是正常的停止操作，不需要处理
+            if (event.error === 'interrupted') {
+                console.log('朗读被中断（正常停止）');
+                return;
+            }
+            
+            // 其他真正的错误才需要处理
+            console.error('朗读错误:', event.error);
+            if (callback) callback();
+            
+            // 如果Web Speech API失败，尝试ResponsiveVoice
+            if (typeof responsiveVoice !== 'undefined') {
+                fallbackToResponsiveVoice(plainText, callback);
+            }
+        };
+        
+        speechSynthesis.speak(utterance);
+    } 
+    // 备选方案：ResponsiveVoice
+    else if (typeof responsiveVoice !== 'undefined') {
+        fallbackToResponsiveVoice(plainText, callback);
     }
+    else {
+        console.warn('当前环境不支持语音朗读');
+        alert('抱歉，当前环境不支持语音朗读功能');
+    }
+}
+
+// ResponsiveVoice备选方案
+function fallbackToResponsiveVoice(text, callback) {
+    const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
+    responsiveVoice.speak(text, voice, {
+        rate: 0.85,
+        pitch: 1.05,
+        volume: 0.9,
+        onend: callback
+    });
 }
 
 function copyText(text, button) {
@@ -1095,6 +1473,12 @@ if (floatingTagsContainer.children.length === 0) {
         
         floatingTagsContainer.appendChild(tagElement);
     });
+    
+    // 添加底部间距，防止被播放控制条遮挡
+    const spacer = document.createElement('div');
+    spacer.style.height = '100px';
+    spacer.style.width = '100%';
+    floatingTagsContainer.appendChild(spacer);
 }
         
         // 显示浮动标签栏并添加动画
@@ -1291,4 +1675,361 @@ function processNavTags() {
 // 在DOM加载完成后执行
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(processNavTags, 1000); // 延迟1秒确保所有元素已渲染
+});
+
+// ========== 浮动播放控制条功能 ==========
+let floatingPlayer = null;
+let currentPlayingIndex = -1;
+let currentVisibleItems = [];
+let isPlaying = false;
+let isMuted = false;
+let isFloatingMenuVisible = false;
+
+function createFloatingPlayer() {
+    if (document.getElementById('floating-player')) return;
+    
+    const player = document.createElement('div');
+    player.id = 'floating-player';
+    player.className = 'floating-player';
+    
+    // 浮动菜单控制按钮
+    const menuToggleBtn = document.createElement('button');
+    menuToggleBtn.className = 'menu-toggle-btn';
+    menuToggleBtn.innerHTML = '☰';
+    menuToggleBtn.title = '显示浮动菜单';
+    
+    // 上一条按钮
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'prev-btn';
+    prevBtn.innerHTML = '⏮';
+    prevBtn.title = '上一条';
+    
+    // 播放/暂停按钮
+    const playPauseBtn = document.createElement('button');
+    playPauseBtn.className = 'play-pause-btn';
+    playPauseBtn.innerHTML = '▶';
+    playPauseBtn.title = '播放';
+    
+    // 下一条按钮
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'next-btn';
+    nextBtn.innerHTML = '⏭';
+    nextBtn.title = '下一条';
+    
+    // 静音开关按钮
+    const muteBtn = document.createElement('button');
+    muteBtn.className = 'mute-btn';
+    muteBtn.innerHTML = '🔊';
+    muteBtn.title = '静音';
+    
+    // 置顶按钮
+    const topBtn = document.createElement('button');
+    topBtn.className = 'top-btn';
+    topBtn.innerHTML = '⬆';
+    topBtn.title = '置顶';
+    
+    player.appendChild(menuToggleBtn);
+    player.appendChild(prevBtn);
+    player.appendChild(playPauseBtn);
+    player.appendChild(nextBtn);
+    player.appendChild(muteBtn);
+    player.appendChild(topBtn);
+    
+    document.body.appendChild(player);
+    
+    floatingPlayer = player;
+    
+    menuToggleBtn.addEventListener('click', toggleFloatingMenu);
+    prevBtn.addEventListener('click', playPrevious);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    nextBtn.addEventListener('click', playNext);
+    muteBtn.addEventListener('click', toggleMute);
+    topBtn.addEventListener('click', scrollToTop);
+}
+
+function toggleFloatingMenu() {
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    if (!floatingTagsContainer) return;
+    
+    const menuToggleBtn = floatingPlayer.querySelector('.menu-toggle-btn');
+    
+    // 如果浮动菜单没有内容，先生成内容
+    if (floatingTagsContainer.children.length === 0) {
+        generateFloatingMenuContent();
+    }
+    
+    if (isFloatingMenuVisible) {
+        floatingTagsContainer.style.transform = 'translateX(-100%)';
+        floatingTagsContainer.style.opacity = '0';
+        setTimeout(() => {
+            floatingTagsContainer.style.display = 'none';
+        }, 300);
+        isFloatingMenuVisible = false;
+        menuToggleBtn.classList.remove('active');
+        menuToggleBtn.title = '显示浮动菜单';
+    } else {
+        floatingTagsContainer.style.display = 'block';
+        setTimeout(() => {
+            floatingTagsContainer.style.transform = 'translateX(0)';
+            floatingTagsContainer.style.opacity = '1';
+        }, 10);
+        isFloatingMenuVisible = true;
+        menuToggleBtn.classList.add('active');
+        menuToggleBtn.title = '隐藏浮动菜单';
+    }
+}
+
+function generateFloatingMenuContent() {
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    if (!floatingTagsContainer) return;
+    
+    floatingTagsContainer.innerHTML = '';
+    
+    // 添加"全部"标签
+    const allTagElement = document.createElement('div');
+    allTagElement.classList.add('tag', 'active');
+    allTagElement.dataset.category = 'all';
+    allTagElement.textContent = '全部';
+    allTagElement.addEventListener('click', () => {
+        handleTagClick(allTagElement, 'all');
+        resetDisplay();
+        scrollToCenter(allTagElement);
+    });
+    floatingTagsContainer.appendChild(allTagElement);
+    
+    // 添加其他标签
+    Object.keys(data.content).forEach(key => {
+        const [name, category] = key.split('|');
+        const tagElement = document.createElement('div');
+        tagElement.classList.add('tag');
+        tagElement.dataset.category = category;
+        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
+        tagElement.addEventListener('click', () => {
+            handleTagClick(tagElement, category);
+            scrollToCenter(tagElement);
+            
+            const tagsContainerTag = document.querySelector(`#tags-container .tag[data-category="${category}"]`);
+            if (tagsContainerTag) {
+                tagsContainerTag.classList.add('active');
+                scrollToCenter(tagsContainerTag);
+            }
+        });
+        
+        floatingTagsContainer.appendChild(tagElement);
+    });
+    
+    // 添加底部间距，防止被播放控制条遮挡
+    const spacer = document.createElement('div');
+    spacer.style.height = '100px';
+    spacer.style.width = '100%';
+    floatingTagsContainer.appendChild(spacer);
+}
+
+function toggleMute() {
+    const muteBtn = floatingPlayer.querySelector('.mute-btn');
+    
+    if (isMuted) {
+        isMuted = false;
+        muteBtn.innerHTML = '🔊';
+        muteBtn.title = '静音';
+        muteBtn.classList.remove('active');
+    } else {
+        isMuted = true;
+        muteBtn.innerHTML = '🔇';
+        muteBtn.title = '取消静音';
+        muteBtn.classList.add('active');
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function getVisibleItems() {
+    const visibleItems = [];
+    
+    // 找到所有没有 display: none 的 category
+    const allCategories = document.querySelectorAll('#content-container .category');
+    
+    allCategories.forEach(category => {
+        // 只要不是 display: none，就认为是可见的（包括空字符串、block等）
+        if (category.style.display !== 'none') {
+            // 收集这个 category 里的所有 li
+            const items = category.querySelectorAll('li');
+            items.forEach(item => {
+                // 只添加 display 不是 none 的 li
+                if (item.style.display !== 'none') {
+                    visibleItems.push(item);
+                }
+            });
+        }
+    });
+    
+    console.log(`获取可见项目: 找到${allCategories.length}个分类, 可见${visibleItems.length}个项目`);
+    return visibleItems;
+}
+
+function showFloatingPlayer() {
+    if (!floatingPlayer) createFloatingPlayer();
+    floatingPlayer.classList.add('visible');
+}
+
+function hideFloatingPlayer() {
+    if (floatingPlayer) {
+        floatingPlayer.classList.remove('visible');
+    }
+}
+
+function scrollToItem(item) {
+    if (!item) return;
+    
+    const rect = item.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const targetScroll = scrollTop + rect.top - (window.innerHeight * 0.3);
+    
+    window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+    });
+}
+
+function highlightItem(item) {
+    document.querySelectorAll('li.playing-highlight').forEach(el => {
+        el.classList.remove('playing-highlight');
+    });
+    
+    if (item) {
+        item.classList.add('playing-highlight');
+    }
+}
+
+function updatePlayPauseButton() {
+    if (!floatingPlayer) return;
+    
+    const playPauseBtn = floatingPlayer.querySelector('.play-pause-btn');
+    if (isPlaying) {
+        playPauseBtn.innerHTML = '⏸';
+        playPauseBtn.title = '暂停';
+    } else {
+        playPauseBtn.innerHTML = '▶';
+        playPauseBtn.title = '播放';
+    }
+}
+
+function playItem(index) {
+    currentVisibleItems = getVisibleItems();
+    
+    if (index < 0 || index >= currentVisibleItems.length) {
+        console.log('没有可播放的项目');
+        return;
+    }
+    
+    const item = currentVisibleItems[index];
+    const text = item.getAttribute('data-original-text');
+    
+    if (!text) return;
+    
+    currentPlayingIndex = index;
+    isPlaying = true;
+    
+    highlightItem(item);
+    scrollToItem(item);
+    showFloatingPlayer();
+    updatePlayPauseButton();
+    
+    const readButton = item.querySelector('button');
+    if (readButton && readButton.textContent === '朗读') {
+        currentReadingButton = readButton;
+        readButton.textContent = '停止';
+    }
+    
+    readText(text, () => {
+        if (isPlaying && currentPlayingIndex === index) {
+            playNext();
+        }
+    }, readButton);
+}
+
+function togglePlayPause() {
+    if (isPlaying) {
+        // 暂停播放
+        stopReading();
+        isPlaying = false;
+        updatePlayPauseButton();
+        
+        if (currentPlayingIndex >= 0 && currentPlayingIndex < currentVisibleItems.length) {
+            const item = currentVisibleItems[currentPlayingIndex];
+            const readButton = item.querySelector('button');
+            if (readButton) {
+                readButton.textContent = '朗读';
+            }
+        }
+        currentReadingButton = null;
+    } else {
+        // 开始播放 - 总是重新获取当前可见列表
+        currentVisibleItems = getVisibleItems();
+        
+        console.log(`开始播放: 当前可见列表有${currentVisibleItems.length}个项目`);
+        
+        if (currentVisibleItems.length === 0) {
+            console.log('没有可播放的内容');
+            return;
+        }
+        
+        // 如果是第一次播放或播放完成后，从第一条开始
+        if (currentPlayingIndex === -1 || currentPlayingIndex >= currentVisibleItems.length) {
+            currentPlayingIndex = 0;
+            console.log(`重置播放索引为0`);
+        }
+        
+        console.log(`播放第${currentPlayingIndex + 1}条`);
+        playItem(currentPlayingIndex);
+    }
+}
+
+function playPrevious() {
+    currentVisibleItems = getVisibleItems();
+    
+    if (currentVisibleItems.length === 0) return;
+    
+    let newIndex = currentPlayingIndex - 1;
+    if (newIndex < 0) {
+        newIndex = currentVisibleItems.length - 1;
+    }
+    
+    stopReading();
+    playItem(newIndex);
+}
+
+function playNext() {
+    currentVisibleItems = getVisibleItems();
+    
+    if (currentVisibleItems.length === 0) return;
+    
+    let newIndex = currentPlayingIndex + 1;
+    if (newIndex >= currentVisibleItems.length) {
+        newIndex = 0;
+    }
+    
+    stopReading();
+    playItem(newIndex);
+}
+
+function syncPlayerFromCard(cardElement, cardIndex) {
+    currentVisibleItems = getVisibleItems();
+    currentPlayingIndex = cardIndex;
+    isPlaying = true;
+    
+    highlightItem(cardElement);
+    scrollToItem(cardElement);
+    showFloatingPlayer();
+    updatePlayPauseButton();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    createFloatingPlayer();
 });
