@@ -37,7 +37,7 @@ body {
     white-space: nowrap;
     position: relative;
     height: auto;
-    margin: 0 20px 13px;
+    margin: 0 20px 1px;
     width: 90%;
     }
   .tagsbox .tip{
@@ -66,7 +66,7 @@ body {
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid #dddddd;
-    font-size: 16px;
+    font-size: 25px;
     position: absolute;
     /* box-shadow: 0px 0px 26px #a5a5a58c; */
     z-index: 99;
@@ -115,8 +115,8 @@ body {
     margin-bottom: 2px;
     height: 37px;
     flex-direction: column;
-    display: inline-block; /* 允许使用宽度 */
-    animation: scrollText 140s linear infinite;  /* 应用动画 */
+    display: inline-block; /* å…è®¸ä½¿ç”¨å®½åº¦ */
+    animation: scrollText 140s linear infinite;  /* åº”ç”¨åŠ¨ç”» */
     }
 	
 /*			.keywords {
@@ -151,11 +151,11 @@ body {
         }
 		
 		.marquee {
-   /* 容器宽度 */
-   overflow: hidden; /* 隐藏溢出的内容 */
+   /* å®¹å™¨å®½åº¦ */
+   overflow: hidden; /* éšè—æº¢å‡ºçš„å†…å®¹ */
    display: none;
-   white-space: nowrap; /* 防止文本换行 */
-   position: relative; /* 相对定位 */
+   white-space: nowrap; /* é˜²æ­¢æ–‡æœ¬æ¢è¡Œ */
+   position: relative; /* ç›¸å¯¹å®šä½ */
    margin: 0 20px;
 }
 		
@@ -175,13 +175,13 @@ body {
 		
 		@keyframes scrollText {
   0% {
-    transform: translateX(0); /* 开始时，不移动 */
+    transform: translateX(0); /* å¼€å§‹æ—¶ï¼Œä¸ç§»åŠ¨ */
   }
    2% {
-    transform: translateX(0); /* 开始时，不移动 */
+    transform: translateX(0); /* å¼€å§‹æ—¶ï¼Œä¸ç§»åŠ¨ */
   }
   100% {
-    transform: translateX(-100%); /* 完全移动到左边，超出容器宽度 */
+    transform: translateX(-100%); /* å®Œå…¨ç§»åŠ¨åˆ°å·¦è¾¹ï¼Œè¶…å‡ºå®¹å™¨å®½åº¦ */
   }
 }
 		
@@ -190,7 +190,7 @@ body {
             color: white;
         }
 .content {
-    padding: 15px 9px 200px;
+    padding: 0px 9px 200px;
     /* background: #fff; */
 }
 .category {
@@ -220,7 +220,7 @@ body {
     min-height: 67px;
 }
 .category ul li nav{ display:none;}
-.content li.highlight-effect {line-height:25px;border-radius: 7px;padding: 20px 20px;border: 1px solid #e4e4e4;box-shadow: 0 0 6px #ccc;}
+.content li.highlight-effect {line-height:25px;border-radius: 7px;padding: 9px 20px;border: 1px solid #e4e4e4;box-shadow: 0 0 6px #ccc;}
 
 .content li.highlight-effect span c h4{ font-weight:bolder;}
 
@@ -252,11 +252,11 @@ body {
     height: 86px;
     line-height: 80px;
     text-align: center;
-    margin-top: 31px;
+    margin-top: 19px;
     padding: 20px 20px 0 20px;
 }
 .title h1 {
-    font-size: 22px;
+    font-size: 34px;
     line-height: 39px;
     padding: 10px 0px 0;
     font-weight: bold;
@@ -267,9 +267,9 @@ body {
 .title p {
     font-size: 14px;
     line-height: 10px;
-    padding: 7px 0 0;
+    padding: 10px 0 0;
     margin: 0;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
     color: #8f8f8f;
 }
 
@@ -291,7 +291,7 @@ body {
 .actions button:hover { color:#CC0000;
 }
 
-/* 现有样式保持不变，新增以下样式 */
+/* çŽ°æœ‰æ ·å¼ä¿æŒä¸å˜ï¼Œæ–°å¢žä»¥ä¸‹æ ·å¼ */
 .modal {
     display: none;
     position: fixed;
@@ -396,7 +396,7 @@ body {
 }
 
 
-/* 回到顶部按钮样式 */
+/* å›žåˆ°é¡¶éƒ¨æŒ‰é’®æ ·å¼ */
 
 #back-to-top {
     display: none;
@@ -436,7 +436,7 @@ body {
 
 
 
-/* 现有样式保持不变，新增以下样式 */
+/* çŽ°æœ‰æ ·å¼ä¿æŒä¸å˜ï¼Œæ–°å¢žä»¥ä¸‹æ ·å¼ */
 .modal {
     display: none;
     position: fixed;
@@ -499,7 +499,7 @@ body {
 }
 #keyword-modal .close-button{ top:110px;}
 
-/*浮动的标签*/
+/*æµ®åŠ¨çš„æ ‡ç­¾*/
 
 .floating-tags {
     display: none;
@@ -554,11 +554,11 @@ body {
 
 
 .floating-tags .tag::first-letter {
-  font-size: 15px; /* 设置第一个字符的字体大小 */
+  font-size: 15px; /* è®¾ç½®ç¬¬ä¸€ä¸ªå­—ç¬¦çš„å­—ä½“å¤§å° */
 }
 
 .floating-tags .tag::nth-child(2) {
-  font-size: 10px; /* 设置数字的字体大小 */
+  font-size: 10px; /* è®¾ç½®æ•°å­—çš„å­—ä½“å¤§å° */
 }
 
 
@@ -584,7 +584,7 @@ body {
 #auto-scroll-button {
     position: fixed;
     right: 20px;
-    bottom: 150px; /* 位于页面中间 */
+    bottom: 150px; /* ä½äºŽé¡µé¢ä¸­é—´ */
     transform: rotate(90deg);
     background-color: #ffffff;
     color: #b20000;
@@ -635,7 +635,7 @@ body {
 }
 
 
-/* 剩余计数器样式 - 通过JS动态创建 */
+/* å‰©ä½™è®¡æ•°å™¨æ ·å¼ - é€šè¿‡JSåŠ¨æ€åˆ›å»º */
 
 #remaining-counter {
     position: fixed;
@@ -649,7 +649,7 @@ body {
     letter-spacing: 1px;
     z-index: 283;
     box-shadow: 0 2px 5px rgb(0 0 0 / 11%);
-    display: none;
+    display: none !important;
 }
 
 
@@ -661,7 +661,7 @@ body {
 
 
 
-/* 新增全标签弹窗样式 */
+/* æ–°å¢žå…¨æ ‡ç­¾å¼¹çª—æ ·å¼ */
 #all-tags-modal {
     display: none;
     position: fixed;
@@ -671,88 +671,90 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0 0 0 / 0%);
+    background-color: rgb(0 0 0 / 35%);
 }
-
-#all-tags-modal .modal-content h3{
-    padding: 0;
-    margin: -11px 0 8px;
-    display: none;
-    font-size: 16px;
-    }
 
 #all-tags-modal .modal-content {
     background-color: #ffffff;
-    margin: 137px auto 0;
-    padding: 13px 14px;
+    margin: 10vh auto;
+    padding: 0;
     border: 1px solid #e3e3e3;
-    width: 82%;
+    width: 90%;
     max-width: 631px;
     border-radius: 12px;
-    max-height: 70vh;
-    overflow-y: hidden;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px #ccc;
+    overflow: hidden;
+    position: relative;
+}
+
+#all-tags-modal .modal-content h3 {
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
 }
 
 #all-tags-modal .close-button {
-   
-color: #df0505;
-   
-font-size: 26px;
-   
-float: right;
-   
-cursor: pointer;
-   
-background: #ffffff;
-   
-/* border-radius: 50%; */
-   
-width: 15px;
-   
-height: 30px;
-   
-border: none;
-   
-position: fixed;
-   
-text-align: center;
-   
-line-height: 30px;
-   
-width: 15px;
-   
-top: 0;
+    position: absolute;
+    top: 1px;
+    right: 23px;
+    color: #ff0000;
+    font-size: 33px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10;
+    background: transparent;
+    border: none;
+}
+
+#all-tags-modal .close-button:hover {
+    color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
 }
 
 #all-tags-container {
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* gap: 10px; */
-    padding: 10px 0;
-    overflow-y: scroll;
-    height: 390px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 15px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: flex-start;
 }
 
 #all-tags-container .tag {
-    padding: 8px 11px;
-    background-color: #ffffff;
-    border-radius: 5px;
+    padding: 8px 15px;
+    background: #f5f5f5;
+    border-radius: 20px;
     cursor: pointer;
-    border: 1px solid #ddd;
-    margin: 0 10px 10px 0;
-    float: left;
+    transition: all 0.3s ease;
+    font-size: 14px;
 }
-#all-tags-container .tag:hover { color:#000;
+
+#all-tags-container .tag:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
 }
 
 #all-tags-container .tag.active {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #ddd; display:none;
+    background: #e40000;
+    color: #ffffff;
 }
 
-
-/* 在 style.css 文件末尾添加 */
+/* åœ¨ style.css æ–‡ä»¶æœ«å°¾æ·»åŠ  */
 #scroll-down-button {
     position: fixed;
     right: -300px;/*right: 30px;*/
@@ -784,7 +786,7 @@ top: 0;
 
 
 
-/* 今日推荐弹窗样式 */
+/* ä»Šæ—¥æŽ¨èå¼¹çª—æ ·å¼ */
 #today-recommend-modal {background-color: rgb(0 0 0 / 35%);}
 
 #today-recommend-modal .modal-content {
@@ -834,10 +836,6 @@ top: 0;
     z-index: 10;
 }
 
-#today-recommend-modal .close-button:hover {
-    color: #ff0000;
-    background: rgba(255, 0, 0, 0.1);
-}
 
 #today-recommend-container {
     flex: 1;
@@ -938,23 +936,7 @@ top: 0;
 
 
 
-.today-recommend-button{
-
-    position: absolute;
-    right: 19px;
-    top: 137px;
-    width: 33px;
-    height: 32px;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #313131;
-    font-size: 18px;
-    border: 1px solid #dfdfdf;
-    cursor: pointer;
-    z-index: 999;
-    line-height: 29px;
-
-}
+.today-recommend-button{position: absolute;right: 45px;top: 127px;width: 40px;height: 37px;border-radius: 6px;background: #ffffff;color: #313131;font-size: 18px;border: 1px solid #dfdfdf;cursor: pointer;z-index: 999;line-height: 37px;}
 
 
 .floating-player {
@@ -962,12 +944,12 @@ top: 0;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(327deg, #f7f7f7 0%, #f4f4f4 100%);
+    background: linear-gradient(172deg, #ffffff 0%, #f0f0f0 100%);
     border-radius: 50px;
-    padding: 12px 20px;
+    padding: 12px 20px 3px;
     box-shadow: 0 1px 0px rgb(177 177 177 / 48%), 0 1px 25px rgb(0 0 0 / 3%);
     display: flex;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #d1d1d1b5;
     align-items: center;
     gap: 15px;
     z-index: 9999;
@@ -986,6 +968,7 @@ top: 0;
     border: none;
     color: #ffffff;
     width: 36px;
+    border: 1px solid;
     height: 36px;
     border-radius: 50%;
     cursor: pointer;
@@ -997,8 +980,27 @@ top: 0;
     backdrop-filter: blur(10px);
 }
 
+.floating-player .btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.floating-player .btn-group button {
+    margin: 0;
+}
+
+.floating-player .btn-text {
+    font-size: 10px;
+    color: rgb(13 13 13 / 90%);
+    text-align: center;
+    line-height: 20px;
+    pointer-events: none;
+}
+
 .floating-player button:hover {
-    background: rgba(255, 255, 255, 0.86);
+    background: rgb(255 255 255);
     transform: scale(1.1);
     color: #000;
 }
@@ -1008,26 +1010,25 @@ top: 0;
 }
 
 .floating-player .play-pause-btn {
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    font-size: 20px;
-    background: rgb(222 13 13 / 68%);
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 15px;
+    background: rgb(28 118 0 / 68%);
 }
 
 .floating-player .play-pause-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgb(208 10 10);
+    color: #fff;
 }
 
 .floating-player button.active {
     background: rgb(0 255 169 / 50%);
 }
 .floating-player button.menu-toggle-btn {
-    background: rgb(41 41 41 / 76%);
+    background: rgb(41 41 41 / 91%);
     color: #ffffff;
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
+    font-size: 17px;
 }
 li.playing-highlight {
     box-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -1041,5 +1042,5 @@ li.playing-highlight {
     width: 35px;
     height: 35px;
     font-size: 18px;
-    background: rgb(7 126 80 / 68%);
+    background: rgb(0 0 0 / 68%);
 }

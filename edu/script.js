@@ -330,7 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     renderPage();
     initSearch();
-    initBackToTop();
     initAutoScroll();
     initRemainingCounter();
     
@@ -698,12 +697,16 @@ if (showAllTagsButton) {
                     const visibleItems = getVisibleItems();
                     const cardIndex = visibleItems.indexOf(listItem);
                     
-                    // 同步播放器状态
+                    // 同步播放器状态（但不设置isPlaying）
                     if (cardIndex !== -1) {
-                        syncPlayerFromCard(listItem, cardIndex);
+                        currentVisibleItems = visibleItems;
+                        currentPlayingIndex = cardIndex;
+                        highlightItem(listItem);
+                        showFloatingPlayer();
+                        updatePlayPauseButton();
                     }
                     
-                    // 开始新的朗读
+                    // 开始新的朗读（单次播放，不自动播放下一条）
                     currentReadingButton = readButton;
                     readButton.textContent = '停止';
                     readText(sentence, () => {
@@ -711,10 +714,6 @@ if (showAllTagsButton) {
                         readButton.textContent = '朗读';
                         if (currentReadingButton === readButton) {
                             currentReadingButton = null;
-                        }
-                        // 如果播放器正在播放，自动播放下一条
-                        if (isPlaying) {
-                            playNext();
                         }
                     }, readButton);
                 }
@@ -1075,21 +1074,6 @@ function initSearch() {
     keywords.forEach(keyword => {
         keyword.addEventListener('click', () => {
             handleKeywordClick(keyword, keyword.dataset.keyword);
-        });
-    });
-}
-
-function initBackToTop() {
-    const backToTopButton = document.getElementById('back-to-top');
-
-    window.addEventListener('scroll', () => {
-        backToTopButton.style.display = window.scrollY > window.innerHeight ? 'block' : 'none';
-    });
-
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
         });
     });
 }
@@ -1568,12 +1552,15 @@ function initRemainingCounter() {
         const triggerHeight = window.innerHeight * 1.5; // 1.5倍屏幕高度
         
         if (total > 0 && scrollY >= triggerHeight) {
-            document.getElementById('remaining-count').textContent = `已阅${passed}`;
+            document.getElementById('remaining-count').textContent = passed;
             document.getElementById('total-count').textContent = total;
             counter.style.display = 'block'; // 显示计数器
         } else {
             counter.style.display = 'none'; // 隐藏计数器
         }
+        
+        // 更新播放按钮的阅读统计显示
+        updatePlayPauseButton();
     }
     
     // 初始检查
@@ -1692,71 +1679,77 @@ function createFloatingPlayer() {
     player.id = 'floating-player';
     player.className = 'floating-player';
     
+    // 创建按钮组的辅助函数
+    function createButtonGroup(icon, label, className, title) {
+        const group = document.createElement('div');
+        group.className = 'btn-group';
+        
+        const button = document.createElement('button');
+        button.className = className;
+        button.innerHTML = icon;
+        button.title = title;
+        
+        const text = document.createElement('span');
+        text.className = 'btn-text';
+        text.textContent = label;
+        
+        group.appendChild(button);
+        group.appendChild(text);
+        
+        return { group, button };
+    }
+    
     // 浮动菜单控制按钮
-    const menuToggleBtn = document.createElement('button');
-    menuToggleBtn.className = 'menu-toggle-btn';
-    menuToggleBtn.innerHTML = '☰';
-    menuToggleBtn.title = '显示浮动菜单';
+    const menuGroup = createButtonGroup('☰', '分类', 'menu-toggle-btn', '显示浮动菜单');
     
     // 上一条按钮
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'prev-btn';
-    prevBtn.innerHTML = '⏮';
-    prevBtn.title = '上一条';
+    const prevGroup = createButtonGroup('⏮', '上一条', 'prev-btn', '上一条');
     
     // 播放/暂停按钮
-    const playPauseBtn = document.createElement('button');
-    playPauseBtn.className = 'play-pause-btn';
-    playPauseBtn.innerHTML = '▶';
-    playPauseBtn.title = '播放';
+    const playPauseGroup = createButtonGroup('▶', '播放', 'play-pause-btn', '播放');
     
     // 下一条按钮
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'next-btn';
-    nextBtn.innerHTML = '⏭';
-    nextBtn.title = '下一条';
+    const nextGroup = createButtonGroup('⏭', '下一条', 'next-btn', '下一条');
     
     // 静音开关按钮
-    const muteBtn = document.createElement('button');
-    muteBtn.className = 'mute-btn';
-    muteBtn.innerHTML = '🔊';
-    muteBtn.title = '静音';
+    const muteGroup = createButtonGroup('🔊', '静音', 'mute-btn', '静音');
     
     // 置顶按钮
-    const topBtn = document.createElement('button');
-    topBtn.className = 'top-btn';
-    topBtn.innerHTML = '⬆';
-    topBtn.title = '置顶';
+    const topGroup = createButtonGroup('⬆', '置顶', 'top-btn', '置顶');
     
-    player.appendChild(menuToggleBtn);
-    player.appendChild(prevBtn);
-    player.appendChild(playPauseBtn);
-    player.appendChild(nextBtn);
-    player.appendChild(muteBtn);
-    player.appendChild(topBtn);
+    player.appendChild(menuGroup.group);
+    player.appendChild(prevGroup.group);
+    player.appendChild(playPauseGroup.group);
+    player.appendChild(nextGroup.group);
+    player.appendChild(muteGroup.group);
+    player.appendChild(topGroup.group);
     
     document.body.appendChild(player);
     
     floatingPlayer = player;
     
-    menuToggleBtn.addEventListener('click', toggleFloatingMenu);
-    prevBtn.addEventListener('click', playPrevious);
-    playPauseBtn.addEventListener('click', togglePlayPause);
-    nextBtn.addEventListener('click', playNext);
-    muteBtn.addEventListener('click', toggleMute);
-    topBtn.addEventListener('click', scrollToTop);
+    // 初始化播放按钮的阅读统计显示
+    updatePlayPauseButton();
+    
+    menuGroup.button.addEventListener('click', toggleFloatingMenu);
+    prevGroup.button.addEventListener('click', playPrevious);
+    playPauseGroup.button.addEventListener('click', togglePlayPause);
+    nextGroup.button.addEventListener('click', playNext);
+    muteGroup.button.addEventListener('click', toggleMute);
+    topGroup.button.addEventListener('click', scrollToTop);
 }
 
 function toggleFloatingMenu() {
     const floatingTagsContainer = document.getElementById('floating-tags-container');
     if (!floatingTagsContainer) return;
     
-    const menuToggleBtn = floatingPlayer.querySelector('.menu-toggle-btn');
-    
     // 如果浮动菜单没有内容，先生成内容
     if (floatingTagsContainer.children.length === 0) {
         generateFloatingMenuContent();
     }
+    
+    const menuToggleBtn = floatingPlayer.querySelector('.menu-toggle-btn');
+    const menuToggleText = floatingPlayer.querySelector('.menu-toggle-btn + .btn-text');
     
     if (isFloatingMenuVisible) {
         floatingTagsContainer.style.transform = 'translateX(-100%)';
@@ -1767,6 +1760,7 @@ function toggleFloatingMenu() {
         isFloatingMenuVisible = false;
         menuToggleBtn.classList.remove('active');
         menuToggleBtn.title = '显示浮动菜单';
+        if (menuToggleText) menuToggleText.textContent = '分类';
     } else {
         floatingTagsContainer.style.display = 'block';
         setTimeout(() => {
@@ -1776,6 +1770,7 @@ function toggleFloatingMenu() {
         isFloatingMenuVisible = true;
         menuToggleBtn.classList.add('active');
         menuToggleBtn.title = '隐藏浮动菜单';
+        if (menuToggleText) menuToggleText.textContent = '分类';
     }
 }
 
@@ -1828,17 +1823,20 @@ function generateFloatingMenuContent() {
 
 function toggleMute() {
     const muteBtn = floatingPlayer.querySelector('.mute-btn');
+    const muteText = floatingPlayer.querySelector('.mute-btn + .btn-text');
     
     if (isMuted) {
         isMuted = false;
         muteBtn.innerHTML = '🔊';
         muteBtn.title = '静音';
         muteBtn.classList.remove('active');
+        if (muteText) muteText.textContent = '静音';
     } else {
         isMuted = true;
         muteBtn.innerHTML = '🔇';
-        muteBtn.title = '取消静音';
+        muteBtn.title = '恢复';
         muteBtn.classList.add('active');
+        if (muteText) muteText.textContent = '恢复';
     }
 }
 
@@ -1911,12 +1909,23 @@ function updatePlayPauseButton() {
     if (!floatingPlayer) return;
     
     const playPauseBtn = floatingPlayer.querySelector('.play-pause-btn');
+    const playPauseText = floatingPlayer.querySelector('.play-pause-btn + .btn-text');
+    
     if (isPlaying) {
         playPauseBtn.innerHTML = '⏸';
         playPauseBtn.title = '暂停';
     } else {
         playPauseBtn.innerHTML = '▶';
         playPauseBtn.title = '播放';
+    }
+    
+    // 显示阅读统计数据
+    if (playPauseText) {
+        const remainingCount = document.getElementById('remaining-count');
+        const totalCount = document.getElementById('total-count');
+        if (remainingCount && totalCount) {
+            playPauseText.textContent = `${remainingCount.textContent}/${totalCount.textContent}`;
+        }
     }
 }
 
