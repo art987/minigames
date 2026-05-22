@@ -1712,7 +1712,7 @@ function createFloatingPlayer() {
     const nextGroup = createButtonGroup('⏭', '下一条', 'next-btn', '下一条');
     
     // 静音开关按钮
-    const muteGroup = createButtonGroup('🔊', '静音', 'mute-btn', '静音');
+    const muteGroup = createButtonGroup('♫', '静音', 'mute-btn', '静音');
     
     // 置顶按钮
     const topGroup = createButtonGroup('⬆', '置顶', 'top-btn', '置顶');
@@ -1827,13 +1827,13 @@ function toggleMute() {
     
     if (isMuted) {
         isMuted = false;
-        muteBtn.innerHTML = '🔊';
+        muteBtn.innerHTML = '♫';
         muteBtn.title = '静音';
         muteBtn.classList.remove('active');
         if (muteText) muteText.textContent = '静音';
     } else {
         isMuted = true;
-        muteBtn.innerHTML = '🔇';
+        muteBtn.innerHTML = '静';
         muteBtn.title = '恢复';
         muteBtn.classList.add('active');
         if (muteText) muteText.textContent = '恢复';
@@ -1912,8 +1912,8 @@ function updatePlayPauseButton() {
     const playPauseText = floatingPlayer.querySelector('.play-pause-btn + .btn-text');
     
     if (isPlaying) {
-        playPauseBtn.innerHTML = '⏸';
-        playPauseBtn.title = '暂停';
+        playPauseBtn.innerHTML = '◼';
+        playPauseBtn.title = '停止';
     } else {
         playPauseBtn.innerHTML = '▶';
         playPauseBtn.title = '播放';

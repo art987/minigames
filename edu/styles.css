@@ -38,7 +38,6 @@ body {
     position: relative;
     height: auto;
     margin: 0 20px 1px;
-    width: 100%;
     }
   .tagsbox .tip{
     /* background: #ffffff; */
@@ -519,7 +518,7 @@ body {
     border-bottom: 1px solid #e5e5e5;
     padding: 8px 9px;
     box-shadow: 0 2px 21px #31313145;
-    z-index: 385;
+    z-index: 9999;
     overflow-x: auto;
     transition: transform 0.3s ease, opacity 0.3s ease;
     transform: translateX(100%);
@@ -538,16 +537,16 @@ body {
 
 
 .floating-tags .tag {
- padding: 7px 4px;
+ padding: 7px 8px;
  /* margin-right: 8px; */
  background-color: #fbfbfb;
  border-radius: 6px;
  cursor: pointer;
  /* border: 1px solid #b1b1b161; */
  letter-spacing: 0px;
- text-align: center;
+ /* text-align: center; */
  color: #000000;
- font-size: 15px;
+ font-size: 13px;
  box-shadow: 0 0 5px #cccccc82;
  display: block;
  line-height: 21px;
@@ -971,11 +970,11 @@ body {
 }
 
 .floating-player button {
-    background: rgb(50 50 50 / 28%);
+    background: rgb(50 50 50 / 0%);
     border: none;
-    color: #ffffff;
+    color: #717171;
     width: 36px;
-    border: 1px solid;
+    border: 1px solid #cdcdcde3;
     height: 36px;
     border-radius: 50%;
     cursor: pointer;
@@ -1020,20 +1019,22 @@ body {
     width: 36px;
     height: 36px;
     line-height: 36px;
+    color: #fff;
     font-size: 15px;
     background: rgb(28 118 0 / 68%);
 }
 
 .floating-player .play-pause-btn:hover {
-    background: rgb(208 10 10);
+    background: #c10808;
     color: #fff;
 }
 
 .floating-player button.active {
-    background: rgb(0 255 169 / 50%);
+    background: rgb(255 255 255 / 93%);
+    color: #464646;
 }
 .floating-player button.menu-toggle-btn {
-    background: rgb(41 41 41 / 91%);
+    background: rgb(155 0 0 / 78%);
     color: #ffffff;
     font-size: 17px;
 }
@@ -1044,10 +1045,18 @@ li.playing-highlight {
     border: 2px solid #667eea;
 }
 
+li.playing-highlight p {
+    text-decoration: underline;
+    text-decoration-color: #fee7e7;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 4px;
+}
+
 
 .floating-player .top-btn {
     width: 35px;
     height: 35px;
+    color: #fff;
     font-size: 18px;
-    background: rgb(0 0 0 / 68%);
+    background: rgb(0 0 0 / 78%);
 }
