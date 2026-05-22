@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recommendBtn = document.createElement('button');
     recommendBtn.className = 'today-recommend-button';
     recommendBtn.id = 'today-recommend-button';
-    recommendBtn.textContent = '☀';
+    recommendBtn.textContent = '☀ 今日推荐';
     document.body.appendChild(recommendBtn);
     
     // 添加点击事件

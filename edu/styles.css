@@ -14,7 +14,7 @@ body {
     border-radius: 12px;
     padding: 0 16px;
     height: 40px;
-    width: 53%;
+    width: 75%;
 }
 #search-input {
     width: 70%;
@@ -38,7 +38,7 @@ body {
     position: relative;
     height: auto;
     margin: 0 20px 1px;
-    width: 90%;
+    width: 100%;
     }
   .tagsbox .tip{
     /* background: #ffffff; */
@@ -62,7 +62,7 @@ body {
     color: #575757;
     border: none;
     padding: 7px 0px;
-    /* display: none; */
+    display: none;
     cursor: pointer;
     border-radius: 6px;
     border: 1px solid #dddddd;
@@ -136,7 +136,7 @@ body {
 	.marquee .tip{background: #ffffff;font-weight:bold;font-size: 15px;padding: 5px 0 0 3px;position: absolute;z-index: 100;color: #575757;left: -1px;}	
 		
         .tag{
-            padding: 7px 7px;
+            padding: 5px 4px;
             background-color: #ffffff;
             border-radius: 5px;
             cursor: pointer;
@@ -144,7 +144,7 @@ body {
             letter-spacing: 1px;
             color: #000;
             border: 1px solid #efefef;
-            font-size: 13px;
+            font-size: 12px;
             display: inline-block;
             white-space: nowrap;
             margin: 0 5px 10px 0;
@@ -223,7 +223,7 @@ body {
 .category ul li nav{ display:none;}
 .content li.highlight-effect {line-height:25px;border-radius: 7px;padding: 9px 20px;border: 1px solid #e4e4e4;box-shadow: 0 0 6px #ccc;}
 
-.content li.highlight-effect span c h4{ font-weight:bolder;}
+.content li.highlight-effect span c h4{/* font-weight:bolder; */}
 
 
 .category ul li span{ display: block;    padding-bottom: 25px;}
@@ -250,10 +250,10 @@ body {
     }
 }
 .title {
-    height: 86px;
+    height: 88px;
     line-height: 80px;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 9px;
     padding: 20px 20px 0 20px;
 }
 .title h1 {
@@ -268,7 +268,7 @@ body {
 .title p {
     font-size: 11px;
     line-height: 10px;
-    padding: 10px 0 0;
+    padding: 6px 0 0;
     margin: 0;
     letter-spacing: 3px;
     color: #8f8f8f;
@@ -423,12 +423,16 @@ body {
     background-color: #a50006 ; color:#fff;
 }
 .category ul li  c{text-decoration: none;display: block;line-height: 27px;padding: 6px 0 5px;max-height: 120px;overflow-y: auto;}
-.category ul li  c p{ padding:0; margin:0; font-size:16px;}
+.category ul li  c p{padding:0;margin:0;font-size: 13px;}
 .category ul li  c b{color:#000;font-weight: bold;font-size: 16px;/* top: auto; */}
 .category ul li  c u{color: #25829c;    font-size: 14px;    text-decoration: none;}
-.category ul li  c h4{ padding:0; margin:0; font-size: 20px;
+.category ul li  c h4{
+    padding:0;
+    margin:0;
+    font-size: 17px;
     font-weight: normal;
-    line-height: 55px;}
+    line-height: 35px;
+    }
 
 .category ul li  i{color: #777777;text-align: right;display: block;line-height: 15px;font-size:12px;margin-bottom: 7px;padding-top: 6px;letter-spacing: 0px;font-style: normal;}
 .category ul li  b{color: #c40101;display: block;font-weight: normal;font-size: 14px;line-height: 21px;padding-bottom: 10px;letter-spacing: 2px;overflow: hidden;padding-top: 5px;}
@@ -939,7 +943,7 @@ body {
 
 
 
-.today-recommend-button{position: absolute;left: 10px;top: 10px;width: 96px;height: 37px;border-radius: 6px;background: #ffffff;color: #313131;font-size: 14px;border: 1px solid #dfdfdf;cursor: pointer;z-index: 999;line-height: 37px;}
+.today-recommend-button{position: absolute;left: 17px;top: 10px;width: 28px;padding: 4px 6px;/* height: 37px; */border-radius: 6px;background: #ffffff;color: #313131;font-size: 11px;border: 1px solid #dfdfdf;cursor: pointer;z-index: 999;line-height: 14px;}
 
 
 .floating-player {
