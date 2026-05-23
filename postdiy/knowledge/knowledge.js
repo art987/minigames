@@ -117,21 +117,54 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    cardsContainer.style.display = 'flex';
+    cardsContainer.style.display = 'block';
     noResults.style.display = 'none';
     
-    cardsContainer.innerHTML = cards.map(card => `
-      <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}')">
-        <img src="${card.image}" alt="${card.title}" class="card-image" onerror="this.src='https://via.placeholder.com/400x200/CCCCCC/666666?text=暂无图片'">
-        <div class="card-content">
-          <h3 class="card-title">${card.title}</h3>
-          <p class="card-description">${card.description}</p>
-          <div class="card-tags">
-            ${card.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+    const categories = window.businessData.categories;
+    const categoryMap = {};
+    categories.forEach(cat => {
+      categoryMap[cat.id] = {
+        ...cat,
+        cards: []
+      };
+    });
+    
+    cards.forEach(card => {
+      const catId = card.category || 'other';
+      if (categoryMap[catId]) {
+        categoryMap[catId].cards.push(card);
+      }
+    });
+    
+    let html = '';
+    categories.forEach(cat => {
+      const catData = categoryMap[cat.id];
+      if (catData.cards.length > 0) {
+        html += `
+          <div class="category-section">
+            <div class="category-header">
+              <span class="category-icon">${cat.icon}</span>
+              <h2 class="category-title">${cat.name}</h2>
+            </div>
+            <div class="cards-container">
+              ${catData.cards.map(card => `
+                <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}')">
+                  <div class="card-icon" style="background-color: ${card.iconBg || '#f0f0f0'}${card.image ? `; background-image: url('${card.image}')` : ''}" ${card.image ? 'class="card-icon has-image"' : ''}>
+                    ${!card.image ? card.icon : ''}
+                  </div>
+                  <div class="card-content">
+                    <h3 class="card-title">${card.shortTitle || card.title}</h3>
+                    <p class="card-subtitle">${card.subtitle || card.description || ''}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
           </div>
-        </div>
-      </div>
-    `).join('');
+        `;
+      }
+    });
+    
+    cardsContainer.innerHTML = html;
   }
   
   // 搜索框输入事件
@@ -167,8 +200,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
       }
       
-      // 搜索简介
-      if (card.description.toLowerCase().includes(searchTerm)) {
+      // 搜索副标题或简介
+      if ((card.subtitle || card.description || '').toLowerCase().includes(searchTerm)) {
         return true;
       }
       

@@ -2,14 +2,12 @@
 // 在此文件中快速增删工具数据
 
 window.toolsData = {
-  // 频道配置
   channel: {
     name: '闪喵工具箱',
-    logo: 'images/statics/business.png', // 可以使用与主站相同的 logo
+    logo: 'images/statics/business.png',
     description: '商家必备的实用工具合集'
   },
   
-  // 热搜词列表
   hotSearches: [
     '营销工具',
     '图片处理',
@@ -23,116 +21,164 @@ window.toolsData = {
     '直播助手'
   ],
   
-  // 工具卡片数据
+  categories: [
+    
+    { id: 'music', name: '音乐疗愈', icon: '🎵' },    
+    { id: 'psychology', name: '心理测评', icon: '🧠' },
+    { id: 'image', name: '图片处理', icon: '🖼️' },
+    { id: 'efficiency', name: '效率工具', icon: '⚡' },
+    { id: 'shopping', name: '购物工具', icon: '🛒' },
+    { id: 'life', name: '生活服务', icon: '🏠' },
+    { id: 'finance', name: '财务工具', icon: '💰' },
+    { id: 'sales', name: '销售工具', icon: '💼' },
+    { id: 'culture', name: '文化教育', icon: '📚' }
+  ],
+  
   toolCards: [
     {
       id: 1,
-      image: 'image-compress/image-compress.png',
+      icon: '🖼️',
+      iconBg: '#4CAF50',
       title: '图片压缩工具',
-      description: '在线免费图片压缩工具，批量压缩JPG PNG WebP',
+      shortTitle: '图片压缩',
+      subtitle: '在线免费图片压缩工具，批量压缩JPG PNG WebP',
       tags: ['图片', '压缩', '批量'],
       link: 'image-compress/image-compress.html',
-      category: '图片处理'
+      category: 'image'
     },
     {
       id: 2,
-      image: 'qrcode-generator/qrcode-generator.png',
+      icon: '📱',
+      iconBg: '#2196F3',
       title: '二维码生成工具',
-      description: '快速生成各种二维码，支持自定义样式',
+      shortTitle: '二维码生成',
+      subtitle: '快速生成各种二维码，支持自定义样式',
       tags: ['工具', '二维码', '便捷'],
       link: 'qrcode-generator/qrcode-generator.html',
-      category: '效率工具'
+      category: 'efficiency'
     },
     {
       id: 3,
-      image: 'bg-remove.png',
+      icon: '✂️',
+      iconBg: '#9C27B0',
       title: '在线抠图工具',
-      description: 'AI智能抠图，自动识别主体，一键去除背景（需编译 Rembg WASM）',
+      shortTitle: '在线抠图',
+      subtitle: 'AI智能抠图，自动识别主体，一键去除背景',
       tags: ['图片', '抠图', 'AI'],
       link: 'https://zh.bgsub.com/webapp/',
-      category: '图片处理',
+      category: 'image',
       external: true
     },
     {
       id: 4,
-      image: 'cnbrands.png',
+      icon: '🇨🇳',
+      iconBg: '#F44336',
       title: '国货品牌',
-      description: '国货品牌导航 - 高性价比 口碑老牌 放心使用 支持国货，点亮生活',
+      shortTitle: '国货品牌',
+      subtitle: '国货品牌导航，高性价比口碑老牌放心使用',
       tags: ['购物', '品牌', '国货'],
       link: 'https://peacelove.top/cnbrand/index.html',
-      category: '购物工具'
+      category: 'shopping',
+      external: true
     },
     {
       id: 5,
-      image: 'gonggong-rexian/gonggong-rexian.png',
+      icon: '📞',
+      iconBg: '#FF9800',
       title: '中国公共电话热线大全',
-      description: '中国各类公共电话热线大全，包括紧急求助、政务咨询、消费者维权、法律援助等',
+      shortTitle: '公共电话热线',
+      subtitle: '紧急求助、政务咨询、消费者维权、法律援助等',
       tags: ['热线', '电话', '便民'],
       link: 'gonggong-rexian/index.html',
-      category: '生活服务'
+      category: 'life'
     },
     {
       id: 6,
-      image: 'music/wuyin.png',
+      icon: '🎵',
+      iconBg: '#673AB7',
       title: '古代五音疗愈曲目',
-      description: '依据《黄帝内经》五音理论，汇总角、徵、宫、商、羽五类疗愈曲目',
+      shortTitle: '五音疗愈曲目',
+      subtitle: '依据《黄帝内经》五音理论，汇总角徵宫商羽五类疗愈曲目',
       tags: ['音乐', '养生', '五音'],
       link: 'music/wuyin.html',
-      category: '音乐养生'
+      category: 'music'
     },
     {
       id: 7,
-      image: 'music/taijiao.png',
+      icon: '👶',
+      iconBg: '#E91E63',
       title: '精选经典胎教音乐',
-      description: '精选最适合胎教的经典音乐合集，包括莫扎特、巴赫等大师作品',
+      shortTitle: '胎教音乐',
+      subtitle: '精选最适合胎教的经典音乐合集，莫扎特巴赫等大师作品',
       tags: ['音乐', '胎教', '古典'],
       link: 'music/taijiao.html',
-      category: '音乐养生'
+      category: 'music'
     },
     {
       id: 8,
-      image: 'music/liaoyu.png',
+      icon: '💆',
+      iconBg: '#00BCD4',
       title: '疗愈音乐养生曲目单',
-      description: '一份涵盖古今各类音乐的养生治疗曲目单，助您通过音乐调节身心',
+      shortTitle: '疗愈音乐',
+      subtitle: '涵盖古今各类音乐的养生治疗曲目单，调节身心',
       tags: ['音乐', '养生', '疗愈'],
       link: 'music/liaoyu.html',
-      category: '音乐养生'
+      category: 'music'
     },
     {
       id: 9,
-      image: 'shop_calculator/shop_calculator.png',
+      icon: '🧮',
+      iconBg: '#795548',
       title: '开店必备60个计算公式',
-      description: '帮助商家计算开店成本，优化经营',
+      shortTitle: '开店计算公式',
+      subtitle: '帮助商家计算开店成本，优化经营',
       tags: ['开店', '计算', '财务'],
       link: 'shop_calculator/shop_calculator.html',
-      category: '财务工具'
+      category: 'finance'
     },
     {
       id: 10,
-      image: 'xiaoshouhuashu1/xiaoshouhuashu1.png',
+      icon: '💬',
+      iconBg: '#607D8B',
       title: '高情商客户回复话术库',
-      description: '帮助商家与客户建立情感联系，提升销售效率',
+      shortTitle: '客户回复话术',
+      subtitle: '帮助商家与客户建立情感联系，提升销售效率',
       tags: ['销售', '话术', '情商'],
       link: 'xiaoshouhuashu1/xiaoshouhuashu1.html',
-      category: '销售工具'
+      category: 'sales'
     },
     {
       id: 11,
-      image: 'sales-tips/sales-tips.png',
+      icon: '🏆',
+      iconBg: '#FF5722',
       title: '销冠成交话术100句',
-      description: '精选80句销冠成交话术，助你提升销售业绩',
+      shortTitle: '销冠话术',
+      subtitle: '精选80句销冠成交话术，助你提升销售业绩',
       tags: ['销售', '话术', '成交'],
       link: 'sales-tips/sales-tips.html',
-      category: '销售工具'
+      category: 'sales'
     },
     {
       id: 12,
-      image: 'quotes/quotes.png',
+      icon: '📚',
+      iconBg: '#3F51B5',
       title: '名言名句展示',
-      description: '精选古今中外名言名句，激励人生，启迪智慧',
+      shortTitle: '名言名句',
+      subtitle: '精选古今中外名言名句，激励人生，启迪智慧',
       tags: ['名言', '励志', '智慧'],
       link: 'quotes/index.html',
-      category: '文化教育'
+      category: 'culture'
+    },
+    {
+      id: 13,
+      icon: '🧠',
+      iconBg: '#8BC34A',
+      title: '小本本公益测试平台',
+      shortTitle: '公益测试平台',
+      subtitle: '完全免费无套路，包含心理测评、爱情关系、职业学习等测试',
+      tags: ['测试', '心理', '公益'],
+      link: 'test/index.html',
+      category: 'psychology'
     }
   ]
 };

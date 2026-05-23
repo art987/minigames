@@ -1,7 +1,6 @@
 // 闪喵游戏中心交互逻辑
 
 document.addEventListener('DOMContentLoaded', function() {
-  // 获取 DOM 元素
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearBtn');
   const hotSearchesContainer = document.getElementById('hotSearches');
@@ -13,32 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const hotSearchesWrapper = document.querySelector('.hot-searches-wrapper');
   const backToTopBtn = document.getElementById('backToTop');
   
-  // 初始化页面
   initPage();
   
   function initPage() {
-    // 渲染热搜词
     renderHotSearches();
-    
-    // 渲染所有游戏卡片
     renderCards(window.gamesData.gameCards);
-    
-    // 设置搜索框占位符
     searchInput.placeholder = '搜索游戏...';
   }
   
-  // 渲染热搜词（循环滚动）
   function renderHotSearches() {
     const hotSearches = window.gamesData.hotSearches;
-    
-    // 为了实现无缝滚动，复制一份热搜词
     const allTags = [...hotSearches, ...hotSearches];
     
     hotSearchesContainer.innerHTML = allTags.map(term => `
       <span class="tag" data-term="${term}">${term}</span>
     `).join('');
     
-    // 为热搜词添加点击事件
     hotSearchesContainer.querySelectorAll('.tag').forEach(tag => {
       tag.addEventListener('click', function() {
         const term = this.getAttribute('data-term');
@@ -49,13 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // 为"全部"按钮添加点击事件（按钮已在 HTML 中）
     const viewAllBtn = document.getElementById('viewAllBtn');
     if (viewAllBtn) {
       viewAllBtn.addEventListener('click', openModal);
     }
     
-    // 鼠标悬停时暂停滚动
     if (hotSearchesWrapper) {
       hotSearchesWrapper.addEventListener('mouseenter', function() {
         hotSearchesContainer.classList.add('paused');
@@ -67,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // 打开弹窗
   function openModal() {
     const allKeywords = window.gamesData.hotSearches;
     
@@ -75,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
       <span class="tag" data-term="${term}">${term}</span>
     `).join('');
     
-    // 为弹窗中的关键词添加点击事件
     modalTags.querySelectorAll('.tag').forEach(tag => {
       tag.addEventListener('click', function() {
         const term = this.getAttribute('data-term');
@@ -90,17 +75,14 @@ document.addEventListener('DOMContentLoaded', function() {
     modalOverlay.classList.add('active');
   }
   
-  // 关闭弹窗
   function closeModal() {
     modalOverlay.classList.remove('active');
   }
   
-  // 关闭按钮事件
   if (modalClose) {
     modalClose.addEventListener('click', closeModal);
   }
   
-  // 点击遮罩层关闭
   if (modalOverlay) {
     modalOverlay.addEventListener('click', function(e) {
       if (e.target === modalOverlay) {
@@ -109,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // 渲染卡片
   function renderCards(cards) {
     if (cards.length === 0) {
       cardsContainer.style.display = 'none';
@@ -117,24 +98,56 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    cardsContainer.style.display = 'flex';
+    cardsContainer.style.display = 'block';
     noResults.style.display = 'none';
     
-    cardsContainer.innerHTML = cards.map(card => `
-      <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}', ${card.external ? 'true' : 'false'})">
-        <img src="${card.image}" alt="${card.title}" class="card-image" onerror="this.src='https://via.placeholder.com/400x200/CCCCCC/666666?text=暂无图片'">
-        <div class="card-content">
-          <h3 class="card-title">${card.title}</h3>
-          <p class="card-description">${card.description}</p>
-          <div class="card-tags">
-            ${card.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+    const categories = window.gamesData.categories;
+    const categoryMap = {};
+    categories.forEach(cat => {
+      categoryMap[cat.id] = {
+        ...cat,
+        cards: []
+      };
+    });
+    
+    cards.forEach(card => {
+      const catId = card.category || 'other';
+      if (categoryMap[catId]) {
+        categoryMap[catId].cards.push(card);
+      }
+    });
+    
+    let html = '';
+    categories.forEach(cat => {
+      const catData = categoryMap[cat.id];
+      if (catData.cards.length > 0) {
+        html += `
+          <div class="category-section">
+            <div class="category-header">
+              <span class="category-icon">${cat.icon}</span>
+              <h2 class="category-title">${cat.name}</h2>
+            </div>
+            <div class="cards-container">
+              ${catData.cards.map(card => `
+                <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}', ${card.external ? 'true' : 'false'})">
+                  <div class="card-icon" style="background-color: ${card.iconBg || '#f0f0f0'}${card.image ? `; background-image: url('${card.image}')` : ''}" ${card.image ? 'class="card-icon has-image"' : ''}>
+                    ${!card.image ? card.icon : ''}
+                  </div>
+                  <div class="card-content">
+                    <h3 class="card-title">${card.shortTitle || card.title}</h3>
+                    <p class="card-subtitle">${card.subtitle || card.description || ''}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
           </div>
-        </div>
-      </div>
-    `).join('');
+        `;
+      }
+    });
+    
+    cardsContainer.innerHTML = html;
   }
   
-  // 搜索框输入事件
   searchInput.addEventListener('input', function() {
     if (this.value.trim()) {
       clearBtn.classList.add('active');
@@ -144,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
     filterCards();
   });
   
-  // 清空按钮点击事件
   clearBtn.addEventListener('click', function() {
     searchInput.value = '';
     clearBtn.classList.remove('active');
@@ -152,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.focus();
   });
   
-  // 筛选卡片
   function filterCards() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     
@@ -162,22 +173,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     const filteredCards = window.gamesData.gameCards.filter(card => {
-      // 搜索标题
       if (card.title.toLowerCase().includes(searchTerm)) {
         return true;
       }
       
-      // 搜索简介
-      if (card.description.toLowerCase().includes(searchTerm)) {
+      if ((card.subtitle || card.description || '').toLowerCase().includes(searchTerm)) {
         return true;
       }
       
-      // 搜索标签
       if (card.tags.some(tag => tag.toLowerCase().includes(searchTerm))) {
         return true;
       }
       
-      // 搜索分类
       if (card.category && card.category.toLowerCase().includes(searchTerm)) {
         return true;
       }
@@ -188,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCards(filteredCards);
   }
   
-  // 卡片点击处理
   window.handleCardClick = function(link, isExternal) {
     if (isExternal) {
       showExternalModal(link);
@@ -197,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
-  // 显示外部链接弹窗
   function showExternalModal(url) {
     let modal = document.getElementById('externalModal');
     if (!modal) {
@@ -233,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // 关闭外部链接弹窗
   window.closeExternalModal = function() {
     const modal = document.getElementById('externalModal');
     if (modal) {
@@ -241,7 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
-  // 复制外部网址
   window.copyExternalUrl = function() {
     const url = window.currentExternalUrl;
     const btn = document.getElementById('externalCopyBtn');
@@ -292,14 +295,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
   
-  // 键盘事件 - 回车搜索
   searchInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-      this.blur(); // 失去焦点，隐藏键盘
+      this.blur();
     }
   });
   
-  // 返回顶部功能
   function toggleBackToTop() {
     if (window.scrollY > 300) {
       backToTopBtn.style.display = 'flex';

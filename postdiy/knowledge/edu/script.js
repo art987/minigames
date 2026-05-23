@@ -1,6 +1,33 @@
 
-	
-	
+// 检测是否在WebView环境中运行
+function isInWebView() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isWebView = ua.indexOf('wv') > -1 || 
+                      ua.indexOf('webview') > -1 ||
+                      ua.indexOf('android') > -1 && ua.indexOf('chrome') === -1 ||
+                      ua.indexOf('iphone') > -1 && ua.indexOf('safari') === -1;
+    return isWebView;
+}
+
+// 检测语音功能是否真正可用
+function isSpeechAvailable() {
+    // 检查Web Speech API
+    const hasWebSpeech = 'speechSynthesis' in window && 
+                         typeof SpeechSynthesisUtterance !== 'undefined';
+    
+    // 检查ResponsiveVoice
+    const hasResponsiveVoice = typeof responsiveVoice !== 'undefined' && 
+                               typeof responsiveVoice.speak === 'function';
+    
+    // 在WebView中，优先信任ResponsiveVoice
+    if (isInWebView()) {
+        return hasResponsiveVoice || hasWebSpeech;
+    }
+    
+    // 在普通浏览器中，优先使用Web Speech API
+    return hasWebSpeech || hasResponsiveVoice;
+}
+
 // 创建今日推荐弹窗
 function createTodayRecommendModal() {
     // 检查是否已存在弹窗
@@ -284,6 +311,15 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`已加载 ${voices.length} 个语音`);
         };
     }
+    
+    // 检测ResponsiveVoice加载状态
+    setTimeout(() => {
+        if (typeof responsiveVoice === 'undefined') {
+            console.warn('ResponsiveVoice未加载，可能被网络限制');
+        } else {
+            console.log('ResponsiveVoice已就绪');
+        }
+    }, 2000);
     
     
     
@@ -1143,8 +1179,16 @@ function readText(text, callback, button) {
     
     if (!plainText) return;
     
-    // 优先使用Web Speech API（原生支持，嵌套环境兼容性更好）
-    if ('speechSynthesis' in window) {
+    // 检测是否在WebView中
+    const inWebView = isInWebView();
+    
+    // 在WebView中优先使用ResponsiveVoice
+    if (inWebView && typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
+        console.log('WebView环境：使用ResponsiveVoice');
+        fallbackToResponsiveVoice(plainText, callback);
+    }
+    // 优先使用Web Speech API（原生支持，性能更好）
+    else if ('speechSynthesis' in window) {
         // 确保停止之前的朗读
         speechSynthesis.cancel();
         
@@ -1187,7 +1231,8 @@ function readText(text, callback, button) {
             if (callback) callback();
             
             // 如果Web Speech API失败，尝试ResponsiveVoice
-            if (typeof responsiveVoice !== 'undefined') {
+            if (typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
+                console.log('Web Speech API失败，切换到ResponsiveVoice');
                 fallbackToResponsiveVoice(plainText, callback);
             }
         };
@@ -1195,12 +1240,14 @@ function readText(text, callback, button) {
         speechSynthesis.speak(utterance);
     } 
     // 备选方案：ResponsiveVoice
-    else if (typeof responsiveVoice !== 'undefined') {
+    else if (typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
+        console.log('使用ResponsiveVoice');
         fallbackToResponsiveVoice(plainText, callback);
     }
     else {
         console.warn('当前环境不支持语音朗读');
-        alert('抱歉，当前环境不支持语音朗读功能');
+        const envInfo = inWebView ? '（WebView环境）' : '';
+        alert(`抱歉，当前环境不支持语音朗读功能${envInfo}\n\n建议：\n1. 在手机浏览器中直接打开\n2. 或更新APP版本`);
     }
 }
 

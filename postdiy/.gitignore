@@ -23,6 +23,10 @@ dist/
 *.min.js
 *.min.css
 
+# 但保留必要的第三方库文件
+!**/jquery-*.min.js
+!**/jquery-ui-*.min.js
+
 # Environment variables
 .env
 .env.local
