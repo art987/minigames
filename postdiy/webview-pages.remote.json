@@ -32,8 +32,8 @@
       "text": "小游戏",
       "showText": true,
       "webviewUrl": "https://peacelove.top/postdiy/games/",
-      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
-      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/games-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/games.png",
       "enableTopBar": true
     }
   ],

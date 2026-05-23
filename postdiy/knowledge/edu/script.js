@@ -1163,8 +1163,10 @@ function stopReading() {
     console.log('朗读已停止');
 }
 
-// 全局变量：跟踪当前正在朗读的按钮
+// 全局变量：跟踪当前正在朗读的按钮和文本
 let currentReadingButton = null;
+let currentReadingText = null;
+let currentReadingCallback = null;
 
 function readText(text, callback, button) {
     const tempDiv = document.createElement('div');
@@ -1178,6 +1180,11 @@ function readText(text, callback, button) {
     plainText = plainText.replace(emojiRegex, '').replace(/\s+/g, ' ').trim();
     
     if (!plainText) return;
+    
+    // 保存当前朗读信息（用于静音时重新朗读）
+    currentReadingText = plainText;
+    currentReadingCallback = callback;
+    currentReadingButton = button;
     
     // 检测是否在WebView中
     const inWebView = isInWebView();
@@ -1207,7 +1214,7 @@ function readText(text, callback, button) {
         // 优化参数，提升自然度
         utterance.rate = 0.85;      // 语速：稍慢一点，更清晰
         utterance.pitch = 1.05;     // 音调：略微提高，更自然
-        utterance.volume = isMuted ? 0 : 0.9;  // 音量：静音时为0，否则略微降低，避免刺耳
+        utterance.volume = isMuted ? 0.001 : 0.9;  // 静音时为0.001，否则正常音量
         
         // 添加事件监听，提升用户体验
         utterance.onstart = () => {
@@ -1216,6 +1223,10 @@ function readText(text, callback, button) {
         
         utterance.onend = () => {
             console.log('朗读完成');
+            // 清除当前朗读信息
+            currentReadingText = null;
+            currentReadingCallback = null;
+            currentReadingButton = null;
             if (callback) callback();
         };
         
@@ -1228,6 +1239,10 @@ function readText(text, callback, button) {
             
             // 其他真正的错误才需要处理
             console.error('朗读错误:', event.error);
+            // 清除当前朗读信息
+            currentReadingText = null;
+            currentReadingCallback = null;
+            currentReadingButton = null;
             if (callback) callback();
             
             // 如果Web Speech API失败，尝试ResponsiveVoice
@@ -1254,11 +1269,18 @@ function readText(text, callback, button) {
 // ResponsiveVoice备选方案
 function fallbackToResponsiveVoice(text, callback) {
     const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
+    const volume = isMuted ? 0.001 : 0.9;  // 静音时为0.001，否则正常音量
     responsiveVoice.speak(text, voice, {
         rate: 0.85,
         pitch: 1.05,
-        volume: 0.9,
-        onend: callback
+        volume: volume,
+        onend: () => {
+            // 清除当前朗读信息
+            currentReadingText = null;
+            currentReadingCallback = null;
+            currentReadingButton = null;
+            if (callback) callback();
+        }
     });
 }
 
@@ -1759,7 +1781,7 @@ function createFloatingPlayer() {
     const nextGroup = createButtonGroup('⏭', '下一条', 'next-btn', '下一条');
     
     // 静音开关按钮
-    const muteGroup = createButtonGroup('♫', '静音', 'mute-btn', '静音');
+    const muteGroup = createButtonGroup('<img src="mute.svg" alt="静音" style="width: 20px; height: 20px;">', '静音', 'mute-btn', '静音');
     
     // 置顶按钮
     const topGroup = createButtonGroup('⬆', '置顶', 'top-btn', '置顶');
@@ -1872,18 +1894,40 @@ function toggleMute() {
     const muteBtn = floatingPlayer.querySelector('.mute-btn');
     const muteText = floatingPlayer.querySelector('.mute-btn + .btn-text');
     
+    // 切换静音状态
+    isMuted = !isMuted;
+    
+    // 更新按钮显示
     if (isMuted) {
-        isMuted = false;
-        muteBtn.innerHTML = '♫';
-        muteBtn.title = '静音';
-        muteBtn.classList.remove('active');
-        if (muteText) muteText.textContent = '静音';
-    } else {
-        isMuted = true;
-        muteBtn.innerHTML = '静';
+        muteBtn.innerHTML = '<img src="volume.svg" alt="音量" style="width: 20px; height: 20px;">';
         muteBtn.title = '恢复';
         muteBtn.classList.add('active');
         if (muteText) muteText.textContent = '恢复';
+    } else {
+        muteBtn.innerHTML = '<img src="mute.svg" alt="静音" style="width: 20px; height: 20px;">';
+        muteBtn.title = '静音';
+        muteBtn.classList.remove('active');
+        if (muteText) muteText.textContent = '静音';
+    }
+    
+    // 如果有正在朗读的内容，取消并重新朗读（应用新音量）
+    if (currentReadingText) {
+        console.log('切换静音状态，重新朗读当前内容');
+        
+        // 取消当前朗读
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+        }
+        if (typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.cancel === 'function') {
+            responsiveVoice.cancel();
+        }
+        
+        // 延迟一点重新朗读，确保取消操作完成
+        setTimeout(() => {
+            if (currentReadingText) {
+                readText(currentReadingText, currentReadingCallback, currentReadingButton);
+            }
+        }, 100);
     }
 }
 

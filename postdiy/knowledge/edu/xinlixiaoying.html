@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,22 +6,32 @@
     <title>108个心理学效应备忘录</title>
     <link rel="stylesheet" href="https://peacelove.top/menu.css">
     <link rel="stylesheet" href="styles.css">
-	<meta name="keywords" content="">
-	<meta name="description" content="">
-	
+    <meta name="keywords" content="">
+    <meta name="description" content="">
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw"></script>
     <script src="data-xinlixiaoying.js" defer></script>
     <script src="script.js" defer></script>
+    <style>
+        body {
+            background: url(biaoyangbg.png) no-repeat top center #fff;
+        }
+        #content-container .category ul li c {
+            max-height: 200px;
+        }
+        .navbar {
+            background-color: #4596ae;
+            border-bottom: 3px solid #397e9c;
+        }
+        .logo {
+            color: #fff;
+        }
+        .menu-button {
+            color: #fff;
+        }
+    </style>
 </head>
-<style> 
-body{background: url(biaoyangbg.png) no-repeat top center #fff;}
-#content-container .category ul li c{max-height: 200px;}
-.navbar{ background-color:#4596ae;    border-bottom: 3px solid #397e9c;}
-.logo{ color:#fff;}
-.menu-button{ color:#fff;}
-</style>
- <div id="navbar-container"></div>
-
+<body>
+    <div id="navbar-container"></div>
     <div class="title">
         <h1 id="title-h1"></h1>
         <p id="title-p"></p>
@@ -35,23 +45,19 @@ body{background: url(biaoyangbg.png) no-repeat top center #fff;}
         <div class="keywords" id="keywords-container"></div>
         <button id="show-all-keywords" class="show-all-keywords">⚓︎</button>
     </div>
-	<div class="tagsbox" >
-		<div class="tip" >分类：</div> 
-		<div class="tags" id="tags-container">
-		</div>
-		<button id="show-all-tags" class="show-all-tags">☸</button>
-	</div>
-	<div id="floating-tags-container" class="floating-tags"></div>
+    <div class="tagsbox">
+        <div class="tip">分类：</div>
+        <div class="tags" id="tags-container"></div>
+        <button id="show-all-tags" class="show-all-tags">☸</button>
+    </div>
+    <div id="floating-tags-container" class="floating-tags"></div>
     <div class="content" id="content-container"></div>
-	
     <div id="keyword-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="close-modal">&times;</span>
             <div id="modal-keywords-container"></div>
         </div>
     </div>
-	<button id="auto-scroll-button">⇢</button>
-	  
-
+    <button id="auto-scroll-button">⇢</button>
 </body>
 </html>
