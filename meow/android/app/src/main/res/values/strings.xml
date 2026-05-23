@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">闪喵海报</string>
-    <string name="title_activity_main">闪喵海报</string>
-    <string name="package_name">com.flashmeow.poster</string>
-    <string name="custom_url_scheme">com.flashmeow.poster</string>
-</resources>

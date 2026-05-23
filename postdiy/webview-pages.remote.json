@@ -10,17 +10,17 @@
       "enableTopBar": false
     },
     {
-      "pagePath": "pages/business/index",
-      "text": "生意经",
+      "pagePath": "pages/knowledge/index",
+      "text": "知识点",
       "showText": true,
-      "webviewUrl": "https://peacelove.top/postdiy/business/",
+      "webviewUrl": "https://peacelove.top/postdiy/knowledge/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/business-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
       "enableTopBar": true
     },
     {
       "pagePath": "pages/tools/index",
-      "text": "工具箱",
+      "text": "小工具",
       "showText": true,
       "webviewUrl": "https://peacelove.top/postdiy/tools/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/tools-active.png",
@@ -28,10 +28,10 @@
       "enableTopBar": true
     },
     {
-      "pagePath": "pages/about/index",
-      "text": "关于",
+      "pagePath": "pages/games/index",
+      "text": "小游戏",
       "showText": true,
-      "webviewUrl": "https://peacelove.top/",
+      "webviewUrl": "https://peacelove.top/postdiy/games/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
       "enableTopBar": true

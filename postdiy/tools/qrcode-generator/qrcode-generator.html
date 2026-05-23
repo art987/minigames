@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成工具</title>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入独立 CSS 文件 -->
+    <link rel="stylesheet" href="qrcode-generator.css">
+</head>
+<body>
+    <!-- Banner 版块 -->
+    <div class="banner">
+        <img src="qrcode-generator.png" alt="二维码生成工具" class="banner-image">
+    </div>
+    
+    <div class="container">
+        <header class="page-header">
+            <h1>📱 二维码生成工具</h1>
+            <p class="subtitle">免费在线生成各种类型的二维码</p>
+        </header>
+
+        <div class="generator-section">
+            <div class="input-section">
+                <h2>生成二维码</h2>
+                <div class="input-group">
+                    <label for="qrcodeContent">输入内容:</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="qrcodeContent" placeholder="请输入网址、文本、电话号码、邮箱等..." rows="4"></textarea>
+                        <div class="textarea-buttons">
+                            <button id="clearBtn" class="btn-icon" title="清空内容">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <button id="pasteBtn" class="btn-icon" title="粘贴内容">
+                                <i class="fa fa-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="qrcodeSize">二维码大小:</label>
+                    <select id="qrcodeSize">
+                        <option value="100">100x100</option>
+                        <option value="200" selected>200x200</option>
+                        <option value="300">300x300</option>
+                        <option value="400">400x400</option>
+                        <option value="500">500x500</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">
+                        <i class="fa fa-qrcode"></i> 生成二维码
+                    </button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>
+                        <i class="fa fa-download"></i> 下载二维码
+                    </button>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <h2>生成结果</h2>
+                <div id="qrcodeContainer" class="qrcode-container">
+                    <div class="placeholder">
+                        <i class="fa fa-qrcode"></i>
+                        <p>点击生成按钮创建二维码</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>常见软件二维码获取方法</h2>
+            
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-weixin"></i>
+                    <h3>个人微信二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开微信，点击右下角「我」</li>
+                        <li>点击你的头像进入个人信息页面</li>
+                        <li>点击「二维码名片」</li>
+                        <li>长按二维码图片，选择「保存图片」</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-weixin"></i>
+                    <h3>微信群二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开微信群聊窗口</li>
+                        <li>点击右上角「...」进入群设置</li>
+                        <li>点击群名称下方的二维码图标</li>
+                        <li>长按二维码图片，选择「保存图片」</li>
+                        <li>注意：微信群二维码有效期为7天</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-weixin"></i>
+                    <h3>微信公众号二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开微信公众号后台</li>
+                        <li>点击「设置与开发」-「公众号设置」</li>
+                        <li>在「帐号详情」中找到二维码</li>
+                        <li>点击「下载二维码」保存到本地</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-qq"></i>
+                    <h3>QQ二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开QQ，点击左上角头像</li>
+                        <li>点击你的头像进入个人资料页面</li>
+                        <li>点击「我的二维码」</li>
+                        <li>点击右上角「...」，选择「保存到手机」</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-alipay"></i>
+                    <h3>支付宝二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开支付宝，点击「收钱」</li>
+                        <li>点击二维码下方的「保存图片」</li>
+                        <li>如需付款码，点击「付款」，截图保存</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header">
+                    <i class="fab fa-weibo"></i>
+                    <h3>微博二维码</h3>
+                </div>
+                <div class="guide-content">
+                    <ol>
+                        <li>打开微博，点击右下角「我」</li>
+                        <li>点击你的头像进入个人主页</li>
+                        <li>点击「二维码」图标</li>
+                        <li>长按二维码图片，选择「保存图片」</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 二维码生成函数
+        function generateQRCode() {
+            const content = document.getElementById('qrcodeContent').value.trim();
+            const size = document.getElementById('qrcodeSize').value;
+            
+            if (!content) {
+                alert('请输入要生成二维码的内容');
+                return;
+            }
+            
+            // 使用 qrserver.com API 生成二维码，添加10像素白边
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(content)}&margin=10`;
+            
+            const container = document.getElementById('qrcodeContainer');
+            container.innerHTML = `
+                <div class="qrcode-result">
+                    <img src="${apiUrl}" alt="生成的二维码" id="qrcodeImage">
+                    <p>长按图片保存或点击下载按钮</p>
+                </div>
+            `;
+            
+            // 启用下载按钮
+            document.getElementById('downloadBtn').disabled = false;
+        }
+        
+        // 下载二维码函数
+        function downloadQRCode() {
+            const img = document.getElementById('qrcodeImage');
+            if (!img) return;
+            
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'qrcode.png';
+            link.click();
+        }
+        
+        // 绑定事件
+        document.getElementById('generateBtn').addEventListener('click', generateQRCode);
+        document.getElementById('downloadBtn').addEventListener('click', downloadQRCode);
+        
+        // 回车键生成
+        document.getElementById('qrcodeContent').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                generateQRCode();
+            }
+        });
+        
+        // 清空按钮功能
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('qrcodeContent').value = '';
+        });
+        
+        // 粘贴按钮功能
+        document.getElementById('pasteBtn').addEventListener('click', async function() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('qrcodeContent').value = text;
+            } catch (err) {
+                console.error('粘贴失败:', err);
+                alert('粘贴失败，请手动粘贴内容');
+            }
+        });
+    </script>
+</body>
+</html>
