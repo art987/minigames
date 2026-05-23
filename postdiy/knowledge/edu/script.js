@@ -1181,7 +1181,7 @@ function readText(text, callback, button) {
     
     if (!plainText) return;
     
-    // 保存当前朗读信息（用于静音时重新朗读）
+    // 保存当前朗读信息
     currentReadingText = plainText;
     currentReadingCallback = callback;
     currentReadingButton = button;
@@ -1189,10 +1189,13 @@ function readText(text, callback, button) {
     // 检测是否在WebView中
     const inWebView = isInWebView();
     
+    // 如果全局静音，使用极低音量但仍执行朗读流程
+    const volume = isMuted ? 0.001 : 0.9;
+    
     // 在WebView中优先使用ResponsiveVoice
     if (inWebView && typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
         console.log('WebView环境：使用ResponsiveVoice');
-        fallbackToResponsiveVoice(plainText, callback);
+        fallbackToResponsiveVoice(plainText, callback, volume);
     }
     // 优先使用Web Speech API（原生支持，性能更好）
     else if ('speechSynthesis' in window) {
@@ -1214,7 +1217,7 @@ function readText(text, callback, button) {
         // 优化参数，提升自然度
         utterance.rate = 0.85;      // 语速：稍慢一点，更清晰
         utterance.pitch = 1.05;     // 音调：略微提高，更自然
-        utterance.volume = isMuted ? 0.001 : 0.9;  // 静音时为0.001，否则正常音量
+        utterance.volume = volume;  // 根据静音状态设置音量
         
         // 添加事件监听，提升用户体验
         utterance.onstart = () => {
@@ -1248,7 +1251,7 @@ function readText(text, callback, button) {
             // 如果Web Speech API失败，尝试ResponsiveVoice
             if (typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
                 console.log('Web Speech API失败，切换到ResponsiveVoice');
-                fallbackToResponsiveVoice(plainText, callback);
+                fallbackToResponsiveVoice(plainText, callback, volume);
             }
         };
         
@@ -1257,7 +1260,7 @@ function readText(text, callback, button) {
     // 备选方案：ResponsiveVoice
     else if (typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
         console.log('使用ResponsiveVoice');
-        fallbackToResponsiveVoice(plainText, callback);
+        fallbackToResponsiveVoice(plainText, callback, volume);
     }
     else {
         console.warn('当前环境不支持语音朗读');
@@ -1267,9 +1270,8 @@ function readText(text, callback, button) {
 }
 
 // ResponsiveVoice备选方案
-function fallbackToResponsiveVoice(text, callback) {
+function fallbackToResponsiveVoice(text, callback, volume = 0.9) {
     const voice = typeof VOICE_SETTING !== 'undefined' ? VOICE_SETTING : 'Chinese Female';
-    const volume = isMuted ? 0.001 : 0.9;  // 静音时为0.001，否则正常音量
     responsiveVoice.speak(text, voice, {
         rate: 0.85,
         pitch: 1.05,
@@ -1903,17 +1905,17 @@ function toggleMute() {
         muteBtn.title = '恢复';
         muteBtn.classList.add('active');
         if (muteText) muteText.textContent = '恢复';
+        console.log('全局静音已开启');
     } else {
         muteBtn.innerHTML = '<img src="mute.svg" alt="静音" style="width: 20px; height: 20px;">';
         muteBtn.title = '静音';
         muteBtn.classList.remove('active');
         if (muteText) muteText.textContent = '静音';
+        console.log('全局静音已关闭');
     }
     
-    // 如果有正在朗读的内容，取消并重新朗读（应用新音量）
+    // 如果正在朗读，重新朗读以应用新音量
     if (currentReadingText) {
-        console.log('切换静音状态，重新朗读当前内容');
-        
         // 取消当前朗读
         if ('speechSynthesis' in window) {
             speechSynthesis.cancel();
@@ -1922,7 +1924,7 @@ function toggleMute() {
             responsiveVoice.cancel();
         }
         
-        // 延迟一点重新朗读，确保取消操作完成
+        // 延迟后重新朗读
         setTimeout(() => {
             if (currentReadingText) {
                 readText(currentReadingText, currentReadingCallback, currentReadingButton);
@@ -2020,7 +2022,7 @@ function updatePlayPauseButton() {
     }
 }
 
-function playItem(index) {
+function playItem(index, autoContinue = true) {
     currentVisibleItems = getVisibleItems();
     
     if (index < 0 || index >= currentVisibleItems.length) {
@@ -2034,7 +2036,7 @@ function playItem(index) {
     if (!text) return;
     
     currentPlayingIndex = index;
-    isPlaying = true;
+    isPlaying = autoContinue;  // 根据参数决定是否连续播放
     
     highlightItem(item);
     scrollToItem(item);
@@ -2048,8 +2050,15 @@ function playItem(index) {
     }
     
     readText(text, () => {
-        if (isPlaying && currentPlayingIndex === index) {
-            playNext();
+        // 只有在连续播放模式下才自动播放下一条
+        if (autoContinue && currentPlayingIndex === index) {
+            // 直接计算下一条索引并播放，保持连续播放模式
+            currentVisibleItems = getVisibleItems();
+            let nextIndex = currentPlayingIndex + 1;
+            if (nextIndex >= currentVisibleItems.length) {
+                nextIndex = 0;
+            }
+            playItem(nextIndex, true);  // 保持连续播放
         }
     }, readButton);
 }
@@ -2102,7 +2111,7 @@ function playPrevious() {
     }
     
     stopReading();
-    playItem(newIndex);
+    playItem(newIndex, false);  // 单次播放，不自动播放下一条
 }
 
 function playNext() {
@@ -2116,7 +2125,7 @@ function playNext() {
     }
     
     stopReading();
-    playItem(newIndex);
+    playItem(newIndex, false);  // 单次播放，不自动播放下一条
 }
 
 function syncPlayerFromCard(cardElement, cardIndex) {

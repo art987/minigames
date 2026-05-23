@@ -195,10 +195,70 @@
             const img = document.getElementById('qrcodeImage');
             if (!img) return;
             
-            const link = document.createElement('a');
-            link.href = img.src;
-            link.download = 'qrcode.png';
-            link.click();
+            // 创建canvas将图片转换为base64
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth || img.width;
+            canvas.height = img.naturalHeight || img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            
+            // 生成base64图片URL
+            let imageUrl;
+            try {
+                imageUrl = canvas.toDataURL('image/png', 1.0);
+            } catch (error) {
+                console.error('生成图片URL时出错:', error);
+                // 如果转换失败，直接使用原图URL
+                imageUrl = img.src;
+            }
+            
+            // 设置文件名
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timestamp = year + month + day + '-' + hours + minutes;
+            const fileName = 'qrcode_' + timestamp + '.png';
+            
+            // 检测是否在uni-app的WebView中
+            if (window.uni && window.uni.postMessage) {
+                // 在原生应用中，使用postMessage通知原生端
+                console.log('检测到uni-app环境，使用postMessage下载');
+                window.uni.postMessage({
+                    data: {
+                        action: 'downloadImage',
+                        url: imageUrl,
+                        fileName: fileName
+                    }
+                });
+                alert('二维码已发送到原生应用处理');
+            } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.downloadImage) {
+                // iOS WKWebView环境
+                console.log('检测到iOS WKWebView环境');
+                window.webkit.messageHandlers.downloadImage.postMessage({
+                    url: imageUrl,
+                    fileName: fileName
+                });
+                alert('二维码已发送到原生应用处理');
+            } else if (window.AndroidInterface && window.AndroidInterface.downloadImage) {
+                // Android WebView环境
+                console.log('检测到Android WebView环境');
+                window.AndroidInterface.downloadImage(imageUrl, fileName);
+                alert('二维码已发送到原生应用处理');
+            } else {
+                // 在浏览器中，使用标准的下载方式
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = fileName;
+                
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(function() {
+                    document.body.removeChild(link);
+                }, 100);
+            }
         }
         
         // 绑定事件

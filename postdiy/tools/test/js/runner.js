@@ -14,12 +14,21 @@
     
     // 检测语音合成支持
     function checkSpeechSupport() {
-        speechSupported = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+        // 检查 Web Speech API
+        var hasWebSpeech = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+        
+        // 检查 ResponsiveVoice
+        var hasResponsiveVoice = !!(typeof responsiveVoice !== 'undefined' && responsiveVoice.speak);
+        
+        // 任一支持即可
+        speechSupported = hasWebSpeech || hasResponsiveVoice;
         
         // 如果不支持，显示友好提示
         if (!speechSupported) {
             console.log('语音合成功能检测：当前浏览器不支持');
             // 可以在这里添加降级方案，比如显示文字提示
+        } else {
+            console.log('语音合成功能检测：支持', hasWebSpeech ? 'Web Speech API' : '', hasResponsiveVoice ? 'ResponsiveVoice' : '');
         }
         
         return speechSupported;
@@ -653,10 +662,64 @@
         }
         try {
             html2canvas(card,{backgroundColor:'white',scale:2}).then(function(canvas){
-                var link = document.createElement('a');
-                link.download = (document.getElementById('test-title').textContent||'result') + '.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                // 生成图片URL
+                var imageUrl;
+                try {
+                    imageUrl = canvas.toDataURL('image/png', 1.0);
+                } catch (toDataUrlError) {
+                    console.error('生成图像URL时出错:', toDataUrlError);
+                    alert('图片生成失败，请重试');
+                    return;
+                }
+                
+                // 设置文件名
+                var testTitle = document.getElementById('test-title').textContent || 'result';
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = String(now.getMonth() + 1).padStart(2, '0');
+                var day = String(now.getDate()).padStart(2, '0');
+                var hours = String(now.getHours()).padStart(2, '0');
+                var minutes = String(now.getMinutes()).padStart(2, '0');
+                var timestamp = year + month + day + '-' + hours + minutes;
+                var fileName = testTitle + '_' + timestamp + '.png';
+                
+                // 检测是否在uni-app的WebView中
+                if (window.uni && window.uni.postMessage) {
+                    // 在原生应用中，使用postMessage通知原生端
+                    console.log('检测到uni-app环境，使用postMessage下载');
+                    window.uni.postMessage({
+                        data: {
+                            action: 'downloadImage',
+                            url: imageUrl,
+                            fileName: fileName
+                        }
+                    });
+                    alert('证书已发送到原生应用处理');
+                } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.downloadImage) {
+                    // iOS WKWebView环境
+                    console.log('检测到iOS WKWebView环境');
+                    window.webkit.messageHandlers.downloadImage.postMessage({
+                        url: imageUrl,
+                        fileName: fileName
+                    });
+                    alert('证书已发送到原生应用处理');
+                } else if (window.AndroidInterface && window.AndroidInterface.downloadImage) {
+                    // Android WebView环境
+                    console.log('检测到Android WebView环境');
+                    window.AndroidInterface.downloadImage(imageUrl, fileName);
+                    alert('证书已发送到原生应用处理');
+                } else {
+                    // 在浏览器中，使用标准的下载方式
+                    var link = document.createElement('a');
+                    link.href = imageUrl;
+                    link.download = fileName;
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    setTimeout(function() {
+                        document.body.removeChild(link);
+                    }, 100);
+                }
             });
         } catch (e) {
             console.error('保存图片失败:', e);
@@ -1006,8 +1069,32 @@
             return;
         }
         
+        // 检测是否在WebView中
+        var isInWebView = function() {
+            var ua = navigator.userAgent.toLowerCase();
+            return ua.indexOf('wv') > -1 || 
+                   ua.indexOf('webview') > -1 ||
+                   (ua.indexOf('android') > -1 && ua.indexOf('chrome') === -1) ||
+                   (ua.indexOf('iphone') > -1 && ua.indexOf('safari') === -1);
+        };
+        
+        var inWebView = isInWebView();
+        
+        // 在WebView中优先使用ResponsiveVoice
+        if (inWebView && typeof responsiveVoice !== 'undefined' && responsiveVoice.speak) {
+            try {
+                console.log('WebView环境：使用ResponsiveVoice');
+                responsiveVoice.speak(text, 'Chinese Female', {
+                    rate: 0.85,
+                    pitch: 1.05,
+                    volume: 0.9
+                });
+            } catch (error) {
+                console.error('ResponsiveVoice朗读出错:', error);
+            }
+        }
         // 检查浏览器是否支持Web Speech API
-        if ('speechSynthesis' in window) {
+        else if ('speechSynthesis' in window) {
             try {
                 // 停止任何正在进行的朗读
                 window.speechSynthesis.cancel();
@@ -1030,8 +1117,32 @@
                 window.speechSynthesis.speak(utterance);
             } catch (error) {
                 console.error('朗读功能出错:', error);
+                
+                // 如果Web Speech API失败，尝试ResponsiveVoice
+                if (typeof responsiveVoice !== 'undefined' && responsiveVoice.speak) {
+                    console.log('Web Speech API失败，切换到ResponsiveVoice');
+                    responsiveVoice.speak(text, 'Chinese Female', {
+                        rate: 0.85,
+                        pitch: 1.05,
+                        volume: 0.9
+                    });
+                }
             }
-        } else {
+        }
+        // 备选方案：ResponsiveVoice
+        else if (typeof responsiveVoice !== 'undefined' && responsiveVoice.speak) {
+            try {
+                console.log('使用ResponsiveVoice');
+                responsiveVoice.speak(text, 'Chinese Female', {
+                    rate: 0.85,
+                    pitch: 1.05,
+                    volume: 0.9
+                });
+            } catch (error) {
+                console.error('ResponsiveVoice朗读出错:', error);
+            }
+        }
+        else {
             console.warn('您的浏览器不支持文本朗读功能');
         }
     }

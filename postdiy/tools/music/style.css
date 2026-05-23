@@ -50,7 +50,7 @@ a {
   width: 100%;
   color: #fff;
   /* height: 130px; */
-  margin: 51px auto 27px;
+  margin: 21px auto 27px;
 }
 #player .cover {
   background: rgba(0, 0, 0, 0.5);
@@ -321,14 +321,11 @@ a {
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   -o-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  
-max-height: calc(100vh - 480px); /* 限制高度为视口高度减去370px */
+  max-height: calc(100vh - 450px); /* 限制高度为视口高度减去370px */
   overflow-y: auto; /* 启用垂直滚动 */
   scroll-behavior: smooth; /* 平滑滚动 */
   overscroll-behavior: contain; /* 防止滚动传播到父元素 */
   -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
-
-  
 }
 
 /* 自定义滚动条样式（可选） */
