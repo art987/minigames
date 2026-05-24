@@ -1534,12 +1534,6 @@ if (floatingTagsContainer.children.length === 0) {
         
         floatingTagsContainer.appendChild(tagElement);
     });
-    
-    // 添加底部间距，防止被播放控制条遮挡
-    const spacer = document.createElement('div');
-    spacer.style.height = '100px';
-    spacer.style.width = '100%';
-    floatingTagsContainer.appendChild(spacer);
 }
         
         // 显示浮动标签栏并添加动画
@@ -1927,7 +1921,7 @@ function generateFloatingMenuContent() {
     
     // 添加底部间距，防止被播放控制条遮挡
     const spacer = document.createElement('div');
-    spacer.style.height = '100px';
+    spacer.style.height = '1px';
     spacer.style.width = '100%';
     floatingTagsContainer.appendChild(spacer);
 }
@@ -2181,5 +2175,7 @@ function syncPlayerFromCard(cardElement, cardIndex) {
 
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingPlayer();
-    showFloatingPlayer();
+    setTimeout(() => {
+        showFloatingPlayer();
+    }, 800);
 });
