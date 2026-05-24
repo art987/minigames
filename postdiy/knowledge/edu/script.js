@@ -1906,7 +1906,10 @@ function generateFloatingMenuContent() {
         const tagElement = document.createElement('div');
         tagElement.classList.add('tag');
         tagElement.dataset.category = category;
-        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
+        // 将统计数字包裹在span中，方便设置样式
+        const count = data.content[key].length;
+        tagElement.innerHTML = `${name} <span class="tag-count">(${count})</span>`;
         
         tagElement.addEventListener('click', () => {
             handleTagClick(tagElement, category);
@@ -2178,4 +2181,5 @@ function syncPlayerFromCard(cardElement, cardIndex) {
 
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingPlayer();
+    showFloatingPlayer();
 });
