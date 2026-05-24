@@ -1189,8 +1189,8 @@ function readText(text, callback, button) {
     // 检测是否在WebView中
     const inWebView = isInWebView();
     
-    // 如果全局静音，使用极低音量但仍执行朗读流程
-    const volume = isMuted ? 0.001 : 0.9;
+    // 使用当前音量值
+    const volume = currentVolume;
     
     // 在WebView中优先使用ResponsiveVoice
     if (inWebView && typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
@@ -1741,7 +1741,9 @@ let currentPlayingIndex = -1;
 let currentVisibleItems = [];
 let isPlaying = false;
 let isMuted = false;
+let currentVolume = 1; // 当前音量值 (0-1)
 let isFloatingMenuVisible = false;
+let volumeSliderHideTimeout = null; // 音量滑杆自动隐藏定时器
 
 function createFloatingPlayer() {
     if (document.getElementById('floating-player')) return;
@@ -1782,8 +1784,19 @@ function createFloatingPlayer() {
     // 下一条按钮
     const nextGroup = createButtonGroup('⏭', '下一条', 'next-btn', '下一条');
     
-    // 静音开关按钮
-    const muteGroup = createButtonGroup('<img src="mute.svg" alt="静音" style="width: 20px; height: 20px;">', '静音', 'mute-btn', '静音');
+    // 音量控制按钮
+    const muteGroup = createButtonGroup('<img src="volume.svg" alt="音量" style="width: 20px; height: 20px;">', '音量', 'mute-btn', '音量控制');
+    
+    // 创建音量滑杆容器
+    const volumeSlider = document.createElement('div');
+    volumeSlider.className = 'volume-slider';
+    volumeSlider.innerHTML = `
+        <div class="volume-slider-track">
+            <div class="volume-slider-fill"></div>
+            <div class="volume-slider-thumb"></div>
+        </div>
+    `;
+    muteGroup.group.appendChild(volumeSlider);
     
     // 置顶按钮
     const topGroup = createButtonGroup('⬆', '置顶', 'top-btn', '置顶');
@@ -1808,6 +1821,72 @@ function createFloatingPlayer() {
     nextGroup.button.addEventListener('click', playNext);
     muteGroup.button.addEventListener('click', toggleMute);
     topGroup.button.addEventListener('click', scrollToTop);
+    
+    // 音量滑杆交互
+    const sliderTrack = volumeSlider.querySelector('.volume-slider-track');
+    let isDragging = false;
+    
+    function resetHideTimer() {
+        if (volumeSliderHideTimeout) {
+            clearTimeout(volumeSliderHideTimeout);
+        }
+        volumeSliderHideTimeout = setTimeout(() => {
+            volumeSlider.classList.remove('visible');
+        }, 1000);
+    }
+    
+    function handleVolumeChange(e) {
+        const rect = sliderTrack.getBoundingClientRect();
+        const y = e.clientY || (e.touches && e.touches[0].clientY);
+        const relativeY = rect.bottom - y;
+        const volume = Math.max(0, Math.min(1, relativeY / rect.height));
+        setVolume(volume);
+        resetHideTimer();
+    }
+    
+    sliderTrack.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        handleVolumeChange(e);
+    });
+    
+    sliderTrack.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        handleVolumeChange(e);
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            handleVolumeChange(e);
+        }
+    });
+    
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            handleVolumeChange(e);
+        }
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        resetHideTimer();
+    });
+    
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+        resetHideTimer();
+    });
+    
+    // 点击滑杆外部关闭
+    document.addEventListener('click', (e) => {
+        if (volumeSlider.classList.contains('visible') && 
+            !volumeSlider.contains(e.target) && 
+            !muteGroup.button.contains(e.target)) {
+            volumeSlider.classList.remove('visible');
+            if (volumeSliderHideTimeout) {
+                clearTimeout(volumeSliderHideTimeout);
+            }
+        }
+    });
 }
 
 function toggleFloatingMenu() {
@@ -1928,29 +2007,64 @@ function generateFloatingMenuContent() {
 
 function toggleMute() {
     const muteBtn = floatingPlayer.querySelector('.mute-btn');
+    const volumeSlider = floatingPlayer.querySelector('.volume-slider');
+    
+    // 切换音量滑杆显示
+    if (volumeSlider.classList.contains('visible')) {
+        volumeSlider.classList.remove('visible');
+        if (volumeSliderHideTimeout) {
+            clearTimeout(volumeSliderHideTimeout);
+        }
+    } else {
+        volumeSlider.classList.add('visible');
+        updateVolumeSlider();
+        // 启动3秒自动隐藏定时器
+        if (volumeSliderHideTimeout) {
+            clearTimeout(volumeSliderHideTimeout);
+        }
+        volumeSliderHideTimeout = setTimeout(() => {
+            volumeSlider.classList.remove('visible');
+        }, 3000);
+    }
+}
+
+function updateVolumeSlider() {
+    const volumeSlider = floatingPlayer.querySelector('.volume-slider');
+    if (!volumeSlider) return;
+    
+    const fill = volumeSlider.querySelector('.volume-slider-fill');
+    const thumb = volumeSlider.querySelector('.volume-slider-thumb');
+    
+    const percentage = currentVolume * 100;
+    
+    fill.style.height = `${percentage}%`;
+    thumb.style.bottom = `calc(${percentage}% - 6px)`;
+}
+
+function setVolume(volume) {
+    volume = Math.max(0, Math.min(1, volume));
+    currentVolume = volume;
+    isMuted = volume === 0;
+    
+    const muteBtn = floatingPlayer.querySelector('.mute-btn');
     const muteText = floatingPlayer.querySelector('.mute-btn + .btn-text');
     
-    // 切换静音状态
-    isMuted = !isMuted;
-    
-    // 更新按钮显示
-    if (isMuted) {
-        muteBtn.innerHTML = '<img src="volume.svg" alt="音量" style="width: 20px; height: 20px;">';
-        muteBtn.title = '恢复';
-        muteBtn.classList.add('active');
-        if (muteText) muteText.textContent = '恢复';
-        console.log('全局静音已开启');
-    } else {
+    // 更新按钮图标
+    if (volume === 0) {
         muteBtn.innerHTML = '<img src="mute.svg" alt="静音" style="width: 20px; height: 20px;">';
         muteBtn.title = '静音';
-        muteBtn.classList.remove('active');
         if (muteText) muteText.textContent = '静音';
-        console.log('全局静音已关闭');
+    } else {
+        muteBtn.innerHTML = '<img src="volume.svg" alt="音量" style="width: 20px; height: 20px;">';
+        muteBtn.title = '音量';
+        if (muteText) muteText.textContent = '音量';
     }
+    
+    // 更新滑杆显示
+    updateVolumeSlider();
     
     // 如果正在朗读，重新朗读以应用新音量
     if (currentReadingText) {
-        // 取消当前朗读
         if ('speechSynthesis' in window) {
             speechSynthesis.cancel();
         }
@@ -1958,7 +2072,6 @@ function toggleMute() {
             responsiveVoice.cancel();
         }
         
-        // 延迟后重新朗读
         setTimeout(() => {
             if (currentReadingText) {
                 readText(currentReadingText, currentReadingCallback, currentReadingButton);

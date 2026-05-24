@@ -95,7 +95,7 @@ window.toolsData = {
     {
       id: 6,
       icon: '🎵',
-      iconBg: '#673AB7',
+      iconBg: '#f9a958ff',
       title: '古代五音疗愈曲目',
       shortTitle: '五音疗愈曲目',
       subtitle: '依据《黄帝内经》五音理论，汇总角徵宫商羽五类疗愈曲目',
@@ -123,6 +123,17 @@ window.toolsData = {
       subtitle: '涵盖古今各类音乐的养生治疗曲目单，调节身心',
       tags: ['音乐', '养生', '疗愈'],
       link: 'music/liaoyu.html',
+      category: 'music'
+    },
+    {
+      id: 14,
+      icon: '🎶',
+      iconBg: '#4441ffff',
+      title: '精选养生音乐合集',
+      shortTitle: '养生音乐',
+      subtitle: '传统民乐与养生保健音乐，古筝琵琶箫等民族器乐',
+      tags: ['音乐', '养生', '民乐'],
+      link: 'music/yangsheng.html',
       category: 'music'
     },
     {

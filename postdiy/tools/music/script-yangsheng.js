@@ -1,81 +1,68 @@
-﻿(function($){
+(function($){
     // Settings
     var repeat = localStorage.repeat || 0,
         shuffle = localStorage.shuffle || 'false',
         continous = true,
         autoplay = false,
         playlist = [
-  // 角音疗肝
-  {title: '胡笳十八拍', artist: '角音疗肝', cover: 'img/wuyin/hjspb.png', mp3: 'mp3/wuyin/hjspb.mp3', ogg: ''},
-  {title: '春江花月夜', artist: '角音疗肝', cover: 'img/wuyin/cjjyhy.png', mp3: 'mp3/wuyin/cjjyhy.mp3', ogg: ''},
-  {title: '一花一世界', artist: '角音疗肝', cover: 'img/wuyin/yhysj.png', mp3: 'mp3/wuyin/yhysj.mp3', ogg: ''},
-  {title: '紫竹调', artist: '角音疗肝', cover: 'img/wuyin/zzd.png', mp3: 'mp3/wuyin/zzd.mp3', ogg: ''},
-  {title: '列子御风', artist: '角音疗肝', cover: 'img/wuyin/lzyf.png', mp3: 'mp3/wuyin/lzyf.mp3', ogg: ''},
-  {title: '庄周梦蝶', artist: '角音疗肝', cover: 'img/wuyin/zzmd.png', mp3: 'mp3/wuyin/zzmd.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '角音疗肝', cover: 'img/wuyin/psly.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '角音疗肝', cover: 'img/wuyin/yqwd.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '角音疗肝', cover: 'img/wuyin/ls.png',  mp3: 'mp3/wuyin/ls.mp3', ogg: ''},     
-  {title: '梅花三弄', artist: '角音疗肝', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪', artist: '角音疗肝', cover: 'img/wuyin/ycbx.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '角音疗肝', cover: 'img/wuyin/hgqy.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-
-  // 徵音养心
-  {title: '百鸟朝凤', artist: '徵音养心', cover: 'img/wuyin/bncf.png', mp3: 'mp3/wuyin/bncf.mp3', ogg: ''},
-  {title: '琵琶泉', artist: '徵音养心', cover: 'img/wuyin/ppq.png', mp3: 'mp3/wuyin/ppq.mp3', ogg: ''},
-  {title: '彩云追月', artist: '徵音养心', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzy.mp3', ogg: ''},
-  {title: '金蛇狂舞', artist: '徵音养心', cover: 'img/wuyin/jskw.png', mp3: 'mp3/wuyin/jskw.mp3', ogg: ''},
-  {title: '春节序曲', artist: '徵音养心', cover: 'img/wuyin/cjxq.png', mp3: 'mp3/wuyin/cjxq.mp3', ogg: ''},
-  {title: '步步高', artist: '徵音养心', cover: 'img/wuyin/bbg.png', mp3: 'mp3/wuyin/bbg.mp3', ogg: ''},
-  {title: '花好月圆夜', artist: '徵音养心', cover: 'img/wuyin/hhyyy.png', mp3: 'mp3/wuyin/hhyyy.mp3', ogg: ''},
-  {title: '喜洋洋', artist: '徵音养心', cover: 'img/wuyin/xyy.png', mp3: 'mp3/wuyin/xyy.mp3', ogg: ''},
-  {title: '彩云追月（广东音乐）', artist: '徵音养心', cover: 'img/wuyin/cyzygd.png', mp3: 'mp3/wuyin/cyzygd.mp3', ogg: ''},
-  {title: '翻身的日子', artist: '徵音养心', cover: 'img/wuyin/fsdrz.png', mp3: 'mp3/wuyin/fsdrz.mp3', ogg: ''},
-  {title: '姑苏行', artist: '徵音养心', cover: 'img/wuyin/gsx.png', mp3: 'mp3/wuyin/gsx.mp3', ogg: ''},
-  {title: '阿里山的姑娘', artist: '徵音养心', cover: 'img/wuyin/alsdgn.png', mp3: 'mp3/wuyin/alsdgn.mp3', ogg: ''},
-
-  // 宫音养脾
-  {title: '秋湖月夜', artist: '宫音养脾', cover: 'img/wuyin/qhyy.png', mp3: 'mp3/wuyin/qhyy.mp3', ogg: ''},
-  {title: '十面埋伏', artist: '宫音养脾', cover: 'img/wuyin/smmf.png', mp3: 'mp3/wuyin/smmf.mp3', ogg: ''},
-  {title: '东风破', artist: '宫音养脾', cover: 'img/wuyin/dfp.png', mp3: 'mp3/wuyin/dfp.mp3', ogg: ''},
-  {title: '渔舟唱晚', artist: '宫音养脾', cover: 'img/wuyin/yzcw.png', mp3: 'mp3/wuyin/yzcw.mp3', ogg: ''},
-  {title: '彩云追月', artist: '宫音养脾', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzy.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '宫音养脾', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪', artist: '宫音养脾', cover: 'img/wuyin/ycbxg.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '宫音养脾', cover: 'img/wuyin/hgqyg.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '宫音养脾', cover: 'img/wuyin/pslyg.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '宫音养脾', cover: 'img/wuyin/yqwdg.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '宫音养脾', cover: 'img/wuyin/lsg.png', mp3: 'mp3/wuyin/ls.mp3', ogg: ''},
-  {title: '花好月圆夜', artist: '宫音养脾', cover: 'img/wuyin/hhyyyg.png', mp3: 'mp3/wuyin/hhyyy.mp3', ogg: ''},
-
-  // 商音润肺
-  {title: '阳春白雪', artist: '商音润肺', cover: 'img/wuyin/ycbxs.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '绣金匾', artist: '商音润肺', cover: 'img/wuyin/xjb.png', mp3: 'mp3/wuyin/xjb.mp3', ogg: ''},
-  {title: '声声慢', artist: '商音润肺', cover: 'img/wuyin/ssm.png', mp3: 'mp3/wuyin/ssm.mp3', ogg: ''},
-  {title: '渔歌', artist: '商音润肺', cover: 'img/wuyin/yg.png', mp3: 'mp3/wuyin/yg.mp3', ogg: ''},
-  {title: '秋鸿引', artist: '商音润肺', cover: 'img/wuyin/qhy.png', mp3: 'mp3/wuyin/qhy.mp3', ogg: ''},
-  {title: '将军令', artist: '商音润肺', cover: 'img/wuyin/jjl.png', mp3: 'mp3/wuyin/jjl.mp3', ogg: ''},
-  {title: '广陵散', artist: '商音润肺', cover: 'img/wuyin/gls.png', mp3: 'mp3/wuyin/gls.mp3', ogg: ''},
-  {title: '十面埋伏', artist: '商音润肺', cover: 'img/wuyin/smmfs.png', mp3: 'mp3/wuyin/smmf.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '商音润肺', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪（琵琶版）', artist: '商音润肺', cover: 'img/wuyin/ycbxpp.png', mp3: 'mp3/wuyin/ycbxpp.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '商音润肺', cover: 'img/wuyin/hgqys.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '商音润肺', cover: 'img/wuyin/pslys.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '商音润肺', cover: 'img/wuyin/yqwds.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '商音润肺', cover: 'img/wuyin/lss.png', mp3: 'mp3/wuyin/ls.mp3', ogg: ''},
-
-  // 羽音养肾
-  {title: '梅花三弄', artist: '羽音养肾', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '一人静', artist: '羽音养肾', cover: 'img/wuyin/yrj.png', mp3: 'mp3/wuyin/yrj.mp3', ogg: ''},
-  {title: '梁祝', artist: '羽音养肾', cover: 'img/wuyin/lz.png', mp3: 'mp3/wuyin/lz.mp3', ogg: ''},
-  {title: '二泉映月', artist: '羽音养肾', cover: 'img/wuyin/eqyyy.png', mp3: 'mp3/wuyin/eqyy.mp3', ogg: ''},
-  {title: '渔舟唱晚', artist: '羽音养肾', cover: 'img/wuyin/yzcwy.png', mp3: 'mp3/wuyin/yzcw.mp3', ogg: ''},
-  {title: '高山流水', artist: '羽音养肾', cover: 'img/wuyin/gslsy.png', mp3: 'mp3/wuyin/gsls.mp3', ogg: ''},
-  {title: '月光奏鸣曲', artist: '羽音养肾', cover: 'img/wuyin/ygzmq.png', mp3: 'mp3/wuyin/ygzmq.mp3', ogg: ''},
-  {title: '神秘园之歌', artist: '羽音养肾', cover: 'img/wuyin/smyzg.png', mp3: 'mp3/wuyin/smyzg.mp3', ogg: ''},
-  {title: '故乡的原风景', artist: '羽音养肾', cover: 'img/wuyin/gxdyfj.png', mp3: 'mp3/wuyin/gxdyfj.mp3', ogg: ''},
-  {title: '安妮的仙境', artist: '羽音养肾', cover: 'img/wuyin/andxj.png', mp3: 'mp3/wuyin/andxj.mp3', ogg: ''},
-  {title: '寂静山林', artist: '羽音养肾', cover: 'img/wuyin/jjsl.png', mp3: 'mp3/wuyin/jjsl.mp3', ogg: ''},
-  {title: '星空', artist: '羽音养肾', cover: 'img/wuyin/xk.png', mp3: 'mp3/wuyin/xk.mp3', ogg: ''}
+  {title: '未知曲目', artist: '传奇乐坊', cover: 'img/yangsheng/xxqx.png', mp3: 'mp3/yangsheng/C100000DPW4N16GLlR.m4a', ogg: ''},
+  {title: '塞上曲', artist: '吕培原', cover: 'img/yangsheng/ssq.png', mp3: 'mp3/yangsheng/C100000GqKA44LvAhB.m4a', ogg: ''},
+  {title: '灵魂', artist: '纯音乐', cover: 'img/yangsheng/lh.png', mp3: 'mp3/yangsheng/C100000jFwmz0V1bCE.m4a', ogg: ''},
+  {title: '禅院钟声', artist: '群星', cover: 'img/yangsheng/cyzs.png', mp3: 'mp3/yangsheng/C100000L77sZ37Lnk1.m4a', ogg: ''},
+  {title: '普庵咒', artist: '熊云韵', cover: 'img/yangsheng/paz.png', mp3: 'mp3/yangsheng/C100000lX8th0SRER8.m4a', ogg: ''},
+  {title: '光明', artist: '纯音乐', cover: 'img/yangsheng/gm.png', mp3: 'mp3/yangsheng/C100000QjaQT4C6AUT.m4a', ogg: ''},
+  {title: '变幻彩风', artist: '纯音乐', cover: 'img/yangsheng/bhcf.png', mp3: 'mp3/yangsheng/C100000qsLRi4MkVO2.m4a', ogg: ''},
+  {title: '寒山僧踪', artist: '纯音乐', cover: 'img/yangsheng/hssz.png', mp3: 'mp3/yangsheng/C100000SYeKB1EYYLk.m4a', ogg: ''},
+  {title: '溪边的铃儿声', artist: '纯音乐', cover: 'img/yangsheng/xbdles.png', mp3: 'mp3/yangsheng/C100000udKEp4HiJxg.m4a', ogg: ''},
+  {title: '平湖秋月', artist: '纯音乐', cover: 'img/yangsheng/phqy.png', mp3: 'mp3/yangsheng/C100000UUWtz1pXcrv.m4a', ogg: ''},
+  {title: '我划的小船', artist: '纯音乐', cover: 'img/yangsheng/whdxc.png', mp3: 'mp3/yangsheng/C100000WqMk43MYWj5.m4a', ogg: ''},
+  {title: '苦雪烹茶', artist: '传奇乐坊', cover: 'img/yangsheng/kxpc.png', mp3: 'mp3/yangsheng/C100000ZFe9A1K8ysb.m4a', ogg: ''},
+  {title: '大胡笳', artist: '陈成勃', cover: 'img/yangsheng/dhj.png', mp3: 'mp3/yangsheng/C100000Zj9W43Yhqfl.m4a', ogg: ''},
+  {title: '澄净心曲', artist: '古筝', cover: 'img/yangsheng/cjxq.png', mp3: 'mp3/yangsheng/C100001b5SlX1pIPbM.m4a', ogg: ''},
+  {title: '行云流水', artist: '纯音乐', cover: 'img/yangsheng/xyls.png', mp3: 'mp3/yangsheng/C100001cZvsh3OQf1j.m4a', ogg: ''},
+  {title: '夏', artist: '纯音乐', cover: 'img/yangsheng/x.png', mp3: 'mp3/yangsheng/C100001e2IsE2MZcZA.m4a', ogg: ''},
+  {title: '十面埋伏', artist: '传奇乐坊', cover: 'img/yangsheng/smmf.png', mp3: 'mp3/yangsheng/C100001iddQ10lbMcg.m4a', ogg: ''},
+  {title: '佛家静心曲', artist: '古筝', cover: 'img/yangsheng/fjjxq.png', mp3: 'mp3/yangsheng/C100001jKFPt2DPQMZ.m4a', ogg: ''},
+  {title: '冬表树', artist: '纯音乐', cover: 'img/yangsheng/dbs.png', mp3: 'mp3/yangsheng/C100001lig190cb5m9.m4a', ogg: ''},
+  {title: '秋天的落叶', artist: '纯音乐', cover: 'img/yangsheng/qtdly.png', mp3: 'mp3/yangsheng/C100001Pxxrj0ank9A.m4a', ogg: ''},
+  {title: '步步高', artist: '中央民族乐团', cover: 'img/yangsheng/bbg.png', mp3: 'mp3/yangsheng/C100001rjId84BMaEK.m4a', ogg: ''},
+  {title: '高山流水', artist: '华语群星', cover: 'img/yangsheng/gsls.png', mp3: 'mp3/yangsheng/C100001U7QEU1KgRBC.m4a', ogg: ''},
+  {title: '天地美乐诗', artist: '纯音乐', cover: 'img/yangsheng/tdmls.png', mp3: 'mp3/yangsheng/C100001uHA3T2wwAKg.m4a', ogg: ''},
+  {title: '禅茶一味', artist: '纯音乐', cover: 'img/yangsheng/ccyw.png', mp3: 'mp3/yangsheng/C100001vXNzW2KbZwT.m4a', ogg: ''},
+  {title: '至高心曲', artist: '古筝', cover: 'img/yangsheng/zgxq.png', mp3: 'mp3/yangsheng/C100001WDBjO3UAWoR.m4a', ogg: ''},
+  {title: '渔樵问答', artist: '传奇乐坊', cover: 'img/yangsheng/yqwd.png', mp3: 'mp3/yangsheng/C100001ycVJa4XhrTA.m4a', ogg: ''},
+  {title: '疏梅弄影', artist: '纯音乐', cover: 'img/yangsheng/smny.png', mp3: 'mp3/yangsheng/C100001zCVBG1X6iMr.m4a', ogg: ''},
+  {title: '大海奔腾', artist: '纯音乐', cover: 'img/yangsheng/dhbt.png', mp3: 'mp3/yangsheng/C1000027YXmt15Ckvs.m4a', ogg: ''},
+  {title: '茶悟聚友', artist: '纯音乐', cover: 'img/yangsheng/cwjy.png', mp3: 'mp3/yangsheng/C1000029wKxS0bkSr9.m4a', ogg: ''},
+  {title: '心灵之音', artist: '纯音乐', cover: 'img/yangsheng/xlzy.png', mp3: 'mp3/yangsheng/C100002Bif4t2JMM5J.m4a', ogg: ''},
+  {title: '流星雨', artist: '纯音乐', cover: 'img/yangsheng/lxy.png', mp3: 'mp3/yangsheng/C100002BTfmT2209Xs.m4a', ogg: ''},
+  {title: '银色沙滩', artist: '纯音乐', cover: 'img/yangsheng/ysst.png', mp3: 'mp3/yangsheng/C100002cSyOq2XRGH9.m4a', ogg: ''},
+  {title: '风清云淡', artist: '纯音乐', cover: 'img/yangsheng/fqyd.png', mp3: 'mp3/yangsheng/C100002fKAj00kZF1b.m4a', ogg: ''},
+  {title: '天真浪漫', artist: '纯音乐', cover: 'img/yangsheng/tzlm.png', mp3: 'mp3/yangsheng/C100002gZdZf3NNXnP.m4a', ogg: ''},
+  {title: '火', artist: '纯音乐', cover: 'img/yangsheng/h.png', mp3: 'mp3/yangsheng/C100002HvkLx2pMQOz.m4a', ogg: ''},
+  {title: '阳春白雪', artist: '传奇乐坊', cover: 'img/yangsheng/ycbx.png', mp3: 'mp3/yangsheng/C100002LxTWw1SC1ID.m4a', ogg: ''},
+  {title: '紫竹调', artist: '纯音乐', cover: 'img/yangsheng/zzd.png', mp3: 'mp3/yangsheng/C100002Mxx3i3Y6CEw.m4a', ogg: ''},
+  {title: '琵琶语', artist: '赵聪', cover: 'img/yangsheng/ppy.png', mp3: 'mp3/yangsheng/C100002niNzH45Q2R3.m4a', ogg: ''},
+  {title: '云水禅心', artist: '李志辉', cover: 'img/yangsheng/yscx.png', mp3: 'mp3/yangsheng/C100002RhIc90LnVg3.m4a', ogg: ''},
+  {title: '善缘曲', artist: '古筝', cover: 'img/yangsheng/syq.png', mp3: 'mp3/yangsheng/C10000358Qi53NwwyG.m4a', ogg: ''},
+  {title: '高山', artist: '纯音乐', cover: 'img/yangsheng/gs.png', mp3: 'mp3/yangsheng/C1000039KD6X48KHIE.m4a', ogg: ''},
+  {title: '渔舟唱晚', artist: '付娜', cover: 'img/yangsheng/yzcw.png', mp3: 'mp3/yangsheng/C100003A0yPO3podbq.m4a', ogg: ''},
+  {title: '大悲咒', artist: '郭关', cover: 'img/yangsheng/dbz.png', mp3: 'mp3/yangsheng/C100003B3qsf37hGU4.m4a', ogg: ''},
+  {title: '梦之地', artist: '纯音乐', cover: 'img/yangsheng/mzd.png', mp3: 'mp3/yangsheng/C100003b5oee1ya1ag.m4a', ogg: ''},
+  {title: '梅花三弄', artist: '传奇乐坊', cover: 'img/yangsheng/mhxn.png', mp3: 'mp3/yangsheng/C100003DpbB735KxNt.m4a', ogg: ''},
+  {title: '蒸汽', artist: '纯音乐', cover: 'img/yangsheng/xq.png', mp3: 'mp3/yangsheng/C100003FywPC45xoWR.m4a', ogg: ''},
+  {title: '至高佛乐', artist: '古筝', cover: 'img/yangsheng/zgfl.png', mp3: 'mp3/yangsheng/C100003hF1QM4AQi1D.m4a', ogg: ''},
+  {title: '灌想冥空', artist: '纯音乐', cover: 'img/yangsheng/gxmk.png', mp3: 'mp3/yangsheng/C100003hGXxz49m7x6.m4a', ogg: ''},
+  {title: '水碧霞光', artist: '纯音乐', cover: 'img/yangsheng/sbxg.png', mp3: 'mp3/yangsheng/C100003ienO80nQIML.m4a', ogg: ''},
+  {title: '碧涧流泉', artist: '纯音乐', cover: 'img/yangsheng/bjlq.png', mp3: 'mp3/yangsheng/C100003JodjE4Ihjvf.m4a', ogg: ''},
+  {title: '感觉完美', artist: '纯音乐', cover: 'img/yangsheng/xjwm.png', mp3: 'mp3/yangsheng/C100003L1Ftc2IPLih.m4a', ogg: ''},
+  {title: '月儿高', artist: '林石城', cover: 'img/yangsheng/yeg.png', mp3: 'mp3/yangsheng/C100003P0EaU02maWt.m4a', ogg: ''},
+  {title: '河上的月亮', artist: '纯音乐', cover: 'img/yangsheng/hsdyx.png', mp3: 'mp3/yangsheng/C100003pLTjU3zwcBh.m4a', ogg: ''},
+  {title: '梦江南', artist: '段银莹', cover: 'img/yangsheng/mxx.png', mp3: 'mp3/yangsheng/C100003rC8qn0zwmRp.m4a', ogg: ''},
+  {title: '森林幻想曲', artist: '纯音乐', cover: 'img/yangsheng/slhxq.png', mp3: 'mp3/yangsheng/C100003ZjLcC1qKA1N.m4a', ogg: ''},
+  {title: '出水莲', artist: '纯音乐', cover: 'img/yangsheng/csl.png', mp3: 'mp3/yangsheng/C100003zvpxd112Z5b.m4a', ogg: ''},
+  {title: '花好月圆', artist: '传奇乐坊', cover: 'img/yangsheng/hhyy.png', mp3: 'mp3/yangsheng/C100004fNiFx419RDM.m4a', ogg: ''},
+  {title: '金蛇狂舞', artist: '纯音乐', cover: 'img/yangsheng/jskw.png', mp3: 'mp3/yangsheng/C100004Ltm9g1LVHIS.m4a', ogg: ''}
 ];
 
     // 加载带缩略图的播放列表
@@ -362,10 +349,3 @@
     window.play = play;
     window.pause = pause;
 })(jQuery);
-
-
-
-
-
-
-

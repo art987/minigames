@@ -8,29 +8,49 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
     <!-- 主要SEO优化部分 -->
-    <title>疗愈音乐养生曲目单</title>
-    <meta name="description" content="一份涵盖古今各类音乐的养生治疗曲目单，助您通过音乐调节身心，促进健康。">
-    <meta name="keywords" content="音乐养生，治疗曲目，古今音乐，身心健康">
+    <title>精选养生音乐合集 - 传统民乐与养生保健音乐</title>
+    <meta name="description" content="精选最适合养生的传统民乐和保健音乐合集，包括古筝、琵琶、箫等民族器乐，帮助放松心情、改善睡眠、调节身心。">
+    <meta name="keywords" content="养生音乐,传统民乐,古筝音乐,琵琶曲,箫演奏,保健音乐,放松音乐,改善睡眠">
     
-   
-   
-
-   
-   
-   
+    <!-- 开放图谱和Twitter卡片 -->
+    <meta property="og:title" content="精选养生音乐合集 - 传统民乐与养生保健音乐">
+    <meta property="og:description" content="精选最适合养生的传统民乐和保健音乐合集，包括古筝、琵琶、箫等民族器乐，帮助放松心情、改善睡眠、调节身心。">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="精选养生音乐合集 - 传统民乐与养生保健音乐">
+    <meta name="twitter:description" content="精选最适合养生的传统民乐和保健音乐合集，包括古筝、琵琶、箫等民族器乐，帮助放松心情、改善睡眠、调节身心。">
+    <meta name="twitter:image" content="www.peacelove.top/tools/music/img/yangsheng/yscx.png">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicPlaylist",
+      "name": "精选养生音乐合集",
+      "description": "精选最适合养生的传统民乐和保健音乐合集",
+      "author": {
+        "@type": "Organization",
+        "name": "Your Website"
+      },
+      "image": "www.peacelove.top/tools/music/img/yangsheng/yscx.png",
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": "https://peacelove.top/tools/music/yangsheng.html"
+      }
+    }
+    </script>
     
     <!-- 网站图标 -->
     <link rel="canonical" href="https://www.peacelove.top//" />
     
     <!-- 样式表 -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://peacelove.top/menu.css">
     
 </head>
-<body>
-    
+<body>  
     <main role="main">
-        <section aria-label="胎教音乐播放器">
+        <section aria-label="养生音乐播放器">
             <div class="start">
                 <button id="playButton" class="play-button" aria-label="播放/暂停">▸</button>
             </div>
@@ -70,14 +90,14 @@
                 </div>
             </div>
             
-            <h1 class="sr-only">精选胎教音乐列表</h1>
-            <ul id="playlist" role="list" aria-label="胎教音乐列表"></ul>
+            <h1 class="sr-only">精选养生音乐列表</h1>
+            <ul id="playlist" role="list" aria-label="养生音乐列表"></ul>
         </section>
     </main>
 
     <script src="jquery-1.7.2.min.js"></script>
     <script src="jquery-ui-1.8.17.custom.min.js"></script>
-    <script src="script-liaoyu.js"></script>
+    <script src="script-yangsheng.js"></script>
    
     
     <!-- 延迟加载的Google Analytics（示例） -->
