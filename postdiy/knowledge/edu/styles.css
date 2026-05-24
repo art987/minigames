@@ -147,7 +147,7 @@ body {
             font-size: 12px;
             display: inline-block;
             white-space: nowrap;
-            margin: 0 5px 10px 0;
+            margin: 0 9px 1px 11px;
         }
 		
 		.marquee {
@@ -509,48 +509,110 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
-    width: auto;
-    max-width: 300px;
+    height: 60vh;
+    width: 90%;
     background-color: #ffffffed;
-    border-top: 1px solid #e3e3e3;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 8px 9px;
-    box-shadow: 0 2px 21px #31313145;
+    border-bottom: 6px solid #2c2c2c;
+    padding: 39px 5% 7px;
+    box-shadow: 0 41px 52px rgba(0, 0, 0, 0.3);
     z-index: 9999;
-    overflow-x: auto;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: translateX(100%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateY(-100%);
     opacity: 0;
 }
 
-
-
 .floating-tags.visible {
-    transform: translateX(0);
-    opacity: 1;
+    animation: slideDown 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
+.floating-tags.hiding {
+    animation: slideUp 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
 
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    70% {
+        transform: translateY(5%);
+        opacity: 1;
+    }
+    85% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-
+@keyframes slideUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translateY(8%);
+    }
+    40% {
+        transform: translateY(-3%);
+    }
+    60% {
+        transform: translateY(2%);
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
 
 .floating-tags .tag {
- padding: 7px 8px;
- /* margin-right: 8px; */
- background-color: #fbfbfb;
- border-radius: 6px;
- cursor: pointer;
- /* border: 1px solid #b1b1b161; */
- letter-spacing: 0px;
- /* text-align: center; */
- color: #000000;
- font-size: 13px;
- box-shadow: 0 0 5px #cccccc82;
- display: block;
- line-height: 21px;
- margin-bottom: 16px;
- position:relative;
+    padding: 10px 12px;
+    background-color: #fbfbfb;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0px;
+    color: #000000;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* display: block; */
+    line-height: 22px;
+    margin-bottom: 17px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.floating-tags .tag.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: jelly 0.6s ease;
+}
+
+@keyframes jelly {
+    0% {
+        transform: translateY(-20px) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        transform: translateY(0) scale(1.15);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(0) scale(0.95);
+    }
+    60% {
+        transform: translateY(0) scale(1.05);
+    }
+    80% {
+        transform: translateY(0) scale(0.98);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
 
 
@@ -564,6 +626,11 @@ body {
   font-size: 10px; /* è®¾ç½®æ•°å­—çš„å­—ä½“å¤§å° */
 }
 
+.floating-tags .tag-count {
+    color: #999999;
+    font-size: 12px;
+    font-weight: normal;
+}
 
 .floating-tags .tag.active {
     background-color: #0e0e0e;
@@ -572,16 +639,20 @@ body {
     border: 1px solid #181818;
 }
 
+.floating-tags .tag.active .tag-count {
+    color: #cccccc;
+}
+
 
 .floating-tags .tag::after{
     content: "";
     display: block;
     width: 1px;
-    height: 10px;
-    background-color: #e1e1e1;
+    height: 7px;
+    background-color: #ffffff;
     position: absolute;
     left: 28px;
-    bottom: -11px;
+    bottom: -13px;
 }
 
 #auto-scroll-button {

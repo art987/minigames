@@ -1513,7 +1513,13 @@ if (floatingTagsContainer.children.length === 0) {
         const tagElement = document.createElement('div');
         tagElement.classList.add('tag');
         tagElement.dataset.category = category;
-        tagElement.textContent = `${name} (${data.content[key].length})`;
+        
+        // 将统计数字包裹在span中，方便设置样式
+        const count = data.content[key].length;
+        const tagHTML = `${name} <span class="tag-count">(${count})</span>`;
+        tagElement.innerHTML = tagHTML;
+        
+        console.log('生成标签:', name, 'HTML:', tagHTML);
         
         tagElement.addEventListener('click', () => {
             handleTagClick(tagElement, category);
@@ -1814,34 +1820,65 @@ function toggleFloatingMenu() {
     const floatingTagsContainer = document.getElementById('floating-tags-container');
     if (!floatingTagsContainer) return;
     
-    // 如果浮动菜单没有内容，先生成内容
-    if (floatingTagsContainer.children.length === 0) {
-        generateFloatingMenuContent();
-    }
-    
     const menuToggleBtn = floatingPlayer.querySelector('.menu-toggle-btn');
     const menuToggleText = floatingPlayer.querySelector('.menu-toggle-btn + .btn-text');
     
     if (isFloatingMenuVisible) {
-        floatingTagsContainer.style.transform = 'translateX(-100%)';
-        floatingTagsContainer.style.opacity = '0';
+        // 隐藏菜单
+        floatingTagsContainer.classList.remove('visible');
+        floatingTagsContainer.classList.add('hiding');
+        
         setTimeout(() => {
             floatingTagsContainer.style.display = 'none';
-        }, 300);
+            floatingTagsContainer.classList.remove('hiding');
+        }, 700);
+        
         isFloatingMenuVisible = false;
         menuToggleBtn.classList.remove('active');
         menuToggleBtn.title = '显示浮动菜单';
         if (menuToggleText) menuToggleText.textContent = '分类';
+        
+        // 移除外部点击监听
+        document.removeEventListener('click', handleOutsideClick);
     } else {
+        // 显示菜单 - 每次都重新生成内容以确保最新
+        generateFloatingMenuContent();
+        
         floatingTagsContainer.style.display = 'block';
-        setTimeout(() => {
-            floatingTagsContainer.style.transform = 'translateX(0)';
-            floatingTagsContainer.style.opacity = '1';
-        }, 10);
+        floatingTagsContainer.classList.remove('hiding');
+        floatingTagsContainer.classList.add('visible');
+        
+        // 菜单项一个接一个展现
+        const tags = floatingTagsContainer.querySelectorAll('.tag');
+        tags.forEach((tag, index) => {
+            tag.classList.remove('show');
+            setTimeout(() => {
+                tag.classList.add('show');
+            }, 100 + index * 200);
+        });
+        
         isFloatingMenuVisible = true;
         menuToggleBtn.classList.add('active');
         menuToggleBtn.title = '隐藏浮动菜单';
         if (menuToggleText) menuToggleText.textContent = '分类';
+        
+        // 添加外部点击监听
+        setTimeout(() => {
+            document.addEventListener('click', handleOutsideClick);
+        }, 100);
+    }
+}
+
+// 处理点击外部区域关闭菜单
+function handleOutsideClick(event) {
+    const floatingTagsContainer = document.getElementById('floating-tags-container');
+    const menuToggleBtn = floatingPlayer.querySelector('.menu-toggle-btn');
+    
+    // 检查点击是否在菜单外部
+    if (!floatingTagsContainer.contains(event.target) && 
+        !menuToggleBtn.contains(event.target) &&
+        isFloatingMenuVisible) {
+        toggleFloatingMenu();
     }
 }
 
