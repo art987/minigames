@@ -92,21 +92,12 @@ window.toolsData = {
       link: 'gonggong-rexian/index.html',
       category: 'life'
     },
-    {
-      id: 6,
-      icon: '🎵',
-      iconBg: '#f9a958ff',
-      title: '古代五音疗愈曲目',
-      shortTitle: '五音疗愈曲目',
-      subtitle: '依据《黄帝内经》五音理论，汇总角徵宫商羽五类疗愈曲目',
-      tags: ['音乐', '养生', '五音'],
-      link: 'music/wuyin.html',
-      category: 'music'
-    },
+    
     {
       id: 7,
       icon: '👶',
       iconBg: '#E91E63',
+      iconBgImage: 'music/img/001.gif',
       title: '精选经典胎教音乐',
       shortTitle: '胎教音乐',
       subtitle: '精选最适合胎教的经典音乐合集，莫扎特巴赫等大师作品',
@@ -128,12 +119,73 @@ window.toolsData = {
     {
       id: 14,
       icon: '🎶',
-      iconBg: '#4441ffff',
+      iconBg: '',
+      iconBgImage: 'music/img/yangsheng/cjxq.png',
       title: '精选养生音乐合集',
       shortTitle: '养生音乐',
       subtitle: '传统民乐与养生保健音乐，古筝琵琶箫等民族器乐',
       tags: ['音乐', '养生', '民乐'],
       link: 'music/yangsheng.html',
+      category: 'music'
+    },
+    {
+      id: 15,
+      icon: '🎵',
+      iconBg: '#4CAF50',
+      iconBgImage: 'music/img/wuyin/hjspb.png',
+      title: '角音疗肝音乐',
+      shortTitle: '角音疗肝',
+      subtitle: '角音属木入肝经，疏肝解郁调和气血，精选12首经典曲目',
+      tags: ['音乐', '养生', '角音'],
+      link: 'music/jiaoyin.html',
+      category: 'music'
+    },
+    {
+      id: 16,
+      icon: '🎵',
+      iconBg: '#F44336',
+      iconBgImage: 'music/img/wuyin/bncf.png',
+      title: '徵音养心疗愈音乐',
+      shortTitle: '徵音养心',
+      subtitle: '徵音属火入心经，养心安神活血化瘀，精选12首经典曲目',
+      tags: ['音乐', '养生', '徵音'],
+      link: 'music/zhiyin.html',
+      category: 'music'
+    },
+    {
+      id: 17,
+      icon: '🎵',
+      iconBg: '#FFC107',
+      iconBgImage: 'music/img/wuyin/qhyy.png',
+      title: '宫音养脾疗愈音乐',
+      shortTitle: '宫音养脾',
+      subtitle: '宫音属土入脾经，健脾益气调和脾胃，精选12首经典曲目',
+      tags: ['音乐', '养生', '宫音'],
+      link: 'music/gongyin.html',
+      category: 'music'
+    },
+    {
+      id: 18,
+      icon: '🎵',
+      iconBg: '#9C27B0',
+      iconBgImage: 'music/img/wuyin/ycbxs.png',
+      title: '商音润肺疗愈音乐',
+      shortTitle: '商音润肺',
+      subtitle: '商音属金入肺经，润肺止咳宣肺利气，精选14首经典曲目',
+      tags: ['音乐', '养生', '商音'],
+      link: 'music/shangyin.html',
+      category: 'music'
+    },
+    {
+      id: 19,
+      icon: '🎵',
+      iconBg: '#2196F3',
+      iconBgImage: 'music/img/wuyin/lz.png',
+      title: '羽音养肾疗愈音乐',
+      shortTitle: '羽音养肾',
+      subtitle: '羽音属水入肾经，滋肾养精益肾固本，精选12首经典曲目',
+      tags: ['音乐', '养生', '羽音'],
+      link: 'music/yuyin.html',
       category: 'music'
     },
     {

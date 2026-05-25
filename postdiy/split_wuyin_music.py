@@ -1,82 +1,84 @@
-﻿(function($){
+import json
+import re
+
+# 读取 script-wuyin.js 文件
+with open(r'c:\Users\ThinkPad\Documents\GitHub\minigames2026\postdiy\tools\music\script-wuyin.js', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# 提取播放列表
+import re
+playlist_match = re.search(r'playlist = \[(.*?)\];', content, re.DOTALL)
+if playlist_match:
+    playlist_str = playlist_match.group(1)
+    
+    # 分类音乐
+    categories = {
+        '角音养肝': [],
+        '徵音养心': [],
+        '宫音养脾': [],
+        '商音润肺': [],
+        '羽音养肾': []
+    }
+    
+    # 解析每首歌
+    songs = re.findall(r'\{title: \'(.*?)\', artist: \'(.*?)\', cover: \'(.*?)\', mp3: \'(.*?)\', ogg: \'\'\}', playlist_str)
+    
+    for title, artist, cover, mp3 in songs:
+        song_obj = {
+            'title': title,
+            'artist': artist,
+            'cover': cover,
+            'mp3': mp3
+        }
+        
+        if artist in categories:
+            categories[artist].append(song_obj)
+    
+    # 生成每个分类的JS文件
+    for category_name, songs in categories.items():
+        if not songs:
+            continue
+            
+        # 确定文件名
+        if category_name == '角音养肝':
+            filename = 'jiaoyin'
+            html_title = '角音养肝疗愈音乐'
+            html_desc = '角音属木，入肝经，具有疏肝解郁、调和气血的功效'
+        elif category_name == '徵音养心':
+            filename = 'zhiyin'
+            html_title = '徵音养心疗愈音乐'
+            html_desc = '徵音属火，入心经，具有养心安神、活血化瘀的功效'
+        elif category_name == '宫音养脾':
+            filename = 'gongyin'
+            html_title = '宫音养脾疗愈音乐'
+            html_desc = '宫音属土，入脾经，具有健脾益气、调和脾胃的功效'
+        elif category_name == '商音润肺':
+            filename = 'shangyin'
+            html_title = '商音润肺疗愈音乐'
+            html_desc = '商音属金，入肺经，具有润肺止咳、宣肺利气的功效'
+        elif category_name == '羽音养肾':
+            filename = 'yuyin'
+            html_title = '羽音养肾疗愈音乐'
+            html_desc = '羽音属水，入肾经，具有滋肾养精、益肾固本的功效'
+        
+        # 生成JS内容
+        js_content = f"""(function($){{
     // Settings
     var repeat = localStorage.repeat || 0,
         shuffle = localStorage.shuffle || 'false',
         continous = true,
         autoplay = false,
         playlist = [
-  // 角音疗肝
-  {title: '胡笳十八拍', artist: '角音疗肝', cover: 'img/wuyin/hjspb.png', mp3: 'mp3/wuyin/hjspb.mp3', ogg: ''},
-  {title: '春江花月夜', artist: '角音疗肝', cover: 'img/wuyin/cjjyhy.png', mp3: 'mp3/wuyin/cjjyhy.mp3', ogg: ''},
-  {title: '一花一世界', artist: '角音疗肝', cover: 'img/wuyin/yhysj.png', mp3: 'mp3/wuyin/yhysj.mp3', ogg: ''},
-  {title: '紫竹调', artist: '角音疗肝', cover: 'img/wuyin/zzd.png', mp3: 'mp3/wuyin/zzd.mp3', ogg: ''},
-  {title: '列子御风', artist: '角音疗肝', cover: 'img/wuyin/lzyf.png', mp3: 'mp3/wuyin/lzyf.mp3', ogg: ''},
-  {title: '庄周梦蝶', artist: '角音疗肝', cover: 'img/wuyin/zzmd.png', mp3: 'mp3/wuyin/zzmd.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '角音疗肝', cover: 'img/wuyin/psly.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '角音疗肝', cover: 'img/wuyin/yqwd.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '角音疗肝', cover: 'img/wuyin/ls.png',  mp3: 'mp3/wuyin/ls.mp3', ogg: ''},     
-  {title: '梅花三弄', artist: '角音疗肝', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪', artist: '角音疗肝', cover: 'img/wuyin/ycbx.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '角音疗肝', cover: 'img/wuyin/hgqy.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-
-  // 徵音养心
-  {title: '百鸟朝凤', artist: '徵音养心', cover: 'img/wuyin/bncf.png', mp3: 'mp3/wuyin/bncf.mp3', ogg: ''},
-  {title: '琵琶泉', artist: '徵音养心', cover: 'img/wuyin/ppq.png', mp3: 'mp3/wuyin/ppq.mp3', ogg: ''},
-  {title: '彩云追月', artist: '徵音养心', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzy.mp3', ogg: ''},
-  {title: '金蛇狂舞', artist: '徵音养心', cover: 'img/wuyin/jskw.png', mp3: 'mp3/wuyin/jskw.mp3', ogg: ''},
-  {title: '春节序曲', artist: '徵音养心', cover: 'img/wuyin/cjxq.png', mp3: 'mp3/wuyin/cjxq.mp3', ogg: ''},
-  {title: '步步高', artist: '徵音养心', cover: 'img/wuyin/bbg.png', mp3: 'mp3/wuyin/bbg.mp3', ogg: ''},
-  {title: '花好月圆夜', artist: '徵音养心', cover: 'img/wuyin/hhyyy.png', mp3: 'mp3/wuyin/hhyyy.mp3', ogg: ''},
-  {title: '喜洋洋', artist: '徵音养心', cover: 'img/wuyin/xyy.png', mp3: 'mp3/wuyin/xyy.mp3', ogg: ''},
-  {title: '彩云追月（广东音乐）', artist: '徵音养心', cover: 'img/wuyin/cyzygd.png', mp3: 'mp3/wuyin/cyzygd.mp3', ogg: ''},
-  {title: '翻身的日子', artist: '徵音养心', cover: 'img/wuyin/fsdrz.png', mp3: 'mp3/wuyin/fsdrz.mp3', ogg: ''},
-  {title: '姑苏行', artist: '徵音养心', cover: 'img/wuyin/gsx.png', mp3: 'mp3/wuyin/gsx.mp3', ogg: ''},
-  {title: '阿里山的姑娘', artist: '徵音养心', cover: 'img/wuyin/alsdgn.png', mp3: 'mp3/wuyin/alsdgn.mp3', ogg: ''},
-
-  // 宫音养脾
-  {title: '秋湖月夜', artist: '宫音养脾', cover: 'img/wuyin/qhyy.png', mp3: 'mp3/wuyin/qhyy.mp3', ogg: ''},
-  {title: '十面埋伏', artist: '宫音养脾', cover: 'img/wuyin/smmf.png', mp3: 'mp3/wuyin/smmf.mp3', ogg: ''},
-  {title: '东风破', artist: '宫音养脾', cover: 'img/wuyin/dfp.png', mp3: 'mp3/wuyin/dfp.mp3', ogg: ''},
-  {title: '渔舟唱晚', artist: '宫音养脾', cover: 'img/wuyin/yzcw.png', mp3: 'mp3/wuyin/yzcw.mp3', ogg: ''},
-  {title: '彩云追月', artist: '宫音养脾', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzy.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '宫音养脾', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪', artist: '宫音养脾', cover: 'img/wuyin/ycbxg.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '宫音养脾', cover: 'img/wuyin/hgqyg.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '宫音养脾', cover: 'img/wuyin/pslyg.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '宫音养脾', cover: 'img/wuyin/yqwdg.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '宫音养脾', cover: 'img/wuyin/lsg.png', mp3: 'mp3/wuyin/ls.mp3', ogg: ''},
-  {title: '花好月圆夜', artist: '宫音养脾', cover: 'img/wuyin/hhyyyg.png', mp3: 'mp3/wuyin/hhyyy.mp3', ogg: ''},
-
-  // 商音润肺
-  {title: '阳春白雪', artist: '商音润肺', cover: 'img/wuyin/ycbxs.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
-  {title: '绣金匾', artist: '商音润肺', cover: 'img/wuyin/xjb.png', mp3: 'mp3/wuyin/xjb.mp3', ogg: ''},
-  {title: '声声慢', artist: '商音润肺', cover: 'img/wuyin/ssm.png', mp3: 'mp3/wuyin/ssm.mp3', ogg: ''},
-  {title: '渔歌', artist: '商音润肺', cover: 'img/wuyin/yg.png', mp3: 'mp3/wuyin/yg.mp3', ogg: ''},
-  {title: '秋鸿引', artist: '商音润肺', cover: 'img/wuyin/qhy.png', mp3: 'mp3/wuyin/qhy.mp3', ogg: ''},
-  {title: '将军令', artist: '商音润肺', cover: 'img/wuyin/jjl.png', mp3: 'mp3/wuyin/jjl.mp3', ogg: ''},
-  {title: '广陵散', artist: '商音润肺', cover: 'img/wuyin/gls.png', mp3: 'mp3/wuyin/gls.mp3', ogg: ''},
-  {title: '十面埋伏', artist: '商音润肺', cover: 'img/wuyin/smmfs.png', mp3: 'mp3/wuyin/smmf.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '商音润肺', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '阳春白雪（琵琶版）', artist: '商音润肺', cover: 'img/wuyin/ycbxpp.png', mp3: 'mp3/wuyin/ycbxpp.mp3', ogg: ''},
-  {title: '汉宫秋月', artist: '商音润肺', cover: 'img/wuyin/hgqys.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
-  {title: '平沙落雁', artist: '商音润肺', cover: 'img/wuyin/pslys.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
-  {title: '渔樵问答', artist: '商音润肺', cover: 'img/wuyin/yqwds.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
-  {title: '流水', artist: '商音润肺', cover: 'img/wuyin/lss.png', mp3: 'mp3/wuyin/ls.mp3', ogg: ''},
-
-  // 羽音养肾
-  {title: '梅花三弄', artist: '羽音养肾', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
-  {title: '一人静', artist: '羽音养肾', cover: 'img/wuyin/yrj.png', mp3: 'mp3/wuyin/yrj.mp3', ogg: ''},
-  {title: '梁祝', artist: '羽音养肾', cover: 'img/wuyin/lz.png', mp3: 'mp3/wuyin/lz.mp3', ogg: ''},
-  {title: '二泉映月', artist: '羽音养肾', cover: 'img/wuyin/eqyyy.png', mp3: 'mp3/wuyin/eqyy.mp3', ogg: ''},
-  {title: '渔舟唱晚', artist: '羽音养肾', cover: 'img/wuyin/yzcwy.png', mp3: 'mp3/wuyin/yzcw.mp3', ogg: ''},
-  {title: '高山流水', artist: '羽音养肾', cover: 'img/wuyin/gslsy.png', mp3: 'mp3/wuyin/gsls.mp3', ogg: ''},
-  {title: '月光奏鸣曲', artist: '羽音养肾', cover: 'img/wuyin/ygzmq.png', mp3: 'mp3/wuyin/ygzmq.mp3', ogg: ''},
-  {title: '神秘园之歌', artist: '羽音养肾', cover: 'img/wuyin/smyzg.png', mp3: 'mp3/wuyin/smyzg.mp3', ogg: ''},
-  {title: '故乡的原风景', artist: '羽音养肾', cover: 'img/wuyin/gxdyfj.png', mp3: 'mp3/wuyin/gxdyfj.mp3', ogg: ''},
-  {title: '安妮的仙境', artist: '羽音养肾', cover: 'img/wuyin/andxj.png', mp3: 'mp3/wuyin/andxj.mp3', ogg: ''},
-  {title: '寂静山林', artist: '羽音养肾', cover: 'img/wuyin/jjsl.png', mp3: 'mp3/wuyin/jjsl.mp3', ogg: ''},
-  {title: '星空', artist: '羽音养肾', cover: 'img/wuyin/xk.png', mp3: 'mp3/wuyin/xk.mp3', ogg: ''}
-];
+"""
+        
+        for i, song in enumerate(songs):
+            js_content += f"  {{title: '{song['title']}', artist: '{song['artist']}', cover: '{song['cover']}', mp3: '{song['mp3']}', ogg: ''}}"
+            if i < len(songs) - 1:
+                js_content += ",\n"
+            else:
+                js_content += "\n"
+        
+        js_content += """];
 
     // 加载带缩略图的播放列表
     for (var i = 0; i < playlist.length; i++) {
@@ -362,10 +364,105 @@
     window.play = play;
     window.pause = pause;
 })(jQuery);
+"""
+        
+        # 保存JS文件
+        js_file = f"c:\\Users\\ThinkPad\\Documents\\GitHub\\minigames2026\\postdiy\\tools\\music\\script-{filename}.js"
+        with open(js_file, 'w', encoding='utf-8') as f:
+            f.write(js_content)
+        
+        # 生成HTML文件
+        html_content = f"""<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- 主要SEO优化部分 -->
+    <title>{html_title} - 五音疗愈音乐</title>
+    <meta name="description" content="{html_desc}，精选{len(songs)}首经典曲目，助您通过音乐调理身心。">
+    <meta name="keywords" content="{category_name},五音疗愈,古代音乐,身心调理,黄帝内经">
+    
+    <!-- 网站图标 -->
+    <link rel="canonical" href="https://www.peacelove.top//" />
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <main role="main">
+        <section aria-label="{html_title}播放器">
+            <div class="start">
+                <button id="playButton" class="play-button" aria-label="播放/暂停">▸</button>
+            </div>
 
+            <div id="player" itemscope itemtype="https://schema.org/MusicPlaylist">
+                <div class="cover" itemprop="image"></div>
+                <div class="ctrl">
+                    <div class="tag">
+                        <strong itemprop="name">Title</strong>
+                        <span class="artist" itemprop="byArtist">Artist</span>
+                        <span class="album" itemprop="inAlbum"></span>
+                    </div>
+                    <div class="control">
+                        <div class="left">
+                            <div class="rewind icon" aria-label="上一首"></div>
+                            <div class="playback icon" aria-label="播放/暂停"></div>
+                            <div class="fastforward icon" aria-label="下一首"></div>
+                        </div>
+                        <div class="volume right">
+                            <div class="mute icon left" aria-label="静音/取消静音"></div>
+                            <div class="slider left">
+                                <div class="pace"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="slider">
+                            <div class="loaded"></div>
+                            <div class="pace"></div>
+                        </div>
+                        <div class="timer left">0:00</div>
+                        <div class="right">
+                            <div class="repeat icon" aria-label="重复播放"></div>
+                            <div class="shuffle icon" aria-label="随机播放"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="sr-only">{html_title}列表</h1>
+            <ul id="playlist" role="list" aria-label="{html_title}列表"></ul>
+        </section>
+    </main>
 
+    <script src="jquery-1.7.2.min.js"></script>
+    <script src="jquery-ui-1.8.17.custom.min.js"></script>
+    <script src="script-{filename}.js"></script>
+   
+    
+    <!-- 延迟加载的Google Analytics（示例） -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){{dataLayer.push(arguments);}}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+</body>
+</html>"""
+        
+        # 保存HTML文件
+        html_file = f"c:\\Users\\ThinkPad\\Documents\\GitHub\\minigames2026\\postdiy\\tools\\music\\{filename}.html"
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        print(f"已创建: {filename}.html 和 script-{filename}.js ({len(songs)}首歌曲)")
+        print(f"  首张封面: {songs[0]['cover'] if songs else 'N/A'}")
 
-
-
-
-
+print("\n所有五音疗愈音乐页面已创建完成！")

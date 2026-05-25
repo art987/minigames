@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="cards-container">
               ${catData.cards.map(card => `
                 <div class="card" data-link="${card.link}" onclick="handleCardClick('${card.link}', ${card.external ? 'true' : 'false'})">
-                  <div class="card-icon" style="background-color: ${card.iconBg || '#f0f0f0'}${card.image ? `; background-image: url('${card.image}')` : ''}" ${card.image ? 'class="card-icon has-image"' : ''}>
-                    ${!card.image ? card.icon : ''}
+                  <div class="card-icon" style="background-color: ${card.iconBg || '#f0f0f0'}${(card.iconBgImage || card.image) ? `; background-image: url('${card.iconBgImage || card.image}')` : ''}" ${(card.iconBgImage || card.image) ? 'class="card-icon has-image"' : ''}>
+                    ${!(card.iconBgImage || card.image) ? card.icon : ''}
                   </div>
                   <div class="card-content">
                     <h3 class="card-title">${card.shortTitle || card.title}</h3>
