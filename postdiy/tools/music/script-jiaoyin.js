@@ -14,7 +14,7 @@
   {title: '平沙落雁', artist: '角音疗肝', cover: 'img/wuyin/psly.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},
   {title: '渔樵问答', artist: '角音疗肝', cover: 'img/wuyin/yqwd.png', mp3: 'mp3/wuyin/yqwd.mp3', ogg: ''},
   {title: '流水', artist: '角音疗肝', cover: 'img/wuyin/ls.png', mp3: 'mp3/wuyin/ls.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '角音疗肝', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
+  {title: '梅花三弄', artist: '角音疗肝', cover: 'img/wuyin/mhsns.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
   {title: '阳春白雪', artist: '角音疗肝', cover: 'img/wuyin/ycbx.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
   {title: '汉宫秋月', artist: '角音疗肝', cover: 'img/wuyin/hgqy.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''}
 ];

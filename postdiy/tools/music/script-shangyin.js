@@ -13,7 +13,7 @@
   {title: '将军令', artist: '商音润肺', cover: 'img/wuyin/jjl.png', mp3: 'mp3/wuyin/jjl.mp3', ogg: ''},
   {title: '广陵散', artist: '商音润肺', cover: 'img/wuyin/gls.png', mp3: 'mp3/wuyin/gls.mp3', ogg: ''},
   {title: '十面埋伏', artist: '商音润肺', cover: 'img/wuyin/smmfs.png', mp3: 'mp3/wuyin/smmf.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '商音润肺', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
+  {title: '梅花三弄', artist: '商音润肺', cover: 'img/wuyin/mhsns.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
   {title: '阳春白雪（琵琶版）', artist: '商音润肺', cover: 'img/wuyin/ycbxpp.png', mp3: 'mp3/wuyin/ycbxpp.mp3', ogg: ''},
   {title: '汉宫秋月', artist: '商音润肺', cover: 'img/wuyin/hgqys.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
   {title: '平沙落雁', artist: '商音润肺', cover: 'img/wuyin/pslys.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},

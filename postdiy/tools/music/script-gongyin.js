@@ -10,7 +10,7 @@
   {title: '东风破', artist: '宫音养脾', cover: 'img/wuyin/dfp.png', mp3: 'mp3/wuyin/dfp.mp3', ogg: ''},
   {title: '渔舟唱晚', artist: '宫音养脾', cover: 'img/wuyin/yzcw.png', mp3: 'mp3/wuyin/yzcw.mp3', ogg: ''},
   {title: '彩云追月', artist: '宫音养脾', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzy.mp3', ogg: ''},
-  {title: '梅花三弄', artist: '宫音养脾', cover: 'img/wuyin/mhsn.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
+  {title: '梅花三弄', artist: '宫音养脾', cover: 'img/wuyin/mhsns.png', mp3: 'mp3/wuyin/mhsn.mp3', ogg: ''},
   {title: '阳春白雪', artist: '宫音养脾', cover: 'img/wuyin/ycbxg.png', mp3: 'mp3/wuyin/ycbx.mp3', ogg: ''},
   {title: '汉宫秋月', artist: '宫音养脾', cover: 'img/wuyin/hgqyg.png', mp3: 'mp3/wuyin/hgqy.mp3', ogg: ''},
   {title: '平沙落雁', artist: '宫音养脾', cover: 'img/wuyin/pslyg.png', mp3: 'mp3/wuyin/psly.mp3', ogg: ''},

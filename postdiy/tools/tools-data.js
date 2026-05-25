@@ -22,13 +22,13 @@ window.toolsData = {
   ],
   
   categories: [
-    
+    { id: 'life', name: '便民服务', icon: '📞' },
     { id: 'music', name: '音乐疗愈', icon: '🎵' },    
     { id: 'psychology', name: '心理测评', icon: '🧠' },
     { id: 'image', name: '图片处理', icon: '🖼️' },
     { id: 'efficiency', name: '效率工具', icon: '⚡' },
     { id: 'shopping', name: '购物工具', icon: '🛒' },
-    { id: 'life', name: '生活服务', icon: '🏠' },
+    
     { id: 'finance', name: '财务工具', icon: '💰' },
     { id: 'sales', name: '销售工具', icon: '💼' },
     { id: 'culture', name: '文化教育', icon: '📚' }
@@ -85,6 +85,7 @@ window.toolsData = {
       id: 5,
       icon: '📞',
       iconBg: '#FF9800',
+      iconBgImage: 'gonggong-rexian/covers/tel.png',
       title: '中国公共电话热线大全',
       shortTitle: '公共电话热线',
       subtitle: '紧急求助、政务咨询、消费者维权、法律援助等',
@@ -105,17 +106,7 @@ window.toolsData = {
       link: 'music/taijiao.html',
       category: 'music'
     },
-    {
-      id: 8,
-      icon: '💆',
-      iconBg: '#00BCD4',
-      title: '疗愈音乐养生曲目单',
-      shortTitle: '疗愈音乐',
-      subtitle: '涵盖古今各类音乐的养生治疗曲目单，调节身心',
-      tags: ['音乐', '养生', '疗愈'],
-      link: 'music/liaoyu.html',
-      category: 'music'
-    },
+    
     {
       id: 14,
       icon: '🎶',
