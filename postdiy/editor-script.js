@@ -9241,9 +9241,9 @@ const ThumbnailLoader = {
           btn.style.display = 'none';
         });
         
-        // 添加允许Taint选项，避免跨域问题导致的导出失败
-        options.allowTaint = false;
-        options.useCORS = true;
+        // 配置本地图片导出 - allowTaint设为true允许本地图片
+        options.allowTaint = true;
+        options.useCORS = false; // 本地图片不需要CORS
         
         return html2canvas(elements.posterFrame, options).then(canvas => {
           // 恢复贴纸的控制控件
@@ -9503,7 +9503,7 @@ const ThumbnailLoader = {
                 // 二维码：圆角 + 白色描边
                 const borderWidth = 1;
                 const borderColor = 'rgba(255,255,255,0.67)';
-                
+                const borderRadius = Math.min(width, height) * 0.1;
                 
                 ctx.save();
                 ctx.beginPath();
