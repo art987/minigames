@@ -1196,14 +1196,19 @@ const ThumbnailLoader = {
         resolved = true;
         cleanup();
         img.classList.remove('loading');
-        const spinner = img.parentElement.querySelector('.thumbnail-spinner');
+        const spinner = img.parentElement?.querySelector('.thumbnail-spinner');
         if (spinner) spinner.remove();
         resolve(success);
       };
       
       const loadFallback = () => {
         if (resolved) return;
+        // 记录失败的CDN图片到imageConfig，下次直接用本地
+        if (window.imageConfig && url.startsWith(window.imageConfig.cloudflareBaseUrl)) {
+          window.imageConfig.failedImages.add(url);
+        }
         if (fallbackUrl && img.src !== fallbackUrl) {
+          console.log('缩略图CDN加载失败，回退到本地:', fallbackUrl);
           img.src = fallbackUrl;
         } else {
           finishLoad(false);
@@ -1274,6 +1279,7 @@ const ThumbnailLoader = {
     templateViewMode: 'grid',
     currentSlideIndex: 0,
     allTemplatesList: [],
+    currentSlideTemplatesList: [],
     slideAutoPlaying: true,
     slideAutoPlayInterval: null
   };
@@ -3184,6 +3190,9 @@ const ThumbnailLoader = {
       elements.slidePlayPauseBtn.addEventListener('click', toggleSlideAutoPlay);
     }
     
+    // 模板网格视图触摸手势事件
+    setupTemplateGridTouchGestures();
+    
     // 商家信息相关事件
     if (elements.editBusinessInfoBtn) {
       elements.editBusinessInfoBtn.addEventListener('click', openBusinessInfoModal);
@@ -4706,14 +4715,6 @@ const ThumbnailLoader = {
       return;
     }
     
-    // 图片加载失败回退处理
-    elements.posterBackground.onerror = function() {
-      const originalPath = this.getAttribute('data-original-path');
-      if (originalPath && window.imageConfig) {
-        window.imageConfig.handleImageError(this, originalPath);
-      }
-    };
-    
     // 监听图片加载完成事件
     elements.posterBackground.onload = function() {
       console.log('背景图片加载完成');
@@ -4737,16 +4738,26 @@ const ThumbnailLoader = {
     
     // 监听图片加载错误事件
     elements.posterBackground.onerror = function() {
-      console.error('背景图片加载失败');
+      console.error('背景图片加载失败，尝试回退到本地路径');
       
-      // 即使加载失败也要显示所有内容
+      const originalPath = this.getAttribute('data-original-path');
+      if (originalPath && window.imageConfig) {
+        const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
+        if (fallbackUrl && this.src !== fallbackUrl) {
+          console.log('回退到本地路径:', fallbackUrl);
+          this.src = fallbackUrl;
+          return;
+        }
+      }
+      
+      console.error('无法回退到本地路径，显示错误状态');
+      
       waitForAllElementsLoaded().then(() => {
         elements.posterBackground.style.display = 'block';
         if (posterContent) {
           posterContent.style.display = 'flex';
         }
         
-        // 立即隐藏加载动画
         hideTemplateLoadingAnimation();
       });
     };
@@ -5151,216 +5162,6 @@ const ThumbnailLoader = {
     
     // 强制重绘以触发动画
     void elements.templateModal.offsetWidth;
-    
-    // 初始化模板网格手势滑动功能
-    setupTemplateGridGesture();
-  }
-  
-  // 设置模板网格手势滑动功能
-  function setupTemplateGridGesture() {
-    const templateGrid = elements.modalTemplatesGrid;
-    if (!templateGrid) return;
-    
-    // 移除之前的手势监听器（如果存在）
-    if (templateGrid._gestureHandler) {
-      templateGrid.removeEventListener('touchstart', templateGrid._gestureHandler.touchstart);
-      templateGrid.removeEventListener('touchmove', templateGrid._gestureHandler.touchmove);
-      templateGrid.removeEventListener('touchend', templateGrid._gestureHandler.touchend);
-    }
-    
-    // 手势状态
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchEndX = 0;
-    let touchEndY = 0;
-    let isSwiping = false;
-    
-    // 触摸开始
-    function handleTouchStart(e) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      isSwiping = false;
-    }
-    
-    // 触摸移动
-    function handleTouchMove(e) {
-      if (!isSwiping) {
-        touchEndX = e.touches[0].clientX;
-        touchEndY = e.touches[0].clientY;
-        
-        const deltaX = Math.abs(touchEndX - touchStartX);
-        const deltaY = Math.abs(touchEndY - touchStartY);
-        
-        // 如果水平滑动距离大于垂直滑动距离，认为是左右滑动
-        if (deltaX > deltaY && deltaX > 10) {
-          isSwiping = true;
-        }
-      }
-    }
-    
-    // 触摸结束
-    function handleTouchEnd(e) {
-      if (!isSwiping) return;
-      
-      touchEndX = e.changedTouches[0].clientX;
-      touchEndY = e.changedTouches[0].clientY;
-      
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      
-      // 只有水平滑动距离大于50px才触发切换
-      if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 0) {
-          // 向右滑动 - 切换到上一个节日
-          switchToPreviousFestival();
-        } else {
-          // 向左滑动 - 切换到下一个节日
-          switchToNextFestival();
-        }
-      }
-      
-      isSwiping = false;
-    }
-    
-    // 切换到下一个节日
-    function switchToNextFestival() {
-      const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
-      const activeTag = document.querySelector('#modalFestivalTags .festival-tag.active');
-      
-      if (!festivalTags.length || !activeTag) return;
-      
-      let currentIndex = -1;
-      festivalTags.forEach((tag, index) => {
-        if (tag === activeTag) {
-          currentIndex = index;
-        }
-      });
-      
-      if (currentIndex === -1) return;
-      
-      // 计算下一个索引
-      let nextIndex = currentIndex + 1;
-      
-      // 如果是最后一个节日，切换到下个月的第一个节日
-      if (nextIndex >= festivalTags.length) {
-        switchToNextMonth();
-      } else {
-        // 触发下一个节日标签的点击事件
-        festivalTags[nextIndex].click();
-      }
-    }
-    
-    // 切换到上一个节日
-    function switchToPreviousFestival() {
-      const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
-      const activeTag = document.querySelector('#modalFestivalTags .festival-tag.active');
-      
-      if (!festivalTags.length || !activeTag) return;
-      
-      let currentIndex = -1;
-      festivalTags.forEach((tag, index) => {
-        if (tag === activeTag) {
-          currentIndex = index;
-        }
-      });
-      
-      if (currentIndex === -1) return;
-      
-      // 计算上一个索引
-      let prevIndex = currentIndex - 1;
-      
-      // 如果是第一个节日，切换到上个月的最后一个节日
-      if (prevIndex < 0) {
-        switchToPreviousMonth();
-      } else {
-        // 触发上一个节日标签的点击事件
-        festivalTags[prevIndex].click();
-      }
-    }
-    
-    // 切换到下个月
-    function switchToNextMonth() {
-      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
-      const activeMonth = document.querySelector('#modalMonthButtons .month-btn.active');
-      
-      if (!monthButtons.length || !activeMonth) return;
-      
-      let currentMonthIndex = -1;
-      monthButtons.forEach((btn, index) => {
-        if (btn === activeMonth) {
-          currentMonthIndex = index;
-        }
-      });
-      
-      if (currentMonthIndex === -1) return;
-      
-      // 计算下个月索引
-      let nextMonthIndex = currentMonthIndex + 1;
-      
-      // 如果是12月，循环到1月
-      if (nextMonthIndex >= monthButtons.length) {
-        nextMonthIndex = 0;
-      }
-      
-      // 点击下个月的按钮
-      monthButtons[nextMonthIndex].click();
-      
-      // 延迟后点击该月的第一个节日
-      setTimeout(() => {
-        const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
-        if (festivalTags.length > 0) {
-          festivalTags[0].click();
-        }
-      }, 100);
-    }
-    
-    // 切换到上个月
-    function switchToPreviousMonth() {
-      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
-      const activeMonth = document.querySelector('#modalMonthButtons .month-btn.active');
-      
-      if (!monthButtons.length || !activeMonth) return;
-      
-      let currentMonthIndex = -1;
-      monthButtons.forEach((btn, index) => {
-        if (btn === activeMonth) {
-          currentMonthIndex = index;
-        }
-      });
-      
-      if (currentMonthIndex === -1) return;
-      
-      // 计算上个月索引
-      let prevMonthIndex = currentMonthIndex - 1;
-      
-      // 如果是1月，循环到12月
-      if (prevMonthIndex < 0) {
-        prevMonthIndex = monthButtons.length - 1;
-      }
-      
-      // 点击上个月的按钮
-      monthButtons[prevMonthIndex].click();
-      
-      // 延迟后点击该月的最后一个节日
-      setTimeout(() => {
-        const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
-        if (festivalTags.length > 0) {
-          festivalTags[festivalTags.length - 1].click();
-        }
-      }, 100);
-    }
-    
-    // 添加事件监听器
-    templateGrid.addEventListener('touchstart', handleTouchStart, { passive: true });
-    templateGrid.addEventListener('touchmove', handleTouchMove, { passive: true });
-    templateGrid.addEventListener('touchend', handleTouchEnd, { passive: true });
-    
-    // 存储事件处理函数引用，便于后续移除
-    templateGrid._gestureHandler = {
-      touchstart: handleTouchStart,
-      touchmove: handleTouchMove,
-      touchend: handleTouchEnd
-    };
   }
   
   // 打开模板弹窗并自动选择指定节日/类别
@@ -5770,6 +5571,176 @@ const ThumbnailLoader = {
     // 这样可以确保定位到正确的月份和节日，避免覆盖模板定位逻辑
   }
   
+  // 设置模板网格视图的触摸手势
+  function setupTemplateGridTouchGestures() {
+    const templateGrid = elements.templateGrid || document.getElementById('modalTemplatesGrid');
+    if (!templateGrid) return;
+    
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    let touchStartTime = 0;
+    let isSwiping = false;
+    
+    templateGrid.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+      isSwiping = true;
+    }, { passive: true });
+    
+    templateGrid.addEventListener('touchmove', function(e) {
+      if (!isSwiping) return;
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    templateGrid.addEventListener('touchend', function(e) {
+      if (!isSwiping) return;
+      isSwiping = false;
+      
+      const swipeDistanceX = touchEndX - touchStartX;
+      const swipeDistanceY = touchEndY - touchStartY;
+      const swipeTime = Date.now() - touchStartTime;
+      
+      const minSwipeDistance = 100; // 最小滑动距离（从50增加到100）
+      const maxSwipeTime = 500; // 最大滑动时间（毫秒）
+      const minSwipeSpeed = 0.2; // 最小滑动速度（像素/毫秒）
+      
+      const absX = Math.abs(swipeDistanceX);
+      const absY = Math.abs(swipeDistanceY);
+      
+      const isValidSwipe = 
+        absX > minSwipeDistance && // 水平滑动距离足够
+        absX > absY * 1.5 && // 水平滑动大于垂直滑动
+        swipeTime < maxSwipeTime && // 滑动时间不能太长
+        (absX / swipeTime) > minSwipeSpeed; // 滑动速度足够快
+      
+      if (isValidSwipe) {
+        e.preventDefault(); // 阻止默认行为
+        
+        if (swipeDistanceX > 0) {
+          switchToPrevFestival();
+        } else {
+          switchToNextFestival();
+        }
+      }
+      
+      touchStartX = 0;
+      touchStartY = 0;
+      touchEndX = 0;
+      touchEndY = 0;
+      touchStartTime = 0;
+    });
+  }
+  
+  // 切换到下一个节日
+  function switchToNextFestival() {
+    const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+    if (festivalTags.length === 0) return;
+    
+    // 找到当前选中的节日标签
+    let currentIndex = -1;
+    festivalTags.forEach((tag, index) => {
+      if (tag.classList.contains('active')) {
+        currentIndex = index;
+      }
+    });
+    
+    if (currentIndex === -1) return;
+    
+    // 计算下一个节日的索引
+    let nextIndex = currentIndex + 1;
+    
+    // 如果是最后一个节日，切换到下一个月的第一个节日
+    if (nextIndex >= festivalTags.length) {
+      // 获取当前选中的月份
+      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+      let currentMonthIndex = -1;
+      monthButtons.forEach((btn, index) => {
+        if (btn.classList.contains('active')) {
+          currentMonthIndex = index;
+        }
+      });
+      
+      // 切换到下一个月
+      let nextMonthIndex = currentMonthIndex + 1;
+      if (nextMonthIndex >= monthButtons.length) {
+        nextMonthIndex = 0; // 回到第一个月
+      }
+      
+      // 点击下一个月按钮
+      if (monthButtons[nextMonthIndex]) {
+        monthButtons[nextMonthIndex].click();
+        
+        // 等待节日标签更新后，点击第一个节日
+        setTimeout(() => {
+          const newFestivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+          if (newFestivalTags.length > 0) {
+            newFestivalTags[0].click();
+          }
+        }, 100);
+      }
+    } else {
+      // 点击下一个节日标签
+      festivalTags[nextIndex].click();
+    }
+  }
+  
+  // 切换到上一个节日
+  function switchToPrevFestival() {
+    const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+    if (festivalTags.length === 0) return;
+    
+    // 找到当前选中的节日标签
+    let currentIndex = -1;
+    festivalTags.forEach((tag, index) => {
+      if (tag.classList.contains('active')) {
+        currentIndex = index;
+      }
+    });
+    
+    if (currentIndex === -1) return;
+    
+    // 计算上一个节日的索引
+    let prevIndex = currentIndex - 1;
+    
+    // 如果是第一个节日，切换到上一个月的最后一个节日
+    if (prevIndex < 0) {
+      // 获取当前选中的月份
+      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+      let currentMonthIndex = -1;
+      monthButtons.forEach((btn, index) => {
+        if (btn.classList.contains('active')) {
+          currentMonthIndex = index;
+        }
+      });
+      
+      // 切换到上一个月
+      let prevMonthIndex = currentMonthIndex - 1;
+      if (prevMonthIndex < 0) {
+        prevMonthIndex = monthButtons.length - 1; // 回到最后一个月
+      }
+      
+      // 点击上一个月按钮
+      if (monthButtons[prevMonthIndex]) {
+        monthButtons[prevMonthIndex].click();
+        
+        // 等待节日标签更新后，点击最后一个节日
+        setTimeout(() => {
+          const newFestivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+          if (newFestivalTags.length > 0) {
+            newFestivalTags[newFestivalTags.length - 1].click();
+          }
+        }, 100);
+      }
+    } else {
+      // 点击上一个节日标签
+      festivalTags[prevIndex].click();
+    }
+  }
+  
   // 填充节日标签
   function fillFestivalTags(selectedMonth = null) {
     if (!elements.modalFestivalTags) return;
@@ -5922,8 +5893,16 @@ const ThumbnailLoader = {
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
     
+    // 取消之前的加载任务
+    ThumbnailLoader.cancelCurrentLoad();
+    const loadId = ThumbnailLoader.generateLoadId();
+    
     // 获取所有模板列表并更新状态
     state.allTemplatesList = getAllTemplatesList();
+    state.currentSlideTemplatesList = state.allTemplatesList;
+    
+    // 收集需要加载的图片
+    const loadQueue = [];
     
     // 遍历所有模板
     for (const monthKey in window.templates) {
@@ -5948,20 +5927,26 @@ const ThumbnailLoader = {
         const templateImgContainer = document.createElement('div');
         templateImgContainer.className = 'template-thumbnail-container';
         
+        // 创建加载动画
+        const spinner = document.createElement('div');
+        spinner.className = 'thumbnail-spinner';
+        spinner.innerHTML = '<div class="spinner-ring"></div>';
+        
         // 创建模板图片
         const templateImg = document.createElement('img');
-        const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-        templateImg.src = thumbnailUrl;
         templateImg.alt = template.name;
-        templateImg.className = 'template-thumbnail';
+        templateImg.className = 'template-thumbnail loading';
         templateImg.dataset.originalPath = template.thumbnail;
         
-        // 图片加载失败回退处理
-        templateImg.addEventListener('error', function() {
-          const originalPath = this.getAttribute('data-original-path');
-          if (originalPath && window.imageConfig) {
-            window.imageConfig.handleImageError(this, originalPath);
-          }
+        // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
+        const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
+        const fallbackUrl = template.thumbnail; // 本地路径作为回退
+        
+        // 添加到加载队列
+        loadQueue.push({
+          img: templateImg,
+          url: thumbnailUrl,
+          fallbackUrl: fallbackUrl
         });
         
         // 创建圆形勾选按钮
@@ -6017,6 +6002,7 @@ const ThumbnailLoader = {
         templateName.textContent = template.name;
         
         // 组合模板项
+        templateImgContainer.appendChild(spinner);
         templateImgContainer.appendChild(templateImg);
         templateImgContainer.appendChild(checkButton);
         templateItem.appendChild(templateImgContainer);
@@ -6031,17 +6017,26 @@ const ThumbnailLoader = {
     // 添加自定义背景入口
     addCustomBackgroundEntryToModal();
     
+    // 开始批量加载图片
+    ThumbnailLoader.loadBatch(loadQueue, loadId, 6);
+    
     // 初始化幻灯片视图
     initTemplateSlideView();
   }
   
   // 初始化模板幻灯片视图
   function initTemplateSlideView() {
-    if (!elements.templateGalleryContainer || !state.allTemplatesList.length) return;
+    if (!elements.templateGalleryContainer) return;
+    
+    const templatesList = state.currentSlideTemplatesList.length > 0 ? 
+                          state.currentSlideTemplatesList : 
+                          state.allTemplatesList;
+    
+    if (!templatesList.length) return;
 
     elements.templateGalleryContainer.innerHTML = '';
 
-    state.allTemplatesList.forEach((template, index) => {
+    templatesList.forEach((template, index) => {
       if (!template || !template.thumbnail) {
         console.warn('跳过无效模板:', index, template);
         return;
@@ -6079,7 +6074,7 @@ const ThumbnailLoader = {
     });
 
     if (state.currentTemplate) {
-      const currentIndex = state.allTemplatesList.findIndex(t => t.id === state.currentTemplate.id);
+      const currentIndex = templatesList.findIndex(t => t.id === state.currentTemplate.id);
       state.currentSlideIndex = currentIndex >= 0 ? currentIndex : 0;
     } else {
       state.currentSlideIndex = 0;
@@ -6095,6 +6090,8 @@ const ThumbnailLoader = {
   function loadSlideImages() {
     const slides = elements.templateGalleryContainer?.querySelectorAll('.template-gallery-slide');
     if (!slides) return;
+    
+    const loadId = ThumbnailLoader.currentLoadId;
 
     slides.forEach((slide, index) => {
       if (slide.dataset.loaded === 'true') return;
@@ -6109,27 +6106,14 @@ const ThumbnailLoader = {
         const img = slide.querySelector('.slide-img');
         const thumbnail = slide.dataset.thumbnail;
         if (img && thumbnail && img.src.includes('loading88.gif')) {
-          const realImg = new Image();
-          realImg.onload = function() {
-            img.src = realImg.src;
-            slide.dataset.loaded = 'true';
-          };
-          realImg.onerror = function() {
-            // 尝试回退到本地路径
-            if (window.imageConfig) {
-              const fallbackUrl = window.imageConfig.getFallbackUrl(thumbnail);
-              if (fallbackUrl) {
-                const fallbackImg = new Image();
-                fallbackImg.onload = function() {
-                  img.src = fallbackUrl;
-                  slide.dataset.loaded = 'true';
-                };
-                fallbackImg.src = fallbackUrl;
-              }
-            }
-          };
           const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnail) : thumbnail;
-          realImg.src = imageUrl;
+          const fallbackUrl = thumbnail; // 本地路径作为回退
+          
+          ThumbnailLoader.loadThumbnail(img, imageUrl, fallbackUrl, loadId, index).then(success => {
+            if (success) {
+              slide.dataset.loaded = 'true';
+            }
+          });
         }
       }
     });
@@ -6521,9 +6505,9 @@ const ThumbnailLoader = {
           templateImg.className = 'template-thumbnail loading';
           templateImg.dataset.originalPath = template.thumbnail;
           
-          // 获取图片URL
+          // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
           const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(template.thumbnail) : null;
+          const fallbackUrl = template.thumbnail; // 本地路径作为回退
           
           // 添加到加载队列
           loadQueue.push({
@@ -6691,9 +6675,9 @@ const ThumbnailLoader = {
           templateImg.className = 'template-thumbnail loading';
           templateImg.dataset.originalPath = template.thumbnail;
           
-          // 获取图片URL
+          // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
           const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(template.thumbnail) : null;
+          const fallbackUrl = template.thumbnail; // 本地路径作为回退
           
           // 添加到加载队列
           loadQueue.push({
@@ -6829,10 +6813,9 @@ const ThumbnailLoader = {
       filteredTemplates = getAllTemplatesList();
     }
     
-    state.allTemplatesList = filteredTemplates;
+    state.currentSlideTemplatesList = filteredTemplates;
     state.currentSlideIndex = 0;
     
-    // 重新渲染幻灯片
     elements.templateGalleryContainer.innerHTML = '';
     
     filteredTemplates.forEach((template, index) => {
@@ -6870,7 +6853,6 @@ const ThumbnailLoader = {
     updateSlidePositions();
     loadSlideImages();
     
-    // 重新绑定触摸事件
     initSlideTouchEvents();
   }
   
