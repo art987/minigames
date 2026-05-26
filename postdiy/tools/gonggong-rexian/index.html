@@ -70,17 +70,19 @@
                 <span class="hot-icon">🔥</span>
                 <span>热门搜索</span>
             </div>
-            <div class="hot-tags-list">
-                <span class="hot-tag" data-keyword="报警">报警</span>
-                <span class="hot-tag" data-keyword="救援">救援</span>
-                <span class="hot-tag" data-keyword="帮助">帮助</span>
-                <span class="hot-tag" data-keyword="举报">举报</span>
-                <span class="hot-tag" data-keyword="监督">监督</span>
-                <span class="hot-tag" data-keyword="客服">客服</span>
-                <span class="hot-tag" data-keyword="维权">维权</span>
-                <span class="hot-tag" data-keyword="投诉">投诉</span>
-                <span class="hot-tag" data-keyword="法律">法律</span>
-                <span class="hot-tag" data-keyword="银行">银行</span>
+            <div class="hot-tags-wrapper">
+                <div class="hot-tags-list" id="hotTagsList">
+                    <span class="hot-tag" data-keyword="报警">报警</span>
+                    <span class="hot-tag" data-keyword="救援">救援</span>
+                    <span class="hot-tag" data-keyword="帮助">帮助</span>
+                    <span class="hot-tag" data-keyword="举报">举报</span>
+                    <span class="hot-tag" data-keyword="监督">监督</span>
+                    <span class="hot-tag" data-keyword="客服">客服</span>
+                    <span class="hot-tag" data-keyword="维权">维权</span>
+                    <span class="hot-tag" data-keyword="投诉">投诉</span>
+                    <span class="hot-tag" data-keyword="法律">法律</span>
+                    <span class="hot-tag" data-keyword="银行">银行</span>
+                </div>
             </div>
         </div>
     </div>
@@ -461,12 +463,22 @@
             }
         });
         
+        // 复制热搜词列表实现无限循环滚动
+        const hotTagsList = document.getElementById('hotTagsList');
+        if (hotTagsList) {
+            const originalTags = Array.from(hotTagsList.children);
+            originalTags.forEach(tag => {
+                const clone = tag.cloneNode(true);
+                hotTagsList.appendChild(clone);
+            });
+        }
+        
         // 热搜词点击事件
         document.querySelectorAll('.hot-tag').forEach(tag => {
             tag.addEventListener('click', () => {
                 const keyword = tag.dataset.keyword;
                 searchInput.value = keyword;
-                searchInput.focus();
+                // 移除 focus，避免在移动端弹出键盘
                 performSearch(keyword);
                 
                 // 添加点击动画效果
@@ -631,6 +643,22 @@
         </svg>
     </div>
     
+    <!-- 简洁模式按钮 -->
+    <div class="simple-mode-btn" id="simpleModeBtn">
+        <span>简</span>
+    </div>
+    
+    <!-- 简洁模式弹窗 -->
+    <div class="simple-modal" id="simpleModal">
+        <div class="simple-modal-content">
+            <div class="simple-modal-header">
+                <h3>热线速查</h3>
+                <div class="simple-modal-close" id="simpleModalClose">×</div>
+            </div>
+            <div class="simple-modal-body" id="simpleModalBody"></div>
+        </div>
+    </div>
+    
     <script>
         // 置顶按钮点击事件
         console.log('=== 置顶按钮调试开始 ===');
@@ -680,6 +708,109 @@
         }
         
         console.log('=== 置顶按钮调试结束 ===');
+        
+        // 简洁模式按钮功能
+        const simpleModeBtn = document.getElementById('simpleModeBtn');
+        const simpleModal = document.getElementById('simpleModal');
+        const simpleModalClose = document.getElementById('simpleModalClose');
+        const simpleModalBody = document.getElementById('simpleModalBody');
+        
+        // 填充弹窗内容
+        function populateSimpleModal() {
+            simpleModalBody.innerHTML = '';
+            
+            hotlineData.forEach((category, categoryIndex) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('simple-category');
+                
+                const categoryTitle = document.createElement('div');
+                categoryTitle.classList.add('simple-category-title');
+                categoryTitle.textContent = category.category;
+                categoryDiv.appendChild(categoryTitle);
+                
+                const gridDiv = document.createElement('div');
+                gridDiv.classList.add('simple-hotline-grid');
+                
+                category.hotlines.forEach((hotline, hotlineIndex) => {
+                    const item = document.createElement('div');
+                    item.classList.add('simple-hotline-item');
+                    
+                    item.innerHTML = `
+                        <span class="simple-hotline-name">${hotline.name}</span>
+                        <span class="simple-hotline-number">${hotline.number}</span>
+                    `;
+                    
+                    item.addEventListener('click', () => {
+                        // 关闭弹窗
+                        simpleModal.classList.remove('visible');
+                        
+                        // 定位到对应的详细卡片
+                        const categoryElement = document.getElementById(`category-${categoryIndex}`);
+                        if (categoryElement) {
+                            categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            
+                            // 高亮对应的卡片
+                            setTimeout(() => {
+                                const cards = categoryElement.querySelectorAll('.hotline-card');
+                                if (cards[hotlineIndex]) {
+                                    cards[hotlineIndex].style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.5)';
+                                    setTimeout(() => {
+                                        cards[hotlineIndex].style.boxShadow = '';
+                                    }, 2000);
+                                }
+                            }, 500);
+                        }
+                    });
+                    
+                    gridDiv.appendChild(item);
+                });
+                
+                categoryDiv.appendChild(gridDiv);
+                simpleModalBody.appendChild(categoryDiv);
+            });
+        }
+        
+        // 显示/隐藏简洁模式按钮
+        window.addEventListener('scroll', () => {
+            if (simpleModeBtn) {
+                if (window.scrollY > 300) {
+                    simpleModeBtn.classList.add('visible');
+                } else {
+                    simpleModeBtn.classList.remove('visible');
+                }
+            }
+        });
+        
+        // 打开弹窗
+        if (simpleModeBtn) {
+            simpleModeBtn.addEventListener('click', () => {
+                populateSimpleModal();
+                simpleModal.classList.add('visible');
+            });
+        }
+        
+        // 关闭弹窗
+        if (simpleModalClose) {
+            simpleModalClose.addEventListener('click', () => {
+                simpleModal.classList.remove('visible');
+            });
+        }
+        
+        // 点击弹窗外部关闭
+        if (simpleModal) {
+            simpleModal.addEventListener('click', (e) => {
+                if (e.target === simpleModal) {
+                    simpleModal.classList.remove('visible');
+                }
+            });
+        }
+        
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && simpleModal) {
+                simpleModal.classList.remove('visible');
+            }
+        });
     </script>
 </body>
 </html>

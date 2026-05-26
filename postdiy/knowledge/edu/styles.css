@@ -1031,7 +1031,7 @@ body {
 
 
 
-.today-recommend-button{position: absolute;left: 17px;top: 10px;width: 28px;padding: 4px 6px;/* height: 37px; */border-radius: 6px;background: #ffffff;color: #313131;font-size: 11px;border: 1px solid #dfdfdf;cursor: pointer;z-index: 999;line-height: 14px;}
+.today-recommend-button{position: absolute;left: 17px;top: 10px;width: 78px;padding: 4px 6px;/* height: 37px; */border-radius: 6px;background: #ffffff;color: #313131;font-size: 11px;border: 1px solid #dfdfdf;cursor: pointer;z-index: 999;line-height: 14px;}
 
 
 .floating-player {
@@ -1183,7 +1183,7 @@ body {
     color: #464646;
 }
 .floating-player button.menu-toggle-btn {
-    background: rgb(155 0 0 / 78%);
+    background: #c10808;
     color: #ffffff;
     font-size: 17px;
 }
