@@ -1,6 +1,6 @@
 // 图片加载配置
 var imageConfig = {
-  mode: 'local-only',
+  mode: 'cloudflare-first',
   cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
   localBaseUrl: '',
   failedImages: new Set(),

@@ -4839,9 +4839,11 @@ const ThumbnailLoader = {
     
     // 使用自定义背景或模板背景
     if (state.customBackground) {
+      elements.posterBackground.crossOrigin = 'anonymous'; // 添加跨域属性
       elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate && state.currentTemplate.image) {
       const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+      elements.posterBackground.crossOrigin = 'anonymous'; // 关键！添加跨域属性
       elements.posterBackground.src = imageUrl;
       elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
     } else {
@@ -9241,9 +9243,9 @@ const ThumbnailLoader = {
           btn.style.display = 'none';
         });
         
-        // 配置本地图片导出 - allowTaint设为true允许本地图片
-        options.allowTaint = true;
-        options.useCORS = false; // 本地图片不需要CORS
+        // 配置CORS图片导出 - useCORS允许跨域，allowTaint设为false保持画布可导出
+        options.allowTaint = false; // 关键！false时如果图片正确CORS就能导出
+        options.useCORS = true; // 开启跨域支持
         
         return html2canvas(elements.posterFrame, options).then(canvas => {
           // 恢复贴纸的控制控件
