@@ -205,9 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function showExternalModal(url) {
     let modal = document.getElementById('externalModal');
+    
     if (!modal) {
       const modalHtml = `
-        <div class="modal-overlay" id="externalModal">
+        <div class="modal-overlay hidden" id="externalModal">
           <div class="external-modal-box">
             <button class="modal-close-btn" onclick="closeExternalModal()">
               <i class="fa fa-times"></i>
@@ -228,7 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.currentExternalUrl = url;
+    
     modal.classList.remove('hidden');
+    modal.classList.add('active');
     
     const btn = document.getElementById('externalCopyBtn');
     const btnText = document.getElementById('externalCopyText');
@@ -241,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.closeExternalModal = function() {
     const modal = document.getElementById('externalModal');
     if (modal) {
+      modal.classList.remove('active');
       modal.classList.add('hidden');
     }
   };

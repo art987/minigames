@@ -5151,6 +5151,216 @@ const ThumbnailLoader = {
     
     // 强制重绘以触发动画
     void elements.templateModal.offsetWidth;
+    
+    // 初始化模板网格手势滑动功能
+    setupTemplateGridGesture();
+  }
+  
+  // 设置模板网格手势滑动功能
+  function setupTemplateGridGesture() {
+    const templateGrid = elements.modalTemplatesGrid;
+    if (!templateGrid) return;
+    
+    // 移除之前的手势监听器（如果存在）
+    if (templateGrid._gestureHandler) {
+      templateGrid.removeEventListener('touchstart', templateGrid._gestureHandler.touchstart);
+      templateGrid.removeEventListener('touchmove', templateGrid._gestureHandler.touchmove);
+      templateGrid.removeEventListener('touchend', templateGrid._gestureHandler.touchend);
+    }
+    
+    // 手势状态
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    let isSwiping = false;
+    
+    // 触摸开始
+    function handleTouchStart(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = false;
+    }
+    
+    // 触摸移动
+    function handleTouchMove(e) {
+      if (!isSwiping) {
+        touchEndX = e.touches[0].clientX;
+        touchEndY = e.touches[0].clientY;
+        
+        const deltaX = Math.abs(touchEndX - touchStartX);
+        const deltaY = Math.abs(touchEndY - touchStartY);
+        
+        // 如果水平滑动距离大于垂直滑动距离，认为是左右滑动
+        if (deltaX > deltaY && deltaX > 10) {
+          isSwiping = true;
+        }
+      }
+    }
+    
+    // 触摸结束
+    function handleTouchEnd(e) {
+      if (!isSwiping) return;
+      
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+      
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      
+      // 只有水平滑动距离大于50px才触发切换
+      if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) {
+          // 向右滑动 - 切换到上一个节日
+          switchToPreviousFestival();
+        } else {
+          // 向左滑动 - 切换到下一个节日
+          switchToNextFestival();
+        }
+      }
+      
+      isSwiping = false;
+    }
+    
+    // 切换到下一个节日
+    function switchToNextFestival() {
+      const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+      const activeTag = document.querySelector('#modalFestivalTags .festival-tag.active');
+      
+      if (!festivalTags.length || !activeTag) return;
+      
+      let currentIndex = -1;
+      festivalTags.forEach((tag, index) => {
+        if (tag === activeTag) {
+          currentIndex = index;
+        }
+      });
+      
+      if (currentIndex === -1) return;
+      
+      // 计算下一个索引
+      let nextIndex = currentIndex + 1;
+      
+      // 如果是最后一个节日，切换到下个月的第一个节日
+      if (nextIndex >= festivalTags.length) {
+        switchToNextMonth();
+      } else {
+        // 触发下一个节日标签的点击事件
+        festivalTags[nextIndex].click();
+      }
+    }
+    
+    // 切换到上一个节日
+    function switchToPreviousFestival() {
+      const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+      const activeTag = document.querySelector('#modalFestivalTags .festival-tag.active');
+      
+      if (!festivalTags.length || !activeTag) return;
+      
+      let currentIndex = -1;
+      festivalTags.forEach((tag, index) => {
+        if (tag === activeTag) {
+          currentIndex = index;
+        }
+      });
+      
+      if (currentIndex === -1) return;
+      
+      // 计算上一个索引
+      let prevIndex = currentIndex - 1;
+      
+      // 如果是第一个节日，切换到上个月的最后一个节日
+      if (prevIndex < 0) {
+        switchToPreviousMonth();
+      } else {
+        // 触发上一个节日标签的点击事件
+        festivalTags[prevIndex].click();
+      }
+    }
+    
+    // 切换到下个月
+    function switchToNextMonth() {
+      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+      const activeMonth = document.querySelector('#modalMonthButtons .month-btn.active');
+      
+      if (!monthButtons.length || !activeMonth) return;
+      
+      let currentMonthIndex = -1;
+      monthButtons.forEach((btn, index) => {
+        if (btn === activeMonth) {
+          currentMonthIndex = index;
+        }
+      });
+      
+      if (currentMonthIndex === -1) return;
+      
+      // 计算下个月索引
+      let nextMonthIndex = currentMonthIndex + 1;
+      
+      // 如果是12月，循环到1月
+      if (nextMonthIndex >= monthButtons.length) {
+        nextMonthIndex = 0;
+      }
+      
+      // 点击下个月的按钮
+      monthButtons[nextMonthIndex].click();
+      
+      // 延迟后点击该月的第一个节日
+      setTimeout(() => {
+        const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+        if (festivalTags.length > 0) {
+          festivalTags[0].click();
+        }
+      }, 100);
+    }
+    
+    // 切换到上个月
+    function switchToPreviousMonth() {
+      const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+      const activeMonth = document.querySelector('#modalMonthButtons .month-btn.active');
+      
+      if (!monthButtons.length || !activeMonth) return;
+      
+      let currentMonthIndex = -1;
+      monthButtons.forEach((btn, index) => {
+        if (btn === activeMonth) {
+          currentMonthIndex = index;
+        }
+      });
+      
+      if (currentMonthIndex === -1) return;
+      
+      // 计算上个月索引
+      let prevMonthIndex = currentMonthIndex - 1;
+      
+      // 如果是1月，循环到12月
+      if (prevMonthIndex < 0) {
+        prevMonthIndex = monthButtons.length - 1;
+      }
+      
+      // 点击上个月的按钮
+      monthButtons[prevMonthIndex].click();
+      
+      // 延迟后点击该月的最后一个节日
+      setTimeout(() => {
+        const festivalTags = document.querySelectorAll('#modalFestivalTags .festival-tag');
+        if (festivalTags.length > 0) {
+          festivalTags[festivalTags.length - 1].click();
+        }
+      }, 100);
+    }
+    
+    // 添加事件监听器
+    templateGrid.addEventListener('touchstart', handleTouchStart, { passive: true });
+    templateGrid.addEventListener('touchmove', handleTouchMove, { passive: true });
+    templateGrid.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    // 存储事件处理函数引用，便于后续移除
+    templateGrid._gestureHandler = {
+      touchstart: handleTouchStart,
+      touchmove: handleTouchMove,
+      touchend: handleTouchEnd
+    };
   }
   
   // 打开模板弹窗并自动选择指定节日/类别
