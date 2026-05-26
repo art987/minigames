@@ -52,6 +52,39 @@
 <body>
     <h1>中国公共电话热线大全</h1>
     
+    <div class="search-container">
+        <div class="search-box">
+            <div class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+            <input type="text" id="searchInput" placeholder="搜索热线名称、号码或说明..." autocomplete="off">
+            <div class="search-clear" id="searchClear">×</div>
+            <div class="search-stats" id="searchStats"></div>
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+        <div class="hot-tags">
+            <div class="hot-tags-title">
+                <span class="hot-icon">🔥</span>
+                <span>热门搜索</span>
+            </div>
+            <div class="hot-tags-list">
+                <span class="hot-tag" data-keyword="报警">报警</span>
+                <span class="hot-tag" data-keyword="救援">救援</span>
+                <span class="hot-tag" data-keyword="帮助">帮助</span>
+                <span class="hot-tag" data-keyword="举报">举报</span>
+                <span class="hot-tag" data-keyword="监督">监督</span>
+                <span class="hot-tag" data-keyword="客服">客服</span>
+                <span class="hot-tag" data-keyword="维权">维权</span>
+                <span class="hot-tag" data-keyword="投诉">投诉</span>
+                <span class="hot-tag" data-keyword="法律">法律</span>
+                <span class="hot-tag" data-keyword="银行">银行</span>
+            </div>
+        </div>
+    </div>
+    
     <header>分类</header>
     <div class="nav" id="categoryNav"></div>
     
@@ -59,7 +92,7 @@
 
     <div class="container" id="hotlineContainer"></div>
 
-    <div class="related-links">
+    
         <h3>相关资源</h3>
         <ul>
             <li><a href="/emergency-guide">紧急情况处理指南</a></li>
@@ -293,6 +326,157 @@
             categoryNav.appendChild(navButton);
         });
 
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        const searchClear = document.getElementById('searchClear');
+        const searchStats = document.getElementById('searchStats');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        
+        let allHotlines = [];
+        hotlineData.forEach(category => {
+            category.hotlines.forEach(hotline => {
+                allHotlines.push({
+                    ...hotline,
+                    category: category.category
+                });
+            });
+        });
+        
+        function performSearch(query) {
+            if (!query.trim()) {
+                searchSuggestions.classList.remove('visible');
+                searchStats.classList.remove('visible');
+                searchClear.classList.remove('visible');
+                return;
+            }
+            
+            const results = allHotlines.filter(hotline => {
+                const searchText = `${hotline.name} ${hotline.number} ${hotline.note} ${hotline.category}`.toLowerCase();
+                return searchText.includes(query.toLowerCase());
+            });
+            
+            searchClear.classList.add('visible');
+            
+            if (results.length > 0) {
+                searchStats.textContent = `找到 ${results.length} 个结果`;
+                searchStats.classList.add('visible');
+                
+                searchSuggestions.innerHTML = '';
+                results.slice(0, 10).forEach(hotline => {
+                    const item = document.createElement('div');
+                    item.classList.add('suggestion-item');
+                    
+                    let iconHtml = '';
+                    if (hotline.cover) {
+                        iconHtml = `
+                            <div class="suggestion-icon">
+                                <img src="${hotline.cover}" alt="${hotline.name}" onerror="this.parentElement.style.display='none'">
+                            </div>
+                        `;
+                    }
+                    
+                    item.innerHTML = `
+                        ${iconHtml}
+                        <div class="suggestion-info">
+                            <div class="suggestion-name">${highlightText(hotline.name, query)}</div>
+                            <div class="suggestion-category">${hotline.category}</div>
+                        </div>
+                        <div class="suggestion-number">${highlightText(hotline.number, query)}</div>
+                    `;
+                    
+                    item.addEventListener('click', () => {
+                        const categoryIndex = hotlineData.findIndex(cat => cat.category === hotline.category);
+                        if (categoryIndex !== -1) {
+                            document.getElementById(`category-${categoryIndex}`).scrollIntoView({ behavior: 'smooth' });
+                            searchInput.value = '';
+                            searchSuggestions.classList.remove('visible');
+                            searchStats.classList.remove('visible');
+                            searchClear.classList.remove('visible');
+                        }
+                    });
+                    
+                    searchSuggestions.appendChild(item);
+                });
+                
+                if (results.length > 10) {
+                    const moreItem = document.createElement('div');
+                    moreItem.classList.add('suggestion-item');
+                    moreItem.innerHTML = `
+                        <div class="suggestion-info">
+                            <div class="suggestion-name" style="color: #00d4ff;">还有 ${results.length - 10} 个结果...</div>
+                        </div>
+                    `;
+                    searchSuggestions.appendChild(moreItem);
+                }
+                
+                searchSuggestions.classList.add('visible');
+            } else {
+                searchStats.textContent = '未找到结果';
+                searchStats.classList.add('visible');
+                searchSuggestions.innerHTML = '<div class="no-results">未找到匹配的热线</div>';
+                searchSuggestions.classList.add('visible');
+            }
+        }
+        
+        function highlightText(text, query) {
+            if (!query.trim()) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span style="color: #00ff88; font-weight: bold;">$1</span>');
+        }
+        
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(e.target.value);
+            }, 300);
+        });
+        
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.trim()) {
+                performSearch(searchInput.value);
+            }
+        });
+        
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            searchSuggestions.classList.remove('visible');
+            searchStats.classList.remove('visible');
+            searchClear.classList.remove('visible');
+            searchInput.focus();
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchSuggestions.classList.remove('visible');
+            }
+        });
+        
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchSuggestions.classList.remove('visible');
+                searchStats.classList.remove('visible');
+                searchClear.classList.remove('visible');
+            }
+        });
+        
+        // 热搜词点击事件
+        document.querySelectorAll('.hot-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const keyword = tag.dataset.keyword;
+                searchInput.value = keyword;
+                searchInput.focus();
+                performSearch(keyword);
+                
+                // 添加点击动画效果
+                tag.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    tag.style.transform = '';
+                }, 150);
+            });
+        });
+
         // 添加滚动事件监听，更新导航样式
         window.addEventListener('scroll', () => {
             const categories = document.querySelectorAll('.category');
@@ -305,8 +489,18 @@
                     navButtons[index].classList.add('active');
                 }
             });
+            
+            // 置顶按钮显示/隐藏
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
         });
-
+        
         // 添加Intersection Observer用于卡片进入动画
         const observerOptions = {
             threshold: 0.1,
@@ -428,6 +622,64 @@
 
         // 每隔一段时间创建粒子
         setInterval(createParticle, 300);
+    </script>
+    
+    <!-- 置顶按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 15l-6-6-6 6"></path>
+        </svg>
+    </div>
+    
+    <script>
+        // 置顶按钮点击事件
+        console.log('=== 置顶按钮调试开始 ===');
+        const backToTop = document.getElementById('backToTop');
+        console.log('backToTop 元素:', backToTop);
+        console.log('backToTop 是否存在:', !!backToTop);
+        
+        if (backToTop) {
+            console.log('✅ 找到置顶按钮，开始添加事件监听');
+            
+            backToTop.addEventListener('click', (e) => {
+                console.log('🔄 置顶按钮被点击了！');
+                console.log('当前滚动位置:', window.pageYOffset);
+                
+                // 平滑滚动到顶部
+                const startPosition = window.pageYOffset;
+                const duration = 500;
+                let startTime = null;
+                
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    const easeInOutQuad = progress < 0.5 
+                        ? 2 * progress * progress 
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                    
+                    const newPosition = startPosition * (1 - easeInOutQuad);
+                    window.scrollTo(0, newPosition);
+                    
+                    console.log('滚动中... 位置:', newPosition);
+                    
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    } else {
+                        console.log('✅ 滚动完成！');
+                    }
+                }
+                
+                requestAnimationFrame(animation);
+            });
+            
+            console.log('✅ 事件监听添加成功');
+        } else {
+            console.error('❌ 未找到置顶按钮元素！');
+            console.log('DOM 中的所有元素:', document.querySelectorAll('*'));
+        }
+        
+        console.log('=== 置顶按钮调试结束 ===');
     </script>
 </body>
 </html>

@@ -13,7 +13,7 @@
   {title: '步步高', artist: '徵音养心', cover: 'img/wuyin/bbg.png', mp3: 'mp3/wuyin/bbg.mp3', ogg: ''},
   {title: '花好月圆夜', artist: '徵音养心', cover: 'img/wuyin/hhyyy.png', mp3: 'mp3/wuyin/hhyyy.mp3', ogg: ''},
   {title: '喜洋洋', artist: '徵音养心', cover: 'img/wuyin/xyy.png', mp3: 'mp3/wuyin/xyy.mp3', ogg: ''},
-  {title: '彩云追月（广东音乐）', artist: '徵音养心', cover: 'img/wuyin/cyzygd.png', mp3: 'mp3/wuyin/cyzygd.mp3', ogg: ''},
+  {title: '彩云追月', artist: '徵音养心', cover: 'img/wuyin/cyzy.png', mp3: 'mp3/wuyin/cyzygd.mp3', ogg: ''},
   {title: '翻身的日子', artist: '徵音养心', cover: 'img/wuyin/fsdrz.png', mp3: 'mp3/wuyin/fsdrz.mp3', ogg: ''},
   {title: '姑苏行', artist: '徵音养心', cover: 'img/wuyin/gsx.png', mp3: 'mp3/wuyin/gsx.mp3', ogg: ''},
   {title: '阿里山的姑娘', artist: '徵音养心', cover: 'img/wuyin/alsdgn.png', mp3: 'mp3/wuyin/alsdgn.mp3', ogg: ''}
