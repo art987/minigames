@@ -1154,6 +1154,9 @@ async function updateImageCache(imgId, key, newUrl) {
 let cropper = null;
 let currentCropTarget = null;
 
+// 模板加载粒子效果 - 全局变量
+let templateParticleInterval = null;
+
 // 图片预加载管理器 - 支持优先级和取消
 const ThumbnailLoader = {
   currentLoadId: 0,
@@ -1694,27 +1697,163 @@ const ThumbnailLoader = {
     console.log('隐藏海报生成加载动画');
   }
   
+  // 创建单个粒子
+  function createTemplateParticle() {
+    if (!elements.templateLoadingParticles) {
+      console.log('粒子容器不存在');
+      return;
+    }
+    
+    const particle = document.createElement('div');
+    
+    const size = Math.random() * 4 + 3; // 粒子稍小，3-7px
+    const left = Math.random() * 100;
+    const duration = Math.random() * 1.5 + 1.5; // 动画时长，1.5-3s
+    const delay = Math.random() * 0.2;
+    
+    // 使用更简单的样式，减少渲染负担
+    particle.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,0.8);
+      left: ${left}%;
+      bottom: -15px;
+      pointer-events: none;
+      z-index: 2;
+      display: block;
+      animation: templateParticleFloat ${duration}s linear ${delay}s forwards;
+    `;
+    
+    elements.templateLoadingParticles.appendChild(particle);
+    
+    // 动画结束后移除粒子
+    setTimeout(() => {
+      if (particle.parentNode) {
+        particle.remove();
+      }
+    }, (duration + delay + 0.3) * 1000);
+  }
+  
+  // 启动粒子效果
+  function startTemplateParticles() {
+    if (templateParticleInterval) return;
+    
+    console.log('启动模板加载粒子效果 (优化版)');
+    
+    // 减少初始粒子数量
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const particle = document.createElement('div');
+        
+        const size = Math.random() * 4 + 3;
+        const left = Math.random() * 100;
+        const startHeight = Math.random() * 400;
+        const duration = Math.random() * 1.5 + 1.5;
+        
+        // 更简洁的样式
+        particle.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          background: #ffffff;
+          border-radius: 50%;
+          box-shadow: 0 0 6px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,0.8);
+          left: ${left}%;
+          bottom: ${-15 + startHeight}px;
+          pointer-events: none;
+          z-index: 2;
+          display: block;
+          opacity: ${Math.random() * 0.6 + 0.4};
+        `;
+        
+        if (elements.templateLoadingParticles) {
+          elements.templateLoadingParticles.appendChild(particle);
+          
+          setTimeout(() => {
+            particle.style.cssText = `
+              position: absolute;
+              width: ${size}px;
+              height: ${size}px;
+              background: #ffffff;
+              border-radius: 50%;
+              box-shadow: 0 0 6px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,0.8);
+              left: ${left}%;
+              bottom: ${-15 + startHeight}px;
+              pointer-events: none;
+              z-index: 2;
+              display: block;
+              animation: templateParticleFloat ${duration}s linear forwards;
+            `;
+            
+            setTimeout(() => {
+              if (particle.parentNode) {
+                particle.remove();
+              }
+            }, duration * 1000);
+          }, Math.random() * 300);
+        }
+      }, i * 80);
+    }
+    
+    // 减少粒子创建频率
+    templateParticleInterval = setInterval(createTemplateParticle, 250);
+  }
+  
+  // 停止粒子效果
+  function stopTemplateParticles() {
+    if (templateParticleInterval) {
+      clearInterval(templateParticleInterval);
+      templateParticleInterval = null;
+    }
+    
+    // 清空所有粒子
+    if (elements.templateLoadingParticles) {
+      elements.templateLoadingParticles.innerHTML = '';
+    }
+  }
+  
   // 显示模板加载动画
   function showTemplateLoadingAnimation() {
-    if (!elements.templateLoadingOverlay || !elements.templateLoadingLogo) return;
+    console.log('showTemplateLoadingAnimation 被调用');
+    console.log('elements.templateLoadingOverlay:', elements.templateLoadingOverlay);
+    console.log('elements.templateLoadingParticles:', elements.templateLoadingParticles);
+    
+    if (!elements.templateLoadingOverlay || !elements.templateLoadingLogo) {
+      console.log('缺少必要元素，无法显示加载动画');
+      return;
+    }
     
     elements.templateLoadingLogo.src = 'images/statics/loading2.gif';
     elements.templateLoadingLogo.style.display = 'block';
     
     // 显示模板加载动画
     elements.templateLoadingOverlay.classList.remove('hidden');
+    elements.templateLoadingOverlay.style.display = 'flex';
     
-    console.log('显示模板加载动画');
+    // 启动粒子效果 - 稍作延迟确保DOM更新
+    setTimeout(() => {
+      startTemplateParticles();
+    }, 50);
+    
+    console.log('显示模板加载动画完成');
   }
   
   // 隐藏模板加载动画
   function hideTemplateLoadingAnimation() {
+    console.log('hideTemplateLoadingAnimation 被调用');
+    
     if (!elements.templateLoadingOverlay) return;
     
     // 隐藏模板加载动画
     elements.templateLoadingOverlay.classList.add('hidden');
     
-    console.log('隐藏模板加载动画');
+    // 停止粒子效果
+    stopTemplateParticles();
+    
+    console.log('隐藏模板加载动画完成');
   }
 
   // 初始化DOM元素缓存
@@ -1834,6 +1973,7 @@ const ThumbnailLoader = {
       loadingLogo: document.getElementById('loadingLogo'),
       templateLoadingOverlay: document.getElementById('templateLoadingOverlay'),
       templateLoadingLogo: document.getElementById('templateLoadingLogo'),
+      templateLoadingParticles: document.getElementById('templateLoadingParticles'),
       
       // 字体颜色选择弹窗
       fontColorModal: document.getElementById('fontColorModal'),

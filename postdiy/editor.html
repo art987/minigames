@@ -11,6 +11,25 @@
   <meta name="robots" content="noindex, nofollow">
   
   <link rel="stylesheet" href="styles.css">
+  <!-- 粒子动画样式 - 简化版 -->
+  <style>
+    @keyframes templateParticleFloat {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-600px);
+        opacity: 0;
+      }
+    }
+  </style>
   <!-- Font Awesome 图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Cropper.js 裁剪库 -->
@@ -150,6 +169,9 @@
   <div class="preview-wrapper">
      <!-- 模板加载动画（覆盖整个页面） -->
   <div id="templateLoadingOverlay" class="template-loading-overlay" style="display: flex;">
+    <!-- 粒子容器 -->
+    <div id="templateLoadingParticles" class="template-loading-particles"></div>
+    
     <div class="loading-container">
       <!-- 外围快速旋转的圆点线 -->
       <div class="outer-rotation">
