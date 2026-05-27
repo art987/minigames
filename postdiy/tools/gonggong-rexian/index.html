@@ -249,6 +249,14 @@
             return isWebView;
         }
 
+        // 更新按钮图标
+        function updateButtonIcon(btn, isSpeaking) {
+            const icon = btn.querySelector('.volume-icon');
+            if (icon) {
+                icon.src = isSpeaking ? 'mute.svg' : 'volume.svg';
+            }
+        }
+
         function speakHotline(name, number, note, btn) {
             if (currentSpeech) {
                 window.speechSynthesis.cancel();
@@ -256,7 +264,7 @@
                     responsiveVoice.cancel();
                 }
                 if (currentSpeakBtn) {
-                    currentSpeakBtn.innerHTML = '🔊';
+                    updateButtonIcon(currentSpeakBtn, false);
                     currentSpeakBtn.classList.remove('speaking');
                 }
             }
@@ -265,7 +273,7 @@
             const text = `${name}，电话号码是${spokenNumber}。${note}`;
             
             currentSpeakBtn = btn;
-            btn.innerHTML = '🔇';
+            updateButtonIcon(btn, true);
             btn.classList.add('speaking');
 
             const inWebView = isInWebView();
@@ -277,13 +285,13 @@
                     rate: 0.9,
                     pitch: 1,
                     onend: () => {
-                        btn.innerHTML = '🔊';
+                        updateButtonIcon(btn, false);
                         btn.classList.remove('speaking');
                         currentSpeech = null;
                         currentSpeakBtn = null;
                     },
                     onerror: () => {
-                        btn.innerHTML = '🔊';
+                        updateButtonIcon(btn, false);
                         btn.classList.remove('speaking');
                         currentSpeech = null;
                         currentSpeakBtn = null;
@@ -300,14 +308,14 @@
                 currentSpeech = utterance;
 
                 utterance.onend = () => {
-                    btn.innerHTML = '🔊';
+                    updateButtonIcon(btn, false);
                     btn.classList.remove('speaking');
                     currentSpeech = null;
                     currentSpeakBtn = null;
                 };
 
                 utterance.onerror = () => {
-                    btn.innerHTML = '🔊';
+                    updateButtonIcon(btn, false);
                     btn.classList.remove('speaking');
                     currentSpeech = null;
                     currentSpeakBtn = null;
@@ -317,7 +325,7 @@
             }
             // 如果都不支持
             else {
-                btn.innerHTML = '🔊';
+                updateButtonIcon(btn, false);
                 btn.classList.remove('speaking');
                 alert('您的浏览器不支持语音朗读功能');
             }
@@ -382,6 +390,24 @@
                     coverImg.loading = 'lazy';
                     coverDiv.appendChild(coverImg);
                     
+                    // 创建朗读按钮并放在封面上
+                    const speakBtn = document.createElement('button');
+                    speakBtn.classList.add('speak-btn');
+                    speakBtn.title = '点击朗读';
+                    
+                    // 创建音量图标
+                    const volumeIcon = document.createElement('img');
+                    volumeIcon.src = 'volume.svg';
+                    volumeIcon.alt = '朗读';
+                    volumeIcon.className = 'volume-icon';
+                    speakBtn.appendChild(volumeIcon);
+                    
+                    speakBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        speakHotline(hotline.name, hotline.number, hotline.note, speakBtn);
+                    };
+                    coverDiv.appendChild(speakBtn);
+                    
                     hotlineCard.appendChild(coverDiv);
                 }
 
@@ -395,16 +421,6 @@
 
                 const hotlineNumber = document.createElement('p');
                 hotlineNumber.textContent = ``;
-                
-                const speakBtn = document.createElement('button');
-                speakBtn.classList.add('speak-btn');
-                speakBtn.innerHTML = '🔊';
-                speakBtn.title = '点击朗读';
-                speakBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    speakHotline(hotline.name, hotline.number, hotline.note, speakBtn);
-                };
-                hotlineNumber.appendChild(speakBtn);
                 
                 const numberSpan = document.createElement('span');
                 numberSpan.textContent = hotline.number;
