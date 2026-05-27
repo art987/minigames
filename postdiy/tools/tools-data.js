@@ -77,9 +77,9 @@ window.toolsData = {
       shortTitle: '国货品牌',
       subtitle: '国货品牌导航，高性价比口碑老牌放心使用',
       tags: ['购物', '品牌', '国货'],
-      link: 'https://peacelove.top/cnbrand/index.html',
+      link: 'cnbrand/index.html',
       category: 'shopping',
-      external: true
+      external: false
     },
     {
       id: 5,

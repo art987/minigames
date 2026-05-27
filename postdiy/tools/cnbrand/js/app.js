@@ -585,9 +585,50 @@ document.addEventListener('DOMContentLoaded', function() {
             brandLogo.textContent = brand.name.charAt(0);
         }
         
+        // 创建品牌名称容器
+        const brandNameContainer = document.createElement('div');
+        brandNameContainer.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+        
         const brandName = document.createElement('h3');
         brandName.className = 'brand-name';
         brandName.textContent = brand.name;
+        
+        // 创建复制按钮
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '复制';
+        copyBtn.title = '点击复制品牌名称';
+        copyBtn.style.cssText = 'border: 1px solid #ddd; background: #fff; color: #666; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; transition: all 0.3s;';
+        copyBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText(brand.name).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.color = '#2ecc71';
+                copyBtn.style.borderColor = '#2ecc71';
+                setTimeout(function() {
+                    copyBtn.textContent = '复制';
+                    copyBtn.style.color = '#666';
+                    copyBtn.style.borderColor = '#ddd';
+                }, 2000);
+            }).catch(function() {
+                alert('复制失败，请手动复制');
+            });
+        };
+        copyBtn.onmouseenter = function() {
+            if (copyBtn.textContent === '复制') {
+                copyBtn.style.borderColor = '#999';
+                copyBtn.style.color = '#333';
+            }
+        };
+        copyBtn.onmouseleave = function() {
+            if (copyBtn.textContent === '复制') {
+                copyBtn.style.borderColor = '#ddd';
+                copyBtn.style.color = '#666';
+            }
+        };
+        
+        brandNameContainer.appendChild(brandName);
+        brandNameContainer.appendChild(copyBtn);
         
         const brandFounded = document.createElement('p');
         brandFounded.className = 'brand-founded';
@@ -600,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 创建右侧内容容器
         const brandContent1Right = document.createElement('div');
         brandContent1Right.className = 'brand-content1-right';
-        brandContent1Right.appendChild(brandName);
+        brandContent1Right.appendChild(brandNameContainer);
         brandContent1Right.appendChild(brandFounded);
         brandContent1Right.appendChild(brandHonors);
         
@@ -718,12 +759,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const detailsBtn = document.createElement('button');
         detailsBtn.className = 'details-btn';
         detailsBtn.textContent = '详情';
-        detailsBtn.onclick = function() {
-            showBrandDetails(brand);
+        detailsBtn.onclick = function(e) {
+            e.stopPropagation();
+            showBrandCardModal(brand);
         };
         
         // 将详情按钮添加到brandContent2
         brandContent2.appendChild(detailsBtn);
+        
+        // 点击卡片显示弹窗
+        brandCard.onclick = function() {
+            showBrandCardModal(brand);
+        };
         
         // 将两个内容版块添加到brandCard
         brandCard.appendChild(brandContent1);
@@ -1283,6 +1330,234 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.transition = 'opacity 0.5s ease';
 
     // 创建品牌详情弹窗
+    // 显示品牌卡片弹窗
+    function showBrandCardModal(brand) {
+        // 移除已存在的弹窗
+        let existingModal = document.getElementById('brand-card-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // 创建弹窗
+        const modal = document.createElement('div');
+        modal.id = 'brand-card-modal';
+        modal.className = 'brand-card-modal';
+        
+        // 创建弹窗内容
+        const modalContent = document.createElement('div');
+        modalContent.className = 'brand-card-modal-content';
+        
+        // 创建关闭按钮
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'brand-card-modal-close';
+        closeBtn.innerHTML = '×';
+        closeBtn.onclick = function() {
+            modal.classList.remove('show');
+            setTimeout(() => modal.remove(), 300);
+        };
+        
+        // 创建弹窗主体
+        const modalBody = document.createElement('div');
+        modalBody.className = 'brand-card-modal-body';
+        
+        // 创建品牌头部信息（与卡片一致的样式）
+        const brandContent1 = document.createElement('div');
+        brandContent1.className = 'brand-content1';
+        
+        // 创建logo
+        const brandLogo = document.createElement('div');
+        brandLogo.className = 'brand-logo';
+        
+        const logoImg = document.createElement('img');
+        logoImg.src = brand.logo || '';
+        logoImg.alt = brand.name + ' logo';
+        logoImg.style.maxWidth = '100%';
+        logoImg.style.maxHeight = '100%';
+        
+        logoImg.onload = function() {
+            brandLogo.textContent = '';
+            brandLogo.appendChild(logoImg);
+        };
+        logoImg.onerror = function() {
+            brandLogo.textContent = brand.name.charAt(0);
+        };
+        
+        if (brand.logo) {
+            brandLogo.appendChild(logoImg);
+        } else {
+            brandLogo.textContent = brand.name.charAt(0);
+        }
+        
+        const brandContent1Right = document.createElement('div');
+        brandContent1Right.className = 'brand-content1-right';
+        
+        // 创建品牌名称容器
+        const brandNameContainer = document.createElement('div');
+        brandNameContainer.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+        
+        const brandName = document.createElement('h3');
+        brandName.className = 'brand-name';
+        brandName.textContent = brand.name;
+        
+        // 创建复制按钮
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '复制';
+        copyBtn.title = '点击复制品牌名称';
+        copyBtn.style.cssText = 'border: 1px solid #ddd; background: #fff; color: #666; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; transition: all 0.3s;';
+        copyBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText(brand.name).then(function() {
+                copyBtn.textContent = '已复制';
+                copyBtn.style.color = '#2ecc71';
+                copyBtn.style.borderColor = '#2ecc71';
+                setTimeout(function() {
+                    copyBtn.textContent = '复制';
+                    copyBtn.style.color = '#666';
+                    copyBtn.style.borderColor = '#ddd';
+                }, 2000);
+            }).catch(function() {
+                alert('复制失败，请手动复制');
+            });
+        };
+        copyBtn.onmouseenter = function() {
+            if (copyBtn.textContent === '复制') {
+                copyBtn.style.borderColor = '#999';
+                copyBtn.style.color = '#333';
+            }
+        };
+        copyBtn.onmouseleave = function() {
+            if (copyBtn.textContent === '复制') {
+                copyBtn.style.borderColor = '#ddd';
+                copyBtn.style.color = '#666';
+            }
+        };
+        
+        brandNameContainer.appendChild(brandName);
+        brandNameContainer.appendChild(copyBtn);
+        
+        const brandFounded = document.createElement('p');
+        brandFounded.className = 'brand-founded';
+        brandFounded.textContent = brand.founded ? `${brand.founded}成立` : '成立时间未知';
+        
+        const brandHonors = document.createElement('p');
+        brandHonors.className = 'brand-description';
+        brandHonors.textContent = brand.honors || '暂无荣誉信息';
+        
+        brandContent1Right.appendChild(brandNameContainer);
+        brandContent1Right.appendChild(brandFounded);
+        brandContent1Right.appendChild(brandHonors);
+        
+        brandContent1.appendChild(brandLogo);
+        brandContent1.appendChild(brandContent1Right);
+        
+        // 创建品牌详细信息
+        const brandContent2 = document.createElement('div');
+        brandContent2.className = 'brand-content2';
+        
+        // 添加品牌描述
+        if (brand.description) {
+            const desc = document.createElement('p');
+            desc.style.cssText = 'font-size: 14px; color: #666; margin-bottom: 10px; line-height: 1.6; padding: 10px 0; border-top: 1px solid #e9ecef;';
+            desc.textContent = brand.description;
+            brandContent2.appendChild(desc);
+        }
+        
+        // 添加品牌口碑
+        if (brand.reputation) {
+            const reputation = document.createElement('p');
+            reputation.className = 'brand-reputation';
+            reputation.textContent = brand.reputation;
+            brandContent2.appendChild(reputation);
+        }
+        
+        // 添加核心优势
+        if (brand.advantages && brand.advantages.length > 0) {
+            const advantagesTitle = document.createElement('h4');
+            advantagesTitle.className = 'products-title';
+            advantagesTitle.textContent = '核心优势：';
+            brandContent2.appendChild(advantagesTitle);
+            
+            const advantagesList = document.createElement('ul');
+            advantagesList.className = 'advantages-list';
+            
+            brand.advantages.forEach(advantage => {
+                const advantageItem = document.createElement('li');
+                advantageItem.className = 'advantage-item';
+                advantageItem.textContent = advantage;
+                advantagesList.appendChild(advantageItem);
+            });
+            
+            brandContent2.appendChild(advantagesList);
+        }
+        
+        // 添加热销商品
+        if (brand.products && brand.products.length > 0) {
+            const productsTitle = document.createElement('h4');
+            productsTitle.className = 'products-title';
+            productsTitle.textContent = '热销商品：';
+            brandContent2.appendChild(productsTitle);
+            
+            const productsList = document.createElement('ul');
+            productsList.className = 'products-list';
+            
+            brand.products.forEach(product => {
+                const productItem = document.createElement('li');
+                productItem.className = 'product-item';
+                
+                const productBasicInfo = document.createElement('div');
+                productBasicInfo.className = 'product-basic-info';
+                
+                const productName = document.createElement('span');
+                productName.className = 'product-name';
+                productName.textContent = product.name;
+                
+                const productSpec = document.createElement('span');
+                productSpec.className = 'product-spec';
+                productSpec.textContent = product.spec;
+                
+                const productPrice = document.createElement('span');
+                productPrice.className = 'product-price';
+                productPrice.textContent = product.price;
+                
+                productBasicInfo.appendChild(productName);
+                productBasicInfo.appendChild(productSpec);
+                productBasicInfo.appendChild(productPrice);
+                
+                const productFeature = document.createElement('span');
+                productFeature.className = 'product-feature';
+                productFeature.textContent = product.feature;
+                
+                productItem.appendChild(productBasicInfo);
+                productItem.appendChild(productFeature);
+                productsList.appendChild(productItem);
+            });
+            
+            brandContent2.appendChild(productsList);
+        }
+        
+        // 组装弹窗
+        modalBody.appendChild(brandContent1);
+        modalBody.appendChild(brandContent2);
+        modalContent.appendChild(closeBtn);
+        modalContent.appendChild(modalBody);
+        modal.appendChild(modalContent);
+        
+        // 添加到页面
+        document.body.appendChild(modal);
+        
+        // 显示弹窗
+        setTimeout(() => modal.classList.add('show'), 10);
+        
+        // 点击弹窗外部关闭
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                setTimeout(() => modal.remove(), 300);
+            }
+        };
+    }
+
     function showBrandDetails(brand) {
         // 检查是否已存在弹窗，如果存在则移除
         let modal = document.getElementById('brand-modal');
