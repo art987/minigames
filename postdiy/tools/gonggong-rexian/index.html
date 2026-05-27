@@ -95,12 +95,6 @@
     <div class="container" id="hotlineContainer"></div>
 
     
-        <h3>相关资源</h3>
-        <ul>
-            <li><a href="/emergency-guide">紧急情况处理指南</a></li>
-            <li><a href="/consumer-rights">消费者权益保护指南</a></li>
-            <li><a href="/legal-aid">法律援助申请流程</a></li>
-        </ul>
     </div>
     
     
@@ -129,8 +123,8 @@
         hotlines: [
             { name: "市民热线", number: "12345", note: "无论遇到任何困难都可以拨打，24小时在线，反馈快速。用于处理各种市民投诉和咨询。例如公司拖欠工资、没交社保、租房不退押金等。用于紧急求助、投诉、举报，以及提出意见建议。可以咨询办理户口、身份证、护照等相关事务。", cover: "covers/12345.png" },            
             { name: "劳动保障局", number: "12333", note: "用于劳务、劳资纠纷投诉，如不付工资等问题。维护个人经济权益，提供劳动保障相关的咨询和帮助。", cover: "covers/12333.png" },
-            { name: "民工维权（社保）热线", number: "12333", note: "全国人力资源社会保障服务热线，提供工资、社保等服务。用于劳务、劳资纠纷投诉，如不付工资等问题。维护个人经济权益，提供劳动保障相关的咨询和帮助。", cover: "covers/12333.png" },
-            { name: "养老金发放问题咨询", number: "12333", note: "用于养老金发放问题的咨询和投诉，包括养老金拖欠、计算错误等。", cover: "covers/12333.png" },            
+            { name: "民工维权（社保）热线", number: "12333", note: "全国人力资源社会保障服务热线，提供工资、社保等服务。用于劳务、劳资纠纷投诉，如不付工资等问题。维护个人经济权益，提供劳动保障相关的咨询和帮助。", cover: "covers/12333b.png" },
+            { name: "养老金发放问题咨询", number: "12333", note: "用于养老金发放问题的咨询和投诉，包括养老金拖欠、计算错误等。", cover: "covers/12333c.png" },            
             { name: "国土资源局举报投诉电话", number: "12336", note: "用于土地和矿产违法行为的举报。", cover: "covers/12336.png" },            
             { name: "海关热线", number: "12360", note: "用于海关服务咨询、投诉等。", cover: "covers/12360.png" },
             { name: "市商务局热线", number: "12312", note: "用于商务领域的咨询和投诉。", cover: "covers/12312.png" },
@@ -147,9 +141,9 @@
             { name: "农民补助热线", number: "12316", note: "用于农民补助相关的咨询和投诉，包括农业补贴、扶贫资金等。", cover: "covers/12316.png" },
             { name: "妇女维权热线", number: "12338", note: "用于妇女权益保护和投诉。女性如果遇到不公平待遇，可以拨打此电话反馈，会有人帮助维权。", cover: "covers/12338.png" },
             { name: "物价局统一举报电话", number: "12358", note: "关于哄抬价格、操纵市场价格、损害消费者权益的行为。用于价格违规行为的投诉，如价格欺诈、哄抬物价等。", cover: "covers/12358.png" },
-            { name: "淘宝天猫消费者维权热线", number: "95102117", note: "淘宝和天猫平台的消费者维权服务热线。" },
-            { name: "拼多多消费维权热线", number: "215339528", note: "拼多多平台的消费者维权服务热线。" },
-            { name: "京东消费者维权热线", number: "40060677330", note: "京东平台的消费者维权服务热线。" }
+            { name: "淘宝天猫消费者维权热线", number: "95102117", note: "淘宝和天猫平台的消费者维权服务热线。", longNumber: true },
+            { name: "拼多多消费维权热线", number: "215339528", note: "拼多多平台的消费者维权服务热线。", longNumber: true },
+            { name: "京东消费者维权热线", number: "40060677330", note: "京东平台的消费者维权服务热线。", longNumber: true }
         ]
     },
     {
@@ -157,7 +151,7 @@
         hotlines: [
             { name: "公共卫生监督热线", number: "12320", note: "用于公共卫生服务的监督和投诉。用于医疗机构的投诉、医疗纠纷处理以及假药的举报。", cover: "covers/12320.png" },
             { name: "食品药品监督热线", number: "12331", note: "用于食品药品安全方面的投诉和咨询。", cover: "covers/12331.png" },
-            { name: "环境污染、噪音污染投诉热线", number: "12369", note: "用于环境污染和噪音污染等问题的投诉。用于污染投诉，包括噪音污染、灯光污染和环境污染等。", cover: "covers/12369.png" }
+            { name: "环境、噪音污染投诉热线", number: "12369", note: "用于环境污染和噪音污染等问题的投诉。用于污染投诉，包括噪音污染、灯光污染和环境污染等。", cover: "covers/12369.png" }
         ]
     },
     {
@@ -223,6 +217,64 @@
         ]
     }
         ];
+
+        let currentSpeech = null;
+        let currentSpeakBtn = null;
+
+        function convertNumberToSpeech(number) {
+            const digitMap = {
+                '0': '零',
+                '1': '幺',
+                '2': '二',
+                '3': '三',
+                '4': '四',
+                '5': '五',
+                '6': '六',
+                '7': '七',
+                '8': '八',
+                '9': '九'
+            };
+            
+            return number.split('').map(digit => digitMap[digit] || digit).join('，');
+        }
+
+        function speakHotline(name, number, note, btn) {
+            if (currentSpeech) {
+                window.speechSynthesis.cancel();
+                if (currentSpeakBtn) {
+                    currentSpeakBtn.innerHTML = '🔊';
+                    currentSpeakBtn.classList.remove('speaking');
+                }
+            }
+
+            const spokenNumber = convertNumberToSpeech(number);
+            const text = `${name}，电话号码是${spokenNumber}。${note}`;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+
+            currentSpeech = utterance;
+            currentSpeakBtn = btn;
+            btn.innerHTML = '🔇';
+            btn.classList.add('speaking');
+
+            utterance.onend = () => {
+                btn.innerHTML = '🔊';
+                btn.classList.remove('speaking');
+                currentSpeech = null;
+                currentSpeakBtn = null;
+            };
+
+            utterance.onerror = () => {
+                btn.innerHTML = '🔊';
+                btn.classList.remove('speaking');
+                currentSpeech = null;
+                currentSpeakBtn = null;
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
 
         // 科技感交互效果
         function addGlowEffect(element) {
@@ -296,9 +348,20 @@
 
                 const hotlineNumber = document.createElement('p');
                 hotlineNumber.textContent = ``;
+                
+                const speakBtn = document.createElement('button');
+                speakBtn.classList.add('speak-btn');
+                speakBtn.innerHTML = '🔊';
+                speakBtn.title = '点击朗读';
+                speakBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    speakHotline(hotline.name, hotline.number, hotline.note, speakBtn);
+                };
+                hotlineNumber.appendChild(speakBtn);
+                
                 const numberSpan = document.createElement('span');
                 numberSpan.textContent = hotline.number;
-                numberSpan.classList.add('hotline-number');
+                numberSpan.classList.add(hotline.longNumber ? 'hotline-number2' : 'hotline-number');
                 hotlineNumber.appendChild(numberSpan);
                 contentDiv.appendChild(hotlineNumber);
 
@@ -389,7 +452,27 @@
                     item.addEventListener('click', () => {
                         const categoryIndex = hotlineData.findIndex(cat => cat.category === hotline.category);
                         if (categoryIndex !== -1) {
-                            document.getElementById(`category-${categoryIndex}`).scrollIntoView({ behavior: 'smooth' });
+                            const categoryElement = document.getElementById(`category-${categoryIndex}`);
+                            if (categoryElement) {
+                                categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                
+                                const hotlineIndex = hotlineData[categoryIndex].hotlines.findIndex(h => h.number === hotline.number);
+                                
+                                setTimeout(() => {
+                                    const cards = categoryElement.querySelectorAll('.hotline-card');
+                                    if (cards[hotlineIndex]) {
+                                        cards[hotlineIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        
+                                        cards[hotlineIndex].style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.5)';
+                                        cards[hotlineIndex].style.transform = 'scale(1.02)';
+                                        setTimeout(() => {
+                                            cards[hotlineIndex].style.boxShadow = '';
+                                            cards[hotlineIndex].style.transform = '';
+                                        }, 2000);
+                                    }
+                                }, 300);
+                            }
+                            
                             searchInput.value = '';
                             searchSuggestions.classList.remove('visible');
                             searchStats.classList.remove('visible');
@@ -741,24 +824,25 @@
                     `;
                     
                     item.addEventListener('click', () => {
-                        // 关闭弹窗
                         simpleModal.classList.remove('visible');
                         
-                        // 定位到对应的详细卡片
                         const categoryElement = document.getElementById(`category-${categoryIndex}`);
                         if (categoryElement) {
                             categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             
-                            // 高亮对应的卡片
                             setTimeout(() => {
                                 const cards = categoryElement.querySelectorAll('.hotline-card');
                                 if (cards[hotlineIndex]) {
+                                    cards[hotlineIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    
                                     cards[hotlineIndex].style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.5)';
+                                    cards[hotlineIndex].style.transform = 'scale(1.02)';
                                     setTimeout(() => {
                                         cards[hotlineIndex].style.boxShadow = '';
+                                        cards[hotlineIndex].style.transform = '';
                                     }, 2000);
                                 }
-                            }, 500);
+                            }, 300);
                         }
                     });
                     
