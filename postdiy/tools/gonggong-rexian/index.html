@@ -13,6 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.peacelove.top/tool/gonggong-rexian.html">
     <link rel="stylesheet" href="https://peacelove.top/menu.css">
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=tCF5EpUw"></script>
     
     <script type="application/ld+json">
     {
@@ -238,9 +239,22 @@
             return number.split('').map(digit => digitMap[digit] || digit).join('，');
         }
 
+        // 检测是否在WebView环境中运行
+        function isInWebView() {
+            const ua = navigator.userAgent.toLowerCase();
+            const isWebView = ua.indexOf('wv') > -1 || 
+                              ua.indexOf('webview') > -1 ||
+                              ua.indexOf('android') > -1 && ua.indexOf('chrome') === -1 ||
+                              ua.indexOf('iphone') > -1 && ua.indexOf('safari') === -1;
+            return isWebView;
+        }
+
         function speakHotline(name, number, note, btn) {
             if (currentSpeech) {
                 window.speechSynthesis.cancel();
+                if (typeof responsiveVoice !== 'undefined') {
+                    responsiveVoice.cancel();
+                }
                 if (currentSpeakBtn) {
                     currentSpeakBtn.innerHTML = '🔊';
                     currentSpeakBtn.classList.remove('speaking');
@@ -249,31 +263,64 @@
 
             const spokenNumber = convertNumberToSpeech(number);
             const text = `${name}，电话号码是${spokenNumber}。${note}`;
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.9;
-            utterance.pitch = 1;
-
-            currentSpeech = utterance;
+            
             currentSpeakBtn = btn;
             btn.innerHTML = '🔇';
             btn.classList.add('speaking');
 
-            utterance.onend = () => {
+            const inWebView = isInWebView();
+            
+            // 在WebView中优先使用ResponsiveVoice
+            if (inWebView && typeof responsiveVoice !== 'undefined' && typeof responsiveVoice.speak === 'function') {
+                console.log('WebView环境：使用ResponsiveVoice');
+                responsiveVoice.speak(text, 'Chinese Female', {
+                    rate: 0.9,
+                    pitch: 1,
+                    onend: () => {
+                        btn.innerHTML = '🔊';
+                        btn.classList.remove('speaking');
+                        currentSpeech = null;
+                        currentSpeakBtn = null;
+                    },
+                    onerror: () => {
+                        btn.innerHTML = '🔊';
+                        btn.classList.remove('speaking');
+                        currentSpeech = null;
+                        currentSpeakBtn = null;
+                    }
+                });
+            }
+            // 使用Web Speech API
+            else if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+
+                currentSpeech = utterance;
+
+                utterance.onend = () => {
+                    btn.innerHTML = '🔊';
+                    btn.classList.remove('speaking');
+                    currentSpeech = null;
+                    currentSpeakBtn = null;
+                };
+
+                utterance.onerror = () => {
+                    btn.innerHTML = '🔊';
+                    btn.classList.remove('speaking');
+                    currentSpeech = null;
+                    currentSpeakBtn = null;
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+            // 如果都不支持
+            else {
                 btn.innerHTML = '🔊';
                 btn.classList.remove('speaking');
-                currentSpeech = null;
-                currentSpeakBtn = null;
-            };
-
-            utterance.onerror = () => {
-                btn.innerHTML = '🔊';
-                btn.classList.remove('speaking');
-                currentSpeech = null;
-                currentSpeakBtn = null;
-            };
-
-            window.speechSynthesis.speak(utterance);
+                alert('您的浏览器不支持语音朗读功能');
+            }
         }
 
         // 科技感交互效果
