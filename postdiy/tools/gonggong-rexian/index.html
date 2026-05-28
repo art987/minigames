@@ -447,7 +447,25 @@
 
             // 创建导航按钮
             const navButton = document.createElement('button');
-            navButton.textContent = category.category;
+            
+            // 添加对应的 emoji
+            const emojiMap = {
+                '紧急': '🚨',
+                '政务': '🏛️',
+                '维权': '⚖️',
+                '环境卫生': '🌿',
+                '交通': '🚗',
+                '法律援助': '📜',
+                '生活': '🏠',
+                '公共设施': '🏗️',
+                '特殊群体': '👶',
+                '通信': '📱',
+                '银行': '🏦'
+            };
+            
+            const emoji = emojiMap[category.category] || '';
+            navButton.textContent = `${emoji} ${category.category}`;
+            
             navButton.onclick = () => {
                 document.getElementById(`category-${index}`).scrollIntoView({ behavior: 'smooth' });
             };

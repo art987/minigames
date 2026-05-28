@@ -6778,6 +6778,15 @@ const ThumbnailLoader = {
     // 收集需要加载的图片
     const loadQueue = [];
     
+    // 获取当前选中的月份
+    let selectedMonth = null;
+    const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+    monthButtons.forEach(btn => {
+      if (btn.classList.contains('active')) {
+        selectedMonth = parseInt(btn.dataset.month);
+      }
+    });
+    
     // 遍历所有模板
     for (const monthKey in window.templates) {
       const monthTemplates = window.templates[monthKey];
@@ -6787,8 +6796,16 @@ const ThumbnailLoader = {
         let showTemplate = false;
         if (festival === '☀️ 早安') {
           showTemplate = template.festivals.includes('早安');
+          // 如果选中了月份，还要检查月份是否匹配
+          if (showTemplate && selectedMonth && template.months) {
+            showTemplate = template.months.includes(selectedMonth);
+          }
         } else if (festival === '🌙 晚安') {
           showTemplate = template.festivals.includes('晚安');
+          // 如果选中了月份，还要检查月份是否匹配
+          if (showTemplate && selectedMonth && template.months) {
+            showTemplate = template.months.includes(selectedMonth);
+          }
         } else {
           showTemplate = template.festivals.includes(festival);
         }
@@ -6935,14 +6952,33 @@ const ThumbnailLoader = {
         });
       }
     } else if (festival) {
+      // 获取当前选中的月份（仅适用于早安/晚安节日）
+      let selectedMonth = null;
+      if (festival === '☀️ 早安' || festival === '🌙 晚安') {
+        const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
+        monthButtons.forEach(btn => {
+          if (btn.classList.contains('active')) {
+            selectedMonth = parseInt(btn.dataset.month);
+          }
+        });
+      }
+      
       for (const monthKey in window.templates) {
         const monthTemplates = window.templates[monthKey];
         monthTemplates.forEach(template => {
           let showTemplate = false;
           if (festival === '☀️ 早安') {
             showTemplate = template.festivals.includes('早安');
+            // 如果选中了月份，还要检查月份是否匹配
+            if (showTemplate && selectedMonth && template.months) {
+              showTemplate = template.months.includes(selectedMonth);
+            }
           } else if (festival === '🌙 晚安') {
             showTemplate = template.festivals.includes('晚安');
+            // 如果选中了月份，还要检查月份是否匹配
+            if (showTemplate && selectedMonth && template.months) {
+              showTemplate = template.months.includes(selectedMonth);
+            }
           } else {
             showTemplate = template.festivals.includes(festival);
           }

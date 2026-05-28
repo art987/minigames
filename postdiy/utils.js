@@ -428,14 +428,20 @@ function getTemplatesByFilters(month, festival) {
   const allTemplates = getAllTemplates();
   
   return allTemplates.filter(template => {
-    // 处理"早安"分类，不考虑月份
+    // 处理"早安"分类
     if (festival === '☀️ 早安') {
-      return template.festivals && template.festivals.includes('早安');
+      const festivalMatch = template.festivals && template.festivals.includes('早安');
+      // 如果选择了月份，同时检查月份匹配
+      const monthMatch = !month || (template.months && template.months.includes(month));
+      return festivalMatch && monthMatch;
     }
     
-    // 处理"晚安"分类，不考虑月份
+    // 处理"晚安"分类
     if (festival === '🌙 晚安') {
-      return template.festivals && template.festivals.includes('晚安');
+      const festivalMatch = template.festivals && template.festivals.includes('晚安');
+      // 如果选择了月份，同时检查月份匹配
+      const monthMatch = !month || (template.months && template.months.includes(month));
+      return festivalMatch && monthMatch;
     }
     
     // 检查月份匹配
