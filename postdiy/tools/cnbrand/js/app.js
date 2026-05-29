@@ -1,13 +1,23 @@
 // 使用全局变量brandData（在HTML中先加载brandData.js）
 
-// 页面加载完成后隐藏加载页面
+// 将相对路径转换为绝对路径
+function getLogoPath(logoPath) {
+    if (!logoPath) return '';
+    if (logoPath.startsWith('/') || logoPath.startsWith('http')) {
+        return logoPath;
+    }
+    return '/tools/cnbrand/' + logoPath;
+}
+
 function hideLoadingPage() {
     const loadingPage = document.getElementById('loading-page');
     if (loadingPage) {
         loadingPage.style.opacity = '0';
+        loadingPage.style.transform = 'scale(0.95)';
+        loadingPage.style.pointerEvents = 'none';
         setTimeout(() => {
             loadingPage.style.display = 'none';
-        }, 500); // 等待过渡动画完成
+        }, 800);
     }
 }
 
@@ -57,24 +67,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 然后显示打字机动画
     const loadingTextLine1 = document.querySelector('.loading-text-line1');
-    const loadingTextLine2 = document.querySelector('.loading-text-line2');
     
-    if (loadingTextLine1 && loadingTextLine2) {
-        // 保存原始文本
-        const line1Text = loadingTextLine1.textContent;
-        const line2Text = loadingTextLine2.textContent;
+    if (loadingTextLine1) {
+        // 定义要显示的两句话
+        const texts = [
+            '高性价比口碑国货',
+            '品质安心有保证'
+        ];
+        let currentTextIndex = 0;
         
         // 清空文本以便开始打字机效果
         loadingTextLine1.textContent = '';
-        loadingTextLine2.textContent = '';
         
-        // 第一行打字机效果完成后开始第二行
-        typewriterEffect(loadingTextLine1, line1Text, 80, () => {
-            typewriterEffect(loadingTextLine2, line2Text, 80, () => {
-                // 打字机效果完成后继续执行
-                console.log('打字机效果完成！');
+        // 循环显示文本的函数
+        function cycleText() {
+            const currentText = texts[currentTextIndex];
+            
+            // 打字机效果
+            typewriterEffect(loadingTextLine1, currentText, 80, () => {
+                // 等待300ms后清空文本
+                setTimeout(() => {
+                    loadingTextLine1.style.opacity = '0';
+                    // 等待300ms后显示下一句
+                    setTimeout(() => {
+                        loadingTextLine1.textContent = '';
+                        loadingTextLine1.style.opacity = '1';
+                        currentTextIndex = (currentTextIndex + 1) % texts.length;
+                        cycleText();
+                    }, 300);
+                }, 300);
             });
-        });
+        }
+        
+        // 开始循环
+        cycleText();
     }
     
     // 获取DOM元素
@@ -98,26 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 添加加载进度条
     function addLoadingProgressBar() {
         const progressBar = document.createElement('div');
-        progressBar.id = 'loading-progress';
-        progressBar.className = 'loading-progress';
-        progressBar.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        `;
+        progressBar.id = 'loading-progress-bar';
+        progressBar.className = 'loading-progress-bar';
         
         // 进度百分比文本
         const progressText = document.createElement('span');
@@ -141,17 +149,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const progressText = loadingProgressBar.querySelector('.progress-text');
         progressText.textContent = `品牌数据加载中... ${progressPercentage}%`;
         
-        // 显示进度条
+        const loadingProgress = document.getElementById('loading-progress');
+        if (loadingProgress) {
+            loadingProgress.style.width = progressPercentage + '%';
+        }
+        
         loadingProgressBar.style.opacity = '1';
         
-        // 如果所有分类都已加载，隐藏进度条和加载页面
         if (loadedCount >= totalCategories) {
             isAllCategoriesLoaded = true;
             setTimeout(() => {
                 loadingProgressBar.style.opacity = '0';
-                // 所有分类加载完成后，隐藏加载页面
                 hideLoadingPage();
-            }, 1000);
+            }, 800);
         }
     }
     
@@ -162,26 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
         mapButton.id = 'map-button';
         mapButton.className = 'map-button';
         mapButton.textContent = '⊞';
-        mapButton.style.cssText = `
-            position: fixed;
-            bottom: 90px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #e81818ff;
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        `;
         
         // 添加点击事件，显示品牌地图弹窗
         mapButton.addEventListener('click', showBrandMap);
@@ -191,26 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         backToTop.id = 'back-to-top';
         backToTop.className = 'back-to-top';
         backToTop.textContent = '↑';
-        backToTop.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #e81818ff;
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        `;
         
         // 添加到页面
         document.body.appendChild(mapButton);
@@ -307,29 +277,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('scroll', handleScroll);
     
-    // 异步加载剩余分类
     function asyncLoadRemainingCategories() {
-        // 从第二个分类开始加载
         for (let i = 1; i < allMainCategories.length; i++) {
-            // 使用setTimeout实现异步加载，每个分类之间有延迟
             setTimeout(() => {
                 if (i <= allMainCategories.length - 1) {
                     generateMainCategorySection(allMainCategories[i]);
                     currentLoadedIndex = i;
                     
-                    // 更新加载进度
                     updateLoadingProgress();
                 }
-            }, i * 300); // 每个分类加载间隔300ms
+            }, i * 200);
         }
     }
     
-    // 初始化时只加载第一个分类，然后异步加载其他分类
-    // 第一个分类会在generateBrandSections中加载
-    // 启动异步加载剩余分类
     setTimeout(() => {
         asyncLoadRemainingCategories();
-    }, 500); // 页面初始化后500ms开始异步加载
+    }, 300);
     
     // 生成分类导航
     function generateCategories() {
@@ -536,79 +499,64 @@ document.addEventListener('DOMContentLoaded', function() {
         const brandLogo = document.createElement('div');
         brandLogo.className = 'brand-logo';
         
-        // 尝试创建img元素加载logo
-        const logoImg = document.createElement('img');
-        logoImg.alt = `${brand.name} logo`;
-        logoImg.style.maxWidth = '100%';
-        logoImg.style.maxHeight = '100%';
-        
-        // 添加懒加载属性
-        logoImg.loading = 'lazy';
-        
-        // 图片加载成功事件
-        logoImg.onload = function() {
-            brandLogo.textContent = ''; // 清空首字母
-            brandLogo.appendChild(logoImg);
-        };
-        
-        // 图片加载失败事件（回退到首字母）
-        logoImg.onerror = function() {
-            brandLogo.textContent = brand.name.charAt(0);
-        };
-        
-        // 如果有logo路径，设置图片src（支持懒加载）
         if (brand.logo) {
-            // 使用Intersection Observer实现兼容性更好的懒加载
+            const logoImg = document.createElement('img');
+            logoImg.alt = `${brand.name} logo`;
+            logoImg.style.maxWidth = '100%';
+            logoImg.style.maxHeight = '100%';
+            logoImg.loading = 'lazy';
+            
+            logoImg.onload = function() {
+                brandLogo.textContent = '';
+                brandLogo.appendChild(logoImg);
+            };
+            
+            logoImg.onerror = function() {
+                brandLogo.textContent = brand.name.charAt(0);
+            };
+            
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            logoImg.src = brand.logo;
+                            logoImg.src = getLogoPath(brand.logo);
                             observer.unobserve(logoImg);
                         }
                     });
                 }, {
-                    rootMargin: '100px', // 提前100px开始加载
+                    rootMargin: '100px',
                     threshold: 0.1
                 });
                 
-                // 先添加图片到DOM，再开始观察
                 brandLogo.appendChild(logoImg);
                 observer.observe(logoImg);
             } else {
-                // 浏览器不支持Intersection Observer，直接加载
-                logoImg.src = brand.logo;
+                logoImg.src = getLogoPath(brand.logo);
                 brandLogo.appendChild(logoImg);
             }
         } else {
-            // 没有logo时显示首字母
             brandLogo.textContent = brand.name.charAt(0);
         }
         
-        // 创建品牌名称容器
         const brandNameContainer = document.createElement('div');
-        brandNameContainer.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+        brandNameContainer.className = 'brand-name-container';
         
         const brandName = document.createElement('h3');
         brandName.className = 'brand-name';
         brandName.textContent = brand.name;
         
-        // 创建复制按钮
         const copyBtn = document.createElement('button');
         copyBtn.className = 'copy-btn';
         copyBtn.textContent = '复制';
         copyBtn.title = '点击复制品牌名称';
-        copyBtn.style.cssText = 'border: 1px solid #ddd; background: #fff; color: #666; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; transition: all 0.3s;';
         copyBtn.onclick = function(e) {
             e.stopPropagation();
             navigator.clipboard.writeText(brand.name).then(function() {
                 copyBtn.textContent = '已复制';
-                copyBtn.style.color = '#2ecc71';
-                copyBtn.style.borderColor = '#2ecc71';
+                copyBtn.classList.add('copied');
                 setTimeout(function() {
                     copyBtn.textContent = '复制';
-                    copyBtn.style.color = '#666';
-                    copyBtn.style.borderColor = '#ddd';
+                    copyBtn.classList.remove('copied');
                 }, 2000);
             }).catch(function() {
                 alert('复制失败，请手动复制');
@@ -616,14 +564,14 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         copyBtn.onmouseenter = function() {
             if (copyBtn.textContent === '复制') {
-                copyBtn.style.borderColor = '#999';
-                copyBtn.style.color = '#333';
+                copyBtn.style.background = 'rgba(230, 0, 18, 0.1)';
+                copyBtn.style.borderColor = 'rgba(230, 0, 18, 0.3)';
             }
         };
         copyBtn.onmouseleave = function() {
             if (copyBtn.textContent === '复制') {
-                copyBtn.style.borderColor = '#ddd';
-                copyBtn.style.color = '#666';
+                copyBtn.style.background = '';
+                copyBtn.style.borderColor = '';
             }
         };
         
@@ -649,113 +597,14 @@ document.addEventListener('DOMContentLoaded', function() {
         brandContent1.appendChild(brandLogo);
         brandContent1.appendChild(brandContent1Right);
         
-        // 创建brandcontent2（下半部分）
         const brandContent2 = document.createElement('div');
         brandContent2.className = 'brand-content2';
         
-        // 添加商品信息（如果有）
-        if (brand.products && brand.products.length > 0) {
-            const productsContainer = document.createElement('div');
-            productsContainer.className = 'brand-products';
-            
-            // 添加品牌口碑 - 移到商品标题前面
-                const brandReputation = document.createElement('p');
-                brandReputation.className = 'brand-reputation';
-                brandReputation.textContent = brand.reputation || '暂无口碑信息';
-                productsContainer.appendChild(brandReputation);
-                
-                // 添加核心优势（如果有）
-                if (brand.advantages && brand.advantages.length > 0) {
-                    const advantagesTitle = document.createElement('h4');
-                    advantagesTitle.className = 'products-title';
-                    advantagesTitle.textContent = '核心优势：';
-                    productsContainer.appendChild(advantagesTitle);
-                    
-                    const advantagesList = document.createElement('ul');
-                    advantagesList.className = 'advantages-list';
-                    
-                    brand.advantages.forEach(advantage => {
-                        const advantageItem = document.createElement('li');
-                        advantageItem.className = 'advantage-item';
-                        advantageItem.textContent = advantage;
-                        advantagesList.appendChild(advantageItem);
-                    });
-                    
-                    productsContainer.appendChild(advantagesList);
-                }
-                
-                const productsTitle = document.createElement('h4');
-                productsTitle.className = 'products-title';
-                productsTitle.textContent = '热销商品：';
-                productsContainer.appendChild(productsTitle);
-            
-            const productsList = document.createElement('ul');
-            productsList.className = 'products-list';
-            
-            brand.products.forEach(product => {
-                const productItem = document.createElement('li');
-                productItem.className = 'product-item';
-                
-                // 创建商品基本信息容器
-                const productBasicInfo = document.createElement('div');
-                productBasicInfo.className = 'product-basic-info';
-                
-                const productName = document.createElement('span');
-                productName.className = 'product-name';
-                productName.textContent = product.name;
-                
-                const productSpec = document.createElement('span');
-                productSpec.className = 'product-spec';
-                productSpec.textContent = product.spec;
-                
-                const productPrice = document.createElement('span');
-                productPrice.className = 'product-price';
-                productPrice.textContent = product.price;
-                
-                productBasicInfo.appendChild(productName);
-                productBasicInfo.appendChild(productSpec);
-                productBasicInfo.appendChild(productPrice);
-                
-                const productFeature = document.createElement('span');
-                productFeature.className = 'product-feature';
-                productFeature.textContent = product.feature;
-                
-                productItem.appendChild(productBasicInfo);
-                productItem.appendChild(productFeature);
-                productsList.appendChild(productItem);
-            });
-            
-            productsContainer.appendChild(productsList);
-            brandContent2.appendChild(productsContainer);
-        } else {
-            // 如果没有商品，仍然显示品牌口碑
-            const brandReputation = document.createElement('p');
-            brandReputation.className = 'brand-reputation';
-            brandReputation.textContent = brand.reputation || '暂无口碑信息';
-            brandContent2.appendChild(brandReputation);
-            
-            // 添加核心优势（如果有）
-            if (brand.advantages && brand.advantages.length > 0) {
-                const advantagesTitle = document.createElement('h4');
-                advantagesTitle.className = 'products-title';
-                advantagesTitle.textContent = '核心优势：';
-                brandContent2.appendChild(advantagesTitle);
-                
-                const advantagesList = document.createElement('ul');
-                advantagesList.className = 'advantages-list';
-                
-                brand.advantages.forEach(advantage => {
-                    const advantageItem = document.createElement('li');
-                    advantageItem.className = 'advantage-item';
-                    advantageItem.textContent = advantage;
-                    advantagesList.appendChild(advantageItem);
-                });
-                
-                brandContent2.appendChild(advantagesList);
-            }
-        }
+        const brandReputation = document.createElement('p');
+        brandReputation.className = 'brand-reputation';
+        brandReputation.textContent = brand.reputation || '暂无口碑信息';
+        brandContent2.appendChild(brandReputation);
         
-        // 添加详情按钮
         const detailsBtn = document.createElement('button');
         detailsBtn.className = 'details-btn';
         detailsBtn.textContent = '详情';
@@ -764,7 +613,6 @@ document.addEventListener('DOMContentLoaded', function() {
             showBrandCardModal(brand);
         };
         
-        // 将详情按钮添加到brandContent2
         brandContent2.appendChild(detailsBtn);
         
         // 点击卡片显示弹窗
@@ -1027,6 +875,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 标记该主分类已加载
         loadedCategories.add(mainCategory);
+        
+        // 更新加载进度
+        updateLoadingProgress();
     
         // 为新加载的部分添加进入动画
         section.style.opacity = '0';
@@ -1112,9 +963,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const brandLogo = document.createElement('div');
                                 brandLogo.className = 'brand-logo';
                                 
-                                // 尝试创建img元素加载logo
                                 const logoImg = document.createElement('img');
-                                logoImg.src = brand.logo || '';
+                                logoImg.src = getLogoPath(brand.logo);
                                 logoImg.alt = `${brand.name} logo`;
                                 logoImg.style.maxWidth = '100%';
                                 logoImg.style.maxHeight = '100%';
@@ -1369,7 +1219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         brandLogo.className = 'brand-logo';
         
         const logoImg = document.createElement('img');
-        logoImg.src = brand.logo || '';
+        logoImg.src = getLogoPath(brand.logo);
         logoImg.alt = brand.name + ' logo';
         logoImg.style.maxWidth = '100%';
         logoImg.style.maxHeight = '100%';
@@ -1391,30 +1241,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const brandContent1Right = document.createElement('div');
         brandContent1Right.className = 'brand-content1-right';
         
-        // 创建品牌名称容器
         const brandNameContainer = document.createElement('div');
-        brandNameContainer.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+        brandNameContainer.className = 'brand-name-container';
         
         const brandName = document.createElement('h3');
         brandName.className = 'brand-name';
         brandName.textContent = brand.name;
         
-        // 创建复制按钮
         const copyBtn = document.createElement('button');
         copyBtn.className = 'copy-btn';
         copyBtn.textContent = '复制';
         copyBtn.title = '点击复制品牌名称';
-        copyBtn.style.cssText = 'border: 1px solid #ddd; background: #fff; color: #666; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; transition: all 0.3s;';
         copyBtn.onclick = function(e) {
             e.stopPropagation();
             navigator.clipboard.writeText(brand.name).then(function() {
                 copyBtn.textContent = '已复制';
-                copyBtn.style.color = '#2ecc71';
-                copyBtn.style.borderColor = '#2ecc71';
+                copyBtn.classList.add('copied');
                 setTimeout(function() {
                     copyBtn.textContent = '复制';
-                    copyBtn.style.color = '#666';
-                    copyBtn.style.borderColor = '#ddd';
+                    copyBtn.classList.remove('copied');
                 }, 2000);
             }).catch(function() {
                 alert('复制失败，请手动复制');
@@ -1422,14 +1267,14 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         copyBtn.onmouseenter = function() {
             if (copyBtn.textContent === '复制') {
-                copyBtn.style.borderColor = '#999';
-                copyBtn.style.color = '#333';
+                copyBtn.style.background = 'rgba(230, 0, 18, 0.1)';
+                copyBtn.style.borderColor = 'rgba(230, 0, 18, 0.3)';
             }
         };
         copyBtn.onmouseleave = function() {
             if (copyBtn.textContent === '复制') {
-                copyBtn.style.borderColor = '#ddd';
-                copyBtn.style.color = '#666';
+                copyBtn.style.background = '';
+                copyBtn.style.borderColor = '';
             }
         };
         
@@ -1455,19 +1300,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const brandContent2 = document.createElement('div');
         brandContent2.className = 'brand-content2';
         
-        // 添加品牌描述
         if (brand.description) {
             const desc = document.createElement('p');
-            desc.style.cssText = 'font-size: 14px; color: #666; margin-bottom: 10px; line-height: 1.6; padding: 10px 0; border-top: 1px solid #e9ecef;';
-            desc.textContent = brand.description;
+            desc.className = 'brand-description';
+            desc.innerHTML = '<strong>品牌特色：</strong>' + brand.description;
             brandContent2.appendChild(desc);
         }
         
-        // 添加品牌口碑
         if (brand.reputation) {
             const reputation = document.createElement('p');
             reputation.className = 'brand-reputation';
-            reputation.textContent = brand.reputation;
+            reputation.innerHTML = '<strong>口碑：</strong>' + brand.reputation;
             brandContent2.appendChild(reputation);
         }
         
@@ -1539,9 +1382,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // 组装弹窗
         modalBody.appendChild(brandContent1);
         modalBody.appendChild(brandContent2);
-        modalContent.appendChild(closeBtn);
         modalContent.appendChild(modalBody);
         modal.appendChild(modalContent);
+        modal.appendChild(closeBtn);
         
         // 添加到页面
         document.body.appendChild(modal);
@@ -1599,9 +1442,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const brandLogo = document.createElement('div');
         brandLogo.className = 'brand-detail-logo';
         
-        // 尝试加载logo图片
         const logoImg = document.createElement('img');
-        logoImg.src = brand.logo || '';
+        logoImg.src = getLogoPath(brand.logo);
         logoImg.alt = brand.name + ' logo';
         logoImg.style.maxWidth = '100%';
         logoImg.style.maxHeight = '100%';

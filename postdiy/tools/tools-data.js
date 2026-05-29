@@ -77,7 +77,7 @@ window.toolsData = {
       shortTitle: '国货品牌',
       subtitle: '国货品牌导航，高性价比口碑老牌放心使用',
       tags: ['购物', '品牌', '国货'],
-      link: 'cnbrand/index.html',
+      link: 'cnbrand/',
       category: 'shopping',
       external: false
     },
