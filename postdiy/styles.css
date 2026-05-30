@@ -4923,14 +4923,14 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding: 0px 0 10px;
+  padding: 0px 0 5px;
   scrollbar-width: thin;
-  scrollbar-color: #f1f1f1 transparent;
+  scrollbar-color: #f1f1f187 transparent;
 }
 
 /* éšè—æ»šåŠ¨æ¡ä½†ä¿æŒæ»šåŠ¨åŠŸèƒ½ */
 .modal-months-grid::-webkit-scrollbar {
-  height: 6px;
+  height: 3px;
 }
 
 .modal-months-grid::-webkit-scrollbar-track {
@@ -4956,7 +4956,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   overflow-y: hidden;
   padding-bottom: 0.1rem;
   scrollbar-width: thin;
-  scrollbar-color: rgb(181 181 181 / 20%) transparent;
+  scrollbar-color: rgb(181 181 181 / 10%) transparent;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -5095,7 +5095,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 /* æ»šåŠ¨æ¡ä¼˜åŒ– */
 ::-webkit-scrollbar {
   width: 6px;
-  height: 6px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {
