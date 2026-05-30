@@ -4578,6 +4578,11 @@ const ThumbnailLoader = {
       buttonsToKeepVisible.push(elements.nextTemplateBtn);
     }
     
+    // 添加更换模板按钮到保持可见列表（始终可见）
+    if (elements.changeTemplateBtn) {
+      buttonsToKeepVisible.push(elements.changeTemplateBtn);
+    }
+    
     // 如果贴纸按钮应该可见，也添加到保持可见列表
     if (shouldShowStickerBtn && elements.stickerBtn) {
       buttonsToKeepVisible.push(elements.stickerBtn);

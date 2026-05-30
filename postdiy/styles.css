@@ -1674,7 +1674,7 @@ footer {
 #prevTemplateBtn span{font-size: 17px; transform: scaleX(-1);   }
 
 /* æ¨¡æ¿åˆ‡æ¢æŒ‰é’® - æ”¾åœ¨å·¦å³ä¸¤è¾¹ï¼Œå±…ä¸­åä¸Š10% */
-#prevTemplateBtn, #nextTemplateBtn {
+#prevTemplateBtn, #nextTemplateBtn, #changeTemplateBtn{
   position: fixed;
   bottom: 5px;
   color: #9f9f9f;
@@ -1702,7 +1702,11 @@ footer {
 #nextTemplateBtn {
   right: 20%;
 }
-
+ #changeTemplateBtn{
+  left: 40%;color: #000;
+}
+#editBusinessInfoBtn{display: none;
+}
 #prevTemplateBtn.hidden, #nextTemplateBtn.hidden {
   opacity: 0;
   pointer-events: none;
