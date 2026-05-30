@@ -1,12 +1,13 @@
 // 使用全局变量brandData（在HTML中先加载brandData.js）
 
-// 将相对路径转换为绝对路径
+// 将相对路径转换为相对于当前页面的路径
 function getLogoPath(logoPath) {
     if (!logoPath) return '';
     if (logoPath.startsWith('/') || logoPath.startsWith('http')) {
         return logoPath;
     }
-    return '/tools/cnbrand/' + logoPath;
+    // 使用相对路径，确保无论文件夹复制到哪里都能正常工作
+    return './' + logoPath;
 }
 
 function hideLoadingPage() {
