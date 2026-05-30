@@ -1676,16 +1676,18 @@ footer {
 /* æ¨¡æ¿åˆ‡æ¢æŒ‰é’® - æ”¾åœ¨å·¦å³ä¸¤è¾¹ï¼Œå±…ä¸­åä¸Š10% */
 #prevTemplateBtn, #nextTemplateBtn {
   position: fixed;
-  top: 35vh;
+  bottom: 5px;
   color: #9f9f9f;
   /* background: #ffffffb3; */
   z-index: 100;
   text-shadow: 0px 1px 2px #ffffff1c;
-  width: 25px;
+  width: 69px;
   border: 1px solid #ffffff1c;
-  height: 43px;
+  height: 9px;
+  min-height: 28px;
   border-radius: 14%;
   display: flex;
+  padding: 4px 10px;
   align-items: center;
   justify-content: center;
   background-color: rgb(255 255 255 / 18%);
@@ -1694,11 +1696,11 @@ footer {
 }
 
 #prevTemplateBtn {
-  left: 0;
+  left: 20%;
 }
 
 #nextTemplateBtn {
-  right: 0px;
+  right: 20%;
 }
 
 #prevTemplateBtn.hidden, #nextTemplateBtn.hidden {
@@ -3924,7 +3926,7 @@ button#closeFontColorModalBtn.modal-close {
 .modal-title {
   margin: 0;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 300;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
   white-space: nowrap;
@@ -5017,7 +5019,8 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer; max-height: 140px;
+  cursor: pointer;
+  max-height: 200px;
   transition: all 0.2s ease;
 }
 
@@ -5131,7 +5134,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
     max-height: 77vh;
     border-radius: 16px;
   }
-  .modal .template-thumbnail{ height: 140px;}
+  .modal .template-thumbnail{height: 219px;}
   
   .modal-header,
   .modal-body,
@@ -5148,7 +5151,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   
   /* å°å±å¹•ä¸Šçš„æ¨¡æ¿ç½‘æ ¼è°ƒæ•´ */
   #modalTemplatesGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
   
@@ -5170,7 +5173,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   
   /* å°å±å¹•ä¸Šçš„æ¨¡æ¿ç¼©ç•¥å›¾é«˜åº¦è°ƒæ•´ */
   .template-thumbnail {
-    /* height: 242px; */
+    height: 229px;
   }
 }
 
