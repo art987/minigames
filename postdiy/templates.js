@@ -8821,6 +8821,246 @@ var templates = {
       festivals: ['晚安'],
       description: '美好夜晚晚安主题海报模板',
       type: '日常'
+    },
+    {
+      id: 'wanan-2024-013',
+      name: '晚安梦境',
+      thumbnail: 'images/wanan/thumbnails/13.jpg',
+      image: 'images/wanan/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '梦幻意境晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-014',
+      name: '晚安星辰',
+      thumbnail: 'images/wanan/thumbnails/14.jpg',
+      image: 'images/wanan/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '星辰闪烁晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-015',
+      name: '晚安夜色',
+      thumbnail: 'images/wanan/thumbnails/15.jpg',
+      image: 'images/wanan/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色迷人晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-016',
+      name: '晚安清风',
+      thumbnail: 'images/wanan/thumbnails/16.jpg',
+      image: 'images/wanan/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '清风徐来晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-017',
+      name: '晚安悠然',
+      thumbnail: 'images/wanan/thumbnails/17.jpg',
+      image: 'images/wanan/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '悠然自得晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-018',
+      name: '晚安恬静',
+      thumbnail: 'images/wanan/thumbnails/18.jpg',
+      image: 'images/wanan/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '恬静美好晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-019',
+      name: '晚安惬意',
+      thumbnail: 'images/wanan/thumbnails/19.jpg',
+      image: 'images/wanan/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '惬意舒适晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-020',
+      name: '晚安舒心',
+      thumbnail: 'images/wanan/thumbnails/20.jpg',
+      image: 'images/wanan/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '舒心愉悦晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-021',
+      name: '晚安静好',
+      thumbnail: 'images/wanan/thumbnails/21.jpg',
+      image: 'images/wanan/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '岁月静好晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-022',
+      name: '晚安幽雅',
+      thumbnail: 'images/wanan/thumbnails/22.jpg',
+      image: 'images/wanan/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '幽雅别致晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-023',
+      name: '晚安诗意',
+      thumbnail: 'images/wanan/thumbnails/23.jpg',
+      image: 'images/wanan/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '诗意盎然晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-024',
+      name: '晚安浪漫',
+      thumbnail: 'images/wanan/thumbnails/24.jpg',
+      image: 'images/wanan/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '浪漫唯美晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-025',
+      name: '晚安柔情',
+      thumbnail: 'images/wanan/thumbnails/25.jpg',
+      image: 'images/wanan/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '柔情似水晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-026',
+      name: '晚安静谧',
+      thumbnail: 'images/wanan/thumbnails/26.jpg',
+      image: 'images/wanan/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '静谧安详晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-027',
+      name: '晚安幽静',
+      thumbnail: 'images/wanan/thumbnails/27.jpg',
+      image: 'images/wanan/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '幽静深远晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-028',
+      name: '晚安平和',
+      thumbnail: 'images/wanan/thumbnails/28.jpg',
+      image: 'images/wanan/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '平和安详晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-029',
+      name: '晚安安然',
+      thumbnail: 'images/wanan/thumbnails/29.jpg',
+      image: 'images/wanan/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '安然入睡晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-030',
+      name: '晚安舒坦',
+      thumbnail: 'images/wanan/thumbnails/30.jpg',
+      image: 'images/wanan/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '舒坦自在晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-031',
+      name: '晚安舒适',
+      thumbnail: 'images/wanan/thumbnails/31.jpg',
+      image: 'images/wanan/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '舒适惬意晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-032',
+      name: '晚安静心',
+      thumbnail: 'images/wanan/thumbnails/32.jpg',
+      image: 'images/wanan/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '静心养神晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-033',
+      name: '晚安宁静',
+      thumbnail: 'images/wanan/thumbnails/33.jpg',
+      image: 'images/wanan/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '宁静致远晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-034',
+      name: '晚安安详',
+      thumbnail: 'images/wanan/thumbnails/34.jpg',
+      image: 'images/wanan/34.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '安详宁静晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-035',
+      name: '晚安祥和',
+      thumbnail: 'images/wanan/thumbnails/35.jpg',
+      image: 'images/wanan/35.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '祥和温馨晚安主题海报模板',
+      type: '日常'
+    },
+    {
+      id: 'wanan-2024-036',
+      name: '晚安美满',
+      thumbnail: 'images/wanan/thumbnails/36.jpg',
+      image: 'images/wanan/36.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '美满幸福晚安主题海报模板',
+      type: '日常'
     }
   ]
 };
