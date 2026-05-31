@@ -841,7 +841,7 @@ const brandData = {
       },
       {
         "name": "植护",
-        "logo": "logos/zhihu.jpg",
+        "logo": "logos/zhihu.jfif",
         "description": "主打高性价比，产品线丰富，尤其以\"气垫纸巾\"和\"竹浆本色纸\"为特色。",
         "founded": "2014年",
         "city": "福建福州",
@@ -1105,7 +1105,7 @@ const brandData = {
     "成人护理": [
       {
         "name": "可靠COCO",
-        "logo": "logos/kekao.jpg",
+        "logo": "logos/kekao.svg",
         "description": "中国领先的成人护理品牌，专注于失禁护理领域。",
         "founded": "2001年",
         "city": "浙江杭州",
@@ -1201,7 +1201,7 @@ const brandData = {
       },
       {
         "name": "得伴Depend",
-        "logo": "logos/depend.jpg",
+        "logo": "logos/deban.jpg",
         "description": "全球知名成人失禁护理品牌，提供高品质护理产品。",
         "founded": "1960年",
         "city": "美国",
@@ -1487,7 +1487,7 @@ const brandData = {
       },
       {
         "name": "至本",
-        "logo": "logos/zb.jpg",
+        "logo": "logos/zhiben.jpg",
         "description": "专注于敏感肌肤护理的国产护肤品牌，以科学配方著称。",
         "founded": "2012年",
         "city": "上海",
@@ -1653,7 +1653,7 @@ const brandData = {
       "乳霜": [
       {
         "name": "相宜本草",
-        "logo": "logos/xianyi.jpg",
+        "logo": "logos/xianyibencao.jpg",
         "description": "专注于天然草本护肤的国货品牌，将中医理论与现代科技相结合。",
         "founded": "2000年",
         "city": "上海",
@@ -2023,7 +2023,7 @@ const brandData = {
       },
       {
         "name": "真丽斯",
-        "logo": "logos/zenliss.jpg",
+        "logo": "logos/zhenlisi.jpg",
         "description": "国民老牌，极致性价比的护肤品牌，成分简单纯粹。",
         "founded": "1998年",
         "city": "广东广州",
@@ -2132,7 +2132,7 @@ const brandData = {
       },
       {
         "name": "玉泽",
-        "logo": "logos/yuzer.jpg",
+        "logo": "logos/yuze.jpg",
         "description": "专注屏障修护的国产品牌，产品温和安全。",
         "founded": "2009年",
         "city": "上海",
@@ -2401,7 +2401,7 @@ const brandData = {
       },
       {
         "name": "foreverkey",
-        "logo": "logos/foreverkey.jpg",
+        "logo": "logos/forever.jpg",
         "description": "上海知名彩妆品牌。",
         "founded": "2018年",
         "city": "上海",
@@ -2611,7 +2611,7 @@ const brandData = {
     "手护": [
       {
         "name": "隆力奇",
-        "logo": "",
+        "logo": "logos/longliqi.jpg",
         "description": "以蛇油系列产品闻名的国货老品牌，专注于个人护理和健康产品。",
         "founded": "1986年",
         "city": "江苏常熟",
@@ -2652,7 +2652,7 @@ const brandData = {
     "牛奶": [
       {
         "name": "山花",
-        "logo": "",
+        "logo": "logos/shanhua.jpg",
         "description": "贵州知名乳制品品牌。",
         "founded": "1956年",
         "city": "贵州贵阳",
@@ -2680,7 +2680,7 @@ const brandData = {
       },
       {
         "name": "天友",
-        "logo": "",
+        "logo": "logos/tianyou.jpg",
         "description": "重庆知名乳制品品牌。",
         "founded": "1931年",
         "city": "重庆",
@@ -2714,7 +2714,7 @@ const brandData = {
       },
       {
         "name": "天润",
-        "logo": "",
+        "logo": "logos/tianrun.jpg",
         "description": "新疆知名乳制品品牌。",
         "founded": "1983年",
         "city": "新疆乌鲁木齐",
@@ -2742,7 +2742,7 @@ const brandData = {
       },
       {
         "name": "欧亚",
-        "logo": "",
+        "logo": "logos/ouya.jpg",
         "description": "云南知名乳制品品牌。",
         "founded": "1992年",
         "city": "云南大理",
@@ -2776,7 +2776,7 @@ const brandData = {
       },
       {
         "name": "辉山",
-        "logo": "",
+        "logo": "logos/huishan.jpg",
         "description": "辽宁知名乳制品品牌。",
         "founded": "1951年",
         "city": "辽宁沈阳",
@@ -2804,7 +2804,7 @@ const brandData = {
       },
       {
         "name": "菊乐",
-        "logo": "",
+        "logo": "logos/jule.jpg",
         "description": "四川知名乳制品品牌。",
         "founded": "1985年",
         "city": "四川成都",
@@ -2832,7 +2832,7 @@ const brandData = {
       },
       {
         "name": "银桥",
-        "logo": "",
+        "logo": "logos/yinqiao.jpg",
         "description": "陕西知名乳制品品牌。",
         "founded": "1978年",
         "city": "陕西西安",
@@ -2866,7 +2866,7 @@ const brandData = {
       },
       {
         "name": "皇氏",
-        "logo": "",
+        "logo": "logos/huangshi.jpg",
         "description": "广西知名乳制品品牌。",
         "founded": "2001年",
         "city": "广西南宁",
@@ -3021,7 +3021,7 @@ const brandData = {
       },
       {
         "name": "新希望",
-        "logo": "logos/xinxiwang.jpg",
+        "logo": "logos/newhope.jpg",
         "description": "四川知名乳制品品牌。",
         "founded": "1982年",
         "city": "四川成都",
@@ -3161,7 +3161,7 @@ const brandData = {
       },
       {
         "name": "海河",
-        "logo": "logos/milk/haihe.jpg",
+        "logo": "logos/haihe.jpg",
         "description": "天津知名乳制品品牌。",
         "founded": "1957年",
         "city": "天津",
@@ -3191,7 +3191,7 @@ const brandData = {
     "饮料": [
       {
         "name": "汇源",
-        "logo": "",
+        "logo": "logos/huiyuan.jpg",
         "description": "全国知名果汁饮料品牌。",
         "founded": "1992年",
         "city": "北京",
@@ -3225,7 +3225,7 @@ const brandData = {
       },
       {
         "name": "娃哈哈",
-        "logo": "",
+        "logo": "logos/wahaha.jpg",
         "description": "全国知名食品饮料品牌。",
         "founded": "1987年",
         "city": "浙江杭州",
@@ -3259,7 +3259,7 @@ const brandData = {
       },
       {
         "name": "椰树",
-        "logo": "",
+        "logo": "logos/yeshu.jpg",
         "description": "海南特色饮品品牌。",
         "founded": "1956年",
         "city": "海南海口",
@@ -3287,7 +3287,7 @@ const brandData = {
       },
       {
         "name": "冰泉",
-        "logo": "",
+        "logo": "logos/bingquan.jpg",
         "description": "广西特色饮品品牌。",
         "founded": "1956年",
         "city": "广西梧州",
@@ -3315,7 +3315,7 @@ const brandData = {
       },
       {
         "name": "津威",
-        "logo": "",
+        "logo": "logos/jinwei.jpg",
         "description": "广东特色乳酸菌饮品品牌。",
         "founded": "1990年",
         "city": "广东惠州",
@@ -3343,7 +3343,7 @@ const brandData = {
       },
       {
         "name": "天府可乐",
-        "logo": "",
+        "logo": "logos/tianfukele.jpg",
         "description": "重庆特色碳酸饮料品牌。",
         "founded": "1936年",
         "city": "重庆",
@@ -3371,7 +3371,7 @@ const brandData = {
       },
       {
         "name": "崂山可乐",
-        "logo": "",
+        "logo": "logos/laoshan.jpg",
         "description": "山东特色碳酸饮料品牌。",
         "founded": "1956年",
         "city": "山东青岛",
@@ -3399,7 +3399,7 @@ const brandData = {
       },
       {
         "name": "豆本豆",
-        "logo": "",
+        "logo": "logos/doubendou.jpg",
         "description": "植物蛋白饮品品牌。",
         "founded": "2017年",
         "city": "北京",
