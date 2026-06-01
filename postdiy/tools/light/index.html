@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SVG神光卡片系统</title>
+<style>
+body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial}
+#gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px}
+.card{background:#15151d;border:1px solid #333;padding:10px;cursor:pointer;border-radius:10px;text-align:center;transition:transform .2s}
+.card:hover{transform:scale(1.05);border-color:#ffd700}
+.card img{width:100%;height:120px;object-fit:contain;transition:filter .3s}
+.card:hover img{animation:pulse 2s infinite ease-in-out}
+#viewer{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);cursor:pointer}
+#viewer.active{display:flex}
+#effectLayer{position:absolute;z-index:1;width:100%;height:100%;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#svgLayer{position:relative;z-index:2;width:400px;height:400px;display:flex;align-items:center;justify-content:center}
+#svgLayer svg{width:100%;height:100%}
+.light-rays{position:absolute;width:600px;height:600px;border-radius:50%;
+background:repeating-conic-gradient(rgba(255,215,0,.9) 0deg,rgba(255,215,0,.2) 2deg,transparent 6deg);
+filter:blur(6px);animation:rot 20s linear infinite}
+@keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.glow{filter:drop-shadow(0 0 20px #ffd700) drop-shadow(0 0 40px #ffcc55) drop-shadow(0 0 60px #ff9933)}
+.pulse-glow{animation:pulse 2s infinite ease-in-out}
+@keyframes pulse{
+0%{filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
+50%{filter:drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 40px #ffd700)}
+100%{filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
+}
+.particle{position:absolute;width:4px;height:4px;background:#ffd86a;border-radius:50%;box-shadow:0 0 10px #ffd86a;pointer-events:none}
+.close-hint{position:fixed;top:20px;right:20px;color:#fff;font-size:14px;opacity:.7;z-index:10}
+</style>
+</head>
+<body>
+
+<div id="gallery"></div>
+
+<div id="viewer">
+<div class="close-hint">点击任意位置关闭</div>
+<div id="effectLayer"></div>
+<div id="svgLayer"></div>
+</div>
+
+<script src="config/effects.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

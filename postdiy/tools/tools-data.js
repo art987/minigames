@@ -78,7 +78,7 @@ window.toolsData = {
       subtitle: '国货品牌导航，高性价比口碑老牌放心使用',
       tags: ['购物', '品牌', '国货'],
       link: 'cnbrand/',
-      category: 'shopping',
+      category: 'life',
       external: false
     },
     {
@@ -91,6 +91,17 @@ window.toolsData = {
       subtitle: '紧急求助、政务咨询、消费者维权、法律援助等',
       tags: ['热线', '电话', '便民'],
       link: 'gonggong-rexian/index.html',
+      category: 'life'
+    },
+    {
+      id: 6,
+      icon: '✨',
+      iconBg: '#FFD700',
+      title: 'SVG神光卡片系统',
+      shortTitle: '神光卡片',
+      subtitle: 'SVG图形动态光效展示，支持脉冲发光、放射圣光、粒子特效',
+      tags: ['SVG', '光效', '动画'],
+      link: 'light/index.html',
       category: 'life'
     },
     
