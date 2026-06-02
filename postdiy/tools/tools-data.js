@@ -130,6 +130,7 @@ window.toolsData = {
       link: 'music/yangsheng.html',
       category: 'music'
     },
+     
     {
       id: 15,
       icon: '🎵',
@@ -188,6 +189,18 @@ window.toolsData = {
       subtitle: '羽音属水入肾经，滋肾养精益肾固本，精选12首经典曲目',
       tags: ['音乐', '养生', '羽音'],
       link: 'music/yuyin.html',
+      category: 'music'
+    },
+    {
+      id: 20,
+      icon: '🎹',
+      iconBg: '#FFD700',
+      iconBgImage: 'music/img/beethoven/02-moonlight.svg',
+      title: '贝多芬经典钢琴合集',
+      shortTitle: '贝多芬钢琴',
+      subtitle: '贝多芬12首传世钢琴名作，《致爱丽丝》《月光奏鸣曲》《悲怆》《热情》等',
+      tags: ['音乐', '古典', '钢琴', '贝多芬'],
+      link: 'music/beethoven.html',
       category: 'music'
     },
     {

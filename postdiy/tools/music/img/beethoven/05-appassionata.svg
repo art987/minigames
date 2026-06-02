@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="bg5" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#ff4500"/>
+      <stop offset="40%" stop-color="#dc143c"/>
+      <stop offset="100%" stop-color="#1a0000"/>
+    </radialGradient>
+    <radialGradient id="fire5" cx="50%" cy="60%">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#ff4500" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#bg5)"/>
+  <ellipse cx="250" cy="350" rx="300" ry="180" fill="url(#fire5)"/>
+  <g transform="translate(250 200)">
+    <path d="M -100 0 Q -50 -80 0 0 Q 50 -100 100 0" stroke="#ffd700" stroke-width="4" fill="none" opacity="0.8"/>
+    <path d="M -80 30 Q -40 -50 0 30 Q 40 -70 80 30" stroke="#ff8c00" stroke-width="3" fill="none" opacity="0.7"/>
+    <path d="M -60 60 Q -30 -20 0 60 Q 30 -40 60 60" stroke="#ff4500" stroke-width="2" fill="none" opacity="0.6"/>
+  </g>
+  <g transform="translate(250 200)" opacity="0.9">
+    <text text-anchor="middle" font-family="serif" font-size="80" fill="#ffd700">♪</text>
+  </g>
+  <text x="250" y="320" text-anchor="middle" font-family="serif" font-size="48" fill="#fff" font-weight="bold">热情奏鸣曲</text>
+  <text x="250" y="355" text-anchor="middle" font-family="serif" font-size="20" fill="#ffd700" font-style="italic">Appassionata Sonata</text>
+  <text x="250" y="440" text-anchor="middle" font-family="serif" font-size="18" fill="#fff">贝多芬钢琴作品</text>
+  <text x="250" y="470" text-anchor="middle" font-family="serif" font-size="14" fill="#ffd700">Op.57 · 1805</text>
+</svg>

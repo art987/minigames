@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bg12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2027"/>
+      <stop offset="50%" stop-color="#203a43"/>
+      <stop offset="100%" stop-color="#2c5364"/>
+    </linearGradient>
+    <radialGradient id="flame12" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#ff6b35"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#bg12)"/>
+  <g transform="translate(250 220)">
+    <ellipse cx="0" cy="0" rx="60" ry="100" fill="url(#flame12)" opacity="0.7"/>
+    <path d="M 0 -80 Q -30 -40 -20 0 Q -30 30 0 60 Q 30 30 20 0 Q 30 -40 0 -80" fill="#ff6b35" opacity="0.8"/>
+    <path d="M 0 -60 Q -15 -20 -10 20 Q -15 40 0 50 Q 15 40 10 20 Q 15 -20 0 -60" fill="#ffd700" opacity="0.9"/>
+  </g>
+  <g transform="translate(250 200)">
+    <g fill="#fff" opacity="0.4">
+      <path d="M -100 0 L -80 -30 L -60 0 L -40 -50 L -20 0 L 0 -70 L 20 0 L 40 -50 L 60 0 L 80 -30 L 100 0"/>
+    </g>
+  </g>
+  <text x="250" y="370" text-anchor="middle" font-family="serif" font-size="40" fill="#ffd700" font-weight="bold">普罗姆修斯变奏曲</text>
+  <text x="250" y="400" text-anchor="middle" font-family="serif" font-size="16" fill="#ff6b35" font-style="italic">Eroica Variations</text>
+  <text x="250" y="440" text-anchor="middle" font-family="serif" font-size="18" fill="#fff">贝多芬钢琴作品</text>
+  <text x="250" y="470" text-anchor="middle" font-family="serif" font-size="14" fill="#ff6b35">Op.35 · 1802</text>
+</svg>

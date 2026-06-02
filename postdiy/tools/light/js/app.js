@@ -105,7 +105,6 @@ html+='<div class="category-header">';
 html+='<div class="category-icon">'+catInfo.icon+'</div>';
 html+='<div class="category-info">';
 html+='<h2 class="category-name">'+catInfo.name+'</h2>';
-html+='<p class="category-desc">'+catInfo.desc+'</p>';
 html+='</div>';
 html+='<div class="category-count">'+items.length+' 件</div>';
 html+='</div>';
@@ -123,7 +122,6 @@ html+='<img class="card-img" loading="lazy" src="'+cfg.file+'" alt="'+title+'">'
 html+='</div>';
 html+='<div class="card-info">';
 html+='<h3 class="card-title">'+title+'</h3>';
-html+='<p class="card-subtitle">'+subtitle+'</p>';
 html+='</div>';
 html+='</div>';
 }
@@ -139,20 +137,8 @@ if(id)open(id);
 });
 }
 
-function initStats(){
-var totalEl=document.getElementById('statTotal');
-var catEl=document.getElementById('statCategory');
-var total=Object.keys(svgConfigs).length;
-var catCount=categories?Object.keys(categories).length:0;
-setTimeout(function(){
-animateNumber(totalEl,total,1200);
-animateNumber(catEl,catCount,1000);
-},300);
-}
-
 buildCategoryNav();
 renderGallery();
-initStats();
 
 function open(id){
 if(isOpening)return;

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fuer-elise",
+    "title": "致爱丽丝",
+    "title_en": "Für Elise",
+    "opus": "WoO 59",
+    "year": "1810",
+    "filename": "01-fuer-elise.mp3",
+    "cover": "01-fuer-elise.svg",
+    "description": "贝多芬最为人熟知的钢琴小品之一，旋律温柔而深情。"
+  },
+  {
+    "id": "moonlight",
+    "title": "月光奏鸣曲",
+    "title_en": "Moonlight Sonata",
+    "opus": "Op.27 No.2",
+    "year": "1801",
+    "filename": "02-moonlight.mp3",
+    "cover": "02-moonlight.svg",
+    "description": "升C小调钢琴奏鸣曲，第一乐章宁静而忧郁，被誉为'月光'。"
+  },
+  {
+    "id": "pathetique",
+    "title": "悲怆奏鸣曲",
+    "title_en": "Pathétique Sonata",
+    "opus": "Op.13",
+    "year": "1798",
+    "filename": "03-pathetique.mp3",
+    "cover": "03-pathetique.svg",
+    "description": "C小调钢琴奏鸣曲，贝多芬亲题'悲怆'标题，情感深沉激烈。"
+  },
+  {
+    "id": "pastoral",
+    "title": "田园奏鸣曲",
+    "title_en": "Pastoral Sonata",
+    "opus": "Op.28",
+    "year": "1801",
+    "filename": "04-pastoral.mp3",
+    "cover": "04-pastoral.svg",
+    "description": "D大调钢琴奏鸣曲，旋律清新自然，充满田园气息。"
+  },
+  {
+    "id": "appassionata",
+    "title": "热情奏鸣曲",
+    "title_en": "Appassionata Sonata",
+    "opus": "Op.57",
+    "year": "1805",
+    "filename": "05-appassionata.mp3",
+    "cover": "05-appassionata.svg",
+    "description": "F小调钢琴奏鸣曲，情感热烈奔放，是贝多芬奏鸣曲的巅峰之作。"
+  },
+  {
+    "id": "bagatelles",
+    "title": "巴格泰莱舞曲",
+    "title_en": "Bagatelles",
+    "opus": "Op.119",
+    "year": "1822",
+    "filename": "06-bagatelles.mp3",
+    "cover": "06-bagatelles.svg",
+    "description": "11首钢琴小品集，旋律轻快活泼，是贝多芬晚期的杰作。"
+  },
+  {
+    "id": "minuet",
+    "title": "小步舞曲",
+    "title_en": "Minuet in G",
+    "opus": "WoO 10 No.2",
+    "year": "1795",
+    "filename": "07-minuet.mp3",
+    "cover": "07-minuet.svg",
+    "description": "G大调小步舞曲，优雅而古典。"
+  },
+  {
+    "id": "turkish-march",
+    "title": "土耳其进行曲",
+    "title_en": "Turkish March",
+    "opus": "Op.113",
+    "year": "1811",
+    "filename": "08-turkish-march.mp3",
+    "cover": "08-turkish-march.svg",
+    "description": "戏剧《雅典的废墟》中的配乐，模仿奥斯曼帝国军乐队的风格。"
+  },
+  {
+    "id": "f-minor",
+    "title": "F小调奏鸣曲",
+    "title_en": "Piano Sonata No.1 in F minor",
+    "opus": "Op.2 No.1",
+    "year": "1795",
+    "filename": "09-f-minor.mp3",
+    "cover": "09-f-minor.svg",
+    "description": "贝多芬第一首钢琴奏鸣曲，献给海顿，展现年轻贝多芬的才华。"
+  },
+  {
+    "id": "d-major",
+    "title": "D大调奏鸣曲",
+    "title_en": "Piano Sonata No.7 in D major",
+    "opus": "Op.10 No.3",
+    "year": "1798",
+    "filename": "10-d-major.mp3",
+    "cover": "10-d-major.svg",
+    "description": "D大调钢琴奏鸣曲，旋律明朗，技巧精湛。"
+  },
+  {
+    "id": "emperor",
+    "title": "皇帝协奏曲（钢琴独奏部分）",
+    "title_en": "Emperor Concerto (Piano Solo)",
+    "opus": "Op.73",
+    "year": "1809",
+    "filename": "11-emperor.mp3",
+    "cover": "11-emperor.svg",
+    "description": "降E大调第五钢琴协奏曲，气势恢宏，雄伟壮丽。"
+  },
+  {
+    "id": "eroica",
+    "title": "普罗姆修斯变奏曲",
+    "title_en": "Eroica Variations",
+    "opus": "Op.35",
+    "year": "1802",
+    "filename": "12-eroica.mp3",
+    "cover": "12-eroica.svg",
+    "description": "15首变奏曲与赋格，主题源于贝多芬自己创作的芭蕾舞剧《普罗姆修斯的创造》。"
+  }
+]

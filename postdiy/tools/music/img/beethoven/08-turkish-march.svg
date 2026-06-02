@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bg8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7e5f"/>
+      <stop offset="50%" stop-color="#feb47b"/>
+      <stop offset="100%" stop-color="#ffd89b"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#bg8)"/>
+  <g opacity="0.3">
+    <path d="M 100 100 L 110 90 L 120 100 L 130 90 L 140 100" stroke="#7d2900" stroke-width="3" fill="none"/>
+    <path d="M 380 80 L 390 70 L 400 80 L 410 70 L 420 80" stroke="#7d2900" stroke-width="3" fill="none"/>
+    <circle cx="80" cy="180" r="20" fill="none" stroke="#7d2900" stroke-width="3"/>
+    <circle cx="420" cy="200" r="20" fill="none" stroke="#7d2900" stroke-width="3"/>
+    <path d="M 100 380 L 130 350 L 160 380" stroke="#7d2900" stroke-width="3" fill="none"/>
+    <path d="M 380 400 L 410 370 L 440 400" stroke="#7d2900" stroke-width="3" fill="none"/>
+  </g>
+  <g transform="translate(250 200)">
+    <g fill="#7d2900" opacity="0.7">
+      <polygon points="-80,0 -60,-20 -40,0 -20,-20 0,0 20,-20 40,0 60,-20 80,0 80,20 60,0 40,20 20,0 0,20 -20,0 -40,20 -60,0 -80,20"/>
+    </g>
+  </g>
+  <g transform="translate(250 240)">
+    <text text-anchor="middle" font-family="serif" font-size="70" fill="#7d2900" opacity="0.6">★</text>
+  </g>
+  <text x="250" y="320" text-anchor="middle" font-family="serif" font-size="42" fill="#7d2900" font-weight="bold">土耳其进行曲</text>
+  <text x="250" y="355" text-anchor="middle" font-family="serif" font-size="18" fill="#a04000" font-style="italic">Turkish March</text>
+  <text x="250" y="440" text-anchor="middle" font-family="serif" font-size="18" fill="#7d2900">贝多芬钢琴作品</text>
+  <text x="250" y="470" text-anchor="middle" font-family="serif" font-size="14" fill="#a04000">Op.113 · 1811</text>
+</svg>

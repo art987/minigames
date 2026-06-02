@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- 主要SEO优化部分 -->
+    <title>贝多芬经典钢琴合集 - 12首传世名作在线欣赏</title>
+    <meta name="description" content="贝多芬12首经典钢琴作品在线欣赏合集，包括《致爱丽丝》《月光奏鸣曲》《悲怆奏鸣曲》《田园奏鸣曲》《热情奏鸣曲》等传世名作，沉浸式古典音乐体验。">
+    <meta name="keywords" content="贝多芬,钢琴曲,古典音乐,致爱丽丝,月光奏鸣曲,悲怆奏鸣曲,田园奏鸣曲,热情奏鸣曲,土耳其进行曲,皇帝协奏曲,普罗姆修斯变奏曲,小步舞曲,F小调奏鸣曲,D大调奏鸣曲,巴格泰莱舞曲">
+    
+    <!-- 开放图谱和Twitter卡片 -->
+    <meta property="og:title" content="贝多芬经典钢琴合集 - 12首传世名作在线欣赏">
+    <meta property="og:description" content="贝多芬12首经典钢琴作品在线欣赏合集，沉浸式古典音乐体验。">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="贝多芬经典钢琴合集 - 12首传世名作在线欣赏">
+    <meta name="twitter:description" content="贝多芬12首经典钢琴作品在线欣赏合集，沉浸式古典音乐体验。">
+    <meta name="twitter:image" content="img/beethoven/02-moonlight.svg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicPlaylist",
+      "name": "贝多芬经典钢琴合集",
+      "description": "贝多芬12首经典钢琴作品在线欣赏合集",
+      "author": {
+        "@type": "Person",
+        "name": "Ludwig van Beethoven"
+      },
+      "image": "img/beethoven/02-moonlight.svg",
+      "numTracks": 12,
+      "genre": "Classical",
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": "beethoven.html"
+      }
+    }
+    </script>
+    
+    <!-- 网站图标 -->
+    <link rel="canonical" href="https://www.peacelove.top//" />
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* 贝多芬页面专属样式 */
+        body {
+            background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #16213e 100%) !important;
+        }
+        .page-title-beethoven {
+            text-align: center;
+            color: #ffd700;
+            font-family: "Times New Roman", "SimSun", serif;
+            font-size: 28px;
+            margin: 30px 20px 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 4px;
+        }
+        .page-subtitle-beethoven {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            margin: 0 20px 20px;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+        .composer-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            margin: 10px 20px 20px;
+            padding: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .composer-info strong {
+            color: #ffd700;
+            font-size: 16px;
+            font-family: "Times New Roman", serif;
+        }
+        .back-home {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            padding: 8px 16px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: #ffd700;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 13px;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        .back-home:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>  
+    <a href="../light/index.html" class="back-home">← 返回</a>
+    
+    <main role="main">
+        <h1 class="page-title-beethoven">🎹 贝多芬经典钢琴合集</h1>
+        <div class="page-subtitle-beethoven">Beethoven's Masterpieces · 12 Piano Works</div>
+        <div class="composer-info">
+            <strong>Ludwig van Beethoven</strong> (1770-1827)<br>
+            德国作曲家 · 维也纳古典乐派代表人物
+        </div>
+        
+        <section aria-label="贝多芬钢琴音乐播放器">
+            <div class="start">
+                <button id="playButton" class="play-button" aria-label="播放/暂停">▸</button>
+            </div>
+
+            <div id="player" itemscope itemtype="https://schema.org/MusicPlaylist">
+                <div class="cover" itemprop="image"></div>
+                <div class="ctrl">
+                    <div class="tag">
+                        <strong itemprop="name">Title</strong>
+                        <span class="artist" itemprop="byArtist">Artist</span>
+                        <span class="album" itemprop="inAlbum"></span>
+                    </div>
+                    <div class="control">
+                        <div class="left">
+                            <div class="rewind icon" aria-label="上一首"></div>
+                            <div class="playback icon" aria-label="播放/暂停"></div>
+                            <div class="fastforward icon" aria-label="下一首"></div>
+                        </div>
+                        <div class="volume right">
+                            <div class="mute icon left" aria-label="静音/取消静音"></div>
+                            <div class="slider left">
+                                <div class="pace"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="slider">
+                            <div class="loaded"></div>
+                            <div class="pace"></div>
+                        </div>
+                        <div class="timer left">0:00</div>
+                        <div class="right">
+                            <div class="repeat icon" aria-label="重复播放"></div>
+                            <div class="shuffle icon" aria-label="随机播放"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="sr-only">贝多芬钢琴作品列表</h2>
+            <ul id="playlist" role="list" aria-label="贝多芬钢琴作品列表"></ul>
+        </section>
+    </main>
+
+    <script src="jquery-1.7.2.min.js"></script>
+    <script src="jquery-ui-1.8.17.custom.min.js"></script>
+    <script src="music-effects.js"></script>
+    <script src="script-beethoven.js"></script>
+</body>
+</html>

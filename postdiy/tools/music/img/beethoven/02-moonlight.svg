@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0c29"/>
+      <stop offset="50%" stop-color="#302b63"/>
+      <stop offset="100%" stop-color="#24243e"/>
+    </linearGradient>
+    <radialGradient id="moon2" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="60%" stop-color="#e0e0ff"/>
+      <stop offset="100%" stop-color="#a0a0d0" stop-opacity="0.3"/>
+    </radialGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#bg2)"/>
+  <g fill="#fff" opacity="0.6">
+    <circle cx="80" cy="80" r="1.5"/>
+    <circle cx="150" cy="50" r="1"/>
+    <circle cx="380" cy="100" r="1.2"/>
+    <circle cx="430" cy="60" r="1.5"/>
+    <circle cx="60" cy="180" r="1"/>
+    <circle cx="450" cy="200" r="1.2"/>
+    <circle cx="100" cy="130" r="1"/>
+    <circle cx="320" cy="40" r="1.5"/>
+  </g>
+  <circle cx="320" cy="180" r="80" fill="url(#moonGlow)"/>
+  <circle cx="320" cy="180" r="50" fill="url(#moon2)"/>
+  <circle cx="305" cy="170" r="8" fill="#a0a0d0" opacity="0.4"/>
+  <circle cx="335" cy="195" r="5" fill="#a0a0d0" opacity="0.3"/>
+  <circle cx="315" cy="195" r="6" fill="#a0a0d0" opacity="0.3"/>
+  <g stroke="#a0a0d0" stroke-width="1" opacity="0.3" fill="none">
+    <line x1="50" y1="380" x2="450" y2="380"/>
+    <path d="M 50 400 Q 150 395 250 400 T 450 400"/>
+    <path d="M 50 420 Q 150 415 250 420 T 450 420"/>
+  </g>
+  <text x="250" y="290" text-anchor="middle" font-family="serif" font-size="46" fill="#e0e0ff" font-weight="bold">月光奏鸣曲</text>
+  <text x="250" y="325" text-anchor="middle" font-family="serif" font-size="20" fill="#a0a0d0" font-style="italic">Moonlight Sonata</text>
+  <text x="250" y="440" text-anchor="middle" font-family="serif" font-size="18" fill="#c0c0e0">贝多芬钢琴作品</text>
+  <text x="250" y="470" text-anchor="middle" font-family="serif" font-size="14" fill="#a0a0d0">Op.27 No.2 · 1801</text>
+</svg>
