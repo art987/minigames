@@ -23,23 +23,136 @@ var currentAudio=null;
 console.log('SVG神光卡片系统初始化');
 
 var configs=Object.entries(svgConfigs);
-for(var idx=0;idx<configs.length;idx++){
-(function(){
-var id=configs[idx][0];
-var cfg=configs[idx][1];
+var currentFilter='all';
 
-var div=document.createElement('div');
-div.className='card';
-div.innerHTML='<img src="'+cfg.file+'"><div>'+id+'</div>';
+function buildCategoryNav(){
+var navInner=document.querySelector('.nav-inner');
+if(!navInner||!categories)return;
 
-div.onclick=function(){
-console.log('点击卡片:'+id);
-open(id);
-};
-
-gallery.appendChild(div);
-})();
+var catArr=Object.values(categories);
+for(var i=0;i<catArr.length;i++){
+var cat=catArr[i];
+var btn=document.createElement('button');
+btn.className='nav-btn';
+btn.setAttribute('data-category',cat.id);
+btn.innerHTML='<span class="nav-icon">'+cat.icon+'</span><span class="nav-name">'+cat.name+'</span>';
+navInner.appendChild(btn);
 }
+
+navInner.addEventListener('click',function(e){
+var btn=e.target.closest('.nav-btn');
+if(!btn)return;
+var cat=btn.getAttribute('data-category');
+currentFilter=cat;
+var allBtns=navInner.querySelectorAll('.nav-btn');
+for(var j=0;j<allBtns.length;j++)allBtns[j].classList.remove('active');
+btn.classList.add('active');
+filterGallery(cat);
+});
+}
+
+function filterGallery(cat){
+var sections=document.querySelectorAll('.category-section');
+for(var i=0;i<sections.length;i++){
+var section=sections[i];
+var sectionCat=section.getAttribute('data-category');
+if(cat==='all'||sectionCat===cat){
+section.style.display='';
+}else{
+section.style.display='none';
+}
+}
+}
+
+function animateNumber(el,target,duration){
+if(!el)return;
+var start=0;
+var startTime=Date.now();
+var tick=function(){
+var elapsed=Date.now()-startTime;
+var progress=Math.min(elapsed/duration,1);
+var eased=1-Math.pow(1-progress,3);
+el.textContent=Math.floor(target*eased);
+if(progress<1)requestAnimationFrame(tick);
+else el.textContent=target;
+};
+requestAnimationFrame(tick);
+}
+
+function renderGallery(){
+var gallery=document.getElementById('gallery');
+if(!gallery||!categories)return;
+
+var grouped={};
+var ids=Object.keys(svgConfigs);
+for(var i=0;i<ids.length;i++){
+var id=ids[i];
+var cfg=svgConfigs[id];
+var cat=cfg.category||'other';
+if(!grouped[cat])grouped[cat]=[];
+grouped[cat].push({id:id,cfg:cfg});
+}
+
+var catIds=Object.keys(categories);
+var html='';
+for(var c=0;c<catIds.length;c++){
+var catId=catIds[c];
+var items=grouped[catId];
+if(!items||!items.length)continue;
+var catInfo=categories[catId];
+html+='<section class="category-section" data-category="'+catId+'">';
+html+='<div class="category-header">';
+html+='<div class="category-icon">'+catInfo.icon+'</div>';
+html+='<div class="category-info">';
+html+='<h2 class="category-name">'+catInfo.name+'</h2>';
+html+='<p class="category-desc">'+catInfo.desc+'</p>';
+html+='</div>';
+html+='<div class="category-count">'+items.length+' 件</div>';
+html+='</div>';
+html+='<div class="cards-grid">';
+for(var k=0;k<items.length;k++){
+var item=items[k];
+var cfg=item.cfg;
+var title=cfg.title||item.id;
+var subtitle=cfg.subtitle||'神光庇佑';
+html+='<div class="card" data-id="'+item.id+'" style="animation-delay:'+(k*0.08)+'s">';
+html+='<div class="card-shine"></div>';
+html+='<div class="card-badge">'+catInfo.name+'</div>';
+html+='<div class="card-img-wrap">';
+html+='<img class="card-img" loading="lazy" src="'+cfg.file+'" alt="'+title+'">';
+html+='</div>';
+html+='<div class="card-info">';
+html+='<h3 class="card-title">'+title+'</h3>';
+html+='<p class="card-subtitle">'+subtitle+'</p>';
+html+='</div>';
+html+='</div>';
+}
+html+='</div></section>';
+}
+gallery.innerHTML=html;
+
+gallery.addEventListener('click',function(e){
+var card=e.target.closest('.card');
+if(!card)return;
+var id=card.getAttribute('data-id');
+if(id)open(id);
+});
+}
+
+function initStats(){
+var totalEl=document.getElementById('statTotal');
+var catEl=document.getElementById('statCategory');
+var total=Object.keys(svgConfigs).length;
+var catCount=categories?Object.keys(categories).length:0;
+setTimeout(function(){
+animateNumber(totalEl,total,1200);
+animateNumber(catEl,catCount,1000);
+},300);
+}
+
+buildCategoryNav();
+renderGallery();
+initStats();
 
 function open(id){
 if(isOpening)return;
