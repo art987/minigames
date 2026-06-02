@@ -16,6 +16,23 @@ lightning:"#fff"
 },
 sound:"assets/s3.mp3"
 },
+dragon:{
+file:"assets/5.svg",
+color:"#be0505ff",
+containerBg:"rgba(255, 252, 67, 0.95)",
+containerBgImage:"",
+category:"shenshou",
+title:"祥瑞神龙",
+subtitle:"中华图腾 · 威严守护",
+effects:["pulseGlow","lightRays","particles","lightning"],
+effectColors:{
+pulseGlow:"#ffa7a4ff",
+lightRays:"#fffc5aff",
+particles:"#d3231dff",
+lightning:"#fff"
+},
+sound:"assets/s3.mp3"
+},
 转运符:{
 file:"assets/4.svg",
 color:"#ffffddff",
