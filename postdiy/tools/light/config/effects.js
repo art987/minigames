@@ -1,7 +1,7 @@
 const svgConfigs = {
 dragon:{
 file:"assets/1.svg",
-color:"#e8e8e4ff",
+color:"#ffffddff",
 background:"rgba(255, 204, 38, 0.95)",
 effects:["pulseGlow","lightRays","particles"],
 effectColors:{
@@ -12,22 +12,22 @@ particles:"#ffe08aff"
 },
 tiger:{
 file:"assets/2.svg",
-color:"#dffb65ff",
-background:"rgba(228, 150, 33, 0.95)",
+color:"#ebffeaff",
+background:"rgba(37, 169, 0, 0.95)",
 effects:["burstRays","pulseGlow"],
 effectColors:{
-burstRays:"#ff6b6b",
-pulseGlow:"#71fb65"
+burstRays:"#f3ff74ff",
+pulseGlow:"#15ff00ff"
 }
 },
 talisman:{
 file:"assets/3.svg",
-color:"#8ffdf4ff",
+color:"#f8fffeff",
 background:"rgba(0, 172, 202, 0.95)",
 effects:["pulseGlow","lightRays"],
 effectColors:{
-pulseGlow:"#e9e770ff",
-lightRays:"#f7f586ff"
+pulseGlow:"#ffffffff",
+lightRays:"#b4fbffff"
 }
 }
 };

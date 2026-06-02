@@ -5,37 +5,29 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SVG神光卡片系统</title>
 <style>
-*{-webkit-tap-highlight-color:transparent}
-body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial;overflow-x:hidden}
-#gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px}
-.card{background:#15151d;border:1px solid #333;padding:10px;cursor:pointer;border-radius:10px;text-align:center;transition:transform .2s;-webkit-transition:-webkit-transform .2s}
-.card:hover{transform:scale(1.05);-webkit-transform:scale(1.05);border-color:#ffd700}
-.card img{width:100%;height:120px;object-fit:contain;transition:filter .3s;-webkit-transition:-webkit-filter .3s}
-.card:hover img{animation:pulse 2s infinite ease-in-out;-webkit-animation:pulse 2s infinite ease-in-out}
-#viewer{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);cursor:pointer;z-index:9999;-webkit-box-align:center;-webkit-box-pack:center}
-#viewer.active{display:-webkit-flex;display:flex}
-#effectLayer{position:absolute;z-index:1;width:100%;height:100%;display:flex;align-items:center;justify-content:center;pointer-events:none;-webkit-box-align:center;-webkit-box-pack:center}
-#svgLayer{position:relative;z-index:2;width:400px;height:400px;display:flex;align-items:center;justify-content:center;-webkit-box-align:center;-webkit-box-pack:center}
+*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+body{margin:0;padding:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
+#gallery{padding:20px}
+.card{display:inline-block;width:23%;margin:1%;background:#15151d;border:1px solid #333;padding:10px;cursor:pointer;border-radius:10px;text-align:center;vertical-align:top}
+.card img{width:100%;height:120px;display:block;margin:0 auto}
+.card div{margin-top:8px}
+#viewer{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;z-index:9999;text-align:center}
+#effectLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+#svgLayer{position:absolute;top:50%;left:50%;width:400px;height:400px;margin-left:-200px;margin-top:-200px;z-index:2}
 #svgLayer svg{width:100%;height:100%}
-.light-rays{position:absolute;width:600px;height:600px;border-radius:50%;
-background:repeating-conic-gradient(rgba(255,215,0,.9) 0deg,rgba(255,215,0,.2) 2deg,transparent 6deg);
-filter:blur(6px);animation:rot 20s linear infinite;-webkit-filter:blur(6px);-webkit-animation:rot 20s linear infinite}
-@keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@-webkit-keyframes rot{from{-webkit-transform:rotate(0)}to{-webkit-transform:rotate(360deg)}}
-.glow{filter:drop-shadow(0 0 20px #ffd700) drop-shadow(0 0 40px #ffcc55) drop-shadow(0 0 60px #ff9933);-webkit-filter:drop-shadow(0 0 20px #ffd700) drop-shadow(0 0 40px #ffcc55) drop-shadow(0 0 60px #ff9933)}
-.pulse-glow{animation:pulse 2s infinite ease-in-out;-webkit-animation:pulse 2s infinite ease-in-out}
+.light-rays{position:absolute;top:50%;left:50%;width:600px;height:600px;margin-left:-300px;margin-top:-300px;border-radius:50%;
+background:repeating-conic-gradient(rgba(255,215,0,0.9) 0deg,rgba(255,215,0,0.2) 2deg,transparent 6deg);
+filter:blur(6px);animation:rot 20s linear infinite}
+@keyframes rot{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.glow{filter:drop-shadow(0 0 20px #ffd700) drop-shadow(0 0 40px #ffcc55) drop-shadow(0 0 60px #ff9933)}
+.pulse-glow{animation:pulse 2s infinite ease-in-out}
 @keyframes pulse{
 0%{filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
 50%{filter:drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 40px #ffd700)}
 100%{filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
 }
-@-webkit-keyframes pulse{
-0%{-webkit-filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
-50%{-webkit-filter:drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 40px #ffd700)}
-100%{-webkit-filter:drop-shadow(0 0 5px #ffd700) drop-shadow(0 0 10px #ffd700)}
-}
-.particle{position:absolute;width:4px;height:4px;background:#ffd86a;border-radius:50%;box-shadow:0 0 10px #ffd86a;pointer-events:none}
-.close-hint{position:fixed;top:20px;right:20px;color:#fff;font-size:14px;opacity:.7;z-index:10000}
+.particle{position:absolute;width:4px;height:4px;background:#ffd86a;border-radius:50%;box-shadow:0 0 10px #ffd86a}
+.close-hint{position:fixed;top:20px;right:20px;color:#fff;font-size:14px;z-index:10000}
 </style>
 </head>
 <body>

@@ -3,87 +3,95 @@ const viewer=document.getElementById('viewer');
 const svgLayer=document.getElementById('svgLayer');
 
 console.log('SVG神光卡片系统初始化');
-console.log('viewer元素:',viewer);
-console.log('svgLayer元素:',svgLayer);
 
 Object.entries(svgConfigs).forEach(([id,cfg])=>{
 const div=document.createElement('div');
 div.className='card';
-div.innerHTML=`<img src="${cfg.file}"><div>${id}</div>`;
-div.onclick=(e)=>{
-e.preventDefault();
-e.stopPropagation();
-console.log('点击卡片:',id);
+div.innerHTML='<img src="'+cfg.file+'"><div>'+id+'</div>';
+
+div.addEventListener('click',function(){
+console.log('点击卡片:'+id);
 open(id);
-};
-div.ontouchend=(e)=>{
+});
+
+div.addEventListener('touchend',function(e){
 e.preventDefault();
-e.stopPropagation();
-console.log('触摸卡片:',id);
+console.log('触摸卡片:'+id);
 open(id);
-};
+});
+
 gallery.appendChild(div);
 });
 
 function open(id){
-console.log('打开SVG:',id);
-console.log('viewer当前display:',window.getComputedStyle(viewer).display);
-viewer.classList.add('active');
-console.log('添加active后display:',window.getComputedStyle(viewer).display);
+console.log('打开SVG:'+id);
+viewer.style.display='block';
+console.log('viewer display:'+viewer.style.display);
+
 clearEffects();
 const cfg=svgConfigs[id];
+
 if(cfg.background){
 viewer.style.background=cfg.background;
 }
-fetch(cfg.file).then(r=>r.text()).then(svg=>{
+
+fetch(cfg.file)
+.then(function(r){return r.text()})
+.then(function(svg){
 svgLayer.innerHTML=svg;
-resetSvgColor(cfg.color || '#ffd700');
-run(cfg.effects,cfg.effectColors || {});
+resetSvgColor(cfg.color||'#ffd700');
+run(cfg.effects,cfg.effectColors||{});
 console.log('SVG加载完成');
-}).catch(err=>{
-console.error('SVG加载失败:',err);
+})
+.catch(function(err){
+console.error('SVG加载失败:'+err);
 });
 }
 
 function resetSvgColor(color){
 const svg=svgLayer.querySelector('svg');
-if(!svg) return;
+if(!svg)return;
 
-svg.querySelectorAll('path,rect,circle,polygon,ellipse,line,polyline').forEach(el=>{
+const elements=svg.querySelectorAll('path,rect,circle,polygon,ellipse,line,polyline');
+for(let i=0;i<elements.length;i++){
+const el=elements[i];
 const fill=el.getAttribute('fill');
 const stroke=el.getAttribute('stroke');
 
-if(fill && fill!=='none'){
+if(fill&&fill!=='none'){
 el.setAttribute('fill',color);
 }
 
-if(stroke && stroke!=='none'){
+if(stroke&&stroke!=='none'){
 el.setAttribute('stroke',color);
 }
 
-if(!fill && !stroke){
+if(!fill&&!stroke){
 el.setAttribute('fill',color);
 }
-});
+}
 }
 
-function run(list,effectColors={}){
-list.forEach(e=>{
-const color=effectColors[e] || '#ffd700';
+function run(list,effectColors){
+if(!effectColors)effectColors={};
+
+for(let i=0;i<list.length;i++){
+const e=list[i];
+const color=effectColors[e]||'#ffd700';
 if(effectEngine[e]){
 effectEngine[e](color);
 }
-});
+}
 }
 
-viewer.onclick=(e)=>{
-console.log('点击viewer关闭');
-viewer.classList.remove('active');
-viewer.style.background='rgba(0,0,0,.9)';
-};
+function closeViewer(){
+console.log('关闭viewer');
+viewer.style.display='none';
+viewer.style.background='rgba(0,0,0,0.9)';
+}
 
-viewer.ontouchend=(e)=>{
-console.log('触摸viewer关闭');
-viewer.classList.remove('active');
-viewer.style.background='rgba(0,0,0,.9)';
-};
+viewer.addEventListener('click',closeViewer);
+viewer.addEventListener('touchend',function(e){
+e.preventDefault();
+closeViewer();
+});
