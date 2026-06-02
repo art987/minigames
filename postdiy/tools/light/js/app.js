@@ -2,34 +2,40 @@ const gallery=document.getElementById('gallery');
 const viewer=document.getElementById('viewer');
 const svgLayer=document.getElementById('svgLayer');
 
+var isOpening=false;
+var lastOpenTime=0;
+
 console.log('SVG神光卡片系统初始化');
 
-Object.entries(svgConfigs).forEach(([id,cfg])=>{
-const div=document.createElement('div');
+var configs=Object.entries(svgConfigs);
+for(var idx=0;idx<configs.length;idx++){
+(function(){
+var id=configs[idx][0];
+var cfg=configs[idx][1];
+
+var div=document.createElement('div');
 div.className='card';
 div.innerHTML='<img src="'+cfg.file+'"><div>'+id+'</div>';
 
-div.addEventListener('click',function(){
+div.onclick=function(){
 console.log('点击卡片:'+id);
 open(id);
-});
-
-div.addEventListener('touchend',function(e){
-e.preventDefault();
-console.log('触摸卡片:'+id);
-open(id);
-});
+};
 
 gallery.appendChild(div);
-});
+})();
+}
 
 function open(id){
+if(isOpening)return;
+isOpening=true;
+lastOpenTime=Date.now();
+
 console.log('打开SVG:'+id);
 viewer.style.display='block';
-console.log('viewer display:'+viewer.style.display);
 
 clearEffects();
-const cfg=svgConfigs[id];
+var cfg=svgConfigs[id];
 
 if(cfg.background){
 viewer.style.background=cfg.background;
@@ -42,21 +48,25 @@ svgLayer.innerHTML=svg;
 resetSvgColor(cfg.color||'#ffd700');
 run(cfg.effects,cfg.effectColors||{});
 console.log('SVG加载完成');
+setTimeout(function(){
+isOpening=false;
+},500);
 })
 .catch(function(err){
 console.error('SVG加载失败:'+err);
+isOpening=false;
 });
 }
 
 function resetSvgColor(color){
-const svg=svgLayer.querySelector('svg');
+var svg=svgLayer.querySelector('svg');
 if(!svg)return;
 
-const elements=svg.querySelectorAll('path,rect,circle,polygon,ellipse,line,polyline');
-for(let i=0;i<elements.length;i++){
-const el=elements[i];
-const fill=el.getAttribute('fill');
-const stroke=el.getAttribute('stroke');
+var elements=svg.querySelectorAll('path,rect,circle,polygon,ellipse,line,polyline');
+for(var i=0;i<elements.length;i++){
+var el=elements[i];
+var fill=el.getAttribute('fill');
+var stroke=el.getAttribute('stroke');
 
 if(fill&&fill!=='none'){
 el.setAttribute('fill',color);
@@ -75,9 +85,9 @@ el.setAttribute('fill',color);
 function run(list,effectColors){
 if(!effectColors)effectColors={};
 
-for(let i=0;i<list.length;i++){
-const e=list[i];
-const color=effectColors[e]||'#ffd700';
+for(var i=0;i<list.length;i++){
+var e=list[i];
+var color=effectColors[e]||'#ffd700';
 if(effectEngine[e]){
 effectEngine[e](color);
 }
@@ -85,13 +95,14 @@ effectEngine[e](color);
 }
 
 function closeViewer(){
+var now=Date.now();
+if(now-lastOpenTime<500){
+console.log('忽略误关闭');
+return;
+}
 console.log('关闭viewer');
 viewer.style.display='none';
 viewer.style.background='rgba(0,0,0,0.9)';
 }
 
-viewer.addEventListener('click',closeViewer);
-viewer.addEventListener('touchend',function(e){
-e.preventDefault();
-closeViewer();
-});
+viewer.onclick=closeViewer;

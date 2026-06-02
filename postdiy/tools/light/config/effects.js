@@ -10,6 +10,17 @@ lightRays:"#fffc5aff",
 particles:"#ffe08aff"
 }
 },
+转运符:{
+file:"assets/4.svg",
+color:"#ffffddff",
+background:"rgba(255, 204, 38, 0.95)",
+effects:["pulseGlow","lightRays","particles"],
+effectColors:{
+pulseGlow:"#ffffffff",
+lightRays:"#fffc5aff",
+particles:"#ffe08aff"
+}
+},
 tiger:{
 file:"assets/2.svg",
 color:"#ebffeaff",
