@@ -204,6 +204,18 @@ window.toolsData = {
       category: 'music'
     },
     {
+      id: 21,
+      icon: '🎷',
+      iconBg: '#8B4513',
+      iconBgImage: 'music/img/saxophone/01-going-home.svg',
+      title: '萨克斯世界名曲专辑',
+      shortTitle: '萨克斯名曲',
+      subtitle: 'Kenny G、传奇乐坊16首萨克斯经典，《回家》《我心永恒》《梁祝》《无心快语》等',
+      tags: ['音乐', '爵士', '萨克斯', 'Kenny G'],
+      link: 'music/saxophone.html',
+      category: 'music'
+    },
+    {
       id: 9,
       icon: '🧮',
       iconBg: '#795548',

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+<defs><linearGradient id="b13" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3d1a2a"/><stop offset="50%" stop-color="#8b4a6a"/><stop offset="100%" stop-color="#db7093"/></linearGradient></defs>
+<rect width="500" height="500" fill="url(#b13)"/>
+<circle cx="250" cy="200" r="160" fill="#fff" opacity="0.12"/>
+<text x="250" y="240" text-anchor="middle" font-size="120" fill="#fff">💋</text>
+<text x="250" y="320" text-anchor="middle" font-family="serif" font-size="40" fill="#fff" font-weight="bold">吻别</text>
+<text x="250" y="350" text-anchor="middle" font-family="serif" font-size="18" fill="rgba(255,255,255,0.85)" font-style="italic">Kiss Goodbye</text>
+<line x1="170" y1="375" x2="330" y2="375" stroke="rgba(255,255,255,0.3)"/>
+<text x="250" y="430" text-anchor="middle" font-family="serif" font-size="20" fill="#fff">萨克斯</text>
+<text x="250" y="465" text-anchor="middle" font-family="serif" font-size="14" fill="rgba(255,255,255,0.7)">张学友经典</text>
+</svg>
