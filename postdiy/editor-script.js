@@ -15049,6 +15049,11 @@ window.textTemplateManager = {
           }
         });
       });
+      
+      // 初始化按钮加载动画
+      if (window.initButtonWrappers) {
+        window.initButtonWrappers();
+      }
     }
     
     // 渲染未来制作建议模块
@@ -15132,6 +15137,11 @@ window.textTemplateManager = {
           }
         });
       });
+      
+      // 初始化按钮加载动画
+      if (window.initButtonWrappers) {
+        window.initButtonWrappers();
+      }
       
       // 显示"加载更多"按钮
       showLoadMoreButton();
@@ -15228,6 +15238,11 @@ window.textTemplateManager = {
                   window.openTemplateModalWithFestival('wanan');
                 }
               });
+              
+              // 初始化新增按钮的加载动画
+              if (window.initButtonWrappers) {
+                window.initButtonWrappers();
+              }
             }
           }
           

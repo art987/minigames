@@ -1458,6 +1458,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
+    
+    // 初始化按钮加载动画
+    if (window.initButtonWrappers) {
+      window.initButtonWrappers();
+    }
   }
   
   // 渲染未来制作建议模块
@@ -1532,6 +1537,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
+    
+    // 初始化按钮加载动画
+    if (window.initButtonWrappers) {
+      window.initButtonWrappers();
+    }
     
     // 显示"加载更多"按钮
     showLoadMoreButton();
@@ -1627,6 +1637,11 @@ document.addEventListener('DOMContentLoaded', function() {
                   scrollToFestival('🌙 晚安');
                 }
               });
+              
+              // 初始化新增按钮的加载动画
+              if (window.initButtonWrappers) {
+                window.initButtonWrappers();
+              }
             }
           }
           

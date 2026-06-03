@@ -6625,7 +6625,7 @@ background: linear-gradient(
   position: relative;
 }
 
-.future-suggestion-buttons {
+.future-suggestion-buttons { overflow: hidden;
   display: block;
   gap: 0.5rem;
 }
@@ -6637,8 +6637,12 @@ background: linear-gradient(
   width: 100%;
   flex: 1;
   min-width: 200px;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  height: 84px;
 }
 
+/* 炫彩加载背景 */
 .button-wrapper::before {
   content: '';
   position: absolute;
@@ -6652,6 +6656,62 @@ background: linear-gradient(
   background-repeat: no-repeat;
   border-radius: var(--border-radius-lg);
   z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+/* 加载状态显示炫彩背景 */
+.button-wrapper.loading::before {
+  opacity: 0;
+}
+
+/* 炫彩加载动画层 */
+.button-wrapper .loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: var(--border-radius-lg);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.button-wrapper .loading-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border-radius: var(--border-radius-lg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .08)), linear-gradient(134deg, #f60505, #ff6827 30%, #ffe500 70%, #7dfd44);
+  overflow: hidden;
+}
+
+.button-wrapper .loading-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(100deg, rgba(255, 255, 255, .16) 0 10px, transparent 10px 22px);
+  mix-blend-mode: overlay;
+  animation: button-sheen 1.6s linear infinite;
+}
+
+@keyframes button-sheen {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+/* 加载完成，显示图片 */
+.button-wrapper.loaded::before {
+  opacity: 1;
+}
+
+.button-wrapper.loaded .loading-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  pointer-events: none;
 }
 
 .button-wrapper::after {
