@@ -90,14 +90,6 @@ const playlist = [
     album: '萨克斯世界名曲'
   },
   {
-    title: '千言万语',
-    artist: '萨克斯',
-    cover: 'img/saxophone/12-qianyanwanyu.svg',
-    mp3: 'mp3/sakesi/12-qianyanwanyu.mp3',
-    ogg: '',
-    album: '萨克斯世界名曲'
-  },
-  {
     title: '吻别',
     artist: '萨克斯',
     cover: 'img/saxophone/13-wenbie.svg',
