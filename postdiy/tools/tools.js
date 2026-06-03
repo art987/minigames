@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function initPage() {
     renderHotSearches();
-    renderCards(window.toolsData.toolCards);
+    // 过滤掉 visible: false 的卡片
+    const visibleCards = window.toolsData.toolCards.filter(card => card.visible !== false);
+    renderCards(visibleCards);
     searchInput.placeholder = '搜索工具...';
   }
   
@@ -167,12 +169,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function filterCards() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     
+    // 先过滤掉 visible: false 的卡片
+    const visibleCards = window.toolsData.toolCards.filter(card => card.visible !== false);
+    
     if (!searchTerm) {
-      renderCards(window.toolsData.toolCards);
+      renderCards(visibleCards);
       return;
     }
     
-    const filteredCards = window.toolsData.toolCards.filter(card => {
+    const filteredCards = visibleCards.filter(card => {
       if (card.title.toLowerCase().includes(searchTerm)) {
         return true;
       }

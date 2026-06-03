@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function initPage() {
     renderHotSearches();
-    renderCards(window.gamesData.gameCards);
+    // 过滤掉 visible: false 的卡片
+    const visibleCards = window.gamesData.gameCards.filter(card => card.visible !== false);
+    renderCards(visibleCards);
     searchInput.placeholder = '搜索游戏...';
   }
   
@@ -167,12 +169,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function filterCards() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     
+    // 先过滤掉 visible: false 的卡片
+    const visibleCards = window.gamesData.gameCards.filter(card => card.visible !== false);
+    
     if (!searchTerm) {
-      renderCards(window.gamesData.gameCards);
+      renderCards(visibleCards);
       return;
     }
     
-    const filteredCards = window.gamesData.gameCards.filter(card => {
+    const filteredCards = visibleCards.filter(card => {
       if (card.title.toLowerCase().includes(searchTerm)) {
         return true;
       }

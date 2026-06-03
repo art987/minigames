@@ -1,5 +1,6 @@
 // 闪喵游戏中心 - 游戏数据
 // 在此文件中快速增删游戏数据
+// visible: true 显示, false 隐藏
 
 window.gamesData = {
   channel: {
@@ -34,6 +35,7 @@ window.gamesData = {
   gameCards: [
     {
       id: 1,
+      visible: true,
       icon: '🔢',
       iconBg: '#3498db',
       title: '2048',
@@ -45,6 +47,7 @@ window.gamesData = {
     },
     {
       id: 2,
+      visible: true,
       icon: '🧱',
       iconBg: '#9b59b6',
       title: '俄罗斯方块',
@@ -56,6 +59,7 @@ window.gamesData = {
     },
     {
       id: 3,
+      visible: true,
       icon: '🐍',
       iconBg: '#2ecc71',
       title: '贪吃蛇',
@@ -67,6 +71,7 @@ window.gamesData = {
     },
     {
       id: 4,
+      visible: true,
       icon: '🃏',
       iconBg: '#e74c3c',
       title: '记忆翻牌',
@@ -78,6 +83,7 @@ window.gamesData = {
     },
     {
       id: 5,
+      visible: true,
       icon: '💣',
       iconBg: '#f39c12',
       title: '扫雷',
@@ -89,6 +95,7 @@ window.gamesData = {
     },
     {
       id: 6,
+      visible: true,
       icon: '✏️',
       iconBg: '#1abc9c',
       title: '数独',
@@ -100,6 +107,7 @@ window.gamesData = {
     },
     {
       id: 7,
+      visible: true,
       icon: '🧩',
       iconBg: '#e67e22',
       title: '拼图游戏',
@@ -111,6 +119,7 @@ window.gamesData = {
     },
     {
       id: 8,
+      visible: true,
       icon: '⚡',
       iconBg: '#34495e',
       title: '反应测试',

@@ -1,5 +1,6 @@
 // 闪喵小知识 - 内容数据
 // 在此文件中快速增删内容数据
+// visible: true 显示, false 隐藏
 
 window.businessData = {
   channel: {
@@ -31,6 +32,7 @@ window.businessData = {
   contentCards: [
     {
       id: 1,
+      visible: true,
       icon: '👍',
       iconBg: '#FF6B9D',
       title: '夸娃万能话术备忘录',
@@ -42,6 +44,7 @@ window.businessData = {
     },
     {
       id: 2,
+      visible: true,
       icon: '😜',
       iconBg: '#DDA0DD',
       title: '土味情话备忘录',
@@ -53,6 +56,7 @@ window.businessData = {
     },
     {
       id: 3,
+      visible: true,
       icon: '📖',
       iconBg: '#96CEB4',
       title: '经典古诗词名句收录',
@@ -64,6 +68,7 @@ window.businessData = {
     },
     {
       id: 4,
+      visible: true,
       icon: '🔤',
       iconBg: '#00B894',
       title: '地道英语口语俚语汇总',
@@ -75,6 +80,7 @@ window.businessData = {
     },
     {
       id: 31,
+      visible: true,
       icon: '📅',
       iconBg: '#00CED1',
       title: '16天记7000英语词汇方法备忘录',
@@ -86,6 +92,7 @@ window.businessData = {
     },
     {
       id: 5,
+      visible: true,
       icon: '🌟',
       iconBg: '#87CEEB',
       title: '自我鼓励话术备忘录',
@@ -97,6 +104,7 @@ window.businessData = {
     },
     {
       id: 6,
+      visible: true,
       icon: '😎',
       iconBg: '#F39C12',
       title: '拖延症治疗备忘录',
@@ -108,6 +116,7 @@ window.businessData = {
     },
     {
       id: 7,
+      visible: true,
       icon: '📜',
       iconBg: '#FFEAA7',
       title: '人生箴言备忘录',
@@ -119,6 +128,7 @@ window.businessData = {
     },
     {
       id: 8,
+      visible: true,
       icon: '💖',
       iconBg: '#1ABC9C',
       title: '108个心理学效应备忘录',
@@ -130,6 +140,7 @@ window.businessData = {
     },
     {
       id: 9,
+      visible: true,
       icon: '👀',
       iconBg: '#FF6B6B',
       title: '人性阴暗面108行为备忘录',
@@ -141,6 +152,7 @@ window.businessData = {
     },
     {
       id: 10,
+      visible: true,
       icon: '🤬',
       iconBg: '#FFB347',
       title: '骂醒自己的句子',
@@ -152,6 +164,7 @@ window.businessData = {
     },
     {
       id: 11,
+      visible: true,
       icon: '🚦',
       iconBg: '#6C5CE7',
       title: '儿童安全教育备忘录',
@@ -163,6 +176,7 @@ window.businessData = {
     },
     {
       id: 12,
+      visible: true,
       icon: '🧉',
       iconBg: '#4A90E2',
       title: '300种中成药功效用途汇总',
@@ -174,6 +188,7 @@ window.businessData = {
     },
     {
       id: 13,
+      visible: true,
       icon: '💊',
       iconBg: '#9B59B6',
       title: '100种常用西药功效用途汇总',
@@ -185,6 +200,7 @@ window.businessData = {
     },
     {
       id: 14,
+      visible: true,
       icon: '👴',
       iconBg: '#E74C3C',
       title: '100个中医诊断公式',
@@ -196,6 +212,7 @@ window.businessData = {
     },
     {
       id: 15,
+      visible: true,
       icon: '👨‍⚕️',
       iconBg: '#3498DB',
       title: '420个西医诊断公式',
@@ -207,6 +224,7 @@ window.businessData = {
     },
     {
       id: 16,
+      visible: true,
       icon: '🌿',
       iconBg: '#50C878',
       title: '中医传世小偏方',
@@ -218,6 +236,7 @@ window.businessData = {
     },
     {
       id: 17,
+      visible: true,
       icon: '🌷',
       iconBg: '#50C878',
       title: '生活健康养生备忘录',
@@ -229,6 +248,7 @@ window.businessData = {
     },
     {
       id: 18,
+      visible: true,
       icon: '🏠',
       iconBg: '#A29BFE',
       title: '家居风水改运禁忌备忘录',
@@ -240,6 +260,7 @@ window.businessData = {
     },
     {
       id: 19,
+      visible: true,
       icon: '🏪',
       iconBg: '#FAB1A0',
       title: '店铺风水改运禁忌备忘录',
@@ -251,6 +272,7 @@ window.businessData = {
     },
     {
       id: 20,
+      visible: true,
       icon: '🏛️',
       iconBg: '#98D8C8',
       title: '中国美术史重点笔记',
@@ -262,6 +284,7 @@ window.businessData = {
     },
     {
       id: 21,
+      visible: true,
       icon: '🐉',
       iconBg: '#45B7D1',
       title: '国画口诀汇总',
@@ -273,6 +296,7 @@ window.businessData = {
     },
     {
       id: 22,
+      visible: true,
       icon: '🖼️',
       iconBg: '#FFA07A',
       title: '中国历代画家汇集备忘录',
@@ -284,6 +308,7 @@ window.businessData = {
     },
     {
       id: 23,
+      visible: true,
       icon: '📜',
       iconBg: '#C9B1FF',
       title: '《易经》方法论备忘录',
@@ -295,6 +320,7 @@ window.businessData = {
     },
     {
       id: 24,
+      visible: true,
       icon: '🧭',
       iconBg: '#E17055',
       title: '毛选方法论备忘录',
@@ -306,6 +332,7 @@ window.businessData = {
     },
     {
       id: 25,
+      visible: true,
       icon: '🏛️',
       iconBg: '#FDCB6E',
       title: '资治通鉴方法论备忘录',
@@ -317,6 +344,7 @@ window.businessData = {
     },
     {
       id: 26,
+      visible: true,
       icon: '✨',
       iconBg: '#74B9FF',
       title: '世界最神奇24堂课备忘录',
@@ -328,6 +356,7 @@ window.businessData = {
     },
     {
       id: 27,
+      visible: true,
       icon: '🧩',
       iconBg: '#FD79A8',
       title: '脑筋急转弯备忘录',
@@ -339,6 +368,7 @@ window.businessData = {
     },
     {
       id: 28,
+      visible: true,
       icon: '🌐',
       iconBg: '#81ECEC',
       title: '超实用网址汇总',
@@ -350,6 +380,7 @@ window.businessData = {
     },
     {
       id: 29,
+      visible: false,
       icon: '💼',
       iconBg: '#FFEAA7',
       title: '兼职接单站点备忘录',
@@ -361,6 +392,7 @@ window.businessData = {
     },
     {
       id: 30,
+      visible: false,
       icon: '📦',
       iconBg: '#DFE6E9',
       title: '120个常用货源网站备忘',

@@ -1,5 +1,6 @@
 // 闪喵工具箱 - 工具数据
 // 在此文件中快速增删工具数据
+// visible: true 显示, false 隐藏
 
 window.toolsData = {
   channel: {
@@ -37,6 +38,7 @@ window.toolsData = {
   toolCards: [
     {
       id: 1,
+      visible: false,
       icon: '🖼️',
       iconBg: '#4CAF50',
       title: '图片压缩工具',
@@ -48,6 +50,7 @@ window.toolsData = {
     },
     {
       id: 2,
+      visible: true,
       icon: '📱',
       iconBg: '#2196F3',
       title: '二维码生成工具',
@@ -59,6 +62,7 @@ window.toolsData = {
     },
     {
       id: 3,
+      visible: true,
       icon: '✂️',
       iconBg: '#9C27B0',
       title: '在线抠图工具',
@@ -71,6 +75,7 @@ window.toolsData = {
     },
     {
       id: 4,
+      visible: true,
       icon: '🇨🇳',
       iconBg: '#F44336',
       title: '国货品牌',
@@ -83,6 +88,7 @@ window.toolsData = {
     },
     {
       id: 5,
+      visible: true,
       icon: '📞',
       iconBg: '#FF9800',
       iconBgImage: 'gonggong-rexian/covers/tel.png',
@@ -95,6 +101,7 @@ window.toolsData = {
     },
     {
       id: 6,
+      visible: true,
       icon: '✨',
       iconBg: '#FFD700',
       title: 'SVG神光卡片系统',
@@ -107,6 +114,7 @@ window.toolsData = {
     
     {
       id: 7,
+      visible: true,
       icon: '👶',
       iconBg: '#E91E63',
       iconBgImage: 'music/img/001.gif',
@@ -120,6 +128,7 @@ window.toolsData = {
     
     {
       id: 14,
+      visible: true,
       icon: '🎶',
       iconBg: '',
       iconBgImage: 'music/img/yangsheng/csl.png',
@@ -133,6 +142,7 @@ window.toolsData = {
      
     {
       id: 15,
+      visible: true,
       icon: '🎵',
       iconBg: '#4CAF50',
       iconBgImage: 'music/img/wuyin/cjhyy.png',
@@ -145,6 +155,7 @@ window.toolsData = {
     },
     {
       id: 16,
+      visible: true,
       icon: '🎵',
       iconBg: '#F44336',
       iconBgImage: 'music/img/wuyin/bncf.png',
@@ -157,6 +168,7 @@ window.toolsData = {
     },
     {
       id: 17,
+      visible: true,
       icon: '🎵',
       iconBg: '#FFC107',
       iconBgImage: 'music/img/wuyin/qhyy.png',
@@ -169,6 +181,7 @@ window.toolsData = {
     },
     {
       id: 18,
+      visible: true,
       icon: '🎵',
       iconBg: '#9C27B0',
       iconBgImage: 'music/img/wuyin/ycbx.png',
@@ -181,6 +194,7 @@ window.toolsData = {
     },
     {
       id: 19,
+      visible: true,
       icon: '🎵',
       iconBg: '#2196F3',
       iconBgImage: 'music/img/wuyin/lz.png',
@@ -193,6 +207,7 @@ window.toolsData = {
     },
     {
       id: 20,
+      visible: true,
       icon: '🎹',
       iconBg: '#FFD700',
       iconBgImage: 'music/img/beethoven/02-moonlight.svg',
@@ -205,6 +220,7 @@ window.toolsData = {
     },
     {
       id: 21,
+      visible: true,
       icon: '🎷',
       iconBg: '#8B4513',
       iconBgImage: 'music/img/saxophone/01-going-home.svg',
@@ -217,6 +233,7 @@ window.toolsData = {
     },
     {
       id: 9,
+      visible: true,
       icon: '🧮',
       iconBg: '#795548',
       title: '开店必备60个计算公式',
@@ -228,6 +245,7 @@ window.toolsData = {
     },
     {
       id: 10,
+      visible: true,
       icon: '💬',
       iconBg: '#607D8B',
       title: '高情商客户回复话术库',
@@ -239,6 +257,7 @@ window.toolsData = {
     },
     {
       id: 11,
+      visible: true,
       icon: '🏆',
       iconBg: '#FF5722',
       title: '销冠成交话术100句',
@@ -250,6 +269,7 @@ window.toolsData = {
     },
     {
       id: 12,
+      visible: true,
       icon: '📚',
       iconBg: '#3F51B5',
       title: '名言名句展示',
@@ -261,6 +281,7 @@ window.toolsData = {
     },
     {
       id: 13,
+      visible: false,
       icon: '🧠',
       iconBg: '#8BC34A',
       title: '小本本公益测试平台',

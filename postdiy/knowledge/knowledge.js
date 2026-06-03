@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 渲染热搜词
     renderHotSearches();
     
-    // 渲染所有卡片
-    renderCards(window.businessData.contentCards);
+    // 过滤掉 visible: false 的卡片
+    const visibleCards = window.businessData.contentCards.filter(card => card.visible !== false);
+    renderCards(visibleCards);
     
     // 设置搜索框占位符
     searchInput.placeholder = '搜索标题、简介、标签...';
@@ -189,12 +190,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function filterCards() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     
+    // 先过滤掉 visible: false 的卡片
+    const visibleCards = window.businessData.contentCards.filter(card => card.visible !== false);
+    
     if (!searchTerm) {
-      renderCards(window.businessData.contentCards);
+      renderCards(visibleCards);
       return;
     }
     
-    const filteredCards = window.businessData.contentCards.filter(card => {
+    const filteredCards = visibleCards.filter(card => {
       // 搜索标题
       if (card.title.toLowerCase().includes(searchTerm)) {
         return true;
