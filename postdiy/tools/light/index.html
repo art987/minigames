@@ -3,51 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>神光卡片 · 灵符瑞兽图鉴</title>
+<title>道教祈福壁纸全集·108愿</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="page-header">
-    <h1 class="page-title">
-        <span class="title-icon">☯</span>
-        <span class="title-zh">神光图鉴</span>
-    </h1>
-    <span class="title-sub">神光卡牌 · 玄门至宝</span>
+  <h1 class="page-title">
+    <span class="title-icon">☯️</span>
+    <span class="title-zh">道教祈福壁纸全集</span>
+  </h1>
+  <span class="title-sub">108愿 · 12大主题 · 吉祥如意</span>
 </header>
 
 <nav class="category-nav" id="categoryNav">
-    <div class="nav-inner">
-        <button class="nav-btn active" data-category="all">
-            <span class="nav-icon">🌟</span>
-            <span class="nav-name">全部</span>
-        </button>
-    </div>
+  <div class="nav-inner">
+    <button class="nav-btn active" data-category="all">
+      <span class="nav-icon">🌟</span>
+      <span class="nav-name">全部</span>
+    </button>
+  </div>
 </nav>
 
 <main class="gallery-wrap">
-    <div id="gallery"></div>
+  <div id="gallery"></div>
 </main>
 
 <footer class="page-footer">
-    ✨ 滑动浏览 · 点击查看神光 ✨
+  ✨ 福生无量天尊 · 吉祥永随 ✨
 </footer>
 
 <div id="viewer">
-<div class="close-btn" id="closeBtn">×</div>
-<div class="close-hint">点击任意位置关闭</div>
-<div class="nav-hint">左右滑动切换</div>
-<div class="mute-btn" id="muteBtn">🔊</div>
-<div class="card-container active" id="cardContainer1">
-<div class="svg-layer" id="svgLayer1"></div>
-<div class="effect-layer" id="effectLayer1"></div>
-<div class="lightning-layer" id="lightningLayer1"></div>
+  <div class="close-btn" id="closeBtn">×</div>
+  <div class="close-hint">点击任意位置关闭</div>
+  <div class="nav-hint">左右滑动切换</div>
+  <div class="mute-btn" id="muteBtn">🔊</div>
+  
+  <div class="card-container active" id="cardContainer1">
+    <div class="svg-layer" id="svgLayer1"></div>
+    <div class="effect-layer" id="effectLayer1"></div>
+    <div class="lightning-layer" id="lightningLayer1"></div>
+  </div>
+  <div class="card-container" id="cardContainer2">
+    <div class="svg-layer" id="svgLayer2"></div>
+    <div class="effect-layer" id="effectLayer2"></div>
+    <div class="lightning-layer" id="lightningLayer2"></div>
+  </div>
+  
+  <div class="card-summary-overlay" id="cardSummaryOverlay">
+    <div class="card-summary-panel">
+      <div class="summary-header">
+        <span class="summary-badge" id="summaryBadge">第一卷</span>
+        <span class="summary-number" id="summaryNumber">001</span>
+      </div>
+      <h2 class="summary-title" id="summaryTitle">元始天尊</h2>
+      <p class="summary-subtitle" id="summarySubtitle">玉清圣境元始天尊</p>
+      <div class="summary-theme" id="summaryTheme">
+        <span class="theme-icon">🔮</span>
+        <span class="theme-label">祈福主题</span>
+        <span class="theme-text">大道护佑</span>
+      </div>
+      <div class="summary-blessing" id="summaryBlessing">
+        <span class="blessing-icon">✨</span>
+        <p class="blessing-text">大道护佑 万事顺遂</p>
+      </div>
+      <div class="summary-actions">
+        <button class="detail-btn" id="detailBtn">
+          <span class="detail-icon">📖</span>
+          <span class="detail-text">查看详情</span>
+          <span class="detail-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="card-container" id="cardContainer2">
-<div class="svg-layer" id="svgLayer2"></div>
-<div class="effect-layer" id="effectLayer2"></div>
-<div class="lightning-layer" id="lightningLayer2"></div>
-</div>
+
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-backdrop" id="detailBackdrop"></div>
+  <div class="detail-content">
+    <div class="detail-header">
+      <div class="detail-title-wrap">
+        <span class="detail-volume" id="detailVolume">第一卷</span>
+        <span class="detail-number" id="detailNumber">001</span>
+      </div>
+      <button class="detail-close" id="detailClose">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="detail-body">
+      <div class="detail-section">
+        <h3 class="detail-section-title">
+          <span class="section-icon">🎯</span>
+          <span class="section-text">神尊信息</span>
+        </h3>
+        <div class="detail-info-grid">
+          <div class="detail-info-item">
+            <span class="info-label">主尊</span>
+            <span class="info-value" id="detailMainTitle">元始天尊</span>
+          </div>
+          <div class="detail-info-item">
+            <span class="info-label">圣号</span>
+            <span class="info-value" id="detailSubTitle">玉清圣境元始天尊</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="detail-section-title">
+          <span class="section-icon">🌟</span>
+          <span class="section-text">祈福主题</span>
+        </h3>
+        <div class="detail-theme" id="detailTheme">
+          <span class="theme-pill">大道护佑</span>
+        </div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="detail-section-title">
+          <span class="section-icon">🙏</span>
+          <span class="section-text">祈福语</span>
+        </h3>
+        <div class="detail-blessing" id="detailBlessing">
+          大道护佑 万事顺遂
+        </div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="detail-section-title">
+          <span class="section-icon">📜</span>
+          <span class="section-text">神尊简介</span>
+        </h3>
+        <div class="detail-intro" id="detailIntro"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="config/effects.js"></script>
