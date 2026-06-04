@@ -43,15 +43,19 @@ document.head.appendChild(style);
 lightRays:(color='#ffd700')=> {
 const el=document.createElement('div');
 el.className='light-rays';
-el.style.background=`repeating-conic-gradient(rgba(${hexToRgb(color)},.9) 0deg,rgba(${hexToRgb(color)},.2) 2deg,transparent 6deg)`;
+el.style.background=`repeating-conic-gradient(rgba(${hexToRgb(color)},.99) 0deg,rgba(${hexToRgb(color)},.88) 2deg,transparent 6deg)`;
+el.style.webkitMaskImage=`radial-gradient(circle, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.7) 100%)`;
+el.style.maskImage=`radial-gradient(circle, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.7) 100%)`;
 document.getElementById('effectLayer').appendChild(el);
 },
 
 burstRays:(color='#ff6b6b')=> {
 const el=document.createElement('div');
 el.className='light-rays';
-el.style.background=`repeating-conic-gradient(rgba(${hexToRgb(color)},.9) 0deg,rgba(${hexToRgb(color)},.2) 2deg,transparent 6deg)`;
+el.style.background=`repeating-conic-gradient(rgba(${hexToRgb(color)},.99) 0deg,rgba(${hexToRgb(color)},.88) 2deg,transparent 6deg)`;
 el.style.filter='blur(2px) brightness(2)';
+el.style.webkitMaskImage=`radial-gradient(circle, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.5) 100%)`;
+el.style.maskImage=`radial-gradient(circle, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.5) 100%)`;
 document.getElementById('effectLayer').appendChild(el);
 },
 
