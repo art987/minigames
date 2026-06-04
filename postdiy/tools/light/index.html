@@ -10,7 +10,7 @@
 
 <header class="page-header">
   <h1 class="page-title">
-    <span class="title-icon">☯️</span>
+    <span class="title-icon">☯</span>
     <span class="title-zh">道教祈福壁纸全集</span>
   </h1>
   <span class="title-sub">108愿 · 12大主题 · 吉祥如意</span>
@@ -35,9 +35,17 @@
 
 <div id="viewer">
   <div class="close-btn" id="closeBtn">×</div>
-  <div class="close-hint">点击任意位置关闭</div>
-  <div class="nav-hint">左右滑动切换</div>
-  <div class="mute-btn" id="muteBtn">🔊</div>
+  
+  <!-- 右侧按钮组 -->
+  <div class="viewer-controls">
+    <div class="control-btn mute-btn" id="muteBtn">音</div>
+    <button class="control-btn detail-btn" id="detailBtn">
+      <span class="detail-text">详情</span>
+    </button>
+    <button class="control-btn download-btn" id="downloadBtn">
+      <span class="download-text">下载</span>
+    </button>
+  </div>
   
   <div class="card-container active" id="cardContainer1">
     <div class="svg-layer" id="svgLayer1"></div>
@@ -49,94 +57,50 @@
     <div class="effect-layer" id="effectLayer2"></div>
     <div class="lightning-layer" id="lightningLayer2"></div>
   </div>
-  
-  <div class="card-summary-overlay" id="cardSummaryOverlay">
-    <div class="card-summary-panel">
-      <div class="summary-header">
-        <span class="summary-badge" id="summaryBadge">第一卷</span>
-        <span class="summary-number" id="summaryNumber">001</span>
-      </div>
-      <h2 class="summary-title" id="summaryTitle">元始天尊</h2>
-      <p class="summary-subtitle" id="summarySubtitle">玉清圣境元始天尊</p>
-      <div class="summary-theme" id="summaryTheme">
-        <span class="theme-icon">🔮</span>
-        <span class="theme-label">祈福主题</span>
-        <span class="theme-text">大道护佑</span>
-      </div>
-      <div class="summary-blessing" id="summaryBlessing">
-        <span class="blessing-icon">✨</span>
-        <p class="blessing-text">大道护佑 万事顺遂</p>
-      </div>
-      <div class="summary-actions">
-        <button class="detail-btn" id="detailBtn">
-          <span class="detail-icon">📖</span>
-          <span class="detail-text">查看详情</span>
-          <span class="detail-arrow">→</span>
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="detail-panel" id="detailPanel">
-  <div class="detail-backdrop" id="detailBackdrop"></div>
   <div class="detail-content">
-    <div class="detail-header">
-      <div class="detail-title-wrap">
-        <span class="detail-volume" id="detailVolume">第一卷</span>
-        <span class="detail-number" id="detailNumber">001</span>
-      </div>
-      <button class="detail-close" id="detailClose">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
+    <button class="detail-close" id="detailClose" onclick="closeDetailPanel()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    
+    <div class="detail-decoration-top">
+      <span class="decoration-star left">✦</span>
+      <span class="decoration-star center">✧</span>
+      <span class="decoration-star right">✦</span>
     </div>
+    
     <div class="detail-body">
-      <div class="detail-section">
-        <h3 class="detail-section-title">
-          <span class="section-icon">🎯</span>
-          <span class="section-text">神尊信息</span>
-        </h3>
-        <div class="detail-info-grid">
-          <div class="detail-info-item">
-            <span class="info-label">主尊</span>
-            <span class="info-value" id="detailMainTitle">元始天尊</span>
-          </div>
-          <div class="detail-info-item">
-            <span class="info-label">圣号</span>
-            <span class="info-value" id="detailSubTitle">玉清圣境元始天尊</span>
-          </div>
-        </div>
+      <div class="title-decoration">
+        <span class="decoration-line left"></span>
+        <h2 class="detail-main-title" id="detailMainTitle">元始天尊</h2>
+        <span class="decoration-line right"></span>
       </div>
       
-      <div class="detail-section">
-        <h3 class="detail-section-title">
-          <span class="section-icon">🌟</span>
-          <span class="section-text">祈福主题</span>
-        </h3>
-        <div class="detail-theme" id="detailTheme">
-          <span class="theme-pill">大道护佑</span>
-        </div>
+      <p class="detail-sub-title" id="detailSubTitle">玉清圣境元始天尊</p>
+      
+      <div class="blessing-decoration">
+        <span class="decoration-dot left">◆</span>
+        <p class="blessing-text" id="detailBlessing">大道护佑 万事顺遂</p>
+        <span class="decoration-dot right">◆</span>
       </div>
       
-      <div class="detail-section">
-        <h3 class="detail-section-title">
-          <span class="section-icon">🙏</span>
-          <span class="section-text">祈福语</span>
-        </h3>
-        <div class="detail-blessing" id="detailBlessing">
-          大道护佑 万事顺遂
-        </div>
+      <div class="intro-wrapper">
+        <div class="intro-corner top-left"></div>
+        <div class="intro-corner top-right"></div>
+        <p class="intro-text" id="detailIntro"></p>
+        <div class="intro-corner bottom-left"></div>
+        <div class="intro-corner bottom-right"></div>
       </div>
-      
-      <div class="detail-section">
-        <h3 class="detail-section-title">
-          <span class="section-icon">📜</span>
-          <span class="section-text">神尊简介</span>
-        </h3>
-        <div class="detail-intro" id="detailIntro"></div>
-      </div>
+    </div>
+    
+    <div class="detail-decoration-bottom">
+      <span class="decoration-star left">✦</span>
+      <span class="decoration-star center">✧</span>
+      <span class="decoration-star right">✦</span>
     </div>
   </div>
 </div>

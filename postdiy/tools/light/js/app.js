@@ -6,7 +6,6 @@ const closeBtn=document.getElementById('closeBtn');
 const muteBtn=document.getElementById('muteBtn');
 const detailBtn=document.getElementById('detailBtn');
 const detailPanel=document.getElementById('detailPanel');
-const detailBackdrop=document.getElementById('detailBackdrop');
 const detailClose=document.getElementById('detailClose');
 
 const volumeNames = ['第一卷', '第二卷', '第三卷', '第四卷', '第五卷', '第六卷', 
@@ -28,6 +27,12 @@ var isMuted=false;
 var currentAudio=null;
 
 console.log('道教祈福壁纸全集·108愿');
+
+function isSvgFile(filePath){
+    if(!filePath)return false;
+    var lowerPath=filePath.toLowerCase();
+    return lowerPath.endsWith('.svg');
+}
 
 var configs=Object.entries(svgConfigs);
 var currentFilter='all';
@@ -122,11 +127,13 @@ function renderGallery(){
             var cfg=item.cfg;
             var title=cfg.title||item.id;
             var subtitle=cfg.subtitle||'神光庇佑';
+            var isSvg=isSvgFile(cfg.file);
+            var imgClass=isSvg?'card-img':'card-img card-img-raw';
             html+='<div class="card" data-id="'+item.id+'" style="animation-delay:'+(k*0.08)+'s">';
             html+='<div class="card-shine"></div>';
             html+='<div class="card-badge"><span class="card-number">'+cfg.id+'</span></div>';
             html+='<div class="card-img-wrap">';
-            html+='<img class="card-img" loading="lazy" src="'+cfg.file+'" alt="'+title+'">';
+            html+='<img class="'+imgClass+'" loading="lazy" src="'+cfg.file+'" alt="'+title+'">';
             html+='</div>';
             html+='<div class="card-info">';
             html+='<h3 class="card-title">'+title+'</h3>';
@@ -149,25 +156,11 @@ function renderGallery(){
 buildCategoryNav();
 renderGallery();
 
-function updateSummaryInfo(cfg){
-    if(!cfg)return;
-    
-    document.getElementById('summaryBadge').textContent = volumeNames[cfg.volume - 1] || '第一卷';
-    document.getElementById('summaryNumber').textContent = cfg.id;
-    document.getElementById('summaryTitle').textContent = cfg.title;
-    document.getElementById('summarySubtitle').textContent = cfg.subtitle;
-    document.getElementById('summaryTheme').querySelector('.theme-text').textContent = cfg.theme;
-    document.getElementById('summaryBlessing').querySelector('.blessing-text').textContent = cfg.blessing;
-}
-
 function updateDetailInfo(cfg){
     if(!cfg)return;
     
-    document.getElementById('detailVolume').textContent = volumeNames[cfg.volume - 1] || '第一卷';
-    document.getElementById('detailNumber').textContent = cfg.id;
     document.getElementById('detailMainTitle').textContent = cfg.title;
     document.getElementById('detailSubTitle').textContent = cfg.subtitle;
-    document.getElementById('detailTheme').querySelector('.theme-pill').textContent = cfg.theme;
     document.getElementById('detailBlessing').textContent = cfg.blessing;
     document.getElementById('detailIntro').textContent = cfg.introduction;
 }
@@ -188,10 +181,9 @@ function open(id){
     },10);
 
     var cfg=svgConfigs[id];
-    updateSummaryInfo(cfg);
     updateDetailInfo(cfg);
 
-    loadSVG(id,container1);
+    loadImage(id,container1);
     container1.classList.add('active');
 
     playSound(id);
@@ -201,7 +193,7 @@ function open(id){
     },500);
 }
 
-function loadSVG(id,container){
+function loadImage(id,container){
     var effectLayer=container.querySelector('.effect-layer');
     var svgLayer=container.querySelector('.svg-layer');
     var lightningLayer=container.querySelector('.lightning-layer');
@@ -223,23 +215,57 @@ function loadSVG(id,container){
 
     var cfg=svgConfigs[id];
 
-    if(cfg.containerBgImage){
-        container.style.background='url("'+cfg.containerBgImage+'") center/cover no-repeat';
-    }else if(cfg.containerBg){
-        container.style.background=cfg.containerBg;
+    // 设置弹窗背景
+    // 优先级：背景图片 > 背景颜色
+    // 注意：判断 containerBgImage 是图片路径还是颜色值
+    function isImagePath(path){
+        if(!path)return false;
+        // 以 # 开头的是颜色值
+        if(path.trim().startsWith('#'))return false;
+        // 检查文件扩展名
+        var ext=path.toLowerCase().split('.').pop();
+        return ['png','jpg','jpeg','gif','webp','svg'].indexOf(ext)>-1;
     }
 
-    fetch(cfg.file)
-    .then(function(r){return r.text()})
-    .then(function(svg){
-        svgLayer.innerHTML=svg;
-        resetSvgColor(svgLayer,cfg.color||'#ffd700');
+    if(cfg.containerBgImage){
+        if(isImagePath(cfg.containerBgImage)){
+            // 是图片路径，设置为背景图片
+            container.style.background='url("'+cfg.containerBgImage+'") center/cover no-repeat';
+        }else{
+            // 是颜色值，直接设置背景色
+            container.style.background=cfg.containerBgImage;
+        }
+    }else if(cfg.color){
+        // 没有配置背景图片时，使用 color 作为背景色
+        container.style.background=cfg.color;
+    }
+
+    if(isSvgFile(cfg.file)){
+        // SVG文件 - 正常处理着色
+        fetch(cfg.file)
+        .then(function(r){return r.text()})
+        .then(function(svg){
+            svgLayer.innerHTML=svg;
+            resetSvgColor(svgLayer,cfg.color||'#ffd700');
+            runEffect(effectLayer,svgLayer,lightningLayer,cfg.effects,cfg.effectColors||{});
+            console.log('SVG加载完成');
+        })
+        .catch(function(err){
+            console.error('SVG加载失败:'+err);
+        });
+    }else{
+        // 非SVG文件 - 直接作为图片显示，不着色
+        var img=document.createElement('img');
+        img.src=cfg.file;
+        img.style.width='100%';
+        img.style.height='100%';
+        img.style.objectFit='contain';
+        img.style.display='block';
+        svgLayer.appendChild(img);
+        // 仍然可以运行特效，但不着色图片
         runEffect(effectLayer,svgLayer,lightningLayer,cfg.effects,cfg.effectColors||{});
-        console.log('SVG加载完成');
-    })
-    .catch(function(err){
-        console.error('SVG加载失败:'+err);
-    });
+        console.log('图片加载完成(非SVG，不进行着色处理)');
+    }
 }
 
 function switchToNext(){
@@ -270,10 +296,9 @@ function animateSwitch(id,direction){
     currentContainer.classList.add(direction==='left'?'exit-left':'exit-right');
 
     var cfg=svgConfigs[id];
-    updateSummaryInfo(cfg);
     updateDetailInfo(cfg);
 
-    loadSVG(id,nextContainer);
+    loadImage(id,nextContainer);
     nextContainer.classList.add(direction==='left'?'enter-right':'enter-left');
 
     playSound(id);
@@ -340,17 +365,19 @@ function runEffect(effectLayer,svgLayer,lightningLayer,list,effectColors){
     }
 }
 
-function closeViewer(){
+function closeViewer() {
     console.log('关闭viewer');
     viewer.classList.remove('show');
+    // 同时关闭详情面板
+    detailPanel.classList.remove('show');
     stopSound();
 
-    setTimeout(function(){
+    setTimeout(function() {
         viewer.style.display='none';
         container1.className='card-container active';
         container2.className='card-container';
         activeContainer=1;
-    },300);
+    }, 300);
 }
 
 function playSound(id){
@@ -377,13 +404,20 @@ function stopSound(){
     }
 }
 
-function openDetailPanel(){
+function openDetailPanel() {
     detailPanel.classList.add('show');
 }
 
-function closeDetailPanel(){
-    detailPanel.classList.remove('show');
-}
+window.closeDetailPanel = function() {
+    console.log('closeDetailPanel 被调用');
+    var panel = document.getElementById('detailPanel');
+    if(panel) {
+        panel.classList.remove('show');
+        console.log('详情面板已关闭');
+    } else {
+        console.error('找不到 detailPanel 元素');
+    }
+};
 
 closeBtn.addEventListener('click',function(e){
     e.stopPropagation();
@@ -393,7 +427,7 @@ closeBtn.addEventListener('click',function(e){
 muteBtn.addEventListener('click',function(e){
     e.stopPropagation();
     isMuted=!isMuted;
-    muteBtn.textContent=isMuted?'🔇':'🔊';
+    muteBtn.textContent=isMuted?'静':'音';
     muteBtn.classList.toggle('muted',isMuted);
 
     if(isMuted){
@@ -408,14 +442,43 @@ detailBtn.addEventListener('click',function(e){
     openDetailPanel();
 });
 
+// 下载按钮
+var downloadBtn=document.getElementById('downloadBtn');
+downloadBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(currentId){
+        var cfg=svgConfigs[currentId];
+        // 创建临时下载链接
+        var link=document.createElement('a');
+        link.href=cfg.file;
+        // 从文件名提取扩展名
+        var filename=cfg.title || currentId;
+        var ext=cfg.file.split('.').pop();
+        link.download=filename+'.'+ext;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+});
+
 detailBackdrop.addEventListener('click',function(e){
     e.stopPropagation();
     closeDetailPanel();
 });
 
 detailClose.addEventListener('click',function(e){
+    console.log('关闭按钮被点击');
     e.stopPropagation();
+    e.preventDefault();
     closeDetailPanel();
+});
+
+// 也给detail-panel本身添加点击关闭功能（点击背景关闭）
+detailPanel.addEventListener('click',function(e){
+    if(e.target === detailPanel) {
+        console.log('点击详情面板背景关闭');
+        closeDetailPanel();
+    }
 });
 
 viewer.addEventListener('touchstart',function(e){

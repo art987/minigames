@@ -9,9 +9,9 @@ const svgConfigs = {
     id: "001",
     volume: 1,
     number: 1,
-    file: "assets/1.svg",
-    containerBgImage: "assets/yuanshitianzun.png",
-    color: "#ffffdd",
+    file: "assets/1-yuanshitianzun.png",
+    containerBgImage: "rgb(255 214 5)",
+    color: "",
     category: "sanqingtianzunjuan",
     title: "元始天尊",
     subtitle: "玉清圣境元始天尊",
@@ -24,7 +24,7 @@ const svgConfigs = {
       lightRays: "#fffc5a",
       particles: "#fff8e6"
     },
-    sound: "assets/s1.mp3"
+    sound: "assets/s5.mp3"
   },
   "002-灵宝天尊": {
     id: "002",
