@@ -461,10 +461,10 @@ downloadBtn.addEventListener('click',function(e){
     }
 });
 
-detailBackdrop.addEventListener('click',function(e){
-    e.stopPropagation();
-    closeDetailPanel();
-});
+// detailBackdrop.addEventListener('click',function(e){
+//     e.stopPropagation();
+//     closeDetailPanel();
+// });
 
 detailClose.addEventListener('click',function(e){
     console.log('关闭按钮被点击');
