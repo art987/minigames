@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>销售成交话术库</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo"></div>
+                <h1 class="title">销售成交话术库</h1>
+                <p class="subtitle">快速搜索客户问题，找到高转化率回复话术</p>
+            </div>
+        </header>
+
+        <!-- 搜索区域 -->
+        <section class="search-section">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="输入客户问题搜索...">
+                    <button class="clear-btn" id="clearBtn" style="display: none;">✕</button>
+                </div>
+                <button class="search-btn" id="searchBtn">搜索</button>
+            </div>
+        </section>
+
+        <!-- 主内容区 -->
+        <main class="main-content" id="mainContent">
+            <!-- 首页 -->
+            <div id="homePage">
+                <!-- 热门搜索 -->
+                <section class="section">
+                   
+                    <div class="hot-tags-wrapper">
+                        <div class="hot-tags" id="hotTags"></div>
+                    </div>
+                </section>
+
+                <!-- 客户心理导航 -->
+                <section class="section">
+                    <h2 class="section-title">分类导航</h2>
+                    <div class="psychology-cards" id="psychologyCards"></div>
+                </section>
+
+                <!-- 我的收藏 -->
+                <section class="section" id="favoritesSection" style="display: none;">
+                    <h2 class="section-title">❤️ 我的收藏</h2>
+                    <div class="favorites-list" id="favoritesList"></div>
+                </section>
+
+                <!-- 最近搜索 -->
+                <section class="section" id="recentSection" >
+                    <h2 class="section-title">最近搜索</h2>
+                    <div class="recent-list" id="recentList"></div>
+                </section>
+            </div>
+
+            <!-- 搜索结果页 -->
+            <div id="searchResultsPage" style="display: none;">
+                <div class="results-header">
+                    <button class="back-btn" id="backBtn">← 返回</button>
+                    <h2 class="results-title" id="resultsTitle">搜索结果</h2>
+                </div>
+                <div class="results-list" id="resultsList"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 编辑模态框 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑话术</h3>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>推荐话术</label>
+                    <textarea id="editReplies" rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>微信版话术</label>
+                    <textarea id="editWechat" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEdit">取消</button>
+                <button class="btn btn-primary" id="saveEdit">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

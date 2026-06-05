@@ -276,7 +276,7 @@ window.toolsData = {
       shortTitle: '销冠话术',
       subtitle: '精选80句销冠成交话术，助你提升销售业绩',
       tags: ['销售', '话术', '成交'],
-      link: 'sales-tips/sales-tips.html',
+      link: 'sales-tips/index.html',
       category: 'sales'
     },
     {
