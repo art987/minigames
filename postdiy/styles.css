@@ -6452,6 +6452,16 @@ background: linear-gradient(
   display: block;
   padding-left: 0px;
   color: #5d5d5d;
+  box-sizing: border-box;
+}
+
+.today-release-text[style*="display: flex"] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .today-release-text strong {
@@ -6481,6 +6491,7 @@ background: linear-gradient(
   height: 84px;
   position: relative;
   z-index: 3;
+  box-sizing: border-box;
 }
 
 .home-popup-btn:hover {
@@ -6515,11 +6526,11 @@ background: linear-gradient(
 }
 
 #zaoanBtn {
-  background: linear-gradient(135deg, #00000000, #2fa03100);
+  
 }
 
 #wananBtn {
-  /* background: linear-gradient(135deg, #096affd9, #3400a7); */
+ 
 }
 #dairyBtn {
 }
@@ -6635,14 +6646,16 @@ background: linear-gradient(
   position: relative;
   margin-bottom: 2px;
   width: 100%;
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 200px;
   overflow: hidden;
+  background: linear-gradient(186deg, #ff2d2dcc, rgb(209 207 209 / 9%)), linear-gradient(90deg, #330b57cc, #3f0ccc 3%, #f3ff37 56%, #2df74fcc);
   border-radius: var(--border-radius-lg);
   height: 84px;
+  box-sizing: border-box;
 }
 
-/* 炫彩加载背景 */
+/* 背景图片层 - 始终显示 */
 .button-wrapper::before {
   content: '';
   position: absolute;
@@ -6656,74 +6669,27 @@ background: linear-gradient(
   background-repeat: no-repeat;
   border-radius: var(--border-radius-lg);
   z-index: 1;
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
-}
-
-/* 加载状态显示炫彩背景 */
-.button-wrapper.loading::before {
-  opacity: 0;
-}
-
-/* 炫彩加载动画层 */
-.button-wrapper .loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #ffffff;
-  border-radius: var(--border-radius-lg);
-  z-index: 0;
-  overflow: hidden;
-}
-
-.button-wrapper .loading-progress {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  border-radius: var(--border-radius-lg);
-  background: linear-gradient(90deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .08)), linear-gradient(134deg, #f60505, #ff6827 30%, #ffe500 70%, #7dfd44);
-  overflow: hidden;
-}
-
-.button-wrapper .loading-sheen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background: repeating-linear-gradient(100deg, rgba(255, 255, 255, .16) 0 10px, transparent 10px 22px);
-  mix-blend-mode: overlay;
-  animation: button-sheen 1.6s linear infinite;
-}
-
-@keyframes button-sheen {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-
-/* 加载完成，显示图片 */
-.button-wrapper.loaded::before {
   opacity: 1;
 }
 
-.button-wrapper.loaded .loading-overlay {
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
-  pointer-events: none;
-}
-
-.button-wrapper::after {
-  content: '';
+/* 暗色遮罩层 - 始终在最上层 */
+.button-wrapper .dark-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius-lg);
   z-index: 2;
+}
+
+/* 隐藏所有加载动画相关元素 */
+.button-wrapper::after,
+.button-wrapper .loading-overlay,
+.button-wrapper .loading-progress,
+.button-wrapper .loading-sheen {
+  display: none;
 }
 
 .future-suggestion-btn {

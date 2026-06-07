@@ -1390,10 +1390,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (todayFestival) {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
             发布${todayFestival}海报
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           🌈日常海报
           </button></div>
         </div>
@@ -1403,13 +1407,19 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日没有特别节日，您可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
           ☀️早安海报
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
           🌙晚安海报
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
           🌈日常海报
           </button></div>
         </div>
@@ -1419,10 +1429,14 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
           🌙晚安海报
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
+            <div class="dark-overlay"></div>
+            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           🌈日常海报
           </button></div>
         </div>
@@ -1430,6 +1444,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     todayReleaseContent.innerHTML = html;
+
+    // 先强制布局一次，确保宽度稳定
+    todayReleaseContent.offsetHeight;
 
     // 设置按钮背景图片
     todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
@@ -1440,6 +1457,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setButtonBackground(btn, action);
       }
     });
+
+    // 立即初始化按钮加载动画
+    if (window.initButtonWrappers) {
+      window.initButtonWrappers();
+    }
 
     todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -1480,9 +1502,9 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button></div>`;
     }
-    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button></div>`;
+    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button></div>`;
     
     html += '</div></div>';
     
@@ -1507,7 +1529,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>`;
       html += '</div></div>';
     });
     
@@ -1522,6 +1544,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setButtonBackground(btn, action);
       }
     });
+
+    // 立即初始化按钮加载动画
+    if (window.initButtonWrappers) {
+      window.initButtonWrappers();
+    }
     
     futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -1601,7 +1628,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const itemHtml = `<div class="future-suggestion-item festival-item-animate">` +
             `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>` +
             `<div class="future-suggestion-buttons">` +
-            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>` +
+            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>` +
             '</div></div>';
           
           // 在加载更多按钮前插入

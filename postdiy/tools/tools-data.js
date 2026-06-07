@@ -255,25 +255,14 @@ window.toolsData = {
       link: 'shop_calculator/shop_calculator.html',
       category: 'finance'
     },
-    {
-      id: 10,
-      visible: true,
-      icon: '💬',
-      iconBg: '#607D8B',
-      title: '高情商客户回复话术库',
-      shortTitle: '客户回复话术',
-      subtitle: '帮助商家与客户建立情感联系，提升销售效率',
-      tags: ['销售', '话术', '情商'],
-      link: 'xiaoshouhuashu1/xiaoshouhuashu1.html',
-      category: 'sales'
-    },
+    
     {
       id: 11,
       visible: true,
       icon: '🏆',
       iconBg: '#FF5722',
-      title: '销冠成交话术100句',
-      shortTitle: '销冠话术',
+      title: '销售黄金话术',
+      shortTitle: '销售黄金话术',
       subtitle: '精选80句销冠成交话术，助你提升销售业绩',
       tags: ['销售', '话术', '成交'],
       link: 'sales-tips/index.html',
