@@ -3627,30 +3627,40 @@ const ThumbnailLoader = {
       // 通用提示显示函数
       function showHint(target, text, hintType) {
         const className = hintType === 'hover' ? 'hover-hint' : 'long-press-hint';
-        
+
         // 移除现有的提示
         const existingHint = target.querySelector('.' + className);
         if (existingHint) {
           existingHint.remove();
         }
-        
+
+        // 如果是悬停提示，立即添加激活样式类（显示背景和边框）
+        if (hintType === 'hover') {
+          target.classList.add('hover-active');
+        }
+
+        // 如果是长按提示，添加激活样式类（立即添加，不等待）
+        if (hintType === 'long-press') {
+          target.classList.add('long-press-active');
+        }
+
         // 创建新的提示元素
         const hint = document.createElement('div');
         hint.className = className;
         hint.textContent = text;
         target.appendChild(hint);
-        
-        // 如果是长按提示，添加激活样式类（立即添加，不等待）
-        if (hintType === 'long-press') {
-          target.classList.add('long-press-active');
-        }
-        
+
         // 显示动画（立即添加，不等待）
         hint.classList.add('show');
-        
+
         // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
         const hideTime = hintType === 'hover' ? 2000 : 3000;
         setTimeout(() => {
+          // 同时隐藏背景、边框和文字
+          if (hintType === 'hover') {
+            target.classList.remove('hover-active');
+          }
+
           hint.classList.remove('show');
           hint.classList.add('hiding');
           setTimeout(() => {
@@ -3659,7 +3669,7 @@ const ThumbnailLoader = {
             }
           }, 200);
         }, hideTime);
-        
+
         // 长按提示3秒后移除激活样式
         if (hintType === 'long-press') {
           setTimeout(() => {
@@ -3681,26 +3691,21 @@ const ThumbnailLoader = {
             }
           }, 200);
         }
-        
+
         // 隐藏提示时也移除激活样式
         target.classList.remove('long-press-active');
+        target.classList.remove('hover-active');
       }
       
       // 鼠标悬停事件
       function setupHoverEvents(element, text) {
-        // 鼠标进入
+        // 鼠标进入 - 立即显示所有元素
         element.addEventListener('mouseenter', function() {
-          hoverTimer = setTimeout(() => {
-            showHint(element, text, 'hover');
-          }, 300); // 300毫秒后显示悬停提示
+          showHint(element, text, 'hover');
         });
-        
+
         // 鼠标离开
         element.addEventListener('mouseleave', function() {
-          if (hoverTimer) {
-            clearTimeout(hoverTimer);
-            hoverTimer = null;
-          }
           hideHint(element, 'hover');
         });
       }

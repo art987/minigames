@@ -1247,13 +1247,21 @@ footer {
   position: relative;
 }
 
-/* æ‚¬åœæ•ˆæžœ - åªåœ¨éžè§¦æ‘¸è®¾å¤‡ä¸Šæ˜¾ç¤º */
+/* æ¬åœæœæžœ - åªå¨éè§¦æ¸è®¾å¤ä¸æ¾¾ç¤º */
 @media (hover: hover) and (pointer: fine) {
+  /* ç§»é¤åæ¥ç :hover æœæžœï¼æ¹ä¸ºéè¿ JavaScript æ§å¶çç±» */
   .trigger-left:hover,
   .trigger-top:hover,
   .trigger-bottom:hover {
+    /* ä¸å¨è¿éæ·»åæ ·å¼ï¼ç± JavaScript æ§å¶ */
+  }
+
+  /* æ¬åœæ¿æ´»ç¶æ - åæ¥æ¾¾ç¤ºèæ¯ãè¾¹æ¡ */
+  .trigger-left.hover-active,
+  .trigger-top.hover-active,
+  .trigger-bottom.hover-active {
     background-color: rgb(6 6 6 / 14%);
-    border:1px dotted #ffffffad;
+    border: 1px dotted #ffffffad;
   }
 }
 
