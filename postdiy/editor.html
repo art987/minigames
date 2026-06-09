@@ -42,6 +42,8 @@
   <script src="utils.js" defer></script>
   <!-- 按钮背景图片加载动画 -->
   <script src="button-loading.js" defer></script>
+  <!-- 触发区域提示功能（简化版） -->
+  <script src="trigger-hint.js" defer></script>
   <!-- 网站配置数据（包含券码验证） -->
   <script src="config_data.js" defer></script>
   <!-- 会员系统模块 -->
@@ -254,10 +256,16 @@
         
         <!-- 中间透明触发区域（左右分区） -->
         <div id="templateTriggerArea" class="template-trigger-area">
-          <div class="trigger-left" data-action="template"></div>
+          <div class="trigger-left" data-action="template">
+            <div class="trigger-hint">双击 更换模板</div>
+          </div>
           <div class="trigger-right">
-            <div class="trigger-top" data-action="upload"></div>
-            <div class="trigger-bottom" data-action="camera"></div>
+            <div class="trigger-top" data-action="upload">
+              <div class="trigger-hint">双击 打开相册</div>
+            </div>
+            <div class="trigger-bottom" data-action="camera">
+              <div class="trigger-hint">双击 拍照</div>
+            </div>
           </div>
         </div>
         
