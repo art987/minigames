@@ -34,31 +34,59 @@
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Cropper.js 裁剪库 - 使用国内CDN -->
   <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/cropperjs/1.6.1/cropper.min.css">
-  <!-- html2canvas 用于图片导出 - 使用国内CDN -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!-- Cropper.js 裁剪库 - 使用国内CDN -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+  <!-- 关键脚本：使用 defer 不阻塞渲染 -->
   <!-- 节日数据 -->
-  <script src="festivals.js"></script>
-  <!-- 模板数据 - 动态加载防止缓存 -->
-  <script>
-    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本
-    const templateScript = document.createElement('script');
-    templateScript.src = 'templates.js?t=' + new Date().getTime();
-    document.head.appendChild(templateScript);
-  </script>
+  <script src="festivals.js" defer></script>
   <!-- 工具函数 -->
-  <script src="utils.js"></script>
+  <script src="utils.js" defer></script>
   <!-- 按钮背景图片加载动画 -->
-  <script src="button-loading.js"></script>
+  <script src="button-loading.js" defer></script>
   <!-- 网站配置数据（包含券码验证） -->
-  <script src="config_data.js"></script>
+  <script src="config_data.js" defer></script>
   <!-- 会员系统模块 -->
-  <script src="vip-system.js"></script>
+  <script src="vip-system.js" defer></script>
   <!-- VIP 登录 UI 模块 -->
-  <script src="vip-login-ui.js"></script>
+  <script src="vip-login-ui.js" defer></script>
+
+  <!-- 非关键脚本：使用 async 异步加载 -->
+  <!-- html2canvas 用于图片导出 - 使用国内CDN -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" async></script>
+  <!-- Cropper.js 裁剪库 - 使用国内CDN -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/cropperjs/1.6.1/cropper.min.js" async></script>
   <!-- 腾讯云云开发 SDK -->
-  <script src="https://static.cloudbase.net/cloudbase-js-sdk/2.10.0/cloudbase.full.js"></script>
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/2.10.0/cloudbase.full.js" async></script>
+
+  <!-- 模板数据 - 延迟加载，只在需要时才加载 -->
+  <script>
+    // 延迟加载模板数据，避免阻塞页面初始化
+    window.loadTemplatesData = function() {
+      if (!window.templatesDataLoaded) {
+        const templateScript = document.createElement('script');
+        templateScript.src = 'templates.js?t=' + new Date().getTime();
+        document.head.appendChild(templateScript);
+        window.templatesDataLoaded = true;
+      }
+    };
+
+    // 延迟加载文案模板数据
+    window.loadTextTemplatesData = function() {
+      if (!window.textTemplatesDataLoaded) {
+        const textTemplateScript = document.createElement('script');
+        textTemplateScript.src = 'text-templates.js?t=' + new Date().getTime();
+        document.head.appendChild(textTemplateScript);
+        window.textTemplatesDataLoaded = true;
+      }
+    };
+
+    // 页面加载完成后延迟加载模板数据（给页面渲染留出时间）
+    window.addEventListener('DOMContentLoaded', function() {
+      // 延迟 500ms 加载模板数据，确保页面先渲染完成
+      setTimeout(function() {
+        window.loadTemplatesData();
+      }, 500);
+    });
+  </script>
 </head>
 <body class="editorbg">
   <!-- 顶部返回按钮 -->
@@ -343,6 +371,14 @@
         <button id="closeTemplateModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body scrollable-body">
+        <!-- 加载动画 -->
+        <div id="templateDataLoading" class="template-data-loading" style="display: none;">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+          <div class="loading-text">模板数据加载中...</div>
+        </div>
+
         <!-- 月份选择 -->
         <div class="modal-months-container">
           <h3 class="text-lg font-medium mb-3" style="display: none;">选择月份</h3>
@@ -804,6 +840,14 @@
         </button>
       </div>
       <div class="modal-body integrated-modal-body">
+        <!-- 加载动画 -->
+        <div id="textTemplateLoading" class="template-data-loading" style="display: none;">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+          <div class="loading-text">文案模板加载中...</div>
+        </div>
+
         <!-- 左侧行业分类导航 -->
         <div class="industry-sidebar">
           <div class="industry-categories-vertical" id="textTemplateCategoriesVertical">
@@ -974,7 +1018,7 @@
       <div class="modal-body scrollable-body">
         <!-- 今日发布模块 -->
         <div class="home-popup-section">
-          <h3 class="home-popup-section-title">优先：当前品牌宣传任务<span id="todayDateInTitle"></span></h3>
+          <h3 class="home-popup-section-title">今日优先：当前品牌宣传任务<span id="todayDateInTitle"></span></h3>
           <div id="todayReleaseContent" class="home-popup-section-content"></div>
         </div>
         
@@ -988,12 +1032,12 @@
       </div>
     </div>
   </div>
-  
-  <!-- 文案模板数据 -->
-  <script src="text-templates.js"></script>
+
+  <!-- 文案模板数据 - 延迟加载，在使用时才加载 -->
+  <!-- <script src="text-templates.js"></script> -->
 
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js?v=20260329b"></script>
+  <script src="editor-script.js?v=20260329b" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">

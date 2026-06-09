@@ -2828,3 +2828,4 @@ const TextTemplates = {
 };
 
 window.TextTemplates = TextTemplates;
+window.textTemplatesDataLoaded = true;

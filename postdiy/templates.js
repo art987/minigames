@@ -9082,4 +9082,5 @@ templates['品牌日常'] = [
 // 将模板导出到window对象
 if (typeof window !== 'undefined') {
   window.templates = templates;
+  window.templatesDataLoaded = true;
 }

@@ -2429,8 +2429,13 @@ const ThumbnailLoader = {
   }
 
   // 打开整合行业模板弹窗
-  function openIntegratedIndustryTemplateModal(category = '早安') {
+  function openIntegratedIndustryTemplateModal(category = null) {
     if (!elements.integratedIndustryTemplateModal || !elements.integratedModalTitle || !elements.integratedIndustryTemplatesList) return;
+
+    // 如果没有传入分类，从 localStorage 读取最后一次选择的分类，否则默认为"通用"
+    if (!category) {
+      category = localStorage.getItem('lastSelectedIndustryCategory') || '通用';
+    }
 
     // 设置弹窗标题
     elements.integratedModalTitle.textContent = '行业促销文案模板';
@@ -2553,12 +2558,15 @@ const ThumbnailLoader = {
     document.querySelectorAll('.industry-category-vertical').forEach(btn => {
       btn.classList.remove('active');
     });
-    
+
     // 设置当前按钮的选中状态
     const activeBtn = document.querySelector(`.industry-category-vertical[data-category="${category}"]`);
     if (activeBtn) {
       activeBtn.classList.add('active');
     }
+
+    // 保存最后一次选择的分类到 localStorage
+    localStorage.setItem('lastSelectedIndustryCategory', category);
   }
   
   // 渲染指定行业的文案模板到指定容器
@@ -3639,6 +3647,11 @@ const ThumbnailLoader = {
           target.classList.add('hover-active');
         }
 
+        // 如果是触摸提示，立即添加激活样式类（显示背景和边框）
+        if (hintType === 'touch') {
+          target.classList.add('touch-active');
+        }
+
         // 如果是长按提示，添加激活样式类（立即添加，不等待）
         if (hintType === 'long-press') {
           target.classList.add('long-press-active');
@@ -3653,12 +3666,15 @@ const ThumbnailLoader = {
         // 显示动画（立即添加，不等待）
         hint.classList.add('show');
 
-        // 如果是悬停提示，2秒后自动隐藏；长按提示3秒后隐藏
-        const hideTime = hintType === 'hover' ? 2000 : 3000;
+        // 如果是悬停或触摸提示，2秒后自动隐藏；长按提示3秒后隐藏
+        const hideTime = (hintType === 'hover' || hintType === 'touch') ? 2000 : 3000;
         setTimeout(() => {
           // 同时隐藏背景、边框和文字
           if (hintType === 'hover') {
             target.classList.remove('hover-active');
+          }
+          if (hintType === 'touch') {
+            target.classList.remove('touch-active');
           }
 
           hint.classList.remove('show');
@@ -3695,6 +3711,7 @@ const ThumbnailLoader = {
         // 隐藏提示时也移除激活样式
         target.classList.remove('long-press-active');
         target.classList.remove('hover-active');
+        target.classList.remove('touch-active');
       }
       
       // 鼠标悬停事件
@@ -3727,30 +3744,23 @@ const ThumbnailLoader = {
         const clickY = touch.clientY - rect.top;
         const areaWidth = rect.width;
         const areaHeight = rect.height;
-        
+
         // 判断点击区域
         if (clickX < areaWidth / 2) {
           // 左侧区域
           currentTarget = elements.templateTriggerArea.querySelector('.trigger-left');
-          
-          // 长按时直接显示 long-press 提示
-          longPressTimer = setTimeout(() => {
-            showHint(currentTarget, '双击 更换模板', 'long-press');
-          }, 600); // 600毫秒长按触发
+          // 立即显示提示（同步显示背景、边框、文字）
+          showHint(currentTarget, '双击 更换模板', 'touch');
         } else {
           // 右侧区域
           if (clickY < areaHeight / 2) {
             // 右上区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-top');
-            longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '双击 打开相册', 'long-press');
-            }, 600);
+            showHint(currentTarget, '双击 打开相册', 'touch');
           } else {
             // 右下区域
             currentTarget = elements.templateTriggerArea.querySelector('.trigger-bottom');
-            longPressTimer = setTimeout(() => {
-              showHint(currentTarget, '双击 拍照', 'long-press');
-            }, 600);
+            showHint(currentTarget, '双击 拍照', 'touch');
           }
         }
       });
@@ -3761,10 +3771,10 @@ const ThumbnailLoader = {
           clearTimeout(longPressTimer);
           longPressTimer = null;
         }
-        
+
         // 隐藏触摸提示
         if (currentTarget) {
-          hideHint(currentTarget, 'hover');
+          hideHint(currentTarget, 'touch');
           
           const touch = e.changedTouches[0];
           const rect = elements.templateTriggerArea.getBoundingClientRect();
@@ -5283,7 +5293,65 @@ const ThumbnailLoader = {
 
   // 打开模板选择弹窗
   function openTemplateModal() {
+    const loadingEl = document.getElementById('templateDataLoading');
+
+    // 检查模板数据是否已加载
+    if (!window.templatesDataLoaded) {
+      // 显示弹窗和加载动画
+      if (elements.templateModal) {
+        elements.templateModal.classList.remove('hidden');
+      }
+      if (loadingEl) {
+        loadingEl.style.display = 'flex';
+      }
+
+      // 加载数据
+      if (window.loadTemplatesData) {
+        window.loadTemplatesData();
+      }
+
+      // 监听数据加载完成
+      const checkDataLoaded = setInterval(() => {
+        if (window.templatesDataLoaded) {
+          clearInterval(checkDataLoaded);
+
+          // 隐藏加载动画
+          if (loadingEl) {
+            loadingEl.style.display = 'none';
+          }
+
+          // 初始化弹窗内容
+          initTemplateModalContent();
+        }
+      }, 100);
+
+      // 超时保护：5秒后如果还没加载完成，显示错误提示
+      setTimeout(() => {
+        if (!window.templatesDataLoaded) {
+          clearInterval(checkDataLoaded);
+          if (loadingEl) {
+            loadingEl.innerHTML = `
+              <div style="text-align: center; color: #ef4444;">
+                <i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>
+                <div style="font-size: 16px;">加载失败，请关闭弹窗重试</div>
+              </div>
+            `;
+          }
+        }
+      }, 5000);
+
+      return;
+    }
+
+    // 数据已加载，直接显示内容
     if (!elements.templateModal || !elements.templateGrid) return;
+
+    elements.templateModal.classList.remove('hidden');
+    initTemplateModalContent();
+  }
+
+  // 初始化模板弹窗内容
+  function initTemplateModalContent() {
     
     // 清空模板网格
     elements.templateGrid.innerHTML = '';
@@ -13280,11 +13348,70 @@ window.textTemplateManager = {
 
   openModal: function() {
     const modal = document.getElementById('textTemplateModal');
+    const loadingEl = document.getElementById('textTemplateLoading');
+
+    // 检查文案模板数据是否已加载
+    if (!window.textTemplatesDataLoaded) {
+      // 显示弹窗和加载动画
+      if (modal) {
+        modal.classList.remove('hidden');
+      }
+      if (loadingEl) {
+        loadingEl.style.display = 'flex';
+      }
+
+      // 加载数据
+      if (window.loadTextTemplatesData) {
+        window.loadTextTemplatesData();
+      }
+
+      // 监听数据加载完成
+      const checkDataLoaded = setInterval(() => {
+        if (window.textTemplatesDataLoaded) {
+          clearInterval(checkDataLoaded);
+
+          // 隐藏加载动画
+          if (loadingEl) {
+            loadingEl.style.display = 'none';
+          }
+
+          // 刷新内容
+          this.renderCategories();
+          this.renderTemplates(this.currentCategory);
+
+          if (this.lastTemplateIndex !== null) {
+            const templateCards = document.querySelectorAll('#textTemplateList .industry-template-card');
+            if (templateCards[this.lastTemplateIndex]) {
+              templateCards[this.lastTemplateIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+        }
+      }, 100);
+
+      // 超时保护：5秒后如果还没加载完成，显示错误提示
+      setTimeout(() => {
+        if (!window.textTemplatesDataLoaded) {
+          clearInterval(checkDataLoaded);
+          if (loadingEl) {
+            loadingEl.innerHTML = `
+              <div style="text-align: center; color: #ef4444;">
+                <i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>
+                <div style="font-size: 16px;">加载失败，请关闭弹窗重试</div>
+              </div>
+            `;
+          }
+        }
+      }, 5000);
+
+      return;
+    }
+
+    // 数据已加载，直接显示内容
     if (modal) {
       modal.classList.remove('hidden');
       this.renderCategories();
       this.renderTemplates(this.currentCategory);
-      
+
       if (this.lastTemplateIndex !== null) {
         const templateCards = document.querySelectorAll('#textTemplateList .industry-template-card');
         if (templateCards[this.lastTemplateIndex]) {
