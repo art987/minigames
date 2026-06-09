@@ -79,12 +79,17 @@
       }
     };
 
-    // 页面加载完成后延迟加载模板数据（给页面渲染留出时间）
+    // 页面加载完成后延迟加载模板数据和文案模板数据（给页面渲染留出时间）
     window.addEventListener('DOMContentLoaded', function() {
       // 延迟 500ms 加载模板数据，确保页面先渲染完成
       setTimeout(function() {
         window.loadTemplatesData();
       }, 500);
+
+      // 延迟 1000ms 加载文案模板数据，优先级低于模板数据
+      setTimeout(function() {
+        window.loadTextTemplatesData();
+      }, 1000);
     });
   </script>
 </head>

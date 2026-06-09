@@ -3708,10 +3708,20 @@ const ThumbnailLoader = {
           }, 200);
         }
 
-        // 隐藏提示时也移除激活样式
-        target.classList.remove('long-press-active');
-        target.classList.remove('hover-active');
-        target.classList.remove('touch-active');
+        // 触摸提示：使用 hiding 类实现淡出效果
+        if (hintType === 'touch') {
+          target.classList.remove('touch-active');
+          target.classList.add('touch-hiding');
+          setTimeout(() => {
+            target.classList.remove('touch-hiding');
+          }, 200);
+        } else {
+          // 其他提示：延迟 200ms 移除激活样式
+          setTimeout(() => {
+            target.classList.remove('long-press-active');
+            target.classList.remove('hover-active');
+          }, 200);
+        }
       }
       
       // 鼠标悬停事件

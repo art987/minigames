@@ -1287,6 +1287,15 @@ footer {
     background-color: rgb(6 6 6 / 14%);
     border: 1px dotted #ffffffad !important;
   }
+
+  /* 触摸隐藏状态 - 同步淡出背景、边框 */
+  .trigger-left.touch-hiding,
+  .trigger-top.touch-hiding,
+  .trigger-bottom.touch-hiding {
+    background-color: rgb(6 6 6 / 0%);
+    border: 1px dotted rgba(255, 255, 255, 0) !important;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
 }
 
 /* ç‚¹å‡»æ•ˆæžœ */
