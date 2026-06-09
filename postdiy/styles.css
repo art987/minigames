@@ -1270,7 +1270,6 @@ footer {
   .trigger-left,
   .trigger-top,
   .trigger-bottom {
-    border: none !important;
   }
 
   /* ç§»é¤åæ¥ç :active ææï¼æ¹ä¸ºéè¿ JavaScript æ§å¶çç±» */

@@ -1182,21 +1182,19 @@
         el.classList.remove('show');
       }
 
-      // 桌面端：鼠标悬停
-      if (left) {
-        left.addEventListener('mouseenter', () => show(left));
-        left.addEventListener('mouseleave', () => hide(left));
-      }
-      if (top) {
-        top.addEventListener('mouseenter', () => show(top));
-        top.addEventListener('mouseleave', () => hide(top));
-      }
-      if (bottom) {
-        bottom.addEventListener('mouseenter', () => show(bottom));
-        bottom.addEventListener('mouseleave', () => hide(bottom));
+      // 桌面端：鼠标悬停 + 点击都能显示提示
+      function setupDesktopEvents(element) {
+        element.addEventListener('mouseenter', () => show(element));
+        element.addEventListener('mouseleave', () => hide(element));
+        // 点击时也强制显示（解决鼠标已在区域内时 mouseenter 不触发的问题）
+        element.addEventListener('mousedown', () => show(element));
       }
 
-      // 移端：触摸
+      if (left) setupDesktopEvents(left);
+      if (top) setupDesktopEvents(top);
+      if (bottom) setupDesktopEvents(bottom);
+
+      // 移动端：触摸事件
       let lastTap = 0;
       let lastArea = null;
 
@@ -1220,13 +1218,11 @@
           area = 'bottom';
         }
 
-        // 显示提示
+        // 显示提示（不立即隐藏，让它 2 秒后自动消失）
         if (target) show(target);
 
-        // 触摸结束时
+        // 触摸结束时处理双击
         const endHandler = function() {
-          hide(target);
-
           // 双击检测
           const now = Date.now();
           if (lastArea === area && now - lastTap < 300) {
