@@ -42,8 +42,6 @@
   <script src="utils.js" defer></script>
   <!-- 按钮背景图片加载动画 -->
   <script src="button-loading.js" defer></script>
-  <!-- 触发区域提示功能（简化版） -->
-  <script src="trigger-hint.js" defer></script>
   <!-- 网站配置数据（包含券码验证） -->
   <script src="config_data.js" defer></script>
   <!-- 会员系统模块 -->
@@ -1159,5 +1157,103 @@
     </div>
   </div>
 
+  <!-- 最简单的触发区域提示功能 -->
+  <script>
+    // 等待页面加载完成
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取三个触发区域
+      const left = document.querySelector('.trigger-left');
+      const top = document.querySelector('.trigger-top');
+      const bottom = document.querySelector('.trigger-bottom');
+
+      // 定时器
+      let timer = null;
+
+      // 显示提示（添加 .show 类）
+      function show(el) {
+        if (timer) clearTimeout(timer);
+        el.classList.add('show');
+        timer = setTimeout(() => el.classList.remove('show'), 2000);
+      }
+
+      // 隐藏提示（移除 .show 类）
+      function hide(el) {
+        if (timer) clearTimeout(timer);
+        el.classList.remove('show');
+      }
+
+      // 桌面端：鼠标悬停
+      if (left) {
+        left.addEventListener('mouseenter', () => show(left));
+        left.addEventListener('mouseleave', () => hide(left));
+      }
+      if (top) {
+        top.addEventListener('mouseenter', () => show(top));
+        top.addEventListener('mouseleave', () => hide(top));
+      }
+      if (bottom) {
+        bottom.addEventListener('mouseenter', () => show(bottom));
+        bottom.addEventListener('mouseleave', () => hide(bottom));
+      }
+
+      // 移端：触摸
+      let lastTap = 0;
+      let lastArea = null;
+
+      document.getElementById('templateTriggerArea').addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const rect = this.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+
+        // 判断触摸区域
+        let target = null;
+        let area = null;
+        if (x < rect.width / 2) {
+          target = left;
+          area = 'left';
+        } else if (y < rect.height / 2) {
+          target = top;
+          area = 'top';
+        } else {
+          target = bottom;
+          area = 'bottom';
+        }
+
+        // 显示提示
+        if (target) show(target);
+
+        // 触摸结束时
+        const endHandler = function() {
+          hide(target);
+
+          // 双击检测
+          const now = Date.now();
+          if (lastArea === area && now - lastTap < 300) {
+            // 双击触发功能
+            if (area === 'left') {
+              const btn = document.getElementById('changeTemplateBtn');
+              if (btn) btn.click();
+            } else if (area === 'top') {
+              const btn = document.getElementById('uploadBackgroundBtn');
+              if (btn) btn.click();
+            } else if (area === 'bottom') {
+              const btn = document.getElementById('takePhotoBtn');
+              if (btn) btn.click();
+            }
+            lastTap = 0;
+            lastArea = null;
+          } else {
+            lastTap = now;
+            lastArea = area;
+          }
+
+          this.removeEventListener('touchend', endHandler);
+        };
+
+        this.addEventListener('touchend', endHandler);
+      });
+    });
+  </script>
 </body>
 </html>
