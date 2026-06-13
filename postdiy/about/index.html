@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,99 +6,188 @@
     <title>闪喵海报生成工具 - 关于我们</title>
     <meta name="description" content="闪喵海报生成工具，一键生成精美海报，助力品牌传播">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 节日数据 -->
+    <script src="../festivals.js"></script>
+    <!-- 行业模板数据 -->
+    <script src="../industry-templates.js"></script>
+    <!-- 工具函数 -->
+    <script src="../utils.js"></script>
+    <!-- 模板数据 -->
+    <script>
+        const templateScript = document.createElement('script');
+        templateScript.src = '../templates.js?t=' + new Date().getTime();
+        document.head.appendChild(templateScript);
+    </script>
 </head>
 <body>
     <!-- 导航栏 -->
     <nav class="navbar glass">
         <div class="navbar-inner">
-            <div class="logo">闪喵海报生成工具</div>
+            <div class="logo">
+                <img src="../images/statics/logo.png" alt="闪喵logo" class="logo-img">
+                <span>闪喵~朋友圈海报制作神器</span>
+            </div>
             <a href="../index.html" class="nav-cta">立即体验</a>
         </div>
     </nav>
 
-    <!-- Hero区域 - 幻灯片 -->
-    <section class="hero-slider-section">
-        <div class="hero-slides-container">
-            <!-- 幻灯片1 -->
-            <div class="hero-slide-item active" data-slide="1" style="background-image: url('../images/statics/about/1.jpg');">
-                <div class="hero-slide-content">
-                    <h1 class="hero-slide-title visually-hidden">一键生成精美海报</h1>
-                    <p class="hero-slide-subtitle visually-hidden">无需设计经验，简单操作即可生成专业海报</p>
-                </div>
-            </div>
-            <!-- 幻灯片2 -->
-            <div class="hero-slide-item" data-slide="2" style="background-image: url('../images/statics/about/2.jpg');">
-                <div class="hero-slide-content">
-                    <h1 class="hero-slide-title visually-hidden">海量精美模板</h1>
-                    <p class="hero-slide-subtitle visually-hidden">覆盖节日、促销、品牌宣传等多种场景</p>
-                </div>
-            </div>
-            <!-- 幻灯片3 -->
-            <div class="hero-slide-item" data-slide="3" style="background-image: url('../images/statics/about/3.jpg');">
-                <div class="hero-slide-content">
-                    <h1 class="hero-slide-title visually-hidden">朋友圈完美适配</h1>
-                    <p class="hero-slide-subtitle visually-hidden">一键下载高清图片，直接用于朋友圈传播</p>
-                </div>
-            </div>
-            <!-- 幻灯片4 -->
-            <div class="hero-slide-item" data-slide="4" style="background-image: url('../images/statics/about/4.jpg');">
-                <div class="hero-slide-content">
-                    <h1 class="hero-slide-title visually-hidden">助力品牌传播</h1>
-                    <p class="hero-slide-subtitle visually-hidden">让每一张海报都成为品牌传播的亮点</p>
-                </div>
-            </div>
-            <!-- 幻灯片5 -->
-            <div class="hero-slide-item" data-slide="5" style="background-image: url('../images/statics/about/5.jpg');">
-                <div class="hero-slide-content">
-                    <h1 class="hero-slide-title visually-hidden">简单三步完成</h1>
-                    <p class="hero-slide-subtitle visually-hidden">选择模板 → 填写内容 → 一键下载</p>
-                </div>
-            </div>
-        </div>
-        <!-- 幻灯片导航点 -->
-        <div class="hero-slider-dots">
-            <div class="hero-slider-dot active" data-slide="1"></div>
-            <div class="hero-slider-dot" data-slide="2"></div>
-            <div class="hero-slider-dot" data-slide="3"></div>
-            <div class="hero-slider-dot" data-slide="4"></div>
-            <div class="hero-slider-dot" data-slide="5"></div>
+    <!-- Hero区域 - 图片展示 -->
+    <section class="hero-images-section" style="padding-top: 48px;">
+        <!-- 图片1 -->
+        <div class="hero-image-item">
+            <img src="../images/statics/about/1.jpg" alt="一键生成精美海报" class="hero-image">
         </div>
     </section>
 
-    <!-- 功能特性 -->
-    <section class="section section-white">
-        <div class="section-inner">
-            <h2 class="section-title">核心功能</h2>
-            <p class="section-subtitle">简单三步，轻松制作专业海报</p>
-            <div class="feature-grid">
-                <div class="feature-card animate-on-scroll stagger-1">
-                    <div class="feature-header">
-                        <div class="feature-icon">🎨</div>
-                        <h3 class="feature-title">海量精美模板</h3>
-                    </div>
-                    <p class="feature-desc">提供数千款精心设计的海报模板，覆盖节日、促销、品牌宣传等多种场景，满足您的各种需求。</p>
-                    <div class="feature-advantage">持续更新，紧跟热点</div>
+    <!-- 模板幻灯片展示 -->
+    <section class="about-templates-section">
+        <div class="about-templates-inner">
+            <h2 class="about-templates-title">精选模板展示</h2>
+            <p class="about-templates-subtitle" id="aboutTemplatesSubtitle">当前推荐节日模板</p>
+            
+            <!-- 月份选择 -->
+            <div class="about-month-nav">
+                <div class="about-month-buttons" id="aboutMonthButtons"></div>
+            </div>
+            
+            <!-- 节日选择 -->
+            <div class="about-festival-nav">
+                <div class="about-festival-tags" id="aboutFestivalTags"></div>
+            </div>
+            
+            <!-- 幻灯片视图 -->
+            <div class="template-slide-view">
+                <div class="template-3d-gallery">
+                    <div class="template-gallery-container" id="aboutTemplateGallery"></div>
                 </div>
-                <div class="feature-card animate-on-scroll stagger-2">
-                    <div class="feature-header">
-                        <div class="feature-icon">⚡</div>
-                        <h3 class="feature-title">一键快速生成</h3>
+                <div class="template-slide-controls">
+                    <button class="nav-btn prev-btn" id="aboutPrevSlide">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <div class="template-slide-info">
+                        <span id="aboutSlideName">模板名称</span>
+                        <div class="slide-counter-wrapper">
+                            <span id="aboutSlideCounter">1 / 10</span>
+                            <button id="aboutSlidePlayPauseBtn" class="slide-play-btn" title="暂停">
+                                <i class="fa fa-pause"></i>
+                            </button>
+                        </div>
                     </div>
-                    <p class="feature-desc">无需设计经验，只需选择模板、填写内容，即可快速生成专业级海报，节省大量时间成本。</p>
-                    <div class="feature-advantage">30秒完成一张海报</div>
+                    <button class="nav-btn next-btn" id="aboutNextSlide">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="feature-card animate-on-scroll stagger-3">
-                    <div class="feature-header">
-                        <div class="feature-icon">📱</div>
-                        <h3 class="feature-title">朋友圈完美适配</h3>
+            </div>
+            
+            <!-- 立即体验按钮 -->
+            <div class="about-templates-cta">
+                <a href="../editor.html" class="about-cta-button">立即制作海报</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero区域 - 图片2 -->
+    <section class="hero-images-section">
+        <div class="hero-image-item">
+            <img src="../images/statics/about/2.jpg" alt="海量精美模板" class="hero-image">
+        </div>
+    </section>
+
+    <!-- 品牌促销引流文案展示 -->
+    <section class="about-promo-section">
+        <div class="about-promo-inner">
+            <h2 class="about-promo-title">省心的促销引流文案模板</h2>
+            <p class="about-promo-subtitle">更多模板按需选择编辑，让您的引流更精准、更高效</p>
+            
+            <!-- 行业文案展示区 -->
+            <div class="about-promo-container">
+                <!-- 左侧行业分类导航 -->
+                <div class="about-promo-sidebar">
+                    <div class="about-promo-categories" id="aboutPromoCategories"></div>
+                </div>
+                
+                <!-- 右侧模板内容区域 -->
+                <div class="about-promo-content">
+                    <div class="about-promo-templates-wrap">
+                        <div id="aboutPromoTemplatesList" class="about-promo-templates-list"></div>
                     </div>
-                    <p class="feature-desc">专为朋友圈传播优化，支持多种尺寸规格，一键下载高清图片，直接分享到朋友圈。</p>
-                    <div class="feature-advantage">高清画质，完美展示</div>
+                    <!-- 提示信息 -->
+                    <div class="about-promo-more-hint">
+                        <div class="about-promo-more-content">
+                            <span>以上仅展示部分文案模板</span>
+                            <span class="about-promo-more-text">下载应用即可查看全部</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Hero区域 - 图片3-5 -->
+    <section class="hero-images-section">
+        <!-- 图片3 -->
+        <div class="hero-image-item">
+            <img src="../images/statics/about/3.jpg" alt="朋友圈完美适配" class="hero-image">
+        </div>
+
+
+    <!-- 智能提醒 - 每日海报内容智能提醒 -->
+    <section class="about-smart-reminder-section">
+        <div class="about-smart-reminder-inner">
+            <h2 class="about-smart-reminder-title">每日海报内容智能提醒</h2>
+            <p class="about-smart-reminder-subtitle">让您不要错过每一个宣传机会</p>
+
+            <!-- 智能提醒展示区（类似弹窗展示） -->
+            <div class="about-smart-reminder-container">
+                <div class="about-smart-reminder-modal">
+                    <div class="about-smart-reminder-header">
+                        <h3 class="about-smart-reminder-modal-title">增加品牌曝光，提升用户信任!</h3>
+                    </div>
+                    <div class="about-smart-reminder-body">
+                        <!-- 今日发布模块 -->
+                        <div class="about-smart-section">
+                            <h3 class="about-smart-section-title">今日优先：当前品牌宣传任务<span id="aboutSmartDateInTitle"></span></h3>
+                            <div id="aboutSmartTodayContent" class="about-smart-section-content"></div>
+                        </div>
+
+                        <div class="about-smart-divider"></div>
+
+                        <!-- 未来制作建议模块 -->
+                        <div class="about-smart-section">
+                            <h3 class="about-smart-section-title">近日品牌宣传任务</h3>
+                            <div id="aboutSmartFutureContent" class="about-smart-section-content"></div>
+                        </div>
+
+                        <!-- 下载应用提示 -->
+                        <div class="about-smart-download-hint">
+                            <div class="about-smart-download-content">
+                                <i class="fa fa-download"></i>
+                                <span>以上仅展示部分任务</span>
+                                <span class="about-smart-download-text">下载应用体验完整功能</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+        <!-- 图片4 -->
+        <div class="hero-image-item">
+            <img src="../images/statics/about/4.jpg" alt="助力品牌传播" class="hero-image">
+        </div>
+        <!-- 图片5 -->
+        <div class="hero-image-item">
+            <img src="../images/statics/about/5.jpg" alt="简单三步完成" class="hero-image">
+        </div>
+    </section>
+
+
+  
 
     <!-- 品牌价值 -->
     <section class="section section-gradient-blue">
@@ -141,31 +230,7 @@
         </div>
     </section>
 
-    <!-- 节日海报展示 -->
-    <section class="section section-white">
-        <div class="section-inner">
-            <h2 class="section-title">节日海报精选</h2>
-            <p class="section-subtitle">覆盖全年重要节日，抓住每一个营销节点</p>
-            <div class="festival-posters">
-                <div class="festival-card">
-                    <span>春节</span>
-                    <div class="festival-tag">新年特惠</div>
-                </div>
-                <div class="festival-card">
-                    <span>情人节</span>
-                    <div class="festival-tag">浪漫告白</div>
-                </div>
-                <div class="festival-card">
-                    <span>中秋节</span>
-                    <div class="festival-tag">团圆佳节</div>
-                </div>
-                <div class="festival-card">
-                    <span>双十一</span>
-                    <div class="festival-tag">购物狂欢</div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- 适用人群 -->
     <section class="section section-gradient-pink">
@@ -288,40 +353,6 @@
 
         animateElements.forEach(el => observer.observe(el));
 
-        // Hero 幻灯片
-        const heroSlides = document.querySelectorAll('.hero-slide-item');
-        const heroDots = document.querySelectorAll('.hero-slider-dot');
-        let currentHeroSlide = 0;
-        let heroSlideInterval;
-
-        function showHeroSlide(index) {
-            heroSlides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-            heroDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-
-        function nextHeroSlide() {
-            currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
-            showHeroSlide(currentHeroSlide);
-        }
-
-        // 点击导航点切换
-        heroDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentHeroSlide = index;
-                showHeroSlide(currentHeroSlide);
-                // 重置自动播放计时器
-                clearInterval(heroSlideInterval);
-                heroSlideInterval = setInterval(nextHeroSlide, 5000);
-            });
-        });
-
-        // 自动播放
-        heroSlideInterval = setInterval(nextHeroSlide, 5000);
-
         // 用户反馈轮播
         const testimonialDots = document.querySelectorAll('.testimonial-dot');
         let currentTestimonial = 0;
@@ -334,6 +365,755 @@
                 });
             });
         });
-    </script>
+
+        // ========== 模板幻灯片逻辑 ==========
+        // 节日日期数据（用于智能提醒模块）
+        if (!window.festivalDates) {
+            window.festivalDates = {
+                '2026': {
+                    '元旦': '2026-01-01 星期四', '小寒': '2026-01-05 星期一', '大寒': '2026-01-20 星期二',
+                    '腊八节': '2026-01-26 星期一', '小年': '2026-02-10 星期二', '立春': '2026-02-04 星期三',
+                    '情人节': '2026-02-14 星期六', '除夕': '2026-02-16 星期一', '春节': '2026-02-17 星期二',
+                    '雨水': '2026-02-18 星期三', '元宵节': '2026-03-03 星期二', '惊蛰': '2026-03-05 星期四',
+                    '妇女节': '2026-03-08 星期日', '植树节': '2026-03-12 星期四', '龙抬头': '2026-03-20 星期五',
+                    '春分': '2026-03-20 星期五', '愚人节': '2026-04-01 星期三', '清明': '2026-04-05 星期日',
+                    '谷雨': '2026-04-20 星期一', '世界地球日': '2026-04-22 星期三', '世界读书日': '2026-04-23 星期四',
+                    '立夏': '2026-05-05 星期二', '小满': '2026-05-21 星期四', '劳动节': '2026-05-01 星期五',
+                    '青年节': '2026-05-04 星期一', '520': '2026-05-20 星期三', '芒种': '2026-06-05 星期五',
+                    '夏至': '2026-06-21 星期日', '端午节': '2026-06-19 星期五', '儿童节': '2026-06-01 星期一',
+                    '建党节': '2026-07-01 星期三', '小暑': '2026-07-07 星期二', '大暑': '2026-07-23 星期四',
+                    '建军节': '2026-08-01 星期六', '立秋': '2026-08-07 星期五', '处暑': '2026-08-23 星期日',
+                    '七夕节': '2026-08-19 星期三', '中元节': '2026-08-27 星期四', '白露': '2026-09-07 星期一',
+                    '秋分': '2026-09-23 星期三', '中秋节': '2026-09-25 星期五', '教师节': '2026-09-10 星期三',
+                    '国庆节': '2026-10-01 星期四', '寒露': '2026-10-08 星期四', '霜降': '2026-10-23 星期五',
+                    '重阳节': '2026-10-18 星期日', '立冬': '2026-11-07 星期六', '小雪': '2026-11-22 星期日',
+                    '双十一': '2026-11-11 星期三', '大雪': '2026-12-07 星期一', '冬至': '2026-12-22 星期二',
+                    '圣诞节': '2026-12-25 星期五', '双十二': '2026-12-12 星期六'
+                },
+                '2027': {
+                    '元旦': '2027-01-01 星期五', '小寒': '2027-01-05 星期二', '大寒': '2027-01-20 星期三',
+                    '腊八节': '2027-01-15 星期五', '小年': '2027-01-30 星期六', '立春': '2027-02-04 星期四',
+                    '情人节': '2027-02-14 星期日', '除夕': '2027-02-05 星期五', '春节': '2027-02-06 星期六',
+                    '雨水': '2027-02-19 星期五', '元宵节': '2027-02-20 星期六', '惊蛰': '2027-03-06 星期六',
+                    '妇女节': '2027-03-08 星期一', '植树节': '2027-03-12 星期五', '龙抬头': '2027-03-21 星期日',
+                    '春分': '2027-03-21 星期日', '愚人节': '2027-04-01 星期四', '清明': '2027-04-05 星期一',
+                    '谷雨': '2027-04-20 星期二', '世界地球日': '2027-04-22 星期四', '世界读书日': '2027-04-23 星期五',
+                    '立夏': '2027-05-06 星期四', '小满': '2027-05-21 星期五', '劳动节': '2027-05-01 星期六',
+                    '青年节': '2027-05-04 星期二', '520': '2027-05-20 星期四', '芒种': '2027-06-06 星期日',
+                    '夏至': '2027-06-21 星期一', '端午节': '2027-06-09 星期三', '儿童节': '2027-06-01 星期二',
+                    '建党节': '2027-07-01 星期四', '小暑': '2027-07-07 星期三', '大暑': '2027-07-23 星期五',
+                    '建军节': '2027-08-01 星期日', '立秋': '2027-08-07 星期六', '处暑': '2027-08-23 星期一',
+                    '七夕节': '2027-08-08 星期日', '中元节': '2027-08-17 星期二', '白露': '2027-09-07 星期二',
+                    '秋分': '2027-09-23 星期四', '中秋节': '2027-10-05 星期二', '教师节': '2027-09-10 星期五',
+                    '国庆节': '2027-10-01 星期五', '寒露': '2027-10-08 星期五', '霜降': '2027-10-23 星期六',
+                    '重阳节': '2027-10-08 星期五', '立冬': '2027-11-07 星期日', '小雪': '2027-11-22 星期一',
+                    '双十一': '2027-11-11 星期四', '大雪': '2027-12-07 星期二', '冬至': '2027-12-22 星期三',
+                    '圣诞节': '2027-12-25 星期六', '双十二': '2027-12-12 星期日'
+                }
+            };
+        }
+
+        let aboutTemplates = [];
+        let aboutCurrentIndex = 0;
+        let aboutAutoPlayInterval = null;
+        let aboutIsPlaying = true;
+        let aboutCurrentMonth = null;
+        let aboutCurrentFestival = null;
+        let aboutLoadedImages = new Set(); // 已加载的图片索引
+
+        // 滚动到屏幕居中位置
+        function scrollToCenter(element, container) {
+            if (!element || !container) return;
+
+            const elementLeft = element.offsetLeft;
+            const elementWidth = element.offsetWidth;
+            const screenWidth = window.innerWidth;
+
+            // 计算让元素在屏幕中心显示的滚动位置
+            const scrollLeft = elementLeft - (screenWidth / 2) + (elementWidth / 2);
+
+            // 平滑滚动
+            container.parentElement.scrollTo({
+                left: Math.max(0, scrollLeft),
+                behavior: 'smooth'
+            });
+        }
+
+        // 等待模板数据加载完成
+        function initAboutTemplates() {
+            console.log('initAboutTemplates 开始执行');
+
+            if (!window.templates) {
+                console.log('等待模板数据加载...');
+                setTimeout(initAboutTemplates, 100);
+                return;
+            }
+
+            if (!window.utils) {
+                console.log('等待 utils 加载...');
+                setTimeout(initAboutTemplates, 100);
+                return;
+            }
+
+            // 使用 utils.js 的 autoSelectByDate 获取当前最近的节日
+            const result = window.utils.autoSelectByDate();
+            console.log('autoSelectByDate 结果:', result);
+            aboutCurrentMonth = result.month;
+            aboutCurrentFestival = result.festival;
+
+            // 渲染月份按钮
+            renderAboutMonthButtons();
+
+            // 渲染节日标签
+            renderAboutFestivalTags();
+
+            // 加载模板
+            loadAboutTemplates();
+
+            // 初始居中选中按钮
+            setTimeout(() => {
+                const activeMonthBtn = document.querySelector('.about-month-btn.active');
+                if (activeMonthBtn) {
+                    scrollToCenter(activeMonthBtn, document.getElementById('aboutMonthButtons'));
+                }
+
+                const activeFestivalTag = document.querySelector('.about-festival-tag.active');
+                if (activeFestivalTag) {
+                    scrollToCenter(activeFestivalTag, document.getElementById('aboutFestivalTags'));
+                }
+            }, 100);
+
+            // 绑定控制按钮事件
+            document.getElementById('aboutPrevSlide').addEventListener('click', () => {
+                aboutNavigate(-1);
+            });
+
+            document.getElementById('aboutNextSlide').addEventListener('click', () => {
+                aboutNavigate(1);
+            });
+
+            document.getElementById('aboutSlidePlayPauseBtn').addEventListener('click', toggleAboutAutoPlay);
+        }
+
+        // 渲染月份按钮
+        function renderAboutMonthButtons() {
+            const container = document.getElementById('aboutMonthButtons');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= 12; i++) {
+                const btn = document.createElement('button');
+                btn.className = `about-month-btn ${i === aboutCurrentMonth ? 'active' : ''}`;
+                btn.textContent = `${i}月`;
+                btn.dataset.month = i;
+
+                btn.addEventListener('click', () => {
+                    // 更新选中状态
+                    document.querySelectorAll('.about-month-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // 滚动到居中位置
+                    scrollToCenter(btn, container);
+
+                    // 更新当前月份
+                    aboutCurrentMonth = i;
+                    aboutCurrentFestival = null;
+
+                    // 更新节日标签
+                    renderAboutFestivalTags();
+
+                    // 加载模板
+                    loadAboutTemplates();
+                });
+
+                container.appendChild(btn);
+            }
+        }
+
+        // 渲染节日标签
+        function renderAboutFestivalTags() {
+            const container = document.getElementById('aboutFestivalTags');
+            container.innerHTML = '';
+
+            // 获取当前月份的节日
+            const festivals = window.utils.getFestivalNamesByMonth(aboutCurrentMonth);
+            console.log(`${aboutCurrentMonth}月的节日:`, festivals);
+
+            if (festivals.length === 0) {
+                container.innerHTML = '<span style="color: #999; font-size: 13px;">本月暂无节日模板</span>';
+                return;
+            }
+
+            festivals.forEach(festival => {
+                const tag = document.createElement('span');
+                tag.className = `about-festival-tag ${festival === aboutCurrentFestival ? 'active' : ''}`;
+                tag.textContent = festival;
+                tag.dataset.festival = festival;
+
+                tag.addEventListener('click', () => {
+                    // 更新选中状态
+                    document.querySelectorAll('.about-festival-tag').forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+
+                    // 滚动到居中位置
+                    scrollToCenter(tag, container);
+
+                    // 更新当前节日
+                    aboutCurrentFestival = festival;
+
+                    // 加载模板
+                    loadAboutTemplates();
+                });
+
+                container.appendChild(tag);
+            });
+
+            // 初始居中选中节日标签
+            setTimeout(() => {
+                const activeTag = document.querySelector('.about-festival-tag.active');
+                if (activeTag) {
+                    scrollToCenter(activeTag, container);
+                }
+            }, 50);
+        }
+
+        // 加载模板
+        function loadAboutTemplates() {
+            // 清空已加载图片记录
+            aboutLoadedImages.clear();
+            aboutCurrentIndex = 0;
+
+            // 获取模板
+            aboutTemplates = window.utils.getTemplatesByFilters(aboutCurrentMonth, aboutCurrentFestival);
+            console.log('获取到的模板数量:', aboutTemplates.length);
+
+            if (aboutTemplates.length === 0) {
+                // 如果没有模板，获取当前月份的所有模板
+                const allTemplates = window.utils.getAllTemplates();
+                aboutTemplates = allTemplates.filter(template => template.months && template.months.includes(aboutCurrentMonth));
+                console.log('当前月份模板数量:', aboutTemplates.length);
+            }
+
+            // 更新标题
+            const subtitle = document.getElementById('aboutTemplatesSubtitle');
+            if (subtitle) {
+                if (aboutCurrentFestival) {
+                    subtitle.textContent = `${aboutCurrentFestival} 模板推荐`;
+                } else if (aboutCurrentMonth) {
+                    subtitle.textContent = `${aboutCurrentMonth}月模板推荐`;
+                } else {
+                    subtitle.textContent = '精选模板展示';
+                }
+            }
+
+            // 渲染幻灯片（不加载图片）
+            renderAboutSlides();
+
+            // 加载当前显示的图片
+            loadVisibleImages();
+
+            // 开始自动播放
+            startAboutAutoPlay();
+        }
+
+        // 渲染幻灯片（不加载图片）
+        function renderAboutSlides() {
+            const container = document.getElementById('aboutTemplateGallery');
+            container.innerHTML = '';
+
+            aboutTemplates.forEach((template, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'template-gallery-slide';
+                slide.dataset.index = index;
+                slide.dataset.thumbnail = template.thumbnail;
+
+                const img = document.createElement('img');
+                // 使用占位符，不立即加载图片
+                img.src = '../images/statics/loading88.gif';
+                img.alt = template.name;
+                img.className = 'slide-img';
+                img.dataset.realSrc = '../' + template.thumbnail;
+
+                const name = document.createElement('div');
+                name.className = 'slide-name';
+                name.textContent = template.name;
+
+                slide.appendChild(img);
+                slide.appendChild(name);
+                container.appendChild(slide);
+            });
+
+            updateAboutSlidePositions();
+        }
+
+        // 加载可见图片（当前 + 前后各2张）
+        function loadVisibleImages() {
+            const total = aboutTemplates.length;
+            const visibleRange = [-2, -1, 0, 1, 2]; // 当前及前后各2张
+
+            visibleRange.forEach(offset => {
+                const index = (aboutCurrentIndex + offset + total) % total;
+                if (!aboutLoadedImages.has(index)) {
+                    loadImageAtIndex(index);
+                    aboutLoadedImages.add(index);
+                }
+            });
+        }
+
+        // 加载指定索引的图片
+        function loadImageAtIndex(index) {
+            const slide = document.querySelector(`#aboutTemplateGallery .template-gallery-slide[data-index="${index}"]`);
+            if (slide) {
+                const img = slide.querySelector('.slide-img');
+                if (img && img.dataset.realSrc) {
+                    img.src = img.dataset.realSrc;
+                }
+            }
+        }
+
+        // 更新幻灯片位置
+        function updateAboutSlidePositions() {
+            const slides = document.querySelectorAll('#aboutTemplateGallery .template-gallery-slide');
+            const total = slides.length;
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('current', 'prev-1', 'prev-2', 'next-1', 'next-2', 'hidden-slide');
+
+                const diff = index - aboutCurrentIndex;
+
+                if (diff === 0) {
+                    slide.classList.add('current');
+                } else if (diff === -1 || (aboutCurrentIndex === 0 && index === total - 1)) {
+                    slide.classList.add('prev-1');
+                } else if (diff === -2 || (aboutCurrentIndex === 1 && index === total - 1) || (aboutCurrentIndex === 0 && index === total - 2)) {
+                    slide.classList.add('prev-2');
+                } else if (diff === 1 || (aboutCurrentIndex === total - 1 && index === 0)) {
+                    slide.classList.add('next-1');
+                } else if (diff === 2 || (aboutCurrentIndex === total - 2 && index === 0) || (aboutCurrentIndex === total - 1 && index === 1)) {
+                    slide.classList.add('next-2');
+                } else {
+                    slide.classList.add('hidden-slide');
+                }
+            });
+
+            // 更新信息
+            document.getElementById('aboutSlideName').textContent = aboutTemplates[aboutCurrentIndex]?.name || '';
+            document.getElementById('aboutSlideCounter').textContent = `${aboutCurrentIndex + 1} / ${total}`;
+
+            // 加载可见图片
+            loadVisibleImages();
+        }
+
+        // 导航
+        function aboutNavigate(direction) {
+            const total = aboutTemplates.length;
+            aboutCurrentIndex = (aboutCurrentIndex + direction + total) % total;
+            updateAboutSlidePositions();
+        }
+
+        // 自动播放
+        function startAboutAutoPlay() {
+            if (aboutAutoPlayInterval) clearInterval(aboutAutoPlayInterval);
+            aboutAutoPlayInterval = setInterval(() => {
+                if (aboutIsPlaying) {
+                    aboutNavigate(1);
+                }
+            }, 3000);
+        }
+
+        // 切换自动播放
+        function toggleAboutAutoPlay() {
+            aboutIsPlaying = !aboutIsPlaying;
+            const btn = document.getElementById('aboutSlidePlayPauseBtn');
+            btn.innerHTML = aboutIsPlaying ? '<i class="fa fa-pause"></i>' : '<i class="fa fa-play"></i>';
+            btn.title = aboutIsPlaying ? '暂停' : '播放';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            initAboutTemplates();
+            initAboutPromoTemplates();
+            initAboutSmartReminder();
+        });
+
+        // ========== 品牌促销引流文案逻辑 ==========
+        function initAboutPromoTemplates() {
+            // 等待 INDUSTRY_TEMPLATES 数据加载
+            if (typeof INDUSTRY_TEMPLATES === 'undefined') {
+                setTimeout(initAboutPromoTemplates, 100);
+                return;
+            }
+
+            const categories = Object.keys(INDUSTRY_TEMPLATES);
+            if (categories.length === 0) return;
+
+            // 渲染行业分类
+            renderAboutPromoCategories(categories);
+
+            // 默认显示第一个分类
+            renderAboutPromoTemplates(categories[0]);
+        }
+
+        // 渲染行业分类
+        function renderAboutPromoCategories(categories) {
+            const container = document.getElementById('aboutPromoCategories');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            categories.forEach((category, index) => {
+                const btn = document.createElement('button');
+                btn.className = `about-promo-category ${index === 0 ? 'active' : ''}`;
+                const icon = (typeof INDUSTRY_ICONS !== 'undefined' && INDUSTRY_ICONS[category]) ? INDUSTRY_ICONS[category] : '';
+                btn.textContent = `${icon} ${category}`;
+                btn.dataset.category = category;
+
+                btn.addEventListener('click', () => {
+                    // 更新选中状态
+                    document.querySelectorAll('.about-promo-category').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // 渲染对应模板
+                    renderAboutPromoTemplates(category);
+                });
+
+                container.appendChild(btn);
+            });
+        }
+
+        // 渲染文案模板（只显示3个）
+        function renderAboutPromoTemplates(category) {
+            const container = document.getElementById('aboutPromoTemplatesList');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const templates = INDUSTRY_TEMPLATES[category] || [];
+
+            // 只显示前3个模板
+            const displayTemplates = templates.slice(0, 3);
+
+            displayTemplates.forEach((template, index) => {
+                const card = document.createElement('div');
+                card.className = 'about-promo-template-card';
+
+                const content = document.createElement('div');
+                content.className = 'about-promo-template-content';
+                content.textContent = template;
+
+                const btn = document.createElement('button');
+                btn.className = 'about-promo-template-btn';
+                btn.disabled = true;
+                btn.textContent = '下载应用使用';
+
+                card.appendChild(content);
+                card.appendChild(btn);
+                container.appendChild(card);
+            });
+
+            // 如果模板少于3个，添加空状态提示
+            if (displayTemplates.length === 0) {
+                const empty = document.createElement('div');
+                empty.style.cssText = 'padding: 40px 20px; text-align: center; color: #999; font-size: 14px;';
+                empty.textContent = '暂无文案模板';
+                container.appendChild(empty);
+            }
+        }
+
+        // ========== 智能提醒 - 每日海报内容智能提醒 ==========
+        function initAboutSmartReminder() {
+            const todayContent = document.getElementById('aboutSmartTodayContent');
+            const futureContent = document.getElementById('aboutSmartFutureContent');
+            const dateTitle = document.getElementById('aboutSmartDateInTitle');
+            if (!todayContent || !futureContent) return;
+
+            // 等待 festivalDates 和 templates 加载完成
+            if (!window.festivalDates || !window.templates) {
+                setTimeout(initAboutSmartReminder, 100);
+                return;
+            }
+
+            // 渲染今日日期
+            renderAboutSmartDate();
+            setInterval(renderAboutSmartDate, 1000);
+
+            // 渲染今日发布内容
+            renderAboutSmartToday();
+
+            // 渲染未来节日建议
+            renderAboutSmartFuture();
+        }
+
+        function renderAboutSmartDate() {
+            const dateTitle = document.getElementById('aboutSmartDateInTitle');
+            if (!dateTitle) return;
+
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const weekday = getWeekdayChinese(now.getDay());
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            dateTitle.innerHTML = ` <strong>${month}月${day}日 ${weekday}</strong> <i>${hours}:${minutes}:${seconds}</i>`;
+        }
+
+        // 节日名称到文件夹名称的映射
+        const aboutFestivalFolderMap = {
+            '谷雨': 'guyu', '立春': 'lichun', '雨水': 'yushui', '惊蛰': 'jingzhe',
+            '春分': 'chunfen', '清明': 'qingming', '立夏': 'lixia', '小满': 'xiaoman',
+            '芒种': 'mangzhong', '夏至': 'xiazhi', '小暑': 'xiaoshu', '大暑': 'dashu',
+            '立秋': 'liqiu', '处暑': 'chushu', '白露': 'bailu', '秋分': 'qiufen',
+            '寒露': 'hanlu', '霜降': 'shuangjiang', '立冬': 'lidong', '小雪': 'xiaoxue',
+            '大雪': 'daxue', '冬至': 'dongzhi', '小寒': 'xiaohan', '大寒': 'dahan',
+            '春节': 'chunjie', '清明节': 'qingming', '端午节': 'duanwu', '七夕节': 'qixi',
+            '中元节': 'zhongyuan', '中秋节': 'zhongqiu', '重阳节': 'chongyang', '除夕': 'chuxi',
+            '元旦': 'yuandan', '情人节': 'qingrenjie', '妇女节': 'funvjie', '劳动节': 'laodongjie',
+            '青年节': 'qingnianjie', '母亲节': 'muqinjie', '520': '520', '儿童节': 'ertongjie',
+            '父亲节': 'fuqinjie', '建军节': 'jianjunjie', '教师节': 'jiaoshi', '国庆节': 'guoqing',
+            '感恩节': 'ganenjie', '世界地球日': 'shijiediqiuri', '世界读书日': 'shijiedushuri',
+            'zaoan': 'zaoan', 'wanan': 'wanan'
+        };
+
+        // 获取随机背景图片
+        function getAboutRandomBackground(type) {
+            if (type === 'dairy') {
+                const randomNum = Math.floor(Math.random() * 3) + 1;
+                return `../images/dairy/${randomNum}.jpg`;
+            }
+
+            if (typeof window.templates === 'undefined') return null;
+
+            const actionToFestival = { 'zaoan': '早安', 'wanan': '晚安' };
+            const festivalType = actionToFestival[type] || type;
+
+            let matched = [];
+            for (const month in window.templates) {
+                if (Array.isArray(window.templates[month])) {
+                    window.templates[month].forEach(template => {
+                        if (template.festivals && template.festivals.includes(festivalType)) {
+                            matched.push(template);
+                        }
+                    });
+                }
+            }
+
+            if (matched.length === 0) return null;
+            const randomTemplate = matched[Math.floor(Math.random() * matched.length)];
+            return '../' + randomTemplate.thumbnail;
+        }
+
+        // 获取今日节日
+        function getAboutTodayFestival() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const yearStr = year.toString();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const day = today.getDate().toString().padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+
+            if (window.festivalDates && window.festivalDates[yearStr]) {
+                for (const festivalName in window.festivalDates[yearStr]) {
+                    if (window.festivalDates[yearStr][festivalName].startsWith(todayStr)) {
+                        return festivalName;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // 获取明日节日
+        function getAboutTomorrowFestival() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const year = tomorrow.getFullYear();
+            const yearStr = year.toString();
+            const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+            const day = tomorrow.getDate().toString().padStart(2, '0');
+            const tomorrowStr = `${year}-${month}-${day}`;
+
+            if (window.festivalDates && window.festivalDates[yearStr]) {
+                for (const festivalName in window.festivalDates[yearStr]) {
+                    if (window.festivalDates[yearStr][festivalName].startsWith(tomorrowStr)) {
+                        return festivalName;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // 获取未来节日
+        function getAboutFutureFestivals(count = 3) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const currentYear = today.getFullYear();
+            const festivals = [];
+            const yearsToCheck = [currentYear.toString(), (currentYear + 1).toString()];
+
+            for (const yearStr of yearsToCheck) {
+                if (window.festivalDates && window.festivalDates[yearStr]) {
+                    for (const festivalName in window.festivalDates[yearStr]) {
+                        const dateStr = window.festivalDates[yearStr][festivalName].split(' ')[0];
+                        const [year, month, day] = dateStr.split('-').map(Number);
+                        const festivalDate = new Date(year, month - 1, day);
+                        festivalDate.setHours(0, 0, 0, 0);
+
+                        if (festivalDate > today) {
+                            const daysUntil = Math.ceil((festivalDate - today) / (1000 * 60 * 60 * 24));
+                            festivals.push({
+                                name: festivalName,
+                                date: festivalDate,
+                                daysUntil: daysUntil
+                            });
+                        }
+                    }
+                }
+            }
+            festivals.sort((a, b) => a.date - b.date);
+            return festivals.slice(0, count);
+        }
+
+        // 获取中文星期
+        function getWeekdayChinese(day) {
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            return weekdays[day];
+        }
+
+        // 渲染今日发布
+        function renderAboutSmartToday() {
+            const container = document.getElementById('aboutSmartTodayContent');
+            if (!container) return;
+
+            const todayFestival = getAboutTodayFestival();
+            let html = '';
+
+            if (todayFestival) {
+                html = `
+                    <div class="about-smart-today-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div class="about-smart-button-wrapper" style="flex: 1 1 100%; min-width: 200px;">
+                            <div class="about-smart-dark-overlay"></div>
+                            <button class="about-smart-btn primary" disabled data-action="festival" data-festival="${todayFestival}">
+                                🎉 ${todayFestival}海报
+                            </button>
+                        </div>
+                    </div>`;
+            } else {
+                html = `
+                    <div class="about-smart-today-text">（今日没有特别节日，您可以制作：）</div>
+                    <div class="about-smart-today-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div class="about-smart-button-wrapper" style="flex: 1 1 0%; min-width: 150px;">
+                            <div class="about-smart-dark-overlay"></div>
+                            <button class="about-smart-btn" disabled data-action="zaoan">☀ 早安海报</button>
+                        </div>
+                        <div class="about-smart-button-wrapper" style="flex: 1 1 0%; min-width: 150px;">
+                            <div class="about-smart-dark-overlay"></div>
+                            <button class="about-smart-btn" disabled data-action="wanan">☾ 晚安海报</button>
+                        </div>
+                        <div class="about-smart-button-wrapper" style="flex: 1 1 0%; min-width: 150px;">
+                            <div class="about-smart-dark-overlay"></div>
+                            <button class="about-smart-btn" disabled data-action="dairy">☻ 日常海报</button>
+                        </div>
+                    </div>`;
+            }
+
+            container.innerHTML = html;
+
+            // 设置按钮背景图片
+            container.querySelectorAll('.about-smart-btn').forEach(btn => {
+                const action = btn.dataset.action;
+                let type;
+                if (action === 'festival') {
+                    type = btn.dataset.festival;
+                } else {
+                    type = action;
+                }
+                const bgImage = getAboutRandomBackground(type);
+                if (bgImage) {
+                    const wrapper = btn.closest('.about-smart-button-wrapper');
+                    if (wrapper) {
+                        wrapper.style.setProperty('--button-bg-image', `url('${bgImage}')`);
+                    }
+                }
+            });
+        }
+
+        // 渲染未来节日建议
+        function renderAboutSmartFuture() {
+            const container = document.getElementById('aboutSmartFutureContent');
+            if (!container) return;
+
+            const tomorrowFestival = getAboutTomorrowFestival();
+            const futureFestivals = getAboutFutureFestivals(3);
+            let html = '';
+
+            // 明天的建议
+            html += '<div class="about-smart-future-item">';
+            html += '<div class="about-smart-future-text">明天：</div>';
+            html += '<div class="about-smart-future-buttons">';
+
+            if (!tomorrowFestival) {
+                html += `<div class="about-smart-button-wrapper" style="flex: 1; min-width: 180px; margin-bottom: 10px;">
+                    <div class="about-smart-dark-overlay"></div>
+                    <button class="about-smart-future-btn" disabled data-action="zaoan">☀️早安海报</button>
+                </div>`;
+            }
+            html += `<div class="about-smart-button-wrapper" style="flex: 1; min-width: 180px; margin-bottom: 10px;">
+                <div class="about-smart-dark-overlay"></div>
+                <button class="about-smart-future-btn" disabled data-action="wanan">🌙晚安海报</button>
+            </div>`;
+            html += '</div></div>';
+
+            // 未来节日
+            futureFestivals.forEach(festival => {
+                let daysText;
+                if (festival.daysUntil === 1) {
+                    daysText = '明天：';
+                } else if (festival.daysUntil === 2) {
+                    daysText = '后天：';
+                } else {
+                    daysText = `${festival.daysUntil}天后：`;
+                }
+
+                const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+                const year = festival.date.getFullYear();
+                const month = festival.date.getMonth() + 1;
+                const day = festival.date.getDate();
+                const weekDay = weekDays[festival.date.getDay()];
+
+                html += `<div class="about-smart-future-item">`;
+                html += `<div class="about-smart-future-text"><strong>${daysText.replace('：', '')}${festival.name}</strong> <span class="about-smart-festival-date">（${year}年${month}月${day}日 星期${weekDay}）</span></div>`;
+                html += `<div class="about-smart-future-buttons">
+                    <div class="about-smart-button-wrapper" style="flex: 1; min-width: 180px; margin-bottom: 10px;">
+                        <div class="about-smart-dark-overlay"></div>
+                        <button class="about-smart-future-btn primary" disabled data-action="festival" data-festival="${festival.name}">挑选模板</button>
+                    </div>
+                </div></div>`;
+            });
+
+            // 添加"加载更多"按钮
+            html += `<div style="display: flex; align-items: center; justify-content: center; padding: 10px 0; margin-top: 8px; background: linear-gradient(135deg, #fff5f5, #fef3f3); border-radius: 8px; cursor: not-allowed; color: #c80101; font-size: 14px; font-weight: 600;">
+                <span>🔒 下载应用查看更多节日</span>
+            </div>`;
+
+            container.innerHTML = html;
+
+            // 设置按钮背景图片
+            container.querySelectorAll('.about-smart-future-btn').forEach(btn => {
+                const action = btn.dataset.action;
+                let type;
+                if (action === 'festival') {
+                    type = btn.dataset.festival;
+                } else {
+                    type = action;
+                }
+                const bgImage = getAboutRandomBackground(type);
+                if (bgImage) {
+                    const wrapper = btn.closest('.about-smart-button-wrapper');
+                    if (wrapper) {
+                        wrapper.style.setProperty('--button-bg-image', `url('${bgImage}')`);
+                    }
+                }
+            });
+        }
+</script>
 </body>
 </html>
