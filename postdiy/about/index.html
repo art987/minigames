@@ -263,31 +263,149 @@
     </section>
 
     <!-- 用户反馈 -->
-    <section class="section section-white">
+    <section class="section section-white" style="padding-top: 20px;">
         <div class="section-inner">
-            <h2 class="section-title">用户反馈</h2>
-            <p class="section-subtitle">听听他们怎么说</p>
+            <h2 class="section-title">Ta们说</h2>
             <div class="testimonials-slider">
-                <div class="testimonials-track">
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-inner">
-                            <div class="testimonial-quote">"</div>
-                            <p class="testimonial-content">闪喵海报工具太好用了！以前做一张海报要花好几天，现在几分钟就搞定，而且效果非常专业。</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">王</div>
-                                <div class="testimonial-info">
-                                    <div class="testimonial-name">王先生</div>
-                                    <div class="testimonial-title">餐饮店老板</div>
+                <button class="testimonial-nav-btn prev-btn" id="testimonialPrevBtn">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <!-- 第1屏 - 3条反馈 -->
+                    <div class="testimonial-page">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">闪喵海报工具太好用了！以前做一张海报要花好几天，现在几分钟就搞定，而且效果非常专业。</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);">王</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">王先生</div>
+                                        <div class="testimonial-title">餐饮店老板</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">作为一个设计小白，这个工具让我也能做出精美海报。模板种类很全，节日海报一键生成，太方便了！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">李</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">李女士</div>
+                                        <div class="testimonial-title">服装店店主</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">促销文案功能太棒了，帮我省了好多时间。每个行业都有专属文案，直接用就行，非常专业！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">张</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">张先生</div>
+                                        <div class="testimonial-title">超市经理</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第2屏 - 3条反馈 -->
+                    <div class="testimonial-page">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">每天早上发早安海报，晚上发晚安海报，顾客粘性明显提升了。智能提醒功能让我不会错过任何节日！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">赵</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">赵女士</div>
+                                        <div class="testimonial-title">美容院老板</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">零成本就能用这么专业的工具，模板更新也很快。以前要雇设计师，现在自己就能搞定，太省钱了！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">刘</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">刘先生</div>
+                                        <div class="testimonial-title">水果店老板</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">端午节、中秋节这些节日海报太精美了，直接发朋友圈引流效果很好，朋友都问我在哪做的！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">陈</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">陈女士</div>
+                                        <div class="testimonial-title">烘焙店主</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第3屏 - 3条反馈 -->
+                    <div class="testimonial-page">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">操作超级简单，三步就能完成一张海报。对我们这种没时间学设计的个体户来说，简直是救星！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">孙</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">孙先生</div>
+                                        <div class="testimonial-title">便利店老板</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">朋友圈发的海报吸引了好多新客户，海报质量真的很高。强烈推荐给所有开店的朋友！</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">周</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">周女士</div>
+                                        <div class="testimonial-title">美甲店老板</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-card-inner">
+                                <div class="testimonial-quote">"</div>
+                                <p class="testimonial-content">用了闪喵之后，店里的节日活动宣传效果比以前好多了，海报做的漂亮，客户也愿意转发分享。</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);">吴</div>
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-name">吴先生</div>
+                                        <div class="testimonial-title">健身房老板</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <button class="testimonial-nav-btn next-btn" id="testimonialNextBtn">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
             </div>
-            <div class="testimonials-nav">
-                <div class="testimonial-dot active">1</div>
-                <div class="testimonial-dot">2</div>
-                <div class="testimonial-dot">3</div>
+            <div class="testimonials-nav" id="testimonialsNav">
+                <div class="testimonial-dot active" data-page="0">1</div>
+                <div class="testimonial-dot" data-page="1">2</div>
+                <div class="testimonial-dot" data-page="2">3</div>
             </div>
         </div>
     </section>
@@ -354,17 +472,84 @@
         animateElements.forEach(el => observer.observe(el));
 
         // 用户反馈轮播
+        let currentTestimonialPage = 0;
+        const totalTestimonialPages = document.querySelectorAll('.testimonial-page').length;
+        const testimonialsTrack = document.getElementById('testimonialsTrack');
         const testimonialDots = document.querySelectorAll('.testimonial-dot');
-        let currentTestimonial = 0;
+        let testimonialAutoPlayInterval = null;
 
+        function updateTestimonialDisplay() {
+            if (testimonialsTrack) {
+                testimonialsTrack.style.transform = `translateX(-${currentTestimonialPage * 100}%)`;
+            }
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentTestimonialPage);
+            });
+        }
+
+        function goToTestimonialPage(index) {
+            currentTestimonialPage = (index + totalTestimonialPages) % totalTestimonialPages;
+            updateTestimonialDisplay();
+        }
+
+        // 导航按钮点击
+        const prevBtn = document.getElementById('testimonialPrevBtn');
+        const nextBtn = document.getElementById('testimonialNextBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                goToTestimonialPage(currentTestimonialPage - 1);
+                resetTestimonialAutoPlay();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                goToTestimonialPage(currentTestimonialPage + 1);
+                resetTestimonialAutoPlay();
+            });
+        }
+
+        // 分页点点击
         testimonialDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                currentTestimonial = index;
-                testimonialDots.forEach((d, i) => {
-                    d.classList.toggle('active', i === index);
-                });
+                goToTestimonialPage(index);
+                resetTestimonialAutoPlay();
             });
         });
+
+        // 自动播放
+        function startTestimonialAutoPlay() {
+            testimonialAutoPlayInterval = setInterval(() => {
+                goToTestimonialPage(currentTestimonialPage + 1);
+            }, 5000);
+        }
+
+        function resetTestimonialAutoPlay() {
+            if (testimonialAutoPlayInterval) {
+                clearInterval(testimonialAutoPlayInterval);
+            }
+            startTestimonialAutoPlay();
+        }
+
+        // 鼠标悬停暂停
+        const testimonialsSlider = document.querySelector('.testimonials-slider');
+        if (testimonialsSlider) {
+            testimonialsSlider.addEventListener('mouseenter', () => {
+                if (testimonialAutoPlayInterval) {
+                    clearInterval(testimonialAutoPlayInterval);
+                    testimonialAutoPlayInterval = null;
+                }
+            });
+            testimonialsSlider.addEventListener('mouseleave', () => {
+                if (!testimonialAutoPlayInterval) {
+                    startTestimonialAutoPlay();
+                }
+            });
+        }
+
+        // 启动自动播放
+        startTestimonialAutoPlay();
 
         // ========== 模板幻灯片逻辑 ==========
         // 节日日期数据（用于智能提醒模块）
