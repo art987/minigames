@@ -3856,6 +3856,37 @@ var templates = {
       description: '大暑节气末主题海报模板',
       type: '节气'
     }
+    ,
+    {
+      id: 'dashu-2024-017',
+      name: '大暑节气末',
+      thumbnail: 'images/dashu/thumbnails/17.jpg',
+      image: 'images/dashu/17.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-018',
+      name: '大暑节气末',
+      thumbnail: 'images/dashu/thumbnails/18.jpg',
+      image: 'images/dashu/18.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-019',
+      name: '大暑节气末',
+      thumbnail: 'images/dashu/thumbnails/19.jpg',
+      image: 'images/dashu/19.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气末主题海报模板',
+      type: '节气'
+    }
   ],
 
   // 8月模板
