@@ -190,41 +190,43 @@
   
 
     <!-- 品牌价值 -->
-    <section class="section section-gradient-blue">
+    <section class="section section-gradient-blue brand-section">
         <div class="section-inner">
             <h2 class="section-title">品牌价值</h2>
             <p class="section-subtitle">助力每一个品牌实现传播价值最大化</p>
-            <div class="brand-content">
-                <p>闪喵海报生成工具致力于为中小企业、个体商户提供专业、高效、低成本的海报制作解决方案。我们相信，每一张精美的海报都是品牌传播的有力武器，都能帮助您的品牌在激烈的市场竞争中脱颖而出。</p>
+            
+            <div class="brand-intro">
+                <p>闪喵海报生成工具致力于为中小企业、个体商户提供专业、高效、低成本的海报制作解决方案。</p>
             </div>
-            <div class="brand-highlights">
-                <div class="brand-hilight-item">
-                    <div class="brand-hilight-title">
-                        <span class="brand-hilight-icon">💡</span>
-                        专业设计
+            
+            <div class="brand-values">
+                <div class="brand-value-card">
+                    <div class="brand-value-icon">💡</div>
+                    <div class="brand-value-content">
+                        <h3>专业设计</h3>
+                        <p>专业设计师精心打造，高水准视觉效果</p>
                     </div>
-                    <p class="brand-hilight-desc">由专业设计师精心打造，确保每一款模板都具有高水准的视觉效果</p>
                 </div>
-                <div class="brand-hilight-item">
-                    <div class="brand-hilight-title">
-                        <span class="brand-hilight-icon">🚀</span>
-                        高效便捷
+                <div class="brand-value-card">
+                    <div class="brand-value-icon">🚀</div>
+                    <div class="brand-value-content">
+                        <h3>高效便捷</h3>
+                        <p>简化操作流程，快速完成海报制作</p>
                     </div>
-                    <p class="brand-hilight-desc">简化操作流程，让海报制作变得简单快速，节省宝贵时间</p>
                 </div>
-                <div class="brand-hilight-item">
-                    <div class="brand-hilight-title">
-                        <span class="brand-hilight-icon">💰</span>
-                        成本优化
+                <div class="brand-value-card">
+                    <div class="brand-value-icon">💰</div>
+                    <div class="brand-value-content">
+                        <h3>成本优化</h3>
+                        <p>大幅降低制作成本，省钱又省心</p>
                     </div>
-                    <p class="brand-hilight-desc">大幅降低海报制作成本，让每一分钱都花在刀刃上</p>
                 </div>
-                <div class="brand-hilight-item">
-                    <div class="brand-hilight-title">
-                        <span class="brand-hilight-icon">📈</span>
-                        效果提升
+                <div class="brand-value-card">
+                    <div class="brand-value-icon">📈</div>
+                    <div class="brand-value-content">
+                        <h3>效果提升</h3>
+                        <p>专业设计助力品牌形象提升</p>
                     </div>
-                    <p class="brand-hilight-desc">专业设计助力品牌形象提升，增强市场竞争力</p>
                 </div>
             </div>
         </div>
@@ -232,211 +234,395 @@
 
 
 
-    <!-- 适用人群 -->
-    <section class="section section-gradient-pink">
+    <!-- 适用行业 -->
+    <section class="section section-gradient-pink industry-section">
         <div class="section-inner">
-            <h2 class="section-title">适用人群</h2>
-            <p class="section-subtitle">无论您是谁，都能轻松使用</p>
-            <div class="audience-grid">
-                <div class="audience-card animate-on-scroll stagger-1">
-                    <div class="audience-icon">🏪</div>
-                    <h3 class="audience-title">个体商户</h3>
-                    <p>无需雇佣设计师，自己就能制作专业海报</p>
+            <h2 class="section-title">适用行业</h2>
+            <p class="section-subtitle">为100+热门行业提供专属海报模板</p>
+            
+            <!-- 分类标签 - 可滑动 -->
+            <div class="industry-categories-wrapper" id="industryCategoriesWrapper">
+                <div class="industry-categories-track" id="industryCategoriesTrack">
+                    <button class="industry-category-btn active" data-category="food">餐饮美食</button>
+                    <button class="industry-category-btn" data-category="retail">零售购物</button>
+                    <button class="industry-category-btn" data-category="education">教育培训</button>
+                    <button class="industry-category-btn" data-category="beauty">美容健康</button>
+                    <button class="industry-category-btn" data-category="service">生活服务</button>
+                    <button class="industry-category-btn" data-category="entertainment">娱乐休闲</button>
+                    <button class="industry-category-btn" data-category="other">其他行业</button>
                 </div>
-                <div class="audience-card animate-on-scroll stagger-2">
-                    <div class="audience-icon">🏢</div>
-                    <h3 class="audience-title">中小企业</h3>
-                    <p>降低营销成本，提升品牌传播效率</p>
+            </div>
+            
+            <!-- 行业列表容器 -->
+            <div class="industry-list-container" id="industryListContainer">
+                <!-- 餐饮美食类 -->
+                <div class="industry-category-content active" data-category="food">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">🍜</div><span>餐厅</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧋</div><span>奶茶饮品</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍢</div><span>烧烤烤串</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍲</div><span>火锅店</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍜</div><span>面馆</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧁</div><span>烘焙蛋糕</span></div>
+                        <div class="industry-card"><div class="icon-wrap">☕</div><span>咖啡馆</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍺</div><span>酒吧清吧</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍨</div><span>甜品糖水</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🥟</div><span>小吃摊位</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍔</div><span>快餐店</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍕</div><span>披萨西餐</span></div>
+                    </div>
                 </div>
-                <div class="audience-card animate-on-scroll stagger-3">
-                    <div class="audience-icon">👨‍💼</div>
-                    <h3 class="audience-title">销售人员</h3>
-                    <p>快速制作促销海报，把握销售机会</p>
+                
+                <!-- 零售购物类 -->
+                <div class="industry-category-content" data-category="retail">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">🛒</div><span>超市便利</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍉</div><span>水果店</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🥬</div><span>生鲜蔬菜</span></div>
+                        <div class="industry-card"><div class="icon-wrap">👔</div><span>服装店</span></div>
+                        <div class="industry-card"><div class="icon-wrap">👟</div><span>鞋店</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💍</div><span>饰品精品</span></div>
+                        <div class="industry-card"><div class="icon-wrap">👶</div><span>母婴用品</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💄</div><span>美妆护肤</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📱</div><span>数码家电</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💊</div><span>药店药房</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍵</div><span>茶叶茶具</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🍷</div><span>烟酒专卖</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💐</div><span>花店花卉</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💎</div><span>珠宝黄金</span></div>
+                        <div class="industry-card"><div class="icon-wrap">⌚</div><span>名表钟表</span></div>
+                        <div class="industry-card"><div class="icon-wrap">👙</div><span>内衣贴身</span></div>
+                    </div>
                 </div>
-                <div class="audience-card animate-on-scroll stagger-4">
-                    <div class="audience-icon">🎨</div>
-                    <h3 class="audience-title">设计爱好者</h3>
-                    <p>获取灵感，学习专业设计技巧</p>
+                
+                <!-- 教育培训类 -->
+                <div class="industry-category-content" data-category="education">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">🏫</div><span>幼儿园</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🔤</div><span>英语培训</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎨</div><span>艺术培训</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💃</div><span>舞蹈培训</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎹</div><span>音乐乐器</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🖌️</div><span>书法绘画</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🥋</div><span>武术跆拳道</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🚗</div><span>驾考培训</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💪</div><span>健身教练</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧠</div><span>心理咨询</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📚</div><span>课外辅导</span></div>
+                    </div>
+                </div>
+                
+                <!-- 美容健康类 -->
+                <div class="industry-category-content" data-category="beauty">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">💅</div><span>美容护肤</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💅</div><span>美甲美睫</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💇</div><span>美发造型</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧖</div><span>SPA养生</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💆</div><span>按摩推拿</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧘</div><span>瑜伽馆</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏋️</div><span>健身房</span></div>
+                        <div class="industry-card"><div class="icon-wrap">⚖️</div><span>减肥瘦身</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🦷</div><span>口腔牙科</span></div>
+                        <div class="industry-card"><div class="icon-wrap">👓</div><span>眼镜验光</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🌿</div><span>中医理疗</span></div>
+                    </div>
+                </div>
+                
+                <!-- 生活服务类 -->
+                <div class="industry-category-content" data-category="service">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">🧺</div><span>干洗洗衣</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📦</div><span>搬家家政</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🧹</div><span>保洁清洁</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🚗</div><span>汽车美容</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🔧</div><span>汽车维修</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🚙</div><span>二手车</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏠</div><span>房产中介</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🛠️</div><span>装修装饰</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📺</div><span>家电维修</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🛡️</div><span>物业服务</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏗️</div><span>建筑工程</span></div>
+                    </div>
+                </div>
+                
+                <!-- 娱乐休闲类 -->
+                <div class="industry-category-content" data-category="entertainment">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">🎤</div><span>KTV歌厅</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎬</div><span>电影院</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🖥️</div><span>网吧电竞</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎲</div><span>桌游剧本杀</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🔐</div><span>密室逃脱</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎡</div><span>儿童乐园</span></div>
+                        <div class="industry-card"><div class="icon-wrap">✈️</div><span>旅游旅行</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏨</div><span>酒店住宿</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎱</div><span>台球俱乐部</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🀄</div><span>棋牌茶馆</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏹</div><span>射箭射击</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🎳</div><span>保龄球馆</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏕️</div><span>户外露营</span></div>
+                    </div>
+                </div>
+                
+                <!-- 其他行业类 -->
+                <div class="industry-category-content" data-category="other">
+                    <div class="industry-grid">
+                        <div class="industry-card"><div class="icon-wrap">✂️</div><span>宠物美容</span></div>
+                        <div class="industry-card"><div class="icon-wrap">💒</div><span>婚庆婚礼</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📷</div><span>摄影工作室</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🖨️</div><span>广告印刷</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🛋️</div><span>家具家居</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🛏️</div><span>床上用品</span></div>
+                        <div class="industry-card"><div class="icon-wrap">📋</div><span>办公文具</span></div>
+                        <div class="industry-card"><div class="icon-wrap">⛽</div><span>加油站</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏬</div><span>商场购物</span></div>
+                        <div class="industry-card"><div class="icon-wrap">🏪</div><span>便利店</span></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 用户反馈 -->
-    <section class="section section-white" style="padding-top: 20px;">
+    <section class="section section-white testimonials-section">
         <div class="section-inner">
-            <h2 class="section-title">Ta们说</h2>
-            <div class="testimonials-slider">
-                <button class="testimonial-nav-btn prev-btn" id="testimonialPrevBtn">
-                    <i class="fa fa-chevron-left"></i>
-                </button>
-                <div class="testimonials-track" id="testimonialsTrack">
-                    <!-- 第1屏 - 3条反馈 -->
-                    <div class="testimonial-page">
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">闪喵海报工具太好用了！以前做一张海报要花好几天，现在几分钟就搞定，而且效果非常专业。</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);">王</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">王先生</div>
-                                        <div class="testimonial-title">餐饮店老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">作为一个设计小白，这个工具让我也能做出精美海报。模板种类很全，节日海报一键生成，太方便了！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">李</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">李女士</div>
-                                        <div class="testimonial-title">服装店店主</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">促销文案功能太棒了，帮我省了好多时间。每个行业都有专属文案，直接用就行，非常专业！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">张</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">张先生</div>
-                                        <div class="testimonial-title">超市经理</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 第2屏 - 3条反馈 -->
-                    <div class="testimonial-page">
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">每天早上发早安海报，晚上发晚安海报，顾客粘性明显提升了。智能提醒功能让我不会错过任何节日！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">赵</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">赵女士</div>
-                                        <div class="testimonial-title">美容院老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">零成本就能用这么专业的工具，模板更新也很快。以前要雇设计师，现在自己就能搞定，太省钱了！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">刘</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">刘先生</div>
-                                        <div class="testimonial-title">水果店老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">端午节、中秋节这些节日海报太精美了，直接发朋友圈引流效果很好，朋友都问我在哪做的！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">陈</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">陈女士</div>
-                                        <div class="testimonial-title">烘焙店主</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 第3屏 - 3条反馈 -->
-                    <div class="testimonial-page">
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">操作超级简单，三步就能完成一张海报。对我们这种没时间学设计的个体户来说，简直是救星！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">孙</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">孙先生</div>
-                                        <div class="testimonial-title">便利店老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">朋友圈发的海报吸引了好多新客户，海报质量真的很高。强烈推荐给所有开店的朋友！</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">周</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">周女士</div>
-                                        <div class="testimonial-title">美甲店老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-card-inner">
-                                <div class="testimonial-quote">"</div>
-                                <p class="testimonial-content">用了闪喵之后，店里的节日活动宣传效果比以前好多了，海报做的漂亮，客户也愿意转发分享。</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar" style="background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);">吴</div>
-                                    <div class="testimonial-info">
-                                        <div class="testimonial-name">吴先生</div>
-                                        <div class="testimonial-title">健身房老板</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="testimonial-nav-btn next-btn" id="testimonialNextBtn">
-                    <i class="fa fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="testimonials-nav" id="testimonialsNav">
-                <div class="testimonial-dot active" data-page="0">1</div>
-                <div class="testimonial-dot" data-page="1">2</div>
-                <div class="testimonial-dot" data-page="2">3</div>
-            </div>
-        </div>
-    </section>
+            <h2 class="section-title">真实用户评价</h2>
+            <p class="section-subtitle">来自各行各业的用户都在用闪喵海报</p>
 
-    <!-- 核心优势 -->
-    <section class="section section-gradient">
-        <div class="section-inner">
-            <h2 class="section-title">核心优势</h2>
-            <p class="section-subtitle">为什么选择闪喵</p>
-            <div class="advantages-grid">
-                <div class="advantage-card animate-on-scroll stagger-1">
-                    <div class="advantage-num">01</div>
-                    <h3>专业品质</h3>
-                    <p>专业设计师精心打造，确保每一款模板都具有高水准的视觉效果</p>
+            <div class="testimonials-wrapper">
+                <!-- 左右导航按钮 -->
+                <button class="testimonial-nav-btn testimonial-prev" id="testimonialPrevBtn" aria-label="上一条">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <!-- 轮播容器 -->
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <!-- 卡片1 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">非常好用！相册里的照片可以直接拿出来做海报，还能立即拍照立即生成，最快几秒钟就能做完一张海报，太方便了！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);">王</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">王先生</div>
+                                    <div class="testimonial-title">餐饮店老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">非常简便！作为一个设计小白，这个工具让我也能做出精美海报。模板种类很全，节日海报一键生成，太省心了！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">李</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">李女士</div>
+                                    <div class="testimonial-title">服装店店主</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">引流模板特别多，可以直接拿过来修改下就能用，每个行业都有专属文案，省了我好多时间，非常专业！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">张</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">张先生</div>
+                                    <div class="testimonial-title">超市经理</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片4 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">特别适合没有设计团队的小商户！我一个人就能搞定所有宣传海报，智能提醒功能让我不会错过任何节日营销机会。</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">赵</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">赵女士</div>
+                                    <div class="testimonial-title">美容院老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片5 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">零成本就能用这么专业的工具，模板更新也很快。以前要雇设计师，现在自己就能搞定，太省钱了！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">刘</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">刘先生</div>
+                                    <div class="testimonial-title">水果店老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片6 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">端午节、中秋节这些节日海报太精美了，直接发朋友圈引流效果很好，朋友都问我在哪做的！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">陈</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">陈女士</div>
+                                    <div class="testimonial-title">烘焙店主</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片7 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">操作超级简单，三步就能完成一张海报。对我们这种没时间学设计的个体户来说，简直是救星！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">孙</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">孙先生</div>
+                                    <div class="testimonial-title">便利店老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片8 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">朋友圈发的海报吸引了好多新客户，海报质量真的很高。强烈推荐给所有开店的朋友！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">周</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">周女士</div>
+                                    <div class="testimonial-title">美甲店老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片9 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">用了闪喵之后，店里的节日活动宣传效果比以前好多了，海报做的漂亮，客户也愿意转发分享。</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);">吴</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">吴先生</div>
+                                    <div class="testimonial-title">健身房老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片10 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-inner">
+                            <div class="testimonial-stars">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffc107"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <p class="testimonial-content">想自己做宣传又没有设计人员？这个工具就是为你准备的！几秒钟就能生成海报，引流模板参考一下改改就能用，太实用了！</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">郑</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">郑先生</div>
+                                    <div class="testimonial-title">花店老板</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="advantage-card animate-on-scroll stagger-2">
-                    <div class="advantage-num">02</div>
-                    <h3>操作简单</h3>
-                    <p>无需设计经验，三步即可完成，让海报制作变得轻松愉快</p>
-                </div>
-                <div class="advantage-card animate-on-scroll stagger-3">
-                    <div class="advantage-num">03</div>
-                    <h3>持续更新</h3>
-                    <p>紧跟热点节日和流行趋势，模板库持续丰富更新</p>
-                </div>
-                <div class="advantage-card animate-on-scroll stagger-4">
-                    <div class="advantage-num">04</div>
-                    <h3>完全免费</h3>
-                    <p>基础功能完全免费，让您零成本体验专业海报制作</p>
-                </div>
+
+                <button class="testimonial-nav-btn testimonial-next" id="testimonialNextBtn" aria-label="下一条">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
+
+            <!-- 底部指示点 -->
+            <div class="testimonials-dots" id="testimonialsDots">
+                <!-- 由JS动态生成 -->
+            </div>
+
         </div>
     </section>
 
@@ -449,7 +635,7 @@
             <div style="text-align: center;">
                 <a href="../index.html" class="cta-button">立即体验</a>
             </div>
-            <p class="cta-subtext">免费使用，无需注册</p>
+            <p class="cta-subtext"></p>
         </div>
     </section>
 
@@ -457,6 +643,13 @@
     <footer class="footer">
         <p>&copy; 2024 闪喵海报生成工具. 保留所有权利.</p>
     </footer>
+
+    <!-- 置顶按钮 -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="回到顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
     <script>
         // 滚动动画
@@ -472,23 +665,56 @@
         animateElements.forEach(el => observer.observe(el));
 
         // 用户反馈轮播
-        let currentTestimonialPage = 0;
-        const totalTestimonialPages = document.querySelectorAll('.testimonial-page').length;
         const testimonialsTrack = document.getElementById('testimonialsTrack');
-        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const testimonialsDotsContainer = document.getElementById('testimonialsDots');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const totalCards = testimonialCards.length;
         let testimonialAutoPlayInterval = null;
+        let cardsPerView = 3;
+        let currentTestimonialIndex = 0;
+
+        function getCardsPerView() {
+            // 所有屏幕都只显示1条，让10条评价都能滚动展示
+            return 1;
+        }
+
+        function getTotalPages() {
+            // 每屏显示1条，总页数等于卡片总数
+            return totalCards;
+        }
+
+        function createTestimonialDots() {
+            if (!testimonialsDotsContainer) return;
+            testimonialsDotsContainer.innerHTML = '';
+            const totalPages = getTotalPages();
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'testimonial-dot-item';
+                if (i === currentTestimonialIndex) dot.classList.add('active');
+                dot.setAttribute('aria-label', `第${i + 1}页`);
+                dot.addEventListener('click', () => {
+                    currentTestimonialIndex = i;
+                    updateTestimonialDisplay();
+                    resetTestimonialAutoPlay();
+                });
+                testimonialsDotsContainer.appendChild(dot);
+            }
+        }
 
         function updateTestimonialDisplay() {
-            if (testimonialsTrack) {
-                testimonialsTrack.style.transform = `translateX(-${currentTestimonialPage * 100}%)`;
-            }
-            testimonialDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentTestimonialPage);
+            if (!testimonialsTrack) return;
+            // 每屏显示1条，直接偏移 index * 100%
+            testimonialsTrack.style.transform = `translateX(-${currentTestimonialIndex * 100}%)`;
+
+            const dots = testimonialsDotsContainer.querySelectorAll('.testimonial-dot-item');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentTestimonialIndex);
             });
         }
 
         function goToTestimonialPage(index) {
-            currentTestimonialPage = (index + totalTestimonialPages) % totalTestimonialPages;
+            const totalPages = getTotalPages();
+            currentTestimonialIndex = (index + totalPages) % totalPages;
             updateTestimonialDisplay();
         }
 
@@ -498,31 +724,23 @@
 
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
-                goToTestimonialPage(currentTestimonialPage - 1);
+                goToTestimonialPage(currentTestimonialIndex - 1);
                 resetTestimonialAutoPlay();
             });
         }
 
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                goToTestimonialPage(currentTestimonialPage + 1);
+                goToTestimonialPage(currentTestimonialIndex + 1);
                 resetTestimonialAutoPlay();
             });
         }
 
-        // 分页点点击
-        testimonialDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                goToTestimonialPage(index);
-                resetTestimonialAutoPlay();
-            });
-        });
-
         // 自动播放
         function startTestimonialAutoPlay() {
             testimonialAutoPlayInterval = setInterval(() => {
-                goToTestimonialPage(currentTestimonialPage + 1);
-            }, 5000);
+                goToTestimonialPage(currentTestimonialIndex + 1);
+            }, 6000);
         }
 
         function resetTestimonialAutoPlay() {
@@ -533,23 +751,173 @@
         }
 
         // 鼠标悬停暂停
-        const testimonialsSlider = document.querySelector('.testimonials-slider');
-        if (testimonialsSlider) {
-            testimonialsSlider.addEventListener('mouseenter', () => {
+        const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+        if (testimonialsWrapper) {
+            testimonialsWrapper.addEventListener('mouseenter', () => {
                 if (testimonialAutoPlayInterval) {
                     clearInterval(testimonialAutoPlayInterval);
                     testimonialAutoPlayInterval = null;
                 }
             });
-            testimonialsSlider.addEventListener('mouseleave', () => {
+            testimonialsWrapper.addEventListener('mouseleave', () => {
                 if (!testimonialAutoPlayInterval) {
                     startTestimonialAutoPlay();
                 }
             });
         }
 
-        // 启动自动播放
+        // 响应式处理
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                createTestimonialDots();
+                updateTestimonialDisplay();
+            }, 150);
+        });
+
+        // 初始化
+        createTestimonialDots();
+        updateTestimonialDisplay();
         startTestimonialAutoPlay();
+
+        // ========== 置顶按钮逻辑 ==========
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
+        // 滚动时显示/隐藏按钮
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // 点击回到顶部
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // ========== 行业分类切换逻辑 ==========
+        const categoryBtns = document.querySelectorAll('.industry-category-btn');
+        const categoryContents = document.querySelectorAll('.industry-category-content');
+        const categoriesWrapper = document.getElementById('industryCategoriesWrapper');
+        const categoriesTrack = document.getElementById('industryCategoriesTrack');
+        const categories = ['food', 'retail', 'education', 'beauty', 'service', 'entertainment', 'other'];
+        let currentCategoryIndex = 0;
+        let categoryAutoPlayInterval = null;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // 切换分类
+        function switchCategory(index) {
+            currentCategoryIndex = index;
+            const category = categories[index];
+            
+            // 切换按钮状态
+            categoryBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+            
+            // 切换内容显示
+            categoryContents.forEach(content => {
+                content.classList.toggle('active', content.dataset.category === category);
+            });
+            
+            // 滚动分类标签到选中位置
+            const activeBtn = document.querySelector(`.industry-category-btn[data-category="${category}"]`);
+            if (activeBtn && categoriesWrapper) {
+                const wrapperWidth = categoriesWrapper.offsetWidth;
+                const btnLeft = activeBtn.offsetLeft;
+                const btnWidth = activeBtn.offsetWidth;
+                const scrollLeft = btnLeft - (wrapperWidth / 2) + (btnWidth / 2);
+                categoriesWrapper.scrollTo({
+                    left: Math.max(0, scrollLeft),
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // 点击分类按钮
+        categoryBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                switchCategory(index);
+                resetCategoryAutoPlay();
+            });
+        });
+
+        // 自动轮播
+        function startCategoryAutoPlay() {
+            categoryAutoPlayInterval = setInterval(() => {
+                const nextIndex = (currentCategoryIndex + 1) % categories.length;
+                switchCategory(nextIndex);
+            }, 3000);
+        }
+
+        function resetCategoryAutoPlay() {
+            if (categoryAutoPlayInterval) {
+                clearInterval(categoryAutoPlayInterval);
+            }
+            startCategoryAutoPlay();
+        }
+
+        // 触摸滑动支持
+        if (categoriesWrapper) {
+            categoriesWrapper.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                if (categoryAutoPlayInterval) {
+                    clearInterval(categoryAutoPlayInterval);
+                    categoryAutoPlayInterval = null;
+                }
+            }, { passive: true });
+
+            categoriesWrapper.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].clientX;
+                handleSwipe();
+                if (!categoryAutoPlayInterval) {
+                    startCategoryAutoPlay();
+                }
+            }, { passive: true });
+
+            // 鼠标悬停暂停
+            categoriesWrapper.addEventListener('mouseenter', () => {
+                if (categoryAutoPlayInterval) {
+                    clearInterval(categoryAutoPlayInterval);
+                    categoryAutoPlayInterval = null;
+                }
+            });
+
+            categoriesWrapper.addEventListener('mouseleave', () => {
+                if (!categoryAutoPlayInterval) {
+                    startCategoryAutoPlay();
+                }
+            });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // 向左滑动 - 下一个分类
+                    const nextIndex = (currentCategoryIndex + 1) % categories.length;
+                    switchCategory(nextIndex);
+                } else {
+                    // 向右滑动 - 上一个分类
+                    const prevIndex = (currentCategoryIndex - 1 + categories.length) % categories.length;
+                    switchCategory(prevIndex);
+                }
+            }
+        }
+
+        // 初始化自动轮播
+        startCategoryAutoPlay();
 
         // ========== 模板幻灯片逻辑 ==========
         // 节日日期数据（用于智能提醒模块）
