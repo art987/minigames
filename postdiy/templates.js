@@ -6738,6 +6738,46 @@ var templates = {
       type: '西方节日'
     },
     {
+      id: 'christmas-2024-020',
+      name: '圣诞团圆',
+      thumbnail: 'images/shengdan/thumbnails/21.jpg',
+      image: 'images/shengdan/21.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-022',
+      name: '圣诞团圆',
+      thumbnail: 'images/shengdan/thumbnails/22.jpg',
+      image: 'images/shengdan/22.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-023',
+      name: '圣诞团圆',
+      thumbnail: 'images/shengdan/thumbnails/23.jpg',
+      image: 'images/shengdan/23.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'christmas-2024-024',
+      name: '圣诞团圆',
+      thumbnail: 'images/shengdan/thumbnails/24.jpg',
+      image: 'images/shengdan/24.jpg',
+      months: [12],
+      festivals: ['圣诞节'],
+      description: '圣诞节团圆主题海报模板',
+      type: '西方节日'
+    },
+    {
       id: 'yushui-2024-001',
       name: '雨水节气',
       thumbnail: 'images/yushui/thumbnails/1.jpg',
