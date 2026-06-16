@@ -1811,7 +1811,19 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.industry-category-title{ padding:10px 0;margin-top: 21px;}
+.industry-category-title{ 
+    padding:10px 0;
+    margin-top: 21px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 分类块间距 */
+.industry-category-block {
+    margin-bottom: 25px;
+}
+
 .industry-card {
     display: flex;
     flex-direction: column;
@@ -2426,7 +2438,7 @@ body {
 
 /* é¡µè„š */
 .footer {
-    background: linear-gradient(135deg, #656565 0%, #8b8b8b 100%);
+    background: linear-gradient(135deg, #656565 0%, #000000 100%);
     color: #fff;
     text-align: center;
     padding: 40px;
