@@ -5909,6 +5909,46 @@ var templates = {
       type: '节气'
     },
     {
+      id: 'shuangjiang-2024-011',
+      name: '霜降时节',
+      thumbnail: 'images/shuangjiang/thumbnails/11.jpg',
+      image: 'images/shuangjiang/11.png',
+      months: [10],
+      festivals: ['霜降'],
+      description: '霜降节气时节主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'shuangjiang-2024-012',
+      name: '霜降时节',
+      thumbnail: 'images/shuangjiang/thumbnails/12.jpg',
+      image: 'images/shuangjiang/12.png',
+      months: [10],
+      festivals: ['霜降'],
+      description: '霜降节气时节主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'shuangjiang-2024-013',
+      name: '霜降时节',
+      thumbnail: 'images/shuangjiang/thumbnails/13.jpg',
+      image: 'images/shuangjiang/13.png',
+      months: [10],
+      festivals: ['霜降'],
+      description: '霜降节气时节主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'shuangjiang-2024-014',
+      name: '霜降时节',
+      thumbnail: 'images/shuangjiang/thumbnails/14.jpg',
+      image: 'images/shuangjiang/14.png',
+      months: [10],
+      festivals: ['霜降'],
+      description: '霜降节气时节主题海报模板',
+      type: '节气'
+    },
+    {
       id: 'wanshengjie-2024-001',
       name: '万圣节',
       thumbnail: 'images/wanshengjie/thumbnails/1.jpg',
