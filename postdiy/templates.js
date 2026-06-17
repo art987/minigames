@@ -4332,6 +4332,86 @@ var templates = {
       type: '节气'
     },
     {
+      id: 'chushu-2024-012',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/12.jpg',
+      image: 'images/chushu/12.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-013',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/13.jpg',
+      image: 'images/chushu/13.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-014',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/14.jpg',
+      image: 'images/chushu/14.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-015',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/15.jpg',
+      image: 'images/chushu/15.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-016',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/16.jpg',
+      image: 'images/chushu/16.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-017',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/17.jpg',
+      image: 'images/chushu/17.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-018',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/18.jpg',
+      image: 'images/chushu/18.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'chushu-2024-019',
+      name: '处暑秋思',
+      thumbnail: 'images/chushu/thumbnails/19.jpg',
+      image: 'images/chushu/19.png',
+      months: [8],
+      festivals: ['处暑'],
+      description: '处暑节气秋思主题海报模板',
+      type: '节气'
+    },
+    {
       id: 'qixi-2024-001',
       name: '七夕情人节',
       thumbnail: 'images/qixi/thumbnails/1.jpg',
