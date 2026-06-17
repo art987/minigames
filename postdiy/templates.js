@@ -5236,6 +5236,36 @@ var templates = {
       type: '节气'
     },
     {
+      id: 'bailu-2024-018',
+      name: '白露节气末',
+      thumbnail: 'images/bailu/thumbnails/18.jpg',
+      image: 'images/bailu/18.png',
+      months: [9],
+      festivals: ['白露'],
+      description: '白露节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'bailu-2024-019',
+      name: '白露节气末',
+      thumbnail: 'images/bailu/thumbnails/19.jpg',
+      image: 'images/bailu/19.png',
+      months: [9],
+      festivals: ['白露'],
+      description: '白露节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'bailu-2024-020',
+      name: '白露节气末',
+      thumbnail: 'images/bailu/thumbnails/20.jpg',
+      image: 'images/bailu/20.png',
+      months: [9],
+      festivals: ['白露'],
+      description: '白露节气末主题海报模板',
+      type: '节气'
+    },
+    {
       id: 'qiufen-2024-001',
       name: '秋分节气',
       thumbnail: 'images/qiufen/thumbnails/1.jpg',
