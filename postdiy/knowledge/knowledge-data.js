@@ -40,7 +40,9 @@ window.businessData = {
       subtitle: '科学表扬孩子的话术大全，让孩子更自信',
       tags: ['育儿', '话术', '教育'],
       link: 'edu/biaoyang.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true,
+      recommendData: 'edu/data-biaoyang.js'
     },
     {
       id: 2,
@@ -52,7 +54,8 @@ window.businessData = {
       subtitle: '浪漫情话大全，增进感情的小技巧',
       tags: ['情话', '浪漫', '恋爱'],
       link: 'edu/tuweiqinghua.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true
     },
     {
       id: 3,
@@ -64,7 +67,8 @@ window.businessData = {
       subtitle: '中华经典古诗词名句鉴赏',
       tags: ['诗词', '文化', '经典'],
       link: 'edu/shici.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true
     },
     {
       id: 4,
@@ -76,7 +80,8 @@ window.businessData = {
       subtitle: '常用英语口语表达和俚语',
       tags: ['英语', '口语', '俚语'],
       link: 'edu/yingyukouyu.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true
     },
     {
       id: 31,
@@ -88,7 +93,8 @@ window.businessData = {
       subtitle: '挑战自己，突破英语词汇难关',
       tags: ['英语', '词汇', '记忆'],
       link: 'edu/800sentences.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true
     },
     {
       id: 5,
@@ -100,7 +106,8 @@ window.businessData = {
       subtitle: '低谷时的自我激励话术',
       tags: ['鼓励', '励志', '自我'],
       link: 'edu/guliziji.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 6,
@@ -112,7 +119,8 @@ window.businessData = {
       subtitle: '战胜拖延症的有效方法',
       tags: ['拖延', '时间管理', '自我'],
       link: 'edu/tuoyanzheng.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 7,
@@ -124,7 +132,8 @@ window.businessData = {
       subtitle: '人生智慧箴言，指引前行方向',
       tags: ['箴言', '智慧', '人生'],
       link: 'edu/zhenyan.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 8,
@@ -136,7 +145,8 @@ window.businessData = {
       subtitle: '常见心理学效应及其在生活中的应用',
       tags: ['心理', '效应', '认知'],
       link: 'edu/xinlixiaoying.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 9,
@@ -148,7 +158,8 @@ window.businessData = {
       subtitle: '了解人性阴暗面，学会自我保护',
       tags: ['人性', '心理', '社交'],
       link: 'edu/renxingyinan.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 10,
@@ -160,7 +171,8 @@ window.businessData = {
       subtitle: '当需要警醒时，这些话最管用',
       tags: ['励志', '警醒', '自我'],
       link: 'edu/maxingziji.html',
-      category: 'wisdom'
+      category: 'wisdom',
+      showRecommend: true
     },
     {
       id: 11,
@@ -172,7 +184,8 @@ window.businessData = {
       subtitle: '儿童安全知识和自我保护教育',
       tags: ['儿童', '安全', '教育'],
       link: 'edu/ertonganquan.html',
-      category: 'basics'
+      category: 'basics',
+      showRecommend: true
     },
     {
       id: 12,
@@ -184,7 +197,8 @@ window.businessData = {
       subtitle: '常用中成药的功效、适应症、用法汇总',
       tags: ['中医', '中药', '功效'],
       link: 'edu/zhongyao.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 13,
@@ -196,7 +210,8 @@ window.businessData = {
       subtitle: '常见西药的功效、用法、注意事项',
       tags: ['西医', '药物', '功效'],
       link: 'edu/xiyao.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 14,
@@ -208,7 +223,8 @@ window.businessData = {
       subtitle: '中医诊断常用公式和辨证要点',
       tags: ['中医', '诊断', '公式'],
       link: 'edu/zhongyizhenduan.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 15,
@@ -220,7 +236,8 @@ window.businessData = {
       subtitle: '西医临床诊断常用公式和标准',
       tags: ['西医', '诊断', '医学'],
       link: 'edu/xiyizhenduan.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 16,
@@ -232,7 +249,8 @@ window.businessData = {
       subtitle: '民间流传的实用中医小偏方',
       tags: ['中医', '偏方', '实用'],
       link: 'edu/zhongyipianfang.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 17,
@@ -244,7 +262,8 @@ window.businessData = {
       subtitle: '日常养生小知识，健康生活从细节开始',
       tags: ['健康', '养生', '生活'],
       link: 'edu/yangsheng.html',
-      category: 'health'
+      category: 'health',
+      showRecommend: true
     },
     {
       id: 18,
@@ -256,7 +275,8 @@ window.businessData = {
       subtitle: '家居风水布局与禁忌知识',
       tags: ['风水', '家居', '改运'],
       link: 'edu/jiajufengshui.html',
-      category: 'knowledge'
+      category: 'knowledge',
+      showRecommend: true
     },
     {
       id: 19,
@@ -268,7 +288,8 @@ window.businessData = {
       subtitle: '店铺风水布局与经营禁忌',
       tags: ['风水', '店铺', '经营'],
       link: 'edu/dianpufengshui.html',
-      category: 'knowledge'
+      category: 'knowledge',
+      showRecommend: true
     },
     {
       id: 20,
@@ -280,7 +301,8 @@ window.businessData = {
       subtitle: '中国美术发展史重点知识梳理',
       tags: ['美术', '历史', '文化'],
       link: 'edu/cnart.html',
-      category: 'knowledge'
+      category: 'knowledge',
+      showRecommend: true
     },
     {
       id: 21,
@@ -292,7 +314,8 @@ window.businessData = {
       subtitle: '国画学习口诀和技法要点',
       tags: ['国画', '艺术', '技法'],
       link: 'edu/guohuakoujue.html',
-      category: 'knowledge'
+      category: 'knowledge',
+      showRecommend: true
     },
     {
       id: 22,
@@ -304,7 +327,8 @@ window.businessData = {
       subtitle: '中国历代著名画家及其代表作品',
       tags: ['画家', '艺术', '历史'],
       link: 'edu/huajia-huiji.html',
-      category: 'knowledge'
+      category: 'knowledge',
+      showRecommend: true
     },
     {
       id: 23,
@@ -316,7 +340,8 @@ window.businessData = {
       subtitle: '易经智慧与人生方法论',
       tags: ['易经', '哲学', '智慧'],
       link: 'edu/yijing-fangfalun.html',
-      category: 'methodology'
+      category: 'methodology',
+      showRecommend: true
     },
     {
       id: 24,
@@ -328,7 +353,8 @@ window.businessData = {
       subtitle: '毛泽东选集中的方法论智慧',
       tags: ['哲学', '方法论', '思想'],
       link: 'edu/maoxuan-fangfalun.html',
-      category: 'methodology'
+      category: 'methodology',
+      showRecommend: true
     },
     {
       id: 25,
@@ -340,7 +366,8 @@ window.businessData = {
       subtitle: '资治通鉴中的处世智慧',
       tags: ['历史', '智慧', '处世'],
       link: 'edu/zizhitongjian-fangfalun.html',
-      category: 'methodology'
+      category: 'methodology',
+      showRecommend: true
     },
     {
       id: 26,
@@ -352,7 +379,8 @@ window.businessData = {
       subtitle: '改变人生的24堂神奇课程',
       tags: ['课程', '成长', '智慧'],
       link: 'edu/shenqi-24-lessons.html',
-      category: 'methodology'
+      category: 'methodology',
+      showRecommend: true
     },
     {
       id: 27,
@@ -364,7 +392,8 @@ window.businessData = {
       subtitle: '趣味脑筋急转弯，锻炼思维能力',
       tags: ['趣味', '思维', '娱乐'],
       link: 'edu/naojinjizhuanwan.html',
-      category: 'puzzle'
+      category: 'puzzle',
+      showRecommend: true
     },
     {
       id: 28,
@@ -376,7 +405,8 @@ window.businessData = {
       subtitle: '各类实用网站资源汇总',
       tags: ['网址', '资源', '工具'],
       link: 'edu/wangzhidaohang.html',
-      category: 'basics'
+      category: 'basics',
+      showRecommend: true
     },
     {
       id: 29,

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>GPT Image2 生成工具</title>
+<style>
+body { font-family: Arial; max-width: 800px; margin: 40px auto; }
+textarea, input, select { width: 100%; margin: 10px 0; padding: 10px; }
+button { padding: 10px 20px; cursor: pointer; }
+img { max-width: 100%; margin-top: 20px; }
+.card { padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+</style>
+</head>
+
+<body>
+
+<h2>🎨 GPT Image2 生图工具（轻量版）</h2>
+
+<div class="card">
+
+<label>API Key（本地用）</label>
+<input id="apiKey" placeholder="填你的 OpenRouter API Key" />
+
+<label>Prompt</label>
+<textarea id="prompt" rows="5" placeholder="输入你的生成描述..."></textarea>
+
+<label>尺寸（越小越省）</label>
+<select id="size">
+  <option value="1024x1024">1024x1024（默认）</option>
+  <option value="768x768">768x768（省）</option>
+  <option value="512x512">512x512（更省）</option>
+</select>
+
+<label>生成数量（建议 1）</label>
+<select id="n">
+  <option value="1">1张（推荐省token）</option>
+  <option value="2">2张</option>
+  <option value="4">4张（耗费高）</option>
+</select>
+
+<button onclick="generate()">🚀 生成图片</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+async function generate() {
+    const apiKey = document.getElementById("apiKey").value;
+    const prompt = document.getElementById("prompt").value;
+    const size = document.getElementById("size").value;
+    const n = parseInt(document.getElementById("n").value);
+
+    if (!apiKey || !prompt) {
+        alert("请输入 API Key 和 Prompt");
+        return;
+    }
+
+    const res = await fetch("https://openrouter.ai/api/v1/images/generations", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + apiKey,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            model: "gpt-image-1",
+            prompt: prompt,
+            size: size,
+            n: n,
+            quality: "low"   // 🔥 控制成本关键
+        })
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    const container = document.getElementById("result");
+    container.innerHTML = "";
+
+    if (data?.data) {
+        data.data.forEach(img => {
+            const image = document.createElement("img");
+            image.src = img.url;
+            container.appendChild(image);
+        });
+    } else {
+        container.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+    }
+}
+</script>
+
+</body>
+</html>
