@@ -745,7 +745,7 @@
                     2: '🌈',
                     3: '💪',
                     4: '💡',
-                    5: '🔥',
+                    5: '🌻',
                     6: '⭐',
                     7: '🌸',
                     8: '🎨',
@@ -758,39 +758,17 @@
                     li.className = 'theme-item';
                     li.dataset.id = id;
                     
-                    // 创建图标容器
-                    const iconContainer = document.createElement('div');
-                    
-                    // 判断是否有背景图片
-                    if (data.background && data.background.image) {
-                        // 使用背景图片
-                        const img = document.createElement('img');
-                        img.className = 'theme-item-icon';
-                        img.src = data.background.image;
-                        img.alt = data.title;
-                        img.onerror = () => {
-                            // 图片加载失败时使用emoji
-                            img.style.display = 'none';
-                            const emojiDiv = document.createElement('div');
-                            emojiDiv.className = 'theme-item-emoji';
-                            emojiDiv.textContent = defaultEmojis[id] || '✨';
-                            li.insertBefore(emojiDiv, li.firstChild);
-                        };
-                        iconContainer.appendChild(img);
-                    } else {
-                        // 使用emoji
-                        const emojiDiv = document.createElement('div');
-                        emojiDiv.className = 'theme-item-emoji';
-                        emojiDiv.textContent = data.emoji || defaultEmojis[id] || '✨';
-                        iconContainer.appendChild(emojiDiv);
-                    }
+                    // 创建emoji图标
+                    const emojiDiv = document.createElement('div');
+                    emojiDiv.className = 'theme-item-emoji';
+                    emojiDiv.textContent = data.emoji || defaultEmojis[id] || '✨';
+                    li.appendChild(emojiDiv);
                     
                     // 创建标题
                     const titleDiv = document.createElement('div');
                     titleDiv.className = 'theme-item-title';
                     titleDiv.textContent = data.title;
                     
-                    li.appendChild(iconContainer.firstChild);
                     li.appendChild(titleDiv);
                     themeList.appendChild(li);
                     

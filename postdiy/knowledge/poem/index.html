@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国经典古诗词诗句学习</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>中国经典古诗词诗句摘选</h1>
+        <p>点击卡片翻转，学习经典诗句</p>
+    </header>
+
+    <nav class="category-nav" id="category-nav">
+        <!-- 分类标签将由JavaScript动态生成 -->
+    </nav>
+
+    <main class="main-content">
+        <div class="category-header">
+            <span class="category-title" id="category-title">全部诗词</span>
+            <span class="category-count" id="category-count">0 条</span>
+        </div>
+        <div class="card-container" id="card-container">
+            <!-- 卡片将由JavaScript动态生成 -->
+        </div>
+        <div class="loading" id="loading">
+            <span>加载中...</span>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>点击翻转</p>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="返回顶部">↑</button>
+
+    <script src="poemdata.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

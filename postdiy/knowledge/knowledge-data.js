@@ -61,14 +61,13 @@ window.businessData = {
       id: 3,
       visible: true,
       icon: '📖',
-      iconBg: '#96CEB4',
+      iconBg: '#ffffffff',
       title: '经典古诗词名句收录',
       shortTitle: '情感诗词表达',
       subtitle: '中华经典古诗词名句鉴赏',
       tags: ['诗词', '文化', '经典'],
-      link: 'edu/shici.html',
-      category: 'language',
-      showRecommend: true
+      link: 'poem/index.html',
+      category: 'language'
     },
     {
       id: 4,
