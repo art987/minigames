@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const linkMap = {
       'edu/biaoyang.html': 'edu/data-biaoyang.js',
       'edu/tuweiqinghua.html': 'edu/data-tuweiqinghua.js',
-      'edu/shici.html': 'edu/data-shici.js',
+      'poem/index.html': 'edu/data-shici.js',
       'edu/yingyukouyu.html': 'edu/data-yingyukouyu.js',
       'edu/800sentences.html': 'edu/data-800sentences.js',
       'edu/guliziji.html': 'edu/data-guliziji.js',
