@@ -1,209 +1,118 @@
 @charset "utf-8";
-/* CSS Document */
+/* CSS Document - 优化后的版本 */
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-        }
-        /* 背景视频 */
-        video.background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-        /* 背景图片 */
-        .background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-        .container {
-            max-width: 600px;
-            width: 90%;
-            height: 300px;
-            padding: 16px 20px 40px;
-            background: rgba(255, 255, 255, 0.7); /* 半透明背景 */
-            box-shadow: 0 4px 8px rgb(0 0 0 / 26%);
-            border-radius: 10px;
-            margin: 72px 20px 20px;
-            text-align: left;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .title {
-            font-size: 14px;
-            line-height: 27px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #28282830;
-        }
-        .quote-author {
-            font-size: 1.4em;
-            color:#000000;
-            font-weight: bold;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            padding: 20px 15px 0;
-            word-wrap: break-word;
-            text-indent: 27px;
-            opacity: 1;
-            display: inline;
-            transition: opacity 2s ease-in-out;
-        }
-        .author {
-            margin-left: 10px;
-            font-size: 1em;
-            font-style: italic;
-            color: #555;
-        }
-        .typing {
-            border-right: 2px solid black;
-            display: inline;
-            animation: blink 0.7s step-end infinite;
-        }
-        @keyframes blink {
-            50% {
-                border-color: transparent;
-            }
-        }
-        /* 音量控制按钮 */
-        .sound-toggle-btn {
-            /* transform: translateX(-50%); */
-            padding: 7px 11px;
-            background-color: rgb(0 0 0 / 0%);
-            color: #333333;
-            border: none;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            /* border: 1px solid #abababd1; */
-            z-index: 10;
-            position: absolute;
-            top: 3px;
-            right: 8px;
-        }
-		
-		
-		
-	/* 按钮容器样式 */
-.button-container {
-    position: fixed;
-    bottom: 20px;
-    gap: 10px;
-    z-index: 10;
-}
+/* ==================== 基础样式 ==================== */
 
-/* 主题按钮样式 */
-.theme-btn {
-    padding: 6px 20px;
-    background-color: rgb(255 255 255 / 50%);
-    color: #353535;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    font-size: 13px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 21px;
-    left: 123px;
-}
-
-/* 主题弹窗样式 */
-.theme-modal {
-    position: fixed;
-    top: 320px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 83%;
-    max-width: 500px;
-    height: 399px;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 6px 11px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    z-index: 360;
-    animation: fadeIn 0.3s ease-out;
-}
-
-.theme-modal.closing {
-    animation: shrinkToButton 0.5s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-@keyframes shrinkToButton {
-    to {
-        transform: translate(calc(-50% + 50px), calc(-50% + 100px)) scale(0);
-        opacity: 0;
-    }
-}
-
-.theme-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-.theme-modal-header h3{padding:0;margin:0;line-height: 20px;font-size: 14px;text-indent: 10px;}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 41px;
-    cursor: pointer;
-    color: #c50303;
-    line-height: 30px;
-}
-
-.theme-list {
-    list-style: none;
-    padding: 0;
+body {
     margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* 防止横向滚动 */
 }
 
-.theme-item {
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    text-indent: 7px;
-    list-style: inside disc;
-    cursor: pointer;
-    background: #fff;
-    transition: background-color 0.2s;
-}
+/* ==================== 背景媒体 ==================== */
 
-.theme-item:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.modal-overlay {
-    position: fixed;
+/* 背景视频 */
+video.background-video {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
-}	
-		
-		
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* 背景图片 */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* ==================== 容器样式 ==================== */
+
+.container {
+    max-width: 600px;
+    width: 90%;
+    height: 300px;
+    padding: 16px 20px 40px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 26%);
+    border-radius: 10px;
+    margin: 72px 20px 20px;
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 14px;
+    line-height: 27px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #28282830;
+}
+
+.quote-author {
+    font-size: 1.4em;
+    color: #000000;
+    font-weight: bold;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    padding: 20px 15px 0;
+    word-wrap: break-word;
+    text-indent: 27px;
+    opacity: 1;
+    display: inline;
+    transition: opacity 2s ease-in-out;
+}
+
+.quote-author .author {
+    margin-left: 10px;
+    font-size: 20px;
+    font-style: italic;
+    color: #555;
+    font-weight: normal;
+}
+
+.typing {
+    border-right: 2px solid black;
+    display: inline;
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* ==================== 音量控制按钮 ==================== */
+
+.sound-toggle-btn {
+    padding: 7px 11px;
+    background-color: rgb(0 0 0 / 0%);
+    color: #333333;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    top: 3px;
+    right: 8px;
+}
+
 /* 音乐按钮浮动效果 */
 .sound-toggle-btn b {
     display: inline-block;
@@ -222,91 +131,255 @@
     }
 }
 
+/* ==================== 按钮容器样式 ==================== */
 
-/* 在.quote-controls样式中添加以下内容 */
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    gap: 10px;
+    z-index: 10;
+}
+
+/* ==================== 主题弹窗样式 ==================== */
+
+.theme-modal {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    z-index: 360;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.theme-modal.closing {
+    animation: shrinkToButton 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) scale(0.9); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes shrinkToButton {
+    to {
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+    }
+}
+
+.theme-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.theme-modal-header h3 {
+    padding: 0;
+    margin: 0;
+    line-height: 20px;
+    font-size: 14px;
+    text-indent: 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 41px;
+    cursor: pointer;
+    color: #c50303;
+    line-height: 30px;
+}
+
+.theme-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.theme-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(100, 100, 255, 0.5);
+}
+
+.theme-item-icon {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.theme-item-emoji {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+.theme-item-title {
+    padding: 10px 8px;
+    background: #f8f9fa;
+    color: #333;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0 0 12px 12px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+/* ==================== 名言控制按钮 ==================== */
+
 .quote-controls {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    position: absolute;
-    top: 241px;
-    height: 32px;
-    padding: 0 0px;
-    bottom: 5px;
-    width: calc(100% - 38px); /* 新增：确保按钮容器宽度适应 */
+    gap: 8px;
+    z-index: 10;
 }
 
-/* 调整按钮宽度以适应新增的暂停按钮 */
 .quote-controls button {
-    padding: 5px 2px;
-    background: rgb(255 255 255 / 52%);
-    border: 1px solid rgb(255 255 255 / 80%);
-    border-radius: 4px;
-    color: #353535;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    color: #333;
     cursor: pointer;
-    font-size: 12px;
-    transition: background 0.3s;
-    width: 40px; /* 修改：调整按钮宽度 */
-    margin: 0 4px;
-    /* flex-grow: 1; */ /* 新增：让按钮自动填充空间 */
-    height: 31px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+    min-width: 40px;
 }
-#prev-btn{transform: scaleX(-1); font-size:14px; font-weight:bold;}
-#next-btn{font-size:14px; font-weight:bold;}
 
 .quote-controls button:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+.quote-controls button:active {
+    transform: translateY(0);
+}
+
+#prev-btn {
+    transform: scaleX(-1);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#next-btn {
+    font-size: 14px;
+    font-weight: bold;
+}
 
 .quote-controls #copy-btn {
-    /* transition: color 0.3s; */
-    width: 59px;
+    min-width: 50px;
 }
 
 .quote-controls #copy-btn.copied {
-    color: #4CAF50; /* 绿色表示成功 */
+    color: #4CAF50;
 }
 
+/* ==================== 主题切换按钮容器 ==================== */
 
-
-/* 添加在 theme-btn 样式后面 */
-.prev-theme-btn, .next-theme-btn {
-    padding: 2px 8px;
-    background-color: rgb(255 255 255 / 50%);
-    color: #000000;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
+.theme-container {
     position: absolute;
-    z-index: 350;
-    bottom: 65px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    z-index: 10;
 }
 
-.prev-theme-btn {
-    left: 23px;
-    transform: scaleX(-1);
-}
-
-.next-theme-btn {
-    left: 331px;
-}
-
-/* 调整原来的 theme-btn 位置 */
+/* 主题切换按钮统一样式 */
 .theme-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 123px;
-    background: none;
-    border: none;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    color: #333;
+    font-size: 13px;
     cursor: pointer;
-    font-size: 14px;
-    color: #252525;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
 }
 
-/* 添加计数器样式 */
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-btn:active {
+    transform: translateY(0);
+}
+
+/* 上一个主题按钮 */
+.prev-theme-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* 下一个主题按钮 */
+.next-theme-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* 更多主题按钮 */
+#theme-btn {
+    font-weight: 500;
+}
+
+/* ==================== 计数器样式 ==================== */
+
 .quote-counter {
     position: absolute;
     top: 52px;
@@ -314,4 +387,294 @@
     font-size: 12px;
     letter-spacing: 1px;
     color: #252525;
+}
+
+/* ==================== 移动设备适配 ==================== */
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        margin: 50px 10px 20px;
+        padding: 12px 15px 30px;
+        height: auto;
+        min-height: 280px;
+    }
+
+    .quote-author {
+        font-size: 1.2em;
+        padding: 15px 10px 0;
+        text-indent: 20px;
+    }
+
+    .quote-author .author {
+        font-size: 16px;
+    }
+
+    .title {
+        font-size: 13px;
+        line-height: 24px;
+        margin-bottom: 15px;
+    }
+
+    .quote-controls {
+        bottom: 70px;
+        gap: 6px;
+    }
+
+    .quote-controls button {
+        padding: 5px 10px;
+        font-size: 11px;
+        min-width: 35px;
+    }
+
+    #prev-btn, #next-btn {
+        font-size: 12px;
+    }
+
+    .quote-controls #copy-btn {
+        min-width: 45px;
+    }
+
+    .theme-container {
+        bottom: 15px;
+        gap: 6px;
+    }
+
+    .theme-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .prev-theme-btn,
+    .next-theme-btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .theme-modal {
+        width: 90%;
+        max-width: 400px;
+        max-height: 70vh;
+        padding: 12px 15px 20px;
+    }
+
+    .theme-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+    }
+
+    .theme-item-icon,
+    .theme-item-emoji {
+        height: 80px;
+    }
+
+    .theme-item-emoji {
+        font-size: 40px;
+    }
+
+    .theme-item-title {
+        font-size: 11px;
+        padding: 8px 6px;
+    }
+
+    .quote-counter {
+        top: 40px;
+        left: 15px;
+        font-size: 11px;
+    }
+
+    .sound-toggle-btn {
+        font-size: 11px;
+        padding: 5px 9px;
+    }
+
+    .sound-toggle-btn b {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        width: 98%;
+        margin: 102px 35px 21px;
+        padding: 10px 12px 25px;
+        min-height: 350px;
+    }
+
+    .quote-author {
+        font-size: 1.1em;
+        padding: 35px 8px 31px;
+        text-indent: 15px;
+        line-height: 1.6;
+    }
+
+    .quote-author .author {
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 12px;
+        line-height: 22px;
+        margin-bottom: 12px;
+    }
+
+    .quote-controls {
+        bottom: 107px;
+        gap: 5px;
+    }
+
+    .quote-controls button {
+        padding: 4px 8px;
+        font-size: 10px;
+        min-width: 30px;
+    }
+
+    #prev-btn, #next-btn {
+        font-size: 11px;
+    }
+
+    .quote-controls #copy-btn {
+        min-width: 40px;
+    }
+
+    .theme-container {
+        bottom: 54px;
+        gap: 5px;
+    }
+
+    .theme-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .prev-theme-btn,
+    .next-theme-btn {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+
+    .theme-modal {
+        width: 95%;
+        max-width: 350px;
+        max-height: 65vh;
+        padding: 10px 12px 15px;
+    }
+
+    .theme-modal-header h3 {
+        font-size: 12px;
+    }
+
+    .close-btn {
+        font-size: 35px;
+    }
+
+    .theme-list {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+    }
+
+    .theme-item-icon,
+    .theme-item-emoji {
+        height: 60px;
+    }
+
+    .theme-item-emoji {
+        font-size: 32px;
+    }
+
+    .theme-item-title {
+        font-size: 10px;
+        padding: 6px 5px;
+    }
+
+    .quote-counter {
+        top: 47px;
+        left: 12px;
+        font-size: 10px;
+    }
+
+    .sound-toggle-btn {
+        font-size: 10px;
+        padding: 4px 7px;
+    }
+
+    .sound-toggle-btn b {
+        font-size: 18px;
+    }
+}
+
+/* ==================== 触摸设备优化 ==================== */
+
+@media (hover: none) and (pointer: coarse) {
+    /* 触摸设备上的按钮样式优化 */
+    .quote-controls button,
+    .theme-btn,
+    .sound-toggle-btn {
+        min-height: 32px;
+        min-width: 44px;
+    }
+
+    /* 增加按钮之间的间距，防止误触 */
+    .quote-controls button {
+        margin: 0 5px;
+    }
+
+    .theme-container {
+        gap: 10px;
+    }
+
+    /* 移除hover效果，避免触摸设备上的延迟 */
+    .quote-controls button:hover,
+    .theme-btn:hover,
+    .theme-item:hover {
+        background: inherit;
+        transform: none;
+        box-shadow: none;
+        border-color: transparent;
+    }
+
+    /* 添加active状态样式 */
+    .quote-controls button:active {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0.95);
+    }
+
+    .theme-btn:active {
+        background: rgba(255, 255, 255, 0.85);
+        transform: scale(0.95);
+    }
+
+    .theme-item:active {
+        transform: scale(0.95);
+        border-color: rgba(100, 100, 255, 0.8);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* ==================== 打印样式 ==================== */
+
+@media print {
+    .background-video,
+    .background-image,
+    .sound-toggle-btn,
+    .quote-controls,
+    .theme-container,
+    .theme-modal,
+    .modal-overlay {
+        display: none !important;
+    }
+
+    .container {
+        background: white;
+        box-shadow: none;
+        margin: 0;
+        padding: 20px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .quote-author {
+        color: black;
+        font-size: 14pt;
+    }
 }
