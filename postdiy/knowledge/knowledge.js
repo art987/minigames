@@ -395,13 +395,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonsContainer = `
       <div class="card-recommend-buttons" id="buttons-${cardId}" onclick="event.stopPropagation()">
         <div class="card-recommend-controls" id="controls-${cardId}">
-          <button class="card-recommend-btn control-btn prev-btn" onclick="event.stopPropagation(); prevRecommend(${cardId})">◀</button>
-          <button class="card-recommend-btn control-btn pause-btn" id="pause-${cardId}" onclick="event.stopPropagation(); togglePause(${cardId})">⏸</button>
-          <button class="card-recommend-btn control-btn next-btn" onclick="event.stopPropagation(); nextRecommend(${cardId})">▶</button>
+          <button class="card-recommend-btn control-btn prev-btn" onclick="event.stopPropagation(); prevRecommend(${cardId})">←</button>
+          <button class="card-recommend-btn control-btn pause-btn" id="pause-${cardId}" onclick="event.stopPropagation(); togglePause(${cardId})">⏵</button>
+          <button class="card-recommend-btn control-btn next-btn" onclick="event.stopPropagation(); nextRecommend(${cardId})">→</button>
         </div>
-        <button class="card-recommend-btn show-all-btn" onclick="event.stopPropagation(); toggleExpand(${cardId})">显示所有</button>
-        <button class="card-recommend-btn refresh-btn" onclick="event.stopPropagation(); refreshRecommend(${cardId})" style="display: none;">换一批</button>
         <button class="card-recommend-btn enter-btn" onclick="event.stopPropagation(); enterSite('${cardLink}')" style="display: none;">进入网站</button>
+        <button class="card-recommend-btn refresh-btn" onclick="event.stopPropagation(); refreshRecommend(${cardId})" style="display: none;">换一批</button>
+        <button class="card-recommend-btn show-all-btn" onclick="event.stopPropagation(); toggleExpand(${cardId})">显示所有</button>
       </div>
     `;
     
@@ -430,9 +430,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const scrollContainer = document.getElementById(`scroll-${cardId}`);
     if (!scrollContainer) return;
     
-    // 初始化当前索引和暂停状态
+    // 初始化当前索引和暂停状态（默认暂停）
     window.currentIndices[cardId] = 0;
-    window.pauseStates[cardId] = false;
+    window.pauseStates[cardId] = true;
     
     const items = scrollContainer.querySelectorAll('.card-recommend-item');
     
