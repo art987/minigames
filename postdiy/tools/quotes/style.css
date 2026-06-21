@@ -286,8 +286,8 @@ video.background-video {
 
 .quote-controls button {
     padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgb(255 255 255 / 17%);
+    border: 1px solid rgb(255 255 255 / 45%);
     border-radius: 6px;
     color: #333;
     cursor: pointer;
@@ -327,13 +327,18 @@ video.background-video {
     color: #4CAF50;
 }
 
+#prev-theme-btn,
+#next-theme-btn {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /* ==================== 主题切换按钮容器 ==================== */
 
 .theme-container {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 48px;
+    right: 53px;
     display: flex;
     gap: 8px;
     align-items: center;
@@ -343,8 +348,8 @@ video.background-video {
 /* 主题切换按钮统一样式 */
 .theme-btn {
     padding: 6px 14px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgb(255 255 255 / 23%);
+    border: 1px solid rgb(255 255 255 / 45%);
     border-radius: 6px;
     color: #333;
     font-size: 13px;
@@ -368,17 +373,75 @@ video.background-video {
 .prev-theme-btn {
     padding: 6px 10px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 /* 下一个主题按钮 */
 .next-theme-btn {
     padding: 6px 10px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 /* 更多主题按钮 */
 #theme-btn {
     font-weight: 500;
+    width: 86px;
+    min-width: 32px;
+    line-height: 14px;
+    white-space: normal;
+    min-height: 31px;
+    border-radius: 32px;
+}
+
+/* 隐藏控制按钮 */
+.hide-controls-btn {
+    position: absolute;
+    bottom: 18px;
+    right: 13px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 16px;
+    background: rgb(255 255 255 / 70%);
+    border: 1px solid rgb(255 255 255 / 39%);
+    border-radius: 50%;
+    color: #393939;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hide-controls-btn:hover {
+    opacity: 1;
+    background: rgb(255 255 255 / 27%);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 隐藏状态 */
+.controls-hidden .quote-controls {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.controls-hidden .theme-container .theme-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.controls-hidden .hide-controls-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1.1);
 }
 
 /* ==================== 计数器样式 ==================== */
@@ -543,12 +606,12 @@ video.background-video {
     }
 
     .theme-container {
-        bottom: 54px;
+        bottom: 18px;
         gap: 5px;
     }
 
     .theme-btn {
-        padding: 4px 8px;
+        padding: 7px 6px;
         font-size: 11px;
     }
 

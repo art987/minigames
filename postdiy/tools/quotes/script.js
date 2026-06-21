@@ -484,10 +484,12 @@
             const buttonContainer = document.createElement('div');
             buttonContainer.className = 'quote-controls';
             buttonContainer.innerHTML = `
+                <button id="prev-theme-btn">⇚</button>
                 <button id="prev-btn">➣</button>
                 <button id="pause-btn">▌▌</button>
                 <button id="copy-btn">复制</button>
                 <button id="next-btn">➣</button>
+                <button id="next-theme-btn">⇛</button>
             `;
             
             quoteContainer.appendChild(buttonContainer);
@@ -538,12 +540,7 @@
             this.eventManager.add(document.getElementById('next-btn'), 'click', () => {
                 this.playNext();
             });
-        }
 
-        /**
-         * 设置主题切换按钮
-         */
-        setupThemeButtons() {
             // 上一个主题按钮
             this.eventManager.add(document.getElementById('prev-theme-btn'), 'click', () => {
                 const currentSeriesId = parseInt(Object.keys(window.quotedata).find(key => window.quotedata[key] === this.currentData));
@@ -568,10 +565,30 @@
                     this.loadThemeData(1);
                 }
             });
+        }
 
+        /**
+         * 设置主题切换按钮
+         */
+        setupThemeButtons() {
             // 更多主题按钮
             this.eventManager.add(document.getElementById('theme-btn'), 'click', () => {
                 this.createThemeModal();
+            });
+
+            // 隐藏控制按钮
+            const hideControlsBtn = document.getElementById('hide-controls-btn');
+            this.eventManager.add(hideControlsBtn, 'click', () => {
+                const quoteContainer = document.getElementById('quote-container');
+                quoteContainer.classList.toggle('controls-hidden');
+                
+                if (quoteContainer.classList.contains('controls-hidden')) {
+                    hideControlsBtn.textContent = '◉';
+                    hideControlsBtn.title = '显示控制按钮';
+                } else {
+                    hideControlsBtn.textContent = '◉';
+                    hideControlsBtn.title = '隐藏控制按钮';
+                }
             });
         }
 
