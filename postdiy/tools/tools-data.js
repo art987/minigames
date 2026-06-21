@@ -24,15 +24,16 @@ window.toolsData = {
   
   categories: [
     { id: 'life', name: '便民服务', icon: '📞' },
+    { id: 'culture', name: '精神疗愈', icon: '📚' }, 
     { id: 'music', name: '音乐疗愈', icon: '🎵' },    
     { id: 'psychology', name: '心理测评', icon: '🧠' },
+    { id: 'sales', name: '销售工具', icon: '💼' },
     { id: 'image', name: '图片处理', icon: '🖼️' },
     { id: 'efficiency', name: '效率工具', icon: '⚡' },
     { id: 'shopping', name: '购物工具', icon: '🛒' },
     
-    { id: 'finance', name: '财务工具', icon: '💰' },
-    { id: 'sales', name: '销售工具', icon: '💼' },
-    { id: 'culture', name: '文化教育', icon: '📚' }
+    { id: 'finance', name: '财务工具', icon: '💰' }
+    
   ],
   
   toolCards: [

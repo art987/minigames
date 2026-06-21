@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopBtn = document.getElementById('back-to-top');
     
     const PAGE_SIZE = 20;
+    const TODAY_PAGE_SIZE = 5;
     
     if (!cardContainer || !categoryNav || !window.poemData || !poemData.categories) {
         console.error('无法找到容器或数据');
@@ -14,6 +15,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const categories = poemData.categories;
+    
+    const today = new Date();
+    const todayMonth = today.getMonth() + 1;
+    const todayDay = today.getDate();
+    const todayCategoryName = `${todayMonth}月${todayDay}日学习推荐`;
+    
+    let allItems = [];
+    categories.forEach(cat => {
+        allItems = allItems.concat(cat.items);
+    });
+    
+    function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+    
+    const shuffledItems = shuffleArray(allItems);
+    
     let currentCategoryIndex = 0;
     let currentLoadedCount = 0;
     let isLoading = false;
@@ -67,13 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getCategoryItems(categoryIndex) {
-        return categories[categoryIndex]?.items || [];
+        if (categoryIndex === 0) {
+            return shuffledItems;
+        }
+        return categories[categoryIndex - 1]?.items || [];
+    }
+
+    function getCurrentPageSize() {
+        return currentCategoryIndex === 0 ? TODAY_PAGE_SIZE : PAGE_SIZE;
     }
 
     function loadCards(isAppend = false) {
         if (isLoading) return;
         
         const items = getCategoryItems(currentCategoryIndex);
+        const pageSize = getCurrentPageSize();
         
         if (!isAppend) {
             cardContainer.innerHTML = '';
@@ -88,11 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         isLoading = true;
-        loading.classList.add('show');
+        
+        if (currentCategoryIndex !== 0) {
+            loading.classList.add('show');
+        }
 
         setTimeout(() => {
             const start = currentLoadedCount;
-            const end = Math.min(start + PAGE_SIZE, items.length);
+            const end = Math.min(start + pageSize, items.length);
             const newItems = items.slice(start, end);
 
             newItems.forEach((item, index) => {
@@ -111,16 +145,48 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLoadedCount = end;
             hasMore = currentLoadedCount < items.length;
             isLoading = false;
-            loading.classList.toggle('show', hasMore);
+            
+            if (currentCategoryIndex === 0) {
+                categoryCount.textContent = `${currentLoadedCount} 条`;
+                updateLoadMoreButton();
+            } else {
+                loading.classList.toggle('show', hasMore);
+            }
         }, 300);
     }
 
+    function updateLoadMoreButton() {
+        let loadMoreBtn = document.getElementById('load-more-btn');
+        
+        if (!loadMoreBtn) {
+            loadMoreBtn = document.createElement('button');
+            loadMoreBtn.id = 'load-more-btn';
+            loadMoreBtn.className = 'load-more-btn';
+            loadMoreBtn.textContent = '加载更多';
+            loadMoreBtn.addEventListener('click', () => {
+                loadCards(true);
+            });
+            cardContainer.parentNode.appendChild(loadMoreBtn);
+        }
+        
+        loadMoreBtn.style.display = hasMore ? 'block' : 'none';
+    }
+
     function renderCategory() {
-        const cat = categories[currentCategoryIndex];
         const items = getCategoryItems(currentCategoryIndex);
         
-        categoryTitle.textContent = cat.name;
-        categoryCount.textContent = `${items.length} 条`;
+        if (currentCategoryIndex === 0) {
+            categoryTitle.textContent = todayCategoryName;
+            categoryCount.textContent = `${currentLoadedCount} 条`;
+        } else {
+            const cat = categories[currentCategoryIndex - 1];
+            categoryTitle.textContent = cat.name;
+            categoryCount.textContent = `${items.length} 条`;
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            if (loadMoreBtn) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
         
         loadCards(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -130,12 +196,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const navList = document.createElement('ul');
         navList.className = 'category-nav-list';
 
+        const todayBtn = document.createElement('button');
+        todayBtn.textContent = todayCategoryName;
+        todayBtn.className = currentCategoryIndex === 0 ? 'active' : '';
+        todayBtn.addEventListener('click', () => {
+            currentCategoryIndex = 0;
+            updateActiveButton();
+            renderCategory();
+        });
+
+        const todayItem = document.createElement('li');
+        todayItem.className = 'category-nav-item';
+        todayItem.appendChild(todayBtn);
+        navList.appendChild(todayItem);
+
         categories.forEach((cat, index) => {
             const btn = document.createElement('button');
             btn.textContent = cat.name;
-            btn.className = currentCategoryIndex === index ? 'active' : '';
+            btn.className = currentCategoryIndex === index + 1 ? 'active' : '';
             btn.addEventListener('click', () => {
-                currentCategoryIndex = index;
+                currentCategoryIndex = index + 1;
                 updateActiveButton();
                 renderCategory();
             });
@@ -172,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initInfiniteScroll() {
         window.addEventListener('scroll', () => {
-            if (isLoading || !hasMore) return;
+            if (isLoading || !hasMore || currentCategoryIndex === 0) return;
             
             const scrollTop = window.scrollY;
             const windowHeight = window.innerHeight;

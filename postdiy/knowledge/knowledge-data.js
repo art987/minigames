@@ -67,7 +67,8 @@ window.businessData = {
       subtitle: '中华经典古诗词名句鉴赏',
       tags: ['诗词', '文化', '经典'],
       link: 'poem/index.html',
-      category: 'language'
+      category: 'language',
+      showRecommend: true
     },
     {
       id: 4,
