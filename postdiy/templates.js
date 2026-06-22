@@ -3707,6 +3707,116 @@ var templates = {
       type: '中国节日'
     },
     {
+      id: 'jiandangjie-2024-009',
+      name: '初心使命',
+      thumbnail: 'images/jiandangjie/thumbnails/9.jpg',
+      image: 'images/jiandangjie/9.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节初心使命主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-010',
+      name: '砥砺前行',
+      thumbnail: 'images/jiandangjie/thumbnails/10.jpg',
+      image: 'images/jiandangjie/10.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节砥砺前行主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-011',
+      name: '百年征程',
+      thumbnail: 'images/jiandangjie/thumbnails/11.jpg',
+      image: 'images/jiandangjie/11.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节百年征程主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-012',
+      name: '伟大复兴',
+      thumbnail: 'images/jiandangjie/thumbnails/12.jpg',
+      image: 'images/jiandangjie/12.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节伟大复兴主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-013',
+      name: '党旗飘扬',
+      thumbnail: 'images/jiandangjie/thumbnails/13.jpg',
+      image: 'images/jiandangjie/13.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节党旗飘扬主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-014',
+      name: '永远跟党走',
+      thumbnail: 'images/jiandangjie/thumbnails/14.jpg',
+      image: 'images/jiandangjie/14.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节永远跟党走主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-015',
+      name: '不忘初心',
+      thumbnail: 'images/jiandangjie/thumbnails/15.jpg',
+      image: 'images/jiandangjie/15.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节不忘初心主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-016',
+      name: '牢记使命',
+      thumbnail: 'images/jiandangjie/thumbnails/16.jpg',
+      image: 'images/jiandangjie/16.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节牢记使命主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-017',
+      name: '红色传承',
+      thumbnail: 'images/jiandangjie/thumbnails/17.jpg',
+      image: 'images/jiandangjie/17.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节红色传承主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-018',
+      name: '光辉历程',
+      thumbnail: 'images/jiandangjie/thumbnails/18.jpg',
+      image: 'images/jiandangjie/18.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节光辉历程主题海报模板',
+      type: '中国节日'
+    },
+    {
+      id: 'jiandangjie-2024-019',
+      name: '奋进新时代',
+      thumbnail: 'images/jiandangjie/thumbnails/19.jpg',
+      image: 'images/jiandangjie/19.png',
+      months: [7],
+      festivals: ['建党节'],
+      description: '建党节奋进新时代主题海报模板',
+      type: '中国节日'
+    },
+    {
       id: 'xiaoshu-2024-001',
       name: '小暑节气',
       thumbnail: 'images/xiaoshu/thumbnails/1.jpg',
