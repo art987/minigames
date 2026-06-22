@@ -6714,6 +6714,86 @@ var templates = {
       description: '立冬节气迎春主题海报模板',
       type: '节气'
     },
+    {
+      id: 'lidong-2024-021',
+      name: '立冬祈福',
+      thumbnail: 'images/lidong/thumbnails/21.jpg',
+      image: 'images/lidong/21.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气祈福主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-022',
+      name: '立冬安康',
+      thumbnail: 'images/lidong/thumbnails/22.jpg',
+      image: 'images/lidong/22.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气安康主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-023',
+      name: '立冬暖意',
+      thumbnail: 'images/lidong/thumbnails/23.jpg',
+      image: 'images/lidong/23.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气暖意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-024',
+      name: '立冬欢聚',
+      thumbnail: 'images/lidong/thumbnails/24.jpg',
+      image: 'images/lidong/24.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气欢聚主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-025',
+      name: '立冬饺子香',
+      thumbnail: 'images/lidong/thumbnails/25.jpg',
+      image: 'images/lidong/25.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气饺子香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-026',
+      name: '立冬诗意浓',
+      thumbnail: 'images/lidong/thumbnails/26.jpg',
+      image: 'images/lidong/26.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气诗意浓主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-027',
+      name: '立冬雪纷飞',
+      thumbnail: 'images/lidong/thumbnails/27.jpg',
+      image: 'images/lidong/27.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气雪纷飞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'lidong-2024-028',
+      name: '立冬好时节',
+      thumbnail: 'images/lidong/thumbnails/28.jpg',
+      image: 'images/lidong/28.png',
+      months: [11],
+      festivals: ['立冬'],
+      description: '立冬节气好时节主题海报模板',
+      type: '节气'
+    },
     
     {
       id: 'xiaoxue-2024-001',
