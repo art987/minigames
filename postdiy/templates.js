@@ -2129,6 +2129,146 @@ var templates = {
       type: '西方节日'
     },
     {
+      id: 'yurenjie-2024-015',
+      name: '愚人节搞怪',
+      thumbnail: 'images/yurenjie/thumbnails/15.jpg',
+      image: 'images/yurenjie/15.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节搞怪主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-016',
+      name: '愚人节恶搞',
+      thumbnail: 'images/yurenjie/thumbnails/16.jpg',
+      image: 'images/yurenjie/16.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节恶搞主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-017',
+      name: '愚人节惊喜不断',
+      thumbnail: 'images/yurenjie/thumbnails/17.jpg',
+      image: 'images/yurenjie/17.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节惊喜不断主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-018',
+      name: '愚人节开心一刻',
+      thumbnail: 'images/yurenjie/thumbnails/18.jpg',
+      image: 'images/yurenjie/18.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节开心一刻主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-019',
+      name: '愚人节欢乐派对',
+      thumbnail: 'images/yurenjie/thumbnails/19.jpg',
+      image: 'images/yurenjie/19.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐派对主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-020',
+      name: '愚人节趣味无穷',
+      thumbnail: 'images/yurenjie/thumbnails/20.jpg',
+      image: 'images/yurenjie/20.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节趣味无穷主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-021',
+      name: '愚人节笑料百出',
+      thumbnail: 'images/yurenjie/thumbnails/21.jpg',
+      image: 'images/yurenjie/21.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节笑料百出主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-022',
+      name: '愚人节欢乐时光',
+      thumbnail: 'images/yurenjie/thumbnails/22.jpg',
+      image: 'images/yurenjie/22.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐时光主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-023',
+      name: '愚人节惊喜连连',
+      thumbnail: 'images/yurenjie/thumbnails/23.jpg',
+      image: 'images/yurenjie/23.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节惊喜连连主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-024',
+      name: '愚人节搞怪达人',
+      thumbnail: 'images/yurenjie/thumbnails/24.jpg',
+      image: 'images/yurenjie/24.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节搞怪达人主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-025',
+      name: '愚人节整蛊大师',
+      thumbnail: 'images/yurenjie/thumbnails/25.jpg',
+      image: 'images/yurenjie/25.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节整蛊大师主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-026',
+      name: '愚人节欢乐总动员',
+      thumbnail: 'images/yurenjie/thumbnails/26.jpg',
+      image: 'images/yurenjie/26.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节欢乐总动员主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-027',
+      name: '愚人节快乐无限',
+      thumbnail: 'images/yurenjie/thumbnails/27.jpg',
+      image: 'images/yurenjie/27.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节快乐无限主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'yurenjie-2024-028',
+      name: '愚人节惊喜来袭',
+      thumbnail: 'images/yurenjie/thumbnails/28.jpg',
+      image: 'images/yurenjie/28.png',
+      months: [4],
+      festivals: ['愚人节'],
+      description: '愚人节惊喜来袭主题海报模板',
+      type: '西方节日'
+    },
+    {
       id: 'guyu-2024-001',
       name: '谷雨茶韵',
       thumbnail: 'images/guyu/thumbnails/1.jpg',
