@@ -3310,7 +3310,8 @@ const ThumbnailLoader = {
     if (elements.confirmTemplateBtn) {
       elements.confirmTemplateBtn.addEventListener('click', function() {
         if (state.currentTemplate) {
-          window.location.href = `editor.html?templateId=${state.currentTemplate.id}`;
+          // 使用AJAX方式加载，不刷新页面
+          selectTemplate(state.currentTemplate);
         }
       });
     }
@@ -4379,6 +4380,35 @@ const ThumbnailLoader = {
     }
   }
   
+  // 处理浏览器前进/后退按钮
+  window.addEventListener('popstate', function(event) {
+    console.log('popstate事件触发:', event.state);
+    
+    if (event.state && event.state.templateId) {
+      // 从URL参数获取模板ID
+      const templateId = event.state.templateId;
+      
+      // 查找模板
+      if (window.utils && window.utils.getTemplateById) {
+        const template = window.utils.getTemplateById(templateId);
+        if (template) {
+          // 清除自定义背景
+          state.customBackground = null;
+          // 更新当前模板
+          state.currentTemplate = template;
+          // 更新显示
+          updateTemplateDisplay();
+          console.log('通过浏览器导航切换到模板:', template.name);
+        } else {
+          console.warn('未找到模板:', templateId);
+        }
+      }
+    } else {
+      // 如果没有模板ID，加载默认模板
+      loadDefaultTemplate();
+    }
+  });
+  
   // 初始化编辑器状态
   function initializeEditor() {
     // 初始化VIP菜单
@@ -4468,6 +4498,8 @@ const ThumbnailLoader = {
             if (!state.textColor) {
               state.textColor = '#000000';
             }
+            // 初始化历史状态，确保后退按钮能正确工作
+            window.history.replaceState({ templateId: templateId }, '', `editor.html?templateId=${templateId}`);
             updateTemplateDisplay();
             console.log('已加载指定模板:', selectedTemplate.name);
             return; // 加载成功后直接返回
@@ -6334,11 +6366,30 @@ const ThumbnailLoader = {
     selectTemplate(nextTemplate);
   }
 
-  // 选择模板
+  // 选择模板 - AJAX方式加载，不刷新页面
   function selectTemplate(template) {
-    // 选择新模板时，直接带模板ID重定向到新页面
-    // 真正的加载动画将在新页面的背景图片加载过程中显示
-    window.location.href = `editor.html?templateId=${template.id}`;
+    if (!template) {
+      console.error('selectTemplate: 模板参数无效');
+      return;
+    }
+    
+    console.log('选择模板:', template.name, template.id);
+    
+    // 清除自定义背景，使用新模板的背景
+    state.customBackground = null;
+    
+    // 更新当前模板状态
+    state.currentTemplate = template;
+    
+    // 使用 History API 更新URL但不刷新页面
+    const newUrl = `editor.html?templateId=${template.id}`;
+    window.history.pushState({ templateId: template.id }, '', newUrl);
+    
+    // 关闭模板选择弹窗
+    closeTemplateModal();
+    
+    // 直接更新模板显示（不刷新页面）
+    updateTemplateDisplay();
   }
   
   // 关闭模板选择弹窗
@@ -14833,7 +14884,7 @@ window.textTemplateManager = {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
-              选择${todayFestival}模板
+              挑选${todayFestival}模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             ☻ 日常海报
@@ -14846,10 +14897,10 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-            ☀ 早安海报
+            ☀ 挑选早安海报模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☾ 晚安海报
+            ☾ 挑选晚安海报模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             ☻ 日常海报
@@ -14862,7 +14913,7 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☾ 晚安海报
+            ☾ 挑选晚安海报模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             ☻ 日常海报
@@ -14925,9 +14976,9 @@ window.textTemplateManager = {
       html += '<div class="future-suggestion-buttons">';
       
       if (!tomorrowFestival) {
-        html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="zaoan">☀ 早安海报</button></div>`;
+        html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="zaoan">☀ 挑选早安海报模板</button></div>`;
       }
-      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan">☾ 晚安海报</button></div>`;
+      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan">☾ 挑选晚安海报模板</button></div>`;
       
       html += '</div></div>';
       
@@ -14953,7 +15004,7 @@ window.textTemplateManager = {
           html += `<div class="future-suggestion-item">`;
           html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
           html += `<div class="future-suggestion-buttons">`;
-          html += `<div class="button-wrapper"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选模板</button></div>`;
+          html += `<div class="button-wrapper"><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选${festival.name}模板</button></div>`;
           html += '</div></div>';
         });
       } else {

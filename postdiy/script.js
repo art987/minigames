@@ -1393,7 +1393,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
-            发布${todayFestival}海报
+            挑选${todayFestival}模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
@@ -1410,12 +1410,12 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-          ☀️早安海报
+          ☀️挑选早安海报模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙晚安海报
+          🌙挑选晚安海报模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
@@ -1432,7 +1432,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙晚安海报
+          🌙挑选晚安海报模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
@@ -1502,9 +1502,9 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️早安海报</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️挑选早安海报模板</button></div>`;
     }
-    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙晚安海报</button></div>`;
+    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙挑选晚安海报模板</button></div>`;
     
     html += '</div></div>';
     
@@ -1529,7 +1529,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选${festival.name}模板</button></div>`;
       html += '</div></div>';
     });
     
