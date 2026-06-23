@@ -1759,7 +1759,7 @@ footer {
   right: 20%;
 }
  #changeTemplateBtn{
-  left: 40%;color: #000;
+  left: 40%;color: #000; animation:borderGradient 3s ease infinite;
 }
 #editBusinessInfoBtn{display: none;
 }
