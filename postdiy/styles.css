@@ -1155,7 +1155,7 @@ footer {
   width: 26px;
   border-radius: 26px;
   border: 1px solid #ffffff82;
-  background: #ffffff50;
+  background: #ffffffab;
   overflow: hidden;
   align-items: center;
   cursor: pointer;
@@ -1516,7 +1516,7 @@ footer {
   z-index: 100;
   /* backdrop-filter: blur(10px); */
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 9%);
+  /* box-shadow: 0 4px 12px rgb(0 0 0 / 9%); */
   transition: right 0.3s ease, left 0.3s ease, border-radius 0.3s ease;
 }
 
@@ -1732,7 +1732,7 @@ footer {
 /* æ¨¡æ¿åˆ‡æ¢æŒ‰é’® - æ”¾åœ¨å·¦å³ä¸¤è¾¹ï¼Œå±…ä¸­åä¸Š10% */
 #prevTemplateBtn, #nextTemplateBtn, #changeTemplateBtn{
   position: fixed;
-  bottom: 5px;
+  bottom: 9px;
   color: #9f9f9f;
   /* background: #ffffffb3; */
   z-index: 100;
@@ -1809,11 +1809,11 @@ footer {
 }
 
 #backToHomeBtn {
-  background-color: rgb(0 0 0 / 17%);
+  background-color: rgb(0 0 0 / 8%);
   border-radius: 50%;
-  width: 45px;
+  width: 39px;
   border: none;
-  height: 45px;
+  height: 39px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6021,7 +6021,7 @@ background: linear-gradient(
 /* ç¼–è¾‘é¡µé¢ç‰¹æœ‰æ ·å¼ - ä»Žå†…è”CSSæå– */
 .back-button-container {
   position: fixed;
-  top: 11px;
+  top: 15px;
   left: 6px;
   z-index: 100;
 }
@@ -7265,9 +7265,16 @@ button.future-suggestion-btn[data-action="wanan"] {
      transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.editorbg .daily-suggestion-btn{ position: fixed;
-   right: 9px; margin-right: 0;width: 39px;
-   top: 55px;z-index: 999;font-size: 28px;  padding:5px 0px;}
+.editorbg .daily-suggestion-btn{
+   position: fixed;
+   right: 9px;
+   margin-right: 0;
+   width: 39px;
+   top: 55px;
+   z-index: 999;
+   font-size: 28px;
+   padding: 3px 0px;
+   }
 
 .daily-suggestion-btn:hover {  background: #fff;
   color:#d32f2f0; }
