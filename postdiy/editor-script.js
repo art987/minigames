@@ -14900,7 +14900,7 @@ window.textTemplateManager = {
             ☀ 挑选早安海报模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☾ 挑选晚安海报模板
+            ☾ 挑选晚安模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             ☻ 日常海报
@@ -14913,7 +14913,7 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
-            ☾ 挑选晚安海报模板
+            ☾ 挑选晚安模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             ☻ 日常海报
@@ -14978,7 +14978,7 @@ window.textTemplateManager = {
       if (!tomorrowFestival) {
         html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="zaoan">☀ 挑选早安海报模板</button></div>`;
       }
-      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan">☾ 挑选晚安海报模板</button></div>`;
+      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan">☾ 挑选晚安模板</button></div>`;
       
       html += '</div></div>';
       

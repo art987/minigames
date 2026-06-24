@@ -1410,12 +1410,12 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-          ☀️挑选早安海报模板
+          ☀️挑选早安模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙挑选晚安海报模板
+          🌙挑选晚安模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
@@ -1432,7 +1432,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙挑选晚安海报模板
+          🌙挑选晚安模板
           </button></div>
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
@@ -1502,9 +1502,9 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️挑选早安海报模板</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️挑选早安模板</button></div>`;
     }
-    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙挑选晚安海报模板</button></div>`;
+    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙挑选晚安模板</button></div>`;
     
     html += '</div></div>';
     
