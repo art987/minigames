@@ -36,6 +36,11 @@ const VipLoginUI = (function() {
     
     document.body.insertAdjacentHTML('beforeend', modalHTML)
     
+    // 替换Font Awesome图标为SVG图标
+    if (typeof replaceFAIcons === 'function') {
+      replaceFAIcons()
+    }
+    
     const modal = document.getElementById('paymentSuccessModal')
     const closeBtn = document.getElementById('closePaymentSuccessBtn')
     
@@ -131,6 +136,8 @@ const VipLoginUI = (function() {
     const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
     if (formContainer) {
       formContainer.innerHTML = formHTML
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
       bindLoginChoiceEvents()
     }
   }
@@ -273,10 +280,10 @@ const VipLoginUI = (function() {
     if (elements.vipPasswordInput && elements.togglePasswordBtn) {
       if (elements.vipPasswordInput.type === 'password') {
         elements.vipPasswordInput.type = 'text'
-        elements.togglePasswordBtn.innerHTML = '<i class="fa fa-eye-slash"></i>'
+        elements.togglePasswordBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('eye-slash', 'svg-icon') : '<i class="fa fa-eye-slash"></i>'
       } else {
         elements.vipPasswordInput.type = 'password'
-        elements.togglePasswordBtn.innerHTML = '<i class="fa fa-eye"></i>'
+        elements.togglePasswordBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('eye', 'svg-icon') : '<i class="fa fa-eye"></i>'
       }
     }
   }
@@ -394,6 +401,9 @@ const VipLoginUI = (function() {
     const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
     if (formContainer) {
       formContainer.innerHTML = formHTML
+      
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
       
       // 重新缓存新生成的元素
       elements.voucherCodeInput = document.getElementById('voucherCodeInput')
@@ -547,6 +557,9 @@ const VipLoginUI = (function() {
     
     document.body.insertAdjacentHTML('beforeend', modalHTML)
     
+    // 替换Font Awesome图标为SVG图标
+    if (typeof replaceFAIcons === 'function') replaceFAIcons()
+    
     const modal = document.getElementById('paymentMethodModal')
     const cancelBtn = document.getElementById('cancelPaymentMethodBtn')
     const paymentBtns = modal.querySelectorAll('.payment-method-btn')
@@ -663,6 +676,9 @@ const VipLoginUI = (function() {
     if (formContainer) {
       formContainer.innerHTML = formHTML
       
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
+      
       // 重新缓存新生成的元素
       elements.vipPhoneInput = document.getElementById('vipPhoneInput')
       elements.vipCodeInput = document.getElementById('vipCodeInput')
@@ -713,6 +729,9 @@ const VipLoginUI = (function() {
     if (formContainer) {
       formContainer.innerHTML = formHTML
       
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
+      
       // 重新缓存新生成的元素
       elements.vipPasswordInput = document.getElementById('vipPasswordInput')
       elements.vipConfirmPasswordInput = document.getElementById('vipConfirmPasswordInput')
@@ -762,6 +781,9 @@ const VipLoginUI = (function() {
     const formContainer = elements.vipLoginModal.querySelector('.vip-login-form')
     if (formContainer) {
       formContainer.innerHTML = formHTML
+      
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
       
       // 重新缓存新生成的元素
       elements.vipPhoneInput = document.getElementById('vipPhoneInput')
@@ -1124,6 +1146,9 @@ const VipLoginUI = (function() {
       
       document.body.insertAdjacentHTML('beforeend', modalHTML)
       
+      // 替换Font Awesome图标为SVG图标
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
+      
       const modal = document.getElementById('orderHistoryModal')
       const closeBtn = document.getElementById('closeOrderHistoryBtn')
       const listContainer = document.getElementById('orderHistoryList')
@@ -1144,6 +1169,8 @@ const VipLoginUI = (function() {
                 <p>暂无订单记录</p>
               </div>
             `
+            // 替换Font Awesome图标为SVG图标
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
           } else {
             const ordersHTML = result.data.orders.map(order => {
               const statusText = order.status === 1 ? '已支付' : '待支付'
@@ -1173,6 +1200,9 @@ const VipLoginUI = (function() {
             }).join('')
             
             listContainer.innerHTML = ordersHTML
+            
+            // 替换Font Awesome图标为SVG图标
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
             
             listContainer.querySelectorAll('.continue-pay-btn').forEach(btn => {
               btn.addEventListener('click', async function() {
@@ -1211,6 +1241,8 @@ const VipLoginUI = (function() {
               <p>${result.message || '加载失败'}</p>
             </div>
           `
+          // 替换Font Awesome图标为SVG图标
+          if (typeof replaceFAIcons === 'function') replaceFAIcons()
         }
       } catch (error) {
         console.error('获取订单列表失败:', error)
@@ -1220,6 +1252,8 @@ const VipLoginUI = (function() {
             <p>加载失败，请稍后重试</p>
           </div>
         `
+        // 替换Font Awesome图标为SVG图标
+        if (typeof replaceFAIcons === 'function') replaceFAIcons()
       }
     }
     
@@ -1455,10 +1489,10 @@ const VipLoginUI = (function() {
         if (elements.vipConfirmPasswordInput && elements.toggleConfirmPasswordBtn) {
           if (elements.vipConfirmPasswordInput.type === 'password') {
             elements.vipConfirmPasswordInput.type = 'text'
-            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye-slash"></i>'
+            elements.toggleConfirmPasswordBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('eye-slash', 'svg-icon') : '<i class="fa fa-eye-slash"></i>'
           } else {
             elements.vipConfirmPasswordInput.type = 'password'
-            elements.toggleConfirmPasswordBtn.innerHTML = '<i class="fa fa-eye"></i>'
+            elements.toggleConfirmPasswordBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('eye', 'svg-icon') : '<i class="fa fa-eye"></i>'
           }
         }
       })

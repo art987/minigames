@@ -1424,7 +1424,7 @@ const ThumbnailLoader = {
     // 恢复为下载图标
     function resetToDownloadIcon() {
       stopAnimation();
-      downloadBtn.innerHTML = `<i class="fa fa-download"></i> <span>${downloadText}</span>`;
+      downloadBtn.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('download', 'svg-icon') : '<i class="fa fa-download"></i>'} <span>${downloadText}</span>`;
       downloadBtn.classList.remove('fade-out', 'fade-in');
       isShowingText = true;
       isAnimating = false;
@@ -5060,10 +5060,12 @@ const ThumbnailLoader = {
           if (loadingEl) {
             loadingEl.innerHTML = `
               <div style="text-align: center; color: #ef4444;">
-                <i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>
+                ${window.getSVGIcon ? window.getSVGIcon('exclamation-triangle', 'svg-icon', {'font-size': '48px', 'margin-bottom': '16px'}) : '<i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>'}
                 <div style="font-size: 16px;">加载失败，请关闭弹窗重试</div>
               </div>
             `;
+            // 替换Font Awesome图标为SVG图标
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
           }
         }
       }, 5000);
@@ -5900,7 +5902,7 @@ const ThumbnailLoader = {
         // 创建圆形勾选按钮
         const checkButton = document.createElement('div');
         checkButton.className = 'template-check-button';
-        checkButton.innerHTML = '<i class="fa fa-check"></i>';
+        checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
         
         // 设置初始勾选状态
         if (isSelected) {
@@ -6271,13 +6273,15 @@ const ThumbnailLoader = {
     const btn = elements.slidePlayPauseBtn;
     if (!btn) return;
     
-    const icon = btn.querySelector('i');
-    if (icon) {
+    const iconSpan = btn.querySelector('.svg-icon') || btn.querySelector('i');
+    if (iconSpan) {
       if (state.slideAutoPlaying) {
-        icon.className = 'fa fa-pause';
+        iconSpan.innerHTML = window.SVGIcons ? window.SVGIcons['pause'] : '';
+        iconSpan.className = 'svg-icon';
         btn.title = '暂停';
       } else {
-        icon.className = 'fa fa-play';
+        iconSpan.innerHTML = window.SVGIcons ? window.SVGIcons['play'] : '';
+        iconSpan.className = 'svg-icon';
         btn.title = '播放';
       }
     }
@@ -6486,7 +6490,7 @@ const ThumbnailLoader = {
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
           checkButton.className = 'template-check-button';
-          checkButton.innerHTML = '<i class="fa fa-check"></i>';
+          checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
           
           // 设置初始勾选状态
           if (isSelected) {
@@ -6673,7 +6677,7 @@ const ThumbnailLoader = {
           // 创建圆形勾选按钮
           const checkButton = document.createElement('div');
           checkButton.className = 'template-check-button';
-          checkButton.innerHTML = '<i class="fa fa-check"></i>';
+          checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
           
           // 设置初始勾选状态
           if (isSelected) {
@@ -8671,7 +8675,7 @@ const ThumbnailLoader = {
     // 显示加载状态
     if (elements.downloadBtn) {
       elements.downloadBtn.disabled = true;
-      elements.downloadBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> 正在生成...';
+      elements.downloadBtn.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('spinner', 'svg-icon svg-icon-spin') : '<i class="fa fa-spinner fa-spin"></i>'} 正在生成...`;
     }
     
     try {
@@ -8698,7 +8702,7 @@ const ThumbnailLoader = {
       // 重置下载按钮状态
       if (elements.downloadBtn) {
         elements.downloadBtn.disabled = false;
-        elements.downloadBtn.innerHTML = '<i class="fa fa-download"></i> 下载海报';
+        elements.downloadBtn.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('download', 'svg-icon') : '<i class="fa fa-download"></i>'} 下载海报`;
         
         // 重启按钮动画
         if (window.downloadButtonAnimation) {
@@ -8774,7 +8778,7 @@ const ThumbnailLoader = {
         <div class="ad-container">
           <!-- 广告代码将在此处添加 -->
           <div style="text-align: center;">
-            <i class="fa fa-ad"></i>
+            ${window.getSVGIcon ? window.getSVGIcon('ad', 'svg-icon') : '<i class="fa fa-ad"></i>'}
             <p>广告位置</p>
           </div>
         </div>
@@ -10037,9 +10041,14 @@ function updateBusinessInfoButtonForVip() {
     editBusinessInfoBtn.classList.add('vip-button');
     
     // 更新图标为钻石图标
-    const icon = editBusinessInfoBtn.querySelector('i');
+    const icon = editBusinessInfoBtn.querySelector('i') || editBusinessInfoBtn.querySelector('.svg-icon');
     if (icon) {
-      icon.className = 'fa fa-gem';
+      if (window.SVGIcons && window.SVGIcons['crown']) {
+        icon.innerHTML = window.SVGIcons['crown'];
+        icon.className = 'svg-icon';
+      } else {
+        icon.className = 'fa fa-crown';
+      }
     }
     
     // 更新文字
@@ -10286,7 +10295,7 @@ function updateBusinessInfoButtonForVip() {
     // 创建圆形勾选按钮
     const checkButton = document.createElement('div');
     checkButton.className = 'template-check-button';
-    checkButton.innerHTML = '<i class="fa fa-check"></i>';
+    checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
     
     // 为勾选按钮添加点击事件
     checkButton.addEventListener('click', function(e) {
@@ -10921,7 +10930,7 @@ function updateBusinessInfoButtonForVip() {
       // 镜像按钮（左侧居中，红色填充）
       const mirrorBtn = document.createElement('button');
       mirrorBtn.className = 'sticker-control sticker-mirror-btn';
-      mirrorBtn.innerHTML = '<i class="fa fa-arrows-h" style="color: #FF4444;"></i>';
+      mirrorBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('arrows-h', 'svg-icon', {'color': '#FF4444'}) : '<i class="fa fa-arrows-h" style="color: #FF4444;"></i>';
       mirrorBtn.title = '镜像翻转';
       mirrorBtn.dataset.stickerId = stickerId;
       mirrorBtn.style.cssText = `
@@ -10942,7 +10951,7 @@ function updateBusinessInfoButtonForVip() {
       if (enableColorAdjustment) {
         const colorBtn = document.createElement('button');
         colorBtn.className = 'sticker-control sticker-color-btn';
-        colorBtn.innerHTML = '<i class="fa fa-paint-brush" style="color: #FF4444;"></i>';
+        colorBtn.innerHTML = window.getSVGIcon ? window.getSVGIcon('paint-brush', 'svg-icon', {'color': '#FF4444'}) : '<i class="fa fa-paint-brush" style="color: #FF4444;"></i>';
         colorBtn.title = '调色';
         colorBtn.dataset.stickerId = stickerId;
         colorBtn.dataset.position = 'left-bottom';
@@ -13142,10 +13151,12 @@ window.textTemplateManager = {
           if (loadingEl) {
             loadingEl.innerHTML = `
               <div style="text-align: center; color: #ef4444;">
-                <i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>
+                ${window.getSVGIcon ? window.getSVGIcon('exclamation-triangle', 'svg-icon', {'font-size': '48px', 'margin-bottom': '16px'}) : '<i class="fa fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 16px;"></i>'}
                 <div style="font-size: 16px;">加载失败，请关闭弹窗重试</div>
               </div>
             `;
+            // 替换Font Awesome图标为SVG图标
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
           }
         }
       }, 5000);
@@ -14360,7 +14371,7 @@ window.textTemplateManager = {
         
         if (statusEl && btnEl && visibility[targetId] !== undefined) {
           if (visibility[targetId]) {
-            statusEl.innerHTML = '<i class="fa fa-eye"></i> 已显示';
+            statusEl.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('eye', 'svg-icon') : '<i class="fa fa-eye"></i>'} 已显示`;
             btnEl.textContent = '不显示';
             btnEl.classList.remove('active');
           } else {
