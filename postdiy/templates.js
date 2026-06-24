@@ -176,6 +176,76 @@ var templates = {
       type: '节日'
     },
     {
+      id: 'yuandan-2024-008',
+      name: '元旦新禧',
+      thumbnail: 'images/yuandan/thumbnails/8.jpg',
+      image: 'images/yuandan/8.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦新禧主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-009',
+      name: '元旦欢庆',
+      thumbnail: 'images/yuandan/thumbnails/9.jpg',
+      image: 'images/yuandan/9.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦欢庆主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-010',
+      name: '元旦纳福',
+      thumbnail: 'images/yuandan/thumbnails/10.jpg',
+      image: 'images/yuandan/10.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦纳福主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-011',
+      name: '元旦启航',
+      thumbnail: 'images/yuandan/thumbnails/11.jpg',
+      image: 'images/yuandan/11.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦启航主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-012',
+      name: '元旦如意',
+      thumbnail: 'images/yuandan/thumbnails/12.jpg',
+      image: 'images/yuandan/12.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦如意主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-013',
+      name: '元旦盛景',
+      thumbnail: 'images/yuandan/thumbnails/13.jpg',
+      image: 'images/yuandan/13.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦盛景主题海报模板',
+      type: '节日'
+    },
+    {
+      id: 'yuandan-2024-014',
+      name: '元旦辉煌',
+      thumbnail: 'images/yuandan/thumbnails/14.jpg',
+      image: 'images/yuandan/14.png',
+      months: [1],
+      festivals: ['元旦'],
+      description: '元旦辉煌主题海报模板',
+      type: '节日'
+    },
+    {
       id: 'xiaohan-2024-001',
       name: '小寒养生',
       thumbnail: 'images/xiaohan/thumbnails/1.jpg',
@@ -243,6 +313,216 @@ var templates = {
       months: [1],
       festivals: ['小寒'],
       description: '小寒安康主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-008',
+      name: '小寒瑞雪',
+      thumbnail: 'images/xiaohan/thumbnails/8.jpg',
+      image: 'images/xiaohan/8.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒瑞雪主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-009',
+      name: '小寒冬韵',
+      thumbnail: 'images/xiaohan/thumbnails/9.jpg',
+      image: 'images/xiaohan/9.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冬韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-010',
+      name: '小寒梅香',
+      thumbnail: 'images/xiaohan/thumbnails/10.jpg',
+      image: 'images/xiaohan/10.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒梅香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-011',
+      name: '小寒冰清',
+      thumbnail: 'images/xiaohan/thumbnails/11.jpg',
+      image: 'images/xiaohan/11.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冰清主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-012',
+      name: '小寒雪舞',
+      thumbnail: 'images/xiaohan/thumbnails/12.jpg',
+      image: 'images/xiaohan/12.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪舞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-013',
+      name: '小寒凝霜',
+      thumbnail: 'images/xiaohan/thumbnails/13.jpg',
+      image: 'images/xiaohan/13.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒凝霜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-014',
+      name: '小寒暖阳',
+      thumbnail: 'images/xiaohan/thumbnails/14.jpg',
+      image: 'images/xiaohan/14.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒暖阳主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-015',
+      name: '小寒岁寒',
+      thumbnail: 'images/xiaohan/thumbnails/15.jpg',
+      image: 'images/xiaohan/15.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒岁寒主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-016',
+      name: '小寒凌寒',
+      thumbnail: 'images/xiaohan/thumbnails/16.jpg',
+      image: 'images/xiaohan/16.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒凌寒主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-017',
+      name: '小寒寒梅',
+      thumbnail: 'images/xiaohan/thumbnails/17.jpg',
+      image: 'images/xiaohan/17.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒寒梅主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-018',
+      name: '小寒雪韵',
+      thumbnail: 'images/xiaohan/thumbnails/18.jpg',
+      image: 'images/xiaohan/18.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-019',
+      name: '小寒冬景',
+      thumbnail: 'images/xiaohan/thumbnails/19.jpg',
+      image: 'images/xiaohan/19.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冬景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-020',
+      name: '小寒雪景',
+      thumbnail: 'images/xiaohan/thumbnails/20.jpg',
+      image: 'images/xiaohan/20.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-021',
+      name: '小寒冰韵',
+      thumbnail: 'images/xiaohan/thumbnails/21.jpg',
+      image: 'images/xiaohan/21.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冰韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-022',
+      name: '小寒雪梅',
+      thumbnail: 'images/xiaohan/thumbnails/22.jpg',
+      image: 'images/xiaohan/22.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪梅主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-023',
+      name: '小寒冬阳',
+      thumbnail: 'images/xiaohan/thumbnails/23.jpg',
+      image: 'images/xiaohan/23.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冬阳主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-024',
+      name: '小寒寒韵',
+      thumbnail: 'images/xiaohan/thumbnails/24.jpg',
+      image: 'images/xiaohan/24.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒寒韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-025',
+      name: '小寒雪影',
+      thumbnail: 'images/xiaohan/thumbnails/25.jpg',
+      image: 'images/xiaohan/25.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪影主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-026',
+      name: '小寒冰心',
+      thumbnail: 'images/xiaohan/thumbnails/26.jpg',
+      image: 'images/xiaohan/26.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冰心主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-027',
+      name: '小寒冬暖',
+      thumbnail: 'images/xiaohan/thumbnails/27.jpg',
+      image: 'images/xiaohan/27.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒冬暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaohan-2024-028',
+      name: '小寒雪飘',
+      thumbnail: 'images/xiaohan/thumbnails/28.jpg',
+      image: 'images/xiaohan/28.png',
+      months: [1],
+      festivals: ['小寒'],
+      description: '小寒雪飘主题海报模板',
       type: '节气'
     },
     {
