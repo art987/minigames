@@ -1741,7 +1741,6 @@ footer {
   border: 1px solid #ffffff1c;
   height: 9px;
   min-height: 28px;
-  border-radius: 14%;
   display: flex;
   padding: 4px 10px;
   align-items: center;
@@ -1824,8 +1823,19 @@ footer {
 }
 
 #backToHomeBtn i {
-  font-size: 18px;
+  font-size: 24px;
   color: #ffffff;
+}
+
+#backToHomeBtn .svg-icon {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+#backToHomeBtn .svg-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
 }
 
 /* æ¨¡æ€æ¡†æ ·å¼ */
@@ -6033,6 +6043,17 @@ background: linear-gradient(
 .back-button i {
   font-size: 18px;
   color: #333;
+}
+
+.back-button .svg-icon {
+  font-size: 18px;
+  color: #333;
+}
+
+.back-button .svg-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: #333;
 }
 
 /* æµ·æŠ¥æ ·å¼ - ä»Žå†…è”CSSæå– */

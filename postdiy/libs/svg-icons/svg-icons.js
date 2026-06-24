@@ -77,11 +77,14 @@ function replaceFAIcons() {
     // 获取图标名称
     const classes = el.className.split(' ');
     let iconName = '';
+    let otherClasses = []; // 保存非fa相关的类名
     
     for (const cls of classes) {
       if (cls.startsWith('fa-') && cls !== 'fa' && cls !== 'fas' && cls !== 'far' && cls !== 'fab' && cls !== 'fa-spin') {
         iconName = cls.replace('fa-', '');
-        break;
+      } else if (!cls.startsWith('fa') && cls !== '') {
+        // 保存其他类名（如text-gray-400等）
+        otherClasses.push(cls);
       }
     }
     
@@ -102,8 +105,13 @@ function replaceFAIcons() {
     
     // 创建span元素替代i元素
     const span = document.createElement('span');
-    span.className = 'svg-icon' + (hasSpin ? ' svg-icon-spin' : '');
+    span.className = 'svg-icon' + (hasSpin ? ' svg-icon-spin' : '') + (otherClasses.length > 0 ? ' ' + otherClasses.join(' ') : '');
     span.innerHTML = svg;
+    
+    // 复制原元素的id属性（重要：用于后续代码查找元素）
+    if (el.id) {
+      span.id = el.id;
+    }
     
     // 复制现有样式
     if (existingStyle) {
