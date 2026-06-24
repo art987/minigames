@@ -1,0 +1,52 @@
+/*!
+ * Font Awesome Free 6.4.0 - 本地字体定义（二级子目录版本）
+ * 字体路径使用相对路径，适用于file://协议
+ */
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-solid-900.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-solid-900.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-regular-400.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-regular-400.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Brands";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-brands-400.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-brands-400.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-solid-900.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-solid-900.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-brands-400.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-brands-400.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url(../../libs/font-awesome/webfonts/fa-regular-400.woff2) format("woff2"),
+       url(../../libs/font-awesome/webfonts/fa-regular-400.ttf) format("truetype");
+}

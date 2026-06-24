@@ -6502,6 +6502,7 @@ background: linear-gradient(
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  position: relative;
 }
 #todayDateInTitle {
     font-weight: 300;
@@ -6509,16 +6510,17 @@ background: linear-gradient(
     font-size: 8px;
     color: #3b3737;
     background: #fff;
-    border: 1px solid #e8e8e8;
+    /* border: 1px solid #e8e8e8; */
     border-radius: 6px;
-    /* position: absolute; */
+    position: absolute;
     margin-left: 18px;
-    /* width: 103px; */
+    width: 103px;
     width: 130px;
     padding: 2px 0px;
-    left: 14px;
+    right: -21px;
+    px; */
     text-align: center;
-    top: 36px;
+    top: 0px;
     margin-right: 18px;
 }
 #todayDateInTitle strong{font-size: 11px; font-weight: normal;}
@@ -6532,6 +6534,48 @@ background: linear-gradient(
   border-radius: 10px;
   animation: redDotPulse 2s infinite;
   box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+}
+
+/* 标题下方粉红色横线动画 */
+.home-popup-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 20px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(274deg, #ffffff, #ff8484);
+  opacity: 1;
+  animation: pinkLineDraw 12s ease-in-out infinite;
+  border-radius: 3px;
+}
+
+/* 粉红色横线绘制动画 */
+@keyframes pinkLineDraw {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+  25% {
+    width: 50%;
+    opacity: 1;
+  }
+  50% {
+    width: 50%;
+    opacity: 1;
+  }
+  75% {
+    width: 50%;
+    opacity: 0;
+  }
+  76% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 0;
+    opacity: 0;
+  }
 }
 
 .home-popup-section-content {
