@@ -636,6 +636,136 @@ var templates = {
       type: '节气'
     },
     {
+      id: 'dahan-2024-012',
+      name: '大寒瑞雪',
+      thumbnail: 'images/dahan/thumbnails/12.jpg',
+      image: 'images/dahan/12.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒瑞雪主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-013',
+      name: '大寒冬韵',
+      thumbnail: 'images/dahan/thumbnails/13.jpg',
+      image: 'images/dahan/13.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒冬韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-014',
+      name: '大寒梅香',
+      thumbnail: 'images/dahan/thumbnails/14.jpg',
+      image: 'images/dahan/14.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒梅香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-015',
+      name: '大寒冰清',
+      thumbnail: 'images/dahan/thumbnails/15.jpg',
+      image: 'images/dahan/15.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒冰清主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-016',
+      name: '大寒雪舞',
+      thumbnail: 'images/dahan/thumbnails/16.jpg',
+      image: 'images/dahan/16.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒雪舞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-017',
+      name: '大寒凝霜',
+      thumbnail: 'images/dahan/thumbnails/17.jpg',
+      image: 'images/dahan/17.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒凝霜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-018',
+      name: '大寒暖阳',
+      thumbnail: 'images/dahan/thumbnails/18.jpg',
+      image: 'images/dahan/18.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒暖阳主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-019',
+      name: '大寒岁寒',
+      thumbnail: 'images/dahan/thumbnails/19.jpg',
+      image: 'images/dahan/19.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒岁寒主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-020',
+      name: '大寒凌寒',
+      thumbnail: 'images/dahan/thumbnails/20.jpg',
+      image: 'images/dahan/20.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒凌寒主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-021',
+      name: '大寒寒梅',
+      thumbnail: 'images/dahan/thumbnails/21.jpg',
+      image: 'images/dahan/21.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒寒梅主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-022',
+      name: '大寒雪韵',
+      thumbnail: 'images/dahan/thumbnails/22.jpg',
+      image: 'images/dahan/22.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒雪韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-023',
+      name: '大寒冬景',
+      thumbnail: 'images/dahan/thumbnails/23.jpg',
+      image: 'images/dahan/23.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒冬景主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dahan-2024-024',
+      name: '大寒雪景',
+      thumbnail: 'images/dahan/thumbnails/24.jpg',
+      image: 'images/dahan/24.png',
+      months: [1],
+      festivals: ['大寒'],
+      description: '大寒雪景主题海报模板',
+      type: '节气'
+    },
+    {
       id: 'labajie-2024-002',
       name: '腊八粥香',
       thumbnail: 'images/labajie/thumbnails/2.jpg',
