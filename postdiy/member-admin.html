@@ -8,32 +8,12 @@
     <link rel="stylesheet" href="libs/svg-icons/svg-icons.css">
     <script src="libs/svg-icons/svg-icons.js"></script>
     <link rel="stylesheet" href="admin.css">
+    <!-- 统一后台认证与导航 -->
+    <script src="admin-auth.js"></script>
+    <script src="admin-nav.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1><i class="fa fa-users"></i> 会员管理后台</h1>
-            <button class="btn logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">
-                <i class="fa fa-sign-out"></i> 退出登录
-            </button>
-        </div>
-        
-        <div class="login-section" id="loginSection">
-            <div class="error-message" id="loginError"></div>
-            <h2>管理员登录</h2>
-            <div class="form-group">
-                <label for="userId">用户ID</label>
-                <input type="text" id="userId" placeholder="请输入用户ID" value="15160029349">
-            </div>
-            <div class="form-group">
-                <label for="password">密码</label>
-                <input type="password" id="password" placeholder="请输入密码">
-            </div>
-            <button class="btn" id="loginBtn" onclick="login()" style="width: 100%;">
-                <i class="fa fa-sign-in"></i> 登录
-            </button>
-        </div>
-        
         <div class="manage-content" id="manageSection">
             <div class="stats-row" id="statsRow">
                 <div class="stat-item">
@@ -222,9 +202,6 @@
     </div>
     
     <script>
-        const ADMIN_USER_ID = '15160029349';
-        const ADMIN_PASSWORD = '123456';
-        
         let members = [];
         let currentPage = 1;
         const pageSize = 20;
@@ -259,51 +236,6 @@
                     el.className = isError ? 'error-message' : 'success-message';
                 }, 3000);
             }
-        }
-        
-        function login() {
-            const userId = document.getElementById('userId').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            log('开始登录验证...');
-            log(`用户ID: ${userId}`);
-            
-            if (!userId || !password) {
-                log('错误：请输入用户ID和密码', 'error');
-                showMessage('loginError', '请输入用户ID和密码');
-                return;
-            }
-            
-            if (userId !== ADMIN_USER_ID) {
-                log('错误：无权限访问', 'error');
-                showMessage('loginError', '无权限访问此系统');
-                return;
-            }
-            
-            if (password !== ADMIN_PASSWORD) {
-                log('错误：密码错误', 'error');
-                showMessage('loginError', '密码错误');
-                return;
-            }
-            
-            log('登录成功');
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('manageSection').classList.add('active');
-            document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('logFloatBtn').style.display = 'flex';
-            
-            log('加载会员列表...');
-            loadMembers();
-        }
-        
-        function logout() {
-            log('用户退出登录');
-            document.getElementById('manageSection').classList.remove('active');
-            document.getElementById('loginSection').style.display = 'block';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('logFloatBtn').style.display = 'none';
-            document.getElementById('password').value = '';
-            clearLog();
         }
         
         function clearLog() {
@@ -639,6 +571,14 @@
                 log('网络错误: ' + error.message, 'error');
                 showMessage('extendErrorMessage', '网络错误，请重试');
             }
+        }
+        
+        log('会员管理后台已就绪');
+        
+        // 页面初始化：如果已登录则加载数据
+        if (window.AdminAuth && window.AdminAuth.isLoggedIn()) {
+            document.getElementById('logFloatBtn').style.display = 'flex';
+            loadMembers();
         }
     </script>
 </body>

@@ -8811,3 +8811,47 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   outline: 1px dotted #ffffff;
   outline-offset: 4px;
 }
+
+/* 不活动提示弹窗样式 */
+.inactivity-modal {
+  animation: modalFadeIn 0.3s ease;
+}
+
+.inactivity-modal .modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.inactivity-message {
+  padding: 15px;
+  background: linear-gradient(135deg, #fef9e7 0%, #fff5eb 100%);
+  border-radius: 12px;
+  border: 1px solid #f59e0b;
+}
+
+.inactivity-message strong {
+  font-size: 18px;
+}
+
+.inactivity-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.inactivity-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#refreshNowBtn:hover {
+  background: #2563eb !important;
+}
+
+#skipRefreshBtn:hover {
+  background: #e5e7eb !important;
+}
