@@ -5,6 +5,8 @@ const VipLoginUI = (function() {
   let eventsBound = false
   let switchEventsBound = false
   let smsSent = false
+  let loginModalDismissedThisSession = false  // 本次会话是否已关闭登录弹窗
+  let isForceLoginMode = false  // 是否处于强制登录模式（全屏，不可关闭）
   
   // 检查支付成功状态
   function checkPaymentSuccess() {
@@ -106,11 +108,24 @@ const VipLoginUI = (function() {
   }
 
   // 显示登录弹窗
-  function showLoginModal() {
+  // forceMode: true 表示强制登录模式（全屏，不可关闭）
+  function showLoginModal(forceMode = false) {
     if (!elements.vipLoginModal) {
       console.error('VIP 登录弹窗元素不存在')
       return
     }
+    
+    // 设置强制登录模式
+    isForceLoginMode = forceMode
+    
+    // 根据模式切换全屏样式
+    if (forceMode) {
+      elements.vipLoginModal.classList.add('fullscreen')
+      console.log('[VipLoginUI] 强制登录模式开启，弹窗全屏且不可关闭')
+    } else {
+      elements.vipLoginModal.classList.remove('fullscreen')
+    }
+    
     renderLoginChoiceForm()
     elements.vipLoginModal.classList.remove('hidden')
   }
@@ -224,12 +239,37 @@ const VipLoginUI = (function() {
 
   // 隐藏登录弹窗
   function hideLoginModal() {
+    // 强制登录模式下不允许关闭弹窗（必须登录才能继续）
+    if (isForceLoginMode) {
+      console.log('[VipLoginUI] 强制登录模式下不允许关闭弹窗')
+      showMessage('请先登录或注册以继续使用', 'error')
+      return
+    }
+    
     if (!elements.vipLoginModal) {
       return
     }
     elements.vipLoginModal.classList.add('hidden')
+    elements.vipLoginModal.classList.remove('fullscreen')
     clearMessage()
     clearInputs()
+    // 标记本次会话已关闭登录弹窗（不再自动弹出）
+    loginModalDismissedThisSession = true
+  }
+  
+  // 登录成功后关闭弹窗（解除强制模式）
+  function closeAfterLoginSuccess() {
+    // 解除强制登录模式
+    isForceLoginMode = false
+    
+    if (!elements.vipLoginModal) {
+      return
+    }
+    elements.vipLoginModal.classList.add('hidden')
+    elements.vipLoginModal.classList.remove('fullscreen')
+    clearMessage()
+    clearInputs()
+    console.log('[VipLoginUI] 登录成功，关闭弹窗')
   }
   
   // 清除输入框
@@ -801,11 +841,11 @@ const VipLoginUI = (function() {
   
   // 绑定事件
   function bindEvents() {
-    // 显示登录弹窗
+    // 显示登录弹窗（用户点击登录按钮时，使用普通模式）
     if (elements.vipLoginBtn) {
       elements.vipLoginBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        showLoginModal()
+        showLoginModal(false)  // 非全屏模式，用户可以关闭
       })
     }
     
@@ -1268,7 +1308,8 @@ const VipLoginUI = (function() {
         
         showMessage('已退出登录', 'success')
         setTimeout(() => {
-          location.reload()
+          // 跳转到登录页面
+          window.location.href = 'login.html'
         }, 1000)
       })
     }
@@ -1320,6 +1361,56 @@ const VipLoginUI = (function() {
     if (!eventsBound) {
       bindEvents()
       eventsBound = true
+    }
+    
+    // 自动弹出登录弹窗逻辑（根据配置）
+    checkAutoShowLoginModal()
+  }
+  
+  // 检查是否需要跳转到登录页面
+  function checkAutoShowLoginModal() {
+    // 获取配置
+    const config = window.siteConfig?.autoLoginModal
+    if (!config) {
+      console.log('[AutoLoginModal] 未找到配置，跳过登录检查')
+      return
+    }
+    
+    // 检查是否开启强制登录
+    if (!config.enabled) {
+      console.log('[AutoLoginModal] 配置已关闭，跳过登录检查')
+      return
+    }
+    
+    // 检查当前页面是否在需要强制登录的页面列表中
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html'
+    if (!config.pages.includes(currentPage)) {
+      console.log('[AutoLoginModal] 当前页面不在强制登录列表中:', currentPage)
+      return
+    }
+    
+    // 检查用户是否已登录
+    if (VIPSystem.isLoggedIn()) {
+      console.log('[AutoLoginModal] 用户已登录，继续使用')
+      return
+    }
+    
+    // 用户未登录，根据配置模式处理
+    const mode = config.mode || 'redirect'
+    const loginPage = config.loginPage || 'login.html'
+    
+    console.log('[AutoLoginModal] 用户未登录，模式:', mode)
+    
+    if (mode === 'redirect') {
+      // 跳转到登录页面，携带当前页面地址作为redirect参数
+      const currentUrl = window.location.href
+      const loginUrl = `${loginPage}?redirect=${encodeURIComponent(currentUrl)}`
+      console.log('[AutoLoginModal] 跳转到登录页面:', loginUrl)
+      window.location.href = loginUrl
+    } else if (mode === 'modal') {
+      // 弹窗模式（已废弃，但保留兼容）
+      console.log('[AutoLoginModal] 弹窗模式已废弃，建议使用跳转模式')
+      showLoginModal(true)
     }
   }
   
@@ -1456,7 +1547,7 @@ const VipLoginUI = (function() {
             if (result.data.isNewUser || !result.data.hasPassword) {
               renderPasswordForm()
             } else {
-              hideLoginModal()
+              closeAfterLoginSuccess()
               // 从云端加载商家信息并填充到画布
               if (typeof window.onVipLoginSuccess === 'function') {
                 await window.onVipLoginSuccess(result.data)
@@ -1537,7 +1628,7 @@ const VipLoginUI = (function() {
           
           setTimeout(() => {
             updateVipStatus()
-            hideLoginModal()
+            closeAfterLoginSuccess()
             location.reload()
           }, 1000)
         } else {
@@ -1579,7 +1670,7 @@ const VipLoginUI = (function() {
           
           setTimeout(() => {
             updateVipStatus()
-            hideLoginModal()
+            closeAfterLoginSuccess()
             location.reload()
           }, 1000)
         } else {
@@ -1663,11 +1754,18 @@ const VipLoginUI = (function() {
     showPasswordModal,
     showPasswordLoginModal,
     hideLoginModal,
+    closeAfterLoginSuccess,
     showMessage,
     clearMessage,
     rebindSwitchEvents,
     updateVipStatus,
-    renderVipUpgradeForm
+    renderVipUpgradeForm,
+    // 重置本次会话的关闭状态，允许再次自动弹出
+    resetDismissedState: () => { loginModalDismissedThisSession = false },
+    // 强制弹出登录弹窗（普通模式，非全屏）
+    forceShowLoginModal: () => { showLoginModal(false) },
+    // 强制弹出全屏登录弹窗（不可关闭）
+    forceShowFullscreenLoginModal: () => { showLoginModal(true) }
   }
 })()
 

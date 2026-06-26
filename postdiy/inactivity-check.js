@@ -48,10 +48,8 @@
         <div class="modal inactivity-modal" style="max-width: 420px; width: 90%;">
           <div class="modal-header fixed-header">
             <h2 class="modal-title">
-              <span class="svg-icon" style="color: #f59e0b; font-size: 24px;">
-                ${window.getSVGIcon ? window.getSVGIcon('clock', 'svg-icon') : ''}
-              </span>
-              页面长时间未更新
+              
+              温馨提示
             </h2>
           </div>
           <div class="modal-body" style="padding: 20px;">
@@ -64,10 +62,8 @@
               </p>
             </div>
             <div class="inactivity-actions" style="display: flex; gap: 15px; justify-content: center;">
-              <button id="refreshNowBtn" class="editor-button" style="background: #3b82f6; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px;">
-                <span class="svg-icon" style="font-size: 16px;">
-                  ${window.getSVGIcon ? window.getSVGIcon('sync', 'svg-icon') : ''}
-                </span>
+              <button id="refreshNowBtn" class="editor-button" style="background:linear-gradient(135deg, #d32f2f, #f44336); color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px;">
+                
                 马上刷新
               </button>
               <button id="skipRefreshBtn" class="editor-button editor-button-secondary" style="padding: 12px 24px; font-size: 16px; border-radius: 8px;">

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>登录 - 闪喵朋友圈海报生成器</title>
+  
+  <meta name="description" content="登录闪喵朋友圈海报生成器，享受VIP会员特权功能。">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- SVG图标库 -->
+  <link rel="stylesheet" href="libs/svg-icons/svg-icons.css">
+  <script src="libs/svg-icons/svg-icons.js"></script>
+  
+ <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #fffdeb 0%, #c1e8ff 50%, #ece5ff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* 顶部导航 */
+    .login-header {
+      color: #000000;
+      padding: 45px 0 15px;
+      text-align: center;
+    }
+    
+    .login-header .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-bottom: 9px;
+    }
+    
+    .login-header .logo img {
+      width: 38px;
+      height: 38px;
+      padding: 4px;
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 0 11px #0000001c;
+    }
+    
+    .login-header .logo-text {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .login-header .subtitle {
+      font-size: 15px;
+      opacity: 0.9;
+      color: #444444;
+    }
+    
+    /* 主内容区域 */
+    .login-content {
+      flex: 1;
+      /* display: flex; */
+      align-items: center;
+      /* justify-content: initial; */
+      padding: 20px;
+    }
+    
+    /* 登录卡片 */
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    .login-card-header {
+      background: linear-gradient(135deg, #f5b4fdfa, #ba0ddeeb);
+      color: white;
+      padding: 24px 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    .login-card-header h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .login-card-header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .login-card-body {
+      padding: 30px 20px;
+    }
+    
+    /* 登录选择界面 */
+    .login-choice-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .login-choice-section {
+      text-align: center;
+    }
+    
+    .login-choice-hint {
+      color: #181818;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .login-choice-btn {
+      width: 100%;
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    
+    .login-choice-btn.primary {
+      background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+      color: white;
+      text-shadow: 0 0 4px #cababaf0;
+    }
+    
+    .login-choice-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(248, 95, 23, 0.3);
+    }
+    
+    .login-choice-btn.secondary {
+      background: linear-gradient(131deg, #7bc34dfa, #217d12eb);
+      color: #ffffff;
+      /* border: 2px solid #e0e0e0; */
+    }
+    
+    .login-choice-btn.secondary:hover {
+      background: #e8e8e8;
+    }
+    
+    .login-choice-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #e1e1e1, transparent);
+      margin: 8px 0;
+    }
+    
+    /* 表单样式 */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-label {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .form-input {
+      padding: 14px 14px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #d32f2f;
+      box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+    }
+    
+    .code-input-wrapper {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .code-input-wrapper .form-input {
+      flex: 1;
+    }
+    
+    .send-code-btn {
+      padding: 14px 20px;
+      font-size: 14px;
+      background: linear-gradient(135deg, #f6f9b1, #fad47e);
+      color: #c85912;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    
+    .send-code-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    
+    .send-code-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .send-code-btn.countdown {
+      background: #999;
+    }
+    
+    /* 消息提示 */
+    .login-message {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    
+    .login-message.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+      display: block;
+    }
+    
+    .login-message.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+      display: block;
+    }
+    
+    /* 操作按钮 */
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .action-btn {
+      padding: 16px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    
+    .action-btn.primary {
+      background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+      color: white;
+    }
+    
+    .action-btn.primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+    }
+    
+    .action-btn.primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .action-btn.secondary {
+      background: #f5f5f5;
+      color: #666;
+    }
+    
+    .action-btn.secondary:hover {
+      background: #e8e8e8;
+    }
+    
+    /* 切换按钮 */
+    .login-method-switch {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .switch-link {
+      color: #d32f2f;
+      cursor: pointer;
+      font-weight: 500;
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: inherit;
+    }
+    
+    .switch-link:hover {
+      text-decoration: underline;
+    }
+    
+    /* 过渡动画 */
+    .form-transition-out {
+      animation: formFadeOut 0.3s ease forwards;
+    }
+    
+    .form-transition-in {
+      animation: formFadeIn 0.3s ease forwards;
+    }
+    
+    @keyframes formFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+    
+    @keyframes formFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* 底部版权 */
+    .login-footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    /* 加载动画 */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .loading-overlay.hidden {
+      display: none;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #d32f2f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* 响应式 */
+    @media (max-width: 480px) {
+      .login-header .logo-text {
+        font-size: 17px;
+      }
+      
+      .login-card-body {
+        padding: 34px 16px;
+      }
+      
+      .login-choice-btn {
+        padding: 16px;
+        font-size: 16px;
+      }
+      
+      .action-btn {
+        padding: 14px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header class="login-header">
+    <div class="logo">
+      <img src="images/statics/logo.gif" alt="闪喵">
+      <span class="logo-text">闪喵~朋友圈海报制作器</span>
+    </div>
+    <p class="subtitle">闪电制作，所见即所得！</p>
+  </header>
+  
+  <!-- 主内容区域 -->
+  <main class="login-content">
+    <div class="login-card">
+      <div class="login-card-header">
+        <h1>欢迎回来</h1>
+        <p>登录或注册您的账号</p>
+      </div>
+      <div class="login-card-body">
+        <!-- 动态表单容器 -->
+        <div id="formContainer" class="login-choice-form">
+          <!-- 登录选择界面 -->
+          <div class="login-choice-section">
+            <p class="login-choice-hint">还没账号 / 忘记密码</p>
+            <button id="choiceRegisterBtn" class="login-choice-btn primary">注册账号 / 验证码登录</button>
+          </div>
+          <div class="login-choice-divider"></div>
+          <div class="login-choice-section">
+            <p class="login-choice-hint">已经有账号和密码</p>
+            <button id="choicePasswordLoginBtn" class="login-choice-btn secondary">密码登录</button>
+          </div>
+        </div>
+        
+        <!-- 消息提示 -->
+        <div id="loginMessage" class="login-message"></div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- 底部版权 -->
+  <footer class="login-footer">
+    <p>© 2024 闪喵 PostDIY. 保留所有权利。</p>
+  </footer>
+  
+  <!-- 加载动画 -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- 引入脚本 -->
+  <script src="vip-system.js"></script>
+  
+  <script>
+    // 登录页面逻辑
+    const LoginPage = {
+      currentForm: 'choice',
+      smsSent: false,
+      countdownTimer: null,
+      
+      // 初始化
+      init() {
+        this.bindEvents()
+        this.checkLoginStatus()
+      },
+      
+      // 检查登录状态
+      checkLoginStatus() {
+        if (VIPSystem.isLoggedIn()) {
+          // 已登录，跳转回原页面
+          this.redirectBack()
+        }
+      },
+      
+      // 获取跳转目标页面
+      getRedirectUrl() {
+        const urlParams = new URLSearchParams(window.location.search)
+        let redirect = urlParams.get('redirect')
+        if (redirect) {
+          // 解码redirect参数
+          redirect = decodeURIComponent(redirect)
+          return redirect
+        }
+        // 默认跳转到首页
+        return 'index.html'
+      },
+      
+      // 跳转回原页面
+      redirectBack() {
+        const redirectUrl = this.getRedirectUrl()
+        console.log('[LoginPage] 登录成功，跳转到:', redirectUrl)
+        window.location.href = redirectUrl
+      },
+      
+      // 绑定事件
+      bindEvents() {
+        // 注册/验证码登录按钮
+        const choiceRegisterBtn = document.getElementById('choiceRegisterBtn')
+        if (choiceRegisterBtn) {
+          choiceRegisterBtn.addEventListener('click', () => {
+            this.transitionToForm('code')
+          })
+        }
+        
+        // 密码登录按钮
+        const choicePasswordLoginBtn = document.getElementById('choicePasswordLoginBtn')
+        if (choicePasswordLoginBtn) {
+          choicePasswordLoginBtn.addEventListener('click', () => {
+            this.transitionToForm('password')
+          })
+        }
+      },
+      
+      // 过渡到指定表单
+      transitionToForm(formType) {
+        const formContainer = document.getElementById('formContainer')
+        if (!formContainer) return
+        
+        formContainer.classList.remove('form-transition-in')
+        formContainer.classList.add('form-transition-out')
+        
+        setTimeout(() => {
+          if (formType === 'code') {
+            this.renderCodeLoginForm()
+          } else if (formType === 'password') {
+            this.renderPasswordLoginForm()
+          } else if (formType === 'choice') {
+            this.renderChoiceForm()
+          }
+          
+          const newFormContainer = document.getElementById('formContainer')
+          if (newFormContainer) {
+            newFormContainer.classList.remove('form-transition-out')
+            void newFormContainer.offsetWidth
+            newFormContainer.classList.add('form-transition-in')
+          }
+        }, 300)
+      },
+      
+      // 渲染选择界面
+      renderChoiceForm() {
+        this.currentForm = 'choice'
+        const formContainer = document.getElementById('formContainer')
+        
+        formContainer.innerHTML = `
+          <div class="login-choice-section">
+            <p class="login-choice-hint">还没账号 / 忘记密码</p>
+            <button id="choiceRegisterBtn" class="login-choice-btn primary">注册账号 / 验证码登录</button>
+          </div>
+          <div class="login-choice-divider"></div>
+          <div class="login-choice-section">
+            <p class="login-choice-hint">已经有账号和密码</p>
+            <button id="choicePasswordLoginBtn" class="login-choice-btn secondary">密码登录</button>
+          </div>
+        `
+        
+        this.bindEvents()
+      },
+      
+      // 渲染验证码登录表单
+      renderCodeLoginForm() {
+        this.currentForm = 'code'
+        const formContainer = document.getElementById('formContainer')
+        
+        formContainer.innerHTML = `
+          <form class="login-form" id="codeLoginForm">
+            <div class="form-group">
+              <label class="form-label" for="phoneInput">手机号</label>
+              <input type="tel" id="phoneInput" class="form-input" placeholder="请输入手机号" maxlength="11" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="codeInput">验证码</label>
+              <div class="code-input-wrapper">
+                <input type="text" id="codeInput" class="form-input" placeholder="请输入4位验证码" maxlength="4" required>
+                <button type="button" id="sendCodeBtn" class="send-code-btn">发送验证码</button>
+              </div>
+            </div>
+            <div class="login-method-switch">
+              <span>没有收到验证码？</span>
+              <button type="button" id="switchToPasswordBtn" class="switch-link">使用密码登录</button>
+            </div>
+            <div class="login-actions">
+              <button type="submit" id="loginSubmitBtn" class="action-btn primary">登录/注册</button>
+              <button type="button" id="backToChoiceBtn" class="action-btn secondary">返回</button>
+            </div>
+          </form>
+        `
+        
+        this.bindCodeFormEvents()
+      },
+      
+      // 绑定验证码表单事件
+      bindCodeFormEvents() {
+        const sendCodeBtn = document.getElementById('sendCodeBtn')
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn')
+        const switchToPasswordBtn = document.getElementById('switchToPasswordBtn')
+        const backToChoiceBtn = document.getElementById('backToChoiceBtn')
+        const codeLoginForm = document.getElementById('codeLoginForm')
+        
+        // 发送验证码
+        if (sendCodeBtn) {
+          sendCodeBtn.addEventListener('click', async () => {
+            if (this.smsSent) {
+              this.showMessage('验证码已发送，请稍后再试', 'error')
+              return
+            }
+            
+            const phoneInput = document.getElementById('phoneInput')
+            const phone = phoneInput.value.trim()
+            
+            if (!phone) {
+              this.showMessage('手机号不能为空', 'error')
+              return
+            }
+            
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+              this.showMessage('手机号格式不正确', 'error')
+              return
+            }
+            
+            // 开始倒计时
+            this.startCountdown(30)
+            
+            const result = await VIPSystem.sendSMS(phone)
+            
+            if (result.success) {
+              this.smsSent = true
+              this.showMessage('验证码已发送，请查收', 'success')
+            } else {
+              this.stopCountdown()
+              this.showMessage(result.message || '发送失败，请稍后重试', 'error')
+            }
+          })
+        }
+        
+        // 提交登录
+        if (codeLoginForm) {
+          codeLoginForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            
+            const phoneInput = document.getElementById('phoneInput')
+            const codeInput = document.getElementById('codeInput')
+            const phone = phoneInput.value.trim()
+            const code = codeInput.value.trim()
+            
+            if (!phone || !code) {
+              this.showMessage('手机号和验证码不能为空', 'error')
+              return
+            }
+            
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+              this.showMessage('手机号格式不正确', 'error')
+              return
+            }
+            
+            if (code.length !== 4) {
+              this.showMessage('验证码格式不正确', 'error')
+              return
+            }
+            
+            loginSubmitBtn.disabled = true
+            loginSubmitBtn.textContent = '登录中...'
+            
+            const result = await VIPSystem.registerOrLogin(phone, code)
+            
+            loginSubmitBtn.disabled = false
+            loginSubmitBtn.textContent = '登录/注册'
+            
+            if (result.success) {
+              this.showMessage('登录成功', 'success')
+              
+              setTimeout(() => {
+                // 如果是新用户或没有密码，跳转到设置密码页面
+                if (result.data.isNewUser || !result.data.hasPassword) {
+                  this.transitionToForm('password-set')
+                } else {
+                  // 跳转回原页面
+                  this.redirectBack()
+                }
+              }, 1000)
+            } else {
+              this.showMessage(result.message || '登录失败，请稍后重试', 'error')
+            }
+          })
+        }
+        
+        // 切换到密码登录
+        if (switchToPasswordBtn) {
+          switchToPasswordBtn.addEventListener('click', () => {
+            this.transitionToForm('password')
+          })
+        }
+        
+        // 返回选择界面
+        if (backToChoiceBtn) {
+          backToChoiceBtn.addEventListener('click', () => {
+            this.transitionToForm('choice')
+          })
+        }
+      },
+      
+      // 渲染密码登录表单
+      renderPasswordLoginForm() {
+        this.currentForm = 'password'
+        const formContainer = document.getElementById('formContainer')
+        
+        formContainer.innerHTML = `
+          <form class="login-form" id="passwordLoginForm">
+            <div class="form-group">
+              <label class="form-label" for="passwordPhoneInput">手机号</label>
+              <input type="tel" id="passwordPhoneInput" class="form-input" placeholder="请输入手机号" maxlength="11" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="passwordInput">密码</label>
+              <input type="password" id="passwordInput" class="form-input" placeholder="请输入密码" required>
+            </div>
+            <div class="login-method-switch">
+              <span>忘记密码？</span>
+              <button type="button" id="switchToCodeBtn" class="switch-link">使用验证码登录</button>
+            </div>
+            <div class="login-actions">
+              <button type="submit" id="passwordLoginSubmitBtn" class="action-btn primary">登录</button>
+              <button type="button" id="backToChoiceBtn2" class="action-btn secondary">返回</button>
+            </div>
+          </form>
+        `
+        
+        this.bindPasswordFormEvents()
+      },
+      
+      // 绑定密码登录表单事件
+      bindPasswordFormEvents() {
+        const passwordLoginForm = document.getElementById('passwordLoginForm')
+        const passwordLoginSubmitBtn = document.getElementById('passwordLoginSubmitBtn')
+        const switchToCodeBtn = document.getElementById('switchToCodeBtn')
+        const backToChoiceBtn2 = document.getElementById('backToChoiceBtn2')
+        
+        // 提交密码登录
+        if (passwordLoginForm) {
+          passwordLoginForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            
+            const phoneInput = document.getElementById('passwordPhoneInput')
+            const passwordInput = document.getElementById('passwordInput')
+            const phone = phoneInput.value.trim()
+            const password = passwordInput.value
+            
+            if (!phone || !password) {
+              this.showMessage('手机号和密码不能为空', 'error')
+              return
+            }
+            
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+              this.showMessage('手机号格式不正确', 'error')
+              return
+            }
+            
+            passwordLoginSubmitBtn.disabled = true
+            passwordLoginSubmitBtn.textContent = '登录中...'
+            
+            const result = await VIPSystem.loginWithPassword(phone, password)
+            
+            passwordLoginSubmitBtn.disabled = false
+            passwordLoginSubmitBtn.textContent = '登录'
+            
+            if (result.success) {
+              this.showMessage('登录成功', 'success')
+              
+              setTimeout(() => {
+                this.redirectBack()
+              }, 1000)
+            } else {
+              this.showMessage(result.message || '登录失败，请检查手机号和密码', 'error')
+            }
+          })
+        }
+        
+        // 切换到验证码登录
+        if (switchToCodeBtn) {
+          switchToCodeBtn.addEventListener('click', () => {
+            this.transitionToForm('code')
+          })
+        }
+        
+        // 返回选择界面
+        if (backToChoiceBtn2) {
+          backToChoiceBtn2.addEventListener('click', () => {
+            this.transitionToForm('choice')
+          })
+        }
+      },
+      
+      // 渲染设置密码表单（新用户）
+      renderPasswordSetForm() {
+        this.currentForm = 'password-set'
+        const formContainer = document.getElementById('formContainer')
+        
+        formContainer.innerHTML = `
+          <div style="text-align: center; margin-bottom: 20px;">
+            <h3 style="color: #d32f2f; font-size: 20px;">设置密码</h3>
+            <p style="color: #666; font-size: 14px;">为您的账号设置一个密码，方便下次登录</p>
+          </div>
+          <form class="login-form" id="passwordSetForm">
+            <div class="form-group">
+              <label class="form-label" for="newPasswordInput">新密码</label>
+              <input type="password" id="newPasswordInput" class="form-input" placeholder="请输入6-20位密码" minlength="6" maxlength="20" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="confirmPasswordInput">确认密码</label>
+              <input type="password" id="confirmPasswordInput" class="form-input" placeholder="请再次输入密码" required>
+            </div>
+            <div class="login-actions">
+              <button type="submit" id="passwordSetSubmitBtn" class="action-btn primary">保存密码</button>
+              <button type="button" id="skipPasswordBtn" class="action-btn secondary">跳过（稍后设置）</button>
+            </div>
+          </form>
+        `
+        
+        this.bindPasswordSetFormEvents()
+      },
+      
+      // 绑定设置密码表单事件
+      bindPasswordSetFormEvents() {
+        const passwordSetForm = document.getElementById('passwordSetForm')
+        const passwordSetSubmitBtn = document.getElementById('passwordSetSubmitBtn')
+        const skipPasswordBtn = document.getElementById('skipPasswordBtn')
+        
+        // 提交设置密码
+        if (passwordSetForm) {
+          passwordSetForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            
+            const newPasswordInput = document.getElementById('newPasswordInput')
+            const confirmPasswordInput = document.getElementById('confirmPasswordInput')
+            const newPassword = newPasswordInput.value
+            const confirmPassword = confirmPasswordInput.value
+            
+            if (!newPassword || !confirmPassword) {
+              this.showMessage('密码不能为空', 'error')
+              return
+            }
+            
+            if (newPassword.length < 6 || newPassword.length > 20) {
+              this.showMessage('密码长度应为6-20位', 'error')
+              return
+            }
+            
+            if (newPassword !== confirmPassword) {
+              this.showMessage('两次输入的密码不一致', 'error')
+              return
+            }
+            
+            passwordSetSubmitBtn.disabled = true
+            passwordSetSubmitBtn.textContent = '保存中...'
+            
+            const userId = VIPSystem.getUserId()
+            const result = await VIPSystem.updatePassword(userId, newPassword)
+            
+            passwordSetSubmitBtn.disabled = false
+            passwordSetSubmitBtn.textContent = '保存密码'
+            
+            if (result.success) {
+              this.showMessage('密码设置成功', 'success')
+              
+              setTimeout(() => {
+                this.redirectBack()
+              }, 1000)
+            } else {
+              this.showMessage(result.message || '密码设置失败，请稍后重试', 'error')
+            }
+          })
+        }
+        
+        // 跳过设置密码
+        if (skipPasswordBtn) {
+          skipPasswordBtn.addEventListener('click', () => {
+            this.redirectBack()
+          })
+        }
+      },
+      
+      // 开始倒计时
+      startCountdown(seconds) {
+        const sendCodeBtn = document.getElementById('sendCodeBtn')
+        if (!sendCodeBtn) return
+        
+        sendCodeBtn.disabled = true
+        sendCodeBtn.classList.add('countdown')
+        
+        let countdown = seconds
+        sendCodeBtn.textContent = `${countdown}秒`
+        
+        this.countdownTimer = setInterval(() => {
+          countdown--
+          if (countdown > 0) {
+            sendCodeBtn.textContent = `${countdown}秒`
+          } else {
+            this.stopCountdown()
+          }
+        }, 1000)
+      },
+      
+      // 停止倒计时
+      stopCountdown() {
+        if (this.countdownTimer) {
+          clearInterval(this.countdownTimer)
+          this.countdownTimer = null
+        }
+        
+        this.smsSent = false
+        
+        const sendCodeBtn = document.getElementById('sendCodeBtn')
+        if (sendCodeBtn) {
+          sendCodeBtn.disabled = false
+          sendCodeBtn.classList.remove('countdown')
+          sendCodeBtn.textContent = '发送验证码'
+        }
+      },
+      
+      // 显示消息
+      showMessage(message, type = 'error') {
+        const loginMessage = document.getElementById('loginMessage')
+        if (!loginMessage) return
+        
+        loginMessage.textContent = message
+        loginMessage.className = 'login-message ' + type
+        
+        // 2秒后自动消失（错误消息）
+        if (type === 'error') {
+          setTimeout(() => {
+            loginMessage.className = 'login-message'
+            loginMessage.textContent = ''
+          }, 2000)
+        }
+      },
+      
+      // 显示加载动画
+      showLoading() {
+        const loadingOverlay = document.getElementById('loadingOverlay')
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove('hidden')
+        }
+      },
+      
+      // 隐藏加载动画
+      hideLoading() {
+        const loadingOverlay = document.getElementById('loadingOverlay')
+        if (loadingOverlay) {
+          loadingOverlay.classList.add('hidden')
+        }
+      }
+    }
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      LoginPage.init()
+    })
+  </script>
+</body>
+</html>

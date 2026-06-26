@@ -2638,6 +2638,93 @@ footer {
   overflow-y: visible;
 }
 
+/* VIP登录弹窗 - 全屏强制登录模式 */
+.modal.vip-login-modal.fullscreen {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  border-radius: 0;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 50%, #fff5f5 100%);
+}
+
+.modal.vip-login-modal.fullscreen .modal-header {
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 0;
+}
+
+.modal.vip-login-modal.fullscreen .modal-title {
+  color: white;
+  font-size: 22px;
+  text-align: center;
+}
+
+.modal.vip-login-modal.fullscreen .modal-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal.vip-login-modal.fullscreen .vip-login-form {
+  width: 100%;
+  max-width: 360px;
+  padding: 30px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.modal.vip-login-modal.fullscreen .login-choice-form {
+  gap: 16px;
+}
+
+.modal.vip-login-modal.fullscreen .login-choice-btn {
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.modal.vip-login-modal.fullscreen .form-group {
+  margin-bottom: 20px;
+}
+
+.modal.vip-login-modal.fullscreen .form-input {
+  padding: 14px 16px;
+  font-size: 16px;
+}
+
+.modal.vip-login-modal.fullscreen .login-actions {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal.vip-login-modal.fullscreen .login-actions .action-btn {
+  padding: 16px;
+  font-size: 18px;
+}
+
+/* 全屏模式下隐藏关闭按钮 */
+.modal.vip-login-modal.fullscreen .modal-close {
+  display: none !important;
+}
+
+/* 全屏模式下隐藏取消按钮 */
+.modal.vip-login-modal.fullscreen .vip-login-form .action-btn.secondary {
+  display: none !important;
+}
+
+.modal.vip-login-modal.fullscreen .login-choice-divider {
+  margin: 8px 0;
+}
+
 .vip-login-form {
   padding: 9px 5px 10px;
 }
@@ -8826,9 +8913,6 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 .inactivity-message {
   padding: 15px;
-  background: linear-gradient(135deg, #fef9e7 0%, #fff5eb 100%);
-  border-radius: 12px;
-  border: 1px solid #f59e0b;
 }
 
 .inactivity-message strong {
