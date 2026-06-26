@@ -8953,22 +8953,91 @@ const ThumbnailLoader = {
   async function prepareImages() {
     const logoImg = document.getElementById('posterLogoImg');
     const qrImg = document.getElementById('posterQrcodeImg');
+    const bgImg = document.getElementById('posterBackground');
 
-    if (logoImg && logoImg.src && logoImg.src.startsWith('http')) {
-      try {
-        logoImg.src = await loadImageAsBase64(logoImg.src);
-      } catch (e) {
-        console.error('Logo图片转换失败:', e);
+    // 辅助函数：尝试将图片转为base64（用于html2canvas导出）
+    async function prepareImageForExport(img, cacheKey, fallbackUrl = null) {
+      if (!img || !img.src) return;
+      
+      // 已经是base64，无需处理
+      if (img.src.startsWith('data:')) return;
+      
+      // 本地图片，无需处理
+      if (!img.src.startsWith('http')) return;
+      
+      // 先尝试从缓存读取（仅当有cacheKey时）
+      if (cacheKey) {
+        const cached = getFromCache(cacheKey);
+        if (cached && cached.startsWith('data:image')) {
+          img.src = cached;
+          return;
+        }
       }
+      
+      // 尝试通过fetch获取base64
+      try {
+        const base64 = await loadImageAsBase64(img.src);
+        if (base64 && base64.startsWith('data:image')) {
+          img.src = base64;
+          if (cacheKey) saveToCache(cacheKey, base64);
+          return;
+        }
+      } catch (e) {
+        console.warn(`[导出] fetch转换失败，尝试crossOrigin方式:`, e.message);
+      }
+      
+      // 尝试设置crossOrigin并重新加载图片
+      const originalSrc = img.src;
+      const crossOriginResult = await new Promise((resolve) => {
+        const tempImg = new Image();
+        tempImg.crossOrigin = 'anonymous';
+        tempImg.onload = function() {
+          img.crossOrigin = 'anonymous';
+          img.src = originalSrc;
+          resolve(true);
+        };
+        tempImg.onerror = function() {
+          resolve(false);
+        };
+        tempImg.src = originalSrc;
+      });
+      
+      if (crossOriginResult) return;
+      
+      // crossOrigin也失败，如果有本地回退URL，尝试加载本地图片
+      if (fallbackUrl && fallbackUrl !== originalSrc) {
+        console.log(`[导出] 尝试使用本地回退图片: ${fallbackUrl}`);
+        try {
+          const base64 = await loadImageAsBase64(fallbackUrl);
+          if (base64 && base64.startsWith('data:image')) {
+            img.src = base64;
+            return;
+          }
+        } catch (e) {
+          console.warn(`[导出] 本地回退图片加载失败:`, e.message);
+        }
+        // 直接设置本地路径
+        img.crossOrigin = '';
+        img.src = fallbackUrl;
+        return;
+      }
+      
+      // 完全无法处理，清除crossOrigin
+      console.warn(`[导出] 无法处理跨域图片，背景可能显示为白色`);
+      img.crossOrigin = '';
     }
 
-    if (qrImg && qrImg.src && qrImg.src.startsWith('http')) {
-      try {
-        qrImg.src = await loadImageAsBase64(qrImg.src);
-      } catch (e) {
-        console.error('二维码图片转换失败:', e);
-      }
+    // 背景图获取本地回退URL
+    let bgFallbackUrl = null;
+    if (bgImg && bgImg.dataset.originalPath && window.imageConfig) {
+      bgFallbackUrl = window.imageConfig.getFallbackUrl(bgImg.dataset.originalPath);
     }
+
+    await Promise.all([
+      prepareImageForExport(logoImg, IMAGE_CACHE_KEYS.logo),
+      prepareImageForExport(qrImg, IMAGE_CACHE_KEYS.qrcode),
+      prepareImageForExport(bgImg, null, bgFallbackUrl)
+    ]);
   }
 
 
@@ -9023,6 +9092,10 @@ const ThumbnailLoader = {
         backgroundImageElement.style.display = '';
         if (originalBackgroundImageStyle) {
           Object.assign(backgroundImageElement.style, originalBackgroundImageStyle);
+        }
+        // 恢复原始src（prepareImages 可能修改了背景图路径）
+        if (originalBackgroundImageSrc && backgroundImageElement.src !== originalBackgroundImageSrc) {
+          backgroundImageElement.src = originalBackgroundImageSrc;
         }
       }
       if (tempCanvasElement && tempCanvasElement.parentNode) {

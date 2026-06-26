@@ -26,6 +26,10 @@ dist/
 # 但保留必要的第三方库文件
 !**/jquery-*.min.js
 !**/jquery-ui-*.min.js
+!**/cropperjs/cropper.min.js
+!**/cropperjs/cropper.min.css
+!**/html2canvas/html2canvas.min.js
+!**/font-awesome/css/all.min.css
 
 # Environment variables
 .env
