@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- 登录状态预检：未登录则立即跳转，不加载任何资源 -->
+  <script>
+    if (!localStorage.getItem('postdiy_user_id')) {
+      window.location.replace('login/index.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  </script>
   <title>海报编辑器 - 闪喵朋友圈海报生成器</title>
   
   <meta name="description" content="闪喵海报编辑器，在线设计节日、促销、品牌宣传海报，支持自定义文字、图片、二维码，一键导出高清图片。">
