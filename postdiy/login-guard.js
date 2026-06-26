@@ -7,7 +7,7 @@
   // 配置（与 config_data.js 保持同步）
   const LOGIN_CONFIG = {
     enabled: true,    // 是否开启强制登录
-    loginPage: 'login.html',  // 登录页面路径
+    loginPage: 'login/index.html',  // 登录页面路径
     pages: ['index.html', 'editor.html']  // 需要强制登录的页面
   };
 
@@ -15,7 +15,7 @@
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
   // 如果是登录页面本身，不执行检测
-  if (currentPage === 'login.html') {
+  if (window.location.pathname.includes('/login/')) {
     return;
   }
   

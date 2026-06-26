@@ -1309,7 +1309,7 @@ const VipLoginUI = (function() {
         showMessage('已退出登录', 'success')
         setTimeout(() => {
           // 跳转到登录页面
-          window.location.href = 'login.html'
+          window.location.href = 'login/index.html'
         }, 1000)
       })
     }
@@ -1397,7 +1397,7 @@ const VipLoginUI = (function() {
     
     // 用户未登录，根据配置模式处理
     const mode = config.mode || 'redirect'
-    const loginPage = config.loginPage || 'login.html'
+    const loginPage = config.loginPage || 'login/index.html'
     
     console.log('[AutoLoginModal] 用户未登录，模式:', mode)
     

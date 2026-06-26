@@ -12,7 +12,7 @@ window.siteConfig = {
   autoLoginModal: {
     enabled: true,    // 是否开启强制登录（true: 开启，false: 关闭）
     mode: 'redirect', // 模式：'redirect' 跳转到登录页面，'modal' 弹窗模式（已废弃）
-    loginPage: 'login.html',  // 登录页面路径
+    loginPage: 'login/index.html',  // 登录页面路径
     pages: ['index.html', 'editor.html']  // 需要强制登录的页面列表
   },
   
