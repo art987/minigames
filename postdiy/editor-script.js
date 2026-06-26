@@ -819,7 +819,6 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
   console.log(`[加载策略] ${imageType}: 尝试从 Cloudflare 加载（免费）`);
   
   try {
-    imgElement.crossOrigin = "anonymous";
     imgElement.src = cloudflareUrl;
     
     // 等待图片加载
@@ -868,7 +867,6 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
         const tencentUrl = await getTempUrlFromFileID(fileID);
         
         if (tencentUrl) {
-          imgElement.crossOrigin = "anonymous";
           imgElement.src = tencentUrl;
           
           await new Promise((resolve, reject) => {
@@ -4587,11 +4585,9 @@ const ThumbnailLoader = {
     
     // 使用自定义背景或模板背景
     if (state.customBackground) {
-      elements.posterBackground.crossOrigin = 'anonymous'; // 添加跨域属性
       elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate && state.currentTemplate.image) {
       const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
-      elements.posterBackground.crossOrigin = 'anonymous'; // 关键！添加跨域属性
       elements.posterBackground.src = imageUrl;
       elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
     } else {
@@ -4753,8 +4749,7 @@ const ThumbnailLoader = {
         if (cachedLogo && cachedLogo.startsWith('data:image')) {
           elements.posterLogoImg.src = cachedLogo;
         } else {
-          // 没有缓存，尝试加载并缓存
-          elements.posterLogoImg.crossOrigin = "anonymous";
+          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterLogoImg.src = state.businessInfo.logo;
           // 异步加载base64并缓存
           loadImageAsBase64(state.businessInfo.logo).then(base64 => {
@@ -4764,7 +4759,6 @@ const ThumbnailLoader = {
           });
         }
       } else {
-        elements.posterLogoImg.crossOrigin = "anonymous";
         elements.posterLogoImg.src = 'images/statics/logo-default.gif';
         elements.posterLogoImg.dataset.cloudUrl = '';
         elements.posterLogoImg.style.display = 'block';
@@ -4797,8 +4791,7 @@ const ThumbnailLoader = {
         if (cachedQr && cachedQr.startsWith('data:image')) {
           elements.posterQrcodeImg.src = cachedQr;
         } else {
-          // 没有缓存，尝试加载并缓存
-          elements.posterQrcodeImg.crossOrigin = "anonymous";
+          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterQrcodeImg.src = state.businessInfo.qrcode;
           // 异步加载base64并缓存
           loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
@@ -4808,7 +4801,6 @@ const ThumbnailLoader = {
           });
         }
       } else {
-        elements.posterQrcodeImg.crossOrigin = "anonymous";
         elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
         elements.posterQrcodeImg.dataset.cloudUrl = '';
         elements.posterQrcodeImg.style.display = 'block';
@@ -10207,8 +10199,7 @@ function updateBusinessInfoButtonForVip() {
         if (cachedLogo && cachedLogo.startsWith('data:image')) {
           elements.posterLogoImg.src = cachedLogo;
         } else {
-          // 没有缓存，尝试加载并缓存
-          elements.posterLogoImg.crossOrigin = "anonymous";
+          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterLogoImg.src = state.businessInfo.logo;
           loadImageAsBase64(state.businessInfo.logo).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.logo, base64);
@@ -10246,8 +10237,7 @@ function updateBusinessInfoButtonForVip() {
         if (cachedQr && cachedQr.startsWith('data:image')) {
           elements.posterQrcodeImg.src = cachedQr;
         } else {
-          // 没有缓存，尝试加载并缓存
-          elements.posterQrcodeImg.crossOrigin = "anonymous";
+          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterQrcodeImg.src = state.businessInfo.qrcode;
           loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);

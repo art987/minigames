@@ -478,14 +478,14 @@ function fillBusinessInfoToState(data) {
 // 更新画布显示
 function updateCanvasDisplay(data) {
   // 更新商家名称
-  const posterBusinessName = document.getElementById('poster-business-name');
+  const posterBusinessName = document.getElementById('posterBusinessName');
   if (posterBusinessName && data.brandname) {
     posterBusinessName.textContent = data.brandname;
   }
   
   // 更新Logo
-  const posterLogoImg = document.getElementById('poster-logo-img');
-  const logoPlaceholder = document.getElementById('logo-placeholder');
+  const posterLogoImg = document.getElementById('posterLogoImg');
+  const logoPlaceholder = document.getElementById('logoPlaceholder');
   if (posterLogoImg && logoPlaceholder) {
     if (data.logoUrl) {
       posterLogoImg.src = data.logoUrl;
@@ -498,8 +498,8 @@ function updateCanvasDisplay(data) {
   }
   
   // 更新二维码
-  const posterQrcodeImg = document.getElementById('poster-qrcode-img');
-  const qrcodePlaceholder = document.getElementById('qrcode-placeholder');
+  const posterQrcodeImg = document.getElementById('posterQrcodeImg');
+  const qrcodePlaceholder = document.getElementById('qrcodePlaceholder');
   if (posterQrcodeImg && qrcodePlaceholder) {
     if (data.qrcodeUrl) {
       posterQrcodeImg.src = data.qrcodeUrl;
@@ -512,7 +512,7 @@ function updateCanvasDisplay(data) {
   }
   
   // 更新促销信息
-  const posterPromoText = document.getElementById('poster-promo-text');
+  const posterPromoText = document.getElementById('posterPromoText');
   if (posterPromoText && data.promoText) {
     posterPromoText.innerHTML = data.promoText.replace(/\n/g, '<br>');
   }
