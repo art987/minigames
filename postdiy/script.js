@@ -335,10 +335,11 @@ function initMonthButtons() {
   monthButtonsContainer.innerHTML = '';
   
   // 创建12个月的按钮
+  const currentMonth = new Date().getMonth() + 1;
   for (let i = 1; i <= 12; i++) {
     const monthButton = document.createElement('button');
     monthButton.className = `month-btn ${window.currentFilters.month === i ? 'active' : ''}`;
-    monthButton.textContent = `${i}月`;
+    monthButton.textContent = i === currentMonth ? '本月' : `${i}月`;
     monthButton.dataset.month = i;
     
     monthButton.addEventListener('click', function() {
@@ -442,87 +443,66 @@ function initMonthButtons() {
         
         // 定位到对应节日
         setTimeout(() => {
-          console.log('开始定位逻辑');
-          console.log('当前月份:', month);
-          console.log('目标月份:', currentMonth);
-          
-          if (month === currentMonth) {
-            // 当前月份
-            console.log('执行当前月份定位逻辑');
-            
-            // 直接使用未来节日的逻辑，因为3月9日没有节日
-            // 定位到3月12日的植树节
-            const targetFestival = '植树节';
-            console.log('目标节日:', targetFestival);
-            
-            // 先打印所有节日标签，确认植树节标签存在
-            const festivalTags = document.querySelectorAll('.festival-tag');
-            console.log('节日标签数量:', festivalTags.length);
-            
-            if (festivalTags.length === 0) {
-              console.log('错误：没有找到节日标签！');
-              // 重新更新节日标签
-              updateFestivalTags();
-              setTimeout(() => {
-                const festivalTagsRetry = document.querySelectorAll('.festival-tag');
-                console.log('重试后节日标签数量:', festivalTagsRetry.length);
-                let targetTag = null;
-                festivalTagsRetry.forEach(tag => {
-                  const tagFestival = tag.dataset.festival || tag.textContent;
-                  console.log('重试后节日标签:', tagFestival);
-                  if (tagFestival === targetFestival) {
-                    targetTag = tag;
-                  }
-                });
-                console.log('重试后目标标签:', targetTag);
-                if (targetTag) {
-                  console.log('重试后执行定位');
-                  targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  if (!targetTag.classList.contains('active')) {
-                    targetTag.click();
-                  }
-                }
-              }, 300);
-            } else {
-              let targetTag = null;
-              festivalTags.forEach(tag => {
-                const tagFestival = tag.dataset.festival || tag.textContent;
-                console.log('节日标签:', tagFestival);
-                if (tagFestival === targetFestival) {
-                  targetTag = tag;
-                }
-              });
-              console.log('目标标签:', targetTag);
-              if (targetTag) {
-                console.log('执行定位');
-                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                if (!targetTag.classList.contains('active')) {
-                  targetTag.click();
-                }
-              } else {
-                console.log('错误：没有找到目标节日标签！');
-              }
-            }
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          // 统一逻辑：优先找当天节日，再找最近的未来节日，最后找第一个节日
+          const festivalsInMonth = window.utils.getFestivalNamesByMonth(month);
+          const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
+
+          if (actualFestivals.length === 0) return;
+
+          // 获取该月份所有节日的日期信息
+          const allFestivalsData = window.utils.getAllFestivals();
+          const todayFestival = actualFestivals.find(fName => {
+            const fData = allFestivalsData[fName];
+            if (!fData) return false;
+            const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+            fDate.setHours(0, 0, 0, 0);
+            return fDate.getTime() === today.getTime();
+          });
+
+          let targetFestivalName = null;
+
+          if (todayFestival) {
+            // 优先：当天就是节日
+            targetFestivalName = todayFestival;
           } else {
-            // 其他月份，定位到该月份的第一个节日（跳过早安和晚安）
-            const festivalsInMonth = window.utils.getFestivalNamesByMonth(month);
-            // festivalsInMonth的前两个是"☀️ 早安"和"🌙 晚安"，真正的节日从第三个开始
-            const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
-            if (actualFestivals.length > 0) {
-              // 直接查找并点击节日标签
-              const festivalTags = document.querySelectorAll('.festival-tag');
-              let targetTag = null;
-              festivalTags.forEach(tag => {
-                const tagFestival = tag.dataset.festival || tag.textContent;
-                if (tagFestival === actualFestivals[0]) {
-                  targetTag = tag;
-                }
-              });
-              if (targetTag) {
-                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                if (!targetTag.classList.contains('active')) {
-                  targetTag.click();
-                }
+            // 找该月份中最近的未来节日
+            const futureFestivals = actualFestivals
+              .map(fName => {
+                const fData = allFestivalsData[fName];
+                if (!fData) return null;
+                const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+                fDate.setHours(0, 0, 0, 0);
+                const diff = fDate - today;
+                return { name: fName, diff: diff };
+              })
+              .filter(f => f && f.diff >= 0)
+              .sort((a, b) => a.diff - b.diff);
+
+            if (futureFestivals.length > 0) {
+              // 有未来节日，选最近的
+              targetFestivalName = futureFestivals[0].name;
+            } else {
+              // 没有未来节日（该月所有节日都已过），定位到第一个节日
+              targetFestivalName = actualFestivals[0];
+            }
+          }
+
+          if (targetFestivalName) {
+            const festivalTags = document.querySelectorAll('.festival-tag');
+            let targetTag = null;
+            festivalTags.forEach(tag => {
+              const tagFestival = tag.dataset.festival || tag.textContent;
+              if (tagFestival === targetFestivalName) {
+                targetTag = tag;
+              }
+            });
+            if (targetTag) {
+              targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              if (!targetTag.classList.contains('active')) {
+                targetTag.click();
               }
             }
           }
@@ -878,10 +858,34 @@ function createTemplateCard(template) {
   const card = document.createElement('div');
   card.className = 'template-card';
   
+  // 检查模板是否可用（当月+2月以内可用）
+  const availability = getTemplateAvailability(template);
+  
   // 卡片内容
   const thumbnailPath = template.thumbnail || template.image;
   const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnailPath) : thumbnailPath;
   const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(thumbnailPath) : null;
+  
+  if (!availability.available) {
+    card.classList.add('template-locked');
+    card.innerHTML = `
+      <div class="template-thumbnail-container">
+        <img class="template-thumbnail blurred" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
+        <div class="template-lock-overlay">
+          <span class="lock-big-text">待开放</span>
+          <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+        </div>
+      </div>
+      <div class="template-info">
+        <h3 class="template-name">${template.name}</h3>
+        <div class="template-tags">
+          <span class="template-type-tag">${template.type || '通用'}</span>
+          ${template.festivals ? template.festivals.map(festival => `<span class="template-festival-tag">${festival}</span>`).join('') : ''}
+        </div>
+      </div>
+    `;
+    return card;
+  }
   
   card.innerHTML = `
     <div class="template-thumbnail-container">
@@ -929,6 +933,11 @@ function createTemplateCard(template) {
   
   // 添加点击事件
   card.addEventListener('click', function() {
+    // 锁定的模板不可使用
+    if (card.classList.contains('template-locked')) {
+      showToast('该模板尚未开放，敬请期待');
+      return;
+    }
     // 跳转到编辑器页面，并传递模板ID
     window.location.href = `editor.html?templateId=${template.id}`;
   });

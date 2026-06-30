@@ -18,7 +18,37 @@ function getCurrentMonthAndDay() {
 
 // 检查日期是否在指定月份内
 function isDateInMonth(date, month) {
-  return date.getMonth() + 1 === month;
+  return getCurrentMonth() === month;
+}
+
+// 模板可用性检查：仅当月和下月可用
+// 规则：模板月份M在 [currentMonth, currentMonth+1] 内可用
+// 未来模板：开放月份 = M - 1；过去模板：也显示待开放，明年还能用
+function getTemplateAvailability(template) {
+  const currentMonth = getCurrentMonth();
+  const nextMonth = currentMonth >= 12 ? 1 : currentMonth + 1;
+  const months = template.months || [];
+  if (months.length === 0) return { available: true };
+
+  // 可用：模板任一月份等于当月或下月
+  const isAvailable = months.some(m => m === currentMonth || m === nextMonth);
+  if (isAvailable) return { available: true };
+
+  // 不可用的模板统一显示"待开放"
+  // 未来模板：开放月份 = 最小月份 - 1
+  // 过去模板：明年同期可用，开放月份 = 最小月份 + 11（即明年减1月）
+  const minMonth = Math.min(...months);
+  let unlockMonth;
+  if (minMonth < currentMonth) {
+    // 过去的月份，明年可用
+    unlockMonth = minMonth;
+    return { available: false, unlockMonth: unlockMonth };
+  } else {
+    // 未来的月份
+    unlockMonth = minMonth - 1;
+    if (unlockMonth <= 0) unlockMonth = 12;
+    return { available: false, unlockMonth: unlockMonth };
+  }
 }
 
 // 获取所有节日数据

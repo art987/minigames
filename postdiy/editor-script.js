@@ -5409,10 +5409,11 @@ const ThumbnailLoader = {
     elements.modalMonthButtons.innerHTML = '';
     
     // 创建月份按钮
+    const currentMonth = new Date().getMonth() + 1;
     for (let i = 1; i <= 12; i++) {
       const monthBtn = document.createElement('button');
       monthBtn.className = 'month-btn';
-      monthBtn.textContent = `${i}月`;
+      monthBtn.textContent = i === currentMonth ? '本月' : `${i}月`;
       
       // 为每个月份按钮添加自定义data属性，方便后续查找
       monthBtn.dataset.month = i;
@@ -5432,68 +5433,67 @@ const ThumbnailLoader = {
         setTimeout(() => {
           const month = parseInt(this.dataset.month);
           const today = new Date();
+          today.setHours(0, 0, 0, 0);
           const currentMonth = today.getMonth() + 1;
           
-          if (month === currentMonth) {
-            // 当前月份
-            // 检测当前日期是否属于某个节日
-            const todayFestival = getTodayFestival();
-            if (todayFestival) {
-              // 当前日期有节日，定位到该节日
-              const festivalTags = document.querySelectorAll('.festival-tag');
-              let targetTag = null;
-              festivalTags.forEach(tag => {
-                const tagFestival = tag.dataset.festival || tag.textContent;
-                if (tagFestival === todayFestival) {
-                  targetTag = tag;
-                }
-              });
-              if (targetTag) {
-                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                if (!targetTag.classList.contains('active')) {
-                  targetTag.click();
-                }
-              }
-            } else {
-              // 当前日期无节日，定位到距离当前日期最近的未来节日
-              const futureFestivals = getFutureFestivals(1);
-              if (futureFestivals.length > 0) {
-                const festivalTags = document.querySelectorAll('.festival-tag');
-                let targetTag = null;
-                festivalTags.forEach(tag => {
-                  const tagFestival = tag.dataset.festival || tag.textContent;
-                  if (tagFestival === futureFestivals[0].name) {
-                    targetTag = tag;
-                  }
-                });
-                if (targetTag) {
-                  targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  if (!targetTag.classList.contains('active')) {
-                    targetTag.click();
-                  }
-                }
-              }
-            }
+          // 统一逻辑：无论是当前月还是其他月，都优先找当天节日，再找最近的未来节日，最后找第一个节日
+          const festivalsInMonth = utils.getFestivalNamesByMonth(month);
+          const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
+          
+          if (actualFestivals.length === 0) return;
+          
+          // 获取该月份所有节日的日期信息
+          const allFestivalsData = utils.getAllFestivals();
+          const todayFestival = actualFestivals.find(fName => {
+            const fData = allFestivalsData[fName];
+            if (!fData) return false;
+            // 检查是否是今天
+            const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+            fDate.setHours(0, 0, 0, 0);
+            return fDate.getTime() === today.getTime();
+          });
+          
+          let targetFestivalName = null;
+          
+          if (todayFestival) {
+            // 优先：当天就是节日
+            targetFestivalName = todayFestival;
           } else {
-            // 其他月份，定位到该月份的第一个节日（跳过早安和晚安）
-            const festivalsInMonth = utils.getFestivalNamesByMonth(month);
-            // festivalsInMonth的前两个是"☀️ 早安"和"🌙 晚安"，真正的节日从第三个开始
-            const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
-            if (actualFestivals.length > 0) {
-              // 直接查找并点击节日标签
-              const festivalTags = document.querySelectorAll('.festival-tag');
-              let targetTag = null;
-              festivalTags.forEach(tag => {
-                const tagFestival = tag.dataset.festival || tag.textContent;
-                if (tagFestival === actualFestivals[0]) {
-                  targetTag = tag;
-                }
-              });
-              if (targetTag) {
-                targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                if (!targetTag.classList.contains('active')) {
-                  targetTag.click();
-                }
+            // 找该月份中最近的未来节日
+            const futureFestivals = actualFestivals
+              .map(fName => {
+                const fData = allFestivalsData[fName];
+                if (!fData) return null;
+                const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+                fDate.setHours(0, 0, 0, 0);
+                const diff = fDate - today;
+                return { name: fName, diff: diff };
+              })
+              .filter(f => f && f.diff >= 0)
+              .sort((a, b) => a.diff - b.diff);
+            
+            if (futureFestivals.length > 0) {
+              // 有未来节日，选最近的
+              targetFestivalName = futureFestivals[0].name;
+            } else {
+              // 没有未来节日（该月所有节日都已过），定位到第一个节日
+              targetFestivalName = actualFestivals[0];
+            }
+          }
+          
+          if (targetFestivalName) {
+            const festivalTags = document.querySelectorAll('.festival-tag');
+            let targetTag = null;
+            festivalTags.forEach(tag => {
+              const tagFestival = tag.dataset.festival || tag.textContent;
+              if (tagFestival === targetFestivalName) {
+                targetTag = tag;
+              }
+            });
+            if (targetTag) {
+              targetTag.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              if (!targetTag.classList.contains('active')) {
+                targetTag.click();
               }
             }
           }
@@ -5886,6 +5886,12 @@ const ThumbnailLoader = {
         templateItem.className = 'template-item';
         templateItem.dataset.templateId = template.id;
         
+        // 检查模板是否可用（当月+2月以内可用）
+        const availability = getTemplateAvailability(template);
+        if (!availability.available) {
+          templateItem.classList.add('template-locked');
+        }
+        
         // 是否为当前选中的模板
         const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
         
@@ -5928,6 +5934,13 @@ const ThumbnailLoader = {
         // 为勾选按钮添加点击事件
         checkButton.addEventListener('click', function(e) {
           e.stopPropagation();
+          
+          // 锁定的模板不可使用
+          if (templateItem.classList.contains('template-locked')) {
+            showToast('该模板尚未开放，敬请期待');
+            return;
+          }
+          
           console.log('点击勾选按钮选择模板:', template.name);
           
           document.querySelectorAll('.template-check-button').forEach(btn => {
@@ -5941,6 +5954,12 @@ const ThumbnailLoader = {
         
         // 为模板项添加点击事件
         templateItem.addEventListener('click', function() {
+          // 锁定的模板不可使用
+          if (templateItem.classList.contains('template-locked')) {
+            showToast('该模板尚未开放，敬请期待');
+            return;
+          }
+          
           document.querySelectorAll('.template-check-button').forEach(btn => {
             btn.classList.remove('checked');
           });
@@ -5951,6 +5970,12 @@ const ThumbnailLoader = {
         
         // 添加双击事件
         templateItem.addEventListener('dblclick', function() {
+          // 锁定的模板不可使用
+          if (templateItem.classList.contains('template-locked')) {
+            showToast('该模板尚未开放，敬请期待');
+            return;
+          }
+          
           console.log('双击选中模板并关闭弹窗:', template.name);
           
           document.querySelectorAll('.template-check-button').forEach(btn => {
@@ -5971,6 +5996,19 @@ const ThumbnailLoader = {
         templateImgContainer.appendChild(spinner);
         templateImgContainer.appendChild(templateImg);
         templateImgContainer.appendChild(checkButton);
+        
+        // 锁定的模板：添加模糊和遮罩
+        if (!availability.available) {
+          templateImg.classList.add('blurred');
+          const lockOverlay = document.createElement('div');
+          lockOverlay.className = 'template-lock-overlay';
+          lockOverlay.innerHTML = `
+            <span class="lock-big-text">待开放</span>
+            <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+          `;
+          templateImgContainer.appendChild(lockOverlay);
+        }
+        
         templateItem.appendChild(templateImgContainer);
         templateItem.appendChild(templateName);
         
@@ -6027,6 +6065,15 @@ const ThumbnailLoader = {
       slide.appendChild(nameDiv);
 
       slide.addEventListener('click', function() {
+        // 锁定的模板不可使用
+        const tmplData = templatesList[parseInt(this.dataset.index)];
+        if (tmplData) {
+          const avail = getTemplateAvailability(tmplData);
+          if (!avail.available) {
+            showToast('该模板尚未开放，敬请期待');
+            return;
+          }
+        }
         if (this.classList.contains('current')) {
           selectTemplate(template);
           closeTemplateModal();
@@ -6474,6 +6521,12 @@ const ThumbnailLoader = {
           templateItem.className = 'template-item';
           templateItem.dataset.templateId = template.id;
           
+          // 检查模板是否可用（当月和下月可用）
+          const availability = getTemplateAvailability(template);
+          if (!availability.available) {
+            templateItem.classList.add('template-locked');
+          }
+          
           // 是否为当前选中的模板
           const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
           
@@ -6516,6 +6569,13 @@ const ThumbnailLoader = {
           // 为勾选按钮添加点击事件
           checkButton.addEventListener('click', function(e) {
             e.stopPropagation(); // 阻止事件冒泡
+            
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             console.log('点击勾选按钮选择模板:', template.name);
             
             // 移除所有勾选按钮的选中状态
@@ -6535,6 +6595,12 @@ const ThumbnailLoader = {
           
           // 为模板项添加点击事件
           templateItem.addEventListener('click', function() {
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             // 移除所有勾选按钮的选中状态
             document.querySelectorAll('.template-check-button').forEach(btn => {
               btn.classList.remove('checked');
@@ -6549,6 +6615,12 @@ const ThumbnailLoader = {
           
           // 添加双击事件 - 双击直接选择模板并关闭弹窗
           templateItem.addEventListener('dblclick', function() {
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             console.log('双击选中模板并关闭弹窗:', template.name);
             
             // 移除所有勾选按钮的选中状态
@@ -6575,6 +6647,19 @@ const ThumbnailLoader = {
           templateImgContainer.appendChild(spinner);
           templateImgContainer.appendChild(templateImg);
           templateImgContainer.appendChild(checkButton);
+          
+          // 锁定的模板：添加模糊和遮罩
+          if (!availability.available) {
+            templateImg.classList.add('blurred');
+            const lockOverlay = document.createElement('div');
+            lockOverlay.className = 'template-lock-overlay';
+            lockOverlay.innerHTML = `
+              <span class="lock-big-text">待开放</span>
+              <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+            `;
+            templateImgContainer.appendChild(lockOverlay);
+          }
+          
           templateItem.appendChild(templateImgContainer);
           templateItem.appendChild(templateName);
           
@@ -6592,21 +6677,6 @@ const ThumbnailLoader = {
     
     // 开始批量加载图片
     ThumbnailLoader.loadBatch(loadQueue, loadId, 6);
-    
-    // 尝试自动选择对应月份的节日（与首页逻辑保持一致）
-    try {
-      const result = utils.autoSelectByDate();
-      if (result && result.festival && month === result.month) {
-        setTimeout(() => {
-          const festivalTag = document.querySelector(`#modalFestivalTags .festival-tag[data-festival="${result.festival}"]`);
-          if (festivalTag) {
-            festivalTag.click();
-          }
-        }, 100);
-      }
-    } catch (error) {
-      console.error('自动选择节日失败:', error);
-    }
   }
   
   // 按节日筛选模板
@@ -6661,6 +6731,12 @@ const ThumbnailLoader = {
           templateItem.className = 'template-item';
           templateItem.dataset.templateId = template.id;
           
+          // 检查模板是否可用（当月和下月可用）
+          const availability = getTemplateAvailability(template);
+          if (!availability.available) {
+            templateItem.classList.add('template-locked');
+          }
+          
           // 是否为当前选中的模板
           const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
           
@@ -6703,6 +6779,13 @@ const ThumbnailLoader = {
           // 为勾选按钮添加点击事件
           checkButton.addEventListener('click', function(e) {
             e.stopPropagation(); // 阻止事件冒泡
+            
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             console.log('点击勾选按钮选择模板:', template.name);
             
             // 移除所有勾选按钮的选中状态
@@ -6722,6 +6805,12 @@ const ThumbnailLoader = {
           
           // 为模板项添加点击事件
           templateItem.addEventListener('click', function() {
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             // 移除所有勾选按钮的选中状态
             document.querySelectorAll('.template-check-button').forEach(btn => {
               btn.classList.remove('checked');
@@ -6736,6 +6825,12 @@ const ThumbnailLoader = {
           
           // 添加双击事件 - 双击直接选择模板并关闭弹窗
           templateItem.addEventListener('dblclick', function() {
+            // 锁定的模板不可使用
+            if (templateItem.classList.contains('template-locked')) {
+              showToast('该模板尚未开放，敬请期待');
+              return;
+            }
+            
             console.log('双击选中模板并关闭弹窗:', template.name);
             
             // 移除所有勾选按钮的选中状态
@@ -6762,6 +6857,19 @@ const ThumbnailLoader = {
           templateImgContainer.appendChild(spinner);
           templateImgContainer.appendChild(templateImg);
           templateImgContainer.appendChild(checkButton);
+          
+          // 锁定的模板：添加模糊和遮罩
+          if (!availability.available) {
+            templateImg.classList.add('blurred');
+            const lockOverlay = document.createElement('div');
+            lockOverlay.className = 'template-lock-overlay';
+            lockOverlay.innerHTML = `
+              <span class="lock-big-text">待开放</span>
+              <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+            `;
+            templateImgContainer.appendChild(lockOverlay);
+          }
+          
           templateItem.appendChild(templateImgContainer);
           templateItem.appendChild(templateName);
           
@@ -6861,6 +6969,15 @@ const ThumbnailLoader = {
       slide.appendChild(nameDiv);
 
       slide.addEventListener('click', function() {
+        // 锁定的模板不可使用
+        const tmplData = templatesList[parseInt(this.dataset.index)];
+        if (tmplData) {
+          const avail = getTemplateAvailability(tmplData);
+          if (!avail.available) {
+            showToast('该模板尚未开放，敬请期待');
+            return;
+          }
+        }
         if (this.classList.contains('current')) {
           selectTemplate(template);
           closeTemplateModal();
@@ -8988,15 +9105,14 @@ const ThumbnailLoader = {
     // 判断是否只差促销文案
     const onlyPromoTextMissing = incompleteItems.length === 1 && incompleteItems[0] === '促销文案'
     const modalTitle = onlyPromoTextMissing ? '您的促销文案尚未完善' : '您的海报信息尚未完善'
-    const laterBtnText = onlyPromoTextMissing ? '完善促销文案' : '完善品牌信息（+10次下载）'
+    const laterBtnText = onlyPromoTextMissing ? '马上完善促销文案' : '完善品牌信息（+10次下载）'
 
     modal.innerHTML = `
       <div class="global-modal-card">
-        <div class="modal-icon">⚠️</div>
         <h3 class="modal-title">${modalTitle}</h3>
-        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善：</p>
-        <div style="margin-bottom:20px;">${itemsHtml}</div>
-        <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">继续下载（-1次）</button>
+        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善后下载。</p>
+       
+        <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">先试试看，继续下载（-1次）</button>
         <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">${laterBtnText}</button>
       </div>
     `
