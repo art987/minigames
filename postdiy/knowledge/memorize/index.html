@@ -20,7 +20,8 @@
   <script>
     // 数据集配置 - 在这里添加新的数据集
     const dataSets = [
-      { id: '7000-words', name: '7000核心词汇', description: '精选7000个核心英语词汇，按字母分类', file: 'data/7000-words.js', variable: 'words7000', hasCategory: true },
+      { id: '7000-words-basic', name: '7000基础词汇', description: '精选7000个基础英语词汇，按字母分类', file: 'data/7000-words-basic.js', variable: 'words7000Basic', hasCategory: true },
+      { id: '7000-words', name: '7000核心词汇（提升篇）', description: '精选7000个核心英语词汇（提升篇），按字母分类', file: 'data/7000-words.js', variable: 'words7000', hasCategory: true },
       { id: 'ielts-vocabulary', name: '雅思词汇', description: '雅思考试常用词汇集合', file: 'data/ielts-vocabulary.js', variable: 'ieltsVocabulary' },
       { id: 'phrases', name: '常用词组', description: '英语常用词组搭配', file: 'data/phrases.js', variable: 'phrases' },
       { id: 'grammar-points', name: '语法要点', description: '英语重要语法知识点', file: 'data/grammar-points.js', variable: 'grammarPoints' }
@@ -48,7 +49,7 @@
 
     // 获取数据集项目数量
     function getItemCount(dataSet) {
-      const counts = { '7000-words': 138, 'ielts-vocabulary': 20, 'phrases': 15, 'grammar-points': 10 };
+      const counts = { '7000-words-basic': 905, '7000-words': 138, 'ielts-vocabulary': 20, 'phrases': 15, 'grammar-points': 10 };
       return counts[dataSet.id] || 0;
     }
 

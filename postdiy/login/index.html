@@ -521,6 +521,8 @@
             this.renderPasswordLoginForm()
           } else if (formType === 'choice') {
             this.renderChoiceForm()
+          } else if (formType === 'password-set') {
+            this.renderPasswordSetForm()
           }
           
           const newFormContainer = document.getElementById('formContainer')

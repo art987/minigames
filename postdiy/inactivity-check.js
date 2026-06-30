@@ -55,10 +55,10 @@
           <div class="modal-body" style="padding: 20px;">
             <div class="inactivity-message" style="text-align: center; margin-bottom: 20px;">
               <p style="font-size: 16px; color: #333; margin-bottom: 10px;">
-                您已经超过 <strong style="color: #f59e0b;">60分钟</strong> 没有任何操作
+                您已经超过 <strong style="color: #000;">60分钟</strong> 没有任何操作
               </p>
               <p style="font-size: 14px; color: #666;">
-                建议刷新页面，获取最新模板和数据更新
+                建议刷新页面，获取最新模板和数据
               </p>
             </div>
             <div class="inactivity-actions" style="display: flex; gap: 15px; justify-content: center;">

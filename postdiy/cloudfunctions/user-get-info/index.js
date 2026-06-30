@@ -92,7 +92,8 @@ exports.main = async (event, context) => {
           qrcodeTencentUrl: user.qrcodeTencentUrl || '',
           qrcodeFileID: user.qrcodeFileID || '',
           logoTransparent: user.logoTransparent || false,
-          hasPassword: user.hasPassword
+          hasPassword: user.hasPassword,
+          downloadQuota: user.downloadQuota || 0
         }
       })
     }

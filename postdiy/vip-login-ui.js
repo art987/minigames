@@ -1077,6 +1077,31 @@ const VipLoginUI = (function() {
           elements.userInfoType.textContent = updatedUserInfo.isVip ? 'VIP用户' : '普通用户'
         }
         
+        // 显示下载次数
+        const quotaInfoItem = document.getElementById('downloadQuotaInfoItem')
+        const quotaSpan = document.getElementById('userInfoDownloadQuota')
+        if (updatedUserInfo.isVip) {
+          // VIP用户无限下载
+          if (quotaInfoItem) quotaInfoItem.style.display = 'none'
+        } else {
+          if (quotaInfoItem) quotaInfoItem.style.display = ''
+          if (quotaSpan) {
+            // 先显示本地缓存的次数
+            quotaSpan.textContent = updatedUserInfo.downloadQuota !== undefined ? `${updatedUserInfo.downloadQuota}次` : '加载中...'
+          }
+          // 异步从服务器获取最新次数
+          try {
+            const quotaResult = await VIPSystem.getDownloadQuota()
+            if (quotaResult.success && quotaResult.data) {
+              if (quotaSpan) {
+                quotaSpan.textContent = `${quotaResult.data.downloadQuota}次`
+              }
+            }
+          } catch (e) {
+            console.warn('获取下载次数失败:', e)
+          }
+        }
+        
         // 加载云端商家信息
         await loadUserInfoFromCloud()
         

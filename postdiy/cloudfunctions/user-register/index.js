@@ -79,6 +79,7 @@ exports.main = async (event, context) => {
         data: {
           phone,
           vipExpireTime: null,
+          downloadQuota: 5,
           logoUrl: '',
           logoTencentUrl: '',
           qrcodeUrl: '',
@@ -87,6 +88,20 @@ exports.main = async (event, context) => {
           updateTime: db.serverDate()
         }
       })
+
+      // 记录下载额度初始化日志（非阻塞，失败不影响注册）
+      db.collection('download_quota_logs').add({
+        data: {
+          userId: addRes._id,
+          changeAmount: 5,
+          beforeQuota: 0,
+          afterQuota: 5,
+          type: 'grant',
+          source: 'new_user',
+          remark: '新用户注册赠送',
+          createTime: db.serverDate()
+        }
+      }).catch(e => console.error('写入额度日志失败:', e))
       userId = addRes._id
     } else {
       userId = userRes.data[0]._id
@@ -112,6 +127,7 @@ exports.main = async (event, context) => {
           phone,
           isVip: false,
           vipExpireTime: null,
+          downloadQuota: isNewUser ? 5 : (userRes.data[0].downloadQuota || 0),
           logoUrl: '',
           logoTencentUrl: '',
           qrcodeUrl: '',

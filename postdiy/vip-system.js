@@ -19,7 +19,9 @@ const VIPSystem = (function() {
     adminGenerateVouchers: `${API_BASE_URL}/admin-generate-vouchers`,
     adminManageVouchers: `${API_BASE_URL}/admin-manage-vouchers`,
     paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
-    paymentOrderList: `${API_BASE_URL}/payment-order-list`
+    paymentOrderList: `${API_BASE_URL}/payment-order-list`,
+    downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
+    downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`
   };
 
   // 本地存储键名
@@ -443,6 +445,130 @@ const VIPSystem = (function() {
     }
   }
 
+  // ============ 下载额度相关 ============
+
+  // 获取用户剩余下载次数
+  async function getDownloadQuota() {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录', data: { downloadQuota: 0 } }
+      }
+
+      const response = await fetch(APIs.downloadQuotaManage, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'get', userId })
+      })
+
+      const result = await response.json()
+      if (result.success && result.data) {
+        // 同步到本地缓存
+        const userInfo = getUserInfo()
+        if (userInfo) {
+          userInfo.downloadQuota = result.data.downloadQuota
+          setUserInfo(userInfo)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('获取下载次数失败:', error)
+      return { success: false, message: '获取下载次数失败', data: { downloadQuota: 0 } }
+    }
+  }
+
+  // 扣减下载次数（下载海报时调用）
+  async function deductDownloadQuota(templateId, templateName) {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+
+      const response = await fetch(APIs.downloadQuotaManage, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'deduct',
+          userId,
+          templateId: templateId || '',
+          templateName: templateName || ''
+        })
+      })
+
+      const result = await response.json()
+      if (result.success && result.data) {
+        // 同步到本地缓存
+        const userInfo = getUserInfo()
+        if (userInfo) {
+          userInfo.downloadQuota = result.data.downloadQuota
+          setUserInfo(userInfo)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('扣减下载次数失败:', error)
+      return { success: false, message: '扣减下载次数失败' }
+    }
+  }
+
+  // 增加下载次数（购买/赠送/抽奖等）
+  async function addDownloadQuota(amount, source, remark) {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+
+      const response = await fetch(APIs.downloadQuotaManage, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'add',
+          userId,
+          amount,
+          source,
+          remark: remark || ''
+        })
+      })
+
+      const result = await response.json()
+      if (result.success && result.data) {
+        // 同步到本地缓存
+        const userInfo = getUserInfo()
+        if (userInfo) {
+          userInfo.downloadQuota = result.data.downloadQuota
+          setUserInfo(userInfo)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('增加下载次数失败:', error)
+      return { success: false, message: '增加下载次数失败' }
+    }
+  }
+
+  // 获取下载次数变更记录
+  async function getDownloadQuotaLogs(page = 1, pageSize = 20) {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+
+      const response = await fetch(APIs.downloadQuotaLogs, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, page, pageSize })
+      })
+
+      return await response.json()
+    } catch (error) {
+      console.error('获取下载记录失败:', error)
+      return { success: false, message: '获取下载记录失败' }
+    }
+  }
+
   return {
     sendSMS,
     registerOrLogin,
@@ -463,7 +589,11 @@ const VIPSystem = (function() {
     isVip,
     getVipExpireTime,
     createPaymentOrder,
-    getPaymentOrderList
+    getPaymentOrderList,
+    getDownloadQuota,
+    deductDownloadQuota,
+    addDownloadQuota,
+    getDownloadQuotaLogs
   };
 })();
 

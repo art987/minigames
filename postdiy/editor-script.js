@@ -1888,10 +1888,12 @@ const ThumbnailLoader = {
       posterPromoText: document.getElementById('posterPromoText'),
       posterLogo: document.getElementById('posterLogo'),
       posterLogoImg: document.getElementById('posterLogoImg'),
-      logoPlaceholder: document.getElementById('logoPlaceholder'),
+      logoPlaceholder: document.getElementById('logoDefaultImg'),
+      logoDefaultImg: document.getElementById('logoDefaultImg'),
       posterQrcode: document.getElementById('posterQrcode'),
       posterQrcodeImg: document.getElementById('posterQrcodeImg'),
-      qrcodePlaceholder: document.getElementById('qrcodePlaceholder'),
+      qrcodePlaceholder: document.getElementById('qrcodeDefaultImg'),
+      qrcodeDefaultImg: document.getElementById('qrcodeDefaultImg'),
       templateTriggerArea: document.getElementById('templateTriggerArea'),
       
       // 模态框
@@ -3478,7 +3480,31 @@ const ThumbnailLoader = {
       });
     }
     if (elements.saveBusinessInfoBtn) {
-      elements.saveBusinessInfoBtn.addEventListener('click', saveBusinessInfo);
+      elements.saveBusinessInfoBtn.addEventListener('click', function() {
+        // 品牌名称为空时阻止保存
+        const nameVal = elements.businessNameInput ? elements.businessNameInput.value.trim() : '';
+        if (!nameVal) {
+          showToast('请先填写品牌/门店名称');
+          if (elements.businessNameInput) {
+            elements.businessNameInput.focus();
+            elements.businessNameInput.style.borderColor = '#ff4444';
+            setTimeout(() => { elements.businessNameInput.style.borderColor = ''; }, 2000);
+          }
+          return;
+        }
+        saveBusinessInfo();
+      });
+    }
+    // 品牌名称输入时实时更新保存按钮状态
+    if (elements.businessNameInput && elements.saveBusinessInfoBtn) {
+      function updateSaveBtnState() {
+        const hasName = elements.businessNameInput.value.trim() !== '';
+        elements.saveBusinessInfoBtn.disabled = !hasName;
+        elements.saveBusinessInfoBtn.style.opacity = hasName ? '1' : '0.5';
+      }
+      elements.businessNameInput.addEventListener('input', updateSaveBtnState);
+      // 初始化按钮状态
+      updateSaveBtnState();
     }
     // 促销文案模板按钮事件
     if (elements.selectPromoTemplateBtn) {
@@ -4415,6 +4441,9 @@ const ThumbnailLoader = {
     // 检查VIP状态
     checkVipStatus();
     
+    // 加载下载次数
+    loadDownloadQuota();
+    
     // 优先加载VIP专属缓存（如果用户是VIP）
     if (window.isVipActive && window.isVipActive()) {
       const vipId = localStorage.getItem('vipId');
@@ -4724,7 +4753,7 @@ const ThumbnailLoader = {
     }
     
     // 更新商家Logo
-    if (elements.posterLogoImg && elements.logoPlaceholder) {
+    if (elements.posterLogoImg) {
       elements.posterLogoImg.onload = function() {
         updateLogoSize();
       };
@@ -4742,16 +4771,14 @@ const ThumbnailLoader = {
       if (state.businessInfo.logo) {
         elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
-        elements.logoPlaceholder.style.display = 'none';
+        elements.logoDefaultImg.style.display = 'none';
         
         // 优先使用缓存的base64数据
         const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
         if (cachedLogo && cachedLogo.startsWith('data:image')) {
           elements.posterLogoImg.src = cachedLogo;
         } else {
-          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterLogoImg.src = state.businessInfo.logo;
-          // 异步加载base64并缓存
           loadImageAsBase64(state.businessInfo.logo).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.logo, base64);
           }).catch(e => {
@@ -4759,18 +4786,17 @@ const ThumbnailLoader = {
           });
         }
       } else {
-        elements.posterLogoImg.src = 'images/statics/logo-default.gif';
+        elements.posterLogoImg.src = '';
         elements.posterLogoImg.dataset.cloudUrl = '';
-        elements.posterLogoImg.style.display = 'block';
-        elements.logoPlaceholder.style.display = 'none';
+        elements.posterLogoImg.style.display = 'none';
+        elements.logoDefaultImg.style.display = 'block';
       }
 
       updateLogoSize();
     }
     
     // 更新二维码
-    if (elements.posterQrcodeImg && elements.qrcodePlaceholder) {
-      // 先清理二维码容器中的所有canvas元素
+    if (elements.posterQrcodeImg) {
       const qrcodeContainer = elements.posterQrcodeImg.parentElement;
       if (qrcodeContainer) {
         const canvases = qrcodeContainer.querySelectorAll('canvas');
@@ -4784,16 +4810,14 @@ const ThumbnailLoader = {
       if (state.businessInfo.qrcode) {
         elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
-        elements.qrcodePlaceholder.style.display = 'none';
+        elements.qrcodeDefaultImg.style.display = 'none';
         
         // 优先使用缓存的base64数据
         const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
         if (cachedQr && cachedQr.startsWith('data:image')) {
           elements.posterQrcodeImg.src = cachedQr;
         } else {
-          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterQrcodeImg.src = state.businessInfo.qrcode;
-          // 异步加载base64并缓存
           loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
           }).catch(e => {
@@ -4801,10 +4825,10 @@ const ThumbnailLoader = {
           });
         }
       } else {
-        elements.posterQrcodeImg.src = 'images/statics/qrcode-default.gif';
+        elements.posterQrcodeImg.src = '';
         elements.posterQrcodeImg.dataset.cloudUrl = '';
-        elements.posterQrcodeImg.style.display = 'block';
-        elements.qrcodePlaceholder.style.display = 'none';
+        elements.posterQrcodeImg.style.display = 'none';
+        elements.qrcodeDefaultImg.style.display = 'block';
       }
     }
     
@@ -7088,6 +7112,13 @@ const ThumbnailLoader = {
     // 同时设置display确保兼容性
     elements.businessInfoModal.style.display = 'flex';
     
+    // 更新保存按钮状态（品牌名称为空时禁用）
+    if (elements.businessNameInput && elements.saveBusinessInfoBtn) {
+      const hasName = elements.businessNameInput.value.trim() !== '';
+      elements.saveBusinessInfoBtn.disabled = !hasName;
+      elements.saveBusinessInfoBtn.style.opacity = hasName ? '1' : '0.5';
+    }
+    
     // 强制重绘以触发动画
     void elements.businessInfoModal.offsetWidth;
     
@@ -7168,6 +7199,14 @@ const ThumbnailLoader = {
     
     const newName = elements.businessNameInput.value.trim() || '您的品牌名称';
     const newPromoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
+    
+    // 检查是否满足完善品牌信息奖励条件：品牌名称非空且未领取过奖励
+    const brandNameFilled = elements.businessNameInput.value.trim() !== '';
+    const bonusClaimed = localStorage.getItem('brandInfoBonusClaimed') === 'true';
+    let shouldClaimBonus = false;
+    if (brandNameFilled && !bonusClaimed && typeof VIPSystem !== 'undefined' && !VIPSystem.isVip()) {
+      shouldClaimBonus = true;
+    }
     
     state.businessInfo.name = newName;
     state.businessInfo.promoText = newPromoText;
@@ -7283,6 +7322,23 @@ const ThumbnailLoader = {
       
       // 云端同步成功后更新本地存储
       saveBusinessInfoToLocalStorage();
+      
+      // 完善品牌信息奖励：首次填写品牌名称赠送10次下载
+      if (shouldClaimBonus) {
+        try {
+          const bonusResult = await VIPSystem.addDownloadQuota(10, 'brand_info_completed', '完善品牌信息奖励');
+          if (bonusResult.success) {
+            localStorage.setItem('brandInfoBonusClaimed', 'true');
+            showToast('商家信息保存成功');
+            showBrandInfoBonusModal();
+            return; // 弹窗代替后续关闭逻辑，在弹窗按钮中处理
+          } else {
+            console.warn('品牌信息奖励领取失败:', bonusResult.message);
+          }
+        } catch (e) {
+          console.warn('品牌信息奖励领取异常:', e);
+        }
+      }
       
       showToast('商家信息保存成功');
       
@@ -8658,6 +8714,45 @@ const ThumbnailLoader = {
       return;
     }
     
+    // 检查商家信息完整性
+    const incompleteItems = checkBusinessInfoIncomplete();
+    if (incompleteItems.length > 0) {
+      showIncompleteInfoModal(incompleteItems);
+      return;
+    }
+    
+    // VIP用户不扣减次数，非VIP用户需要扣减
+    let needDeductQuota = true;
+    if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip()) {
+      needDeductQuota = false;
+    }
+    
+    // 非VIP用户：扣减下载次数
+    if (needDeductQuota && typeof VIPSystem !== 'undefined') {
+      const templateId = state.currentTemplate ? (state.currentTemplate.id || '') : '';
+      const templateName = state.currentTemplate ? (state.currentTemplate.name || '') : '';
+      
+      try {
+        const deductResult = await VIPSystem.deductDownloadQuota(templateId, templateName);
+        if (!deductResult.success) {
+          // 如果明确是次数不足，弹窗提示
+          if (deductResult.message && deductResult.message.includes('次数不足')) {
+            showToast(deductResult.message || '下载次数不足');
+            showQuotaExhaustedModal();
+            return;
+          }
+          // 其他错误（网络、服务异常等），允许兜底下载
+          console.warn('扣减下载次数失败（非次数不足），允许兜底下载:', deductResult.message);
+        } else {
+          console.log('下载次数扣减成功，剩余:', deductResult.data.downloadQuota);
+          updateQuotaDisplay(deductResult.data.downloadQuota);
+        }
+      } catch (e) {
+        // 扣减异常时允许兜底下载
+        console.warn('扣减下载次数异常，允许兜底下载:', e);
+      }
+    }
+    
     // 记录开始时间
     const startTime = Date.now();
     
@@ -8733,19 +8828,315 @@ const ThumbnailLoader = {
       }
       
       if (isVip) {
-        // VIP用户直接下载，无需券码验证
+        // VIP用户直接下载，无需扣减次数
         console.log('VIP用户，直接下载');
         await downloadPosterAfterVerification();
       } else {
-        // 普通用户显示广告弹窗，15秒倒计时后可下载
-        console.log('非VIP用户，显示广告弹窗');
-        showAdModal();
+        // 非VIP用户：检查下载次数
+        if (typeof VIPSystem !== 'undefined') {
+          const quotaResult = await VIPSystem.getDownloadQuota();
+          if (quotaResult.success && quotaResult.data) {
+            const quota = quotaResult.data.downloadQuota;
+            console.log('剩余下载次数:', quota);
+            updateQuotaDisplay(quota);
+            
+            if (quota <= 0) {
+              // 次数用完，显示提示
+              showQuotaExhaustedModal();
+              return;
+            }
+            // 有剩余次数，直接下载
+            await downloadPosterAfterVerification();
+          } else {
+            // 获取次数失败，仍然允许下载（兜底）
+            console.warn('获取下载次数失败，允许下载');
+            await downloadPosterAfterVerification();
+          }
+        } else {
+          // VIPSystem 不可用，显示广告弹窗
+          showAdModal();
+        }
       }
     } catch (error) {
       console.error('检查VIP状态时出错:', error);
       // 出错时默认显示广告弹窗
       showAdModal();
     }
+  }
+
+  // 检查商家信息是否完整
+  function checkBusinessInfoIncomplete() {
+    const incomplete = []
+    const info = state.businessInfo
+    
+    if (!info.name || info.name === '您的品牌名称') {
+      incomplete.push('商家名称')
+    }
+    if (!info.logo) {
+      incomplete.push('商家Logo')
+    }
+    if (!info.qrcode) {
+      incomplete.push('商家二维码')
+    }
+    if (!info.promoText || info.promoText === '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）') {
+      incomplete.push('促销文案')
+    }
+    
+    return incomplete
+  }
+
+  // 彩纸迸发特效
+  function launchConfetti() {
+    const container = document.createElement('div');
+    container.className = 'confetti-container';
+    document.body.appendChild(container);
+
+    const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6eb4', '#a66cff', '#ff9f43'];
+    const shapes = ['square', 'circle', 'rectangle'];
+
+    for (let i = 0; i < 80; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const left = Math.random() * 100;
+      const delay = Math.random() * 1.5;
+      const duration = 2 + Math.random() * 2;
+      const size = 6 + Math.random() * 8;
+
+      piece.style.left = left + '%';
+      piece.style.animationDelay = delay + 's';
+      piece.style.animationDuration = duration + 's';
+      piece.style.backgroundColor = color;
+
+      if (shape === 'circle') {
+        piece.style.borderRadius = '50%';
+        piece.style.width = size + 'px';
+        piece.style.height = size + 'px';
+      } else if (shape === 'rectangle') {
+        piece.style.width = size * 0.4 + 'px';
+        piece.style.height = size + 'px';
+      } else {
+        piece.style.width = size + 'px';
+        piece.style.height = size + 'px';
+      }
+
+      container.appendChild(piece);
+    }
+
+    setTimeout(() => container.remove(), 5000);
+  }
+
+  // 完善品牌信息奖励弹窗
+  function showBrandInfoBonusModal() {
+    // 关闭品牌信息弹窗
+    if (elements.businessInfoModal) {
+      elements.businessInfoModal.classList.add('hidden');
+      elements.businessInfoModal.style.display = 'none';
+    }
+
+    // 发射彩纸
+    launchConfetti();
+
+    let modal = document.getElementById('brandInfoBonusModal');
+    if (modal) modal.remove();
+
+    modal = document.createElement('div');
+    modal.id = 'brandInfoBonusModal';
+    modal.className = 'global-modal-overlay';
+    modal.style.zIndex = '10001';
+
+    modal.innerHTML = `
+      <div class="global-modal-card">
+        <h3 class="modal-title">品牌信息已完善</h3>
+        <p class="modal-desc">🎊恭喜您获得 <span class="modal-highlight">10</span> 次免费下载海报额度</p>
+      
+        <button id="brandBonusContinueBtn" class="global-modal-btn global-modal-btn-outline">继续使用</button>
+        <button id="brandBonusUpgradeBtn" class="global-modal-btn global-modal-btn-primary">升级无限额VIP</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById('brandBonusContinueBtn').addEventListener('click', () => {
+      modal.remove();
+    });
+
+    document.getElementById('brandBonusUpgradeBtn').addEventListener('click', () => {
+      modal.remove();
+      if (typeof window.showVipUpgradeModal === 'function') {
+        window.showVipUpgradeModal();
+      }
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove();
+    });
+  }
+
+  // 商家信息不完整提示弹窗
+  function showIncompleteInfoModal(incompleteItems) {
+    let modal = document.getElementById('incompleteInfoModal')
+    if (modal) modal.remove()
+
+    modal = document.createElement('div')
+    modal.id = 'incompleteInfoModal'
+    modal.className = 'global-modal-overlay'
+
+    const itemsHtml = incompleteItems.map(item => `<span class="modal-tag">${item}</span>`).join('')
+
+    modal.innerHTML = `
+      <div class="global-modal-card">
+        <h3 class="modal-title">您的海报信息尚未完善</h3>
+        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善后下载：</p>
+       
+        <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">继续下载（-1次）</button>
+        <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">完善品牌信息（+10次下载）</button>
+      </div>
+    `
+
+    document.body.appendChild(modal)
+
+    document.getElementById('incompleteContinueBtn').addEventListener('click', () => {
+      modal.remove()
+      forceDownloadAfterInfoCheck()
+    })
+
+    document.getElementById('incompleteLaterBtn').addEventListener('click', () => {
+      modal.remove()
+      openBusinessInfoModal()
+    })
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove()
+    })
+  }
+
+  // 跳过商家信息检查的强制下载
+  async function forceDownloadAfterInfoCheck() {
+    // VIP用户不扣减次数，非VIP用户需要扣减
+    let needDeductQuota = true
+    if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip()) {
+      needDeductQuota = false
+    }
+
+    // 非VIP用户：扣减下载次数
+    if (needDeductQuota && typeof VIPSystem !== 'undefined') {
+      const templateId = state.currentTemplate ? (state.currentTemplate.id || '') : ''
+      const templateName = state.currentTemplate ? (state.currentTemplate.name || '') : ''
+
+      try {
+        const deductResult = await VIPSystem.deductDownloadQuota(templateId, templateName)
+        if (!deductResult.success) {
+          if (deductResult.message && deductResult.message.includes('次数不足')) {
+            showToast(deductResult.message || '下载次数不足')
+            showQuotaExhaustedModal()
+            return
+          }
+          console.warn('扣减下载次数失败（非次数不足），允许兜底下载:', deductResult.message)
+        } else {
+          console.log('下载次数扣减成功，剩余:', deductResult.data.downloadQuota)
+          updateQuotaDisplay(deductResult.data.downloadQuota)
+        }
+      } catch (e) {
+        console.warn('扣减下载次数异常，允许兜底下载:', e)
+      }
+    }
+
+    // 记录开始时间
+    const startTime = Date.now()
+
+    // 显示加载动画
+    showLoadingAnimation()
+
+    // 显示加载状态
+    if (elements.downloadBtn) {
+      elements.downloadBtn.disabled = true
+      elements.downloadBtn.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('spinner', 'svg-icon svg-icon-spin') : '<i class="fa fa-spinner fa-spin"></i>'} 正在生成...`
+    }
+
+    try {
+      await convertToImageAndDownload()
+    } catch (error) {
+      console.error('下载海报过程中出错:', error)
+      showToast('下载海报失败，请重试')
+    } finally {
+      const elapsedTime = Date.now() - startTime
+      const minDisplayTime = 3500
+      if (elapsedTime < minDisplayTime) {
+        const remainingTime = minDisplayTime - elapsedTime
+        await new Promise(resolve => setTimeout(resolve, remainingTime))
+      }
+      hideLoadingAnimation()
+      if (elements.downloadBtn) {
+        elements.downloadBtn.disabled = false
+        elements.downloadBtn.innerHTML = `${window.getSVGIcon ? window.getSVGIcon('download', 'svg-icon') : '<i class="fa fa-download"></i>'} 下载海报`
+        if (window.downloadButtonAnimation) {
+          setTimeout(() => {
+            window.downloadButtonAnimation.start()
+          }, 3000)
+        }
+      }
+    }
+  }
+
+  // 更新下载次数显示
+  function updateQuotaDisplay(quota) {
+    let quotaEl = document.getElementById('downloadQuotaDisplay');
+    if (!quotaEl && elements.downloadBtn) {
+      quotaEl = document.createElement('span');
+      quotaEl.id = 'downloadQuotaDisplay';
+      quotaEl.style.cssText = 'font-size:12px;color:#ff9800;margin-left:6px;';
+      elements.downloadBtn.parentNode.insertBefore(quotaEl, elements.downloadBtn.nextSibling);
+    }
+    if (quotaEl) {
+      if (quota > 0) {
+        quotaEl.textContent = `剩余${quota}次`;
+        quotaEl.style.color = '#ff9800';
+      } else {
+        quotaEl.textContent = '次数已用完';
+        quotaEl.style.color = '#f44336';
+      }
+    }
+  }
+
+  // 次数不足弹窗
+  function showQuotaExhaustedModal() {
+    let modal = document.getElementById('quotaExhaustedModal');
+    if (modal) modal.remove();
+
+    modal = document.createElement('div');
+    modal.id = 'quotaExhaustedModal';
+    modal.className = 'global-modal-overlay';
+
+    modal.innerHTML = `
+      <div class="global-modal-card">
+        <div class="modal-icon">😔</div>
+        <h3 class="modal-title">您的免费下载次数已用完</h3>
+        <p class="modal-desc">升级VIP品牌账号，<span style="color:#e60000;">不限额度下载</span></p>
+        <button id="quotaUpgradeBtn" class="global-modal-btn global-modal-btn-primary">优惠升级</button>
+        <button id="quotaCloseBtn" class="global-modal-btn global-modal-btn-secondary">不想升级</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById('quotaUpgradeBtn').addEventListener('click', () => {
+      modal.remove();
+      if (typeof VIPSystem !== 'undefined' && !VIPSystem.isLoggedIn()) {
+        showLoginReminder();
+      } else {
+        showVipUpgradeModal();
+      }
+    });
+
+    document.getElementById('quotaCloseBtn').addEventListener('click', () => {
+      modal.remove();
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove();
+    });
   }
 
   // 广告弹窗
@@ -9894,6 +10285,42 @@ const ThumbnailLoader = {
 });
 
 // VIP相关功能
+
+// 加载下载次数
+async function loadDownloadQuota() {
+  try {
+    if (typeof VIPSystem === 'undefined' || !VIPSystem.getUserId()) return;
+    if (VIPSystem.isVip()) return; // VIP用户不需要显示次数
+    
+    const result = await VIPSystem.getDownloadQuota();
+    if (result.success && result.data) {
+      const quota = result.data.downloadQuota;
+      console.log('下载次数加载成功:', quota);
+      
+      // 在下载按钮旁显示剩余次数
+      const downloadBtn = document.getElementById('downloadBtn');
+      if (downloadBtn) {
+        let quotaEl = document.getElementById('downloadQuotaDisplay');
+        if (!quotaEl) {
+          quotaEl = document.createElement('span');
+          quotaEl.id = 'downloadQuotaDisplay';
+          quotaEl.style.cssText = 'font-size:12px;color:#ff9800;margin-left:6px;';
+          downloadBtn.parentNode.insertBefore(quotaEl, downloadBtn.nextSibling);
+        }
+        if (quota > 0) {
+          quotaEl.textContent = `剩余${quota}次`;
+          quotaEl.style.color = '#ff9800';
+        } else {
+          quotaEl.textContent = '次数已用完';
+          quotaEl.style.color = '#f44336';
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('加载下载次数失败:', e);
+  }
+}
+
 function checkVipStatus() {
   // 检查URL参数
   const urlParams = new URLSearchParams(window.location.search);
@@ -10250,8 +10677,7 @@ function updateBusinessInfoButtonForVip() {
     }
     
     // 更新商家Logo
-    if (elements.posterLogoImg && elements.logoPlaceholder) {
-      // 先清理Logo容器中的所有canvas元素
+    if (elements.posterLogoImg) {
       const logoContainer = elements.posterLogoImg.parentElement;
       if (logoContainer) {
         const canvases = logoContainer.querySelectorAll('canvas');
@@ -10265,14 +10691,12 @@ function updateBusinessInfoButtonForVip() {
       if (state.businessInfo.logo) {
         elements.posterLogoImg.dataset.cloudUrl = state.businessInfo.logo;
         elements.posterLogoImg.style.display = 'block';
-        elements.logoPlaceholder.style.display = 'none';
+        elements.logoDefaultImg.style.display = 'none';
         
-        // 优先使用缓存的base64数据
         const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
         if (cachedLogo && cachedLogo.startsWith('data:image')) {
           elements.posterLogoImg.src = cachedLogo;
         } else {
-          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterLogoImg.src = state.businessInfo.logo;
           loadImageAsBase64(state.businessInfo.logo).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.logo, base64);
@@ -10283,13 +10707,13 @@ function updateBusinessInfoButtonForVip() {
       } else {
         elements.posterLogoImg.style.display = 'none';
         elements.posterLogoImg.dataset.cloudUrl = '';
-        elements.logoPlaceholder.style.display = 'block';
+        elements.posterLogoImg.src = '';
+        elements.logoDefaultImg.style.display = 'block';
       }
     }
     
     // 更新二维码
-    if (elements.posterQrcodeImg && elements.qrcodePlaceholder) {
-      // 先清理二维码容器中的所有canvas元素
+    if (elements.posterQrcodeImg) {
       const qrcodeContainer = elements.posterQrcodeImg.parentElement;
       if (qrcodeContainer) {
         const canvases = qrcodeContainer.querySelectorAll('canvas');
@@ -10303,14 +10727,12 @@ function updateBusinessInfoButtonForVip() {
       if (state.businessInfo.qrcode) {
         elements.posterQrcodeImg.dataset.cloudUrl = state.businessInfo.qrcode;
         elements.posterQrcodeImg.style.display = 'block';
-        elements.qrcodePlaceholder.style.display = 'none';
+        elements.qrcodeDefaultImg.style.display = 'none';
         
-        // 优先使用缓存的base64数据
         const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
         if (cachedQr && cachedQr.startsWith('data:image')) {
           elements.posterQrcodeImg.src = cachedQr;
         } else {
-          // 没有缓存，直接加载云端URL（不设crossOrigin，避免CORS问题）
           elements.posterQrcodeImg.src = state.businessInfo.qrcode;
           loadImageAsBase64(state.businessInfo.qrcode).then(base64 => {
             saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
@@ -10321,7 +10743,8 @@ function updateBusinessInfoButtonForVip() {
       } else {
         elements.posterQrcodeImg.style.display = 'none';
         elements.posterQrcodeImg.dataset.cloudUrl = '';
-        elements.qrcodePlaceholder.style.display = 'block';
+        elements.posterQrcodeImg.src = '';
+        elements.qrcodeDefaultImg.style.display = 'block';
       }
     }
     
@@ -15297,4 +15720,97 @@ window.textTemplateManager = {
     });
   } else {
     initEditorHomePopup();
+  }
+
+  // 非VIP用户温馨提示弹窗
+  function initFreeQuotaReminder() {
+    const STORAGE_KEY = 'freeQuotaReminderLastShown';
+    const INTERVAL_MS = 60 * 60 * 1000; // 1小时
+
+    function shouldShowReminder() {
+      const lastShown = localStorage.getItem(STORAGE_KEY);
+      if (!lastShown) return true; // 从未显示过
+      return (Date.now() - parseInt(lastShown)) >= INTERVAL_MS;
+    }
+
+    async function checkAndShowReminder() {
+      // 未登录不显示
+      if (typeof VIPSystem === 'undefined' || !VIPSystem.isLoggedIn()) return;
+
+      try {
+        // 检查VIP状态
+        const userId = VIPSystem.getUserId();
+        const userInfo = VIPSystem.getUserInfo();
+        const phone = userInfo ? userInfo.phone : null;
+        if (!userId && !phone) return;
+
+        const vipResult = await VIPSystem.checkVipStatus(userId, phone);
+        if (vipResult.success && vipResult.data && vipResult.data.isVip) return; // VIP不显示
+
+        // 获取下载次数
+        const quotaResult = await VIPSystem.getDownloadQuota();
+        if (!quotaResult.success || !quotaResult.data) return;
+        const quota = quotaResult.data.downloadQuota;
+        if (quota <= 0) return; // 次数用完不显示
+
+        // 检查是否需要显示
+        if (!shouldShowReminder()) return;
+
+        // 显示温馨提示
+        showFreeQuotaReminderModal(quota);
+      } catch (e) {
+        console.warn('温馨提示检查失败:', e);
+      }
+    }
+
+    function showFreeQuotaReminderModal(quota) {
+      localStorage.setItem(STORAGE_KEY, Date.now().toString());
+
+      let modal = document.getElementById('freeQuotaReminderModal');
+      if (modal) modal.remove();
+
+      modal = document.createElement('div');
+      modal.id = 'freeQuotaReminderModal';
+      modal.className = 'global-modal-overlay';
+      modal.style.zIndex = '10001';
+
+      modal.innerHTML = `
+        <div class="global-modal-card">
+          <h3 class="modal-title">温馨提醒</h3>
+          <p class="modal-desc">您还可以免费下载 <span class="modal-highlight">${quota}</span> 张品牌节日宣传海报哟~</p>
+          
+          <button id="freeQuotaGotItBtn" class="global-modal-btn global-modal-btn-secondary">继续体验</button>
+          <button id="freeQuotaUpgradeBtn" class="global-modal-btn global-modal-btn-danger">升级VIP（不限额度）</button>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      document.getElementById('freeQuotaGotItBtn').addEventListener('click', () => {
+        modal.remove();
+      });
+
+      document.getElementById('freeQuotaUpgradeBtn').addEventListener('click', () => {
+        modal.remove();
+        if (typeof window.showVipUpgradeModal === 'function') {
+          window.showVipUpgradeModal();
+        }
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+      });
+    }
+
+    // 页面加载后延迟2秒显示，避免与其他弹窗冲突
+    setTimeout(checkAndShowReminder, 2000);
+  }
+
+  // 初始化温馨提示
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initFreeQuotaReminder();
+    });
+  } else {
+    initFreeQuotaReminder();
   }
