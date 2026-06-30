@@ -8985,13 +8985,19 @@ const ThumbnailLoader = {
 
     const itemsHtml = incompleteItems.map(item => `<span class="modal-tag">${item}</span>`).join('')
 
+    // 判断是否只差促销文案
+    const onlyPromoTextMissing = incompleteItems.length === 1 && incompleteItems[0] === '促销文案'
+    const modalTitle = onlyPromoTextMissing ? '您的促销文案尚未完善' : '您的海报信息尚未完善'
+    const laterBtnText = onlyPromoTextMissing ? '完善促销文案' : '完善品牌信息（+10次下载）'
+
     modal.innerHTML = `
       <div class="global-modal-card">
-        <h3 class="modal-title">您的海报信息尚未完善</h3>
-        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善后下载：</p>
-       
+        <div class="modal-icon">⚠️</div>
+        <h3 class="modal-title">${modalTitle}</h3>
+        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善：</p>
+        <div style="margin-bottom:20px;">${itemsHtml}</div>
         <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">继续下载（-1次）</button>
-        <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">完善品牌信息（+10次下载）</button>
+        <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">${laterBtnText}</button>
       </div>
     `
 
@@ -9004,7 +9010,11 @@ const ThumbnailLoader = {
 
     document.getElementById('incompleteLaterBtn').addEventListener('click', () => {
       modal.remove()
-      openBusinessInfoModal()
+      if (onlyPromoTextMissing) {
+        openPromoTextModal()
+      } else {
+        openBusinessInfoModal()
+      }
     })
 
     modal.addEventListener('click', (e) => {
@@ -15777,10 +15787,10 @@ window.textTemplateManager = {
       modal.innerHTML = `
         <div class="global-modal-card">
           <h3 class="modal-title">温馨提醒</h3>
-          <p class="modal-desc">您还可以免费下载 <span class="modal-highlight">${quota}</span> 张品牌节日宣传海报哟~</p>
+          <p class="modal-desc">您还可以免费下载 <br><span class="modal-highlight">${quota}</span> 张品牌节日宣传海报哟~</p>
           
-          <button id="freeQuotaGotItBtn" class="global-modal-btn global-modal-btn-secondary">继续体验</button>
-          <button id="freeQuotaUpgradeBtn" class="global-modal-btn global-modal-btn-danger">升级VIP（不限额度）</button>
+          <button id="freeQuotaGotItBtn" class="global-modal-btn global-modal-btn-secondary">知道了</button>
+          
         </div>
       `;
 

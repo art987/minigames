@@ -93,7 +93,12 @@ window.words7000Basic = {
       { a: "alive", b: "əˈlaɪv (adj.) 活着的，有活力的，热闹的", c: "" },
       { a: "aloud", b: "əˈlaʊd (adv.) 大声地", c: "" },
       { a: "apart", b: "əˈpɑrt (adv.) 分开，相距", c: "" },
-      { a: "arise", b: "əˈraɪz (v.) 出现，产生", c: "" }
+      { a: "arise", b: "əˈraɪz (v.) 出现，产生", c: "" },
+      { a: "abuse", b: "əˈbjus (n.) 滥用，辱骂，虐待", c: "" },
+      { a: "altogether", b: "ˌɔltəˈgɛðɚ (adv.) 完全，全然，总之", c: "" },
+      { a: "aside", b: "əˈsaɪd (adv.) 在旁边", c: "" },
+      { a: "asleep", b: "əˈslip (adj.) 睡着的", c: "" },
+      { a: "await", b: "əˈwet (v.) 等待", c: "" }
     ],
     "B": [
       { a: "baby", b: "ˈbebɪ (n.) 婴儿", c: "" },
@@ -205,7 +210,9 @@ window.words7000Basic = {
       { a: "by", b: "baɪ (prep.) 被，由", c: "" },
       { a: "behave", b: "bɪˈhev (v.) 表现，行为", c: "" },
       { a: "behavior", b: "bɪˈhevjɚ (n.) 行为", c: "" },
-      { a: "beloved", b: "bɪˈlʌvd (adj.) 心爱的 (n.) 心爱的人", c: "" }
+      { a: "beloved", b: "bɪˈlʌvd (adj.) 心爱的 (n.) 心爱的人", c: "" },
+      { a: "beside", b: "bɪˈsaɪd (prep.) 在旁边", c: "" },
+      { a: "besides", b: "bɪˈsaɪdz (prep.) 除......之外 (adv.) 此外，而且", c: "" }
     ],
     "C": [
       { a: "cafe", b: "kæˈfe (n.) 咖啡厅，小餐馆", c: "" },
@@ -320,7 +327,8 @@ window.words7000Basic = {
       { a: "cut", b: "kʌt (v.) 切，割，剪", c: "" },
       { a: "cute", b: "kjut (adj.) 漂亮的，可爱的", c: "" },
       { a: "compassion", b: "kəmˈpæʃən (n.) 同情", c: "" },
-      { a: "compassionate", b: "kəmˈpæʃənət (adj.) 有同情心的", c: "" }
+      { a: "compassionate", b: "kəmˈpæʃənət (adj.) 有同情心的", c: "" },
+      { a: "cocktail", b: "ˈkɑkˌtel (n.) 鸡尾酒", c: "" }
     ],
     "D": [
       { a: "daddy", b: "ˈdædɪ (n.) 爸爸", c: "" },
@@ -476,7 +484,9 @@ window.words7000Basic = {
       { a: "enrich", b: "ɪnˈrɪtʃ (v.) 充实", c: "" },
       { a: "enrichment", b: "ɪnˈrɪtʃmənt (n.) 充实，丰富", c: "" },
       { a: "enroll", b: "ɪnˈrol (v.) 注册，登记", c: "" },
-      { a: "enrollment", b: "ɪnˈrolmənt (n.) 登记", c: "" }
+      { a: "enrollment", b: "ɪnˈrolmənt (n.) 登记", c: "" },
+      { a: "ensure", b: "ɪnˈʃʊr (v.) 保证", c: "" },
+      { a: "essay", b: "ˈɛse (n.) 散文，短文", c: "" }
     ],
     "F": [
       { a: "face", b: "fes (n.) 脸，面孔", c: "" },
@@ -571,7 +581,8 @@ window.words7000Basic = {
       { a: "full", b: "ful (adj.) 满的，充满的", c: "" },
       { a: "fun", b: "fʌn (n.) 娱乐，乐趣", c: "" },
       { a: "funny", b: "ˈfʌnɪ (adj.) 有趣的", c: "" },
-      { a: "forehead", b: "ˈfɔrˌhɛd (n.) 额头", c: "" }
+      { a: "forehead", b: "ˈfɔrˌhɛd (n.) 额头", c: "" },
+      { a: "foresee", b: "fɔrˈsi (v.) 预见", c: "" }
     ],
     "G": [
       { a: "game", b: "gem (n.) 游戏", c: "" },
