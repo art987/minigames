@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>记忆学习</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="tool-container">
+    <div class="tool-header">
+      <div>
+        <a href="index.html" class="back-btn">← 返回首页</a>
+        <h1 id="dataTitle">加载中...</h1>
+      </div>
+    </div>
+
+    <!-- 分类标签区域 -->
+    <div class="category-tabs" id="categoryTabs" style="display: none;">
+      <div class="category-tabs-inner" id="categoryTabsInner">
+        <!-- 分类标签将通过JS动态生成 -->
+      </div>
+    </div>
+
+    <div class="control-panel">
+      <button class="control-btn toggle-a" id="toggleA">隐藏 A 部分</button>
+      <button class="control-btn toggle-b" id="toggleB">隐藏 B 部分</button>
+      <div class="color-filter">
+        <span class="filter-label">筛选:</span>
+        <button class="filter-btn all active" data-filter="all" title="全部">全部</button>
+        <button class="filter-btn black" data-filter="black" title="黑色"></button>
+        <button class="filter-btn white" data-filter="white" title="白色"></button>
+        <button class="filter-btn green" data-filter="green" title="绿色"></button>
+        <button class="filter-btn orange" data-filter="orange" title="橙色"></button>
+        <button class="filter-btn red" data-filter="red" title="红色"></button>
+      </div>
+      <div class="progress-info" id="progressInfo">共 0 条</div>
+    </div>
+
+    <div class="memory-list" id="memoryList">
+      <!-- 记忆项目将通过JS动态生成 -->
+    </div>
+  </div>
+
+  <script>
+    // 数据集配置
+    const dataSets = {
+      'ielts-vocabulary': { file: 'data/ielts-vocabulary.js', variable: 'ieltsVocabulary' },
+      'phrases': { file: 'data/phrases.js', variable: 'phrases' },
+      'grammar-points': { file: 'data/grammar-points.js', variable: 'grammarPoints' },
+      '7000-words': { file: 'data/7000-words.js', variable: 'words7000' }
+    };
+
+    const colors = ['black', 'white', 'green', 'orange', 'red'];
+
+    let currentData = null;
+    let dataId = null;
+    let storageKey = null;
+    let hideA = false;
+    let hideB = false;
+    let currentCategory = null;
+    let currentFilter = 'all'; // 当前筛选的颜色
+
+    // 获取URL参数
+    function getUrlParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // 检查数据是否是分类格式
+    function isCategoryData(data) {
+      return data.categories && data.items && typeof data.items === 'object' && !Array.isArray(data.items);
+    }
+
+    // 获取当前显示的items
+    function getCurrentItems() {
+      if (isCategoryData(currentData)) {
+        return currentData.items[currentCategory] || [];
+      }
+      return currentData.items || [];
+    }
+
+    // 加载数据
+    async function loadData() {
+      dataId = getUrlParam('data');
+      if (!dataId || !dataSets[dataId]) {
+        alert('无效的数据集');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      storageKey = `memorize_${dataId}`;
+      
+      // 动态加载JS文件
+      const script = document.createElement('script');
+      script.src = dataSets[dataId].file;
+      
+      return new Promise((resolve, reject) => {
+        script.onload = () => {
+          currentData = window[dataSets[dataId].variable];
+          resolve();
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    // 从localStorage加载状态
+    function loadState() {
+      const categoryKey = currentCategory ? `${storageKey}_${currentCategory}` : storageKey;
+      const data = localStorage.getItem(categoryKey);
+      if (!data) return {};
+      try {
+        return JSON.parse(data);
+      } catch {
+        return {};
+      }
+    }
+
+    // 保存状态到localStorage
+    function saveState(state) {
+      const categoryKey = currentCategory ? `${storageKey}_${currentCategory}` : storageKey;
+      localStorage.setItem(categoryKey, JSON.stringify(state));
+    }
+
+    // 更新单个项目的状态
+    function updateItemState(index, updates) {
+      const state = loadState();
+      if (!state[index]) {
+        state[index] = {};
+      }
+      Object.assign(state[index], updates);
+      saveState(state);
+    }
+
+    // 渲染分类标签
+    function renderCategoryTabs() {
+      if (!isCategoryData(currentData)) {
+        document.getElementById('categoryTabs').style.display = 'none';
+        return;
+      }
+
+      const tabsContainer = document.getElementById('categoryTabs');
+      const tabsInner = document.getElementById('categoryTabsInner');
+      tabsContainer.style.display = 'block';
+
+      // 获取URL中的分类参数，或选择第一个有内容的分类
+      const urlCategory = getUrlParam('category');
+      const categories = currentData.categories;
+      
+      // 找到第一个有内容的分类
+      if (!urlCategory) {
+        for (const cat of categories) {
+          if (currentData.items[cat] && currentData.items[cat].length > 0) {
+            currentCategory = cat;
+            break;
+          }
+        }
+      } else {
+        currentCategory = urlCategory;
+      }
+
+      tabsInner.innerHTML = categories.map(cat => {
+        const itemCount = currentData.items[cat] ? currentData.items[cat].length : 0;
+        const isEmpty = itemCount === 0;
+        const isActive = cat === currentCategory;
+        return `
+          <button class="category-tab ${isActive ? 'active' : ''} ${isEmpty ? 'empty' : ''}" 
+                  data-category="${cat}">
+            ${cat} ${isEmpty ? '' : `(${itemCount})`}
+          </button>
+        `;
+      }).join('');
+
+      // 绑定分类标签点击事件
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const category = tab.dataset.category;
+          if (currentData.items[category] && currentData.items[category].length === 0) return;
+          
+          currentCategory = category;
+          
+          // 更新URL
+          const newUrl = new URL(window.location);
+          newUrl.searchParams.set('category', category);
+          window.history.replaceState({}, '', newUrl);
+          
+          // 更新标签状态
+          document.querySelectorAll('.category-tab').forEach(t => {
+            t.classList.toggle('active', t.dataset.category === category);
+          });
+          
+          // 将点击的标签滚动到中间位置
+          centerTab(tab);
+          
+          // 重新渲染列表
+          renderList();
+        });
+      });
+
+      // 初始化时将当前标签居中
+      setTimeout(() => {
+        const activeTab = document.querySelector('.category-tab.active');
+        if (activeTab) centerTab(activeTab);
+      }, 100);
+    }
+
+    // 将标签滚动到屏幕中间
+    function centerTab(tab) {
+      const container = document.getElementById('categoryTabs');
+      const tabRect = tab.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      
+      // 计算标签相对于容器的位置
+      const tabLeft = tabRect.left - containerRect.left + container.scrollLeft;
+      const tabCenter = tabLeft + tabRect.width / 2;
+      const containerCenter = containerRect.width / 2;
+      
+      // 计算需要滚动的距离
+      const scrollTarget = tabCenter - containerCenter;
+      
+      container.scrollTo({
+        left: scrollTarget,
+        behavior: 'smooth'
+      });
+    }
+
+    // 渲染记忆列表
+    function renderList() {
+      const state = loadState();
+      const container = document.getElementById('memoryList');
+      const items = getCurrentItems();
+      
+      if (items.length === 0) {
+        container.innerHTML = '<div class="empty-message" style="padding: 40px; text-align: center; color: #999;">暂无数据</div>';
+        document.getElementById('progressInfo').textContent = '共 0 条';
+        return;
+      }
+
+      // 根据筛选条件过滤
+      const filteredItems = items.filter((item, index) => {
+        if (currentFilter === 'all') return true;
+        const itemState = state[index] || {};
+        const color = itemState.color || 'black';
+        return color === currentFilter;
+      });
+
+      container.innerHTML = filteredItems.map((item, displayIndex) => {
+        // 找到原始索引
+        const originalIndex = items.indexOf(item);
+        const itemState = state[originalIndex] || {};
+        const color = itemState.color || 'black';
+        const isAHidden = itemState.hideA || false;
+        const isBHidden = itemState.hideB || false;
+        
+        return `
+          <div class="memory-item" data-original-index="${originalIndex}">
+            <div class="part-a-wrapper">
+              <button class="speak-btn" data-index="${originalIndex}" title="朗读">🔊</button>
+              <div class="part-a text-${color} ${hideA || isAHidden ? 'hidden' : ''}" data-index="${originalIndex}">
+                ${hideA || isAHidden ? '<span class="placeholder">点击显示</span>' : item.a}
+              </div>
+            </div>
+            <div class="part-b text-${color} ${hideB || isBHidden ? 'hidden' : ''}" data-index="${originalIndex}">
+              ${hideB || isBHidden ? '<span class="placeholder">点击显示</span>' : item.b}
+            </div>
+            <div class="part-c">
+              ${colors.map(c => `
+                <button class="color-btn ${c} ${color === c ? 'active' : ''}" 
+                        data-index="${originalIndex}" data-color="${c}" title="${c}"></button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 更新进度信息
+      const categoryText = currentCategory ? ` - ${currentCategory}` : '';
+      const filterText = currentFilter !== 'all' ? ` (${currentFilter}色 ${filteredItems.length}条)` : '';
+      document.getElementById('progressInfo').textContent = `共 ${items.length} 条${categoryText}${filterText}`;
+      
+      // 绑定事件
+      bindEvents();
+    }
+
+    // 朗读功能 - 使用有道词典API，兼容性更好
+    function speakWord(text) {
+      // 使用有道词典发音API
+      const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=1`;
+      
+      // 创建audio元素播放
+      const audio = new Audio(audioUrl);
+      audio.play().catch(e => {
+        // 如果有道API失败，尝试备用方案：Web Speech API
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.85;
+          window.speechSynthesis.speak(utterance);
+        } else {
+          console.warn('无法播放发音');
+        }
+      });
+    }
+
+    // 绑定事件
+    function bindEvents() {
+      const items = getCurrentItems();
+      
+      // 喇叭按钮点击朗读
+      document.querySelectorAll('.speak-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const index = btn.dataset.index;
+          speakWord(items[index].a);
+        });
+      });
+
+      // A部分点击显示/隐藏
+      document.querySelectorAll('.part-a').forEach(el => {
+        el.addEventListener('click', () => {
+          if (hideA) return;
+          const index = el.dataset.index;
+          const state = loadState();
+          const color = state[index]?.color || 'black';
+          
+          el.classList.toggle('hidden');
+          const isHidden = el.classList.contains('hidden');
+          if (isHidden) {
+            el.innerHTML = '<span class="placeholder">点击显示</span>';
+          } else {
+            el.textContent = items[index].a;
+            // 保持颜色类
+            colors.forEach(c => el.classList.remove(`text-${c}`));
+            el.classList.add(`text-${color}`);
+          }
+          updateItemState(index, { hideA: isHidden });
+        });
+      });
+
+      // B部分点击显示/隐藏
+      document.querySelectorAll('.part-b').forEach(el => {
+        el.addEventListener('click', () => {
+          if (hideB) return;
+          const index = el.dataset.index;
+          const state = loadState();
+          const color = state[index]?.color || 'black';
+          
+          el.classList.toggle('hidden');
+          const isHidden = el.classList.contains('hidden');
+          if (isHidden) {
+            el.innerHTML = '<span class="placeholder">点击显示</span>';
+          } else {
+            el.textContent = items[index].b;
+            // 保持颜色类
+            colors.forEach(c => el.classList.remove(`text-${c}`));
+            el.classList.add(`text-${color}`);
+          }
+          updateItemState(index, { hideB: isHidden });
+        });
+      });
+
+      // 颜色按钮点击 - 同时改变A、B的颜色
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.dataset.index;
+          const color = btn.dataset.color;
+          const row = btn.closest('.memory-item');
+          
+          // 更新A、B的颜色
+          const partA = row.querySelector('.part-a');
+          const partB = row.querySelector('.part-b');
+          
+          colors.forEach(c => {
+            partA.classList.remove(`text-${c}`);
+            partB.classList.remove(`text-${c}`);
+          });
+          partA.classList.add(`text-${color}`);
+          partB.classList.add(`text-${color}`);
+          
+          // 更新按钮状态
+          row.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          updateItemState(index, { color });
+        });
+      });
+    }
+
+    // 筛选按钮事件（只需要绑定一次）
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        currentFilter = filter;
+        
+        // 更新筛选按钮状态
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // 重新渲染列表
+        renderList();
+      });
+    });
+
+    // 切换A部分显示
+    function toggleA() {
+      hideA = !hideA;
+      const items = getCurrentItems();
+      const btn = document.getElementById('toggleA');
+      btn.classList.toggle('hidden', hideA);
+      btn.textContent = hideA ? '显示 A 部分' : '隐藏 A 部分';
+      
+      document.querySelectorAll('.part-a').forEach(el => {
+        const index = el.dataset.index;
+        const state = loadState();
+        const color = state[index]?.color || 'black';
+        
+        if (hideA) {
+          el.classList.add('hidden');
+          el.innerHTML = '<span class="placeholder">点击显示</span>';
+        } else {
+          const isHidden = state[index]?.hideA || false;
+          el.classList.toggle('hidden', isHidden);
+          if (isHidden) {
+            el.innerHTML = '<span class="placeholder">点击显示</span>';
+          } else {
+            el.textContent = items[index].a;
+          }
+          // 保持颜色类
+          colors.forEach(c => el.classList.remove(`text-${c}`));
+          el.classList.add(`text-${color}`);
+        }
+      });
+    }
+
+    // 切换B部分显示
+    function toggleB() {
+      hideB = !hideB;
+      const items = getCurrentItems();
+      const btn = document.getElementById('toggleB');
+      btn.classList.toggle('hidden', hideB);
+      btn.textContent = hideB ? '显示 B 部分' : '隐藏 B 部分';
+      
+      document.querySelectorAll('.part-b').forEach(el => {
+        const index = el.dataset.index;
+        const state = loadState();
+        const color = state[index]?.color || 'black';
+        
+        if (hideB) {
+          el.classList.add('hidden');
+          el.innerHTML = '<span class="placeholder">点击显示</span>';
+        } else {
+          const isHidden = state[index]?.hideB || false;
+          el.classList.toggle('hidden', isHidden);
+          if (isHidden) {
+            el.innerHTML = '<span class="placeholder">点击显示</span>';
+          } else {
+            el.textContent = items[index].b;
+          }
+          // 保持颜色类
+          colors.forEach(c => el.classList.remove(`text-${c}`));
+          el.classList.add(`text-${color}`);
+        }
+      });
+    }
+
+    // 初始化
+    async function init() {
+      await loadData();
+      document.getElementById('dataTitle').textContent = currentData.name;
+      
+      // 如果是分类数据，渲染分类标签
+      renderCategoryTabs();
+      
+      renderList();
+      
+      document.getElementById('toggleA').addEventListener('click', toggleA);
+      document.getElementById('toggleB').addEventListener('click', toggleB);
+    }
+
+    init();
+  </script>
+</body>
+</html>

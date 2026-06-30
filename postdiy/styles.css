@@ -8825,10 +8825,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 }
 
 .inactivity-message {
-  padding: 15px;
-  background: linear-gradient(135deg, #fef9e7 0%, #fff5eb 100%);
-  border-radius: 12px;
-  border: 1px solid #f59e0b;
+  padding: 10px;
 }
 
 .inactivity-message strong {

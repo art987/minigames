@@ -62,11 +62,11 @@
               </p>
             </div>
             <div class="inactivity-actions" style="display: flex; gap: 15px; justify-content: center;">
-              <button id="refreshNowBtn" class="editor-button" style="background:linear-gradient(135deg, #d32f2f, #f44336); color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px;">
+              <button id="refreshNowBtn" class="editor-button" style="background:linear-gradient(135deg, #d32f2f, #f44336); color: white; padding: 12px 10px; font-size: 16px; border-radius: 8px;">
                 
                 马上刷新
               </button>
-              <button id="skipRefreshBtn" class="editor-button editor-button-secondary" style="padding: 12px 24px; font-size: 16px; border-radius: 8px;">
+              <button id="skipRefreshBtn" class="editor-button editor-button-secondary" style="padding: 12px 10px; font-size: 16px; border-radius: 8px;">
                 创作中，暂不刷新
               </button>
             </div>

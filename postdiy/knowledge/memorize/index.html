@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>记忆学习工具</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="home-container">
+    <div class="home-header">
+      <h1>📚 记忆学习工具</h1>
+      <p>选择一个学习项目开始记忆训练</p>
+    </div>
+    <div class="data-list" id="dataList">
+      <!-- 数据集卡片将通过JS动态生成 -->
+    </div>
+  </div>
+
+  <script>
+    // 数据集配置 - 在这里添加新的数据集
+    const dataSets = [
+      { id: '7000-words', name: '7000核心词汇', description: '精选7000个核心英语词汇，按字母分类', file: 'data/7000-words.js', variable: 'words7000', hasCategory: true },
+      { id: 'ielts-vocabulary', name: '雅思词汇', description: '雅思考试常用词汇集合', file: 'data/ielts-vocabulary.js', variable: 'ieltsVocabulary' },
+      { id: 'phrases', name: '常用词组', description: '英语常用词组搭配', file: 'data/phrases.js', variable: 'phrases' },
+      { id: 'grammar-points', name: '语法要点', description: '英语重要语法知识点', file: 'data/grammar-points.js', variable: 'grammarPoints' }
+    ];
+
+    // 渲染数据集列表
+    function renderDataList() {
+      const container = document.getElementById('dataList');
+      container.innerHTML = dataSets.map(ds => {
+        // 从localStorage获取进度
+        const progress = getProgress(ds.id);
+        return `
+          <a href="memorize.html?data=${ds.id}" class="data-card">
+            <h2>${ds.name}</h2>
+            <p>${ds.description}</p>
+            <div class="meta">
+              <span>📊 共 ${getItemCount(ds)} 条</span>
+              <span>✅ 已学习 ${progress.learned} 条</span>
+              ${progress.colored > 0 ? `<span>🎨 已标记 ${progress.colored} 条</span>` : ''}
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    // 获取数据集项目数量
+    function getItemCount(dataSet) {
+      const counts = { '7000-words': 138, 'ielts-vocabulary': 20, 'phrases': 15, 'grammar-points': 10 };
+      return counts[dataSet.id] || 0;
+    }
+
+    // 从localStorage获取学习进度
+    function getProgress(dataId) {
+      let totalLearned = 0;
+      let totalColored = 0;
+      
+      // 对于分类数据，需要遍历所有分类的存储
+      if (dataId === '7000-words') {
+        const categories = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        categories.forEach(cat => {
+          const storageKey = `memorize_${dataId}_${cat}`;
+          const data = localStorage.getItem(storageKey);
+          if (data) {
+            try {
+              const parsed = JSON.parse(data);
+              totalLearned += Object.keys(parsed).length;
+              Object.values(parsed).forEach(item => {
+                if (item.color && item.color !== 'black') totalColored++;
+              });
+            } catch {}
+          }
+        });
+        return { learned: totalLearned, colored: totalColored };
+      }
+      
+      // 非分类数据
+      const storageKey = `memorize_${dataId}`;
+      const data = localStorage.getItem(storageKey);
+      if (!data) return { learned: 0, colored: 0 };
+      
+      try {
+        const parsed = JSON.parse(data);
+        Object.values(parsed).forEach(item => {
+          if (item.color && item.color !== 'black') totalColored++;
+        });
+        return { learned: Object.keys(parsed).length, colored: totalColored };
+      } catch {
+        return { learned: 0, colored: 0 };
+      }
+    }
+
+    // 初始化
+    renderDataList();
+  </script>
+</body>
+</html>
