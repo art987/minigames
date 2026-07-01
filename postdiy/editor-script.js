@@ -6004,7 +6004,7 @@ const ThumbnailLoader = {
           lockOverlay.className = 'template-lock-overlay';
           lockOverlay.innerHTML = `
             <span class="lock-big-text">待开放</span>
-            <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+            <span class="lock-small-text">定稿中，${availability.unlockMonth}月提前上线</span>
           `;
           templateImgContainer.appendChild(lockOverlay);
         }
@@ -6655,7 +6655,7 @@ const ThumbnailLoader = {
             lockOverlay.className = 'template-lock-overlay';
             lockOverlay.innerHTML = `
               <span class="lock-big-text">待开放</span>
-              <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+              <span class="lock-small-text">定稿中，${availability.unlockMonth}月提前上线</span>
             `;
             templateImgContainer.appendChild(lockOverlay);
           }
@@ -9110,7 +9110,7 @@ const ThumbnailLoader = {
     modal.innerHTML = `
       <div class="global-modal-card">
         <h3 class="modal-title">${modalTitle}</h3>
-        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，请完善后下载。</p>
+        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，<br>请完善信息后下载。</p>
        
         <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">先试试看，继续下载（-1次）</button>
         <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">${laterBtnText}</button>

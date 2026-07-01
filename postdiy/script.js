@@ -873,7 +873,7 @@ function createTemplateCard(template) {
         <img class="template-thumbnail blurred" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
         <div class="template-lock-overlay">
           <span class="lock-big-text">待开放</span>
-          <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
+          <span class="lock-small-text">定稿中，${availability.unlockMonth}月提前上线</span>
         </div>
       </div>
       <div class="template-info">
