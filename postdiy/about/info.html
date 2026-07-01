@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闪喵海报制作神器</title>
+    <title>闪喵海报生成工具 - 关于我们</title>
     <meta name="description" content="闪喵海报生成工具，一键生成精美海报，助力品牌传播">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../styles.css">
@@ -24,9 +24,19 @@
     </script>
 </head>
 <body>
+    <!-- 导航栏 -->
+    <nav class="navbar glass">
+        <div class="navbar-inner">
+            <div class="logo">
+                <img src="../images/statics/logo.png" alt="闪喵logo" class="logo-img">
+                <span>闪喵~朋友圈海报制作神器</span>
+            </div>
+            <a href="#" class="nav-cta" id="downloadBtn1">立即下载</a>
+        </div>
+    </nav>
 
     <!-- Hero区域 - 图片展示 -->
-    <section class="hero-images-section" >
+    <section class="hero-images-section" style="padding-top: 73px;">
         <!-- 图片1 -->
         <div class="hero-image-item">
             <img src="../images/statics/about/1.jpg" alt="一键生成精美海报" class="hero-image">
@@ -73,6 +83,10 @@
                 </div>
             </div>
             
+            <!-- 立即体验按钮 -->
+            <div class="about-templates-cta">
+                <a href="../editor.html" class="about-cta-button">立即制作海报</a>
+            </div>
         </div>
     </section>
 
@@ -105,7 +119,7 @@
                     <div class="about-promo-more-hint">
                         <div class="about-promo-more-content">
                             <span>以上仅展示部分文案模板</span>
-                            <span class="about-promo-more-text">应用内可查看全部</span>
+                            <span class="about-promo-more-text">下载应用即可查看全部</span>
                         </div>
                     </div>
                 </div>
@@ -153,7 +167,7 @@
                             <div class="about-smart-download-content">
                                 <i class="fa fa-download"></i>
                                 <span>以上仅展示部分任务</span>
-                                <span class="about-smart-download-text">应用内体验完整功能</span>
+                                <span class="about-smart-download-text">下载应用体验完整功能</span>
                             </div>
                         </div>
                     </div>
@@ -562,6 +576,11 @@
                     </div>
                 </div>
 
+                <button class="testimonial-nav-btn testimonial-next" id="testimonialNextBtn" aria-label="下一条">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
 
             <!-- 底部指示点 -->
@@ -578,13 +597,16 @@
             <div class="cta-text">
                 <p>立即开始使用闪喵海报生成工具，<br>让您的品牌传播更加高效、专业！</p>
             </div>
-            
+            <div style="text-align: center;">
+                <a href="#" class="cta-button" id="downloadBtn2">立即下载</a>
+            </div>
+            <p class="cta-subtext"></p>
         </div>
     </section>
 
     <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; 2026 闪喵海报生成工具. 保留所有权利.</p>
+        <p>&copy; 2024 闪喵海报生成工具. 保留所有权利.</p>
     </footer>
 
     <!-- 置顶按钮 -->

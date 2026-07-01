@@ -118,7 +118,6 @@ body {
 
 .navbar.glass {
     background: rgb(255 255 255);
-    display: none;
 }
 
 .logo {
@@ -266,7 +265,7 @@ body {
     margin-bottom: 20px;
     overflow-x: auto;
     scrollbar-width: thin;
-    scrollbar-color: #f5576c00 rgb(245 87 108 / 0%);
+    scrollbar-color: #f5576c00 rgba(245, 87, 108, 0.1);
 }
 
 .about-month-nav::-webkit-scrollbar {
@@ -293,8 +292,8 @@ body {
 }
 
 .about-month-btn {
-    padding: 3px 18px;
-    border: 1px solid #f5576c;
+    padding: 8px 16px;
+    border: 2px solid #f5576c;
     border-radius: 20px;
     background: transparent;
     color: #f5576c;
@@ -322,7 +321,7 @@ body {
     margin-bottom: 30px;
     overflow-x: auto;
     scrollbar-width: thin;
-    scrollbar-color: #eeeeee00 rgb(245 87 108 / 0%);
+    scrollbar-color: #f5576c00 rgba(245, 87, 108, 0.1);
 }
 
 .about-festival-nav::-webkit-scrollbar {
@@ -352,7 +351,7 @@ body {
     padding: 6px 14px;
     border-radius: 16px;
     background: rgba(245, 87, 108, 0.1);
-    color: #973c3c;
+    color: #5a6c7d;
     font-size: 13px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -630,7 +629,7 @@ body {
 }
 
 .about-smart-reminder-container {
-    max-width: 90%;
+    max-width: 520px;
     margin: 0 auto;
 }
 
@@ -1873,7 +1872,7 @@ body {
     font-size: 12px;
     margin-top: 10px;
     color: #6a5a5a;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 0.3px;
     line-height: 1.3;
     display: block;
