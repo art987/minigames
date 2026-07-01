@@ -2549,6 +2549,13 @@ footer {
   text-align: center;
 }
 
+.vip-menu-item .menu-emoji {
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
 /* ç”¨æˆ·ä¿¡æ¯å¼¹çª—æ ·å¼ */
 .modal-container.user-info-modal {
   max-width: 400px;
@@ -8341,6 +8348,12 @@ button.future-suggestion-btn[data-action="wanan"] {
 .continue-pay-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.download-records-footer {
+  padding: 12px 16px;
+  text-align: center;
+  border-top: 1px solid #eee;
 }
 .mt-6{position:relative}
 

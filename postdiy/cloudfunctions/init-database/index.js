@@ -14,7 +14,8 @@ exports.main = async (event, context) => {
     const results = {
       users: false,
       sms_codes: false,
-      upgrade_codes: false
+      upgrade_codes: false,
+      download_quota_logs: false
     }
 
     try {
@@ -39,6 +40,14 @@ exports.main = async (event, context) => {
     } catch (e) {
       await db.createCollection('upgrade_codes')
       results.upgrade_codes = true
+    }
+
+    try {
+      await db.collection('download_quota_logs').limit(1).get()
+      results.download_quota_logs = true
+    } catch (e) {
+      await db.createCollection('download_quota_logs')
+      results.download_quota_logs = true
     }
 
     return {

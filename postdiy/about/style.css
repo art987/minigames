@@ -1739,9 +1739,10 @@ body {
 
 /* é€‚ç”¨è¡Œä¸š - è‡ªå®šä¹‰section */
 .section.industry-section {
-    background: #fff5f5;
+    background: linear-gradient(360deg, #ffffff 0%, #ebfbff 50%, #fff5f5 100%) !important;
     padding-top: 8px;
-    padding-bottom: 60px;margin-top: 0;
+    padding-bottom: 6px;
+    margin-top: 0;
 }
 
 .section.industry-section .section-title {
@@ -1987,7 +1988,7 @@ body {
 .testimonials-section .section-title {
     font-size: 36px;
     font-weight: 800;
-    color: #e85c5c;
+    color: #2c2c2c;
     margin-bottom: 10px;
     text-align: center;
 }

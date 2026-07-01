@@ -4440,7 +4440,7 @@ const ThumbnailLoader = {
     
     // 检查VIP状态
     checkVipStatus();
-    
+
     // 加载下载次数
     loadDownloadQuota();
     
@@ -7447,6 +7447,8 @@ const ThumbnailLoader = {
           if (bonusResult.success) {
             localStorage.setItem('brandInfoBonusClaimed', 'true');
             showToast('商家信息保存成功');
+            // 实时刷新下载次数显示
+            loadDownloadQuota();
             showBrandInfoBonusModal();
             return; // 弹窗代替后续关闭逻辑，在弹窗按钮中处理
           } else {

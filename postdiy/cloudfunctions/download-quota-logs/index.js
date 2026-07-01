@@ -71,6 +71,35 @@ exports.main = async (event, context) => {
     }
   } catch (error) {
     console.error('查询下载次数记录失败:', error)
+
+    // 集合不存在时，自动创建并返回空列表
+    const isCollectionNotExist =
+      error.errCode === 'DATABASE_COLLECTION_NOT_EXIST' ||
+      (error.message && error.message.includes('collection not exists')) ||
+      (error.message && error.message.includes('DATABASE_COLLECTION_NOT_EXIST'))
+
+    if (isCollectionNotExist) {
+      try {
+        await db.createCollection('download_quota_logs')
+        console.log('已自动创建 download_quota_logs 集合')
+      } catch (createErr) {
+        console.error('创建集合失败（可能已存在）:', createErr)
+      }
+      return {
+        statusCode: 200,
+        headers: HEADERS,
+        body: JSON.stringify({
+          success: true,
+          data: {
+            total: 0,
+            page,
+            pageSize,
+            logs: []
+          }
+        })
+      }
+    }
+
     return {
       statusCode: 200,
       headers: HEADERS,

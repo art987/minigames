@@ -34,6 +34,19 @@ async function writeLog(logData) {
   try {
     await db.collection('download_quota_logs').add({ data: logData })
   } catch (e) {
+    // 集合不存在时自动创建后重试一次
+    const isCollectionNotExist =
+      e.errCode === 'DATABASE_COLLECTION_NOT_EXIST' ||
+      (e.message && (e.message.includes('collection not exists') || e.message.includes('DATABASE_COLLECTION_NOT_EXIST')))
+    if (isCollectionNotExist) {
+      try {
+        await db.createCollection('download_quota_logs')
+        await db.collection('download_quota_logs').add({ data: logData })
+        return
+      } catch (createErr) {
+        console.error('创建 download_quota_logs 集合失败:', createErr)
+      }
+    }
     console.error('写入下载次数日志失败（不影响主流程）:', e)
   }
 }
