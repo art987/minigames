@@ -29,11 +29,11 @@
     },
     {
       "pagePath": "pages/games/index",
-      "text": "小游戏",
+      "text": "关于",
       "showText": true,
-      "webviewUrl": "https://peacelove.top/postdiy/games/",
-      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/games-active.png",
-      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/games.png",
+      "webviewUrl": "https://peacelove.top/postdiy/about/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
       "enableTopBar": true
     }
   ],
