@@ -613,6 +613,11 @@ const VipLoginUI = (function() {
       loadingModal.remove()
       
       if (result.success && result.data && result.data.payUrl) {
+        // 临时诊断：显示 zpay 返回的具体信息
+        if (result.data.diagnostic) {
+          console.log('zpay诊断信息:', result.data.diagnostic)
+          alert('zpay诊断信息: ' + result.data.diagnostic)
+        }
         window.location.href = result.data.payUrl
       } else {
         alert(result.message || '创建订单失败，请稍后重试')
