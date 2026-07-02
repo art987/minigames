@@ -1,26 +1,30 @@
-// 检测是否在 APP WebView 中运行
-function isWebView() {
-  const ua = navigator.userAgent.toLowerCase()
-  return /wv|webview|crosswalk|android.*browser/i.test(ua) || 
-         (window.chrome && !window.chrome.runtime) ||
-         (typeof window.JSBridge !== 'undefined') ||
-         (typeof window.__wxjs_environment !== 'undefined')
-}
-
-// 统一支付跳转：WebView 用 window.open，浏览器用 location.href
-function navigateToPayment(payUrl, payUrlDirect) {
-  if (isWebView()) {
-    // WebView 环境：优先使用 API 直链，用 window.open 避免当前页被替换
-    const targetUrl = payUrlDirect || payUrl
-    const newWin = window.open(targetUrl, '_blank')
-    if (!newWin) {
-      // window.open 被拦截，回退到 location.href
-      window.location.href = targetUrl
-    }
-  } else {
-    // 系统浏览器：直接跳转
-    window.location.href = payUrl
+// 打开支付页面：优先 window.open 保持原页面不被替换，被拦截则用 iframe 尝试调起
+function openPaymentPage(payUrl, payUrlDirect) {
+  const targetUrl = payUrlDirect || payUrl
+  
+  // 方式1：window.open 在新窗口打开支付页（系统浏览器会新开标签页，APP WebView 可能新开 WebView）
+  const newWin = window.open(targetUrl, '_blank')
+  if (newWin) {
+    return true
   }
+  
+  // 方式2：window.open 被拦截，用隐藏 iframe 尝试加载支付链接调起微信/支付宝
+  try {
+    const iframe = document.createElement('iframe')
+    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:0;z-index:9998;'
+    iframe.src = targetUrl
+    document.body.appendChild(iframe)
+    // 3秒后移除 iframe，如果调起了微信，iframe 会被覆盖；如果没有，则移除避免遮挡
+    setTimeout(() => {
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe)
+      }
+    }, 3000)
+  } catch (e) {
+    console.error('iframe 打开支付链接失败:', e)
+  }
+  
+  return false
 }
 
 // VIP 登录 UI 模块
@@ -95,6 +99,145 @@ const VipLoginUI = (function() {
         }, 1500)
       }
     }
+  }
+  
+  // 支付状态轮询
+  let paymentPollingTimer = null
+  let paymentPollingCount = 0
+  
+  function startPaymentPolling(outTradeNo) {
+    stopPaymentPolling()
+    paymentPollingCount = 0
+    
+    paymentPollingTimer = setInterval(async () => {
+      paymentPollingCount++
+      // 超过 5 分钟停止轮询
+      if (paymentPollingCount > 100) {
+        stopPaymentPolling()
+        const waitingModal = document.getElementById('paymentWaitingModal')
+        if (waitingModal) {
+          const statusEl = waitingModal.querySelector('#pollingStatus')
+          if (statusEl) {
+            statusEl.innerHTML = '<span style="color:#ff9800;">轮询超时，请点击下方按钮手动查询</span>'
+          }
+        }
+        return
+      }
+      
+      try {
+        const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+        if (!userId) return
+        
+        // 查询 VIP 状态判断是否支付成功
+        const result = await VIPSystem.checkVipStatus(userId)
+        if (result.success && result.data && result.data.isVip) {
+          stopPaymentPolling()
+          const waitingModal = document.getElementById('paymentWaitingModal')
+          if (waitingModal) waitingModal.remove()
+          showPaymentResultModal({
+            success: true,
+            outTradeNo: outTradeNo || ''
+          })
+        }
+      } catch (e) {
+        console.log('支付轮询检查异常:', e)
+      }
+    }, 3000)
+  }
+  
+  function stopPaymentPolling() {
+    if (paymentPollingTimer) {
+      clearInterval(paymentPollingTimer)
+      paymentPollingTimer = null
+    }
+    paymentPollingCount = 0
+  }
+  
+  // 显示等待支付弹窗
+  function showPaymentWaitingModal(outTradeNo) {
+    const existing = document.getElementById('paymentWaitingModal')
+    if (existing) existing.remove()
+    
+    const modal = document.createElement('div')
+    modal.id = 'paymentWaitingModal'
+    modal.className = 'order-history-modal'
+    
+    modal.innerHTML = `
+      <div class="order-history-content" style="max-width: 380px; width: 92%; margin-top: -60px;">
+        <div class="order-history-header">
+          <h3 style="color: #fff; font-size: 17px; font-weight: 600;">等待支付</h3>
+        </div>
+        <div style="padding: 28px 20px; text-align: center;">
+          <div style="width: 56px; height: 56px; margin: 0 auto 16px; position: relative;">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="animation: spin 2s linear infinite;">
+              <circle cx="28" cy="28" r="24" stroke="#e0e0e0" stroke-width="3" fill="none"/>
+              <circle cx="28" cy="28" r="24" stroke="#d32f2f" stroke-width="3" fill="none" stroke-dasharray="150" stroke-dashoffset="40" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h4 style="margin: 0 0 8px; font-size: 17px; color: #333; font-weight: 600;">正在等待支付结果</h4>
+          <p style="margin: 0 0 6px; color: #888; font-size: 13px; line-height: 1.6;">请在微信中完成支付，系统将自动检测支付结果</p>
+          <p id="pollingStatus" style="margin: 0 0 20px; color: #bbb; font-size: 12px;">正在检测支付状态...</p>
+          ${outTradeNo ? `<p style="margin: 0 0 20px; color: #ccc; font-size: 11px;">订单号：${outTradeNo}</p>` : ''}
+          <button id="checkPaymentBtn" style="width: 100%; padding: 12px; font-size: 15px; border: none; border-radius: 10px; cursor: pointer; background: linear-gradient(135deg, #d32f2f, #f44336); color: #fff; font-weight: 600; margin-bottom: 10px;">
+            已完成支付，查询结果
+          </button>
+          <button id="cancelWaitingBtn" style="width: 100%; padding: 12px; font-size: 15px; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; background: #fff; color: #888; font-weight: 500;">
+            取消等待
+          </button>
+        </div>
+      </div>
+    `
+    
+    document.body.appendChild(modal)
+    
+    // 已完成支付按钮 - 手动触发查询
+    modal.querySelector('#checkPaymentBtn').addEventListener('click', async () => {
+      const btn = modal.querySelector('#checkPaymentBtn')
+      btn.disabled = true
+      btn.textContent = '正在查询...'
+      
+      try {
+        const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+        if (userId) {
+          const result = await VIPSystem.checkVipStatus(userId)
+          if (result.success && result.data && result.data.isVip) {
+            stopPaymentPolling()
+            modal.remove()
+            showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+            return
+          }
+        }
+      } catch (e) {
+        console.error('查询支付状态失败:', e)
+      }
+      
+      btn.disabled = false
+      btn.textContent = '已完成支付，查询结果'
+      const statusEl = modal.querySelector('#pollingStatus')
+      if (statusEl) {
+        statusEl.innerHTML = '<span style="color:#ff9800;">暂未检测到支付成功，请确认是否已完成支付</span>'
+      }
+    })
+    
+    // 取消按钮
+    modal.querySelector('#cancelWaitingBtn').addEventListener('click', () => {
+      stopPaymentPolling()
+      modal.remove()
+    })
+    
+    // 点击遮罩不关闭（防止误触）
+  }
+  
+  // 发起支付：打开支付页 + 显示等待弹窗 + 开始轮询
+  function initiatePayment(payUrl, payUrlDirect, outTradeNo) {
+    // 打开支付页（window.open 或 iframe），原页面保留
+    openPaymentPage(payUrl, payUrlDirect)
+    
+    // 延迟显示等待弹窗，给支付页打开时间
+    setTimeout(() => {
+      showPaymentWaitingModal(outTradeNo)
+      startPaymentPolling(outTradeNo)
+    }, 500)
   }
   
   // 显示支付结果弹窗
@@ -739,7 +882,7 @@ const VipLoginUI = (function() {
       
       if (result.success && result.data && result.data.payUrl) {
         // 智能跳转：WebView 用 window.open，浏览器用 location.href
-        navigateToPayment(result.data.payUrl, result.data.payUrlDirect)
+        initiatePayment(result.data.payUrl, result.data.payUrlDirect, result.data.out_trade_no)
       } else {
         showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' })
       }
@@ -1594,7 +1737,7 @@ const VipLoginUI = (function() {
                   if (result.success && result.data && result.data.payUrl) {
                     modal.remove()
                     // 智能跳转：WebView 用 window.open，浏览器用 location.href
-                    navigateToPayment(result.data.payUrl, result.data.payUrlDirect)
+                    initiatePayment(result.data.payUrl, result.data.payUrlDirect, result.data.out_trade_no)
                   } else {
                     this.disabled = false
                     this.textContent = '继续支付'
@@ -2031,8 +2174,9 @@ const VipLoginUI = (function() {
     }
   }
   
-  // 暴露支付结果弹窗供其他模块调用
+  // 暴露支付相关函数供其他模块调用
   window.showPaymentResultModal = showPaymentResultModal
+  window.initiatePayment = initiatePayment
 
   return {
     init,
@@ -2372,7 +2516,7 @@ window.showVipUpgradeModal = function() {
 
         if (result.success && result.data && result.data.payUrl) {
           // 智能跳转：WebView 用 window.open，浏览器用 location.href
-          navigateToPayment(result.data.payUrl, result.data.payUrlDirect);
+          initiatePayment(result.data.payUrl, result.data.payUrlDirect, result.data.out_trade_no);
         } else {
           showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' });
         }

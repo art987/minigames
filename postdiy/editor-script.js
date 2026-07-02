@@ -8725,9 +8725,9 @@ const ThumbnailLoader = {
           loadingModal.remove();
           
           if (result.success && result.data && result.data.payUrl) {
-            // 智能跳转：WebView 用 window.open，浏览器用 location.href
-            if (typeof navigateToPayment === 'function') {
-              navigateToPayment(result.data.payUrl, result.data.payUrlDirect);
+            // 发起支付：打开支付页 + 等待弹窗 + 轮询
+            if (typeof initiatePayment === 'function') {
+              initiatePayment(result.data.payUrl, result.data.payUrlDirect, result.data.out_trade_no);
             } else {
               window.location.href = result.data.payUrl;
             }
