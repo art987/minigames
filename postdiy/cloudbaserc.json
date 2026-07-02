@@ -30,6 +30,16 @@
       "environment": {},
       "vpc": {},
       "deployMethod": "cos"
+    },
+    {
+      "name": "payment-create-order",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     }
   ]
 }

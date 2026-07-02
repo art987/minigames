@@ -9,8 +9,8 @@ const db = cloud.database()
 const ZPAY_CONFIG = {
   PID: '2026032819224310',
   PKEY: 'dUbS7RLclWErZSyH32n00fMi5CCvsIwb',
-  CID: '14015',
-  SUBMIT_URL: 'https://zpayz.cn/submit.php'
+  SUBMIT_URL: 'https://zpayz.cn/submit.php',
+  MAPI_URL: 'https://zpayz.cn/mapi.php'
 }
 
 function generateOutTradeNo() {
@@ -126,11 +126,73 @@ exports.main = async (event, context) => {
     params.sign = sign
     params.sign_type = 'MD5'
     
+    // 方式1：页面跳转链接（submit.php），浏览器用
     const queryString = Object.keys(params)
       .map(k => `${k}=${encodeURIComponent(params[k])}`)
       .join('&')
-    
     const payUrl = `${ZPAY_CONFIG.SUBMIT_URL}?${queryString}`
+    
+    // 方式2：API接口获取支付直链（mapi.php），WebView用
+    let payUrlDirect = ''
+    try {
+      const mapiParams = {
+        pid: ZPAY_CONFIG.PID,
+        type: type,
+        out_trade_no: outTradeNo,
+        notify_url: notifyUrl,
+        return_url: cleanReturnUrl,
+        name: name,
+        money: String(money),
+        clientip: '127.0.0.1',
+        device: 'mobile',
+        param: userId
+      }
+      const mapiSign = generateSign(mapiParams, ZPAY_CONFIG.PKEY)
+      mapiParams.sign = mapiSign
+      mapiParams.sign_type = 'MD5'
+      
+      const formBody = Object.keys(mapiParams)
+        .map(k => `${k}=${encodeURIComponent(mapiParams[k])}`)
+        .join('&')
+      
+      const http = require('http')
+      const https = require('https')
+      const mapiResult = await new Promise((resolve, reject) => {
+        const url = new URL(ZPAY_CONFIG.MAPI_URL)
+        const options = {
+          hostname: url.hostname,
+          path: url.pathname,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(formBody)
+          }
+        }
+        const req = https.request(options, (res) => {
+          let data = ''
+          res.on('data', chunk => { data += chunk })
+          res.on('end', () => {
+            try {
+              resolve(JSON.parse(data))
+            } catch (e) {
+              resolve({ code: -1, msg: '解析响应失败: ' + data })
+            }
+          })
+        })
+        req.on('error', (e) => {
+          resolve({ code: -1, msg: '请求失败: ' + e.message })
+        })
+        req.write(formBody)
+        req.end()
+      })
+      
+      console.log('mapi返回:', JSON.stringify(mapiResult))
+      if (mapiResult.code === 1) {
+        payUrlDirect = mapiResult.payurl || mapiResult.qrcode || ''
+      }
+    } catch (mapiErr) {
+      console.error('mapi调用失败（不影响主流程）:', mapiErr)
+    }
     
     await db.collection('orders').add({
       data: {
@@ -162,7 +224,8 @@ exports.main = async (event, context) => {
         message: '订单创建成功',
         data: {
           out_trade_no: outTradeNo,
-          payUrl: payUrl
+          payUrl: payUrl,
+          payUrlDirect: payUrlDirect
         }
       })
     }

@@ -1,3 +1,28 @@
+// 检测是否在 APP WebView 中运行
+function isWebView() {
+  const ua = navigator.userAgent.toLowerCase()
+  return /wv|webview|crosswalk|android.*browser/i.test(ua) || 
+         (window.chrome && !window.chrome.runtime) ||
+         (typeof window.JSBridge !== 'undefined') ||
+         (typeof window.__wxjs_environment !== 'undefined')
+}
+
+// 统一支付跳转：WebView 用 window.open，浏览器用 location.href
+function navigateToPayment(payUrl, payUrlDirect) {
+  if (isWebView()) {
+    // WebView 环境：优先使用 API 直链，用 window.open 避免当前页被替换
+    const targetUrl = payUrlDirect || payUrl
+    const newWin = window.open(targetUrl, '_blank')
+    if (!newWin) {
+      // window.open 被拦截，回退到 location.href
+      window.location.href = targetUrl
+    }
+  } else {
+    // 系统浏览器：直接跳转
+    window.location.href = payUrl
+  }
+}
+
 // VIP 登录 UI 模块
 const VipLoginUI = (function() {
   // DOM 元素缓存
@@ -713,8 +738,8 @@ const VipLoginUI = (function() {
       loadingModal.remove()
       
       if (result.success && result.data && result.data.payUrl) {
-        // 跳转到支付收银台，拉起微信/支付宝支付
-        window.location.href = result.data.payUrl
+        // 智能跳转：WebView 用 window.open，浏览器用 location.href
+        navigateToPayment(result.data.payUrl, result.data.payUrlDirect)
       } else {
         showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' })
       }
@@ -1568,8 +1593,8 @@ const VipLoginUI = (function() {
                   
                   if (result.success && result.data && result.data.payUrl) {
                     modal.remove()
-                    // 跳转到支付收银台
-                    window.location.href = result.data.payUrl
+                    // 智能跳转：WebView 用 window.open，浏览器用 location.href
+                    navigateToPayment(result.data.payUrl, result.data.payUrlDirect)
                   } else {
                     this.disabled = false
                     this.textContent = '继续支付'
@@ -2346,8 +2371,8 @@ window.showVipUpgradeModal = function() {
         loadingModal.remove();
 
         if (result.success && result.data && result.data.payUrl) {
-          // 跳转到支付收银台
-          window.location.href = result.data.payUrl;
+          // 智能跳转：WebView 用 window.open，浏览器用 location.href
+          navigateToPayment(result.data.payUrl, result.data.payUrlDirect);
         } else {
           showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' });
         }
