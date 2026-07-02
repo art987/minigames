@@ -1,22 +1,30 @@
-// 打开支付页面：window.open 保持原页面不被替换，被拦截则用 iframe
+// 打开支付页面：用 sandbox iframe 加载 zpay 收银台
+// 关键：sandbox 不含 allow-top-navigation，阻止 zpay 页面 frame-busting 替换原页面
 function openPaymentPage(payUrl) {
-  const newWin = window.open(payUrl, '_blank')
-  if (newWin) {
-    return true
-  }
-  // window.open 被拦截，用 iframe 尝试调起
+  // 移除旧 iframe
+  const old = document.getElementById('paymentLaunchIframe')
+  if (old) old.remove()
   try {
     const iframe = document.createElement('iframe')
-    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:0;z-index:9998;'
+    iframe.id = 'paymentLaunchIframe'
+    // 隐藏 iframe：只需 zpay 页面在后台加载并调起微信，不需要用户看到
+    iframe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;z-index:-1;'
+    // sandbox：允许脚本、表单、弹窗、同源，但不允许 top 导航（阻止 frame-busting）
+    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin')
     iframe.src = payUrl
     document.body.appendChild(iframe)
+    // 6 秒后移除 iframe（微信调起后不再需要）
     setTimeout(() => {
-      if (iframe.parentNode) iframe.parentNode.removeChild(iframe)
-    }, 3000)
+      const f = document.getElementById('paymentLaunchIframe')
+      if (f) f.remove()
+    }, 6000)
+    return true
   } catch (e) {
     console.error('iframe 打开支付链接失败:', e)
+    // 最后兜底
+    window.location.href = payUrl
+    return false
   }
-  return false
 }
 
 // 发起支付：打开支付页 + 等待弹窗 + 轮询
