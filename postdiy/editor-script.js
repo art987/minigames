@@ -8725,12 +8725,7 @@ const ThumbnailLoader = {
           loadingModal.remove();
           
           if (result.success && result.data && result.data.payUrl) {
-            // 发起支付：打开支付页 + 等待弹窗 + 轮询
-            if (typeof initiatePayment === 'function') {
-              initiatePayment(result.data.payUrl, result.data.payUrlDirect, result.data.out_trade_no);
-            } else {
-              window.location.href = result.data.payUrl;
-            }
+            window.location.href = result.data.payUrl;
           } else {
             alert(result.message || '创建订单失败，请稍后重试');
           }
