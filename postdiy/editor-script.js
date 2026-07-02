@@ -8725,6 +8725,7 @@ const ThumbnailLoader = {
           loadingModal.remove();
           
           if (result.success && result.data && result.data.payUrl) {
+            // 跳转到支付收银台，拉起微信/支付宝支付
             window.location.href = result.data.payUrl;
           } else {
             alert(result.message || '创建订单失败，请稍后重试');

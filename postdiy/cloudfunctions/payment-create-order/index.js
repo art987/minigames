@@ -108,17 +108,17 @@ exports.main = async (event, context) => {
     
     const notifyUrl = 'https://api.peacelove.top/payment-notify'
     const baseUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
-    const finalReturnUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}pay_success=true&out_trade_no=${outTradeNo}`
+    // zpay文档要求 return_url 和 notify_url 不支持带参数，先传纯净URL
+    const cleanReturnUrl = baseUrl
     
     const params = {
       pid: ZPAY_CONFIG.PID,
       type: type,
       out_trade_no: outTradeNo,
       notify_url: notifyUrl,
-      return_url: finalReturnUrl,
+      return_url: cleanReturnUrl,
       name: name,
       money: String(money),
-      cid: ZPAY_CONFIG.CID,
       param: userId
     }
     

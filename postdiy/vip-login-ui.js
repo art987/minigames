@@ -6,50 +6,150 @@ const VipLoginUI = (function() {
   let switchEventsBound = false
   let smsSent = false
   
-  // 检查支付成功状态
+  // 检查支付结果（zpay 支付完成后会回传参数到 return_url）
   function checkPaymentSuccess() {
     const urlParams = new URLSearchParams(window.location.search)
+    const tradeStatus = urlParams.get('trade_status')
     const outTradeNo = urlParams.get('out_trade_no')
-    const paySuccess = urlParams.get('pay_success')
+    const tradeNo = urlParams.get('trade_no')
+    const money = urlParams.get('money')
+    const type = urlParams.get('type')
     
-    if (paySuccess === 'true' || outTradeNo) {
-      showPaymentSuccessModal(outTradeNo)
+    // zpay 支付完成后回传了参数
+    if (tradeStatus || outTradeNo) {
       const newUrl = window.location.href.split('?')[0]
       window.history.replaceState({}, '', newUrl)
+      
+      if (tradeStatus === 'TRADE_SUCCESS') {
+        // 支付成功，先同步VIP状态再弹窗
+        setTimeout(async () => {
+          try {
+            const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+            if (userId) {
+              await VIPSystem.checkVipStatus(userId)
+            }
+          } catch (e) {
+            console.log('同步VIP状态异常:', e)
+          }
+          showPaymentResultModal({
+            success: true,
+            outTradeNo: outTradeNo || '',
+            tradeNo: tradeNo || '',
+            money: money || '',
+            type: type || ''
+          })
+        }, 500)
+      } else {
+        // 支付失败或状态不确定，延迟查询确认
+        setTimeout(async () => {
+          try {
+            const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+            if (userId) {
+              const result = await VIPSystem.checkVipStatus(userId)
+              if (result.success && result.data && result.data.isVip) {
+                showPaymentResultModal({
+                  success: true,
+                  outTradeNo: outTradeNo || '',
+                  tradeNo: tradeNo || '',
+                  money: money || '',
+                  type: type || ''
+                })
+                return
+              }
+            }
+          } catch (e) {
+            console.log('支付状态检查异常:', e)
+          }
+          // 确认未支付成功
+          showPaymentResultModal({
+            success: false,
+            outTradeNo: outTradeNo || '',
+            money: money || '',
+            message: '支付未完成或已取消，请重新下单。'
+          })
+        }, 1500)
+      }
     }
   }
   
-  // 显示支付成功弹窗
-  function showPaymentSuccessModal(outTradeNo) {
-    const modalHTML = `
-      <div id="paymentSuccessModal" class="payment-success-modal">
-        <div class="payment-success-content">
-          <div class="payment-success-icon">
-            <i class="fa fa-check"></i>
-          </div>
-          <h3 class="payment-success-title">升级成功</h3>
-          <p class="payment-success-message">恭喜您！VIP会员已成功开通，现在可以享受全部特权功能。</p>
-          <button id="closePaymentSuccessBtn" class="payment-success-btn">确定</button>
+  // 显示支付结果弹窗
+  function showPaymentResultModal(options = {}) {
+    const { success = true, outTradeNo = '', tradeNo = '', money = '', type = '', message = '' } = options
+    
+    const existingModal = document.getElementById('paymentResultModal')
+    if (existingModal) existingModal.remove()
+    
+    const modal = document.createElement('div')
+    modal.id = 'paymentResultModal'
+    modal.className = 'order-history-modal'
+    
+    const iconSvg = success
+      ? `<svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+           <circle cx="28" cy="28" r="26" fill="#e8f5e9" stroke="#4caf50" stroke-width="2.5"/>
+           <path d="M18 28l8 8 12-14" stroke="#4caf50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>`
+      : `<svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+           <circle cx="28" cy="28" r="26" fill="#fbe9e7" stroke="#e53935" stroke-width="2.5"/>
+           <path d="M20 20l16 16M36 20l-16 16" stroke="#e53935" stroke-width="3.5" stroke-linecap="round"/>
+         </svg>`
+    
+    const titleText = success ? '支付成功' : '支付失败'
+    const subTitle = success ? '升级成功' : '支付未完成'
+    const descText = success
+      ? '恭喜！VIP会员已成功开通，现在可以享受全部特权功能。'
+      : (message || '支付未完成或已取消，请重新下单。')
+    
+    const typeText = type === 'wxpay' ? '微信支付' : (type === 'alipay' ? '支付宝' : '')
+    
+    // 订单详情区域
+    let detailHTML = ''
+    if (outTradeNo || money || tradeNo) {
+      detailHTML = `
+        <div style="background: #f9f9f9; border-radius: 10px; padding: 14px 16px; margin: 16px 0; text-align: left;">
+          ${money ? `<div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: #999; font-size: 13px;">支付金额</span><span style="color: #333; font-size: 15px; font-weight: 600;">¥${money}</span></div>` : ''}
+          ${typeText ? `<div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: #999; font-size: 13px;">支付方式</span><span style="color: #333; font-size: 13px;">${typeText}</span></div>` : ''}
+          ${outTradeNo ? `<div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: #999; font-size: 13px;">商户订单号</span><span style="color: #333; font-size: 12px; word-break: break-all; max-width: 200px; text-align: right;">${outTradeNo}</span></div>` : ''}
+          ${tradeNo ? `<div style="display: flex; justify-content: space-between;"><span style="color: #999; font-size: 13px;">交易单号</span><span style="color: #333; font-size: 12px; word-break: break-all; max-width: 200px; text-align: right;">${tradeNo}</span></div>` : ''}
+        </div>
+      `
+    }
+    
+    modal.innerHTML = `
+      <div class="order-history-content" style="max-width: 400px; width: 92%; margin-top: -60px;">
+        <div class="order-history-header" style="${success ? '' : 'background: linear-gradient(135deg, #e53935, #ef5350);'}">
+          <h3 style="color: #fff; font-size: 17px; font-weight: 600;">${titleText}</h3>
+          <button id="closePaymentResultBtn" style="background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; opacity: 0.9; padding: 0; font-family: sans-serif;">&times;</button>
+        </div>
+        <div style="padding: 24px 20px;">
+          <div style="text-align: center; margin-bottom: 12px;">${iconSvg}</div>
+          <h4 style="margin: 0 0 6px; text-align: center; font-size: 19px; color: ${success ? '#2e7d32' : '#c62828'}; font-weight: 700;">${subTitle}</h4>
+          <p style="margin: 0 0 4px; text-align: center; color: #888; font-size: 14px; line-height: 1.5;">${descText}</p>
+          ${detailHTML}
+          <button id="confirmPaymentResultBtn" class="continue-pay-btn" style="width: 100%; padding: 13px; font-size: 16px; border: none; border-radius: 10px; cursor: pointer; background: ${success ? 'linear-gradient(135deg, #2e7d32, #43a047)' : 'linear-gradient(135deg, #d32f2f, #f44336)'}; color: #fff; font-weight: 600; letter-spacing: 1px;">
+            ${success ? '开始使用' : '重新下单'}
+          </button>
         </div>
       </div>
     `
     
-    document.body.insertAdjacentHTML('beforeend', modalHTML)
-    
-    // 替换Font Awesome图标为SVG图标
-    if (typeof replaceFAIcons === 'function') {
-      replaceFAIcons()
-    }
-    
-    const modal = document.getElementById('paymentSuccessModal')
-    const closeBtn = document.getElementById('closePaymentSuccessBtn')
+    document.body.appendChild(modal)
     
     const closeModal = () => {
       modal.remove()
       updateVipStatus()
     }
     
-    closeBtn.addEventListener('click', closeModal)
+    modal.querySelector('#closePaymentResultBtn').addEventListener('click', closeModal)
+    modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', () => {
+      modal.remove()
+      updateVipStatus()
+      if (!success) {
+        // 重新下单时打开VIP升级弹窗
+        if (typeof window.showVipUpgradeModal === 'function') {
+          window.showVipUpgradeModal()
+        }
+      }
+    })
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal()
     })
@@ -613,14 +713,15 @@ const VipLoginUI = (function() {
       loadingModal.remove()
       
       if (result.success && result.data && result.data.payUrl) {
+        // 跳转到支付收银台，拉起微信/支付宝支付
         window.location.href = result.data.payUrl
       } else {
-        alert(result.message || '创建订单失败，请稍后重试')
+        showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' })
       }
     } catch (error) {
       loadingModal.remove()
       console.error('支付失败:', error)
-      alert('支付失败，请稍后重试')
+      showPaymentResultModal({ success: false, message: '支付失败，请稍后重试' })
     }
   }
   
@@ -1467,11 +1568,12 @@ const VipLoginUI = (function() {
                   
                   if (result.success && result.data && result.data.payUrl) {
                     modal.remove()
+                    // 跳转到支付收银台
                     window.location.href = result.data.payUrl
                   } else {
                     this.disabled = false
                     this.textContent = '继续支付'
-                    alert(result.message || '创建订单失败，请稍后重试')
+                    showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' })
                   }
                 } catch (error) {
                   this.disabled = false
@@ -1904,6 +2006,9 @@ const VipLoginUI = (function() {
     }
   }
   
+  // 暴露支付结果弹窗供其他模块调用
+  window.showPaymentResultModal = showPaymentResultModal
+
   return {
     init,
     showLoginModal,
@@ -2241,9 +2346,10 @@ window.showVipUpgradeModal = function() {
         loadingModal.remove();
 
         if (result.success && result.data && result.data.payUrl) {
+          // 跳转到支付收银台
           window.location.href = result.data.payUrl;
         } else {
-          alert(result.message || '创建订单失败，请稍后重试');
+          showPaymentResultModal({ success: false, message: result.message || '创建订单失败，请稍后重试' });
         }
       } catch (error) {
         loadingModal.remove();
