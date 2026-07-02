@@ -10,8 +10,7 @@ const ZPAY_CONFIG = {
   PID: '2026032819224310',
   PKEY: 'dUbS7RLclWErZSyH32n00fMi5CCvsIwb',
   CID: '14015',
-  SUBMIT_URL: 'https://zpayz.cn/submit.php',
-  MAPI_URL: 'https://zpayz.cn/mapi.php'
+  SUBMIT_URL: 'https://zpayz.cn/submit.php'
 }
 
 function generateOutTradeNo() {
@@ -134,65 +133,6 @@ exports.main = async (event, context) => {
 
     const payUrl = `${ZPAY_CONFIG.SUBMIT_URL}?${queryString}`
 
-    // 诊断：调用 mapi.php API 接口获取具体错误信息
-    let diagnosticInfo = ''
-    try {
-      const https = require('https')
-      const mapiParams = {
-        pid: ZPAY_CONFIG.PID,
-        type: type,
-        out_trade_no: outTradeNo,
-        notify_url: notifyUrl,
-        name: name,
-        money: String(money),
-        clientip: '127.0.0.1',
-        device: 'mobile',
-        param: userId
-      }
-      const mapiSign = generateSign(mapiParams, ZPAY_CONFIG.PKEY)
-      mapiParams.sign = mapiSign
-      mapiParams.sign_type = 'MD5'
-
-      const formBody = Object.keys(mapiParams)
-        .map(k => `${k}=${encodeURIComponent(mapiParams[k])}`)
-        .join('&')
-
-      const mapiResult = await new Promise((resolve) => {
-        const url = new URL(ZPAY_CONFIG.MAPI_URL)
-        const options = {
-          hostname: url.hostname,
-          path: url.pathname,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(formBody)
-          }
-        }
-        const req = https.request(options, (res) => {
-          let data = ''
-          res.on('data', chunk => { data += chunk })
-          res.on('end', () => {
-            try {
-              resolve(JSON.parse(data))
-            } catch (e) {
-              resolve({ code: -1, msg: '解析失败: ' + data })
-            }
-          })
-        })
-        req.on('error', (e) => {
-          resolve({ code: -1, msg: '请求失败: ' + e.message })
-        })
-        req.write(formBody)
-        req.end()
-      })
-
-      console.log('mapi诊断结果:', JSON.stringify(mapiResult))
-      diagnosticInfo = JSON.stringify(mapiResult)
-    } catch (mapiErr) {
-      console.error('mapi诊断异常:', mapiErr)
-      diagnosticInfo = 'mapi诊断异常: ' + mapiErr.message
-    }
-
     await db.collection('orders').add({
       data: {
         out_trade_no: outTradeNo,
@@ -223,8 +163,7 @@ exports.main = async (event, context) => {
         message: '订单创建成功',
         data: {
           out_trade_no: outTradeNo,
-          payUrl: payUrl,
-          diagnostic: diagnosticInfo
+          payUrl: payUrl
         }
       })
     }

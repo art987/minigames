@@ -1,3 +1,164 @@
+// 打开支付页面：window.open 保持原页面不被替换，被拦截则用 iframe
+function openPaymentPage(payUrl) {
+  const newWin = window.open(payUrl, '_blank')
+  if (newWin) {
+    return true
+  }
+  // window.open 被拦截，用 iframe 尝试调起
+  try {
+    const iframe = document.createElement('iframe')
+    iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:0;z-index:9998;'
+    iframe.src = payUrl
+    document.body.appendChild(iframe)
+    setTimeout(() => {
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe)
+    }, 3000)
+  } catch (e) {
+    console.error('iframe 打开支付链接失败:', e)
+  }
+  return false
+}
+
+// 发起支付：打开支付页 + 等待弹窗 + 轮询
+function initiatePayment(payUrl, outTradeNo) {
+  openPaymentPage(payUrl)
+  setTimeout(() => {
+    showPaymentWaitingModal(outTradeNo)
+    startPaymentPolling(outTradeNo)
+  }, 500)
+}
+
+// 支付轮询
+let paymentPollingTimer = null
+let paymentPollingCount = 0
+
+function startPaymentPolling(outTradeNo) {
+  stopPaymentPolling()
+  paymentPollingCount = 0
+  paymentPollingTimer = setInterval(async () => {
+    paymentPollingCount++
+    if (paymentPollingCount > 100) {
+      stopPaymentPolling()
+      const m = document.getElementById('paymentWaitingModal')
+      if (m) {
+        const s = m.querySelector('#pollingStatus')
+        if (s) s.innerHTML = '<span style="color:#ff9800;">轮询超时，请点击下方按钮手动查询</span>'
+      }
+      return
+    }
+    try {
+      const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+      if (!userId) return
+      const result = await VIPSystem.checkVipStatus(userId)
+      if (result.success && result.data && result.data.isVip) {
+        stopPaymentPolling()
+        const m = document.getElementById('paymentWaitingModal')
+        if (m) m.remove()
+        showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+      }
+    } catch (e) {
+      console.log('支付轮询异常:', e)
+    }
+  }, 3000)
+}
+
+function stopPaymentPolling() {
+  if (paymentPollingTimer) {
+    clearInterval(paymentPollingTimer)
+    paymentPollingTimer = null
+  }
+  paymentPollingCount = 0
+}
+
+// 等待支付弹窗
+function showPaymentWaitingModal(outTradeNo) {
+  const existing = document.getElementById('paymentWaitingModal')
+  if (existing) existing.remove()
+  const modal = document.createElement('div')
+  modal.id = 'paymentWaitingModal'
+  modal.className = 'order-history-modal'
+  modal.innerHTML = `
+    <div class="order-history-content" style="max-width:380px;width:92%;margin-top:-60px;">
+      <div class="order-history-header">
+        <h3 style="color:#fff;font-size:17px;font-weight:600;">等待支付</h3>
+      </div>
+      <div style="padding:28px 20px;text-align:center;">
+        <div style="width:56px;height:56px;margin:0 auto 16px;">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="animation:spin 2s linear infinite;">
+            <circle cx="28" cy="28" r="24" stroke="#e0e0e0" stroke-width="3" fill="none"/>
+            <circle cx="28" cy="28" r="24" stroke="#d32f2f" stroke-width="3" fill="none" stroke-dasharray="150" stroke-dashoffset="40" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h4 style="margin:0 0 8px;font-size:17px;color:#333;font-weight:600;">正在等待支付结果</h4>
+        <p style="margin:0 0 6px;color:#888;font-size:13px;line-height:1.6;">请在微信中完成支付，系统将自动检测</p>
+        <p id="pollingStatus" style="margin:0 0 20px;color:#bbb;font-size:12px;">正在检测支付状态...</p>
+        ${outTradeNo ? `<p style="margin:0 0 20px;color:#ccc;font-size:11px;">订单号：${outTradeNo}</p>` : ''}
+        <button id="checkPaymentBtn" style="width:100%;padding:12px;font-size:15px;border:none;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#d32f2f,#f44336);color:#fff;font-weight:600;margin-bottom:10px;">已完成支付，查询结果</button>
+        <button id="cancelWaitingBtn" style="width:100%;padding:12px;font-size:15px;border:1px solid #ddd;border-radius:10px;cursor:pointer;background:#fff;color:#888;font-weight:500;">取消等待</button>
+      </div>
+    </div>
+  `
+  document.body.appendChild(modal)
+  modal.querySelector('#checkPaymentBtn').addEventListener('click', async () => {
+    const btn = modal.querySelector('#checkPaymentBtn')
+    btn.disabled = true
+    btn.textContent = '正在查询...'
+    try {
+      const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+      if (userId) {
+        const result = await VIPSystem.checkVipStatus(userId)
+        if (result.success && result.data && result.data.isVip) {
+          stopPaymentPolling()
+          modal.remove()
+          showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+          return
+        }
+      }
+    } catch (e) { console.error('查询失败:', e) }
+    btn.disabled = false
+    btn.textContent = '已完成支付，查询结果'
+    const s = modal.querySelector('#pollingStatus')
+    if (s) s.innerHTML = '<span style="color:#ff9800;">暂未检测到支付成功，请确认是否已完成支付</span>'
+  })
+  modal.querySelector('#cancelWaitingBtn').addEventListener('click', () => {
+    stopPaymentPolling()
+    modal.remove()
+  })
+}
+
+// 支付结果弹窗
+function showPaymentResultModal(options = {}) {
+  const { success = true, outTradeNo = '', message = '' } = options
+  const existing = document.getElementById('paymentResultModal')
+  if (existing) existing.remove()
+  const modal = document.createElement('div')
+  modal.id = 'paymentResultModal'
+  modal.className = 'order-history-modal'
+  const iconSvg = success
+    ? `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#e8f5e9" stroke="#4caf50" stroke-width="2.5"/><path d="M18 28l8 8 12-14" stroke="#4caf50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    : `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#fbe9e7" stroke="#e53935" stroke-width="2.5"/><path d="M20 20l16 16M36 20l-16 16" stroke="#e53935" stroke-width="3.5" stroke-linecap="round"/></svg>`
+  modal.innerHTML = `
+    <div class="order-history-content" style="max-width:400px;width:92%;margin-top:-60px;">
+      <div class="order-history-header" style="${success ? '' : 'background:linear-gradient(135deg,#e53935,#ef5350);'}">
+        <h3 style="color:#fff;font-size:17px;font-weight:600;">${success ? '支付成功' : '支付失败'}</h3>
+        <button id="closePaymentResultBtn" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.9;padding:0;font-family:sans-serif;">&times;</button>
+      </div>
+      <div style="padding:24px 20px;">
+        <div style="text-align:center;margin-bottom:12px;">${iconSvg}</div>
+        <h4 style="margin:0 0 6px;text-align:center;font-size:19px;color:${success ? '#2e7d32' : '#c62828'};font-weight:700;">${success ? '升级成功' : '支付未完成'}</h4>
+        <p style="margin:0 0 4px;text-align:center;color:#888;font-size:14px;line-height:1.5;">${success ? '恭喜！VIP会员已成功开通' : (message || '支付未完成或已取消')}</p>
+        ${outTradeNo ? `<p style="margin:8px 0 16px;text-align:center;color:#ccc;font-size:11px;">订单号：${outTradeNo}</p>` : '<div style="height:16px;"></div>'}
+        <button id="confirmPaymentResultBtn" style="width:100%;padding:13px;font-size:16px;border:none;border-radius:10px;cursor:pointer;background:${success ? 'linear-gradient(135deg,#2e7d32,#43a047)' : 'linear-gradient(135deg,#d32f2f,#f44336)'};color:#fff;font-weight:600;letter-spacing:1px;">${success ? '开始使用' : '重新下单'}</button>
+      </div>
+    </div>
+  `
+  document.body.appendChild(modal)
+  const close = () => { modal.remove(); if (typeof updateVipStatus === 'function') updateVipStatus() }
+  modal.querySelector('#closePaymentResultBtn').addEventListener('click', close)
+  modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', close)
+  modal.addEventListener('click', (e) => { if (e.target === modal) close() })
+}
+
 // VIP 登录 UI 模块
 const VipLoginUI = (function() {
   // DOM 元素缓存
@@ -613,12 +774,7 @@ const VipLoginUI = (function() {
       loadingModal.remove()
       
       if (result.success && result.data && result.data.payUrl) {
-        // 临时诊断：显示 zpay 返回的具体信息
-        if (result.data.diagnostic) {
-          console.log('zpay诊断信息:', result.data.diagnostic)
-          alert('zpay诊断信息: ' + result.data.diagnostic)
-        }
-        window.location.href = result.data.payUrl
+        initiatePayment(result.data.payUrl, result.data.out_trade_no)
       } else {
         alert(result.message || '创建订单失败，请稍后重试')
       }
@@ -1472,7 +1628,7 @@ const VipLoginUI = (function() {
                   
                   if (result.success && result.data && result.data.payUrl) {
                     modal.remove()
-                    window.location.href = result.data.payUrl
+                    initiatePayment(result.data.payUrl, result.data.out_trade_no)
                   } else {
                     this.disabled = false
                     this.textContent = '继续支付'
@@ -2246,7 +2402,7 @@ window.showVipUpgradeModal = function() {
         loadingModal.remove();
 
         if (result.success && result.data && result.data.payUrl) {
-          window.location.href = result.data.payUrl;
+          initiatePayment(result.data.payUrl, result.data.out_trade_no);
         } else {
           alert(result.message || '创建订单失败，请稍后重试');
         }

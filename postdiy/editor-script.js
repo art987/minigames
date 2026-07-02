@@ -8725,7 +8725,11 @@ const ThumbnailLoader = {
           loadingModal.remove();
           
           if (result.success && result.data && result.data.payUrl) {
-            window.location.href = result.data.payUrl;
+            if (typeof initiatePayment === 'function') {
+              initiatePayment(result.data.payUrl, result.data.out_trade_no);
+            } else {
+              window.location.href = result.data.payUrl;
+            }
           } else {
             alert(result.message || '创建订单失败，请稍后重试');
           }
