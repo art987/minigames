@@ -572,7 +572,7 @@ const VipLoginUI = (function() {
           <h4 style="margin: 0 0 16px 0; color: #d32f2f; font-size: 18px; font-weight: bold;">💎 VIP会员套餐</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
             <!-- 1个月VIP -->
-            <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+            <div class="vip-package" data-duration="1" data-price="0.01" data-original-price="20" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
               <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">限时</div>
               <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">1个月VIP</h5>
               <div style="margin-bottom: 8px;">

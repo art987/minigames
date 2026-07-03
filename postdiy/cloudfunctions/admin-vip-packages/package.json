@@ -1,0 +1,9 @@
+{
+  "name": "admin-vip-packages",
+  "version": "1.0.0",
+  "description": "管理后台VIP套餐配置管理（增删改查）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
