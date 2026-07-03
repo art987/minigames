@@ -1,12 +1,17 @@
-// 发起支付：跳转到 zpay，APP 端已拦截 zpayz.cn 并在新 WebView 打开
+// 发起支付：用隐藏 iframe 加载 zpay URL，主页面保持不变
+// 原因：zpay 的 submit.php 服务端会 302 重定向或返回自动提交的表单到支付网关
+//（如 wx.tenpay.com），这是服务端行为，完全绕过前端 JS 的拦截钩子
+//（location.assign/replace/open/链接点击/表单提交），APP 端注入的 JS 无法捕获。
+// 用 iframe 可以让 iframe 内完成服务端跳转/表单提交，主页面不被替换。
 function initiatePayment(payUrl, outTradeNo) {
-  // 重要：必须用 location.assign 触发跳转，APP 端的 bridge-webview 只拦截
-  // location.assign / location.replace / window.open / a 标签点击 / 表单提交，
-  // 不拦截 window.location.href 的 setter 赋值。若用后者，APP 拦截不会命中，
-  // 会导致当前页被替换且 URL 参数在传递过程中被截断，zpay 报"缺少参数"。
-  // 浏览器端 location.assign 与 location.href 行为一致（替换当前页），已验证可用。
-  window.location.assign(payUrl)
-  // 延迟显示等待弹窗（给 APP 拦截时间）
+  // 创建隐藏 iframe 加载 zpay URL
+  const iframe = document.createElement('iframe')
+  iframe.id = 'paymentIframe'
+  iframe.style.cssText = 'position:fixed; left:0; top:0; width:100%; height:100%; border:none; z-index:9999; background:#fff;'
+  iframe.src = payUrl
+  document.body.appendChild(iframe)
+
+  // 显示等待弹窗并开始轮询
   setTimeout(() => {
     showPaymentWaitingModal(outTradeNo)
     startPaymentPolling(outTradeNo)
