@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP套餐价格管理</title>
+    <!-- SVG图标库 -->
+    <link rel="stylesheet" href="libs/svg-icons/svg-icons.css">
+    <script src="libs/svg-icons/svg-icons.js"></script>
+    <link rel="stylesheet" href="admin.css">
+    <!-- 统一后台认证与导航 -->
+    <script src="admin-auth.js"></script>
+    <script src="admin-nav.js"></script>
+    <!-- VIP系统 -->
+    <script src="vip-system.js"></script>
+    <style>
+        .pkg-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;padding: 23px 20px 0;
+        }
+        .pkg-toolbar .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pkg-tip {
+            color: #666;
+            font-size: 13px;
+        }
+        .pkg-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;padding: 0px 19px;
+        }
+        .pkg-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .pkg-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .pkg-card.disabled {
+            opacity: 0.55;
+            background: #fafafa;
+        }
+        .pkg-card.featured {
+            border-color: #ff9800;
+            background: linear-gradient(135deg, #fffde7 0%, #fff 60%);
+        }
+        .pkg-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .pkg-card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .pkg-card-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .pkg-badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: #fff;
+            background: #ff9800;
+        }
+        .pkg-badge.enabled {
+            background: #4caf50;
+        }
+        .pkg-badge.disabled {
+            background: #9e9e9e;
+        }
+        .pkg-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .pkg-current-price {
+            color: #d32f2f;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .pkg-original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        .pkg-meta {
+            color: #666;
+            font-size: 13px;
+            margin: 4px 0;
+        }
+        .pkg-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .pkg-card-actions .btn {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* 编辑弹窗 */
+        .pkg-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .pkg-modal.show {
+            display: flex;
+        }
+        .pkg-modal-content {
+            background: #fff;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .pkg-modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 16px;
+            color: #333;
+        }
+        .pkg-form-group {
+            margin-bottom: 14px;
+        }
+        .pkg-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        .pkg-form-group input,
+        .pkg-form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .pkg-form-group input:focus,
+        .pkg-form-group select:focus {
+            outline: none;
+            border-color: #d32f2f;
+        }
+        .pkg-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .pkg-form-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        .pkg-form-check input {
+            width: auto;
+        }
+        .pkg-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .pkg-toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            z-index: 2000;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .pkg-toast.show {
+            opacity: 1;
+        }
+        .pkg-toast.success {
+            background: #4caf50;
+        }
+        .pkg-toast.error {
+            background: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="manage-content" id="manageSection">
+            <div class="pkg-toolbar">
+                <div class="left">
+                    <h2 style="margin:0; font-size:20px;"><i class="fa fa-tag"></i> VIP套餐价格管理</h2>
+                    <span class="pkg-tip">节日调价、上下架套餐在此配置</span>
+                </div>
+                <div>
+                    <button class="btn" onclick="refreshPackages()"><i class="fa fa-refresh"></i> 刷新</button>
+                    <button class="btn btn-success" onclick="openCreateModal()"><i class="fa fa-plus"></i> 新增套餐</button>
+                </div>
+            </div>
+
+            <div id="loadingState" class="empty-state">
+                <i class="fa fa-spinner fa-spin"></i>
+                <p>加载中...</p>
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display:none;">
+                <i class="fa fa-inbox"></i>
+                <h3>暂无套餐</h3>
+                <p>点击右上角"新增套餐"创建第一个VIP套餐</p>
+            </div>
+
+            <div id="packagesList" class="pkg-list" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- 编辑/新增弹窗 -->
+    <div class="pkg-modal" id="editModal">
+        <div class="pkg-modal-content">
+            <h3 class="pkg-modal-title" id="modalTitle">新增套餐</h3>
+            <input type="hidden" id="editId">
+            <div class="pkg-form-group">
+                <label>套餐名称 *</label>
+                <input type="text" id="editTitle" placeholder="如：1个月VIP" maxlength="20">
+            </div>
+            <div class="pkg-form-row">
+                <div class="pkg-form-group">
+                    <label>时长（月）*</label>
+                    <input type="number" id="editDuration" min="1" max="120" placeholder="如：1">
+                </div>
+                <div class="pkg-form-group">
+                    <label>排序</label>
+                    <input type="number" id="editSortOrder" min="0" max="999" placeholder="数字越小越靠前">
+                </div>
+            </div>
+            <div class="pkg-form-row">
+                <div class="pkg-form-group">
+                    <label>现价（元）*</label>
+                    <input type="number" id="editPrice" step="0.1" min="0" placeholder="如：9.9">
+                </div>
+                <div class="pkg-form-group">
+                    <label>原价（元）*</label>
+                    <input type="number" id="editOriginalPrice" step="1" min="0" placeholder="如：60">
+                </div>
+            </div>
+            <div class="pkg-form-group">
+                <label>省钱文案</label>
+                <input type="text" id="editSaving" placeholder="如：≈买1月送2月" maxlength="30">
+            </div>
+            <div class="pkg-form-group">
+                <label>角标文字（如：超值）</label>
+                <input type="text" id="editBadge" placeholder="留空则不显示" maxlength="10">
+            </div>
+            <div class="pkg-form-check">
+                <input type="checkbox" id="editFeatured">
+                <label for="editFeatured" style="margin:0;">设为推荐套餐（高亮显示，默认选中）</label>
+            </div>
+            <div class="pkg-form-check">
+                <input type="checkbox" id="editEnabled" checked>
+                <label for="editEnabled" style="margin:0;">启用此套餐</label>
+            </div>
+            <div class="pkg-modal-actions">
+                <button class="btn btn-secondary" onclick="closeEditModal()">取消</button>
+                <button class="btn btn-success" id="saveBtn" onclick="savePackage()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pkg-toast" id="toast"></div>
+
+    <script>
+        let allPackages = [];
+
+        function showToast(msg, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'pkg-toast show ' + (type || '');
+            clearTimeout(window._pkgToastTimer);
+            window._pkgToastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        async function loadPackages() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const list = document.getElementById('packagesList');
+
+            loadingState.style.display = 'block';
+            emptyState.style.display = 'none';
+            list.style.display = 'none';
+
+            try {
+                const result = await VIPSystem.adminVipPackages('list');
+                if (!result.success) {
+                    showToast(result.message || '加载失败', 'error');
+                    loadingState.innerHTML = '<i class="fa fa-exclamation-triangle"></i><p>' + (result.message || '加载失败') + '</p>';
+                    return;
+                }
+                allPackages = (result.data && result.data.packages) || [];
+                renderPackages();
+            } catch (e) {
+                console.error(e);
+                showToast('加载异常：' + e.message, 'error');
+                loadingState.innerHTML = '<i class="fa fa-exclamation-triangle"></i><p>加载异常</p>';
+            }
+        }
+
+        function renderPackages() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const list = document.getElementById('packagesList');
+
+            loadingState.style.display = 'none';
+            if (!allPackages.length) {
+                emptyState.style.display = 'block';
+                list.style.display = 'none';
+                return;
+            }
+
+            list.style.display = 'grid';
+            list.innerHTML = allPackages.map(pkg => {
+                const disabledClass = pkg.enabled === false ? ' disabled' : '';
+                const featuredClass = pkg.featured ? ' featured' : '';
+                const enabledBadge = pkg.enabled === false
+                    ? '<span class="pkg-badge disabled">已禁用</span>'
+                    : '<span class="pkg-badge enabled">已启用</span>';
+                const featuredBadge = pkg.featured ? '<span class="pkg-badge">推荐</span>' : '';
+                const badgeText = pkg.badge ? '<span class="pkg-badge">' + escapeHtml(pkg.badge) + '</span>' : '';
+                const toggleText = pkg.enabled === false ? '启用' : '禁用';
+                const toggleIcon = pkg.enabled === false ? 'fa-toggle-off' : 'fa-toggle-on';
+
+                return `
+                    <div class="pkg-card${disabledClass}${featuredClass}">
+                        <div class="pkg-card-header">
+                            <div class="pkg-card-title">${escapeHtml(pkg.title)}</div>
+                            <div class="pkg-card-badges">${enabledBadge}${featuredBadge}${badgeText}</div>
+                        </div>
+                        <div class="pkg-price-row">
+                            <span class="pkg-current-price">¥${pkg.price}</span>
+                            <span class="pkg-original-price">¥${pkg.originalPrice}</span>
+                        </div>
+                        <div class="pkg-meta">时长：${pkg.duration} 个月</div>
+                        ${pkg.saving ? '<div class="pkg-meta">省钱文案：' + escapeHtml(pkg.saving) + '</div>' : ''}
+                        <div class="pkg-meta">排序：${pkg.sortOrder || 0}</div>
+                        <div class="pkg-card-actions">
+                            <button class="btn" onclick="openEditModal('${pkg._id}')"><i class="fa fa-edit"></i> 编辑</button>
+                            <button class="btn btn-secondary" onclick="togglePackage('${pkg._id}', ${pkg.enabled !== false})"><i class="fa ${toggleIcon}"></i> ${toggleText}</button>
+                            <button class="btn btn-secondary" onclick="deletePackage('${pkg._id}', '${escapeHtml(pkg.title)}')" style="color:#d32f2f;"><i class="fa fa-trash"></i> 删除</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function refreshPackages() {
+            if (window.VIPSystem && VIPSystem.clearVipPackagesCache) {
+                VIPSystem.clearVipPackagesCache();
+            }
+            loadPackages();
+        }
+
+        function openCreateModal() {
+            document.getElementById('modalTitle').textContent = '新增套餐';
+            document.getElementById('editId').value = '';
+            document.getElementById('editTitle').value = '';
+            document.getElementById('editDuration').value = '';
+            document.getElementById('editSortOrder').value = '';
+            document.getElementById('editPrice').value = '';
+            document.getElementById('editOriginalPrice').value = '';
+            document.getElementById('editSaving').value = '';
+            document.getElementById('editBadge').value = '';
+            document.getElementById('editFeatured').checked = false;
+            document.getElementById('editEnabled').checked = true;
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        function openEditModal(id) {
+            const pkg = allPackages.find(p => p._id === id);
+            if (!pkg) {
+                showToast('套餐不存在', 'error');
+                return;
+            }
+            document.getElementById('modalTitle').textContent = '编辑套餐';
+            document.getElementById('editId').value = pkg._id;
+            document.getElementById('editTitle').value = pkg.title || '';
+            document.getElementById('editDuration').value = pkg.duration || '';
+            document.getElementById('editSortOrder').value = pkg.sortOrder || '';
+            document.getElementById('editPrice').value = pkg.price || '';
+            document.getElementById('editOriginalPrice').value = pkg.originalPrice || '';
+            document.getElementById('editSaving').value = pkg.saving || '';
+            document.getElementById('editBadge').value = pkg.badge || '';
+            document.getElementById('editFeatured').checked = !!pkg.featured;
+            document.getElementById('editEnabled').checked = pkg.enabled !== false;
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('show');
+        }
+
+        async function savePackage() {
+            const id = document.getElementById('editId').value;
+            const pkg = {
+                title: document.getElementById('editTitle').value.trim(),
+                duration: parseInt(document.getElementById('editDuration').value, 10),
+                sortOrder: parseInt(document.getElementById('editSortOrder').value, 10) || 0,
+                price: parseFloat(document.getElementById('editPrice').value),
+                originalPrice: parseFloat(document.getElementById('editOriginalPrice').value),
+                saving: document.getElementById('editSaving').value.trim(),
+                badge: document.getElementById('editBadge').value.trim(),
+                featured: document.getElementById('editFeatured').checked,
+                enabled: document.getElementById('editEnabled').checked
+            };
+
+            if (!pkg.title) { showToast('请填写套餐名称', 'error'); return; }
+            if (!pkg.duration || pkg.duration <= 0) { showToast('请填写有效的时长', 'error'); return; }
+            if (isNaN(pkg.price) || pkg.price < 0) { showToast('请填写有效的价格', 'error'); return; }
+            if (isNaN(pkg.originalPrice) || pkg.originalPrice < 0) { showToast('请填写有效的原价', 'error'); return; }
+
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = '保存中...';
+
+            try {
+                const action = id ? 'update' : 'create';
+                const params = id ? { id, package: pkg } : { package: pkg };
+                const result = await VIPSystem.adminVipPackages(action, params);
+                if (result.success) {
+                    showToast(id ? '更新成功' : '创建成功', 'success');
+                    closeEditModal();
+                    loadPackages();
+                } else {
+                    showToast(result.message || '保存失败', 'error');
+                }
+            } catch (e) {
+                showToast('保存异常：' + e.message, 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = '保存';
+            }
+        }
+
+        async function togglePackage(id, currentlyEnabled) {
+            try {
+                const result = await VIPSystem.adminVipPackages('toggle', { id, enabled: !currentlyEnabled });
+                if (result.success) {
+                    showToast(currentlyEnabled ? '已禁用' : '已启用', 'success');
+                    loadPackages();
+                } else {
+                    showToast(result.message || '操作失败', 'error');
+                }
+            } catch (e) {
+                showToast('操作异常：' + e.message, 'error');
+            }
+        }
+
+        async function deletePackage(id, title) {
+            if (!confirm('确定删除套餐【' + title + '】吗？此操作不可恢复。')) return;
+            try {
+                const result = await VIPSystem.adminVipPackages('delete', { id });
+                if (result.success) {
+                    showToast('已删除', 'success');
+                    loadPackages();
+                } else {
+                    showToast(result.message || '删除失败', 'error');
+                }
+            } catch (e) {
+                showToast('删除异常：' + e.message, 'error');
+            }
+        }
+
+        // 点击遮罩关闭弹窗
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) closeEditModal();
+        });
+
+        // 页面加载后等待登录状态就绪
+        function tryInit() {
+            if (window.AdminAuth && window.AdminAuth.isLoggedIn()) {
+                loadPackages();
+            } else {
+                // 未登录则等待，每 500ms 检查一次
+                setTimeout(tryInit, 500);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', tryInit);
+        } else {
+            tryInit();
+        }
+    </script>
+</body>
+</html>

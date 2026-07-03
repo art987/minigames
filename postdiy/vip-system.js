@@ -21,7 +21,9 @@ const VIPSystem = (function() {
     paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
     paymentOrderList: `${API_BASE_URL}/payment-order-list`,
     downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
-    downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`
+    downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`,
+    getVipPackages: `${API_BASE_URL}/get-vip-packages`,
+    adminVipPackages: `${API_BASE_URL}/admin-vip-packages`
   };
 
   // 本地存储键名
@@ -569,7 +571,90 @@ const VIPSystem = (function() {
     }
   }
 
+  // ===== VIP 套餐配置相关 =====
+  // 套餐配置缓存（5分钟）
+  let packagesCache = null
+  let packagesCacheTime = 0
+  const PACKAGES_CACHE_TTL = 5 * 60 * 1000
+
+  // 获取 VIP 套餐列表（公开接口，带本地缓存）
+  async function getVipPackages(useCache = true) {
+    try {
+      // 检查缓存
+      if (useCache && packagesCache && Date.now() - packagesCacheTime < PACKAGES_CACHE_TTL) {
+        return { success: true, data: packagesCache }
+      }
+
+      const response = await fetch(APIs.getVipPackages, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // 更新缓存
+        packagesCache = result.data
+        packagesCacheTime = Date.now()
+      }
+
+      return result
+    } catch (error) {
+      console.error('获取VIP套餐配置失败:', error)
+      // 失败时使用缓存
+      if (packagesCache) {
+        return { success: true, data: packagesCache, fromCache: true }
+      }
+      return {
+        success: false,
+        message: '获取套餐配置失败，请稍后重试',
+        data: { packages: [], promotionTitle: '升级通道二' }
+      }
+    }
+  }
+
+  // 清除套餐缓存（管理后台修改后调用）
+  function clearVipPackagesCache() {
+    packagesCache = null
+    packagesCacheTime = 0
+  }
+
+  // 后台管理：调用 admin-vip-packages
+  async function adminVipPackages(action, params = {}) {
+    try {
+      const authData = window.AdminAuth ? window.AdminAuth.getAuthData() : null
+      if (!authData || !window.AdminAuth || !window.AdminAuth.isLoggedIn()) {
+        return { success: false, message: '请先登录后台管理' }
+      }
+
+      // 使用 Basic Auth 头携带凭据
+      const credentials = btoa(`${authData.userId}:123456`)
+      const response = await fetch(APIs.adminVipPackages, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${credentials}`
+        },
+        body: JSON.stringify({ action, ...params })
+      })
+
+      const result = await response.json()
+
+      // 修改成功后清除前端缓存
+      if (result.success && ['create', 'update', 'delete', 'toggle'].includes(action)) {
+        clearVipPackagesCache()
+      }
+
+      return result
+    } catch (error) {
+      console.error('后台操作VIP套餐失败:', error)
+      return { success: false, message: '操作失败，请稍后重试' }
+    }
+  }
+
   return {
+
     sendSMS,
     registerOrLogin,
     getUserInfoById,
@@ -593,7 +678,10 @@ const VIPSystem = (function() {
     getDownloadQuota,
     deductDownloadQuota,
     addDownloadQuota,
-    getDownloadQuotaLogs
+    getDownloadQuotaLogs,
+    getVipPackages,
+    clearVipPackagesCache,
+    adminVipPackages
   };
 })();
 

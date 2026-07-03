@@ -40,6 +40,36 @@
       "environment": {},
       "vpc": {},
       "deployMethod": "cos"
+    },
+    {
+      "name": "get-vip-packages",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "admin-vip-packages",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "init-database",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     }
   ]
 }
