@@ -1,47 +1,6 @@
 // 打开支付页面：使用 location.assign 让注入 JS 能拦截支付域名
 // 注入 JS 会 patch location.assign 和 location.replace，检测支付域名后 postMessage 给宿主
 // 宿主收到 openPaymentUrl 消息后调用 openPaymentPage() 跳转到收银台页
-const PAYMENT_SESSION_STORAGE_KEY = 'VIP_PAYMENT_SESSION'
-const PAYMENT_REOPEN_GAP_MS = 8000
-
-function getPaymentSession() {
-  try {
-    const raw = window.sessionStorage.getItem(PAYMENT_SESSION_STORAGE_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    if (!parsed || typeof parsed !== 'object') return null
-    return parsed
-  } catch (e) {
-    console.warn('[payment-flow] 读取支付会话失败:', e)
-    return null
-  }
-}
-
-function setPaymentSession(session) {
-  try {
-    window.sessionStorage.setItem(PAYMENT_SESSION_STORAGE_KEY, JSON.stringify(session))
-  } catch (e) {
-    console.warn('[payment-flow] 保存支付会话失败:', e)
-  }
-}
-
-function clearPaymentSession() {
-  try {
-    window.sessionStorage.removeItem(PAYMENT_SESSION_STORAGE_KEY)
-  } catch (e) {
-    console.warn('[payment-flow] 清理支付会话失败:', e)
-  }
-}
-
-function isSamePaymentSession(payUrl, outTradeNo) {
-  const current = getPaymentSession()
-  if (!current) return false
-  const now = Date.now()
-  const sameUrl = current.payUrl === payUrl
-  const sameOrder = !!outTradeNo && current.outTradeNo === outTradeNo
-  return (sameUrl || sameOrder) && now - (current.createdAt || 0) < PAYMENT_REOPEN_GAP_MS
-}
-
 function openPaymentPage(payUrl) {
   console.log('[payment-flow] openPaymentPage called, payUrl:', payUrl)
   console.log('[payment-flow] payUrl host:', (() => {
@@ -76,20 +35,6 @@ function initiatePayment(payUrl, outTradeNo) {
   console.log('[payment-flow] payUrl:', payUrl)
   console.log('[payment-flow] outTradeNo:', outTradeNo)
   console.log('[payment-flow] current location:', window.location.href)
-
-  if (isSamePaymentSession(payUrl, outTradeNo)) {
-    console.warn('[payment-flow] 检测到重复支付会话，忽略再次发起')
-    showPaymentWaitingModal(outTradeNo)
-    startPaymentPolling(outTradeNo)
-    return
-  }
-
-  setPaymentSession({
-    payUrl,
-    outTradeNo: outTradeNo || '',
-    createdAt: Date.now(),
-    status: 'pending'
-  })
 
   openPaymentPage(payUrl)
 
@@ -146,16 +91,6 @@ function stopPaymentPolling() {
   paymentPollingCount = 0
 }
 
-function finishPaymentSession(status) {
-  const session = getPaymentSession()
-  if (session) {
-    session.status = status || 'finished'
-    session.finishedAt = Date.now()
-    setPaymentSession(session)
-  }
-  clearPaymentSession()
-}
-
 // 等待支付弹窗
 function showPaymentWaitingModal(outTradeNo) {
   const existing = document.getElementById('paymentWaitingModal')
@@ -196,7 +131,6 @@ function showPaymentWaitingModal(outTradeNo) {
         if (result.success && result.data && result.data.isVip) {
           stopPaymentPolling()
           modal.remove()
-          finishPaymentSession('success')
           showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
           return
         }
@@ -210,7 +144,6 @@ function showPaymentWaitingModal(outTradeNo) {
   modal.querySelector('#cancelWaitingBtn').addEventListener('click', () => {
     stopPaymentPolling()
     modal.remove()
-    finishPaymentSession('cancelled')
   })
 }
 
@@ -241,11 +174,7 @@ function showPaymentResultModal(options = {}) {
     </div>
   `
   document.body.appendChild(modal)
-  const close = () => {
-    finishPaymentSession(success ? 'success' : 'closed')
-    modal.remove()
-    if (typeof updateVipStatus === 'function') updateVipStatus()
-  }
+  const close = () => { modal.remove(); if (typeof updateVipStatus === 'function') updateVipStatus() }
   modal.querySelector('#closePaymentResultBtn').addEventListener('click', close)
   modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', close)
   modal.addEventListener('click', (e) => { if (e.target === modal) close() })
@@ -298,7 +227,6 @@ const VipLoginUI = (function() {
     const closeBtn = document.getElementById('closePaymentSuccessBtn')
     
     const closeModal = () => {
-      finishPaymentSession('success')
       modal.remove()
       updateVipStatus()
     }
