@@ -1,21 +1,39 @@
-// 发起支付：用隐藏 iframe 加载 zpay URL，主页面保持不变
-// 原因：zpay 的 submit.php 服务端会 302 重定向或返回自动提交的表单到支付网关
-//（如 wx.tenpay.com），这是服务端行为，完全绕过前端 JS 的拦截钩子
-//（location.assign/replace/open/链接点击/表单提交），APP 端注入的 JS 无法捕获。
-// 用 iframe 可以让 iframe 内完成服务端跳转/表单提交，主页面不被替换。
-function initiatePayment(payUrl, outTradeNo) {
-  // 创建隐藏 iframe 加载 zpay URL
-  const iframe = document.createElement('iframe')
-  iframe.id = 'paymentIframe'
-  iframe.style.cssText = 'position:fixed; left:0; top:0; width:100%; height:100%; border:none; z-index:9999; background:#fff;'
-  iframe.src = payUrl
-  document.body.appendChild(iframe)
+// 打开支付页面：用 sandbox iframe 加载 zpay 收银台
+// 关键：sandbox 不含 allow-top-navigation，阻止 zpay 页面 frame-busting 替换原页面
+function openPaymentPage(payUrl) {
+  // 移除旧 iframe
+  const old = document.getElementById('paymentLaunchIframe')
+  if (old) old.remove()
+  try {
+    const iframe = document.createElement('iframe')
+    iframe.id = 'paymentLaunchIframe'
+    // 隐藏 iframe：只需 zpay 页面在后台加载并调起微信，不需要用户看到
+    iframe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;z-index:-1;'
+    // sandbox：允许脚本、表单、弹窗、同源，但不允许 top 导航（阻止 frame-busting）
+    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin')
+    iframe.src = payUrl
+    document.body.appendChild(iframe)
+    // 6 秒后移除 iframe（微信调起后不再需要）
+    setTimeout(() => {
+      const f = document.getElementById('paymentLaunchIframe')
+      if (f) f.remove()
+    }, 6000)
+    return true
+  } catch (e) {
+    console.error('iframe 打开支付链接失败:', e)
+    // 最后兜底
+    window.location.href = payUrl
+    return false
+  }
+}
 
-  // 显示等待弹窗并开始轮询
+// 发起支付：打开支付页 + 等待弹窗 + 轮询
+function initiatePayment(payUrl, outTradeNo) {
+  openPaymentPage(payUrl)
   setTimeout(() => {
     showPaymentWaitingModal(outTradeNo)
     startPaymentPolling(outTradeNo)
-  }, 800)
+  }, 500)
 }
 
 // 支付轮询
@@ -2108,12 +2126,58 @@ window.showVipUpgradeModal = function() {
       </div>
 
       <div class="vip-packages-section">
-        <div class="vip-packages-title" id="vipPackagesTitle">升级通道二：(周年感恩大送)</div>
+        <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
         <div class="vip-packages-wrapper">
-          <div class="vip-packages-container" id="vipPackagesContainer">
-            <div style="text-align:center; padding:30px 0; color:#999; width:100%;">
-              <div style="display:inline-block; width:28px; height:28px; border:3px solid #f3f3f3; border-top:3px solid #d32f2f; border-radius:50%; animation: spin 1s linear infinite;"></div>
-              <p style="margin-top:8px; font-size:14px;">加载套餐中...</p>
+          <div class="vip-packages-container">
+            <div class="vip-package selected" data-duration="1" data-price="9.9" data-original-price="20">
+              <h5 class="package-title">1个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥9.9</span>
+                <span class="package-original-price">¥60</span>
+              </div>
+              <div class="package-saving">≈半杯奶茶</div>
+              <button class="select-package-btn">✔ 已选择</button>
+            </div>
+
+            <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
+              <h5 class="package-title">3个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥16.9</span>
+                <span class="package-original-price">¥60</span>
+              </div>
+              <div class="package-saving">≈买1月送2月</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+
+            <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120">
+              <h5 class="package-title">6个月VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥19.9</span>
+                <span class="package-original-price">¥120</span>
+              </div>
+              <div class="package-saving">≈买1月送5月</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+
+            <div class="vip-package vip-package-featured" data-duration="12" data-price="23.9" data-original-price="240">
+              <div class="package-badge">超值</div>
+              <h5 class="package-title">1年VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥23.9</span>
+                <span class="package-original-price">¥240</span>
+              </div>
+              <div class="package-saving">≈买1月送11月</div>
+              <button class="select-package-btn">选择</button>
+            </div>
+
+            <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
+              <h5 class="package-title">2年VIP</h5>
+              <div class="package-price">
+                <span class="package-current-price">¥33.9</span>
+                <span class="package-original-price">¥480</span>
+              </div>
+              <div class="package-saving">≈买2月送22月</div>
+              <button class="select-package-btn">选择</button>
             </div>
           </div>
         </div>
@@ -2139,118 +2203,6 @@ window.showVipUpgradeModal = function() {
   const proceedToPaymentBtn = document.getElementById('proceedToPaymentBtn');
   const clearInputBtn = document.getElementById('clearInputBtn');
   const pasteInputBtn = document.getElementById('pasteInputBtn');
-  const packagesContainer = document.getElementById('vipPackagesContainer');
-  const packagesTitleEl = document.getElementById('vipPackagesTitle');
-
-  // 动态加载 VIP 套餐
-  let loadedPackages = [];
-  let selectedPackageData = null;
-
-  async function loadVipPackages() {
-    if (!packagesContainer) return;
-    if (typeof VIPSystem === 'undefined' || !VIPSystem.getVipPackages) {
-      // 兜底：VIPSystem 不可用时静默处理
-      packagesContainer.innerHTML = '<p style="text-align:center; padding:20px; color:#999; font-size:14px;">套餐加载失败</p>';
-      return;
-    }
-
-    try {
-      const result = await VIPSystem.getVipPackages();
-      if (!result.success || !result.data || !Array.isArray(result.data.packages) || result.data.packages.length === 0) {
-        packagesContainer.innerHTML = '<p style="text-align:center; padding:20px; color:#999; font-size:14px;">暂无可用套餐</p>';
-        return;
-      }
-
-      loadedPackages = result.data.packages;
-
-      // 更新标题
-      if (packagesTitleEl && result.data.promotionTitle) {
-        packagesTitleEl.textContent = result.data.promotionTitle;
-      }
-
-      // 渲染套餐卡片
-      packagesContainer.innerHTML = loadedPackages.map(pkg => {
-        const featuredClass = pkg.featured ? ' vip-package-featured' : '';
-        const badgeHtml = pkg.badge ? `<div class="package-badge">${escapeHtml(pkg.badge)}</div>` : '';
-        const savingHtml = pkg.saving ? `<div class="package-saving">${escapeHtml(pkg.saving)}</div>` : ''
-        return `
-          <div class="vip-package${featuredClass}" data-duration="${pkg.duration}" data-price="${pkg.price}" data-original-price="${pkg.originalPrice}" data-id="${pkg.id || ''}">
-            ${badgeHtml}
-            <h5 class="package-title">${escapeHtml(pkg.title)}</h5>
-            <div class="package-price">
-              <span class="package-current-price">¥${pkg.price}</span>
-              <span class="package-original-price">¥${pkg.originalPrice}</span>
-            </div>
-            ${savingHtml}
-            <button class="select-package-btn">选择</button>
-          </div>
-        `;
-      }).join('');
-
-      // 默认选中第一个套餐或 featured 套餐
-      const featuredPkg = packagesContainer.querySelector('.vip-package-featured');
-      const firstPkg = packagesContainer.querySelector('.vip-package');
-      const defaultPkg = featuredPkg || firstPkg;
-      if (defaultPkg) {
-        selectPackage(defaultPkg);
-        // 滚动到默认套餐
-        setTimeout(() => {
-          if (featuredPkg) {
-            featuredPkg.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-          }
-        }, 100);
-      }
-
-      // 绑定点击事件
-      const pkgElements = packagesContainer.querySelectorAll('.vip-package');
-      pkgElements.forEach(el => {
-        el.addEventListener('click', () => selectPackage(el));
-      });
-    } catch (error) {
-      console.error('加载VIP套餐失败:', error);
-      packagesContainer.innerHTML = '<p style="text-align:center; padding:20px; color:#999; font-size:14px;">套餐加载失败，请稍后重试</p>';
-    }
-  }
-
-  function escapeHtml(str) {
-    if (str == null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  function selectPackage(pkgEl) {
-    if (!pkgEl) return;
-    const allPkgs = packagesContainer.querySelectorAll('.vip-package');
-    allPkgs.forEach(p => {
-      p.classList.remove('selected');
-      const btn = p.querySelector('.select-package-btn');
-      if (btn) btn.textContent = '选择';
-    });
-    pkgEl.classList.add('selected');
-    pkgEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    const btn = pkgEl.querySelector('.select-package-btn');
-    if (btn) btn.textContent = '✔ 已选择';
-
-    // 更新支付按钮
-    const price = pkgEl.dataset.price;
-    const originalPrice = pkgEl.dataset.originalPrice;
-    selectedPackageData = { ...pkgEl.dataset };
-
-    if (proceedToPaymentBtn) {
-      proceedToPaymentBtn.textContent = `立即支付${price}元`;
-      proceedToPaymentBtn.style.display = 'block';
-    }
-
-    // 更新折扣徽章
-    updatePaymentDiscountBadge(pkgEl);
-  }
-
-  // 触发加载
-  loadVipPackages();
 
   function updateInputButtons() {
     if (voucherInput.value.length > 0) {
@@ -2367,7 +2319,58 @@ window.showVipUpgradeModal = function() {
     }
   }
 
-  // 注意：套餐的渲染、默认选中、点击事件已由上方 loadVipPackages() 动态处理
+  setTimeout(function() {
+    const packages = document.querySelectorAll('.vip-package');
+    const featuredPackage = document.querySelector('.vip-package.vip-package-featured');
+
+    if (featuredPackage) {
+      featuredPackage.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      packages.forEach(p => {
+        p.classList.remove('selected');
+        const selectBtn = p.querySelector('.select-package-btn');
+        if (selectBtn) selectBtn.textContent = '选择';
+      });
+
+      featuredPackage.classList.add('selected');
+
+      const selectBtn = featuredPackage.querySelector('.select-package-btn');
+      if (selectBtn) selectBtn.textContent = '✔ 已选择';
+
+      updatePaymentDiscountBadge(featuredPackage);
+
+      const price = featuredPackage.dataset.price;
+      if (proceedToPaymentBtn) {
+        proceedToPaymentBtn.textContent = `立即支付${price}元`;
+        proceedToPaymentBtn.style.display = 'block';
+      }
+    }
+  }, 500);
+
+  const vipPackages = document.querySelectorAll('.vip-package');
+  vipPackages.forEach(pkg => {
+    pkg.addEventListener('click', function() {
+      vipPackages.forEach(p => {
+        p.classList.remove('selected');
+        const selectBtn = p.querySelector('.select-package-btn');
+        if (selectBtn) selectBtn.textContent = '选择';
+      });
+
+      this.classList.add('selected');
+      this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      const selectBtn = this.querySelector('.select-package-btn');
+      if (selectBtn) selectBtn.textContent = '✔ 已选择';
+
+      updatePaymentDiscountBadge(this);
+
+      const price = this.dataset.price;
+      if (proceedToPaymentBtn) {
+        proceedToPaymentBtn.textContent = `立即支付${price}元`;
+        proceedToPaymentBtn.style.display = 'block';
+      }
+    });
+  });
 
   if (proceedToPaymentBtn) {
     proceedToPaymentBtn.addEventListener('click', async function() {

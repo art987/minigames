@@ -1,9 +1,0 @@
-{
-  "name": "get-vip-packages",
-  "version": "1.0.0",
-  "description": "获取VIP套餐配置（公开接口，无需登录）",
-  "main": "index.js",
-  "dependencies": {
-    "wx-server-sdk": "~2.6.3"
-  }
-}
