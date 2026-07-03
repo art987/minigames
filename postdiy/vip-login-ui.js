@@ -1,36 +1,49 @@
-// 打开支付页面：用 sandbox iframe 加载 zpay 收银台
-// 关键：sandbox 不含 allow-top-navigation，阻止 zpay 页面 frame-busting 替换原页面
+// 打开支付页面：使用 location.assign 让注入 JS 能拦截支付域名
+// 注入 JS 会 patch location.assign 和 location.replace，检测支付域名后 postMessage 给宿主
+// 宿主收到 openPaymentUrl 消息后调用 openPaymentPage() 跳转到收银台页
 function openPaymentPage(payUrl) {
-  // 移除旧 iframe
-  const old = document.getElementById('paymentLaunchIframe')
-  if (old) old.remove()
+  console.log('[payment-flow] openPaymentPage called, payUrl:', payUrl)
+  console.log('[payment-flow] payUrl host:', (() => {
+    try {
+      const url = new URL(payUrl)
+      return url.host
+    } catch (e) {
+      return 'parse failed'
+    }
+  })())
+
+  // 使用 location.assign 而不是 window.location.href 直接赋值
+  // 因为注入 JS 只 patched 了 location.assign 和 location.replace
+  // 如果支付域名被拦截，tryOpenPaymentUrl 会返回 true，跳转会被阻止
+  // 如果支付域名没有被拦截（比如后续跳转到 wx.tenpay.com），会正常跳转
+  // APP 端的 onWebLoading 会兜底拦截支付域名
   try {
-    const iframe = document.createElement('iframe')
-    iframe.id = 'paymentLaunchIframe'
-    // 隐藏 iframe：只需 zpay 页面在后台加载并调起微信，不需要用户看到
-    iframe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;z-index:-1;'
-    // sandbox：允许脚本、表单、弹窗、同源，但不允许 top 导航（阻止 frame-busting）
-    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin')
-    iframe.src = payUrl
-    document.body.appendChild(iframe)
-    // 6 秒后移除 iframe（微信调起后不再需要）
-    setTimeout(() => {
-      const f = document.getElementById('paymentLaunchIframe')
-      if (f) f.remove()
-    }, 6000)
-    return true
+    window.location.assign(payUrl)
+    console.log('[payment-flow] 已执行 location.assign')
   } catch (e) {
-    console.error('iframe 打开支付链接失败:', e)
-    // 最后兜底
+    console.error('[payment-flow] location.assign 失败:', e)
+    // 兜底：直接赋值
     window.location.href = payUrl
-    return false
+    console.log('[payment-flow] 已执行 window.location.href 作为兜底')
   }
+  return true
 }
 
 // 发起支付：打开支付页 + 等待弹窗 + 轮询
 function initiatePayment(payUrl, outTradeNo) {
+  console.log('[payment-flow] initiatePayment called')
+  console.log('[payment-flow] payUrl:', payUrl)
+  console.log('[payment-flow] outTradeNo:', outTradeNo)
+  console.log('[payment-flow] current location:', window.location.href)
+
   openPaymentPage(payUrl)
+
+  // 延迟显示等待弹窗：给 APP 端时间拦截支付域名
+  // 如果 APP 拦截成功，原页面保持不变，等待弹窗正常显示
+  // 如果 APP 没有拦截，页面被支付页替换，等待弹窗不会显示（这没关系）
   setTimeout(() => {
+    console.log('[payment-flow] 500ms 后准备显示等待弹窗')
+    console.log('[payment-flow] 当前 location:', window.location.href)
     showPaymentWaitingModal(outTradeNo)
     startPaymentPolling(outTradeNo)
   }, 500)
