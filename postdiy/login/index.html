@@ -79,6 +79,7 @@
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      margin: 0 auto;
     }
     
     .login-card-header {
@@ -378,20 +379,187 @@
       .login-header .logo-text {
         font-size: 17px;
       }
-      
+
       .login-card-body {
         padding: 34px 16px;
       }
-      
+
       .login-choice-btn {
         padding: 16px;
         font-size: 16px;
       }
-      
+
       .action-btn {
         padding: 14px;
         font-size: 16px;
       }
+    }
+
+    /* 同意条款勾选项 */
+    .agreement-section {
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .agreement-checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      user-select: none;
+    }
+
+    .agreement-checkbox input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkbox-custom {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ccc;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      background: #fff;
+    }
+
+    .agreement-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+      background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+      border-color: #fc592aeb;
+    }
+
+    .agreement-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+      content: '✓';
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .agreement-text a {
+      color: #c76700;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .agreement-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* 抖动动画 */
+    .shake-animation {
+      animation: shake 1.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    /* 协议弹窗 */
+    .agreement-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .agreement-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .agreement-modal {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      max-height: 80vh;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .agreement-modal-overlay.active .agreement-modal {
+      transform: scale(1);
+    }
+
+    .agreement-modal-header {
+      background: linear-gradient(135deg, #ff4a4afa, #ce0c0ceb);
+      color: white;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .agreement-modal-header h3 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .agreement-modal-close {
+      position: absolute;
+      top: 9px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 50%;
+      font-size: 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .agreement-modal-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .agreement-modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .agreement-modal-body h4 {
+      font-size: 16px;
+      margin: 16px 0 8px;
+      color: #d32f2f;
+    }
+
+    .agreement-modal-body p {
+      margin: 8px 0;
+    }
+
+    .agreement-modal-body ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .agreement-modal-body li {
+      margin: 6px 0;
     }
   </style>
 </head>
@@ -576,6 +744,13 @@
               <span>没有收到验证码？</span>
               <button type="button" id="switchToPasswordBtn" class="switch-link">使用密码登录</button>
             </div>
+            <div class="agreement-section">
+              <label class="agreement-checkbox">
+                <input type="checkbox" id="agreementCheckbox">
+                <span class="checkbox-custom"></span>
+                <span class="agreement-text">我已阅读并同意 <a href="#" id="userAgreementLink">《用户协议》</a> 和 <a href="#" id="privacyPolicyLink">《隐私政策》</a></span>
+              </label>
+            </div>
             <div class="login-actions">
               <button type="submit" id="loginSubmitBtn" class="action-btn primary">登录/注册</button>
               <button type="button" id="backToChoiceBtn" class="action-btn secondary">返回</button>
@@ -654,7 +829,25 @@
               this.showMessage('验证码格式不正确', 'error')
               return
             }
-            
+
+            // 检查是否勾选同意条款
+            const agreementCheckbox = document.getElementById('agreementCheckbox')
+            const agreementSection = document.querySelector('.agreement-section')
+            if (!agreementCheckbox || !agreementCheckbox.checked) {
+              // 未勾选，触发抖动动画
+              if (agreementSection) {
+                agreementSection.classList.remove('shake-animation')
+                void agreementSection.offsetWidth // 强制重绘
+                agreementSection.classList.add('shake-animation')
+                // 1.5秒后移除动画类
+                setTimeout(() => {
+                  agreementSection.classList.remove('shake-animation')
+                }, 1500)
+              }
+              this.showMessage('请先阅读并同意用户协议和隐私政策', 'error')
+              return
+            }
+
             loginSubmitBtn.disabled = true
             loginSubmitBtn.textContent = '登录中...'
             
@@ -692,6 +885,24 @@
         if (backToChoiceBtn) {
           backToChoiceBtn.addEventListener('click', () => {
             this.transitionToForm('choice')
+          })
+        }
+
+        // 用户协议链接点击
+        const userAgreementLink = document.getElementById('userAgreementLink')
+        if (userAgreementLink) {
+          userAgreementLink.addEventListener('click', (e) => {
+            e.preventDefault()
+            this.showAgreementModal('userAgreementModal')
+          })
+        }
+
+        // 隐私政策链接点击
+        const privacyPolicyLink = document.getElementById('privacyPolicyLink')
+        if (privacyPolicyLink) {
+          privacyPolicyLink.addEventListener('click', (e) => {
+            e.preventDefault()
+            this.showAgreementModal('privacyPolicyModal')
           })
         }
       },
@@ -945,6 +1156,37 @@
         if (loadingOverlay) {
           loadingOverlay.classList.add('hidden')
         }
+      },
+
+      // 显示协议弹窗
+      showAgreementModal(modalId) {
+        const modal = document.getElementById(modalId)
+        if (!modal) return
+
+        modal.classList.add('active')
+
+        // 绑定关闭按钮事件
+        const closeBtn = modal.querySelector('.agreement-modal-close')
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            this.closeAgreementModal(modalId)
+          })
+        }
+
+        // 点击遮罩层关闭
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            this.closeAgreementModal(modalId)
+          }
+        })
+      },
+
+      // 关闭协议弹窗
+      closeAgreementModal(modalId) {
+        const modal = document.getElementById(modalId)
+        if (modal) {
+          modal.classList.remove('active')
+        }
       }
     }
     
@@ -953,5 +1195,96 @@
       LoginPage.init()
     })
   </script>
+
+  <!-- 用户协议弹窗 -->
+  <div id="userAgreementModal" class="agreement-modal-overlay">
+    <div class="agreement-modal">
+      <div class="agreement-modal-header">
+        <h3>用户协议</h3>
+        <button class="agreement-modal-close">&times;</button>
+      </div>
+      <div class="agreement-modal-body">
+        <h4>一、服务说明</h4>
+        <p>闪喵朋友圈海报生成器（以下简称"本应用"）为用户提供在线海报制作服务。用户通过本应用可快速生成精美的朋友圈海报图片。</p>
+
+        <h4>二、用户权利</h4>
+        <ul>
+          <li>用户有权使用本应用提供的模板、素材进行海报制作</li>
+          <li>用户有权保存、下载制作完成的海报图片</li>
+          <li>VIP用户享有更多模板、素材及高级功能的使用权限</li>
+        </ul>
+
+        <h4>三、用户义务</h4>
+        <ul>
+          <li>用户应遵守国家法律法规，不得利用本应用制作违法、违规内容</li>
+          <li>用户不得侵犯他人知识产权、肖像权等合法权益</li>
+          <li>用户应妥善保管账号信息，对账号下的行为负责</li>
+        </ul>
+
+        <h4>四、知识产权</h4>
+        <p>本应用提供的模板、素材等内容的知识产权归本应用所有或经授权使用。用户制作的海报内容，其知识产权归用户所有。</p>
+
+        <h4>五、服务变更</h4>
+        <p>本应用有权根据运营需要调整服务内容、价格策略，并在应用内公告通知用户。</p>
+
+        <h4>六、免责声明</h4>
+        <p>因网络故障、系统维护等原因导致服务中断，本应用不承担责任。用户因违规使用导致损失，本应用不承担责任。</p>
+
+        <h4>七、协议生效</h4>
+        <p>本协议自用户勾选同意并使用本应用服务时生效。本应用有权修订协议，修订后的协议公布后自动生效。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐私政策弹窗 -->
+  <div id="privacyPolicyModal" class="agreement-modal-overlay">
+    <div class="agreement-modal">
+      <div class="agreement-modal-header">
+        <h3>隐私政策</h3>
+        <button class="agreement-modal-close">&times;</button>
+      </div>
+      <div class="agreement-modal-body">
+        <h4>一、信息收集</h4>
+        <p>本应用收集以下用户信息：</p>
+        <ul>
+          <li>手机号码：用于账号注册、登录验证</li>
+          <li>品牌信息：商家名称、联系方式等，用于海报内容生成</li>
+          <li>使用记录：制作海报的模板选择、下载记录等</li>
+        </ul>
+
+        <h4>二、信息使用</h4>
+        <ul>
+          <li>为用户提供海报制作、保存、下载服务</li>
+          <li>优化应用功能，提升用户体验</li>
+          <li>向用户发送重要通知（如系统维护、功能更新）</li>
+          <li>VIP权益发放及订单管理</li>
+        </ul>
+
+        <h4>三、信息保护</h4>
+        <p>本应用采用业界标准的安全技术和管理措施保护用户信息安全，包括数据加密、访问控制等。</p>
+
+        <h4>四、信息共享</h4>
+        <p>本应用不会向第三方出售、出租用户个人信息。以下情况可能共享：</p>
+        <ul>
+          <li>经用户明确授权</li>
+          <li>法律法规要求</li>
+          <li>与合作伙伴共享（如支付服务商），仅限必要信息</li>
+        </ul>
+
+        <h4>五、用户权利</h4>
+        <ul>
+          <li>用户有权查阅、更正个人信息</li>
+          <li>用户有权删除账号及相关信息</li>
+          <li>用户有权撤回授权同意</li>
+        </ul>
+
+        <h4>六、政策更新</h4>
+        <p>本隐私政策可能适时修订，重大变更将在应用内公告通知用户。</p>
+
+        <h4>七、联系我们</h4>
+        <p>如有隐私相关问题，可通过应用内联系方式与我们沟通。</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
