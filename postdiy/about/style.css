@@ -661,6 +661,9 @@ body {
 .about-smart-reminder-body {
     padding: 16px 20px 20px 20px;
     text-align: left;
+    max-height: 500px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .about-smart-section {

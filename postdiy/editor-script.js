@@ -15377,9 +15377,9 @@ window.textTemplateManager = {
     function getRandomBackgroundImage(type) {
       // 特殊处理 dairy（日常海报没有在 templates 中定义）
       if (type === 'dairy') {
-        const randomNum = Math.floor(Math.random() * 3) + 1;
-        return `images/dairy/${randomNum}.jpg`;
-      }
+          const randomNum = Math.floor(Math.random() * 22) + 1;
+          return `images/dairy/${randomNum}.jpg`;
+        }
       
       if (typeof window.templates === 'undefined') {
         console.log('templates 对象未定义');

@@ -1420,8 +1420,12 @@
 
         // 获取随机背景图片
         function getAboutRandomBackground(type) {
+            // cloudflare 基础地址（与 imageConfig 保持一致）
+            const cloudflareBaseUrl = (typeof imageConfig !== 'undefined' && imageConfig.cloudflareBaseUrl) ? imageConfig.cloudflareBaseUrl : 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/';
+
             if (type === 'dairy') {
-                const randomNum = Math.floor(Math.random() * 3) + 1;
+                // 日常海报固定使用本地图片，不走 cloudflare
+                const randomNum = Math.floor(Math.random() * 22) + 1;
                 return `../images/dairy/${randomNum}.jpg`;
             }
 
@@ -1443,7 +1447,8 @@
 
             if (matched.length === 0) return null;
             const randomTemplate = matched[Math.floor(Math.random() * matched.length)];
-            return '../' + randomTemplate.thumbnail;
+            // 只使用 cloudflare 图片链接（不回退到本地）
+            return cloudflareBaseUrl + randomTemplate.thumbnail;
         }
 
         // 获取今日节日

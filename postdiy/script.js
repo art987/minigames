@@ -1098,7 +1098,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function getRandomBackgroundImage(type) {
       // 特殊处理 dairy（日常海报没有在 templates 中定义）
       if (type === 'dairy') {
-        const randomNum = Math.floor(Math.random() * 3) + 1;
+        // images/dairy 目录下共有 22 张图片
+        const totalDairyImages = 22;
+        const randomNum = Math.floor(Math.random() * totalDairyImages) + 1;
         return `images/dairy/${randomNum}.jpg`;
       }
       
@@ -1142,7 +1144,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function setButtonBackground(button, type) {
       const localPath = getRandomBackgroundImage(type);
       if (localPath) {
-        const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath;
+        // 日常海报（dairy）固定使用本地图片，不走 cloudflare
+        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath);
         const wrapper = button.closest('.button-wrapper');
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
