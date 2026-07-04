@@ -1,0 +1,9 @@
+{
+  "name": "payment-order-status",
+  "version": "1.0.0",
+  "description": "按订单号查询支付状态，必要时主动查询 zpay 并补单",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

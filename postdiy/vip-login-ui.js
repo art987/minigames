@@ -181,12 +181,43 @@ function consumePaymentReturnResult() {
   return true
 }
 
-// 确认支付结果：优先按 VIP 状态确认（项目暂无按订单号查询接口）。
+// 确认支付结果：优先按订单号查询（更准确），VIP 状态作为兜底。
 // 确认成功后统一收尾：停轮询、关弹窗、清状态、弹成功提示。
 // 若本次未确认成功，启动轮询兜底，避免出现“没人继续检测”的空窗。
 async function verifyPendingPaymentResult(outTradeNo) {
   console.log('[payment-flow] verify pending payment result, outTradeNo:', outTradeNo)
   try {
+    // 第一优先级：按订单号查询支付状态
+    if (outTradeNo && typeof VIPSystem !== 'undefined' && VIPSystem.queryPaymentOrder) {
+      console.log('[payment-flow] query order status by outTradeNo')
+      const orderResult = await VIPSystem.queryPaymentOrder(outTradeNo)
+      console.log('[payment-flow] query order status result:', orderResult)
+      if (orderResult && orderResult.success && orderResult.data && orderResult.data.paid) {
+        console.log('[payment-flow] payment confirmed success (by order query), outTradeNo:', outTradeNo)
+        stopPaymentPolling()
+        const waitingModal = document.getElementById('paymentWaitingModal')
+        if (waitingModal) waitingModal.remove()
+        clearPendingPayment()
+        clearPaymentReturnResult()
+        // 订单查询已确认支付成功，主动刷新一次本地 VIP 状态（避免后端补单延迟导致前端显示未开通）
+        try {
+          const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+          if (userId) {
+            await VIPSystem.checkVipStatus(userId)
+            console.log('[payment-flow] vip status refreshed after order confirmed')
+          }
+        } catch (e) {
+          console.warn('[payment-flow] 刷新 VIP 状态失败（不影响支付成功提示）:', e)
+        }
+        showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+        return true
+      }
+      console.log('[payment-flow] order query 未确认成功，fallback 到 VIP 状态查询')
+    } else {
+      console.log('[payment-flow] 无 outTradeNo 或 queryPaymentOrder 不可用，fallback 到 VIP 状态查询')
+    }
+
+    // 第二优先级：VIP 状态兜底
     const userId = (typeof VIPSystem !== 'undefined' && VIPSystem.getUserId) ? VIPSystem.getUserId() : null
     if (!userId) {
       console.warn('[payment-flow] verify 失败：无 userId，启动轮询兜底')
@@ -194,9 +225,10 @@ async function verifyPendingPaymentResult(outTradeNo) {
       startPaymentPolling(outTradeNo)
       return false
     }
-    const result = await VIPSystem.checkVipStatus(userId)
-    if (result && result.success && result.data && result.data.isVip) {
-      console.log('[payment-flow] payment confirmed success, outTradeNo:', outTradeNo)
+    const vipResult = await VIPSystem.checkVipStatus(userId)
+    console.log('[payment-flow] vip status fallback result:', vipResult)
+    if (vipResult && vipResult.success && vipResult.data && vipResult.data.isVip) {
+      console.log('[payment-flow] payment confirmed success (by vip status), outTradeNo:', outTradeNo)
       stopPaymentPolling()
       const waitingModal = document.getElementById('paymentWaitingModal')
       if (waitingModal) waitingModal.remove()
@@ -336,9 +368,28 @@ function startPaymentPolling(outTradeNo) {
     try {
       const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
       if (!userId) return
+
+      // 第一优先级：按订单号查询支付状态
+      if (outTradeNo && VIPSystem.queryPaymentOrder) {
+        const orderResult = await VIPSystem.queryPaymentOrder(outTradeNo)
+        if (orderResult && orderResult.success && orderResult.data && orderResult.data.paid) {
+          console.log('[payment-flow] payment confirmed success (polling by order query), outTradeNo:', outTradeNo)
+          stopPaymentPolling()
+          const m = document.getElementById('paymentWaitingModal')
+          if (m) m.remove()
+          clearPendingPayment()
+          clearPaymentReturnResult()
+          // 刷新 VIP 状态
+          try { await VIPSystem.checkVipStatus(userId) } catch (e) {}
+          showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+          return
+        }
+      }
+
+      // 第二优先级：VIP 状态兜底
       const result = await VIPSystem.checkVipStatus(userId)
       if (result.success && result.data && result.data.isVip) {
-        console.log('[payment-flow] payment confirmed success (polling), outTradeNo:', outTradeNo)
+        console.log('[payment-flow] payment confirmed success (polling by vip status), outTradeNo:', outTradeNo)
         stopPaymentPolling()
         const m = document.getElementById('paymentWaitingModal')
         if (m) m.remove()
@@ -405,6 +456,22 @@ function showPaymentWaitingModal(outTradeNo) {
     btn.textContent = '正在查询...'
     try {
       const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+      // 第一优先级：按订单号查询
+      if (outTradeNo && VIPSystem.queryPaymentOrder) {
+        const orderResult = await VIPSystem.queryPaymentOrder(outTradeNo)
+        if (orderResult && orderResult.success && orderResult.data && orderResult.data.paid) {
+          stopPaymentPolling()
+          modal.remove()
+          finishPaymentSession('success')
+          clearPendingPayment()
+          clearPaymentReturnResult()
+          // 刷新 VIP 状态
+          if (userId) { try { await VIPSystem.checkVipStatus(userId) } catch (e) {} }
+          showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+          return
+        }
+      }
+      // 第二优先级：VIP 状态兜底
       if (userId) {
         const result = await VIPSystem.checkVipStatus(userId)
         if (result.success && result.data && result.data.isVip) {

@@ -20,6 +20,7 @@ const VIPSystem = (function() {
     adminManageVouchers: `${API_BASE_URL}/admin-manage-vouchers`,
     paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
     paymentOrderList: `${API_BASE_URL}/payment-order-list`,
+    paymentOrderStatus: `${API_BASE_URL}/payment-order-status`,
     downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
     downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`
   };
@@ -351,6 +352,31 @@ const VIPSystem = (function() {
     }
   }
 
+  // 按订单号查询支付状态（后端代理查询 zpay，必要时补单）
+  // 优先于 VIP 状态查询，能更准确反映单笔订单的真实支付结果
+  async function queryPaymentOrder(outTradeNo) {
+    console.log('[payment-flow] query order status, outTradeNo:', outTradeNo)
+    if (!outTradeNo) {
+      return { success: false, message: '订单号不能为空' }
+    }
+    try {
+      const response = await fetch(APIs.paymentOrderStatus, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ outTradeNo })
+      })
+      const result = await response.json()
+      console.log('[payment-flow] query order status result:', result)
+      if (result.success && result.data) {
+        return { success: true, data: result.data }
+      }
+      return { success: false, message: result.message || '查询订单状态失败' }
+    } catch (error) {
+      console.error('[payment-flow] 查询订单状态失败:', error)
+      return { success: false, message: '查询订单状态失败，请稍后重试' }
+    }
+  }
+
   // 生成升级码
   async function generateVoucher(duration, durationName) {
     try {
@@ -580,6 +606,7 @@ const VIPSystem = (function() {
     verifyVoucher,
     getVoucherList,
     checkVipStatus,
+    queryPaymentOrder,
     generateVoucher,
     isLoggedIn,
     logout,

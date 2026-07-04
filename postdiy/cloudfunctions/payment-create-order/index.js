@@ -69,8 +69,16 @@ exports.main = async (event, context) => {
   }
   
   console.log('payment-create-order 接收参数:', { userId, phone, money, duration, type, returnUrl })
-  
-  if (!userId || !money || !duration || !type) {
+
+  // 校验 userId 有效性：拒绝 "undefined"/"null" 等脏数据，从源头避免后续 doc("undefined").get() 报错
+  const isValidUserId = userId &&
+    userId !== 'undefined' &&
+    userId !== 'null' &&
+    typeof userId === 'string' &&
+    userId.trim().length > 0
+
+  if (!isValidUserId || !money || !duration || !type) {
+    console.error('payment-create-order 参数校验失败:', { userId, isValidUserId, money, duration, type })
     return {
       statusCode: 200,
       headers: {
@@ -81,7 +89,7 @@ exports.main = async (event, context) => {
       },
       body: JSON.stringify({
         success: false,
-        message: '缺少必要参数'
+        message: '缺少必要参数或 userId 无效'
       })
     }
   }
