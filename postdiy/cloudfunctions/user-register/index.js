@@ -78,7 +78,8 @@ exports.main = async (event, context) => {
       const addRes = await db.collection('users').add({
         data: {
           phone,
-          vipExpireTime: null,
+          vipValidUntil: null,
+          isVip: false,
           downloadQuota: 5,
           logoUrl: '',
           logoTencentUrl: '',
@@ -126,7 +127,7 @@ exports.main = async (event, context) => {
           userId,
           phone,
           isVip: false,
-          vipExpireTime: null,
+          vipValidUntil: null,
           downloadQuota: isNewUser ? 5 : (userRes.data[0].downloadQuota || 0),
           logoUrl: '',
           logoTencentUrl: '',

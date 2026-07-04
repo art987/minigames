@@ -142,7 +142,7 @@ async function fulfillOrder(order, zpayResult) {
 
     const user = userRes.data
     const now = new Date()
-    let currentExpireTime = user.vipExpireTime ? new Date(user.vipExpireTime) : now
+    let currentExpireTime = user.vipValidUntil ? new Date(user.vipValidUntil) : (user.vipExpireTime ? new Date(user.vipExpireTime) : now)
     if (currentExpireTime < now) {
       currentExpireTime = now
     }
@@ -153,7 +153,7 @@ async function fulfillOrder(order, zpayResult) {
 
     await db.collection('users').doc(rawUserId).update({
       data: {
-        vipExpireTime: newExpireTime,
+        vipValidUntil: newExpireTime,
         isVip: true,
         updateTime: db.serverDate()
       }

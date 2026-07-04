@@ -193,7 +193,7 @@ exports.main = async (event, context) => {
 
     const user = userRes.data
     const now = new Date()
-    let currentExpireTime = user.vipExpireTime ? new Date(user.vipExpireTime) : now
+    let currentExpireTime = user.vipValidUntil ? new Date(user.vipValidUntil) : (user.vipExpireTime ? new Date(user.vipExpireTime) : now)
     if (currentExpireTime < now) {
       currentExpireTime = now
     }
@@ -204,7 +204,7 @@ exports.main = async (event, context) => {
 
     await db.collection('users').doc(userId).update({
       data: {
-        vipExpireTime: newExpireTime,
+        vipValidUntil: newExpireTime,
         isVip: true,
         updateTime: db.serverDate()
       }

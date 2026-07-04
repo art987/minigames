@@ -43,23 +43,32 @@ const VIPSystem = (function() {
     return info ? JSON.parse(info) : null;
   }
 
-  // 设置当前用户信息
-  function setUserInfo(info) {
-    localStorage.setItem(STORAGE_KEYS.USER_ID, info.userId)
-    localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(info))
-    
+  // 设置当前用户信息（合并模式：新数据合并到原有信息上，避免部分数据覆盖完整 userInfo）
+  // 注意：newInfo 中值为 undefined 的字段会被忽略，不会覆盖已有值
+  function setUserInfo(newInfo) {
+    const existingInfo = getUserInfo() || {}
+    const mergedInfo = Object.assign({}, existingInfo)
+    // 只合并 newInfo 中值不为 undefined 的字段
+    Object.keys(newInfo || {}).forEach(key => {
+      if (newInfo[key] !== undefined && newInfo[key] !== null) {
+        mergedInfo[key] = newInfo[key]
+      }
+    })
+    localStorage.setItem(STORAGE_KEYS.USER_ID, mergedInfo.userId)
+    localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(mergedInfo))
+
     // 保存 VIP 相关信息
-    if (info.phone) {
-      localStorage.setItem('vipPhone', info.phone)
+    if (mergedInfo.phone) {
+      localStorage.setItem('vipPhone', mergedInfo.phone)
     }
-    if (info.isVip !== undefined) {
-      localStorage.setItem('vipIsVip', info.isVip)
+    if (mergedInfo.isVip !== undefined) {
+      localStorage.setItem('vipIsVip', mergedInfo.isVip)
     }
-    if (info.vipValidUntil) {
-      localStorage.setItem('vipValidUntil', info.vipValidUntil)
+    if (mergedInfo.vipValidUntil) {
+      localStorage.setItem('vipValidUntil', mergedInfo.vipValidUntil)
     }
-    if (info.hasPassword !== undefined) {
-      localStorage.setItem('vipHasPassword', info.hasPassword)
+    if (mergedInfo.hasPassword !== undefined) {
+      localStorage.setItem('vipHasPassword', mergedInfo.hasPassword)
     }
   }
 
@@ -171,9 +180,11 @@ const VIPSystem = (function() {
     }
   }
 
-  // 检查是否已登录
+  // 检查是否已登录（userId 和 userInfo 必须同时存在，避免伪登录态）
   function isLoggedIn() {
-    return !!getUserId();
+    const userId = getUserId()
+    const userInfo = getUserInfo()
+    return !!(userId && userInfo && userInfo.userId)
   }
 
   // 退出登录
@@ -286,17 +297,25 @@ const VIPSystem = (function() {
       }
       
       // 处理升级码验证成功的情况
-      if (result.success) {
-        // 构建用户信息对象
-        const userInfo = {
+      if (result.success && !result.used) {
+        // 升级码未使用且验证成功，合并更新到现有 userInfo，避免覆盖完整数据
+        const patch = {
           userId: userId,
-          isVip: true,
-          vipValidUntil: result.validUntil
-        };
-        
-        // 更新本地存储
-        setUserInfo(userInfo);
-        console.log('已更新本地存储中的VIP状态:', userInfo);
+          isVip: true
+        }
+        if (result.validUntil) {
+          patch.vipValidUntil = result.validUntil
+        }
+        setUserInfo(patch);
+        console.log('已合并更新本地存储中的VIP状态:', patch);
+
+        // 主动从服务器拉取最新完整用户信息，确保数据一致
+        try {
+          await getUserInfoById(userId)
+          console.log('升级成功后已从服务器刷新用户信息')
+        } catch (e) {
+          console.warn('升级后刷新用户信息失败（不影响升级结果）:', e)
+        }
       }
       
       return result

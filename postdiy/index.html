@@ -5,9 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 登录状态预检：未登录则立即跳转，不加载任何资源 -->
   <script>
-    if (!localStorage.getItem('postdiy_user_id')) {
-      window.location.replace('login/index.html?redirect=' + encodeURIComponent(window.location.href));
-    }
+    // 必须同时存在 userId 和 userInfo 才算已登录，避免伪登录态（残留 userId 但 userInfo 缺失）
+    (function() {
+      var userId = localStorage.getItem('postdiy_user_id');
+      var userInfo = localStorage.getItem('postdiy_user_info');
+      if (!userId || !userInfo) {
+        // 清理可能残留的伪登录数据
+        if (userId && !userInfo) {
+          localStorage.removeItem('postdiy_user_id');
+        }
+        window.location.replace('login/index.html?redirect=' + encodeURIComponent(window.location.href));
+      }
+    })();
   </script>
   <title>闪喵朋友圈海报生成器 - 在线免费设计制作节日促销海报</title>
   
@@ -46,9 +55,9 @@
   <!-- 按钮背景图片加载动画 -->
   <script src="button-loading.js"></script>
   <!-- 会员系统模块 -->
-  <script src="vip-system.js"></script>
+  <script src="vip-system.js?v=20260704"></script>
   <!-- VIP 登录 UI 模块 -->
-  <script src="vip-login-ui.js"></script>
+  <script src="vip-login-ui.js?v=20260704"></script>
   <!-- 页面不活动检测模块 -->
   <script src="inactivity-check.js"></script>
 </head>

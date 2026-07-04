@@ -432,6 +432,7 @@ function showPaymentWaitingModal(outTradeNo) {
     <div class="order-history-content" style="max-width:380px;width:92%;margin-top:-60px;">
       <div class="order-history-header">
         <h3 style="color:#fff;font-size:17px;font-weight:600;">等待支付</h3>
+        <button id="closeWaitingBtn" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.9;padding:0;font-family:sans-serif;">&times;</button>
       </div>
       <div style="padding:28px 20px;text-align:center;">
         <div style="width:56px;height:56px;margin:0 auto 16px;">
@@ -490,14 +491,29 @@ function showPaymentWaitingModal(outTradeNo) {
     const s = modal.querySelector('#pollingStatus')
     if (s) s.innerHTML = '<span style="color:#ff9800;">暂未检测到支付成功，请确认是否已完成支付</span>'
   })
-  modal.querySelector('#cancelWaitingBtn').addEventListener('click', () => {
+  // 统一取消逻辑：停止轮询、关闭弹窗、清理 pending/return 状态
+  const cancelPaymentWaiting = (reason) => {
+    console.log('[payment-flow] 用户取消支付等待, outTradeNo:', outTradeNo, 'reason:', reason || 'user_cancel')
     stopPaymentPolling()
     modal.remove()
     finishPaymentSession('cancelled')
     // 用户主动取消等待：清理 pending payment 状态，避免恢复可见后又自动弹回等待
     clearPendingPayment()
     clearPaymentReturnResult()
-  })
+    // 通知 App 关闭收银台（如有）
+    try {
+      if (window.uni && window.uni.postMessage) {
+        window.uni.postMessage({ data: { action: 'cancelPayment', outTradeNo: outTradeNo || '' } })
+      }
+    } catch (e) { console.warn('[payment-flow] 通知 App 取消支付失败:', e) }
+  }
+
+  // 右上角关闭按钮：取消支付 + 取消订单
+  const closeBtn = modal.querySelector('#closeWaitingBtn')
+  if (closeBtn) closeBtn.addEventListener('click', () => cancelPaymentWaiting('close_btn'))
+  // 底部取消等待按钮：同效
+  const cancelBtn = modal.querySelector('#cancelWaitingBtn')
+  if (cancelBtn) cancelBtn.addEventListener('click', () => cancelPaymentWaiting('cancel_btn'))
 }
 
 // 支付结果弹窗
@@ -634,6 +650,17 @@ function showPaymentResultModal(options = {}) {
       if (typeof loadDownloadQuota === 'function') {
         try { loadDownloadQuota() } catch (e) { console.warn('刷新下载次数显示失败:', e) }
       }
+      // 主动从服务器拉取最新用户信息，确保 VIP 状态、有效期等实时同步
+      const currentUserId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+      if (currentUserId && VIPSystem.getUserInfoById) {
+        VIPSystem.getUserInfoById(currentUserId).then(() => {
+          console.log('[payment-flow] 已从服务器刷新用户信息')
+          if (typeof updateVipStatus === 'function') updateVipStatus()
+          if (typeof loadDownloadQuota === 'function') {
+            try { loadDownloadQuota() } catch (e) {}
+          }
+        }).catch(e => console.warn('[payment-flow] 刷新用户信息失败:', e))
+      }
     }
     modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', closeAll)
     // 成功弹窗不允许点击遮罩关闭，必须点按钮
@@ -731,6 +758,14 @@ const VipLoginUI = (function() {
     const loginBtn = document.getElementById('vipLoginBtn')
     const loggedInMenu = document.getElementById('vipLoggedInMenu')
     const dropdownMenu = document.getElementById('vipDropdownMenu')
+
+    // 检测伪登录态：userId 存在但 userInfo 缺失，清理残留数据
+    const userId = VIPSystem.getUserId ? VIPSystem.getUserId() : null
+    const userInfo = VIPSystem.getUserInfo ? VIPSystem.getUserInfo() : null
+    if (userId && !userInfo) {
+      console.warn('[vip-status] 检测到伪登录态（userId 存在但 userInfo 缺失），清理残留数据')
+      if (VIPSystem.logout) VIPSystem.logout()
+    }
 
     if (VIPSystem.isLoggedIn()) {
       if (loginBtn) loginBtn.classList.add('hidden')

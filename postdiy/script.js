@@ -863,8 +863,10 @@ function createTemplateCard(template) {
   
   // 卡片内容
   const thumbnailPath = template.thumbnail || template.image;
+  // 优先使用 Cloudflare CDN 地址（与节日模板库弹窗一致）
+  // 注意：不要调用 getFallbackUrl()，因为它会把 Cloudflare URL 加入 failedImages 集合，
+  // 导致后续 getImageUrl 误判为失败而回退到本地。回退由 img error 事件处理。
   const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnailPath) : thumbnailPath;
-  const fallbackUrl = window.imageConfig ? window.imageConfig.getFallbackUrl(thumbnailPath) : null;
   
   if (!availability.available) {
     card.classList.add('template-locked');
