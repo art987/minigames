@@ -1,8 +1,53 @@
-// 打开支付页面：使用 location.assign 让注入 JS 能拦截支付域名
-// 注入 JS 会 patch location.assign 和 location.replace，检测支付域名后 postMessage 给宿主
-// 宿主收到 openPaymentUrl 消息后调用 openPaymentPage() 跳转到收银台页
+// 打开支付页面：优先通知 App 打开独立收银台页，避免首页 webview 真的跳入支付链路。
+// 如果当前不是 App 内嵌环境，再降级使用 location.assign 直接跳转支付页。
 const PAYMENT_SESSION_STORAGE_KEY = 'VIP_PAYMENT_SESSION'
 const PAYMENT_REOPEN_GAP_MS = 8000
+
+function buildPaymentReturnUrl() {
+  try {
+    const currentUrl = new URL(window.location.href)
+    const pathname = currentUrl.pathname || '/'
+    const lastSlashIndex = pathname.lastIndexOf('/')
+    const basePath = lastSlashIndex >= 0 ? pathname.slice(0, lastSlashIndex + 1) : '/'
+    return `${currentUrl.origin}${basePath}payment-return.html`
+  } catch (e) {
+    console.warn('[payment-flow] 构建支付回跳页失败，回退默认文件名:', e)
+    return 'payment-return.html'
+  }
+}
+
+function postPaymentMessageToApp(payUrl, outTradeNo) {
+  const payload = {
+    action: 'openPaymentUrl',
+    url: payUrl,
+    outTradeNo: outTradeNo || '',
+    returnMode: 'success-relay'
+  }
+
+  try {
+    if (window.uni && window.uni.webView && typeof window.uni.webView.postMessage === 'function') {
+      window.uni.webView.postMessage({ data: payload })
+      console.log('[payment-flow] 已通过 uni.webView.postMessage 通知 App 打开收银台')
+      return true
+    }
+
+    if (window.__uniapp_x_postMessage) {
+      window.__uniapp_x_postMessage({ data: payload })
+      console.log('[payment-flow] 已通过 __uniapp_x_postMessage 通知 App 打开收银台')
+      return true
+    }
+
+    if (window.__uniapp_x_ && typeof window.__uniapp_x_.postMessage === 'function') {
+      window.__uniapp_x_.postMessage(JSON.stringify({ data: payload }))
+      console.log('[payment-flow] 已通过 __uniapp_x_.postMessage 通知 App 打开收银台')
+      return true
+    }
+  } catch (e) {
+    console.error('[payment-flow] 通知 App 打开收银台失败:', e)
+  }
+
+  return false
+}
 
 function getPaymentSession() {
   try {
@@ -42,7 +87,7 @@ function isSamePaymentSession(payUrl, outTradeNo) {
   return (sameUrl || sameOrder) && now - (current.createdAt || 0) < PAYMENT_REOPEN_GAP_MS
 }
 
-function openPaymentPage(payUrl) {
+function openPaymentPage(payUrl, outTradeNo) {
   console.log('[payment-flow] openPaymentPage called, payUrl:', payUrl)
   console.log('[payment-flow] payUrl host:', (() => {
     try {
@@ -53,11 +98,11 @@ function openPaymentPage(payUrl) {
     }
   })())
 
-  // 使用 location.assign 而不是 window.location.href 直接赋值
-  // 因为注入 JS 只 patched 了 location.assign 和 location.replace
-  // 如果支付域名被拦截，tryOpenPaymentUrl 会返回 true，跳转会被阻止
-  // 如果支付域名没有被拦截（比如后续跳转到 wx.tenpay.com），会正常跳转
-  // APP 端的 onWebLoading 会兜底拦截支付域名
+  if (postPaymentMessageToApp(payUrl, outTradeNo)) {
+    return true
+  }
+
+  // 降级方案：非 App 环境仍然允许当前页面直接跳到支付页。
   try {
     window.location.assign(payUrl)
     console.log('[payment-flow] 已执行 location.assign')
@@ -91,7 +136,7 @@ function initiatePayment(payUrl, outTradeNo) {
     status: 'pending'
   })
 
-  openPaymentPage(payUrl)
+  openPaymentPage(payUrl, outTradeNo)
 
   // 延迟显示等待弹窗：给 APP 端时间拦截支付域名
   // 如果 APP 拦截成功，原页面保持不变，等待弹窗正常显示
@@ -572,11 +617,11 @@ const VipLoginUI = (function() {
           <h4 style="margin: 0 0 16px 0; color: #d32f2f; font-size: 18px; font-weight: bold;">💎 VIP会员套餐</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
             <!-- 1个月VIP -->
-            <div class="vip-package" data-duration="1" data-price="0.01" data-original-price="20" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+            <div class="vip-package" data-duration="1" data-price="9.9" data-original-price="20" style="padding: 16px; background: #fff; border: 2px solid #ffcdd2; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
               <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">限时</div>
               <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">1个月VIP</h5>
               <div style="margin-bottom: 8px;">
-                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">0.01</span>
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥9.9</span>
                 <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥20</span>
               </div>
               <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥10.1</div>
@@ -861,7 +906,7 @@ const VipLoginUI = (function() {
     document.body.appendChild(loadingModal)
     
     try {
-      const returnUrl = window.location.href.split('?')[0]
+      const returnUrl = buildPaymentReturnUrl()
       const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl)
       
       loadingModal.remove()
@@ -1716,7 +1761,7 @@ const VipLoginUI = (function() {
                 this.textContent = '处理中...'
                 
                 try {
-                  const returnUrl = window.location.href.split('?')[0]
+                  const returnUrl = buildPaymentReturnUrl()
                   const result = await VIPSystem.createPaymentOrder(money, duration, type, returnUrl)
                   
                   if (result.success && result.data && result.data.payUrl) {
@@ -2489,7 +2534,7 @@ window.showVipUpgradeModal = function() {
       document.body.appendChild(loadingModal);
 
       try {
-        const returnUrl = window.location.href.split('?')[0];
+        const returnUrl = buildPaymentReturnUrl();
         const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl);
 
         loadingModal.remove();
