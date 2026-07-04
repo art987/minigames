@@ -21,6 +21,8 @@ const VIPSystem = (function() {
     paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
     paymentOrderList: `${API_BASE_URL}/payment-order-list`,
     paymentOrderStatus: `${API_BASE_URL}/payment-order-status`,
+    getVipPackages: `${API_BASE_URL}/get-vip-packages`,
+    adminVipPackages: `${API_BASE_URL}/admin-vip-packages`,
     downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
     downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`
   };
@@ -433,15 +435,15 @@ const VIPSystem = (function() {
     return userInfo.vipValidUntil || null
   }
 
-  async function createPaymentOrder(money, duration, type, returnUrl) {
+  async function createPaymentOrder(money, duration, type, returnUrl, packageId) {
     try {
       const userId = getUserId()
       const userInfo = getUserInfo()
-      
+
       if (!userId) {
         return { success: false, message: '请先登录' }
       }
-      
+
       const response = await fetch(APIs.paymentCreateOrder, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -451,16 +453,103 @@ const VIPSystem = (function() {
           money: money,
           duration: duration,
           type: type,
-          returnUrl: returnUrl
+          returnUrl: returnUrl,
+          packageId: packageId || ''
         })
       })
-      
+
       const result = await response.json()
       console.log('payment-create-order 返回:', result)
       return result
     } catch (error) {
       console.error('创建支付订单失败:', error)
       return { success: false, message: '创建订单失败，请稍后重试' }
+    }
+  }
+
+  // ===== VIP 套餐（云端管理） =====
+  // 内存缓存 + 5 分钟过期，减少重复请求
+  let _vipPackagesCache = null
+  let _vipPackagesCacheAt = 0
+  const VIP_PACKAGES_CACHE_TTL = 5 * 60 * 1000
+
+  async function getVipPackages(forceRefresh) {
+    // 强制刷新或缓存过期时重新拉取
+    const now = Date.now()
+    if (!forceRefresh && _vipPackagesCache && (now - _vipPackagesCacheAt) < VIP_PACKAGES_CACHE_TTL) {
+      return { success: true, data: { packages: _vipPackagesCache } }
+    }
+
+    try {
+      const response = await fetch(APIs.getVipPackages, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      let result = await response.json()
+      // 兼容 API 网关返回格式（body 为 JSON 字符串）
+      if (result && result.body && typeof result.body === 'string') {
+        try { result = JSON.parse(result.body) } catch (e) { /* ignore */ }
+      }
+      if (result.success && result.data && Array.isArray(result.data.packages)) {
+        _vipPackagesCache = result.data.packages
+        _vipPackagesCacheAt = now
+        return { success: true, data: { packages: result.data.packages } }
+      }
+      return { success: false, message: (result && result.message) || '获取套餐失败', data: { packages: [] } }
+    } catch (error) {
+      console.error('获取 VIP 套餐失败:', error)
+      // 失败时返回缓存（如果有）
+      if (_vipPackagesCache && _vipPackagesCache.length > 0) {
+        return { success: true, data: { packages: _vipPackagesCache } }
+      }
+      return { success: false, message: '获取套餐失败，请稍后重试', data: { packages: [] } }
+    }
+  }
+
+  // 兜底默认套餐（仅当云端无套餐或网络异常时使用，与云端默认配置保持一致）
+  function getDefaultVipPackages() {
+    return [
+      { _id: '', duration: 1, title: '1个月VIP', price: 9.9, originalPrice: 60, saving: '≈半杯奶茶', badge: '', featured: false, sortOrder: 1, promotionText: '' },
+      { _id: '', duration: 3, title: '3个月VIP', price: 16.9, originalPrice: 60, saving: '≈买1月送2月', badge: '', featured: false, sortOrder: 2, promotionText: '' },
+      { _id: '', duration: 6, title: '6个月VIP', price: 19.9, originalPrice: 120, saving: '≈买1月送5月', badge: '', featured: false, sortOrder: 3, promotionText: '' },
+      { _id: '', duration: 12, title: '1年VIP', price: 23.9, originalPrice: 240, saving: '≈买1月送11月', badge: '超值', featured: true, sortOrder: 4, promotionText: '' },
+      { _id: '', duration: 24, title: '2年VIP', price: 33.9, originalPrice: 480, saving: '≈买2月送22月', badge: '', featured: false, sortOrder: 5, promotionText: '' }
+    ]
+  }
+
+  // 清空前端套餐缓存（管理后台修改后调用）
+  function clearVipPackagesCache() {
+    _vipPackagesCache = null
+    _vipPackagesCacheAt = 0
+  }
+
+  // 管理后台调用 admin-vip-packages 云函数（需 Basic Auth 鉴权）
+  // action: list / get / create / update / delete / toggle
+  async function adminVipPackages(action, params) {
+    try {
+      // 从 localStorage 读取管理员凭据（admin-auth.js 登录时写入）
+      const adminUserId = localStorage.getItem('postdiy_admin_user_id') || ''
+      const adminPassword = localStorage.getItem('postdiy_admin_password') || ''
+      const basicAuth = 'Basic ' + btoa(unescape(encodeURIComponent(`${adminUserId}:${adminPassword}`)))
+
+      const body = Object.assign({ action: action || 'list' }, params || {})
+      const response = await fetch(APIs.adminVipPackages, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': basicAuth
+        },
+        body: JSON.stringify(body)
+      })
+      let result = await response.json()
+      // 兼容 API 网关返回格式（body 为 JSON 字符串）
+      if (result && result.body && typeof result.body === 'string') {
+        try { result = JSON.parse(result.body) } catch (e) { /* ignore */ }
+      }
+      return result
+    } catch (error) {
+      console.error('adminVipPackages 调用失败:', error)
+      return { success: false, message: '操作失败，请稍后重试' }
     }
   }
 
@@ -635,6 +724,10 @@ const VIPSystem = (function() {
     isVip,
     getVipExpireTime,
     createPaymentOrder,
+    getVipPackages,
+    getDefaultVipPackages,
+    clearVipPackagesCache,
+    adminVipPackages,
     getPaymentOrderList,
     getDownloadQuota,
     deductDownloadQuota,
@@ -647,3 +740,8 @@ const VIPSystem = (function() {
 document.addEventListener('DOMContentLoaded', () => {
   VIPSystem.init();
 });
+
+// 显式挂到 window，便于其他脚本通过 window.VIPSystem 访问
+if (typeof window !== 'undefined') {
+  window.VIPSystem = VIPSystem;
+}

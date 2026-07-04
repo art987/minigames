@@ -1,0 +1,9 @@
+{
+  "name": "get-vip-packages",
+  "version": "1.0.0",
+  "description": "公开 VIP 套餐查询接口（仅返回 enabled 套餐，字段精简）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

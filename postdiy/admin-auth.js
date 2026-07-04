@@ -18,10 +18,14 @@
       if (userId === ADMIN_CONFIG.userId && password === ADMIN_CONFIG.password) {
         const authData = {
           userId: userId,
+          password: password,
           loginTime: Date.now(),
           expiry: Date.now() + ADMIN_CONFIG.expiryHours * 60 * 60 * 1000
         };
         localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(authData));
+        // 同步写入凭据供 adminVipPackages 等云函数鉴权使用
+        localStorage.setItem('postdiy_admin_user_id', userId);
+        localStorage.setItem('postdiy_admin_password', password);
         return { success: true };
       }
       return { success: false, message: '用户ID或密码错误' };
@@ -32,6 +36,8 @@
      */
     logout: function() {
       localStorage.removeItem(ADMIN_AUTH_KEY);
+      localStorage.removeItem('postdiy_admin_user_id');
+      localStorage.removeItem('postdiy_admin_password');
     },
 
     /**

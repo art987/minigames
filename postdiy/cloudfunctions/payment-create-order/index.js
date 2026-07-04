@@ -49,7 +49,7 @@ function getDurationName(duration) {
 }
 
 exports.main = async (event, context) => {
-  let userId, phone, money, duration, type, returnUrl
+  let userId, phone, money, duration, type, returnUrl, packageId
   try {
     const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
     userId = body.userId
@@ -58,6 +58,7 @@ exports.main = async (event, context) => {
     duration = body.duration
     type = body.type
     returnUrl = body.returnUrl
+    packageId = body.packageId
   } catch (error) {
     console.log('解析 body 失败:', error)
     userId = event.userId
@@ -66,9 +67,10 @@ exports.main = async (event, context) => {
     duration = event.duration
     type = event.type
     returnUrl = event.returnUrl
+    packageId = event.packageId
   }
   
-  console.log('payment-create-order 接收参数:', { userId, phone, money, duration, type, returnUrl })
+  console.log('payment-create-order 接收参数:', { userId, phone, money, duration, type, returnUrl, packageId })
 
   // 校验 userId 有效性：拒绝 "undefined"/"null" 等脏数据，从源头避免后续 doc("undefined").get() 报错
   const isValidUserId = userId &&
@@ -77,7 +79,7 @@ exports.main = async (event, context) => {
     typeof userId === 'string' &&
     userId.trim().length > 0
 
-  if (!isValidUserId || !money || !duration || !type) {
+  if (!isValidUserId || !duration || !type) {
     console.error('payment-create-order 参数校验失败:', { userId, isValidUserId, money, duration, type })
     return {
       statusCode: 200,
@@ -111,8 +113,124 @@ exports.main = async (event, context) => {
   }
 
   try {
+    // === 安全关键：从云端 vip_packages_config 集合查询真实价格 ===
+    // 前端传的 money 仅作日志对比，不参与下单
+    let realPrice = null
+    let pkgDocId = packageId || ''
+    let pkgTitle = ''
+    try {
+      let pkgData = null
+      if (pkgDocId) {
+        // 优先按 packageId 查
+        try {
+          const r = await db.collection('vip_packages_config').doc(pkgDocId).get()
+          pkgData = r.data
+        } catch (e) {
+          // doc 不存在时降级到 duration 查询
+          console.warn('按 packageId 查询套餐失败，降级到 duration 查询:', e.message)
+        }
+      }
+      if (!pkgData && duration) {
+        // 按 duration 查询（兼容旧前端不传 packageId 的情况）
+        try {
+          const r = await db
+            .collection('vip_packages_config')
+            .where({ duration: Number(duration), enabled: true })
+            .limit(1)
+            .get()
+          if (r.data && r.data.length > 0) {
+            pkgData = r.data[0]
+            pkgDocId = pkgData._id
+          }
+        } catch (e) {
+          // 集合可能不存在
+          console.warn('按 duration 查询套餐失败:', e.message)
+        }
+      }
+
+      if (!pkgData) {
+        return {
+          statusCode: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+          },
+          body: JSON.stringify({
+            success: false,
+            message: `未找到时长为 ${duration} 个月的可售套餐`
+          })
+        }
+      }
+
+      // 校验套餐启用状态
+      if (pkgData.enabled === false) {
+        return {
+          statusCode: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+          },
+          body: JSON.stringify({
+            success: false,
+            message: '该套餐已下架，请刷新页面后重新选择'
+          })
+        }
+      }
+
+      realPrice = Number(pkgData.price)
+      pkgTitle = pkgData.title || ''
+      if (!pkgDocId) pkgDocId = pkgData._id
+
+      // 价格被前端篡改时打印告警日志（不影响下单，按真实价格走）
+      const clientMoney = Number(money)
+      if (!isNaN(clientMoney) && Math.abs(clientMoney - realPrice) > 0.001) {
+        console.warn('[安全告警] 前端传入价格与云端不符，已使用云端价格:', {
+          userId,
+          duration,
+          clientMoney,
+          realPrice,
+          packageId: pkgDocId
+        })
+      }
+    } catch (err) {
+      console.error('查询 vip_packages_config 失败:', err)
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        },
+        body: JSON.stringify({
+          success: false,
+          message: '套餐价格校验失败，请稍后重试'
+        })
+      }
+    }
+
+    if (!realPrice || realPrice <= 0) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        },
+        body: JSON.stringify({
+          success: false,
+          message: '套餐价格异常'
+        })
+      }
+    }
+
     const outTradeNo = generateOutTradeNo()
-    const name = getDurationName(duration)
+    const name = pkgTitle || getDurationName(duration)
     
     const notifyUrl = 'https://api.peacelove.top/payment-notify'
     const baseUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
@@ -126,7 +244,7 @@ exports.main = async (event, context) => {
       notify_url: notifyUrl,
       return_url: cleanReturnUrl,
       name: name,
-      money: String(money),
+      money: String(realPrice),
       cid: ZPAY_CONFIG.CID,
       param: userId
     }
@@ -147,10 +265,12 @@ exports.main = async (event, context) => {
         userId: userId,
         phone: phone || '',
         name: name,
-        money: parseFloat(money),
+        money: realPrice,
         duration: duration,
         type: type,
         status: 0,
+        packageId: pkgDocId || '',
+        clientMoney: money !== undefined ? Number(money) : null, // 保留前端传值用于审计
         createTime: db.serverDate(),
         payTime: null,
         trade_no: '',
@@ -171,7 +291,8 @@ exports.main = async (event, context) => {
         message: '订单创建成功',
         data: {
           out_trade_no: outTradeNo,
-          payUrl: payUrl
+          payUrl: payUrl,
+          money: realPrice
         }
       })
     }

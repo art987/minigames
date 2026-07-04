@@ -8443,65 +8443,16 @@ const ThumbnailLoader = {
         <div class="vip-packages-section">
           <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
           <div class="vip-packages-wrapper">
-            <div class="vip-packages-container">
-              <div class="vip-package selected" data-duration="1" data-price="9.9" data-original-price="20">
-                <h5 class="package-title">1个月VIP</h5>
-                <div class="package-price">
-                  <span class="package-current-price">¥9.9</span>
-                  <span class="package-original-price">¥60</span>
-                </div>
-                <div class="package-saving">≈半杯奶茶</div>
-                <button class="select-package-btn">✔ 已选择</button>
-              </div>
-              
-              <div class="vip-package" data-duration="3" data-price="16.9" data-original-price="60">
-                <h5 class="package-title">3个月VIP</h5>
-                <div class="package-price">
-                  <span class="package-current-price">¥16.9</span>
-                  <span class="package-original-price">¥60</span>
-                </div>
-                <div class="package-saving">≈买1月送2月</div>
-                <button class="select-package-btn">选择</button>
-              </div>
-              
-              <div class="vip-package" data-duration="6" data-price="19.9" data-original-price="120">
-                <h5 class="package-title">6个月VIP</h5>
-                <div class="package-price">
-                  <span class="package-current-price">¥19.9</span>
-                  <span class="package-original-price">¥120</span>
-                </div>
-                <div class="package-saving">≈买1月送5月</div>
-                <button class="select-package-btn">选择</button>
-              </div>
-              
-              <div class="vip-package vip-package-featured" data-duration="12" data-price="23.9" data-original-price="240">
-                <div class="package-badge">超值</div>
-                <h5 class="package-title">1年VIP</h5>
-                <div class="package-price">
-                  <span class="package-current-price">¥23.9</span>
-                  <span class="package-original-price">¥240</span>
-                </div>
-                <div class="package-saving">≈买1月送11月</div>
-                <button class="select-package-btn">选择</button>
-              </div>
-              
-              <div class="vip-package" data-duration="24" data-price="33.9" data-original-price="480">
-                <h5 class="package-title">2年VIP</h5>
-                <div class="package-price">
-                  <span class="package-current-price">¥33.9</span>
-                  <span class="package-original-price">¥480</span>
-                </div>
-                <div class="package-saving">≈买2月送22月</div>
-                <button class="select-package-btn">选择</button>
-              </div>
+            <div class="vip-packages-container" id="vipUpgradePackageGrid">
+              <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>
             </div>
           </div>
         </div>
-        
+
         <div class="vip-upgrade-actions">
           <button id="closeVipUpgradeBtn2" class="close-upgrade-btn">关闭</button>
           <div class="payment-btn-wrapper">
-            <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付9.9元</button>
+            <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付</button>
             <div class="discount-badge payment-discount-badge">1折</div>
           </div>
         </div>
@@ -8634,111 +8585,101 @@ const ThumbnailLoader = {
       }
     }
     
-    setTimeout(function() {
-      const packages = document.querySelectorAll('.vip-package');
-      const featuredPackage = document.querySelector('.vip-package.vip-package-featured');
-      
-      if (featuredPackage) {
-        featuredPackage.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        
-        packages.forEach(p => {
-          p.classList.remove('selected');
-          const selectBtn = p.querySelector('.select-package-btn');
-          if (selectBtn) selectBtn.textContent = '选择';
-        });
-        
-        featuredPackage.classList.add('selected');
-        
-        const selectBtn = featuredPackage.querySelector('.select-package-btn');
-        if (selectBtn) selectBtn.textContent = '✔ 已选择';
-        
-        updatePaymentDiscountBadge(featuredPackage);
-        
-        const price = featuredPackage.dataset.price;
+    // 异步加载云端套餐并渲染（class 风格，对接 styles.css）
+    const upgradeGrid = document.getElementById('vipUpgradePackageGrid')
+    if (upgradeGrid) {
+      // 套餐点击事件（事件委托）
+      upgradeGrid.addEventListener('click', function(e) {
+        const pkg = e.target.closest('.vip-package')
+        if (!pkg) return
+        const allPackages = upgradeGrid.querySelectorAll('.vip-package')
+        allPackages.forEach(p => {
+          p.classList.remove('selected')
+          const selectBtn = p.querySelector('.select-package-btn')
+          if (selectBtn) selectBtn.textContent = '选择'
+        })
+        pkg.classList.add('selected')
+        pkg.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+        const selectBtn = pkg.querySelector('.select-package-btn')
+        if (selectBtn) selectBtn.textContent = '✔ 已选择'
+
+        if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(pkg)
+
+        const price = pkg.dataset.price
         if (proceedToPaymentBtn) {
-          proceedToPaymentBtn.textContent = `立即支付${price}元`;
-          proceedToPaymentBtn.style.display = 'block';
+          proceedToPaymentBtn.textContent = `立即支付${price}元`
+          proceedToPaymentBtn.style.display = 'block'
         }
+      })
+
+      // 调用 vip-login-ui.js 的统一渲染函数（如果可用）；否则尝试本地兜底
+      if (typeof window.renderVipPackagesToGrid === 'function') {
+        window.renderVipPackagesToGrid(upgradeGrid, { style: 'class' }).then(() => {
+          const featured = upgradeGrid.querySelector('.vip-package.vip-package-featured') || upgradeGrid.querySelector('.vip-package.selected')
+          if (featured) {
+            setTimeout(() => featured.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 100)
+            if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
+          }
+        })
+      } else {
+        // 兜底：渲染失败时显示提示
+        upgradeGrid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载失败，请刷新页面重试</div>`
       }
-    }, 500);
-    
-    const vipPackages = document.querySelectorAll('.vip-package');
-    vipPackages.forEach(pkg => {
-      pkg.addEventListener('click', function() {
-        vipPackages.forEach(p => {
-          p.classList.remove('selected');
-          const selectBtn = p.querySelector('.select-package-btn');
-          if (selectBtn) selectBtn.textContent = '选择';
-        });
-        
-        this.classList.add('selected');
-        this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        
-        const selectBtn = this.querySelector('.select-package-btn');
-        if (selectBtn) selectBtn.textContent = '✔ 已选择';
-        
-        updatePaymentDiscountBadge(this);
-        
-        const price = this.dataset.price;
-        if (proceedToPaymentBtn) {
-          proceedToPaymentBtn.textContent = `立即支付${price}元`;
-          proceedToPaymentBtn.style.display = 'block';
-        }
-      });
-    });
-    
+    }
+
     if (proceedToPaymentBtn) {
       proceedToPaymentBtn.addEventListener('click', async function() {
-        const selectedPackage = document.querySelector('.vip-package.selected');
+        const selectedPackage = upgradeGrid ? upgradeGrid.querySelector('.vip-package.selected') : document.querySelector('.vip-package.selected')
         if (!selectedPackage) {
-          alert('请先选择一个套餐');
-          return;
+          alert('请先选择一个套餐')
+          return
         }
-        
+
         if (!VIPSystem.isLoggedIn()) {
-          alert('请先登录');
-          return;
+          alert('请先登录')
+          return
         }
-        
-        const duration = parseInt(selectedPackage.dataset.duration);
-        const price = selectedPackage.dataset.price;
-        const type = 'wxpay';
-        
-        console.log('支付参数:', { duration, price, type, isLoggedIn: VIPSystem.isLoggedIn() });
-        console.log('userId:', VIPSystem.getUserId());
-        
-        const loadingModal = document.createElement('div');
-        loadingModal.id = 'paymentLoadingModal';
-        loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;';
+
+        const duration = parseInt(selectedPackage.dataset.duration)
+        const price = selectedPackage.dataset.price
+        const packageId = selectedPackage.dataset.packageId || ''
+        const type = 'wxpay'
+
+        console.log('支付参数:', { duration, price, type, packageId, isLoggedIn: VIPSystem.isLoggedIn() })
+        console.log('userId:', VIPSystem.getUserId())
+
+        const loadingModal = document.createElement('div')
+        loadingModal.id = 'paymentLoadingModal'
+        loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;'
         loadingModal.innerHTML = `
           <div style="background: #fff; border-radius: 12px; padding: 24px; text-align: center;">
             <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #d32f2f; border-radius: 50%; margin: 0 auto 16px; animation: spin 1s linear infinite;"></div>
             <p style="margin: 0; color: #333;">正在创建订单...</p>
           </div>
-        `;
-        document.body.appendChild(loadingModal);
-        
+        `
+        document.body.appendChild(loadingModal)
+
         try {
-          const returnUrl = window.location.href.split('?')[0];
-          const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl);
-          
-          loadingModal.remove();
-          
+          const returnUrl = window.location.href.split('?')[0]
+          const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl, packageId)
+
+          loadingModal.remove()
+
           if (result.success && result.data && result.data.payUrl) {
             if (typeof initiatePayment === 'function') {
-              initiatePayment(result.data.payUrl, result.data.out_trade_no);
+              initiatePayment(result.data.payUrl, result.data.out_trade_no)
             } else {
-              window.location.href = result.data.payUrl;
+              window.location.href = result.data.payUrl
             }
           } else {
-            alert(result.message || '创建订单失败，请稍后重试');
+            alert(result.message || '创建订单失败，请稍后重试')
           }
         } catch (error) {
-          loadingModal.remove();
-          console.error('支付失败:', error);
-          alert('支付失败，请稍后重试');
+          loadingModal.remove()
+          console.error('支付失败:', error)
+          alert('支付失败，请稍后重试')
         }
-      });
+      })
     }
   };
 
