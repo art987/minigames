@@ -576,7 +576,7 @@ const VipLoginUI = (function() {
               <div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">限时</div>
               <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">1个月VIP</h5>
               <div style="margin-bottom: 8px;">
-                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥9.9</span>
+                <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">0.01</span>
                 <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥20</span>
               </div>
               <div style="font-size: 12px; color: #666; margin-bottom: 12px;">节省 ¥10.1</div>
