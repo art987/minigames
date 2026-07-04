@@ -2214,10 +2214,10 @@ window.showVipUpgradeModal = function() {
         <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
         <div class="vip-packages-wrapper">
           <div class="vip-packages-container">
-            <div class="vip-package selected" data-duration="1" data-price="9.9" data-original-price="20">
+            <div class="vip-package selected" data-duration="1" data-price="0.01" data-original-price="20">
               <h5 class="package-title">1个月VIP</h5>
               <div class="package-price">
-                <span class="package-current-price">¥9.9</span>
+                <span class="package-current-price">¥0.01</span>
                 <span class="package-original-price">¥60</span>
               </div>
               <div class="package-saving">≈半杯奶茶</div>
