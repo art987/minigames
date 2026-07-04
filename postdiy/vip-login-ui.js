@@ -3,6 +3,14 @@
 const PAYMENT_SESSION_STORAGE_KEY = 'VIP_PAYMENT_SESSION'
 const PAYMENT_REOPEN_GAP_MS = 8000
 
+// 支付状态恢复相关 localStorage key
+// VIP_PENDING_PAYMENT：首页发起支付时写入，用于 App 关闭收银台后恢复检测
+// VIP_PAYMENT_RETURN：payment-return.html 写入，用于首页恢复可见时读取支付结果
+const PENDING_PAYMENT_STORAGE_KEY = 'VIP_PENDING_PAYMENT'
+const PAYMENT_RETURN_STORAGE_KEY = 'VIP_PAYMENT_RETURN'
+// pending payment 视为过期的时间（30 分钟），过期后不再恢复检测
+const PENDING_PAYMENT_MAX_AGE_MS = 30 * 60 * 1000
+
 function buildPaymentReturnUrl() {
   try {
     const currentUrl = new URL(window.location.href)
@@ -87,6 +95,158 @@ function isSamePaymentSession(payUrl, outTradeNo) {
   return (sameUrl || sameOrder) && now - (current.createdAt || 0) < PAYMENT_REOPEN_GAP_MS
 }
 
+// ==================== pending payment 状态管理 ====================
+// 这一组方法用 localStorage 持久化"正在进行的支付"，
+// 用于 App 关闭收银台、首页 webview 恢复可见后恢复检测。
+// sessionStorage 在 App 切换收银台过程中不一定可靠，所以这里用 localStorage。
+
+function getPendingPayment() {
+  try {
+    const raw = window.localStorage.getItem(PENDING_PAYMENT_STORAGE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object') return null
+    console.log('[payment-flow] get pending payment:', parsed)
+    return parsed
+  } catch (e) {
+    console.warn('[payment-flow] get pending payment 失败:', e)
+    return null
+  }
+}
+
+function setPendingPayment(data) {
+  try {
+    const session = {
+      outTradeNo: (data && data.outTradeNo) || '',
+      payUrl: (data && data.payUrl) || '',
+      createdAt: Date.now(),
+      status: 'pending'
+    }
+    window.localStorage.setItem(PENDING_PAYMENT_STORAGE_KEY, JSON.stringify(session))
+    console.log('[payment-flow] set pending payment:', session)
+  } catch (e) {
+    console.warn('[payment-flow] set pending payment 失败:', e)
+  }
+}
+
+function clearPendingPayment() {
+  try {
+    window.localStorage.removeItem(PENDING_PAYMENT_STORAGE_KEY)
+    console.log('[payment-flow] clear pending payment')
+  } catch (e) {
+    console.warn('[payment-flow] clear pending payment 失败:', e)
+  }
+}
+
+// ==================== payment-return 结果读取 ====================
+// payment-return.html 在收到 zpay 回跳时，会把支付结果写入 VIP_PAYMENT_RETURN。
+// 首页恢复可见后，通过下面这些方法读取并消费这份结果。
+
+function getPaymentReturnResult() {
+  try {
+    const raw = window.localStorage.getItem(PAYMENT_RETURN_STORAGE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object') return null
+    return parsed
+  } catch (e) {
+    console.warn('[payment-flow] get payment return 失败:', e)
+    return null
+  }
+}
+
+function clearPaymentReturnResult() {
+  try {
+    window.localStorage.removeItem(PAYMENT_RETURN_STORAGE_KEY)
+    console.log('[payment-flow] clear payment return')
+  } catch (e) {
+    console.warn('[payment-flow] clear payment return 失败:', e)
+  }
+}
+
+// 消费 payment-return 留下的结果：如果与当前 pending payment 匹配且为成功，
+// 立即触发订单确认。返回是否已触发确认。
+function consumePaymentReturnResult() {
+  const result = getPaymentReturnResult()
+  const pending = getPendingPayment()
+  console.log('[payment-flow] consume payment return, result:', result, 'pending:', pending)
+
+  if (!result || !pending) return false
+  if (!result.outTradeNo || !pending.outTradeNo) return false
+  if (result.outTradeNo !== pending.outTradeNo) return false
+  if (result.tradeStatus !== 'TRADE_SUCCESS') return false
+
+  // 命中成功结果，立即去确认
+  verifyPendingPaymentResult(pending.outTradeNo)
+  return true
+}
+
+// 确认支付结果：优先按 VIP 状态确认（项目暂无按订单号查询接口）。
+// 确认成功后统一收尾：停轮询、关弹窗、清状态、弹成功提示。
+// 若本次未确认成功，启动轮询兜底，避免出现“没人继续检测”的空窗。
+async function verifyPendingPaymentResult(outTradeNo) {
+  console.log('[payment-flow] verify pending payment result, outTradeNo:', outTradeNo)
+  try {
+    const userId = (typeof VIPSystem !== 'undefined' && VIPSystem.getUserId) ? VIPSystem.getUserId() : null
+    if (!userId) {
+      console.warn('[payment-flow] verify 失败：无 userId，启动轮询兜底')
+      console.log('[payment-flow] restart payment polling, outTradeNo:', outTradeNo)
+      startPaymentPolling(outTradeNo)
+      return false
+    }
+    const result = await VIPSystem.checkVipStatus(userId)
+    if (result && result.success && result.data && result.data.isVip) {
+      console.log('[payment-flow] payment confirmed success, outTradeNo:', outTradeNo)
+      stopPaymentPolling()
+      const waitingModal = document.getElementById('paymentWaitingModal')
+      if (waitingModal) waitingModal.remove()
+      clearPendingPayment()
+      clearPaymentReturnResult()
+      showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
+      return true
+    }
+    console.log('[payment-flow] verify 暂未确认成功，启动轮询兜底')
+    // 确保等待弹窗在显示，并启动轮询继续检测
+    showPaymentWaitingModal(outTradeNo)
+    console.log('[payment-flow] restart payment polling, outTradeNo:', outTradeNo)
+    startPaymentPolling(outTradeNo)
+    return false
+  } catch (e) {
+    console.error('[payment-flow] verify pending payment result 异常:', e)
+    // 异常时也启动轮询兜底
+    showPaymentWaitingModal(outTradeNo)
+    console.log('[payment-flow] restart payment polling (after error), outTradeNo:', outTradeNo)
+    startPaymentPolling(outTradeNo)
+    return false
+  }
+}
+
+// 首页恢复可见时统一恢复支付检测入口。
+function resumePendingPaymentFlow() {
+  const pending = getPendingPayment()
+  console.log('[payment-flow] resume pending payment flow, pending:', pending)
+  if (!pending) return
+
+  // 过期的 pending 不再恢复，直接清理
+  const now = Date.now()
+  if (!pending.createdAt || now - pending.createdAt > PENDING_PAYMENT_MAX_AGE_MS) {
+    console.warn('[payment-flow] pending payment 已过期，清理')
+    clearPendingPayment()
+    clearPaymentReturnResult()
+    stopPaymentPolling()
+    return
+  }
+
+  // 先尝试消费 payment-return 的成功结果
+  const consumed = consumePaymentReturnResult()
+  if (consumed) return
+
+  // 还没确认成功：确保等待弹窗在显示，并重启轮询
+  showPaymentWaitingModal(pending.outTradeNo)
+  console.log('[payment-flow] restart payment polling, outTradeNo:', pending.outTradeNo)
+  startPaymentPolling(pending.outTradeNo)
+}
+
 function openPaymentPage(payUrl, outTradeNo) {
   console.log('[payment-flow] openPaymentPage called, payUrl:', payUrl)
   console.log('[payment-flow] payUrl host:', (() => {
@@ -136,6 +296,12 @@ function initiatePayment(payUrl, outTradeNo) {
     status: 'pending'
   })
 
+  // 同步写入 localStorage pending payment，供 App 关闭收银台后首页恢复可见时恢复检测
+  setPendingPayment({
+    payUrl,
+    outTradeNo: outTradeNo || ''
+  })
+
   openPaymentPage(payUrl, outTradeNo)
 
   // 延迟显示等待弹窗：给 APP 端时间拦截支付域名
@@ -172,9 +338,12 @@ function startPaymentPolling(outTradeNo) {
       if (!userId) return
       const result = await VIPSystem.checkVipStatus(userId)
       if (result.success && result.data && result.data.isVip) {
+        console.log('[payment-flow] payment confirmed success (polling), outTradeNo:', outTradeNo)
         stopPaymentPolling()
         const m = document.getElementById('paymentWaitingModal')
         if (m) m.remove()
+        clearPendingPayment()
+        clearPaymentReturnResult()
         showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
       }
     } catch (e) {
@@ -242,6 +411,8 @@ function showPaymentWaitingModal(outTradeNo) {
           stopPaymentPolling()
           modal.remove()
           finishPaymentSession('success')
+          clearPendingPayment()
+          clearPaymentReturnResult()
           showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
           return
         }
@@ -256,6 +427,9 @@ function showPaymentWaitingModal(outTradeNo) {
     stopPaymentPolling()
     modal.remove()
     finishPaymentSession('cancelled')
+    // 用户主动取消等待：清理 pending payment 状态，避免恢复可见后又自动弹回等待
+    clearPendingPayment()
+    clearPaymentReturnResult()
   })
 }
 
@@ -2627,7 +2801,50 @@ function showVoucherResult(element, type, message, errorDetails = null) {
   document.body.appendChild(modal);
 }
 
+// 监听首页恢复可见事件，统一恢复支付检测。
+// 在 App 关闭收银台、首页 webview 重新变为可见时触发。
+// 注意：不依赖旧的 setInterval 定时器，每次恢复可见都重新拉起检测。
+function setupPaymentResumeListeners() {
+  let resumeScheduled = false
+  // 用微延迟防抖，避免 visibilitychange + focus 同时触发导致重复恢复
+  const scheduleResume = (reason) => {
+    if (resumeScheduled) return
+    resumeScheduled = true
+    console.log('[payment-flow] resume scheduled by:', reason)
+    setTimeout(() => {
+      resumeScheduled = false
+      try {
+        resumePendingPaymentFlow()
+      } catch (e) {
+        console.error('[payment-flow] resume pending payment flow 异常:', e)
+      }
+    }, 100)
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      scheduleResume('visibilitychange')
+    }
+  })
+
+  window.addEventListener('focus', () => {
+    scheduleResume('focus')
+  })
+
+  window.addEventListener('pageshow', (event) => {
+    // event.persisted 为 true 表示从 bfcache 恢复
+    scheduleResume(event.persisted ? 'pageshow(bfcache)' : 'pageshow')
+  })
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
   VipLoginUI.init()
+  setupPaymentResumeListeners()
+  // 首次加载也尝试恢复一次，兜底页面被刷新但 pending 仍在的情况
+  try {
+    resumePendingPaymentFlow()
+  } catch (e) {
+    console.error('[payment-flow] initial resume 异常:', e)
+  }
 })

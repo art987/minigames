@@ -72,6 +72,9 @@
       const statusText = document.getElementById('statusText')
       const params = new URLSearchParams(window.location.search)
 
+      // 与 vip-login-ui.js 中的 PAYMENT_RETURN_STORAGE_KEY 保持一致
+      const PAYMENT_RETURN_STORAGE_KEY = 'VIP_PAYMENT_RETURN'
+
       function setStatus(text) {
         if (statusText) {
           statusText.textContent = text
@@ -88,6 +91,29 @@
           type: params.get('type') || '',
           sign: params.get('sign') || '',
           signType: params.get('sign_type') || ''
+        }
+      }
+
+      // 把支付结果写入 localStorage，供首页 webview 恢复可见时读取。
+      // 注意：payment-return.html 与首页 index.html 同源，localStorage 共享。
+      function savePaymentReturnToStorage(payload) {
+        try {
+          const record = {
+            tradeStatus: payload.tradeStatus || '',
+            outTradeNo: payload.outTradeNo || '',
+            tradeNo: payload.tradeNo || '',
+            money: payload.money || '',
+            type: payload.type || '',
+            sign: payload.sign || '',
+            signType: payload.signType || '',
+            returnedAt: Date.now()
+          }
+          window.localStorage.setItem(PAYMENT_RETURN_STORAGE_KEY, JSON.stringify(record))
+          console.log('[payment-return] saved VIP_PAYMENT_RETURN:', record)
+          return true
+        } catch (e) {
+          console.error('[payment-return] 保存 VIP_PAYMENT_RETURN 失败:', e)
+          return false
         }
       }
 
@@ -118,19 +144,28 @@
         const pathname = window.location.pathname || '/'
         const basePath = pathname.slice(0, pathname.lastIndexOf('/') + 1)
         const targetUrl = `${window.location.origin}${basePath}index.html${window.location.search}`
+        console.log('[payment-return] fallback redirect to index:', targetUrl)
         window.location.replace(targetUrl)
       }
 
       document.getElementById('backButton').addEventListener('click', redirectToHome)
 
       const payload = buildPayload()
+      console.log('[payment-return] parsed payload:', payload)
+
+      // 先写入 localStorage，再通知 App。
+      // 这样 App 关闭收银台、首页恢复可见时，能从 localStorage 读到这笔支付结果。
+      savePaymentReturnToStorage(payload)
+
       const posted = postToApp(payload)
 
       if (posted) {
+        console.log('[payment-return] posted result to app')
         setStatus('已通知 App 处理支付结果，请稍候自动返回...')
         return
       }
 
+      // 非 App 环境，或 postMessage 失败，再 fallback 跳回首页
       setStatus('当前不在 App 内，正在返回网页首页...')
       setTimeout(redirectToHome, 1200)
     })()
