@@ -191,6 +191,7 @@ exports.main = async (event, context) => {
       return createResponse('success')
     }
 
+    
     const user = userRes.data
     const now = new Date()
     let currentExpireTime = user.vipExpireTime ? new Date(user.vipExpireTime) : now
