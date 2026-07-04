@@ -1,0 +1,9 @@
+{
+  "name": "user-upgrade-history",
+  "version": "1.0.0",
+  "description": "查询用户历史升级记录（激活码 + 支付升级），按时间排序并计算每条记录的有效期区间",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -20,6 +20,7 @@ const VIPSystem = (function() {
     adminManageVouchers: `${API_BASE_URL}/admin-manage-vouchers`,
     paymentCreateOrder: `${API_BASE_URL}/payment-create-order`,
     paymentOrderList: `${API_BASE_URL}/payment-order-list`,
+    upgradeHistory: `${API_BASE_URL}/user-upgrade-history`,
     paymentOrderStatus: `${API_BASE_URL}/payment-order-status`,
     getVipPackages: `${API_BASE_URL}/get-vip-packages`,
     adminVipPackages: `${API_BASE_URL}/admin-vip-packages`,
@@ -579,6 +580,30 @@ const VIPSystem = (function() {
     }
   }
 
+  // 获取用户升级记录（合并激活码 + 支付升级，含每条记录的有效期区间）
+  async function getUpgradeHistory() {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+      const response = await fetch(APIs.upgradeHistory, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: userId })
+      })
+      let result = await response.json()
+      // 兼容 API 网关返回格式（body 为 JSON 字符串）
+      if (result && result.body && typeof result.body === 'string') {
+        try { result = JSON.parse(result.body) } catch (e) { /* ignore */ }
+      }
+      return result
+    } catch (error) {
+      console.error('获取升级记录失败:', error)
+      return { success: false, message: '获取升级记录失败' }
+    }
+  }
+
   // ============ 下载额度相关 ============
 
   // 获取用户剩余下载次数
@@ -729,6 +754,7 @@ const VIPSystem = (function() {
     clearVipPackagesCache,
     adminVipPackages,
     getPaymentOrderList,
+    getUpgradeHistory,
     getDownloadQuota,
     deductDownloadQuota,
     addDownloadQuota,

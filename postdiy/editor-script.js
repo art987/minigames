@@ -8419,7 +8419,7 @@ const ThumbnailLoader = {
         <button id="closeVipUpgradeBtn" class="close-modal-btn">&times;</button>
         
         <h3 class="vip-upgrade-header">
-          提速增效，上千节日海报模板随时可用
+          解锁VIP特权 -不错过每一天的宣传
         </h3>
         
         <div class="voucher-input-container">
@@ -8453,7 +8453,7 @@ const ThumbnailLoader = {
           <button id="closeVipUpgradeBtn2" class="close-upgrade-btn">关闭</button>
           <div class="payment-btn-wrapper">
             <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付</button>
-            <div class="discount-badge payment-discount-badge">1折</div>
+            <div class="discount-badge payment-discount-badge" style="display: none;">1折</div>
           </div>
         </div>
       </div>
@@ -8568,17 +8568,18 @@ const ThumbnailLoader = {
     
     function updatePaymentDiscountBadge(selectedPackage) {
       if (!selectedPackage) return;
-      
+
       const price = parseFloat(selectedPackage.dataset.price);
       const originalPrice = parseFloat(selectedPackage.dataset.originalPrice);
-      
+
       if (price && originalPrice) {
         const discount = (price / originalPrice * 10).toFixed(1);
-        
+
         let badge = document.querySelector('.payment-discount-badge');
-        
+
         if (badge) {
           badge.textContent = `${discount}折`;
+          badge.style.display = '';
           badge.classList.remove('pulse-animation');
           setTimeout(() => badge.classList.add('pulse-animation'), 10);
         }
@@ -8609,6 +8610,10 @@ const ThumbnailLoader = {
         if (proceedToPaymentBtn) {
           proceedToPaymentBtn.textContent = `立即支付${price}元`
           proceedToPaymentBtn.style.display = 'block'
+          // 触发放大果冻入场动画
+          proceedToPaymentBtn.classList.remove('proceed-btn-enter')
+          void proceedToPaymentBtn.offsetWidth
+          proceedToPaymentBtn.classList.add('proceed-btn-enter')
         }
       })
 
@@ -8618,7 +8623,11 @@ const ThumbnailLoader = {
           const featured = upgradeGrid.querySelector('.vip-package.vip-package-featured') || upgradeGrid.querySelector('.vip-package.selected')
           if (featured) {
             setTimeout(() => featured.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 100)
-            if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
+            // 折扣徽章与支付按钮同步显示（等套餐入场动画播完）
+            const pkgCount = upgradeGrid.querySelectorAll('.vip-package').length
+            setTimeout(() => {
+              if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
+            }, pkgCount * 110 + 400)
           }
         })
       } else {

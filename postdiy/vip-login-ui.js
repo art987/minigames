@@ -20,8 +20,27 @@ async function renderVipPackagesToGrid(container, options) {
   const opts = options || {}
   const styleMode = opts.style || 'inline'
 
-  // 先显示 loading
-  container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>`
+  // 先显示炫酷加载动画
+  container.classList.add('packages-loading')
+  container.innerHTML = `
+    <div class="packages-loader-wrap">
+      <div class="packages-loader-shell">
+        <div class="packages-loader-domain" id="packagesLoaderDomain">套餐加载中</div>
+        <div class="packages-loader-bar"><div class="packages-loader-fill"></div></div>
+        <div class="packages-loader-pct" id="packagesLoaderPct">0%</div>
+        <div class="packages-loader-dots"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  `
+  // 启动进度条动画
+  const fillEl = container.querySelector('.packages-loader-fill')
+  const pctEl = container.querySelector('#packagesLoaderPct')
+  let progress = 0
+  const progressTimer = setInterval(() => {
+    progress = Math.min(100, progress + Math.random() * 12 + 4)
+    if (fillEl) fillEl.style.width = progress + '%'
+    if (pctEl) pctEl.textContent = Math.floor(progress) + '%'
+  }, 110)
 
   let packages = []
   try {
@@ -44,15 +63,28 @@ async function renderVipPackagesToGrid(container, options) {
       : []
   }
 
+  // 至少展示完整进度条动画 800ms
+  await new Promise(resolve => setTimeout(resolve, 800))
+  // 完成进度条
+  progress = 100
+  if (fillEl) fillEl.style.width = '100%'
+  if (pctEl) pctEl.textContent = '100%'
+  clearInterval(progressTimer)
+
   // 按 sortOrder 升序
   packages.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
 
   if (packages.length === 0) {
+    container.classList.remove('packages-loading')
     container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">暂无可选套餐</div>`
     return
   }
 
-  container.innerHTML = packages.map(pkg => {
+  // 短暂停留再切换到套餐列表
+  await new Promise(resolve => setTimeout(resolve, 200))
+  container.classList.remove('packages-loading')
+
+  container.innerHTML = packages.map((pkg, idx) => {
     const pid = pkg._id || ''
     const duration = pkg.duration
     const price = pkg.price
@@ -61,13 +93,14 @@ async function renderVipPackagesToGrid(container, options) {
     const saving = pkg.saving || ''
     const badge = pkg.badge || ''
     const featured = !!pkg.featured
+    const delay = idx * 110 // 逐个出现的延迟
 
     if (styleMode === 'class') {
       // 对接 styles.css 的 .vip-package 类（用于 VIP 升级弹窗）
       const featuredClass = featured ? ' vip-package-featured' : ''
       const badgeHtml = badge ? `<div class="package-badge">${badge}</div>` : ''
       return `
-        <div class="vip-package${featuredClass}" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}">
+        <div class="vip-package${featuredClass}" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" style="animation-delay:${delay}ms;">
           ${badgeHtml}
           <h5 class="package-title">${title}</h5>
           <div class="package-price">
@@ -84,7 +117,7 @@ async function renderVipPackagesToGrid(container, options) {
     const badgeHtml = badge ? `<div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">${badge}</div>` : ''
     const featuredBorder = featured ? 'border: 2px solid #d32f2f;' : 'border: 2px solid #ffcdd2;'
     return `
-      <div class="vip-package" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" style="padding: 16px; background: #fff; ${featuredBorder} border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;">
+      <div class="vip-package vip-package-enter" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" style="padding: 16px; background: #fff; ${featuredBorder} border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; animation-delay:${delay}ms;">
         ${badgeHtml}
         <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">${title}</h5>
         <div style="margin-bottom: 8px;">
@@ -97,25 +130,28 @@ async function renderVipPackagesToGrid(container, options) {
     `
   }).join('')
 
-  // 默认选中 featured 套餐，没有则选第一个
-  const featuredPkg = container.querySelector('.vip-package.vip-package-featured') || container.querySelector('.vip-package')
-  if (featuredPkg) {
-    if (styleMode === 'class') {
-      featuredPkg.classList.add('selected')
-      const btn = featuredPkg.querySelector('.select-package-btn')
-      if (btn) btn.textContent = '✔ 已选择'
-      // 同步外部"立即支付"按钮文案
-      const price = featuredPkg.dataset.price
-      const proceedBtn = document.getElementById('proceedToPaymentBtn')
-      if (proceedBtn) {
-        proceedBtn.textContent = `立即支付${price}元`
-        proceedBtn.style.display = 'block'
+  // 默认选中 featured 套餐，没有则选第一个（延迟选中，等入场动画播完）
+  setTimeout(() => {
+    const featuredPkg = container.querySelector('.vip-package.vip-package-featured') || container.querySelector('.vip-package')
+    if (featuredPkg) {
+      if (styleMode === 'class') {
+        featuredPkg.classList.add('selected')
+        const btn = featuredPkg.querySelector('.select-package-btn')
+        if (btn) btn.textContent = '✔ 已选择'
+        // 同步外部"立即支付"按钮文案
+        const price = featuredPkg.dataset.price
+        const proceedBtn = document.getElementById('proceedToPaymentBtn')
+        if (proceedBtn) {
+          proceedBtn.textContent = `立即支付${price}元`
+          proceedBtn.style.display = 'block'
+          // 触发放大果冻入场动画
+          proceedBtn.classList.remove('proceed-btn-enter')
+          void proceedBtn.offsetWidth
+          proceedBtn.classList.add('proceed-btn-enter')
+        }
       }
-    } else {
-      // inline 风格默认不选中，让用户主动选（保持原行为）
-      // 如果想要默认选中可在此处设置
     }
-  }
+  }, packages.length * 110 + 400)
 }
 
 function buildPaymentReturnUrl() {
@@ -627,9 +663,9 @@ function showPaymentWaitingModal(outTradeNo) {
 }
 
 // 支付结果弹窗
-// 彩纸迸发特效（红金尊贵配色）
+// 彩纸枪喷射特效（红金尊贵配色）—— 从底部向上喷射，到达顶点后自由落体
 function launchPaymentConfetti() {
-  // 复用已存在的容器避免重复
+  // 清掉旧的容器避免叠加
   const existing = document.getElementById('paymentConfettiContainer')
   if (existing) existing.remove()
   const container = document.createElement('div')
@@ -641,20 +677,49 @@ function launchPaymentConfetti() {
   const colors = ['#ffd700', '#ff4d4f', '#c41e3a', '#ff7a45', '#faad14', '#ffe58f', '#fff1b8', '#ffec3d']
   const shapes = ['square', 'circle', 'rectangle']
 
-  for (let i = 0; i < 120; i++) {
+  // 喷射口位置：屏幕水平中部偏下（彩纸枪从下面向上喷射）
+  // 多个发射点会让效果更立体，类似多个礼花枪同时发射
+  const launchPoints = [45, 50, 55] // 三个发射点，水平位置（%）
+
+  const totalPieces = 140
+  for (let i = 0; i < totalPieces; i++) {
     const piece = document.createElement('div')
     piece.className = 'confetti-piece'
+
     const color = colors[Math.floor(Math.random() * colors.length)]
     const shape = shapes[Math.floor(Math.random() * shapes.length)]
-    const left = Math.random() * 100
-    const delay = Math.random() * 1.2
-    const duration = 2.2 + Math.random() * 2.5
+
+    // 选一个发射点，并在其附近小范围抖动，模拟枪口散射
+    const launchX = launchPoints[Math.floor(Math.random() * launchPoints.length)]
+    const scatter = (Math.random() - 0.5) * 8 // ±4% 散射
+    const left = launchX + scatter
+
+    // 喷射延迟：模拟连续发射，前 0.6s 内陆续出射
+    const delay = Math.random() * 0.6
+    // 总动画时长：喷射 + 自由落体，3 ~ 4.5s
+    const duration = 3 + Math.random() * 1.5
+
+    // 喷射高度（向上喷射的距离，负值表示向上）
+    // 中间发射点喷得更高，两侧稍低
+    const heightBias = 1 - Math.abs(launchX - 50) / 10 // 0~1
+    const burstY = -(45 + heightBias * 25 + Math.random() * 15) // -45vh ~ -85vh
+    // 喷射时的横向偏移（向上喷射时同时向四周扩散）
+    const burstX = (Math.random() - 0.5) * 200 // -100px ~ 100px
+    // 顶点后的横向飘移
+    const driftX = burstX + (Math.random() - 0.5) * 80
+    // 自由落体时的横向落点（受重力影响会继续外扩）
+    const fallX = driftX + (Math.random() - 0.5) * 120
+
     const size = 6 + Math.random() * 10
 
     piece.style.left = left + '%'
     piece.style.animationDelay = delay + 's'
     piece.style.animationDuration = duration + 's'
     piece.style.backgroundColor = color
+    piece.style.setProperty('--burst-x', burstX + 'px')
+    piece.style.setProperty('--burst-y', burstY + 'vh')
+    piece.style.setProperty('--drift-x', driftX + 'px')
+    piece.style.setProperty('--fall-x', fallX + 'px')
 
     if (shape === 'circle') {
       piece.style.borderRadius = '50%'
@@ -669,7 +734,8 @@ function launchPaymentConfetti() {
     }
     container.appendChild(piece)
   }
-  setTimeout(() => container.remove(), 5500)
+  // 动画最长 0.6 + 4.5 = 5.1s，6s 后清理
+  setTimeout(() => container.remove(), 6000)
 }
 
 // 格式化会员有效期展示
@@ -685,6 +751,37 @@ function formatVipExpiry(vipValidUntil) {
   } catch (e) { return '' }
 }
 
+// 支付成功后从服务器拉取最新用户信息，刷新有效期展示
+// 确保弹窗显示的是支付后的最新到期日，而不是本地缓存的旧值
+function refreshExpiryAfterPayment() {
+  try {
+    if (typeof VIPSystem === 'undefined' || !VIPSystem.getUserId || !VIPSystem.getUserInfoById) return
+    const userId = VIPSystem.getUserId()
+    if (!userId) return
+    VIPSystem.getUserInfoById(userId).then(() => {
+      const latestExpiry = VIPSystem.getVipExpireTime ? VIPSystem.getVipExpireTime() : null
+      const expiryText = formatVipExpiry(latestExpiry)
+      const expiryEl = document.getElementById('paymentResultExpiry')
+      const wrapEl = document.getElementById('paymentResultExpiryWrap')
+      if (expiryText && expiryEl) {
+        expiryEl.textContent = expiryText
+        if (wrapEl) wrapEl.style.display = ''
+      }
+      // 同步刷新其他可能存在的有效期显示元素
+      const userInfoExpiryEl = document.getElementById('userInfoExpiry')
+      if (userInfoExpiryEl && latestExpiry) {
+        userInfoExpiryEl.textContent = formatVipExpiry(latestExpiry)
+      }
+      const vipValidUntilDateEl = document.getElementById('vipValidUntilDate')
+      if (vipValidUntilDateEl && latestExpiry) {
+        vipValidUntilDateEl.textContent = formatVipExpiry(latestExpiry)
+      }
+    }).catch(e => console.warn('[payment-flow] 刷新有效期失败:', e))
+  } catch (e) {
+    console.warn('[payment-flow] refreshExpiryAfterPayment 异常:', e)
+  }
+}
+
 function showPaymentResultModal(options = {}) {
   const { success = true, outTradeNo = '', message = '' } = options
   const existing = document.getElementById('paymentResultModal')
@@ -697,7 +794,7 @@ function showPaymentResultModal(options = {}) {
     // 成功：红金尊贵主题 + 彩纸特效
     launchPaymentConfetti()
 
-    // 读取会员有效期
+    // 先用本地缓存的有效期快速展示，再异步从服务器拉取最新值更新
     let expiryText = ''
     try {
       if (typeof VIPSystem !== 'undefined' && VIPSystem.getVipExpireTime) {
@@ -730,16 +827,19 @@ function showPaymentResultModal(options = {}) {
           <p style="margin:10px 0 0;color:#fff5e6;font-size:13px;line-height:1.6;opacity:0.95;">感谢您的支持，您可以无限额度<br>制作下载朋友圈节日海报啦！</p>
         </div>
         <div style="background:linear-gradient(180deg,#fff8e1 0%,#ffffff 100%);padding:18px 22px 22px;">
-          ${expiryText ? `<div style="text-align:center;margin-bottom:16px;">
+          <div id="paymentResultExpiryWrap" style="text-align:center;margin-bottom:16px;${expiryText ? '' : 'display:none;'}">
             <span style="display:inline-block;padding:7px 18px;background:linear-gradient(135deg,#fff3cd,#ffe69c);border:1.5px solid #ffd700;border-radius:20px;color:#8a5a00;font-size:13px;font-weight:600;">
-              <span style="color:#c41e3a;">会员有效期至</span> ${expiryText}
+              <span style="color:#c41e3a;">会员有效期至</span> <span id="paymentResultExpiry">${expiryText}</span>
             </span>
-          </div>` : ''}
+          </div>
           ${outTradeNo ? `<p style="margin:0 0 14px;text-align:center;color:#bbb;font-size:11px;">订单号：${outTradeNo}</p>` : ''}
           <button id="confirmPaymentResultBtn" style="width:100%;padding:14px;font-size:16px;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#c41e3a,#e84a5f);color:#fff;font-weight:600;letter-spacing:2px;box-shadow:0 4px 14px rgba(196,30,58,0.4);">开始体验</button>
         </div>
       </div>
     `
+
+    // 异步从服务器拉取最新用户信息，更新有效期展示（确保显示的是支付后的最新到期日）
+    refreshExpiryAfterPayment()
     document.body.appendChild(modal)
 
     const closeAll = () => {
@@ -1100,7 +1200,7 @@ const VipLoginUI = (function() {
         <div style="margin-bottom: 24px;">
           <h4 style="margin: 0 0 16px 0; color: #d32f2f; font-size: 18px; font-weight: bold;">💎 VIP会员套餐</h4>
           <div id="vipPackageGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-            <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>
+            <div class="packages-loader-wrap"><div class="packages-loader-shell"><div class="packages-loader-domain">套餐加载中</div><div class="packages-loader-bar"><div class="packages-loader-fill" style="width:30%"></div></div><div class="packages-loader-pct">30%</div><div class="packages-loader-dots"><i></i><i></i><i></i></div></div></div>
           </div>
         </div>
         
@@ -1798,7 +1898,7 @@ const VipLoginUI = (function() {
         const userInfo = VIPSystem.getUserInfo()
         const userId = VIPSystem.getUserId()
         const phone = userInfo ? userInfo.phone : null
-        
+
         if (userId || phone) {
           try {
             console.log('从服务器获取最新VIP状态...');
@@ -1808,10 +1908,37 @@ const VipLoginUI = (function() {
             console.error('获取VIP状态失败:', error);
           }
         }
-        
+
         // 重新从本地存储获取更新后的用户信息
         const updatedUserInfo = VIPSystem.getUserInfo()
-        
+        const isVip = !!updatedUserInfo.isVip
+
+        // 根据 VIP 状态给弹窗加尊贵主题 class
+        const modalContainer = elements.userInfoModal.querySelector('.modal-container')
+        if (modalContainer) {
+          if (isVip) {
+            modalContainer.classList.add('vip-premium-theme')
+          } else {
+            modalContainer.classList.remove('vip-premium-theme')
+          }
+        }
+
+        // 顶部大皇冠仅在 VIP 时显示
+        const crownBanner = elements.userInfoModal.querySelector('.vip-crown-banner')
+        if (crownBanner) {
+          crownBanner.style.display = isVip ? '' : 'none'
+        }
+
+        // 更新头部标题（VIP 显示皇冠尊贵标题）
+        const headerH3 = elements.userInfoModal.querySelector('.modal-header h3')
+        if (headerH3) {
+          if (isVip) {
+            headerH3.innerHTML = '<i class="fa fa-crown" style="color:#ffd700;margin-right:6px;text-shadow:0 0 6px rgba(255,215,0,0.8);"></i>会员尊享中心'
+          } else {
+            headerH3.textContent = '用户信息'
+          }
+        }
+
         if (elements.userInfoId) {
           elements.userInfoId.textContent = updatedUserInfo.phone || '未登录'
         }
@@ -1819,14 +1946,15 @@ const VipLoginUI = (function() {
           elements.userInfoExpiry.textContent = updatedUserInfo.vipValidUntil ? new Date(updatedUserInfo.vipValidUntil).toLocaleDateString() : '普通用户'
         }
         if (elements.userInfoType) {
-          elements.userInfoType.textContent = updatedUserInfo.isVip ? '闪喵VIP用户' : '普通用户'
+          elements.userInfoType.innerHTML = isVip
+            ? '<span class="vip-badge-shine">闪喵VIP会员</span>'
+            : '普通用户'
         }
-        
+
         // 显示下载次数
         const quotaInfoItem = document.getElementById('downloadQuotaInfoItem')
         const quotaSpan = document.getElementById('userInfoDownloadQuota')
-        if (updatedUserInfo.isVip) {
-          // VIP用户显示“无限”，不再隐藏该项
+        if (isVip) {
           if (quotaInfoItem) quotaInfoItem.style.display = ''
           if (quotaSpan) {
             quotaSpan.textContent = '无限'
@@ -1838,10 +1966,8 @@ const VipLoginUI = (function() {
           if (quotaSpan) {
             quotaSpan.style.color = ''
             quotaSpan.style.fontWeight = ''
-            // 先显示本地缓存的次数
             quotaSpan.textContent = updatedUserInfo.downloadQuota !== undefined ? `${updatedUserInfo.downloadQuota}次` : '加载中...'
           }
-          // 异步从服务器获取最新次数
           try {
             const quotaResult = await VIPSystem.getDownloadQuota()
             if (quotaResult.success && quotaResult.data) {
@@ -1853,10 +1979,10 @@ const VipLoginUI = (function() {
             console.warn('获取下载次数失败:', e)
           }
         }
-        
+
         // 加载云端商家信息
         await loadUserInfoFromCloud()
-        
+
         elements.userInfoModal.classList.remove('hidden')
       }
     }
@@ -1876,6 +2002,9 @@ const VipLoginUI = (function() {
           break
         case 'orderHistory':
           await showOrderHistoryModal()
+          break
+        case 'upgradeHistory':
+          await showUpgradeHistoryModal()
           break
         case 'activateVoucher':
           if (window.showVipUpgradeModal) {
@@ -2255,7 +2384,156 @@ const VipLoginUI = (function() {
         if (typeof replaceFAIcons === 'function') replaceFAIcons()
       }
     }
-    
+
+    // 渲染单条升级记录 HTML
+    function renderUpgradeHistoryItem(record) {
+      const isVoucher = record.type === 'voucher'
+      const isPayment = record.type === 'payment'
+
+      // 时间格式化
+      const upgradeTime = record.time ? new Date(record.time) : null
+      const upgradeTimeStr = upgradeTime
+        ? `${upgradeTime.getFullYear()}-${String(upgradeTime.getMonth() + 1).padStart(2, '0')}-${String(upgradeTime.getDate()).padStart(2, '0')} ${String(upgradeTime.getHours()).padStart(2, '0')}:${String(upgradeTime.getMinutes()).padStart(2, '0')}`
+        : '-'
+
+      // 有效期区间
+      const validFrom = record.validFrom ? new Date(record.validFrom) : null
+      const validUntil = record.validUntil ? new Date(record.validUntil) : null
+      const formatDate = (d) => d
+        ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+        : '-'
+      const validRangeStr = `${formatDate(validFrom)} ~ ${formatDate(validUntil)}`
+
+      // 增加时长
+      const duration = record.duration || 0
+      const durationText = duration >= 12
+        ? (duration % 12 === 0 ? `${duration / 12}年` : `${duration}个月`)
+        : `${duration}个月`
+
+      // 类型标签 + 主标题
+      let typeBadge, typeIcon, primaryLine, secondaryLine
+      if (isVoucher) {
+        typeBadge = `<span class="upgrade-type-badge voucher">激活码</span>`
+        typeIcon = `<i class="fa fa-ticket" style="color:#ff9800;"></i>`
+        primaryLine = `激活码 ${record.code || '-'}`
+        secondaryLine = `激活时间：${upgradeTimeStr}`
+      } else if (isPayment) {
+        const payTypeText = record.payType === 'alipay' ? '支付宝' : (record.payType === 'wechat' ? '微信' : '在线支付')
+        typeBadge = `<span class="upgrade-type-badge payment">支付升级</span>`
+        typeIcon = `<i class="fa fa-shopping-cart" style="color:#c41e3a;"></i>`
+        primaryLine = `${record.packageName || 'VIP套餐'}`
+        secondaryLine = `订单号：${record.outTradeNo || '-'}`
+      } else {
+        typeBadge = `<span class="upgrade-type-badge">升级</span>`
+        typeIcon = `<i class="fa fa-star" style="color:#999;"></i>`
+        primaryLine = record.packageName || 'VIP升级'
+        secondaryLine = `时间：${upgradeTimeStr}`
+      }
+
+      // 支付金额（仅支付升级显示）
+      const moneyLine = isPayment && record.money != null
+        ? `<div class="upgrade-item-money"><span class="upgrade-label">支付金额：</span><span class="upgrade-money-value">¥${record.money}</span><span class="upgrade-pay-type">（${record.payType === 'alipay' ? '支付宝' : '微信'}）</span></div>`
+        : ''
+
+      return `
+        <div class="order-item upgrade-item">
+          <div class="order-item-header">
+            <div>
+              <div class="order-item-name">
+                ${typeIcon}
+                <span>${primaryLine}</span>
+                ${typeBadge}
+              </div>
+              <div class="order-item-no">${secondaryLine}</div>
+            </div>
+          </div>
+          <div class="upgrade-item-info">
+            <div class="upgrade-info-row">
+              <span class="upgrade-label">增加时长：</span>
+              <span class="upgrade-duration-value">${durationText}</span>
+            </div>
+            <div class="upgrade-info-row">
+              <span class="upgrade-label">有效期间：</span>
+              <span class="upgrade-valid-range">${validRangeStr}</span>
+            </div>
+            ${moneyLine}
+          </div>
+        </div>
+      `
+    }
+
+    // 升级记录弹窗：展示用户历史升级记录（激活码 + 支付升级）
+    async function showUpgradeHistoryModal() {
+      const existingModal = document.getElementById('upgradeHistoryModal')
+      if (existingModal) existingModal.remove()
+
+      const modalHTML = `
+        <div id="upgradeHistoryModal" class="order-history-modal">
+          <div class="order-history-content">
+            <div class="order-history-header">
+              <h3>升级记录</h3>
+              <button id="closeUpgradeHistoryBtn">&times;</button>
+            </div>
+            <div id="upgradeHistoryList" class="order-history-list">
+              <div class="order-loading">
+                <div class="order-loading-spinner"></div>
+                <p>加载中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+      document.body.insertAdjacentHTML('beforeend', modalHTML)
+      if (typeof replaceFAIcons === 'function') replaceFAIcons()
+
+      const modal = document.getElementById('upgradeHistoryModal')
+      const closeBtn = document.getElementById('closeUpgradeHistoryBtn')
+      const listContainer = document.getElementById('upgradeHistoryList')
+
+      closeBtn.addEventListener('click', () => modal.remove())
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove()
+      })
+
+      try {
+        const result = await VIPSystem.getUpgradeHistory()
+
+        if (result.success && result.data && Array.isArray(result.data.records)) {
+          if (result.data.records.length === 0) {
+            listContainer.innerHTML = `
+              <div class="order-empty">
+                <i class="fa fa-inbox"></i>
+                <p>暂无升级记录</p>
+              </div>
+            `
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
+          } else {
+            listContainer.innerHTML = result.data.records.map(record => {
+              return renderUpgradeHistoryItem(record)
+            }).join('')
+            if (typeof replaceFAIcons === 'function') replaceFAIcons()
+          }
+        } else {
+          listContainer.innerHTML = `
+            <div class="order-error">
+              <i class="fa fa-exclamation-circle"></i>
+              <p>${result.message || '加载失败'}</p>
+            </div>
+          `
+          if (typeof replaceFAIcons === 'function') replaceFAIcons()
+        }
+      } catch (error) {
+        console.error('获取升级记录失败:', error)
+        listContainer.innerHTML = `
+          <div class="order-error">
+            <i class="fa fa-exclamation-circle"></i>
+            <p>加载失败，请稍后重试</p>
+          </div>
+        `
+        if (typeof replaceFAIcons === 'function') replaceFAIcons()
+      }
+    }
+
     // VIP 退出功能
     function handleVipLogout() {
       showConfirmDialog('退出确认', '确定要退出登录吗？', () => {
@@ -2687,7 +2965,7 @@ window.showVipUpgradeModal = function() {
       <button id="closeVipUpgradeBtn" class="close-modal-btn">&times;</button>
 
       <h3 class="vip-upgrade-header">
-        提速增效，上千节日海报模板随时可用
+        解锁VIP特权 -不错过每一天的宣传
       </h3>
 
       <div class="voucher-input-container">
@@ -2712,7 +2990,7 @@ window.showVipUpgradeModal = function() {
         <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
         <div class="vip-packages-wrapper">
           <div class="vip-packages-container" id="vipUpgradePackageGrid">
-            <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>
+            <div class="packages-loader-wrap"><div class="packages-loader-shell"><div class="packages-loader-domain">套餐加载中</div><div class="packages-loader-bar"><div class="packages-loader-fill" style="width:30%"></div></div><div class="packages-loader-pct">30%</div><div class="packages-loader-dots"><i></i><i></i><i></i></div></div></div>
           </div>
         </div>
       </div>
@@ -2721,7 +2999,7 @@ window.showVipUpgradeModal = function() {
         <button id="closeVipUpgradeBtn2" class="close-upgrade-btn">关闭</button>
         <div class="payment-btn-wrapper">
           <button id="proceedToPaymentBtn" class="proceed-to-payment-btn">立即支付</button>
-          <div class="discount-badge payment-discount-badge">1折</div>
+          <div class="discount-badge payment-discount-badge" style="display: none;">1折</div>
         </div>
       </div>
     </div>
@@ -2853,6 +3131,7 @@ window.showVipUpgradeModal = function() {
 
       if (badge) {
         badge.textContent = `${discount}折`;
+        badge.style.display = '';
         badge.classList.remove('pulse-animation');
         setTimeout(() => badge.classList.add('pulse-animation'), 10);
       }
@@ -2883,16 +3162,24 @@ window.showVipUpgradeModal = function() {
       if (proceedToPaymentBtn) {
         proceedToPaymentBtn.textContent = `立即支付${price}元`
         proceedToPaymentBtn.style.display = 'block'
+        // 触发放大果冻入场动画
+        proceedToPaymentBtn.classList.remove('proceed-btn-enter')
+        void proceedToPaymentBtn.offsetWidth
+        proceedToPaymentBtn.classList.add('proceed-btn-enter')
       }
     })
 
     // 渲染套餐（renderVipPackagesToGrid 内部会自动选中 featured 套餐并同步支付按钮文案）
     renderVipPackagesToGrid(upgradeGrid, { style: 'class' }).then(() => {
-      // 渲染完成后，若有 featured 套餐，滚动到它并更新折扣徽章
+      // 渲染完成后，若有 featured 套餐，滚动到它
       const featured = upgradeGrid.querySelector('.vip-package.vip-package-featured') || upgradeGrid.querySelector('.vip-package.selected')
       if (featured) {
         setTimeout(() => featured.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 100)
-        if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
+        // 折扣徽章与支付按钮同步显示（等套餐入场动画播完）
+        const pkgCount = upgradeGrid.querySelectorAll('.vip-package').length
+        setTimeout(() => {
+          if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
+        }, pkgCount * 110 + 400)
       }
     })
   }
