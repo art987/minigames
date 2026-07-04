@@ -1127,7 +1127,9 @@
                 img.src = '../images/statics/loading88.gif';
                 img.alt = template.name;
                 img.className = 'slide-img';
-                img.dataset.realSrc = '../' + template.thumbnail;
+                // 只使用 cloudflare 图片链接（不回退到本地）
+                const cloudflareBaseUrl = (typeof imageConfig !== 'undefined' && imageConfig.cloudflareBaseUrl) ? imageConfig.cloudflareBaseUrl : '';
+                img.dataset.realSrc = cloudflareBaseUrl + template.thumbnail;
 
                 const name = document.createElement('div');
                 name.className = 'slide-name';
