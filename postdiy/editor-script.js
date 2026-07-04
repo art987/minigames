@@ -9116,9 +9116,9 @@ const ThumbnailLoader = {
     modal.innerHTML = `
       <div class="global-modal-card">
         <h3 class="modal-title">${modalTitle}</h3>
-        <p class="modal-desc">为避免<span style="color:#ff0000;">浪费您的下载次数</span>，<br>请完善信息后下载。</p>
-       
-        <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">先试试看，继续下载（-1次）</button>
+        <p class="modal-desc">为避免<span style="color:#ff0000;">海报传达信息不符</span>，<br>请完善信息后下载。</p>
+
+        <button id="incompleteContinueBtn" class="global-modal-btn global-modal-btn-outline">先试试看，继续下载</button>
         <button id="incompleteLaterBtn" class="global-modal-btn global-modal-btn-danger">${laterBtnText}</button>
       </div>
     `
@@ -10422,7 +10422,12 @@ const ThumbnailLoader = {
 async function loadDownloadQuota() {
   try {
     if (typeof VIPSystem === 'undefined' || !VIPSystem.getUserId()) return;
-    if (VIPSystem.isVip()) return; // VIP用户不需要显示次数
+    if (VIPSystem.isVip()) {
+      // VIP用户不需要显示下载次数，主动清理可能残留的次数显示元素
+      const existingQuotaEl = document.getElementById('downloadQuotaDisplay');
+      if (existingQuotaEl) existingQuotaEl.remove();
+      return;
+    }
     
     const result = await VIPSystem.getDownloadQuota();
     if (result.success && result.data) {

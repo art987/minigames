@@ -501,6 +501,64 @@ function showPaymentWaitingModal(outTradeNo) {
 }
 
 // 支付结果弹窗
+// 彩纸迸发特效（红金尊贵配色）
+function launchPaymentConfetti() {
+  // 复用已存在的容器避免重复
+  const existing = document.getElementById('paymentConfettiContainer')
+  if (existing) existing.remove()
+  const container = document.createElement('div')
+  container.id = 'paymentConfettiContainer'
+  container.className = 'confetti-container'
+  document.body.appendChild(container)
+
+  // 红金主色调，搭配少量彩色增加喜庆感
+  const colors = ['#ffd700', '#ff4d4f', '#c41e3a', '#ff7a45', '#faad14', '#ffe58f', '#fff1b8', '#ffec3d']
+  const shapes = ['square', 'circle', 'rectangle']
+
+  for (let i = 0; i < 120; i++) {
+    const piece = document.createElement('div')
+    piece.className = 'confetti-piece'
+    const color = colors[Math.floor(Math.random() * colors.length)]
+    const shape = shapes[Math.floor(Math.random() * shapes.length)]
+    const left = Math.random() * 100
+    const delay = Math.random() * 1.2
+    const duration = 2.2 + Math.random() * 2.5
+    const size = 6 + Math.random() * 10
+
+    piece.style.left = left + '%'
+    piece.style.animationDelay = delay + 's'
+    piece.style.animationDuration = duration + 's'
+    piece.style.backgroundColor = color
+
+    if (shape === 'circle') {
+      piece.style.borderRadius = '50%'
+      piece.style.width = size + 'px'
+      piece.style.height = size + 'px'
+    } else if (shape === 'rectangle') {
+      piece.style.width = size * 0.4 + 'px'
+      piece.style.height = size + 'px'
+    } else {
+      piece.style.width = size + 'px'
+      piece.style.height = size + 'px'
+    }
+    container.appendChild(piece)
+  }
+  setTimeout(() => container.remove(), 5500)
+}
+
+// 格式化会员有效期展示
+function formatVipExpiry(vipValidUntil) {
+  if (!vipValidUntil) return ''
+  try {
+    const d = new Date(vipValidUntil)
+    if (isNaN(d.getTime())) return ''
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}-${m}-${day}`
+  } catch (e) { return '' }
+}
+
 function showPaymentResultModal(options = {}) {
   const { success = true, outTradeNo = '', message = '' } = options
   const existing = document.getElementById('paymentResultModal')
@@ -508,33 +566,105 @@ function showPaymentResultModal(options = {}) {
   const modal = document.createElement('div')
   modal.id = 'paymentResultModal'
   modal.className = 'order-history-modal'
-  const iconSvg = success
-    ? `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#e8f5e9" stroke="#4caf50" stroke-width="2.5"/><path d="M18 28l8 8 12-14" stroke="#4caf50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-    : `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#fbe9e7" stroke="#e53935" stroke-width="2.5"/><path d="M20 20l16 16M36 20l-16 16" stroke="#e53935" stroke-width="3.5" stroke-linecap="round"/></svg>`
-  modal.innerHTML = `
-    <div class="order-history-content" style="max-width:400px;width:92%;margin-top:-60px;">
-      <div class="order-history-header" style="${success ? '' : 'background:linear-gradient(135deg,#e53935,#ef5350);'}">
-        <h3 style="color:#fff;font-size:17px;font-weight:600;">${success ? '支付成功' : '支付失败'}</h3>
-        <button id="closePaymentResultBtn" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.9;padding:0;font-family:sans-serif;">&times;</button>
+
+  if (success) {
+    // 成功：红金尊贵主题 + 彩纸特效
+    launchPaymentConfetti()
+
+    // 读取会员有效期
+    let expiryText = ''
+    try {
+      if (typeof VIPSystem !== 'undefined' && VIPSystem.getVipExpireTime) {
+        expiryText = formatVipExpiry(VIPSystem.getVipExpireTime())
+      }
+    } catch (e) { console.warn('读取 VIP 有效期失败:', e) }
+
+    // 皇冠 SVG
+    const crownSvg = `<svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+      <defs>
+        <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffd700"/>
+          <stop offset="100%" stop-color="#ffa940"/>
+        </linearGradient>
+      </defs>
+      <circle cx="36" cy="36" r="34" fill="#fff8e1" stroke="#ffd700" stroke-width="2"/>
+      <path d="M20 44 L16 28 L26 36 L36 22 L46 36 L56 28 L52 44 Z" fill="url(#crownGrad)" stroke="#c41e3a" stroke-width="1.2" stroke-linejoin="round"/>
+      <rect x="20" y="44" width="32" height="5" rx="2" fill="url(#crownGrad)" stroke="#c41e3a" stroke-width="1.2"/>
+      <circle cx="36" cy="29" r="2.2" fill="#c41e3a"/>
+      <circle cx="26" cy="34" r="1.8" fill="#c41e3a"/>
+      <circle cx="46" cy="34" r="1.8" fill="#c41e3a"/>
+    </svg>`
+
+    modal.innerHTML = `
+      <div class="order-history-content" style="max-width:420px;width:92%;margin-top:-50px;border:none;border-radius:18px;overflow:hidden;box-shadow:0 12px 48px rgba(196,30,58,0.35);">
+        <div style="background:linear-gradient(135deg,#c41e3a 0%,#e84a5f 50%,#ff6b6b 100%);padding:28px 20px 22px;text-align:center;position:relative;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ffd700,#fff1b8,#ffd700);"></div>
+          <div style="margin-bottom:10px;">${crownSvg}</div>
+          <h3 style="margin:0;color:#fff;font-size:21px;font-weight:700;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.2);">恭喜您成为闪喵VIP会员</h3>
+          <p style="margin:10px 0 0;color:#fff5e6;font-size:13px;line-height:1.6;opacity:0.95;">感谢您的支持，您可以无限额度<br>制作下载朋友圈节日海报啦！</p>
+        </div>
+        <div style="background:linear-gradient(180deg,#fff8e1 0%,#ffffff 100%);padding:18px 22px 22px;">
+          ${expiryText ? `<div style="text-align:center;margin-bottom:16px;">
+            <span style="display:inline-block;padding:7px 18px;background:linear-gradient(135deg,#fff3cd,#ffe69c);border:1.5px solid #ffd700;border-radius:20px;color:#8a5a00;font-size:13px;font-weight:600;">
+              <span style="color:#c41e3a;">会员有效期至</span> ${expiryText}
+            </span>
+          </div>` : ''}
+          ${outTradeNo ? `<p style="margin:0 0 14px;text-align:center;color:#bbb;font-size:11px;">订单号：${outTradeNo}</p>` : ''}
+          <button id="confirmPaymentResultBtn" style="width:100%;padding:14px;font-size:16px;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#c41e3a,#e84a5f);color:#fff;font-weight:600;letter-spacing:2px;box-shadow:0 4px 14px rgba(196,30,58,0.4);">开始体验</button>
+        </div>
       </div>
-      <div style="padding:24px 20px;">
-        <div style="text-align:center;margin-bottom:12px;">${iconSvg}</div>
-        <h4 style="margin:0 0 6px;text-align:center;font-size:19px;color:${success ? '#2e7d32' : '#c62828'};font-weight:700;">${success ? '升级成功' : '支付未完成'}</h4>
-        <p style="margin:0 0 4px;text-align:center;color:#888;font-size:14px;line-height:1.5;">${success ? '恭喜！VIP会员已成功开通' : (message || '支付未完成或已取消')}</p>
-        ${outTradeNo ? `<p style="margin:8px 0 16px;text-align:center;color:#ccc;font-size:11px;">订单号：${outTradeNo}</p>` : '<div style="height:16px;"></div>'}
-        <button id="confirmPaymentResultBtn" style="width:100%;padding:13px;font-size:16px;border:none;border-radius:10px;cursor:pointer;background:${success ? 'linear-gradient(135deg,#2e7d32,#43a047)' : 'linear-gradient(135deg,#d32f2f,#f44336)'};color:#fff;font-weight:600;letter-spacing:1px;">${success ? '开始使用' : '重新下单'}</button>
+    `
+    document.body.appendChild(modal)
+
+    const closeAll = () => {
+      finishPaymentSession('success')
+      modal.remove()
+      // 关闭所有相关弹窗（VIP升级弹窗、等待弹窗等）
+      const modalIds = ['vipUpgradeModal', 'paymentWaitingModal', 'paymentSuccessModal', 'vipLoginModal']
+      modalIds.forEach(id => {
+        const m = document.getElementById(id)
+        if (m) m.remove()
+      })
+      // 关闭其他可能存在的弹窗
+      document.querySelectorAll('.order-history-modal, .global-modal-overlay').forEach(el => {
+        if (el.id !== 'paymentResultModal') el.remove()
+      })
+      if (typeof updateVipStatus === 'function') updateVipStatus()
+      // 刷新下载次数显示（VIP用户会清理 downloadQuotaDisplay 元素）
+      if (typeof loadDownloadQuota === 'function') {
+        try { loadDownloadQuota() } catch (e) { console.warn('刷新下载次数显示失败:', e) }
+      }
+    }
+    modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', closeAll)
+    // 成功弹窗不允许点击遮罩关闭，必须点按钮
+  } else {
+    // 失败：保持原有简洁样式
+    const iconSvg = `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#fbe9e7" stroke="#e53935" stroke-width="2.5"/><path d="M20 20l16 16M36 20l-16 16" stroke="#e53935" stroke-width="3.5" stroke-linecap="round"/></svg>`
+    modal.innerHTML = `
+      <div class="order-history-content" style="max-width:400px;width:92%;margin-top:-60px;">
+        <div class="order-history-header" style="background:linear-gradient(135deg,#e53935,#ef5350);">
+          <h3 style="color:#fff;font-size:17px;font-weight:600;">支付失败</h3>
+          <button id="closePaymentResultBtn" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.9;padding:0;font-family:sans-serif;">&times;</button>
+        </div>
+        <div style="padding:24px 20px;">
+          <div style="text-align:center;margin-bottom:12px;">${iconSvg}</div>
+          <h4 style="margin:0 0 6px;text-align:center;font-size:19px;color:#c62828;font-weight:700;">支付未完成</h4>
+          <p style="margin:0 0 4px;text-align:center;color:#888;font-size:14px;line-height:1.5;">${message || '支付未完成或已取消'}</p>
+          ${outTradeNo ? `<p style="margin:8px 0 16px;text-align:center;color:#ccc;font-size:11px;">订单号：${outTradeNo}</p>` : '<div style="height:16px;"></div>'}
+          <button id="confirmPaymentResultBtn" style="width:100%;padding:13px;font-size:16px;border:none;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#d32f2f,#f44336);color:#fff;font-weight:600;letter-spacing:1px;">重新下单</button>
+        </div>
       </div>
-    </div>
-  `
-  document.body.appendChild(modal)
-  const close = () => {
-    finishPaymentSession(success ? 'success' : 'closed')
-    modal.remove()
-    if (typeof updateVipStatus === 'function') updateVipStatus()
+    `
+    document.body.appendChild(modal)
+    const close = () => {
+      finishPaymentSession('closed')
+      modal.remove()
+      if (typeof updateVipStatus === 'function') updateVipStatus()
+    }
+    modal.querySelector('#closePaymentResultBtn').addEventListener('click', close)
+    modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', close)
+    modal.addEventListener('click', (e) => { if (e.target === modal) close() })
   }
-  modal.querySelector('#closePaymentResultBtn').addEventListener('click', close)
-  modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', close)
-  modal.addEventListener('click', (e) => { if (e.target === modal) close() })
 }
 
 // VIP 登录 UI 模块
@@ -558,41 +688,9 @@ const VipLoginUI = (function() {
     }
   }
   
-  // 显示支付成功弹窗
+  // 显示支付成功弹窗（复用统一的 showPaymentResultModal，保持视觉一致）
   function showPaymentSuccessModal(outTradeNo) {
-    const modalHTML = `
-      <div id="paymentSuccessModal" class="payment-success-modal">
-        <div class="payment-success-content">
-          <div class="payment-success-icon">
-            <i class="fa fa-check"></i>
-          </div>
-          <h3 class="payment-success-title">升级成功</h3>
-          <p class="payment-success-message">恭喜您！VIP会员已成功开通，现在可以享受全部特权功能。</p>
-          <button id="closePaymentSuccessBtn" class="payment-success-btn">确定</button>
-        </div>
-      </div>
-    `
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML)
-    
-    // 替换Font Awesome图标为SVG图标
-    if (typeof replaceFAIcons === 'function') {
-      replaceFAIcons()
-    }
-    
-    const modal = document.getElementById('paymentSuccessModal')
-    const closeBtn = document.getElementById('closePaymentSuccessBtn')
-    
-    const closeModal = () => {
-      finishPaymentSession('success')
-      modal.remove()
-      updateVipStatus()
-    }
-    
-    closeBtn.addEventListener('click', closeModal)
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal()
-    })
+    showPaymentResultModal({ success: true, outTradeNo: outTradeNo || '' })
   }
   
   // 初始化 DOM 元素
@@ -990,11 +1088,16 @@ const VipLoginUI = (function() {
           if (result.used) {
             showVoucherResult(`升级码已被使用，使用时间：${new Date(result.usedAt).toLocaleString()}`, 'error')
           } else {
-            showVoucherResult('升级成功！您现在是VIP用户', 'success')
+            showVoucherResult('升级成功！正在为您准备会员权益...', 'success')
+            // 关闭 VIP 登录弹窗，弹出统一的支付成功（升级成功）弹窗
             setTimeout(() => {
-              hideLoginModal()
-              location.reload()
-            }, 1500)
+              if (typeof hideLoginModal === 'function') hideLoginModal()
+              const voucherModal = document.getElementById('vipUpgradeModal') || document.getElementById('vipLoginModal')
+              if (voucherModal) voucherModal.remove()
+              if (typeof showPaymentResultModal === 'function') {
+                showPaymentResultModal({ success: true, outTradeNo: '' })
+              }
+            }, 800)
           }
         } else {
           showVoucherResult(result.message || '验证失败，请稍后重试', 'error')
@@ -1614,18 +1717,25 @@ const VipLoginUI = (function() {
           elements.userInfoExpiry.textContent = updatedUserInfo.vipValidUntil ? new Date(updatedUserInfo.vipValidUntil).toLocaleDateString() : '普通用户'
         }
         if (elements.userInfoType) {
-          elements.userInfoType.textContent = updatedUserInfo.isVip ? 'VIP用户' : '普通用户'
+          elements.userInfoType.textContent = updatedUserInfo.isVip ? '闪喵VIP用户' : '普通用户'
         }
         
         // 显示下载次数
         const quotaInfoItem = document.getElementById('downloadQuotaInfoItem')
         const quotaSpan = document.getElementById('userInfoDownloadQuota')
         if (updatedUserInfo.isVip) {
-          // VIP用户无限下载
-          if (quotaInfoItem) quotaInfoItem.style.display = 'none'
+          // VIP用户显示“无限”，不再隐藏该项
+          if (quotaInfoItem) quotaInfoItem.style.display = ''
+          if (quotaSpan) {
+            quotaSpan.textContent = '无限'
+            quotaSpan.style.color = '#c41e3a'
+            quotaSpan.style.fontWeight = '600'
+          }
         } else {
           if (quotaInfoItem) quotaInfoItem.style.display = ''
           if (quotaSpan) {
+            quotaSpan.style.color = ''
+            quotaSpan.style.fontWeight = ''
             // 先显示本地缓存的次数
             quotaSpan.textContent = updatedUserInfo.downloadQuota !== undefined ? `${updatedUserInfo.downloadQuota}次` : '加载中...'
           }
@@ -2650,7 +2760,13 @@ window.showVipUpgradeModal = function() {
 
           showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
 
-          setTimeout(() => modal.remove(), 3000);
+          // 弹出统一的支付成功（升级成功）弹窗，与支付升级保持一致体验
+          setTimeout(() => {
+            modal.remove()
+            if (typeof showPaymentResultModal === 'function') {
+              showPaymentResultModal({ success: true, outTradeNo: '' })
+            }
+          }, 1200);
         }
       } else {
         showVoucherResult(resultDiv, 'error', '验证失败 请准确复制升级码，或联系客服解决', result);
