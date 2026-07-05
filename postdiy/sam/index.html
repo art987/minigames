@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理首页</title>
+  <!-- SVG图标库 -->
+  <link rel="stylesheet" href="../libs/svg-icons/svg-icons.css">
+  <script src="../libs/svg-icons/svg-icons.js"></script>
+  <link rel="stylesheet" href="../admin.css">
+  <!-- 统一后台认证与导航 -->
+  <script src="../admin-auth.js"></script>
+  <script src="../admin-nav.js"></script>
+  <style>
+    /* 后台首页独有样式：卡片式入口 */
+    .sam-home {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+    .sam-home-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .sam-home-header h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      color: #b41408;
+      letter-spacing: 1px;
+    }
+    .sam-home-header p {
+      margin: 0;
+      color: #888;
+      font-size: 14px;
+    }
+    .sam-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .sam-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 22px 22px 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffffff 0%, #fff7f6 100%);
+      border: 1px solid #f1d6d2;
+      box-shadow: 0 4px 14px rgba(180, 20, 8, 0.06);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .sam-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0.7;
+    }
+    .sam-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(180, 20, 8, 0.12);
+      border-color: #da4b40;
+    }
+    .sam-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #b41408, #da4b40);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .sam-card-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+    .sam-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #b41408;
+      margin: 0 0 6px;
+    }
+    .sam-card-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .sam-card-arrow {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      color: #b41408;
+      font-size: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .sam-card:hover .sam-card-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+    .sam-tip {
+      margin-top: 28px;
+      padding: 14px 16px;
+      background: #fff7f6;
+      border-left: 3px solid #b41408;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="manage-content" id="manageSection">
+    <div class="sam-home">
+      <div class="sam-home-header">
+        <h1>后台管理中心</h1>
+        <p>请选择需要管理的模块</p>
+      </div>
+
+      <div class="sam-cards" id="samCards">
+        <!-- 卡片由 sam-home.js 动态渲染（基于 admin-nav.js 的菜单配置） -->
+      </div>
+
+      <div class="sam-tip">
+        <strong>提示：</strong>所有后台页面共享登录状态，登录后可在任意页面通过顶部导航栏切换模块。登录有效期 8 小时。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 渲染后台首页的卡片菜单
+    // 等待 admin-nav.js 加载完成后渲染，菜单配置以 admin-nav.js 为单一来源
+    (function () {
+      function renderCards() {
+        // 与 admin-nav.js 中的菜单保持一致（避免双重维护）
+        var menu = [
+          {
+            id: 'member-admin',
+            name: '会员管理',
+            icon: 'users',
+            href: 'member-admin.html',
+            description: '查看和管理所有会员信息、VIP状态'
+          },
+          {
+            id: 'voucher-admin',
+            name: '激活码管理',
+            icon: 'ticket',
+            href: 'voucher-admin.html',
+            description: '批量生成、筛选、导出激活码'
+          },
+          {
+            id: 'vip-packages-admin',
+            name: 'VIP套餐管理',
+            icon: 'crown',
+            href: 'vip-packages-admin.html',
+            description: '配置 VIP 套餐价格、上下架'
+          }
+        ];
+
+        // SVG 图标（与 admin-nav.js 中保持一致）
+        var icons = {
+          'users': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+          'ticket': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z"/></svg>',
+          'crown': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 2H5v2h14v-2z"/></svg>'
+        };
+
+        var container = document.getElementById('samCards');
+        if (!container) return;
+
+        container.innerHTML = menu.map(function (item) {
+          return '<a href="' + item.href + '" class="sam-card" id="card-' + item.id + '">'
+            + '<div class="sam-card-icon">' + (icons[item.icon] || '') + '</div>'
+            + '<h3 class="sam-card-title">' + item.name + '</h3>'
+            + '<p class="sam-card-desc">' + item.description + '</p>'
+            + '<span class="sam-card-arrow">→</span>'
+            + '</a>';
+        }).join('');
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderCards);
+      } else {
+        renderCards();
+      }
+    })();
+  </script>
+</body>
+</html>

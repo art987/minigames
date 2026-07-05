@@ -8543,9 +8543,18 @@ const ThumbnailLoader = {
             const validUntil = new Date(result.validUntil);
             const dateStr = `${validUntil.getFullYear()}年${String(validUntil.getMonth() + 1).padStart(2, '0')}月${String(validUntil.getDate()).padStart(2, '0')}日`;
             
-            showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
-            
-            setTimeout(() => modal.remove(), 3000);
+            // 关闭升级弹窗，然后弹出统一的成功弹窗（已内置彩纸喷射特效）
+            modal.remove();
+            if (typeof window.showPaymentResultModal === 'function') {
+              window.showPaymentResultModal({ success: true, outTradeNo: '' });
+            } else {
+              // 兜底：若新弹窗函数未加载，回退到旧版提示
+              showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
+              setTimeout(() => {
+                const m = document.querySelector('.voucher-result-modal');
+                if (m) m.remove();
+              }, 3000);
+            }
           }
         } else {
           showVoucherResult(resultDiv, 'error', '验证失败 请准确复制升级码，或联系客服解决', result);

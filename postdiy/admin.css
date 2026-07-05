@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Microsoft YaHei', Arial, sans-serif;
-    background: linear-gradient(135deg, #7e7e7e 0%, #2f2f2f 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f6cccc 100%);
     min-height: 100vh;
     padding: 9px;
 }
@@ -45,6 +45,7 @@ body {
     transition: all 0.3s;
 }
 
+.sam-card::before{ background: none;}
 .header .btn:hover {
     background: #f0f0f0;
     transform: translateY(-2px);

@@ -9397,7 +9397,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 }
 
 #refreshNowBtn:hover {
-  background: #2563eb !important;
+  background: #f91600 !important;
 }
 
 #skipRefreshBtn:hover {
@@ -9749,4 +9749,203 @@ Shorthand property for setting most background properties at the same place in t
 
 .template-locked .template-check-button {
   display: none !important;
+}
+
+/* ============================================================ */
+/* ===== 支付结果弹窗（showPaymentResultModal）独立样式 ========== */
+/* ============================================================ */
+/* 用于 vip-login-ui.js 中成功/失败弹窗的样式，方便统一调整       */
+/* 类前缀: .pr- (payment result)                                  */
+
+/* ---------- 成功弹窗容器 ---------- */
+.pr-success-content {
+  max-width: 420px;
+  width: 92%;
+  margin-top: -50px;
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(196, 30, 58, 0.35);
+}
+
+/* ---------- 失败弹窗容器 ---------- */
+.pr-fail-content {
+  max-width: 400px;
+  width: 92%;
+  margin-top: -60px;
+}
+
+/* ---------- 成功弹窗：头部（红金渐变） ---------- */
+.pr-success-header {
+  background: linear-gradient(135deg, #fdfc1e 0%, #f68000 50%, #dc137e 100%);
+  padding: 28px 20px 22px;
+  text-align: center;
+  position: relative;
+}
+
+/* 顶部金条 */
+.pr-gold-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #fff1b8, #ffd700);
+}
+
+/* 皇冠容器 */
+.pr-crown {
+  margin-bottom: 10px;
+}
+
+/* 成功标题 */
+.pr-success-title {
+  margin: 0;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 成功副标题 */
+.pr-success-subtitle {
+  margin: 10px 0 0;
+  color: #fff5e6;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* ---------- 成功弹窗：主体 ---------- */
+.pr-success-body {
+  background: linear-gradient(180deg, #fff8e1 0%, #ffffff 100%);
+  padding: 18px 22px 22px;
+}
+
+/* 有效期外层容器 */
+.pr-expiry-wrap {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* 有效期胶囊徽章 */
+.pr-expiry-badge {
+  display: inline-block;
+  padding: 7px 18px;
+  background: linear-gradient(135deg, #fff3cd, #ffe69c);
+  border: 1.5px solid #ffd700;
+  border-radius: 20px;
+  color: #e00808;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pr-expiry-label {
+  color: #d30a2c;
+  font-weight: 400;
+}
+
+/* 订单号 */
+.pr-order-no {
+  margin: 0 0 14px;
+  text-align: center;
+  color: #bbb;
+  font-size: 11px;
+}
+
+/* 成功确认按钮 */
+.pr-success-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(126deg, #c41e3a, #f126a7);
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 14px rgba(196, 30, 58, 0.4);
+}
+
+/* ---------- 失败弹窗：头部 ---------- */
+.pr-fail-header {
+  background: linear-gradient(135deg, #e53935, #ef5350);
+}
+
+/* 失败标题 */
+.pr-fail-title {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* 失败关闭按钮 */
+.pr-fail-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.9;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* ---------- 失败弹窗：主体 ---------- */
+.pr-fail-body {
+  padding: 24px 20px;
+}
+
+/* 失败图标容器 */
+.pr-fail-icon {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* 失败主标题 */
+.pr-fail-heading {
+  margin: 0 0 6px;
+  text-align: center;
+  font-size: 19px;
+  color: #c62828;
+  font-weight: 700;
+}
+
+/* 失败描述文字 */
+.pr-fail-message {
+  margin: 0 0 4px;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 失败订单号 */
+.pr-fail-order {
+  margin: 8px 0 16px;
+  text-align: center;
+  color: #ccc;
+  font-size: 11px;
+}
+
+/* 失败占位空间（无订单号时） */
+.pr-fail-spacer {
+  height: 16px;
+}
+
+/* 失败重试按钮 */
+.pr-fail-btn {
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
 }

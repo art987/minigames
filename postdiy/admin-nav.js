@@ -5,7 +5,16 @@
  */
 (function() {
   // 导航菜单配置
+  // 注意：菜单项的 href 使用相对路径，因为在 sam/ 目录下运行。
+  // 后台首页放在第一位，方便从任意子页面回到首页。
   const NAV_MENU = [
+    {
+      id: 'index',
+      name: '后台首页',
+      icon: 'home',
+      href: 'index.html',
+      description: '后台管理中心首页'
+    },
     {
       id: 'member-admin',
       name: '会员管理',
@@ -19,13 +28,31 @@
       icon: 'ticket',
       href: 'voucher-admin.html',
       description: '批量生成、筛选、导出激活码'
+    },
+    {
+      id: 'vip-packages-admin',
+      name: 'VIP套餐管理',
+      icon: 'crown',
+      href: 'vip-packages-admin.html',
+      description: '配置 VIP 套餐价格、上下架'
     }
   ];
 
   // 获取当前页面标识
   function getCurrentPage() {
     const path = window.location.pathname;
+    // 处理 sam/ 目录默认页（路径以 / 结尾或为空时，视为后台首页）
+    if (path === '/' || path === '' || path.endsWith('/sam/') || path.endsWith('/sam')) {
+      return 'index';
+    }
     for (const item of NAV_MENU) {
+      if (item.id === 'index') {
+        // index.html 的情况单独处理，避免 'index' 误匹配其他 path
+        if (path.endsWith('/index.html') || path.endsWith('/index')) {
+          return 'index';
+        }
+        continue;
+      }
       if (path.includes(item.id)) {
         return item.id;
       }
@@ -38,6 +65,7 @@
     const icons = {
       'users': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
       'ticket': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z"/></svg>',
+      'home': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
       'search': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>',
       'crown': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 2H5v2h14v-2z"/></svg>',
       'bars': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>',

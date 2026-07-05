@@ -663,80 +663,137 @@ function showPaymentWaitingModal(outTradeNo) {
 }
 
 // 支付结果弹窗
-// 彩纸枪喷射特效（红金尊贵配色）—— 从底部向上喷射，到达顶点后自由落体
+// 升级成功彩纸枪喷射特效（自研 Canvas 实现，简单可控，无依赖）
+// 从屏幕底部 3 个点向上喷射，受重力自由落体
 function launchPaymentConfetti() {
-  // 清掉旧的容器避免叠加
-  const existing = document.getElementById('paymentConfettiContainer')
+  console.log('[confetti] launchPaymentConfetti called')
+
+  // 清掉旧 canvas 和旧版 DOM 容器
+  const existing = document.getElementById('upgradeConfettiCanvas')
   if (existing) existing.remove()
-  const container = document.createElement('div')
-  container.id = 'paymentConfettiContainer'
-  container.className = 'confetti-container'
-  document.body.appendChild(container)
+  const legacy = document.getElementById('paymentConfettiContainer')
+  if (legacy) legacy.remove()
 
-  // 红金主色调，搭配少量彩色增加喜庆感
+  // 创建全屏 Canvas（最上层，不接收事件）
+  const canvas = document.createElement('canvas')
+  canvas.id = 'upgradeConfettiCanvas'
+  const dpr = window.devicePixelRatio || 1
+  const W = window.innerWidth
+  const H = window.innerHeight
+  canvas.width = W * dpr
+  canvas.height = H * dpr
+  canvas.style.cssText = `position:fixed;top:0;left:0;width:${W}px;height:${H}px;pointer-events:none;z-index:99999;`
+  document.body.appendChild(canvas)
+
+  const ctx = canvas.getContext('2d')
+  ctx.scale(dpr, dpr)
+
+  // 红金尊贵配色
   const colors = ['#ffd700', '#ff4d4f', '#c41e3a', '#ff7a45', '#faad14', '#ffe58f', '#fff1b8', '#ffec3d']
-  const shapes = ['square', 'circle', 'rectangle']
+  const shapes = ['rect', 'circle', 'rect']  // 矩形多一点，像纸条
 
-  // 喷射口位置：屏幕水平中部偏下（彩纸枪从下面向上喷射）
-  // 多个发射点会让效果更立体，类似多个礼花枪同时发射
-  const launchPoints = [45, 50, 55] // 三个发射点，水平位置（%）
-
-  const totalPieces = 140
-  for (let i = 0; i < totalPieces; i++) {
-    const piece = document.createElement('div')
-    piece.className = 'confetti-piece'
-
-    const color = colors[Math.floor(Math.random() * colors.length)]
-    const shape = shapes[Math.floor(Math.random() * shapes.length)]
-
-    // 选一个发射点，并在其附近小范围抖动，模拟枪口散射
-    const launchX = launchPoints[Math.floor(Math.random() * launchPoints.length)]
-    const scatter = (Math.random() - 0.5) * 8 // ±4% 散射
-    const left = launchX + scatter
-
-    // 喷射延迟：模拟连续发射，前 0.6s 内陆续出射
-    const delay = Math.random() * 0.6
-    // 总动画时长：喷射 + 自由落体，3 ~ 4.5s
-    const duration = 3 + Math.random() * 1.5
-
-    // 喷射高度（向上喷射的距离，负值表示向上）
-    // 中间发射点喷得更高，两侧稍低
-    const heightBias = 1 - Math.abs(launchX - 50) / 10 // 0~1
-    const burstY = -(45 + heightBias * 25 + Math.random() * 15) // -45vh ~ -85vh
-    // 喷射时的横向偏移（向上喷射时同时向四周扩散）
-    const burstX = (Math.random() - 0.5) * 200 // -100px ~ 100px
-    // 顶点后的横向飘移
-    const driftX = burstX + (Math.random() - 0.5) * 80
-    // 自由落体时的横向落点（受重力影响会继续外扩）
-    const fallX = driftX + (Math.random() - 0.5) * 120
-
-    const size = 6 + Math.random() * 10
-
-    piece.style.left = left + '%'
-    piece.style.animationDelay = delay + 's'
-    piece.style.animationDuration = duration + 's'
-    piece.style.backgroundColor = color
-    piece.style.setProperty('--burst-x', burstX + 'px')
-    piece.style.setProperty('--burst-y', burstY + 'vh')
-    piece.style.setProperty('--drift-x', driftX + 'px')
-    piece.style.setProperty('--fall-x', fallX + 'px')
-
-    if (shape === 'circle') {
-      piece.style.borderRadius = '50%'
-      piece.style.width = size + 'px'
-      piece.style.height = size + 'px'
-    } else if (shape === 'rectangle') {
-      piece.style.width = size * 0.4 + 'px'
-      piece.style.height = size + 'px'
-    } else {
-      piece.style.width = size + 'px'
-      piece.style.height = size + 'px'
+  // 纸屑对象
+  const particles = []
+  function spawn(x, y, powerMin, powerMax) {
+    const count = 60
+    for (let i = 0; i < count; i++) {
+      // 向上喷射：角度区间 -150° ~ -30°（即往上方圆锥内随机）
+      // 0° = 向右，-90° = 正上方
+      const angle = (-150 + Math.random() * 120) * Math.PI / 180
+      const power = powerMin + Math.random() * (powerMax - powerMin)
+      particles.push({
+        x: x,
+        y: y,
+        vx: Math.cos(angle) * power,
+        vy: Math.sin(angle) * power,   // 负值=向上
+        size: 6 + Math.random() * 8,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.3,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: 0.05 + Math.random() * 0.05,
+        life: 1.0
+      })
     }
-    container.appendChild(piece)
   }
-  // 动画最长 0.6 + 4.5 = 5.1s，6s 后清理
-  setTimeout(() => container.remove(), 6000)
+
+  // 3 个发射点（左、中、右），中间力度更大
+  spawn(W * 0.30, H - 20, 13, 22)
+  setTimeout(() => spawn(W * 0.50, H - 20, 18, 30), 150)
+  setTimeout(() => spawn(W * 0.70, H - 20, 13, 22), 300)
+
+  // 物理参数
+  const gravity = 0.35       // 重力加速度（每帧）
+  const airResistance = 0.99 // 空气阻力
+  const wobbleAmp = 0.6      // 横向飘动幅度
+
+  let stopped = false
+
+  function step() {
+    if (stopped) return
+    ctx.clearRect(0, 0, W, H)
+
+    // 更新+绘制每个粒子
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i]
+
+      // 物理：重力 + 空气阻力 + 横向飘动
+      p.vy += gravity
+      p.vx *= airResistance
+      p.vy *= airResistance
+      p.wobble += p.wobbleSpeed
+      p.x += p.vx + Math.sin(p.wobble) * wobbleAmp
+      p.y += p.vy
+      p.rotation += p.rotSpeed
+
+      // 出界则移除（落到屏幕底部以下）
+      if (p.y > H + 30) {
+        particles.splice(i, 1)
+        continue
+      }
+
+      // 绘制
+      ctx.save()
+      ctx.translate(p.x, p.y)
+      ctx.rotate(p.rotation)
+      ctx.fillStyle = p.color
+      if (p.shape === 'circle') {
+        ctx.beginPath()
+        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2)
+        ctx.fill()
+      } else {
+        // 矩形纸条
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2)
+      }
+      ctx.restore()
+    }
+
+    if (particles.length === 0) {
+      // 全部落完，清理
+      console.log('[confetti] animation finished')
+      stopped = true
+      ctx.clearRect(0, 0, W, H)
+      if (canvas.parentNode) canvas.remove()
+      return
+    }
+
+    requestAnimationFrame(step)
+  }
+
+  requestAnimationFrame(step)
+
+  // 兜底清理：7s 后强制结束（防止异常情况粒子永不消失）
+  setTimeout(() => {
+    if (!stopped) {
+      stopped = true
+      if (canvas.parentNode) canvas.remove()
+    }
+  }, 7000)
 }
+
+// 暴露到 window，供 editor-script.js 在编辑页激活成功时调用
+window.launchUpgradeConfettiBurst = launchPaymentConfetti
 
 // 格式化会员有效期展示
 function formatVipExpiry(vipValidUntil) {
@@ -819,21 +876,21 @@ function showPaymentResultModal(options = {}) {
     </svg>`
 
     modal.innerHTML = `
-      <div class="order-history-content" style="max-width:420px;width:92%;margin-top:-50px;border:none;border-radius:18px;overflow:hidden;box-shadow:0 12px 48px rgba(196,30,58,0.35);">
-        <div style="background:linear-gradient(135deg,#c41e3a 0%,#e84a5f 50%,#ff6b6b 100%);padding:28px 20px 22px;text-align:center;position:relative;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ffd700,#fff1b8,#ffd700);"></div>
-          <div style="margin-bottom:10px;">${crownSvg}</div>
-          <h3 style="margin:0;color:#fff;font-size:21px;font-weight:700;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.2);">恭喜您成为闪喵VIP会员</h3>
-          <p style="margin:10px 0 0;color:#fff5e6;font-size:13px;line-height:1.6;opacity:0.95;">感谢您的支持，您可以无限额度<br>制作下载朋友圈节日海报啦！</p>
+      <div class="order-history-content pr-success-content">
+        <div class="pr-success-header">
+          <div class="pr-gold-strip"></div>
+          <div class="pr-crown">${crownSvg}</div>
+          <h3 class="pr-success-title">恭喜您成为闪喵VIP会员</h3>
+          <p class="pr-success-subtitle">感谢您的支持，您可以无限额度<br>制作下载朋友圈节日海报啦！</p>
         </div>
-        <div style="background:linear-gradient(180deg,#fff8e1 0%,#ffffff 100%);padding:18px 22px 22px;">
-          <div id="paymentResultExpiryWrap" style="text-align:center;margin-bottom:16px;${expiryText ? '' : 'display:none;'}">
-            <span style="display:inline-block;padding:7px 18px;background:linear-gradient(135deg,#fff3cd,#ffe69c);border:1.5px solid #ffd700;border-radius:20px;color:#8a5a00;font-size:13px;font-weight:600;">
-              <span style="color:#c41e3a;">会员有效期至</span> <span id="paymentResultExpiry">${expiryText}</span>
+        <div class="pr-success-body">
+          <div id="paymentResultExpiryWrap" class="pr-expiry-wrap"${expiryText ? '' : ' style="display:none;"'}>
+            <span class="pr-expiry-badge">
+              <span class="pr-expiry-label">会员有效期至</span> <span id="paymentResultExpiry">${expiryText}</span>
             </span>
           </div>
-          ${outTradeNo ? `<p style="margin:0 0 14px;text-align:center;color:#bbb;font-size:11px;">订单号：${outTradeNo}</p>` : ''}
-          <button id="confirmPaymentResultBtn" style="width:100%;padding:14px;font-size:16px;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#c41e3a,#e84a5f);color:#fff;font-weight:600;letter-spacing:2px;box-shadow:0 4px 14px rgba(196,30,58,0.4);">开始体验</button>
+          ${outTradeNo ? `<p class="pr-order-no">订单号：${outTradeNo}</p>` : ''}
+          <button id="confirmPaymentResultBtn" class="pr-success-btn">开始体验</button>
         </div>
       </div>
     `
@@ -878,17 +935,17 @@ function showPaymentResultModal(options = {}) {
     // 失败：保持原有简洁样式
     const iconSvg = `<svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#fbe9e7" stroke="#e53935" stroke-width="2.5"/><path d="M20 20l16 16M36 20l-16 16" stroke="#e53935" stroke-width="3.5" stroke-linecap="round"/></svg>`
     modal.innerHTML = `
-      <div class="order-history-content" style="max-width:400px;width:92%;margin-top:-60px;">
-        <div class="order-history-header" style="background:linear-gradient(135deg,#e53935,#ef5350);">
-          <h3 style="color:#fff;font-size:17px;font-weight:600;">支付失败</h3>
-          <button id="closePaymentResultBtn" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.9;padding:0;font-family:sans-serif;">&times;</button>
+      <div class="order-history-content pr-fail-content">
+        <div class="order-history-header pr-fail-header">
+          <h3 class="pr-fail-title">支付失败</h3>
+          <button id="closePaymentResultBtn" class="pr-fail-close">&times;</button>
         </div>
-        <div style="padding:24px 20px;">
-          <div style="text-align:center;margin-bottom:12px;">${iconSvg}</div>
-          <h4 style="margin:0 0 6px;text-align:center;font-size:19px;color:#c62828;font-weight:700;">支付未完成</h4>
-          <p style="margin:0 0 4px;text-align:center;color:#888;font-size:14px;line-height:1.5;">${message || '支付未完成或已取消'}</p>
-          ${outTradeNo ? `<p style="margin:8px 0 16px;text-align:center;color:#ccc;font-size:11px;">订单号：${outTradeNo}</p>` : '<div style="height:16px;"></div>'}
-          <button id="confirmPaymentResultBtn" style="width:100%;padding:13px;font-size:16px;border:none;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#d32f2f,#f44336);color:#fff;font-weight:600;letter-spacing:1px;">重新下单</button>
+        <div class="pr-fail-body">
+          <div class="pr-fail-icon">${iconSvg}</div>
+          <h4 class="pr-fail-heading">支付未完成</h4>
+          <p class="pr-fail-message">${message || '支付未完成或已取消'}</p>
+          ${outTradeNo ? `<p class="pr-fail-order">订单号：${outTradeNo}</p>` : '<div class="pr-fail-spacer"></div>'}
+          <button id="confirmPaymentResultBtn" class="pr-fail-btn">重新下单</button>
         </div>
       </div>
     `
