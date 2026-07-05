@@ -1412,7 +1412,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-          🌈日常海报
+          📷️日常记录海报
           </button></div>
         </div>
       `;
@@ -1434,7 +1434,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-          🌈日常海报
+          📷️日常记录海报
           </button></div>
         </div>
       `;
@@ -1451,7 +1451,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="button-wrapper" style="flex: 1; min-width: 200px;">
             <div class="dark-overlay"></div>
             <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-          🌈日常海报
+          📷️日常记录海报
           </button></div>
         </div>
       `;

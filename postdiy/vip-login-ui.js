@@ -130,7 +130,10 @@ async function renderVipPackagesToGrid(container, options) {
     `
   }).join('')
 
-  // 默认选中 featured 套餐，没有则选第一个（延迟选中，等入场动画播完）
+  // 默认选中 featured 套餐，没有则选第一个
+  // 延迟选中：等所有套餐卡片入场动画播完（最后一个 delay=(N-1)*110ms + 动画 550ms）
+  // 再加上 selected 放大过渡 300ms + 视觉缓冲 200ms，确保"立即支付"按钮在套餐放大完成后才出现
+  const selectDelay = (packages.length - 1) * 110 + 550 + 300 + 200
   setTimeout(() => {
     const featuredPkg = container.querySelector('.vip-package.vip-package-featured') || container.querySelector('.vip-package')
     if (featuredPkg) {
@@ -138,20 +141,23 @@ async function renderVipPackagesToGrid(container, options) {
         featuredPkg.classList.add('selected')
         const btn = featuredPkg.querySelector('.select-package-btn')
         if (btn) btn.textContent = '✔ 已选择'
-        // 同步外部"立即支付"按钮文案
+        // 同步外部"立即支付"按钮文案（等套餐放大过渡完成后再显示，避免动画重叠）
         const price = featuredPkg.dataset.price
         const proceedBtn = document.getElementById('proceedToPaymentBtn')
         if (proceedBtn) {
           proceedBtn.textContent = `立即支付${price}元`
-          proceedBtn.style.display = 'block'
-          // 触发放大果冻入场动画
-          proceedBtn.classList.remove('proceed-btn-enter')
-          void proceedBtn.offsetWidth
-          proceedBtn.classList.add('proceed-btn-enter')
+          // 延迟显示按钮，等 featured 套餐 selected 放大过渡（300ms）完成
+          setTimeout(() => {
+            proceedBtn.style.display = 'block'
+            // 触发放大果冻入场动画
+            proceedBtn.classList.remove('proceed-btn-enter')
+            void proceedBtn.offsetWidth
+            proceedBtn.classList.add('proceed-btn-enter')
+          }, 350)
         }
       }
     }
-  }, packages.length * 110 + 400)
+  }, selectDelay)
 }
 
 function buildPaymentReturnUrl() {
@@ -877,6 +883,7 @@ function showPaymentResultModal(options = {}) {
 
     modal.innerHTML = `
       <div class="order-history-content pr-success-content">
+        <button id="closePaymentResultBtn" class="pr-success-close" aria-label="关闭">&times;</button>
         <div class="pr-success-header">
           <div class="pr-gold-strip"></div>
           <div class="pr-crown">${crownSvg}</div>
@@ -930,6 +937,7 @@ function showPaymentResultModal(options = {}) {
       }
     }
     modal.querySelector('#confirmPaymentResultBtn').addEventListener('click', closeAll)
+    modal.querySelector('#closePaymentResultBtn').addEventListener('click', closeAll)
     // 成功弹窗不允许点击遮罩关闭，必须点按钮
   } else {
     // 失败：保持原有简洁样式
@@ -1332,16 +1340,16 @@ const VipLoginUI = (function() {
           if (result.used) {
             showVoucherResult(`升级码已被使用，使用时间：${new Date(result.usedAt).toLocaleString()}`, 'error')
           } else {
-            showVoucherResult('升级成功！正在为您准备会员权益...', 'success')
-            // 关闭 VIP 登录弹窗，弹出统一的支付成功（升级成功）弹窗
-            setTimeout(() => {
-              if (typeof hideLoginModal === 'function') hideLoginModal()
-              const voucherModal = document.getElementById('vipUpgradeModal') || document.getElementById('vipLoginModal')
-              if (voucherModal) voucherModal.remove()
-              if (typeof showPaymentResultModal === 'function') {
-                showPaymentResultModal({ success: true, outTradeNo: '' })
-              }
-            }, 800)
+            // 关闭 VIP 登录弹窗，弹出统一的支付成功（升级成功）弹窗（已内置彩纸特效）
+            if (typeof hideLoginModal === 'function') hideLoginModal()
+            const voucherModal = document.getElementById('vipUpgradeModal') || document.getElementById('vipLoginModal')
+            if (voucherModal) voucherModal.remove()
+            if (typeof showPaymentResultModal === 'function') {
+              showPaymentResultModal({ success: true, outTradeNo: '' })
+            } else {
+              // 兜底：若新弹窗函数未加载，回退到旧版提示
+              showVoucherResult('升级成功！正在为您准备会员权益...', 'success')
+            }
           }
         } else {
           showVoucherResult(result.message || '验证失败，请稍后重试', 'error')
@@ -3146,15 +3154,14 @@ window.showVipUpgradeModal = function() {
           const validUntil = new Date(result.validUntil);
           const dateStr = `${validUntil.getFullYear()}年${String(validUntil.getMonth() + 1).padStart(2, '0')}月${String(validUntil.getDate()).padStart(2, '0')}日`;
 
-          showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
-
-          // 弹出统一的支付成功（升级成功）弹窗，与支付升级保持一致体验
-          setTimeout(() => {
-            modal.remove()
-            if (typeof showPaymentResultModal === 'function') {
-              showPaymentResultModal({ success: true, outTradeNo: '' })
-            }
-          }, 1200);
+          // 关闭升级弹窗，弹出统一的支付成功（升级成功）弹窗（已内置彩纸特效）
+          modal.remove()
+          if (typeof showPaymentResultModal === 'function') {
+            showPaymentResultModal({ success: true, outTradeNo: '' })
+          } else {
+            // 兜底：若新弹窗函数未加载，回退到旧版提示
+            showVoucherResult(resultDiv, 'success', `恭喜，升级成功，您的账号已经成功升级VIP账号，增时${result.duration}个月，有效时间至 ${dateStr} 24时0分0秒`);
+          }
         }
       } else {
         showVoucherResult(resultDiv, 'error', '验证失败 请准确复制升级码，或联系客服解决', result);
@@ -3232,11 +3239,13 @@ window.showVipUpgradeModal = function() {
       const featured = upgradeGrid.querySelector('.vip-package.vip-package-featured') || upgradeGrid.querySelector('.vip-package.selected')
       if (featured) {
         setTimeout(() => featured.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 100)
-        // 折扣徽章与支付按钮同步显示（等套餐入场动画播完）
+        // 折扣徽章延迟到"立即支付"按钮显示后 1.2s 再弹出，避免与按钮动画重叠
+        // 时序：套餐入场（(N-1)*110+550ms）→ 选中放大（+300ms）→ 缓冲（+200ms）→ 按钮果冻（+350ms）→ 徽章弹出（+1200ms）
         const pkgCount = upgradeGrid.querySelectorAll('.vip-package').length
+        const badgeDelay = (pkgCount - 1) * 110 + 550 + 300 + 200 + 350 + 1200
         setTimeout(() => {
           if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
-        }, pkgCount * 110 + 400)
+        }, badgeDelay)
       }
     })
   }

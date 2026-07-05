@@ -8632,11 +8632,13 @@ const ThumbnailLoader = {
           const featured = upgradeGrid.querySelector('.vip-package.vip-package-featured') || upgradeGrid.querySelector('.vip-package.selected')
           if (featured) {
             setTimeout(() => featured.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 100)
-            // 折扣徽章与支付按钮同步显示（等套餐入场动画播完）
+            // 折扣徽章延迟到"立即支付"按钮显示后 1.2s 再弹出，避免与按钮动画重叠
+            // 时序：套餐入场（(N-1)*110+550ms）→ 选中放大（+300ms）→ 缓冲（+200ms）→ 按钮果冻（+350ms）→ 徽章弹出（+1200ms）
             const pkgCount = upgradeGrid.querySelectorAll('.vip-package').length
+            const badgeDelay = (pkgCount - 1) * 110 + 550 + 300 + 200 + 350 + 1200
             setTimeout(() => {
               if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(featured)
-            }, pkgCount * 110 + 400)
+            }, badgeDelay)
           }
         })
       } else {
@@ -15378,11 +15380,14 @@ window.textTemplateManager = {
     
     // 设置按钮背景图片
     function setButtonBackground(button, type) {
-      const imageUrl = getRandomBackgroundImage(type);
-      if (imageUrl) {
+      const localPath = getRandomBackgroundImage(type);
+      if (localPath) {
+        // 日常海报（dairy）固定使用本地图片，不走 cloudflare
+        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath);
         const wrapper = button.closest('.button-wrapper');
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+          wrapper.setAttribute('data-original-path', localPath);
         } else {
           button.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
         }
@@ -15480,7 +15485,7 @@ window.textTemplateManager = {
               挑选${todayFestival}模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-            ☻ 日常海报
+            📷️ 日常记录海报
             </button></div>
           </div>
         `;
@@ -15496,7 +15501,7 @@ window.textTemplateManager = {
             ☾ 挑选晚安模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-            ☻ 日常海报
+            📷️ 日常记录海报
             </button></div>
           </div>
         `;
@@ -15509,7 +15514,7 @@ window.textTemplateManager = {
             ☾ 挑选晚安模板
             </button></div>
             <div class="button-wrapper" style="flex: 1; min-width: 200px;"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-            ☻ 日常海报
+            📷️ 日常记录海报
             </button></div>
           </div>
         `;

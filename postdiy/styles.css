@@ -3845,7 +3845,7 @@ footer {
 .vip-upgrade-actions {
   display: flex;
   gap: 6px;
-  padding: 0 22px;
+  padding: 0 22px; animation: vipCrownFloat 3s ease-in-out infinite;
 }
 
 .payment-btn-wrapper {
@@ -9766,6 +9766,40 @@ Shorthand property for setting most background properties at the same place in t
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 12px 48px rgba(196, 30, 58, 0.35);
+  position: relative;
+}
+
+/* ---------- 成功弹窗右上角关闭按钮 ---------- */
+.pr-success-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.pr-success-close:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.08);
+}
+
+.pr-success-close:active {
+  transform: scale(0.95);
 }
 
 /* ---------- 失败弹窗容器 ---------- */
