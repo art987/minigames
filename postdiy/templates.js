@@ -1,6 +1,6 @@
 // 图片加载配置
 var imageConfig = {
-  mode: 'cloudflare-first',
+  mode: 'cloudflare-only',
   cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
   localBaseUrl: '',
   failedImages: new Set(),
@@ -31,6 +31,23 @@ var imageConfig = {
       return this.localBaseUrl + localPath;
     }
     return null;
+  },
+
+  // 是否允许回退到本地路径（cloudflare-only 模式下禁止，避免向 GitHub Pages 发 404 请求）
+  shouldFallback: function() {
+    return this.mode !== 'cloudflare-only';
+  },
+
+  // 标记一个 cloudflare URL 为永久失败，后续同 URL 直接跳过不再发起请求
+  markFailed: function(cloudflareUrl) {
+    if (cloudflareUrl && cloudflareUrl.indexOf(this.cloudflareBaseUrl) === 0) {
+      this.failedImages.add(cloudflareUrl);
+    }
+  },
+
+  // 检查 cloudflare URL 是否已标记为失败
+  isFailed: function(cloudflareUrl) {
+    return this.failedImages.has(cloudflareUrl);
   },
   
   handleImageError: function(img, localPath) {
@@ -4354,6 +4371,226 @@ var templates = {
       months: [7],
       festivals: ['小暑'],
       description: '小暑节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-014',
+      name: '小暑清风',
+      thumbnail: 'images/xiaoshu/thumbnails/14.jpg',
+      image: 'images/xiaoshu/14.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气清风主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-015',
+      name: '小暑蝉鸣',
+      thumbnail: 'images/xiaoshu/thumbnails/15.jpg',
+      image: 'images/xiaoshu/15.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气蝉鸣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-016',
+      name: '小暑荷香',
+      thumbnail: 'images/xiaoshu/thumbnails/16.jpg',
+      image: 'images/xiaoshu/16.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气荷香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-017',
+      name: '小暑梅雨',
+      thumbnail: 'images/xiaoshu/thumbnails/17.jpg',
+      image: 'images/xiaoshu/17.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气梅雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-018',
+      name: '小暑雷雨',
+      thumbnail: 'images/xiaoshu/thumbnails/18.jpg',
+      image: 'images/xiaoshu/18.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气雷雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-019',
+      name: '小暑盛夏',
+      thumbnail: 'images/xiaoshu/thumbnails/19.jpg',
+      image: 'images/xiaoshu/19.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气盛夏主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-020',
+      name: '小暑伏天',
+      thumbnail: 'images/xiaoshu/thumbnails/20.jpg',
+      image: 'images/xiaoshu/20.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气伏天主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-021',
+      name: '小暑西瓜',
+      thumbnail: 'images/xiaoshu/thumbnails/21.jpg',
+      image: 'images/xiaoshu/21.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气西瓜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-022',
+      name: '小暑冰饮',
+      thumbnail: 'images/xiaoshu/thumbnails/22.jpg',
+      image: 'images/xiaoshu/22.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气冰饮主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-023',
+      name: '小暑绿豆',
+      thumbnail: 'images/xiaoshu/thumbnails/23.jpg',
+      image: 'images/xiaoshu/23.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气绿豆主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-024',
+      name: '小暑凉茶',
+      thumbnail: 'images/xiaoshu/thumbnails/24.jpg',
+      image: 'images/xiaoshu/24.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气凉茶主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-025',
+      name: '小暑竹林',
+      thumbnail: 'images/xiaoshu/thumbnails/25.jpg',
+      image: 'images/xiaoshu/25.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气竹林主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-026',
+      name: '小暑溪流',
+      thumbnail: 'images/xiaoshu/thumbnails/26.jpg',
+      image: 'images/xiaoshu/26.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气溪流主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-027',
+      name: '小暑晚霞',
+      thumbnail: 'images/xiaoshu/thumbnails/27.jpg',
+      image: 'images/xiaoshu/27.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气晚霞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-028',
+      name: '小暑星夜',
+      thumbnail: 'images/xiaoshu/thumbnails/28.jpg',
+      image: 'images/xiaoshu/28.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气星夜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-029',
+      name: '小暑田野',
+      thumbnail: 'images/xiaoshu/thumbnails/29.jpg',
+      image: 'images/xiaoshu/29.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气田野主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-030',
+      name: '小暑农忙',
+      thumbnail: 'images/xiaoshu/thumbnails/30.jpg',
+      image: 'images/xiaoshu/30.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气农忙主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-031',
+      name: '小暑赏荷',
+      thumbnail: 'images/xiaoshu/thumbnails/31.jpg',
+      image: 'images/xiaoshu/31.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气赏荷主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-032',
+      name: '小暑垂钓',
+      thumbnail: 'images/xiaoshu/thumbnails/32.jpg',
+      image: 'images/xiaoshu/32.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气垂钓主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-033',
+      name: '小暑闲庭',
+      thumbnail: 'images/xiaoshu/thumbnails/33.jpg',
+      image: 'images/xiaoshu/33.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气闲庭主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-034',
+      name: '小暑诗意',
+      thumbnail: 'images/xiaoshu/thumbnails/34.jpg',
+      image: 'images/xiaoshu/34.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气诗意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'xiaoshu-2024-035',
+      name: '小暑古韵',
+      thumbnail: 'images/xiaoshu/thumbnails/35.jpg',
+      image: 'images/xiaoshu/35.png',
+      months: [7],
+      festivals: ['小暑'],
+      description: '小暑节气古韵主题海报模板',
       type: '节气'
     },
     {

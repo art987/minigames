@@ -1179,19 +1179,30 @@ const ThumbnailLoader = {
     if (loadId !== this.currentLoadId) {
       return false;
     }
-    
+
+    // 跳过已知失败的 cloudflare URL，避免反复请求造成 404 风暴
+    if (window.imageConfig && window.imageConfig.isFailed(url)) {
+      img.classList.remove('loading');
+      const spinner = img.parentElement?.querySelector('.thumbnail-spinner');
+      if (spinner) spinner.remove();
+      return false;
+    }
+
+    // cloudflare-only 模式下不传 fallbackUrl，避免触发本地 404
+    const effectiveFallback = (window.imageConfig && window.imageConfig.shouldFallback()) ? fallbackUrl : null;
+
     const key = url + '_' + loadId;
     this.loadingImages.set(key, img);
-    
+
     return new Promise((resolve) => {
       let timeoutId = null;
       let resolved = false;
-      
+
       const cleanup = () => {
         this.loadingImages.delete(key);
         if (timeoutId) clearTimeout(timeoutId);
       };
-      
+
       const finishLoad = (success) => {
         if (resolved) return;
         resolved = true;
@@ -1201,34 +1212,34 @@ const ThumbnailLoader = {
         if (spinner) spinner.remove();
         resolve(success);
       };
-      
+
       const loadFallback = () => {
         if (resolved) return;
-        // 记录失败的CDN图片到imageConfig，下次直接用本地
-        if (window.imageConfig && url.startsWith(window.imageConfig.cloudflareBaseUrl)) {
-          window.imageConfig.failedImages.add(url);
+        // 标记失败的 CDN URL，后续同 URL 直接跳过
+        if (window.imageConfig) {
+          window.imageConfig.markFailed(url);
         }
-        if (fallbackUrl && img.src !== fallbackUrl) {
-          console.log('缩略图CDN加载失败，回退到本地:', fallbackUrl);
-          img.src = fallbackUrl;
+        if (effectiveFallback && img.src !== effectiveFallback) {
+          console.log('缩略图CDN加载失败，回退到本地:', effectiveFallback);
+          img.src = effectiveFallback;
         } else {
           finishLoad(false);
         }
       };
-      
+
       img.onload = () => {
         finishLoad(true);
       };
-      
+
       img.onerror = () => {
         loadFallback();
       };
-      
+
       timeoutId = setTimeout(() => {
-        console.log('图片加载超时，切换到本地:', url);
+        console.log('图片加载超时，标记失败:', url);
         loadFallback();
       }, this.timeout);
-      
+
       img.classList.add('loading');
       img.src = url;
     });
@@ -4653,10 +4664,15 @@ const ThumbnailLoader = {
     
     // 监听图片加载错误事件
     elements.posterBackground.onerror = function() {
-      console.error('背景图片加载失败，尝试回退到本地路径');
-      
+      console.error('背景图片加载失败');
+
       const originalPath = this.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
+        // cloudflare-only 模式不回退本地，避免向 GitHub Pages 发 404
+        if (!window.imageConfig.shouldFallback()) {
+          console.warn('cloudflare-only 模式，不回退本地路径');
+          return;
+        }
         const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
         if (fallbackUrl && this.src !== fallbackUrl) {
           console.log('回退到本地路径:', fallbackUrl);
@@ -9541,9 +9557,9 @@ const ThumbnailLoader = {
       img.crossOrigin = '';
     }
 
-    // 背景图获取本地回退URL
+    // 背景图获取本地回退URL（cloudflare-only 模式下为 null，不回退）
     let bgFallbackUrl = null;
-    if (bgImg && bgImg.dataset.originalPath && window.imageConfig) {
+    if (bgImg && bgImg.dataset.originalPath && window.imageConfig && window.imageConfig.shouldFallback()) {
       bgFallbackUrl = window.imageConfig.getFallbackUrl(bgImg.dataset.originalPath);
     }
 
@@ -10089,7 +10105,7 @@ const ThumbnailLoader = {
               // 图片加载失败回退处理
               img.onerror = function() {
                 const originalPath = this.getAttribute('data-original-path');
-                if (originalPath && window.imageConfig) {
+                if (originalPath && window.imageConfig && window.imageConfig.shouldFallback()) {
                   const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
                   if (fallbackUrl) {
                     this.src = fallbackUrl;

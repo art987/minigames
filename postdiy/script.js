@@ -910,6 +910,10 @@ function createTemplateCard(template) {
     
     const loadFallback = () => {
       if (loaded) return;
+      // cloudflare-only 模式下禁止回退到本地路径，避免向 GitHub Pages 发 404 请求
+      if (window.imageConfig && !window.imageConfig.shouldFallback()) {
+        return;
+      }
       const originalPath = img.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
         const fallback = window.imageConfig.localBaseUrl + originalPath;
