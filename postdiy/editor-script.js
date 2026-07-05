@@ -8649,14 +8649,28 @@ const ThumbnailLoader = {
 
     if (proceedToPaymentBtn) {
       proceedToPaymentBtn.addEventListener('click', async function() {
+        // 按钮 disabled 防抖：双击/连点直接拒绝
+        if (this.dataset.busy === '1') {
+          console.warn('[payment-flow] editor proceedToPaymentBtn busy, ignore click')
+          return
+        }
+        this.dataset.busy = '1'
+        this.disabled = true
+        const restoreBtn = () => {
+          this.dataset.busy = '0'
+          this.disabled = false
+        }
+
         const selectedPackage = upgradeGrid ? upgradeGrid.querySelector('.vip-package.selected') : document.querySelector('.vip-package.selected')
         if (!selectedPackage) {
           alert('请先选择一个套餐')
+          restoreBtn()
           return
         }
 
         if (!VIPSystem.isLoggedIn()) {
           alert('请先登录')
+          restoreBtn()
           return
         }
 
@@ -8664,6 +8678,14 @@ const ThumbnailLoader = {
         const price = selectedPackage.dataset.price
         const packageId = selectedPackage.dataset.packageId || ''
         const type = 'wxpay'
+
+        // 全局下单锁：跨入口/网络重试兜底（锁函数由 vip-login-ui.js 暴露在 window 上）
+        const lockKey = `${VIPSystem.getUserId() || 'anon'}_${packageId || duration}_${type}`
+        if (typeof window.acquireCreateOrderLock === 'function' && !window.acquireCreateOrderLock(lockKey)) {
+          console.warn('[payment-flow] editor proceedToPaymentBtn 拒绝重复下单')
+          restoreBtn()
+          return
+        }
 
         console.log('支付参数:', { duration, price, type, packageId, isLoggedIn: VIPSystem.isLoggedIn() })
         console.log('userId:', VIPSystem.getUserId())
@@ -8686,18 +8708,26 @@ const ThumbnailLoader = {
           loadingModal.remove()
 
           if (result.success && result.data && result.data.payUrl) {
+            // 下单成功后保留锁，由支付会话接管；延迟释放避免再次点出第二笔订单
+            if (typeof window.releaseCreateOrderLock === 'function') {
+              setTimeout(() => window.releaseCreateOrderLock(), 8000)
+            }
             if (typeof initiatePayment === 'function') {
               initiatePayment(result.data.payUrl, result.data.out_trade_no)
             } else {
               window.location.href = result.data.payUrl
             }
           } else {
+            if (typeof window.releaseCreateOrderLock === 'function') window.releaseCreateOrderLock()
             alert(result.message || '创建订单失败，请稍后重试')
           }
         } catch (error) {
           loadingModal.remove()
+          if (typeof window.releaseCreateOrderLock === 'function') window.releaseCreateOrderLock()
           console.error('支付失败:', error)
           alert('支付失败，请稍后重试')
+        } finally {
+          restoreBtn()
         }
       })
     }

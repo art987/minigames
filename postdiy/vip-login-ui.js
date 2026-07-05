@@ -247,6 +247,50 @@ function isSamePaymentSession(payUrl, outTradeNo) {
   return (sameUrl || sameOrder) && now - (current.createdAt || 0) < PAYMENT_REOPEN_GAP_MS
 }
 
+// ==================== 全局下单锁 ====================
+// 防止任何路径重复创建订单：按钮双击、网络重试、多入口并发等
+// 锁基于 sessionStorage，确保同一 webview 内任何代码路径共用一把锁
+const PAYMENT_CREATE_ORDER_LOCK_KEY = 'VIP_CREATE_ORDER_LOCK'
+const PAYMENT_CREATE_ORDER_LOCK_TTL_MS = 10000  // 锁最长 10 秒自动过期，防止异常卡死
+
+function acquireCreateOrderLock(lockKey) {
+  const key = lockKey || 'default'
+  try {
+    const now = Date.now()
+    const raw = window.sessionStorage.getItem(PAYMENT_CREATE_ORDER_LOCK_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (parsed && parsed.key === key && now - (parsed.createdAt || 0) < PAYMENT_CREATE_ORDER_LOCK_TTL_MS) {
+        console.warn('[payment-flow] create order lock 已被占用，拒绝重复下单, key:', key)
+        return false
+      }
+      // 过期或不同 key，覆盖
+    }
+    window.sessionStorage.setItem(PAYMENT_CREATE_ORDER_LOCK_KEY, JSON.stringify({
+      key: key,
+      createdAt: now
+    }))
+    console.log('[payment-flow] create order lock acquired, key:', key)
+    return true
+  } catch (e) {
+    console.warn('[payment-flow] acquireCreateOrderLock 失败:', e)
+    return true  // 异常时放行，避免锁死业务
+  }
+}
+
+function releaseCreateOrderLock() {
+  try {
+    window.sessionStorage.removeItem(PAYMENT_CREATE_ORDER_LOCK_KEY)
+    console.log('[payment-flow] create order lock released')
+  } catch (e) {
+    console.warn('[payment-flow] releaseCreateOrderLock 失败:', e)
+  }
+}
+
+// 暴露到 window，供 editor-script.js 等其他脚本共用同一把锁
+window.acquireCreateOrderLock = acquireCreateOrderLock
+window.releaseCreateOrderLock = releaseCreateOrderLock
+
 // ==================== pending payment 状态管理 ====================
 // 这一组方法用 localStorage 持久化"正在进行的支付"，
 // 用于 App 关闭收银台、首页 webview 恢复可见后恢复检测。
@@ -1505,6 +1549,14 @@ const VipLoginUI = (function() {
   }
 
   async function processPayment(duration, price, type, packageId) {
+    // 全局下单锁：防止任何路径重复下单（按钮双击、网络重试等）
+    const currentUserId = (typeof VIPSystem !== 'undefined' && VIPSystem.getUserId) ? VIPSystem.getUserId() : ''
+    const lockKey = `${currentUserId || 'anon'}_${packageId || duration}_${type}`
+    if (!acquireCreateOrderLock(lockKey)) {
+      console.warn('[payment-flow] processPayment 拒绝重复下单')
+      return
+    }
+
     const loadingModal = document.createElement('div')
     loadingModal.id = 'paymentLoadingModal'
     loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;'
@@ -1519,16 +1571,21 @@ const VipLoginUI = (function() {
     try {
       const returnUrl = buildPaymentReturnUrl()
       const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl, packageId)
-      
+
       loadingModal.remove()
-      
+
       if (result.success && result.data && result.data.payUrl) {
+        // 下单成功后保留锁，由 initiatePayment 内部转交支付会话；锁稍后由支付完成或超时释放
+        // 这里延迟释放，避免下单后立刻又被点一次导致第二笔订单
+        setTimeout(() => releaseCreateOrderLock(), PAYMENT_REOPEN_GAP_MS)
         initiatePayment(result.data.payUrl, result.data.out_trade_no)
       } else {
+        releaseCreateOrderLock()
         alert(result.message || '创建订单失败，请稍后重试')
       }
     } catch (error) {
       loadingModal.remove()
+      releaseCreateOrderLock()
       console.error('支付失败:', error)
       alert('支付失败，请稍后重试')
     }
@@ -3252,14 +3309,28 @@ window.showVipUpgradeModal = function() {
 
   if (proceedToPaymentBtn) {
     proceedToPaymentBtn.addEventListener('click', async function() {
+      // 按钮 disabled 防抖：双击/连点直接拒绝
+      if (this.dataset.busy === '1') {
+        console.warn('[payment-flow] proceedToPaymentBtn busy, ignore click')
+        return
+      }
+      this.dataset.busy = '1'
+      this.disabled = true
+      const restoreBtn = () => {
+        this.dataset.busy = '0'
+        this.disabled = false
+      }
+
       const selectedPackage = upgradeGrid ? upgradeGrid.querySelector('.vip-package.selected') : document.querySelector('.vip-package.selected')
       if (!selectedPackage) {
         alert('请先选择一个套餐')
+        restoreBtn()
         return
       }
 
       if (!VIPSystem.isLoggedIn()) {
         alert('请先登录')
+        restoreBtn()
         return
       }
 
@@ -3267,6 +3338,14 @@ window.showVipUpgradeModal = function() {
       const price = selectedPackage.dataset.price
       const packageId = selectedPackage.dataset.packageId || ''
       const type = 'wxpay'
+
+      // 全局下单锁：跨入口/网络重试兜底
+      const lockKey = `${VIPSystem.getUserId() || 'anon'}_${packageId || duration}_${type}`
+      if (!acquireCreateOrderLock(lockKey)) {
+        console.warn('[payment-flow] proceedToPaymentBtn 拒绝重复下单')
+        restoreBtn()
+        return
+      }
 
       console.log('支付参数:', { duration, price, type, packageId, isLoggedIn: VIPSystem.isLoggedIn() })
       console.log('userId:', VIPSystem.getUserId())
@@ -3289,14 +3368,20 @@ window.showVipUpgradeModal = function() {
         loadingModal.remove()
 
         if (result.success && result.data && result.data.payUrl) {
+          // 下单成功后保留锁，由支付会话接管；延迟释放避免下单后被再次点出第二笔订单
+          setTimeout(() => releaseCreateOrderLock(), PAYMENT_REOPEN_GAP_MS)
           initiatePayment(result.data.payUrl, result.data.out_trade_no)
         } else {
+          releaseCreateOrderLock()
           alert(result.message || '创建订单失败，请稍后重试')
         }
       } catch (error) {
         loadingModal.remove()
+        releaseCreateOrderLock()
         console.error('支付失败:', error)
         alert('支付失败，请稍后重试')
+      } finally {
+        restoreBtn()
       }
     })
   }

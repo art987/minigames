@@ -231,12 +231,80 @@ exports.main = async (event, context) => {
 
     const outTradeNo = generateOutTradeNo()
     const name = pkgTitle || getDurationName(duration)
-    
+
+    // === 复用未支付订单逻辑 ===
+    // 同 userId + 同 packageId（或同 duration）+ 同 type + status=0 + 5 分钟内
+    // 命中则直接返回旧订单的 payUrl，避免短时间内重复创建同金额订单
+    // 触发微信"您已在当前商户支付过一笔相同金额的订单"提示
+    const PENDING_ORDER_MAX_AGE_MS = 5 * 60 * 1000
+    const fiveMinAgo = new Date(Date.now() - PENDING_ORDER_MAX_AGE_MS)
+    try {
+      const reuseWhere = {
+        userId: userId,
+        status: 0,
+        type: type,
+        createTime: db.command.gte(fiveMinAgo)
+      }
+      if (pkgDocId) {
+        reuseWhere.packageId = pkgDocId
+      } else {
+        reuseWhere.duration = Number(duration)
+      }
+      const reuseResult = await db.collection('orders').where(reuseWhere).limit(1).get()
+      if (reuseResult.data && reuseResult.data.length > 0) {
+        const oldOrder = reuseResult.data[0]
+        console.log('[payment-create-order] 命中可复用未支付订单:', oldOrder.out_trade_no)
+        // 用旧订单号重新生成 payUrl（returnUrl 可能变了）
+        const oldBaseUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
+        const oldCleanReturnUrl = oldBaseUrl.split('?')[0]
+        const reuseParams = {
+          pid: ZPAY_CONFIG.PID,
+          type: type,
+          out_trade_no: oldOrder.out_trade_no,
+          notify_url: 'https://api.peacelove.top/payment-notify',
+          return_url: oldCleanReturnUrl,
+          name: oldOrder.name || name,
+          money: String(oldOrder.money),
+          cid: ZPAY_CONFIG.CID,
+          param: userId
+        }
+        const reuseSign = generateSign(reuseParams, ZPAY_CONFIG.PKEY)
+        reuseParams.sign = reuseSign
+        reuseParams.sign_type = 'MD5'
+        const reuseQueryStr = Object.keys(reuseParams)
+          .map(k => `${k}=${encodeURIComponent(reuseParams[k])}`)
+          .join('&')
+        const reusePayUrl = `${ZPAY_CONFIG.SUBMIT_URL}?${reuseQueryStr}`
+        return {
+          statusCode: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+          },
+          body: JSON.stringify({
+            success: true,
+            message: '复用未支付订单',
+            data: {
+              out_trade_no: oldOrder.out_trade_no,
+              payUrl: reusePayUrl,
+              money: oldOrder.money,
+              reused: true
+            }
+          })
+        }
+      }
+    } catch (reuseErr) {
+      // 复用查询失败不影响主流程，继续走新建订单
+      console.warn('[payment-create-order] 复用未支付订单查询失败，继续新建:', reuseErr.message)
+    }
+
     const notifyUrl = 'https://api.peacelove.top/payment-notify'
     const baseUrl = returnUrl || 'https://postdiy.peacelove.top/editor.html'
     // zpay文档要求 return_url 和 notify_url 不支持带参数，使用纯净URL
     const cleanReturnUrl = baseUrl.split('?')[0]
-    
+
     const params = {
       pid: ZPAY_CONFIG.PID,
       type: type,
