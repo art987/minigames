@@ -159,7 +159,7 @@ main {
   padding: 0.5rem 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: var(--border-color) transparent;
+  scrollbar-color: #eaf3ff transparent;
 }
 
 .month-buttons::-webkit-scrollbar {
@@ -219,7 +219,7 @@ main {
   gap: 0.75rem;
   padding: .5rem 0 0.5rem 0;
   scrollbar-width: thin;
-  scrollbar-color: rgb(124 162 188 / 20%) transparent;
+  scrollbar-color:#eaf3ff transparent;
   -webkit-overflow-scrolling: touch;
   position: relative;
   z-index: 10;
