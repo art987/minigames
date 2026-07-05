@@ -234,7 +234,7 @@ main {
 }
 
 .festival-tags-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #eaf3ff transparent;
   border-radius: 2px;
 }
 
@@ -5712,7 +5712,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #f1f1f1;
   border-radius: 3px;
 }
 
