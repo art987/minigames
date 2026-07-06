@@ -4836,6 +4836,76 @@ var templates = {
       festivals: ['大暑'],
       description: '大暑节气末主题海报模板',
       type: '节气'
+    },
+    {
+      id: 'dashu-2024-020',
+      name: '大暑荷塘',
+      thumbnail: 'images/dashu/thumbnails/20.jpg',
+      image: 'images/dashu/20.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气荷塘主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-021',
+      name: '大暑蝉鸣',
+      thumbnail: 'images/dashu/thumbnails/21.jpg',
+      image: 'images/dashu/21.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气蝉鸣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-022',
+      name: '大暑晚霞',
+      thumbnail: 'images/dashu/thumbnails/22.jpg',
+      image: 'images/dashu/22.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气晚霞主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-023',
+      name: '大暑星夜',
+      thumbnail: 'images/dashu/thumbnails/23.jpg',
+      image: 'images/dashu/23.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气星夜主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-024',
+      name: '大暑田野',
+      thumbnail: 'images/dashu/thumbnails/24.jpg',
+      image: 'images/dashu/24.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气田野主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-025',
+      name: '大暑纳凉',
+      thumbnail: 'images/dashu/thumbnails/25.jpg',
+      image: 'images/dashu/25.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气纳凉主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'dashu-2024-026',
+      name: '大暑古韵',
+      thumbnail: 'images/dashu/thumbnails/26.jpg',
+      image: 'images/dashu/26.png',
+      months: [7],
+      festivals: ['大暑'],
+      description: '大暑节气古韵主题海报模板',
+      type: '节气'
     }
   ],
 
@@ -6343,6 +6413,176 @@ var templates = {
       months: [9],
       festivals: ['秋分'],
       description: '秋分节气末主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-014',
+      name: '秋分明月',
+      thumbnail: 'images/qiufen/thumbnails/14.jpg',
+      image: 'images/qiufen/14.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气明月主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-015',
+      name: '秋分桂花',
+      thumbnail: 'images/qiufen/thumbnails/15.jpg',
+      image: 'images/qiufen/15.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气桂花主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-016',
+      name: '秋分丰收',
+      thumbnail: 'images/qiufen/thumbnails/16.jpg',
+      image: 'images/qiufen/16.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气丰收主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-017',
+      name: '秋分枫叶',
+      thumbnail: 'images/qiufen/thumbnails/17.jpg',
+      image: 'images/qiufen/17.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气枫叶主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-018',
+      name: '秋分稻穗',
+      thumbnail: 'images/qiufen/thumbnails/18.jpg',
+      image: 'images/qiufen/18.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气稻穗主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-019',
+      name: '秋分凉爽',
+      thumbnail: 'images/qiufen/thumbnails/19.jpg',
+      image: 'images/qiufen/19.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气凉爽主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-020',
+      name: '秋分秋意',
+      thumbnail: 'images/qiufen/thumbnails/20.jpg',
+      image: 'images/qiufen/20.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气秋意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-021',
+      name: '秋分秋雨',
+      thumbnail: 'images/qiufen/thumbnails/21.jpg',
+      image: 'images/qiufen/21.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气秋雨主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-022',
+      name: '秋分秋色',
+      thumbnail: 'images/qiufen/thumbnails/22.jpg',
+      image: 'images/qiufen/22.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气秋色主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-023',
+      name: '秋分秋韵',
+      thumbnail: 'images/qiufen/thumbnails/23.jpg',
+      image: 'images/qiufen/23.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气秋韵主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-024',
+      name: '秋分诗意',
+      thumbnail: 'images/qiufen/thumbnails/24.jpg',
+      image: 'images/qiufen/24.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气诗意主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-025',
+      name: '秋分菊黄',
+      thumbnail: 'images/qiufen/thumbnails/25.jpg',
+      image: 'images/qiufen/25.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气菊黄主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-026',
+      name: '秋分雁南',
+      thumbnail: 'images/qiufen/thumbnails/26.jpg',
+      image: 'images/qiufen/26.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气雁南主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-027',
+      name: '秋分晨露',
+      thumbnail: 'images/qiufen/thumbnails/27.jpg',
+      image: 'images/qiufen/27.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气晨露主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-028',
+      name: '秋分夕阳',
+      thumbnail: 'images/qiufen/thumbnails/28.jpg',
+      image: 'images/qiufen/28.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气夕阳主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-029',
+      name: '秋分闲庭',
+      thumbnail: 'images/qiufen/thumbnails/29.jpg',
+      image: 'images/qiufen/29.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气闲庭主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'qiufen-2024-030',
+      name: '秋分古韵',
+      thumbnail: 'images/qiufen/thumbnails/30.jpg',
+      image: 'images/qiufen/30.png',
+      months: [9],
+      festivals: ['秋分'],
+      description: '秋分节气古韵主题海报模板',
       type: '节气'
     }
   ],
