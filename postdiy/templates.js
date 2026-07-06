@@ -1,13 +1,13 @@
 // 图片加载配置
 var imageConfig = {
-  // 模式：cloudflare-first (R2 优先，失败回退七牛) | cloudflare-only | qiniu-only | local-only
-  mode: 'cloudflare-first',
+  // 模式：qiniu-first (七牛优先，R2备份) | cloudflare-first | cloudflare-only | qiniu-only | local-only
+  mode: 'qiniu-first',
   cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
   qiniuBaseUrl: 'https://7ncdn.peacelove.top/',
   localBaseUrl: '',
   failedImages: new Set(),     // 标记 R2 失败的 URL
   qiniuFailedImages: new Set(), // 标记七牛也失败的 URL
-  timeout: 5000,
+  timeout: 15000,
 
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;
@@ -21,6 +21,15 @@ var imageConfig = {
         return qiniuUrl;
       case 'local-only':
         return localUrl;
+      case 'qiniu-first':
+        // 七牛已失败 → 用 R2；R2 也失败 → 保持七牛 URL（避免相对路径请求 GitHub Pages）
+        if (this.qiniuFailedImages.has(qiniuUrl)) {
+          if (this.failedImages.has(cloudflareUrl)) {
+            return this.localBaseUrl ? localUrl : qiniuUrl;
+          }
+          return cloudflareUrl;
+        }
+        return qiniuUrl;
       case 'cloudflare-first':
       default:
         // R2 已失败 → 用七牛；七牛也失败 → 用本地（仅当配置了 localBaseUrl）；否则保持 R2
@@ -35,19 +44,29 @@ var imageConfig = {
     }
   },
 
-  // 返回下一级回退 URL（R2 → 七牛 → 本地 → null）
+  // 返回下一级回退 URL
   getFallbackUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;
     const qiniuUrl = this.qiniuBaseUrl + localPath;
     const localUrl = this.localBaseUrl + localPath;
 
+    if (this.mode === 'qiniu-first') {
+      // 七牛 → R2 → 本地 → null
+      if (!this.qiniuFailedImages.has(qiniuUrl)) {
+        this.qiniuFailedImages.add(qiniuUrl);
+        return cloudflareUrl;
+      }
+      if (!this.failedImages.has(cloudflareUrl)) {
+        this.failedImages.add(cloudflareUrl);
+        return this.localBaseUrl ? localUrl : null;
+      }
+    }
     if (this.mode === 'cloudflare-first') {
-      // 当前是 R2 → 回退到七牛
+      // R2 → 七牛 → 本地 → null
       if (!this.failedImages.has(cloudflareUrl)) {
         this.failedImages.add(cloudflareUrl);
         return qiniuUrl;
       }
-      // 当前是七牛 → 回退到本地（仅当配置了 localBaseUrl 才回退，否则放弃避免 404）
       if (!this.qiniuFailedImages.has(qiniuUrl)) {
         this.qiniuFailedImages.add(qiniuUrl);
         return this.localBaseUrl ? localUrl : null;
@@ -56,9 +75,9 @@ var imageConfig = {
     return null;
   },
 
-  // 是否允许回退（cloudflare-only / qiniu-only 模式下禁止，避免向 GitHub Pages 发 404 请求）
+  // 是否允许回退
   shouldFallback: function() {
-    return this.mode === 'cloudflare-first';
+    return this.mode === 'cloudflare-first' || this.mode === 'qiniu-first';
   },
 
   // 标记一个 URL 为失败（自动识别是 R2 还是七牛）
@@ -142,7 +161,7 @@ var imageConfig = {
   },
 
   setMode: function(mode) {
-    if (['cloudflare-first', 'cloudflare-only', 'qiniu-only', 'local-only'].includes(mode)) {
+    if (['qiniu-first', 'cloudflare-first', 'cloudflare-only', 'qiniu-only', 'local-only'].includes(mode)) {
       this.mode = mode;
       this.failedImages.clear();
       this.qiniuFailedImages.clear();

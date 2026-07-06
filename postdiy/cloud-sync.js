@@ -111,26 +111,37 @@ async function uploadImageToCloud(imageType, imageData) {
     // 同时上传到 Cloudflare R2 和腾讯云 COS
     const cloudResult = await uploadToCloudflare(imageType, compressedData, timestamp);
     const tencentResult = await uploadToTencent(imageType, compressedData, timestamp);
-    
-    // 优先返回 Cloudflare URL，但保存腾讯云 URL 和 fileID 作为备用
-    let finalUrl = cloudResult.url;
-    let tencentUrl = tencentResult.url;
-    let tencentFileID = tencentResult.fileID;
-    
+
+    // 优先返回 Cloudflare URL，R2 失败时回退到腾讯云 URL
+    let finalUrl = cloudResult.success ? cloudResult.url : null;
+    let tencentUrl = tencentResult.success ? tencentResult.url : null;
+    let tencentFileID = tencentResult.success ? tencentResult.fileID : null;
+
+    // R2 失败时用腾讯云 URL 作为主 URL
+    if (!finalUrl && tencentUrl) {
+      console.warn('Cloudflare R2 上传失败，使用腾讯云 URL 作为主 URL');
+      finalUrl = tencentUrl;
+    }
+
+    // 两个都失败才报错
+    if (!finalUrl) {
+      return { success: false, error: 'Cloudflare 和腾讯云上传均失败' };
+    }
+
     if (finalUrl && !finalUrl.includes('?')) {
       finalUrl = finalUrl + '?t=' + timestamp;
     } else if (finalUrl && finalUrl.includes('?')) {
       finalUrl = finalUrl + '&t=' + timestamp;
     }
-    
+
     if (tencentUrl && !tencentUrl.includes('?')) {
       tencentUrl = tencentUrl + '?t=' + timestamp;
     } else if (tencentUrl && tencentUrl.includes('?')) {
       tencentUrl = tencentUrl + '&t=' + timestamp;
     }
-    
+
     console.log(imageType + ' 上传成功:');
-    console.log('  Cloudflare URL:', finalUrl);
+    console.log('  主 URL:', finalUrl);
     console.log('  腾讯云 URL:', tencentUrl);
     console.log('  腾讯云 fileID:', tencentFileID);
     

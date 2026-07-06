@@ -1160,7 +1160,7 @@ const ThumbnailLoader = {
   currentLoadId: 0,
   loadingImages: new Map(),
   abortController: null,
-  timeout: 5000,
+  timeout: 15000,
   
   generateLoadId() {
     return ++this.currentLoadId;
@@ -1244,7 +1244,7 @@ const ThumbnailLoader = {
     });
   },
   
-  async loadBatch(items, loadId, batchSize = 6) {
+  async loadBatch(items, loadId, batchSize = 10) {
     if (loadId !== this.currentLoadId) return;
     
     for (let i = 0; i < items.length; i += batchSize) {

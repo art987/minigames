@@ -11,8 +11,8 @@ const R2_CONFIG = {
   endpoint: 'https://13a8e4d0cec2c8548de10e2f701ad6de.r2.cloudflarestorage.com',
   region: 'auto',
   credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID || 'ddb4dbf328c422a47d4397da3e2612fd',
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || 'b614421cb98236e0b617a2d12ddeb3e73521fd5b5cb399ad4f28459f1bd3a152'
+    accessKeyId: process.env.R2_ACCESS_KEY_ID || 'fdc78645af8ea49cb1f5b4ae7a6a4c3b',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '2a7ae7e3e4339ea3d1be100dce5a31179612f7614e5b99df57c49a5e9543a5bc'
   },
   bucket: 'postdiy',
   publicUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev'

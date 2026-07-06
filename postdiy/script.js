@@ -915,8 +915,7 @@ function createTemplateCard(template) {
       }
       const originalPath = img.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
-        // 标记当前 URL 为失败，并获取下一级回退 URL（R2 → 七牛 → 本地）
-        window.imageConfig.markFailed(img.src);
+        // getFallbackUrl 内部会标记当前 URL 失败，并返回下一级 URL（七牛 → R2 → null）
         const fallback = window.imageConfig.getFallbackUrl(originalPath);
         if (fallback && img.src !== fallback) {
           img.src = fallback;
@@ -935,7 +934,7 @@ function createTemplateCard(template) {
 
     timeoutId = setTimeout(() => {
       loadFallback();
-    }, 5000);
+    }, 15000);
   }
   
   // 添加点击事件
