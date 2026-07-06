@@ -4844,7 +4844,7 @@ var templates = {
       image: 'images/dashu/20.png',
       months: [7],
       festivals: ['大暑'],
-      description: '大暑节气荷塘主题海报模板',
+      description: '大暑节气荷塘主题海报',
       type: '节气'
     },
     {
