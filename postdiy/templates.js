@@ -23,10 +23,11 @@ var imageConfig = {
         return localUrl;
       case 'cloudflare-first':
       default:
-        // R2 已失败 → 用七牛；七牛也失败 → 用本地；否则用 R2
+        // R2 已失败 → 用七牛；七牛也失败 → 用本地（仅当配置了 localBaseUrl）；否则保持 R2
         if (this.failedImages.has(cloudflareUrl)) {
           if (this.qiniuFailedImages.has(qiniuUrl)) {
-            return localUrl;
+            // 两云都失败：仅当配置了 localBaseUrl 才回退本地，否则保持原 R2 URL（避免相对路径请求 GitHub Pages）
+            return this.localBaseUrl ? localUrl : cloudflareUrl;
           }
           return qiniuUrl;
         }
@@ -46,10 +47,10 @@ var imageConfig = {
         this.failedImages.add(cloudflareUrl);
         return qiniuUrl;
       }
-      // 当前是七牛 → 回退到本地
+      // 当前是七牛 → 回退到本地（仅当配置了 localBaseUrl 才回退，否则放弃避免 404）
       if (!this.qiniuFailedImages.has(qiniuUrl)) {
         this.qiniuFailedImages.add(qiniuUrl);
-        return localUrl || null;
+        return this.localBaseUrl ? localUrl : null;
       }
     }
     return null;

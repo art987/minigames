@@ -1180,16 +1180,13 @@ const ThumbnailLoader = {
       return false;
     }
 
-    // 跳过已知失败的 cloudflare URL，避免反复请求造成 404 风暴
+    // 跳过已知失败的 CDN URL，避免反复请求造成 404 风暴
     if (window.imageConfig && window.imageConfig.isFailed(url)) {
       img.classList.remove('loading');
       const spinner = img.parentElement?.querySelector('.thumbnail-spinner');
       if (spinner) spinner.remove();
       return false;
     }
-
-    // cloudflare-only 模式下不传 fallbackUrl，避免触发本地 404
-    const effectiveFallback = (window.imageConfig && window.imageConfig.shouldFallback()) ? fallbackUrl : null;
 
     const key = url + '_' + loadId;
     this.loadingImages.set(key, img);
@@ -1213,18 +1210,20 @@ const ThumbnailLoader = {
         resolve(success);
       };
 
+      // 链式回退：R2 → 七牛 → 本地 → 放弃
+      // fallbackUrl 是 originalPath（如 images/xiaoshu/thumbnails/1.jpg）
       const loadFallback = () => {
         if (resolved) return;
-        // 标记失败的 CDN URL，后续同 URL 直接跳过
         if (window.imageConfig) {
-          window.imageConfig.markFailed(url);
+          // getFallbackUrl 内部会标记当前 URL 失败，并返回下一级 URL
+          const nextUrl = window.imageConfig.getFallbackUrl(fallbackUrl);
+          if (nextUrl && img.src !== nextUrl) {
+            console.log('图片加载失败，回退到下一级:', nextUrl);
+            img.src = nextUrl;
+            return;
+          }
         }
-        if (effectiveFallback && img.src !== effectiveFallback) {
-          console.log('缩略图CDN加载失败，回退到本地:', effectiveFallback);
-          img.src = effectiveFallback;
-        } else {
-          finishLoad(false);
-        }
+        finishLoad(false);
       };
 
       img.onload = () => {
@@ -9557,16 +9556,12 @@ const ThumbnailLoader = {
       img.crossOrigin = '';
     }
 
-    // 背景图获取本地回退URL（cloudflare-only 模式下为 null，不回退）
-    let bgFallbackUrl = null;
-    if (bgImg && bgImg.dataset.originalPath && window.imageConfig && window.imageConfig.shouldFallback()) {
-      bgFallbackUrl = window.imageConfig.getFallbackUrl(bgImg.dataset.originalPath);
-    }
-
+    // 背景图导出时不提前获取 fallback（避免 getFallbackUrl 副作用标记 cloudflare 失败）
+    // 导出时图片应已加载成功（img.src 已是有效 URL），若需回退由前面加载逻辑处理
     await Promise.all([
       prepareImageForExport(logoImg, IMAGE_CACHE_KEYS.logo),
       prepareImageForExport(qrImg, IMAGE_CACHE_KEYS.qrcode),
-      prepareImageForExport(bgImg, null, bgFallbackUrl)
+      prepareImageForExport(bgImg, null, null)
     ]);
   }
 

@@ -907,31 +907,32 @@ function createTemplateCard(template) {
   if (img && window.imageConfig) {
     let timeoutId = null;
     let loaded = false;
-    
+
     const loadFallback = () => {
       if (loaded) return;
-      // cloudflare-only 模式下禁止回退到本地路径，避免向 GitHub Pages 发 404 请求
       if (window.imageConfig && !window.imageConfig.shouldFallback()) {
         return;
       }
       const originalPath = img.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
-        const fallback = window.imageConfig.localBaseUrl + originalPath;
-        if (img.src !== fallback) {
+        // 标记当前 URL 为失败，并获取下一级回退 URL（R2 → 七牛 → 本地）
+        window.imageConfig.markFailed(img.src);
+        const fallback = window.imageConfig.getFallbackUrl(originalPath);
+        if (fallback && img.src !== fallback) {
           img.src = fallback;
         }
       }
     };
-    
+
     img.addEventListener('load', function() {
       loaded = true;
       if (timeoutId) clearTimeout(timeoutId);
     });
-    
+
     img.addEventListener('error', function() {
       loadFallback();
     });
-    
+
     timeoutId = setTimeout(() => {
       loadFallback();
     }, 5000);
