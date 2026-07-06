@@ -1,55 +1,87 @@
 // 图片加载配置
 var imageConfig = {
-  mode: 'cloudflare-only',
+  // 模式：cloudflare-first (R2 优先，失败回退七牛) | cloudflare-only | qiniu-only | local-only
+  mode: 'cloudflare-first',
   cloudflareBaseUrl: 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/',
+  qiniuBaseUrl: 'https://7ncdn.peacelove.top/',
   localBaseUrl: '',
-  failedImages: new Set(),
+  failedImages: new Set(),     // 标记 R2 失败的 URL
+  qiniuFailedImages: new Set(), // 标记七牛也失败的 URL
   timeout: 5000,
-  
+
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;
+    const qiniuUrl = this.qiniuBaseUrl + localPath;
     const localUrl = this.localBaseUrl + localPath;
-    
+
     switch (this.mode) {
       case 'cloudflare-only':
         return cloudflareUrl;
+      case 'qiniu-only':
+        return qiniuUrl;
       case 'local-only':
         return localUrl;
       case 'cloudflare-first':
       default:
+        // R2 已失败 → 用七牛；七牛也失败 → 用本地；否则用 R2
         if (this.failedImages.has(cloudflareUrl)) {
-          return localUrl;
+          if (this.qiniuFailedImages.has(qiniuUrl)) {
+            return localUrl;
+          }
+          return qiniuUrl;
         }
         return cloudflareUrl;
     }
   },
-  
+
+  // 返回下一级回退 URL（R2 → 七牛 → 本地 → null）
   getFallbackUrl: function(localPath) {
+    const cloudflareUrl = this.cloudflareBaseUrl + localPath;
+    const qiniuUrl = this.qiniuBaseUrl + localPath;
+    const localUrl = this.localBaseUrl + localPath;
+
     if (this.mode === 'cloudflare-first') {
-      const cloudflareUrl = this.cloudflareBaseUrl + localPath;
-      this.failedImages.add(cloudflareUrl);
-      return this.localBaseUrl + localPath;
+      // 当前是 R2 → 回退到七牛
+      if (!this.failedImages.has(cloudflareUrl)) {
+        this.failedImages.add(cloudflareUrl);
+        return qiniuUrl;
+      }
+      // 当前是七牛 → 回退到本地
+      if (!this.qiniuFailedImages.has(qiniuUrl)) {
+        this.qiniuFailedImages.add(qiniuUrl);
+        return localUrl || null;
+      }
     }
     return null;
   },
 
-  // 是否允许回退到本地路径（cloudflare-only 模式下禁止，避免向 GitHub Pages 发 404 请求）
+  // 是否允许回退（cloudflare-only / qiniu-only 模式下禁止，避免向 GitHub Pages 发 404 请求）
   shouldFallback: function() {
-    return this.mode !== 'cloudflare-only';
+    return this.mode === 'cloudflare-first';
   },
 
-  // 标记一个 cloudflare URL 为永久失败，后续同 URL 直接跳过不再发起请求
-  markFailed: function(cloudflareUrl) {
-    if (cloudflareUrl && cloudflareUrl.indexOf(this.cloudflareBaseUrl) === 0) {
-      this.failedImages.add(cloudflareUrl);
+  // 标记一个 URL 为失败（自动识别是 R2 还是七牛）
+  markFailed: function(url) {
+    if (!url) return;
+    if (url.indexOf(this.cloudflareBaseUrl) === 0) {
+      this.failedImages.add(url);
+    } else if (url.indexOf(this.qiniuBaseUrl) === 0) {
+      this.qiniuFailedImages.add(url);
     }
   },
 
-  // 检查 cloudflare URL 是否已标记为失败
-  isFailed: function(cloudflareUrl) {
-    return this.failedImages.has(cloudflareUrl);
+  // 检查 URL 是否已标记为失败
+  isFailed: function(url) {
+    if (!url) return false;
+    if (url.indexOf(this.cloudflareBaseUrl) === 0) {
+      return this.failedImages.has(url);
+    }
+    if (url.indexOf(this.qiniuBaseUrl) === 0) {
+      return this.qiniuFailedImages.has(url);
+    }
+    return false;
   },
-  
+
   handleImageError: function(img, localPath) {
     const fallbackUrl = this.getFallbackUrl(localPath);
     if (fallbackUrl && img.src !== fallbackUrl) {
@@ -58,32 +90,32 @@ var imageConfig = {
     }
     return false;
   },
-  
+
   preloadImage: function(localPath) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       const primaryUrl = this.getImageUrl(localPath);
       let timeoutId = null;
       let resolved = false;
-      
+
       const cleanup = () => {
         if (timeoutId) clearTimeout(timeoutId);
       };
-      
+
       const finishResolve = (url) => {
         if (resolved) return;
         resolved = true;
         cleanup();
         resolve(url);
       };
-      
+
       const finishReject = (error) => {
         if (resolved) return;
         resolved = true;
         cleanup();
         reject(error);
       };
-      
+
       const loadFallback = () => {
         const fallbackUrl = this.getFallbackUrl(localPath);
         if (fallbackUrl) {
@@ -95,23 +127,24 @@ var imageConfig = {
           finishReject(new Error('Failed to load image: ' + localPath));
         }
       };
-      
+
       img.onload = () => finishResolve(primaryUrl);
       img.onerror = () => loadFallback();
-      
+
       timeoutId = setTimeout(() => {
-        console.log('图片预加载超时，切换到本地:', primaryUrl);
+        console.log('图片预加载超时，切换回退:', primaryUrl);
         loadFallback();
       }, this.timeout);
-      
+
       img.src = primaryUrl;
     });
   },
-  
+
   setMode: function(mode) {
-    if (['cloudflare-first', 'local-only', 'cloudflare-only'].includes(mode)) {
+    if (['cloudflare-first', 'cloudflare-only', 'qiniu-only', 'local-only'].includes(mode)) {
       this.mode = mode;
       this.failedImages.clear();
+      this.qiniuFailedImages.clear();
       console.log('图片加载模式已切换为:', mode);
     }
   }

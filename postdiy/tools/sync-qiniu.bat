@@ -1,22 +1,18 @@
 @echo off
 chcp 65001 >nul
-title 双云图片同步 (R2 + 七牛)
+title 七牛云图片同步
 
 echo ========================================
-echo   双云图片同步工具
-echo   (Cloudflare R2 + 七牛云)
+echo   七牛云图片同步
 echo ========================================
 echo.
 echo 本地目录: E:\postdiyback\posterbgback\images
-echo Cloudflare R2 Bucket: postdiy
-echo 七牛云 Bucket: posterbg
-echo.
-echo 正在同步...
-echo ========================================
+echo 七牛 Bucket: posterbg
+echo 七牛域名: 7ncdn.peacelove.top
 echo.
 
 cd /d "c:\Users\ThinkPad\Documents\GitHub\minigames2026\postdiy"
-node tools\sync.js --verbose
+node tools\sync.js --cloud=qiniu --verbose
 
 echo.
 echo ========================================

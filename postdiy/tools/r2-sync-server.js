@@ -9,8 +9,8 @@ const server = http.createServer(app);
 app.use(express.static(path.join(__dirname)));
 
 app.get('/sync', (req, res) => {
-  const { dir, dryRun, verbose } = req.query;
-  
+  const { dir, dryRun, verbose, cloud } = req.query;
+
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -23,7 +23,14 @@ app.get('/sync', (req, res) => {
     args.push(dir);
   }
 
-  const child = spawn('node', [path.join(__dirname, 'r2-sync.js'), ...args], {
+  let script = 'sync.js';
+  if (cloud === 'r2') {
+    args.unshift('--cloud=r2');
+  } else if (cloud === 'qiniu') {
+    args.unshift('--cloud=qiniu');
+  }
+
+  const child = spawn('node', [path.join(__dirname, script), ...args], {
     cwd: path.join(__dirname, '..'),
     stdio: ['ignore', 'pipe', 'pipe'],
     env: { ...process.env },
@@ -72,5 +79,5 @@ app.get('/status', (req, res) => {
 
 const PORT = 3456;
 server.listen(PORT, 'localhost', () => {
-  console.log(`R2 同步服务已启动: http://localhost:${PORT}/r2-sync-ui.html`);
+  console.log(`图片同步服务已启动: http://localhost:${PORT}/r2-sync-ui.html`);
 });
