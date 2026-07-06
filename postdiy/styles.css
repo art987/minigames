@@ -1768,7 +1768,18 @@ footer {
   transform: scale(0.8);
 }
 
-#downloadBtn{background: linear-gradient(135deg, #000000, #142c6beb);font-size: 11px;color: #ffffff;border-radius: 17px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
+#downloadBtn{background: linear-gradient(135deg, #000000, #142c6beb);overflow: hidden; font-size: 11px;color: #ffffff;border-radius: 17px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
+#downloadBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: vipBadgeSweep 2.5s ease-in-out infinite;
+}
+
 #downloadBtn span{
   color: #ffffff;
   display: inline-block;
@@ -1838,7 +1849,7 @@ footer {
   fill: #ffffff;
 }
 
-/* Ã¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¦Â Â·Ã¥Â¼Â */
+/* 模态框样式 */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -2410,7 +2421,7 @@ footer {
   background: #FF4444;
 }
 
-/* VIPÃ§â„¢Â»Ã¥Â½â€¢Ã§â€ºÂ¸Ã¥â€¦Â³Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .vip-login-section {
   display: flex;
   align-items: center;
@@ -2472,7 +2483,7 @@ footer {
   margin-right: 4px;
 }
 
-/* VIPÃ¦ÂµÂ®Ã¥Å Â¨Ã¨ÂÅ“Ã¥Ââ€¢Ã§Â³Â»Ã§Â»Å¸Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .vip-menu-container {
   position: fixed;
   top: 14px;
@@ -2914,7 +2925,7 @@ footer {
 .vip-badge-shine {
   display: inline-block;
   padding: 3px 12px;
-  border-radius: 12px;
+  border-radius: 6px;
   background: linear-gradient(135deg, #fff3cd 0%, #ffd700 50%, #ff9800 100%);
   color: #c41e3a !important;
   font-weight: 700 !important;
@@ -2999,7 +3010,7 @@ footer {
   font-size: 12px;
 }
 
-/* VIPÃ§â„¢Â»Ã¥Â½â€¢Ã¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .modal.vip-login-modal {
   max-width: 400px;
   position: fixed;
@@ -3114,7 +3125,7 @@ footer {
   padding: 10px 5px;
 }
 
-/* VIPÃ¥Ââ€¡Ã§ÂºÂ§Ã¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .vip-upgrade-modal {
   max-width: 500px;
   width: 90%;
@@ -4294,7 +4305,7 @@ footer {
   color: #495057;
 }
 
-/* VIPÃ¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .action-btn.vip-button {
   background: linear-gradient(135deg, #ffd700, #ffed4e);
   color: #8b6914;
@@ -4312,7 +4323,7 @@ footer {
   color: #8b6914;
 }
 
-/* VIPÃ§Å Â¶Ã¦â‚¬ÂÃ¦Â ÂÃ¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .vip-status-bar {
   position: fixed;
   top: 0;
@@ -5649,23 +5660,30 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(224 224 224 / 46%);
   z-index: 9;
   pointer-events: none;
 }
 
 .template-item.selected::after {
-  content: 'âœ”';
+  content: '正在使用';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 60px;
-  font-weight: bold;
-  color: #ffffff;
+  bottom: 78px;
+  left: 10%;
+  right: 0;
+  width: 80%;
+  border-radius: 56px;
+  height: 32px;
+  background-color: rgb(0 0 0 / 68%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   pointer-events: none;
+  font-size: 15px;
+  font-weight: 200;
+  color: #fff;
+  letter-spacing: 2px;
 }
 
 .template-item:active {
@@ -5821,7 +5839,7 @@ input.hidden {
   max-height: 700px;
 }
 
-/* Ã¨Â¡Å’Ã¤Â¸Å¡Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Â¼Â¹Ã§Âªâ€”Ã¨Â¦â€ Ã§â€ºâ€“Ã¥Â±â€š - Ã¦â€ºÂ´Ã©Â«ËœÃ§Å¡â€žz-index */
+/* 整合行业模板弹窗样式 */
 #industryTemplatesModal.modal-overlay {
   z-index: 2000;
 }
@@ -5946,7 +5964,7 @@ input.hidden {
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 16px 11px;
+  padding: 13px 11px;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
@@ -5962,11 +5980,11 @@ input.hidden {
 
 .industry-template-content {
   font-size: 14px;
-  line-height: 1.5;
-  min-height: 47px;
-  font-weight: bold;
-  padding-right: 43px;
-  color: #333;
+  line-height: 1.7;
+  min-height: 64px;
+  font-weight: 400;
+  padding-right: 8px;
+  color: #1f1f1f;
   white-space: pre-line;
   overflow: hidden;
   position: relative;
@@ -5999,20 +6017,39 @@ input.hidden {
 
 /* Ã©â‚¬â€°Ã¤Â¸Â­Ã§Å Â¶Ã¦â‚¬ÂÃ§Å¡â€žÃ©Â«ËœÃ¤ÂºÂ®Ã¦â€¢Ë†Ã¦Å¾Å“ */
 .industry-template-card.selected {
-  border: 2px solid #d30606;
-  background: linear-gradient(135deg, #fff8f8, #ffffff);
-  box-shadow: 0 0 20px rgba(211, 6, 6, 0.2);
+  border: 2px solid #f0d3d3;
+  text-shadow: 0 2px 0px #fff;
+  background: linear-gradient(135deg, #fffcfc, #ffffff);
+  box-shadow: 0 0 20px rgb(135 162 200 / 72%);
+}
+
+/* 行业模板卡片入场动画 - 逐个滑入 */
+.industry-template-card-enter {
+  animation: industryCardSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes industryCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .industry-template-select-btn {
-  width: 100%;
-  padding: 7px 16px;
+  width: 80%;
+  padding: 5px 16px;
   background: #ffffff;
   color: #e30303;
-  border: 1px solid #c9c9c9;
-  border-radius: 4px;
+  border: 1px solid #e3e3e3;
+  border-radius: 11px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 10%;
   transition: background 0.3s ease;
 }
 
@@ -6022,7 +6059,7 @@ input.hidden {
   
 }
 
-/* Ã¤Â¿Æ’Ã©â€â‚¬Ã¤Â¿Â¡Ã¦ÂÂ¯Ã§Â¼â€“Ã¨Â¾â€˜Ã¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¦Â Â·Ã¥Â¼Â */
+/* 整合行业模板弹窗样式 */
 #industryTemplateModal{ z-index: 2000;}
 .modal-overlay {
   position: fixed;
@@ -6083,7 +6120,7 @@ input.hidden {
   margin: 0;
   font-size: 16px;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 300;
 }
 
 .modal-close {
@@ -6715,41 +6752,29 @@ background: linear-gradient(
   transition: all 0.2s ease;
 }
 
-/* Ã¥Å“â€ Ã¥Â½Â¢Ã¥â€¹Â¾Ã©â‚¬â€°Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
+/* 勾选标记 */
 .template-check-button {
   position: absolute;
   bottom: 0px;
   right: 0;
   width: 100%;
   height: 141px;
-  background-color: #ffffff00;
+  background-color: transparent;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition: all var(--transition-fast);
   font-size: 16px;
-  color: var(--text-muted); /* Ã§ÂÂ°Ã¨â€°Â²Ã¥â€¹Â¾Ã©â‚¬â€°Ã¦Â â€¡Ã¨Â®Â° */
+  color: transparent;
   z-index: 10;
 }
 
 .template-check-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-}
-.fa-check:before {
-    color: #ffffff00;
 }
 
-.template-check-button.checked {
-  color: #ef444400; /* Ã§ÂºÂ¢Ã¨â€°Â²Ã¥â€¹Â¾Ã©â‚¬â€°Ã¦Â â€¡Ã¨Â®Â° */
-  background-color: #ffffff00;
-}
 
-.template-check-button.checked i {
-  font-weight: bold;
-}
 
 #promoTextModal .fa-times:before {
        color: #ffffff;
@@ -6759,7 +6784,7 @@ background: linear-gradient(
 
 #selectPromoTemplateBtn{position: absolute;right: 0;margin-bottom: 2px;bottom: -37px;background: #fff;color: #292929;border: 1px solid #ccc;padding: 5px 10px;font-weight: normal;margin-top: 0;width: 100%;}
 
-/* VIPÃ§â€Â¨Ã¦Ë†Â·Ã¦ÂÂ¢Ã¥Â¤ÂÃ¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
+/* VIP用户恢复按钮样式 */
 .restore-btn-container {
   margin-top: 8px;
   text-align: center;
@@ -6906,7 +6931,7 @@ background: linear-gradient(
   }
 }
 
-/* Ã¥Â¹Â¿Ã¥â€˜Å Ã¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
+/* 整合行业模板弹窗样式 */
 .ad-modal-overlay {
   position: fixed;
   top: 0;
@@ -7464,11 +7489,11 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 
-/* Ã¦â€¢Â´Ã¥ÂË†Ã¨Â¡Å’Ã¤Â¸Å¡Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
+/* 整合行业模板弹窗样式 */
 #integratedIndustryTemplateModal.modal-overlay {
   z-index: 2001;
 }
-#integratedIndustryTemplateModal .industry-template-content{min-height:60px}
+#integratedIndustryTemplateModal .industry-template-content{min-height:72px}
 
 
 
@@ -7487,10 +7512,10 @@ button.future-suggestion-btn[data-action="wanan"] {
   min-height: 0;
 }
 
-/* Ã¥Â·Â¦Ã¤Â¾Â§Ã¨Â¡Å’Ã¤Â¸Å¡Ã¥Ë†â€ Ã§Â±Â»Ã¥Â¯Â¼Ã¨Ë†ÂªÃ¦Â Â */
+/* 左侧行业分类导航栏 */
 .industry-sidebar {
   width: 100px;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #ffffff 0%, #ddfeee 100%);
   border-right: 1px solid #e9ecef;
   display: flex;
   flex-direction: column;
@@ -7536,7 +7561,29 @@ button.future-suggestion-btn[data-action="wanan"] {
   box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
 }
 
-/* Ã¥ÂÂ³Ã¤Â¾Â§Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥â€ â€¦Ã¥Â®Â¹Ã¥Å’ÂºÃ¥Å¸Å¸ */
+/* 行业分类分组标题（不可点击的视觉分隔条） */
+.industry-category-group-title {
+  width: 85px;
+  margin-top: 10px;
+  padding: 6px 4px;
+  color: #c20e0e;
+  font-size: 23px;
+  font-weight: 300;
+  text-align: center;
+  border-radius: 6px;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 4px;
+  line-height: 1.2;
+  text-shadow: 0 2 3px #ffffff;
+}
+
+.industry-category-group-title:first-child {
+  margin-top: 0;
+}
+
+/* 右侧模板内容区域 */
 .template-content-area {
   flex: 1;
   display: flex;
@@ -7559,24 +7606,45 @@ button.future-suggestion-btn[data-action="wanan"] {
   padding: 16px 5px;
 }
 
-/* Ã¨Â¾â€œÃ¥â€¦Â¥Ã¦â€œÂÃ¤Â½Å“Ã¥Å’ÂºÃ¥Å¸Å¸Ã¦Â Â·Ã¥Â¼Â */
+/* 输入操作区域样式 */
 .input-actions {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
 
-/* Ã¦â€“â€¡Ã¦Â¡Ë†Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
+/* 文案模板按钮样式 */
 .promo-template-btn {
-  background: #ffffff;
-  color: #d32f2f;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+ display: inline-block;
+  padding: 3px 12px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffd700 50%, #ff9800 100%);
+  color: #c41e3a !important;
+  font-weight: 700 !important;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  border: 1px solid #ffd700;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -1px 0 rgba(184, 134, 11, 0.5) inset,
+    0 2px 6px rgba(255, 165, 0, 0.4);
+  text-shadow: 0 1px 0 rgba(255, 248, 220, 0.8);
+  animation: vipBadgePulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
+
+.promo-template-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: vipBadgeSweep 2.5s ease-in-out infinite;
+}
+
 
 .promo-template-btn:hover {
   background: #f8f9fa;
@@ -7592,18 +7660,25 @@ button.future-suggestion-btn[data-action="wanan"] {
   }
 
   .industry-sidebar {
-    width: 90px;
+    width: 99px;
   }
 
   .industry-category-vertical {
-    width: 82px;
+    width: 85px;
     min-height: 38px;
-    font-size: 14px;
-    padding: 4px 10px;
+    font-size: 13px;
+    padding: 4px 2px;
+  }
+
+  .industry-category-group-title {
+    width: 85px;
+    font-size: 21px;
+    padding: 10px 15px;
+    margin-top: 0px;
   }
 }
 
-/* Ã¦â€“â€¡Ã¦Â¡Ë†Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
+/* 整合行业模板弹窗样式 */
 #textTemplateModal.modal-overlay {
   z-index: 2001;
 }
@@ -7628,10 +7703,10 @@ button.future-suggestion-btn[data-action="wanan"] {
   padding: 6px 4px;
   border: none;
   text-align: center;
-  width: 29px;
+  width: 35px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 11px;
   transition: all 0.3s ease;
   position: absolute;
   right: 6px;
@@ -7659,12 +7734,12 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 .template-card-actions .card-copy-btn {
   background: #ffffff;
-  color: #c0c0c0;
+  color: #979797;
   /* display: none; */
-  /* border: 1px solid #ebebeb; */
-  top: 43px;
-  right: 15px;
-  padding: 1px 6px;
+  border: 1px solid #ebebeb;
+  top: 51px;
+  right: 11px;
+  padding: 1px 5px;
   border-radius: 12px;
 }
 

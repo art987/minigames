@@ -2509,38 +2509,35 @@ const ThumbnailLoader = {
   // 渲染垂直行业分类导航
   function renderVerticalIndustryCategories() {
     if (!elements.industryCategoriesVertical) return;
-    
+
     // 清空现有内容
     elements.industryCategoriesVertical.innerHTML = '';
-    
-    // 获取所有行业分类
-    const categories = Object.keys(INDUSTRY_TEMPLATES);
-    
-    // 渲染行业分类按钮
-      categories.forEach(category => {
-        const categoryBtn = document.createElement('button');
-        categoryBtn.className = 'industry-category-vertical';
-        categoryBtn.setAttribute('data-category', category);
-        categoryBtn.textContent = `${INDUSTRY_ICONS[category] || '📋'} ${category}`;
-        categoryBtn.title = category;
-      
+
+    // 创建分类按钮的工厂函数（避免重复代码）
+    function createCategoryButton(category) {
+      const categoryBtn = document.createElement('button');
+      categoryBtn.className = 'industry-category-vertical';
+      categoryBtn.setAttribute('data-category', category);
+      categoryBtn.textContent = `${INDUSTRY_ICONS[category] || '📋'} ${category}`;
+      categoryBtn.title = category;
+
       // 添加点击事件
       categoryBtn.addEventListener('click', function() {
         const selectedCategory = this.getAttribute('data-category');
-        
+
         // 设置当前选中的行业分类
         setActiveVerticalCategory(selectedCategory);
-        
+
         // 渲染对应行业的模板
         renderIndustryTemplates(selectedCategory, elements.integratedIndustryTemplatesList);
-        
+
         // 延迟执行打字机效果
         setTimeout(() => {
           const firstTemplateCard = elements.integratedIndustryTemplatesList.querySelector('.industry-template-card');
           if (firstTemplateCard) {
             const content = firstTemplateCard.querySelector('.industry-template-content');
             const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
-            
+
             // 移除其他卡片的选中状态
             document.querySelectorAll('.industry-template-card').forEach(card => {
               card.classList.remove('selected');
@@ -2548,18 +2545,47 @@ const ThumbnailLoader = {
               content.classList.remove('typewriter');
               content.textContent = INDUSTRY_TEMPLATES[selectedCategory][Array.from(card.parentNode.children).indexOf(card)];
             });
-            
+
             // 设置选中状态
             firstTemplateCard.classList.add('selected');
-            
+
             // 触发打字机效果
             startTypewriterEffect(content, template);
           }
         }, 50);
       });
-      
-      elements.industryCategoriesVertical.appendChild(categoryBtn);
-    });
+
+      return categoryBtn;
+    }
+
+    // 1. 先渲染"通用"分类按钮（不归入任何分组，单独置于顶部）
+    if (INDUSTRY_TEMPLATES['通用']) {
+      elements.industryCategoriesVertical.appendChild(createCategoryButton('通用'));
+    }
+
+    // 2. 按分组渲染其他行业分类，每组前插入一个不可点击的分组标题
+    if (typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+      INDUSTRY_CATEGORIES_GROUPED.forEach(group => {
+        // 插入分组标题（不可点击的视觉分隔条）
+        const groupTitle = document.createElement('div');
+        groupTitle.className = 'industry-category-group-title';
+        groupTitle.textContent = group.title;
+        groupTitle.setAttribute('aria-disabled', 'true');
+        elements.industryCategoriesVertical.appendChild(groupTitle);
+
+        // 渲染该分组下的所有分类按钮
+        group.categories.forEach(category => {
+          if (!INDUSTRY_TEMPLATES[category]) return; // 跳过不存在的分类
+          elements.industryCategoriesVertical.appendChild(createCategoryButton(category));
+        });
+      });
+    } else {
+      // 降级方案：未定义分组时，按原逻辑渲染所有分类（排除已在顶部渲染的"通用"）
+      Object.keys(INDUSTRY_TEMPLATES).forEach(category => {
+        if (category === '通用') return;
+        elements.industryCategoriesVertical.appendChild(createCategoryButton(category));
+      });
+    }
   }
 
   // 设置当前选中的垂直行业分类
@@ -2585,15 +2611,25 @@ const ThumbnailLoader = {
     
     // 清空现有内容
     container.innerHTML = '';
-    
+
+    // 重置滚动位置到顶部，确保新分类从第一张卡片开始显示
+    container.scrollTop = 0;
+
     const templates = INDUSTRY_TEMPLATES[category];
     if (!templates) return;
     
     // 渲染文案模板卡片
     templates.forEach((template, index) => {
       const templateCard = document.createElement('div');
-      templateCard.className = 'industry-template-card';
-      
+      templateCard.className = 'industry-template-card industry-template-card-enter';
+      templateCard.style.animationDelay = `${index * 60}ms`;
+
+      // 入场动画结束后移除动画类，避免 hover 时重新触发滑入动画
+      templateCard.addEventListener('animationend', function() {
+        this.classList.remove('industry-template-card-enter');
+        this.style.animationDelay = '';
+      });
+
       templateCard.innerHTML = `
         <div class="industry-template-content">${template}</div>
         <button class="industry-template-select-btn" data-template="${template}">选用编辑</button>
@@ -13873,12 +13909,12 @@ window.textTemplateManager = {
   getCategoryIcon: function(category) {
     const icons = {
       // 行业分类
-      '通用': '🌟', '奶茶': '🧋', '餐厅': '🍽️', '少儿画室': '🎨',
-      '音乐教室': '🎵', '直播': '📱', '美容': '💄', '母婴': '👶',
+      '通用': '🌟', '奶茶': '🧋', '餐厅': '🍽️', '绘画班': '🎨',
+      '音乐课': '🎵', '直播': '📱', '美容': '💄', '母婴': '👶',
       '健身': '💪', '茶饮': '🧋', '宠物': '🐱', '服饰': '👗',
       '知识': '📚', '家居': '🏠', '数码': '📱', '旅游': '✈️', '旅行': '🎒',
       '店铺': '🏪', '美食': '🍜', '中餐': '🥢', '海鲜': '🦐',
-      '烧烤': '🍖', '甜点': '🧁', '美术教室': '🎨', '体育课堂': '🏃',
+      '烧烤': '🍖', '甜点': '🧁', '美术课': '🎨', '体育课': '🏃',
       '游学': '🎒', '穿搭': '👗', '带货': '🛒',
       // 情感分类
       '情感': '💕', '人生感悟': '🌿', '励志奋斗': '🔥', '时代理想': '🌟',
@@ -13912,7 +13948,7 @@ window.textTemplateManager = {
         <div class="industry-template-content">${displayText.replace(/\n/g, '<br>')}</div>
         <div class="template-card-actions">
           <button class="card-insert-btn" data-index="${index}">+</button>
-          <button class="card-copy-btn" data-index="${index}">❏</button>
+          <button class="card-copy-btn" data-index="${index}">复制</button>
         </div>
       </div>`;
     }).join('');
