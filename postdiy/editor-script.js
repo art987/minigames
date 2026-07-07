@@ -1288,6 +1288,7 @@ const ThumbnailLoader = {
       contrast: 0
     },
     templateViewMode: 'grid',
+    templateSortMode: 'random', // 模板排序模式：'random'随机 或 'original'原始顺序
     currentSlideIndex: 0,
     allTemplatesList: [],
     currentSlideTemplatesList: [],
@@ -1910,6 +1911,7 @@ const ThumbnailLoader = {
       templateModal: document.getElementById('templateModal'),
       closeTemplateModalBtn: document.getElementById('closeTemplateModalBtn'),
       cancelTemplateBtn: document.getElementById('cancelTemplateBtn'),
+      modalBackToTopBtn: document.getElementById('modalBackToTopBtn'),
       
       // VIP菜单系统
       vipMenuContainer: document.getElementById('vipMenuContainer'),
@@ -1944,6 +1946,8 @@ const ThumbnailLoader = {
       nextTemplateSlide: document.getElementById('nextTemplateSlide'),
       templateGridViewBtn: document.getElementById('templateGridViewBtn'),
       templateSlideViewBtn: document.getElementById('templateSlideViewBtn'),
+      templateRandomSortBtn: document.getElementById('templateRandomSortBtn'),
+      templateOriginalSortBtn: document.getElementById('templateOriginalSortBtn'),
       slidePlayPauseBtn: document.getElementById('slidePlayPauseBtn'),
       modalMonthButtons: document.getElementById('modalMonthButtons'),
       modalFestivalTags: document.getElementById('modalFestivalTags'),
@@ -3350,6 +3354,10 @@ const ThumbnailLoader = {
     if (elements.closeTemplateModalBtn) {
       elements.closeTemplateModalBtn.addEventListener('click', closeTemplateModal);
     }
+
+    // 回到顶部按钮事件
+    setupModalBackToTop();
+
     if (elements.cancelTemplateBtn) {
       elements.cancelTemplateBtn.addEventListener('click', closeTemplateModal);
     }
@@ -3373,7 +3381,19 @@ const ThumbnailLoader = {
         switchTemplateViewMode('slide');
       });
     }
-    
+
+    // 模板排序切换事件
+    if (elements.templateRandomSortBtn) {
+      elements.templateRandomSortBtn.addEventListener('click', function() {
+        switchTemplateSortMode('random');
+      });
+    }
+    if (elements.templateOriginalSortBtn) {
+      elements.templateOriginalSortBtn.addEventListener('click', function() {
+        switchTemplateSortMode('original');
+      });
+    }
+
     // 幻灯片控制按钮事件
     if (elements.prevTemplateSlide) {
       elements.prevTemplateSlide.addEventListener('click', prevSlide);
@@ -5149,34 +5169,44 @@ const ThumbnailLoader = {
 
   // 初始化模板弹窗内容
   function initTemplateModalContent() {
-    
+
     // 清空模板网格
     elements.templateGrid.innerHTML = '';
-    
+
     // 填充月份按钮
     fillMonthButtons();
-    
+
     // 填充节日标签
     fillFestivalTags();
-    
+
     // 填充模板网格
     fillTemplateGrid();
-    
+
     // 根据当前日期自动选择月份和节日（与首页逻辑保持一致）
     autoSelectDateInModal();
-    
+
     // 设置默认视图模式（平铺模式）
     switchTemplateViewMode(state.templateViewMode || 'grid');
-    
+
+    // 设置默认排序模式（随机）
+    const sortMode = state.templateSortMode || 'random';
+    state.templateSortMode = sortMode;
+    if (elements.templateRandomSortBtn) {
+      elements.templateRandomSortBtn.classList.toggle('active', sortMode === 'random');
+    }
+    if (elements.templateOriginalSortBtn) {
+      elements.templateOriginalSortBtn.classList.toggle('active', sortMode === 'original');
+    }
+
     // 移除关闭动画类
     elements.templateModal.classList.remove('closing');
     elements.templateModal.querySelector('.modal').classList.remove('closing');
-    
+
     // 显示弹窗 - 通过移除hidden类
     elements.templateModal.classList.remove('hidden');
     // 同时设置display确保兼容性
     elements.templateModal.style.display = 'flex';
-    
+
     // 强制重绘以触发动画
     void elements.templateModal.offsetWidth;
   }
@@ -5455,17 +5485,22 @@ const ThumbnailLoader = {
   // 填充月份按钮
   function fillMonthButtons() {
     if (!elements.modalMonthButtons) return;
-    
+
     // 清空现有内容
     elements.modalMonthButtons.innerHTML = '';
-    
+
     // 创建月份按钮
     const currentMonth = new Date().getMonth() + 1;
     for (let i = 1; i <= 12; i++) {
       const monthBtn = document.createElement('button');
       monthBtn.className = 'month-btn';
       monthBtn.textContent = i === currentMonth ? '本月' : `${i}月`;
-      
+
+      // 为当前月份按钮添加特殊标识
+      if (i === currentMonth) {
+        monthBtn.classList.add('current-month');
+      }
+
       // 为每个月份按钮添加自定义data属性，方便后续查找
       monthBtn.dataset.month = i;
       
@@ -5909,29 +5944,46 @@ const ThumbnailLoader = {
     
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
-    
+
     // 取消之前的加载任务
     ThumbnailLoader.cancelCurrentLoad();
     const loadId = ThumbnailLoader.generateLoadId();
-    
+
     // 获取所有模板列表并更新状态
     state.allTemplatesList = getAllTemplatesList();
     state.currentSlideTemplatesList = state.allTemplatesList;
-    
+
     // 收集需要加载的图片
     const loadQueue = [];
-    
+
+    // 动画计数器
+    let animationIndex = 0;
+
+    // 获取所有月份键并根据排序模式决定顺序
+    let monthKeys = Object.keys(window.templates);
+
+    // 如果是随机模式，打乱月份顺序
+    if (state.templateSortMode === 'random') {
+      monthKeys = shuffleArray(monthKeys);
+    }
+
     // 遍历所有模板
-    for (const monthKey in window.templates) {
+    for (const monthKey of monthKeys) {
       const monthTemplates = window.templates[monthKey];
-      
-      monthTemplates.forEach(template => {
+
+      // 如果是随机模式，打乱该月份内的模板顺序
+      let templatesToRender = monthTemplates;
+      if (state.templateSortMode === 'random') {
+        templatesToRender = shuffleArray(monthTemplates);
+      }
+
+      templatesToRender.forEach(template => {
         // 跳过无效模板
         if (!template || !template.image) {
           console.warn('跳过无效模板:', monthKey, template);
           return;
         }
-        
+
         // 创建模板项
         const templateItem = document.createElement('div');
         templateItem.className = 'template-item';
@@ -6055,14 +6107,19 @@ const ThumbnailLoader = {
           lockOverlay.className = 'template-lock-overlay';
           lockOverlay.innerHTML = `
             <span class="lock-big-text">待开放</span>
-            <span class="lock-small-text">定稿中，${availability.unlockMonth}月提前上线</span>
+            <span class="lock-small-text">调整期，将提前2月开放</span>
           `;
           templateImgContainer.appendChild(lockOverlay);
         }
         
         templateItem.appendChild(templateImgContainer);
         templateItem.appendChild(templateName);
-        
+
+        // 添加逐个叠加动画
+        templateItem.classList.add('template-item-enter');
+        templateItem.style.animationDelay = `${animationIndex * 60}ms`;
+        animationIndex++;
+
         if (elements.templateGrid) {
           elements.templateGrid.appendChild(templateItem);
         }
@@ -6082,21 +6139,29 @@ const ThumbnailLoader = {
   // 初始化模板幻灯片视图
   function initTemplateSlideView() {
     if (!elements.templateGalleryContainer) return;
-    
-    const templatesList = state.currentSlideTemplatesList.length > 0 ? 
-                          state.currentSlideTemplatesList : 
+
+    const templatesList = state.currentSlideTemplatesList.length > 0 ?
+                          state.currentSlideTemplatesList :
                           state.allTemplatesList;
-    
+
     if (!templatesList.length) return;
+
+    // 如果是随机模式，打乱模板顺序
+    let sortedTemplatesList = templatesList;
+    if (state.templateSortMode === 'random') {
+      sortedTemplatesList = shuffleArray(templatesList);
+      // 更新状态以便后续幻灯片操作使用
+      state.currentSlideTemplatesList = sortedTemplatesList;
+    }
 
     elements.templateGalleryContainer.innerHTML = '';
 
-    templatesList.forEach((template, index) => {
+    sortedTemplatesList.forEach((template, index) => {
       if (!template || !template.image) {
         console.warn('跳过无效模板:', index, template);
         return;
       }
-      
+
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
@@ -6138,7 +6203,7 @@ const ThumbnailLoader = {
     });
 
     if (state.currentTemplate) {
-      const currentIndex = templatesList.findIndex(t => t.id === state.currentTemplate.id);
+      const currentIndex = sortedTemplatesList.findIndex(t => t.id === state.currentTemplate.id);
       state.currentSlideIndex = currentIndex >= 0 ? currentIndex : 0;
     } else {
       state.currentSlideIndex = 0;
@@ -6411,12 +6476,12 @@ const ThumbnailLoader = {
   // 切换视图模式
   function switchTemplateViewMode(mode) {
     state.templateViewMode = mode;
-    
+
     const gridView = elements.templateGrid;
     const slideView = elements.templateSlideView;
     const gridBtn = elements.templateGridViewBtn;
     const slideBtn = elements.templateSlideViewBtn;
-    
+
     if (mode === 'grid') {
       gridView?.classList.remove('hidden');
       slideView?.classList.add('hidden');
@@ -6432,7 +6497,44 @@ const ThumbnailLoader = {
       startSlideAutoPlay();
     }
   }
-  
+
+  // 切换模板排序模式
+  function switchTemplateSortMode(mode) {
+    state.templateSortMode = mode;
+
+    const randomBtn = elements.templateRandomSortBtn;
+    const originalBtn = elements.templateOriginalSortBtn;
+
+    if (mode === 'random') {
+      randomBtn?.classList.add('active');
+      originalBtn?.classList.remove('active');
+    } else {
+      randomBtn?.classList.remove('active');
+      originalBtn?.classList.add('active');
+    }
+
+    // 检查当前是否有节日标签选中
+    const activeFestivalTag = document.querySelector('#modalFestivalTags .festival-tag.active');
+    if (activeFestivalTag) {
+      // 有节日筛选时，重新筛选当前节日的模板
+      const festival = activeFestivalTag.dataset.festival;
+      filterTemplatesByFestival(festival);
+    } else {
+      // 无节日筛选时，重新填充所有模板网格
+      fillTemplateGrid();
+    }
+  }
+
+  // 随机打乱数组（Fisher-Yates算法）
+  function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
   // 获取所有模板的扁平化列表
   function getAllTemplatesList() {
     const allTemplates = [];
@@ -6541,7 +6643,36 @@ const ThumbnailLoader = {
     // 直接更新模板显示（不刷新页面）
     updateTemplateDisplay();
   }
-  
+
+  // 设置弹窗回到顶部按钮功能
+  function setupModalBackToTop() {
+    const scrollableBody = elements.templateModal?.querySelector('.scrollable-body');
+    const backToTopBtn = elements.modalBackToTopBtn;
+
+    if (!scrollableBody || !backToTopBtn) return;
+
+    // 滚动监听：超过2倍可视区域高度时显示按钮
+    scrollableBody.addEventListener('scroll', function() {
+      const scrollTop = scrollableBody.scrollTop;
+      const viewportHeight = scrollableBody.clientHeight;
+      const threshold = viewportHeight * 2;
+
+      if (scrollTop > threshold) {
+        backToTopBtn.classList.remove('hidden');
+      } else {
+        backToTopBtn.classList.add('hidden');
+      }
+    });
+
+    // 点击按钮：平滑滚动到顶部
+    backToTopBtn.addEventListener('click', function() {
+      scrollableBody.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // 关闭模板选择弹窗
   function closeTemplateModal() {
     console.log('尝试关闭模板弹窗');
@@ -6738,7 +6869,7 @@ const ThumbnailLoader = {
             lockOverlay.className = 'template-lock-overlay';
             lockOverlay.innerHTML = `
               <span class="lock-big-text">待开放</span>
-              <span class="lock-small-text">定稿中，${availability.unlockMonth}月提前上线</span>
+              <span class="lock-small-text">调整期，将提前2月开放</span>
             `;
             templateImgContainer.appendChild(lockOverlay);
           }
@@ -6765,17 +6896,17 @@ const ThumbnailLoader = {
   // 按节日筛选模板
   function filterTemplatesByFestival(festival) {
     if (!window.templates || !elements.templateGrid) return;
-    
+
     // 清空现有内容
     elements.templateGrid.innerHTML = '';
-    
+
     // 取消之前的加载任务
     ThumbnailLoader.cancelCurrentLoad();
     const loadId = ThumbnailLoader.generateLoadId();
-    
+
     // 收集需要加载的图片
     const loadQueue = [];
-    
+
     // 获取当前选中的月份
     let selectedMonth = null;
     const monthButtons = document.querySelectorAll('#modalMonthButtons .month-btn');
@@ -6784,11 +6915,14 @@ const ThumbnailLoader = {
         selectedMonth = parseInt(btn.dataset.month);
       }
     });
-    
-    // 遍历所有模板
+
+    // 先收集所有符合节日条件的模板
+    const filteredTemplates = [];
+
+    // 遍历所有模板收集符合条件的
     for (const monthKey in window.templates) {
       const monthTemplates = window.templates[monthKey];
-      
+
       monthTemplates.forEach(template => {
         // 处理"早安"分类
         let showTemplate = false;
@@ -6807,167 +6941,184 @@ const ThumbnailLoader = {
         } else {
           showTemplate = template.festivals.includes(festival);
         }
-        
+
         if (showTemplate) {
-          // 创建模板项
-          const templateItem = document.createElement('div');
-          templateItem.className = 'template-item';
-          templateItem.dataset.templateId = template.id;
-          
-          // 检查模板是否可用（当月和下月可用）
-          const availability = getTemplateAvailability(template);
-          if (!availability.available) {
-            templateItem.classList.add('template-locked');
-          }
-          
-          // 是否为当前选中的模板
-          const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
-          
-          // 创建模板图片容器
-          const templateImgContainer = document.createElement('div');
-          templateImgContainer.className = 'template-thumbnail-container';
-          
-          // 创建加载动画
-          const spinner = document.createElement('div');
-          spinner.className = 'thumbnail-spinner';
-          spinner.innerHTML = '<div class="spinner-ring"></div>';
-          
-          // 创建模板图片
-          const templateImg = document.createElement('img');
-          templateImg.alt = template.name;
-          templateImg.className = 'template-thumbnail loading';
-          templateImg.dataset.originalPath = template.image;
-          
-          // 获取缩略图URL（开放模板用-86thumb，未开放用-20thumb）
-          const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
-          const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(template.image, availability.available) : template.image;
-          
-          // 添加到加载队列
-          loadQueue.push({
-            img: templateImg,
-            url: thumbnailUrl,
-            fallbackUrl: fallbackUrl
-          });
-          
-          // 创建圆形勾选按钮
-          const checkButton = document.createElement('div');
-          checkButton.className = 'template-check-button';
-          checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
-          
-          // 设置初始勾选状态
-          if (isSelected) {
-            checkButton.classList.add('checked');
-          }
-          
-          // 为勾选按钮添加点击事件
-          checkButton.addEventListener('click', function(e) {
-            e.stopPropagation(); // 阻止事件冒泡
-            
-            // 锁定的模板不可使用
-            if (templateItem.classList.contains('template-locked')) {
-              showToast('该模板尚未开放，敬请期待');
-              return;
-            }
-            
-            console.log('点击勾选按钮选择模板:', template.name);
-            
-            // 移除所有勾选按钮的选中状态
-            document.querySelectorAll('.template-check-button').forEach(btn => {
-              btn.classList.remove('checked');
-            });
-            
-            // 添加当前按钮的选中状态
-            this.classList.add('checked');
-            
-            // 更新当前模板
-            selectTemplate(template);
-            
-            // 关闭模板选择弹窗
-            closeTemplateModal();
-          });
-          
-          // 为模板项添加点击事件
-          templateItem.addEventListener('click', function() {
-            // 锁定的模板不可使用
-            if (templateItem.classList.contains('template-locked')) {
-              showToast('该模板尚未开放，敬请期待');
-              return;
-            }
-            
-            // 移除所有勾选按钮的选中状态
-            document.querySelectorAll('.template-check-button').forEach(btn => {
-              btn.classList.remove('checked');
-            });
-            
-            // 添加当前按钮的选中状态
-            checkButton.classList.add('checked');
-            
-            // 更新当前模板
-            selectTemplate(template);
-          });
-          
-          // 添加双击事件 - 双击直接选择模板并关闭弹窗
-          templateItem.addEventListener('dblclick', function() {
-            // 锁定的模板不可使用
-            if (templateItem.classList.contains('template-locked')) {
-              showToast('该模板尚未开放，敬请期待');
-              return;
-            }
-            
-            console.log('双击选中模板并关闭弹窗:', template.name);
-            
-            // 移除所有勾选按钮的选中状态
-            document.querySelectorAll('.template-check-button').forEach(btn => {
-              btn.classList.remove('checked');
-            });
-            
-            // 添加当前按钮的选中状态
-            checkButton.classList.add('checked');
-            
-            // 更新当前模板
-            selectTemplate(template);
-            
-            // 关闭模板选择弹窗
-            closeTemplateModal();
-          });
-          
-          // 创建模板名称
-          const templateName = document.createElement('div');
-          templateName.className = 'template-name';
-          templateName.textContent = template.name;
-          
-          // 组合模板项
-          templateImgContainer.appendChild(spinner);
-          templateImgContainer.appendChild(templateImg);
-          templateImgContainer.appendChild(checkButton);
-          
-          // 锁定的模板：添加模糊和遮罩
-          if (!availability.available) {
-            templateImg.classList.add('blurred');
-            const lockOverlay = document.createElement('div');
-            lockOverlay.className = 'template-lock-overlay';
-            lockOverlay.innerHTML = `
-              <span class="lock-big-text">待开放</span>
-              <span class="lock-small-text">设计中，${availability.unlockMonth}月开放</span>
-            `;
-            templateImgContainer.appendChild(lockOverlay);
-          }
-          
-          templateItem.appendChild(templateImgContainer);
-          templateItem.appendChild(templateName);
-          
-          // 添加到网格
-          elements.templateGrid.appendChild(templateItem);
+          filteredTemplates.push(template);
         }
       });
     }
-    
+
+    // 根据排序模式决定模板顺序
+    let sortedTemplates = filteredTemplates;
+    if (state.templateSortMode === 'random') {
+      sortedTemplates = shuffleArray(filteredTemplates);
+    }
+
+    // 渲染排序后的模板
+    let animationIndex = 0;
+    sortedTemplates.forEach(template => {
+      // 创建模板项
+      const templateItem = document.createElement('div');
+      templateItem.className = 'template-item';
+      templateItem.dataset.templateId = template.id;
+
+      // 检查模板是否可用（当月和下月可用）
+      const availability = getTemplateAvailability(template);
+      if (!availability.available) {
+        templateItem.classList.add('template-locked');
+      }
+
+      // 是否为当前选中的模板
+      const isSelected = state.currentTemplate && state.currentTemplate.id === template.id;
+
+      // 创建模板图片容器
+      const templateImgContainer = document.createElement('div');
+      templateImgContainer.className = 'template-thumbnail-container';
+
+      // 创建加载动画
+      const spinner = document.createElement('div');
+      spinner.className = 'thumbnail-spinner';
+      spinner.innerHTML = '<div class="spinner-ring"></div>';
+
+      // 创建模板图片
+      const templateImg = document.createElement('img');
+      templateImg.alt = template.name;
+      templateImg.className = 'template-thumbnail loading';
+      templateImg.dataset.originalPath = template.image;
+
+      // 获取缩略图URL（开放模板用-86thumb，未开放用-20thumb）
+      const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
+      const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(template.image, availability.available) : template.image;
+
+      // 添加到加载队列
+      loadQueue.push({
+        img: templateImg,
+        url: thumbnailUrl,
+        fallbackUrl: fallbackUrl
+      });
+
+      // 创建圆形勾选按钮
+      const checkButton = document.createElement('div');
+      checkButton.className = 'template-check-button';
+      checkButton.innerHTML = window.getSVGIcon ? window.getSVGIcon('check', 'svg-icon') : '<i class="fa fa-check"></i>';
+
+      // 设置初始勾选状态
+      if (isSelected) {
+        checkButton.classList.add('checked');
+      }
+
+      // 为勾选按钮添加点击事件
+      checkButton.addEventListener('click', function(e) {
+        e.stopPropagation(); // 阻止事件冒泡
+
+        // 锁定的模板不可使用
+        if (templateItem.classList.contains('template-locked')) {
+          showToast('该模板尚未开放，敬请期待');
+          return;
+        }
+
+        console.log('点击勾选按钮选择模板:', template.name);
+
+        // 移除所有勾选按钮的选中状态
+        document.querySelectorAll('.template-check-button').forEach(btn => {
+          btn.classList.remove('checked');
+        });
+
+        // 添加当前按钮的选中状态
+        this.classList.add('checked');
+
+        // 更新当前模板
+        selectTemplate(template);
+
+        // 关闭模板选择弹窗
+        closeTemplateModal();
+      });
+
+      // 为模板项添加点击事件
+      templateItem.addEventListener('click', function() {
+        // 锁定的模板不可使用
+        if (templateItem.classList.contains('template-locked')) {
+          showToast('该模板尚未开放，敬请期待');
+          return;
+        }
+
+        // 移除所有勾选按钮的选中状态
+        document.querySelectorAll('.template-check-button').forEach(btn => {
+          btn.classList.remove('checked');
+        });
+
+        // 添加当前按钮的选中状态
+        checkButton.classList.add('checked');
+
+        // 更新当前模板
+        selectTemplate(template);
+      });
+
+      // 添加双击事件 - 双击直接选择模板并关闭弹窗
+      templateItem.addEventListener('dblclick', function() {
+        // 锁定的模板不可使用
+        if (templateItem.classList.contains('template-locked')) {
+          showToast('该模板尚未开放，敬请期待');
+          return;
+        }
+
+        console.log('双击选中模板并关闭弹窗:', template.name);
+
+        // 移除所有勾选按钮的选中状态
+        document.querySelectorAll('.template-check-button').forEach(btn => {
+          btn.classList.remove('checked');
+        });
+
+        // 添加当前按钮的选中状态
+        checkButton.classList.add('checked');
+
+        // 更新当前模板
+        selectTemplate(template);
+
+        // 关闭模板选择弹窗
+        closeTemplateModal();
+      });
+
+      // 创建模板名称
+      const templateName = document.createElement('div');
+      templateName.className = 'template-name';
+      templateName.textContent = template.name;
+
+      // 组合模板项
+      templateImgContainer.appendChild(spinner);
+      templateImgContainer.appendChild(templateImg);
+      templateImgContainer.appendChild(checkButton);
+
+      // 锁定的模板：添加模糊和遮罩
+      if (!availability.available) {
+        templateImg.classList.add('blurred');
+        const lockOverlay = document.createElement('div');
+        lockOverlay.className = 'template-lock-overlay';
+        lockOverlay.innerHTML = `
+          <span class="lock-big-text">待开放</span>
+          <span class="lock-small-text">调整期，将提前2月开放</span>
+        `;
+        templateImgContainer.appendChild(lockOverlay);
+      }
+
+      templateItem.appendChild(templateImgContainer);
+      templateItem.appendChild(templateName);
+
+      // 添加逐个叠加动画
+      templateItem.classList.add('template-item-enter');
+      templateItem.style.animationDelay = `${animationIndex * 60}ms`;
+      animationIndex++;
+
+      // 添加到网格
+      elements.templateGrid.appendChild(templateItem);
+    });
+
     // 在模板列表最后添加自定义背景入口
     addCustomBackgroundEntryToModal();
-    
+
     // 开始批量加载图片
     ThumbnailLoader.loadBatch(loadQueue, loadId, 6);
-    
+
     // 更新幻灯片视图
     updateSlideViewFromFilter(null, festival);
   }
@@ -6998,7 +7149,7 @@ const ThumbnailLoader = {
           }
         });
       }
-      
+
       for (const monthKey in window.templates) {
         const monthTemplates = window.templates[monthKey];
         monthTemplates.forEach(template => {
@@ -7026,16 +7177,22 @@ const ThumbnailLoader = {
     } else {
       filteredTemplates = getAllTemplatesList();
     }
-    
-    state.currentSlideTemplatesList = filteredTemplates;
+
+    // 根据排序模式决定模板顺序
+    let sortedTemplates = filteredTemplates;
+    if (state.templateSortMode === 'random') {
+      sortedTemplates = shuffleArray(filteredTemplates);
+    }
+
+    state.currentSlideTemplatesList = sortedTemplates;
     state.currentSlideIndex = 0;
 
     // 用于点击事件中获取模板数据
-    const templatesList = filteredTemplates;
+    const templatesList = sortedTemplates;
 
     elements.templateGalleryContainer.innerHTML = '';
 
-    filteredTemplates.forEach((template, index) => {
+    sortedTemplates.forEach((template, index) => {
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
@@ -7075,10 +7232,10 @@ const ThumbnailLoader = {
 
       elements.templateGalleryContainer.appendChild(slide);
     });
-    
+
     updateSlidePositions();
     loadSlideImages();
-    
+
     initSlideTouchEvents();
   }
   

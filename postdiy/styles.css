@@ -200,6 +200,35 @@ main {
   /* border-color: #0b0b0b; */
 }
 
+/* 当前月份按钮角标 - 倒三角浮动动画 */
+.month-btn.current-month {
+  position: relative;
+}
+
+.month-btn.current-month::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #d32f2f;
+  animation: monthBadgeFloat 1.5s ease-in-out infinite;
+}
+
+@keyframes monthBadgeFloat {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-3px);
+  }
+}
+
+/* 节日标签 */
 /* Ã¨Å â€šÃ¦â€”Â¥Ã¦Â â€¡Ã§Â­Â¾ */
 .festival-tags {
   margin-bottom: .5rem;
@@ -366,6 +395,22 @@ main {
 .template-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
+}
+
+/* 首页模板卡片逐个叠加动画 */
+.template-card-enter {
+  animation: templateCardSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes templateCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .template-thumbnail-container {
@@ -1706,8 +1751,8 @@ footer {
 
 /* Ã¦â€œÂÃ¤Â½Å“Ã¦Å’â€°Ã©â€™Â® - Ã¥Å¾â€šÃ§â€ºÂ´Ã¦Å½â€™Ã¥Ë†â€”Ã¦Â Â·Ã¥Â¼Â */
 .action-btn {
-  width: 44px;
-  padding: 7px 5px;
+  width: 38px;
+  padding: 0px 5px;
   z-index: 999;
   border: 1px solid #fefefe59;
   border-radius: 27px;
@@ -1715,8 +1760,8 @@ footer {
   color: #000000fa;
   text-shadow: 0 0 4px #fffffff0;
   font-size: 11px;
-  line-height: 15px;
-  font-weight: 400;
+  line-height: 12px;
+  font-weight: 350;
   backdrop-filter: blur(3px);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1743,14 +1788,14 @@ footer {
 /* Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Ë†â€¡Ã¦ÂÂ¢Ã¦Å’â€°Ã©â€™Â® - Ã¦â€Â¾Ã¥Å“Â¨Ã¥Â·Â¦Ã¥ÂÂ³Ã¤Â¸Â¤Ã¨Â¾Â¹Ã¯Â¼Å’Ã¥Â±â€¦Ã¤Â¸Â­Ã¥ÂÂÃ¤Â¸Å 10% */
 #prevTemplateBtn, #nextTemplateBtn, #changeTemplateBtn{
   position: fixed;
-  bottom: 9px;
-  color: #9f9f9f;
-  /* background: #ffffffb3; */
+  bottom: 6px;
+  color: #373737;
+  background: #ffffffb3;
   z-index: 100;
   text-shadow: 0px 1px 2px #ffffff1c;
-  width: 69px;
+  width: 62px;
   border: 1px solid #ffffff1c;
-  height: 38px;
+  height: 27px;
   display: flex;
   padding: 4px 10px;
   align-items: center;
@@ -1778,7 +1823,7 @@ footer {
   transform: scale(0.8);
 }
 
-#downloadBtn{background: linear-gradient(135deg, #000000, #142c6beb);overflow: hidden; font-size: 11px;color: #ffffff;border-radius: 17px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
+#downloadBtn{height: 43px;background: linear-gradient(135deg, #000000, #142c6beb);overflow: hidden;font-size: 11px;color: #ffffff;padding: 5px 5px;border-radius: 13px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
 #downloadBtn::after {
   content: '';
   position: absolute;
@@ -1835,6 +1880,7 @@ footer {
   width: 39px;
   border: none;
   height: 39px;
+  backdrop-filter: blur(1px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1948,6 +1994,56 @@ footer {
 }
 
 /* Ã¨Â´Â´Ã§ÂºÂ¸Ã©â‚¬â€°Ã¦â€¹Â©Ã¥Â¼Â¹Ã§Âªâ€”Ã§â€°Â¹Ã¥Â®Å¡Ã¦Â Â·Ã¥Â¼Â */
+/* 弹窗回到顶部按钮样式 */
+.modal-back-to-top-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.modal-back-to-top-btn:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-back-to-top-btn:hover {
+  background: linear-gradient(135deg, #f44336, #c62828);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.modal-back-to-top-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-back-to-top-btn i {
+  font-size: 14px;
+}
+
+.modal-back-to-top-btn.hidden {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .modal.sticker-select-modal {
   max-height: 85vh;
   position: fixed;
@@ -2508,11 +2604,12 @@ footer {
 .vip-menu-btn {
   background: #ffffff7a;
   color: #282727;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e554;
   border-radius: 8px;
   padding: 5px 13px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
+  backdrop-filter: blur(7px);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -2526,7 +2623,7 @@ footer {
 }
 
 .vip-menu-toggle {
-  padding: 8px 12px;
+  padding: 8px 10px;
 }
 
 .vip-logged-in-menu {
@@ -5649,12 +5746,28 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  max-height: 200px;
+  max-height: 218px;
   transition: all 0.2s ease;
 }
 
 .template-item:hover {
   transform: translateY(-2px);
+}
+
+/* 编辑页模板项逐个叠加动画 */
+.template-item-enter {
+  animation: templateItemSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes templateItemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .template-item.selected {
@@ -5753,7 +5866,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   /* Ã¥Â°ÂÃ¥Â±ÂÃ¥Â¹â€¢Ã¤Â¸Å Ã§Å¡â€žÃ¦Å’â€°Ã©â€™Â®Ã¨Â°Æ’Ã¦â€¢Â´ */
   .action-btn {
     /* padding: 11px 0px; */
-    min-height: 32px;
+    min-height: 34px;
   }
   
   .action-btn i {
@@ -6574,11 +6687,11 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 .loading-text {
   margin-top: 20px;
   color: #fff;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
   text-align: center;
-  animation: pulseText 2s ease-in-out infinite;
-  text-shadow: 0 2px 4px rgba(3, 83, 159, 0.5);
+  /* animation: pulseText 2s ease-in-out infinite; */
+  text-shadow: 0 2px 4px rgb(254 254 254 / 50%);
 }
 
 /* Ã¥Å Â¨Ã§â€Â»Ã¥Â®Å¡Ã¤Â¹â€° */
@@ -7877,9 +7990,10 @@ button.future-suggestion-btn[data-action="wanan"] {
      color: white;
      background: #ffffff7a;
      color: #4a4a4a;
-     border: 1px solid #e5e5e5;
+     border: 1px solid #e5e5e566;
      border-radius: 8px;
      padding: 2px 7px;
+     backdrop-filter: blur(7px);
      font-size: 20px;
      line-height: 20px;
      margin-top: 2px;
@@ -7893,11 +8007,11 @@ button.future-suggestion-btn[data-action="wanan"] {
    position: fixed;
    right: 9px;
    margin-right: 0;
-   width: 39px;
+   width: 36px;
    top: 55px;
    z-index: 999;
    font-size: 28px;
-   padding: 3px 0px;
+   padding: 2px 0px;
    }
 
 .daily-suggestion-btn:hover {  background: #fff;
@@ -8973,23 +9087,47 @@ button.future-suggestion-btn[data-action="wanan"] {
   justify-content: flex-end;
   gap: 8px;
   z-index: 99999;
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 39%;
+  left: 0px;
 }
 
 .view-toggle-btn {
-  width: 30px;
+  width: 36px;
   height: 29px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd54;
   border-radius: 8px;
-  background: #fff;
-  color: #666;
+  background: #fcfcfc61;
+  backdrop-filter: blur(8px);
+  color: #494949;
   cursor: pointer;
   margin-bottom: 10px;
   display: flex;
+  text-shadow
+Enables shadow effects to be applied to the text of the element.
+
+各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
+了解详情
+
+不显示: 0 1px 3px #151515;
   align-items: center;
+  text-shadow
+Enables shadow effects to be applied to the text of the element.
+
+各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
+了解详情
+
+不显示: 0 1px 3px #151515;
   justify-content: center;
+  text-shadow: 0 1px 1px #151515;
   transition: all 0.3s ease;
+  text-shadow
+Enables shadow effects to be applied to the text of the element.
+
+各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
+了解详情
+
+不显示: 0 1px 3px #151515;
 }
 
 .view-toggle-btn:hover {
@@ -8998,9 +9136,8 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .view-toggle-btn.active {
-  background: linear-gradient(135deg, #00000075, #0000003d);
-  border-color: #6f6f6f;
-  color: #fff;
+  border-color: #ffffff7a;
+  color: #d50505;
 }
 
 /* Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Â¹Â³Ã©â€œÂºÃ¨Â§â€ Ã¥â€ºÂ¾ */
@@ -9008,6 +9145,49 @@ button.future-suggestion-btn[data-action="wanan"] {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 15px;
+}
+
+/* 排序切换按钮区域 */
+.template-sort-toggle {
+  /* display: flex; */
+  justify-content: flex-end;
+  gap: 8px;
+  z-index: 99999;
+  position: fixed;
+  top: 54%;
+  left: 0px;
+}
+
+.sort-toggle-btn {
+  padding: 4px 3px;
+  height: 29px;
+  border: 1px solid #ffffff42;
+  border-radius: 8px;
+  background: #ffffff61;
+  color: #080808;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  display: flex;
+  font-weight: 350;
+  text-shadow: 0 1px 3px #ffffff;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+  margin-bottom: 9px;
+  font-size: 12px;
+}
+
+.sort-toggle-btn:hover {
+  border-color: #d32f2f;
+  /* color: #d42020; */
+}
+
+.sort-toggle-btn.active {
+  border-color: #ffffff7a;
+  color: #bd0a0a;
+  font-weight: 500;
+  text-shadow: 0 1px 2px #fff;
 }
 
 .template-grid-view.hidden {

@@ -451,7 +451,19 @@
               <i class="fa fa-film"></i>
             </button>
           </div>
-          
+
+          <!-- 排序切换按钮 -->
+          <div class="template-sort-toggle">
+            <button id="templateRandomSortBtn" class="sort-toggle-btn active" title="随机排序">
+              <i class="fa fa-random"></i>
+              <span>随机</span>
+            </button>
+            <button id="templateOriginalSortBtn" class="sort-toggle-btn" title="原始顺序">
+              <i class="fa fa-sort-amount-asc"></i>
+              <span>顺序</span>
+            </button>
+          </div>
+
           <!-- 平铺视图容器 -->
           <div id="modalTemplatesGrid" class="template-grid-view hidden"></div>
           
@@ -480,6 +492,13 @@
           </div>
         </div>
       </div>
+
+      <!-- 回到顶部按钮 -->
+      <button id="modalBackToTopBtn" class="modal-back-to-top-btn hidden" title="回到顶部">
+        <i class="fa fa-chevron-up"></i>
+        <span>回到顶部</span>
+      </button>
+
       <div class="modal-footer" style="display: none;">
         <button id="cancelTemplateBtn" class="editor-button editor-button-secondary">取消</button>
         <button id="confirmTemplateBtn" class="editor-button">确定</button>
@@ -1077,7 +1096,7 @@
   <!-- <script src="text-templates.js"></script> -->
 
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js?v=20260707m" defer></script>
+  <script src="editor-script.js?v=20260707s" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">
