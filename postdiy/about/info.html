@@ -13,7 +13,7 @@
     <!-- 节日数据 -->
     <script src="../festivals.js"></script>
     <!-- 行业模板数据 -->
-    <script src="../industry-templates.js?v=20260707c"></script>
+    <script src="../industry-templates.js?v=20260707h"></script>
     <!-- 工具函数 -->
     <script src="../utils.js"></script>
     <!-- 模板数据 -->
@@ -1419,13 +1419,12 @@
             'zaoan': 'zaoan', 'wanan': 'wanan'
         };
 
-        // 获取随机背景图片
+        // 获取随机背景图片（使用七牛缩略图）
         function getAboutRandomBackground(type) {
-            // cloudflare 基础地址（与 imageConfig 保持一致）
-            const cloudflareBaseUrl = (typeof imageConfig !== 'undefined' && imageConfig.cloudflareBaseUrl) ? imageConfig.cloudflareBaseUrl : 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/';
+            const qiniuBaseUrl = (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl) ? imageConfig.qiniuBaseUrl : 'https://7ncdn.peacelove.top/';
 
             if (type === 'dairy') {
-                // 日常海报固定使用本地图片，不走 cloudflare
+                // 日常海报固定使用本地图片
                 const randomNum = Math.floor(Math.random() * 22) + 1;
                 return `../images/dairy/${randomNum}.jpg`;
             }
@@ -1448,8 +1447,8 @@
 
             if (matched.length === 0) return null;
             const randomTemplate = matched[Math.floor(Math.random() * matched.length)];
-            // 只使用 cloudflare 图片链接（不回退到本地）
-            return cloudflareBaseUrl + randomTemplate.thumbnail;
+            // 使用七牛缩略图（-86thumb后缀）
+            return qiniuBaseUrl + randomTemplate.image + '-86thumb';
         }
 
         // 获取今日节日

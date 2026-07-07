@@ -1714,9 +1714,9 @@ const ThumbnailLoader = {
     
     const particle = document.createElement('div');
     
-    const size = Math.random() * 4 + 3; // 粒子稍小，3-7px
+    const size = Math.random() * 2 + 1; // 粒子稍小，1-4px
     const left = Math.random() * 100;
-    const duration = Math.random() * 1.5 + 1.5; // 动画时长，1.5-3s
+    const duration = Math.random() * 0.5 + 1.5; // 动画时长，1.5-3s
     const delay = Math.random() * 0.2;
     
     // 使用更简单的样式，减少渲染负担
@@ -1752,14 +1752,14 @@ const ThumbnailLoader = {
     console.log('启动模板加载粒子效果 (优化版)');
     
     // 减少初始粒子数量
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 20; i++) {
       setTimeout(() => {
         const particle = document.createElement('div');
         
         const size = Math.random() * 4 + 3;
         const left = Math.random() * 100;
         const startHeight = Math.random() * 400;
-        const duration = Math.random() * 1.5 + 1.5;
+        const duration = Math.random() * 1 + 0.5;
         
         // 更简洁的样式
         particle.style.cssText = `
@@ -6154,7 +6154,12 @@ const ThumbnailLoader = {
   function loadSlideImages() {
     const slides = elements.templateGalleryContainer?.querySelectorAll('.template-gallery-slide');
     if (!slides) return;
-    
+
+    // 获取当前模板列表（与 initTemplateSlideView 保持一致）
+    const templatesList = state.currentSlideTemplatesList.length > 0 ?
+                          state.currentSlideTemplatesList :
+                          state.allTemplatesList;
+
     const loadId = ThumbnailLoader.currentLoadId;
 
     slides.forEach((slide, index) => {
@@ -6174,7 +6179,7 @@ const ThumbnailLoader = {
           const available = templateData ? getTemplateAvailability(templateData).available : true;
           const imageUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(imagePath, available) : imagePath;
           const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(imagePath, available) : imagePath;
-          
+
           ThumbnailLoader.loadThumbnail(img, imageUrl, fallbackUrl, loadId, index).then(success => {
             if (success) {
               slide.dataset.loaded = 'true';
@@ -6431,16 +6436,16 @@ const ThumbnailLoader = {
   // 获取所有模板的扁平化列表
   function getAllTemplatesList() {
     const allTemplates = [];
-    
+
     // 遍历所有月份，收集所有模板
     for (const monthKey in window.templates) {
       if (window.templates[monthKey]) {
-        // 过滤掉无效模板
-        const validTemplates = window.templates[monthKey].filter(t => t && t.thumbnail);
+        // 过滤掉无效模板（使用 image 字段，因为 thumbnail 已删除）
+        const validTemplates = window.templates[monthKey].filter(t => t && t.image);
         allTemplates.push(...validTemplates);
       }
     }
-    
+
     return allTemplates;
   }
 
@@ -6945,9 +6950,9 @@ const ThumbnailLoader = {
   // 根据筛选更新幻灯片视图
   function updateSlideViewFromFilter(month, festival) {
     if (!elements.templateGalleryContainer) return;
-    
+
     let filteredTemplates = [];
-    
+
     if (month) {
       for (const monthKey in window.templates) {
         const monthTemplates = window.templates[monthKey];
@@ -6999,9 +7004,12 @@ const ThumbnailLoader = {
     
     state.currentSlideTemplatesList = filteredTemplates;
     state.currentSlideIndex = 0;
-    
+
+    // 用于点击事件中获取模板数据
+    const templatesList = filteredTemplates;
+
     elements.templateGalleryContainer.innerHTML = '';
-    
+
     filteredTemplates.forEach((template, index) => {
       const slide = document.createElement('div');
       slide.className = 'template-gallery-slide hidden-slide';
