@@ -15484,10 +15484,46 @@ window.textTemplateManager = {
       }
     }
     
+    // 初始化标题波浪动画：将文字拆分成单字符并添加韵律延迟
+    function initTitleWaveAnimation() {
+      const titles = document.querySelectorAll('.home-popup-section-title');
+      titles.forEach(title => {
+        // 如果已经处理过，跳过
+        if (title.dataset.waveInitialized) return;
+        
+        // 保留span元素（如日期显示），只处理纯文字部分
+        const childNodes = Array.from(title.childNodes);
+        let html = '';
+        
+        childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            // 文字节点：拆分成单个字符
+            const text = node.textContent;
+            text.split('').forEach((char, index) => {
+              if (char.trim()) {
+                html += `<span class="title-wave-char" style="animation-delay: ${index * 0.05}s">${char}</span>`;
+              } else {
+                html += char; // 保留空格
+              }
+            });
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // 元素节点（如span）：保留原样
+            html += node.outerHTML;
+          }
+        });
+        
+        title.innerHTML = html;
+        title.dataset.waveInitialized = 'true';
+      });
+    }
+    
     // 显示弹窗
     function showHomePopup() {
       renderTodayRelease();
       renderFutureSuggestion();
+      
+      // 处理标题波浪动画
+      initTitleWaveAnimation();
       
       if (dailySuggestionBtn && homePopupModal) {
         const btnRect = dailySuggestionBtn.getBoundingClientRect();
@@ -15807,7 +15843,14 @@ window.textTemplateManager = {
       }
       
       todayReleaseContent.innerHTML = html;
-      
+
+      // 为按钮容器添加逐个叠加动画（延迟2秒载入，间隔200ms）
+      const buttonWrappers = todayReleaseContent.querySelectorAll('.button-wrapper');
+      buttonWrappers.forEach((wrapper, index) => {
+        wrapper.classList.add('future-suggestion-item-enter');
+        wrapper.style.animationDelay = `${380 + index * 200}ms`;
+      });
+
       // 设置按钮背景图片
       todayReleaseContent.querySelectorAll('.home-popup-btn').forEach(btn => {
         const action = btn.dataset.action;
@@ -15897,7 +15940,14 @@ window.textTemplateManager = {
       
       console.log('生成的HTML:', html);
       futureSuggestionContent.innerHTML = html;
-      
+
+      // 为每个智能提醒卡片添加逐个叠加动画（延迟2秒载入，间隔200ms）
+      const suggestionItems = futureSuggestionContent.querySelectorAll('.future-suggestion-item');
+      suggestionItems.forEach((item, index) => {
+        item.classList.add('future-suggestion-item-enter');
+        item.style.animationDelay = `${2000 + index * 200}ms`;
+      });
+
       // 设置按钮背景图片
       futureSuggestionContent.querySelectorAll('.future-suggestion-btn').forEach(btn => {
         const action = btn.dataset.action;

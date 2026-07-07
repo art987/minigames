@@ -28,6 +28,13 @@ function getTemplateAvailability(template) {
   const currentMonth = getCurrentMonth();
   const nextMonth = currentMonth >= 12 ? 1 : currentMonth + 1;
   const months = template.months || [];
+
+  // 早安/晚安主题海报永久开放，不受月份限制
+  const festivals = template.festivals || [];
+  if (festivals.includes('早安') || festivals.includes('晚安')) {
+    return { available: true };
+  }
+
   if (months.length === 0) return { available: true };
 
   // 可用：模板任一月份等于当月或下月

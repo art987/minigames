@@ -203,14 +203,20 @@ main {
 /* 当前月份按钮角标 - 倒三角浮动动画 */
 .month-btn.current-month {
   position: relative;
+  color: #0f0f0f;
+  font-weight;
+  bold;
+  font-weight: bold;
 }
+
+.month-btn.current-month.active{color:#fff;border;1px solid #000 }
 
 .month-btn.current-month::before {
   content: '';
   position: absolute;
   top: 0px;
   left: 50%;
-  transform: translateX(-50%);
+  /* transform: translateX(-50%); */
   width: 0;
   height: 0;
   border-left: 6px solid transparent;
@@ -5879,8 +5885,8 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   
   /* Ã¥Â°ÂÃ¥Â±ÂÃ¥Â¹â€¢Ã¤Â¸Å Ã§Å¡â€žÃ¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¨Â°Æ’Ã¦â€¢Â´ */
   .modal {
-    width: 86vw;
-    max-height: 77vh;
+    width: 90vw;
+    max-height: 90vh;
     border-radius: 16px;
   }
   .modal .template-thumbnail{height: 219px;}
@@ -7163,7 +7169,7 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 
 /* Ã©Â¦â€“Ã©Â¡ÂµÃ¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
 .home-popup-modal {
-  width: 90vw;
+  width: 93vw;
   max-width: 480px;
   max-height: 85vh;
   display: flex;
@@ -7204,7 +7210,7 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 .home-popup-section-title {
   font-size: 13px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #000;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -7212,6 +7218,23 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
   flex-wrap: wrap;
   position: relative;
 }
+
+/* 标题单字符波浪动画 */
+.title-wave-char {
+  display: inline-block;
+  animation: charWave 1.5s ease-in-out infinite;
+  margin-right: -6px;
+}
+
+@keyframes charWave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 #todayDateInTitle {
     font-weight: 300;
     margin-left: 0;
@@ -7398,6 +7421,22 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 
 .future-suggestion-item:last-child {
   margin-bottom: 0;
+}
+
+/* 智能提醒卡片逐个叠加动画 */
+.future-suggestion-item-enter {
+  animation: futureSuggestionSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes futureSuggestionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .future-suggestion-text {
@@ -9953,7 +9992,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 /* ========== æ¨¡æ¿é”å®šæ ·å¼ ========== */
 .template-thumbnail.blurred {
-  filter: blur(2px);
+  filter: blur(4px);
   opacity: 1;
 }
 
@@ -9967,7 +10006,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background: rgb(172 172 172 / 15%); */
+  background: rgb(255 255 255 / 0%);
   pointer-events: none;
   z-index: 2;
 }
@@ -9976,19 +10015,19 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   font-size: 16px;
   font-weight: 300;
   color: #000000;
-  text-shadow: 0 2px 8px rgb(52 56 97 / 60%);
+  text-shadow: 0 1px 0px rgb(255 255 255);
   margin-bottom: 4px;
   background: #ffffffa6;
-  border: 1px solid #fff;
+  /* border: 1px solid #fff; */
   padding: 0 10px;
-  box-shadow: 0 0 10px #ffff;
+  box-shadow: 0 0 10px #545454;
   border-radius: 10px;
 }
 
 .lock-small-text {
   font-size: 10px;
-  color: rgb(255 255 255 / 85%);
-  text-shadow: 0 1px 4px rgb(255 255 255 / 60%);
+  color: rgb(0 0 0 / 85%);
+  text-shadow: 0 1px 0px rgb(255 255 255);
   background
 Shorthand property for setting most background properties at the same place in the style sheet.
 
@@ -9996,10 +10035,11 @@ Shorthand property for setting most background properties at the same place in t
 äº†è§£è¯¦æƒ…
 
 ä¸æ˜¾ç¤º: #00000080;
-  padding: 0 10px;
+  padding: 6px 6px;
+  backdrop-filter: blur(7px);
   border-radius: 10px;
-  background: #0000006e;
-  box-shadow: 0 0 10px #ffff;
+  background: #ffffff94;
+  box-shadow: 0 0 10px #909090;
 }
 
 .template-locked {
