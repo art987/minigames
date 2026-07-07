@@ -5927,7 +5927,7 @@ const ThumbnailLoader = {
       
       monthTemplates.forEach(template => {
         // 跳过无效模板
-        if (!template || !template.thumbnail) {
+        if (!template || !template.image) {
           console.warn('跳过无效模板:', monthKey, template);
           return;
         }
@@ -5959,11 +5959,11 @@ const ThumbnailLoader = {
         const templateImg = document.createElement('img');
         templateImg.alt = template.name;
         templateImg.className = 'template-thumbnail loading';
-        templateImg.dataset.originalPath = template.thumbnail;
+        templateImg.dataset.originalPath = template.image;
         
-        // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
-        const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-        const fallbackUrl = template.thumbnail; // 本地路径作为回退
+        // 获取缩略图URL（开放模板用-86thumb，未开放用-20thumb）
+        const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
+        const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(template.image, availability.available) : template.image;
         
         // 添加到加载队列
         loadQueue.push({
@@ -6092,7 +6092,7 @@ const ThumbnailLoader = {
     elements.templateGalleryContainer.innerHTML = '';
 
     templatesList.forEach((template, index) => {
-      if (!template || !template.thumbnail) {
+      if (!template || !template.image) {
         console.warn('跳过无效模板:', index, template);
         return;
       }
@@ -6101,7 +6101,7 @@ const ThumbnailLoader = {
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
       slide.dataset.loaded = 'false';
-      slide.dataset.thumbnail = template.thumbnail;
+      slide.dataset.image = template.image;
 
       const img = document.createElement('img');
       img.src = 'images/statics/loading88.gif';
@@ -6168,10 +6168,12 @@ const ThumbnailLoader = {
 
       if (shouldLoad) {
         const img = slide.querySelector('.slide-img');
-        const thumbnail = slide.dataset.thumbnail;
-        if (img && thumbnail && img.src.includes('loading88.gif')) {
-          const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnail) : thumbnail;
-          const fallbackUrl = thumbnail; // 本地路径作为回退
+        const imagePath = slide.dataset.image;
+        if (img && imagePath && img.src.includes('loading88.gif')) {
+          const templateData = templatesList[index];
+          const available = templateData ? getTemplateAvailability(templateData).available : true;
+          const imageUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(imagePath, available) : imagePath;
+          const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(imagePath, available) : imagePath;
           
           ThumbnailLoader.loadThumbnail(img, imageUrl, fallbackUrl, loadId, index).then(success => {
             if (success) {
@@ -6594,11 +6596,11 @@ const ThumbnailLoader = {
           const templateImg = document.createElement('img');
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail loading';
-          templateImg.dataset.originalPath = template.thumbnail;
+          templateImg.dataset.originalPath = template.image;
           
-          // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
-          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          const fallbackUrl = template.thumbnail; // 本地路径作为回退
+          // 获取缩略图URL（开放模板用-86thumb，未开放用-20thumb）
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
+          const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(template.image, availability.available) : template.image;
           
           // 添加到加载队列
           loadQueue.push({
@@ -6804,11 +6806,11 @@ const ThumbnailLoader = {
           const templateImg = document.createElement('img');
           templateImg.alt = template.name;
           templateImg.className = 'template-thumbnail loading';
-          templateImg.dataset.originalPath = template.thumbnail;
+          templateImg.dataset.originalPath = template.image;
           
-          // 获取图片URL（不提前调用getFallbackUrl，由ThumbnailLoader在加载失败时处理）
-          const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(template.thumbnail) : template.thumbnail;
-          const fallbackUrl = template.thumbnail; // 本地路径作为回退
+          // 获取缩略图URL（开放模板用-86thumb，未开放用-20thumb）
+          const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
+          const fallbackUrl = window.imageConfig ? window.imageConfig.getThumbnailPath(template.image, availability.available) : template.image;
           
           // 添加到加载队列
           loadQueue.push({
@@ -7005,7 +7007,7 @@ const ThumbnailLoader = {
       slide.className = 'template-gallery-slide hidden-slide';
       slide.dataset.index = index;
       slide.dataset.loaded = 'false';
-      slide.dataset.thumbnail = template.thumbnail;
+      slide.dataset.image = template.image;
 
       const img = document.createElement('img');
       img.src = 'images/statics/loading88.gif';
@@ -15451,16 +15453,17 @@ window.textTemplateManager = {
       }
       
       const randomTemplate = matchedTemplates[Math.floor(Math.random() * matchedTemplates.length)];
-      console.log('找到模板:', type, '->', festivalType, randomTemplate.thumbnail);
-      return randomTemplate.thumbnail;
+      console.log('找到模板:', type, '->', festivalType, randomTemplate.image);
+      return randomTemplate.image;
     }
     
-    // 设置按钮背景图片
+    // 设置按钮背景图片（使用缩略图，避免下载原图）
     function setButtonBackground(button, type) {
       const localPath = getRandomBackgroundImage(type);
       if (localPath) {
         // 日常海报（dairy）固定使用本地图片，不走 cloudflare
-        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath);
+        // 其他类型使用缩略图（-86thumb后缀）
+        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getThumbnailUrl(localPath, true) : localPath);
         const wrapper = button.closest('.button-wrapper');
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);

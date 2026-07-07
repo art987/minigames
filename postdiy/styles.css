@@ -9769,7 +9769,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 /* ========== æ¨¡æ¿é”å®šæ ·å¼ ========== */
 .template-thumbnail.blurred {
-  filter: blur(0px);
+  filter: blur(2px);
   opacity: 1;
 }
 

@@ -861,12 +861,10 @@ function createTemplateCard(template) {
   // 检查模板是否可用（当月+2月以内可用）
   const availability = getTemplateAvailability(template);
   
-  // 卡片内容
-  const thumbnailPath = template.thumbnail || template.image;
-  // 优先使用 Cloudflare CDN 地址（与节日模板库弹窗一致）
-  // 注意：不要调用 getFallbackUrl()，因为它会把 Cloudflare URL 加入 failedImages 集合，
-  // 导致后续 getImageUrl 误判为失败而回退到本地。回退由 img error 事件处理。
-  const thumbnailUrl = window.imageConfig ? window.imageConfig.getImageUrl(thumbnailPath) : thumbnailPath;
+  // 使用模板原图生成缩略图（开放模板用-86thumb，未开放用-20thumb）
+  const imagePath = template.image;
+  const thumbnailUrl = window.imageConfig ? window.imageConfig.getThumbnailUrl(imagePath, availability.available) : imagePath;
+  const thumbnailPath = window.imageConfig ? window.imageConfig.getThumbnailPath(imagePath, availability.available) : imagePath;
   
   if (!availability.available) {
     card.classList.add('template-locked');
@@ -1140,16 +1138,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       const randomTemplate = matchedTemplates[Math.floor(Math.random() * matchedTemplates.length)];
-      console.log('找到模板:', type, '->', festivalType, randomTemplate.thumbnail);
-      return randomTemplate.thumbnail;
+      console.log('找到模板:', type, '->', festivalType, randomTemplate.image);
+      return randomTemplate.image;
     }
 
-    // 设置按钮背景图片
+    // 设置按钮背景图片（使用缩略图，避免下载原图）
     function setButtonBackground(button, type) {
       const localPath = getRandomBackgroundImage(type);
       if (localPath) {
         // 日常海报（dairy）固定使用本地图片，不走 cloudflare
-        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getImageUrl(localPath) : localPath);
+        // 其他类型使用缩略图（-86thumb后缀）
+        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getThumbnailUrl(localPath, true) : localPath);
         const wrapper = button.closest('.button-wrapper');
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);

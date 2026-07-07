@@ -1120,16 +1120,17 @@
                 const slide = document.createElement('div');
                 slide.className = 'template-gallery-slide';
                 slide.dataset.index = index;
-                slide.dataset.thumbnail = template.thumbnail;
+                slide.dataset.image = template.image;
 
                 const img = document.createElement('img');
                 // 使用占位符，不立即加载图片
                 img.src = '../images/statics/loading88.gif';
                 img.alt = template.name;
                 img.className = 'slide-img';
-                // 只使用 cloudflare 图片链接（不回退到本地）
-                const cloudflareBaseUrl = (typeof imageConfig !== 'undefined' && imageConfig.cloudflareBaseUrl) ? imageConfig.cloudflareBaseUrl : '';
-                img.dataset.realSrc = cloudflareBaseUrl + template.thumbnail;
+                // 使用原图生成缩略图URL（开放模板用-86thumb）
+                const availability = getTemplateAvailability(template);
+                const thumbnailUrl = (typeof imageConfig !== 'undefined') ? imageConfig.getThumbnailUrl(template.image, availability.available) : template.image;
+                img.dataset.realSrc = thumbnailUrl;
 
                 const name = document.createElement('div');
                 name.className = 'slide-name';
