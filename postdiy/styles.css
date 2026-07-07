@@ -1415,7 +1415,18 @@ footer {
 .trigger-bottom.show .trigger-hint {
   opacity: 1;
 }
-/* ========== ç»“æŸ ========== */
+
+/* 防止文字被选择 */
+.trigger-left,
+.trigger-top,
+.trigger-bottom,
+.trigger-hint {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+/* ========== 结束 ========== */
 
 /* Ã¦ÂµÂ·Ã¦Å Â¥Ã¤ÂºÅ’Ã§Â»Â´Ã§Â ÂÃ¦Â Â·Ã¥Â¼Â */
 #posterQrcode {
@@ -6243,6 +6254,10 @@ input.hidden {
 /* Ã¤Â½Â¿Ã¦ÂµÂ·Ã¦Å Â¥Ã¤Â¸Å Ã§Å¡â€žÃ¤Â¿Æ’Ã©â€â‚¬Ã¤Â¿Â¡Ã¦ÂÂ¯Ã¥ÂÂ¯Ã§â€šÂ¹Ã¥â€¡Â» */
 .poster-promo-text {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .poster-promo-text:hover {

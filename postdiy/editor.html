@@ -1077,7 +1077,7 @@
   <!-- <script src="text-templates.js"></script> -->
 
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js?v=20260707j" defer></script>
+  <script src="editor-script.js?v=20260707m" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">
@@ -1217,6 +1217,20 @@
         element.addEventListener('mouseleave', () => hide(element));
         // 点击时也强制显示（解决鼠标已在区域内时 mouseenter 不触发的问题）
         element.addEventListener('mousedown', () => show(element));
+        // 双击触发对应功能
+        element.addEventListener('dblclick', () => {
+          const action = element.dataset.action;
+          if (action === 'template') {
+            const btn = document.getElementById('changeTemplateBtn');
+            if (btn) btn.click();
+          } else if (action === 'upload') {
+            const btn = document.getElementById('uploadBackgroundBtn');
+            if (btn) btn.click();
+          } else if (action === 'camera') {
+            const btn = document.getElementById('takePhotoBtn');
+            if (btn) btn.click();
+          }
+        });
       }
 
       if (left) setupDesktopEvents(left);

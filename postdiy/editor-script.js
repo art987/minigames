@@ -6502,17 +6502,42 @@ const ThumbnailLoader = {
     
     // 清除自定义背景，使用新模板的背景
     state.customBackground = null;
-    
+
     // 更新当前模板状态
     state.currentTemplate = template;
-    
+
+    // 清除用户添加的所有装饰元素（贴纸、相框等）
+    if (window.stickerManager) {
+      window.stickerManager.clearAllStickers();
+    }
+
+    // 清除相框（直接清除 DOM 元素）
+    const frameElement = document.getElementById('posterFrameCover');
+    if (frameElement) {
+      frameElement.remove();
+    }
+    // 清除相框状态
+    state.currentFrame = null;
+    state.pendingFrame = null;
+    state.frameColorAdjust = { hue: 0, saturation: 0, contrast: 0 };
+    state.pendingFrameColorAdjust = { hue: 0, saturation: 0, contrast: 0 };
+
+    // 清除用户添加的文字元素
+    if (window.textElements) {
+      window.textElements = [];
+    }
+    const posterFrame = document.getElementById('posterFrame');
+    if (posterFrame) {
+      posterFrame.querySelectorAll('.canvas-text, .text-control').forEach(el => el.remove());
+    }
+
     // 使用 History API 更新URL但不刷新页面
     const newUrl = `editor.html?templateId=${template.id}`;
     window.history.pushState({ templateId: template.id }, '', newUrl);
-    
+
     // 关闭模板选择弹窗
     closeTemplateModal();
-    
+
     // 直接更新模板显示（不刷新页面）
     updateTemplateDisplay();
   }
@@ -11130,7 +11155,23 @@ function updateBusinessInfoButtonForVip() {
       this.stickerCount = 0;
       this.autoHideTimer = null;
     },
-    
+
+    // 清除所有贴纸（切换模板时调用）
+    clearAllStickers: function() {
+      // 清空贴纸数组
+      this.stickers = [];
+      this.selectedStickerId = null;
+
+      // 清除 DOM 中的所有贴纸元素
+      const posterFrame = document.getElementById('posterFrame');
+      if (posterFrame) {
+        const existingStickers = posterFrame.querySelectorAll('.sticker, .sticker-control');
+        existingStickers.forEach(el => el.remove());
+      }
+
+      console.log('已清除所有贴纸');
+    },
+
     // 重置自动隐藏计时器
     resetAutoHideTimer: function() {
       // 清除现有计时器
