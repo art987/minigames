@@ -1,0 +1,903 @@
+
+        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe4e7 50%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, -2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+
+        .container {
+            max-width: 420px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 玻璃卡片基础样式 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* 页面标题 */
+        .page-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+        }
+
+        .page-title .subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+            letter-spacing: 3px;
+        }
+
+        /* 日期导航栏 */
+        .date-nav {
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        /* 日期头部 */
+        .date-header {
+            position: relative;
+            text-align: center;
+            padding: 12px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .date-header .nav-btn.float-left {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .date-header .nav-btn.float-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .date-header .date-display {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #181818;
+            padding: 8px 80px;
+        }
+
+        /* 日期头部（在main-info-card内部） */
+       
+
+        .nav-btn.float-left {
+            position: absolute;
+            left: -15px;
+            top: 30%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px #c13b3b52;
+            text-indent: -14px;
+        }
+
+        .nav-btn.float-right {
+            position: absolute;
+            right: -15px;
+            top: 30%;
+            box-shadow: 0 0 10px #c13b3b52;
+            text-indent: 7px;
+            transform: translateY(-50%);
+        }
+
+         .date-display {
+            /* display: inline-block; */
+            font-size: 16px;
+            font-weight: 600;
+            color: #181818;
+            padding: 8px 80px;
+        }
+
+        .nav-btn {
+            padding: 4px 5px;
+            font-size: 24px;
+            font-weight: 500;
+            height: 56px;
+            display: block;
+            width: 37px;
+            border: none;
+            border-radius: 27px;
+            cursor: pointer;
+            background: rgb(255 255 255 / 27%);
+            color: #000000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgb(255 255 255 / 68%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        .date-display {
+            /* flex: 1; */
+            padding: 0;
+            width: 200px;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #181818;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 顶部按钮栏 */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .top-bar .date-display {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #181818;
+            padding: 0;
+            width: auto;
+        }
+
+        .top-btn {
+            padding: 3px 7px;
+            position: absolute;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 9999;
+            top: 13px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .top-btn:hover {
+            background: rgba(102, 126, 234, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .top-btn.today-btn {
+            background: rgb(198 15 15 / 55%);
+            color: #ffffff;
+            border-color: rgb(255 255 255);
+            left: 42%;
+            top: 76px;
+        }
+
+        .top-btn.today-btn:hover {
+            background: rgba(52, 199, 89, 0.25);
+        }
+
+        .top-btn.calendar-btn {
+            background: rgb(255 244 226 / 15%);
+            color: #e30000;
+            border-color: rgb(189 178 161 / 30%);
+            right: 42%;
+            padding: 5px 13px;
+            font-size: 14px;
+        }
+
+        .top-btn.calendar-btn:hover {
+            background: rgba(255, 159, 10, 0.25);
+        }
+
+        /* 日期导航行 */
+        .date-nav-row {
+            position: relative;
+            height: 56px;
+            margin-bottom: 10px;
+        }
+
+        .date-nav-row .nav-btn.float-left {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .date-nav-row .nav-btn.float-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* 万年历弹窗 */
+        .calendar-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-modal.show {
+            display: flex;
+        }
+
+        .calendar-modal-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .calendar-modal .calendar-card {
+            position: relative;
+            z-index: 1;
+            max-width: 420px;
+            width: calc(100% - 30px);
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .cal-close {
+            background: rgba(255, 59, 48, 0.15) !important;
+            color: #ff3b30 !important;
+            border-color: rgba(255, 59, 48, 0.3) !important;
+        }
+
+        /* 主信息卡 - 上下布局 */
+        .main-info-card {
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        /* 上部分 - 左中右布局 */
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr 12fr 1fr;
+            gap: 12px;
+            min-height: 344px;
+            width: 77px;
+        }
+
+        .side-yiji {
+            padding: 15px 10px;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 77px;
+            min-height: 200px;
+        }
+
+        .side-yiji.yi {
+            /* background: rgba(52, 199, 89, 0.15); */
+            /* border: 1px solid rgba(52, 199, 89, 0.3); */
+        }
+
+        .side-yiji.ji {
+            /* background: rgba(255, 59, 48, 0.15); */
+            /* border: 1px solid rgba(255, 59, 48, 0.3); */
+        }
+
+        .side-yiji-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border: 1px solid;
+            letter-spacing: 4px;
+            padding: 2px 5px 5px 8px;
+            border-radius: 22px;
+        }
+
+        .side-yiji.yi .side-yiji-title {
+            color: #038123;
+        }
+
+        .side-yiji.ji .side-yiji-title {
+            color: #da1005;
+        }
+
+        .side-yiji-tags {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .side-yiji-tag {
+            padding: 4px 0px;
+            font-size: 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .side-yiji.yi .side-yiji-tag {
+            color: #248a3d;
+        }
+
+        .side-yiji.ji .side-yiji-tag {
+            color: #c9342a;
+        }
+
+        /* 中间日期部分 */
+        .center-date {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 200px;
+        }
+
+        .date-big {
+            font-family: 'ge', -apple-system, sans-serif;
+            font-size: 150px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .date-big.saturday {
+            color: #34c759;
+            text-shadow: 0 4px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        .date-big.sunday {
+            color: #ff3b30;
+            text-shadow: 0 4px 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .date-big.festival {
+            color: #ff3b30;
+            text-shadow: 0 4px 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .date-big.weekday {
+            color: #1c1c1e;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .weekday-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: rgb(0 0 0 / 91%);
+            margin-bottom: 8px;
+            letter-spacing: 4px;
+        }
+
+        .lunar-date-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: rgb(0 0 0 / 88%);
+            margin-bottom: 8px;
+            font-family: 'kx', serif;
+        }
+
+        .ganzhi-text {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .festival-badge {
+            display: inline-block;
+            margin-bottom: 8px;
+            margin-top: 8px;
+            padding: 6px 18px;
+            background: rgb(255 59 48 / 0%);
+            color: #ec0d00;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 信息卡片 */
+        .info-card {
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.8);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+            margin-right: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+        }
+
+        .bottom-info .info-item {
+            padding: 9px 0px;
+        }
+
+        .bottom-info .info-label {
+            font-size: 13px;
+        }
+
+        .bottom-info .info-value {
+            font-size: 12px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 12px 0px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgb(242 157 157 / 50%);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: rgb(202 0 0);
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.85);
+        }
+
+        /* 彭祖百忌 */
+        .pengzu-card {
+            padding: 20px;
+            margin-bottom: 16px;
+            background: rgba(255, 204, 0, 0.2);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .pengzu-card .card-title {
+            color: rgba(150, 120, 0, 0.9);
+        }
+
+        .pengzu-card .card-title::before {
+            background: linear-gradient(180deg, #ffcc00 0%, #ff9500 100%);
+        }
+
+        .pengzu-content {
+            padding: 7px 14px;
+            margin: 10px 0;
+            background: rgb(255 255 255 / 69%);
+            border: 1px solid rgb(240 201 167 / 37%);
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgb(175 0 0 / 82%);
+            font-family: 'kx', serif;
+            font-weight:bold;
+            letter-spacing: 1px;
+            margin-top: 11px;
+            border-radius: 13px;
+        }
+.pengzu-content b{margin:0 9px;font-weight:500;}
+
+        /* 宜忌卡片 */
+        .yiji-card {
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .yiji-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .yi-section, .ji-section {
+            padding: 15px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .yi-section {
+            background: rgba(52, 199, 89, 0.15);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+
+        .ji-section {
+            background: rgba(255, 59, 48, 0.15);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .yiji-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 4px;
+        }
+
+        .yi-section .yiji-title {
+            color: #34c759;
+        }
+
+        .ji-section .yiji-title {
+            color: #ff3b30;
+        }
+
+        .yiji-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .yiji-tag {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        .yi-section .yiji-tag {
+            color: #248a3d;
+        }
+
+        .ji-section .yiji-tag {
+            color: #c9342a;
+        }
+
+        .empty-text {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.4);
+            padding: 10px;
+        }
+
+        /* 吉神凶煞卡片 */
+        .shensha-card {
+            padding: 1px;
+            margin-bottom: 12px;
+        }
+
+        .shensha-section {
+            margin-bottom: 15px;
+        }
+
+        .shensha-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .shensha-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid;
+        }
+
+        .jishen .shensha-title {
+            color: #139735;
+            border-color: #34c759;
+        }
+
+        .xiongsha .shensha-title {
+            color: #d50b00;
+            border-color: #d5190e;
+        }
+
+        .shensha-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .shensha-tag {
+            padding: 4px 10px;
+            font-size: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+
+        .jishen .shensha-tag {
+            color: #248a3d;
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+
+        .xiongsha .shensha-tag {
+            color: #c9342a;
+            border: 1px solid rgba(255, 59, 48, 0.3);
+        }
+
+        /* 万年历卡片 */
+        .calendar-card {
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .calendar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .calendar-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cal-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.5);
+            color: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .cal-btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .calendar-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+
+        .calendar-table th {
+            padding: 8px 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .calendar-table td {
+            text-align: center;
+            padding: 6px 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            vertical-align: top;
+            min-height: 50px;
+        }
+
+        .calendar-table td:hover:not(.empty) {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .calendar-table td.empty {
+            cursor: default;
+        }
+
+        .cal-day {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .cal-lunar {
+            font-size: 10px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-top: 2px;
+        }
+
+        .cal-festival {
+            font-size: 9px;
+            color: #ff3b30;
+            margin-top: 1px;
+            font-weight: 500;
+        }
+
+        /* 周六 */
+        .calendar-table td.saturday .cal-day {
+            color: #34c759;
+        }
+
+        /* 周日 */
+        .calendar-table td.sunday .cal-day {
+            color: #ff3b30;
+        }
+
+        /* 节日 */
+        .calendar-table td.festival .cal-day {
+            color: #ff3b30;
+        }
+
+        .calendar-table td.highlight {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .calendar-table td.highlight .cal-day,
+        .calendar-table td.highlight .cal-lunar,
+        .calendar-table td.highlight .cal-festival {
+            color: white;
+        }
+
+        .calendar-table td.highlight .cal-festival {
+            color: #ffcc00;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        /* 加载动画 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 420px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .date-big {
+                font-size: 80px;
+            }
+
+            .weekday-text {
+                font-size: 16px;
+            }
+
+            .lunar-date-text {
+                font-size: 18px;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .info-item {
+                padding: 10px 6px;
+            }
+
+            .info-value {
+                font-size: 13px;
+            }
+
+            .yiji-tag {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+
+            .calendar-table th {
+                font-size: 11px;
+            }
+
+            .cal-day {
+                font-size: 14px;
+            }
+
+            .cal-lunar {
+                font-size: 9px;
+            }
+
+            .cal-festival {
+                font-size: 8px;
+            }
+        }
+  

@@ -15536,26 +15536,13 @@ window.textTemplateManager = {
     
     if (!homePopup) return;
     
-    // 标题轮替功能
-    let titleRotationInterval = null;
-    let currentTitleIndex = 0;
-    
-    function startTitleRotation() {
-      const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
-      if (titleTexts.length < 2) return;
-      
-      titleRotationInterval = setInterval(() => {
-        titleTexts[currentTitleIndex].classList.remove('active');
-        currentTitleIndex = (currentTitleIndex + 1) % titleTexts.length;
-        titleTexts[currentTitleIndex].classList.add('active');
-      }, 5000);
+    // 标题不再需要动画，改为静态显示"智能提醒小助手"
+    function startTypewriterAnimation() {
+      // 不需要动画，标题已在HTML中静态显示
     }
     
-    function stopTitleRotation() {
-      if (titleRotationInterval) {
-        clearInterval(titleRotationInterval);
-        titleRotationInterval = null;
-      }
+    function stopTypewriterAnimation() {
+      // 不需要动画
     }
     
     // 初始化标题波浪动画：将文字拆分成单字符并添加韵律延迟
@@ -15612,7 +15599,7 @@ window.textTemplateManager = {
       }
       
       homePopup.classList.remove('hidden');
-      startTitleRotation();
+      startTypewriterAnimation();
       
       requestAnimationFrame(() => {
         if (homePopupModal) {
@@ -15736,7 +15723,7 @@ window.textTemplateManager = {
     // 关闭弹窗
     function closeHomePopup() {
       homePopup.classList.add('hidden');
-      stopTitleRotation();
+      stopTypewriterAnimation();
     }
     
     // 关闭按钮点击事件

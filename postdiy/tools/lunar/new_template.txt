@@ -1,0 +1,82 @@
+let html = `
+                <div class="glass-card main-info-card">
+                    <div class="date-header">
+                        <button class="nav-btn float-left" onclick="changeDay(-1)">← 前一天</button>
+                        <span class="date-display">${year}年${month}月${day}日</span>
+                        <button class="nav-btn float-right" onclick="changeDay(1)">后一天 →</button>
+                    </div>
+                    <div class="top-section">
+                        <div class="side-yiji yi">
+                            <div class="side-yiji-title">宜</div>
+                            <div class="side-yiji-tags">
+                                ${yi.length > 0 ? yi.slice(0, 8).map(item => `<div class="side-yiji-tag">${item}</div>`).join('') : '<div class="empty-text">诸事皆宜</div>'}
+                            </div>
+                        </div>
+                        <div class="center-date">
+                            <div class="${dateClass}">${day}</div>
+                            <div class="weekday-text">${weekDay}</div>
+                            <div class="lunar-date-text">农历${lunarMonthDay}</div>
+                            <div class="ganzhi-text">${yearGanZhi}${yearShengXiao}年</div>
+                            ${festivalText ? `<div class="festival-badge">✦ ${festivalText} ✦</div>` : ''}
+                        </div>
+                        <div class="side-yiji ji">
+                            <div class="side-yiji-title">忌</div>
+                            <div class="side-yiji-tags">
+                                ${ji.length > 0 ? ji.slice(0, 8).map(item => `<div class="side-yiji-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">五行</div>
+                            <div class="info-value">${dayNaYin}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">冲煞</div>
+                            <div class="info-value">${chongDesc}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">煞向</div>
+                            <div class="info-value">煞${sha}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">喜神</div>
+                            <div class="info-value">${xiShen}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">福神</div>
+                            <div class="info-value">${fuShen}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">财神</div>
+                            <div class="info-value">${caiShen}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card pengzu-card">
+                    <div class="card-title">彭祖百忌</div>
+                    <div class="pengzu-content">
+                        ${pengZuGan}<br>${pengZuZhi}
+                    </div>
+                </div>
+
+                <div class="glass-card shensha-card">
+                    <div class="card-title">吉神凶煞</div>
+                    <div class="shensha-section jishen">
+                        <div class="shensha-title">吉神宜趋</div>
+                        <div class="shensha-tags">
+                            ${jiShen.length > 0 ? jiShen.map(item => `<div class="shensha-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                        </div>
+                    </div>
+                    <div class="shensha-section xiongsha">
+                        <div class="shensha-title">凶煞宜忌</div>
+                        <div class="shensha-tags">
+                            ${xiongSha.length > 0 ? xiongSha.map(item => `<div class="shensha-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                        </div>
+                    </div>
+                </div>
+            `;
