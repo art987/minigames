@@ -1447,16 +1447,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (todayFestival) {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
-            挑选${todayFestival}模板
-          </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-          📷️日常记录海报
-          </button></div>
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">1，制作今日${todayFestival}海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
+              <span>挑选${todayFestival}模板</span>
+            </button></div>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+            <span>📷️日常记录海报</span>
+            </button></div>
+          </div>
         </div>
       `;
     } else if (isBefore930) {
@@ -1464,21 +1470,30 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日没有特别节日，您可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
-          ☀️挑选早安模板
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">1，制作今日早安海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
+          <span>☀️挑选早安模板</span>
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙挑选晚安模板
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">2，制作今日晚安海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          <span>🌙挑选晚安海报模板</span>
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
-          📷️日常记录海报
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">3，制作今日日常拍摄记录海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+          <span>📷️日常记录海报</span>
           </button></div>
+          </div>
         </div>
       `;
     } else {
@@ -1486,16 +1501,22 @@ document.addEventListener('DOMContentLoaded', function() {
        <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="wananBtn" data-action="wanan">
-          🌙挑选晚安模板
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">1，制作今日晚安海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="wananBtn" data-action="wanan">
+          <span>🌙挑选晚安海报模板</span>
           </button></div>
-          <div class="button-wrapper" style="flex: 1; min-width: 200px;">
-            <div class="dark-overlay"></div>
-            <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
-          📷️日常记录海报
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <div class="button-wrapper">
+              <div class="dark-overlay"></div>
+              <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
+          <span>📷️日常记录海报</span>
           </button></div>
+          </div>
         </div>
       `;
     }
@@ -1564,13 +1585,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let html = '';
     
     html += '<div class="future-suggestion-item">';
-    html += '<div class="future-suggestion-text">明天：</div>';
+    html += '<div class="future-suggestion-text">明天：<span class="festival-date">提前制作明日早安和晚安海报</span></div>';
     html += '<div class="future-suggestion-buttons">';
     
     if (!tomorrowFestival) {
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan">☀️挑选早安模板</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan"><span>☀️挑选早安模板</span></button></div>`;
     }
-    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan">🌙挑选晚安模板</button></div>`;
+    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan"><span>🌙挑选晚安海报模板</span></button></div>`;
     
     html += '</div></div>';
     
@@ -1595,7 +1616,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html += `<div class="future-suggestion-item">`;
       html += `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>`;
       html += `<div class="future-suggestion-buttons">`;
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">挑选${festival.name}模板</button></div>`;
+      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}"><span>挑选${festival.name}模板</span></button></div>`;
       html += '</div></div>';
     });
     
@@ -1701,7 +1722,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const itemHtml = `<div class="future-suggestion-item festival-item-animate">` +
             `<div class="future-suggestion-text"><strong>${daysText}${festival.name}</strong> <span class="festival-date">${dateStr}</span></div>` +
             `<div class="future-suggestion-buttons">` +
-            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}">选择模板</button></div>` +
+            `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn primary" data-action="festival" data-festival="${festival.name}"><span>选择模板</span></button></div>` +
             '</div></div>';
           
           // 在加载更多按钮前插入

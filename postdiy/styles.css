@@ -325,6 +325,14 @@ main {
   display: block;
 }
 
+.task-prefix {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #040404;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
 .festival-name {
   font-weight: 500;
 }
@@ -6423,8 +6431,7 @@ input.hidden {
   /* left: 50%; */
   width: min(90vw, 300px);
   height: min(calc(90vw * 2), 600px);
-background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529e 25%, #845ecd 32%, #796ed0 40%, #837add 50%, #80aedd 60%, #80c5df 68%, #c1afe4 75%, #e0b5ff 82%, #eae27a 90%, #ef8c57 100%);
-
+  background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529e 25%, #845ecd 32%, #796ed0 40%, #837add 50%, #80aedd 60%, #80c5df 68%, #c1afe4 75%, #e0b5ff 82%, #f9a3a3 90%, #f27b3b 100%);
   /*background: linear-gradient(45deg,  #5fe5de, #8dbcf9, #cdb3ff, #ffa3f2, #f7a1a1); */
   background-size: 400% 400%;
   display: flex;
@@ -6651,7 +6658,7 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 }
 
 .loading-logo {
-  width: 50px;
+  width: 54px;
   z-index: 999;
   height: 50px;
   /* animation: borderGradient 3s ease infinite; */
@@ -6667,13 +6674,13 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
   position: absolute;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
+  /* background: linear-gradient(33deg, #ffffff00, #ffffff87); */
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-size: 24px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 0 20px rgb(235 117 117 / 50%);
   opacity: 0.9;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
@@ -7383,7 +7390,22 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
   filter: blur(2px);
 }
 
-/* Ã¥â€œÂÃ§â€°Å’Ã¦â€”Â¥Ã¥Â¸Â¸Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
+/* 按钮内文字背景样式 */
+.home-popup-btn span,
+.future-suggestion-btn span {
+  backdrop-filter: blur(2px);
+  border-radius: 1px;
+  border-top: 1px solid #ffffff12;
+  border-bottom: 1px solid #ffffff1c;
+  padding: 5px 23px;
+  font-size: 19px;
+  display: inline-block;
+  /* 左右20%渐变透明效果 */
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+/* Ã¥â€œÂÃ§â€°Å’Ã¦â€”Â¥Ã¥Â¸Â¸Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â¸ */
 .home-popup-btn[data-action="dairy"] {
   color: white;
   position: relative;
@@ -7455,7 +7477,7 @@ background: linear-gradient(180deg, #000000 0%, #0c2461 10%, #253c98 18%, #5f529
 }
 
 .future-suggestion-text .festival-date {
-  color: #888;
+  color: #0a0a0a;
   font-size: 12px;
   font-weight: normal;
   margin-left: 4px;
@@ -9992,7 +10014,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 /* ========== æ¨¡æ¿é”å®šæ ·å¼ ========== */
 .template-thumbnail.blurred {
-  filter: blur(4px);
+  filter: blur(2px);
   opacity: 1;
 }
 
@@ -10013,19 +10035,22 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 .lock-big-text {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   color: #000000;
   text-shadow: 0 1px 0px rgb(255 255 255);
   margin-bottom: 4px;
-  background: #ffffffa6;
-  /* border: 1px solid #fff; */
-  padding: 0 10px;
+  background: #ffffff82;
+  border: 1px solid #fff;
+  padding: 0 32px;
   box-shadow: 0 0 10px #545454;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  /* display: inline-block; */
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 56%, black 80%, transparent 100%);
 }
 
 .lock-small-text {
-  font-size: 10px;
+  font-size: 11px;
   color: rgb(0 0 0 / 85%);
   text-shadow: 0 1px 0px rgb(255 255 255);
   background
@@ -10035,11 +10060,14 @@ Shorthand property for setting most background properties at the same place in t
 äº†è§£è¯¦æƒ…
 
 ä¸æ˜¾ç¤º: #00000080;
-  padding: 6px 6px;
+  padding: 6px 16px;
   backdrop-filter: blur(7px);
   border-radius: 10px;
   background: #ffffff94;
   box-shadow: 0 0 10px #909090;
+  display: inline-block;
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
 .template-locked {
