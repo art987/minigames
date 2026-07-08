@@ -1320,6 +1320,9 @@ const ThumbnailLoader = {
     // 初始化DOM元素缓存
     initializeElements();
     
+    // 初始化主题设置（夜间/白天模式）
+    initTheme();
+    
     // 先从本地存储加载数据
     loadBusinessInfoFromLocalStorage();
     
@@ -1889,6 +1892,8 @@ const ThumbnailLoader = {
       downloadBtn: document.getElementById('downloadBtn'),
       togglePositionBtn: document.getElementById('togglePositionBtn'),
       toggleMenuBtn: document.getElementById('toggleMenuBtn'),
+      toggleThemeBtn: document.getElementById('toggleThemeBtn'),
+      themeIcon: document.getElementById('themeIcon'),
       bottomActions: document.getElementById('bottomActions'),
       dailySuggestionBtn: document.getElementById('dailySuggestionBtn'),
       
@@ -4314,6 +4319,11 @@ const ThumbnailLoader = {
       elements.toggleMenuBtn.addEventListener('click', toggleMenuVisibility);
     }
     
+    // 夜间模式切换按钮事件
+    if (elements.toggleThemeBtn) {
+      elements.toggleThemeBtn.addEventListener('click', toggleTheme);
+    }
+    
     // 阻止表单默认提交
     if (elements.businessInfoForm) {
       elements.businessInfoForm.addEventListener('submit', function(e) {
@@ -4338,6 +4348,59 @@ const ThumbnailLoader = {
       elements.bottomActions.classList.add('left-position');
       elements.togglePositionBtn.querySelector('span').textContent = '靠右';
       localStorage.setItem('actionsPosition', 'left');
+    }
+  }
+  
+  // 夜间模式切换功能
+  function toggleTheme() {
+    const body = document.body;
+    const isDarkMode = body.id === 'darkbg';
+    
+    if (isDarkMode) {
+      // 切换到白天模式
+      body.id = '';
+      if (elements.themeIcon) {
+        elements.themeIcon.textContent = '☀️';
+      }
+      if (elements.toggleThemeBtn) {
+        elements.toggleThemeBtn.title = '切换夜间模式';
+      }
+      localStorage.setItem('postdiy_theme', 'light');
+    } else {
+      // 切换到夜间模式
+      body.id = 'darkbg';
+      if (elements.themeIcon) {
+        elements.themeIcon.textContent = '🌙';
+      }
+      if (elements.toggleThemeBtn) {
+        elements.toggleThemeBtn.title = '切换白天模式';
+      }
+      localStorage.setItem('postdiy_theme', 'dark');
+    }
+  }
+  
+  // 初始化主题设置（从localStorage读取）
+  function initTheme() {
+    const savedTheme = localStorage.getItem('postdiy_theme');
+    const body = document.body;
+    
+    if (savedTheme === 'dark') {
+      body.id = 'darkbg';
+      if (elements.themeIcon) {
+        elements.themeIcon.textContent = '🌙';
+      }
+      if (elements.toggleThemeBtn) {
+        elements.toggleThemeBtn.title = '切换白天模式';
+      }
+    } else {
+      // 默认白天模式
+      body.id = '';
+      if (elements.themeIcon) {
+        elements.themeIcon.textContent = '☀️';
+      }
+      if (elements.toggleThemeBtn) {
+        elements.toggleThemeBtn.title = '切换夜间模式';
+      }
     }
   }
   
@@ -4685,68 +4748,120 @@ const ThumbnailLoader = {
       const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
       elements.posterBackground.src = imageUrl;
       elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
+      
+      // 4秒超时检测：Cloudflare加载超时则回退七牛
+      if (window.imageConfig && imageUrl.includes('r2.dev')) {
+        const timeoutId = setTimeout(() => {
+          // 检查图片是否已加载完成
+          if (!elements.posterBackground.complete) {
+            console.warn('Cloudflare加载超时(4秒)，切换到七牛');
+            const qiniuUrl = window.imageConfig.qiniuBaseUrl + state.currentTemplate.image;
+            elements.posterBackground.src = qiniuUrl;
+          }
+        }, 4000);
+        
+        // 图片加载完成后清除超时检测
+        elements.posterBackground.onload = function() {
+          clearTimeout(timeoutId);
+          console.log('背景图片加载完成');
+          
+          // 等待所有元素加载完成
+          waitForAllElementsLoaded().then(() => {
+            // 显示所有海报内容
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            
+            // 应用科技感过渡效果
+            applyTechTransitionEffect();
+            
+            // 立即隐藏加载动画
+            hideTemplateLoadingAnimation();
+            console.log('所有元素加载完成，加载动画已关闭');
+          });
+        };
+        
+        elements.posterBackground.onerror = function() {
+          clearTimeout(timeoutId);
+          console.error('背景图片加载失败');
+
+          const originalPath = this.getAttribute('data-original-path');
+          if (originalPath && window.imageConfig) {
+            // 直接回退到七牛，不回退本地
+            const qiniuUrl = window.imageConfig.qiniuBaseUrl + originalPath;
+            if (this.src !== qiniuUrl) {
+              console.log('回退到七牛:', qiniuUrl);
+              this.src = qiniuUrl;
+              return;
+            }
+          }
+          
+          console.error('无法加载图片，显示错误状态');
+          
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            
+            hideTemplateLoadingAnimation();
+          });
+        };
+      } else {
+        // 非Cloudflare URL，使用原有逻辑
+        elements.posterBackground.onload = function() {
+          console.log('背景图片加载完成');
+          
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            
+            applyTechTransitionEffect();
+            hideTemplateLoadingAnimation();
+            console.log('所有元素加载完成，加载动画已关闭');
+          });
+        };
+        
+        elements.posterBackground.onerror = function() {
+          console.error('背景图片加载失败');
+
+          const originalPath = this.getAttribute('data-original-path');
+          if (originalPath && window.imageConfig) {
+            if (!window.imageConfig.shouldFallback()) {
+              console.warn('cloudflare-only 模式，不回退本地路径');
+              return;
+            }
+            const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
+            if (fallbackUrl && this.src !== fallbackUrl) {
+              console.log('回退到本地路径:', fallbackUrl);
+              this.src = fallbackUrl;
+              return;
+            }
+          }
+          
+          console.error('无法回退到本地路径，显示错误状态');
+          
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            
+            hideTemplateLoadingAnimation();
+          });
+        };
+      }
     } else {
       console.warn('没有可用的图片资源');
-      // 如果没有图片资源，立即隐藏动画
       hideTemplateLoadingAnimation();
-      // 显示海报内容
       if (posterContent) {
         posterContent.style.display = 'flex';
       }
       return;
     }
-    
-    // 监听图片加载完成事件
-    elements.posterBackground.onload = function() {
-      console.log('背景图片加载完成');
-      
-      // 等待所有元素加载完成
-      waitForAllElementsLoaded().then(() => {
-        // 显示所有海报内容
-        elements.posterBackground.style.display = 'block';
-        if (posterContent) {
-          posterContent.style.display = 'flex';
-        }
-        
-        // 应用科技感过渡效果
-        applyTechTransitionEffect();
-        
-        // 立即隐藏加载动画
-        hideTemplateLoadingAnimation();
-        console.log('所有元素加载完成，加载动画已关闭');
-      });
-    };
-    
-    // 监听图片加载错误事件
-    elements.posterBackground.onerror = function() {
-      console.error('背景图片加载失败');
-
-      const originalPath = this.getAttribute('data-original-path');
-      if (originalPath && window.imageConfig) {
-        // cloudflare-only 模式不回退本地，避免向 GitHub Pages 发 404
-        if (!window.imageConfig.shouldFallback()) {
-          console.warn('cloudflare-only 模式，不回退本地路径');
-          return;
-        }
-        const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
-        if (fallbackUrl && this.src !== fallbackUrl) {
-          console.log('回退到本地路径:', fallbackUrl);
-          this.src = fallbackUrl;
-          return;
-        }
-      }
-      
-      console.error('无法回退到本地路径，显示错误状态');
-      
-      waitForAllElementsLoaded().then(() => {
-        elements.posterBackground.style.display = 'block';
-        if (posterContent) {
-          posterContent.style.display = 'flex';
-        }
-        
-        hideTemplateLoadingAnimation();
-      });
-    };
   }
   
   // 等待所有元素加载完成的函数
@@ -15611,6 +15726,53 @@ window.textTemplateManager = {
         showHomePopup(); // 显示弹窗
       });
     }
+    
+    // 文字循环切换动画："今日"(1.5秒) → "任务"(2秒) → 循环
+    let dailyTextTimer = null;
+    let showingTodayText = true; // true: 显示"今日", false: 显示"任务"
+    
+    function startDailyTextRotation() {
+      const textElement = document.querySelector('.daily-task-text');
+      if (!textElement) return;
+      
+      // 清除之前的定时器
+      if (dailyTextTimer) {
+        clearTimeout(dailyTextTimer);
+      }
+      
+      if (showingTodayText) {
+        // 显示"今日" 1.5秒
+        textElement.textContent = '今日';
+        textElement.style.opacity = '1';
+        dailyTextTimer = setTimeout(() => {
+          // 添加淡出效果，实现平滑切换
+          textElement.style.opacity = '0';
+          setTimeout(() => {
+            textElement.textContent = '任务';
+            textElement.style.opacity = '1';
+            showingTodayText = false;
+            startDailyTextRotation();
+          }, 300);
+        }, 1500);
+      } else {
+        // 显示"任务" 2秒
+        textElement.textContent = '任务';
+        textElement.style.opacity = '1';
+        dailyTextTimer = setTimeout(() => {
+          // 添加淡出效果，实现平滑切换
+          textElement.style.opacity = '0';
+          setTimeout(() => {
+            textElement.textContent = '今日';
+            textElement.style.opacity = '1';
+            showingTodayText = true;
+            startDailyTextRotation();
+          }, 300);
+        }, 2000);
+      }
+    }
+    
+    // 初始化文字循环动画
+    startDailyTextRotation();
   
     // 关闭弹窗
     function closeHomePopup() {

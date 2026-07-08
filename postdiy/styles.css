@@ -57,6 +57,22 @@ body {
       background-color: #ffffff;
 }
 
+#darkbg {
+      background-image: linear-gradient(to right, #7e7e7e24 1px, transparent 1px), linear-gradient(to bottom, #a5a5a514 1px, #00000000 1px);
+      background-size: 6px 6px;
+      background-color: #1e1e1e;
+}
+#darkbg .vip-menu-btn{  background: #0909097a;    color: #ffffff;border: 1px solid #e5e5e536;}
+#darkbg .daily-suggestion-btn {  background: #0909097a;    color: #ffffff;border: 1px solid #e5e5e529;}
+#darkbg .action-btn{    border: 1px solid #fefefe3b;     background-color: #ffffff00;    color: #e1e1e1fa;
+    text-shadow: 0 0 4px #000000f0;     backdrop-filter: blur(1px);}
+#darkbg #prevTemplateBtn,.#darkbg  #nextTemplateBtn, .#darkbg #changeTemplateBtn {
+    background-color: rgb(68 68 68 / 18%);    color: #e1e1e1;}
+#darkbg #changeTemplateBtn {background: linear-gradient(135deg, #ec91924d, #17e99821);}
+#darkbg #downloadBtn{  background: linear-gradient(135deg, #b30505, #142c6beb);    color: #ffffff;}  
+
+
+
 /* Ã§Â¼â€“Ã¨Â¾â€˜Ã¥â„¢Â¨Ã§â€°Â¹Ã¦Â®Å Ã¦Â Â·Ã¥Â¼Â */
 .editor-body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -1614,6 +1630,16 @@ footer {
 .toggle-menu-btn {
   font-size: 18px;
   font-weight: bold;
+}
+
+/* 夜间模式切换按钮 */
+.toggle-theme-btn {
+  font-size: 20px;
+}
+
+
+#themeIcon {
+  font-size: 18px;
 }
 
 /* Ã¥ÂÂ¯Ã¥Ë†â€¡Ã¦ÂÂ¢Ã¦Å’â€°Ã©â€™Â®Ã§Å¡â€žÃ©Å¡ÂÃ¨â€”ÂÃ§Å Â¶Ã¦â‚¬Â */
@@ -7323,8 +7349,8 @@ input.hidden {
 }
 
 .home-popup-divider {
-  height: 1px;
-  margin: 5px 0;
+  height: 10px;
+  margin: 15px 0;
 }
 
 /* Ã¤Â»Å Ã¦â€”Â¥Ã¥Ââ€˜Ã¥Â¸Æ’Ã¥â€ â€¦Ã¥Â®Â¹Ã¦Â Â·Ã¥Â¼Â */
@@ -8043,19 +8069,16 @@ button.future-suggestion-btn[data-action="wanan"] {
   background: #0000003d;
 }
 
-/* Ã¦Â¯ÂÃ¦â€”Â¥Ã¥Â»ÂºÃ¨Â®Â®Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â·Ã¥Â¼Â */
 .daily-suggestion-btn {
      display: inline-flex;
      align-items: center;
      justify-content: center;
-     color: white;
      background: #ffffff7a;
      color: #4a4a4a;
      border: 1px solid #e5e5e566;
      border-radius: 8px;
      padding: 2px 7px;
      backdrop-filter: blur(7px);
-     font-size: 20px;
      line-height: 20px;
      margin-top: 2px;
      font-weight: 600;
@@ -8075,10 +8098,18 @@ button.future-suggestion-btn[data-action="wanan"] {
    padding: 2px 0px;
    }
 
+/* 每日建议按钮文字动画样式 */
+.daily-task-text {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+    font-size: 12px;
+  padding: 4px 0px;
+}
+
 .daily-suggestion-btn:hover {  background: #fff;
   color:#d32f2f0; }
 
-/* Ã¦Â¯ÂÃ¦â€”Â¥Ã¥Â»ÂºÃ¨Â®Â®Ã¦Å’â€°Ã©â€™Â®Ã¥Â°ÂÃ§ÂºÂ¢Ã§â€šÂ¹Ã¦Â Â·Ã¥Â¼Â */
+
 .daily-suggestion-btn.has-red-dot {
   
 }
