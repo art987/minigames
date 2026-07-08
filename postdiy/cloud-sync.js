@@ -96,7 +96,7 @@ async function uploadImageToCloud(imageType, imageData) {
   }
   
   try {
-    console.log('开始上传 ' + imageType + ' 到云端...');
+    console.log('开始上传 ' + imageType + ' 到七牛云...');
     
     let compressedData = imageData;
     try {
@@ -105,56 +105,23 @@ async function uploadImageToCloud(imageType, imageData) {
       console.warn('图片压缩失败，使用原图:', compressErr);
     }
     
-    // 生成时间戳，确保每次上传的URL都不同
-    const timestamp = Date.now();
-    
-    // 同时上传到 Cloudflare R2 和腾讯云 COS
-    const cloudResult = await uploadToCloudflare(imageType, compressedData, timestamp);
-    const tencentResult = await uploadToTencent(imageType, compressedData, timestamp);
+    // 只上传到七牛云（不再上传到腾讯云和Cloudflare）
+    const qiniuResult = await uploadToQiniu(imageType, compressedData);
 
-    // 优先返回 Cloudflare URL，R2 失败时回退到腾讯云 URL
-    let finalUrl = cloudResult.success ? cloudResult.url : null;
-    let tencentUrl = tencentResult.success ? tencentResult.url : null;
-    let tencentFileID = tencentResult.success ? tencentResult.fileID : null;
-
-    // R2 失败时用腾讯云 URL 作为主 URL
-    if (!finalUrl && tencentUrl) {
-      console.warn('Cloudflare R2 上传失败，使用腾讯云 URL 作为主 URL');
-      finalUrl = tencentUrl;
+    // 七牛云上传失败才报错
+    if (!qiniuResult.success) {
+      return { success: false, error: '七牛云上传失败: ' + (qiniuResult.message || qiniuResult.error) };
     }
 
-    // 两个都失败才报错
-    if (!finalUrl) {
-      return { success: false, error: 'Cloudflare 和腾讯云上传均失败' };
-    }
-
-    if (finalUrl && !finalUrl.includes('?')) {
-      finalUrl = finalUrl + '?t=' + timestamp;
-    } else if (finalUrl && finalUrl.includes('?')) {
-      finalUrl = finalUrl + '&t=' + timestamp;
-    }
-
-    if (tencentUrl && !tencentUrl.includes('?')) {
-      tencentUrl = tencentUrl + '?t=' + timestamp;
-    } else if (tencentUrl && tencentUrl.includes('?')) {
-      tencentUrl = tencentUrl + '&t=' + timestamp;
-    }
+    // 云函数返回的URL已经带了时间戳，不需要重复添加
+    let finalUrl = qiniuResult.url;
 
     console.log(imageType + ' 上传成功:');
-    console.log('  主 URL:', finalUrl);
-    console.log('  腾讯云 URL:', tencentUrl);
-    console.log('  腾讯云 fileID:', tencentFileID);
-    
-    // 保存 fileID 到数据库
-    if (tencentFileID) {
-      await syncTencentFileIDToDB(imageType, tencentFileID);
-    }
+    console.log('  七牛云 URL:', finalUrl);
     
     return { 
       success: true, 
-      url: finalUrl,
-      tencentUrl: tencentUrl,
-      tencentFileID: tencentFileID
+      url: finalUrl
     };
   } catch (e) {
     console.error('上传 ' + imageType + ' 失败:', e);
@@ -220,6 +187,40 @@ async function uploadToTencent(imageType, imageData, timestamp) {
   } catch (e) {
     console.error('上传到腾讯云失败:', e)
     // 腾讯云上传失败不阻塞主流程
+    return { success: false, error: e.message }
+  }
+}
+
+// 上传到七牛云（userimage文件夹）
+async function uploadToQiniu(imageType, imageData) {
+  try {
+    console.log('开始上传 ' + imageType + ' 到七牛云...')
+    const response = await fetch(API_BASE_URL + '/user-update-image-qiniu', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: localStorage.getItem('postdiy_user_id'),
+        imageType,
+        imageData
+      })
+    });
+    
+    console.log('七牛云上传响应状态:', response.status)
+    
+    const result = await response.json()
+    console.log('七牛云上传响应数据:', result)
+    
+    if (result.success && result.data) {
+      console.log('七牛云上传成功，URL:', result.data.url)
+      console.log('七牛云上传成功，qiniuKey:', result.data.qiniuKey)
+      return { success: true, url: result.data.url, qiniuKey: result.data.qiniuKey }
+    }
+    
+    console.warn('七牛云上传失败:', result.message || '未知错误')
+    return { success: false, message: result.message }
+  } catch (e) {
+    console.error('上传到七牛云失败:', e)
+    // 七牛云上传失败不阻塞主流程
     return { success: false, error: e.message }
   }
 }
@@ -360,6 +361,31 @@ async function syncAndFillBusinessInfo(forceRefresh = false) {
         ...cloudResult.data,
         fetchedAt: Date.now()
       };
+      
+      // 优化：检测URL是否更新，清除旧缓存
+      const oldCacheKey = 'vipBusinessInfo_' + userId;
+      const oldCache = localStorage.getItem(oldCacheKey);
+      
+      if (oldCache) {
+        try {
+          const oldData = JSON.parse(oldCache);
+          // 比较URL时间戳或URL是否变化
+          const logoChanged = cloudResult.data.logoUrl && oldData.logoUrl !== cloudResult.data.logoUrl;
+          const qrcodeChanged = cloudResult.data.qrcodeUrl && oldData.qrcodeUrl !== cloudResult.data.qrcodeUrl;
+          
+          if (logoChanged || qrcodeChanged) {
+            console.log('检测到图片URL更新，清除旧缓存...');
+            // 清除图片缓存
+            localStorage.removeItem('poster_logo_base64');
+            localStorage.removeItem('poster_qrcode_base64');
+            localStorage.removeItem('poster_logo_meta');
+            localStorage.removeItem('poster_qrcode_meta');
+            console.log('图片缓存已清除，将加载最新图片');
+          }
+        } catch (e) {
+          console.log('比较旧缓存失败:', e);
+        }
+      }
       
       // 保存腾讯云 URL 和 fileID 到本地缓存
       if (cloudResult.data.logoTencentUrl) {
@@ -529,8 +555,8 @@ function updateCanvasDisplay(data) {
   }
 }
 
-// 同步Logo URL到云端（双存储）
-async function syncLogoUrlToCloud(logoUrl, tencentUrl = '', tencentFileID = '') {
+// 同步Logo URL到云端（只存储七牛云URL）
+async function syncLogoUrlToCloud(logoUrl) {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId || logoUrl === undefined) return;
   
@@ -540,17 +566,13 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '', tencentFileID = '') 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         userId, 
-        logoUrl,
-        logoTencentUrl: tencentUrl,
-        logoFileID: tencentFileID
+        logoUrl
       })
     });
     const result = await response.json();
     if (result.success) {
       console.log('Logo URL 已同步到用户信息:');
-      console.log('  Cloudflare:', logoUrl);
-      console.log('  腾讯云:', tencentUrl);
-      console.log('  腾讯云 fileID:', tencentFileID);
+      console.log('  七牛云:', logoUrl);
       
       const localCacheKey = 'businessInfoCache_' + userId;
       try {
@@ -558,8 +580,6 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '', tencentFileID = '') 
         if (cachedData) {
           const cache = JSON.parse(cachedData);
           cache.logoUrl = logoUrl;
-          cache.logoTencentUrl = tencentUrl;
-          cache.logoFileID = tencentFileID;
           cache.fetchedAt = Date.now();
           localStorage.setItem(localCacheKey, JSON.stringify(cache));
         }
@@ -572,8 +592,8 @@ async function syncLogoUrlToCloud(logoUrl, tencentUrl = '', tencentFileID = '') 
   }
 }
 
-// 同步二维码URL到云端（双存储）
-async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '', tencentFileID = '') {
+// 同步二维码URL到云端（只存储七牛云URL）
+async function syncQrcodeUrlToCloud(qrcodeUrl) {
   const userId = localStorage.getItem('postdiy_user_id');
   if (!userId || qrcodeUrl === undefined) return;
   
@@ -583,17 +603,13 @@ async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '', tencentFileID = 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         userId, 
-        qrcodeUrl,
-        qrcodeTencentUrl: tencentUrl,
-        qrcodeFileID: tencentFileID
+        qrcodeUrl
       })
     });
     const result = await response.json();
     if (result.success) {
       console.log('二维码 URL 已同步到用户信息:');
-      console.log('  Cloudflare:', qrcodeUrl);
-      console.log('  腾讯云:', tencentUrl);
-      console.log('  腾讯云 fileID:', tencentFileID);
+      console.log('  七牛云:', qrcodeUrl);
       
       const localCacheKey = 'businessInfoCache_' + userId;
       try {
@@ -601,8 +617,6 @@ async function syncQrcodeUrlToCloud(qrcodeUrl, tencentUrl = '', tencentFileID = 
         if (cachedData) {
           const cache = JSON.parse(cachedData);
           cache.qrcodeUrl = qrcodeUrl;
-          cache.qrcodeTencentUrl = tencentUrl;
-          cache.qrcodeFileID = tencentFileID;
           cache.fetchedAt = Date.now();
           localStorage.setItem(localCacheKey, JSON.stringify(cache));
         }

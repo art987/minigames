@@ -1,0 +1,10 @@
+{
+  "name": "user-update-image-qiniu",
+  "version": "1.0.0",
+  "description": "上传用户图片到七牛云",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "qiniu": "^7.8.0"
+  }
+}

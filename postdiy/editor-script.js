@@ -257,15 +257,15 @@ const IMAGE_META = {
   forceRefresh: 'image_cache_force_refresh'
 };
 
-// 分级缓存配置
+// 分级缓存配置（优化：缩短宽限期）
 const CACHE_CONFIG = {
   logo: {
-    maxAge: 1 * 60 * 60 * 1000,        // 1小时：缓存新鲜期
-    staleWhileRevalidate: 24 * 60 * 60 * 1000  // 24小时：宽限期，可使用过期缓存
+    maxAge: 30 * 60 * 1000,        // 30分钟：缓存新鲜期（从1小时缩短）
+    staleWhileRevalidate: 4 * 60 * 60 * 1000  // 4小时：宽限期（从24小时缩短）
   },
   qrcode: {
-    maxAge: 1 * 60 * 60 * 1000,        // 1小时：缓存新鲜期
-    staleWhileRevalidate: 24 * 60 * 60 * 1000  // 24小时：宽限期
+    maxAge: 30 * 60 * 1000,        // 30分钟：缓存新鲜期（从1小时缩短）
+    staleWhileRevalidate: 4 * 60 * 60 * 1000  // 4小时：宽限期（从24小时缩短）
   }
 };
 
@@ -283,6 +283,22 @@ function getOrCreateDeviceId() {
     localStorage.setItem(IMAGE_META.deviceId, deviceId);
   }
   return deviceId;
+}
+
+// 优化：从URL中提取时间戳（用于检测图片是否更新）
+function extractTimestampFromUrl(url) {
+  if (!url) return null;
+  
+  try {
+    // 匹配URL中的时间戳参数：?t=123456789 或 &t=123456789
+    const match = url.match(/[?&]t=(\d+)/);
+    if (match && match[1]) {
+      return parseInt(match[1], 10);
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
 }
 
 // 获取缓存状态
@@ -661,6 +677,54 @@ async function initImagesWithCache() {
   const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
   const needRefresh = shouldForceRefresh();
 
+  // 优化：检查URL时间戳，确保加载最新图片
+  const userId = localStorage.getItem('postdiy_user_id');
+  if (userId) {
+    const cacheKey = 'vipBusinessInfo_' + userId;
+    const cachedInfo = localStorage.getItem(cacheKey);
+    
+    if (cachedInfo) {
+      try {
+        const info = JSON.parse(cachedInfo);
+        // 检查URL中的时间戳
+        if (info.logoUrl) {
+          const urlTimestamp = extractTimestampFromUrl(info.logoUrl);
+          const metaKey = IMAGE_META_KEYS.logo;
+          const cachedMeta = localStorage.getItem(metaKey);
+          
+          if (cachedMeta) {
+            const meta = JSON.parse(cachedMeta);
+            // 如果URL时间戳比缓存时间戳新，清除缓存
+            if (urlTimestamp && meta.timestamp && urlTimestamp > meta.timestamp) {
+              console.log('Logo URL时间戳更新，清除旧缓存');
+              localStorage.removeItem(IMAGE_CACHE_KEYS.logo);
+              localStorage.removeItem(metaKey);
+              cachedLogo = null;
+            }
+          }
+        }
+        
+        if (info.qrcodeUrl) {
+          const urlTimestamp = extractTimestampFromUrl(info.qrcodeUrl);
+          const metaKey = IMAGE_META_KEYS.qrcode;
+          const cachedMeta = localStorage.getItem(metaKey);
+          
+          if (cachedMeta) {
+            const meta = JSON.parse(cachedMeta);
+            if (urlTimestamp && meta.timestamp && urlTimestamp > meta.timestamp) {
+              console.log('二维码 URL时间戳更新，清除旧缓存');
+              localStorage.removeItem(IMAGE_CACHE_KEYS.qrcode);
+              localStorage.removeItem(metaKey);
+              cachedQr = null;
+            }
+          }
+        }
+      } catch (e) {
+        console.log('检查URL时间戳失败:', e);
+      }
+    }
+  }
+
   if (logoImg) {
     if (cachedLogo && cachedLogo.startsWith('data:image') && !needRefresh) {
       logoImg.src = cachedLogo;
@@ -689,7 +753,7 @@ async function initImagesWithCache() {
 }
 
 // 延迟加载图片（使用 Intersection Observer）
-function lazyLoadImage(imgElement, imageType, cloudflareUrl) {
+function lazyLoadImage(imgElement, imageType, qiniuUrl) {
   // 先检查缓存状态
   const cacheStatus = getCacheStatus(imageType);
   const cachedData = getFromCache(IMAGE_CACHE_KEYS[imageType]);
@@ -701,8 +765,7 @@ function lazyLoadImage(imgElement, imageType, cloudflareUrl) {
     
     // 如果缓存过期但在宽限期内，后台更新
     if (cacheStatus.status === CACHE_STATUS.STALE) {
-      const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
-      updateImageInBackground(imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+      updateImageInBackground(imageType, qiniuUrl, IMAGE_CACHE_KEYS[imageType]);
     }
     return;
   }
@@ -714,8 +777,7 @@ function lazyLoadImage(imgElement, imageType, cloudflareUrl) {
         if (entry.isIntersecting) {
           console.log(`[延迟加载] ${imageType}: 进入视口，开始加载`);
           const img = entry.target;
-          const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
-          fetchAndCacheImage(img, imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+          fetchAndCacheImage(img, imageType, qiniuUrl, IMAGE_CACHE_KEYS[imageType]);
           observer.unobserve(img);
         }
       });
@@ -729,14 +791,12 @@ function lazyLoadImage(imgElement, imageType, cloudflareUrl) {
   } else {
     // 不支持 Intersection Observer，直接加载
     console.log(`[延迟加载] ${imageType}: 浏览器不支持，直接加载`);
-    const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
-    fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, IMAGE_CACHE_KEYS[imageType]);
+    fetchAndCacheImage(imgElement, imageType, qiniuUrl, IMAGE_CACHE_KEYS[imageType]);
   }
 }
 
-// 图片加载策略：Cloudflare 优先，腾讯云回退（支持分级缓存）
-async function loadImageWithFallback(imgElement, imageType, cloudflareUrl) {
-  const fileID = window.editorState?.businessInfo?.[imageType + 'FileID'];
+// 图片加载策略：七牛云优先，缓存回退（支持分级缓存）
+async function loadImageWithFallback(imgElement, imageType, qiniuUrl) {
   const cacheKey = IMAGE_CACHE_KEYS[imageType];
   
   // 检查缓存状态
@@ -758,47 +818,41 @@ async function loadImageWithFallback(imgElement, imageType, cloudflareUrl) {
     imgElement.src = cachedData;
     
     // 后台更新（不阻塞）
-    updateImageInBackground(imageType, cloudflareUrl, fileID, cacheKey);
+    updateImageInBackground(imageType, qiniuUrl, cacheKey);
     return true;
   }
   
   // 策略3：完全过期或无缓存，同步获取
   console.log(`[加载策略] ${imageType}: 同步获取图片`);
-  return await fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, cacheKey);
+  return await fetchAndCacheImage(imgElement, imageType, qiniuUrl, cacheKey);
 }
 
-// 后台更新图片
-async function updateImageInBackground(imageType, cloudflareUrl, fileID, cacheKey) {
+// 后台更新图片（新策略：七牛云 → 缓存）
+async function updateImageInBackground(imageType, qiniuUrl, cacheKey) {
   console.log(`[后台更新] ${imageType}: 开始后台更新`);
   
   try {
-    // 第一步：尝试 Cloudflare（免费）
+    // 第一步：尝试七牛云（使用数据库存储的 logoUrl/qrcodeUrl）
     let imageData = null;
-    let source = 'cloudflare';
+    let source = 'qiniu';
     
     try {
-      imageData = await loadImageAsBase64(cloudflareUrl, 1, false);
+      imageData = await loadImageAsBase64(qiniuUrl, 1, false);
       if (imageData && imageData.startsWith('data:image')) {
-        console.log(`[后台更新] ${imageType}: Cloudflare 成功`);
+        console.log(`[后台更新] ${imageType}: 七牛云成功`);
       } else {
         imageData = null;
       }
-    } catch (cfErr) {
-      console.log(`[后台更新] ${imageType}: Cloudflare 失败 - ${cfErr.message}`);
+    } catch (qiniuErr) {
+      console.log(`[后台更新] ${imageType}: 七牛云失败 - ${qiniuErr.message}`);
     }
     
-    // 第二步：回退到腾讯云（付费）
-    if (!imageData && fileID) {
-      console.log(`[后台更新] ${imageType}: 回退到腾讯云`);
-      try {
-        const tempUrl = await getTempUrlFromFileID(fileID);
-        if (tempUrl) {
-          imageData = await loadImageAsBase64(tempUrl, 0, false);
-          source = 'tencent';
-          console.log(`[后台更新] ${imageType}: 腾讯云成功`);
-        }
-      } catch (txErr) {
-        console.error(`[后台更新] ${imageType}: 腾讯云失败 - ${txErr.message}`);
+    // 第二步：使用缓存（只在七牛云失败时）
+    if (!imageData) {
+      const cachedData = getFromCache(cacheKey);
+      if (cachedData && cachedData.startsWith('data:image')) {
+        console.log(`[后台更新] ${imageType}: 使用缓存（无需更新）`);
+        return;
       }
     }
     
@@ -813,39 +867,39 @@ async function updateImageInBackground(imageType, cloudflareUrl, fileID, cacheKe
   }
 }
 
-// 同步获取并缓存图片
-async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, cacheKey) {
-  // 第一步：尝试从 Cloudflare 加载（免费）
-  console.log(`[加载策略] ${imageType}: 尝试从 Cloudflare 加载（免费）`);
+// 同步获取并缓存图片（新策略：七牛云（主） → 缓存（最后））
+async function fetchAndCacheImage(imgElement, imageType, qiniuUrl, cacheKey) {
+  // 第一步：尝试从七牛云加载（使用数据库存储的 logoUrl/qrcodeUrl）
+  console.log(`[加载策略] ${imageType}: 尝试从七牛云加载`);
   
   try {
-    imgElement.src = cloudflareUrl;
+    imgElement.src = qiniuUrl;
     
-    // 等待图片加载
+    // 等待图片加载（15秒超时）
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
-        reject(new Error('Cloudflare 加载超时'));
-      }, 3000); // 3秒超时
+        reject(new Error('七牛云加载超时'));
+      }, 15000);
       
       imgElement.onload = () => {
         clearTimeout(timeout);
-        console.log(`[加载策略] ${imageType}: Cloudflare 加载成功`);
+        console.log(`[加载策略] ${imageType}: 七牛云加载成功`);
         resolve();
       };
       
       imgElement.onerror = () => {
         clearTimeout(timeout);
-        reject(new Error('Cloudflare 加载失败'));
+        reject(new Error('七牛云加载失败'));
       };
     });
     
-    // Cloudflare 加载成功，缓存图片
+    // 七牛云加载成功，缓存图片
     try {
-      const base64 = await loadImageAsBase64(cloudflareUrl, 0, false);
+      const base64 = await loadImageAsBase64(qiniuUrl, 0, false);
       if (base64 && base64.startsWith('data:image')) {
         saveToCache(cacheKey, base64);
-        saveCacheMeta(imageType, 'cloudflare');
-        console.log(`[加载策略] ${imageType}: Cloudflare 图片已缓存`);
+        saveCacheMeta(imageType, 'qiniu');
+        console.log(`[加载策略] ${imageType}: 七牛云图片已缓存`);
       }
     } catch (cacheErr) {
       console.log(`[加载策略] ${imageType}: 缓存失败，但图片已显示`);
@@ -856,60 +910,19 @@ async function fetchAndCacheImage(imgElement, imageType, cloudflareUrl, fileID, 
     
     return true;
     
-  } catch (cloudflareError) {
-    console.log(`[加载策略] ${imageType}: Cloudflare 失败 - ${cloudflareError.message}`);
+  } catch (qiniuError) {
+    console.log(`[加载策略] ${imageType}: 七牛云失败 - ${qiniuError.message}`);
     
-    // 第二步：回退到腾讯云（付费）
-    if (fileID) {
-      console.log(`[加载策略] ${imageType}: 回退到腾讯云（付费）`);
-      
-      try {
-        const tencentUrl = await getTempUrlFromFileID(fileID);
-        
-        if (tencentUrl) {
-          imgElement.src = tencentUrl;
-          
-          await new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-              reject(new Error('腾讯云加载超时'));
-            }, 15000);
-            
-            imgElement.onload = () => {
-              clearTimeout(timeout);
-              console.log(`[加载策略] ${imageType}: 腾讯云加载成功`);
-              resolve();
-            };
-            
-            imgElement.onerror = () => {
-              clearTimeout(timeout);
-              reject(new Error('腾讯云加载失败'));
-            };
-          });
-          
-          // 缓存腾讯云图片
-          try {
-            const base64 = await loadImageAsBase64(tencentUrl, 0, false);
-            if (base64 && base64.startsWith('data:image')) {
-              saveToCache(cacheKey, base64);
-              saveCacheMeta(imageType, 'tencent');
-            }
-          } catch (cacheErr) {
-            console.log(`[加载策略] ${imageType}: 腾讯云缓存失败`);
-          }
-          
-          // 等待图片加载完成
-          await waitForImageLoad(imgElement, 5000);
-          
-          return true;
-        }
-      } catch (tencentError) {
-        console.error(`[加载策略] ${imageType}: 腾讯云也失败 - ${tencentError.message}`);
-      }
-    } else {
-      console.log(`[加载策略] ${imageType}: 无 fileID，无法回退到腾讯云`);
+    // 第二步：使用本地缓存
+    const cachedData = getFromCache(cacheKey);
+    if (cachedData && cachedData.startsWith('data:image')) {
+      console.log(`[加载策略] ${imageType}: 使用本地缓存`);
+      imgElement.src = cachedData;
+      return true;
     }
     
     // 所有方法都失败，显示默认图片
+    console.error(`[加载策略] ${imageType}: 所有方法失败，显示默认图片`);
     imgElement.src = `images/statics/${imageType === 'logo' ? 'logo' : 'qrcode'}-default.gif`;
     return false;
   }
@@ -924,40 +937,24 @@ async function refreshImagesFromCloud() {
   if (logoImg && logoImg.dataset.cloudUrl) {
     loadPromises.push((async () => {
       try {
-        // Cloudflare 优先，腾讯云回退
-        const logoFileID = window.editorState?.businessInfo?.logoFileID;
+        // 只从七牛云加载
+        console.log('[刷新] Logo: 尝试七牛云');
         let imageData = null;
         
-        // 第一步：尝试 Cloudflare（免费）
-        console.log('[刷新] Logo: 尝试 Cloudflare');
         try {
           imageData = await loadImageAsBase64(logoImg.dataset.cloudUrl, 1, false);
           if (imageData && imageData.startsWith('data:image')) {
-            console.log('[刷新] Logo: Cloudflare 成功');
+            console.log('[刷新] Logo: 七牛云成功');
           } else {
             imageData = null;
           }
-        } catch (cfErr) {
-          console.log('[刷新] Logo: Cloudflare 失败 -', cfErr.message);
-        }
-        
-        // 第二步：回退到腾讯云（付费）
-        if (!imageData && logoFileID) {
-          console.log('[刷新] Logo: 回退到腾讯云');
-          try {
-            const tempUrl = await getTempUrlFromFileID(logoFileID);
-            if (tempUrl) {
-              imageData = await loadImageAsBase64(tempUrl, 0, false);
-              console.log('[刷新] Logo: 腾讯云成功');
-            }
-          } catch (txErr) {
-            console.error('[刷新] Logo: 腾讯云失败 -', txErr.message);
-          }
+        } catch (qiniuErr) {
+          console.log('[刷新] Logo: 七牛云失败 -', qiniuErr.message);
         }
         
         if (imageData && imageData.startsWith('data:image')) {
           saveToCache(IMAGE_CACHE_KEYS.logo, imageData);
-          updateImageMeta();
+          saveCacheMeta('logo', 'qiniu');
           logoImg.src = imageData;
           console.log('Logo图片刷新成功');
           // 等待图片加载完成
@@ -975,40 +972,24 @@ async function refreshImagesFromCloud() {
   if (qrImg && qrImg.dataset.cloudUrl) {
     loadPromises.push((async () => {
       try {
-        // Cloudflare 优先，腾讯云回退
-        const qrcodeFileID = window.editorState?.businessInfo?.qrcodeFileID;
+        // 只从七牛云加载
+        console.log('[刷新] 二维码: 尝试七牛云');
         let imageData = null;
         
-        // 第一步：尝试 Cloudflare（免费）
-        console.log('[刷新] 二维码: 尝试 Cloudflare');
         try {
           imageData = await loadImageAsBase64(qrImg.dataset.cloudUrl, 1, false);
           if (imageData && imageData.startsWith('data:image')) {
-            console.log('[刷新] 二维码: Cloudflare 成功');
+            console.log('[刷新] 二维码: 七牛云成功');
           } else {
             imageData = null;
           }
-        } catch (cfErr) {
-          console.log('[刷新] 二维码: Cloudflare 失败 -', cfErr.message);
-        }
-        
-        // 第二步：回退到腾讯云（付费）
-        if (!imageData && qrcodeFileID) {
-          console.log('[刷新] 二维码: 回退到腾讯云');
-          try {
-            const tempUrl = await getTempUrlFromFileID(qrcodeFileID);
-            if (tempUrl) {
-              imageData = await loadImageAsBase64(tempUrl, 0, false);
-              console.log('[刷新] 二维码: 腾讯云成功');
-            }
-          } catch (txErr) {
-            console.error('[刷新] 二维码: 腾讯云失败 -', txErr.message);
-          }
+        } catch (qiniuErr) {
+          console.log('[刷新] 二维码: 七牛云失败 -', qiniuErr.message);
         }
         
         if (imageData && imageData.startsWith('data:image')) {
           saveToCache(IMAGE_CACHE_KEYS.qrcode, imageData);
-          updateImageMeta();
+          saveCacheMeta('qrcode', 'qiniu');
           qrImg.src = imageData;
           console.log('二维码图片刷新成功');
           // 等待图片加载完成
@@ -3433,15 +3414,15 @@ const ThumbnailLoader = {
     if (elements.refreshDataBtn) {
       elements.refreshDataBtn.addEventListener('click', async function() {
         let retryCount = 0;
-        const maxRetries = 3;
-        const retryDelay = 2000;
-        const failRetryDelay = 30000;
+        const maxRetries = 2; // 减少重试次数（从3次改为2次）
+        const retryDelay = 1500; // 减少重试延迟（从2秒改为1.5秒）
+        const failRetryDelay = 10000; // 减少失败后等待时间（从30秒改为10秒）
         
         const originalText = '获取最新数据';
         const loadingText = '获取云端数据';
-        const successText = '更新数据成功';
+        const successText = '更新成功';
         const failText = '获取失败';
-        const retryText = '30秒后重试';
+        const retryText = '10秒后重试';
         
         const btn = this;
         
@@ -3449,29 +3430,6 @@ const ThumbnailLoader = {
           btn.textContent = text;
           if (duration) {
             await new Promise(resolve => setTimeout(resolve, duration));
-          }
-        }
-        
-        async function verifyDataUpdated() {
-          // 验证品牌信息是否更新
-          const userId = localStorage.getItem('postdiy_user_id');
-          if (!userId) return false;
-          
-          const localCacheKey = 'vipBusinessInfo_' + userId;
-          const cachedData = localStorage.getItem(localCacheKey);
-          if (!cachedData) return false;
-          
-          try {
-            const data = JSON.parse(cachedData);
-            // 检查是否有获取时间戳
-            if (!data.fetchedAt) return false;
-            
-            // 检查图片URL是否存在
-            if (!data.logoUrl && !data.qrcodeUrl) return false;
-            
-            return true;
-          } catch (e) {
-            return false;
           }
         }
         
@@ -3497,27 +3455,45 @@ const ThumbnailLoader = {
               
               console.log(`[刷新数据] 商家信息同步成功: ${syncResult.source}`);
               
-              // 强制刷新图片
-              if (window.forceRefreshImages) {
-                await window.forceRefreshImages();
-              }
+              // 清除所有图片缓存（包括base64数据和元数据）
+              console.log('[刷新数据] 清除旧的图片缓存...');
+              localStorage.removeItem('poster_logo_base64');
+              localStorage.removeItem('poster_qrcode_base64');
+              localStorage.removeItem('poster_logo_meta');
+              localStorage.removeItem('poster_qrcode_meta');
+              console.log('[刷新数据] 图片缓存已清除');
               
-              // 验证数据是否真正更新
-              const dataVerified = await verifyDataUpdated();
-              if (!dataVerified) {
-                throw new Error('数据验证失败: 缓存数据不完整或无效');
+              // 更新显示
+              updateBusinessInfoDisplay();
+              
+              // 强制从云端重新加载图片并生成新的base64缓存
+              if (state.businessInfo.logoUrl || state.businessInfo.qrcodeUrl) {
+                console.log('[刷新数据] 开始从云端加载最新图片...');
+                await Promise.all([
+                  state.businessInfo.logoUrl ? loadImageWithFallback(
+                    document.getElementById('posterLogoImg'),
+                    'logo',
+                    state.businessInfo.logoUrl
+                  ) : Promise.resolve(),
+                  state.businessInfo.qrcodeUrl ? loadImageWithFallback(
+                    document.getElementById('posterQrcodeImg'),
+                    'qrcode',
+                    state.businessInfo.qrcodeUrl
+                  ) : Promise.resolve()
+                ]);
+                console.log('[刷新数据] 图片更新完成，新的base64缓存已生成');
               }
 
-              await updateButtonText(successText, 1500);
+              await updateButtonText(successText, 1000);
               btn.disabled = false;
               btn.textContent = originalText;
-              console.log('[刷新数据] 刷新成功，数据已验证');
+              console.log('[刷新数据] 刷新成功');
 
               // 显示浮动提示并关闭弹窗
               showToast('已更新至最新数据', 3000);
               setTimeout(() => {
                 closeBusinessInfoModal();
-              }, 1500);
+              }, 1000);
               return;
             } catch (error) {
               console.error(`[刷新数据] 第 ${retryCount} 次尝试失败:`, error);
@@ -3530,9 +3506,10 @@ const ThumbnailLoader = {
                   btn.textContent = retryText;
                   setTimeout(() => {
                     btn.textContent = originalText;
-                  }, 30000);
-                }, 3000);
-                console.error('[刷新数据] 所有重试失败，30秒后可再次尝试');
+                  }, failRetryDelay);
+                }, 2000);
+                console.error(`[刷新数据] 所有重试失败，${failRetryDelay / 1000}秒后可再次尝试`);
+                showToast('获取数据失败，请稍后重试', 3000);
                 return;
               }
             }
@@ -3545,8 +3522,9 @@ const ThumbnailLoader = {
             btn.textContent = retryText;
             setTimeout(() => {
               btn.textContent = originalText;
-            }, 30000);
-          }, 3000);
+            }, failRetryDelay);
+          }, 2000);
+          showToast('获取数据失败，请稍后重试', 3000);
         }
       });
     }
@@ -7659,7 +7637,7 @@ const ThumbnailLoader = {
     }
   }
   
-  // 保存商家信息（同步到云端）
+  // 保存商家信息（同步到云端）- 优化版：并行处理，移除不必要的删除操作
   async function saveBusinessInfo() {
     if (!elements.businessNameInput || !elements.businessPromoTextInput) return;
     
@@ -7693,102 +7671,83 @@ const ThumbnailLoader = {
     updateBusinessInfoDisplay();
     
     try {
-      // 同步到云端
+      // 同步到云端（优化：并行处理）
       if (window.CloudSync) {
-        // 同步品牌名称和促销文案
-        await CloudSync.syncBrandnameToCloud(newName);
-        await CloudSync.syncPromoTextToCloud(newPromoText);
-        await CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent);
+        // 并行同步所有文本信息（品牌名称、促销文案、透明度）
+        const textSyncPromises = [
+          CloudSync.syncBrandnameToCloud(newName),
+          CloudSync.syncPromoTextToCloud(newPromoText),
+          CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent)
+        ];
         
-        // 处理待上传的图片
+        // 并行上传图片（Logo和二维码）
+        const imageUploadPromises = [];
+        
         if (pendingUploads.logo) {
           // 标记正在上传logo
           state.isUploadingLogo = true;
           
-          // 先删除旧的logo图片
-          const loadingToast = CloudSync.showLoadingToast('正在删除旧Logo...');
-          const deleteResult = await CloudSync.deleteImageFromCloud('logo');
-          CloudSync.hideLoadingToast(loadingToast);
-          
-          if (deleteResult.success) {
-            console.log('旧Logo删除成功');
-          } else {
-            console.log('旧Logo删除失败，继续上传新Logo:', deleteResult.message);
-          }
-          
-          // 上传新logo图片
-          const uploadToast = CloudSync.showLoadingToast('正在上传Logo到云端...');
-          const result = await CloudSync.uploadImageToCloud('logo', pendingUploads.logo);
-          CloudSync.hideLoadingToast(uploadToast);
-          
-          if (result.success) {
-            console.log('Logo上传成功，新URL:', result.url);
-            console.log('腾讯云URL:', result.tencentUrl);
-            console.log('更新state.businessInfo.logo前:', state.businessInfo.logo);
-            
-            // 先更新state和本地缓存，再同步到云端
-            state.businessInfo.logo = result.url;
-            console.log('更新state.businessInfo.logo后:', state.businessInfo.logo);
-            
-            // 立即更新预览图片，不等待缓存
-            const posterLogoImg = document.getElementById('posterLogoImg');
-            if (posterLogoImg) {
-              posterLogoImg.src = result.url;
-              console.log('预览图片已更新');
-            }
-            
-            // 异步更新本地缓存
-            updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url).then(() => {
-              console.log('本地缓存更新完成');
-            });
-            
-            // 同步到云端（包括腾讯云URL和fileID）
-            await CloudSync.syncLogoUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
-            console.log('云端同步完成');
-          }
-          
-          // 上传完成，清除标记
-          state.isUploadingLogo = false;
+          // 直接上传，不删除旧图片（七牛云会自动覆盖）
+          imageUploadPromises.push(
+            CloudSync.uploadImageToCloud('logo', pendingUploads.logo).then(result => {
+              if (result.success) {
+                state.businessInfo.logo = result.url;
+                // 立即更新预览图片
+                const posterLogoImg = document.getElementById('posterLogoImg');
+                if (posterLogoImg) {
+                  posterLogoImg.src = result.url;
+                }
+                // 异步更新本地缓存（不阻塞）
+                updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url);
+                // 上传函数内部已自动同步URL到数据库，无需二次同步
+              }
+              state.isUploadingLogo = false;
+              return result;
+            })
+          );
         }
         
         if (pendingUploads.qrcode) {
-          // 先删除旧的二维码图片
-          const deleteToast = CloudSync.showLoadingToast('正在删除旧二维码...');
-          const deleteResult = await CloudSync.deleteImageFromCloud('qrcode');
-          CloudSync.hideLoadingToast(deleteToast);
-          
-          if (deleteResult.success) {
-            console.log('旧二维码删除成功');
-          } else {
-            console.log('旧二维码删除失败，继续上传新二维码:', deleteResult.message);
-          }
-          
-          // 上传新二维码图片
-          const uploadToast = CloudSync.showLoadingToast('正在上传二维码到云端...');
-          const result = await CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode);
-          CloudSync.hideLoadingToast(uploadToast);
-          
-          if (result.success) {
-            state.businessInfo.qrcode = result.url;
-            await CloudSync.syncQrcodeUrlToCloud(result.url, result.tencentUrl, result.tencentFileID);
-            await updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
-          }
+          // 直接上传，不删除旧图片（七牛云会自动覆盖）
+          imageUploadPromises.push(
+            CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode).then(result => {
+              if (result.success) {
+                state.businessInfo.qrcode = result.url;
+                // 异步更新本地缓存（不阻塞）
+                updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
+                // 上传函数内部已自动同步URL到数据库，无需二次同步
+              }
+              return result;
+            })
+          );
         }
         
-        // 处理待删除的图片
+        // 并行处理删除操作
+        const deletePromises = [];
+        
         if (pendingDeletes.logo) {
-          const result = await CloudSync.deleteImageFromCloud('logo');
-          if (result.success) {
-            await CloudSync.clearUserImageUrl('logo');
-          }
+          deletePromises.push(
+            CloudSync.deleteImageFromCloud('logo').then(result => {
+              if (result.success) {
+                return CloudSync.clearUserImageUrl('logo');
+              }
+            })
+          );
         }
         
         if (pendingDeletes.qrcode) {
-          const result = await CloudSync.deleteImageFromCloud('qrcode');
-          if (result.success) {
-            await CloudSync.clearUserImageUrl('qrcode');
-          }
+          deletePromises.push(
+            CloudSync.deleteImageFromCloud('qrcode').then(result => {
+              if (result.success) {
+                return CloudSync.clearUserImageUrl('qrcode');
+              }
+            })
+          );
         }
+        
+        // 并行执行所有操作
+        await Promise.all([...textSyncPromises, ...imageUploadPromises, ...deletePromises]);
+        console.log('所有云端同步操作已完成');
       }
       
       // 重置待处理状态
