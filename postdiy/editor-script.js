@@ -4617,15 +4617,39 @@ const ThumbnailLoader = {
     const urlParams = new URLSearchParams(window.location.search);
     const templateId = urlParams.get('templateId');
     
+    console.log('[template-url] 初始化检测 URL 参数:', window.location.href);
+    console.log('[template-url] templateId:', templateId);
+    
+    // 编辑器页面初始化时立即加载模板数据（无论是否有 templateId 参数）
+    // 这样弹窗中的按钮可以直接选择模板而不需要刷新页面
+    if (window.loadTemplatesData) {
+      console.log('[template-url] 编辑器初始化，调用 loadTemplatesData() 加载模板数据');
+      window.loadTemplatesData();
+    } else {
+      console.warn('[template-url] loadTemplatesData 函数不存在');
+    }
+    
     // 等待模板数据加载完成的函数
+    let waitCount = 0;
+    const maxWaitCount = 50; // 最大等待5秒（50 * 100ms）
+    
     function waitForTemplatesAndLoad() {
+      waitCount++;
+      console.log(`[template-url] waitForTemplatesAndLoad 第 ${waitCount} 次检查`);
+      console.log(`[template-url] - window.utils 存在: ${!!window.utils}`);
+      console.log(`[template-url] - window.utils.getTemplateById 存在: ${!!(window.utils && window.utils.getTemplateById)}`);
+      console.log(`[template-url] - window.templates 存在: ${!!window.templates}`);
+      
       // 检查是否满足加载模板的条件
       if (window.utils && window.utils.getTemplateById && window.templates) {
-        console.log('模板数据已加载，尝试获取模板...');
+        console.log('[template-url] 模板数据已加载，开始处理');
         
         if (templateId) {
+          console.log('[template-url] 尝试查找模板:', templateId);
           // 尝试根据ID加载指定模板
           const selectedTemplate = window.utils.getTemplateById(templateId);
+          console.log('[template-url] 查找结果:', selectedTemplate ? selectedTemplate.name : '未找到');
+          
           if (selectedTemplate) {
             state.currentTemplate = selectedTemplate;
             // 只有当字体颜色未设置时才重置为黑色
@@ -4633,25 +4657,36 @@ const ThumbnailLoader = {
               state.textColor = '#000000';
             }
             // 初始化历史状态，确保后退按钮能正确工作
-            window.history.replaceState({ templateId: templateId }, '', `editor.html?templateId=${templateId}`);
+            console.log('[template-url] 加载成功，更新 URL');
+            window.history.replaceState({ templateId: templateId }, '', `/editor?templateId=${templateId}`);
             updateTemplateDisplay();
-            console.log('已加载指定模板:', selectedTemplate.name);
+            console.log('[template-url] 已加载指定模板:', selectedTemplate.name);
             return; // 加载成功后直接返回
           } else {
-            console.warn('未找到指定ID的模板:', templateId);
+            console.warn('[template-url] 未找到指定ID的模板:', templateId);
+            console.log('[template-url] 将加载默认模板，但保留 URL 参数');
+            // 加载默认模板，但不清除 URL 参数（这样用户可以稍后手动选择正确的模板）
+            loadDefaultTemplate();
+            return;
           }
         }
         
-        // 如果没有指定模板或指定模板不存在，加载当前月份的第一个模板
+        // 如果没有指定模板，加载当前月份的第一个模板
+        console.log('[template-url] URL 无 templateId 参数，加载默认模板');
         loadDefaultTemplate();
       } else {
-        // 记录当前状态，帮助调试
-        console.log('等待模板数据加载...');
-        console.log('- window.utils存在:', !!window.utils);
-        console.log('- window.utils.getTemplateById存在:', !!(window.utils && window.utils.getTemplateById));
-        console.log('- window.templates存在:', !!window.templates);
+        // 检查是否超过最大等待次数
+        if (waitCount >= maxWaitCount) {
+          console.warn('[template-url] 等待超时，模板数据未加载');
+          console.log('[template-url] 当前 URL:', window.location.href);
+          // 加载默认模板（如果可能）
+          if (window.templates) {
+            loadDefaultTemplate();
+          }
+          return;
+        }
         
-        // 使用setTimeout继续等待，确保模板数据加载完成
+        // 继续等待
         setTimeout(waitForTemplatesAndLoad, 100);
       }
     }
@@ -5433,6 +5468,52 @@ const ThumbnailLoader = {
   // 在模板弹窗中根据当前模板信息自动选择月份和节日
   function autoSelectDateInModal() {
     try {
+      // 检查当前模板是否是"日常记录"模板
+      // 如果是，则定位到本月最近的节日（类似于首页的逻辑）
+      if (state.currentTemplate && 
+          (state.currentTemplate.id === 'dairy-2024-001' || 
+           (state.currentTemplate.festivals && state.currentTemplate.festivals.includes('品牌日常')))) {
+        console.log('当前是日常记录模板，定位到本月最近的节日');
+        
+        // 获取当前月份
+        const currentMonth = new Date().getMonth() + 1;
+        console.log('当前月份:', currentMonth);
+        
+        // 选中当前月份按钮
+        const monthButton = document.querySelector(`#modalMonthButtons .month-btn[data-month="${currentMonth}"]`);
+        if (monthButton) {
+          document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+          monthButton.classList.add('active');
+          
+          // 筛选显示该月份的模板
+          filterTemplatesByMonth(currentMonth);
+          
+          setTimeout(() => {
+            forceScrollToMonthButton(monthButton);
+            
+            setTimeout(() => {
+              // 定位到本月最近的节日
+              const targetFestival = findClosestFestivalInMonth(currentMonth);
+              console.log('目标节日:', targetFestival);
+              
+              if (targetFestival) {
+                const festivalTag = document.querySelector(`.festival-tag[data-festival="${targetFestival}"]`);
+                if (festivalTag) {
+                  document.querySelectorAll('#modalFestivalTags .festival-tag').forEach(tag => tag.classList.remove('active'));
+                  festivalTag.classList.add('active');
+                  scrollToElement(festivalTag);
+                  
+                  // 筛选该节日的模板
+                  filterTemplatesByFestival(targetFestival);
+                }
+              }
+            }, 100);
+          }, 50);
+          
+          return;
+        }
+      }
+      
       // 优先使用当前模板的信息进行定位
       if (state.currentTemplate) {
         console.log('根据当前模板定位:', state.currentTemplate);
@@ -5507,6 +5588,55 @@ const ThumbnailLoader = {
     } catch (error) {
       console.error('自动选择日期失败:', error);
     }
+  }
+  
+  // 查找本月最近的节日（类似于首页的逻辑）
+  function findClosestFestivalInMonth(month) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // 获取该月份所有节日名称
+    const festivalsInMonth = window.utils.getFestivalNamesByMonth(month);
+    // 过滤掉早安和晚安
+    const actualFestivals = festivalsInMonth.filter(f => f !== '☀️ 早安' && f !== '🌙 晚安');
+    
+    if (actualFestivals.length === 0) return null;
+    
+    // 获取所有节日的日期信息
+    const allFestivalsData = window.utils.getAllFestivals();
+    
+    // 检查今天是否有节日
+    const todayFestival = actualFestivals.find(fName => {
+      const fData = allFestivalsData[fName];
+      if (!fData) return false;
+      const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+      fDate.setHours(0, 0, 0, 0);
+      return fDate.getTime() === today.getTime();
+    });
+    
+    if (todayFestival) {
+      return todayFestival;
+    }
+    
+    // 查找未来的节日
+    const futureFestivals = actualFestivals
+      .map(fName => {
+        const fData = allFestivalsData[fName];
+        if (!fData) return null;
+        const fDate = new Date(today.getFullYear(), fData.month - 1, fData.day);
+        fDate.setHours(0, 0, 0, 0);
+        const diff = fDate - today;
+        return { name: fName, diff: diff };
+      })
+      .filter(f => f && f.diff >= 0)
+      .sort((a, b) => a.diff - b.diff);
+    
+    if (futureFestivals.length > 0) {
+      return futureFestivals[0].name;
+    }
+    
+    // 没有未来节日，返回第一个节日
+    return actualFestivals[0];
   }
   
   // 强制滚动月份按钮到可见位置，特别是针对末尾月份
@@ -6727,7 +6857,7 @@ const ThumbnailLoader = {
     }
 
     // 使用 History API 更新URL但不刷新页面
-    const newUrl = `editor.html?templateId=${template.id}`;
+    const newUrl = `/editor?templateId=${template.id}`;
     window.history.pushState({ templateId: template.id }, '', newUrl);
 
     // 关闭模板选择弹窗
@@ -6736,6 +6866,9 @@ const ThumbnailLoader = {
     // 直接更新模板显示（不刷新页面）
     updateTemplateDisplay();
   }
+
+  // 导出 selectTemplate 函数供全局使用
+  window.selectTemplate = selectTemplate;
 
   // 设置弹窗回到顶部按钮功能
   function setupModalBackToTop() {
@@ -15536,13 +15669,81 @@ window.textTemplateManager = {
     
     if (!homePopup) return;
     
-    // 标题不再需要动画，改为静态显示"智能提醒小助手"
-    function startTypewriterAnimation() {
-      // 不需要动画，标题已在HTML中静态显示
+    // 标题轮替功能
+    // 时间安排：
+    // 1. 第一次："智能提醒小助手" 停留 3秒
+    // 2. 第二次："增加品牌曝光，提升用户信任!" 停留 8秒
+    // 3. 第三次："智能提醒小助手" 停留 8秒
+    // 4. 之后：步骤2和3循环轮放
+    let titleRotationTimer = null;
+    let titleRotationCount = 0;
+
+    function startTitleRotation() {
+      const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
+      if (titleTexts.length < 2) return;
+
+      // 重置状态
+      titleRotationCount = 0;
+      titleTexts.forEach((text, index) => {
+        text.classList.toggle('active', index === 0);
+      });
+
+      // 第一次：显示第一个标题，停留 3秒后切换
+      scheduleTitleSwitch(3000);
     }
-    
+
+    function scheduleTitleSwitch(delay) {
+      if (titleRotationTimer) {
+        clearTimeout(titleRotationTimer);
+        titleRotationTimer = null;
+      }
+
+      titleRotationTimer = setTimeout(() => {
+        switchTitle();
+      }, delay);
+    }
+
+    function switchTitle() {
+      const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
+      if (titleTexts.length < 2) return;
+
+      // 切换标题
+      const currentActive = homePopup.querySelector('.rotating-title .title-text.active');
+      const nextIndex = currentActive === titleTexts[0] ? 1 : 0;
+
+      currentActive.classList.remove('active');
+      titleTexts[nextIndex].classList.add('active');
+
+      titleRotationCount++;
+
+      // 计算下一次切换的延迟时间
+      let nextDelay;
+      if (titleRotationCount === 1) {
+        // 第一次切换后，第二个标题停留 8秒
+        nextDelay = 8000;
+      } else {
+        // 之后所有切换都是 8秒
+        nextDelay = 8000;
+      }
+
+      scheduleTitleSwitch(nextDelay);
+    }
+
+    function stopTitleRotation() {
+      if (titleRotationTimer) {
+        clearTimeout(titleRotationTimer);
+        titleRotationTimer = null;
+      }
+      titleRotationCount = 0;
+    }
+
+    // 兼容旧函数名
+    function startTypewriterAnimation() {
+      startTitleRotation();
+    }
+
     function stopTypewriterAnimation() {
-      // 不需要动画
+      stopTitleRotation();
     }
     
     // 初始化标题波浪动画：将文字拆分成单字符并添加韵律延迟
@@ -15582,25 +15783,31 @@ window.textTemplateManager = {
     function showHomePopup() {
       renderTodayRelease();
       renderFutureSuggestion();
-      
+
       // 处理标题波浪动画
       initTitleWaveAnimation();
-      
+
       if (dailySuggestionBtn && homePopupModal) {
         const btnRect = dailySuggestionBtn.getBoundingClientRect();
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         const startX = btnRect.left + btnRect.width / 2;
         const startY = btnRect.top + btnRect.height / 2;
-        
+
         homePopupModal.style.transform = `translate(${startX - centerX}px, ${startY - centerY}px) scale(0.1)`;
         homePopupModal.style.opacity = '0';
         homePopupModal.style.transition = 'all 0.3s ease-out';
       }
-      
+
       homePopup.classList.remove('hidden');
       startTypewriterAnimation();
-      
+
+      // 重置弹窗滚动位置到顶部，确保用户从开头看到内容
+      const scrollableBody = homePopupModal.querySelector('.scrollable-body');
+      if (scrollableBody) {
+        scrollableBody.scrollTop = 0;
+      }
+
       requestAnimationFrame(() => {
         if (homePopupModal) {
           homePopupModal.style.transform = 'translate(0, 0) scale(1)';
@@ -15991,7 +16198,7 @@ window.textTemplateManager = {
         
         btn.addEventListener('click', function() {
           closeHomePopup();
-          
+
           if (action === 'festival') {
             const festival = this.dataset.festival;
             window.openTemplateModalWithFestival(festival);
@@ -16000,7 +16207,20 @@ window.textTemplateManager = {
           } else if (action === 'wanan') {
             window.openTemplateModalWithFestival('wanan');
           } else if (action === 'dairy') {
-            window.location.href = 'editor.html?templateId=dairy-2024-001';
+            // 直接加载品牌日常模板（不刷新页面）
+            const dairyTemplateId = 'dairy-2024-001';
+            if (window.utils && window.utils.getTemplateById) {
+              const template = window.utils.getTemplateById(dairyTemplateId);
+              if (template) {
+                window.selectTemplate(template);
+              } else {
+                console.warn('未找到日常记录模板:', dairyTemplateId);
+              }
+            } else {
+              // 如果模板数据还没加载，使用 URL 方式加载
+              // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
+              window.location.href = '/editor?templateId=' + dairyTemplateId;
+            }
           }
         });
       });
@@ -16070,11 +16290,12 @@ window.textTemplateManager = {
       console.log('生成的HTML:', html);
       futureSuggestionContent.innerHTML = html;
 
-      // 为每个智能提醒卡片添加逐个叠加动画（延迟2秒载入，间隔200ms）
+      // 为每个智能提醒卡片添加逐个叠加动画
+      // 等待"今日优先宣传任务"区域动画完成后（约1秒），再开始显示"近日品牌宣传任务"
       const suggestionItems = futureSuggestionContent.querySelectorAll('.future-suggestion-item');
       suggestionItems.forEach((item, index) => {
         item.classList.add('future-suggestion-item-enter');
-        item.style.animationDelay = `${2000 + index * 200}ms`;
+        item.style.animationDelay = `${1000 + index * 150}ms`;
       });
 
       // 设置按钮背景图片

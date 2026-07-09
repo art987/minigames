@@ -851,7 +851,8 @@ function addCustomBackgroundEntry() {
   // 添加点击事件
   customCard.addEventListener('click', function() {
     // 跳转到编辑器页面，并传递自定义背景标识
-    window.location.href = 'editor.html?customBackground=true';
+    // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
+    window.location.href = '/editor?customBackground=true';
   });
   
   templatesGrid.appendChild(customCard);
@@ -947,7 +948,8 @@ function createTemplateCard(template) {
       return;
     }
     // 跳转到编辑器页面，并传递模板ID
-    window.location.href = `editor.html?templateId=${template.id}`;
+    // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
+    window.location.href = `/editor?templateId=${template.id}`;
   });
   
   return card;
@@ -1162,25 +1164,71 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 标题轮替功能
-    let titleRotationInterval = null;
-    let currentTitleIndex = 0;
-    
+    // 时间安排：
+    // 1. 第一次："智能提醒小助手" 停留 3秒
+    // 2. 第二次："增加品牌曝光，提升用户信任!" 停留 8秒
+    // 3. 第三次："智能提醒小助手" 停留 8秒
+    // 4. 之后：步骤2和3循环轮放
+    let titleRotationTimer = null;
+    let titleRotationCount = 0;
+
     function startTitleRotation() {
       const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
       if (titleTexts.length < 2) return;
-      
-      titleRotationInterval = setInterval(() => {
-        titleTexts[currentTitleIndex].classList.remove('active');
-        currentTitleIndex = (currentTitleIndex + 1) % titleTexts.length;
-        titleTexts[currentTitleIndex].classList.add('active');
-      }, 5000);
+
+      // 重置状态
+      titleRotationCount = 0;
+      titleTexts.forEach((text, index) => {
+        text.classList.toggle('active', index === 0);
+      });
+
+      // 第一次：显示第一个标题，停留 3秒后切换
+      scheduleTitleSwitch(3000);
     }
-    
-    function stopTitleRotation() {
-      if (titleRotationInterval) {
-        clearInterval(titleRotationInterval);
-        titleRotationInterval = null;
+
+    function scheduleTitleSwitch(delay) {
+      if (titleRotationTimer) {
+        clearTimeout(titleRotationTimer);
+        titleRotationTimer = null;
       }
+
+      titleRotationTimer = setTimeout(() => {
+        switchTitle();
+      }, delay);
+    }
+
+    function switchTitle() {
+      const titleTexts = homePopup.querySelectorAll('.rotating-title .title-text');
+      if (titleTexts.length < 2) return;
+
+      // 切换标题
+      const currentActive = homePopup.querySelector('.rotating-title .title-text.active');
+      const nextIndex = currentActive === titleTexts[0] ? 1 : 0;
+
+      currentActive.classList.remove('active');
+      titleTexts[nextIndex].classList.add('active');
+
+      titleRotationCount++;
+
+      // 计算下一次切换的延迟时间
+      let nextDelay;
+      if (titleRotationCount === 1) {
+        // 第一次切换后，第二个标题停留 8秒
+        nextDelay = 8000;
+      } else {
+        // 之后所有切换都是 8秒
+        nextDelay = 8000;
+      }
+
+      scheduleTitleSwitch(nextDelay);
+    }
+
+    function stopTitleRotation() {
+      if (titleRotationTimer) {
+        clearTimeout(titleRotationTimer);
+        titleRotationTimer = null;
+      }
+      titleRotationCount = 0;
     }
     
     // 初始化标题波浪动画：将文字拆分成单字符并添加韵律延迟
@@ -1220,25 +1268,31 @@ document.addEventListener('DOMContentLoaded', function() {
     function showHomePopup() {
       renderTodayRelease();
       renderFutureSuggestion();
-      
+
       // 处理标题波浪动画
       initTitleWaveAnimation();
-      
+
       if (dailySuggestionBtn && homePopupModal) {
         const btnRect = dailySuggestionBtn.getBoundingClientRect();
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         const startX = btnRect.left + btnRect.width / 2;
         const startY = btnRect.top + btnRect.height / 2;
-        
+
         homePopupModal.style.transform = `translate(${startX - centerX}px, ${startY - centerY}px) scale(0.1)`;
         homePopupModal.style.opacity = '0';
         homePopupModal.style.transition = 'all 0.3s ease-out';
       }
-      
+
       homePopup.classList.remove('hidden');
       startTitleRotation();
-      
+
+      // 重置弹窗滚动位置到顶部，确保用户从开头看到内容
+      const scrollableBody = homePopupModal.querySelector('.scrollable-body');
+      if (scrollableBody) {
+        scrollableBody.scrollTop = 0;
+      }
+
       requestAnimationFrame(() => {
         if (homePopupModal) {
           homePopupModal.style.transform = 'translate(0, 0) scale(1)';
@@ -1562,8 +1616,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (action === 'wanan') {
           scrollToFestival('🌙 晚安');
         } else if (action === 'dairy') {
-          // 品牌日常海报，直接跳转到编辑器页面
-          window.location.href = 'editor.html?templateId=dairy-2024-001';
+          // 品牌日常海报，跳转到编辑器页面
+          // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
+          const targetUrl = '/editor?templateId=dairy-2024-001';
+          console.log('[dairy-btn] 点击按钮，准备跳转到:', targetUrl);
+          window.location.href = targetUrl;
         }
       });
     });
@@ -1622,11 +1679,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     futureSuggestionContent.innerHTML = html;
 
-    // 为每个智能提醒卡片添加逐个叠加动画（延迟2秒载入，间隔200ms）
+    // 为每个智能提醒卡片添加逐个叠加动画
+    // 等待"今日优先宣传任务"区域动画完成后（约1秒），再开始显示"近日品牌宣传任务"
     const suggestionItems = futureSuggestionContent.querySelectorAll('.future-suggestion-item');
     suggestionItems.forEach((item, index) => {
       item.classList.add('future-suggestion-item-enter');
-      item.style.animationDelay = `${2000 + index * 200}ms`;
+      item.style.animationDelay = `${1000 + index * 150}ms`;
     });
 
     // 设置按钮背景图片

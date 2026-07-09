@@ -5932,7 +5932,7 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   }
   
   .modal-title {
-    font-size: 14px;
+    font-size: 14px;text-indent: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -7642,7 +7642,7 @@ input.hidden {
   font-size: 23px;
   text-shadow: 0 0 5px #000000db;
   font-weight: 380;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
   transition: all var(--transition-normal);
