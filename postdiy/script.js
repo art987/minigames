@@ -851,8 +851,8 @@ function addCustomBackgroundEntry() {
   // 添加点击事件
   customCard.addEventListener('click', function() {
     // 跳转到编辑器页面，并传递自定义背景标识
-    // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
-    window.location.href = '/editor?customBackground=true';
+    // 使用相对路径，兼容子目录部署
+    window.location.href = './editor?customBackground=true';
   });
   
   templatesGrid.appendChild(customCard);
@@ -948,8 +948,8 @@ function createTemplateCard(template) {
       return;
     }
     // 跳转到编辑器页面，并传递模板ID
-    // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
-    window.location.href = `/editor?templateId=${template.id}`;
+    // 使用相对路径，兼容子目录部署
+    window.location.href = `./editor?templateId=${template.id}`;
   });
   
   return card;
@@ -1617,8 +1617,8 @@ document.addEventListener('DOMContentLoaded', function() {
           scrollToFestival('🌙 晚安');
         } else if (action === 'dairy') {
           // 品牌日常海报，跳转到编辑器页面
-          // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
-          const targetUrl = '/editor?templateId=dairy-2024-001';
+          // 使用相对路径，兼容子目录部署
+          const targetUrl = './editor?templateId=dairy-2024-001';
           console.log('[dairy-btn] 点击按钮，准备跳转到:', targetUrl);
           window.location.href = targetUrl;
         }

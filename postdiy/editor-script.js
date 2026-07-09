@@ -4658,7 +4658,7 @@ const ThumbnailLoader = {
             }
             // 初始化历史状态，确保后退按钮能正确工作
             console.log('[template-url] 加载成功，更新 URL');
-            window.history.replaceState({ templateId: templateId }, '', `/editor?templateId=${templateId}`);
+            window.history.replaceState({ templateId: templateId }, '', `./editor?templateId=${templateId}`);
             updateTemplateDisplay();
             console.log('[template-url] 已加载指定模板:', selectedTemplate.name);
             return; // 加载成功后直接返回
@@ -6857,7 +6857,8 @@ const ThumbnailLoader = {
     }
 
     // 使用 History API 更新URL但不刷新页面
-    const newUrl = `/editor?templateId=${template.id}`;
+    // 使用相对路径，兼容子目录部署
+    const newUrl = `./editor?templateId=${template.id}`;
     window.history.pushState({ templateId: template.id }, '', newUrl);
 
     // 关闭模板选择弹窗
@@ -16218,8 +16219,8 @@ window.textTemplateManager = {
               }
             } else {
               // 如果模板数据还没加载，使用 URL 方式加载
-              // 使用 /editor 而不是 /editor.html，避免服务器重定向丢失参数
-              window.location.href = '/editor?templateId=' + dairyTemplateId;
+              // 使用相对路径，兼容子目录部署
+              window.location.href = './editor?templateId=' + dairyTemplateId;
             }
           }
         });
