@@ -1,6 +1,34 @@
 
         
 
+
+        /* 防止横向滚动 */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .container {
+            overflow-x: hidden;
+        }
+
+        /* 确保所有卡片和内容都不超出屏幕 */
+        .glass-card,
+        .main-info-card,
+        .calendar-card,
+        .shensha-card {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* 表格自适应 */
+        .calendar-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: fixed;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -124,21 +152,14 @@
        
 
         .nav-btn.float-left {
-            position: absolute;
             left: -15px;
-            top: 30%;
-            transform: translateY(-50%);
             box-shadow: 0 0 10px #c13b3b52;
             text-indent: -14px;
         }
 
         .nav-btn.float-right {
-            position: absolute;
-            right: -15px;
-            top: 30%;
             box-shadow: 0 0 10px #c13b3b52;
-            text-indent: 7px;
-            transform: translateY(-50%);
+            text-indent: 8px;
         }
 
          .date-display {
@@ -150,17 +171,18 @@
         }
 
         .nav-btn {
-            padding: 4px 5px;
+            padding: 0px 5px 0px;
             font-size: 24px;
             font-weight: 500;
-            height: 56px;
+            height: 43px;
             display: block;
             width: 37px;
             border: none;
             border-radius: 27px;
             cursor: pointer;
-            background: rgb(255 255 255 / 27%);
-            color: #000000;
+            background: rgb(255 255 255 / 14%);
+            color: #ce0000;
+            text-shadow: 0 1px 2px #fff;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgb(255 255 255 / 68%);
@@ -192,11 +214,14 @@
         /* 顶部按钮栏 */
         .top-bar {
             display: flex;
+            position: absolute;
             align-items: center;
+            width: 100%;
+            top: 18px; z-index: 99;
             justify-content: space-between;
-            padding: 8px 0 12px;
+            padding: 17px 80px 13px;
             margin-bottom: 12px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.08); */
         }
 
         .top-bar .date-display {
@@ -210,12 +235,10 @@
         }
 
         .top-btn {
-            padding: 3px 7px;
-            position: absolute;
-            font-size: 12px;
+            padding: 3px 4px;
+            font-size: 11px;
             font-weight: 500;
-            z-index: 9999;
-            top: 13px;
+            margin-top: -8px;
             border: none;
             border-radius: 16px;
             cursor: pointer;
@@ -232,51 +255,53 @@
         }
 
         .top-btn.today-btn {
-            background: rgb(198 15 15 / 55%);
-            color: #ffffff;
-            border-color: rgb(255 255 255);
-            left: 42%;
-            top: 76px;
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff3b30;
+            border-color: rgba(255, 59, 48, 0.3);
         }
 
         .top-btn.today-btn:hover {
-            background: rgba(52, 199, 89, 0.25);
+            background: rgba(255, 59, 48, 0.25);
         }
 
         .top-btn.calendar-btn {
-            background: rgb(255 244 226 / 15%);
-            color: #e30000;
-            border-color: rgb(189 178 161 / 30%);
-            right: 42%;
-            padding: 5px 13px;
-            font-size: 14px;
+            background: rgba(255, 159, 10, 0.15);
+            color: #cc7a00;
+            border-color: rgba(255, 159, 10, 0.3);
         }
 
         .top-btn.calendar-btn:hover {
             background: rgba(255, 159, 10, 0.25);
         }
 
+        /* 顶部按钮栏中的空白占位 */
+        .top-bar span:empty {
+            min-width: 70px;
+        }
+
         /* 日期导航行 */
         .date-nav-row {
-            position: relative;
+            position: absolute;
             height: 56px;
+            width: 100%;
+            top: 190px; z-index: 10;
             margin-bottom: 10px;
         }
 
         .date-nav-row .nav-btn.float-left {
             position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            left: -5px;
+            border-radius: 0 20px 20px 0;
         }
 
         .date-nav-row .nav-btn.float-right {
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            right: -8px;
+            border-radius: 20px 0 0 20px;
         }
-
+.date-container {
+            position: relative;background: #fff;
+        }
         /* 万年历弹窗 */
         .calendar-modal {
             display: none;
@@ -317,14 +342,16 @@
         }
 
         .cal-close {
-            background: rgba(255, 59, 48, 0.15) !important;
-            color: #ff3b30 !important;
-            border-color: rgba(255, 59, 48, 0.3) !important;
+            background: rgb(255 255 255) !important;
+            color: #f10000 !important;
+            padding: 7px 7px!important;
+            border-radius: 50px!important;
+            border-color: rgb(255 59 48 / 98%) !important;
         }
 
         /* 主信息卡 - 上下布局 */
         .main-info-card {
-            padding: 20px;
+            padding: 34px 0;
             margin-bottom: 16px;
             position: relative;
         }
@@ -332,21 +359,22 @@
         /* 上部分 - 左中右布局 */
         .top-section {
             display: grid;
-            grid-template-columns: 1fr 12fr 1fr;
-            gap: 12px;
-            min-height: 344px;
-            width: 77px;
+            grid-template-columns: 1fr 3.2fr 1fr;
+            gap: 8px;
+            min-height: 279px;
+            /* width: 100%; */
+            padding: 0 15px;
         }
 
         .side-yiji {
-            padding: 15px 10px;
+            padding: 12px 8px;
             border-radius: 16px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 77px;
-            min-height: 200px;
+            width: 100%;
+            min-height: 180px;
         }
 
         .side-yiji.yi {
@@ -412,7 +440,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            width: 200px;
+            width: 100%;
+            padding: 10px 5px;
         }
 
         .date-big {
@@ -509,6 +538,7 @@
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             gap: 5px;
+            padding: 0 20px;
         }
 
         .bottom-info .info-item {
@@ -566,8 +596,8 @@
         }
 
         .pengzu-content {
-            padding: 7px 14px;
-            margin: 10px 0;
+            padding: 7px 11px;
+            margin: 10px 19px;
             background: rgb(255 255 255 / 69%);
             border: 1px solid rgb(240 201 167 / 37%);
             font-size: 14px;
@@ -655,8 +685,8 @@
 
         /* 吉神凶煞卡片 */
         .shensha-card {
-            padding: 1px;
-            margin-bottom: 12px;
+            padding: 1px 22px;
+            margin-bottom: 25px;
         }
 
         .shensha-section {
@@ -734,7 +764,7 @@
         }
 
         .cal-btn {
-            padding: 6px 12px;
+            padding: 6px 11px;
             font-size: 13px;
             font-weight: 500;
             border: none;
@@ -757,8 +787,8 @@
         }
 
         .calendar-table th {
-            padding: 8px 4px;
-            font-size: 12px;
+            padding: 0px 4px;
+            font-size: 16px;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.5);
             text-align: center;
@@ -784,7 +814,7 @@
         }
 
         .cal-day {
-            font-size: 16px;
+            font-size: 22px;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.8);
         }
@@ -792,7 +822,7 @@
         .cal-lunar {
             font-size: 10px;
             color: rgba(0, 0, 0, 0.5);
-            margin-top: 2px;
+            margin-top: -4px;
         }
 
         .cal-festival {
@@ -818,8 +848,9 @@
         }
 
         .calendar-table td.highlight {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgb(251 29 29) 0%, rgb(175 3 198 / 90%) 100%);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            border-radius: 50px;
         }
 
         .calendar-table td.highlight .cal-day,
@@ -848,56 +879,43 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* 移动端优化 */
-        @media (max-width: 420px) {
-            body {
-                padding: 15px 10px;
-            }
 
-            .date-big {
-                font-size: 80px;
-            }
 
-            .weekday-text {
-                font-size: 16px;
-            }
 
-            .lunar-date-text {
-                font-size: 18px;
-            }
 
-            .info-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+        /* ========== 日期切换动画 ========== */
+        
+        /* 淡出动画 */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
             }
-
-            .info-item {
-                padding: 10px 6px;
-            }
-
-            .info-value {
-                font-size: 13px;
-            }
-
-            .yiji-tag {
-                font-size: 11px;
-                padding: 4px 8px;
-            }
-
-            .calendar-table th {
-                font-size: 11px;
-            }
-
-            .cal-day {
-                font-size: 14px;
-            }
-
-            .cal-lunar {
-                font-size: 9px;
-            }
-
-            .cal-festival {
-                font-size: 8px;
+            to {
+                opacity: 0;
+                transform: scale(0.98);
             }
         }
-  
+
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(1.02);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 容器动画类 */
+        .date-container-fade-out {
+            animation: fadeOut 0.25s ease-in forwards;
+        }
+
+        .date-container-fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+
+        /* 移动端优化 */

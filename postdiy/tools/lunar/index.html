@@ -47,11 +47,11 @@
         currentMonth = today.getMonth() + 1;
 
         window.onload = function() {
-            updateHuangli();
+            updateHuangli('initial');
             generateCalendar(currentYear, currentMonth, selectedDate);
         };
 
-        function updateHuangli() {
+        function updateHuangli(animationType = 'fade') {
             const lunar = Lunar.fromDate(selectedDate);
             const solar = lunar.getSolar();
 
@@ -98,13 +98,15 @@
 
             const isToday = selectedDate.toDateString() === new Date().toDateString();
             let html = `
+                <div class="date-container">
                 <div class="glass-card main-info-card">
-                    <div >
-                        ${!isToday ? '<button class="top-btn today-btn" onclick="goToday()">返回今天</button>' : ''}
-                        
-                        <button class="top-btn calendar-btn" onclick="openCalendar()">万年历</button>
+                    <div class="top-bar">
+                        ${!isToday ? '<button class="top-btn today-btn" onclick="goToday()">返回今天</button>' : '<span></span>'}
+                        <span class="date-display">${year}年${month}月</span>
+                        <button class="top-btn calendar-btn" onclick="openCalendar()">日期查询</button>
                     </div>
-                    <div class="">
+                   <div class="date-container-cotent">
+                    <div class="date-nav-row">
                         <button class="nav-btn float-left" onclick="changeDay(-1)">〈</button>
                         <button class="nav-btn float-right" onclick="changeDay(1)">〉</button>
                     </div>
@@ -116,7 +118,6 @@
                             </div>
                         </div>
                         <div class="center-date">
-                            <span class="date-display">${year}年${month}月</span>
                             <div class="${dateClass}">${day}</div>
                             <div class="weekday-text">${weekDay}</div>
                             <div class="lunar-date-text">【农历${lunarMonthDay}】</div>
@@ -179,9 +180,10 @@
                         </div>
                     </div>
                 </div>
+                </div>   
+  
 
-
-
+                </div>
                 </div>
 
                 
@@ -190,11 +192,36 @@
                
             `;
 
-            document.getElementById('huangliContent').innerHTML = html;
+            const container = document.getElementById('huangliContent');
+            const oldDateContainer = container.querySelector('.date-container');
+            
+            if (oldDateContainer && animationType !== 'initial') {
+                // 如果已有内容，先淡出
+                oldDateContainer.classList.remove('date-container-fade-in');
+                oldDateContainer.classList.add('date-container-fade-out');
+                
+                // 等待淡出动画完成后更新内容
+                setTimeout(() => {
+                    container.innerHTML = html;
+                    const newDateContainer = container.querySelector('.date-container');
+                    if (newDateContainer) {
+                        // 强制重绘
+                        newDateContainer.offsetHeight;
+                        newDateContainer.classList.add('date-container-fade-in');
+                    }
+                }, 250); // 淡出动画时长
+            } else {
+                // 首次加载或无需动画
+                container.innerHTML = html;
+                const newDateContainer = container.querySelector('.date-container');
+                if (newDateContainer) {
+                    newDateContainer.classList.add('date-container-fade-in');
+                }
+            }
         }
         function changeDay(delta) {
             selectedDate = new Date(selectedDate.getTime() + delta * 24 * 60 * 60 * 1000);
-            updateHuangli();
+            updateHuangli('fade');
             currentYear = selectedDate.getFullYear();
             currentMonth = selectedDate.getMonth() + 1;
             generateCalendar(currentYear, currentMonth, selectedDate);
@@ -202,7 +229,7 @@
 
         function goToday() {
             selectedDate = new Date();
-            updateHuangli();
+            updateHuangli('fade');
             currentYear = selectedDate.getFullYear();
             currentMonth = selectedDate.getMonth() + 1;
             generateCalendar(currentYear, currentMonth, selectedDate);
@@ -299,7 +326,7 @@
 
         function selectDate(year, month, day) {
             selectedDate = new Date(year, month - 1, day);
-            updateHuangli();
+            updateHuangli('zoom');
             generateCalendar(year, month, selectedDate);
             closeCalendar();
         }

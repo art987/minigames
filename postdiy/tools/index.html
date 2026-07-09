@@ -12,6 +12,12 @@
   <link rel="stylesheet" href="../libs/svg-icons/svg-icons.css">
   <script src="../libs/svg-icons/svg-icons.js"></script>
   
+  <!-- 农历库（老黄历） -->
+  <script src="lunar/lunar.js"></script>
+  
+  <!-- 老黄历样式 -->
+  <link rel="stylesheet" href="lunar/style.css">
+  
   <!-- 样式文件 -->
   <link rel="stylesheet" href="tools.css">
   
@@ -57,6 +63,31 @@
   
   <!-- 内容区域 -->
   <main class="content-area">
+    <!-- 老黄历模块 -->
+    <div class="huangli-section">
+      <div id="huangliContent">
+        <div class="loading">加载中...</div>
+      </div>
+      
+      <!-- 万年历弹窗 -->
+      <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-modal-mask" onclick="closeCalendar()"></div>
+        <div class="glass-card calendar-card">
+          <div class="calendar-header">
+            <div class="calendar-title" id="calendarTitle">2026年7月</div>
+            <div class="calendar-controls">
+              <button class="cal-btn" onclick="changeMonth(-1)">上个月</button>
+              <button class="cal-btn" onclick="goToday()">今天</button>
+              <button class="cal-btn" onclick="changeMonth(1)">下个月</button>
+              <button class="cal-btn cal-close" onclick="closeCalendar()">关闭</button>
+            </div>
+          </div>
+          <div id="calendarBody"></div>
+        </div>
+      </div>
+      
+    </div>
+    
     <!-- 卡片列表 -->
     <div class="cards-container" id="cardsContainer">
       <!-- 卡片将通过 JS 动态加载 -->
@@ -93,5 +124,290 @@
   
   <!-- 交互逻辑 -->
   <script src="tools.js"></script>
+  
+  <!-- 老黄历逻辑 -->
+  <script>
+    let selectedDate;
+    let currentYear, currentMonth;
+
+    const today = new Date();
+    selectedDate = today;
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth() + 1;
+
+    // 页面加载完成后初始化老黄历
+    window.addEventListener('DOMContentLoaded', function() {
+      if (typeof Lunar !== 'undefined') {
+        updateHuangli('initial');
+        generateCalendar(currentYear, currentMonth, selectedDate);
+      }
+    });
+
+    function updateHuangli(animationType = 'fade') {
+      const lunar = Lunar.fromDate(selectedDate);
+      const solar = lunar.getSolar();
+
+      const day = solar.getDay();
+      const year = solar.getYear();
+      const month = solar.getMonth();
+      const lunarMonthDay = lunar.getMonthInChinese() + lunar.getDayInChinese();
+      const yearGanZhi = lunar.getYearInGanZhi();
+      const yearShengXiao = lunar.getYearShengXiao();
+      const monthGanZhi = lunar.getMonthInGanZhi();
+      const dayGanZhi = lunar.getDayInGanZhi();
+      const dayOfWeek = selectedDate.getDay();
+      const weekDay = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][dayOfWeek];
+
+      const festivals = lunar.getFestivals();
+      const solarFestivals = solar.getFestivals();
+      const allFestivals = [...festivals, ...solarFestivals];
+      const festivalText = allFestivals.length > 0 ? allFestivals[0] : '';
+
+      const dayNaYin = lunar.getDayNaYin();
+      const chongDesc = lunar.getChongDesc();
+      const sha = lunar.getSha();
+      const pengZuGan = lunar.getPengZuGan();
+      const pengZuZhi = lunar.getPengZuZhi();
+      const xiShen = lunar.getDayPositionXiDesc();
+      const fuShen = lunar.getDayPositionFuDesc();
+      const caiShen = lunar.getDayPositionCaiDesc();
+
+      const yi = lunar.getDayYi();
+      const ji = lunar.getDayJi();
+
+      const jiShen = lunar.getDayJiShen();
+      const xiongSha = lunar.getDayXiongSha();
+
+      let dateClass = 'date-big weekday';
+      if (festivalText) {
+        dateClass = 'date-big festival';
+      } else if (dayOfWeek === 6) {
+        dateClass = 'date-big saturday';
+      } else if (dayOfWeek === 0) {
+        dateClass = 'date-big sunday';
+      }
+
+      const isToday = selectedDate.toDateString() === new Date().toDateString();
+      let html = `
+        <div class="date-container">
+        <div class="glass-card main-info-card">
+          <div class="top-bar">
+            ${!isToday ? '<button class="top-btn today-btn" onclick="goToday()">返回今天</button>' : '<span></span>'}
+            <span class="date-display">${year}年${month}月</span>
+            <button class="top-btn calendar-btn" onclick="openCalendar()">日期查询</button>
+          </div>
+          <div class="date-container-cotent">
+            <div class="date-nav-row">
+              <button class="nav-btn float-left" onclick="changeDay(-1)">〈</button>
+              <button class="nav-btn float-right" onclick="changeDay(1)">〉</button>
+            </div>
+            <div class="top-section">
+              <div class="side-yiji yi">
+                <div class="side-yiji-title">宜</div>
+                <div class="side-yiji-tags">
+                  ${yi.length > 0 ? yi.slice(0, 8).map(item => `<div class="side-yiji-tag">${item}</div>`).join('') : '<div class="empty-text">诸事皆宜</div>'}
+                </div>
+              </div>
+              <div class="center-date">
+                <div class="${dateClass}">${day}</div>
+                <div class="weekday-text">${weekDay}</div>
+                <div class="lunar-date-text">【农历${lunarMonthDay}】</div>
+                <div class="ganzhi-text">❈ ${yearGanZhi}${yearShengXiao}年 ❈</div>
+                ${festivalText ? `<div class="festival-badge">✦ ${festivalText} ✦</div>` : ''}
+              </div>
+              <div class="side-yiji ji">
+                <div class="side-yiji-title">忌</div>
+                <div class="side-yiji-tags">
+                  ${ji.length > 0 ? ji.slice(0, 8).map(item => `<div class="side-yiji-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                </div>
+              </div>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">五行</div>
+                <div class="info-value">${dayNaYin}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">冲煞</div>
+                <div class="info-value">${chongDesc}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">煞向</div>
+                <div class="info-value">煞${sha}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">喜神</div>
+                <div class="info-value">${xiShen}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">福神</div>
+                <div class="info-value">${fuShen}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">财神</div>
+                <div class="info-value">${caiShen}</div>
+              </div>
+            </div>
+
+            <div class="pengzu-content">
+              彭祖百忌:<b>${pengZuGan}</b><b>${pengZuZhi}</b>
+            </div>
+
+            <div class="shensha-card">
+              <div class="shensha-section jishen">
+                <div class="shensha-title">吉神宜趋</div>
+                <div class="shensha-tags">
+                  ${jiShen.length > 0 ? jiShen.map(item => `<div class="shensha-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                </div>
+              </div>
+              <div class="shensha-section xiongsha">
+                <div class="shensha-title">凶煞宜忌</div>
+                <div class="shensha-tags">
+                  ${xiongSha.length > 0 ? xiongSha.map(item => `<div class="shensha-tag">${item}</div>`).join('') : '<div class="empty-text">无</div>'}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      `;
+
+      const container = document.getElementById('huangliContent');
+      const oldDateContainer = container.querySelector('.date-container');
+      
+      if (oldDateContainer && animationType !== 'initial') {
+        oldDateContainer.classList.remove('date-container-fade-in');
+        oldDateContainer.classList.add('date-container-fade-out');
+        
+        setTimeout(() => {
+          container.innerHTML = html;
+          const newDateContainer = container.querySelector('.date-container');
+          if (newDateContainer) {
+            newDateContainer.offsetHeight;
+            newDateContainer.classList.add('date-container-fade-in');
+          }
+        }, 250);
+      } else {
+        container.innerHTML = html;
+        const newDateContainer = container.querySelector('.date-container');
+        if (newDateContainer) {
+          newDateContainer.classList.add('date-container-fade-in');
+        }
+      }
+    }
+
+    function changeDay(delta) {
+      selectedDate = new Date(selectedDate.getTime() + delta * 24 * 60 * 60 * 1000);
+      updateHuangli('fade');
+      currentYear = selectedDate.getFullYear();
+      currentMonth = selectedDate.getMonth() + 1;
+      generateCalendar(currentYear, currentMonth, selectedDate);
+    }
+
+    function goToday() {
+      selectedDate = new Date();
+      updateHuangli('fade');
+      currentYear = selectedDate.getFullYear();
+      currentMonth = selectedDate.getMonth() + 1;
+      generateCalendar(currentYear, currentMonth, selectedDate);
+    }
+
+    function openCalendar() {
+      currentYear = selectedDate.getFullYear();
+      currentMonth = selectedDate.getMonth() + 1;
+      generateCalendar(currentYear, currentMonth, selectedDate);
+      document.getElementById('calendarModal').classList.add('show');
+    }
+
+    function closeCalendar() {
+      document.getElementById('calendarModal').classList.remove('show');
+    }
+
+    function changeMonth(delta) {
+      currentMonth += delta;
+      if (currentMonth > 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else if (currentMonth < 1) {
+        currentMonth = 12;
+        currentYear--;
+      }
+      generateCalendar(currentYear, currentMonth, selectedDate);
+    }
+
+    function generateCalendar(year, month, highlightDate) {
+      document.getElementById('calendarTitle').textContent = `${year}年${month}月`;
+
+      const firstDay = new Date(year, month - 1, 1);
+      const lastDay = new Date(year, month, 0);
+      const daysInMonth = lastDay.getDate();
+      const startDayOfWeek = (firstDay.getDay() + 6) % 7;
+
+      let html = `
+        <table class="calendar-table">
+          <thead>
+            <tr>
+              <th>一</th>
+              <th>二</th>
+              <th>三</th>
+              <th>四</th>
+              <th>五</th>
+              <th style="color: #34c759;">六</th>
+              <th style="color: #ff3b30;">日</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for (let i = 0; i < 6; i++) {
+        html += '<tr>';
+        for (let j = 0; j < 7; j++) {
+          const currentDay = i * 7 + j + 1 - startDayOfWeek;
+
+          if (currentDay <= 0 || currentDay > daysInMonth) {
+            html += '<td class="empty"></td>';
+          } else {
+            const currentDate = new Date(year, month - 1, currentDay);
+            const lunar = Lunar.fromDate(currentDate);
+            const lunarMonthDay = lunar.getMonthInChinese() + lunar.getDayInChinese();
+
+            const festivals = lunar.getFestivals();
+            const solarFestivals = lunar.getSolar().getFestivals();
+            const allFestivals = [...festivals, ...solarFestivals];
+            const festivalText = allFestivals.length > 0 ? allFestivals[0] : '';
+
+            const isHighlight = currentDate.toDateString() === highlightDate.toDateString();
+            const dayOfWeek = currentDate.getDay();
+
+            let classes = [];
+            if (dayOfWeek === 6) classes.push('saturday');
+            if (dayOfWeek === 0) classes.push('sunday');
+            if (festivalText) classes.push('festival');
+            if (isHighlight) classes.push('highlight');
+
+            html += `
+              <td class="${classes.join(' ')}" onclick="selectDate(${year}, ${month}, ${currentDay})">
+                <div class="cal-day">${currentDay}</div>
+                <div class="cal-lunar">${lunarMonthDay}</div>
+                ${festivalText ? `<div class="cal-festival">${festivalText}</div>` : ''}
+              </td>
+            `;
+          }
+        }
+        html += '</tr>';
+      }
+
+      html += '</tbody></table>';
+      document.getElementById('calendarBody').innerHTML = html;
+    }
+
+    function selectDate(year, month, day) {
+      selectedDate = new Date(year, month - 1, day);
+      updateHuangli('zoom');
+      generateCalendar(year, month, selectedDate);
+      closeCalendar();
+    }
+  </script>
 </body>
 </html>

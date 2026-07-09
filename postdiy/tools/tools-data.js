@@ -51,7 +51,7 @@ window.toolsData = {
     },
     {
       id: 2,
-      visible: true,
+      visible: false,
       icon: '📱',
       iconBg: '#2196F3',
       title: '二维码生成工具',
@@ -63,7 +63,7 @@ window.toolsData = {
     },
     {
       id: 3,
-      visible: true,
+      visible: false,
       icon: '✂️',
       iconBg: '#9C27B0',
       title: '在线抠图工具',
@@ -102,7 +102,7 @@ window.toolsData = {
     },
     {
       id: 6,
-      visible: true,
+      visible: false,
       icon: '☯️',
       iconBg: '#FFD700',
       title: '道教祈福神尊壁纸全集',
@@ -117,10 +117,10 @@ window.toolsData = {
       visible: true,
       icon: '📜',
       iconBg: '#fffd6bff',
-      title: '龙虎山天师符箓转运壁纸',
-      shortTitle: '天师符箓壁纸',
-      subtitle: '15大神符壁纸，消灾、旺财、健康、平安、镇宅等',
-      tags: ['道教', '符箓', '壁纸', '转运'],
+      title: '道教符箓祈福壁纸',
+      shortTitle: '祈福符箓壁纸',
+      subtitle: '15大神壁纸，消灾、旺财、健康、平安、镇宅等',
+      tags: ['道教', '祈福', '壁纸'],
       link: 'light/fulu.html',
       category: 'life'
     },
@@ -246,7 +246,7 @@ window.toolsData = {
     },
     {
       id: 9,
-      visible: true,
+      visible: false,
       icon: '🧮',
       iconBg: '#795548',
       title: '开店必备60个计算公式',
