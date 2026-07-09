@@ -322,7 +322,7 @@ body {
     margin-bottom: 11px;
     overflow-x: auto;
     scrollbar-width: thin;
-    scrollbar-color: #eeeeee00 rgb(245 87 108 / 0%);
+    scrollbar-color: transparent transparent;
 }
 
 .about-festival-nav::-webkit-scrollbar {
@@ -330,12 +330,12 @@ body {
 }
 
 .about-festival-nav::-webkit-scrollbar-track {
-    background: rgba(245, 87, 108, 0.1);
+    background: transparent;
     border-radius: 4px;
 }
 
 .about-festival-nav::-webkit-scrollbar-thumb {
-    background: #f5576c;
+    background: transparent;
     border-radius: 4px;
 }
 

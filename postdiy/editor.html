@@ -723,7 +723,7 @@
             <div class="color-swatch-group" data-row="1">
               <div class="color-swatch" data-color="#000000" style="background-color: #000000;width: 30px; height: 30px; margin-right: 10px; color:#fff;" title="黑色"><span class="checkmark">✔</span></div>
               <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF;width: 30px; height: 30px; border: 1px solid #ddd;color: #000;" title="白色"><span class="checkmark">✔</span></div>
-             <div class="color-swatch-tip" >单击：预览，双击：确认</div>
+             <div class="color-swatch-tip">点一下预览，点两下确认</div>
               
             </div>
              <div class="color-swatch-hint">其它:根据海报色调选择合适色彩</div>
@@ -1220,30 +1220,60 @@
       const top = document.querySelector('.trigger-top');
       const bottom = document.querySelector('.trigger-bottom');
 
-      // 定时器
+      // 记录当前显示的元素和定时器
+      let currentShown = null;
       let timer = null;
+      let clickCount = 0;
 
-      // 显示提示（添加 .show 类）
+      // 显示提示（第一次点击）
       function show(el) {
         if (timer) clearTimeout(timer);
+        currentShown = el;
+        clickCount = 1;
         el.classList.add('show');
-        timer = setTimeout(() => el.classList.remove('show'), 2000);
+        // 2秒后自动隐藏（如果没有第二次点击）
+        timer = setTimeout(() => {
+          el.classList.remove('show');
+          currentShown = null;
+          clickCount = 0;
+        }, 2000);
       }
 
-      // 隐藏提示（移除 .show 类）
+      // 隐藏提示（第二次点击）
       function hide(el) {
         if (timer) clearTimeout(timer);
         el.classList.remove('show');
+        currentShown = null;
+        clickCount = 0;
       }
 
       // 桌面端：鼠标悬停 + 点击都能显示提示
       function setupDesktopEvents(element) {
-        element.addEventListener('mouseenter', () => show(element));
-        element.addEventListener('mouseleave', () => hide(element));
-        // 点击时也强制显示（解决鼠标已在区域内时 mouseenter 不触发的问题）
-        element.addEventListener('mousedown', () => show(element));
+        element.addEventListener('mouseenter', () => {
+          // 鼠标悬停时显示，但重置点击计数
+          if (!currentShown) {
+            show(element);
+          }
+        });
+        element.addEventListener('mouseleave', () => {
+          // 鼠标离开时隐藏（如果是因为悬停显示的）
+          if (currentShown === element && clickCount === 0) {
+            hide(element);
+          }
+        });
+        // 点击时：第一次显示，第二次隐藏
+        element.addEventListener('mousedown', () => {
+          if (currentShown === element && clickCount === 1) {
+            // 第二次点击：隐藏
+            hide(element);
+          } else if (!currentShown) {
+            // 第一次点击：显示
+            show(element);
+          }
+        });
         // 双击触发对应功能
         element.addEventListener('dblclick', () => {
+          hide(element);
           const action = element.dataset.action;
           if (action === 'template') {
             const btn = document.getElementById('changeTemplateBtn');
@@ -1286,8 +1316,16 @@
           area = 'bottom';
         }
 
-        // 显示提示（不立即隐藏，让它 2 秒后自动消失）
-        if (target) show(target);
+        // 第一次触摸：显示；第二次触摸（2秒内）：隐藏
+        if (target) {
+          if (currentShown === target && clickCount === 1) {
+            // 第二次点击：隐藏
+            hide(target);
+          } else if (!currentShown) {
+            // 第一次点击：显示
+            show(target);
+          }
+        }
 
         // 触摸结束时处理双击
         const endHandler = function() {
@@ -1295,6 +1333,7 @@
           const now = Date.now();
           if (lastArea === area && now - lastTap < 300) {
             // 双击触发功能
+            hide(target);
             if (area === 'left') {
               const btn = document.getElementById('changeTemplateBtn');
               if (btn) btn.click();

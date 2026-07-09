@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       <h3 class="card-title">${card.shortTitle || card.title}</h3>
                       <p class="card-subtitle">${card.subtitle || card.description || ''}</p>
                     </div>
+                    <div class="card-arrow">›</div>
                   </div>
                   ${card.showRecommend !== false ? `
                     <div class="card-recommend" id="recommend-${card.id}">
@@ -396,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="card-recommend-buttons" id="buttons-${cardId}" onclick="event.stopPropagation()">
         <div class="card-recommend-controls" id="controls-${cardId}">
           <button class="card-recommend-btn control-btn prev-btn" onclick="event.stopPropagation(); prevRecommend(${cardId})">←</button>
-          <button class="card-recommend-btn control-btn pause-btn" id="pause-${cardId}" onclick="event.stopPropagation(); togglePause(${cardId})">⏵</button>
+          <button class="card-recommend-btn control-btn pause-btn" id="pause-${cardId}" onclick="event.stopPropagation(); togglePause(${cardId})">自动切换</button>
           <button class="card-recommend-btn control-btn next-btn" onclick="event.stopPropagation(); nextRecommend(${cardId})">→</button>
         </div>
         <button class="card-recommend-btn enter-btn" onclick="event.stopPropagation(); enterSite('${cardLink}')" style="display: none;">进入网站</button>
@@ -433,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化当前索引和暂停状态（默认暂停）
     window.currentIndices[cardId] = 0;
     window.pauseStates[cardId] = true;
-    
+
     const items = scrollContainer.querySelectorAll('.card-recommend-item');
     
     // 存储定时器ID，以便后续清除
@@ -646,11 +647,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isPaused) {
       // 恢复播放
       window.pauseStates[cardId] = false;
-      pauseBtn.textContent = '⏸';
+      pauseBtn.textContent = '停止';
     } else {
       // 暂停
       window.pauseStates[cardId] = true;
-      pauseBtn.textContent = '⏵';
+      pauseBtn.textContent = '自动切换';
     }
   };
   
