@@ -80,7 +80,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 24px;
+            /* border-radius: 24px; */
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
@@ -217,9 +217,10 @@
             position: absolute;
             align-items: center;
             width: 100%;
-            top: 18px; z-index: 99;
+            top: 26px;
+            z-index: 99;
             justify-content: space-between;
-            padding: 17px 80px 13px;
+            padding: 6px 44px 13px;
             margin-bottom: 12px;
             /* border-bottom: 1px solid rgba(0, 0, 0, 0.08); */
         }
@@ -238,7 +239,7 @@
             padding: 3px 4px;
             font-size: 11px;
             font-weight: 500;
-            margin-top: -8px;
+            margin-top: -28px;
             border: none;
             border-radius: 16px;
             cursor: pointer;
@@ -255,7 +256,7 @@
         }
 
         .top-btn.today-btn {
-            background: rgba(255, 59, 48, 0.15);
+            background: rgb(255 59 48 / 4%);
             color: #ff3b30;
             border-color: rgba(255, 59, 48, 0.3);
         }
@@ -265,7 +266,7 @@
         }
 
         .top-btn.calendar-btn {
-            background: rgba(255, 159, 10, 0.15);
+            background: rgb(255 237 209 / 15%);
             color: #cc7a00;
             border-color: rgba(255, 159, 10, 0.3);
         }
@@ -300,7 +301,10 @@
             border-radius: 20px 0 0 20px;
         }
 .date-container {
-            position: relative;background: #fff;
+            position: relative;
+            background: #fff;
+            /* border-radius: 0 0 37px; */
+            border-top: 13px solid #a56969;
         }
         /* 万年历弹窗 */
         .calendar-modal {
@@ -351,9 +355,10 @@
 
         /* 主信息卡 - 上下布局 */
         .main-info-card {
-            padding: 34px 0;
+            padding: 45px 0 19px;
             margin-bottom: 16px;
             position: relative;
+            min-height: 600px;
         }
 
         /* 上部分 - 左中右布局 */
@@ -373,7 +378,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            width: 56px;
             min-height: 180px;
         }
 
@@ -398,7 +403,7 @@
         }
 
         .side-yiji.yi .side-yiji-title {
-            color: #038123;
+            color: #4c8a5c;
         }
 
         .side-yiji.ji .side-yiji-title {
@@ -408,18 +413,17 @@
         .side-yiji-tags {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 3px;
             width: 100%;
             overflow: hidden;
         }
 
         .side-yiji-tag {
-            padding: 4px 0px;
+            padding: 3px 0px;
             font-size: 14px;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.6);
             font-weight: 500;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -475,7 +479,7 @@
         }
 
         .weekday-text {
-            font-size: 24px;
+            font-size: 21px;
             font-weight: 600;
             color: rgb(0 0 0 / 91%);
             margin-bottom: 8px;
@@ -483,10 +487,10 @@
         }
 
         .lunar-date-text {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 500;
             color: rgb(0 0 0 / 88%);
-            margin-bottom: 8px;
+            margin-bottom: 1px;
             font-family: 'kx', serif;
         }
 
@@ -555,7 +559,7 @@
 
         .info-item {
             text-align: center;
-            padding: 12px 0px;
+            padding: 6px 0px;
             background: rgba(255, 255, 255, 0.4);
             border-radius: 12px;
             border: 1px solid rgb(242 157 157 / 50%);
@@ -574,7 +578,7 @@
         }
 
         .info-value {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.85);
         }
@@ -596,20 +600,21 @@
         }
 
         .pengzu-content {
-            padding: 7px 11px;
+            padding: 1px 6px;
             margin: 10px 19px;
             background: rgb(255 255 255 / 69%);
-            border: 1px solid rgb(240 201 167 / 37%);
-            font-size: 14px;
+            border-left: 4px solid rgb(209 135 71 / 37%);
+            font-size: 12px;
             line-height: 1.8;
-            color: rgb(175 0 0 / 82%);
+            color: rgb(180 60 0 / 82%);
             font-family: 'kx', serif;
             font-weight:bold;
             letter-spacing: 1px;
+            display: none;
+            margin-left: 21px;
             margin-top: 11px;
-            border-radius: 13px;
         }
-.pengzu-content b{margin:0 9px;font-weight:500;}
+.pengzu-content b{margin: 0 7px;font-weight:500;}
 
         /* 宜忌卡片 */
         .yiji-card {
@@ -685,7 +690,7 @@
 
         /* 吉神凶煞卡片 */
         .shensha-card {
-            padding: 1px 22px;
+            padding: 16px 22px 0px;
             margin-bottom: 25px;
         }
 
