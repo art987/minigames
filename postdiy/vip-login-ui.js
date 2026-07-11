@@ -1479,17 +1479,90 @@ const VipLoginUI = (function() {
     }
   }
   
-  function showPaymentMethodModal(duration, price, packageId) {
+  let discountCountdownTimer = null
+
+  function stopDiscountCountdown() {
+    if (discountCountdownTimer) {
+      clearInterval(discountCountdownTimer)
+      discountCountdownTimer = null
+    }
+  }
+
+  function startDiscountCountdown(totalSeconds) {
+    stopDiscountCountdown()
+    let remaining = totalSeconds
+    const updateDisplay = function() {
+      const el = document.getElementById('discountCountdownText')
+      if (!el) {
+        stopDiscountCountdown()
+        return
+      }
+      if (remaining <= 0) {
+        el.textContent = '已过期'
+        el.style.color = '#999'
+        stopDiscountCountdown()
+        return
+      }
+      const h = Math.floor(remaining / 3600)
+      const m = Math.floor((remaining % 3600) / 60)
+      const s = remaining % 60
+      el.textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
+      remaining--
+    }
+    updateDisplay()
+    discountCountdownTimer = setInterval(updateDisplay, 1000)
+  }
+
+  async function showPaymentMethodModal(duration, price, packageId) {
     const existingModal = document.getElementById('paymentMethodModal')
     if (existingModal) {
       existingModal.remove()
     }
-    
+
+    // 获取折上折优惠信息
+    let discountInfo = null
+    try {
+      if (window.VIPSystem && typeof window.VIPSystem.getInviteInfo === 'function') {
+        const result = await window.VIPSystem.getInviteInfo()
+        if (result.success && result.data && result.data.discountActive) {
+          discountInfo = result.data
+        }
+      }
+    } catch (e) {
+      console.warn('[payment] 获取折上折信息失败:', e)
+    }
+
+    const hasDiscount = !!discountInfo
+    const originalPriceNum = parseFloat(price)
+    const discountedPriceNum = hasDiscount ? Math.round(originalPriceNum * 0.9 * 100) / 100 : originalPriceNum
+
+    // 折上折倒计时模块
+    let discountHtml = ''
+    if (hasDiscount) {
+      discountHtml = `
+        <div id="discountCountdownBox" style="margin: 0 0 16px; padding: 12px 16px; background: linear-gradient(135deg, #fff8e1, #fff3e0); border: 1px solid #ffb74d; border-radius: 10px;">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">已享折上折</span>
+            <span style="color: #e65100; font-size: 13px; font-weight: 600;">邀请好友专享9折</span>
+          </div>
+          <div style="text-align: center; color: #bf360c; font-size: 12px;">
+            优惠剩余：<span id="discountCountdownText" style="font-weight: bold; font-family: 'Courier New', monospace; font-size: 14px;">--:--:--</span>
+          </div>
+        </div>
+      `
+    }
+
+    // 价格显示
+    const priceDisplayHtml = hasDiscount
+      ? `<span style="color: #999; font-size: 14px; text-decoration: line-through;">¥${originalPriceNum}</span> <span style="color: #d32f2f; font-size: 22px; font-weight: bold;">¥${discountedPriceNum}</span>`
+      : `<span style="color: #d32f2f; font-size: 20px; font-weight: bold;">¥${price}</span>`
+
     const modalHTML = `
       <div id="paymentMethodModal" class="payment-method-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: flex; align-items: center; justify-content: center;">
         <div class="payment-method-content" style="background: #fff; border-radius: 16px; padding: 24px; width: 90%; max-width: 320px; text-align: center;">
           <h3 style="margin: 0 0 20px; font-size: 18px; color: #333;">选择支付方式</h3>
-          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">支付金额: <span style="color: #d32f2f; font-size: 20px; font-weight: bold;">¥${price}</span></p>
+          ${discountHtml}
+          <p style="margin: 0 0 20px; color: #666; font-size: 14px;">支付金额: ${priceDisplayHtml}</p>
           <div class="payment-methods" style="display: flex; flex-direction: column; gap: 12px;">
             <button class="payment-method-btn alipay" data-type="alipay" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #1677FF; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -1508,29 +1581,32 @@ const VipLoginUI = (function() {
         </div>
       </div>
     `
-    
+
     document.body.insertAdjacentHTML('beforeend', modalHTML)
-    
+
     // 替换Font Awesome图标为SVG图标
     if (typeof replaceFAIcons === 'function') replaceFAIcons()
-    
+
     const modal = document.getElementById('paymentMethodModal')
     const cancelBtn = document.getElementById('cancelPaymentMethodBtn')
     const paymentBtns = modal.querySelectorAll('.payment-method-btn')
-    
+
     cancelBtn.addEventListener('click', function() {
+      stopDiscountCountdown()
       modal.remove()
     })
-    
+
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
+        stopDiscountCountdown()
         modal.remove()
       }
     })
-    
+
     paymentBtns.forEach(btn => {
       btn.addEventListener('click', async function() {
         const type = this.dataset.type
+        stopDiscountCountdown()
         modal.remove()
 
         await processPayment(duration, price, type, packageId)
@@ -1546,6 +1622,11 @@ const VipLoginUI = (function() {
         this.style.boxShadow = 'none'
       })
     })
+
+    // 启动折上折倒计时
+    if (hasDiscount && discountInfo.discountRemainingSeconds) {
+      startDiscountCountdown(discountInfo.discountRemainingSeconds)
+    }
   }
 
   async function processPayment(duration, price, type, packageId) {

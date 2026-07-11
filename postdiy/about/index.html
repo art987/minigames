@@ -2,6 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <!-- 无尾斜杠访问时重定向，确保相对路径正确解析（如 /about → /about/） -->
+    <script>
+        (function() {
+            var path = window.location.pathname;
+            if (!path.endsWith('/') && !path.match(/\.[^/]+$/)) {
+                window.location.replace(path + '/' + window.location.search + window.location.hash);
+            }
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>闪喵海报制作神器</title>
     <meta name="description" content="闪喵海报生成工具，一键生成精美海报，助力品牌传播">
@@ -22,6 +31,10 @@
         templateScript.src = '../templates.js?t=' + new Date().getTime();
         document.head.appendChild(templateScript);
     </script>
+    <!-- 二维码生成库（海报分享物料用） -->
+    <script src="../libs/qrcode/qrcode.min.js"></script>
+    <!-- 海报分享物料组件样式 -->
+    <link rel="stylesheet" href="poster-share.css">
 </head>
 <body>
 
@@ -593,6 +606,95 @@
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
+
+    <!-- 浮动分享按钮 -->
+    <button class="ps-float-btn" id="psFloatBtn" aria-label="分享好友">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>分享给好友</span>
+    </button>
+
+    <!-- 分享物料弹窗 -->
+    <div class="ps-overlay">
+        <div class="ps-card">
+            <button class="ps-close" aria-label="关闭">&times;</button>
+            <div class="ps-header">
+                <h3>一键下载分享海报给好友</h3>
+            </div>
+            <div class="ps-body">
+                 <div class="ps-tip">
+                    <p>下方海报二维码已经包含您的专属邀请码。<br>好友识别后即<b>可享5次下载额度及9折升级优惠</b>。</p>
+                </div>
+                <div class="ps-poster-frame">
+                    <img class="ps-poster-bg" src="" alt="海报背景">
+                    <div class="ps-poster-content">
+                        <div class="ps-poster-header">
+                            <div class="ps-poster-logo">
+                                <img src="../images/statics/logo.png" alt="闪喵logo">
+                            </div>
+                            <div class="ps-poster-name">闪喵朋友圈海报制作器</div>
+                        </div>
+                        <div class="ps-poster-footer">
+                            <div class="ps-poster-qrcode">
+                                <img src="" alt="二维码">
+                            </div>
+                            <div class="ps-poster-promo">
+                                <div class="ps-poster-promo-line">😎 跳过复杂设计和昂贵支出。</div>        
+                                <div class="ps-poster-promo-line">🥰 轻松生成精美节日宣传海报！</div>
+                                <div class="ps-poster-promo-line">👈 长按识别二维码，领先一步！</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-loading"></div>
+                </div>
+                
+                <div class="ps-actions">
+                    <button class="ps-btn ps-btn-template">更换分享模板</button>
+                    <button class="ps-btn ps-btn-download">下载分享海报</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模板选择弹窗（3D画廊 + 节日标签） -->
+    <div class="ps-tpl-overlay">
+        <div class="ps-tpl-card">
+            <button class="ps-tpl-close" aria-label="关闭">&times;</button>
+            <div class="ps-tpl-header">
+                <h3>选择模板</h3>
+            </div>
+            <div class="ps-tpl-festivals" id="psTplFestivals"></div>
+            <div class="ps-tpl-gallery-wrap">
+                <div class="template-3d-gallery">
+                    <div class="template-gallery-container" id="psTplGallery"></div>
+                </div>
+                <div class="template-slide-controls">
+                    <button class="nav-btn prev-btn" id="psTplPrev">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <div class="template-slide-info">
+                        <span id="psTplSlideName">模板名称</span>
+                        <span id="psTplCounter">1 / 1</span>
+                    </div>
+                    <button class="nav-btn next-btn" id="psTplNext">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="ps-tpl-actions">
+                <button class="ps-btn ps-tpl-random">随机展示</button>
+                <button class="ps-btn ps-tpl-confirm">确定使用</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 海报分享物料组件 -->
+    <script src="poster-share.js"></script>
 
     <script>
         // 滚动动画
@@ -1256,6 +1358,17 @@
             initAboutTemplates();
             initAboutPromoTemplates();
             initAboutSmartReminder();
+
+            // ========== 海报分享物料组件初始化 ==========
+            if (window.PosterShare) {
+                PosterShare.init();
+            }
+            const psFloatBtn = document.getElementById('psFloatBtn');
+            if (psFloatBtn) {
+                psFloatBtn.addEventListener('click', function() {
+                    if (window.PosterShare) PosterShare.open();
+                });
+            }
         });
 
         // ========== 品牌促销引流文案逻辑 ==========

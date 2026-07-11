@@ -22,6 +22,17 @@
         templateScript.src = '../templates.js?t=' + new Date().getTime();
         document.head.appendChild(templateScript);
     </script>
+    <!-- 邀请码参数解析：尽早执行，存入 localStorage -->
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref');
+            if (ref) {
+                localStorage.setItem('postdiy_invite_code', ref);
+                console.log('[邀请码] 已保存邀请码:', ref);
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -85,7 +96,7 @@
             
             <!-- 立即体验按钮 -->
             <div class="about-templates-cta">
-                <a href="https://www.pgyer.com/shanmiao" class="about-cta-button">立即下载</a>
+                <a href="https://www.pgyer.com/shanmiao" class="about-cta-button" id="downloadBtn3">立即下载</a>
             </div>
         </div>
     </section>
@@ -1191,25 +1202,25 @@
         // 初始化
         // ========== 统一下载链接配置 ==========
         const DOWNLOAD_CONFIG = {
-            // 在这里配置下载链接，所有下载按钮都会跳转到这个链接
             downloadUrl: 'https://www.pgyer.com/shanmiao',
             downloadText: '立即下载'
         };
 
-        // 初始化所有下载按钮
+        // 初始化所有下载按钮（由 updateDownloadButtons 接管登录状态判断）
         function initDownloadButtons() {
-            const downloadButtons = [
-                'downloadBtn1',
-                'downloadBtn2'
-            ];
-            
-            downloadButtons.forEach(btnId => {
-                const btn = document.getElementById(btnId);
-                if (btn) {
-                    btn.href = DOWNLOAD_CONFIG.downloadUrl;
-                    btn.textContent = DOWNLOAD_CONFIG.downloadText;
-                }
-            });
+            if (typeof updateDownloadButtons === 'function') {
+                updateDownloadButtons();
+            } else {
+                // 兜底：直接设置下载链接
+                const downloadButtons = ['downloadBtn1', 'downloadBtn2'];
+                downloadButtons.forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    if (btn) {
+                        btn.href = DOWNLOAD_CONFIG.downloadUrl;
+                        btn.textContent = DOWNLOAD_CONFIG.downloadText;
+                    }
+                });
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1603,5 +1614,698 @@
             });
         }
 </script>
+
+    <!-- ========== 邀请注册相关弹窗 ========== -->
+    <style>
+        .info-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            padding: 20px;
+        }
+        .info-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .info-modal-card {
+            background: #fff;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 380px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .info-modal-overlay.active .info-modal-card {
+            transform: scale(1);
+        }
+        .info-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .info-modal-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .info-modal-header {
+            background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+            color: #fff;
+            padding: 22px 20px 18px;
+            text-align: center;
+        }
+        .info-modal-header h3 {
+            font-size: 19px;
+            margin: 0 0 6px;
+            font-weight: 700;
+        }
+        .info-modal-header p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .info-modal-body {
+            padding: 24px 22px;
+        }
+        .info-form-group {
+            margin-bottom: 16px;
+        }
+        .info-form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .info-form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            font-size: 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        .info-form-group input:focus {
+            outline: none;
+            border-color: #fc592a;
+        }
+        .info-code-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        .info-code-wrapper input {
+            flex: 1;
+        }
+        .info-send-code-btn {
+            padding: 13px 16px;
+            font-size: 14px;
+            background: linear-gradient(135deg, #f6f9b1, #fad47e);
+            color: #c85912;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .info-send-code-btn:disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+        }
+        .info-agreement {
+            margin: 16px 0 20px;
+        }
+        .info-checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #666;
+            user-select: none;
+        }
+        .info-checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+        .info-checkbox-custom {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            background: #fff;
+            margin-top: 1px;
+        }
+        .info-checkbox-label input[type="checkbox"]:checked + .info-checkbox-custom {
+            background: linear-gradient(135deg, #ffb73b, #fc592a);
+            border-color: #fc592a;
+        }
+        .info-checkbox-label input[type="checkbox"]:checked + .info-checkbox-custom::after {
+            content: '✓';
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .info-checkbox-label a {
+            color: #fc592a;
+            text-decoration: none;
+        }
+        .info-modal-btn-primary {
+            width: 100%;
+            padding: 15px;
+            font-size: 17px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .info-modal-btn-primary:active {
+            transform: scale(0.98);
+        }
+        .info-modal-btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .info-modal-btn-skip {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            background: transparent;
+            color: #999;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .info-message {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 14px;
+            display: none;
+        }
+        .info-message.error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+        }
+        .info-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: block;
+        }
+        .info-download-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: transform 0.2s;
+            border: 2px solid transparent;
+        }
+        .info-download-btn.android {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: #fff;
+        }
+        .info-download-btn.android:active {
+            transform: scale(0.98);
+        }
+        .info-download-btn.ios.disabled {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+            border-color: #e0e0e0;
+        }
+        .info-download-icon {
+            font-size: 28px;
+        }
+        .info-download-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-download-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .info-download-sub {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .info-discount-banner {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 13px;
+            color: #e65100;
+            font-weight: 600;
+        }
+        .info-shake {
+            animation: infoShake 1.5s ease-in-out;
+        }
+        @keyframes infoShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+            20%, 40%, 60%, 80% { transform: translateX(4px); }
+        }
+    </style>
+
+    <!-- 注册弹窗 -->
+    <div id="registerModal" class="info-modal-overlay">
+        <div class="info-modal-card">
+            <button class="info-modal-close" onclick="closeInfoModal('registerModal')">×</button>
+            <div class="info-modal-header">
+                <h3>注册闪喵账号</h3>
+                <p id="registerModalSubtitle">注册即享VIP折上折，7天内有效</p>
+            </div>
+            <div class="info-modal-body">
+                <div id="registerMessage" class="info-message"></div>
+                <div class="info-form-group">
+                    <label>手机号</label>
+                    <input type="tel" id="registerPhone" placeholder="请输入手机号" maxlength="11">
+                </div>
+                <div class="info-form-group">
+                    <label>验证码</label>
+                    <div class="info-code-wrapper">
+                        <input type="text" id="registerCode" placeholder="4位验证码" maxlength="4">
+                        <button id="infoSendCodeBtn" class="info-send-code-btn">发送验证码</button>
+                    </div>
+                </div>
+                <div class="info-agreement">
+                    <label class="info-checkbox-label">
+                        <input type="checkbox" id="infoAgreement">
+                        <span class="info-checkbox-custom"></span>
+                        <span>我已阅读并同意<a href="javascript:void(0)" onclick="showInfoAgreement('user')">《用户协议》</a>和<a href="javascript:void(0)" onclick="showInfoAgreement('privacy')">《隐私政策》</a></span>
+                    </label>
+                </div>
+                <button id="infoRegisterBtn" class="info-modal-btn-primary">立即注册</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置密码弹窗 -->
+    <div id="passwordModal" class="info-modal-overlay">
+        <div class="info-modal-card">
+            <div class="info-modal-header">
+                <h3>设置登录密码</h3>
+                <p>设置密码后可用密码快速登录</p>
+            </div>
+            <div class="info-modal-body">
+                <div id="passwordMessage" class="info-message"></div>
+                <div class="info-form-group">
+                    <label>密码</label>
+                    <input type="password" id="infoPassword" placeholder="6-20位密码" maxlength="20">
+                </div>
+                <div class="info-form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="infoPasswordConfirm" placeholder="再次输入密码" maxlength="20">
+                </div>
+                <button id="infoSetPasswordBtn" class="info-modal-btn-primary">确认设置</button>
+                <button class="info-modal-btn-skip" onclick="skipSetPassword()">跳过，直接下载</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 下载弹窗 -->
+    <div id="downloadModal" class="info-modal-overlay">
+        <div class="info-modal-card">
+            <button class="info-modal-close" onclick="closeInfoModal('downloadModal')">×</button>
+            <div class="info-modal-header">
+                <h3>下载闪喵APP</h3>
+                <p>选择您的手机系统进行下载</p>
+            </div>
+            <div class="info-modal-body">
+                <div id="downloadDiscountBanner" class="info-discount-banner" style="display: none;">
+                    🎁 您已享有VIP折上折优惠，7天内下单立享9折
+                </div>
+                <a href="https://www.pgyer.com/shanmiao" class="info-download-btn android">
+                    <span class="info-download-icon">🤖</span>
+                    <span class="info-download-text">
+                        <span class="info-download-title">Android 下载</span>
+                        <span class="info-download-sub">点击立即下载安装</span>
+                    </span>
+                </a>
+                <div class="info-download-btn ios disabled">
+                    <span class="info-download-icon">🍎</span>
+                    <span class="info-download-text">
+                        <span class="info-download-title">iOS 暂未开放</span>
+                        <span class="info-download-sub">敬请期待</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 协议内容弹窗 -->
+    <div id="agreementModal" class="info-modal-overlay">
+        <div class="info-modal-card" style="max-width: 420px;">
+            <button class="info-modal-close" onclick="closeInfoModal('agreementModal')">×</button>
+            <div class="info-modal-header">
+                <h3 id="agreementTitle">用户协议</h3>
+            </div>
+            <div class="info-modal-body" id="agreementContent" style="max-height: 60vh; overflow-y: auto; font-size: 14px; line-height: 1.7; color: #333;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== 邀请注册系统 ==========
+        const INFO_API_BASE = 'https://api.peacelove.top';
+        let infoCountdownTimer = null;
+        let infoRegisteredUserId = null;
+        let infoIsNewUser = false;
+
+        // 检查登录状态
+        function infoIsLoggedIn() {
+            const userId = localStorage.getItem('postdiy_user_id');
+            const userInfo = localStorage.getItem('postdiy_user_info');
+            return !!(userId && userInfo);
+        }
+
+        // 打开弹窗
+        function openInfoModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('active');
+        }
+
+        // 关闭弹窗
+        function closeInfoModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+        }
+
+        // 显示消息
+        function showInfoMessage(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.textContent = message;
+                el.className = 'info-message ' + type;
+            }
+        }
+
+        // 显示协议内容
+        function showInfoAgreement(type) {
+            const title = document.getElementById('agreementTitle');
+            const content = document.getElementById('agreementContent');
+            if (type === 'user') {
+                title.textContent = '用户协议';
+                content.innerHTML = `
+                    <h4 style="color:#fc592a;margin:0 0 8px;">一、服务条款</h4>
+                    <p>欢迎您使用闪喵朋友圈海报制作器（以下简称"本应用"）。请您仔细阅读以下条款，使用本应用即表示您同意本协议全部内容。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">二、用户注册</h4>
+                    <p>1. 用户需使用有效手机号进行注册。</p>
+                    <p>2. 用户应提供真实、准确的注册信息。</p>
+                    <p>3. 每个手机号仅能注册一个账号。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">三、用户行为</h4>
+                    <p>1. 用户不得利用本应用从事违法活动。</p>
+                    <p>2. 用户不得上传违法、侵权内容。</p>
+                    <p>3. 用户应尊重知识产权，不得盗用他人作品。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">四、服务变更</h4>
+                    <p>本应用保留随时变更、暂停或终止部分或全部服务的权利。</p>
+                `;
+            } else {
+                title.textContent = '隐私政策';
+                content.innerHTML = `
+                    <h4 style="color:#fc592a;margin:0 0 8px;">一、信息收集</h4>
+                    <p>本应用仅收集您的手机号用于注册登录，不收集其他个人敏感信息。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">二、信息使用</h4>
+                    <p>1. 手机号仅用于账号注册、登录验证和客户服务。</p>
+                    <p>2. 您的商家信息（名称、Logo、二维码）仅存储用于海报制作。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">三、信息保护</h4>
+                    <p>我们采用业界 standard 的安全措施保护您的个人信息，不会向第三方泄露。</p>
+                    <h4 style="color:#fc592a;margin:16px 0 8px;">四、信息删除</h4>
+                    <p>您可随时联系我们删除您的账号及相关数据。</p>
+                `;
+            }
+            openInfoModal('agreementModal');
+        }
+
+        // 发送验证码
+        async function infoSendCode() {
+            const phone = document.getElementById('registerPhone').value.trim();
+            if (!phone || !/^1[3-9]\d{9}$/.test(phone)) {
+                showInfoMessage('registerMessage', '请输入正确的手机号', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('infoSendCodeBtn');
+            btn.disabled = true;
+            btn.textContent = '发送中...';
+
+            try {
+                const response = await fetch(`${INFO_API_BASE}/send-sms`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showInfoMessage('registerMessage', '验证码已发送', 'success');
+                    startInfoCountdown(60);
+                } else {
+                    showInfoMessage('registerMessage', result.message || '发送失败', 'error');
+                    btn.disabled = false;
+                    btn.textContent = '发送验证码';
+                }
+            } catch (error) {
+                console.error('发送验证码失败:', error);
+                showInfoMessage('registerMessage', '发送失败，请稍后重试', 'error');
+                btn.disabled = false;
+                btn.textContent = '发送验证码';
+            }
+        }
+
+        // 倒计时
+        function startInfoCountdown(seconds) {
+            const btn = document.getElementById('infoSendCodeBtn');
+            let countdown = seconds;
+            btn.textContent = `${countdown}秒`;
+            if (infoCountdownTimer) clearInterval(infoCountdownTimer);
+            infoCountdownTimer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    btn.textContent = `${countdown}秒`;
+                } else {
+                    clearInterval(infoCountdownTimer);
+                    infoCountdownTimer = null;
+                    btn.disabled = false;
+                    btn.textContent = '发送验证码';
+                }
+            }, 1000);
+        }
+
+        // 注册/登录
+        async function infoRegister() {
+            const phone = document.getElementById('registerPhone').value.trim();
+            const code = document.getElementById('registerCode').value.trim();
+            const agreement = document.getElementById('infoAgreement').checked;
+
+            if (!phone || !/^1[3-9]\d{9}$/.test(phone)) {
+                showInfoMessage('registerMessage', '请输入正确的手机号', 'error');
+                return;
+            }
+            if (!code || code.length !== 4) {
+                showInfoMessage('registerMessage', '请输入4位验证码', 'error');
+                return;
+            }
+            if (!agreement) {
+                showInfoMessage('registerMessage', '请先同意用户协议和隐私政策', 'error');
+                const checkbox = document.querySelector('.info-checkbox-label');
+                if (checkbox) {
+                    checkbox.classList.add('info-shake');
+                    setTimeout(() => checkbox.classList.remove('info-shake'), 1500);
+                }
+                return;
+            }
+
+            const btn = document.getElementById('infoRegisterBtn');
+            btn.disabled = true;
+            btn.textContent = '注册中...';
+
+            try {
+                const inviteCode = localStorage.getItem('postdiy_invite_code') || '';
+                const response = await fetch(`${INFO_API_BASE}/user-register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, code, inviteCode })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    const data = result.data;
+                    // 保存登录信息
+                    localStorage.setItem('postdiy_user_id', data.userId);
+                    localStorage.setItem('postdiy_user_info', JSON.stringify(data));
+
+                    infoRegisteredUserId = data.userId;
+                    infoIsNewUser = data.isNewUser;
+
+                    // 清除已使用的邀请码（保留以备后用，不清除）
+                    // localStorage.removeItem('postdiy_invite_code');
+
+                    showInfoMessage('registerMessage', result.message || '注册成功', 'success');
+
+                    setTimeout(() => {
+                        closeInfoModal('registerModal');
+                        if (data.isNewUser || !data.hasPassword) {
+                            // 新用户或未设置密码：引导设置密码
+                            openInfoModal('passwordModal');
+                        } else {
+                            // 老用户：直接显示下载弹窗
+                            showDownloadModalWithDiscount(data.discountExpireAt);
+                        }
+                        updateDownloadButtons();
+                    }, 800);
+                } else {
+                    showInfoMessage('registerMessage', result.message || '注册失败', 'error');
+                    btn.disabled = false;
+                    btn.textContent = '立即注册';
+                }
+            } catch (error) {
+                console.error('注册失败:', error);
+                showInfoMessage('registerMessage', '操作失败，请稍后重试', 'error');
+                btn.disabled = false;
+                btn.textContent = '立即注册';
+            }
+        }
+
+        // 设置密码
+        async function infoSetPassword() {
+            const password = document.getElementById('infoPassword').value;
+            const confirmPassword = document.getElementById('infoPasswordConfirm').value;
+
+            if (!password || password.length < 6 || password.length > 20) {
+                showInfoMessage('passwordMessage', '密码长度需6-20位', 'error');
+                return;
+            }
+            if (password !== confirmPassword) {
+                showInfoMessage('passwordMessage', '两次密码不一致', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('infoSetPasswordBtn');
+            btn.disabled = true;
+            btn.textContent = '设置中...';
+
+            try {
+                const response = await fetch(`${INFO_API_BASE}/set-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: infoRegisteredUserId, password })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showInfoMessage('passwordMessage', '密码设置成功', 'success');
+                    setTimeout(() => {
+                        closeInfoModal('passwordModal');
+                        showDownloadModalWithDiscount();
+                    }, 800);
+                } else {
+                    showInfoMessage('passwordMessage', result.message || '设置失败', 'error');
+                    btn.disabled = false;
+                    btn.textContent = '确认设置';
+                }
+            } catch (error) {
+                console.error('设置密码失败:', error);
+                showInfoMessage('passwordMessage', '操作失败，请稍后重试', 'error');
+                btn.disabled = false;
+                btn.textContent = '确认设置';
+            }
+        }
+
+        // 跳过设置密码
+        function skipSetPassword() {
+            closeInfoModal('passwordModal');
+            showDownloadModalWithDiscount();
+        }
+
+        // 显示下载弹窗（带折上折提示）
+        function showDownloadModalWithDiscount(discountExpireAt) {
+            const banner = document.getElementById('downloadDiscountBanner');
+            // 从 localStorage 获取用户信息
+            const userInfo = JSON.parse(localStorage.getItem('postdiy_user_info') || '{}');
+            const expireAt = discountExpireAt || userInfo.discountExpireAt;
+
+            if (expireAt) {
+                const expireDate = new Date(expireAt);
+                if (expireDate > new Date()) {
+                    banner.style.display = 'block';
+                    banner.textContent = '🎁 您已享有VIP折上折优惠，7天内下单立享9折';
+                } else {
+                    banner.style.display = 'none';
+                }
+            } else {
+                banner.style.display = 'none';
+            }
+            openInfoModal('downloadModal');
+        }
+
+        // 更新下载按钮文案和行为
+        function updateDownloadButtons() {
+            const loggedIn = infoIsLoggedIn();
+            const btnIds = ['downloadBtn1', 'downloadBtn2', 'downloadBtn3'];
+            btnIds.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (!btn) return;
+                if (loggedIn) {
+                    btn.textContent = '立即下载';
+                    btn.href = 'javascript:void(0)';
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        showDownloadModalWithDiscount();
+                    };
+                } else {
+                    btn.textContent = '马上获得';
+                    btn.href = 'javascript:void(0)';
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        openInfoModal('registerModal');
+                    };
+                }
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDownloadButtons();
+
+            // 绑定发送验证码按钮
+            const sendBtn = document.getElementById('infoSendCodeBtn');
+            if (sendBtn) sendBtn.addEventListener('click', infoSendCode);
+
+            // 绑定注册按钮
+            const registerBtn = document.getElementById('infoRegisterBtn');
+            if (registerBtn) registerBtn.addEventListener('click', infoRegister);
+
+            // 绑定设置密码按钮
+            const setPasswordBtn = document.getElementById('infoSetPasswordBtn');
+            if (setPasswordBtn) setPasswordBtn.addEventListener('click', infoSetPassword);
+
+            // 点击遮罩关闭弹窗
+            document.querySelectorAll('.info-modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

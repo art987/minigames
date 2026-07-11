@@ -1,0 +1,519 @@
+/* ========== 分享物料弹窗样式 ========== */
+
+/* 弹窗遮罩 */
+.ps-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 15px;
+}
+.ps-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 弹窗卡片 */
+.ps-card {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 360px;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+}
+.ps-overlay.active .ps-card {
+    transform: scale(1);
+}
+
+/* 关闭按钮 */
+.ps-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgb(255 255 255 / 0%);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 27px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.ps-close:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+/* 头部 */
+.ps-header {
+    background: linear-gradient(135deg, #272626, #000000eb);
+    color: #fff;
+    padding: 11px 20px 6px;
+    flex-shrink: 0;
+}
+.ps-header h3 {
+    font-size: 15px;
+    margin: 0 0 4px;
+    font-weight: 300;
+}
+.ps-header p {
+    font-size: 13px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* 海报预览区容器 */
+.ps-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 海报预览区 - 固定 1:2 比例，整体等比缩放 */
+.ps-poster-frame {
+    --ps-unit: 2.6px;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 60px;
+    aspect-ratio: 1 / 2;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 海报背景图 */
+.ps-poster-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 海报内容层 - 所有尺寸基于 --ps-unit 等比缩放 */
+.ps-poster-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: calc(var(--ps-unit) * 4.4);
+}
+
+/* 海报头部 - logo + 商家名称 */
+.ps-poster-header {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ps-unit) * 3.1);
+}
+
+.ps-poster-logo {
+    width: calc(var(--ps-unit) * 9.4);
+    height: calc(var(--ps-unit) * 9.4);
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--ps-unit) * 0.6);
+}
+.ps-poster-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.ps-poster-name {
+    color: #fefefe;
+    font-size: calc(var(--ps-unit) * 3.8);
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    line-height: 1.3;
+}
+
+/* 海报底部 - 二维码 + 促销文案 */
+.ps-poster-footer {
+    display: flex;
+    align-items: flex-end;
+    gap: calc(var(--ps-unit) * 5.6);
+    padding: 0 calc(var(--ps-unit) * 4.1);
+}
+.ps-poster-qrcode {
+    width: calc(var(--ps-unit) * 18.8);
+    height: calc(var(--ps-unit) * 18.8);
+    background: #fff;
+    padding: calc(var(--ps-unit) * 1.3);
+    border-radius: calc(var(--ps-unit) * 1.9);
+    flex-shrink: 0;
+}
+.ps-poster-qrcode img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.ps-poster-promo {
+    flex: 1;
+    text-align: left;
+    padding-bottom: calc(var(--ps-unit) * 0.6);
+    background: #fff;
+    padding-left: calc(var(--ps-unit) * 2.1);
+    padding-top: calc(var(--ps-unit) * 1);
+    border-radius: calc(var(--ps-unit) * 2);
+}
+.ps-poster-promo-line {
+    color: #000000;
+    font-size: calc(var(--ps-unit) * 3.6);
+    font-weight: 500;
+    /* text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); */
+    line-height: 1.42;
+    margin: calc(var(--ps-unit) * 0.3) 0;
+}
+.ps-poster-promo-line:last-child {
+    font-size: calc(var(--ps-unit) * 3.8);
+    font-weight: 500;
+    opacity: 0.95;
+}
+.ps-tip {
+    font-size: 13px;
+    opacity: 0.9;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+/* 按钮区 */
+.ps-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 8px 10% 9px;
+    position: fixed;
+    bottom: 0;
+    background: #ffffff42;
+    backdrop-filter: blur(7px);
+    border-top: 1px solid #fff;
+    left: 0px;
+}
+.ps-btn {
+    /* flex: 5; */
+    padding: 12px;
+    font-size: 13px;
+    border: 1px solid #ffffff73;
+    width: 130px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 350;
+    transition: transform 0.2s, opacity 0.2s;
+    text-align: center;
+}
+.ps-btn:active {
+    transform: scale(0.97);
+}
+.ps-btn-template {
+    background: linear-gradient(135deg, #fbfbfb, #d5d5d5);
+    color: #d51703;border: 1px solid #ad606073;
+}
+.ps-btn-download {
+    background: linear-gradient(135deg, #3e3e3e, #000000);
+    color: #fff;
+}
+.ps-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 加载动画 */
+.ps-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #e74c3c;
+    border-radius: 50%;
+    animation: psSpin 0.8s linear infinite;
+    display: none;
+}
+.ps-loading.active {
+    display: block;
+}
+@keyframes psSpin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 提示消息 */
+.ps-toast {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 7px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: nowrap;
+}
+.ps-toast.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 浮动分享按钮 ========== */
+.ps-float-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 80%;
+    height: 60px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff47c3, #bd0000);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(192, 57, 43, 0.5);
+    animation: psBlink 2s ease-in-out infinite;
+}
+.ps-float-btn:active {
+    transform: translateX(-50%) scale(0.97);
+    animation: none;
+}
+.ps-float-btn svg {
+    width: 24px;
+    height: 24px;
+}
+@keyframes psBlink {
+    0%, 100% {
+        box-shadow: 0 6px 24px rgba(192, 57, 43, 0.5);
+        opacity: 1;
+    }
+    50% {
+        box-shadow: 0 6px 32px rgba(231, 76, 60, 0.8);
+        opacity: 0.92;
+    }
+}
+
+/* 响应式 - 仅浮动按钮，海报内部不单独适配 */
+@media (max-width: 768px) {
+    .ps-float-btn {
+        font-size: 16px;
+    }
+}
+
+/* ========== 模板选择弹窗（3D画廊） ========== */
+.ps-tpl-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(0 0 0 / 94%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 15px;
+}
+.ps-tpl-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+/* 果冻弹窗动画 */
+@keyframes jellyOpen {
+    0% { transform: scale(0.7); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 1; }
+    70% { transform: scale(0.95); }
+    85% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+@keyframes jellyClose {
+    0% { transform: scale(1); opacity: 1; }
+    30% { transform: scale(1.05); }
+    60% { transform: scale(0.85); opacity: 0.8; }
+    100% { transform: scale(0.7); opacity: 0; }
+}
+
+.ps-tpl-card {
+    background: #ffffff;
+    border-radius: 9px;
+    width: 90%;
+    border: 1px solid #5a5a5a;
+    max-width: 380px;
+    max-height: 95vh;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.7);
+    box-shadow: 0 12px 28px rgb(28 115 181 / 53%);
+    display: flex;
+    flex-direction: column;
+}
+.ps-tpl-overlay.active .ps-tpl-card {
+    animation: jellyOpen 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.ps-tpl-overlay.closing .ps-tpl-card {
+    animation: jellyClose 0.25s ease-out forwards;
+}
+.ps-tpl-close {
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgb(255 255 255 / 0%);
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.ps-tpl-close:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+.ps-tpl-header {
+    background: linear-gradient(135deg, #272626, #000000eb);
+    color: #fff;
+    padding: 9px 20px 4px;
+    flex-shrink: 0;
+}
+.ps-tpl-header h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* 节日标签栏 */
+.ps-tpl-festivals {
+    display: flex;
+    gap: 8px;
+    padding: 13px 16px 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    flex-shrink: 0;
+    background: #00000000;
+    border-bottom: 1px solid #f0f0f0;
+}
+.ps-tpl-festivals::-webkit-scrollbar {
+    height: 3px;
+}
+.ps-tpl-festivals::-webkit-scrollbar-thumb {
+    background: #d9d9d980;
+    border-radius: 2px;
+}
+.ps-tpl-festival-tag {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #fff;
+    color: #000000;
+    font-size: 13px;
+    font-weight: 300;
+    cursor: pointer;
+    border: 1.5px solid #e0e0e0;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.ps-tpl-festival-tag:active {
+    transform: scale(0.95);
+}
+.ps-tpl-festival-tag.active {
+    background: linear-gradient(135deg, #e74c3c, #cf1300);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* 3D画廊区域 */
+.ps-tpl-gallery-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0;
+    overflow: hidden;
+    min-height: 0;
+}
+.ps-tpl-gallery-wrap .template-slide-controls{bottom: -70px;}
+.ps-tpl-gallery-wrap .template-slide-controls .nav-btn{top:-250px;background: linear-gradient(135deg, #75757517 0%, #dedede 100%);width: 40px;height: 40px;font-size: 21px;}
+.ps-tpl-gallery-wrap .template-3d-gallery{width: 90%;}
+/* 底部操作区 */
+.ps-tpl-actions {
+    padding: 12px 0 16px;
+    flex-shrink: 0;
+    text-align: center;
+    position: absolute;
+    width: 64%;
+    top: 81%;
+    left: 17%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.ps-tpl-confirm, .ps-tpl-random {
+    width: 30%;
+    padding: 5px 1px;
+    font-size: 11px;
+    backdrop-filter: blur(3px);
+    border: 1px solid #ffffff7d;
+    border-radius: 32px;
+    cursor: pointer;
+    font-weight: 400;
+    background: linear-gradient(
+105deg, #ffffff40, #ffffffe0);
+    text-shadow: 0 1px 2px #fff;
+    color: #000000;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 15px rgb(255 255 255 / 94%);
+}
+.ps-tpl-random {
+    background: linear-gradient(135deg, #ff949482, #ffffffe8);
+}
+.ps-tpl-confirm:active, .ps-tpl-random:active {
+    transform: scale(0.97);
+}

@@ -229,6 +229,33 @@ exports.main = async (event, context) => {
       }
     }
 
+    // === 折上折：被推荐用户7日内享9折优惠 ===
+    let originalPrice = realPrice
+    let hasDiscount = false
+    try {
+      const userDoc = await db.collection('users').doc(userId).get()
+      const userData = userDoc.data || {}
+      if (userData.referrerUserId && userData.discountExpireAt) {
+        const expireAt = new Date(userData.discountExpireAt)
+        if (expireAt > new Date()) {
+          // 9折 = ×0.9，保留两位小数
+          realPrice = Math.round(realPrice * 0.9 * 100) / 100
+          hasDiscount = true
+          console.log('[折上折] 用户享有9折优惠:', {
+            userId,
+            originalPrice: originalPrice,
+            discountPrice: realPrice,
+            referrerUserId: userData.referrerUserId,
+            expireAt: userData.discountExpireAt
+          })
+        } else {
+          console.log('[折上折] 优惠已过期:', { userId, expireAt: userData.discountExpireAt })
+        }
+      }
+    } catch (e) {
+      console.warn('[折上折] 查询用户优惠信息失败，按原价下单:', e.message)
+    }
+
     const outTradeNo = generateOutTradeNo()
     const name = pkgTitle || getDurationName(duration)
 
@@ -334,6 +361,8 @@ exports.main = async (event, context) => {
         phone: phone || '',
         name: name,
         money: realPrice,
+        originalPrice: hasDiscount ? originalPrice : null,
+        hasDiscount: hasDiscount,
         duration: duration,
         type: type,
         status: 0,
@@ -345,7 +374,7 @@ exports.main = async (event, context) => {
         notifyData: null
       }
     })
-    
+
     return {
       statusCode: 200,
       headers: {
@@ -360,7 +389,9 @@ exports.main = async (event, context) => {
         data: {
           out_trade_no: outTradeNo,
           payUrl: payUrl,
-          money: realPrice
+          money: realPrice,
+          originalPrice: hasDiscount ? originalPrice : realPrice,
+          hasDiscount: hasDiscount
         }
       })
     }

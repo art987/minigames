@@ -25,7 +25,8 @@ const VIPSystem = (function() {
     getVipPackages: `${API_BASE_URL}/get-vip-packages`,
     adminVipPackages: `${API_BASE_URL}/admin-vip-packages`,
     downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
-    downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`
+    downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`,
+    getInviteInfo: `${API_BASE_URL}/get-invite-info`
   };
 
   // 本地存储键名
@@ -104,14 +105,16 @@ const VIPSystem = (function() {
   }
 
   // 用户注册/登录
-  async function registerOrLogin(phone, code) {
+  async function registerOrLogin(phone, code, inviteCode) {
     try {
+      const payload = { phone, code };
+      if (inviteCode) payload.inviteCode = inviteCode;
       const response = await fetch(APIs.userRegister, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, code })
+        body: JSON.stringify(payload)
       });
-      
+
       const result = await response.json();
       if (result.success) {
         setUserInfo(result.data);
@@ -728,6 +731,35 @@ const VIPSystem = (function() {
     }
   }
 
+  // 获取邀请信息（邀请码、推荐人、折上折倒计时等）
+  async function getInviteInfo() {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+
+      const response = await fetch(APIs.getInviteInfo, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      })
+
+      const result = await response.json()
+      if (result.success && result.data) {
+        const userInfo = getUserInfo()
+        if (userInfo) {
+          userInfo.inviteCode = result.data.inviteCode
+          setUserInfo(userInfo)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('获取邀请信息失败:', error)
+      return { success: false, message: '获取邀请信息失败' }
+    }
+  }
+
   return {
     sendSMS,
     registerOrLogin,
@@ -758,7 +790,8 @@ const VIPSystem = (function() {
     getDownloadQuota,
     deductDownloadQuota,
     addDownloadQuota,
-    getDownloadQuotaLogs
+    getDownloadQuotaLogs,
+    getInviteInfo
   };
 })();
 

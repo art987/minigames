@@ -550,6 +550,7 @@ if (typeof window !== 'undefined') {
     getCurrentMonthAndDay,
     isDateInMonth,
     getAllFestivals,
+    getAllFestivalDates,
     getFestivalsByMonth,
     getFestivalNamesByMonth,
     getDaysBetweenDates,
