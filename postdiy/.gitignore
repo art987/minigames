@@ -30,6 +30,7 @@ dist/
 !**/cropperjs/cropper.min.css
 !**/html2canvas/html2canvas.min.js
 !**/font-awesome/css/all.min.css
+!**/qrcode/qrcode.min.js
 
 # Environment variables
 .env

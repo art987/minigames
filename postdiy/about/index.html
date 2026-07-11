@@ -31,8 +31,8 @@
         templateScript.src = '../templates.js?t=' + new Date().getTime();
         document.head.appendChild(templateScript);
     </script>
-    <!-- 二维码生成库（海报分享物料用） -->
-    <script src="../libs/qrcode/qrcode.min.js"></script>
+    <!-- 二维码生成库（海报分享物料用） - 本地优先，CDN fallback -->
+    <script src="../libs/qrcode/qrcode.min.js" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';"></script>
     <!-- 海报分享物料组件样式 -->
     <link rel="stylesheet" href="poster-share.css">
 </head>
@@ -616,7 +616,7 @@
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
         </svg>
-        <span>分享给好友</span>
+        <span>分享给好友，助力业绩腾飞</span>
     </button>
 
     <!-- 分享物料弹窗 -->

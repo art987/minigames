@@ -553,6 +553,13 @@ const PosterShare = (function() {
         const overlay = document.querySelector('.ps-overlay');
         if (overlay) overlay.classList.add('active');
 
+        // 禁止背景滚动，只允许弹窗内容滚动
+        const scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.dataset.scrollY = scrollY;
+
         requestAnimationFrame(function() {
             updatePosterScale();
         });
@@ -562,6 +569,13 @@ const PosterShare = (function() {
         const overlay = document.querySelector('.ps-overlay');
         if (overlay) overlay.classList.remove('active');
         closeTemplatePicker();
+
+        // 恢复背景滚动
+        const scrollY = parseInt(document.body.dataset.scrollY || '0');
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
     }
 
     function init() {
@@ -618,6 +632,90 @@ const PosterShare = (function() {
         // 随机展示按钮
         const randomBtn = document.querySelector('.ps-tpl-random');
         if (randomBtn) randomBtn.addEventListener('click', randomizeCurrentTemplates);
+
+        // 手势滑动支持
+        const galleryWrap = document.querySelector('.ps-tpl-gallery-wrap');
+        if (galleryWrap) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isSwiping = false;
+
+            galleryWrap.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                isSwiping = true;
+            }, { passive: true });
+
+            galleryWrap.addEventListener('touchmove', function(e) {
+                if (!isSwiping) return;
+                touchEndX = e.touches[0].clientX;
+            }, { passive: true });
+
+            galleryWrap.addEventListener('touchend', function(e) {
+                if (!isSwiping) return;
+                isSwiping = false;
+
+                const diffX = touchEndX - touchStartX;
+                const threshold = 50; // 最小滑动距离阈值
+
+                if (Math.abs(diffX) > threshold) {
+                    if (diffX < 0) {
+                        // 向左滑动，切换到下一个
+                        nextSlide();
+                    } else {
+                        // 向右滑动，切换到上一个
+                        prevSlide();
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // 浮动按钮滚动隐藏/显示
+        let lastScrollY = window.scrollY;
+        let scrollThreshold = 10;
+        const floatBtn = document.getElementById('psFloatBtn');
+
+        window.addEventListener('scroll', function() {
+            const currentScrollY = window.scrollY;
+            const diff = currentScrollY - lastScrollY;
+
+            if (Math.abs(diff) < scrollThreshold) return;
+
+            if (floatBtn) {
+                if (diff > 0) {
+                    // 向上滚动（查看下方内容），隐藏按钮
+                    floatBtn.classList.add('hidden');
+                } else {
+                    // 向下滚动（查看上方内容），显示按钮
+                    floatBtn.classList.remove('hidden');
+                }
+            }
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
+
+        // 弹窗内按钮区滚动隐藏/显示
+        const psBody = document.querySelector('.ps-body');
+        const psActions = document.querySelector('.ps-actions');
+        if (psBody && psActions) {
+            let lastBodyScrollY = 0;
+
+            psBody.addEventListener('scroll', function() {
+                const currentBodyScrollY = psBody.scrollTop;
+                const diff = currentBodyScrollY - lastBodyScrollY;
+
+                if (Math.abs(diff) < scrollThreshold) return;
+
+                if (diff > 0) {
+                    // 向上滚动（查看下方内容），隐藏按钮区
+                    psActions.classList.add('hidden');
+                } else {
+                    // 向下滚动（查看上方内容），显示按钮区
+                    psActions.classList.remove('hidden');
+                }
+
+                lastBodyScrollY = currentBodyScrollY;
+            }, { passive: true });
+        }
 
         let resizeTimer = null;
         window.addEventListener('resize', function() {
