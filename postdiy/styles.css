@@ -9372,6 +9372,9 @@ Enables shadow effects to be applied to the text of the element.
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   --drag-offset: 0px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .template-gallery-slide img {
@@ -9443,6 +9446,19 @@ Enables shadow effects to be applied to the text of the element.
 .template-gallery-slide.current:hover {
   transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.05);
   box-shadow: 0 12px 40px rgba(211, 47, 47, 0.35);
+}
+
+.template-gallery-slide.selected {
+  transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.1) !important;
+  box-shadow: 0 16px 50px rgba(102, 126, 234, 0.5), 0 0 40px rgba(240, 147, 251, 0.3) !important;
+  border-color: #667eea !important;
+  animation: selectionPulse 0.4s ease-out;
+}
+
+@keyframes selectionPulse {
+  0% { transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1); }
+  50% { transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.15); }
+  100% { transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.1); }
 }
 
 .template-gallery-slide.prev-1:hover,

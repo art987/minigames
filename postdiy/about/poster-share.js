@@ -135,19 +135,55 @@ const PosterShare = (function() {
     }
 
     function renderPoster(template) {
-        const bg = document.querySelector('.ps-poster-bg');
+        const bgWrapper = document.querySelector('.ps-poster-bg-wrapper');
+        const currentBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.current') : null;
+        const nextBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.next') : null;
         const qrImg = document.querySelector('.ps-poster-qrcode img');
 
         updatePosterScale();
 
-        if (template && bg) {
-            bg.src = getTemplateImageUrl(template);
-            bg.crossOrigin = 'anonymous';
-            bg.onload = function() {};
-            bg.onerror = function() {
+        if (template && currentBg && nextBg) {
+            // 新图片加载
+            const newImageUrl = getTemplateImageUrl(template);
+            nextBg.src = newImageUrl;
+            nextBg.crossOrigin = 'anonymous';
+            nextBg.style.opacity = '0';
+
+            nextBg.onload = function() {
+                // 开始交叉淡入淡出动画
+                currentBg.style.opacity = '0';
+                nextBg.style.opacity = '1';
+
+                // 动画完成后交换类名
+                setTimeout(function() {
+                    currentBg.classList.remove('current');
+                    currentBg.classList.add('next');
+                    currentBg.style.opacity = '0';
+
+                    nextBg.classList.remove('next');
+                    nextBg.classList.add('current');
+
+                    // 交换变量引用，下次使用
+                    const temp = currentBg;
+                    // currentBg = nextBg; // 无法重新赋值参数
+                    // nextBg = temp;
+                }, 600);
+            };
+
+            nextBg.onerror = function() {
                 console.warn('[PosterShare] 背景图加载失败，尝试无 crossOrigin');
-                bg.crossOrigin = null;
-                bg.src = getTemplateImageUrl(template);
+                nextBg.crossOrigin = null;
+                nextBg.src = newImageUrl;
+            };
+        } else if (template && currentBg) {
+            // 兼容旧版本（单图片结构）
+            currentBg.src = getTemplateImageUrl(template);
+            currentBg.crossOrigin = 'anonymous';
+            currentBg.onload = function() {};
+            currentBg.onerror = function() {
+                console.warn('[PosterShare] 背景图加载失败，尝试无 crossOrigin');
+                currentBg.crossOrigin = null;
+                currentBg.src = getTemplateImageUrl(template);
             };
         }
 
@@ -283,7 +319,10 @@ const PosterShare = (function() {
             slide.appendChild(name);
             slide.addEventListener('click', function() {
                 if (index === state.tplIndex) {
-                    confirmTemplate();
+                    slide.classList.add('selected');
+                    setTimeout(function() {
+                        confirmTemplate();
+                    }, 300);
                 } else {
                     state.tplIndex = index;
                     updateSlidePositions();
@@ -306,7 +345,7 @@ const PosterShare = (function() {
         const current = state.tplIndex;
 
         slides.forEach(function(slide, index) {
-            slide.classList.remove('prev-2', 'prev-1', 'current', 'next-1', 'next-2', 'hidden-slide');
+            slide.classList.remove('prev-2', 'prev-1', 'current', 'next-1', 'next-2', 'hidden-slide', 'selected');
             const prev1 = (current - 1 + total) % total;
             const prev2 = (current - 2 + total) % total;
             const next1 = (current + 1) % total;
@@ -454,6 +493,13 @@ const PosterShare = (function() {
                 return;
             }
 
+            // 截图前隐藏非当前显示的背景图
+            const bgWrapper = posterFrame.querySelector('.ps-poster-bg-wrapper');
+            const nextBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.next') : null;
+            if (nextBg) {
+                nextBg.style.visibility = 'hidden';
+            }
+
             const options = {
                 backgroundColor: null,
                 scale: 2,
@@ -464,11 +510,17 @@ const PosterShare = (function() {
                 height: posterFrame.offsetHeight,
                 imageTimeout: 30000,
                 ignoreElements: function(el) {
-                    return el.classList && el.classList.contains('ps-loading');
+                    return el.classList && (el.classList.contains('ps-loading') || el.classList.contains('next'));
                 }
             };
 
             const canvas = await html2canvas(posterFrame, options);
+
+            // 截图后恢复隐藏的背景图
+            if (nextBg) {
+                nextBg.style.visibility = 'visible';
+            }
+
             const imageUrl = canvas.toDataURL('image/png', 1.0);
 
             const now = new Date();
