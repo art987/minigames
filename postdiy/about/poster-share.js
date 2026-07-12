@@ -319,10 +319,8 @@ const PosterShare = (function() {
             slide.appendChild(name);
             slide.addEventListener('click', function() {
                 if (index === state.tplIndex) {
-                    slide.classList.add('selected');
-                    setTimeout(function() {
-                        confirmTemplate();
-                    }, 300);
+                    // 直接选定，不要动画延迟
+                    confirmTemplate();
                 } else {
                     state.tplIndex = index;
                     updateSlidePositions();

@@ -9443,9 +9443,12 @@ Enables shadow effects to be applied to the text of the element.
   transform: translateX(calc(0px + var(--drag-offset))) translateZ(-200px) scale(0.4);
 }
 
-.template-gallery-slide.current:hover {
-  transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.05);
-  box-shadow: 0 12px 40px rgba(211, 47, 47, 0.35);
+/* 当前模板 hover 效果 - 仅在支持 hover 的设备（桌面端）生效 */
+@media (hover: hover) and (pointer: fine) {
+  .template-gallery-slide.current:hover {
+    transform: translateX(calc(0px + var(--drag-offset))) translateZ(30px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(211, 47, 47, 0.35);
+  }
 }
 
 .template-gallery-slide.selected {
