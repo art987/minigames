@@ -31,8 +31,8 @@
         templateScript.src = '../templates.js?t=' + new Date().getTime();
         document.head.appendChild(templateScript);
     </script>
-    <!-- 二维码生成库（海报分享物料用） - 本地优先，CDN fallback -->
-    <script src="../libs/qrcode/qrcode.min.js" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';"></script>
+    <!-- 二维码生成库（海报分享物料用） -->
+    <script src="../libs/qrcode/qrcode.min.js"></script>
     <!-- 海报分享物料组件样式 -->
     <link rel="stylesheet" href="poster-share.css">
 </head>
@@ -628,7 +628,7 @@
             </div>
             <div class="ps-body">
                  <div class="ps-tip">
-                    <p>下方海报二维码已经包含您的专属邀请码。<br>好友识别后即<b>可享5次下载额度及9折升级优惠</b>。</p>
+                    <p>好友特惠：<b>可享5次下载额度及9折升级优惠</b>。</p>
                 </div>
                 <div class="ps-poster-frame">
                     <img class="ps-poster-bg" src="" alt="海报背景">

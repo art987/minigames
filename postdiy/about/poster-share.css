@@ -211,7 +211,7 @@
     margin-top: 14px;
     padding: 8px 10% 9px;
     position: sticky;
-    bottom: 0;
+    bottom: -18px;
     background: #ffffff42;
     backdrop-filter: blur(7px);
     border-top: 1px solid #fff;
@@ -239,7 +239,8 @@
 }
 .ps-btn-template {
     background: linear-gradient(135deg, #fbfbfb, #d5d5d5);
-    color: #d51703;border: 1px solid #ad606073;
+    color: #000000;
+    border: 1px solid #000000e0;
 }
 .ps-btn-download {
     background: linear-gradient(135deg, #3e3e3e, #000000);
@@ -308,7 +309,7 @@
     height: 45px;
     border: none;
     border-radius: 30px;
-    background: linear-gradient(135deg, #ff47c3, #bd0000);
+    background: linear-gradient(135deg, #a2218c, #d50404);
     color: #fff;
     font-size: 18px;
     font-weight: 700;
