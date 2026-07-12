@@ -129,8 +129,8 @@
 }
 
 .ps-poster-logo {
-    width: calc(var(--ps-unit) * 9);
-    height: calc(var(--ps-unit) * 9);
+    width: calc(var(--ps-unit) * 8);
+    height: calc(var(--ps-unit) * 8);
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -151,8 +151,9 @@
     color: #fefefe;
     font-size: calc(var(--ps-unit) * 3.0);
     font-weight: 500;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     line-height: 1.3;
+    letter-spacing: calc(var(--ps-unit) * 0.2);
 }
 
 /* 海报底部 - 二维码 + 促销文案 */
@@ -163,10 +164,10 @@
     padding: 0 calc(var(--ps-unit) * 4.1);
 }
 .ps-poster-qrcode {
-    width: calc(var(--ps-unit) * 18.8);
-    height: calc(var(--ps-unit) * 18.8);
+    width: calc(var(--ps-unit) * 17);
+    height: calc(var(--ps-unit) * 17);
     background: #fff;
-    padding: calc(var(--ps-unit) * 1.3);
+    padding: calc(var(--ps-unit) * 1.6);
     border-radius: calc(var(--ps-unit) * 1.9);
     flex-shrink: 0;
 }
@@ -178,10 +179,10 @@
 .ps-poster-promo {
     flex: 1;
     text-align: left;
-    padding-bottom: calc(var(--ps-unit) * 0.7);
+    padding-bottom: calc(var(--ps-unit) * 1);
     background: #fff;
-    padding-left: calc(var(--ps-unit) * 2.1);
-    padding-top: calc(var(--ps-unit) * 1.2);
+    padding-left: calc(var(--ps-unit) * 2.4);
+    padding-top: calc(var(--ps-unit) * 1);
     border-radius: calc(var(--ps-unit) * 2);
 }
 .ps-poster-promo-line {
@@ -189,7 +190,7 @@
     font-size: calc(var(--ps-unit) * 2.9);
     font-weight: 500;
     /* text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); */
-    line-height: 1.7;
+    line-height: 1.6;
     margin: calc(var(--ps-unit) * 0.2) 0;
 }
 .ps-poster-promo-line:last-child {

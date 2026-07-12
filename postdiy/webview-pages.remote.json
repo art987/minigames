@@ -31,7 +31,7 @@
       "pagePath": "pages/games/index",
       "text": "关于",
       "showText": true,
-      "webviewUrl": "https://peacelove.top/postdiy/about/",
+      "webviewUrl": "https://peacelove.top/postdiy/about/index.html",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
       "enableTopBar": true
