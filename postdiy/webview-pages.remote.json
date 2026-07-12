@@ -4,17 +4,38 @@
       "pagePath": "pages/index/index",
       "text": "首页",
       "showText": true,
+      "showInTabBar": true,
       "webviewUrl": "https://peacelove.top/postdiy/index.html",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/logo.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/logo.gif",
       "enableTopBar": false
     },
-    
+    {
+      "pagePath": "pages/knowledge/index",
+      "text": "知识点",
+      "showText": true,
+      "showInTabBar": false,
+      "webviewUrl": "https://peacelove.top/postdiy/knowledge/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/business-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
+      "enableTopBar": true
+    },
+    {
+      "pagePath": "pages/tools/index",
+      "text": "百宝箱",
+      "showText": true,
+      "showInTabBar": false,
+      "webviewUrl": "https://peacelove.top/postdiy/tools/",
+      "activeIconUrl": "https://peacelove.top/postdiy/images/statics/tools-active.png",
+      "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/tools.png",
+      "enableTopBar": true
+    },
     {
       "pagePath": "pages/games/index",
       "text": "关于",
       "showText": true,
-      "webviewUrl": "https://peacelove.top/postdiy/about/index.html",
+      "showInTabBar": true,
+      "webviewUrl": "https://peacelove.top/postdiy/about/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/about-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/about.png",
       "enableTopBar": true
@@ -43,6 +64,14 @@
     "splashImageWidth": "220rpx",
     "splashImageHeight": "220rpx",
     "loadingText": "每天都是品牌宣传日...",
+    "loadingTextMessages": [
+      "每天都是品牌宣传日！",
+      "增加品牌曝光度！",
+      "提升品牌认知与信赖！",
+      "把握每一次节日宣传机会！",
+      "助力销售业绩不断攀升！",
+      "网页加载中..."
+    ],
     "loadingTextColor": "#666666",
     "loadingTextFontSize": "26rpx"
   }
