@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理测试 - 答题界面</title>
+    <link rel="stylesheet" href="run.css">
+    <!-- 使用本地html2canvas -->
+    <script src="../../libs/html2canvas/html2canvas.min.js"></script>
+    <!-- 语音朗读库 -->
+    <script src="../../libs/responsivevoice/responsivevoice.js"></script>
+    <script src="js/tests.js"></script>
+    <script src="data/test-config.js"></script>
+    <!-- 根据URL参数动态加载对应的测试数据文件 -->
+    <script>
+        // 获取URL参数
+        function getQueryParam(key) {
+            var search = window.location.search.replace(/^\?/, '');
+            var map = {};
+            var parts = search.split('&');
+            for (var i = 0; i < parts.length; i++) {
+                if (!parts[i]) continue;
+                var kv = parts[i].split('=');
+                map[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+            }
+            return map[key];
+        }
+        
+        // 根据测试ID和分类动态加载数据文件
+        function loadTestDataFile() {
+            var testId = getQueryParam('testId') || getQueryParam('test');
+            var category = getQueryParam('category');
+            
+            if (!testId) {
+                // 不设置默认值，而是显示错误提示
+                document.querySelector('.error-message').classList.remove('hidden');
+                document.querySelector('.error-message').textContent = '请选择一个测试项目开始';
+                return;
+            }
+            
+            // 创建数据文件的script标签
+            var script = document.createElement('script');
+            
+            // 优先尝试加载正常版本，如果失败再加载兼容性版本
+            script.src = 'data/' + category + '/' + testId + '.js';
+            
+            // 如果正常版本加载失败，尝试兼容性版本
+            script.onerror = function() {
+                console.log('正常版本加载失败，尝试加载兼容性版本');
+                script.src = 'data/' + category + '/' + testId + '-compat.js';
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // 立即执行加载
+        loadTestDataFile();
+    </script>
+    <!-- 使用基础版运行器 -->
+    <!-- <script src="js/runner-basic.js"></script> -->
+    <!-- 其他版本暂时注释掉 -->
+    <!-- <script src="js/runner-minimal.js"></script> -->
+    <!-- <script src="js/runner-fixed.js"></script> -->
+    <script src="js/runner.js"></script>
+</head>
+<body> <div class="header">
+           <a href="#" id="back-to-category" class="nav-link">← 返回分类列表</a>
+             <h1 id="test-title"></h1>
+            <p class="intro" id="test-intro" style="display: none;"></p>
+        </div>
+    <div class="container">
+       
+       
+        
+        <div class="progress-header">
+            <div id="progress-text">题目 0/0</div>
+            <label id="auto-read-toggle" class="toggle-switch">
+                <input type="checkbox" id="auto-read-checkbox" checked>
+                <span class="toggle-slider round"></span>
+                <span class="toggle-text">自动朗读</span>
+            </label>
+            <label id="realtime-scoring-toggle" class="toggle-switch hidden">
+                <input type="checkbox" id="realtime-checkbox">
+                <span class="toggle-slider round"></span>
+                <span class="toggle-text">实时批卷</span>
+            </label>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+        </div>
+        
+        <form id="test-form">
+            <!-- 题目将通过JavaScript动态生成 -->
+            <p class="error-message hidden">加载测试题目中...</p>
+        </form>
+        
+        <div class="navigation">
+            <button id="prev-btn" class="btn btn-secondary" disabled="disabled">上一题</button>
+            <button id="next-btn" class="btn btn-primary" disabled="disabled">下一题</button>
+        </div>
+        
+        <button id="submit-btn" class="btn btn-submit hidden">提交</button>
+        <button id="reset-btn" class="btn btn-reset">重新测试</button>
+        
+        <!-- 完成提示弹窗 -->
+        <div id="completion-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h3 class="modal-title">您真棒！</h3>
+                <p class="modal-text">您已经完成所有题目的测试，是否提交答案并查看结果？</p>
+                <div class="modal-buttons">
+                    <button id="review-btn" class="btn btn-white">再看看</button>
+                    <button id="submit-result-btn" class="btn btn-purple">查看结果</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="result-section" class="result-section hidden">
+            <div id="result-card" class="certificate"> 
+                <div class="certificate-header"> 
+                    <div class="certificate-logo">🧠</div> 
+                    <h2 class="certificate-title">能力测评证书</h2> 
+                    <h3 class="certificate-subtitle">Ability Assessment Certificate</h3>
+                </div> 
+                <div class="certificate-content"> 
+                    <div class="certificate-decoration left-decoration"></div> 
+                    <div class="certificate-main"> 
+                        <p class="certificate-intro">兹证明，您已完成</p> 
+                        <h3 id="certificate-test-name" class="certificate-test-name">知识大测试</h3> 
+                        <div class="certificate-score-container"> 
+                            <div class="certificate-score-circle"> 
+                                <span id="total-score" class="certificate-score">0</span>
+                                <span class="certificate-score-unit">分</span>
+                                <span id="total-possible-score" class="certificate-total-score">总分100</span> 
+                            </div> 
+                            <p class="certificate-level">等级：<span id="score-level" class="certificate-level-value">初阶</span></p> 
+                        </div> 
+                        <div class="certificate-text" id="result-text">情绪与关系管理待加强。</div> 
+                        <div class="certificate-advice" id="result-advice">建议：记录情绪ABC事件，练习非暴力沟通。</div> 
+                        <div class="certificate-date"><span id="test-date">2025年09月20日</span></div> 
+                    </div> 
+                    <div class="certificate-decoration right-decoration"></div> 
+                </div> 
+                <div class="certificate-footer"> 
+                    <div class="certificate-seal"></div> 
+                    <div class="certificate-signature"> 
+                        
+                        <p>小本本心理测试中心</p> 
+                        <div class="signature-line"></div> 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="actions certificate-actions"> 
+                <button id="save-image" type="button" class="btn btn-save">保存证书</button> 
+                <button id="share-result" type="button" class="btn btn-share">分享结果</button> 
+            </div> 
+            
+            <!-- 答题详情（保持原有功能） -->
+            <div class="answers-detail" id="answers-detail">
+                <h3 class="answers-title">答题详情</h3>
+                <!-- 答题详情将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 自动朗读提示弹窗 -->
+    <div id="auto-read-modal" class="modal-overlay">
+        <div class="modal-content auto-read-modal">
+            <h3 class="modal-title">是否自动朗读题目？</h3>
+            <div class="modal-buttons">
+                <button id="enable-read-btn" class="btn btn-purple">自动朗读</button>
+                <button id="disable-read-btn" class="btn btn-white">不要朗读</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，准备初始化测试');
+            
+            // 定义重试次数和初始延迟时间
+            let retries = 0;
+            const maxRetries = 3;
+            const initialDelay = 500;
+            const retryDelay = 1000;
+            
+            // 初始化测试函数，支持重试
+            function initTest() {
+                if (window.TestRunner && typeof window.TestRunner.bootstrap === 'function') {
+                    try {
+                        console.log(`调用TestRunner.bootstrap()初始化测试${retries > 0 ? ' (重试' + retries + ')' : ''}`);
+                        window.TestRunner.bootstrap();
+                    } catch (error) {
+                        console.error('TestRunner.bootstrap执行失败:', error);
+                        document.getElementById('test-form').innerHTML = `
+                            <p class="error-message">测试初始化失败，请刷新页面重试。</p>
+                        `;
+                    }
+                } else {
+                    retries++;
+                    if (retries <= maxRetries) {
+                        console.log(`TestRunner对象未准备好，${retryDelay}ms后重试... (${retries}/${maxRetries})`);
+                        setTimeout(initTest, retryDelay);
+                    } else {
+                        console.error('TestRunner对象或bootstrap函数不存在，重试次数已达上限');
+                        document.getElementById('test-form').innerHTML = `
+                            <p class="error-message">测试系统加载失败，请刷新页面重试。</p>
+                        `;
+                    }
+                }
+            }
+            
+            // 添加分享功能支持
+            function setupShareButton() {
+                const shareButton = document.getElementById('share-result');
+                if (shareButton) {
+                    shareButton.addEventListener('click', function() {
+                        // 尝试使用Web Share API
+                        if (navigator.share) {
+                            const testTitle = document.getElementById('test-title')?.textContent || '能力测评';
+                            const score = document.getElementById('total-score')?.textContent || '0';
+                            const level = document.getElementById('score-level')?.textContent || '未知';
+                            
+                            const shareData = {
+                                title: `我在「${testTitle}」中获得了${score}分，等级：${level}`,
+                                text: '快来挑战这个有趣的心理测试吧！',
+                                url: window.location.href
+                            };
+                            
+                            navigator.share(shareData).catch((error) => {
+                                console.log('分享失败:', error);
+                                showShareFallback();
+                            });
+                        } else {
+                            // 降级方案：复制结果到剪贴板
+                            showShareFallback();
+                        }
+                    });
+                }
+            }
+            
+            // 降级方案：显示分享提示或复制链接
+            function showShareFallback() {
+                const testTitle = document.getElementById('test-title')?.textContent || '能力测评';
+                const score = document.getElementById('total-score')?.textContent || '0';
+                const level = document.getElementById('score-level')?.textContent || '未知';
+                
+                // 创建分享内容
+                const shareText = `我在「${testTitle}」中获得了${score}分，等级：${level}\n快来挑战这个有趣的心理测试吧！\n${window.location.href}`;
+                
+                // 尝试复制到剪贴板
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('测试结果已复制到剪贴板，可以手动分享给好友！');
+                }).catch(() => {
+                    // 如果复制失败，显示弹窗让用户手动复制
+                    alert(`测试结果：\n${shareText}\n\n请手动复制此内容分享给好友。`);
+                });
+            }
+            
+            // 在TestRunner初始化后设置分享按钮
+            setTimeout(() => {
+                setupShareButton();
+            }, initialDelay + 1000);
+            
+            // 给TestRunner一些时间来加载数据文件，增加初始延迟时间以确保数据文件加载完成
+            setTimeout(initTest, initialDelay);
+        });
+        
+        // 给返回分类列表按钮添加功能
+        document.getElementById('back-to-category').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 停止当前朗读（如果有）
+            if (window.speechSynthesis && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            
+            // 获取URL中的category参数
+            const category = getQueryParam('category');
+            
+            // 如果有category参数，返回该分类的列表页；否则返回首页
+            if (category) {
+                window.location.href = 'index.html?showCategory=' + encodeURIComponent(category);
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

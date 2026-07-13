@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>瑞文智力测试 - 心镜免费自测小站</title>
+    <meta name="keywords" content="心镜免费自测小站,瑞文智力测试,SPM测试,智力测试,免费智力测试,在线智力测试">
+    <meta name="description" content="心镜免费自测小站提供免费的瑞文标准推理测验(SPM),72题完整测试,即时计算IQ值,无需登录,无需付费,专业可靠的智力测试平台。">
+    <link rel="shortcut icon" href="public/image/favicon.ico">
+    <link href="public/css/head.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="public/css/swiper.min.css">
+    <link rel="stylesheet" href="public/css/character-test.css" />
+    <link rel="stylesheet" href="public/weui/css/weui.min.css">
+    <link rel="stylesheet" href="public/weui/css/jquery-weui.min.css">
+    <style>
+        html,body{background:#fff url(https://www.transparenttextures.com/patterns/cubes.png);height:100%;}
+        
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .back-btn {
+            padding: 10px 15px;
+            color: #7739e5;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .top-placeholder {
+            width: 50px;
+        }
+        
+        .swiper-bottom{
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            z-index: 1;
+        }
+        .swiper-bottom ul{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            background: #232323;
+        }
+        .swiper-bottom ul li{
+            float: left;
+            text-align: center;
+        }
+        .swiper-bottom ul .li{
+            width: 33%;
+        }
+        .swiper-bottom ul .span{
+            height: 20px;
+            max-width: 0.5%;
+            min-width: 1px;
+            background: #505050;
+            margin-top: 15px;
+        }
+        .swiper-bottom ul li a{
+            color: #fff;
+        }
+        
+        .weui-progress{
+            padding:20px 20px 10px;
+            margin-top: 60px;
+            background: #ffffff52;
+        }
+        .weui-progress__bar{
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #e0e0e0;
+        }
+        .weui-progress__inner-bar{
+            background: linear-gradient(90deg, #7739e5, #9b59b6);
+            transition: width 0.3s ease;
+            height: 100%;
+        }
+        section img{
+            width: 74%;
+            margin: 8px auto 9px;
+            display: block;
+        }
+        .tabs{
+            margin: 10px;
+            padding: 12px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .tabs.active{
+            background: #7739e5;
+            border-color: #7739e5;
+        }
+        .tabs.active label{
+            color: #fff;
+        }
+        .tabs label{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .tabs input[type="radio"]{
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<div class="top-navbar">
+    <a href="classify.html" class="back-btn">← 返回</a>
+    <div class="page-title" id="test-title">加载中...</div>
+    <div class="top-placeholder"></div>
+</div>
+
+<!-- Swiper -->
+<div class="swiper-container swiper-no-swiping">
+    <div class="weui-progress">
+        <div class="weui-progress__bar">
+            <div class="weui-progress__inner-bar js_progress" id="precent" style="width: 0%;"></div>
+        </div>
+    </div>
+    <div class="swiper-bg" data-swiper-parallax="-30%" data-swiper-parallax-duration="1000"></div>
+    <div class="swiper-wrapper" id="questions-container">
+        <div style="text-align: center; padding: 50px; color: #7739e5;">
+            <div style="font-size: 18px; margin-bottom: 10px;">正在加载题目...</div>
+            <div style="font-size: 14px; color: #999;">请稍候</div>
+        </div>
+    </div>
+</div>
+
+<!-- 答题工具栏 -->
+<div id="answer-toolbar" style="position:fixed;left:0;bottom:50px;width:100%;background:#ffffffa1;border-top:1px solid #dfdfdf;z-index:2;">
+    <div style="padding:8px 10px;display:flex;align-items:center;justify-content:space-between;">
+        <button onclick="if(window.mySwiper) mySwiper.slidePrev()" style="background:#7739e5;color:#fff;border:none;padding:8px 20px;border-radius:20px;cursor:pointer;">上一题</button>
+        <span style="font-size:16px;color:#333;">第<span id="current-question">1</span>/<span id="total-questions">72</span>题</span>
+        <button onclick="if(window.mySwiper) mySwiper.slideNext()" style="background:#7739e5;color:#fff;border:none;padding:8px 20px;border-radius:20px;cursor:pointer;">下一题</button>
+    </div>
+</div>
+
+<!-- 底部导航菜单 -->
+<div class="swiper-bottom">
+    <ul>
+        <li class="li"><a href="home.html">首页</a></li>
+        <li class="span"></li>
+        <li class="li"><a href="classify.html">题库</a></li>
+        <li class="span"></li>
+        <li class="li"><a href="result.html">报告</a></li>
+    </ul>
+</div>
+
+<!-- 备案信息 -->
+<div style="position:relative;left:0;bottom:50px;width:100%;background:#f8f8f8;text-align:center;padding:20px;border-top:1px solid #e0e0e0;z-index:1;margin-top:50px;">
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#666;font-size:12px;text-decoration:none;">闽公网安备35021302000662号</a>
+    <span style="color:#999;font-size:12px;margin-left:10px;">© 心镜免费自测小站</span>
+</div>
+
+<!-- 加载测试数据 -->
+<script src="tests/intelligence/ruiwen.js"></script>
+
+<script src="public/weui/js/jquery-2.1.4.js"></script>
+<script src="public/js/swiper.min.js"></script>
+<script src="public/weui/js/jquery-weui.js"></script>
+<script>
+    // 全局变量
+    let testData = null;
+    let allQuestions = [];
+    let userAnswers = [];
+    
+    // 初始化Swiper为全局变量
+    window.mySwiper = null;
+    
+    // 初始化测试
+    function initTest() {
+        // 获取测试数据
+        testData = window.testData && window.testData.ruiwen;
+        
+        if (!testData) {
+            document.getElementById('questions-container').innerHTML = `
+                <div style="text-align: center; padding: 50px; color: #999;">
+                    <div style="font-size: 18px; margin-bottom: 10px;">测试数据加载失败</div>
+                    <div style="font-size: 14px;">请刷新页面重试</div>
+                </div>
+            `;
+            return;
+        }
+        
+        console.log(`测试数据加载成功: ${testData.title}`);
+        console.log(`总题数: ${testData.totalQuestions}`);
+        
+        // 设置标题
+        document.getElementById('test-title').textContent = testData.title;
+        document.getElementById('total-questions').textContent = testData.totalQuestions;
+        
+        // 加载题目
+        allQuestions = testData.questions;
+        userAnswers = new Array(allQuestions.length);
+        
+        // 生成题目HTML
+        generateQuestionsHTML();
+        
+        // 初始化Swiper
+        initSwiper();
+    }
+    
+    // 生成题目HTML
+    function generateQuestionsHTML() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+        
+        allQuestions.forEach((q, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHTML += `
+                    <div class="tabs" data-question="${index}">
+                        <label>
+                            <input type="radio" name="q${index}" value="${opt.label}" data-correct="${opt.value}">
+                            ${opt.label}
+                        </label>
+                    </div>
+                `;
+            });
+            
+            slide.innerHTML = `
+                <section class="row${Math.floor(index / 12) + 1}">
+                    <p style="text-align: center; font-size: 16px; margin: 10px 0; font-weight: bold;">第${index + 1}题</p>
+                    <img src="${q.image}" alt="测试题${index + 1}" onerror="this.src='tests/intelligence/ruiwen/bz.jpg'" />
+                    ${optionsHTML}
+                </section>
+            `;
+            
+            container.appendChild(slide);
+        });
+        
+        console.log(`已生成 ${allQuestions.length} 个题目的HTML`);
+    }
+    
+    // 初始化Swiper
+    function initSwiper() {
+        window.mySwiper = new Swiper('.swiper-container', {
+            pagination: null,
+            grabCursor: true,
+            noSwiping: true,
+            shortSwipes: false,
+            onSlideChangeEnd: function(swiper) {
+                updateQuestionNumber();
+            }
+        });
+        
+        console.log('Swiper初始化完成');
+        
+        // 绑定选项点击事件
+        $(document).ready(function() {
+            $("label").on("click", function() {
+                const $tab = $(this).closest('.tabs');
+                const questionIndex = $tab.data('question');
+                const selectedValue = $(this).find('input').val();
+                const isCorrect = $(this).find('input').data('correct');
+                
+                // 标记选中状态
+                $tab.addClass('active').siblings().removeClass('active');
+                
+                // 保存答案
+                userAnswers[questionIndex] = selectedValue;
+                
+                // 更新进度
+                updateProgress();
+                
+                // 滚动到屏幕中间
+                setTimeout(() => {
+                    const currentSlide = document.querySelector('.swiper-slide-active');
+                    if (currentSlide) {
+                        currentSlide.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    }
+                }, 100);
+                
+                // 自动跳转到下一题或检查完成
+                setTimeout(() => {
+                    if (window.mySwiper.activeIndex < allQuestions.length - 1) {
+                        window.mySwiper.slideNext();
+                    } else {
+                        // 已经是最后一题,检查是否完成所有题目
+                        checkFinished();
+                    }
+                }, 300);
+            });
+        });
+    }
+    
+    // 更新题号显示
+    function updateQuestionNumber() {
+        const current = window.mySwiper.activeIndex + 1;
+        document.getElementById('current-question').textContent = current;
+    }
+    
+    // 更新进度条
+    function updateProgress() {
+        const answered = userAnswers.filter(a => a !== undefined).length;
+        const total = allQuestions.length;
+        const progress = (answered / total * 100).toFixed(1);
+        
+        // 更新进度条宽度
+        document.getElementById('precent').style.width = progress + '%';
+        
+        console.log(`进度更新: ${answered}/${total} (${progress}%)`);
+    }
+    
+    // 检查是否完成
+    function checkFinished() {
+        const answered = userAnswers.filter(a => a !== undefined).length;
+        if (answered === allQuestions.length) {
+            showSubmitButton();
+        }
+    }
+    
+    // 显示提交按钮
+    function showSubmitButton() {
+        console.log('显示提交按钮...');
+        
+        // 替换答题工具栏为提交按钮
+        const toolbar = document.getElementById('answer-toolbar');
+        if (toolbar) {
+            toolbar.innerHTML = `
+                <div style="padding:15px;text-align:center;">
+                    <a href="javascript:submitTest()" class="weui-btn weui-btn_primary" style="background:#7739e5;">提交测试结果</a>
+                </div>
+            `;
+            console.log('提交按钮已显示');
+        } else {
+            console.error('找不到答题工具栏');
+        }
+        
+        // 显示提示
+        setTimeout(() => {
+            $.toast('恭喜!您已完成所有题目', 'text');
+        }, 500);
+    }
+    
+    // 提交测试
+    function submitTest() {
+        // 计算分数
+        let score = 0;
+        userAnswers.forEach((answer, index) => {
+            if (answer == allQuestions[index].correctAnswer) {
+                score++;
+            }
+        });
+        
+        console.log(`提交测试: 得分 ${score}/${allQuestions.length}`);
+        
+        // 保存结果
+        localStorage.setItem('testResult', JSON.stringify({
+            testId: testData.id,
+            testTitle: testData.title,
+            rawScore: score,
+            totalQuestions: allQuestions.length,
+            answers: userAnswers,
+            testTime: new Date().toLocaleString()
+        }));
+        
+        // 显示年龄输入对话框
+        $.prompt({
+            title: '请输入您的年龄',
+            text: '年龄用于IQ换算(根据年龄段换算标准)',
+            input: '25',
+            empty: false,
+            onOK: function(input) {
+                const age = parseInt(input);
+                if (age < 16 || age > 80) {
+                    $.toast('年龄应在16-80岁之间', 'cancel');
+                    return;
+                }
+                
+                // 更新结果
+                const result = JSON.parse(localStorage.getItem('testResult'));
+                result.age = age;
+                localStorage.setItem('testResult', JSON.stringify(result));
+                
+                console.log(`年龄输入: ${age},跳转到结果页`);
+                
+                // 跳转到结果页面
+                window.location.href = 'result.html';
+            }
+        });
+    }
+    
+    // 页面加载完成后初始化
+    window.onload = function() {
+        console.log('页面加载完成,开始初始化测试...');
+        setTimeout(initTest, 100);
+    };
+</script>
+</body>
+</html>

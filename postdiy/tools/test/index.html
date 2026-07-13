@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闪喵公益测试中心</title>
+    <title>心镜免费自测小站</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://peacelove.top/menu.css">
+   
 </head>
 <body>
+    <!-- 萤火虫背景 -->
+    <canvas id="firefly-canvas"></canvas>
+
     <header class="site-header">
-        <h1>闪喵公益测试平台</h1>
-        <p class="subtitle">完全免费无套路，无需注册即可测试</p>
+        <h1>心镜免费自测小站</h1>
+        <p class="subtitle">无需注册 · 完全免费 · 即刻开始</p>
     </header>
 
     <main class="container">
         <section id="categories-section">
-            
             <div id="categories-container" class="categories-container">
                 <!-- 分类将通过JS动态生成 -->
             </div>
@@ -23,7 +25,7 @@
         
         <section id="tests-section" class="hidden">
             <div class="category-header">
-                <button id="back-to-categories" class="back-button">←其它分类</button>
+                <button id="back-to-categories" class="back-button">←</button>
                 <h2 id="current-category">测试列表</h2>
             </div>
             <ul id="test-list" class="test-list"></ul>
@@ -31,57 +33,23 @@
     </main>
 
     <footer class="site-footer">
-        <p>测试结果不做保存，如有需要请测试完自行存储至手机设备。</p>
+        <p>测试结果不做保存，如有需要请自行保存至手机</p>
+        <p> <a href="" target="_blank" style="color:#8668b6;text-decoration:none;">闽公网安备35021302000662号</a></p>
     </footer>
 
-    <!-- 检查测试是否有可用的数据集 -->
-    <script>
-        // 全局函数：检查测试是否有可用的数据集
-        window.hasValidDataset = function(testId) {
-            try {
-                // 检查TestDatasets对象是否存在
-                if (!window.TestDatasets) {
-                    console.warn('TestDatasets对象不存在');
-                    return false;
-                }
-                
-                // 尝试直接获取数据集
-                let dataset = window.TestDatasets[testId];
-                
-                // 如果找不到，尝试获取兼容性版本
-                if (!dataset && !testId.endsWith('-compat')) {
-                    dataset = window.TestDatasets[testId + '-compat'];
-                }
-                
-                // 确保数据集有效
-                if (!dataset) {
-                    console.log(`测试 ${testId} 未在TestDatasets中找到`);
-                    return false;
-                }
-                
-                // 对于健康与生活习惯类测试的特殊检查
-                if (dataset.category === '健康与生活习惯类') {
-                    // 健康与生活习惯类测试通常有questions数组或其他有效数据结构
-                    return !!dataset.questions && dataset.questions.length > 0;
-                }
-                
-                // 通用检查：确保数据集包含有效的问题列表
-                return !!dataset.questions && dataset.questions.length > 0;
-            } catch (error) {
-                console.error(`检查测试 ${testId} 数据集时出错:`, error);
-                return false;
-            }
-        };
-    </script>
-    
+    <!-- 核心脚本 -->
     <script src="js/tests.js"></script>
-    
-    <!-- 加载测试数据文件 -->
-    <!-- 闯关学习类测试数据 -->
+    <script src="data/config.js"></script>
+
+    <!-- 测试数据文件 - 按分类组织 -->
+    <!-- 闯关学习类 -->
     <script src="data/闯关学习类/safety60.js"></script>
     <script src="data/闯关学习类/literature100.js"></script>
     <script src="data/闯关学习类/firstaid50.js"></script>
     <script src="data/闯关学习类/folklore50.js"></script>
+    <script src="data/闯关学习类/iq60.js"></script>
+
+    <!-- 心理测评类 -->
     <script src="data/心理测评类/procrastination_level.js"></script>
     <script src="data/心理测评类/happiness_index.js"></script>
     <script src="data/心理测评类/mbti_short.js"></script>
@@ -89,6 +57,8 @@
     <script src="data/心理测评类/stress_tolerance.js"></script>
     <script src="data/心理测评类/self_confidence.js"></script>
     <script src="data/心理测评类/introversion_extroversion.js"></script>
+
+    <!-- 爱情与人际关系类 -->
     <script src="data/爱情与人际关系类/love_philosophy.js"></script>
     <script src="data/爱情与人际关系类/attachment_style.js"></script>
     <script src="data/爱情与人际关系类/ideal_partner.js"></script>
@@ -97,13 +67,16 @@
     <script src="data/爱情与人际关系类/social_anxiety_index.js"></script>
     <script src="data/爱情与人际关系类/love_communication_style.js"></script>
     <script src="data/爱情与人际关系类/attraction_index.js"></script>
+
+    <!-- 职业与学习类 -->
     <script src="data/职业与学习类/leadership_index.js"></script>
     <script src="data/职业与学习类/creative_thinking.js"></script>
     <script src="data/职业与学习类/time_management.js"></script>
     <script src="data/职业与学习类/focus_attention.js"></script>
     <script src="data/职业与学习类/career_stress_resilience.js"></script>
     <script src="data/职业与学习类/communication_skills.js"></script>
-    <!-- 健康与生活习惯类测试数据文件 -->
+
+    <!-- 健康与生活习惯类 -->
     <script src="data/健康与生活习惯类/sleep_quality.js"></script>
     <script src="data/健康与生活习惯类/diet_health.js"></script>
     <script src="data/健康与生活习惯类/schedule_regularity.js"></script>
@@ -112,253 +85,274 @@
     <script src="data/健康与生活习惯类/mobile_phone_dependency.js"></script>
     <script src="data/健康与生活习惯类/stay_up_late_index.js"></script>
     <script src="data/健康与生活习惯类/sitting_risk_assessment.js"></script>
-    
-    
-    <!-- 引入简化的测试配置文件 -->
-    <script src="data/test-config.js"></script>
-    
-    <!-- 测试管理器工具 - 提供便捷的测试管理功能 <script src="js/test-manager.js"></script>-->
-    
-    
+
+    <!-- 初始化脚本 -->
     <script>
     (function() {
-        // 等待TestConfig加载完成
-        function waitForTestConfig() {
-            if (window.TestConfig) {
-                console.log('TestConfig已加载，开始初始化应用...');
-                initializeApp();
-            } else {
-                console.log('等待TestConfig加载...');
-                setTimeout(waitForTestConfig, 100);
-            }
-        }
-        
-        // 从URL参数获取要直接显示的分类
         function getShowCategoryFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('showCategory');
         }
-        
-        // 修改initializeApp函数，添加URL参数处理
-        function initializeApp() {
-            console.log('初始化应用程序...');
-            
-            // 渲染分类列表
-            renderCategories();
-            
-            // 返回分类页面事件监听
-            document.getElementById('back-to-categories').addEventListener('click', function() {
-                document.getElementById('tests-section').classList.add('hidden');
-                document.getElementById('categories-section').classList.remove('hidden');
-            });
-            
-            // 检查URL中是否有showCategory参数
-            const showCategory = getShowCategoryFromUrl();
-            if (showCategory) {
-                console.log(`URL参数要求直接显示分类: ${showCategory}`);
-                const categories = window.TestConfig.getAllCategories();
-                const category = categories[showCategory];
-                if (category) {
-                    // 延迟执行，确保所有分类数据都已加载完成
-                    setTimeout(() => {
-                        showTestsForCategory(showCategory, category.name);
-                    }, 100);
-                } else {
-                    console.warn(`未找到分类: ${showCategory}`);
-                }
-            }
-        }
-        
-        // 渲染分类列表
+
         function renderCategories() {
             const container = document.getElementById('categories-container');
             const categories = window.TestConfig.getAllCategories();
-            
-            console.log('渲染分类列表:', categories);
-            
-            container.innerHTML = ''; // 清空容器
-            
-            Object.keys(categories).forEach(function(categoryKey) {
+            const order = window.TestConfig.categoryOrder || Object.keys(categories);
+
+            container.innerHTML = '';
+
+            // 按指定顺序渲染分类
+            order.forEach(function(categoryKey) {
                 const category = categories[categoryKey];
+                if (!category) return;
+
                 const testCount = window.TestConfig.getTestCountByCategory(categoryKey);
-                
-                // 创建分类卡片
+
                 const card = document.createElement('div');
                 card.className = 'category-card';
                 card.dataset.category = categoryKey;
-                
-                // 分类图标
+
                 const icon = document.createElement('div');
                 icon.className = 'category-icon';
                 icon.textContent = category.icon;
-                
-                // 分类内容
+
                 const content = document.createElement('div');
                 content.className = 'category-content';
-                
-                // 分类标题
+
                 const title = document.createElement('h3');
                 title.textContent = category.name;
-                
-                // 分类描述
+
                 const desc = document.createElement('p');
                 desc.className = 'category-desc';
                 desc.textContent = category.description;
-                
-                // 测试数量
+
                 const count = document.createElement('p');
                 count.className = 'category-count';
-                count.textContent = (testCount > 0) ? 
-                    testCount + '个测试' : 
-                    '即将推出';
-                
-                // 组装分类卡片
+                count.textContent = testCount > 0 ? testCount + '个测试' : '即将推出';
+
                 content.appendChild(title);
                 content.appendChild(desc);
                 content.appendChild(count);
-                
                 card.appendChild(icon);
                 card.appendChild(content);
                 container.appendChild(card);
-                
-                // 添加点击事件，跳转到测试列表
+
                 card.addEventListener('click', function() {
                     showTestsForCategory(categoryKey, category.name);
                 });
             });
         }
-        
-        // 显示特定分类的测试列表
+
         function showTestsForCategory(categoryKey, categoryName) {
             document.getElementById('categories-section').classList.add('hidden');
             document.getElementById('tests-section').classList.remove('hidden');
             document.getElementById('current-category').textContent = categoryName;
-            
             renderTestList(categoryKey);
         }
-        
-        // 使用全局的hasValidDataset函数来检查测试是否有可用的数据集
-        
-        // 渲染测试列表
+
         function renderTestList(categoryKey) {
             const listContainer = document.getElementById('test-list');
             listContainer.innerHTML = '';
-            
-            console.log(`开始渲染分类 ${categoryKey} 的测试列表`);
-            
-            try {
-                // 获取该分类下的所有测试
-                const tests = window.TestConfig.getTestsByCategory(categoryKey);
-                console.log(`从TestConfig获取到 ${tests.length} 个测试`);
-                
-                if (!tests || tests.length === 0) {
-                    const emptyItem = document.createElement('li');
-                    emptyItem.textContent = '该分类暂无可用测试';
-                    listContainer.appendChild(emptyItem);
-                    return;
+
+            const tests = window.TestConfig.getTestsByCategory(categoryKey);
+
+            if (!tests || tests.length === 0) {
+                const emptyItem = document.createElement('li');
+                emptyItem.textContent = '暂无测试';
+                listContainer.appendChild(emptyItem);
+                return;
+            }
+
+            tests.forEach(function(test) {
+                const testItem = document.createElement('li');
+                testItem.className = 'test-item';
+
+                const testLink = document.createElement('a');
+                testLink.href = `run.html?testId=${test.id}&category=${categoryKey}`;
+                testLink.className = 'test-link';
+
+                // 先尝试加载封面图片
+                const testCover = new Image();
+                testCover.className = 'test-cover';
+                testCover.src = `data/cover/${test.id}.jpg`;
+                testCover.alt = test.title;
+
+                // 图片加载失败时显示 emoji
+                testCover.onerror = function() {
+                    const emojiDiv = document.createElement('div');
+                    emojiDiv.className = 'test-emoji';
+                    emojiDiv.textContent = test.emoji || '📋';
+                    testLink.replaceChild(emojiDiv, this);
+                };
+
+                // 信息容器
+                const infoBox = document.createElement('div');
+                infoBox.className = 'test-info-box';
+
+                const testTitle = document.createElement('span');
+                testTitle.className = 'test-title';
+                testTitle.textContent = test.title;
+
+                const testInfo = document.createElement('span');
+                testInfo.className = 'test-info';
+                testInfo.textContent = `${test.questionCount}题 · ${test.estimateMinutes}分钟`;
+
+                infoBox.appendChild(testTitle);
+                infoBox.appendChild(testInfo);
+
+                testLink.appendChild(testCover);
+                testLink.appendChild(infoBox);
+                testItem.appendChild(testLink);
+
+                listContainer.appendChild(testItem);
+            });
+        }
+
+        function initializeApp() {
+            window.TestConfig.init();
+            renderCategories();
+
+            document.getElementById('back-to-categories').addEventListener('click', function() {
+                document.getElementById('tests-section').classList.add('hidden');
+                document.getElementById('categories-section').classList.remove('hidden');
+            });
+
+            const showCategory = getShowCategoryFromUrl();
+            if (showCategory) {
+                const categories = window.TestConfig.getAllCategories();
+                if (categories[showCategory]) {
+                    setTimeout(() => {
+                        showTestsForCategory(showCategory, categories[showCategory].name);
+                    }, 100);
                 }
-                
-                // 准备显示的测试列表
-                const testsToShow = [];
-                
-                // 对每个测试进行单独检查，确保日志记录更详细
-                tests.forEach(test => {
-                    try {
-                        console.log(`检查测试 ${test.id}: ${test.title}`);
-                        
-                        // 检查TestDatasets中是否存在该测试
-                        const isTestDatasetValid = hasValidDataset(test.id);
-                        
-                        if (isTestDatasetValid) {
-                            testsToShow.push(test);
-                            console.log(`测试 ${test.id} 通过验证，将显示在列表中`);
-                        } else {
-                            // 即使数据集无效，也可以尝试直接从配置中获取信息显示
-                            // 这对于健康与生活习惯类测试特别重要
-                            console.log(`测试 ${test.id} 数据集验证失败，但仍尝试显示基础信息`);
-                            testsToShow.push(test);
-                        }
-                    } catch (error) {
-                        console.error(`处理测试 ${test.id} 时出错:`, error);
-                    }
-                });
-                
-                console.log(`最终显示 ${testsToShow.length} 个测试项`);
-                
-                if (testsToShow.length === 0) {
-                    const emptyItem = document.createElement('li');
-                    emptyItem.textContent = '该分类暂无可用测试';
-                    listContainer.appendChild(emptyItem);
-                    return;
-                }
-                
-                // 为每个测试创建列表项
-                testsToShow.forEach(function(test, index) {
-                    try {
-                        const testItem = document.createElement('li');
-                        testItem.className = 'test-item';
-                        
-                        const testLink = document.createElement('a');
-                        // 创建正确的测试链接，包含测试ID和分类信息
-                        const targetUrl = `run.html?testId=${test.id}&category=${categoryKey}`;
-                        testLink.href = targetUrl;
-                        testLink.className = 'test-link';
-                        
-                        // 创建封面图片元素
-                        const testCover = document.createElement('img');
-                        testCover.className = 'test-cover';
-                        testCover.src = `data/cover/${test.id}.jpg`;
-                        testCover.alt = test.title || '测试封面';
-                        // 添加加载失败的备用方案
-                        testCover.onerror = function() {
-                            this.style.display = 'none';
-                        };
-                        
-                        // 测试标题
-                        const testTitle = document.createElement('span');
-                        testTitle.className = 'test-title';
-                        testTitle.textContent = test.title || '未命名测试';
-                        
-                        // 测试描述
-                        const testDescription = document.createElement('p');
-                        testDescription.className = 'desc';
-                        testDescription.textContent = test.description || '暂无描述';
-                        
-                        // 测试信息（题目数量和估计时间）
-                        const testInfo = document.createElement('span');
-                        testInfo.className = 'test-info';
-                        testInfo.textContent = `${test.questionCount || 0}题 · 约${test.estimateMinutes || 5}分钟`;
-                        
-                        // 组装测试项
-                        testLink.appendChild(testCover);
-                        testLink.appendChild(testTitle);
-                        testLink.appendChild(testInfo);
-                        
-                        testItem.appendChild(testLink);
-                        testItem.appendChild(testDescription);
-                        listContainer.appendChild(testItem);
-                    } catch (error) {
-                        console.error(`创建测试项 ${index} 时出错:`, error);
-                    }
-                });
-            } catch (error) {
-                console.error(`渲染测试列表时发生错误:`, error);
-                const errorItem = document.createElement('li');
-                errorItem.textContent = '加载测试列表时发生错误';
-                listContainer.appendChild(errorItem);
             }
         }
-        
-        // 页面加载完成后开始初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            waitForTestConfig();
-        });
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
     })();
     </script>
 
-  
+    <!-- 萤火虫背景动画 -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('firefly-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 正确设置 Canvas 尺寸（处理高分屏）
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // 设置 CSS 尺寸
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            // 设置像素尺寸（考虑设备像素比）
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+
+            // 缩放绘图上下文以匹配设备像素比
+            ctx.scale(dpr, dpr);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // 保存实际显示尺寸供萤火虫使用
+        let displayWidth = window.innerWidth;
+        let displayHeight = window.innerHeight;
+        window.addEventListener('resize', function() {
+            displayWidth = window.innerWidth;
+            displayHeight = window.innerHeight;
+        });
+
+        // 萤火虫类
+        class Firefly {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * displayWidth;
+                this.y = Math.random() * displayHeight;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.alpha = 0;
+                this.alphaSpeed = Math.random() * 0.015 + 0.008;
+                this.phase = Math.random() * Math.PI * 2;
+                this.glowSize = Math.random() * 15 + 8;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.x += this.speedX + Math.sin(this.wobble) * 0.2;
+                this.y += this.speedY + Math.cos(this.wobble) * 0.15;
+                this.wobble += this.wobbleSpeed;
+
+                if (this.x < -30) this.x = displayWidth + 30;
+                if (this.x > displayWidth + 30) this.x = -30;
+                if (this.y < -30) this.y = displayHeight + 30;
+                if (this.y > displayHeight + 30) this.y = -30;
+
+                this.phase += this.alphaSpeed;
+                this.alpha = (Math.sin(this.phase) + 1) / 2;
+            }
+
+            draw() {
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.glowSize
+                );
+                gradient.addColorStop(0, `rgba(255, 255, 180, ${this.alpha * 0.5})`);
+                gradient.addColorStop(0.4, `rgba(220, 255, 120, ${this.alpha * 0.25})`);
+                gradient.addColorStop(1, 'rgba(150, 200, 80, 0)');
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 220, ${this.alpha * 0.85})`;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 0.4, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 240, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        // 创建萤火虫
+        const fireflies = [];
+        const fireflyCount = 50;
+
+        for (let i = 0; i < fireflyCount; i++) {
+            fireflies.push(new Firefly());
+        }
+
+        // 绘制背景
+        function drawBackground() {
+            ctx.clearRect(0, 0, displayWidth, displayHeight);
+        }
+
+        // 主循环
+        function animate() {
+            drawBackground();
+
+            fireflies.forEach(firefly => {
+                firefly.update();
+                firefly.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    })();
+    </script>
 </body>
 </html>
-
-
-

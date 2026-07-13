@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>心镜免费自测小站 - 专业心理测试平台</title>
+    <meta name="keywords" content="心镜免费自测小站,心理测试,智力测试,性格测试,免费测试,在线测试,瑞文智力测试,专业测试平台">
+    <meta name="description" content="心镜免费自测小站提供免费的在线心理测试、智力测试、性格测试等服务,无需登录,无需付费,专业可靠的测试平台。包含瑞文标准推理测验等权威测试项目。">
+    <link rel="shortcut icon" href="public/image/favicon.ico">
+    <link href="public/css/head.css" rel="stylesheet" type="text/css" />
+    <link href="public/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="public/weui/css/weui.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="public/weui/css/jquery-weui.min.css">
+    
+    <style>
+        html,body{background:#fff url(https://www.transparenttextures.com/patterns/cubes.png);}
+        .swiper-bottom{position:fixed;left:0px;bottom:0px;width:100%;z-index:1}
+        .swiper-bottom ul{width:100%;height:50px;line-height:50px;background:#232323}
+        .swiper-bottom ul li{float:left;text-align:center;}
+        .swiper-bottom ul .li{width:33%}
+        .swiper-bottom ul .span{height:20px;max-width:0.5%;min-width:1px;background:#505050;margin-top:15px;}
+        .swiper-bottom ul li a{color:#fff}
+        
+        .hero-section{text-align:center;padding:30px 20px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:#fff;margin-bottom:20px;}
+        .hero-title{font-size:24px;font-weight:bold;margin-bottom:10px;}
+        .hero-desc{font-size:14px;line-height:24px;margin-bottom:20px;}
+        
+        .feature-section{padding:20px 15px;}
+        .feature-card{background:#fff;border-radius:10px;padding:20px;margin-bottom:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        .feature-icon{font-size:40px;color:#7739e5;margin-bottom:10px;}
+        .feature-title{font-size:16px;font-weight:bold;color:#333;margin-bottom:8px;}
+        .feature-desc{font-size:13px;color:#666;line-height:20px;}
+        
+        .stats-section{text-align:center;padding:20px;background:#f9f9f9;margin:20px 0;}
+        .stat-item{display:inline-block;margin:10px 20px;}
+        .stat-number{font-size:24px;font-weight:bold;color:#7739e5;}
+        .stat-label{font-size:12px;color:#999;}
+        
+        .btn-primary{background:#7739e5;color:#fff;padding:12px 30px;border-radius:30px;font-size:16px;display:inline-block;margin-top:20px;text-decoration:none;}
+        .btn-primary:hover{background:#5320af;}
+        
+        .footer-info{padding:20px;text-align:center;font-size:12px;color:#999;margin-bottom:60px;}
+    </style>
+</head>
+<body>
+    <!-- Hero区域 -->
+    <div class="hero-section">
+        <div class="hero-title">心镜免费自测小站</div>
+        <div class="hero-desc">
+            提供国际标准的瑞文智力测试(SPM)<br>
+            72题完整测试,即时计算IQ值<br>
+            无需登录,无需付费,完全免费
+        </div>
+        <a href="classify.html" class="btn-primary">进入题库</a>
+    </div>
+    
+    <!-- 特色功能 -->
+    <div class="feature-section">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-title">国际标准测试</div>
+            <div class="feature-desc">采用瑞文标准推理测验(SPM),由英国心理学家瑞文于1938年创制,国际广受认可</div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">72题完整版</div>
+            <div class="feature-desc">包含完整的72道测试题目,分为A/B/AB/C/D/E六组,全面测试推理能力</div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">即时IQ计算</div>
+            <div class="feature-desc">测试完成后立即计算IQ值,根据年龄和分数智能换算,提供等级评价</div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">完全免费</div>
+            <div class="feature-desc">无需登录注册,无需付费,所有功能完全免费开放使用</div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <div class="feature-title">响应式设计</div>
+            <div class="feature-desc">支持手机、平板、电脑等设备,随时随地进行测试</div>
+        </div>
+    </div>
+    
+    <!-- 数据统计 -->
+    <div class="stats-section">
+        <div class="stat-item">
+            <div class="stat-number">72</div>
+            <div class="stat-label">测试题目</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">6</div>
+            <div class="stat-label">测试分组</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">免费开放</div>
+        </div>
+    </div>
+    
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+        心镜免费自测小站<br>
+        瑞文标准推理测验(SPM)是国际上广受认可的智力测试<br>
+        本测试为非文字智力测验,主要测试观察推理能力<br>
+        <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#666;text-decoration:none;">闽公网安备35021302000662号</a>
+    </div>
+    
+    <!-- 底部自定义菜单 -->
+    <div class="swiper-bottom">
+        <ul>
+            <li class="li"><a href="home.html" class="link">首页</a></li>
+            <li class="span"></li>
+            <li class="li"><a href="classify.html" class="link">题库</a></li>
+            <li class="span"></li>
+            <li class="li"><a href="result.html" class="link">报告</a></li>
+        </ul>
+    </div>
+    
+    <script src="public/weui/js/jquery-2.1.4.js"></script>
+    <script src="public/weui/js/jquery-weui.js"></script>
+</body>
+</html>

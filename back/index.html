@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小本本备忘录 - 首页</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <div class="container">
+        <!-- 顶部标题和logo -->
+        <h1 class="page-title">
+            <span class="logo-icon">📙</span>
+            <span class="logo-text">小本本备忘录</span>
+        </h1>
+
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="搜索应用名称、描述或关键词">
+                    <button id="clearInputBtn" title="清除输入">×</button>
+                </div>
+                <button id="searchBtn">搜索</button>
+                <button id="resetBtn" style="display: none;">全部</button>
+            </div>
+            
+            <!-- 快捷标签 -->
+            <div id="quickTags" class="quick-tags">
+                <span class="tag">语言表达</span>
+                <span class="tag">处事智慧</span>
+                <span class="tag">基础常识</span>
+                <span class="tag">知识</span>
+                <span class="tag">夸娃</span>
+                <span class="tag">情话</span>
+                <span class="tag">诗词</span>
+                <span class="tag">英语</span>
+                <span class="tag">鼓励</span>
+                <span class="tag">心理</span>
+            </div>
+        </div>
+
+        <!-- 应用列表 -->
+        <div id="appListContainer"></div>
+ 
+
+    <footer>
+        <p>© 2025 小本本备忘录. All rights reserved.</p>
+        <p>
+            <a href="/about.html">关于</a>
+            <a href="/contact.html">联系</a>
+            <a href="/privacy-policy.html">隐私政策</a>
+            <a href="/terms-of-service.html">服务条款</a>
+        </p>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="scrollToTop" title="回到顶部">↑</button>
+
+    <script src="menudata.js"></script>
+    <script src="search.js"></script>
+</body>
+</html>
