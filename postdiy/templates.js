@@ -8,7 +8,7 @@ var imageConfig = {
   localBaseUrl: '',
   failedImages: new Set(),     // 标记 R2 失败的 URL
   qiniuFailedImages: new Set(), // 标记七牛也失败的 URL
-  timeout: 15000,
+  timeout: 3000,
 
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;

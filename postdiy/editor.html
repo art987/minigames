@@ -72,8 +72,54 @@
   <script src="libs/html2canvas/html2canvas.min.js" async></script>
   <!-- Cropper.js 裁剪库 - 必须同步加载，否则裁剪功能不可用 -->
   <script src="libs/cropperjs/cropper.min.js"></script>
-  <!-- 腾讯云云开发 SDK -->
-  <script src="libs/cloudbase/cloudbase.full.js" async></script>
+  <!-- 腾讯云云开发 SDK - 延迟加载，避免阻塞页面初始化 -->
+  <script>
+    // 延迟加载腾讯云 SDK，避免阻塞页面初始化
+    (function() {
+      let sdkLoadAttempted = false;
+      let sdkLoaded = false;
+
+      function loadCloudbaseSDK() {
+        if (sdkLoadAttempted) return;
+        sdkLoadAttempted = true;
+
+        const script = document.createElement('script');
+        script.src = 'libs/cloudbase/cloudbase.full.js';
+        script.async = true;
+
+        // 设置超时检测，防止 SDK 加载卡死
+        const timeout = setTimeout(function() {
+          if (!sdkLoaded) {
+            console.warn('腾讯云 SDK 加载超时，已跳过');
+            script.onerror = null;
+            script.onload = null;
+          }
+        }, 5000);
+
+        script.onload = function() {
+          clearTimeout(timeout);
+          sdkLoaded = true;
+          console.log('腾讯云 SDK 加载完成');
+        };
+
+        script.onerror = function() {
+          clearTimeout(timeout);
+          console.warn('腾讯云 SDK 加载失败');
+        };
+
+        document.head.appendChild(script);
+      }
+
+      // 页面加载完成后再加载 SDK
+      if (document.readyState === 'complete') {
+        setTimeout(loadCloudbaseSDK, 1000);
+      } else {
+        window.addEventListener('load', function() {
+          setTimeout(loadCloudbaseSDK, 1000);
+        });
+      }
+    })();
+  </script>
 
   <!-- 模板数据 - 延迟加载，只在需要时才加载 -->
   <script>
@@ -121,7 +167,9 @@
 
   <!-- 每日建议按钮 -->
   <button id="dailySuggestionBtn" class="daily-suggestion-btn toggleable-btn">
-    <span class="daily-task-text">今日任务</span>
+    <span class="daily-task-text active">今日</span>
+    <span class="daily-task-text">任务</span>
+    <span class="daily-task-text bell-icon">🔔</span>
   </button>
   
   <!-- VIP浮动菜单系统 -->
@@ -1074,7 +1122,7 @@
       <div class="modal-header fixed-header">
         <h2 class="modal-title rotating-title">
           <span class="title-text active">智能提醒小助手</span>
-          <span class="title-text">主动增加品牌文化曝光，提升用户信任!</span>
+          <span class="title-text">多一次宣传，多一分信任，更多一些机会</span>
         </h2>
         <button id="closeHomePopup" class="modal-close">
           <i class="fa fa-times"></i>

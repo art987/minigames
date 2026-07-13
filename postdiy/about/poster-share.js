@@ -5,7 +5,7 @@
  */
 const PosterShare = (function() {
     const API_BASE = 'https://api.peacelove.top';
-    const QINIU_BASE = 'https://7ncdn.peacelove.top/';
+    const QINIU_BASE = 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/';
     const LOGO_URL = '../images/statics/logo.png';
 
     const BRAND_INFO = {
@@ -29,9 +29,16 @@ const PosterShare = (function() {
     };
 
     function getQiniuBase() {
-        return (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl)
-            ? imageConfig.qiniuBaseUrl
-            : QINIU_BASE;
+        // 优先使用 imageConfig 的 cloudflareBaseUrl（cloudflare-first 模式）
+        if (typeof imageConfig !== 'undefined' && imageConfig.cloudflareBaseUrl) {
+            return imageConfig.cloudflareBaseUrl;
+        }
+        // 回退到 imageConfig 的 qiniuBaseUrl
+        if (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl) {
+            return imageConfig.qiniuBaseUrl;
+        }
+        // 默认使用 R2
+        return QINIU_BASE;
     }
 
     function getInviteCode() {

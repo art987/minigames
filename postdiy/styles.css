@@ -8084,8 +8084,9 @@ button.future-suggestion-btn[data-action="wanan"] {
      display: inline-flex;
      align-items: center;
      justify-content: center;
+     position: relative;
      background: #ffffff7a;
-     color: #4a4a4a;
+     color: #2b2b2b;
      border: 1px solid #e5e5e566;
      border-radius: 8px;
      padding: 2px 7px;
@@ -8096,6 +8097,8 @@ button.future-suggestion-btn[data-action="wanan"] {
      cursor: pointer;
      margin-right: 53px;
      transition: opacity 0.4s ease, transform 0.4s ease;
+    
+     min-height: 24px;
 }
 
 .editorbg .daily-suggestion-btn{
@@ -8111,10 +8114,37 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 /* 每日建议按钮文字动画样式 */
 .daily-task-text {
+  position: absolute;
   display: inline-block;
   transition: opacity 0.3s ease;
-    font-size: 12px;
+  font-size: 12px;
   padding: 4px 0px;
+  opacity: 0;
+ 
+}
+
+.daily-task-text.active {
+  opacity: 1;
+}
+
+/* 铃铛晃动动画 */
+.daily-task-text.bell-icon {
+  font-size: 16px; left: 50%;
+  transform: translateX(-50%);
+}
+.daily-task-text.bell-icon.active {
+  animation: bellShake 0.5s ease-in-out infinite;
+}
+
+@keyframes bellShake {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  10% { transform: translateX(-50%) rotate(15deg); }
+  20% { transform: translateX(-50%) rotate(-15deg); }
+  30% { transform: translateX(-50%) rotate(10deg); }
+  40% { transform: translateX(-50%) rotate(-10deg); }
+  50% { transform: translateX(-50%) rotate(5deg); }
+  60% { transform: translateX(-50%) rotate(-5deg); }
+  70%, 100% { transform: translateX(-50%) rotate(0deg); }
 }
 
 /* 打字机标题效果 */

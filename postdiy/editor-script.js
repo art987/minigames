@@ -14153,7 +14153,7 @@ window.textTemplateManager = {
       const saved = localStorage.getItem('textTemplateLastPosition');
       if (saved) {
         const position = JSON.parse(saved);
-        if (position.category && window.TextTemplates.getAllCategories().includes(position.category)) {
+        if (position.category && window.TextTemplates && window.TextTemplates.getAllCategories && window.TextTemplates.getAllCategories().includes(position.category)) {
           this.currentCategory = position.category;
           this.lastCategory = position.category;
           this.lastTemplateIndex = position.index !== undefined ? position.index : null;
@@ -15881,50 +15881,48 @@ window.textTemplateManager = {
       });
     }
     
-    // 文字循环切换动画："今日"(1.5秒) → "任务"(2秒) → 循环
+    // 文字循环切换动画："今日"(1.5秒) → "任务"(2秒) → "🔔"(1.5秒) → 循环
     let dailyTextTimer = null;
-    let showingTodayText = true; // true: 显示"今日", false: 显示"任务"
-    
+    let currentTextIndex = 0; // 0: "今日", 1: "任务", 2: "🔔"
+
     function startDailyTextRotation() {
-      const textElement = document.querySelector('.daily-task-text');
-      if (!textElement) return;
-      
+      const textElements = document.querySelectorAll('.daily-task-text');
+      if (!textElements.length) return;
+
       // 清除之前的定时器
       if (dailyTextTimer) {
         clearTimeout(dailyTextTimer);
       }
-      
-      if (showingTodayText) {
-        // 显示"今日" 1.5秒
-        textElement.textContent = '今日';
-        textElement.style.opacity = '1';
-        dailyTextTimer = setTimeout(() => {
-          // 添加淡出效果，实现平滑切换
-          textElement.style.opacity = '0';
-          setTimeout(() => {
-            textElement.textContent = '任务';
-            textElement.style.opacity = '1';
-            showingTodayText = false;
-            startDailyTextRotation();
-          }, 300);
-        }, 1500);
-      } else {
-        // 显示"任务" 2秒
-        textElement.textContent = '任务';
-        textElement.style.opacity = '1';
-        dailyTextTimer = setTimeout(() => {
-          // 添加淡出效果，实现平滑切换
-          textElement.style.opacity = '0';
-          setTimeout(() => {
-            textElement.textContent = '今日';
-            textElement.style.opacity = '1';
-            showingTodayText = true;
-            startDailyTextRotation();
-          }, 300);
-        }, 2000);
+
+      // 隐藏所有元素
+      textElements.forEach(el => {
+        el.style.opacity = '0';
+        el.classList.remove('active');
+      });
+
+      // 显示当前元素
+      const currentElement = textElements[currentTextIndex];
+      if (currentElement) {
+        currentElement.style.opacity = '1';
+        currentElement.classList.add('active');
       }
+
+      // 设置下一个元素的延迟
+      let delay;
+      if (currentTextIndex === 0) {
+        delay = 1500; // "今日" 显示 1.5秒
+      } else if (currentTextIndex === 1) {
+        delay = 2000; // "任务" 显示 2秒
+      } else {
+        delay = 1500; // "🔔" 显示 1.5秒
+      }
+
+      dailyTextTimer = setTimeout(() => {
+        currentTextIndex = (currentTextIndex + 1) % 3;
+        startDailyTextRotation();
+      }, delay);
     }
-    
+
     // 初始化文字循环动画
     startDailyTextRotation();
   
@@ -16139,19 +16137,19 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日早安海报：</span>
+            <span class="task-prefix">1，制作今日早安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
             <span>☀ 挑选早安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日晚安海报：</span>
+            <span class="task-prefix">2，制作今日晚安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">3，制作今日日常拍摄记录海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16164,7 +16162,7 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日晚安海报：</span>
+            <span class="task-prefix">1，制作今日晚安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>

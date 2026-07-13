@@ -852,7 +852,7 @@ function addCustomBackgroundEntry() {
   customCard.addEventListener('click', function() {
     // 跳转到编辑器页面，并传递自定义背景标识
     // 使用相对路径，兼容子目录部署
-    window.location.href = './editor?customBackground=true';
+    window.location.href = './editor.html?customBackground=true';
   });
   
   templatesGrid.appendChild(customCard);
@@ -949,7 +949,7 @@ function createTemplateCard(template) {
     }
     // 跳转到编辑器页面，并传递模板ID
     // 使用相对路径，兼容子目录部署
-    window.location.href = `./editor?templateId=${template.id}`;
+    window.location.href = `./editor.html?templateId=${template.id}`;
   });
   
   return card;
@@ -1525,7 +1525,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日早安海报：</span>
+            <span class="task-prefix">1，制作今日早安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
@@ -1533,7 +1533,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日晚安海报：</span>
+            <span class="task-prefix">2，制作今日晚安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="wananBtn" data-action="wanan">
@@ -1541,7 +1541,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">3，制作今日日常拍摄记录海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
@@ -1556,7 +1556,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日晚安海报：</span>
+            <span class="task-prefix">1，制作今日晚安海报，并分享到朋友圈或微信群：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="wananBtn" data-action="wanan">
@@ -1618,7 +1618,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (action === 'dairy') {
           // 品牌日常海报，跳转到编辑器页面
           // 使用相对路径，兼容子目录部署
-          const targetUrl = './editor?templateId=dairy-2024-001';
+          const targetUrl = './editor.html?templateId=dairy-2024-001';
           console.log('[dairy-btn] 点击按钮，准备跳转到:', targetUrl);
           window.location.href = targetUrl;
         }

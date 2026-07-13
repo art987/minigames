@@ -1,4 +1,5 @@
 {
+  "secureWindowEnabled": true,
   "tabBarItems": [
     {
       "pagePath": "pages/index/index",
