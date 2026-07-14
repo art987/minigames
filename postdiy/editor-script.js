@@ -4658,7 +4658,8 @@ const ThumbnailLoader = {
             }
             // 初始化历史状态，确保后退按钮能正确工作
             console.log('[template-url] 加载成功，更新 URL');
-            window.history.replaceState({ templateId: templateId }, '', `./editor?templateId=${templateId}`);
+            // 保持当前 URL 不变，只更新历史状态
+            // window.history.replaceState({ templateId: templateId }, '', `./editor.html?templateId=${templateId}`);
             updateTemplateDisplay();
             console.log('[template-url] 已加载指定模板:', selectedTemplate.name);
             return; // 加载成功后直接返回
@@ -6857,8 +6858,9 @@ const ThumbnailLoader = {
     }
 
     // 使用 History API 更新URL但不刷新页面
-    // 使用相对路径，兼容子目录部署
-    const newUrl = `./editor?templateId=${template.id}`;
+    // 使用当前页面的路径，确保 .html 不会被去掉
+    const currentPath = window.location.pathname; // 例如: /editor.html
+    const newUrl = `${currentPath}?templateId=${template.id}`;
     window.history.pushState({ templateId: template.id }, '', newUrl);
 
     // 关闭模板选择弹窗
@@ -16118,13 +16120,13 @@ window.textTemplateManager = {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日${todayFestival}海报：</span>
+            <span class="task-prefix">1、制作今日${todayFestival}海报：</span>
             <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               <span>挑选${todayFestival}模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16133,23 +16135,23 @@ window.textTemplateManager = {
         `;
       } else if (isBefore930) {
         html = `
-         <div class="today-release-text">（今日没有特别节日，您可以制作：）</div>
+         <div class="today-release-text">（今日没有特别节日，您可以：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日早安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">1、制作今日早安海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
             <span>☀ 挑选早安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日晚安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">2、制作今日晚安海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3，制作今日日常拍摄记录海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">3、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16158,17 +16160,17 @@ window.textTemplateManager = {
         `;
       } else {
         html = `
-         <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以制作：）</div>
+         <div class="today-release-text">（早安时段已过，您还可以制作：）</div>
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日晚安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">1、制作今日晚安海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16218,7 +16220,7 @@ window.textTemplateManager = {
             } else {
               // 如果模板数据还没加载，使用 URL 方式加载
               // 使用相对路径，兼容子目录部署
-              window.location.href = './editor?templateId=' + dairyTemplateId;
+              window.location.href = './editor.html?templateId=' + dairyTemplateId;
             }
           }
         });

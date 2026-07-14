@@ -130,7 +130,11 @@ const PosterShare = (function() {
     }
 
     function getTemplateThumbUrl(template) {
-        return getQiniuBase() + template.image + '-86thumb';
+        // 缩略图始终使用七牛地址，更稳定
+        const qiniuBase = (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl)
+            ? imageConfig.qiniuBaseUrl
+            : QINIU_BASE;
+        return qiniuBase + template.image + '-86thumb';
     }
 
     function updatePosterScale() {
@@ -312,16 +316,34 @@ const PosterShare = (function() {
             slide.className = 'template-gallery-slide hidden-slide';
             slide.dataset.index = index;
 
+            // 加载占位符
+            const placeholder = document.createElement('div');
+            placeholder.className = 'slide-placeholder';
+            placeholder.innerHTML = '<span class="placeholder-text">加载中...</span>';
+
             const img = document.createElement('img');
             img.src = getTemplateThumbUrl(template);
             img.alt = template.name;
             img.className = 'slide-img';
             img.loading = 'lazy';
+            img.style.opacity = '0';
+
+            // 图片加载完成后隐藏占位符，显示图片
+            img.onload = function() {
+                placeholder.style.display = 'none';
+                img.style.opacity = '1';
+            };
+
+            // 图片加载失败时显示占位符
+            img.onerror = function() {
+                placeholder.innerHTML = '<span class="placeholder-text">加载失败</span>';
+            };
 
             const name = document.createElement('div');
             name.className = 'slide-name';
             name.textContent = template.name;
 
+            slide.appendChild(placeholder);
             slide.appendChild(img);
             slide.appendChild(name);
             slide.addEventListener('click', function() {

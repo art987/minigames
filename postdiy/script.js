@@ -1502,7 +1502,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日${todayFestival}海报：</span>
+            <span class="task-prefix">1、制作今日${todayFestival}海报：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
@@ -1510,7 +1510,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
@@ -1525,7 +1525,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日早安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">1、制作今日早安海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
@@ -1533,7 +1533,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日晚安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">2、制作今日晚安海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="wananBtn" data-action="wanan">
@@ -1541,7 +1541,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3，制作今日日常拍摄记录海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">3、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
@@ -1552,11 +1552,11 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     } else {
       html = `
-       <div class="today-release-text">（今日无特别节日，早安时段已过，您还可以发布：）</div>
+       <div class="today-release-text">（早安时段已过，您还可以发布：）</div>
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
          
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1，制作今日晚安海报，并分享到朋友圈或微信群：</span>
+            <span class="task-prefix">1、制作今日晚安海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="wananBtn" data-action="wanan">
@@ -1564,7 +1564,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2，制作今日日常拍摄记录海报：</span>
+            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">

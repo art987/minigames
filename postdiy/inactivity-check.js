@@ -42,34 +42,25 @@
       existingModal.remove();
     }
 
-    // 创建弹窗HTML
+    // 创建弹窗HTML - 轻量版，无 header
     const modalHTML = `
       <div id="inactivityRefreshModal" class="modal-overlay" style="display: flex; z-index: 99999;">
-        <div class="modal inactivity-modal" style="max-width: 420px; width: 90%;">
-          <div class="modal-header fixed-header">
-            <h2 class="modal-title">
-              
-              温馨提示
-            </h2>
+        <div class="modal inactivity-modal" style="max-width: 360px; width: 90%; padding: 24px 20px;">
+          <div class="inactivity-message" style="text-align: center; margin-bottom: 20px;">
+            <p style="font-size: 15px; color: #333; margin-bottom: 8px;">
+              您已超过 <strong style="color: #d32f2f;">60分钟</strong> 未操作
+            </p>
+            <p style="font-size: 13px; color: #666;">
+              刷新页面可获取最新模板
+            </p>
           </div>
-          <div class="modal-body" style="padding: 20px;">
-            <div class="inactivity-message" style="text-align: center; margin-bottom: 20px;">
-              <p style="font-size: 16px; color: #333; margin-bottom: 10px;">
-                您已经超过 <strong style="color: #000;">60分钟</strong> 没有任何操作
-              </p>
-              <p style="font-size: 14px; color: #666;">
-                建议刷新页面，获取最新模板和数据
-              </p>
-            </div>
-            <div class="inactivity-actions" style="display: flex; gap: 15px; justify-content: center;">
-              <button id="refreshNowBtn" class="editor-button" style="background:linear-gradient(135deg, #d32f2f, #f44336); color: white; padding: 12px 10px; font-size: 16px; border-radius: 8px;">
-                
-                马上刷新
-              </button>
-              <button id="skipRefreshBtn" class="editor-button editor-button-secondary" style="padding: 12px 10px; font-size: 16px; border-radius: 8px;">
-                创作中，暂不刷新
-              </button>
-            </div>
+          <div class="inactivity-actions" style="display: flex; gap: 12px; justify-content: center;">
+            <button id="refreshNowBtn" class="editor-button" style="background: linear-gradient(135deg, #d32f2f, #f44336); color: white; padding: 10px 16px; font-size: 14px; border-radius: 6px;">
+              马上刷新
+            </button>
+            <button id="skipRefreshBtn" class="editor-button editor-button-secondary" style="padding: 10px 16px; font-size: 14px; border-radius: 6px;">
+              暂不刷新
+            </button>
           </div>
         </div>
       </div>

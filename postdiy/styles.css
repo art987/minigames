@@ -9407,11 +9407,32 @@ Enables shadow effects to be applied to the text of the element.
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 缩略图加载占位符 */
+.slide-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  z-index: 1;
+}
+
+.placeholder-text {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  padding: 10px;
+}
+
 .template-gallery-slide img {
   max-width: 100%;
   max-height: 269px;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .template-gallery-slide .slide-name {
