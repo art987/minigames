@@ -60,7 +60,11 @@ exports.main = async (event, context) => {
       badge: pkg.badge || '',
       featured: !!pkg.featured,
       sortOrder: pkg.sortOrder,
-      promotionText: pkg.promotionText || ''
+      promotionText: pkg.promotionText || '',
+      // 淘宝购买升级码配置（可选）
+      taobaoEnabled: !!pkg.taobaoEnabled,
+      taobaoUrl: pkg.taobaoUrl || '',
+      taobaoPrice: Number(pkg.taobaoPrice) || 0
     }))
 
     return {

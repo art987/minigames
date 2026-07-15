@@ -8,6 +8,29 @@ const PAYMENT_REOPEN_GAP_MS = 8000
 // VIP_PAYMENT_RETURN：payment-return.html 写入，用于首页恢复可见时读取支付结果
 const PENDING_PAYMENT_STORAGE_KEY = 'VIP_PENDING_PAYMENT'
 const PAYMENT_RETURN_STORAGE_KEY = 'VIP_PAYMENT_RETURN'
+
+// 淘宝链接跳转：APP 内通过 JSBridge 唤起淘宝，浏览器新窗口打开（不覆盖当前页面）
+function openTaobaoLink(itemUrl) {
+  if (!itemUrl) return
+  // 判断是否在 APP 内
+  const isIOSApp = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.openTaobao
+  const isAndroidApp = window.AndroidInterface && typeof window.AndroidInterface.openTaobao === 'function'
+
+  if (isIOSApp) {
+    // iOS: 通过 JSBridge 传递 https 链接，APP 原生转换为 taobao:// scheme
+    window.webkit.messageHandlers.openTaobao.postMessage({ url: itemUrl })
+  } else if (isAndroidApp) {
+    // Android: 通过 JSBridge 传递 https 链接
+    window.AndroidInterface.openTaobao(itemUrl)
+  } else {
+    // 浏览器: 新窗口打开，避免覆盖当前海报编辑页面
+    const newWin = window.open(itemUrl, '_blank')
+    // 兜底：若被浏览器拦截（如非用户点击触发），降级为当前页跳转
+    if (!newWin) {
+      window.location.href = itemUrl
+    }
+  }
+}
 // pending payment 视为过期的时间（30 分钟），过期后不再恢复检测
 const PENDING_PAYMENT_MAX_AGE_MS = 30 * 60 * 1000
 
@@ -94,17 +117,24 @@ async function renderVipPackagesToGrid(container, options) {
     const badge = pkg.badge || ''
     const featured = !!pkg.featured
     const delay = idx * 110 // 逐个出现的延迟
+    // 淘宝购买字段
+    const taobaoEnabled = !!pkg.taobaoEnabled
+    const taobaoUrl = pkg.taobaoUrl || ''
+    const taobaoPrice = pkg.taobaoPrice || 0
+
+    // 开启淘宝购买时，卡片展示价格使用淘宝价
+    const displayPrice = taobaoEnabled && taobaoPrice > 0 ? taobaoPrice : price
 
     if (styleMode === 'class') {
       // 对接 styles.css 的 .vip-package 类（用于 VIP 升级弹窗）
       const featuredClass = featured ? ' vip-package-featured' : ''
       const badgeHtml = badge ? `<div class="package-badge">${badge}</div>` : ''
       return `
-        <div class="vip-package${featuredClass}" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" style="animation-delay:${delay}ms;">
+        <div class="vip-package${featuredClass}" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" data-taobao-enabled="${taobaoEnabled}" data-taobao-url="${taobaoUrl}" data-taobao-price="${taobaoPrice}" style="animation-delay:${delay}ms;">
           ${badgeHtml}
           <h5 class="package-title">${title}</h5>
           <div class="package-price">
-            <span class="package-current-price">¥${price}</span>
+            <span class="package-current-price">¥${displayPrice}</span>
             <span class="package-original-price">¥${originalPrice}</span>
           </div>
           <div class="package-saving">${saving}</div>
@@ -117,11 +147,11 @@ async function renderVipPackagesToGrid(container, options) {
     const badgeHtml = badge ? `<div style="position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px;">${badge}</div>` : ''
     const featuredBorder = featured ? 'border: 2px solid #d32f2f;' : 'border: 2px solid #ffcdd2;'
     return `
-      <div class="vip-package vip-package-enter" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" style="padding: 16px; background: #fff; ${featuredBorder} border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; animation-delay:${delay}ms;">
+      <div class="vip-package vip-package-enter" data-duration="${duration}" data-price="${price}" data-original-price="${originalPrice}" data-package-id="${pid}" data-taobao-enabled="${taobaoEnabled}" data-taobao-url="${taobaoUrl}" data-taobao-price="${taobaoPrice}" style="padding: 16px; background: #fff; ${featuredBorder} border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; animation-delay:${delay}ms;">
         ${badgeHtml}
         <h5 style="margin: 0 0 8px 0; color: #333; font-size: 14px;">${title}</h5>
         <div style="margin-bottom: 8px;">
-          <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥${price}</span>
+          <span style="color: #d32f2f; font-size: 18px; font-weight: bold;">¥${displayPrice}</span>
           <span style="color: #999; font-size: 12px; text-decoration: line-through; margin-left: 4px;">¥${originalPrice}</span>
         </div>
         <div style="font-size: 12px; color: #666; margin-bottom: 12px;">${saving}</div>
@@ -141,23 +171,35 @@ async function renderVipPackagesToGrid(container, options) {
         featuredPkg.classList.add('selected')
         const btn = featuredPkg.querySelector('.select-package-btn')
         if (btn) btn.textContent = '✔ 已选择'
-        // 同步外部"立即支付"按钮文案（等套餐放大过渡完成后再显示，避免动画重叠）
-        const price = featuredPkg.dataset.price
-        const proceedBtn = document.getElementById('proceedToPaymentBtn')
-        if (proceedBtn) {
-          proceedBtn.textContent = `立即支付${price}元`
-          // 延迟显示按钮，等 featured 套餐 selected 放大过渡（300ms）完成
-          setTimeout(() => {
-            proceedBtn.style.display = 'block'
-            // 触发放大果冻入场动画
-            proceedBtn.classList.remove('proceed-btn-enter')
-            void proceedBtn.offsetWidth
-            proceedBtn.classList.add('proceed-btn-enter')
-          }, 350)
-        }
+        // 同步外部支付按钮文案
+        updateProceedBtnText(featuredPkg)
       }
     }
   }, selectDelay)
+}
+
+// 根据套餐类型更新支付按钮文案
+function updateProceedBtnText(pkgEl) {
+  if (!pkgEl) return
+  const proceedBtn = document.getElementById('proceedToPaymentBtn')
+  if (!proceedBtn) return
+
+  const taobaoEnabled = pkgEl.dataset.taobaoEnabled === 'true'
+  const taobaoPrice = parseFloat(pkgEl.dataset.taobaoPrice) || 0
+  const price = pkgEl.dataset.price
+
+  if (taobaoEnabled && taobaoPrice > 0) {
+    proceedBtn.textContent = `去淘宝${taobaoPrice}元购买升级码`
+  } else {
+    proceedBtn.textContent = `立即支付${price}元`
+  }
+  // 延迟显示按钮，等套餐放大过渡完成
+  setTimeout(() => {
+    proceedBtn.style.display = 'block'
+    proceedBtn.classList.remove('proceed-btn-enter')
+    void proceedBtn.offsetWidth
+    proceedBtn.classList.add('proceed-btn-enter')
+  }, 350)
 }
 
 function buildPaymentReturnUrl() {
@@ -1444,10 +1486,14 @@ const VipLoginUI = (function() {
           pkgBtn.textContent = '✔ 已选择'
         }
 
-        // 显示立即支付按钮并更新文案
+        // 显示立即支付按钮并更新文案（淘宝套餐使用淘宝价文案）
         if (elements.proceedToPaymentBtn) {
           const price = pkg.dataset.price
-          elements.proceedToPaymentBtn.textContent = `立即支付${price}元`
+          const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
+          const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
+          elements.proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+            ? `去淘宝${taobaoPrice}元购买升级码`
+            : `立即支付${price}元`
           elements.proceedToPaymentBtn.style.display = 'block'
         }
       })
@@ -1473,6 +1519,16 @@ const VipLoginUI = (function() {
         const duration = parseInt(selectedPackage.dataset.duration)
         const price = selectedPackage.dataset.price
         const packageId = selectedPackage.dataset.packageId || ''
+
+        // 淘宝套餐分支：直接跳转淘宝，不进入站内支付流程
+        const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
+        const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
+        const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
+        if (taobaoEnabled && taobaoUrl) {
+          console.log('[taobao-flow] inline proceed 跳转淘宝:', { taobaoUrl, taobaoPrice, packageId, duration })
+          openTaobaoLink(taobaoUrl)
+          return
+        }
 
         showPaymentMethodModal(duration, price, packageId)
       })
@@ -3325,9 +3381,14 @@ window.showVipUpgradeModal = function() {
 
     const price = parseFloat(selectedPackage.dataset.price);
     const originalPrice = parseFloat(selectedPackage.dataset.originalPrice);
+    const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true';
+    const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0;
 
-    if (price && originalPrice) {
-      const discount = (price / originalPrice * 10).toFixed(1);
+    // 淘宝套餐使用淘宝价/原价；普通套餐使用站内价/原价
+    const actualPrice = (taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
+
+    if (actualPrice && originalPrice) {
+      const discount = (actualPrice / originalPrice * 10).toFixed(1);
 
       let badge = document.querySelector('.payment-discount-badge');
 
@@ -3360,9 +3421,14 @@ window.showVipUpgradeModal = function() {
 
       if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(pkg)
 
-      const price = pkg.dataset.price
       if (proceedToPaymentBtn) {
-        proceedToPaymentBtn.textContent = `立即支付${price}元`
+        // 淘宝套餐使用淘宝价文案；普通套餐使用站内价文案
+        const price = pkg.dataset.price
+        const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
+        const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
+        proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+          ? `去淘宝${taobaoPrice}元购买升级码`
+          : `立即支付${price}元`
         proceedToPaymentBtn.style.display = 'block'
         // 触发放大果冻入场动画
         proceedToPaymentBtn.classList.remove('proceed-btn-enter')
@@ -3419,6 +3485,17 @@ window.showVipUpgradeModal = function() {
       const price = selectedPackage.dataset.price
       const packageId = selectedPackage.dataset.packageId || ''
       const type = 'wxpay'
+
+      // 淘宝套餐分支：直接跳转淘宝，不走支付下单流程
+      const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
+      const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
+      const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
+      if (taobaoEnabled && taobaoUrl) {
+        console.log('[taobao-flow] proceed 跳转淘宝购买升级码:', { taobaoUrl, taobaoPrice, packageId, duration })
+        openTaobaoLink(taobaoUrl)
+        restoreBtn()
+        return
+      }
 
       // 全局下单锁：跨入口/网络重试兜底
       const lockKey = `${VIPSystem.getUserId() || 'anon'}_${packageId || duration}_${type}`

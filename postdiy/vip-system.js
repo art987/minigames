@@ -513,11 +513,11 @@ const VIPSystem = (function() {
   // 兜底默认套餐（仅当云端无套餐或网络异常时使用，与云端默认配置保持一致）
   function getDefaultVipPackages() {
     return [
-      { _id: '', duration: 1, title: '1个月VIP', price: 9.9, originalPrice: 60, saving: '≈半杯奶茶', badge: '', featured: false, sortOrder: 1, promotionText: '' },
-      { _id: '', duration: 3, title: '3个月VIP', price: 16.9, originalPrice: 60, saving: '≈买1月送2月', badge: '', featured: false, sortOrder: 2, promotionText: '' },
-      { _id: '', duration: 6, title: '6个月VIP', price: 19.9, originalPrice: 120, saving: '≈买1月送5月', badge: '', featured: false, sortOrder: 3, promotionText: '' },
-      { _id: '', duration: 12, title: '1年VIP', price: 23.9, originalPrice: 240, saving: '≈买1月送11月', badge: '超值', featured: true, sortOrder: 4, promotionText: '' },
-      { _id: '', duration: 24, title: '2年VIP', price: 33.9, originalPrice: 480, saving: '≈买2月送22月', badge: '', featured: false, sortOrder: 5, promotionText: '' }
+      { _id: '', duration: 1, title: '1个月VIP', price: 9.9, originalPrice: 60, saving: '≈半杯奶茶', badge: '', featured: false, sortOrder: 1, promotionText: '', taobaoEnabled: false, taobaoUrl: '', taobaoPrice: 0 },
+      { _id: '', duration: 3, title: '3个月VIP', price: 16.9, originalPrice: 60, saving: '≈买1月送2月', badge: '', featured: false, sortOrder: 2, promotionText: '', taobaoEnabled: false, taobaoUrl: '', taobaoPrice: 0 },
+      { _id: '', duration: 6, title: '6个月VIP', price: 19.9, originalPrice: 120, saving: '≈买1月送5月', badge: '', featured: false, sortOrder: 3, promotionText: '', taobaoEnabled: false, taobaoUrl: '', taobaoPrice: 0 },
+      { _id: '', duration: 12, title: '1年VIP', price: 23.9, originalPrice: 240, saving: '≈买1月送11月', badge: '超值', featured: true, sortOrder: 4, promotionText: '', taobaoEnabled: false, taobaoUrl: '', taobaoPrice: 0 },
+      { _id: '', duration: 24, title: '2年VIP', price: 33.9, originalPrice: 480, saving: '≈买2月送22月', badge: '', featured: false, sortOrder: 5, promotionText: '', taobaoEnabled: false, taobaoUrl: '', taobaoPrice: 0 }
     ]
   }
 

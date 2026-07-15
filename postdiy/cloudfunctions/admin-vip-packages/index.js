@@ -79,6 +79,15 @@ function validatePackage(pkg) {
   if (isNaN(price) || price < 0) return '价格必须为非负数字'
   const originalPrice = Number(pkg.originalPrice)
   if (isNaN(originalPrice) || originalPrice < 0) return '原价必须为非负数字'
+
+  // 淘宝购买升级码字段校验（可选）
+  if (pkg.taobaoEnabled) {
+    const taobaoUrl = String(pkg.taobaoUrl || '').trim()
+    if (!taobaoUrl) return '开启淘宝购买时必须填写淘宝链接'
+    if (!/^https:\/\//i.test(taobaoUrl)) return '淘宝链接必须以 https:// 开头'
+    const taobaoPrice = Number(pkg.taobaoPrice)
+    if (isNaN(taobaoPrice) || taobaoPrice <= 0) return '淘宝价格必须为正数字'
+  }
   return null
 }
 
@@ -187,6 +196,10 @@ exports.main = async (event, context) => {
           enabled: pkg.enabled !== false,
           sortOrder: Number(pkg.sortOrder) || Number(pkg.duration) || 0,
           promotionText: pkg.promotionText || '',
+          // 淘宝购买升级码配置
+          taobaoEnabled: !!pkg.taobaoEnabled,
+          taobaoUrl: pkg.taobaoEnabled ? String(pkg.taobaoUrl || '').trim() : '',
+          taobaoPrice: pkg.taobaoEnabled ? Number(pkg.taobaoPrice) || 0 : 0,
           createTime: now,
           updateTime: now
         }
@@ -250,6 +263,10 @@ exports.main = async (event, context) => {
           enabled: pkg.enabled !== false,
           sortOrder: Number(pkg.sortOrder) || Number(pkg.duration) || 0,
           promotionText: pkg.promotionText || '',
+          // 淘宝购买升级码配置
+          taobaoEnabled: !!pkg.taobaoEnabled,
+          taobaoUrl: pkg.taobaoEnabled ? String(pkg.taobaoUrl || '').trim() : '',
+          taobaoPrice: pkg.taobaoEnabled ? Number(pkg.taobaoPrice) || 0 : 0,
           updateTime: new Date()
         }
 

@@ -224,6 +224,47 @@
         .pkg-toast.error {
             background: #f44336;
         }
+
+        /* 淘宝购买配置区域 */
+        .pkg-taobao-section {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff5f5 100%);
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+        }
+        .pkg-taobao-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .pkg-taobao-hint {
+            font-size: 12px;
+            color: #e65100;
+            padding-left: 24px;
+        }
+        .pkg-taobao-tip {
+            font-size: 11px;
+            color: #ff9800;
+            font-weight: normal;
+        }
+        .pkg-taobao-fields {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #ffcc80;
+        }
+        .pkg-badge.taobao {
+            background: #ff6600;
+        }
+        .pkg-taobao-info {
+            margin-top: 6px;
+            padding: 6px 10px;
+            background: #fff3e0;
+            border-left: 3px solid #ff6600;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #e65100;
+        }
     </style>
 </head>
 <body>
@@ -300,6 +341,27 @@
                 <input type="checkbox" id="editEnabled" checked>
                 <label for="editEnabled" style="margin:0;">启用此套餐</label>
             </div>
+
+            <!-- 淘宝购买升级码配置 -->
+            <div class="pkg-taobao-section">
+                <div class="pkg-taobao-header">
+                    <div class="pkg-form-check">
+                        <input type="checkbox" id="editTaobaoEnabled">
+                        <label for="editTaobaoEnabled" style="margin:0;">开启淘宝购买升级码</label>
+                    </div>
+                    <span class="pkg-taobao-hint">开启后用户可跳转淘宝购买，不进入站内支付流程</span>
+                </div>
+                <div id="taobaoFields" class="pkg-taobao-fields" style="display:none;">
+                    <div class="pkg-form-group">
+                        <label>淘宝链接 * <span class="pkg-taobao-tip">（必须以 https:// 开头）</span></label>
+                        <input type="url" id="editTaobaoUrl" placeholder="https://item.taobao.com/item.htm?id=xxx">
+                    </div>
+                    <div class="pkg-form-group">
+                        <label>淘宝价格（元）* <span class="pkg-taobao-tip">（折扣徽章将按 淘宝价/原价 计算）</span></label>
+                        <input type="number" id="editTaobaoPrice" step="0.01" min="0" placeholder="如：9.9">
+                    </div>
+                </div>
+            </div>
             <div class="pkg-modal-actions">
                 <button class="btn btn-secondary" onclick="closeEditModal()">取消</button>
                 <button class="btn btn-success" id="saveBtn" onclick="savePackage()">保存</button>
@@ -368,22 +430,35 @@
                     : '<span class="pkg-badge enabled">已启用</span>';
                 const featuredBadge = pkg.featured ? '<span class="pkg-badge">推荐</span>' : '';
                 const badgeText = pkg.badge ? '<span class="pkg-badge">' + escapeHtml(pkg.badge) + '</span>' : '';
+                const taobaoBadge = pkg.taobaoEnabled ? '<span class="pkg-badge taobao">淘宝</span>' : '';
                 const toggleText = pkg.enabled === false ? '启用' : '禁用';
                 const toggleIcon = pkg.enabled === false ? 'fa-toggle-off' : 'fa-toggle-on';
+
+                // 淘宝购买信息展示
+                let taobaoInfoHtml = '';
+                let displayPrice = pkg.price;
+                if (pkg.taobaoEnabled) {
+                    const tbPrice = pkg.taobaoPrice || 0;
+                    const tbDiscount = (pkg.originalPrice && tbPrice) ? (tbPrice / pkg.originalPrice * 10).toFixed(1) : '--';
+                    taobaoInfoHtml = `<div class="pkg-taobao-info">淘宝价：¥${tbPrice}（${tbDiscount}折）</div>`;
+                    displayPrice = tbPrice;
+                }
 
                 return `
                     <div class="pkg-card${disabledClass}${featuredClass}">
                         <div class="pkg-card-header">
                             <div class="pkg-card-title">${escapeHtml(pkg.title)}</div>
-                            <div class="pkg-card-badges">${enabledBadge}${featuredBadge}${badgeText}</div>
+                            <div class="pkg-card-badges">${enabledBadge}${featuredBadge}${badgeText}${taobaoBadge}</div>
                         </div>
                         <div class="pkg-price-row">
-                            <span class="pkg-current-price">¥${pkg.price}</span>
+                            <span class="pkg-current-price">¥${displayPrice}</span>
                             <span class="pkg-original-price">¥${pkg.originalPrice}</span>
                         </div>
                         <div class="pkg-meta">时长：${pkg.duration} 个月</div>
                         ${pkg.saving ? '<div class="pkg-meta">省钱文案：' + escapeHtml(pkg.saving) + '</div>' : ''}
                         <div class="pkg-meta">排序：${pkg.sortOrder || 0}</div>
+                        ${pkg.taobaoEnabled ? '<div class="pkg-meta">站内价：¥' + pkg.price + '</div>' : ''}
+                        ${taobaoInfoHtml}
                         <div class="pkg-card-actions">
                             <button class="btn" onclick="openEditModal('${pkg._id}')"><i class="fa fa-edit"></i> 编辑</button>
                             <button class="btn btn-secondary" onclick="togglePackage('${pkg._id}', ${pkg.enabled !== false})"><i class="fa ${toggleIcon}"></i> ${toggleText}</button>
@@ -418,6 +493,11 @@
             document.getElementById('editBadge').value = '';
             document.getElementById('editFeatured').checked = false;
             document.getElementById('editEnabled').checked = true;
+            // 重置淘宝配置
+            document.getElementById('editTaobaoEnabled').checked = false;
+            document.getElementById('editTaobaoUrl').value = '';
+            document.getElementById('editTaobaoPrice').value = '';
+            toggleTaobaoFields();
             document.getElementById('editModal').classList.add('show');
         }
 
@@ -438,6 +518,11 @@
             document.getElementById('editBadge').value = pkg.badge || '';
             document.getElementById('editFeatured').checked = !!pkg.featured;
             document.getElementById('editEnabled').checked = pkg.enabled !== false;
+            // 填充淘宝配置
+            document.getElementById('editTaobaoEnabled').checked = !!pkg.taobaoEnabled;
+            document.getElementById('editTaobaoUrl').value = pkg.taobaoUrl || '';
+            document.getElementById('editTaobaoPrice').value = pkg.taobaoPrice || '';
+            toggleTaobaoFields();
             document.getElementById('editModal').classList.add('show');
         }
 
@@ -445,8 +530,26 @@
             document.getElementById('editModal').classList.remove('show');
         }
 
+        // 根据复选框状态动态显示/隐藏淘宝字段
+        function toggleTaobaoFields() {
+            const enabled = document.getElementById('editTaobaoEnabled').checked;
+            const fields = document.getElementById('taobaoFields');
+            if (fields) {
+                fields.style.display = enabled ? 'block' : 'none';
+            }
+        }
+
+        // 绑定淘宝复选框事件（script 在 body 末尾，DOM 已就绪，直接绑定）
+        (function() {
+            const cb = document.getElementById('editTaobaoEnabled');
+            if (cb) cb.addEventListener('change', toggleTaobaoFields);
+        })();
+
         async function savePackage() {
             const id = document.getElementById('editId').value;
+            const taobaoEnabled = document.getElementById('editTaobaoEnabled').checked;
+            const taobaoUrl = document.getElementById('editTaobaoUrl').value.trim();
+            const taobaoPrice = parseFloat(document.getElementById('editTaobaoPrice').value);
             const pkg = {
                 title: document.getElementById('editTitle').value.trim(),
                 duration: parseInt(document.getElementById('editDuration').value, 10),
@@ -456,13 +559,24 @@
                 saving: document.getElementById('editSaving').value.trim(),
                 badge: document.getElementById('editBadge').value.trim(),
                 featured: document.getElementById('editFeatured').checked,
-                enabled: document.getElementById('editEnabled').checked
+                enabled: document.getElementById('editEnabled').checked,
+                // 淘宝购买升级码配置
+                taobaoEnabled: taobaoEnabled,
+                taobaoUrl: taobaoEnabled ? taobaoUrl : '',
+                taobaoPrice: taobaoEnabled ? (isNaN(taobaoPrice) ? 0 : taobaoPrice) : 0
             };
 
             if (!pkg.title) { showToast('请填写套餐名称', 'error'); return; }
             if (!pkg.duration || pkg.duration <= 0) { showToast('请填写有效的时长', 'error'); return; }
             if (isNaN(pkg.price) || pkg.price < 0) { showToast('请填写有效的价格', 'error'); return; }
             if (isNaN(pkg.originalPrice) || pkg.originalPrice < 0) { showToast('请填写有效的原价', 'error'); return; }
+
+            // 淘宝配置校验
+            if (taobaoEnabled) {
+                if (!taobaoUrl) { showToast('开启淘宝购买时必须填写淘宝链接', 'error'); return; }
+                if (!/^https:\/\//i.test(taobaoUrl)) { showToast('淘宝链接必须以 https:// 开头', 'error'); return; }
+                if (isNaN(taobaoPrice) || taobaoPrice <= 0) { showToast('请填写有效的淘宝价格（必须大于0）', 'error'); return; }
+            }
 
             const saveBtn = document.getElementById('saveBtn');
             saveBtn.disabled = true;

@@ -1872,6 +1872,7 @@ const ThumbnailLoader = {
       frameScrollContainer: document.getElementById('frameScrollContainer'),
       downloadBtn: document.getElementById('downloadBtn'),
       togglePositionBtn: document.getElementById('togglePositionBtn'),
+      vipBtn: document.getElementById('vipBtn'),
       toggleMenuBtn: document.getElementById('toggleMenuBtn'),
       toggleThemeBtn: document.getElementById('toggleThemeBtn'),
       themeIcon: document.getElementById('themeIcon'),
@@ -4290,6 +4291,15 @@ const ThumbnailLoader = {
     // 位置切换按钮事件
     if (elements.togglePositionBtn) {
       elements.togglePositionBtn.addEventListener('click', toggleActionsPosition);
+    }
+    
+    // VIP按钮事件 - 显示VIP升级弹窗
+    if (elements.vipBtn) {
+      elements.vipBtn.addEventListener('click', function() {
+        if (typeof window.showVipUpgradeModal === 'function') {
+          window.showVipUpgradeModal();
+        }
+      });
     }
     
     // 菜单显示/隐藏按钮事件
@@ -9033,9 +9043,14 @@ const ThumbnailLoader = {
 
       const price = parseFloat(selectedPackage.dataset.price);
       const originalPrice = parseFloat(selectedPackage.dataset.originalPrice);
+      const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true';
+      const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0;
 
-      if (price && originalPrice) {
-        const discount = (price / originalPrice * 10).toFixed(1);
+      // 淘宝套餐使用淘宝价/原价；普通套餐使用站内价/原价
+      const actualPrice = (taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
+
+      if (actualPrice && originalPrice) {
+        const discount = (actualPrice / originalPrice * 10).toFixed(1);
 
         let badge = document.querySelector('.payment-discount-badge');
 
@@ -9068,14 +9083,23 @@ const ThumbnailLoader = {
 
         if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(pkg)
 
-        const price = pkg.dataset.price
         if (proceedToPaymentBtn) {
-          proceedToPaymentBtn.textContent = `立即支付${price}元`
-          proceedToPaymentBtn.style.display = 'block'
-          // 触发放大果冻入场动画
-          proceedToPaymentBtn.classList.remove('proceed-btn-enter')
-          void proceedToPaymentBtn.offsetWidth
-          proceedToPaymentBtn.classList.add('proceed-btn-enter')
+          // 优先复用 vip-login-ui.js 的统一按钮文案逻辑（支持淘宝套餐）
+          if (typeof window.updateProceedBtnText === 'function') {
+            window.updateProceedBtnText(pkg)
+          } else {
+            const price = pkg.dataset.price
+            const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
+            const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
+            proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+              ? `去淘宝${taobaoPrice}元购买升级码`
+              : `立即支付${price}元`
+            proceedToPaymentBtn.style.display = 'block'
+            // 触发放大果冻入场动画
+            proceedToPaymentBtn.classList.remove('proceed-btn-enter')
+            void proceedToPaymentBtn.offsetWidth
+            proceedToPaymentBtn.classList.add('proceed-btn-enter')
+          }
         }
       })
 
@@ -9131,6 +9155,21 @@ const ThumbnailLoader = {
         const price = selectedPackage.dataset.price
         const packageId = selectedPackage.dataset.packageId || ''
         const type = 'wxpay'
+
+        // 淘宝套餐分支：直接跳转淘宝，不走支付下单流程
+        const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
+        const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
+        const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
+        if (taobaoEnabled && taobaoUrl) {
+          console.log('[taobao-flow] editor 跳转淘宝购买升级码:', { taobaoUrl, taobaoPrice, packageId, duration })
+          if (typeof window.openTaobaoLink === 'function') {
+            window.openTaobaoLink(taobaoUrl)
+          } else {
+            window.location.href = taobaoUrl
+          }
+          restoreBtn()
+          return
+        }
 
         // 全局下单锁：跨入口/网络重试兜底（锁函数由 vip-login-ui.js 暴露在 window 上）
         const lockKey = `${VIPSystem.getUserId() || 'anon'}_${packageId || duration}_${type}`
