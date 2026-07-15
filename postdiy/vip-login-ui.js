@@ -9,26 +9,88 @@ const PAYMENT_REOPEN_GAP_MS = 8000
 const PENDING_PAYMENT_STORAGE_KEY = 'VIP_PENDING_PAYMENT'
 const PAYMENT_RETURN_STORAGE_KEY = 'VIP_PAYMENT_RETURN'
 
-// 淘宝链接跳转：APP 内通过 JSBridge 唤起淘宝，浏览器新窗口打开（不覆盖当前页面）
+// 淘宝链接跳转：多通道尝试（iOS 原生桥 → Android 原生桥 → uni.postMessage → uni.webView.postMessage → 浏览器）
+// App 宿主通过 action: 'openTaobao' 消息格式接收，负责 taobao:// scheme 唤起和 https 降级
 function openTaobaoLink(itemUrl) {
-  if (!itemUrl) return
-  // 判断是否在 APP 内
-  const isIOSApp = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.openTaobao
-  const isAndroidApp = window.AndroidInterface && typeof window.AndroidInterface.openTaobao === 'function'
+  if (!itemUrl) {
+    console.warn('[taobao-flow] empty itemUrl')
+    return
+  }
 
-  if (isIOSApp) {
-    // iOS: 通过 JSBridge 传递 https 链接，APP 原生转换为 taobao:// scheme
-    window.webkit.messageHandlers.openTaobao.postMessage({ url: itemUrl })
-  } else if (isAndroidApp) {
-    // Android: 通过 JSBridge 传递 https 链接
-    window.AndroidInterface.openTaobao(itemUrl)
-  } else {
-    // 浏览器: 新窗口打开，避免覆盖当前海报编辑页面
-    const newWin = window.open(itemUrl, '_blank')
-    // 兜底：若被浏览器拦截（如非用户点击触发），降级为当前页跳转
-    if (!newWin) {
-      window.location.href = itemUrl
+  console.log('[taobao-flow] try open taobao:', itemUrl)
+
+  // 1. iOS 原生桥
+  try {
+    const iOSBridge =
+      window.webkit &&
+      window.webkit.messageHandlers &&
+      window.webkit.messageHandlers.openTaobao
+
+    if (iOSBridge && typeof iOSBridge.postMessage === 'function') {
+      console.log('[taobao-flow] use ios bridge')
+      iOSBridge.postMessage({ url: itemUrl })
+      return
     }
+  } catch (err) {
+    console.error('[taobao-flow] ios bridge failed', err)
+  }
+
+  // 2. Android 原生桥
+  try {
+    const androidBridge =
+      window.AndroidInterface &&
+      typeof window.AndroidInterface.openTaobao === 'function'
+
+    if (androidBridge) {
+      console.log('[taobao-flow] use android bridge')
+      window.AndroidInterface.openTaobao(itemUrl)
+      return
+    }
+  } catch (err) {
+    console.error('[taobao-flow] android bridge failed', err)
+  }
+
+  // 3. uni.postMessage（HBuilderX 宿主消息通道，更稳的兜底）
+  try {
+    if (window.uni && typeof window.uni.postMessage === 'function') {
+      console.log('[taobao-flow] use uni.postMessage bridge')
+      window.uni.postMessage({
+        data: {
+          action: 'openTaobao',
+          url: itemUrl
+        }
+      })
+      return
+    }
+  } catch (err) {
+    console.error('[taobao-flow] uni.postMessage failed', err)
+  }
+
+  // 4. uni.webView.postMessage（HBuilderX 另一种消息通道）
+  try {
+    if (
+      window.uni &&
+      window.uni.webView &&
+      typeof window.uni.webView.postMessage === 'function'
+    ) {
+      console.log('[taobao-flow] use uni.webView.postMessage bridge')
+      window.uni.webView.postMessage({
+        data: {
+          action: 'openTaobao',
+          url: itemUrl
+        }
+      })
+      return
+    }
+  } catch (err) {
+    console.error('[taobao-flow] uni.webView.postMessage failed', err)
+  }
+
+  // 5. 浏览器兜底：新窗口打开，避免覆盖当前海报编辑页面
+  console.log('[taobao-flow] fallback to browser')
+  const newWin = window.open(itemUrl, '_blank')
+  if (!newWin) {
+    window.location.href = itemUrl
   }
 }
 // pending payment 视为过期的时间（30 分钟），过期后不再恢复检测
