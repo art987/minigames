@@ -821,41 +821,6 @@ function renderTemplates(templates) {
     templateCard.style.animationDelay = `${index * 60}ms`;
     templatesGrid.appendChild(templateCard);
   });
-
-  // 在每个分类模板最后添加自定义背景图入口
-  addCustomBackgroundEntry();
-}
-
-// 创建自定义背景图入口
-function addCustomBackgroundEntry() {
-  const customCard = document.createElement('div');
-  customCard.className = 'template-card custom-background-entry';
-  
-  // 卡片内容
-  customCard.innerHTML = `
-    <div class="template-thumbnail-container">
-      <div class="custom-background-icon">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-    </div>
-    <div class="template-info">
-      <h3 class="template-name">自定义背景</h3>
-      <div class="template-tags">
-        <span class="template-type-tag">自定义</span>
-      </div>
-    </div>
-  `;
-  
-  // 添加点击事件
-  customCard.addEventListener('click', function() {
-    // 跳转到编辑器页面，并传递自定义背景标识
-    // 使用相对路径，兼容子目录部署
-    window.location.href = './editor.html?customBackground=true';
-  });
-  
-  templatesGrid.appendChild(customCard);
 }
 
 // 创建模板卡片
@@ -1072,7 +1037,30 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(initVipLogin, 100);
   // 延迟初始化首页弹窗
   setTimeout(initHomePopup, 200);
+  // 创建底部浮动按钮
+  createDailyRecordButton();
 });
+
+// 创建底部浮动按钮 - 制作日常记录海报
+function createDailyRecordButton() {
+  // 检查按钮是否已存在
+  if (document.getElementById('dailyRecordFloatBtn')) return;
+  
+  const floatBtn = document.createElement('div');
+  floatBtn.id = 'dailyRecordFloatBtn';
+  floatBtn.className = 'daily-record-float-btn';
+  floatBtn.innerHTML = `
+    <span class="daily-record-icon">+</span>
+    <span class="daily-record-text">制作日常记录海报</span>
+  `;
+  
+  // 点击事件
+  floatBtn.addEventListener('click', function() {
+    window.location.href = './editor.html?templateId=dairy-2024-001';
+  });
+  
+  document.body.appendChild(floatBtn);
+}
 
 // 首页弹窗功能
   function initHomePopup() {

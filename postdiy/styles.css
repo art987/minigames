@@ -1822,23 +1822,24 @@ footer {
   display: none;
   margin-bottom: 4px;
 }
-#nextTemplateBtn span {font-size: 17px;}
-#prevTemplateBtn span{font-size: 17px; transform: scaleX(-1);   }
+#nextTemplateBtn span {font-size: 15px;}
+#prevTemplateBtn span{font-size: 15px;transform: scaleX(-1);}
 
 /* Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Ë†â€¡Ã¦ÂÂ¢Ã¦Å’â€°Ã©â€™Â® - Ã¦â€Â¾Ã¥Å“Â¨Ã¥Â·Â¦Ã¥ÂÂ³Ã¤Â¸Â¤Ã¨Â¾Â¹Ã¯Â¼Å’Ã¥Â±â€¦Ã¤Â¸Â­Ã¥ÂÂÃ¤Â¸Å 10% */
 #prevTemplateBtn, #nextTemplateBtn, #changeTemplateBtn{
   position: fixed;
-  bottom: 6px;
-  color: #373737;
+  bottom: 37.5%;
+  color: #444444;
   background: #ffffffb3;
   z-index: 100;
   text-shadow: 0px 1px 2px #ffffff1c;
-  width: 62px;
+  width: 37px;
   border: 1px solid #ffffff1c;
-  height: 27px;
+  height: 32px;
   display: flex;
   padding: 4px 10px;
   align-items: center;
+  er; */
   justify-content: center;
   background-color: rgb(255 255 255 / 18%);
   box-shadow: 0 4px 12px rgb(0 0 0 / 11%);
@@ -1846,14 +1847,22 @@ footer {
 }
 
 #prevTemplateBtn {
-  left: 20%;
+  left: 5px;
+  bottom: 47%;
+  width: 34px;
 }
 
 #nextTemplateBtn {
-  right: 20%;
+  left: 5px;
+  bottom: 31%;
+  width: 34px;
 }
  #changeTemplateBtn{
-  left: 40%;color: #000; animation:borderGradient 3s ease infinite;
+  left: 5px;
+  height: 48px;
+  line-height: 14px;
+  color: #000;
+  animation:borderGradient 3s ease infinite;
 }
 #editBusinessInfoBtn{display: none;
 }
@@ -2037,21 +2046,24 @@ footer {
 /* 弹窗回到顶部按钮样式 */
 .modal-back-to-top-btn {
   position: absolute;
-  bottom: 20px;
+  bottom: 83px;
   right: 20px;
   width: auto;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: white;
+  padding: 8px 9px;
+  background: linear-gradient(135deg, #ffffffa6, #ffffff70);
+  color: #d60000;
   border: none;
-  border-radius: 20px;
+  border-radius: 11px;
+  backdrop-filter: blur(8px);
   cursor: pointer;
+  border: 1px solid #fff;
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 14px;
+  text-shadow: 0 1px 2px #fff;
   font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgb(248 248 248 / 89%);
   z-index: 100;
   opacity: 0;
   transform: translateY(10px);
@@ -8105,11 +8117,12 @@ button.future-suggestion-btn[data-action="wanan"] {
    position: fixed;
    right: 9px;
    margin-right: 0;
+   height: 33px;
    width: 36px;
    top: 55px;
    z-index: 999;
    font-size: 28px;
-   padding: 2px 0px;
+   padding: 3px 0px;
    }
 
 /* 每日建议按钮文字动画样式 */
@@ -9255,21 +9268,21 @@ button.future-suggestion-btn[data-action="wanan"] {
   gap: 8px;
   z-index: 99999;
   position: fixed;
-  top: 39%;
-  left: 0px;
+  bottom: 20px;
+  left: 10%;
 }
 
 .view-toggle-btn {
-  width: 36px;
-  height: 29px;
-  border: 1px solid #dddddd54;
+  width: 46px;
+  height: 35px;
+  border: 1px solid #ffffffeb;
   border-radius: 8px;
   background: #fcfcfc61;
   backdrop-filter: blur(8px);
   color: #494949;
   cursor: pointer;
   margin-bottom: 10px;
-  display: flex;
+  /* display: flex; */
   text-shadow
 Enables shadow effects to be applied to the text of the element.
 
@@ -9277,6 +9290,7 @@ Enables shadow effects to be applied to the text of the element.
 了解详情
 
 不显示: 0 1px 3px #151515;
+  margin-right: 6px;
   align-items: center;
   text-shadow
 Enables shadow effects to be applied to the text of the element.
@@ -9295,6 +9309,7 @@ Enables shadow effects to be applied to the text of the element.
 了解详情
 
 不显示: 0 1px 3px #151515;
+  box-shadow: 0 1px 3px #ffffff;
 }
 
 .view-toggle-btn:hover {
@@ -9321,20 +9336,22 @@ Enables shadow effects to be applied to the text of the element.
   gap: 8px;
   z-index: 99999;
   position: fixed;
-  top: 54%;
-  left: 0px;
+  bottom: 20px;
+  right: 10%;
 }
 
 .sort-toggle-btn {
-  padding: 4px 3px;
-  height: 29px;
-  border: 1px solid #ffffff42;
+  padding: 6px 11px;
+  height: 37px;
+  border: 1px solid #ffffff;
   border-radius: 8px;
+  margin-left: 6px;
+  box-shadow: 0 1px 10px #fff;
   background: #ffffff61;
   color: #080808;
   cursor: pointer;
-  backdrop-filter: blur(8px);
-  display: flex;
+  backdrop-filter: blur(6px);
+  /* display: flex; */
   font-weight: 350;
   text-shadow: 0 1px 3px #ffffff;
   align-items: center;
@@ -9342,7 +9359,7 @@ Enables shadow effects to be applied to the text of the element.
   gap: 4px;
   transition: all 0.3s ease;
   margin-bottom: 9px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .sort-toggle-btn:hover {
@@ -9364,7 +9381,7 @@ Enables shadow effects to be applied to the text of the element.
 /* Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¥Â¹Â»Ã§ÂÂ¯Ã§â€°â€¡Ã¨Â§â€ Ã¥â€ºÂ¾ */
 .template-slide-view {
   position: relative;
-  padding: 0px 0px;
+  padding: 0px 0px 41px;
 }
 
 .template-slide-view.hidden {
@@ -9373,7 +9390,7 @@ Enables shadow effects to be applied to the text of the element.
 
 .template-3d-gallery {
   perspective: 1200px;
-  height: 320px;
+  height: 326px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9542,6 +9559,7 @@ Enables shadow effects to be applied to the text of the element.
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  margin-bottom: 34px;
   min-width: 120px;
   /* position: absolute; */
   top: 3px;
@@ -9592,7 +9610,7 @@ Enables shadow effects to be applied to the text of the element.
 /* Ã¥â€œÂÃ¥Âºâ€Ã¥Â¼ÂÃ¨Â°Æ’Ã¦â€¢Â´ */
 @media (max-width: 480px) {
   .template-3d-gallery {
-    height: 293px;
+    height: 297px;
   }
   
   .template-gallery-container {
@@ -10455,4 +10473,58 @@ Shorthand property for setting most background properties at the same place in t
   color: #fff;
   font-weight: 600;
   letter-spacing: 1px;
+}
+
+/* 首页底部浮动按钮 - 制作日常记录海报 */
+.daily-record-float-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 1px 1px #fff;
+  padding: 12px 24px;
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #060606;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 43%);
+  transition: all 0.3s ease;
+  z-index: 888;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.daily-record-float-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+}
+
+.daily-record-float-btn:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+.daily-record-icon {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.daily-record-text {
+  white-space: nowrap;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+  .daily-record-float-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    bottom: 15px;
+  }
+
+  .daily-record-icon {
+    font-size: 22px;
+  }
 }
