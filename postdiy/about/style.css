@@ -3872,9 +3872,11 @@ body {
 }
 
 .info-download-btn.android {
-    background: linear-gradient(135deg, #aaf5a5, #41a079);
-    color: #fff;
-    box-shadow: 0 4px 15px rgb(91 91 91 / 40%);
+    background: linear-gradient(
+327deg, #a8edea 0%, #fed6e3 100%);
+    color: #252525;
+    box-shadow: 0 4px 15px rgb(222 176 209 / 29%);
+    text-shadow: 1px 1px #fff;
     border: none;
 }
 
@@ -3904,7 +3906,7 @@ body {
 
 .info-download-btn.ios.disabled {
     background: #edf2f7;
-    color: #a0aec0;
+    color: #778394;
     cursor: not-allowed;
     border-color: #e2e8f0;
 }

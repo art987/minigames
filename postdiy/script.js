@@ -293,6 +293,30 @@ window.currentFilters = {
   festival: null
 };
 
+// 当前排序模式：'random'（随机，默认）或 'sequential'（顺序）
+// 切换节日标签时自动重置为 'random'
+window.currentSortMode = 'random';
+// 当前筛选后的模板（供排序按钮重新渲染使用，避免重新请求）
+window.currentFilteredTemplates = [];
+
+// Fisher-Yates 洗牌算法，返回新数组不修改原数组
+function shuffleArray(arr) {
+  const result = arr.slice();
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+// 按当前排序模式对模板排序，返回新数组
+function sortTemplatesByMode(templates) {
+  if (window.currentSortMode === 'random') {
+    return shuffleArray(templates);
+  }
+  return templates.slice();
+}
+
 // 全局DOM元素引用
 let monthButtonsContainer, festivalTagsContainer, templatesGrid, templatesCount, emptyState, loadingState, currentDateDisplay, festivalDateDisplay, backToTopBtn, currentDateDiv, festivalDateDiv;
 
@@ -575,6 +599,9 @@ function updateFestivalTags() {
     festivalTag.dataset.festival = festival;
     
     festivalTag.addEventListener('click', function() {
+      // 每次点击节日标签默认随机排序
+      window.currentSortMode = 'random';
+
       // 切换节日选择
       const selectedFestival = this.dataset.festival;
       
@@ -746,18 +773,24 @@ function autoSelectByDate() {
 // 应用筛选条件
 function applyFilters() {
   showLoading(true);
-  
+
   // 使用setTimeout模拟异步加载，提高用户体验
   setTimeout(() => {
     try {
       const filteredTemplates = window.utils.getTemplatesByFilters(window.currentFilters.month, window.currentFilters.festival);
-      
+
+      // 保存原始筛选结果到全局，供排序按钮重新渲染使用
+      window.currentFilteredTemplates = filteredTemplates.slice();
+
+      // 按当前排序模式排序后渲染
+      const sortedTemplates = sortTemplatesByMode(filteredTemplates);
+
       // 更新模板计数
       templatesCount.textContent = `${filteredTemplates.length} 个模板`;
-      
+
       // 渲染模板
-      renderTemplates(filteredTemplates);
-      
+      renderTemplates(sortedTemplates);
+
       // 处理空状态
       if (filteredTemplates.length === 0) {
         handleEmptyState();
@@ -1045,21 +1078,75 @@ document.addEventListener('DOMContentLoaded', function() {
 function createDailyRecordButton() {
   // 检查按钮是否已存在
   if (document.getElementById('dailyRecordFloatBtn')) return;
-  
-  const floatBtn = document.createElement('div');
-  floatBtn.id = 'dailyRecordFloatBtn';
-  floatBtn.className = 'daily-record-float-btn';
-  floatBtn.innerHTML = `
+
+  // 创建浮动按钮容器：顺序 | 随机 | 日常记录 | VIP升级
+  const bar = document.createElement('div');
+  bar.className = 'home-float-bar';
+
+  // 1. 顺序排序按钮
+  const sortSeqBtn = document.createElement('button');
+  sortSeqBtn.className = 'home-float-icon-btn';
+  sortSeqBtn.id = 'sortSequentialBtn';
+  sortSeqBtn.title = '顺序排序';
+  sortSeqBtn.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 6h14v2H3zm0 4h10v2H3zm0 4h6v2H3zm13 0v6.17l-2.59-2.58L12 18l4 4 4-4-1.41-1.41L16 18.83V13z"/></svg>`;
+  sortSeqBtn.addEventListener('click', function() {
+    if (!window.currentFilteredTemplates || window.currentFilteredTemplates.length === 0) return;
+    window.currentSortMode = 'sequential';
+    const sorted = sortTemplatesByMode(window.currentFilteredTemplates);
+    renderTemplates(sorted);
+    highlightFloatBtn(sortSeqBtn);
+  });
+
+  // 2. 随机排序按钮
+  const sortRandBtn = document.createElement('button');
+  sortRandBtn.className = 'home-float-icon-btn';
+  sortRandBtn.id = 'sortRandomBtn';
+  sortRandBtn.title = '随机排序';
+  sortRandBtn.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>`;
+  sortRandBtn.addEventListener('click', function() {
+    if (!window.currentFilteredTemplates || window.currentFilteredTemplates.length === 0) return;
+    window.currentSortMode = 'random';
+    const shuffled = sortTemplatesByMode(window.currentFilteredTemplates);
+    renderTemplates(shuffled);
+    highlightFloatBtn(sortRandBtn);
+  });
+
+  // 3. 制作日常记录海报按钮（保留原 id 和样式）
+  const dailyBtn = document.createElement('div');
+  dailyBtn.id = 'dailyRecordFloatBtn';
+  dailyBtn.className = 'daily-record-float-btn';
+  dailyBtn.innerHTML = `
     <span class="daily-record-icon">+</span>
     <span class="daily-record-text">制作日常记录海报</span>
   `;
-  
-  // 点击事件
-  floatBtn.addEventListener('click', function() {
+  dailyBtn.addEventListener('click', function() {
     window.location.href = './editor.html?templateId=dairy-2024-001';
   });
-  
-  document.body.appendChild(floatBtn);
+
+  // 4. VIP 升级按钮
+  const vipBtn = document.createElement('button');
+  vipBtn.className = 'home-float-icon-btn home-float-vip-btn';
+  vipBtn.id = 'vipUpgradeFloatBtn';
+  vipBtn.title = 'VIP升级';
+  vipBtn.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z"/></svg>`;
+  vipBtn.addEventListener('click', function() {
+    if (typeof window.showVipUpgradeModal === 'function') {
+      window.showVipUpgradeModal();
+    }
+  });
+
+  bar.appendChild(sortSeqBtn);
+  bar.appendChild(sortRandBtn);
+  bar.appendChild(dailyBtn);
+  bar.appendChild(vipBtn);
+
+  document.body.appendChild(bar);
+}
+
+// 浮动按钮点击高亮反馈（短暂添加 active 类）
+function highlightFloatBtn(btn) {
+  btn.classList.add('active');
+  setTimeout(() => btn.classList.remove('active'), 300);
 }
 
 // 首页弹窗功能

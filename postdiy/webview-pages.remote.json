@@ -3,7 +3,7 @@
   "appUpdate": {
     "enabled": true,
     "latestVersionName": "1.0.8",
-    "latestVersionCode": 10,
+    "latestVersionCode": 8,
     "title": "有新版本更新了",
     "subtitle": "升级一些功能，修复一些bug",
     "buttonText": "获取最新版",
