@@ -16103,10 +16103,10 @@ window.textTemplateManager = {
       bgSwitchTimers.forEach(timer => clearTimeout(timer));
       bgSwitchTimers = [];
     }
-
-    // 为单个卡片安排下次切换（随机 2.5~5 秒间隔）
+    
+    // 为单个卡片安排下次切换（随机 5.5~10.5 秒间隔）
     function scheduleNextBgSwitch(wrapper, type) {
-      const delay = 2500 + Math.random() * 2500; // 2500ms ~ 5000ms
+      const delay = 5500 + Math.random() * 5000; // 5500ms ~ 10500ms
       const timer = setTimeout(() => {
         switchWrapperBg(wrapper, type);
         // 切换完成后安排下一次

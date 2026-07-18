@@ -7635,7 +7635,7 @@ input.hidden {
   flex: 1 1 auto;
   min-width: 200px;
   overflow: hidden;
-  background: linear-gradient(186deg, #ff2d2dcc, rgb(209 207 209 / 9%)), linear-gradient(90deg, #330b57cc, #3f0ccc 3%, #f3ff37 56%, #2df74fcc);
+  background:linear-gradient(186deg, #fbb4b4cc, rgb(209 207 209 / 9%)), linear-gradient(90deg, #cd96ffcc, #d5adff 3%, #fbffb8 56%, #a7ffb6cc);
   border-radius: var(--border-radius-lg);
   height: 84px;
   box-sizing: border-box;
