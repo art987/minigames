@@ -1409,5 +1409,23 @@
       });
     });
   </script>
+
+  <!-- 底部提示语轮播 -->
+  <div id="editorTipBar" class="editor-tip-bar">
+    <span class="editor-tip-text active">闪喵海报~助力中小商家业绩翻番！</span>
+    <span class="editor-tip-text">首次完善信息➠选模板➠下载➠发朋友圈/群</span>
+    <span class="editor-tip-text">多一次宣传，多一分信任，更多一些机会</span>
+  </div>
+  <script>
+    (function() {
+      var texts = document.querySelectorAll('#editorTipBar .editor-tip-text');
+      var current = 0;
+      setInterval(function() {
+        texts[current].classList.remove('active');
+        current = (current + 1) % texts.length;
+        texts[current].classList.add('active');
+      }, 5000);
+    })();
+  </script>
 </body>
 </html>

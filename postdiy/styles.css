@@ -1885,6 +1885,9 @@ footer {
   width: 38px;
   border-radius: 10px;
   right: 7px;
+  
+    background: #ffffff7a;
+    backdrop-filter: blur(7px);
   padding: 5px 0;
   height: 32px;
   line-height: 14px;
@@ -10679,4 +10682,36 @@ Shorthand property for setting most background properties at the same place in t
     width: 20px;
     height: 20px;
   }
+}
+
+/* 编辑页底部提示语轮播 */
+.editor-tip-bar {
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 28px;
+  letter-spacing: 1px;
+  line-height: 28px;
+  text-align: center;
+  overflow: hidden;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.editor-tip-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  color: rgb(133 133 133);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.editor-tip-text.active {
+  opacity: 1;
+  transform: translateY(0);
 }
