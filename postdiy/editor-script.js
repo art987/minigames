@@ -4769,7 +4769,14 @@ const ThumbnailLoader = {
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate && state.currentTemplate.image) {
-      const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+      // 日常记录模板（dairy）固定使用本地图片，不走 Cloudflare/七牛
+      const isDairyTemplate = state.currentTemplate.id && state.currentTemplate.id.startsWith('dairy-');
+      let imageUrl;
+      if (isDairyTemplate) {
+        imageUrl = state.currentTemplate.image; // 直接使用本地路径
+      } else {
+        imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+      }
       elements.posterBackground.src = imageUrl;
       elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
       
@@ -10570,7 +10577,9 @@ const ThumbnailLoader = {
             if (isUsingTemplate && state.currentTemplate && state.currentTemplate.image) {
               // 对于模板背景，直接使用模板的image路径
               console.log('使用模板背景图片路径:', state.currentTemplate.image);
-              const imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
+              // 日常记录模板（dairy）固定使用本地图片，不走 Cloudflare/七牛
+              const isDairyExport = state.currentTemplate.id && state.currentTemplate.id.startsWith('dairy-');
+              const imageUrl = isDairyExport ? state.currentTemplate.image : (window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image);
               img.src = imageUrl;
               img.dataset.originalPath = state.currentTemplate.image;
               
@@ -15843,6 +15852,7 @@ window.textTemplateManager = {
 
       homePopup.classList.remove('hidden');
       startTypewriterAnimation();
+      startBgAutoSwitch();
 
       // 重置弹窗滚动位置到顶部，确保用户从开头看到内容
       const scrollableBody = homePopupModal.querySelector('.scrollable-body');
@@ -15971,6 +15981,7 @@ window.textTemplateManager = {
     function closeHomePopup() {
       homePopup.classList.add('hidden');
       stopTypewriterAnimation();
+      stopBgAutoSwitch();
     }
     
     // 关闭按钮点击事件
@@ -16065,10 +16076,67 @@ window.textTemplateManager = {
         if (wrapper) {
           wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
           wrapper.setAttribute('data-original-path', localPath);
+          // 保存模板类型供自动切换使用
+          wrapper.setAttribute('data-bg-type', type);
         } else {
           button.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
         }
       }
+    }
+
+    // === 弹窗卡片背景图自动切换系统 ===
+    // 每张卡片独立循环，2.5~5秒随机间隔，交叉淡入淡出过渡
+    let bgSwitchTimers = []; // 存储所有卡片的定时器
+
+    // 启动所有卡片背景图自动切换
+    function startBgAutoSwitch() {
+      stopBgAutoSwitch(); // 先清理
+      const allWrappers = homePopup.querySelectorAll('.button-wrapper[data-bg-type]');
+      allWrappers.forEach(wrapper => {
+        const type = wrapper.getAttribute('data-bg-type');
+        scheduleNextBgSwitch(wrapper, type);
+      });
+    }
+
+    // 停止所有卡片背景图切换
+    function stopBgAutoSwitch() {
+      bgSwitchTimers.forEach(timer => clearTimeout(timer));
+      bgSwitchTimers = [];
+    }
+
+    // 为单个卡片安排下次切换（随机 2.5~5 秒间隔）
+    function scheduleNextBgSwitch(wrapper, type) {
+      const delay = 2500 + Math.random() * 2500; // 2500ms ~ 5000ms
+      const timer = setTimeout(() => {
+        switchWrapperBg(wrapper, type);
+        // 切换完成后安排下一次
+        scheduleNextBgSwitch(wrapper, type);
+      }, delay);
+      bgSwitchTimers.push(timer);
+    }
+
+    // 执行单张卡片背景图切换（交叉淡入淡出）
+    function switchWrapperBg(wrapper, type) {
+      const localPath = getRandomBackgroundImage(type);
+      if (!localPath) return;
+
+      const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getThumbnailUrl(localPath, true) : localPath);
+
+      // 预加载新图片，避免切换时闪烁
+      const img = new Image();
+      img.onload = function() {
+        // 将新图设到 ::after 层（--button-bg-image-next）
+        wrapper.style.setProperty('--button-bg-image-next', `url('${imageUrl}')`);
+        // 淡入 ::after 层 + 淡出 ::before 层
+        wrapper.classList.add('bg-fade-switch');
+        // 过渡完成后（0.6s），将 ::before 更新为新图，::after 重置
+        setTimeout(() => {
+          wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+          wrapper.setAttribute('data-original-path', localPath);
+          wrapper.classList.remove('bg-fade-switch');
+        }, 650);
+      };
+      img.src = imageUrl;
     }
     
     // 检查明天是否有节日
@@ -16159,13 +16227,13 @@ window.textTemplateManager = {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、制作今日${todayFestival}海报：</span>
+            <span class="task-prefix">1、马上制作今日${todayFestival}海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               <span>挑选${todayFestival}模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16178,19 +16246,19 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、制作今日早安海报，并分享到朋友圈：</span>
+            <span class="task-prefix">1、马上制作今日早安海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="zaoanBtn" data-action="zaoan">
             <span>☀ 挑选早安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、制作今日晚安海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、马上制作今日晚安海报，睡前分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3、制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">3、马上制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -16203,13 +16271,13 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、制作今日晚安海报，并分享到朋友圈：</span>
+            <span class="task-prefix">1、马上制作今日晚安海报，睡前分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
