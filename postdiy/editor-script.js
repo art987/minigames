@@ -4417,24 +4417,10 @@ const ThumbnailLoader = {
       filteredToggleableBtns = toggleableBtns.filter(btn => btn !== elements.stickerBtn);
     }
     
-    // 需要保持可见的按钮
+    // 需要保持可见的按钮（仅隐藏按钮本身）
     const buttonsToKeepVisible = [
-      elements.toggleMenuBtn, // 隐藏按钮本身
-      elements.downloadBtn   // 下载海报按钮
+      elements.toggleMenuBtn // 隐藏按钮本身
     ].filter(btn => btn !== null);
-    
-    // 添加模板切换按钮到保持可见列表
-    if (elements.prevTemplateBtn) {
-      buttonsToKeepVisible.push(elements.prevTemplateBtn);
-    }
-    if (elements.nextTemplateBtn) {
-      buttonsToKeepVisible.push(elements.nextTemplateBtn);
-    }
-    
-    // 添加更换模板按钮到保持可见列表（始终可见）
-    if (elements.changeTemplateBtn) {
-      buttonsToKeepVisible.push(elements.changeTemplateBtn);
-    }
     
     // 如果贴纸按钮应该可见，也添加到保持可见列表
     if (shouldShowStickerBtn && elements.stickerBtn) {
@@ -4447,6 +4433,12 @@ const ThumbnailLoader = {
     // 添加每日建议按钮到需要隐藏的列表
     if (elements.dailySuggestionBtn) {
       buttonsToHide.push(elements.dailySuggestionBtn);
+    }
+
+    // 添加VIP按钮到需要隐藏的列表（没有 toggleable-btn 类）
+    const vipBtn = document.getElementById('vipBtn');
+    if (vipBtn) {
+      buttonsToHide.push(vipBtn);
     }
     
     // 清除所有按钮的动画类
@@ -4780,16 +4772,18 @@ const ThumbnailLoader = {
       elements.posterBackground.src = imageUrl;
       elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
       
-      // 4秒超时检测：Cloudflare加载超时则回退七牛
+      // 3秒超时检测：Cloudflare加载超时则回退七牛
       if (window.imageConfig && imageUrl.includes('r2.dev')) {
         const timeoutId = setTimeout(() => {
-          // 检查图片是否已加载完成
-          if (!elements.posterBackground.complete) {
-            console.warn('Cloudflare加载超时(4秒)，切换到七牛');
+          // 检查图片是否真正加载成功（complete对破图也返回true，需同时检查naturalWidth）
+          const img = elements.posterBackground;
+          const notLoaded = !img.complete || (img.complete && img.naturalWidth === 0);
+          if (notLoaded) {
+            console.warn('[bg-load] Cloudflare加载超时(3秒)，切换到七牛:', imageUrl);
             const qiniuUrl = window.imageConfig.qiniuBaseUrl + state.currentTemplate.image;
-            elements.posterBackground.src = qiniuUrl;
+            img.src = qiniuUrl;
           }
-        }, 4000);
+        }, 3000);
         
         // 图片加载完成后清除超时检测
         elements.posterBackground.onload = function() {

@@ -872,7 +872,7 @@ function createTemplateCard(template) {
   if (!availability.available) {
     card.classList.add('template-locked');
     card.innerHTML = `
-      <div class="template-thumbnail-container">
+      <div class="template-thumbnail-container" style="min-height:140px;background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;">
         <img class="template-thumbnail blurred" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
         <div class="template-lock-overlay">
           <span class="lock-big-text">待开放</span>
@@ -887,6 +887,22 @@ function createTemplateCard(template) {
         </div>
       </div>
     `;
+    // 锁定模板也加loading占位和错误处理
+    const lockedImg = card.querySelector('.template-thumbnail');
+    const lockedContainer = card.querySelector('.template-thumbnail-container');
+    if (lockedImg && lockedContainer) {
+      lockedImg.addEventListener('load', function() {
+        lockedContainer.style.minHeight = '';
+        lockedContainer.style.backgroundImage = '';
+        lockedContainer.style.backgroundColor = '';
+      });
+      lockedImg.addEventListener('error', function() {
+        lockedContainer.style.backgroundImage = `url('images/statics/loading.gif')`;
+        lockedImg.style.opacity = '0';
+        // 1.5秒后重试一次
+        setTimeout(() => { lockedImg.src = lockedImg.src; }, 1500);
+      });
+    }
     return card;
   }
   
@@ -903,11 +919,46 @@ function createTemplateCard(template) {
     </div>
   `;
   
-  // 添加图片加载失败回退处理和超时处理
+  // 添加图片加载失败回退处理、重试机制和占位符
   const img = card.querySelector('.template-thumbnail');
-  if (img && window.imageConfig) {
+  const thumbContainer = card.querySelector('.template-thumbnail-container');
+  if (img) {
     let timeoutId = null;
     let loaded = false;
+    let retryCount = 0;
+    const maxRetries = 1; // 最多重试1次同URL
+    const loadingGif = 'images/statics/loading.gif';
+
+    // 设置容器最小高度占位，防止图片未加载时div塌陷
+    if (thumbContainer) {
+      thumbContainer.style.minHeight = '140px';
+      thumbContainer.style.backgroundColor = '#f0f0f0';
+      // 先显示loading.gif作为占位背景
+      thumbContainer.style.backgroundImage = `url('${loadingGif}')`;
+      thumbContainer.style.backgroundSize = '40px 40px';
+      thumbContainer.style.backgroundPosition = 'center';
+      thumbContainer.style.backgroundRepeat = 'no-repeat';
+    }
+
+    const showLoadingPlaceholder = () => {
+      if (thumbContainer) {
+        thumbContainer.style.minHeight = '140px';
+        thumbContainer.style.backgroundImage = `url('${loadingGif}')`;
+        thumbContainer.style.backgroundSize = '40px 40px';
+        thumbContainer.style.backgroundPosition = 'center';
+        thumbContainer.style.backgroundRepeat = 'no-repeat';
+      }
+      img.style.opacity = '0';
+    };
+
+    const hideLoadingPlaceholder = () => {
+      if (thumbContainer) {
+        thumbContainer.style.minHeight = '';
+        thumbContainer.style.backgroundImage = '';
+        thumbContainer.style.backgroundColor = '';
+      }
+      img.style.opacity = '1';
+    };
 
     const loadFallback = () => {
       if (loaded) return;
@@ -916,9 +967,9 @@ function createTemplateCard(template) {
       }
       const originalPath = img.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
-        // getFallbackUrl 内部会标记当前 URL 失败，并返回下一级 URL（七牛 → R2 → null）
         const fallback = window.imageConfig.getFallbackUrl(originalPath);
         if (fallback && img.src !== fallback) {
+          showLoadingPlaceholder();
           img.src = fallback;
         }
       }
@@ -927,9 +978,25 @@ function createTemplateCard(template) {
     img.addEventListener('load', function() {
       loaded = true;
       if (timeoutId) clearTimeout(timeoutId);
+      hideLoadingPlaceholder();
     });
 
     img.addEventListener('error', function() {
+      if (loaded) return;
+      // 先尝试同URL重试一次（可能是网络抖动）
+      if (retryCount < maxRetries) {
+        retryCount++;
+        showLoadingPlaceholder();
+        console.warn(`[thumbnail] 加载失败，第${retryCount}次重试: ${img.src}`);
+        setTimeout(() => {
+          if (!loaded) {
+            img.src = img.src; // 触发重新加载
+          }
+        }, 1500);
+        return;
+      }
+      // 重试也失败，走CDN回退
+      showLoadingPlaceholder();
       loadFallback();
     });
 
