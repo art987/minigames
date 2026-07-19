@@ -8887,7 +8887,7 @@ const ThumbnailLoader = {
         </h3>
         
         <div class="voucher-input-container">
-          <span class="upgrade-channel-label">升级通道一：</span>
+          <span class="upgrade-channel-label">闪喵VIP激活:</span>
           <div class="input-button-group">
             <div class="input-wrapper">
               <input type="text" id="voucherCodeInput" class="voucher-input" placeholder="请输入升级码">
@@ -8905,7 +8905,7 @@ const ThumbnailLoader = {
         </div>
         
         <div class="vip-packages-section">
-          <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
+          <div class="vip-packages-title">购买通道：( 这不是消费，是强悍的创业升级 )</div>
           <div class="vip-packages-wrapper">
             <div class="vip-packages-container" id="vipUpgradePackageGrid">
               <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>

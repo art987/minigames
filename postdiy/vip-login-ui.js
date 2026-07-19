@@ -3290,7 +3290,7 @@ window.showVipUpgradeModal = function() {
       </h3>
 
       <div class="voucher-input-container">
-        <span class="upgrade-channel-label">升级通道一：</span>
+        <span class="upgrade-channel-label">闪喵VIP激活:</span>
         <div class="input-button-group">
           <div class="input-wrapper">
             <input type="text" id="voucherCodeInput" class="voucher-input" placeholder="请输入升级码">
@@ -3308,7 +3308,7 @@ window.showVipUpgradeModal = function() {
       </div>
 
       <div class="vip-packages-section">
-        <div class="vip-packages-title">升级通道二：(周年感恩大送)</div>
+        <div class="vip-packages-title">购买通道：( 这不是消费，是强悍的创业升级 )</div>
         <div class="vip-packages-wrapper">
           <div class="vip-packages-container" id="vipUpgradePackageGrid">
             <div class="packages-loader-wrap"><div class="packages-loader-shell"><div class="packages-loader-domain">套餐加载中</div><div class="packages-loader-bar"><div class="packages-loader-fill" style="width:30%"></div></div><div class="packages-loader-pct">30%</div><div class="packages-loader-dots"><i></i><i></i><i></i></div></div></div>
