@@ -16023,18 +16023,17 @@ window.textTemplateManager = {
           return `images/dairy/${randomNum}.jpg`;
         }
       
-      if (typeof window.templates === 'undefined') {
-        console.log('templates 对象未定义');
-        return null;
+      // 检查 templates 是否已定义
+      if (typeof window.templates === 'undefined' || !window.templates) {
+        console.warn('[bg-get] window.templates 未定义，返回默认图片:', type);
+        return getFallbackImage(type);
       }
       
-      // action 到 festival 的映射
       const actionToFestival = {
         'zaoan': '早安',
         'wanan': '晚安'
       };
       
-      // 如果是 action，转换为 festival 名称
       const festivalType = actionToFestival[type] || type;
       
       let matchedTemplates = [];
@@ -16042,7 +16041,7 @@ window.textTemplateManager = {
       for (const month in window.templates) {
         if (Array.isArray(window.templates[month])) {
           window.templates[month].forEach(template => {
-            if (template.festivals && template.festivals.includes(festivalType)) {
+            if (template && template.festivals && template.festivals.includes(festivalType)) {
               matchedTemplates.push(template);
             }
           });
@@ -16050,31 +16049,61 @@ window.textTemplateManager = {
       }
       
       if (matchedTemplates.length === 0) {
-        console.log('未找到匹配的模板:', type, '->', festivalType);
-        return null;
+        console.warn('[bg-get] 未找到匹配的模板:', type, '->', festivalType, '返回默认图片');
+        return getFallbackImage(type);
       }
       
       const randomTemplate = matchedTemplates[Math.floor(Math.random() * matchedTemplates.length)];
-      console.log('找到模板:', type, '->', festivalType, randomTemplate.image);
+      
+      if (!randomTemplate || !randomTemplate.image) {
+        console.warn('[bg-get] 模板数据无效:', randomTemplate, '返回默认图片');
+        return getFallbackImage(type);
+      }
+      
       return randomTemplate.image;
+    }
+
+    // 默认图片回退方案
+    function getFallbackImage(type) {
+      const fallbackMap = {
+        'zaoan': 'images/zaoan/1.png',
+        'wanan': 'images/wanan/1.png',
+        'dairy': 'images/dairy/1.jpg'
+      };
+      const festivalFallback = {
+        '早安': 'images/zaoan/1.png',
+        '晚安': 'images/wanan/1.png',
+        '大暑': 'images/dashu/1.png',
+        '建军节': 'images/jianjunjie/1.png',
+        '立秋': 'images/liqiu/1.png'
+      };
+      return fallbackMap[type] || festivalFallback[type] || 'images/statics/logo.gif';
     }
     
     // 设置按钮背景图片（使用缩略图，避免下载原图）
     function setButtonBackground(button, type) {
       const localPath = getRandomBackgroundImage(type);
-      if (localPath) {
-        // 日常海报（dairy）固定使用本地图片，不走 cloudflare
-        // 其他类型使用缩略图（-86thumb后缀）
-        const imageUrl = (type === 'dairy') ? localPath : (window.imageConfig ? window.imageConfig.getThumbnailUrl(localPath, true) : localPath);
-        const wrapper = button.closest('.button-wrapper');
-        if (wrapper) {
-          wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
-          wrapper.setAttribute('data-original-path', localPath);
-          // 保存模板类型供自动切换使用
-          wrapper.setAttribute('data-bg-type', type);
-        } else {
-          button.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
-        }
+      if (!localPath) {
+        console.warn('[bg-set] getRandomBackgroundImage 返回 null:', type);
+        return;
+      }
+      // 日常海报（dairy）固定使用本地图片，不走 cloudflare
+      // 其他类型使用缩略图（-86thumb后缀）
+      let imageUrl;
+      if (type === 'dairy') {
+        imageUrl = localPath;
+      } else if (window.imageConfig && typeof window.imageConfig.getThumbnailUrl === 'function') {
+        imageUrl = window.imageConfig.getThumbnailUrl(localPath, true);
+      } else {
+        imageUrl = localPath;
+      }
+      const wrapper = button.closest('.button-wrapper');
+      if (wrapper) {
+        wrapper.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
+        wrapper.setAttribute('data-original-path', localPath);
+        wrapper.setAttribute('data-bg-type', type);
+      } else {
+        button.style.setProperty('--button-bg-image', `url('${imageUrl}')`);
       }
     }
 
