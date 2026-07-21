@@ -145,66 +145,204 @@ const PosterShare = (function() {
         frame.style.setProperty('--ps-unit', (width / 100) + 'px');
     }
 
-    function renderPoster(template) {
-        const bgWrapper = document.querySelector('.ps-poster-bg-wrapper');
-        const currentBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.current') : null;
-        const nextBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.next') : null;
-        const qrImg = document.querySelector('.ps-poster-qrcode img');
+    // 渲染汇总缩略图瀑布流
+    function renderSummaryWaterfall() {
+        const wrapper = document.getElementById('psSummaryWrapper');
+        const container = document.getElementById('psSummaryWaterfall');
+        const titleEl = document.getElementById('psSummaryTitle');
+        const singleBgWrapper = document.getElementById('psSingleBgWrapper');
+        if (!wrapper || !container || !titleEl) return;
 
-        updatePosterScale();
+        // 获取当前节日名称
+        let festivalName = '节日';
+        if (state.templates.length > 0 && state.templates[0].festivals && state.templates[0].festivals.length > 0) {
+            festivalName = state.templates[0].festivals[0];
+        }
+        titleEl.innerHTML = '<span class="ps-summary-line1">快来免费制作你的</span><span class="ps-summary-line2">' + festivalName + '海报</span>';
 
-        if (template && currentBg && nextBg) {
-            // 新图片加载
-            const newImageUrl = getTemplateImageUrl(template);
-            nextBg.src = newImageUrl;
-            nextBg.crossOrigin = 'anonymous';
-            nextBg.style.opacity = '0';
+        // 获取缩略图列表
+        let displayTemplates = state.templates.slice();
 
-            nextBg.onload = function() {
-                // 开始交叉淡入淡出动画
-                currentBg.style.opacity = '0';
-                nextBg.style.opacity = '1';
-
-                // 动画完成后交换类名
-                setTimeout(function() {
-                    currentBg.classList.remove('current');
-                    currentBg.classList.add('next');
-                    currentBg.style.opacity = '0';
-
-                    nextBg.classList.remove('next');
-                    nextBg.classList.add('current');
-
-                    // 交换变量引用，下次使用
-                    const temp = currentBg;
-                    // currentBg = nextBg; // 无法重新赋值参数
-                    // nextBg = temp;
-                }, 600);
-            };
-
-            nextBg.onerror = function() {
-                console.warn('[PosterShare] 背景图加载失败，尝试无 crossOrigin');
-                nextBg.crossOrigin = null;
-                nextBg.src = newImageUrl;
-            };
-        } else if (template && currentBg) {
-            // 兼容旧版本（单图片结构）
-            currentBg.src = getTemplateImageUrl(template);
-            currentBg.crossOrigin = 'anonymous';
-            currentBg.onload = function() {};
-            currentBg.onerror = function() {
-                console.warn('[PosterShare] 背景图加载失败，尝试无 crossOrigin');
-                currentBg.crossOrigin = null;
-                currentBg.src = getTemplateImageUrl(template);
-            };
+        // 早安/晚安最多30张，随机挑选
+        if (festivalName === '早安' || festivalName === '晚安') {
+            if (displayTemplates.length > 30) {
+                for (let i = displayTemplates.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [displayTemplates[i], displayTemplates[j]] = [displayTemplates[j], displayTemplates[i]];
+                }
+                displayTemplates = displayTemplates.slice(0, 30);
+            }
         }
 
+        // 根据数量决定列数
+        const total = displayTemplates.length;
+        const columns = total <= 6 ? 3 : 4;
+        container.style.columnCount = columns;
+        container.style.webkitColumnCount = columns;
+        container.style.mozColumnCount = columns;
+
+        container.innerHTML = '';
+
+        displayTemplates.forEach(function(template, index) {
+            const item = document.createElement('div');
+            item.className = 'ps-summary-item';
+
+            const img = document.createElement('img');
+            img.src = getTemplateThumbUrl(template);
+            img.alt = template.name || '';
+            img.loading = 'lazy';
+            img.onerror = function() {
+                this.src = '../images/statics/loading88.gif';
+            };
+
+            item.appendChild(img);
+            container.appendChild(item);
+        });
+
+        // 显示汇总，隐藏单图
+        wrapper.style.display = 'block';
+        if (singleBgWrapper) singleBgWrapper.style.display = 'none';
+    }
+
+    // 切换到单图模式（更换模板后）
+    function switchToSingleBgMode() {
+        const wrapper = document.getElementById('psSummaryWrapper');
+        const singleBgWrapper = document.getElementById('psSingleBgWrapper');
+        if (wrapper) wrapper.style.display = 'none';
+        if (singleBgWrapper) singleBgWrapper.style.display = 'block';
+    }
+
+    // 渲染二维码（汇总和单图模式都需要）
+    function renderQRCode() {
+        const qrImg = document.querySelector('.ps-poster-qrcode img');
         if (state.shareUrl && qrImg) {
             const qrDataUrl = generateQRCode(state.shareUrl);
             if (qrDataUrl) {
                 qrImg.src = qrDataUrl;
-            } else {
-                console.warn('[PosterShare] 二维码生成失败，shareUrl:', state.shareUrl);
             }
+        }
+    }
+
+    // 获取七牛原图URL（非Cloudflare）
+    function getQiniuImageUrl(template) {
+        const qiniuBase = (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl)
+            ? imageConfig.qiniuBaseUrl
+            : QINIU_BASE;
+        return qiniuBase + template.image;
+    }
+
+    function renderPoster(template) {
+        // 切换到单图模式
+        switchToSingleBgMode();
+
+        const bgWrapper = document.getElementById('psSingleBgWrapper');
+        const currentBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.current') : null;
+        const nextBg = bgWrapper ? bgWrapper.querySelector('.ps-poster-bg.next') : null;
+
+        updatePosterScale();
+
+        // 先渲染二维码
+        renderQRCode();
+
+        if (template && currentBg && nextBg) {
+            // 先用缩略图占位，立即显示
+            var thumbUrl = getTemplateThumbUrl(template);
+            var cfUrl = getTemplateImageUrl(template);
+            var qiniuUrl = getQiniuImageUrl(template);
+
+            nextBg.crossOrigin = 'anonymous';
+            nextBg.src = thumbUrl;
+            nextBg.style.opacity = '1';
+            currentBg.style.opacity = '0';
+
+            // 立即交换类名，让缩略图显示在current位置
+            currentBg.classList.remove('current');
+            currentBg.classList.add('next');
+            nextBg.classList.remove('next');
+            nextBg.classList.add('current');
+
+            // 尝试加载Cloudflare大图，3秒超时后回退七牛
+            var imgTest = new Image();
+            imgTest.crossOrigin = 'anonymous';
+            var cfTimedOut = false;
+            var cfLoaded = false;
+
+            var cfTimer = setTimeout(function() {
+                if (!cfLoaded) {
+                    cfTimedOut = true;
+                    console.log('[PosterShare] Cloudflare超时(3秒)，回退七牛');
+                    loadFinalImage(qiniuUrl);
+                }
+            }, 3000);
+
+            imgTest.onload = function() {
+                if (!cfTimedOut) {
+                    cfLoaded = true;
+                    clearTimeout(cfTimer);
+                    loadFinalImage(cfUrl);
+                }
+            };
+            imgTest.onerror = function() {
+                if (!cfTimedOut) {
+                    cfLoaded = true;
+                    clearTimeout(cfTimer);
+                    console.log('[PosterShare] Cloudflare加载失败，回退七牛');
+                    loadFinalImage(qiniuUrl);
+                }
+            };
+            imgTest.src = cfUrl;
+
+            function loadFinalImage(url) {
+                // 找到当前显示的背景图元素
+                var bgEl = bgWrapper.querySelector('.ps-poster-bg.current');
+                if (!bgEl) return;
+                var finalImg = new Image();
+                finalImg.crossOrigin = 'anonymous';
+                finalImg.onload = function() {
+                    bgEl.src = url;
+                    bgEl.crossOrigin = 'anonymous';
+                };
+                finalImg.onerror = function() {
+                    // 最终加载也失败，缩略图继续占位
+                    console.warn('[PosterShare] 最终图片加载失败，缩略图继续占位');
+                };
+                finalImg.src = url;
+            }
+        } else if (template && currentBg) {
+            // 兼容旧版本（单图片结构）
+            var thumbUrl2 = getTemplateThumbUrl(template);
+            currentBg.src = thumbUrl2;
+
+            var imgTest2 = new Image();
+            imgTest2.crossOrigin = 'anonymous';
+            var cfUrl2 = getTemplateImageUrl(template);
+            var qiniuUrl2 = getQiniuImageUrl(template);
+            var cfTimedOut2 = false;
+
+            var cfTimer2 = setTimeout(function() {
+                if (!cfTimedOut2) {
+                    cfTimedOut2 = true;
+                    currentBg.src = qiniuUrl2;
+                    currentBg.crossOrigin = 'anonymous';
+                }
+            }, 3000);
+
+            imgTest2.onload = function() {
+                if (!cfTimedOut2) {
+                    clearTimeout(cfTimer2);
+                    currentBg.src = cfUrl2;
+                    currentBg.crossOrigin = 'anonymous';
+                }
+            };
+            imgTest2.onerror = function() {
+                if (!cfTimedOut2) {
+                    clearTimeout(cfTimer2);
+                    cfTimedOut2 = true;
+                    currentBg.src = qiniuUrl2;
+                    currentBg.crossOrigin = 'anonymous';
+                }
+            };
+            imgTest2.src = cfUrl2;
         }
     }
 
@@ -501,6 +639,40 @@ const PosterShare = (function() {
         });
     }
 
+    // 等待汇总缩略图全部加载完成
+    function waitForSummaryImages(timeout) {
+        timeout = timeout || 15000;
+        var wrapper = document.getElementById('psSummaryWrapper');
+        if (!wrapper || wrapper.style.display === 'none') return Promise.resolve();
+
+        var imgs = wrapper.querySelectorAll('img');
+        if (imgs.length === 0) return Promise.resolve();
+
+        return new Promise(function(resolve) {
+            var loaded = 0;
+            var total = imgs.length;
+            var timer = setTimeout(function() { resolve(); }, timeout);
+
+            function checkDone() {
+                loaded++;
+                if (loaded >= total) {
+                    clearTimeout(timer);
+                    // 额外等待200ms确保渲染
+                    setTimeout(resolve, 200);
+                }
+            }
+
+            imgs.forEach(function(img) {
+                if (img.complete && img.naturalWidth > 0) {
+                    checkDone();
+                } else {
+                    img.onload = checkDone;
+                    img.onerror = checkDone;
+                }
+            });
+        });
+    }
+
     async function downloadPoster() {
         const btn = document.querySelector('.ps-btn-download');
         const loading = document.querySelector('.ps-loading');
@@ -512,6 +684,9 @@ const PosterShare = (function() {
         if (loading) loading.classList.add('active');
 
         try {
+            // 等待汇总缩略图全部加载
+            await waitForSummaryImages();
+
             await loadHtml2Canvas();
 
             const posterFrame = document.querySelector('.ps-poster-frame');
@@ -624,7 +799,10 @@ const PosterShare = (function() {
         }
 
         if (state.templates.length > 0) {
-            renderPoster(state.templates[state.currentIndex]);
+            // 默认显示汇总缩略图瀑布流
+            renderSummaryWaterfall();
+            // 汇总模式下也要渲染二维码
+            renderQRCode();
         } else {
             showToast('暂无可用模板');
         }
@@ -711,6 +889,56 @@ const PosterShare = (function() {
         // 随机展示按钮
         const randomBtn = document.querySelector('.ps-tpl-random');
         if (randomBtn) randomBtn.addEventListener('click', randomizeCurrentTemplates);
+
+        // 查看聚合按钮 - 回到汇总缩略图视图
+        const summaryBtn = document.querySelector('.ps-tpl-summary');
+        if (summaryBtn) summaryBtn.addEventListener('click', function() {
+            closeTemplatePicker();
+            // 用当前选中的节日标签重新渲染汇总
+            if (state.tplTemplates.length > 0) {
+                state.templates = state.tplTemplates;
+                renderSummaryWaterfall();
+            }
+        });
+
+        // 名称字体颜色选择器
+        const posterName = document.getElementById('psPosterName');
+        const nameColorPicker = document.getElementById('psNameColorPicker');
+
+        if (posterName && nameColorPicker) {
+            // 点击名称切换颜色面板显示
+            posterName.addEventListener('click', function() {
+                nameColorPicker.classList.toggle('active');
+            });
+
+            // 颜色点击选择
+            nameColorPicker.querySelectorAll('.ps-name-color-dot').forEach(function(dot) {
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var color = dot.getAttribute('data-color');
+                    posterName.style.color = color;
+                    // 深色字加暗阴影，浅色字加亮阴影
+                    if (color === '#FFFFFF' || color === '#FFD700' || color === '#FF69B4' || color === '#40C4FF' || color === '#00E676' || color === '#E040FB') {
+                        posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+                    } else {
+                        posterName.style.textShadow = '0 1px 3px rgba(0,0,0,0.4)';
+                    }
+                    // 标记选中
+                    nameColorPicker.querySelectorAll('.ps-name-color-dot').forEach(function(d) {
+                        d.classList.remove('selected');
+                    });
+                    dot.classList.add('selected');
+                    nameColorPicker.classList.remove('active');
+                });
+            });
+
+            // 点击其他区域关闭面板
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.ps-poster-name') && !e.target.closest('.ps-name-color-picker')) {
+                    nameColorPicker.classList.remove('active');
+                }
+            });
+        }
 
         // 手势滑动支持
         const galleryWrap = document.querySelector('.ps-tpl-gallery-wrap');

@@ -61,7 +61,7 @@
             <div class="about-festival-nav">
                 <div class="about-festival-tags" id="aboutFestivalTags"></div>
             </div>
-            
+
             <!-- 幻灯片视图 -->
             <div class="template-slide-view">
                 <div class="template-3d-gallery">
@@ -632,7 +632,14 @@
                     <p>好友特惠：<b>可享5次下载额度及9折升级优惠</b>。</p>
                 </div>
                 <div class="ps-poster-frame">
-                    <div class="ps-poster-bg-wrapper">
+                    <!-- 汇总缩略图区域（默认显示） -->
+                    <div class="ps-summary-wrapper" id="psSummaryWrapper">
+                        <h4 class="ps-summary-title" id="psSummaryTitle">快来免费制作你的节日海报</h4>
+                        <div class="ps-summary-waterfall" id="psSummaryWaterfall"></div>
+                        <div class="ps-summary-bottom-mask"></div>
+                    </div>
+                    <!-- 单图背景区域（更换模板后显示） -->
+                    <div class="ps-poster-bg-wrapper" id="psSingleBgWrapper" style="display: none;">
                         <img class="ps-poster-bg current" src="" alt="海报背景">
                         <img class="ps-poster-bg next" style="opacity: 0;" src="" alt="海报背景">
                     </div>
@@ -641,7 +648,17 @@
                             <div class="ps-poster-logo">
                                 <img src="../images/statics/logo.png" alt="闪喵logo">
                             </div>
-                            <div class="ps-poster-name">闪喵朋友圈海报制作器</div>
+                            <div class="ps-poster-name" id="psPosterName">闪喵朋友圈海报制作器</div>
+                            <div class="ps-name-color-picker" id="psNameColorPicker">
+                                <div class="ps-name-color-dot" data-color="#FFFFFF" style="background:#FFFFFF;" title="白色"></div>
+                                <div class="ps-name-color-dot" data-color="#000000" style="background:#000000;" title="黑色"></div>
+                                <div class="ps-name-color-dot" data-color="#FFD700" style="background:#FFD700;" title="金色"></div>
+                                <div class="ps-name-color-dot" data-color="#FF4444" style="background:#FF4444;" title="红色"></div>
+                                <div class="ps-name-color-dot" data-color="#FF69B4" style="background:#FF69B4;" title="粉色"></div>
+                                <div class="ps-name-color-dot" data-color="#00E676" style="background:#00E676;" title="绿色"></div>
+                                <div class="ps-name-color-dot" data-color="#40C4FF" style="background:#40C4FF;" title="蓝色"></div>
+                                <div class="ps-name-color-dot" data-color="#E040FB" style="background:#E040FB;" title="紫色"></div>
+                            </div>
                         </div>
                         <div class="ps-poster-footer">
                             <div class="ps-poster-qrcode">
@@ -691,6 +708,7 @@
                 </div>
             </div>
             <div class="ps-tpl-actions">
+                <button class="ps-btn ps-tpl-summary">查看聚合</button>
                 <button class="ps-btn ps-tpl-random">随机展示</button>
                 <button class="ps-btn ps-tpl-confirm">确定使用</button>
             </div>
