@@ -7282,6 +7282,10 @@ input.hidden {
   background-size: 177px;
   background-position: -41px 50px;
   background-repeat: no-repeat;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .home-popup-section {
@@ -7303,6 +7307,14 @@ input.hidden {
   gap: 0.5rem;
   flex-wrap: wrap;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  z-index: 1;
 }
 
 /* 标题单字符波浪动画 */
@@ -7310,6 +7322,9 @@ input.hidden {
   display: inline-block;
   animation: charWave 1.5s ease-in-out infinite;
   margin-right: -6px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
 }
 
 @keyframes charWave {
