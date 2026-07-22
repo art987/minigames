@@ -158,7 +158,7 @@ const PosterShare = (function() {
         if (state.templates.length > 0 && state.templates[0].festivals && state.templates[0].festivals.length > 0) {
             festivalName = state.templates[0].festivals[0];
         }
-        titleEl.innerHTML = '<span class="ps-summary-line1">快来免费制作你的</span><span class="ps-summary-line2">' + festivalName + '海报</span>';
+        titleEl.innerHTML = '<span class="ps-summary-line1">快来免费制作你的</span><span class="ps-summary-line2">' + festivalName + '海报</span><span class="ps-summary-line3">跳过设计，跳过思考， 一键下载</span>';
 
         // 获取缩略图列表
         let displayTemplates = state.templates.slice();
@@ -801,6 +801,12 @@ const PosterShare = (function() {
         if (state.templates.length > 0) {
             // 默认显示汇总缩略图瀑布流
             renderSummaryWaterfall();
+            // 重置名称颜色为白色
+            var posterName = document.getElementById('psPosterName');
+            if (posterName) {
+                posterName.style.color = '#FFFFFF';
+                posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+            }
             // 汇总模式下也要渲染二维码
             renderQRCode();
         } else {
