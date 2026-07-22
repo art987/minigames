@@ -484,14 +484,23 @@ const PosterShare = (function() {
             slide.appendChild(placeholder);
             slide.appendChild(img);
             slide.appendChild(name);
-            slide.addEventListener('click', function() {
-                if (index === state.tplIndex) {
-                    // 直接选定，不要动画延迟
+            slide.addEventListener('click', function(e) {
+                console.log('[PosterShare] 幻灯片点击', {
+                    clickIndex: index,
+                    tplIndex: state.tplIndex,
+                    hasCurrentClass: slide.classList.contains('current'),
+                    slideClasses: slide.className
+                });
+                e.preventDefault();
+                e.stopPropagation();
+                // 直接选中点击的模板并确定使用
+                state.tplIndex = index;
+                updateSlidePositions();
+                console.log('[PosterShare] 选中模板并调用 confirmTemplate, index:', index);
+                // 延迟一帧确保视觉更新
+                requestAnimationFrame(function() {
                     confirmTemplate();
-                } else {
-                    state.tplIndex = index;
-                    updateSlidePositions();
-                }
+                });
             });
 
             container.appendChild(slide);
