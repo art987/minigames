@@ -4533,98 +4533,146 @@ var templates = {
     },
     {
       id: 'jianjunjie-2024-002',
-      name: '建军节',      image: 'images/jianjunjie/2.png',
+      name: '八一军旗',      image: 'images/jianjunjie/2.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '八一建军节军旗主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-003',
-      name: '建军节',      image: 'images/jianjunjie/3.png',
+      name: '铁血军魂',      image: 'images/jianjunjie/3.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '铁血军魂主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-004',
-      name: '建军节',      image: 'images/jianjunjie/4.png',
+      name: '军人荣耀',      image: 'images/jianjunjie/4.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '军人荣耀主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-005',
-      name: '建军节',      image: 'images/jianjunjie/5.png',
+      name: '钢铁长城',      image: 'images/jianjunjie/5.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '钢铁长城主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-006',
-      name: '建军节',      image: 'images/jianjunjie/6.png',
+      name: '军旗飘扬',      image: 'images/jianjunjie/6.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '军旗飘扬主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-007',
-      name: '建军节',      image: 'images/jianjunjie/7.png',
+      name: '忠诚卫士',      image: 'images/jianjunjie/7.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '忠诚卫士主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-008',
-      name: '建军节',      image: 'images/jianjunjie/8.png',
+      name: '军旅荣光',      image: 'images/jianjunjie/8.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '军旅荣光主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-009',
-      name: '建军节',      image: 'images/jianjunjie/9.png',
+      name: '保家卫国',      image: 'images/jianjunjie/9.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '保家卫国主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-010',
-      name: '建军节',      image: 'images/jianjunjie/10.png',
+      name: '戎装岁月',      image: 'images/jianjunjie/10.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '戎装岁月主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-011',
-      name: '建军节',      image: 'images/jianjunjie/11.png',
+      name: '强军梦',      image: 'images/jianjunjie/11.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '强军梦主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-012',
-      name: '建军节',      image: 'images/jianjunjie/12.png',
+      name: '军歌嘹亮',      image: 'images/jianjunjie/12.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '军歌嘹亮主题海报模板',
       type: '传统节日'
     },
     {
       id: 'jianjunjie-2024-013',
-      name: '建军节',      image: 'images/jianjunjie/13.png',
+      name: '铁骨铮铮',      image: 'images/jianjunjie/13.png',
       months: [8],
       festivals: ['建军节'],
-      description: '建军节主题海报模板',
+      description: '铁骨铮铮主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-014',
+      name: '军人本色',      image: 'images/jianjunjie/14.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '军人本色主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-015',
+      name: '建军荣耀',      image: 'images/jianjunjie/15.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '建军荣耀主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-016',
+      name: '威武之师',      image: 'images/jianjunjie/16.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '威武之师主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-017',
+      name: '军魂永驻',      image: 'images/jianjunjie/17.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '军魂永驻主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-018',
+      name: '峥嵘岁月',      image: 'images/jianjunjie/18.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '峥嵘岁月主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'jianjunjie-2024-019',
+      name: '和平守护者',      image: 'images/jianjunjie/19.png',
+      months: [8],
+      festivals: ['建军节'],
+      description: '和平守护者主题海报模板',
       type: '传统节日'
     }
   ],
