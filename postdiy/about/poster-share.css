@@ -604,7 +604,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 102%;
     height: 102%;
     z-index: 0;
     overflow-y: auto;
@@ -620,23 +620,23 @@
     font-weight: 900;
     z-index: 99;
     width: 79%;
-    border: 4px double #ffffff61;
-    top: 109px;
+    border: 4px double #fffffff0;
+    top: 131px;
     left: 29px;
     margin: 0 0 8px 0;
     /* backdrop-filter: blur(2px); */
-    padding: 15px 0 15px;
+    padding: 15px 0 17px;
     line-height: 1.4;
     background: #03030391;
 }
 .ps-summary-title .ps-summary-line1 {
     display: block;
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 350;
     color: rgb(255 255 255);
     letter-spacing: 2px;
-    text-shadow: 1px 2px 1px #000;
-    margin-bottom: 2px;
+    text-shadow: 1px 1px 0px #000;
+    margin-bottom: 1px;
 }
 .ps-summary-title .ps-summary-line2 {
     display: block;
@@ -648,10 +648,10 @@
 }
 .ps-summary-title .ps-summary-line3 {
     display: block;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 300;
-    color: rgb(255 232 0);
-    text-shadow: 1px 1px 0px #000000;
+    color: rgb(255 241 97);
+    text-shadow: 0px 1px 0px #000000;
     margin-top: 4px;
 }
 .ps-summary-waterfall {
