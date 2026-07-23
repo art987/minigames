@@ -1,11 +1,11 @@
 {
-  "secureWindowEnabled": true,
+  "secureWindowEnabled": false,
   "appUpdate": {
     "enabled": true,
-    "latestVersionName": "1.0.8",
-    "latestVersionCode": 8,
+    "latestVersionName": "1.0.9",
+    "latestVersionCode": 11,
     "title": "有新版本更新了",
-    "subtitle": "升级一些功能，修复一些bug",
+    "subtitle": "修复了些bug",
     "buttonText": "获取最新版",
     "downloadUrl": "https://www.pgyer.com/shanmiao",
     "forceUpdate": false

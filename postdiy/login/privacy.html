@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隐私政策 - 闪喵朋友圈海报生成器</title>
+  <meta name="description" content="闪喵朋友圈海报生成器隐私政策，详细说明我们如何收集、使用、存储和保护您的个人信息。">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #fffdeb 0%, #c1e8ff 50%, #ece5ff 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .privacy-header {
+      background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+      color: white;
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+
+    .privacy-header .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-bottom: 12px;
+    }
+
+    .privacy-header .logo img {
+      width: 38px;
+      height: 38px;
+      padding: 4px;
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 0 11px #0000001c;
+    }
+
+    .privacy-header h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .privacy-header .subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .privacy-container {
+      max-width: 800px;
+      margin: -20px auto 40px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      padding: 30px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .update-info {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .privacy-section {
+      margin-bottom: 28px;
+    }
+
+    .privacy-section h2 {
+      font-size: 18px;
+      color: #d32f2f;
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 4px solid #fc592aeb;
+    }
+
+    .privacy-section h3 {
+      font-size: 15px;
+      color: #333;
+      margin: 16px 0 8px;
+    }
+
+    .privacy-section p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .privacy-section ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .privacy-section li {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .privacy-section strong {
+      color: #333;
+    }
+
+    .highlight-box {
+      background: #e8f5e9;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-left: 3px solid #4caf50;
+      margin: 12px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .warning-box {
+      background: #fff3e0;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-left: 3px solid #ff9800;
+      margin: 12px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-left: 3px solid #2196f3;
+      margin: 12px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .privacy-footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .privacy-footer a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .privacy-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 28px;
+      background: linear-gradient(135deg, #ffb73bfa, #fc592aeb);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(248, 95, 23, 0.3);
+    }
+
+    .sub-list {
+      margin-top: 6px;
+      padding-left: 20px;
+    }
+
+    .sub-list li {
+      font-size: 13px;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      .privacy-header {
+        padding: 30px 16px 24px;
+      }
+
+      .privacy-header h1 {
+        font-size: 20px;
+      }
+
+      .privacy-container {
+        margin: -16px 12px 24px;
+        padding: 22px 16px;
+      }
+
+      .privacy-section h2 {
+        font-size: 16px;
+      }
+
+      .privacy-section p,
+      .privacy-section li {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header class="privacy-header">
+    <div class="logo">
+      <img src="../images/statics/logo.gif" alt="闪喵">
+      <span style="font-size: 20px; font-weight: bold;">闪喵~朋友圈海报制作器</span>
+    </div>
+    <h1>隐私政策</h1>
+    <p class="subtitle">我们重视您的个人信息保护</p>
+  </header>
+
+  <!-- 主内容区域 -->
+  <main class="privacy-container">
+    <p class="update-info">更新日期：2024年7月 | 生效日期：2024年7月</p>
+
+    <div class="info-box">
+      闪喵朋友圈海报生成器（以下简称"本平台"）深知个人信息对您的重要性，我们将按照法律法规的规定，采取相应的安全保护措施，尽力保护您的个人信息安全。本隐私政策适用于您通过本平台使用我们的产品和服务。
+    </div>
+
+    <div class="privacy-section">
+      <h2>一、信息收集范围</h2>
+      <p>本平台收集以下用户信息，用于提供正常的服务：</p>
+      <ul>
+        <li><strong>手机号码：</strong>用于账号注册、登录验证、找回密码等身份认证场景。</li>
+        <li><strong>商家信息：</strong>商家名称、商家LOGO、二维码图片、促销引流文案等，<strong>仅用于海报内容生成</strong>。</li>
+        <li><strong>使用记录：</strong>模板选择记录、下载记录、操作日志等，用于优化服务和账户安全。</li>
+        <li><strong>设备信息：</strong>设备型号、操作系统版本、浏览器类型等，用于问题排查和服务优化。</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>二、信息使用目的</h2>
+      <ul>
+        <li>为用户提供海报制作、预览、下载等核心服务</li>
+        <li>验证用户身份，保障账户安全</li>
+        <li>处理会员订单、发放会员权益</li>
+        <li>向用户发送重要的服务通知（如系统维护、功能更新、账户安全提醒）</li>
+        <li>分析用户行为，优化产品功能和用户体验</li>
+        <li>处理用户投诉、退款申请等售后事务</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>三、信息存储与保护</h2>
+      <ul>
+        <li><strong>存储安全：</strong>用户信息存储于安全的服务器环境中，采用业界标准的加密技术进行保护。</li>
+        <li><strong>访问控制：</strong>仅授权人员可访问用户信息，且访问需经过严格的审批流程。</li>
+        <li><strong>数据备份：</strong>定期进行数据备份，防止数据丢失。</li>
+        <li><strong>安全审计：</strong>定期进行安全审计和漏洞检测，及时修复安全隐患。</li>
+        <li><strong>存储期限：</strong>用户信息将在为实现服务目的所必需的最短时间内保留。账号注销后，相关信息将按法律规定处理。</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>四、信息共享与披露</h2>
+      <div class="highlight-box">
+        <strong>郑重承诺：</strong>本平台<strong>不会向任何第三方出售、出租、交易用户个人信息</strong>。用户上传的商家信息（名称、LOGO、二维码、文案）<strong>不会对外公开展示</strong>，仅用于生成海报。
+      </div>
+      <p>以下情况可能涉及信息共享：</p>
+      <ul>
+        <li><strong>经用户明确授权：</strong>用户主动同意共享的信息。</li>
+        <li><strong>法律法规要求：</strong>根据法律法规、政府机关要求，需依法提供的信息。</li>
+        <li><strong>合作服务商：</strong>如支付服务商、短信服务商、淘宝等电商平台等，仅共享必要的业务信息，并要求其遵守保密义务。当用户通过淘宝购买升级码时，淘宝平台会处理相关交易信息，具体请遵循淘宝平台隐私政策。</li>
+        <li><strong>法律程序：</strong>涉及诉讼、仲裁、行政调查等法律程序需要的信息。</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>五、用户权利</h2>
+      <ul>
+        <li><strong>知情权：</strong>用户有权知悉本平台收集了哪些个人信息及其用途。</li>
+        <li><strong>查阅权：</strong>用户有权查阅自己的个人信息。</li>
+        <li><strong>更正权：</strong>用户有权更正不准确或不完整的个人信息。</li>
+        <li><strong>删除权：</strong>用户有权申请删除账号及相关个人信息。</li>
+        <li><strong>撤回权：</strong>用户有权撤回对信息处理的授权同意。</li>
+        <li><strong>注销权：</strong>用户有权注销账号，注销后相关信息将按法律规定处理。</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>六、Cookie和类似技术</h2>
+      <p>本平台可能使用Cookie、LocalStorage等技术存储用户登录状态、偏好设置等信息，以便提供更好的服务体验。用户可通过浏览器设置管理Cookie，但这可能影响部分功能的使用。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>七、未成年人保护</h2>
+      <p>本平台服务主要面向成年用户。如您是未成年人，请在监护人指导下使用本平台服务。我们不会故意收集未成年人的个人信息，如发现误收集，将尽快删除。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>八、第三方服务说明</h2>
+      <p>本平台在提供会员服务时，可能涉及以下第三方服务：</p>
+      <ul>
+        <li><strong>淘宝平台：</strong>用户通过淘宝购买升级码时，交易过程在淘宝平台完成，相关信息受淘宝平台隐私政策约束。</li>
+        <li><strong>短信服务：</strong>用于发送验证码，仅传递手机号码，不涉及其他用户信息。</li>
+        <li><strong>云存储服务：</strong>用于存储用户上传的商家图片（LOGO、二维码等），采用加密传输和安全存储。</li>
+      </ul>
+      <p>本平台要求所有第三方服务商遵守相关法律法规，对用户信息予以保密。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>九、政策修订与通知</h2>
+      <p>本隐私政策可能适时修订。重大变更将在平台内以弹窗、公告等显著方式通知用户。用户继续使用本平台服务，即视为同意修订后的政策。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>十、联系我们</h2>
+      <p>如有隐私相关问题、意见或投诉，请通过以下方式联系我们：</p>
+      <ul>
+        <li>平台内客服反馈</li>
+        <li>官方邮箱：（请填写您的官方邮箱）</li>
+      </ul>
+      <p>我们将在收到反馈后尽快处理，通常在15个工作日内回复。</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px;">
+      <a href="../index.html" class="back-btn">返回首页</a>
+    </div>
+  </main>
+
+  <!-- 底部版权 -->
+  <footer class="privacy-footer">
+    <p>© 2024 闪喵 PostDIY. 保留所有权利。</p>
+    <p style="margin-top: 6px;">
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">闽ICP备2022019423号-3A</a>
+    </p>
+  </footer>
+</body>
+</html>
