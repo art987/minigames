@@ -1161,6 +1161,50 @@ footer {
   animation: pixelTransition 1s ease-out;
 }
 
+.hd-loading-hint {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hd-loading-hint.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hd-loading-hint .hd-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: hdSpin 0.8s linear infinite;
+}
+
+.hd-loading-hint .hd-text {
+  font-size: 10px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+@keyframes hdSpin {
+  to { transform: rotate(360deg); }
+}
+
 #posterContent {
   position: absolute;
   top: 0;

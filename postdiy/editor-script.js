@@ -4757,93 +4757,257 @@ const ThumbnailLoader = {
       posterContent.style.display = 'none';
     }
     
+    // 获取高清加载提示元素
+    const hdLoadingHint = document.getElementById('hdLoadingHint');
+    
     // 使用自定义背景或模板背景
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
     } else if (state.currentTemplate && state.currentTemplate.image) {
       // 日常记录模板（dairy）固定使用本地图片，不走 Cloudflare/七牛
       const isDairyTemplate = state.currentTemplate.id && state.currentTemplate.id.startsWith('dairy-');
-      let imageUrl;
-      if (isDairyTemplate) {
-        imageUrl = state.currentTemplate.image; // 直接使用本地路径
-      } else {
-        imageUrl = window.imageConfig ? window.imageConfig.getImageUrl(state.currentTemplate.image) : state.currentTemplate.image;
-      }
-      elements.posterBackground.src = imageUrl;
-      elements.posterBackground.dataset.originalPath = state.currentTemplate.image;
+      const originalPath = state.currentTemplate.image;
       
-      // 3秒超时检测：Cloudflare加载超时则回退七牛
-      if (window.imageConfig && imageUrl.includes('r2.dev')) {
-        const timeoutId = setTimeout(() => {
-          // 检查图片是否真正加载成功（complete对破图也返回true，需同时检查naturalWidth）
+      if (isDairyTemplate) {
+        // 日常模板直接使用本地路径
+        elements.posterBackground.src = originalPath;
+        elements.posterBackground.dataset.originalPath = originalPath;
+        
+        elements.posterBackground.onload = function() {
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            applyTechTransitionEffect();
+            hideTemplateLoadingAnimation();
+            console.log('日常模板加载完成');
+          });
+        };
+        
+        elements.posterBackground.onerror = function() {
+          console.error('日常模板图片加载失败');
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            hideTemplateLoadingAnimation();
+          });
+        };
+      } else if (window.imageConfig) {
+        // 获取各类图片URL
+        const thumbUrl = window.imageConfig.getThumbnailUrl(originalPath, true);
+        const cfUrl = window.imageConfig.cloudflareBaseUrl + originalPath;
+        const qiniuUrl = window.imageConfig.qiniuBaseUrl + originalPath;
+        
+        elements.posterBackground.dataset.originalPath = originalPath;
+        elements.posterBackground.dataset.thumbUrl = thumbUrl;
+        elements.posterBackground.dataset.cfUrl = cfUrl;
+        elements.posterBackground.dataset.qiniuUrl = qiniuUrl;
+        
+        // 标记是否已经完成最终大图加载
+        let hdLoaded = false;
+        let cfTimeout = false;
+        let hdLoadTimeoutId = null;
+        let thumbLoadTimeoutId = null;
+        
+        // 隐藏高清加载提示
+        const hideHdHint = function() {
+          if (hdLoadingHint) {
+            hdLoadingHint.classList.remove('show');
+          }
+        };
+        
+        // 显示高清加载提示
+        const showHdHint = function() {
+          if (hdLoadingHint) {
+            hdLoadingHint.classList.add('show');
+          }
+        };
+        
+        // 更新背景为高清图并完成加载流程
+        const updateToHdImage = function(finalUrl, source) {
+          if (hdLoaded) return;
+          hdLoaded = true;
+          
+          if (hdLoadTimeoutId) clearTimeout(hdLoadTimeoutId);
+          
+          console.log(`[bg-load] 高清大图加载完成(${source}): ${finalUrl}`);
+          
+          // 立即隐藏高清加载提示（不等待）
+          hideHdHint();
+          
+          // 如果当前显示的不是高清图，切换过去
+          if (elements.posterBackground.src !== finalUrl) {
+            // 先清除 onload 和 onerror，避免切换图片时触发旧的回调
+            elements.posterBackground.onload = null;
+            elements.posterBackground.onerror = null;
+            
+            elements.posterBackground.src = finalUrl;
+          }
+          
+          waitForAllElementsLoaded().then(() => {
+            elements.posterBackground.style.display = 'block';
+            if (posterContent) {
+              posterContent.style.display = 'flex';
+            }
+            applyTechTransitionEffect();
+            hideTemplateLoadingAnimation();
+            console.log('所有元素加载完成，加载动画已关闭');
+          });
+        };
+        
+        // 回退到七牛原图
+        const fallbackToQiniu = function(reason) {
+          if (hdLoaded) return;
+          console.warn(`[bg-load] ${reason}，切换到七牛原图: ${qiniuUrl}`);
+          cfTimeout = true;
+          
+          const qiniuImg = new Image();
+          qiniuImg.onload = function() {
+            updateToHdImage(qiniuUrl, '七牛原图');
+          };
+          qiniuImg.onerror = function() {
+            console.error('[bg-load] 七牛原图也加载失败');
+            if (!hdLoaded) {
+              hdLoaded = true;
+              // 立即隐藏高清加载提示
+              hideHdHint();
+              waitForAllElementsLoaded().then(() => {
+                elements.posterBackground.style.display = 'block';
+                if (posterContent) {
+                  posterContent.style.display = 'flex';
+                }
+                hideTemplateLoadingAnimation();
+              });
+            }
+          };
+          qiniuImg.src = qiniuUrl;
+        };
+        
+        // 先加载缩略图
+        elements.posterBackground.src = thumbUrl;
+        
+        elements.posterBackground.onload = function() {
+          if (thumbLoadTimeoutId) clearTimeout(thumbLoadTimeoutId);
+          
+          console.log('[bg-load] 缩略图加载完成:', thumbUrl);
+          
+          // 显示缩略图和海报内容
+          elements.posterBackground.style.display = 'block';
+          if (posterContent) {
+            posterContent.style.display = 'flex';
+          }
+          
+          // 隐藏模板加载动画，显示高清加载提示
+          hideTemplateLoadingAnimation();
+          showHdHint();
+          
+          // 并行请求Cloudflare高清大图（5秒超时）
+          const cfImg = new Image();
+          cfImg.crossOrigin = 'anonymous';
+          
+          // 5秒超时回退七牛
+          hdLoadTimeoutId = setTimeout(() => {
+            if (!hdLoaded) {
+              fallbackToQiniu('Cloudflare超时(5秒)');
+            }
+          }, 5000);
+          
+          cfImg.onload = function() {
+            if (!cfTimeout) {
+              updateToHdImage(cfUrl, 'Cloudflare');
+            }
+          };
+          
+          cfImg.onerror = function() {
+            if (!cfTimeout && !hdLoaded) {
+              console.warn('[bg-load] Cloudflare加载失败');
+              fallbackToQiniu('Cloudflare加载失败');
+            }
+          };
+          
+          cfImg.src = cfUrl;
+        };
+        
+        elements.posterBackground.onerror = function() {
+          if (thumbLoadTimeoutId) clearTimeout(thumbLoadTimeoutId);
+          console.warn('[bg-load] 缩略图加载失败，直接加载Cloudflare大图');
+          
+          // 缩略图加载失败，直接尝试高清图
+          showHdHint();
+          
+          const cfImg = new Image();
+          cfImg.crossOrigin = 'anonymous';
+          
+          hdLoadTimeoutId = setTimeout(() => {
+            if (!hdLoaded) {
+              fallbackToQiniu('Cloudflare超时(5秒)');
+            }
+          }, 5000);
+          
+          cfImg.onload = function() {
+            if (!cfTimeout) {
+              updateToHdImage(cfUrl, 'Cloudflare');
+            }
+          };
+          
+          cfImg.onerror = function() {
+            if (!cfTimeout && !hdLoaded) {
+              fallbackToQiniu('Cloudflare加载失败');
+            }
+          };
+          
+          cfImg.src = cfUrl;
+        };
+        
+        // 缩略图加载超时保护（10秒）
+        thumbLoadTimeoutId = setTimeout(() => {
+          console.warn('[bg-load] 缩略图加载超时(10秒)');
           const img = elements.posterBackground;
           const notLoaded = !img.complete || (img.complete && img.naturalWidth === 0);
           if (notLoaded) {
-            console.warn('[bg-load] Cloudflare加载超时(3秒)，切换到七牛:', imageUrl);
-            const qiniuUrl = window.imageConfig.qiniuBaseUrl + state.currentTemplate.image;
-            img.src = qiniuUrl;
+            // 缩略图也加载失败，直接尝试高清图
+            showHdHint();
+            
+            const cfImg = new Image();
+            cfImg.crossOrigin = 'anonymous';
+            
+            hdLoadTimeoutId = setTimeout(() => {
+              if (!hdLoaded) {
+                fallbackToQiniu('Cloudflare超时(5秒)');
+              }
+            }, 5000);
+            
+            cfImg.onload = function() {
+              if (!cfTimeout) {
+                updateToHdImage(cfUrl, 'Cloudflare');
+              }
+            };
+            
+            cfImg.onerror = function() {
+              if (!cfTimeout && !hdLoaded) {
+                fallbackToQiniu('Cloudflare加载失败');
+              }
+            };
+            
+            cfImg.src = cfUrl;
           }
-        }, 3000);
-        
-        // 图片加载完成后清除超时检测
-        elements.posterBackground.onload = function() {
-          clearTimeout(timeoutId);
-          console.log('背景图片加载完成');
-          
-          // 等待所有元素加载完成
-          waitForAllElementsLoaded().then(() => {
-            // 显示所有海报内容
-            elements.posterBackground.style.display = 'block';
-            if (posterContent) {
-              posterContent.style.display = 'flex';
-            }
-            
-            // 应用科技感过渡效果
-            applyTechTransitionEffect();
-            
-            // 立即隐藏加载动画
-            hideTemplateLoadingAnimation();
-            console.log('所有元素加载完成，加载动画已关闭');
-          });
-        };
-        
-        elements.posterBackground.onerror = function() {
-          clearTimeout(timeoutId);
-          console.error('背景图片加载失败');
-
-          const originalPath = this.getAttribute('data-original-path');
-          if (originalPath && window.imageConfig) {
-            // 直接回退到七牛，不回退本地
-            const qiniuUrl = window.imageConfig.qiniuBaseUrl + originalPath;
-            if (this.src !== qiniuUrl) {
-              console.log('回退到七牛:', qiniuUrl);
-              this.src = qiniuUrl;
-              return;
-            }
-          }
-          
-          console.error('无法加载图片，显示错误状态');
-          
-          waitForAllElementsLoaded().then(() => {
-            elements.posterBackground.style.display = 'block';
-            if (posterContent) {
-              posterContent.style.display = 'flex';
-            }
-            
-            hideTemplateLoadingAnimation();
-          });
-        };
+        }, 10000);
       } else {
-        // 非Cloudflare URL，使用原有逻辑
+        // 没有imageConfig，使用原有逻辑
+        const imageUrl = originalPath;
+        elements.posterBackground.src = imageUrl;
+        elements.posterBackground.dataset.originalPath = originalPath;
+        
         elements.posterBackground.onload = function() {
           console.log('背景图片加载完成');
-          
           waitForAllElementsLoaded().then(() => {
             elements.posterBackground.style.display = 'block';
             if (posterContent) {
               posterContent.style.display = 'flex';
             }
-            
             applyTechTransitionEffect();
             hideTemplateLoadingAnimation();
             console.log('所有元素加载完成，加载动画已关闭');
@@ -4852,29 +5016,11 @@ const ThumbnailLoader = {
         
         elements.posterBackground.onerror = function() {
           console.error('背景图片加载失败');
-
-          const originalPath = this.getAttribute('data-original-path');
-          if (originalPath && window.imageConfig) {
-            if (!window.imageConfig.shouldFallback()) {
-              console.warn('cloudflare-only 模式，不回退本地路径');
-              return;
-            }
-            const fallbackUrl = window.imageConfig.getFallbackUrl(originalPath);
-            if (fallbackUrl && this.src !== fallbackUrl) {
-              console.log('回退到本地路径:', fallbackUrl);
-              this.src = fallbackUrl;
-              return;
-            }
-          }
-          
-          console.error('无法回退到本地路径，显示错误状态');
-          
           waitForAllElementsLoaded().then(() => {
             elements.posterBackground.style.display = 'block';
             if (posterContent) {
               posterContent.style.display = 'flex';
             }
-            
             hideTemplateLoadingAnimation();
           });
         };
