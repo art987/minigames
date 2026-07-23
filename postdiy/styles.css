@@ -1158,12 +1158,12 @@ footer {
 
 /* Ã¥Æ’ÂÃ§Â´Â Ã¥Å’â€“Ã¨Â¿â€¡Ã¦Â¸Â¡Ã¦â€¢Ë†Ã¦Å¾Å“ */
 .poster-background.pixel-transition {
-  animation: pixelTransition 1s ease-out;
+  /* animation: pixelTransition 0.5s ease-out; */
 }
 
 .hd-loading-hint {
   position: absolute;
-  top: 43%;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1187,7 +1187,7 @@ footer {
 }
 
 .hd-loading-hint .hd-spinner {
-  width: 14px;
+  width: 14px; display: none;
   height: 14px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: #ffffff;
@@ -6686,37 +6686,23 @@ input.hidden {
   }
 }
 
-/* Ã¥Æ’ÂÃ§Â´Â Ã¥Å’â€“Ã¨Â¿â€¡Ã¦Â¸Â¡Ã¥Å Â¨Ã§â€Â» */
+/* 柔和过渡动画 */
 @keyframes pixelTransition {
   0% {
-    filter: blur(15px) contrast(500%) brightness(0.3);
-    transform: scale(1.2);
+    filter: blur(4px) brightness(0.25);
     opacity: 0;
   }
-  25% {
-    filter: blur(8px) contrast(300%) brightness(0.5);
-    transform: scale(1.1);
-    opacity: 0.3;
-  }
   50% {
-    filter: blur(4px) contrast(200%) brightness(0.7);
-    transform: scale(1.05);
-    opacity: 0.6;
-  }
-  75% {
-    filter: blur(2px) contrast(150%) brightness(0.9);
-    transform: scale(1.02);
-    opacity: 0.8;
+    filter: blur(2px) brightness(0.28);
+    opacity: 0.7;
   }
   100% {
     filter: none;
-    transform: scale(1);
     opacity: 1;
   }
 }
 
 .poster-background.pixel-transition {
-  animation: pixelTransition 1s ease-out;
 }
 
 

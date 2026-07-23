@@ -9,6 +9,7 @@ var imageConfig = {
   failedImages: new Set(),     // 标记 R2 失败的 URL
   qiniuFailedImages: new Set(), // 标记七牛也失败的 URL
   timeout: 3000,
+  cfTimeout: 2000,             // Cloudflare 超时时间（毫秒），超时后回退七牛
 
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;

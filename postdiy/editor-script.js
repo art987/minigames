@@ -4908,12 +4908,13 @@ const ThumbnailLoader = {
           const cfImg = new Image();
           cfImg.crossOrigin = 'anonymous';
           
-          // 5秒超时回退七牛
+          // Cloudflare超时回退七牛（使用配置的超时时间）
+          const cfTimeoutMs = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
           hdLoadTimeoutId = setTimeout(() => {
             if (!hdLoaded) {
-              fallbackToQiniu('Cloudflare超时(5秒)');
+              fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs / 1000) + '秒)');
             }
-          }, 5000);
+          }, cfTimeoutMs);
           
           cfImg.onload = function() {
             if (!cfTimeout) {
@@ -4941,11 +4942,12 @@ const ThumbnailLoader = {
           const cfImg = new Image();
           cfImg.crossOrigin = 'anonymous';
           
+          const cfTimeoutMs2 = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
           hdLoadTimeoutId = setTimeout(() => {
             if (!hdLoaded) {
-              fallbackToQiniu('Cloudflare超时(5秒)');
+              fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs2 / 1000) + '秒)');
             }
-          }, 5000);
+          }, cfTimeoutMs2);
           
           cfImg.onload = function() {
             if (!cfTimeout) {
@@ -4974,11 +4976,12 @@ const ThumbnailLoader = {
             const cfImg = new Image();
             cfImg.crossOrigin = 'anonymous';
             
+            const cfTimeoutMs3 = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
             hdLoadTimeoutId = setTimeout(() => {
               if (!hdLoaded) {
-                fallbackToQiniu('Cloudflare超时(5秒)');
+                fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs3 / 1000) + '秒)');
               }
-            }, 5000);
+            }, cfTimeoutMs3);
             
             cfImg.onload = function() {
               if (!cfTimeout) {
