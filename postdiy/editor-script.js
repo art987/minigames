@@ -4763,6 +4763,24 @@ const ThumbnailLoader = {
     // 使用自定义背景或模板背景
     if (state.customBackground) {
       elements.posterBackground.src = state.customBackground;
+      
+      elements.posterBackground.onload = function() {
+        elements.posterBackground.style.display = 'block';
+        if (posterContent) {
+          posterContent.style.display = 'flex';
+        }
+        hideTemplateLoadingAnimation();
+        console.log('自定义背景加载完成');
+      };
+      
+      elements.posterBackground.onerror = function() {
+        console.error('自定义背景加载失败');
+        elements.posterBackground.style.display = 'block';
+        if (posterContent) {
+          posterContent.style.display = 'flex';
+        }
+        hideTemplateLoadingAnimation();
+      };
     } else if (state.currentTemplate && state.currentTemplate.image) {
       // 日常记录模板（dairy）固定使用本地图片，不走 Cloudflare/七牛
       const isDairyTemplate = state.currentTemplate.id && state.currentTemplate.id.startsWith('dairy-');
