@@ -1,0 +1,2137 @@
+<template>
+	<view class="container">
+		<view class="status-bar" :style="getStatusBarStyle()"></view>
+		<view v-if="showTopBar" class="top-bar" :style="getTopBarStyle()">
+			<view class="top-bar-side top-bar-left" @click="goBackInWebview">
+				<view v-if="canGoBack" class="top-bar-back-wrap">
+					<text class="top-bar-back-arrow">‹</text>
+					<text class="top-bar-action-text">返回</text>
+				</view>
+			</view>
+			<view class="top-bar-title-wrap">
+				<text class="top-bar-title">{{ getTopBarTitle() }}</text>
+			</view>
+			<view class="top-bar-side top-bar-right" @click="reloadWebview">
+				<view class="top-bar-refresh-wrap">
+					<text class="top-bar-refresh-icon">↻</text>
+					<text class="top-bar-action-text">刷新</text>
+				</view>
+			</view>
+		</view>
+		<view v-if="state.isPageLoading" class="loading-overlay" :style="getLoadingOverlayStyle()">
+			<image class="loading-image" :style="getLoadingImageStyle()" :src="state.splashImageUrl" mode="aspectFit" @error="onSplashImageError"></image>
+			<text class="loading-text" :style="getLoadingTextStyle()">{{ animatedLoadingText }}</text>
+		</view>
+		<web-view
+			:id="props.webviewId"
+			class="webview"
+			:src="currentWebviewUrl"
+			:webview-styles="webviewStyles"
+			@loading="onWebLoading"
+			@load="onWebLoad"
+			@error="onWebError"
+			@download="onDownload"
+			@message="onMessage"
+		></web-view>
+		<view v-if="state.isPageError" class="error-overlay" :style="getErrorOverlayStyle()">
+			<view class="error-card" :style="getErrorCardStyle()">
+				<view class="error-mark">
+					<text class="error-mark-dot"></text>
+				</view>
+				<text class="error-title" :style="getErrorTitleStyle()">{{ currentErrorOverlayStyle.title }}</text>
+				<text class="error-description" :style="getErrorDescriptionStyle()">{{ currentErrorOverlayStyle.description }}</text>
+				<view class="error-retry-button" :style="getErrorRetryButtonStyle()" @click="retryLoadWebview">
+					<text class="error-retry-text" :style="getErrorRetryTextStyle()">{{ currentErrorOverlayStyle.retryButtonText }}</text>
+				</view>
+			</view>
+		</view>
+		<view v-if="isSavePromptVisible" class="save-prompt-mask">
+			<view class="save-prompt-panel">
+				<text class="save-prompt-title">已存入相册</text>
+				<text class="save-prompt-content">您的海报已保存至相册，可随时查看。</text>
+				<view class="save-prompt-checkbox-row" @click="toggleSavePromptSkip">
+					<text class="save-prompt-checkbox-text">不再提示</text>
+					<view class="save-prompt-switch" :class="skipSavePromptChecked ? 'save-prompt-switch-on' : ''">
+						<view class="save-prompt-switch-thumb" :class="skipSavePromptChecked ? 'save-prompt-switch-thumb-on' : ''"></view>
+					</view>
+				</view>
+				<view class="save-prompt-divider update-prompt-divider"></view>
+				<view class="save-prompt-button-row update-prompt-button-row">
+					<view class="save-prompt-button" @click="confirmSavePrompt">
+						<text class="save-prompt-button-text">知道了</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view v-if="isSavedPosterToastVisible" class="saved-poster-toast-wrap">
+			<view class="saved-poster-toast">
+				<text class="saved-poster-toast-text">您的海报已保存至相册，可随时查看</text>
+			</view>
+		</view>
+		<view v-if="isUpdatePromptVisible" class="save-prompt-mask">
+			<view class="save-prompt-panel update-prompt-panel">
+				<text class="save-prompt-title">{{ pendingAppUpdateConfig.title }}</text>
+				<text class="save-prompt-content update-prompt-content">{{ pendingAppUpdateConfig.subtitle }}</text>
+				<view class="save-prompt-divider"></view>
+				<view class="save-prompt-button-row">
+					<view v-if="!pendingAppUpdateConfig.forceUpdate" class="save-prompt-button" @click="dismissUpdatePrompt">
+						<text class="save-prompt-button-text update-prompt-button-text update-prompt-secondary-text">稍后再说</text>
+					</view>
+					<view class="save-prompt-button" @click="confirmUpdatePrompt">
+						<text class="save-prompt-button-text update-prompt-button-text update-prompt-primary-text">{{ pendingAppUpdateConfig.buttonText }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="tab-bar" :style="getTabBarStyle()">
+			<view
+				v-for="item in tabBarItems"
+				:key="item.pagePath"
+				class="tab-item"
+				@click="switchTabPage(item.pagePath)"
+			>
+				<image class="tab-icon" :style="getTabIconStyle()" :src="getTabIcon(item)" mode="aspectFit"></image>
+				<text v-if="item.showText" class="tab-text" :style="getTabTextStyle(isActiveTab(item.pagePath))">{{ item.text }}</text>
+			</view>
+		</view>
+		<!-- #ifdef APP-ANDROID || APP-IOS -->
+		<view class="safe-bottom" :style="getSafeAreaStyle()"></view>
+		<!-- #endif -->
+	</view>
+</template>
+
+<script setup lang="uts">
+	import { APP_UPDATE_CONFIG, CURRENT_APP_VERSION_CODE, CURRENT_APP_VERSION_NAME, getWebviewRuntimeConfig, getWebviewTabByPagePath, isTopBarEnabled, loadAppUpdateConfig, loadWebviewRuntimeConfig } from '@/config/webview-pages.uts'
+	import type { AppUpdateConfig, WebviewErrorOverlayStyle, WebviewLoadingStyle, WebviewRuntimeConfig, WebviewTabBarStyle, WebviewTabItem } from '@/config/webview-pages.uts'
+	import { canWebviewGoBack, openSystemUrl } from '@/uni_modules/flashmeow-webview-nav'
+
+	type BridgePayload = {
+		action: string,
+		title: string,
+		url: string,
+		dataUrl: string,
+		fileName: string,
+		text: string,
+		host: string,
+		cookie: string,
+		localStorageJson: string
+	}
+
+	const props = defineProps({
+		webviewId: { type: String, default: 'bridge-webview' },
+		src: { type: String, default: '' },
+		currentPath: { type: String, default: '' }
+	})
+
+	function getInitialSplashImageUrl(loadingStyle: WebviewLoadingStyle): string {
+		if (loadingStyle.remoteSplashImageUrl.length > 0) {
+			return loadingStyle.remoteSplashImageUrl
+		}
+		return loadingStyle.defaultSplashImageUrl
+	}
+
+	const initialRuntimeConfig = getWebviewRuntimeConfig()
+	const initialTab = getWebviewTabByPagePath(props.currentPath)
+
+	const SAVE_SUCCESS_PROMPT_STORAGE_KEY = 'FLASHMEOW_SKIP_SAVE_SUCCESS_PROMPT'
+	const PAYMENT_ACTIVE_STORAGE_KEY = 'FLASHMEOW_PAYMENT_ACTIVE'
+	const PAYMENT_URL_STORAGE_KEY = 'FLASHMEOW_PAYMENT_URL'
+	const PAYMENT_AT_STORAGE_KEY = 'FLASHMEOW_PAYMENT_AT'
+	const PAYMENT_SESSION_KEY_STORAGE_KEY = 'FLASHMEOW_PAYMENT_SESSION_KEY'
+	const PAYMENT_RETURN_REFRESH_KEY = 'FLASHMEOW_PAYMENT_RETURN_REFRESH'
+	const PAYMENT_LOCK_MAX_AGE = 10 * 60 * 1000
+
+	function getShouldSkipSaveSuccessPrompt(): boolean {
+		const savedValue = uni.getStorageSync(SAVE_SUCCESS_PROMPT_STORAGE_KEY)
+		if (savedValue == null) {
+			return false
+		}
+		return savedValue.toString() == '1'
+	}
+
+	function createWebviewStyles(loadingStyle: WebviewLoadingStyle): UTSJSONObject {
+		if (loadingStyle.showNativeProgress) {
+			return { progress: { color: loadingStyle.progressBarColor } }
+		}
+		return { progress: false }
+	}
+
+	const state = reactive({
+		isPageLoading: true,
+		isPageError: false,
+		splashImageUrl: getInitialSplashImageUrl(initialRuntimeConfig.webviewLoadingStyle)
+	})
+
+	const isSavePromptVisible = ref(false)
+	const skipSavePromptChecked = ref(getShouldSkipSaveSuccessPrompt())
+	const isSavedPosterToastVisible = ref(false)
+	const isUpdatePromptVisible = ref(false)
+	const pendingAppUpdateConfig = ref<AppUpdateConfig>(APP_UPDATE_CONFIG)
+	const showTopBar = ref(isTopBarEnabled(props.currentPath))
+	const canGoBack = ref(false)
+	const animatedLoadingText = ref('')
+	const currentPageTitle = ref('')
+	const currentSyncedWebUrl = ref('')
+	let savedPosterToastTimer : number = -1
+	let loadingTextTimer : number = -1
+	let loadingTextIndex : number = 0
+	let isLoadingTextAnimating : boolean = false
+	let loadingTextCycleCount : number = 0
+	let loadingTextPhase : number = 0
+	let hasCheckedAppUpdate : boolean = false
+	const tabBarItems = ref<WebviewTabItem[]>(initialRuntimeConfig.tabBarItems)
+	const currentTabBarStyle = ref(initialRuntimeConfig.tabBarStyle)
+	const currentLoadingStyle = ref(initialRuntimeConfig.webviewLoadingStyle)
+	const currentErrorOverlayStyle = ref<WebviewErrorOverlayStyle>(initialRuntimeConfig.webviewErrorOverlayStyle)
+	const currentWebviewUrl = ref(initialTab.webviewUrl.length > 0 ? initialTab.webviewUrl : props.src)
+	const webviewStyles = ref(createWebviewStyles(initialRuntimeConfig.webviewLoadingStyle))
+	let hasRefreshedRuntimeConfig : boolean = false
+
+
+	function getSiteHost(): string {
+		const url = currentWebviewUrl.value
+		const protocolIndex = url.indexOf('://')
+		if (protocolIndex < 0) {
+			return ''
+		}
+
+		const hostStart = protocolIndex + 3
+		const slashIndex = url.indexOf('/', hostStart)
+		if (slashIndex < 0) {
+			return url.slice(hostStart)
+		}
+		return url.slice(hostStart, slashIndex)
+	}
+
+	function getSharedStateStorageKey(): string {
+		const host = getSiteHost()
+		if (host.length == 0) {
+			return ''
+		}
+		return `FLASHMEOW_WEBVIEW_STATE_${host}`
+	}
+
+	function escapeJsString(raw: string): string {
+		return raw
+			.replace(/\\/g, '\\\\')
+			.replace(/'/g, "\\'")
+			.replace(/\r/g, '\\r')
+			.replace(/\n/g, '\\n')
+	}
+
+	function getSharedStatePayload(): string {
+		const storageKey = getSharedStateStorageKey()
+		if (storageKey.length == 0) {
+			return ''
+		}
+
+		const savedState = uni.getStorageSync(storageKey)
+		if (savedState == null) {
+			return ''
+		}
+
+		return escapeJsString(savedState.toString())
+	}
+
+	function onSplashImageError() {
+		const loadingStyle = currentLoadingStyle.value
+		if (state.splashImageUrl != loadingStyle.defaultSplashImageUrl) {
+			state.splashImageUrl = loadingStyle.defaultSplashImageUrl
+		}
+	}
+
+	function getStatusBarStyle(): string {
+		const tabBarStyle = currentTabBarStyle.value
+		return `background-color:${tabBarStyle.statusBarBackgroundColor};`
+	}
+
+	function getTopBarStyle(): string {
+		const tabBarStyle = currentTabBarStyle.value
+		return `background-color:${tabBarStyle.statusBarBackgroundColor};`
+	}
+
+	function getTopBarTitle(): string {
+		if (currentPageTitle.value.length > 0) {
+			return currentPageTitle.value
+		}
+		const currentTab = getWebviewTabByPagePath(props.currentPath)
+		return `闪喵${currentTab.text}`
+	}
+
+	function normalizeWebUrl(url: string): string {
+		let result = url.trim().toLowerCase()
+		const hashIndex = result.indexOf('#')
+		if (hashIndex >= 0) {
+			result = result.slice(0, hashIndex)
+		}
+		const queryIndex = result.indexOf('?')
+		if (queryIndex >= 0) {
+			result = result.slice(0, queryIndex)
+		}
+		if (result.length > 1 && result.lastIndexOf('/') == result.length - 1) {
+			result = result.slice(0, result.length - 1)
+		}
+		const indexHtmlPosition = result.indexOf('/index.html')
+		if (indexHtmlPosition >= 0 && indexHtmlPosition == result.length - 11) {
+			result = result.slice(0, result.length - 11)
+		}
+		return result
+	}
+
+	function isCurrentTabRootUrl(url: string): boolean {
+		if (url.trim().length == 0) {
+			return true
+		}
+		const currentTab = getWebviewTabByPagePath(props.currentPath)
+		const tabUrl = currentTab.webviewUrl.length > 0 ? currentTab.webviewUrl : props.src
+		return normalizeWebUrl(url) == normalizeWebUrl(tabUrl)
+	}
+
+	function formatTopBarTitle(title: string): string {
+		const trimmed = title.trim()
+		if (trimmed.length == 0) {
+			return ''
+		}
+		if (trimmed.length <= 15) {
+			return trimmed
+		}
+		return `${trimmed.slice(0, 15)}...`
+	}
+
+	function getTabBarStyle(): string {
+		const tabBarStyle = currentTabBarStyle.value
+		return `background-color:${tabBarStyle.backgroundColor};border-top-color:${tabBarStyle.borderTopColor};height:${tabBarStyle.height};padding-top:${tabBarStyle.paddingTop};padding-bottom:${tabBarStyle.paddingBottom};`
+	}
+
+	function getTabIconStyle(): string {
+		const tabBarStyle = currentTabBarStyle.value
+		return `width:${tabBarStyle.iconWidth};height:${tabBarStyle.iconHeight};`
+	}
+
+	function getTabTextStyle(active: boolean): string {
+		const tabBarStyle = currentTabBarStyle.value
+		const color = active ? tabBarStyle.activeTextColor : tabBarStyle.inactiveTextColor
+		return `font-size:${tabBarStyle.textFontSize};color:${color};`
+	}
+
+	function getSafeAreaStyle(): string {
+		const tabBarStyle = currentTabBarStyle.value
+		return `background-color:${tabBarStyle.safeAreaBackgroundColor};`
+	}
+
+	function getLoadingOverlayStyle(): string {
+		const loadingStyle = currentLoadingStyle.value
+		return `background-color:${loadingStyle.splashBackgroundColor};`
+	}
+
+	function getLoadingImageStyle(): string {
+		const loadingStyle = currentLoadingStyle.value
+		return `width:${loadingStyle.splashImageWidth};height:${loadingStyle.splashImageHeight};`
+	}
+
+	function getLoadingText(): string {
+		return currentLoadingStyle.value.loadingText
+	}
+
+	function stopLoadingTextAnimation() {
+		isLoadingTextAnimating = false
+		if (loadingTextTimer >= 0) {
+			clearTimeout(loadingTextTimer)
+			loadingTextTimer = -1
+		}
+	}
+
+	function resetLoadingTextAnimation() {
+		stopLoadingTextAnimation()
+		loadingTextIndex = 0
+		loadingTextCycleCount = 0
+		loadingTextPhase = 0
+		animatedLoadingText.value = ''
+	}
+
+	function runLoadingTextAnimation() {
+		stopLoadingTextAnimation()
+		const loadingTextMessages = currentLoadingStyle.value.loadingTextMessages
+		const messageIndex = loadingTextCycleCount < loadingTextMessages.length ? loadingTextCycleCount : loadingTextMessages.length - 1
+		const fullText = loadingTextMessages[messageIndex]
+		const slowTextOne = '首次加载需多点时间噢'
+		const slowTextTwo = '网络有点慢，再等一下下呀~'
+		const slowTextThree = '网络还是不行，关掉重新打开或者稍后再试试。'
+		if (fullText.length == 0) {
+			animatedLoadingText.value = ''
+			return
+		}
+		if (state.isPageLoading != true) {
+			animatedLoadingText.value = fullText
+			return
+		}
+		isLoadingTextAnimating = true
+
+		if (loadingTextPhase == 1) {
+			animatedLoadingText.value = slowTextOne
+			loadingTextPhase = 2
+			loadingTextTimer = setTimeout(() => {
+				runLoadingTextAnimation()
+			}, 3000)
+			return
+		}
+
+		if (loadingTextPhase == 2) {
+			animatedLoadingText.value = slowTextTwo
+			loadingTextPhase = 3
+			loadingTextTimer = setTimeout(() => {
+				runLoadingTextAnimation()
+			}, 5000)
+			return
+		}
+
+		if (loadingTextPhase == 3) {
+			animatedLoadingText.value = slowTextThree
+			return
+		}
+
+		if (loadingTextIndex < fullText.length) {
+			loadingTextIndex += 1
+			animatedLoadingText.value = fullText.slice(0, loadingTextIndex)
+			loadingTextTimer = setTimeout(() => {
+				runLoadingTextAnimation()
+			}, 90)
+			return
+		}
+
+		animatedLoadingText.value = fullText
+		loadingTextCycleCount += 1
+		if (loadingTextCycleCount >= 6) {
+			loadingTextPhase = 1
+			loadingTextTimer = setTimeout(() => {
+				runLoadingTextAnimation()
+			}, 2000)
+			return
+		}
+
+		loadingTextTimer = setTimeout(() => {
+			loadingTextIndex = 0
+			animatedLoadingText.value = ''
+			runLoadingTextAnimation()
+		}, 2000)
+	}
+
+	function startLoadingTextAnimation() {
+		if (isLoadingTextAnimating) {
+			return
+		}
+		isLoadingTextAnimating = true
+		runLoadingTextAnimation()
+	}
+
+	resetLoadingTextAnimation()
+	startLoadingTextAnimation()
+
+	function getLoadingTextStyle(): string {
+		const loadingStyle = currentLoadingStyle.value
+		return `color:${loadingStyle.loadingTextColor};font-size:${loadingStyle.loadingTextFontSize};`
+	}
+
+	function getErrorOverlayStyle(): string {
+		return `background-color:${currentErrorOverlayStyle.value.backgroundColor};`
+	}
+
+	function getErrorCardStyle(): string {
+		return `background-color:${currentErrorOverlayStyle.value.cardBackgroundColor};`
+	}
+
+	function getErrorTitleStyle(): string {
+		return `color:${currentErrorOverlayStyle.value.titleColor};`
+	}
+
+	function getErrorDescriptionStyle(): string {
+		return `color:${currentErrorOverlayStyle.value.descriptionColor};`
+	}
+
+	function getErrorRetryButtonStyle(): string {
+		return `background-color:${currentErrorOverlayStyle.value.buttonBackgroundColor};`
+	}
+
+	function getErrorRetryTextStyle(): string {
+		return `color:${currentErrorOverlayStyle.value.buttonTextColor};`
+	}
+
+	function isActiveTab(pagePath: string): boolean {
+		return props.currentPath == pagePath
+	}
+
+	function getTabIcon(item: WebviewTabItem): string {
+		return isActiveTab(item.pagePath) ? item.activeIconUrl : item.inactiveIconUrl
+	}
+
+	function switchTabPage(pagePath: string) {
+		if (props.currentPath == pagePath) {
+			return
+		}
+		uni.switchTab({
+			url: `/${pagePath}`
+		})
+	}
+
+	function updateCanGoBackState() {
+		const nativeCanGoBack = canWebviewGoBack(props.webviewId)
+		canGoBack.value = nativeCanGoBack && !isCurrentTabRootUrl(currentSyncedWebUrl.value)
+		if (canGoBack.value == false) {
+			currentPageTitle.value = ''
+		}
+	}
+
+	function goBackInWebview() {
+		if (!canGoBack.value) {
+			return
+		}
+		const webviewElement = uni.getElementById(props.webviewId) as UniWebViewElement | null
+		if (webviewElement == null) {
+			return
+		}
+		state.isPageError = false
+		state.isPageLoading = true
+		state.splashImageUrl = getInitialSplashImageUrl(currentLoadingStyle.value)
+		webviewElement.back()
+	}
+
+	function applyRuntimeConfig(config: WebviewRuntimeConfig) {
+		const previousLoadingText = currentLoadingStyle.value.loadingText
+		const currentTab = getWebviewTabByPagePath(props.currentPath)
+		const nextUrl = currentTab.webviewUrl.length > 0 ? currentTab.webviewUrl : props.src
+		const currentStyleText = JSON.stringify(webviewStyles.value)
+		const nextStyle = createWebviewStyles(config.webviewLoadingStyle)
+		const nextStyleText = JSON.stringify(nextStyle)
+		tabBarItems.value = config.tabBarItems
+		currentTabBarStyle.value = config.tabBarStyle
+		currentLoadingStyle.value = config.webviewLoadingStyle
+		currentErrorOverlayStyle.value = config.webviewErrorOverlayStyle
+		if (currentStyleText != nextStyleText) {
+			webviewStyles.value = nextStyle
+		}
+		showTopBar.value = isTopBarEnabled(props.currentPath)
+		if (state.isPageLoading == true && previousLoadingText != config.webviewLoadingStyle.loadingText) {
+			resetLoadingTextAnimation()
+			startLoadingTextAnimation()
+		}
+		if (currentWebviewUrl.value != nextUrl) {
+			state.isPageError = false
+			state.isPageLoading = true
+			state.splashImageUrl = getInitialSplashImageUrl(config.webviewLoadingStyle)
+			currentWebviewUrl.value = nextUrl
+			currentPageTitle.value = ''
+			canGoBack.value = false
+		}
+	}
+
+	function refreshRuntimeConfig() {
+		loadWebviewRuntimeConfig((config) => {
+			applyRuntimeConfig(config)
+		})
+	}
+
+	function getStringField(source: UTSJSONObject, key: string): string {
+		const value = source[key]
+		if (value == null) {
+			return ''
+		}
+		return value.toString()
+	}
+
+	function normalizeFileName(fileName: string, extension: string): string {
+		const trimmed = fileName.trim()
+		if (trimmed.length > 0) {
+			return trimmed
+		}
+		return `html2canvas-${new Date().getTime()}.${extension}`
+	}
+
+	function getDownloadFileName(url: string, fallbackExtension: string): string {
+		const queryIndex = url.indexOf('?')
+		const cleanUrl = queryIndex >= 0 ? url.slice(0, queryIndex) : url
+		const slashIndex = cleanUrl.lastIndexOf('/')
+		const rawName = slashIndex >= 0 ? cleanUrl.slice(slashIndex + 1) : ''
+		if (rawName.length > 0) {
+			const decodedName = decodeURIComponent(rawName)
+			return decodedName != null ? decodedName : rawName
+		}
+		return `flashmeow-${Date.now()}.${fallbackExtension}`
+	}
+
+	function isApkDownloadUrl(url: string): boolean {
+		const lowerUrl = url.toLowerCase()
+		return lowerUrl.indexOf('.apk') > -1
+	}
+
+	function downloadApkFile(url: string) {
+		const fileName = getDownloadFileName(url, 'apk')
+		const opened = openSystemUrl(props.webviewId, url)
+		uni.showToast({
+			title: opened ? `${fileName} 已交给系统下载` : '无法打开下载链接',
+			icon: 'none'
+		})
+	}
+
+	function parseMessagePayload(source: UTSJSONObject): BridgePayload {
+		return {
+			action: getStringField(source, 'action'),
+			title: getStringField(source, 'title'),
+			url: getStringField(source, 'url'),
+			dataUrl: getStringField(source, 'dataUrl'),
+			fileName: getStringField(source, 'fileName'),
+			text: getStringField(source, 'text'),
+			host: getStringField(source, 'host'),
+			cookie: getStringField(source, 'cookie'),
+			localStorageJson: getStringField(source, 'localStorageJson')
+		}
+	}
+
+	function hideLoadingWithToast(title: string) {
+		uni.hideLoading()
+		uni.showToast({
+			title,
+			icon: 'none'
+		})
+	}
+
+	function copyPlainText(text: string) {
+		const content = text.trim()
+		if (content.length == 0) {
+			uni.showToast({
+				title: '没有可复制的内容',
+				icon: 'none'
+			})
+			return
+		}
+
+		uni.setClipboardData({
+			data: content,
+			success: () => {
+				uni.showToast({
+					title: '已复制到剪贴板',
+					icon: 'success'
+				})
+			},
+			fail: (error) => {
+				console.error('复制文本失败', JSON.stringify(error))
+				uni.showToast({
+					title: '复制失败',
+					icon: 'none'
+				})
+			}
+		})
+	}
+
+	function extractQueryParam(url: string, key: string): string {
+		const queryIndex = url.indexOf('?')
+		if (queryIndex < 0) {
+			return ''
+		}
+		const hashIndex = url.indexOf('#', queryIndex)
+		const queryText = hashIndex < 0 ? url.slice(queryIndex + 1) : url.slice(queryIndex + 1, hashIndex)
+		const pairs = queryText.split('&')
+		for (let i = 0; i < pairs.length; i++) {
+			const pair = pairs[i]
+			const equalIndex = pair.indexOf('=')
+			const rawKey = equalIndex < 0 ? pair : pair.slice(0, equalIndex)
+			if (decodeURIComponent(rawKey) != key) {
+				continue
+			}
+			const rawValue = equalIndex < 0 ? '' : pair.slice(equalIndex + 1)
+			const decodedValue = decodeURIComponent(rawValue)
+			return decodedValue != null ? decodedValue : ''
+		}
+		return ''
+	}
+
+	function buildTaobaoAppUrl(url: string): string {
+		const targetUrl = url.trim()
+		if (targetUrl.length == 0) {
+			return ''
+		}
+		const lowerUrl = targetUrl.toLowerCase()
+		const isHttpUrl = lowerUrl.indexOf('https://') == 0 || lowerUrl.indexOf('http://') == 0
+		if (!isHttpUrl) {
+			return ''
+		}
+		const itemId = extractQueryParam(targetUrl, 'id')
+		if (itemId.length > 0) {
+			return `taobao://h5.m.taobao.com/awp/core/detail.htm?id=${encodeURIComponent(itemId)}&hybrid=true&url=${encodeURIComponent(targetUrl)}`
+		}
+		return `taobao://h5.m.taobao.com/awp/core/detail.htm?hybrid=true&url=${encodeURIComponent(targetUrl)}`
+	}
+
+	function openTaobaoProductUrl(url: string) {
+		const targetUrl = url.trim()
+		if (targetUrl.length == 0) {
+			uni.showToast({
+				title: '淘宝链接为空',
+				icon: 'none'
+			})
+			return
+		}
+		const taobaoAppUrl = buildTaobaoAppUrl(targetUrl)
+		let opened = false
+		if (taobaoAppUrl.length > 0) {
+			opened = openSystemUrl(props.webviewId, taobaoAppUrl)
+		}
+		if (!opened) {
+			opened = openSystemUrl(props.webviewId, targetUrl)
+		}
+		if (!opened) {
+			console.error(`淘宝唤起: 最终失败 target=${targetUrl} scheme=${taobaoAppUrl}`)
+			uni.showToast({
+				title: '无法打开淘宝链接',
+				icon: 'none'
+			})
+		}
+	}
+
+	function showSavedPosterToast() {
+		if (savedPosterToastTimer >= 0) {
+			clearTimeout(savedPosterToastTimer)
+			savedPosterToastTimer = -1
+		}
+		isSavedPosterToastVisible.value = true
+		savedPosterToastTimer = setTimeout(() => {
+			isSavedPosterToastVisible.value = false
+			savedPosterToastTimer = -1
+		}, 2200)
+	}
+
+	function toggleSavePromptSkip() {
+		skipSavePromptChecked.value = skipSavePromptChecked.value == false
+	}
+
+	function confirmSavePrompt() {
+		const storageValue = skipSavePromptChecked.value ? '1' : '0'
+		uni.setStorageSync(SAVE_SUCCESS_PROMPT_STORAGE_KEY, storageValue)
+		isSavePromptVisible.value = false
+		showSavedPosterToast()
+	}
+
+	function shouldShowUpdatePrompt(config: AppUpdateConfig): boolean {
+		if (!config.enabled) {
+			return false
+		}
+		if (config.downloadUrl.trim().length == 0) {
+			return false
+		}
+		return config.latestVersionCode > CURRENT_APP_VERSION_CODE
+	}
+
+	function checkAppUpdate() {
+		if (hasCheckedAppUpdate || props.currentPath != 'pages/index/index') {
+			return
+		}
+		hasCheckedAppUpdate = true
+		console.log(`App current version: ${CURRENT_APP_VERSION_NAME} (${CURRENT_APP_VERSION_CODE})`)
+		loadAppUpdateConfig((config) => {
+			console.log(`App latest version: ${config.latestVersionName} (${config.latestVersionCode})`)
+			if (shouldShowUpdatePrompt(config)) {
+				pendingAppUpdateConfig.value = config
+				isUpdatePromptVisible.value = true
+			}
+		})
+	}
+
+	function dismissUpdatePrompt() {
+		if (pendingAppUpdateConfig.value.forceUpdate) {
+			return
+		}
+		isUpdatePromptVisible.value = false
+	}
+
+	function confirmUpdatePrompt() {
+		const downloadUrl = pendingAppUpdateConfig.value.downloadUrl.trim()
+		if (downloadUrl.length == 0) {
+			return
+		}
+		isUpdatePromptVisible.value = false
+		const opened = openSystemUrl(props.webviewId, downloadUrl)
+		if (!opened) {
+			uni.showToast({
+				title: '无法打开下载链接',
+				icon: 'none'
+			})
+		}
+	}
+
+	function showSaveSuccessPrompt() {
+		if (skipSavePromptChecked.value) {
+			showSavedPosterToast()
+			return
+		}
+		isSavePromptVisible.value = true
+	}
+
+	function saveImageFile(filePath: string) {
+		uni.saveImageToPhotosAlbum({
+			filePath,
+			success: () => {
+				uni.hideLoading()
+				showSaveSuccessPrompt()
+			},
+			fail: (error) => {
+				uni.hideLoading()
+				console.error('保存图片失败', JSON.stringify(error))
+				if (error.errCode == 1101005) {
+					uni.showModal({
+						title: '缺少相册权限',
+						content: '请在系统设置中允许应用访问相册后重试。',
+						confirmText: '去设置',
+						success: (result) => {
+							if (result.confirm) {
+								uni.openAppAuthorizeSetting({})
+							}
+						}
+					})
+					return
+				}
+				hideLoadingWithToast('保存失败')
+			}
+		})
+	}
+
+	function saveRemoteImage(url: string) {
+		uni.showLoading({
+			title: '正在保存图片...'
+		})
+
+		uni.downloadFile({
+			url,
+			success: (result) => {
+				if (result.statusCode == 200) {
+					saveImageFile(result.tempFilePath)
+					return
+				}
+				hideLoadingWithToast('下载失败')
+			},
+			fail: (error) => {
+				console.error('下载文件失败', JSON.stringify(error))
+				hideLoadingWithToast('下载失败')
+			}
+		})
+	}
+
+	function saveBase64Image(dataUrl: string, fileName: string) {
+		const marker = 'base64,'
+		const markerIndex = dataUrl.indexOf(marker)
+		if (markerIndex < 0) {
+			uni.showToast({
+				title: '图片数据无效',
+				icon: 'none'
+			})
+			return
+		}
+
+		const base64Content = dataUrl.slice(markerIndex + marker.length)
+		const extension = dataUrl.indexOf('image/jpeg') > -1 ? 'jpg' : 'png'
+		const targetPath = `${uni.env.USER_DATA_PATH}/${normalizeFileName(fileName, extension)}`
+
+		uni.showLoading({
+			title: '正在保存图片...'
+		})
+
+		const options: WriteFileOptions = {
+			filePath: targetPath,
+			data: base64Content,
+			encoding: 'base64',
+			success: () => {
+				saveImageFile(targetPath)
+			},
+			fail: (error) => {
+				console.error('Base64写入失败', JSON.stringify(error))
+				hideLoadingWithToast('图片保存失败')
+			}
+		}
+
+		uni.getFileSystemManager().writeFile(options)
+	}
+
+	function saveSharedSiteState(payload: BridgePayload) {
+		const host = payload.host.trim()
+		if (host.length == 0) {
+			return
+		}
+
+		const stateObject = {
+			host,
+			cookie: payload.cookie,
+			localStorageJson: payload.localStorageJson
+		}
+
+		uni.setStorageSync(`FLASHMEOW_WEBVIEW_STATE_${host}`, JSON.stringify(stateObject))
+	}
+
+	function clearPaymentSessionLock() {
+		uni.removeStorageSync(PAYMENT_ACTIVE_STORAGE_KEY)
+		uni.removeStorageSync(PAYMENT_URL_STORAGE_KEY)
+		uni.removeStorageSync(PAYMENT_AT_STORAGE_KEY)
+		uni.removeStorageSync(PAYMENT_SESSION_KEY_STORAGE_KEY)
+	}
+
+	function getLockedPaymentUrl(): string {
+		const lockedUrl = uni.getStorageSync(PAYMENT_URL_STORAGE_KEY)
+		if (lockedUrl == null) {
+			return ''
+		}
+		return lockedUrl.toString()
+	}
+
+	function getPaymentSessionKey(url: string): string {
+		const orderId = extractQueryParam(url, 'O_id')
+		if (orderId.length > 0) {
+			return `oid:${orderId}`
+		}
+		const redirectUrl = extractQueryParam(url, 'redirect_url')
+		if (redirectUrl.length > 0) {
+			const redirectOrderId = extractQueryParam(redirectUrl, 'O_id')
+			if (redirectOrderId.length > 0) {
+				return `oid:${redirectOrderId}`
+			}
+		}
+		const outTradeNo = extractQueryParam(url, 'out_trade_no')
+		if (outTradeNo.length > 0) {
+			return `trade:${outTradeNo}`
+		}
+		const prepayId = extractQueryParam(url, 'prepay_id')
+		if (prepayId.length > 0) {
+			return `prepay:${prepayId}`
+		}
+		return url
+	}
+
+	function getLockedPaymentSessionKey(): string {
+		const lockedSessionKey = uni.getStorageSync(PAYMENT_SESSION_KEY_STORAGE_KEY)
+		if (lockedSessionKey == null) {
+			return ''
+		}
+		return lockedSessionKey.toString()
+	}
+
+	function hasActivePaymentSession(): boolean {
+		const activeValue = uni.getStorageSync(PAYMENT_ACTIVE_STORAGE_KEY)
+		if (activeValue == null || activeValue.toString() != '1') {
+			return false
+		}
+		const atValue = uni.getStorageSync(PAYMENT_AT_STORAGE_KEY)
+		if (atValue == null) {
+			return true
+		}
+		const openedAtText = atValue.toString()
+		const openedAt = parseInt(openedAtText)
+		if (openedAt <= 0) {
+			return true
+		}
+		const isExpired = Date.now() - openedAt > PAYMENT_LOCK_MAX_AGE
+		if (isExpired) {
+			console.log('支付拦截: 发现过期支付锁，自动释放')
+			clearPaymentSessionLock()
+			return false
+		}
+		return true
+	}
+
+	function lockPaymentSession(url: string) {
+		uni.setStorageSync(PAYMENT_ACTIVE_STORAGE_KEY, '1')
+		uni.setStorageSync(PAYMENT_URL_STORAGE_KEY, url)
+		uni.setStorageSync(PAYMENT_AT_STORAGE_KEY, Date.now().toString())
+		uni.setStorageSync(PAYMENT_SESSION_KEY_STORAGE_KEY, getPaymentSessionKey(url))
+	}
+
+	function buildRecoverWebviewUrl(url: string): string {
+		const separator = url.indexOf('?') > -1 ? '&' : '?'
+		return `${url}${separator}flashmeow_return=${Date.now()}`
+	}
+
+	function recoverCurrentTabWebview() {
+		const currentTab = getWebviewTabByPagePath(props.currentPath)
+		const baseUrl = currentTab.webviewUrl.length > 0 ? currentTab.webviewUrl : props.src
+		if (baseUrl.length == 0) {
+			return
+		}
+		console.log(`支付拦截: 恢复当前页面到原始地址 ${baseUrl}`)
+		state.isPageError = false
+		state.isPageLoading = true
+		state.splashImageUrl = getInitialSplashImageUrl(currentLoadingStyle.value)
+		currentPageTitle.value = ''
+		canGoBack.value = false
+		resetLoadingTextAnimation()
+		startLoadingTextAnimation()
+		currentWebviewUrl.value = buildRecoverWebviewUrl(baseUrl)
+	}
+
+	function shouldRefreshAfterPaymentReturn(): boolean {
+		const refreshValue = uni.getStorageSync(PAYMENT_RETURN_REFRESH_KEY)
+		return refreshValue != null && refreshValue.toString() == '1'
+	}
+
+	function clearPaymentReturnRefreshFlag() {
+		uni.removeStorageSync(PAYMENT_RETURN_REFRESH_KEY)
+	}
+
+	function openPaymentPage(url: string) {
+		const targetUrl = url.trim()
+		if (targetUrl.length == 0) {
+			console.warn('支付拦截: 收到空的支付地址')
+			return
+		}
+		if (hasActivePaymentSession()) {
+			const lockedUrl = getLockedPaymentUrl()
+			const lockedSessionKey = getLockedPaymentSessionKey()
+			const targetSessionKey = getPaymentSessionKey(targetUrl)
+			if (lockedSessionKey.length > 0 && lockedSessionKey == targetSessionKey) {
+				console.log(`支付拦截: 同一支付会话进行中，忽略新的支付跳转 ${lockedSessionKey}`)
+				return
+			}
+			console.log(`支付拦截: 检测到新支付会话，替换旧会话 ${lockedUrl.length > 0 ? lockedUrl : lockedSessionKey} -> ${targetUrl}`)
+			clearPaymentSessionLock()
+		}
+		lockPaymentSession(targetUrl)
+		console.log(`支付拦截: 准备打开收银台 ${targetUrl}`)
+		uni.navigateTo({
+			url: `/pages/payment/index?url=${encodeURIComponent(targetUrl)}`,
+			success: () => {
+				console.log('支付拦截: 已跳转到收银台页')
+			},
+			fail: (error) => {
+				clearPaymentSessionLock()
+				console.error('支付拦截: 跳转收银台失败', JSON.stringify(error))
+			}
+		})
+	}
+
+	function getUrlHost(url: string): string {
+		const lowerUrl = url.trim().toLowerCase()
+		const protocolIndex = lowerUrl.indexOf('://')
+		if (protocolIndex < 0) {
+			return ''
+		}
+		const hostStart = protocolIndex + 3
+		const slashIndex = lowerUrl.indexOf('/', hostStart)
+		if (slashIndex < 0) {
+			return lowerUrl.slice(hostStart)
+		}
+		return lowerUrl.slice(hostStart, slashIndex)
+	}
+
+	function isPaymentHostUrl(url: string): boolean {
+		const host = getUrlHost(url)
+		return host == 'zpayz.cn'
+			|| host == 'www.zpayz.cn'
+			|| host == 'wx.tenpay.com'
+			|| host == 'payapp.weixin.qq.com'
+			|| host == 'mall.z-pay.cn'
+	}
+
+	function shouldShowPageError(source: string, fullUrl: string): boolean {
+		const failedUrl = fullUrl.length > 0 ? fullUrl : source
+		const failedHost = getUrlHost(failedUrl)
+		const pageHost = getSiteHost().toLowerCase()
+		if (failedHost.length == 0 || pageHost.length == 0) {
+			return true
+		}
+		return failedHost == pageHost
+	}
+
+	function handlePayload(payload: BridgePayload) {
+		if (payload.action == 'syncTitle') {
+			currentSyncedWebUrl.value = payload.url
+			currentPageTitle.value = formatTopBarTitle(payload.title)
+			updateCanGoBackState()
+			return
+		}
+
+		if (payload.action == 'syncWebState') {
+			saveSharedSiteState(payload)
+			return
+		}
+
+		if (payload.action == 'copyText') {
+			copyPlainText(payload.text)
+			return
+		}
+
+		if (payload.action == 'openTaobao') {
+			openTaobaoProductUrl(payload.url)
+			return
+		}
+
+		if (payload.action == 'openPaymentUrl') {
+			console.log(`支付拦截: 宿主收到支付链接 ${payload.url}`)
+			openPaymentPage(payload.url)
+			return
+		}
+
+		if (payload.dataUrl.length > 0) {
+			saveBase64Image(payload.dataUrl, payload.fileName)
+			return
+		}
+
+		if (payload.url.length > 0) {
+			if (payload.url.indexOf('data:image/') == 0) {
+				saveBase64Image(payload.url, payload.fileName)
+				return
+			}
+
+			saveRemoteImage(payload.url)
+			return
+		}
+
+		uni.showToast({
+			title: '未获取到图片地址',
+			icon: 'none'
+		})
+	}
+
+	function reloadWebview() {
+		state.isPageError = false
+		state.isPageLoading = true
+		state.splashImageUrl = getInitialSplashImageUrl(currentLoadingStyle.value)
+		currentPageTitle.value = ''
+		resetLoadingTextAnimation()
+		startLoadingTextAnimation()
+		const webviewElement = uni.getElementById(props.webviewId) as UniWebViewElement | null
+		if (webviewElement != null) {
+			webviewElement.reload()
+			return
+		}
+		uni.stopPullDownRefresh()
+	}
+
+	function retryLoadWebview() {
+		reloadWebview()
+	}
+
+	function installDownloadBridge() {
+		const webviewElement = uni.getElementById(props.webviewId) as UniWebViewElement | null
+		if (webviewElement == null) {
+			return
+		}
+
+		const sharedStatePayload = getSharedStatePayload()
+		webviewElement.evalJS(`
+			(function () {
+				var sharedStateRaw = '${sharedStatePayload}';
+
+				function postToHost(payload) {
+					try {
+						if (window.__uniapp_x_postMessage) {
+							window.__uniapp_x_postMessage({ data: payload });
+							return true;
+						}
+						if (window.__uniapp_x_ && window.__uniapp_x_.postMessage) {
+							window.__uniapp_x_.postMessage(JSON.stringify({ data: payload }));
+							return true;
+						}
+						if (window.__dcloud_weex_postMessage) {
+							window.__dcloud_weex_postMessage({ data: [payload] });
+							return true;
+						}
+						if (window.__dcloud_weex_ && window.__dcloud_weex_.postMessage) {
+							window.__dcloud_weex_.postMessage(JSON.stringify({ data: [payload] }));
+							return true;
+						}
+					} catch (error) {
+						console.error('postToHost failed', error);
+					}
+					return false;
+				}
+
+				function collectSharedState() {
+					var storageData = {};
+					for (var i = 0; i < window.localStorage.length; i++) {
+						var key = window.localStorage.key(i);
+						if (key) {
+							storageData[key] = window.localStorage.getItem(key) || '';
+						}
+					}
+					return {
+						action: 'syncWebState',
+						host: window.location.host || '',
+						cookie: document.cookie || '',
+						localStorageJson: JSON.stringify(storageData)
+					};
+				}
+
+				function notifySharedState() {
+					postToHost(collectSharedState());
+				}
+
+				function notifyTitle() {
+					postToHost({
+						action: 'syncTitle',
+						title: document.title || '',
+						url: window.location.href || ''
+					});
+				}
+
+				function tryOpenPaymentUrl(url, source) {
+					if (!url || typeof url !== 'string') {
+						return false;
+					}
+					try {
+						var absoluteUrl = new URL(url, window.location.href);
+						var host = absoluteUrl.host ? absoluteUrl.host.toLowerCase() : '';
+						if (host === 'zpayz.cn' || host === 'www.zpayz.cn' || host === 'wx.tenpay.com' || host === 'payapp.weixin.qq.com' || host === 'mall.z-pay.cn') {
+							console.log('[flashmeow-payment] intercept ' + (source || 'unknown') + ' -> ' + absoluteUrl.toString());
+							postToHost({
+								action: 'openPaymentUrl',
+								url: absoluteUrl.toString()
+							});
+							return true;
+						}
+					} catch (error) {
+						console.error('[flashmeow-payment] tryOpenPaymentUrl failed', source || 'unknown', url, error);
+					}
+					return false;
+				}
+
+				function tryOpenTaobaoUrl(url) {
+					if (!url || typeof url !== 'string') {
+						return false;
+					}
+					var targetUrl = url.trim();
+					if (!targetUrl) {
+						return false;
+					}
+					postToHost({
+						action: 'openTaobao',
+						url: targetUrl
+					});
+					return true;
+				}
+
+				function patchLightViewerPage() {
+					if (window.__flashmeowLightViewerPatched) {
+						return;
+					}
+					if (window.location.pathname.indexOf('/tools/light/') < 0) {
+						return;
+					}
+					var viewer = document.getElementById('viewer');
+					if (!viewer) {
+						return;
+					}
+					window.__flashmeowLightViewerPatched = true;
+					window.__flashmeowLightViewerOpenedAt = 0;
+					function markViewerOpened() {
+						window.__flashmeowLightViewerOpenedAt = Date.now();
+					}
+					function shouldIgnoreImmediateClose() {
+						var openedAt = window.__flashmeowLightViewerOpenedAt || 0;
+						return openedAt > 0 && Date.now() - openedAt < 420;
+					}
+					var observer = new MutationObserver(function () {
+						if (viewer.style.display && viewer.style.display !== 'none') {
+							markViewerOpened();
+						}
+					});
+					observer.observe(viewer, { attributes: true, attributeFilter: ['style'] });
+					var originalLightOpen = typeof window.open === 'function' ? window.open : null;
+					if (originalLightOpen) {
+						window.open = function () {
+							var result = originalLightOpen.apply(window, arguments);
+							if (viewer.style.display && viewer.style.display !== 'none') {
+								markViewerOpened();
+							}
+							return result;
+						};
+					}
+					var originalCloseViewer = typeof window.closeViewer === 'function' ? window.closeViewer : null;
+					if (originalCloseViewer) {
+						window.closeViewer = function () {
+							if (shouldIgnoreImmediateClose()) {
+								return;
+							}
+							return originalCloseViewer.apply(window, arguments);
+						};
+					}
+					function swallowImmediateClose(event) {
+						if (shouldIgnoreImmediateClose()) {
+							event.preventDefault();
+							event.stopPropagation();
+							event.stopImmediatePropagation();
+						}
+					}
+					viewer.addEventListener('click', swallowImmediateClose, true);
+					viewer.addEventListener('touchend', swallowImmediateClose, true);
+				}
+
+				function applySharedState(sharedStateText, shouldReload) {
+					if (!sharedStateText) {
+						return;
+					}
+					var sharedState = null;
+					try {
+						sharedState = JSON.parse(sharedStateText);
+					} catch (error) {
+						return;
+					}
+					if (!sharedState) {
+						return;
+					}
+					var hasChanged = false;
+					var storageText = typeof sharedState.localStorageJson === 'string' ? sharedState.localStorageJson : '';
+					if (storageText) {
+						try {
+							var storageData = JSON.parse(storageText);
+							Object.keys(storageData).forEach(function (key) {
+								var value = String(storageData[key] || '');
+								if (window.localStorage.getItem(key) !== value) {
+									window.localStorage.setItem(key, value);
+									hasChanged = true;
+								}
+							});
+						} catch (error) {
+							console.error('apply localStorage failed', error);
+						}
+					}
+					if (typeof sharedState.cookie === 'string' && sharedState.cookie.length > 0) {
+						sharedState.cookie.split(';').forEach(function (item) {
+							var cookieText = item.trim();
+							if (cookieText.length > 0) {
+								document.cookie = cookieText;
+							}
+						});
+					}
+					if (hasChanged && shouldReload && !window.sessionStorage.getItem('__flashmeow_shared_state_reloaded')) {
+						window.sessionStorage.setItem('__flashmeow_shared_state_reloaded', '1');
+						window.location.reload();
+					}
+				}
+
+				function ensureBridgeBindings() {
+					if (!window.uni) {
+						window.uni = {};
+					}
+					window.uni.postMessage = function (options) {
+						var payload = options && options.data ? options.data : {};
+						return postToHost(payload);
+					};
+					if (!window.uni.webView) {
+						window.uni.webView = {};
+					}
+					window.uni.webView.postMessage = function (options) {
+						var payload = options && options.data ? options.data : {};
+						return postToHost(payload);
+					};
+					if (!window.uni.setClipboardData) {
+						window.uni.setClipboardData = function (options) {
+							var text = options && options.data ? String(options.data) : '';
+							postToHost({ action: 'copyText', text: text });
+							if (options && typeof options.success === 'function') {
+								options.success({});
+							}
+						};
+					}
+					if (!window.uni.getClipboardData) {
+						window.uni.getClipboardData = function (options) {
+							if (options && typeof options.fail === 'function') {
+								options.fail({ errMsg: 'clipboard read is not supported in embedded page' });
+							}
+						};
+					}
+					if (!navigator.clipboard) {
+						navigator.clipboard = {};
+					}
+					if (!window.AndroidInterface) {
+						window.AndroidInterface = {};
+					}
+					if (!window.AndroidInterface.openTaobao) {
+						window.AndroidInterface.openTaobao = function (url) {
+							return tryOpenTaobaoUrl(String(url || ''));
+						};
+					}
+					if (!window.webkit) {
+						window.webkit = {};
+					}
+					if (!window.webkit.messageHandlers) {
+						window.webkit.messageHandlers = {};
+					}
+					if (!window.webkit.messageHandlers.openTaobao) {
+						window.webkit.messageHandlers.openTaobao = {
+							postMessage: function (payload) {
+								var targetUrl = '';
+								if (payload && typeof payload.url === 'string') {
+									targetUrl = payload.url;
+								}
+								return tryOpenTaobaoUrl(targetUrl);
+							}
+						};
+					}
+					navigator.clipboard.writeText = function (text) {
+						postToHost({ action: 'copyText', text: text || '' });
+						return Promise.resolve();
+					};
+					var originalSetItem = window.localStorage.setItem.bind(window.localStorage);
+					window.localStorage.setItem = function (key, value) {
+						originalSetItem(key, value);
+						notifySharedState();
+					};
+					var originalRemoveItem = window.localStorage.removeItem.bind(window.localStorage);
+					window.localStorage.removeItem = function (key) {
+						originalRemoveItem(key);
+						notifySharedState();
+					};
+					var originalClear = window.localStorage.clear.bind(window.localStorage);
+					window.localStorage.clear = function () {
+						originalClear();
+						notifySharedState();
+					};
+					var originalFormSubmit = HTMLFormElement.prototype.submit;
+					HTMLFormElement.prototype.submit = function () {
+						var actionUrl = this.getAttribute('action') || this.action || window.location.href;
+						if (tryOpenPaymentUrl(actionUrl, 'form.submit')) {
+							return;
+						}
+						return originalFormSubmit.apply(this, arguments);
+					};
+					window.addEventListener('submit', function (event) {
+						var form = event.target;
+						if (!form || form.tagName !== 'FORM') {
+							return;
+						}
+						var actionUrl = form.getAttribute('action') || form.action || window.location.href;
+						if (tryOpenPaymentUrl(actionUrl, 'submit-event')) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+					}, true);
+				}
+
+				if (window.__flashmeowDownloadBridgeInstalled) {
+					if (window.__flashmeowEnsureBridgeBindings) {
+						window.__flashmeowEnsureBridgeBindings();
+					}
+					if (window.__flashmeowApplySharedState) {
+						window.__flashmeowApplySharedState(sharedStateRaw, false);
+					}
+					patchLightViewerPage();
+					notifyTitle();
+					return;
+				}
+
+				window.__flashmeowDownloadBridgeInstalled = true;
+				window.__flashmeowEnsureBridgeBindings = ensureBridgeBindings;
+				window.__flashmeowApplySharedState = applySharedState;
+				ensureBridgeBindings();
+				applySharedState(sharedStateRaw, true);
+				setTimeout(ensureBridgeBindings, 500);
+				setTimeout(ensureBridgeBindings, 1500);
+				setTimeout(function () { applySharedState(sharedStateRaw, false); }, 400);
+				setTimeout(patchLightViewerPage, 120);
+				setTimeout(notifyTitle, 120);
+				window.addEventListener('load', ensureBridgeBindings, true);
+				window.addEventListener('pageshow', ensureBridgeBindings, true);
+				window.addEventListener('load', function () { setTimeout(notifySharedState, 300); }, true);
+				window.addEventListener('pageshow', function () { setTimeout(notifySharedState, 300); }, true);
+				window.addEventListener('load', function () { setTimeout(notifyTitle, 120); }, true);
+				window.addEventListener('pageshow', function () { setTimeout(notifyTitle, 120); }, true);
+				window.addEventListener('popstate', function () { setTimeout(notifyTitle, 120); }, true);
+				window.addEventListener('hashchange', function () { setTimeout(notifyTitle, 120); }, true);
+
+				var titleElement = document.querySelector('title');
+				if (titleElement && window.MutationObserver) {
+					var titleObserver = new MutationObserver(function () {
+						notifyTitle();
+					});
+					titleObserver.observe(titleElement, { childList: true, subtree: true, characterData: true });
+				}
+
+				var originalExecCommand = document.execCommand ? document.execCommand.bind(document) : null;
+				document.execCommand = function (command) {
+					if (typeof command === 'string' && command.toLowerCase() === 'copy') {
+						var activeElement = document.activeElement;
+						var copiedText = '';
+						if (window.getSelection) {
+							copiedText = String(window.getSelection()) || '';
+						}
+						if (!copiedText && activeElement && typeof activeElement.value === 'string') {
+							copiedText = activeElement.value;
+						}
+						postToHost({ action: 'copyText', text: copiedText });
+						return true;
+					}
+					if (originalExecCommand) {
+						return originalExecCommand(command);
+					}
+					return false;
+				};
+
+				function notifyDownload(payload) {
+					postToHost(payload);
+				}
+
+				function sendDataUrl(dataUrl, fileName) {
+					notifyDownload({
+						action: 'downloadImage',
+						dataUrl: dataUrl || '',
+						fileName: fileName || ''
+					});
+				}
+
+				function sendUrl(url, fileName) {
+					notifyDownload({
+						action: 'downloadImage',
+						url: url || '',
+						fileName: fileName || ''
+					});
+				}
+
+				function blobToDataUrl(blob, fileName) {
+					var reader = new FileReader();
+					reader.onloadend = function () {
+						if (typeof reader.result === 'string' && reader.result.length > 0) {
+							sendDataUrl(reader.result, fileName);
+						}
+					};
+					reader.readAsDataURL(blob);
+				}
+
+				function interceptUrl(url, fileName) {
+					if (!url || typeof url !== 'string') {
+						return false;
+					}
+					var lowerUrl = url.toLowerCase();
+					if (lowerUrl.indexOf('data:image/') == 0) {
+						sendDataUrl(url, fileName);
+						return true;
+					}
+					if (lowerUrl.indexOf('blob:') == 0) {
+						fetch(url)
+							.then(function (response) {
+								return response.blob();
+							})
+							.then(function (blob) {
+								blobToDataUrl(blob, fileName);
+							})
+							.catch(function (error) {
+								console.error('blob download failed', error);
+							});
+						return true;
+					}
+					if ((lowerUrl.indexOf('http:') == 0 || lowerUrl.indexOf('https:') == 0) && fileName) {
+						sendUrl(url, fileName);
+						return true;
+					}
+					return false;
+				}
+
+				document.addEventListener('click', function (event) {
+					var target = event.target;
+					while (target && target.tagName !== 'A') {
+						target = target.parentElement;
+					}
+					if (!target) {
+						return;
+					}
+					var href = target.getAttribute('href') || target.href || '';
+					if (tryOpenPaymentUrl(href, 'anchor-click')) {
+						event.preventDefault();
+						event.stopPropagation();
+						return;
+					}
+					var fileName = target.getAttribute('download') || '';
+					if (interceptUrl(href, fileName)) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+				}, true);
+
+				var originalAnchorClick = HTMLAnchorElement.prototype.click;
+				HTMLAnchorElement.prototype.click = function () {
+					var href = this.getAttribute('href') || this.href || '';
+					if (tryOpenPaymentUrl(href, 'anchor.click')) {
+						return;
+					}
+					var fileName = this.getAttribute('download') || '';
+					if (interceptUrl(href, fileName)) {
+						return;
+					}
+					return originalAnchorClick.apply(this, arguments);
+				};
+
+				var originalOpen = window.open;
+				window.open = function (url) {
+					if (typeof url === 'string' && tryOpenPaymentUrl(url, 'window.open')) {
+						return null;
+					}
+					if (typeof url === 'string' && interceptUrl(url, '')) {
+						return null;
+					}
+					if (originalOpen) {
+						return originalOpen.apply(window, arguments);
+					}
+					return null;
+				};
+
+				var originalLocationAssign = window.location.assign.bind(window.location);
+				window.location.assign = function (url) {
+					if (tryOpenPaymentUrl(String(url || ''), 'location.assign')) {
+						return;
+					}
+					originalLocationAssign(url);
+				};
+
+				var originalLocationReplace = window.location.replace.bind(window.location);
+				window.location.replace = function (url) {
+					if (tryOpenPaymentUrl(String(url || ''), 'location.replace')) {
+						return;
+					}
+					originalLocationReplace(url);
+				};
+			})();
+		`)
+	}
+
+	onPageShow(() => {
+		uni.hideTabBar()?.catch(_ => {})
+		if (hasRefreshedRuntimeConfig == false) {
+			hasRefreshedRuntimeConfig = true
+			if (props.currentPath != 'pages/index/index') {
+				refreshRuntimeConfig()
+			}
+		} else {
+			refreshRuntimeConfig()
+		}
+		if (props.currentPath == 'pages/index/index' && shouldRefreshAfterPaymentReturn()) {
+			clearPaymentReturnRefreshFlag()
+			recoverCurrentTabWebview()
+		}
+		checkAppUpdate()
+		installDownloadBridge()
+		updateCanGoBackState()
+	})
+
+	onUnload(() => {
+		stopLoadingTextAnimation()
+	})
+
+	const onWebLoading = (_event: UniWebViewLoadingEvent) => {
+		const nextUrl = _event.detail.src
+		if (props.currentPath == 'pages/index/index') {
+			console.log(`首页诊断: onWebLoading src=${nextUrl}`)
+		}
+		if (isPaymentHostUrl(nextUrl)) {
+			console.log(`支付拦截: onWebLoading 命中支付域名 ${nextUrl}`)
+			const webviewElement = uni.getElementById(props.webviewId) as UniWebViewElement | null
+			if (webviewElement != null) {
+				webviewElement.stop()
+			}
+			openPaymentPage(nextUrl)
+			return
+		}
+		if (state.isPageError == true) {
+			console.log(`保持错误遮罩，忽略错误页加载事件 ${nextUrl}`)
+			return
+		}
+		const wasLoading = state.isPageLoading == true
+		state.isPageLoading = true
+		state.splashImageUrl = getInitialSplashImageUrl(currentLoadingStyle.value)
+		if (!canGoBack.value) {
+			currentPageTitle.value = ''
+		}
+		if (!wasLoading) {
+			resetLoadingTextAnimation()
+			startLoadingTextAnimation()
+		}
+	}
+
+	const onWebLoad = (_event: UniWebViewLoadEvent) => {
+		if (state.isPageError == true) {
+			console.log('保持错误遮罩，忽略错误页 load 事件')
+			return
+		}
+		if (props.currentPath == 'pages/index/index') {
+			console.log(`首页诊断: onWebLoad current=${currentWebviewUrl.value}`)
+		}
+		installDownloadBridge()
+		updateCanGoBackState()
+		setTimeout(() => {
+			state.isPageError = false
+			state.isPageLoading = false
+			stopLoadingTextAnimation()
+			animatedLoadingText.value = getLoadingText()
+			uni.stopPullDownRefresh()
+		}, 120)
+	}
+
+	const onWebError = (event: UniWebViewErrorEvent) => {
+		state.isPageLoading = false
+		stopLoadingTextAnimation()
+		animatedLoadingText.value = getLoadingText()
+		uni.stopPullDownRefresh()
+		const source = event.detail.src
+		const fullUrl = event.detail.fullUrl
+		const isFaviconRequest = source.indexOf('favicon.ico') > -1 || fullUrl.indexOf('favicon.ico') > -1
+		if (event.detail.errCode == 100003 && isFaviconRequest) {
+			console.log('忽略 favicon 请求失败', JSON.stringify(event.detail))
+			return
+		}
+		if (!shouldShowPageError(source, fullUrl)) {
+			console.log('忽略第三方资源加载失败', JSON.stringify(event.detail))
+			return
+		}
+
+		state.isPageError = true
+		console.error('WebView加载失败', JSON.stringify(event.detail))
+	}
+
+	const onDownload = (event: UniWebViewDownloadEvent) => {
+		const url = event.detail.url
+		if (url.length == 0) {
+			uni.showToast({
+				title: '下载地址为空',
+				icon: 'none'
+			})
+			return
+		}
+		if (isApkDownloadUrl(url)) {
+			downloadApkFile(url)
+			return
+		}
+		saveRemoteImage(url)
+	}
+
+	const onMessage = (event: UniWebViewMessageEvent) => {
+		const messageList = event.detail.data
+		if (messageList.length == 0) {
+			return
+		}
+
+		const payload = parseMessagePayload(messageList[0])
+		handlePayload(payload)
+	}
+
+	defineExpose({
+		reloadWebview
+	})
+</script>
+
+<style>
+	.container {
+		flex: 1;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.status-bar {
+		height: var(--status-bar-height);
+		width: 100%;
+	}
+
+	.top-bar {
+		width: 100%;
+		height: 92rpx;
+		padding-left: 18rpx;
+		padding-right: 18rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: rgba(60, 60, 67, 0.12);
+	}
+
+	.top-bar-side {
+		width: 120rpx;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.top-bar-left {
+		padding-left: 16rpx;
+		align-items: flex-start;
+	}
+
+	.top-bar-right {
+		align-items: flex-end;
+	}
+
+	.top-bar-title-wrap {
+		flex: 1;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.top-bar-title {
+		font-size: 31rpx;
+		line-height: 40rpx;
+		font-weight: 600;
+		color: #111111;
+		text-align: center;
+	}
+
+	.top-bar-back-wrap {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.top-bar-back-arrow {
+		margin-right: 4rpx;
+		font-size: 42rpx;
+		line-height: 42rpx;
+		font-weight: 400;
+		color: #111111;
+	}
+
+	.top-bar-action-text {
+		font-size: 27rpx;
+		line-height: 38rpx;
+		font-weight: 600;
+		color: #111111;
+	}
+
+	.top-bar-refresh-wrap {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.top-bar-refresh-icon {
+		margin-right: 6rpx;
+		font-size: 28rpx;
+		line-height: 38rpx;
+		font-weight: 400;
+		color: #111111;
+	}
+
+	.webview {
+		flex: 1;
+		width: 100%;
+	}
+
+	.loading-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 20;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.loading-image {
+		margin-bottom: 28rpx;
+	}
+
+	.loading-text {
+		text-align: center;
+	}
+
+	.error-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 26;
+		padding-left: 48rpx;
+		padding-right: 48rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-card {
+		width: 620rpx;
+		border-radius: 36rpx;
+		padding-top: 52rpx;
+		padding-right: 44rpx;
+		padding-bottom: 44rpx;
+		padding-left: 44rpx;
+		border-width: 1px;
+		border-style: solid;
+		border-color: rgba(0, 0, 0, 0.06);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.error-mark {
+		width: 78rpx;
+		height: 78rpx;
+		border-radius: 39rpx;
+		margin-bottom: 30rpx;
+		background-color: #f0f0f2;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-mark-dot {
+		width: 18rpx;
+		height: 18rpx;
+		border-radius: 9rpx;
+		background-color: #8e8e93;
+	}
+
+	.error-title {
+		font-size: 36rpx;
+		line-height: 46rpx;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.error-description {
+		margin-top: 14rpx;
+		font-size: 27rpx;
+		line-height: 38rpx;
+		font-weight: 400;
+		text-align: center;
+	}
+
+	.error-retry-button {
+		margin-top: 38rpx;
+		min-width: 224rpx;
+		height: 76rpx;
+		padding-left: 34rpx;
+		padding-right: 34rpx;
+		border-radius: 38rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-retry-text {
+		font-size: 27rpx;
+		line-height: 36rpx;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.save-prompt-mask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 30;
+		padding-left: 0;
+		padding-right: 0;
+		background-color: rgba(0, 0, 0, 0.16);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.save-prompt-panel {
+		width: 50%;
+		min-width: 540rpx;
+		border-radius: 26rpx;
+		padding-top: 30rpx;
+		background-color: rgba(248, 248, 248, 0.96);
+		border-width: 1px;
+		border-style: solid;
+		border-color: rgba(255, 255, 255, 0.9);
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.save-prompt-title {
+		padding-left: 30rpx;
+		padding-right: 30rpx;
+		font-size: 31rpx;
+		line-height: 40rpx;
+		font-weight: 500;
+		color: #111111;
+		text-align: center;
+	}
+
+	.save-prompt-content {
+		margin-top: 8rpx;
+		padding-left: 30rpx;
+		padding-right: 30rpx;
+		font-size: 24rpx;
+		line-height: 34rpx;
+		font-weight: 400;
+		color: #6e6e73;
+		text-align: center;
+	}
+
+	.save-prompt-checkbox-row {
+		margin-top: 20rpx;
+		margin-left: 30rpx;
+		margin-right: 30rpx;
+		margin-bottom: 20rpx;
+		height: 48rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.save-prompt-switch {
+		width: 74rpx;
+		height: 42rpx;
+		border-radius: 21rpx;
+		background-color: #d1d1d6;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+	}
+
+	.save-prompt-switch-on {
+		background-color: #34c759;
+	}
+
+	.save-prompt-switch-thumb {
+		width: 36rpx;
+		height: 36rpx;
+		margin-left: 3rpx;
+		border-radius: 18rpx;
+		background-color: #ffffff;
+	}
+
+	.save-prompt-switch-thumb-on {
+		margin-left: 35rpx;
+	}
+
+	.save-prompt-checkbox-text {
+		font-size: 24rpx;
+		line-height: 34rpx;
+		font-weight: 400;
+		color: #3c3c43;
+	}
+
+	.save-prompt-divider {
+		width: 100%;
+		height: 1px;
+		background-color: rgba(60, 60, 67, 0.18);
+	}
+
+	.save-prompt-button-row {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.save-prompt-button {
+		flex: 1;
+		height: 88rpx;
+		background-color: transparent;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.save-prompt-button-text {
+		font-size: 31rpx;
+		line-height: 40rpx;
+		font-weight: 500;
+		color: #111111;
+	}
+
+	.update-prompt-secondary-text {
+		color: #6e6e73;
+	}
+
+	.update-prompt-divider {
+		margin-top: 28rpx;
+	}
+
+	.update-prompt-button-row {
+		height: 98rpx;
+	}
+
+	.update-prompt-panel {
+		padding-top: 45rpx;
+	}
+
+	.update-prompt-content {
+		margin-top: 20rpx;
+		padding-bottom: 45rpx;
+	}
+
+	.update-prompt-button-text {
+		font-size: 27rpx;
+		line-height: 36rpx;
+		font-weight: 400;
+	}
+
+	.update-prompt-primary-text {
+		color: #d32f2f;
+	}
+
+	.saved-poster-toast-wrap {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 15%;
+		z-index: 32;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		pointer-events: none;
+	}
+
+	.saved-poster-toast {
+		width: 560rpx;
+		padding: 18rpx 26rpx;
+		border-radius: 18rpx;
+		background-color: rgba(17, 17, 17, 0.88);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.saved-poster-toast-text {
+		font-size: 24rpx;
+		line-height: 34rpx;
+		color: #ffffff;
+		text-align: center;
+	}
+
+	.tab-bar {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		border-top-width: 1px;
+		border-top-style: solid;
+	}
+
+	.tab-item {
+		flex: 1;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tab-icon {
+		margin-bottom: 6rpx;
+	}
+
+	.tab-text {
+		line-height: 30rpx;
+	}
+
+	.safe-bottom {
+		height: env(safe-area-inset-bottom);
+		width: 100%;
+	}
+</style>
