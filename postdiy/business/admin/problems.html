@@ -317,8 +317,8 @@
         <div class="form-group" style="flex:1;">
           <label>颜色</label>
           <div style="display:flex;align-items:center;gap:8px;">
-            <input type="color" id="pColor" value="#FF6D00" style="width:44px;height:44px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;padding:2px;">
-            <span class="color-preview" id="pColorPreview" style="background:#FF6D00;"></span>
+            <input type="color" id="pColor" value="#0071E3" style="width:44px;height:44px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;padding:2px;">
+            <span class="color-preview" id="pColorPreview" style="background:#0071E3;"></span>
           </div>
         </div>
       </div>
@@ -632,8 +632,8 @@ function openProblemModal(editId) {
   document.getElementById('pName').value = '';
   document.getElementById('pCode').value = '';
   document.getElementById('pIcon').value = '';
-  document.getElementById('pColor').value = '#FF6D00';
-  document.getElementById('pColorPreview').style.background = '#FF6D00';
+  document.getElementById('pColor').value = '#0071E3';
+  document.getElementById('pColorPreview').style.background = '#0071E3';
   document.getElementById('pDesc').value = '';
   document.getElementById('pSort').value = '1';
   document.getElementById('pStatus').value = 'active';
@@ -647,8 +647,8 @@ function openProblemModal(editId) {
       document.getElementById('pName').value = p.name;
       document.getElementById('pCode').value = p.code;
       document.getElementById('pIcon').value = p.icon;
-      document.getElementById('pColor').value = p.color || '#FF6D00';
-      document.getElementById('pColorPreview').style.background = p.color || '#FF6D00';
+      document.getElementById('pColor').value = p.color || '#0071E3';
+      document.getElementById('pColorPreview').style.background = p.color || '#0071E3';
       document.getElementById('pDesc').value = p.description || '';
       document.getElementById('pSort').value = p.sortOrder || 1;
       document.getElementById('pStatus').value = p.status || 'active';

@@ -1,4 +1,4 @@
-/* ===== 按钮组件 - Apple 极简风格 ===== */
+﻿/* ===== 按钮组件 - Apple 极简风格 ===== */
 .biz-btn {
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
   background-image: linear-gradient(var(--biz-glass-bg), var(--biz-glass-bg)), var(--biz-gradient-primary);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 0 20px rgba(0,113,227, 0.2);
 }
 
 .biz-select-card .biz-select-icon {
@@ -220,14 +220,14 @@
   background: var(--biz-gradient-primary);
   color: var(--biz-text-inverse);
   border-color: transparent;
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 12px rgba(0,113,227, 0.4);
 }
 
 .biz-step.current .biz-step-dot {
   background: var(--biz-gradient-primary);
   color: var(--biz-text-inverse);
   border-color: transparent;
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4), 0 0 0 4px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 0 12px rgba(0,113,227, 0.4), 0 0 0 4px rgba(0,113,227, 0.15);
 }
 
 .biz-step-line {
@@ -241,7 +241,7 @@
 
 .biz-step.completed + .biz-step-line {
   background: var(--biz-gradient-primary);
-  box-shadow: 0 0 6px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 6px rgba(0,113,227, 0.3);
 }
 
 /* ===== 标签 - 胶囊渐变 ===== */
@@ -266,9 +266,9 @@
 }
 
 .biz-tag-accent {
-  background: var(--biz-gradient-pink);
-  border: none;
-  color: var(--biz-text-inverse);
+  background: #FFF;
+  border: 1px solid #E5E7EB;
+  color: #0071E3;
 }
 
 /* ===== 加载状态 ===== */

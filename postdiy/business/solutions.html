@@ -7,362 +7,8 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/page-solutions.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <style>
-    /* Lucide 图标通用样式 */
-    .biz-icon {
-      display: inline-block;
-      vertical-align: middle;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* 页面头部 - 标题/返回/搜索一行 */
-    .biz-page-header {
-      background: #fff;
-      padding: 12px 16px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .biz-page-header .header-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0;
-    }
-    .biz-page-header h1 {
-      display: none;
-    }
-    /* 返回按钮 - 极简 */
-    .biz-back-btn {
-      display: none;
-      font-size: var(--biz-font-small);
-      color: var(--biz-text-secondary);
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: var(--biz-radius-sm);
-      -webkit-user-select: none;
-      user-select: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: color 0.2s;
-      text-decoration: none;
-      background: none;
-      border: none;
-    }
-    .biz-back-btn:hover {
-      color: var(--biz-text-primary);
-    }
-    .biz-back-btn:active {
-      opacity: 0.6;
-    }
-    .biz-back-btn.visible {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    /* 搜索框 - 与标题同行 */
-    .biz-search-box {
-      display: flex;
-      align-items: center;
-      background: #f5f5f7;
-      border: none;
-      border-radius: var(--biz-radius-pill);
-      padding: 0 12px;
-      height: 32px;
-      gap: 6px;
-      flex: 1;
-      min-width: 0;
-      margin-left: auto;
-    }
-    .biz-search-box .search-icon {
-      font-size: 14px;
-      color: var(--biz-text-tertiary);
-      flex-shrink: 0;
-    }
-    .biz-search-box input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: var(--biz-font-small);
-      color: var(--biz-text-primary);
-      min-width: 0;
-    }
-    .biz-search-box input::placeholder {
-      color: var(--biz-text-tertiary);
-    }
-
-    /* ===== 篇章时间轴 ===== */
-    .biz-chapter-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 0 0 0 24px;
-      position: relative;
-    }
-    /* 左侧竖线 */
-    .biz-chapter-grid::before {
-      content: '';
-      position: absolute;
-      left: 9px;
-      top: 20px;
-      bottom: 20px;
-      width: 2px;
-      background: #e5e5e5;
-      border-radius: 1px;
-    }
-    .biz-chapter-card {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--biz-radius-md);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      -webkit-user-select: none;
-      user-select: none;
-      margin-bottom: 12px;
-    }
-    .biz-chapter-card:last-child {
-      margin-bottom: 0;
-    }
-    /* 时间轴圆点 */
-    .biz-chapter-card::before {
-      content: '';
-      position: absolute;
-      left: -19px;
-      top: 18px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #1d1d1f;
-      box-shadow: none;
-      z-index: 1;
-    }
-    .biz-chapter-card:active {
-      transform: scale(0.98);
-    }
-    .biz-chapter-card:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transform: translateY(-1px);
-    }
-    /* 隐藏旧的左侧色条 */
-    .biz-chapter-card .chapter-bar {
-      display: none;
-    }
-    .biz-chapter-card .chapter-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .biz-chapter-card .chapter-icon {
-      font-size: 22px;
-      line-height: 1;
-    }
-    .biz-chapter-card .chapter-name {
-      font-size: var(--biz-font-body);
-      font-weight: 700;
-      color: var(--biz-text-primary);
-    }
-    .biz-chapter-card .chapter-desc {
-      font-size: var(--biz-font-tiny);
-      color: var(--biz-text-secondary);
-      line-height: 1.4;
-      margin-bottom: 8px;
-    }
-    .biz-chapter-card .chapter-count {
-      font-size: var(--biz-font-tiny);
-      color: var(--biz-text-tertiary);
-    }
-    .biz-chapter-card .chapter-count em {
-      font-style: normal;
-      font-weight: 700;
-      font-size: var(--biz-font-small);
-    }
-    /* 篇章卡片二级分类 - 按钮样式三列排列 */
-    .chapter-subs {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-    .chapter-sub-tag {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 8px;
-      border-radius: var(--biz-radius-md);
-      font-size: 12px;
-      font-weight: 600;
-      background: #f5f5f7;
-      border: none;
-      color: var(--biz-text-secondary);
-      transition: all 0.2s;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-
-    /* ===== 篇章详情头部 ===== */
-    .biz-chapter-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-      padding: 12px 14px;
-      border-radius: var(--biz-radius-md);
-      background: #f5f5f7;
-    }
-    .biz-chapter-header .ch-icon {
-      font-size: 32px;
-    }
-    .biz-chapter-header .ch-info .ch-name {
-      font-size: var(--biz-font-h2);
-      font-weight: 700;
-      color: var(--biz-text-primary);
-    }
-    .biz-chapter-header .ch-info .ch-desc {
-      font-size: var(--biz-font-small);
-      color: var(--biz-text-secondary);
-    }
-
-    /* ===== 二级分类标签 ===== */
-    .biz-sub-tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 0 12px;
-      margin-bottom: 12px;
-    }
-    .biz-sub-tabs::-webkit-scrollbar { display: none; }
-    .biz-sub-tab {
-      flex-shrink: 0;
-      padding: 6px 14px;
-      border-radius: var(--biz-radius-pill);
-      font-size: var(--biz-font-small);
-      font-weight: 500;
-      cursor: pointer;
-      background: #f5f5f7;
-      border: none;
-      color: var(--biz-text-secondary);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-user-select: none;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .biz-sub-tab:active {
-      transform: scale(0.95);
-    }
-    .biz-sub-tab.active {
-      color: #1d1d1f;
-      background: #e5e5e5;
-      border-color: transparent;
-      box-shadow: none;
-      font-weight: 600;
-    }
-
-    /* ===== 方案卡片列表 ===== */
-    .biz-solution-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .biz-solution-card {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--biz-radius-md);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .biz-solution-card:active {
-      transform: scale(0.98);
-    }
-    .biz-solution-card:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transform: translateY(-1px);
-    }
-    .biz-solution-card .card-title {
-      font-size: var(--biz-font-h3);
-      font-weight: 600;
-      color: var(--biz-text-primary);
-      margin-bottom: 6px;
-    }
-    .biz-solution-card .card-summary {
-      font-size: var(--biz-font-small);
-      color: var(--biz-text-secondary);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .biz-solution-card .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .biz-solution-card .card-meta .biz-tag {
-      font-size: 11px;
-    }
-
-    /* 视图切换动画 */
-    .view-hidden { display: none; }
-
-    /* ===== 案例卡片 ===== */
-    .biz-case-section {
-      margin-top: 16px;
-    }
-    .biz-case-title {
-      font-size: var(--biz-font-small);
-      font-weight: 600;
-      color: var(--biz-text-secondary);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .biz-case-card {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--biz-radius-md);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      padding: 12px 14px;
-      margin-bottom: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-    .biz-case-card:last-child {
-      margin-bottom: 0;
-    }
-    .biz-case-card:active {
-      transform: scale(0.98);
-    }
-    .biz-case-card:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transform: translateY(-1px);
-    }
-    .biz-case-card .case-name {
-      font-size: var(--biz-font-body);
-      font-weight: 600;
-      color: var(--biz-text-primary);
-      margin-bottom: 4px;
-    }
-    .biz-case-card .case-effect {
-      font-size: var(--biz-font-tiny);
-      color: var(--biz-primary);
-      font-weight: 500;
-    }
-  </style>
 </head>
 <body>
   <!-- 页面头部 -->
@@ -393,25 +39,18 @@
     <div id="caseSectionWrap"></div>
   </main>
 
-  <!-- 底部导航 -->
-  <nav class="biz-tab-bar">
-    <a href="index.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">首页</span>
-    </a>
-    <a href="solutions.html" class="biz-tab-item active">
-      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">方案库</span>
-    </a>
-    <a href="tools.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">工具</span>
-    </a>
-    <a href="profile.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">我的</span>
-    </a>
-  </nav>
+  <!-- 右下角浮动按钮 -->
+  <div class="sol-fab-group">
+    <div class="sol-fab sol-fab-profile" onclick="window.location.href='profile.html'" title="我的收藏">
+      <i data-lucide="bookmark" class="biz-icon" style="width:20px;height:20px;"></i>
+    </div>
+    <div class="sol-fab sol-fab-tools" onclick="window.location.href='tools.html'" title="工具">
+      <i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i>
+    </div>
+    <div class="sol-fab sol-fab-diagnosis" onclick="window.location.href='index.html'" title="经营诊断">
+      <i data-lucide="stethoscope" class="biz-icon" style="width:22px;height:22px;"></i>
+    </div>
+  </div>
 
   <script src="js/utils.js"></script>
   <script src="js/biz-data.js"></script>
@@ -584,43 +223,31 @@
             '<span class="biz-empty-text">暂无匹配方案</span>' +
           '</div>';
         } else {
+          var allCases = BizData.cases || [];
           container.innerHTML = filtered.map(function(s) {
             var diffClass = s.difficulty === '简单' ? 'biz-tag biz-tag-primary' : 'biz-tag biz-tag-accent';
+            var caseCount = allCases.filter(function(c) {
+              var matchChapter = c.chapter === s.chapter;
+              var matchSub = !s.sub || c.sub === s.sub;
+              return matchChapter && matchSub;
+            }).length;
+            var caseTag = caseCount > 0 ? '<span class="biz-tag">' + BizUtils.icon('book-open', 12) + ' ' + caseCount + '个案例</span>' : '';
             return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
               '<div class="card-title">' + s.title + '</div>' +
-              '<div class="card-summary">' + s.summary + '</div>' +
               '<div class="card-meta">' +
                 '<span class="' + diffClass + '">' + s.difficulty + '</span>' +
                 '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
                 '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + s.costRange + '</span>' +
+                caseTag +
               '</div>' +
             '</div>';
           }).join('');
         }
 
-        // 渲染关联案例
+        // 清空案例区域
         var caseWrap = document.getElementById('caseSectionWrap');
         if (caseWrap) {
-          var allCases = BizData.cases || [];
-          var matchCases = allCases.filter(function(c) {
-            var matchChapter = c.chapter === chapterId;
-            var matchSub = !self.currentSub || c.sub === self.currentSub;
-            return matchChapter && matchSub;
-          });
-          if (matchCases.length > 0) {
-            var caseHtml = '<div class="biz-case-section">' +
-              '<div class="biz-case-title">' + BizUtils.icon('book-open', 14) + ' 相关案例</div>';
-            for (var k = 0; k < matchCases.length; k++) {
-              caseHtml += '<div class="biz-case-card" onclick="window.location.href=\'case-detail.html?id=' + matchCases[k]._id + '\'">' +
-                '<div class="case-name">' + matchCases[k].title + '</div>' +
-                '<div class="case-effect">' + matchCases[k].effectData + '</div>' +
-              '</div>';
-            }
-            caseHtml += '</div>';
-            caseWrap.innerHTML = caseHtml;
-          } else {
-            caseWrap.innerHTML = '';
-          }
+          caseWrap.innerHTML = '';
         }
 
         this.showView('solution');
@@ -778,7 +405,6 @@
             var chInfo = self.getChapterInfo(s.chapter);
             return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
               '<div class="card-title">' + s.title + '</div>' +
-              '<div class="card-summary">' + s.summary + '</div>' +
               '<div class="card-meta">' +
                 '<span class="biz-tag" style="background:' + (chInfo ? self.hexToRgba(chInfo.color, 0.12) : 'var(--biz-primary-light)') + ';color:' + (chInfo ? chInfo.color : 'var(--biz-primary)') + '">' + (chInfo ? BizUtils.icon(chInfo.icon, 12) + ' ' + chInfo.name : '') + '</span>' +
                 '<span class="' + diffClass + '">' + s.difficulty + '</span>' +

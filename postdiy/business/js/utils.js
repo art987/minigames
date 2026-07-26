@@ -74,10 +74,10 @@ var BizUtils = {
 
   // 严重程度对应颜色
   getSeverityColor: function(severity) {
-    if (severity <= 33) return '#10B981';
-    if (severity <= 66) return '#F59E0B';
-    if (severity <= 85) return '#FF6D00';
-    return '#EF4444';
+    if (severity <= 33) return '#0071E3';
+    if (severity <= 66) return '#0071E3';
+    if (severity <= 85) return '#0071E3';
+    return '#0071E3';
   },
 
   // 严重程度对应文字

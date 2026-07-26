@@ -23,10 +23,10 @@
     },
     {
       "pagePath": "pages/knowledge/index",
-      "text": "知识点",
+      "text": "生意经",
       "showText": true,
-      "showInTabBar": false,
-      "webviewUrl": "https://peacelove.top/postdiy/knowledge/",
+      "showInTabBar": true,
+      "webviewUrl": "https://peacelove.top/postdiy/business/solutions.html",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/business-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
       "enableTopBar": true

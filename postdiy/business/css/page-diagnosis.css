@@ -1,0 +1,583 @@
+    /* ===== 图标通用 ===== */
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===== 选择卡片覆盖 ===== */
+    .biz-select-card {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .biz-select-card.active {
+      border-color: var(--biz-primary);
+      background: #fff;
+      background-image: none;
+      box-shadow: 0 2px 8px rgba(0,113,227, 0.1);
+    }
+    .biz-select-card .biz-select-icon {
+      color: var(--biz-primary);
+    }
+
+    /* ===== 步骤点覆盖 ===== */
+    .biz-step-dot {
+      background: #fff;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .biz-step.completed .biz-step-dot {
+      background: var(--biz-primary);
+      border-color: var(--biz-primary);
+      box-shadow: none;
+    }
+    .biz-step.current .biz-step-dot {
+      background: var(--biz-primary);
+      border-color: var(--biz-primary);
+      box-shadow: none;
+    }
+    .biz-step-line {
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .biz-step.completed + .biz-step-line {
+      background: var(--biz-primary);
+      box-shadow: none;
+    }
+
+    /* ===== 底部导航覆盖 ===== */
+    .biz-tab-bar {
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    }
+    .biz-tab-item .biz-tab-icon {
+      font-size: 0;
+    }
+
+    /* ===== 页面头部 ===== */
+    .diagnosis-header {
+      display: flex;
+      align-items: center;
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .diagnosis-back {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: var(--biz-radius-sm);
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .diagnosis-back:active {
+      opacity: 0.6;
+    }
+    .diagnosis-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 步骤条增强 ===== */
+    .biz-steps {
+      background: #fff;
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+    }
+    .biz-step .biz-step-label {
+      display: none;
+    }
+    @media (min-width: 375px) {
+      .biz-step .biz-step-label {
+        display: inline;
+        font-size: var(--biz-font-tiny);
+        white-space: nowrap;
+      }
+    }
+
+    /* ===== 步骤内容容器 ===== */
+    .diagnosis-body {
+      max-width: var(--biz-content-max-width);
+      margin: 0 auto;
+      padding: var(--biz-gap-xl) var(--biz-page-padding);
+      padding-bottom: calc(var(--biz-tab-bar-height) + 80px);
+      min-height: calc(100vh - 180px);
+    }
+
+    /* ===== 步骤面板 ===== */
+    .step-panel {
+      display: none;
+      animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-panel.active {
+      display: block;
+    }
+    .step-panel.slide-left {
+      animation: slideInLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===== 步骤标题 ===== */
+    .step-heading {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .step-heading h2 {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-xs);
+    }
+    .step-heading p {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+    }
+
+    /* ===== 步骤1：问题确认卡 ===== */
+    .problem-confirm-card {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-lg);
+      padding: var(--biz-gap-xl);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      margin-bottom: var(--biz-gap-xl);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .problem-confirm-card::before {
+      display: none;
+    }
+    .problem-confirm-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .problem-confirm-icon {
+      line-height: 1;
+      color: var(--biz-primary);
+    }
+    .problem-confirm-info {
+      flex: 1;
+    }
+    .problem-confirm-name {
+      font-size: var(--biz-font-h2);
+      font-weight: 700;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 选择网格 ===== */
+    .select-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--biz-gap-md);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .select-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--biz-gap-md);
+      margin-bottom: var(--biz-gap-xl);
+    }
+
+    /* ===== 行业分组滚动 ===== */
+    .industry-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 4px;
+    }
+    .industry-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .industry-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0,113,227,0.2);
+      border-radius: 2px;
+    }
+    .diagnosis-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--biz-text-tertiary);
+      padding: 10px 0 6px;
+    }
+    .diagnosis-group-title:first-child {
+      padding-top: 0;
+    }
+    .diagnosis-industry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .biz-select-card.compact {
+      min-height: auto;
+      padding: 10px 6px;
+      gap: 2px;
+    }
+    .biz-select-card.compact .biz-select-icon {
+      line-height: 1;
+      color: var(--biz-primary);
+    }
+    .biz-select-card.compact .biz-select-label {
+      font-size: 12px;
+    }
+
+    /* ===== 症状选择卡片（可多选） ===== */
+    .symptom-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-md);
+      padding: var(--biz-gap-lg);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .symptom-item:active {
+      transform: scale(0.97);
+    }
+    .symptom-item:hover {
+      transform: translateY(-1px);
+    }
+    .symptom-item.active {
+      border-color: var(--biz-primary);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,113,227, 0.1);
+    }
+    .symptom-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 13px;
+      color: transparent;
+    }
+    .symptom-item.active .symptom-check {
+      background: var(--biz-gradient-primary);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 8px rgba(0,113,227, 0.3);
+    }
+    .symptom-name {
+      flex: 1;
+      font-size: var(--biz-font-body);
+      font-weight: 500;
+      color: var(--biz-text-primary);
+    }
+    .symptom-item.active .symptom-name {
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ===== 已选标签 ===== */
+    .selected-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-lg);
+    }
+    .selected-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      color: var(--biz-text-inverse);
+      box-shadow: 0 2px 8px rgba(0,113,227, 0.25);
+    }
+
+    /* ===== 底部操作栏 ===== */
+    .diagnosis-footer {
+      position: fixed;
+      bottom: var(--biz-tab-bar-height);
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      z-index: 50;
+      display: flex;
+      gap: var(--biz-gap-md);
+    }
+    .diagnosis-footer .biz-btn {
+      flex: 1;
+    }
+    .diagnosis-footer .biz-btn-ghost {
+      flex: 0 0 auto;
+      width: auto;
+      padding: 0 var(--biz-gap-xl);
+    }
+
+    /* ===== 过渡动画遮罩 ===== */
+    .diagnosis-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf4 50%, #f0e6ff 100%);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--biz-gap-xl);
+    }
+    .diagnosis-overlay.show {
+      display: flex;
+    }
+    .diagnosis-progress-ring {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+    .diagnosis-progress-ring svg {
+      width: 80px;
+      height: 80px;
+      transform: rotate(-90deg);
+    }
+    .diagnosis-progress-ring .ring-bg {
+      fill: none;
+      stroke: var(--biz-glass-border);
+      stroke-width: 6;
+    }
+    .diagnosis-progress-ring .ring-fill {
+      fill: none;
+      stroke: url(#gradientRing);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .diagnosis-check-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      color: #43e97b;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .diagnosis-check-icon.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .diagnosis-overlay-text {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .diagnosis-overlay-sub {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ===== 诊断上下文提示条 ===== */
+    .diagnosis-context-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(0,113,227, 0.04);
+      border: 0.5px solid rgba(0,113,227, 0.1);
+      border-radius: var(--biz-radius-sm);
+      margin-bottom: var(--biz-gap-lg);
+      font-size: 13px;
+      color: var(--biz-primary);
+      font-weight: 500;
+    }
+    .diagnosis-context-bar .ctx-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .diagnosis-context-link {
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+      text-decoration: underline;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.3s;
+    }
+    .diagnosis-context-link:active {
+      color: var(--biz-primary);
+    }
+
+/* ===== 店铺资料编辑弹窗 ===== */
+.shop-profile-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.shop-profile-overlay.show { display: flex; }
+.shop-profile-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 380px;
+  padding: 32px 24px 24px;
+  animation: profileCardIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes profileCardIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.shop-profile-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--biz-text-primary);
+  margin-bottom: 6px;
+}
+.shop-profile-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--biz-text-secondary);
+  margin-bottom: 24px;
+}
+.shop-profile-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  margin-bottom: 10px;
+}
+.shop-profile-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 15px;
+  color: var(--biz-text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 20px;
+  background: #F9FAFB;
+}
+.shop-profile-input:focus {
+  border-color: var(--biz-primary);
+  background: #fff;
+}
+.shop-profile-input::placeholder { color: #9CA3AF; }
+.shop-profile-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.shop-profile-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 8px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  background: #F9FAFB;
+}
+.shop-profile-option:active { transform: scale(0.96); }
+.shop-profile-option.selected {
+  border-color: var(--biz-primary);
+  background: var(--biz-primary-light);
+}
+.shop-profile-option .opt-icon {
+  line-height: 1;
+  color: var(--biz-text-secondary);
+}
+.shop-profile-option.selected .opt-icon { color: var(--biz-primary); }
+.shop-profile-option .opt-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+}
+.shop-profile-option.selected .opt-name { color: var(--biz-primary); }
+.shop-profile-btn {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--biz-gradient-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+.shop-profile-btn:active { transform: scale(0.97); }
+.shop-profile-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--biz-text-tertiary);
+  margin-top: 14px;
+}

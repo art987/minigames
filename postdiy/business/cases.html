@@ -8,119 +8,18 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <style>
-    .biz-icon {
-      display: inline-block;
-      vertical-align: middle;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    /* 页面头部 */
-    .biz-page-header {
-      background: var(--biz-bg-card);
-      padding: 16px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: var(--biz-shadow-sm);
-    }
-    .biz-page-header h1 {
-      font-size: var(--biz-font-h2);
-      font-weight: 700;
-      color: var(--biz-text-primary);
-      margin-bottom: 12px;
-    }
-
-    /* 行业筛选标签 */
-    .biz-filter-tags {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
-    }
-    .biz-filter-tags::-webkit-scrollbar { display: none; }
-    .biz-filter-tag {
-      flex-shrink: 0;
-      padding: 6px 14px;
-      border-radius: var(--biz-radius-pill);
-      font-size: var(--biz-font-small);
-      font-weight: 500;
-      color: var(--biz-text-secondary);
-      background: var(--biz-bg-section);
-      cursor: pointer;
-      transition: all 0.2s;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-    .biz-filter-tag:active {
-      transform: scale(0.95);
-    }
-    .biz-filter-tag.active {
-      background: var(--biz-primary);
-      color: var(--biz-text-inverse);
-    }
-
-    /* 案例卡片列表 */
-    .biz-case-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .biz-case-card {
-      background: var(--biz-bg-card);
-      border-radius: var(--biz-radius-md);
-      box-shadow: var(--biz-shadow-sm);
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .biz-case-card:active {
-      transform: scale(0.98);
-      background: #F9FAFB;
-    }
-    .biz-case-card .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .biz-case-card .card-title {
-      font-size: var(--biz-font-h3);
-      font-weight: 600;
-      color: var(--biz-text-primary);
-      flex: 1;
-    }
-    .biz-case-card .card-industry {
-      flex-shrink: 0;
-    }
-    .biz-case-card .card-effect {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .biz-case-card .card-effect .effect-icon {
-      font-size: 16px;
-    }
-    .biz-case-card .card-effect .effect-data {
-      font-size: var(--biz-font-body);
-      font-weight: 700;
-      color: var(--biz-success);
-    }
-    .biz-case-card .card-effect .effect-label {
-      font-size: var(--biz-font-small);
-      color: var(--biz-text-tertiary);
-    }
-  </style>
+  <link rel="stylesheet" href="css/page-cases.css">
 </head>
 <body>
   <!-- 页面头部：行业筛选 -->
   <header class="biz-page-header">
-    <h1>📖 案例库</h1>
+    <div class="cases-page-top">
+      <span class="cases-page-back" onclick="window.location.href='solutions.html'">
+        <i data-lucide="chevron-left" class="biz-icon" style="width:20px;height:20px;"></i>
+      </span>
+      <h1>案例库</h1>
+      <span style="width:20px;"></span>
+    </div>
     <div class="biz-filter-tags" id="filterTags">
       <!-- JS动态渲染 -->
     </div>
@@ -132,26 +31,6 @@
       <!-- JS动态渲染 -->
     </div>
   </main>
-
-  <!-- 底部导航 -->
-  <nav class="biz-tab-bar">
-    <a href="index.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">首页</span>
-    </a>
-    <a href="solutions.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">方案库</span>
-    </a>
-    <a href="tools.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">工具</span>
-    </a>
-    <a href="profile.html" class="biz-tab-item">
-      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
-      <span class="biz-tab-text">我的</span>
-    </a>
-  </nav>
 
   <script src="js/utils.js"></script>
   <script src="js/biz-data.js"></script>

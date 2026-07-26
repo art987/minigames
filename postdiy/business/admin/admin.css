@@ -223,8 +223,8 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-success {
-  background: #d1fae5;
-  color: #059669;
+  background: rgba(0,113,227,0.06);
+  color: #0071E3;
   border: 1px solid #a7f3d0;
 }
 
@@ -477,7 +477,7 @@ a:hover { text-decoration: underline; }
 }
 
 .stat-card .stat-icon.icon-blue { background: #eef2ff; }
-.stat-card .stat-icon.icon-green { background: #d1fae5; }
+.stat-card .stat-icon.icon-green { background: rgba(0,113,227,0.06); }
 .stat-card .stat-icon.icon-orange { background: #ffedd5; }
 .stat-card .stat-icon.icon-purple { background: #ede9fe; }
 
@@ -504,7 +504,7 @@ a:hover { text-decoration: underline; }
   margin-top: 4px;
 }
 
-.stat-trend.up { color: #059669; }
+.stat-trend.up { color: #0071E3; }
 .stat-trend.down { color: #dc2626; }
 
 /* --- 内容卡片（面板） --- */
@@ -584,8 +584,8 @@ a:hover { text-decoration: underline; }
 }
 
 .table-tag.tag-blue { background: #eef2ff; color: #4f46e5; }
-.table-tag.tag-green { background: #d1fae5; color: #059669; }
-.table-tag.tag-orange { background: #ffedd5; color: #d97706; }
+.table-tag.tag-green { background: rgba(0,113,227,0.06); color: #0071E3; }
+.table-tag.tag-orange { background: #ffedd5; color: #0071E3; }
 .table-tag.tag-red { background: #fee2e2; color: #dc2626; }
 .table-tag.tag-purple { background: #ede9fe; color: #7c3aed; }
 .table-tag.tag-gray { background: #f3f4f6; color: #6b7280; }
@@ -624,8 +624,8 @@ a:hover { text-decoration: underline; }
 }
 
 .action-btn.view {
-  background: #d1fae5;
-  color: #059669;
+  background: rgba(0,113,227,0.06);
+  color: #0071E3;
 }
 
 .action-btn.view:hover {
@@ -665,7 +665,7 @@ a:hover { text-decoration: underline; }
   flex-shrink: 0;
 }
 
-.list-rank.top1 { background: #fef3c7; color: #d97706; }
+.list-rank.top1 { background: rgba(0,113,227,0.06); color: #0071E3; }
 .list-rank.top2 { background: #e5e7eb; color: #6b7280; }
 .list-rank.top3 { background: #ffedd5; color: #c2410c; }
 
