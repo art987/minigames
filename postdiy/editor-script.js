@@ -9072,7 +9072,7 @@ const ThumbnailLoader = {
         </div>
         
         <div class="vip-packages-section">
-          <div class="vip-packages-title">购买通道：( 这不是消费，是强悍的创业升级 )</div>
+          <div class="vip-packages-title">购买通道：(一杯奶茶承包半年海报设计)</div>
           <div class="vip-packages-wrapper">
             <div class="vip-packages-container" id="vipUpgradePackageGrid">
               <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>

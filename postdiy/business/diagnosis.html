@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>闪喵经营诊断 - 经营诊断</title>
+  <meta name="description" content="4步完成你的门店经营诊断，找到问题根源。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* ===== 图标通用 ===== */
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===== 选择卡片覆盖 ===== */
+    .biz-select-card {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .biz-select-card.active {
+      border-color: var(--biz-primary);
+      background: #fff;
+      background-image: none;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    }
+    .biz-select-card .biz-select-icon {
+      color: var(--biz-primary);
+    }
+
+    /* ===== 步骤点覆盖 ===== */
+    .biz-step-dot {
+      background: #fff;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .biz-step.completed .biz-step-dot {
+      background: var(--biz-primary);
+      border-color: var(--biz-primary);
+      box-shadow: none;
+    }
+    .biz-step.current .biz-step-dot {
+      background: var(--biz-primary);
+      border-color: var(--biz-primary);
+      box-shadow: none;
+    }
+    .biz-step-line {
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .biz-step.completed + .biz-step-line {
+      background: var(--biz-primary);
+      box-shadow: none;
+    }
+
+    /* ===== 底部导航覆盖 ===== */
+    .biz-tab-bar {
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    }
+    .biz-tab-item .biz-tab-icon {
+      font-size: 0;
+    }
+
+    /* ===== 页面头部 ===== */
+    .diagnosis-header {
+      display: flex;
+      align-items: center;
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .diagnosis-back {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: var(--biz-radius-sm);
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .diagnosis-back:active {
+      opacity: 0.6;
+    }
+    .diagnosis-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 步骤条增强 ===== */
+    .biz-steps {
+      background: #fff;
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+    }
+    .biz-step .biz-step-label {
+      display: none;
+    }
+    @media (min-width: 375px) {
+      .biz-step .biz-step-label {
+        display: inline;
+        font-size: var(--biz-font-tiny);
+        white-space: nowrap;
+      }
+    }
+
+    /* ===== 步骤内容容器 ===== */
+    .diagnosis-body {
+      max-width: var(--biz-content-max-width);
+      margin: 0 auto;
+      padding: var(--biz-gap-xl) var(--biz-page-padding);
+      padding-bottom: calc(var(--biz-tab-bar-height) + 80px);
+      min-height: calc(100vh - 180px);
+    }
+
+    /* ===== 步骤面板 ===== */
+    .step-panel {
+      display: none;
+      animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-panel.active {
+      display: block;
+    }
+    .step-panel.slide-left {
+      animation: slideInLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===== 步骤标题 ===== */
+    .step-heading {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .step-heading h2 {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-xs);
+    }
+    .step-heading p {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+    }
+
+    /* ===== 步骤1：问题确认卡 ===== */
+    .problem-confirm-card {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-lg);
+      padding: var(--biz-gap-xl);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      margin-bottom: var(--biz-gap-xl);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .problem-confirm-card::before {
+      display: none;
+    }
+    .problem-confirm-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .problem-confirm-icon {
+      line-height: 1;
+      color: var(--biz-primary);
+    }
+    .problem-confirm-info {
+      flex: 1;
+    }
+    .problem-confirm-name {
+      font-size: var(--biz-font-h2);
+      font-weight: 700;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 选择网格 ===== */
+    .select-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--biz-gap-md);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .select-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--biz-gap-md);
+      margin-bottom: var(--biz-gap-xl);
+    }
+
+    /* ===== 行业分组滚动 ===== */
+    .industry-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 4px;
+    }
+    .industry-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .industry-scroll::-webkit-scrollbar-thumb {
+      background: rgba(102,126,234,0.2);
+      border-radius: 2px;
+    }
+    .diagnosis-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--biz-text-tertiary);
+      padding: 10px 0 6px;
+    }
+    .diagnosis-group-title:first-child {
+      padding-top: 0;
+    }
+    .diagnosis-industry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .biz-select-card.compact {
+      min-height: auto;
+      padding: 10px 6px;
+      gap: 2px;
+    }
+    .biz-select-card.compact .biz-select-icon {
+      line-height: 1;
+      color: var(--biz-primary);
+    }
+    .biz-select-card.compact .biz-select-label {
+      font-size: 12px;
+    }
+
+    /* ===== 症状选择卡片（可多选） ===== */
+    .symptom-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-md);
+      padding: var(--biz-gap-lg);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .symptom-item:active {
+      transform: scale(0.97);
+    }
+    .symptom-item:hover {
+      transform: translateY(-1px);
+    }
+    .symptom-item.active {
+      border-color: var(--biz-primary);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    }
+    .symptom-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 13px;
+      color: transparent;
+    }
+    .symptom-item.active .symptom-check {
+      background: var(--biz-gradient-primary);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+    }
+    .symptom-name {
+      flex: 1;
+      font-size: var(--biz-font-body);
+      font-weight: 500;
+      color: var(--biz-text-primary);
+    }
+    .symptom-item.active .symptom-name {
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ===== 已选标签 ===== */
+    .selected-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-lg);
+    }
+    .selected-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      color: var(--biz-text-inverse);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
+    }
+
+    /* ===== 底部操作栏 ===== */
+    .diagnosis-footer {
+      position: fixed;
+      bottom: var(--biz-tab-bar-height);
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+      padding: var(--biz-gap-md) var(--biz-page-padding);
+      z-index: 50;
+      display: flex;
+      gap: var(--biz-gap-md);
+    }
+    .diagnosis-footer .biz-btn {
+      flex: 1;
+    }
+    .diagnosis-footer .biz-btn-ghost {
+      flex: 0 0 auto;
+      width: auto;
+      padding: 0 var(--biz-gap-xl);
+    }
+
+    /* ===== 过渡动画遮罩 ===== */
+    .diagnosis-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf4 50%, #f0e6ff 100%);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--biz-gap-xl);
+    }
+    .diagnosis-overlay.show {
+      display: flex;
+    }
+    .diagnosis-progress-ring {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+    .diagnosis-progress-ring svg {
+      width: 80px;
+      height: 80px;
+      transform: rotate(-90deg);
+    }
+    .diagnosis-progress-ring .ring-bg {
+      fill: none;
+      stroke: var(--biz-glass-border);
+      stroke-width: 6;
+    }
+    .diagnosis-progress-ring .ring-fill {
+      fill: none;
+      stroke: url(#gradientRing);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .diagnosis-check-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      color: #43e97b;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .diagnosis-check-icon.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .diagnosis-overlay-text {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .diagnosis-overlay-sub {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ===== 诊断上下文提示条 ===== */
+    .diagnosis-context-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(102, 126, 234, 0.04);
+      border: 0.5px solid rgba(102, 126, 234, 0.1);
+      border-radius: var(--biz-radius-sm);
+      margin-bottom: var(--biz-gap-lg);
+      font-size: 13px;
+      color: var(--biz-primary);
+      font-weight: 500;
+    }
+    .diagnosis-context-bar .ctx-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .diagnosis-context-link {
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+      text-decoration: underline;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.3s;
+    }
+    .diagnosis-context-link:active {
+      color: var(--biz-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header class="diagnosis-header">
+    <span class="diagnosis-back" id="btnBack" onclick="DiagnosisPage.goBack()"></span>
+    <span class="diagnosis-title">经营诊断</span>
+  </header>
+
+  <!-- 步骤条 -->
+  <div class="biz-steps" id="stepsBar">
+    <!-- JS动态渲染 -->
+  </div>
+
+  <!-- 步骤内容 -->
+  <div class="diagnosis-body">
+    <!-- 步骤1：确认问题 -->
+    <div class="step-panel" id="step1"></div>
+
+    <!-- 步骤2：选择行业 -->
+    <div class="step-panel" id="step2"></div>
+
+    <!-- 步骤3：选择阶段 -->
+    <div class="step-panel" id="step3"></div>
+
+    <!-- 步骤4：选择症状 -->
+    <div class="step-panel" id="step4"></div>
+  </div>
+
+  <!-- 底部操作栏 -->
+  <div class="diagnosis-footer" id="footerBar">
+    <button class="biz-btn biz-btn-ghost" id="btnPrev" onclick="DiagnosisPage.goPrev()" style="display:none;">上一步</button>
+    <button class="biz-btn biz-btn-primary" id="btnNext" onclick="DiagnosisPage.goNext()">下一步</button>
+  </div>
+
+  <!-- 过渡动画遮罩 -->
+  <div class="diagnosis-overlay" id="diagnosisOverlay">
+    <div class="diagnosis-progress-ring">
+      <svg viewBox="0 0 80 80">
+        <defs>
+          <linearGradient id="gradientRing" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea" />
+            <stop offset="100%" style="stop-color:#764ba2" />
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="40" cy="40" r="36"></circle>
+        <circle class="ring-fill" id="progressRing" cx="40" cy="40" r="36"></circle>
+      </svg>
+      <span class="diagnosis-check-icon" id="checkIcon"></span>
+    </div>
+    <p class="diagnosis-overlay-text" id="overlayText">正在分析...</p>
+    <p class="diagnosis-overlay-sub" id="overlaySub">综合问题类型、行业特征和经营阶段<br>为你生成专属诊断报告</p>
+  </div>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="clipboard-list" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="package" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    /**
+     * 诊断流程页面逻辑
+     * 有店铺资料：2步流程（确认问题 → 选症状）
+     * 无店铺资料：4步流程（确认问题 → 选行业 → 选阶段 → 选症状）
+     */
+    var DiagnosisPage = {
+      currentStep: 1,
+      hasShopProfile: false,
+      shopProfile: null,
+      state: {
+        problemCode: '',
+        industry: '',
+        stage: '',
+        symptomIds: []
+      },
+      problems: [],
+      stepLabels: [],
+      stepPanels: [],
+
+      industryNames: { 'catering': '餐饮', 'retail': '零售', 'service': '服务业', '餐饮': '餐饮', '零售': '零售', '服务业': '服务业' },
+      stageNames: { 'new': '新店', 'growing': '成长期', 'mature': '老店', '新店': '新店', '成长期': '成长期', '老店': '老店' },
+
+      init: function() {
+        BizDataService.init();
+
+        try {
+          var profileStr = localStorage.getItem('biz_shop_profile');
+          if (profileStr) {
+            this.shopProfile = JSON.parse(profileStr);
+            this.hasShopProfile = !!(this.shopProfile && this.shopProfile.industry);
+          }
+        } catch (e) {
+          this.hasShopProfile = false;
+        }
+
+        if (this.hasShopProfile) {
+          this.stepLabels = ['确认问题', '选症状'];
+          this.stepPanels = ['step1', 'step4'];
+        } else {
+          this.stepLabels = ['确认问题', '选行业', '选阶段', '选症状'];
+          this.stepPanels = ['step1', 'step2', 'step3', 'step4'];
+        }
+
+        var problemCode = BizUtils.getParam('problem');
+
+        var savedState = BizUtils.loadDiagnosisState();
+        if (savedState && savedState.problemCode === problemCode) {
+          this.state = savedState;
+          this.currentStep = savedState.currentStep || 1;
+        } else {
+          this.state = {
+            problemCode: problemCode || '',
+            industry: '',
+            stage: '',
+            symptomIds: [],
+            currentStep: 1
+          };
+        }
+
+        if (!this.state.problemCode) {
+          window.location.href = 'index.html';
+          return;
+        }
+
+        if (this.hasShopProfile && !this.state.industry) {
+          this.state.industry = this.industryNames[this.shopProfile.industry] || this.shopProfile.industry;
+        }
+        if (this.hasShopProfile && !this.state.stage) {
+          this.state.stage = this.stageNames[this.shopProfile.stage] || this.shopProfile.stage;
+        }
+
+        this.problems = BizData.problems;
+        this.render();
+      },
+
+      getPanelId: function(logicalStep) {
+        return this.stepPanels[logicalStep - 1] || 'step1';
+      },
+
+      getLastStep: function() {
+        return this.stepLabels.length;
+      },
+
+      render: function() {
+        this.renderSteps();
+        this.renderStep1();
+        this.renderStep2();
+        this.renderStep3();
+        this.renderStep4();
+        this.showStep(this.currentStep);
+        this.updateFooter();
+        // 初始化静态图标
+        document.getElementById('btnBack').innerHTML = BizUtils.icon('chevron-left', 16) + ' 返回';
+        document.getElementById('checkIcon').innerHTML = BizUtils.icon('check-circle', 32);
+        BizUtils.replaceIcons();
+      },
+
+      renderSteps: function() {
+        var bar = document.getElementById('stepsBar');
+        var html = '';
+        for (var i = 0; i < this.stepLabels.length; i++) {
+          var stepNum = i + 1;
+          var cls = '';
+          if (stepNum < this.currentStep) cls = 'completed';
+          else if (stepNum === this.currentStep) cls = 'current';
+          html += '<div class="biz-step ' + cls + '">' +
+            '<span class="biz-step-dot">' + (stepNum < this.currentStep ? '✓' : stepNum) + '</span>' +
+            '<span class="biz-step-label">' + this.stepLabels[i] + '</span>' +
+          '</div>';
+          if (i < this.stepLabels.length - 1) {
+            var lineClass = stepNum < this.currentStep ? ' completed' : '';
+            html += '<div class="biz-step-line' + lineClass + '"></div>';
+          }
+        }
+        bar.innerHTML = html;
+        BizUtils.replaceIcons();
+      },
+
+      // 步骤1：确认问题（精简：只显示图标+名称）
+      renderStep1: function() {
+        var panel = document.getElementById('step1');
+        var problem = this.getProblem(this.state.problemCode);
+        if (!problem) {
+          panel.innerHTML = '<div class="biz-empty"><span class="biz-empty-icon">' + BizUtils.icon('help-circle', 40) + '</span><p class="biz-empty-text">未找到问题信息</p></div>';
+          BizUtils.replaceIcons();
+          return;
+        }
+        panel.innerHTML =
+          '<div class="step-heading">' +
+            '<h2>确认你的问题</h2>' +
+            '<p>确认后开始诊断</p>' +
+          '</div>' +
+          '<div class="problem-confirm-card" style="border-left-color:' + problem.color + '">' +
+            '<span class="problem-confirm-icon">' + BizUtils.icon(problem.icon, 28) + '</span>' +
+            '<div class="problem-confirm-info">' +
+              '<div class="problem-confirm-name">' + problem.name + '</div>' +
+            '</div>' +
+          '</div>';
+        BizUtils.replaceIcons();
+      },
+
+      // 步骤2：选择行业（分组显示）
+      renderStep2: function() {
+        var panel = document.getElementById('step2');
+        var industries = BizLocalData.industries;
+        var self = this;
+        // 按分组归类
+        var groups = {};
+        var groupOrder = [];
+        for (var i = 0; i < industries.length; i++) {
+          var ind = industries[i];
+          var g = ind.group || '推荐';
+          if (!groups[g]) {
+            groups[g] = [];
+            groupOrder.push(g);
+          }
+          groups[g].push(ind);
+        }
+        var html =
+          '<div class="step-heading">' +
+            '<h2>你是什么行业？</h2>' +
+            '<p>不同行业，不同解法</p>' +
+          '</div>' +
+          '<div class="industry-scroll">';
+        for (var j = 0; j < groupOrder.length; j++) {
+          var groupName = groupOrder[j];
+          var items = groups[groupName];
+          html += '<div class="diagnosis-group-title">' + groupName + '</div>';
+          html += '<div class="diagnosis-industry-grid">';
+          for (var k = 0; k < items.length; k++) {
+            var item = items[k];
+            var active = self.state.industry === item.code ? ' active' : '';
+            html += '<div class="biz-select-card compact' + active + '" data-code="' + item.code + '" onclick="DiagnosisPage.selectIndustry(\'' + item.code + '\')">' +
+              '<span class="biz-select-icon">' + BizUtils.icon(item.icon, 20) + '</span>' +
+              '<span class="biz-select-label">' + item.name + '</span>' +
+            '</div>';
+          }
+          html += '</div>';
+        }
+        html += '</div>';
+        panel.innerHTML = html;
+        BizUtils.replaceIcons();
+      },
+
+      // 步骤3：选择经营阶段（精简：去掉desc）
+      renderStep3: function() {
+        var panel = document.getElementById('step3');
+        var stages = BizLocalData.stages;
+        var self = this;
+        var stageIconMap = { '新店': 'sparkles', '成长期': 'trending-up', '老店': 'store' };
+        var html =
+          '<div class="step-heading">' +
+            '<h2>你的店开了多久？</h2>' +
+            '<p>不同阶段，不同挑战</p>' +
+          '</div>' +
+          '<div class="select-grid-3">';
+        for (var i = 0; i < stages.length; i++) {
+          var st = stages[i];
+          var active = self.state.stage === st.code ? ' active' : '';
+          var iconName = stageIconMap[st.code] || st.icon;
+          html += '<div class="biz-select-card' + active + '" data-code="' + st.code + '" onclick="DiagnosisPage.selectStage(\'' + st.code + '\')">' +
+            '<span class="biz-select-icon">' + BizUtils.icon(iconName, 28) + '</span>' +
+            '<span class="biz-select-label">' + st.name + '</span>' +
+          '</div>';
+        }
+        html += '</div>';
+        panel.innerHTML = html;
+        BizUtils.replaceIcons();
+      },
+
+      // 步骤4：选择具体症状
+      renderStep4: function() {
+        var panel = document.getElementById('step4');
+        var symptoms = this.getFilteredSymptoms();
+        var self = this;
+
+        var contextBar = '';
+        if (this.hasShopProfile) {
+          var industryLabel = this.industryNames[this.state.industry] || this.state.industry;
+          var stageLabel = this.stageNames[this.state.stage] || this.state.stage;
+          var problem = this.getProblem(this.state.problemCode);
+          var problemLabel = problem ? problem.name : '';
+          contextBar =
+            '<div class="diagnosis-context-bar">' +
+              '<span class="ctx-label">当前：' + industryLabel + ' · ' + stageLabel + ' · ' + problemLabel + '</span>' +
+              '<a class="diagnosis-context-link" href="profile.html">修改</a>' +
+            '</div>';
+        }
+
+        if (symptoms.length === 0) {
+          panel.innerHTML = contextBar +
+            '<div class="step-heading">' +
+              '<h2>选择具体症状</h2>' +
+              '<p>可多选</p>' +
+            '</div>' +
+            '<div class="biz-empty"><span class="biz-empty-icon">' + BizUtils.icon('clipboard-list', 40) + '</span><p class="biz-empty-text">暂无匹配的症状选项</p></div>';
+          BizUtils.replaceIcons();
+          return;
+        }
+
+        var html = contextBar +
+          '<div class="step-heading">' +
+            '<h2>选择具体症状</h2>' +
+            '<p>可多选，选得越准诊断越精准</p>' +
+          '</div>' +
+          '<div class="selected-tags" id="selectedTags">' + this.renderSelectedTags() + '</div>' +
+          '<div class="symptom-list">';
+
+        for (var i = 0; i < symptoms.length; i++) {
+          var s = symptoms[i];
+          var active = self.state.symptomIds.indexOf(s._id) !== -1 ? ' active' : '';
+          html += '<div class="symptom-item' + active + '" data-id="' + s._id + '" onclick="DiagnosisPage.toggleSymptom(\'' + s._id + '\')">' +
+            '<span class="symptom-check">✓</span>' +
+            '<span class="symptom-name">' + s.name + '</span>' +
+          '</div>';
+        }
+        html += '</div>';
+        panel.innerHTML = html;
+        BizUtils.replaceIcons();
+      },
+
+      renderSelectedTags: function() {
+        var html = '';
+        var allSymptoms = BizData.symptoms[this.state.problemCode] || [];
+        var selectedIds = this.state.symptomIds;
+        for (var i = 0; i < selectedIds.length; i++) {
+          var s = this.findSymptom(allSymptoms, selectedIds[i]);
+          if (s) {
+            html += '<span class="selected-tag">' + s.name + '</span>';
+          }
+        }
+        return html;
+      },
+
+      getFilteredSymptoms: function() {
+        var allSymptoms = BizData.symptoms[this.state.problemCode] || [];
+        var industry = this.state.industry;
+        var stage = this.state.stage;
+        var result = [];
+        for (var i = 0; i < allSymptoms.length; i++) {
+          var s = allSymptoms[i];
+          var industryMatch = s.industryFilter.indexOf('all') !== -1 || s.industryFilter.indexOf(industry) !== -1;
+          var stageMatch = s.stageFilter.indexOf('all') || s.stageFilter.indexOf(stage) !== -1;
+          if (industryMatch && stageMatch) {
+            result.push(s);
+          }
+        }
+        return result;
+      },
+
+      selectIndustry: function(code) {
+        this.state.industry = code;
+        this.saveState();
+        this.renderStep2();
+        this.updateFooter();
+      },
+
+      selectStage: function(code) {
+        this.state.stage = code;
+        this.saveState();
+        this.renderStep3();
+        this.updateFooter();
+      },
+
+      toggleSymptom: function(id) {
+        var idx = this.state.symptomIds.indexOf(id);
+        if (idx !== -1) {
+          this.state.symptomIds.splice(idx, 1);
+        } else {
+          this.state.symptomIds.push(id);
+        }
+        this.saveState();
+        this.renderStep4();
+        this.updateFooter();
+      },
+
+      showStep: function(logicalStep) {
+        var allPanels = ['step1', 'step2', 'step3', 'step4'];
+        for (var i = 0; i < allPanels.length; i++) {
+          var p = document.getElementById(allPanels[i]);
+          if (p) {
+            p.classList.remove('active', 'slide-left');
+            p.style.display = 'none';
+          }
+        }
+        var targetId = this.getPanelId(logicalStep);
+        var target = document.getElementById(targetId);
+        if (target) {
+          target.style.display = 'block';
+          target.classList.add('active');
+        }
+      },
+
+      updateFooter: function() {
+        var btnPrev = document.getElementById('btnPrev');
+        var btnNext = document.getElementById('btnNext');
+        var lastStep = this.getLastStep();
+
+        btnPrev.style.display = this.currentStep > 1 ? '' : 'none';
+
+        if (this.currentStep === lastStep) {
+          btnNext.textContent = '开始诊断';
+          btnNext.className = 'biz-btn biz-btn-accent';
+          if (this.state.symptomIds.length === 0) {
+            btnNext.disabled = true;
+            btnNext.style.opacity = '0.5';
+          } else {
+            btnNext.disabled = false;
+            btnNext.style.opacity = '1';
+          }
+        } else {
+          btnNext.textContent = '下一步';
+          btnNext.className = 'biz-btn biz-btn-primary';
+          btnNext.disabled = false;
+          btnNext.style.opacity = '1';
+        }
+
+        if (!this.hasShopProfile) {
+          if (this.currentStep === 2 && !this.state.industry) {
+            btnNext.disabled = true;
+            btnNext.style.opacity = '0.5';
+          } else if (this.currentStep === 3 && !this.state.stage) {
+            btnNext.disabled = true;
+            btnNext.style.opacity = '0.5';
+          }
+        }
+      },
+
+      goNext: function() {
+        var lastStep = this.getLastStep();
+
+        if (!this.hasShopProfile) {
+          if (this.currentStep === 2 && !this.state.industry) {
+            BizUtils.showToast('请选择你的行业');
+            return;
+          }
+          if (this.currentStep === 3 && !this.state.stage) {
+            BizUtils.showToast('请选择经营阶段');
+            return;
+          }
+        }
+        if (this.currentStep === lastStep && this.state.symptomIds.length === 0) {
+          BizUtils.showToast('请至少选择一个症状');
+          return;
+        }
+        if (this.currentStep === lastStep) {
+          this.startDiagnosis();
+          return;
+        }
+
+        this.currentStep++;
+        this.state.currentStep = this.currentStep;
+
+        var symptomPanelId = this.getPanelId(lastStep);
+        var currentPanelId = this.getPanelId(this.currentStep);
+        if (currentPanelId === symptomPanelId) {
+          var validSymptoms = this.getFilteredSymptoms();
+          var validIds = validSymptoms.map(function(s) { return s._id; });
+          this.state.symptomIds = this.state.symptomIds.filter(function(id) {
+            return validIds.indexOf(id) !== -1;
+          });
+          this.renderStep4();
+        }
+
+        this.saveState();
+        this.renderSteps();
+        this.showStep(this.currentStep);
+        this.updateFooter();
+      },
+
+      goPrev: function() {
+        if (this.currentStep <= 1) return;
+        this.currentStep--;
+        this.state.currentStep = this.currentStep;
+        this.saveState();
+        this.renderSteps();
+
+        var targetId = this.getPanelId(this.currentStep);
+        var target = document.getElementById(targetId);
+        if (target) {
+          target.style.display = 'block';
+          target.classList.add('active', 'slide-left');
+        }
+
+        this.updateFooter();
+      },
+
+      goBack: function() {
+        if (this.currentStep > 1) {
+          this.goPrev();
+        } else {
+          BizUtils.clearDiagnosisState();
+          window.location.href = 'index.html';
+        }
+      },
+
+      startDiagnosis: function() {
+        var self = this;
+
+        var matchedPath = this.matchDiagnosisPath(
+          this.state.problemCode,
+          this.state.industry,
+          this.state.stage,
+          this.state.symptomIds
+        );
+
+        var problem = this.getProblem(this.state.problemCode);
+        var problemName = problem ? problem.name : '';
+
+        var industryName = this.industryNames[this.state.industry] || this.state.industry;
+        var stageName = this.stageNames[this.state.stage] || this.state.stage;
+
+        var allSymptoms = BizData.symptoms[this.state.problemCode] || [];
+        var selectedSymptomNames = [];
+        for (var i = 0; i < this.state.symptomIds.length; i++) {
+          var s = this.findSymptom(allSymptoms, this.state.symptomIds[i]);
+          if (s) selectedSymptomNames.push(s.name);
+        }
+
+        var diagnosisResult = {
+          path: matchedPath,
+          problemName: problemName,
+          industry: industryName,
+          stage: stageName,
+          selectedSymptoms: selectedSymptomNames
+        };
+
+        try {
+          sessionStorage.setItem('biz_diagnosis_result', JSON.stringify(diagnosisResult));
+        } catch (e) {
+          console.warn('[Diagnosis] 保存诊断结果失败', e);
+        }
+
+        var overlay = document.getElementById('diagnosisOverlay');
+        var ring = document.getElementById('progressRing');
+        var checkIcon = document.getElementById('checkIcon');
+
+        overlay.classList.add('show');
+        checkIcon.classList.remove('show');
+
+        setTimeout(function() {
+          ring.style.strokeDashoffset = '0';
+        }, 50);
+
+        setTimeout(function() {
+          checkIcon.classList.add('show');
+          document.getElementById('overlayText').textContent = '诊断完成！';
+        }, 1200);
+
+        setTimeout(function() {
+          self.state.recordId = BizUtils.genId();
+          BizUtils.saveDiagnosisState(self.state);
+          window.location.href = 'result.html';
+        }, 1800);
+      },
+
+      matchDiagnosisPath: function(problemCode, industry, stage, symptomIds) {
+        var paths = BizData.diagnosisPaths || [];
+
+        var matched = [];
+        for (var i = 0; i < paths.length; i++) {
+          if (paths[i].problemCode === problemCode) {
+            matched.push(paths[i]);
+          }
+        }
+
+        if (matched.length === 0) return null;
+
+        var industryMatched = [];
+        for (var i = 0; i < matched.length; i++) {
+          if (matched[i].industry === industry || matched[i].industry === 'all') {
+            industryMatched.push(matched[i]);
+          }
+        }
+        if (industryMatched.length === 0) industryMatched = matched;
+
+        var stageMatched = [];
+        for (var i = 0; i < industryMatched.length; i++) {
+          if (industryMatched[i].stage === stage || industryMatched[i].stage === 'all') {
+            stageMatched.push(industryMatched[i]);
+          }
+        }
+        if (stageMatched.length === 0) stageMatched = industryMatched;
+
+        var scored = [];
+        for (var i = 0; i < stageMatched.length; i++) {
+          var path = stageMatched[i];
+          var score = path.priority || 0;
+
+          var pathSymptomIds = path.symptomIds || [];
+          var intersection = 0;
+          for (var j = 0; j < pathSymptomIds.length; j++) {
+            if (symptomIds.indexOf(pathSymptomIds[j]) !== -1) {
+              intersection++;
+            }
+          }
+          score += intersection * 100;
+
+          if (path.industry === industry) score += 50;
+          if (path.stage === stage) score += 30;
+
+          scored.push({ path: path, score: score });
+        }
+
+        scored.sort(function(a, b) { return b.score - a.score; });
+
+        if (scored.length > 0 && scored[0].score > 0) {
+          return scored[0].path;
+        }
+
+        for (var i = 0; i < matched.length; i++) {
+          if (matched[i].industry === 'all' && matched[i].stage === 'all') {
+            return matched[i];
+          }
+        }
+
+        return matched[0] || null;
+      },
+
+      saveState: function() {
+        this.state.currentStep = this.currentStep;
+        BizUtils.saveDiagnosisState(this.state);
+      },
+
+      getProblem: function(code) {
+        for (var i = 0; i < this.problems.length; i++) {
+          if (this.problems[i].code === code) return this.problems[i];
+        }
+        return null;
+      },
+
+      findSymptom: function(symptoms, id) {
+        for (var i = 0; i < symptoms.length; i++) {
+          if (symptoms[i]._id === id) return symptoms[i];
+        }
+        return null;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      DiagnosisPage.init();
+    });
+  </script>
+</body>
+</html>

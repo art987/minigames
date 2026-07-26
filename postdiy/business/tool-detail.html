@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>工具详情 - 闪喵经营诊断</title>
+  <meta name="description" content="查看经营工具的详细信息和使用说明。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* ===== 顶部导航栏 ===== */
+    .td-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--biz-bg-card);
+      border-bottom: 1px solid #E5E7EB;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .td-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .td-topbar-back {
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      color: var(--biz-text-primary);
+    }
+    .td-topbar-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+
+    /* ===== 工具概览卡 ===== */
+    .td-overview {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: var(--biz-radius-lg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .td-overview-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--biz-radius-md);
+      background: var(--biz-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: var(--biz-gap-md);
+    }
+    .td-overview-name {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-sm);
+      line-height: 1.3;
+    }
+    .td-overview-tags {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+
+    /* ===== 工具描述 ===== */
+    .td-description {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .td-desc-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: var(--biz-gap-lg);
+    }
+    .td-desc-text {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ===== 使用说明 ===== */
+    .td-usage {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .td-usage-card {
+      background: #EFF6FF;
+      border-radius: var(--biz-radius-md);
+      padding: var(--biz-gap-lg);
+      border-left: 4px solid var(--biz-primary);
+    }
+    .td-usage-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-primary-dark);
+      margin-bottom: var(--biz-gap-sm);
+    }
+    .td-usage-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .td-usage-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-sm);
+      padding: 8px 0;
+      font-size: var(--biz-font-small);
+      color: #1E40AF;
+      line-height: 1.6;
+    }
+    .td-usage-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--biz-primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ===== 下载按钮 ===== */
+    .td-action {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .td-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--biz-gap-sm);
+      width: 100%;
+      height: var(--biz-btn-height-lg);
+      border-radius: var(--biz-radius-md);
+      font-weight: 600;
+      font-size: var(--biz-font-h3);
+      background: linear-gradient(135deg, var(--biz-primary), var(--biz-primary-dark));
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .td-action-btn:active {
+      transform: scale(0.97);
+    }
+    .td-action-btn.disabled {
+      background: #D1D5DB;
+      cursor: default;
+    }
+    .td-coming-soon {
+      text-align: center;
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+      margin-top: var(--biz-gap-sm);
+    }
+
+    /* ===== 相关方案 ===== */
+    .td-solutions {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .td-solution-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      border-left: 4px solid var(--biz-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .td-solution-card:active {
+      transform: scale(0.98);
+    }
+    .td-solution-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 6px;
+    }
+    .td-solution-summary {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--biz-gap-sm);
+    }
+    .td-solution-meta {
+      display: flex;
+      gap: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+
+    /* ===== 底部间距 ===== */
+    .td-bottom-space {
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="td-topbar">
+    <div class="td-topbar-left">
+      <span class="td-topbar-back" onclick="history.back()"><i data-lucide="chevron-left" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="td-topbar-title">工具详情</span>
+    </div>
+  </header>
+
+  <main class="biz-page">
+    <!-- 1. 工具概览 -->
+    <section class="biz-section" id="overviewSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 2. 工具描述 -->
+    <section class="biz-section td-description" id="descSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 3. 使用说明 -->
+    <section class="biz-section td-usage" id="usageSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 4. 下载/使用按钮 -->
+    <section class="biz-section td-action" id="actionSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 5. 相关方案 -->
+    <section class="biz-section td-solutions" id="solutionsSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <div class="td-bottom-space"></div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    /**
+     * 工具详情页面对象
+     * 从URL参数获取toolId，从BizData.tools读取工具详情并渲染
+     */
+    var TDPage = {
+      // 当前工具数据
+      toolData: null,
+      // 工具ID
+      toolId: null,
+      // 分类 Lucide 图标名映射
+      categoryIconNames: {
+        '客流管理': 'bar-chart-3',
+        '门店运营': 'clipboard-list',
+        '营销推广': 'megaphone',
+        '客户管理': 'heart',
+        '经营分析': 'trending-up',
+        '成本管理': 'calculator',
+        '产品管理': 'tag',
+        '员工管理': 'hard-hat',
+        '营销': 'megaphone',
+        '管理': 'hard-hat',
+        '财务': 'calculator',
+        '客户': 'heart',
+        '运营': 'bar-chart-3'
+      },
+      // 分类对应颜色
+      categoryColors: {
+        '客流管理': '#007AFF',
+        '门店运营': '#5856D6',
+        '营销推广': '#FF9500',
+        '客户管理': '#FF2D55',
+        '经营分析': '#AF52DE',
+        '成本管理': '#34C759',
+        '产品管理': '#FF3B30',
+        '员工管理': '#5856D6',
+        '营销': '#FF9500',
+        '管理': '#5856D6',
+        '财务': '#34C759',
+        '客户': '#FF2D55',
+        '运营': '#007AFF'
+      },
+
+      // 初始化
+      init: function() {
+        BizDataService.init();
+        this.toolId = BizUtils.getParam('toolId');
+        this.loadTool();
+      },
+
+      // 根据ID查找工具
+      findTool: function(id) {
+        var tools = BizData.tools;
+        if (!tools) return null;
+        if (!Array.isArray(tools)) return tools[id] || null;
+        for (var i = 0; i < tools.length; i++) {
+          if (tools[i]._id === id) return tools[i];
+        }
+        return null;
+      },
+
+      // 加载工具数据
+      loadTool: function() {
+        if (!this.toolId) {
+          this.showEmpty('缺少工具ID参数');
+          return;
+        }
+        this.toolData = this.findTool(this.toolId);
+        if (!this.toolData) {
+          this.showEmpty('未找到该工具');
+          return;
+        }
+        this.renderAll();
+      },
+
+      // 显示空状态
+      showEmpty: function(msg) {
+        var main = document.querySelector('.biz-page');
+        main.innerHTML = '<div class="biz-empty">' +
+          '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+          '<span class="biz-empty-text">' + (msg || '暂无数据') + '</span>' +
+        '</div>';
+        BizUtils.replaceIcons();
+      },
+
+      // 渲染所有模块
+      renderAll: function() {
+        this.renderOverview();
+        this.renderDescription();
+        this.renderUsage();
+        this.renderAction();
+        this.renderSolutions();
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 1. 工具概览 =====
+      renderOverview: function() {
+        var t = this.toolData;
+        var iconName = this.categoryIconNames[t.category] || 'file-text';
+        var iconColor = this.categoryColors[t.category] || '#667eea';
+        var bgColor = iconColor + '14';
+
+        var section = document.getElementById('overviewSection');
+        section.innerHTML =
+          '<div class="td-overview">' +
+            '<div class="td-overview-icon" style="background:' + bgColor + ';color:' + iconColor + '">' + BizUtils.icon(iconName, 28) + '</div>' +
+            '<h1 class="td-overview-name">' + t.name + '</h1>' +
+            '<div class="td-overview-tags">' +
+              '<span class="biz-tag biz-tag-primary">' + (t.type || '模板') + '</span>' +
+              '<span class="biz-tag">' + (t.category || '通用') + '</span>' +
+            '</div>' +
+          '</div>';
+      },
+
+      // ===== 2. 工具描述 =====
+      renderDescription: function() {
+        var t = this.toolData;
+        var desc = t.description || '暂无描述';
+        var section = document.getElementById('descSection');
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('file-text', 16) + ' 工具介绍</p>' +
+          '<div class="td-desc-card">' +
+            '<p class="td-desc-text">' + desc + '</p>' +
+          '</div>';
+      },
+
+      // ===== 3. 使用说明 =====
+      renderUsage: function() {
+        // 通用模板使用指引
+        var steps = [
+          '点击下载按钮获取模板文件',
+          '用Excel或WPS打开模板文件',
+          '根据模板中的示例数据，替换为你自己的经营数据',
+          '按照模板中的公式和说明，填写每日/每周数据',
+          '定期查看自动生成的分析图表和趋势'
+        ];
+
+        var items = '';
+        for (var i = 0; i < steps.length; i++) {
+          items += '<li class="td-usage-item">' +
+            '<span class="td-usage-num">' + (i + 1) + '</span>' +
+            '<span>' + steps[i] + '</span>' +
+          '</li>';
+        }
+
+        var section = document.getElementById('usageSection');
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('clipboard-list', 16) + ' 使用说明</p>' +
+          '<div class="td-usage-card">' +
+            '<div class="td-usage-title">模板使用指引</div>' +
+            '<ul class="td-usage-list">' + items + '</ul>' +
+          '</div>';
+      },
+
+      // ===== 4. 下载/使用按钮 =====
+      renderAction: function() {
+        var section = document.getElementById('actionSection');
+        section.innerHTML =
+          '<button class="td-action-btn disabled" onclick="BizUtils.showToast(\'即将上线，敬请期待\')">' + BizUtils.icon('download', 16) + ' 下载模板</button>' +
+          '<p class="td-coming-soon">模板下载功能即将上线，敬请期待</p>';
+      },
+
+      // ===== 5. 相关方案 =====
+      renderSolutions: function() {
+        var t = this.toolData;
+        // 根据工具分类推荐方案
+        var solutions = this.findRelatedSolutions(t.category);
+
+        var section = document.getElementById('solutionsSection');
+        if (solutions.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        var diffColors = { '简单': '#10B981', '中等': '#F59E0B', '困难': '#EF4444', '较难': '#EF4444' };
+
+        section.innerHTML = '<p class="biz-section-title">' + BizUtils.icon('link', 16) + ' 相关方案推荐</p>';
+
+        var html = '';
+        for (var i = 0; i < solutions.length; i++) {
+          var s = solutions[i];
+          var diffColor = diffColors[s.difficulty] || '#6B7280';
+          html += '<div class="td-solution-card" onclick="window.location.href=\'solution-detail.html?solutionId=' + s._id + '\'">' +
+            '<h3 class="td-solution-title">' + s.title + '</h3>' +
+            '<p class="td-solution-summary">' + s.summary + '</p>' +
+            '<div class="td-solution-meta">' +
+              '<span class="biz-tag" style="background:' + diffColor + '1A;color:' + diffColor + '">' + BizUtils.icon('target', 12) + ' ' + s.difficulty + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + s.costRange + '</span>' +
+            '</div>' +
+          '</div>';
+        }
+
+        section.innerHTML += html;
+      },
+
+      // 根据工具分类推荐方案（取前3个）
+      findRelatedSolutions: function(category) {
+        var solutions = BizData.solutions;
+        if (!solutions) return [];
+        var arr = Array.isArray(solutions) ? solutions : Object.values(solutions);
+        // 简单返回前3个方案作为推荐
+        return arr.slice(0, 3);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      TDPage.init();
+      BizUtils.replaceIcons();
+    });
+  </script>
+</body>
+</html>

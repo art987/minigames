@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>方案库 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* Lucide 图标通用样式 */
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 页面头部 - 标题/返回/搜索一行 */
+    .biz-page-header {
+      background: #fff;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .biz-page-header .header-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+    .biz-page-header h1 {
+      display: none;
+    }
+    /* 返回按钮 - 极简 */
+    .biz-back-btn {
+      display: none;
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: var(--biz-radius-sm);
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.2s;
+      text-decoration: none;
+      background: none;
+      border: none;
+    }
+    .biz-back-btn:hover {
+      color: var(--biz-text-primary);
+    }
+    .biz-back-btn:active {
+      opacity: 0.6;
+    }
+    .biz-back-btn.visible {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* 搜索框 - 与标题同行 */
+    .biz-search-box {
+      display: flex;
+      align-items: center;
+      background: #f5f5f7;
+      border: none;
+      border-radius: var(--biz-radius-pill);
+      padding: 0 12px;
+      height: 32px;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+      margin-left: auto;
+    }
+    .biz-search-box .search-icon {
+      font-size: 14px;
+      color: var(--biz-text-tertiary);
+      flex-shrink: 0;
+    }
+    .biz-search-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-primary);
+      min-width: 0;
+    }
+    .biz-search-box input::placeholder {
+      color: var(--biz-text-tertiary);
+    }
+
+    /* ===== 篇章时间轴 ===== */
+    .biz-chapter-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 0 0 24px;
+      position: relative;
+    }
+    /* 左侧竖线 */
+    .biz-chapter-grid::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: #e5e5e5;
+      border-radius: 1px;
+    }
+    .biz-chapter-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+      margin-bottom: 12px;
+    }
+    .biz-chapter-card:last-child {
+      margin-bottom: 0;
+    }
+    /* 时间轴圆点 */
+    .biz-chapter-card::before {
+      content: '';
+      position: absolute;
+      left: -19px;
+      top: 18px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1d1d1f;
+      box-shadow: none;
+      z-index: 1;
+    }
+    .biz-chapter-card:active {
+      transform: scale(0.98);
+    }
+    .biz-chapter-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+    /* 隐藏旧的左侧色条 */
+    .biz-chapter-card .chapter-bar {
+      display: none;
+    }
+    .biz-chapter-card .chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .biz-chapter-card .chapter-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+    .biz-chapter-card .chapter-name {
+      font-size: var(--biz-font-body);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+    }
+    .biz-chapter-card .chapter-desc {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-secondary);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .biz-chapter-card .chapter-count {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+    }
+    .biz-chapter-card .chapter-count em {
+      font-style: normal;
+      font-weight: 700;
+      font-size: var(--biz-font-small);
+    }
+    /* 篇章卡片二级分类 - 按钮样式三列排列 */
+    .chapter-subs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .chapter-sub-tag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 8px;
+      border-radius: var(--biz-radius-md);
+      font-size: 12px;
+      font-weight: 600;
+      background: #f5f5f7;
+      border: none;
+      color: var(--biz-text-secondary);
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* ===== 篇章详情头部 ===== */
+    .biz-chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      border-radius: var(--biz-radius-md);
+      background: #f5f5f7;
+    }
+    .biz-chapter-header .ch-icon {
+      font-size: 32px;
+    }
+    .biz-chapter-header .ch-info .ch-name {
+      font-size: var(--biz-font-h2);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+    }
+    .biz-chapter-header .ch-info .ch-desc {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+    }
+
+    /* ===== 二级分类标签 ===== */
+    .biz-sub-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 0 12px;
+      margin-bottom: 12px;
+    }
+    .biz-sub-tabs::-webkit-scrollbar { display: none; }
+    .biz-sub-tab {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      cursor: pointer;
+      background: #f5f5f7;
+      border: none;
+      color: var(--biz-text-secondary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .biz-sub-tab:active {
+      transform: scale(0.95);
+    }
+    .biz-sub-tab.active {
+      color: #1d1d1f;
+      background: #e5e5e5;
+      border-color: transparent;
+      box-shadow: none;
+      font-weight: 600;
+    }
+
+    /* ===== 方案卡片列表 ===== */
+    .biz-solution-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .biz-solution-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .biz-solution-card:active {
+      transform: scale(0.98);
+    }
+    .biz-solution-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+    .biz-solution-card .card-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 6px;
+    }
+    .biz-solution-card .card-summary {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .biz-solution-card .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .biz-solution-card .card-meta .biz-tag {
+      font-size: 11px;
+    }
+
+    /* 视图切换动画 */
+    .view-hidden { display: none; }
+
+    /* ===== 案例卡片 ===== */
+    .biz-case-section {
+      margin-top: 16px;
+    }
+    .biz-case-title {
+      font-size: var(--biz-font-small);
+      font-weight: 600;
+      color: var(--biz-text-secondary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .biz-case-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .biz-case-card:last-child {
+      margin-bottom: 0;
+    }
+    .biz-case-card:active {
+      transform: scale(0.98);
+    }
+    .biz-case-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+    .biz-case-card .case-name {
+      font-size: var(--biz-font-body);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 4px;
+    }
+    .biz-case-card .case-effect {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-primary);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面头部 -->
+  <header class="biz-page-header" id="pageHeader">
+    <div class="header-row">
+      <span class="biz-back-btn" id="backBtn" onclick="SolutionsPage.goBack()"><span id="backBtnContent">← 返回</span></span>
+      <h1 id="pageTitle">方案库</h1>
+      <div class="biz-search-box">
+        <span class="search-icon" id="searchIconHolder"></span>
+        <input type="text" id="searchInput" placeholder="搜索方案..." oninput="SolutionsPage.onSearch(this.value)">
+      </div>
+    </div>
+  </header>
+
+  <!-- 篇章导航视图 -->
+  <main class="biz-page" id="chapterView">
+    <div class="biz-chapter-grid" id="chapterGrid">
+      <!-- JS动态渲染 -->
+    </div>
+  </main>
+
+  <!-- 方案列表视图 -->
+  <main class="biz-page view-hidden" id="solutionView">
+    <div id="chapterHeaderWrap"></div>
+    <div class="biz-solution-list" id="solutionList">
+      <!-- JS动态渲染 -->
+    </div>
+    <div id="caseSectionWrap"></div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    // 方案库页面逻辑 - 八大篇章导航
+    var SolutionsPage = {
+      currentChapter: null,
+      currentSub: null,
+      searchText: '',
+      allSolutions: [],
+      chapters: [],
+
+      init: function() {
+        BizDataService.init();
+        this.loadChapters();
+        this.checkUrlParams();
+        this.loadSolutions();
+        // 初始化搜索图标
+        document.getElementById('searchIconHolder').innerHTML = BizUtils.icon('search', 16);
+        BizUtils.replaceIcons();
+      },
+
+      // 加载篇章数据
+      loadChapters: function() {
+        this.chapters = BizData.chapters || [];
+      },
+
+      // 加载方案数据
+      loadSolutions: function() {
+        var solutionsArr = [];
+        if (Array.isArray(BizData.solutions)) {
+          solutionsArr = BizData.solutions;
+        } else {
+          var solKeys = Object.keys(BizData.solutions || {});
+          for (var i = 0; i < solKeys.length; i++) {
+            solutionsArr.push(BizData.solutions[solKeys[i]]);
+          }
+        }
+        this.allSolutions = solutionsArr;
+
+        // 如果URL有chapter参数，直接进入篇章详情
+        if (this.currentChapter) {
+          this.renderChapterDetail();
+        } else {
+          this.renderChapterGrid();
+        }
+      },
+
+      // 检查URL参数
+      checkUrlParams: function() {
+        var params = new URLSearchParams(window.location.search);
+        var ch = params.get('chapter');
+        var sub = params.get('sub');
+        if (ch) {
+          this.currentChapter = parseInt(ch, 10);
+        }
+        if (sub) {
+          this.currentSub = parseInt(sub, 10);
+        }
+      },
+
+      // 统计每个篇章下的方案数量
+      getChapterCount: function(chapterId) {
+        return this.allSolutions.filter(function(s) {
+          return s.chapter === chapterId;
+        }).length;
+      },
+
+      // hex颜色转rgba（用于背景透明度）
+      hexToRgba: function(hex, alpha) {
+        var r = parseInt(hex.slice(1, 3), 16);
+        var g = parseInt(hex.slice(3, 5), 16);
+        var b = parseInt(hex.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+      },
+
+      // ===== 篇章网格渲染 =====
+      renderChapterGrid: function() {
+        var self = this;
+        var container = document.getElementById('chapterGrid');
+        if (!container) return;
+
+        container.innerHTML = this.chapters.map(function(ch) {
+          var count = self.getChapterCount(ch.id);
+          // 二级分类按钮
+          var subsHtml = '';
+          if (ch.subs && ch.subs.length) {
+            subsHtml = '<div class="chapter-subs">' +
+              ch.subs.map(function(sub) {
+                return '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + '</span>';
+              }).join('') +
+            '</div>';
+          }
+          return '<div class="biz-chapter-card" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
+            '<div class="chapter-header">' +
+              '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon, 22) + '</span>' +
+              '<div class="chapter-name">' + ch.name + '</div>' +
+            '</div>' +
+            '<div class="chapter-desc">' + ch.desc + '</div>' +
+            subsHtml +
+            '<div class="chapter-count"><em>' + count + '</em> 个方案</div>' +
+          '</div>';
+        }).join('');
+
+        this.showView('chapter');
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 篇章详情渲染 =====
+      renderChapterDetail: function() {
+        var self = this;
+        var chapterId = this.currentChapter;
+
+        // 查找篇章信息
+        var chapter = null;
+        for (var i = 0; i < this.chapters.length; i++) {
+          if (this.chapters[i].id === chapterId) {
+            chapter = this.chapters[i];
+            break;
+          }
+        }
+        if (!chapter) return;
+
+        // 更新页面标题
+        document.getElementById('pageTitle').textContent = chapter.name;
+        document.getElementById('backBtn').classList.add('visible');
+        document.getElementById('backBtnContent').innerHTML = BizUtils.icon('chevron-left', 16) + ' 返回';
+
+        // 渲染篇章头部 + 二级分类标签
+        var headerWrap = document.getElementById('chapterHeaderWrap');
+        if (headerWrap) {
+          var html = '<div class="biz-chapter-header">' +
+            '<span class="ch-icon" style="color:' + chapter.color + '">' + BizUtils.icon(chapter.icon, 28) + '</span>' +
+            '<div class="ch-info">' +
+              '<div class="ch-name">' + chapter.name + '</div>' +
+              '<div class="ch-desc">' + chapter.desc + '</div>' +
+            '</div>' +
+          '</div>';
+
+          // 二级分类标签导航
+          if (chapter.subs && chapter.subs.length) {
+            html += '<div class="biz-sub-tabs">';
+            html += '<span class="biz-sub-tab' + (self.currentSub === null ? ' active' : '') + '" onclick="SolutionsPage.onSubClick(null)">全部</span>';
+            for (var j = 0; j < chapter.subs.length; j++) {
+              var sub = chapter.subs[j];
+              var isActive = self.currentSub === sub.id;
+              html += '<span class="biz-sub-tab' + (isActive ? ' active' : '') + '" onclick="SolutionsPage.onSubClick(' + sub.id + ')">' + sub.name + '</span>';
+            }
+            html += '</div>';
+          }
+          headerWrap.innerHTML = html;
+        }
+
+        // 过滤该篇章下的方案
+        var filtered = this.allSolutions.filter(function(s) {
+          var matchChapter = s.chapter === chapterId;
+          var matchSub = !self.currentSub || s.sub === self.currentSub;
+          var matchSearch = !self.searchText || (s.title + s.summary).indexOf(self.searchText) > -1;
+          return matchChapter && matchSub && matchSearch;
+        });
+
+        // 渲染方案列表
+        var container = document.getElementById('solutionList');
+        if (!container) return;
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="biz-empty">' +
+            '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+            '<span class="biz-empty-text">暂无匹配方案</span>' +
+          '</div>';
+        } else {
+          container.innerHTML = filtered.map(function(s) {
+            var diffClass = s.difficulty === '简单' ? 'biz-tag biz-tag-primary' : 'biz-tag biz-tag-accent';
+            return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
+              '<div class="card-title">' + s.title + '</div>' +
+              '<div class="card-summary">' + s.summary + '</div>' +
+              '<div class="card-meta">' +
+                '<span class="' + diffClass + '">' + s.difficulty + '</span>' +
+                '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
+                '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + s.costRange + '</span>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        // 渲染关联案例
+        var caseWrap = document.getElementById('caseSectionWrap');
+        if (caseWrap) {
+          var allCases = BizData.cases || [];
+          var matchCases = allCases.filter(function(c) {
+            var matchChapter = c.chapter === chapterId;
+            var matchSub = !self.currentSub || c.sub === self.currentSub;
+            return matchChapter && matchSub;
+          });
+          if (matchCases.length > 0) {
+            var caseHtml = '<div class="biz-case-section">' +
+              '<div class="biz-case-title">' + BizUtils.icon('book-open', 14) + ' 相关案例</div>';
+            for (var k = 0; k < matchCases.length; k++) {
+              caseHtml += '<div class="biz-case-card" onclick="window.location.href=\'case-detail.html?id=' + matchCases[k]._id + '\'">' +
+                '<div class="case-name">' + matchCases[k].title + '</div>' +
+                '<div class="case-effect">' + matchCases[k].effectData + '</div>' +
+              '</div>';
+            }
+            caseHtml += '</div>';
+            caseWrap.innerHTML = caseHtml;
+          } else {
+            caseWrap.innerHTML = '';
+          }
+        }
+
+        this.showView('solution');
+
+        // 如果有选中的二级分类，滚动标签到中间
+        if (this.currentSub) {
+          setTimeout(function() {
+            var tabs = document.querySelector('.biz-sub-tabs');
+            var activeTab = tabs ? tabs.querySelector('.biz-sub-tab.active') : null;
+            if (activeTab && tabs) {
+              var tabLeft = activeTab.offsetLeft;
+              var tabWidth = activeTab.offsetWidth;
+              var tabsWidth = tabs.clientWidth;
+              var scrollLeft = tabLeft - (tabsWidth / 2) + (tabWidth / 2);
+              tabs.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+          }, 100);
+        }
+        BizUtils.replaceIcons();
+      },
+
+      // 点击二级分类标签
+      onSubClick: function(subId) {
+        this.currentSub = subId;
+        this.renderChapterDetail();
+        BizUtils.replaceIcons();
+        // 滚动被点击的标签到可视区中间
+        setTimeout(function() {
+          var tabs = document.querySelector('.biz-sub-tabs');
+          var activeTab = tabs ? tabs.querySelector('.biz-sub-tab.active') : null;
+          if (activeTab && tabs) {
+            var tabLeft = activeTab.offsetLeft;
+            var tabWidth = activeTab.offsetWidth;
+            var tabsWidth = tabs.clientWidth;
+            var scrollLeft = tabLeft - (tabsWidth / 2) + (tabWidth / 2);
+            tabs.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+          }
+        }, 50);
+      },
+
+      // 视图切换
+      showView: function(view) {
+        var chapterView = document.getElementById('chapterView');
+        var solutionView = document.getElementById('solutionView');
+
+        if (view === 'chapter') {
+          chapterView.classList.remove('view-hidden');
+          solutionView.classList.add('view-hidden');
+        } else {
+          chapterView.classList.add('view-hidden');
+          solutionView.classList.remove('view-hidden');
+        }
+      },
+
+      // 点击篇章卡片
+      onChapterClick: function(chapterId) {
+        this.currentChapter = chapterId;
+        this.currentSub = null;
+        this.searchText = '';
+        document.getElementById('searchInput').value = '';
+        // 更新URL参数
+        var url = new URL(window.location);
+        url.searchParams.set('chapter', chapterId);
+        url.searchParams.delete('sub');
+        window.history.pushState({}, '', url);
+        this.renderChapterDetail();
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+      },
+
+      // 点击篇章卡片上的二级分类标签
+      onSubTagClick: function(chapterId, subId) {
+        this.currentChapter = chapterId;
+        this.currentSub = subId;
+        this.searchText = '';
+        document.getElementById('searchInput').value = '';
+        // 更新URL参数
+        var url = new URL(window.location);
+        url.searchParams.set('chapter', chapterId);
+        url.searchParams.set('sub', subId);
+        window.history.pushState({}, '', url);
+        this.renderChapterDetail();
+        BizUtils.replaceIcons();
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+      },
+
+      // 返回篇章导航
+      goBack: function() {
+        this.currentChapter = null;
+        this.currentSub = null;
+        this.searchText = '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('pageTitle').textContent = '方案库';
+        document.getElementById('backBtn').classList.remove('visible');
+        // 清除URL参数
+        var url = new URL(window.location);
+        url.searchParams.delete('chapter');
+        window.history.pushState({}, '', url);
+        this.renderChapterGrid();
+      },
+
+      // 搜索
+      onSearch: function(text) {
+        this.searchText = text.trim();
+        if (this.currentChapter) {
+          this.renderChapterDetail();
+        } else {
+          // 在篇章首页搜索时，切换到全量搜索结果
+          this.renderSearchResults();
+        }
+      },
+
+      // 全局搜索结果（在篇章首页时搜索）
+      renderSearchResults: function() {
+        var self = this;
+        if (!this.searchText) {
+          this.renderChapterGrid();
+          return;
+        }
+
+        var filtered = this.allSolutions.filter(function(s) {
+          return (s.title + s.summary).indexOf(self.searchText) > -1;
+        });
+
+        var container = document.getElementById('solutionList');
+        if (!container) return;
+
+        // 更新标题
+        document.getElementById('pageTitle').textContent = '搜索结果';
+        document.getElementById('backBtn').classList.add('visible');
+        document.getElementById('backBtnContent').innerHTML = BizUtils.icon('chevron-left', 16) + ' 返回';
+
+        // 清空篇章头部
+        var headerWrap = document.getElementById('chapterHeaderWrap');
+        if (headerWrap) {
+          headerWrap.innerHTML = '<div class="biz-chapter-header">' +
+            '<span class="ch-icon">' + BizUtils.icon('search', 28) + '</span>' +
+            '<div class="ch-info">' +
+              '<div class="ch-name">搜索: ' + this.searchText + '</div>' +
+              '<div class="ch-desc">找到 ' + filtered.length + ' 个相关方案</div>' +
+            '</div>' +
+          '</div>';
+        }
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="biz-empty">' +
+            '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+            '<span class="biz-empty-text">暂无匹配方案</span>' +
+          '</div>';
+        } else {
+          container.innerHTML = filtered.map(function(s) {
+            var diffClass = s.difficulty === '简单' ? 'biz-tag biz-tag-primary' : 'biz-tag biz-tag-accent';
+            // 找到篇章信息
+            var chInfo = self.getChapterInfo(s.chapter);
+            return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
+              '<div class="card-title">' + s.title + '</div>' +
+              '<div class="card-summary">' + s.summary + '</div>' +
+              '<div class="card-meta">' +
+                '<span class="biz-tag" style="background:' + (chInfo ? self.hexToRgba(chInfo.color, 0.12) : 'var(--biz-primary-light)') + ';color:' + (chInfo ? chInfo.color : 'var(--biz-primary)') + '">' + (chInfo ? BizUtils.icon(chInfo.icon, 12) + ' ' + chInfo.name : '') + '</span>' +
+                '<span class="' + diffClass + '">' + s.difficulty + '</span>' +
+                '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        this.showView('solution');
+        BizUtils.replaceIcons();
+      },
+
+      // 获取篇章信息
+      getChapterInfo: function(chapterId) {
+        for (var i = 0; i < this.chapters.length; i++) {
+          if (this.chapters[i].id === chapterId) {
+            return this.chapters[i];
+          }
+        }
+        return null;
+      },
+
+      // 查看方案详情
+      onView: function(id) {
+        window.location.href = 'solution-detail.html?solutionId=' + id;
+      }
+    };
+
+    // 处理浏览器后退
+    window.addEventListener('popstate', function() {
+      var params = new URLSearchParams(window.location.search);
+      var ch = params.get('chapter');
+      if (ch) {
+        SolutionsPage.currentChapter = parseInt(ch, 10);
+        SolutionsPage.renderChapterDetail();
+      } else {
+        SolutionsPage.currentChapter = null;
+        SolutionsPage.currentSub = null;
+        SolutionsPage.searchText = '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('pageTitle').textContent = '方案库';
+          document.getElementById('backBtn').classList.remove('visible');
+        SolutionsPage.renderChapterGrid();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      SolutionsPage.init();
+    });
+  </script>
+</body>
+</html>

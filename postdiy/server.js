@@ -36,7 +36,7 @@ const MIME_TYPES = {
 };
 
 // 需要重写的路径（无扩展名 → .html）
-const REWRITE_PATHS = ['/editor', '/index', '/about/index', '/about/info'];
+const REWRITE_PATHS = ['/editor', '/index', '/about/index', '/about/info', '/business', '/business/diagnosis', '/business/result', '/business/solutions', '/business/cases', '/business/tools', '/business/profile', '/business/admin', '/business/admin/login'];
 
 // 自动检测可用端口
 function startServer(port) {

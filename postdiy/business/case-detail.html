@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>案例详情 - 闪喵经营诊断</title>
+  <meta name="description" content="查看真实案例的详细背景、效果和关键经验。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* ===== 顶部导航栏 ===== */
+    .cd-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--biz-bg-card);
+      border-bottom: 1px solid #E5E7EB;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .cd-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cd-topbar-back {
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      color: var(--biz-text-primary);
+    }
+    .cd-topbar-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+
+    /* ===== 案例概览卡 ===== */
+    .cd-overview {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: var(--biz-shadow-md);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .cd-overview-title {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-sm);
+      line-height: 1.3;
+    }
+    .cd-overview-tags {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+    /* 效果数据大字渐变色 */
+    .cd-effect-box {
+      background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+      border-radius: var(--biz-radius-md);
+      padding: var(--biz-gap-lg);
+      text-align: center;
+      margin-bottom: var(--biz-gap-md);
+    }
+    .cd-effect-label {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      margin-bottom: var(--biz-gap-xs);
+    }
+    .cd-effect-value {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10B981, #059669);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.3;
+    }
+
+    /* ===== 背景描述 ===== */
+    .cd-background {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .cd-background-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: var(--biz-gap-lg);
+    }
+    .cd-background-text {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ===== 关键经验 ===== */
+    .cd-lessons {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .cd-lesson-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: var(--biz-gap-lg);
+    }
+    .cd-lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .cd-lesson-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-md);
+      padding: 10px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .cd-lesson-item:last-child {
+      border-bottom: none;
+    }
+    .cd-lesson-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--biz-success);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .cd-lesson-text {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-primary);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ===== 相关方案 ===== */
+    .cd-solutions {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .cd-solution-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      border-left: 4px solid var(--biz-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cd-solution-card:active {
+      transform: scale(0.98);
+    }
+    .cd-solution-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 6px;
+    }
+    .cd-solution-summary {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--biz-gap-sm);
+    }
+    .cd-solution-meta {
+      display: flex;
+      gap: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+
+    /* ===== 底部间距 ===== */
+    .cd-bottom-space {
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="cd-topbar">
+    <div class="cd-topbar-left">
+      <span class="cd-topbar-back" onclick="history.back()">←</span>
+      <span class="cd-topbar-title">案例详情</span>
+    </div>
+  </header>
+
+  <main class="biz-page">
+    <!-- 1. 案例概览 -->
+    <section class="biz-section" id="overviewSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 2. 背景描述 -->
+    <section class="biz-section cd-background" id="backgroundSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 3. 关键经验 -->
+    <section class="biz-section cd-lessons" id="lessonsSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 4. 相关方案 -->
+    <section class="biz-section cd-solutions" id="solutionsSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <div class="cd-bottom-space"></div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    /**
+     * 案例详情页面对象
+     * 从URL参数获取caseId，从BizData.cases读取案例详情并渲染
+     */
+    var CDPage = {
+      // 当前案例数据
+      caseData: null,
+      // 案例ID
+      caseId: null,
+      // 问题code→名称映射
+      problemMap: {},
+      // 问题名称→code映射
+      problemNameToCode: {},
+      // 行业图标映射
+      industryIconNames: { '餐饮': 'utensils', '零售': 'shopping-bag', '服务业': 'scissors', '其他': 'building-2' },
+
+      // 初始化
+      init: function() {
+        BizDataService.init();
+        this.buildProblemMap();
+        this.caseId = BizUtils.getParam('caseId');
+        this.loadCase();
+      },
+
+      // 构建问题映射
+      buildProblemMap: function() {
+        var problems = BizData.problems || [];
+        for (var i = 0; i < problems.length; i++) {
+          this.problemMap[problems[i].code] = problems[i];
+          this.problemNameToCode[problems[i].name] = problems[i].code;
+        }
+      },
+
+      // 根据ID查找案例
+      findCase: function(id) {
+        var cases = BizData.cases;
+        if (!cases) return null;
+        if (!Array.isArray(cases)) return cases[id] || null;
+        for (var i = 0; i < cases.length; i++) {
+          if (cases[i]._id === id) return cases[i];
+        }
+        return null;
+      },
+
+      // 加载案例数据
+      loadCase: function() {
+        if (!this.caseId) {
+          this.showEmpty('缺少案例ID参数');
+          return;
+        }
+        this.caseData = this.findCase(this.caseId);
+        if (!this.caseData) {
+          this.showEmpty('未找到该案例');
+          return;
+        }
+        this.renderAll();
+      },
+
+      // 显示空状态
+      showEmpty: function(msg) {
+        var main = document.querySelector('.biz-page');
+        main.innerHTML = '<div class="biz-empty">' +
+          '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+          '<span class="biz-empty-text">' + (msg || '暂无数据') + '</span>' +
+        '</div>';
+      },
+
+      // 渲染所有模块
+      renderAll: function() {
+        this.renderOverview();
+        this.renderBackground();
+        this.renderLessons();
+        this.renderSolutions();
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 1. 案例概览 =====
+      renderOverview: function() {
+        var c = this.caseData;
+        var indIconName = this.industryIconNames[c.industry] || 'building-2';
+        // 问题类型标签
+        var probCode = this.problemNameToCode[c.problemType] || '';
+        var prob = this.problemMap[probCode];
+        var probTag = '';
+        if (prob) {
+          probTag = '<span class="biz-tag" style="background:' + prob.color + '1A;color:' + prob.color + '">' + BizUtils.icon('alert-circle', 12) + ' ' + prob.name + '</span>';
+        } else if (c.problemType) {
+          probTag = '<span class="biz-tag biz-tag-accent">' + c.problemType + '</span>';
+        }
+
+        var section = document.getElementById('overviewSection');
+        section.innerHTML =
+          '<div class="cd-overview">' +
+            '<h1 class="cd-overview-title">' + c.title + '</h1>' +
+            '<div class="cd-overview-tags">' +
+              '<span class="biz-tag biz-tag-primary">' + BizUtils.icon(indIconName, 12) + ' ' + c.industry + '</span>' +
+              probTag +
+            '</div>' +
+            '<div class="cd-effect-box">' +
+              '<div class="cd-effect-label">' + BizUtils.icon('trending-up', 14) + ' 实际效果</div>' +
+              '<div class="cd-effect-value">' + (c.effectData || '效果显著') + '</div>' +
+            '</div>' +
+          '</div>';
+      },
+
+      // ===== 2. 背景描述 =====
+      renderBackground: function() {
+        var c = this.caseData;
+        if (!c.background) return;
+
+        var section = document.getElementById('backgroundSection');
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('book-open', 16) + ' 门店背景</p>' +
+          '<div class="cd-background-card">' +
+            '<p class="cd-background-text">' + c.background + '</p>' +
+          '</div>';
+      },
+
+      // ===== 3. 关键经验 =====
+      renderLessons: function() {
+        var c = this.caseData;
+        var lessons = c.keyLessons || [];
+        if (lessons.length === 0) return;
+
+        var items = '';
+        for (var i = 0; i < lessons.length; i++) {
+          items += '<li class="cd-lesson-item">' +
+            '<span class="cd-lesson-dot"></span>' +
+            '<span class="cd-lesson-text">' + lessons[i] + '</span>' +
+          '</li>';
+        }
+
+        var section = document.getElementById('lessonsSection');
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('lightbulb', 16) + ' 关键经验</p>' +
+          '<div class="cd-lesson-card">' +
+            '<ul class="cd-lesson-list">' + items + '</ul>' +
+          '</div>';
+      },
+
+      // ===== 4. 相关方案 =====
+      renderSolutions: function() {
+        var c = this.caseData;
+        // 根据problemType查找关联方案
+        var probCode = this.problemNameToCode[c.problemType] || '';
+        var solutions = this.findRelatedSolutions(probCode);
+
+        var section = document.getElementById('solutionsSection');
+        if (solutions.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        // 难度颜色映射
+        var diffColors = { '简单': '#10B981', '中等': '#F59E0B', '困难': '#EF4444', '较难': '#EF4444' };
+
+        section.innerHTML = '<p class="biz-section-title">' + BizUtils.icon('link', 16) + ' 相关解决方案</p>';
+
+        var html = '';
+        for (var i = 0; i < solutions.length; i++) {
+          var s = solutions[i];
+          var diffColor = diffColors[s.difficulty] || '#6B7280';
+          html += '<div class="cd-solution-card" onclick="window.location.href=\'solution-detail.html?solutionId=' + s._id + '\'">' +
+            '<h3 class="cd-solution-title">' + s.title + '</h3>' +
+            '<p class="cd-solution-summary">' + s.summary + '</p>' +
+            '<div class="cd-solution-meta">' +
+              '<span class="biz-tag" style="background:' + diffColor + '1A;color:' + diffColor + '">' + BizUtils.icon('target', 12) + ' ' + s.difficulty + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + s.costRange + '</span>' +
+            '</div>' +
+          '</div>';
+        }
+
+        section.innerHTML += html;
+      },
+
+      // 根据问题code查找关联方案
+      findRelatedSolutions: function(problemCode) {
+        var solutions = BizData.solutions;
+        if (!solutions) return [];
+        var arr = Array.isArray(solutions) ? solutions : Object.values(solutions);
+        var result = [];
+        for (var i = 0; i < arr.length; i++) {
+          var s = arr[i];
+          var codes = s.problemCodes || [];
+          if (codes.indexOf(problemCode) >= 0) {
+            result.push(s);
+          }
+          if (result.length >= 3) break;
+        }
+        // 如果没找到匹配方案，返回前3个
+        if (result.length === 0 && arr.length > 0) {
+          result = arr.slice(0, 3);
+        }
+        return result;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      CDPage.init();
+      BizUtils.replaceIcons();
+    });
+  </script>
+</body>
+</html>

@@ -39,6 +39,9 @@ dist/
 .env.test.local
 .env.production.local
 
+# 脚本目录（含密钥，不提交）
+business/scripts/
+
 # Temporary files
 *.tmp
 *.temp

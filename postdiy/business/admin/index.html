@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- 侧边栏遮罩层（移动端） -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- 侧边栏 -->
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">⚡</span>
+        <span>闪喵诊断</span>
+      </div>
+      <div class="sidebar-sub">管理后台 v1.0</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span>
+        <span>首页</span>
+      </div>
+      <div class="nav-item" data-page="problems">
+        <span class="nav-icon">❓</span>
+        <span>问题管理</span>
+      </div>
+      <div class="nav-item" data-page="diagnosis">
+        <span class="nav-icon">🔀</span>
+        <span>诊断流程管理</span>
+      </div>
+      <div class="nav-item" data-page="solutions">
+        <span class="nav-icon">💡</span>
+        <span>方案管理</span>
+      </div>
+      <div class="nav-item" data-page="cases">
+        <span class="nav-icon">📖</span>
+        <span>案例管理</span>
+      </div>
+      <div class="nav-item" data-page="tools">
+        <span class="nav-icon">📦</span>
+        <span>工具管理</span>
+      </div>
+      <div class="nav-item" data-page="tags">
+        <span class="nav-icon">🏷️</span>
+        <span>标签管理</span>
+      </div>
+      <div class="nav-item" data-page="stats">
+        <span class="nav-icon">📊</span>
+        <span>数据统计</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span>
+        <span>退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <div class="admin-main">
+
+    <!-- 顶部栏 -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-hamburger" id="hamburgerBtn">☰</button>
+        <span class="topbar-title" id="pageTitle">首页概览</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-admin">
+          <span class="admin-avatar" id="adminAvatar">管</span>
+          <span id="adminName">管理员</span>
+        </div>
+        <button class="topbar-logout" onclick="handleLogout()">退出</button>
+      </div>
+    </header>
+
+    <!-- 内容区域 -->
+    <main class="admin-content" id="mainContent">
+
+      <!-- 统计卡片 -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue">🔍</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statToday">86</div>
+            <div class="stat-label">今日诊断</div>
+            <div class="stat-trend up">↑ 12.3%</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green">📈</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statTotal">6,144</div>
+            <div class="stat-label">累计诊断</div>
+            <div class="stat-trend up">↑ 8.7%</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-orange">👥</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statUsers">1,280</div>
+            <div class="stat-label">活跃用户</div>
+            <div class="stat-trend up">↑ 5.2%</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">⭐</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statFav">3,421</div>
+            <div class="stat-label">方案收藏</div>
+            <div class="stat-trend up">↑ 15.6%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 双栏：热门问题 + 最新记录 -->
+      <div class="dashboard-grid">
+
+        <!-- 热门问题 TOP5 -->
+        <div class="content-card">
+          <div class="card-header">
+            <span class="card-title">🔥 热门问题 TOP5</span>
+            <span class="card-extra">查看全部 →</span>
+          </div>
+          <div class="card-body">
+            <ul class="simple-list" id="topProblems">
+              <!-- 由JS渲染 -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- 最新诊断记录 -->
+        <div class="content-card">
+          <div class="card-header">
+            <span class="card-title">🕐 最新诊断记录</span>
+            <span class="card-extra">查看全部 →</span>
+          </div>
+          <div class="card-body">
+            <ul class="simple-list" id="recentRecords">
+              <!-- 由JS渲染 -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<!-- 悬浮快捷按钮 -->
+<button class="fab-button" title="内容管理" onclick="showContentMenu()">📝</button>
+
+<script>
+/**
+ * 后台首页 - 仪表盘逻辑
+ */
+
+// ===== 登录鉴权 =====
+(function checkAuth() {
+  var session = localStorage.getItem('biz_admin_session');
+  if (!session) {
+    location.href = 'login.html';
+    return;
+  }
+  try {
+    var info = JSON.parse(session);
+    if (!info || !info.loggedIn) {
+      location.href = 'login.html';
+      return;
+    }
+    // 显示管理员信息
+    document.getElementById('adminName').textContent = info.name || info.username;
+    var avatarChar = (info.name || info.username || '管').charAt(0);
+    document.getElementById('adminAvatar').textContent = avatarChar;
+  } catch (e) {
+    location.href = 'login.html';
+  }
+})();
+
+// ===== 退出登录 =====
+function handleLogout() {
+  localStorage.removeItem('biz_admin_session');
+  location.href = 'login.html';
+}
+
+// ===== 侧边栏菜单交互 =====
+(function() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  var hamburger = document.getElementById('hamburgerBtn');
+  var navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+
+  // 汉堡菜单切换
+  hamburger.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  // 菜单项点击
+  navItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      navItems.forEach(function(n) { n.classList.remove('active'); });
+      item.classList.add('active');
+      var page = item.getAttribute('data-page');
+      document.getElementById('pageTitle').textContent = getPageTitle(page);
+      // 移动端关闭侧边栏
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+  });
+
+  function getPageTitle(page) {
+    var titles = {
+      dashboard: '首页概览',
+      problems: '问题管理',
+      diagnosis: '诊断流程管理',
+      solutions: '方案管理',
+      cases: '案例管理',
+      tools: '工具管理',
+      tags: '标签管理',
+      stats: '数据统计'
+    };
+    return titles[page] || '首页概览';
+  }
+})();
+
+// ===== 模拟数据与渲染 =====
+
+// 热门问题 TOP5
+var topProblemsData = [
+  { name: '没有客流', code: 'TRAFFIC_LOW', count: 1283, icon: '🚶' },
+  { name: '不会做营销', code: 'NO_MARKETING', count: 856, icon: '📢' },
+  { name: '营业额下降', code: 'REVENUE_DROP', count: 987, icon: '📉' },
+  { name: '利润太低', code: 'PROFIT_LOW', count: 876, icon: '💰' },
+  { name: '顾客流失', code: 'CUSTOMER_LOSS', count: 734, icon: '💔' }
+];
+
+// 最新诊断记录
+var recentRecordsData = [
+  { user: '张姐火锅店', problem: '没有客流', time: '10分钟前', industry: '餐饮' },
+  { user: '李哥便利店', problem: '营业额下降', time: '25分钟前', industry: '零售' },
+  { user: '王姐美甲店', problem: '不会做营销', time: '1小时前', industry: '服务' },
+  { user: '赵哥烧烤店', problem: '利润太低', time: '2小时前', industry: '餐饮' },
+  { user: '陈姐服装店', problem: '顾客流失', time: '3小时前', industry: '零售' },
+  { user: '刘哥健身房', problem: '员工管理难', time: '4小时前', industry: '服务' }
+];
+
+// 渲染热门问题
+(function() {
+  var container = document.getElementById('topProblems');
+  var html = '';
+  topProblemsData.forEach(function(item, index) {
+    var rankClass = '';
+    if (index === 0) rankClass = 'top1';
+    else if (index === 1) rankClass = 'top2';
+    else if (index === 2) rankClass = 'top3';
+
+    html += '<li>' +
+      '<span class="list-rank ' + rankClass + '">' + (index + 1) + '</span>' +
+      '<span class="list-info">' +
+        '<span class="list-name">' + item.icon + ' ' + item.name + '</span>' +
+        '<span class="list-desc">' + item.code + '</span>' +
+      '</span>' +
+      '<span class="list-value">' + item.count.toLocaleString() + ' 次</span>' +
+    '</li>';
+  });
+  container.innerHTML = html;
+})();
+
+// 渲染最新诊断记录
+(function() {
+  var container = document.getElementById('recentRecords');
+  var html = '';
+  recentRecordsData.forEach(function(item) {
+    html += '<li>' +
+      '<span class="list-info">' +
+        '<span class="list-name">' + item.user + '</span>' +
+        '<span class="list-desc">' + item.problem + ' · ' + item.industry + '</span>' +
+      '</span>' +
+      '<span style="font-size:12px;color:#9ca3af;flex-shrink:0;">' + item.time + '</span>' +
+    '</li>';
+  });
+  container.innerHTML = html;
+})();
+
+// ===== 悬浮按钮 - 内容管理快捷菜单 =====
+function showContentMenu() {
+  // 简单提示，后续可扩展为弹窗菜单
+  var items = ['新增问题', '新增方案', '新增案例', '新增工具'];
+  var msg = '快捷操作：\n' + items.map(function(item, i) {
+    return (i + 1) + '. ' + item;
+  }).join('\n');
+  alert(msg);
+}
+</script>
+
+</body>
+</html>

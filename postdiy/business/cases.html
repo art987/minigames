@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>案例库 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* 页面头部 */
+    .biz-page-header {
+      background: var(--biz-bg-card);
+      padding: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--biz-shadow-sm);
+    }
+    .biz-page-header h1 {
+      font-size: var(--biz-font-h2);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 12px;
+    }
+
+    /* 行业筛选标签 */
+    .biz-filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .biz-filter-tags::-webkit-scrollbar { display: none; }
+    .biz-filter-tag {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      color: var(--biz-text-secondary);
+      background: var(--biz-bg-section);
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .biz-filter-tag:active {
+      transform: scale(0.95);
+    }
+    .biz-filter-tag.active {
+      background: var(--biz-primary);
+      color: var(--biz-text-inverse);
+    }
+
+    /* 案例卡片列表 */
+    .biz-case-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .biz-case-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .biz-case-card:active {
+      transform: scale(0.98);
+      background: #F9FAFB;
+    }
+    .biz-case-card .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .biz-case-card .card-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      flex: 1;
+    }
+    .biz-case-card .card-industry {
+      flex-shrink: 0;
+    }
+    .biz-case-card .card-effect {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .biz-case-card .card-effect .effect-icon {
+      font-size: 16px;
+    }
+    .biz-case-card .card-effect .effect-data {
+      font-size: var(--biz-font-body);
+      font-weight: 700;
+      color: var(--biz-success);
+    }
+    .biz-case-card .card-effect .effect-label {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面头部：行业筛选 -->
+  <header class="biz-page-header">
+    <h1>📖 案例库</h1>
+    <div class="biz-filter-tags" id="filterTags">
+      <!-- JS动态渲染 -->
+    </div>
+  </header>
+
+  <!-- 案例列表 -->
+  <main class="biz-page">
+    <div class="biz-case-list" id="caseList">
+      <!-- JS动态渲染 -->
+    </div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    // 案例库页面逻辑
+    var CasesPage = {
+      // 行业分类列表
+      industries: ['全部', '餐饮', '零售', '服务', '其他'],
+      currentIndustry: '全部',
+      allCases: [],
+
+      init: function() {
+        BizDataService.init();
+        this.renderFilterTags();
+        this.loadCases();
+      },
+
+      // 渲染行业筛选标签
+      renderFilterTags: function() {
+        var container = document.getElementById('filterTags');
+        if (!container) return;
+        var industryIconNames = { '全部': 'bar-chart-3', '餐饮': 'utensils', '零售': 'shopping-bag', '服务': 'scissors', '其他': 'building-2' };
+        container.innerHTML = this.industries.map(function(ind) {
+          var activeClass = ind === CasesPage.currentIndustry ? ' active' : '';
+          var iconName = industryIconNames[ind] || 'building-2';
+          return '<span class="biz-filter-tag' + activeClass + '" onclick="CasesPage.onFilter(\'' + ind + '\')">' + BizUtils.icon(iconName, 14) + ' ' + ind + '</span>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // 加载案例数据
+      loadCases: function() {
+        // 从BizData读取案例数据
+        var casesArr = [];
+        if (Array.isArray(BizData.cases)) {
+          casesArr = BizData.cases;
+        } else {
+          var caseKeys = Object.keys(BizData.cases || {});
+          for (var i = 0; i < caseKeys.length; i++) {
+            casesArr.push(BizData.cases[caseKeys[i]]);
+          }
+        }
+        this.allCases = casesArr;
+        this.renderList();
+      },
+
+      // 渲染案例列表
+      renderList: function() {
+        var container = document.getElementById('caseList');
+        if (!container) return;
+
+        // 按行业筛选
+        var filtered = this.allCases.filter(function(c) {
+          return CasesPage.currentIndustry === '全部' || (c.industry || '') === CasesPage.currentIndustry;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="biz-empty">' +
+            '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+            '<span class="biz-empty-text">暂无该行业案例</span>' +
+          '</div>';
+          BizUtils.replaceIcons();
+          return;
+        }
+
+        container.innerHTML = filtered.map(function(c) {
+          // 行业对应标签样式
+          var industryIconNames = { '餐饮': 'utensils', '零售': 'shopping-bag', '服务': 'scissors', '其他': 'building-2' };
+          var indIconName = industryIconNames[c.industry] || 'building-2';
+          return '<div class="biz-case-card" onclick="CasesPage.onView(\'' + c._id + '\')">' +
+            '<div class="card-header">' +
+              '<div class="card-title">' + c.title + '</div>' +
+              '<span class="biz-tag card-industry">' + BizUtils.icon(indIconName, 12) + ' ' + c.industry + '</span>' +
+            '</div>' +
+            '<div class="card-effect">' +
+              '<span class="effect-icon">' + BizUtils.icon('trending-up', 16) + '</span>' +
+              '<span class="effect-data">' + c.effectData + '</span>' +
+              '<span class="effect-label">效果数据</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // 切换行业筛选
+      onFilter: function(industry) {
+        this.currentIndustry = industry;
+        this.renderFilterTags();
+        this.renderList();
+      },
+
+      // 查看案例详情
+      onView: function(id) {
+        window.location.href = 'case-detail.html?caseId=' + id;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      CasesPage.init();
+      BizUtils.replaceIcons();
+    });
+  </script>
+</body>
+</html>

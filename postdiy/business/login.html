@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>登录 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 50%);
+    }
+    .login-logo {
+      font-size: 56px;
+      margin-bottom: 12px;
+    }
+    .login-brand {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-primary);
+      margin-bottom: 8px;
+    }
+    .login-subtitle {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+      margin-bottom: 40px;
+    }
+    .login-form {
+      width: 100%;
+      max-width: 340px;
+    }
+    .login-field {
+      margin-bottom: 16px;
+    }
+    .login-label {
+      display: block;
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      color: var(--biz-text-secondary);
+      margin-bottom: 6px;
+    }
+    .login-input {
+      width: 100%;
+      height: 48px;
+      border: 1.5px solid #E5E7EB;
+      border-radius: var(--biz-radius-md);
+      padding: 0 14px;
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-primary);
+      background: var(--biz-bg-card);
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus {
+      border-color: var(--biz-primary);
+    }
+    .login-input::placeholder {
+      color: #C0C4CC;
+    }
+    .login-code-row {
+      display: flex;
+      gap: 10px;
+    }
+    .login-code-row .login-input {
+      flex: 1;
+    }
+    .login-code-btn {
+      flex-shrink: 0;
+      width: 112px;
+      height: 48px;
+      border: 1.5px solid var(--biz-primary);
+      border-radius: var(--biz-radius-md);
+      background: #fff;
+      color: var(--biz-primary);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .login-code-btn:disabled {
+      border-color: #D1D5DB;
+      color: #9CA3AF;
+      cursor: not-allowed;
+    }
+    .login-code-btn:not(:disabled):active {
+      background: var(--biz-primary-light);
+    }
+    .login-btn {
+      width: 100%;
+      height: 50px;
+      border: none;
+      border-radius: var(--biz-radius-md);
+      background: linear-gradient(135deg, #1A73E8 0%, #4F8EF7 100%);
+      color: #fff;
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: all 0.2s;
+    }
+    .login-btn:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+    .login-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .login-error {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-accent);
+      margin-top: 4px;
+      min-height: 18px;
+    }
+    .login-tip {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+      text-align: center;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-logo">🐱</div>
+    <div class="login-brand">闪喵经营诊断</div>
+    <div class="login-subtitle">帮助实体商家发现问题、解决问题</div>
+
+    <div class="login-form">
+      <!-- 手机号 -->
+      <div class="login-field">
+        <label class="login-label">手机号</label>
+        <input class="login-input" id="phoneInput" type="tel" maxlength="11" placeholder="请输入手机号" autocomplete="tel">
+        <div class="login-error" id="phoneError"></div>
+      </div>
+
+      <!-- 验证码 -->
+      <div class="login-field">
+        <label class="login-label">验证码</label>
+        <div class="login-code-row">
+          <input class="login-input" id="codeInput" type="text" maxlength="6" placeholder="6位验证码" autocomplete="one-time-code">
+          <button class="login-code-btn" id="codeBtn" onclick="LoginPage.sendCode()">获取验证码</button>
+        </div>
+        <div class="login-error" id="codeError"></div>
+      </div>
+
+      <!-- 登录按钮 -->
+      <button class="login-btn" id="loginBtn" onclick="LoginPage.doLogin()">登录</button>
+
+      <div class="login-tip">演示模式：输入任意6位数字即可登录</div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script>
+    var LoginPage = {
+      // 倒计时剩余秒数
+      countdown: 0,
+      // 倒计时定时器
+      timer: null,
+
+      // 发送验证码（简化版）
+      sendCode: function() {
+        var phone = document.getElementById('phoneInput').value.trim();
+        var phoneError = document.getElementById('phoneError');
+
+        // 验证手机号
+        if (!phone) {
+          phoneError.textContent = '请输入手机号';
+          return;
+        }
+        if (!/^1\d{10}$/.test(phone)) {
+          phoneError.textContent = '请输入正确的手机号';
+          return;
+        }
+        phoneError.textContent = '';
+
+        // 开始倒计时
+        this.countdown = 60;
+        this.updateCodeBtn();
+        var self = this;
+        this.timer = setInterval(function() {
+          self.countdown--;
+          if (self.countdown <= 0) {
+            clearInterval(self.timer);
+            self.timer = null;
+          }
+          self.updateCodeBtn();
+        }, 1000);
+
+        BizUtils.showToast('验证码已发送（演示模式无需真实验证码）');
+      },
+
+      // 更新获取验证码按钮状态
+      updateCodeBtn: function() {
+        var btn = document.getElementById('codeBtn');
+        if (this.countdown > 0) {
+          btn.disabled = true;
+          btn.textContent = this.countdown + 's';
+        } else {
+          btn.disabled = false;
+          btn.textContent = '获取验证码';
+        }
+      },
+
+      // 登录
+      doLogin: function() {
+        var phone = document.getElementById('phoneInput').value.trim();
+        var code = document.getElementById('codeInput').value.trim();
+        var phoneError = document.getElementById('phoneError');
+        var codeError = document.getElementById('codeError');
+
+        // 清除旧错误
+        phoneError.textContent = '';
+        codeError.textContent = '';
+
+        // 验证手机号
+        if (!phone) {
+          phoneError.textContent = '请输入手机号';
+          return;
+        }
+        if (!/^1\d{10}$/.test(phone)) {
+          phoneError.textContent = '请输入正确的手机号';
+          return;
+        }
+
+        // 验证验证码（简化版：任意6位数字均可）
+        if (!code) {
+          codeError.textContent = '请输入验证码';
+          return;
+        }
+        if (!/^\d{6}$/.test(code)) {
+          codeError.textContent = '请输入6位数字验证码';
+          return;
+        }
+
+        // 禁用登录按钮
+        var btn = document.getElementById('loginBtn');
+        btn.disabled = true;
+        btn.textContent = '登录中...';
+
+        // 模拟登录成功
+        var userInfo = {
+          phone: phone,
+          nickname: phone.substring(0, 3) + '****' + phone.substring(7),
+          loginTime: new Date().toISOString()
+        };
+
+        try {
+          localStorage.setItem('biz_user_info', JSON.stringify(userInfo));
+        } catch (e) {
+          console.warn('保存用户信息失败', e);
+        }
+
+        BizUtils.showToast('登录成功');
+
+        // 跳回之前页面
+        var from = BizUtils.getParam('from');
+        setTimeout(function() {
+          if (from) {
+            window.location.href = from + '.html';
+          } else {
+            window.location.href = 'profile.html';
+          }
+        }, 800);
+      }
+    };
+  </script>
+</body>
+</html>

@@ -3308,7 +3308,7 @@ window.showVipUpgradeModal = function() {
       </div>
 
       <div class="vip-packages-section">
-        <div class="vip-packages-title">购买通道：( 这不是消费，是强悍的创业升级 )</div>
+        <div class="vip-packages-title">购买通道：(一杯奶茶承包半年海报设计)</div>
         <div class="vip-packages-wrapper">
           <div class="vip-packages-container" id="vipUpgradePackageGrid">
             <div class="packages-loader-wrap"><div class="packages-loader-shell"><div class="packages-loader-domain">套餐加载中</div><div class="packages-loader-bar"><div class="packages-loader-fill" style="width:30%"></div></div><div class="packages-loader-pct">30%</div><div class="packages-loader-dots"><i></i><i></i><i></i></div></div></div>

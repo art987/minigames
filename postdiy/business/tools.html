@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>工具库 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* 页面头部 */
+    .biz-page-header {
+      background: var(--biz-bg-card);
+      padding: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--biz-shadow-sm);
+    }
+    .biz-page-header h1 {
+      font-size: var(--biz-font-h2);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 12px;
+    }
+
+    /* 分类筛选标签 */
+    .biz-filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .biz-filter-tags::-webkit-scrollbar { display: none; }
+    .biz-filter-tag {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      color: var(--biz-text-secondary);
+      background: var(--biz-bg-section);
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .biz-filter-tag:active {
+      transform: scale(0.95);
+    }
+    .biz-filter-tag.active {
+      background: var(--biz-primary);
+      color: var(--biz-text-inverse);
+    }
+
+    /* 工具卡片列表 */
+    .biz-tool-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .biz-tool-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .biz-tool-card:active {
+      transform: scale(0.98);
+      background: #F9FAFB;
+    }
+    .biz-tool-card .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .biz-tool-card .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--biz-radius-sm);
+      background: var(--biz-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .biz-tool-card .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .biz-tool-card .card-name {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+    .biz-tool-card .card-type {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+      margin-top: 2px;
+    }
+    .biz-tool-card .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .biz-tool-card .card-download {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-tertiary);
+    }
+    .biz-tool-card .card-download strong {
+      color: var(--biz-primary);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面头部：分类筛选 -->
+  <header class="biz-page-header">
+    <h1>工具库</h1>
+    <div class="biz-filter-tags" id="filterTags">
+      <!-- JS动态渲染 -->
+    </div>
+  </header>
+
+  <!-- 工具列表 -->
+  <main class="biz-page">
+    <div class="biz-tool-list" id="toolList">
+      <!-- JS动态渲染 -->
+    </div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    // 工具库页面逻辑
+    var ToolsPage = {
+      // 分类列表
+      categories: ['全部', '营销', '管理', '财务', '客户', '运营'],
+      currentCategory: '全部',
+      allTools: [],
+
+      // 分类对应 Lucide 图标名
+      categoryIconNames: {
+        '营销': 'megaphone',
+        '管理': 'hard-hat',
+        '财务': 'calculator',
+        '客户': 'heart',
+        '运营': 'bar-chart-3'
+      },
+      // 分类对应颜色
+      categoryColors: {
+        '营销': '#FF9500',
+        '管理': '#5856D6',
+        '财务': '#34C759',
+        '客户': '#FF2D55',
+        '运营': '#007AFF'
+      },
+
+      init: function() {
+        BizDataService.init();
+        this.renderFilterTags();
+        this.loadTools();
+      },
+
+      // 渲染筛选标签
+      renderFilterTags: function() {
+        var container = document.getElementById('filterTags');
+        if (!container) return;
+        container.innerHTML = this.categories.map(function(cat) {
+          var activeClass = cat === ToolsPage.currentCategory ? ' active' : '';
+          return '<span class="biz-filter-tag' + activeClass + '" onclick="ToolsPage.onFilter(\'' + cat + '\')">' + cat + '</span>';
+        }).join('');
+      },
+
+      // 加载工具数据
+      loadTools: function() {
+        // 从BizData读取工具数据
+        var toolsArr = [];
+        if (Array.isArray(BizData.tools)) {
+          toolsArr = BizData.tools;
+        } else {
+          var toolKeys = Object.keys(BizData.tools || {});
+          for (var i = 0; i < toolKeys.length; i++) {
+            toolsArr.push(BizData.tools[toolKeys[i]]);
+          }
+        }
+        var rawTools = toolsArr;
+        this.allTools = rawTools.map(function(t, i) {
+          return Object.assign({}, t, {
+            downloadCount: t.downloadCount || (1200 - i * 300 + Math.floor(Math.random() * 200))
+          });
+        });
+        this.renderList();
+      },
+
+      // 渲染工具列表
+      renderList: function() {
+        var container = document.getElementById('toolList');
+        if (!container) return;
+
+        // 按分类筛选
+        var filtered = this.allTools.filter(function(t) {
+          return ToolsPage.currentCategory === '全部' || (t.category || '') === ToolsPage.currentCategory;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="biz-empty">' +
+            '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+            '<span class="biz-empty-text">暂无该分类工具</span>' +
+          '</div>';
+          BizUtils.replaceIcons();
+          return;
+        }
+
+        container.innerHTML = filtered.map(function(t) {
+          var iconName = ToolsPage.categoryIconNames[t.category] || 'file-text';
+          var iconColor = ToolsPage.categoryColors[t.category] || '#667eea';
+          var bgColor = iconColor + '14';
+          return '<div class="biz-tool-card" onclick="ToolsPage.onView(\'' + t._id + '\')">' +
+            '<div class="card-top">' +
+              '<div class="card-icon" style="background:' + bgColor + ';color:' + iconColor + '">' + BizUtils.icon(iconName, 22) + '</div>' +
+              '<div class="card-info">' +
+                '<div class="card-name">' + t.name + '</div>' +
+                '<div class="card-type">' + t.type + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="card-bottom">' +
+              '<span class="biz-tag biz-tag-primary">' + t.category + '</span>' +
+              '<span class="card-download">下载 <strong>' + BizUtils.formatNumber(t.downloadCount) + '</strong> 次</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // 切换分类
+      onFilter: function(category) {
+        this.currentCategory = category;
+        this.renderFilterTags();
+        this.renderList();
+      },
+
+      // 查看工具详情
+      onView: function(id) {
+        window.location.href = 'tool-detail.html?toolId=' + id;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      ToolsPage.init();
+      BizUtils.replaceIcons();
+    });
+  </script>
+</body>
+</html>

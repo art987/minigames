@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 闪喵经营诊断·管理后台</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="brand-icon">⚡</span>
+      <h1>闪喵经营诊断</h1>
+      <p class="brand-sub">管理后台</p>
+    </div>
+
+    <div class="login-error" id="loginError">
+      <span>⚠</span>
+      <span id="errorText">用户名或密码错误</span>
+    </div>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" id="username" class="form-input" placeholder="请输入用户名" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" id="password" class="form-input" placeholder="请输入密码">
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginBtn">登 录</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/**
+ * 后台登录页逻辑
+ * 验证用户身份，成功后写入 localStorage 并跳转首页
+ */
+(function() {
+  // 检查是否已登录
+  var session = localStorage.getItem('biz_admin_session');
+  if (session) {
+    try {
+      var info = JSON.parse(session);
+      if (info && info.loggedIn) {
+        location.href = 'index.html';
+        return;
+      }
+    } catch (e) {}
+  }
+
+  var form = document.getElementById('loginForm');
+  var errorBox = document.getElementById('loginError');
+  var errorText = document.getElementById('errorText');
+  var loginBtn = document.getElementById('loginBtn');
+
+  /**
+   * 管理员登录验证
+   * 暂用本地验证：admin / admin123
+   * 后续接入 BizDataService 云函数
+   */
+  function validateLogin(username, password) {
+    // TODO: 后续替换为 BizDataService.callFunction('biz-admin-login', {...})
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        if (username === 'admin' && password === 'admin123') {
+          resolve({
+            success: true,
+            data: {
+              username: 'admin',
+              name: '管理员',
+              role: 'super_admin',
+              token: 'local_dev_token_' + Date.now()
+            }
+          });
+        } else {
+          resolve({ success: false, message: '用户名或密码错误' });
+        }
+      }, 500); // 模拟网络延迟
+    });
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var username = document.getElementById('username').value.trim();
+    var password = document.getElementById('password').value;
+
+    // 前端校验
+    if (!username) {
+      showError('请输入用户名');
+      return;
+    }
+    if (!password) {
+      showError('请输入密码');
+      return;
+    }
+
+    // 禁用按钮，显示加载态
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span class="loading-spinner"></span> 登录中...';
+    hideError();
+
+    validateLogin(username, password).then(function(result) {
+      if (result.success) {
+        // 写入会话信息
+        localStorage.setItem('biz_admin_session', JSON.stringify({
+          loggedIn: true,
+          username: result.data.username,
+          name: result.data.name,
+          role: result.data.role,
+          token: result.data.token,
+          loginTime: new Date().toISOString()
+        }));
+        // 跳转后台首页
+        location.href = 'index.html';
+      } else {
+        showError(result.message || '登录失败，请重试');
+        loginBtn.disabled = false;
+        loginBtn.textContent = '登 录';
+      }
+    }).catch(function(err) {
+      showError('网络异常，请稍后重试');
+      loginBtn.disabled = false;
+      loginBtn.textContent = '登 录';
+    });
+  });
+
+  function showError(msg) {
+    errorText.textContent = msg;
+    errorBox.classList.add('show');
+  }
+
+  function hideError() {
+    errorBox.classList.remove('show');
+  }
+})();
+</script>
+
+</body>
+</html>

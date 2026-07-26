@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>方案详情 - 闪喵经营诊断</title>
+  <meta name="description" content="查看解决方案的详细步骤和执行清单。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* ===== 顶部导航栏 ===== */
+    .sd-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--biz-bg-card);
+      border-bottom: 1px solid #E5E7EB;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .sd-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sd-topbar-back {
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      color: var(--biz-text-primary);
+    }
+    .sd-topbar-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+    .sd-fav-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      background: var(--biz-bg-section);
+      color: var(--biz-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sd-fav-btn.faved {
+      background: #FEF3C7;
+      color: #D97706;
+    }
+
+    /* ===== 方案概览卡 ===== */
+    .sd-overview {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: var(--biz-shadow-md);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-overview-title {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-sm);
+      line-height: 1.3;
+    }
+    .sd-overview-summary {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--biz-gap-md);
+    }
+    .sd-overview-tags {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+    .sd-overview-industries {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      flex-wrap: wrap;
+    }
+    .sd-industry-tag {
+      padding: 4px 10px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-tiny);
+      font-weight: 500;
+      background: #F3F4F6;
+      color: var(--biz-text-secondary);
+    }
+
+    /* ===== 方案步骤 ===== */
+    .sd-steps {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-step-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      position: relative;
+    }
+    .sd-step-header {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-md);
+      margin-bottom: var(--biz-gap-md);
+    }
+    .sd-step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--biz-primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sd-step-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      line-height: 1.4;
+    }
+    .sd-step-content {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--biz-gap-md);
+    }
+    .sd-checklist-title {
+      font-size: var(--biz-font-small);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: var(--biz-gap-sm);
+    }
+    .sd-checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sd-checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-sm);
+      padding: 8px 0;
+      border-bottom: 1px solid #F3F4F6;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .sd-checklist-item:last-child {
+      border-bottom: none;
+    }
+    .sd-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid #D1D5DB;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: all 0.2s;
+    }
+    .sd-checkbox.checked {
+      background: var(--biz-primary);
+      border-color: var(--biz-primary);
+    }
+    .sd-checkbox.checked::after {
+      content: '✓';
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .sd-check-text {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-primary);
+      line-height: 1.5;
+      transition: all 0.2s;
+    }
+    .sd-checklist-item.done .sd-check-text {
+      text-decoration: line-through;
+      color: var(--biz-text-tertiary);
+    }
+
+    /* ===== 注意事项 ===== */
+    .sd-notes {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-notes-card {
+      background: #FFFBEB;
+      border-radius: var(--biz-radius-md);
+      padding: var(--biz-gap-lg);
+      border-left: 4px solid var(--biz-warning);
+    }
+    .sd-notes-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      color: #92400E;
+      margin-bottom: var(--biz-gap-sm);
+    }
+    .sd-notes-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sd-notes-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-sm);
+      padding: 6px 0;
+      font-size: var(--biz-font-small);
+      color: #78350F;
+      line-height: 1.6;
+    }
+    .sd-notes-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--biz-warning);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    /* ===== 关联问题 ===== */
+    .sd-problems {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-problem-list {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      flex-wrap: wrap;
+    }
+    .sd-problem-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      background: var(--biz-primary-light);
+      color: var(--biz-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sd-problem-chip:active {
+      transform: scale(0.95);
+    }
+
+    /* ===== 关联案例 ===== */
+    .sd-cases {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-case-card {
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      border-left: 4px solid var(--biz-success);
+    }
+    .sd-case-title {
+      font-size: var(--biz-font-body);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 6px;
+    }
+    .sd-case-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-md);
+    }
+    .sd-case-industry {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+    }
+    .sd-case-effect {
+      font-size: var(--biz-font-small);
+      font-weight: 700;
+      color: var(--biz-success);
+    }
+
+    /* ===== 关联工具 ===== */
+    .sd-tools {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .sd-tool-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .sd-tool-scroll::-webkit-scrollbar { display: none; }
+    .sd-tool-card {
+      flex-shrink: 0;
+      width: 120px;
+      padding: 14px 10px;
+      background: var(--biz-bg-card);
+      border-radius: var(--biz-radius-md);
+      box-shadow: var(--biz-shadow-sm);
+      text-align: center;
+      cursor: pointer;
+    }
+    .sd-tool-card .t-icon { font-size: 20px; margin-bottom: 4px; }
+    .sd-tool-card .t-name { font-size: var(--biz-font-small); font-weight: 500; color: var(--biz-text-primary); margin-bottom: 2px; }
+    .sd-tool-card .t-cat { font-size: var(--biz-font-tiny); color: var(--biz-text-tertiary); }
+
+    /* ===== 底部间距 ===== */
+    .sd-bottom-space {
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="sd-topbar">
+    <div class="sd-topbar-left">
+      <span class="sd-topbar-back" onclick="history.back()">←</span>
+      <span class="sd-topbar-title">方案详情</span>
+    </div>
+    <button class="sd-fav-btn" id="favBtn" onclick="SDPage.toggleFav()">
+      <span id="favIcon">☆</span>
+      <span id="favText">收藏</span>
+    </button>
+  </header>
+
+  <main class="biz-page">
+    <!-- 1. 方案概览卡 -->
+    <section class="biz-section" id="overviewSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 2. 方案步骤 -->
+    <section class="biz-section sd-steps" id="stepsSection">
+      <p class="biz-section-title"><i data-lucide="list-checks" class="biz-icon" style="width:16px;height:16px;"></i> 执行步骤</p>
+      <div id="stepsList">
+        <!-- JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 3. 注意事项 -->
+    <section class="biz-section sd-notes" id="notesSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 4. 关联问题 -->
+    <section class="biz-section sd-problems" id="problemsSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 5. 关联案例 -->
+    <section class="biz-section sd-cases" id="casesSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <!-- 6. 关联工具 -->
+    <section class="biz-section sd-tools" id="toolsSection">
+      <!-- JS动态渲染 -->
+    </section>
+
+    <div class="sd-bottom-space"></div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script src="js/biz-favorite.js"></script>
+  <script>
+    /**
+     * 方案详情页面对象
+     * 从URL参数获取solutionId，从BizData.solutions读取方案详情并渲染
+     */
+    var SDPage = {
+      // 当前方案数据
+      solution: null,
+      // 方案ID
+      solutionId: null,
+      // 收藏状态
+      isFaved: false,
+      // 工具图标映射
+      toolIconNames: ['bar-chart-3', 'clipboard-list', 'calculator', 'smartphone', 'file-text', 'trending-up', 'folder', 'calculator'],
+      // 难度颜色映射
+      diffColors: { '简单': '#10B981', '中等': '#F59E0B', '困难': '#EF4444', '较难': '#EF4444' },
+      // 问题code→名称映射（从BizData.problems构建）
+      problemMap: {},
+
+      // 初始化
+      init: function() {
+        BizDataService.init();
+        this.buildProblemMap();
+        this.solutionId = BizUtils.getParam('solutionId');
+        this.loadSolution();
+      },
+
+      // 构建问题code→名称映射
+      buildProblemMap: function() {
+        var problems = BizData.problems || [];
+        for (var i = 0; i < problems.length; i++) {
+          this.problemMap[problems[i].code] = problems[i];
+        }
+      },
+
+      // 根据ID查找方案（兼容数组和对象两种数据结构）
+      findSolution: function(id) {
+        var solutions = BizData.solutions;
+        if (!solutions) return null;
+        // 如果是对象（map），直接按key取
+        if (!Array.isArray(solutions)) {
+          return solutions[id] || null;
+        }
+        // 如果是数组，遍历查找
+        for (var i = 0; i < solutions.length; i++) {
+          if (solutions[i]._id === id) return solutions[i];
+        }
+        return null;
+      },
+
+      // 加载方案数据
+      loadSolution: function() {
+        if (!this.solutionId) {
+          this.showEmpty('缺少方案ID参数');
+          return;
+        }
+
+        this.solution = this.findSolution(this.solutionId);
+        if (!this.solution) {
+          this.showEmpty('未找到该方案');
+          return;
+        }
+
+        this.renderAll();
+      },
+
+      // 显示空状态
+      showEmpty: function(msg) {
+        var main = document.querySelector('.biz-page');
+        main.innerHTML = '<div class="biz-empty">' +
+          '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
+          '<span class="biz-empty-text">' + (msg || '暂无数据') + '</span>' +
+        '</div>';
+      },
+
+      // 渲染所有模块
+      renderAll: function() {
+        this.renderOverview();
+        this.renderSteps();
+        this.renderNotes();
+        this.renderProblems();
+        this.renderCases();
+        this.renderTools();
+        this.loadFavState();
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 1. 方案概览卡 =====
+      renderOverview: function() {
+        var sol = this.solution;
+        var diffColor = this.diffColors[sol.difficulty] || '#6B7280';
+
+        // 适用问题标签
+        var problemCodes = sol.problemCodes || [];
+        var industryTags = '';
+        for (var i = 0; i < problemCodes.length; i++) {
+          var prob = this.problemMap[problemCodes[i]];
+          if (prob) {
+            industryTags += '<span class="sd-industry-tag">' + prob.icon + ' ' + prob.name + '</span>';
+          }
+        }
+
+        var section = document.getElementById('overviewSection');
+        section.innerHTML =
+          '<div class="sd-overview">' +
+            '<h1 class="sd-overview-title">' + sol.title + '</h1>' +
+            '<p class="sd-overview-summary">' + sol.summary + '</p>' +
+            '<div class="sd-overview-tags">' +
+              '<span class="biz-tag" style="background:' + diffColor + '1A;color:' + diffColor + '">' + BizUtils.icon('target', 12) + ' ' + sol.difficulty + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + sol.effectiveTime + '</span>' +
+              '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + sol.costRange + '</span>' +
+            '</div>' +
+            (industryTags ? '<div class="sd-overview-industries">' + industryTags + '</div>' : '') +
+          '</div>';
+      },
+
+      // ===== 2. 方案步骤 =====
+      renderSteps: function() {
+        var steps = this.solution.steps || [];
+        var list = document.getElementById('stepsList');
+
+        if (steps.length === 0) {
+          list.innerHTML = '<div class="biz-empty"><span class="biz-empty-text">暂无步骤</span></div>';
+          return;
+        }
+
+        var html = '';
+        for (var i = 0; i < steps.length; i++) {
+          var step = steps[i];
+          var checklistHtml = '';
+
+          if (step.checklist && step.checklist.length > 0) {
+            var checkItems = '';
+            for (var j = 0; j < step.checklist.length; j++) {
+              var checkId = 'chk_' + i + '_' + j;
+              checkItems += '<li class="sd-checklist-item" id="cli_' + i + '_' + j + '" onclick="SDPage.toggleCheck(' + i + ',' + j + ')">' +
+                '<span class="sd-checkbox" id="' + checkId + '"></span>' +
+                '<span class="sd-check-text">' + step.checklist[j] + '</span>' +
+              '</li>';
+            }
+            checklistHtml = '<div class="sd-checklist-title">✅ 检查清单</div>' +
+              '<ul class="sd-checklist">' + checkItems + '</ul>';
+          }
+
+          html += '<div class="sd-step-card">' +
+            '<div class="sd-step-header">' +
+              '<span class="sd-step-number">' + (i + 1) + '</span>' +
+              '<span class="sd-step-title">' + step.title + '</span>' +
+            '</div>' +
+            '<div class="sd-step-content">' + step.content + '</div>' +
+            checklistHtml +
+          '</div>';
+        }
+
+        list.innerHTML = html;
+        this.loadCheckStates();
+      },
+
+      // 勾选/取消检查项
+      toggleCheck: function(stepIdx, checkIdx) {
+        var key = 'sd_chk_' + this.solutionId + '_' + stepIdx + '_' + checkIdx;
+        var isChecked = localStorage.getItem(key) === '1';
+        localStorage.setItem(key, isChecked ? '0' : '1');
+        this.applyCheckState(stepIdx, checkIdx);
+      },
+
+      // 应用单个检查项状态
+      applyCheckState: function(stepIdx, checkIdx) {
+        var key = 'sd_chk_' + this.solutionId + '_' + stepIdx + '_' + checkIdx;
+        var isChecked = localStorage.getItem(key) === '1';
+        var checkbox = document.getElementById('chk_' + stepIdx + '_' + checkIdx);
+        var listItem = document.getElementById('cli_' + stepIdx + '_' + checkIdx);
+        if (checkbox) {
+          checkbox.classList.toggle('checked', isChecked);
+        }
+        if (listItem) {
+          listItem.classList.toggle('done', isChecked);
+        }
+      },
+
+      // 从localStorage恢复所有检查项状态
+      loadCheckStates: function() {
+        var steps = this.solution.steps || [];
+        for (var i = 0; i < steps.length; i++) {
+          var checklist = steps[i].checklist || [];
+          for (var j = 0; j < checklist.length; j++) {
+            this.applyCheckState(i, j);
+          }
+        }
+      },
+
+      // ===== 3. 注意事项 =====
+      renderNotes: function() {
+        var sol = this.solution;
+        var notes = sol.notes || [];
+        var section = document.getElementById('notesSection');
+
+        // 如果没有自定义注意事项，根据难度生成通用注意事项
+        if (notes.length === 0) {
+          notes = this.getDefaultNotes(sol.difficulty);
+        }
+
+        if (notes.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        var noteItems = '';
+        for (var i = 0; i < notes.length; i++) {
+          noteItems += '<li class="sd-notes-item">' +
+            '<span class="sd-notes-dot"></span>' +
+            '<span>' + notes[i] + '</span>' +
+          '</li>';
+        }
+
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('alert-triangle', 16) + ' 注意事项</p>' +
+          '<div class="sd-notes-card">' +
+            '<div class="sd-notes-title">执行前请注意</div>' +
+            '<ul class="sd-notes-list">' + noteItems + '</ul>' +
+          '</div>';
+      },
+
+      // 根据难度生成默认注意事项
+      getDefaultNotes: function(difficulty) {
+        var common = [
+          '执行前先和团队沟通，确保大家理解目标和步骤',
+          '每完成一步记录实际效果，方便后续复盘优化'
+        ];
+        if (difficulty === '简单') {
+          return common.concat([
+            '简单方案贵在坚持，不要因为简单就跳步骤'
+          ]);
+        } else if (difficulty === '中等') {
+          return common.concat([
+            '中等难度方案建议分阶段推进，不要一次性全部上线',
+            '遇到卡点及时记录，调整计划而非放弃'
+          ]);
+        } else {
+          return common.concat([
+            '较高难度方案建议先做小范围测试，验证可行后再全面铺开',
+            '可以寻求专业人士指导，降低试错成本',
+            '预留充足的执行时间，不要急于求成'
+          ]);
+        }
+      },
+
+      // ===== 4. 关联问题 =====
+      renderProblems: function() {
+        var sol = this.solution;
+        var problemCodes = sol.problemCodes || [];
+        var section = document.getElementById('problemsSection');
+
+        if (problemCodes.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        var chips = '';
+        for (var i = 0; i < problemCodes.length; i++) {
+          var prob = this.problemMap[problemCodes[i]];
+          if (prob) {
+            chips += '<a class="sd-problem-chip" href="index.html?problemCode=' + prob.code + '">' +
+              prob.icon + ' ' + prob.name +
+            '</a>';
+          }
+        }
+
+        section.innerHTML =
+          '<p class="biz-section-title">' + BizUtils.icon('link', 16) + ' 关联问题</p>' +
+          '<div class="sd-problem-list">' + chips + '</div>';
+      },
+
+      // ===== 5. 关联案例 =====
+      renderCases: function() {
+        var sol = this.solution;
+        var caseIds = sol.caseIds || [];
+        var cases = [];
+        for (var i = 0; i < caseIds.length; i++) {
+          var c = this.findCase(caseIds[i]);
+          if (c) cases.push(c);
+        }
+
+        // 如果方案没有指定案例，尝试根据problemCodes匹配
+        if (cases.length === 0) {
+          cases = this.findRelatedCases(sol.problemCodes || []);
+        }
+
+        var section = document.getElementById('casesSection');
+        if (cases.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        section.innerHTML = '<p class="biz-section-title">' + BizUtils.icon('book-open', 16) + ' 关联案例</p>';
+
+        var html = '';
+        for (var i = 0; i < cases.length; i++) {
+          var c = cases[i];
+          html += '<div class="sd-case-card" onclick="window.location.href=\'case-detail.html?caseId=' + c._id + '\'" style="cursor:pointer">' +
+            '<h3 class="sd-case-title">' + c.title + '</h3>' +
+            '<div class="sd-case-meta">' +
+              '<span class="sd-case-industry">' + (c.industry || '') + '</span>' +
+              '<span class="sd-case-effect">' + (c.effectData || '') + '</span>' +
+            '</div>' +
+          '</div>';
+        }
+
+        section.innerHTML += html;
+      },
+
+      // 根据ID查找案例
+      findCase: function(id) {
+        var cases = BizData.cases;
+        if (!cases) return null;
+        if (!Array.isArray(cases)) return cases[id] || null;
+        for (var i = 0; i < cases.length; i++) {
+          if (cases[i]._id === id) return cases[i];
+        }
+        return null;
+      },
+
+      // 根据问题code查找关联案例
+      findRelatedCases: function(problemCodes) {
+        var cases = BizData.cases;
+        if (!cases || !Array.isArray(cases)) return [];
+        var result = [];
+        for (var i = 0; i < cases.length; i++) {
+          var c = cases[i];
+          // 案例的problemType是中文名称，需要和问题的name匹配
+          for (var j = 0; j < problemCodes.length; j++) {
+            var prob = this.problemMap[problemCodes[j]];
+            if (prob && c.problemType === prob.name) {
+              result.push(c);
+              break;
+            }
+          }
+          if (result.length >= 3) break; // 最多显示3个
+        }
+        return result;
+      },
+
+      // ===== 6. 关联工具 =====
+      renderTools: function() {
+        var sol = this.solution;
+        var toolIds = sol.toolIds || [];
+        var tools = [];
+        for (var i = 0; i < toolIds.length; i++) {
+          var t = this.findTool(toolIds[i]);
+          if (t) tools.push(t);
+        }
+
+        // 如果方案没有指定工具，尝试根据问题类型匹配
+        if (tools.length === 0) {
+          tools = this.findRelatedTools(sol.problemCodes || []);
+        }
+
+        var section = document.getElementById('toolsSection');
+        if (tools.length === 0) {
+          section.innerHTML = '';
+          return;
+        }
+
+        section.innerHTML = '<p class="biz-section-title">' + BizUtils.icon('wrench', 16) + ' 关联工具</p>';
+
+        var iconNames = this.toolIconNames;
+        var html = '<div class="sd-tool-scroll">';
+        for (var i = 0; i < tools.length; i++) {
+          var t = tools[i];
+          html += '<div class="sd-tool-card" onclick="window.location.href=\'tool-detail.html?toolId=' + t._id + '\'">' +
+            '<div class="t-icon">' + BizUtils.icon(iconNames[i] || 'file-text', 20) + '</div>' +
+            '<div class="t-name">' + t.name + '</div>' +
+            '<div class="t-cat">' + (t.category || '') + ' · ' + (t.type || '') + '</div>' +
+          '</div>';
+        }
+        html += '</div>';
+
+        section.innerHTML += html;
+      },
+
+      // 根据ID查找工具
+      findTool: function(id) {
+        var tools = BizData.tools;
+        if (!tools) return null;
+        if (!Array.isArray(tools)) return tools[id] || null;
+        for (var i = 0; i < tools.length; i++) {
+          if (tools[i]._id === id) return tools[i];
+        }
+        return null;
+      },
+
+      // 根据问题类型查找关联工具（取前4个）
+      findRelatedTools: function(problemCodes) {
+        var tools = BizData.tools;
+        if (!tools || !Array.isArray(tools)) return [];
+        // 简单返回前4个工具作为关联推荐
+        return tools.slice(0, 4);
+      },
+
+      // ===== 收藏按钮 =====
+      toggleFav: function() {
+        // 检查登录状态
+        if (!BizFavorite.isLoggedIn()) {
+          BizFavorite.requireLogin('result');
+          return;
+        }
+
+        var title = this.solution ? this.solution.title : '';
+
+        if (this.isFaved) {
+          BizFavorite.remove('solution', this.solutionId);
+          this.isFaved = false;
+        } else {
+          BizFavorite.add('solution', this.solutionId, title);
+          this.isFaved = true;
+        }
+
+        var btn = document.getElementById('favBtn');
+        var icon = document.getElementById('favIcon');
+        var text = document.getElementById('favText');
+
+        if (this.isFaved) {
+          btn.classList.add('faved');
+          icon.textContent = '★';
+          text.textContent = '已收藏';
+          BizUtils.showToast('已收藏');
+        } else {
+          btn.classList.remove('faved');
+          icon.textContent = '☆';
+          text.textContent = '收藏';
+          BizUtils.showToast('已取消收藏');
+        }
+      },
+
+      // 恢复收藏状态
+      loadFavState: function() {
+        if (!this.solutionId) return;
+        this.isFaved = BizFavorite.isFavorited('solution', this.solutionId);
+        var btn = document.getElementById('favBtn');
+        var icon = document.getElementById('favIcon');
+        var text = document.getElementById('favText');
+        if (this.isFaved) {
+          btn.classList.add('faved');
+          icon.textContent = '★';
+          text.textContent = '已收藏';
+        }
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      SDPage.init();
+      BizUtils.replaceIcons();
+    });
+  </script>
+</body>
+</html>

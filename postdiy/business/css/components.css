@@ -1,0 +1,356 @@
+/* ===== 按钮组件 - Apple 极简风格 ===== */
+.biz-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--biz-gap-sm);
+  height: var(--biz-btn-height-md);
+  padding: 0 var(--biz-gap-xl);
+  border-radius: var(--biz-radius-md);
+  font-weight: 500;
+  font-size: var(--biz-font-body);
+  transition: var(--biz-transition);
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+}
+
+.biz-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+.biz-btn-primary {
+  background: var(--biz-primary);
+  color: var(--biz-text-inverse);
+}
+
+.biz-btn-primary:active {
+  opacity: 0.8;
+}
+
+.biz-btn-accent {
+  background: var(--biz-gradient-pink);
+  color: var(--biz-text-inverse);
+  box-shadow: 0 4px 16px rgba(245, 87, 108, 0.3);
+}
+
+.biz-btn-outline {
+  background: transparent;
+  color: var(--biz-primary);
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--biz-bg), var(--biz-bg)), var(--biz-gradient-primary);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.biz-btn-ghost {
+  background: var(--biz-glass-bg);
+  -webkit-backdrop-filter: var(--biz-glass-blur);
+  backdrop-filter: var(--biz-glass-blur);
+  color: var(--biz-text-primary);
+  border: 1px solid var(--biz-glass-border);
+}
+
+/* ===== 选择卡片 ===== */
+.biz-select-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--biz-gap-xs);
+  padding: var(--biz-gap-lg) var(--biz-gap-md);
+  background: var(--biz-glass-bg);
+  -webkit-backdrop-filter: var(--biz-glass-blur);
+  backdrop-filter: var(--biz-glass-blur);
+  border: 2px solid var(--biz-glass-border);
+  border-radius: var(--biz-radius-md);
+  box-shadow: var(--biz-glass-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: 80px;
+}
+
+.biz-select-card:active {
+  transform: scale(0.95);
+}
+
+.biz-select-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--biz-shadow-glow);
+}
+
+.biz-select-card.active {
+  border-color: transparent;
+  background-image: linear-gradient(var(--biz-glass-bg), var(--biz-glass-bg)), var(--biz-gradient-primary);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+}
+
+.biz-select-card .biz-select-icon {
+  font-size: 28px;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.biz-select-card:hover .biz-select-icon,
+.biz-select-card.active .biz-select-icon {
+  transform: scale(1.15);
+}
+
+.biz-select-card .biz-select-label {
+  font-size: var(--biz-font-h3);
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  text-align: center;
+}
+
+.biz-select-card.active .biz-select-label {
+  background: var(--biz-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.biz-select-card .biz-select-desc {
+  font-size: var(--biz-font-small);
+  color: var(--biz-text-secondary);
+  text-align: center;
+}
+
+/* ===== 底部导航 - Apple 风格 ===== */
+.biz-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--biz-tab-bar-height);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.biz-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 12px;
+  color: var(--biz-text-tertiary);
+  font-size: var(--biz-font-tiny);
+  transition: var(--biz-transition);
+  text-decoration: none;
+  position: relative;
+}
+
+.biz-tab-item.active {
+  color: var(--biz-primary);
+}
+
+.biz-tab-item .biz-tab-icon {
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.biz-tab-item.active .biz-tab-icon {
+  transform: scale(1.15);
+}
+
+.biz-tab-item .biz-tab-text {
+  font-weight: 500;
+}
+
+.biz-tab-item.active .biz-tab-text {
+  background: var(--biz-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* ===== 步骤条 ===== */
+.biz-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--biz-gap-lg) 0;
+  gap: 0;
+}
+
+.biz-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--biz-font-tiny);
+  color: var(--biz-text-tertiary);
+}
+
+.biz-step-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--biz-glass-bg);
+  -webkit-backdrop-filter: var(--biz-glass-blur);
+  backdrop-filter: var(--biz-glass-blur);
+  border: 1px solid var(--biz-glass-border);
+  color: var(--biz-text-tertiary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.biz-step.completed .biz-step-dot {
+  background: var(--biz-gradient-primary);
+  color: var(--biz-text-inverse);
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+}
+
+.biz-step.current .biz-step-dot {
+  background: var(--biz-gradient-primary);
+  color: var(--biz-text-inverse);
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4), 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.biz-step-line {
+  width: 24px;
+  height: 2px;
+  background: var(--biz-glass-border);
+  margin: 0 4px;
+  border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.biz-step.completed + .biz-step-line {
+  background: var(--biz-gradient-primary);
+  box-shadow: 0 0 6px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== 标签 - 胶囊渐变 ===== */
+.biz-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--biz-radius-pill);
+  font-size: var(--biz-font-tiny);
+  font-weight: 600;
+  background: var(--biz-glass-bg);
+  -webkit-backdrop-filter: var(--biz-glass-blur);
+  backdrop-filter: var(--biz-glass-blur);
+  border: 1px solid var(--biz-glass-border);
+  color: var(--biz-text-secondary);
+}
+
+.biz-tag-primary {
+  background: var(--biz-gradient-primary);
+  border: none;
+  color: var(--biz-text-inverse);
+}
+
+.biz-tag-accent {
+  background: var(--biz-gradient-pink);
+  border: none;
+  color: var(--biz-text-inverse);
+}
+
+/* ===== 加载状态 ===== */
+.biz-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--biz-gap-xxl);
+  gap: var(--biz-gap-md);
+}
+
+.biz-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--biz-glass-border);
+  border-top-color: var(--biz-primary);
+  border-radius: 50%;
+  animation: bizSpin 0.8s linear infinite;
+}
+
+@keyframes bizSpin {
+  to { transform: rotate(360deg); }
+}
+
+.biz-loading-text {
+  font-size: var(--biz-font-small);
+  color: var(--biz-text-tertiary);
+}
+
+/* ===== 空状态 ===== */
+.biz-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--biz-gap-xxl);
+  gap: var(--biz-gap-md);
+}
+
+.biz-empty-icon {
+  font-size: 48px;
+  opacity: 0.4;
+  filter: grayscale(0.3);
+}
+
+.biz-empty-text {
+  font-size: var(--biz-font-body);
+  color: var(--biz-text-tertiary);
+}
+
+/* ===== 搜索框 - Apple 风格 ===== */
+.biz-search {
+  position: relative;
+}
+
+.biz-search-input {
+  width: 100%;
+  padding: 10px 16px 10px 36px;
+  background: #f5f5f7;
+  border: none;
+  border-radius: 10px;
+  font-size: var(--biz-font-body);
+  color: var(--biz-text-primary);
+  outline: none;
+  transition: var(--biz-transition);
+}
+
+.biz-search-input:focus {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+}
+
+.biz-search-input::placeholder {
+  color: var(--biz-text-tertiary);
+}
+
+.biz-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--biz-text-tertiary);
+  color: var(--biz-text-tertiary);
+}

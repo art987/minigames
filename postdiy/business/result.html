@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>诊断结果 - 闪喵经营诊断</title>
+  <meta name="description" content="查看你的经营诊断结果，获取改善方案。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* ===== 图标通用 ===== */
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===== 底部导航覆盖 ===== */
+    .biz-tab-bar {
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    }
+    .biz-tab-item .biz-tab-icon {
+      font-size: 0;
+    }
+
+    /* ===== 顶部栏 ===== */
+    .result-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .result-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .result-topbar-back {
+      font-size: var(--biz-font-small);
+      cursor: pointer;
+      padding: 2px 6px;
+      color: var(--biz-text-tertiary);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .result-topbar-back:active {
+      opacity: 0.6;
+    }
+    .result-topbar-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .result-fav-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-small);
+      font-weight: 500;
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.1);
+      color: var(--biz-text-secondary);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-fav-btn.faved {
+      background: rgba(245, 87, 108, 0.08);
+      border: 0.5px solid rgba(245, 87, 108, 0.2);
+      color: var(--biz-accent);
+    }
+    .result-fav-btn.faved .biz-icon {
+      fill: var(--biz-accent);
+      stroke: var(--biz-accent);
+    }
+
+    /* ===== 1. 问题概览卡 ===== */
+    .result-overview {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .result-overview::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(102,126,234,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .result-overview-title {
+      font-size: var(--biz-font-h1);
+      font-weight: 700;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--biz-gap-sm);
+      line-height: 1.3;
+      position: relative;
+    }
+    .result-overview-tags {
+      display: flex;
+      gap: var(--biz-gap-sm);
+      margin-bottom: var(--biz-gap-md);
+      flex-wrap: wrap;
+    }
+    .result-overview-judgment {
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--biz-gap-lg);
+      position: relative;
+    }
+
+    /* 严重程度圆环 */
+    .result-severity {
+      margin-bottom: var(--biz-gap-md);
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-lg);
+      position: relative;
+    }
+    .result-severity-ring {
+      width: 72px;
+      height: 72px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .result-severity-ring svg {
+      width: 72px;
+      height: 72px;
+      transform: rotate(-90deg);
+    }
+    .result-severity-ring .sev-ring-bg {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.06);
+      stroke-width: 6;
+    }
+    .result-severity-ring .sev-ring-fill {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 188.5;
+      stroke-dashoffset: 188.5;
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-severity-ring .sev-ring-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .result-severity-info {
+      flex: 1;
+    }
+    .result-severity-label {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      margin-bottom: 2px;
+    }
+    .result-severity-level {
+      font-size: var(--biz-font-h3);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .result-severity-peer {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+    }
+
+    /* ===== 2. 可能原因排序 ===== */
+    .result-causes {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-cause-item {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      padding: var(--biz-gap-md) var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-sm);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .result-cause-item:active {
+      transform: scale(0.98);
+    }
+    .result-cause-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .result-cause-item::before {
+      display: none;
+    }
+    .result-cause-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .result-cause-left {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-sm);
+      flex: 1;
+      min-width: 0;
+    }
+    .result-cause-rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--biz-gradient-primary);
+      color: var(--biz-text-inverse);
+    }
+    .result-cause-name {
+      font-size: var(--biz-font-body);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+    .result-cause-right {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-sm);
+      flex-shrink: 0;
+    }
+    .result-cause-weight {
+      font-size: var(--biz-font-small);
+      font-weight: 700;
+      background: var(--biz-gradient-orange);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .result-cause-arrow {
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-cause-item.expanded .result-cause-arrow {
+      transform: rotate(90deg);
+    }
+    .result-cause-detail {
+      padding-top: var(--biz-gap-md);
+      border-top: 1px solid var(--biz-glass-border);
+      margin-top: var(--biz-gap-md);
+    }
+    .result-cause-judgment {
+      font-size: var(--biz-font-small);
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--biz-gap-sm);
+      font-weight: 500;
+    }
+    .result-cause-desc {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== 3. 推荐方案卡片 ===== */
+    .result-solutions {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-solution-card {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-solution-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+    .result-solution-card::before {
+      display: none;
+    }
+    .result-solution-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 8px;
+    }
+    .result-solution-summary {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      margin-bottom: var(--biz-gap-md);
+      line-height: 1.6;
+    }
+    .result-solution-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .result-solution-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: var(--biz-radius-pill);
+      font-size: var(--biz-font-tiny);
+      font-weight: 600;
+    }
+    .result-solution-meta-item .meta-icon {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+    .result-solution-meta-item .meta-value {
+      font-weight: 700;
+    }
+    .meta-difficulty-easy {
+      background: rgba(67, 233, 123, 0.15);
+      color: #2db86a;
+    }
+    .meta-difficulty-mid {
+      background: rgba(254, 225, 64, 0.2);
+      color: #c4a000;
+    }
+    .meta-difficulty-hard {
+      background: rgba(245, 87, 108, 0.15);
+      color: #e04058;
+    }
+    .meta-neutral {
+      background: var(--biz-glass-bg);
+      border: 1px solid var(--biz-glass-border);
+      color: var(--biz-text-secondary);
+    }
+
+    /* ===== 4. 今日执行任务 ===== */
+    .result-today {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-md);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      padding: var(--biz-gap-md) var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-sm);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-task-item.done {
+      opacity: 0.55;
+    }
+    .result-task-item.done .result-task-text {
+      text-decoration: line-through;
+    }
+    .result-task-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-top: 1px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .result-task-checkbox.checked {
+      background: var(--biz-gradient-primary);
+      border-color: transparent;
+      box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+    }
+    .result-task-checkbox.checked::after {
+      content: '✓';
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .result-task-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .result-task-text {
+      font-size: var(--biz-font-body);
+      font-weight: 500;
+      color: var(--biz-text-primary);
+      line-height: 1.5;
+    }
+    .result-task-meta {
+      display: flex;
+      gap: var(--biz-gap-md);
+      margin-top: 4px;
+    }
+    .result-task-duration,
+    .result-task-purpose {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+    }
+
+    /* ===== 5. 7天改善计划 - 时间轴样式 ===== */
+    .result-weekplan {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-week-tabs {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: var(--biz-gap-md);
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: var(--biz-radius-md);
+      padding: 3px;
+    }
+    .result-week-tabs::-webkit-scrollbar { display: none; }
+    .result-week-tab {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: var(--biz-radius-sm);
+      font-size: var(--biz-font-tiny);
+      font-weight: 500;
+      color: var(--biz-text-secondary);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .result-week-tab.active {
+      background: #fff;
+      color: var(--biz-primary);
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+    .result-week-day-title {
+      font-size: var(--biz-font-h3);
+      font-weight: 600;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--biz-gap-md);
+    }
+    .result-week-task-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+    .result-week-task-list::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--biz-gradient-primary);
+      border-radius: 1px;
+      opacity: 0.3;
+    }
+    .result-week-task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--biz-gap-sm);
+      padding: var(--biz-gap-sm) 0;
+      font-size: var(--biz-font-body);
+      color: var(--biz-text-primary);
+      line-height: 1.5;
+      position: relative;
+    }
+    .result-week-task-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--biz-gradient-primary);
+      flex-shrink: 0;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 6px rgba(102, 126, 234, 0.3);
+    }
+
+    /* ===== 6. 相关案例 ===== */
+    .result-cases {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-case-card {
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      padding: var(--biz-gap-lg);
+      margin-bottom: var(--biz-gap-md);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-case-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .result-case-card::before {
+      display: none;
+    }
+    .result-case-title {
+      font-size: var(--biz-font-body);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 8px;
+    }
+    .result-case-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--biz-gap-md);
+    }
+    .result-case-industry {
+      font-size: var(--biz-font-tiny);
+      color: var(--biz-text-tertiary);
+    }
+    .result-case-effect {
+      font-size: var(--biz-font-h3);
+      font-weight: 800;
+      background: var(--biz-gradient-green);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 7. 相关工具 ===== */
+    .result-tools {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .result-tool-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .result-tool-scroll::-webkit-scrollbar { display: none; }
+    .result-tool-card {
+      flex-shrink: 0;
+      width: 110px;
+      padding: 14px 10px;
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .result-tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .result-tool-card .t-icon {
+      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--biz-gradient-primary);
+    }
+    .result-tool-card .t-name { font-size: var(--biz-font-small); font-weight: 600; color: var(--biz-text-primary); }
+
+    /* ===== 长期优化方向 ===== */
+    .long-term-advice {
+      margin-bottom: var(--biz-gap-xl);
+    }
+    .long-term-item {
+      display: flex;
+      gap: var(--biz-gap-md);
+      padding: var(--biz-gap-lg);
+      background: #fff;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      margin-bottom: var(--biz-gap-sm);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .long-term-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .long-term-item::before {
+      display: none;
+    }
+    .long-term-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: var(--biz-gradient-primary);
+      color: var(--biz-text-inverse);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    .long-term-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .long-term-title {
+      font-size: var(--biz-font-body);
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 4px;
+    }
+    .long-term-desc {
+      font-size: var(--biz-font-small);
+      color: var(--biz-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== 底部按钮 ===== */
+    .result-bottom-action {
+      padding: 0 var(--biz-page-padding) var(--biz-gap-xl);
+      max-width: var(--biz-content-max-width);
+      margin: 0 auto;
+    }
+
+    /* ===== 完成提示 ===== */
+    .result-all-done {
+      text-align: center;
+      padding: var(--biz-gap-lg);
+      font-size: var(--biz-font-body);
+      background: var(--biz-gradient-green);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部栏 -->
+  <header class="result-topbar">
+    <div class="result-topbar-left">
+      <span class="result-topbar-back" id="btnBack" onclick="history.back()"></span>
+      <span class="result-topbar-title">诊断结果</span>
+    </div>
+    <button class="result-fav-btn" id="favBtn" onclick="ResultPage.toggleFav()">
+      <span id="favIcon"></span>
+      <span id="favText">收藏</span>
+    </button>
+  </header>
+
+  <main class="biz-page">
+    <!-- 1. 问题概览卡 -->
+    <section class="biz-section" id="overviewSection">
+      <p class="biz-section-title"><i data-lucide="clipboard-list" class="biz-icon" style="width:16px;height:16px;"></i> 你的问题</p>
+    </section>
+
+    <!-- 2. 可能原因排序 -->
+    <section class="biz-section result-causes" id="causesSection">
+      <p class="biz-section-title"><i data-lucide="search" class="biz-icon" style="width:16px;height:16px;"></i> 问题原因</p>
+      <div id="causesList"></div>
+    </section>
+
+    <!-- 3. 推荐方案卡片 -->
+    <section class="biz-section result-solutions" id="solutionsSection">
+      <p class="biz-section-title"><i data-lucide="lightbulb" class="biz-icon" style="width:16px;height:16px;"></i> 推荐方案</p>
+      <div id="solutionsList"></div>
+    </section>
+
+    <!-- 4. 今日执行任务 -->
+    <section class="biz-section result-today" id="todaySection">
+      <p class="biz-section-title"><i data-lucide="zap" class="biz-icon" style="width:16px;height:16px;"></i> 立即执行</p>
+      <div id="todayTasksList"></div>
+    </section>
+
+    <!-- 5. 7天改善计划 -->
+    <section class="biz-section result-weekplan" id="weekPlanSection">
+      <p class="biz-section-title"><i data-lucide="calendar" class="biz-icon" style="width:16px;height:16px;"></i> 7天改善计划</p>
+      <div class="result-week-tabs" id="weekTabs"></div>
+      <div id="weekContent"></div>
+    </section>
+
+    <!-- 6. 长期优化方向 -->
+    <section class="biz-section" id="longTermSection">
+      <p class="biz-section-title"><i data-lucide="target" class="biz-icon" style="width:16px;height:16px;"></i> 长期优化方向</p>
+      <div class="long-term-advice" id="longTermList"></div>
+    </section>
+
+    <!-- 7. 相关案例 -->
+    <section class="biz-section result-cases" id="casesSection">
+      <p class="biz-section-title"><i data-lucide="book-open" class="biz-icon" style="width:16px;height:16px;"></i> 相关案例</p>
+      <div id="casesList"></div>
+    </section>
+
+    <!-- 8. 相关工具 -->
+    <section class="biz-section result-tools" id="toolsSection">
+      <p class="biz-section-title"><i data-lucide="wrench" class="biz-icon" style="width:16px;height:16px;"></i> 相关工具</p>
+      <div class="result-tool-scroll" id="toolsList"></div>
+    </section>
+
+    <!-- 重新诊断按钮 -->
+    <div class="result-bottom-action">
+      <button class="biz-btn biz-btn-ghost" onclick="ResultPage.redoDiagnosis()">重新诊断</button>
+    </div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="clipboard-list" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="package" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script src="js/biz-favorite.js"></script>
+  <script>
+    var ResultPage = {
+      resultData: null,
+      path: null,
+      currentDay: 1,
+      isFaved: false,
+      toolIcons: ['bar-chart-3', 'clipboard-list', 'wallet', 'smartphone', 'file-text', 'trending-up', 'folder', 'calculator'],
+      causeTints: [
+        'rgba(102,126,234,0.05)',
+        'rgba(240,147,251,0.05)',
+        'rgba(250,112,154,0.05)',
+        'rgba(161,140,209,0.05)',
+        'rgba(79,172,254,0.05)'
+      ],
+      solutionTints: [
+        'rgba(102,126,234,0.05)',
+        'rgba(79,172,254,0.05)',
+        'rgba(67,233,123,0.05)',
+        'rgba(161,140,209,0.05)',
+        'rgba(240,147,251,0.05)'
+      ],
+
+      init: function() {
+        BizDataService.init();
+        this.loadData();
+      },
+
+      loadData: function() {
+        try {
+          var stored = sessionStorage.getItem('biz_diagnosis_result');
+          if (stored) {
+            this.resultData = JSON.parse(stored);
+          }
+        } catch (e) {
+          console.warn('[Result] 读取诊断结果失败', e);
+        }
+
+        if (!this.resultData) {
+          var state = BizUtils.loadDiagnosisState() || {};
+          this.resultData = {
+            path: BizLocalData.diagnosisResult,
+            problemName: '没有客流',
+            industry: state.industry || '餐饮',
+            stage: state.stage || '成长期',
+            selectedSymptoms: []
+          };
+          this.resultData.path = {
+            judgment: BizLocalData.diagnosisResult.judgment,
+            severity: BizLocalData.diagnosisResult.severity,
+            causes: BizLocalData.diagnosisResult.causes,
+            todayTasks: BizLocalData.diagnosisResult.todayTasks,
+            weekPlan: BizLocalData.diagnosisResult.weekPlan,
+            longTermAdvice: [],
+            solutionIds: [],
+            caseIds: [],
+            toolIds: []
+          };
+        }
+
+        this.path = this.resultData.path || {};
+
+        if (this.path) {
+          this.renderAll();
+        }
+      },
+
+      renderAll: function() {
+        this.renderOverview();
+        this.renderCauses();
+        this.renderSolutions();
+        this.renderTodayTasks();
+        this.renderWeekPlan();
+        this.renderLongTermAdvice();
+        this.renderCases();
+        this.renderTools();
+        this.loadFavState();
+        this.loadTaskStates();
+        // 初始化静态图标
+        document.getElementById('btnBack').innerHTML = BizUtils.icon('chevron-left', 16) + ' 返回';
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 1. 你的问题 =====
+      renderOverview: function() {
+        var path = this.path;
+        var result = this.resultData;
+        var severity = path.severity || 0;
+        var color = BizUtils.getSeverityColor(severity);
+        var label = BizUtils.getSeverityLabel(severity);
+        var peerPercent = Math.round(severity * 0.8 + Math.random() * 10);
+        var problemName = result.problemName || '经营问题';
+        var industry = result.industry || '';
+        var stage = result.stage || '';
+
+        // 计算圆环stroke-dashoffset
+        var circumference = 2 * Math.PI * 30; // r=30
+        var offset = circumference - (severity / 100) * circumference;
+
+        var section = document.getElementById('overviewSection');
+        section.innerHTML =
+          '<div class="result-overview">' +
+            '<h1 class="result-overview-title">' + problemName + '</h1>' +
+            '<div class="result-overview-tags">' +
+              (industry ? '<span class="biz-tag biz-tag-primary">' + industry + '</span>' : '') +
+              (stage ? '<span class="biz-tag biz-tag-accent">' + stage + '</span>' : '') +
+            '</div>' +
+            '<p class="result-overview-judgment">' + (path.judgment || '') + '</p>' +
+            '<div class="result-severity">' +
+              '<div class="result-severity-ring">' +
+                '<svg viewBox="0 0 72 72">' +
+                  '<circle class="sev-ring-bg" cx="36" cy="36" r="30"></circle>' +
+                  '<circle class="sev-ring-fill" cx="36" cy="36" r="30" stroke="' + color + '" style="stroke-dasharray:' + circumference + ';stroke-dashoffset:' + circumference + '" data-target-offset="' + offset + '"></circle>' +
+                '</svg>' +
+                '<span class="sev-ring-value" style="color:' + color + '">' + severity + '</span>' +
+              '</div>' +
+              '<div class="result-severity-info">' +
+                '<div class="result-severity-label">严重程度</div>' +
+                '<div class="result-severity-level" style="color:' + color + '">' + label + '</div>' +
+                '<div class="result-severity-peer">高于 ' + peerPercent + '% 同行</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+
+        // 动画启动严重程度圆环
+        setTimeout(function() {
+          var fillEl = section.querySelector('.sev-ring-fill');
+          if (fillEl) {
+            fillEl.style.strokeDashoffset = fillEl.getAttribute('data-target-offset');
+          }
+        }, 100);
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 2. 问题原因 =====
+      renderCauses: function() {
+        var causes = (this.path.causes || []).slice().sort(function(a, b) {
+          return (b.weight || 0) - (a.weight || 0);
+        });
+        var self = this;
+        var list = document.getElementById('causesList');
+        list.innerHTML = causes.map(function(c, i) {
+          var tint = self.causeTints[i % self.causeTints.length];
+          return '<div class="result-cause-item expanded" data-index="' + i + '" onclick="ResultPage.toggleCause(' + i + ')" style="--cause-tint:' + tint + '">' +
+            '<div class="result-cause-header">' +
+              '<div class="result-cause-left">' +
+                '<span class="result-cause-rank">' + (i + 1) + '</span>' +
+                '<span class="result-cause-name">' + c.name + '</span>' +
+              '</div>' +
+              '<div class="result-cause-right">' +
+                '<span class="result-cause-weight">' + c.weight + '%</span>' +
+                '<span class="result-cause-arrow">▶</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="result-cause-detail">' +
+              '<p class="result-cause-judgment">' + BizUtils.icon('lightbulb', 14) + ' ' + c.judgment + '</p>' +
+              '<p class="result-cause-desc">' + c.description + '</p>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      toggleCause: function(index) {
+        var items = document.querySelectorAll('.result-cause-item');
+        var item = items[index];
+        if (item) {
+          item.classList.toggle('expanded');
+        }
+      },
+
+      // ===== 3. 推荐方案卡片 =====
+      renderSolutions: function() {
+        var solutionIds = this.path.solutionIds || [];
+        var solutions = [];
+        var allSolutions = BizData.solutions || [];
+        for (var i = 0; i < solutionIds.length; i++) {
+          var found = null;
+          if (Array.isArray(allSolutions)) {
+            for (var j = 0; j < allSolutions.length; j++) {
+              if (allSolutions[j]._id === solutionIds[i]) { found = allSolutions[j]; break; }
+            }
+          } else {
+            found = allSolutions[solutionIds[i]];
+          }
+          if (found) solutions.push(found);
+        }
+        var list = document.getElementById('solutionsList');
+        var self = this;
+
+        var diffClasses = { '简单': 'meta-difficulty-easy', '中等': 'meta-difficulty-mid', '困难': 'meta-difficulty-hard' };
+
+        list.innerHTML = solutions.map(function(s, i) {
+          var tint = self.solutionTints[i % self.solutionTints.length];
+          var diffCls = diffClasses[s.difficulty] || 'meta-neutral';
+          return '<div class="result-solution-card" onclick="window.location.href=\'solution-detail.html?solutionId=' + s._id + '\'" style="cursor:pointer;--solution-tint:' + tint + '">' +
+            '<h3 class="result-solution-title">' + s.title + '</h3>' +
+            '<p class="result-solution-summary">' + s.summary + '</p>' +
+            '<div class="result-solution-meta">' +
+              '<span class="result-solution-meta-item ' + diffCls + '">' +
+                '<span class="meta-icon">' + BizUtils.icon('target', 12) + '</span>' +
+                s.difficulty +
+              '</span>' +
+              '<span class="result-solution-meta-item meta-neutral">' +
+                '<span class="meta-icon">' + BizUtils.icon('clock', 12) + '</span>' +
+                s.effectiveTime +
+              '</span>' +
+              '<span class="result-solution-meta-item meta-neutral">' +
+                '<span class="meta-icon">' + BizUtils.icon('wallet', 12) + '</span>' +
+                s.costRange +
+              '</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 4. 立即执行 =====
+      renderTodayTasks: function() {
+        var tasks = this.path.todayTasks || [];
+        var list = document.getElementById('todayTasksList');
+
+        list.innerHTML = tasks.map(function(t, i) {
+          return '<div class="result-task-item" id="taskItem' + i + '">' +
+            '<div class="result-task-checkbox" id="taskCheck' + i + '" onclick="ResultPage.toggleTask(' + i + ')"></div>' +
+            '<div class="result-task-content">' +
+              '<div class="result-task-text">' + t.task + '</div>' +
+              '<div class="result-task-meta">' +
+                '<span class="result-task-duration">' + BizUtils.icon('clock', 12) + ' ' + t.duration + '</span>' +
+                '<span class="result-task-purpose">→ ' + t.purpose + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      toggleTask: function(index) {
+        var key = 'biz_task_done_' + index;
+        var isDone = localStorage.getItem(key) === '1';
+        localStorage.setItem(key, isDone ? '0' : '1');
+        this.applyTaskState(index);
+        this.checkAllDone();
+      },
+
+      applyTaskState: function(index) {
+        var key = 'biz_task_done_' + index;
+        var isDone = localStorage.getItem(key) === '1';
+        var item = document.getElementById('taskItem' + index);
+        var check = document.getElementById('taskCheck' + index);
+        if (item) {
+          item.classList.toggle('done', isDone);
+        }
+        if (check) {
+          check.classList.toggle('checked', isDone);
+        }
+      },
+
+      loadTaskStates: function() {
+        var tasks = this.path.todayTasks || [];
+        for (var i = 0; i < tasks.length; i++) {
+          this.applyTaskState(i);
+        }
+        this.checkAllDone();
+      },
+
+      checkAllDone: function() {
+        var tasks = this.path.todayTasks || [];
+        var allDone = true;
+        for (var i = 0; i < tasks.length; i++) {
+          if (localStorage.getItem('biz_task_done_' + i) !== '1') {
+            allDone = false;
+            break;
+          }
+        }
+        var section = document.getElementById('todaySection');
+        var existing = section.querySelector('.result-all-done');
+        if (allDone && tasks.length > 0) {
+          if (!existing) {
+            var el = document.createElement('div');
+            el.className = 'result-all-done';
+            el.textContent = '今日任务全部完成！';
+            section.appendChild(el);
+          }
+        } else if (existing) {
+          existing.remove();
+        }
+      },
+
+      // ===== 5. 7天改善计划 =====
+      renderWeekPlan: function() {
+        var plan = this.path.weekPlan || [];
+        var tabs = document.getElementById('weekTabs');
+
+        tabs.innerHTML = plan.map(function(d) {
+          return '<div class="result-week-tab' + (d.day === 1 ? ' active' : '') + '" data-day="' + d.day + '" onclick="ResultPage.switchDay(' + d.day + ')">D' + d.day + '</div>';
+        }).join('');
+
+        this.renderWeekDayContent(1);
+      },
+
+      switchDay: function(day) {
+        this.currentDay = day;
+        var tabs = document.querySelectorAll('.result-week-tab');
+        tabs.forEach(function(tab) {
+          tab.classList.toggle('active', parseInt(tab.dataset.day) === day);
+        });
+        this.renderWeekDayContent(day);
+      },
+
+      renderWeekDayContent: function(day) {
+        var plan = this.path.weekPlan || [];
+        var dayData = null;
+        for (var i = 0; i < plan.length; i++) {
+          if (plan[i].day === day) { dayData = plan[i]; break; }
+        }
+        var container = document.getElementById('weekContent');
+
+        if (!dayData) {
+          container.innerHTML = '<div class="biz-empty"><span class="biz-empty-text">暂无计划</span></div>';
+          return;
+        }
+
+        var taskItems = (dayData.tasks || []).map(function(t) {
+          return '<li class="result-week-task-item">' +
+            '<span class="result-week-task-dot"></span>' +
+            '<span>' + t + '</span>' +
+          '</li>';
+        }).join('');
+
+        container.innerHTML =
+          '<h3 class="result-week-day-title">D' + dayData.day + ' · ' + dayData.title + '</h3>' +
+          '<ul class="result-week-task-list">' + taskItems + '</ul>';
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 6. 长期优化方向 =====
+      renderLongTermAdvice: function() {
+        var advices = this.path.longTermAdvice || [];
+        var list = document.getElementById('longTermList');
+
+        if (advices.length === 0) {
+          list.innerHTML = '<div class="biz-empty"><span class="biz-empty-text">暂无长期建议</span></div>';
+          return;
+        }
+
+        list.innerHTML = advices.map(function(a, i) {
+          var title = typeof a === 'string' ? a : (a.title || '');
+          var desc = typeof a === 'object' && a.desc ? a.desc : '';
+          var html = '<div class="long-term-item">' +
+            '<span class="long-term-num">' + (i + 1) + '</span>' +
+            '<div class="long-term-content">' +
+              '<div class="long-term-title">' + title + '</div>';
+          if (desc) {
+            html += '<div class="long-term-desc">' + desc + '</div>';
+          }
+          html += '</div></div>';
+          return html;
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 7. 相关案例 =====
+      renderCases: function() {
+        var caseIds = this.path.caseIds || [];
+        var cases = [];
+        var allCases = BizData.cases || [];
+        for (var i = 0; i < caseIds.length; i++) {
+          var found = null;
+          if (Array.isArray(allCases)) {
+            for (var j = 0; j < allCases.length; j++) {
+              if (allCases[j]._id === caseIds[i]) { found = allCases[j]; break; }
+            }
+          } else {
+            found = allCases[caseIds[i]];
+          }
+          if (found) cases.push(found);
+        }
+        var list = document.getElementById('casesList');
+        list.innerHTML = cases.map(function(c) {
+          return '<div class="result-case-card" onclick="window.location.href=\'case-detail.html?caseId=' + c._id + '\'" style="cursor:pointer">' +
+            '<h3 class="result-case-title">' + c.title + '</h3>' +
+            '<div class="result-case-meta">' +
+              '<span class="result-case-industry">' + c.industry + '</span>' +
+              '<span class="result-case-effect">' + c.effectData + '</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 8. 相关工具 =====
+      renderTools: function() {
+        var toolIds = this.path.toolIds || [];
+        var tools = [];
+        var allTools = BizData.tools || [];
+        for (var i = 0; i < toolIds.length; i++) {
+          var found = null;
+          if (Array.isArray(allTools)) {
+            for (var j = 0; j < allTools.length; j++) {
+              if (allTools[j]._id === toolIds[i]) { found = allTools[j]; break; }
+            }
+          } else {
+            found = allTools[toolIds[i]];
+          }
+          if (found) tools.push(found);
+        }
+        var scroll = document.getElementById('toolsList');
+        var self = this;
+
+        scroll.innerHTML = tools.map(function(t, i) {
+          var iconName = t.icon || self.toolIcons[i % self.toolIcons.length] || 'box';
+          return '<div class="result-tool-card" onclick="window.location.href=\'tool-detail.html?toolId=' + t._id + '\'">' +
+            '<div class="t-icon">' + BizUtils.icon(iconName, 18) + '</div>' +
+            '<div class="t-name">' + t.name + '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      // ===== 收藏按钮 =====
+      toggleFav: function() {
+        if (!BizFavorite.isLoggedIn()) {
+          BizFavorite.requireLogin('result');
+          return;
+        }
+
+        var result = this.resultData;
+        var problemName = result ? (result.problemName || '经营问题') : '经营问题';
+        var diagnosisId = result && result.path ? 'diag_' + (result.problemName || '') + '_' + (result.industry || '') : 'diag_default';
+
+        if (this.isFaved) {
+          BizFavorite.remove('diagnosis', diagnosisId);
+          this.isFaved = false;
+        } else {
+          BizFavorite.add('diagnosis', diagnosisId, problemName);
+          this.isFaved = true;
+        }
+
+        var btn = document.getElementById('favBtn');
+        var icon = document.getElementById('favIcon');
+        var text = document.getElementById('favText');
+
+        if (this.isFaved) {
+          btn.classList.add('faved');
+          icon.innerHTML = BizUtils.icon('heart', 14);
+          text.textContent = '已收藏';
+          BizUtils.showToast('已收藏');
+        } else {
+          btn.classList.remove('faved');
+          icon.innerHTML = BizUtils.icon('heart', 14);
+          text.textContent = '收藏';
+          BizUtils.showToast('已取消收藏');
+        }
+        BizUtils.replaceIcons();
+      },
+
+      loadFavState: function() {
+        var result = this.resultData;
+        var diagnosisId = result && result.path ? 'diag_' + (result.problemName || '') + '_' + (result.industry || '') : 'diag_default';
+        this.isFaved = BizFavorite.isFavorited('diagnosis', diagnosisId);
+        var btn = document.getElementById('favBtn');
+        var icon = document.getElementById('favIcon');
+        var text = document.getElementById('favText');
+        if (this.isFaved) {
+          btn.classList.add('faved');
+          icon.innerHTML = BizUtils.icon('heart', 14);
+          text.textContent = '已收藏';
+        } else {
+          icon.innerHTML = BizUtils.icon('heart', 14);
+        }
+        BizUtils.replaceIcons();
+      },
+
+      redoDiagnosis: function() {
+        BizUtils.clearDiagnosisState();
+        this.clearTaskStates();
+        try { sessionStorage.removeItem('biz_diagnosis_result'); } catch (e) {}
+        window.location.href = 'index.html';
+      },
+
+      clearTaskStates: function() {
+        var tasks = this.path.todayTasks || [];
+        for (var i = 0; i < tasks.length; i++) {
+          localStorage.removeItem('biz_task_done_' + i);
+        }
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      ResultPage.init();
+    });
+  </script>
+
+  <style>
+    /* 原因卡片极淡渐变背景 */
+    .result-cause-item {
+      background-image: linear-gradient(var(--cause-tint, rgba(102,126,234,0.03)), var(--cause-tint, rgba(102,126,234,0.03))), #fff;
+    }
+    /* 方案卡片极淡渐变背景 */
+    .result-solution-card {
+      background-image: linear-gradient(var(--solution-tint, rgba(102,126,234,0.03)), var(--solution-tint, rgba(102,126,234,0.03))), #fff;
+    }
+  </style>
+</body>
+</html>

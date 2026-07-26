@@ -1,0 +1,99 @@
+/* ===== 主题变量 - Apple 极简风格 ===== */
+:root {
+  /* 基础色调 - 纯白基底 */
+  --biz-bg: #F5F5F7;
+  --biz-bg-page: #F5F5F7;
+  --biz-bg-card: #FFFFFF;
+  --biz-bg-section: #FFFFFF;
+  --biz-bg-overlay: rgba(0, 0, 0, 0.4);
+  --biz-card-border: rgba(0, 0, 0, 0.06);
+  --biz-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  /* 主色 - 沉稳蓝 */
+  --biz-gradient-primary: linear-gradient(135deg, #0071E3 0%, #0077ED 100%);
+  --biz-gradient-pink: linear-gradient(135deg, #FF2D55 0%, #FF375F 100%);
+  --biz-gradient-blue: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+  --biz-gradient-orange: linear-gradient(135deg, #FF9500 0%, #FFCC00 100%);
+  --biz-gradient-green: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+  --biz-gradient-purple: linear-gradient(135deg, #AF52DE 0%, #BF5AF2 100%);
+
+  /* 主色纯色 */
+  --biz-primary: #0071E3;
+  --biz-primary-light: rgba(0, 113, 227, 0.08);
+  --biz-primary-dark: #005BBB;
+  --biz-accent: #FF2D55;
+  --biz-accent-light: rgba(255, 45, 85, 0.08);
+
+  /* 文字色 - Apple 灰阶 */
+  --biz-text-primary: #1D1D1F;
+  --biz-text-secondary: #6E6E73;
+  --biz-text-tertiary: #AEAEB2;
+  --biz-text-inverse: #FFFFFF;
+
+  /* 语义色 - Apple 系统色 */
+  --biz-success: #34C759;
+  --biz-warning: #FF9500;
+  --biz-danger: #FF3B30;
+  --biz-info: #007AFF;
+
+  /* 问题类别色 */
+  --biz-problem-traffic: #FF9500;
+  --biz-problem-revenue: #FF3B30;
+  --biz-problem-profit: #FF9500;
+  --biz-problem-staff: #AF52DE;
+  --biz-problem-retention: #FF2D55;
+  --biz-problem-competition: #007AFF;
+  --biz-problem-marketing: #34C759;
+  --biz-problem-other: #6E6E73;
+
+  /* 卡片/容器 */
+  --biz-glass-bg: #FFFFFF;
+  --biz-glass-border: rgba(0, 0, 0, 0.06);
+  --biz-glass-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --biz-glass-blur: blur(20px);
+
+  /* 字号 */
+  --biz-font-h1: 24px;
+  --biz-font-h2: 18px;
+  --biz-font-h3: 16px;
+  --biz-font-body: 15px;
+  --biz-font-small: 13px;
+  --biz-font-tiny: 12px;
+
+  /* 间距 */
+  --biz-gap-xs: 4px;
+  --biz-gap-sm: 8px;
+  --biz-gap-md: 12px;
+  --biz-gap-lg: 16px;
+  --biz-gap-xl: 24px;
+  --biz-gap-xxl: 32px;
+
+  /* 页面边距 */
+  --biz-page-padding: 16px;
+
+  /* 圆角 - Apple 风格更小的圆角 */
+  --biz-radius-sm: 8px;
+  --biz-radius-md: 12px;
+  --biz-radius-lg: 16px;
+  --biz-radius-pill: 999px;
+
+  /* 阴影 - 极简轻阴影 */
+  --biz-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --biz-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --biz-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --biz-shadow-glow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* 过渡 */
+  --biz-transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* 按钮高度 */
+  --biz-btn-height-sm: 36px;
+  --biz-btn-height-md: 44px;
+  --biz-btn-height-lg: 50px;
+
+  /* 底部导航高度 */
+  --biz-tab-bar-height: 50px;
+
+  /* 内容最大宽度 */
+  --biz-content-max-width: 480px;
+}

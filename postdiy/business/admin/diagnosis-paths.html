@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>诊断路径管理 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    /* 工具栏 */
+    .page-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+    }
+    .page-toolbar .toolbar-left {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .page-toolbar .toolbar-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .filter-select {
+      height: 36px; padding: 0 12px;
+      border: 1px solid #d1d5db; border-radius: 6px;
+      font-size: 13px; outline: none; cursor: pointer;
+      background: #fff; min-width: 100px;
+    }
+    .filter-select:focus { border-color: #6366f1; }
+
+    /* 排序 */
+    .sort-th { cursor: pointer; user-select: none; }
+    .sort-th:hover { color: #4f46e5; }
+    .sort-th .sort-arrow { font-size: 10px; margin-left: 2px; opacity: 0.3; }
+    .sort-th.active .sort-arrow { opacity: 1; }
+
+    /* 弹窗 */
+    .modal-overlay {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.45); z-index: 500;
+      justify-content: center; align-items: flex-start;
+      padding-top: 40px; overflow-y: auto;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 14px;
+      width: 780px; max-width: 95vw; max-height: 88vh;
+      overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      margin-bottom: 40px;
+    }
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; background: #fff; z-index: 10;
+      border-radius: 14px 14px 0 0;
+    }
+    .modal-header h3 { font-size: 16px; font-weight: 600; color: #1f2937; }
+    .modal-close {
+      width: 32px; height: 32px; border: none; background: none;
+      font-size: 20px; color: #9ca3af; cursor: pointer; border-radius: 6px;
+    }
+    .modal-close:hover { background: #f3f4f6; color: #374151; }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid #f3f4f6;
+      display: flex; justify-content: flex-end; gap: 10px;
+      position: sticky; bottom: 0; background: #fff;
+    }
+    .modal-footer .btn { width: auto; min-width: 80px; }
+
+    /* 分段标题 */
+    .section-title {
+      font-size: 14px; font-weight: 600; color: #4f46e5;
+      margin: 20px 0 12px; padding-bottom: 6px;
+      border-bottom: 2px solid #eef2ff;
+    }
+    .section-title:first-child { margin-top: 0; }
+
+    /* 严重程度滑块 */
+    .severity-slider {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .severity-slider input[type="range"] {
+      flex: 1; height: 6px; -webkit-appearance: none;
+      background: #e5e7eb; border-radius: 3px; outline: none;
+    }
+    .severity-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px;
+      border-radius: 50%; background: #6366f1; cursor: pointer;
+    }
+    .severity-value {
+      min-width: 60px; text-align: center; font-weight: 700;
+      font-size: 16px; color: #4f46e5;
+    }
+
+    /* 动态列表项 */
+    .dynamic-item {
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 10px 12px; margin-bottom: 6px; display: flex;
+      align-items: flex-start; gap: 8px;
+    }
+    .dynamic-item .dynamic-fields { flex: 1; }
+    .dynamic-item .dynamic-fields .form-group { margin-bottom: 8px; }
+    .dynamic-item .dynamic-fields .form-group:last-child { margin-bottom: 0; }
+    .dynamic-item input, .dynamic-item textarea, .dynamic-item select { font-size: 13px; }
+    .dynamic-item .form-input { height: 36px; }
+    .dynamic-item .form-textarea { min-height: 50px; }
+    .dynamic-item .remove-btn {
+      width: 24px; height: 24px; border: none; background: #fee2e2;
+      color: #dc2626; border-radius: 4px; cursor: pointer; font-size: 14px;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .dynamic-item .remove-btn:hover { background: #fecaca; }
+    .add-item-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 13px; color: #6366f1; cursor: pointer;
+      background: none; border: 1px dashed #c7d2fe;
+      padding: 6px 12px; border-radius: 6px; margin-top: 4px;
+    }
+    .add-item-btn:hover { background: #eef2ff; border-color: #6366f1; }
+
+    /* 7天计划Tab */
+    .week-tabs {
+      display: flex; gap: 4px; margin-bottom: 12px;
+      border-bottom: 2px solid #e5e7eb; padding-bottom: 0;
+    }
+    .week-tab {
+      padding: 8px 14px; font-size: 13px; cursor: pointer;
+      border: none; background: none; color: #6b7280;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      font-weight: 500; transition: all 0.2s;
+    }
+    .week-tab:hover { color: #4f46e5; }
+    .week-tab.active {
+      color: #4f46e5; border-bottom-color: #6366f1; font-weight: 600;
+    }
+    .week-panel { display: none; }
+    .week-panel.active { display: block; }
+
+    /* 症状多选 */
+    .checkbox-group {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+    }
+    .checkbox-group label {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 13px; cursor: pointer; padding: 4px 10px;
+      background: #f3f4f6; border-radius: 6px; border: 1px solid transparent;
+    }
+    .checkbox-group label:hover { border-color: #c7d2fe; }
+    .checkbox-group input:checked + span { color: #4f46e5; font-weight: 600; }
+
+    /* 关联多选（方案/案例/工具） */
+    .relation-tags {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+    }
+    .relation-tag {
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 6px; font-size: 12px;
+      cursor: pointer; border: 1px solid #d1d5db; background: #fff;
+      color: #6b7280; transition: all 0.2s;
+    }
+    .relation-tag:hover { border-color: #a5b4fc; }
+    .relation-tag.selected {
+      background: #eef2ff; border-color: #6366f1; color: #4f46e5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- 侧边栏 -->
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">⚡</span>
+        <span>闪喵诊断</span>
+      </div>
+      <div class="sidebar-sub">管理后台 v1.0</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="index.html" data-page="dashboard">
+        <span class="nav-icon">📊</span><span>首页</span>
+      </a>
+      <a class="nav-item" href="problems.html" data-page="problems">
+        <span class="nav-icon">❓</span><span>问题管理</span>
+      </a>
+      <a class="nav-item active" href="diagnosis-paths.html" data-page="diagnosis">
+        <span class="nav-icon">🔀</span><span>诊断路径管理</span>
+      </a>
+      <a class="nav-item" href="solutions.html" data-page="solutions">
+        <span class="nav-icon">💡</span><span>方案管理</span>
+      </a>
+      <a class="nav-item" data-page="cases">
+        <span class="nav-icon">📖</span><span>案例管理</span>
+      </a>
+      <a class="nav-item" data-page="tools">
+        <span class="nav-icon">📦</span><span>工具管理</span>
+      </a>
+      <a class="nav-item" data-page="tags">
+        <span class="nav-icon">🏷️</span><span>标签管理</span>
+      </a>
+      <a class="nav-item" data-page="stats">
+        <span class="nav-icon">📊</span><span>数据统计</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span><span>退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-hamburger" id="hamburgerBtn">☰</button>
+        <span class="topbar-title">诊断路径管理</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-admin">
+          <span class="admin-avatar" id="adminAvatar">管</span>
+          <span id="adminName">管理员</span>
+        </div>
+        <button class="topbar-logout" onclick="handleLogout()">退出</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <!-- 工具栏 -->
+      <div class="page-toolbar">
+        <div class="toolbar-left">
+          <select class="filter-select" id="filterProblem">
+            <option value="">全部问题</option>
+          </select>
+          <select class="filter-select" id="filterIndustry">
+            <option value="">全部行业</option>
+            <option value="餐饮">餐饮</option>
+            <option value="零售">零售</option>
+            <option value="服务业">服务业</option>
+          </select>
+          <select class="filter-select" id="filterStage">
+            <option value="">全部阶段</option>
+            <option value="新店">新店</option>
+            <option value="成长期">成长期</option>
+            <option value="老店">老店</option>
+            <option value="all">通用(all)</option>
+          </select>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-sm btn-primary" onclick="openPathModal()" style="width:auto;">＋ 新增路径</button>
+        </div>
+      </div>
+
+      <!-- 路径列表 -->
+      <div class="content-card">
+        <div class="card-header">
+          <span class="card-title">🔀 诊断路径列表</span>
+          <span class="card-extra" id="pathCount">共 0 条</span>
+        </div>
+        <div class="card-body" style="padding:0; overflow-x:auto;">
+          <table class="admin-table" id="pathTable">
+            <thead>
+              <tr>
+                <th style="width:50px;">序号</th>
+                <th>问题</th>
+                <th>行业</th>
+                <th>阶段</th>
+                <th class="sort-th" data-sort="severity">严重度 <span class="sort-arrow">▲</span></th>
+                <th class="sort-th" data-sort="priority">优先级 <span class="sort-arrow">▲</span></th>
+                <th style="width:140px;">操作</th>
+              </tr>
+            </thead>
+            <tbody id="pathBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- 新增/编辑路径弹窗 -->
+<div class="modal-overlay" id="pathModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="pathModalTitle">新增诊断路径</h3>
+      <button class="modal-close" onclick="closePathModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pathEditId">
+
+      <!-- 基础信息 -->
+      <div class="section-title">📌 基础信息</div>
+      <div style="display:flex;gap:16px;">
+        <div class="form-group" style="flex:1;">
+          <label>问题类型</label>
+          <select class="form-select" id="pProblemCode" onchange="onProblemChange()"></select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>行业</label>
+          <select class="form-select" id="pIndustry">
+            <option value="餐饮">餐饮</option>
+            <option value="零售">零售</option>
+            <option value="服务业">服务业</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>阶段</label>
+          <select class="form-select" id="pStage">
+            <option value="all">通用(all)</option>
+            <option value="新店">新店</option>
+            <option value="成长期">成长期</option>
+            <option value="老店">老店</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 症状关联 -->
+      <div class="section-title">🩺 症状关联</div>
+      <div class="form-group">
+        <label>关联症状（多选）</label>
+        <div class="checkbox-group" id="symptomCheckboxes"></div>
+      </div>
+
+      <!-- 判断文本 -->
+      <div class="section-title">📝 判断文本</div>
+      <div class="form-group">
+        <label>诊断判断语</label>
+        <textarea class="form-textarea" id="pJudgment" placeholder="根据症状组合给出的判断描述..."></textarea>
+      </div>
+
+      <!-- 严重程度 -->
+      <div class="section-title">⚠️ 严重程度</div>
+      <div class="form-group">
+        <div class="severity-slider">
+          <span style="font-size:12px;color:#9ca3af;">0</span>
+          <input type="range" id="pSeverity" min="0" max="100" value="50" oninput="updateSeverityValue()">
+          <span style="font-size:12px;color:#9ca3af;">100</span>
+          <span class="severity-value" id="severityValue">50</span>
+        </div>
+      </div>
+
+      <!-- 原因列表 -->
+      <div class="section-title">🔍 原因列表</div>
+      <div id="causeList"></div>
+      <button type="button" class="add-item-btn" onclick="addCause()">＋ 添加原因</button>
+
+      <!-- 今日任务 -->
+      <div class="section-title">📋 今日任务</div>
+      <div id="todayTaskList"></div>
+      <button type="button" class="add-item-btn" onclick="addTodayTask()">＋ 添加今日任务</button>
+
+      <!-- 7天计划 -->
+      <div class="section-title">📅 7天计划</div>
+      <div class="week-tabs" id="weekTabs"></div>
+      <div id="weekPanels"></div>
+
+      <!-- 长期优化方向 -->
+      <div class="section-title">🔮 长期优化方向</div>
+      <div id="longTermList"></div>
+      <button type="button" class="add-item-btn" onclick="addLongTerm()">＋ 添加优化方向</button>
+
+      <!-- 关联方案/案例/工具 -->
+      <div class="section-title">🔗 关联资源</div>
+      <div class="form-group">
+        <label>关联方案</label>
+        <div class="relation-tags" id="solutionTags"></div>
+      </div>
+      <div class="form-group">
+        <label>关联案例</label>
+        <div class="relation-tags" id="caseTags"></div>
+      </div>
+      <div class="form-group">
+        <label>关联工具</label>
+        <div class="relation-tags" id="toolTags"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm btn-ghost" onclick="closePathModal()">取消</button>
+      <button class="btn btn-sm btn-primary" onclick="savePath()" style="width:auto;">保存</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/biz-data.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+/**
+ * 诊断路径管理页面逻辑
+ */
+
+// ===== 登录鉴权 =====
+(function checkAuth() {
+  var session = localStorage.getItem('biz_admin_session');
+  if (!session) { location.href = 'login.html'; return; }
+  try {
+    var info = JSON.parse(session);
+    if (!info || !info.loggedIn) { location.href = 'login.html'; return; }
+    document.getElementById('adminName').textContent = info.name || info.username;
+    document.getElementById('adminAvatar').textContent = (info.name || info.username || '管').charAt(0);
+  } catch (e) { location.href = 'login.html'; }
+})();
+
+function handleLogout() {
+  localStorage.removeItem('biz_admin_session');
+  location.href = 'login.html';
+}
+
+// ===== 侧边栏交互 =====
+(function() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  var hamburger = document.getElementById('hamburgerBtn');
+  hamburger.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+})();
+
+// ===== 本地数据管理 =====
+var PATH_KEY = 'biz_admin_diagnosis_paths';
+
+function getPaths() {
+  var stored = localStorage.getItem(PATH_KEY);
+  if (stored) {
+    try { return JSON.parse(stored); } catch (e) {}
+  }
+  var paths = (typeof BizData !== 'undefined' && BizData.diagnosisPaths) ? BizData.diagnosisPaths.map(function(p) {
+    return JSON.parse(JSON.stringify(p));
+  }) : [];
+  localStorage.setItem(PATH_KEY, JSON.stringify(paths));
+  return paths;
+}
+
+function savePaths(paths) {
+  localStorage.setItem(PATH_KEY, JSON.stringify(paths));
+}
+
+function getProblems() {
+  return (typeof BizData !== 'undefined' && BizData.problems) ? BizData.problems : [];
+}
+function getSymptoms() {
+  return (typeof BizData !== 'undefined' && BizData.symptoms) ? BizData.symptoms : {};
+}
+function getSolutions() {
+  return (typeof BizData !== 'undefined' && BizData.solutions) ? BizData.solutions : [];
+}
+function getCases() {
+  return (typeof BizData !== 'undefined' && BizData.cases) ? BizData.cases : [];
+}
+function getTools() {
+  return (typeof BizData !== 'undefined' && BizData.tools) ? BizData.tools : [];
+}
+
+// ===== 初始化筛选下拉 =====
+(function initFilterProblem() {
+  var problems = getProblems();
+  var sel = document.getElementById('filterProblem');
+  problems.forEach(function(p) {
+    var opt = document.createElement('option');
+    opt.value = p.code;
+    opt.textContent = p.icon + ' ' + p.name;
+    sel.appendChild(opt);
+  });
+})();
+
+// ===== 排序 =====
+var currentSort = { field: 'priority', dir: 'asc' };
+
+function sortPaths(paths, field, dir) {
+  return paths.slice().sort(function(a, b) {
+    var va = a[field] || 0;
+    var vb = b[field] || 0;
+    if (typeof va === 'number' || typeof vb === 'number') {
+      return dir === 'asc' ? (va || 0) - (vb || 0) : (vb || 0) - (va || 0);
+    }
+    va = String(va || '').toLowerCase();
+    vb = String(vb || '').toLowerCase();
+    if (va < vb) return dir === 'asc' ? -1 : 1;
+    if (va > vb) return dir === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+// ===== 渲染列表 =====
+function renderPaths() {
+  var paths = getPaths();
+  var problems = getProblems();
+
+  // 筛选
+  var filterProblem = document.getElementById('filterProblem').value;
+  var filterIndustry = document.getElementById('filterIndustry').value;
+  var filterStage = document.getElementById('filterStage').value;
+
+  if (filterProblem) {
+    paths = paths.filter(function(p) { return p.problemCode === filterProblem; });
+  }
+  if (filterIndustry) {
+    paths = paths.filter(function(p) { return p.industry === filterIndustry; });
+  }
+  if (filterStage) {
+    paths = paths.filter(function(p) { return p.stage === filterStage; });
+  }
+
+  // 排序
+  paths = sortPaths(paths, currentSort.field, currentSort.dir);
+
+  var tbody = document.getElementById('pathBody');
+  var html = '';
+
+  paths.forEach(function(p, idx) {
+    var prob = problems.find(function(x) { return x.code === p.problemCode; });
+    var probName = prob ? (prob.icon + ' ' + prob.name) : p.problemCode;
+    var sevColor = BizUtils.getSeverityColor(p.severity || 0);
+    var sevLabel = BizUtils.getSeverityLabel(p.severity || 0);
+
+    html += '<tr>';
+    html += '<td>' + (idx + 1) + '</td>';
+    html += '<td style="font-weight:500;">' + escHtml(probName) + '</td>';
+    html += '<td><span class="table-tag tag-blue">' + escHtml(p.industry) + '</span></td>';
+    html += '<td><span class="table-tag tag-purple">' + escHtml(p.stage === 'all' ? '通用' : p.stage) + '</span></td>';
+    html += '<td><span style="color:' + sevColor + ';font-weight:600;">' + (p.severity || 0) + '</span> <span style="font-size:12px;color:' + sevColor + ';">' + sevLabel + '</span></td>';
+    html += '<td>' + (p.priority || '-') + '</td>';
+    html += '<td>';
+    html += '<div class="table-actions">';
+    html += '<button class="action-btn edit" onclick="openPathModal(\'' + idx + '\')">编辑</button>';
+    html += '<button class="action-btn delete" onclick="deletePath(' + idx + ')">删除</button>';
+    html += '</div>';
+    html += '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+  document.getElementById('pathCount').textContent = '共 ' + paths.length + ' 条';
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function escAttr(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ===== 排序点击 =====
+document.querySelectorAll('.sort-th').forEach(function(th) {
+  th.addEventListener('click', function() {
+    var field = th.getAttribute('data-sort');
+    if (currentSort.field === field) {
+      currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+    } else {
+      currentSort.field = field;
+      currentSort.dir = 'asc';
+    }
+    document.querySelectorAll('.sort-th').forEach(function(t) { t.classList.remove('active'); });
+    th.classList.add('active');
+    renderPaths();
+  });
+});
+
+// ===== 筛选联动 =====
+document.getElementById('filterProblem').addEventListener('change', renderPaths);
+document.getElementById('filterIndustry').addEventListener('change', renderPaths);
+document.getElementById('filterStage').addEventListener('change', renderPaths);
+
+// ===== 严重程度滑块 =====
+function updateSeverityValue() {
+  document.getElementById('severityValue').textContent = document.getElementById('pSeverity').value;
+}
+
+// ===== 路径弹窗 =====
+function openPathModal(editIdx) {
+  var modal = document.getElementById('pathModal');
+  document.getElementById('pathEditId').value = '';
+  document.getElementById('pJudgment').value = '';
+  document.getElementById('pSeverity').value = 50;
+  updateSeverityValue();
+  document.getElementById('causeList').innerHTML = '';
+  document.getElementById('todayTaskList').innerHTML = '';
+  document.getElementById('longTermList').innerHTML = '';
+  document.getElementById('pathModalTitle').textContent = '新增诊断路径';
+
+  // 填充问题下拉
+  var problems = getProblems();
+  var sel = document.getElementById('pProblemCode');
+  sel.innerHTML = '';
+  problems.forEach(function(p) {
+    var opt = document.createElement('option');
+    opt.value = p.code;
+    opt.textContent = p.icon + ' ' + p.name;
+    sel.appendChild(opt);
+  });
+
+  // 初始化7天计划
+  initWeekPlan();
+
+  // 初始渲染症状（基于第一个问题）
+  onProblemChange();
+
+  // 初始化关联标签
+  renderRelationTags('solutionTags', getSolutions(), 'solutionIds', []);
+  renderRelationTags('caseTags', getCases(), 'caseIds', []);
+  renderRelationTags('toolTags', getTools(), 'toolIds', []);
+
+  if (editIdx !== undefined && editIdx !== '') {
+    var paths = getPaths();
+    // 应用筛选前的索引需重新计算
+    var allPaths = getPaths();
+    // 用原始路径数据的index定位（需用filter后的index回推）
+    var filterProblem = document.getElementById('filterProblem').value;
+    var filterIndustry = document.getElementById('filterIndustry').value;
+    var filterStage = document.getElementById('filterStage').value;
+    var filtered = allPaths;
+    if (filterProblem) filtered = filtered.filter(function(p) { return p.problemCode === filterProblem; });
+    if (filterIndustry) filtered = filtered.filter(function(p) { return p.industry === filterIndustry; });
+    if (filterStage) filtered = filtered.filter(function(p) { return p.stage === filterStage; });
+    filtered = sortPaths(filtered, currentSort.field, currentSort.dir);
+    var p = filtered[editIdx];
+    if (!p) p = allPaths[editIdx]; // fallback
+
+    if (p) {
+      // 找到在原始数组中的索引
+      var origIdx = allPaths.findIndex(function(x) {
+        return x.problemCode === p.problemCode && x.industry === p.industry && x.stage === p.stage &&
+               (x.judgment || '') === (p.judgment || '');
+      });
+      document.getElementById('pathEditId').value = origIdx >= 0 ? origIdx : editIdx;
+
+      document.getElementById('pProblemCode').value = p.problemCode;
+      document.getElementById('pIndustry').value = p.industry;
+      document.getElementById('pStage').value = p.stage;
+      onProblemChange();
+      // 设置症状选中
+      (p.symptomIds || []).forEach(function(sid) {
+        var cb = document.querySelector('#symptomCheckboxes input[value="' + sid + '"]');
+        if (cb) cb.checked = true;
+      });
+      document.getElementById('pJudgment').value = p.judgment || '';
+      document.getElementById('pSeverity').value = p.severity || 50;
+      updateSeverityValue();
+
+      // 原因
+      (p.causes || []).forEach(function(c) { addCause(c.name, c.weight, c.judgment, c.description); });
+      // 今日任务
+      (p.todayTasks || []).forEach(function(t) { addTodayTask(t.task, t.duration, t.purpose); });
+      // 7天计划
+      if (p.weekPlan && p.weekPlan.length) {
+        p.weekPlan.forEach(function(day, i) {
+          setWeekDay(i + 1, day.title, (day.tasks || []).join('\n'));
+        });
+      }
+      // 长期优化
+      (p.longTermAdvice || []).forEach(function(a) { addLongTerm(a); });
+
+      // 关联资源
+      renderRelationTags('solutionTags', getSolutions(), 'solutionIds', p.solutionIds || []);
+      renderRelationTags('caseTags', getCases(), 'caseIds', p.caseIds || []);
+      renderRelationTags('toolTags', getTools(), 'toolIds', p.toolIds || []);
+
+      document.getElementById('pathModalTitle').textContent = '编辑诊断路径';
+    }
+  }
+
+  modal.classList.add('show');
+}
+
+function closePathModal() {
+  document.getElementById('pathModal').classList.remove('show');
+}
+
+// ===== 症状多选 =====
+function onProblemChange() {
+  var code = document.getElementById('pProblemCode').value;
+  var symptoms = getSymptoms();
+  var list = symptoms[code] || [];
+  var container = document.getElementById('symptomCheckboxes');
+  var html = '';
+  list.forEach(function(s) {
+    html += '<label>';
+    html += '<input type="checkbox" value="' + s._id + '" class="symCheck"> ';
+    html += '<span>' + escHtml(s.name) + '</span>';
+    html += '</label>';
+  });
+  if (!list.length) {
+    html = '<span style="color:#9ca3af;font-size:13px;">该问题暂无症状数据</span>';
+  }
+  container.innerHTML = html;
+}
+
+// ===== 原因列表 =====
+var causeCounter = 0;
+function addCause(name, weight, judgment, description) {
+  causeCounter++;
+  var list = document.getElementById('causeList');
+  var div = document.createElement('div');
+  div.className = 'dynamic-item';
+  div.innerHTML =
+    '<div class="dynamic-fields">' +
+      '<div class="form-group"><label>名称</label><input type="text" class="form-input cause-name" value="' + escAttr(name || '') + '" placeholder="原因名称"></div>' +
+      '<div style="display:flex;gap:8px;">' +
+        '<div class="form-group" style="flex:0 0 100px;"><label>权重</label><input type="number" class="form-input cause-weight" value="' + (weight || '') + '" placeholder="35" min="0" max="100"></div>' +
+        '<div class="form-group" style="flex:1;"><label>判断提示</label><input type="text" class="form-input cause-judgment" value="' + escAttr(judgment || '') + '" placeholder="引导商家思考的提示问题"></div>' +
+      '</div>' +
+      '<div class="form-group"><label>描述</label><textarea class="form-textarea cause-desc" placeholder="该原因的详细描述...">' + escHtml(description || '') + '</textarea></div>' +
+    '</div>' +
+    '<button class="remove-btn" onclick="this.closest(\'.dynamic-item\').remove()">✕</button>';
+  list.appendChild(div);
+}
+
+// ===== 今日任务 =====
+var todayTaskCounter = 0;
+function addTodayTask(task, duration, purpose) {
+  todayTaskCounter++;
+  var list = document.getElementById('todayTaskList');
+  var div = document.createElement('div');
+  div.className = 'dynamic-item';
+  div.innerHTML =
+    '<div class="dynamic-fields">' +
+      '<div class="form-group"><label>任务内容</label><input type="text" class="form-input task-content" value="' + escAttr(task || '') + '" placeholder="具体的执行任务"></div>' +
+      '<div style="display:flex;gap:8px;">' +
+        '<div class="form-group" style="flex:0 0 120px;"><label>预计用时</label><input type="text" class="form-input task-duration" value="' + escAttr(duration || '') + '" placeholder="30分钟"></div>' +
+        '<div class="form-group" style="flex:1;"><label>目的</label><input type="text" class="form-input task-purpose" value="' + escAttr(purpose || '') + '" placeholder="为什么要做这个"></div>' +
+      '</div>' +
+    '</div>' +
+    '<button class="remove-btn" onclick="this.closest(\'.dynamic-item\').remove()">✕</button>';
+  list.appendChild(div);
+}
+
+// ===== 7天计划 =====
+function initWeekPlan() {
+  var tabHtml = '';
+  var panelHtml = '';
+  for (var d = 1; d <= 7; d++) {
+    var active = d === 1 ? ' active' : '';
+    tabHtml += '<button class="week-tab' + active + '" onclick="switchWeekTab(' + d + ')">Day ' + d + '</button>';
+    panelHtml += '<div class="week-panel' + active + '" id="weekPanel' + d + '">';
+    panelHtml += '<div class="form-group"><label>当日标题</label><input type="text" class="form-input week-title" id="weekTitle' + d + '" placeholder="如：门头优化日"></div>';
+    panelHtml += '<div class="form-group"><label>任务列表（每行一条）</label><textarea class="form-textarea week-tasks" id="weekTasks' + d + '" placeholder="任务1\n任务2\n任务3" style="min-height:80px;"></textarea></div>';
+    panelHtml += '</div>';
+  }
+  document.getElementById('weekTabs').innerHTML = tabHtml;
+  document.getElementById('weekPanels').innerHTML = panelHtml;
+}
+
+function switchWeekTab(day) {
+  document.querySelectorAll('.week-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.week-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('.week-tab:nth-child(' + day + ')').classList.add('active');
+  document.getElementById('weekPanel' + day).classList.add('active');
+}
+
+function setWeekDay(day, title, tasksStr) {
+  var titleEl = document.getElementById('weekTitle' + day);
+  var tasksEl = document.getElementById('weekTasks' + day);
+  if (titleEl) titleEl.value = title || '';
+  if (tasksEl) tasksEl.value = tasksStr || '';
+}
+
+function getWeekPlan() {
+  var plan = [];
+  for (var d = 1; d <= 7; d++) {
+    var title = (document.getElementById('weekTitle' + d) || {}).value || '';
+    var tasksStr = (document.getElementById('weekTasks' + d) || {}).value || '';
+    var tasks = tasksStr.split('\n').filter(function(l) { return l.trim(); });
+    plan.push({ day: d, title: title, tasks: tasks });
+  }
+  return plan;
+}
+
+// ===== 长期优化方向 =====
+var longTermCounter = 0;
+function addLongTerm(text) {
+  longTermCounter++;
+  var list = document.getElementById('longTermList');
+  var div = document.createElement('div');
+  div.className = 'dynamic-item';
+  div.innerHTML =
+    '<div class="dynamic-fields" style="display:flex;align-items:center;gap:8px;">' +
+      '<input type="text" class="form-input longterm-text" value="' + escAttr(text || '') + '" placeholder="长期优化方向描述" style="flex:1;">' +
+    '</div>' +
+    '<button class="remove-btn" onclick="this.closest(\'.dynamic-item\').remove()">✕</button>';
+  list.appendChild(div);
+}
+
+// ===== 关联资源标签 =====
+function renderRelationTags(containerId, items, key, selectedIds) {
+  var container = document.getElementById(containerId);
+  var html = '';
+  var idField = '_id';
+  items.forEach(function(item) {
+    var id = item[idField];
+    var label = item.title || item.name || id;
+    var selected = (selectedIds || []).indexOf(id) >= 0 ? ' selected' : '';
+    html += '<span class="relation-tag' + selected + '" data-id="' + id + '" data-key="' + key + '" onclick="toggleRelationTag(this)">';
+    html += escHtml(label);
+    html += '</span>';
+  });
+  if (!items.length) {
+    html = '<span style="color:#9ca3af;font-size:13px;">暂无数据</span>';
+  }
+  container.innerHTML = html;
+}
+
+function toggleRelationTag(el) {
+  el.classList.toggle('selected');
+}
+
+function getSelectedRelationIds(containerId) {
+  var ids = [];
+  document.querySelectorAll('#' + containerId + ' .relation-tag.selected').forEach(function(tag) {
+    ids.push(tag.getAttribute('data-id'));
+  });
+  return ids;
+}
+
+// ===== 保存路径 =====
+function savePath() {
+  var editIdx = document.getElementById('pathEditId').value;
+  var problemCode = document.getElementById('pProblemCode').value;
+  var industry = document.getElementById('pIndustry').value;
+  var stage = document.getElementById('pStage').value;
+  var judgment = document.getElementById('pJudgment').value.trim();
+  var severity = parseInt(document.getElementById('pSeverity').value) || 50;
+
+  if (!problemCode) { BizUtils.showToast('请选择问题类型'); return; }
+
+  // 收集症状
+  var symptomIds = [];
+  document.querySelectorAll('#symptomCheckboxes .symCheck:checked').forEach(function(cb) {
+    symptomIds.push(cb.value);
+  });
+
+  // 收集原因
+  var causes = [];
+  document.querySelectorAll('#causeList .dynamic-item').forEach(function(item) {
+    var name = item.querySelector('.cause-name').value.trim();
+    if (!name) return;
+    causes.push({
+      name: name,
+      weight: parseInt(item.querySelector('.cause-weight').value) || 0,
+      judgment: item.querySelector('.cause-judgment').value.trim(),
+      description: item.querySelector('.cause-desc').value.trim()
+    });
+  });
+
+  // 收集今日任务
+  var todayTasks = [];
+  document.querySelectorAll('#todayTaskList .dynamic-item').forEach(function(item) {
+    var task = item.querySelector('.task-content').value.trim();
+    if (!task) return;
+    todayTasks.push({
+      task: task,
+      duration: item.querySelector('.task-duration').value.trim(),
+      purpose: item.querySelector('.task-purpose').value.trim()
+    });
+  });
+
+  // 收集7天计划
+  var weekPlan = getWeekPlan();
+
+  // 收集长期优化
+  var longTermAdvice = [];
+  document.querySelectorAll('#longTermList .dynamic-item').forEach(function(item) {
+    var text = item.querySelector('.longterm-text').value.trim();
+    if (text) longTermAdvice.push(text);
+  });
+
+  // 收集关联资源
+  var solutionIds = getSelectedRelationIds('solutionTags');
+  var caseIds = getSelectedRelationIds('caseTags');
+  var toolIds = getSelectedRelationIds('toolTags');
+
+  var pathData = {
+    problemCode: problemCode,
+    industry: industry,
+    stage: stage,
+    symptomIds: symptomIds,
+    judgment: judgment,
+    severity: severity,
+    causes: causes,
+    solutionIds: solutionIds,
+    todayTasks: todayTasks,
+    weekPlan: weekPlan,
+    longTermAdvice: longTermAdvice,
+    caseIds: caseIds,
+    toolIds: toolIds,
+    priority: 10
+  };
+
+  var paths = getPaths();
+
+  if (editIdx !== '') {
+    var idx = parseInt(editIdx);
+    if (idx >= 0 && idx < paths.length) {
+      // 保留原有priority
+      pathData.priority = paths[idx].priority || 10;
+      paths[idx] = pathData;
+    }
+  } else {
+    pathData.priority = paths.length + 1;
+    paths.push(pathData);
+  }
+
+  savePaths(paths);
+  closePathModal();
+  renderPaths();
+  BizUtils.showToast('保存成功');
+}
+
+function deletePath(idx) {
+  if (!confirm('确认删除该诊断路径？')) return;
+  var paths = getPaths();
+  // 用筛选后的index定位
+  var filterProblem = document.getElementById('filterProblem').value;
+  var filterIndustry = document.getElementById('filterIndustry').value;
+  var filterStage = document.getElementById('filterStage').value;
+  var filtered = paths;
+  if (filterProblem) filtered = filtered.filter(function(p) { return p.problemCode === filterProblem; });
+  if (filterIndustry) filtered = filtered.filter(function(p) { return p.industry === filterIndustry; });
+  if (filterStage) filtered = filtered.filter(function(p) { return p.stage === filterStage; });
+  filtered = sortPaths(filtered, currentSort.field, currentSort.dir);
+  var target = filtered[idx];
+  if (!target) return;
+
+  // 在原始数组中找到并删除
+  var origIdx = paths.findIndex(function(p) {
+    return p.problemCode === target.problemCode && p.industry === target.industry && p.stage === target.stage &&
+           (p.judgment || '') === (target.judgment || '');
+  });
+  if (origIdx >= 0) paths.splice(origIdx, 1);
+  else paths.splice(idx, 1);
+
+  savePaths(paths);
+  renderPaths();
+  BizUtils.showToast('已删除');
+}
+
+// ===== 初始渲染 =====
+renderPaths();
+</script>
+
+</body>
+</html>

@@ -40,6 +40,36 @@
       "environment": {},
       "vpc": {},
       "deployMethod": "cos"
+    },
+    {
+      "name": "biz-problem-list",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "biz-diagnosis-query",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "biz-init-data",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     }
   ]
 }

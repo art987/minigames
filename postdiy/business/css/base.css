@@ -1,0 +1,113 @@
+/* ===== 基础重置 - Apple 极简风格 ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  background: var(--biz-bg);
+  color: var(--biz-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: var(--biz-font-body);
+  padding-bottom: var(--biz-tab-bar-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--biz-primary);
+  text-decoration: none;
+  transition: var(--biz-transition);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ===== 通用类 ===== */
+.biz-page {
+  max-width: var(--biz-content-max-width);
+  margin: 0 auto;
+  padding: var(--biz-page-padding);
+  padding-bottom: calc(var(--biz-tab-bar-height) + var(--biz-gap-xl));
+}
+
+.biz-section {
+  margin-bottom: var(--biz-gap-xl);
+}
+
+.biz-section-title {
+  font-size: var(--biz-font-h2);
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  margin-bottom: var(--biz-gap-md);
+}
+
+.biz-card {
+  background: var(--biz-glass-bg);
+  -webkit-backdrop-filter: var(--biz-glass-blur);
+  backdrop-filter: var(--biz-glass-blur);
+  border: 1px solid var(--biz-glass-border);
+  border-radius: var(--biz-radius-md);
+  box-shadow: var(--biz-glass-shadow);
+  padding: var(--biz-gap-lg);
+  transition: var(--biz-transition);
+}
+
+.biz-card:hover {
+  box-shadow: var(--biz-shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* ===== 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 2px;
+}
+
+/* ===== 选中文字色 ===== */
+::selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: var(--biz-text-primary);
+}
+
+/* ===== 响应式 ===== */
+@media (min-width: 768px) {
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf4 50%, #f0e6ff 100%);
+    background-attachment: fixed;
+  }
+  .biz-page {
+    padding-top: 32px;
+  }
+}

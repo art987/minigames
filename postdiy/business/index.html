@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>闪喵经营诊断 - 你的店，我来把脉</title>
+  <meta name="description" content="3步找到你的经营答案，实体老板的经营诊断助手。">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* Lucide 图标通用样式 */
+    .biz-icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 品牌区 - Apple 风格纯白底 */
+    .biz-header {
+      text-align: center;
+      padding: 44px 16px 24px;
+      background: #fff;
+      color: var(--biz-text-primary);
+      border-radius: 0 0 var(--biz-radius-lg) var(--biz-radius-lg);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid transparent;
+      border-image: var(--biz-gradient-primary) 1;
+    }
+    .biz-header::before {
+      display: none;
+    }
+    .biz-header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .biz-header-logo span:first-child {
+      color: var(--biz-primary);
+    }
+    .biz-header-logo span:last-child {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--biz-text-primary);
+    }
+    .biz-header-subtitle {
+      font-size: 14px;
+      color: var(--biz-text-secondary);
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 核心问题区 */
+    .biz-question-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 20px;
+      padding: 0 8px;
+    }
+    .biz-question-title em {
+      font-style: normal;
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .biz-problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .biz-problem-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 14px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .biz-problem-card::before {
+      display: none;
+    }
+    .biz-problem-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .biz-problem-card:active {
+      transform: scale(0.95);
+    }
+    .biz-problem-card .p-icon {
+      line-height: 1;
+      flex-shrink: 0;
+      color: var(--icon-color, #555);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .biz-problem-card .p-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+
+    /* 热门区 */
+    .biz-hot-section {
+      margin-bottom: 28px;
+    }
+    .biz-hot-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .biz-hot-list {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .biz-hot-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .biz-hot-item:last-child {
+      border-bottom: none;
+    }
+    .biz-hot-item:active {
+      background: rgba(102, 126, 234, 0.06);
+    }
+    .biz-hot-rank {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-right: 12px;
+      flex-shrink: 0;
+      color: var(--biz-text-tertiary);
+    }
+    .biz-hot-rank.top1 { color: var(--biz-primary); font-weight: 800; }
+    .biz-hot-rank.top2 { color: var(--biz-primary); font-weight: 700; }
+    .biz-hot-rank.top3 { color: var(--biz-primary); font-weight: 600; }
+    .biz-hot-name {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--biz-text-primary);
+    }
+    .biz-hot-count {
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+    }
+
+    /* 行业专区 - 改为方案库时间轴入口 */
+    .biz-industry-section {
+      margin-bottom: 28px;
+    }
+    .biz-chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 0 0 24px;
+      position: relative;
+    }
+    .biz-chapter-list::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(to bottom, #667eea, #764ba2);
+      border-radius: 1px;
+      opacity: 0.3;
+    }
+    .biz-chapter-entry {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .biz-chapter-entry:last-child {
+      margin-bottom: 0;
+    }
+    .biz-chapter-entry::before {
+      content: '';
+      position: absolute;
+      left: -19px;
+      top: 18px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--biz-gradient-primary);
+      box-shadow: 0 0 8px rgba(102,126,234,0.3);
+      z-index: 1;
+    }
+    .biz-chapter-entry:active {
+      transform: scale(0.98);
+    }
+    .biz-chapter-entry:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .biz-chapter-entry .ce-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .biz-chapter-entry .ce-icon {
+      line-height: 1;
+      color: var(--biz-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .biz-chapter-entry .ce-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--biz-text-primary);
+    }
+    .biz-chapter-entry .ce-desc {
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+      margin-bottom: 8px;
+    }
+    .biz-chapter-entry .ce-subs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .biz-chapter-entry .ce-sub {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 8px;
+      border-radius: var(--biz-radius-md);
+      font-size: 12px;
+      font-weight: 600;
+      background: #f5f5f7;
+      border: 1px solid rgba(0,0,0,0.04);
+      color: var(--biz-text-secondary);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* 工具区 */
+    .biz-tool-section {
+      margin-bottom: 28px;
+    }
+    .biz-tool-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .biz-tool-scroll::-webkit-scrollbar { display: none; }
+    .biz-tool-card {
+      flex-shrink: 0;
+      width: 110px;
+      padding: 14px 10px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--biz-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .biz-tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .biz-tool-card .t-icon {
+      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #f5f5f7;
+      color: var(--biz-primary);
+    }
+    .biz-tool-card .t-name { font-size: 12px; font-weight: 600; color: var(--biz-text-primary); }
+
+    /* ===== 店铺资料引导弹窗 - 磨砂玻璃 ===== */
+    .shop-profile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.35);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .shop-profile-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--biz-radius-lg);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      width: 100%;
+      max-width: 380px;
+      padding: 32px 24px 24px;
+      animation: profileCardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes profileCardIn {
+      from { opacity: 0; transform: scale(0.85) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .shop-profile-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--biz-text-primary);
+      margin-bottom: 6px;
+    }
+    .shop-profile-subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: var(--biz-text-secondary);
+      margin-bottom: 24px;
+    }
+    .shop-profile-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--biz-text-primary);
+      margin-bottom: 10px;
+    }
+    .shop-profile-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 16px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: var(--biz-radius-md);
+      font-size: 15px;
+      color: var(--biz-text-primary);
+      outline: none;
+      background: #f5f5f7;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 20px;
+    }
+    .shop-profile-input:focus {
+      border-color: var(--biz-primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .shop-profile-input::placeholder {
+      color: var(--biz-text-tertiary);
+    }
+    .shop-profile-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .shop-profile-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 14px 8px;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      border-radius: var(--biz-radius-md);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-user-select: none;
+      user-select: none;
+      background: #f5f5f7;
+    }
+    .shop-profile-option:active {
+      transform: scale(0.95);
+    }
+    .shop-profile-option.selected {
+      border-color: var(--biz-primary);
+      background: rgba(102, 126, 234, 0.06);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .shop-profile-option .opt-icon {
+      line-height: 1;
+      color: var(--biz-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shop-profile-option .opt-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--biz-text-primary);
+    }
+    .shop-profile-option.selected .opt-name {
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .shop-profile-industry-scroll {
+      max-height: 240px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+    }
+    .shop-profile-industry-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .shop-profile-industry-scroll::-webkit-scrollbar-thumb {
+      background: rgba(102,126,234,0.2);
+      border-radius: 2px;
+    }
+    .industry-group-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--biz-text-tertiary);
+      padding: 8px 0 4px;
+      margin-top: 4px;
+    }
+    .industry-group-title:first-child {
+      margin-top: 0;
+    }
+    .shop-profile-industry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .shop-profile-industry-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 8px 4px;
+      border-radius: var(--biz-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-user-select: none;
+      user-select: none;
+      background: #f5f5f7;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .shop-profile-industry-item:active {
+      transform: scale(0.95);
+    }
+    .shop-profile-industry-item.selected {
+      border-color: var(--biz-primary);
+      background: rgba(102, 126, 234, 0.06);
+      box-shadow: 0 0 0 2px rgba(102,126,234,0.1);
+    }
+    .shop-profile-industry-item .ii-icon {
+      line-height: 1;
+      color: var(--biz-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shop-profile-industry-item .ii-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--biz-text-secondary);
+    }
+    .shop-profile-industry-item.selected .ii-name {
+      background: var(--biz-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+    .shop-profile-btn {
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-radius: var(--biz-radius-md);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--biz-gradient-primary);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 4px;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    }
+    .shop-profile-btn:active {
+      transform: scale(0.95);
+    }
+    .shop-profile-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .shop-profile-footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--biz-text-tertiary);
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 品牌区 -->
+  <header class="biz-header">
+    <div class="biz-header-logo">
+      <span id="headerLogoIcon"></span>
+      <span>闪喵经营诊断</span>
+    </div>
+    <p class="biz-header-subtitle">你的店，我来把脉</p>
+  </header>
+
+  <main class="biz-page">
+    <!-- 核心问题入口 -->
+    <section class="biz-section">
+      <p class="biz-question-title">老板，你现在遇到<em>什么问题</em>？</p>
+      <div class="biz-problem-grid" id="problemGrid">
+        <!-- JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 热门诊断 -->
+    <section class="biz-hot-section">
+      <p class="biz-hot-title"><i data-lucide="flame" class="biz-icon" style="width:16px;height:16px;color:#f97316;"></i> 本周最多老板在查</p>
+      <div class="biz-hot-list" id="hotList">
+        <!-- JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 方案库入口 -->
+    <section class="biz-industry-section">
+      <p class="biz-section-title"><i data-lucide="book-open" class="biz-icon" style="width:18px;height:18px;color:var(--biz-primary);"></i> 方案库</p>
+      <div class="biz-chapter-list" id="chapterList">
+        <!-- JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 工具推荐 -->
+    <section class="biz-tool-section">
+      <p class="biz-section-title">老板都在用的工具</p>
+      <div class="biz-tool-scroll" id="toolScroll">
+        <!-- JS动态渲染 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="biz-tab-bar">
+    <a href="index.html" class="biz-tab-item active">
+      <span class="biz-tab-icon"><i data-lucide="home" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">首页</span>
+    </a>
+    <a href="solutions.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="book-open" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">方案库</span>
+    </a>
+    <a href="tools.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">工具</span>
+    </a>
+    <a href="profile.html" class="biz-tab-item">
+      <span class="biz-tab-icon"><i data-lucide="user" class="biz-icon" style="width:20px;height:20px;"></i></span>
+      <span class="biz-tab-text">我的</span>
+    </a>
+  </nav>
+
+  <!-- 店铺资料引导弹窗 -->
+  <div class="shop-profile-overlay" id="shopProfileOverlay" style="display:none">
+    <div class="shop-profile-card">
+      <div class="shop-profile-title">先设置你的店铺信息</div>
+      <div class="shop-profile-subtitle">设置后，后续诊断将自动匹配</div>
+
+      <div class="shop-profile-label">店名（选填）</div>
+      <input type="text" class="shop-profile-input" id="profileShopName" placeholder="比如：张姐火锅店" maxlength="20">
+
+      <div class="shop-profile-label">你的行业</div>
+      <div class="shop-profile-industry-scroll" id="profileIndustryOptions">
+        <!-- JS动态渲染行业分组 -->
+      </div>
+
+      <div class="shop-profile-label">经营阶段</div>
+      <div class="shop-profile-options" id="profileStageOptions">
+        <div class="shop-profile-option" data-value="新店" onclick="ShopProfileGuide.selectStage(this, '新店')">
+          <span class="opt-icon"><i data-lucide="sparkles" class="biz-icon" style="width:24px;height:24px;"></i></span>
+          <span class="opt-name">新店</span>
+        </div>
+        <div class="shop-profile-option" data-value="成长期" onclick="ShopProfileGuide.selectStage(this, '成长期')">
+          <span class="opt-icon"><i data-lucide="trending-up" class="biz-icon" style="width:24px;height:24px;"></i></span>
+          <span class="opt-name">成长期</span>
+        </div>
+        <div class="shop-profile-option" data-value="老店" onclick="ShopProfileGuide.selectStage(this, '老店')">
+          <span class="opt-icon"><i data-lucide="store" class="biz-icon" style="width:24px;height:24px;"></i></span>
+          <span class="opt-name">老店</span>
+        </div>
+      </div>
+
+      <button class="shop-profile-btn" id="profileStartBtn" disabled onclick="ShopProfileGuide.saveAndClose()">开始使用</button>
+      <div class="shop-profile-footer">可随时在「我的」中修改</div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/biz-data.js"></script>
+  <script src="js/data-service.js"></script>
+  <script>
+    // 问题卡片极淡蓝灰色系
+    var problemTints = [
+      'rgba(255,149,0,0.08)',   // 橙 - 没有客流
+      'rgba(255,59,48,0.08)',   // 红 - 营业额下降
+      'rgba(255,149,0,0.08)',   // 橙 - 利润太低
+      'rgba(175,82,222,0.08)',  // 紫 - 产品卖不动
+      'rgba(255,45,85,0.08)',   // 粉 - 老客户流失
+      'rgba(175,82,222,0.08)',  // 紫 - 员工管理困难
+      'rgba(52,199,89,0.08)',   // 绿 - 营销推广困难
+      'rgba(0,122,255,0.08)'    // 蓝 - 竞争压力大
+    ];
+    var problemIconColors = [
+      '#FF9500',  // 橙
+      '#FF3B30',  // 红
+      '#FF9500',  // 橙
+      '#AF52DE',  // 紫
+      '#FF2D55',  // 粉
+      '#AF52DE',  // 紫
+      '#34C759',  // 绿
+      '#007AFF'   // 蓝
+    ];
+
+    // 店铺资料引导弹窗逻辑
+    var ShopProfileGuide = {
+      selectedIndustry: '',
+      selectedStage: '',
+
+      init: function() {
+        this.renderIndustryOptions();
+      },
+
+      renderIndustryOptions: function() {
+        var container = document.getElementById('profileIndustryOptions');
+        if (!container) return;
+        var industries = BizLocalData.industries || [];
+        var groups = {};
+        var groupOrder = [];
+        // 按分组归类
+        for (var i = 0; i < industries.length; i++) {
+          var ind = industries[i];
+          var g = ind.group || '推荐';
+          if (!groups[g]) {
+            groups[g] = [];
+            groupOrder.push(g);
+          }
+          groups[g].push(ind);
+        }
+        var html = '';
+        for (var j = 0; j < groupOrder.length; j++) {
+          var groupName = groupOrder[j];
+          var items = groups[groupName];
+          html += '<div class="industry-group-title">' + groupName + '</div>';
+          html += '<div class="shop-profile-industry-grid">';
+          for (var k = 0; k < items.length; k++) {
+            var item = items[k];
+            html += '<div class="shop-profile-industry-item" data-value="' + item.code + '" onclick="ShopProfileGuide.selectIndustry(this, \'' + item.code + '\')">' +
+              '<span class="ii-icon">' + BizUtils.icon(item.icon, 20) + '</span>' +
+              '<span class="ii-name">' + item.name + '</span>' +
+            '</div>';
+          }
+          html += '</div>';
+        }
+        container.innerHTML = html;
+        BizUtils.replaceIcons();
+      },
+
+      check: function() {
+        var profile = localStorage.getItem('biz_shop_profile');
+        if (!profile) {
+          this.show();
+        }
+      },
+
+      show: function() {
+        // 如果海报系统有品牌名，自动填入
+        var sharedName = BizUtils.getSharedShopName();
+        if (sharedName) {
+          var nameInput = document.getElementById('profileShopName');
+          if (nameInput && !nameInput.value) nameInput.value = sharedName;
+        }
+        document.getElementById('shopProfileOverlay').style.display = 'flex';
+      },
+
+      hide: function() {
+        document.getElementById('shopProfileOverlay').style.display = 'none';
+      },
+
+      selectIndustry: function(el, value) {
+        this.selectedIndustry = value;
+        var options = document.querySelectorAll('#profileIndustryOptions .shop-profile-industry-item');
+        for (var i = 0; i < options.length; i++) {
+          options[i].classList.remove('selected');
+        }
+        el.classList.add('selected');
+        this.updateBtn();
+      },
+
+      selectStage: function(el, value) {
+        this.selectedStage = value;
+        var options = document.querySelectorAll('#profileStageOptions .shop-profile-option');
+        for (var i = 0; i < options.length; i++) {
+          options[i].classList.remove('selected');
+        }
+        el.classList.add('selected');
+        this.updateBtn();
+      },
+
+      updateBtn: function() {
+        var btn = document.getElementById('profileStartBtn');
+        btn.disabled = !this.selectedIndustry;
+      },
+
+      saveAndClose: function() {
+        var shopName = document.getElementById('profileShopName').value.trim();
+        var profile = {
+          shopName: shopName,
+          industry: this.selectedIndustry,
+          stage: this.selectedStage,
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('biz_shop_profile', JSON.stringify(profile));
+        this.hide();
+      }
+    };
+
+    // 首页逻辑
+    var HomePage = {
+      problems: [],
+      init: function() {
+        BizDataService.init();
+        // 渲染 Header Logo 图标
+        var headerLogo = document.getElementById('headerLogoIcon');
+        if (headerLogo) headerLogo.innerHTML = BizUtils.icon('activity', 28);
+        this.loadProblems();
+        this.loadChapterList();
+        this.loadTools();
+        ShopProfileGuide.init();
+        ShopProfileGuide.check();
+        BizUtils.replaceIcons();
+      },
+
+      loadProblems: function() {
+        this.problems = BizData.problems;
+        this.renderProblems();
+        this.renderHotList();
+      },
+
+      renderProblems: function() {
+        var grid = document.getElementById('problemGrid');
+        if (!grid) return;
+        grid.innerHTML = this.problems.map(function(p, i) {
+          var tint = problemTints[i % problemTints.length];
+          var iconColor = problemIconColors[i % problemIconColors.length];
+          return '<div class="biz-problem-card" data-code="' + p.code + '" onclick="HomePage.startDiagnosis(\'' + p.code + '\')" style="--card-bg-tint:' + tint + ';--icon-color:' + iconColor + '">' +
+            '<span class="p-icon" style="color:' + iconColor + '">' + BizUtils.icon(p.icon, 28) + '</span>' +
+            '<span class="p-name">' + p.name + '</span>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      renderHotList: function() {
+        var list = document.getElementById('hotList');
+        if (!list) return;
+        var sorted = this.problems.slice().sort(function(a, b) {
+          return b.diagnosisCount - a.diagnosisCount;
+        }).slice(0, 5);
+
+        list.innerHTML = sorted.map(function(p, i) {
+          var rankClass = i < 3 ? ' top' + (i + 1) : '';
+          return '<div class="biz-hot-item" onclick="HomePage.startDiagnosis(\'' + p.code + '\')">' +
+            '<span class="biz-hot-rank' + rankClass + '">' + (i + 1) + '</span>' +
+            '<span class="biz-hot-name">' + BizUtils.icon(p.icon, 16) + ' ' + p.name + '</span>' +
+            '<span class="biz-hot-count">' + BizUtils.formatNumber(p.diagnosisCount) + '人</span>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      loadChapterList: function() {
+        var list = document.getElementById('chapterList');
+        if (!list) return;
+        var chapters = BizData.chapters || [];
+        list.innerHTML = chapters.map(function(ch) {
+          var subsHtml = '';
+          if (ch.subs && ch.subs.length) {
+            subsHtml = '<div class="ce-subs">' +
+              ch.subs.map(function(sub) {
+                return '<span class="ce-sub" onclick="event.stopPropagation();window.location.href=\'solutions.html?chapter=' + ch.id + '&sub=' + sub.id + '\'">' + sub.name + '</span>';
+              }).join('') +
+            '</div>';
+          }
+          return '<div class="biz-chapter-entry" style="background-image:linear-gradient(' + HomePage.hexToRgba(ch.color, 0.06) + ',' + HomePage.hexToRgba(ch.color, 0.06) + '),#fff;" onclick="window.location.href=\'solutions.html?chapter=' + ch.id + '\'">' +
+            '<div class="ce-header">' +
+              '<span class="ce-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon, 22) + '</span>' +
+              '<div>' +
+                '<div class="ce-name">' + ch.name + '</div>' +
+                '<div class="ce-desc">' + ch.desc + '</div>' +
+              '</div>' +
+            '</div>' +
+            subsHtml +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      hexToRgba: function(hex, alpha) {
+        var r = parseInt(hex.slice(1, 3), 16);
+        var g = parseInt(hex.slice(3, 5), 16);
+        var b = parseInt(hex.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+      },
+
+      loadTools: function() {
+        var scroll = document.getElementById('toolScroll');
+        if (!scroll) return;
+        var toolIconMap = {
+          '客流管理': 'bar-chart-3',
+          '门店运营': 'layout-grid',
+          '营销推广': 'megaphone',
+          '客户管理': 'users',
+          '经营分析': 'line-chart',
+          '成本管理': 'scissors',
+          '产品管理': 'package',
+          '人员管理': 'user-check',
+          '营销': 'megaphone',
+          '管理': 'clipboard-list',
+          '财务': 'calculator',
+          '客户': 'heart'
+        };
+        var toolColorMap = {
+          '客流管理': '#007AFF',
+          '门店运营': '#5856D6',
+          '营销推广': '#FF9500',
+          '客户管理': '#FF2D55',
+          '经营分析': '#AF52DE',
+          '成本管理': '#34C759',
+          '产品管理': '#FF3B30',
+          '人员管理': '#5856D6',
+          '营销': '#FF9500',
+          '管理': '#5856D6',
+          '财务': '#34C759',
+          '客户': '#FF2D55'
+        };
+        var toolsArr = [];
+        var toolKeys = Object.keys(BizData.tools || {});
+        for (var i = 0; i < toolKeys.length; i++) {
+          toolsArr.push(BizData.tools[toolKeys[i]]);
+        }
+        scroll.innerHTML = toolsArr.map(function(t) {
+          var iconName = t.icon || toolIconMap[t.category] || 'file-text';
+          var iconColor = toolColorMap[t.category] || '#667eea';
+          return '<div class="biz-tool-card">' +
+            '<div class="t-icon" style="background:' + iconColor + '14;color:' + iconColor + '">' + BizUtils.icon(iconName, 20) + '</div>' +
+            '<div class="t-name">' + t.name + '</div>' +
+          '</div>';
+        }).join('');
+        BizUtils.replaceIcons();
+      },
+
+      startDiagnosis: function(problemCode) {
+        BizUtils.saveDiagnosisState({
+          currentStep: 1,
+          problemCode: problemCode,
+          industry: '',
+          stage: '',
+          symptomIds: [],
+          startTime: Date.now()
+        });
+        window.location.href = 'diagnosis.html?problem=' + problemCode;
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      HomePage.init();
+    });
+  </script>
+
+  <style>
+    /* 问题卡片极淡背景 */
+    .biz-problem-card {
+      background-image: linear-gradient(var(--card-bg-tint, rgba(102,126,234,0.06)), var(--card-bg-tint, rgba(102,126,234,0.06))), #fff;
+    }
+  </style>
+</body>
+</html>

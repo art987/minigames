@@ -1,0 +1,9 @@
+{
+  "name": "biz-diagnosis-query",
+  "version": "1.0.0",
+  "description": "根据用户选择匹配诊断路径并返回完整诊断结果",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
