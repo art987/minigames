@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>案例管理 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 500;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      width: 800px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+    }
+    .modal-header h3 { font-size: 18px; font-weight: 600; }
+    .modal-close {
+      width: 32px; height: 32px;
+      border: none;
+      background: #f3f4f6;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .modal-body { padding: 24px; }
+    .form-row { display: flex; gap: 16px; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; flex: 1; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #6366f1;
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #f3f4f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      z-index: 10;
+    }
+    .modal-footer-left {
+      display: flex;
+      gap: 12px;
+    }
+    .modal-footer-right {
+      display: flex;
+      gap: 12px;
+    }
+    .btn-cancel {
+      padding: 10px 20px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-delete {
+      padding: 10px 20px;
+      border: 1px solid #fecaca;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn-delete:hover { background: #fecaca; }
+    .btn-save {
+      padding: 10px 24px;
+      border: none;
+      background: #6366f1;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn-preview {
+      padding: 10px 20px;
+      border: 1px solid #6366f1;
+      background: #e0e7ff;
+      color: #4f46e5;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-active { background: #d1fae5; color: #065f46; }
+    .status-inactive { background: #fee2e2; color: #991b1b; }
+
+    /* 批量操作 */
+    .batch-toolbar {
+      display: none;
+      padding: 12px 20px;
+      background: #fef3c7;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .batch-toolbar.show { display: flex; }
+    .batch-info {
+      color: #92400e;
+      font-weight: 500;
+    }
+    .batch-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-batch {
+      padding: 6px 14px;
+      border: 1px solid #92400e;
+      background: #fff;
+      color: #92400e;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn-batch:hover { background: #fef3c7; }
+    .btn-batch-danger {
+      border-color: #991b1b;
+      color: #991b1b;
+    }
+    .btn-batch-danger:hover { background: #fee2e2; }
+
+    /* 表格样式优化 */
+    .data-table th {
+      background: #f9fafb;
+      font-weight: 600;
+      color: #374151;
+      padding: 12px;
+      text-align: left;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .data-table tr:hover { background: #f9fafb; }
+    .checkbox-cell {
+      width: 40px;
+    }
+    .checkbox-cell input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .title-cell {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .btn-link {
+      background: none;
+      border: none;
+      color: #6366f1;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 13px;
+      margin-right: 4px;
+    }
+    .btn-link:hover { text-decoration: underline; }
+    .btn-link-danger { color: #ef4444; }
+
+    /* 预览弹窗 */
+    .preview-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 600;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .preview-overlay.show { display: flex; }
+    .preview-box {
+      background: #fff;
+      border-radius: 12px;
+      width: 900px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .preview-header {
+      padding: 20px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9fafb;
+    }
+    .preview-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .preview-content {
+      padding: 30px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .preview-content h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #1f2937;
+    }
+    .preview-content .meta {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 16px;
+    }
+    .preview-content .meta span {
+      padding: 4px 12px;
+      background: #f3f4f6;
+      border-radius: 6px;
+    }
+    .preview-section {
+      margin-bottom: 24px;
+    }
+    .preview-section h2 {
+      font-size: 18px;
+      color: #374151;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .preview-section p {
+      color: #4b5563;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    /* 排序控制 */
+    .sort-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sort-control input {
+      width: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- 侧边栏 -->
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">⚡</span>
+        <span>闪喵诊断</span>
+      </div>
+      <div class="sidebar-sub">管理后台 v1.0</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="index.html" data-page="dashboard">
+        <span class="nav-icon">📊</span><span>首页</span>
+      </a>
+      <a class="nav-item" href="problems.html" data-page="problems">
+        <span class="nav-icon">❓</span><span>问题管理</span>
+      </a>
+      <a class="nav-item" href="diagnosis-paths.html" data-page="diagnosis">
+        <span class="nav-icon">🔀</span><span>诊断路径管理</span>
+      </a>
+      <a class="nav-item" href="solutions.html" data-page="solutions">
+        <span class="nav-icon">💡</span><span>方案管理</span>
+      </a>
+      <a class="nav-item active" href="cases.html" data-page="cases">
+        <span class="nav-icon">📖</span><span>案例管理</span>
+      </a>
+      <a class="nav-item" href="tools.html" data-page="tools">
+        <span class="nav-icon">📦</span><span>工具管理</span>
+      </a>
+      <a class="nav-item" href="tags.html" data-page="tags">
+        <span class="nav-icon">🏷️</span><span>标签管理</span>
+      </a>
+      <a class="nav-item" href="stats.html" data-page="stats">
+        <span class="nav-icon">📊</span><span>数据统计</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span><span>退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-hamburger" id="hamburgerBtn">☰</button>
+        <span class="topbar-title">案例管理</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-admin">
+          <span class="admin-avatar" id="adminAvatar">管</span>
+          <span id="adminName">管理员</span>
+        </div>
+        <button class="topbar-logout" onclick="handleLogout()">退出</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="page-toolbar">
+        <div class="toolbar-left">
+          <input type="text" class="search-input" placeholder="搜索案例标题、行业..." id="searchInput" oninput="filterCases()">
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="openAddModal()">+ 新增案例</button>
+        </div>
+      </div>
+
+      <!-- 批量操作工具栏 -->
+      <div class="batch-toolbar" id="batchToolbar">
+        <div class="batch-info">
+          已选择 <span id="selectedCount">0</span> 项
+        </div>
+        <div class="batch-actions">
+          <button class="btn-batch" onclick="batchSetActive('active')">批量启用</button>
+          <button class="btn-batch" onclick="batchSetActive('inactive')">批量禁用</button>
+          <button class="btn-batch btn-batch-danger" onclick="batchDelete()">批量删除</button>
+          <button class="btn-batch" onclick="clearSelection()">取消选择</button>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="checkbox-cell">
+                <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+              </th>
+              <th style="width:60px;">序号</th>
+              <th>案例标题</th>
+              <th style="width:80px;">行业</th>
+              <th style="width:100px;">所属篇章</th>
+              <th style="width:80px;">状态</th>
+              <th style="width:80px;">排序</th>
+              <th style="width:180px;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="dataTableBody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- 编辑弹窗 -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">新增案例</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>案例标题 *</label>
+        <input type="text" id="editTitle" placeholder="请输入案例标题">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>行业</label>
+          <select id="editIndustry">
+            <option value="餐饮">餐饮</option>
+            <option value="零售">零售</option>
+            <option value="服务业">服务业</option>
+            <option value="美容美发">美容美发</option>
+            <option value="教育培训">教育培训</option>
+            <option value="其他">其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>所属篇章</label>
+          <select id="editChapter">
+            <option value="1">开店选址</option>
+            <option value="2">产品定价</option>
+            <option value="3">客户运营</option>
+            <option value="4">获客引流</option>
+            <option value="5">店铺管理</option>
+            <option value="6">经营智慧</option>
+            <option value="7">金点子</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>排序号</label>
+          <input type="number" id="editSortOrder" value="1" min="1">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>问题类型</label>
+        <input type="text" id="editProblem" placeholder="如：没有客流、营业额下降">
+      </div>
+      <div class="form-group">
+        <label>效果数据</label>
+        <textarea id="editEffect" placeholder="描述实际效果，如：3个月客流翻倍" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label>案例背景</label>
+        <textarea id="editBackground" placeholder="描述案例背景和解决过程" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label>状态</label>
+        <select id="editStatus">
+          <option value="active">启用</option>
+          <option value="inactive">禁用</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-footer-left">
+        <button class="btn-delete" id="deleteInModalBtn" style="display:none;" onclick="deleteCurrentCase()">删除此案例</button>
+      </div>
+      <div class="modal-footer-right">
+        <button class="btn-preview" id="previewBtn" style="display:none;" onclick="previewCurrentCase()">预览</button>
+        <button class="btn-cancel" onclick="closeModal()">取消</button>
+        <button class="btn-save" onclick="saveCase()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 预览弹窗 -->
+<div class="preview-overlay" id="previewModal">
+  <div class="preview-box">
+    <div class="preview-header">
+      <h3>案例预览</h3>
+      <button class="modal-close" onclick="closePreviewModal()">×</button>
+    </div>
+    <div class="preview-content" id="previewContent"></div>
+  </div>
+</div>
+
+<script src="../js/biz-data.js"></script>
+<script src="admin-store.js"></script>
+<script>
+// 登录鉴权
+(function checkAuth() {
+  var session = localStorage.getItem('biz_admin_session');
+  if (!session) { location.href = 'login.html'; return; }
+  try {
+    var info = JSON.parse(session);
+    if (!info || !info.loggedIn) { location.href = 'login.html'; return; }
+    document.getElementById('adminName').textContent = info.name || info.username;
+    document.getElementById('adminAvatar').textContent = (info.name || info.username || '管').charAt(0);
+  } catch (e) { location.href = 'login.html'; }
+})();
+
+function handleLogout() {
+  localStorage.removeItem('biz_admin_session');
+  location.href = 'login.html';
+}
+
+// 侧边栏交互
+(function() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  var hamburger = document.getElementById('hamburgerBtn');
+  hamburger.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+})();
+
+// 章节名称映射
+var chapterNames = {
+  1: '开店选址',
+  2: '产品定价',
+  3: '客户运营',
+  4: '获客引流',
+  5: '店铺管理',
+  6: '经营智慧',
+  7: '金点子'
+};
+
+var selectedIds = []; // 选中的案例ID
+
+// 渲染案例列表
+function renderCases(list) {
+  var tbody = document.getElementById('dataTableBody');
+  if (!list || list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:#9ca3af;">暂无数据</td></tr>';
+    return;
+  }
+
+  // 按排序号排序
+  list.sort(function(a, b) {
+    return (a.sortOrder || 999) - (b.sortOrder || 999);
+  });
+
+  var html = '';
+  list.forEach(function(item, index) {
+    var statusClass = item.status === 'inactive' ? 'status-inactive' : 'status-active';
+    var statusText = item.status === 'inactive' ? '禁用' : '启用';
+    var isChecked = selectedIds.indexOf(item._id) > -1;
+    var sortOrder = item.sortOrder || (index + 1);
+
+    html += '<tr data-id="' + item._id + '">' +
+      '<td class="checkbox-cell"><input type="checkbox" ' + (isChecked ? 'checked' : '') + ' onchange="toggleSelect(\'' + item._id + '\')"></td>' +
+      '<td>' + (index + 1) + '</td>' +
+      '<td class="title-cell" title="' + (item.title || '') + '">' + (item.title || '-') + '</td>' +
+      '<td>' + (item.industry || '-') + '</td>' +
+      '<td>' + (chapterNames[item.chapter] || '-') + '</td>' +
+      '<td><span class="status-badge ' + statusClass + '">' + statusText + '</span></td>' +
+      '<td>' +
+        '<div class="sort-control">' +
+          '<input type="number" value="' + sortOrder + '" min="1" onchange="updateSort(\'' + item._id + '\', this.value)">' +
+        '</div>' +
+      '</td>' +
+      '<td>' +
+        '<button class="btn-link" onclick="previewCase(\'' + item._id + '\')">预览</button>' +
+        '<button class="btn-link" onclick="editCase(\'' + item._id + '\')">编辑</button>' +
+        '<button class="btn-link btn-link-danger" onclick="deleteCase(\'' + item._id + '\')">删除</button>' +
+      '</td>' +
+    '</tr>';
+  });
+  tbody.innerHTML = html;
+  updateBatchToolbar();
+}
+
+// 切换单个选择
+function toggleSelect(id) {
+  var index = selectedIds.indexOf(id);
+  if (index > -1) {
+    selectedIds.splice(index, 1);
+  } else {
+    selectedIds.push(id);
+  }
+  updateBatchToolbar();
+}
+
+// 切换全选
+function toggleSelectAll() {
+  var checkbox = document.getElementById('selectAll');
+  var allCases = AdminStore.getCases();
+  if (checkbox.checked) {
+    selectedIds = allCases.map(function(c) { return c._id; });
+  } else {
+    selectedIds = [];
+  }
+  renderCases(allCases);
+}
+
+// 清除选择
+function clearSelection() {
+  selectedIds = [];
+  document.getElementById('selectAll').checked = false;
+  renderCases(AdminStore.getCases());
+}
+
+// 更新批量工具栏
+function updateBatchToolbar() {
+  var toolbar = document.getElementById('batchToolbar');
+  var countEl = document.getElementById('selectedCount');
+  countEl.textContent = selectedIds.length;
+  if (selectedIds.length > 0) {
+    toolbar.classList.add('show');
+  } else {
+    toolbar.classList.remove('show');
+  }
+}
+
+// 批量设置状态
+function batchSetActive(status) {
+  if (selectedIds.length === 0) {
+    alert('请先选择案例');
+    return;
+  }
+  var allCases = AdminStore.getCases();
+  selectedIds.forEach(function(id) {
+    var index = allCases.findIndex(function(c) { return c._id === id; });
+    if (index > -1) {
+      allCases[index].status = status;
+    }
+  });
+  AdminStore.saveCases(allCases);
+  clearSelection();
+  renderCases(allCases);
+  alert('已批量修改状态');
+}
+
+// 批量删除
+function batchDelete() {
+  if (selectedIds.length === 0) {
+    alert('请先选择案例');
+    return;
+  }
+  if (!confirm('确定要删除选中的 ' + selectedIds.length + ' 个案例吗？')) return;
+
+  var allCases = AdminStore.getCases();
+  selectedIds.forEach(function(id) {
+    var index = allCases.findIndex(function(c) { return c._id === id; });
+    if (index > -1) {
+      allCases.splice(index, 1);
+    }
+  });
+  AdminStore.saveCases(allCases);
+  clearSelection();
+  renderCases(allCases);
+  alert('已批量删除');
+}
+
+// 更新排序
+function updateSort(id, value) {
+  var allCases = AdminStore.getCases();
+  var index = allCases.findIndex(function(c) { return c._id === id; });
+  if (index > -1) {
+    allCases[index].sortOrder = parseInt(value) || 1;
+    AdminStore.saveCases(allCases);
+  }
+}
+
+// 过滤案例
+function filterCases() {
+  var keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+  var allCases = AdminStore.getCases();
+  if (!keyword) {
+    renderCases(allCases);
+    return;
+  }
+  var filtered = allCases.filter(function(item) {
+    return (item.title || '').toLowerCase().indexOf(keyword) > -1 ||
+           (item.industry || '').toLowerCase().indexOf(keyword) > -1;
+  });
+  renderCases(filtered);
+}
+
+// 预览案例
+function previewCase(id) {
+  var allCases = AdminStore.getCases();
+  var item = allCases.find(function(c) { return c._id === id; });
+  if (!item) return;
+
+  var content = '<h1>' + (item.title || '未命名案例') + '</h1>';
+  content += '<div class="meta">';
+  content += '<span>' + (item.industry || '-') + '</span>';
+  content += '<span>' + (chapterNames[item.chapter] || '-') + '</span>';
+  content += '<span class="status-badge ' + (item.status === 'inactive' ? 'status-inactive' : 'status-active') + '">' + (item.status === 'inactive' ? '禁用' : '启用') + '</span>';
+  content += '</div>';
+
+  if (item.problemType) {
+    content += '<div class="preview-section"><h2>问题类型</h2><p>' + item.problemType + '</p></div>';
+  }
+
+  if (item.effectData) {
+    content += '<div class="preview-section"><h2>效果数据</h2><p>' + item.effectData + '</p></div>';
+  }
+
+  if (item.background) {
+    content += '<div class="preview-section"><h2>案例背景</h2><p>' + item.background + '</p></div>';
+  }
+
+  document.getElementById('previewContent').innerHTML = content;
+  document.getElementById('previewModal').classList.add('show');
+}
+
+// 关闭预览弹窗
+function closePreviewModal() {
+  document.getElementById('previewModal').classList.remove('show');
+}
+
+// 打开新增弹窗
+function openAddModal() {
+  document.getElementById('modalTitle').textContent = '新增案例';
+  document.getElementById('editId').value = '';
+  document.getElementById('editTitle').value = '';
+  document.getElementById('editIndustry').value = '餐饮';
+  document.getElementById('editChapter').value = '1';
+  document.getElementById('editProblem').value = '';
+  document.getElementById('editEffect').value = '';
+  document.getElementById('editBackground').value = '';
+  document.getElementById('editStatus').value = 'active';
+  document.getElementById('editSortOrder').value = '1';
+  document.getElementById('deleteInModalBtn').style.display = 'none';
+  document.getElementById('previewBtn').style.display = 'none';
+  document.getElementById('editModal').classList.add('show');
+}
+
+// 编辑案例
+function editCase(id) {
+  var allCases = AdminStore.getCases();
+  var item = allCases.find(function(c) { return c._id === id; });
+  if (!item) return;
+
+  document.getElementById('modalTitle').textContent = '编辑案例';
+  document.getElementById('editId').value = id;
+  document.getElementById('editTitle').value = item.title || '';
+  document.getElementById('editIndustry').value = item.industry || '餐饮';
+  document.getElementById('editChapter').value = item.chapter || '1';
+  document.getElementById('editProblem').value = item.problemType || item.problem || '';
+  document.getElementById('editEffect').value = item.effectData || '';
+  document.getElementById('editBackground').value = item.background || '';
+  document.getElementById('editStatus').value = item.status || 'active';
+  document.getElementById('editSortOrder').value = item.sortOrder || '1';
+  document.getElementById('deleteInModalBtn').style.display = 'inline-block';
+  document.getElementById('previewBtn').style.display = 'inline-block';
+  document.getElementById('editModal').classList.add('show');
+}
+
+// 关闭弹窗
+function closeModal() {
+  document.getElementById('editModal').classList.remove('show');
+}
+
+// 预览当前编辑的案例
+function previewCurrentCase() {
+  var id = document.getElementById('editId').value;
+  if (id) {
+    previewCase(id);
+  }
+}
+
+// 删除当前编辑的案例
+function deleteCurrentCase() {
+  var id = document.getElementById('editId').value;
+  if (!id) return;
+  if (!confirm('确定要删除这个案例吗？')) return;
+
+  var allCases = AdminStore.getCases();
+  var index = allCases.findIndex(function(c) { return c._id === id; });
+  if (index > -1) {
+    allCases.splice(index, 1);
+    AdminStore.saveCases(allCases);
+  }
+  closeModal();
+  renderCases(allCases);
+}
+
+// 保存案例
+function saveCase() {
+  var id = document.getElementById('editId').value;
+  var title = document.getElementById('editTitle').value.trim();
+  if (!title) {
+    alert('请输入案例标题');
+    return;
+  }
+  var data = {
+    _id: id || ('case_' + Date.now()),
+    title: title,
+    industry: document.getElementById('editIndustry').value,
+    chapter: parseInt(document.getElementById('editChapter').value),
+    problemType: document.getElementById('editProblem').value,
+    effectData: document.getElementById('editEffect').value,
+    background: document.getElementById('editBackground').value,
+    status: document.getElementById('editStatus').value,
+    sortOrder: parseInt(document.getElementById('editSortOrder').value) || 1
+  };
+
+  var allCases = AdminStore.getCases();
+
+  if (id) {
+    var index = allCases.findIndex(function(c) { return c._id === id; });
+    if (index > -1) {
+      allCases[index] = Object.assign({}, allCases[index], data);
+    }
+  } else {
+    allCases.push(data);
+  }
+
+  AdminStore.saveCases(allCases);
+
+  closeModal();
+  renderCases(allCases);
+  alert('保存成功');
+}
+
+// 删除案例
+function deleteCase(id) {
+  if (!confirm('确定要删除这个案例吗？')) return;
+  var allCases = AdminStore.getCases();
+  var index = allCases.findIndex(function(c) { return c._id === id; });
+  if (index > -1) {
+    allCases.splice(index, 1);
+    AdminStore.saveCases(allCases);
+  }
+  renderCases(allCases);
+}
+
+// 初始化
+renderCases(AdminStore.getCases());
+</script>
+
+</body>
+</html>

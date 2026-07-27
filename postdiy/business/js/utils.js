@@ -4,12 +4,11 @@
 
 var BizUtils = {
   // ===== 图标渲染（Lucide 单色线条图标） =====
-  // 渲染 Lucide SVG 图标，name 为图标名，size 为像素，classStr 为额外 class
+  // 渲染 Lucide SVG 图标，name 为图标名，size 已废弃（由CSS控制），classStr 为额外 class
   icon: function(name, size, classStr) {
     if (!name) return '';
-    size = size || 20;
     classStr = classStr || '';
-    return '<i data-lucide="' + name + '" class="biz-icon ' + classStr + '" style="width:' + size + 'px;height:' + size + 'px;"></i>';
+    return '<i data-lucide="' + name + '" class="biz-icon ' + classStr + '"></i>';
   },
 
   // 批量替换页面中所有 data-lucide 图标为 SVG（在DOM更新后调用）

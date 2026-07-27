@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据统计 - 闪喵经营诊断</title>
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    .stat-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border: 1px solid #f3f4f6;
+    }
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .icon-blue { background: #e0e7ff; color: #4f46e5; }
+    .icon-green { background: #d1fae5; color: #065f46; }
+    .icon-orange { background: #fef3c7; color: #92400e; }
+    .icon-purple { background: #ede9fe; color: #6b21a8; }
+    .icon-pink { background: #fce7f3; color: #9d174d; }
+    .icon-cyan { background: #cffafe; color: #0e7490; }
+    .stat-info { flex: 1; }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f2937;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 768px) {
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chart-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #f3f4f6;
+      overflow: hidden;
+    }
+    .chart-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .chart-body {
+      padding: 20px;
+    }
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .bar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      width: 100px;
+      font-size: 13px;
+      color: #374151;
+      flex-shrink: 0;
+    }
+    .bar-container {
+      flex: 1;
+      height: 28px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border-radius: 6px;
+      transition: width 0.6s ease;
+    }
+    .bar-value {
+      width: 50px;
+      text-align: right;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      flex-shrink: 0;
+    }
+    .pie-chart-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .pie-chart {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .pie-legend {
+      flex: 1;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .legend-label {
+      color: #374151;
+      flex: 1;
+    }
+    .legend-value {
+      color: #6b7280;
+      font-weight: 500;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9ca3af;
+    }
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- 侧边栏 -->
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">⚡</span>
+        <span>闪喵诊断</span>
+      </div>
+      <div class="sidebar-sub">管理后台 v1.0</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="index.html" data-page="dashboard">
+        <span class="nav-icon">📊</span><span>首页</span>
+      </a>
+      <a class="nav-item" href="problems.html" data-page="problems">
+        <span class="nav-icon">❓</span><span>问题管理</span>
+      </a>
+      <a class="nav-item" href="diagnosis-paths.html" data-page="diagnosis">
+        <span class="nav-icon">🔀</span><span>诊断路径管理</span>
+      </a>
+      <a class="nav-item" href="solutions.html" data-page="solutions">
+        <span class="nav-icon">💡</span><span>方案管理</span>
+      </a>
+      <a class="nav-item" href="cases.html" data-page="cases">
+        <span class="nav-icon">📖</span><span>案例管理</span>
+      </a>
+      <a class="nav-item" href="tools.html" data-page="tools">
+        <span class="nav-icon">📦</span><span>工具管理</span>
+      </a>
+      <a class="nav-item" href="tags.html" data-page="tags">
+        <span class="nav-icon">🏷️</span><span>标签管理</span>
+      </a>
+      <a class="nav-item active" href="stats.html" data-page="stats">
+        <span class="nav-icon">📊</span><span>数据统计</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="handleLogout()">
+        <span class="nav-icon">🚪</span><span>退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-hamburger" id="hamburgerBtn">☰</button>
+        <span class="topbar-title">数据统计</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-admin">
+          <span class="admin-avatar" id="adminAvatar">管</span>
+          <span id="adminName">管理员</span>
+        </div>
+        <button class="topbar-logout" onclick="handleLogout()">退出</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <!-- 统计卡片 -->
+      <div class="stat-card-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue">📖</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statCases">0</div>
+            <div class="stat-label">案例总数</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green">💡</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statSolutions">0</div>
+            <div class="stat-label">方案总数</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-orange">📦</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statTools">0</div>
+            <div class="stat-label">工具总数</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">❓</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statProblems">0</div>
+            <div class="stat-label">问题总数</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-pink">🔀</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statPaths">0</div>
+            <div class="stat-label">诊断路径</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-cyan">🏷️</div>
+          <div class="stat-info">
+            <div class="stat-value" id="statTags">9</div>
+            <div class="stat-label">标签总数</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图表区域 -->
+      <div class="chart-grid">
+        <!-- 案例行业分布 -->
+        <div class="chart-card">
+          <div class="chart-header">📊 案例行业分布</div>
+          <div class="chart-body">
+            <div class="bar-chart" id="industryChart"></div>
+          </div>
+        </div>
+
+        <!-- 案例篇章分布 -->
+        <div class="chart-card">
+          <div class="chart-header">📚 案例篇章分布</div>
+          <div class="chart-body">
+            <div class="bar-chart" id="chapterChart"></div>
+          </div>
+        </div>
+
+        <!-- 工具分类分布 -->
+        <div class="chart-card">
+          <div class="chart-header">🔧 工具分类分布</div>
+          <div class="chart-body">
+            <div class="bar-chart" id="toolCategoryChart"></div>
+          </div>
+        </div>
+
+        <!-- 问题类型分布 -->
+        <div class="chart-card">
+          <div class="chart-header">⚠️ 问题类型分布</div>
+          <div class="chart-body">
+            <div class="bar-chart" id="problemChart"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/biz-data.js"></script>
+<script src="admin-store.js"></script>
+<script>
+// 登录鉴权
+(function checkAuth() {
+  var session = localStorage.getItem('biz_admin_session');
+  if (!session) { location.href = 'login.html'; return; }
+  try {
+    var info = JSON.parse(session);
+    if (!info || !info.loggedIn) { location.href = 'login.html'; return; }
+    document.getElementById('adminName').textContent = info.name || info.username;
+    document.getElementById('adminAvatar').textContent = (info.name || info.username || '管').charAt(0);
+  } catch (e) { location.href = 'login.html'; }
+})();
+
+function handleLogout() {
+  localStorage.removeItem('biz_admin_session');
+  location.href = 'login.html';
+}
+
+// 侧边栏交互
+(function() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  var hamburger = document.getElementById('hamburgerBtn');
+  hamburger.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+})();
+
+// 章节名称映射
+var chapterNames = {
+  1: '开店选址',
+  2: '产品定价',
+  3: '客户运营',
+  4: '获客引流',
+  5: '店铺管理',
+  6: '经营智慧',
+  7: '金点子'
+};
+
+// 更新统计卡片
+function updateStatCards() {
+  var cases = AdminStore.getCases();
+  var solutions = AdminStore.getSolutions();
+  var tools = AdminStore.getTools();
+  var problems = AdminStore.getProblems();
+  var paths = AdminStore.getPaths();
+  var tags = AdminStore.getTags();
+
+  document.getElementById('statCases').textContent = cases.length;
+  document.getElementById('statSolutions').textContent = solutions.length;
+  document.getElementById('statTools').textContent = tools.length;
+  document.getElementById('statProblems').textContent = problems.length;
+  document.getElementById('statPaths').textContent = paths.length;
+  document.getElementById('statTags').textContent = tags.length;
+}
+
+// 渲染柱状图
+function renderBarChart(containerId, data, maxValue) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+
+  var html = '';
+  data.forEach(function(item) {
+    var percentage = maxValue > 0 ? (item.value / maxValue * 100) : 0;
+    html += '<div class="bar-item">' +
+      '<div class="bar-label">' + item.label + '</div>' +
+      '<div class="bar-container">' +
+        '<div class="bar-fill" style="width:' + percentage.toFixed(1) + '%;"></div>' +
+      '</div>' +
+      '<div class="bar-value">' + item.value + '</div>' +
+    '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// 案例行业分布统计
+function renderIndustryChart() {
+  var cases = AdminStore.getCases();
+  var industryCount = {};
+
+  cases.forEach(function(item) {
+    var industry = item.industry || '其他';
+    industryCount[industry] = (industryCount[industry] || 0) + 1;
+  });
+
+  var data = Object.keys(industryCount).map(function(key) {
+    return { label: key, value: industryCount[key] };
+  }).sort(function(a, b) { return b.value - a.value; }).slice(0, 10);
+
+  var maxVal = Math.max.apply(null, data.map(function(d) { return d.value; }));
+  renderBarChart('industryChart', data, maxVal);
+}
+
+// 案例篇章分布统计
+function renderChapterChart() {
+  var cases = AdminStore.getCases();
+  var chapterCount = {};
+
+  cases.forEach(function(item) {
+    var chapter = item.chapter || 0;
+    var chapterName = chapterNames[chapter] || '其他';
+    chapterCount[chapterName] = (chapterCount[chapterName] || 0) + 1;
+  });
+
+  var data = Object.keys(chapterCount).map(function(key) {
+    return { label: key, value: chapterCount[key] };
+  }).sort(function(a, b) {
+    // 按篇章顺序排序
+    var orderA = Object.values(chapterNames).indexOf(a.label);
+    var orderB = Object.values(chapterNames).indexOf(b.label);
+    return orderA - orderB;
+  });
+
+  var maxVal = Math.max.apply(null, data.map(function(d) { return d.value; }));
+  renderBarChart('chapterChart', data, maxVal);
+}
+
+// 工具分类分布统计
+function renderToolCategoryChart() {
+  var tools = AdminStore.getTools();
+  var categoryCount = {};
+
+  tools.forEach(function(item) {
+    var category = item.category || '其他';
+    categoryCount[category] = (categoryCount[category] || 0) + 1;
+  });
+
+  var data = Object.keys(categoryCount).map(function(key) {
+    return { label: key, value: categoryCount[key] };
+  }).sort(function(a, b) { return b.value - a.value; });
+
+  var maxVal = Math.max.apply(null, data.map(function(d) { return d.value; }));
+  renderBarChart('toolCategoryChart', data, maxVal);
+}
+
+// 问题类型分布统计
+function renderProblemChart() {
+  var problems = AdminStore.getProblems();
+
+  var data = problems.slice(0, 8).map(function(item) {
+    return { label: item.name || '未命名', value: 1 };
+  });
+
+  renderBarChart('problemChart', data, 1);
+}
+
+// 初始化
+updateStatCards();
+renderIndustryChart();
+renderChapterChart();
+renderToolCategoryChart();
+renderProblemChart();
+</script>
+
+</body>
+</html>

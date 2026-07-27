@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 实体商家经营诊断系统 - 本地诊断数据
  * 包含：经营问题、症状、诊断路径、解决方案、案例、工具
  * 所有数据均为真实可执行的专业内容，供本地离线使用
@@ -8177,32 +8177,32 @@ tools: [
 (function() {
   try {
     // 如果 localStorage 中有管理后台保存的数据，则覆盖 BizData 的默认数据
-    var adminCases = localStorage.getItem('admin_cases_v2');
+    var adminCases = localStorage.getItem('admin_cases');
     if (adminCases) {
       BizData.cases = JSON.parse(adminCases);
     }
 
-    var adminTools = localStorage.getItem('admin_tools_v2');
+    var adminTools = localStorage.getItem('admin_tools');
     if (adminTools) {
       BizData.tools = JSON.parse(adminTools);
     }
 
-    var adminTags = localStorage.getItem('admin_tags_v2');
+    var adminTags = localStorage.getItem('admin_tags');
     if (adminTags) {
       BizData.tags = JSON.parse(adminTags);
     }
 
-    var adminProblems = localStorage.getItem('admin_problems_v2');
+    var adminProblems = localStorage.getItem('admin_problems');
     if (adminProblems) {
       BizData.problems = JSON.parse(adminProblems);
     }
 
-    var adminSolutions = localStorage.getItem('admin_solutions_v2');
+    var adminSolutions = localStorage.getItem('admin_solutions');
     if (adminSolutions) {
       BizData.solutions = JSON.parse(adminSolutions);
     }
 
-    var adminPaths = localStorage.getItem('admin_paths_v2');
+    var adminPaths = localStorage.getItem('admin_paths');
     if (adminPaths) {
       BizData.diagnosisPaths = JSON.parse(adminPaths);
     }

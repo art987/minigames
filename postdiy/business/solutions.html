@@ -42,13 +42,13 @@
   <!-- 右下角浮动按钮 -->
   <div class="sol-fab-group">
     <div class="sol-fab sol-fab-profile" onclick="window.location.href='profile.html'" title="我的收藏">
-      <i data-lucide="bookmark" class="biz-icon" style="width:20px;height:20px;"></i>
+      <i data-lucide="bookmark" class="biz-icon"></i>
     </div>
     <div class="sol-fab sol-fab-tools" onclick="window.location.href='tools.html'" title="工具">
-      <i data-lucide="wrench" class="biz-icon" style="width:20px;height:20px;"></i>
+      <i data-lucide="wrench" class="biz-icon"></i>
     </div>
     <div class="sol-fab sol-fab-diagnosis" onclick="window.location.href='index.html'" title="经营诊断">
-      <i data-lucide="stethoscope" class="biz-icon" style="width:22px;height:22px;"></i>
+      <i data-lucide="stethoscope" class="biz-icon"></i>
     </div>
   </div>
 
@@ -83,7 +83,7 @@
   <script src="js/data-service.js"></script>
   <script src="js/biz-favorite.js"></script>
   <script>
-    // 方案库页面逻辑 - 八大篇章导航
+    // 方案库页面逻辑 - 七大篇章导航
     var SolutionsPage = {
       currentChapter: null,
       currentSub: null,
@@ -180,7 +180,7 @@
           }
           return '<div class="biz-chapter-card" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
             '<div class="chapter-header">' +
-              '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon, 66) + '</span>' +
+              '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon) + '</span>' +
               '<div class="chapter-name">' + ch.name + '</div>' +
             '</div>' +
             '<div class="chapter-desc">' + ch.desc + '</div>' +
@@ -217,7 +217,7 @@
         var headerWrap = document.getElementById('chapterHeaderWrap');
         if (headerWrap) {
           var html = '<div class="biz-chapter-header">' +
-            '<span class="ch-icon" style="color:' + chapter.color + '">' + BizUtils.icon(chapter.icon, 28) + '</span>' +
+            '<span class="ch-icon" style="color:' + chapter.color + '">' + BizUtils.icon(chapter.icon) + '</span>' +
             '<div class="ch-info">' +
               '<div class="ch-name">' + chapter.name + '</div>' +
               '<div class="ch-desc">' + chapter.desc + '</div>' +
@@ -411,7 +411,7 @@
         var headerWrap = document.getElementById('chapterHeaderWrap');
         if (headerWrap) {
           headerWrap.innerHTML = '<div class="biz-chapter-header">' +
-            '<span class="ch-icon">' + BizUtils.icon('search', 28) + '</span>' +
+            '<span class="ch-icon">' + BizUtils.icon('search') + '</span>' +
             '<div class="ch-info">' +
               '<div class="ch-name">搜索: ' + this.searchText + '</div>' +
               '<div class="ch-desc">找到 ' + filteredSolutions.length + ' 个方案和 ' + filteredCases.length + ' 个案例</div>' +
