@@ -18,7 +18,7 @@
       <h1 id="pageTitle">方案库</h1>
       <div class="biz-search-box">
         <span class="search-icon" id="searchIconHolder"></span>
-        <input type="text" id="searchInput" placeholder="搜索方案..." oninput="SolutionsPage.onSearch(this.value)">
+        <input type="text" id="searchInput" placeholder="搜索方案或案例..." oninput="SolutionsPage.onSearch(this.value)">
       </div>
     </div>
   </header>
@@ -52,9 +52,36 @@
     </div>
   </div>
 
+  <!-- 详情弹窗 -->
+  <div class="detail-modal" id="detailModal">
+    <div class="detail-modal-mask" onclick="SolutionsPage.closeModal()"></div>
+    <div class="detail-modal-content">
+      <div class="detail-modal-header">
+        <span class="detail-modal-close" onclick="SolutionsPage.closeModal()">
+          <i data-lucide="x" class="biz-icon" style="width:20px;height:20px;"></i>
+        </span>
+        <span class="detail-modal-title" id="modalTitle">详情</span>
+        <span style="width:28px;"></span>
+      </div>
+      <div class="detail-modal-body" id="modalBody">
+        <!-- JS动态渲染 -->
+      </div>
+      <div class="detail-modal-footer">
+        <button class="detail-modal-fav-btn" id="modalFavBtn" onclick="SolutionsPage.toggleFav()">
+          <span id="modalFavIcon">☆</span>
+          <span id="modalFavText">收藏</span>
+        </button>
+        <button class="detail-modal-btn" id="modalOpenBtn" onclick="SolutionsPage.openInNewPage()">
+          在新页面查看
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/utils.js"></script>
   <script src="js/biz-data.js"></script>
   <script src="js/data-service.js"></script>
+  <script src="js/biz-favorite.js"></script>
   <script>
     // 方案库页面逻辑 - 八大篇章导航
     var SolutionsPage = {
@@ -134,6 +161,8 @@
         var container = document.getElementById('chapterGrid');
         if (!container) return;
 
+        var allCases = BizData.cases || [];
+
         container.innerHTML = this.chapters.map(function(ch) {
           var count = self.getChapterCount(ch.id);
           // 二级分类按钮
@@ -141,13 +170,17 @@
           if (ch.subs && ch.subs.length) {
             subsHtml = '<div class="chapter-subs">' +
               ch.subs.map(function(sub) {
-                return '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + '</span>';
+                var subCaseCount = allCases.filter(function(c) {
+                  return c.chapter === ch.id && c.sub === sub.id;
+                }).length;
+                var badge = subCaseCount > 0 ? '<em class="chapter-sub-badge">' + subCaseCount + '</em>' : '';
+                return '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + badge + '</span>';
               }).join('') +
             '</div>';
           }
           return '<div class="biz-chapter-card" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
             '<div class="chapter-header">' +
-              '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon, 22) + '</span>' +
+              '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon, 66) + '</span>' +
               '<div class="chapter-name">' + ch.name + '</div>' +
             '</div>' +
             '<div class="chapter-desc">' + ch.desc + '</div>' +
@@ -223,24 +256,9 @@
             '<span class="biz-empty-text">暂无匹配方案</span>' +
           '</div>';
         } else {
-          var allCases = BizData.cases || [];
+          var self3 = self;
           container.innerHTML = filtered.map(function(s) {
-            var diffClass = s.difficulty === '简单' ? 'biz-tag biz-tag-primary' : 'biz-tag biz-tag-accent';
-            var caseCount = allCases.filter(function(c) {
-              var matchChapter = c.chapter === s.chapter;
-              var matchSub = !s.sub || c.sub === s.sub;
-              return matchChapter && matchSub;
-            }).length;
-            var caseTag = caseCount > 0 ? '<span class="biz-tag">' + BizUtils.icon('book-open', 12) + ' ' + caseCount + '个案例</span>' : '';
-            return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
-              '<div class="card-title">' + s.title + '</div>' +
-              '<div class="card-meta">' +
-                '<span class="' + diffClass + '">' + s.difficulty + '</span>' +
-                '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
-                '<span class="biz-tag">' + BizUtils.icon('coins', 12) + ' ' + s.costRange + '</span>' +
-                caseTag +
-              '</div>' +
-            '</div>';
+            return self3.renderSolutionCard(s);
           }).join('');
         }
 
@@ -369,12 +387,20 @@
           return;
         }
 
-        var filtered = this.allSolutions.filter(function(s) {
-          return (s.title + s.summary).indexOf(self.searchText) > -1;
+        // 同时搜索方案和案例
+        var filteredSolutions = this.allSolutions.filter(function(s) {
+          return (s.title + (s.summary || '')).indexOf(self.searchText) > -1;
+        });
+
+        var allCases = BizData.cases || [];
+        var filteredCases = allCases.filter(function(c) {
+          return (c.title + (c.problem || '') + (c.solution || '') + (c.background || '')).indexOf(self.searchText) > -1;
         });
 
         var container = document.getElementById('solutionList');
         if (!container) return;
+
+        var totalCount = filteredSolutions.length + filteredCases.length;
 
         // 更新标题
         document.getElementById('pageTitle').textContent = '搜索结果';
@@ -388,34 +414,64 @@
             '<span class="ch-icon">' + BizUtils.icon('search', 28) + '</span>' +
             '<div class="ch-info">' +
               '<div class="ch-name">搜索: ' + this.searchText + '</div>' +
-              '<div class="ch-desc">找到 ' + filtered.length + ' 个相关方案</div>' +
+              '<div class="ch-desc">找到 ' + filteredSolutions.length + ' 个方案和 ' + filteredCases.length + ' 个案例</div>' +
             '</div>' +
           '</div>';
         }
 
-        if (filtered.length === 0) {
+        if (totalCount === 0) {
           container.innerHTML = '<div class="biz-empty">' +
             '<span class="biz-empty-icon">' + BizUtils.icon('inbox', 40) + '</span>' +
-            '<span class="biz-empty-text">暂无匹配方案</span>' +
+            '<span class="biz-empty-text">暂无匹配结果</span>' +
           '</div>';
         } else {
-          container.innerHTML = filtered.map(function(s) {
-            var diffClass = s.difficulty === '简单' ? 'biz-tag biz-tag-primary' : 'biz-tag biz-tag-accent';
-            // 找到篇章信息
-            var chInfo = self.getChapterInfo(s.chapter);
-            return '<div class="biz-solution-card" onclick="SolutionsPage.onView(\'' + s._id + '\')">' +
-              '<div class="card-title">' + s.title + '</div>' +
-              '<div class="card-meta">' +
-                '<span class="biz-tag" style="background:' + (chInfo ? self.hexToRgba(chInfo.color, 0.12) : 'var(--biz-primary-light)') + ';color:' + (chInfo ? chInfo.color : 'var(--biz-primary)') + '">' + (chInfo ? BizUtils.icon(chInfo.icon, 12) + ' ' + chInfo.name : '') + '</span>' +
-                '<span class="' + diffClass + '">' + s.difficulty + '</span>' +
-                '<span class="biz-tag">' + BizUtils.icon('clock', 12) + ' ' + s.effectiveTime + '</span>' +
-              '</div>' +
-            '</div>';
-          }).join('');
+          var html = '';
+
+          // 先展示方案
+          if (filteredSolutions.length > 0) {
+            html += '<div class="search-section-label">方案 (' + filteredSolutions.length + ')</div>';
+            html += filteredSolutions.map(function(s) {
+              return self.renderSolutionCard(s);
+            }).join('');
+          }
+
+          // 再展示案例
+          if (filteredCases.length > 0) {
+            html += '<div class="search-section-label">案例 (' + filteredCases.length + ')</div>';
+            html += filteredCases.map(function(c) {
+              return '<div class="biz-solution-card" onclick="SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
+                '<div class="card-title">' + c.title + ' <span class="card-arrow">›</span></div>' +
+                '<div class="card-meta" style="display:flex;">' +
+                  '<span class="biz-tag biz-tag-primary">案例</span>' +
+                '</div>' +
+              '</div>';
+            }).join('');
+          }
+
+          container.innerHTML = html;
         }
 
         this.showView('solution');
         BizUtils.replaceIcons();
+      },
+
+      renderSolutionCard: function(s) {
+        var self = this;
+        var matchedCases = (BizData.cases || []).filter(function(c) {
+          return c.chapter === s.chapter && c.sub === s.sub;
+        });
+        var caseLinks = '';
+        if (matchedCases.length > 0) {
+          caseLinks = '<div class="card-case-links">' +
+            matchedCases.map(function(c) {
+              return '<a class="card-case-link" href="javascript:void(0)" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' + c.title + '</a>';
+            }).join('') +
+          '</div>';
+        }
+        return '<div class="biz-solution-card" onclick="SolutionsPage.openSolutionModal(\'' + s._id + '\')">' +
+          '<div class="card-title">' + s.title + ' <span class="card-arrow">›</span></div>' +
+          caseLinks +
+        '</div>';
       },
 
       // 获取篇章信息
@@ -430,8 +486,229 @@
 
       // 查看方案详情
       onView: function(id) {
-        window.location.href = 'solution-detail.html?solutionId=' + id;
-      }
+        this.openSolutionModal(id);
+      },
+
+      // ===== 弹窗相关 =====
+      modalType: null, // 'solution' or 'case'
+      modalId: null,
+
+      openSolutionModal: function(id) {
+        var sol = this.findSolution(id);
+        if (!sol) return;
+        this.modalType = 'solution';
+        this.modalId = id;
+        this.modalTitle = sol.title;
+        document.getElementById('modalTitle').textContent = sol.title;
+        this.renderSolutionModal(sol);
+        this.updateFavState();
+        document.getElementById('detailModal').classList.add('show');
+        document.getElementById('modalBody').scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+        BizUtils.replaceIcons();
+      },
+
+      openCaseModal: function(id) {
+        var c = this.findCase(id);
+        if (!c) return;
+        this.modalType = 'case';
+        this.modalId = id;
+        this.modalTitle = c.title;
+        document.getElementById('modalTitle').textContent = c.title;
+        this.renderCaseModal(c);
+        this.updateFavState();
+        document.getElementById('detailModal').classList.add('show');
+        document.getElementById('modalBody').scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+        BizUtils.replaceIcons();
+      },
+
+      closeModal: function() {
+        document.getElementById('detailModal').classList.remove('show');
+        document.body.style.overflow = '';
+        this.modalType = null;
+        this.modalId = null;
+        this.modalTitle = null;
+      },
+
+      updateFavState: function() {
+        var isFaved = BizFavorite.isFavorited(this.modalType, this.modalId);
+        var icon = document.getElementById('modalFavIcon');
+        var text = document.getElementById('modalFavText');
+        var btn = document.getElementById('modalFavBtn');
+        if (isFaved) {
+          icon.textContent = '★';
+          text.textContent = '已收藏';
+          btn.classList.add('faved');
+        } else {
+          icon.textContent = '☆';
+          text.textContent = '收藏';
+          btn.classList.remove('faved');
+        }
+      },
+
+      toggleFav: function() {
+        if (!this.modalType || !this.modalId) return;
+        var isFaved = BizFavorite.isFavorited(this.modalType, this.modalId);
+        if (isFaved) {
+          BizFavorite.remove(this.modalType, this.modalId);
+        } else {
+          BizFavorite.add(this.modalType, this.modalId, this.modalTitle);
+        }
+        this.updateFavState();
+      },
+
+      openInNewPage: function() {
+        if (this.modalType === 'solution') {
+          window.location.href = 'solution-detail.html?solutionId=' + this.modalId;
+        } else if (this.modalType === 'case') {
+          window.location.href = 'case-detail.html?caseId=' + this.modalId;
+        }
+      },
+
+      findSolution: function(id) {
+        var solutions = BizData.solutions;
+        if (!solutions) return null;
+        if (!Array.isArray(solutions)) return solutions[id] || null;
+        for (var i = 0; i < solutions.length; i++) {
+          if (solutions[i]._id === id) return solutions[i];
+        }
+        return null;
+      },
+
+      findCase: function(id) {
+        var cases = BizData.cases;
+        if (!cases) return null;
+        if (!Array.isArray(cases)) return cases[id] || null;
+        for (var i = 0; i < cases.length; i++) {
+          if (cases[i]._id === id) return cases[i];
+        }
+        return null;
+      },
+
+      renderSolutionModal: function(sol) {
+        var body = document.getElementById('modalBody');
+        var stepsHtml = '';
+        if (sol.steps && sol.steps.length > 0) {
+          var stepsItems = '';
+          for (var i = 0; i < sol.steps.length; i++) {
+            var step = sol.steps[i];
+            var stepTitle = step.title || ('第' + (i + 1) + '步');
+            var stepContent = step.content || '';
+            stepsItems += '<div class="sd-step-item">' +
+              '<div class="sd-step-num">' + (i + 1) + '</div>' +
+              '<div class="sd-step-content">' +
+                '<div class="sd-step-title">' + stepTitle + '</div>' +
+                (stepContent ? '<div class="sd-step-desc">' + stepContent + '</div>' : '') +
+              '</div>' +
+            '</div>';
+          }
+          stepsHtml = '<section class="biz-section sd-steps">' +
+            '<p class="biz-section-title">' + BizUtils.icon('list-checks', 16) + ' 执行步骤</p>' +
+            '<div>' + stepsItems + '</div>' +
+          '</section>';
+        }
+
+        var notesHtml = '';
+        if (sol.notes && sol.notes.length > 0) {
+          var notesItems = '';
+          for (var j = 0; j < sol.notes.length; j++) {
+            notesItems += '<li class="sd-note-item">' + sol.notes[j] + '</li>';
+          }
+          notesHtml = '<section class="biz-section sd-notes">' +
+            '<p class="biz-section-title">' + BizUtils.icon('alert-circle', 16) + ' 注意事项</p>' +
+            '<div class="sd-notes-card"><ul class="sd-notes-list">' + notesItems + '</ul></div>' +
+          '</section>';
+        }
+
+        body.innerHTML =
+          '<section class="biz-section">' +
+            '<div class="sd-overview">' +
+              (sol.summary ? '<p class="sd-overview-desc">' + sol.summary + '</p>' : '') +
+              '<div class="sd-overview-meta">' +
+                '<span class="sd-meta-tag">' + (sol.difficulty || '') + '</span>' +
+                '<span class="sd-meta-tag">' + (sol.effectiveTime || '') + '</span>' +
+                '<span class="sd-meta-tag">' + (sol.costRange || '') + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</section>' +
+          stepsHtml +
+          notesHtml;
+      },
+
+      renderCaseModal: function(c) {
+        var body = document.getElementById('modalBody');
+        var probText = c.problem || c.problemType || '';
+
+        var problemHtml = '';
+        if (probText) {
+          problemHtml = '<section class="biz-section">' +
+            '<p class="biz-section-title">' + BizUtils.icon('alert-triangle', 16) + ' 遇到的问题</p>' +
+            '<div class="cd-problem-card"><p class="cd-problem-text">' + probText + '</p></div>' +
+          '</section>';
+        }
+
+        var solText = c.solution || c.background || '';
+        var solutionHtml = '';
+        if (solText) {
+          var sentences = solText.split('。').filter(function(s) { return s.trim().length > 0; });
+          var paras = '';
+          for (var i = 0; i < sentences.length; i++) {
+            paras += '<p class="cd-solution-para">' + sentences[i].trim() + '。</p>';
+          }
+          var title = c.solution ? '解决方案' : '案例背景';
+          var icon = c.solution ? 'lightbulb' : 'file-text';
+          solutionHtml = '<section class="biz-section">' +
+            '<p class="biz-section-title">' + BizUtils.icon(icon, 16) + ' ' + title + '</p>' +
+            '<div class="cd-solution-detail-card">' + paras + '</div>' +
+          '</section>';
+        }
+
+        var stepsHtml = '';
+        if (c.steps && c.steps.length > 0) {
+          var stepsItems = '';
+          for (var j = 0; j < c.steps.length; j++) {
+            stepsItems += '<div class="cd-step-item">' +
+              '<div class="cd-step-num">' + (j + 1) + '</div>' +
+              '<div class="cd-step-text">' + c.steps[j] + '</div>' +
+            '</div>';
+          }
+          stepsHtml = '<section class="biz-section">' +
+            '<p class="biz-section-title">' + BizUtils.icon('list-checks', 16) + ' 操作步骤</p>' +
+            '<div class="cd-steps-card">' + stepsItems + '</div>' +
+          '</section>';
+        }
+
+        var points = c.keyPoints || c.keyLessons || [];
+        var kpHtml = '';
+        if (points.length > 0) {
+          var kpItems = '';
+          for (var k = 0; k < points.length; k++) {
+            kpItems += '<li class="cd-kp-item">' +
+              '<span class="cd-kp-dot"></span>' +
+              '<span class="cd-kp-text">' + points[k] + '</span>' +
+            '</li>';
+          }
+          kpHtml = '<section class="biz-section">' +
+            '<p class="biz-section-title">' + BizUtils.icon('star', 16) + ' 关键要点</p>' +
+            '<div class="cd-kp-card"><ul class="cd-kp-list">' + kpItems + '</ul></div>' +
+          '</section>';
+        }
+
+        body.innerHTML =
+          '<section class="biz-section">' +
+            '<div class="cd-overview">' +
+              '<div class="cd-effect-box">' +
+                '<div class="cd-effect-label">' + BizUtils.icon('trending-up', 14) + ' 实际效果</div>' +
+                '<div class="cd-effect-value">' + (c.effectData || '效果显著') + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</section>' +
+          problemHtml +
+          solutionHtml +
+          stepsHtml +
+          kpHtml;
+      },
     };
 
     // 处理浏览器后退
