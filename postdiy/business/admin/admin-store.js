@@ -5,16 +5,16 @@
 
 var AdminStore = {
   // 数据版本（每次数据结构变更时递增，使旧缓存自动失效）
-  VERSION: 2,
+  VERSION: 3,
 
   // localStorage 键名（带版本号）
   KEYS: {
-    CASES: 'admin_cases_v2',
-    TOOLS: 'admin_tools_v2',
-    TAGS: 'admin_tags_v2',
-    PROBLEMS: 'admin_problems_v2',
-    SOLUTIONS: 'admin_solutions_v2',
-    PATHS: 'admin_paths_v2'
+    CASES: 'admin_cases_v3',
+    TOOLS: 'admin_tools_v3',
+    TAGS: 'admin_tags_v3',
+    PROBLEMS: 'admin_problems_v3',
+    SOLUTIONS: 'admin_solutions_v3',
+    PATHS: 'admin_paths_v3'
   },
 
   /**

@@ -455,6 +455,12 @@
         <input type="text" id="editProblem" placeholder="如：没有客流、营业额下降">
       </div>
       <div class="form-group">
+        <label>关联方案</label>
+        <select id="editSolutionId">
+          <option value="">不关联</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label>效果数据</label>
         <textarea id="editEffect" placeholder="描述实际效果，如：3个月客流翻倍" rows="3"></textarea>
       </div>
@@ -541,6 +547,23 @@ var chapterNames = {
 };
 
 var selectedIds = []; // 选中的案例ID
+
+// 根据篇章更新关联方案下拉框
+function updateSolutionOptions(chapter, currentValue) {
+  var select = document.getElementById('editSolutionId');
+  var solutions = (BizData.solutions || []).filter(function(s) { return s.chapter === parseInt(chapter); });
+  var html = '<option value="">不关联</option>';
+  solutions.forEach(function(s) {
+    var selected = (s._id === currentValue) ? ' selected' : '';
+    html += '<option value="' + s._id + '"' + selected + '>' + s.title + '</option>';
+  });
+  select.innerHTML = html;
+}
+
+// 篇章切换时更新关联方案
+document.getElementById('editChapter').addEventListener('change', function() {
+  updateSolutionOptions(this.value, '');
+});
 
 // 渲染案例列表
 function renderCases(list) {
@@ -733,6 +756,7 @@ function openAddModal() {
   document.getElementById('editTitle').value = '';
   document.getElementById('editIndustry').value = '餐饮';
   document.getElementById('editChapter').value = '1';
+  updateSolutionOptions('1', '');
   document.getElementById('editProblem').value = '';
   document.getElementById('editEffect').value = '';
   document.getElementById('editBackground').value = '';
@@ -754,6 +778,7 @@ function editCase(id) {
   document.getElementById('editTitle').value = item.title || '';
   document.getElementById('editIndustry').value = item.industry || '餐饮';
   document.getElementById('editChapter').value = item.chapter || '1';
+  updateSolutionOptions(item.chapter || '1', item.solutionId || '');
   document.getElementById('editProblem').value = item.problemType || item.problem || '';
   document.getElementById('editEffect').value = item.effectData || '';
   document.getElementById('editBackground').value = item.background || '';
@@ -806,6 +831,7 @@ function saveCase() {
     title: title,
     industry: document.getElementById('editIndustry').value,
     chapter: parseInt(document.getElementById('editChapter').value),
+    solutionId: document.getElementById('editSolutionId').value || '',
     problemType: document.getElementById('editProblem').value,
     effectData: document.getElementById('editEffect').value,
     background: document.getElementById('editBackground').value,

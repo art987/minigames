@@ -458,6 +458,7 @@
       renderSolutionCard: function(s) {
         var self = this;
         var matchedCases = (BizData.cases || []).filter(function(c) {
+          if (c.solutionId) return c.solutionId === s._id;
           return c.chapter === s.chapter && c.sub === s.sub;
         });
         var caseLinks = '';
