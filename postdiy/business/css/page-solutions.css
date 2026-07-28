@@ -224,6 +224,7 @@
   line-height: 16px;
   text-align: center;
   z-index: 1;
+  display: none;
 }
 
 /* ===== 篇章详情头部 ===== */

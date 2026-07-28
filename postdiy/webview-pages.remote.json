@@ -3,7 +3,7 @@
   "appUpdate": {
     "enabled": true,
     "latestVersionName": "1.0.9",
-    "latestVersionCode": 12,
+    "latestVersionCode": 10,
     "title": "有新版本更新了",
     "subtitle": "修复了些bug",
     "buttonText": "获取最新版",
@@ -31,11 +31,12 @@
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/business.png",
       "enableTopBar": true
     },
+    
     {
       "pagePath": "pages/tools/index",
       "text": "百宝箱",
       "showText": true,
-      "showInTabBar": false,
+      "showInTabBar": true,
       "webviewUrl": "https://peacelove.top/postdiy/tools/",
       "activeIconUrl": "https://peacelove.top/postdiy/images/statics/tools-active.png",
       "inactiveIconUrl": "https://peacelove.top/postdiy/images/statics/tools.png",
