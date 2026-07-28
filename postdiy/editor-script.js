@@ -4166,6 +4166,25 @@ const ThumbnailLoader = {
       });
     }
 
+    // AI抠图阈值滑杆事件
+    var aiCutoutThresholdInput = document.getElementById('aiCutoutThreshold');
+    var aiCutoutThresholdRaf = null;
+    if (aiCutoutThresholdInput) {
+      aiCutoutThresholdInput.addEventListener('input', function() {
+        const val = parseInt(this.value);
+        aiCutoutThreshold = val;
+        document.getElementById('aiCutoutThresholdVal').textContent = val + '%';
+        // 使用requestAnimationFrame防抖，避免拖动时频繁计算
+        if (aiCutoutThresholdRaf) cancelAnimationFrame(aiCutoutThresholdRaf);
+        aiCutoutThresholdRaf = requestAnimationFrame(function() {
+          if (aiCutoutMaskCache) {
+            applyAICutoutMask(val);
+          }
+          aiCutoutThresholdRaf = null;
+        });
+      });
+    }
+
     const logoCutoutSrcCanvas = document.getElementById('logoCutoutSrcCanvas');
     if (logoCutoutSrcCanvas) {
       logoCutoutSrcCanvas.addEventListener('click', handleLogoCutoutPick);
@@ -4189,15 +4208,30 @@ const ThumbnailLoader = {
         const colorRow = document.getElementById('logoCutoutColorRow');
         const srcCanvas = document.getElementById('logoCutoutSrcCanvas');
         const crosshair = document.getElementById('logoCutoutCrosshair');
+        const toleranceRow = document.querySelector('.logo-cutout-tolerance-row');
 
         if (mode === 'custom') {
           if (colorRow) colorRow.style.display = 'flex';
           if (srcCanvas) srcCanvas.style.cursor = 'crosshair';
           if (crosshair) crosshair.style.display = 'block';
+          if (toleranceRow) toleranceRow.style.display = 'flex';
+          var aiThresholdRow = document.getElementById('aiCutoutThresholdRow');
+          if (aiThresholdRow) aiThresholdRow.style.display = 'none';
+        } else if (mode === 'ai') {
+          console.log('[AI抠图] 用户点击了AI抠图按钮');
+          if (colorRow) colorRow.style.display = 'none';
+          if (srcCanvas) srcCanvas.style.cursor = 'default';
+          if (crosshair) crosshair.style.display = 'none';
+          if (toleranceRow) toleranceRow.style.display = 'none';
+          // AI阈值滑杆在AI抠图完成后才显示
+          performAICutout();
         } else {
           if (colorRow) colorRow.style.display = 'none';
           if (srcCanvas) srcCanvas.style.cursor = 'default';
           if (crosshair) crosshair.style.display = 'none';
+          if (toleranceRow) toleranceRow.style.display = 'flex';
+          var aiThresholdRow2 = document.getElementById('aiCutoutThresholdRow');
+          if (aiThresholdRow2) aiThresholdRow2.style.display = 'none';
           performLogoCutout();
         }
       });
@@ -8445,6 +8479,9 @@ const ThumbnailLoader = {
       const colorRow = document.getElementById('logoCutoutColorRow');
       if (colorRow) colorRow.style.display = 'none';
 
+      const toleranceRow = document.querySelector('.logo-cutout-tolerance-row');
+      if (toleranceRow) toleranceRow.style.display = 'flex';
+
       document.querySelectorAll('.logo-cutout-mode-btn').forEach(b => b.classList.remove('active'));
       const autoBtn = document.querySelector('.logo-cutout-mode-btn[data-mode="auto"]');
       if (autoBtn) autoBtn.classList.add('active');
@@ -8541,35 +8578,35 @@ const ThumbnailLoader = {
   function performLogoCutout() {
     if (!logoCutoutState.originalImageData) return;
 
-    const resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    var resultCanvas = document.getElementById('logoCutoutResultCanvas');
     if (!resultCanvas) return;
 
-    const toleranceSlider = document.getElementById('logoCutoutTolerance');
-    const tolerance = toleranceSlider ? parseInt(toleranceSlider.value) : 50;
+    var toleranceSlider = document.getElementById('logoCutoutTolerance');
+    var tolerance = toleranceSlider ? parseInt(toleranceSlider.value) : 50;
 
-    const imageData = new ImageData(
+    var imageData = new ImageData(
       new Uint8ClampedArray(logoCutoutState.originalImageData.data),
       logoCutoutState.originalImageData.width,
       logoCutoutState.originalImageData.height
     );
 
-    const data = imageData.data;
-    const width = imageData.width;
-    const height = imageData.height;
-    const mode = logoCutoutState.mode;
+    var data = imageData.data;
+    var width = imageData.width;
+    var height = imageData.height;
+    var mode = logoCutoutState.mode;
 
-    let targetR, targetG, targetB;
+    var targetR, targetG, targetB;
 
     if (mode === 'auto') {
-      const corners = [
+      var corners = [
         { x: 0, y: 0 },
         { x: width - 1, y: 0 },
         { x: 0, y: height - 1 },
         { x: width - 1, y: height - 1 },
       ];
-      let r = 0, g = 0, b = 0, count = 0;
-      corners.forEach(({ x, y }) => {
-        const i = (y * width + x) * 4;
+      var r = 0, g = 0, b = 0, count = 0;
+      corners.forEach(function(c) {
+        var i = (c.y * width + c.x) * 4;
         r += data[i];
         g += data[i + 1];
         b += data[i + 2];
@@ -8587,7 +8624,7 @@ const ThumbnailLoader = {
       targetG = 0;
       targetB = 0;
     } else if (mode === 'custom' && logoCutoutState.selectedColor) {
-      const hex = logoCutoutState.selectedColor.replace('#', '');
+      var hex = logoCutoutState.selectedColor.replace('#', '');
       targetR = parseInt(hex.substr(0, 2), 16);
       targetG = parseInt(hex.substr(2, 2), 16);
       targetB = parseInt(hex.substr(4, 2), 16);
@@ -8595,12 +8632,12 @@ const ThumbnailLoader = {
       return;
     }
 
-    for (let i = 0; i < data.length; i += 4) {
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
+    for (var i = 0; i < data.length; i += 4) {
+      var r = data[i];
+      var g = data[i + 1];
+      var b = data[i + 2];
 
-      const distance = Math.sqrt(
+      var distance = Math.sqrt(
         Math.pow(r - targetR, 2) +
         Math.pow(g - targetG, 2) +
         Math.pow(b - targetB, 2)
@@ -8611,8 +8648,789 @@ const ThumbnailLoader = {
       }
     }
 
-    const ctx = resultCanvas.getContext('2d');
+    var ctx = resultCanvas.getContext('2d');
     ctx.putImageData(imageData, 0, 0);
+  }
+
+  // ===== AI智能抠图 =====
+  var aiCutoutModelLoaded = false;
+  var aiCutoutModelLoading = false;
+  var aiCutoutSession = null;
+  var aiCutoutAbortController = null;
+
+  function performAICutout() {
+    console.log('[AI抠图] performAICutout 被调用, originalImageData:', !!logoCutoutState.originalImageData, 'modelLoaded:', aiCutoutModelLoaded, 'modelLoading:', aiCutoutModelLoading);
+    
+    if (!logoCutoutState.originalImageData) {
+      showToast('请先上传图片');
+      console.error('[AI抠图] originalImageData 为空，无法执行抠图');
+      return;
+    }
+
+    if (!aiCutoutModelLoaded && !aiCutoutModelLoading) {
+      // 模型未下载：弹出下载进度弹窗
+      console.log('[AI抠图] 模型未下载，开始下载流程');
+      aiCutoutModelLoading = true;
+      aiCutoutAbortController = new AbortController();
+      loadAIWithProgress();
+      return;
+    }
+
+    if (aiCutoutModelLoading) {
+      // 模型正在下载中，不重复触发
+      showToast('AI模型加载中，请稍候...');
+      return;
+    }
+
+    // 模型已下载：直接在抠图结果区域显示遮罩，开始抠图
+    console.log('[AI抠图] 模型已加载，直接执行抠图');
+    showAICutoutProcessingOnCanvas();
+    // 关键：延迟执行重计算，让浏览器有机会先渲染遮罩
+    setTimeout(function() {
+      executeAICutout();
+    }, 50);
+  }
+
+  // 在结果canvas上显示"AI处理中"的覆盖层，让用户立即看到反馈
+  function showAICutoutProcessingOnCanvas() {
+    var resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    if (!resultCanvas) return;
+
+    // 移除已有的覆盖层
+    var existing = document.getElementById('aiProcessingOverlay');
+    if (existing) existing.remove();
+
+    // 创建覆盖层
+    var overlay = document.createElement('div');
+    overlay.id = 'aiProcessingOverlay';
+    overlay.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;border-radius:8px;';
+
+    if (!document.getElementById('aiProcessingOverlayStyle')) {
+      var style = document.createElement('style');
+      style.id = 'aiProcessingOverlayStyle';
+      style.textContent = '@keyframes aiSpinFast{to{transform:rotate(360deg)}}';
+      document.head.appendChild(style);
+    }
+
+    overlay.innerHTML = 
+      '<div style="width:28px;height:28px;border:2.5px solid rgba(255,255,255,0.25);border-top-color:#fff;border-radius:50%;animation:aiSpinFast 0.8s linear infinite;margin-bottom:8px;"></div>' +
+      '<div style="color:#fff;font-size:12px;font-weight:500;">抠图中..</div>';
+
+    // 确保result canvas的父元素是相对定位
+    var parent = resultCanvas.parentElement;
+    if (parent) {
+      if (getComputedStyle(parent).position === 'static') {
+        parent.style.position = 'relative';
+      }
+      parent.appendChild(overlay);
+    }
+  }
+
+  function hideAICutoutProcessingOnCanvas() {
+    var overlay = document.getElementById('aiProcessingOverlay');
+    if (overlay) overlay.remove();
+  }
+
+  function loadAIWithProgress() {
+    var steps = [
+      { name: 'AI运行库', size: '0.6MB', tip: '加载AI核心运行库' },
+      { name: 'AI推理引擎', size: '~10MB', tip: 'WebAssembly引擎，让AI在浏览器中运行' },
+      { name: 'AI模型文件', size: '4.4MB', tip: 'U2Net通用分割模型，识别图片主体' }
+    ];
+    showAICutoutProgress(steps);
+
+    // 步骤1：下载ort.min.js
+    updateAIStepStatus(0, 'loading');
+    fetchWithProgress('lib/ai-cutout/ort.min.js', function(percent) {
+      updateAIStepProgress(0, percent);
+    }, aiCutoutAbortController.signal).then(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var script = document.createElement('script');
+      script.src = url;
+      script.onload = function() {
+        URL.revokeObjectURL(url);
+        updateAIStepStatus(0, 'done');
+
+        // 安装fetch拦截器，为wasm文件设置正确的MIME类型并跟踪进度
+        patchFetchForWasm();
+
+        // 配置wasm路径
+        ort.env.wasm.wasmPaths = 'lib/ai-cutout/';
+
+        // 步骤3：下载模型文件（wasm会在InferenceSession.create时自动加载）
+        // 步骤2的状态由fetch拦截器在wasm真正开始加载时设置
+        loadAIModel();
+      };
+      script.onerror = function() {
+        aiCutoutFail('AI运行库执行失败');
+      };
+      document.head.appendChild(script);
+    }).catch(function(err) {
+      if (err && err.name === 'AbortError') {
+        // 用户取消，aiCutoutCancel已处理清理，无需再调用
+        return;
+      }
+      aiCutoutFail('AI运行库下载失败');
+    });
+  }
+
+  // fetch拦截器：为wasm文件设置正确的MIME类型，并跟踪下载进度
+  function patchFetchForWasm() {
+    if (window.__aiCutoutOriginalFetch) return;
+    window.__aiCutoutOriginalFetch = window.fetch;
+    window.fetch = function(input, init) {
+      var url = typeof input === 'string' ? input : (input && input.url);
+      if (url && /\.wasm(\?|$)/.test(url)) {
+        // 标记wasm步骤为加载中
+        updateAIStepStatus(1, 'loading');
+        
+        return window.__aiCutoutOriginalFetch.apply(this, arguments).then(function(response) {
+          if (!response.ok) return response;
+          var contentLength = response.headers.get('Content-Length');
+          var total = contentLength ? parseInt(contentLength) : 0;
+
+          if (!total || !response.body || !response.body.getReader) {
+            updateAIStepProgress(1, 100);
+            return response.blob().then(function(blob) {
+              var wasmBlob = new Blob([blob], { type: 'application/wasm' });
+              return new Response(wasmBlob, {
+                headers: { 'Content-Type': 'application/wasm' },
+                status: response.status,
+                statusText: response.statusText
+              });
+            });
+          }
+
+          var reader = response.body.getReader();
+          var chunks = [];
+          var loaded = 0;
+
+          function readChunk() {
+            return reader.read().then(function(result) {
+              if (result.done) {
+                updateAIStepProgress(1, 100);
+                var blob = new Blob(chunks);
+                var wasmBlob = new Blob([blob], { type: 'application/wasm' });
+                return new Response(wasmBlob, {
+                  headers: { 'Content-Type': 'application/wasm' },
+                  status: response.status,
+                  statusText: response.statusText
+                });
+              }
+              chunks.push(result.value);
+              loaded += result.value.length;
+              updateAIStepProgress(1, Math.min(99, Math.round(loaded / total * 100)));
+              return readChunk();
+            });
+          }
+
+          return readChunk();
+        });
+      }
+      return window.__aiCutoutOriginalFetch.apply(this, arguments);
+    };
+  }
+
+  function unpatchFetchForWasm() {
+    if (window.__aiCutoutOriginalFetch) {
+      window.fetch = window.__aiCutoutOriginalFetch;
+      delete window.__aiCutoutOriginalFetch;
+    }
+  }
+
+  function loadAIModel() {
+    // 步骤3：下载模型文件（wasm会在InferenceSession.create时由ort自动加载，fetch拦截器会跟踪进度）
+    updateAIStepStatus(2, 'loading');
+    // 优先使用u2netp（通用物体分割，效果更好），备选modnet（人像分割）
+    fetchWithProgress('lib/ai-cutout/u2netp.onnx', function(percent) {
+      updateAIStepProgress(2, percent);
+    }, aiCutoutAbortController.signal).then(function(blob) {
+      // 模型下载完成
+      updateAIStepStatus(2, 'done');
+      return blob.arrayBuffer();
+    }).then(function(buffer) {
+      // 此时fetch拦截器会修正wasm的MIME类型并跟踪下载进度
+      return ort.InferenceSession.create(buffer, {
+        executionProviders: ['wasm'],
+        graphOptimizationLevel: 'all'
+      });
+    }).then(function(session) {
+      // 检查是否已取消
+      if (!aiCutoutModelLoading) {
+        unpatchFetchForWasm();
+        return;
+      }
+      aiCutoutSession = session;
+      aiCutoutModelLoaded = true;
+      aiCutoutModelLoading = false;
+      aiCutoutAbortController = null;
+      // wasm加载完成（由fetch拦截器标记进度100%）
+      updateAIStepStatus(1, 'done');
+
+      // 卸载fetch拦截器
+      unpatchFetchForWasm();
+
+      // 延迟关闭弹窗，让用户看到完成状态
+      setTimeout(function() {
+        hideAICutoutProgress();
+        // 先显示canvas遮罩，再延迟执行抠图，避免UI阻塞
+        showAICutoutProcessingOnCanvas();
+        setTimeout(function() {
+          executeAICutout();
+        }, 50);
+      }, 600);
+    }).catch(function(err) {
+      unpatchFetchForWasm();
+      if (err && err.name === 'AbortError') {
+        // 用户取消，aiCutoutCancel已处理清理，无需再调用
+        return;
+      }
+      console.error('AI模型初始化失败:', err);
+      aiCutoutFail('AI模型初始化失败');
+    });
+  }
+
+  function aiCutoutFail(msg) {
+    if (aiCutoutAbortController) {
+      aiCutoutAbortController.abort();
+      aiCutoutAbortController = null;
+    }
+    aiCutoutModelLoading = false;
+    aiCutoutModelLoaded = false;
+    unpatchFetchForWasm();
+    hideAICutoutProgress();
+    hideAICutoutLoading();
+    hideAICutoutProcessingOnCanvas();
+    showToast(msg);
+    var autoBtn = document.querySelector('.logo-cutout-mode-btn[data-mode="auto"]');
+    if (autoBtn) autoBtn.click();
+  }
+
+  function aiCutoutCancel() {
+    // 先中止正在进行的下载
+    if (aiCutoutAbortController) {
+      aiCutoutAbortController.abort();
+      aiCutoutAbortController = null;
+    }
+    aiCutoutModelLoading = false;
+    aiCutoutModelLoaded = false;
+    unpatchFetchForWasm();
+    hideAICutoutProgress();
+    hideAICutoutLoading();
+    hideAICutoutProcessingOnCanvas();
+    showToast('已取消AI模型加载');
+    var autoBtn = document.querySelector('.logo-cutout-mode-btn[data-mode="auto"]');
+    if (autoBtn) autoBtn.click();
+  }
+
+  // 暴露到全局，供弹窗的onclick调用
+  window.aiCutoutCancel = aiCutoutCancel;
+
+  function fetchWithProgress(url, onProgress, signal) {
+    var fetchOptions = signal ? { signal: signal } : {};
+    return fetch(url, fetchOptions).then(function(response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      var contentLength = response.headers.get('Content-Length');
+      var total = contentLength ? parseInt(contentLength) : 0;
+
+      if (!total || !response.body || !response.body.getReader) {
+        onProgress(100);
+        return response.blob();
+      }
+
+      var reader = response.body.getReader();
+      var chunks = [];
+
+      function readChunk() {
+        return reader.read().then(function(result) {
+          if (result.done) {
+            onProgress(100);
+            return new Blob(chunks);
+          }
+          chunks.push(result.value);
+          var loaded = chunks.reduce(function(s, c) { return s + c.length; }, 0);
+          onProgress(Math.min(99, Math.round(loaded / total * 100)));
+          return readChunk();
+        });
+      }
+
+      return readChunk();
+    });
+  }
+
+  // AI抠图的mask缓存，用于阈值调整时重新应用
+  var aiCutoutMaskCache = null;
+  // AI抠图阈值（0-100，默认30，值越大保留越少，值越小保留越多）
+  var aiCutoutThreshold = 30;
+
+  function executeAICutout() {
+    if (!aiCutoutSession || !logoCutoutState.originalImageData) return;
+
+    // 只在结果canvas区域显示遮罩（不使用全屏遮罩）
+    showAICutoutProcessingOnCanvas();
+
+    try {
+      var srcImageData = logoCutoutState.originalImageData;
+      var width = srcImageData.width;
+      var height = srcImageData.height;
+
+      // U2Net模型输入尺寸 320x320
+      var modelSize = 320;
+      var tempCanvas = document.createElement('canvas');
+      tempCanvas.width = modelSize;
+      tempCanvas.height = modelSize;
+      var tempCtx = tempCanvas.getContext('2d');
+
+      // 将原始图片绘制到临时canvas并缩放（保持比例，填充黑边）
+      var origCanvas = document.createElement('canvas');
+      origCanvas.width = width;
+      origCanvas.height = height;
+      origCanvas.getContext('2d').putImageData(srcImageData, 0, 0);
+      
+      // 计算等比缩放，居中绘制
+      var scale = Math.min(modelSize / width, modelSize / height);
+      var drawW = Math.round(width * scale);
+      var drawH = Math.round(height * scale);
+      var offsetX = Math.round((modelSize - drawW) / 2);
+      var offsetY = Math.round((modelSize - drawH) / 2);
+      tempCtx.fillStyle = '#000';
+      tempCtx.fillRect(0, 0, modelSize, modelSize);
+      tempCtx.drawImage(origCanvas, offsetX, offsetY, drawW, drawH);
+
+      var inputData = tempCtx.getImageData(0, 0, modelSize, modelSize).data;
+
+      // U2Net使用ImageNet归一化
+      var mean = [0.485, 0.456, 0.406];
+      var std = [0.229, 0.224, 0.225];
+      var float32Data = new Float32Array(3 * modelSize * modelSize);
+      var pixelCount = modelSize * modelSize;
+      
+      for (var i = 0; i < pixelCount; i++) {
+        var r = inputData[i * 4] / 255.0;
+        var g = inputData[i * 4 + 1] / 255.0;
+        var b = inputData[i * 4 + 2] / 255.0;
+        float32Data[i] = (r - mean[0]) / std[0];                   // R
+        float32Data[pixelCount + i] = (g - mean[1]) / std[1];       // G
+        float32Data[2 * pixelCount + i] = (b - mean[2]) / std[2];   // B
+      }
+
+      var inputTensor = new ort.Tensor('float32', float32Data, [1, 3, modelSize, modelSize]);
+      var inputName = aiCutoutSession.inputNames[0];
+
+      var feed = {};
+      feed[inputName] = inputTensor;
+
+      aiCutoutSession.run(feed).then(function(results) {
+        // U2Net有多个输出，取最后一个（最终融合输出）
+        var outputNames = aiCutoutSession.outputNames;
+        var outputName = outputNames[outputNames.length - 1];
+        var output = results[outputName].data;
+
+        // 缓存原始mask数据和缩放信息，用于阈值调整时重新应用
+        // 检查输出范围，如果不在[0,1]范围内，需要sigmoid处理
+        var outputMin = Infinity, outputMax = -Infinity;
+        for (var oi = 0; oi < output.length; oi++) {
+          if (output[oi] < outputMin) outputMin = output[oi];
+          if (output[oi] > outputMax) outputMax = output[oi];
+        }
+        // 如果输出值超出[0,1]范围，应用sigmoid
+        var needSigmoid = outputMin < -0.1 || outputMax > 1.1;
+        if (needSigmoid) {
+          console.log('U2Net输出范围:', outputMin, outputMax, '-> 应用sigmoid');
+          for (var si = 0; si < output.length; si++) {
+            output[si] = 1.0 / (1.0 + Math.exp(-output[si]));
+          }
+        } else {
+          // 确保值在[0,1]范围内
+          for (var ci = 0; ci < output.length; ci++) {
+            output[ci] = Math.max(0, Math.min(1, output[ci]));
+          }
+        }
+
+        aiCutoutMaskCache = {
+          output: output,
+          modelSize: modelSize,
+          srcWidth: width,
+          srcHeight: height,
+          scale: scale,
+          offsetX: offsetX,
+          offsetY: offsetY,
+          drawW: drawW,
+          drawH: drawH
+        };
+
+        // 应用mask（带阈值）
+        applyAICutoutMask(aiCutoutThreshold);
+
+        hideAICutoutProcessingOnCanvas();
+        
+        // 显示AI阈值调整滑杆
+        var thresholdRow = document.getElementById('aiCutoutThresholdRow');
+        if (thresholdRow) thresholdRow.style.display = 'flex';
+        
+        showToast('AI抠图完成，可拖动滑杆调整效果');
+      }).catch(function(err) {
+        hideAICutoutProcessingOnCanvas();
+        console.error('AI抠图失败:', err);
+        showToast('AI抠图处理失败');
+      });
+    } catch (err) {
+      hideAICutoutProcessingOnCanvas();
+      console.error('AI抠图异常:', err);
+      showToast('AI抠图处理失败');
+    }
+  }
+
+  // 根据阈值应用AI抠图mask（无需重新推理，直接从缓存应用）
+  function applyAICutoutMask(threshold) {
+    if (!aiCutoutMaskCache || !logoCutoutState.originalImageData) return;
+
+    var cache = aiCutoutMaskCache;
+    var output = cache.output;
+    var modelSize = cache.modelSize;
+    var width = cache.srcWidth;
+    var height = cache.srcHeight;
+    var scale = cache.scale;
+    var offsetX = cache.offsetX;
+    var offsetY = cache.offsetY;
+
+    // 阈值转换：threshold(0-100) -> maskThreshold(0.05-0.7)
+    // threshold=30时，maskThreshold≈0.24（较低，保留更多）
+    // threshold=0时，maskThreshold=0.05（几乎全保留）
+    // threshold=100时，maskThreshold=0.7（只保留最确定的区域）
+    var maskThreshold = 0.05 + (threshold / 100) * 0.65;
+
+    // 先构建模型尺寸的二值mask（用于后处理）
+    var binaryMask = new Uint8Array(modelSize * modelSize);
+    var foregroundCount = 0;
+    var totalPixels = modelSize * modelSize;
+    for (var mi = 0; mi < totalPixels; mi++) {
+      if (output[mi] >= maskThreshold) {
+        binaryMask[mi] = 1;
+        foregroundCount++;
+      }
+    }
+
+    // 自适应阈值：如果前景区域太少（少于10%），自动降低阈值保留更多区域
+    var foregroundRatio = foregroundCount / totalPixels;
+    if (foregroundRatio < 0.1) {
+      // 找到output的中位数，作为新的阈值
+      var sortedOutput = Array.from(output).sort(function(a, b) { return a - b; });
+      var median = sortedOutput[Math.floor(sortedOutput.length / 2)];
+      // 使用中位数的一半作为阈值
+      var adaptiveThreshold = Math.max(0.01, median * 0.5);
+      if (adaptiveThreshold < maskThreshold) {
+        maskThreshold = adaptiveThreshold;
+        // 重新构建二值mask
+        foregroundCount = 0;
+        for (var ai = 0; ai < totalPixels; ai++) {
+          if (output[ai] >= maskThreshold) {
+            binaryMask[ai] = 1;
+            foregroundCount++;
+          } else {
+            binaryMask[ai] = 0;
+          }
+        }
+      }
+    }
+
+    // 简单膨胀操作（保护主体边缘，避免主体内部被抠除）
+    // 只在前景区域适中时进行膨胀（避免全前景或全背景时的无效计算）
+    var dilatedMask;
+    if (foregroundCount > 0 && foregroundCount < totalPixels) {
+      dilatedMask = dilateMask(binaryMask, modelSize, modelSize, 1);
+    } else {
+      dilatedMask = binaryMask;
+    }
+
+    // 将模型mask映射回原始图像尺寸
+    var srcImageData = logoCutoutState.originalImageData;
+    var resultImageData = new ImageData(
+      new Uint8ClampedArray(srcImageData.data),
+      width, height
+    );
+
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        // 映射到模型坐标系
+        var modelX = Math.round(offsetX + x * scale);
+        var modelY = Math.round(offsetY + y * scale);
+        
+        // 边界检查
+        modelX = Math.max(0, Math.min(modelSize - 1, modelX));
+        modelY = Math.max(0, Math.min(modelSize - 1, modelY));
+        
+        var maskIdx = modelY * modelSize + modelX;
+        var maskValue = output[maskIdx];
+        var isForeground = dilatedMask[maskIdx] === 1;
+        
+        // 应用阈值，使用平滑过渡（避免硬边缘）
+        var alpha;
+        if (isForeground) {
+          // 前景区域：根据mask值决定透明度
+          if (maskValue >= maskThreshold + 0.15) {
+            alpha = 255;
+          } else {
+            // 边缘平滑过渡
+            var t = (maskValue - (maskThreshold - 0.05)) / 0.2;
+            alpha = Math.round(Math.max(0, Math.min(255, t * 255)));
+          }
+        } else {
+          // 背景区域：透明
+          alpha = 0;
+        }
+        
+        var pixelIdx = (y * width + x) * 4 + 3;
+        resultImageData.data[pixelIdx] = alpha;
+      }
+    }
+
+    var resultCanvas = document.getElementById('logoCutoutResultCanvas');
+    var ctx = resultCanvas.getContext('2d');
+    resultCanvas.width = width;
+    resultCanvas.height = height;
+    ctx.putImageData(resultImageData, 0, 0);
+  }
+
+  // 简单的mask膨胀操作（扩大前景区域，保护主体边缘）
+  function dilateMask(mask, width, height, radius) {
+    var result = new Uint8Array(mask.length);
+    
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        var idx = y * width + x;
+        if (mask[idx] === 1) {
+          // 前景像素，直接保留
+          result[idx] = 1;
+          continue;
+        }
+        
+        // 检查周围是否有前景像素
+        var hasForeground = false;
+        for (var dy = -radius; dy <= radius && !hasForeground; dy++) {
+          for (var dx = -radius; dx <= radius && !hasForeground; dx++) {
+            var nx = x + dx;
+            var ny = y + dy;
+            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+              if (mask[ny * width + nx] === 1) {
+                hasForeground = true;
+              }
+            }
+          }
+        }
+        
+        if (hasForeground) {
+          result[idx] = 1;
+        }
+      }
+    }
+    
+    return result;
+  }
+
+  function showAICutoutLoading(text) {
+    var existing = document.getElementById('aiCutoutLoading');
+    if (existing) existing.remove();
+
+    if (!document.getElementById('aiCutoutLoadingStyle')) {
+      var style = document.createElement('style');
+      style.id = 'aiCutoutLoadingStyle';
+      style.textContent =
+        '@keyframes aiSpin{to{transform:rotate(360deg)}}' +
+        '@keyframes aiPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:0.85}}';
+      document.head.appendChild(style);
+    }
+
+    var overlay = document.createElement('div');
+    overlay.id = 'aiCutoutLoading';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:10020;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);';
+    
+    var box = document.createElement('div');
+    box.style.cssText = 'background:rgba(255,255,255,0.98);border-radius:18px;padding:32px 40px;text-align:center;box-shadow:0 16px 48px rgba(0,0,0,0.25);min-width:160px;';
+    box.innerHTML = 
+      '<div style="position:relative;width:56px;height:56px;margin:0 auto 16px;">' +
+        '<div style="position:absolute;inset:0;border:3px solid #e5e7eb;border-radius:50%;"></div>' +
+        '<div style="position:absolute;inset:0;border:3px solid transparent;border-top-color:#0071E3;border-radius:50%;animation:aiSpin 0.8s linear infinite;"></div>' +
+        '<div style="position:absolute;inset:8px;background:#0071E3;border-radius:50%;animation:aiPulse 1.2s ease-in-out infinite;"></div>' +
+      '</div>' +
+      '<div style="font-size:14px;color:#1d1d1f;font-weight:500;">' + text + '</div>' +
+      '<div style="font-size:11px;color:#86868b;margin-top:6px;">请稍候，正在处理图片</div>';
+    
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  }
+
+  function hideAICutoutLoading() {
+    var overlay = document.getElementById('aiCutoutLoading');
+    if (overlay) overlay.remove();
+  }
+
+  // ===== AI加载进度弹窗 =====
+  function showAICutoutProgress(steps) {
+    var existing = document.getElementById('aiCutoutProgress');
+    if (existing) existing.remove();
+
+    if (!document.getElementById('aiCutoutProgressStyle')) {
+      var style = document.createElement('style');
+      style.id = 'aiCutoutProgressStyle';
+      style.textContent =
+        '@keyframes aiSpin{to{transform:rotate(360deg)}}' +
+        '@keyframes aipFadeIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}' +
+        '@keyframes aipSlideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}' +
+        '.aip-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}' +
+        '.aip-box{background:rgba(255,255,255,0.98);border-radius:18px;padding:24px 20px 16px;width:100%;max-width:340px;box-shadow:0 16px 48px rgba(0,0,0,0.25);animation:aipFadeIn 0.32s cubic-bezier(0.16,1,0.3,1);}' +
+        '.aip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}' +
+        '.aip-title{font-size:17px;font-weight:600;color:#1d1d1f;letter-spacing:-0.2px;}' +
+        '.aip-close{width:28px;height:28px;border-radius:50%;background:#f5f5f7;border:none;color:#86868b;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background 0.2s;}' +
+        '.aip-close:active{background:#e8e8ed;}' +
+        '.aip-status{font-size:12px;color:#86868b;margin-bottom:18px;line-height:1.5;}' +
+        '.aip-steps{margin-bottom:16px;}' +
+        '.aip-step{margin-bottom:14px;animation:aipSlideIn 0.4s ease;animation-fill-mode:both;}' +
+        '.aip-step:nth-child(1){animation-delay:0.05s;}' +
+        '.aip-step:nth-child(2){animation-delay:0.12s;}' +
+        '.aip-step:nth-child(3){animation-delay:0.19s;}' +
+        '.aip-step:last-child{margin-bottom:0;}' +
+        '.aip-step-info{display:flex;align-items:center;gap:10px;margin-bottom:5px;}' +
+        '.aip-step-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all 0.3s ease;}' +
+        '.aip-step-icon.pending{background:#f5f5f7;color:#c7c7cc;}' +
+        '.aip-step-icon.loading{background:#0071E3;color:#fff;}' +
+        '.aip-step-icon.done{background:#34c759;color:#fff;}' +
+        '.aip-step-text{flex:1;min-width:0;}' +
+        '.aip-step-name{font-size:13px;color:#1d1d1f;font-weight:500;line-height:1.3;}' +
+        '.aip-step-tip{font-size:11px;color:#aeaeb2;margin-top:1px;line-height:1.3;}' +
+        '.aip-step-size{font-size:11px;color:#aeaeb2;flex-shrink:0;}' +
+        '.aip-step-bar{height:3px;background:#f5f5f7;border-radius:1.5px;overflow:hidden;margin-left:30px;}' +
+        '.aip-step-bar-fill{height:100%;background:#0071E3;border-radius:1.5px;transition:width 0.3s ease;width:0%;}' +
+        '.aip-step-bar-fill.done{background:#34c759;width:100%;}' +
+        '.aip-footer{margin-top:18px;padding-top:14px;border-top:1px solid #f5f5f7;}' +
+        '.aip-warm-tip{font-size:11px;color:#86868b;line-height:1.5;text-align:center;margin-bottom:10px;}' +
+        '.aip-cancel-btn{width:100%;height:38px;background:#f5f5f7;border:none;border-radius:10px;color:#1d1d1f;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;}' +
+        '.aip-cancel-btn:active{background:#e8e8ed;}';
+      document.head.appendChild(style);
+    }
+
+    var overlay = document.createElement('div');
+    overlay.id = 'aiCutoutProgress';
+    overlay.className = 'aip-overlay';
+
+    var html = '<div class="aip-box">' +
+      '<div class="aip-header">' +
+        '<div class="aip-title">AI智能抠图</div>' +
+        '<button class="aip-close" onclick="aiCutoutCancel()" title="取消">×</button>' +
+      '</div>' +
+      '<div class="aip-status" id="aipStatus">正在准备AI文件，请稍候...</div>' +
+      '<div class="aip-steps">';
+
+    for (var i = 0; i < steps.length; i++) {
+      var s = steps[i];
+      var status = s.status || 'pending';
+      var iconText = status === 'done' ? '✓' : '';
+      var barWidth = status === 'done' ? '100' : '0';
+      var barClass = status === 'done' ? 'done' : '';
+
+      html += '<div class="aip-step">' +
+        '<div class="aip-step-info">' +
+          '<span class="aip-step-icon ' + status + '" id="aipIcon' + i + '">' +
+            (status === 'loading' ? '<div style="width:10px;height:10px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:aiSpin 0.8s linear infinite;"></div>' : iconText) +
+          '</span>' +
+          '<div class="aip-step-text">' +
+            '<div class="aip-step-name">' + s.name + '</div>' +
+            '<div class="aip-step-tip">' + s.tip + '</div>' +
+          '</div>' +
+          '<span class="aip-step-size">' + s.size + '</span>' +
+        '</div>' +
+        '<div class="aip-step-bar">' +
+          '<div class="aip-step-bar-fill ' + barClass + '" id="aipBar' + i + '" style="width:' + barWidth + '%"></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    html += '</div>' +
+      '<div class="aip-footer">' +
+        '<div class="aip-warm-tip">温馨提示：首次加载约17MB，完成后无需重复下载</div>' +
+        '<button class="aip-cancel-btn" onclick="aiCutoutCancel()">取消加载</button>' +
+      '</div>' +
+    '</div>';
+
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+  }
+
+  function updateAIStepProgress(stepIndex, percent) {
+    var bar = document.getElementById('aipBar' + stepIndex);
+    if (bar) {
+      bar.style.width = percent + '%';
+      if (percent >= 100) {
+        bar.classList.add('done');
+      }
+    }
+    updateAICutoutStatusText();
+  }
+
+  function updateAIStepStatus(stepIndex, status) {
+    var icon = document.getElementById('aipIcon' + stepIndex);
+    if (!icon) return;
+
+    icon.className = 'aip-step-icon ' + status;
+    if (status === 'loading') {
+      icon.innerHTML = '<div style="width:10px;height:10px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:aiSpin 0.8s linear infinite;"></div>';
+    } else if (status === 'done') {
+      icon.innerHTML = '✓';
+      var bar = document.getElementById('aipBar' + stepIndex);
+      if (bar) {
+        bar.style.width = '100%';
+        bar.classList.add('done');
+      }
+    } else {
+      icon.innerHTML = '';
+    }
+    updateAICutoutStatusText();
+  }
+
+  function updateAICutoutStatusText() {
+    var statusEl = document.getElementById('aipStatus');
+    if (!statusEl) return;
+
+    var stepNames = ['AI运行库', 'AI推理引擎', 'AI模型文件'];
+    var stepTips = [
+      '正在下载AI核心运行库...',
+      '正在加载WebAssembly推理引擎...',
+      '正在下载AI人像分割模型...',
+      'AI文件加载完成，准备抠图...'
+    ];
+
+    // 找到当前正在加载的步骤
+    var currentStep = -1;
+    var allDone = true;
+    for (var i = 0; i < 3; i++) {
+      var icon = document.getElementById('aipIcon' + i);
+      if (icon) {
+        if (icon.className.indexOf('loading') !== -1) {
+          currentStep = i;
+          allDone = false;
+          break;
+        } else if (icon.className.indexOf('pending') !== -1) {
+          allDone = false;
+        }
+      }
+    }
+
+    if (allDone) {
+      statusEl.textContent = stepTips[3];
+      statusEl.style.color = '#34c759';
+    } else if (currentStep >= 0) {
+      statusEl.textContent = stepTips[currentStep];
+      statusEl.style.color = '#86868b';
+    }
+  }
+
+  function hideAICutoutProgress() {
+    var overlay = document.getElementById('aiCutoutProgress');
+    if (overlay) {
+      overlay.style.transition = 'opacity 0.3s';
+      overlay.style.opacity = '0';
+      setTimeout(function() { overlay.remove(); }, 300);
+    }
   }
 
   function confirmLogoCutout() {

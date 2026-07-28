@@ -31,6 +31,10 @@ dist/
 !**/html2canvas/html2canvas.min.js
 !**/font-awesome/css/all.min.css
 !**/qrcode/qrcode.min.js
+# 保留AI抠图相关文件（运行库、推理引擎、模型）
+!**/ai-cutout/ort.min.js
+!**/ai-cutout/*.wasm
+!**/ai-cutout/*.onnx
 
 # Environment variables
 .env

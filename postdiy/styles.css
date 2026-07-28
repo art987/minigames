@@ -9019,24 +9019,23 @@ button.future-suggestion-btn[data-action="wanan"] {
 .logo-cutout-mode-btn {
   flex: 1;
   padding: 4px 0;
-  border: 2px solid #ddd;
+  border: 1px solid #d0d0d0;
   background: white;
   border-radius: 18px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
-  color: #666;
+  color: #0071E3;
 }
 
 .logo-cutout-mode-btn:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #a0a0a0;
 }
 
 .logo-cutout-mode-btn.active {
-  background: linear-gradient(135deg, #717171 0%, #000000 100%);
-  border-color: transparent;
-  color: white;
+  background: #000;
+  border: 1px solid #000;
+  color: #fff;
 }
 
 .logo-cutout-color-row {

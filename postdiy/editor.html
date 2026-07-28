@@ -24,8 +24,11 @@
   <meta name="keywords" content="闪喵,海报编辑器,在线编辑,自定义海报,节日海报制作,促销海报设计,品牌宣传,二维码添加">
   <meta name="author" content="闪喵">
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   
-  <link rel="stylesheet" href="styles.css?v=20260707b">
+  <link rel="stylesheet" href="styles.css?v=20260728b">
   <!-- 粒子动画样式 - 简化版 -->
   <style>
     @keyframes templateParticleFloat {
@@ -1159,7 +1162,7 @@
   <!-- <script src="text-templates.js"></script> -->
 
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js?v=20260708q" defer></script>
+  <script src="editor-script.js?v=20260728f" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">
@@ -1250,6 +1253,7 @@
             <button class="logo-cutout-mode-btn" data-mode="white">白色</button>
             <button class="logo-cutout-mode-btn" data-mode="black">黑色</button>
             <button class="logo-cutout-mode-btn" data-mode="custom">吸色</button>
+            <button class="logo-cutout-mode-btn" data-mode="ai">AI抠图</button>
           </div>
           <div class="logo-cutout-color-row" id="logoCutoutColorRow" style="display:none;">
             <div class="logo-cutout-swatch" id="logoCutoutSwatch"></div>
@@ -1259,6 +1263,11 @@
             <span>容差</span>
             <input type="range" id="logoCutoutTolerance" min="0" max="100" value="80">
             <span id="logoCutoutToleranceVal">80%</span>
+          </div>
+          <div class="logo-cutout-tolerance-row" id="aiCutoutThresholdRow" style="display:none;">
+            <span>AI阈值</span>
+            <input type="range" id="aiCutoutThreshold" min="0" max="100" value="30">
+            <span id="aiCutoutThresholdVal">30%</span>
           </div>
         </div>
       </div>
