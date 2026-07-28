@@ -5740,10 +5740,13 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 }
 .upload-preview  .fa{;}
 .upload-preview-image {
-  width: 95px;
+  max-width: 95px;
+  max-height: 95px;
   margin: 10px auto;
   display: block;
-  object-fit: contain; /* Ã¤Â¿ÂÃ¦Å’ÂÃ¥â€ºÂ¾Ã§â€°â€¡Ã¥Â®Å’Ã¦â€¢Â´Ã¦ËœÂ¾Ã§Â¤ÂºÃ¥Â¹Â¶Ã¤Â¿ÂÃ¦Å’ÂÃ¥Â®Â½Ã©Â«ËœÃ¦Â¯â€ */
+  object-fit: contain;
+  width: auto;
+  height: auto;
 }
 
 .upload-remove-btn {
@@ -5753,27 +5756,26 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   width: 35px;
   height: 35px;
   line-height: 35px;
-  background-color: rgb(255 255 255 / 48%);
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #d0d0d0;
   border-radius: 50%;
-  color: #ea0e0e;
-  border: 1px solid #dddddda1;
-  font-size: 20px;
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.upload-remove-btn span {
+.upload-remove-btn-text {
+  color: #ea0e0e;
+  font-size: 11px;
   font-weight: 300;
 }
 
-.upload-remove-btn:hover {
-  background-color: rgba(255, 0, 0, 1);
+.upload-remove-btn:active {
+  background-color: #ea0e0e;
+  transform: scale(0.9);
 }
 
-.upload-remove-btn:active {
-  transform: scale(0.9);
+.upload-remove-btn:active .upload-remove-btn-text {
+  color: #ffffff;
 }
 
 /* Ã¦Å“Ë†Ã¤Â»Â½Ã¥â€™Å’Ã¨Å â€šÃ¦â€”Â¥Ã©â‚¬â€°Ã¦â€¹Â©Ã¦Â Â·Ã¥Â¼Â */
@@ -9018,14 +9020,14 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 .logo-cutout-mode-btn {
   flex: 1;
-  padding: 4px 0;
+  padding: 7px 0;
   border: 1px solid #d0d0d0;
   background: white;
-  border-radius: 18px;
-  font-size: 14px;
+  border-radius: 9px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
-  color: #0071E3;
+  color: #333333;
 }
 
 .logo-cutout-mode-btn:hover {
@@ -9036,6 +9038,12 @@ button.future-suggestion-btn[data-action="wanan"] {
   background: #000;
   border: 1px solid #000;
   color: #fff;
+}
+
+.logo-cutout-mode-btn[data-mode="ai"] {
+      color: #fff;
+    background: linear-gradient(129deg, #f24141, #8204a6);
+    border: 1px solid #ccc;
 }
 
 .logo-cutout-color-row {

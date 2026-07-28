@@ -3130,16 +3130,14 @@ const ThumbnailLoader = {
       let cropWidth = finalCanvas.width;
       let cropHeight = finalCanvas.height;
 
+      // 高度不足时等比放大，保持宽高比不变形
       if (cropHeight < minHeight) {
         const scale = minHeight / cropHeight;
         cropWidth = Math.round(cropWidth * scale);
         cropHeight = minHeight;
       }
 
-      if (cropWidth < cropHeight) {
-        cropWidth = cropHeight;
-      }
-
+      // 不再强制改为正方形，保持用户裁剪的原始比例
       outputCanvas = document.createElement('canvas');
       outputCanvas.width = cropWidth;
       outputCanvas.height = cropHeight;
@@ -8358,7 +8356,12 @@ const ThumbnailLoader = {
     }
     showLogoActionButtons(false);
     
-    showToast('Logo已移除，点击保存后同步到云端');
+    // 自动触发上传图片功能
+    setTimeout(function() {
+      if (elements.logoUploadArea) {
+        elements.logoUploadArea.click();
+      }
+    }, 100);
   }
   
   // 切换Logo透明模式
@@ -8700,17 +8703,21 @@ const ThumbnailLoader = {
     var existing = document.getElementById('aiProcessingOverlay');
     if (existing) existing.remove();
 
-    // 创建覆盖层
-    var overlay = document.createElement('div');
-    overlay.id = 'aiProcessingOverlay';
-    overlay.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;border-radius:8px;';
-
     if (!document.getElementById('aiProcessingOverlayStyle')) {
       var style = document.createElement('style');
       style.id = 'aiProcessingOverlayStyle';
       style.textContent = '@keyframes aiSpinFast{to{transform:rotate(360deg)}}';
       document.head.appendChild(style);
     }
+
+    // 创建覆盖层，精确覆盖canvas区域
+    var overlay = document.createElement('div');
+    overlay.id = 'aiProcessingOverlay';
+    var top = resultCanvas.offsetTop;
+    var left = resultCanvas.offsetLeft;
+    var w = resultCanvas.offsetWidth;
+    var h = resultCanvas.offsetHeight;
+    overlay.style.cssText = 'position:absolute;top:' + top + 'px;left:' + left + 'px;width:' + w + 'px;height:' + h + 'px;background:rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;border-radius:8px;';
 
     overlay.innerHTML = 
       '<div style="width:28px;height:28px;border:2.5px solid rgba(255,255,255,0.25);border-top-color:#fff;border-radius:50%;animation:aiSpinFast 0.8s linear infinite;margin-bottom:8px;"></div>' +
@@ -9577,7 +9584,12 @@ const ThumbnailLoader = {
       elements.qrcodeUploadArea.style.display = 'block';
     }
     
-    showToast('二维码已移除，点击保存后同步到云端');
+    // 自动触发上传图片功能
+    setTimeout(function() {
+      if (elements.qrcodeUploadArea) {
+        elements.qrcodeUploadArea.click();
+      }
+    }, 100);
   }
   
   // 更新文字颜色
