@@ -796,16 +796,6 @@
         var header = document.getElementById('pageHeader');
         if (!header) return;
 
-        // 检测是否在 APP 环境
-        var ua = navigator.userAgent.toLowerCase();
-        var isApp = ua.indexOf('wv') > -1 ||
-                    ua.indexOf('webview') > -1 ||
-                    ua.indexOf('miniProgram') > -1 ||
-                    window.self !== window.top;
-
-        // APP 环境下不启用滚动隐藏功能
-        if (isApp) return;
-
         var lastScrollTop = 0;
         var scrollThreshold = 10; // 滚动阈值，避免微小滚动触发
         var isHeaderVisible = true;
