@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿/**
+﻿﻿﻿﻿﻿﻿﻿﻿﻿/**
  * 实体商家经营诊断系统 - 本地诊断数据
  * 包含：经营问题、症状、诊断路径、解决方案、案例、工具
  * 所有数据均为真实可执行的专业内容，供本地离线使用
@@ -9926,6 +9926,19 @@ cases: [
     effectData: "5年老客1200位从无名到排队,营业额30万升200万,抖音5万粉",
     keyPoints: ["第一年免费全车检查写小纸条客户发朋友圈","第二年维修全程录像拍视频发客户透明不忽悠","第三年花3万送技师学新能源抓住增长红利","第五年注册商标+门头升级+抖音拍修车实录5万粉"],
     steps: ["第一年免费全车检查写小纸条贴方向盘积累200老客","第二年维修全程录像拍视频发客户微信转介绍率40%","第三年花3万送2技师4S店学3月新能源客单价300升800","第四年推30分钟快保+代步车+终身免费洗车排队","第五年注册商标门头升级抖音拍修车实录5万粉"]
+  },
+  {
+    _id: "case_g2001",
+    title: "服装品牌CEO李女士的销售七步法",
+    industry: "服装",
+    chapter: 3,
+    sub: 301,
+    solutionId: "sol_006",
+    problem: "顾客进店不转化、复购率低、员工销售能力差",
+    solution: "李女士从门店销售做起，创立了一套完整的'销售七步法'，从顾客进门到出店覆盖全流程。第一步迎宾：温而不扰，打完招呼后允许顾客自主浏览一分钟，服务如温水有温度不过热。第二步观察与专业介入：观察顾客类型，若顾客未触碰商品则主动拎衣展示，介绍时须依托肤色、色彩、量感等专业知识点。第三步搭配套装：主动拿配套的鞋和衣服给顾客，推顾客进试衣间并拉开拉链，破除顾客惰性。第四步试衣间互动：导购守在门口聊天拉近距离，观察顾客特征找话题。第五步试穿反馈：顾客长时间照镜子即为心动，讲清面料产地和穿着好处，若顾客无感立即停止推荐转向备选。第六步收银与附加销售：买单后添加微信，顾客试三件满意买两件时切忌当场强推第三件，须待买单后再附加。第七步目送与回访：亲自送到门口而非仅收银台道别，顾客未走导购不返，回头一瞥仍保持微笑，最后发送售后卡、保养手册等完整售后支持。靠此方法李女士开出五百多家服装店，营收达五个亿以上。",
+    effectData: "开出500多家门店，营收超5亿，员工转化率提升3倍",
+    keyPoints: ["温而不扰的迎宾艺术","观察顾客类型匹配服务策略","主动搭配套装破除顾客惰性","试衣间互动拉近关系","买单后添加微信避免跑单","亲自送到门口的温情目送","完整售后回访闭环"],
+    steps: ["第一步迎宾：打招呼后允许顾客自主浏览一分钟","第二步观察与专业介入：观察顾客类型主动拎衣展示","第三步搭配套装：主动拿配套鞋服推顾客进试衣间","第四步试衣间互动：守在门口聊天拉近距离","第五步试穿反馈：讲清面料产地若顾客无感立即转向备选","第六步收银与附加销售：买单后添加微信再附加销售","第七步目送与回访：亲自送到门口发送售后支持"]
   }
 
 ],
@@ -10079,11 +10092,36 @@ tools: [
 };
 
 // ============================================================
-// 数据持久化：从 localStorage 读取管理后台修改的数据
+// 数据持久化：从 localStorage 读取管理后台修改的数据（每小时自动更新）
 // ============================================================
 (function() {
   try {
-    // 如果 localStorage 中有管理后台保存的数据，则覆盖 BizData 的默认数据
+    // 获取当前时间戳（精确到小时）
+    function getCurrentHourTimestamp() {
+      var now = new Date();
+      return now.getFullYear() + '-' +
+             String(now.getMonth() + 1).padStart(2, '0') + '-' +
+             String(now.getDate()).padStart(2, '0') + '-' +
+             String(now.getHours()).padStart(2, '0');
+    }
+
+    var currentTimestamp = getCurrentHourTimestamp();
+    var savedTimestamp = localStorage.getItem('admin_data_timestamp');
+
+    // 检查时间戳，如果超过1小时则清除旧数据
+    if (savedTimestamp !== currentTimestamp) {
+      console.log('[BizData] 数据已过期，使用最新数据。时间戳:', savedTimestamp, '→', currentTimestamp);
+      localStorage.removeItem('admin_cases_v3');
+      localStorage.removeItem('admin_tools_v3');
+      localStorage.removeItem('admin_tags_v3');
+      localStorage.removeItem('admin_problems_v2');
+      localStorage.removeItem('admin_solutions_v2');
+      localStorage.removeItem('admin_paths_v3');
+      localStorage.setItem('admin_data_timestamp', currentTimestamp);
+      return; // 使用 biz-data.js 中的默认数据
+    }
+
+    // 如果时间戳相同（1小时内），则使用 localStorage 中的数据
     var adminCases = localStorage.getItem('admin_cases_v3');
     if (adminCases) {
       BizData.cases = JSON.parse(adminCases);
@@ -10114,6 +10152,19 @@ tools: [
       BizData.diagnosisPaths = JSON.parse(adminPaths);
     }
   } catch (e) {
-    console.error('从 localStorage 加载管理后台数据失败:', e);
+    console.error('[BizData] 从 localStorage 加载管理后台数据失败:', e);
   }
 })();
+
+// 全局方法：强制刷新数据（供手动调用）
+window.forceRefreshBizData = function() {
+  localStorage.removeItem('admin_cases_v3');
+  localStorage.removeItem('admin_tools_v3');
+  localStorage.removeItem('admin_tags_v3');
+  localStorage.removeItem('admin_problems_v2');
+  localStorage.removeItem('admin_solutions_v2');
+  localStorage.removeItem('admin_paths_v3');
+  localStorage.removeItem('admin_data_timestamp');
+  console.log('[BizData] 缓存已清除，刷新页面后将使用最新数据');
+  location.reload();
+};
