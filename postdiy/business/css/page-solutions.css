@@ -2,9 +2,9 @@
 .biz-icon {
   display: inline-block;
   vertical-align: middle;
-  stroke: currentColor;
+  stroke: rgb(165 200 236);
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.5px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -30,8 +30,8 @@
 /* 返回按钮 - 极简 */
 .biz-back-btn {
   display: none;
-  font-size: var(--biz-font-small);
-  color: var(--biz-text-secondary);
+  font-size: 0px;
+  color: #bf0202;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: var(--biz-radius-sm);
@@ -78,6 +78,7 @@
   flex: 1;
   border: none;
   background: transparent;
+  font-weight: 100;
   outline: none;
   font-size: var(--biz-font-small);
   color: var(--biz-text-primary);
@@ -100,15 +101,16 @@
 .biz-chapter-grid::before {
   content: '';
   position: absolute;
-  left: 16px;
-  top: 20px;
-  bottom: 20px;
+  left: 17px;
+  top: -1px;
+  padding-top: 90px;
+  bottom: -90px;
   width: 2px;
-  background: #e5e5e5;
+  background: #ddecff;
   border-radius: 1px;
 }
 .biz-chapter-card {
-  background: #fff;
+  background: #ffffffe8;
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: 22px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -133,7 +135,7 @@
   height: 10px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2px solid #bcbcbc;
+  border: 2px solid #c4def0;
   box-shadow: none;
   z-index: 1;
 }
@@ -150,13 +152,13 @@
 }
 .biz-chapter-card .chapter-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .biz-chapter-card .chapter-icon {
-  width: 39px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,16 +168,21 @@
   width: 30px !important;
   height: 30px !important;
 }
+.biz-chapter-card .chapter-info {
+  flex: 1;
+  min-width: 0;
+}
 .biz-chapter-card .chapter-name {
   font-size: var(--biz-font-body);
-  font-weight: 900;
+  font-weight: 500;
   color: var(--biz-text-primary);
+  margin-bottom: 2px;
 }
 .biz-chapter-card .chapter-desc {
   font-size: var(--biz-font-tiny);
   color: var(--biz-text-secondary);
   line-height: 1.4;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .biz-chapter-card .chapter-count {
   font-size: var(--biz-font-tiny);
@@ -201,7 +208,7 @@
   border-radius: 9px;
   font-size: 12px;
   font-weight: 300;
-  background: rgba(0, 113, 227, 0.06);
+  background: rgb(128 143 158 / 6%);
   border: none;
   color: #0071E3;
   transition: all 0.2s;
@@ -236,12 +243,12 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
-  padding: 17px 14px 10px;
+  padding: 17px 19px 10px;
   border-radius: var(--biz-radius-md);
 }
 .biz-chapter-header .ch-icon {
   width: 48px;
-  height: 48px;
+  height: 53px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -257,8 +264,8 @@
   color: var(--biz-text-primary);
 }
 .biz-chapter-header .ch-info .ch-desc {
-  font-size: var(--biz-font-small);
-  color: var(--biz-text-secondary);
+  font-size: var(--biz-font-tiny);
+  color: #bfa186;
 }
 
 /* ===== 二级分类标签 ===== */
@@ -267,8 +274,9 @@
   gap: 8px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0 16px 12px;
+  padding: 0 23px 15px;
   margin-bottom: 12px;
+  border-bottom: 2px solid #dee7ed;
 }
 .biz-sub-tabs::-webkit-scrollbar { display: none; }
 .biz-sub-tab {
@@ -371,7 +379,7 @@
   color: #0071E3;
   text-decoration: none;
   line-height: 1.5;
-  padding: 4px 0;
+  padding: 12px 0;
   transition: opacity 0.2s;
 }
 .biz-solution-card .card-case-link:active {
@@ -464,6 +472,7 @@
 .sol-fab .biz-icon {
   width: 22px;
   height: 22px;
+  stroke: rgb(84 143 182);
 }
 .sol-fab-profile {
   width: 48px;
@@ -494,6 +503,7 @@
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(135deg, #f0f7ff 0%, #fff5f0 100%);
+  padding: 0 0 96px;
 }
 
 /* ===== 详情弹窗 ===== */

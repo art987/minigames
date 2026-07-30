@@ -44,7 +44,7 @@
           <!-- JS动态渲染滚动内容 -->
         </div>
         <div class="tips-scroller-more" onclick="TipsScroller.openModal()">
-          <span>查看全部30条心得</span>
+          <span id="tipsScrollerMoreText">查看全部心得</span>
           <i data-lucide="chevron-down" class="biz-icon"></i>
         </div>
       </div>
@@ -212,11 +212,12 @@
           return '<div class="biz-chapter-card" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
             '<div class="chapter-header">' +
               '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon) + '</span>' +
-              '<div class="chapter-name">' + ch.name + '</div>' +
+              '<div class="chapter-info">' +
+                '<div class="chapter-name">' + ch.name + '</div>' +
+                '<div class="chapter-desc">' + ch.desc + '</div>' +
+              '</div>' +
             '</div>' +
-            '<div class="chapter-desc">' + ch.desc + '</div>' +
             subsHtml +
-            '<div class="chapter-count"><em>' + count + '</em> 个方案</div>' +
           '</div>';
         }).join('');
 
@@ -790,9 +791,10 @@
 
       // 初始化心得滚动
       init: function(chapterId, subId) {
-        console.log('[TipsScroller] init called, chapterId:', chapterId, 'subId:', subId);
+        console.log('[TipsScroller] ===== init START =====');
+        console.log('[TipsScroller] chapterId:', chapterId, 'subId:', subId);
         var key = chapterId + '_' + subId;
-        console.log('[TipsScroller] looking for key:', key);
+        console.log('[TipsScroller] key:', key);
         var tips = window.BizTipsData ? BizTipsData[key] : null;
         console.log('[TipsScroller] BizTipsData exists:', !!window.BizTipsData);
         console.log('[TipsScroller] tips found:', tips ? tips.length : 0);
@@ -801,9 +803,22 @@
         this.currentTips = tips || [];
         this.currentIndex = 0;
 
+        // 重置弹窗列表滚动位置
+        var listContainer = document.getElementById('tipsModalList');
+        console.log('[TipsScroller] listContainer element:', listContainer);
+        if (listContainer) {
+          console.log('[TipsScroller] BEFORE reset scrollTop:', listContainer.scrollTop);
+          listContainer.scrollTop = 0;
+          console.log('[TipsScroller] AFTER reset scrollTop:', listContainer.scrollTop);
+        } else {
+          console.log('[TipsScroller] listContainer NOT FOUND!');
+        }
+
         var wrap = document.getElementById('tipsScrollerWrap');
-        console.log('[TipsScroller] wrap element:', wrap);
-        if (!wrap) return;
+        if (!wrap) {
+          console.log('[TipsScroller] wrap NOT FOUND, return');
+          return;
+        }
 
         if (this.currentTips.length === 0) {
           console.log('[TipsScroller] no tips, hiding wrap');
@@ -814,8 +829,16 @@
 
         console.log('[TipsScroller] showing wrap with', this.currentTips.length, 'tips');
         wrap.style.display = 'block';
+
+        // 更新"查看全部X条心得"文本
+        var moreText = document.getElementById('tipsScrollerMoreText');
+        if (moreText) {
+          moreText.textContent = '查看全部' + this.currentTips.length + '条心得';
+        }
+
         this.render();
         this.start();
+        console.log('[TipsScroller] ===== init END =====');
       },
 
       // 渲染当前显示的心得
@@ -855,6 +878,7 @@
 
       // 打开弹窗
       openModal: function() {
+        console.log('[TipsScroller] ===== openModal START =====');
         this.stop();
 
         // 查找二级分类名称
@@ -865,10 +889,12 @@
           if (sub) subName = sub.name;
         }
 
+        console.log('[TipsScroller] subName:', subName, 'tips count:', this.currentTips.length);
         document.getElementById('tipsModalTitle').textContent = (subName || '经营') + '心得汇总';
 
-        // 渲染全部30条心得
+        // 渲染全部心得
         var listContainer = document.getElementById('tipsModalList');
+        console.log('[TipsScroller] listContainer:', listContainer);
         if (listContainer && this.currentTips.length > 0) {
           var html = this.currentTips.map(function(tip, idx) {
             return '<div class="tips-modal-item">' +
@@ -880,10 +906,21 @@
             '</div>';
           }).join('');
           listContainer.innerHTML = html;
+          console.log('[TipsScroller] innerHTML updated');
         }
 
-        document.getElementById('tipsModal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        // 显示弹窗
+        var modal = document.getElementById('tipsModal');
+        modal.style.display = 'flex';
+
+        // 在显示后重置滚动位置
+        if (listContainer) {
+          console.log('[TipsScroller] BEFORE scrollTo, scrollTop:', listContainer.scrollTop);
+          listContainer.scrollTo(0, 0);
+          console.log('[TipsScroller] AFTER scrollTo, scrollTop:', listContainer.scrollTop);
+        }
+
+        console.log('[TipsScroller] ===== openModal END =====');
       },
 
       // 关闭弹窗
