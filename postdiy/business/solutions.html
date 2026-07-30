@@ -33,11 +33,41 @@
   <!-- 方案列表视图 -->
   <main class="biz-page view-hidden" id="solutionView">
     <div id="chapterHeaderWrap"></div>
+    <!-- 心得滚动版块 -->
+    <div id="tipsScrollerWrap" class="tips-scroller-wrap" style="display: none;">
+      <div class="tips-scroller-content">
+        <div class="tips-scroller-header">
+          <span class="tips-scroller-icon">💡</span>
+          <span class="tips-scroller-title">经营心得</span>
+        </div>
+        <div id="tipsScroller" class="tips-scroller">
+          <!-- JS动态渲染滚动内容 -->
+        </div>
+        <div class="tips-scroller-more" onclick="TipsScroller.openModal()">
+          <span>查看全部30条心得</span>
+          <i data-lucide="chevron-down" class="biz-icon"></i>
+        </div>
+      </div>
+    </div>
     <div class="biz-solution-list" id="solutionList">
       <!-- JS动态渲染 -->
     </div>
     <div id="caseSectionWrap"></div>
   </main>
+
+  <!-- 心得弹窗 -->
+  <div id="tipsModal" class="tips-modal" style="display: none;">
+    <div class="tips-modal-backdrop" onclick="TipsScroller.closeModal()"></div>
+    <div class="tips-modal-content">
+      <div class="tips-modal-header">
+        <h3 id="tipsModalTitle">经营心得汇总</h3>
+        <span class="tips-modal-close" onclick="TipsScroller.closeModal()">×</span>
+      </div>
+      <div id="tipsModalList" class="tips-modal-list">
+        <!-- JS动态渲染 -->
+      </div>
+    </div>
+  </div>
 
   <!-- 右下角浮动按钮 -->
   <div class="sol-fab-group">
@@ -82,6 +112,7 @@
   <script src="js/biz-data.js"></script>
   <script src="js/data-service.js"></script>
   <script src="js/biz-favorite.js"></script>
+  <script src="js/tips-data.js"></script>
   <script>
     // 方案库页面逻辑 - 七大篇章导航
     var SolutionsPage = {
@@ -270,6 +301,15 @@
 
         this.showView('solution');
 
+        // 初始化心得滚动
+        if (this.currentSub && this.currentChapter) {
+          TipsScroller.init(this.currentChapter, this.currentSub);
+        } else {
+          var wrap = document.getElementById('tipsScrollerWrap');
+          if (wrap) wrap.style.display = 'none';
+          TipsScroller.stop();
+        }
+
         // 如果有选中的二级分类，滚动标签到中间
         if (this.currentSub) {
           setTimeout(function() {
@@ -291,6 +331,17 @@
       onSubClick: function(subId) {
         this.currentSub = subId;
         this.renderChapterDetail();
+
+        // 初始化心得滚动
+        if (subId && this.currentChapter) {
+          TipsScroller.init(this.currentChapter, subId);
+        } else {
+          // 点击"全部"时隐藏心得滚动
+          var wrap = document.getElementById('tipsScrollerWrap');
+          if (wrap) wrap.style.display = 'none';
+          TipsScroller.stop();
+        }
+
         BizUtils.replaceIcons();
         // 滚动被点击的标签到可视区中间
         setTimeout(function() {
@@ -729,6 +780,120 @@
         SolutionsPage.renderChapterGrid();
       }
     });
+
+    // ===== 心得滚动模块 =====
+    var TipsScroller = {
+      currentTips: [],
+      currentIndex: 0,
+      timer: null,
+      currentSubId: null,
+
+      // 初始化心得滚动
+      init: function(chapterId, subId) {
+        console.log('[TipsScroller] init called, chapterId:', chapterId, 'subId:', subId);
+        var key = chapterId + '_' + subId;
+        console.log('[TipsScroller] looking for key:', key);
+        var tips = window.BizTipsData ? BizTipsData[key] : null;
+        console.log('[TipsScroller] BizTipsData exists:', !!window.BizTipsData);
+        console.log('[TipsScroller] tips found:', tips ? tips.length : 0);
+
+        this.currentSubId = subId;
+        this.currentTips = tips || [];
+        this.currentIndex = 0;
+
+        var wrap = document.getElementById('tipsScrollerWrap');
+        console.log('[TipsScroller] wrap element:', wrap);
+        if (!wrap) return;
+
+        if (this.currentTips.length === 0) {
+          console.log('[TipsScroller] no tips, hiding wrap');
+          wrap.style.display = 'none';
+          this.stop();
+          return;
+        }
+
+        console.log('[TipsScroller] showing wrap with', this.currentTips.length, 'tips');
+        wrap.style.display = 'block';
+        this.render();
+        this.start();
+      },
+
+      // 渲染当前显示的心得
+      render: function() {
+        var container = document.getElementById('tipsScroller');
+        if (!container || this.currentTips.length === 0) return;
+
+        var tip = this.currentTips[this.currentIndex];
+        container.innerHTML = '<div class="tips-scroller-item">' +
+          '<span class="tips-scroller-item-num">' + (this.currentIndex + 1) + '.</span>' +
+          '<div class="tips-scroller-item-content">' +
+            '<div class="tips-scroller-item-title">' + tip.title + '</div>' +
+            '<div class="tips-scroller-item-desc">' + tip.content + '</div>' +
+          '</div>' +
+        '</div>';
+      },
+
+      // 开始自动滚动
+      start: function() {
+        this.stop();
+        if (this.currentTips.length <= 1) return;
+
+        var self = this;
+        this.timer = setInterval(function() {
+          self.currentIndex = (self.currentIndex + 1) % self.currentTips.length;
+          self.render();
+        }, 4000); // 每4秒切换一条
+      },
+
+      // 停止滚动
+      stop: function() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      },
+
+      // 打开弹窗
+      openModal: function() {
+        this.stop();
+
+        // 查找二级分类名称
+        var subName = '';
+        var chapter = SolutionsPage.chapters.find(function(ch) { return ch.id === SolutionsPage.currentChapter; });
+        if (chapter && chapter.subs) {
+          var sub = chapter.subs.find(function(s) { return s.id === SolutionsPage.currentSub; });
+          if (sub) subName = sub.name;
+        }
+
+        document.getElementById('tipsModalTitle').textContent = (subName || '经营') + '心得汇总';
+
+        // 渲染全部30条心得
+        var listContainer = document.getElementById('tipsModalList');
+        if (listContainer && this.currentTips.length > 0) {
+          var html = this.currentTips.map(function(tip, idx) {
+            return '<div class="tips-modal-item">' +
+              '<span class="tips-modal-item-num">' + (idx + 1) + '.</span>' +
+              '<div class="tips-modal-item-content">' +
+                '<div class="tips-modal-item-title">' + tip.title + '</div>' +
+                '<div class="tips-modal-item-desc">' + tip.content + '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+          listContainer.innerHTML = html;
+        }
+
+        document.getElementById('tipsModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      },
+
+      // 关闭弹窗
+      closeModal: function() {
+        document.getElementById('tipsModal').style.display = 'none';
+        document.body.style.overflow = '';
+        // 关闭后重新开始滚动
+        this.start();
+      }
+    };
 
     document.addEventListener('DOMContentLoaded', function() {
       SolutionsPage.init();
