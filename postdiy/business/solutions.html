@@ -130,6 +130,12 @@
         // 初始化搜索图标
         document.getElementById('searchIconHolder').innerHTML = BizUtils.icon('search', 16);
         BizUtils.replaceIcons();
+
+        // 检测 APP 环境
+        this.checkAppEnvironment();
+
+        // 初始化滚动监听（手势控制 header）
+        this.initScrollHeader();
       },
 
       // 加载篇章数据
@@ -765,6 +771,61 @@
           stepsHtml +
           kpHtml;
       },
+
+      // 检测是否在APP环境中
+      checkAppEnvironment: function() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isApp = ua.indexOf('wv') > -1 || // Android WebView
+                    ua.indexOf('webview') > -1 ||
+                    ua.indexOf('miniProgram') > -1 || // 小程序
+                    window.self !== window.top; // 被嵌入iframe
+
+        if (isApp) {
+          // 隐藏顶部导航栏
+          var header = document.getElementById('pageHeader');
+          if (header) {
+            header.style.display = 'none';
+          }
+        }
+      },
+
+      // 初始化滚动监听（手势控制 header 显示/隐藏）
+      initScrollHeader: function() {
+        var header = document.getElementById('pageHeader');
+        if (!header) return;
+
+        var lastScrollTop = 0;
+        var scrollThreshold = 10; // 滚动阈值，避免微小滚动触发
+        var isHeaderVisible = true;
+
+        window.addEventListener('scroll', function() {
+          var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+          // 忽略微小滚动
+          if (Math.abs(currentScrollTop - lastScrollTop) < scrollThreshold) {
+            return;
+          }
+
+          // 判断滚动方向
+          if (currentScrollTop > lastScrollTop && currentScrollTop > 50) {
+            // 上滑：隐藏 header
+            if (isHeaderVisible) {
+              header.style.transform = 'translateY(-100%)';
+              header.style.transition = 'transform 0.3s ease';
+              isHeaderVisible = false;
+            }
+          } else if (currentScrollTop < lastScrollTop) {
+            // 下拉：显示 header
+            if (!isHeaderVisible) {
+              header.style.transform = 'translateY(0)';
+              header.style.transition = 'transform 0.3s ease';
+              isHeaderVisible = true;
+            }
+          }
+
+          lastScrollTop = currentScrollTop;
+        });
+      },
     };
 
     // 处理浏览器后退
@@ -833,10 +894,24 @@
         console.log('[TipsScroller] showing wrap with', this.currentTips.length, 'tips');
         wrap.style.display = 'block';
 
-        // 更新"查看全部X条心得"文本
+        // 查找二级分类名称
+        var subName = '';
+        var chapter = SolutionsPage.chapters.find(function(ch) { return ch.id === SolutionsPage.currentChapter; });
+        if (chapter && chapter.subs) {
+          var sub = chapter.subs.find(function(s) { return s.id === SolutionsPage.currentSub; });
+          if (sub) subName = sub.name;
+        }
+
+        // 更新标题文本："{子分类名称}心得笔记"
+        var titleText = document.querySelector('.tips-scroller-title');
+        if (titleText) {
+          titleText.textContent = (subName || '经营') + '心得笔记';
+        }
+
+        // 更新"查看全部"文本（只显示四个字）
         var moreText = document.getElementById('tipsScrollerMoreText');
         if (moreText) {
-          moreText.textContent = '查看全部' + this.currentTips.length + '条心得';
+          moreText.textContent = '查看全部';
         }
 
         this.render();

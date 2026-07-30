@@ -29,17 +29,6 @@
       <button class="guide-btn" onclick="window.location.href='login.html?from=profile'">立即登录</button>
     </div>
 
-    <!-- 店铺资料卡片 -->
-    <div class="biz-shop-card" id="shopCard">
-      <div class="biz-shop-card-header">
-        <span class="biz-shop-card-title"><i data-lucide="store" class="biz-icon" style="width:16px;height:16px;"></i> 店铺资料</span>
-        <button class="biz-shop-card-edit" onclick="ShopProfileEdit.open()">修改</button>
-      </div>
-      <div class="biz-shop-info-list" id="shopInfoList">
-        <!-- JS动态渲染 -->
-      </div>
-    </div>
-
     <!-- 店铺资料编辑弹窗 -->
     <div class="shop-profile-overlay" id="shopProfileOverlay">
       <div class="shop-profile-card">
@@ -88,9 +77,6 @@
 
     <!-- 我的收藏 -->
     <div class="biz-fav-section">
-      <div class="biz-section-header">
-        <span class="section-title">我的收藏</span>
-      </div>
       <div class="biz-fav-tabs" id="favTabs">
         <!-- JS动态渲染 -->
       </div>
@@ -217,11 +203,29 @@
 
       init: function() {
         BizDataService.init();
+        this.checkAppEnvironment();
         this.checkLoginStatus();
         this.renderShopCard();
         this.renderFavTabs();
         this.renderFavContent();
         BizUtils.replaceIcons();
+      },
+
+      // 检测是否在APP环境中
+      checkAppEnvironment: function() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isApp = ua.indexOf('wv') > -1 || // Android WebView
+                    ua.indexOf('webview') > -1 ||
+                    ua.indexOf('miniProgram') > -1 || // 小程序
+                    window.self !== window.top; // 被嵌入iframe
+
+        if (isApp) {
+          // 隐藏顶部导航栏
+          var topbar = document.querySelector('.profile-topbar');
+          if (topbar) {
+            topbar.style.display = 'none';
+          }
+        }
       },
 
       // 检查登录状态

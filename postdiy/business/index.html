@@ -229,6 +229,7 @@
       problems: [],
       init: function() {
         BizDataService.init();
+        this.checkAppEnvironment();
         // 渲染 Header Logo 图标
         var headerLogo = document.getElementById('headerLogoIcon');
         if (headerLogo) headerLogo.innerHTML = BizUtils.icon('activity', 28);
@@ -236,6 +237,23 @@
         ShopProfileGuide.init();
         ShopProfileGuide.check();
         BizUtils.replaceIcons();
+      },
+
+      // 检测是否在APP环境中
+      checkAppEnvironment: function() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isApp = ua.indexOf('wv') > -1 || // Android WebView
+                    ua.indexOf('webview') > -1 ||
+                    ua.indexOf('miniProgram') > -1 || // 小程序
+                    window.self !== window.top; // 被嵌入iframe
+
+        if (isApp) {
+          // 隐藏顶部导航栏
+          var topbar = document.querySelector('.index-topbar');
+          if (topbar) {
+            topbar.style.display = 'none';
+          }
+        }
       },
 
       loadProblems: function() {
