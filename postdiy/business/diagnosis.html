@@ -602,13 +602,13 @@
         setTimeout(function() {
           checkIcon.classList.add('show');
           document.getElementById('overlayText').textContent = '诊断完成！';
-        }, 1200);
+        }, 2000);
 
         setTimeout(function() {
           self.state.recordId = BizUtils.genId();
           BizUtils.saveDiagnosisState(self.state);
           window.location.href = 'result.html';
-        }, 1800);
+        }, 3000);
       },
 
       matchDiagnosisPath: function(problemCode, industry, stage, symptomIds) {

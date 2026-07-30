@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿/* ===== 按钮组件 - Apple 极简风格 ===== */
+﻿﻿﻿﻿﻿﻿﻿﻿/* ===== 按钮组件 - Apple 极简风格 ===== */
 .biz-btn {
   display: flex;
   align-items: center;
@@ -36,6 +36,7 @@
 .biz-btn-accent {
   background: var(--biz-gradient-pink);
   color: var(--biz-text-inverse);
+  height: 39px;
   box-shadow: 0 4px 16px rgba(245, 87, 108, 0.3);
 }
 
@@ -184,7 +185,7 @@
 
 /* ===== 步骤条 ===== */
 .biz-steps {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: var(--biz-gap-lg) 0;
@@ -260,15 +261,16 @@
 }
 
 .biz-tag-primary {
-  background: var(--biz-gradient-primary);
+  background: #fff;
   border: none;
-  color: var(--biz-text-inverse);
+  color: #555555;
+  border: 1px solid #E5E7EB;
 }
 
 .biz-tag-accent {
   background: #FFF;
   border: 1px solid #E5E7EB;
-  color: #0071E3;
+  color: #5b5b5b;
 }
 
 /* ===== 加载状态 ===== */

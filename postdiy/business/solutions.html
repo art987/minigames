@@ -72,13 +72,13 @@
   <!-- 右下角浮动按钮 -->
   <div class="sol-fab-group">
     <div class="sol-fab sol-fab-profile" onclick="window.location.href='profile.html'" title="我的收藏">
-      <i data-lucide="bookmark" class="biz-icon"></i>
+      <i data-lucide="star" class="biz-icon"></i>
     </div>
     <div class="sol-fab sol-fab-tools" onclick="window.location.href='tools.html'" title="工具">
-      <i data-lucide="wrench" class="biz-icon"></i>
+      <i data-lucide="table" class="biz-icon"></i>
     </div>
     <div class="sol-fab sol-fab-diagnosis" onclick="window.location.href='index.html'" title="经营诊断">
-      <i data-lucide="stethoscope" class="biz-icon"></i>
+      <i data-lucide="help-circle" class="biz-icon"></i>
     </div>
   </div>
 
@@ -780,11 +780,13 @@
                     ua.indexOf('miniProgram') > -1 || // 小程序
                     window.self !== window.top; // 被嵌入iframe
 
+        // APP 环境下显示 header，非 APP 环境启用滚动隐藏功能
         if (isApp) {
-          // 隐藏顶部导航栏
+          // APP 环境：确保 header 显示，不启用滚动隐藏
           var header = document.getElementById('pageHeader');
           if (header) {
-            header.style.display = 'none';
+            header.style.display = 'block';
+            header.style.transform = 'translateY(0)';
           }
         }
       },
@@ -793,6 +795,16 @@
       initScrollHeader: function() {
         var header = document.getElementById('pageHeader');
         if (!header) return;
+
+        // 检测是否在 APP 环境
+        var ua = navigator.userAgent.toLowerCase();
+        var isApp = ua.indexOf('wv') > -1 ||
+                    ua.indexOf('webview') > -1 ||
+                    ua.indexOf('miniProgram') > -1 ||
+                    window.self !== window.top;
+
+        // APP 环境下不启用滚动隐藏功能
+        if (isApp) return;
 
         var lastScrollTop = 0;
         var scrollThreshold = 10; // 滚动阈值，避免微小滚动触发

@@ -92,11 +92,12 @@
     }
     .diagnosis-title {
       font-size: var(--biz-font-h3);
-      font-weight: 600;
+      font-weight: 400;
       background: var(--biz-gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      margin-left: 10px;
     }
 
     /* ===== 步骤条增强 ===== */
@@ -151,12 +152,12 @@
     }
     .step-heading h2 {
       font-size: var(--biz-font-h1);
-      font-weight: 700;
+      font-weight: 200;
       color: var(--biz-text-primary);
       margin-bottom: var(--biz-gap-xs);
     }
     .step-heading p {
-      font-size: var(--biz-font-body);
+      font-size: 12px;
       color: var(--biz-text-secondary);
     }
 
@@ -306,7 +307,7 @@
     .symptom-name {
       flex: 1;
       font-size: var(--biz-font-body);
-      font-weight: 500;
+      font-weight: 300;
       color: var(--biz-text-primary);
     }
     .symptom-item.active .symptom-name {
@@ -314,7 +315,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      font-weight: 600;
+      font-weight: 300;
     }
 
     /* ===== 已选标签 ===== */
@@ -340,7 +341,7 @@
     /* ===== 底部操作栏 ===== */
     .diagnosis-footer {
       position: fixed;
-      bottom: var(--biz-tab-bar-height);
+      bottom: 0;
       left: 0;
       right: 0;
       background: rgba(255, 255, 255, 0.92);
@@ -412,7 +413,7 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .diagnosis-check-icon.show {
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) rotate(90deg) scale(1);
     }
     .diagnosis-overlay-text {
       font-size: var(--biz-font-h3);
