@@ -209,7 +209,7 @@
               }).join('') +
             '</div>';
           }
-          return '<div class="biz-chapter-card" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
+          return '<div class="biz-chapter-card chapter-card-' + ch.id + '" onclick="SolutionsPage.onChapterClick(' + ch.id + ')" style="--ch-color:' + ch.color + '">' +
             '<div class="chapter-header">' +
               '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon) + '</span>' +
               '<div class="chapter-info">' +
@@ -268,6 +268,9 @@
             html += '</div>';
           }
           headerWrap.innerHTML = html;
+
+          // 为容器添加篇章类名，用于背景图样式
+          headerWrap.className = 'chapter-header-wrap chapter-header-wrap-' + chapterId;
         }
 
         // 过滤该篇章下的方案

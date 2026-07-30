@@ -1,8 +1,10 @@
 /* Lucide 图标通用样式 */
+#backBtnContent .biz-icon { stroke: rgb(216 39 19);stroke-width:3px;}
+#searchIconHolder .biz-icon { stroke: rgb(183, 183, 183);stroke-width:1px;}
 .biz-icon {
   display: inline-block;
   vertical-align: middle;
-  stroke: rgb(165 200 236);
+  stroke: rgb(132 178 218);
   fill: none;
   stroke-width: 1.5px;
   stroke-linecap: round;
@@ -199,6 +201,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
   margin-bottom: 8px;
+  padding-left: 47px;
 }
 .chapter-sub-tag {
   display: inline-flex;
@@ -237,7 +240,7 @@
 }
 
 /* ===== 篇章详情头部 ===== */
-#chapterHeaderWrap{background: linear-gradient(135deg, #ddecfe 0%, #fff5f0 100%);}
+#chapterHeaderWrap{background-color: linear-gradient(135deg, #ddecfe 0%, #fff5f0 100%);}
 .biz-chapter-header {
   display: flex;
   align-items: center;
@@ -262,10 +265,13 @@
   font-size: var(--biz-font-h2);
   font-weight: 700;
   color: var(--biz-text-primary);
+  text-shadow: 1px 1px 0 #fff;
 }
 .biz-chapter-header .ch-info .ch-desc {
   font-size: var(--biz-font-tiny);
-  color: #bfa186;
+  color: #000000;
+  text-shadow: 1px 1px 0 #fff;
+  letter-spacing: 2px;
 }
 
 /* ===== 二级分类标签 ===== */
@@ -275,8 +281,9 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   padding: 0 23px 15px;
+  box-shadow: 0 8px 10px #89a4ca21;
   margin-bottom: 12px;
-  border-bottom: 2px solid #dee7ed;
+  border-bottom: 2px solid #c1def1;
 }
 .biz-sub-tabs::-webkit-scrollbar { display: none; }
 .biz-sub-tab {
@@ -286,9 +293,11 @@
   font-size: var(--biz-font-small);
   font-weight: 500;
   cursor: pointer;
-  background: #ffffff5c;
+  backdrop-filter: blur(3px);
+  background: #7eaacd5c;
+  text-shadow: 0 1px 3px #0971b5d9;
   border: none;
-  color: var(--biz-text-secondary);
+  color: #fff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-user-select: none;
   user-select: none;
@@ -376,7 +385,7 @@
 .biz-solution-card .card-case-link {
   display: block;
   font-size: 13px;
-  color: #0071E3;
+  color: #2366a8;
   text-decoration: none;
   line-height: 1.5;
   padding: 12px 0;
@@ -502,7 +511,8 @@
 /* 解决方案页面底部留白，避免浮动按钮遮挡 */
 #chapterView, #solutionView {
   padding-bottom: 220px;
-  background: linear-gradient(135deg, #f0f7ff 0%, #fff5f0 100%);
+  background: linear-gradient(
+127deg, #e4f1ff 0%, #fff5f0 100%);
   padding: 0 0 96px;
 }
 
@@ -917,7 +927,7 @@
   margin-top: 10px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgb(0 113 227 / 5%);
+  background: rgb(0 113 227 / 2%);
   color: #0071E3;
   font-size: 13px;
   font-weight: 500;
@@ -1034,4 +1044,112 @@
   font-size: 14px;
   color: var(--biz-text-primary);
   line-height: 1.7;
+}
+
+/* ===== 篇章卡片背景图 ===== */
+.biz-chapter-card {
+  background-repeat: no-repeat;
+}
+
+/* 第1篇：开店选址 */
+.chapter-card-1 {
+  background-image: url('../images/statics/1.png');
+  background-size: 88px;
+  background-position: -16px 50px;
+}
+
+/* 第2篇：产品定价 */
+.chapter-card-2 {
+  background-image: url('../images/statics/2.png');
+  background-size: 89px;
+  background-position: -19px 53px;
+}
+
+/* 第3篇：客户运营 */
+.chapter-card-3 {
+  background-image: url('../images/statics/3.png');
+  background-size: 89px;
+  background-position: -15px 49px;
+}
+
+/* 第4篇：获客引流 */
+.chapter-card-4 {
+  background-image: url('../images/statics/4.png');
+  background-size: 80px;
+  background-position: -11px 52px;
+}
+
+/* 第5篇：店铺管理 */
+.chapter-card-5 {
+  background-image: url('../images/statics/5.png');
+  background-size: 98px;
+  background-position: -27px 48px;
+}
+
+/* 第6篇：经营智慧 */
+.chapter-card-6 {
+  background-image: url('../images/statics/6.png');
+  background-size: 85px;
+  background-position: -15px 51px;
+}
+
+/* 第7篇：金点子 */
+.chapter-card-7 {
+  background-image: url('../images/statics/7.png');
+  background-size: 93px;
+  background-position: -20px 49px;
+}
+
+/* ===== 篇章详情页头部背景图 ===== */
+.chapter-header-wrap {
+  background-repeat: no-repeat;
+}
+
+/* 第1篇：开店选址 */
+.chapter-header-wrap-1 {
+  background-image: url('../images/statics/1.png');
+  background-size: 148px;
+  background-position: right -6px;
+}
+
+/* 第2篇：产品定价 */
+.chapter-header-wrap-2 {
+  background-image: url('../images/statics/2.png');
+  background-size: 132px;
+  background-position: right 12px;
+}
+
+/* 第3篇：客户运营 */
+.chapter-header-wrap-3 {
+  background-image: url('../images/statics/3.png');
+  background-size: 141px;
+  background-position: right -9px;
+}
+
+/* 第4篇：获客引流 */
+.chapter-header-wrap-4 {
+  background-image: url('../images/statics/4.png');
+  background-size: 174px;
+  background-position: right -16px;
+}
+
+/* 第5篇：店铺管理 */
+.chapter-header-wrap-5 {
+  background-image: url('../images/statics/5.png');
+  background-size: 177px;
+  background-position: right -13px;
+}
+
+/* 第6篇：经营智慧 */
+.chapter-header-wrap-6 {
+  background-image: url('../images/statics/6.png');
+  background-size: 171px;
+  background-position: right -10px;
+}
+
+/* 第7篇：金点子 */
+.chapter-header-wrap-7 {
+  background-image: url('../images/statics/7.png');
+  background-size: 181px;
+  background-position: right -14px;
 }
