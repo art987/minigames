@@ -290,7 +290,8 @@ window.wechatWarning = {
 // 当前筛选条件
 window.currentFilters = {
   month: null,
-  festival: null
+  festival: null,
+  type: null
 };
 
 // 当前排序模式：'random'（随机，默认）或 'sequential'（顺序）
@@ -620,6 +621,8 @@ function updateFestivalTags() {
         if (festivalDateDiv) {
           festivalDateDiv.style.display = 'block';
         }
+        // 隐藏类型筛选条
+        updateTypeTags(null);
       } else {
         window.currentFilters.festival = selectedFestival;
         // 移除其他标签的active状态
@@ -627,9 +630,12 @@ function updateFestivalTags() {
           tag.classList.remove('active');
         });
         this.classList.add('active');
-        
+
         // 滚动到当前选中的标签使其可见
         scrollFestivalTagToView(this);
+
+        // 更新类型筛选条
+        updateTypeTags(selectedFestival);
         
         // 只有非早安和晚安分类才显示节日日期
         if (selectedFestival !== '☀️ 早安' && selectedFestival !== '🌙 晚安') {
@@ -699,6 +705,69 @@ function updateFestivalTags() {
       scrollFestivalTagToView(activeTag);
     }
   }, 100);
+}
+
+// 更新类型筛选标签（仅早安/晚安时显示）
+function updateTypeTags(festival) {
+  var typeTagsDiv = document.getElementById('typeTags');
+  var typeTagsContainer = document.getElementById('typeTagsContainer');
+  if (!typeTagsDiv || !typeTagsContainer) return;
+
+  // 只有早安/晚安才显示类型筛选
+  if (festival !== '☀️ 早安' && festival !== '🌙 晚安') {
+    typeTagsDiv.style.display = 'none';
+    window.currentFilters.type = null;
+    return;
+  }
+
+  // 获取该节日下的所有模板，提取type值
+  var festivalKey = festival === '☀️ 早安' ? '早安' : '晚安';
+  var festivalTemplates = templates[festivalKey] || [];
+
+  // 动态提取所有不重复的type值
+  var typeSet = new Set();
+  festivalTemplates.forEach(function(t) {
+    if (t.type) typeSet.add(t.type);
+  });
+  var types = Array.from(typeSet);
+
+  // 如果只有一种类型，不需要显示筛选条
+  if (types.length <= 1) {
+    typeTagsDiv.style.display = 'none';
+    window.currentFilters.type = null;
+    return;
+  }
+
+  // 渲染类型标签
+  var html = '<span class="type-tag active" data-type="">全部</span>';
+  types.forEach(function(t) {
+    html += '<span class="type-tag" data-type="' + t + '">' + t + '</span>';
+  });
+  typeTagsContainer.innerHTML = html;
+  typeTagsDiv.style.display = 'block';
+
+  // 重置类型筛选
+  window.currentFilters.type = null;
+
+  // 绑定点击事件
+  typeTagsContainer.querySelectorAll('.type-tag').forEach(function(tag) {
+    tag.addEventListener('click', function() {
+      var selectedType = this.dataset.type;
+      // 切换选中状态
+      typeTagsContainer.querySelectorAll('.type-tag').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      if (window.currentFilters.type === selectedType) {
+        // 再次点击取消选中
+        window.currentFilters.type = null;
+        typeTagsContainer.querySelector('.type-tag[data-type=""]').classList.add('active');
+      } else {
+        window.currentFilters.type = selectedType;
+        this.classList.add('active');
+      }
+      applyFilters();
+    });
+  });
 }
 
 // 根据当前日期自动选择月份和节日
@@ -777,7 +846,12 @@ function applyFilters() {
   // 使用setTimeout模拟异步加载，提高用户体验
   setTimeout(() => {
     try {
-      const filteredTemplates = window.utils.getTemplatesByFilters(window.currentFilters.month, window.currentFilters.festival);
+      let filteredTemplates = window.utils.getTemplatesByFilters(window.currentFilters.month, window.currentFilters.festival);
+
+      // 如果有类型筛选，进一步过滤
+      if (window.currentFilters.type) {
+        filteredTemplates = filteredTemplates.filter(t => t.type === window.currentFilters.type);
+      }
 
       // 保存原始筛选结果到全局，供排序按钮重新渲染使用
       window.currentFilteredTemplates = filteredTemplates.slice();
@@ -1094,7 +1168,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Escape') {
         window.currentFilters = {
           month: null,
-          festival: null
+          festival: null,
+          type: null
         };
         initMonthButtons();
         updateFestivalTags();

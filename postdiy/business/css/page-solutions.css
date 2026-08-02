@@ -1,10 +1,12 @@
 /* Lucide 图标通用样式 */
 #backBtnContent .biz-icon { stroke: rgb(216 39 19);stroke-width:3px;}
 #searchIconHolder .biz-icon { stroke: rgb(183, 183, 183);stroke-width:1px;}
+.detail-modal-body .biz-icon{stroke: rgb(188 188 188);}
+
 .biz-icon {
   display: inline-block;
   vertical-align: middle;
-  stroke: rgb(132 178 218);
+  stroke: rgb(206 4 4);
   fill: none;
   stroke-width: 1.5px;
   stroke-linecap: round;
@@ -13,7 +15,7 @@
 
 /* 页面头部 - 标题/返回/搜索一行 */
 .biz-page-header {
-  background: #fff;
+  background: #ffffff;
   padding: 12px 16px;
   position: sticky;
   top: 0;
@@ -108,12 +110,13 @@
   padding-top: 90px;
   bottom: -90px;
   width: 2px;
-  background: #ddecff;
+  background: #ffffff7a;
   border-radius: 1px;
 }
 .biz-chapter-card {
-  background: #ffffffe8;
-  border: 1px solid rgba(0,0,0,0.06);
+  background: #ffffff5e;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgb(255 255 255 / 37%);
   border-radius: 22px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   padding: 14px 16px;
@@ -132,12 +135,12 @@
   content: '';
   position: absolute;
   left: -19px;
-  top: 18px;
+  top: 34px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid #c4def0;
+  background: #f07666;
+  border: 2px solid #ffffff;
   box-shadow: none;
   z-index: 1;
 }
@@ -156,12 +159,14 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  padding-left: 96px;
+  margin-top: 5px;
 }
 .biz-chapter-card .chapter-icon {
   width: 40px;
   height: 40px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
@@ -175,8 +180,8 @@
   min-width: 0;
 }
 .biz-chapter-card .chapter-name {
-  font-size: var(--biz-font-body);
-  font-weight: 500;
+  font-size: 25px;
+  font-weight: 300;
   color: var(--biz-text-primary);
   margin-bottom: 2px;
 }
@@ -195,47 +200,101 @@
   font-weight: 700;
   font-size: var(--biz-font-small);
 }
-/* 篇章卡片二级分类 - 按钮样式三列排列 */
+/* 篇章卡片二级分类 - 垂直列表布局 */
 .chapter-subs {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 8px;
-  padding-left: 47px;
+  padding-left: 0px;
+}
+.chapter-sub-row {
+  /* background: #f8f9fa; */
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.chapter-sub-header {
+  /* display: flex; */
+  /* align-items: center; */
+  tify-content: space-between;
+  margin-bottom: 10px;
 }
 .chapter-sub-tag {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 6px 10px;
-  border-radius: 9px;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 10px;
   font-weight: 300;
-  background: rgb(128 143 158 / 6%);
+  color: var(--biz-text-primary);
+  background: transparent;
   border: none;
-  color: #0071E3;
-  transition: all 0.2s;
+  text-shadow: 1px 1px 0px #fff;
+  padding: 0;
+  cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
+}
+.chapter-sub-tag::after {
+  content: '›';
+  margin-left: 9px;
+  color: #c00;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 10px;
+  margin-bottom: 5px;
+}
+.chapter-sub-stats {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+.chapter-sub-stat {
+  flex: 1;
+  text-align: center;
+  padding: 6px 4px;
+  background: #fff;
+  border-radius: 8px;
   cursor: pointer;
-  position: relative;
+  line-height: 15px;
+  transition: all 0.2s;
+  border: 1px solid rgba(0,0,0,0.04);
+  min-width: 0;
+}
+.chapter-sub-stat:active {
+  transform: scale(0.96);
+  background: #f0f0f0;
+}
+.chapter-sub-stat-label {
+  font-size: 11px;
+  color: #000;
+  /* display: block; */
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: ;
+  margin-right: 6px;
+  text-overflow: ellipsis;
+}
+.chapter-sub-stat-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #26b751;
+}
+.chapter-sub-stat-label.enhanced {
+  color: #FF9500;
+}
+.chapter-sub-stat-value.enhanced {
+  color: #FF9500;
+}
+.chapter-sub-stat-label.primary {
+  color: #0071E3;
+}
+.chapter-sub-stat-value.primary {
+  color: #0071E3;
 }
 .chapter-sub-tag .chapter-sub-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 5px;
-  border-radius: 8px;
-  background: #0071E3;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 16px;
-  text-align: center;
-  z-index: 1;
   display: none;
 }
 
@@ -450,6 +509,127 @@
   font-weight: 500;
 }
 
+/* ===== 弹窗内列表样式 ===== */
+/* 心得笔记列表 */
+.cd-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cd-tip-item {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.cd-tip-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF9500;
+  flex-shrink: 0;
+  width: 28px;
+}
+.cd-tip-content {
+  flex: 1;
+  min-width: 0;
+}
+.cd-tip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  margin-bottom: 4px;
+}
+.cd-tip-desc {
+  font-size: 13px;
+  color: var(--biz-text-secondary);
+  line-height: 1.5;
+}
+
+/* 指导方案列表 */
+.cd-solutions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cd-solution-item {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.cd-solution-item:active {
+  background: #e8e8e8;
+}
+.cd-solution-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  margin-bottom: 4px;
+  padding-right: 24px;
+}
+.cd-solution-summary {
+  font-size: 13px;
+  color: var(--biz-text-secondary);
+  line-height: 1.5;
+  padding-right: 24px;
+}
+.cd-solution-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--biz-text-tertiary);
+  font-weight: 300;
+}
+
+/* 案例学习列表 */
+.cd-cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cd-case-item {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.cd-case-item:active {
+  background: #e8e8e8;
+}
+.cd-case-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  margin-bottom: 4px;
+  padding-right: 24px;
+}
+.cd-case-effect {
+  font-size: 13px;
+  color: #acacac;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-right: 24px;
+}
+.cd-case-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--biz-text-tertiary);
+  font-weight: 300;
+}
+
 /* ===== 右下角浮动按钮 ===== */
 .sol-fab-group {
   position: fixed;
@@ -511,8 +691,7 @@
 /* 解决方案页面底部留白，避免浮动按钮遮挡 */
 #chapterView, #solutionView {
   padding-bottom: 220px;
-  background: linear-gradient(
-127deg, #e4f1ff 0%, #fff5f0 100%);
+  background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
   padding: 0 0 96px;
 }
 
@@ -560,13 +739,35 @@
   padding: 14px 16px;
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
   flex-shrink: 0;
+  position: relative;
+}
+.detail-modal-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #0071E3;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.detail-modal-back:active {
+  background: rgba(0, 113, 227, 0.1);
 }
 .detail-modal-title {
   font-size: var(--biz-font-h2);
-  font-weight: 700;
+  font-weight: 200;
   text-indent: 13px;
   padding-right: 29px;
   color: var(--biz-text-primary);
+  width: 100%;
+  text-align: center;
 }
 .detail-modal-close {
   display: flex;
@@ -682,7 +883,7 @@
   font-weight: 500;
 }
 .detail-modal-body .cd-effect-box {
-  background: linear-gradient(135deg, rgba(0, 113, 227, 0.08), rgba(0, 113, 227, 0.02));
+  background: #fbfbfb;
   border-radius: var(--biz-radius-md);
   padding: 14px;
   margin-top: 8px;
@@ -692,13 +893,13 @@
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: #0071E3;
+  color: #999;
   font-weight: 500;
   margin-bottom: 6px;
 }
 .detail-modal-body .cd-effect-value {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 200;
   color: var(--biz-text-primary);
   line-height: 1.5;
 }
@@ -773,7 +974,7 @@
 }
 .detail-modal-body .cd-problem-text {
   font-size: 14px;
-  color: var(--biz-text-secondary);
+  color: #0c4bb5;
   line-height: 1.7;
   margin: 0;
 }
@@ -1054,50 +1255,50 @@
 /* 第1篇：开店选址 */
 .chapter-card-1 {
   background-image: url('../images/statics/1.png');
-  background-size: 88px;
-  background-position: -16px 50px;
+  background-size: 136px;
+  background-position: -21px -4px;
 }
 
 /* 第2篇：产品定价 */
 .chapter-card-2 {
   background-image: url('../images/statics/2.png');
-  background-size: 89px;
-  background-position: -19px 53px;
+  background-size: 130px;
+  background-position: -19px -8px;
 }
 
 /* 第3篇：客户运营 */
 .chapter-card-3 {
   background-image: url('../images/statics/3.png');
-  background-size: 89px;
-  background-position: -15px 49px;
+  background-size: 130px;
+  background-position: -19px -10px;
 }
 
 /* 第4篇：获客引流 */
 .chapter-card-4 {
   background-image: url('../images/statics/4.png');
-  background-size: 80px;
-  background-position: -11px 52px;
+  background-size: 131px;
+  background-position: -16px -6px;
 }
 
 /* 第5篇：店铺管理 */
 .chapter-card-5 {
   background-image: url('../images/statics/5.png');
-  background-size: 98px;
-  background-position: -27px 48px;
+  background-size: 139px;
+  background-position: -25px -6px;
 }
 
 /* 第6篇：经营智慧 */
 .chapter-card-6 {
   background-image: url('../images/statics/6.png');
-  background-size: 85px;
-  background-position: -15px 51px;
+  background-size: 139px;
+  background-position: -22px -8px;
 }
 
 /* 第7篇：金点子 */
 .chapter-card-7 {
   background-image: url('../images/statics/7.png');
-  background-size: 93px;
-  background-position: -20px 49px;
+  background-size: 143px;
+  background-position: -31px -15px;
 }
 
 /* ===== 篇章详情页头部背景图 ===== */

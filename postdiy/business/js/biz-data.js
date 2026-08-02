@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿/**
+﻿﻿﻿﻿﻿﻿﻿﻿/**
  * 实体商家经营诊断系统 - 本地诊断数据
  * 包含：经营问题、症状、诊断路径、解决方案、案例、工具
  * 所有数据均为真实可执行的专业内容，供本地离线使用
@@ -10121,36 +10121,8 @@ tools: [
       return; // 使用 biz-data.js 中的默认数据
     }
 
-    // 如果时间戳相同（1小时内），则使用 localStorage 中的数据
-    var adminCases = localStorage.getItem('admin_cases_v3');
-    if (adminCases) {
-      BizData.cases = JSON.parse(adminCases);
-    }
-
-    var adminTools = localStorage.getItem('admin_tools_v3');
-    if (adminTools) {
-      BizData.tools = JSON.parse(adminTools);
-    }
-
-    var adminTags = localStorage.getItem('admin_tags_v3');
-    if (adminTags) {
-      BizData.tags = JSON.parse(adminTags);
-    }
-
-    var adminProblems = localStorage.getItem('admin_problems_v2');
-    if (adminProblems) {
-      BizData.problems = JSON.parse(adminProblems);
-    }
-
-    var adminSolutions = localStorage.getItem('admin_solutions_v2');
-    if (adminSolutions) {
-      BizData.solutions = JSON.parse(adminSolutions);
-    }
-
-    var adminPaths = localStorage.getItem('admin_paths_v3');
-    if (adminPaths) {
-      BizData.diagnosisPaths = JSON.parse(adminPaths);
-    }
+    // 注：已禁用 localStorage 覆盖逻辑，始终使用 biz-data.js 文件中的最新数据
+    // 管理后台的修改需要通过服务器 API 持久化，不再使用 localStorage
   } catch (e) {
     console.error('[BizData] 从 localStorage 加载管理后台数据失败:', e);
   }

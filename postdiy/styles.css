@@ -311,6 +311,47 @@ main {
   color: white;
 }
 
+/* 类型筛选条（早安/晚安类型筛选） */
+.type-tags {
+  padding: 0;
+  margin-bottom: 0.3rem;
+}
+.type-tags-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.type-tags-container::-webkit-scrollbar {
+  display: none;
+}
+.type-tag {
+  padding: 3px 12px;
+  background-color: var(--bg-tertiary);
+  color: #666;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.type-tag:active {
+  transform: scale(0.95);
+}
+.type-tag.active {
+  background: linear-gradient(135deg, #de2929, #cc180b);
+  color: #fff;
+}
+
 /* Ã¦â€”Â¶Ã©â€”Â´Ã¦ËœÂ¾Ã§Â¤ÂºÃ¥Å’ÂºÃ¥Å¸Å¸ */
 .time-display-area {
   /* display: flex; */

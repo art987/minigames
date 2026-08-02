@@ -87,6 +87,9 @@
     <div class="detail-modal-mask" onclick="SolutionsPage.closeModal()"></div>
     <div class="detail-modal-content">
       <div class="detail-modal-header">
+        <span class="detail-modal-back" id="modalBackBtn" onclick="SolutionsPage.backToPrevModal()" style="display:none;">
+          <i data-lucide="chevron-left" class="biz-icon" style="width:24px;height:24px;"></i>
+        </span>
         <span class="detail-modal-close" onclick="SolutionsPage.closeModal()">
           <i data-lucide="x" class="biz-icon" style="width:20px;height:20px;"></i>
         </span>
@@ -199,6 +202,7 @@
         if (!container) return;
 
         var allCases = BizData.cases || [];
+        var allSolutions = BizData.solutions || [];
 
         container.innerHTML = this.chapters.map(function(ch) {
           var count = self.getChapterCount(ch.id);
@@ -207,11 +211,38 @@
           if (ch.subs && ch.subs.length) {
             subsHtml = '<div class="chapter-subs">' +
               ch.subs.map(function(sub) {
-                var subCaseCount = allCases.filter(function(c) {
+                // 构造心得数据的 key (格式: chapter_sub)
+                var tipsKey = ch.id + '_' + sub.id;
+                var tipsCount = (window.BizTipsData && window.BizTipsData[tipsKey]) ? window.BizTipsData[tipsKey].length : 0;
+                
+                // 统计方案数量
+                var solCount = allSolutions.filter(function(s) {
+                  return s.chapter === ch.id && s.sub === sub.id;
+                }).length;
+                // 统计案例数量
+                var caseCount = allCases.filter(function(c) {
                   return c.chapter === ch.id && c.sub === sub.id;
                 }).length;
-                var badge = subCaseCount > 0 ? '<em class="chapter-sub-badge">' + subCaseCount + '</em>' : '';
-                return '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + badge + '</span>';
+
+                return '<div class="chapter-sub-row">' +
+                  '<div class="chapter-sub-header">' +
+                    '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + '</span>' +
+                  '</div>' +
+                  '<div class="chapter-sub-stats">' +
+                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">' +
+                      '<span class="chapter-sub-stat-label">心得笔记</span>' +
+                      '<span class="chapter-sub-stat-value enhanced">(' + tipsCount + ')</span>' +
+                    '</div>' +
+                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'solutions\',\'' + sub.name + '\')">' +
+                      '<span class="chapter-sub-stat-label">指导方案</span>' +
+                      '<span class="chapter-sub-stat-value primary">(' + solCount + ')</span>' +
+                    '</div>' +
+                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'cases\',\'' + sub.name + '\')">' +
+                      '<span class="chapter-sub-stat-label">案例学习</span>' +
+                      '<span class="chapter-sub-stat-value">(' + caseCount + ')</span>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>';
               }).join('') +
             '</div>';
           }
@@ -228,6 +259,78 @@
         }).join('');
 
         this.showView('chapter');
+        BizUtils.replaceIcons();
+      },
+
+      // 打开子分类项目弹窗
+      openSubItemsModal: function(chapterId, subId, type, subName) {
+        var modal = document.getElementById('detailModal');
+        var modalTitle = document.getElementById('modalTitle');
+        var modalBody = document.getElementById('modalBody');
+
+        var title = subName + ' - ';
+        if (type === 'tips') title += '心得笔记';
+        else if (type === 'solutions') title += '指导方案';
+        else if (type === 'cases') title += '案例学习';
+        modalTitle.textContent = title;
+        this.modalTitle = title;
+
+        var html = '';
+        if (type === 'tips') {
+          var tipsKey = chapterId + '_' + subId;
+          var tips = (window.BizTipsData && window.BizTipsData[tipsKey]) ? window.BizTipsData[tipsKey] : [];
+          if (tips.length === 0) {
+            html = '<div class="biz-empty"><span class="biz-empty-text">暂无心得笔记</span></div>';
+          } else {
+            html = '<div class="cd-tips-list">';
+            tips.forEach(function(tip, idx) {
+              html += '<div class="cd-tip-item"><span class="cd-tip-num">' + (idx + 1) + '.</span><div class="cd-tip-content"><div class="cd-tip-title">' + tip.title + '</div><div class="cd-tip-desc">' + tip.content + '</div></div></div>';
+            });
+            html += '</div>';
+          }
+        } else if (type === 'solutions') {
+          var solutions = (this.allSolutions || []).filter(function(s) {
+            return s.chapter === chapterId && s.sub === subId;
+          });
+          if (solutions.length === 0) {
+            html = '<div class="biz-empty"><span class="biz-empty-text">暂无指导方案</span></div>';
+          } else {
+            html = '<div class="cd-solutions-list">';
+            solutions.forEach(function(s) {
+              html += '<div class="cd-solution-item" onclick="SolutionsPage.openSolutionModal(\'' + s._id + '\')">' +
+                '<div class="cd-solution-title">' + s.title + '</div>' +
+                '<div class="cd-solution-summary">' + (s.summary || '') + '</div>' +
+                '<span class="cd-solution-arrow">›</span>' +
+              '</div>';
+            });
+            html += '</div>';
+          }
+        } else if (type === 'cases') {
+          var cases = (BizData.cases || []).filter(function(c) {
+            return c.chapter === chapterId && c.sub === subId;
+          });
+          if (cases.length === 0) {
+            html = '<div class="biz-empty"><span class="biz-empty-text">暂无案例学习</span></div>';
+          } else {
+            html = '<div class="cd-cases-list">';
+            cases.forEach(function(c) {
+              html += '<div class="cd-case-item" onclick="SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
+                '<div class="cd-case-name">' + c.title + '</div>' +
+                '<div class="cd-case-effect">' + (c.effectData || '') + '</div>' +
+                '<span class="cd-case-arrow">›</span>' +
+              '</div>';
+            });
+            html += '</div>';
+          }
+        }
+
+        modalBody.innerHTML = html;
+        document.getElementById('modalFavBtn').style.display = 'none';
+        document.getElementById('modalOpenBtn').style.display = 'none';
+        document.querySelector('.detail-modal-footer').style.display = 'none';
+        // 列表视图是初始状态，隐藏返回按钮
+        document.getElementById('modalBackBtn').style.display = 'none';
+        modal.classList.add('show');
         BizUtils.replaceIcons();
       },
 
@@ -455,7 +558,7 @@
 
         var allCases = BizData.cases || [];
         var filteredCases = allCases.filter(function(c) {
-          return (c.title + (c.problem || '') + (c.solution || '') + (c.background || '')).indexOf(self.searchText) > -1;
+          return (c.title + (c.effectData || '') + (c.problem || '') + (c.solution || '')).indexOf(self.searchText) > -1;
         });
 
         var container = document.getElementById('solutionList');
@@ -498,7 +601,7 @@
 
           // 再展示案例
           if (filteredCases.length > 0) {
-            html += '<div class="search-section-label">案例 (' + filteredCases.length + ')</div>';
+            html += '<div class="search-section-label">案例学习 (' + filteredCases.length + ')</div>';
             html += filteredCases.map(function(c) {
               return '<div class="biz-solution-card" onclick="SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
                 '<div class="card-title">' + c.title + ' <span class="card-arrow">›</span></div>' +
@@ -554,10 +657,15 @@
       // ===== 弹窗相关 =====
       modalType: null, // 'solution' or 'case'
       modalId: null,
+      modalHistory: [], // 保存弹窗状态历史，用于返回功能
 
       openSolutionModal: function(id) {
         var sol = this.findSolution(id);
         if (!sol) return;
+        
+        // 保存当前状态到历史
+        this.saveModalState();
+        
         this.modalType = 'solution';
         this.modalId = id;
         this.modalTitle = sol.title;
@@ -567,12 +675,22 @@
         document.getElementById('detailModal').classList.add('show');
         document.getElementById('modalBody').scrollTop = 0;
         document.body.style.overflow = 'hidden';
+        
+        // 显示返回按钮和底部操作按钮
+        document.getElementById('modalBackBtn').style.display = 'flex';
+        document.getElementById('modalFavBtn').style.display = '';
+        document.getElementById('modalOpenBtn').style.display = '';
+        document.querySelector('.detail-modal-footer').style.display = 'flex';
         BizUtils.replaceIcons();
       },
 
       openCaseModal: function(id) {
         var c = this.findCase(id);
         if (!c) return;
+        
+        // 保存当前状态到历史
+        this.saveModalState();
+        
         this.modalType = 'case';
         this.modalId = id;
         this.modalTitle = c.title;
@@ -582,6 +700,57 @@
         document.getElementById('detailModal').classList.add('show');
         document.getElementById('modalBody').scrollTop = 0;
         document.body.style.overflow = 'hidden';
+        
+        // 显示返回按钮和底部操作按钮
+        document.getElementById('modalBackBtn').style.display = 'flex';
+        document.getElementById('modalFavBtn').style.display = '';
+        document.getElementById('modalOpenBtn').style.display = '';
+        document.querySelector('.detail-modal-footer').style.display = 'flex';
+        BizUtils.replaceIcons();
+      },
+
+      // 保存当前弹窗状态
+      saveModalState: function() {
+        var state = {
+          modalType: this.modalType,
+          modalId: this.modalId,
+          modalTitle: this.modalTitle,
+          modalContent: document.getElementById('modalBody').innerHTML,
+          showFavBtn: document.getElementById('modalFavBtn').style.display,
+          showOpenBtn: document.getElementById('modalOpenBtn').style.display,
+          showFooter: document.querySelector('.detail-modal-footer').style.display
+        };
+        this.modalHistory.push(state);
+      },
+
+      // 返回上一级弹窗
+      backToPrevModal: function() {
+        if (this.modalHistory.length === 0) return;
+        
+        var prevState = this.modalHistory.pop();
+        
+        // 恢复状态
+        this.modalType = prevState.modalType;
+        this.modalId = prevState.modalId;
+        this.modalTitle = prevState.modalTitle;
+        
+        document.getElementById('modalTitle').textContent = prevState.modalTitle;
+        document.getElementById('modalBody').innerHTML = prevState.modalContent;
+        document.getElementById('modalFavBtn').style.display = prevState.showFavBtn;
+        document.getElementById('modalOpenBtn').style.display = prevState.showOpenBtn;
+        document.querySelector('.detail-modal-footer').style.display = prevState.showFooter;
+        
+        // 如果历史为空，隐藏返回按钮
+        if (this.modalHistory.length === 0) {
+          document.getElementById('modalBackBtn').style.display = 'none';
+        }
+        
+        // 更新收藏状态
+        if (this.modalType) {
+          this.updateFavState();
+        }
+        
+        // 更新图标
         BizUtils.replaceIcons();
       },
 
@@ -591,6 +760,13 @@
         this.modalType = null;
         this.modalId = null;
         this.modalTitle = null;
+        this.modalHistory = []; // 清空历史
+        // 恢复底部按钮显示
+        document.getElementById('modalFavBtn').style.display = '';
+        document.getElementById('modalOpenBtn').style.display = '';
+        document.querySelector('.detail-modal-footer').style.display = 'flex';
+        // 隐藏返回按钮
+        document.getElementById('modalBackBtn').style.display = 'none';
       },
 
       updateFavState: function() {

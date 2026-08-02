@@ -1270,6 +1270,7 @@ const ThumbnailLoader = {
     },
     templateViewMode: 'grid',
     templateSortMode: 'random', // 模板排序模式：'random'随机 或 'original'原始顺序
+    modalTypeFilter: null, // 弹窗中类型筛选（早安/晚安）
     currentSlideIndex: 0,
     allTemplatesList: [],
     currentSlideTemplatesList: [],
@@ -5541,6 +5542,9 @@ const ThumbnailLoader = {
     elements.templateModal.classList.remove('closing');
     elements.templateModal.querySelector('.modal').classList.remove('closing');
 
+    // 隐藏类型筛选条（打开弹窗时重置）
+    updateModalTypeTags(null);
+
     // 显示弹窗 - 通过移除hidden类
     elements.templateModal.classList.remove('hidden');
     // 同时设置display确保兼容性
@@ -5637,7 +5641,10 @@ const ThumbnailLoader = {
         
         // 自动滚动到可见区域
         scrollToElement(targetFestivalTag);
-        
+
+        // 更新类型筛选条
+        updateModalTypeTags(filterFestival);
+
         // 先筛选节日模板
         filterTemplatesByFestival(filterFestival);
         
@@ -6252,6 +6259,8 @@ const ThumbnailLoader = {
       }
       // 自动滚动到可见区域
       scrollToElement(this);
+      // 更新类型筛选条
+      updateModalTypeTags('☀️ 早安');
       // 筛选显示早安模板
       filterTemplatesByFestival('☀️ 早安');
     };
@@ -6280,6 +6289,8 @@ const ThumbnailLoader = {
       }
       // 自动滚动到可见区域
       scrollToElement(this);
+      // 更新类型筛选条
+      updateModalTypeTags('🌙 晚安');
       // 筛选显示晚安模板
       filterTemplatesByFestival('🌙 晚安');
     };
@@ -6339,27 +6350,37 @@ const ThumbnailLoader = {
         document.querySelectorAll('.festival-tag').forEach(tag => tag.classList.remove('active'));
         // 添加当前标签的选中状态
         this.classList.add('active');
-        
-        // 显示节日日期和倒计时
-        const dateStr = getFestivalFutureDate(festival.name);
-        const daysUntil = getDaysUntilDate(dateStr);
-        
-        let countdownText = '';
-        if (daysUntil > 0) {
-          countdownText = `（还有${daysUntil}天）`;
-        } else if (daysUntil === 0) {
-          countdownText = `（今天）`;
+
+        // 早安/晚安清空日期显示，其他显示节日日期
+        if (festival.name === '☀️ 早安' || festival.name === '🌙 晚安') {
+          if (elements.modalFestivalDateDisplay) {
+            elements.modalFestivalDateDisplay.textContent = '';
+          }
         } else {
-          countdownText = `（已过期）`;
+          // 显示节日日期和倒计时
+          const dateStr = getFestivalFutureDate(festival.name);
+          const daysUntil = getDaysUntilDate(dateStr);
+
+          let countdownText = '';
+          if (daysUntil > 0) {
+            countdownText = `（还有${daysUntil}天）`;
+          } else if (daysUntil === 0) {
+            countdownText = `（今天）`;
+          } else {
+            countdownText = `（已过期）`;
+          }
+
+          if (elements.modalFestivalDateDisplay) {
+            elements.modalFestivalDateDisplay.innerHTML = `${festival.name}：${dateStr} <span style="font-weight: bold; color: red;">${countdownText}</span>`;
+          }
         }
-        
-        if (elements.modalFestivalDateDisplay) {
-          elements.modalFestivalDateDisplay.innerHTML = `${festival.name}：${dateStr} <span style="font-weight: bold; color: red;">${countdownText}</span>`;
-        }
-        
+
         // 自动滚动到可见区域
         scrollToElement(this);
-        
+
+        // 更新类型筛选条
+        updateModalTypeTags(festival.name);
+
         // 筛选显示该节日的模板
         filterTemplatesByFestival(festival.name);
       };
@@ -6371,8 +6392,73 @@ const ThumbnailLoader = {
       elements.modalFestivalTags.appendChild(festivalTag);
     });
   }
-  
-  // 填充模板网格
+
+  // 更新弹窗类型筛选标签（仅早安/晚安时显示）
+  function updateModalTypeTags(festival) {
+    var typeTagsDiv = document.getElementById('modalTypeTags');
+    var typeTagsContainer = document.getElementById('modalTypeTagsContainer');
+    if (!typeTagsDiv || !typeTagsContainer) return;
+
+    // 只有早安/晚安才显示类型筛选
+    if (festival !== '☀️ 早安' && festival !== '🌙 晚安') {
+      typeTagsDiv.style.display = 'none';
+      state.modalTypeFilter = null;
+      return;
+    }
+
+    // 获取该节日下的所有模板，提取type值
+    var festivalKey = festival === '☀️ 早安' ? '早安' : '晚安';
+    var festivalTemplates = window.templates[festivalKey] || [];
+
+    // 动态提取所有不重复的type值
+    var typeSet = new Set();
+    festivalTemplates.forEach(function(t) {
+      if (t.type) typeSet.add(t.type);
+    });
+    var types = Array.from(typeSet);
+
+    // 如果只有一种类型，不需要显示筛选条
+    if (types.length <= 1) {
+      typeTagsDiv.style.display = 'none';
+      state.modalTypeFilter = null;
+      return;
+    }
+
+    // 渲染类型标签
+    var html = '<span class="type-tag active" data-type="">全部</span>';
+    types.forEach(function(t) {
+      html += '<span class="type-tag" data-type="' + t + '">' + t + '</span>';
+    });
+    typeTagsContainer.innerHTML = html;
+    typeTagsDiv.style.display = 'block';
+
+    // 重置类型筛选
+    state.modalTypeFilter = null;
+
+    // 绑定点击事件
+    typeTagsContainer.querySelectorAll('.type-tag').forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        var selectedType = this.dataset.type;
+        // 切换选中状态
+        typeTagsContainer.querySelectorAll('.type-tag').forEach(function(t) {
+          t.classList.remove('active');
+        });
+        if (state.modalTypeFilter === selectedType) {
+          // 再次点击取消选中
+          state.modalTypeFilter = null;
+          typeTagsContainer.querySelector('.type-tag[data-type=""]').classList.add('active');
+        } else {
+          state.modalTypeFilter = selectedType;
+          this.classList.add('active');
+        }
+        // 获取当前选中的节日
+        var activeFestivalTag = document.querySelector('#modalFestivalTags .festival-tag.active');
+        if (activeFestivalTag) {
+          filterTemplatesByFestival(activeFestivalTag.dataset.festival);
+        }
+      });
+    });
+  }
   function fillTemplateGrid() {
     if (!window.templates || !elements.templateGrid) return;
     
@@ -7387,10 +7473,16 @@ const ThumbnailLoader = {
       });
     }
 
+    // 如果有类型筛选，进一步过滤
+    let typeFilteredTemplates = filteredTemplates;
+    if (state.modalTypeFilter) {
+      typeFilteredTemplates = filteredTemplates.filter(t => t.type === state.modalTypeFilter);
+    }
+
     // 根据排序模式决定模板顺序
-    let sortedTemplates = filteredTemplates;
+    let sortedTemplates = typeFilteredTemplates;
     if (state.templateSortMode === 'random') {
-      sortedTemplates = shuffleArray(filteredTemplates);
+      sortedTemplates = shuffleArray(typeFilteredTemplates);
     }
 
     // 渲染排序后的模板
@@ -7615,6 +7707,11 @@ const ThumbnailLoader = {
       }
     } else {
       filteredTemplates = getAllTemplatesList();
+    }
+
+    // 如果有类型筛选，进一步过滤
+    if (state.modalTypeFilter) {
+      filteredTemplates = filteredTemplates.filter(t => t.type === state.modalTypeFilter);
     }
 
     // 根据排序模式决定模板顺序

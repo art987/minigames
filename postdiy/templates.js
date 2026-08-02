@@ -7755,7 +7755,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-3',
@@ -7763,7 +7763,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-4',
@@ -7771,7 +7771,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-5',
@@ -7779,7 +7779,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-6',
@@ -7787,7 +7787,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-7',
@@ -7795,7 +7795,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-8',
@@ -7803,7 +7803,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-9',
@@ -7811,7 +7811,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-10',
@@ -7819,7 +7819,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-11',
@@ -7827,7 +7827,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-12',
@@ -7835,7 +7835,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-13',
@@ -7843,7 +7843,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-14',
@@ -7851,7 +7851,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-15',
@@ -7859,7 +7859,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-16',
@@ -7867,7 +7867,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-17',
@@ -7875,7 +7875,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-18',
@@ -7883,7 +7883,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-19',
@@ -7891,7 +7891,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-20',
@@ -7899,7 +7899,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-21',
@@ -7907,7 +7907,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-22',
@@ -7915,7 +7915,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-23',
@@ -7923,7 +7923,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-24',
@@ -7931,7 +7931,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-25',
@@ -7939,7 +7939,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-26',
@@ -7947,7 +7947,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-27',
@@ -7955,7 +7955,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-28',
@@ -7963,7 +7963,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-29',
@@ -7971,7 +7971,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-30',
@@ -7979,7 +7979,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-31',
@@ -7987,7 +7987,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-32',
@@ -7995,7 +7995,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-33',
@@ -8003,7 +8003,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-spring-34',
@@ -8011,7 +8011,7 @@ var templates = {
       months: [3, 4, 5],
       festivals: ['早安'],
       description: '春季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     // 夏季模板 (54-82)
     {
@@ -8020,7 +8020,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-2',
@@ -8028,7 +8028,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-3',
@@ -8036,7 +8036,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-4',
@@ -8044,7 +8044,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-5',
@@ -8052,7 +8052,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-6',
@@ -8060,7 +8060,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-7',
@@ -8068,7 +8068,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-8',
@@ -8076,7 +8076,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-9',
@@ -8084,7 +8084,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-10',
@@ -8092,7 +8092,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-11',
@@ -8100,7 +8100,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-12',
@@ -8108,7 +8108,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-13',
@@ -8116,7 +8116,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-14',
@@ -8124,7 +8124,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-15',
@@ -8132,7 +8132,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-16',
@@ -8140,7 +8140,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-17',
@@ -8148,7 +8148,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-18',
@@ -8156,7 +8156,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-19',
@@ -8164,7 +8164,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-20',
@@ -8172,7 +8172,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-21',
@@ -8180,7 +8180,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-22',
@@ -8188,7 +8188,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-23',
@@ -8196,7 +8196,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-24',
@@ -8204,7 +8204,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-25',
@@ -8212,7 +8212,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-26',
@@ -8220,7 +8220,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-27',
@@ -8228,7 +8228,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-28',
@@ -8236,7 +8236,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-summer-29',
@@ -8244,7 +8244,7 @@ var templates = {
       months: [6, 7, 8],
       festivals: ['早安'],
       description: '夏季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     // 秋季模板 (84-101)
     {
@@ -8253,7 +8253,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-2',
@@ -8261,7 +8261,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-3',
@@ -8269,7 +8269,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-4',
@@ -8277,7 +8277,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-5',
@@ -8285,7 +8285,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-6',
@@ -8293,7 +8293,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-7',
@@ -8301,7 +8301,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-8',
@@ -8309,7 +8309,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-9',
@@ -8317,7 +8317,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-10',
@@ -8325,7 +8325,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-11',
@@ -8333,7 +8333,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-12',
@@ -8341,7 +8341,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-13',
@@ -8349,7 +8349,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-14',
@@ -8357,7 +8357,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-15',
@@ -8365,7 +8365,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-16',
@@ -8373,7 +8373,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-17',
@@ -8381,7 +8381,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-autumn-18',
@@ -8389,7 +8389,7 @@ var templates = {
       months: [9, 10, 11],
       festivals: ['早安'],
       description: '秋季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     // 冬季模板 (103-129)
     {
@@ -8398,7 +8398,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-2',
@@ -8406,7 +8406,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-3',
@@ -8414,7 +8414,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-4',
@@ -8422,7 +8422,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-5',
@@ -8430,7 +8430,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-6',
@@ -8438,7 +8438,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-7',
@@ -8446,7 +8446,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-8',
@@ -8454,7 +8454,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-9',
@@ -8462,7 +8462,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-10',
@@ -8470,7 +8470,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-11',
@@ -8478,7 +8478,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-12',
@@ -8486,7 +8486,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-13',
@@ -8494,7 +8494,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-14',
@@ -8502,7 +8502,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-15',
@@ -8510,7 +8510,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-16',
@@ -8518,7 +8518,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-17',
@@ -8526,7 +8526,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-18',
@@ -8534,7 +8534,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-19',
@@ -8542,7 +8542,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-20',
@@ -8550,7 +8550,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-21',
@@ -8558,7 +8558,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-22',
@@ -8566,7 +8566,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-23',
@@ -8574,7 +8574,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-24',
@@ -8582,7 +8582,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-25',
@@ -8590,7 +8590,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-26',
@@ -8598,7 +8598,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'zaoan-2026-winter-27',
@@ -8606,7 +8606,7 @@ var templates = {
       months: [12, 1, 2],
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     }
   ],
 
@@ -8698,7 +8698,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '祥和安宁晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-012',
@@ -8706,7 +8706,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '美好夜晚晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-013',
@@ -8714,7 +8714,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '梦幻意境晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-014',
@@ -8722,7 +8722,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '星辰闪烁晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-015',
@@ -8730,7 +8730,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '夜色迷人晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-016',
@@ -8738,7 +8738,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '清风徐来晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-017',
@@ -8746,7 +8746,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '悠然自得晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-018',
@@ -8754,7 +8754,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '恬静美好晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-019',
@@ -8762,7 +8762,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '惬意舒适晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-020',
@@ -8770,7 +8770,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '舒心愉悦晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-021',
@@ -8778,7 +8778,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '岁月静好晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-022',
@@ -8786,7 +8786,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '幽雅别致晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-023',
@@ -8794,7 +8794,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '诗意盎然晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-024',
@@ -8802,7 +8802,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '浪漫唯美晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-025',
@@ -8810,7 +8810,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '柔情似水晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-026',
@@ -8818,7 +8818,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '静谧安详晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-027',
@@ -8826,7 +8826,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '幽静深远晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-028',
@@ -8834,7 +8834,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '平和安详晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-029',
@@ -8842,7 +8842,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '安然入睡晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-030',
@@ -8850,7 +8850,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '舒坦自在晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-031',
@@ -8858,7 +8858,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '舒适惬意晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-032',
@@ -8866,7 +8866,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '静心养神晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-033',
@@ -8874,7 +8874,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '宁静致远晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-034',
@@ -8882,7 +8882,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '安详宁静晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-035',
@@ -8890,7 +8890,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '祥和温馨晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     },
     {
       id: 'wanan-2024-036',
@@ -8898,7 +8898,7 @@ var templates = {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['晚安'],
       description: '美满幸福晚安主题海报模板',
-      type: '日常'
+      type: '著名美景'
     }
   ]
 };
