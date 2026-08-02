@@ -1,4 +1,4 @@
-/* Lucide 图标通用样式 */
+/* Lucide å›¾æ ‡é€šç”¨æ ·å¼ */
 #backBtnContent .biz-icon { stroke: rgb(216 39 19);stroke-width:3px;}
 #searchIconHolder .biz-icon { stroke: rgb(183, 183, 183);stroke-width:1px;}
 .detail-modal-body .biz-icon{stroke: rgb(188 188 188);}
@@ -13,7 +13,7 @@
   stroke-linejoin: round;
 }
 
-/* 页面头部 - 标题/返回/搜索一行 */
+/* é¡µé¢å¤´éƒ¨ - æ ‡é¢˜/è¿”å›ž/æœç´¢ä¸€è¡Œ */
 .biz-page-header {
   background: #ffffff;
   padding: 12px 16px;
@@ -31,7 +31,7 @@
 .biz-page-header h1 {
   display: none;
 }
-/* 返回按钮 - 极简 */
+/* è¿”å›žæŒ‰é’® - æžç®€ */
 .biz-back-btn {
   display: none;
   font-size: 0px;
@@ -59,7 +59,7 @@
   align-items: center;
 }
 
-/* 搜索框 - 与标题同行 */
+/* æœç´¢æ¡† - ä¸Žæ ‡é¢˜åŒè¡Œ */
 .biz-search-box {
   display: flex;
   align-items: center;
@@ -92,7 +92,7 @@
   color: var(--biz-text-tertiary);
 }
 
-/* ===== 篇章时间轴 ===== */
+/* ===== ç¯‡ç« æ—¶é—´è½´ ===== */
 .biz-chapter-grid {
   display: flex;
   flex-direction: column;
@@ -101,7 +101,7 @@
   padding: 30px 0 0 31px;
   position: relative;
 }
-/* 左侧竖线 */
+/* å·¦ä¾§ç«–çº¿ */
 .biz-chapter-grid::before {
   content: '';
   position: absolute;
@@ -130,7 +130,7 @@
 .biz-chapter-card:last-child {
   margin-bottom: 0;
 }
-/* 时间轴圆点 */
+/* æ—¶é—´è½´åœ†ç‚¹ */
 .biz-chapter-card::before {
   content: '';
   position: absolute;
@@ -151,7 +151,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transform: translateY(-1px);
 }
-/* 隐藏旧的左侧色条 */
+/* éšè—æ—§çš„å·¦ä¾§è‰²æ¡ */
 .biz-chapter-card .chapter-bar {
   display: none;
 }
@@ -200,7 +200,7 @@
   font-weight: 700;
   font-size: var(--biz-font-small);
 }
-/* 篇章卡片二级分类 - 垂直列表布局 */
+/* ç¯‡ç« å¡ç‰‡äºŒçº§åˆ†ç±» - åž‚ç›´åˆ—è¡¨å¸ƒå±€ */
 .chapter-subs {
   display: flex;
   flex-direction: column;
@@ -212,7 +212,7 @@
   /* background: #f8f9fa; */
   backdrop-filter: blur(2px);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 10px 9px;
   border: 1px solid rgba(0,0,0,0.04);
 }
 .chapter-sub-header {
@@ -226,7 +226,7 @@
   align-items: center;
   font-size: 14px;
   line-height: 10px;
-  font-weight: 300;
+  font-weight: 500;
   color: var(--biz-text-primary);
   background: transparent;
   border: none;
@@ -237,23 +237,23 @@
   user-select: none;
 }
 .chapter-sub-tag::after {
-  content: '›';
+  content: '>';
   margin-left: 9px;
   color: #c00;
-  font-size: 26px;
+  font-size: 17px;
   font-weight: 400;
   line-height: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 .chapter-sub-stats {
   display: flex;
-  gap: 8px;
+  gap: 3px;
   padding-bottom: 8px;
 }
 .chapter-sub-stat {
   flex: 1;
   text-align: center;
-  padding: 6px 4px;
+  padding: 6px 1px;
   background: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -274,12 +274,12 @@
   white-space: nowrap;
   overflow: hidden;
   margin-right: ;
-  margin-right: 6px;
+  margin-right: 3px;
   text-overflow: ellipsis;
 }
 .chapter-sub-stat-value {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 400;
   color: #26b751;
 }
 .chapter-sub-stat-label.enhanced {
@@ -298,7 +298,7 @@
   display: none;
 }
 
-/* ===== 篇章详情头部 ===== */
+/* ===== ç¯‡ç« è¯¦æƒ…å¤´éƒ¨ ===== */
 #chapterHeaderWrap{background-color: linear-gradient(135deg, #ddecfe 0%, #fff5f0 100%);}
 .biz-chapter-header {
   display: flex;
@@ -319,6 +319,7 @@
 .biz-chapter-header .ch-icon svg {
   width: 50px !important;
   height: 50px !important;
+  stroke: rgb(104 139 181);
 }
 .biz-chapter-header .ch-info .ch-name {
   font-size: var(--biz-font-h2);
@@ -333,7 +334,7 @@
   letter-spacing: 2px;
 }
 
-/* ===== 二级分类标签 ===== */
+/* ===== äºŒçº§åˆ†ç±»æ ‡ç­¾ ===== */
 .biz-sub-tabs {
   display: flex;
   gap: 8px;
@@ -373,7 +374,7 @@
   font-weight: 500;
 }
 
-/* ===== 方案卡片列表 ===== */
+/* ===== æ–¹æ¡ˆå¡ç‰‡åˆ—è¡¨ ===== */
 .biz-solution-list {
   display: flex;
   flex-direction: column;
@@ -422,7 +423,7 @@
   display: none;
 }
 
-/* 搜索结果分组标签 */
+/* æœç´¢ç»“æžœåˆ†ç»„æ ‡ç­¾ */
 .search-section-label {
   font-size: 12px;
   color: var(--biz-text-tertiary);
@@ -454,15 +455,15 @@
   opacity: 0.6;
 }
 .biz-solution-card .card-case-link::before {
-  content: '› ';
+  content: '>';
   color: #0071E3;
   font-weight: 300;
 }
 
-/* 视图切换动画 */
+/* è§†å›¾åˆ‡æ¢åŠ¨ç”» */
 .view-hidden { display: none; }
 
-/* ===== 案例卡片 ===== */
+/* ===== æ¡ˆä¾‹å¡ç‰‡ ===== */
 .biz-case-section {
   margin-top: 16px;
 }
@@ -509,8 +510,8 @@
   font-weight: 500;
 }
 
-/* ===== 弹窗内列表样式 ===== */
-/* 心得笔记列表 */
+/* ===== å¼¹çª—å†…åˆ—è¡¨æ ·å¼ ===== */
+/* å¿ƒå¾—ç¬”è®°åˆ—è¡¨ */
 .cd-tips-list {
   display: flex;
   flex-direction: column;
@@ -547,7 +548,7 @@
   line-height: 1.5;
 }
 
-/* 指导方案列表 */
+/* æŒ‡å¯¼æ–¹æ¡ˆåˆ—è¡¨ */
 .cd-solutions-list {
   display: flex;
   flex-direction: column;
@@ -588,7 +589,7 @@
   font-weight: 300;
 }
 
-/* 案例学习列表 */
+/* æ¡ˆä¾‹å­¦ä¹ åˆ—è¡¨ */
 .cd-cases-list {
   display: flex;
   flex-direction: column;
@@ -615,8 +616,8 @@
 }
 .cd-case-effect {
   font-size: 13px;
-  color: #acacac;
-  font-weight: 500;
+  color: #646161;
+  font-weight: 300;
   line-height: 1.5;
   padding-right: 24px;
 }
@@ -630,7 +631,7 @@
   font-weight: 300;
 }
 
-/* ===== 右下角浮动按钮 ===== */
+/* ===== å³ä¸‹è§’æµ®åŠ¨æŒ‰é’® ===== */
 .sol-fab-group {
   position: fixed;
   right: 16px;
@@ -688,14 +689,14 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* 解决方案页面底部留白，避免浮动按钮遮挡 */
+/* è§£å†³æ–¹æ¡ˆé¡µé¢åº•éƒ¨ç•™ç™½ï¼Œé¿å…æµ®åŠ¨æŒ‰é’®é®æŒ¡ */
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
   padding: 0 0 96px;
 }
 
-/* ===== 详情弹窗 ===== */
+/* ===== è¯¦æƒ…å¼¹çª— ===== */
 .detail-modal {
   position: fixed;
   top: 0;
@@ -761,13 +762,12 @@
   background: rgba(0, 113, 227, 0.1);
 }
 .detail-modal-title {
-  font-size: var(--biz-font-h2);
+  font-size: var(--biz-font-h3);
   font-weight: 200;
-  text-indent: 13px;
-  padding-right: 29px;
+  padding: 0 8px 0 33px;
   color: var(--biz-text-primary);
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
 }
 .detail-modal-close {
   display: flex;
@@ -847,7 +847,7 @@
   opacity: 0.8;
 }
 
-/* ===== 弹窗内容样式（方案/案例详情） ===== */
+/* ===== å¼¹çª—å†…å®¹æ ·å¼ï¼ˆæ–¹æ¡ˆ/æ¡ˆä¾‹è¯¦æƒ…ï¼‰ ===== */
 .detail-modal-body .sd-overview,
 .detail-modal-body .cd-overview {
   margin-bottom: 8px;
@@ -959,7 +959,7 @@
   position: relative;
 }
 .detail-modal-body .sd-note-item::before {
-  content: '⚠';
+  content: 'âš ';
   position: absolute;
   left: 0;
   top: 4px;
@@ -974,7 +974,7 @@
 }
 .detail-modal-body .cd-problem-text {
   font-size: 14px;
-  color: #0c4bb5;
+  color: #be0101;
   line-height: 1.7;
   margin: 0;
 }
@@ -1041,7 +1041,7 @@
   margin-right: 10px;
 }
 
-/* ===== 心得滚动版块 ===== */
+/* ===== å¿ƒå¾—æ»šåŠ¨ç‰ˆå— ===== */
 .tips-scroller-wrap {
   margin: 0 15px 20px 15px;
   background: #ffffff;
@@ -1144,7 +1144,7 @@
   height: 16px;
 }
 
-/* ===== 心得弹窗 ===== */
+/* ===== å¿ƒå¾—å¼¹çª— ===== */
 .tips-modal {
   position: fixed;
   top: 0;
@@ -1247,108 +1247,108 @@
   line-height: 1.7;
 }
 
-/* ===== 篇章卡片背景图 ===== */
+/* ===== ç¯‡ç« å¡ç‰‡èƒŒæ™¯å›¾ ===== */
 .biz-chapter-card {
   background-repeat: no-repeat;
 }
 
-/* 第1篇：开店选址 */
+/* ç¬¬1ç¯‡ï¼šå¼€åº—é€‰å€ */
 .chapter-card-1 {
   background-image: url('../images/statics/1.png');
   background-size: 136px;
   background-position: -21px -4px;
 }
 
-/* 第2篇：产品定价 */
+/* ç¬¬2ç¯‡ï¼šäº§å“å®šä»· */
 .chapter-card-2 {
   background-image: url('../images/statics/2.png');
   background-size: 130px;
   background-position: -19px -8px;
 }
 
-/* 第3篇：客户运营 */
+/* ç¬¬3ç¯‡ï¼šå®¢æˆ·è¿è¥ */
 .chapter-card-3 {
   background-image: url('../images/statics/3.png');
   background-size: 130px;
   background-position: -19px -10px;
 }
 
-/* 第4篇：获客引流 */
+/* ç¬¬4ç¯‡ï¼šèŽ·å®¢å¼•æµ */
 .chapter-card-4 {
   background-image: url('../images/statics/4.png');
   background-size: 131px;
   background-position: -16px -6px;
 }
 
-/* 第5篇：店铺管理 */
+/* ç¬¬5ç¯‡ï¼šåº—é“ºç®¡ç† */
 .chapter-card-5 {
   background-image: url('../images/statics/5.png');
   background-size: 139px;
   background-position: -25px -6px;
 }
 
-/* 第6篇：经营智慧 */
+/* ç¬¬6ç¯‡ï¼šç»è¥æ™ºæ…§ */
 .chapter-card-6 {
   background-image: url('../images/statics/6.png');
   background-size: 139px;
   background-position: -22px -8px;
 }
 
-/* 第7篇：金点子 */
+/* ç¬¬7ç¯‡ï¼šé‡‘ç‚¹å­ */
 .chapter-card-7 {
   background-image: url('../images/statics/7.png');
   background-size: 143px;
   background-position: -31px -15px;
 }
 
-/* ===== 篇章详情页头部背景图 ===== */
+/* ===== ç¯‡ç« è¯¦æƒ…é¡µå¤´éƒ¨èƒŒæ™¯å›¾ ===== */
 .chapter-header-wrap {
   background-repeat: no-repeat;
 }
 
-/* 第1篇：开店选址 */
+/* ç¬¬1ç¯‡ï¼šå¼€åº—é€‰å€ */
 .chapter-header-wrap-1 {
   background-image: url('../images/statics/1.png');
   background-size: 148px;
   background-position: right -6px;
 }
 
-/* 第2篇：产品定价 */
+/* ç¬¬2ç¯‡ï¼šäº§å“å®šä»· */
 .chapter-header-wrap-2 {
   background-image: url('../images/statics/2.png');
   background-size: 132px;
   background-position: right 12px;
 }
 
-/* 第3篇：客户运营 */
+/* ç¬¬3ç¯‡ï¼šå®¢æˆ·è¿è¥ */
 .chapter-header-wrap-3 {
   background-image: url('../images/statics/3.png');
   background-size: 141px;
   background-position: right -9px;
 }
 
-/* 第4篇：获客引流 */
+/* ç¬¬4ç¯‡ï¼šèŽ·å®¢å¼•æµ */
 .chapter-header-wrap-4 {
   background-image: url('../images/statics/4.png');
   background-size: 174px;
   background-position: right -16px;
 }
 
-/* 第5篇：店铺管理 */
+/* ç¬¬5ç¯‡ï¼šåº—é“ºç®¡ç† */
 .chapter-header-wrap-5 {
   background-image: url('../images/statics/5.png');
   background-size: 177px;
   background-position: right -13px;
 }
 
-/* 第6篇：经营智慧 */
+/* ç¬¬6ç¯‡ï¼šç»è¥æ™ºæ…§ */
 .chapter-header-wrap-6 {
   background-image: url('../images/statics/6.png');
   background-size: 171px;
   background-position: right -10px;
 }
 
-/* 第7篇：金点子 */
+/* ç¬¬7ç¯‡ï¼šé‡‘ç‚¹å­ */
 .chapter-header-wrap-7 {
   background-image: url('../images/statics/7.png');
   background-size: 181px;
