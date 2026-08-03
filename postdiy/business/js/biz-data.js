@@ -6940,7 +6940,7 @@ cases: [
   {
     _id: "case_g33",
     title: "卖凳子砸凳子挑战",
-    industry: "家居办公",
+    industry: "通用",
     chapter: 7,
     sub: 701,
     solutionId: "sol_145",
@@ -7122,7 +7122,7 @@ cases: [
   {
     _id: "case_g47",
     title: "卖寿司挑战+裂变",
-    industry: "餐饮",
+    industry: "通用",
     chapter: 7,
     sub: 703,
     solutionId: "sol_156",
@@ -7174,7 +7174,7 @@ cases: [
   {
     _id: "case_g51",
     title: "火锅店病毒式裂变30天收款190万",
-    industry: "餐饮",
+    industry: "火锅店",
     chapter: 7,
     sub: 703,
     solutionId: "sol_155",
@@ -7187,7 +7187,7 @@ cases: [
   {
     _id: "case_g52",
     title: "大学城服装店2元投入赚23元",
-    industry: "零售",
+    industry: "服饰鞋包",
     chapter: 7,
     sub: 702,
     solutionId: "sol_149",
@@ -7213,7 +7213,7 @@ cases: [
   {
     _id: "case_g54",
     title: "知识付费自动化管道收入",
-    industry: "其他",
+    industry: "知识付费",
     chapter: 7,
     sub: 704,
     solutionId: "sol_159",
@@ -7226,7 +7226,7 @@ cases: [
   {
     _id: "case_g55",
     title: "烤鱼店1元吃套餐7天拓客1500人",
-    industry: "餐饮",
+    industry: "餐厅",
     chapter: 7,
     sub: 701,
     solutionId: "sol_146",
@@ -7239,7 +7239,7 @@ cases: [
   {
     _id: "case_g56",
     title: "酒店充588送3000超级成交",
-    industry: "餐饮",
+    industry: "旅游酒店",
     chapter: 7,
     sub: 703,
     solutionId: "sol_154",
@@ -7252,7 +7252,7 @@ cases: [
   {
     _id: "case_g57",
     title: "母婴店衣服卖1元年赚80万",
-    industry: "零售",
+    industry: "母婴用品",
     chapter: 7,
     sub: 703,
     solutionId: "sol_155",
@@ -7278,7 +7278,7 @@ cases: [
   {
     _id: "case_g59",
     title: "0成本虚拟产品月赚300万信息差",
-    industry: "其他",
+    industry: "知识付费",
     chapter: 7,
     sub: 704,
     solutionId: "sol_157",
@@ -7291,7 +7291,7 @@ cases: [
   {
     _id: "case_g60",
     title: "便利店积赞领鸡蛋自动锁客",
-    industry: "零售",
+    industry: "超市便利",
     chapter: 7,
     sub: 703,
     solutionId: "sol_154",
@@ -7304,7 +7304,7 @@ cases: [
   {
     _id: "case_g61",
     title: "大型超市充值3万送10万汽车3年收款3000万",
-    industry: "零售",
+    industry: "超市便利",
     chapter: 7,
     sub: 703,
     solutionId: "sol_155",
@@ -7330,7 +7330,7 @@ cases: [
   {
     _id: "case_g63",
     title: "饭店充500送2500资源整合盈利",
-    industry: "餐饮",
+    industry: "餐厅",
     chapter: 7,
     sub: 703,
     solutionId: "sol_154",
@@ -7369,7 +7369,7 @@ cases: [
   {
     _id: "case_g66",
     title: "连锁超市免费送车扭亏为盈",
-    industry: "零售",
+    industry: "超市便利",
     chapter: 7,
     sub: 703,
     solutionId: "sol_156",
@@ -7382,7 +7382,7 @@ cases: [
   {
     _id: "case_g67",
     title: "KTV一招锁定80%顾客办卡",
-    industry: "餐饮",
+    industry: "KTV娱乐",
     chapter: 7,
     sub: 702,
     solutionId: "sol_150",
@@ -7395,7 +7395,7 @@ cases: [
   {
     _id: "case_g68",
     title: "米线店投入5000元6个月赚600万",
-    industry: "餐饮",
+    industry: "面馆小吃",
     chapter: 7,
     sub: 704,
     solutionId: "sol_159",
@@ -7408,7 +7408,7 @@ cases: [
   {
     _id: "case_g69",
     title: "女鞋店年销从100万到2000万",
-    industry: "零售",
+    industry: "服饰鞋包",
     chapter: 7,
     sub: 703,
     solutionId: "sol_154",
@@ -7434,7 +7434,7 @@ cases: [
   {
     _id: "case_g71",
     title: "装修公司物业费全返15天收款200万",
-    industry: "其他",
+    industry: "房产装修",
     chapter: 7,
     sub: 701,
     solutionId: "sol_145",
@@ -7447,7 +7447,7 @@ cases: [
   {
     _id: "case_g72",
     title: "大学城鞋店预存200元月销翻7倍",
-    industry: "零售",
+    industry: "服饰鞋包",
     chapter: 7,
     sub: 703,
     solutionId: "sol_155",
@@ -7460,7 +7460,7 @@ cases: [
   {
     _id: "case_g73",
     title: "教育机构99元辅导寒假作业招7000学员",
-    industry: "其他",
+    industry: "学科辅导",
     chapter: 7,
     sub: 701,
     solutionId: "sol_146",
@@ -7473,7 +7473,7 @@ cases: [
   {
     _id: "case_g74",
     title: "库存鞋房地产抽奖10天清货赚12万",
-    industry: "零售",
+    industry: "服饰鞋包",
     chapter: 7,
     sub: 701,
     solutionId: "sol_147",
@@ -7486,7 +7486,7 @@ cases: [
   {
     _id: "case_g75",
     title: "水饺店9.9元吃一月抢洗碗机",
-    industry: "餐饮",
+    industry: "通用",
     chapter: 7,
     sub: 702,
     solutionId: "sol_148",
@@ -7499,7 +7499,7 @@ cases: [
   {
     _id: "case_g76",
     title: "红酒订货20万送30万宝马招募经销商",
-    industry: "其他",
+    industry: "通用",
     chapter: 7,
     sub: 704,
     solutionId: "sol_157",
@@ -7512,7 +7512,7 @@ cases: [
   {
     _id: "case_g77",
     title: "快餐店3元吃15元盒饭日销1000份",
-    industry: "餐饮",
+    industry: "快餐简餐",
     chapter: 7,
     sub: 701,
     solutionId: "sol_145",
@@ -7525,7 +7525,7 @@ cases: [
   {
     _id: "case_g78",
     title: "火锅店收押金送家电15天回笼75万",
-    industry: "餐饮",
+    industry: "火锅店",
     chapter: 7,
     sub: 703,
     solutionId: "sol_156",
@@ -7538,7 +7538,7 @@ cases: [
   {
     _id: "case_g79",
     title: "超市1元抢3斤鸡蛋7天拓客8000人",
-    industry: "零售",
+    industry: "超市便利",
     chapter: 7,
     sub: 701,
     solutionId: "sol_146",
@@ -7551,7 +7551,7 @@ cases: [
   {
     _id: "case_g80",
     title: "桶装水订2000元送2000元电动车",
-    industry: "其他",
+    industry: "通用",
     chapter: 7,
     sub: 702,
     solutionId: "sol_149",
@@ -7564,7 +7564,7 @@ cases: [
   {
     _id: "case_g81",
     title: "饭店免费吃炒鸡15天锁客3200人",
-    industry: "餐饮",
+    industry: "餐厅",
     chapter: 7,
     sub: 703,
     solutionId: "sol_154",
@@ -7577,7 +7577,7 @@ cases: [
   {
     _id: "case_g82",
     title: "手机店20元会员卡锁定顾客利润翻番",
-    industry: "零售",
+    industry: "数码家电",
     chapter: 7,
     sub: 702,
     solutionId: "sol_150",
@@ -7616,7 +7616,7 @@ cases: [
   {
     _id: "case_g85",
     title: "德州扒鸡10天收款100万堂食充卡",
-    industry: "餐饮",
+    industry: "通用",
     chapter: 7,
     sub: 703,
     solutionId: "sol_155",
@@ -7629,7 +7629,7 @@ cases: [
   {
     _id: "case_g86",
     title: "奶茶店用美团热力图选址7天定生死",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 1,
     sub: 101,
     solutionId: "sol_101",
@@ -7642,7 +7642,7 @@ cases: [
   {
     _id: "case_g87",
     title: "服装店租金谈判拿下60天免租期",
-    industry: "零售服装",
+    industry: "服饰鞋包",
     chapter: 1,
     sub: 102,
     solutionId: "sol_104",
@@ -7655,7 +7655,7 @@ cases: [
   {
     _id: "case_g88",
     title: "面馆门头改色后进店率提升40%",
-    industry: "餐饮面馆",
+    industry: "面馆小吃",
     chapter: 1,
     sub: 103,
     solutionId: "sol_033",
@@ -7668,7 +7668,7 @@ cases: [
   {
     _id: "case_g89",
     title: "咖啡馆与书店联营共享客流月增3万",
-    industry: "餐饮咖啡",
+    industry: "咖啡甜品",
     chapter: 1,
     sub: 104,
     solutionId: "sol_109",
@@ -7681,7 +7681,7 @@ cases: [
   {
     _id: "case_g90",
     title: "烧烤店避坑租约陷阱省下30万转让费",
-    industry: "餐饮烧烤",
+    industry: "烧烤烤串",
     chapter: 1,
     sub: 105,
     solutionId: "sol_112",
@@ -7694,7 +7694,7 @@ cases: [
   {
     _id: "case_g91",
     title: "快餐店9.9元爆品带动日营业额破万",
-    industry: "餐饮快餐",
+    industry: "快餐简餐",
     chapter: 2,
     sub: 201,
     solutionId: "sol_003",
@@ -7707,7 +7707,7 @@ cases: [
   {
     _id: "case_g92",
     title: "水果店尾数定价让客单价从28涨到52",
-    industry: "零售水果",
+    industry: "水果生鲜",
     chapter: 2,
     sub: 202,
     solutionId: "sol_004",
@@ -7720,7 +7720,7 @@ cases: [
   {
     _id: "case_g93",
     title: "便利店黄金区调整后单品月销翻倍",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 2,
     sub: 203,
     solutionId: "sol_063",
@@ -7733,7 +7733,7 @@ cases: [
   {
     _id: "case_g94",
     title: "生鲜店ABC分类法让损耗从8%降到2%",
-    industry: "零售生鲜",
+    industry: "水果生鲜",
     chapter: 2,
     sub: 204,
     solutionId: "sol_008",
@@ -7746,7 +7746,7 @@ cases: [
   {
     _id: "case_g95",
     title: "西餐厅周更菜单复购率提升3倍",
-    industry: "餐饮西餐",
+    industry: "西餐披萨",
     chapter: 2,
     sub: 205,
     solutionId: "sol_019",
@@ -7759,7 +7759,7 @@ cases: [
   {
     _id: "case_g96",
     title: "珠宝店五步接待法成交率翻倍达38%",
-    industry: "零售珠宝",
+    industry: "饰品珠宝",
     chapter: 3,
     sub: 301,
     solutionId: "sol_006",
@@ -7772,7 +7772,7 @@ cases: [
   {
     _id: "case_g97",
     title: "火锅店投诉四步曲把差评客变回头客",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 3,
     sub: 302,
     solutionId: "sol_071",
@@ -7785,7 +7785,7 @@ cases: [
   {
     _id: "case_g98",
     title: "日料店生日惊喜带火200次朋友圈曝光",
-    industry: "餐饮日料",
+    industry: "餐厅",
     chapter: 3,
     sub: 304,
     solutionId: "sol_043",
@@ -7798,7 +7798,7 @@ cases: [
   {
     _id: "case_g99",
     title: "美发店沉睡客唤醒3天回访到店400人",
-    industry: "美容美发",
+    industry: "美容美甲",
     chapter: 3,
     sub: 305,
     solutionId: "sol_322",
@@ -7811,7 +7811,7 @@ cases: [
   {
     _id: "case_g100",
     title: "烧烤店抖音同城号3个月涨粉5万",
-    industry: "餐饮烧烤",
+    industry: "烧烤烤串",
     chapter: 4,
     sub: 401,
     solutionId: "sol_034",
@@ -7824,7 +7824,7 @@ cases: [
   {
     _id: "case_g101",
     title: "川菜馆美团评价管理进本地榜单前三",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 4,
     sub: 402,
     solutionId: "sol_007",
@@ -7837,7 +7837,7 @@ cases: [
   {
     _id: "case_g102",
     title: "母婴店私域沉淀3万精准客月增20万",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 4,
     sub: 403,
     solutionId: "sol_005",
@@ -7850,7 +7850,7 @@ cases: [
   {
     _id: "case_g103",
     title: "少儿英语与绘本馆联营获客成本降60%",
-    industry: "教育培训",
+    industry: "学科辅导",
     chapter: 4,
     sub: 404,
     solutionId: "sol_016",
@@ -7863,7 +7863,7 @@ cases: [
   {
     _id: "case_g104",
     title: "健身房地推扫码赠品3天获客800人",
-    industry: "健身房",
+    industry: "瑜伽健身",
     chapter: 4,
     sub: 405,
     solutionId: "sol_001",
@@ -7876,7 +7876,7 @@ cases: [
   {
     _id: "case_g105",
     title: "餐饮连锁面试识人法离职率从50%降到15%",
-    industry: "餐饮连锁",
+    industry: "餐厅",
     chapter: 5,
     sub: 501,
     solutionId: "sol_078",
@@ -7889,7 +7889,7 @@ cases: [
   {
     _id: "case_g106",
     title: "火锅店新人三天速成手册上岗周期缩半",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 5,
     sub: 502,
     solutionId: "sol_018",
@@ -7902,7 +7902,7 @@ cases: [
   {
     _id: "case_g107",
     title: "奶茶店薪酬改革后员工月收入破万",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 5,
     sub: 503,
     solutionId: "sol_011",
@@ -7915,7 +7915,7 @@ cases: [
   {
     _id: "case_g108",
     title: "川菜馆食材损耗管控月省2万元",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 5,
     sub: 504,
     solutionId: "sol_009",
@@ -7928,7 +7928,7 @@ cases: [
   {
     _id: "case_g109",
     title: "便利店记账模板让老板看清每月真实利润",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 5,
     sub: 505,
     solutionId: "sol_053",
@@ -7941,7 +7941,7 @@ cases: [
   {
     _id: "case_g110",
     title: "海边餐厅淡季做培训外卖月营收反增30%",
-    industry: "餐饮海鲜",
+    industry: "餐厅",
     chapter: 6,
     sub: 601,
     solutionId: "sol_013",
@@ -7954,7 +7954,7 @@ cases: [
   {
     _id: "case_g111",
     title: "母婴店差异化赠品打赢价格战保住毛利",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 6,
     sub: 602,
     solutionId: "sol_025",
@@ -7967,7 +7967,7 @@ cases: [
   {
     _id: "case_g112",
     title: "水果店疫情转社区团购7天日单破500",
-    industry: "零售水果",
+    industry: "水果生鲜",
     chapter: 6,
     sub: 603,
     solutionId: "sol_127",
@@ -7980,7 +7980,7 @@ cases: [
   {
     _id: "case_g113",
     title: "老板每日复盘三件事3个月业绩翻倍",
-    industry: "经营通用",
+    industry: "通用",
     chapter: 6,
     sub: 604,
     solutionId: "sol_017",
@@ -7993,7 +7993,7 @@ cases: [
   {
     _id: "case_g114",
     title: "烘焙店长期主义三年口碑积累回本千万",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 6,
     sub: 605,
     solutionId: "sol_098",
@@ -8006,7 +8006,7 @@ cases: [
   {
     _id: "case_g115",
     title: "蛋糕店七夕情人节活动3天卖50万",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 7,
     sub: 705,
     solutionId: "sol_705",
@@ -8019,7 +8019,7 @@ cases: [
   {
     _id: "case_g116",
     title: "火锅店老周用人流热力图选址避坑",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 1,
     sub: 101,
     solutionId: "sol_102",
@@ -8045,7 +8045,7 @@ cases: [
   {
     _id: "case_g118",
     title: "面馆李姐蹲点7天统计客流选对店址",
-    industry: "餐饮面食",
+    industry: "面馆小吃",
     chapter: 1,
     sub: 101,
     solutionId: "sol_101",
@@ -8058,7 +8058,7 @@ cases: [
   {
     _id: "case_g119",
     title: "烧烤店王哥租金谈判三板斧省下8万",
-    industry: "餐饮烧烤",
+    industry: "烧烤烤串",
     chapter: 1,
     sub: 102,
     solutionId: "sol_105",
@@ -8071,7 +8071,7 @@ cases: [
   {
     _id: "case_g120",
     title: "便利店赵姐算清隐性成本避开亏损铺",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 1,
     sub: 102,
     solutionId: "sol_106",
@@ -8097,7 +8097,7 @@ cases: [
   {
     _id: "case_g122",
     title: "炸鸡店门口灯光音乐地贴营造引流氛围",
-    industry: "餐饮炸鸡",
+    industry: "快餐简餐",
     chapter: 1,
     sub: 103,
     solutionId: "sol_107",
@@ -8123,7 +8123,7 @@ cases: [
   {
     _id: "case_g124",
     title: "熟食店橱窗灯光聚焦+最佳品陈列引客",
-    industry: "餐饮熟食",
+    industry: "早餐店",
     chapter: 1,
     sub: 103,
     solutionId: "sol_033",
@@ -8136,7 +8136,7 @@ cases: [
   {
     _id: "case_g125",
     title: "花店和咖啡馆互发优惠券互助引流",
-    industry: "鲜花花艺",
+    industry: "花店花卉",
     chapter: 1,
     sub: 104,
     solutionId: "sol_110",
@@ -8175,7 +8175,7 @@ cases: [
   {
     _id: "case_g128",
     title: "面馆李哥签合同前避坑清单躲过二房东",
-    industry: "餐饮面食",
+    industry: "面馆小吃",
     chapter: 1,
     sub: 105,
     solutionId: "sol_113",
@@ -8188,7 +8188,7 @@ cases: [
   {
     _id: "case_g129",
     title: "理发店周姐查城市规划避开拆迁区",
-    industry: "美发理发",
+    industry: "美发造型",
     chapter: 1,
     sub: 105,
     solutionId: "sol_114",
@@ -8253,7 +8253,7 @@ cases: [
   {
     _id: "case_g134",
     title: "烘焙店李哥故事化招牌面包月销800条",
-    industry: "烘焙面包",
+    industry: "烘焙蛋糕",
     chapter: 2,
     sub: 201,
     solutionId: "sol_003",
@@ -8266,7 +8266,7 @@ cases: [
   {
     _id: "case_g135",
     title: "川菜馆陈哥菜单瘦身淘汰30%月利润涨40%",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 2,
     sub: 202,
     solutionId: "sol_010",
@@ -8279,7 +8279,7 @@ cases: [
   {
     _id: "case_g136",
     title: "火锅店赵姐锚定定价毛利提升18%",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 2,
     sub: 202,
     solutionId: "sol_021",
@@ -8292,7 +8292,7 @@ cases: [
   {
     _id: "case_g137",
     title: "便利店周哥ABC分类精简SKU利润涨25%",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 2,
     sub: 202,
     solutionId: "sol_041",
@@ -8305,7 +8305,7 @@ cases: [
   {
     _id: "case_g138",
     title: "咖啡店林姐套餐组合客单价从18涨32元",
-    industry: "咖啡茶饮",
+    industry: "咖啡甜品",
     chapter: 2,
     sub: 202,
     solutionId: "sol_042",
@@ -8331,7 +8331,7 @@ cases: [
   {
     _id: "case_g140",
     title: "美发店吴姐增值服务月增收5万",
-    industry: "美发美甲",
+    industry: "美发造型",
     chapter: 2,
     sub: 202,
     solutionId: "sol_050",
@@ -8344,7 +8344,7 @@ cases: [
   {
     _id: "case_g141",
     title: "西餐厅郑哥毛利优化月净利涨8万",
-    industry: "西餐厅",
+    industry: "西餐披萨",
     chapter: 2,
     sub: 202,
     solutionId: "sol_056",
@@ -8357,7 +8357,7 @@ cases: [
   {
     _id: "case_g142",
     title: "服装店何姐尾数定价成交率提升35%",
-    industry: "服装零售",
+    industry: "服饰鞋包",
     chapter: 2,
     sub: 202,
     solutionId: "sol_062",
@@ -8370,7 +8370,7 @@ cases: [
   {
     _id: "case_g143",
     title: "韩餐店黄哥双人套餐月销600份",
-    industry: "餐饮韩餐",
+    industry: "餐厅",
     chapter: 2,
     sub: 202,
     solutionId: "sol_004",
@@ -8383,7 +8383,7 @@ cases: [
   {
     _id: "case_g144",
     title: "数码店曹姐体验区升级转化率翻倍",
-    industry: "数码电器",
+    industry: "数码家电",
     chapter: 2,
     sub: 203,
     solutionId: "sol_064",
@@ -8409,7 +8409,7 @@ cases: [
   {
     _id: "case_g146",
     title: "鲜花店朱姐差异化定位月销花束1200束",
-    industry: "鲜花花艺",
+    industry: "花店花卉",
     chapter: 2,
     sub: 203,
     solutionId: "sol_063",
@@ -8422,7 +8422,7 @@ cases: [
   {
     _id: "case_g147",
     title: "母婴店胡姐品类优化新品引进季营收增60%",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 2,
     sub: 204,
     solutionId: "sol_060",
@@ -8435,7 +8435,7 @@ cases: [
   {
     _id: "case_g148",
     title: "鞋店郭哥滞销款3天清仓回款8万",
-    industry: "鞋类零售",
+    industry: "服饰鞋包",
     chapter: 2,
     sub: 204,
     solutionId: "sol_066",
@@ -8448,7 +8448,7 @@ cases: [
   {
     _id: "case_g149",
     title: "化妆品店何姐新品试销3个月出爆款",
-    industry: "美妆日化",
+    industry: "美妆护肤",
     chapter: 2,
     sub: 204,
     solutionId: "sol_008",
@@ -8461,7 +8461,7 @@ cases: [
   {
     _id: "case_g150",
     title: "餐厅宋哥季度迭代菜单老店翻红",
-    industry: "餐饮正餐",
+    industry: "餐厅",
     chapter: 2,
     sub: 205,
     solutionId: "sol_028",
@@ -8474,7 +8474,7 @@ cases: [
   {
     _id: "case_g151",
     title: "烘焙店梁姐月度迭代升级月销涨25%",
-    industry: "烘焙面包",
+    industry: "烘焙蛋糕",
     chapter: 2,
     sub: 205,
     solutionId: "sol_061",
@@ -8500,7 +8500,7 @@ cases: [
   {
     _id: "case_g153",
     title: "火锅店陈老板服务升级差异化让客单价涨40%",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 3,
     sub: 301,
     solutionId: "sol_020",
@@ -8513,7 +8513,7 @@ cases: [
   {
     _id: "case_g154",
     title: "美甲店小周全生命周期经营把客留存率做到68%",
-    industry: "美甲美睫",
+    industry: "美容美甲",
     chapter: 3,
     sub: 301,
     solutionId: "sol_069",
@@ -8526,7 +8526,7 @@ cases: [
   {
     _id: "case_g155",
     title: "理发店张师傅生命周期管理法半年复购率翻倍",
-    industry: "美容美发",
+    industry: "美容美甲",
     chapter: 3,
     sub: 301,
     solutionId: "sol_006",
@@ -8539,7 +8539,7 @@ cases: [
   {
     _id: "case_g156",
     title: "川菜馆王老板满意度提升法把差评率压到0.5%",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 3,
     sub: 302,
     solutionId: "sol_073",
@@ -8552,7 +8552,7 @@ cases: [
   {
     _id: "case_g157",
     title: "数码店李老板售后升级法靠服务口碑月多卖20万",
-    industry: "数码电器",
+    industry: "数码家电",
     chapter: 3,
     sub: 302,
     solutionId: "sol_075",
@@ -8565,7 +8565,7 @@ cases: [
   {
     _id: "case_g158",
     title: "健身房刘教练反馈驱动改进法退卡率砍到3%",
-    industry: "健身房",
+    industry: "瑜伽健身",
     chapter: 3,
     sub: 302,
     solutionId: "sol_071",
@@ -8578,7 +8578,7 @@ cases: [
   {
     _id: "case_g159",
     title: "茶饮店赵店长会员留存复购提升法月增8万",
-    industry: "餐饮茶饮",
+    industry: "奶茶茶饮",
     chapter: 3,
     sub: 303,
     solutionId: "sol_068",
@@ -8591,7 +8591,7 @@ cases: [
   {
     _id: "case_g160",
     title: "美容院孙老板储值卡锁客方案沉淀资金80万",
-    industry: "美容美业",
+    industry: "美容美甲",
     chapter: 3,
     sub: 303,
     solutionId: "sol_151",
@@ -8604,7 +8604,7 @@ cases: [
   {
     _id: "case_g161",
     title: "母婴店周姐从零搭建会员体系3月锁客2000人",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 3,
     sub: 303,
     solutionId: "sol_152",
@@ -8617,7 +8617,7 @@ cases: [
   {
     _id: "case_g162",
     title: "服装店林老板会员等级体系搭建法VIP客单翻3倍",
-    industry: "零售服装",
+    industry: "服饰鞋包",
     chapter: 3,
     sub: 303,
     solutionId: "sol_153",
@@ -8630,7 +8630,7 @@ cases: [
   {
     _id: "case_g163",
     title: "烘焙店吴师傅充值锁客三步法储值率65%",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 3,
     sub: 303,
     solutionId: "sol_002",
@@ -8643,7 +8643,7 @@ cases: [
   {
     _id: "case_g164",
     title: "咖啡馆郑老板打卡返利绑定法复购率冲到72%",
-    industry: "餐饮咖啡",
+    industry: "咖啡甜品",
     chapter: 3,
     sub: 303,
     solutionId: "sol_014",
@@ -8656,7 +8656,7 @@ cases: [
   {
     _id: "case_g165",
     title: "KTV马总分时段免费引流术闲时营收翻4倍",
-    industry: "娱乐KTV",
+    industry: "KTV娱乐",
     chapter: 3,
     sub: 303,
     solutionId: "sol_024",
@@ -8669,7 +8669,7 @@ cases: [
   {
     _id: "case_g166",
     title: "修车厂老冯储值锁客增收法半年沉淀60万现金流",
-    industry: "汽修服务",
+    industry: "汽车服务",
     chapter: 3,
     sub: 304,
     solutionId: "sol_045",
@@ -8682,7 +8682,7 @@ cases: [
   {
     _id: "case_g167",
     title: "蛋糕店何姐老客户激活增收法30天回款12万",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 3,
     sub: 304,
     solutionId: "sol_072",
@@ -8695,7 +8695,7 @@ cases: [
   {
     _id: "case_g168",
     title: "鲜花店杨老板老客户专属权益法年复购率85%",
-    industry: "零售鲜花",
+    industry: "花店花卉",
     chapter: 3,
     sub: 304,
     solutionId: "sol_076",
@@ -8708,7 +8708,7 @@ cases: [
   {
     _id: "case_g169",
     title: "宠物店钱姐情感连接锁客法会员留存率92%",
-    industry: "宠物服务",
+    industry: "宠物",
     chapter: 3,
     sub: 304,
     solutionId: "sol_043",
@@ -8721,7 +8721,7 @@ cases: [
   {
     _id: "case_g170",
     title: "烧烤店老赵抖音同城号30天引流600人到店",
-    industry: "餐饮烧烤",
+    industry: "烧烤烤串",
     chapter: 4,
     sub: 401,
     solutionId: "sol_085",
@@ -8734,7 +8734,7 @@ cases: [
   {
     _id: "case_g171",
     title: "母婴店店长林姐小红书种草月增精准宝妈客180人",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 4,
     sub: 401,
     solutionId: "sol_089",
@@ -8747,7 +8747,7 @@ cases: [
   {
     _id: "case_g172",
     title: "火锅店张老板线上活动策划3天回款12万",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 4,
     sub: 401,
     solutionId: "sol_090",
@@ -8773,7 +8773,7 @@ cases: [
   {
     _id: "case_g174",
     title: "快餐店王哥外卖线上渠道拓展月增订单1500单",
-    industry: "餐饮快餐",
+    industry: "快餐简餐",
     chapter: 4,
     sub: 402,
     solutionId: "sol_012",
@@ -8812,7 +8812,7 @@ cases: [
   {
     _id: "case_g177",
     title: "奶茶店小刘外卖增量营收法月外卖单破2000",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 4,
     sub: 402,
     solutionId: "sol_091",
@@ -8825,7 +8825,7 @@ cases: [
   {
     _id: "case_g178",
     title: "川菜馆李哥大众点评优化运营3个月进区域前三",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 4,
     sub: 402,
     solutionId: "sol_007",
@@ -8838,7 +8838,7 @@ cases: [
   {
     _id: "case_g179",
     title: "便利店孙姐门店动线陈列优化客单价提升12元",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 4,
     sub: 403,
     solutionId: "sol_026",
@@ -8864,7 +8864,7 @@ cases: [
   {
     _id: "case_g181",
     title: "瑜伽馆晓雯微信朋友圈广告引流获客成本降60%",
-    industry: "健身瑜伽",
+    industry: "瑜伽健身",
     chapter: 4,
     sub: 403,
     solutionId: "sol_046",
@@ -8877,7 +8877,7 @@ cases: [
   {
     _id: "case_g182",
     title: "童装店敏姐私域直播带货单场销售破8万",
-    industry: "零售童装",
+    industry: "服饰鞋包",
     chapter: 4,
     sub: 403,
     solutionId: "sol_047",
@@ -8890,7 +8890,7 @@ cases: [
   {
     _id: "case_g183",
     title: "鲜花店婷婷节日营销增收方案情人节单日破5万",
-    industry: "鲜花花艺",
+    industry: "花店花卉",
     chapter: 4,
     sub: 403,
     solutionId: "sol_049",
@@ -8903,7 +8903,7 @@ cases: [
   {
     _id: "case_g184",
     title: "宠物店大军会员日营收爆发法单日营收破3万",
-    industry: "宠物服务",
+    industry: "宠物",
     chapter: 4,
     sub: 403,
     solutionId: "sol_070",
@@ -8916,7 +8916,7 @@ cases: [
   {
     _id: "case_g185",
     title: "美容院芳姐转介绍裂变锁客法3个月拓新300人",
-    industry: "美容美体",
+    industry: "美容美甲",
     chapter: 4,
     sub: 403,
     solutionId: "sol_074",
@@ -8929,7 +8929,7 @@ cases: [
   {
     _id: "case_g186",
     title: "咖啡店阿杰客户社群精细化运营复购率破70%",
-    industry: "餐饮咖啡",
+    industry: "咖啡甜品",
     chapter: 4,
     sub: 403,
     solutionId: "sol_086",
@@ -8942,7 +8942,7 @@ cases: [
   {
     _id: "case_g187",
     title: "培训机构陈老师微信视频号运营3个月引流300学生",
-    industry: "教育培训",
+    industry: "通用",
     chapter: 4,
     sub: 403,
     solutionId: "sol_087",
@@ -8955,7 +8955,7 @@ cases: [
   {
     _id: "case_g188",
     title: "理发店Tony口碑传播裂变法老客带新客占比40%",
-    industry: "美发理发",
+    industry: "美发造型",
     chapter: 4,
     sub: 403,
     solutionId: "sol_092",
@@ -8968,7 +8968,7 @@ cases: [
   {
     _id: "case_g189",
     title: "书店老板老吴私域流量池构建法半年沉淀2万精准客",
-    industry: "图书文具",
+    industry: "学科辅导",
     chapter: 4,
     sub: 403,
     solutionId: "sol_005",
@@ -8981,7 +8981,7 @@ cases: [
   {
     _id: "case_g190",
     title: "干洗店老马低成本营销活动策划月增客户80人",
-    industry: "生活服务",
+    industry: "家政保洁",
     chapter: 4,
     sub: 404,
     solutionId: "sol_031",
@@ -9007,7 +9007,7 @@ cases: [
   {
     _id: "case_g192",
     title: "健身房阿凯异业联盟引流法3家联营获客成本降70%",
-    industry: "健身房",
+    industry: "瑜伽健身",
     chapter: 4,
     sub: 404,
     solutionId: "sol_036",
@@ -9020,7 +9020,7 @@ cases: [
   {
     _id: "case_g193",
     title: "母婴店店长林姐宝妈社群裂变引流1月拉2000宝妈",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 4,
     sub: 404,
     solutionId: "sol_040",
@@ -9033,7 +9033,7 @@ cases: [
   {
     _id: "case_g194",
     title: "便利店老周快递站合作引流法月增客户300人",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 4,
     sub: 404,
     solutionId: "sol_016",
@@ -9046,7 +9046,7 @@ cases: [
   {
     _id: "case_g195",
     title: "餐饮店老孙周边3公里精准引流月增客流800人",
-    industry: "餐饮正餐",
+    industry: "餐厅",
     chapter: 4,
     sub: 405,
     solutionId: "sol_023",
@@ -9059,7 +9059,7 @@ cases: [
   {
     _id: "case_g196",
     title: "服装店小敏限时促销策略方案3天回款8万",
-    industry: "服装零售",
+    industry: "服饰鞋包",
     chapter: 4,
     sub: 405,
     solutionId: "sol_029",
@@ -9072,7 +9072,7 @@ cases: [
   {
     _id: "case_g197",
     title: "超市老郑促销活动组合拳方案周末2天营收破20万",
-    industry: "商超零售",
+    industry: "超市便利",
     chapter: 4,
     sub: 405,
     solutionId: "sol_035",
@@ -9085,7 +9085,7 @@ cases: [
   {
     _id: "case_g198",
     title: "4S店小刘停车场驻点引流法3天获客200人",
-    industry: "汽车销售",
+    industry: "汽车服务",
     chapter: 4,
     sub: 405,
     solutionId: "sol_037",
@@ -9098,7 +9098,7 @@ cases: [
   {
     _id: "case_g199",
     title: "教育机构王老师地推精准获客法1周获200精准家长",
-    industry: "教育培训",
+    industry: "学科辅导",
     chapter: 4,
     sub: 405,
     solutionId: "sol_039",
@@ -9111,7 +9111,7 @@ cases: [
   {
     _id: "case_g200",
     title: "文具店李姐学校门口定点引流法放学1小时获80客",
-    industry: "零售文具",
+    industry: "学科辅导",
     chapter: 4,
     sub: 405,
     solutionId: "sol_088",
@@ -9124,7 +9124,7 @@ cases: [
   {
     _id: "case_g201",
     title: "小吃店阿伟低成本地推营销法月增客流500人",
-    industry: "餐饮小吃",
+    industry: "面馆小吃",
     chapter: 4,
     sub: 405,
     solutionId: "sol_001",
@@ -9137,7 +9137,7 @@ cases: [
   {
     _id: "case_g202",
     title: "奶茶店赵姐新人30天速成法上岗周期砍半",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 5,
     sub: 501,
     solutionId: "sol_079",
@@ -9150,7 +9150,7 @@ cases: [
   {
     _id: "case_g203",
     title: "川菜馆老王员工流失预警与挽留法稳住核心团队",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 5,
     sub: 501,
     solutionId: "sol_115",
@@ -9163,7 +9163,7 @@ cases: [
   {
     _id: "case_g204",
     title: "火锅店张总面试识人五问法招聘准确率90%",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 5,
     sub: 501,
     solutionId: "sol_116",
@@ -9176,7 +9176,7 @@ cases: [
   {
     _id: "case_g205",
     title: "美容院李姐招聘渠道选择指南获客成本降60%",
-    industry: "美容服务",
+    industry: "美容美甲",
     chapter: 5,
     sub: 501,
     solutionId: "sol_119",
@@ -9189,7 +9189,7 @@ cases: [
   {
     _id: "case_g206",
     title: "超市老板陈哥员工离职面谈话术挖出管理漏洞",
-    industry: "零售超市",
+    industry: "超市便利",
     chapter: 5,
     sub: 501,
     solutionId: "sol_120",
@@ -9202,7 +9202,7 @@ cases: [
   {
     _id: "case_g207",
     title: "面包店刘姐岗位交接防漏清单零失误过渡",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 5,
     sub: 501,
     solutionId: "sol_078",
@@ -9215,7 +9215,7 @@ cases: [
   {
     _id: "case_g208",
     title: "川菜馆老王团队激活与人才发展方案老员工焕新",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 5,
     sub: 502,
     solutionId: "sol_081",
@@ -9228,7 +9228,7 @@ cases: [
   {
     _id: "case_g209",
     title: "美甲店小红团队文化建设法员工主动加班零流失",
-    industry: "美甲服务",
+    industry: "美容美甲",
     chapter: 5,
     sub: 502,
     solutionId: "sol_082",
@@ -9241,7 +9241,7 @@ cases: [
   {
     _id: "case_g210",
     title: "汽修厂周师傅员工技能认证体系法技术升级",
-    industry: "汽修服务",
+    industry: "汽车服务",
     chapter: 5,
     sub: 502,
     solutionId: "sol_018",
@@ -9254,7 +9254,7 @@ cases: [
   {
     _id: "case_g211",
     title: "火锅店张总员工培训与激励体系方案人效提升30%",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 5,
     sub: 503,
     solutionId: "sol_015",
@@ -9267,7 +9267,7 @@ cases: [
   {
     _id: "case_g212",
     title: "美发店凯文绩效考核与提成方案收入翻倍员工稳",
-    industry: "美发服务",
+    industry: "美发造型",
     chapter: 5,
     sub: 503,
     solutionId: "sol_077",
@@ -9280,7 +9280,7 @@ cases: [
   {
     _id: "case_g213",
     title: "便利店陈哥员工绩效激励改革法利润翻番",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 5,
     sub: 503,
     solutionId: "sol_083",
@@ -9293,7 +9293,7 @@ cases: [
   {
     _id: "case_g214",
     title: "奶茶店赵姐排班弹性优化法高峰不堵闲时不闲",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 5,
     sub: 503,
     solutionId: "sol_117",
@@ -9306,7 +9306,7 @@ cases: [
   {
     _id: "case_g215",
     title: "快餐店老李弹性排班省钱法人力成本降20%",
-    industry: "餐饮快餐",
+    industry: "快餐简餐",
     chapter: 5,
     sub: 503,
     solutionId: "sol_118",
@@ -9319,7 +9319,7 @@ cases: [
   {
     _id: "case_g216",
     title: "烘焙店刘姐兼职用工管理手册零纠纷稳运行",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 5,
     sub: 503,
     solutionId: "sol_011",
@@ -9332,7 +9332,7 @@ cases: [
   {
     _id: "case_g217",
     title: "川菜馆老王成本精细化管控方案月省5万",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 5,
     sub: 504,
     solutionId: "sol_051",
@@ -9345,7 +9345,7 @@ cases: [
   {
     _id: "case_g218",
     title: "火锅店张总食材采购降本法月省3万元",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 5,
     sub: 504,
     solutionId: "sol_052",
@@ -9358,7 +9358,7 @@ cases: [
   {
     _id: "case_g219",
     title: "健身房周哥固定成本瘦身法月省2万元",
-    industry: "健身房",
+    industry: "瑜伽健身",
     chapter: 5,
     sub: 504,
     solutionId: "sol_054",
@@ -9371,7 +9371,7 @@ cases: [
   {
     _id: "case_g220",
     title: "母婴店李姐库存周转加速法资金占用减半",
-    industry: "零售母婴",
+    industry: "母婴用品",
     chapter: 5,
     sub: 504,
     solutionId: "sol_009",
@@ -9384,7 +9384,7 @@ cases: [
   {
     _id: "case_g221",
     title: "便利店陈哥人员排班优化法人效提升25%",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 5,
     sub: 505,
     solutionId: "sol_055",
@@ -9397,7 +9397,7 @@ cases: [
   {
     _id: "case_g222",
     title: "外卖店小红包装成本精简法月省8000元",
-    industry: "餐饮外卖",
+    industry: "快餐简餐",
     chapter: 5,
     sub: 505,
     solutionId: "sol_057",
@@ -9410,7 +9410,7 @@ cases: [
   {
     _id: "case_g223",
     title: "网吧老板阿强水电能耗精细管控月省5000元",
-    industry: "网咖电竞",
+    industry: "电影网吧",
     chapter: 5,
     sub: 505,
     solutionId: "sol_058",
@@ -9423,7 +9423,7 @@ cases: [
   {
     _id: "case_g224",
     title: "川菜馆老王浪费治理利润修复法利润率翻倍",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 5,
     sub: 505,
     solutionId: "sol_121",
@@ -9436,7 +9436,7 @@ cases: [
   {
     _id: "case_g225",
     title: "奶茶店赵姐个体户报税实操指南零罚款合规",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 5,
     sub: 505,
     solutionId: "sol_122",
@@ -9449,7 +9449,7 @@ cases: [
   {
     _id: "case_g226",
     title: "美甲店小红发票管理避坑法零损失合规",
-    industry: "美甲服务",
+    industry: "美容美甲",
     chapter: 5,
     sub: 505,
     solutionId: "sol_123",
@@ -9462,7 +9462,7 @@ cases: [
   {
     _id: "case_g227",
     title: "超市陈哥税务检查应对术零处罚过关",
-    industry: "零售超市",
+    industry: "超市便利",
     chapter: 5,
     sub: 505,
     solutionId: "sol_124",
@@ -9475,7 +9475,7 @@ cases: [
   {
     _id: "case_g228",
     title: "快餐店老李小额贷款避坑指南省3万利息",
-    industry: "餐饮快餐",
+    industry: "快餐简餐",
     chapter: 5,
     sub: 505,
     solutionId: "sol_125",
@@ -9488,7 +9488,7 @@ cases: [
   {
     _id: "case_g229",
     title: "奶茶店小张加盟骗局识别法避免损失30万",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 5,
     sub: 505,
     solutionId: "sol_126",
@@ -9501,7 +9501,7 @@ cases: [
   {
     _id: "case_g230",
     title: "火锅店张总合伙人出资协议要点避免内讧散伙",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 5,
     sub: 505,
     solutionId: "sol_053",
@@ -9514,7 +9514,7 @@ cases: [
   {
     _id: "case_g231",
     title: "海边民宿老陈差异化品牌定位淡季入住率翻倍",
-    industry: "民宿客栈",
+    industry: "旅游酒店",
     chapter: 6,
     sub: 601,
     solutionId: "sol_096",
@@ -9527,7 +9527,7 @@ cases: [
   {
     _id: "case_g232",
     title: "县城服装店李姐商圈联合抗竞法客流共享涨30%",
-    industry: "服装零售",
+    industry: "服饰鞋包",
     chapter: 6,
     sub: 601,
     solutionId: "sol_097",
@@ -9540,7 +9540,7 @@ cases: [
   {
     _id: "case_g233",
     title: "美发店王哥客户锁定防竞法老客留存率90%",
-    industry: "美发美业",
+    industry: "美发造型",
     chapter: 6,
     sub: 601,
     solutionId: "sol_013",
@@ -9553,7 +9553,7 @@ cases: [
   {
     _id: "case_g234",
     title: "数码店小周竞争差异化突围方案单价提升40%",
-    industry: "数码3C",
+    industry: "数码家电",
     chapter: 6,
     sub: 602,
     solutionId: "sol_030",
@@ -9566,7 +9566,7 @@ cases: [
   {
     _id: "case_g235",
     title: "烘焙店赵姐竞品分析与应对方案3个月反超对手",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 6,
     sub: 602,
     solutionId: "sol_093",
@@ -9579,7 +9579,7 @@ cases: [
   {
     _id: "case_g236",
     title: "母婴店张姐差异化竞争突围法避开电商冲击",
-    industry: "母婴零售",
+    industry: "母婴用品",
     chapter: 6,
     sub: 602,
     solutionId: "sol_094",
@@ -9592,7 +9592,7 @@ cases: [
   {
     _id: "case_g237",
     title: "水果店老孙价格战应对策略3个月耗死对手",
-    industry: "生鲜水果",
+    industry: "水果生鲜",
     chapter: 6,
     sub: 602,
     solutionId: "sol_099",
@@ -9605,7 +9605,7 @@ cases: [
   {
     _id: "case_g238",
     title: "火锅店刘总竞品弱点攻击法3个月抢对手40%客",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 6,
     sub: 602,
     solutionId: "sol_025",
@@ -9618,7 +9618,7 @@ cases: [
   {
     _id: "case_g239",
     title: "健身房陈总门店线上化转型三板斧停业期不亏",
-    industry: "健身服务",
+    industry: "瑜伽健身",
     chapter: 6,
     sub: 603,
     solutionId: "sol_128",
@@ -9631,7 +9631,7 @@ cases: [
   {
     _id: "case_g240",
     title: "蔬菜店王姐社区团购自救法停业期月销反超",
-    industry: "生鲜蔬菜",
+    industry: "水果生鲜",
     chapter: 6,
     sub: 603,
     solutionId: "sol_129",
@@ -9644,7 +9644,7 @@ cases: [
   {
     _id: "case_g241",
     title: "装修公司老李应急现金流救命法7天筹80万",
-    industry: "装修建材",
+    industry: "房产装修",
     chapter: 6,
     sub: 603,
     solutionId: "sol_130",
@@ -9657,7 +9657,7 @@ cases: [
   {
     _id: "case_g242",
     title: "串串香老板阿强证照变更快速办理法5天搞定",
-    industry: "餐饮串串",
+    industry: "火锅店",
     chapter: 6,
     sub: 603,
     solutionId: "sol_131",
@@ -9670,7 +9670,7 @@ cases: [
   {
     _id: "case_g243",
     title: "印刷厂周总环保消防整改指南1月过双检",
-    industry: "印刷制造",
+    industry: "广告印刷",
     chapter: 6,
     sub: 603,
     solutionId: "sol_132",
@@ -9683,7 +9683,7 @@ cases: [
   {
     _id: "case_g244",
     title: "教培机构孙校长政策风向预判法提前转型避坑",
-    industry: "教育培训",
+    industry: "通用",
     chapter: 6,
     sub: 603,
     solutionId: "sol_133",
@@ -9696,7 +9696,7 @@ cases: [
   {
     _id: "case_g245",
     title: "美容院林姐店铺估值计算法转让多卖15万",
-    industry: "美容美业",
+    industry: "美容美甲",
     chapter: 6,
     sub: 603,
     solutionId: "sol_134",
@@ -9709,7 +9709,7 @@ cases: [
   {
     _id: "case_g246",
     title: "餐饮老店马老板找买家最快渠道20天转让成功",
-    industry: "餐饮饭店",
+    industry: "餐厅",
     chapter: 6,
     sub: 603,
     solutionId: "sol_135",
@@ -9722,7 +9722,7 @@ cases: [
   {
     _id: "case_g247",
     title: "便利店黄姐转让合同避坑清单避免损失8万",
-    industry: "零售便利店",
+    industry: "超市便利",
     chapter: 6,
     sub: 603,
     solutionId: "sol_127",
@@ -9735,7 +9735,7 @@ cases: [
   {
     _id: "case_g248",
     title: "干洗店张姐经营模式升级方案从夫妻店到连锁",
-    industry: "干洗服务",
+    industry: "家政保洁",
     chapter: 6,
     sub: 604,
     solutionId: "sol_080",
@@ -9748,7 +9748,7 @@ cases: [
   {
     _id: "case_g249",
     title: "烘焙店陈姐门店SOP标准化管理法新店3天开业",
-    industry: "餐饮烘焙",
+    industry: "烘焙蛋糕",
     chapter: 6,
     sub: 604,
     solutionId: "sol_084",
@@ -9761,7 +9761,7 @@ cases: [
   {
     _id: "case_g250",
     title: "服装店李总店长管理能力提升法3月甩手掌柜",
-    industry: "服装零售",
+    industry: "服饰鞋包",
     chapter: 6,
     sub: 604,
     solutionId: "sol_095",
@@ -9774,7 +9774,7 @@ cases: [
   {
     _id: "case_g251",
     title: "奶茶店王哥竞品情报监控系统每月挖对手3招",
-    industry: "餐饮奶茶",
+    industry: "奶茶茶饮",
     chapter: 6,
     sub: 604,
     solutionId: "sol_136",
@@ -9787,7 +9787,7 @@ cases: [
   {
     _id: "case_g252",
     title: "火锅店赵老板每日三件事法从救火到预判",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 6,
     sub: 604,
     solutionId: "sol_137",
@@ -9800,7 +9800,7 @@ cases: [
   {
     _id: "case_g253",
     title: "美容美发连锁周总委托放权实操法4店脱身",
-    industry: "美容美发",
+    industry: "美容美甲",
     chapter: 6,
     sub: 604,
     solutionId: "sol_138",
@@ -9813,7 +9813,7 @@ cases: [
   {
     _id: "case_g254",
     title: "川菜馆老陈标杆探店学习法3月升级超越对手",
-    industry: "餐饮川菜",
+    industry: "餐厅",
     chapter: 6,
     sub: 604,
     solutionId: "sol_139",
@@ -9826,7 +9826,7 @@ cases: [
   {
     _id: "case_g255",
     title: "服装店孙姐周报复盘简易模板5分钟写完有用",
-    industry: "服装零售",
+    industry: "服饰鞋包",
     chapter: 6,
     sub: 604,
     solutionId: "sol_140",
@@ -9839,7 +9839,7 @@ cases: [
   {
     _id: "case_g256",
     title: "超市老板刘哥月度经营分析会指南2小时找出3招",
-    industry: "零售超市",
+    industry: "超市便利",
     chapter: 6,
     sub: 604,
     solutionId: "sol_017",
@@ -9852,7 +9852,7 @@ cases: [
   {
     _id: "case_g257",
     title: "宠物店小林蓝海市场开拓法避开红海做蓝海",
-    industry: "宠物服务",
+    industry: "宠物",
     chapter: 6,
     sub: 605,
     solutionId: "sol_100",
@@ -9865,7 +9865,7 @@ cases: [
   {
     _id: "case_g258",
     title: "老字号糕点铺王师傅竞争壁垒长效建设法3年护城河",
-    industry: "餐饮糕点",
+    industry: "烘焙蛋糕",
     chapter: 6,
     sub: 605,
     solutionId: "sol_141",
@@ -9878,7 +9878,7 @@ cases: [
   {
     _id: "case_g259",
     title: "小餐馆夫妻店老陈两口子分工协议不吵架不离婚",
-    industry: "餐饮饭店",
+    industry: "餐厅",
     chapter: 6,
     sub: 605,
     solutionId: "sol_142",
@@ -9891,7 +9891,7 @@ cases: [
   {
     _id: "case_g260",
     title: "火锅店合伙三位老板协议模板3年零纠纷扩张",
-    industry: "餐饮火锅",
+    industry: "火锅店",
     chapter: 6,
     sub: 605,
     solutionId: "sol_143",
@@ -9904,7 +9904,7 @@ cases: [
   {
     _id: "case_g261",
     title: "五金店老周二代传承过渡法3年交班不争气变顶梁",
-    industry: "零售五金",
+    industry: "家居办公",
     chapter: 6,
     sub: 605,
     solutionId: "sol_144",
@@ -9917,7 +9917,7 @@ cases: [
   {
     _id: "case_g262",
     title: "修车铺老赵口碑积累慢工法5年从无名到排队",
-    industry: "汽车维修",
+    industry: "汽车服务",
     chapter: 6,
     sub: 605,
     solutionId: "sol_098",
@@ -9930,7 +9930,7 @@ cases: [
   {
     _id: "case_g2001",
     title: "服装品牌CEO李女士的销售七步法",
-    industry: "服装",
+    industry: "服饰鞋包",
     chapter: 3,
     sub: 301,
     solutionId: "sol_006",

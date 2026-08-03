@@ -158,6 +158,75 @@
 
         // 初始化滚动监听（手势控制 header）
         this.initScrollHeader();
+
+        // 初始化案例区域条件显示监听
+        this.initCaseVisibility();
+      },
+
+      // ===== 案例区域条件显示（视口20%-50%区域才显示） =====
+      _caseVisRAF: null,
+      _activeSubRow: null,
+
+      initCaseVisibility: function() {
+        var self = this;
+        // 滚动时用 requestAnimationFrame 节流
+        window.addEventListener('scroll', function() {
+          if (self._caseVisRAF) return;
+          self._caseVisRAF = requestAnimationFrame(function() {
+            self._caseVisRAF = null;
+            self.updateCaseVisibility();
+          });
+        }, { passive: true });
+        // 窗口大小变化时重新计算
+        window.addEventListener('resize', function() {
+          if (self._caseVisRAF) return;
+          self._caseVisRAF = requestAnimationFrame(function() {
+            self._caseVisRAF = null;
+            self.updateCaseVisibility();
+          });
+        }, { passive: true });
+        // 初始检查一次
+        setTimeout(function() { self.updateCaseVisibility(); }, 100);
+      },
+
+      updateCaseVisibility: function() {
+        var rows = document.querySelectorAll('.chapter-sub-row');
+        if (!rows.length) return;
+
+        var vh = window.innerHeight;
+        var topThreshold = vh * 0.2;  // 20%
+        var bottomThreshold = vh * 0.5; // 50%
+        var bestRow = null;
+        var bestDistance = Infinity;
+
+        for (var i = 0; i < rows.length; i++) {
+          var rect = rows[i].getBoundingClientRect();
+          var center = rect.top + rect.height / 2;
+
+          // 检查中心是否在 20%-50% 区间
+          if (center >= topThreshold && center <= bottomThreshold) {
+            // 选距离区间中心最近的
+            var zoneCenter = (topThreshold + bottomThreshold) / 2;
+            var dist = Math.abs(center - zoneCenter);
+            if (dist < bestDistance) {
+              bestDistance = dist;
+              bestRow = rows[i];
+            }
+          }
+        }
+
+        // 互斥：只显示一个行的案例区域
+        if (bestRow !== this._activeSubRow) {
+          // 移除旧的高亮
+          if (this._activeSubRow) {
+            this._activeSubRow.classList.remove('in-view');
+          }
+          // 设置新的高亮
+          if (bestRow) {
+            bestRow.classList.add('in-view');
+          }
+          this._activeSubRow = bestRow;
+        }
       },
 
       // 加载篇章数据
@@ -370,6 +439,11 @@
 
         this.showView('chapter');
         BizUtils.replaceIcons();
+
+        // 重置案例可见性状态，重新检测
+        this._activeSubRow = null;
+        var self = this;
+        setTimeout(function() { self.updateCaseVisibility(); }, 100);
       },
 
       // 打开子分类项目弹窗
@@ -697,10 +771,9 @@
             '<div class="industry-group-items">';
 
           group.categories.forEach(function(cat) {
-            // 用简化关键词模糊匹配计数（与搜索逻辑一致）
-            var keyword = self.industrySearchKeywords[cat] || cat;
+            // 用industry字段精确匹配计数
             var count = allCases.filter(function(c) {
-              return (c.title + (c.effectData || '') + (c.problem || '') + (c.solution || '')).indexOf(keyword) > -1;
+              return c.industry === cat;
             }).length;
             var icon = self.industryIcons[cat] || '📋';
             groupHtml += '<div class="industry-tag' + (count === 0 ? ' disabled' : '') + '" onclick="SolutionsPage.searchByIndustry(\'' + cat + '\')">' +
@@ -735,14 +808,18 @@
           url.searchParams.delete('sub');
           window.history.pushState({}, '', url);
         }
-        var keyword = category ? (this.industrySearchKeywords[category] || category) : '';
-        document.getElementById('searchInput').value = keyword;
-        this.onSearch(keyword);
+        // 用industry字段精确筛选
+        this.searchIndustry = category || null;
+        var displayText = category ? ('行业: ' + category) : '';
+        document.getElementById('searchInput').value = displayText;
+        this.searchText = displayText;
+        this.renderSearchResults();
       },
 
       // 搜索
       onSearch: function(text) {
         this.searchText = text.trim();
+        this.searchIndustry = null; // 清除行业筛选
         if (this.currentChapter) {
           this.renderChapterDetail();
         } else {
@@ -754,7 +831,7 @@
       // 全局搜索结果（在篇章首页时搜索）
       renderSearchResults: function() {
         var self = this;
-        if (!this.searchText) {
+        if (!this.searchText && !this.searchIndustry) {
           this.renderChapterGrid();
           return;
         }
@@ -765,9 +842,18 @@
         });
 
         var allCases = BizData.cases || [];
-        var filteredCases = allCases.filter(function(c) {
-          return (c.title + (c.effectData || '') + (c.problem || '') + (c.solution || '')).indexOf(self.searchText) > -1;
-        });
+        var filteredCases;
+        if (this.searchIndustry) {
+          // 按industry字段精确筛选
+          filteredCases = allCases.filter(function(c) {
+            return c.industry === self.searchIndustry;
+          });
+        } else {
+          // 关键词模糊搜索
+          filteredCases = allCases.filter(function(c) {
+            return (c.title + (c.effectData || '') + (c.problem || '') + (c.solution || '')).indexOf(self.searchText) > -1;
+          });
+        }
 
         var container = document.getElementById('solutionList');
         if (!container) return;

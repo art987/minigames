@@ -254,7 +254,7 @@
   align-items: center;
   font-size: 14px;
   line-height: 10px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--biz-text-primary);
   background: transparent;
   border: none;
@@ -268,8 +268,8 @@
 }
 .chapter-sub-tag::after {
   content: '>';
-  margin-left: 9px;
-  color: #c00;
+  margin-left: 2px;
+  color: #1d1d1d;
   font-size: 17px;
   font-weight: 400;
   line-height: 10px;
@@ -321,7 +321,7 @@
   color: #0071E3;
 }
 .chapter-sub-stat-value.primary {
-  color: #0071E3;
+  color: #ff9500;
 }
 .chapter-sub-tag .chapter-sub-badge {
   display: none;
@@ -329,59 +329,125 @@
 
 /* ===== 随机案例展示区域 ===== */
 .chapter-cases-random {
-  display: flex;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease, margin-bottom 0.35s ease;
+}
+/* 当所在行处于视口关注区域时显示 */
+.chapter-sub-row.in-view .chapter-cases-random {
+  max-height: 320px;
+  opacity: 1;
   margin-bottom: 4px;
 }
+.chapter-cases-actions {
+  display: flex;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease 0.1s, padding 0.35s ease;
+}
+.chapter-sub-row.in-view .chapter-cases-actions {
+  max-height: 60px;
+  opacity: 1;
+  padding: 6px 0 2px;
+}
+
+/* 案例条目逐个出现/消失 */
 .chapter-case-item {
   display: flex;
   align-items: center;
+  margin: 4px 0px;
   gap: 6px;
-  padding: 7px 8px;
+  padding: 5px 8px;
   background: rgba(255,255,255,0.6);
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
   border: 1px solid rgba(0,0,0,0.03);
-  animation: caseFadeIn 0.35s ease both;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
 }
-@keyframes caseFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* 出现时逐条延迟 */
+.chapter-sub-row.in-view .chapter-case-item:nth-child(1) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.08s;
 }
-.chapter-cases-random.fading-out .chapter-case-item {
-  animation: caseFadeOut 0.2s ease both;
+.chapter-sub-row.in-view .chapter-case-item:nth-child(2) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.18s;
 }
-@keyframes caseFadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
+.chapter-sub-row.in-view .chapter-case-item:nth-child(3) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.28s;
+}
+.chapter-sub-row.in-view .chapter-case-item:nth-child(4) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.38s;
+}
+.chapter-sub-row.in-view .chapter-case-item:nth-child(5) {
+  opacity: 1; transform: translateY(0); transition-delay: 0.48s;
+}
+/* 消失时逐条反向延迟 */
+.chapter-sub-row:not(.in-view) .chapter-case-item:nth-child(1) {
+  transition-delay: 0.16s;
+}
+.chapter-sub-row:not(.in-view) .chapter-case-item:nth-child(2) {
+  transition-delay: 0.08s;
+}
+.chapter-sub-row:not(.in-view) .chapter-case-item:nth-child(3) {
+  transition-delay: 0s;
+}
+
+/* 操作按钮也逐个出现/消失 */
+.chapter-refresh-cases, .chapter-more-cases {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.chapter-sub-row.in-view .chapter-refresh-cases {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+  border: 1px solid #dfdfdf;
+  padding: 2px 19px;
+  text-align: center;
+  border-radius: 5px;
+  background: #fff;
+}
+.chapter-sub-row.in-view .chapter-more-cases {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.42s;
+  border: 1px solid #dfdfdf;
+  padding: 2px 6px;
+  text-align: center;
+  border-radius: 5px;
+  background: #fff;
 }
 .chapter-case-item:active {
-  transform: scale(0.98);
   background: rgba(0,0,0,0.03);
+}
+/* 换一批时快速淡出 */
+.chapter-cases-random.fading-out .chapter-case-item {
+  opacity: 0 !important;
+  transform: translateY(-6px) !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+  transition-delay: 0s !important;
 }
 .chapter-case-icon {
   flex-shrink: 0;
-  display: flex;
+  display: none;
   align-items: center;
   color: #888;
+  width: 16px;
 }
 .chapter-case-icon .biz-icon {
   stroke: #999;
-  stroke-width: 1.5;
+  stroke-width: 0.5px;
 }
 .chapter-case-title {
   flex: 1;
@@ -397,16 +463,8 @@
   color: #ccc;
   font-size: 14px;
 }
-/* 换一批 + 更多案例 操作行 */
-.chapter-cases-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 6px 0 2px;
-}
 .chapter-refresh-cases {
-  font-size: 12px;
+  font-size: 11px;
   color: #FF9500;
   cursor: pointer;
   -webkit-user-select: none;
@@ -420,8 +478,8 @@
   opacity: 0.6;
 }
 .chapter-more-cases {
-  font-size: 12px;
-  color: #0071E3;
+  font-size: 11px;
+  color: #ff9500;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -826,7 +884,7 @@
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
-  padding: 0 0 96px;
+  padding: 0 0 196px;
 }
 
 /* ===== è¯¦æƒ…å¼¹çª— ===== */
