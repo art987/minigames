@@ -195,7 +195,7 @@
 
         var vh = window.innerHeight;
         var topThreshold = vh * 0.2;  // 20%
-        var bottomThreshold = vh * 0.5; // 50%
+        var bottomThreshold = vh * 0.7; // 50%
         var bestRow = null;
         var bestDistance = Infinity;
 
@@ -333,9 +333,8 @@
           var html = '';
           for (var j = 0; j < newCases.length; j++) {
             var c = newCases[j];
-            // 逐条错开淡入
-            var delay = j * 60;
-            html += '<div class="chapter-case-item" style="animation-delay:' + delay + 'ms" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
+            // 用 case-entering 类标记新元素，初始为隐藏状态
+            html += '<div class="chapter-case-item case-entering" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
               '<span class="chapter-case-icon">' + BizUtils.icon('file-text', 14) + '</span>' +
               '<span class="chapter-case-title">' + c.title + '</span>' +
               '<span class="chapter-case-arrow">›</span>' +
@@ -344,6 +343,15 @@
           container.classList.remove('fading-out');
           container.innerHTML = html;
           BizUtils.replaceIcons();
+          // 强制 reflow，确保初始隐藏状态生效
+          container.offsetHeight;
+          // 下一帧移除 case-entering，触发逐条淡入过渡
+          requestAnimationFrame(function() {
+            var newItems = container.querySelectorAll('.chapter-case-item.case-entering');
+            for (var k = 0; k < newItems.length; k++) {
+              newItems[k].classList.remove('case-entering');
+            }
+          });
           // 动画完成后解锁
           setTimeout(function() {
             container.dataset.refreshing = '';

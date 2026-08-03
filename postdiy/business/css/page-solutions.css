@@ -208,7 +208,7 @@
 }
 .biz-chapter-card .chapter-name {
   font-size: 25px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--biz-text-primary);
   margin-bottom: 2px;
 }
@@ -437,6 +437,12 @@
   transform: translateY(-6px) !important;
   transition: opacity 0.2s ease, transform 0.2s ease !important;
   transition-delay: 0s !important;
+}
+/* 新案例初始隐藏状态（换一批时用） */
+.chapter-case-item.case-entering {
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  transition: none !important;
 }
 .chapter-case-icon {
   flex-shrink: 0;
@@ -884,7 +890,7 @@
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
-  padding: 0 0 196px;
+  padding: 0 0 500px;
 }
 
 /* ===== è¯¦æƒ…å¼¹çª— ===== */
