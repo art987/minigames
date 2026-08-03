@@ -16,6 +16,10 @@
     <div class="header-row">
       <span class="biz-back-btn" id="backBtn" onclick="SolutionsPage.goBack()"><span id="backBtnContent">← 返回</span></span>
       <h1 id="pageTitle">方案库</h1>
+      <button class="biz-industry-btn" id="industryBtn" onclick="SolutionsPage.openIndustryModal()">
+        <i data-lucide="layout-grid" class="biz-icon" style="width:16px;height:16px;"></i>
+        <span>行业</span>
+      </button>
       <div class="biz-search-box">
         <span class="search-icon" id="searchIconHolder"></span>
         <input type="text" id="searchInput" placeholder="搜索方案或案例..." oninput="SolutionsPage.onSearch(this.value)">
@@ -111,6 +115,21 @@
     </div>
   </div>
 
+  <!-- 行业分类弹窗 -->
+  <div class="industry-modal" id="industryModal">
+    <div class="detail-modal-mask" onclick="SolutionsPage.closeIndustryModal()"></div>
+    <div class="industry-modal-content">
+      <div class="detail-modal-header">
+        <span class="detail-modal-close" onclick="SolutionsPage.closeIndustryModal()">
+          <i data-lucide="x" class="biz-icon" style="width:20px;height:20px;"></i>
+        </span>
+        <span class="detail-modal-title">按行业查找案例</span>
+        <span style="width:28px;"></span>
+      </div>
+      <div class="industry-modal-body" id="industryModalBody"></div>
+    </div>
+  </div>
+
   <script src="js/utils.js"></script>
   <script src="js/biz-data.js"></script>
   <script src="js/data-service.js"></script>
@@ -196,6 +215,73 @@
       },
 
       // ===== 篇章网格渲染 =====
+      // 随机选取n个案例
+      pickRandomCases: function(cases, n, excludeIds) {
+        if (!cases || cases.length === 0) return [];
+        var pool = excludeIds && excludeIds.length > 0
+          ? cases.filter(function(c) { return excludeIds.indexOf(c._id) === -1; })
+          : cases.slice();
+        // 如果排除后不够，用全部案例
+        if (pool.length < n) pool = cases.slice();
+        // Fisher-Yates 洗牌
+        for (var i = pool.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = pool[i];
+          pool[i] = pool[j];
+          pool[j] = temp;
+        }
+        return pool.slice(0, Math.min(n, pool.length));
+      },
+
+      // 换一批案例
+      refreshRandomCases: function(chapterId, subId) {
+        var container = document.getElementById('cases-random-' + chapterId + '-' + subId);
+        if (!container) return;
+        // 防止快速重复点击
+        if (container.dataset.refreshing === '1') return;
+        container.dataset.refreshing = '1';
+
+        // 获取当前显示的案例ID
+        var currentIds = [];
+        var items = container.querySelectorAll('.chapter-case-item');
+        for (var i = 0; i < items.length; i++) {
+          var onclickStr = items[i].getAttribute('onclick') || '';
+          var match = onclickStr.match(/openCaseModal\(['"]([^'"]+)['"]\)/);
+          if (match) currentIds.push(match[1]);
+        }
+        // 获取该子分类下所有案例
+        var allCases = (BizData.cases || []).filter(function(c) {
+          return c.chapter === chapterId && c.sub === subId;
+        });
+        // 随机选取新案例，排除当前显示的
+        var newCases = this.pickRandomCases(allCases, 3, currentIds);
+
+        // 淡出动画
+        container.classList.add('fading-out');
+
+        // 动画结束后替换内容并淡入
+        setTimeout(function() {
+          var html = '';
+          for (var j = 0; j < newCases.length; j++) {
+            var c = newCases[j];
+            // 逐条错开淡入
+            var delay = j * 60;
+            html += '<div class="chapter-case-item" style="animation-delay:' + delay + 'ms" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
+              '<span class="chapter-case-icon">' + BizUtils.icon('file-text', 14) + '</span>' +
+              '<span class="chapter-case-title">' + c.title + '</span>' +
+              '<span class="chapter-case-arrow">›</span>' +
+            '</div>';
+          }
+          container.classList.remove('fading-out');
+          container.innerHTML = html;
+          BizUtils.replaceIcons();
+          // 动画完成后解锁
+          setTimeout(function() {
+            container.dataset.refreshing = '';
+          }, 400);
+        }, 200);
+      },
+
       renderChapterGrid: function() {
         var self = this;
         var container = document.getElementById('chapterGrid');
@@ -224,11 +310,16 @@
                   return c.chapter === ch.id && c.sub === sub.id;
                 }).length;
 
-                return '<div class="chapter-sub-row">' +
+                // 获取该子分类下的案例
+                var subCases = allCases.filter(function(c) {
+                  return c.chapter === ch.id && c.sub === sub.id;
+                });
+                // 随机选取3个案例
+                var randomCases = self.pickRandomCases(subCases, 3);
+
+                var rowHtml = '<div class="chapter-sub-row">' +
                   '<div class="chapter-sub-header">' +
                     '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + '</span>' +
-                  '</div>' +
-                  '<div class="chapter-sub-stats">' +
                     '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">' +
                       '<span class="chapter-sub-stat-label">心得笔记</span>' +
                       '<span class="chapter-sub-stat-value enhanced">(' + tipsCount + ')</span>' +
@@ -237,12 +328,31 @@
                       '<span class="chapter-sub-stat-label">指导方案</span>' +
                       '<span class="chapter-sub-stat-value primary">(' + solCount + ')</span>' +
                     '</div>' +
-                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'cases\',\'' + sub.name + '\')">' +
-                      '<span class="chapter-sub-stat-label">案例学习</span>' +
-                      '<span class="chapter-sub-stat-value">(' + caseCount + ')</span>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>';
+                  '</div>';
+
+                // 随机案例展示区域
+                if (randomCases.length > 0) {
+                  var casesContainerId = 'cases-random-' + ch.id + '-' + sub.id;
+                  rowHtml += '<div class="chapter-cases-random" id="' + casesContainerId + '">';
+                  randomCases.forEach(function(c) {
+                    rowHtml += '<div class="chapter-case-item" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
+                      '<span class="chapter-case-icon">' + BizUtils.icon('file-text', 14) + '</span>' +
+                      '<span class="chapter-case-title">' + c.title + '</span>' +
+                      '<span class="chapter-case-arrow">›</span>' +
+                    '</div>';
+                  });
+                  rowHtml += '</div>';
+                  // 换一批 + 更多案例
+                  if (caseCount > 3) {
+                    rowHtml += '<div class="chapter-cases-actions">' +
+                      '<span class="chapter-refresh-cases" onclick="event.stopPropagation();SolutionsPage.refreshRandomCases(' + ch.id + ',' + sub.id + ')">换一批</span>' +
+                      '<span class="chapter-more-cases" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'cases\',\'' + sub.name + '\')">更多案例(' + caseCount + ')</span>' +
+                    '</div>';
+                  }
+                }
+
+                rowHtml += '</div>';
+                return rowHtml;
               }).join('') +
             '</div>';
           }
@@ -530,6 +640,104 @@
         url.searchParams.delete('chapter');
         window.history.pushState({}, '', url);
         this.renderChapterGrid();
+      },
+
+      // ===== 行业分类弹窗 =====
+      industryGroups: [
+        { title: '餐饮美食', icon: '🍜', categories: ['餐厅','奶茶茶饮','烧烤烤串','火锅店','面馆小吃','烘焙蛋糕','咖啡甜品','酒吧清吧','西餐披萨','早餐店','包子铺','麻辣烫','快餐简餐'] },
+        { title: '零售购物', icon: '🛒', categories: ['超市便利','水果生鲜','服饰鞋包','饰品珠宝','母婴用品','美妆护肤','数码家电','药店药房'] },
+        { title: '教育培训', icon: '🏫', categories: ['绘画艺术','音乐乐器','舞蹈培训','学科辅导','武术跆拳道','驾考培训'] },
+        { title: '美容健康', icon: '💅', categories: ['美容美甲','美发造型','SPA养生','瑜伽健身','口腔眼科'] },
+        { title: '生活服务', icon: '🧺', categories: ['汽车服务','房产装修','家政保洁','家电维修','家居办公','建筑工程'] },
+        { title: '娱乐休闲', icon: '🎤', categories: ['KTV娱乐','电影网吧','桌游密室','儿童乐园','旅游酒店'] },
+        { title: '其他行业', icon: '🐶', categories: ['宠物','婚庆摄影','广告印刷','茶叶烟酒','花店花卉','直播','知识付费','运动休闲','心理咨询','加油站'] }
+      ],
+      industryIcons: {
+        '通用':'🌟','餐厅':'🍽️','奶茶茶饮':'🧋','烧烤烤串':'🍢','火锅店':'🍲','面馆小吃':'🍜','烘焙蛋糕':'🧁','咖啡甜品':'☕','酒吧清吧':'🍺','西餐披萨':'🍕','早餐店':'🥐','包子铺':'📋','麻辣烫':'📋','快餐简餐':'📋',
+        '超市便利':'🏪','水果生鲜':'🍉','服饰鞋包':'👗','饰品珠宝':'💍','母婴用品':'👶','美妆护肤':'💄','数码家电':'📱','药店药房':'💊',
+        '绘画艺术':'🎨','音乐乐器':'🎵','舞蹈培训':'💃','学科辅导':'📚','武术跆拳道':'🥋','驾考培训':'🚗',
+        '美容美甲':'💅','美发造型':'💇','SPA养生':'🧖','瑜伽健身':'🧘','口腔眼科':'🦷',
+        '汽车服务':'🚙','房产装修':'🏠','家政保洁':'🧹','家电维修':'📺','家居办公':'🛋️','建筑工程':'🏗️',
+        'KTV娱乐':'🎤','电影网吧':'🎬','桌游密室':'🎲','儿童乐园':'🎡','旅游酒店':'✈️',
+        '宠物':'🐱','婚庆摄影':'💒','广告印刷':'🖨️','茶叶烟酒':'🍵','花店花卉':'💐','直播':'📱','知识付费':'📚','运动休闲':'🎯','心理咨询':'🧠','加油站':'⛽'
+      },
+      // 简化搜索关键词映射（用案例标题中常见的词）
+      industrySearchKeywords: {
+        '餐厅':'餐厅','奶茶茶饮':'奶茶','烧烤烤串':'烧烤','火锅店':'火锅','面馆小吃':'面馆','烘焙蛋糕':'蛋糕','咖啡甜品':'咖啡','酒吧清吧':'酒吧','西餐披萨':'披萨','早餐店':'早餐','包子铺':'包子','麻辣烫':'麻辣烫','快餐简餐':'快餐',
+        '超市便利':'超市','水果生鲜':'水果','服饰鞋包':'服装','饰品珠宝':'珠宝','母婴用品':'母婴','美妆护肤':'美妆','数码家电':'数码','药店药房':'药店',
+        '绘画艺术':'绘画','音乐乐器':'音乐','舞蹈培训':'舞蹈','学科辅导':'辅导','武术跆拳道':'武术','驾考培训':'驾考',
+        '美容美甲':'美容','美发造型':'美发','SPA养生':'养生','瑜伽健身':'健身','口腔眼科':'口腔',
+        '汽车服务':'汽车','房产装修':'装修','家政保洁':'保洁','家电维修':'维修','家居办公':'家居','建筑工程':'建筑',
+        'KTV娱乐':'KTV','电影网吧':'网吧','桌游密室':'密室','儿童乐园':'乐园','旅游酒店':'酒店',
+        '宠物':'宠物','婚庆摄影':'婚庆','广告印刷':'广告','茶叶烟酒':'茶叶','花店花卉':'花店','直播':'直播','知识付费':'知识付费','运动休闲':'运动','心理咨询':'心理','加油站':'加油站'
+      },
+
+      openIndustryModal: function() {
+        var allCases = BizData.cases || [];
+        var body = document.getElementById('industryModalBody');
+        var self = this;
+        var html = '';
+
+        // 通用分类
+        var generalCount = allCases.length;
+        html += '<div class="industry-group">' +
+          '<div class="industry-group-title">全部</div>' +
+          '<div class="industry-group-items">' +
+            '<div class="industry-tag" onclick="SolutionsPage.searchByIndustry(\'\')">' +
+              '<span class="industry-tag-name">' + (this.industryIcons['通用'] || '🌟') + ' 全部案例</span>' +
+              '<span class="industry-tag-count">' + generalCount + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+        // 各分组
+        this.industryGroups.forEach(function(group) {
+          var groupHtml = '<div class="industry-group">' +
+            '<div class="industry-group-title">' + group.icon + ' ' + group.title + '</div>' +
+            '<div class="industry-group-items">';
+
+          group.categories.forEach(function(cat) {
+            // 用简化关键词模糊匹配计数（与搜索逻辑一致）
+            var keyword = self.industrySearchKeywords[cat] || cat;
+            var count = allCases.filter(function(c) {
+              return (c.title + (c.effectData || '') + (c.problem || '') + (c.solution || '')).indexOf(keyword) > -1;
+            }).length;
+            var icon = self.industryIcons[cat] || '📋';
+            groupHtml += '<div class="industry-tag' + (count === 0 ? ' disabled' : '') + '" onclick="SolutionsPage.searchByIndustry(\'' + cat + '\')">' +
+              '<span class="industry-tag-name">' + icon + ' ' + cat + '</span>' +
+              '<span class="industry-tag-count">' + count + '</span>' +
+            '</div>';
+          });
+
+          groupHtml += '</div></div>';
+          html += groupHtml;
+        });
+
+        body.innerHTML = html;
+        document.getElementById('industryModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        BizUtils.replaceIcons();
+      },
+
+      closeIndustryModal: function() {
+        document.getElementById('industryModal').classList.remove('show');
+        document.body.style.overflow = '';
+      },
+
+      searchByIndustry: function(category) {
+        this.closeIndustryModal();
+        // 退出篇章详情，回到首页搜索模式
+        if (this.currentChapter) {
+          this.currentChapter = null;
+          this.currentSub = null;
+          var url = new URL(window.location);
+          url.searchParams.delete('chapter');
+          url.searchParams.delete('sub');
+          window.history.pushState({}, '', url);
+        }
+        var keyword = category ? (this.industrySearchKeywords[category] || category) : '';
+        document.getElementById('searchInput').value = keyword;
+        this.onSearch(keyword);
       },
 
       // 搜索

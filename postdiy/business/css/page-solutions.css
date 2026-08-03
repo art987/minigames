@@ -60,6 +60,33 @@
 }
 
 /* æœç´¢æ¡† - ä¸Žæ ‡é¢˜åŒè¡Œ */
+/* 行业按钮 */
+.biz-industry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 32px;
+  padding: 0 10px;
+  background: linear-gradient(135deg, rgb(255 236 205), rgb(255 216 254), rgb(221 255 232));
+  border: none;
+  border-radius: var(--biz-radius-pill);
+  font-size: 13px;
+  color: #ff7668;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #fff;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.biz-industry-btn:active {
+  transform: scale(0.95);
+  background: #e8e8ed;
+}
+.biz-industry-btn .biz-icon {
+  stroke: #ff6d6d;
+  stroke-width: 2;
+}
 .biz-search-box {
   display: flex;
   align-items: center;
@@ -216,10 +243,11 @@
   border: 1px solid rgba(0,0,0,0.04);
 }
 .chapter-sub-header {
-  /* display: flex; */
-  /* align-items: center; */
-  tify-content: space-between;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: nowrap;
 }
 .chapter-sub-tag {
   display: inline-flex;
@@ -235,6 +263,8 @@
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .chapter-sub-tag::after {
   content: '>';
@@ -245,22 +275,21 @@
   line-height: 10px;
   margin-bottom: 2px;
 }
-.chapter-sub-stats {
-  display: flex;
-  gap: 3px;
-  padding-bottom: 8px;
-}
 .chapter-sub-stat {
-  flex: 1;
+  flex-shrink: 0;
   text-align: center;
-  padding: 6px 1px;
-  background: #fff;
+  padding: 4px 6px;
+  background: rgba(255,255,255,0.7);
   border-radius: 8px;
   cursor: pointer;
   line-height: 15px;
   transition: all 0.2s;
   border: 1px solid rgba(0,0,0,0.04);
   min-width: 0;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
 }
 .chapter-sub-stat:active {
   transform: scale(0.96);
@@ -296,6 +325,110 @@
 }
 .chapter-sub-tag .chapter-sub-badge {
   display: none;
+}
+
+/* ===== 随机案例展示区域 ===== */
+.chapter-cases-random {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.chapter-case-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 8px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  border: 1px solid rgba(0,0,0,0.03);
+  animation: caseFadeIn 0.35s ease both;
+}
+@keyframes caseFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.chapter-cases-random.fading-out .chapter-case-item {
+  animation: caseFadeOut 0.2s ease both;
+}
+@keyframes caseFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.chapter-case-item:active {
+  transform: scale(0.98);
+  background: rgba(0,0,0,0.03);
+}
+.chapter-case-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: #888;
+}
+.chapter-case-icon .biz-icon {
+  stroke: #999;
+  stroke-width: 1.5;
+}
+.chapter-case-title {
+  flex: 1;
+  font-size: 12px;
+  color: var(--biz-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.chapter-case-arrow {
+  flex-shrink: 0;
+  color: #ccc;
+  font-size: 14px;
+}
+/* 换一批 + 更多案例 操作行 */
+.chapter-cases-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 6px 0 2px;
+}
+.chapter-refresh-cases {
+  font-size: 12px;
+  color: #FF9500;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.chapter-refresh-cases:active {
+  opacity: 0.6;
+}
+.chapter-more-cases {
+  font-size: 12px;
+  color: #0071E3;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+.chapter-more-cases:active {
+  opacity: 0.6;
 }
 
 /* ===== ç¯‡ç« è¯¦æƒ…å¤´éƒ¨ ===== */
@@ -732,6 +865,91 @@
 @keyframes modalSlideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
+}
+
+/* ===== 行业分类弹窗 ===== */
+.industry-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1001;
+  display: none;
+}
+.industry-modal.show {
+  display: block;
+}
+.industry-modal-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.industry-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 20px;
+  -webkit-overflow-scrolling: touch;
+}
+.industry-group {
+  margin-bottom: 16px;
+}
+.industry-group:last-child {
+  margin-bottom: 0;
+}
+.industry-group > .industry-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--biz-text-tertiary);
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+.industry-group-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.industry-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 12px;
+  background: #f5f5f7;
+  border-radius: var(--biz-radius-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.industry-tag:active {
+  transform: scale(0.95);
+  background: #e8e8ed;
+}
+.industry-tag.disabled {
+  opacity: 0.4;
+}
+.industry-tag-name {
+  font-size: 13px;
+  color: var(--biz-text-primary);
+  white-space: nowrap;
+}
+.industry-tag-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: #0071E3;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+.industry-tag.disabled .industry-tag-count {
+  background: #c7c7cc;
 }
 .detail-modal-header {
   display: flex;
