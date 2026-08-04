@@ -522,6 +522,10 @@
         document.querySelector('.detail-modal-footer').style.display = 'none';
         // 列表视图是初始状态，隐藏返回按钮
         document.getElementById('modalBackBtn').style.display = 'none';
+        // 设置modalType，让子级弹窗能识别有上一级可返回
+        this.modalType = 'subItems';
+        this.modalTitle = title;
+        this.modalHistory = []; // 列表是最顶层，清空历史
         modal.classList.add('show');
         BizUtils.replaceIcons();
       },
@@ -822,6 +826,7 @@
         document.getElementById('searchInput').value = displayText;
         this.searchText = displayText;
         this.renderSearchResults();
+        window.scrollTo(0, 0);
       },
 
       // 搜索
@@ -834,6 +839,7 @@
           // 在篇章首页搜索时，切换到全量搜索结果
           this.renderSearchResults();
         }
+        window.scrollTo(0, 0);
       },
 
       // 全局搜索结果（在篇章首页时搜索）
@@ -965,8 +971,11 @@
         var sol = this.findSolution(id);
         if (!sol) return;
         
-        // 保存当前状态到历史
-        this.saveModalState();
+        // 只有当前已有弹窗打开时才保存状态并显示返回按钮
+        var hasPrevModal = this.modalType !== null && this.modalType !== undefined;
+        if (hasPrevModal) {
+          this.saveModalState();
+        }
         
         this.modalType = 'solution';
         this.modalId = id;
@@ -978,8 +987,8 @@
         document.getElementById('modalBody').scrollTop = 0;
         document.body.style.overflow = 'hidden';
         
-        // 显示返回按钮和底部操作按钮
-        document.getElementById('modalBackBtn').style.display = 'flex';
+        // 只有有上一级弹窗时才显示返回按钮
+        document.getElementById('modalBackBtn').style.display = hasPrevModal ? 'flex' : 'none';
         document.getElementById('modalFavBtn').style.display = '';
         document.getElementById('modalOpenBtn').style.display = '';
         document.querySelector('.detail-modal-footer').style.display = 'flex';
@@ -990,8 +999,11 @@
         var c = this.findCase(id);
         if (!c) return;
         
-        // 保存当前状态到历史
-        this.saveModalState();
+        // 只有当前已有弹窗打开时才保存状态并显示返回按钮
+        var hasPrevModal = this.modalType !== null && this.modalType !== undefined;
+        if (hasPrevModal) {
+          this.saveModalState();
+        }
         
         this.modalType = 'case';
         this.modalId = id;
@@ -1003,8 +1015,8 @@
         document.getElementById('modalBody').scrollTop = 0;
         document.body.style.overflow = 'hidden';
         
-        // 显示返回按钮和底部操作按钮
-        document.getElementById('modalBackBtn').style.display = 'flex';
+        // 只有有上一级弹窗时才显示返回按钮
+        document.getElementById('modalBackBtn').style.display = hasPrevModal ? 'flex' : 'none';
         document.getElementById('modalFavBtn').style.display = '';
         document.getElementById('modalOpenBtn').style.display = '';
         document.querySelector('.detail-modal-footer').style.display = 'flex';
