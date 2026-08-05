@@ -1,4 +1,4 @@
-/* Lucide å›¾æ ‡é€šç”¨æ ·å¼ */
+/* Lucide Ã¥â€ºÂ¾Ã¦Â â€¡Ã©â‚¬Å¡Ã§â€Â¨Ã¦Â Â·Ã¥Â¼Â */
 #backBtnContent .biz-icon { stroke: rgb(216 39 19);stroke-width:3px;}
 #searchIconHolder .biz-icon { stroke: rgb(183, 183, 183);stroke-width:1px;}
 .detail-modal-body .biz-icon{stroke: rgb(188 188 188);}
@@ -13,7 +13,7 @@
   stroke-linejoin: round;
 }
 
-/* é¡µé¢å¤´éƒ¨ - æ ‡é¢˜/è¿”å›ž/æœç´¢ä¸€è¡Œ */
+/* Ã©Â¡ÂµÃ©ÂÂ¢Ã¥Â¤Â´Ã©Æ’Â¨ - Ã¦Â â€¡Ã©Â¢Ëœ/Ã¨Â¿â€Ã¥â€ºÅ¾/Ã¦ÂÅ“Ã§Â´Â¢Ã¤Â¸â‚¬Ã¨Â¡Å’ */
 .biz-page-header {
   background: #ffffff;
   padding: 12px 16px;
@@ -31,7 +31,7 @@
 .biz-page-header h1 {
   display: none;
 }
-/* è¿”å›žæŒ‰é’® - æžç®€ */
+/* Ã¨Â¿â€Ã¥â€ºÅ¾Ã¦Å’â€°Ã©â€™Â® - Ã¦Å¾ÂÃ§Â®â‚¬ */
 .biz-back-btn {
   display: none;
   font-size: 0px;
@@ -59,8 +59,8 @@
   align-items: center;
 }
 
-/* æœç´¢æ¡† - ä¸Žæ ‡é¢˜åŒè¡Œ */
-/* 行业按钮 */
+/* Ã¦ÂÅ“Ã§Â´Â¢Ã¦Â¡â€  - Ã¤Â¸Å½Ã¦Â â€¡Ã©Â¢ËœÃ¥ÂÅ’Ã¨Â¡Å’ */
+/* è¡Œä¸šæŒ‰é’® */
 .biz-industry-btn {
   display: inline-flex;
   align-items: center;
@@ -119,24 +119,24 @@
   color: var(--biz-text-tertiary);
 }
 
-/* ===== ç¯‡ç« æ—¶é—´è½´ ===== */
+/* ===== Ã§Â¯â€¡Ã§Â«Â Ã¦â€”Â¶Ã©â€”Â´Ã¨Â½Â´ ===== */
 .biz-chapter-grid {
   display: flex;
   flex-direction: column;
   gap: 0;
-  width: 95%;
-  padding: 30px 0 0 31px;
+  width: 98%;
+  padding: 30px 0 0 23px;
   position: relative;
 }
-/* å·¦ä¾§ç«–çº¿ */
+/* Ã¥Â·Â¦Ã¤Â¾Â§Ã§Â«â€“Ã§ÂºÂ¿ */
 .biz-chapter-grid::before {
   content: '';
   position: absolute;
-  left: 17px;
+  left: 7px;
   top: -1px;
   padding-top: 90px;
   bottom: -90px;
-  width: 2px;
+  width: 6px;
   background: #ffffff7a;
   border-radius: 1px;
 }
@@ -146,7 +146,7 @@
   border: 1px solid rgb(255 255 255 / 37%);
   border-radius: 22px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  padding: 14px 16px;
+  padding: 14px 5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -157,16 +157,16 @@
 .biz-chapter-card:last-child {
   margin-bottom: 0;
 }
-/* æ—¶é—´è½´åœ†ç‚¹ */
+/* Ã¦â€”Â¶Ã©â€”Â´Ã¨Â½Â´Ã¥Å“â€ Ã§â€šÂ¹ */
 .biz-chapter-card::before {
   content: '';
   position: absolute;
-  left: -19px;
+  left: -24px;
   top: 34px;
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 19px;
   border-radius: 50%;
-  background: #f07666;
+  background: linear-gradient(135deg, rgb(255 236 205), rgb(255 216 254), rgb(221 255 232));
   border: 2px solid #ffffff;
   box-shadow: none;
   z-index: 1;
@@ -178,7 +178,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transform: translateY(-1px);
 }
-/* éšè—æ—§çš„å·¦ä¾§è‰²æ¡ */
+/* Ã©Å¡ÂÃ¨â€”ÂÃ¦â€”Â§Ã§Å¡â€žÃ¥Â·Â¦Ã¤Â¾Â§Ã¨â€°Â²Ã¦ÂÂ¡ */
 .biz-chapter-card .chapter-bar {
   display: none;
 }
@@ -187,7 +187,7 @@
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 12px;
-  padding-left: 96px;
+  padding-left: 116px;
   margin-top: 5px;
 }
 .biz-chapter-card .chapter-icon {
@@ -207,8 +207,8 @@
   min-width: 0;
 }
 .biz-chapter-card .chapter-name {
-  font-size: 25px;
-  font-weight: 400;
+  font-size: 30px;
+  font-weight: 500;
   color: var(--biz-text-primary);
   margin-bottom: 2px;
 }
@@ -227,7 +227,7 @@
   font-weight: 700;
   font-size: var(--biz-font-small);
 }
-/* ç¯‡ç« å¡ç‰‡äºŒçº§åˆ†ç±» - åž‚ç›´åˆ—è¡¨å¸ƒå±€ */
+/* Ã§Â¯â€¡Ã§Â«Â Ã¥ÂÂ¡Ã§â€°â€¡Ã¤ÂºÅ’Ã§ÂºÂ§Ã¥Ë†â€ Ã§Â±Â» - Ã¥Å¾â€šÃ§â€ºÂ´Ã¥Ë†â€”Ã¨Â¡Â¨Ã¥Â¸Æ’Ã¥Â±â‚¬ */
 .chapter-subs {
   display: flex;
   flex-direction: column;
@@ -239,7 +239,7 @@
   /* background: #f8f9fa; */
   backdrop-filter: blur(2px);
   border-radius: 10px;
-  padding: 10px 9px;
+  padding: 10px 8px;
   border: 1px solid rgba(0,0,0,0.04);
 }
 .chapter-sub-header {
@@ -252,7 +252,7 @@
 .chapter-sub-tag {
   display: inline-flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 10px;
   font-weight: 700;
   color: var(--biz-text-primary);
@@ -278,11 +278,11 @@
 .chapter-sub-stat {
   flex-shrink: 0;
   text-align: center;
-  padding: 4px 6px;
+  padding: 3px 8px;
   background: rgba(255,255,255,0.7);
   border-radius: 8px;
   cursor: pointer;
-  line-height: 15px;
+  line-height: 23px;
   transition: all 0.2s;
   border: 1px solid rgba(0,0,0,0.04);
   min-width: 0;
@@ -296,7 +296,7 @@
   background: #f0f0f0;
 }
 .chapter-sub-stat-label {
-  font-size: 11px;
+  font-size: 16px;
   color: #000;
   /* display: block; */
   margin-bottom: 2px;
@@ -327,7 +327,7 @@
   display: none;
 }
 
-/* ===== 随机案例展示区域 ===== */
+/* ===== éšæœºæ¡ˆä¾‹å±•ç¤ºåŒºåŸŸ ===== */
 .chapter-cases-random {
   max-height: 0;
   opacity: 0;
@@ -337,7 +337,7 @@
   margin-bottom: 0;
   transition: max-height 0.35s ease, opacity 0.3s ease, margin-bottom 0.35s ease;
 }
-/* 当所在行处于视口关注区域时显示 */
+/* å½“æ‰€åœ¨è¡Œå¤„äºŽè§†å£å…³æ³¨åŒºåŸŸæ—¶æ˜¾ç¤º */
 .chapter-sub-row.in-view .chapter-cases-random {
   max-height: 320px;
   opacity: 1;
@@ -360,13 +360,13 @@
   padding: 6px 0 2px;
 }
 
-/* 案例条目逐个出现/消失 */
+/* æ¡ˆä¾‹æ¡ç›®é€ä¸ªå‡ºçŽ°/æ¶ˆå¤± */
 .chapter-case-item {
   display: flex;
   align-items: center;
-  margin: 4px 0px;
-  gap: 6px;
-  padding: 5px 8px;
+  margin: 7px 0px;
+  gap: 3px;
+  padding: 8px 8px;
   background: rgba(255,255,255,0.6);
   border-radius: 8px;
   cursor: pointer;
@@ -375,7 +375,7 @@
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
 }
-/* 出现时逐条延迟 */
+/* å‡ºçŽ°æ—¶é€æ¡å»¶è¿Ÿ */
 .chapter-sub-row.in-view .chapter-case-item:nth-child(1) {
   opacity: 1; transform: translateY(0); transition-delay: 0.08s;
 }
@@ -391,7 +391,7 @@
 .chapter-sub-row.in-view .chapter-case-item:nth-child(5) {
   opacity: 1; transform: translateY(0); transition-delay: 0.48s;
 }
-/* 消失时逐条反向延迟 */
+/* æ¶ˆå¤±æ—¶é€æ¡åå‘å»¶è¿Ÿ */
 .chapter-sub-row:not(.in-view) .chapter-case-item:nth-child(1) {
   transition-delay: 0.16s;
 }
@@ -402,7 +402,7 @@
   transition-delay: 0s;
 }
 
-/* 操作按钮也逐个出现/消失 */
+/* æ“ä½œæŒ‰é’®ä¹Ÿé€ä¸ªå‡ºçŽ°/æ¶ˆå¤± */
 .chapter-refresh-cases, .chapter-more-cases {
   opacity: 0;
   transform: translateY(6px);
@@ -416,14 +416,14 @@
   padding: 2px 19px;
   text-align: center;
   border-radius: 5px;
-  background: #fff;
+  background: #ff934c;
 }
 .chapter-sub-row.in-view .chapter-more-cases {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.42s;
   border: 1px solid #dfdfdf;
-  padding: 2px 6px;
+  padding: 2px 12px;
   text-align: center;
   border-radius: 5px;
   background: #fff;
@@ -431,14 +431,14 @@
 .chapter-case-item:active {
   background: rgba(0,0,0,0.03);
 }
-/* 换一批时快速淡出 */
+/* æ¢ä¸€æ‰¹æ—¶å¿«é€Ÿæ·¡å‡º */
 .chapter-cases-random.fading-out .chapter-case-item {
   opacity: 0 !important;
   transform: translateY(-6px) !important;
   transition: opacity 0.2s ease, transform 0.2s ease !important;
   transition-delay: 0s !important;
 }
-/* 新案例初始隐藏状态（换一批时用） */
+/* æ–°æ¡ˆä¾‹åˆå§‹éšè—çŠ¶æ€ï¼ˆæ¢ä¸€æ‰¹æ—¶ç”¨ï¼‰ */
 .chapter-case-item.case-entering {
   opacity: 0 !important;
   transform: translateY(10px) !important;
@@ -457,7 +457,7 @@
 }
 .chapter-case-title {
   flex: 1;
-  font-size: 12px;
+  font-size: 15px;
   color: var(--biz-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -470,8 +470,8 @@
   font-size: 14px;
 }
 .chapter-refresh-cases {
-  font-size: 11px;
-  color: #FF9500;
+  font-size: 13px;
+  color: #ffffff;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -484,7 +484,7 @@
   opacity: 0.6;
 }
 .chapter-more-cases {
-  font-size: 11px;
+  font-size: 13px;
   color: #ff9500;
   cursor: pointer;
   -webkit-user-select: none;
@@ -495,7 +495,7 @@
   opacity: 0.6;
 }
 
-/* ===== ç¯‡ç« è¯¦æƒ…å¤´éƒ¨ ===== */
+/* ===== Ã§Â¯â€¡Ã§Â«Â Ã¨Â¯Â¦Ã¦Æ’â€¦Ã¥Â¤Â´Ã©Æ’Â¨ ===== */
 #chapterHeaderWrap{background-color: linear-gradient(135deg, #ddecfe 0%, #fff5f0 100%);}
 .biz-chapter-header {
   display: flex;
@@ -531,7 +531,7 @@
   letter-spacing: 2px;
 }
 
-/* ===== äºŒçº§åˆ†ç±»æ ‡ç­¾ ===== */
+/* ===== Ã¤ÂºÅ’Ã§ÂºÂ§Ã¥Ë†â€ Ã§Â±Â»Ã¦Â â€¡Ã§Â­Â¾ ===== */
 .biz-sub-tabs {
   display: flex;
   gap: 8px;
@@ -571,7 +571,7 @@
   font-weight: 500;
 }
 
-/* ===== æ–¹æ¡ˆå¡ç‰‡åˆ—è¡¨ ===== */
+/* ===== Ã¦â€“Â¹Ã¦Â¡Ë†Ã¥ÂÂ¡Ã§â€°â€¡Ã¥Ë†â€”Ã¨Â¡Â¨ ===== */
 .biz-solution-list {
   display: flex;
   flex-direction: column;
@@ -620,7 +620,7 @@
   display: none;
 }
 
-/* æœç´¢ç»“æžœåˆ†ç»„æ ‡ç­¾ */
+/* Ã¦ÂÅ“Ã§Â´Â¢Ã§Â»â€œÃ¦Å¾Å“Ã¥Ë†â€ Ã§Â»â€žÃ¦Â â€¡Ã§Â­Â¾ */
 .search-section-label {
   font-size: 12px;
   color: var(--biz-text-tertiary);
@@ -657,10 +657,10 @@
   font-weight: 300;
 }
 
-/* è§†å›¾åˆ‡æ¢åŠ¨ç”» */
+/* Ã¨Â§â€ Ã¥â€ºÂ¾Ã¥Ë†â€¡Ã¦ÂÂ¢Ã¥Å Â¨Ã§â€Â» */
 .view-hidden { display: none; }
 
-/* ===== æ¡ˆä¾‹å¡ç‰‡ ===== */
+/* ===== Ã¦Â¡Ë†Ã¤Â¾â€¹Ã¥ÂÂ¡Ã§â€°â€¡ ===== */
 .biz-case-section {
   margin-top: 16px;
 }
@@ -707,8 +707,8 @@
   font-weight: 500;
 }
 
-/* ===== å¼¹çª—å†…åˆ—è¡¨æ ·å¼ ===== */
-/* å¿ƒå¾—ç¬”è®°åˆ—è¡¨ */
+/* ===== Ã¥Â¼Â¹Ã§Âªâ€”Ã¥â€ â€¦Ã¥Ë†â€”Ã¨Â¡Â¨Ã¦Â Â·Ã¥Â¼Â ===== */
+/* Ã¥Â¿Æ’Ã¥Â¾â€”Ã§Â¬â€Ã¨Â®Â°Ã¥Ë†â€”Ã¨Â¡Â¨ */
 .cd-tips-list {
   display: flex;
   flex-direction: column;
@@ -745,7 +745,7 @@
   line-height: 1.5;
 }
 
-/* æŒ‡å¯¼æ–¹æ¡ˆåˆ—è¡¨ */
+/* Ã¦Å’â€¡Ã¥Â¯Â¼Ã¦â€“Â¹Ã¦Â¡Ë†Ã¥Ë†â€”Ã¨Â¡Â¨ */
 .cd-solutions-list {
   display: flex;
   flex-direction: column;
@@ -786,7 +786,7 @@
   font-weight: 300;
 }
 
-/* æ¡ˆä¾‹å­¦ä¹ åˆ—è¡¨ */
+/* Ã¦Â¡Ë†Ã¤Â¾â€¹Ã¥Â­Â¦Ã¤Â¹Â Ã¥Ë†â€”Ã¨Â¡Â¨ */
 .cd-cases-list {
   display: flex;
   flex-direction: column;
@@ -828,7 +828,7 @@
   font-weight: 300;
 }
 
-/* ===== å³ä¸‹è§’æµ®åŠ¨æŒ‰é’® ===== */
+/* ===== Ã¥ÂÂ³Ã¤Â¸â€¹Ã¨Â§â€™Ã¦ÂµÂ®Ã¥Å Â¨Ã¦Å’â€°Ã©â€™Â® ===== */
 .sol-fab-group {
   position: fixed;
   right: 16px;
@@ -886,14 +886,14 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* è§£å†³æ–¹æ¡ˆé¡µé¢åº•éƒ¨ç•™ç™½ï¼Œé¿å…æµ®åŠ¨æŒ‰é’®é®æŒ¡ */
+/* Ã¨Â§Â£Ã¥â€ Â³Ã¦â€“Â¹Ã¦Â¡Ë†Ã©Â¡ÂµÃ©ÂÂ¢Ã¥Âºâ€¢Ã©Æ’Â¨Ã§â€¢â„¢Ã§â„¢Â½Ã¯Â¼Å’Ã©ÂÂ¿Ã¥â€¦ÂÃ¦ÂµÂ®Ã¥Å Â¨Ã¦Å’â€°Ã©â€™Â®Ã©ÂÂ®Ã¦Å’Â¡ */
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
   padding: 0 0 500px;
 }
 
-/* ===== è¯¦æƒ…å¼¹çª— ===== */
+/* ===== Ã¨Â¯Â¦Ã¦Æ’â€¦Ã¥Â¼Â¹Ã§Âªâ€” ===== */
 .detail-modal {
   position: fixed;
   top: 0;
@@ -931,7 +931,7 @@
   to { transform: translateY(0); }
 }
 
-/* ===== 行业分类弹窗 ===== */
+/* ===== è¡Œä¸šåˆ†ç±»å¼¹çª— ===== */
 .industry-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -1002,8 +1002,8 @@
 .industry-tag-count {
   font-size: 11px;
   font-weight: 600;
-  color: #fff;
-  background: #0071E3;
+    color: #ff7126;
+    background: #ffffff;
   border-radius: 10px;
   min-width: 18px;
   height: 18px;
@@ -1129,7 +1129,7 @@
   opacity: 0.8;
 }
 
-/* ===== å¼¹çª—å†…å®¹æ ·å¼ï¼ˆæ–¹æ¡ˆ/æ¡ˆä¾‹è¯¦æƒ…ï¼‰ ===== */
+/* ===== Ã¥Â¼Â¹Ã§Âªâ€”Ã¥â€ â€¦Ã¥Â®Â¹Ã¦Â Â·Ã¥Â¼ÂÃ¯Â¼Ë†Ã¦â€“Â¹Ã¦Â¡Ë†/Ã¦Â¡Ë†Ã¤Â¾â€¹Ã¨Â¯Â¦Ã¦Æ’â€¦Ã¯Â¼â€° ===== */
 .detail-modal-body .sd-overview,
 .detail-modal-body .cd-overview {
   margin-bottom: 8px;
@@ -1241,7 +1241,7 @@
   position: relative;
 }
 .detail-modal-body .sd-note-item::before {
-  content: 'âš ';
+  content: 'Ã¢Å¡Â ';
   position: absolute;
   left: 0;
   top: 4px;
@@ -1323,7 +1323,7 @@
   margin-right: 10px;
 }
 
-/* ===== å¿ƒå¾—æ»šåŠ¨ç‰ˆå— ===== */
+/* ===== Ã¥Â¿Æ’Ã¥Â¾â€”Ã¦Â»Å¡Ã¥Å Â¨Ã§â€°Ë†Ã¥Ââ€” ===== */
 .tips-scroller-wrap {
   margin: 0 15px 20px 15px;
   background: #ffffff;
@@ -1426,7 +1426,7 @@
   height: 16px;
 }
 
-/* ===== å¿ƒå¾—å¼¹çª— ===== */
+/* ===== Ã¥Â¿Æ’Ã¥Â¾â€”Ã¥Â¼Â¹Ã§Âªâ€” ===== */
 .tips-modal {
   position: fixed;
   top: 0;
@@ -1529,108 +1529,108 @@
   line-height: 1.7;
 }
 
-/* ===== ç¯‡ç« å¡ç‰‡èƒŒæ™¯å›¾ ===== */
+/* ===== Ã§Â¯â€¡Ã§Â«Â Ã¥ÂÂ¡Ã§â€°â€¡Ã¨Æ’Å’Ã¦â„¢Â¯Ã¥â€ºÂ¾ ===== */
 .biz-chapter-card {
   background-repeat: no-repeat;
 }
 
-/* ç¬¬1ç¯‡ï¼šå¼€åº—é€‰å€ */
+/* Ã§Â¬Â¬1Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Â¼â‚¬Ã¥Âºâ€”Ã©â‚¬â€°Ã¥Ââ‚¬ */
 .chapter-card-1 {
   background-image: url('../images/statics/1.png');
   background-size: 136px;
   background-position: -21px -4px;
 }
 
-/* ç¬¬2ç¯‡ï¼šäº§å“å®šä»· */
+/* Ã§Â¬Â¬2Ã§Â¯â€¡Ã¯Â¼Å¡Ã¤ÂºÂ§Ã¥â€œÂÃ¥Â®Å¡Ã¤Â»Â· */
 .chapter-card-2 {
   background-image: url('../images/statics/2.png');
   background-size: 130px;
   background-position: -19px -8px;
 }
 
-/* ç¬¬3ç¯‡ï¼šå®¢æˆ·è¿è¥ */
+/* Ã§Â¬Â¬3Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Â®Â¢Ã¦Ë†Â·Ã¨Â¿ÂÃ¨ÂÂ¥ */
 .chapter-card-3 {
   background-image: url('../images/statics/3.png');
   background-size: 130px;
   background-position: -19px -10px;
 }
 
-/* ç¬¬4ç¯‡ï¼šèŽ·å®¢å¼•æµ */
+/* Ã§Â¬Â¬4Ã§Â¯â€¡Ã¯Â¼Å¡Ã¨Å½Â·Ã¥Â®Â¢Ã¥Â¼â€¢Ã¦ÂµÂ */
 .chapter-card-4 {
   background-image: url('../images/statics/4.png');
   background-size: 131px;
   background-position: -16px -6px;
 }
 
-/* ç¬¬5ç¯‡ï¼šåº—é“ºç®¡ç† */
+/* Ã§Â¬Â¬5Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Âºâ€”Ã©â€œÂºÃ§Â®Â¡Ã§Ââ€  */
 .chapter-card-5 {
   background-image: url('../images/statics/5.png');
   background-size: 139px;
   background-position: -25px -6px;
 }
 
-/* ç¬¬6ç¯‡ï¼šç»è¥æ™ºæ…§ */
+/* Ã§Â¬Â¬6Ã§Â¯â€¡Ã¯Â¼Å¡Ã§Â»ÂÃ¨ÂÂ¥Ã¦â„¢ÂºÃ¦â€¦Â§ */
 .chapter-card-6 {
   background-image: url('../images/statics/6.png');
   background-size: 139px;
   background-position: -22px -8px;
 }
 
-/* ç¬¬7ç¯‡ï¼šé‡‘ç‚¹å­ */
+/* Ã§Â¬Â¬7Ã§Â¯â€¡Ã¯Â¼Å¡Ã©â€¡â€˜Ã§â€šÂ¹Ã¥Â­Â */
 .chapter-card-7 {
   background-image: url('../images/statics/7.png');
   background-size: 143px;
   background-position: -31px -15px;
 }
 
-/* ===== ç¯‡ç« è¯¦æƒ…é¡µå¤´éƒ¨èƒŒæ™¯å›¾ ===== */
+/* ===== Ã§Â¯â€¡Ã§Â«Â Ã¨Â¯Â¦Ã¦Æ’â€¦Ã©Â¡ÂµÃ¥Â¤Â´Ã©Æ’Â¨Ã¨Æ’Å’Ã¦â„¢Â¯Ã¥â€ºÂ¾ ===== */
 .chapter-header-wrap {
   background-repeat: no-repeat;
 }
 
-/* ç¬¬1ç¯‡ï¼šå¼€åº—é€‰å€ */
+/* Ã§Â¬Â¬1Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Â¼â‚¬Ã¥Âºâ€”Ã©â‚¬â€°Ã¥Ââ‚¬ */
 .chapter-header-wrap-1 {
   background-image: url('../images/statics/1.png');
   background-size: 148px;
   background-position: right -6px;
 }
 
-/* ç¬¬2ç¯‡ï¼šäº§å“å®šä»· */
+/* Ã§Â¬Â¬2Ã§Â¯â€¡Ã¯Â¼Å¡Ã¤ÂºÂ§Ã¥â€œÂÃ¥Â®Å¡Ã¤Â»Â· */
 .chapter-header-wrap-2 {
   background-image: url('../images/statics/2.png');
   background-size: 132px;
   background-position: right 12px;
 }
 
-/* ç¬¬3ç¯‡ï¼šå®¢æˆ·è¿è¥ */
+/* Ã§Â¬Â¬3Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Â®Â¢Ã¦Ë†Â·Ã¨Â¿ÂÃ¨ÂÂ¥ */
 .chapter-header-wrap-3 {
   background-image: url('../images/statics/3.png');
   background-size: 141px;
   background-position: right -9px;
 }
 
-/* ç¬¬4ç¯‡ï¼šèŽ·å®¢å¼•æµ */
+/* Ã§Â¬Â¬4Ã§Â¯â€¡Ã¯Â¼Å¡Ã¨Å½Â·Ã¥Â®Â¢Ã¥Â¼â€¢Ã¦ÂµÂ */
 .chapter-header-wrap-4 {
   background-image: url('../images/statics/4.png');
   background-size: 174px;
   background-position: right -16px;
 }
 
-/* ç¬¬5ç¯‡ï¼šåº—é“ºç®¡ç† */
+/* Ã§Â¬Â¬5Ã§Â¯â€¡Ã¯Â¼Å¡Ã¥Âºâ€”Ã©â€œÂºÃ§Â®Â¡Ã§Ââ€  */
 .chapter-header-wrap-5 {
   background-image: url('../images/statics/5.png');
   background-size: 177px;
   background-position: right -13px;
 }
 
-/* ç¬¬6ç¯‡ï¼šç»è¥æ™ºæ…§ */
+/* Ã§Â¬Â¬6Ã§Â¯â€¡Ã¯Â¼Å¡Ã§Â»ÂÃ¨ÂÂ¥Ã¦â„¢ÂºÃ¦â€¦Â§ */
 .chapter-header-wrap-6 {
   background-image: url('../images/statics/6.png');
   background-size: 171px;
   background-position: right -10px;
 }
 
-/* ç¬¬7ç¯‡ï¼šé‡‘ç‚¹å­ */
+/* Ã§Â¬Â¬7Ã§Â¯â€¡Ã¯Â¼Å¡Ã©â€¡â€˜Ã§â€šÂ¹Ã¥Â­Â */
 .chapter-header-wrap-7 {
   background-image: url('../images/statics/7.png');
   background-size: 181px;
