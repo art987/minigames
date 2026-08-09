@@ -1255,6 +1255,7 @@ const ThumbnailLoader = {
     },
     customBackground: null,
     textColor: '#000000',
+    autoTextColor: true,
     isUploadingLogo: false,
     currentFrame: null,
     pendingFrame: null,
@@ -1283,6 +1284,7 @@ const ThumbnailLoader = {
   let pendingUploads = { logo: null, qrcode: null };
   let pendingDeletes = { logo: false, qrcode: false };
   let originalTextColor = null;
+  let originalAutoTextColor = null;
   let previewTextColor = null;
   let colorConfirmed = false;
   
@@ -3211,8 +3213,8 @@ const ThumbnailLoader = {
       console.log('处理背景图片裁剪');
       state.customBackground = base64;
 
-      state.textColor = '#000000';
-      localStorage.setItem('textColor', '#000000');
+      // 自定义背景也优先使用智能自适应字体颜色
+      state.autoTextColor = true;
 
       if (window.FrameManager) {
         state.currentFrame = null;
@@ -3693,6 +3695,13 @@ const ThumbnailLoader = {
           openTemplateModal();
         }
       });
+
+      // 背景图片加载完成时自动计算文字颜色（addEventListener不会被onload赋值覆盖）
+      elements.posterBackground.addEventListener('load', function() {
+        if (state.autoTextColor) {
+          setTimeout(autoTextColor, 100);
+        }
+      });
     }
 
     // 字体颜色选择弹窗关闭按钮事件
@@ -3725,20 +3734,26 @@ const ThumbnailLoader = {
           }
           
           const selectedColor = targetSwatch.getAttribute('data-color');
-          
+
           if (selectedColor) {
             const currentTime = new Date().getTime();
-            
+            var isAuto = (selectedColor === 'auto');
+
             // 检查是否为双击（300ms内连续点击）
             if (currentTime - lastClickTime < 300) {
               // 双击事件：等同于点击确认选择按钮
               previewTextColor = selectedColor;
-              
-              // 更新状态用于实时预览
-              state.textColor = selectedColor;
-              
-              // 更新预览
-              updateBusinessInfoDisplay();
+
+              if (isAuto) {
+                // 智能自适应模式
+                state.autoTextColor = true;
+                autoTextColor();
+              } else {
+                // 手动选色模式
+                state.autoTextColor = false;
+                state.textColor = selectedColor;
+                updateBusinessInfoDisplay();
+              }
               
               // 更新颜色选择器的选中样式
               const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
@@ -3760,11 +3775,7 @@ const ThumbnailLoader = {
               
               // 执行确认选择按钮的逻辑
               colorConfirmed = true;
-              
-              // 保存到本地存储
-              state.textColor = previewTextColor;
-              localStorage.setItem('textColor', state.textColor);
-              
+
               // 在选中的颜色块上添加确认标记
               allSwatches.forEach(swatch => {
                 swatch.classList.remove('confirmed');
@@ -3789,15 +3800,20 @@ const ThumbnailLoader = {
             
             // 单机事件：正常预览
             lastClickTime = currentTime;
-            
+
             // 保存预览颜色
             previewTextColor = selectedColor;
-            
-            // 更新状态用于实时预览（不保存到本地存储）
-            state.textColor = selectedColor;
-            
-            // 更新预览
-            updateBusinessInfoDisplay();
+
+            if (isAuto) {
+              // 预览自动模式
+              state.autoTextColor = true;
+              autoTextColor();
+            } else {
+              // 预览手动选色
+              state.autoTextColor = false;
+              state.textColor = selectedColor;
+              updateBusinessInfoDisplay();
+            }
             
             // 更新颜色选择器的选中样式
             const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
@@ -3827,10 +3843,15 @@ const ThumbnailLoader = {
         if (previewTextColor) {
           // 标记为已确认
           colorConfirmed = true;
-          
-          // 保存到本地存储
-          state.textColor = previewTextColor;
-          localStorage.setItem('textColor', state.textColor);
+
+          var isAutoConfirm = (previewTextColor === 'auto');
+          if (isAutoConfirm) {
+            state.autoTextColor = true;
+            autoTextColor();
+          } else {
+            state.autoTextColor = false;
+            state.textColor = previewTextColor;
+          }
           
           // 在选中的颜色块上添加确认标记
           const allSwatches = elements.fontColorModalSelector.querySelectorAll('.color-swatch');
@@ -4628,11 +4649,9 @@ const ThumbnailLoader = {
       loadFallbackBusinessInfo();
     }
     
-    // 从本地存储加载文本颜色设置
-    const savedTextColor = localStorage.getItem('textColor');
-    if (savedTextColor) {
-      state.textColor = savedTextColor;
-    }
+    // 字体颜色不再持久化到本地存储
+    // 每次进入编辑器默认使用智能自适应模式，用户手动选色时才覆盖（仅当前会话有效）
+    state.autoTextColor = true;
     
     // 从本地存储加载底部按钮位置设置
     const savedActionsPosition = localStorage.getItem('actionsPosition');
@@ -4770,13 +4789,57 @@ const ThumbnailLoader = {
     }
   }
   
+  // 背景图加载令牌与取消机制
+  // 用于在快速切换模板时，取消前一个未完成的 HD 大图加载请求
+  // 节省带宽，并防止旧模板的大图加载完后突然覆盖当前预览
+  let bgLoadToken = 0;
+  let activeBgImageRequests = [];
+  let activeBgTimeouts = [];
+
+  function cancelPendingBgLoads() {
+    // 自增令牌，使所有挂起的回调失效
+    bgLoadToken++;
+    // 中断进行中的 Image 请求（清除回调 + 清空 src 触发取消）
+    for (let i = 0; i < activeBgImageRequests.length; i++) {
+      try {
+        const img = activeBgImageRequests[i];
+        img.onload = null;
+        img.onerror = null;
+        if (img.src) {
+          img.src = '';
+        }
+      } catch (e) {}
+    }
+    activeBgImageRequests = [];
+    // 清理挂起的定时器（CF 超时回退、缩略图超时保护等）
+    for (let i = 0; i < activeBgTimeouts.length; i++) {
+      clearTimeout(activeBgTimeouts[i]);
+    }
+    activeBgTimeouts = [];
+  }
+
+  function trackBgImageRequest(img) {
+    activeBgImageRequests.push(img);
+    return img;
+  }
+
+  function trackBgTimeout(timeoutId) {
+    activeBgTimeouts.push(timeoutId);
+    return timeoutId;
+  }
+
   // 更新模板显示
   function updateTemplateDisplay() {
     if (!elements.posterBackground) {
       console.error('缺少背景元素');
       return;
     }
-    
+
+    // 取消前一个模板未完成的大图加载请求，节省带宽并防止旧大图覆盖当前预览
+    cancelPendingBgLoads();
+    const myBgLoadToken = bgLoadToken;
+    const isCurrentBgLoad = function() { return myBgLoadToken === bgLoadToken; };
+
     // 更新贴纸按钮显示状态
     updateStickerButtonVisibility();
     
@@ -4880,6 +4943,11 @@ const ThumbnailLoader = {
         // 更新背景为高清图并完成加载流程
         const updateToHdImage = function(finalUrl, source) {
           if (hdLoaded) return;
+          // 令牌校验：若用户已切换到其他模板，丢弃这次过期的加载结果
+          if (!isCurrentBgLoad()) {
+            console.log('[bg-load] 模板已切换，丢弃过期的大图加载结果:', finalUrl);
+            return;
+          }
           hdLoaded = true;
           
           if (hdLoadTimeoutId) clearTimeout(hdLoadTimeoutId);
@@ -4912,10 +4980,12 @@ const ThumbnailLoader = {
         // 回退到七牛原图
         const fallbackToQiniu = function(reason) {
           if (hdLoaded) return;
+          // 令牌校验：模板已切换则不再发起七牛回退请求
+          if (!isCurrentBgLoad()) return;
           console.warn(`[bg-load] ${reason}，切换到七牛原图: ${qiniuUrl}`);
           cfTimeout = true;
           
-          const qiniuImg = new Image();
+          const qiniuImg = trackBgImageRequest(new Image());
           qiniuImg.onload = function() {
             updateToHdImage(qiniuUrl, '七牛原图');
           };
@@ -4956,16 +5026,16 @@ const ThumbnailLoader = {
           showHdHint();
           
           // 并行请求Cloudflare高清大图（5秒超时）
-          const cfImg = new Image();
+          const cfImg = trackBgImageRequest(new Image());
           cfImg.crossOrigin = 'anonymous';
           
           // Cloudflare超时回退七牛（使用配置的超时时间）
           const cfTimeoutMs = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
-          hdLoadTimeoutId = setTimeout(() => {
+          hdLoadTimeoutId = trackBgTimeout(setTimeout(() => {
             if (!hdLoaded) {
               fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs / 1000) + '秒)');
             }
-          }, cfTimeoutMs);
+          }, cfTimeoutMs));
           
           cfImg.onload = function() {
             if (!cfTimeout) {
@@ -4990,15 +5060,15 @@ const ThumbnailLoader = {
           // 缩略图加载失败，直接尝试高清图
           showHdHint();
           
-          const cfImg = new Image();
+          const cfImg = trackBgImageRequest(new Image());
           cfImg.crossOrigin = 'anonymous';
           
           const cfTimeoutMs2 = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
-          hdLoadTimeoutId = setTimeout(() => {
+          hdLoadTimeoutId = trackBgTimeout(setTimeout(() => {
             if (!hdLoaded) {
               fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs2 / 1000) + '秒)');
             }
-          }, cfTimeoutMs2);
+          }, cfTimeoutMs2));
           
           cfImg.onload = function() {
             if (!cfTimeout) {
@@ -5016,7 +5086,7 @@ const ThumbnailLoader = {
         };
         
         // 缩略图加载超时保护（10秒）
-        thumbLoadTimeoutId = setTimeout(() => {
+        thumbLoadTimeoutId = trackBgTimeout(setTimeout(() => {
           console.warn('[bg-load] 缩略图加载超时(10秒)');
           const img = elements.posterBackground;
           const notLoaded = !img.complete || (img.complete && img.naturalWidth === 0);
@@ -5024,15 +5094,15 @@ const ThumbnailLoader = {
             // 缩略图也加载失败，直接尝试高清图
             showHdHint();
             
-            const cfImg = new Image();
+            const cfImg = trackBgImageRequest(new Image());
             cfImg.crossOrigin = 'anonymous';
             
             const cfTimeoutMs3 = window.imageConfig ? window.imageConfig.cfTimeout : 2000;
-            hdLoadTimeoutId = setTimeout(() => {
+            hdLoadTimeoutId = trackBgTimeout(setTimeout(() => {
               if (!hdLoaded) {
                 fallbackToQiniu('Cloudflare超时(' + (cfTimeoutMs3 / 1000) + '秒)');
               }
-            }, cfTimeoutMs3);
+            }, cfTimeoutMs3));
             
             cfImg.onload = function() {
               if (!cfTimeout) {
@@ -5048,7 +5118,7 @@ const ThumbnailLoader = {
             
             cfImg.src = cfUrl;
           }
-        }, 10000);
+        }, 10000));
       } else {
         // 没有imageConfig，使用原有逻辑
         const imageUrl = originalPath;
@@ -5140,19 +5210,130 @@ const ThumbnailLoader = {
   // 应用像素化过渡效果
   function applyTechTransitionEffect() {
     if (!elements.posterBackground) return;
-    
+
     // 移除可能存在的旧效果类
     elements.posterBackground.classList.remove('pixel-transition');
-    
+
     // 添加像素化效果类
     elements.posterBackground.classList.add('pixel-transition');
-    
+
     console.log('应用像素化过渡效果');
-    
+
     // 动画结束后移除效果类
     setTimeout(() => {
       elements.posterBackground.classList.remove('pixel-transition');
     }, 1200); // 1秒动画时间 + 200ms缓冲
+  }
+
+  // 智能文字颜色：根据背景图片亮度自动计算最佳对比色
+  function autoTextColor() {
+    if (!state.autoTextColor) return;
+    var bgImg = elements.posterBackground;
+    if (!bgImg || !bgImg.complete || bgImg.naturalWidth === 0) return;
+
+    var src = bgImg.src;
+    if (!src) return;
+
+    // 用独立Image加载，避免CORS污染现有元素
+    var sampleImg = new Image();
+    sampleImg.crossOrigin = 'anonymous';
+
+    sampleImg.onload = function() {
+      try {
+        var canvas = document.createElement('canvas');
+        var W = 60, H = 120;
+        canvas.width = W;
+        canvas.height = H;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(sampleImg, 0, 0, W, H);
+
+        // 采样顶部区域（商家名称位置）
+        var topData = ctx.getImageData(0, 0, W, Math.round(H * 0.15)).data;
+        var topBrightness = 0;
+        for (var i = 0; i < topData.length; i += 4) {
+          topBrightness += (topData[i] * 299 + topData[i+1] * 587 + topData[i+2] * 114) / 1000;
+        }
+        topBrightness /= (topData.length / 4);
+
+        // 采样底部区域（促销文字位置）
+        var bottomData = ctx.getImageData(0, Math.round(H * 0.85), W, Math.round(H * 0.15)).data;
+        var bottomBrightness = 0;
+        for (var j = 0; j < bottomData.length; j += 4) {
+          bottomBrightness += (bottomData[j] * 299 + bottomData[j+1] * 587 + bottomData[j+2] * 114) / 1000;
+        }
+        bottomBrightness /= (bottomData.length / 4);
+
+        // 亮度>128用黑字，否则用白字
+        var topColor = topBrightness > 128 ? '#000000' : '#FFFFFF';
+        var bottomColor = bottomBrightness > 128 ? '#000000' : '#FFFFFF';
+
+        // 应用颜色
+        if (elements.posterBusinessName) {
+          elements.posterBusinessName.style.color = topColor;
+        }
+        if (elements.posterPromoText) {
+          elements.posterPromoText.style.color = bottomColor;
+        }
+
+        // 更新state为主色调（用于保存/导出）
+        state.textColor = topColor;
+
+        console.log('[autoTextColor] 顶部亮度=' + Math.round(topBrightness) + '→' + topColor + ', 底部亮度=' + Math.round(bottomBrightness) + '→' + bottomColor);
+      } catch (e) {
+        // CORS错误：canvas被污染，回退到整体亮度估算
+        console.warn('[autoTextColor] Canvas采样失败，尝试直接绘制元素', e.message);
+        tryAutoTextColorFromElement();
+      }
+    };
+
+    sampleImg.onerror = function() {
+      console.warn('[autoTextColor] 独立加载失败，尝试直接绘制元素');
+      tryAutoTextColorFromElement();
+    };
+
+    sampleImg.src = src;
+  }
+
+  // 备用方案：直接绘制已有img元素（可能因CORS失败）
+  function tryAutoTextColorFromElement() {
+    try {
+      var bgImg = elements.posterBackground;
+      var canvas = document.createElement('canvas');
+      var W = 60, H = 120;
+      canvas.width = W;
+      canvas.height = H;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(bgImg, 0, 0, W, H);
+
+      var topData = ctx.getImageData(0, 0, W, Math.round(H * 0.15)).data;
+      var topBrightness = 0;
+      for (var i = 0; i < topData.length; i += 4) {
+        topBrightness += (topData[i] * 299 + topData[i+1] * 587 + topData[i+2] * 114) / 1000;
+      }
+      topBrightness /= (topData.length / 4);
+
+      var bottomData = ctx.getImageData(0, Math.round(H * 0.85), W, Math.round(H * 0.15)).data;
+      var bottomBrightness = 0;
+      for (var j = 0; j < bottomData.length; j += 4) {
+        bottomBrightness += (bottomData[j] * 299 + bottomData[j+1] * 587 + bottomData[j+2] * 114) / 1000;
+      }
+      bottomBrightness /= (bottomData.length / 4);
+
+      var topColor = topBrightness > 128 ? '#000000' : '#FFFFFF';
+      var bottomColor = bottomBrightness > 128 ? '#000000' : '#FFFFFF';
+
+      if (elements.posterBusinessName) {
+        elements.posterBusinessName.style.color = topColor;
+      }
+      if (elements.posterPromoText) {
+        elements.posterPromoText.style.color = bottomColor;
+      }
+      state.textColor = topColor;
+
+      console.log('[autoTextColor] 备用方案成功: 顶部→' + topColor + ', 底部→' + bottomColor);
+    } catch (e2) {
+      console.warn('[autoTextColor] 备用方案也失败，保持当前颜色');
+    }
   }
   
   // 更新商家信息显示
@@ -5160,7 +5341,10 @@ const ThumbnailLoader = {
     // 更新商家名称
     if (elements.posterBusinessName && state.businessInfo.name) {
       elements.posterBusinessName.textContent = state.businessInfo.name;
-      elements.posterBusinessName.style.color = state.textColor || '#000000';
+      // 自动模式下不覆盖颜色（由autoTextColor控制）
+      if (!state.autoTextColor) {
+        elements.posterBusinessName.style.color = state.textColor || '#000000';
+      }
     }
     
     // 更新商家Logo
@@ -5247,10 +5431,10 @@ const ThumbnailLoader = {
     if (elements.posterPromoText) {
       const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
       elements.posterPromoText.innerHTML = promoText.replace(/\n/g, '<br>');
-      elements.posterPromoText.style.color = state.textColor;
+      if (!state.autoTextColor) {
+        elements.posterPromoText.style.color = state.textColor;
+      }
     }
-    
-    // 同时更新商家信息弹窗中的促销信息输入框
     if (elements.promoTextInput) {
       const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
       elements.promoTextInput.value = promoText;
@@ -5260,19 +5444,19 @@ const ThumbnailLoader = {
     const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
     businessInfoColorSwatches.forEach(swatch => {
       const color = swatch.getAttribute('data-color');
-      if (color === state.textColor) {
+      if ((state.autoTextColor && color === 'auto') || (!state.autoTextColor && color === state.textColor)) {
         swatch.classList.add('selected');
       } else {
         swatch.classList.remove('selected');
       }
     });
-    
+
     // 更新字体颜色选择弹窗中的颜色选择器状态
     const fontColorModalSwatches = document.querySelectorAll('#fontColorModal .color-swatch');
     fontColorModalSwatches.forEach(swatch => {
       const color = swatch.getAttribute('data-color');
       // 为当前颜色添加选中边框效果
-      if (color === state.textColor) {
+      if ((state.autoTextColor && color === 'auto') || (!state.autoTextColor && color === state.textColor)) {
         swatch.style.border = '2px solid #333';
       } else {
         // 重置其他颜色的边框
@@ -5296,7 +5480,8 @@ const ThumbnailLoader = {
     
     // 保存原始颜色，用于恢复
     originalTextColor = state.textColor;
-    previewTextColor = state.textColor;
+    originalAutoTextColor = state.autoTextColor;
+    previewTextColor = state.autoTextColor ? 'auto' : state.textColor;
     colorConfirmed = false;
     
     // 初始化颜色选择器状态
@@ -5308,7 +5493,7 @@ const ThumbnailLoader = {
       option.classList.remove('selected', 'confirmed');
       
       // 为当前颜色添加选中效果和✔标记
-      if (color === state.textColor) {
+      if ((state.autoTextColor && color === 'auto') || (!state.autoTextColor && color === state.textColor)) {
         option.classList.add('selected', 'confirmed');
       }
     });
@@ -5317,7 +5502,7 @@ const ThumbnailLoader = {
     const businessInfoColorSwatches = document.querySelectorAll('#businessInfoModal .color-swatch');
     businessInfoColorSwatches.forEach(swatch => {
       const color = swatch.getAttribute('data-color');
-      if (color === state.textColor) {
+      if ((state.autoTextColor && color === 'auto') || (!state.autoTextColor && color === state.textColor)) {
         swatch.classList.add('selected');
       } else {
         swatch.classList.remove('selected');
@@ -5340,11 +5525,15 @@ const ThumbnailLoader = {
   function closeFontColorModal() {
     if (!elements.fontColorModal) return;
     
-    // 如果没有确认，恢复原始颜色
+    // 如果没有确认，恢复原始颜色和自适应状态
     if (!colorConfirmed && originalTextColor !== null) {
       state.textColor = originalTextColor;
-      localStorage.setItem('textColor', state.textColor);
-      updateBusinessInfoDisplay();
+      state.autoTextColor = originalAutoTextColor;
+      if (state.autoTextColor) {
+        autoTextColor();
+      } else {
+        updateBusinessInfoDisplay();
+      }
     }
     
     // 添加关闭动画类
@@ -7121,12 +7310,15 @@ const ThumbnailLoader = {
     }
     
     console.log('选择模板:', template.name, template.id);
-    
+
     // 清除自定义背景，使用新模板的背景
     state.customBackground = null;
 
     // 更新当前模板状态
     state.currentTemplate = template;
+
+    // 每次切换模板都优先使用智能自适应字体颜色，用户手动选色仅对当前模板生效
+    state.autoTextColor = true;
 
     // 清除用户添加的所有装饰元素（贴纸、相框等）
     if (window.stickerManager) {
@@ -7870,10 +8062,11 @@ const ThumbnailLoader = {
     elements.businessNameInput.value = state.businessInfo.name || '';
     elements.businessPromoTextInput.value = state.businessInfo.promoText || '';
     
-    // 初始化颜色色块选中状态 - 确保与state.textColor同步
+    // 初始化颜色色块选中状态 - 自动模式下选中"智能自适应"
     const colorSwatches = document.querySelectorAll('.color-swatch');
     colorSwatches.forEach(swatch => {
-      if (swatch.dataset.color === state.textColor) {
+      if ((state.autoTextColor && swatch.dataset.color === 'auto') ||
+          (!state.autoTextColor && swatch.dataset.color === state.textColor)) {
         swatch.classList.add('selected');
       } else {
         swatch.classList.remove('selected');
@@ -7893,18 +8086,24 @@ const ThumbnailLoader = {
       
       // 添加新的点击事件
       newSwatch.addEventListener('click', function() {
+        const selectedColor = this.dataset.color;
+
         // 更新所有色块的选中状态
         document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
         this.classList.add('selected');
-        
+
         // 更新状态并实时预览
-        state.textColor = this.dataset.color;
-        
-        // 保存到本地存储
-        localStorage.setItem('textColor', state.textColor);
-        
-        updateBusinessInfoDisplay();
-        
+        if (selectedColor === 'auto') {
+          // 智能自适应模式
+          state.autoTextColor = true;
+          autoTextColor();
+        } else {
+          // 手动选色模式
+          state.autoTextColor = false;
+          state.textColor = selectedColor;
+          updateBusinessInfoDisplay();
+        }
+
         // 同步更新字体颜色选择器的值
         if (elements.fontColorSelector) {
           elements.fontColorSelector.value = state.textColor;
@@ -8376,10 +8575,8 @@ const ThumbnailLoader = {
   function removeBackground() {
     state.customBackground = null;
 
-    // 恢复字体颜色为黑色
-    state.textColor = '#000000';
-    // 更新本地存储中的字体颜色
-    localStorage.setItem('textColor', '#000000');
+    // 恢复为智能自适应字体颜色
+    state.autoTextColor = true;
 
     // 更新背景显示
     updateTemplateDisplay();
@@ -9692,7 +9889,8 @@ const ThumbnailLoader = {
   // 更新文字颜色
   function updateTextColor(e) {
     state.textColor = e.target.value;
-    
+    state.autoTextColor = false;
+
     // 更新文字颜色显示
     if (elements.posterBusinessName) {
       elements.posterBusinessName.style.color = state.textColor;
@@ -9728,6 +9926,7 @@ const ThumbnailLoader = {
     state.customBackground = null;
     state.backgroundOpacity = 1;
     state.textColor = '#000000';
+    state.autoTextColor = true;
     
     // 重置选择器
     if (elements.textColor) {
@@ -12386,7 +12585,9 @@ function updateBusinessInfoButtonForVip() {
     // 更新商家名称
     if (elements.posterBusinessName && state.businessInfo.name) {
       elements.posterBusinessName.textContent = state.businessInfo.name;
-      elements.posterBusinessName.style.color = state.textColor || '#000000';
+      if (!state.autoTextColor) {
+        elements.posterBusinessName.style.color = state.textColor || '#000000';
+      }
     }
     
     // 更新商家Logo
@@ -12465,7 +12666,9 @@ function updateBusinessInfoButtonForVip() {
     if (elements.posterPromoText) {
       const promoText = state.businessInfo.promoText || '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）';
       elements.posterPromoText.innerHTML = promoText.replace(/\n/g, '<br>');
-      elements.posterPromoText.style.color = state.textColor;
+      if (!state.autoTextColor) {
+        elements.posterPromoText.style.color = state.textColor;
+      }
     }
   }
 
