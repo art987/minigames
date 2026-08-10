@@ -5617,17 +5617,18 @@ const ThumbnailLoader = {
   // 滚动元素到可见区域中间
   function scrollToElement(element) {
     if (!element) return;
-    
-    const container = element.closest('.modal-festivals-scroll');
+
+    // 兼容节日标签和类型标签两种滚动容器
+    const container = element.closest('.modal-festivals-scroll') || element.closest('.type-tags-container');
     if (!container) return;
-    
+
     const containerWidth = container.clientWidth;
     const elementLeft = element.offsetLeft;
     const elementWidth = element.offsetWidth;
-    
+
     // 计算目标滚动位置，使元素位于容器中间
     const targetScrollLeft = elementLeft - (containerWidth / 2) + (elementWidth / 2);
-    
+
     // 平滑滚动
     container.scrollTo({
       left: targetScrollLeft,
@@ -5924,33 +5925,40 @@ const ThumbnailLoader = {
       // 优先使用当前模板的信息进行定位
       if (state.currentTemplate) {
         console.log('根据当前模板定位:', state.currentTemplate);
-        
+
         // 获取模板的月份（取第一个月份作为主要定位）
         if (state.currentTemplate.months && state.currentTemplate.months.length > 0) {
-          const templateMonth = state.currentTemplate.months[0];
-          console.log('定位到模板月份:', templateMonth);
-          
+          // 检测当前模板是否是早安/晚安类型
+          const isZaoanWanan = state.currentTemplate.festivals &&
+            (state.currentTemplate.festivals.includes('早安') || state.currentTemplate.festivals.includes('晚安'));
+
+          // 早安/晚安模板优先定位到当前月份；其他模板用模板自身的第一个月份
+          const templateMonth = isZaoanWanan
+            ? (new Date().getMonth() + 1)
+            : state.currentTemplate.months[0];
+          console.log('定位到模板月份:', templateMonth, isZaoanWanan ? '(早安/晚安-当前月)' : '');
+
           // 选中对应的月份按钮
           const monthButton = document.querySelector(`#modalMonthButtons .month-btn[data-month="${templateMonth}"]`);
           if (monthButton) {
             // 直接设置选中状态，避免重复触发点击事件
             document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
             monthButton.classList.add('active');
-            
+
             // 筛选显示该月份的模板
             filterTemplatesByMonth(templateMonth);
-            
+
             // 确保月份按钮滚动到可见位置，特别是对于末尾月份
             setTimeout(() => {
               forceScrollToMonthButton(monthButton);
-              
+
               // 延迟选择节日，确保月份滚动和筛选已经完成
               setTimeout(() => {
                 // 如果模板有节日信息，选中对应的节日标签
                 if (state.currentTemplate.festivals && state.currentTemplate.festivals.length > 0) {
                   let templateFestival = state.currentTemplate.festivals[0];
                   console.log('定位到模板节日:', templateFestival);
-                  
+
                   // 处理早安和晚安模板的特殊情况
                   let festivalTag;
                   if (templateFestival === '早安') {
@@ -5960,19 +5968,30 @@ const ThumbnailLoader = {
                   } else {
                     festivalTag = document.querySelector(`.festival-tag[data-festival="${templateFestival}"]`);
                   }
-                  
+
                   if (festivalTag) {
                     festivalTag.click();
                   }
                 }
-                
-                // 延迟选中当前模板，确保月份和节日筛选已经完成
+
+                // 延迟处理类型筛选/模板定位，确保月份和节日筛选已经完成
                 setTimeout(() => {
-                  selectCurrentTemplateInModal();
+                  if (isZaoanWanan && state.currentTemplate.type) {
+                    // 早安/晚安：自动选中与当前模板相同的类型标签，并从头展示筛选结果
+                    var typeTag = document.querySelector(
+                      '#modalTypeTagsContainer .type-tag[data-type="' + state.currentTemplate.type + '"]'
+                    );
+                    if (typeTag) {
+                      typeTag.click();
+                    }
+                  } else {
+                    // 其他模板：定位到当前模板在弹窗中的位置
+                    selectCurrentTemplateInModal();
+                  }
                 }, 200);
               }, 100);
             }, 50);
-            
+
             return; // 成功定位后返回
           }
         }
@@ -6640,6 +6659,8 @@ const ThumbnailLoader = {
           state.modalTypeFilter = selectedType;
           this.classList.add('active');
         }
+        // 滚动到容器水平居中位置，方便看到前后类型
+        scrollToElement(this);
         // 获取当前选中的节日
         var activeFestivalTag = document.querySelector('#modalFestivalTags .festival-tag.active');
         if (activeFestivalTag) {
