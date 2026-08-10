@@ -8607,7 +8607,1855 @@ var templates = {
       festivals: ['早安'],
       description: '冬季早安主题海报模板',
       type: '著名美景'
-    }
+    },
+
+    // 公仔模板 (gongzai)
+    {
+      id: 'zaoan-2026-gongzai-1',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/1.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-2',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/2.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-3',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/3.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-4',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/4.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-5',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/5.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-6',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/6.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-7',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/7.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-8',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/8.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-9',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/9.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-10',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/10.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-11',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/11.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-12',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/12.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-13',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/13.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-14',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/14.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-15',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/15.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-16',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/16.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-17',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/17.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-18',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/18.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-19',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/19.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-20',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/20.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-21',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/21.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-22',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/22.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-23',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/23.png',
+      months: [3, 4, 5],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-24',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/24.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-25',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/25.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-26',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/26.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-27',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/27.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-28',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/28.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-29',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/29.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-30',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/30.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-31',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/31.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-32',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/32.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-33',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/33.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-34',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/34.png',
+      months: [6, 7, 8],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-35',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/35.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-36',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/36.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-37',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/37.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-38',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/38.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-39',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/39.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-40',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/40.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-41',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/41.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-42',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/42.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-43',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/43.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-44',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/44.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-45',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/45.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-46',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/46.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-47',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/47.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-48',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/48.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-49',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/49.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-50',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/50.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-51',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/51.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-52',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/52.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-53',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/53.png',
+      months: [9, 10, 11],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-55',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/55.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-56',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/56.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-57',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/57.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-58',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/58.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-59',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/59.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-60',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/60.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-61',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/61.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-62',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/62.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-63',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/63.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-64',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/64.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-65',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/65.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-66',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/66.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-67',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/67.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-68',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/68.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-69',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/69.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+    {
+      id: 'zaoan-2026-gongzai-70',
+      name: '公仔早安',      image: 'images/zaoan/gongzai/70.png',
+      months: [12, 1, 2],
+      festivals: ['早安'],
+      description: '公仔早安主题海报模板',
+      type: '公仔'
+    },
+
+    // 正能量模板 (zhengnengliang)
+    {
+      id: 'zaoan-2026-zhengnengliang-1',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-2',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-3',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-4',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-5',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-6',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-7',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-8',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-9',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-10',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-11',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-12',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-13',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-14',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-15',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-16',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-17',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-18',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-19',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-20',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-21',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-22',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-23',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-24',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-25',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-26',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-27',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-28',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-29',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-30',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+    {
+      id: 'zaoan-2026-zhengnengliang-31',
+      name: '正能量早安',      image: 'images/zaoan/zhengnengliang/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '正能量早安主题海报模板',
+      type: '正能量'
+    },
+
+    // 商务模板 (shangwu)
+    {
+      id: 'zaoan-2026-shangwu-1',
+      name: '商务早安',      image: 'images/zaoan/shangwu/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-2',
+      name: '商务早安',      image: 'images/zaoan/shangwu/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-3',
+      name: '商务早安',      image: 'images/zaoan/shangwu/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-4',
+      name: '商务早安',      image: 'images/zaoan/shangwu/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-5',
+      name: '商务早安',      image: 'images/zaoan/shangwu/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-6',
+      name: '商务早安',      image: 'images/zaoan/shangwu/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-7',
+      name: '商务早安',      image: 'images/zaoan/shangwu/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-8',
+      name: '商务早安',      image: 'images/zaoan/shangwu/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-9',
+      name: '商务早安',      image: 'images/zaoan/shangwu/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-10',
+      name: '商务早安',      image: 'images/zaoan/shangwu/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-11',
+      name: '商务早安',      image: 'images/zaoan/shangwu/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-12',
+      name: '商务早安',      image: 'images/zaoan/shangwu/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-13',
+      name: '商务早安',      image: 'images/zaoan/shangwu/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-14',
+      name: '商务早安',      image: 'images/zaoan/shangwu/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-15',
+      name: '商务早安',      image: 'images/zaoan/shangwu/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-16',
+      name: '商务早安',      image: 'images/zaoan/shangwu/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-17',
+      name: '商务早安',      image: 'images/zaoan/shangwu/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-18',
+      name: '商务早安',      image: 'images/zaoan/shangwu/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-19',
+      name: '商务早安',      image: 'images/zaoan/shangwu/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-20',
+      name: '商务早安',      image: 'images/zaoan/shangwu/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-21',
+      name: '商务早安',      image: 'images/zaoan/shangwu/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-22',
+      name: '商务早安',      image: 'images/zaoan/shangwu/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-23',
+      name: '商务早安',      image: 'images/zaoan/shangwu/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-24',
+      name: '商务早安',      image: 'images/zaoan/shangwu/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-25',
+      name: '商务早安',      image: 'images/zaoan/shangwu/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-26',
+      name: '商务早安',      image: 'images/zaoan/shangwu/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-27',
+      name: '商务早安',      image: 'images/zaoan/shangwu/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-28',
+      name: '商务早安',      image: 'images/zaoan/shangwu/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-29',
+      name: '商务早安',      image: 'images/zaoan/shangwu/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-30',
+      name: '商务早安',      image: 'images/zaoan/shangwu/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-31',
+      name: '商务早安',      image: 'images/zaoan/shangwu/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-32',
+      name: '商务早安',      image: 'images/zaoan/shangwu/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-33',
+      name: '商务早安',      image: 'images/zaoan/shangwu/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-34',
+      name: '商务早安',      image: 'images/zaoan/shangwu/34.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-35',
+      name: '商务早安',      image: 'images/zaoan/shangwu/35.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-36',
+      name: '商务早安',      image: 'images/zaoan/shangwu/36.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-37',
+      name: '商务早安',      image: 'images/zaoan/shangwu/37.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-38',
+      name: '商务早安',      image: 'images/zaoan/shangwu/38.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-39',
+      name: '商务早安',      image: 'images/zaoan/shangwu/39.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+    {
+      id: 'zaoan-2026-shangwu-40',
+      name: '商务早安',      image: 'images/zaoan/shangwu/40.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '商务早安主题海报模板',
+      type: '商务'
+    },
+
+    // 自然模板 (ziran)
+    {
+      id: 'zaoan-2026-ziran-1',
+      name: '自然早安',      image: 'images/zaoan/ziran/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-2',
+      name: '自然早安',      image: 'images/zaoan/ziran/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-3',
+      name: '自然早安',      image: 'images/zaoan/ziran/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-4',
+      name: '自然早安',      image: 'images/zaoan/ziran/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-5',
+      name: '自然早安',      image: 'images/zaoan/ziran/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-6',
+      name: '自然早安',      image: 'images/zaoan/ziran/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-7',
+      name: '自然早安',      image: 'images/zaoan/ziran/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-8',
+      name: '自然早安',      image: 'images/zaoan/ziran/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-9',
+      name: '自然早安',      image: 'images/zaoan/ziran/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-10',
+      name: '自然早安',      image: 'images/zaoan/ziran/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-11',
+      name: '自然早安',      image: 'images/zaoan/ziran/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-12',
+      name: '自然早安',      image: 'images/zaoan/ziran/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-13',
+      name: '自然早安',      image: 'images/zaoan/ziran/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-14',
+      name: '自然早安',      image: 'images/zaoan/ziran/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-15',
+      name: '自然早安',      image: 'images/zaoan/ziran/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-16',
+      name: '自然早安',      image: 'images/zaoan/ziran/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-17',
+      name: '自然早安',      image: 'images/zaoan/ziran/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+
+    // 花艺模板 (huayi)
+    {
+      id: 'zaoan-2026-huayi-1',
+      name: '花艺早安',      image: 'images/zaoan/huayi/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-2',
+      name: '花艺早安',      image: 'images/zaoan/huayi/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-3',
+      name: '花艺早安',      image: 'images/zaoan/huayi/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-4',
+      name: '花艺早安',      image: 'images/zaoan/huayi/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-5',
+      name: '花艺早安',      image: 'images/zaoan/huayi/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-6',
+      name: '花艺早安',      image: 'images/zaoan/huayi/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-7',
+      name: '花艺早安',      image: 'images/zaoan/huayi/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-8',
+      name: '花艺早安',      image: 'images/zaoan/huayi/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-9',
+      name: '花艺早安',      image: 'images/zaoan/huayi/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-10',
+      name: '花艺早安',      image: 'images/zaoan/huayi/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+    {
+      id: 'zaoan-2026-huayi-11',
+      name: '花艺早安',      image: 'images/zaoan/huayi/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '花艺早安主题海报模板',
+      type: '花艺'
+    },
+
+    // 美妆模板 (meizhuang)
+    {
+      id: 'zaoan-2026-meizhuang-1',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-2',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-3',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-4',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-5',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-6',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-7',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-8',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-9',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-10',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-11',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-12',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-13',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-14',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-15',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-16',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-17',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-18',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-19',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-20',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-21',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-22',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-23',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-24',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-25',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-26',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-27',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-28',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-29',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-30',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+    {
+      id: 'zaoan-2026-meizhuang-31',
+      name: '美妆早安',      image: 'images/zaoan/meizhuang/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '美妆早安主题海报模板',
+      type: '美妆'
+    },
+
+    // 女性模板 (nvxing)
+    {
+      id: 'zaoan-2026-nvxing-1',
+      name: '女性早安',      image: 'images/zaoan/nvxing/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-2',
+      name: '女性早安',      image: 'images/zaoan/nvxing/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-3',
+      name: '女性早安',      image: 'images/zaoan/nvxing/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-4',
+      name: '女性早安',      image: 'images/zaoan/nvxing/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-5',
+      name: '女性早安',      image: 'images/zaoan/nvxing/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-6',
+      name: '女性早安',      image: 'images/zaoan/nvxing/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-7',
+      name: '女性早安',      image: 'images/zaoan/nvxing/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-8',
+      name: '女性早安',      image: 'images/zaoan/nvxing/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-9',
+      name: '女性早安',      image: 'images/zaoan/nvxing/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-10',
+      name: '女性早安',      image: 'images/zaoan/nvxing/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-11',
+      name: '女性早安',      image: 'images/zaoan/nvxing/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-12',
+      name: '女性早安',      image: 'images/zaoan/nvxing/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-13',
+      name: '女性早安',      image: 'images/zaoan/nvxing/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-14',
+      name: '女性早安',      image: 'images/zaoan/nvxing/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+    {
+      id: 'zaoan-2026-nvxing-15',
+      name: '女性早安',      image: 'images/zaoan/nvxing/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '女性早安主题海报模板',
+      type: '女性'
+    },
+
+    // 雅韵模板 (yayun)
+    {
+      id: 'zaoan-2026-yayun-1',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-2',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-3',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-4',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-5',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-6',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-7',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-8',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-9',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-10',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-11',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-12',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-13',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-14',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
+    {
+      id: 'zaoan-2026-yayun-15',
+      name: '雅韵早安',      image: 'images/zaoan/yayun/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '雅韵早安主题海报模板',
+      type: '雅韵'
+    },
   ],
 
   // 晚安模板
