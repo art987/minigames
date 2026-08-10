@@ -4525,6 +4525,70 @@ var templates = {
       type: '传统节日'
     },
     {
+      id: 'qixi-2024-016',
+      name: '七夕缘定',      image: 'images/qixi/16.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕缘定主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-017',
+      name: '七夕情深',      image: 'images/qixi/17.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕情深主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-018',
+      name: '七夕相守',      image: 'images/qixi/18.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕相守主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-019',
+      name: '七夕花语',      image: 'images/qixi/19.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕花语主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-020',
+      name: '七夕月下',      image: 'images/qixi/20.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕月下主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-021',
+      name: '七夕佳期',      image: 'images/qixi/21.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕佳期主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-022',
+      name: '七夕恋歌',      image: 'images/qixi/22.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕恋歌主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'qixi-2024-023',
+      name: '七夕永恒爱',      image: 'images/qixi/23.png',
+      months: [8],
+      festivals: ['七夕节'],
+      description: '七夕永恒爱主题海报模板',
+      type: '传统节日'
+    },
+    {
       id: 'jianjunjie-2024-001',
       name: '建军节',      image: 'images/jianjunjie/1.png',
       months: [8],
