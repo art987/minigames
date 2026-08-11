@@ -309,7 +309,7 @@
     border: 1px solid #000000e0;
 }
 .ps-btn-download {
-    background: linear-gradient(135deg, #e71e1e, #ff6dfa, #29d6d8);
+    background:linear-gradient(135deg, #484848, #202020, #0d0d0d);
     color: #fff;
     text-shadow: 1px 1px 0 #000;
 }

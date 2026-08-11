@@ -422,7 +422,6 @@ const PosterShare = (function() {
 
     function filterTemplatesByFestival(festival) {
         state.tplFestival = festival;
-        state.tplType = '';
         let templates = [];
 
         if (window.utils) {
@@ -437,10 +436,11 @@ const PosterShare = (function() {
 
         // 早安/晚安显示类型标签
         var typeContainer = document.getElementById('psTplTypes');
+        var hasTypeTags = false;
         if (typeContainer) {
             var isMorningOrNight = (festival === '☀️ 早安' || festival === '🌙 晚安');
             if (isMorningOrNight) {
-                renderTypeTags(templates, typeContainer);
+                hasTypeTags = renderTypeTags(templates, typeContainer);
                 typeContainer.style.display = 'flex';
             } else {
                 typeContainer.style.display = 'none';
@@ -448,13 +448,18 @@ const PosterShare = (function() {
             }
         }
 
-        // 每次进入节日标签时随机排序展示
-        state.tplTemplates = shuffleArray(templates);
-        state.tplIndex = 0;
-        renderGallery();
+        // 如果有类型标签且上次选中的类型仍然存在，则保持该类型筛选
+        if (hasTypeTags && state.tplType) {
+            filterTemplatesByType(state.tplType);
+        } else {
+            state.tplType = '';
+            state.tplTemplates = shuffleArray(templates);
+            state.tplIndex = 0;
+            renderGallery();
+        }
     }
 
-    // 渲染类型标签（仅早安/晚安）
+    // 渲染类型标签（仅早安/晚安），返回是否有可用的类型筛选
     function renderTypeTags(templates, container) {
         container.innerHTML = '';
 
@@ -467,9 +472,12 @@ const PosterShare = (function() {
         });
         var types = Object.keys(typeSet);
 
+        // 检查上次选中的类型是否仍存在
+        var previousTypeExists = state.tplType && typeSet[state.tplType];
+
         // "全部" 标签
         var allTag = document.createElement('div');
-        allTag.className = 'ps-tpl-type-tag active';
+        allTag.className = 'ps-tpl-type-tag' + (!previousTypeExists ? ' active' : '');
         allTag.textContent = '全部';
         allTag.dataset.type = '';
         allTag.addEventListener('click', function() {
@@ -490,7 +498,7 @@ const PosterShare = (function() {
         // 各类型标签
         types.forEach(function(type) {
             var tag = document.createElement('div');
-            tag.className = 'ps-tpl-type-tag';
+            tag.className = 'ps-tpl-type-tag' + (previousTypeExists && type === state.tplType ? ' active' : '');
             tag.textContent = type;
             tag.dataset.type = type;
             tag.addEventListener('click', function() {
@@ -508,6 +516,22 @@ const PosterShare = (function() {
             });
             container.appendChild(tag);
         });
+
+        // 如果上次选中的类型仍存在，滚动该标签到居中
+        if (previousTypeExists) {
+            setTimeout(function() {
+                var activeTag = container.querySelector('.ps-tpl-type-tag.active');
+                if (activeTag) {
+                    var containerWidth = container.offsetWidth;
+                    var tagLeft = activeTag.offsetLeft;
+                    var tagWidth = activeTag.offsetWidth;
+                    var scrollTarget = tagLeft - (containerWidth - tagWidth) / 2;
+                    container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                }
+            }, 50);
+        }
+
+        return previousTypeExists;
     }
 
     // 按类型筛选模板
