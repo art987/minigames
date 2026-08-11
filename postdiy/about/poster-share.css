@@ -590,6 +590,48 @@
     box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
 }
 
+/* 类型标签栏（早安/晚安分类） */
+.ps-tpl-types {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    flex-shrink: 0;
+    background: #00000000;
+    border-bottom: 1px solid #f0f0f0;
+}
+.ps-tpl-types::-webkit-scrollbar {
+    height: 3px;
+}
+.ps-tpl-types::-webkit-scrollbar-thumb {
+    background: #d9d9d980;
+    border-radius: 2px;
+}
+.ps-tpl-type-tag {
+    flex-shrink: 0;
+    padding: 5px 14px;
+    border-radius: 18px;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    border: 1.5px solid #e8e8e8;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.ps-tpl-type-tag:active {
+    transform: scale(0.95);
+}
+.ps-tpl-type-tag.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
 /* 3D画廊区域 */
 .ps-tpl-gallery-wrap {
     flex: 1;

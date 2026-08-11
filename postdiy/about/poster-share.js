@@ -24,6 +24,8 @@ const PosterShare = (function() {
         currentIndex: 0,
         initialized: false,
         tplFestival: '',
+        tplType: '',
+        tplAllTemplates: [],
         tplTemplates: [],
         tplIndex: 0
     };
@@ -420,6 +422,7 @@ const PosterShare = (function() {
 
     function filterTemplatesByFestival(festival) {
         state.tplFestival = festival;
+        state.tplType = '';
         let templates = [];
 
         if (window.utils) {
@@ -430,7 +433,94 @@ const PosterShare = (function() {
             templates = window.utils.getAllTemplates();
         }
 
+        state.tplAllTemplates = templates;
+
+        // 早安/晚安显示类型标签
+        var typeContainer = document.getElementById('psTplTypes');
+        if (typeContainer) {
+            var isMorningOrNight = (festival === '☀️ 早安' || festival === '🌙 晚安');
+            if (isMorningOrNight) {
+                renderTypeTags(templates, typeContainer);
+                typeContainer.style.display = 'flex';
+            } else {
+                typeContainer.style.display = 'none';
+                typeContainer.innerHTML = '';
+            }
+        }
+
         // 每次进入节日标签时随机排序展示
+        state.tplTemplates = shuffleArray(templates);
+        state.tplIndex = 0;
+        renderGallery();
+    }
+
+    // 渲染类型标签（仅早安/晚安）
+    function renderTypeTags(templates, container) {
+        container.innerHTML = '';
+
+        // 提取所有类型
+        var typeSet = {};
+        templates.forEach(function(t) {
+            if (t.type && !typeSet[t.type]) {
+                typeSet[t.type] = true;
+            }
+        });
+        var types = Object.keys(typeSet);
+
+        // "全部" 标签
+        var allTag = document.createElement('div');
+        allTag.className = 'ps-tpl-type-tag active';
+        allTag.textContent = '全部';
+        allTag.dataset.type = '';
+        allTag.addEventListener('click', function() {
+            container.querySelectorAll('.ps-tpl-type-tag').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            allTag.classList.add('active');
+            filterTemplatesByType('');
+            // 滚动到居中
+            var containerWidth = container.offsetWidth;
+            var tagLeft = allTag.offsetLeft;
+            var tagWidth = allTag.offsetWidth;
+            var scrollTarget = tagLeft - (containerWidth - tagWidth) / 2;
+            container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        });
+        container.appendChild(allTag);
+
+        // 各类型标签
+        types.forEach(function(type) {
+            var tag = document.createElement('div');
+            tag.className = 'ps-tpl-type-tag';
+            tag.textContent = type;
+            tag.dataset.type = type;
+            tag.addEventListener('click', function() {
+                container.querySelectorAll('.ps-tpl-type-tag').forEach(function(el) {
+                    el.classList.remove('active');
+                });
+                tag.classList.add('active');
+                filterTemplatesByType(type);
+                // 滚动到居中
+                var containerWidth = container.offsetWidth;
+                var tagLeft = tag.offsetLeft;
+                var tagWidth = tag.offsetWidth;
+                var scrollTarget = tagLeft - (containerWidth - tagWidth) / 2;
+                container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+            });
+            container.appendChild(tag);
+        });
+    }
+
+    // 按类型筛选模板
+    function filterTemplatesByType(type) {
+        state.tplType = type;
+        var templates = state.tplAllTemplates;
+
+        if (type) {
+            templates = templates.filter(function(t) {
+                return t.type === type;
+            });
+        }
+
         state.tplTemplates = shuffleArray(templates);
         state.tplIndex = 0;
         renderGallery();
