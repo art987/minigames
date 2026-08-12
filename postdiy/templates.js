@@ -4580,14 +4580,7 @@ var templates = {
       description: '七夕恋歌主题海报模板',
       type: '传统节日'
     },
-    {
-      id: 'qixi-2024-023',
-      name: '七夕永恒爱',      image: 'images/qixi/23.png',
-      months: [8],
-      festivals: ['七夕节'],
-      description: '七夕永恒爱主题海报模板',
-      type: '传统节日'
-    },
+    
     {
       id: 'jianjunjie-2024-001',
       name: '建军节',      image: 'images/jianjunjie/1.png',

@@ -27,7 +27,8 @@ const PosterShare = (function() {
         tplType: '',
         tplAllTemplates: [],
         tplTemplates: [],
-        tplIndex: 0
+        tplIndex: 0,
+        nameColorAuto: true
     };
 
     function getQiniuBase() {
@@ -303,6 +304,10 @@ const PosterShare = (function() {
                 finalImg.onload = function() {
                     bgEl.src = url;
                     bgEl.crossOrigin = 'anonymous';
+                    // 自适应字体颜色
+                    if (state.nameColorAuto) {
+                        autoPosterNameColor(bgEl);
+                    }
                 };
                 finalImg.onerror = function() {
                     // 最终加载也失败，缩略图继续占位
@@ -334,6 +339,9 @@ const PosterShare = (function() {
                     clearTimeout(cfTimer2);
                     currentBg.src = cfUrl2;
                     currentBg.crossOrigin = 'anonymous';
+                    if (state.nameColorAuto) {
+                        autoPosterNameColor(currentBg);
+                    }
                 }
             };
             imgTest2.onerror = function() {
@@ -342,9 +350,88 @@ const PosterShare = (function() {
                     cfTimedOut2 = true;
                     currentBg.src = qiniuUrl2;
                     currentBg.crossOrigin = 'anonymous';
+                    if (state.nameColorAuto) {
+                        autoPosterNameColor(currentBg);
+                    }
                 }
             };
             imgTest2.src = cfUrl2;
+        }
+    }
+
+    // 智能自适应字体颜色：根据背景图顶部区域亮度计算最优文字颜色
+    function autoPosterNameColor(bgEl) {
+        var posterName = document.getElementById('psPosterName');
+        if (!posterName || !bgEl || !bgEl.complete || bgEl.naturalWidth === 0) return;
+
+        var src = bgEl.src;
+        if (!src) return;
+
+        // 使用独立的 Image 对象采样，避免 CORS 问题
+        var sampleImg = new Image();
+        sampleImg.crossOrigin = 'anonymous';
+
+        sampleImg.onload = function() {
+            try {
+                var canvas = document.createElement('canvas');
+                var W = 60, H = 120;
+                canvas.width = W;
+                canvas.height = H;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(sampleImg, 0, 0, W, H);
+
+                // 采样顶部区域（海报名称所在位置）
+                var topData = ctx.getImageData(0, 0, W, Math.round(H * 0.15)).data;
+                var brightness = 0;
+                for (var i = 0; i < topData.length; i += 4) {
+                    brightness += (topData[i] * 299 + topData[i + 1] * 587 + topData[i + 2] * 114) / 1000;
+                }
+                brightness /= (topData.length / 4);
+
+                // 亮度 > 128 用黑字，否则用白字
+                var color = brightness > 128 ? '#000000' : '#FFFFFF';
+                posterName.style.color = color;
+                posterName.style.textShadow = brightness > 128
+                    ? '0 1px 3px rgba(255,255,255,0.5)'
+                    : '0 1px 4px rgba(0,0,0,0.6)';
+            } catch (e) {
+                // CORS 错误，回退：直接用 bgEl 绘制
+                console.warn('[PosterShare] 自适应颜色采样失败，使用元素回退', e.message);
+                tryAutoFromElement(bgEl);
+            }
+        };
+
+        sampleImg.onerror = function() {
+            console.warn('[PosterShare] 自适应颜色图片加载失败，使用元素回退');
+            tryAutoFromElement(bgEl);
+        };
+
+        sampleImg.src = src;
+
+        // 回退方案：直接用已加载的 bgEl 绘制到 canvas
+        function tryAutoFromElement(el) {
+            try {
+                var canvas = document.createElement('canvas');
+                var W = 60, H = 120;
+                canvas.width = W;
+                canvas.height = H;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(el, 0, 0, W, H);
+                var topData = ctx.getImageData(0, 0, W, Math.round(H * 0.15)).data;
+                var brightness = 0;
+                for (var i = 0; i < topData.length; i += 4) {
+                    brightness += (topData[i] * 299 + topData[i + 1] * 587 + topData[i + 2] * 114) / 1000;
+                }
+                brightness /= (topData.length / 4);
+                var color = brightness > 128 ? '#000000' : '#FFFFFF';
+                posterName.style.color = color;
+                posterName.style.textShadow = brightness > 128
+                    ? '0 1px 3px rgba(255,255,255,0.5)'
+                    : '0 1px 4px rgba(0,0,0,0.6)';
+            } catch (e2) {
+                // 彻底失败，保持默认白色
+                console.warn('[PosterShare] 元素回退也失败，保持默认颜色');
+            }
         }
     }
 
@@ -924,11 +1011,21 @@ const PosterShare = (function() {
         if (state.templates.length > 0) {
             // 默认显示汇总缩略图瀑布流
             renderSummaryWaterfall();
-            // 重置名称颜色为白色
+            // 汇总模式下重置为自适应模式
+            state.nameColorAuto = true;
             var posterName = document.getElementById('psPosterName');
             if (posterName) {
                 posterName.style.color = '#FFFFFF';
                 posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+            }
+            // 清除颜色选择器的选中状态，标记自适应为选中
+            var nameColorPicker = document.getElementById('psNameColorPicker');
+            if (nameColorPicker) {
+                nameColorPicker.querySelectorAll('.ps-name-color-dot').forEach(function(d) {
+                    d.classList.remove('selected');
+                });
+                var autoDot = nameColorPicker.querySelector('[data-color="auto"]');
+                if (autoDot) autoDot.classList.add('selected');
             }
             // 汇总模式下也要渲染二维码
             renderQRCode();
@@ -1045,13 +1142,30 @@ const PosterShare = (function() {
                 dot.addEventListener('click', function(e) {
                     e.stopPropagation();
                     var color = dot.getAttribute('data-color');
-                    posterName.style.color = color;
-                    // 深色字加暗阴影，浅色字加亮阴影
-                    if (color === '#FFFFFF' || color === '#FFD700' || color === '#FF69B4' || color === '#40C4FF' || color === '#00E676' || color === '#E040FB') {
-                        posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+
+                    if (color === 'auto') {
+                        // 智能自适应模式
+                        state.nameColorAuto = true;
+                        var bgEl = document.querySelector('.ps-poster-bg.current');
+                        if (bgEl && bgEl.complete && bgEl.naturalWidth > 0) {
+                            autoPosterNameColor(bgEl);
+                        } else {
+                            // 没有背景图时默认白色
+                            posterName.style.color = '#FFFFFF';
+                            posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+                        }
                     } else {
-                        posterName.style.textShadow = '0 1px 3px rgba(0,0,0,0.4)';
+                        // 手动选色
+                        state.nameColorAuto = false;
+                        posterName.style.color = color;
+                        // 深色字加暗阴影，浅色字加亮阴影
+                        if (color === '#FFFFFF' || color === '#FFD700' || color === '#FF69B4' || color === '#40C4FF' || color === '#00E676' || color === '#E040FB') {
+                            posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+                        } else {
+                            posterName.style.textShadow = '0 1px 3px rgba(0,0,0,0.4)';
+                        }
                     }
+
                     // 标记选中
                     nameColorPicker.querySelectorAll('.ps-name-color-dot').forEach(function(d) {
                         d.classList.remove('selected');
