@@ -11009,6 +11009,542 @@ var templates = {
       description: '水彩少女早安主题海报模板',
       type: '水彩少女'
     },
+    {
+      id: 'zaoan-2026-shouhui-1',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-2',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-3',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-4',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-5',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-6',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-7',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-8',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-9',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-10',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-11',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-12',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-13',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-14',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-15',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-16',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-17',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-18',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-19',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-20',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-21',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-22',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-23',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-24',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-25',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-26',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-27',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-28',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-29',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-30',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-31',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-32',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-33',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-34',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/34.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-35',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/35.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-36',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/36.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-37',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/37.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-38',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/38.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-39',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/39.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-40',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/40.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-41',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/41.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-42',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/42.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-43',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/43.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-44',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/44.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-45',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/45.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-46',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/46.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-47',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/47.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-48',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/48.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-49',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/49.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-50',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/50.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-51',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/51.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-52',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/52.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-53',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/53.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-54',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/54.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-55',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/55.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-56',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/56.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-57',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/57.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-58',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/58.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-59',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/59.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-60',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/60.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-61',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/61.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-62',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/62.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-63',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/63.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-64',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/64.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-65',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/65.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-66',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/66.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
+    {
+      id: 'zaoan-2026-shouhui-67',
+      name: '手绘风景早安',      image: 'images/zaoan/shouhui/67.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '手绘风景早安主题海报模板',
+      type: '手绘风景'
+    },
   ],
 
   // 晚安模板
@@ -11300,6 +11836,1011 @@ var templates = {
       festivals: ['晚安'],
       description: '美满幸福晚安主题海报模板',
       type: '著名美景'
+    },
+
+    // 可爱卡通 (1-33)
+    {
+      id: 'wanan-2026-katong-1',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-2',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-3',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-4',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-5',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-6',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-7',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-8',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-9',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-10',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-11',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-12',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-13',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-14',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-15',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-16',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-17',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-18',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-19',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-20',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-21',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-22',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-23',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-24',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-25',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-26',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-27',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-28',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-29',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-30',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-31',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-32',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+    {
+      id: 'wanan-2026-katong-33',
+      name: '可爱卡通晚安',
+      image: 'images/wanan/katong/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '可爱卡通晚安主题海报模板',
+      type: '可爱卡通'
+    },
+
+    // 夜色风景 (1-32)
+    {
+      id: 'wanan-2026-yesefengjing-1',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-2',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-3',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-4',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-5',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-6',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-7',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-8',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-9',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-10',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-11',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-12',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-13',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-14',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-15',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-16',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-17',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-18',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-19',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-20',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-21',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-22',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-23',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-24',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-25',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-26',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-27',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-28',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-29',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-30',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-31',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+    {
+      id: 'wanan-2026-yesefengjing-32',
+      name: '夜色风景晚安',
+      image: 'images/wanan/yesefengjing/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '夜色风景晚安主题海报模板',
+      type: '夜色风景'
+    },
+
+    // 室内场景 (1-46)
+    {
+      id: 'wanan-2026-shenghuochangjing-1',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/1.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-2',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/2.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-3',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/3.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-4',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/4.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-5',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/5.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-6',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/6.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-7',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/7.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-8',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/8.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-9',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/9.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-10',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/10.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-11',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/11.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-12',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/12.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-13',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/13.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-14',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/14.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-15',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/15.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-16',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/16.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-17',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-18',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-19',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-20',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-21',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-22',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-23',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-24',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-25',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-26',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-27',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-28',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-29',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-30',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-31',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-32',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-33',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-34',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/34.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-35',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/35.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-36',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/36.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-37',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/37.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-38',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/38.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-39',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/39.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-40',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/40.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-41',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/41.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-42',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/42.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-43',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/43.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-44',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/44.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-45',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/45.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
+    },
+    {
+      id: 'wanan-2026-shenghuochangjing-46',
+      name: '室内场景晚安',
+      image: 'images/wanan/shenghuochangjing/46.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['晚安'],
+      description: '室内场景晚安主题海报模板',
+      type: '室内场景'
     }
   ]
 };
