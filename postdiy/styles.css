@@ -6385,7 +6385,6 @@ input.hidden {
   width: min(90%, 380px);
   max-width: 500px;
   max-height: min(560px, 90vh);
-  min-height: 300px;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(211, 47, 47, 0.3);
   border: 2px solid #ee3030a1;
@@ -10782,10 +10781,6 @@ Shorthand property for setting most background properties at the same place in t
 
 /* 编辑页底部提示语轮播 */
 .editor-tip-bar {
-  position: fixed;
-  bottom: 10px;
-  left: 0;
-  right: 0;
   height: 28px;
   letter-spacing: 1px;
   line-height: 28px;
