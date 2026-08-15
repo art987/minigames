@@ -1451,7 +1451,35 @@ const ThumbnailLoader = {
     const BOTTOM_ACTIONS_HEIGHT = 20;
     const PADDING = 30;
     
+    // 检测虚拟键盘是否弹出
+    var _keyboardOpen = false;
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function() {
+        // 当可视高度比窗口高度小150px以上，说明键盘弹出了
+        _keyboardOpen = (window.visualViewport.height < window.innerHeight - 150);
+      });
+    }
+    // 备用检测：input/textarea聚焦时标记键盘打开
+    document.addEventListener('focusin', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        _keyboardOpen = true;
+      }
+    });
+    document.addEventListener('focusout', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        // 延迟恢复，避免切换输入框时闪烁
+        setTimeout(function() {
+          if (!document.querySelector('input:focus, textarea:focus')) {
+            _keyboardOpen = false;
+          }
+        }, 300);
+      }
+    });
+
     function calculateAndSetZoom() {
+      // 键盘弹出时不重新计算zoom，避免弹窗和输入区域缩小
+      if (_keyboardOpen) return;
+
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
       
