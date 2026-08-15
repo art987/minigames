@@ -11452,6 +11452,11 @@ const ThumbnailLoader = {
     
     // 执行html2canvas的函数
       function executeHtml2Canvas() {
+        // 截图前临时移除body的zoom，避免html2canvas截图尺寸错误
+        const editorBody = document.getElementById('editorBody') || document.body;
+        const savedZoom = editorBody.style.zoom || '';
+        editorBody.style.zoom = '1';
+
         // 使用html2canvas配置参数，增加更多优化选项
         const options = {
           backgroundColor: null, // 透明背景
@@ -11495,6 +11500,9 @@ const ThumbnailLoader = {
         options.useCORS = true; // 开启跨域支持
         
         return html2canvas(elements.posterFrame, options).then(canvas => {
+          // 截图完成，恢复body的zoom
+          editorBody.style.zoom = savedZoom;
+
           // 恢复贴纸的控制控件
           stickerControls.forEach(control => {
             control.style.display = '';
@@ -11579,6 +11587,9 @@ const ThumbnailLoader = {
             showToast('海报生成成功但下载失败，请手动截图');
           }
         }).catch(error => {
+          // 截图失败也要恢复zoom
+          editorBody.style.zoom = savedZoom;
+
           console.error('生成海报时出错:', error);
           showToast('生成海报失败，已使用替代方案');
           
