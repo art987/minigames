@@ -1451,35 +1451,10 @@ const ThumbnailLoader = {
     const BOTTOM_ACTIONS_HEIGHT = 20;
     const PADDING = 30;
     
-    // 检测虚拟键盘是否弹出
-    var _keyboardOpen = false;
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', function() {
-        // 当可视高度比窗口高度小150px以上，说明键盘弹出了
-        _keyboardOpen = (window.visualViewport.height < window.innerHeight - 150);
-      });
-    }
-    // 备用检测：input/textarea聚焦时标记键盘打开
-    document.addEventListener('focusin', function(e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        _keyboardOpen = true;
-      }
-    });
-    document.addEventListener('focusout', function(e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        // 延迟恢复，避免切换输入框时闪烁
-        setTimeout(function() {
-          if (!document.querySelector('input:focus, textarea:focus')) {
-            _keyboardOpen = false;
-          }
-        }, 300);
-      }
-    });
+    // 记录键盘弹出前的zoom值，用于补偿弹窗缩放
+    var _savedZoomBeforeKeyboard = null;
 
     function calculateAndSetZoom() {
-      // 键盘弹出时不重新计算zoom，避免弹窗和输入区域缩小
-      if (_keyboardOpen) return;
-
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
       
@@ -1512,6 +1487,80 @@ const ThumbnailLoader = {
     
     window.addEventListener('orientationchange', function() {
       setTimeout(calculateAndSetZoom, 200);
+    });
+
+    // ===== 虚拟键盘补偿：键盘弹出时给弹窗加补偿zoom =====
+    var _currentBodyZoom = 1;
+    var _originalZoomObserver = new MutationObserver(function() {
+      _currentBodyZoom = parseFloat(editorBody.style.zoom) || 1;
+    });
+    _originalZoomObserver.observe(editorBody, { attributes: true, attributeFilter: ['style'] });
+    _currentBodyZoom = parseFloat(editorBody.style.zoom) || 1;
+
+    // 找到输入框所在的弹窗容器
+    function findModalContainer(el) {
+      var node = el;
+      while (node && node !== document.body) {
+        if (node.classList && (
+          node.classList.contains('modal-container') ||
+          node.classList.contains('modal') ||
+          node.classList.contains('shop-profile-card')
+        )) {
+          return node;
+        }
+        node = node.parentElement;
+      }
+      return null;
+    }
+
+    // 给弹窗加补偿zoom
+    function applyKeyboardZoom(target) {
+      var container = findModalContainer(target);
+      if (!container) return;
+      // 计算补偿比例：键盘弹出前zoom / 当前zoom
+      var currentZoom = parseFloat(editorBody.style.zoom) || 1;
+      var baseZoom = _savedZoomBeforeKeyboard || currentZoom;
+      var compensate = baseZoom / currentZoom;
+      // 限制补偿范围，避免过大
+      compensate = Math.max(1, Math.min(compensate, 2.5));
+      container.style.zoom = compensate;
+    }
+
+    // 移除弹窗补偿zoom
+    function removeKeyboardZoom() {
+      document.querySelectorAll('.modal-container, .modal, .shop-profile-card').forEach(function(el) {
+        el.style.zoom = '';
+      });
+    }
+
+    // 监听 input/textarea 聚焦
+    document.addEventListener('focusin', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        // 记住键盘弹出前的zoom
+        if (!_savedZoomBeforeKeyboard) {
+          _savedZoomBeforeKeyboard = parseFloat(editorBody.style.zoom) || 1;
+        }
+        // 延迟执行，等zoom重新计算完成
+        setTimeout(function() {
+          applyKeyboardZoom(e.target);
+        }, 150);
+      }
+    });
+
+    // 监听 input/textarea 失焦
+    document.addEventListener('focusout', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        setTimeout(function() {
+          if (!document.querySelector('input:focus, textarea:focus')) {
+            _savedZoomBeforeKeyboard = null;
+            removeKeyboardZoom();
+          } else {
+            // 切换到另一个输入框，重新补偿
+            var newTarget = document.querySelector('input:focus, textarea:focus');
+            if (newTarget) applyKeyboardZoom(newTarget);
+          }
+        }, 200);
+      }
     });
   }
   
