@@ -2087,13 +2087,14 @@ footer {
   /* display: flex; */
 }
 
-/* Ã¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¥Â®Â¹Ã¥â„¢Â¨ - Ã§Â§Â»Ã¥Å Â¨Ã§Â«Â¯Ã¤Â¼ËœÃ¥Å’â€“ */
+/* Ã¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¥Â®Â¹Ã¥â„¢Â¨ - Ã§Â§Â»Ã¥ÅÂ Ã§Â«Â¯Ã¤Â¼ËœÃ¥Å'â€“ */
 .modal {
   background-color: #ffffff;
   border-radius: 20px;
-  width: 82vw;
+  width: min(82vw, 380px);
   max-width: 500px;
-  max-height: 82vh;
+  max-height: min(520px, 82vh);
+  min-height: 280px;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transform-origin: center center;
@@ -2138,19 +2139,19 @@ footer {
 
 /* Ã¤Â¿Æ’Ã©â€â‚¬Ã¤Â¿Â¡Ã¦ÂÂ¯Ã§Â¼â€“Ã¨Â¾â€˜Ã¥Â¼Â¹Ã§Âªâ€”Ã§â€°Â¹Ã¥Â®Å¡Ã¦Â Â·Ã¥Â¼Â */
 .modal-container.promo-text-modal {
-  max-height: 95vh;
+  max-height: min(600px, 95vh);
       top: 15%;
     position: fixed;
 }
 
 /* Ã¥Ë†Â¸Ã§Â ÂÃ©ÂªÅ’Ã¨Â¯ÂÃ¥Â¼Â¹Ã§Âªâ€”Ã§â€°Â¹Ã¥Â®Å¡Ã¦Â Â·Ã¥Â¼Â */
 .modal.coupon-modal {
-  max-height: 60vh;
+  max-height: min(400px, 60vh);
 }
 
 /* Ã¥â€¢â€ Ã¥Â®Â¶Ã¤Â¿Â¡Ã¦ÂÂ¯Ã§Â¼â€“Ã¨Â¾â€˜Ã¥Â¼Â¹Ã§Âªâ€”Ã§â€°Â¹Ã¥Â®Å¡Ã¦Â Â·Ã¥Â¼Â */
 .modal.business-info-modal {
-  max-height: 80vh;
+  max-height: min(560px, 80vh);
   position: fixed;
   top: 12%;
   overflow-y: visible;
@@ -2211,10 +2212,11 @@ footer {
 }
 
 .modal.sticker-select-modal {
-  max-height: 85vh;
+  max-height: min(560px, 85vh);
+  min-height: 360px;
   position: fixed;
   top: 10%;
-  width: 90vw;
+  width: min(90vw, 600px);
   max-width: 600px;
   background: #333333;
   /* background-image: 
@@ -2247,7 +2249,7 @@ footer {
   padding: 0;
   display: flex;
   gap: 4px;
-  max-height: 70vh;
+  max-height: min(460px, 70vh);
 }
 
 /* Ã¥Â·Â¦Ã¤Â¾Â§Ã¥Ë†â€ Ã§Â±Â»Ã¥Â¯Â¼Ã¨Ë†ÂªÃ¥Å’Âº */
@@ -2439,7 +2441,7 @@ footer {
     backdrop-filter: blur(0px);}
 #frameModal .modal-body{padding:5px 0px 5px}
 .modal.frame-select-modal {
-  max-height: 80vh;
+  max-height: min(520px, 80vh);
   position: fixed;
   top: 26%;
   transform: translate(-50%, -50%);
@@ -6058,8 +6060,9 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   
   /* Ã¥Â°ÂÃ¥Â±ÂÃ¥Â¹â€¢Ã¤Â¸Å Ã§Å¡â€žÃ¦Â¨Â¡Ã¦â‚¬ÂÃ¦Â¡â€ Ã¨Â°Æ’Ã¦â€¢Â´ */
   .modal {
-    width: 90vw;
-    max-height: 90vh;
+    width: min(90vw, 380px);
+    max-height: min(520px, 90vh);
+    min-height: 260px;
     border-radius: 16px;
   }
   .modal .template-thumbnail{height: 219px;}
@@ -6379,9 +6382,10 @@ input.hidden {
 .modal-container {
   background-color: white;
   border-radius: 14px;
-  width: 90%;
+  width: min(90%, 380px);
   max-width: 500px;
-  max-height: 90vh;
+  max-height: min(560px, 90vh);
+  min-height: 300px;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(211, 47, 47, 0.3);
   border: 2px solid #ee3030a1;
@@ -7327,9 +7331,9 @@ input.hidden {
 
 /* Ã©Â¦â€“Ã©Â¡ÂµÃ¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
 .home-popup-modal {
-  width: 93vw;
+  width: min(93vw, 480px);
   max-width: 480px;
-  max-height: 85vh;
+  max-height: min(560px, 85vh);
   display: flex;
   flex-direction: column;
   transform: translate(0, 0) scale(1);
@@ -7869,9 +7873,10 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 
 .modal-container.integrated-industry-template-modal {
-  width: 90vw;
+  width: min(90vw, 800px);
   max-width: 800px;
-  max-height: 85vh;
+  max-height: min(560px, 85vh);
+  min-height: 400px;
   display: flex;
   flex-direction: column;
 }
@@ -8026,7 +8031,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 @media (max-width: 768px) {
   .modal-container.integrated-industry-template-modal,
   .modal-container.text-template-modal {
-    width: 95vw;
+    width: min(95vw, 800px);
     max-width: none;
   }
 
@@ -8056,7 +8061,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 
 .text-template-modal {
-  max-height: 80vh;
+  max-height: min(560px, 80vh);
 }
 
 .template-card-actions {
@@ -8956,7 +8961,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
   width: calc(100% - 32px);
   max-width: 400px;
-  max-height: 90vh;
+  max-height: min(560px, 90vh);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -9239,7 +9244,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   border-radius: 16px;
   width: 90%;
   max-width: 420px;
-  max-height: 80vh;
+  max-height: min(560px, 80vh);
   overflow: hidden;
   display: flex;
   flex-direction: column;
