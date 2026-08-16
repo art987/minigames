@@ -279,20 +279,20 @@ function hideLoginPrompt() {
   }
 }
 
-// 统一跳转编辑器（含登录检测和微信环境检测）
+// 统一跳转编辑器（含微信环境检测和登录检测）
 function navigateToEditor(templateId) {
+  // 微信环境优先：无论是否登录，都弹出图片遮罩引导到外部浏览器
+  if (window.wechatWarning && window.wechatWarning.isWechat) {
+    window.wechatWarning.showImageOverlay();
+    return;
+  }
+  
   // 检查登录状态
   var userId = localStorage.getItem('postdiy_user_id');
   var userInfo = localStorage.getItem('postdiy_user_info');
   
   if (!userId || !userInfo) {
     showLoginPrompt();
-    return;
-  }
-  
-  // 检查微信环境
-  if (window.wechatWarning && window.wechatWarning.isWechat) {
-    window.wechatWarning.showImageOverlay();
     return;
   }
   
@@ -940,7 +940,7 @@ function loadTemplates() {
   }, 500);
 }
 
-// 渲染模板
+// 渲染模板（分批加载，每批4个，避免一次性加载卡顿）
 function renderTemplates(templates) {
   templatesGrid.innerHTML = '';
 
@@ -948,15 +948,34 @@ function renderTemplates(templates) {
     return;
   }
 
-  // 创建模板卡片并添加逐个叠加动画
-  templates.forEach((template, index) => {
-    const templateCard = createTemplateCard(template);
-    // 添加动画类
-    templateCard.classList.add('template-card-enter');
-    // 设置动画延迟，每个卡片间隔60ms
-    templateCard.style.animationDelay = `${index * 60}ms`;
-    templatesGrid.appendChild(templateCard);
-  });
+  const BATCH_SIZE = 4;
+  var totalIndex = 0; // 全局索引，用于动画延迟计算
+
+  function processBatch(startIdx) {
+    var endIdx = Math.min(startIdx + BATCH_SIZE, templates.length);
+    
+    // 创建当前批次的卡片
+    for (var i = startIdx; i < endIdx; i++) {
+      var templateCard = createTemplateCard(templates[i]);
+      templateCard.classList.add('template-card-enter');
+      templateCard.style.animationDelay = (totalIndex * 60) + 'ms';
+      templatesGrid.appendChild(templateCard);
+      totalIndex++;
+    }
+    
+    // 还有未处理的模板，继续下一批
+    if (endIdx < templates.length) {
+      // 使用 requestAnimationFrame 确保浏览器有空闲渲染当前批次
+      requestAnimationFrame(function() {
+        setTimeout(function() {
+          processBatch(endIdx);
+        }, 50);
+      });
+    }
+  }
+  
+  // 启动第一批
+  processBatch(0);
 }
 
 // 创建模板卡片
@@ -975,7 +994,7 @@ function createTemplateCard(template) {
   if (!availability.available) {
     card.classList.add('template-locked');
     card.innerHTML = `
-      <div class="template-thumbnail-container" style="min-height:140px;background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;">
+      <div class="template-thumbnail-container" style="min-height:333px;background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;">
         <img class="template-thumbnail blurred" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
         <div class="template-lock-overlay">
           <span class="lock-big-text">待开放</span>
