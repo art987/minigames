@@ -966,8 +966,7 @@ function createTemplateCard(template) {
   if (!availability.available) {
     card.classList.add('template-locked');
     card.innerHTML = `
-      <div class="template-thumbnail-container" style="min-height:333px;background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;">
-        <img class="template-thumbnail blurred" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
+      <div class="template-thumbnail-container template-thumbnail-bg blurred" style="background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;" data-original-path="${thumbnailPath}">
         <div class="template-lock-overlay">
           <span class="lock-big-text">待开放</span>
           <span class="lock-small-text">调整期，将提前2月开放</span>
@@ -981,29 +980,28 @@ function createTemplateCard(template) {
         </div>
       </div>
     `;
-    // 锁定模板也加loading占位和错误处理
-    const lockedImg = card.querySelector('.template-thumbnail');
-    const lockedContainer = card.querySelector('.template-thumbnail-container');
-    if (lockedImg && lockedContainer) {
-      lockedImg.addEventListener('load', function() {
-        lockedContainer.style.minHeight = '';
-        lockedContainer.style.backgroundImage = '';
-        lockedContainer.style.backgroundColor = '';
-      });
-      lockedImg.addEventListener('error', function() {
-        lockedContainer.style.backgroundImage = `url('images/statics/loading.gif')`;
-        lockedImg.style.opacity = '0';
-        // 1.5秒后重试一次
-        setTimeout(() => { lockedImg.src = lockedImg.src; }, 1500);
-      });
+    // 锁定模板：用隐藏Image预加载，成功后设为背景图
+    const lockedContainer = card.querySelector('.template-thumbnail-bg');
+    if (lockedContainer) {
+      var preloader = new Image();
+      preloader.onload = function() {
+        lockedContainer.style.backgroundImage = 'url("' + thumbnailUrl + '")';
+        lockedContainer.style.backgroundSize = 'cover';
+        lockedContainer.style.backgroundPosition = 'center';
+        lockedContainer.style.backgroundRepeat = 'no-repeat';
+      };
+      preloader.onerror = function() {
+        lockedContainer.style.backgroundImage = 'url("images/statics/loading.gif")';
+        lockedContainer.style.backgroundSize = '40px 40px';
+        setTimeout(function() { preloader.src = thumbnailUrl; }, 1500);
+      };
+      preloader.src = thumbnailUrl;
     }
     return card;
   }
   
   card.innerHTML = `
-    <div class="template-thumbnail-container">
-      <img class="template-thumbnail" src="${thumbnailUrl}" alt="${template.name}" loading="lazy" data-original-path="${thumbnailPath}">
-    </div>
+    <div class="template-thumbnail-container template-thumbnail-bg" data-original-path="${thumbnailPath}"></div>
     <div class="template-info">
       <h3 class="template-name">${template.name}</h3>
       <div class="template-tags">
@@ -1013,90 +1011,77 @@ function createTemplateCard(template) {
     </div>
   `;
   
-  // 添加图片加载失败回退处理、重试机制和占位符
-  const img = card.querySelector('.template-thumbnail');
-  const thumbContainer = card.querySelector('.template-thumbnail-container');
-  if (img) {
-    let timeoutId = null;
+  // 用隐藏Image预加载，成功后设为CSS背景图（用户无法右键保存/拖拽）
+  const thumbContainer = card.querySelector('.template-thumbnail-bg');
+  if (thumbContainer) {
     let loaded = false;
     let retryCount = 0;
-    const maxRetries = 1; // 最多重试1次同URL
+    const maxRetries = 1;
     const loadingGif = 'images/statics/loading.gif';
+    var currentUrl = thumbnailUrl;
 
-    // 设置容器最小高度占位，防止图片未加载时div塌陷
-    if (thumbContainer) {
-      thumbContainer.style.minHeight = '140px';
-      thumbContainer.style.backgroundColor = '#f0f0f0';
-      // 先显示loading.gif作为占位背景
-      thumbContainer.style.backgroundImage = `url('${loadingGif}')`;
+    // 设置loading占位（高度由CSS aspect-ratio控制）
+    thumbContainer.style.backgroundColor = '#f0f0f0';
+    thumbContainer.style.backgroundImage = 'url("' + loadingGif + '")';
+    thumbContainer.style.backgroundSize = '40px 40px';
+    thumbContainer.style.backgroundPosition = 'center';
+    thumbContainer.style.backgroundRepeat = 'no-repeat';
+
+    var preloader = new Image();
+
+    var showBackground = function(url) {
+      thumbContainer.style.backgroundColor = '';
+      thumbContainer.style.backgroundImage = 'url("' + url + '")';
+      thumbContainer.style.backgroundSize = 'cover';
+      thumbContainer.style.backgroundPosition = 'center';
+      thumbContainer.style.backgroundRepeat = 'no-repeat';
+    };
+
+    var showLoading = function() {
+      thumbContainer.style.backgroundImage = 'url("' + loadingGif + '")';
       thumbContainer.style.backgroundSize = '40px 40px';
       thumbContainer.style.backgroundPosition = 'center';
       thumbContainer.style.backgroundRepeat = 'no-repeat';
-    }
-
-    const showLoadingPlaceholder = () => {
-      if (thumbContainer) {
-        thumbContainer.style.minHeight = '140px';
-        thumbContainer.style.backgroundImage = `url('${loadingGif}')`;
-        thumbContainer.style.backgroundSize = '40px 40px';
-        thumbContainer.style.backgroundPosition = 'center';
-        thumbContainer.style.backgroundRepeat = 'no-repeat';
-      }
-      img.style.opacity = '0';
     };
 
-    const hideLoadingPlaceholder = () => {
-      if (thumbContainer) {
-        thumbContainer.style.minHeight = '';
-        thumbContainer.style.backgroundImage = '';
-        thumbContainer.style.backgroundColor = '';
-      }
-      img.style.opacity = '1';
-    };
-
-    const loadFallback = () => {
+    var loadFallback = function() {
       if (loaded) return;
-      if (window.imageConfig && !window.imageConfig.shouldFallback()) {
-        return;
-      }
-      const originalPath = img.getAttribute('data-original-path');
+      if (window.imageConfig && !window.imageConfig.shouldFallback()) return;
+      var originalPath = thumbContainer.getAttribute('data-original-path');
       if (originalPath && window.imageConfig) {
-        const fallback = window.imageConfig.getFallbackUrl(originalPath);
-        if (fallback && img.src !== fallback) {
-          showLoadingPlaceholder();
-          img.src = fallback;
+        var fallback = window.imageConfig.getFallbackUrl(originalPath);
+        if (fallback && currentUrl !== fallback) {
+          currentUrl = fallback;
+          showLoading();
+          preloader.src = fallback;
         }
       }
     };
 
-    img.addEventListener('load', function() {
+    preloader.onload = function() {
       loaded = true;
-      if (timeoutId) clearTimeout(timeoutId);
-      hideLoadingPlaceholder();
-    });
+      showBackground(currentUrl);
+    };
 
-    img.addEventListener('error', function() {
+    preloader.onerror = function() {
       if (loaded) return;
-      // 先尝试同URL重试一次（可能是网络抖动）
       if (retryCount < maxRetries) {
         retryCount++;
-        showLoadingPlaceholder();
-        console.warn(`[thumbnail] 加载失败，第${retryCount}次重试: ${img.src}`);
-        setTimeout(() => {
-          if (!loaded) {
-            img.src = img.src; // 触发重新加载
-          }
+        showLoading();
+        setTimeout(function() {
+          if (!loaded) { preloader.src = currentUrl; }
         }, 1500);
         return;
       }
-      // 重试也失败，走CDN回退
-      showLoadingPlaceholder();
+      showLoading();
       loadFallback();
-    });
+    };
 
-    timeoutId = setTimeout(() => {
+    var timeoutId = setTimeout(function() {
       loadFallback();
     }, 15000);
+
+    preloader.src = currentUrl;
   }
   
   // 添加点击事件

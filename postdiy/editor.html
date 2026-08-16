@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- 禁止双指缩放手势 -->
+  <!-- 禁止双指缩放手势 + 图片防护 -->
   <script>
     document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
     document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
@@ -14,6 +14,16 @@
     document.addEventListener('touchmove', function(e) {
       if (e.touches.length > 1) { e.preventDefault(); }
     }, { passive: false });
+    // 图片防护：禁用右键菜单、拖拽、选择
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.style.backgroundImage) { e.preventDefault(); }
+    });
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') { e.preventDefault(); }
+    });
+    document.addEventListener('selectstart', function(e) {
+      if (e.target.tagName === 'IMG') { e.preventDefault(); }
+    });
   </script>
   <!-- 登录状态预检：微信环境下跳过登录检查（先显示遮罩），非微信环境未登录则跳转 -->
   <script>
@@ -333,7 +343,7 @@
   
     <div id="posterFrame" class="poster-frame">
       <!-- 海报背景 -->
-      <img id="posterBackground" class="poster-background" src="" alt="海报背景">
+      <img id="posterBackground" class="poster-background" src="" alt="海报背景" draggable="false" oncontextmenu="return false">
       
       <!-- 高清大图加载提示 -->
       <div id="hdLoadingHint" class="hd-loading-hint">

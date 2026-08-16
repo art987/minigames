@@ -488,6 +488,14 @@ main {
   overflow: hidden;
 }
 
+/* CSS背景图缩略图（替代img标签，防止右键保存/拖拽） */
+.template-thumbnail-bg {
+  width: 100%;
+  aspect-ratio: 1 / 1.7;
+  background-color: #f0f0f0;
+  transition: transform var(--transition-slow, 0.3s), opacity 0.3s ease;
+}
+
 .template-thumbnail {
   top: 0;
   left: 0;
@@ -525,7 +533,8 @@ main {
   100% { transform: rotate(360deg); }
 }
 
-.template-card:hover .template-thumbnail {
+.template-card:hover .template-thumbnail,
+.template-card:hover .template-thumbnail-bg {
   transform: scale(1.05);
 }
 
@@ -10329,7 +10338,8 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 }
 
 /* ========== æ¨¡æ¿é”å®šæ ·å¼ ========== */
-.template-thumbnail.blurred {
+.template-thumbnail.blurred,
+.template-thumbnail-bg.blurred {
   filter: blur(2px);
   opacity: 1;
 }

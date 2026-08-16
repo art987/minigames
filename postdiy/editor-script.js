@@ -585,9 +585,40 @@ async function getTencentImageUrl(cloudflareUrl) {
   return null;
 }
 
+// 图片缓存混淆密钥
+var _imgCacheKey = 'pd_2026_img';
+
+// 混淆编码：base64 → XOR → 反转 → Base64编码
+function _obfuscate(data) {
+  var result = '';
+  for (var i = 0; i < data.length; i++) {
+    result += String.fromCharCode(data.charCodeAt(i) ^ _imgCacheKey.charCodeAt(i % _imgCacheKey.length));
+  }
+  // 反转字符串 + Base64编码，使存储值不可直接识别为图片数据
+  return btoa(result.split('').reverse().join(''));
+}
+
+// 反混淆解码
+function _deobfuscate(encoded) {
+  try {
+    var reversed = atob(encoded);
+    var data = reversed.split('').reverse().join('');
+    var result = '';
+    for (var i = 0; i < data.length; i++) {
+      result += String.fromCharCode(data.charCodeAt(i) ^ _imgCacheKey.charCodeAt(i % _imgCacheKey.length));
+    }
+    return result;
+  } catch (e) {
+    // 可能是旧版未混淆的数据，直接返回
+    return encoded;
+  }
+}
+
 function saveToCache(key, base64) {
   try {
-    localStorage.setItem(key, base64);
+    // 混淆后存储，防止直接从localStorage复制base64图片数据
+    var obfuscated = base64 && base64.startsWith('data:image') ? _obfuscate(base64) : base64;
+    localStorage.setItem(key, obfuscated);
   } catch (e) {
     console.error('保存缓存失败:', key, e);
   }
@@ -595,7 +626,14 @@ function saveToCache(key, base64) {
 
 function getFromCache(key) {
   try {
-    return localStorage.getItem(key);
+    var raw = localStorage.getItem(key);
+    if (!raw) return null;
+    // 尝试反混淆；如果是旧版未混淆数据，_deobfuscate会原样返回
+    if (raw.startsWith('data:image')) {
+      // 旧版未混淆数据，直接返回
+      return raw;
+    }
+    return _deobfuscate(raw);
   } catch (e) {
     console.error('读取缓存失败:', key, e);
     return null;
@@ -11479,6 +11517,36 @@ const ThumbnailLoader = {
           });
           
           try {
+            // === 新增：添加动态水印 ===
+            try {
+              const ctx = canvas.getContext('2d');
+              const watermarkText = '闪喵海报生成器 · peacelove.top';
+              
+              // 水印样式
+              const fontSize = Math.max(14, Math.floor(canvas.width / 30));
+              ctx.font = `${fontSize}px Arial`;
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              
+              // 半透明灰色，不影响主图
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+              ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+              ctx.lineWidth = 2;
+              
+              // 水印位置：右下角
+              const x = canvas.width / 2;
+              const y = canvas.height - fontSize;
+              
+              // 描边+填充，防止在白底上看不见
+              ctx.strokeText(watermarkText, x, y);
+              ctx.fillText(watermarkText, x, y);
+              
+              console.log('水印已添加');
+            } catch (watermarkError) {
+              console.warn('添加水印失败:', watermarkError);
+            }
+            // ================================
+
             // 生成最高质量的PNG图像，确保清晰度
             let imageUrl;
             try {
