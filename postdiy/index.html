@@ -2,7 +2,20 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- 禁止双指缩放手势 -->
+  <script>
+    document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+    document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+    document.addEventListener('dblclick', function(e) { e.preventDefault(); });
+    // 禁止双指触摸缩放
+    document.addEventListener('touchstart', function(e) {
+      if (e.touches.length > 1) { e.preventDefault(); }
+    }, { passive: false });
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1) { e.preventDefault(); }
+    }, { passive: false });
+  </script>
   <!-- 登录状态清理（仅清除伪登录态，不跳转） -->
   <script>
     (function() {
