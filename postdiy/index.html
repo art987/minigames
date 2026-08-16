@@ -3,18 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 登录状态预检：未登录则立即跳转，不加载任何资源 -->
+  <!-- 登录状态清理（仅清除伪登录态，不跳转） -->
   <script>
-    // 必须同时存在 userId 和 userInfo 才算已登录，避免伪登录态（残留 userId 但 userInfo 缺失）
     (function() {
       var userId = localStorage.getItem('postdiy_user_id');
       var userInfo = localStorage.getItem('postdiy_user_info');
-      if (!userId || !userInfo) {
-        // 清理可能残留的伪登录数据
-        if (userId && !userInfo) {
-          localStorage.removeItem('postdiy_user_id');
-        }
-        window.location.replace('login/index.html?redirect=' + encodeURIComponent(window.location.href));
+      if (userId && !userInfo) {
+        localStorage.removeItem('postdiy_user_id');
       }
     })();
   </script>
@@ -345,6 +340,22 @@
       <div class="modal-footer">
         <button id="confirmModalCancel" class="editor-button editor-button-secondary">取消</button>
         <button id="confirmModalConfirm" class="editor-button editor-button-danger">确认</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 登录提示弹窗 -->
+  <div id="loginPromptModal" class="modal-overlay hidden">
+    <div class="modal" style="max-width: 340px; text-align: center; padding: 10px;">
+      <div class="modal-body" style="padding: 24px;">
+        <div style="margin-bottom: 16px;">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="#d32f2f"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <p style="margin: 0 0 24px 0; color: #333; font-size: 15px; line-height: 1.6;">您还未登录，录入的宣传信息无法保存。</p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a id="loginPromptRegisterBtn" href="login/index.html" style="background: linear-gradient(135deg, #d32f2f, #f44336); color: white; border: none; border-radius: 8px; padding: 12px 20px; font-size: 15px; cursor: pointer; text-decoration: none; display: block; text-align: center;">注册/登录</a>
+          <button id="loginPromptCancelBtn" style="background: #f5f5f5; color: #666; border: 1px solid #ddd; border-radius: 8px; padding: 10px 20px; font-size: 14px; cursor: pointer; width: 100%;">先随便看看</button>
+        </div>
       </div>
     </div>
   </div>

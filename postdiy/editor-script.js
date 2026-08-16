@@ -102,8 +102,14 @@ function waitForImageLoad(imgElement, timeout = 5000) {
   });
 }
 
+// 微信调试开关：0=测试模式(任意浏览器启用微信逻辑), 1=生产模式(仅微信浏览器生效)
+const WECHAT_MODE = 1;
+
 // 微信浏览器检测（支持调试参数）
 function isWeixinBrowser() {
+  // 测试模式：任意浏览器都模拟微信环境，方便开发测试
+  if (WECHAT_MODE === 0) return true;
+  
   // 检查URL参数，支持调试模式
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('browser') === 'wechat') {
@@ -170,72 +176,76 @@ function getFutureFestivals(count = 3) {
 // 微信浏览器提示管理
 window.wechatWarning = {
   isWechat: false,
+  _overlayActive: false,
+  _interceptorHandler: null,
   
   // 初始化微信检测
   init: function() {
     this.isWechat = isWeixinBrowser();
-    
-    // 检查是否是调试模式
-    const urlParams = new URLSearchParams(window.location.search);
-    this.isDebugMode = urlParams.get('browser') === 'wechat';
-    
     if (this.isWechat) {
-      this.showWarningModal();
-      this.showTopBar();
+      console.log('[微信环境] 编辑页：显示微信提示遮罩，点击页面任意位置重新弹出');
+      this.showImageOverlay();
     }
   },
   
-  // 显示警告弹窗
-  showWarningModal: function() {
-    // 调试模式提示
-    const debugInfo = this.isDebugMode ? '<div style="background: #e8f5e8; border: 1px solid #4caf50; border-radius: 4px; padding: 8px; margin-bottom: 16px; font-size: 12px; color: #2e7d32;">🔧 调试模式：模拟微信浏览器环境</div>' : '';
+  // 显示微信提示遮罩（图片）
+  showImageOverlay: function() {
+    if (!this.isWechat) return;
+    if (this._overlayActive) return;
     
-    // 创建弹窗HTML
-    const modalHTML = `
-      <div id="wechatWarningModal" class="wechat-warning-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div id="wechatWarningModal" class="wechat-warning-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div class="wechat-warning-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 320px; text-align: center; position: relative;">
-          
-          <h3 style="margin: 0 0 12px 0; color: #333; font-size: 18px;">微信内不支持图片（海报）下载</h3>
-          <p style="margin: 0 0 20px 0; color: #666; font-size: 14px; line-height: 1.4;">如需体验完整功能，请右上角点"..."选择外部浏览器进行访问</p>
-          ${debugInfo}
-          <div class="arrow-indicator" style="position: fixed;top: 19px; right: 36px; width: 30px; height: 30px; transform: rotate(348deg);">
-            <div style="width: 100%; height: 100%; border-right: 3px solid #f6a83b; border-top: 3px solid #f6a83b;"></div>
-          </div>
-          <button id="continueBrowse" class="continue-btn" style="background: #0d8507ff; border: 2px solid #dee2e6; border-radius: 6px; padding: 10px 20px; color: #ffffffff; font-size: 16px; cursor: pointer; width: 100%;">我不下载图片，随便看看</button>
-        </div>
-      </div>>
-      </div>
-    `;
+    this._overlayActive = true;
     
-    // 添加到页面
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    // 移除页面点击拦截器（遮罩显示时不需要）
+    this._removePageInterceptor();
     
-    // 绑定关闭事件
-    document.getElementById('continueBrowse').addEventListener('click', function() {
-      document.getElementById('wechatWarningModal').style.display = 'none';
+    const overlay = document.createElement('div');
+    overlay.id = 'wechatOverlay';
+    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 99999; display: flex; flex-direction: column; align-items: center; cursor: pointer; overflow-y: auto; -webkit-overflow-scrolling: touch;';
+    
+    const img = document.createElement('img');
+    img.src = 'images/statics/wechat-tip.png';
+    img.style.cssText = 'width: 100%; max-width: 420px; height: auto; display: block; flex-shrink: 0; pointer-events: auto;';
+    img.alt = '请在外部浏览器打开';
+    
+    overlay.appendChild(img);
+    
+    // 点击图片或遮罩关闭
+    var self = this;
+    overlay.addEventListener('click', function() {
+      overlay.remove();
+      self._overlayActive = false;
+      // 遮罩关闭后，启用页面点击拦截器
+      // 用户点页面上任何东西都重新弹出遮罩
+      setTimeout(function() {
+        self._enablePageInterceptor();
+      }, 50);
     });
+    
+    document.body.appendChild(overlay);
   },
   
-  // 显示顶部横条
-  showTopBar: function() {
-    // 创建顶部横条HTML
-    const topBarHTML = `
-     <div id="wechatTopBar" class="wechat-top-bar" style=" width: 100%;     background: #22b208;
-    border-bottom: 2px solid #0a7509ff; padding: 8px 16px; z-index:1;top: 0; text-align: center; font-size: 12px; color: #ffffffff; position: fixed;">
-        <span>微信内不支持下载，右上角点<b>...</b> 选择外部浏览器访问。</span>
-      </div>
-    `;
+  // 启用页面点击拦截（遮罩关闭后，点页面任何元素重新弹出遮罩）
+  _enablePageInterceptor: function() {
+    var self = this;
+    this._removePageInterceptor();
     
-    // 添加到页面
-    document.body.insertAdjacentHTML('afterbegin', topBarHTML);
+    this._interceptorHandler = function(e) {
+      // 如果遮罩已经显示，不拦截
+      if (self._overlayActive) return;
+      e.stopPropagation();
+      e.preventDefault();
+      self.showImageOverlay();
+    };
     
-    // 调整页面内容位置，避免被顶部横条遮挡
-    const topBar = document.getElementById('wechatTopBar');
-    const mainContent = document.querySelector('main') || document.body;
-    if (topBar && mainContent) {
-      const barHeight = topBar.offsetHeight;
-      mainContent.style.marginTop = barHeight + 'px';
+    // 使用 capture 阶段拦截所有点击
+    document.addEventListener('click', this._interceptorHandler, true);
+  },
+  
+  // 移除页面点击拦截器
+  _removePageInterceptor: function() {
+    if (this._interceptorHandler) {
+      document.removeEventListener('click', this._interceptorHandler, true);
+      this._interceptorHandler = null;
     }
   }
 };
