@@ -917,18 +917,11 @@ function loadTemplates() {
   // 使用setTimeout模拟加载延迟
   setTimeout(() => {
     try {
-      const templates = window.utils.getAllTemplates();
-      
-      // 更新模板计数
-      templatesCount.textContent = `${templates.length} 个模板`;
-      
-      // 渲染模板
-      renderTemplates(templates);
-      
       // 更新节日标签
       updateFestivalTags();
       
-      // 应用当前筛选条件
+      // 直接应用筛选条件，只加载当前节日匹配的模板
+      // 不再先渲染全部模板再过滤，避免浪费带宽
       applyFilters();
     } catch (error) {
       console.error('加载模板失败:', error);
@@ -940,7 +933,7 @@ function loadTemplates() {
   }, 500);
 }
 
-// 渲染模板（分批加载，每批4个，避免一次性加载卡顿）
+// 渲染模板
 function renderTemplates(templates) {
   templatesGrid.innerHTML = '';
 
@@ -948,34 +941,13 @@ function renderTemplates(templates) {
     return;
   }
 
-  const BATCH_SIZE = 4;
-  var totalIndex = 0; // 全局索引，用于动画延迟计算
-
-  function processBatch(startIdx) {
-    var endIdx = Math.min(startIdx + BATCH_SIZE, templates.length);
-    
-    // 创建当前批次的卡片
-    for (var i = startIdx; i < endIdx; i++) {
-      var templateCard = createTemplateCard(templates[i]);
-      templateCard.classList.add('template-card-enter');
-      templateCard.style.animationDelay = (totalIndex * 60) + 'ms';
-      templatesGrid.appendChild(templateCard);
-      totalIndex++;
-    }
-    
-    // 还有未处理的模板，继续下一批
-    if (endIdx < templates.length) {
-      // 使用 requestAnimationFrame 确保浏览器有空闲渲染当前批次
-      requestAnimationFrame(function() {
-        setTimeout(function() {
-          processBatch(endIdx);
-        }, 50);
-      });
-    }
-  }
-  
-  // 启动第一批
-  processBatch(0);
+  // 创建模板卡片并添加逐个叠加动画
+  templates.forEach((template, index) => {
+    const templateCard = createTemplateCard(template);
+    templateCard.classList.add('template-card-enter');
+    templateCard.style.animationDelay = `${index * 60}ms`;
+    templatesGrid.appendChild(templateCard);
+  });
 }
 
 // 创建模板卡片

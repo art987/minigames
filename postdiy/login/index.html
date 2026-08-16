@@ -655,8 +655,8 @@
           redirect = decodeURIComponent(redirect)
           return redirect
         }
-        // 默认跳转到首页
-        return 'index.html'
+        // 默认跳转到首页（使用相对根目录路径，避免在login/目录下解析为login/index.html）
+        return '../index.html'
       },
       
       // 跳转回原页面
