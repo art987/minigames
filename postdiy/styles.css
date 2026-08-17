@@ -4845,6 +4845,29 @@ button#closeFontColorModalBtn.modal-close {
   justify-content: center;
 }
 
+/* 智能弹窗顶部白色标语 */
+.home-popup-slogan {
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  position: relative;
+  z-index: 10001;
+}
+
+/* 首页弹窗内部布局：slogan在上，弹窗在下 */
+#homePopup.modal-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  padding: 20px;
+}
+
 .rotating-title .title-text {
   position: absolute;
   left: 0%;
