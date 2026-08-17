@@ -4856,6 +4856,26 @@ button#closeFontColorModalBtn.modal-close {
   white-space: nowrap;
   position: relative;
   z-index: 10001;
+  opacity: 0;
+  animation: sloganFall 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
+}
+
+@keyframes sloganFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(6px);
+  }
+  80% {
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 首页弹窗内部布局：slogan在上，弹窗在下 */
