@@ -3,6 +3,20 @@
 const PAYMENT_SESSION_STORAGE_KEY = 'VIP_PAYMENT_SESSION'
 const PAYMENT_REOPEN_GAP_MS = 8000
 
+// 检测是否在 App WebView 环境中
+// App 内不允许内购，必须走淘宝链接购买激活码；浏览器环境走站内支付
+function isInAppWebView() {
+  // 1. 原生桥检测（最可靠）
+  if (window.AndroidInterface || (window.webkit && window.webkit.messageHandlers)) return true
+  // 2. uni webview 检测
+  if (window.uni && (window.uni.postMessage || (window.uni.webView && window.uni.webView.postMessage))) return true
+  // 3. UA 检测
+  var ua = (navigator.userAgent || '').toLowerCase()
+  if (ua.indexOf(' wv') > -1 || ua.indexOf('; wv)') > -1) return true
+  if (ua.indexOf('webview') > -1) return true
+  return false
+}
+
 // 支付状态恢复相关 localStorage key
 // VIP_PENDING_PAYMENT：首页发起支付时写入，用于 App 关闭收银台后恢复检测
 // VIP_PAYMENT_RETURN：payment-return.html 写入，用于首页恢复可见时读取支付结果
@@ -159,6 +173,11 @@ async function renderVipPackagesToGrid(container, options) {
   // 按 sortOrder 升序
   packages.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
 
+  // WebView（App 内）环境：仅保留配置了淘宝链接的套餐，App 不允许内购
+  if (isInAppWebView()) {
+    packages = packages.filter(pkg => pkg.taobaoEnabled && pkg.taobaoUrl)
+  }
+
   if (packages.length === 0) {
     container.classList.remove('packages-loading')
     container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">暂无可选套餐</div>`
@@ -184,8 +203,8 @@ async function renderVipPackagesToGrid(container, options) {
     const taobaoUrl = pkg.taobaoUrl || ''
     const taobaoPrice = pkg.taobaoPrice || 0
 
-    // 开启淘宝购买时，卡片展示价格使用淘宝价
-    const displayPrice = taobaoEnabled && taobaoPrice > 0 ? taobaoPrice : price
+    // WebView 环境淘宝套餐展示淘宝价；浏览器环境统一展示站内价
+    const displayPrice = isInAppWebView() && taobaoEnabled && taobaoPrice > 0 ? taobaoPrice : price
 
     if (styleMode === 'class') {
       // 对接 styles.css 的 .vip-package 类（用于 VIP 升级弹窗）
@@ -250,10 +269,10 @@ function updateProceedBtnText(pkgEl) {
   const taobaoPrice = parseFloat(pkgEl.dataset.taobaoPrice) || 0
   const price = pkgEl.dataset.price
 
-  if (taobaoEnabled && taobaoPrice > 0) {
+  if (isInAppWebView() && taobaoEnabled && taobaoPrice > 0) {
     proceedBtn.textContent = `去淘宝${taobaoPrice}元购买升级码`
   } else {
-    proceedBtn.textContent = `立即支付${price}元`
+    proceedBtn.textContent = `支付${price}元 立即升级`
   }
   // 延迟显示按钮，等套餐放大过渡完成
   setTimeout(() => {
@@ -1548,14 +1567,14 @@ const VipLoginUI = (function() {
           pkgBtn.textContent = '✔ 已选择'
         }
 
-        // 显示立即支付按钮并更新文案（淘宝套餐使用淘宝价文案）
+        // 显示立即支付按钮并更新文案（WebView 走淘宝，浏览器走站内支付）
         if (elements.proceedToPaymentBtn) {
           const price = pkg.dataset.price
           const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
           const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
-          elements.proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+          elements.proceedToPaymentBtn.textContent = (isInAppWebView() && taobaoEnabled && taobaoPrice > 0)
             ? `去淘宝${taobaoPrice}元购买升级码`
-            : `立即支付${price}元`
+            : `支付${price}元 立即升级`
           elements.proceedToPaymentBtn.style.display = 'block'
         }
       })
@@ -1582,11 +1601,11 @@ const VipLoginUI = (function() {
         const price = selectedPackage.dataset.price
         const packageId = selectedPackage.dataset.packageId || ''
 
-        // 淘宝套餐分支：直接跳转淘宝，不进入站内支付流程
+        // 淘宝套餐分支：仅 WebView 环境下走淘宝，浏览器忽略淘宝直接站内支付
         const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
         const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
         const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
-        if (taobaoEnabled && taobaoUrl) {
+        if (isInAppWebView() && taobaoEnabled && taobaoUrl) {
           console.log('[taobao-flow] inline proceed 跳转淘宝:', { taobaoUrl, taobaoPrice, packageId, duration })
           openTaobaoLink(taobaoUrl)
           return
@@ -3446,8 +3465,8 @@ window.showVipUpgradeModal = function() {
     const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true';
     const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0;
 
-    // 淘宝套餐使用淘宝价/原价；普通套餐使用站内价/原价
-    const actualPrice = (taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
+    // WebView 环境淘宝套餐使用淘宝价；浏览器环境统一使用站内价
+    const actualPrice = (isInAppWebView() && taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
 
     if (actualPrice && originalPrice) {
       const discount = (actualPrice / originalPrice * 10).toFixed(1);
@@ -3484,13 +3503,13 @@ window.showVipUpgradeModal = function() {
       if (typeof updatePaymentDiscountBadge === 'function') updatePaymentDiscountBadge(pkg)
 
       if (proceedToPaymentBtn) {
-        // 淘宝套餐使用淘宝价文案；普通套餐使用站内价文案
+        // WebView 走淘宝价文案；浏览器走站内支付文案
         const price = pkg.dataset.price
         const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
         const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
-        proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+        proceedToPaymentBtn.textContent = (isInAppWebView() && taobaoEnabled && taobaoPrice > 0)
           ? `去淘宝${taobaoPrice}元购买升级码`
-          : `立即支付${price}元`
+          : `支付${price}元 立即升级`
         proceedToPaymentBtn.style.display = 'block'
         // 触发放大果冻入场动画
         proceedToPaymentBtn.classList.remove('proceed-btn-enter')
@@ -3548,11 +3567,11 @@ window.showVipUpgradeModal = function() {
       const packageId = selectedPackage.dataset.packageId || ''
       const type = 'wxpay'
 
-      // 淘宝套餐分支：直接跳转淘宝，不走支付下单流程
+      // 淘宝套餐分支：仅 WebView 环境下走淘宝，浏览器忽略淘宝直接站内支付
       const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
       const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
       const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
-      if (taobaoEnabled && taobaoUrl) {
+      if (isInAppWebView() && taobaoEnabled && taobaoUrl) {
         console.log('[taobao-flow] proceed 跳转淘宝购买升级码:', { taobaoUrl, taobaoPrice, packageId, duration })
         openTaobaoLink(taobaoUrl)
         restoreBtn()

@@ -10359,8 +10359,8 @@ const ThumbnailLoader = {
       const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true';
       const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0;
 
-      // 淘宝套餐使用淘宝价/原价；普通套餐使用站内价/原价
-      const actualPrice = (taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
+      // WebView 环境淘宝套餐使用淘宝价；浏览器环境统一使用站内价
+      const actualPrice = (isInAppWebView() && taobaoEnabled && taobaoPrice > 0) ? taobaoPrice : price;
 
       if (actualPrice && originalPrice) {
         const discount = (actualPrice / originalPrice * 10).toFixed(1);
@@ -10404,9 +10404,9 @@ const ThumbnailLoader = {
             const price = pkg.dataset.price
             const taobaoEnabled = pkg.dataset.taobaoEnabled === 'true'
             const taobaoPrice = parseFloat(pkg.dataset.taobaoPrice) || 0
-            proceedToPaymentBtn.textContent = (taobaoEnabled && taobaoPrice > 0)
+            proceedToPaymentBtn.textContent = (isInAppWebView() && taobaoEnabled && taobaoPrice > 0)
               ? `去淘宝${taobaoPrice}元购买升级码`
-              : `立即支付${price}元`
+              : `支付${price}元 立即升级`
             proceedToPaymentBtn.style.display = 'block'
             // 触发放大果冻入场动画
             proceedToPaymentBtn.classList.remove('proceed-btn-enter')
@@ -10469,11 +10469,11 @@ const ThumbnailLoader = {
         const packageId = selectedPackage.dataset.packageId || ''
         const type = 'wxpay'
 
-        // 淘宝套餐分支：直接跳转淘宝，不走支付下单流程
+        // 淘宝套餐分支：仅 WebView 环境下走淘宝，浏览器忽略淘宝直接站内支付
         const taobaoEnabled = selectedPackage.dataset.taobaoEnabled === 'true'
         const taobaoUrl = selectedPackage.dataset.taobaoUrl || ''
         const taobaoPrice = parseFloat(selectedPackage.dataset.taobaoPrice) || 0
-        if (taobaoEnabled && taobaoUrl) {
+        if (isInAppWebView() && taobaoEnabled && taobaoUrl) {
           console.log('[taobao-flow] editor 跳转淘宝购买升级码:', { taobaoUrl, taobaoPrice, packageId, duration })
           if (typeof window.openTaobaoLink === 'function') {
             window.openTaobaoLink(taobaoUrl)
