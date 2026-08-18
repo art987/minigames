@@ -1672,7 +1672,7 @@ const ThumbnailLoader = {
   function showLoadingAnimation() {
     if (!elements.posterLoadingOverlay || !elements.loadingLogo) return;
     
-    elements.loadingLogo.src = 'images/statics/loading2.gif';
+    elements.loadingLogo.src = 'images/statics/down.gif';
     elements.loadingLogo.style.display = 'block';
     
     // 显示加载动画

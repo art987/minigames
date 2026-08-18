@@ -68,7 +68,7 @@ body {
     text-shadow: 0 0 4px #000000f0;     backdrop-filter: blur(1px);}
 #darkbg #prevTemplateBtn,.#darkbg  #nextTemplateBtn, .#darkbg #changeTemplateBtn {
     background-color: rgb(68 68 68 / 18%);    color: #e1e1e1;}
-#darkbg #downloadBtn{  background: linear-gradient(135deg, #b30505, #142c6beb);    color: #ffffff;}  
+#darkbg #downloadBtn{  background: linear-gradient(135deg, #000000, #1a1a1aeb);    color: #ffffff;}  
 
 
 
@@ -1995,7 +1995,7 @@ footer {
   transform: scale(0.8);
 }
 
-#downloadBtn{height: 43px;background: linear-gradient(135deg, #000000, #142c6beb);overflow: hidden;font-size: 11px;color: #ffffff;padding: 5px 5px;border-radius: 13px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
+#downloadBtn{height: 41px;background: linear-gradient(135deg, #000000, #080808eb);overflow: hidden;font-size: 11px;color: #ffffff;padding: 5px 5px;border-radius: 13px;border: 2px solid #ff6969;animation: borderGradient 3s ease infinite;}
 #downloadBtn::after {
   content: '';
   position: absolute;
@@ -4851,7 +4851,7 @@ button#closeFontColorModalBtn.modal-close {
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.4);
   white-space: nowrap;
   position: relative;
@@ -4878,14 +4878,18 @@ button#closeFontColorModalBtn.modal-close {
   }
 }
 
-/* 首页弹窗内部布局：slogan在上，弹窗在下 */
+/* 首页弹窗内部布局：遮罩全屏，弹窗靠顶部15% */
 #homePopup.modal-overlay {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 0;
-  padding: 20px;
+  padding: 0;
+}
+
+#homePopup.modal-overlay .home-popup-slogan {
+  margin-top: 5vh;
 }
 
 .rotating-title .title-text {
@@ -6866,7 +6870,7 @@ input.hidden {
 .loading-logo {
   width: 54px;
   z-index: 999;
-  height: 50px;
+  height: 54px;
   /* animation: borderGradient 3s ease infinite; */
   position: absolute;
   border-radius: 50%;
@@ -7382,9 +7386,9 @@ input.hidden {
 
 /* Ã©Â¦â€“Ã©Â¡ÂµÃ¥Â¼Â¹Ã§Âªâ€”Ã¦Â Â·Ã¥Â¼Â */
 .home-popup-modal {
-  width: min(93vw, 480px);
+  width: 84vw;
   max-width: 480px;
-  max-height: min(560px, 85vh);
+  max-height: min(560px, 75vh);
   display: flex;
   flex-direction: column;
   transform: translate(0, 0) scale(1);
