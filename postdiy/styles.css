@@ -10057,7 +10057,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
 
 /* ä¸æ´»åŠ¨æç¤ºå¼¹çª—æ ·å¼ */
 .inactivity-modal {
-  animation: modalFadeIn 0.3s ease;
+  animation: modalFadeIn 0.3s ease;min-height: 200px;
 }
 
 .inactivity-modal .modal-title {

@@ -613,13 +613,34 @@ function openPaymentPage(payUrl, outTradeNo) {
     return true
   }
 
-  // 降级方案：非 App 环境仍然允许当前页面直接跳到支付页。
+  // 浏览器环境：优先使用预开窗口（在用户手势中提前打开的空白窗口）
+  // 解决异步下单后丢失用户手势上下文，导致 z-pay 页面无法自动唤起微信的问题
+  if (window._payWindow && !window._payWindow.closed) {
+    try {
+      window._payWindow.location.href = payUrl
+      console.log('[payment-flow] 已通过预开窗口导航到支付页')
+      window._payWindow = null
+      return true
+    } catch (e) {
+      console.warn('[payment-flow] 预开窗口导航失败，降级:', e)
+      window._payWindow = null
+    }
+  }
+
+  // 尝试新窗口打开
+  const newWin = window.open(payUrl, '_blank')
+  if (newWin) {
+    console.log('[payment-flow] 已通过 window.open 打开支付页（新标签页）')
+    return true
+  }
+
+  // 降级方案：当前页面直接跳到支付页
+  console.warn('[payment-flow] window.open 被拦截，降级为 location.assign')
   try {
     window.location.assign(payUrl)
     console.log('[payment-flow] 已执行 location.assign')
   } catch (e) {
     console.error('[payment-flow] location.assign 失败:', e)
-    // 兜底：直接赋值
     window.location.href = payUrl
     console.log('[payment-flow] 已执行 window.location.href 作为兜底')
   }
@@ -1786,6 +1807,11 @@ const VipLoginUI = (function() {
     `
     document.body.appendChild(loadingModal)
 
+    // 在用户手势上下文中预开空白窗口，解决异步下单后 z-pay 页面无法自动唤起微信的问题
+    if (!isInAppWebView()) {
+      window._payWindow = window.open('about:blank', '_blank')
+    }
+
     try {
       const returnUrl = buildPaymentReturnUrl()
       const result = await VIPSystem.createPaymentOrder(price, duration, type, returnUrl, packageId)
@@ -1799,11 +1825,21 @@ const VipLoginUI = (function() {
         initiatePayment(result.data.payUrl, result.data.out_trade_no)
       } else {
         releaseCreateOrderLock()
+        // 关闭预开窗口
+        if (window._payWindow && !window._payWindow.closed) {
+          window._payWindow.close()
+          window._payWindow = null
+        }
         alert(result.message || '创建订单失败，请稍后重试')
       }
     } catch (error) {
       loadingModal.remove()
       releaseCreateOrderLock()
+      // 关闭预开窗口
+      if (window._payWindow && !window._payWindow.closed) {
+        window._payWindow.close()
+        window._payWindow = null
+      }
       console.error('支付失败:', error)
       alert('支付失败，请稍后重试')
     }
@@ -3589,6 +3625,11 @@ window.showVipUpgradeModal = function() {
       console.log('支付参数:', { duration, price, type, packageId, isLoggedIn: VIPSystem.isLoggedIn() })
       console.log('userId:', VIPSystem.getUserId())
 
+      // 在用户手势上下文中预开空白窗口，解决异步下单后 z-pay 页面无法自动唤起微信的问题
+      if (!isInAppWebView()) {
+        window._payWindow = window.open('about:blank', '_blank')
+      }
+
       const loadingModal = document.createElement('div')
       loadingModal.id = 'paymentLoadingModal'
       loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;'
@@ -3612,11 +3653,21 @@ window.showVipUpgradeModal = function() {
           initiatePayment(result.data.payUrl, result.data.out_trade_no)
         } else {
           releaseCreateOrderLock()
+          // 关闭预开窗口
+          if (window._payWindow && !window._payWindow.closed) {
+            window._payWindow.close()
+            window._payWindow = null
+          }
           alert(result.message || '创建订单失败，请稍后重试')
         }
       } catch (error) {
         loadingModal.remove()
         releaseCreateOrderLock()
+        // 关闭预开窗口
+        if (window._payWindow && !window._payWindow.closed) {
+          window._payWindow.close()
+          window._payWindow = null
+        }
         console.error('支付失败:', error)
         alert('支付失败，请稍后重试')
       } finally {

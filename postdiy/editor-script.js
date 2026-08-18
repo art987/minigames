@@ -10495,6 +10495,11 @@ const ThumbnailLoader = {
         console.log('支付参数:', { duration, price, type, packageId, isLoggedIn: VIPSystem.isLoggedIn() })
         console.log('userId:', VIPSystem.getUserId())
 
+        // 在用户手势上下文中预开空白窗口，解决异步下单后 z-pay 页面无法自动唤起微信的问题
+        if (typeof window.isInAppWebView === 'function' && !window.isInAppWebView()) {
+          window._payWindow = window.open('about:blank', '_blank')
+        }
+
         const loadingModal = document.createElement('div')
         loadingModal.id = 'paymentLoadingModal'
         loadingModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10001; display: flex; align-items: center; justify-content: center;'
@@ -10524,11 +10529,21 @@ const ThumbnailLoader = {
             }
           } else {
             if (typeof window.releaseCreateOrderLock === 'function') window.releaseCreateOrderLock()
+            // 关闭预开窗口
+            if (window._payWindow && !window._payWindow.closed) {
+              window._payWindow.close()
+              window._payWindow = null
+            }
             alert(result.message || '创建订单失败，请稍后重试')
           }
         } catch (error) {
           loadingModal.remove()
           if (typeof window.releaseCreateOrderLock === 'function') window.releaseCreateOrderLock()
+          // 关闭预开窗口
+          if (window._payWindow && !window._payWindow.closed) {
+            window._payWindow.close()
+            window._payWindow = null
+          }
           console.error('支付失败:', error)
           alert('支付失败，请稍后重试')
         } finally {
@@ -10644,13 +10659,16 @@ const ThumbnailLoader = {
     let needDeductQuota = true;
     if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip()) {
       needDeductQuota = false;
+      // 清理可能残留的下载次数显示
+      const quotaEl = document.getElementById('downloadQuotaDisplay');
+      if (quotaEl) quotaEl.remove();
     }
-    
+
     // 非VIP用户：扣减下载次数
     if (needDeductQuota && typeof VIPSystem !== 'undefined') {
       const templateId = state.currentTemplate ? (state.currentTemplate.id || '') : '';
       const templateName = state.currentTemplate ? (state.currentTemplate.name || '') : '';
-      
+
       try {
         const deductResult = await VIPSystem.deductDownloadQuota(templateId, templateName);
         if (!deductResult.success) {
@@ -10671,7 +10689,7 @@ const ThumbnailLoader = {
         console.warn('扣减下载次数异常，允许兜底下载:', e);
       }
     }
-    
+
     // 记录开始时间
     const startTime = Date.now();
     
@@ -10749,6 +10767,9 @@ const ThumbnailLoader = {
       if (isVip) {
         // VIP用户直接下载，无需扣减次数
         console.log('VIP用户，直接下载');
+        // 清理可能残留的下载次数显示
+        const quotaEl = document.getElementById('downloadQuotaDisplay');
+        if (quotaEl) quotaEl.remove();
         await downloadPosterAfterVerification();
       } else {
         // 非VIP用户：检查下载次数
@@ -10946,6 +10967,9 @@ const ThumbnailLoader = {
     let needDeductQuota = true
     if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip()) {
       needDeductQuota = false
+      // 清理可能残留的下载次数显示
+      const quotaEl = document.getElementById('downloadQuotaDisplay')
+      if (quotaEl) quotaEl.remove()
     }
 
     // 非VIP用户：扣减下载次数
@@ -11010,6 +11034,12 @@ const ThumbnailLoader = {
 
   // 更新下载次数显示
   function updateQuotaDisplay(quota) {
+    // VIP 用户不显示下载次数，清理可能残留的元素
+    if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip()) {
+      const existingEl = document.getElementById('downloadQuotaDisplay');
+      if (existingEl) existingEl.remove();
+      return;
+    }
     let quotaEl = document.getElementById('downloadQuotaDisplay');
     if (!quotaEl && elements.downloadBtn) {
       quotaEl = document.createElement('span');
