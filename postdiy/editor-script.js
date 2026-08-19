@@ -17637,11 +17637,12 @@ window.textTemplateManager = {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、马上制作今日${todayFestival}海报，并分享到朋友圈：</span>
+            <span class="task-prefix">1、马上制作${todayFestival}海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               <span>挑选${todayFestival}模板</span>
             </button></div>
             </div>
+            
             <div style="flex: 1; min-width: 200px;">
             <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
@@ -17662,7 +17663,7 @@ window.textTemplateManager = {
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、马上制作今日晚安海报，睡前分享到朋友圈：</span>
+            <span class="task-prefix">2、提前制作今日晚安海报，睡前分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>
@@ -17681,7 +17682,7 @@ window.textTemplateManager = {
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
            
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、马上制作今日晚安海报，睡前分享到朋友圈：</span>
+            <span class="task-prefix">1、提前制作今日晚安海报，睡前分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="wananBtn" data-action="wanan">
             <span>☾ 挑选晚安海报模板</span>
             </button></div>

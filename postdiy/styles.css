@@ -4847,12 +4847,12 @@ button#closeFontColorModalBtn.modal-close {
 
 /* 智能弹窗顶部白色标语 */
 .home-popup-slogan {
-  color: #ffffff;
+  color: #f3e65c;
   text-align: center;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 300;
   margin-bottom: 10px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 2px rgb(207 2 2 / 40%);
   white-space: nowrap;
   position: relative;
   z-index: 10001;
@@ -7409,7 +7409,7 @@ input.hidden {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 10px 24px 29px 24px;
+  padding: 10px 14px 29px 14px;
   /* background-image: url(images/statics/smgirl.png) !important; */
   background-size: 177px;
   background-position: -41px 50px;
