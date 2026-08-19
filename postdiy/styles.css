@@ -4888,7 +4888,7 @@ button#closeFontColorModalBtn.modal-close {
 }
 
 #homePopup.modal-overlay .home-popup-date {
-  margin-top: 3vh;
+  margin-top: 1vh;
   margin-bottom: 4px;
 }
 
@@ -7468,7 +7468,7 @@ input.hidden {
 }
 
 #todayDateInTitle.home-popup-date {
-  color: #bbbaba;
+  color: #bbbaba00;
   text-align: center;
   font-size: 13px;
   font-weight: 400;
