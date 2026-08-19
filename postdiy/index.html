@@ -107,6 +107,59 @@
   <script src="inactivity-check.js" defer></script>
 </head>
 <body>
+  <!-- 内联加载动画：在CSS/JS下载前立即显示，避免空白等待 -->
+  <div id="preloader" style="position:fixed;inset:0;z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(1200px 600px at 10% -10%,#3e0005 0,rgba(26,34,66,0) 60%),radial-gradient(1200px 600px at 110% 110%,#261a4a 0,rgba(38,26,74,0) 60%),#0a0b12;color:#ecf1ff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,system-ui,sans-serif;">
+    <div style="font-size:clamp(22px,6vw,36px);font-weight:800;letter-spacing:.2px;margin-bottom:.2em;">
+      <img src="images/statics/down.gif" alt="闪喵" style="border-radius:50%;width:100px;height:100px;">
+    </div>
+    <div style="color:#a9b4c7;font-size:clamp(13px,3.6vw,15px);margin-bottom:clamp(14px,5vw,20px);">
+      <b>闪喵海报</b> 加载中...
+    </div>
+    <div style="position:relative;width:min(320px,70vw);height:clamp(6px,1.5vw,7px);background:linear-gradient(180deg,#101010,#000000);border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 10px 26px rgba(0,0,0,.35);">
+      <div id="preloaderFill" style="position:absolute;inset:0;width:0%;border-radius:999px;background:linear-gradient(90deg,#5a5a5acc,#696969 30%,#d4d4d4d1 70%,#fdfdfdcc);box-shadow:0 8px 28px rgba(255,59,127,.28),0 0 32px rgba(124,77,255,.35);overflow:hidden;transition:width .5s ease-out;">
+        <div style="position:absolute;inset:-20px 0;background:repeating-linear-gradient(100deg,rgba(255,255,255,.16) 0 10px,transparent 10px 22px);mix-blend-mode:overlay;animation:preloaderSheen 1.6s linear infinite;"></div>
+      </div>
+    </div>
+    <div id="preloaderPct" style="margin-top:8px;font-size:clamp(12px,3.5vw,14px);color:#d7e0f5;letter-spacing:.3px;">0%</div>
+    <div style="display:flex;gap:10px;margin-top:12px;">
+      <div style="width:10px;height:10px;border-radius:50%;background:#414040;opacity:.5;animation:preloaderPulse 1.15s ease-in-out infinite;"></div>
+      <div style="width:10px;height:10px;border-radius:50%;background:#484848;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .18s infinite;"></div>
+      <div style="width:10px;height:10px;border-radius:50%;background:#4e4e4e;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .36s infinite;"></div>
+    </div>
+  </div>
+  <style>
+    @keyframes preloaderSheen { to { transform: translateX(100%); } }
+    @keyframes preloaderPulse { 0%,100% { transform: scale(.6); opacity: .35; } 50% { transform: scale(1); opacity: 1; } }
+    #preloader.hidden { opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+  </style>
+  <script>
+    (function() {
+      var fill = document.getElementById('preloaderFill');
+      var pct = document.getElementById('preloaderPct');
+      var progress = 0;
+      var timer = setInterval(function() {
+        if (progress < 60) progress += 3;
+        else if (progress < 85) progress += 1;
+        fill.style.width = progress + '%';
+        pct.textContent = progress + '%';
+      }, 50);
+      window.addEventListener('load', function() {
+        clearInterval(timer);
+        var finalTimer = setInterval(function() {
+          progress += 4;
+          fill.style.width = Math.min(progress, 100) + '%';
+          pct.textContent = Math.min(progress, 100) + '%';
+          if (progress >= 100) {
+            clearInterval(finalTimer);
+            setTimeout(function() {
+              var pl = document.getElementById('preloader');
+              if (pl) { pl.classList.add('hidden'); setTimeout(function(){ pl.remove(); }, 300); }
+            }, 200);
+          }
+        }, 30);
+      });
+    })();
+  </script>
   <!-- 头部导航 -->
   <header>
     <div class="header-content">
