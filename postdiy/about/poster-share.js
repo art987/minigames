@@ -7,6 +7,9 @@ const PosterShare = (function() {
     const API_BASE = 'https://api.peacelove.top';
     const QINIU_BASE = 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/';
     const LOGO_URL = '../images/statics/logo.png';
+    
+    // 分享海报二维码（使用固定静态图片，如需替换请修改此路径）
+    const QRCODE_IMAGE_URL = 'share-qrcode.png';
 
     const BRAND_INFO = {
         name: '闪喵朋友圈海报制作器',
@@ -215,14 +218,11 @@ const PosterShare = (function() {
         if (singleBgWrapper) singleBgWrapper.style.display = 'block';
     }
 
-    // 渲染二维码（汇总和单图模式都需要）
+    // 渲染二维码（使用静态图片）
     function renderQRCode() {
         const qrImg = document.querySelector('.ps-poster-qrcode img');
-        if (state.shareUrl && qrImg) {
-            const qrDataUrl = generateQRCode(state.shareUrl);
-            if (qrDataUrl) {
-                qrImg.src = qrDataUrl;
-            }
+        if (qrImg && QRCODE_IMAGE_URL) {
+            qrImg.src = QRCODE_IMAGE_URL;
         }
     }
 
