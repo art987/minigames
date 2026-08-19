@@ -4847,12 +4847,11 @@ button#closeFontColorModalBtn.modal-close {
 
 /* 智能弹窗顶部白色标语 */
 .home-popup-slogan {
-  color: #f3e65c;
+  color: #e8e8e8;
   text-align: center;
   font-size: 13px;
   font-weight: 300;
   margin-bottom: 10px;
-  text-shadow: 0 2px 2px rgb(207 2 2 / 40%);
   white-space: nowrap;
   position: relative;
   z-index: 10001;
@@ -7432,7 +7431,7 @@ input.hidden {
 .home-popup-section-title {
   font-size: 13px;
   font-weight: 700;
-  color: #000;
+  color: #b20b0b;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -7469,7 +7468,7 @@ input.hidden {
 }
 
 #todayDateInTitle.home-popup-date {
-  color: #d1d1d1;
+  color: #bbbaba;
   text-align: center;
   font-size: 13px;
   font-weight: 400;
