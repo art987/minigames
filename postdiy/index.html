@@ -58,25 +58,53 @@
   <link rel="stylesheet" href="libs/svg-icons/svg-icons.css">
   <script src="libs/svg-icons/svg-icons.js"></script>
   <link rel="stylesheet" href="styles.css?v=20260707d">
-  <!-- 节日数据 -->
+  <!-- 内联骨架屏样式：确保CSS加载前就能显示loading，避免白屏 -->
+  <style>
+    .skeleton-screen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .skeleton-card {
+      width: calc(25% - 9px);
+      aspect-ratio: 1 / 1.7;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    }
+    @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-screen.hidden { display: none; }
+    @media (max-width: 768px) {
+      .skeleton-card { width: calc(50% - 6px); }
+    }
+  </style>
+  <!-- 节日数据（小文件，不加defer确保立即可用） -->
   <script src="festivals.js"></script>
   <!-- 模板数据 - 动态加载防止缓存 -->
   <script>
-    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本
+    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本（defer保证不阻塞渲染）
     const templateScript = document.createElement('script');
     templateScript.src = 'templates.js?t=' + new Date().getTime();
+    templateScript.defer = true;
     document.head.appendChild(templateScript);
   </script>
-  <!-- 工具函数 -->
+  <!-- 工具函数（小文件，不加defer确保立即可用） -->
   <script src="utils.js"></script>
   <!-- 按钮背景图片加载动画 -->
-  <script src="button-loading.js"></script>
+  <script src="button-loading.js" defer></script>
   <!-- 会员系统模块 -->
-  <script src="vip-system.js?v=20260705j"></script>
+  <script src="vip-system.js?v=20260705j" defer></script>
   <!-- VIP 登录 UI 模块 -->
-  <script src="vip-login-ui.js?v=20260705o"></script>
+  <script src="vip-login-ui.js?v=20260705o" defer></script>
   <!-- 页面不活动检测模块 -->
-  <script src="inactivity-check.js"></script>
+  <script src="inactivity-check.js" defer></script>
 </head>
 <body>
   <!-- 头部导航 -->
@@ -177,6 +205,17 @@
       <!-- 模板展示区域 -->
       <div class="templates-section">
         
+        <!-- 骨架屏：JS加载前立即显示，避免白屏 -->
+        <div class="skeleton-screen" id="skeletonScreen">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
 
         <!-- 模板网格布局 -->
         <div class="templates-grid" id="templatesGrid"></div>

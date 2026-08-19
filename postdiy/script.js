@@ -914,14 +914,13 @@ function applyFilters() {
 function loadTemplates() {
   showLoading(true);
   
-  // 使用setTimeout模拟加载延迟
-  setTimeout(() => {
+  // 使用requestAnimationFrame代替setTimeout，减少不必要的延迟
+  requestAnimationFrame(() => {
     try {
       // 更新节日标签
       updateFestivalTags();
       
       // 直接应用筛选条件，只加载当前节日匹配的模板
-      // 不再先渲染全部模板再过滤，避免浪费带宽
       applyFilters();
     } catch (error) {
       console.error('加载模板失败:', error);
@@ -930,12 +929,16 @@ function loadTemplates() {
     } finally {
       showLoading(false);
     }
-  }, 500);
+  });
 }
 
 // 渲染模板
 function renderTemplates(templates) {
   templatesGrid.innerHTML = '';
+
+  // 隐藏骨架屏
+  var skeleton = document.getElementById('skeletonScreen');
+  if (skeleton) skeleton.classList.add('hidden');
 
   if (!templates || templates.length === 0) {
     return;
@@ -1112,12 +1115,14 @@ function hideEmptyState() {
 
 // 显示/隐藏加载状态
 function showLoading(show) {
+  var skeleton = document.getElementById('skeletonScreen');
   if (show) {
     loadingState.classList.remove('hidden');
     templatesGrid.classList.add('hidden');
     emptyState.classList.add('hidden');
   } else {
     loadingState.classList.add('hidden');
+    if (skeleton) skeleton.classList.add('hidden');
   }
 }
 
