@@ -2505,6 +2505,10 @@ const ThumbnailLoader = {
     // 清空现有内容
     elements.industryCategoriesVertical.innerHTML = '';
 
+    // 读取本地存储的上次展开的分组和选中的分类
+    const savedGroup = localStorage.getItem('postdiy_industry_expanded_group');
+    const savedCategory = localStorage.getItem('lastSelectedIndustryCategory');
+
     // 创建分类按钮的工厂函数（避免重复代码）
     function createCategoryButton(category) {
       const categoryBtn = document.createElement('button');
@@ -2512,6 +2516,11 @@ const ThumbnailLoader = {
       categoryBtn.setAttribute('data-category', category);
       categoryBtn.textContent = `${INDUSTRY_ICONS[category] || '📋'} ${category}`;
       categoryBtn.title = category;
+
+      // 如果是上次选中的分类，添加active状态
+      if (savedCategory === category) {
+        categoryBtn.classList.add('active');
+      }
 
       // 添加点击事件
       categoryBtn.addEventListener('click', function() {
@@ -2555,20 +2564,64 @@ const ThumbnailLoader = {
       elements.industryCategoriesVertical.appendChild(createCategoryButton('通用'));
     }
 
-    // 2. 按分组渲染其他行业分类，每组前插入一个不可点击的分组标题
+    // 2. 按分组渲染其他行业分类，每组前插入一个可点击的分组标题
     if (typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
       INDUSTRY_CATEGORIES_GROUPED.forEach(group => {
-        // 插入分组标题（不可点击的视觉分隔条）
+        // 插入分组标题（可点击，点击展开/收起）
         const groupTitle = document.createElement('div');
         groupTitle.className = 'industry-category-group-title';
         groupTitle.textContent = group.title;
-        groupTitle.setAttribute('aria-disabled', 'true');
+        groupTitle.setAttribute('data-group', group.title);
+        groupTitle.style.cursor = 'pointer';
+        groupTitle.style.pointerEvents = 'auto';
+        groupTitle.style.userSelect = 'none';
+
+        // 如果是上次展开的分组，标记为展开
+        if (savedGroup === group.title) {
+          groupTitle.classList.add('expanded');
+        }
+
+        // 点击分组标题：展开/收起对应的小行业按钮
+        groupTitle.addEventListener('click', function() {
+          const isExpanded = this.classList.contains('expanded');
+
+          // 先收起所有分组的小行业
+          document.querySelectorAll('.industry-category-group-title').forEach(t => {
+            t.classList.remove('expanded');
+          });
+          document.querySelectorAll('.industry-category-vertical[data-group-child]').forEach(btn => {
+            btn.style.display = 'none';
+          });
+
+          if (!isExpanded) {
+            // 展开当前分组
+            this.classList.add('expanded');
+            const groupName = this.getAttribute('data-group');
+            document.querySelectorAll(`.industry-category-vertical[data-group="${groupName}"]`).forEach(btn => {
+              btn.style.display = '';
+            });
+            // 记录展开的分组
+            localStorage.setItem('postdiy_industry_expanded_group', groupName);
+          } else {
+            // 收起当前分组
+            localStorage.removeItem('postdiy_industry_expanded_group');
+          }
+        });
+
         elements.industryCategoriesVertical.appendChild(groupTitle);
 
-        // 渲染该分组下的所有分类按钮
+        // 渲染该分组下的所有分类按钮（默认隐藏）
         group.categories.forEach(category => {
-          if (!INDUSTRY_TEMPLATES[category]) return; // 跳过不存在的分类
-          elements.industryCategoriesVertical.appendChild(createCategoryButton(category));
+          if (!INDUSTRY_TEMPLATES[category]) return;
+          const btn = createCategoryButton(category);
+          // 标记所属分组
+          btn.setAttribute('data-group', group.title);
+          btn.setAttribute('data-group-child', 'true');
+          // 如果不是上次展开的分组，隐藏
+          if (savedGroup !== group.title) {
+            btn.style.display = 'none';
+          }
+          elements.industryCategoriesVertical.appendChild(btn);
         });
       });
     } else {
@@ -2577,6 +2630,28 @@ const ThumbnailLoader = {
         if (category === '通用') return;
         elements.industryCategoriesVertical.appendChild(createCategoryButton(category));
       });
+    }
+
+    // 如果有上次选中的分类，自动展开对应分组并渲染模板
+    if (savedCategory && savedCategory !== '通用') {
+      // 找到该分类所属的分组
+      if (typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+        INDUSTRY_CATEGORIES_GROUPED.forEach(group => {
+          if (group.categories.includes(savedCategory)) {
+            // 自动展开该分组
+            const groupTitle = elements.industryCategoriesVertical.querySelector(`.industry-category-group-title[data-group="${group.title}"]`);
+            if (groupTitle && !groupTitle.classList.contains('expanded')) {
+              groupTitle.classList.add('expanded');
+              elements.industryCategoriesVertical.querySelectorAll(`.industry-category-vertical[data-group="${group.title}"]`).forEach(btn => {
+                btn.style.display = '';
+              });
+              localStorage.setItem('postdiy_industry_expanded_group', group.title);
+            }
+          }
+        });
+      }
+      // 渲染上次选中的分类的模板
+      renderIndustryTemplates(savedCategory, elements.integratedIndustryTemplatesList);
     }
   }
 

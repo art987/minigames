@@ -384,9 +384,9 @@ main {
 .task-prefix {
   font-size: 0.75rem;
   font-weight: normal;
-  color: #040404;
+  color:#464646;
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.45rem;
 }
 
 .festival-name {
@@ -4847,7 +4847,7 @@ button#closeFontColorModalBtn.modal-close {
 
 /* 智能弹窗顶部白色标语 */
 .home-popup-slogan {
-  color: #e8e8e8;
+  color:#b22222 ;
   text-align: center;
   font-size: 13px;
   font-weight: 300;
@@ -6428,7 +6428,7 @@ input.hidden {
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: #ffffffe0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7390,6 +7390,7 @@ input.hidden {
   max-width: 480px;
   max-height: min(560px, 75vh);
   display: flex;
+  border:2px solid #111111;
   flex-direction: column;
   transform: translate(0, 0) scale(1);
   opacity: 1;
@@ -7398,7 +7399,7 @@ input.hidden {
 .home-popup-modal .fixed-header {
   position: sticky;
   top: 0;
-  background-color: #ffffff;
+   background: linear-gradient(135deg, #000000, #353535);
   z-index: 10;
   border-bottom: 1px solid #e0e0e0;
   flex-shrink: 0;
@@ -7429,8 +7430,8 @@ input.hidden {
 }
 
 .home-popup-section-title {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 400;
   color: #b20b0b;
   margin-bottom: 0.5rem;
   display: flex;
@@ -7472,7 +7473,6 @@ input.hidden {
   text-align: center;
   font-size: 13px;
   font-weight: 400;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
   white-space: nowrap;
   position: relative;
   z-index: 10001;
@@ -7502,8 +7502,8 @@ input.hidden {
 
 .home-popup-section-title::before {
   content: '';
-  width: 12px;
-  height: 12px;
+  width: 6px;
+  height: 6px;
   background: linear-gradient(135deg, #bd2727, #ef4444);
   border-radius: 10px;
   animation: redDotPulse 2s infinite;
@@ -7565,11 +7565,11 @@ input.hidden {
 
 /* Ã¤Â»Å Ã¦â€”Â¥Ã¥Ââ€˜Ã¥Â¸Æ’Ã¥â€ â€¦Ã¥Â®Â¹Ã¦Â Â·Ã¥Â¼Â */
 .today-release-text {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-size: 11px;
   display: block;
   padding-left: 0px;
-  color: #5d5d5d;
+  color: #bbbbbb;
   box-sizing: border-box;
 }
 
@@ -7597,7 +7597,7 @@ input.hidden {
   background: transparent;
   color: #ffffff;
   font-size: 23px;
-  text-shadow: 0 0 5px #000000db;
+  text-shadow: 0 0 5px #0000009e;
   font-weight: 380;
   letter-spacing: 1px;
   border: 3px solid rgba(255, 255, 255, 0.5);
@@ -7713,7 +7713,7 @@ input.hidden {
 }
 
 .future-suggestion-text .festival-date {
-  color: #0a0a0a;
+  color: #464646;
   font-size: 12px;
   font-weight: normal;
   margin-left: 4px;
@@ -7798,7 +7798,7 @@ input.hidden {
   flex: 1 1 auto;
   min-width: 200px;
   overflow: hidden;
-  background:linear-gradient(186deg, #fbb4b4cc, rgb(209 207 209 / 9%)), linear-gradient(90deg, #cd96ffcc, #d5adff 3%, #fbffb8 56%, #a7ffb6cc);
+  background:linear-gradient(186deg, #ffe9e9db, rgb(209 207 209 / 9%)), linear-gradient(90deg, #ffffffcc, #b0fff0 3%, #fbffb8 56%, #ffc000ab);
   border-radius: var(--border-radius-lg);
   height: 84px;
   box-sizing: border-box;
@@ -8003,26 +8003,43 @@ button.future-suggestion-btn[data-action="wanan"] {
   box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
 }
 
-/* 行业分类分组标题（不可点击的视觉分隔条） */
+/* 行业分类分组标题（可点击，展开/收起小行业） */
 .industry-category-group-title {
   width: 85px;
   margin-top: 10px;
   padding: 6px 4px;
-  color: #c20e0e;
+  color: #e00606;
+  background: #ffffff;
   font-size: 23px;
-  font-weight: 300;
+  font-weight: 500;
   text-align: center;
-  border-radius: 6px;
-  cursor: default;
-  pointer-events: none;
+  /* border-radius: 6px; */
+  cursor: pointer;
   user-select: none;
-  letter-spacing: 4px;
+  border-bottom: 5px solid #c9c9c994;
+  letter-spacing: 0px;
   line-height: 1.2;
-  text-shadow: 0 2 3px #ffffff;
+  text-shadow: 0 2px 3px #ffffff;
+  transition: all 0.3s ease;
 }
 
 .industry-category-group-title:first-child {
   margin-top: 0;
+}
+
+.industry-category-group-title:hover {
+  background: rgb(255 255 255);
+}
+
+.industry-category-group-title::after {
+  content: ' ▸';
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  display: none;
+}
+
+.industry-category-group-title.expanded::after {
+  content: ' ▾';
 }
 
 /* 右侧模板内容区域 */
@@ -8114,8 +8131,8 @@ button.future-suggestion-btn[data-action="wanan"] {
 
   .industry-category-group-title {
     width: 85px;
-    font-size: 21px;
-    padding: 10px 15px;
+    font-size: 16px;
+    padding: 10px 7px;
     margin-top: 0px;
   }
 }
