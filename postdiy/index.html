@@ -118,15 +118,15 @@
       <b>闪喵海报</b> 
     </div>
     <div style="position:relative;width:min(320px,70vw);height:clamp(6px,1.5vw,7px);background:linear-gradient(180deg,#101010,#000000);border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 10px 26px rgba(0,0,0,.35);">
-      <div id="preloaderFill" style="position:absolute;inset:0;width:0%;border-radius:999px;background:linear-gradient(90deg,#240019cc,#5e0101 30%,#8e0000d1 70%,#e10202cc);box-shadow:0 8px 28px rgba(255,59,127,.28),0 0 32px rgba(124,77,255,.35);overflow:hidden;transition:width .5s ease-out;">
+      <div id="preloaderFill" style="position:absolute;inset:0;width:0%;border-radius:999px;background:linear-gradient(90deg,#240019cc,#181818 30%,#3f3f3fd1 70%,#d2d2d2cc);box-shadow:0 8px 28px rgba(255,59,127,.28),0 0 32px rgba(124,77,255,.35);overflow:hidden;transition:width .5s ease-out;">
         <div style="position:absolute;inset:-20px 0;background:repeating-linear-gradient(100deg,rgba(255,255,255,.16) 0 10px,transparent 10px 22px);mix-blend-mode:overlay;animation:preloaderSheen 1.6s linear infinite;"></div>
       </div>
     </div>
     <div id="preloaderPct" style="margin-top:8px;font-size:clamp(12px,3.5vw,14px);color:#d7e0f5;letter-spacing:.3px;">0%</div>
     <div style="display:flex;gap:10px;margin-top:12px;">
-      <div style="width:10px;height:10px;border-radius:50%;background:#414040;opacity:.5;animation:preloaderPulse 1.15s ease-in-out infinite;"></div>
-      <div style="width:10px;height:10px;border-radius:50%;background:#484848;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .18s infinite;"></div>
-      <div style="width:10px;height:10px;border-radius:50%;background:#4e4e4e;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .36s infinite;"></div>
+      <div style="width:10px;height:10px;border-radius:50%;background:#161616;opacity:.5;animation:preloaderPulse 1.15s ease-in-out infinite;"></div>
+      <div style="width:10px;height:10px;border-radius:50%;background:#2c2c2c;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .18s infinite;"></div>
+      <div style="width:10px;height:10px;border-radius:50%;background:#dedede;opacity:.5;animation:preloaderPulse 1.15s ease-in-out .36s infinite;"></div>
     </div>
   </div>
   <style>
@@ -277,11 +277,9 @@
 
         <!-- 空状态提示 -->
         <div id="emptyState" class="empty-state hidden">
-          <svg class="empty-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-          </svg>
-          <h3 class="empty-title">暂无匹配的模板</h3>
-          <p class="empty-message">请尝试选择其他月份或节日，或者清除筛选条件查看所有模板。</p>
+          <img src="images/statics/empty.jpg">
+          <h3 class="empty-title">该海报模板暂未上线</h3>
+          <p class="empty-message">请尝试选择其他月份或节日。</p>
         </div>
 
         <!-- 加载状态 -->

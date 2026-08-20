@@ -354,8 +354,9 @@ main {
   transform: scale(0.95);
 }
 .type-tag.active {
-  background: linear-gradient(135deg, #de2929, #cc180b);
-  color: #fff;
+  background: linear-gradient(135deg, #ffeaea, #ffffff);
+    color: #cc180b;
+    text-shadow: 1px 1px 0 #fff;
 }
 
 /* Ã¦â€”Â¶Ã©â€”Â´Ã¦ËœÂ¾Ã§Â¤ÂºÃ¥Å’ÂºÃ¥Å¸Å¸ */
@@ -654,7 +655,7 @@ main {
 /* Ã§Â©ÂºÃ§Å Â¶Ã¦â‚¬Â */
 .empty-state {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 0em 2rem 3rem;
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
@@ -4906,6 +4907,7 @@ button#closeFontColorModalBtn.modal-close {
 /* 首页弹窗内部布局：遮罩全屏，弹窗靠顶部15% */
 #homePopup.modal-overlay {
   display: flex;
+  background: linear-gradient(186deg, #fcffffdb, rgb(209 207 209 / 9%)), linear-gradient(90deg, #ffffffcc, #ecfeff 3%, #fbffb8 56%, #fff5d670);
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -8353,8 +8355,8 @@ button.future-suggestion-btn[data-action="wanan"] {
 .daily-suggestion-btn {
       background-image: url(images/statics/slogonbg.gif);
   background-repeat: no-repeat;
-  background-size: 21px 26px;
-  background-position: 5px 3px;
+  background-size: 17px 21px;
+  background-position: 7px 4px;
   display: inline-flex;
   align-items: center;
   left: 3px;
