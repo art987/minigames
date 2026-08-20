@@ -54,10 +54,11 @@
   
   <link rel="canonical" href="https://peacelove.top/postdiy/index.html">
   
-  <!-- SVG图标库 - 本地SVG图标（无需字体文件，适用于WebView） -->
-  <link rel="stylesheet" href="libs/svg-icons/svg-icons.css">
-  <script src="libs/svg-icons/svg-icons.js"></script>
-  <link rel="stylesheet" href="styles.css?v=20260707d">
+  <!-- SVG图标库 - 本地SVG图标（defer不阻塞渲染） -->
+  <link rel="stylesheet" href="libs/svg-icons/svg-icons.css" media="print" onload="this.media='all'">
+  <script src="libs/svg-icons/svg-icons.js" defer></script>
+  <!-- styles.css 异步加载：不阻塞preloader显示 -->
+  <link rel="stylesheet" href="styles.css?v=20260707d" media="print" onload="this.media='all'">
   <!-- 内联骨架屏样式：确保CSS加载前就能显示loading，避免白屏 -->
   <style>
     .skeleton-screen {
@@ -85,18 +86,19 @@
       .skeleton-card { width: calc(50% - 6px); }
     }
   </style>
-  <!-- 节日数据（小文件，不加defer确保立即可用） -->
-  <script src="festivals.js"></script>
+  <!-- 所有JS用defer，不阻塞HTML解析和preloader显示 -->
+  <!-- 节日数据 -->
+  <script src="festivals.js" defer></script>
   <!-- 模板数据 - 动态加载防止缓存 -->
   <script>
-    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本（defer保证不阻塞渲染）
+    // 创建带有时间戳的模板脚本标签，确保每次加载最新版本
     const templateScript = document.createElement('script');
     templateScript.src = 'templates.js?t=' + new Date().getTime();
     templateScript.defer = true;
     document.head.appendChild(templateScript);
   </script>
-  <!-- 工具函数（小文件，不加defer确保立即可用） -->
-  <script src="utils.js"></script>
+  <!-- 工具函数 -->
+  <script src="utils.js" defer></script>
   <!-- 按钮背景图片加载动画 -->
   <script src="button-loading.js" defer></script>
   <!-- 会员系统模块 -->
@@ -306,8 +308,8 @@
     </div>
   </footer>
   
-  <!-- 首页脚本 - 移到body末尾以确保DOM加载完成 -->
-  <script src="script.js?v=20260707q"></script>
+  <!-- 首页脚本（defer确保不阻塞preloader，在DOMContentLoaded前执行） -->
+  <script src="script.js?v=20260707q" defer></script>
 
   <!-- 调试脚本 -->
   <script>
