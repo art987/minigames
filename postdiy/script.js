@@ -182,16 +182,36 @@ function initBackToTopButton() {
   if (!backToTopBtn) return;
   
   // 滚动监听
+  let lastScrollTop = 0;
+  const headerEl = document.querySelector('header');
+
   window.addEventListener('scroll', function() {
     const screenHeight = window.innerHeight;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
+
     // 当滚动超过2倍屏幕高度时显示置顶按钮
     if (scrollTop > screenHeight * 2) {
       backToTopBtn.classList.remove('hidden');
     } else {
       backToTopBtn.classList.add('hidden');
     }
+
+    // 滚动方向检测：控制header和float-bar显示/隐藏
+    const scrollDelta = scrollTop - lastScrollTop;
+    if (Math.abs(scrollDelta) < 5) return;
+
+    if (scrollTop > lastScrollTop && scrollTop > 60) {
+      // 向上滚动（内容下移）→ 隐藏
+      if (headerEl) headerEl.classList.add('scroll-hide');
+      const fb = document.querySelector('.home-float-bar');
+      if (fb) fb.classList.add('scroll-hide');
+    } else {
+      // 向下滚动（内容上移）→ 恢复
+      if (headerEl) headerEl.classList.remove('scroll-hide');
+      const fb = document.querySelector('.home-float-bar');
+      if (fb) fb.classList.remove('scroll-hide');
+    }
+    lastScrollTop = scrollTop;
   });
   
   // 点击事件
@@ -1442,6 +1462,23 @@ function highlightFloatBtn(btn) {
       bgSwitchTimers = [];
     }
 
+    // slogan轮播
+    let sloganTimer = null;
+    function startSloganRotation() {
+      if (sloganTimer) clearInterval(sloganTimer);
+      const slides = document.querySelectorAll('.home-popup-slogan .slogan-slide');
+      if (slides.length <= 1) return;
+      let idx = 0;
+      sloganTimer = setInterval(() => {
+        slides[idx].classList.remove('active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('active');
+      }, 4000);
+    }
+    function stopSloganRotation() {
+      if (sloganTimer) { clearInterval(sloganTimer); sloganTimer = null; }
+    }
+
     // 为单个卡片安排下次切换（随机 5.5~10.5 秒间隔）
     function scheduleNextBgSwitch(wrapper, type) {
       const delay = 5500 + Math.random() * 5000; // 5500ms ~ 105000ms
@@ -1601,6 +1638,7 @@ function highlightFloatBtn(btn) {
       homePopup.classList.remove('hidden');
       startTitleRotation();
       startBgAutoSwitch();
+      startSloganRotation();
 
       // 重置弹窗滚动位置到顶部，确保用户从开头看到内容
       const scrollableBody = homePopupModal.querySelector('.scrollable-body');
@@ -1626,6 +1664,7 @@ function highlightFloatBtn(btn) {
     homePopup.classList.add('hidden');
     stopTitleRotation();
     stopBgAutoSwitch();
+    stopSloganRotation();
   }
   
   // 关闭按钮点击事件

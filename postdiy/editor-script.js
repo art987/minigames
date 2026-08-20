@@ -17309,6 +17309,7 @@ window.textTemplateManager = {
       homePopup.classList.remove('hidden');
       startTypewriterAnimation();
       startBgAutoSwitch();
+      startSloganRotation();
 
       // 重置弹窗滚动位置到顶部，确保用户从开头看到内容
       const scrollableBody = homePopupModal.querySelector('.scrollable-body');
@@ -17438,6 +17439,7 @@ window.textTemplateManager = {
       homePopup.classList.add('hidden');
       stopTypewriterAnimation();
       stopBgAutoSwitch();
+      stopSloganRotation();
     }
     
     // 关闭按钮点击事件
@@ -17587,6 +17589,23 @@ window.textTemplateManager = {
     function stopBgAutoSwitch() {
       bgSwitchTimers.forEach(timer => clearTimeout(timer));
       bgSwitchTimers = [];
+    }
+
+    // slogan轮播
+    let sloganTimer = null;
+    function startSloganRotation() {
+      if (sloganTimer) clearInterval(sloganTimer);
+      const slides = document.querySelectorAll('.home-popup-slogan .slogan-slide');
+      if (slides.length <= 1) return;
+      let idx = 0;
+      sloganTimer = setInterval(() => {
+        slides[idx].classList.remove('active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('active');
+      }, 4000);
+    }
+    function stopSloganRotation() {
+      if (sloganTimer) { clearInterval(sloganTimer); sloganTimer = null; }
     }
     
     // 为单个卡片安排下次切换（随机 5.5~10.5 秒间隔）

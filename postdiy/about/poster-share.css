@@ -699,6 +699,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    padding: 41px 10px 0;
     width: 102%;
     height: 102%;
     z-index: 0;
@@ -716,37 +717,37 @@
     z-index: 99;
     width: 79%;
     border: 4px double #fffffff0;
-    top: 131px;
+    top: 109px;
     left: 29px;
     margin: 0 0 8px 0;
     /* backdrop-filter: blur(2px); */
     padding: 15px 0 17px;
     line-height: 1.4;
-    background: #03030391;
+    background: #fbfbfb91;
 }
 .ps-summary-title .ps-summary-line1 {
     display: block;
     font-size: 13px;
     font-weight: 350;
-    color: rgb(255 255 255);
+    color: rgb(0 0 0);
     letter-spacing: 2px;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 0px 1px 1px #ffffff;
     margin-bottom: 1px;
 }
 .ps-summary-title .ps-summary-line2 {
     display: block;
     font-size: 27px;
     font-weight: 400;
-    text-shadow: 1px 1px 0px #000000;
-    color: #ffffff;
+    text-shadow: 1px 1px 0px #ffffff;
+    color: #000000;
     letter-spacing: 3px;
 }
 .ps-summary-title .ps-summary-line3 {
     display: block;
     font-size: 10px;
-    font-weight: 300;
-    color: rgb(255 241 97);
-    text-shadow: 0px 1px 0px #000000;
+    font-weight: 400;
+    color: rgb(162 6 6);
+    text-shadow: 0px 1px 0px #ffffff;
     margin-top: 4px;
 }
 .ps-summary-waterfall {
@@ -759,7 +760,7 @@
     left: 0;
     width: 100%;
     height: 10%;
-    background: linear-gradient(to top, transparent, rgb(0 0 0 / 65%));
+    /* background: linear-gradient(to top, transparent, rgb(0 0 0 / 65%)); */
     pointer-events: none;
     z-index: 1;
 }
@@ -788,7 +789,7 @@
 }
 @media (max-width: 360px) {
     .ps-summary-wrapper {
-        padding: 6px 4px;
+        padding: 41px 10px 0;
     }
     .ps-summary-title {
         font-size: 11px;
