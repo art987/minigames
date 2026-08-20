@@ -808,8 +808,18 @@ function updateTypeTags(festival) {
   typeTagsContainer.innerHTML = html;
   typeTagsDiv.style.display = 'block';
 
-  // 重置类型筛选
+  // 从本地存储恢复上次选中的类型
+  var savedType = localStorage.getItem('postdiy_last_type_' + festivalKey);
   window.currentFilters.type = null;
+  if (savedType && types.indexOf(savedType) !== -1) {
+    var savedTag = typeTagsContainer.querySelector('.type-tag[data-type="' + savedType + '"]');
+    if (savedTag) {
+      typeTagsContainer.querySelectorAll('.type-tag').forEach(function(t) { t.classList.remove('active'); });
+      savedTag.classList.add('active');
+      window.currentFilters.type = savedType;
+      setTimeout(function() { scrollTypeTagToView(savedTag); }, 100);
+    }
+  }
 
   // 绑定点击事件
   typeTagsContainer.querySelectorAll('.type-tag').forEach(function(tag) {
@@ -826,6 +836,10 @@ function updateTypeTags(festival) {
       } else {
         window.currentFilters.type = selectedType;
         this.classList.add('active');
+        // 记住用户选择的类型（非"全部"才记录）
+        if (selectedType) {
+          localStorage.setItem('postdiy_last_type_' + festivalKey, selectedType);
+        }
       }
       // 将选中的类型标签滚动到容器中间
       scrollTypeTagToView(this);
