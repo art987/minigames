@@ -617,6 +617,19 @@ function scrollFestivalTagToView(tag) {
   });
 }
 
+// 将类型标签滚动到容器水平中间
+function scrollTypeTagToView(tag) {
+  var container = document.getElementById('typeTagsContainer');
+  if (!tag || !container) return;
+  var containerRect = container.getBoundingClientRect();
+  var tagRect = tag.getBoundingClientRect();
+  var scrollLeft = container.scrollLeft + tagRect.left - containerRect.left - (containerRect.width / 2) + (tagRect.width / 2);
+  container.scrollTo({
+    left: scrollLeft,
+    behavior: 'smooth'
+  });
+}
+
 // 更新节日标签
 function updateFestivalTags() {
   festivalTagsContainer.innerHTML = '';
@@ -814,6 +827,8 @@ function updateTypeTags(festival) {
         window.currentFilters.type = selectedType;
         this.classList.add('active');
       }
+      // 将选中的类型标签滚动到容器中间
+      scrollTypeTagToView(this);
       applyFilters();
     });
   });
@@ -989,7 +1004,8 @@ function createTemplateCard(template) {
   if (!availability.available) {
     card.classList.add('template-locked');
     card.innerHTML = `
-      <div class="template-thumbnail-container template-thumbnail-bg blurred" style="background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;" data-original-path="${thumbnailPath}">
+      <div class="template-thumbnail-container">
+        <div class="template-thumbnail-bg blurred" style="background-color:#f0f0f0;background-image:url('images/statics/loading.gif');background-size:40px 40px;background-position:center;background-repeat:no-repeat;" data-original-path="${thumbnailPath}"></div>
         <div class="template-lock-overlay">
           <span class="lock-big-text">待开放</span>
           <span class="lock-small-text">调整期，将提前2月开放</span>
@@ -2249,7 +2265,7 @@ function highlightFloatBtn(btn) {
   // 等待 templates 加载完成后再打开弹窗，避免背景图加载失败
   function tryShowHomePopup() {
     if (typeof window.templates !== 'undefined' && window.templates) {
-      showHomePopup();
+      setTimeout(showHomePopup, 3000);
     } else {
       console.log('[popup] templates 尚未加载，等待重试...');
       setTimeout(tryShowHomePopup, 300);

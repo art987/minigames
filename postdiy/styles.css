@@ -355,7 +355,9 @@ main {
 }
 .type-tag.active {
   background: linear-gradient(135deg, #ffeaea, #ffffff);
-    color: #cc180b;
+    color: #cc180b;    
+    font-size: 14px;
+    line-height: 20px;
     text-shadow: 1px 1px 0 #fff;
 }
 
@@ -4862,7 +4864,7 @@ button#closeFontColorModalBtn.modal-close {
   background-repeat: no-repeat;
   background-size: 21px 27px;
   background-position: 1px 2px;
-  padding-left: 26px;
+  padding-left: 26px;text-shadow: 1px 1px 2px #fff;
   padding-top: 9px;
   font-weight: 300;
   margin-bottom: 9px;
@@ -4907,8 +4909,8 @@ button#closeFontColorModalBtn.modal-close {
 /* 首页弹窗内部布局：遮罩全屏，弹窗靠顶部15% */
 #homePopup.modal-overlay {
   display: flex;
-  background: linear-gradient(186deg, #fcffffdb, rgb(209 207 209 / 9%)), linear-gradient(90deg, #ffffffcc, #ecfeff 3%, #fbffb8 56%, #fff5d670);
-  flex-direction: column;
+  background: linear-gradient(186deg, #f4dbffdb, rgb(242 239 212 / 0%)), linear-gradient(90deg, #ffffffcc, #ecfeff 3%, #faffa6 56%, #11ffe952);
+   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 0;
@@ -10465,10 +10467,21 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   filter: blur(2px);
   opacity: 1;
 }
+.template-thumbnail-container:has(.blurred) {
+  position: relative;
+  aspect-ratio: 1 / 1.7;
+}
+.template-thumbnail-container > .blurred {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
 .template-lock-overlay {
   position: absolute;
-  top: -28px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -10476,7 +10489,7 @@ button.text-width-decrease-btn{font-size: 15px;border: 1px solid #dc3545;}
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgb(255 255 255 / 0%);
+  background: rgba(255, 255, 255, 0.25);
   pointer-events: none;
   z-index: 2;
 }
