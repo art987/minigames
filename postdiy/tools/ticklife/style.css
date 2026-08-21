@@ -10,12 +10,13 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 .topbar .logo{font-weight:800;letter-spacing:1px;font-size:17px;}.topbar .logo b{color:var(--accent);}
 .topbar .export{font-size:11px;border:1px solid var(--line);border-radius:14px;padding:4px 10px;background:transparent;color:var(--ink2);}
 /* ===== 秒表内日期区 ===== */
-.stopwatch-center .date-wrap{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:6px;}
+.stopwatch-center .date-wrap{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:21px;}
 .stopwatch-center .timer-label{color:#7d8792;font-size:9px;letter-spacing:2px;margin-bottom:2px;text-align:center;}
 .stopwatch-center .date{font-size:13px;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:3px;}
 .stopwatch-center .date #dateText{display:block;text-align:center;}
-.stopwatch-center .date-info-row{display:flex;align-items:center;gap:4px;}
-.stopwatch-center .date .edit-date-btn{background:transparent;border:none;color:var(--ink3);font-size:10px;cursor:pointer;padding:0 3px;}
+.stopwatch-center .date-info-row{display:flex;align-items:center;gap:4px;margin-bottom: 5px;}
+.stopwatch-center .date-info-row .edit-date-btn{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink2);font-size:11px;cursor:pointer;padding:3px 6px;border-radius:6px;transition:all .15s;}
+.stopwatch-center .date-info-row .edit-date-btn:hover{background:rgba(255,255,255,.14);color:var(--accent);}
 /* ===== 机械秒表 ===== */
 .timer-section{padding:16px 18px 6px;}
 .stopwatch{width:min(82vw,390px);aspect-ratio:1;margin:0 auto;position:relative;border-radius:50%;
@@ -33,8 +34,8 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 .stopwatch-center{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:3;}
 .timer-main{display:flex;align-items:baseline;justify-content:center;gap:0;}
 .timer-value{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:clamp(26px,7.5vw,40px);letter-spacing:-1px;font-weight:700;color:#f2f2f5;text-shadow:0 0 15px rgba(255,255,255,.08);}
-.timer-ms{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:clamp(22px,6.5vw,34px);letter-spacing:-1px;font-weight:700;color:var(--accent);margin-left:2px;transition:transform .08s steps(1);}
-.timer-ms.jump{transform:translateY(-3px);}
+.timer-ms{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-weight:200;font-size:clamp(23px,7.2vw,36px);letter-spacing:-1px;font-weight:700;color:var(--accent);margin-left:2px;transition:transform .08s steps(1);}
+.timer-ms.jump{transform:translateY(0px);}
 .needle{position:absolute;width:2px;height:34%;left:50%;bottom:50%;transform-origin:50% 100%;transform:translateX(-50%) rotate(0deg);z-index:5;}
 .needle::before{content:"";position:absolute;width:2px;height:100%;background:var(--record);box-shadow:0 0 8px rgba(255,59,59,.45);}
 .needle-dot{position:absolute;left:50%;bottom:-6px;width:13px;height:13px;transform:translateX(-50%);border-radius:50%;background:#252b33;border:3px solid #c5cbd0;box-shadow:0 0 0 2px #090b0f;}
@@ -110,7 +111,10 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 /* 图标：单行横向滑动 */
 .icorow{display:flex;gap:14px;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;padding:4px 2px 14px;margin-bottom:6px;}
 .icorow::-webkit-scrollbar{display:none;}
-.icorow .cell{flex:0 0 auto;width:auto;height:auto;border-radius:13px;background:transparent;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;transition:transform .12s, background .12s;padding:8px 10px;z-index:1;pointer-events:auto;cursor:pointer;}
+.icorow .cell{flex: 0 0 auto;    width: auto;    height: auto;    border-radius: 9px;    background: transparent;
+    border: none;    display: flex;    flex-direction: column;    align-items: center;    justify-content: center;
+    gap: 4px;    position: relative;    transition: transform .12s, background .12s;    padding: 1px 0px 4px;
+    z-index: 1;    pointer-events: auto;    cursor: pointer;}
 .icorow .cell:active{transform:scale(.9);}
 .icorow .cell.active{background:rgba(0,227,150,.12);box-shadow:0 0 0 2px rgba(0,227,150,.25);}
 .icorow .cell .icon-svg{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--ink2);}
@@ -209,7 +213,9 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 /* 日期编辑弹窗 */
 .date-edit-mask{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:150;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
 .date-edit-mask.show{display:flex;}
-.date-edit-sheet{width:90%;max-width:400px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 16px;animation:jellyIn .35s cubic-bezier(.68,-0.55,.27,1.55);}
+.date-edit-sheet{width:90%;max-width:400px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 16px;animation:jellyIn .35s cubic-bezier(.68,-0.55,.27,1.55);position:relative;}
+.date-edit-sheet .close-btn{position:absolute;top:10px;right:12px;width:28px;height:28px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);color:var(--ink2);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:all .15s;}
+.date-edit-sheet .close-btn:hover{background:rgba(255,255,255,.1);color:#ff6b81;}
 .date-edit-sheet h3{margin:2px 4px 4px;font-size:15px;}
 .date-edit-sheet .de-label{font-size:11px;color:var(--ink3);margin:12px 4px 6px;letter-spacing:1px;}
 .weather-row{display:flex;gap:6px;flex-wrap:wrap;padding:0 2px;}
