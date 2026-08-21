@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>TickLife · 嘀嗒人生</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Tick<b>Life</b></div>
+  <div style="display:flex;gap:6px;">
+    <button class="export" id="exportBtn" title="导出 JSON">💾</button>
+    <button class="export" id="reviewEntBtn" title="时间黑洞复盘">🕳️ 复盘</button>
+  </div>
+</div>
+
+<div class="timer-section">
+  <div class="stopwatch" id="stopwatch">
+    <div class="crown"></div>
+    <div class="needle" id="needle">
+      <div class="needle-dot"></div>
+    </div>
+    <div class="stopwatch-center">
+      <div class="date-wrap">
+        <div class="timer-label">TODAY'S TIME</div>
+        <div class="date" id="dateLabel">
+          <span id="dateText"></span>
+          <div class="date-info-row">
+            <div class="date-info" id="dateInfo"></div>
+            <button class="edit-date-btn" id="editDateBtn" title="编辑天气/备注">✎</button>
+          </div>
+        </div>
+      </div>
+      <div class="timer-main">
+        <span class="timer-value" id="timerValue">00:00:00</span><span class="timer-ms" id="timerMs">.00</span>
+      </div>
+      <div class="clock-status off" id="clockStatus">待机</div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="main-view">
+
+<div class="section-title"><div class="section-left"><span id="timelineCount">今日时间流 · 0条记录</span><button class="sort-toggle" id="sortToggle" title="切换正序/倒序">⇅</button></div></div>
+<div class="timeline" id="timeline">
+  <div class="empty" id="emptyHint">
+    <div class="big">⏱️</div>
+    点下方 <b style="color:var(--accent)">开始</b>，像秒表一样记录一切<br>包括发呆、刷手机、走神——<br>不评判，只呈现。
+  </div>
+</div>
+
+<div class="dock">
+  <button class="side" id="endDayBtn" title="结束当天">⏹</button>
+  <button class="mainbtn start" id="mainBtn"><span class="dot"></span>开 始</button>
+  <button class="side" id="addBtn" title="补录">＋</button>
+</div>
+</div>
+
+<!-- ===== 复盘全屏弹窗 ===== -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="rev-top">
+    <button class="rev-back" id="reviewBackBtn">← 返回</button>
+    <div class="rev-title"><b>🕳️</b> 时间黑洞复盘</div>
+    <div class="rev-spacer"></div>
+  </div>
+  <div class="rev-body">
+    <section class="review" id="reviewPage">
+      <div class="rev-head">
+        <div class="t" id="revScope">本周 · 时间黑洞</div>
+        <div class="v" id="revRange">—</div>
+      </div>
+      <div class="seg" id="revSeg">
+        <span class="pill left" id="revPill"></span>
+        <button class="opt active" data-mode="week">本周</button>
+        <button class="opt" data-mode="month">本月</button>
+      </div>
+      <div class="ring-wrap">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#1c1c24" stroke-width="10"/>
+          <circle id="ringVoid" cx="60" cy="60" r="52" fill="none" stroke="#ff9f43" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 326.7" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="ring-center">
+          <div class="big" id="ringPct">0%</div>
+          <div class="lab">无意义时间占比</div>
+        </div>
+      </div>
+      <div class="ring-legend">
+        <div class="lg"><span class="sw" style="background:#ff9f43"></span>无意义（不定义/未命名）</div>
+        <div class="lg"><span class="sw" style="background:#00e396"></span>有意义</div>
+      </div>
+      <div class="card" id="voidCard">
+        <h4><span>🕳️ 时间黑洞 · 最长事件 TOP5</span><span class="more" id="voidMore"></span></h4>
+        <div id="voidList"></div>
+        <div class="tip" id="voidTip">耗时越长，色块越长——让浪费的时间无处遁形。</div>
+      </div>
+      <div class="card" id="vsCard">
+        <h4><span>⏳ 预估 vs 实际（有预估的事件）</span><span class="more" id="vsMore"></span></h4>
+        <div id="vsList"></div>
+        <div class="tip">绿色为实际用时，浅绿底色为你的预估。偏差越大，越值得反思。</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- 图标弹窗：初始模式居中，只选图标；编辑模式显示全部 -->
+<div class="modal-mask" id="sheetMask">
+  <div class="sheet">
+    <button class="close-btn" id="sheetCloseBtn" title="关闭">✕</button>
+    <h3 id="sheetTitle">为这段记录选一个图标</h3>
+    <p class="sub" id="sheetSub">左右滑动挑选，点图标即确认。</p>
+    <div class="icorow" id="icoRow"></div>
+    <div class="hidden" id="editExtra">
+      <div class="est-label">预估用时（可选）</div>
+      <div class="est-current" id="estCurrent"></div>
+      <div class="est-chips" id="estChips"></div>
+      <textarea class="note-input" id="noteInput" placeholder="写点什么…（可选，如：刷短视频 / 发呆 / 写方案）"></textarea>
+      <div class="sheet-actions">
+        <button class="btn-ghost" id="skipBtn">跳过</button>
+        <button class="btn-fill" id="confirmBtn">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 日期编辑弹窗：天气 + 自定义文字 -->
+<div class="date-edit-mask" id="dateEditMask">
+  <div class="date-edit-sheet">
+    <button class="close-btn" id="dateEditClose" title="关闭">✕</button>
+    <h3>编辑今日信息</h3>
+    <div class="de-label">天气</div>
+    <div class="weather-row" id="weatherRow">
+      <div class="w-chip" data-w="☀️ 晴">☀️ 晴</div>
+      <div class="w-chip" data-w="⛅ 多云">⛅ 多云</div>
+      <div class="w-chip" data-w="🌧️ 雨">🌧️ 雨</div>
+      <div class="w-chip" data-w="❄️ 雪">❄️ 雪</div>
+      <div class="w-chip" data-w="🌫️ 雾">🌫️ 雾</div>
+      <div class="w-chip" data-w="🌪️ 风">🌪️ 风</div>
+    </div>
+    <div class="de-label">自定义文字（地区、重要日子等）</div>
+    <textarea class="custom-text-input" id="customText" placeholder="如：北京、出差日、纪念日..."></textarea>
+    <div class="sheet-actions">
+      <button class="btn-ghost" id="dateEditCancel">取消</button>
+      <button class="btn-fill" id="dateEditSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 清空确认弹窗 -->
+<div class="modal-mask" id="clearMask">
+  <div class="sheet center" id="clearSheet">
+    <h3>⚠️ 清空今日记录</h3>
+    <p class="sub">如果您选择清除，今天所有的事件记录都将永久删除。</p>
+    <div class="sheet-actions">
+      <button class="btn-ghost" id="clearCancel">手滑了</button>
+      <button class="btn-danger" id="clearConfirm">确定删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- 时间滑轮弹窗：自定义预估用时 -->
+<div class="picker-mask" id="pickerMask">
+  <div class="picker-sheet">
+    <div class="grab"></div>
+    <div class="picker-title">自定义预估用时</div>
+    <div class="picker-wheel">
+      <div class="picker-col" id="pickHour"><span class="lbl" style="left:18px;">时</span></div>
+      <div class="picker-col" id="pickMin"><span class="lbl" style="right:18px;">分</span></div>
+    </div>
+    <div class="picker-hint">上下滑动选择 · 分钟按 5 递增</div>
+    <div class="picker-actions">
+      <button class="btn-ghost" id="pickerCancel">取消</button>
+      <button class="btn-fill" id="pickerConfirm">确认</button>
+    </div>
+  </div>
+</div>
+
+<audio id="tickAudio" src="tick.mp3" loop preload="auto"></audio>
+<div class="toast" id="toast"></div>
+<div class="brand-foot" id="brandFoot">TickLife · 嘀嗒人生 · 记录一切，包括空白</div>
+
+<script>
+const STORAGE_KEY="ticklife:v1";
+let data=load();if(!data.days)data.days={};let activeDay=todayKey();let timer=null;let rafId=null;let lastMsText="";let selectedIcon=null;let pendingEdit=null;
+let tickAudio=null;
+function playTick(){if(!tickAudio)tickAudio=$("#tickAudio");if(tickAudio){tickAudio.volume=0.6;tickAudio.play().catch(()=>{});}}
+function stopTick(){if(!tickAudio)tickAudio=$("#tickAudio");if(tickAudio){tickAudio.pause();tickAudio.currentTime=0;}}
+const $=s=>document.querySelector(s);const empty=s=>{const e=$(s);if(e)e.innerHTML="";return e;};
+function todayKey(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function load(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY));if(v&&typeof v==="object"&&v.days)return v;if(Array.isArray(v))return{days:{}};return{days:{}};}catch(e){return{days:{}};}}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
+function ensureDay(key){if(!data.days)data.days={};if(!data.days[key])data.days[key]={day:key,startedAt:Date.now(),events:[]};return data.days[key];}
+function fmtTime(ms){if(ms<0)ms=0;const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
+function fmtMS(ms){return String(Math.floor((ms%1000)/10)).padStart(2,"0");}
+function fmtDurChinese(ms){
+  if(ms<0)ms=0;
+  const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);
+  let parts=[];
+  if(h>0)parts.push(h+"时");
+  if(m>0)parts.push(m+"分");
+  parts.push(s+"秒");
+  return "耗时："+parts.join("");
+}
+function fmtDateStartEnd(tsStart,tsEnd){
+  const s=new Date(tsStart),e=new Date(tsEnd);
+  const fmt=d=>String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")+":"+String(d.getSeconds()).padStart(2,"0");
+  return "开始于："+fmt(s)+"  结束于："+fmt(e);
+}
+function fmtDateStart(ts){
+  const s=new Date(ts);
+  const fmt=d=>String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")+":"+String(d.getSeconds()).padStart(2,"0");
+  return "开始于："+fmt(s);
+}
+function parseEst(t){if(!t)return null;const m=t.match(/^(\d+)\s*(m|min)?$/i);if(m)return parseInt(m[1])*60000;const h=t.match(/^(\d+)\s*h/i);if(h)return parseInt(h[1])*3600000;const hm=t.match(/(\d+)\s*h\s*(\d+)\s*m/i);if(hm)return (parseInt(hm[1])*3600000+parseInt(hm[2])*60000);const n=parseInt(t);if(!isNaN(n))return n*60000;return null;}
+/* ===== 预估用时：档位 + 自定义时间滑轮 ===== */
+const EST_CHIPS=[
+  {label:"5分钟",min:5},{label:"10分钟",min:10},{label:"20分钟",min:20},{label:"30分钟",min:30},
+  {label:"40分钟",min:40},{label:"1小时",min:60},{label:"1.5小时",min:90},{label:"2小时",min:120},
+  {label:"2.5小时",min:150},{label:"3小时",min:180}
+];
+const EST_CUSTOM={label:"自定义",min:null};
+let curEstMin=null;let customHour=0,customMin=0;let pickerOpen=false;
+function fmtEstMin(min){if(min==null)return "";if(min<60)return min+"分钟";const h=Math.floor(min/60),m=min%60;return m?h+"小时"+m+"分":h+"小时";}
+function renderEstChips(){
+  const g=$("#estChips");g.innerHTML="";
+  EST_CHIPS.forEach(c=>{const d=document.createElement("div");d.className="chip"+(curEstMin===c.min?" active":"");d.textContent=c.label;d.addEventListener("click",()=>{curEstMin=c.min;customHour=0;customMin=0;renderEstChips();});g.appendChild(d);});
+  const cu=document.createElement("div");cu.className="chip custom"+(curEstMin==="__custom"?" active":"");cu.textContent="自定义";cu.addEventListener("click",()=>openPicker());g.appendChild(cu);
+  $("#estCurrent").textContent=curEstMin==="__custom"?"自定义："+fmtEstMin(customHour*60+customMin):(curEstMin!=null?("已选："+fmtEstMin(curEstMin)):"未设置预估");
+}
+function setEstFromValue(min){if(min==null){curEstMin=null;customHour=0;customMin=0;}else{const hit=EST_CHIPS.find(c=>c.min===min);if(hit){curEstMin=hit.min;customHour=0;customMin=0;}else{curEstMin="__custom";customHour=Math.floor(min/60);customMin=min%60;}}renderEstChips();}
+/* 时间滑轮：时 0-12，分 0/5/10...55 */
+function buildPicker(){
+  const ph=$("#pickHour"),pm=$("#pickMin");ph.innerHTML='';pm.innerHTML='';
+  const lh=document.createElement("span");lh.className="lbl";lh.style.left="18px";lh.textContent="时";ph.appendChild(lh);
+  const lm=document.createElement("span");lm.className="lbl";lm.style.right="18px";lm.textContent="分";pm.appendChild(lm);
+  for(let h=0;h<=12;h++){const o=document.createElement("div");o.className="opt"+(h===customHour?" sel":"");o.dataset.v=h;o.textContent=String(h);ph.appendChild(o);}
+  const mins=[0,5,10,15,20,25,30,35,40,45,50,55];mins.forEach(m=>{const o=document.createElement("div");o.className="opt"+(m===customMin?" sel":"");o.dataset.v=m;o.textContent=String(m);pm.appendChild(o);});
+  ph.scrollTop=customHour*30;pm.scrollTop=Math.max(0,mins.indexOf(customMin))*30;
+}
+function openPicker(){pickerOpen=true;customHour=curEstMin==="__custom"?customHour:0;customMin=curEstMin==="__custom"?customMin:0;buildPicker();$("#pickerMask").classList.add("show");}
+function closePicker(){pickerOpen=false;$("#pickerMask").classList.remove("show");}
+function bindPickerScroll(){
+  const ph=$("#pickHour"),pm=$("#pickMin");
+  const onScroll=col=>{const idx=Math.round(col.scrollTop/30);col.querySelectorAll(".opt").forEach((o,i)=>o.classList.toggle("sel",i===idx));};
+  ph.addEventListener("scroll",()=>onScroll(ph),{passive:true});pm.addEventListener("scroll",()=>onScroll(pm),{passive:true});
+  ph.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o)ph.scrollTo({top:parseInt(o.dataset.v)*30,behavior:"smooth"});});
+  pm.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o)pm.scrollTo({top:minsIdx(parseInt(o.dataset.v))*30,behavior:"smooth"});});
+}
+function minsIdx(m){const mins=[0,5,10,15,20,25,30,35,40,45,50,55];return Math.max(0,mins.indexOf(m));}
+bindPickerScroll();
+$("#pickerConfirm").addEventListener("click",()=>{
+  const ph=$("#pickHour"),pm=$("#pickMin");const getIdx=col=>{let i=Math.round(col.scrollTop/30);const max=col.querySelectorAll(".opt").length-1;return Math.max(0,Math.min(i,max));};
+  customHour=getIdx(ph);customMin=parseInt(pm.querySelectorAll(".opt")[getIdx(pm)].dataset.v)||0;
+  curEstMin="__custom";closePicker();renderEstChips();
+});
+$("#pickerCancel").addEventListener("click",()=>closePicker());
+$("#pickerMask").addEventListener("click",e=>{if(e.target===$("#pickerMask"))closePicker();});
+
+const ICONS=[
+  {e:"rest",n:"休息",color:"#8b8fa8",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`},
+  {e:"play",n:"娱乐运动",color:"#f59e0b",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>`},
+  {e:"work",n:"工作",color:"#3b82f6",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>`},
+  {e:"study",n:"学习",color:"#8b5cf6",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`},
+  {e:"think",n:"思考",color:"#06b6d4",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>`},
+  {e:"chores",n:"家务",color:"#f97316",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/><circle cx="12" cy="12" r="3"/></svg>`},
+  {e:"chat",n:"交流",color:"#ec4899",svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`}
+];
+
+/* ===== 机械秒表刻度生成 ===== */
+(function buildTicks(){
+  const sw=document.getElementById("stopwatch");
+  if(!sw)return;
+  for(let i=0;i<60;i++){
+    const tick=document.createElement("div");
+    tick.className="tick"+(i%5===0?" major":"");
+    tick.style.transform=`translate(-50%,-100%) rotate(${i*6}deg)`;
+    if(i%5===0){
+      const span=document.createElement("span");
+      span.textContent=i===0?"60":i;
+      tick.appendChild(span);
+    }
+    sw.appendChild(tick);
+  }
+})();
+
+/* 渲染图标：simple模式下点选即确认关闭，edit模式下需点确认按钮 */
+let sheetMode="simple";
+let sortOrder="desc"; // "desc" newest first, "asc" oldest first
+function renderIcoRow(){
+  const g=$("#icoRow");if(!g)return;
+  g.innerHTML="";
+  ICONS.forEach((ic,idx)=>{
+    const div=document.createElement("div");div.className="cell";
+    div.innerHTML=`<span class="icon-svg">${ic.svg}</span><span class="lbl">${ic.n}</span>`;
+    div.title=ic.n;div.dataset.idx=idx;
+    div.onclick=function(){
+      selectedIcon=ic;g.querySelectorAll(".cell").forEach(c=>c.classList.remove("active"));div.classList.add("active");
+      if(sheetMode==="simple"){closeSheet();commitNewRecording({icon:ic.e,iconName:ic.n,note:null,estimate:null});}
+    };
+    g.appendChild(div);
+  });
+  // Default to first icon (休息)
+  if(!selectedIcon){selectedIcon=ICONS[0];const first=g.querySelector(".cell");if(first)first.classList.add("active");}
+}
+
+function openSheet(title="为这段记录选一个图标"){
+  sheetMode="simple";
+  $("#sheetTitle").textContent=title;$("#noteInput").value="";selectedIcon=null;curEstMin=null;customHour=0;customMin=0;
+  $("#editExtra").classList.add("hidden");
+  const mask=$("#sheetMask");
+  mask.style.display="flex";
+  mask.style.opacity="1";
+  mask.style.visibility="visible";
+  mask.style.pointerEvents="auto";
+  const sheet=mask.querySelector(".sheet");
+  if(sheet){sheet.style.animation="none";void sheet.offsetWidth;}
+  mask.classList.add("center");
+  renderIcoRow();
+  if(sheet){requestAnimationFrame(()=>{sheet.style.animation="jellyIn .35s cubic-bezier(.68,-0.55,.27,1.55)";});}
+}
+function closeSheet(){
+  const mask=$("#sheetMask");
+  mask.classList.remove("show");
+  mask.classList.remove("center");
+  mask.style.opacity="0";
+  mask.style.visibility="hidden";
+  mask.style.pointerEvents="none";
+  mask.style.display="none";
+}
+let toastT;function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),1600);}
+
+function getDayElapsed(dayKey){if(!data.days)data.days={};ensureDay(dayKey);const day=data.days[dayKey];if(!day)return 0;let ms=0;(day.events||[]).forEach(ev=>{ms+=ev.duration||0;});return ms;}
+function isTodayRecording(){return !!(timer&&timer.dayKey===activeDay);}
+
+function startTick(){stopTick();loopTick();}
+function stopTick(){if(rafId){cancelAnimationFrame(rafId);rafId=null;}}
+function loopTick(){
+  updateClock();
+  rafId=requestAnimationFrame(loopTick);
+}
+function updateClock(){
+  try{
+    const isRec=isTodayRecording();
+    const ms=isRec?(Date.now()-timer.start):0;
+    $("#timerValue").textContent=fmtTime(ms);
+    const msText="."+fmtMS(ms);
+    $("#timerMs").textContent=msText;
+    if(msText!==lastMsText){
+      lastMsText=msText;
+      const msEl=$("#timerMs");
+      msEl.classList.add("jump");
+      setTimeout(()=>msEl.classList.remove("jump"),80);
+    }
+    const needle=$("#needle");
+    if(needle){
+      const sec=((ms%60000)/1000);
+      const angle=(sec/60)*360;
+      needle.style.transform=`translateX(-50%) rotate(${angle}deg)`;
+    }
+    const st=$("#clockStatus");
+    if(isRec && timer){
+      const iconKey=timer.icon||"rest";
+      const iconName=timer.iconName||"休息";
+      const icoDef=ICONS.find(ic=>ic.e===iconKey)||ICONS[0];
+      const icoHtml=`<span class="status-icon" style="color:${icoDef.color}">${icoDef.svg}</span>`;
+      const customNote=timer.note?` <span class="status-note">${timer.note}</span>`:"";
+      st.innerHTML=`${icoHtml} #${iconName}${customNote} <span class="status-text">计时进行中</span>`;
+      st.className="clock-status on";
+    }
+    else if(timer){st.innerHTML='<span class="status-text">其他日记录中</span>';st.className="clock-status off";}
+    else{st.innerHTML='<span class="status-text">待机</span>';st.className="clock-status off";}
+    // Real-time update LIVE event duration in timeline
+    const liveDur=$("#liveDur");
+    if(isRec && liveDur){
+      const dur=(Date.now()-timer.start);
+      liveDur.textContent="+"+fmtTime(dur)+"."+fmtMS(dur);
+    }
+    // Throttled full timeline refresh (when new events added/removed)
+    timelineTickCounter=(timelineTickCounter||0)+1;
+    if(!isRec || timelineTickCounter%180===0){renderTimeline();}
+    const totalElapsed=getDayElapsed(activeDay);
+    $("#todayTotal").textContent=fmtTime(totalElapsed);
+  }catch(e){console.error("updateClock error:",e);}
+}
+
+/* ===== 核心：开始/新记录 ===== */
+function startRecording(){
+  const now=Date.now();const key=todayKey();if(key!==activeDay)activeDay=key;
+  timer={dayKey:activeDay,id:"ev_"+now+"_"+Math.random().toString(36).slice(2,6),icon:null,iconName:null,note:null,estimate:null,start:now,end:null,duration:0};
+  pendingEdit=null;openSheet("开始记录 · 选一个图标");setMainUI();updateClock();playTick();
+}
+function commitNewRecording(meta){
+  if(!timer)return;
+  if(meta){
+    const ic=meta.icon?ICONS.find(i=>i.e===meta.icon):null;
+    timer.icon=ic?ic.e:"rest";
+    timer.iconName=ic?ic.n:"休息";
+    timer.note=meta.note||null;timer.estimate=meta.estimate||null;
+  }
+  const day=ensureDay(activeDay);day.events.push(timer);save();
+  toast("已记录 · "+timer.iconName);setMainUI();renderTimeline();updateClock();
+}
+/* 点「新记录」：结束上一段（若有），立即开启新一段并开始计时，弹图标窗 */
+function newRecord(){
+  const now=Date.now();
+  if(timer){const cur=timer;cur.end=now;cur.duration=now-cur.start;save();}
+  timer={dayKey:activeDay,id:"ev_"+now+"_"+Math.random().toString(36).slice(2,6),icon:null,iconName:null,note:null,estimate:null,start:now,end:null,duration:0};
+  pendingEdit=null;openSheet("新一段已开始 · 选图标");setMainUI();renderTimeline();updateClock();
+}
+function endDay(){if(!timer)return;const cur=timer;cur.end=Date.now();cur.duration=cur.end-cur.start;timer=null;save();stopTick();toast("已结束当天记录");setMainUI();renderTimeline();updateClock();}
+
+/* UI：按钮在记录中时显示「新记录」 */
+function setMainUI(){
+  const btn=$("#mainBtn");btn.classList.remove("start","stop");
+  if(timer&&timer.dayKey===activeDay){btn.classList.add("stop");btn.innerHTML='<span class="dot"></span>新记录';playTick();}
+  else{btn.classList.add("start");btn.innerHTML='<span class="dot"></span>开 始';stopTick();}
+}
+
+/* 渲染时间流：倒序（最新在上），含实时段 */
+function renderTimeline(){
+  try{
+  const wrap=$("#timeline");if(!wrap)return;const day=data.days[activeDay];
+  const live=timer&&timer.dayKey===activeDay?timer:null;
+  const evs=day?(day.events||[]).filter(e=>e!==live):[];
+  const countEl=$("#timelineCount");
+  const totalCount=evs.length+(live?1:0);
+  countEl.textContent=`今日时间流 · ${totalCount}条记录`;
+  const sortBtn=$("#sortToggle");
+  if(sortOrder==="asc"){sortBtn.classList.add("asc");}else{sortBtn.classList.remove("asc");}
+  if(!evs.length&&!timer){wrap.innerHTML='<div class="empty"><div class="big">⏱️</div>今天还没有记录。<br>点 <b style="color:var(--accent)">开始</b>，像秒表一样记录一切<br>包括发呆、刷手机、走神。</div>';return;}
+  let html="";
+  const all=[...evs];if(live)all.push(live);
+  let longest=0;all.forEach(e=>longest=Math.max(longest,(e.duration||0)+(e===live?Date.now()-e.start:0)));
+  const fmtBar=e=>{const dur=(e.duration||0)+(e===live?Date.now()-e.start:0);return longest?Math.round((dur/longest)*100):0;};
+  const startIdx=sortOrder==="desc"?all.length-1:0;
+  const endIdx=sortOrder==="desc"?-1:all.length;
+  const step=sortOrder==="desc"?-1:1;
+  for(let i=startIdx;i!==endIdx;i+=step){
+    const e=all[i];const isLive=e===live;const dur=(e.duration||0)+(isLive?Date.now()-e.start:0);
+    const icoDef=e.icon?ICONS.find(ic=>ic.e===e.icon):ICONS[0];
+    const icoSvg=icoDef?icoDef.svg:ICONS[0].svg;
+    const icoColor=icoDef?icoDef.color:ICONS[0].color;
+    const iconName=e.iconName||"休息";
+    const customText=e.note?" <span class=\"name-note\">"+e.note+"</span>":"";
+    const name="#"+iconName+customText;
+    const isUntitled=!e.note&&!e.iconName;
+    const durAttr=isLive?'id="liveDur"':"";
+    const durStr=isLive?"+"+fmtTime(dur)+"."+fmtMS(dur):fmtDurChinese(dur);
+    const liveBadge=isLive?' <span style="color:var(--accent);font-size:9px;font-weight:800;letter-spacing:1px;">●LIVE</span>':"";
+    const longCls=dur>=30*60*1000?"long":"";
+    let diffHtml="";
+    if(!isLive && e.estimate && e.estimate>0){
+      const diffMs=dur-e.estimate;
+      if(diffMs>0){diffHtml=`<div class="dur-diff overtime">超时${fmtDurChinese(diffMs).replace("耗时：","")}</div>`;}
+      else if(diffMs<0){diffHtml=`<div class="dur-diff early">提前${fmtDurChinese(-diffMs).replace("耗时：","")}</div>`;}
+    }
+    const durColorClass=isLive?"":(e.estimate && dur>e.estimate?"overtime":(e.estimate && dur<e.estimate?"early":""));
+    const liveNameCls=isLive?"live-name":"";
+    const metaStr=isLive?fmtDateStart(e.start)+"  结束于：...":fmtDateStartEnd(e.start,e.end);
+    html+=`<div class="event ${longCls}"><div class="bar" style="width:${fmtBar(e)}%;background:${icoColor}"></div><div class="ico" style="color:${icoColor}">${icoSvg}</div><div class="body"><div class="row1"><span class="name ${isUntitled?"untitled":""} ${liveNameCls}">${name}${liveBadge}</span><div class="dur-wrap"><span class="dur ${durColorClass}" ${durAttr}>${durStr}</span>${diffHtml}</div></div><div class="meta">${metaStr}</div></div><button class="edit" data-id="${e.id}">✎</button></div>`;
+  }
+  wrap.innerHTML=html;
+  wrap.querySelectorAll(".edit").forEach(b=>b.addEventListener("click",()=>openEdit(b.dataset.id)));
+  }catch(e){console.error("renderTimeline error:",e);}
+}
+
+/* 编辑：通过 id 找索引（编辑用于丰富完善图标/文字/预估） */
+function openEdit(id){
+  const day=data.days[activeDay];if(!day)return;const idx=day.events.findIndex(e=>e.id===id);if(idx<0)return;
+  const e=day.events[idx];const ic=e.icon?ICONS.find(i=>i.e===e.icon)||ICONS[0]:ICONS[0];selectedIcon=ic;
+  sheetMode="edit";
+  const mask=$("#sheetMask");
+  mask.style.display="flex";
+  mask.style.opacity="1";
+  mask.style.visibility="visible";
+  mask.style.pointerEvents="auto";
+  renderIcoRow();
+  const cells=mask.querySelectorAll(".cell");ICONS.forEach((x,i)=>{if(x.e===ic.e&&cells[i])cells[i].classList.add("active");});
+  $("#noteInput").value=e.note||"";setEstFromValue(e.estimate?Math.round(e.estimate/60000):null);
+  $("#sheetTitle").textContent="编辑事件";
+  $("#editExtra").classList.remove("hidden");
+  mask.classList.remove("center");
+  pendingEdit={day:activeDay,idx};
+}
+function commitEdit(meta){
+  if(!pendingEdit)return;const day=data.days[pendingEdit.day];const e=day.events[pendingEdit.idx];if(!e)return;
+  const ic=meta.icon?ICONS.find(i=>i.e===meta.icon)||ICONS[0]:ICONS[0];
+  e.icon=ic.e;e.iconName=ic.note||ic.n;
+  e.note=meta.note||null;e.estimate=meta.estimate||null;save();pendingEdit=null;renderTimeline();updateClock();toast("已更新");
+}
+
+$("#confirmBtn").addEventListener("click",()=>{const note=$("#noteInput").value.trim();const estMin=(curEstMin==="__custom")?(customHour*60+customMin):curEstMin;const est=estMin?estMin*60000:null;const meta={icon:selectedIcon?selectedIcon.e:null,iconName:selectedIcon?selectedIcon.n:null,note,estimate:est};curEstMin=null;customHour=0;customMin=0;closeSheet();if(pendingEdit)commitEdit(meta);else commitNewRecording(meta);});
+$("#skipBtn").addEventListener("click",()=>{const note=$("#noteInput").value.trim();const estMin=(curEstMin==="__custom")?(customHour*60+customMin):curEstMin;const est=estMin?estMin*60000:null;curEstMin=null;customHour=0;customMin=0;closeSheet();if(pendingEdit)commitEdit({icon:null,iconName:null,note,estimate:est});else commitNewRecording({icon:null,iconName:null,note,estimate:est});});
+$("#sheetMask").addEventListener("click",e=>{if(e.target===$("#sheetMask"))closeSheet();});
+
+/* 主按钮：记录中→新记录（结旧开新）；待机→开始 */
+$("#mainBtn").addEventListener("click",()=>{if(timer&&timer.dayKey===activeDay)newRecord();else startRecording();});
+$("#endDayBtn").addEventListener("click",()=>{
+  const mask=$("#clearMask");
+  mask.style.display="flex";mask.style.opacity="1";mask.style.visibility="visible";mask.style.pointerEvents="auto";
+});
+$("#clearCancel").addEventListener("click",()=>{const m=$("#clearMask");m.style.display="none";m.style.visibility="hidden";m.style.opacity="0";});
+$("#clearConfirm").addEventListener("click",()=>{
+  const day=data.days[activeDay];if(!day)return;
+  day.events=[];timer=null;save();stopTick();
+  const m=$("#clearMask");m.style.display="none";m.style.visibility="hidden";m.style.opacity="0";
+  toast("已清空今日记录");setMainUI();renderTimeline();updateClock();
+});
+$("#clearMask").addEventListener("click",e=>{if(e.target===$("#clearMask")){$("#clearCancel").click();}});
+$("#addBtn").addEventListener("click",()=>{openSheet("手动补录一段");pendingEdit=null;});
+$("#sortToggle").addEventListener("click",()=>{sortOrder=sortOrder==="desc"?"asc":"desc";renderTimeline();});
+$("#exportBtn").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(data,{indent:2})],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ticklife-"+todayKey()+".json";a.click();toast("已导出 JSON");});
+document.addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();$("#mainBtn").click();}});
+
+/* ===== 天气/自定义文字编辑 ===== */
+let editingDateKey=null;
+function openDateEdit(){
+  editingDateKey=activeDay;
+  const day=data.days[activeDay];
+  const wRow=$("#weatherRow");
+  wRow.querySelectorAll(".w-chip").forEach(c=>c.classList.remove("active"));
+  $("#customText").value=day?.customText||"";
+  if(day?.weather){
+    wRow.querySelectorAll(".w-chip").forEach(c=>{if(c.dataset.w===day.weather)c.classList.add("active");});
+  }
+  $("#dateEditMask").classList.add("show");
+}
+function closeDateEdit(){$("#dateEditMask").classList.remove("show");}
+function saveDateEdit(){
+  if(!editingDateKey)return;
+  const day=ensureDay(editingDateKey);
+  const activeW=$("#weatherRow .w-chip.active");
+  day.weather=activeW?activeW.dataset.w:null;
+  day.customText=$("#customText").value.trim()||null;
+  save();closeDateEdit();renderTopbar();
+}
+function renderTopbar(){
+  const day=data.days[activeDay];
+  const d=new Date();
+  const w=["日","一","二","三","四","五","六"][d.getDay()];
+  const dateText=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 · 周${w}`;
+  $("#dateText").textContent=dateText;
+  const info=$("#dateInfo");
+  if(day && (day.weather||day.customText)){
+    let html="";
+    if(day.weather)html+=`<span class="weather-tag">${day.weather}</span>`;
+    if(day.customText)html+=`<span class="custom-tag">${day.customText}</span>`;
+    info.innerHTML=html;
+    info.style.display="flex";
+  }else{
+    info.innerHTML="";
+    info.style.display="none";
+  }
+}
+
+/* ===== 事件监听器 ===== */
+$("#sheetCloseBtn").addEventListener("click",closeSheet);
+$("#editDateBtn").addEventListener("click",openDateEdit);
+$("#dateEditClose").addEventListener("click",closeDateEdit);
+$("#dateEditCancel").addEventListener("click",closeDateEdit);
+$("#dateEditSave").addEventListener("click",saveDateEdit);
+$("#weatherRow").addEventListener("click",e=>{const c=e.target.closest(".w-chip");if(c){$("#weatherRow").querySelectorAll(".w-chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");}});
+$("#dateEditMask").addEventListener("click",e=>{if(e.target===$("#dateEditMask"))closeDateEdit();});
+
+setMainUI();updateClock();renderTimeline();startTick();
+
+/* ===== 复盘页：时间黑洞 ===== */
+const review={mode:"week"};
+function dayKeyToDate(k){const p=k.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+function fmtMin(ms){return Math.round(ms/60000);} // 分钟
+function allDaysInRange(mode){
+  const out=[];const now=new Date();const cur=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+  if(mode==="week"){const d=new Date(now);d.setDate(d.getDate()-d.getDay());for(let i=0;i<7;i++){const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");out.push(k);d.setDate(d.getDate()+1);}}
+  else{const y=now.getFullYear(),m=now.getMonth();const days=new Date(y,m+1,0).getDate();for(let i=1;i<=days;i++){out.push(y+"-"+String(m+1).padStart(2,"0")+"-"+String(i).padStart(2,"0"));}}
+  return out;
+}
+function rangeLabel(mode){
+  const arr=allDaysInRange(mode);const a=dayKeyToDate(arr[0]),b=dayKeyToDate(arr[arr.length-1]);
+  const f=d=>d.getMonth()+1+"月"+d.getDate()+"日";return f(a)+(f(b)===f(a)?"":(" ~ "+f(b)));
+}
+function buildAgg(mode){
+  const keys=allDaysInRange(mode);const evs=[];
+  keys.forEach(k=>{const day=data.days[k];if(!day)return;day.events.forEach(e=>{if(e.end&&e.duration>0)evs.push(e);});});
+  let total=0,voidMs=0;const byName={};const withEst=[];
+  evs.forEach(e=>{
+    const dur=e.duration||0;total+=dur;
+    const isVoid=!e.icon||!e.note;if(isVoid)voidMs+=dur;
+    const name=e.note||((e.iconName&&e.iconName!=="不定义")?"#"+e.iconName:"未命名");
+    if(!byName[name])byName[name]={name,icon:e.icon||"❔",ms:0,count:0};byName[name].ms+=dur;byName[name].count++;
+    if(e.estimate&&e.estimate>0){withEst.push({name,icon:e.icon||"❔",actual:dur,est:e.estimate,ms:dur});}
+  });
+  return {total,voidMs,byName,evs,withEst,keys};
+}
+function drawRing(pct){
+  const c=$("#ringVoid");const R=52,circ=2*Math.PI*R;const dash=pct>0?Math.max(2,circ*pct/100):0;
+  c.setAttribute("stroke-dasharray",dash+" "+(circ-dash));
+  $("#ringPct").textContent=Math.round(pct)+"%";
+}
+function renderReview(){
+  const agg=buildAgg(review.mode);$("#revScope").textContent=review.mode==="week"?"本周 · 时间黑洞":"本月 · 时间黑洞";
+  $("#revRange").textContent=rangeLabel(review.mode)+" · 共 "+fmtTime(agg.total)+" 已记录";
+  const pct=agg.total>0?Math.min(100,agg.voidMs/agg.total*100):0;drawRing(pct);
+  // 黑洞榜单 TOP5
+  const list=Object.values(agg.byName).sort((a,b)=>b.ms-a.ms).slice(0,5);
+  const vEl=$("#voidList");const vmEl=$("#voidMore");
+  if(!agg.total){vEl.innerHTML='<div class="empty-r"><div class="big">🕳️</div>这段时间还没有已结束的记录。<br>开始记录，黑洞会慢慢显形。</div>';vmEl.textContent="";}
+  else if(!list.length){vEl.innerHTML='<div class="empty-r">暂无事件数据</div>';vmEl.textContent="";}
+  else{
+    const max=list[0].ms;vmEl.textContent="共 "+fmtTime(agg.voidMs)+" 无意义";
+    vEl.innerHTML=list.map(x=>`<div class="void-bar"><span class="nm">${x.icon} ${esc(x.name)}</span><div class="track"><div class="fill" style="width:${Math.max(8,Math.round(x.ms/max*100))}%"></div></div><span class="tm">${fmtTime(x.ms)}</span></div>`).join("");
+  }
+  // 预估 vs 实际
+  const ve=$("#vsList"),vm=$("#vsMore");const we=agg.withEst.slice().sort((a,b)=>b.actual-a.actual).slice(0,6);
+  if(!we.length){ve.innerHTML='<div class="empty-r">这段时间还没有设置预估用时的事件。<br>点事件 ✎ 补一个预估，再来对比。</div>';vm.textContent="";}
+  else{
+    const max=Math.max(...we.map(x=>Math.max(x.actual,x.est)));vm.textContent=we.length+" 条已对比";
+    ve.innerHTML=we.map(x=>{const aMin=x.actual/60000,eMin=x.est/60000;const dev=Math.abs(aMin-eMin);const devSign=aMin>eMin?"超":"省";const aW=Math.max(6,aMin/max*100),eW=Math.max(6,eMin/max*100);
+      return `<div class="vs-row"><span class="nm"><span class="ic">${x.icon}</span>${esc(x.name)}</span><div class="vs-stack"><div class="vs-track"><div class="vs-fill est" style="width:${eW}%"></div></div><div class="vs-track"><div class="vs-fill actual" style="width:${aW}%"></div></div><div class="vs-val"><span class="a">实际 ${fmtTime(x.actual)}</span><span>预估 ${fmtTime(x.est)} · <span style="color:${dev>eMin*.5?'var(--warn)':'var(--ink3)'}">${devSign}${Math.round(dev)}m</span></span></div></div></div>`;
+    }).join("");
+  }
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function openReview(){
+  $("#reviewOverlay").classList.add("show");
+  renderReview();
+}
+function closeReview(){
+  $("#reviewOverlay").classList.remove("show");
+}
+$("#reviewEntBtn").addEventListener("click",openReview);
+$("#reviewBackBtn").addEventListener("click",closeReview);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#reviewOverlay").classList.contains("show"))closeReview();});
+$("#revSeg").addEventListener("click",e=>{const o=e.target.closest(".opt");if(!o)return;review.mode=o.dataset.mode;$("#revSeg .opt").forEach(x=>x.classList.toggle("active",x===o));$("#revPill").classList.toggle("left",review.mode==="week");$("#revPill").classList.toggle("right",review.mode==="month");renderReview();});
+
+(function initTopbar(){renderTopbar();})();
+
+(function restore(){try{const day=data.days[todayKey()];if(!day)return;const last=day.events[day.events.length-1];if(last&&!last.end)timer={...last,dayKey:todayKey()};setMainUI();}catch(e){console.error("restore error:",e);}})();
+</script>
+</body>
+</html>
