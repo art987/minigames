@@ -14,7 +14,7 @@
     document.addEventListener('touchmove', function(e) {
       if (e.touches.length > 1) { e.preventDefault(); }
     }, { passive: false });
-    // 图片防护：禁用右键菜单、拖拽、选择
+    // 图片防护：禁用右键菜单、拖拽、选择、长按保存
     document.addEventListener('contextmenu', function(e) {
       if (e.target.tagName === 'IMG' || e.target.style.backgroundImage) { e.preventDefault(); }
     });
@@ -24,6 +24,19 @@
     document.addEventListener('selectstart', function(e) {
       if (e.target.tagName === 'IMG') { e.preventDefault(); }
     });
+    // 移动端长按图片拦截
+    document.addEventListener('touchstart', function(e) {
+      var t = e.target;
+      if (t.tagName === 'IMG' || (t.style && t.style.backgroundImage)) {
+        t._touchStartTime = Date.now();
+      }
+    }, { passive: true });
+    document.addEventListener('touchend', function(e) {
+      var t = e.target;
+      if (t.tagName === 'IMG' || (t.style && t.style.backgroundImage)) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   </script>
   <!-- 登录状态预检：微信环境下跳过登录检查（先显示遮罩），非微信环境未登录则跳转 -->
   <script>
@@ -494,10 +507,12 @@
 
   <!-- 模板选择弹窗 -->
   <div id="templateModal" class="modal-overlay hidden">
-    
+    <div class="home-popup-slogan">
+      <div class="slogan-slide active">宣传⇒熟识⇒信任⇒成交</div>
+    </div>
     <div class="modal template-select-modal">
       <div class="modal-header fixed-header">
-        <h2 class="modal-title">节日模板库（宣传⇒熟识⇒信任⇒成交）</h2>
+        <h2 class="modal-title">节日节气海报模板库</h2>
         <button id="closeTemplateModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body scrollable-body">
@@ -539,11 +554,11 @@
         <div class="mt-6">
           <!-- 视图切换按钮 -->
           <div class="template-view-toggle">
-            <button id="templateGridViewBtn" class="view-toggle-btn" title="平铺视图">
-              <i class="fa fa-th"></i>
+            <button id="templateGridViewBtn" class="view-toggle-btn" title="列表视图">
+              <span>列表</span>
             </button>
             <button id="templateSlideViewBtn" class="view-toggle-btn active" title="幻灯片视图">
-              <i class="fa fa-film"></i>
+              <span>幻灯片</span>
             </button>
           </div>
 

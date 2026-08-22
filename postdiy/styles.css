@@ -13,6 +13,17 @@
   tap-highlight-color: transparent;
 }
 
+/* 图片保护：禁止移动端长按弹出保存/分享菜单 */
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 /* Ã¥â€¦Â¨Ã¥Â±â‚¬Ã¥ÂËœÃ©â€¡Â */
 :root {
   --primary-color: #f6a83b;
@@ -4917,6 +4928,15 @@ button#closeFontColorModalBtn.modal-close {
   padding: 0;
 }
 
+#templateModal.modal-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+}
+
 #homePopup.modal-overlay .home-popup-date {
   margin-top: 1vh;
   margin-bottom: -6px;
@@ -9548,8 +9568,10 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 /* Ã¦Â¨Â¡Ã¦ÂÂ¿Ã¨Â§â€ Ã¥â€ºÂ¾Ã¥Ë†â€¡Ã¦ÂÂ¢Ã¦Å’â€°Ã©â€™Â® */
 .template-view-toggle {
-  /* display: flex; */
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   gap: 8px;
   z-index: 99999;
   position: fixed;
@@ -9558,43 +9580,23 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .view-toggle-btn {
-  width: 46px;
+  min-width: 46px;
   height: 35px;
+  padding: 0 12px;
   border: 1px solid #ffffffeb;
   border-radius: 8px;
   background: #fcfcfc61;
   backdrop-filter: blur(8px);
   color: #494949;
   cursor: pointer;
-  margin-bottom: 10px;
-  /* display: flex; */
-  text-shadow
-Enables shadow effects to be applied to the text of the element.
-
-各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
-了解详情
-
-不显示: 0 1px 3px #151515;
-  margin-right: 6px;
+  display: flex;
   align-items: center;
-  text-shadow
-Enables shadow effects to be applied to the text of the element.
-
-各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
-了解详情
-
-不显示: 0 1px 3px #151515;
   justify-content: center;
   text-shadow: 0 1px 1px #151515;
   transition: all 0.3s ease;
-  text-shadow
-Enables shadow effects to be applied to the text of the element.
-
-各主流浏览器均广泛支持（自 2018年1月起成为 Baseline）
-了解详情
-
-不显示: 0 1px 3px #151515;
   box-shadow: 0 1px 3px #ffffff;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .view-toggle-btn:hover {
@@ -9616,13 +9618,16 @@ Enables shadow effects to be applied to the text of the element.
 
 /* 排序切换按钮区域 */
 .template-sort-toggle {
-  /* display: flex; */
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   gap: 8px;
   z-index: 99999;
   position: fixed;
   bottom: 20px;
   right: 10%;
+  transition: opacity 0.3s ease;
 }
 
 .sort-toggle-btn {
@@ -9630,21 +9635,19 @@ Enables shadow effects to be applied to the text of the element.
   height: 37px;
   border: 1px solid #ffffff;
   border-radius: 8px;
-  margin-left: 6px;
   box-shadow: 0 1px 10px #fff;
   background: #ffffff61;
   color: #080808;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  /* display: flex; */
-  font-weight: 350;
-  text-shadow: 0 1px 3px #ffffff;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   transition: all 0.3s ease;
-  margin-bottom: 9px;
   font-size: 14px;
+  font-weight: 350;
+  text-shadow: 0 1px 3px #ffffff;
 }
 
 .sort-toggle-btn:hover {

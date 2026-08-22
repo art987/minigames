@@ -1488,45 +1488,53 @@ const ThumbnailLoader = {
   // 初始化图片保护功能
   function initializeImageProtection() {
     console.log('初始化图片保护功能...');
-    
-    // 禁用右键菜单
+
+    // 禁用右键菜单（所有图片）
     document.addEventListener('contextmenu', function(e) {
-      // 检查是否点击在图片上
       const target = e.target;
-      if (target.tagName === 'IMG' && 
-          (target.id === 'posterBackground' || 
-           target.classList.contains('template-thumbnail') ||
-           target.id === 'posterLogoImg' ||
-           target.id === 'posterQrcodeImg')) {
+      if (target.tagName === 'IMG' || (target.style && target.style.backgroundImage)) {
         e.preventDefault();
-        
-        // 显示保护提示
-        showProtectionMessage('图片已受保护，禁止右键保存');
+        showProtectionMessage('图片已受保护');
         return false;
       }
     });
-    
-    // 禁用图片拖拽
+
+    // 禁用图片拖拽（所有图片）
     document.addEventListener('dragstart', function(e) {
-      const target = e.target;
-      if (target.tagName === 'IMG' && 
-          (target.id === 'posterBackground' || 
-           target.classList.contains('template-thumbnail'))) {
+      if (e.target.tagName === 'IMG') {
         e.preventDefault();
         return false;
       }
     });
-    
-    // 禁用图片选择
+
+    // 禁用图片选择（所有图片）
     document.addEventListener('selectstart', function(e) {
-      const target = e.target;
-      if (target.tagName === 'IMG' && 
-          (target.id === 'posterBackground' || 
-           target.classList.contains('template-thumbnail'))) {
+      if (e.target.tagName === 'IMG') {
         e.preventDefault();
         return false;
       }
     });
+
+    // 移动端长按拦截：阻止长按图片弹出保存/分享菜单
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.tagName === 'IMG' || (e.target.style && e.target.style.backgroundImage)) {
+        e.target._touchStartTime = Date.now();
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      if (e.target.tagName === 'IMG' || (e.target.style && e.target.style.backgroundImage)) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // 阻止iOS Safari长按弹出菜单
+    document.addEventListener('touchmove', function(e) {
+      if (e.target.tagName === 'IMG') {
+        // 图片上的滑动也阻止默认行为
+        clearTimeout(e.target._longPressTimer);
+      }
+    }, { passive: true });
     
     // 禁用开发者工具中的图片查看
     document.addEventListener('keydown', function(e) {
@@ -1543,16 +1551,15 @@ const ThumbnailLoader = {
     // 添加CSS保护样式
     const style = document.createElement('style');
     style.textContent = `
-      /* 图片保护样式 */
-      img#posterBackground,
-      img.template-thumbnail {
+      /* 图片保护样式（全局） */
+      img {
+        -webkit-touch-callout: none;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
         -webkit-user-drag: none;
         pointer-events: auto;
-        position: relative;
       }
       
       /* 添加保护层 */
@@ -3414,6 +3421,15 @@ const ThumbnailLoader = {
     }
     if (elements.closeTemplateModalBtn) {
       elements.closeTemplateModalBtn.addEventListener('click', closeTemplateModal);
+    }
+
+    // 点击弹窗外部区域关闭弹窗
+    if (elements.templateModal) {
+      elements.templateModal.addEventListener('click', function(e) {
+        if (e.target === elements.templateModal) {
+          closeTemplateModal();
+        }
+      });
     }
 
     // 回到顶部按钮事件
@@ -7473,29 +7489,54 @@ const ThumbnailLoader = {
   function setupModalBackToTop() {
     const scrollableBody = elements.templateModal?.querySelector('.scrollable-body');
     const backToTopBtn = elements.modalBackToTopBtn;
+    const viewToggle = document.querySelector('.template-view-toggle');
+    const sortToggle = document.querySelector('.template-sort-toggle');
 
-    if (!scrollableBody || !backToTopBtn) return;
+    if (!scrollableBody) return;
 
-    // 滚动监听：超过2倍可视区域高度时显示按钮
+    let lastScrollTop = 0;
+
+    // 滚动监听：超过2倍可视区域高度时显示按钮 + 滚动方向检测
     scrollableBody.addEventListener('scroll', function() {
       const scrollTop = scrollableBody.scrollTop;
       const viewportHeight = scrollableBody.clientHeight;
       const threshold = viewportHeight * 2;
 
-      if (scrollTop > threshold) {
-        backToTopBtn.classList.remove('hidden');
-      } else {
-        backToTopBtn.classList.add('hidden');
+      // 回到顶部按钮：超过阈值才显示
+      if (backToTopBtn) {
+        if (scrollTop > threshold) {
+          backToTopBtn.classList.remove('hidden');
+        } else {
+          backToTopBtn.classList.add('hidden');
+        }
       }
+
+      // 滚动方向检测：上滑(看下方内容)隐藏，下滑(看上方内容)显示
+      const scrollingDown = scrollTop > lastScrollTop && scrollTop > 10;
+      const scrollingUp = scrollTop < lastScrollTop;
+
+      if (scrollingDown) {
+        if (viewToggle) viewToggle.style.opacity = '0';
+        if (sortToggle) sortToggle.style.opacity = '0';
+        if (backToTopBtn) backToTopBtn.style.opacity = '0';
+      } else if (scrollingUp) {
+        if (viewToggle) viewToggle.style.opacity = '';
+        if (sortToggle) sortToggle.style.opacity = '';
+        if (backToTopBtn) backToTopBtn.style.opacity = '';
+      }
+
+      lastScrollTop = scrollTop;
     });
 
     // 点击按钮：平滑滚动到顶部
-    backToTopBtn.addEventListener('click', function() {
-      scrollableBody.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', function() {
+        scrollableBody.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
       });
-    });
+    }
   }
 
   // 关闭模板选择弹窗
@@ -10288,7 +10329,7 @@ const ThumbnailLoader = {
         </h3>
         
         <div class="voucher-input-container">
-          <span class="upgrade-channel-label">闪喵VIP激活:</span>
+          <span class="upgrade-channel-label">方法一、使用升级码升级</span>
           <div class="input-button-group">
             <div class="input-wrapper">
               <input type="text" id="voucherCodeInput" class="voucher-input" placeholder="请输入升级码">
@@ -10306,7 +10347,7 @@ const ThumbnailLoader = {
         </div>
         
         <div class="vip-packages-section">
-          <div class="vip-packages-title">购买通道：(一杯奶茶承包半年海报设计)</div>
+          <div class="vip-packages-title">方法二、购买VIP月卡升级</div>
           <div class="vip-packages-wrapper">
             <div class="vip-packages-container" id="vipUpgradePackageGrid">
               <div style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #999; font-size: 13px;">套餐加载中...</div>
@@ -17609,7 +17650,7 @@ window.textTemplateManager = {
     let sloganTimer = null;
     function startSloganRotation() {
       if (sloganTimer) clearInterval(sloganTimer);
-      const slides = document.querySelectorAll('.home-popup-slogan .slogan-slide');
+      const slides = document.querySelectorAll('#homePopup .home-popup-slogan .slogan-slide');
       if (slides.length <= 1) return;
       let idx = 0;
       sloganTimer = setInterval(() => {

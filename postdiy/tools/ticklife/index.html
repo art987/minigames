@@ -21,6 +21,7 @@
 <div class="timer-section">
   <div class="stopwatch" id="stopwatch">
     <div class="crown"></div>
+    <div class="sweep" id="sweepLayer"></div>
     <div class="needle" id="needle">
       <div class="needle-dot"></div>
     </div>
@@ -362,6 +363,8 @@ function updateClock(){
       const sec=((ms%60000)/1000);
       const angle=(sec/60)*360;
       needle.style.transform=`translateX(-50%) rotate(${angle}deg)`;
+      const sweep=document.getElementById("sweepLayer");
+      if(sweep)sweep.style.transform=`rotate(${angle}deg)`;
     }
     const st=$("#clockStatus");
     if(isRec && timer){
@@ -463,7 +466,7 @@ function renderTimeline(){
     const durColorClass=isLive?"":(e.estimate && dur>e.estimate?"overtime":(e.estimate && dur<e.estimate?"early":""));
     const liveNameCls=isLive?"live-name":"";
     const metaStr=isLive?fmtDateStart(e.start)+"  结束于：...":fmtDateStartEnd(e.start,e.end);
-    html+=`<div class="event ${longCls}"><div class="bar" style="width:${fmtBar(e)}%;background:${icoColor}"></div><div class="ico" style="color:${icoColor}">${icoSvg}</div><div class="body"><div class="row1"><span class="name ${isUntitled?"untitled":""} ${liveNameCls}">${name}${liveBadge}</span><div class="dur-wrap"><span class="dur ${durColorClass}" ${durAttr}>${durStr}</span>${diffHtml}</div></div><div class="meta">${metaStr}</div></div><button class="edit" data-id="${e.id}">✎</button></div>`;
+    html+=`<div class="event ${longCls}"><div class="ico" style="color:${icoColor}">${icoSvg}</div><div class="body"><div class="row1"><span class="name ${isUntitled?"untitled":""} ${liveNameCls}">${name}${liveBadge}</span><div class="dur-wrap"><span class="dur ${durColorClass}" ${durAttr}>${durStr}</span>${diffHtml}</div></div><div class="meta">${metaStr}</div></div><button class="edit" data-id="${e.id}">✎</button></div>`;
   }
   wrap.innerHTML=html;
   wrap.querySelectorAll(".edit").forEach(b=>b.addEventListener("click",()=>openEdit(b.dataset.id)));

@@ -55,6 +55,9 @@ business/scripts/
 logs/
 *.log
 
+# 开发记录（含密钥）
+develop-chat.md
+
 # Coverage reports
 coverage/
 .nyc_output/
