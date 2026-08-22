@@ -3065,8 +3065,10 @@ const ThumbnailLoader = {
 
   function openCropper(file, targetType, aspectRatio = 1) {
     console.log('openCropper 被调用, targetType:', targetType, 'aspectRatio:', aspectRatio);
-    currentCropImageType = file.type === 'image/png' ? 'png' : 'jpeg';
-    console.log('原始图片类型:', currentCropImageType);
+    // 手机端 file.type 可能不可靠，同时检查文件扩展名
+    var isPng = file.type === 'image/png' || /\.png$/i.test(file.name || '');
+    currentCropImageType = isPng ? 'png' : 'jpeg';
+    console.log('原始图片类型:', currentCropImageType, 'file.type:', file.type, 'file.name:', file.name);
     const reader = new FileReader();
 
     reader.onload = function(e) {
@@ -3193,7 +3195,8 @@ const ThumbnailLoader = {
 
     const canvas = cropper.getCroppedCanvas({
       imageSmoothingEnabled: true,
-      imageSmoothingQuality: 'high'
+      imageSmoothingQuality: 'high',
+      fillColor: 'transparent'
     });
 
     console.log('裁剪后的canvas:', canvas);
@@ -3204,10 +3207,11 @@ const ThumbnailLoader = {
     }
 
     const finalCanvas = applyImageFilters(canvas);
-    
+
     let outputCanvas = finalCanvas;
-    let useTransparentFormat = false;
-    
+    // 所有目标：PNG原图使用PNG格式保留透明通道
+    let useTransparentFormat = currentCropImageType === 'png';
+
     if (currentCropTarget === 'logo') {
       const minHeight = 300;
       let cropWidth = finalCanvas.width;
@@ -3228,8 +3232,6 @@ const ThumbnailLoader = {
       ctx.clearRect(0, 0, cropWidth, cropHeight);
       ctx.drawImage(finalCanvas, 0, 0, cropWidth, cropHeight);
       console.log('Logo输出尺寸:', cropWidth + 'x' + cropHeight);
-
-      useTransparentFormat = currentCropImageType === 'png';
     }
     
     const base64 = outputCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);

@@ -4937,6 +4937,13 @@ button#closeFontColorModalBtn.modal-close {
   padding: 0;
 }
 
+/* 模板库弹窗：高度尽量高，上下留5vh */
+#templateModal .modal.template-select-modal {
+  width: min(92vw, 500px);
+  max-height: 90vh;
+  height: 90vh;
+}
+
 #homePopup.modal-overlay .home-popup-date {
   margin-top: 1vh;
   margin-bottom: -6px;
@@ -9592,7 +9599,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-shadow: 0 1px 1px #151515;
+  text-shadow: 0 1px 1px #ffffff;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px #ffffff;
   font-size: 14px;
