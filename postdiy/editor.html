@@ -375,14 +375,14 @@
         <!-- 中间透明触发区域（左右分区） -->
         <div id="templateTriggerArea" class="template-trigger-area">
           <div class="trigger-left" data-action="template">
-            <div class="trigger-hint">双击 更换模板</div>
+            <div class="trigger-hint">长按 更换模板</div>
           </div>
           <div class="trigger-right">
             <div class="trigger-top" data-action="upload">
-              <div class="trigger-hint">双击 打开相册</div>
+              <div class="trigger-hint">长按 打开相册</div>
             </div>
             <div class="trigger-bottom" data-action="camera">
-              <div class="trigger-hint">双击 拍照</div>
+              <div class="trigger-hint">长按 拍照</div>
             </div>
           </div>
         </div>
@@ -889,7 +889,7 @@
   <script src="industry-templates.js?v=20260707c"></script>
 
   <!-- 云端同步模块 -->
-  <script src="cloud-sync.js?v=20260708e"></script>
+  <script src="cloud-sync.js?v=20260823a"></script>
 
   <!-- 节日日期数据 -->
   <script src="festival-dates.js"></script>
@@ -1211,7 +1211,7 @@
   <!-- <script src="text-templates.js"></script> -->
 
   <!-- 编辑器核心脚本 -->
-  <script src="editor-script.js?v=20260728f" defer></script>
+  <script src="editor-script.js?v=20260823a" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">
@@ -1339,6 +1339,23 @@
       let currentShown = null;
       let timer = null;
       let clickCount = 0;
+      let longPressTimer = null;
+      const LONG_PRESS_DURATION = 500;
+
+      // 触发对应功能
+      function triggerAction(el) {
+        const action = el.dataset.action;
+        if (action === 'template') {
+          const btn = document.getElementById('changeTemplateBtn');
+          if (btn) btn.click();
+        } else if (action === 'upload') {
+          const btn = document.getElementById('uploadBackgroundBtn');
+          if (btn) btn.click();
+        } else if (action === 'camera') {
+          const btn = document.getElementById('takePhotoBtn');
+          if (btn) btn.click();
+        }
+      }
 
       // 显示提示（第一次点击）
       function show(el) {
@@ -1362,6 +1379,14 @@
         clickCount = 0;
       }
 
+      // 清除长按定时器
+      function clearLongPress() {
+        if (longPressTimer) {
+          clearTimeout(longPressTimer);
+          longPressTimer = null;
+        }
+      }
+
       // 桌面端：鼠标悬停 + 点击都能显示提示
       function setupDesktopEvents(element) {
         element.addEventListener('mouseenter', () => {
@@ -1371,35 +1396,32 @@
           }
         });
         element.addEventListener('mouseleave', () => {
-          // 鼠标离开时隐藏（如果是因为悬停显示的）
+          // 鼠标离开时隐藏（如果是因为悬停显示的）并取消长按
+          clearLongPress();
           if (currentShown === element && clickCount === 0) {
             hide(element);
           }
         });
         // 点击时：第一次显示，第二次隐藏
         element.addEventListener('mousedown', () => {
+          clearLongPress();
           if (currentShown === element && clickCount === 1) {
             // 第二次点击：隐藏
             hide(element);
           } else if (!currentShown) {
             // 第一次点击：显示
             show(element);
+            // 长按触发功能
+            longPressTimer = setTimeout(() => {
+              hide(element);
+              triggerAction(element);
+              longPressTimer = null;
+            }, LONG_PRESS_DURATION);
           }
         });
-        // 双击触发对应功能
-        element.addEventListener('dblclick', () => {
-          hide(element);
-          const action = element.dataset.action;
-          if (action === 'template') {
-            const btn = document.getElementById('changeTemplateBtn');
-            if (btn) btn.click();
-          } else if (action === 'upload') {
-            const btn = document.getElementById('uploadBackgroundBtn');
-            if (btn) btn.click();
-          } else if (action === 'camera') {
-            const btn = document.getElementById('takePhotoBtn');
-            if (btn) btn.click();
-          }
+        // 松开鼠标时取消长按
+        element.addEventListener('mouseup', () => {
+          clearLongPress();
         });
       }
 
@@ -1408,9 +1430,6 @@
       if (bottom) setupDesktopEvents(bottom);
 
       // 移动端：触摸事件
-      let lastTap = 0;
-      let lastArea = null;
-
       document.getElementById('templateTriggerArea').addEventListener('touchstart', function(e) {
         const touch = e.touches[0];
         const rect = this.getBoundingClientRect();
@@ -1431,6 +1450,8 @@
           area = 'bottom';
         }
 
+        clearLongPress();
+
         // 第一次触摸：显示；第二次触摸（2秒内）：隐藏
         if (target) {
           if (currentShown === target && clickCount === 1) {
@@ -1439,38 +1460,22 @@
           } else if (!currentShown) {
             // 第一次点击：显示
             show(target);
+            // 长按触发功能
+            longPressTimer = setTimeout(() => {
+              hide(target);
+              triggerAction(target);
+              longPressTimer = null;
+            }, LONG_PRESS_DURATION);
           }
         }
-
-        // 触摸结束时处理双击
-        const endHandler = function() {
-          // 双击检测
-          const now = Date.now();
-          if (lastArea === area && now - lastTap < 300) {
-            // 双击触发功能
-            hide(target);
-            if (area === 'left') {
-              const btn = document.getElementById('changeTemplateBtn');
-              if (btn) btn.click();
-            } else if (area === 'top') {
-              const btn = document.getElementById('uploadBackgroundBtn');
-              if (btn) btn.click();
-            } else if (area === 'bottom') {
-              const btn = document.getElementById('takePhotoBtn');
-              if (btn) btn.click();
-            }
-            lastTap = 0;
-            lastArea = null;
-          } else {
-            lastTap = now;
-            lastArea = area;
-          }
-
-          this.removeEventListener('touchend', endHandler);
-        };
-
-        this.addEventListener('touchend', endHandler);
       });
+
+      // 触摸结束/取消时清除长按定时器
+      function clearLongPressOnTouchEnd() {
+        clearLongPress();
+      }
+      document.getElementById('templateTriggerArea').addEventListener('touchend', clearLongPressOnTouchEnd);
+      document.getElementById('templateTriggerArea').addEventListener('touchcancel', clearLongPressOnTouchEnd);
     });
   </script>
 
