@@ -28,8 +28,9 @@ function compressImage(imageData, maxWidth = 300, preferWebP = true) {
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      
-      const ctx = canvas.getContext('2d');
+
+      const ctx = canvas.getContext('2d', { alpha: true });
+      ctx.clearRect(0, 0, width, height);
       ctx.drawImage(img, 0, 0, width, height);
       
       const originalType = imageData.startsWith('data:image/png') ? 'image/png' : 
@@ -64,6 +65,7 @@ function compressImage(imageData, maxWidth = 300, preferWebP = true) {
         const newHeight = Math.round(height * scale);
         canvas.width = newWidth;
         canvas.height = newHeight;
+        ctx.clearRect(0, 0, newWidth, newHeight);
         ctx.drawImage(img, 0, 0, newWidth, newHeight);
         
         if (preferWebP && WEBP_SUPPORTED) {
