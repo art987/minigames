@@ -3051,6 +3051,7 @@ const ThumbnailLoader = {
   };
 
   let currentCropImageType = 'jpeg';
+  let currentCropOriginalDataUrl = null;
 
   function openCropper(file, targetType, aspectRatio = 1) {
     console.log('openCropper 被调用, targetType:', targetType, 'aspectRatio:', aspectRatio);
@@ -3067,6 +3068,8 @@ const ThumbnailLoader = {
         currentCropImageType = 'png';
         console.log('通过data URL前缀检测到PNG格式');
       }
+      // 保存原始图片data URL，用于confirmCrop时手动裁剪
+      currentCropOriginalDataUrl = e.target.result;
       const img = document.getElementById('cropImage');
       img.src = e.target.result;
 
@@ -3181,145 +3184,196 @@ const ThumbnailLoader = {
     console.log('confirmCrop 被调用');
     console.log('cropper exists:', !!cropper);
     console.log('currentCropTarget:', currentCropTarget);
-    
+
     if (!cropper || !currentCropTarget) {
       console.log('cropper或currentCropTarget为空');
       return;
     }
 
-    const canvas = cropper.getCroppedCanvas({
-      imageSmoothingEnabled: true,
-      imageSmoothingQuality: 'high',
-      fillColor: 'transparent'
-    });
+    // 不使用 cropper.getCroppedCanvas()（移动端会把透明区域变黑）
+    // 改为：用 getData() 获取裁剪坐标，加载原始图片到自己的canvas手动裁剪
+    const cropData = cropper.getData();
+    console.log('裁剪坐标:', cropData);
 
-    console.log('裁剪后的canvas:', canvas);
-
-    if (!canvas) {
-      showToast('裁剪失败，请重试');
+    if (!cropData || cropData.width <= 0 || cropData.height <= 0) {
+      showToast('裁剪区域无效，请重试');
       return;
     }
 
-    // 移动端兼容：创建带alpha通道的canvas，确保透明背景不被填充为黑色
-    let alphaCanvas = canvas;
-    try {
-      alphaCanvas = document.createElement('canvas');
-      alphaCanvas.width = canvas.width;
-      alphaCanvas.height = canvas.height;
-      const aCtx = alphaCanvas.getContext('2d', { alpha: true });
-      aCtx.clearRect(0, 0, alphaCanvas.width, alphaCanvas.height);
-      aCtx.drawImage(canvas, 0, 0);
-    } catch (err) {
-      console.warn('alpha canvas转换失败，使用原始canvas:', err);
-      alphaCanvas = canvas;
+    if (!currentCropOriginalDataUrl) {
+      showToast('图片数据丢失，请重新选择');
+      return;
     }
 
-    const finalCanvas = applyImageFilters(alphaCanvas);
+    // 加载原始图片
+    var originalImg = new Image();
+    originalImg.onload = function() {
+      var naturalW = originalImg.naturalWidth || originalImg.width;
+      var naturalH = originalImg.naturalHeight || originalImg.height;
 
-    let outputCanvas = finalCanvas;
-    // 所有目标：PNG原图使用PNG格式保留透明通道
-    let useTransparentFormat = currentCropImageType === 'png';
+      // 处理旋转：如果图片在cropper中被旋转，需要先旋转到正确方向
+      var rotate = cropData.rotate || 0;
+      var scaleX = cropData.scaleX || 1;
+      var scaleY = cropData.scaleY || 1;
+      var isRotated90 = Math.abs(rotate) % 180 === 90;
 
-    if (currentCropTarget === 'logo') {
-      const minHeight = 300;
-      let cropWidth = finalCanvas.width;
-      let cropHeight = finalCanvas.height;
+      // 创建源canvas（可能需要旋转）
+      var srcCanvas = document.createElement('canvas');
+      var srcCtx;
 
-      // 高度不足时等比放大，保持宽高比不变形
-      if (cropHeight < minHeight) {
-        const scale = minHeight / cropHeight;
-        cropWidth = Math.round(cropWidth * scale);
-        cropHeight = minHeight;
+      if (isRotated90) {
+        srcCanvas.width = naturalH;
+        srcCanvas.height = naturalW;
+      } else {
+        srcCanvas.width = naturalW;
+        srcCanvas.height = naturalH;
       }
 
-      // 不再强制改为正方形，保持用户裁剪的原始比例
-      outputCanvas = document.createElement('canvas');
-      outputCanvas.width = cropWidth;
-      outputCanvas.height = cropHeight;
-      const ctx = outputCanvas.getContext('2d', { alpha: true });
-      ctx.clearRect(0, 0, cropWidth, cropHeight);
-      ctx.drawImage(finalCanvas, 0, 0, cropWidth, cropHeight);
-      console.log('Logo输出尺寸:', cropWidth + 'x' + cropHeight);
-    }
-    
-    const base64 = outputCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
-    console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
+      srcCtx = srcCanvas.getContext('2d', { alpha: true });
+      srcCtx.clearRect(0, 0, srcCanvas.width, srcCanvas.height);
 
-    if (currentCropTarget === 'logo') {
-      console.log('处理Logo裁剪');
-      state.businessInfo.logo = base64;
-      pendingUploads.logo = base64;
-      pendingDeletes.logo = false;
+      if (rotate !== 0 || scaleX !== 1 || scaleY !== 1) {
+        srcCtx.save();
+        srcCtx.translate(srcCanvas.width / 2, srcCanvas.height / 2);
+        if (rotate !== 0) srcCtx.rotate(rotate * Math.PI / 180);
+        srcCtx.scale(scaleX, scaleY);
+        srcCtx.drawImage(originalImg, -naturalW / 2, -naturalH / 2);
+        srcCtx.restore();
+      } else {
+        srcCtx.drawImage(originalImg, 0, 0);
+      }
 
-      saveToCache(IMAGE_CACHE_KEYS.logo, base64);
+      // 从源canvas中裁剪指定区域
+      var cropX = Math.max(0, Math.round(cropData.x));
+      var cropY = Math.max(0, Math.round(cropData.y));
+      var cropW = Math.min(Math.round(cropData.width), srcCanvas.width - cropX);
+      var cropH = Math.min(Math.round(cropData.height), srcCanvas.height - cropY);
 
-      updateBusinessInfoDisplay();
-      updateLogoSize();
+      if (cropW <= 0 || cropH <= 0) {
+        showToast('裁剪区域无效');
+        return;
+      }
 
-      if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
-        elements.logoPreviewImg.src = base64;
-        elements.logoPreview.style.display = 'block';
-        elements.logoUploadArea.style.display = 'none';
-        // 显示透明开关
-        if (elements.logoTransparencyToggle) {
-          elements.logoTransparencyToggle.classList.remove('hidden');
-          elements.logoTransparencyToggle.classList.remove('active');
-          // 更新状态为圆角模式（false）
-          state.businessInfo.logoTransparent = false;
-          updateLogoTransparencyStyle(false);
-          // 更新滑块文字
-          const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
-          if (thumb) {
-            thumb.textContent = '圆角';
-          }
-          showLogoActionButtons(false);
+      var canvas = document.createElement('canvas');
+      canvas.width = cropW;
+      canvas.height = cropH;
+      var ctx = canvas.getContext('2d', { alpha: true });
+      ctx.clearRect(0, 0, cropW, cropH);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(srcCanvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+
+      console.log('手动裁剪完成:', cropW + 'x', cropH);
+
+      // 应用滤镜
+      var finalCanvas = applyImageFilters(canvas);
+
+      var outputCanvas = finalCanvas;
+      var useTransparentFormat = currentCropImageType === 'png';
+
+      if (currentCropTarget === 'logo') {
+        var minHeight = 300;
+        var outW = finalCanvas.width;
+        var outH = finalCanvas.height;
+
+        if (outH < minHeight) {
+          var scale = minHeight / outH;
+          outW = Math.round(outW * scale);
+          outH = minHeight;
         }
+
+        outputCanvas = document.createElement('canvas');
+        outputCanvas.width = outW;
+        outputCanvas.height = outH;
+        var oCtx = outputCanvas.getContext('2d', { alpha: true });
+        oCtx.clearRect(0, 0, outW, outH);
+        oCtx.drawImage(finalCanvas, 0, 0, outW, outH);
+        console.log('Logo输出尺寸:', outW + 'x', outH);
       }
 
-      showToast('Logo已裁剪，点击保存后上传到云端');
-    }
+      var base64 = outputCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
+      console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
 
-    if (currentCropTarget === 'qrcode') {
-      console.log('处理二维码裁剪');
-      state.businessInfo.qrcode = base64;
-      pendingUploads.qrcode = base64;
-      pendingDeletes.qrcode = false;
+      // 处理裁剪结果
+      if (currentCropTarget === 'logo') {
+        console.log('处理Logo裁剪');
+        state.businessInfo.logo = base64;
+        pendingUploads.logo = base64;
+        pendingDeletes.logo = false;
 
-      saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
+        saveToCache(IMAGE_CACHE_KEYS.logo, base64);
 
-      updateBusinessInfoDisplay();
+        updateBusinessInfoDisplay();
+        updateLogoSize();
 
-      if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
-        elements.qrcodePreviewImg.src = base64;
-        elements.qrcodePreview.classList.remove('hidden');
-        elements.qrcodePreview.style.display = 'block';
-        elements.qrcodeUploadArea.style.display = 'none';
+        if (elements.logoPreview && elements.logoPreviewImg && elements.logoUploadArea) {
+          elements.logoPreviewImg.src = base64;
+          elements.logoPreview.style.display = 'block';
+          elements.logoUploadArea.style.display = 'none';
+          if (elements.logoTransparencyToggle) {
+            elements.logoTransparencyToggle.classList.remove('hidden');
+            elements.logoTransparencyToggle.classList.remove('active');
+            state.businessInfo.logoTransparent = false;
+            updateLogoTransparencyStyle(false);
+            var thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
+            if (thumb) {
+              thumb.textContent = '圆角';
+            }
+            showLogoActionButtons(false);
+          }
+        }
+
+        showToast('Logo已裁剪，点击保存后上传到云端');
       }
 
-      showToast('二维码已裁剪，点击保存后上传到云端');
-    }
+      if (currentCropTarget === 'qrcode') {
+        console.log('处理二维码裁剪');
+        state.businessInfo.qrcode = base64;
+        pendingUploads.qrcode = base64;
+        pendingDeletes.qrcode = false;
 
-    if (currentCropTarget === 'background') {
-      console.log('处理背景图片裁剪');
-      state.customBackground = base64;
+        saveToCache(IMAGE_CACHE_KEYS.qrcode, base64);
 
-      // 自定义背景也优先使用智能自适应字体颜色
-      state.autoTextColor = true;
+        updateBusinessInfoDisplay();
 
-      if (window.FrameManager) {
-        state.currentFrame = null;
-        state.pendingFrame = null;
-        window.FrameManager.removeFrameFromPreview();
+        if (elements.qrcodePreview && elements.qrcodePreviewImg && elements.qrcodeUploadArea) {
+          elements.qrcodePreviewImg.src = base64;
+          elements.qrcodePreview.classList.remove('hidden');
+          elements.qrcodePreview.style.display = 'block';
+          elements.qrcodeUploadArea.style.display = 'none';
+        }
+
+        showToast('二维码已裁剪，点击保存后上传到云端');
       }
 
-      updateTemplateDisplay();
-      updateStickerButtonVisibility();
-      clearTriggerFocus();
+      if (currentCropTarget === 'background') {
+        console.log('处理背景图片裁剪');
+        state.customBackground = base64;
 
-      showToast('背景图片已编辑');
-    }
+        state.autoTextColor = true;
 
-    closeCropper();
+        if (window.FrameManager) {
+          state.currentFrame = null;
+          state.pendingFrame = null;
+          window.FrameManager.removeFrameFromPreview();
+        }
+
+        updateTemplateDisplay();
+        updateStickerButtonVisibility();
+        clearTriggerFocus();
+
+        showToast('背景图片已编辑');
+      }
+
+      closeCropper();
+    };
+
+    originalImg.onerror = function() {
+      console.error('加载原始图片失败');
+      showToast('图片加载失败，请重试');
+    };
+
+    originalImg.src = currentCropOriginalDataUrl;
   }
 
   function applyImageFilters(sourceCanvas) {
