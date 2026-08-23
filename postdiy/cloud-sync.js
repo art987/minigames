@@ -33,9 +33,15 @@ function compressImage(imageData, maxWidth = 300, preferWebP = true) {
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(img, 0, 0, width, height);
       
-      const originalType = imageData.startsWith('data:image/png') ? 'image/png' : 
-                          imageData.startsWith('data:image/webp') ? 'image/webp' : 
-                          imageData.startsWith('data:image/gif') ? 'image/gif' : 'image/jpeg';
+      // 通过base64 magic number检测真实格式（手机端data URL的MIME前缀不可靠）
+      var _base64Content = imageData.indexOf(',') !== -1 ? imageData.split(',')[1] : imageData;
+      var originalType = 'image/jpeg';
+      if (_base64Content && _base64Content.startsWith('iVBORw0KGgo')) originalType = 'image/png';
+      else if (_base64Content && _base64Content.startsWith('R0lGOD')) originalType = 'image/gif';
+      else if (_base64Content && _base64Content.startsWith('UklGR')) originalType = 'image/webp';
+      else if (imageData.startsWith('data:image/png')) originalType = 'image/png';
+      else if (imageData.startsWith('data:image/gif')) originalType = 'image/gif';
+      else if (imageData.startsWith('data:image/webp')) originalType = 'image/webp';
       const hasTransparency = originalType === 'image/png' || originalType === 'image/gif' || originalType === 'image/webp';
       
       let compressedData;

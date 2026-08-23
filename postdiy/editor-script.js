@@ -3053,21 +3053,41 @@ const ThumbnailLoader = {
   let currentCropImageType = 'jpeg';
   let currentCropOriginalDataUrl = null;
 
+  // 通过base64内容检测真实图片格式（不依赖file.type或MIME前缀，手机端不可靠）
+  function detectImageFormatFromBase64(dataUrl) {
+    if (!dataUrl || typeof dataUrl !== 'string') return 'jpeg';
+    // 提取base64内容部分
+    var base64 = dataUrl.indexOf(',') !== -1 ? dataUrl.split(',')[1] : dataUrl;
+    if (!base64) return 'jpeg';
+    // PNG magic number: iVBORw0KGgo
+    if (base64.startsWith('iVBORw0KGgo')) return 'png';
+    // GIF magic number: R0lGOD
+    if (base64.startsWith('R0lGOD')) return 'gif';
+    // WebP magic number: UklGR
+    if (base64.startsWith('UklGR')) return 'webp';
+    // JPEG magic number: /9j/
+    if (base64.startsWith('/9j/')) return 'jpeg';
+    // 无法识别，检查data URL前缀作为兜底
+    if (dataUrl.indexOf('data:image/png') === 0) return 'png';
+    if (dataUrl.indexOf('data:image/gif') === 0) return 'gif';
+    if (dataUrl.indexOf('data:image/webp') === 0) return 'webp';
+    return 'jpeg';
+  }
+
   function openCropper(file, targetType, aspectRatio = 1) {
     console.log('openCropper 被调用, targetType:', targetType, 'aspectRatio:', aspectRatio);
-    // 手机端 file.type 可能不可靠，同时检查文件扩展名
+    // 手机端 file.type 不可靠，初始先用file.type判断，后面用base64 magic number纠正
     var isPng = file.type === 'image/png' || /\.png$/i.test(file.name || '');
     currentCropImageType = isPng ? 'png' : 'jpeg';
-    console.log('原始图片类型:', currentCropImageType, 'file.type:', file.type, 'file.name:', file.name);
+    console.log('初始图片类型:', currentCropImageType, 'file.type:', file.type, 'file.name:', file.name);
     const reader = new FileReader();
 
     reader.onload = function(e) {
       console.log('FileReader onload 触发');
-      // 最终兜底：通过data URL前缀检测PNG（最可靠）
-      if (typeof e.target.result === 'string' && e.target.result.indexOf('data:image/png') === 0) {
-        currentCropImageType = 'png';
-        console.log('通过data URL前缀检测到PNG格式');
-      }
+      // 最可靠的方式：通过base64内容的magic number检测真实格式
+      var detected = detectImageFormatFromBase64(e.target.result);
+      currentCropImageType = detected;
+      console.log('通过magic number检测到真实格式:', detected);
       // 保存原始图片data URL，用于confirmCrop时手动裁剪
       currentCropOriginalDataUrl = e.target.result;
       const img = document.getElementById('cropImage');
