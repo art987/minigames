@@ -3180,36 +3180,134 @@ const ThumbnailLoader = {
     }
   }
 
+  // ===== 临时调试日志 =====
+  var _cropDebugLog = [];
+  function _cropLog(msg) {
+    var ts = new Date().toISOString().split('T')[1].replace('Z','');
+    _cropDebugLog.push('[' + ts + '] ' + msg);
+    console.log('[CropDebug] ' + msg);
+  }
+
+  function _checkCanvasAlpha(canvas, label) {
+    try {
+      var ctx = canvas.getContext('2d');
+      // 采样四个角和中心
+      var points = [
+        [0,0], [canvas.width-1,0], [0,canvas.height-1], [canvas.width-1,canvas.height-1],
+        [Math.floor(canvas.width/2), Math.floor(canvas.height/2)]
+      ];
+      var results = [];
+      for (var i=0; i<points.length; i++) {
+        var px = ctx.getImageData(points[i][0], points[i][1], 1, 1).data;
+        results.push('(' + points[i][0] + ',' + points[i][1] + ')=[' + px[0] + ',' + px[1] + ',' + px[2] + ',' + px[3] + ']');
+      }
+      _cropLog(label + ' canvas=' + canvas.width + 'x' + canvas.height + ' 像素采样: ' + results.join(' | '));
+      // 检查alpha通道
+      var hasTransparent = results.some(function(r){ return r.indexOf(',0]') !== -1; });
+      _cropLog(label + ' alpha通道有透明像素: ' + hasTransparent);
+    } catch(e) {
+      _cropLog(label + ' 像素采样失败: ' + e.message);
+    }
+  }
+
+  function _showCropDebugPopup() {
+    var existing = document.getElementById('cropDebugModal');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'cropDebugModal';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
+
+    var box = document.createElement('div');
+    box.style.cssText = 'background:#fff;border-radius:12px;width:100%;max-width:400px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;';
+
+    var header = document.createElement('div');
+    header.style.cssText = 'padding:12px 16px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;';
+    header.innerHTML = '<b style="font-size:14px;">裁剪调试日志</b>';
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '关闭';
+    closeBtn.style.cssText = 'background:#666;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:12px;cursor:pointer;';
+    closeBtn.onclick = function(){ overlay.remove(); };
+    header.appendChild(closeBtn);
+
+    var body = document.createElement('div');
+    body.style.cssText = 'padding:12px 16px;overflow-y:auto;flex:1;';
+    var textarea = document.createElement('textarea');
+    textarea.readOnly = true;
+    textarea.style.cssText = 'width:100%;height:300px;font-size:11px;font-family:monospace;border:1px solid #ddd;border-radius:6px;padding:8px;box-sizing:border-box;resize:none;';
+    textarea.value = _cropDebugLog.join('\n');
+    body.appendChild(textarea);
+
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'padding:8px 16px;display:flex;gap:8px;';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制全部日志';
+    copyBtn.style.cssText = 'flex:1;background:#007bff;color:#fff;border:none;border-radius:6px;padding:8px;font-size:13px;cursor:pointer;';
+    copyBtn.onclick = function() {
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      try {
+        document.execCommand('copy');
+        copyBtn.textContent = '已复制!';
+        setTimeout(function(){ copyBtn.textContent = '复制全部日志'; }, 2000);
+      } catch(e) {
+        textarea.readOnly = false;
+        textarea.select();
+      }
+    };
+    btnRow.appendChild(copyBtn);
+
+    box.appendChild(header);
+    box.appendChild(body);
+    box.appendChild(btnRow);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  }
+  // ===== 临时调试日志结束 =====
+
   function confirmCrop() {
-    console.log('confirmCrop 被调用');
-    console.log('cropper exists:', !!cropper);
-    console.log('currentCropTarget:', currentCropTarget);
+    _cropDebugLog = [];
+    _cropLog('=== confirmCrop 开始 ===');
+    _cropLog('cropper存在: ' + !!cropper);
+    _cropLog('currentCropTarget: ' + currentCropTarget);
+    _cropLog('currentCropImageType: ' + currentCropImageType);
 
     if (!cropper || !currentCropTarget) {
-      console.log('cropper或currentCropTarget为空');
+      _cropLog('ERROR: cropper或currentCropTarget为空，退出');
       return;
     }
 
     // 不使用 cropper.getCroppedCanvas()（移动端会把透明区域变黑）
     // 改为：用 getData() 获取裁剪坐标，加载原始图片到自己的canvas手动裁剪
-    const cropData = cropper.getData();
-    console.log('裁剪坐标:', cropData);
+    var cropData = cropper.getData();
+    _cropLog('裁剪坐标: x=' + cropData.x + ' y=' + cropData.y + ' w=' + cropData.width + ' h=' + cropData.height + ' rotate=' + (cropData.rotate||0) + ' scaleX=' + (cropData.scaleX||1) + ' scaleY=' + (cropData.scaleY||1));
 
     if (!cropData || cropData.width <= 0 || cropData.height <= 0) {
+      _cropLog('ERROR: 裁剪区域无效');
       showToast('裁剪区域无效，请重试');
+      _showCropDebugPopup();
       return;
     }
 
     if (!currentCropOriginalDataUrl) {
+      _cropLog('ERROR: currentCropOriginalDataUrl为空');
       showToast('图片数据丢失，请重新选择');
+      _showCropDebugPopup();
       return;
     }
+
+    _cropLog('原始data URL前缀: ' + currentCropOriginalDataUrl.substring(0, 50));
+    _cropLog('原始data URL长度: ' + currentCropOriginalDataUrl.length);
 
     // 加载原始图片
     var originalImg = new Image();
     originalImg.onload = function() {
+      _cropLog('原始图片加载成功');
       var naturalW = originalImg.naturalWidth || originalImg.width;
       var naturalH = originalImg.naturalHeight || originalImg.height;
+      _cropLog('原始图片尺寸: ' + naturalW + 'x' + naturalH);
 
       // 处理旋转：如果图片在cropper中被旋转，需要先旋转到正确方向
       var rotate = cropData.rotate || 0;
@@ -3230,6 +3328,7 @@ const ThumbnailLoader = {
       }
 
       srcCtx = srcCanvas.getContext('2d', { alpha: true });
+      _cropLog('源canvas: ' + srcCanvas.width + 'x' + srcCanvas.height + ', 旋转=' + rotate + 'deg, isRotated90=' + isRotated90);
       srcCtx.clearRect(0, 0, srcCanvas.width, srcCanvas.height);
 
       if (rotate !== 0 || scaleX !== 1 || scaleY !== 1) {
@@ -3243,14 +3342,20 @@ const ThumbnailLoader = {
         srcCtx.drawImage(originalImg, 0, 0);
       }
 
+      _checkCanvasAlpha(srcCanvas, '源canvas(drawImage后)');
+
       // 从源canvas中裁剪指定区域
       var cropX = Math.max(0, Math.round(cropData.x));
       var cropY = Math.max(0, Math.round(cropData.y));
       var cropW = Math.min(Math.round(cropData.width), srcCanvas.width - cropX);
       var cropH = Math.min(Math.round(cropData.height), srcCanvas.height - cropY);
 
+      _cropLog('实际裁剪: x=' + cropX + ' y=' + cropY + ' w=' + cropW + ' h=' + cropH);
+
       if (cropW <= 0 || cropH <= 0) {
+        _cropLog('ERROR: 裁剪宽高<=0');
         showToast('裁剪区域无效');
+        _showCropDebugPopup();
         return;
       }
 
@@ -3258,18 +3363,21 @@ const ThumbnailLoader = {
       canvas.width = cropW;
       canvas.height = cropH;
       var ctx = canvas.getContext('2d', { alpha: true });
+      _cropLog('裁剪canvas创建: ' + cropW + 'x' + cropH + ', ctx类型: ' + typeof ctx);
       ctx.clearRect(0, 0, cropW, cropH);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(srcCanvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
 
-      console.log('手动裁剪完成:', cropW + 'x', cropH);
+      _checkCanvasAlpha(canvas, '裁剪canvas(drawImage后)');
 
       // 应用滤镜
       var finalCanvas = applyImageFilters(canvas);
+      _checkCanvasAlpha(finalCanvas, '滤镜后canvas');
 
       var outputCanvas = finalCanvas;
       var useTransparentFormat = currentCropImageType === 'png';
+      _cropLog('useTransparentFormat: ' + useTransparentFormat + ' (currentCropImageType=' + currentCropImageType + ')');
 
       if (currentCropTarget === 'logo') {
         var minHeight = 300;
@@ -3288,15 +3396,37 @@ const ThumbnailLoader = {
         var oCtx = outputCanvas.getContext('2d', { alpha: true });
         oCtx.clearRect(0, 0, outW, outH);
         oCtx.drawImage(finalCanvas, 0, 0, outW, outH);
-        console.log('Logo输出尺寸:', outW + 'x', outH);
+        _cropLog('Logo输出canvas: ' + outW + 'x' + outH);
+        _checkCanvasAlpha(outputCanvas, 'Logo输出canvas');
       }
 
       var base64 = outputCanvas.toDataURL(useTransparentFormat ? 'image/png' : 'image/jpeg', useTransparentFormat ? undefined : 0.8);
-      console.log('生成的base64长度:', base64.length, '格式:', useTransparentFormat ? 'PNG(透明)' : 'JPEG');
+      _cropLog('toDataURL完成, 长度=' + base64.length + ', 前缀=' + base64.substring(0, 50));
+      _cropLog('输出格式: ' + (useTransparentFormat ? 'PNG' : 'JPEG'));
+
+      // 检查最终base64是否有透明
+      try {
+        var checkImg = new Image();
+        checkImg.onload = function() {
+          var c = document.createElement('canvas');
+          c.width = checkImg.width;
+          c.height = checkImg.height;
+          var cx = c.getContext('2d');
+          cx.drawImage(checkImg, 0, 0);
+          _checkCanvasAlpha(c, '最终base64回读');
+          _cropLog('=== confirmCrop 完成 ===');
+          _showCropDebugPopup();
+        };
+        checkImg.src = base64;
+      } catch(e) {
+        _cropLog('最终回读检查失败: ' + e.message);
+        _cropLog('=== confirmCrop 完成 ===');
+        _showCropDebugPopup();
+      }
 
       // 处理裁剪结果
       if (currentCropTarget === 'logo') {
-        console.log('处理Logo裁剪');
+        _cropLog('处理Logo裁剪结果');
         state.businessInfo.logo = base64;
         pendingUploads.logo = base64;
         pendingDeletes.logo = false;
@@ -3327,7 +3457,7 @@ const ThumbnailLoader = {
       }
 
       if (currentCropTarget === 'qrcode') {
-        console.log('处理二维码裁剪');
+        _cropLog('处理二维码裁剪结果');
         state.businessInfo.qrcode = base64;
         pendingUploads.qrcode = base64;
         pendingDeletes.qrcode = false;
@@ -3347,7 +3477,7 @@ const ThumbnailLoader = {
       }
 
       if (currentCropTarget === 'background') {
-        console.log('处理背景图片裁剪');
+        _cropLog('处理背景图片裁剪结果');
         state.customBackground = base64;
 
         state.autoTextColor = true;
@@ -3369,10 +3499,12 @@ const ThumbnailLoader = {
     };
 
     originalImg.onerror = function() {
-      console.error('加载原始图片失败');
+      _cropLog('ERROR: 原始图片加载失败 (onerror)');
       showToast('图片加载失败，请重试');
+      _showCropDebugPopup();
     };
 
+    _cropLog('开始加载原始图片...');
     originalImg.src = currentCropOriginalDataUrl;
   }
 
