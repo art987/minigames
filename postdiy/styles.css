@@ -882,7 +882,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 15px;
+  padding: 30px 15px 5px;
   overflow: hidden;
   position: relative;
 }
@@ -1303,7 +1303,7 @@ footer {
   color: white;
   font-size: 10px;
   /* font-weight: bold; */
-  padding: 0 20px;
+  margin-left: 20px;
   word-wrap: break-word;
   cursor: pointer;
   transition: all 0.2s ease;

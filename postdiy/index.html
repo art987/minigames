@@ -24,20 +24,14 @@
     document.addEventListener('selectstart', function(e) {
       if (e.target.tagName === 'IMG') { e.preventDefault(); }
     });
-    // 移动端长按图片拦截
-    document.addEventListener('touchstart', function(e) {
-      var t = e.target;
-      if (t.tagName === 'IMG' || (t.style && t.style.backgroundImage)) {
-        // 标记长按起始时间，超过500ms阻止
-        t._touchStartTime = Date.now();
-      }
-    }, { passive: true });
-    document.addEventListener('touchend', function(e) {
+    // 移动端长按图片拦截：通过contextmenu阻止，不用touchend preventDefault（会阻断click）
+    document.addEventListener('contextmenu', function(e) {
       var t = e.target;
       if (t.tagName === 'IMG' || (t.style && t.style.backgroundImage)) {
         e.preventDefault();
+        return false;
       }
-    }, { passive: false });
+    });
   </script>
   <!-- 登录状态清理（仅清除伪登录态，不跳转） -->
   <script>

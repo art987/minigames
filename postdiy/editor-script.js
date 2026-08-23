@@ -1515,26 +1515,15 @@ const ThumbnailLoader = {
       }
     });
 
-    // 移动端长按拦截：阻止长按图片弹出保存/分享菜单
-    document.addEventListener('touchstart', function(e) {
-      if (e.target.tagName === 'IMG' || (e.target.style && e.target.style.backgroundImage)) {
-        e.target._touchStartTime = Date.now();
-      }
-    }, { passive: true });
-
-    document.addEventListener('touchend', function(e) {
+    // 移动端长按拦截：通过contextmenu事件阻止长按弹出保存/分享菜单
+    // 注意：不用touchend preventDefault，否则会阻断click事件导致按钮无法点击
+    // CSS的 -webkit-touch-callout: none 已处理iOS长按菜单，这里作为Android补充
+    document.addEventListener('contextmenu', function(e) {
       if (e.target.tagName === 'IMG' || (e.target.style && e.target.style.backgroundImage)) {
         e.preventDefault();
+        return false;
       }
-    }, { passive: false });
-
-    // 阻止iOS Safari长按弹出菜单
-    document.addEventListener('touchmove', function(e) {
-      if (e.target.tagName === 'IMG') {
-        // 图片上的滑动也阻止默认行为
-        clearTimeout(e.target._longPressTimer);
-      }
-    }, { passive: true });
+    });
     
     // 禁用开发者工具中的图片查看
     document.addEventListener('keydown', function(e) {
@@ -3073,6 +3062,11 @@ const ThumbnailLoader = {
 
     reader.onload = function(e) {
       console.log('FileReader onload 触发');
+      // 最终兜底：通过data URL前缀检测PNG（最可靠）
+      if (typeof e.target.result === 'string' && e.target.result.indexOf('data:image/png') === 0) {
+        currentCropImageType = 'png';
+        console.log('通过data URL前缀检测到PNG格式');
+      }
       const img = document.getElementById('cropImage');
       img.src = e.target.result;
 
@@ -3206,7 +3200,21 @@ const ThumbnailLoader = {
       return;
     }
 
-    const finalCanvas = applyImageFilters(canvas);
+    // 移动端兼容：创建带alpha通道的canvas，确保透明背景不被填充为黑色
+    let alphaCanvas = canvas;
+    try {
+      alphaCanvas = document.createElement('canvas');
+      alphaCanvas.width = canvas.width;
+      alphaCanvas.height = canvas.height;
+      const aCtx = alphaCanvas.getContext('2d', { alpha: true });
+      aCtx.clearRect(0, 0, alphaCanvas.width, alphaCanvas.height);
+      aCtx.drawImage(canvas, 0, 0);
+    } catch (err) {
+      console.warn('alpha canvas转换失败，使用原始canvas:', err);
+      alphaCanvas = canvas;
+    }
+
+    const finalCanvas = applyImageFilters(alphaCanvas);
 
     let outputCanvas = finalCanvas;
     // 所有目标：PNG原图使用PNG格式保留透明通道
@@ -3228,7 +3236,7 @@ const ThumbnailLoader = {
       outputCanvas = document.createElement('canvas');
       outputCanvas.width = cropWidth;
       outputCanvas.height = cropHeight;
-      const ctx = outputCanvas.getContext('2d');
+      const ctx = outputCanvas.getContext('2d', { alpha: true });
       ctx.clearRect(0, 0, cropWidth, cropHeight);
       ctx.drawImage(finalCanvas, 0, 0, cropWidth, cropHeight);
       console.log('Logo输出尺寸:', cropWidth + 'x' + cropHeight);
@@ -3316,7 +3324,7 @@ const ThumbnailLoader = {
 
   function applyImageFilters(sourceCanvas) {
     const { brightness, contrast, saturation } = cropEditValues;
-    
+
     if (brightness === 100 && contrast === 100 && saturation === 100) {
       return sourceCanvas;
     }
@@ -3324,8 +3332,8 @@ const ThumbnailLoader = {
     const canvas = document.createElement('canvas');
     canvas.width = sourceCanvas.width;
     canvas.height = sourceCanvas.height;
-    const ctx = canvas.getContext('2d');
-    
+    const ctx = canvas.getContext('2d', { alpha: true });
+
     // 确保透明背景 - 先清除画布
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
