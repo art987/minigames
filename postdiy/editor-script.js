@@ -1,3 +1,23 @@
+// ============================================================
+//  闪喵海报 DIY 编辑器 - 核心脚本
+// ------------------------------------------------------------
+//  © 2026 闪喵团队（PeaceLove Studio） 版权所有
+//
+//  【版权声明】
+//  本平台所有站内海报模板、画框、贴纸、插画素材均为原创设计，
+//  已申请版权登记保护。每张海报均嵌入多重不可见数字水印
+//  （含用户ID、下载时间、设备指纹等可追溯信息）。
+//
+//  未经授权擅自复制、修改、传播、下载、二次开发或商业盗用，
+//  将依据《中华人民共和国著作权法》追究法律责任，
+//  每张图片索赔标准为人民币 10,000 元，情节严重的上浮至 50,000 元。
+//
+//  任何对本文档的逆向工程、代码破解、绕过防护机制行为，
+//  均视为侵权预备行为，已记录可追溯信息，将依法追究。
+//
+//  正版授权渠道：免费额度 / 站内会员 / 淘宝升级码
+// ============================================================
+
 // 海报DIY编辑器 - 全新实现
 // 模块化设计，避免变量重复声明问题
 
@@ -1489,10 +1509,24 @@ const ThumbnailLoader = {
   function initializeImageProtection() {
     console.log('初始化图片保护功能...');
 
-    // 禁用右键菜单（所有图片）
+    // 检测目标及其祖先元素的背景图（兼容CSS类设置的background-image）
+    function hasBgImage(el) {
+      var node = el;
+      while (node && node.nodeType === 1) {
+        if (node.tagName === 'IMG') return true;
+        if (node.style && node.style.backgroundImage && node.style.backgroundImage !== 'none') return true;
+        try {
+          var bg = getComputedStyle(node).backgroundImage;
+          if (bg && bg !== 'none') return true;
+        } catch (e) {}
+        node = node.parentElement;
+      }
+      return false;
+    }
+
+    // 禁用右键菜单（所有图片及背景图元素）
     document.addEventListener('contextmenu', function(e) {
-      const target = e.target;
-      if (target.tagName === 'IMG' || (target.style && target.style.backgroundImage)) {
+      if (hasBgImage(e.target)) {
         e.preventDefault();
         showProtectionMessage('图片已受保护');
         return false;
@@ -1507,28 +1541,53 @@ const ThumbnailLoader = {
       }
     });
 
-    // 禁用图片选择（所有图片）
+    // 禁用图片及背景图元素选择
     document.addEventListener('selectstart', function(e) {
-      if (e.target.tagName === 'IMG') {
+      if (hasBgImage(e.target)) {
         e.preventDefault();
         return false;
       }
     });
 
     // 移动端长按拦截：通过contextmenu事件阻止长按弹出保存/分享菜单
-    // 注意：不用touchend preventDefault，否则会阻断click事件导致按钮无法点击
-    // CSS的 -webkit-touch-callout: none 已处理iOS长按菜单，这里作为Android补充
     document.addEventListener('contextmenu', function(e) {
-      if (e.target.tagName === 'IMG' || (e.target.style && e.target.style.backgroundImage)) {
+      if (hasBgImage(e.target)) {
         e.preventDefault();
         return false;
       }
     });
-    
+
+    // 批量给所有 img 添加 draggable=false 与 oncontextmenu=false 属性
+    function protectImgs() {
+      document.querySelectorAll('img').forEach(function(img) {
+        img.setAttribute('draggable', 'false');
+        img.setAttribute('oncontextmenu', 'return false');
+      });
+    }
+    protectImgs();
+    // 动态插入的 img 也保护（MutationObserver）
+    var mo = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        m.addedNodes.forEach(function(n) {
+          if (n.nodeType !== 1) return;
+          if (n.tagName === 'IMG') {
+            n.setAttribute('draggable', 'false');
+            n.setAttribute('oncontextmenu', 'return false');
+          } else if (n.querySelectorAll) {
+            n.querySelectorAll('img').forEach(function(img) {
+              img.setAttribute('draggable', 'false');
+              img.setAttribute('oncontextmenu', 'return false');
+            });
+          }
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+
     // 禁用开发者工具中的图片查看
     document.addEventListener('keydown', function(e) {
       // 禁用F12、Ctrl+Shift+I、Ctrl+U等开发者工具快捷键
-      if ((e.key === 'F12') || 
+      if ((e.key === 'F12') ||
           (e.ctrlKey && e.shiftKey && e.key === 'I') ||
           (e.ctrlKey && e.key === 'u')) {
         e.preventDefault();
@@ -1536,11 +1595,14 @@ const ThumbnailLoader = {
         return false;
       }
     });
-    
-    // 添加CSS保护样式
+
+    // 添加CSS保护样式（全局规则覆盖所有元素，兼容华为/Android原生浏览器）
     const style = document.createElement('style');
     style.textContent = `
       /* 图片保护样式（全局） */
+      * {
+        -webkit-touch-callout: none !important;
+      }
       img {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -1549,8 +1611,9 @@ const ThumbnailLoader = {
         user-select: none;
         -webkit-user-drag: none;
         pointer-events: auto;
+        -webkit-tap-highlight-color: transparent;
       }
-      
+
       /* 添加保护层 */
       .image-protection-overlay {
         position: absolute;
@@ -3374,7 +3437,15 @@ const ThumbnailLoader = {
         showToast('背景图片已编辑');
       }
 
+      var wasBackground = currentCropTarget === 'background';
       closeCropper();
+
+      // 上传/拍照背景裁剪完成后自动打开画框选择弹窗
+      if (wasBackground && window.FrameManager) {
+        setTimeout(function() {
+          window.FrameManager.openFrameModal();
+        }, 300);
+      }
     };
 
     originalImg.onerror = function() {
@@ -15248,20 +15319,306 @@ function updateBusinessInfoButtonForVip() {
     currentIndex: 0,
     scrollUnit: 100,
 
+    // 画框分类定义（从 frame-categories.js 动态加载）
+    frameCategories: null,
+    currentCategoryIndex: 0,
+    batchSize: 5,
+    loadedCount: 0,
+    categoriesLoaded: false,
+    categoriesLoading: false,
+
     init: function() {
-      this.loadFrameImages();
       this.loadColorAdjustFromStorage();
       this.bindEvents();
+      this.bindCategoryEvents();
     },
 
-    loadFrameImages: function() {
-      const basePath = 'sticker/cover/';
-      for (let i = 1; i <= 43; i++) {
-        this.frameImages.push({
-          id: i,
-          src: basePath + i + '.png'
-        });
+    // 动态加载画框分类数据JS
+    loadCategoriesData: function(callback) {
+      if (this.categoriesLoaded) {
+        if (callback) callback();
+        return;
       }
+      if (this.categoriesLoading) {
+        // 正在加载中，等待完成后回调
+        var self = this;
+        var waitInterval = setInterval(function() {
+          if (self.categoriesLoaded) {
+            clearInterval(waitInterval);
+            if (callback) callback();
+          }
+        }, 50);
+        return;
+      }
+      this.categoriesLoading = true;
+      var self = this;
+      var script = document.createElement('script');
+      script.src = 'frame-categories.js?v=' + Date.now();
+      script.onload = function() {
+        self.frameCategories = window.FrameCategoriesData || [];
+        self.categoriesLoaded = true;
+        self.categoriesLoading = false;
+        self.renderCategoryTabs();
+        if (callback) callback();
+      };
+      script.onerror = function() {
+        console.error('加载画框分类数据失败');
+        self.categoriesLoading = false;
+        if (callback) callback();
+      };
+      document.head.appendChild(script);
+    },
+
+    // 判断当前分类是否启用颜色调节
+    isColorAdjustEnabled: function() {
+      var cat = this.getCurrentCategory();
+      if (!cat) return true;
+      // 不填默认为 true
+      return cat.colorAdjustEnabled !== false;
+    },
+
+    // 判断分类是否有画框（支持范围模式和列表模式）
+    categoryHasFrames: function(cat) {
+      if (!cat) return false;
+      if (cat.start && cat.end) return true;
+      if (cat.items && cat.items.length > 0) return true;
+      return false;
+    },
+
+    // 获取分类总画框数
+    getCategoryTotal: function(cat) {
+      if (!cat) return 0;
+      if (cat.start && cat.end) return cat.end - cat.start + 1;
+      if (cat.items && cat.items.length > 0) return cat.items.length;
+      return 0;
+    },
+
+    // 获取分类中第n个画框的ID（n从0开始）
+    getFrameIdByOffset: function(cat, offset) {
+      if (!cat) return -1;
+      if (cat.start && cat.end) return cat.start + offset;
+      if (cat.items && offset < cat.items.length) return cat.items[offset];
+      return -1;
+    },
+
+    // 根据分类数据动态渲染分类标签
+    renderCategoryTabs: function() {
+      var bar = document.getElementById('frameCategoryBar');
+      if (!bar) return;
+      bar.innerHTML = '';
+      var self = this;
+      this.frameCategories.forEach(function(cat, idx) {
+        var tab = document.createElement('button');
+        tab.className = 'frame-category-tab';
+        if (idx === self.currentCategoryIndex) {
+          tab.classList.add('active');
+        }
+        tab.dataset.category = idx;
+        tab.textContent = cat.name;
+        tab.addEventListener('click', function() {
+          self.switchCategory(idx);
+        });
+        bar.appendChild(tab);
+      });
+    },
+
+    // 获取当前分类
+    getCurrentCategory: function() {
+      if (!this.frameCategories) return null;
+      return this.frameCategories[this.currentCategoryIndex];
+    },
+
+    // 根据画框ID查找所属分类索引
+    findCategoryByFrameId: function(frameId) {
+      if (!this.frameCategories) return -1;
+      for (var i = 0; i < this.frameCategories.length; i++) {
+        var cat = this.frameCategories[i];
+        // 范围模式
+        if (cat.start && cat.end && frameId >= cat.start && frameId <= cat.end) {
+          return i;
+        }
+        // 列表模式
+        if (cat.items && cat.items.indexOf(frameId) >= 0) {
+          return i;
+        }
+      }
+      return -1;
+    },
+
+    // 检查当前分类是否还有更多画框可加载
+    hasMoreToLoad: function() {
+      var cat = this.getCurrentCategory();
+      if (!this.categoryHasFrames(cat)) return false;
+      return this.loadedCount < this.getCategoryTotal(cat);
+    },
+
+    // 加载下一批画框（batchSize张）
+    loadMoreFrames: function() {
+      var cat = this.getCurrentCategory();
+      if (!this.categoryHasFrames(cat)) return false;
+      if (!this.hasMoreToLoad()) return false;
+
+      var total = this.getCategoryTotal(cat);
+      var loadCount = Math.min(this.batchSize, total - this.loadedCount);
+      var basePath = 'sticker/cover/';
+      var startIndex = this.frameImages.length;
+
+      for (var i = 0; i < loadCount; i++) {
+        var frameId = this.getFrameIdByOffset(cat, this.loadedCount);
+        if (frameId < 0) break;
+        this.frameImages.push({
+          id: frameId,
+          src: basePath + frameId + '.png'
+        });
+        this.loadedCount++;
+      }
+
+      this.appendFrameItems(startIndex);
+      return true;
+    },
+
+    // 持续加载直到包含指定frameId
+    loadUntilFrameIncluded: function(frameId) {
+      while (this.frameImages.findIndex(function(f) { return f.id === frameId; }) < 0) {
+        if (!this.loadMoreFrames()) break;
+      }
+    },
+
+    // 设置当前激活分类（更新状态、样式，并滚动到水平居中）
+    setActiveCategory: function(catIndex) {
+      this.currentCategoryIndex = catIndex;
+      var tabs = document.querySelectorAll('.frame-category-tab');
+      tabs.forEach(function(tab, idx) {
+        if (idx === catIndex) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      this.scrollCategoryToCenter(catIndex);
+    },
+
+    // 让选中分类标签滚动到水平居中位置
+    scrollCategoryToCenter: function(catIndex) {
+      var bar = document.getElementById('frameCategoryBar');
+      if (!bar) return;
+      var tab = bar.querySelector('.frame-category-tab[data-category="' + catIndex + '"]');
+      if (!tab) return;
+      // 计算使该tab居中的scrollLeft
+      var targetScrollLeft = tab.offsetLeft - (bar.clientWidth - tab.offsetWidth) / 2;
+      targetScrollLeft = Math.max(0, targetScrollLeft);
+      bar.scrollTo({
+        left: targetScrollLeft,
+        behavior: 'smooth'
+      });
+    },
+
+    // 切换分类
+    switchCategory: function(catIndex) {
+      if (catIndex === this.currentCategoryIndex && this.frameImages.length > 0) return;
+      this.setActiveCategory(catIndex);
+      // 保存到浏览器缓存
+      this.saveCategoryToStorage(catIndex);
+      this.frameImages = [];
+      this.loadedCount = 0;
+      state.pendingFrame = null;
+      this.hideColorAdjustPanel();
+      this.clearFrameList();
+
+      var cat = this.getCurrentCategory();
+      if (this.categoryHasFrames(cat)) {
+        this.loadMoreFrames();
+      } else {
+        this.showEmptyCategoryMessage();
+      }
+
+      this.updateNavButtons();
+    },
+
+    // 保存当前分类索引到localStorage
+    saveCategoryToStorage: function(catIndex) {
+      try {
+        localStorage.setItem('frameCategoryIndex', catIndex);
+      } catch (e) {
+        console.warn('无法保存画框分类到缓存:', e);
+      }
+    },
+
+    // 从localStorage读取上次保存的分类索引
+    loadCategoryFromStorage: function() {
+      try {
+        var saved = localStorage.getItem('frameCategoryIndex');
+        if (saved !== null) {
+          var idx = parseInt(saved);
+          if (!isNaN(idx) && idx >= 0 && idx < this.frameCategories.length) {
+            return idx;
+          }
+        }
+      } catch (e) {
+        console.warn('无法读取画框分类缓存:', e);
+      }
+      return 0;
+    },
+
+    // 清空画框列表DOM
+    clearFrameList: function() {
+      var frameList = document.getElementById('frameList');
+      if (frameList) frameList.innerHTML = '';
+      var emptyMsg = document.getElementById('frameEmptyMessage');
+      if (emptyMsg) emptyMsg.remove();
+    },
+
+    // 显示空分类提示
+    showEmptyCategoryMessage: function() {
+      var container = document.getElementById('frameScrollContainer');
+      if (!container) return;
+      var existing = document.getElementById('frameEmptyMessage');
+      if (existing) return;
+      var msg = document.createElement('div');
+      msg.id = 'frameEmptyMessage';
+      msg.className = 'frame-empty-message';
+      msg.textContent = '暂无画框';
+      container.appendChild(msg);
+    },
+
+    // 追加画框项到列表（从startIndex开始）
+    appendFrameItems: function(startIndex) {
+      var frameList = document.getElementById('frameList');
+      if (!frameList) return;
+
+      // 移除空分类提示
+      var emptyMsg = document.getElementById('frameEmptyMessage');
+      if (emptyMsg) emptyMsg.remove();
+
+      for (var i = startIndex; i < this.frameImages.length; i++) {
+        var frame = this.frameImages[i];
+        var item = document.createElement('div');
+        item.className = 'frame-item';
+        if (state.pendingFrame && state.pendingFrame.id === frame.id) {
+          item.classList.add('selected');
+        }
+        item.dataset.index = i;
+
+        var img = document.createElement('img');
+        img.src = frame.src;
+        img.alt = '画框' + frame.id;
+        img.loading = 'lazy';
+
+        item.appendChild(img);
+
+        (function(self, idx) {
+          item.addEventListener('click', function() {
+            self.selectFrame(idx);
+          });
+        })(this, i);
+
+        frameList.appendChild(item);
+      }
+
+      var self = this;
+      setTimeout(function() {
+        self.updateNavButtons();
+      }, 500);
     },
 
     bindEvents: function() {
@@ -15326,6 +15683,20 @@ function updateBusinessInfoButtonForVip() {
 
       // 绑定调色滑杆事件
       this.bindColorAdjustEvents();
+
+      // 画框列表滚动时更新导航按钮
+      var frameListEl = document.getElementById('frameList');
+      if (frameListEl) {
+        var scrollSelf = this;
+        frameListEl.addEventListener('scroll', function() {
+          scrollSelf.updateNavButtons();
+        });
+      }
+    },
+
+    // 绑定分类切换事件（分类标签动态渲染时绑定，此处保留兼容）
+    bindCategoryEvents: function() {
+      // 分类标签在 renderCategoryTabs 中动态创建并绑定事件
     },
 
     bindColorAdjustEvents: function() {
@@ -15425,6 +15796,11 @@ function updateBusinessInfoButtonForVip() {
     },
 
     showColorAdjustPanel: function() {
+      // 根据当前分类的 colorAdjustEnabled 设置决定是否显示
+      if (!this.isColorAdjustEnabled()) {
+        this.hideColorAdjustPanel();
+        return;
+      }
       const panel = document.getElementById('frameColorAdjust');
       if (panel) {
         panel.classList.remove('hidden');
@@ -15462,19 +15838,33 @@ function updateBusinessInfoButtonForVip() {
       state.pendingFrame = state.currentFrame;
       state.pendingFrameColorAdjust = { ...state.frameColorAdjust };
       elements.frameModal.classList.remove('hidden');
-      setTimeout(() => {
-        this.renderFrameList();
-        if (state.currentFrame) {
-          const index = this.frameImages.findIndex(f => f.id === state.currentFrame.id);
-          if (index >= 0) {
-            this.scrollToIndex(index);
+      var self = this;
+      // 动态加载分类数据后再渲染
+      this.loadCategoriesData(function() {
+        setTimeout(function() {
+          if (state.currentFrame) {
+            // 找到当前画框所属分类并切换过去
+            var catIndex = self.findCategoryByFrameId(state.currentFrame.id);
+            if (catIndex >= 0) {
+              self.switchCategory(catIndex);
+              // 持续加载直到包含当前画框
+              self.loadUntilFrameIncluded(state.currentFrame.id);
+              var index = self.frameImages.findIndex(function(f) { return f.id === state.currentFrame.id; });
+              if (index >= 0) {
+                self.scrollToIndex(index);
+              }
+              self.showColorAdjustPanel();
+              self.loadColorAdjustValues();
+            }
+          } else {
+            // 无当前画框，读取上次保存的分类
+            var savedCat = self.loadCategoryFromStorage();
+            self.switchCategory(savedCat);
+            self.hideColorAdjustPanel();
           }
-          this.showColorAdjustPanel();
-          this.loadColorAdjustValues();
-        } else {
-          this.hideColorAdjustPanel();
-        }
-      }, 150);
+          self.updateNavButtons();
+        }, 150);
+      });
     },
 
     closeFrameModal: function() {
@@ -15484,39 +15874,15 @@ function updateBusinessInfoButtonForVip() {
     },
 
     renderFrameList: function() {
-      const frameList = document.getElementById('frameList');
-      if (!frameList) return;
-
-      frameList.innerHTML = '';
-
-      this.frameImages.forEach((frame, index) => {
-        const item = document.createElement('div');
-        item.className = 'frame-item';
-        if (state.pendingFrame && state.pendingFrame.id === frame.id) {
-          item.classList.add('selected');
+      this.clearFrameList();
+      if (this.frameImages.length > 0) {
+        this.appendFrameItems(0);
+      } else {
+        var cat = this.getCurrentCategory();
+        if (!this.categoryHasFrames(cat)) {
+          this.showEmptyCategoryMessage();
         }
-        item.dataset.index = index;
-
-        const img = document.createElement('img');
-        img.src = frame.src;
-        img.alt = '画框' + frame.id;
-        img.loading = 'lazy';
-
-        item.appendChild(img);
-        item.addEventListener('click', () => {
-          this.selectFrame(index);
-        });
-
-        frameList.appendChild(item);
-      });
-
-      setTimeout(() => {
-        this.updateNavButtons();
-      }, 500);
-
-      frameList.addEventListener('scroll', () => {
-        this.updateNavButtons();
-      });
+      }
     },
 
     selectFrame: function(index) {
@@ -15534,6 +15900,11 @@ function updateBusinessInfoButtonForVip() {
       this.showColorAdjustPanel();
       this.resetColorAdjust();
       this.updatePreview(true);
+
+      // 选中最后一张时预加载下一批
+      if (index === this.frameImages.length - 1) {
+        this.loadMoreFrames();
+      }
     },
 
     updatePreview: function(animate = false) {
@@ -15545,8 +15916,7 @@ function updateBusinessInfoButtonForVip() {
     },
 
     scrollFrames: function(direction) {
-      const frameList = document.getElementById('frameList');
-      if (!frameList) return;
+      if (this.frameImages.length === 0) return;
 
       let currentIndex = 0;
       if (state.pendingFrame) {
@@ -15555,6 +15925,17 @@ function updateBusinessInfoButtonForVip() {
 
       let newIndex = currentIndex + direction;
       if (newIndex < 0) newIndex = 0;
+
+      // 超出已加载范围时尝试加载更多
+      if (newIndex >= this.frameImages.length) {
+        var before = this.frameImages.length;
+        this.loadMoreFrames();
+        if (this.frameImages.length === before) {
+          newIndex = this.frameImages.length - 1;
+        }
+      }
+
+      if (this.frameImages.length === 0) return;
       if (newIndex >= this.frameImages.length) newIndex = this.frameImages.length - 1;
 
       this.selectFrame(newIndex);
@@ -15588,29 +15969,28 @@ function updateBusinessInfoButtonForVip() {
 
       if (!frameList || !prevBtn || !nextBtn) return;
 
+      // 空分类：禁用两个按钮
+      if (this.frameImages.length === 0) {
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      var moreToLoad = this.hasMoreToLoad();
       const scrollLeft = frameList.scrollLeft;
       const itemCount = this.frameImages.length;
       const itemWidth = 80;
       const gap = 12;
       const totalWidth = itemCount * (itemWidth + gap);
       const clientWidth = frameList.clientWidth;
-      const scrollWidth = frameList.scrollWidth;
 
-      console.log('updateNavButtons:', {
-        scrollLeft,
-        itemCount,
-        totalWidth,
-        clientWidth,
-        scrollWidth,
-        disabled: totalWidth <= clientWidth
-      });
-
-      if (totalWidth <= clientWidth) {
+      if (totalWidth <= clientWidth && !moreToLoad) {
         prevBtn.disabled = true;
         nextBtn.disabled = true;
       } else {
         prevBtn.disabled = scrollLeft <= 0;
-        nextBtn.disabled = scrollLeft >= totalWidth - clientWidth;
+        // 还有更多可加载时保持next按钮可用
+        nextBtn.disabled = (scrollLeft >= totalWidth - clientWidth) && !moreToLoad;
       }
     },
 
@@ -17880,12 +18260,18 @@ window.textTemplateManager = {
         const minutes = now.getMinutes().toString().padStart(2, '0');
         const seconds = now.getSeconds().toString().padStart(2, '0');
         const timeStr = `${hours}:${minutes}:${seconds}`;
-        
+
+        const currentMonth = now.getMonth() + 1;
+        const currentDay = now.getDate();
+        const currentWeekday = getWeekdayChinese(now.getDay());
+
         if (todayDateInTitle) {
-          const currentMonth = now.getMonth() + 1;
-          const currentDay = now.getDate();
-          const currentWeekday = getWeekdayChinese(now.getDay());
           todayDateInTitle.innerHTML = ` <strong>${currentMonth}月${currentDay}日 ${currentWeekday}</strong> <i>${timeStr}</i>`;
+        }
+
+        const homePopupTitle = document.getElementById('homePopupTitle');
+        if (homePopupTitle) {
+          homePopupTitle.textContent = `闪喵海报~${currentMonth}月${currentDay}日海报制作提醒`;
         }
       }
       
@@ -17901,14 +18287,14 @@ window.textTemplateManager = {
         html = `
           <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、马上制作${todayFestival}海报，并分享到朋友圈：</span>
+            <span class="task-prefix">1、今日是${todayFestival}，马上制作海报并分享至朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
               <span>挑选${todayFestival}模板</span>
             </button></div>
             </div>
             
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、制作品牌日常海报并分享至朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -17933,7 +18319,7 @@ window.textTemplateManager = {
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">3、马上制作品牌日常海报，并分享到朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn" data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>
@@ -17952,7 +18338,7 @@ window.textTemplateManager = {
             </button></div>
             </div>
             <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、制作品牌日常海报并分享至朋友圈：</span>
             <div class="button-wrapper"><button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
             <span>📷️ 日常记录海报</span>
             </button></div>

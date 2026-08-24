@@ -1,3 +1,20 @@
+// ============================================================
+//  闪喵海报 - 首页脚本
+// ------------------------------------------------------------
+//  © 2026 闪喵团队（PeaceLove Studio） 版权所有
+//
+//  本平台所有站内海报模板、画框、贴纸、插画素材均为原创设计，
+//  已申请版权登记保护，并嵌入不可见数字水印（含用户ID、
+//  下载时间、设备指纹等可追溯信息）。
+//
+//  未经授权擅自复制、修改、传播、下载、二次开发或商业盗用，
+//  将依据《中华人民共和国著作权法》追究法律责任，
+//  每张图片索赔标准为人民币 10,000 元，情节严重的上浮至 50,000 元。
+//
+//  对本文件进行逆向工程、代码破解、绕过防护机制的行为，
+//  均视为侵权预备行为，已记录可追溯信息，将依法追究。
+// ============================================================
+
 // 首页脚本
 
 // 节日日期数据（2026年和2027年）
@@ -1866,12 +1883,18 @@ function highlightFloatBtn(btn) {
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
       const timeStr = `${hours}:${minutes}:${seconds}`;
-      
+
+      const currentMonth = now.getMonth() + 1;
+      const currentDay = now.getDate();
+      const currentWeekday = getWeekdayChinese(now.getDay());
+
       if (todayDateInTitle) {
-        const currentMonth = now.getMonth() + 1;
-        const currentDay = now.getDate();
-        const currentWeekday = getWeekdayChinese(now.getDay());
         todayDateInTitle.innerHTML = ` <strong>${currentMonth}月${currentDay}日 ${currentWeekday}</strong> <i>${timeStr}</i>`;
+      }
+
+      const homePopupTitle = document.getElementById('homePopupTitle');
+      if (homePopupTitle) {
+        homePopupTitle.textContent = `闪喵海报~${currentMonth}月${currentDay}日海报制作提醒`;
       }
     }
     
@@ -1887,7 +1910,7 @@ function highlightFloatBtn(btn) {
       html = `
         <div class="today-release-text" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">1、马上制作${todayFestival}海报，并分享到朋友圈：</span>
+            <span class="task-prefix">1、今日是${todayFestival}，马上制作海报并分享至朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" data-action="festival" data-festival="${todayFestival}">
@@ -1895,7 +1918,7 @@ function highlightFloatBtn(btn) {
             </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、制作品牌日常海报并分享至朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
@@ -1926,10 +1949,10 @@ function highlightFloatBtn(btn) {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">3、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">3、制作品牌日常海报并分享至朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
-              <button class="home-popup-btn" id="dairyBtn" data-action="dairy">
+              <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">
           <span>📷️日常记录海报</span>
           </button></div>
           </div>
@@ -1949,7 +1972,7 @@ function highlightFloatBtn(btn) {
           </button></div>
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <span class="task-prefix">2、马上制作今日日常记录海报，并分享到朋友圈：</span>
+            <span class="task-prefix">2、制作品牌日常海报并分享至朋友圈：</span>
             <div class="button-wrapper">
               <div class="dark-overlay"></div>
               <button class="home-popup-btn" id="dairyBtn"  data-action="dairy">

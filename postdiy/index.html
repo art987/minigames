@@ -15,24 +15,82 @@
       if (e.touches.length > 1) { e.preventDefault(); }
     }, { passive: false });
     // 图片防护：禁用右键菜单、拖拽、选择、长按保存
+    // 检测目标及其祖先元素的背景图（兼容CSS类设置的background-image）
+    function hasBgImage(el) {
+      var node = el;
+      while (node && node.nodeType === 1) {
+        if (node.tagName === 'IMG') return true;
+        // 内联样式
+        if (node.style && node.style.backgroundImage && node.style.backgroundImage !== 'none') return true;
+        // 计算后样式（CSS类设置的背景图）
+        try {
+          var bg = getComputedStyle(node).backgroundImage;
+          if (bg && bg !== 'none') return true;
+        } catch (e) {}
+        node = node.parentElement;
+      }
+      return false;
+    }
     document.addEventListener('contextmenu', function(e) {
-      if (e.target.tagName === 'IMG' || e.target.style.backgroundImage) { e.preventDefault(); }
+      if (hasBgImage(e.target)) { e.preventDefault(); return false; }
     });
     document.addEventListener('dragstart', function(e) {
-      if (e.target.tagName === 'IMG') { e.preventDefault(); }
+      if (e.target.tagName === 'IMG') { e.preventDefault(); return false; }
     });
     document.addEventListener('selectstart', function(e) {
-      if (e.target.tagName === 'IMG') { e.preventDefault(); }
+      if (hasBgImage(e.target)) { e.preventDefault(); return false; }
     });
-    // 移动端长按图片拦截：通过contextmenu阻止，不用touchend preventDefault（会阻断click）
+    // 移动端长按拦截：通过contextmenu阻止长按弹出保存/分享菜单
     document.addEventListener('contextmenu', function(e) {
-      var t = e.target;
-      if (t.tagName === 'IMG' || (t.style && t.style.backgroundImage)) {
-        e.preventDefault();
-        return false;
-      }
+      if (hasBgImage(e.target)) { e.preventDefault(); return false; }
     });
+    // 批量给所有 img 添加 draggable=false 与 oncontextmenu=false 属性
+    function protectImgs() {
+      document.querySelectorAll('img').forEach(function(img) {
+        img.setAttribute('draggable', 'false');
+        img.setAttribute('oncontextmenu', 'return false');
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', protectImgs);
+    } else {
+      protectImgs();
+    }
+    // 动态插入的 img 也保护（MutationObserver）
+    var mo = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        m.addedNodes.forEach(function(n) {
+          if (n.nodeType !== 1) return;
+          if (n.tagName === 'IMG') {
+            n.setAttribute('draggable', 'false');
+            n.setAttribute('oncontextmenu', 'return false');
+          } else if (n.querySelectorAll) {
+            n.querySelectorAll('img').forEach(function(img) {
+              img.setAttribute('draggable', 'false');
+              img.setAttribute('oncontextmenu', 'return false');
+            });
+          }
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
   </script>
+  <!-- 全局CSS：禁止移动端长按弹窗（包括图片和任意元素） -->
+  <style>
+    * {
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      user-select: none !important;
+    }
+    input, textarea, [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+    }
+    img {
+      -webkit-user-drag: none !important;
+      pointer-events: auto;
+    }
+  </style>
   <!-- 登录状态清理（仅清除伪登录态，不跳转） -->
   <script>
     (function() {
@@ -424,7 +482,7 @@
     <div class="modal home-popup-modal">
       <div class="modal-header fixed-header">
         <h2 class="modal-title">
-          <span>闪喵海报~智能提醒</span>
+          <span id="homePopupTitle">闪喵海报~智能提醒</span>
         </h2>
         <button id="closeHomePopup" class="modal-close">
           <i class="fa fa-times"></i>

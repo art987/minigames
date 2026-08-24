@@ -14,6 +14,10 @@
 }
 
 /* 图片保护：禁止移动端长按弹出保存/分享菜单 */
+/* 全局规则：所有元素禁止长按弹窗（覆盖div背景图等场景） */
+* {
+  -webkit-touch-callout: none !important;
+}
 img {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -22,6 +26,8 @@ img {
   user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
+  /* 华为/Android原生浏览器：禁止长按图片识别 */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Ã¥â€¦Â¨Ã¥Â±â‚¬Ã¥ÂËœÃ©â€¡Â */
@@ -367,6 +373,7 @@ main {
 .type-tag.active {
   background: linear-gradient(135deg, #ffeaea, #ffffff);
     color: #cc180b;    
+        font-weight: 600;
     font-size: 14px;
     line-height: 20px;
     text-shadow: 1px 1px 0 #fff;
@@ -2472,6 +2479,7 @@ footer {
 #frameModal .modal-body{padding:5px 0px 5px}
 .modal.frame-select-modal {
   max-height: min(520px, 80vh);
+  min-height: auto;
   position: fixed;
   top: 26%;
   transform: translate(-50%, -50%);
@@ -2499,15 +2507,15 @@ footer {
 
 .modal.frame-select-modal .modal-close {
   position: absolute;
-  top: 3px;
-  right: -3px;
-  width: 35px;
-  height: 30px;
+  top: 2px;
+  right: 2px;
+  width: 24px;
+  height: 25px;
   /* background: rgb(236 62 53); */
   border: none;
   border-radius: 0  0 0 13px;
   color: #ff0000;
-  font-size: 40px;
+  font-size: 33px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -2516,6 +2524,54 @@ footer {
 
 .modal.frame-select-modal .modal-close:hover {
   background: rgb(236 63 53);
+}
+
+.frame-category-bar {
+  display: flex;
+  gap: 6px;
+  padding:13px 25px 1px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.frame-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.frame-category-tab {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.frame-category-tab:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.frame-category-tab.active {
+  background: linear-gradient(135deg, #ff4444, #be0000);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(255, 68, 68, 0.4);
+}
+
+.frame-empty-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 64px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
 }
 
 .frame-selection-container {
