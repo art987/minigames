@@ -1528,7 +1528,6 @@ const ThumbnailLoader = {
     document.addEventListener('contextmenu', function(e) {
       if (hasBgImage(e.target)) {
         e.preventDefault();
-        showProtectionMessage('图片已受保护');
         return false;
       }
     });
