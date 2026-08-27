@@ -431,14 +431,23 @@
         <!-- 中间透明触发区域（左右分区） -->
         <div id="templateTriggerArea" class="template-trigger-area">
           <div class="trigger-left" data-action="template">
-            <div class="trigger-hint">长按 更换模板</div>
+            <div class="trigger-hint">
+              <span class="hint-count">长按（2秒）</span>
+              <span class="hint-action">更换模板</span>
+            </div>
           </div>
           <div class="trigger-right">
             <div class="trigger-top" data-action="upload">
-              <div class="trigger-hint">长按 打开相册</div>
+              <div class="trigger-hint">
+                <span class="hint-count">长按（2秒）</span>
+                <span class="hint-action">打开相册</span>
+              </div>
             </div>
             <div class="trigger-bottom" data-action="camera">
-              <div class="trigger-hint">长按 拍照</div>
+              <div class="trigger-hint">
+                <span class="hint-count">长按（2秒）</span>
+                <span class="hint-action">拍照</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1399,7 +1408,53 @@
       let timer = null;
       let clickCount = 0;
       let longPressTimer = null;
-      const LONG_PRESS_DURATION = 500;
+      const LONG_PRESS_DURATION = 2000; // 长按2秒触发
+
+      // 提示文案配置
+      const TRIGGER_HINTS = {
+        template: '更换模板',
+        upload: '打开相册',
+        camera: '拍照'
+      };
+      const COUNTDOWN_SECONDS = 2;
+
+      // 获取提示中的倒计时元素
+      function getCountEl(el) {
+        return el ? el.querySelector('.hint-count') : null;
+      }
+
+      // 重置提示文案为默认（带2秒）
+      function resetHint(el) {
+        const countEl = getCountEl(el);
+        if (!countEl) return;
+        countEl.textContent = `长按（${COUNTDOWN_SECONDS}秒）`;
+      }
+
+      // 启动倒计时（更新括号内秒数）
+      function startCountdown(el) {
+        stopCountdown(el);
+        const countEl = getCountEl(el);
+        if (!countEl) return;
+        let remaining = COUNTDOWN_SECONDS;
+        countEl.textContent = `长按（${remaining}秒）`;
+        el._countdownInterval = setInterval(() => {
+          remaining--;
+          if (remaining >= 0) {
+            countEl.textContent = `长按（${remaining}秒）`;
+          }
+          if (remaining < 0) {
+            stopCountdown(el);
+          }
+        }, 1000);
+      }
+
+      // 停止倒计时
+      function stopCountdown(el) {
+        if (el && el._countdownInterval) {
+          clearInterval(el._countdownInterval);
+          el._countdownInterval = null;
+        }
+      }
 
       // 触发对应功能
       function triggerAction(el) {
@@ -1421,6 +1476,7 @@
         if (timer) clearTimeout(timer);
         currentShown = el;
         clickCount = 1;
+        resetHint(el); // 恢复默认文案
         el.classList.add('show');
         // 2秒后自动隐藏（如果没有第二次点击）
         timer = setTimeout(() => {
@@ -1438,12 +1494,19 @@
         clickCount = 0;
       }
 
-      // 清除长按定时器
+      // 清除长按定时器和倒计时
       function clearLongPress() {
         if (longPressTimer) {
           clearTimeout(longPressTimer);
           longPressTimer = null;
         }
+        // 停止所有触发区域的倒计时并恢复文案
+        [left, top, bottom].forEach(function(el) {
+          if (el) {
+            stopCountdown(el);
+            if (currentShown === el) resetHint(el);
+          }
+        });
       }
 
       // 桌面端：鼠标悬停 + 点击都能显示提示
@@ -1470,8 +1533,10 @@
           } else if (!currentShown) {
             // 第一次点击：显示
             show(element);
-            // 长按触发功能
+            // 启动倒计时并长按触发功能
+            startCountdown(element);
             longPressTimer = setTimeout(() => {
+              stopCountdown(element);
               hide(element);
               triggerAction(element);
               longPressTimer = null;
@@ -1519,8 +1584,10 @@
           } else if (!currentShown) {
             // 第一次点击：显示
             show(target);
-            // 长按触发功能
+            // 启动倒计时并长按触发功能
+            startCountdown(target);
             longPressTimer = setTimeout(() => {
+              stopCountdown(target);
               hide(target);
               triggerAction(target);
               longPressTimer = null;
