@@ -17,7 +17,7 @@ const MIME = {
 
 const server = http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  if (urlPath === '/') urlPath = '/time-tracker-prototype.html';
+  if (urlPath === '/') urlPath = '/index.html';
   const safePath = urlPath.replace(/^\//, '');
   const filePath = path.join(ROOT, safePath);
   const ext = path.extname(filePath).toLowerCase();
