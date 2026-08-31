@@ -73,7 +73,7 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 .event .ev-fill.over{background:linear-gradient(90deg, rgba(255,59,59,.32), rgba(255,59,59,.16));width:100%!important;}
 .event .ev-fill.warn{background:linear-gradient(90deg, rgba(255,59,59,.40), rgba(255,59,59,.20));animation:flashRed 1s ease-in-out infinite;width:100%!important;}
 @keyframes flashRed{0%,100%{opacity:1;}50%{opacity:.4;}}
-.event .ico{width:40px;height:40px;border-radius:10px;background:var(--panel2);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--line);z-index:1;}
+.event .ico{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.05);z-index:1;color:#fff!important;}
 .event .ico svg{width:22px;height:22px;}
 .event .body{flex:1;min-width:0;z-index:1;}
 .event .row1{display:flex;align-items:center;gap:7px;}
@@ -152,6 +152,13 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 .btn-fill:active,.btn-ghost:active,.btn-danger:active{transform:scale(.98);}
 .toast{position:fixed;left:50%;top:54px;transform:translateX(-50%);background:rgba(30,30,36,.96);border:1px solid var(--line);color:var(--ink);font-size:13px;padding:9px 16px;border-radius:20px;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;}
 .toast.show{opacity:1;}
+/* 提前完成祝贺弹窗 */
+.celebrate-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;}
+.celebrate-sheet{background:linear-gradient(135deg,rgba(0,227,150,.18),rgba(0,184,122,.08));border:1px solid rgba(0,227,150,.4);border-radius:18px;padding:28px 38px;text-align:center;animation:jellyIn .35s cubic-bezier(.68,-0.55,.27,1.55);box-shadow:0 12px 40px rgba(0,227,150,.25);}
+.celebrate-emoji{font-size:48px;margin-bottom:8px;animation:celebrateBounce 1s ease infinite;}
+@keyframes celebrateBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.celebrate-title{font-size:20px;font-weight:800;color:var(--accent);margin-bottom:6px;}
+.celebrate-sub{font-size:13px;color:var(--ink2);}
 /* 时间滑轮弹窗 */
 .picker-mask{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:120;display:none;align-items:center;justify-content:center;}
 .picker-mask.show{display:flex;}
@@ -227,6 +234,12 @@ body{min-height:100vh;padding-bottom:150px;padding-top:env(safe-area-inset-top);
 /* 主界面隐藏控制 */
 .main-view{display:block;}
 .main-view.hide{display:none;}
+.quote-box{margin:8px 18px 4px;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.quote-box .quote-text{font-size:13px;line-height:1.5;background:linear-gradient(90deg,#fff,#bcbcbc,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:quoteShine 6s linear infinite;}
+@keyframes quoteShine{0%{background-position:0% 0;}100%{background-position:200% 0;}}
+.quote-box .quote-refresh{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:var(--ink2);font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s;}
+.quote-box .quote-refresh:hover{background:rgba(0,227,150,.15);color:var(--accent);}
+.quote-box .quote-refresh.spin{transform:rotate(360deg);}
 .fab-review{position:fixed;right:16px;bottom:88px;z-index:60;width:54px;height:54px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--accent),#00b87a);color:#042b1c;font-size:22px;font-weight:800;box-shadow:0 8px 22px rgba(0,227,150,.35);display:flex;align-items:center;justify-content:center;}
 .fab-review:active{transform:scale(.95);}
 .back-btn{font-size:12px;border:1px solid var(--line);border-radius:14px;padding:4px 12px;background:transparent;color:var(--ink2);}

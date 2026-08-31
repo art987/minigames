@@ -45,6 +45,11 @@
   </div>
 </div>
 
+<div class="quote-box" id="quoteBox">
+  <span class="quote-text" id="quoteText">加载中…</span>
+  <button class="quote-refresh" id="quoteRefresh" title="换一句">↻</button>
+</div>
+
 <div class="main-view">
 
 <div class="section-title"><div class="section-left"><span id="timelineCount">今日时间流 · 0条记录</span><button class="sort-toggle" id="sortToggle" title="切换正序/倒序">⇅</button></div></div>
@@ -178,17 +183,46 @@
 <audio id="tickAudio" src="tick.mp3" loop preload="auto"></audio>
 <audio id="dingAudio" src="ding.mp3" preload="auto"></audio>
 <audio id="diAudio" src="di.mp3" preload="auto"></audio>
+<audio id="dingdingdongAudio" src="dingdingdong.mp3" preload="auto"></audio>
+<audio id="v2Audio" src="v2.mp3" preload="auto"></audio>
 <div class="toast" id="toast"></div>
+<div class="celebrate-mask" id="celebrateMask" style="display:none">
+  <div class="celebrate-sheet">
+    <div class="celebrate-emoji">🎉</div>
+    <div class="celebrate-title">提前完成！</div>
+    <div class="celebrate-sub" id="celebrateSub"></div>
+  </div>
+</div>
 <div class="brand-foot" id="brandFoot">TickLife · 嘀嗒人生 · 记录一切，包括空白</div>
 
 <script>
 const STORAGE_KEY="ticklife:v1";
-let data=load();if(!data.days)data.days={};let activeDay=todayKey();let timer=null;let rafId=null;let lastMsText="";let selectedIcon=null;let pendingEdit=null;
-let tickAudio=null;let dingAudio=null;let diAudio=null;
+let data=load();if(!data.days)data.days={};let activeDay=todayKey();let timer=null;let rafId=null;let lastMsText="";let selectedIcon=null;let pendingEdit=null;let timelineTickCounter=0;let lastOvertimeAlertMin=0;
+let tickAudio=null;let dingAudio=null;let diAudio=null;let dingdingdongAudio=null;let v2Audio=null;
 function playTick(){if(!tickAudio)tickAudio=$("#tickAudio");if(tickAudio){tickAudio.volume=0.6;tickAudio.play().catch(()=>{});}}
 function stopTickAudio(){if(!tickAudio)tickAudio=$("#tickAudio");if(tickAudio){tickAudio.pause();tickAudio.currentTime=0;}}
 function playDing(){if(!dingAudio)dingAudio=$("#dingAudio");if(dingAudio){dingAudio.currentTime=0;dingAudio.volume=0.8;dingAudio.play().catch(()=>{});}}
 function playDi(){if(!diAudio)diAudio=$("#diAudio");if(diAudio){diAudio.currentTime=0;diAudio.volume=0.5;diAudio.play().catch(()=>{});}}
+function playDingDingDong(){if(!dingdingdongAudio)dingdingdongAudio=$("#dingdingdongAudio");if(dingdingdongAudio){dingdingdongAudio.currentTime=0;dingdingdongAudio.volume=0.8;dingdingdongAudio.play().catch(()=>{});}}
+function playV2(){if(!v2Audio)v2Audio=$("#v2Audio");if(v2Audio){v2Audio.currentTime=0;v2Audio.volume=0.8;v2Audio.play().catch(()=>{});}}
+/* ===== 励志句子（100句不重复轮播，全部展示后清空重置） ===== */
+const QUOTES=["别等状态好了，开始本身就是状态。","你不是没时间，只是不愿面对开始。","先做五分钟，剩下的交给惯性。","想得越久，开始越难。","完美主义，是拖延最漂亮的借口。","今天不开始，明天依然会焦虑。","行动不会让你后悔，拖延会。","先完成，再完善。","小步前进，也胜过原地等待。","你缺的不是时间，而是第一个动作。","不要准备到万事俱备，先动起来。","最难的永远是第一分钟。","先打开它，事情就已经开始了。","做得不好没关系，不做才是真的失败。","拖延不会消灭任务，只会增加压力。","现在做一点，未来就少一点负担。","别和自己的情绪谈条件。","不想做，也可以先做一分钟。","先行动，动力往往随后出现。","你可以害怕，但不要停在原地。","把大任务切小，拖延就失去藏身处。","不需要做完，只需要开始。","今天的行动，是给明天的自己减负。","别追求一次做好，先让它发生。","你越逃避，它在脑海里越庞大。","开始之后，事情通常没那么可怕。","给自己一个五分钟的机会。","现在不做，稍后只会更不想做。","拖延十分钟，焦虑可能陪你一整天。","先做最简单的一步。","你的未来，不会替你完成今天的任务。","别把等待当成准备。","有些事情，做着做着就有答案了。","先交出60分，再慢慢靠近100分。","行动是治愈犹豫最好的药。","不必等灵感，先让双手工作。","想改变生活，就从今天的一件小事开始。","你不用跑起来，先迈出一步。","拖延的尽头通常不是轻松，而是截止日期。","先做一点，你会感谢现在的自己。","别让短暂的舒服，换来长久的焦虑。","越重要的事情，越值得马上开始。","你真正害怕的，往往只是开始。","不要用思考代替行动。","今天完成一点，比计划一百遍更有意义。","给任务设个开始时间，而不是等待心情。","你不需要有动力，先制造动力。","先动手，别继续脑补困难。","拖延只是在把压力推向未来。","现在的五分钟，可能改变今天。","别问“想不想做”，问“第一步是什么”。","把手机放下，把事情拿起来。","先完成一个动作，再决定要不要继续。","任何伟大的结果，都始于一个微小动作。","你可以慢，但不能一直停。","不开始，就永远没有进展。","别让犹豫偷走今天。","任务不会自己消失，时间却会。","先开始，效率会在过程中出现。","不要等待合适的时机，创造它。","拖延是在借未来的时间还今天的债。","做一点点，也是在向前走。","别害怕做错，害怕的是永远不做。","今天的困难，通常没有想象中那么大。","你不需要准备好，只需要愿意开始。","先把事情做出来，再考虑做漂亮。","别把十分钟的事情拖成一天。","开始之后，你会发现自己其实可以。","逃避很轻松，代价却很重。","现在行动，是结束焦虑最快的方法。","把“等会儿”换成“现在就做”。","别让明天成为今天的垃圾桶。","一次只处理一件事。","不要想着全部完成，只想着下一步。","你越早开始，越早获得自由。","先做最重要的，不要先做最舒服的。","拖延不是休息，真正的休息不会让你内疚。","今天偷走的时间，明天会加倍讨回来。","先行动十分钟，再决定是否继续。","别让一个小任务占据你的整个脑子。","事情越重要，越不能靠临时爆发。","你的目标需要行动，不需要更多幻想。","少想一点，多做一步。","把今天能做的，留在今天。","你不必战胜拖延，只需绕过它开始。","别等自律出现，用行动培养自律。","开始不是承诺完成，只是给自己一个机会。","做完再休息，比拖着更轻松。","你真正需要的不是鸡血，而是第一步。","时间不会催你，但截止日期会。","今天做一点，明天就轻松一点。","不要让“以后”成为最常用的词。","先完成今天，再担心明天。","每一次及时行动，都是对拖延的一次反击。","别把简单的事情复杂化，然后选择逃避。","你现在开始，已经比刚才更接近目标。","拖延不会让困难消失，只会让时间变少。","今天最好的自律，就是马上去做。","不要等到最后一刻，才证明自己能做到。","别再想了，就从现在开始。"];
+const QUOTE_KEY="ticklife:quote-shown";
+function loadShown(){try{return JSON.parse(localStorage.getItem(QUOTE_KEY))||[];}catch(e){return[];}}
+function saveShown(a){localStorage.setItem(QUOTE_KEY,JSON.stringify(a));}
+function pickQuote(manual){
+  let shown=loadShown();
+  if(shown.length>=QUOTES.length){shown=[];saveShown([]);}
+  const remain=[];
+  for(let i=0;i<QUOTES.length;i++){if(!shown.includes(i))remain.push(i);}
+  if(remain.length===0){shown=[];saveShown([]);for(let i=0;i<QUOTES.length;i++)remain.push(i);}
+  const idx=remain[Math.floor(Math.random()*remain.length)];
+  shown.push(idx);saveShown(shown);
+  const el=$("#quoteText");if(el)el.textContent=QUOTES[idx];
+  const btn=$("#quoteRefresh");if(btn&&manual){btn.classList.remove("spin");void btn.offsetWidth;btn.classList.add("spin");}
+}
+let quoteHourTs=Date.now();
+function tickQuoteHour(){const now=Date.now();if(now-quoteHourTs>=3600000){quoteHourTs=now;pickQuote(false);}}
 const $=s=>document.querySelector(s);const empty=s=>{const e=$(s);if(e)e.innerHTML="";return e;};
 function todayKey(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function load(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY));if(v&&typeof v==="object"&&v.days)return v;if(Array.isArray(v))return{days:{}};return{days:{}};}catch(e){return{days:{}};}}
@@ -397,14 +431,21 @@ function updateClock(){
     if(isRec && liveFill && timer && timer.estimate && timer.estimate>0){
       const dur=(Date.now()-timer.start);
       const progress=dur/timer.estimate;
-      if(progress>=1){liveFill.classList.add("warn");liveFill.style.width="100%";}
-      else{liveFill.classList.remove("warn");liveFill.style.width=((1-progress)*100)+"%";}
+      if(progress>=1){
+        liveFill.classList.add("warn");liveFill.style.width="100%";
+        const overtimeMs=dur-timer.estimate;
+        const overtimeMin=Math.floor(overtimeMs/60000);
+        if(overtimeMin>=5 && overtimeMin%5===0 && overtimeMin!==lastOvertimeAlertMin){
+          lastOvertimeAlertMin=overtimeMin;playDingDingDong();
+        }
+      }else{liveFill.classList.remove("warn");liveFill.style.width=((1-progress)*100)+"%";lastOvertimeAlertMin=0;}
     }
     // Throttled full timeline refresh (when new events added/removed)
     timelineTickCounter=(timelineTickCounter||0)+1;
     if(!isRec || timelineTickCounter%180===0){renderTimeline();}
     const totalElapsed=getDayElapsed(activeDay);
     $("#todayTotal").textContent=fmtTime(totalElapsed);
+    tickQuoteHour();
   }catch(e){console.error("updateClock error:",e);}
 }
 
@@ -412,7 +453,7 @@ function updateClock(){
 function startRecording(){
   const now=Date.now();const key=todayKey();if(key!==activeDay)activeDay=key;
   timer={dayKey:activeDay,id:"ev_"+now+"_"+Math.random().toString(36).slice(2,6),icon:null,iconName:null,note:null,estimate:null,start:now,end:null,duration:0};
-  pendingEdit=null;openSheet("开始记录 · 定个图标...");setMainUI();updateClock();playTick();
+  pendingEdit=null;openSheet("开始记录啦，你在做什么事呢？");setMainUI();updateClock();playTick();
 }
 function commitNewRecording(meta){
   if(!timer)return;
@@ -428,9 +469,27 @@ function commitNewRecording(meta){
 /* 点「新记录」：结束上一段（若有），立即开启新一段并开始计时，弹图标窗 */
 function newRecord(){
   const now=Date.now();
-  if(timer){const cur=timer;cur.end=now;cur.duration=now-cur.start;save();}
+  let earlyFinished=null;
+  if(timer){
+    const cur=timer;cur.end=now;cur.duration=now-cur.start;save();
+    if(cur.estimate && cur.estimate>0 && cur.duration<cur.estimate){earlyFinished=cur;}
+  }
+  lastOvertimeAlertMin=0;
   timer={dayKey:activeDay,id:"ev_"+now+"_"+Math.random().toString(36).slice(2,6),icon:null,iconName:null,note:null,estimate:null,start:now,end:null,duration:0};
-  pendingEdit=null;openSheet("新记录已开始 · 选个图标吧");setMainUI();renderTimeline();updateClock();
+  pendingEdit=null;setMainUI();renderTimeline();updateClock();
+  if(earlyFinished){
+    showCelebrate(earlyFinished);
+    setTimeout(()=>{$("#celebrateMask").style.display="none";openSheet("新记录已开始 · 选个图标吧");},3000);
+  }else{
+    openSheet("新记录已开始 · 选个图标吧");
+  }
+}
+function showCelebrate(ev){
+  const diff=ev.estimate-ev.duration;
+  const dm=Math.floor(diff/60000),ds=Math.floor((diff%60000)/1000);
+  $("#celebrateSub").textContent="比预估快了 "+(dm>0?dm+"分":"")+ds+"秒";
+  $("#celebrateMask").style.display="flex";
+  playV2();
 }
 function endDay(){if(!timer)return;const cur=timer;cur.end=Date.now();cur.duration=cur.end-cur.start;timer=null;save();stopTick();toast("已结束当天记录");setMainUI();renderTimeline();updateClock();}
 
@@ -739,6 +798,10 @@ $("#revNext").addEventListener("click",()=>{if($("#revNext").classList.contains(
 $("#revToday").addEventListener("click",()=>{review.offset=0;renderReview();});
 
 (function initTopbar(){renderTopbar();})();
+
+/* ===== 励志句子初始化 ===== */
+pickQuote(false);
+$("#quoteRefresh").addEventListener("click",()=>{playDi();pickQuote(true);});
 
 /* 修复历史孤立事件：end=null 的记录会被 new Date(null) 误显示为 08:00:00（UTC+8） */
 (function fixOrphans(){try{
