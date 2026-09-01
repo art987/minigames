@@ -9793,6 +9793,7 @@ var templates = {
     },
 
     // 自然模板 (ziran)
+
     {
       id: 'zaoan-2026-ziran-1',
       name: '自然早安',      image: 'images/zaoan/ziran/1.png',
@@ -9924,6 +9925,262 @@ var templates = {
     {
       id: 'zaoan-2026-ziran-17',
       name: '自然早安',      image: 'images/zaoan/ziran/17.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-18',
+      name: '自然早安',      image: 'images/zaoan/ziran/18.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-19',
+      name: '自然早安',      image: 'images/zaoan/ziran/19.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-20',
+      name: '自然早安',      image: 'images/zaoan/ziran/20.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-21',
+      name: '自然早安',      image: 'images/zaoan/ziran/21.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-22',
+      name: '自然早安',      image: 'images/zaoan/ziran/22.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-23',
+      name: '自然早安',      image: 'images/zaoan/ziran/23.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-24',
+      name: '自然早安',      image: 'images/zaoan/ziran/24.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-25',
+      name: '自然早安',      image: 'images/zaoan/ziran/25.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-26',
+      name: '自然早安',      image: 'images/zaoan/ziran/26.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-27',
+      name: '自然早安',      image: 'images/zaoan/ziran/27.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-28',
+      name: '自然早安',      image: 'images/zaoan/ziran/28.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-29',
+      name: '自然早安',      image: 'images/zaoan/ziran/29.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-30',
+      name: '自然早安',      image: 'images/zaoan/ziran/30.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-31',
+      name: '自然早安',      image: 'images/zaoan/ziran/31.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-32',
+      name: '自然早安',      image: 'images/zaoan/ziran/32.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-33',
+      name: '自然早安',      image: 'images/zaoan/ziran/33.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-34',
+      name: '自然早安',      image: 'images/zaoan/ziran/34.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-35',
+      name: '自然早安',      image: 'images/zaoan/ziran/35.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-36',
+      name: '自然早安',      image: 'images/zaoan/ziran/36.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-37',
+      name: '自然早安',      image: 'images/zaoan/ziran/37.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-38',
+      name: '自然早安',      image: 'images/zaoan/ziran/38.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-39',
+      name: '自然早安',      image: 'images/zaoan/ziran/39.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-40',
+      name: '自然早安',      image: 'images/zaoan/ziran/40.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-41',
+      name: '自然早安',      image: 'images/zaoan/ziran/41.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-42',
+      name: '自然早安',      image: 'images/zaoan/ziran/42.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-43',
+      name: '自然早安',      image: 'images/zaoan/ziran/43.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-44',
+      name: '自然早安',      image: 'images/zaoan/ziran/44.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-45',
+      name: '自然早安',      image: 'images/zaoan/ziran/45.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-46',
+      name: '自然早安',      image: 'images/zaoan/ziran/46.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-47',
+      name: '自然早安',      image: 'images/zaoan/ziran/47.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-48',
+      name: '自然早安',      image: 'images/zaoan/ziran/48.png',
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      festivals: ['早安'],
+      description: '自然早安主题海报模板',
+      type: '自然'
+    },
+    {
+      id: 'zaoan-2026-ziran-49',
+      name: '自然早安',      image: 'images/zaoan/ziran/49.png',
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       festivals: ['早安'],
       description: '自然早安主题海报模板',

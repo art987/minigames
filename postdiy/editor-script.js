@@ -6899,6 +6899,25 @@ const ThumbnailLoader = {
     });
     var types = Array.from(typeSet);
 
+    // 应用排序配置（type-order-config.js）
+    if (window.TypeOrderConfig && window.TypeOrderConfig[festivalKey]) {
+      var orderConfig = window.TypeOrderConfig[festivalKey];
+      var orderedTypes = [];
+      // 先按配置顺序添加存在的类型
+      orderConfig.forEach(function(configType) {
+        if (types.indexOf(configType) !== -1) {
+          orderedTypes.push(configType);
+        }
+      });
+      // 再添加配置中未列出的类型（按原自然顺序）
+      types.forEach(function(t) {
+        if (orderedTypes.indexOf(t) === -1) {
+          orderedTypes.push(t);
+        }
+      });
+      types = orderedTypes;
+    }
+
     // 如果只有一种类型，不需要显示筛选条
     if (types.length <= 1) {
       typeTagsDiv.style.display = 'none';
