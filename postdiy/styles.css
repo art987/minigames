@@ -1775,6 +1775,39 @@ footer {
 
 /* VIP按钮样式 */
 #vipBtn span{ font-size: 16px;}
+
+/* VIP按钮轮替文字样式 */
+#vipBtn .vip-rotate-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+}
+#vipBtn .vip-rotate-text.large {
+  font-size: 16px;
+  font-weight: 700;
+}
+#vipBtn .vip-rotate-text.small {
+  font-size: 11px;
+  font-weight: 600;
+}
+/* 进入/退出动画 */
+#vipBtn .vip-rotate-text.animate-in {
+  animation: vipTextIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+#vipBtn .vip-rotate-text.animate-out {
+  animation: vipTextOut 0.3s ease-in both;
+}
+@keyframes vipTextIn {
+  0%   { opacity: 0; transform: translateY(8px) scale(0.7); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1.08); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes vipTextOut {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(0.7); }
+}
 .vip-btn {
   background: linear-gradient(135deg, #ff6f12 0%, #ffaa00 50%, #ff8c00 100%) !important;
   color: #fff !important;

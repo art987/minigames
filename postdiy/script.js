@@ -334,7 +334,7 @@ function navigateToEditor(templateId) {
   }
   
   // 正常跳转
-  window.location.href = './editor.html?templateId=' + templateId;
+  window.location.href = './editor.html?v=20260823a&templateId=' + templateId;
 }
 
 // 当前筛选条件

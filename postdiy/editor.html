@@ -432,20 +432,20 @@
         <div id="templateTriggerArea" class="template-trigger-area">
           <div class="trigger-left" data-action="template">
             <div class="trigger-hint">
-              <span class="hint-count">长按（2秒）</span>
+              <span class="hint-count">长按（1秒）</span>
               <span class="hint-action">更换模板</span>
             </div>
           </div>
           <div class="trigger-right">
             <div class="trigger-top" data-action="upload">
               <div class="trigger-hint">
-                <span class="hint-count">长按（2秒）</span>
+                <span class="hint-count">长按（1秒）</span>
                 <span class="hint-action">打开相册</span>
               </div>
             </div>
             <div class="trigger-bottom" data-action="camera">
               <div class="trigger-hint">
-                <span class="hint-count">长按（2秒）</span>
+                <span class="hint-count">长按（1秒）</span>
                 <span class="hint-action">拍照</span>
               </div>
             </div>
@@ -508,7 +508,7 @@
       <span>靠左</span>
     </button>
     <button id="vipBtn" class="action-btn vip-btn">
-      <span>VIP</span>
+      <div class="vip-rotate-text large animate-in">VIP</div>
     </button>
     <button id="toggleMenuBtn" class="action-btn toggle-menu-btn">
       <span>隐藏</span>
@@ -1409,7 +1409,7 @@
       let timer = null;
       let clickCount = 0;
       let longPressTimer = null;
-      const LONG_PRESS_DURATION = 2000; // 长按2秒触发
+      const LONG_PRESS_DURATION = 1000; // 长按1秒触发
 
       // 提示文案配置
       const TRIGGER_HINTS = {

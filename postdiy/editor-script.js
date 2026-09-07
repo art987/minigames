@@ -4577,7 +4577,73 @@ const ThumbnailLoader = {
     if (elements.togglePositionBtn) {
       elements.togglePositionBtn.addEventListener('click', toggleActionsPosition);
     }
-    
+
+    // VIP按钮文字轮替效果
+    (function setupVipBtnRotate() {
+      var btn = document.getElementById('vipBtn');
+      if (!btn) return;
+      // 三条文案：VIP大字单行，其它两行小字
+      var texts = [
+        { mode: 'large', content: 'VIP' },
+        { mode: 'small', content: '不限次数' },
+        { mode: 'small', content: '任意下载' }
+      ];
+      var idx = 0;
+      var rotating = false;
+      function render(item) {
+        // 清空原内容
+        btn.innerHTML = '';
+        var div = document.createElement('div');
+        div.className = 'vip-rotate-text ' + item.mode + ' animate-in';
+        div.textContent = item.content;
+        btn.appendChild(div);
+      }
+      function next() {
+        if (rotating) return;
+        rotating = true;
+        var cur = btn.querySelector('.vip-rotate-text');
+        if (cur) {
+          cur.classList.remove('animate-in');
+          cur.classList.add('animate-out');
+          setTimeout(function() {
+            idx = (idx + 1) % texts.length;
+            render(texts[idx]);
+            setTimeout(function() { rotating = false; }, 450);
+          }, 300);
+        } else {
+          idx = (idx + 1) % texts.length;
+          render(texts[idx]);
+          setTimeout(function() { rotating = false; }, 450);
+        }
+      }
+      // 每2.5秒轮替一次（检测到已开通VIP则停止轮替）
+      function checkVipActive() {
+        if (typeof window.isVipActive === 'function' && window.isVipActive()) return true;
+        if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip && VIPSystem.isVip()) return true;
+        // 检查用户信息DOM是否已显示VIP
+        var typeEl = document.getElementById('userInfoType');
+        if (typeEl && /VIP|闪喵VIP/.test(typeEl.textContent)) return true;
+        return false;
+      }
+      var timer = setInterval(function() {
+        if (checkVipActive()) {
+          // 已是VIP，恢复显示VIP并停止轮替
+          clearInterval(timer);
+          var cur = btn.querySelector('.vip-rotate-text');
+          if (cur && (cur.textContent !== 'VIP' || !cur.classList.contains('large'))) {
+            cur.classList.remove('animate-in');
+            cur.classList.add('animate-out');
+            setTimeout(function() {
+              idx = 0;
+              render(texts[0]);
+            }, 300);
+          }
+          return;
+        }
+        next();
+      }, 2500);
+    })();
+
     // VIP按钮事件 - 显示VIP升级弹窗
     if (elements.vipBtn) {
       elements.vipBtn.addEventListener('click', function() {
@@ -18406,7 +18472,7 @@ window.textTemplateManager = {
             } else {
               // 如果模板数据还没加载，使用 URL 方式加载
               // 使用相对路径，兼容子目录部署
-              window.location.href = './editor.html?templateId=' + dairyTemplateId;
+              window.location.href = './editor.html?v=20260823a&templateId=' + dairyTemplateId;
             }
           }
         });
