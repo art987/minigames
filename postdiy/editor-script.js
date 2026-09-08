@@ -7601,6 +7601,9 @@ const ThumbnailLoader = {
     }
   }
 
+  // 标记当前是否为用户手动切换排序（避免 filterTemplatesByFestival 内部覆盖默认排序设置）
+  let _skipAutoSortSetup = false;
+
   // 切换模板排序模式
   function switchTemplateSortMode(mode) {
     state.templateSortMode = mode;
@@ -7616,6 +7619,8 @@ const ThumbnailLoader = {
       originalBtn?.classList.add('active');
     }
 
+    // 标记当前为用户手动切换排序，避免 filterTemplatesByFestival 内部覆盖
+    _skipAutoSortSetup = true;
     // 检查当前是否有节日标签选中
     const activeFestivalTag = document.querySelector('#modalFestivalTags .festival-tag.active');
     if (activeFestivalTag) {
@@ -7626,6 +7631,7 @@ const ThumbnailLoader = {
       // 无节日筛选时，重新填充所有模板网格
       fillTemplateGrid();
     }
+    _skipAutoSortSetup = false;
   }
 
   // 随机打乱数组（Fisher-Yates算法）
@@ -8032,6 +8038,16 @@ const ThumbnailLoader = {
   // 按节日筛选模板
   function filterTemplatesByFestival(festival) {
     if (!window.templates || !elements.templateGrid) return;
+
+    // 早安/晚安默认随机排序，其它节日默认顺序排序（用户手动切换排序时不覆盖）
+    if (!_skipAutoSortSetup) {
+      const defaultMode = (festival === '☀️ 早安' || festival === '🌙 晚安') ? 'random' : 'original';
+      state.templateSortMode = defaultMode;
+      const randomBtn = elements.templateRandomSortBtn;
+      const originalBtn = elements.templateOriginalSortBtn;
+      if (randomBtn) randomBtn.classList.toggle('active', defaultMode === 'random');
+      if (originalBtn) originalBtn.classList.toggle('active', defaultMode === 'original');
+    }
 
     // 清空现有内容
     elements.templateGrid.innerHTML = '';

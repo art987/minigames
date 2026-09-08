@@ -679,11 +679,13 @@ function updateFestivalTags() {
     festivalTag.dataset.festival = festival;
     
     festivalTag.addEventListener('click', function() {
-      // 每次点击节日标签默认随机排序
-      window.currentSortMode = 'random';
-
       // 切换节日选择
       const selectedFestival = this.dataset.festival;
+
+      // 早安/晚安默认随机排序，其它节日默认顺序排序
+      window.currentSortMode = (selectedFestival === '☀️ 早安' || selectedFestival === '🌙 晚安') ? 'random' : 'sequential';
+      // 同步浮动排序按钮的选中状态
+      updateCurrentSortBtn();
       
       // 如果点击的是当前选中的节日，则取消选择
       if (window.currentFilters.festival === selectedFestival) {
@@ -891,12 +893,18 @@ function autoSelectByDate() {
     if (result) {
       window.currentFilters.month = result.month;
       window.currentFilters.festival = result.festival;
-      
+
+      // 早安/晚安默认随机排序，其它节日默认顺序排序
+      const fest = result.festival || '';
+      window.currentSortMode = (fest === '☀️ 早安' || fest === '🌙 晚安') ? 'random' : 'sequential';
+      // 同步浮动排序按钮的选中状态
+      updateCurrentSortBtn();
+
       // 更新月份按钮状态
       const activeMonthButton = document.querySelector(`.month-btn[data-month="${result.month}"]`);
       if (activeMonthButton) {
         activeMonthButton.classList.add('active');
-        
+
         // 确保自动选中的月份居中显示，特别是对于靠后月份如10月
         setTimeout(() => {
           scrollMonthToCenter(activeMonthButton);
@@ -998,22 +1006,53 @@ function applyFilters() {
 // 加载模板
 function loadTemplates() {
   showLoading(true);
-  
+
   // 使用requestAnimationFrame代替setTimeout，减少不必要的延迟
   requestAnimationFrame(() => {
     try {
       // 更新节日标签
       updateFestivalTags();
-      
-      // 直接应用筛选条件，只加载当前节日匹配的模板
-      applyFilters();
+
+      // 等待模板数据就绪后再应用筛选（templates.js 为动态脚本异步加载，
+      // 慢网速下可能晚于 DOMContentLoaded，否则会出现"定位到节日但列表无模板"）
+      // 注意：loading 状态由 applyFilters 内部管理，这里不在 finally 中关闭
+      waitForTemplates().then(() => {
+        applyFilters();
+      }).catch(() => {
+        showToast('加载模板失败，请刷新页面重试', 'error');
+        handleEmptyState();
+        showLoading(false);
+      });
     } catch (error) {
       console.error('加载模板失败:', error);
       showToast('加载模板失败，请刷新页面重试', 'error');
       handleEmptyState();
-    } finally {
       showLoading(false);
     }
+  });
+}
+
+// 等待 window.templates 就绪（templates.js 动态脚本可能晚于 DOMContentLoaded 加载完成）
+function waitForTemplates() {
+  return new Promise((resolve) => {
+    if (window.templatesDataLoaded && window.templates) {
+      resolve();
+      return;
+    }
+    let waited = 0;
+    const interval = 50;
+    const maxWait = 10000; // 最多等待 10 秒
+    const timer = setInterval(() => {
+      waited += interval;
+      if (window.templatesDataLoaded && window.templates) {
+        clearInterval(timer);
+        resolve();
+      } else if (waited >= maxWait) {
+        clearInterval(timer);
+        console.warn('[loadTemplates] 等待模板数据超时');
+        resolve();
+      }
+    }, interval);
   });
 }
 
@@ -1331,22 +1370,29 @@ function createDailyRecordButton() {
     window.currentSortMode = 'sequential';
     const sorted = sortTemplatesByMode(window.currentFilteredTemplates);
     renderTemplates(sorted);
-    highlightFloatBtn(sortSeqBtn);
+    setCurrentSortBtn(sortSeqBtn);
   });
 
   // 2. 随机排序按钮
   const sortRandBtn = document.createElement('button');
   sortRandBtn.className = 'home-float-icon-btn';
   sortRandBtn.id = 'sortRandomBtn';
-  sortRandBtn.title = '随机排序';
-  sortRandBtn.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>`;
+  sortRandBtn.title = '随机排序（可再次点击刷新）';
+  sortRandBtn.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg><svg class="refresh-hint" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>`;
   sortRandBtn.addEventListener('click', function() {
     if (!window.currentFilteredTemplates || window.currentFilteredTemplates.length === 0) return;
     window.currentSortMode = 'random';
     const shuffled = sortTemplatesByMode(window.currentFilteredTemplates);
     renderTemplates(shuffled);
-    highlightFloatBtn(sortRandBtn);
+    setCurrentSortBtn(sortRandBtn);
   });
+
+  // 根据当前排序模式设置默认active按钮
+  if (window.currentSortMode === 'sequential') {
+    setCurrentSortBtn(sortSeqBtn);
+  } else {
+    setCurrentSortBtn(sortRandBtn);
+  }
 
   // 3. 制作日常记录海报按钮（保留原 id 和样式）
   const dailyBtn = document.createElement('div');
@@ -1384,6 +1430,20 @@ function createDailyRecordButton() {
 function highlightFloatBtn(btn) {
   btn.classList.add('active');
   setTimeout(() => btn.classList.remove('active'), 300);
+}
+
+// 设置当前排序按钮的持久选中状态（与点击反馈区分）
+function setCurrentSortBtn(btn) {
+  const allSortBtns = document.querySelectorAll('.home-float-bar #sortSequentialBtn, .home-float-bar #sortRandomBtn');
+  allSortBtns.forEach(b => b.classList.remove('current-sort'));
+  if (btn) btn.classList.add('current-sort');
+}
+
+// 根据当前排序模式自动更新排序按钮的持久选中状态
+function updateCurrentSortBtn() {
+  const targetId = window.currentSortMode === 'sequential' ? 'sortSequentialBtn' : 'sortRandomBtn';
+  const targetBtn = document.getElementById(targetId);
+  if (targetBtn) setCurrentSortBtn(targetBtn);
 }
 
 // 首页弹窗功能
@@ -1869,7 +1929,11 @@ function highlightFloatBtn(btn) {
         
         // 直接应用节日筛选条件
         window.currentFilters.festival = festivalName;
-        
+
+        // 早安/晚安默认随机排序，其它节日默认顺序排序
+        window.currentSortMode = (festivalName === '☀️ 早安' || festivalName === '🌙 晚安') ? 'random' : 'sequential';
+        updateCurrentSortBtn();
+
         // 更新模板显示
         setTimeout(() => {
           applyFilters();

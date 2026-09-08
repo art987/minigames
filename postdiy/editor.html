@@ -624,9 +624,10 @@
 
           <!-- 排序切换按钮 -->
           <div class="template-sort-toggle">
-            <button id="templateRandomSortBtn" class="sort-toggle-btn active" title="随机排序">
+            <button id="templateRandomSortBtn" class="sort-toggle-btn active" title="随机排序（可再次点击刷新）">
               <i class="fa fa-random"></i>
               <span>随机</span>
+              <i class="fa fa-sync refresh-hint" title="可再次点击刷新"></i>
             </button>
             <button id="templateOriginalSortBtn" class="sort-toggle-btn" title="原始顺序">
               <i class="fa fa-sort-amount-asc"></i>
@@ -1417,7 +1418,7 @@
         upload: '打开相册',
         camera: '拍照'
       };
-      const COUNTDOWN_SECONDS = 2;
+      const COUNTDOWN_SECONDS = 1;
 
       // 获取提示中的倒计时元素
       function getCountEl(el) {

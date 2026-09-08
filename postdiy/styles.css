@@ -371,12 +371,12 @@ main {
   transform: scale(0.95);
 }
 .type-tag.active {
-  background: linear-gradient(135deg, #ffeaea, #ffffff);
-    color: #cc180b;    
+  background: linear-gradient(135deg, #d80000, #ffffff);
+    color: #fafafa;    
         font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    text-shadow: 1px 1px 0 #fff;
+    text-shadow: 1px 1px 0 #3a0101;
 }
 
 /* Ã¦â€”Â¶Ã©â€”Â´Ã¦ËœÂ¾Ã§Â¤ÂºÃ¥Å’ÂºÃ¥Å¸Å¸ */
@@ -9768,10 +9768,29 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 .sort-toggle-btn.active {
-  border-color: #ffffff7a;
+  border-color: #ffffff;
   color: #bd0a0a;
-  font-weight: 500;
+  font-weight: 600;
   text-shadow: 0 1px 2px #fff;
+  background: linear-gradient(135deg, #ffffff 0%, #ffe0e0 100%);
+  box-shadow: 0 2px 12px rgba(189, 10, 10, 0.35), inset 0 0 0 1px rgba(189, 10, 10, 0.25);
+}
+.sort-toggle-btn.active i {
+  color: #bd0a0a;
+}
+
+/* 随机按钮的"可再次点击刷新"提示图标 */
+.sort-toggle-btn .refresh-hint {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-left: 1px;
+  animation: refresh-hint-rotate 2.4s ease-in-out infinite;
+}
+@keyframes refresh-hint-rotate {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(200deg); }
+  50% { transform: rotate(200deg); }
+  60% { transform: rotate(360deg); }
 }
 
 .template-grid-view.hidden {
@@ -10981,7 +11000,7 @@ Shorthand property for setting most background properties at the same place in t
   background: linear-gradient(135deg, #f4ffff75 0%, #fed6e38c 100%);
     color: #060606;
     display: flex;
-    backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -10992,6 +11011,7 @@ Shorthand property for setting most background properties at the same place in t
   touch-action: manipulation;
   user-select: none;
   padding: 0;
+  position: relative;
 }
 
 /* 桌面端 hover 效果（移动端不触发） */
@@ -11006,6 +11026,36 @@ Shorthand property for setting most background properties at the same place in t
 .home-float-icon-btn.active {
   transform: translateY(0) scale(0.92);
   background: linear-gradient(135deg, #94d4d1 0%, #e6c1ce 100%);
+}
+
+/* 当前选中排序方式的持久标识（区别于点击反馈的 .active） */
+.home-float-icon-btn.current-sort {
+  background: linear-gradient(135deg, #5eb6b3 0%, #d68aa5 100%);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(94, 182, 179, 0.55), inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+.home-float-icon-btn.current-sort svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* 随机按钮右下角的"可再次点击刷新"角标 */
+.home-float-icon-btn .refresh-hint {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  padding: 4px;
+  box-sizing: border-box;
+  color: #060606;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+  animation: refresh-hint-rotate 2.4s ease-in-out infinite;
+}
+.home-float-icon-btn.current-sort .refresh-hint {
+  color: #bd0a0a;
 }
 
 /* VIP 升级按钮：金色渐变 */
