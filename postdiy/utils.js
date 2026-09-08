@@ -196,30 +196,61 @@ function autoSelectByDate() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const currentYear = today.getFullYear();
-  
-  const festivalDates = getAllFestivalDates();
-  
+
   let todayFestival = null;
   let nextFestival = null;
   let minDaysToNext = Infinity;
-  
-  festivalDates.forEach(festival => {
-    const festivalDate = festival.date;
-    
-    const timeDiff = festivalDate - today;
-    const daysUntil = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    
-    if (daysUntil === 0) {
-      todayFestival = festival;
-    } else if (daysUntil > 0 && daysUntil < minDaysToNext) {
-      minDaysToNext = daysUntil;
-      nextFestival = festival;
-    }
-  });
-  
+
+  // 优先使用 festival-dates.js / window.festivalDates 精确日期表定位
+  // （节气、农历节日每年日期不同，固定月日会误判"今天有节日"）
+  const preciseDates = (typeof window !== 'undefined' && window.festivalDates) ? window.festivalDates : null;
+  if (preciseDates) {
+    // 覆盖当前年、去年（节日本年已过）、明年（跨年未来节日）
+    const checkYears = [currentYear, currentYear + 1, currentYear - 1];
+    checkYears.forEach(year => {
+      const yearData = preciseDates[year];
+      if (!yearData) return;
+      Object.keys(yearData).forEach(festivalName => {
+        // 跳过早安/晚安等非具体日期分类
+        if (festivalName === '☀️ 早安' || festivalName === '🌙 晚安') return;
+        const dateStr = yearData[festivalName].split(' ')[0]; // 'YYYY-MM-DD'
+        const festivalDate = new Date(dateStr + 'T00:00:00');
+        if (isNaN(festivalDate.getTime())) return;
+        festivalDate.setHours(0, 0, 0, 0);
+
+        const timeDiff = festivalDate - today;
+        const daysUntil = Math.round(timeDiff / (1000 * 3600 * 24));
+
+        if (daysUntil === 0) {
+          if (!todayFestival) {
+            todayFestival = { name: festivalName, month: festivalDate.getMonth() + 1, day: festivalDate.getDate() };
+          }
+        } else if (daysUntil > 0 && daysUntil < minDaysToNext) {
+          minDaysToNext = daysUntil;
+          nextFestival = { name: festivalName, month: festivalDate.getMonth() + 1, day: festivalDate.getDate() };
+        }
+      });
+    });
+  }
+
+  // 精确表未覆盖当前年份时，fallback 到固定月日计算
+  if (!todayFestival && !nextFestival) {
+    const festivalDates = getAllFestivalDates();
+    festivalDates.forEach(festival => {
+      const timeDiff = festival.date - today;
+      const daysUntil = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      if (daysUntil === 0) {
+        todayFestival = festival;
+      } else if (daysUntil > 0 && daysUntil < minDaysToNext) {
+        minDaysToNext = daysUntil;
+        nextFestival = festival;
+      }
+    });
+  }
+
   let selectedFestival = null;
   let selectedMonth = null;
-  
+
   if (todayFestival) {
     selectedFestival = todayFestival.name;
     selectedMonth = todayFestival.month;
@@ -229,7 +260,7 @@ function autoSelectByDate() {
   } else {
     selectedMonth = getCurrentMonth();
   }
-  
+
   return {
     month: selectedMonth,
     festival: selectedFestival

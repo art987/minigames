@@ -213,7 +213,7 @@ window.solarTerms = {
     name: '白露',
     description: '天气转凉、露水出现',
     month: 9,
-    day: 8, // 通常在9月7-9日
+    day: 7, // 通常在9月7-8日，多数年份为9月7日交节
     format: 'solar'
   },
   '秋分': {
