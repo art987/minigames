@@ -239,12 +239,41 @@
             if (self._pendingRow && document.body.contains(self._pendingRow)) {
               var r = self._pendingRow.getBoundingClientRect();
               if (r.top <= arrowY && r.bottom >= arrowY) {
-                // 仍重叠 → 激活该行，移除旧的
-                if (self._activeSubRow && self._activeSubRow !== self._pendingRow) {
-                  self._activeSubRow.classList.remove('in-view');
-                }
-                self._activeSubRow = self._pendingRow;
+                // 仍重叠 → 激活该行
+                // 顺序很重要：先展开新行，再收起旧行
+                // 这样新行 header 位置先被自己展开的内容稳定住
+                var prevActive = self._activeSubRow;
                 self._pendingRow.classList.add('in-view');
+                self._activeSubRow = self._pendingRow;
+                if (prevActive && prevActive !== self._pendingRow) {
+                  prevActive.classList.remove('in-view');
+                }
+                // 旧行收起会让新行往上跳，用平滑滚动补偿，把新行 header 拉回箭头位置
+                // 等收起动画基本完成后再校正（动画 0.35s），用 easeOutCubic 缓动让过渡柔和
+                setTimeout(function() {
+                  if (!self._activeSubRow || !document.body.contains(self._activeSubRow)) return;
+                  var header = self._activeSubRow.querySelector('.chapter-sub-header');
+                  if (!header) return;
+                  var headerRect = header.getBoundingClientRect();
+                  var targetOffset = arrowY - (headerRect.top + headerRect.height / 2);
+                  if (Math.abs(targetOffset) <= 1) return;
+                  // 平滑滚动动画：400ms，easeOutCubic 缓动
+                  var startScroll = window.pageYOffset || document.documentElement.scrollTop;
+                  var distance = -targetOffset; // 反向补偿
+                  var duration = 1000;
+                  var startTime = null;
+                  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+                  function animateStep(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / duration, 1);
+                    var eased = easeOutCubic(progress);
+                    window.scrollTo(0, startScroll + distance * eased);
+                    if (progress < 1) {
+                      requestAnimationFrame(animateStep);
+                    }
+                  }
+                  requestAnimationFrame(animateStep);
+                }, 360);
               }
             }
             self._pendingRow = null;
