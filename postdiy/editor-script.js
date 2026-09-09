@@ -6080,6 +6080,22 @@ const ThumbnailLoader = {
     // 同时设置display确保兼容性
     elements.templateModal.style.display = 'flex';
 
+    // 重置滚动位置到顶部，确保用户每次打开都能看到模板导航菜单
+    // 在显示弹窗后执行，避免浏览器恢复之前的滚动位置
+    const scrollableBody1 = elements.templateModal.querySelector('.modal-body.scrollable-body');
+    if (scrollableBody1) {
+      scrollableBody1.scrollTop = 0;
+    }
+
+    // autoSelectDateInModal 内部有多层 setTimeout（最深约 350ms），
+    // 这些异步操作可能填充模板导致浏览器恢复滚动位置
+    // 用延迟重置兜底，确保所有异步完成后滚动位置仍在顶部
+    const _modalForReset = elements.templateModal;
+    setTimeout(() => {
+      const body = _modalForReset.querySelector('.modal-body.scrollable-body');
+      if (body) body.scrollTop = 0;
+    }, 400);
+
     // 强制重绘以触发动画
     void elements.templateModal.offsetWidth;
   }
@@ -6087,19 +6103,19 @@ const ThumbnailLoader = {
   // 打开模板弹窗并自动选择指定节日/类别
   window.openTemplateModalWithFestival = function(festivalName) {
     if (!elements.templateModal || !elements.templateGrid) return;
-    
+
     // 清空模板网格
     elements.templateGrid.innerHTML = '';
-    
+
     // 填充月份按钮
     fillMonthButtons();
-    
+
     // 填充节日标签
     fillFestivalTags();
-    
+
     // 填充模板网格
     fillTemplateGrid();
-    
+
     // 设置默认视图模式（平铺模式）
     switchTemplateViewMode(state.templateViewMode || 'grid');
     
@@ -6111,7 +6127,14 @@ const ThumbnailLoader = {
     elements.templateModal.classList.remove('hidden');
     // 同时设置display确保兼容性
     elements.templateModal.style.display = 'flex';
-    
+
+    // 重置滚动位置到顶部，确保用户每次打开都能看到模板导航菜单
+    // 在显示弹窗后执行，避免浏览器恢复之前的滚动位置
+    const scrollableBody = elements.templateModal.querySelector('.modal-body.scrollable-body');
+    if (scrollableBody) {
+      scrollableBody.scrollTop = 0;
+    }
+
     // 强制重绘以触发动画
     void elements.templateModal.offsetWidth;
     
@@ -6209,8 +6232,22 @@ const ThumbnailLoader = {
             }
           }
         }
+
+        // 重置垂直滚动位置到顶部，确保用户看到模板导航菜单
+        // 在所有筛选完成后执行，避免内容变化导致浏览器恢复滚动位置
+        const finalScrollableBody = elements.templateModal.querySelector('.modal-body.scrollable-body');
+        if (finalScrollableBody) {
+          finalScrollableBody.scrollTop = 0;
+        }
       }
     }, 100);
+
+    // 兜底重置：覆盖所有内部异步操作（如 filterTemplatesByMonth 触发的延迟）
+    const _modalForReset2 = elements.templateModal;
+    setTimeout(() => {
+      const body = _modalForReset2.querySelector('.modal-body.scrollable-body');
+      if (body) body.scrollTop = 0;
+    }, 400);
   }
   
   // 在模板弹窗中根据当前模板信息自动选择月份和节日
