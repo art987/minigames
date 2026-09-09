@@ -516,12 +516,12 @@
         var modalTitle = document.getElementById('modalTitle');
         var modalBody = document.getElementById('modalBody');
 
-        var title = subName + ' - ';
-        if (type === 'tips') title += '心得笔记';
-        else if (type === 'solutions') title += '指导方案';
-        else if (type === 'cases') title += '案例学习';
+        var title = '';
+        if (type === 'tips') title = '心得笔记';
+        else if (type === 'solutions') title = '指导方案';
+        else if (type === 'cases') title = '案例学习';
         modalTitle.textContent = title;
-        this.modalTitle = title;
+        this.modalTitle = subName;
 
         var html = '';
         if (type === 'tips') {
@@ -572,7 +572,7 @@
           }
         }
 
-        modalBody.innerHTML = html;
+        modalBody.innerHTML = '<h2 class="cd-detail-title">' + subName + '</h2>' + html;
         document.getElementById('modalFavBtn').style.display = 'none';
         document.getElementById('modalOpenBtn').style.display = 'none';
         document.querySelector('.detail-modal-footer').style.display = 'none';
@@ -1036,7 +1036,7 @@
         this.modalType = 'solution';
         this.modalId = id;
         this.modalTitle = sol.title;
-        document.getElementById('modalTitle').textContent = sol.title;
+        document.getElementById('modalTitle').textContent = '方案详情';
         this.renderSolutionModal(sol);
         this.updateFavState();
         document.getElementById('detailModal').classList.add('show');
@@ -1064,7 +1064,7 @@
         this.modalType = 'case';
         this.modalId = id;
         this.modalTitle = c.title;
-        document.getElementById('modalTitle').textContent = c.title;
+        document.getElementById('modalTitle').textContent = '案例详情';
         this.renderCaseModal(c);
         this.updateFavState();
         document.getElementById('detailModal').classList.add('show');
@@ -1103,8 +1103,13 @@
         this.modalType = prevState.modalType;
         this.modalId = prevState.modalId;
         this.modalTitle = prevState.modalTitle;
-        
-        document.getElementById('modalTitle').textContent = prevState.modalTitle;
+
+        // 顶部标题统一显示通用短标题，真实标题已在 body 内加粗显示
+        var shortTitle = '';
+        if (prevState.modalType === 'case') shortTitle = '案例详情';
+        else if (prevState.modalType === 'solution') shortTitle = '方案详情';
+        else if (prevState.modalType === 'subItems') shortTitle = prevState.modalTitle; // 列表页标题就是分类名
+        document.getElementById('modalTitle').textContent = shortTitle;
         document.getElementById('modalBody').innerHTML = prevState.modalContent;
         document.getElementById('modalFavBtn').style.display = prevState.showFavBtn;
         document.getElementById('modalOpenBtn').style.display = prevState.showOpenBtn;
@@ -1230,6 +1235,7 @@
         }
 
         body.innerHTML =
+          '<h2 class="cd-detail-title">' + sol.title + '</h2>' +
           '<section class="biz-section">' +
             '<div class="sd-overview">' +
               (sol.summary ? '<p class="sd-overview-desc">' + sol.summary + '</p>' : '') +
@@ -1304,6 +1310,8 @@
         }
 
         body.innerHTML =
+          '<h2 class="cd-detail-title">' + c.title + '</h2>' +
+          problemHtml +
           '<section class="biz-section">' +
             '<div class="cd-overview">' +
               '<div class="cd-effect-box">' +
@@ -1312,7 +1320,6 @@
               '</div>' +
             '</div>' +
           '</section>' +
-          problemHtml +
           solutionHtml +
           stepsHtml +
           kpHtml;

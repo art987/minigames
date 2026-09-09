@@ -1064,9 +1064,10 @@
   font-size: var(--biz-font-h3);
   font-weight: 200;
   padding: 0 8px 0 33px;
+  text-align: center;
   color: var(--biz-text-primary);
   width: 100%;
-  /* text-align: center; */
+  text-align: center;
 }
 .detail-modal-close {
   display: flex;
@@ -1092,6 +1093,17 @@
   padding: 16px;
   -webkit-overflow-scrolling: touch;
 }
+/* 弹窗内真实标题（替代原本挤在顶部 span 的长标题） */
+.detail-modal-body .cd-detail-title {
+  font-size: 20px;
+  font-weight: 700; text-align: center;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0 0 14px;
+  padding: 0 10px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  word-break: break-word;
+}
 .detail-modal-body .biz-section {
   margin-bottom: 16px;
 }
@@ -1108,7 +1120,7 @@
 }
 .detail-modal-fav-btn {
   flex-shrink: 0;
-  height: 48px;
+  height: 30px;
   padding: 0 64px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--biz-radius-md);
@@ -1132,7 +1144,7 @@
 }
 .detail-modal-btn {
   flex: 1;
-  height: 48px;
+  height: 30px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: var(--biz-radius-md);
   background: #fff;
@@ -1191,9 +1203,9 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
-  color: #999;
-  font-weight: 500;
+      font-size: 16px;
+    color: #2b2b2b;
+    font-weight: 500;
   margin-bottom: 6px;
 }
 .detail-modal-body .cd-effect-value {

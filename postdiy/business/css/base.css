@@ -64,8 +64,8 @@ input, select, textarea {
 }
 
 .biz-section-title {
-  font-size: var(--biz-font-h2);
-  font-weight: 600;
+  font-size: var(--biz-font-h3);
+  font-weight: 400;
   color: var(--biz-text-primary);
   margin-bottom: var(--biz-gap-md);
 }
