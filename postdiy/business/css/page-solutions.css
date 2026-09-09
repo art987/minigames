@@ -296,7 +296,7 @@
   background: #f0f0f0;
 }
 .chapter-sub-stat-label {
-  font-size: 16px;
+  font-size: 14px;
   color: #000;
   /* display: block; */
   margin-bottom: 2px;
@@ -327,7 +327,24 @@
   display: none;
 }
 
-/* ===== éšæœºæ¡ˆä¾‹å±•ç¤ºåŒºåŸŸ ===== */
+/* ===== 案例触发箭头指示器（左侧固定，指向右边，距顶20%） ===== */
+.case-trigger-arrow {
+  position: fixed;
+  left: 1px;
+  top: 20%;
+  transform: translateY(-50%);
+  width: 0;
+  border-radius: 15px;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 25px solid #d42020;
+  z-index: 100;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+}
+
+/* ===== éšæœºæ¡ˆä¾‹å±•ç¤ºåŒºåŸŸ ===== */
 .chapter-cases-random {
   max-height: 0;
   opacity: 0;
@@ -457,7 +474,7 @@
 }
 .chapter-case-title {
   flex: 1;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--biz-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;

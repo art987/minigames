@@ -163,13 +163,24 @@
         this.initCaseVisibility();
       },
 
-      // ===== 案例区域条件显示（视口20%-50%区域才显示） =====
+      // ===== 案例区域条件显示（红色箭头触发线 + 0.5秒停留） =====
       _caseVisRAF: null,
       _activeSubRow: null,
+      _pendingRow: null,       // 待激活行（与箭头重叠中，等待0.5秒确认）
+      _pendingTimer: null,     // 0.5秒停留确认计时器
 
       initCaseVisibility: function() {
         var self = this;
-        // 滚动时用 requestAnimationFrame 节流
+
+        // 创建固定红色箭头指示器（指向右边，位于左侧距顶20%）
+        if (!document.getElementById('caseTriggerArrow')) {
+          var arrow = document.createElement('div');
+          arrow.id = 'caseTriggerArrow';
+          arrow.className = 'case-trigger-arrow';
+          document.body.appendChild(arrow);
+        }
+
+        // 滚动时用 rAF 节流，检测哪个行与箭头重叠
         window.addEventListener('scroll', function() {
           if (self._caseVisRAF) return;
           self._caseVisRAF = requestAnimationFrame(function() {
@@ -191,42 +202,56 @@
 
       updateCaseVisibility: function() {
         var rows = document.querySelectorAll('.chapter-sub-row');
-        if (!rows.length) return;
+        var arrow = document.getElementById('caseTriggerArrow');
+        if (!rows.length) {
+          if (arrow) arrow.style.display = 'none';
+          return;
+        }
+        if (arrow) arrow.style.display = '';
 
-        var vh = window.innerHeight;
-        var topThreshold = vh * 0.15;  // 20%
-        var bottomThreshold = vh * 0.5; // 50%
-        var bestRow = null;
-        var bestDistance = Infinity;
+        // 箭头垂直中心 = 视口顶部 20% 处
+        var arrowY = window.innerHeight * 0.2;
 
+        // 找当前与箭头垂直位置重叠的行（行 top ≤ 箭头Y ≤ 行 bottom）
+        var overlappingRow = null;
         for (var i = 0; i < rows.length; i++) {
           var rect = rows[i].getBoundingClientRect();
-          var center = rect.top + rect.height / 2;
+          if (rect.top <= arrowY && rect.bottom >= arrowY) {
+            overlappingRow = rows[i];
+            break;
+          }
+        }
 
-          // 检查中心是否在 20%-50% 区间
-          if (center >= topThreshold && center <= bottomThreshold) {
-            // 选距离区间中心最近的
-            var zoneCenter = (topThreshold + bottomThreshold) / 2;
-            var dist = Math.abs(center - zoneCenter);
-            if (dist < bestDistance) {
-              bestDistance = dist;
-              bestRow = rows[i];
+        // 重叠的行已是激活行：取消任何待激活，无需操作
+        if (overlappingRow === this._activeSubRow) {
+          if (this._pendingTimer) { clearTimeout(this._pendingTimer); this._pendingTimer = null; }
+          this._pendingRow = null;
+          return;
+        }
+
+        // 有新的行开始与箭头重叠：启动 0.5 秒停留确认
+        if (overlappingRow && overlappingRow !== this._pendingRow) {
+          this._pendingRow = overlappingRow;
+          var self = this;
+          if (this._pendingTimer) clearTimeout(this._pendingTimer);
+          this._pendingTimer = setTimeout(function() {
+            // 0.5 秒后再次确认该行仍与箭头重叠
+            if (self._pendingRow && document.body.contains(self._pendingRow)) {
+              var r = self._pendingRow.getBoundingClientRect();
+              if (r.top <= arrowY && r.bottom >= arrowY) {
+                // 仍重叠 → 激活该行，移除旧的
+                if (self._activeSubRow && self._activeSubRow !== self._pendingRow) {
+                  self._activeSubRow.classList.remove('in-view');
+                }
+                self._activeSubRow = self._pendingRow;
+                self._pendingRow.classList.add('in-view');
+              }
             }
-          }
+            self._pendingRow = null;
+            self._pendingTimer = null;
+          }, 500);
         }
-
-        // 互斥：只显示一个行的案例区域
-        if (bestRow !== this._activeSubRow) {
-          // 移除旧的高亮
-          if (this._activeSubRow) {
-            this._activeSubRow.classList.remove('in-view');
-          }
-          // 设置新的高亮
-          if (bestRow) {
-            bestRow.classList.add('in-view');
-          }
-          this._activeSubRow = bestRow;
-        }
+        // 若当前无行与箭头重叠，保持现有激活状态不变
       },
 
       // 加载篇章数据
@@ -450,6 +475,8 @@
 
         // 重置案例可见性状态，重新检测
         this._activeSubRow = null;
+        if (this._pendingTimer) { clearTimeout(this._pendingTimer); this._pendingTimer = null; }
+        this._pendingRow = null;
         var self = this;
         setTimeout(function() { self.updateCaseVisibility(); }, 100);
       },
