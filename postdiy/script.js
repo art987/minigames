@@ -2124,21 +2124,9 @@ function updateCurrentSortBtn() {
   let isLoadingMore = false; // 防止重复加载
   
   function renderFutureSuggestion() {
-    const tomorrowFestival = getTomorrowFestival();
     const futureFestivals = getFutureFestivals(loadedFestivalCount);
     
     let html = '';
-    
-    html += '<div class="future-suggestion-item">';
-    html += '<div class="future-suggestion-text">明天：<span class="festival-date">提前制作明日早安和晚安海报</span></div>';
-    html += '<div class="future-suggestion-buttons">';
-    
-    if (!tomorrowFestival) {
-      html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="zaoan"><span>☀️挑选早安模板</span></button></div>`;
-    }
-    html += `<div class="button-wrapper" style="flex: 1; min-width: 200px;"><div class="dark-overlay"></div><button class="future-suggestion-btn" data-action="wanan"><span>🌙挑选晚安海报模板</span></button></div>`;
-    
-    html += '</div></div>';
     
     futureFestivals.forEach(festival => {
       let daysText = '';

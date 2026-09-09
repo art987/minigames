@@ -5034,6 +5034,142 @@ var templates = {
       type: '西方节日'
     },
     {
+      id: 'jiaoshi-2024-016',
+      name: '教师节师恩',      image: 'images/jiaoshi/16.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节师恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-017',
+      name: '教师节师魂',      image: 'images/jiaoshi/17.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节师魂主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-018',
+      name: '教师节师德',      image: 'images/jiaoshi/18.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节师德主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-019',
+      name: '教师节师风',      image: 'images/jiaoshi/19.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节师风主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-020',
+      name: '教师节耕耘',      image: 'images/jiaoshi/20.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节耕耘主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-021',
+      name: '教师节栽培',      image: 'images/jiaoshi/21.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节栽培主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-022',
+      name: '教师节育人',      image: 'images/jiaoshi/22.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节育人主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-023',
+      name: '教师节桃李',      image: 'images/jiaoshi/23.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节桃李主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-024',
+      name: '教师节园丁',      image: 'images/jiaoshi/24.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节园丁主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-025',
+      name: '教师节春雨',      image: 'images/jiaoshi/25.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节春雨主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-026',
+      name: '教师节春蚕',      image: 'images/jiaoshi/26.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节春蚕主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-027',
+      name: '教师节烛光',      image: 'images/jiaoshi/27.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节烛光主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-028',
+      name: '教师节薪火',      image: 'images/jiaoshi/28.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节薪火主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-029',
+      name: '教师节传承',      image: 'images/jiaoshi/29.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节传承主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-030',
+      name: '教师节致敬',      image: 'images/jiaoshi/30.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节致敬主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-031',
+      name: '教师节谢恩',      image: 'images/jiaoshi/31.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节谢恩主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'jiaoshi-2024-032',
+      name: '教师节颂扬',      image: 'images/jiaoshi/32.png',
+      months: [9],
+      festivals: ['教师节'],
+      description: '教师节颂扬主题海报模板',
+      type: '西方节日'
+    },
+    {
       id: 'bailu-2024-001',
       name: '白露节气',      image: 'images/bailu/1.png',
       months: [9],

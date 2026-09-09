@@ -18508,24 +18508,11 @@ window.textTemplateManager = {
       console.log('renderFutureSuggestion 被调用');
       console.log('window.festivalDates:', window.festivalDates);
       
-      const tomorrowFestival = getTomorrowFestival();
       const futureFestivals = getFutureFestivals(loadedFestivalCount);
       
-      console.log('tomorrowFestival:', tomorrowFestival);
       console.log('futureFestivals:', futureFestivals);
       
       let html = '';
-      
-      html += '<div class="future-suggestion-item">';
-      html += '<div class="future-suggestion-text">明天：<span class="festival-date">提前制作明日早安和晚安海报</span></div>';
-      html += '<div class="future-suggestion-buttons">';
-      
-      if (!tomorrowFestival) {
-        html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="zaoan"><span>☀ 挑选早安海报模板</span></button></div>`;
-      }
-      html += `<div class="button-wrapper"><button class="future-suggestion-btn" data-action="wanan"><span>☾ 挑选晚安海报模板</span></button></div>`;
-      
-      html += '</div></div>';
       
       if (futureFestivals && futureFestivals.length > 0) {
         futureFestivals.forEach(festival => {
