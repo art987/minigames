@@ -350,6 +350,7 @@
           <label>选项：</label>
           <label><input type="checkbox" id="dryRunCheck"> 预览模式（只看不上传）</label>
           <label><input type="checkbox" id="verboseCheck" checked> 详细输出</label>
+          <label><input type="checkbox" id="refreshCheck" checked> 覆盖后刷新CDN</label>
         </div>
       </div>
 
@@ -377,7 +378,7 @@
       </div>
 
       <div class="help-text" style="margin-top: 16px;">
-        💡 提示：双云同步会先上传到 R2，再上传到七牛云。同名文件会自动覆盖更新（基于文件大小检测）。
+        💡 提示：双云同步会先上传到 R2，再上传到七牛云。同名文件会自动覆盖更新（基于文件大小检测）。覆盖上传成功后会自动刷新七牛 CDN 缓存（原图 + -86thumb 衍生图），解决旧缩略图问题。
       </div>
     </div>
   </div>
@@ -389,6 +390,7 @@
     const dirInput = document.getElementById('dirInput');
     const dryRunCheck = document.getElementById('dryRunCheck');
     const verboseCheck = document.getElementById('verboseCheck');
+    const refreshCheck = document.getElementById('refreshCheck');
     const logBody = document.getElementById('logBody');
     const logCount = document.getElementById('logCount');
     const status = document.getElementById('status');
@@ -444,6 +446,7 @@
       const dir = dirInput.value.trim();
       const dryRun = dryRunCheck.checked;
       const verbose = verboseCheck.checked;
+      const refresh = refreshCheck.checked;
 
       isRunning = true;
       syncBtn.disabled = true;
@@ -470,6 +473,7 @@
       if (dir) params.set('dir', dir);
       if (dryRun) params.set('dryRun', 'true');
       if (verbose) params.set('verbose', 'true');
+      if (!refresh) params.set('noRefresh', 'true');
       if (selectedCloud !== 'both') params.set('cloud', selectedCloud);
 
       eventSource = new EventSource(`/sync?${params.toString()}`);

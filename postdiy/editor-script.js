@@ -5252,8 +5252,8 @@ const ThumbnailLoader = {
       } else if (window.imageConfig) {
         // 获取各类图片URL
         const thumbUrl = window.imageConfig.getThumbnailUrl(originalPath, true);
-        const cfUrl = window.imageConfig.cloudflareBaseUrl + originalPath;
-        const qiniuUrl = window.imageConfig.qiniuBaseUrl + originalPath;
+        const cfUrl = window.imageConfig._withVersion(window.imageConfig.cloudflareBaseUrl + originalPath);
+        const qiniuUrl = window.imageConfig._withVersion(window.imageConfig.qiniuBaseUrl + originalPath);
         
         elements.posterBackground.dataset.originalPath = originalPath;
         elements.posterBackground.dataset.thumbUrl = thumbUrl;

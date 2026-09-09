@@ -11,39 +11,61 @@ var imageConfig = {
   timeout: 3000,
   cfTimeout: 2000,             // Cloudflare 超时时间（毫秒），超时后回退七牛
 
+  // 图片版本号：仅在图片实际更新后修改（如 v1 → v2 → v3）
+  // 修改后所有图片 URL 会带新版本号，CDN 视为新 URL 强制回源，解决旧缩略图缓存问题
+  // 原图和衍生图（-86thumb）会同时带上版本号，二者缓存一并失效
+  imageVersion: 'v1',
+
+  // 给 URL 追加版本号（已有 query string 用 & 拼接，否则用 ?）
+  _withVersion: function(url) {
+    if (!this.imageVersion) return url;
+    return url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + this.imageVersion;
+  },
+
   getImageUrl: function(localPath) {
     const cloudflareUrl = this.cloudflareBaseUrl + localPath;
     const qiniuUrl = this.qiniuBaseUrl + localPath;
     const localUrl = this.localBaseUrl + localPath;
 
+    let result;
     switch (this.mode) {
       case 'cloudflare-only':
-        return cloudflareUrl;
+        result = cloudflareUrl;
+        break;
       case 'qiniu-only':
-        return qiniuUrl;
+        result = qiniuUrl;
+        break;
       case 'local-only':
-        return localUrl;
+        result = localUrl;
+        break;
       case 'qiniu-first':
         // 七牛已失败 → 用 R2；R2 也失败 → 保持七牛 URL（避免相对路径请求 GitHub Pages）
         if (this.qiniuFailedImages.has(qiniuUrl)) {
           if (this.failedImages.has(cloudflareUrl)) {
-            return this.localBaseUrl ? localUrl : qiniuUrl;
+            result = this.localBaseUrl ? localUrl : qiniuUrl;
+          } else {
+            result = cloudflareUrl;
           }
-          return cloudflareUrl;
+        } else {
+          result = qiniuUrl;
         }
-        return qiniuUrl;
+        break;
       case 'cloudflare-first':
       default:
         // R2 已失败 → 用七牛；七牛也失败 → 用本地（仅当配置了 localBaseUrl）；否则保持 R2
         if (this.failedImages.has(cloudflareUrl)) {
           if (this.qiniuFailedImages.has(qiniuUrl)) {
             // 两云都失败：仅当配置了 localBaseUrl 才回退本地，否则保持原 R2 URL（避免相对路径请求 GitHub Pages）
-            return this.localBaseUrl ? localUrl : cloudflareUrl;
+            result = this.localBaseUrl ? localUrl : cloudflareUrl;
+          } else {
+            result = qiniuUrl;
           }
-          return qiniuUrl;
+        } else {
+          result = cloudflareUrl;
         }
-        return cloudflareUrl;
+        break;
     }
+    return this._withVersion(result);
   },
 
   // 返回下一级回退 URL
@@ -52,29 +74,28 @@ var imageConfig = {
     const qiniuUrl = this.qiniuBaseUrl + localPath;
     const localUrl = this.localBaseUrl + localPath;
 
+    let result = null;
     if (this.mode === 'qiniu-first') {
       // 七牛 → R2 → 本地 → null
       if (!this.qiniuFailedImages.has(qiniuUrl)) {
         this.qiniuFailedImages.add(qiniuUrl);
-        return cloudflareUrl;
-      }
-      if (!this.failedImages.has(cloudflareUrl)) {
+        result = cloudflareUrl;
+      } else if (!this.failedImages.has(cloudflareUrl)) {
         this.failedImages.add(cloudflareUrl);
-        return this.localBaseUrl ? localUrl : null;
+        result = this.localBaseUrl ? localUrl : null;
       }
     }
     if (this.mode === 'cloudflare-first') {
       // R2 → 七牛 → 本地 → null
       if (!this.failedImages.has(cloudflareUrl)) {
         this.failedImages.add(cloudflareUrl);
-        return qiniuUrl;
-      }
-      if (!this.qiniuFailedImages.has(qiniuUrl)) {
+        result = qiniuUrl;
+      } else if (!this.qiniuFailedImages.has(qiniuUrl)) {
         this.qiniuFailedImages.add(qiniuUrl);
-        return this.localBaseUrl ? localUrl : null;
+        result = this.localBaseUrl ? localUrl : null;
       }
     }
-    return null;
+    return result ? this._withVersion(result) : null;
   },
 
   // 是否允许回退
@@ -83,6 +104,8 @@ var imageConfig = {
   },
 
   // 标记一个 URL 为失败（自动识别是 R2 还是七牛）
+  // 注意：调用方传入的 url 已带版本号，所以 Set 里的 key 也是带版本号的
+  // 版本号变更后旧 key 失效，等于自动重置失败标记（换图后失败标记本应重置）
   markFailed: function(url) {
     if (!url) return;
     if (url.indexOf(this.cloudflareBaseUrl) === 0) {
@@ -116,7 +139,7 @@ var imageConfig = {
   // 缩略图不走 Cloudflare，直接用七牛 CDN
   getThumbnailUrl: function(localPath, available) {
     const thumbnailPath = this.getThumbnailPath(localPath, available);
-    return this.qiniuBaseUrl + thumbnailPath;
+    return this._withVersion(this.qiniuBaseUrl + thumbnailPath);
   },
 
   handleImageError: function(img, localPath) {

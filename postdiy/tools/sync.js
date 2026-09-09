@@ -14,6 +14,7 @@ const opts = {
   dryRun: false,
   verbose: false,
   delete: false,
+  refresh: true,
 };
 
 for (let i = 0; i < passArgs.length; i++) {
@@ -26,6 +27,8 @@ for (let i = 0; i < passArgs.length; i++) {
     opts.verbose = true;
   } else if (passArgs[i] === '--delete') {
     opts.delete = true;
+  } else if (passArgs[i] === '--no-refresh') {
+    opts.refresh = false;
   }
 }
 
@@ -35,6 +38,7 @@ function buildArgs(script) {
   if (opts.dryRun) a.push('--dry-run');
   if (opts.verbose) a.push('--verbose');
   if (opts.delete) a.push('--delete');
+  if (!opts.refresh) a.push('--no-refresh');
   return a;
 }
 

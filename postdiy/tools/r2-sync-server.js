@@ -9,7 +9,7 @@ const server = http.createServer(app);
 app.use(express.static(path.join(__dirname)));
 
 app.get('/sync', (req, res) => {
-  const { dir, dryRun, verbose, cloud } = req.query;
+  const { dir, dryRun, verbose, cloud, noRefresh } = req.query;
 
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -18,6 +18,7 @@ app.get('/sync', (req, res) => {
   const args = [];
   if (dryRun === 'true') args.push('--dry-run');
   if (verbose === 'true') args.push('--verbose');
+  if (noRefresh === 'true') args.push('--no-refresh');
   if (dir) {
     args.push('--dir');
     args.push(dir);
