@@ -136,6 +136,8 @@ const PosterShare = (function() {
     }
 
     function getTemplateThumbUrl(template) {
+        // 闪喵推广海报使用本地图片
+        if (template.localThumb) return template.localThumb;
         // 缩略图始终使用七牛地址，更稳定
         const qiniuBase = (typeof imageConfig !== 'undefined' && imageConfig.qiniuBaseUrl)
             ? imageConfig.qiniuBaseUrl
@@ -491,9 +493,57 @@ const PosterShare = (function() {
                 container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
             });
             container.appendChild(tag);
+
+            // 在"🌙 晚安"标签后方插入"闪喵"标签，闪喵之后才接节气节日
+            if (festival === '🌙 晚安') {
+                var shanMiaoTag = document.createElement('div');
+                shanMiaoTag.className = 'ps-tpl-festival-tag';
+                shanMiaoTag.textContent = '闪喵';
+                shanMiaoTag.dataset.festival = '闪喵';
+                shanMiaoTag.addEventListener('click', function() {
+                    container.querySelectorAll('.ps-tpl-festival-tag').forEach(function(el) {
+                        el.classList.remove('active');
+                    });
+                    shanMiaoTag.classList.add('active');
+                    filterShanMiaoAd();
+                    var containerWidth = container.offsetWidth;
+                    var tagLeft = shanMiaoTag.offsetLeft;
+                    var tagWidth = shanMiaoTag.offsetWidth;
+                    var scrollTarget = tagLeft - (containerWidth - tagWidth) / 2;
+                    container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                });
+                container.appendChild(shanMiaoTag);
+            }
         });
 
         state.tplFestival = festivals[0];
+    }
+
+    // 闪喵推广海报
+    function filterShanMiaoAd() {
+        state.tplFestival = '闪喵';
+        var adTemplates = [];
+        for (var i = 1; i <= 5; i++) {
+            adTemplates.push({
+                name: '闪喵海报 ' + i,
+                localThumb: '../images/statics/about/ad/' + i + '.png',
+                image: '../images/statics/about/ad/' + i + '.png',
+                isAd: true
+            });
+        }
+        state.tplAllTemplates = adTemplates;
+
+        // 隐藏类型标签
+        var typeContainer = document.getElementById('psTplTypes');
+        if (typeContainer) {
+            typeContainer.style.display = 'none';
+            typeContainer.innerHTML = '';
+        }
+
+        state.tplType = '';
+        state.tplTemplates = adTemplates;
+        state.tplIndex = 0;
+        renderGallery();
     }
 
     function shuffleArray(array) {
@@ -770,11 +820,39 @@ const PosterShare = (function() {
         // 获取当前正在使用的模板
         const currentTemplate = state.templates[state.currentIndex];
         let targetFestival = getDisplayFestivals()[0];
+        const container = document.getElementById('psTplFestivals');
+
+        // 如果当前是闪喵推广海报，自动定位到闪喵标签
+        if (currentTemplate && currentTemplate.isAd) {
+            targetFestival = '闪喵';
+            if (container) {
+                const allTags = container.querySelectorAll('.ps-tpl-festival-tag');
+                allTags.forEach(function(t) { t.classList.remove('active'); });
+                for (var j = 0; j < allTags.length; j++) {
+                    if (allTags[j].dataset.festival === '闪喵') {
+                        allTags[j].classList.add('active');
+                        var tagEl = allTags[j];
+                        var containerWidth = container.offsetWidth;
+                        var tagLeft = tagEl.offsetLeft;
+                        var tagWidth = tagEl.offsetWidth;
+                        var scrollTarget = tagLeft - (containerWidth - tagWidth) / 2;
+                        container.scrollTo({ left: scrollTarget, behavior: 'instant' });
+                        break;
+                    }
+                }
+            }
+            filterShanMiaoAd();
+            const overlay = document.querySelector('.ps-tpl-overlay');
+            if (overlay) {
+                overlay.classList.remove('closing');
+                overlay.classList.add('active');
+            }
+            return;
+        }
 
         // 尝试从当前模板的节日属性中匹配标签
         if (currentTemplate && currentTemplate.festivals && currentTemplate.festivals.length > 0) {
             const templateFestivals = currentTemplate.festivals;
-            const container = document.getElementById('psTplFestivals');
             if (container) {
                 const allTags = container.querySelectorAll('.ps-tpl-festival-tag');
                 for (var i = 0; i < templateFestivals.length; i++) {
@@ -830,6 +908,16 @@ const PosterShare = (function() {
         const selected = state.tplTemplates[state.tplIndex];
         state.templates = state.tplTemplates;
         state.currentIndex = state.tplIndex;
+        // 非聚合页：每次更换模板统一使用自适应颜色，根据背景图自动选择
+        state.nameColorAuto = true;
+        var nameColorPicker = document.getElementById('psNameColorPicker');
+        if (nameColorPicker) {
+            nameColorPicker.querySelectorAll('.ps-name-color-dot').forEach(function(d) {
+                d.classList.remove('selected');
+            });
+            var autoDot = nameColorPicker.querySelector('[data-color="auto"]');
+            if (autoDot) autoDot.classList.add('selected');
+        }
         renderPoster(selected);
         closeTemplatePicker();
         showToast('已切换到：' + selected.name);
@@ -1011,12 +1099,12 @@ const PosterShare = (function() {
         if (state.templates.length > 0) {
             // 默认显示汇总缩略图瀑布流
             renderSummaryWaterfall();
-            // 汇总模式下重置为自适应模式
+            // 汇总模式下重置为自适应模式，默认黑色字体
             state.nameColorAuto = true;
             var posterName = document.getElementById('psPosterName');
             if (posterName) {
-                posterName.style.color = '#FFFFFF';
-                posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+                posterName.style.color = '#000000';
+                posterName.style.textShadow = '0 1px 3px rgba(255,255,255,0.5)';
             }
             // 清除颜色选择器的选中状态，标记自适应为选中
             var nameColorPicker = document.getElementById('psNameColorPicker');
@@ -1150,9 +1238,9 @@ const PosterShare = (function() {
                         if (bgEl && bgEl.complete && bgEl.naturalWidth > 0) {
                             autoPosterNameColor(bgEl);
                         } else {
-                            // 没有背景图时默认白色
-                            posterName.style.color = '#FFFFFF';
-                            posterName.style.textShadow = '0 1px 4px rgba(0,0,0,0.6)';
+                            // 没有背景图时默认黑色
+                            posterName.style.color = '#000000';
+                            posterName.style.textShadow = '0 1px 3px rgba(255,255,255,0.5)';
                         }
                     } else {
                         // 手动选色
