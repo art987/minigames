@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>闪喵海报 - 你的朋友圈海报准备好了吗</title>
+    <meta name="description" content="闪喵海报：节日海报一键生成，自定义品牌信息，助力中小商家朋友圈营销。">
+    <link rel="stylesheet" href="promo.css">
+    <link rel="stylesheet" href="promo-edit.css">
+</head>
+<body>
+    <!-- 背景光斑 -->
+    <div class="bg-orbs" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <span class="orb orb-4"></span>
+    </div>
+
+    <div class="page">
+        <!-- 第一版块：主标题 / 副标题 -->
+        <header class="hero">
+            <h1 class="hero-title">中秋节快到了</h1>
+            <p class="hero-subtitle">你的朋友圈海报准备好了吗</p>
+        </header>
+
+        <!-- 第二版块：应用展示 -->
+        <main class="showcase">
+            <!-- 左：手机模型 + 视频演示 -->
+            <div class="phone-wrap">
+                <div class="phone-glow" aria-hidden="true"></div>
+                <div class="phone">
+                    <span class="phone-notch" aria-hidden="true"></span>
+                    <div class="phone-screen">
+                        <!-- 视频未上传时默认展示官网页面（缩放 0.5，可直接操作页面内容）；视频上传/加载后由视频层覆盖 -->
+                        <iframe class="screen-site" src="https://peacelove.top/postdiy/" title="闪喵海报演示页面" loading="lazy"></iframe>
+                        <!--
+                            交互：点击右侧 App logo 上传本地视频预览；长按 logo 1 秒移除视频，还原嵌套网页
+                            视频文件就绪后，将下方 <source> 的 src 换成实际视频路径即可
+                            例如：<source src="promo-demo.mp4" type="video/mp4">
+                        -->
+                        <video class="screen-video" muted loop playsinline autoplay preload="metadata" webkit-playsinline>
+                            <source src="promo-demo.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右：应用信息 + 特点罗列 -->
+            <div class="app-info">
+                <div class="app-badge">
+                    <div class="app-logo">
+                        <img src="../images/statics/applogo2.png" alt="闪喵海报Applogo">
+                    </div>
+                    <h2 class="app-name">闪喵海报</h2>
+                </div>
+
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">自定义品牌信息</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">引流转化文案模板</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">传统节日海报模板</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">国际节日海报模板</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">24节气海报模板</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">早/晚安海报模板</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span class="feature-text">经营展示海报模板</span>
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <!-- 第三版块：口号 + 备案号 -->
+        <footer class="slogan-section">
+            <p class="slogan">把握每次宣传机会&nbsp;&nbsp;提升品牌认知与信任</p>
+            <a class="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">闽ICP备2022019423号-3A</a>
+        </footer>
+    </div>
+
+    <!-- 页面临时编辑功能（数据临时存于浏览器 localStorage） -->
+    <input type="file" id="editVideoInput" class="edit-video-input" accept="video/mp4,video/webm,video/ogg">
+    <div class="edit-modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+        <div class="edit-modal-mask" data-edit-close></div>
+        <div class="edit-modal-card">
+            <button type="button" class="edit-modal-close" data-edit-close aria-label="关闭">
+                <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <h3 class="edit-modal-title" id="editModalTitle">编辑文字</h3>
+            <label class="edit-field-label" for="editTextArea">文字内容</label>
+            <textarea id="editTextArea" class="edit-textarea" rows="3"></textarea>
+            <div class="edit-size-row">
+                <label class="edit-field-label" for="editSizeRange">字体大小</label>
+                <input type="range" id="editSizeRange" class="edit-size-range" min="14" max="72" step="1">
+                <span class="edit-size-value" id="editSizeValue">32px</span>
+            </div>
+            <div class="edit-actions">
+                <button type="button" class="edit-btn edit-btn-ghost" id="editResetBtn">恢复默认</button>
+                <button type="button" class="edit-btn edit-btn-ghost" id="editCancelBtn">取消</button>
+                <button type="button" class="edit-btn edit-btn-primary" id="editSaveBtn">保存</button>
+            </div>
+            <div class="edit-history" id="editHistoryWrap" hidden>
+                <p class="edit-history-title">历史编辑（点击填充到编辑框）</p>
+                <ul class="edit-history-list" id="editHistoryList"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="promo-edit.js"></script>
+</body>
+</html>

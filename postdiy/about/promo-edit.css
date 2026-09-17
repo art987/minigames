@@ -1,0 +1,267 @@
+/* ============ 可点击编辑的元素 ============ */
+.edit-target {
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .edit-target:hover {
+        outline: 2px dashed rgba(255, 107, 44, 0.45);
+        outline-offset: 8px;
+        border-radius: 10px;
+    }
+}
+
+/* 视频上传入口（隐藏的原生 file input） */
+.edit-video-input {
+    display: none;
+}
+
+/* ============ 编辑弹窗 ============ */
+.edit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.edit-modal.active {
+    display: flex;
+}
+
+.edit-modal-mask {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 10, 30, 0.38);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.edit-modal-card {
+    position: relative;
+    z-index: 1;
+    width: min(430px, 100%);
+    max-height: min(84vh, 640px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(29, 29, 31, 0.25);
+    padding: 24px 22px 20px;
+    animation: editPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes editPop {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.edit-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(29, 29, 31, 0.06);
+    color: #6e6e73;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.edit-modal-close:hover {
+    background: rgba(29, 29, 31, 0.12);
+    color: #1d1d1f;
+}
+
+.edit-modal-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+.edit-modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1d1d1f;
+    margin-bottom: 16px;
+}
+
+.edit-field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6e6e73;
+    margin-bottom: 8px;
+}
+
+.edit-textarea {
+    width: 100%;
+    min-height: 72px;
+    resize: vertical;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(29, 29, 31, 0.14);
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1d1d1f;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-textarea:focus {
+    border-color: #ff6b2c;
+    box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.15);
+}
+
+.edit-size-row {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-size-row .edit-field-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.edit-size-range {
+    flex: 1;
+    min-width: 0;
+    accent-color: #ff6b2c;
+}
+
+.edit-size-value {
+    min-width: 44px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ff6b2c;
+    font-variant-numeric: tabular-nums;
+}
+
+.edit-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.edit-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.edit-btn-ghost {
+    background: rgba(29, 29, 31, 0.06);
+    color: #3a3a3c;
+}
+
+.edit-btn-ghost:hover {
+    background: rgba(29, 29, 31, 0.12);
+}
+
+.edit-btn-primary {
+    background: linear-gradient(135deg, #ff9f0a, #ff375f);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(255, 55, 95, 0.3);
+}
+
+.edit-btn-primary:hover {
+    box-shadow: 0 8px 20px rgba(255, 55, 95, 0.4);
+}
+
+/* ============ 历史编辑 ============ */
+.edit-history {
+    margin-top: 18px;
+    border-top: 1px solid rgba(29, 29, 31, 0.08);
+    padding-top: 14px;
+}
+
+.edit-history-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6e6e73;
+    margin-bottom: 10px;
+}
+
+.edit-history-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 168px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.edit-history-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    border: none;
+    border-radius: 10px;
+    background: rgba(29, 29, 31, 0.045);
+    padding: 9px 12px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.edit-history-item:hover {
+    background: rgba(255, 107, 44, 0.1);
+}
+
+.edit-history-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    color: #1d1d1f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.edit-history-meta {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #8e8e93;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============ 减弱动态效果 ============ */
+@media (prefers-reduced-motion: reduce) {
+    .edit-modal-card {
+        animation: none;
+    }
+}
