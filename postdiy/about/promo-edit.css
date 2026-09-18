@@ -39,7 +39,7 @@
 .edit-modal-card {
     position: relative;
     z-index: 1;
-    width: min(430px, 100%);
+    width: min(430px, 95%);
     max-height: min(84vh, 640px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -108,7 +108,7 @@
 
 .edit-textarea {
     width: 100%;
-    min-height: 72px;
+    min-height: 40px;
     resize: vertical;
     padding: 10px 12px;
     border-radius: 12px;
@@ -195,7 +195,11 @@
 .edit-btn-primary:hover {
     box-shadow: 0 8px 20px rgba(255, 55, 95, 0.4);
 }
-
+.edit-btn-tpl {
+    background: linear-gradient(135deg, #ff5151, #a803a8);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(255, 55, 95, 0.3);
+}
 /* ============ 历史编辑 ============ */
 .edit-history {
     margin-top: 18px;
@@ -404,14 +408,19 @@
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-/* 颜色芯片（默认用斜纹表示"跟随源码"；其余由 JS 按数据动态注入背景色） */
-.color-chip-default { background: repeating-linear-gradient(45deg, #f2f2f7, #f2f2f7 4px, #e5e5ea 4px, #e5e5ea 8px); }
-
 /* ============ 自定义背景弹窗 ============ */
 .bg-fits {
     margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+/* 字体投影选项（主标题弹窗，复用 .bg-opt 按钮样式） */
+.shadow-opts {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
 }
 

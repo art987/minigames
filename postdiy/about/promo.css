@@ -130,6 +130,7 @@ body {
 .hero-title {
     font-size: clamp(34px, 8vw, 58px);
     font-weight: 800;
+    /* text-shadow: 2px 2px #fff5f599; */
     letter-spacing: 2px;
     background: linear-gradient(90deg, #ff6b2c, #ff375f, #bf5af2, #0a84ff, #ff6b2c);
     background-size: 300% 100%;
@@ -296,7 +297,9 @@ body {
 .app-info {
     width: 30%;
     min-width: 0;
+    align-self: flex-start; /* 内容从右侧区域顶部开始往下排列（而非随手机垂直居中） */
     display: flex;
+        padding-top: 2vh;
     flex-direction: column;
     align-items: center;
     animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
@@ -488,15 +491,15 @@ body {
 /* ============ 第三版块：口号 + 备案号 ============ */
 .slogan-section {
     text-align: center;
-    margin-top: clamp(52px, 8vh, 84px);
-    padding-bottom: 44px;
+    margin-top: clamp(16px, 2vh, 24px);
+    padding-bottom: 36px;
     animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2.1s both;
 }
 
 .slogan {
     font-size: clamp(20px, 4.8vw, 30px);
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     background: linear-gradient(90deg, #ff6b2c, #ff375f, #bf5af2, #ff6b2c);
     background-size: 250% 100%;
     -webkit-background-clip: text;
@@ -509,10 +512,10 @@ body {
 
 .icp {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 9px;
     font-size: 12px;
     letter-spacing: 1px;
-    color: #8e8e93;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.2s ease;
 }

@@ -101,6 +101,22 @@
     var snapshot = null; // 打开弹窗时的已保存状态，用于"取消"还原
     var pendingGrad = null; // 弹窗内临时选择的渐变方案（heroTitle 专用，null = 默认配色）
     var pendingColor = null; // 弹窗内临时选择的文字颜色（支持 color 的元素，null = 默认颜色）
+    var pendingShadow = null; // 弹窗内临时选择的投影方案（heroTitle 专用，null = 无投影）
+    // 投影用 filter: drop-shadow 而非 text-shadow —— text-shadow 在 background-clip:text 渐变字上会盖住渐变色
+    var SHADOW_PRESETS = [
+        { key: 'none', name: '无' },
+        { key: 'soft', name: '轻', css: 'drop-shadow(0 2px 5px rgba(0, 0, 0, 0.28))' },
+        { key: 'mid', name: '中', css: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38))' },
+        { key: 'heavy', name: '重', css: 'drop-shadow(0 7px 18px rgba(0, 0, 0, 0.5))' },
+        { key: 'glow', name: '光晕', css: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4))' }
+    ];
+
+    function shadowCssOf(key) {
+        for (var i = 0; i < SHADOW_PRESETS.length; i++) {
+            if (SHADOW_PRESETS[i].key === key) return SHADOW_PRESETS[i].css;
+        }
+        return null;
+    }
     var scrollLockTop = 0;
 
     // ---------- DOM ----------
@@ -203,7 +219,52 @@
         }
     }
 
+    // ---------- 字体投影选择（主标题专用） ----------
+    var shadowSection = document.getElementById('shadowSection');
+    var shadowOpts = document.getElementById('shadowOpts');
+
+    function applyShadowPreview(el, key) {
+        var css = shadowCssOf(key);
+        if (css) el.style.filter = css;
+        else el.style.removeProperty('filter');
+    }
+
+    function buildShadowOpts() {
+        if (!shadowOpts) return;
+        shadowOpts.innerHTML = '';
+        SHADOW_PRESETS.forEach(function (p) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'bg-opt';
+            btn.textContent = p.name;
+            btn.setAttribute('data-shadow', p.key);
+            shadowOpts.appendChild(btn);
+        });
+    }
+
+    function syncShadowSection(key) {
+        if (!shadowSection) return;
+        var isTitle = key === 'heroTitle';
+        shadowSection.hidden = !isTitle;
+        if (!isTitle || !shadowOpts) return;
+        var btns = shadowOpts.querySelectorAll('.bg-opt');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.toggle('active', btns[i].getAttribute('data-shadow') === (pendingShadow || 'none'));
+        }
+    }
+
+    buildShadowOpts();
+    shadowOpts.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('.bg-opt') : null;
+        if (!btn || !currentKey) return;
+        var val = btn.getAttribute('data-shadow');
+        pendingShadow = val === 'none' ? null : val;
+        applyShadowPreview(els[currentKey].el, pendingShadow); // 实时预览（需点"保存"才落库）
+        syncShadowSection(currentKey);
+    });
+
     // ---------- 文字颜色选择（副标题/口号/应用名称） ----------
+    var DEFAULT_TEXT_COLOR = '#000000'; // 未选择颜色时的默认字体颜色（黑色）
     var colorSection = document.getElementById('colorSection');
     var colorSwatches = document.getElementById('colorSwatches');
 
@@ -222,13 +283,7 @@
     function buildColorSwatches() {
         if (!colorSwatches) return;
         colorSwatches.innerHTML = '';
-        var def = document.createElement('button');
-        def.type = 'button';
-        def.className = 'color-swatch';
-        def.title = '默认（恢复源码颜色）';
-        def.setAttribute('data-color', '-1');
-        def.innerHTML = '<span class="color-chip color-chip-default"></span>';
-        colorSwatches.appendChild(def);
+        // 无"默认"芯片：默认即为白色字体（见 DEFAULT_TEXT_COLOR）
         COLORS.forEach(function (c, idx) {
             var btn = document.createElement('button');
             btn.type = 'button';
@@ -250,11 +305,10 @@
         var show = !!(item && item.cfg.color);
         colorSection.hidden = !show;
         if (!show || !colorSwatches) return;
+        var active = pendingColor || DEFAULT_TEXT_COLOR;
         var btns = colorSwatches.querySelectorAll('.color-swatch');
         for (var i = 0; i < btns.length; i++) {
-            var val = btns[i].getAttribute('data-color');
-            var isActive = val === '-1' ? pendingColor === null : pendingColor === val;
-            btns[i].classList.toggle('active', isActive);
+            btns[i].classList.toggle('active', btns[i].getAttribute('data-color') === active);
         }
     }
 
@@ -262,7 +316,7 @@
     colorSwatches.addEventListener('click', function (e) {
         var btn = e.target.closest ? e.target.closest('.color-swatch') : null;
         if (!btn || !currentKey) return;
-        pendingColor = btn.getAttribute('data-color') === '-1' ? null : btn.getAttribute('data-color');
+        pendingColor = btn.getAttribute('data-color');
         applyColorInline(els[currentKey].el, pendingColor); // 实时预览（需点"保存"才落库）
         syncColorSection(currentKey);
     });
@@ -282,13 +336,18 @@
         if (s && (s.grad === 'white' || s.grad === 'black')) {
             applyColorInline(el, s.grad === 'white' ? '#ffffff' : '#000000');
         } else {
-            applyColorInline(el, (s && typeof s.color === 'string' && s.color) ? s.color : null);
+            // 支持颜色配置的元素：未保存颜色时默认白色
+            var color = (s && typeof s.color === 'string' && s.color) ? s.color : (item.cfg.color ? DEFAULT_TEXT_COLOR : null);
+            applyColorInline(el, color);
             if (s && typeof s.grad === 'number' && GRADIENTS[s.grad]) {
                 el.style.backgroundImage = 'linear-gradient(135deg, ' + GRADIENTS[s.grad].colors.join(', ') + ')';
-            } else {
+            } else if (!color) {
                 el.style.removeProperty('background-image');
             }
         }
+        var shadowCss = s ? shadowCssOf(s.shadow) : null;
+        if (shadowCss) el.style.filter = shadowCss;
+        else el.style.removeProperty('filter');
     }
 
     // 启动时恢复上次保存的编辑
@@ -322,10 +381,12 @@
             text: saved.text,
             size: typeof saved.size === 'number' ? saved.size : null,
             grad: typeof saved.grad === 'number' ? saved.grad : null,
-            color: typeof saved.color === 'string' ? saved.color : null
+            color: typeof saved.color === 'string' ? saved.color : null,
+            shadow: shadowCssOf(saved.shadow) ? saved.shadow : null
         } : null;
         pendingGrad = (saved && (saved.grad === 'white' || saved.grad === 'black' || (typeof saved.grad === 'number' && GRADIENTS[saved.grad]))) ? saved.grad : null;
-        pendingColor = (saved && typeof saved.color === 'string' && saved.color) ? saved.color : null;
+        pendingColor = (saved && typeof saved.color === 'string' && saved.color) ? saved.color : (item.cfg.color ? DEFAULT_TEXT_COLOR : null);
+        pendingShadow = snapshot && snapshot.shadow ? snapshot.shadow : null;
 
         var cfg = item.cfg;
         modalTitle.textContent = '编辑' + cfg.label;
@@ -339,6 +400,7 @@
 
         syncGradSection(key);
         syncColorSection(key);
+        syncShadowSection(key);
         renderHistory(key);
         lockScroll();
         modal.classList.add('active');
@@ -352,6 +414,7 @@
         snapshot = null;
         pendingGrad = null;
         pendingColor = null;
+        pendingShadow = null;
     }
 
     function cancelEditor() {
@@ -422,8 +485,17 @@
                 if (typeof entry.color === 'string' && entry.color) {
                     pendingColor = entry.color;
                     applyColorInline(els[key].el, entry.color);
-                    syncColorSection(key);
+                } else if (els[key].cfg.color) {
+                    // 旧历史条目未带颜色：回填默认白色
+                    pendingColor = DEFAULT_TEXT_COLOR;
+                    applyColorInline(els[key].el, DEFAULT_TEXT_COLOR);
                 }
+                syncColorSection(key);
+                // 投影：历史条目未带投影则一并清除
+                var entryShadow = shadowCssOf(entry.shadow) ? entry.shadow : null;
+                pendingShadow = entryShadow;
+                applyShadowPreview(els[key].el, entryShadow);
+                syncShadowSection(key);
                 saveBtn.disabled = entry.text.trim().length === 0;
             });
             li.appendChild(btn);
@@ -442,6 +514,11 @@
         if (currentKey === 'heroTitle' && pendingGrad !== null) {
             state[currentKey].grad = pendingGrad;
         }
+        if (currentKey === 'heroTitle' && pendingShadow) {
+            state[currentKey].shadow = pendingShadow;
+        } else if (currentKey === 'heroTitle') {
+            delete state[currentKey].shadow;
+        }
         if (els[currentKey].cfg.color && pendingColor) {
             state[currentKey].color = pendingColor;
         }
@@ -449,15 +526,16 @@
         var last = list[0];
         var entryGrad = currentKey === 'heroTitle' && pendingGrad !== null ? pendingGrad : undefined;
         var entryColor = els[currentKey].cfg.color && pendingColor ? pendingColor : undefined;
+        var entryShadow = currentKey === 'heroTitle' && pendingShadow ? pendingShadow : undefined;
         if (!last || last.text !== text || last.size !== size) {
-            list.unshift({ text: text, size: size, grad: entryGrad, color: entryColor, time: Date.now() });
+            list.unshift({ text: text, size: size, grad: entryGrad, color: entryColor, shadow: entryShadow, time: Date.now() });
             if (list.length > HISTORY_MAX) list.length = HISTORY_MAX;
         }
         historyData[currentKey] = list;
         writeJSON(STATE_KEY, state);
         writeJSON(HISTORY_KEY, historyData);
 
-        snapshot = { text: text, size: size, grad: typeof entryGrad === 'number' ? entryGrad : null, color: typeof entryColor === 'string' ? entryColor : null };
+        snapshot = { text: text, size: size, grad: typeof entryGrad === 'number' ? entryGrad : null, color: typeof entryColor === 'string' ? entryColor : null, shadow: entryShadow || null };
         closeModal();
     });
 
@@ -479,8 +557,10 @@
         snapshot = null;
         pendingGrad = null;
         pendingColor = null;
+        pendingShadow = null;
         syncGradSection(currentKey);
         syncColorSection(currentKey);
+        syncShadowSection(currentKey);
         renderHistory(currentKey);
     });
 
@@ -831,10 +911,84 @@
         }
     }
 
+    // 将标签滚动到横向容器的水平居中位置（居中后前一个/后一个标签都可见）
+    function centerChipInRow(container, chip, smooth) {
+        if (!container || !chip || container.hidden) return;
+        var cRect = container.getBoundingClientRect();
+        var rRect = chip.getBoundingClientRect();
+        if (!cRect.width || !rRect.width) return;
+        var delta = (rRect.left + rRect.right) / 2 - (cRect.left + cRect.right) / 2;
+        var target = container.scrollLeft + delta;
+        if (target < 0) target = 0;
+        if (smooth) {
+            try { container.scrollTo({ left: target, behavior: 'smooth' }); return; } catch (e) { /* 旧 WebView 退化为瞬时滚动 */ }
+        }
+        container.scrollLeft = target;
+    }
+
+    // 标签顺序：早安、晚安置顶，其次 1-12 月，其余（如品牌日常）殿后
+    function tplMonthOrder() {
+        var keys = Object.keys(window.templates || {});
+        var head = ['早安', '晚安'].filter(function (k) { return keys.indexOf(k) >= 0; });
+        var months = keys.filter(function (k) { return /^\d+月$/.test(k); })
+            .sort(function (a, b) { return parseInt(a, 10) - parseInt(b, 10); });
+        var rest = keys.filter(function (k) { return head.indexOf(k) < 0 && !/^\d+月$/.test(k); });
+        return head.concat(months, rest);
+    }
+
+    // 早安/晚安/品牌日常等非月份分组按 type 分类筛选
+    function tplIsTypeGroup(m) { return !!m && !/^\d+月$/.test(m); }
+
+    // 节日日期表（2026 年）：智能定位用。农历/节气日期每年不同，跨年需更新此表；未收录节日回退到第一个标签
+    var FESTIVAL_DATES = {
+        '元旦': [2026, 1, 1], '小寒': [2026, 1, 5], '腊八节': [2026, 1, 27], '大寒': [2026, 1, 20],
+        '小年': [2026, 2, 10], '立春': [2026, 2, 4], '除夕': [2026, 2, 16], '春节': [2026, 2, 17],
+        '雨水': [2026, 2, 19], '元宵节': [2026, 3, 3], '元宵': [2026, 3, 3], '惊蛰': [2026, 3, 5],
+        '妇女节': [2026, 3, 8], '女生节': [2026, 3, 7], '植树节': [2026, 3, 12], '春分': [2026, 3, 20],
+        '清明节': [2026, 4, 5], '清明': [2026, 4, 5], '谷雨': [2026, 4, 20], '劳动节': [2026, 5, 1],
+        '青年节': [2026, 5, 4], '立夏': [2026, 5, 5], '母亲节': [2026, 5, 10], '小满': [2026, 5, 21],
+        '儿童节': [2026, 6, 1], '芒种': [2026, 6, 5], '端午节': [2026, 6, 19], '端午': [2026, 6, 19],
+        '夏至': [2026, 6, 21], '父亲节': [2026, 6, 21], '建党节': [2026, 7, 1], '小暑': [2026, 7, 7],
+        '大暑': [2026, 7, 23], '建军节': [2026, 8, 1], '立秋': [2026, 8, 7], '七夕': [2026, 8, 19],
+        '处暑': [2026, 8, 23], '教师节': [2026, 9, 10], '白露': [2026, 9, 7], '秋分': [2026, 9, 23],
+        '中秋节': [2026, 9, 25], '中秋': [2026, 9, 25], '国庆节': [2026, 10, 1], '寒露': [2026, 10, 8],
+        '重阳节': [2026, 10, 18], '重阳': [2026, 10, 18], '霜降': [2026, 10, 23], '万圣节': [2026, 10, 31],
+        '立冬': [2026, 11, 7], '双十一': [2026, 11, 11], '双11': [2026, 11, 11], '小雪': [2026, 11, 22],
+        '感恩节': [2026, 11, 26], '大雪': [2026, 12, 7], '冬至': [2026, 12, 21], '平安夜': [2026, 12, 24],
+        '圣诞节': [2026, 12, 25], '圣诞': [2026, 12, 25]
+    };
+
+    // 智能定位：当天是某节日则选它，否则选日期最近的节日（无日期数据的回退第一个）
+    function smartPickFestival(monthKey) {
+        var list = (window.templates || {})[monthKey] || [];
+        var fests = [];
+        list.forEach(function (t) {
+            (t.festivals || []).forEach(function (f) {
+                if (f && fests.indexOf(f) < 0) fests.push(f);
+            });
+        });
+        if (!fests.length) return null;
+        var now = new Date();
+        var todayTs = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+        var best = null, bestDiff = Infinity, hitToday = false;
+        fests.forEach(function (f) {
+            var d = FESTIVAL_DATES[f];
+            if (!d || d[0] !== now.getFullYear()) return;
+            var ts = new Date(d[0], d[1] - 1, d[2]).getTime();
+            var diff = Math.abs(ts - todayTs);
+            var isToday = diff === 0;
+            if (isToday && !hitToday) {
+                best = f; bestDiff = 0; hitToday = true;
+            } else if (!hitToday && diff < bestDiff) {
+                best = f; bestDiff = diff;
+            }
+        });
+        return best || fests[0];
+    }
+
     function renderTplMonths() {
         tplMonths.innerHTML = '';
-        var months = Object.keys(window.templates || {});
-        months.forEach(function (m) {
+        tplMonthOrder().forEach(function (m) {
             var chip = document.createElement('button');
             chip.type = 'button';
             chip.className = 'tpl-month-chip';
@@ -843,57 +997,62 @@
                 tplMonth = m;
                 tplFestival = null;
                 setActiveChip(tplMonths, '.tpl-month-chip', function (c) { return c.textContent === tplMonth; });
+                centerChipInRow(tplMonths, chip, true);
                 renderTplFestivals();
                 renderTplGrid();
             });
             tplMonths.appendChild(chip);
         });
-        if (!tplMonth) tplMonth = months[0] || null;
         setActiveChip(tplMonths, '.tpl-month-chip', function (c) { return c.textContent === tplMonth; });
+        centerChipInRow(tplMonths, tplMonths.querySelector('.tpl-month-chip.active'), true);
     }
 
     function renderTplFestivals() {
         tplFestivals.innerHTML = '';
+        var isType = tplIsTypeGroup(tplMonth);
         var list = (window.templates || {})[tplMonth] || [];
-        var fests = [];
-        list.forEach(function (t) {
-            (t.festivals || []).forEach(function (f) {
-                if (f && fests.indexOf(f) < 0) fests.push(f);
+        var tags = [];
+        if (isType) {
+            // 类型分组（早安/晚安等）：展示该组所有 type
+            list.forEach(function (t) {
+                if (t.type && tags.indexOf(t.type) < 0) tags.push(t.type);
             });
-        });
-        if (!fests.length) { tplFestivals.hidden = true; return; }
+        } else {
+            list.forEach(function (t) {
+                (t.festivals || []).forEach(function (f) {
+                    if (f && tags.indexOf(f) < 0) tags.push(f);
+                });
+            });
+        }
+        if (!tags.length) { tplFestivals.hidden = true; tplFestival = null; return; }
         tplFestivals.hidden = false;
-        // "全部" + 该月所有节日
-        var all = document.createElement('button');
-        all.type = 'button';
-        all.className = 'tpl-festival-chip';
-        all.textContent = '全部';
-        all.addEventListener('click', function () {
-            tplFestival = null;
-            setActiveChip(tplFestivals, '.tpl-festival-chip', function (c) { return tplFestival === null && c.textContent === '全部'; });
-            renderTplGrid();
-        });
-        tplFestivals.appendChild(all);
-        fests.forEach(function (f) {
+        // 默认定位：类型组停第一个；月份组智能定位（当天节日优先，其次最近，无数据则第一个）
+        if (!tplFestival || tags.indexOf(tplFestival) < 0) {
+            tplFestival = isType ? tags[0] : smartPickFestival(tplMonth);
+        }
+        tags.forEach(function (tag) {
             var chip = document.createElement('button');
             chip.type = 'button';
             chip.className = 'tpl-festival-chip';
-            chip.textContent = f;
+            chip.textContent = tag;
             chip.addEventListener('click', function () {
-                tplFestival = f;
+                tplFestival = tag;
                 setActiveChip(tplFestivals, '.tpl-festival-chip', function (c) { return c.textContent === tplFestival; });
+                centerChipInRow(tplFestivals, chip, true);
                 renderTplGrid();
             });
             tplFestivals.appendChild(chip);
         });
-        setActiveChip(tplFestivals, '.tpl-festival-chip', function (c) { return tplFestival === null && c.textContent === '全部'; });
+        setActiveChip(tplFestivals, '.tpl-festival-chip', function (c) { return c.textContent === tplFestival; });
+        centerChipInRow(tplFestivals, tplFestivals.querySelector('.tpl-festival-chip.active'), true);
     }
 
     function renderTplGrid() {
         var list = (window.templates || {})[tplMonth] || [];
+        var isType = tplIsTypeGroup(tplMonth);
         if (tplFestival) {
             list = list.filter(function (t) {
-                return (t.festivals || []).indexOf(tplFestival) >= 0;
+                return isType ? t.type === tplFestival : (t.festivals || []).indexOf(tplFestival) >= 0;
             });
         }
         tplGrid.innerHTML = '';
@@ -927,15 +1086,24 @@
         });
     }
 
+    // 每次打开图库：自动定位当前月份（非月份分组回退第一项），节日标签由 renderTplFestivals 智能定位
+    function smartLocateMonth() {
+        var now = new Date();
+        var key = (now.getMonth() + 1) + '月';
+        if (!(window.templates || {})[key]) key = tplMonthOrder()[0] || null;
+        tplMonth = key;
+        tplFestival = null;
+    }
+
     function openTplModal() {
         closeBgModal();
         lockScroll();
         tplModal.classList.add('active');
-        if (!tplMonth) {
-            tplGrid.innerHTML = '<p class="bg-tip">模板数据加载中...</p>';
-        }
+        tplGrid.innerHTML = '<p class="bg-tip">模板数据加载中...</p>';
         loadTplData(function () {
+            smartLocateMonth();
             if (!tplMonths.childNodes.length) renderTplMonths();
+            else setActiveChip(tplMonths, '.tpl-month-chip', function (c) { return c.textContent === tplMonth; });
             renderTplFestivals();
             renderTplGrid();
         });
