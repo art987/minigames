@@ -10,6 +10,17 @@ body {
     overflow-x: hidden;
 }
 
+/* 自定义背景图层（点击页面空白背景区域上传配置；负 inset 为虚化留出出血） */
+.custom-bg {
+    position: fixed;
+    inset: -40px;
+    z-index: 0;
+    pointer-events: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     color: #1d1d1f;
@@ -338,34 +349,45 @@ body {
     animation: gradientFlow 6s linear 1s infinite;
 }
 
-/* 特点罗列：逐个显示 */
+/* 特点罗列：逐个显示，内容左对齐 */
 .feature-list {
     list-style: none;
     margin-top: 18px;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: clamp(8px, 1.4vw, 12px);
     width: 100%;
+    text-align: left;
 }
 
 .feature-item {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: clamp(8px, 1.2vw, 12px);
-    padding: clamp(9px, 1.4vw, 12px) clamp(8px, 1.4vw, 16px);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.74);
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    justify-content: flex-start;
+    gap: 0;
+    padding: clamp(9px, 1.1vw, 12px) clamp(8px, 1.4vw, 16px);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.555);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 4px 16px rgba(31, 38, 135, 0.08);
     font-size: clamp(10px, 1.9vw, 15px);
-    font-weight: 500;
+    font-weight: 800;
+    text-shadow: 1px 1px 0px #fff;
     letter-spacing: 1px;
     color: #2c2c2e;
     opacity: 0;
     animation: itemIn 0.35s ease-out forwards;
 }
 
-/* 逐条节奏：先出文字（随卡片淡入），打勾稍后弹出，再进入下一条 */
+/* 入场结束后的常驻态（JS 在循环动画开始前移除入场动画的填充依赖） */
+.feature-item.is-revealed {
+    animation: none;
+    opacity: 1;
+    transform: none;
+}
+
 @keyframes itemIn {
     from {
         opacity: 0;
@@ -377,43 +399,69 @@ body {
     }
 }
 
-/* 文字最多 2 行，超出截断（配合响应式字号保证不超 2 行） */
-.feature-text {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
-    line-height: 1.4;
-    word-break: break-all;
-    min-width: 0;
+@keyframes pulseOnce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-/* 打勾：文字出现后弹出（带回弹） */
+/* 文字固定单行，超长由 JS 自动缩小字号（极小屏兜底省略号） */
+.feature-text {
+    position: relative;
+    z-index: 0;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+/* 打勾：批改作业风格——实色红勾悬于卡片右缘，仅在该条放大时弹出 */
 .feature-check {
-    flex-shrink: 0;
+    position: absolute;
+    top: 70%;
+    right: -7px;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: clamp(20px, 3.2vw, 28px);
-    height: clamp(20px, 3.2vw, 28px);
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6bcb77, #2fa84f);
-    color: #ffffff;
-    box-shadow: 0 3px 10px rgba(47, 168, 79, 0.4);
+    width: clamp(22px, 3.4vw, 30px);
+    height: clamp(22px, 3.4vw, 30px);
+    color: #ff3b30;
     opacity: 0;
-    transform: scale(0);
-    animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform: translateY(-50%) scale(0) rotate(-14deg);
+    pointer-events: none;
 }
 
-@keyframes checkPop {
-    from {
+/* 打勾仅在该条放大期间出现，随脉冲结束淡出 */
+.feature-item.is-pulse .feature-check {
+    animation: checkPulse 1.2s ease-in-out forwards;
+}
+
+/* 父级脉冲峰值 scale(2)，勾子级取 1.5 倍使净放大 = 2 × 1.5 = 原来的 3 倍 */
+@keyframes checkPulse {
+    0% {
         opacity: 0;
-        transform: scale(0);
+        transform: translateY(-50%) scale(0) rotate(-14deg);
     }
-    to {
+    40% {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(-50%) scale(1.5) rotate(-8deg);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.35) rotate(-8deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) scale(1.1) rotate(-10deg);
     }
 }
 
@@ -425,17 +473,16 @@ body {
 .feature-item:nth-child(6) { animation-delay: 3.35s; }
 .feature-item:nth-child(7) { animation-delay: 3.9s; }
 
-.feature-item:nth-child(1) .feature-check { animation-delay: 0.9s; }
-.feature-item:nth-child(2) .feature-check { animation-delay: 1.45s; }
-.feature-item:nth-child(3) .feature-check { animation-delay: 2s; }
-.feature-item:nth-child(4) .feature-check { animation-delay: 2.55s; }
-.feature-item:nth-child(5) .feature-check { animation-delay: 3.1s; }
-.feature-item:nth-child(6) .feature-check { animation-delay: 3.65s; }
-.feature-item:nth-child(7) .feature-check { animation-delay: 4.2s; }
-
 .feature-check svg {
-    width: 60%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
+}
+
+/* 循环放大需在延迟规则之后声明，避免 nth-child 延迟污染脉冲动画 */
+.feature-item.is-pulse {
+    animation: pulseOnce 1.2s ease-in-out 1;
+    animation-delay: 0s;
+    z-index: 10; /* 放大时盖住相邻卡片，不影响文档流位置 */
 }
 
 /* ============ 第三版块：口号 + 备案号 ============ */
@@ -504,5 +551,9 @@ body {
     .feature-check {
         animation-duration: 0.01s;
         animation-delay: 0s;
+    }
+
+    .feature-item.is-pulse {
+        animation: none;
     }
 }

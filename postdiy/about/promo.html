@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>闪喵海报 - 你的朋友圈海报准备好了吗</title>
+    <title>闪喵推广视频制作工具</title>
     <meta name="description" content="闪喵海报：节日海报一键生成，自定义品牌信息，助力中小商家朋友圈营销。">
     <link rel="stylesheet" href="promo.css">
     <link rel="stylesheet" href="promo-edit.css">
 </head>
 <body>
+    <!-- 自定义背景图层（点击页面空白背景区域可上传配置） -->
+    <div class="custom-bg" id="customBg" aria-hidden="true"></div>
     <!-- 背景光斑 -->
     <div class="bg-orbs" aria-hidden="true">
         <span class="orb orb-1"></span>
@@ -57,46 +59,46 @@
 
                 <ul class="feature-list">
                     <li class="feature-item">
+                        <span class="feature-text">1、自定义品牌</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">自定义品牌信息</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">2、引流文案模板</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">引流转化文案模板</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">3、传统节日海报</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">传统节日海报模板</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">4、国际节日海报</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">国际节日海报模板</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">5、24节气海报</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">24节气海报模板</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">6、早/晚安海报</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">早/晚安海报模板</span>
                     </li>
                     <li class="feature-item">
+                        <span class="feature-text">7、经营展示海报</span>
                         <span class="feature-check" aria-hidden="true">
                             <svg viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
-                        <span class="feature-text">经营展示海报模板</span>
                     </li>
                 </ul>
             </div>
@@ -114,10 +116,12 @@
     <div class="edit-modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
         <div class="edit-modal-mask" data-edit-close></div>
         <div class="edit-modal-card">
-            <button type="button" class="edit-modal-close" data-edit-close aria-label="关闭">
-                <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </button>
-            <h3 class="edit-modal-title" id="editModalTitle">编辑文字</h3>
+            <div class="edit-modal-head">
+                <h3 class="edit-modal-title" id="editModalTitle">编辑文字</h3>
+                <button type="button" class="edit-modal-close" data-edit-close aria-label="关闭">
+                    <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
             <label class="edit-field-label" for="editTextArea">文字内容</label>
             <textarea id="editTextArea" class="edit-textarea" rows="3"></textarea>
             <div class="edit-size-row">
@@ -125,15 +129,73 @@
                 <input type="range" id="editSizeRange" class="edit-size-range" min="14" max="72" step="1">
                 <span class="edit-size-value" id="editSizeValue">32px</span>
             </div>
-            <div class="edit-actions">
-                <button type="button" class="edit-btn edit-btn-ghost" id="editResetBtn">恢复默认</button>
-                <button type="button" class="edit-btn edit-btn-ghost" id="editCancelBtn">取消</button>
-                <button type="button" class="edit-btn edit-btn-primary" id="editSaveBtn">保存</button>
+            <div class="grad-section" id="gradSection" hidden>
+                <label class="edit-field-label">标题渐变配色</label>
+                <div class="grad-swatches" id="gradSwatches"></div>
+            </div>
+            <div class="grad-section" id="colorSection" hidden>
+                <label class="edit-field-label">文字颜色</label>
+                <div class="color-swatches" id="colorSwatches"></div>
             </div>
             <div class="edit-history" id="editHistoryWrap" hidden>
                 <p class="edit-history-title">历史编辑（点击填充到编辑框）</p>
                 <ul class="edit-history-list" id="editHistoryList"></ul>
             </div>
+            <div class="edit-actions">
+                <button type="button" class="edit-btn edit-btn-ghost" id="editResetBtn">恢复默认</button>
+                <button type="button" class="edit-btn edit-btn-ghost" id="editCancelBtn">取消</button>
+                <button type="button" class="edit-btn edit-btn-primary" id="editSaveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自定义背景图片弹窗（点击页面空白背景区域打开） -->
+    <div class="edit-modal" id="bgModal" role="dialog" aria-modal="true" aria-labelledby="bgModalTitle">
+        <div class="edit-modal-mask" data-bg-close></div>
+        <div class="edit-modal-card">
+            <div class="edit-modal-head">
+                <h3 class="edit-modal-title" id="bgModalTitle">自定义背景图片</h3>
+                <button type="button" class="edit-modal-close" data-bg-close aria-label="关闭">
+                    <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <input type="file" id="bgFileInput" accept="image/*" hidden>
+            <label class="edit-field-label">铺放方式</label>
+            <div class="bg-fits" id="bgFits">
+                <button type="button" class="bg-opt" data-fit="cover">等比铺满</button>
+                <button type="button" class="bg-opt" data-fit="contain">等比完整</button>
+                <button type="button" class="bg-opt" data-fit="stretch">拉伸铺满</button>
+                <button type="button" class="bg-opt" data-fit="repeat">平铺</button>
+                <button type="button" class="bg-opt" data-fit="center">居中原图</button>
+            </div>
+            <div class="edit-size-row">
+                <label class="edit-field-label" for="bgBlurRange">虚化程度</label>
+                <input type="range" id="bgBlurRange" class="edit-size-range" min="0" max="30" step="1" value="0">
+                <span class="edit-size-value" id="bgBlurValue">0px</span>
+            </div>
+            <p class="bg-tip">设置即时生效并临时保存在浏览器本地；点击页面空白背景区域可再次打开</p>
+            <div class="edit-actions bg-actions">
+                <button type="button" class="edit-btn edit-btn-ghost" id="tplPickerBtn">选模板图</button>
+                <button type="button" class="edit-btn edit-btn-primary" id="bgUploadBtn">本地上传</button>
+                <button type="button" class="edit-btn edit-btn-ghost" id="bgResetBtn">恢复默认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模板背景图选择弹窗（数据来自海报模板库 templates.js） -->
+    <div class="edit-modal" id="tplModal" role="dialog" aria-modal="true" aria-labelledby="tplModalTitle">
+        <div class="edit-modal-mask" data-tpl-close></div>
+        <div class="edit-modal-card tpl-modal-card">
+            <div class="edit-modal-head">
+                <h3 class="edit-modal-title" id="tplModalTitle">模板背景图库</h3>
+                <button type="button" class="edit-modal-close" data-tpl-close aria-label="关闭">
+                    <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="tpl-months" id="tplMonths"></div>
+            <div class="tpl-festivals" id="tplFestivals"></div>
+            <div class="tpl-grid" id="tplGrid"></div>
+            <p class="bg-tip">点击任意模板图即可设为推广页背景，关闭后可继续调整铺放方式与虚化</p>
         </div>
     </div>
     <script src="promo-edit.js"></script>

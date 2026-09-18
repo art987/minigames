@@ -34,9 +34,6 @@
 .edit-modal-mask {
     position: absolute;
     inset: 0;
-    background: rgba(20, 10, 30, 0.38);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
 }
 
 .edit-modal-card {
@@ -50,7 +47,7 @@
     border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 22px;
     box-shadow: 0 24px 60px rgba(29, 29, 31, 0.25);
-    padding: 24px 22px 20px;
+    padding: 0 22px;
     animation: editPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -105,6 +102,7 @@
     font-size: 13px;
     font-weight: 500;
     color: #6e6e73;
+    margin-top: 9px;
     margin-bottom: 8px;
 }
 
@@ -264,4 +262,288 @@
     .edit-modal-card {
         animation: none;
     }
+}
+
+/* ============ 标题渐变配色选择 ============ */
+.grad-section {
+    margin-top: 14px;
+}
+
+.grad-swatches {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 7px;
+}
+
+.grad-swatch {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(31, 38, 135, 0.1);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.grad-swatch:active {
+    transform: scale(0.94);
+}
+
+.grad-swatch.active {
+    border-color: #ff6b2c;
+}
+
+.grad-swatch-chip {
+    display: block;
+    height: 24px;
+}
+
+/* 配色芯片预览（默认/纯白/纯黑 + 19 组渐变，与 JS 中 GRADIENTS 一一对应；6-10 淡色系，11-13 深色系，14-18 补充色系） */
+.grad-chip-default { background: #ffffff; }
+.grad-chip-0 { background: linear-gradient(135deg, #ff9500, #ff2d55, #ff6b2c); }
+.grad-chip-1 { background: linear-gradient(135deg, #ffb340, #ff6b2c, #ffd54a); }
+.grad-chip-2 { background: linear-gradient(135deg, #ff2d55, #bf5af2, #ff6bd6); }
+.grad-chip-3 { background: linear-gradient(135deg, #0a84ff, #5e5ce6, #30d0ff); }
+.grad-chip-4 { background: linear-gradient(135deg, #00b96b, #30d158, #64d2ff); }
+.grad-chip-5 { background: linear-gradient(135deg, #d70015, #ff9f0a, #ffd54a); }
+.grad-chip-6 { background: linear-gradient(135deg, #ffd6e8, #ffc2d4, #ffeaf3); }
+.grad-chip-7 { background: linear-gradient(135deg, #bfe0ff, #d9efff, #a9d3ff); }
+.grad-chip-8 { background: linear-gradient(135deg, #c9f5df, #e0fbef, #b0ecd2); }
+.grad-chip-9 { background: linear-gradient(135deg, #fff0c4, #fff6dc, #ffe9a8); }
+.grad-chip-10 { background: linear-gradient(135deg, #e5d6ff, #f0e8ff, #d3c0ff); }
+.grad-chip-11 { background: linear-gradient(135deg, #141e30, #243b55, #3a6073); }
+.grad-chip-12 { background: linear-gradient(135deg, #0f3443, #155e50, #2f9e7d); }
+.grad-chip-13 { background: linear-gradient(135deg, #3d0912, #8a1c2b, #c0392b); }
+.grad-chip-14 { background: linear-gradient(135deg, #00bcd4, #00e5cc, #4dd0e1); }
+.grad-chip-15 { background: linear-gradient(135deg, #9ccc65, #cddc39, #aeea00); }
+.grad-chip-16 { background: linear-gradient(135deg, #ec407a, #d500f9, #f50057); }
+.grad-chip-17 { background: linear-gradient(135deg, #8d6e63, #a1887f, #6d4c41); }
+.grad-chip-18 { background: linear-gradient(135deg, #424245, #6e6e73, #1d1d1f); }
+.grad-chip-white { background: #ffffff; }
+.grad-chip-black { background: #000000; }
+
+/* ============ 弹窗头部固定 / 操作按钮固定底部 ============ */
+.edit-modal-head {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: -24px -22px 8px;
+    padding: 12px 22px 9px;
+    background: rgb(255 255 255);
+    border-radius: 22px 22px 0 0;
+    cursor: move;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.edit-modal-card.dragging {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.edit-modal-head .edit-modal-title {
+    margin-bottom: 0;
+}
+
+.edit-modal-head .edit-modal-close {
+    position: static;
+    flex: 0 0 auto;
+}
+
+.edit-modal .edit-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    margin: 12px -22px -20px;
+    padding: 12px 22px 18px;
+    background: rgba(255, 255, 255, 0.97);
+    justify-content: flex-end;
+}
+
+/* ============ 文字颜色选择 ============ */
+.color-swatches {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 7px;
+}
+
+.color-swatch {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(31, 38, 135, 0.1);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.color-swatch:active {
+    transform: scale(0.94);
+}
+
+.color-swatch.active {
+    border-color: #ff6b2c;
+}
+
+.color-chip {
+    display: block;
+    height: 24px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+/* 颜色芯片（默认用斜纹表示"跟随源码"；其余由 JS 按数据动态注入背景色） */
+.color-chip-default { background: repeating-linear-gradient(45deg, #f2f2f7, #f2f2f7 4px, #e5e5ea 4px, #e5e5ea 8px); }
+
+/* ============ 自定义背景弹窗 ============ */
+.bg-fits {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.bg-opt {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1.5px solid rgba(255, 107, 44, 0.25);
+    border-radius: 12px;
+    background: rgba(255, 247, 240, 0.8);
+    padding: 9px 4px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #7a5a44;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.bg-opt:active {
+    transform: scale(0.94);
+}
+
+.bg-opt.active {
+    background: linear-gradient(135deg, #ff6b2c, #ff375f);
+    border-color: transparent;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.bg-tip {
+    margin-top: 14px;
+    font-size: 11px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    color: #9a9aa0;
+    text-align: center;
+}
+
+/* 背景弹窗三个按钮等宽排布 */
+.edit-actions.bg-actions {
+    justify-content: stretch;
+}
+
+.bg-actions .edit-btn {
+    flex: 1 1 0;
+    padding: 10px 4px;
+    font-size: 12px;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+/* ============ 模板背景图库弹窗 ============ */
+.tpl-modal-card {
+    width: min(92vw, 480px);
+}
+.tpl-months{ margin-top: 30px;}
+.tpl-festivals{ margin-top: 10px;}
+.tpl-months,
+.tpl-festivals {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tpl-festivals {
+    margin-top: 8px;
+}
+
+.tpl-month-chip,
+.tpl-festival-chip {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    border: 1.5px solid rgba(255, 107, 44, 0.25);
+    border-radius: 10px;
+    background: rgba(255, 247, 240, 0.8);
+    padding: 6px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #7a5a44;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tpl-festival-chip {
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 8px;
+}
+
+.tpl-month-chip.active,
+.tpl-festival-chip.active {
+    background: linear-gradient(135deg, #ff6b2c, #ff375f);
+    border-color: transparent;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.tpl-grid {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-height: 46vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px;
+}
+
+.tpl-item {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f2f2f7;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 3px 10px rgba(31, 38, 135, 0.1);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.tpl-item:active {
+    transform: scale(0.95);
+}
+
+.tpl-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
