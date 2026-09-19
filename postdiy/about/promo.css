@@ -9,6 +9,9 @@ html,
 body {
     overflow-x: hidden;
 }
+.top-blank {
+    height: 30px;
+}
 
 /* 自定义背景图层（点击页面空白背景区域上传配置；负 inset 为虚化留出出血） */
 .custom-bg {
@@ -205,7 +208,7 @@ body {
 .phone {
     position: relative;
     width: min(290px, 100%);
-    aspect-ratio: 9 / 19;
+    aspect-ratio: 9 / 16;
     background: linear-gradient(160deg, #2a2a2e, #0b0b0f 55%);
     border-radius: 26px;
     padding: 10px;
@@ -370,7 +373,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 0;
-    padding: clamp(9px, 1.1vw, 12px) clamp(8px, 1.4vw, 16px);
+    padding: clamp(6px, 1.1vw, 12px) clamp(8px, 1.4vw, 16px);
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.555);
     border: 1px solid rgba(255, 255, 255, 0.25);

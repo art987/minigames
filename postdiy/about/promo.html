@@ -34,14 +34,9 @@
                 <div class="phone">
                     <span class="phone-notch" aria-hidden="true"></span>
                     <div class="phone-screen">
-                        <!-- 视频未上传时默认展示官网页面（缩放 0.5，可直接操作页面内容）；视频上传/加载后由视频层覆盖 -->
+                        <!-- 点击右侧 App logo 打开"图标与演示设置"弹窗：可更换图标、切换演示内容（网址/本地视频） -->
                         <iframe class="screen-site" src="https://peacelove.top/postdiy/" title="闪喵海报演示页面" loading="lazy"></iframe>
-                        <!--
-                            交互：点击右侧 App logo 上传本地视频预览；长按 logo 1 秒移除视频，还原嵌套网页
-                            视频文件就绪后，将下方 <source> 的 src 换成实际视频路径即可
-                            例如：<source src="promo-demo.mp4" type="video/mp4">
-                        -->
-                        <video class="screen-video" muted loop playsinline autoplay preload="metadata" webkit-playsinline>
+                        <video class="screen-video" muted="" loop="" playsinline="" autoplay="" preload="metadata" webkit-playsinline="">
                             <source src="promo-demo.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -112,7 +107,6 @@
     </div>
 
     <!-- 页面临时编辑功能（数据临时存于浏览器 localStorage） -->
-    <input type="file" id="editVideoInput" class="edit-video-input" accept="video/mp4,video/webm,video/ogg">
     <div class="edit-modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
         <div class="edit-modal-mask" data-edit-close></div>
         <div class="edit-modal-card">
@@ -122,7 +116,7 @@
                     <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
             </div>
-            <label class="edit-field-label" for="editTextArea">文字内容</label>
+            <div class="top-blank" ></div>
             <textarea id="editTextArea" class="edit-textarea" rows="1"></textarea>
             <div class="edit-size-row">
                 <label class="edit-field-label" for="editSizeRange">字体大小</label>
@@ -163,6 +157,7 @@
                     <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
             </div>
+            <div class="top-blank" ></div>
             <input type="file" id="bgFileInput" accept="image/*" hidden>
             <label class="edit-field-label">铺放方式</label>
             <div class="bg-fits" id="bgFits">
@@ -200,6 +195,57 @@
             <div class="tpl-festivals" id="tplFestivals"></div>
             <div class="tpl-grid" id="tplGrid"></div>
             <p class="bg-tip">点击任意模板图即可设为推广页背景，关闭后可继续调整铺放方式与虚化</p>
+        </div>
+    </div>
+    <!-- 图标与演示内容设置弹窗（点击 App logo 打开） -->
+    <div class="edit-modal" id="logoModal" role="dialog" aria-modal="true" aria-labelledby="logoModalTitle">
+        <div class="edit-modal-mask" data-logo-close></div>
+        <div class="edit-modal-card">
+            <div class="edit-modal-head">
+                <h3 class="edit-modal-title" id="logoModalTitle">图标与演示设置</h3>
+                <button type="button" class="edit-modal-close" data-logo-close aria-label="关闭">
+                    <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="top-blank" ></div>  
+            <div class="logo-edit-row">
+                <img class="logo-edit-preview" id="logoPreview" src="../images/statics/applogo2.png" alt="图标预览">
+                <div class="logo-edit-actions">
+                    <button type="button" class="edit-btn edit-btn-primary" id="logoUploadBtn">更换图标</button>
+                    <button type="button" class="edit-btn edit-btn-ghost" id="logoDefaultBtn">恢复默认图标</button>
+                </div>
+            </div>
+            <input type="file" id="logoFileInput" accept="image/*" hidden>
+
+            <label class="edit-field-label">手机演示内容</label>
+            <div class="bg-fits" id="screenModes">
+                <button type="button" class="bg-opt active" data-mode="url">显示网址</button>
+                <button type="button" class="bg-opt" data-mode="video">显示视频</button>
+            </div>
+
+            <div id="urlBlock">
+                <label class="edit-field-label">展示网址</label>
+                <div class="bg-fits" id="urlPresets">
+                    <button type="button" class="bg-opt" data-url="https://peacelove.top/postdiy/">闪喵首页</button>
+                    <button type="button" class="bg-opt" data-url="https://peacelove.top/postdiy/business/solutions.html">生意经</button>
+                    <button type="button" class="bg-opt" data-url="https://peacelove.top/postdiy/tools/">工具箱</button>
+                    <button type="button" class="bg-opt" data-url="https://peacelove.top/postdiy/about/info.html">官网介绍</button>
+                </div>
+                <input type="text" class="screen-url-input" id="screenUrlInput" placeholder="输入要展示的网址" spellcheck="false" autocomplete="off">
+            </div>
+
+            <div id="videoBlock" hidden>
+                <label class="edit-field-label">展示视频</label>
+                <button type="button" class="edit-btn edit-btn-primary" id="screenVideoBtn">选择本地视频</button>
+                <p class="bg-tip" id="screenVideoTip">大小不限，仅本地临时播放；3MB 以内刷新后仍保留</p>
+            </div>
+            <input type="file" id="screenVideoInput" accept="video/mp4,video/webm" hidden>
+
+            <div class="edit-actions">
+                <button type="button" class="edit-btn edit-btn-ghost" id="logoResetBtn">恢复默认</button>
+                <button type="button" class="edit-btn edit-btn-ghost" id="logoCancelBtn">取消</button>
+                <button type="button" class="edit-btn edit-btn-primary" id="logoSaveBtn">保存</button>
+            </div>
         </div>
     </div>
     <script src="promo-edit.js"></script>

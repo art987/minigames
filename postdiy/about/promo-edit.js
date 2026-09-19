@@ -10,7 +10,9 @@
 
     var STATE_KEY = 'promoEdit.state.v1';      // 当前生效的编辑 { key: {text, size} }
     var HISTORY_KEY = 'promoEdit.history.v1';  // 历次编辑 { key: [{text, size, time}] }
-    var VIDEO_KEY = 'promoEdit.video.v1';      // 上传的视频（仅小文件以 dataURL 形式存储）
+    var LOGO_KEY = 'promoEdit.logo.v1';        // 自定义应用图标（小图以 dataURL 形式存储）
+    var SCREEN_KEY = 'promoEdit.screen.v1';    // 手机演示内容 { mode: 'url'|'video', url, video }
+    var LOGO_PERSIST_LIMIT = 2 * 1024 * 1024;  // 超过 2MB 的图标仅本次预览
     var VIDEO_PERSIST_LIMIT = 3 * 1024 * 1024; // 超过 3MB 的视频超出 localStorage 配额，仅本次预览
     var HISTORY_MAX = 20;
 
@@ -631,13 +633,49 @@
     }
     startPulseLoop();
 
-    // ---------- 视频上传（入口：点击 App logo；长按 logo 移除已上传视频） ----------
+    // ---------- 图标与演示内容设置（点击 App logo 打开弹窗，保存后生效） ----------
     var video = document.querySelector('.screen-video');
+    var iframe = document.querySelector('.screen-site');
     var logoImg = document.querySelector('.app-logo img');
-    var fileInput = document.getElementById('editVideoInput');
-    var LONG_PRESS_MS = 1000; // 长按 1 秒：移除已上传视频
-    var longPressTimer = null;
-    var longPressFired = false;
+    var logoModal = document.getElementById('logoModal');
+    var logoPreview = document.getElementById('logoPreview');
+    var logoUploadBtn = document.getElementById('logoUploadBtn');
+    var logoDefaultBtn = document.getElementById('logoDefaultBtn');
+    var logoFileInput = document.getElementById('logoFileInput');
+    var screenModes = document.getElementById('screenModes');
+    var urlBlock = document.getElementById('urlBlock');
+    var urlPresets = document.getElementById('urlPresets');
+    var screenUrlInput = document.getElementById('screenUrlInput');
+    var videoBlock = document.getElementById('videoBlock');
+    var screenVideoBtn = document.getElementById('screenVideoBtn');
+    var screenVideoTip = document.getElementById('screenVideoTip');
+    var screenVideoInput = document.getElementById('screenVideoInput');
+    var logoResetBtn = document.getElementById('logoResetBtn');
+    var logoCancelBtn = document.getElementById('logoCancelBtn');
+    var logoSaveBtn = document.getElementById('logoSaveBtn');
+    var DEFAULT_LOGO = '../images/statics/applogo2.png';
+    var DEFAULT_SCREEN_URL = 'https://peacelove.top/postdiy/';
+
+    var logoState = readJSON(LOGO_KEY, null); // { img } | null
+    var screenState = normalizeScreen(readJSON(SCREEN_KEY, null));
+
+    // 弹窗内待确认值（点"保存"才真正应用并落库）
+    var pendingLogo = null; // dataURL | null(默认图标)
+    var pendingLogoDirty = false;
+    var pendingMode = 'url';
+    var pendingUrl = DEFAULT_SCREEN_URL;
+    var pendingVideoSrc = null;   // objectURL，仅本次会话播放用（大小不限，不落库）
+    var pendingVideoData = null;  // ≤3MB 的 dataURL，用于刷新后恢复；大文件为 null
+    var pendingVideoName = '';
+
+    function normalizeScreen(st) {
+        var s = st && typeof st === 'object' ? st : {};
+        return {
+            mode: s.mode === 'video' ? 'video' : 'url',
+            url: (typeof s.url === 'string' && s.url) ? s.url : DEFAULT_SCREEN_URL,
+            video: (typeof s.video === 'string' && s.video) ? s.video : null
+        };
+    }
 
     function setVideoActive(active) {
         if (!video) return;
@@ -653,86 +691,227 @@
         if (p && typeof p.catch === 'function') p.catch(function () { /* 自动播放被拦截时忽略 */ });
     }
 
-    // 移除已上传/正在播放的视频，还原为嵌套网页
-    function removeVideo() {
+    // 停止并清空视频，还原为嵌套网页展示
+    function stopVideo() {
         if (!video) return;
-        try { localStorage.removeItem(VIDEO_KEY); } catch (e) { /* 忽略 */ }
+        try { video.pause(); } catch (e) { /* 忽略 */ }
+        video.removeAttribute('src');
         var sources = video.querySelectorAll('source');
         for (var i = 0; i < sources.length; i++) {
             if (sources[i].parentNode) sources[i].parentNode.removeChild(sources[i]);
         }
-        video.removeAttribute('src');
         try { video.load(); } catch (e) { /* 忽略 */ }
         setVideoActive(false);
     }
 
-    function startLongPress() {
-        clearLongPress();
-        longPressFired = false;
-        longPressTimer = setTimeout(function () {
-            longPressTimer = null;
-            longPressFired = true;
-            removeVideo();
-        }, LONG_PRESS_MS);
-    }
-
-    function clearLongPress() {
-        if (longPressTimer) {
-            clearTimeout(longPressTimer);
-            longPressTimer = null;
+    // 应用演示内容：url 模式展示嵌套网页；video 模式播放视频并接管点击
+    function applyScreen(st) {
+        var s = normalizeScreen(st);
+        if (!iframe || !video) return;
+        if (s.mode === 'video' && s.video) {
+            iframe.style.display = 'none';
+            video.style.display = '';
+            playVideoSource(s.video);
+            setVideoActive(true);
+        } else {
+            stopVideo();
+            video.style.display = 'none';
+            iframe.style.display = '';
+            if (iframe.getAttribute('src') !== s.url) iframe.src = s.url;
         }
     }
 
-    if (video) {
-        // 默认 <source> 视频文件真正出画面时，视为"有视频"
-        video.addEventListener('loadeddata', function () {
-            setVideoActive(true);
-        });
+    function applyLogo() {
+        if (logoImg) logoImg.src = (logoState && logoState.img) ? logoState.img : DEFAULT_LOGO;
     }
 
-    if (logoImg && fileInput) {
-        // 点击 logo：选择本地视频上传播放
-        logoImg.addEventListener('click', function () {
-            if (longPressFired) { longPressFired = false; return; }
-            try { fileInput.value = ''; } catch (err) { /* 忽略 */ }
-            fileInput.click();
-        });
-
-        // 长按 logo：移除视频还原嵌套网页（支持触摸与鼠标）
-        logoImg.addEventListener('mousedown', startLongPress);
-        logoImg.addEventListener('mouseup', clearLongPress);
-        logoImg.addEventListener('mouseleave', clearLongPress);
-        logoImg.addEventListener('touchstart', startLongPress, { passive: true });
-        logoImg.addEventListener('touchend', clearLongPress);
-        logoImg.addEventListener('touchmove', clearLongPress);
-        logoImg.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    function syncLogoUi() {
+        if (logoPreview) logoPreview.src = (pendingLogo !== null) ? pendingLogo : DEFAULT_LOGO;
+        var modeBtns = screenModes ? screenModes.querySelectorAll('.bg-opt') : [];
+        for (var i = 0; i < modeBtns.length; i++) {
+            modeBtns[i].classList.toggle('active', modeBtns[i].getAttribute('data-mode') === pendingMode);
+        }
+        if (urlBlock) urlBlock.hidden = pendingMode !== 'url';
+        if (videoBlock) videoBlock.hidden = pendingMode !== 'video';
+        if (screenUrlInput && document.activeElement !== screenUrlInput) screenUrlInput.value = pendingUrl;
+        if (screenVideoTip) {
+            screenVideoTip.textContent = pendingVideoSrc
+                ? '已选择' + (pendingVideoName ? '：' + pendingVideoName : '') + (pendingVideoData ? '（刷新后仍保留）' : '（文件较大，刷新后需重新选择）')
+                : '大小不限，仅本地临时播放；3MB 以内刷新后仍保留';
+        }
+        var presets = urlPresets ? urlPresets.querySelectorAll('.bg-opt') : [];
+        for (var j = 0; j < presets.length; j++) {
+            presets[j].classList.toggle('active', presets[j].getAttribute('data-url') === pendingUrl);
+        }
     }
 
-    if (video && fileInput) {
-        fileInput.addEventListener('change', function () {
-            var file = fileInput.files && fileInput.files[0];
-            if (!file) return;
-            playVideoSource(URL.createObjectURL(file));
-            setVideoActive(true);
-            if (file.size <= VIDEO_PERSIST_LIMIT) {
-                // 小视频以 dataURL 存入 localStorage，刷新后仍可回放
+    function openLogoModal() {
+        var s = normalizeScreen(screenState);
+        pendingLogo = (logoState && logoState.img) ? logoState.img : null;
+        pendingLogoDirty = false;
+        pendingMode = s.mode;
+        pendingUrl = s.url;
+        pendingVideoSrc = null;
+        pendingVideoData = s.video;
+        pendingVideoName = '';
+        syncLogoUi();
+        lockScroll();
+        logoModal.classList.add('active');
+    }
+
+    function closeLogoModal() {
+        logoModal.classList.remove('active');
+        unlockScroll();
+        resetModalPos(logoModal);
+    }
+
+    function persistLogoAndScreen() {
+        var keepVideo = pendingMode === 'video' ? pendingVideoData : null; // 仅 ≤3MB 的视频落库
+        screenState = { mode: pendingMode, url: pendingUrl || DEFAULT_SCREEN_URL, video: keepVideo };
+        writeJSON(SCREEN_KEY, screenState);
+        if (pendingLogoDirty) {
+            if (pendingLogo && pendingLogo.length <= LOGO_PERSIST_LIMIT) {
+                logoState = { img: pendingLogo };
+                writeJSON(LOGO_KEY, logoState);
+            } else {
+                logoState = null;
+                try { localStorage.removeItem(LOGO_KEY); } catch (e) { /* 忽略 */ }
+            }
+        }
+    }
+
+    if (logoModal && logoImg) {
+        // 点击 logo 打开弹窗（替代原"点击上传/长按移除"交互）
+        logoImg.addEventListener('click', function () { openLogoModal(); });
+
+        if (logoUploadBtn && logoFileInput) {
+            logoUploadBtn.addEventListener('click', function () {
+                try { logoFileInput.value = ''; } catch (err) { /* 忽略 */ }
+                logoFileInput.click();
+            });
+            logoFileInput.addEventListener('change', function () {
+                var file = logoFileInput.files && logoFileInput.files[0];
+                if (!file) return;
                 var reader = new FileReader();
                 reader.onload = function () {
-                    try { localStorage.setItem(VIDEO_KEY, reader.result); } catch (e) { /* 配额不足则忽略 */ }
+                    pendingLogo = String(reader.result);
+                    pendingLogoDirty = true;
+                    syncLogoUi();
                 };
                 reader.readAsDataURL(file);
-            } else {
-                try { localStorage.removeItem(VIDEO_KEY); } catch (e) { /* 忽略 */ }
-            }
-        });
-
-        // 恢复上次上传的小视频
-        var savedVideo = '';
-        try { savedVideo = localStorage.getItem(VIDEO_KEY) || ''; } catch (e) { /* 忽略 */ }
-        if (savedVideo) {
-            playVideoSource(savedVideo);
-            setVideoActive(true);
+            });
         }
+        if (logoDefaultBtn) {
+            logoDefaultBtn.addEventListener('click', function () {
+                pendingLogo = null;
+                pendingLogoDirty = true;
+                syncLogoUi();
+            });
+        }
+
+        // 演示内容模式切换：网址 / 视频
+        if (screenModes) {
+            screenModes.addEventListener('click', function (e) {
+                var opt = e.target.closest ? e.target.closest('.bg-opt') : null;
+                if (!opt) return;
+                pendingMode = opt.getAttribute('data-mode');
+                syncLogoUi();
+            });
+        }
+
+        // 预设网址一键填充
+        if (urlPresets) {
+            urlPresets.addEventListener('click', function (e) {
+                var opt = e.target.closest ? e.target.closest('.bg-opt') : null;
+                if (!opt) return;
+                pendingUrl = opt.getAttribute('data-url');
+                syncLogoUi();
+            });
+        }
+        if (screenUrlInput) {
+            screenUrlInput.addEventListener('input', function () {
+                pendingUrl = screenUrlInput.value.trim();
+                var presets = urlPresets ? urlPresets.querySelectorAll('.bg-opt') : [];
+                for (var i = 0; i < presets.length; i++) {
+                    presets[i].classList.toggle('active', presets[i].getAttribute('data-url') === pendingUrl);
+                }
+            });
+        }
+
+        // 本地视频选择（保存后生效）
+        if (screenVideoBtn && screenVideoInput) {
+            screenVideoBtn.addEventListener('click', function () {
+                try { screenVideoInput.value = ''; } catch (err) { /* 忽略 */ }
+                screenVideoInput.click();
+            });
+            screenVideoInput.addEventListener('change', function () {
+                var file = screenVideoInput.files && screenVideoInput.files[0];
+                if (!file) return;
+                pendingVideoName = file.name || '';
+                if (pendingVideoSrc) { try { URL.revokeObjectURL(pendingVideoSrc); } catch (e) { /* 忽略 */ } }
+                pendingVideoSrc = URL.createObjectURL(file); // 大小不限：本地文件直接引用播放，不转 base64
+                if (file.size <= VIDEO_PERSIST_LIMIT) {
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        pendingVideoData = String(reader.result);
+                        syncLogoUi();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    pendingVideoData = null; // 大文件仅本次播放，刷新后需重新选择
+                    syncLogoUi();
+                }
+            });
+        }
+
+        // 保存：确认后才应用并落库
+        if (logoSaveBtn) {
+            logoSaveBtn.addEventListener('click', function () {
+                persistLogoAndScreen();
+                applyLogo();
+                if (pendingMode === 'video' && pendingVideoSrc) {
+                    // 本次会话用 objectURL 即时播放（大小不限）；刷新后按落库的 dataURL 恢复（≤3MB）
+                    iframe.style.display = 'none';
+                    video.style.display = '';
+                    playVideoSource(pendingVideoSrc);
+                    setVideoActive(true);
+                } else {
+                    applyScreen(screenState);
+                }
+                closeLogoModal();
+            });
+        }
+        if (logoCancelBtn) logoCancelBtn.addEventListener('click', closeLogoModal);
+
+        // 恢复默认：清空全部设置并立即生效（弹窗保持打开，可继续编辑）
+        if (logoResetBtn) {
+            logoResetBtn.addEventListener('click', function () {
+                logoState = null;
+                screenState = { mode: 'url', url: DEFAULT_SCREEN_URL, video: null };
+                try { localStorage.removeItem(LOGO_KEY); } catch (e) { /* 忽略 */ }
+                try { localStorage.removeItem(SCREEN_KEY); } catch (e) { /* 忽略 */ }
+                pendingLogo = null;
+                pendingLogoDirty = true;
+                pendingMode = 'url';
+                pendingUrl = DEFAULT_SCREEN_URL;
+                if (pendingVideoSrc) { try { URL.revokeObjectURL(pendingVideoSrc); } catch (e) { /* 忽略 */ } }
+                pendingVideoSrc = null;
+                pendingVideoData = null;
+                pendingVideoName = '';
+                applyLogo();
+                applyScreen(screenState);
+                syncLogoUi();
+            });
+        }
+
+        var logoClosers = logoModal.querySelectorAll('[data-logo-close]');
+        for (var ci = 0; ci < logoClosers.length; ci++) {
+            logoClosers[ci].addEventListener('click', closeLogoModal);
+        }
+
+        // 初始化：应用保存过的图标与演示内容
+        applyLogo();
+        applyScreen(screenState);
     }
 
     // ---------- 自定义背景图片（点击页面空白背景区域打开弹窗） ----------
@@ -1215,10 +1394,12 @@
     makeModalDraggable(editModal);
     makeModalDraggable(bgModal);
     makeModalDraggable(tplModal);
+    makeModalDraggable(logoModal);
 
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
         if (bgModal && bgModal.classList.contains('active')) closeBgModal();
         if (tplModal && tplModal.classList.contains('active')) closeTplModal();
+        if (logoModal && logoModal.classList.contains('active')) closeLogoModal();
     });
 })();
