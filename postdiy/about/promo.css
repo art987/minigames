@@ -520,7 +520,7 @@ body {
     letter-spacing: 1px;
     color: #ffffff;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease;text-shadow: 0 0 3px #fff;
 }
 
 .icp:hover {

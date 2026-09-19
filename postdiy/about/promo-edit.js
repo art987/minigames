@@ -614,6 +614,9 @@
     // ---------- 特点列表：逐个放大循环动画（第 1 个放大→缩小，第 2 个……循环） ----------
     var PULSE_SLOT_MS = 1200;  // 单个"放大→缩小"时长
     var INTRO_DONE_MS = 4900;  // 入场动画全部结束时间（最后一条打勾 4.2s 延迟 + 0.5s 动画 + 缓冲）
+    var pulsePaused = false;   // 视频播放期间暂停脉冲循环，避免强制回流抢视频解码资源
+
+    function setPulsePaused(v) { pulsePaused = v; }
 
     function startPulseLoop() {
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -622,11 +625,13 @@
         featureItems.forEach(function (li) { li.classList.add('is-revealed'); });
         var i = 0;
         function step() {
-            var li = featureItems[i];
-            li.classList.remove('is-pulse');
-            void li.offsetWidth; // 强制回流，确保同类名可重复触发动画
-            li.classList.add('is-pulse');
-            i = (i + 1) % featureItems.length;
+            if (!pulsePaused) {
+                var li = featureItems[i];
+                li.classList.remove('is-pulse');
+                void li.offsetWidth; // 强制回流，确保同类名可重复触发动画
+                li.classList.add('is-pulse');
+                i = (i + 1) % featureItems.length;
+            }
             setTimeout(step, PULSE_SLOT_MS);
         }
         setTimeout(step, INTRO_DONE_MS);
@@ -685,10 +690,37 @@
 
     function playVideoSource(src) {
         if (!video || !src) return;
+        unloadIframe();          // 停掉嵌套页，释放解码资源
+        setPulsePaused(true);    // 暂停特点列表回流动画
+        video.preload = 'auto';  // 大文件需积极缓冲，metadata 会导致起播后频繁卡顿
         video.src = src;
         video.load();
-        var p = video.play();
-        if (p && typeof p.catch === 'function') p.catch(function () { /* 自动播放被拦截时忽略 */ });
+        var tryPlay = function () {
+            var p = video.play();
+            if (p && typeof p.catch === 'function') p.catch(function () { /* 自动播放被拦截时忽略 */ });
+        };
+        // 等 canplay 再起播，避免 load()/play() 竞争导致播一两秒就中断
+        if (video.readyState >= 3) {
+            tryPlay();
+            return;
+        }
+        var settled = false;
+        var onReady = function () {
+            if (settled) return;
+            settled = true;
+            video.removeEventListener('canplay', onReady);
+            video.removeEventListener('error', onFail);
+            tryPlay();
+        };
+        var onFail = function () {
+            if (settled) return;
+            settled = true;
+            video.removeEventListener('canplay', onReady);
+            video.removeEventListener('error', onFail);
+        };
+        video.addEventListener('canplay', onReady);
+        video.addEventListener('error', onFail);
+        setTimeout(onReady, 3000); // 兜底：3 秒后强制起播
     }
 
     // 停止并清空视频，还原为嵌套网页展示
@@ -702,6 +734,12 @@
         }
         try { video.load(); } catch (e) { /* 忽略 */ }
         setVideoActive(false);
+        setPulsePaused(false); // 恢复特点列表脉冲循环
+    }
+
+    // 彻底卸载嵌套网页（display:none 不会停掉其内部 JS/动画，会持续抢占视频解码资源）
+    function unloadIframe() {
+        if (iframe && iframe.getAttribute('src') !== 'about:blank') iframe.src = 'about:blank';
     }
 
     // 应用演示内容：url 模式展示嵌套网页；video 模式播放视频并接管点击
@@ -709,6 +747,7 @@
         var s = normalizeScreen(st);
         if (!iframe || !video) return;
         if (s.mode === 'video' && s.video) {
+            unloadIframe();
             iframe.style.display = 'none';
             video.style.display = '';
             playVideoSource(s.video);
