@@ -375,7 +375,7 @@ body {
     background: rgba(255, 255, 255, 0.555);
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 4px 16px rgba(31, 38, 135, 0.08);
-    font-size: clamp(10px, 1.9vw, 15px);
+    font-size: clamp(11px, 1.9vw, 15px);
     font-weight: 800;
     text-shadow: 1px 1px 0px #fff;
     letter-spacing: 1px;
