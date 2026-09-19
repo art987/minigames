@@ -71,8 +71,8 @@
     var CONFIG = [
         { key: 'heroTitle', selector: '.hero-title', label: '主标题', min: 20, max: 72 },
         { key: 'heroSub', selector: '.hero-subtitle', label: '副标题', min: 12, max: 48, color: true },
-        { key: 'slogan', selector: '.slogan', label: '口号', min: 14, max: 48, color: true },
-        { key: 'appName', selector: '.app-name', label: '应用名称', min: 18, max: 48, color: true }
+        { key: 'slogan', selector: '.slogan', label: '口号', min: 10, max: 30, color: true },
+        { key: 'appName', selector: '.app-name', label: '应用名称', min: 10, max: 22, color: true }
     ];
 
     function readJSON(key, fallback) {
@@ -658,7 +658,6 @@
     var logoResetBtn = document.getElementById('logoResetBtn');
     var logoCancelBtn = document.getElementById('logoCancelBtn');
     var logoSaveBtn = document.getElementById('logoSaveBtn');
-    var screenDirectBtn = document.getElementById('screenDirectBtn');
     var DEFAULT_LOGO = '../images/statics/applogo2.png';
     var DEFAULT_SCREEN_URL = 'https://peacelove.top/postdiy/';
 
@@ -670,14 +669,10 @@
     var pendingLogoDirty = false;
     var pendingMode = 'url';
     var pendingUrl = DEFAULT_SCREEN_URL;
-    var pendingVideoSrc = null;   // objectURL，仅本次会话播放用（转码产物或原片）
+    var pendingVideoSrc = null;   // objectURL，仅本次会话播放用（本地直接播放，不转码）
     var pendingVideoData = null;  // ≤3MB 的 dataURL，用于刷新后恢复；大文件为 null
     var pendingVideoName = '';
-    var pendingOriginalSrc = null; // 原片 objectURL（供"直接播放原片"跳过转码）
-    var transcodeNote = '';        // 转码结果备注（完成后拼在提示里展示）
-    var transcoding = false;       // 转码进行中（期间禁用保存，提示条显示进度）
     var SCREEN_VIDEO_MAX = 100 * 1024 * 1024; // 上传上限 100MB
-    var DIRECT_PLAY_MAX = 5 * 1024 * 1024;    // ≤5MB 的小文件无需转码直接播放
 
     function normalizeScreen(st) {
         var s = st && typeof st === 'object' ? st : {};
@@ -702,6 +697,7 @@
         video.src = src;
         video.load();
         var tryPlay = function () {
+            startStallGuard();   // 播放期间开启看门狗，卡住自动恢复
             var p = video.play();
             if (p && typeof p.catch === 'function') p.catch(function () { /* 自动播放被拦截时忽略 */ });
         };
@@ -732,6 +728,7 @@
     // 停止并清空视频，还原为嵌套网页展示
     function stopVideo() {
         if (!video) return;
+        stopStallGuard();
         try { video.pause(); } catch (e) { /* 忽略 */ }
         video.removeAttribute('src');
         var sources = video.querySelectorAll('source');
@@ -748,116 +745,45 @@
         if (iframe && iframe.getAttribute('src') !== 'about:blank') iframe.src = 'about:blank';
     }
 
-    // ---------- 浏览器内转码：canvas 重绘 + MediaRecorder 重编码 ----------
-    // 手机 WebView 对 High Profile H.264 / HEVC / 高分辨率视频解码吃力（典型表现：播 2 秒卡住）
-    // 这里统一转成 720p 低码率的 WebM(VP8/VP9) 或 MP4(H.264)，保证手机端流畅
-    var TRANSCODE_TIMEOUT_MS = 10 * 60 * 1000; // 转码兜底超时 10 分钟
+    // ---------- 播放看门狗：应对手机 WebView 解码卡住 ----------
+    // 播放中若时间轴连续约 2 秒无进展（且不在缓冲态），重新打开媒体资源并跳回原位置继续播
+    var stallTimer = null;
+    var stallLastTime = -1;
+    var stallCount = 0;
 
-    function transcodeVideo(file, onProgress) {
-        return new Promise(function (resolve, reject) {
-            if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) {
-                reject(new Error('no-mediarecorder'));
-                return;
-            }
-            var mime = '';
-            var candidates = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'];
-            for (var i = 0; i < candidates.length; i++) {
-                if (MediaRecorder.isTypeSupported(candidates[i])) { mime = candidates[i]; break; }
-            }
-            if (!mime) { reject(new Error('no-mime')); return; }
+    function stopStallGuard() {
+        if (stallTimer) { clearInterval(stallTimer); stallTimer = null; }
+    }
 
-            var srcUrl = URL.createObjectURL(file);
-            var v = document.createElement('video');
-            v.preload = 'auto';
-            v.playsInline = true;
-            v.setAttribute('playsinline', '');
-            v.src = srcUrl;
-
-            var audioCtx = null;
-            var settled = false;
-
-            function finish(blob) {
-                if (settled) return;
-                settled = true;
-                clearTimeout(guard);
-                try { URL.revokeObjectURL(srcUrl); } catch (e) { /* 忽略 */ }
-                try { if (audioCtx) audioCtx.close(); } catch (e) { /* 忽略 */ }
-                resolve(blob);
-            }
-            function fail(err) {
-                if (settled) return;
-                settled = true;
-                clearTimeout(guard);
-                try { URL.revokeObjectURL(srcUrl); } catch (e) { /* 忽略 */ }
-                try { if (audioCtx) audioCtx.close(); } catch (e) { /* 忽略 */ }
-                reject(err);
-            }
-            var guard = setTimeout(function () { fail(new Error('timeout')); }, TRANSCODE_TIMEOUT_MS);
-
-            v.onloadedmetadata = function () {
-                try {
-                    var vw = v.videoWidth || 720;
-                    var vh = v.videoHeight || 1280;
-                    var scale = Math.min(1, 720 / Math.max(vw, vh)); // 长边压到 720p
-                    var w = Math.max(2, Math.round(vw * scale / 2) * 2);
-                    var h = Math.max(2, Math.round(vh * scale / 2) * 2);
-                    var canvas = document.createElement('canvas');
-                    canvas.width = w;
-                    canvas.height = h;
-                    var ctx = canvas.getContext('2d');
-                    var stream = canvas.captureStream(30);
-
-                    // 音频：经 WebAudio 捕获但不外放（不连 destination 即无声）
+    function startStallGuard() {
+        stopStallGuard();
+        stallLastTime = -1;
+        stallCount = 0;
+        stallTimer = setInterval(function () {
+            if (!video || video.paused || video.readyState < 3) return; // 暂停/缓冲中不算卡
+            if (Math.abs(video.currentTime - stallLastTime) < 0.05) {
+                stallCount++;
+                if (stallCount >= 2) {
+                    stallCount = 0;
+                    var pos = video.currentTime;
+                    var seekBack = function () {
+                        video.removeEventListener('loadedmetadata', seekBack);
+                        try { video.currentTime = pos; } catch (e) { /* 忽略 */ }
+                        var p = video.play();
+                        if (p && typeof p.catch === 'function') p.catch(function () { /* 忽略 */ });
+                    };
+                    video.addEventListener('loadedmetadata', seekBack);
                     try {
-                        var AC = window.AudioContext || window.webkitAudioContext;
-                        if (AC) {
-                            audioCtx = new AC();
-                            var srcNode = audioCtx.createMediaElementSource(v);
-                            var dest = audioCtx.createMediaStreamDestination();
-                            srcNode.connect(dest);
-                            var tracks = dest.stream.getAudioTracks();
-                            for (var t = 0; t < tracks.length; t++) stream.addTrack(tracks[t]);
-                        }
-                    } catch (e) { /* 无音轨时忽略 */ }
-
-                    var rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 2500000 });
-                    var chunks = [];
-                    rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
-                    rec.onstop = function () {
-                        if (!chunks.length) { fail(new Error('empty')); return; }
-                        finish(new Blob(chunks, { type: mime.split(';')[0] }));
-                    };
-                    rec.onerror = function () { fail(new Error('recorder')); };
-
-                    var duration = (v.duration && isFinite(v.duration)) ? v.duration : 0;
-                    v.onended = function () { try { rec.state !== 'inactive' && rec.stop(); } catch (e) { fail(new Error('stop')); } };
-
-                    var startPlay = function () {
-                        var p = v.play();
-                        if (p && typeof p.catch === 'function') {
-                            p.catch(function () {
-                                // 未获得自动播放授权时：静音重试（丢失音频但保证能转）
-                                v.muted = true;
-                                var p2 = v.play();
-                                if (p2 && typeof p2.catch === 'function') p2.catch(function () { fail(new Error('play')); });
-                            });
-                        }
-                    };
-
-                    rec.start(200);
-                    v.currentTime = 0;
-                    startPlay();
-                    (function draw() {
-                        if (settled) return;
-                        if (v.ended) return;
-                        try { ctx.drawImage(v, 0, 0, w, h); } catch (e) { /* 帧未就绪时跳过 */ }
-                        if (duration && onProgress) onProgress(Math.min(99, Math.round(v.currentTime / duration * 100)));
-                        (window.requestAnimationFrame || setTimeout)(draw, 1000 / 30);
-                    })();
-                } catch (err) { fail(err); }
-            };
-            v.onerror = function () { fail(new Error('decode')); };
-        });
+                        video.load(); // 重新打开媒体资源，踢醒卡住的解码/缓冲
+                    } catch (e) {
+                        video.removeEventListener('loadedmetadata', seekBack);
+                    }
+                }
+            } else {
+                stallCount = 0;
+            }
+            stallLastTime = video.currentTime;
+        }, 1000);
     }
 
     // 应用演示内容：url 模式展示嵌套网页；video 模式播放视频并接管点击
@@ -878,6 +804,26 @@
         }
     }
 
+    // 图标图片压缩：等比缩到最长边 256px 再转 PNG。
+    // 不压缩时大图（>2MB）会因超出 localStorage 配额被静默丢弃，表现为"更换后页面没变化"
+    function compressLogoImage(file, cb) {
+        var url = URL.createObjectURL(file);
+        var img = new Image();
+        img.onload = function () {
+            var scale = Math.min(1, 256 / Math.max(img.width || 1, img.height || 1));
+            var w = Math.max(1, Math.round((img.width || 256) * scale));
+            var h = Math.max(1, Math.round((img.height || 256) * scale));
+            var c = document.createElement('canvas');
+            c.width = w;
+            c.height = h;
+            c.getContext('2d').drawImage(img, 0, 0, w, h);
+            URL.revokeObjectURL(url);
+            cb(c.toDataURL('image/png'));
+        };
+        img.onerror = function () { URL.revokeObjectURL(url); cb(null); };
+        img.src = url;
+    }
+
     function applyLogo() {
         if (logoImg) logoImg.src = (logoState && logoState.img) ? logoState.img : DEFAULT_LOGO;
     }
@@ -891,14 +837,12 @@
         if (urlBlock) urlBlock.hidden = pendingMode !== 'url';
         if (videoBlock) videoBlock.hidden = pendingMode !== 'video';
         if (screenUrlInput && document.activeElement !== screenUrlInput) screenUrlInput.value = pendingUrl;
-        if (screenVideoTip && !transcoding) {
+        if (screenVideoTip) {
             screenVideoTip.textContent = pendingVideoSrc
                 ? '已选择' + (pendingVideoName ? '：' + pendingVideoName : '') +
-                  (pendingVideoData ? '（刷新后仍保留）' : '（刷新后需重新选择）') +
-                  (transcodeNote ? '，' + transcodeNote : '')
-                : '最大 100MB；上传后自动转码为手机友好格式，防止手机端解码卡顿';
+                  (pendingVideoData ? '（刷新后仍保留）' : '（刷新后需重新选择）')
+                : '最大 100MB；视频仅本地临时播放，不上传云端';
         }
-        if (screenDirectBtn) screenDirectBtn.hidden = !pendingOriginalSrc || transcoding;
         var presets = urlPresets ? urlPresets.querySelectorAll('.bg-opt') : [];
         for (var j = 0; j < presets.length; j++) {
             presets[j].classList.toggle('active', presets[j].getAttribute('data-url') === pendingUrl);
@@ -914,9 +858,6 @@
         pendingVideoSrc = null;
         pendingVideoData = s.video;
         pendingVideoName = '';
-        pendingOriginalSrc = null;
-        transcodeNote = '';
-        transcoding = false;
         if (logoSaveBtn) logoSaveBtn.disabled = false;
         syncLogoUi();
         lockScroll();
@@ -956,19 +897,20 @@
             logoFileInput.addEventListener('change', function () {
                 var file = logoFileInput.files && logoFileInput.files[0];
                 if (!file) return;
-                var reader = new FileReader();
-                reader.onload = function () {
-                    pendingLogo = String(reader.result);
+                compressLogoImage(file, function (dataURL) {
+                    if (!dataURL) return;
+                    pendingLogo = dataURL;
                     pendingLogoDirty = true;
+                    if (logoImg) logoImg.src = dataURL; // 选图后页面立即生效（保存才落库，取消可还原）
                     syncLogoUi();
-                };
-                reader.readAsDataURL(file);
+                });
             });
         }
         if (logoDefaultBtn) {
             logoDefaultBtn.addEventListener('click', function () {
                 pendingLogo = null;
                 pendingLogoDirty = true;
+                if (logoImg) logoImg.src = DEFAULT_LOGO; // 页面即时还原默认图标
                 syncLogoUi();
             });
         }
@@ -1012,21 +954,17 @@
                 var file = screenVideoInput.files && screenVideoInput.files[0];
                 if (!file) return;
 
-                function setTip(msg) {
-                    if (screenVideoTip) screenVideoTip.textContent = msg;
-                }
-
                 // 上限 100MB
                 if (file.size > SCREEN_VIDEO_MAX) {
-                    setTip('文件超过 100MB（当前 ' + Math.round(file.size / 1024 / 1024) + 'MB），请先压缩后再选择');
+                    if (screenVideoTip) {
+                        screenVideoTip.textContent = '文件超过 100MB（当前 ' + Math.round(file.size / 1024 / 1024) + 'MB），请先压缩后再选择';
+                    }
                     return;
                 }
 
                 pendingVideoName = file.name || '';
-                transcodeNote = '';
                 if (pendingVideoSrc) { try { URL.revokeObjectURL(pendingVideoSrc); } catch (e) { /* 忽略 */ } }
-                pendingVideoSrc = URL.createObjectURL(file); // 原片先作为播放源（转码完成或手动跳过时替换）
-                pendingOriginalSrc = pendingVideoSrc;
+                pendingVideoSrc = URL.createObjectURL(file); // 本地直接播放（不转码不上传）
                 if (file.size <= VIDEO_PERSIST_LIMIT) {
                     var reader = new FileReader();
                     reader.onload = function () {
@@ -1037,47 +975,8 @@
                 } else {
                     pendingVideoData = null; // 大文件仅本次播放，刷新后需重新选择
                 }
-
-                // ≤5MB 小文件缓冲快，直接播放；大文件自动转码为手机友好格式
-                if (file.size <= DIRECT_PLAY_MAX) {
-                    transcoding = false;
-                    if (logoSaveBtn) logoSaveBtn.disabled = false;
-                    syncLogoUi();
-                    return;
-                }
-
-                transcoding = true;
-                if (logoSaveBtn) logoSaveBtn.disabled = true;
-                if (screenDirectBtn) screenDirectBtn.hidden = true;
-                setTip('转码中 0%（' + Math.round(file.size / 1024 / 1024) + 'MB，大文件耗时较久，请稍候）');
-                transcodeVideo(file, function (p) {
-                    setTip('转码中 ' + p + '%（转码后手机端可流畅播放）');
-                }).then(function (blob) {
-                    transcoding = false;
-                    if (logoSaveBtn) logoSaveBtn.disabled = false;
-                    if (pendingVideoSrc) { try { URL.revokeObjectURL(pendingVideoSrc); } catch (e) { /* 忽略 */ } }
-                    pendingVideoSrc = URL.createObjectURL(blob);
-                    transcodeNote = '已转码为 720p 手机友好格式（' + Math.round(blob.size / 1024 / 1024) + 'MB）';
-                    syncLogoUi();
-                }).catch(function () {
-                    transcoding = false;
-                    if (logoSaveBtn) logoSaveBtn.disabled = false;
-                    transcodeNote = '转码失败，将直接播放原片';
-                    syncLogoUi();
-                });
+                syncLogoUi();
             });
-
-            // 跳过转码：直接播放原片
-            if (screenDirectBtn) {
-                screenDirectBtn.addEventListener('click', function () {
-                    if (!pendingOriginalSrc || transcoding) return;
-                    if (pendingVideoSrc && pendingVideoSrc !== pendingOriginalSrc) {
-                        try { URL.revokeObjectURL(pendingVideoSrc); } catch (e) { /* 忽略 */ }
-                    }
-                    pendingVideoSrc = pendingOriginalSrc;
-                    syncLogoUi();
-                });
-            }
         }
 
         // 保存：确认后才应用并落库
@@ -1097,7 +996,10 @@
                 closeLogoModal();
             });
         }
-        if (logoCancelBtn) logoCancelBtn.addEventListener('click', closeLogoModal);
+        if (logoCancelBtn) logoCancelBtn.addEventListener('click', function () {
+            closeLogoModal();
+            applyLogo(); // 取消时撤销页面上的即时预览，还原为已保存状态
+        });
 
         // 恢复默认：清空全部设置并立即生效（弹窗保持打开，可继续编辑）
         if (logoResetBtn) {
@@ -1114,9 +1016,6 @@
                 pendingVideoSrc = null;
                 pendingVideoData = null;
                 pendingVideoName = '';
-                pendingOriginalSrc = null;
-                transcodeNote = '';
-                transcoding = false;
                 if (logoSaveBtn) logoSaveBtn.disabled = false;
                 applyLogo();
                 applyScreen(screenState);

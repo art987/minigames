@@ -343,7 +343,7 @@ body {
 }
 
 .app-name {
-    font-size: clamp(17px, 3vw, 30px);
+    font-size: clamp(12px, 2.5vw, 16px);
     font-weight: 800;
     letter-spacing: 3px;
     background: linear-gradient(90deg, #ff9f0a, #ff6b2c, #ff375f, #ff9f0a);
@@ -500,7 +500,7 @@ body {
 }
 
 .slogan {
-    font-size: clamp(20px, 4.8vw, 30px);
+    font-size: clamp(11px, 2.2vw, 14px);
     font-weight: 700;
     letter-spacing: 2px;
     background: linear-gradient(90deg, #ff6b2c, #ff375f, #bf5af2, #ff6b2c);

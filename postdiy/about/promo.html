@@ -36,7 +36,7 @@
                     <div class="phone-screen">
                         <!-- 点击右侧 App logo 打开"图标与演示设置"弹窗：可更换图标、切换演示内容（网址/本地视频） -->
                         <iframe class="screen-site" src="https://peacelove.top/postdiy/" title="闪喵海报演示页面" loading="lazy"></iframe>
-                        <video class="screen-video" muted="" loop="" playsinline="" autoplay="" preload="metadata" webkit-playsinline="">
+                        <video class="screen-video" muted="" loop="" playsinline="" autoplay="" preload="auto" webkit-playsinline="" x5-playsinline="" x5-video-player-type="h5" x5-video-player-fullscreen="true">
                             <source src="promo-demo.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -237,8 +237,7 @@
             <div id="videoBlock" hidden>
                 <label class="edit-field-label">展示视频</label>
                 <button type="button" class="edit-btn edit-btn-primary" id="screenVideoBtn">选择本地视频</button>
-                <p class="bg-tip" id="screenVideoTip">最大 100MB；上传后自动转码为手机友好格式，防止手机端解码卡顿</p>
-                <button type="button" class="edit-btn edit-btn-ghost screen-direct-btn" id="screenDirectBtn" hidden>转码太慢？直接播放原片</button>
+                <p class="bg-tip" id="screenVideoTip">最大 100MB；视频仅本地临时播放，不上传云端</p>
             </div>
             <input type="file" id="screenVideoInput" accept="video/mp4,video/webm" hidden>
 
