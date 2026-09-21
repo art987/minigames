@@ -6590,7 +6590,7 @@ input.hidden {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffffffe0;
+  background: linear-gradient(186deg, #f4dbffdb, rgb(242 239 212 / 0%)), linear-gradient(90deg, #ffffffcc, #ecfeff 3%, #faffa6 56%, #11ffe952);
   display: flex;
   justify-content: center;
   align-items: center;

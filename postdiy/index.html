@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- 大手势指针：被推广页 iframe 嵌套演示时带 ?cursor=hand，录屏中指针更清晰醒目 -->
+  <script>
+    if (location.search.indexOf('cursor=hand') > -1) {
+      (function () {
+        var css = "html.big-hand-cursor,html.big-hand-cursor *{cursor:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 32 32'><path d='M13 3C14 3 15 4 15 5L15 13 16.5 13 16.5 10.5C16.5 9.4 17.4 8.6 18.5 8.6 19.6 8.6 20.5 9.4 20.5 10.5L20.5 13.5 22 13.5 22 12C22 10.9 22.9 10.1 24 10.1 25.1 10.1 26 10.9 26 12L26 14 27.5 14 27.5 13.5C27.5 12.4 28.4 11.6 29.5 11.6 30.6 11.6 31.5 12.4 31.5 13.5L31.5 21C31.5 26 27.5 30 22.5 30L18 30C15.5 30 13.2 28.9 11.7 26.9L6.5 20.2C5.7 19.2 5.9 17.8 6.9 17 7.9 16.2 9.3 16.4 10.1 17.3L11 18.4 11 5C11 3.9 11.9 3 13 3Z' fill='%231c1c1e' stroke='%23ffffff' stroke-width='1.8' stroke-linejoin='round'/></svg>\") 20 5,pointer !important}";
+        var s = document.createElement('style');
+        s.textContent = css;
+        document.documentElement.appendChild(s);
+        document.documentElement.className += ' big-hand-cursor';
+      })();
+    }
+  </script>
   <!-- 禁止双指缩放手势 + 图片防护 -->
   <script>
     document.addEventListener('gesturestart', function(e) { e.preventDefault(); });

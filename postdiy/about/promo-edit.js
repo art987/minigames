@@ -659,7 +659,9 @@
     var logoCancelBtn = document.getElementById('logoCancelBtn');
     var logoSaveBtn = document.getElementById('logoSaveBtn');
     var DEFAULT_LOGO = '../images/statics/applogo2.png';
-    var DEFAULT_SCREEN_URL = 'https://peacelove.top/postdiy/';
+    var DEFAULT_SCREEN_URL = 'https://peacelove.top/postdiy/?cursor=hand';
+    // 嵌套页（本仓库根目录部署的 /postdiy）支持 ?cursor=hand 大手势指针，录屏时更清晰
+    var CURSOR_PARAM = 'cursor=hand';
 
     var logoState = readJSON(LOGO_KEY, null); // { img } | null
     var screenState = normalizeScreen(readJSON(SCREEN_KEY, null));
@@ -674,11 +676,17 @@
     var pendingVideoName = '';
     var SCREEN_VIDEO_MAX = 100 * 1024 * 1024; // 上传上限 100MB
 
+    function ensureHandCursor(u) {
+        if (typeof u !== 'string' || u.indexOf('https://peacelove.top/postdiy') !== 0) return u;
+        if (u.indexOf(CURSOR_PARAM) !== -1) return u;
+        return u + (u.indexOf('?') === -1 ? '?' : '&') + CURSOR_PARAM;
+    }
+
     function normalizeScreen(st) {
         var s = st && typeof st === 'object' ? st : {};
         return {
             mode: s.mode === 'video' ? 'video' : 'url',
-            url: (typeof s.url === 'string' && s.url) ? s.url : DEFAULT_SCREEN_URL,
+            url: ensureHandCursor((typeof s.url === 'string' && s.url) ? s.url : DEFAULT_SCREEN_URL),
             video: (typeof s.video === 'string' && s.video) ? s.video : null
         };
     }
