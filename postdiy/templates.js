@@ -5716,6 +5716,46 @@ var templates = {
       type: '传统节日'
     },
     {
+      id: 'guoqing-2024-016',
+      name: '国庆盛世',      image: 'images/guoqing/16.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节盛世主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'guoqing-2024-017',
+      name: '国庆礼赞',      image: 'images/guoqing/17.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节礼赞主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'guoqing-2024-018',
+      name: '国庆欢腾',      image: 'images/guoqing/18.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节欢腾主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'guoqing-2024-019',
+      name: '国庆筑梦',      image: 'images/guoqing/19.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节筑梦主题海报模板',
+      type: '传统节日'
+    },
+    {
+      id: 'guoqing-2024-020',
+      name: '国庆同心',      image: 'images/guoqing/20.png',
+      months: [10],
+      festivals: ['国庆节'],
+      description: '国庆节同心主题海报模板',
+      type: '传统节日'
+    },
+    {
       id: 'hanlu-2024-001',
       name: '寒露',      image: 'images/hanlu/1.png',
       months: [10],
