@@ -5852,6 +5852,174 @@ var templates = {
       type: '节气'
     },
     {
+      id: 'hanlu-2024-013',
+      name: '寒露登高',      image: 'images/hanlu/13.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气登高主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-014',
+      name: '寒露菊香',      image: 'images/hanlu/14.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气菊香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-015',
+      name: '寒露鸿雁',      image: 'images/hanlu/15.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气鸿雁主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-016',
+      name: '寒露菊黄',      image: 'images/hanlu/16.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气菊黄主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-017',
+      name: '寒露蟹肥',      image: 'images/hanlu/17.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气蟹肥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-018',
+      name: '寒露添衣',      image: 'images/hanlu/18.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气添衣主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-019',
+      name: '寒露枫红',      image: 'images/hanlu/19.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气枫红主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-020',
+      name: '寒露秋收',      image: 'images/hanlu/20.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气秋收主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-021',
+      name: '寒露茶暖',      image: 'images/hanlu/21.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气茶暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-022',
+      name: '寒露夜凉',      image: 'images/hanlu/22.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气夜凉主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-023',
+      name: '寒露风清',      image: 'images/hanlu/23.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气风清主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-024',
+      name: '寒露云高',      image: 'images/hanlu/24.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气云高主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-025',
+      name: '寒露露白',      image: 'images/hanlu/25.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气露白主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-026',
+      name: '寒露山色',      image: 'images/hanlu/26.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气山色主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-027',
+      name: '寒露稻香',      image: 'images/hanlu/27.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气稻香主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-028',
+      name: '寒露柿红',      image: 'images/hanlu/28.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气柿红主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-029',
+      name: '寒露桂馥',      image: 'images/hanlu/29.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气桂馥主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-030',
+      name: '寒露安暖',      image: 'images/hanlu/30.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气安暖主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-031',
+      name: '寒露知秋',      image: 'images/hanlu/31.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气知秋主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-032',
+      name: '寒露静美',      image: 'images/hanlu/32.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气静美主题海报模板',
+      type: '节气'
+    },
+    {
+      id: 'hanlu-2024-033',
+      name: '寒露如画',      image: 'images/hanlu/33.png',
+      months: [10],
+      festivals: ['寒露'],
+      description: '寒露节气如画主题海报模板',
+      type: '节气'
+    },
+    {
       id: 'chongyang-2024-001',
       name: '重阳节',      image: 'images/chongyang/1.png',
       months: [10],
