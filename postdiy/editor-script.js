@@ -1460,13 +1460,13 @@ const ThumbnailLoader = {
       }, 200);
     }
 
-    // 图标显示 0.5 秒，文字显示 1.5 秒
+    // 图标显示 0.5 秒，文字显示 3 秒
     function scheduleNext() {
       if (animationInterval) clearTimeout(animationInterval);
-      animationInterval = setTimeout(toggleButtonContent, isShowingText ? 1500 : 500);
+      animationInterval = setTimeout(toggleButtonContent, isShowingText ? 3000 : 500);
     }
 
-    // 启动循环动画（图标 0.5 秒 / 文字 1.5 秒）
+    // 启动循环动画（图标 0.5 秒 / 文字 3 秒）
     function startAnimation() {
       stopAnimation();
       scheduleNext();
@@ -3164,9 +3164,17 @@ const ThumbnailLoader = {
       // 保存原始图片data URL，用于confirmCrop时手动裁剪
       currentCropOriginalDataUrl = e.target.result;
       const img = document.getElementById('cropImage');
+      const cropModal = document.getElementById('cropModal');
+      // 解码失败兜底：部分 WebView 无法解码 HEIC 等格式（或文件损坏），img.onerror 触发。
+      // 若不处理，弹窗已显示但 Cropper 永远不 ready，用户卡在白屏且无法退出。
+      img.onerror = function() {
+        console.error('图片解码失败, 检测格式:', detected);
+        if (cropModal) cropModal.style.display = 'none';
+        if (cropper) { try { cropper.destroy(); } catch (err) {} cropper = null; }
+        showToast('图片解码失败，请重新拍摄或换一张图片试试');
+      };
       img.src = e.target.result;
 
-      const cropModal = document.getElementById('cropModal');
       if (cropModal) {
         cropModal.style.display = 'flex';
         console.log('裁剪弹窗已显示');
@@ -3208,6 +3216,11 @@ const ThumbnailLoader = {
       resetCropEditValues();
     };
 
+    // 读取失败兜底：相机返回的临时文件偶尔会被系统回收导致读取报错
+    reader.onerror = function() {
+      console.error('FileReader 读取文件失败:', reader.error);
+      showToast('图片读取失败，请重新拍摄或选择一张图片');
+    };
     reader.readAsDataURL(file);
   }
 
@@ -4195,6 +4208,9 @@ const ThumbnailLoader = {
         // 更新elements对象中的引用
         elements.backgroundInput = newInput;
         activeFileInput = newInput;
+
+        // 兜底监控：WebView 相机返回可能不触发 change
+        watchPendingFileInput(newInput);
         
         // 使用setTimeout确保DOM完全更新后再触发点击
         setTimeout(() => {
@@ -4263,6 +4279,9 @@ const ThumbnailLoader = {
         // 更新elements对象中的引用
         elements.cameraInput = newInput;
         activeFileInput = newInput;
+
+        // 兜底监控：WebView 相机返回可能不触发 change
+        watchPendingFileInput(newInput);
         
         // 使用setTimeout确保DOM完全更新后再触发点击
         setTimeout(() => {
@@ -4278,46 +4297,41 @@ const ThumbnailLoader = {
     }
     
     // 清理文件输入框的函数
+    // 注意：只重置状态标志，绝不销毁 input 元素。
+    // 嵌套 App 的 WebView 打开相机时页面会失去焦点触发 focusout，
+    // 如果此时销毁 input（或用 cloneNode 替换导致监听器丢失），
+    // 相机确认后派发的 change 事件将无人接收，导致无法进入裁剪弹窗。
     function cleanupFileInput() {
-      // 立即重置状态标志，不等待延迟
+      // 立即重置状态标志，允许用户重新点击上传
       isFileDialogOpen = false;
-      
-      // 使用setTimeout让浏览器有时间处理取消操作
-      setTimeout(() => {
-        // 无条件清理状态，确保用户可以再次点击上传按钮
-        if (activeFileInput) {
-          try {
-            // 使用cloneNode方法彻底移除事件监听器
-            const newActiveFileInput = activeFileInput.cloneNode(true);
-            if (activeFileInput.parentNode) {
-              activeFileInput.parentNode.replaceChild(newActiveFileInput, activeFileInput);
+      // input 元素保留在 DOM 中：等 change 处理器读取完文件后再统一清理
+    }
+
+    // 兜底：部分嵌套 App 的 WebView 从相机返回后不触发 input 的 change 事件。
+    // 轮询检测：一旦发现 input 里有文件且 600ms 后仍未被处理
+    //（正常的 change 处理器读完文件后会清空 value），就手动派发一次 change。
+    function watchPendingFileInput(input) {
+      if (!input) return;
+      var tries = 0;
+      var iv = setInterval(function() {
+        tries++;
+        function stop() { clearInterval(iv); }
+        if (!input.isConnected) { stop(); return; }
+        if (input.files && input.files.length > 0) {
+          stop();
+          setTimeout(function() {
+            if (input.isConnected && input.files && input.files.length > 0) {
+              try {
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+              } catch (e) {
+                console.log('兜底派发 change 失败', e);
+              }
             }
-          } catch (e) {
-            console.log('清理活动输入框时出错，但不影响功能', e);
-          } finally {
-            activeFileInput = null;
-          }
+          }, 600);
+          return;
         }
-        
-        // 移除所有临时创建的file input元素
-        const tempInputs = ['backgroundInput', 'logoInput', 'qrcodeInput', 'cameraInput'];
-        tempInputs.forEach(id => {
-          try {
-            const input = document.getElementById(id);
-            if (input && input.parentNode) {
-              input.parentNode.removeChild(input);
-            }
-          } catch (e) {
-            console.log(`移除${id}时出错，但不影响功能`, e);
-          }
-        });
-        
-        // 确保所有上传按钮可点击
-        const uploadButtons = document.querySelectorAll('#uploadBackgroundBtn, #uploadLogoBtn, #uploadQrcodeBtn');
-        uploadButtons.forEach(button => {
-          button.style.pointerEvents = 'auto';
-        });
-      }, 100); // 减少延迟时间，提供更快的响应
+        if (tries > 60) stop(); // 15 秒后放弃（相机拍摄可能较慢）
+      }, 250);
     }
     
     // Logo上传相关事件
@@ -4371,6 +4385,9 @@ const ThumbnailLoader = {
         // 更新elements对象中的引用
         elements.logoInput = newInput;
         activeFileInput = newInput;
+
+        // 兜底监控：WebView 相机返回可能不触发 change
+        watchPendingFileInput(newInput);
         
         // 使用 setTimeout 确保 DOM 完全更新后再触发点击
         setTimeout(() => {
@@ -4571,6 +4588,9 @@ const ThumbnailLoader = {
         // 更新elements对象中的引用
         elements.qrcodeInput = newInput;
         activeFileInput = newInput;
+
+        // 兜底监控：WebView 相机返回可能不触发 change
+        watchPendingFileInput(newInput);
         
         // 使用 setTimeout 确保 DOM 完全更新后再触发点击
         setTimeout(() => {
@@ -4612,11 +4632,12 @@ const ThumbnailLoader = {
     (function setupVipBtnRotate() {
       var btn = document.getElementById('vipBtn');
       if (!btn) return;
-      // 三条文案：VIP大字单行，其它两行小字
+      // 两条文案：「VIP」大字单行 / 「升级」小字单行（字号更小），
+      // 配合 .vip-rotate-text 的 min-height 保证按钮尺寸在轮替时始终一致；
+      // 各显示约2秒，一直循环，不检测VIP状态、永不停止
       var texts = [
         { mode: 'large', content: 'VIP' },
-        { mode: 'small', content: '不限次数' },
-        { mode: 'small', content: '任意下载' }
+        { mode: 'small', content: '升级' }
       ];
       var idx = 0;
       var rotating = false;
@@ -4646,32 +4667,8 @@ const ThumbnailLoader = {
           setTimeout(function() { rotating = false; }, 450);
         }
       }
-      // 每2.5秒轮替一次（检测到已开通VIP则停止轮替）
-      function checkVipActive() {
-        if (typeof window.isVipActive === 'function' && window.isVipActive()) return true;
-        if (typeof VIPSystem !== 'undefined' && VIPSystem.isVip && VIPSystem.isVip()) return true;
-        // 检查用户信息DOM是否已显示VIP
-        var typeEl = document.getElementById('userInfoType');
-        if (typeEl && /VIP|闪喵VIP/.test(typeEl.textContent)) return true;
-        return false;
-      }
-      var timer = setInterval(function() {
-        if (checkVipActive()) {
-          // 已是VIP，恢复显示VIP并停止轮替
-          clearInterval(timer);
-          var cur = btn.querySelector('.vip-rotate-text');
-          if (cur && (cur.textContent !== 'VIP' || !cur.classList.contains('large'))) {
-            cur.classList.remove('animate-in');
-            cur.classList.add('animate-out');
-            setTimeout(function() {
-              idx = 0;
-              render(texts[0]);
-            }, 300);
-          }
-          return;
-        }
-        next();
-      }, 2500);
+      // 每2秒轮替一次，一直循环（VIP用户也同样轮替）
+      setInterval(next, 2000);
     })();
 
     // VIP按钮事件 - 显示VIP升级弹窗
@@ -9067,7 +9064,10 @@ const ThumbnailLoader = {
     const file = event.target.files[0];
     if (!file) return;
     
-    if (!file.type.match('image.*')) {
+    // 仅当 type 存在且明确不是图片时才拒绝。
+    // 嵌套 App 的 WebView 相机返回的文件 type 常为空字符串，
+    // 真实格式由 openCropper 通过 base64 magic number 检测兜底。
+    if (file.type && !file.type.match('image.*')) {
       showToast('请上传有效的图片文件');
       return;
     }
@@ -9122,7 +9122,10 @@ const ThumbnailLoader = {
     console.log('选择的文件:', file.name, file.type, file.size);
     
     // 检查文件类型
-    if (!file.type.match('image.*')) {
+    // 仅当 type 存在且明确不是图片时才拒绝。
+    // 嵌套 App 的 WebView 相机返回的文件 type 常为空字符串，
+    // 真实格式由 openCropper 通过 base64 magic number 检测兜底。
+    if (file.type && !file.type.match('image.*')) {
       showToast('请上传有效的图片文件');
       return;
     }
@@ -10361,7 +10364,10 @@ const ThumbnailLoader = {
     if (!file) return;
     
     // 检查文件类型
-    if (!file.type.match('image.*')) {
+    // 仅当 type 存在且明确不是图片时才拒绝。
+    // 嵌套 App 的 WebView 相机返回的文件 type 常为空字符串，
+    // 真实格式由 openCropper 通过 base64 magic number 检测兜底。
+    if (file.type && !file.type.match('image.*')) {
       showToast('请上传有效的图片文件');
       return;
     }
