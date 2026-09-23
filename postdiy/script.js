@@ -1782,7 +1782,12 @@ function updateCurrentSortBtn() {
     
     // 每日建议按钮点击事件
     if (dailySuggestionBtn) {
-      dailySuggestionBtn.addEventListener('click', showHomePopup);
+      // 每次进入首页显示闪烁红点提醒，用户点击后停止闪烁
+      dailySuggestionBtn.classList.add('has-red-dot');
+      dailySuggestionBtn.addEventListener('click', function() {
+        dailySuggestionBtn.classList.remove('has-red-dot');
+        showHomePopup();
+      });
     }
   
   // 关闭弹窗
@@ -2370,14 +2375,5 @@ function updateCurrentSortBtn() {
     }
   }
   
-  // 等待 templates 加载完成后再打开弹窗，避免背景图加载失败
-  function tryShowHomePopup() {
-    if (typeof window.templates !== 'undefined' && window.templates) {
-      setTimeout(showHomePopup, 3000);
-    } else {
-      console.log('[popup] templates 尚未加载，等待重试...');
-      setTimeout(tryShowHomePopup, 300);
-    }
-  }
-  tryShowHomePopup();
+  // 按需求调整：打开首页不再自动弹出智能提醒弹窗，改为按钮红点提醒（见上方 dailySuggestionBtn 初始化）
 }

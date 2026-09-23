@@ -8606,8 +8606,10 @@ button.future-suggestion-btn[data-action="wanan"] {
   50% { opacity: 0.3; }
 }
 
-.daily-suggestion-btn:hover {  background: #fff;
-  color:#d32f2f0; }
+.daily-suggestion-btn:hover {
+  background-color: #fff;
+  color: #d32f2f0;
+}
 
 
 .daily-suggestion-btn.has-red-dot {
@@ -8626,6 +8628,79 @@ button.future-suggestion-btn[data-action="wanan"] {
   border: 2px solid #ffffff;
   animation: redDotPulse 2s infinite;
   z-index: 1000;
+}
+
+/* ========== 品牌名称快捷编辑入口（轻量浮层，无遮罩） ========== */
+.brand-edit-entry {
+  position: fixed;
+  top: 13%;
+  width: 56%;
+  left: 20%;
+  /* transform: translateX(-54%); */
+  z-index: 2600;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border: 1px solid #ffffff42;
+  gap: 10px;
+  padding: 16px 12px;
+  background: #00000085;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+.brand-edit-entry.hidden {
+  display: none;
+}
+.brand-edit-entry-close {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #0000008c;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #f20000;
+  font-size: 23px;
+  line-height: 24px;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.brand-edit-entry-close:hover {
+  background: #cc0000;
+  color: #ffffff;
+}
+.brand-entry-btn {
+  height: 38px;
+  padding: 2px 11px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  width: 47%;
+  font-weight: 400;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+.brand-entry-btn:hover {
+  filter: brightness(1.05);
+}
+/* 改品牌名称：红色系 */
+.brand-entry-name {
+  background: linear-gradient(135deg, #f64444 0%, #ec353b 55%, #e31b27 100%);
+  color: #ffffff;
+}
+/* 改字体颜色：幻彩流光背景 + 黑色字体 */
+.brand-entry-color {
+  background: linear-gradient(90deg, #ffe7e8, #fff7e6, #edffe5, #eaf5ff, #faf4ff, #ffe6e7);
+  background-size: 300% 100%;
+  animation: brandEntryIridescent 14s linear infinite;
+  color: #000000;
+}
+@keyframes brandEntryIridescent {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 
 @keyframes redDotPulse {

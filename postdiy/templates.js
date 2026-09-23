@@ -14,7 +14,7 @@ var imageConfig = {
   // 图片版本号：仅在图片实际更新后修改（如 v1 → v2 → v3）
   // 修改后所有图片 URL 会带新版本号，CDN 视为新 URL 强制回源，解决旧缩略图缓存问题
   // 原图和衍生图（-86thumb）会同时带上版本号，二者缓存一并失效
-  imageVersion: 'v1',
+  imageVersion: 'v2',
 
   // 给 URL 追加版本号（已有 query string 用 & 拼接，否则用 ?）
   _withVersion: function(url) {

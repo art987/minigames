@@ -1416,7 +1416,7 @@ const ThumbnailLoader = {
       style.id = styleId;
       style.textContent = `
         #downloadBtn {
-          transition: opacity 0.5s ease, transform 0.3s ease;
+          transition: opacity 0.2s ease, transform 0.2s ease;
         }
         #downloadBtn.fade-out {
           opacity: 0;
@@ -1433,12 +1433,12 @@ const ThumbnailLoader = {
     function toggleButtonContent() {
       if (isAnimating) return;
       isAnimating = true;
-      
+
       // 第一步：淡出
       downloadBtn.classList.add('fade-out');
       downloadBtn.classList.remove('fade-in');
-      
-      // 等待淡出完成（0.5 秒）
+
+      // 等待淡出完成（0.2 秒）
       setTimeout(() => {
         // 切换内容
         if (isShowingText) {
@@ -1447,28 +1447,35 @@ const ThumbnailLoader = {
           downloadBtn.innerHTML = `<span>${downloadText}</span>`;
         }
         isShowingText = !isShowingText;
-        
+
         // 第二步：淡入
         downloadBtn.classList.remove('fade-out');
         downloadBtn.classList.add('fade-in');
-        
-        // 等待淡入完成
+
+        // 等待淡入完成后，按当前内容的展示时长调度下一次切换
         setTimeout(() => {
           isAnimating = false;
-        }, 500);
-      }, 500);
+          scheduleNext();
+        }, 200);
+      }, 200);
     }
-    
-    // 启动循环动画（5 秒切换一次）
+
+    // 图标显示 0.5 秒，文字显示 1.5 秒
+    function scheduleNext() {
+      if (animationInterval) clearTimeout(animationInterval);
+      animationInterval = setTimeout(toggleButtonContent, isShowingText ? 1500 : 500);
+    }
+
+    // 启动循环动画（图标 0.5 秒 / 文字 1.5 秒）
     function startAnimation() {
-      if (animationInterval) clearInterval(animationInterval);
-      animationInterval = setInterval(toggleButtonContent, 5000);
+      stopAnimation();
+      scheduleNext();
     }
-    
+
     // 停止动画
     function stopAnimation() {
       if (animationInterval) {
-        clearInterval(animationInterval);
+        clearTimeout(animationInterval);
         animationInterval = null;
       }
       isAnimating = false;
@@ -2027,6 +2034,10 @@ const ThumbnailLoader = {
       
       // 更改品牌名称按钮
       changeBrandNameBtn: document.getElementById('changeBrandNameBtn'),
+      brandEditEntryModal: document.getElementById('brandEditEntryModal'),
+      closeBrandEditEntryModalBtn: document.getElementById('closeBrandEditEntryModalBtn'),
+      entryBrandNameBtn: document.getElementById('entryBrandNameBtn'),
+      entryFontColorBtn: document.getElementById('entryFontColorBtn'),
       
       // 加载动画元素
       posterLoadingOverlay: document.getElementById('posterLoadingOverlay'),
@@ -3887,11 +3898,11 @@ const ThumbnailLoader = {
       elements.savePromoTextBtn.addEventListener('click', savePromoText);
     }
     
-    // 商家名称点击事件 - 弹出字体颜色选择弹窗
+    // 商家名称点击事件 - 弹出快捷编辑入口弹窗
     if (elements.posterBusinessName) {
       elements.posterBusinessName.addEventListener('click', function() {
-        // 打开字体颜色选择弹窗
-        openFontColorModal();
+        // 打开快捷编辑入口弹窗（改品牌名称 / 改字体颜色）
+        openBrandEditEntryModal();
       });
     }
     
@@ -3947,6 +3958,25 @@ const ThumbnailLoader = {
         closeFontColorModal();
         // 打开商家信息编辑弹窗
         openBusinessInfoModal();
+      });
+    }
+
+    // 快捷编辑入口浮层 - 关闭按钮
+    if (elements.closeBrandEditEntryModalBtn) {
+      elements.closeBrandEditEntryModalBtn.addEventListener('click', closeBrandEditEntryModal);
+    }
+    // 快捷编辑入口 - 改品牌名称
+    if (elements.entryBrandNameBtn) {
+      elements.entryBrandNameBtn.addEventListener('click', function() {
+        closeBrandEditEntryModal();
+        openBusinessInfoModal();
+      });
+    }
+    // 快捷编辑入口 - 改字体颜色
+    if (elements.entryFontColorBtn) {
+      elements.entryFontColorBtn.addEventListener('click', function() {
+        closeBrandEditEntryModal();
+        openFontColorModal();
       });
     }
     
@@ -5814,7 +5844,20 @@ const ThumbnailLoader = {
     }
   }
   
-  // 打开字体颜色选择弹窗
+  // 打开品牌名称快捷编辑入口浮层（轻量，无遮罩）
+  function openBrandEditEntryModal() {
+    if (!elements.brandEditEntryModal) return;
+    elements.brandEditEntryModal.classList.remove('hidden');
+    elements.brandEditEntryModal.style.display = 'flex';
+  }
+
+  // 关闭品牌名称快捷编辑入口浮层
+  function closeBrandEditEntryModal() {
+    if (!elements.brandEditEntryModal) return;
+    elements.brandEditEntryModal.classList.add('hidden');
+    elements.brandEditEntryModal.style.display = 'none';
+  }
+
   function openFontColorModal() {
     if (!elements.fontColorModal || !elements.fontColorModalSelector) return;
     
