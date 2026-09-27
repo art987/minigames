@@ -70,6 +70,56 @@
       "environment": {},
       "vpc": {},
       "deployMethod": "cos"
+    },
+    {
+      "name": "login-with-password",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "user-register",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "user-get-info",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "user-update-info",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "wx-login",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
     }
   ]
 }

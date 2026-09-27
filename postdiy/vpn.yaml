@@ -1,0 +1,2674 @@
+
+#---------------------------------------------------#
+## 上次更新于：2026-04-15 02:47:29
+#---------------------------------------------------#
+
+port: 7890
+socks-port: 7891
+redir-port: 7892
+allow-lan: false
+mode: rule
+log-level: silent
+external-controller: '0.0.0.0:9090'
+secret: ''
+dns:
+  enable: true
+  ipv6: false
+  listen: '0.0.0.0:1053'
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 114.114.114.114
+    - 119.29.29.29
+  nameserver:
+    - 114.114.114.114
+    - 119.29.29.29
+  nameserver-policy:
+    check-data.alibabacloudlnk.help: 'https://cache.server-nameserver.com:30997/dns-query/fixedtoken'
+    'geosite:cn': 114.114.114.114
+    'geosite:geolocation-!cn': 8.8.8.8
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+proxies:
+  -
+    name: 请前往官网查看新公告
+    type: ss
+    server: www.baidu.com
+    port: 1
+    cipher: chacha20-ietf
+    password: warning-node
+    udp: true
+  -
+    name: 官网：speedpie.org
+    type: ss
+    server: www.baidu.com
+    port: 1
+    cipher: chacha20-ietf
+    password: warning-node
+    udp: true
+  -
+    name: '🇭🇰 01 香港 BGP '
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5100
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    ws-path: /iso
+    ws-headers:
+      Host: mirrors.ustc.edu.cn
+    ws-opts:
+      path: /iso
+      headers: { Host: mirrors.ustc.edu.cn }
+  -
+    name: '🇭🇰 02 香港 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 9111
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇭🇰 03 香港 BGP '
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5500
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇭🇰 04 香港 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5502
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇭🇰 05 香港 HKT Home'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20025
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    ws-path: /iso
+    ws-headers:
+      Host: mirrors.ustc.edu.cn
+    ws-opts:
+      path: /iso
+      headers: { Host: mirrors.ustc.edu.cn }
+  -
+    name: '🇭🇰 06 香港 HKT Home'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5501
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇸🇬 07 新加坡 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 4000
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇸🇬 08 新加坡 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 4100
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇸🇬 09 新加坡 BGP '
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 4200
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇹🇼 10 台湾 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 3433
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    ws-path: /iso
+    ws-headers:
+      Host: mirrors.ustc.edu.cn
+    ws-opts:
+      path: /iso
+      headers: { Host: mirrors.ustc.edu.cn }
+  -
+    name: '🇹🇼 11 台湾 Home'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 3344
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇯🇵 12 日本 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20022
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇯🇵 13 日本 BGP '
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20023
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇺🇲 14 美国 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 7300
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇺🇲 15 美国 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 7301
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇰🇷 16 韩国 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 4342
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇦🇺 17 澳大利亚 Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5503
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇲🇾 18 马来西亚 Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5505
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇹🇭 19 泰国 ISP Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5504
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇻🇳 20 越南 ISP Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5506
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇮🇩 21 印尼 ISP Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5508
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇮🇳 22 印度  BGP Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20029
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇬🇧 23 英国  BGP '
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20030
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇩🇪 24 德国 BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 41001
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇫🇷 25 法国  BGP'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5507
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇹🇷 26 土耳其 Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 5101
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '27 尼日利亚 Africa'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 20028
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '🇦🇷 28 阿根廷 Americas'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 41000
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+  -
+    name: '29 巴基斯坦 Asia'
+    type: vmess
+    server: check-data.alibabacloudlnk.help
+    port: 8003
+    uuid: 94846414-ca36-3357-b10b-aa8b70f1f112
+    alterId: 0
+    cipher: auto
+    udp: true
+proxy-groups:
+  -
+    name: 👉手动选择
+    type: select
+    proxies:
+      - 🌐自动选择
+      - 🚀直接连接
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 🌐自动选择
+    type: url-test
+    proxies:
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+      - 🚀直接连接
+    url: 'http://cp.cloudflare.com'
+    interval: 86400
+  -
+    name: 🔰国外流量
+    type: select
+    proxies:
+      - 👉手动选择
+      - 🚀直接连接
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: ⚓️其他流量
+    type: select
+    proxies:
+      - 👉手动选择
+      - 🚀直接连接
+  -
+    name: 💬OpenAi
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: ✈️Telegram
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 📹Youtube
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 🎬Netflix
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 🎬DisneyPlus
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 🎬TWMedia
+    type: select
+    proxies:
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+  -
+    name: 🎬哔哩哔哩
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 👉手动选择
+  -
+    name: 🧰Linkedln
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 👉手动选择
+  -
+    name: 🎬国外媒体
+    type: select
+    proxies:
+      - 👉手动选择
+      - 请前往官网查看新公告
+      - 官网：speedpie.org
+      - '🇭🇰 01 香港 BGP '
+      - '🇭🇰 02 香港 BGP'
+      - '🇭🇰 03 香港 BGP '
+      - '🇭🇰 04 香港 BGP'
+      - '🇭🇰 05 香港 HKT Home'
+      - '🇭🇰 06 香港 HKT Home'
+      - '🇸🇬 07 新加坡 BGP'
+      - '🇸🇬 08 新加坡 BGP'
+      - '🇸🇬 09 新加坡 BGP '
+      - '🇹🇼 10 台湾 BGP'
+      - '🇹🇼 11 台湾 Home'
+      - '🇯🇵 12 日本 BGP'
+      - '🇯🇵 13 日本 BGP '
+      - '🇺🇲 14 美国 BGP'
+      - '🇺🇲 15 美国 BGP'
+      - '🇰🇷 16 韩国 BGP'
+      - '🇦🇺 17 澳大利亚 Asia'
+      - '🇲🇾 18 马来西亚 Asia'
+      - '🇹🇭 19 泰国 ISP Asia'
+      - '🇻🇳 20 越南 ISP Asia'
+      - '🇮🇩 21 印尼 ISP Asia'
+      - '🇮🇳 22 印度  BGP Asia'
+      - '🇬🇧 23 英国  BGP '
+      - '🇩🇪 24 德国 BGP'
+      - '🇫🇷 25 法国  BGP'
+      - '🇹🇷 26 土耳其 Asia'
+      - '27 尼日利亚 Africa'
+      - '🇦🇷 28 阿根廷 Americas'
+      - '29 巴基斯坦 Asia'
+  -
+    name: 🎮Steam
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 👉手动选择
+  -
+    name: 🎮Epic
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 👉手动选择
+  -
+    name: 🍎苹果服务
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 👉手动选择
+  -
+    name: 🚀直接连接
+    type: select
+    proxies:
+      - DIRECT
+
+
+rules:
+## ============================================
+## Clash 分流规则配置
+## ============================================
+
+## --- 通用规则 ---
+- DOMAIN-SUFFIX,smtp,DIRECT
+- DOMAIN-KEYWORD,aria2,DIRECT
+
+## ---需优先类 ---
+# Douyin / ByteDance China
+- DOMAIN-SUFFIX,amemv.com,DIRECT
+- DOMAIN-SUFFIX,douyincdn.com,DIRECT
+- DOMAIN-SUFFIX,douyinpic.com,DIRECT
+- DOMAIN-SUFFIX,douyinstatic.com,DIRECT
+- DOMAIN-SUFFIX,douyinvod.com,DIRECT
+- DOMAIN-SUFFIX,idouyinvod.com,DIRECT
+- DOMAIN-SUFFIX,iesdouyin.com,DIRECT
+- DOMAIN-SUFFIX,ixigua.com,DIRECT
+- DOMAIN-SUFFIX,ixiguavideo.com,DIRECT
+- DOMAIN-SUFFIX,pstatp.com,DIRECT
+- DOMAIN-SUFFIX,snssdk.com,DIRECT
+- DOMAIN-SUFFIX,toutiao.com,DIRECT
+- DOMAIN-SUFFIX,feiliao.com,DIRECT
+
+# Byte CDN / DNS
+- DOMAIN,lf3-static.bytednsdoc.com,DIRECT
+- DOMAIN,v5-dy-o-abtest.zjcdn.com,DIRECT
+
+## ============================================
+## 🤖 AI 服务 (💬OpenAi)
+## ============================================
+
+## --- OpenAI / ChatGPT ---
+- DOMAIN-KEYWORD,openai,💬OpenAi
+- DOMAIN,browser-intake-datadoghq.com,💬OpenAi
+- DOMAIN,cdn.usefathom.com,💬OpenAi
+- DOMAIN,challenges.cloudflare.com,💬OpenAi
+- DOMAIN,static.cloudflareinsights.com,💬OpenAi
+- DOMAIN,chat.openai.com.cdn.cloudflare.net,💬OpenAi
+- DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net,💬OpenAi
+- DOMAIN,openaicomproductionae4b.blob.core.windows.net,💬OpenAi
+- DOMAIN,production-openaicom-storage.azureedge.net ,💬OpenAi
+- DOMAIN,openaiapi-site.azureedge.net,💬OpenAi
+- DOMAIN-SUFFIX,ai.com,💬OpenAi
+- DOMAIN,openaicom.imgix.net,💬OpenAi
+- DOMAIN-SUFFIX,algolia.net,💬OpenAi
+- DOMAIN-SUFFIX,api.statsig.com,💬OpenAi
+- DOMAIN-SUFFIX,auth0.com,💬OpenAi
+- DOMAIN-SUFFIX,chatgpt.com,💬OpenAi
+- DOMAIN-SUFFIX,chatgpt.livekit.cloud,💬OpenAi
+- DOMAIN-SUFFIX,client-api.arkoselabs.com,💬OpenAi
+- DOMAIN-SUFFIX,events.statsigapi.net,💬OpenAi
+- DOMAIN-SUFFIX,featuregates.org,💬OpenAi
+- DOMAIN-SUFFIX,host.livekit.cloud,💬OpenAi
+- DOMAIN-SUFFIX,identrust.com,💬OpenAi
+- DOMAIN-SUFFIX,intercom.io,💬OpenAi
+- DOMAIN-SUFFIX,intercomcdn.com,💬OpenAi
+- DOMAIN-SUFFIX,launchdarkly.com,💬OpenAi
+- DOMAIN-SUFFIX,oaistatic.com,💬OpenAi
+- DOMAIN-SUFFIX,oaiusercontent.com,💬OpenAi
+- DOMAIN-SUFFIX,observeit.net,💬OpenAi
+- DOMAIN-SUFFIX,segment.io,💬OpenAi
+- DOMAIN-SUFFIX,sentry.io,💬OpenAi
+- DOMAIN-SUFFIX,stripe.com,💬OpenAi
+- DOMAIN-SUFFIX,turn.livekit.cloud,💬OpenAi
+- DOMAIN-SUFFIX,chat.com,💬OpenAi
+- DOMAIN-SUFFIX,sora.com,💬OpenAi
+- IP-CIDR,24.199.123.28/32,💬OpenAi,no-resolve
+- IP-CIDR,64.23.132.171/32,💬OpenAi,no-resolve
+
+## --- Apple Intelligence ---
+- DOMAIN-KEYWORD,apple-relay,💬OpenAi
+- DOMAIN-SUFFIX,apple-relay.apple.com,💬OpenAi
+- DOMAIN-SUFFIX,apple-relay.cloudflare.com,💬OpenAi
+- DOMAIN,gspe1-ssl.ls.apple.com,💬OpenAi
+- DOMAIN-SUFFIX,smoot.apple.com,💬OpenAi
+- DOMAIN,guzzoni.apple.com,💬OpenAi
+- DOMAIN,cp4.cloudflare.com,💬OpenAi
+
+## --- Google Gemini / Bard ---
+- DOMAIN-KEYWORD,colab,💬OpenAi
+- DOMAIN-KEYWORD,developerprofiles,💬OpenAi
+- DOMAIN-KEYWORD,generativelanguage,💬OpenAi
+- DOMAIN,ai.google.dev,💬OpenAi
+- DOMAIN-SUFFIX,google.com,💬OpenAi
+- DOMAIN-SUFFIX,deepmind.com,💬OpenAi
+- DOMAIN-SUFFIX,deepmind.google,💬OpenAi
+- DOMAIN-SUFFIX,generativeai.google,💬OpenAi
+- DOMAIN-SUFFIX,gemini.google,💬OpenAi
+- DOMAIN-SUFFIX,jules.google,💬OpenAi
+- DOMAIN-SUFFIX,labs.google,💬OpenAi
+- DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,💬OpenAi
+- DOMAIN-SUFFIX,geller-pa.googleapis.com,💬OpenAi
+- DOMAIN-SUFFIX,generativelanguage.googleapis.com,💬OpenAi
+- DOMAIN-SUFFIX,robinfrontend-pa.googleapis.com,💬OpenAi
+- DOMAIN-SUFFIX,aisandbox-pa.googleapis.com,💬OpenAi
+
+## --- Google Gemini /NoteBookLM
+- DOMAIN-SUFFIX,notebooklm.google,💬OpenAi
+- DOMAIN,notebooklm-pa.googleapis.com,💬OpenAi
+- DOMAIN,notebooklm.googleapis.com,💬OpenAi
+- DOMAIN-SUFFIX,notebooklm.google.com,💬OpenAi
+
+## --- Anthropic / Claude ---
+- DOMAIN-SUFFIX,anthropic.com,💬OpenAi
+- DOMAIN-SUFFIX,claude.ai,💬OpenAi
+- DOMAIN-SUFFIX,claude.com,💬OpenAi
+- DOMAIN-SUFFIX,claudeusercontent.com,💬OpenAi
+- DOMAIN-SUFFIX,claudemcpclient.com,💬OpenAi
+- DOMAIN,servd-anthropic-website.b-cdn.net,💬OpenAi
+- IP-CIDR,160.79.104.0/23,💬OpenAi,no-resolve
+- IP-CIDR6,2607:6bc0::/48,💬OpenAi,no-resolve
+
+## --- Meta AI ---
+- DOMAIN,imagine.meta.com,💬OpenAi
+- DOMAIN-SUFFIX,meta.ai,💬OpenAi
+
+## --- JetBrains AI ---
+- DOMAIN-SUFFIX,grazie.ai,💬OpenAi
+- DOMAIN-SUFFIX,grazie.aws.intellij.net,💬OpenAi
+- DOMAIN-KEYWORD,jetbrains.ai,💬OpenAi
+
+## --- Grok / X.AI ---
+- DOMAIN-SUFFIX,x.ai,💬OpenAi
+- DOMAIN-SUFFIX,grok.com,💬OpenAi
+- DOMAIN-SUFFIX,featureassets.org,💬OpenAi
+- DOMAIN-SUFFIX,xai.chronosphere.io,💬OpenAi
+
+## ============================================
+## 🔰 国外流量
+## ============================================
+
+## --- WhatsApp ---
+- DOMAIN-KEYWORD,whatsapp,🔰国外流量
+- DOMAIN,graph.facebook.com,🔰国外流量
+- DOMAIN-SUFFIX,bintray.com,🔰国外流量
+- DOMAIN-SUFFIX,whatsapp.biz,🔰国外流量
+- DOMAIN-SUFFIX,whatsapp.com,🔰国外流量
+- DOMAIN-SUFFIX,whatsapp.net,🔰国外流量
+- IP-CIDR,158.85.224.160/27,🔰国外流量 ,no-resolve
+- IP-CIDR,158.85.46.128/27,🔰国外流量 ,no-resolve
+- IP-CIDR,158.85.5.192/27,🔰国外流量 ,no-resolve
+- IP-CIDR,173.192.222.160/27,🔰国外流量 ,no-resolve
+- IP-CIDR,173.192.231.32/27,🔰国外流量 ,no-resolve
+- IP-CIDR,18.194.0.0/15,🔰国外流量 ,no-resolve
+- IP-CIDR,184.173.128.0/17,🔰国外流量 ,no-resolve
+- IP-CIDR,208.43.122.128/27,🔰国外流量 ,no-resolve
+- IP-CIDR,34.224.0.0/12,🔰国外流量 ,no-resolve
+- IP-CIDR,50.22.198.204/30,🔰国外流量 ,no-resolve
+- IP-CIDR,54.242.0.0/15,🔰国外流量 ,no-resolve
+
+## --- Google ---
+- DOMAIN-SUFFIX,ampproject.org,🔰国外流量
+- DOMAIN-SUFFIX,appspot.com,🔰国外流量
+- DOMAIN-SUFFIX,blogger.com,🔰国外流量
+- DOMAIN-SUFFIX,getoutline.org,🔰国外流量
+- DOMAIN-SUFFIX,gvt0.com,🔰国外流量
+- DOMAIN-SUFFIX,gvt1.com,🔰国外流量
+- DOMAIN-SUFFIX,gvt3.com,🔰国外流量
+- DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🔰国外流量
+- DOMAIN-KEYWORD,google,🔰国外流量
+- DOMAIN-KEYWORD,blogspot,🔰国外流量
+
+## --- Microsoft ---
+- DOMAIN-SUFFIX,onedrive.live.com,🔰国外流量
+- DOMAIN-SUFFIX,xboxlive.com,🔰国外流量
+
+## --- Facebook / Instagram / Meta ---
+- DOMAIN-SUFFIX,cdninstagram.com,🔰国外流量
+- DOMAIN-SUFFIX,fb.com,🔰国外流量
+- DOMAIN-SUFFIX,fb.me,🔰国外流量
+- DOMAIN-SUFFIX,fbaddins.com,🔰国外流量
+- DOMAIN-SUFFIX,fbcdn.net,🔰国外流量
+- DOMAIN-SUFFIX,fbsbx.com,🔰国外流量
+- DOMAIN-SUFFIX,fbworkmail.com,🔰国外流量
+- DOMAIN-SUFFIX,instagram.com,🔰国外流量
+- DOMAIN-SUFFIX,m.me,🔰国外流量
+- DOMAIN-SUFFIX,messenger.com,🔰国外流量
+- DOMAIN-SUFFIX,oculus.com,🔰国外流量
+- DOMAIN-SUFFIX,oculuscdn.com,🔰国外流量
+- DOMAIN-SUFFIX,rocksdb.org,🔰国外流量
+- DOMAIN-KEYWORD,facebook,🔰国外流量
+- IP-CIDR,3.123.36.126/32,🔰国外流量,no-resolve
+- IP-CIDR,35.157.215.84/32,🔰国外流量,no-resolve
+- IP-CIDR,35.157.217.255/32,🔰国外流量,no-resolve
+- IP-CIDR,52.58.209.134/32,🔰国外流量,no-resolve
+- IP-CIDR,54.93.124.31/32,🔰国外流量,no-resolve
+- IP-CIDR,54.162.243.80/32,🔰国外流量,no-resolve
+- IP-CIDR,54.173.34.141/32,🔰国外流量,no-resolve
+- IP-CIDR,54.235.23.242/32,🔰国外流量,no-resolve
+- IP-CIDR,169.45.248.118/32,🔰国外流量,no-resolve
+
+## --- Twitter / X ---
+- DOMAIN-SUFFIX,pscp.tv,🔰国外流量
+- DOMAIN-SUFFIX,periscope.tv,🔰国外流量
+- DOMAIN-SUFFIX,t.co,🔰国外流量
+- DOMAIN-SUFFIX,twimg.co,🔰国外流量
+- DOMAIN-SUFFIX,twimg.com,🔰国外流量
+- DOMAIN-SUFFIX,twitpic.com,🔰国外流量
+- DOMAIN-SUFFIX,vine.co,🔰国外流量
+- DOMAIN-KEYWORD,twitter,🔰国外流量
+
+## --- Line ---
+- DOMAIN-SUFFIX,line.me,🔰国外流量
+- DOMAIN-SUFFIX,line-apps.com,🔰国外流量
+- DOMAIN-SUFFIX,line-scdn.net,🔰国外流量
+- DOMAIN-SUFFIX,naver.jp,🔰国外流量
+- IP-CIDR,103.2.30.0/23,🔰国外流量,no-resolve
+- IP-CIDR,125.209.208.0/20,🔰国外流量,no-resolve
+- IP-CIDR,147.92.128.0/17,🔰国外流量,no-resolve
+- IP-CIDR,203.104.144.0/21,🔰国外流量,no-resolve
+
+## --- 文件分享/网盘 ---
+- DOMAIN-SUFFIX,4shared.com,🔰国外流量
+
+## --- 社交论坛 ---
+- DOMAIN-SUFFIX,520cc.cc,🔰国外流量
+- DOMAIN-SUFFIX,881903.com,🔰国外流量
+- DOMAIN-SUFFIX,9cache.com,🔰国外流量
+- DOMAIN-SUFFIX,9gag.com,🔰国外流量
+
+## --- 海外媒体 ---
+- DOMAIN-SUFFIX,abc.com,🔰国外流量
+- DOMAIN-SUFFIX,abc.net.au,🔰国外流量
+
+## --- 电子书/阅读 ---
+- DOMAIN-SUFFIX,abebooks.com,🔰国外流量
+
+## --- 电商购物 ---
+- DOMAIN-SUFFIX,amazon.co.jp,🔰国外流量
+
+## --- 开发者工具 ---
+- DOMAIN-SUFFIX,apigee.com,🔰国外流量
+
+## --- APK 下载 ---
+- DOMAIN-SUFFIX,apk-dl.com,🔰国外流量
+- DOMAIN-SUFFIX,apkfind.com,🔰国外流量
+- DOMAIN-SUFFIX,apkmirror.com,🔰国外流量
+- DOMAIN-SUFFIX,apkmonk.com,🔰国外流量
+- DOMAIN-SUFFIX,apkpure.com,🔰国外流量
+- DOMAIN-SUFFIX,aptoide.com,🔰国外流量
+
+## --- 档案/存档 ---
+- DOMAIN-SUFFIX,archive.is,🔰国外流量
+- DOMAIN-SUFFIX,archive.org,🔰国外流量
+- DOMAIN-SUFFIX,arte.tv,🔰国外流量
+
+## --- 设计/创意 ---
+- DOMAIN-SUFFIX,artstation.com,🔰国外流量
+- DOMAIN-SUFFIX,arukas.io,🔰国外流量
+- DOMAIN-SUFFIX,ask.com,🔰国外流量
+- DOMAIN-SUFFIX,avg.com,🔰国外流量
+
+## --- 成人内容 ---
+- DOMAIN-SUFFIX,avgle.com,🔰国外流量
+
+## --- 社交平台 ---
+- DOMAIN-SUFFIX,badoo.com,🔰国外流量
+- DOMAIN-SUFFIX,bandwagonhost.com,🔰国外流量
+- DOMAIN-SUFFIX,behance.net,🔰国外流量
+
+## --- 加密货币 ---
+- DOMAIN-SUFFIX,bibox.com,🔰国外流量
+- DOMAIN-SUFFIX,biggo.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,binance.com,🔰国外流量
+- DOMAIN-SUFFIX,bitcointalk.org,🔰国外流量
+- DOMAIN-SUFFIX,bitfinex.com,🔰国外流量
+- DOMAIN-SUFFIX,bitmex.com,🔰国外流量
+- DOMAIN-SUFFIX,bit-z.com,🔰国外流量
+
+## --- 博客/写作 ---
+- DOMAIN-SUFFIX,bloglovin.com,🔰国外流量
+
+## --- 财经新闻 ---
+- DOMAIN-SUFFIX,bloomberg.cn,🔰国外流量
+- DOMAIN-SUFFIX,bloomberg.com,🔰国外流量
+
+## --- 播客 ---
+- DOMAIN-SUFFIX,blubrry.com,🔰国外流量
+
+## --- 台湾网站 ---
+- DOMAIN-SUFFIX,book.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,booklive.jp,🔰国外流量
+- DOMAIN-SUFFIX,books.com.tw,🔰国外流量
+
+## --- VPN/代理服务 ---
+- DOMAIN-SUFFIX,boslife.net,🔰国外流量
+
+## --- 网盘存储 ---
+- DOMAIN-SUFFIX,box.com,🔰国外流量
+- DOMAIN-SUFFIX,businessinsider.com,🔰国外流量
+- DOMAIN-SUFFIX,bwh1.net,🔰国外流量
+- DOMAIN-SUFFIX,castbox.fm,🔰国外流量
+
+## --- 加拿大媒体 ---
+- DOMAIN-SUFFIX,cbc.ca,🔰国外流量
+- DOMAIN-SUFFIX,cdw.com,🔰国外流量
+- DOMAIN-SUFFIX,change.org,🔰国外流量
+- DOMAIN-SUFFIX,channelnewsasia.com,🔰国外流量
+
+## --- 论坛社区 ---
+- DOMAIN-SUFFIX,ck101.com,🔰国外流量
+- DOMAIN-SUFFIX,clarionproject.org,🔰国外流量
+- DOMAIN-SUFFIX,clyp.it,🔰国外流量
+- DOMAIN-SUFFIX,cna.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,comparitech.com,🔰国外流量
+- DOMAIN-SUFFIX,conoha.jp,🔰国外流量
+- DOMAIN-SUFFIX,crucial.com,🔰国外流量
+- DOMAIN-SUFFIX,cts.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,cw.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,cyberctm.com,🔰国外流量
+## --- 台湾网站 ---
+- DOMAIN-SUFFIX,dailyview.tw,🔰国外流量
+
+## --- 韩国网站 ---
+- DOMAIN-SUFFIX,daum.net,🔰国外流量
+- DOMAIN-SUFFIX,daumcdn.net,🔰国外流量
+- DOMAIN-SUFFIX,dcard.tw,🔰国外流量
+- DOMAIN-SUFFIX,deepdiscount.com,🔰国外流量
+- DOMAIN-SUFFIX,depositphotos.com,🔰国外流量
+- DOMAIN-SUFFIX,deviantart.com,🔰国外流量
+- DOMAIN-SUFFIX,disconnect.me,🔰国外流量
+
+## --- Discord ---
+- DOMAIN-SUFFIX,discordapp.com,🔰国外流量
+- DOMAIN-SUFFIX,discordapp.net,🔰国外流量
+- DOMAIN-SUFFIX,disqus.com,🔰国外流量
+- DOMAIN-SUFFIX,dlercloud.com,🔰国外流量
+- DOMAIN-SUFFIX,dns2go.com,🔰国外流量
+- DOMAIN-SUFFIX,dowjones.com,🔰国外流量
+
+## --- Dropbox ---
+- DOMAIN-SUFFIX,dropbox.com,🔰国外流量
+- DOMAIN-SUFFIX,dropboxusercontent.com,🔰国外流量
+
+## --- 搜索引擎 ---
+- DOMAIN-SUFFIX,duckduckgo.com,🔰国外流量
+
+## --- 德国媒体 ---
+- DOMAIN-SUFFIX,dw.com,🔰国外流量
+- DOMAIN-SUFFIX,dynu.com,🔰国外流量
+- DOMAIN-SUFFIX,earthcam.com,🔰国外流量
+- DOMAIN-SUFFIX,ebookservice.tw,🔰国外流量
+- DOMAIN-SUFFIX,economist.com,🔰国外流量
+
+## --- CDN ---
+- DOMAIN-SUFFIX,edgecastcdn.net,🔰国外流量
+- DOMAIN-SUFFIX,edu,🔰国外流量
+
+## --- 西班牙/欧洲媒体 ---
+- DOMAIN-SUFFIX,elpais.com,🔰国外流量
+- DOMAIN-SUFFIX,enanyang.my,🔰国外流量
+- DOMAIN-SUFFIX,encyclopedia.com,🔰国外流量
+- DOMAIN-SUFFIX,esoir.be,🔰国外流量
+- DOMAIN-SUFFIX,etherscan.io,🔰国外流量
+- DOMAIN-SUFFIX,euronews.com,🔰国外流量
+- DOMAIN-SUFFIX,evozi.com,🔰国外流量
+
+## --- RSS/阅读 ---
+- DOMAIN-SUFFIX,feedly.com,🔰国外流量
+- DOMAIN-SUFFIX,firech.at,🔰国外流量
+
+## --- 图片分享 ---
+- DOMAIN-SUFFIX,flickr.com,🔰国外流量
+- DOMAIN-SUFFIX,flitto.com,🔰国外流量
+- DOMAIN-SUFFIX,foreignpolicy.com,🔰国外流量
+- DOMAIN-SUFFIX,freebrowser.org,🔰国外流量
+- DOMAIN-SUFFIX,freewechat.com,🔰国外流量
+- DOMAIN-SUFFIX,freeweibo.com,🔰国外流量
+- DOMAIN-SUFFIX,friday.tw,🔰国外流量
+- DOMAIN-SUFFIX,ftchinese.com,🔰国外流量
+- DOMAIN-SUFFIX,ftimg.net,🔰国外流量
+
+## --- 加密货币交易所 ---
+- DOMAIN-SUFFIX,gate.io,🔰国外流量
+- DOMAIN-SUFFIX,getlantern.org,🔰国外流量
+- DOMAIN-SUFFIX,getsync.com,🔰国外流量
+- DOMAIN-SUFFIX,globalvoices.org,🔰国外流量
+
+## --- 日本网站 ---
+- DOMAIN-SUFFIX,goo.ne.jp,🔰国外流量
+- DOMAIN-SUFFIX,goodreads.com,🔰国外流量
+
+## --- 政府网站 ---
+- DOMAIN-SUFFIX,gov,🔰国外流量
+- DOMAIN-SUFFIX,gov.tw,🔰国外流量
+
+## --- 反审查网站 ---
+- DOMAIN-SUFFIX,greatfire.org,🔰国外流量
+- DOMAIN-SUFFIX,gumroad.com,🔰国外流量
+- DOMAIN-SUFFIX,hbg.com,🔰国外流量
+- DOMAIN-SUFFIX,heroku.com,🔰国外流量
+- DOMAIN-SUFFIX,hightail.com,🔰国外流量
+
+## --- 香港媒体/网站 ---
+- DOMAIN-SUFFIX,hk01.com,🔰国外流量
+- DOMAIN-SUFFIX,hkbf.org,🔰国外流量
+- DOMAIN-SUFFIX,hkbookcity.com,🔰国外流量
+- DOMAIN-SUFFIX,hkej.com,🔰国外流量
+- DOMAIN-SUFFIX,hket.com,🔰国外流量
+- DOMAIN-SUFFIX,hkgolden.com,🔰国外流量
+
+## --- 社交媒体管理 ---
+- DOMAIN-SUFFIX,hootsuite.com,🔰国外流量
+- DOMAIN-SUFFIX,hudson.org,🔰国外流量
+- DOMAIN-SUFFIX,hyread.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,ibtimes.com,🔰国外流量
+
+## --- 香港电视 ---
+- DOMAIN-SUFFIX,i-cable.com,🔰国外流量
+- DOMAIN-SUFFIX,icij.org,🔰国外流量
+- DOMAIN-SUFFIX,icoco.com,🔰国外流量
+
+## --- Imgur ---
+- DOMAIN-SUFFIX,imgur.com,🔰国外流量
+- DOMAIN-SUFFIX,initiummall.com,🔰国外流量
+- DOMAIN-SUFFIX,insecam.org,🔰国外流量
+- DOMAIN-SUFFIX,ipfs.io,🔰国外流量
+- DOMAIN-SUFFIX,issuu.com,🔰国外流量
+- DOMAIN-SUFFIX,istockphoto.com,🔰国外流量
+
+## --- 日本媒体 ---
+- DOMAIN-SUFFIX,japantimes.co.jp,🔰国外流量
+- DOMAIN-SUFFIX,jiji.com,🔰国外流量
+- DOMAIN-SUFFIX,jinx.com,🔰国外流量
+- DOMAIN-SUFFIX,jkforum.net,🔰国外流量
+- DOMAIN-SUFFIX,joinmastodon.org,🔰国外流量
+
+## --- VPS/代理服务 ---
+- DOMAIN-SUFFIX,justmysocks.net,🔰国外流量
+- DOMAIN-SUFFIX,justpaste.it,🔰国外流量
+
+## --- 韩国服务 ---
+- DOMAIN-SUFFIX,kakao.com,🔰国外流量
+- DOMAIN-SUFFIX,kakaocorp.com,🔰国外流量
+- DOMAIN-SUFFIX,kik.com,🔰国外流量
+
+## --- 电子书 ---
+- DOMAIN-SUFFIX,kobo.com,🔰国外流量
+- DOMAIN-SUFFIX,kobobooks.com,🔰国外流量
+- DOMAIN-SUFFIX,kodingen.com,🔰国外流量
+
+## --- 法国媒体 ---
+- DOMAIN-SUFFIX,lemonde.fr,🔰国外流量
+- DOMAIN-SUFFIX,lepoint.fr,🔰国外流量
+- DOMAIN-SUFFIX,lihkg.com,🔰国外流量
+
+## --- 播客搜索 ---
+- DOMAIN-SUFFIX,listennotes.com,🔰国外流量
+- DOMAIN-SUFFIX,logmein.com,🔰国外流量
+
+## --- 俄罗斯网站 ---
+- DOMAIN-SUFFIX,mail.ru,🔰国外流量
+## --- 邮件服务 ---
+- DOMAIN-SUFFIX,mailchimp.com,🔰国外流量
+- DOMAIN-SUFFIX,marc.info,🔰国外流量
+
+## --- 写作平台 ---
+- DOMAIN-SUFFIX,matters.news,🔰国外流量
+- DOMAIN-SUFFIX,maying.co,🔰国外流量
+- DOMAIN-SUFFIX,medium.com,🔰国外流量
+
+## --- MEGA 网盘 ---
+- DOMAIN-SUFFIX,mega.nz,🔰国外流量
+- DOMAIN-SUFFIX,mil,🔰国外流量
+- DOMAIN-SUFFIX,mingpao.com,🔰国外流量
+- DOMAIN-SUFFIX,mobile01.com,🔰国外流量
+- DOMAIN-SUFFIX,myspace.com,🔰国外流量
+- DOMAIN-SUFFIX,myspacecdn.com,🔰国外流量
+- DOMAIN-SUFFIX,nanyang.com,🔰国外流量
+- DOMAIN-SUFFIX,naver.com,🔰国外流量
+
+## --- 科技新闻 ---
+- DOMAIN-SUFFIX,neowin.net,🔰国外流量
+- DOMAIN-SUFFIX,newstapa.org,🔰国外流量
+- DOMAIN-SUFFIX,nexitally.com,🔰国外流量
+- DOMAIN-SUFFIX,nhk.or.jp,🔰国外流量
+- DOMAIN-SUFFIX,nii.ac.jp,🔰国外流量
+- DOMAIN-SUFFIX,nikkei.com,🔰国外流量
+- DOMAIN-SUFFIX,nofile.io,🔰国外流量
+- DOMAIN-SUFFIX,nrk.no,🔰国外流量
+- DOMAIN-SUFFIX,nyt.com,🔰国外流量
+- DOMAIN-SUFFIX,nytchina.com,🔰国外流量
+- DOMAIN-SUFFIX,nytcn.me,🔰国外流量
+- DOMAIN-SUFFIX,nytco.com,🔰国外流量
+- DOMAIN-SUFFIX,nytimes.com,🔰国外流量
+- DOMAIN-SUFFIX,nytimg.com,🔰国外流量
+- DOMAIN-SUFFIX,nytlog.com,🔰国外流量
+- DOMAIN-SUFFIX,nytstyle.com,🔰国外流量
+
+## --- 俄罗斯社交 ---
+- DOMAIN-SUFFIX,ok.ru,🔰国外流量
+- DOMAIN-SUFFIX,okex.com,🔰国外流量
+- DOMAIN-SUFFIX,on.cc,🔰国外流量
+- DOMAIN-SUFFIX,orientaldaily.com.my,🔰国外流量
+- DOMAIN-SUFFIX,overcast.fm,🔰国外流量
+- DOMAIN-SUFFIX,paltalk.com,🔰国外流量
+- DOMAIN-SUFFIX,pao-pao.net,🔰国外流量
+- DOMAIN-SUFFIX,parsevideo.com,🔰国外流量
+- DOMAIN-SUFFIX,pbxes.com,🔰国外流量
+- DOMAIN-SUFFIX,pcdvd.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,pchome.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,pcloud.com,🔰国外流量
+- DOMAIN-SUFFIX,picacomic.com,🔰国外流量
+
+## --- Pinterest ---
+- DOMAIN-SUFFIX,pinimg.com,🔰国外流量
+
+## --- Pixiv ---
+- DOMAIN-SUFFIX,pixiv.net,🔰国外流量
+- DOMAIN-SUFFIX,player.fm,🔰国外流量
+- DOMAIN-SUFFIX,plurk.com,🔰国外流量
+- DOMAIN-SUFFIX,po18.tw,🔰国外流量
+- DOMAIN-SUFFIX,potato.im,🔰国外流量
+- DOMAIN-SUFFIX,potatso.com,🔰国外流量
+- DOMAIN-SUFFIX,prism-break.org,🔰国外流量
+- DOMAIN-SUFFIX,proxifier.com,🔰国外流量
+- DOMAIN-SUFFIX,pt.im,🔰国外流量
+- DOMAIN-SUFFIX,pts.org.tw,🔰国外流量
+- DOMAIN-SUFFIX,pubu.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,pubu.tw,🔰国外流量
+- DOMAIN-SUFFIX,pureapk.com,🔰国外流量
+
+## --- Quora ---
+- DOMAIN-SUFFIX,quora.com,🔰国外流量
+- DOMAIN-SUFFIX,quoracdn.net,🔰国外流量
+
+## --- 日本电商 ---
+- DOMAIN-SUFFIX,rakuten.co.jp,🔰国外流量
+- DOMAIN-SUFFIX,readingtimes.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,readmoo.com,🔰国外流量
+- DOMAIN-SUFFIX,redbubble.com,🔰国外流量
+
+## --- Reddit ---
+- DOMAIN-SUFFIX,reddit.com,🔰国外流量
+- DOMAIN-SUFFIX,redditmedia.com,🔰国外流量
+- DOMAIN-SUFFIX,resilio.com,🔰国外流量
+- DOMAIN-SUFFIX,reuters.com,🔰国外流量
+- DOMAIN-SUFFIX,reutersmedia.net,🔰国外流量
+
+## --- 法广 RFI ---
+- DOMAIN-SUFFIX,rfi.fr,🔰国外流量
+- DOMAIN-SUFFIX,rixcloud.com,🔰国外流量
+- DOMAIN-SUFFIX,roadshow.hk,🔰国外流量
+- DOMAIN-SUFFIX,scmp.com,🔰国外流量
+- DOMAIN-SUFFIX,scribd.com,🔰国外流量
+- DOMAIN-SUFFIX,seatguru.com,🔰国外流量
+- DOMAIN-SUFFIX,shadowsocks.org,🔰国外流量
+
+## --- 电商购物 ---
+- DOMAIN-SUFFIX,shopee.tw,🔰国外流量
+- DOMAIN-SUFFIX,slideshare.net,🔰国外流量
+- DOMAIN-SUFFIX,softfamous.com,🔰国外流量
+- DOMAIN-SUFFIX,ssrcloud.org,🔰国外流量
+- DOMAIN-SUFFIX,startpage.com,🔰国外流量
+- DOMAIN-SUFFIX,steemit.com,🔰国外流量
+- DOMAIN-SUFFIX,steemitwallet.com,🔰国外流量
+
+## --- 成人论坛 ---
+- DOMAIN-SUFFIX,t66y.com,🔰国外流量
+- DOMAIN-SUFFIX,tapatalk.com,🔰国外流量
+- DOMAIN-SUFFIX,teco-hk.org,🔰国外流量
+- DOMAIN-SUFFIX,teco-mo.org,🔰国外流量
+- DOMAIN-SUFFIX,teddysun.com,🔰国外流量
+- DOMAIN-SUFFIX,textnow.me,🔰国外流量
+- DOMAIN-SUFFIX,theguardian.com,🔰国外流量
+- DOMAIN-SUFFIX,theinitium.com,🔰国外流量
+- DOMAIN-SUFFIX,thetvdb.com,🔰国外流量
+- DOMAIN-SUFFIX,tineye.com,🔰国外流量
+- DOMAIN-SUFFIX,torproject.org,🔰国外流量
+
+## --- Tumblr ---
+- DOMAIN-SUFFIX,tumblr.com,🔰国外流量
+- DOMAIN-SUFFIX,turbobit.net,🔰国外流量
+- DOMAIN-SUFFIX,tutanota.com,🔰国外流量
+
+## --- 香港论坛 ---
+- DOMAIN-SUFFIX,tvboxnow.com,🔰国外流量
+- DOMAIN-SUFFIX,udn.com,🔰国外流量
+- DOMAIN-SUFFIX,unseen.is,🔰国外流量
+- DOMAIN-SUFFIX,upmedia.mg,🔰国外流量
+- DOMAIN-SUFFIX,uptodown.com,🔰国外流量
+- DOMAIN-SUFFIX,urbandictionary.com,🔰国外流量
+- DOMAIN-SUFFIX,uwants.com,🔰国外流量
+- DOMAIN-SUFFIX,v2ray.com,🔰国外流量
+
+## --- 即时通讯 ---
+- DOMAIN-SUFFIX,viber.com,🔰国外流量
+
+## --- 美国之音 VOA ---
+- DOMAIN-SUFFIX,voachinese.com,🔰国外流量
+- DOMAIN-SUFFIX,voanews.com,🔰国外流量
+- DOMAIN-SUFFIX,voxer.com,🔰国外流量
+- DOMAIN-SUFFIX,vzw.com,🔰国外流量
+- DOMAIN-SUFFIX,w3schools.com,🔰国外流量
+- DOMAIN-SUFFIX,washingtonpost.com,🔰国外流量
+
+## --- 小说阅读 ---
+- DOMAIN-SUFFIX,wattpad.com,🔰国外流量
+- DOMAIN-SUFFIX,whoer.net,🔰国外流量
+
+## --- 维基百科 ---
+- DOMAIN-SUFFIX,wikimapia.org,🔰国外流量
+- DOMAIN-SUFFIX,wikipedia.org,🔰国外流量
+- DOMAIN-SUFFIX,wikiquote.org,🔰国外流量
+- DOMAIN-SUFFIX,wikiwand.com,🔰国外流量
+- DOMAIN-SUFFIX,winudf.com,🔰国外流量
+- DOMAIN-SUFFIX,wire.com,🔰国外流量
+
+## --- WordPress ---
+- DOMAIN-SUFFIX,wordpress.com,🔰国外流量
+- DOMAIN-SUFFIX,workflow.is,🔰国外流量
+- DOMAIN-SUFFIX,worldcat.org,🔰国外流量
+- DOMAIN-SUFFIX,wsj.com,🔰国外流量
+- DOMAIN-SUFFIX,wsj.net,🔰国外流量
+
+## --- 成人网站 ---
+- DOMAIN-SUFFIX,xhamster.com,🔰国外流量
+- DOMAIN-SUFFIX,xn--90wwvt03e.com,🔰国外流量
+- DOMAIN-SUFFIX,xn--i2ru8q2qg.com,🔰国外流量
+- DOMAIN-SUFFIX,xnxx.com,🔰国外流量
+- DOMAIN-SUFFIX,xvideos.com,🔰国外流量
+
+## --- Yahoo ---
+- DOMAIN-SUFFIX,yahoo.com,🔰国外流量
+- DOMAIN-SUFFIX,yandex.ru,🔰国外流量
+
+## --- Hacker News / YC ---
+- DOMAIN-SUFFIX,ycombinator.com,🔰国外流量
+- DOMAIN-SUFFIX,yesasia.com,🔰国外流量
+- DOMAIN-SUFFIX,yes-news.com,🔰国外流量
+- DOMAIN-SUFFIX,yomiuri.co.jp,🔰国外流量
+- DOMAIN-SUFFIX,you-get.org,🔰国外流量
+- DOMAIN-SUFFIX,zaobao.com,🔰国外流量
+
+## --- 加密货币 ---
+- DOMAIN-SUFFIX,zb.com,🔰国外流量
+- DOMAIN-SUFFIX,zello.com,🔰国外流量
+- DOMAIN-SUFFIX,zeronet.io,🔰国外流量
+
+## --- Zoom ---
+- DOMAIN-SUFFIX,zoom.us,🔰国外流量
+
+## --- GitHub / Copilot ---
+- DOMAIN-KEYWORD,github,🔰国外流量
+
+## --- 其他关键词 ---
+- DOMAIN-KEYWORD,jav,🔰国外流量
+- DOMAIN-KEYWORD,pinterest,🔰国外流量
+- DOMAIN-KEYWORD,porn,🔰国外流量
+- DOMAIN-KEYWORD,wikileaks,🔰国外流量
+- DOMAIN-SUFFIX,wikimedia.org,🔰国外流量
+
+## --- 其他常用网站 ---
+- DOMAIN-SUFFIX,apartmentratings.com,🔰国外流量
+- DOMAIN-SUFFIX,apartments.com,🔰国外流量
+- DOMAIN-SUFFIX,bankmobilevibe.com,🔰国外流量
+- DOMAIN-SUFFIX,bing.com,🔰国外流量
+- DOMAIN-SUFFIX,booktopia.com.au,🔰国外流量
+- DOMAIN-SUFFIX,cccat.io,🔰国外流量
+- DOMAIN-SUFFIX,centauro.com.br,🔰国外流量
+- DOMAIN-SUFFIX,clearsurance.com,🔰国外流量
+- DOMAIN-SUFFIX,costco.com,🔰国外流量
+- DOMAIN-SUFFIX,depositphotos.cn,🔰国外流量
+- DOMAIN-SUFFIX,dish.com,🔰国外流量
+- DOMAIN-SUFFIX,esurance.com,🔰国外流量
+- DOMAIN-SUFFIX,extmatrix.com,🔰国外流量
+- DOMAIN-SUFFIX,fastpic.ru,🔰国外流量
+- DOMAIN-SUFFIX,flipboard.com,🔰国外流量
+- DOMAIN-SUFFIX,fnac.be,🔰国外流量
+- DOMAIN-SUFFIX,fnac.com,🔰国外流量
+- DOMAIN-SUFFIX,funkyimg.com,🔰国外流量
+- DOMAIN-SUFFIX,gettyimages.com,🔰国外流量
+- DOMAIN-SUFFIX,here.com,🔰国外流量
+- DOMAIN-SUFFIX,jcpenney.com,🔰国外流量
+- DOMAIN-SUFFIX,mailfence.com,🔰国外流量
+- DOMAIN-SUFFIX,nationwide.com,🔰国外流量
+- DOMAIN-SUFFIX,nexon.com,🔰国外流量
+- DOMAIN-SUFFIX,nordstrom.com,🔰国外流量
+- DOMAIN-SUFFIX,nordstromimage.com,🔰国外流量
+- DOMAIN-SUFFIX,nordstromrack.com,🔰国外流量
+- DOMAIN-SUFFIX,superpages.com,🔰国外流量
+- DOMAIN-SUFFIX,target.com,🔰国外流量
+- DOMAIN-SUFFIX,thinkgeek.com,🔰国外流量
+- DOMAIN-SUFFIX,tracfone.com,🔰国外流量
+- DOMAIN-SUFFIX,unity3d.com,🔰国外流量
+- DOMAIN-SUFFIX,uploader.jp,🔰国外流量
+- DOMAIN-SUFFIX,vk.com,🔰国外流量
+- DOMAIN-SUFFIX,vsco.co,🔰国外流量
+- DOMAIN-SUFFIX,xfinity.com,🔰国外流量
+- DOMAIN,testflight.apple.com,🔰国外流量
+- DOMAIN-SUFFIX,appsto.re,🔰国外流量
+- DOMAIN,books.itunes.apple.com,🔰国外流量
+- DOMAIN,apps.apple.com,🔰国外流量
+- DOMAIN,itunes.apple.com,🔰国外流量
+- DOMAIN,lookup-api.apple.com,🔰国外流量
+- DOMAIN-SUFFIX,abc.xyz,🔰国外流量
+- DOMAIN-SUFFIX,android.com,🔰国外流量
+- DOMAIN-SUFFIX,androidify.com,🔰国外流量
+- DOMAIN-SUFFIX,dialogflow.com,🔰国外流量
+- DOMAIN-SUFFIX,autodraw.com,🔰国外流量
+- DOMAIN-SUFFIX,capitalg.com,🔰国外流量
+- DOMAIN-SUFFIX,certificate-transparency.org,🔰国外流量
+- DOMAIN-SUFFIX,chrome.com,🔰国外流量
+- DOMAIN-SUFFIX,chromeexperiments.com,🔰国外流量
+- DOMAIN-SUFFIX,chromestatus.com,🔰国外流量
+- DOMAIN-SUFFIX,chromium.org,🔰国外流量
+- DOMAIN-SUFFIX,creativelab5.com,🔰国外流量
+- DOMAIN-SUFFIX,debug.com,🔰国外流量
+- DOMAIN-SUFFIX,firebaseio.com,🔰国外流量
+- DOMAIN-SUFFIX,getmdl.io,🔰国外流量
+- DOMAIN-SUFFIX,ggpht.com,🔰国外流量
+- DOMAIN-SUFFIX,gmail.com,🔰国外流量
+- DOMAIN-SUFFIX,gmodules.com,🔰国外流量
+- DOMAIN-SUFFIX,godoc.org,🔰国外流量
+- DOMAIN-SUFFIX,golang.org,🔰国外流量
+- DOMAIN-SUFFIX,gstatic.com,🔰国外流量
+- DOMAIN-SUFFIX,gv.com,🔰国外流量
+- DOMAIN-SUFFIX,gwtproject.org,🔰国外流量
+- DOMAIN-SUFFIX,itasoftware.com,🔰国外流量
+- DOMAIN-SUFFIX,madewithcode.com,🔰国外流量
+- DOMAIN-SUFFIX,material.io,🔰国外流量
+- DOMAIN-SUFFIX,polymer-project.org,🔰国外流量
+- DOMAIN-SUFFIX,admin.recaptcha.net,🔰国外流量
+- DOMAIN-SUFFIX,recaptcha.net,🔰国外流量
+- DOMAIN-SUFFIX,shattered.io,🔰国外流量
+- DOMAIN-SUFFIX,synergyse.com,🔰国外流量
+- DOMAIN-SUFFIX,tensorflow.org,🔰国外流量
+- DOMAIN-SUFFIX,tfhub.dev,🔰国外流量
+- DOMAIN-SUFFIX,tiltbrush.com,🔰国外流量
+- DOMAIN-SUFFIX,waveprotocol.org,🔰国外流量
+- DOMAIN-SUFFIX,waymo.com,🔰国外流量
+- DOMAIN-SUFFIX,webmproject.org,🔰国外流量
+- DOMAIN-SUFFIX,webrtc.org,🔰国外流量
+- DOMAIN-SUFFIX,whatbrowser.org,🔰国外流量
+- DOMAIN-SUFFIX,widevine.com,🔰国外流量
+- DOMAIN-SUFFIX,x.company,🔰国外流量
+
+## --- OneDrive ---
+- DOMAIN-SUFFIX,1drv.com,🔰国外流量
+- DOMAIN-SUFFIX,1drv.ms,🔰国外流量
+- DOMAIN-SUFFIX,blob.core.windows.net,🔰国外流量
+- DOMAIN-SUFFIX,livefilestore.com,🔰国外流量
+- DOMAIN-SUFFIX,onedrive.com,🔰国外流量
+- DOMAIN-SUFFIX,storage.live.com,🔰国外流量
+- DOMAIN-SUFFIX,storage.msn.com,🔰国外流量
+- DOMAIN,oneclient.sfx.ms,🔰国外流量
+- DOMAIN-SUFFIX,0rz.tw,🔰国外流量
+- DOMAIN-SUFFIX,4bluestones.biz,🔰国外流量
+- DOMAIN-SUFFIX,9bis.net,🔰国外流量
+- DOMAIN-SUFFIX,allconnected.co,🔰国外流量
+- DOMAIN-SUFFIX,aol.com,🔰国外流量
+- DOMAIN-SUFFIX,bcc.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,bit.ly,🔰国外流量
+- DOMAIN-SUFFIX,bitshare.com,🔰国外流量
+- DOMAIN-SUFFIX,blog.jp,🔰国外流量
+- DOMAIN-SUFFIX,blogimg.jp,🔰国外流量
+- DOMAIN-SUFFIX,blogtd.org,🔰国外流量
+- DOMAIN-SUFFIX,broadcast.co.nz,🔰国外流量
+- DOMAIN-SUFFIX,camfrog.com,🔰国外流量
+- DOMAIN-SUFFIX,cfos.de,🔰国外流量
+- DOMAIN-SUFFIX,citypopulation.de,🔰国外流量
+- DOMAIN-SUFFIX,cloudfront.net,🔰国外流量
+- DOMAIN-SUFFIX,ctitv.com.tw,🔰国外流量
+- DOMAIN-SUFFIX,cuhk.edu.hk,🔰国外流量
+- DOMAIN-SUFFIX,cusu.hk,🔰国外流量
+- DOMAIN-SUFFIX,discord.gg,🔰国外流量
+- DOMAIN-SUFFIX,discuss.com.hk,🔰国外流量
+- DOMAIN-SUFFIX,dropboxapi.com,🔰国外流量
+- DOMAIN-SUFFIX,duolingo.cn,🔰国外流量
+- DOMAIN-SUFFIX,edditstatic.com,🔰国外流量
+- DOMAIN-SUFFIX,flickriver.com,🔰国外流量
+- DOMAIN-SUFFIX,focustaiwan.tw,🔰国外流量
+- DOMAIN-SUFFIX,free.fr,🔰国外流量
+- DOMAIN-SUFFIX,gigacircle.com,🔰国外流量
+- DOMAIN-SUFFIX,hk-pub.com,🔰国外流量
+- DOMAIN-SUFFIX,hosting.co.uk,🔰国外流量
+- DOMAIN-SUFFIX,hwcdn.net,🔰国外流量
+- DOMAIN-SUFFIX,ifixit.com,🔰国外流量
+- DOMAIN-SUFFIX,iphone4hongkong.com,🔰国外流量
+- DOMAIN-SUFFIX,iphonetaiwan.org,🔰国外流量
+- DOMAIN-SUFFIX,iptvbin.com,🔰国外流量
+- DOMAIN-SUFFIX,linksalpha.com,🔰国外流量
+- DOMAIN-SUFFIX,manyvids.com,🔰国外流量
+- DOMAIN-SUFFIX,myactimes.com,🔰国外流量
+- DOMAIN-SUFFIX,newsblur.com,🔰国外流量
+- DOMAIN-SUFFIX,now.im,🔰国外流量
+- DOMAIN-SUFFIX,redditlist.com,🔰国外流量
+- DOMAIN-SUFFIX,s3.amazonaws.com,🔰国外流量
+- DOMAIN-SUFFIX,signal.org,🔰国外流量
+- DOMAIN-SUFFIX,smartmailcloud.com,🔰国外流量
+- DOMAIN-SUFFIX,sparknotes.com,🔰国外流量
+- DOMAIN-SUFFIX,streetvoice.com,🔰国外流量
+- DOMAIN-SUFFIX,supertop.co,🔰国外流量
+- DOMAIN-SUFFIX,tv.com,🔰国外流量
+- DOMAIN-SUFFIX,typepad.com,🔰国外流量
+- DOMAIN-SUFFIX,udnbkk.com,🔰国外流量
+- DOMAIN-SUFFIX,urbanairship.com,🔰国外流量
+- DOMAIN-SUFFIX,whispersystems.org,🔰国外流量
+- DOMAIN-SUFFIX,wikia.com,🔰国外流量
+- DOMAIN-SUFFIX,wn.com,🔰国外流量
+- DOMAIN-SUFFIX,wolframalpha.com,🔰国外流量
+- DOMAIN-SUFFIX,x-art.com,🔰国外流量
+- DOMAIN-SUFFIX,yimg.com,🔰国外流量
+
+## --- GitHub Copilot / Bing AI ---
+- DOMAIN,api.githubcopilot.com,🔰国外流量
+- DOMAIN,copilot-proxy.githubusercontent.com,🔰国外流量
+- DOMAIN,copilot.microsoft.com,🔰国外流量
+- DOMAIN,sydney.bing.com,🔰国外流量
+- DOMAIN,www.bing.com,🔰国外流量
+
+
+
+## ============================================
+## ✈️ Telegram
+## ============================================
+- DOMAIN-SUFFIX,t.me,✈️Telegram
+- DOMAIN-SUFFIX,tdesktop.com,✈️Telegram
+- DOMAIN-SUFFIX,telegra.ph,✈️Telegram
+- DOMAIN-SUFFIX,telegram.me,✈️Telegram
+- DOMAIN-SUFFIX,telegram.org,✈️Telegram
+- IP-CIDR,91.108.4.0/22,✈️Telegram,no-resolve
+- IP-CIDR,91.108.8.0/22,✈️Telegram,no-resolve
+- IP-CIDR,91.108.12.0/22,✈️Telegram,no-resolve
+- IP-CIDR,91.108.16.0/22,✈️Telegram,no-resolve
+- IP-CIDR,91.108.56.0/22,✈️Telegram,no-resolve
+- IP-CIDR,149.154.160.0/20,✈️Telegram,no-resolve
+- IP-CIDR6,2001:b28:f23d::/48,✈️Telegram,no-resolve
+- IP-CIDR6,2001:b28:f23f::/48,✈️Telegram,no-resolve
+- IP-CIDR6,2001:67c:4e8::/48,✈️Telegram,no-resolve
+
+## ============================================
+## 📹 YouTube
+## ============================================
+- DOMAIN-KEYWORD,youtube,📹Youtube
+- DOMAIN,youtubei.googleapis.com,📹Youtube
+- DOMAIN,yt3.ggpht.com,📹Youtube
+- DOMAIN-SUFFIX,googlevideo.com,📹Youtube
+- DOMAIN-SUFFIX,gvt2.com,📹Youtube
+- DOMAIN-SUFFIX,withyoutube.com,📹Youtube
+- DOMAIN-SUFFIX,youtu.be,📹Youtube
+- DOMAIN-SUFFIX,youtube-nocookie.com,📹Youtube
+- DOMAIN-SUFFIX,youtube.com,📹Youtube
+- DOMAIN-SUFFIX,youtubeeducation.com,📹Youtube
+- DOMAIN-SUFFIX,youtubegaming.com,📹Youtube
+- DOMAIN-SUFFIX,youtubekids.com,📹Youtube
+- DOMAIN-SUFFIX,yt.be,📹Youtube
+- DOMAIN-SUFFIX,ytimg.com,📹Youtube
+- DOMAIN,music.youtube.com,📹Youtube
+
+## ============================================
+## 🎬 Netflix
+## ============================================
+- DOMAIN-KEYWORD,apiproxy-device-prod-nlb-,🎬Netflix
+- DOMAIN-KEYWORD,dualstack.apiproxy-,🎬Netflix
+- DOMAIN-KEYWORD,netflixdnstest,🎬Netflix
+- DOMAIN,netflix.com.edgesuite.net,🎬Netflix
+- DOMAIN-SUFFIX,fast.com,🎬Netflix
+- DOMAIN-SUFFIX,netflix.com,🎬Netflix
+- DOMAIN-SUFFIX,netflix.net,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest0.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest1.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest2.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest3.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest4.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest5.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest6.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest7.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest8.com,🎬Netflix
+- DOMAIN-SUFFIX,netflixdnstest9.com,🎬Netflix
+- DOMAIN-SUFFIX,nflxext.com,🎬Netflix
+- DOMAIN-SUFFIX,nflximg.com,🎬Netflix
+- DOMAIN-SUFFIX,nflximg.net,🎬Netflix
+- DOMAIN-SUFFIX,nflxso.net,🎬Netflix
+- DOMAIN-SUFFIX,nflxvideo.net,🎬Netflix
+- IP-CIDR,8.41.4.0/24,🎬Netflix,no-resolve
+- IP-CIDR,23.246.0.0/18,🎬Netflix,no-resolve
+- IP-CIDR,37.77.184.0/21,🎬Netflix,no-resolve
+- IP-CIDR,38.72.126.0/24,🎬Netflix,no-resolve
+- IP-CIDR,45.57.0.0/17,🎬Netflix,no-resolve
+- IP-CIDR,64.120.128.0/17,🎬Netflix,no-resolve
+- IP-CIDR,66.197.128.0/17,🎬Netflix,no-resolve
+- IP-CIDR,69.53.224.0/19,🎬Netflix,no-resolve
+- IP-CIDR,103.87.204.0/22,🎬Netflix,no-resolve
+- IP-CIDR,108.175.32.0/20,🎬Netflix,no-resolve
+- IP-CIDR,185.2.220.0/22,🎬Netflix,no-resolve
+- IP-CIDR,185.9.188.0/22,🎬Netflix,no-resolve
+- IP-CIDR,192.173.64.0/18,🎬Netflix,no-resolve
+- IP-CIDR,198.38.96.0/19,🎬Netflix,no-resolve
+- IP-CIDR,198.45.48.0/20,🎬Netflix,no-resolve
+- IP-CIDR,207.45.72.0/22,🎬Netflix,no-resolve
+- IP-CIDR,208.75.76.0/22,🎬Netflix,no-resolve
+- PROCESS-NAME,com.netflix.mediaclient,🎬Netflix
+
+## ============================================
+## 🎬 Disney+
+## ============================================
+- DOMAIN,cdn.registerdisney.go.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,adobedtm.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,bam.nr-data.net,🎬DisneyPlus
+- DOMAIN-SUFFIX,bamgrid.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,braze.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,cdn.optimizely.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,cdn.registerdisney.go.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,cws.conviva.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,d9.flashtalking.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,disney-plus.net,🎬DisneyPlus
+- DOMAIN-SUFFIX,disney-portal.my.onetrust.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,disney.demdex.net,🎬DisneyPlus
+- DOMAIN-SUFFIX,disney.my.sentry.io,🎬DisneyPlus
+- DOMAIN-SUFFIX,disneyplus.bn5x.net,🎬DisneyPlus
+- DOMAIN-SUFFIX,disneyplus.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,disneyplus.com.ssl.sc.omtrdc.net,🎬DisneyPlus
+- DOMAIN-SUFFIX,disneystreaming.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,dssott.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,execute-api.us-east-1.amazonaws.com,🎬DisneyPlus
+- DOMAIN-SUFFIX,js-agent.newrelic.com,🎬DisneyPlus
+- PROCESS-NAME,com.disney.datg.videoplatforms.android.abc,🎬DisneyPlus
+- PROCESS-NAME,com.disney.disneyplus,🎬DisneyPlus
+
+## ============================================
+## 🎬 台湾媒体 (TWMedia)
+## ============================================
+- DOMAIN,bahamut.akamaized.net,🎬TWMedia
+- DOMAIN,gamer-cds.cdn.hinet.net,🎬TWMedia
+- DOMAIN,gamer2-cds.cdn.hinet.net,🎬TWMedia
+- DOMAIN-SUFFIX,bahamut.com.tw,🎬TWMedia
+- DOMAIN-SUFFIX,gamer.com.tw,🎬TWMedia
+- DOMAIN,kktv-theater.kk.stream,🎬TWMedia
+- DOMAIN,theater-kktv.cdn.hinet.net,🎬TWMedia
+- DOMAIN-SUFFIX,kktv.com.tw,🎬TWMedia
+- DOMAIN-SUFFIX,kktv.me,🎬TWMedia
+- DOMAIN,litvfreemobile-hichannel.cdn.hinet.net,🎬TWMedia
+- DOMAIN-SUFFIX,litv.tv,🎬TWMedia
+- DOMAIN,d3c7rimkq79yfu.cloudfront.net,🎬TWMedia
+- DOMAIN-SUFFIX,d3c7rimkq79yfu.cloudfront.net,🎬TWMedia
+- DOMAIN-SUFFIX,linetv.tw,🎬TWMedia
+- DOMAIN-SUFFIX,profile.line-scdn.net,🎬TWMedia
+- DOMAIN-SUFFIX,kfs.io,🎬TWMedia
+- DOMAIN-SUFFIX,kkbox.com,🎬TWMedia
+- DOMAIN-SUFFIX,kkbox.com.tw,🎬TWMedia
+- DOMAIN,hamifans.emome.net,🎬TWMedia
+- DOMAIN-SUFFIX,skyking.com.tw,🎬TWMedia
+
+## ============================================
+## 🎬 国外媒体
+## ============================================
+
+## --- Dailymotion ---
+- DOMAIN-SUFFIX,dailymotion.com,🎬国外媒体
+
+## --- Vimeo ---
+- DOMAIN-SUFFIX,vimeo.com,🎬国外媒体
+- DOMAIN-SUFFIX,videopress.com,🎬国外媒体
+
+## --- 直播平台 ---
+- DOMAIN-SUFFIX,livestream.com,🎬国外媒体
+- DOMAIN-SUFFIX,ustream.tv,🎬国外媒体
+
+## --- Disney / ABC / Go ---
+- DOMAIN-SUFFIX,edgedatg.com,🎬国外媒体
+- DOMAIN-SUFFIX,go.com,🎬国外媒体
+
+## --- AbemaTV ---
+- DOMAIN-KEYWORD,abematv.akamaized.net,🎬国外媒体
+- DOMAIN,api-abematv.bucketeer.jp,🎬国外媒体
+- DOMAIN-SUFFIX,abema-tv.com,🎬国外媒体
+- DOMAIN-SUFFIX,abema.io,🎬国外媒体
+- DOMAIN-SUFFIX,abema.tv,🎬国外媒体
+- DOMAIN-SUFFIX,ameba.jp,🎬国外媒体
+- DOMAIN-SUFFIX,hayabusa.io,🎬国外媒体
+- DOMAIN-SUFFIX,hayabusa.media,🎬国外媒体
+
+## --- Channel 4 ---
+- DOMAIN-SUFFIX,c4assets.com,🎬国外媒体
+- DOMAIN-SUFFIX,channel4.com,🎬国外媒体
+
+## --- Amazon Prime Video ---
+- DOMAIN-KEYWORD,avoddashs,🎬国外媒体
+- DOMAIN,atv-ps.amazon.com,🎬国外媒体
+- DOMAIN,avodmp4s3ww-a.akamaihd.net,🎬国外媒体
+- DOMAIN,d1v5ir2lpwr8os.cloudfront.net,🎬国外媒体
+- DOMAIN,d1xfray82862hr.cloudfront.net,🎬国外媒体
+- DOMAIN,d22qjgkvxw22r6.cloudfront.net,🎬国外媒体
+- DOMAIN,d25xi40x97liuc.cloudfront.net,🎬国外媒体
+- DOMAIN,d27xxe7juh1us6.cloudfront.net,🎬国外媒体
+- DOMAIN,d3196yreox78o9.cloudfront.net,🎬国外媒体
+- DOMAIN,dmqdd6hw24ucf.cloudfront.net,🎬国外媒体
+- DOMAIN,ktpx.amazon.com,🎬国外媒体
+- DOMAIN-SUFFIX,aboutamazon.com,🎬国外媒体
+- DOMAIN-SUFFIX,aiv-cdn.net,🎬国外媒体
+- DOMAIN-SUFFIX,aiv-delivery.net,🎬国外媒体
+- DOMAIN-SUFFIX,amazon.jobs,🎬国外媒体
+- DOMAIN-SUFFIX,amazonuniversity.jobs,🎬国外媒体
+- DOMAIN-SUFFIX,amazonvideo.com,🎬国外媒体
+- DOMAIN-SUFFIX,media-amazon.com,🎬国外媒体
+- DOMAIN-SUFFIX,pv-cdn.net,🎬国外媒体
+
+## --- Apple TV+ ---
+- DOMAIN,np-edge.itunes.apple.com,🎬国外媒体
+- DOMAIN,play-edge.itunes.apple.com,🎬国外媒体
+- DOMAIN,hls-amt.itunes.apple.com,🎬国外媒体
+- DOMAIN,hls.itunes.apple.com,🎬国外媒体
+- DOMAIN,tv.applemusic.com,🎬国外媒体
+- DOMAIN,uts-api.itunes.apple.com,🎬国外媒体
+- DOMAIN-SUFFIX,videos.apple.com,🎬国外媒体
+- DOMAIN-SUFFIX,tv.apple.com,🎬国外媒体
+- PROCESS-NAME,TV,🎬国外媒体
+
+## --- BBC iPlayer ---
+- DOMAIN-KEYWORD,bbcfmt,🎬国外媒体
+- DOMAIN-KEYWORD,uk-live,🎬国外媒体
+- DOMAIN,aod-dash-uk-live.akamaized.net,🎬国外媒体
+- DOMAIN,aod-hls-uk-live.akamaized.net,🎬国外媒体
+- DOMAIN,vod-dash-uk-live.akamaized.net,🎬国外媒体
+- DOMAIN,vod-thumb-uk-live.akamaized.net,🎬国外媒体
+- DOMAIN-SUFFIX,bbc.co,🎬国外媒体
+- DOMAIN-SUFFIX,bbc.co.uk,🎬国外媒体
+- DOMAIN-SUFFIX,bbc.com,🎬国外媒体
+- DOMAIN-SUFFIX,bbc.net.uk,🎬国外媒体
+- DOMAIN-SUFFIX,bbcfmt.hs.llnwd.net,🎬国外媒体
+- DOMAIN-SUFFIX,bbci.co,🎬国外媒体
+- DOMAIN-SUFFIX,bbci.co.uk,🎬国外媒体
+- DOMAIN-SUFFIX,bidi.net.uk,🎬国外媒体
+
+## --- DAZN ---
+- DOMAIN-KEYWORD,voddazn,🎬国外媒体
+- DOMAIN,d151l6v8er5bdm.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,d151l6v8er5bdm.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,d1sgwhnao7452x.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,dazn-api.com,🎬国外媒体
+- DOMAIN-SUFFIX,dazn.com,🎬国外媒体
+- DOMAIN-SUFFIX,dazndn.com,🎬国外媒体
+- DOMAIN-SUFFIX,dcblivedazn.akamaized.net,🎬国外媒体
+- DOMAIN-SUFFIX,indazn.com,🎬国外媒体
+- DOMAIN-SUFFIX,indaznlab.com,🎬国外媒体
+- DOMAIN-SUFFIX,sentry.io,🎬国外媒体
+
+## --- Deezer ---
+- DOMAIN-SUFFIX,deezer.com,🎬国外媒体
+- DOMAIN-SUFFIX,dzcdn.net,🎬国外媒体
+
+## --- Discovery ---
+- DOMAIN-SUFFIX,disco-api.com,🎬国外媒体
+- DOMAIN-SUFFIX,discovery.com,🎬国外媒体
+- DOMAIN-SUFFIX,uplynk.com,🎬国外媒体
+
+## --- Crackle ---
+- DOMAIN-SUFFIX,crackle.com,🎬国外媒体
+
+## --- NBC ---
+- DOMAIN-SUFFIX,nbc.com,🎬国外媒体
+
+## --- FX Networks ---
+- DOMAIN-SUFFIX,fxnetworks.com,🎬国外媒体
+
+## --- EncoreTVB / FOX ---
+- DOMAIN,bcbolt446c5271-a.akamaihd.net,🎬国外媒体
+- DOMAIN,content.jwplatform.com,🎬国外媒体
+- DOMAIN,edge.api.brightcove.com,🎬国外媒体
+- DOMAIN,videos-f.jwpsrv.com,🎬国外媒体
+- DOMAIN-SUFFIX,encoretvb.com,🎬国外媒体
+- DOMAIN-SUFFIX,fox.com,🎬国外媒体
+- DOMAIN-SUFFIX,foxdcg.com,🎬国外媒体
+
+## --- 海外影视 ---
+- DOMAIN-SUFFIX,5itv.tv,🎬国外媒体
+- DOMAIN-SUFFIX,dnvod.tv,🎬国外媒体
+- DOMAIN-SUFFIX,jiehua.tv,🎬国外媒体
+- DOMAIN-SUFFIX,ocnttv.com,🎬国外媒体
+
+## --- Hulu ---
+- DOMAIN-SUFFIX,cws-hulu.conviva.com,🎬国外媒体
+- DOMAIN-SUFFIX,hulu.com,🎬国外媒体
+- DOMAIN-SUFFIX,hulu.hb.omtrdc.net,🎬国外媒体
+- DOMAIN-SUFFIX,hulu.sc.omtrdc.net,🎬国外媒体
+- DOMAIN-SUFFIX,huluad.com,🎬国外媒体
+- DOMAIN-SUFFIX,huluim.com,🎬国外媒体
+- DOMAIN-SUFFIX,hulustream.com,🎬国外媒体
+
+## --- Hulu Japan ---
+- DOMAIN-SUFFIX,happyon.jp,🎬国外媒体
+- DOMAIN-SUFFIX,hjholdings.jp,🎬国外媒体
+- DOMAIN-SUFFIX,hulu.jp,🎬国外媒体
+- DOMAIN-SUFFIX,prod.hjholdings.tv,🎬国外媒体
+- DOMAIN-SUFFIX,streaks.jp,🎬国外媒体
+- DOMAIN-SUFFIX,yb.uncn.jp,🎬国外媒体
+
+## --- ITV ---
+- DOMAIN,itvpnpmobile-a.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,itv.com,🎬国外媒体
+- DOMAIN-SUFFIX,itvstatic.com,🎬国外媒体
+
+## --- JOOX ---
+- DOMAIN-KEYWORD,jooxweb-api,🎬国外媒体
+- DOMAIN-SUFFIX,joox.com,🎬国外媒体
+
+## --- DMM ---
+- DOMAIN-SUFFIX,dmm.co.jp,🎬国外媒体
+- DOMAIN-SUFFIX,dmm.com,🎬国外媒体
+
+## --- Japonx / Japronx ---
+- DOMAIN-KEYWORD,japonx,🎬国外媒体
+- DOMAIN-KEYWORD,japronx,🎬国外媒体
+- DOMAIN-SUFFIX,japonx.com,🎬国外媒体
+- DOMAIN-SUFFIX,japonx.net,🎬国外媒体
+- DOMAIN-SUFFIX,japonx.tv,🎬国外媒体
+- DOMAIN-SUFFIX,japonx.vip,🎬国外媒体
+- DOMAIN-SUFFIX,japronx.com,🎬国外媒体
+- DOMAIN-SUFFIX,japronx.net,🎬国外媒体
+- DOMAIN-SUFFIX,japronx.tv,🎬国外媒体
+- DOMAIN-SUFFIX,japronx.vip,🎬国外媒体
+
+## --- Channel 5 / My5 ---
+- DOMAIN,d349g9zuie06uo.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,channel5.com,🎬国外媒体
+- DOMAIN-SUFFIX,my5.tv,🎬国外媒体
+
+## --- NowTV / myTV SUPER ---
+- DOMAIN-KEYWORD,nowtv100,🎬国外媒体
+- DOMAIN-KEYWORD,rthklive,🎬国外媒体
+- DOMAIN,mytvsuperlimited.hb.omtrdc.net,🎬国外媒体
+- DOMAIN,mytvsuperlimited.sc.omtrdc.net,🎬国外媒体
+- DOMAIN-SUFFIX,mytvsuper.com,🎬国外媒体
+- DOMAIN-SUFFIX,tvb.com,🎬国外媒体
+
+## --- Niconico ---
+- DOMAIN-SUFFIX,dmc.nico,🎬国外媒体
+- DOMAIN-SUFFIX,nicovideo.jp,🎬国外媒体
+- DOMAIN-SUFFIX,nimg.jp,🎬国外媒体
+
+## --- Nivod / 泥巴影视 ---
+- DOMAIN-KEYWORD,nivod,🎬国外媒体
+- DOMAIN-SUFFIX,biggggg.com,🎬国外媒体
+- DOMAIN-SUFFIX,mudvod.tv,🎬国外媒体
+- DOMAIN-SUFFIX,nbys.tv,🎬国外媒体
+- DOMAIN-SUFFIX,nbys1.tv,🎬国外媒体
+- DOMAIN-SUFFIX,nbyy.tv,🎬国外媒体
+- DOMAIN-SUFFIX,newpppp.com,🎬国外媒体
+- DOMAIN-SUFFIX,nivod.tv,🎬国外媒体
+- DOMAIN-SUFFIX,nivodi.tv,🎬国外媒体
+- DOMAIN-SUFFIX,nivodz.com,🎬国外媒体
+- DOMAIN-SUFFIX,vod360.net,🎬国外媒体
+
+## --- OleVOD / 欧乐影视 ---
+- DOMAIN-KEYWORD,olevod,🎬国外媒体
+- DOMAIN-SUFFIX,haiwaikan.com,🎬国外媒体
+- DOMAIN-SUFFIX,iole.tv,🎬国外媒体
+- DOMAIN-SUFFIX,olehd.com,🎬国外媒体
+- DOMAIN-SUFFIX,olelive.com,🎬国外媒体
+- DOMAIN-SUFFIX,olevod.com,🎬国外媒体
+- DOMAIN-SUFFIX,olevod.io,🎬国外媒体
+- DOMAIN-SUFFIX,olevod.tv,🎬国外媒体
+- DOMAIN-SUFFIX,olevodtv.com,🎬国外媒体
+
+## --- PBS / Pandora ---
+- DOMAIN-SUFFIX,pbs.org,🎬国外媒体
+- DOMAIN-SUFFIX,pandora.com,🎬国外媒体
+
+## --- Pornhub ---
+- DOMAIN-SUFFIX,phncdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,phprcdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,pornhub.com,🎬国外媒体
+- DOMAIN-SUFFIX,pornhubpremium.com,🎬国外媒体
+
+## --- Qobuz ---
+- DOMAIN-SUFFIX,qobuz.com,🎬国外媒体
+
+## --- SoundCloud ---
+- DOMAIN-SUFFIX,p-cdn.us,🎬国外媒体
+- DOMAIN-SUFFIX,sndcdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,soundcloud.com,🎬国外媒体
+
+## --- Spotify ---
+- DOMAIN-KEYWORD,-spotify-,🎬国外媒体
+- DOMAIN-KEYWORD,spotify.com,🎬国外媒体
+- DOMAIN-SUFFIX,pscdn.co,🎬国外媒体
+- DOMAIN-SUFFIX,scdn.co,🎬国外媒体
+- DOMAIN-SUFFIX,spoti.fi,🎬国外媒体
+- DOMAIN-SUFFIX,spotify.com,🎬国外媒体
+- DOMAIN-SUFFIX,spotifycdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,spotifycdn.net,🎬国外媒体
+
+## --- Vevo ---
+- DOMAIN-SUFFIX,vevo.com,🎬国外媒体
+
+## --- Zattoo ---
+- DOMAIN-SUFFIX,zattoo.com,🎬国外媒体
+
+## --- Tidal ---
+- DOMAIN-SUFFIX,tidal-cms.s3.amazonaws.com,🎬国外媒体
+- DOMAIN-SUFFIX,tidal.com,🎬国外媒体
+- DOMAIN-SUFFIX,tidalhifi.com,🎬国外媒体
+
+## --- TikTok ---
+- DOMAIN-KEYWORD,tiktokcdn,🎬国外媒体
+- DOMAIN-SUFFIX,tiktok.com,🎬国外媒体
+- DOMAIN-SUFFIX,tiktokv.com,🎬国外媒体
+- DOMAIN-SUFFIX,tiktokcdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,tik-tokapi.com,🎬国外媒体
+- DOMAIN-SUFFIX,musical.ly,🎬国外媒体
+- DOMAIN-SUFFIX,muscdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,byteoversea.com,🎬国外媒体
+- DOMAIN-SUFFIX,ibytedtos.com,🎬国外媒体
+- DOMAIN-SUFFIX,ibyteimg.com,🎬国外媒体
+- DOMAIN-SUFFIX,isnssdk.com,🎬国外媒体
+- DOMAIN-SUFFIX,ipstatp.com,🎬国外媒体
+- DOMAIN-SUFFIX,sgpstatp.com,🎬国外媒体
+- DOMAIN-SUFFIX,ttwebview.com,🎬国外媒体
+
+## --- Twitch ---
+- DOMAIN-KEYWORD,ttvnw,🎬国外媒体
+- DOMAIN-SUFFIX,ext-twitch.tv,🎬国外媒体
+- DOMAIN-SUFFIX,jtvnw.net,🎬国外媒体
+- DOMAIN-SUFFIX,ttvnw.net,🎬国外媒体
+- DOMAIN-SUFFIX,twitch-ext.rootonline.de,🎬国外媒体
+- DOMAIN-SUFFIX,twitch.tv,🎬国外媒体
+- DOMAIN-SUFFIX,twitchcdn.net,🎬国外媒体
+
+## --- Viu ---
+- PROCESS-NAME,com.viu.pad,🎬国外媒体
+- PROCESS-NAME,com.viu.phone,🎬国外媒体
+- PROCESS-NAME,com.vuclip.viu,🎬国外媒体
+- DOMAIN,api.viu.now.com,🎬国外媒体
+- DOMAIN,d1k2us671qcoau.cloudfront.net,🎬国外媒体
+- DOMAIN,d2anahhhmp1ffz.cloudfront.net,🎬国外媒体
+- DOMAIN,dfp6rglgjqszk.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,cognito-identity.us-east-1.amazonaws.com,🎬国外媒体
+- DOMAIN-SUFFIX,d1k2us671qcoau.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,d2anahhhmp1ffz.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,dfp6rglgjqszk.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,mobileanalytics.us-east-1.amazonaws.com,🎬国外媒体
+- DOMAIN-SUFFIX,viu.com,🎬国外媒体
+- DOMAIN-SUFFIX,viu.now.com,🎬国外媒体
+- DOMAIN-SUFFIX,viu.tv,🎬国外媒体
+
+## --- HBO / Max ---
+- DOMAIN-SUFFIX,bcbolthboa-a.akamaihd.net,🎬国外媒体
+- DOMAIN,cf.prd.media.h264.io,🎬国外媒体
+- DOMAIN-SUFFIX,discomax.com,🎬国外媒体
+- DOMAIN-SUFFIX,cf-images.ap-southeast-1.prod.boltdns.net,🎬国外媒体
+- DOMAIN-SUFFIX,cinemax.com,🎬国外媒体
+- DOMAIN-SUFFIX,dai3fd1oh325y.cloudfront.net,🎬国外媒体
+- DOMAIN-SUFFIX,execute-api.ap-southeast-1.amazonaws.com,🎬国外媒体
+- DOMAIN-SUFFIX,execute-api.us-east-1.amazonaws.com,🎬国外媒体
+- DOMAIN-SUFFIX,forthethrone.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbo.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbo.com.c.footprint.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbo.com.edgesuite.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbo.map.fastly.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia.com,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia1-i.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia2-i.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia3-i.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia4-i.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasia5-i.akamaihd.net,🎬国外媒体
+- DOMAIN-SUFFIX,hboasialive.akamaized.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbogeo.cust.footprint.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbogo.co.th,🎬国外媒体
+- DOMAIN-SUFFIX,hbogo.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbogo.eu,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.hk,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.id,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.ph,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.sg,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoasia.tw,🎬国外媒体
+- DOMAIN-SUFFIX,hbogoprod-vod.akamaized.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbolb.onwardsmg.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbomax.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbomaxcdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbomaxdash.s.llnwi.net,🎬国外媒体
+- DOMAIN-SUFFIX,hbonow.com,🎬国外媒体
+- DOMAIN-SUFFIX,hbounify-prod.evergent.com,🎬国外媒体
+- DOMAIN-SUFFIX,manifest.prod.boltdns.net,🎬国外媒体
+- DOMAIN-SUFFIX,max.com,🎬国外媒体
+- DOMAIN-SUFFIX,maxgo.com,🎬国外媒体
+- DOMAIN-SUFFIX,now-ashare.com,🎬国外媒体
+- DOMAIN-SUFFIX,now-tv.com,🎬国外媒体
+- DOMAIN-SUFFIX,now.com,🎬国外媒体
+- DOMAIN-SUFFIX,now.com.hk,🎬国外媒体
+- DOMAIN-SUFFIX,nowe.com,🎬国外媒体
+- DOMAIN-SUFFIX,nowe.hk,🎬国外媒体
+- DOMAIN-SUFFIX,players.brightcove.net,🎬国外媒体
+- DOMAIN-SUFFIX,warnermediacdn.com,🎬国外媒体
+- DOMAIN-SUFFIX,youboranqs01.com,🎬国外媒体
+- PROCESS-NAME,com.hbo.hbonow,🎬国外媒体
+
+## ============================================
+## 🎬 哔哩哔哩
+## ============================================
+- DOMAIN-SUFFIX,biliapi.com,🎬哔哩哔哩
+- DOMAIN-SUFFIX,biliapi.net,🎬哔哩哔哩
+- DOMAIN-SUFFIX,bilibili.com,🎬哔哩哔哩
+- DOMAIN-SUFFIX,bilibili.tv,🎬哔哩哔哩
+- DOMAIN-SUFFIX,bilivideo.com,🎬哔哩哔哩
+
+
+
+## ============================================
+## 🍎 Apple 服务
+## ============================================
+
+
+
+- DOMAIN-SUFFIX,aaplimg.com,🍎苹果服务
+- DOMAIN-SUFFIX,apple.co,🍎苹果服务
+- DOMAIN-SUFFIX,apple.com,🍎苹果服务
+- DOMAIN-SUFFIX,apple-cloudkit.com,🍎苹果服务
+- DOMAIN-SUFFIX,appstore.com,🍎苹果服务
+- DOMAIN-SUFFIX,cdn-apple.com,🍎苹果服务
+- DOMAIN-SUFFIX,crashlytics.com,🍎苹果服务
+- DOMAIN-SUFFIX,icloud.com,🍎苹果服务
+- DOMAIN-SUFFIX,icloud-content.com,🍎苹果服务
+- DOMAIN-SUFFIX,me.com,🍎苹果服务
+- DOMAIN-SUFFIX,mzstatic.com,🍎苹果服务
+- DOMAIN,www-cdn.icloud.com.akadns.net,🍎苹果服务
+
+
+## ============================================
+## 🧰 LinkedIn
+## ============================================
+- DOMAIN,e122475.dscg.akamaiedge.net,🧰Linkedln
+- DOMAIN,licdn.cn.cdn20.com,🧰Linkedln
+- DOMAIN,linkedin.sc.omtrdc.net,🧰Linkedln
+- DOMAIN-SUFFIX,bizographics.com,🧰Linkedln
+- DOMAIN-SUFFIX,l-0005.dc-msedge.net,🧰Linkedln
+- DOMAIN-SUFFIX,l-0005.l-msedge.net,🧰Linkedln
+- DOMAIN-SUFFIX,licdn.cn,🧰Linkedln
+- DOMAIN-SUFFIX,licdn.com,🧰Linkedln
+- DOMAIN-SUFFIX,linkedin.at,🧰Linkedln
+- DOMAIN-SUFFIX,linkedin.cn,🧰Linkedln
+- DOMAIN-SUFFIX,linkedin.com,🧰Linkedln
+- DOMAIN-SUFFIX,lnkd.in,🧰Linkedln
+
+## ============================================
+## 🎮 Steam
+## ============================================
+- DOMAIN,steambroadcast.akamaized.net,🎮Steam
+- DOMAIN-SUFFIX,steampowered.com,🎮Steam
+- DOMAIN,steamcdn-a.akamaihd.net,🎮Steam
+- DOMAIN,steamcommunity-a.akamaihd.net,🎮Steam
+- DOMAIN,steampipe.akamaized.net,🎮Steam
+- DOMAIN,steamstore-a.akamaihd.net,🎮Steam
+- DOMAIN,steamusercontent-a.akamaihd.net,🎮Steam
+- DOMAIN,steamuserimages-a.akamaihd.net,🎮Steam
+- DOMAIN-SUFFIX,fanatical.com,🎮Steam
+- DOMAIN-SUFFIX,humblebundle.com,🎮Steam
+- DOMAIN-SUFFIX,playartifact.com,🎮Steam
+- DOMAIN-SUFFIX,steam-chat.com,🎮Steam
+- DOMAIN-SUFFIX,steamcommunity.com,🎮Steam
+- DOMAIN-SUFFIX,steamgames.com,🎮Steam
+- DOMAIN-SUFFIX,steamserver.net,🎮Steam
+- DOMAIN-SUFFIX,steamstat.us,🎮Steam
+- DOMAIN-SUFFIX,steamstatic.com,🎮Steam
+- DOMAIN-SUFFIX,underlords.com,🎮Steam
+- DOMAIN-SUFFIX,valvesoftware.com,🎮Steam
+
+## ============================================
+## 🎮 Epic Games
+## ============================================
+- DOMAIN-SUFFIX,epicgames.com,🎮Epic
+- DOMAIN-SUFFIX,epicgames.dev,🎮Epic
+- DOMAIN-SUFFIX,helpshift.com,🎮Epic
+- DOMAIN-SUFFIX,paragon.com,🎮Epic
+- DOMAIN-SUFFIX,unrealengine.com,🎮Epic
+
+## ============================================
+## 🏠 本地网络 (DIRECT)
+## ============================================
+- DOMAIN-SUFFIX,local,DIRECT
+- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- IP-CIDR6,::1/128,DIRECT,no-resolve
+- IP-CIDR6,fc00::/7,DIRECT,no-resolve
+- IP-CIDR6,fe80::/10,DIRECT,no-resolve
+- IP-CIDR6,fd00::/8,DIRECT,no-resolve
+
+## ============================================
+## 🇨🇳 国内服务 (DIRECT)
+## ============================================
+
+## --- 通用/统计 ---
+- DOMAIN,app.adjust.com,DIRECT
+- DOMAIN-SUFFIX,googletraveladservices.com,DIRECT
+- DOMAIN,dl.google.com,DIRECT
+- DOMAIN,mtalk.google.com,DIRECT
+- DOMAIN,livew.l.qq.com,DIRECT
+- DOMAIN,vd.l.qq.com,DIRECT
+- DOMAIN,analytics.strava.com,DIRECT
+- DOMAIN,msg.umeng.com,DIRECT
+- DOMAIN,msg.umengcloud.com,DIRECT
+
+## --- 360 ---
+- DOMAIN-SUFFIX,qhres.com,DIRECT
+- DOMAIN-SUFFIX,stockwithgoods.com,DIRECT
+- DOMAIN-SUFFIX,qhimg.com,DIRECT
+
+## --- CDN ---
+- DOMAIN-SUFFIX,akadns.net,DIRECT
+
+## --- 阿里巴巴 ---
+- DOMAIN-SUFFIX,alibaba.com,DIRECT
+- DOMAIN-SUFFIX,alicdn.com,DIRECT
+- DOMAIN-SUFFIX,alikunlun.com,DIRECT
+- DOMAIN-SUFFIX,alipay.com,DIRECT
+- DOMAIN-SUFFIX,amap.com,DIRECT
+- DOMAIN-SUFFIX,autonavi.com,DIRECT
+- DOMAIN-SUFFIX,dingtalk.com,DIRECT
+- DOMAIN-SUFFIX,mxhichina.com,DIRECT
+- DOMAIN-SUFFIX,soku.com,DIRECT
+- DOMAIN-SUFFIX,taobao.com,DIRECT
+- DOMAIN-SUFFIX,tmall.com,DIRECT
+- DOMAIN-SUFFIX,tmall.hk,DIRECT
+- DOMAIN-SUFFIX,ykimg.com,DIRECT
+- DOMAIN-SUFFIX,youku.com,DIRECT
+- DOMAIN-SUFFIX,xiami.com,DIRECT
+- DOMAIN-SUFFIX,xiami.net,DIRECT
+
+## --- Apple 国内 ---
+- DOMAIN-SUFFIX,aaplimg.com,DIRECT
+- DOMAIN-SUFFIX,apple.co,DIRECT
+- DOMAIN-SUFFIX,apple.com,DIRECT
+- DOMAIN-SUFFIX,apple-cloudkit.com,DIRECT
+- DOMAIN-SUFFIX,appstore.com,DIRECT
+- DOMAIN-SUFFIX,cdn-apple.com,DIRECT
+- DOMAIN-SUFFIX,crashlytics.com,DIRECT
+- DOMAIN-SUFFIX,icloud.com,DIRECT
+- DOMAIN-SUFFIX,icloud-content.com,DIRECT
+- DOMAIN-SUFFIX,me.com,DIRECT
+- DOMAIN-SUFFIX,mzstatic.com,DIRECT
+- DOMAIN,www-cdn.icloud.com.akadns.net,DIRECT
+
+## --- 百度 ---
+- DOMAIN-SUFFIX,baidu.com,DIRECT
+- DOMAIN-SUFFIX,baidubcr.com,DIRECT
+- DOMAIN-SUFFIX,bdstatic.com,DIRECT
+- DOMAIN-SUFFIX,yunjiasu-cdn.net,DIRECT
+
+## --- 哔哩哔哩 ---
+- DOMAIN-SUFFIX,acgvideo.com,DIRECT
+- DOMAIN-SUFFIX,hdslb.com,DIRECT
+
+## --- 暴雪 ---
+- DOMAIN-SUFFIX,blizzard.com,DIRECT
+- DOMAIN-SUFFIX,battle.net,DIRECT
+- DOMAIN,blzddist1-a.akamaihd.net,DIRECT
+
+
+
+## --- 央视 ---
+- DOMAIN-SUFFIX,cctv.com,DIRECT
+- DOMAIN-SUFFIX,cctvpic.com,DIRECT
+- DOMAIN-SUFFIX,livechina.com,DIRECT
+
+## --- 滴滴 ---
+- DOMAIN-SUFFIX,didialift.com,DIRECT
+- DOMAIN-SUFFIX,didiglobal.com,DIRECT
+- DOMAIN-SUFFIX,udache.com,DIRECT
+
+## --- 国内视频源 ---
+- DOMAIN-SUFFIX,343480.com,DIRECT
+- DOMAIN-SUFFIX,baduziyuan.com,DIRECT
+- DOMAIN-SUFFIX,com-hs-hkdy.com,DIRECT
+- DOMAIN-SUFFIX,czybjz.com,DIRECT
+- DOMAIN-SUFFIX,dandanzan.com,DIRECT
+- DOMAIN-SUFFIX,fjhps.com,DIRECT
+- DOMAIN-SUFFIX,kuyunbo.club,DIRECT
+
+## --- 国内视频平台 ---
+- DOMAIN-SUFFIX,21cn.com,DIRECT
+- DOMAIN-SUFFIX,hitv.com,DIRECT
+- DOMAIN-SUFFIX,mgtv.com,DIRECT
+- DOMAIN-SUFFIX,iqiyi.com,DIRECT
+- DOMAIN-SUFFIX,iqiyipic.com,DIRECT
+- DOMAIN-SUFFIX,71.am.com,DIRECT
+
+## --- 京东 ---
+- DOMAIN-SUFFIX,jd.com,DIRECT
+- DOMAIN-SUFFIX,jd.hk,DIRECT
+- DOMAIN-SUFFIX,jdpay.com,DIRECT
+- DOMAIN-SUFFIX,360buyimg.com,DIRECT
+
+## --- 金山 ---
+- DOMAIN-SUFFIX,iciba.com,DIRECT
+- DOMAIN-SUFFIX,ksosoft.com,DIRECT
+
+## --- 美图 ---
+- DOMAIN-SUFFIX,meitu.com,DIRECT
+- DOMAIN-SUFFIX,meitudata.com,DIRECT
+- DOMAIN-SUFFIX,meitustat.com,DIRECT
+- DOMAIN-SUFFIX,meipai.com,DIRECT
+
+## --- 小米 ---
+- DOMAIN-SUFFIX,duokan.com,DIRECT
+- DOMAIN-SUFFIX,mi-img.com,DIRECT
+- DOMAIN-SUFFIX,miui.com,DIRECT
+- DOMAIN-SUFFIX,miwifi.com,DIRECT
+- DOMAIN-SUFFIX,xiaomi.com,DIRECT
+
+## --- 微软 国内 ---
+- DOMAIN-SUFFIX,microsoft.com,DIRECT
+- DOMAIN-SUFFIX,msecnd.net,DIRECT
+- DOMAIN-SUFFIX,office365.com,DIRECT
+- DOMAIN-SUFFIX,outlook.com,DIRECT
+- DOMAIN-SUFFIX,s-microsoft.com,DIRECT
+- DOMAIN-SUFFIX,visualstudio.com,DIRECT
+- DOMAIN-SUFFIX,windows.com,DIRECT
+- DOMAIN-SUFFIX,windowsupdate.com,DIRECT
+- DOMAIN,officecdn-microsoft-com.akamaized.net,DIRECT
+
+## --- 网易 ---
+- DOMAIN-SUFFIX,163.com,DIRECT
+- DOMAIN-SUFFIX,126.net,DIRECT
+- DOMAIN-SUFFIX,127.net,DIRECT
+- DOMAIN-SUFFIX,163yun.com,DIRECT
+- DOMAIN-SUFFIX,lofter.com,DIRECT
+- DOMAIN-SUFFIX,netease.com,DIRECT
+- DOMAIN-SUFFIX,ydstatic.com,DIRECT
+
+## --- 新浪/微博 ---
+- DOMAIN-SUFFIX,sina.com,DIRECT
+- DOMAIN-SUFFIX,weibo.com,DIRECT
+- DOMAIN-SUFFIX,weibocdn.com,DIRECT
+
+## --- 搜狐 ---
+- DOMAIN-SUFFIX,sohu.com,DIRECT
+- DOMAIN-SUFFIX,sohucs.com,DIRECT
+- DOMAIN-SUFFIX,sohu-inc.com,DIRECT
+- DOMAIN-SUFFIX,v-56.com,DIRECT
+
+## --- 搜狗 ---
+- DOMAIN-SUFFIX,sogo.com,DIRECT
+- DOMAIN-SUFFIX,sogou.com,DIRECT
+- DOMAIN-SUFFIX,sogoucdn.com,DIRECT
+
+## --- 腾讯 ---
+- DOMAIN-SUFFIX,gtimg.com,DIRECT
+- DOMAIN-SUFFIX,idqqimg.com,DIRECT
+- DOMAIN-SUFFIX,igamecj.com,DIRECT
+- DOMAIN-SUFFIX,myapp.com,DIRECT
+- DOMAIN-SUFFIX,myqcloud.com,DIRECT
+- DOMAIN-SUFFIX,qq.com,DIRECT
+- DOMAIN-SUFFIX,tencent.com,DIRECT
+- DOMAIN-SUFFIX,tencent-cloud.net,DIRECT
+
+## --- 字幕组 ---
+- DOMAIN-SUFFIX,jstucdn.com,DIRECT
+- DOMAIN-SUFFIX,zimuzu.io,DIRECT
+- DOMAIN-SUFFIX,zimuzu.tv,DIRECT
+- DOMAIN-SUFFIX,zmz2019.com,DIRECT
+- DOMAIN-SUFFIX,zmzapi.com,DIRECT
+- DOMAIN-SUFFIX,zmzapi.net,DIRECT
+- DOMAIN-SUFFIX,zmzfile.com,DIRECT
+
+## --- CDN ---
+- DOMAIN-SUFFIX,ccgslb.com,DIRECT
+- DOMAIN-SUFFIX,ccgslb.net,DIRECT
+- DOMAIN-SUFFIX,chinanetcenter.com,DIRECT
+- DOMAIN-SUFFIX,meixincdn.com,DIRECT
+- DOMAIN-SUFFIX,ourdvs.com,DIRECT
+- DOMAIN-SUFFIX,staticdn.net,DIRECT
+- DOMAIN-SUFFIX,wangsu.com,DIRECT
+- DOMAIN-SUFFIX,ipip.net,DIRECT
+- DOMAIN-SUFFIX,ip.la,DIRECT
+- DOMAIN-SUFFIX,ip-cdn.com,DIRECT
+- DOMAIN-SUFFIX,ipv6-test.com,DIRECT
+- DOMAIN-SUFFIX,test-ipv6.com,DIRECT
+- DOMAIN-SUFFIX,whatismyip.com,DIRECT
+- DOMAIN-SUFFIX,netspeedtestmaster.com,DIRECT
+- DOMAIN,speedtest.macpaw.com,DIRECT
+- DOMAIN-SUFFIX,awesome-hd.me,DIRECT
+- DOMAIN-SUFFIX,broadcasthe.net,DIRECT
+- DOMAIN-SUFFIX,chdbits.co,DIRECT
+- DOMAIN-SUFFIX,classix-unlimited.co.uk,DIRECT
+- DOMAIN-SUFFIX,empornium.me,DIRECT
+- DOMAIN-SUFFIX,gazellegames.net,DIRECT
+- DOMAIN-SUFFIX,hdchina.org,DIRECT
+- DOMAIN-SUFFIX,hdsky.me,DIRECT
+- DOMAIN-SUFFIX,icetorrent.org,DIRECT
+- DOMAIN-SUFFIX,jpopsuki.eu,DIRECT
+- DOMAIN-SUFFIX,keepfrds.com,DIRECT
+- DOMAIN-SUFFIX,madsrevolution.net,DIRECT
+- DOMAIN-SUFFIX,m-team.cc,DIRECT
+- DOMAIN-SUFFIX,nanyangpt.com,DIRECT
+- DOMAIN-SUFFIX,ncore.cc,DIRECT
+- DOMAIN-SUFFIX,open.cd,DIRECT
+- DOMAIN-SUFFIX,ourbits.club,DIRECT
+- DOMAIN-SUFFIX,passthepopcorn.me,DIRECT
+- DOMAIN-SUFFIX,privatehd.to,DIRECT
+- DOMAIN-SUFFIX,redacted.ch,DIRECT
+- DOMAIN-SUFFIX,springsunday.net,DIRECT
+- DOMAIN-SUFFIX,tjupt.org,DIRECT
+- DOMAIN-SUFFIX,totheglory.im,DIRECT
+- DOMAIN-SUFFIX,acm.org,DIRECT
+- DOMAIN-SUFFIX,acs.org,DIRECT
+- DOMAIN-SUFFIX,aip.org,DIRECT
+- DOMAIN-SUFFIX,ams.org,DIRECT
+- DOMAIN-SUFFIX,annualreviews.org,DIRECT
+- DOMAIN-SUFFIX,aps.org,DIRECT
+- DOMAIN-SUFFIX,ascelibrary.org,DIRECT
+- DOMAIN-SUFFIX,asm.org,DIRECT
+- DOMAIN-SUFFIX,asme.org,DIRECT
+- DOMAIN-SUFFIX,astm.org,DIRECT
+- DOMAIN-SUFFIX,bmj.com,DIRECT
+- DOMAIN-SUFFIX,cambridge.org,DIRECT
+- DOMAIN-SUFFIX,cas.org,DIRECT
+- DOMAIN-SUFFIX,clarivate.com,DIRECT
+- DOMAIN-SUFFIX,ebscohost.com,DIRECT
+- DOMAIN-SUFFIX,emerald.com,DIRECT
+- DOMAIN-SUFFIX,engineeringvillage.com,DIRECT
+- DOMAIN-SUFFIX,icevirtuallibrary.com,DIRECT
+- DOMAIN-SUFFIX,ieee.org,DIRECT
+- DOMAIN-SUFFIX,imf.org,DIRECT
+- DOMAIN-SUFFIX,iop.org,DIRECT
+- DOMAIN-SUFFIX,jamanetwork.com,DIRECT
+- DOMAIN-SUFFIX,jhu.edu,DIRECT
+- DOMAIN-SUFFIX,jstor.org,DIRECT
+- DOMAIN-SUFFIX,karger.com,DIRECT
+- DOMAIN-SUFFIX,libguides.com,DIRECT
+- DOMAIN-SUFFIX,madsrevolution.net,DIRECT
+- DOMAIN-SUFFIX,mpg.de,DIRECT
+- DOMAIN-SUFFIX,myilibrary.com,DIRECT
+- DOMAIN-SUFFIX,nature.com,DIRECT
+- DOMAIN-SUFFIX,oecd-ilibrary.org,DIRECT
+- DOMAIN-SUFFIX,osapublishing.org,DIRECT
+- DOMAIN-SUFFIX,oup.com,DIRECT
+- DOMAIN-SUFFIX,ovid.com,DIRECT
+- DOMAIN-SUFFIX,oxfordartonline.com,DIRECT
+- DOMAIN-SUFFIX,oxfordbibliographies.com,DIRECT
+- DOMAIN-SUFFIX,oxfordmusiconline.com,DIRECT
+- DOMAIN-SUFFIX,pnas.org,DIRECT
+- DOMAIN-SUFFIX,proquest.com,DIRECT
+- DOMAIN-SUFFIX,rsc.org,DIRECT
+- DOMAIN-SUFFIX,sagepub.com,DIRECT
+- DOMAIN-SUFFIX,sciencedirect.com,DIRECT
+- DOMAIN-SUFFIX,sciencemag.org,DIRECT
+- DOMAIN-SUFFIX,scopus.com,DIRECT
+- DOMAIN-SUFFIX,siam.org,DIRECT
+- DOMAIN-SUFFIX,spiedigitallibrary.org,DIRECT
+- DOMAIN-SUFFIX,springer.com,DIRECT
+- DOMAIN-SUFFIX,springerlink.com,DIRECT
+- DOMAIN-SUFFIX,tandfonline.com,DIRECT
+- DOMAIN-SUFFIX,un.org,DIRECT
+- DOMAIN-SUFFIX,uni-bielefeld.de,DIRECT
+- DOMAIN-SUFFIX,webofknowledge.com,DIRECT
+- DOMAIN-SUFFIX,westlaw.com,DIRECT
+- DOMAIN-SUFFIX,wiley.com,DIRECT
+- DOMAIN-SUFFIX,worldbank.org,DIRECT
+- DOMAIN-SUFFIX,worldscientific.com,DIRECT
+- DOMAIN-SUFFIX,cn,DIRECT
+- DOMAIN-SUFFIX,360in.com,DIRECT
+- DOMAIN-SUFFIX,51ym.me,DIRECT
+- DOMAIN-SUFFIX,8686c.com,DIRECT
+- DOMAIN-SUFFIX,abchina.com,DIRECT
+- DOMAIN-SUFFIX,accuweather.com,DIRECT
+- DOMAIN-SUFFIX,aicoinstorge.com,DIRECT
+- DOMAIN-SUFFIX,air-matters.com,DIRECT
+- DOMAIN-SUFFIX,air-matters.io,DIRECT
+- DOMAIN-SUFFIX,aixifan.com,DIRECT
+- DOMAIN-SUFFIX,amd.com,DIRECT
+- DOMAIN-SUFFIX,b612.net,DIRECT
+- DOMAIN-SUFFIX,bdatu.com,DIRECT
+- DOMAIN-SUFFIX,beitaichufang.com,DIRECT
+- DOMAIN-SUFFIX,bjango.com,DIRECT
+- DOMAIN-SUFFIX,booking.com,DIRECT
+- DOMAIN-SUFFIX,bstatic.com,DIRECT
+- DOMAIN-SUFFIX,cailianpress.com,DIRECT
+- DOMAIN-SUFFIX,camera360.com,DIRECT
+- DOMAIN-SUFFIX,chinaso.com,DIRECT
+- DOMAIN-SUFFIX,chua.pro,DIRECT
+- DOMAIN-SUFFIX,chuimg.com,DIRECT
+- DOMAIN-SUFFIX,chunyu.mobi,DIRECT
+- DOMAIN-SUFFIX,chushou.tv,DIRECT
+- DOMAIN-SUFFIX,cmbchina.com,DIRECT
+- DOMAIN-SUFFIX,cmbimg.com,DIRECT
+- DOMAIN-SUFFIX,ctrip.com,DIRECT
+- DOMAIN-SUFFIX,dfcfw.com,DIRECT
+- DOMAIN-SUFFIX,docschina.org,DIRECT
+- DOMAIN-SUFFIX,douban.com,DIRECT
+- DOMAIN-SUFFIX,doubanio.com,DIRECT
+- DOMAIN-SUFFIX,douyu.com,DIRECT
+- DOMAIN-SUFFIX,dxycdn.com,DIRECT
+- DOMAIN-SUFFIX,dytt8.net,DIRECT
+- DOMAIN-SUFFIX,eastmoney.com,DIRECT
+- DOMAIN-SUFFIX,eudic.net,DIRECT
+- DOMAIN-SUFFIX,feng.com,DIRECT
+- DOMAIN-SUFFIX,fengkongcloud.com,DIRECT
+- DOMAIN-SUFFIX,frdic.com,DIRECT
+- DOMAIN-SUFFIX,futu5.com,DIRECT
+- DOMAIN-SUFFIX,futunn.com,DIRECT
+- DOMAIN-SUFFIX,gandi.net,DIRECT
+- DOMAIN-SUFFIX,geilicdn.com,DIRECT
+- DOMAIN-SUFFIX,getpricetag.com,DIRECT
+- DOMAIN-SUFFIX,gifshow.com,DIRECT
+- DOMAIN-SUFFIX,godic.net,DIRECT
+- DOMAIN-SUFFIX,hicloud.com,DIRECT
+- DOMAIN-SUFFIX,hongxiu.com,DIRECT
+- DOMAIN-SUFFIX,hostbuf.com,DIRECT
+- DOMAIN-SUFFIX,huxiucdn.com,DIRECT
+- DOMAIN-SUFFIX,huya.com,DIRECT
+- DOMAIN-SUFFIX,infinitynewtab.com,DIRECT
+- DOMAIN-SUFFIX,ithome.com,DIRECT
+- DOMAIN-SUFFIX,java.com,DIRECT
+- DOMAIN-SUFFIX,jidian.im,DIRECT
+- DOMAIN-SUFFIX,kaiyanapp.com,DIRECT
+- DOMAIN-SUFFIX,kaspersky-labs.com,DIRECT
+- DOMAIN-SUFFIX,keepcdn.com,DIRECT
+- DOMAIN-SUFFIX,kkmh.com,DIRECT
+- DOMAIN-SUFFIX,loli.net,DIRECT
+- DOMAIN-SUFFIX,luojilab.com,DIRECT
+- DOMAIN-SUFFIX,maoyan.com,DIRECT
+- DOMAIN-SUFFIX,maoyun.tv,DIRECT
+- DOMAIN-SUFFIX,meituan.com,DIRECT
+- DOMAIN-SUFFIX,meituan.net,DIRECT
+- DOMAIN-SUFFIX,mobike.com,DIRECT
+- DOMAIN-SUFFIX,moke.com,DIRECT
+- DOMAIN-SUFFIX,mubu.com,DIRECT
+- DOMAIN-SUFFIX,myzaker.com,DIRECT
+- DOMAIN-SUFFIX,nim-lang-cn.org,DIRECT
+- DOMAIN-SUFFIX,nvidia.com,DIRECT
+- DOMAIN-SUFFIX,oracle.com,DIRECT
+- DOMAIN-SUFFIX,paypal.com,DIRECT
+- DOMAIN-SUFFIX,paypalobjects.com,DIRECT
+- DOMAIN-SUFFIX,qdaily.com,DIRECT
+- DOMAIN-SUFFIX,qidian.com,DIRECT
+- DOMAIN-SUFFIX,qyer.com,DIRECT
+- DOMAIN-SUFFIX,qyerstatic.com,DIRECT
+- DOMAIN-SUFFIX,raychase.net,DIRECT
+- DOMAIN-SUFFIX,ronghub.com,DIRECT
+- DOMAIN-SUFFIX,ruguoapp.com,DIRECT
+- DOMAIN-SUFFIX,s-reader.com,DIRECT
+- DOMAIN-SUFFIX,sankuai.com,DIRECT
+- DOMAIN-SUFFIX,scomper.me,DIRECT
+- DOMAIN-SUFFIX,seafile.com,DIRECT
+- DOMAIN-SUFFIX,sm.ms,DIRECT
+- DOMAIN-SUFFIX,smzdm.com,DIRECT
+- DOMAIN-SUFFIX,snapdrop.net,DIRECT
+- DOMAIN-SUFFIX,snwx.com,DIRECT
+- DOMAIN-SUFFIX,sspai.com,DIRECT
+- DOMAIN-SUFFIX,takungpao.com,DIRECT
+- DOMAIN-SUFFIX,teamviewer.com,DIRECT
+- DOMAIN-SUFFIX,tianyancha.com,DIRECT
+- DOMAIN-SUFFIX,udacity.com,DIRECT
+- DOMAIN-SUFFIX,uning.com,DIRECT
+- DOMAIN-SUFFIX,vmware.com,DIRECT
+- DOMAIN-SUFFIX,weather.com,DIRECT
+- DOMAIN-SUFFIX,weico.cc,DIRECT
+- DOMAIN-SUFFIX,weidian.com,DIRECT
+- DOMAIN-SUFFIX,xiachufang.com,DIRECT
+- DOMAIN-SUFFIX,ximalaya.com,DIRECT
+- DOMAIN-SUFFIX,xinhuanet.com,DIRECT
+- DOMAIN-SUFFIX,xmcdn.com,DIRECT
+- DOMAIN-SUFFIX,yangkeduo.com,DIRECT
+- DOMAIN-SUFFIX,zhangzishi.cc,DIRECT
+- DOMAIN-SUFFIX,zhihu.com,DIRECT
+- DOMAIN-SUFFIX,zhimg.com,DIRECT
+- DOMAIN-SUFFIX,zhuihd.com,DIRECT
+- DOMAIN,download.jetbrains.com,DIRECT
+- DOMAIN,images-cn.ssl-images-amazon.com,DIRECT
+- DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net,DIRECT
+- DOMAIN,btrace.qq.com,DIRECT
+- DOMAIN,dldir1.qq.com,DIRECT
+- DOMAIN,slife.xy-asia.com,DIRECT
+- DOMAIN,soup.v.qq.com,DIRECT
+- DOMAIN,vweixinf.tc.qq.com,DIRECT
+- DOMAIN,weixin110.qq.com,DIRECT
+- DOMAIN,wup.imtt.qq.com,DIRECT
+- DOMAIN-SUFFIX,iot-tencent.com,DIRECT
+- DOMAIN-SUFFIX,lbs.gtimg.com,DIRECT
+- DOMAIN-SUFFIX,map.qq.com,DIRECT
+- DOMAIN-SUFFIX,qlogo.cn,DIRECT
+- DOMAIN-SUFFIX,qpic.cn,DIRECT
+- DOMAIN-SUFFIX,servicewechat.com,DIRECT
+- DOMAIN-SUFFIX,tenpay.com,DIRECT
+- DOMAIN-SUFFIX,up-hl.3g.qq.com,DIRECT
+- DOMAIN-SUFFIX,vweixinthumb.tc.qq.com,DIRECT
+- DOMAIN-SUFFIX,wechat.com,DIRECT
+- DOMAIN-SUFFIX,wechatlegal.net,DIRECT
+- DOMAIN-SUFFIX,wechatos.net,DIRECT
+- DOMAIN-SUFFIX,wechatpay.com,DIRECT
+- DOMAIN-SUFFIX,weixin.com,DIRECT
+- DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+- DOMAIN-SUFFIX,weixinbridge.com,DIRECT
+- DOMAIN-SUFFIX,weixinsxy.com,DIRECT
+- DOMAIN-SUFFIX,wx.gtimg.com,DIRECT
+- DOMAIN-SUFFIX,wx.qq.com,DIRECT
+- DOMAIN-SUFFIX,wxapp.tc.qq.com,DIRECT
+- DOMAIN-SUFFIX,wxs.qq.com,DIRECT
+- DOMAIN-SUFFIX,yun-hl.3g.qq.com,DIRECT
+- DOMAIN-SUFFIX,4006806555.com,DIRECT
+- DOMAIN-SUFFIX,51diyring.com,DIRECT
+- DOMAIN-SUFFIX,51lesheng.cn,DIRECT
+- DOMAIN-SUFFIX,51lesheng.com,DIRECT
+- DOMAIN-SUFFIX,51znyx.cn,DIRECT
+- DOMAIN-SUFFIX,51znyx.com,DIRECT
+- DOMAIN-SUFFIX,91qycl.cn,DIRECT
+- DOMAIN-SUFFIX,91qycl.com,DIRECT
+- DOMAIN-SUFFIX,91ting.net,DIRECT
+- DOMAIN-SUFFIX,91znyx.cn,DIRECT
+- DOMAIN-SUFFIX,91znyx.com,DIRECT
+- DOMAIN-SUFFIX,adsring.cn,DIRECT
+- DOMAIN-SUFFIX,ai-daxue.com,DIRECT
+- DOMAIN-SUFFIX,aidaxue.com,DIRECT
+- DOMAIN-SUFFIX,aifuwus.com,DIRECT
+- DOMAIN-SUFFIX,ceshiservice.cn,DIRECT
+- DOMAIN-SUFFIX,changyan.cn,DIRECT
+- DOMAIN-SUFFIX,changyan.com,DIRECT
+- DOMAIN-SUFFIX,chinese-learn.cn,DIRECT
+- DOMAIN-SUFFIX,chinese-learn.com.cn,DIRECT
+- DOMAIN-SUFFIX,chinese-learning.cn,DIRECT
+- DOMAIN-SUFFIX,chinese-learning.com.cn,DIRECT
+- DOMAIN-SUFFIX,ciqujia.cn,DIRECT
+- DOMAIN-SUFFIX,cltt.org,DIRECT
+- DOMAIN-SUFFIX,cogskl.com,DIRECT
+- DOMAIN-SUFFIX,colp.com.cn,DIRECT
+- DOMAIN-SUFFIX,cycore.cn,DIRECT
+- DOMAIN-SUFFIX,cyservice.cn,DIRECT
+- DOMAIN-SUFFIX,diyring.cc,DIRECT
+- DOMAIN-SUFFIX,dungkarime.com,DIRECT
+- DOMAIN-SUFFIX,edulines.cn,DIRECT
+- DOMAIN-SUFFIX,edux.design,DIRECT
+- DOMAIN-SUFFIX,eltt.org,DIRECT
+- DOMAIN-SUFFIX,exd.design,DIRECT
+- DOMAIN-SUFFIX,fxk.net.cn,DIRECT
+- DOMAIN-SUFFIX,fxkedu.cn,DIRECT
+- DOMAIN-SUFFIX,fxkedu.com,DIRECT
+- DOMAIN-SUFFIX,guguread.com,DIRECT
+- DOMAIN-SUFFIX,gxfinfr.com,DIRECT
+- DOMAIN-SUFFIX,gyxx365.com,DIRECT
+- DOMAIN-SUFFIX,haitunvoice.com,DIRECT
+- DOMAIN-SUFFIX,hd-english.com,DIRECT
+- DOMAIN-SUFFIX,hd-english.net,DIRECT
+- DOMAIN-SUFFIX,himorfei.com,DIRECT
+- DOMAIN-SUFFIX,hudong100.cn,DIRECT
+- DOMAIN-SUFFIX,hudong100.com,DIRECT
+- DOMAIN-SUFFIX,hudong100.net,DIRECT
+- DOMAIN-SUFFIX,hudong100.org,DIRECT
+- DOMAIN-SUFFIX,i-mock.cn,DIRECT
+- DOMAIN-SUFFIX,i-mock.com,DIRECT
+- DOMAIN-SUFFIX,ichangyan.com,DIRECT
+- DOMAIN-SUFFIX,iflyaiedu.cn,DIRECT
+- DOMAIN-SUFFIX,iflyaiedu.com,DIRECT
+- DOMAIN-SUFFIX,iflyauto-solution.com,DIRECT
+- DOMAIN-SUFFIX,iflybi.cn,DIRECT
+- DOMAIN-SUFFIX,iflydatahub.com,DIRECT
+- DOMAIN-SUFFIX,iflydocs.com,DIRECT
+- DOMAIN-SUFFIX,iflyink.com,DIRECT
+- DOMAIN-SUFFIX,iflyinsure.cn,DIRECT
+- DOMAIN-SUFFIX,iflyiot.com,DIRECT
+- DOMAIN-SUFFIX,iflynote.com,DIRECT
+- DOMAIN-SUFFIX,iflyos.cn,DIRECT
+- DOMAIN-SUFFIX,iflyread.cn,DIRECT
+- DOMAIN-SUFFIX,iflyread.com,DIRECT
+- DOMAIN-SUFFIX,iflyrec.com,DIRECT
+- DOMAIN-SUFFIX,iflyresearch.com,DIRECT
+- DOMAIN-SUFFIX,iflysec.com,DIRECT
+- DOMAIN-SUFFIX,iflytek.com,DIRECT
+- DOMAIN-SUFFIX,iflytek.com.cn,DIRECT
+- DOMAIN-SUFFIX,iflytekauto.cn,DIRECT
+- DOMAIN-SUFFIX,iflytekin.com,DIRECT
+- DOMAIN-SUFFIX,iflytektstd.com,DIRECT
+- DOMAIN-SUFFIX,iflytoy.com,DIRECT
+- DOMAIN-SUFFIX,ihou.com,DIRECT
+- DOMAIN-SUFFIX,isay365.cn,DIRECT
+- DOMAIN-SUFFIX,isay365.com,DIRECT
+- DOMAIN-SUFFIX,isay365.com.cn,DIRECT
+- DOMAIN-SUFFIX,isay365.hk,DIRECT
+- DOMAIN-SUFFIX,isay365.net,DIRECT
+- DOMAIN-SUFFIX,isay365.net.cn,DIRECT
+- DOMAIN-SUFFIX,isay365.org,DIRECT
+- DOMAIN-SUFFIX,isayabc.com,DIRECT
+- DOMAIN-SUFFIX,itocoo.cn,DIRECT
+- DOMAIN-SUFFIX,iyuji.cn,DIRECT
+- DOMAIN-SUFFIX,jicaibao.com,DIRECT
+- DOMAIN-SUFFIX,khfw.net.cn,DIRECT
+- DOMAIN-SUFFIX,khfwedu.cn,DIRECT
+- DOMAIN-SUFFIX,khfwedu.com,DIRECT
+- DOMAIN-SUFFIX,koukao.cn,DIRECT
+- DOMAIN-SUFFIX,koukao.com.cn,DIRECT
+- DOMAIN-SUFFIX,koukao.net,DIRECT
+- DOMAIN-SUFFIX,koukao.org,DIRECT
+- DOMAIN-SUFFIX,kuyin123.com,DIRECT
+- DOMAIN-SUFFIX,kuyinxiu.com,DIRECT
+- DOMAIN-SUFFIX,kuyinxiuxiu.com,DIRECT
+- DOMAIN-SUFFIX,kuyinyun.com,DIRECT
+- DOMAIN-SUFFIX,learningsj.com,DIRECT
+- DOMAIN-SUFFIX,lingxicloud.com,DIRECT
+- DOMAIN-SUFFIX,linkspeech.cn,DIRECT
+- DOMAIN-SUFFIX,mingshi100.cn,DIRECT
+- DOMAIN-SUFFIX,mingshi100.com,DIRECT
+- DOMAIN-SUFFIX,mingshi100.com.cn,DIRECT
+- DOMAIN-SUFFIX,mingshi100.net,DIRECT
+- DOMAIN-SUFFIX,musicd.cc,DIRECT
+- DOMAIN-SUFFIX,openauth.cn,DIRECT
+- DOMAIN-SUFFIX,openspeech.cn,DIRECT
+- DOMAIN-SUFFIX,openstorage.cn,DIRECT
+- DOMAIN-SUFFIX,peiyinge.com,DIRECT
+- DOMAIN-SUFFIX,peiyingefiles.com,DIRECT
+- DOMAIN-SUFFIX,peiyingo.com,DIRECT
+- DOMAIN-SUFFIX,pitayaio.com,DIRECT
+- DOMAIN-SUFFIX,pthceshi.cn,DIRECT
+- DOMAIN-SUFFIX,pthceshi.com,DIRECT
+- DOMAIN-SUFFIX,pthcs.org.cn,DIRECT
+- DOMAIN-SUFFIX,qingsonngxx.com,DIRECT
+- DOMAIN-SUFFIX,tangdaoya.com,DIRECT
+- DOMAIN-SUFFIX,tingshuo51.com,DIRECT
+- DOMAIN-SUFFIX,uuhdedu.com,DIRECT
+- DOMAIN-SUFFIX,voiceads.cn,DIRECT
+- DOMAIN-SUFFIX,voicecloud.cn,DIRECT
+- DOMAIN-SUFFIX,xf-yun.com,DIRECT
+- DOMAIN-SUFFIX,xfdwz.com,DIRECT
+- DOMAIN-SUFFIX,xfinfr.com,DIRECT
+- DOMAIN-SUFFIX,xfliusheng.com,DIRECT
+- DOMAIN-SUFFIX,xfpaas.com,DIRECT
+- DOMAIN-SUFFIX,xfpass.com,DIRECT
+- DOMAIN-SUFFIX,xftrans.cn,DIRECT
+- DOMAIN-SUFFIX,xftransa.com,DIRECT
+- DOMAIN-SUFFIX,xfyousheng.cn,DIRECT
+- DOMAIN-SUFFIX,xfyousheng.com,DIRECT
+- DOMAIN-SUFFIX,xfyun-doc.ufile.ucloud.com.cn,DIRECT
+- DOMAIN-SUFFIX,xfyun.cn,DIRECT
+- DOMAIN-SUFFIX,xfyun.com,DIRECT
+- DOMAIN-SUFFIX,xiezuoye.com,DIRECT
+- DOMAIN-SUFFIX,xsmart.link,DIRECT
+- DOMAIN-SUFFIX,xunfei.cn,DIRECT
+- DOMAIN-SUFFIX,xunfeia.com,DIRECT
+- DOMAIN-SUFFIX,xunfeib.com,DIRECT
+- DOMAIN-SUFFIX,xunfeixxj.com,DIRECT
+- DOMAIN-SUFFIX,xx-sapce.com,DIRECT
+- DOMAIN-SUFFIX,yanshiservice.cn,DIRECT
+- DOMAIN-SUFFIX,yuyin.tv,DIRECT
+- DOMAIN-SUFFIX,yytiflytek.cn,DIRECT
+- DOMAIN-SUFFIX,yytiflytek.com,DIRECT
+- DOMAIN-SUFFIX,zhcyanshi.com,DIRECT
+- DOMAIN-SUFFIX,zhihuichuangyanshi.com,DIRECT
+- DOMAIN-SUFFIX,zhihuixuexipt.com,DIRECT
+- DOMAIN-SUFFIX,zhixue.cn,DIRECT
+- DOMAIN-SUFFIX,clngaa.com,DIRECT
+- DOMAIN-SUFFIX,ksyna.com,DIRECT
+- DOMAIN-SUFFIX,bscstorage.net,DIRECT
+- DOMAIN-SUFFIX,eccdnx.com,DIRECT
+- DOMAIN-SUFFIX,pinyuncloud.com,DIRECT
+- DOMAIN-SUFFIX,steampowered.com.8686c.com,DIRECT
+- DOMAIN-SUFFIX,steamchina.com,DIRECT
+- DOMAIN-SUFFIX,zhixue.com,DIRECT
+- DOMAIN-SUFFIX,zhybedu.cn,DIRECT
+- DOMAIN-SUFFIX,zyjyyun.com,DIRECT
+- IP-CIDR,119.28.28.28/32,DIRECT,no-resolve
+
+## ============================================
+## 🌍 最终规则
+## ============================================
+- GEOIP,CN,DIRECT
+- MATCH,⚓️其他流量

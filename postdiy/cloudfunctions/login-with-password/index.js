@@ -92,6 +92,23 @@ exports.main = async (event, context) => {
       }
     }
 
+    // ===== 打通小程序端：从小程序调用时 WXContext 自带 OPENID，绑定到该手机号账号 =====
+    // 先清掉其它记录上同 miniOpenid（历史轻量账号），避免 wx-login 多记录歧义
+    try {
+      const { OPENID } = cloud.getWXContext()
+      if (OPENID && user.miniOpenid !== OPENID) {
+        await db.collection('users')
+          .where({ miniOpenid: OPENID, _id: _.neq(user._id) })
+          .update({ data: { miniOpenid: '' } })
+        await db.collection('users').doc(user._id).update({
+          data: { miniOpenid: OPENID, updateTime: db.serverDate() }
+        })
+        console.log('已绑定 miniOpenid 到手机号账号:', user._id)
+      }
+    } catch (bindErr) {
+      console.error('绑定 miniOpenid 失败（不影响登录）:', bindErr)
+    }
+
     const now = new Date()
     const isVip = user.vipValidUntil && new Date(user.vipValidUntil) > now
 
@@ -111,6 +128,8 @@ exports.main = async (event, context) => {
           phone: user.phone,
           isVip: isVip,
           vipValidUntil: user.vipValidUntil,
+          brandname: user.brandname || '',
+          promoText: user.promoText || '',
           logoUrl: user.logoUrl,
           logoTencentUrl: user.logoTencentUrl,
           qrcodeUrl: user.qrcodeUrl,

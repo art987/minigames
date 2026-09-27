@@ -92,6 +92,11 @@ exports.main = async (event, context) => {
           qrcodeTencentUrl: user.qrcodeTencentUrl || '',
           qrcodeFileID: user.qrcodeFileID || '',
           logoTransparent: user.logoTransparent || false,
+          // 小程序端特有偏好（网页端不读不写；nameColor 空串=随模板明暗自适应）
+          nameColor: user.nameColor || '',
+          logoStyle: user.logoStyle || '',
+          // Logo 按模板缩放映射表（JSON 字符串：{模板id: 倍率}）
+          logoScaleMap: user.logoScaleMap || '',
           hasPassword: user.hasPassword,
           downloadQuota: user.downloadQuota || 0
         }

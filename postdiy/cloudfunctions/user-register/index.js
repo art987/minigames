@@ -223,6 +223,26 @@ exports.main = async (event, context) => {
       .doc(smsRes.data[0]._id)
       .remove()
 
+    // ===== 打通小程序端：从小程序调用时 WXContext 自带 OPENID，绑定到该手机号账号 =====
+    // （新注册即绑定；老用户登录补绑定）先清掉其它记录上同 miniOpenid，避免 wx-login 多记录歧义
+    try {
+      const { OPENID } = cloud.getWXContext()
+      if (OPENID) {
+        await db.collection('users')
+          .where({ miniOpenid: OPENID, _id: _.neq(userId) })
+          .update({ data: { miniOpenid: '' } })
+        await db.collection('users').doc(userId).update({
+          data: { miniOpenid: OPENID, updateTime: db.serverDate() }
+        })
+        console.log('已绑定 miniOpenid 到手机号账号:', userId)
+      }
+    } catch (bindErr) {
+      console.error('绑定 miniOpenid 失败（不影响注册/登录）:', bindErr)
+    }
+
+    const oldUser = !isNewUser ? userRes.data[0] : null
+    const isVipNow = !!(oldUser && oldUser.vipValidUntil && new Date(oldUser.vipValidUntil) > new Date())
+
     return {
       statusCode: 200,
       headers: {
@@ -237,13 +257,15 @@ exports.main = async (event, context) => {
         data: {
           userId,
           phone,
-          isVip: false,
-          vipValidUntil: null,
+          isVip: isVipNow,
+          vipValidUntil: oldUser ? (oldUser.vipValidUntil || null) : null,
           downloadQuota: isNewUser ? 5 : (userRes.data[0].downloadQuota || 0),
-          logoUrl: '',
-          logoTencentUrl: '',
-          qrcodeUrl: '',
-          qrcodeTencentUrl: '',
+          brandname: oldUser ? (oldUser.brandname || '') : '',
+          promoText: oldUser ? (oldUser.promoText || '') : '',
+          logoUrl: oldUser ? (oldUser.logoUrl || '') : '',
+          logoTencentUrl: oldUser ? (oldUser.logoTencentUrl || '') : '',
+          qrcodeUrl: oldUser ? (oldUser.qrcodeUrl || '') : '',
+          qrcodeTencentUrl: oldUser ? (oldUser.qrcodeTencentUrl || '') : '',
           isNewUser,
           hasPassword: userRes.data.length > 0 && userRes.data[0].hasPassword || false,
           inviteCode: isNewUser ? newInviteCode : (userRes.data[0].inviteCode || ''),

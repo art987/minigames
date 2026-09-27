@@ -46,6 +46,9 @@ dist/
 # 脚本目录（含密钥，不提交）
 business/scripts/
 
+# 微信小程序（不提交）
+wechat-mini/
+
 # Temporary files
 *.tmp
 *.temp
@@ -57,7 +60,8 @@ logs/
 
 # 开发记录（含密钥）
 develop-chat.md
-
+创建炫酷宣传页面20260926.md
+Review Development Records & Complete Tasks20260927.md
 # Coverage reports
 coverage/
 .nyc_output/

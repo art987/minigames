@@ -20,8 +20,8 @@ exports.main = async (event, context) => {
     };
   }
 
-  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl, logoFileID, qrcodeFileID, logoTransparent
-  
+  let userId, logoUrl, qrcodeUrl, brandname, promoText, logoTencentUrl, qrcodeTencentUrl, logoFileID, qrcodeFileID, logoTransparent, nameColor, logoStyle, logoScaleMap
+
   try {
     const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
     userId = body.userId
@@ -34,6 +34,9 @@ exports.main = async (event, context) => {
     logoFileID = body.logoFileID
     qrcodeFileID = body.qrcodeFileID
     logoTransparent = body.logoTransparent
+    nameColor = body.nameColor
+    logoStyle = body.logoStyle
+    logoScaleMap = body.logoScaleMap
   } catch (error) {
     userId = event.userId
     logoUrl = event.logoUrl
@@ -45,6 +48,9 @@ exports.main = async (event, context) => {
     logoFileID = event.logoFileID
     qrcodeFileID = event.qrcodeFileID
     logoTransparent = event.logoTransparent
+    nameColor = event.nameColor
+    logoStyle = event.logoStyle
+    logoScaleMap = event.logoScaleMap
   }
   
   if (!userId) {
@@ -104,6 +110,19 @@ exports.main = async (event, context) => {
       updateData.logoTransparent = logoTransparent
     }
 
+    // 小程序端特有偏好（undefined 不更新，网页端不传无影响）
+    if (nameColor !== undefined) {
+      updateData.nameColor = nameColor
+    }
+
+    if (logoStyle !== undefined) {
+      updateData.logoStyle = logoStyle
+    }
+
+    if (logoScaleMap !== undefined) {
+      updateData.logoScaleMap = logoScaleMap
+    }
+
     await db.collection('users').doc(userId).update({
       data: updateData
     })
@@ -135,6 +154,9 @@ exports.main = async (event, context) => {
             logoTencentUrl: user.logoTencentUrl || '',
             logoFileID: user.logoFileID || '',
             logoTransparent: user.logoTransparent || false,
+            nameColor: user.nameColor || '',
+            logoStyle: user.logoStyle || '',
+            logoScaleMap: user.logoScaleMap || '',
             qrcodeUrl: user.qrcodeUrl || '',
             qrcodeTencentUrl: user.qrcodeTencentUrl || '',
             qrcodeFileID: user.qrcodeFileID || ''
