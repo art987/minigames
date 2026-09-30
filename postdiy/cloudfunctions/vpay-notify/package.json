@@ -1,5 +1,5 @@
 {
-  "name": "wx-login",
+  "name": "vpay-notify",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {

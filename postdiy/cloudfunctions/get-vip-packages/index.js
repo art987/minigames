@@ -53,6 +53,7 @@ exports.main = async (event, context) => {
     const safeList = list.map(pkg => ({
       _id: pkg._id,
       duration: pkg.duration,
+      durationUnit: pkg.durationUnit === 'day' ? 'day' : 'month',
       title: pkg.title,
       price: pkg.price,
       originalPrice: pkg.originalPrice,

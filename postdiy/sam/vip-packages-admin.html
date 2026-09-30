@@ -307,8 +307,14 @@
             </div>
             <div class="pkg-form-row">
                 <div class="pkg-form-group">
-                    <label>时长（月）*</label>
-                    <input type="number" id="editDuration" min="1" max="120" placeholder="如：1">
+                    <label>时长 *</label>
+                    <div style="display:flex; gap:8px;">
+                        <input type="number" id="editDuration" min="1" max="999" placeholder="如：1" style="flex:1;">
+                        <select id="editDurationUnit" style="width:86px; flex:none;">
+                            <option value="month">个月</option>
+                            <option value="day">天</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="pkg-form-group">
                     <label>排序</label>
@@ -333,13 +339,21 @@
                 <label>角标文字（如：超值）</label>
                 <input type="text" id="editBadge" placeholder="留空则不显示" maxlength="10">
             </div>
+            <div class="pkg-form-group">
+                <label>小程序支付道具 ID <span style="color:#ff9800; font-weight:normal;">（微信后台-虚拟支付-道具管理 创建后复制到这里，选填）</span></label>
+                <input type="text" id="editVpayProductId" placeholder="不填则该套餐在小程序内不可直接购买" maxlength="64">
+            </div>
             <div class="pkg-form-check">
                 <input type="checkbox" id="editFeatured">
                 <label for="editFeatured" style="margin:0;">设为推荐套餐（高亮显示，默认选中）</label>
             </div>
             <div class="pkg-form-check">
                 <input type="checkbox" id="editEnabled" checked>
-                <label for="editEnabled" style="margin:0;">启用此套餐</label>
+                <label for="editEnabled" style="margin:0;">启用此套餐（网页端 + 小程序端）</label>
+            </div>
+            <div class="pkg-form-check">
+                <input type="checkbox" id="editMiniEnabled" checked>
+                <label for="editMiniEnabled" style="margin:0;">小程序端展示此套餐（关闭后仅网页端可见，不影响网页端）</label>
             </div>
 
             <!-- 淘宝购买升级码配置 -->
@@ -433,6 +447,7 @@
                 const taobaoBadge = pkg.taobaoEnabled ? '<span class="pkg-badge taobao">淘宝</span>' : '';
                 const toggleText = pkg.enabled === false ? '启用' : '禁用';
                 const toggleIcon = pkg.enabled === false ? 'fa-toggle-off' : 'fa-toggle-on';
+                const miniOffBadge = pkg.miniEnabled === false ? '<span class="pkg-badge disabled">小程序关</span>' : '';
 
                 // 淘宝购买信息展示
                 let taobaoInfoHtml = '';
@@ -448,15 +463,16 @@
                     <div class="pkg-card${disabledClass}${featuredClass}">
                         <div class="pkg-card-header">
                             <div class="pkg-card-title">${escapeHtml(pkg.title)}</div>
-                            <div class="pkg-card-badges">${enabledBadge}${featuredBadge}${badgeText}${taobaoBadge}</div>
+                            <div class="pkg-card-badges">${enabledBadge}${miniOffBadge}${featuredBadge}${badgeText}${taobaoBadge}</div>
                         </div>
                         <div class="pkg-price-row">
                             <span class="pkg-current-price">¥${displayPrice}</span>
                             <span class="pkg-original-price">¥${pkg.originalPrice}</span>
                         </div>
-                        <div class="pkg-meta">时长：${pkg.duration} 个月</div>
+                        <div class="pkg-meta">时长：${pkg.duration} ${pkg.durationUnit === 'day' ? '天' : '个月'}</div>
                         ${pkg.saving ? '<div class="pkg-meta">省钱文案：' + escapeHtml(pkg.saving) + '</div>' : ''}
                         <div class="pkg-meta">排序：${pkg.sortOrder || 0}</div>
+                        <div class="pkg-meta">道具：${pkg.vpayProductId ? escapeHtml(pkg.vpayProductId) : '<span style="color:#ff9800;">未绑定（小程序内不可购）</span>'}</div>
                         ${pkg.taobaoEnabled ? '<div class="pkg-meta">站内价：¥' + pkg.price + '</div>' : ''}
                         ${taobaoInfoHtml}
                         <div class="pkg-card-actions">
@@ -486,13 +502,16 @@
             document.getElementById('editId').value = '';
             document.getElementById('editTitle').value = '';
             document.getElementById('editDuration').value = '';
+            document.getElementById('editDurationUnit').value = 'month';
             document.getElementById('editSortOrder').value = '';
             document.getElementById('editPrice').value = '';
             document.getElementById('editOriginalPrice').value = '';
             document.getElementById('editSaving').value = '';
             document.getElementById('editBadge').value = '';
+            document.getElementById('editVpayProductId').value = '';
             document.getElementById('editFeatured').checked = false;
             document.getElementById('editEnabled').checked = true;
+            document.getElementById('editMiniEnabled').checked = true;
             // 重置淘宝配置
             document.getElementById('editTaobaoEnabled').checked = false;
             document.getElementById('editTaobaoUrl').value = '';
@@ -511,13 +530,16 @@
             document.getElementById('editId').value = pkg._id;
             document.getElementById('editTitle').value = pkg.title || '';
             document.getElementById('editDuration').value = pkg.duration || '';
+            document.getElementById('editDurationUnit').value = pkg.durationUnit === 'day' ? 'day' : 'month';
             document.getElementById('editSortOrder').value = pkg.sortOrder || '';
             document.getElementById('editPrice').value = pkg.price || '';
             document.getElementById('editOriginalPrice').value = pkg.originalPrice || '';
             document.getElementById('editSaving').value = pkg.saving || '';
             document.getElementById('editBadge').value = pkg.badge || '';
+            document.getElementById('editVpayProductId').value = pkg.vpayProductId || '';
             document.getElementById('editFeatured').checked = !!pkg.featured;
             document.getElementById('editEnabled').checked = pkg.enabled !== false;
+            document.getElementById('editMiniEnabled').checked = pkg.miniEnabled !== false;
             // 填充淘宝配置
             document.getElementById('editTaobaoEnabled').checked = !!pkg.taobaoEnabled;
             document.getElementById('editTaobaoUrl').value = pkg.taobaoUrl || '';
@@ -553,6 +575,8 @@
             const pkg = {
                 title: document.getElementById('editTitle').value.trim(),
                 duration: parseInt(document.getElementById('editDuration').value, 10),
+                durationUnit: document.getElementById('editDurationUnit').value === 'day' ? 'day' : 'month',
+                vpayProductId: document.getElementById('editVpayProductId').value.trim(),
                 sortOrder: parseInt(document.getElementById('editSortOrder').value, 10) || 0,
                 price: parseFloat(document.getElementById('editPrice').value),
                 originalPrice: parseFloat(document.getElementById('editOriginalPrice').value),
@@ -560,6 +584,8 @@
                 badge: document.getElementById('editBadge').value.trim(),
                 featured: document.getElementById('editFeatured').checked,
                 enabled: document.getElementById('editEnabled').checked,
+                // 小程序端独立开关（关闭后小程序不展示该套餐，网页端不受影响）
+                miniEnabled: document.getElementById('editMiniEnabled').checked,
                 // 淘宝购买升级码配置
                 taobaoEnabled: taobaoEnabled,
                 taobaoUrl: taobaoEnabled ? taobaoUrl : '',

@@ -71,14 +71,21 @@ function parseBody(event) {
 function validatePackage(pkg) {
   if (!pkg) return '套餐数据不能为空'
   if (!pkg.title || !String(pkg.title).trim()) return '套餐名称不能为空'
+  // 时长单位：month（月，默认，兼容旧数据）/ day（天，用于 7 天卡等）
+  const unit = pkg.durationUnit === 'day' ? 'day' : 'month'
   const duration = Number(pkg.duration)
   if (!duration || duration <= 0 || !Number.isInteger(duration)) {
-    return '时长必须是正整数（单位：月）'
+    return unit === 'day' ? '时长必须是正整数（单位：天）' : '时长必须是正整数（单位：月）'
   }
   const price = Number(pkg.price)
   if (isNaN(price) || price < 0) return '价格必须为非负数字'
   const originalPrice = Number(pkg.originalPrice)
   if (isNaN(originalPrice) || originalPrice < 0) return '原价必须为非负数字'
+  // 虚拟支付道具ID（微信后台「道具管理」创建的道具 ID，选填；未填则该套餐不可在小程序内支付购买）
+  if (pkg.vpayProductId != null && String(pkg.vpayProductId).trim()) {
+    const pid = String(pkg.vpayProductId).trim()
+    if (!/^[A-Za-z0-9_\-.]{1,64}$/.test(pid)) return '道具ID只能包含字母、数字、_--.，长度 1-64'
+  }
 
   // 淘宝购买升级码字段校验（可选）
   if (pkg.taobaoEnabled) {
@@ -89,6 +96,14 @@ function validatePackage(pkg) {
     if (isNaN(taobaoPrice) || taobaoPrice <= 0) return '淘宝价格必须为正数字'
   }
   return null
+}
+
+// 排序值：显式传 0 视为有效（体验卡排最前），空/非法才回退按时长
+function resolveSortOrder(pkg) {
+  if (pkg.sortOrder !== '' && pkg.sortOrder != null && !isNaN(Number(pkg.sortOrder))) {
+    return Number(pkg.sortOrder)
+  }
+  return Number(pkg.duration) || 0
 }
 
 exports.main = async (event, context) => {
@@ -167,17 +182,22 @@ exports.main = async (event, context) => {
             body: JSON.stringify({ success: false, message: validateErr })
           }
         }
-        // 检查 duration 是否重复
+        const unit = pkg.durationUnit === 'day' ? 'day' : 'month'
+        // 检查 同单位下 duration 是否重复（旧记录无 durationUnit 视为 month）
         try {
           const exists = await db
             .collection('vip_packages_config')
             .where({ duration: Number(pkg.duration) })
-            .count()
-          if (exists.total > 0) {
+            .get()
+          const dup = (exists.data || []).some((it) => (it.durationUnit === 'day' ? 'day' : 'month') === unit)
+          if (dup) {
             return {
               statusCode: 200,
               headers: HEADERS,
-              body: JSON.stringify({ success: false, message: `已存在时长为 ${pkg.duration} 个月的套餐` })
+              body: JSON.stringify({
+                success: false,
+                message: `已存在时长为 ${pkg.duration} ${unit === 'day' ? '天' : '个月'} 的套餐`
+              })
             }
           }
         } catch (e) {
@@ -187,6 +207,8 @@ exports.main = async (event, context) => {
         const now = new Date()
         const newPkg = {
           duration: Number(pkg.duration),
+          durationUnit: unit,
+          vpayProductId: String(pkg.vpayProductId || '').trim(),
           title: String(pkg.title).trim(),
           price: Number(pkg.price),
           originalPrice: Number(pkg.originalPrice),
@@ -194,7 +216,9 @@ exports.main = async (event, context) => {
           badge: pkg.badge || '',
           featured: !!pkg.featured,
           enabled: pkg.enabled !== false,
-          sortOrder: Number(pkg.sortOrder) || Number(pkg.duration) || 0,
+          // 小程序端独立开关（关闭后小程序端不展示，网页端不受影响；缺省视为开启）
+          miniEnabled: pkg.miniEnabled !== false,
+          sortOrder: resolveSortOrder(pkg),
           promotionText: pkg.promotionText || '',
           // 淘宝购买升级码配置
           taobaoEnabled: !!pkg.taobaoEnabled,
@@ -234,18 +258,23 @@ exports.main = async (event, context) => {
             body: JSON.stringify({ success: false, message: validateErr })
           }
         }
+        const unit = pkg.durationUnit === 'day' ? 'day' : 'month'
 
-        // 检查 duration 是否与其他套餐重复
+        // 检查 duration 是否与其他套餐重复（同单位下）
         try {
           const dupCheck = await db
             .collection('vip_packages_config')
             .where({ _id: _.neq(id), duration: Number(pkg.duration) })
-            .count()
-          if (dupCheck.total > 0) {
+            .get()
+          const dup = (dupCheck.data || []).some((it) => (it.durationUnit === 'day' ? 'day' : 'month') === unit)
+          if (dup) {
             return {
               statusCode: 200,
               headers: HEADERS,
-              body: JSON.stringify({ success: false, message: `其他套餐已使用 ${pkg.duration} 个月时长` })
+              body: JSON.stringify({
+                success: false,
+                message: `其他套餐已使用 ${pkg.duration} ${unit === 'day' ? '天' : '个月'} 时长`
+              })
             }
           }
         } catch (e) {
@@ -254,6 +283,8 @@ exports.main = async (event, context) => {
 
         const updateData = {
           duration: Number(pkg.duration),
+          durationUnit: unit,
+          vpayProductId: String(pkg.vpayProductId || '').trim(),
           title: String(pkg.title).trim(),
           price: Number(pkg.price),
           originalPrice: Number(pkg.originalPrice),
@@ -261,7 +292,9 @@ exports.main = async (event, context) => {
           badge: pkg.badge || '',
           featured: !!pkg.featured,
           enabled: pkg.enabled !== false,
-          sortOrder: Number(pkg.sortOrder) || Number(pkg.duration) || 0,
+          // 小程序端独立开关（关闭后小程序端不展示，网页端不受影响；缺省视为开启）
+          miniEnabled: pkg.miniEnabled !== false,
+          sortOrder: resolveSortOrder(pkg),
           promotionText: pkg.promotionText || '',
           // 淘宝购买升级码配置
           taobaoEnabled: !!pkg.taobaoEnabled,
