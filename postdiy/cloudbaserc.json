@@ -1,6 +1,17 @@
 {
   "envId": "postdiy-0g2mftaf6a0fc450",
+  "functionRoot": "./cloudfunctions",
   "functions": [
+    {
+      "name": "admin-vip-packages",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "deployMethod": "cos"
+    },
     {
       "name": "user-member-list",
       "runtime": "Nodejs18.15",
@@ -119,6 +130,28 @@
       "memorySize": 256,
       "environment": {},
       "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "download-quota-manage",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": true,
+      "deployMethod": "cos"
+    },
+    {
+      "name": "feedback-manage",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": true,
       "deployMethod": "cos"
     }
   ]

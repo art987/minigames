@@ -22,7 +22,10 @@ exports.main = async (event, context) => {
 
   let body
   try {
-    body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+    // 兼容两种调用：HTTP 网关（event.body 为 JSON 字符串）与小程序 callFunction（参数直传 event）
+    body = event.body !== undefined && event.body !== null
+      ? (typeof event.body === 'string' ? JSON.parse(event.body) : event.body)
+      : event
   } catch (e) {
     return {
       statusCode: 200,

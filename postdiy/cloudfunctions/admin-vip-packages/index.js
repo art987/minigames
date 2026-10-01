@@ -1,5 +1,6 @@
 // 管理后台VIP套餐配置云函数
 // 支持 action: list / get / create / update / delete / toggle
+// 以及客服反馈管理: feedbackList / feedbackReply / feedbackClose
 const cloud = require('wx-server-sdk')
 
 cloud.init({
@@ -355,6 +356,102 @@ exports.main = async (event, context) => {
             message: enabled ? '套餐已启用' : '套餐已禁用',
             data: { id, enabled }
           })
+        }
+      }
+
+      // ==================== 客服反馈管理（HTTP 网关路径复用） ====================
+      case 'feedbackList': {
+        // 工单列表：分页 + 状态筛选，按更新时间倒序
+        const page = Math.max(1, Number(body.page) || 1)
+        const pageSize = Math.min(100, Math.max(1, Number(body.pageSize) || 20))
+        const status = body.status
+        try {
+          await db.createCollection('feedback')
+        } catch (e) {
+          // 已存在则忽略
+        }
+        let query = db.collection('feedback')
+        if (status && status !== 'all') {
+          query = query.where({ status: String(status) })
+        }
+        const totalRes = await query.count()
+        const total = totalRes.total || 0
+        let list = []
+        if (total > 0) {
+          const listRes = await query
+            .orderBy('updateTime', 'desc')
+            .skip((page - 1) * pageSize)
+            .limit(pageSize)
+            .get()
+          list = listRes.data || []
+        }
+        return {
+          statusCode: 200,
+          headers: HEADERS,
+          body: JSON.stringify({ success: true, data: { list, total, page, pageSize } })
+        }
+      }
+
+      case 'feedbackReply': {
+        const feedbackId = body.feedbackId
+        const content = String(body.content || '').trim()
+        if (!feedbackId) {
+          return {
+            statusCode: 200,
+            headers: HEADERS,
+            body: JSON.stringify({ success: false, message: '工单ID不能为空' })
+          }
+        }
+        if (!content) {
+          return {
+            statusCode: 200,
+            headers: HEADERS,
+            body: JSON.stringify({ success: false, message: '回复内容不能为空' })
+          }
+        }
+        if (content.length > 1000) {
+          return {
+            statusCode: 200,
+            headers: HEADERS,
+            body: JSON.stringify({ success: false, message: '回复内容不能超过1000字' })
+          }
+        }
+        const now = new Date()
+        const close = !!body.close
+        await db
+          .collection('feedback')
+          .doc(feedbackId)
+          .update({
+            data: {
+              replies: _.push([{ from: 'admin', content, createTime: now }]),
+              status: close ? 'closed' : 'replied',
+              updateTime: now
+            }
+          })
+        return {
+          statusCode: 200,
+          headers: HEADERS,
+          body: JSON.stringify({ success: true, message: close ? '已回复并关闭工单' : '回复成功' })
+        }
+      }
+
+      case 'feedbackClose': {
+        const feedbackId = body.feedbackId
+        if (!feedbackId) {
+          return {
+            statusCode: 200,
+            headers: HEADERS,
+            body: JSON.stringify({ success: false, message: '工单ID不能为空' })
+          }
+        }
+        await db
+          .collection('feedback')
+          .doc(feedbackId)
+          .update({ data: { status: 'closed', updateTime: new Date() } })
+        return {
+          statusCode: 200,
+          headers: HEADERS,
+          body: JSON.stringify({ success: true, message: '工单已关闭' })
         }
       }
 

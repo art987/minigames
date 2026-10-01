@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客服反馈管理</title>
+    <!-- 统一后台认证与导航 -->
+    <link rel="stylesheet" href="../admin.css">
+    <script src="../admin-auth.js"></script>
+    <script src="../admin-nav.js"></script>
+    <style>
+        body { background: #f5f6fa; }
+        .fb-wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+        .fb-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .fb-toolbar h2 { margin: 0; font-size: 20px; color: #333; }
+        .fb-filters { display: flex; gap: 8px; }
+        .fb-filter-btn {
+            padding: 6px 16px; border-radius: 999px; border: 1px solid #ddd;
+            background: #fff; color: #666; font-size: 13px; cursor: pointer;
+        }
+        .fb-filter-btn.active { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+        .fb-stat { font-size: 13px; color: #888; }
+        .fb-list { display: flex; flex-direction: column; gap: 12px; }
+        .fb-card {
+            background: #fff; border: 1px solid #eee; border-radius: 12px;
+            padding: 14px 16px; cursor: pointer; transition: all 0.15s;
+        }
+        .fb-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+        .fb-card.pending { border-left: 4px solid #f0a514; }
+        .fb-card.replied { border-left: 4px solid #34a853; }
+        .fb-card.closed { border-left: 4px solid #bbb; }
+        .fb-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+        .fb-user { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .fb-phone { font-weight: bold; color: #333; font-size: 15px; }
+        .fb-brand {
+            font-size: 12px; color: #1a73e8; background: rgba(26,115,232,0.08);
+            padding: 2px 8px; border-radius: 10px;
+        }
+        .fb-badge { font-size: 12px; padding: 2px 10px; border-radius: 10px; color: #fff; }
+        .fb-badge.pending { background: #f0a514; }
+        .fb-badge.replied { background: #34a853; }
+        .fb-badge.closed { background: #9e9e9e; }
+        .fb-preview { margin-top: 8px; color: #555; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .fb-meta { margin-top: 6px; color: #aaa; font-size: 12px; display: flex; gap: 14px; }
+        .fb-empty { text-align: center; color: #999; padding: 60px 0; font-size: 14px; }
+
+        /* 详情弹层 */
+        .fb-modal-mask {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+        }
+        .fb-modal-mask.show { display: flex; }
+        .fb-modal {
+            background: #fff; border-radius: 14px; width: 100%; max-width: 640px;
+            max-height: 86vh; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .fb-modal-head { padding: 14px 18px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .fb-modal-title { font-size: 16px; font-weight: bold; color: #333; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .fb-close-btn { border: none; background: none; font-size: 22px; color: #999; cursor: pointer; line-height: 1; }
+        .fb-dialog { flex: 1; overflow-y: auto; padding: 18px; background: #f7f8fa; display: flex; flex-direction: column; gap: 14px; }
+        .fb-msg { max-width: 82%; display: flex; flex-direction: column; }
+        .fb-msg.user { align-self: flex-end; align-items: flex-end; }
+        .fb-msg.admin { align-self: flex-start; align-items: flex-start; }
+        .fb-msg-role { font-size: 11px; color: #aaa; margin-bottom: 4px; }
+        .fb-msg-bubble { padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.6; word-break: break-all; white-space: pre-wrap; }
+        .fb-msg.user .fb-msg-bubble { background: #1a73e8; color: #fff; border-radius: 12px 3px 12px 12px; }
+        .fb-msg.admin .fb-msg-bubble { background: #fff; color: #333; border: 1px solid #e5e5e5; border-radius: 3px 12px 12px 12px; }
+        .fb-msg-time { font-size: 11px; color: #bbb; margin-top: 4px; }
+        .fb-reply-area { border-top: 1px solid #eee; padding: 14px 18px; }
+        .fb-reply-area textarea {
+            width: 100%; box-sizing: border-box; height: 84px; resize: vertical;
+            border: 1px solid #ddd; border-radius: 10px; padding: 10px 12px;
+            font-size: 14px; font-family: inherit;
+        }
+        .fb-reply-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .fb-btn { border: none; border-radius: 8px; padding: 9px 18px; font-size: 14px; cursor: pointer; }
+        .fb-btn.primary { background: #1a73e8; color: #fff; }
+        .fb-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .fb-btn.warn { background: #fff; color: #f0a514; border: 1px solid #f0a514; }
+        .fb-btn.plain { background: #fff; color: #666; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="fb-wrap">
+        <div class="fb-toolbar">
+            <h2>客服反馈管理</h2>
+            <div class="fb-filters" id="fbFilters">
+                <button class="fb-filter-btn active" data-status="pending">待处理</button>
+                <button class="fb-filter-btn" data-status="replied">已回复</button>
+                <button class="fb-filter-btn" data-status="closed">已关闭</button>
+                <button class="fb-filter-btn" data-status="all">全部</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <span class="fb-stat" id="fbStat"></span>
+                <button class="fb-btn plain" onclick="loadList()">刷新</button>
+            </div>
+        </div>
+        <div class="fb-list" id="fbList">
+            <div class="fb-empty">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 工单详情弹层 -->
+    <div class="fb-modal-mask" id="fbModalMask">
+        <div class="fb-modal">
+            <div class="fb-modal-head">
+                <div class="fb-modal-title" id="fbModalTitle"></div>
+                <button class="fb-close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="fb-dialog" id="fbDialog"></div>
+            <div class="fb-reply-area">
+                <textarea id="fbReplyInput" placeholder="输入客服回复内容..."></textarea>
+                <div class="fb-reply-actions">
+                    <button class="fb-btn primary" id="fbReplyBtn" onclick="sendReply(false)">回复</button>
+                    <button class="fb-btn warn" onclick="sendReply(true)">回复并关闭</button>
+                    <button class="fb-btn plain" onclick="closeTicket()">仅关闭工单</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'https://api.peacelove.top/admin-vip-packages';
+        let currentStatus = 'pending';
+        let tickets = [];
+        let currentTicket = null;
+
+        // 统一鉴权头（admin-auth.js 登录后写入 localStorage）
+        function authHeaders() {
+            const uid = localStorage.getItem('postdiy_admin_user_id') || '';
+            const pwd = localStorage.getItem('postdiy_admin_password') || '';
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(uid + ':' + pwd)
+            };
+        }
+
+        async function callApi(action, extra) {
+            const res = await fetch(API, {
+                method: 'POST',
+                headers: authHeaders(),
+                body: JSON.stringify(Object.assign({ action }, extra || {}))
+            });
+            return res.json();
+        }
+
+        function fmtTime(t) {
+            if (!t) return '';
+            const d = new Date(t);
+            if (isNaN(d.getTime())) return '';
+            const p = (n) => (n < 10 ? '0' + n : '' + n);
+            return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+        }
+
+        function escapeHtml(s) {
+            return String(s || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        const STATUS_TEXT = { pending: '待处理', replied: '已回复', closed: '已关闭' };
+
+        // 筛选切换
+        document.getElementById('fbFilters').addEventListener('click', (e) => {
+            const btn = e.target.closest('.fb-filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.fb-filter-btn').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentStatus = btn.dataset.status;
+            loadList();
+        });
+
+        async function loadList() {
+            const listEl = document.getElementById('fbList');
+            listEl.innerHTML = '<div class="fb-empty">加载中...</div>';
+            try {
+                const result = await callApi('feedbackList', { page: 1, pageSize: 50, status: currentStatus });
+                if (!result.success) {
+                    listEl.innerHTML = '<div class="fb-empty">' + escapeHtml(result.message || '加载失败') + '</div>';
+                    return;
+                }
+                tickets = result.data.list || [];
+                document.getElementById('fbStat').textContent = '共 ' + result.data.total + ' 条';
+                if (!tickets.length) {
+                    listEl.innerHTML = '<div class="fb-empty">暂无' + (STATUS_TEXT[currentStatus] || '') + '工单</div>';
+                    return;
+                }
+                listEl.innerHTML = tickets.map((fb, idx) => {
+                    const last = fb.replies && fb.replies[fb.replies.length - 1];
+                    const preview = last ? (last.from === 'admin' ? '【客服】' : '') + last.content : '';
+                    return '<div class="fb-card ' + fb.status + '" onclick="openDetail(' + idx + ')">'
+                        + '<div class="fb-card-head">'
+                        +   '<div class="fb-user">'
+                        +     '<span class="fb-phone">' + escapeHtml(fb.phone || '未留手机号') + '</span>'
+                        +     (fb.brandName ? '<span class="fb-brand">' + escapeHtml(fb.brandName) + '</span>' : '')
+                        +   '</div>'
+                        +   '<span class="fb-badge ' + fb.status + '">' + (STATUS_TEXT[fb.status] || fb.status) + '</span>'
+                        + '</div>'
+                        + '<div class="fb-preview">' + escapeHtml(preview) + '</div>'
+                        + '<div class="fb-meta"><span>' + fmtTime(fb.updateTime) + ' 更新</span><span>' + (fb.replies ? fb.replies.length : 0) + ' 条对话</span></div>'
+                        + '</div>';
+                }).join('');
+            } catch (e) {
+                listEl.innerHTML = '<div class="fb-empty">网络错误，请刷新重试</div>';
+            }
+        }
+
+        function openDetail(idx) {
+            currentTicket = tickets[idx];
+            if (!currentTicket) return;
+            document.getElementById('fbModalTitle').innerHTML =
+                escapeHtml(currentTicket.phone || '未留手机号')
+                + (currentTicket.brandName ? ' <span class="fb-brand">' + escapeHtml(currentTicket.brandName) + '</span>' : '')
+                + ' <span class="fb-badge ' + currentTicket.status + '">' + (STATUS_TEXT[currentTicket.status] || currentTicket.status) + '</span>';
+            renderDialog();
+            document.getElementById('fbReplyInput').value = '';
+            document.getElementById('fbModalMask').classList.add('show');
+        }
+
+        function renderDialog() {
+            const dialogEl = document.getElementById('fbDialog');
+            const replies = (currentTicket && currentTicket.replies) || [];
+            dialogEl.innerHTML = replies.map((r) =>
+                '<div class="fb-msg ' + (r.from === 'user' ? 'user' : 'admin') + '">'
+                + '<div class="fb-msg-role">' + (r.from === 'user' ? '用户' : '闪喵客服') + '</div>'
+                + '<div class="fb-msg-bubble">' + escapeHtml(r.content) + '</div>'
+                + '<div class="fb-msg-time">' + fmtTime(r.createTime) + '</div>'
+                + '</div>'
+            ).join('');
+            dialogEl.scrollTop = dialogEl.scrollHeight;
+        }
+
+        async function sendReply(close) {
+            const input = document.getElementById('fbReplyInput');
+            const content = input.value.trim();
+            if (!content) { alert('请输入回复内容'); return; }
+            const btn = document.getElementById('fbReplyBtn');
+            btn.disabled = true;
+            try {
+                const result = await callApi('feedbackReply', { feedbackId: currentTicket._id, content: content, close: !!close });
+                if (!result.success) { alert(result.message || '回复失败'); return; }
+                input.value = '';
+                await loadList();
+                // 保持弹层打开并刷新对话内容
+                const idx = tickets.findIndex((t) => t._id === currentTicket._id);
+                if (idx > -1) { currentTicket = tickets[idx]; renderDialog(); }
+            } catch (e) {
+                alert('网络错误，请重试');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function closeTicket() {
+            if (!confirm('确定关闭该工单？关闭后不再标记为待处理')) return;
+            const result = await callApi('feedbackClose', { feedbackId: currentTicket._id });
+            if (!result.success) { alert(result.message || '操作失败'); return; }
+            await loadList();
+            const idx = tickets.findIndex((t) => t._id === currentTicket._id);
+            if (idx > -1) { currentTicket = tickets[idx]; renderDialog(); }
+        }
+
+        function closeModal() {
+            document.getElementById('fbModalMask').classList.remove('show');
+            currentTicket = null;
+        }
+
+        document.getElementById('fbModalMask').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // 初始化（admin-nav.js 已完成登录校验）
+        loadList();
+    </script>
+</body>
+</html>

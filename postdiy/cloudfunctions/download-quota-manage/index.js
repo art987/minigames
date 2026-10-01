@@ -52,16 +52,11 @@ async function writeLog(logData) {
 }
 
 // 获取用户数据，不存在时返回 null
+// （用 where 查询而非 doc().get()：后者对不存在的文档会直接抛异常，
+//   只有真实存在的用户才会走到后续逻辑，网络异常仍向上抛由外层兜底）
 async function getUserData(userId) {
-  try {
-    const userRes = await db.collection('users').doc(userId).get()
-    return userRes.data || null
-  } catch (e) {
-    if (e.errCode === 'DATABASE_DOCUMENT_NOT_EXIST') {
-      return null
-    }
-    throw e
-  }
+  const res = await db.collection('users').where({ _id: userId }).limit(1).get()
+  return (res.data && res.data[0]) || null
 }
 
 // 确保用户有 downloadQuota 字段，没有则初始化
@@ -194,6 +189,61 @@ async function addQuota(userId, amount, source, remark) {
   const validSources = ['purchase', 'gift', 'lottery', 'admin', 'brand_info_completed', 'other']
   if (!validSources.includes(source)) {
     return response(false, '无效的来源类型')
+  }
+
+  // 完善品牌信息奖励：云端严格防重，同一账号（无论小程序/网页/换设备/清缓存）终身只发一次
+  if (source === 'brand_info_completed') {
+    const userData = await getUserData(userId)
+    if (!userData) {
+      return response(false, '用户不存在')
+    }
+    // 已领取过（users 文档标记）→ 直接拒绝
+    if (userData.brandBonusClaimed === true) {
+      return response(false, '该奖励已领取过')
+    }
+    // 兼容历史：网页端早期发放只写了日志没打标记，这里按领取日志补判一次
+    try {
+      const logRes = await db
+        .collection('download_quota_logs')
+        .where({ userId, type: 'add', source: 'brand_info_completed' })
+        .limit(1)
+        .get()
+      if (logRes.data && logRes.data.length > 0) {
+        await db.collection('users').doc(userId).update({
+          data: { brandBonusClaimed: true, updateTime: db.serverDate() }
+        })
+        return response(false, '该奖励已领取过')
+      }
+    } catch (e) {
+      // 日志集合不存在/查询失败时按未领取继续（不阻断首次发放）
+      console.error('查询品牌奖励历史日志失败（按未领取处理）:', e)
+    }
+    // 原子条件更新：仅当 brandBonusClaimed ≠ true 时加次数并打标记（并发请求只会有一个成功）
+    const beforeQuota = userData.downloadQuota || 0
+    const claimRes = await db
+      .collection('users')
+      .where({ _id: userId, brandBonusClaimed: _.neq(true) })
+      .update({
+        data: {
+          downloadQuota: _.inc(amount),
+          brandBonusClaimed: true,
+          updateTime: db.serverDate()
+        }
+      })
+    if (!claimRes.stats || claimRes.stats.updated === 0) {
+      return response(false, '该奖励已领取过')
+    }
+    writeLog({
+      userId,
+      changeAmount: amount,
+      beforeQuota,
+      afterQuota: beforeQuota + amount,
+      type: 'add',
+      source,
+      remark: remark || '完善品牌信息奖励',
+      createTime: db.serverDate()
+    })
+    return response(true, { downloadQuota: beforeQuota + amount })
   }
 
   const currentQuota = await ensureQuota(userId)
