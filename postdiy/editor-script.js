@@ -1355,10 +1355,40 @@ const ThumbnailLoader = {
   let originalAutoTextColor = null;
   let previewTextColor = null;
   let colorConfirmed = false;
+
+  // Logo 展示大小（百分比 50-150，对齐小程序；滑杆实时预览，点确定持久化）
+  let logoScalePercent = parseInt(localStorage.getItem('posterLogoScale'), 10) || 100;
+  let tempLogoScale = null; // 弹窗打开时的快照，取消时恢复
   
   // DOM元素缓存
   const elements = {};
   
+  // ===== 文字样式弹窗状态（对齐小程序：字体/字号/字色/光效） =====
+  // 注意：必须声明在 DOMContentLoaded 注册之前——任何回调触发时都已完成初始化，避免 TDZ 引用错误
+  // 名称可选字体（免费商用可嵌入；size=选中该字体时的默认字号），与小程序端同步
+  const NS_FONT_QINIU = 'https://7ncdn.peacelove.top/fonts/';
+  const NS_FONT_R2 = 'https://pub-30c6f2f6d33a4cf0b874265d80d1e682.r2.dev/fonts/';
+  const NS_NAME_FONTS = [
+    { key: 'default', label: '黑体', family: '', url: '', size: 15 },
+    { key: 'song', label: '宋体', family: 'Noto Serif SC', url: NS_FONT_QINIU + 'NotoSerifSC-Regular.ttf', size: 16 },
+    { key: 'kai', label: '楷体', family: 'Alimama DongFangDaKai', url: NS_FONT_QINIU + 'AlimamaDongFangDaKai-Regular.ttf', size: 17 },
+    { key: 'kuaile', label: '快乐体', family: 'ZCOOL KuaiLe', url: NS_FONT_QINIU + 'ZCOOLKuaiLe-Regular.ttf', size: 18 },
+    { key: 'meihao', label: '美好体', family: 'Douyin Sans', url: NS_FONT_QINIU + 'DouyinSans-Bold.otf', size: 17 }
+  ];
+  const NS_MORE_COLOR_ROWS = [
+    ['#550000', '#553311', '#664400', '#004422', '#003355', '#001133', '#330033', '#440044', '#550055'],
+    ['#bf1e1e', '#CC6633', '#FFFF00', '#008822', '#006688', '#333388', '#660066', '#CC0066', '#CC00CC'],
+    ['#FFDDDD', '#FFDDAA', '#FFFFCC', '#CCEECC', '#CCDDFF', '#DDCCEE', '#CCAAEE', '#DDCCCC', '#EEDDEE']
+  ];
+  const NS_SIZE_BASE = 10 / 15; // 名称 CSS 基准 10px 对应默认字号 15
+  const NS_STORE_KEY = 'posterNameStyle'; // 字体+字号全局持久化（跨会话沿用）
+  const nsLoadedFonts = {}; // family -> true 进程内缓存
+  // 持久样式：字体/字号全局生效；effect='auto' 表示未锁定（按字色明暗自动配光效），换模板/背景会重置为 auto
+  const nsStyle = { fontKey: 'default', size: 15, effect: 'auto' };
+  // 弹窗草稿（打开时灌入，确认才写回）
+  const nsDraft = { fontKey: 'default', size: 15, color: 'auto', effect: 'auto' };
+  let nsMoreBaseColor = null; // 更多颜色小窗基线色（取消还原）
+
   // DOM加载完成后初始化编辑器
   document.addEventListener('DOMContentLoaded', function() {
     console.log('海报编辑器初始化...');
@@ -2009,7 +2039,6 @@ const ThumbnailLoader = {
       
       businessInfoModal: document.getElementById('businessInfoModal'),
       closeBusinessInfoModalBtn: document.getElementById('closeBusinessInfoModalBtn'),
-      refreshDataBtn: document.getElementById('refreshDataBtn'),
       saveBusinessInfoBtn: document.getElementById('saveBusinessInfoBtn'),
       businessInfoForm: document.getElementById('businessInfoForm'),
       businessNameInput: document.getElementById('business-name'),
@@ -2020,6 +2049,21 @@ const ThumbnailLoader = {
       closeIndustryTemplateModal: document.getElementById('closeIndustryTemplateModal'), // 关闭行业模板弹窗
       industryModalTitle: document.getElementById('industryModalTitle'), // 行业弹窗标题
       industryTemplatesList: document.getElementById('industryTemplatesList'), // 行业模板列表
+      // 行业选择弹窗（对齐小程序两步选择：大行业卡片 → 子行业卡片 → 确定进入模板弹窗）
+      industryPickerModal: document.getElementById('industryPickerModal'),
+      industryPickerTitle: document.getElementById('industryPickerTitle'),
+      pickerSubTitle: document.getElementById('pickerSubTitle'),
+      closeIndustryPickerModalBtn: document.getElementById('closeIndustryPickerModalBtn'),
+      pickerStep1: document.getElementById('pickerStep1'),
+      pickerStep2: document.getElementById('pickerStep2'),
+      pickerGroupsGrid: document.getElementById('pickerGroupsGrid'),
+      pickerSubGrid: document.getElementById('pickerSubGrid'),
+      pickerBackBtn: document.getElementById('pickerBackBtn'),
+      pickerConfirmBtn: document.getElementById('pickerConfirmBtn'),
+      // 模板弹窗顶部导航条（一级 › 二级）
+      integratedNavGroup: document.getElementById('integratedNavGroup'),
+      integratedNavSep: document.getElementById('integratedNavSep'),
+      integratedNavCat: document.getElementById('integratedNavCat'),
       logoUploadArea: document.getElementById('logoUploadArea'),
       logoInput: document.getElementById('logoInput'),
       logoPreview: document.getElementById('logoPreview'),
@@ -2499,6 +2543,253 @@ const ThumbnailLoader = {
     }, 400); // 匹配动画时长
   }
 
+  // ==================== 行业选择弹窗（对齐小程序两步选择：大行业卡片 → 子行业卡片 → 确定） ====================
+  let pickerStep = 1;                 // 当前步骤：1=大行业 2=子行业
+  let pickerPickedGroup = '';         // 第二步所在的大行业分组名（'通用' 表示直接用通用分类）
+  let pickerPickedCat = '';           // 最终选中的子行业（或'通用'）
+  let industryPickerSource = 'promo'; // 模板选用后回填目标：'promo'=促销编辑弹窗 / 'business'=品牌信息弹窗
+
+  // 找行业文案模板入口：选过行业直接进入上次的文案模板弹窗，首次走行业选择流程
+  function openPromoTemplateOrPicker(source) {
+    var lastCat = localStorage.getItem('lastSelectedIndustryCategory');
+    if (lastCat) {
+      openIntegratedIndustryTemplateModal(lastCat);
+    } else {
+      openIndustryPickerModal(source);
+    }
+  }
+
+  // 打开行业选择弹窗（source：选用文案后回填到哪个输入框；presetGroup：直接进入该大行业的子行业步骤）
+  function openIndustryPickerModal(source, presetGroup) {
+    if (!elements.industryPickerModal || !elements.pickerGroupsGrid) return;
+    industryPickerSource = source || 'promo';
+
+    if (presetGroup && presetGroup !== '通用' && typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+      // 导航条二级点击：跳过第一步，直接进入该大行业的子行业选择
+      const group = INDUSTRY_CATEGORIES_GROUPED.find(g => g.title === presetGroup);
+      if (group) {
+        pickerPickedGroup = presetGroup;
+        renderPickerGroups(localStorage.getItem('lastSelectedIndustryCategory') || ''); // 预渲染第一步，供「重选行业」返回
+        renderPickerSubCats(group);
+        switchPickerStep(2);
+        elements.industryPickerModal.classList.remove('closing');
+        elements.industryPickerModal.classList.remove('hidden');
+        void elements.industryPickerModal.offsetWidth;
+        return;
+      }
+    }
+
+    renderPickerGroups(localStorage.getItem('lastSelectedIndustryCategory') || '');
+    switchPickerStep(1);
+
+    elements.industryPickerModal.classList.remove('closing');
+    elements.industryPickerModal.classList.remove('hidden');
+    void elements.industryPickerModal.offsetWidth;
+  }
+
+  // 关闭行业选择弹窗
+  function closeIndustryPickerModal() {
+    if (!elements.industryPickerModal) return;
+    elements.industryPickerModal.classList.add('hidden');
+  }
+
+  // 步骤切换（1=大行业 2=子行业）
+  function switchPickerStep(step) {
+    pickerStep = step;
+    if (elements.pickerStep1) elements.pickerStep1.style.display = step === 1 ? '' : 'none';
+    if (elements.pickerStep2) elements.pickerStep2.style.display = step === 2 ? '' : 'none';
+    // 顶部标题固定「找行业文案模板」；具体指引（选择「XX」的子行业）放在第二步网格上方的 h3，阅读连贯
+    if (elements.industryPickerTitle) elements.industryPickerTitle.textContent = '找行业文案模板';
+    if (elements.pickerSubTitle) elements.pickerSubTitle.textContent = '选择「' + pickerPickedGroup + '」的子行业';
+  }
+
+  // 第一步：渲染大行业卡片（通用置顶 + 各分组，一行3个；上次选过的分组标淡粉色和角标）
+  function renderPickerGroups(lastCat) {
+    const grid = elements.pickerGroupsGrid;
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    // 推导上次选择的分类所属分组（用于「上次选择」标记）
+    let lastGroup = '';
+    if (lastCat === '通用') lastGroup = '通用';
+    if (typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+      INDUSTRY_CATEGORIES_GROUPED.forEach(g => {
+        if (g.categories.includes(lastCat)) lastGroup = g.title;
+      });
+    }
+
+    const makeCell = (icon, title, sub, isLastUsed, onClick) => {
+      const cell = document.createElement('div');
+      cell.className = 'picker-cell' + (isLastUsed ? ' picker-cell-last' : '');
+      cell.innerHTML =
+        '<span class="picker-badge">上次选择</span>' +
+        '<span class="picker-icon">' + icon + '</span>' +
+        '<span class="picker-name">' + title + '</span>' +
+        (sub ? '<span class="picker-sub">' + sub + '</span>' : '');
+      cell.addEventListener('click', onClick);
+      grid.appendChild(cell);
+    };
+
+    // 通用置顶：点击直接确认进入模板弹窗
+    if (INDUSTRY_TEMPLATES['通用']) {
+      makeCell(INDUSTRY_ICONS['通用'] || '📋', '通用', '直接开始', lastGroup === '通用', function() {
+        pickerPickedGroup = '通用';
+        pickerPickedCat = '通用';
+        confirmIndustryPicker();
+      });
+    }
+
+    if (typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+      INDUSTRY_CATEGORIES_GROUPED.forEach(group => {
+        const count = group.categories.filter(c => INDUSTRY_TEMPLATES[c]).length;
+        if (!count) return;
+        makeCell(INDUSTRY_ICONS[group.categories[0]] || '🏭', group.title, count + ' 个子行业', lastGroup === group.title, function() {
+          pickerPickedGroup = group.title;
+          renderPickerSubCats(group);
+          switchPickerStep(2);
+        });
+      });
+    }
+  }
+
+  // 第二步：渲染子行业卡片（一行3个单选；上次选过的默认选中并标记）
+  function renderPickerSubCats(group) {
+    const grid = elements.pickerSubGrid;
+    if (!grid) return;
+    grid.innerHTML = '';
+    const lastCat = localStorage.getItem('lastSelectedIndustryCategory') || '';
+    group.categories.forEach(cat => {
+      if (!INDUSTRY_TEMPLATES[cat]) return;
+      const cell = document.createElement('div');
+      cell.className = 'picker-cell picker-cell-sm' + (cat === lastCat ? ' picker-cell-last' : '');
+      cell.setAttribute('data-cat', cat);
+      cell.innerHTML =
+        '<span class="picker-badge">上次选择</span>' +
+        '<span class="picker-icon">' + (INDUSTRY_ICONS[cat] || '📋') + '</span>' +
+        '<span class="picker-name">' + cat + '</span>';
+      cell.addEventListener('click', function() {
+        grid.querySelectorAll('.picker-cell').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        pickerPickedCat = cat;
+      });
+      grid.appendChild(cell);
+    });
+    // 上次选过的子行业默认选中
+    const lastCell = grid.querySelector('.picker-cell[data-cat="' + lastCat + '"]');
+    if (lastCell) {
+      lastCell.classList.add('selected');
+      pickerPickedCat = lastCat;
+    } else {
+      pickerPickedCat = '';
+    }
+  }
+
+  // 确定：记住选择 → 关闭选择弹窗 → 打开模板弹窗并定位到该行业
+  function confirmIndustryPicker() {
+    if (!pickerPickedCat) {
+      showToast('请先选择一个行业');
+      return;
+    }
+    localStorage.setItem('lastSelectedIndustryCategory', pickerPickedCat);
+    if (pickerPickedGroup === '通用') {
+      localStorage.removeItem('postdiy_industry_expanded_group');
+    } else {
+      localStorage.setItem('postdiy_industry_expanded_group', pickerPickedGroup);
+    }
+    closeIndustryPickerModal();
+    openIntegratedIndustryTemplateModal(pickerPickedCat);
+  }
+
+  // ==================== 下划线动画（对齐小程序：文字完整显示，黑色线条逐行从左划到右） ====================
+  const UNDERLINE_BASE_DELAY = 2;   // 打开弹窗/切换分类时首卡基础延迟（秒）
+  const UNDERLINE_LINE_SPEED = 0.7; // 每行划线时长（行间隔同值，秒）
+
+  // HTML 转义（模板文案写入 innerHTML 前使用）
+  function escapeHtmlText(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // 播放下划线动画：content 重建为按行结构，线条按 delay 顺序逐行划过
+  function playUnderlineEffect(contentEl, fullText, delaySec) {
+    if (!contentEl) return;
+    const lines = String(fullText).split('\n');
+    contentEl.innerHTML = lines.map((line, li) =>
+      '<span class="ind-line-wrap"><span class="ind-line">' + escapeHtmlText(line) + '</span>' +
+      '<span class="ind-underline" style="animation-delay:' + (delaySec + li * UNDERLINE_LINE_SPEED).toFixed(2) + 's"></span></span>'
+    ).join('');
+  }
+
+  // 停止所有卡片的下划线动画并恢复纯文本（仅当前卡带 selected）
+  function stopAllUnderlineEffects() {
+    document.querySelectorAll('.industry-template-card').forEach(card => {
+      card.classList.remove('selected');
+      const content = card.querySelector('.industry-template-content');
+      if (!content) return;
+      if (content.querySelector('.ind-line-wrap')) {
+        const btn = card.querySelector('.industry-template-select-btn');
+        if (btn) content.textContent = btn.getAttribute('data-template') || content.textContent;
+      }
+    });
+  }
+
+  // 滚动换卡（对齐小程序）：卡片底部越过容器顶部 20% 参考线 → 该卡立即划线，其余停止
+  // 仅在模板弹窗完全打开（_pickerScrollActive）后生效，避免列表重渲复位移位抢跑首卡的 2s 延迟
+  function setupIntegratedScrollDetection() {
+    const scrollContainer = elements.integratedIndustryTemplatesList;
+    if (!scrollContainer || scrollContainer._pickerScrollBound) return;
+    scrollContainer._pickerScrollBound = true;
+
+    let ticking = false;
+    scrollContainer.addEventListener('scroll', function() {
+      if (!scrollContainer._pickerScrollActive) return;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const cards = scrollContainer.querySelectorAll('.industry-template-card');
+        if (!cards.length) return;
+        const cRect = scrollContainer.getBoundingClientRect();
+        const refLine = cRect.top + cRect.height * 0.2;
+        let target = -1;
+        for (let i = 0; i < cards.length; i++) {
+          if (cards[i].getBoundingClientRect().bottom >= refLine) { target = i; break; }
+        }
+        if (target === -1) target = cards.length - 1;
+        const cur = scrollContainer.querySelector('.industry-template-card.selected');
+        const curIdx = cur ? Array.prototype.indexOf.call(cards, cur) : -1;
+        if (target !== curIdx) {
+          stopAllUnderlineEffects();
+          cards[target].classList.add('selected');
+          const tContent = cards[target].querySelector('.industry-template-content');
+          const tBtn = cards[target].querySelector('.industry-template-select-btn');
+          if (tContent && tBtn) playUnderlineEffect(tContent, tBtn.getAttribute('data-template'), 0);
+        }
+      });
+    }, { passive: true });
+  }
+
+  // 顶部导航条：根据当前选中的分类刷新「一级 › 二级」显示
+  function updateIntegratedNav() {
+    if (!elements.integratedNavGroup || !elements.integratedNavCat || !elements.integratedNavSep) return;
+    const cat = localStorage.getItem('lastSelectedIndustryCategory') || '通用';
+    let group = '通用';
+    if (cat !== '通用' && typeof INDUSTRY_CATEGORIES_GROUPED !== 'undefined') {
+      const hit = INDUSTRY_CATEGORIES_GROUPED.find(g => g.categories.includes(cat));
+      if (hit) group = hit.title;
+    }
+    elements.integratedNavGroup.textContent = group;
+    if (cat === '通用') {
+      // 通用没有子行业：隐藏分隔符与二级项
+      elements.integratedNavSep.style.display = 'none';
+      elements.integratedNavCat.style.display = 'none';
+    } else {
+      elements.integratedNavSep.style.display = '';
+      elements.integratedNavCat.style.display = '';
+      elements.integratedNavCat.textContent = cat;
+      elements.integratedNavCat.setAttribute('data-group', group);
+    }
+  }
+
   // 打开整合行业模板弹窗
   function openIntegratedIndustryTemplateModal(category = null) {
     if (!elements.integratedIndustryTemplateModal || !elements.integratedModalTitle || !elements.integratedIndustryTemplatesList) return;
@@ -2510,6 +2801,9 @@ const ThumbnailLoader = {
 
     // 设置弹窗标题
     elements.integratedModalTitle.textContent = '行业促销文案模板';
+
+    // 顶部导航条「一级 › 二级」
+    updateIntegratedNav();
 
     // 渲染左侧行业分类导航
     renderVerticalIndustryCategories();
@@ -2532,7 +2826,10 @@ const ThumbnailLoader = {
 
     // 延迟执行，确保DOM已渲染
     setTimeout(() => {
-      // 自动播放第一个模板的打字机效果
+      // 清掉任何残留的选中/线条状态，保证首卡干净接管（打开时延迟 2s 再划线，先阅读再强调）
+      stopAllUnderlineEffects();
+      elements.integratedIndustryTemplatesList.scrollTop = 0;
+
       const firstTemplateCard = elements.integratedIndustryTemplatesList.querySelector('.industry-template-card');
       if (firstTemplateCard) {
         const content = firstTemplateCard.querySelector('.industry-template-content');
@@ -2541,18 +2838,23 @@ const ThumbnailLoader = {
         // 设置选中状态
         firstTemplateCard.classList.add('selected');
 
-        // 触发打字机效果
-        startTypewriterEffect(content, template);
+        // 播放下划线动画
+        playUnderlineEffect(content, template, UNDERLINE_BASE_DELAY);
       }
 
-      // 添加滚动监听
-      setupScrollDetection();
+      // 滚动换卡检测（首卡接管完成后再启用）
+      setupIntegratedScrollDetection();
+      elements.integratedIndustryTemplatesList._pickerScrollActive = true;
     }, 100);
   }
 
   // 关闭整合行业模板弹窗
   function closeIntegratedIndustryTemplateModal() {
     if (!elements.integratedIndustryTemplateModal) return;
+    // 停用滚动换卡检测并清理动画残留
+    if (elements.integratedIndustryTemplatesList) {
+      elements.integratedIndustryTemplatesList._pickerScrollActive = false;
+    }
     
     // 添加关闭动画类
     elements.integratedIndustryTemplateModal.classList.add('closing');
@@ -2583,7 +2885,10 @@ const ThumbnailLoader = {
       const categoryBtn = document.createElement('button');
       categoryBtn.className = 'industry-category-vertical';
       categoryBtn.setAttribute('data-category', category);
-      categoryBtn.textContent = `${INDUSTRY_ICONS[category] || '📋'} ${category}`;
+      // 图标与文字分离，便于选中态用 CSS 隐藏图标、突出放大后的文字
+      categoryBtn.innerHTML =
+        '<span class="cat-icon">' + (INDUSTRY_ICONS[category] || '📋') + '</span>' +
+        '<span class="cat-text">' + category + '</span>';
       categoryBtn.title = category;
 
       // 如果是上次选中的分类，添加active状态
@@ -2601,26 +2906,18 @@ const ThumbnailLoader = {
         // 渲染对应行业的模板
         renderIndustryTemplates(selectedCategory, elements.integratedIndustryTemplatesList);
 
-        // 延迟执行打字机效果
+        // 延迟执行：第一张卡延迟 2s 后开始下划线动画
         setTimeout(() => {
           const firstTemplateCard = elements.integratedIndustryTemplatesList.querySelector('.industry-template-card');
           if (firstTemplateCard) {
             const content = firstTemplateCard.querySelector('.industry-template-content');
             const template = firstTemplateCard.querySelector('.industry-template-select-btn').getAttribute('data-template');
 
-            // 移除其他卡片的选中状态
-            document.querySelectorAll('.industry-template-card').forEach(card => {
-              card.classList.remove('selected');
-              const content = card.querySelector('.industry-template-content');
-              content.classList.remove('typewriter');
-              content.textContent = INDUSTRY_TEMPLATES[selectedCategory][Array.from(card.parentNode.children).indexOf(card)];
-            });
-
-            // 设置选中状态
+            // 设置选中状态（其余卡片已随重渲恢复纯文本）
             firstTemplateCard.classList.add('selected');
 
-            // 触发打字机效果
-            startTypewriterEffect(content, template);
+            // 播放下划线动画
+            playUnderlineEffect(content, template, UNDERLINE_BASE_DELAY);
           }
         }, 50);
       });
@@ -2739,6 +3036,8 @@ const ThumbnailLoader = {
 
     // 保存最后一次选择的分类到 localStorage
     localStorage.setItem('lastSelectedIndustryCategory', category);
+    // 顶部导航条跟随更新
+    updateIntegratedNav();
   }
   
   // 渲染指定行业的文案模板到指定容器
@@ -2767,26 +3066,20 @@ const ThumbnailLoader = {
       });
 
       templateCard.innerHTML = `
-        <div class="industry-template-content">${template}</div>
-        <button class="industry-template-select-btn" data-template="${template}">选用编辑</button>
+        <div class="industry-template-content">${escapeHtmlText(template)}</div>
+        <button class="industry-template-select-btn" data-template="${escapeHtmlText(template)}">选用编辑</button>
       `;
-      
-      // 添加卡片点击事件 - 触发打字机效果
+
+      // 添加卡片点击事件 - 被点卡片立即播放下划线动画，其余卡片停止
       templateCard.addEventListener('click', function() {
-        // 移除其他卡片的选中状态
-        document.querySelectorAll('.industry-template-card').forEach(card => {
-          card.classList.remove('selected');
-          const content = card.querySelector('.industry-template-content');
-          content.classList.remove('typewriter');
-          content.textContent = templates[Array.from(card.parentNode.children).indexOf(card)];
-        });
+        stopAllUnderlineEffects();
 
         // 设置当前卡片为选中状态
         this.classList.add('selected');
         const content = this.querySelector('.industry-template-content');
 
-        // 触发打字机效果
-        startTypewriterEffect(content, template);
+        // 立即播放下划线动画（无延迟）
+        playUnderlineEffect(content, template, 0);
       });
 
       const contentEl = templateCard.querySelector('.industry-template-content');
@@ -2799,30 +3092,29 @@ const ThumbnailLoader = {
       contentEl.addEventListener('touchcancel', (e) => {
         e.stopPropagation();
       });
-      
+
       // 添加按钮点击事件
       templateCard.querySelector('.industry-template-select-btn').addEventListener('click', function(e) {
         e.stopPropagation(); // 阻止事件冒泡
         console.log('选择了模板:', template);
-        if (elements.promoTextInput) {
-          elements.promoTextInput.value = template;
-          console.log('已将模板内容填充到输入框:', template);
-          
-          // 关闭整合行业模板弹窗
-          closeIntegratedIndustryTemplateModal();
-          
-          // 自动滚动到编辑框
-          setTimeout(() => {
-            elements.promoTextInput.scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'start' 
-            });
-            elements.promoTextInput.focus();
-            console.log('已滚动到编辑框并聚焦');
-          }, 100);
+        closeIntegratedIndustryTemplateModal();
+
+        if (industryPickerSource === 'business') {
+          // 从品牌信息弹窗进入：回填促销文案输入框（点「保存」随品牌信息上云）
+          if (elements.businessPromoTextInput) {
+            elements.businessPromoTextInput.value = template;
+            console.log('已将模板内容填充到品牌信息促销输入框');
+          }
+        } else {
+          // 从促销编辑弹窗进入：先打开弹窗（其初始化会重置输入框），再填入模板内容
+          openPromoTextModal();
+          if (elements.promoTextInput) {
+            elements.promoTextInput.value = template;
+            console.log('已将模板内容填充到促销编辑输入框');
+          }
         }
       });
-      
+
       container.appendChild(templateCard);
     });
   }
@@ -3446,6 +3738,7 @@ const ThumbnailLoader = {
         state.customBackground = base64;
 
         state.autoTextColor = true;
+        nsStyle.effect = 'auto'; // 换背景光效重置为自动（与字色同步）
 
         if (window.FrameManager) {
           state.currentFrame = null;
@@ -3668,123 +3961,6 @@ const ThumbnailLoader = {
     if (elements.closeBusinessInfoModalBtn) {
       elements.closeBusinessInfoModalBtn.addEventListener('click', closeBusinessInfoModal);
     }
-    if (elements.refreshDataBtn) {
-      elements.refreshDataBtn.addEventListener('click', async function() {
-        let retryCount = 0;
-        const maxRetries = 2; // 减少重试次数（从3次改为2次）
-        const retryDelay = 1500; // 减少重试延迟（从2秒改为1.5秒）
-        const failRetryDelay = 10000; // 减少失败后等待时间（从30秒改为10秒）
-        
-        const originalText = '获取最新数据';
-        const loadingText = '获取云端数据';
-        const successText = '更新成功';
-        const failText = '获取失败';
-        const retryText = '10秒后重试';
-        
-        const btn = this;
-        
-        async function updateButtonText(text, duration = null) {
-          btn.textContent = text;
-          if (duration) {
-            await new Promise(resolve => setTimeout(resolve, duration));
-          }
-        }
-        
-        try {
-          btn.disabled = true;
-          btn.textContent = `${loadingText}...`;
-          
-          while (retryCount < maxRetries) {
-            try {
-              retryCount++;
-              console.log(`[刷新数据] 尝试第 ${retryCount}/${maxRetries} 次`);
-              
-              // 强制刷新商家信息（跳过本地缓存）
-              if (window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo) {
-                window.CloudSync.setForceRefreshBusinessInfo();
-              }
-              
-              const syncResult = await window.CloudSync.syncAndFillBusinessInfo(true);
-              
-              if (!syncResult.success) {
-                throw new Error(`同步商家信息失败: ${syncResult.reason || '未知错误'}`);
-              }
-              
-              console.log(`[刷新数据] 商家信息同步成功: ${syncResult.source}`);
-              
-              // 清除所有图片缓存（包括base64数据和元数据）
-              console.log('[刷新数据] 清除旧的图片缓存...');
-              localStorage.removeItem('poster_logo_base64');
-              localStorage.removeItem('poster_qrcode_base64');
-              localStorage.removeItem('poster_logo_meta');
-              localStorage.removeItem('poster_qrcode_meta');
-              console.log('[刷新数据] 图片缓存已清除');
-              
-              // 更新显示
-              updateBusinessInfoDisplay();
-              
-              // 强制从云端重新加载图片并生成新的base64缓存
-              if (state.businessInfo.logoUrl || state.businessInfo.qrcodeUrl) {
-                console.log('[刷新数据] 开始从云端加载最新图片...');
-                await Promise.all([
-                  state.businessInfo.logoUrl ? loadImageWithFallback(
-                    document.getElementById('posterLogoImg'),
-                    'logo',
-                    state.businessInfo.logoUrl
-                  ) : Promise.resolve(),
-                  state.businessInfo.qrcodeUrl ? loadImageWithFallback(
-                    document.getElementById('posterQrcodeImg'),
-                    'qrcode',
-                    state.businessInfo.qrcodeUrl
-                  ) : Promise.resolve()
-                ]);
-                console.log('[刷新数据] 图片更新完成，新的base64缓存已生成');
-              }
-
-              await updateButtonText(successText, 1000);
-              btn.disabled = false;
-              btn.textContent = originalText;
-              console.log('[刷新数据] 刷新成功');
-
-              // 显示浮动提示并关闭弹窗
-              showToast('已更新至最新数据', 3000);
-              setTimeout(() => {
-                closeBusinessInfoModal();
-              }, 1000);
-              return;
-            } catch (error) {
-              console.error(`[刷新数据] 第 ${retryCount} 次尝试失败:`, error);
-              if (retryCount < maxRetries) {
-                await updateButtonText(`${loadingText}(${retryDelay / 1000}s)...`, retryDelay);
-              } else {
-                btn.disabled = false;
-                btn.textContent = failText;
-                setTimeout(() => {
-                  btn.textContent = retryText;
-                  setTimeout(() => {
-                    btn.textContent = originalText;
-                  }, failRetryDelay);
-                }, 2000);
-                console.error(`[刷新数据] 所有重试失败，${failRetryDelay / 1000}秒后可再次尝试`);
-                showToast('获取数据失败，请稍后重试', 3000);
-                return;
-              }
-            }
-          }
-        } catch (error) {
-          console.error('[刷新数据] 错误:', error);
-          btn.disabled = false;
-          btn.textContent = failText;
-          setTimeout(() => {
-            btn.textContent = retryText;
-            setTimeout(() => {
-              btn.textContent = originalText;
-            }, failRetryDelay);
-          }, 2000);
-          showToast('获取数据失败，请稍后重试', 3000);
-        }
-      });
-    }
     if (elements.saveBusinessInfoBtn) {
       elements.saveBusinessInfoBtn.addEventListener('click', function() {
         // 品牌名称为空时阻止保存
@@ -3812,40 +3988,59 @@ const ThumbnailLoader = {
       // 初始化按钮状态
       updateSaveBtnState();
     }
-    // 促销文案模板按钮事件
-    if (elements.selectPromoTemplateBtn) {
-      elements.selectPromoTemplateBtn.addEventListener('click', function() {
-        console.log('点击选择促销文案模板按钮');
-        openPromoTextModal();
-      });
-    }
-    
     // 行业分类点击事件 - 打开独立弹窗
     bindIndustryCategoryEvents();
-    
+
     // 关闭行业模板弹窗事件
     if (elements.closeIndustryTemplateModal) {
       elements.closeIndustryTemplateModal.addEventListener('click', closeIndustryTemplateModal);
     }
-    
+
     // 整合行业模板弹窗事件
     if (elements.closeIntegratedIndustryTemplateModal) {
       elements.closeIntegratedIndustryTemplateModal.addEventListener('click', closeIntegratedIndustryTemplateModal);
     }
-    
-    // 文案模板按钮事件 - 打开整合弹窗
+
+    // 文案模板按钮事件 - 先弹出行业选择（对齐小程序：选行业 → 子行业 → 确定进入模板）
     if (elements.promoTemplateBtn) {
       elements.promoTemplateBtn.addEventListener('click', function() {
-        console.log('点击文案模板按钮');
-        openIntegratedIndustryTemplateModal();
+        openPromoTemplateOrPicker('promo');
       });
     }
-    
-    // 商家信息编辑弹窗中的促销文案模板按钮事件
+
+    // 品牌信息弹窗中的找行业文案模板按钮（回填到品牌信息的促销文案输入框）
     if (elements.selectPromoTemplateBtn) {
       elements.selectPromoTemplateBtn.addEventListener('click', function() {
-        console.log('点击选择促销文案模板按钮');
-        openIntegratedIndustryTemplateModal();
+        openPromoTemplateOrPicker('business');
+      });
+    }
+
+    // 行业选择弹窗：关闭 / 返回上一步 / 确定
+    if (elements.closeIndustryPickerModalBtn) {
+      elements.closeIndustryPickerModalBtn.addEventListener('click', closeIndustryPickerModal);
+    }
+    if (elements.pickerBackBtn) {
+      elements.pickerBackBtn.addEventListener('click', function() {
+        switchPickerStep(1);
+      });
+    }
+    if (elements.pickerConfirmBtn) {
+      elements.pickerConfirmBtn.addEventListener('click', confirmIndustryPicker);
+    }
+
+    // 模板弹窗顶部导航条：点一级重走行业选择；点二级直接弹出当前一级的子行业
+    if (elements.integratedNavGroup) {
+      elements.integratedNavGroup.addEventListener('click', function() {
+        closeIntegratedIndustryTemplateModal();
+        openIndustryPickerModal(industryPickerSource);
+      });
+    }
+    if (elements.integratedNavCat) {
+      elements.integratedNavCat.addEventListener('click', function() {
+        const group = this.getAttribute('data-group') || '';
+        if (!group || group === '通用') return;
+        closeIntegratedIndustryTemplateModal();
+        openIndustryPickerModal(industryPickerSource, group);
       });
     }
     
@@ -3919,20 +4114,48 @@ const ThumbnailLoader = {
       });
     }
     
-    // Logo区域点击事件 - 弹出商家信息编辑弹窗
+    // Logo区域点击事件 - 只弹出 Logo 设置弹窗（对齐小程序交互）
     if (elements.posterLogo) {
       elements.posterLogo.addEventListener('click', function() {
-        // 打开商家信息编辑弹窗
-        openBusinessInfoModal();
+        openLogoSettingsModal();
       });
     }
-    
-    // 二维码区域点击事件 - 弹出商家信息编辑弹窗
+
+    // 二维码区域点击事件 - 只弹出二维码设置弹窗（对齐小程序交互）
     if (elements.posterQrcode) {
       elements.posterQrcode.addEventListener('click', function() {
-        // 打开商家信息编辑弹窗
-        openBusinessInfoModal();
+        openQrcodeSettingsModal();
       });
+    }
+
+    // Logo 设置弹窗按钮（关闭=取消恢复，确定=保存）
+    const closeLogoSettingsBtn = document.getElementById('closeLogoSettingsModalBtn');
+    if (closeLogoSettingsBtn) {
+      closeLogoSettingsBtn.addEventListener('click', function() { closeLogoSettingsModal(true); });
+    }
+    const logoSettingsConfirmBtn = document.getElementById('logoSettingsConfirmBtn');
+    if (logoSettingsConfirmBtn) {
+      logoSettingsConfirmBtn.addEventListener('click', saveLogoSettings);
+    }
+    // 展示大小滑杆：拖动实时预览画布上的 Logo 尺寸
+    const logoScaleSlider = document.getElementById('logoScaleSlider');
+    if (logoScaleSlider) {
+      logoScaleSlider.addEventListener('input', function() {
+        logoScalePercent = parseInt(this.value, 10) || 100;
+        const valueEl = document.getElementById('logoScaleValue');
+        if (valueEl) valueEl.textContent = logoScalePercent + '%';
+        updateLogoSize();
+      });
+    }
+
+    // 二维码设置弹窗按钮（关闭=取消恢复，确定=保存）
+    const closeQrcodeSettingsBtn = document.getElementById('closeQrcodeSettingsModalBtn');
+    if (closeQrcodeSettingsBtn) {
+      closeQrcodeSettingsBtn.addEventListener('click', function() { closeQrcodeSettingsModal(true); });
+    }
+    const qrcodeSettingsConfirmBtn = document.getElementById('qrcodeSettingsConfirmBtn');
+    if (qrcodeSettingsConfirmBtn) {
+      qrcodeSettingsConfirmBtn.addEventListener('click', saveQrcodeSettings);
     }
     
     // 背景图片点击事件 - 根据背景模式触发相应功能
@@ -3985,14 +4208,17 @@ const ThumbnailLoader = {
         openBusinessInfoModal();
       });
     }
-    // 快捷编辑入口 - 改字体颜色
+    // 快捷编辑入口 - 改样式（文字样式弹窗：字体/字号/字色/光效）
     if (elements.entryFontColorBtn) {
       elements.entryFontColorBtn.addEventListener('click', function() {
         closeBrandEditEntryModal();
-        openFontColorModal();
+        openNameStyleModal();
       });
     }
-    
+
+    // 文字样式功能初始化（读缓存/绑事件/首次应用字体字号光效）
+    initNameStyleFeature();
+
     // 移除按钮事件监听，因为现在点击颜色直接应用并关闭弹窗
     
     // 字体颜色选择弹窗内的颜色选择事件 - 实时预览
@@ -4745,29 +4971,11 @@ const ThumbnailLoader = {
     }
   }
   
-  // 初始化主题设置（从localStorage读取）
+  // 初始化主题设置：已固定为夜间模式（主题切换按钮已隐藏）
   function initTheme() {
-    const savedTheme = localStorage.getItem('postdiy_theme');
     const body = document.body;
-    
-    if (savedTheme === 'dark') {
-      body.id = 'darkbg';
-      if (elements.themeIcon) {
-        elements.themeIcon.textContent = '🌙';
-      }
-      if (elements.toggleThemeBtn) {
-        elements.toggleThemeBtn.title = '切换白天模式';
-      }
-    } else {
-      // 默认白天模式
-      body.id = '';
-      if (elements.themeIcon) {
-        elements.themeIcon.textContent = '☀️';
-      }
-      if (elements.toggleThemeBtn) {
-        elements.toggleThemeBtn.title = '切换夜间模式';
-      }
-    }
+    body.id = 'darkbg';
+    localStorage.setItem('postdiy_theme', 'dark');
   }
   
   // 菜单显示/隐藏功能
@@ -5593,6 +5801,293 @@ const ThumbnailLoader = {
   }
 
   // 智能文字颜色：根据背景图片亮度自动计算最佳对比色
+  /* ==================== 文字样式弹窗（对齐小程序：字体/字号/字色/光效） ==================== */
+  // 常量与状态声明已移至文件前部（DOMContentLoaded 注册之前），此处仅保留函数
+
+  function nsIsLightColor(hex) {
+    if (!hex || hex[0] !== '#') return false;
+    let h = hex.slice(1);
+    if (h.length === 3) h = h.split('').map(c => c + c).join('');
+    if (h.length < 6) return false;
+    const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 >= 128;
+  }
+
+  // 懒加载字体：七牛失败自动回退 R2
+  function nsEnsureFont(key) {
+    const f = NS_NAME_FONTS.find(x => x.key === key);
+    if (!f || !f.family || nsLoadedFonts[f.family]) return Promise.resolve();
+    const fileName = f.url.replace(NS_FONT_QINIU, '');
+    const loadFrom = (base) => new FontFace(f.family, 'url(' + base + fileName + ')').load().then(ff => {
+      document.fonts.add(ff);
+      nsLoadedFonts[f.family] = true;
+    });
+    return loadFrom(NS_FONT_QINIU)
+      .catch(() => loadFrom(NS_FONT_R2))
+      .catch(err => console.warn('[nameStyle] 字体加载失败:', f.family, err));
+  }
+
+  // 持久化读写
+  function nsSaveStore() {
+    try { localStorage.setItem(NS_STORE_KEY, JSON.stringify({ fontKey: nsStyle.fontKey, size: nsStyle.size })); } catch (e) {}
+  }
+  function nsLoadStore() {
+    try {
+      const s = JSON.parse(localStorage.getItem(NS_STORE_KEY) || '{}');
+      if (s.fontKey && NS_NAME_FONTS.some(f => f.key === s.fontKey)) nsStyle.fontKey = s.fontKey;
+      if (typeof s.size === 'number' && s.size >= 12 && s.size <= 24) nsStyle.size = s.size;
+    } catch (e) {}
+  }
+
+  // 计算生效光效（auto 按字色明暗：深色字发光、浅色字投影）
+  function nsResolveEffect(colorHex) {
+    if (nsStyle.effect !== 'auto') return nsStyle.effect;
+    return nsIsLightColor(colorHex) ? 'shadow' : 'glow';
+  }
+
+  // 应用样式到商家名称（字号/字体/字间距/光效；字色仍由 state.textColor/autoTextColor 管理）
+  function nsApplyStyle() {
+    const nameEl = elements.posterBusinessName;
+    if (!nameEl) return;
+    const f = NS_NAME_FONTS.find(x => x.key === nsStyle.fontKey) || NS_NAME_FONTS[0];
+    nameEl.style.fontFamily = f.family ? '"' + f.family + '", sans-serif' : '';
+    nameEl.style.fontSize = (nsStyle.size * NS_SIZE_BASE).toFixed(2) + 'px';
+    nameEl.style.letterSpacing = '0.05em';
+    const effColor = state.textColor || '#000000';
+    const effect = nsResolveEffect(effColor);
+    const px = nsStyle.size * NS_SIZE_BASE;
+    if (effect === 'glow') {
+      nameEl.style.textShadow = '0 0 ' + (px * 0.35).toFixed(1) + 'px rgba(255,255,255,0.8), 0 0 ' + (px * 0.7).toFixed(1) + 'px rgba(255,255,255,0.8)';
+    } else if (effect === 'shadow') {
+      nameEl.style.textShadow = (px * 0.12).toFixed(1) + 'px ' + (px * 0.12).toFixed(1) + 'px ' + (px * 0.25).toFixed(1) + 'px rgba(0,0,0,0.6)';
+    } else {
+      nameEl.style.textShadow = '';
+    }
+  }
+
+  // ===== 弹窗 UI =====
+  function nsGetEl(id) { return document.getElementById(id); }
+
+  function nsRenderFontBtns() {
+    const box = nsGetEl('nsFontBtns');
+    if (!box) return;
+    box.innerHTML = '';
+    NS_NAME_FONTS.forEach(f => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ns-font-btn' + (nsDraft.fontKey === f.key ? ' ns-active' : '');
+      b.textContent = f.label;
+      b.addEventListener('click', () => {
+        if (nsDraft.fontKey === f.key) return;
+        nsDraft.fontKey = f.key;
+        nsDraft.size = f.size; // 切字体联动默认字号
+        nsEnsureFont(f.key).then(() => { if (!nsGetEl('nameStyleModal').classList.contains('hidden')) nsPreviewDraft(); });
+        nsRenderDraft();
+        nsPreviewDraft();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function nsRenderDraft() {
+    // 字体按钮
+    nsRenderFontBtns();
+    // 字号
+    const slider = nsGetEl('nsSizeSlider'), val = nsGetEl('nsSizeValue');
+    if (slider) slider.value = nsDraft.size;
+    if (val) val.textContent = nsDraft.size;
+    // 色块选中态
+    const isAuto = nsDraft.color === 'auto';
+    const isBlack = nsDraft.color.toUpperCase() === '#000000';
+    const isWhite = nsDraft.color.toUpperCase() === '#FFFFFF';
+    const autoEl = nsGetEl('nameStyleModal').querySelector('.ns-swatch-auto');
+    const swatches = nsGetEl('nameStyleModal').querySelectorAll('.ns-swatch[data-color]');
+    swatches.forEach(s => {
+      const c = s.getAttribute('data-color');
+      s.classList.toggle('ns-selected', (c === 'auto' && isAuto) || (c === '#000000' && isBlack) || (c === '#FFFFFF' && isWhite));
+    });
+    if (autoEl) autoEl.classList.toggle('ns-selected', isAuto);
+    const custom = nsGetEl('nsSwatchCustom');
+    if (custom) {
+      if (!isAuto && !isBlack && !isWhite) {
+        custom.style.background = nsDraft.color;
+        custom.classList.add('ns-selected');
+      } else {
+        custom.classList.remove('ns-selected');
+      }
+    }
+    // 光效按钮（auto 按生效字色点亮）
+    const effColor = nsDraft.color === 'auto' ? (state.textColor || '#000000') : nsDraft.color;
+    let activeEffect = nsDraft.effect;
+    if (activeEffect === 'auto') activeEffect = nsIsLightColor(effColor) ? 'shadow' : 'glow';
+    const effBtns = nsGetEl('nsEffectBtns').querySelectorAll('.ns-effect-btn');
+    effBtns.forEach(b => b.classList.toggle('ns-active', b.getAttribute('data-effect') === activeEffect));
+  }
+
+  // 草稿实时预览到海报（不写持久状态；取消时由 nsApplyStyle 用持久值刷回）
+  function nsPreviewDraft() {
+    const nameEl = elements.posterBusinessName;
+    if (!nameEl) return;
+    const f = NS_NAME_FONTS.find(x => x.key === nsDraft.fontKey) || NS_NAME_FONTS[0];
+    nameEl.style.fontFamily = f.family ? '"' + f.family + '", sans-serif' : '';
+    nameEl.style.fontSize = (nsDraft.size * NS_SIZE_BASE).toFixed(2) + 'px';
+    nameEl.style.letterSpacing = '0.05em';
+    const isAuto = nsDraft.color === 'auto';
+    const effColor = isAuto ? (state.textColor || '#000000') : nsDraft.color;
+    if (!isAuto) nameEl.style.color = nsDraft.color;
+    // 光效
+    let effect = nsDraft.effect;
+    if (effect === 'auto') effect = nsIsLightColor(effColor) ? 'shadow' : 'glow';
+    const px = nsDraft.size * NS_SIZE_BASE;
+    if (effect === 'glow') {
+      nameEl.style.textShadow = '0 0 ' + (px * 0.35).toFixed(1) + 'px rgba(255,255,255,0.8), 0 0 ' + (px * 0.7).toFixed(1) + 'px rgba(255,255,255,0.8)';
+    } else if (effect === 'shadow') {
+      nameEl.style.textShadow = (px * 0.12).toFixed(1) + 'px ' + (px * 0.12).toFixed(1) + 'px ' + (px * 0.25).toFixed(1) + 'px rgba(0,0,0,0.6)';
+    } else {
+      nameEl.style.textShadow = '';
+    }
+    // 自适应色走亮度解析
+    if (isAuto) autoTextColor();
+    nsRenderDraft();
+  }
+
+  function openNameStyleModal() {
+    // 灌草稿
+    nsDraft.fontKey = nsStyle.fontKey;
+    nsDraft.size = nsStyle.size;
+    nsDraft.color = state.autoTextColor ? 'auto' : (state.textColor || '#000000');
+    nsDraft.effect = nsStyle.effect;
+    nsEnsureFont(nsDraft.fontKey);
+    nsRenderDraft();
+    const m = nsGetEl('nameStyleModal');
+    m.classList.remove('hidden');
+    m.style.display = 'flex';
+    nsPreviewDraft();
+  }
+
+  function closeNameStyleModal() {
+    const m = nsGetEl('nameStyleModal');
+    m.classList.add('hidden');
+    m.style.display = 'none';
+    // 用持久值刷回海报（丢弃未确认的草稿预览）
+    nsApplyStyle();
+    if (state.autoTextColor) autoTextColor();
+  }
+
+  function nsConfirmStyle() {
+    // 写回持久状态
+    nsStyle.fontKey = nsDraft.fontKey;
+    nsStyle.size = nsDraft.size;
+    nsStyle.effect = nsDraft.effect;
+    if (nsDraft.color === 'auto') {
+      state.autoTextColor = true;
+    } else {
+      state.autoTextColor = false;
+      state.textColor = nsDraft.color;
+      elements.posterBusinessName.style.color = nsDraft.color;
+    }
+    nsSaveStore();
+    nsApplyStyle();
+    const m = nsGetEl('nameStyleModal');
+    m.classList.add('hidden');
+    m.style.display = 'none';
+    showToast('文字样式已更新');
+  }
+
+  function nsResetStyle() {
+    nsDraft.fontKey = 'default';
+    nsDraft.size = NS_NAME_FONTS[0].size;
+    nsDraft.color = 'auto';
+    nsDraft.effect = 'auto';
+    nsRenderDraft();
+    nsPreviewDraft();
+  }
+
+  // 更多颜色小窗
+  function nsRenderMoreRows() {
+    const box = nsGetEl('nsMoreColorRows');
+    if (!box) return;
+    box.innerHTML = '';
+    NS_MORE_COLOR_ROWS.forEach(row => {
+      const r = document.createElement('div');
+      r.className = 'ns-more-row';
+      row.forEach(c => {
+        const s = document.createElement('div');
+        s.className = 'ns-more-swatch' + (nsDraft.color.toUpperCase() === c.toUpperCase() ? ' ns-selected' : '');
+        s.style.background = c;
+        s.setAttribute('data-color', c);
+        s.addEventListener('click', () => {
+          nsDraft.color = c;
+          box.querySelectorAll('.ns-more-swatch').forEach(x => x.classList.remove('ns-selected'));
+          s.classList.add('ns-selected');
+          nsPreviewDraft();
+        });
+        r.appendChild(s);
+      });
+      box.appendChild(r);
+    });
+  }
+
+  function openNameMoreColors() {
+    nsMoreBaseColor = nsDraft.color;
+    nsRenderMoreRows();
+    const m = nsGetEl('nameMoreColorsModal');
+    m.classList.remove('hidden');
+    m.style.display = 'flex';
+  }
+
+  function closeNameMoreColors(restore) {
+    if (restore) {
+      nsDraft.color = nsMoreBaseColor;
+      nsPreviewDraft();
+    }
+    const m = nsGetEl('nameMoreColorsModal');
+    m.classList.add('hidden');
+    m.style.display = 'none';
+  }
+
+  // 初始化：读缓存 + 绑事件 + 首次应用
+  function initNameStyleFeature() {
+    nsLoadStore();
+    nsEnsureFont(nsStyle.fontKey);
+    nsApplyStyle();
+
+    const modal = nsGetEl('nameStyleModal');
+    nsGetEl('closeNameStyleModalBtn').addEventListener('click', closeNameStyleModal);
+    nsGetEl('nsSizeSlider').addEventListener('input', function() {
+      nsDraft.size = parseInt(this.value, 10);
+      nsRenderDraft();
+      nsPreviewDraft();
+    });
+    // 色块：自适应/黑/白
+    modal.querySelectorAll('.ns-swatch[data-color]').forEach(s => {
+      s.addEventListener('click', () => {
+        const c = s.getAttribute('data-color');
+        nsDraft.color = c === 'auto' ? 'auto' : c;
+        nsPreviewDraft();
+      });
+    });
+    // 自定义圆形色块 = 打开更多颜色
+    nsGetEl('nsSwatchCustom').addEventListener('click', openNameMoreColors);
+    nsGetEl('nsMoreColorsBtn').addEventListener('click', openNameMoreColors);
+    // 光效按钮
+    nsGetEl('nsEffectBtns').addEventListener('click', function(e) {
+      const b = e.target.closest('.ns-effect-btn');
+      if (!b) return;
+      nsDraft.effect = b.getAttribute('data-effect');
+      nsRenderDraft();
+      nsPreviewDraft();
+    });
+    // 底部按钮
+    nsGetEl('nsResetBtn').addEventListener('click', nsResetStyle);
+    nsGetEl('nsConfirmBtn').addEventListener('click', nsConfirmStyle);
+    // 更多颜色小窗
+    nsGetEl('nsMoreCancelBtn').addEventListener('click', () => closeNameMoreColors(true));
+    nsGetEl('nsMoreConfirmBtn').addEventListener('click', () => closeNameMoreColors(false));
+  }
+
+  /* ==================== 文字样式功能结束 ==================== */
+
   function autoTextColor() {
     if (!state.autoTextColor) return;
     var bgImg = elements.posterBackground;
@@ -5644,6 +6139,11 @@ const ThumbnailLoader = {
 
         // 更新state为主色调（用于保存/导出）
         state.textColor = topColor;
+        // 文字样式弹窗开着时用户正在草稿实时预览，不能按持久值覆盖画布上的预览效果
+        var nsModalEl = nsGetEl('nameStyleModal');
+        if (!nsModalEl || nsModalEl.classList.contains('hidden')) {
+          nsApplyStyle(); // 自适应模式下光效跟随新解析色刷新
+        }
 
         console.log('[autoTextColor] 顶部亮度=' + Math.round(topBrightness) + '→' + topColor + ', 底部亮度=' + Math.round(bottomBrightness) + '→' + bottomColor);
       } catch (e) {
@@ -5696,6 +6196,11 @@ const ThumbnailLoader = {
         elements.posterPromoText.style.color = bottomColor;
       }
       state.textColor = topColor;
+      // 文字样式弹窗开着时用户正在草稿实时预览，不能按持久值覆盖画布上的预览效果
+      var nsModalEl2 = nsGetEl('nameStyleModal');
+      if (!nsModalEl2 || nsModalEl2.classList.contains('hidden')) {
+        nsApplyStyle(); // 自适应模式下光效跟随新解析色刷新
+      }
 
       console.log('[autoTextColor] 备用方案成功: 顶部→' + topColor + ', 底部→' + bottomColor);
     } catch (e2) {
@@ -7679,7 +8184,8 @@ const ThumbnailLoader = {
   }
 
   // 标记当前是否为用户手动切换排序（避免 filterTemplatesByFestival 内部覆盖默认排序设置）
-  let _skipAutoSortSetup = false;
+  // 用 var 而非 let：var 声明提升即初始化，杜绝任何执行顺序下的 TDZ 引用错误
+  var _skipAutoSortSetup = false;
 
   // 切换模板排序模式
   function switchTemplateSortMode(mode) {
@@ -7796,6 +8302,7 @@ const ThumbnailLoader = {
 
     // 每次切换模板都优先使用智能自适应字体颜色，用户手动选色仅对当前模板生效
     state.autoTextColor = true;
+    nsStyle.effect = 'auto'; // 换模板光效重置为自动
 
     // 清除用户添加的所有装饰元素（贴纸、相框等）
     if (window.stickerManager) {
@@ -8733,6 +9240,45 @@ const ThumbnailLoader = {
     if (window.isVipActive && window.isVipActive()) {
       setTimeout(showDeleteButtonsForVip, 0);
     }
+
+    // 打开即静默拉取云端最新数据（替代原"获取最新数据"按钮，防多端缓存旧数据）
+    refreshBusinessInfoSilently();
+  }
+
+  // 静默刷新云端商家信息：后台强制拉最新，成功后刷新画布/预览/表单（不打扰用户操作）
+  function refreshBusinessInfoSilently() {
+    if (!(window.CloudSync && window.CloudSync.setForceRefreshBusinessInfo && window.CloudSync.syncAndFillBusinessInfo)) return;
+    try {
+      window.CloudSync.setForceRefreshBusinessInfo();
+      window.CloudSync.syncAndFillBusinessInfo(true).then(function(syncResult) {
+        if (!syncResult || !syncResult.success) {
+          console.warn('[品牌信息] 打开时云端刷新未成功:', syncResult && syncResult.reason);
+          return;
+        }
+        console.log('[品牌信息] 打开时已同步云端最新数据:', syncResult.source);
+        // 清除旧的图片base64缓存，触发从云端URL重新加载
+        localStorage.removeItem('poster_logo_base64');
+        localStorage.removeItem('poster_qrcode_base64');
+        localStorage.removeItem('poster_logo_meta');
+        localStorage.removeItem('poster_qrcode_meta');
+        updateBusinessInfoDisplay();
+        // 从云端URL重新加载logo/二维码图片
+        if (state.businessInfo.logoUrl || state.businessInfo.qrcodeUrl) {
+          Promise.all([
+            state.businessInfo.logoUrl ? loadImageWithFallback(
+              document.getElementById('posterLogoImg'), 'logo', state.businessInfo.logoUrl
+            ) : Promise.resolve(),
+            state.businessInfo.qrcodeUrl ? loadImageWithFallback(
+              document.getElementById('posterQrcodeImg'), 'qrcode', state.businessInfo.qrcodeUrl
+            ) : Promise.resolve()
+          ]).catch(function(e) { console.warn('[品牌信息] 图片重新加载失败:', e); });
+        }
+      }).catch(function(e) {
+        console.warn('[品牌信息] 打开时刷新云端数据失败:', e);
+      });
+    } catch (e) {
+      console.warn('[品牌信息] 静默刷新异常:', e);
+    }
   }
   
   // 关闭商家信息编辑弹窗（不保存）
@@ -8789,6 +9335,246 @@ const ThumbnailLoader = {
     if (visibilityModal) {
       visibilityModal.classList.add('hidden');
     }
+  }
+
+  // ===== Logo 设置弹窗（对齐小程序：点Logo只弹Logo相关设置） =====
+  // 同步 logo 预览区显示状态（与 openBusinessInfoModal 中的 logo 逻辑一致）
+  function syncLogoPreviewState() {
+    if (!elements.logoUploadArea || !elements.logoPreview) return;
+    if (state.businessInfo.logo) {
+      elements.logoUploadArea.style.display = 'none';
+      elements.logoPreview.style.display = 'block';
+      const cachedLogo = getFromCache(IMAGE_CACHE_KEYS.logo);
+      if (cachedLogo && cachedLogo.startsWith('data:image')) {
+        elements.logoPreviewImg.src = cachedLogo;
+      } else {
+        elements.logoPreviewImg.src = state.businessInfo.logo;
+      }
+      if (elements.logoTransparencyToggle) {
+        elements.logoTransparencyToggle.classList.remove('hidden');
+        if (state.businessInfo.logoTransparent) {
+          elements.logoTransparencyToggle.classList.add('active');
+          updateLogoTransparencyStyle(true);
+        } else {
+          elements.logoTransparencyToggle.classList.remove('active');
+          updateLogoTransparencyStyle(false);
+        }
+        const thumb = elements.logoTransparencyToggle.querySelector('.toggle-thumb');
+        if (thumb) {
+          thumb.textContent = state.businessInfo.logoTransparent ? '原图' : '圆角';
+        }
+        showLogoActionButtons(state.businessInfo.logoTransparent);
+      }
+    } else {
+      elements.logoUploadArea.style.display = 'block';
+      elements.logoPreview.style.display = 'none';
+      if (elements.logoTransparencyToggle) {
+        elements.logoTransparencyToggle.classList.add('hidden');
+      }
+      showLogoActionButtons(false);
+    }
+  }
+
+  // 打开 Logo 设置弹窗
+  function openLogoSettingsModal() {
+    const modal = document.getElementById('logoSettingsModal');
+    if (!modal) { openBusinessInfoModal(); return; }
+    // 快照当前数据，取消时恢复
+    tempBusinessInfo = JSON.parse(JSON.stringify(state.businessInfo));
+    pendingUploads = { logo: null, qrcode: null };
+    pendingDeletes = { logo: false, qrcode: false };
+    tempLogoScale = logoScalePercent;
+    syncLogoPreviewState();
+    syncLogoScaleSlider();
+    modal.classList.remove('closing');
+    const inner = modal.querySelector('.modal');
+    if (inner) inner.classList.remove('closing');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+    void modal.offsetWidth;
+  }
+
+  // 关闭 Logo 设置弹窗；shouldRestore=true 时回滚到打开前的状态
+  function closeLogoSettingsModal(shouldRestore) {
+    const modal = document.getElementById('logoSettingsModal');
+    if (shouldRestore && tempBusinessInfo) {
+      state.businessInfo = JSON.parse(JSON.stringify(tempBusinessInfo));
+      tempBusinessInfo = null;
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      if (tempLogoScale !== null) {
+        logoScalePercent = tempLogoScale;
+        tempLogoScale = null;
+        updateLogoSize();
+      }
+      updateBusinessInfoDisplay();
+      syncLogoPreviewState();
+    } else {
+      tempBusinessInfo = null;
+      tempLogoScale = null;
+    }
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
+  }
+
+  // 保存 Logo 设置（上传/删除/透明度同步云端）
+  async function saveLogoSettings() {
+    const confirmBtn = document.getElementById('logoSettingsConfirmBtn');
+    if (confirmBtn) {
+      confirmBtn.textContent = '保存中...';
+      confirmBtn.disabled = true;
+    }
+    tempBusinessInfo = null;
+    tempLogoScale = null;
+    try {
+      if (window.CloudSync) {
+        const promises = [CloudSync.syncLogoTransparentToCloud(state.businessInfo.logoTransparent)];
+        if (pendingUploads.logo) {
+          state.isUploadingLogo = true;
+          promises.push(
+            CloudSync.uploadImageToCloud('logo', pendingUploads.logo).then(result => {
+              if (result.success) {
+                state.businessInfo.logo = result.url;
+                const posterLogoImg = document.getElementById('posterLogoImg');
+                if (posterLogoImg) posterLogoImg.src = result.url;
+                updateImageCache('posterLogoImg', IMAGE_CACHE_KEYS.logo, result.url);
+              }
+              state.isUploadingLogo = false;
+              return result;
+            })
+          );
+        }
+        if (pendingDeletes.logo) {
+          promises.push(
+            CloudSync.deleteImageFromCloud('logo').then(result => {
+              if (result.success) return CloudSync.clearUserImageUrl('logo');
+            })
+          );
+        }
+        await Promise.all(promises);
+      }
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      localStorage.setItem('posterLogoScale', String(logoScalePercent));
+      saveBusinessInfoToLocalStorage();
+    } catch (e) {
+      console.error('保存Logo设置失败:', e);
+    }
+    if (confirmBtn) {
+      confirmBtn.textContent = '确定';
+      confirmBtn.disabled = false;
+    }
+    closeLogoSettingsModal(false);
+  }
+
+  // ===== 二维码设置弹窗（对齐小程序：点二维码只弹二维码相关设置） =====
+  // 同步二维码预览区显示状态（与 openBusinessInfoModal 中的二维码逻辑一致）
+  function syncQrcodePreviewState() {
+    if (!elements.qrcodeUploadArea || !elements.qrcodePreview) return;
+    if (state.businessInfo.qrcode) {
+      elements.qrcodeUploadArea.style.display = 'none';
+      elements.qrcodePreview.classList.remove('hidden');
+      elements.qrcodePreview.style.display = 'block';
+      const cachedQr = getFromCache(IMAGE_CACHE_KEYS.qrcode);
+      if (cachedQr && cachedQr.startsWith('data:image')) {
+        elements.qrcodePreviewImg.src = cachedQr;
+      } else {
+        elements.qrcodePreviewImg.src = state.businessInfo.qrcode;
+      }
+    } else {
+      elements.qrcodeUploadArea.style.display = 'block';
+      elements.qrcodePreview.classList.add('hidden');
+      elements.qrcodePreview.style.display = 'none';
+    }
+  }
+
+  // 打开二维码设置弹窗
+  function openQrcodeSettingsModal() {
+    const modal = document.getElementById('qrcodeSettingsModal');
+    if (!modal) { openBusinessInfoModal(); return; }
+    tempBusinessInfo = JSON.parse(JSON.stringify(state.businessInfo));
+    pendingUploads = { logo: null, qrcode: null };
+    pendingDeletes = { logo: false, qrcode: false };
+    syncQrcodePreviewState();
+    modal.classList.remove('closing');
+    const inner = modal.querySelector('.modal');
+    if (inner) inner.classList.remove('closing');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+    void modal.offsetWidth;
+  }
+
+  // 关闭二维码设置弹窗；shouldRestore=true 时回滚到打开前的状态
+  function closeQrcodeSettingsModal(shouldRestore) {
+    const modal = document.getElementById('qrcodeSettingsModal');
+    if (shouldRestore && tempBusinessInfo) {
+      state.businessInfo = JSON.parse(JSON.stringify(tempBusinessInfo));
+      tempBusinessInfo = null;
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      updateBusinessInfoDisplay();
+      syncQrcodePreviewState();
+    } else {
+      tempBusinessInfo = null;
+    }
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
+  }
+
+  // 保存二维码设置（上传/删除同步云端）
+  async function saveQrcodeSettings() {
+    const confirmBtn = document.getElementById('qrcodeSettingsConfirmBtn');
+    if (confirmBtn) {
+      confirmBtn.textContent = '保存中...';
+      confirmBtn.disabled = true;
+    }
+    tempBusinessInfo = null;
+    try {
+      if (window.CloudSync) {
+        const promises = [];
+        if (pendingUploads.qrcode) {
+          promises.push(
+            CloudSync.uploadImageToCloud('qrcode', pendingUploads.qrcode).then(result => {
+              if (result.success) {
+                state.businessInfo.qrcode = result.url;
+                updateImageCache('posterQrcodeImg', IMAGE_CACHE_KEYS.qrcode, result.url);
+              }
+              return result;
+            })
+          );
+        }
+        if (pendingDeletes.qrcode) {
+          promises.push(
+            CloudSync.deleteImageFromCloud('qrcode').then(result => {
+              if (result.success) return CloudSync.clearUserImageUrl('qrcode');
+            })
+          );
+        }
+        await Promise.all(promises);
+      }
+      pendingUploads = { logo: null, qrcode: null };
+      pendingDeletes = { logo: false, qrcode: false };
+      saveBusinessInfoToLocalStorage();
+    } catch (e) {
+      console.error('保存二维码设置失败:', e);
+    }
+    if (confirmBtn) {
+      confirmBtn.textContent = '确定';
+      confirmBtn.disabled = false;
+    }
+    closeQrcodeSettingsModal(false);
+  }
+
+  // 同步 Logo 展示大小滑杆显示值
+  function syncLogoScaleSlider() {
+    const slider = document.getElementById('logoScaleSlider');
+    const valueEl = document.getElementById('logoScaleValue');
+    if (slider) slider.value = logoScalePercent;
+    if (valueEl) valueEl.textContent = logoScalePercent + '%';
   }
   
   // 保存商家信息（同步到云端）- 优化版：并行处理，移除不必要的删除操作
@@ -9092,6 +9878,7 @@ const ThumbnailLoader = {
 
     // 恢复为智能自适应字体颜色
     state.autoTextColor = true;
+    nsStyle.effect = 'auto'; // 光效重置为自动
 
     // 更新背景显示
     updateTemplateDisplay();
@@ -10334,10 +11121,11 @@ const ThumbnailLoader = {
   function updateLogoSize() {
     const posterLogo = document.getElementById('posterLogo');
     const posterLogoImg = document.getElementById('posterLogoImg');
-    const posterBusinessName = document.getElementById('posterBusinessName');
     if (!posterLogo || !posterLogoImg) return;
 
-    const baseHeight = 26;
+    // 展示大小缩放（对齐小程序：50%-150%，默认100%）
+    const scale = (logoScalePercent || 100) / 100;
+    const baseHeight = Math.round(26 * scale);
     const nw = posterLogoImg.naturalWidth;
     const nh = posterLogoImg.naturalHeight;
 
@@ -10352,10 +11140,7 @@ const ThumbnailLoader = {
     posterLogo.style.height = baseHeight + 'px';
     posterLogoImg.style.width = calculatedWidth + 'px';
     posterLogoImg.style.height = baseHeight + 'px';
-
-    if (posterBusinessName) {
-      posterBusinessName.style.left = (12 + calculatedWidth) + 'px';
-    }
+    // 商家名称已改为 flex 流布局与 logo 垂直居中对齐，不再需要手动计算 left
   }
   
   // 处理二维码上传（打开裁剪界面）
@@ -10448,6 +11233,7 @@ const ThumbnailLoader = {
     state.backgroundOpacity = 1;
     state.textColor = '#000000';
     state.autoTextColor = true;
+    nsStyle.effect = 'auto'; // 光效重置为自动（字体/字号为全局偏好，保留）
     
     // 重置选择器
     if (elements.textColor) {
@@ -12217,8 +13003,6 @@ const ThumbnailLoader = {
       if (elements.posterBusinessName) {
         // 移除向上位移，保持水平居中对齐
         elements.posterBusinessName.style.transform = `none`;
-        elements.posterBusinessName.style.fontSize = `10px`;
-        
       }
       if (elements.posterPromoText) {
         // 减少padding-bottom，避免下方出现空白

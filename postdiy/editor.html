@@ -129,8 +129,11 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+  <!-- 图片/字体请求不发 Referer：七牛空间级防盗链白名单无法添加 localhost（格式限制），
+       而空 Referer 在 CDN 域名级和空间级均已放行，统一走空 Referer 避免本地开发被 403 拦截 -->
+  <meta name="referrer" content="no-referrer">
   
-  <link rel="stylesheet" href="styles.css?v=20260924b">
+  <link rel="stylesheet" href="styles.css?v=20261003d">
   <!-- 粒子动画样式 - 简化版 -->
   <style>
     @keyframes templateParticleFloat {
@@ -524,10 +527,11 @@
     <button id="vipBtn" class="action-btn vip-btn">
       <div class="vip-rotate-text large animate-in">VIP</div>
     </button>
-    <button id="toggleMenuBtn" class="action-btn toggle-menu-btn">
+    <!-- 以下两个按钮已按需求隐藏：菜单显隐切换 / 主题切换（默认固定夜间模式） -->
+    <button id="toggleMenuBtn" class="action-btn toggle-menu-btn" style="display:none;">
       <span>隐藏</span>
     </button>
-    <button id="toggleThemeBtn" class="action-btn toggle-theme-btn" title="切换夜间模式">
+    <button id="toggleThemeBtn" class="action-btn toggle-theme-btn" title="切换夜间模式" style="display:none;">
       <span id="themeIcon">☀️</span>
     </button>
   </div>
@@ -695,21 +699,12 @@
   <div id="businessInfoModal" class="modal-overlay hidden">
     <div class="modal business-info-modal">
       <div class="modal-header fixed-header">
-        <h2 class="modal-title">品牌信息</h2>
+        <h2 class="modal-title">品牌/门店名称</h2>
         <button id="closeBusinessInfoModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body scrollable-body">
         <form id="businessInfoForm">
           <div class="form-group">
-            <div class="form-label-row">
-              <label class="form-label" for="business-name">品牌/门店名称<span class="text-error-color">*</span></label>
-              <div class="form-actions">
-                
-                <button type="button" id="openVisibilityManagerBtn" class="visibility-manager-btn-inline">
-                  <i class="fa fa-eye"></i> 显示管理
-                </button>
-              </div>
-            </div>
             <div class="items-center">
               <input type="text" id="business-name" class="form-input" placeholder="请输入商家名称" required>
               <div class="color-select-container">
@@ -753,14 +748,31 @@
             </div>
           </div>
           
-          <!-- 并排的上传区域 -->
-          <div class="upload-container">
-            <!-- Logo上传区域 -->
-            <div>
-              <div class="form-label-row">
-                <label class="form-label" for="business-logo">品牌标志/logo</label>
-              </div>
-              <div id="logoUploadArea" class="upload-area">
+          <!-- 促销引流文案（对齐小程序：编辑 + 找行业文案模板两步选择） -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="promotion-text">促销引流文案</label>
+            </div>
+            <textarea id="promotion-text" class="form-input" rows="3" placeholder="请输入促销引流文案，支持Enter键换行（如：全场8折\n限时优惠）"></textarea>
+            <button id="selectPromoTemplateBtn" class="editor-button mt-2">找行业文案模板</button>
+          </div>
+        </form>
+        <div class="modal-footer" >
+          <button id="saveBusinessInfoBtn" class="editor-button">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 商家 Logo 设置弹窗（点击海报上的Logo打开，对齐小程序：上传/圆角原图/展示大小） -->
+  <div id="logoSettingsModal" class="modal-overlay hidden">
+    <div class="modal ns-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">商家 Logo</h2>
+        <button id="closeLogoSettingsModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="logoUploadArea" class="upload-area">
                 <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="#cdcdcd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                 </svg>
@@ -774,24 +786,39 @@
                   <span class="upload-remove-btn-text">更换</span>
                 </button>
                 <div class="logo-actions-row">
-                  <div id="logoTransparencyToggle" class="logo-transparency-toggle hidden">
-                    <div class="toggle-track">
-                      <span class="toggle-label toggle-label-left">圆角</span>
-                      <div class="toggle-thumb">圆角</div>
-                      <span class="toggle-label toggle-label-right">原图</span>
-                    </div>
-                  </div>
                   <button type="button" id="logoCutoutBtn" class="logo-cutout-toggle-btn hidden">抠图</button>
                 </div>
-              </div>
+        </div>
+        <div class="ns-row logo-style-row">
+          <span class="ns-label">Logo样式</span>
+          <div id="logoTransparencyToggle" class="logo-transparency-toggle hidden">
+            <div class="toggle-track">
+              <span class="toggle-label toggle-label-left">圆角</span>
+              <div class="toggle-thumb">圆角</div>
+              <span class="toggle-label toggle-label-right">原图</span>
             </div>
-            
-            <!-- 二维码上传区域 -->
-            <div>
-              <div class="form-label-row">
-                <label class="form-label" for="business-qrcode">二维码</label>
-              </div>
-              <div id="qrcodeUploadArea" class="upload-area">
+          </div>
+        </div>
+        <div class="ns-row logo-scale-row">
+          <span class="ns-label">展示大小</span>
+          <input type="range" id="logoScaleSlider" class="ns-slider" min="50" max="150" step="1" value="100">
+        </div>
+        <div class="ns-btn-row">
+          <button type="button" class="ns-btn-primary" id="logoSettingsConfirmBtn">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二维码设置弹窗（点击海报上的二维码打开，对齐小程序） -->
+  <div id="qrcodeSettingsModal" class="modal-overlay hidden">
+    <div class="modal ns-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">二维码图片</h2>
+        <button id="closeQrcodeSettingsModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="qrcodeUploadArea" class="upload-area">
                 <svg class="upload-icon" viewBox="0 0 1024 1024" fill="currentColor">
                   <path d="M384 64l-249.6 0c-51.2 0-89.6 41.6-89.6 89.6l0 227.2c0 51.2 41.6 89.6 89.6 89.6l249.6 0c51.2 0 89.6-41.6 89.6-89.6l0-227.2C473.6 105.6 435.2 64 384 64zM428.8 380.8c0 25.6-19.2 44.8-44.8 44.8l-249.6 0c-25.6 0-44.8-19.2-44.8-44.8l0-227.2c0-25.6 19.2-44.8 44.8-44.8l249.6 0c25.6 0 44.8 19.2 44.8 44.8L428.8 380.8z" fill="#cdcdcd"></path>
                   <path d="M192 192l134.4 0 0 134.4-134.4 0 0-134.4Z" fill="#cdcdcd"></path>
@@ -814,31 +841,19 @@
                 <p class="upload-hint">支持JPG、PNG</p>
                 <input type="file" id="qrcodeInput" accept="image/*" class="hidden">
               </div>
-              <div id="qrcodePreview" class="upload-preview hidden">
-                <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
-                <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
-                  <span class="upload-remove-btn-text">更换</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group" style="display: none;" >
-            <div class="form-label-row">
-              <label class="form-label" for="promotion-text">促销引流文案</label>
-            </div>
-            <textarea id="promotion-text" class="form-input" rows="3" placeholder="请输入促销引流文案，支持Enter键换行（如：全场8折\n限时优惠）"></textarea>
-            <button id="selectPromoTemplateBtn" class="editor-button mt-2">选择 促销引流文案模板</button>
-          </div>
-        </form>
-        <div class="modal-footer" >
-          <button type="button" id="refreshDataBtn" class="editor-button editor-button-secondary"><i class="fa fa-cloud"></i>获取最新数据</button>
-          <button id="saveBusinessInfoBtn" class="editor-button">保存</button>
+        <div id="qrcodePreview" class="upload-preview hidden">
+          <img id="qrcodePreviewImg" src="" alt="二维码预览" class="upload-preview-image">
+          <button type="button" id="removeQrcodeBtn" class="upload-remove-btn">
+            <span class="upload-remove-btn-text">更换</span>
+          </button>
+        </div>
+        <div class="ns-btn-row">
+          <button type="button" class="ns-btn-primary" id="qrcodeSettingsConfirmBtn">确定</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- 品牌信息显示管理弹窗 -->
   <div id="visibilityManagerModal" class="modal-overlay hidden">
     <div class="modal visibility-manager-modal">
@@ -893,7 +908,7 @@
   <div id="brandEditEntryModal" class="brand-edit-entry hidden">
     <button id="closeBrandEditEntryModalBtn" class="brand-edit-entry-close" aria-label="关闭">&times;</button>
     <button id="entryBrandNameBtn" class="brand-entry-btn brand-entry-name">改名称</button>
-    <button id="entryFontColorBtn" class="brand-entry-btn brand-entry-color">改颜色</button>
+    <button id="entryFontColorBtn" class="brand-entry-btn brand-entry-color">改样式</button>
   </div>
 
   <!-- 字体颜色选择弹窗 -->
@@ -972,6 +987,68 @@
     </div>
   </div>
 
+  <!-- 文字样式弹窗（对齐小程序交互：字体/字号/字色/光效） -->
+  <div id="nameStyleModal" class="modal-overlay hidden">
+    <div class="modal ns-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">文字样式</h2>
+        <button id="closeNameStyleModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body ns-body">
+        <div class="ns-row">
+          <span class="ns-label">字体</span>
+          <div class="ns-font-btns" id="nsFontBtns"></div>
+        </div>
+        <div class="ns-row">
+          <span class="ns-label">字号</span>
+          <input type="range" id="nsSizeSlider" class="ns-slider" min="12" max="24" step="1" value="15">
+          <span class="ns-size-value" id="nsSizeValue">15</span>
+        </div>
+        <div class="ns-row">
+          <span class="ns-label">字色</span>
+          <span class="ns-hint">★黑白为百搭，已默选自适应背景。</span>
+        </div>
+        <div class="ns-row ns-row-swatches">
+          <span class="ns-label">&nbsp;</span>
+          <div class="ns-swatches">
+            <div class="ns-swatch ns-swatch-auto" data-color="auto" title="自适应背景"><span class="ns-auto-text">自适应</span></div>
+            <div class="ns-swatch" data-color="#000000" style="background:#000000" title="黑色"></div>
+            <div class="ns-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border:1px solid #ccc" title="白色"></div>
+            <div class="ns-swatch ns-swatch-round" id="nsSwatchCustom" title="自定义颜色"></div>
+            <button type="button" class="ns-more-btn" id="nsMoreColorsBtn">更多颜色</button>
+          </div>
+        </div>
+        <!-- 光效已改为智能自动（深色字发光/浅色字投影），无需手动选择，隐藏该行 -->
+        <div class="ns-row" id="nsEffectRow" style="display:none">
+          <span class="ns-label">光效</span>
+          <div class="ns-effect-btns" id="nsEffectBtns">
+            <button type="button" class="ns-effect-btn" data-effect="none">无</button>
+            <button type="button" class="ns-effect-btn" data-effect="glow">发光</button>
+            <button type="button" class="ns-effect-btn" data-effect="shadow">投影</button>
+          </div>
+        </div>
+        <div class="ns-btn-row">
+          <button type="button" class="ns-btn-ghost" id="nsResetBtn">恢复默认</button>
+          <button type="button" class="ns-btn-primary" id="nsConfirmBtn">确认修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 更多颜色小窗（三排色卡） -->
+  <div id="nameMoreColorsModal" class="modal-overlay hidden">
+    <div class="modal ns-more-modal">
+      <!-- 标题栏已按需求移除，关闭走「取消/确定」按钮 -->
+      <div class="modal-body">
+        <div class="ns-more-rows" id="nsMoreColorRows"></div>
+        <div class="ns-btn-row">
+          <button type="button" class="ns-btn-cancel" id="nsMoreCancelBtn">取消</button>
+          <button type="button" class="ns-btn-primary" id="nsMoreConfirmBtn">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 行业分类文案模板数据 -->
   <script src="industry-templates.js?v=20260707c"></script>
 
@@ -1040,6 +1117,12 @@
           <i class="fa fa-times"></i>
         </button>
       </div>
+      <!-- 顶部导航条：一级 › 二级（点一级重走行业选择，点二级弹出当前一级的子行业） -->
+      <div class="integrated-nav" id="integratedNav">
+        <span class="integrated-nav-item" id="integratedNavGroup" title="点击重新选择大行业">通用</span>
+        <span class="integrated-nav-sep" id="integratedNavSep">›</span>
+        <span class="integrated-nav-item integrated-nav-cat" id="integratedNavCat" title="点击选择该大行业下的子行业">全部</span>
+      </div>
       <div class="modal-body integrated-modal-body">
         <!-- 左侧行业分类导航 -->
         <div class="industry-sidebar">
@@ -1075,13 +1158,39 @@
           <textarea id="promoTextInput" class="form-input" rows="3" placeholder="请输入促销信息，支持Enter键换行"></textarea>
           <div class="input-actions">
             <button id="savePromoTextBtn" class="btn-primary">保存</button>
-            <button id="promoTemplateBtn" class="promo-template-btn">促销引流文案模板</button>
+            <button id="promoTemplateBtn" class="promo-template-btn">找行业文案模板</button>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
+
+  <!-- 行业选择弹窗（对齐小程序：第一步大行业卡片 → 第二步子行业卡片 → 确定后进入文案模板弹窗并定位） -->
+  <div id="industryPickerModal" class="modal-overlay hidden">
+    <div class="modal ns-modal industry-picker-modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="industryPickerTitle">找行业文案模板</h2>
+        <button id="closeIndustryPickerModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- 第一步：大行业（一行3个卡片） -->
+        <div id="pickerStep1" class="picker-step">
+          <div class="picker-grid" id="pickerGroupsGrid"></div>
+        </div>
+        <!-- 第二步：子行业（一行3个卡片，单选） -->
+        <div id="pickerStep2" class="picker-step" style="display:none">
+          <h3 class="picker-sub-title" id="pickerSubTitle"></h3>
+          <div class="picker-grid" id="pickerSubGrid"></div>
+          <div class="picker-step2-actions">
+            <button type="button" class="ns-btn-ghost" id="pickerBackBtn">&larr; 重选行业</button>
+            <button type="button" class="ns-btn-primary" id="pickerConfirmBtn">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- 文案模板弹窗 -->
   <div id="textTemplateModal" class="modal-overlay hidden">
@@ -1302,7 +1411,7 @@
 
   <!-- 编辑器核心脚本 -->
   <script src="type-order-config.js?v=20260823a"></script>
-  <script src="editor-script.js?v=20260924" defer></script>
+  <script src="editor-script.js?v=20261003e" defer></script>
   
   <!-- 图片裁剪弹窗 -->
   <div id="cropModal" class="crop-modal" style="display:none;">

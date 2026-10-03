@@ -1296,25 +1296,25 @@ footer {
 
 /* Ã¦ÂµÂ·Ã¦Å Â¥Ã¥Â¤Â´Ã©Æ’Â¨Ã¦Â Â·Ã¥Â¼Â */
 .poster-header {
+  /* logo 与商家名称都为流内 flex 子项：align-items:center 保证名称字号
+     调整时始终与 logo 垂直居中对齐（不顶对齐、不底对齐） */
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   justify-content: flex-start;
 }
 
 #posterBusinessName {
-  position: absolute;
-  top: 24px;
-  left: 36px;
+  min-width: 0;
+  flex-shrink: 1;
   text-align: center;
   color: white;
   font-size: 10px;
   /* font-weight: bold; */
-  margin-left: 20px;
   word-wrap: break-word;
+  line-height: 1.2;
   cursor: pointer;
   transition: all 0.2s ease;
-  z-index: 200;
 }
 
 #posterBusinessName:hover {
@@ -1341,11 +1341,6 @@ footer {
 
 /* Ã¦ÂµÂ·Ã¦Å Â¥LogoÃ¦Â Â·Ã¥Â¼Â */
 #posterLogo {
-  position: absolute;
-  top: 19px;
-  left: 24px;
-  right: 0;
-  text-align: center;
   height: 26px;
   width: 26px;
   border-radius: 26px;
@@ -1355,7 +1350,7 @@ footer {
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 200;
+  flex-shrink: 0;
 }
 
 #posterLogo:hover {
@@ -1717,14 +1712,14 @@ footer {
   height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 8px solid  #ffffffe8;
+  border-right: 8px solid  #ffffffd9;
   z-index: 1;
 }
 
 /* Ã¥Âºâ€¢Ã©Æ’Â¨Ã¦Å’â€°Ã©â€™Â®Ã¦Â Â - Ã©â€™Ë†Ã¥Â¯Â¹Ã§Â§Â»Ã¥Å Â¨Ã§Â«Â¯Ã¤Â¼ËœÃ¥Å’â€“ */
 .bottom-actions {
   position: fixed;
-  bottom: 7px;
+  bottom: 100px;
   right: 0px;
   /* background-color: #ffffff38; */
   /* border: 1px solid #ccccccfa; */
@@ -2239,9 +2234,10 @@ footer {
 
 /* Ã¥â€¢â€ Ã¥Â®Â¶Ã¤Â¿Â¡Ã¦ÂÂ¯Ã§Â¼â€“Ã¨Â¾â€˜Ã¥Â¼Â¹Ã§Âªâ€”Ã§â€°Â¹Ã¥Â®Å¡Ã¦Â Â·Ã¥Â¼Â */
 .modal.business-info-modal {
-  max-height: min(560px, 80vh);
+  /* 高度自适应内容（名称输入+色板+保存按钮），不再固定最大高度 */
   position: fixed;
-  top: 12%;
+  top: 18%;
+    min-height: auto;
   overflow-y: visible;
 }
 
@@ -5126,11 +5122,11 @@ button#closeFontColorModalBtn.modal-close {
   padding: 9px 20px;
   border: none;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
   /* font-weight: 600; */
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 80px;
+  min-width: 100px;
   text-align: center;
 }
 
@@ -5476,7 +5472,7 @@ button#closeFontColorModalBtn.modal-close {
 }
 
 .logo-cutout-toggle-btn {
-  padding: 5px 4px;
+  padding: 5px 6px;
   border-radius: 12px 12px 12px 0;
   background: linear-gradient(135deg, #a651f6, #f44336);
   border: 1px solid #e187fc;
@@ -5487,8 +5483,8 @@ button#closeFontColorModalBtn.modal-close {
   white-space: nowrap;
   transition: all 0.2s;
   flex-shrink: 0;
-  top: -33px;
-  right: -8px;
+  top: -29px;
+  right: 6px;
   box-shadow: 0 0 10px #646464b5;
 }
 
@@ -5505,7 +5501,7 @@ button#closeFontColorModalBtn.modal-close {
   border-radius: 20px;
   padding: 4px 7px;
   border: 1px solid #ccc;
-  width: 100px;
+  width: 202px;
   cursor: pointer;
   transition: background 0.3s ease;
   position: relative;
@@ -5518,7 +5514,7 @@ button#closeFontColorModalBtn.modal-close {
 .logo-transparency-toggle .toggle-label {
   font-size: 12px;
   color: #acacac;
-  padding: 0 3px;
+  padding: 0 28px;
   transition: color 0.3s ease;
 }
 
@@ -5540,9 +5536,9 @@ button#closeFontColorModalBtn.modal-close {
 }
 
 .logo-transparency-toggle .toggle-thumb {
-  width: 48px;
+  width: 105px;
   height: 22px;
-  background: #030303;
+  background: #e00000;
   border-radius: 16px;
   box-shadow: inset 0 -1px 3px rgb(0 0 0 / 19%);
   transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
@@ -5560,9 +5556,9 @@ button#closeFontColorModalBtn.modal-close {
 
 .logo-transparency-toggle.active .toggle-thumb {
   transform: translateY(-50%) translateX(40px);
-  background: #030303;
+  background: #e40606;
   color: #fff;
-  left: 8px;
+  left: 51px;
 }
 
 .color-select-container {
@@ -5997,14 +5993,14 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
   width: 100%;
   background-image: linear-gradient(to right, #7e7e7e24 1px, transparent 1px), linear-gradient(to bottom, #a5a5a514 1px, #00000000 1px);
   background-size: 6px 6px;
-  background-color: #ffffff;
+  background-color: #2f2f2f;
   min-height: 121px; /* Ã¤Â¸Å½Ã¤Â¸Å Ã¤Â¼Â Ã¥Å’ÂºÃ¥Å¸Å¸Ã¤Â¿ÂÃ¦Å’ÂÃ¤Â¸â‚¬Ã¨â€¡Â´ */
   max-height: 113px; /* Ã¤Â¸Å½Ã¤Â¸Å Ã¤Â¼Â Ã¥Å’ÂºÃ¥Å¸Å¸Ã¤Â¿ÂÃ¦Å’ÂÃ¤Â¸â‚¬Ã¨â€¡Â´ */
 }
 .upload-preview  .fa{;}
 .upload-preview-image {
-  max-width: 95px;
-  max-height: 95px;
+  max-width: 200px;
+  max-height: 100px;
   margin: 10px auto;
   display: block;
   object-fit: contain;
@@ -6014,8 +6010,8 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 
 .upload-remove-btn {
   position: absolute;
-  top: -14px;
-  right: -10px;
+  top: -5px;
+  right: -5px;
   width: 35px;
   height: 35px;
   line-height: 35px;
@@ -6028,8 +6024,8 @@ div#fontColorModal > div.modal > div.modal-body > div.form-group > div.color-sel
 
 .upload-remove-btn-text {
   color: #ea0e0e;
-  font-size: 11px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .upload-remove-btn:active {
@@ -6504,12 +6500,12 @@ input.hidden {
 }
 
 .industry-template-content {
-  font-size: 12px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 2;
   min-height: 64px;
   font-weight: 400;
   padding-right: 8px;
-  color: #1f1f1f;
+  color: #252525;
   white-space: pre-line;
   overflow: hidden;
   position: relative;
@@ -6572,7 +6568,7 @@ input.hidden {
   border: 1px solid #e3e3e3;
   border-radius: 11px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 10px;
   margin-left: 10%;
   transition: background 0.3s ease;
@@ -6668,7 +6664,7 @@ input.hidden {
 }
 
 .modal-body {
-  padding: 13px 14px 17px;
+  padding: 16px 14px 17px;
 }
 #businessInfoModal .scrollable-body{padding: 9px 26px 2px;}
 .input-section {
@@ -6735,7 +6731,7 @@ input.hidden {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 4px 5px 14px;
+  padding: 10px 5px 14px;
   /* border-top: 1px solid #e0e0e0; */
 }
 
@@ -7157,7 +7153,7 @@ input.hidden {
 .poster-header {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
   justify-content: flex-start;
 }
 
@@ -8103,7 +8099,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 
 
 .modal-container.integrated-industry-template-modal {
-  width: min(90vw, 800px);
+  width: min(90vw, 600px);
   max-width: 800px;
   max-height: min(560px, 85vh);
   min-height: 400px;
@@ -8123,7 +8119,7 @@ button.future-suggestion-btn[data-action="wanan"] {
   width: 100px;
   background: linear-gradient(135deg, #ffffff 0%, #ddfeee 100%);
   border-right: 1px solid #e9ecef;
-  display: flex;
+  display: none;
   flex-direction: column;
   overflow-y: auto;
 }
@@ -8269,16 +8265,12 @@ button.future-suggestion-btn[data-action="wanan"] {
 }
 
 
-.promo-template-btn:hover {
-  background: #f8f9fa;
-  border-color: #999;
-}
 
 /* Ã¥â€œÂÃ¥Âºâ€Ã¥Â¼ÂÃ¨Â®Â¾Ã¨Â®Â¡ */
 @media (max-width: 768px) {
   .modal-container.integrated-industry-template-modal,
   .modal-container.text-template-modal {
-    width: min(95vw, 800px);
+    width: min(90vw, 600px);
     max-width: none;
   }
 
@@ -8635,7 +8627,7 @@ button.future-suggestion-btn[data-action="wanan"] {
 /* ========== 品牌名称快捷编辑入口（轻量浮层，无遮罩） ========== */
 .brand-edit-entry {
   position: fixed;
-  top: 13%;
+  top: 16%;
   width: 56%;
   left: 20%;
   /* transform: translateX(-54%); */
@@ -11198,4 +11190,615 @@ Shorthand property for setting most background properties at the same place in t
 .editor-tip-text.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ==================== 文字样式弹窗（对齐小程序） ==================== */
+.ns-modal {
+  width: min(88vw, 391px);
+  min-height: unset;
+  max-height: 86vh;
+}
+
+.ns-body {
+  padding: 14px 16px 16px;
+}
+
+.ns-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.ns-label {
+  flex-shrink: 0;
+  width: 34px;
+  font-size: 13px;
+  color: #666;
+}
+
+.ns-hint {
+  font-size: 12px;
+  color: #181818;
+}
+
+/* 字体按钮行 */
+.ns-font-btns {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ns-font-btn {
+  flex: 1;
+  padding: 5px 0;
+  border-radius: 14px;
+  background: #f2f3f5;
+  font-size: 12px;
+  color: #555;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.ns-font-btn.ns-active {
+  background: rgba(230, 57, 70, 0.08);
+  border-color: #ffd3d6;
+  color: #e63946;
+  font-weight: 600;
+}
+
+/* 字号滑杆 */
+.ns-slider {
+  flex: 1;
+  accent-color: #e63946;
+  height: 22px;
+}
+
+.ns-size-value {
+  flex-shrink: 0;
+  min-width: 22px;
+  text-align: center;
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* 字色色块行 */
+.ns-row-swatches {
+  margin-bottom: 12px;
+}
+
+.ns-swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.ns-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 1px solid #b9bec9;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+/* 选中态：圆形色块内打勾（替代原红色描边） */
+.ns-swatch.ns-selected::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  pointer-events: none;
+}
+
+/* 黑色块：白色勾 */
+.ns-swatch[data-color="#000000"].ns-selected::after {
+  color: #fff;
+}
+
+/* 白色块/自定义块：黑色勾 + 白色阴影发光效果 */
+.ns-swatch[data-color="#FFFFFF"].ns-selected::after,
+.ns-swatch-round.ns-selected::after {
+  color: #000;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+}
+
+/* 自适应色块：白底 + 「自适应」三字（选中黑字，未选中灰字） */
+.ns-swatch-auto {
+  background: #fff;
+  border: 1px solid #b9bec9;
+}
+
+.ns-auto-text {
+  font-size: 8px;
+  line-height: 1;
+  color: #6f7683;
+  white-space: nowrap;
+  transform: scale(0.9);
+}
+
+/* 自适应块：不打勾，选中时「自适应」文字变红 */
+.ns-swatch-auto.ns-selected {
+  border-color: #b9bec9;
+}
+
+.ns-swatch-auto.ns-selected::after {
+  content: none;
+}
+
+.ns-swatch-auto.ns-selected .ns-auto-text {
+  color: #e63946;
+  font-weight: 600;
+}
+
+/* 自定义圆形色块 */
+.ns-swatch-round {
+  background: #e3e5e8;
+}
+
+/* 更多颜色按钮：彩虹七彩淡色斜渐变 + 白字黑影 */
+.ns-more-btn {
+  margin-left: auto;
+  padding: 7px 13px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffb3ba, #ffd9a0, #fff6a5, #b9f0c8, #b0e8e4, #a8ccf8, #d3b8f8);
+  font-size: 12px;
+  color: #f11919;
+  text-shadow:0 1px 3px rgb(255 255 255 / 60%);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 光效按钮行 */
+.ns-effect-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.ns-effect-btn {
+  padding: 5px 16px;
+  border-radius: 14px;
+  background: #f2f3f5;
+  font-size: 12px;
+  color: #555;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ns-effect-btn.ns-active {
+  background: rgba(230, 57, 70, 0.08);
+  border-color: #e63946;
+  color: #e63946;
+  font-weight: 600;
+}
+
+/* 底部按钮行 */
+.ns-btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.ns-btn-ghost {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 8px;
+  background: #f0f0f1;
+  color: #e63946;
+  font-size: 15px;
+  border: 1px solid #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ns-btn-primary {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.ns-btn-cancel {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 8px;
+  background: #f0f0f1;
+  color: #e63946;
+  font-weight: 600;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 更多颜色小窗 */
+.ns-more-modal {
+  width: min(88vw, 391px);
+  min-height: unset;
+}
+
+.ns-more-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 2px;
+}
+
+.ns-more-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ns-more-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #b9bec9;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.ns-more-swatch.ns-selected {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #e63946;
+}
+
+/* 无背景遮罩：弹窗不再压暗画布，弹窗外可实时看到海报效果
+   文字样式/更多颜色/Logo/二维码弹窗统一：无遮罩 + 居中偏上（与 logo 编辑弹窗同水平高度） */
+#nameStyleModal.modal-overlay,
+#nameMoreColorsModal.modal-overlay,
+#logoSettingsModal.modal-overlay,
+#qrcodeSettingsModal.modal-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+  align-items: flex-start;
+  padding-top: 20vh;
+}
+
+#nameStyleModal .modal,
+#nameMoreColorsModal .modal,
+#logoSettingsModal .modal,
+#qrcodeSettingsModal .modal {
+  pointer-events: auto;
+}
+
+#nameMoreColorsModal.modal-overlay{padding-top: 30vh;}
+
+/* 品牌/门店名称弹窗：无遮罩，可直接实时看到画布上的名称/颜色变化
+   （遮罩层不拦截点击，弹窗外仍可操作画布） */
+#businessInfoModal.modal-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+}
+
+#businessInfoModal .modal {
+  pointer-events: auto;
+}
+
+/* 两个设置弹窗整体紧凑化：降低容器高度，减少对画布的遮挡 */
+#logoSettingsModal .modal-body,
+#qrcodeSettingsModal .modal-body {
+  padding: 13px 16px 15px;
+}
+
+#logoSettingsModal .upload-area,
+#qrcodeSettingsModal .upload-area {
+  padding: 14px;
+}
+
+#logoSettingsModal .upload-text,
+#qrcodeSettingsModal .upload-text {
+  margin: 6px 0 2px;
+}
+
+#logoSettingsModal .upload-hint,
+#qrcodeSettingsModal .upload-hint {
+  margin: 0;
+}
+
+/* 展示大小行：文字保持一行，滑杆收窄 */
+.logo-scale-row .ns-label {
+  width: auto;
+  white-space: nowrap;
+}
+
+.logo-scale-row .ns-slider {
+  flex: none;
+  width: 221px;
+}
+
+/* ==================== 行业选择弹窗（对齐小程序两步选择：大行业卡片 → 子行业卡片 → 确定） ==================== */
+/* 无背景遮罩 + 居中偏上：弹窗不挡画布顶部，可实时看到海报（纯渐隐动画） */
+#industryPickerModal.modal-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+#industryPickerModal .modal {
+  pointer-events: auto;
+  width: min(92vw, 430px);
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#industryPickerModal .modal-body {
+  overflow-y: auto;
+}
+
+/* 卡片网格：一行 3 个 */
+.picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 55px;
+  padding-top: 6px;
+}
+
+/* 第二步子行业指引标题：紧贴卡片上方，阅读连贯 */
+.picker-sub-title {
+  margin: 0;
+  padding: 0 2px 0;
+  font-size: 15px;
+  line-height: 1.4;
+  min-height: 29px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.picker-cell {
+  position: relative;
+  width: calc((100% - 20px) / 3);
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e5e6eb;
+  border-radius: 10px;
+  padding: 14px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.picker-cell:hover {
+  border-color: #d0d0d0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.picker-cell:active {
+  transform: scale(0.97);
+}
+
+/* 上次选择标记：淡粉色背景 + 右上角角标 */
+.picker-cell-last {
+  background: #ffffff;
+  border-color: #f5c6d3;
+}
+
+.picker-badge {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ee0000;
+  color: #ffffff;
+  font-size: 9px;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 0 9px 0 8px;
+  white-space: nowrap;
+}
+
+.picker-cell-last .picker-badge {
+  display: block;
+}
+
+.picker-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.picker-name {
+  font-size: 17px;
+  font-weight: 400;
+  color: #333333;
+  padding-top: 2px;
+}
+
+.picker-sub {
+  font-size: 10px;
+  color: #999999;
+}
+
+/* 子行业卡片选中态：红渐变白字 */
+.picker-cell.selected {
+  background: linear-gradient(135deg, #e94b4b, #d32f2f);
+  border-color: #d32f2f;
+}
+
+.picker-cell.selected .picker-name {
+  color: #ffffff;
+}
+
+.picker-cell.selected .picker-sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 第二步底部按钮：返回 / 确定并列一行 */
+.picker-step2-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 6px;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 20px;
+  backdrop-filter: blur(8px);
+  width: 90%;
+}
+
+.picker-step2-actions button {
+  flex: 1;
+}
+
+/* ==================== 行业文案模板弹窗（下划线动画版，对齐小程序交互） ==================== */
+/* 无背景遮罩 + 居中偏上：选模板时实时看到海报效果 */
+#integratedIndustryTemplateModal.modal-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8vh;
+}
+
+#integratedIndustryTemplateModal .modal-container {
+  pointer-events: auto;
+  max-height: min(620px, 84vh);
+}
+
+/* 下划线动画：文字完整直接显示，黑色线条从左到右逐行划过 */
+.ind-line-wrap {
+  position: relative;
+  display: block;
+  min-height: 27px;
+}
+
+.ind-line {
+  font-size: 18px;
+  line-height: 2;
+  color: #131313;
+}
+
+.ind-underline {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 1px;
+  background: #222222;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: indLineDraw 0.7s ease-out forwards;
+}
+
+@keyframes indLineDraw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* 选用编辑按钮：红字 + 淡灰边胶囊（对齐小程序） */
+.industry-template-card .industry-template-select-btn {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  color: #e30303;
+  font-weight: 500;
+}
+
+.industry-template-card .industry-template-select-btn:hover {
+  background: #f2f2f2;
+  color: #e30303;
+}
+
+/* 左侧菜单弱化：未选中的分类/分组文字淡灰，凸显当前所选 */
+.industry-category-vertical {
+  color: #a8a8a8;
+  font-weight: 600;
+}
+
+.industry-category-vertical.active {
+  background: #ffffff;
+  color: #de2929;
+  border-color: #f3c1c1;
+  box-shadow: none;
+  font-size: 15px;
+  justify-content: center;
+}
+
+/* 选中的分类隐藏图标，给放大后的文字留足空间 */
+.industry-category-vertical.active .cat-icon {
+  display: none;
+}
+
+.industry-category-group-title {
+  color: #a8a8a8;
+}
+
+.industry-category-group-title.expanded {
+  color: #de2929;
+}
+
+/* 模板弹窗顶部导航条：一级 › 二级（点一级重走行业选择，点二级直选子行业） */
+.integrated-nav {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 9px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #ffffff;
+  box-shadow: 0px 6px 6px #4242421f;
+}
+
+.integrated-nav-item {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e00000;
+  background: #fdeeef;
+  padding: 2px 15px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.integrated-nav-item:hover {
+  color: #de2929;
+  background: #fdeeef;
+}
+
+/* 二级项：当前选中行业，红色凸显 */
+.integrated-nav-cat {
+  color: #de2929;
+}
+
+.integrated-nav-sep {
+  color: #8a8a8a;
+  line-height: 25px;
+  font-size: 20px;
 }
