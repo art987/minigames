@@ -187,7 +187,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
-  padding-left: 116px;
+  padding-left: 117px;
   margin-top: 5px;
 }
 /* 章节卡手风琴：子模块区默认折叠（max-height 方案，终值确定归 0，兼容性最佳） */
@@ -245,7 +245,7 @@
   min-width: 0;
 }
 .biz-chapter-card .chapter-name {
-  font-size: 30px;
+  font-size: 27px;
   font-weight: 500;
   color: var(--biz-text-primary);
   margin-bottom: 2px;
@@ -980,7 +980,7 @@
 #chapterView, #solutionView {
   padding-bottom: 220px;
   background: linear-gradient(180deg, #d1f5ff 0%, #dfe8ff 10%, #e4eaff 18%, #d3cafd 25%, #ddccff 32%, #e4e0ff 40%, #dcd8ff 50%, #c6e2ff 60%, #c7f0ff 68%, #f0e9ff 75%, #f6ebff 82%, #ffe9e9 90%, #fff1ea 100%);
-  padding: 0 0 500px;
+  padding: 0 0 100px;
 }
 
 /* ===== Ã¨Â¯Â¦Ã¦Æ’â€¦Ã¥Â¼Â¹Ã§Âªâ€” ===== */

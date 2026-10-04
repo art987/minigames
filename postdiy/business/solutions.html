@@ -443,8 +443,6 @@
 
         var allCases = BizData.cases || [];
         var allSolutions = BizData.solutions || [];
-        // 章节中文序号（一、二、三…）
-        var CN_NUMS = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
         // 子分类定制问句（默认「怎么做」，按语义选更贴切的动词；渲染时统一补「？」）
         var SUB_QUESTIONS = {
           102: '怎么谈',      // 租金博弈：核心是谈判
@@ -541,7 +539,7 @@
             '<div class="chapter-header">' +
               '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon) + '</span>' +
               '<div class="chapter-info">' +
-                '<div class="chapter-name">' + (CN_NUMS[chIdx] || '') + '、' + ch.name + '</div>' +
+                '<div class="chapter-name">' + ch.name + '</div>' +
                 '<div class="chapter-desc">' + ch.desc + '</div>' +
               '</div>' +
               // 展开按钮：与头部同高右侧，点击展开/收起子模块（手风琴，不触发章节跳转）
