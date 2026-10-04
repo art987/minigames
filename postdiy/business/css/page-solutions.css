@@ -249,6 +249,41 @@
   margin-bottom: 8px;
   flex-wrap: nowrap;
 }
+/* 子标题独立一行：序号 + 名称 + 问句（如「1、商圈分析怎么做？」） */
+.chapter-sub-title {
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--biz-text-primary);
+  text-shadow: 1px 1px 0px #fff;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-bottom: 8px;
+}
+/* 统计行独立一行：案例分享标签 + 心得/方案统计 */
+.chapter-sub-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+/* 「案例分享」标签：白底黑字加粗左对齐（标示下方列表即案例分享） */
+.chapter-share-tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 15px;
+  background: #ffffff;
+  color: #f35709;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  line-height: 23px;
+  white-space: nowrap;
+}
 .chapter-sub-tag {
   display: inline-flex;
   align-items: center;
@@ -279,7 +314,7 @@
   flex-shrink: 0;
   text-align: center;
   padding: 3px 8px;
-  background: rgba(255,255,255,0.7);
+  background: #ffffff;
   border-radius: 8px;
   cursor: pointer;
   line-height: 23px;
@@ -309,7 +344,7 @@
 .chapter-sub-stat-value {
   font-size: 11px;
   font-weight: 400;
-  color: #26b751;
+  color: #FF9500;
 }
 .chapter-sub-stat-label.enhanced {
   color: #FF9500;
@@ -318,10 +353,10 @@
   color: #FF9500;
 }
 .chapter-sub-stat-label.primary {
-  color: #0071E3;
+  color: #FF9500;
 }
 .chapter-sub-stat-value.primary {
-  color: #ff9500;
+  color: #FF9500;
 }
 .chapter-sub-tag .chapter-sub-badge {
   display: none;
@@ -1062,12 +1097,15 @@
 }
 .detail-modal-title {
   font-size: var(--biz-font-h3);
-  font-weight: 200;
-  padding: 0 8px 0 33px;
-  text-align: center;
-  color: var(--biz-text-primary);
+  /* 左对齐加粗黑色 */
+font-weight: 500;
+    font-size: 19px;
+    text-indent: -20px;
+    text-align: center;
+  padding: 6px 8px 6px 33px;
+  background: #ffffff;
+  color: #000000;
   width: 100%;
-  text-align: center;
 }
 .detail-modal-close {
   display: flex;

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/page-solutions.css">
+  <link rel="stylesheet" href="css/page-solutions.css?v=20261004c">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
@@ -252,7 +252,7 @@
                 // 等收起动画基本完成后再校正（动画 0.35s），用 easeOutCubic 缓动让过渡柔和
                 setTimeout(function() {
                   if (!self._activeSubRow || !document.body.contains(self._activeSubRow)) return;
-                  var header = self._activeSubRow.querySelector('.chapter-sub-header');
+                  var header = self._activeSubRow.querySelector('.chapter-sub-title');
                   if (!header) return;
                   var headerRect = header.getBoundingClientRect();
                   var targetOffset = arrowY - (headerRect.top + headerRect.height / 2);
@@ -420,14 +420,16 @@
 
         var allCases = BizData.cases || [];
         var allSolutions = BizData.solutions || [];
+        // 章节中文序号（一、二、三…）
+        var CN_NUMS = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
 
-        container.innerHTML = this.chapters.map(function(ch) {
+        container.innerHTML = this.chapters.map(function(ch, chIdx) {
           var count = self.getChapterCount(ch.id);
           // 二级分类按钮
           var subsHtml = '';
           if (ch.subs && ch.subs.length) {
             subsHtml = '<div class="chapter-subs">' +
-              ch.subs.map(function(sub) {
+              ch.subs.map(function(sub, subIdx) {
                 // 构造心得数据的 key (格式: chapter_sub)
                 var tipsKey = ch.id + '_' + sub.id;
                 var tipsCount = (window.BizTipsData && window.BizTipsData[tipsKey]) ? window.BizTipsData[tipsKey].length : 0;
@@ -448,9 +450,14 @@
                 // 随机选取3个案例
                 var randomCases = self.pickRandomCases(subCases, 3);
 
+                // 子标题独立一行：序号 + 名称 + 问句（如「1、商圈分析怎么做？」）
                 var rowHtml = '<div class="chapter-sub-row">' +
-                  '<div class="chapter-sub-header">' +
-                    '<span class="chapter-sub-tag" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' + sub.name + '</span>' +
+                  '<div class="chapter-sub-title" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' +
+                    (subIdx + 1) + '、' + sub.name + '怎么做？' +
+                  '</div>' +
+                  // 统计行独立一行：第一个为「案例分享」选中标签（说明下方列表即案例分享），后接心得/方案统计
+                  '<div class="chapter-sub-meta">' +
+                    '<span class="chapter-share-tag">案例分享</span>' +
                     '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">' +
                       '<span class="chapter-sub-stat-label">心得笔记</span>' +
                       '<span class="chapter-sub-stat-value enhanced">(' + tipsCount + ')</span>' +
@@ -491,7 +498,7 @@
             '<div class="chapter-header">' +
               '<span class="chapter-icon" style="color:' + ch.color + '">' + BizUtils.icon(ch.icon) + '</span>' +
               '<div class="chapter-info">' +
-                '<div class="chapter-name">' + ch.name + '</div>' +
+                '<div class="chapter-name">' + (CN_NUMS[chIdx] || '') + '、' + ch.name + '</div>' +
                 '<div class="chapter-desc">' + ch.desc + '</div>' +
               '</div>' +
             '</div>' +
@@ -520,7 +527,8 @@
         if (type === 'tips') title = '心得笔记';
         else if (type === 'solutions') title = '指导方案';
         else if (type === 'cases') title = '案例学习';
-        modalTitle.textContent = title;
+        // 标题合并：子分类名-类型名（如「租金博弈-心得笔记」）
+        modalTitle.textContent = subName + '-' + title;
         this.modalTitle = subName;
 
         var html = '';
@@ -572,7 +580,7 @@
           }
         }
 
-        modalBody.innerHTML = '<h2 class="cd-detail-title">' + subName + '</h2>' + html;
+        modalBody.innerHTML = html;
         document.getElementById('modalFavBtn').style.display = 'none';
         document.getElementById('modalOpenBtn').style.display = 'none';
         document.querySelector('.detail-modal-footer').style.display = 'none';
