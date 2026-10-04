@@ -184,11 +184,49 @@
 }
 .biz-chapter-card .chapter-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   margin-bottom: 12px;
   padding-left: 116px;
   margin-top: 5px;
+}
+/* 章节卡手风琴：子模块区默认折叠（max-height 方案，终值确定归 0，兼容性最佳） */
+.chapter-subs-inner {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+.biz-chapter-card.expanded .chapter-subs-inner {
+  max-height: 3000px;
+  opacity: 1;
+}
+.chapter-toggle {
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #555555;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background 0.2s;
+}
+.chapter-toggle svg {
+  width: 18px !important;
+  height: 18px !important;
+  transition: transform 0.35s ease;
+}
+.biz-chapter-card.expanded .chapter-toggle svg {
+  transform: rotate(180deg);
+}
+.chapter-toggle:active {
+  background: rgba(0, 0, 0, 0.1);
 }
 .biz-chapter-card .chapter-icon {
   width: 40px;

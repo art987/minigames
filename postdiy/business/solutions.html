@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/page-solutions.css?v=20261004c">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="css/page-solutions.css?v=20261004e">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
@@ -196,11 +199,17 @@
             self.updateCaseVisibility();
           });
         }, { passive: true });
+        // 用户真正手动滚动时解除行激活抑制（章节展开后的程序化滚动不解除）
+        var clearSuppress = function() { self._suppressRowActivation = false; };
+        window.addEventListener('wheel', clearSuppress, { passive: true });
+        window.addEventListener('touchmove', clearSuppress, { passive: true });
         // 初始检查一次
         setTimeout(function() { self.updateCaseVisibility(); }, 100);
       },
 
       updateCaseVisibility: function() {
+        // 章节展开定位期间抑制行激活：避免滚动动画触发检测、0.5s 后又把页面滚到行位置，破坏「从头开始看」
+        if (this._suppressRowActivation) return;
         var rows = document.querySelectorAll('.chapter-sub-row');
         var arrow = document.getElementById('caseTriggerArrow');
         if (!rows.length) {
@@ -215,7 +224,12 @@
         // 找当前与箭头垂直位置重叠的行（行 top ≤ 箭头Y ≤ 行 bottom）
         var overlappingRow = null;
         for (var i = 0; i < rows.length; i++) {
+          // 只检测当前展开章节里的行：收起章节的行布局 rect 仍存在（overflow 裁剪不折叠布局位置），必须按章节展开态过滤
+          var ownerCard = rows[i].closest('.biz-chapter-card');
+          if (ownerCard && !ownerCard.classList.contains('expanded')) continue;
           var rect = rows[i].getBoundingClientRect();
+          // 跳过高度≈0 的行（双保险）
+          if (rect.height < 10) continue;
           if (rect.top <= arrowY && rect.bottom >= arrowY) {
             overlappingRow = rows[i];
             break;
@@ -248,32 +262,41 @@
                 if (prevActive && prevActive !== self._pendingRow) {
                   prevActive.classList.remove('in-view');
                 }
-                // 旧行收起会让新行往上跳，用平滑滚动补偿，把新行 header 拉回箭头位置
-                // 等收起动画基本完成后再校正（动画 0.35s），用 easeOutCubic 缓动让过渡柔和
-                setTimeout(function() {
-                  if (!self._activeSubRow || !document.body.contains(self._activeSubRow)) return;
-                  var header = self._activeSubRow.querySelector('.chapter-sub-title');
-                  if (!header) return;
-                  var headerRect = header.getBoundingClientRect();
-                  var targetOffset = arrowY - (headerRect.top + headerRect.height / 2);
-                  if (Math.abs(targetOffset) <= 1) return;
-                  // 平滑滚动动画：400ms，easeOutCubic 缓动
-                  var startScroll = window.pageYOffset || document.documentElement.scrollTop;
-                  var distance = -targetOffset; // 反向补偿
-                  var duration = 1000;
-                  var startTime = null;
-                  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-                  function animateStep(timestamp) {
-                    if (!startTime) startTime = timestamp;
-                    var progress = Math.min((timestamp - startTime) / duration, 1);
-                    var eased = easeOutCubic(progress);
-                    window.scrollTo(0, startScroll + distance * eased);
-                    if (progress < 1) {
-                      requestAnimationFrame(animateStep);
+                // 展开与上滑同步进行：预先计算收起/展开后的布局位移，立即启动平滑滚动（不再等动画结束）
+                // 旧行案例区收起会使其下方内容上移 oldH；新行 title 上方内容不受自身展开影响
+                var title = self._pendingRow.querySelector('.chapter-sub-title');
+                if (title) {
+                  var titleTop0 = title.getBoundingClientRect().top;
+                  var titleH = title.offsetHeight;
+                  var shift = 0;
+                  if (prevActive && prevActive !== self._pendingRow) {
+                    var oldCases = prevActive.querySelector('.chapter-cases-random');
+                    if (oldCases) {
+                      var oldH = oldCases.getBoundingClientRect().height;
+                      // 旧行位于新行上方（FOLLOWING = 新行在旧行之后）→ 新行将上移 oldH
+                      if (prevActive.compareDocumentPosition(self._pendingRow) & Node.DOCUMENT_POSITION_FOLLOWING) {
+                        shift = -oldH;
+                      }
                     }
                   }
-                  requestAnimationFrame(animateStep);
-                }, 360);
+                  // 目标：title 垂直中心对齐箭头参考线（视口 20%）
+                  var startScroll = window.pageYOffset || document.documentElement.scrollTop;
+                  var distance = (titleTop0 + shift + titleH / 2) - arrowY;
+                  if (Math.abs(distance) > 1) {
+                    var duration = 600;
+                    var startTime = null;
+                    function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+                    function animateStep(timestamp) {
+                      if (!startTime) startTime = timestamp;
+                      var progress = Math.min((timestamp - startTime) / duration, 1);
+                      window.scrollTo(0, startScroll + distance * easeInOutCubic(progress));
+                      if (progress < 1) {
+                        requestAnimationFrame(animateStep);
+                      }
+                    }
+                    requestAnimationFrame(animateStep);
+                  }
+                }
               }
             }
             self._pendingRow = null;
@@ -422,6 +445,26 @@
         var allSolutions = BizData.solutions || [];
         // 章节中文序号（一、二、三…）
         var CN_NUMS = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
+        // 子分类定制问句（默认「怎么做」，按语义选更贴切的动词；渲染时统一补「？」）
+        var SUB_QUESTIONS = {
+          102: '怎么谈',      // 租金博弈：核心是谈判
+          104: '怎么借势',    // 周边生态：互补/竞争利用
+          201: '怎么培养',    // 爆品思维：思维靠培养
+          202: '怎么定',      // 定价策略：避免「定价…怎么做」重复
+          205: '怎么建立',    // 迭代机制：机制靠建立
+          302: '怎么实现',    // 投诉变忠诚：目标语义
+          303: '怎么搭建',    // 会员体系：体系靠搭建
+          304: '怎么制造',    // 惊喜时刻：时刻靠制造
+          404: '怎么谈',      // 异业联盟：联盟靠谈成
+          503: '怎么设计',    // 薪酬排班：方案靠设计
+          602: '怎么应对',    // 价格对策：应对竞品价格
+          603: '怎么化解',    // 危机应对：化解危机
+          604: '怎么突破',    // 老板成长：认知突破
+          605: '怎么坚持',    // 长期主义：主义靠坚持
+          701: '怎么玩',      // 挑战游戏：游戏属性
+          702: '怎么玩',      // 抽奖盲盒：玩法属性
+          704: '怎么打'       // 定价心理战：战靠打
+        };
 
         container.innerHTML = this.chapters.map(function(ch, chIdx) {
           var count = self.getChapterCount(ch.id);
@@ -453,7 +496,7 @@
                 // 子标题独立一行：序号 + 名称 + 问句（如「1、商圈分析怎么做？」）
                 var rowHtml = '<div class="chapter-sub-row">' +
                   '<div class="chapter-sub-title" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' +
-                    (subIdx + 1) + '、' + sub.name + '怎么做？' +
+                    (subIdx + 1) + '、' + sub.name + (SUB_QUESTIONS[sub.id] || '怎么做') + '？' +
                   '</div>' +
                   // 统计行独立一行：第一个为「案例分享」选中标签（说明下方列表即案例分享），后接心得/方案统计
                   '<div class="chapter-sub-meta">' +
@@ -501,8 +544,11 @@
                 '<div class="chapter-name">' + (CN_NUMS[chIdx] || '') + '、' + ch.name + '</div>' +
                 '<div class="chapter-desc">' + ch.desc + '</div>' +
               '</div>' +
+              // 展开按钮：与头部同高右侧，点击展开/收起子模块（手风琴，不触发章节跳转）
+              '<span class="chapter-toggle" onclick="event.stopPropagation();SolutionsPage.toggleChapterCard(this)">' + BizUtils.icon('chevron-down', 20) + '</span>' +
             '</div>' +
-            subsHtml +
+            // 子模块区默认收起（grid 0fr 折叠），展开卡片时过渡到 1fr
+            '<div class="chapter-subs-wrap"><div class="chapter-subs-inner">' + subsHtml + '</div></div>' +
           '</div>';
         }).join('');
 
@@ -515,6 +561,61 @@
         this._pendingRow = null;
         var self = this;
         setTimeout(function() { self.updateCaseVisibility(); }, 100);
+      },
+
+      // 展开/收起章节卡（手风琴：同一时间只展开一个；子模块内部激活状态随之重置）
+      toggleChapterCard: function(btn) {
+        var card = btn.closest('.biz-chapter-card');
+        var wasExpanded = card.classList.contains('expanded');
+        // 预计算互斥收起的位移：位于目标卡上方的旧卡收起，会使目标卡上移其内容高度（需补偿进滚动目标）
+        var shiftUp = 0;
+        if (!wasExpanded) {
+          var prevCards = document.querySelectorAll('.biz-chapter-card.expanded');
+          for (var k = 0; k < prevCards.length; k++) {
+            if (prevCards[k].compareDocumentPosition(card) & Node.DOCUMENT_POSITION_FOLLOWING) {
+              var pwrap = prevCards[k].querySelector('.chapter-subs-wrap');
+              if (pwrap) shiftUp += pwrap.getBoundingClientRect().height;
+            }
+          }
+        }
+        // 收起所有已展开卡（手风琴互斥）
+        var cards = document.querySelectorAll('.biz-chapter-card.expanded');
+        for (var i = 0; i < cards.length; i++) cards[i].classList.remove('expanded');
+        // 清理子模块滚动激活状态（收起的行不可再保持展开的案例区）
+        this._activeSubRow = null;
+        this._pendingRow = null;
+        if (this._pendingTimer) { clearTimeout(this._pendingTimer); this._pendingTimer = null; }
+        var activeRows = document.querySelectorAll('.chapter-sub-row.in-view');
+        for (var j = 0; j < activeRows.length; j++) activeRows[j].classList.remove('in-view');
+        // 抑制行激活：展开/收起章节期间不打断定位动画；用户提前手动滚动（滚轮/触摸）可提前解除
+        this._suppressRowActivation = true;
+        // 兜底：定位动画结束后自动恢复检测，避免部分滚动方式（滚动条拖拽等）不触发 wheel/touchmove 导致永久抑制
+        var selfToggle = this;
+        setTimeout(function() { selfToggle._suppressRowActivation = false; }, 650);
+        if (!wasExpanded) {
+          card.classList.add('expanded');
+          // 自动滚到该卡大标题位置，让用户从头开始看（与展开动画同步；subs 在标题下方，不影响标题当前坐标）
+          var nameEl = card.querySelector('.chapter-name');
+          if (nameEl) {
+            var nameTop = nameEl.getBoundingClientRect().top;
+            var startScroll = window.pageYOffset || document.documentElement.scrollTop;
+            // 上方旧卡收起使目标卡上移 shiftUp（absTop 变小），滚动距离相应减去 shiftUp
+            var distance = nameTop - 90 - shiftUp;
+            if (Math.abs(distance) > 1) {
+              var dur = 600;
+              var t0 = null;
+              var ease = function(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+              var step = function(ts) {
+                if (!t0) t0 = ts;
+                var p = Math.min((ts - t0) / dur, 1);
+                window.scrollTo(0, startScroll + distance * ease(p));
+                if (p < 1) requestAnimationFrame(step);
+              };
+              requestAnimationFrame(step);
+            }
+          }
+          // 不做展开后的自动行重检：等用户真正滚动时 scroll 事件自然触发，避免与定位动画叠加
+        }
       },
 
       // 打开子分类项目弹窗
