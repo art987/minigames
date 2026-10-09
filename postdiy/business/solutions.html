@@ -10,7 +10,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="css/page-solutions.css?v=20261004e">
+  <link rel="stylesheet" href="css/page-solutions.css?v=20261009b">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
@@ -379,28 +379,28 @@
         return pool.slice(0, Math.min(n, pool.length));
       },
 
-      // 换一批案例
-      refreshRandomCases: function(chapterId, subId) {
+      // 换一批心得笔记
+      refreshRandomTips: function(chapterId, subId) {
         var container = document.getElementById('cases-random-' + chapterId + '-' + subId);
         if (!container) return;
         // 防止快速重复点击
         if (container.dataset.refreshing === '1') return;
         container.dataset.refreshing = '1';
 
-        // 获取当前显示的案例ID
+        // 获取当前显示的心得索引（data-tip-idx）
         var currentIds = [];
         var items = container.querySelectorAll('.chapter-case-item');
         for (var i = 0; i < items.length; i++) {
-          var onclickStr = items[i].getAttribute('onclick') || '';
-          var match = onclickStr.match(/openCaseModal\(['"]([^'"]+)['"]\)/);
-          if (match) currentIds.push(match[1]);
+          var idx = items[i].getAttribute('data-tip-idx');
+          if (idx !== null) currentIds.push(parseInt(idx, 10));
         }
-        // 获取该子分类下所有案例
-        var allCases = (BizData.cases || []).filter(function(c) {
-          return c.chapter === chapterId && c.sub === subId;
-        });
-        // 随机选取新案例，排除当前显示的
-        var newCases = this.pickRandomCases(allCases, 3, currentIds);
+        // 获取该子分类下所有心得
+        var tipsKey = chapterId + '_' + subId;
+        var allTips = (window.BizTipsData && window.BizTipsData[tipsKey]) ? window.BizTipsData[tipsKey] : [];
+        // 排除当前显示的（按索引），随机选取新心得
+        var pool = allTips.filter(function(t, idx) { return currentIds.indexOf(idx) === -1; });
+        if (pool.length < 5) pool = allTips.slice();
+        var newTips = this.pickRandomCases(pool, 5);
 
         // 淡出动画
         container.classList.add('fading-out');
@@ -408,12 +408,14 @@
         // 动画结束后替换内容并淡入
         setTimeout(function() {
           var html = '';
-          for (var j = 0; j < newCases.length; j++) {
-            var c = newCases[j];
+          for (var j = 0; j < newTips.length; j++) {
+            var t = newTips[j];
             // 用 case-entering 类标记新元素，初始为隐藏状态
-            html += '<div class="chapter-case-item case-entering" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
-              '<span class="chapter-case-icon">' + BizUtils.icon('file-text', 14) + '</span>' +
-              '<span class="chapter-case-title">' + c.title + '</span>' +
+            html += '<div class="chapter-case-item case-entering" data-tip-idx="' + allTips.indexOf(t) + '" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + chapterId + ',' + subId + ',\'tips\',\'' + container.dataset.subName + '\')">' +
+              '<div class="chapter-tip-body">' +
+                '<div class="chapter-tip-title">' + t.title + '</div>' +
+                '<div class="chapter-tip-desc">' + t.content + '</div>' +
+              '</div>' +
               '<span class="chapter-case-arrow">›</span>' +
             '</div>';
           }
@@ -484,48 +486,49 @@
                   return c.chapter === ch.id && c.sub === sub.id;
                 }).length;
 
-                // 获取该子分类下的案例
-                var subCases = allCases.filter(function(c) {
-                  return c.chapter === ch.id && c.sub === sub.id;
-                });
-                // 随机选取3个案例
-                var randomCases = self.pickRandomCases(subCases, 3);
+                // 获取该子分类下的心得笔记（简单易入门，作为行展开区默认内容）
+                var tipsKey = ch.id + '_' + sub.id;
+                var subTips = (window.BizTipsData && window.BizTipsData[tipsKey]) ? window.BizTipsData[tipsKey] : [];
+                // 随机选取5条心得
+                var randomTips = self.pickRandomCases(subTips, 5);
 
                 // 子标题独立一行：序号 + 名称 + 问句（如「1、商圈分析怎么做？」）
                 var rowHtml = '<div class="chapter-sub-row">' +
                   '<div class="chapter-sub-title" onclick="event.stopPropagation();SolutionsPage.onSubTagClick(' + ch.id + ',' + sub.id + ')">' +
                     (subIdx + 1) + '、' + sub.name + (SUB_QUESTIONS[sub.id] || '怎么做') + '？' +
                   '</div>' +
-                  // 统计行独立一行：第一个为「案例分享」选中标签（说明下方列表即案例分享），后接心得/方案统计
+                  // 统计行独立一行：第一个为「心得笔记」选中标签（说明下方列表即心得笔记），后接方案/案例分享入口
                   '<div class="chapter-sub-meta">' +
-                    '<span class="chapter-share-tag">案例分享</span>' +
-                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">' +
-                      '<span class="chapter-sub-stat-label">心得笔记</span>' +
-                      '<span class="chapter-sub-stat-value enhanced">(' + tipsCount + ')</span>' +
-                    '</div>' +
+                    '<span class="chapter-share-tag">心得笔记</span>' +
                     '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'solutions\',\'' + sub.name + '\')">' +
                       '<span class="chapter-sub-stat-label">指导方案</span>' +
                       '<span class="chapter-sub-stat-value primary">(' + solCount + ')</span>' +
                     '</div>' +
+                    '<div class="chapter-sub-stat" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'cases\',\'' + sub.name + '\')">' +
+                      '<span class="chapter-sub-stat-label">案例分享</span>' +
+                      '<span class="chapter-sub-stat-value enhanced">(' + caseCount + ')</span>' +
+                    '</div>' +
                   '</div>';
 
-                // 随机案例展示区域
-                if (randomCases.length > 0) {
+                // 随机心得笔记展示区域（完整条目：标题+描述，一次 5 条）
+                if (randomTips.length > 0) {
                   var casesContainerId = 'cases-random-' + ch.id + '-' + sub.id;
-                  rowHtml += '<div class="chapter-cases-random" id="' + casesContainerId + '">';
-                  randomCases.forEach(function(c) {
-                    rowHtml += '<div class="chapter-case-item" onclick="event.stopPropagation();SolutionsPage.openCaseModal(\'' + c._id + '\')">' +
-                      '<span class="chapter-case-icon">' + BizUtils.icon('file-text', 14) + '</span>' +
-                      '<span class="chapter-case-title">' + c.title + '</span>' +
+                  rowHtml += '<div class="chapter-cases-random" id="' + casesContainerId + '" data-sub-name="' + sub.name + '">';
+                  randomTips.forEach(function(t) {
+                    rowHtml += '<div class="chapter-case-item" data-tip-idx="' + (subTips.indexOf(t)) + '" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">' +
+                      '<div class="chapter-tip-body">' +
+                        '<div class="chapter-tip-title">' + t.title + '</div>' +
+                        '<div class="chapter-tip-desc">' + t.content + '</div>' +
+                      '</div>' +
                       '<span class="chapter-case-arrow">›</span>' +
                     '</div>';
                   });
                   rowHtml += '</div>';
-                  // 换一批 + 更多案例
-                  if (caseCount > 3) {
+                  // 换一批 + 更多心得
+                  if (tipsCount > 5) {
                     rowHtml += '<div class="chapter-cases-actions">' +
-                      '<span class="chapter-refresh-cases" onclick="event.stopPropagation();SolutionsPage.refreshRandomCases(' + ch.id + ',' + sub.id + ')">换一批</span>' +
-                      '<span class="chapter-more-cases" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'cases\',\'' + sub.name + '\')">更多案例(' + caseCount + ')</span>' +
+                      '<span class="chapter-refresh-cases" onclick="event.stopPropagation();SolutionsPage.refreshRandomTips(' + ch.id + ',' + sub.id + ')">换一批</span>' +
+                      '<span class="chapter-more-cases" onclick="event.stopPropagation();SolutionsPage.openSubItemsModal(' + ch.id + ',' + sub.id + ',\'tips\',\'' + sub.name + '\')">更多心得(' + tipsCount + ')</span>' +
                     '</div>';
                   }
                 }

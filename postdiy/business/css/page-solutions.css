@@ -205,9 +205,8 @@
   flex-shrink: 0;
   margin-left: auto;
   width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
+  height: 54px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +218,7 @@
 }
 .chapter-toggle svg {
   width: 18px !important;
-  height: 18px !important;
+  height: 18px !important;    stroke-width: 4.5px;
   transition: transform 0.35s ease;
 }
 .biz-chapter-card.expanded .chapter-toggle svg {
@@ -277,7 +276,7 @@
   /* background: #f8f9fa; */
   backdrop-filter: blur(2px);
   border-radius: 10px;
-  padding: 10px 8px;
+  padding: 20px 8px;
   border: 1px solid rgba(0,0,0,0.04);
 }
 .chapter-sub-header {
@@ -429,7 +428,7 @@
 }
 /* å½“æ‰€åœ¨è¡Œå¤„äºŽè§†å£å…³æ³¨åŒºåŸŸæ—¶æ˜¾ç¤º */
 .chapter-sub-row.in-view .chapter-cases-random {
-  max-height: 320px;
+  max-height: 378px;
   opacity: 1;
   margin-bottom: 4px;
 }
@@ -553,6 +552,27 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.4;
+}
+/* è¡Œå†…å®Œæ•´å¿ƒå¾—æ¡ç›®ï¼šæ ‡é¢˜ + æè¿° */
+.chapter-tip-body {
+  flex: 1;
+  min-width: 0;padding: 5px;
+}
+.chapter-tip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--biz-text-primary);
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+.chapter-tip-desc {
+  font-size: 12px;
+  color: #86868b;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .chapter-case-arrow {
   flex-shrink: 0;
