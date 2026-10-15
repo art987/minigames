@@ -1,0 +1,9 @@
+{
+  "name": "get-app-config",
+  "version": "1.0.0",
+  "description": "读取全局运营配置（短信提示文案/注册赠送次数/品牌分项奖励次数）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -9593,14 +9593,19 @@ const ThumbnailLoader = {
     const newName = elements.businessNameInput.value.trim() || '您的品牌名称';
     const newPromoText = elements.businessPromoTextInput.value.trim() || '点击编辑促销信息';
     
-    // 检查是否满足完善品牌信息奖励条件：品牌名称非空且未领取过奖励
-    const brandNameFilled = elements.businessNameInput.value.trim() !== '';
-    const bonusClaimed = localStorage.getItem('brandInfoBonusClaimed') === 'true';
-    let shouldClaimBonus = false;
-    if (brandNameFilled && !bonusClaimed && typeof VIPSystem !== 'undefined' && !VIPSystem.isVip()) {
-      shouldClaimBonus = true;
+    // 品牌分项奖励：判定单项是否完成（name/promo 看文本且非占位默认值，logo/qrcode 看图片）
+    const PROMO_PLACEHOLDERS = [
+      '点击编辑促销信息',
+      '👇长按加好友/进粉丝福利群！\n🎁这里可以写引流文促销文案或地址/联系方式 📝（点击更改）'
+    ];
+    function isWebBizItemDone(item) {
+      if (item === 'name') return !!state.businessInfo.name && state.businessInfo.name !== '您的品牌名称';
+      if (item === 'promo') return !!state.businessInfo.promoText && state.businessInfo.promoText.trim() !== '' && PROMO_PLACEHOLDERS.indexOf(state.businessInfo.promoText) === -1;
+      if (item === 'logo') return !!state.businessInfo.logo;
+      if (item === 'qrcode') return !!state.businessInfo.qrcode;
+      return false;
     }
-    
+
     state.businessInfo.name = newName;
     state.businessInfo.promoText = newPromoText;
     
@@ -9697,25 +9702,58 @@ const ThumbnailLoader = {
       // 云端同步成功后更新本地存储
       saveBusinessInfoToLocalStorage();
       
-      // 完善品牌信息奖励：首次填写品牌名称赠送10次下载
-      if (shouldClaimBonus) {
-        try {
-          const bonusResult = await VIPSystem.addDownloadQuota(10, 'brand_info_completed', '完善品牌信息奖励');
-          if (bonusResult.success) {
-            localStorage.setItem('brandInfoBonusClaimed', 'true');
-            showToast('商家信息保存成功');
-            // 实时刷新下载次数显示
-            loadDownloadQuota();
-            showBrandInfoBonusModal();
-            return; // 弹窗代替后续关闭逻辑，在弹窗按钮中处理
-          } else {
-            console.warn('品牌信息奖励领取失败:', bonusResult.message);
+      // 品牌分项奖励：保存后逐项检测已完成且未领取的项 → 云端领取（每项终身限领一次）
+      const BRAND_ITEMS = [
+        { key: 'logo', label: '商家Logo' },
+        { key: 'qrcode', label: '商家二维码' },
+        { key: 'name', label: '商家名称' },
+        { key: 'promo', label: '商家引流文案' }
+      ];
+      const legacyClaimed = localStorage.getItem('brandInfoBonusClaimed') === 'true';
+      let claimedLabel = null;
+      let claimedAmount = 0;
+      if (typeof VIPSystem !== 'undefined' && typeof VIPSystem.claimBrandBonusItem === 'function') {
+        for (const it of BRAND_ITEMS) {
+          const itemKey = 'brandInfoBonusClaimed_' + it.key;
+          if (legacyClaimed || localStorage.getItem(itemKey) === 'true') continue;
+          if (!isWebBizItemDone(it.key)) continue;
+          try {
+            const r = await VIPSystem.claimBrandBonusItem(it.key);
+            if (r.success) {
+              localStorage.setItem(itemKey, 'true');
+              claimedLabel = it.label;
+              claimedAmount = (r.data && r.data.amount) || 0;
+            } else if (r.message && r.message.indexOf('已领取') > -1) {
+              // 换设备/网页老账号已领过：静默补本地标记
+              localStorage.setItem(itemKey, 'true');
+            } else if (r.message && r.message.indexOf('尚未完善') > -1) {
+              // 云端资料同步可能未及时落库：不打标记，下次保存时再试
+              console.warn('品牌分项奖励云端判定未完善，下次保存再试:', it.label);
+            }
+          } catch (e) {
+            console.warn('品牌分项奖励领取异常:', it.label, e);
           }
-        } catch (e) {
-          console.warn('品牌信息奖励领取异常:', e);
         }
       }
-      
+
+      if (claimedLabel !== null) {
+        showToast('商家信息保存成功');
+        // 实时刷新下载次数显示
+        loadDownloadQuota();
+        // 剩余可完善项 + 对应奖励次数（读云端配置，失败用默认值）
+        let remaining = [];
+        try {
+          const cfgRes = await VIPSystem.getAppConfig();
+          const bb = (cfgRes.success && cfgRes.data && cfgRes.data.brandBonus) || {};
+          const DEF = { logo: 3, qrcode: 3, name: 1, promo: 3 };
+          remaining = BRAND_ITEMS
+            .filter(it => !legacyClaimed && !isWebBizItemDone(it.key) && localStorage.getItem('brandInfoBonusClaimed_' + it.key) !== 'true')
+            .map(it => `${it.label}+${bb[it.key] != null ? bb[it.key] : DEF[it.key]}次`);
+        } catch (e) { /* 提示失败不影响主流程 */ }
+        showBrandInfoBonusModal(claimedLabel, claimedAmount, remaining);
+        return; // 弹窗代替后续关闭逻辑，在弹窗按钮中处理
+      }
+
       showToast('商家信息保存成功');
       
       // 云端同步成功后才关闭弹窗
@@ -12155,8 +12193,8 @@ const ThumbnailLoader = {
     setTimeout(() => container.remove(), 5000);
   }
 
-  // 完善品牌信息奖励弹窗
-  function showBrandInfoBonusModal() {
+  // 品牌分项奖励弹窗（itemLabel/amount：本次领取项与金额；remainingList：剩余可完善项+次数）
+  function showBrandInfoBonusModal(itemLabel, amount, remainingList) {
     // 关闭品牌信息弹窗
     if (elements.businessInfoModal) {
       elements.businessInfoModal.classList.add('hidden');
@@ -12174,11 +12212,15 @@ const ThumbnailLoader = {
     modal.className = 'global-modal-overlay';
     modal.style.zIndex = '10001';
 
+    const remainHtml = Array.isArray(remainingList) && remainingList.length > 0
+      ? `<p class="modal-desc" style="font-size:13px;color:#999;margin-top:4px;">还有 ${remainingList.length} 项可完善（${remainingList.join('、')}），完成后可再得对应下载次数</p>`
+      : '';
+
     modal.innerHTML = `
       <div class="global-modal-card">
-        <h3 class="modal-title">品牌信息已完善</h3>
-        <p class="modal-desc">🎊恭喜您获得 <span class="modal-highlight">10</span> 次免费下载海报额度</p>
-      
+        <h3 class="modal-title">${itemLabel || '品牌信息'}已完善</h3>
+        <p class="modal-desc">🎊恭喜您获得 <span class="modal-highlight">${amount}</span> 次免费下载海报额度</p>
+        ${remainHtml}
         <button id="brandBonusContinueBtn" class="global-modal-btn global-modal-btn-outline">继续使用</button>
         <button id="brandBonusUpgradeBtn" class="global-modal-btn global-modal-btn-primary">升级无限额VIP</button>
       </div>
@@ -12229,6 +12271,24 @@ const ThumbnailLoader = {
     `
 
     document.body.appendChild(modal)
+
+    // 按钮文案回填为「未领取分项的奖励合计」（读云端配置；全部领过则不展示次数）
+    if (!onlyPromoTextMissing && typeof VIPSystem !== 'undefined' && typeof VIPSystem.getAppConfig === 'function') {
+      VIPSystem.getAppConfig().then(cfgRes => {
+        const btn = document.getElementById('incompleteLaterBtn')
+        if (!btn) return
+        try {
+          const legacy = localStorage.getItem('brandInfoBonusClaimed') === 'true'
+          const bb = (cfgRes.success && cfgRes.data && cfgRes.data.brandBonus) || {}
+          const DEF = { logo: 3, qrcode: 3, name: 1, promo: 3 }
+          const remainingTotal = legacy ? 0 : ['logo', 'qrcode', 'name', 'promo']
+            .reduce((s, k) => s + (localStorage.getItem('brandInfoBonusClaimed_' + k) === 'true' ? 0 : (bb[k] != null ? bb[k] : DEF[k])), 0)
+          if (remainingTotal > 0) {
+            btn.textContent = `完善品牌信息（+${remainingTotal}次下载）`
+          }
+        } catch (e) { /* 保持兜底文案 */ }
+      }).catch(() => {})
+    }
 
     document.getElementById('incompleteContinueBtn').addEventListener('click', () => {
       modal.remove()

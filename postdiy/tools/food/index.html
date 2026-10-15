@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>元宝 · 每日营养执行表</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+            padding: 16px 12px 92px;
+            max-width: 780px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        h1 small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #64748b;
+            margin-left: auto;
+        }
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 42px;
+            padding: 8px 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            margin-bottom: 12px;
+        }
+        .date-nav button {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.1s;
+            color: #334155;
+        }
+        .date-nav button:active { background: #eef2f6; }
+        .date-nav span {
+            font-weight: 550;
+            font-size: 17px;
+        }
+
+        .chip-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .chip {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 34px;
+            padding: 9px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.05s;
+        }
+        .chip:active { background: #f1f5f9; }
+        .chip.primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+        .chip.primary:active { background: #1d4ed8; }
+
+        /* ==================== 弹窗 ==================== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal.open {
+            display: flex;
+            animation: fadeIn 0.18s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-card {
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 8px 40px rgba(15,23,42,0.16);
+            width: 100%;
+            max-width: 420px;
+            max-height: 84vh;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.18s;
+        }
+        .modal-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 16px 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .modal-head h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .modal-head .sub {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+        .close-x {
+            margin-left: auto;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 20px;
+            border: none;
+            background: none;
+            line-height: 1;
+            padding: 0 4px;
+        }
+        .modal-body {
+            padding: 12px 16px 16px;
+            overflow-y: auto;
+        }
+        .modal-foot {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px 16px;
+        }
+        .mbtn {
+            flex: 1;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            color: #334155;
+            border-radius: 30px;
+            padding: 10px 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .mbtn:active { background: #f1f5f9; }
+        .mbtn.primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+        .mbtn.danger { color: #dc2626; border-color: #fecaca; }
+        .panel-note {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* ==================== 个人设置摘要行 ==================== */
+        .profile-bar {
+            background: white;
+            border-radius: 24px;
+            padding: 11px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .profile-bar b {
+            color: #1e293b;
+            font-weight: 550;
+        }
+        .profile-bar .set-btn {
+            margin-left: auto;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 24px;
+            padding: 7px 14px;
+            font-size: 13px;
+            color: #334155;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .profile-bar .set-btn:active { background: #e2e8f0; }
+        .pm-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            font-size: 15px;
+        }
+        .pm-row label {
+            color: #475569;
+            width: 72px;
+            flex-shrink: 0;
+        }
+        .pm-row select,
+        .pm-row input {
+            border: 1px solid #d1d9e6;
+            border-radius: 24px;
+            padding: 7px 12px;
+            font-size: 15px;
+            background: white;
+            outline: none;
+            flex: 1;
+            max-width: 160px;
+        }
+        .pm-row select:focus,
+        .pm-row input:focus { border-color: #2563eb; }
+        .pm-note {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 9px 12px;
+            font-size: 13px;
+            color: #475569;
+            margin-top: 8px;
+        }
+
+        .tip-bar {
+            background: #fef9e7;
+            border-left: 5px solid #fbbf24;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            color: #92400e;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 22px;
+        }
+        .section-title {
+            font-weight: 650;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .section-title .badge {
+            background: #e2e8f0;
+            border-radius: 40px;
+            padding: 0 12px;
+            font-size: 13px;
+            font-weight: 450;
+            color: #334155;
+        }
+
+        .option-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .option-card {
+            background: white;
+            border-radius: 18px;
+            padding: 12px 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+            border: 1.5px solid transparent;
+            transition: 0.08s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .option-card.selected {
+            border-color: #2563eb;
+            background: #f0f5ff;
+        }
+        .option-card .check {
+            width: 22px;
+            height: 22px;
+            border-radius: 44px;
+            border: 2px solid #cbd5e1;
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: 0.06s;
+        }
+        .option-card.selected .check {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        .option-card .info {
+            flex: 1;
+        }
+        .option-card .info strong {
+            font-size: 16px;
+        }
+        .option-card .info .meta {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+        .option-card .info .steps {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 6px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+            display: none;
+        }
+        .option-card.selected .info .steps {
+            display: block;
+        }
+        .steps .ing {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 7px;
+        }
+        .steps .how {
+            font-size: 13px;
+            color: #1e293b;
+            font-weight: 550;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 8px 10px;
+            line-height: 1.55;
+        }
+
+        /* ==================== 每餐食材摘要chip ==================== */
+        .add-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            background: #f0f5ff;
+            border: 1.5px dashed #93b4f5;
+            color: #2563eb;
+            border-radius: 30px;
+            padding: 7px 14px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .add-chip:active { background: #e0eaff; }
+        .add-chip.has-items {
+            background: white;
+            border: 1.5px solid #c7d7f8;
+            color: #334155;
+        }
+
+        /* ==================== 食材弹窗内容 ==================== */
+        .extras-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .extra-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 7px 12px;
+            font-size: 14px;
+        }
+        .extra-row .nm {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .extra-row input.qty {
+            width: 64px;
+            border: 1px solid #d1d9e6;
+            border-radius: 20px;
+            padding: 4px 8px;
+            font-size: 13px;
+            text-align: right;
+            outline: none;
+            background: white;
+        }
+        .extra-row input.qty:focus { border-color: #2563eb; }
+        .extra-row .ec {
+            font-size: 12px;
+            color: #64748b;
+            min-width: 46px;
+            text-align: right;
+        }
+        .extra-row .rm {
+            border: none;
+            background: #fef2f2;
+            color: #dc2626;
+            width: 22px;
+            height: 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1;
+        }
+        .lib-label {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .lib-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        .lib-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 8px 6px;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .lib-item small {
+            display: block;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        .lib-item:active {
+            border-color: #2563eb;
+            background: #f0f5ff;
+        }
+
+        .mustdo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .mustdo-item {
+            background: white;
+            border-radius: 18px;
+            padding: 12px 14px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: 0.05s;
+            font-size: 14px;
+        }
+        .mustdo-item.checked {
+            border-color: #059669;
+            background: #ecfdf5;
+        }
+        .mustdo-item .cb {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 2px solid #cbd5e1;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+        .mustdo-item.checked .cb {
+            background: #059669;
+            border-color: #059669;
+        }
+        .mustdo-item .sub {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .optional-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .optional-tag {
+            background: white;
+            border-radius: 34px;
+            padding: 8px 16px;
+            border: 1.5px solid #e2e8f0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.05s;
+            user-select: none;
+        }
+        .optional-tag.active {
+            background: #ede9fe;
+            border-color: #7c3aed;
+            color: #4c1d95;
+        }
+
+        /* ==================== 底部固定营养条 ==================== */
+        #bottomBar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 50;
+            background: white;
+            box-shadow: 0 -2px 14px rgba(15,23,42,0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+        }
+        .bb-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 756px;
+            margin: 0 auto;
+        }
+        .bb-scroll {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            min-width: 0;
+        }
+        .bb-track {
+            display: inline-flex;
+            gap: 8px;
+            will-change: transform;
+        }
+        .bb-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            background: #f1f5f9;
+            color: #334155;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+        .bb-item.cost { background: #f0fdfa; color: #0f766e; font-weight: 600; }
+        .bb-item.warn { background: #fffbeb; color: #92400e; }
+        .bb-item.ok { background: #f0fdf4; color: #166534; }
+        .bb-item:active { filter: brightness(0.96); }
+        .bb-detail {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 22px;
+            padding: 8px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .bb-detail:active { background: #1d4ed8; }
+
+        /* ==================== 营养详情弹窗 ==================== */
+        .cost-line {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #0f766e;
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            border-radius: 14px;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cost-line b { font-size: 17px; }
+        .cost-line .per-week {
+            margin-left: auto;
+            font-size: 12px;
+            color: #14b8a6;
+        }
+        .tips-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .tip-item {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            font-size: 13px;
+            border-radius: 12px;
+            padding: 8px 12px;
+            line-height: 1.45;
+        }
+        .tip-item.ok {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+        .tip-item.hint {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            min-width: 70px;
+            font-size: 14px;
+            font-weight: 480;
+            color: #334155;
+        }
+        .stat-bar-bg {
+            flex: 1;
+            min-width: 100px;
+            height: 10px;
+            background: #e9edf2;
+            border-radius: 52px;
+            overflow: hidden;
+        }
+        .stat-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #2563eb;
+            border-radius: 52px;
+            transition: width 0.15s;
+        }
+        .stat-value {
+            font-size: 13px;
+            color: #475569;
+            min-width: 88px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* ==================== 清单/价格弹窗 ==================== */
+        .shop-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 14px;
+        }
+        .shop-row .qty-info {
+            color: #64748b;
+            font-size: 13px;
+        }
+        .shop-total {
+            margin-top: 12px;
+            font-weight: 650;
+            color: #0f766e;
+            font-size: 15px;
+        }
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 14px;
+            border-bottom: 1px dashed #eef2f6;
+        }
+        .price-row input {
+            width: 70px;
+            border: 1px solid #d1d9e6;
+            border-radius: 16px;
+            padding: 4px 8px;
+            text-align: right;
+            font-size: 13px;
+            outline: none;
+        }
+        .price-row input:focus { border-color: #2563eb; }
+        .price-row .unit {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .price-row .note {
+            color: #94a3b8;
+            font-size: 12px;
+            margin-left: auto;
+        }
+
+        @media (max-width: 520px) {
+            .mustdo-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>
+    🥣 每日营养
+    <small>元宝</small>
+</h1>
+
+<div class="date-nav">
+    <button id="prevDay">←</button>
+    <span id="displayDate"></span>
+    <button id="nextDay">→</button>
+</div>
+
+<div class="chip-row">
+    <button class="chip primary" id="autoPlanBtn">⚡ 一键方案</button>
+    <button class="chip" id="copyYestBtn">📋 复制昨日</button>
+    <button class="chip" id="shopBtn">🛒 本周清单</button>
+    <button class="chip" id="priceBtn">💰 价格设置</button>
+</div>
+
+<div class="profile-bar">
+    <span id="profileSummary"></span>
+    <button class="set-btn" id="profileBtn">⚙ 设置</button>
+</div>
+
+<div class="tip-bar">
+    💡 口诀：烧水 → 敲蛋花 → 下主食/冲粉 → 加菠菜 → 淋油 → 吃补剂。蛋花分散到三餐，每周吃1次猪肝，用加碘盐。
+</div>
+
+<section id="breakfastSec">
+    <div class="section-title">🌅 早餐 <span class="badge">选1项</span></div>
+    <div class="option-grid" data-meal="breakfast"></div>
+    <button class="add-chip" data-meal="breakfast">＋ 食材</button>
+</section>
+
+<section id="lunchSec">
+    <div class="section-title">🍗 午餐 <span class="badge">选1项</span></div>
+    <div class="option-grid" data-meal="lunch"></div>
+    <button class="add-chip" data-meal="lunch">＋ 食材</button>
+</section>
+
+<section id="dinnerSec">
+    <div class="section-title">🌙 晚餐 <span class="badge">选1项</span></div>
+    <div class="option-grid" data-meal="dinner"></div>
+    <button class="add-chip" data-meal="dinner">＋ 食材</button>
+</section>
+
+<section>
+    <div class="section-title">✅ 每日必做 <span class="badge">前3项提醒 · 补剂计入营养</span></div>
+    <div class="mustdo-grid" id="mustDoGrid">
+        <div class="mustdo-item" data-key="eggs">
+            <div class="cb">✓</div>
+            <span>🥚 蛋花敲进三餐<span class="sub">营养已含在配方里</span></span>
+        </div>
+        <div class="mustdo-item" data-key="oil">
+            <div class="cb">✓</div>
+            <span>🫒 每餐淋半勺油<span class="sub">营养已含在配方里</span></span>
+        </div>
+        <div class="mustdo-item" data-key="spinach">
+            <div class="cb">✓</div>
+            <span>🥬 每餐一把菠菜<span class="sub">速冻免洗已焯水</span></span>
+        </div>
+        <div class="mustdo-item" data-key="supp">
+            <div class="cb">✓</div>
+            <span>💊 补剂 维B+C+D3<span class="sub">勾选计入今日营养</span></span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="section-title">✨ 可选加分</div>
+    <div class="optional-flex" id="optionalFlex">
+        <span class="optional-tag" data-key="fruit">🍊 水果 200g</span>
+        <span class="optional-tag" data-key="nuts">🥜 花生/坚果 20g</span>
+        <span class="optional-tag" data-key="soymilk">🧃 无糖豆浆 250ml</span>
+        <span class="optional-tag" data-key="liver">🍖 猪肝 100g（每周1次）</span>
+        <span class="optional-tag" data-key="milk">🥛 牛奶 250ml</span>
+    </div>
+</section>
+
+<!-- ==================== 底部固定营养条 ==================== -->
+<div id="bottomBar">
+    <div class="bb-inner">
+        <div class="bb-scroll" id="bbScroll">
+            <div class="bb-track" id="bbTrack"></div>
+        </div>
+        <button class="bb-detail" id="bbDetail">详情</button>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：个人设置 ==================== -->
+<div class="modal" id="profileModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4>个人设置</h4><button class="close-x">×</button></div>
+        <div class="modal-body">
+            <div class="pm-row"><label>性别</label>
+                <select id="genderSel"><option value="male">男</option><option value="female">女</option></select>
+            </div>
+            <div class="pm-row"><label>年龄</label>
+                <input type="number" id="ageInput" value="41" min="10" max="100">
+            </div>
+            <div class="pm-row"><label>体重 kg</label>
+                <input type="number" id="weightInput" value="65" min="30" max="180" step="0.5">
+            </div>
+            <div class="pm-row"><label>目标</label>
+                <select id="goalSel">
+                    <option value="maintain">日常维持</option>
+                    <option value="bulk">增肌</option>
+                    <option value="cut">减脂</option>
+                </select>
+            </div>
+            <div class="pm-note" id="targetPreview"></div>
+        </div>
+        <div class="modal-foot"><button class="mbtn primary" id="profileDone">完成</button></div>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：餐次食材 ==================== -->
+<div class="modal" id="extrasModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4 id="extrasTitle">食材</h4><button class="close-x">×</button></div>
+        <div class="modal-body">
+            <div class="extras-list" id="extrasRows"></div>
+            <div class="lib-label">点击添加（营养与成本实时计入）：</div>
+            <div class="lib-grid" id="libGrid"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：营养详情 ==================== -->
+<div class="modal" id="statsModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4>📊 今日营养详情</h4><button class="close-x">×</button></div>
+        <div class="modal-body" id="statsModalBody"></div>
+        <div class="modal-foot">
+            <button class="mbtn danger" id="clearTodayBtn">🗑️ 清空今日记录</button>
+            <button class="mbtn primary close-x-btn">完成</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：本周购物清单 ==================== -->
+<div class="modal" id="shopModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4>🛒 本周购物清单</h4><button class="close-x">×</button></div>
+        <div class="modal-body" id="shopModalBody"></div>
+        <div class="modal-foot"><button class="mbtn primary close-x-btn">完成</button></div>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：价格设置 ==================== -->
+<div class="modal" id="priceModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4>💰 食材价格 <span class="sub">元/100g</span></h4><button class="close-x">×</button></div>
+        <div class="modal-body" id="priceModalBody"></div>
+        <div class="modal-foot"><button class="mbtn primary close-x-btn">完成</button></div>
+    </div>
+</div>
+
+<!-- ==================== 弹窗：确认清空 ==================== -->
+<div class="modal" id="confirmModal">
+    <div class="modal-card">
+        <div class="modal-head"><h4>清空今日记录</h4><button class="close-x">×</button></div>
+        <div class="modal-body">
+            <div style="font-size:14px;color:#475569">确定清空今日所有记录吗？三餐勾选、自定义食材和打卡都会重置，此操作不可撤销。</div>
+        </div>
+        <div class="modal-foot">
+            <button class="mbtn" id="confirmCancel">取消</button>
+            <button class="mbtn danger" id="confirmOk">确定清空</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ==================== 食材库（每100g营养 + 元/100g价格） ====================
+        const ING = {
+            egg:      { name:'鸡蛋',       emoji:'🥚', kcal:144, p:13.3, c:2.8, f:8.8,  fib:0,   vc:0,  vb:0.15, vd:1.1, ca:56,  zn:1.1, fe:1.8,  price:1.2, dft:55,  note:'约0.66元/个' },
+            oat:      { name:'燕麦原粉',   emoji:'🌾', kcal:370, p:13,   c:60,  f:7,    fib:10,  vc:0,  vb:0.3,  vd:0,   ca:50,  zn:2,   fe:3.5,  price:1.0, dft:50 },
+            soyflour: { name:'熟黄豆粉',   emoji:'🫘', kcal:420, p:35,   c:30,  f:18,   fib:10,  vc:0,  vb:0.4,  vd:0,   ca:200, zn:2.5, fe:6,    price:1.5, dft:20 },
+            spi:      { name:'大豆分离蛋白',emoji:'🥛', kcal:360, p:88,   c:4,   f:1,    fib:0,   vc:0,  vb:0.1,  vd:0,   ca:120, zn:2,   fe:3,    price:4.0, dft:30 },
+            spinach:  { name:'速冻菠菜',   emoji:'🥬', kcal:24,  p:2.9,  c:2.5, f:0.4,  fib:2.2, vc:12, vb:0.1,  vd:0,   ca:15,  zn:0.5, fe:2.5,  price:0.8, dft:150, note:'已焯水·钙按吸收校正' },
+            noodle:   { name:'挂面',       emoji:'🍜', kcal:350, p:10.5, c:74,  f:0.6,  fib:1.5, vc:0,  vb:0.05, vd:0,   ca:15,  zn:0.6, fe:1.2,  price:0.7, dft:80 },
+            brsoy:    { name:'黄豆糙米饭', emoji:'🍚', kcal:145, p:5.2,  c:29,  f:2.8,  fib:2.4, vc:0,  vb:0.15, vd:0,   ca:25,  zn:0.9, fe:1.1,  price:0.4, dft:300, note:'熟重·黄豆:糙米=1:3' },
+            rice:     { name:'米饭',       emoji:'🍚', kcal:130, p:2.6,  c:28,  f:0.3,  fib:0.5, vc:0,  vb:0.02, vd:0,   ca:8,   zn:0.5, fe:0.5,  price:0.35,dft:250, note:'熟重' },
+            meat:     { name:'鸡腿/瘦肉',  emoji:'🍗', kcal:180, p:25,   c:0,   f:9,    fib:0,   vc:0,  vb:0.4,  vd:0.2, ca:8,   zn:2.8, fe:1.5,  price:2.0, dft:100, note:'熟重·血红素铁' },
+            liver:    { name:'猪肝',       emoji:'🍖', kcal:130, p:19,   c:2,   f:4,    fib:0,   vc:20, vb:2.0,  vd:1.2, ca:6,   zn:2,   fe:20,   price:2.5, dft:100, note:'每周1次·铁/B12/维A' },
+            oil:      { name:'食用油',     emoji:'🫒', kcal:900, p:0,    c:0,   f:100,  fib:0,   vc:0,  vb:0,    vd:0,   ca:0,   zn:0,   fe:0,    price:1.0, dft:8 },
+            sesame:   { name:'芝麻酱',     emoji:'🥜', kcal:630, p:19,   c:15,  f:52,   fib:5,   vc:0,  vb:0.2,  vd:0,   ca:800, zn:5,   fe:15,   price:2.5, dft:10,  note:'补钙锌' },
+            flax:     { name:'亚麻籽粉',   emoji:'🟤', kcal:530, p:18,   c:2,   f:42,   fib:27,  vc:0,  vb:0.1,  vd:0,   ca:250, zn:4,   fe:5,    price:1.5, dft:10,  note:'Omega-3' },
+            tofu:     { name:'北豆腐',     emoji:'⬜', kcal:100, p:9,    c:3,   f:5,    fib:0.5, vc:0,  vb:0.05, vd:0,   ca:130, zn:0.6, fe:1.5,  price:0.4, dft:150, note:'便宜钙源' },
+            soymilk:  { name:'无糖豆浆',   emoji:'🧃', kcal:30,  p:3,    c:1.5, f:1.6,  fib:0.3, vc:0,  vb:0.02, vd:0,   ca:30,  zn:0.2, fe:0.4,  price:0.5, dft:250 },
+            fruit:    { name:'水果',       emoji:'🍊', kcal:55,  p:0.5,  c:13,  f:0.2,  fib:2,   vc:28, vb:0.05, vd:0,   ca:15,  zn:0.1, fe:0.3,  price:0.8, dft:200, note:'橙/猕猴桃维C高' },
+            nuts:     { name:'花生/坚果',  emoji:'🥜', kcal:580, p:22,   c:15,  f:48,   fib:8,   vc:0,  vb:0.3,  vd:0,   ca:60,  zn:2.5, fe:2,    price:1.5, dft:20 },
+            milk:     { name:'牛奶',       emoji:'🥛', kcal:55,  p:3,    c:4.5, f:3.2,  fib:0,   vc:0,  vb:0.05, vd:0.4, ca:104, zn:0.4, fe:0.1,  price:1.0, dft:250 },
+            sweetpot: { name:'红薯',       emoji:'🍠', kcal:90,  p:1.6,  c:21,  f:0.2,  fib:1.6, vc:25, vb:0.06, vd:0,   ca:30,  zn:0.2, fe:0.5,  price:0.3, dft:200, note:'便宜主食替代' },
+        };
+
+        // ==================== 预设配方（食材: 克数） ====================
+        const RECIPES = {
+            breakfast: {
+                ba: { name:'A · 燕麦蛋花糊', items:[['egg',110],['spinach',100],['oat',50],['soyflour',20],['flax',10],['oil',5]],
+                    steps:'水开敲2个蛋+菠菜，关火冲入燕麦50g+黄豆粉20g+亚麻籽10g，淋油。' },
+                bb: { name:'B · 蛋白奶昔+蛋花', items:[['spi',30],['oat',50],['soyflour',20],['egg',110],['spinach',100],['flax',10],['oil',5]],
+                    steps:'分离蛋白30g+燕麦50g+黄豆粉20g+亚麻籽10g热水搅匀；另锅敲2个蛋花+菠菜。' },
+                bc: { name:'C · 挂面蛋花汤', items:[['noodle',80],['egg',110],['spinach',100],['soyflour',20],['flax',10],['oil',5]],
+                    steps:'水开敲2个蛋+菠菜+挂面80g+黄豆粉20g，煮3分钟，淋油。' },
+            },
+            lunch: {
+                la: { name:'A · 肉 + 米饭', items:[['meat',150],['rice',300],['spinach',150],['oil',8]],
+                    steps:'150g熟鸡腿/瘦肉+米饭300g+烫菠菜，淋油。（可周日批量做好冷藏）' },
+                lb: { name:'B · 黄豆糙米饭 + 蛋花', items:[['brsoy',350],['egg',110],['spinach',150],['sesame',10],['oil',8]],
+                    steps:'黄豆糙米饭350g微波加热；另锅敲2个蛋花+菠菜，淋油+芝麻酱10g。' },
+                lc: { name:'C · 蛋白粉挂面', items:[['noodle',80],['spi',30],['egg',110],['spinach',150],['oil',8]],
+                    steps:'挂面80g+菠菜煮熟，关火加蛋白粉30g（冷水化开），另敲2个蛋花，淋油。' },
+            },
+            dinner: {
+                da: { name:'A · 午餐减量版', items:[['meat',75],['rice',250],['spinach',100],['oil',5]],
+                    steps:'同午餐A减量：肉75g+米饭250g+菠菜，淋油。' },
+                db: { name:'B · 清淡蛋花汤', items:[['egg',110],['spinach',150],['oil',5]],
+                    steps:'水开敲2个蛋+菠菜+半勺油，不加主食。适合不饿时。' },
+                dc: { name:'C · 豆腐糙米碗', items:[['tofu',200],['brsoy',250],['spinach',100],['sesame',10],['oil',5]],
+                    steps:'北豆腐200g+黄豆糙米饭250g+菠菜煮3分钟，淋芝麻酱10g+油。' },
+            }
+        };
+
+        // ==================== 一键方案（按目标轮换） ====================
+        const AUTO_PLAN = {
+            bulk:     [['ba','lb','da'], ['bc','la','dc'], ['bb','lc','db']],
+            cut:      [['bb','lc','db'], ['bc','lb','db'], ['bb','la','db']],
+            maintain: [['ba','lb','da'], ['bc','la','dc'], ['ba','lc','db']],
+        };
+
+        // 可选加分项 -> 食材与份量
+        const OPT_ITEMS = {
+            fruit:   ['fruit', 200],
+            nuts:    ['nuts', 20],
+            soymilk: ['soymilk', 250],
+            liver:   ['liver', 100],
+            milk:    ['milk', 250],
+        };
+
+        // 补剂营养（维C 100mg + B族 2mg + D3 20μg）
+        const SUPP_NUTRI = { vc:100, vb:2, vd:20 };
+
+        const MEALS = ['breakfast','lunch','dinner'];
+        const MEAL_NAMES = { breakfast:'早餐', lunch:'午餐', dinner:'晚餐' };
+        const GOAL_NAMES = { bulk:'增肌', cut:'减脂', maintain:'维持' };
+
+        // ==================== 状态 ====================
+        let currentDate = new Date();
+        let state = null;
+        let profile = { gender:'male', age:41, weight:65, goal:'bulk' };
+        let PRICE = {};
+        let currentExtrasMeal = null;
+
+        const $ = s => document.querySelector(s);
+
+        function fmt(d) {
+            return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        }
+        function dateKey(d) { return 'nutri_' + fmt(d); }
+
+        function normalize(p) {
+            p = p || {};
+            const md = p.mustdo || {};
+            return {
+                breakfast: p.breakfast || null,
+                lunch: p.lunch || null,
+                dinner: p.dinner || null,
+                mustdo: { eggs:!!md.eggs, oil:!!md.oil, spinach:!!md.spinach, supp:!!(md.supp || md.supplement) },
+                optional: p.optional || {},
+                extras: Object.assign({ breakfast:[], lunch:[], dinner:[] }, p.extras || {}),
+            };
+        }
+        function resetState() { state = normalize(null); }
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(dateKey(currentDate));
+                state = raw ? normalize(JSON.parse(raw)) : normalize(null);
+            } catch(e) { resetState(); }
+        }
+        function saveState() {
+            localStorage.setItem(dateKey(currentDate), JSON.stringify(state));
+        }
+
+        function loadPrices() {
+            try { PRICE = JSON.parse(localStorage.getItem('nutri_prices')) || {}; }
+            catch(e) { PRICE = {}; }
+        }
+        function savePrices() { localStorage.setItem('nutri_prices', JSON.stringify(PRICE)); }
+        function getPrice(id) { return PRICE[id] != null ? PRICE[id] : ING[id].price; }
+        function itemCost(id, g) { return g / 100 * getPrice(id); }
+
+        function loadProfile() {
+            try {
+                const raw = localStorage.getItem('nutri_profile');
+                if (raw) profile = Object.assign(profile, JSON.parse(raw));
+            } catch(e) {}
+            $('#genderSel').value = profile.gender;
+            $('#ageInput').value = profile.age;
+            $('#weightInput').value = profile.weight;
+            $('#goalSel').value = profile.goal;
+        }
+        function saveProfile() {
+            profile.gender = $('#genderSel').value;
+            profile.age = parseInt($('#ageInput').value) || 41;
+            profile.weight = parseFloat($('#weightInput').value) || 65;
+            profile.goal = $('#goalSel').value;
+            localStorage.setItem('nutri_profile', JSON.stringify(profile));
+        }
+
+        function calcTargets() {
+            const w = profile.weight;
+            const isMale = profile.gender === 'male';
+            const age = profile.age;
+            const bmr = isMale ? 10*w + 875 - 5*age : 10*w + 725 - 5*age;
+            const tdee = Math.round(bmr * 1.5);
+            let proteinFactor, carbFactor, fatFactor;
+            if (profile.goal === 'bulk') { proteinFactor=1.8; carbFactor=4.5; fatFactor=0.9; }
+            else if (profile.goal === 'cut') { proteinFactor=2.0; carbFactor=3.0; fatFactor=0.7; }
+            else { proteinFactor=1.2; carbFactor=3.5; fatFactor=0.8; }
+            const protein = Math.round(w * proteinFactor);
+            let carbs = Math.round(w * carbFactor);
+            let fat = Math.round(w * fatFactor);
+            if (Math.abs(protein*4 + carbs*4 + fat*9 - tdee) > 200) {
+                carbs = Math.max(50, Math.round((tdee - protein*4 - fat*9) / 4));
+            }
+            return {
+                calories: tdee, protein, carbs, fat,
+                fiber: 30, vitc: 100, vb: 1.2, vd: 20,
+                calcium: 800,
+                zinc: isMale ? 12 : 8,
+                iron: isMale ? 10 : 18,
+            };
+        }
+
+        // ==================== 营养 / 成本计算 ====================
+        function addItems(t, items) {
+            for (const [id, g] of items) {
+                const n = ING[id];
+                if (!n) continue;
+                const k = g / 100;
+                t.kcal += n.kcal*k; t.p += n.p*k; t.c += n.c*k; t.f += n.f*k; t.fib += n.fib*k;
+                t.vc += n.vc*k; t.vb += n.vb*k; t.vd += n.vd*k; t.ca += n.ca*k; t.zn += n.zn*k; t.fe += n.fe*k;
+            }
+        }
+        function computeIntake() {
+            const t = { kcal:0, p:0, c:0, f:0, fib:0, vc:0, vb:0, vd:0, ca:0, zn:0, fe:0 };
+            for (const meal of MEALS) {
+                const k = state[meal];
+                if (k && RECIPES[meal][k]) addItems(t, RECIPES[meal][k].items);
+                for (const e of state.extras[meal]) addItems(t, [[e.id, e.g]]);
+            }
+            for (const key in state.optional) {
+                if (state.optional[key] && OPT_ITEMS[key]) addItems(t, [OPT_ITEMS[key]]);
+            }
+            if (state.mustdo.supp) { t.vc += SUPP_NUTRI.vc; t.vb += SUPP_NUTRI.vb; t.vd += SUPP_NUTRI.vd; }
+            for (const k in t) t[k] = Math.round(t[k]*10)/10;
+            return t;
+        }
+        function computeCost() {
+            let c = 0;
+            for (const meal of MEALS) {
+                const k = state[meal];
+                if (k && RECIPES[meal][k]) for (const [id, g] of RECIPES[meal][k].items) c += itemCost(id, g);
+                for (const e of state.extras[meal]) c += itemCost(e.id, e.g);
+            }
+            for (const key in state.optional) {
+                if (state.optional[key] && OPT_ITEMS[key]) { const [id, g] = OPT_ITEMS[key]; c += itemCost(id, g); }
+            }
+            return c;
+        }
+        function recipeMeta(items) {
+            let p = 0, kcal = 0, cost = 0;
+            for (const [id, g] of items) {
+                const n = ING[id], k = g/100;
+                p += n.p*k; kcal += n.kcal*k; cost += itemCost(id, g);
+            }
+            return { p: Math.round(p), kcal: Math.round(kcal), cost: cost.toFixed(1) };
+        }
+
+        // ==================== 提示（token用于底栏，full用于详情弹窗） ====================
+        function calcTips(t, i) {
+            const tips = [];
+            if (!state.breakfast && !state.lunch && !state.dinner) {
+                tips.push({ token:{ txt:'点「⚡一键方案」自动配三餐', cls:'hint' }, full:'点顶部「⚡ 一键方案」自动配好三餐，或直接点选下面任意卡片。' });
+            }
+            if (i.p < t.protein*0.9) {
+                const d = Math.round(t.protein - i.p);
+                const g = Math.ceil(d/0.88/5)*5;
+                tips.push({ token:{ txt:'蛋白⬇'+d+'g', cls:'warn' }, full:`蛋白差 ${d}g → 加大豆分离蛋白 ${g}g（约¥${(g/100*getPrice('spi')).toFixed(1)}），冲进任意一餐` });
+            }
+            if (i.kcal < t.calories*0.9) {
+                const d = Math.round(t.calories - i.kcal);
+                tips.push({ token:{ txt:'⬇'+d+'kcal', cls:'warn' }, full:`热量差 ${d}kcal → 主食加约 ${Math.round(d/1.3)}g米饭（或黄豆糙米饭），或加1勺油` });
+            }
+            if (i.kcal > t.calories*1.1) {
+                tips.push({ token:{ txt:'⬆'+Math.round(i.kcal - t.calories)+'kcal', cls:'warn' }, full:`热量超出 ${Math.round(i.kcal - t.calories)}kcal → 今晚主食减半，明天少选一份` });
+            }
+            if (i.ca < t.calcium*0.8) {
+                tips.push({ token:{ txt:'钙⬇'+Math.round(t.calcium - i.ca)+'mg', cls:'warn' }, full:`钙差 ${Math.round(t.calcium - i.ca)}mg → 豆浆300ml / 北豆腐150g / 芝麻酱15g，任选一样加上` });
+            }
+            if (i.fe < t.iron*0.8) {
+                tips.push({ token:{ txt:'铁⬇'+Math.round(t.iron - i.fe)+'mg', cls:'warn' }, full:`铁差 ${Math.round(t.iron - i.fe)}mg → 本周安排1次猪肝100g，或午餐选A（肉）` });
+            }
+            if (i.zn < t.zinc*0.8) {
+                tips.push({ token:{ txt:'锌⬇'+Math.round(t.zinc - i.zn)+'mg', cls:'warn' }, full:`锌差 ${Math.round(t.zinc - i.zn)}mg → 午餐选A（肉），或加花生/坚果30g` });
+            }
+            if (i.vc < t.vitc*0.8) {
+                tips.push({ token:{ txt:'维C⬇'+Math.round(t.vitc - i.vc)+'mg', cls:'warn' }, full:`维C差 ${Math.round(t.vitc - i.vc)}mg → 加1份水果（橙/猕猴桃），或勾补剂` });
+            }
+            if (i.fib < t.fiber*0.8) {
+                tips.push({ token:{ txt:'纤维⬇'+Math.round(t.fiber - i.fib)+'g', cls:'warn' }, full:`纤维差 ${Math.round(t.fiber - i.fib)}g → 加水果200g，或早餐燕麦多加30g` });
+            }
+            if (i.vd < t.vd*0.8) {
+                tips.push({ token:{ txt:'维D⬇', cls:'warn' }, full:'维D3没达标 → 勾选补剂（最省事），白天晒15分钟太阳' });
+            }
+            if (i.vb < t.vb*0.8) {
+                tips.push({ token:{ txt:'维B⬇', cls:'warn' }, full:'维B族没达标 → 勾选补剂即可覆盖' });
+            }
+            return tips;
+        }
+
+        const STAT_FIELDS = t => [
+            { k:'kcal', label:'🔥 热量',   unit:'kcal', tgt:t.calories, d:0 },
+            { k:'p',    label:'💪 蛋白质', unit:'g',    tgt:t.protein,  d:0 },
+            { k:'c',    label:'🍚 碳水',   unit:'g',    tgt:t.carbs,    d:0 },
+            { k:'f',    label:'🫒 脂肪',   unit:'g',    tgt:t.fat,      d:0 },
+            { k:'fib',  label:'🥦 纤维',   unit:'g',    tgt:t.fiber,    d:0 },
+            { k:'vc',   label:'🍊 维C',    unit:'mg',   tgt:t.vitc,     d:0 },
+            { k:'vb',   label:'🧪 维B族',  unit:'mg',   tgt:t.vb,       d:1 },
+            { k:'vd',   label:'☀️ 维D3',   unit:'μg',   tgt:t.vd,       d:0 },
+            { k:'ca',   label:'🦴 钙',     unit:'mg',   tgt:t.calcium,  d:0 },
+            { k:'zn',   label:'⚡ 锌',     unit:'mg',   tgt:t.zinc,     d:0 },
+            { k:'fe',   label:'🩸 铁',     unit:'mg',   tgt:t.iron,     d:0 },
+        ];
+        function barsHtml(t, i) {
+            let html = '';
+            for (const f of STAT_FIELDS(t)) {
+                const val = i[f.k] || 0;
+                const tgt = f.tgt || 1;
+                const pct = Math.min(100, Math.round(val / tgt * 100));
+                const color = pct >= 90 ? '#059669' : pct >= 60 ? '#2563eb' : '#f59e0b';
+                html += `<div class="stat-row">
+                    <span class="stat-label">${f.label}</span>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+                    <span class="stat-value">${val.toFixed(f.d)} / ${tgt.toFixed(f.d)} ${f.unit}</span>
+                </div>`;
+            }
+            return html;
+        }
+
+        // ==================== 底部固定条 ====================
+        function renderBottomBar(t, i, cost, tips) {
+            const tokens = [`<span class="bb-item cost" data-open="stats">💰¥${cost.toFixed(1)}</span>`];
+            if (tips.length === 0) {
+                tokens.push('<span class="bb-item ok" data-open="stats">✅ 已达标</span>');
+            } else {
+                for (const tp of tips) tokens.push(`<span class="bb-item ${tp.token.cls}" data-open="stats">${tp.token.txt}</span>`);
+            }
+            $('#bbTrack').innerHTML = tokens.join('');
+            bbX = 0;
+            $('#bbTrack').style.transform = 'none';
+        }
+        let bbX = 0, bbDir = 1;
+        function marqueeTick() {
+            const track = $('#bbTrack'), wrap = $('#bbScroll');
+            if (track && wrap) {
+                const overflow = track.scrollWidth - wrap.clientWidth;
+                if (overflow > 4) {
+                    bbX += bbDir * 0.6;
+                    if (bbX >= 0) { bbX = 0; bbDir = -1; }
+                    if (bbX <= -overflow) { bbX = -overflow; bbDir = 1; }
+                    track.style.transform = `translateX(${bbX}px)`;
+                }
+            }
+            requestAnimationFrame(marqueeTick);
+        }
+
+        // ==================== 渲染 ====================
+        function buildCards() {
+            for (const meal of MEALS) {
+                const grid = document.querySelector(`.option-grid[data-meal="${meal}"]`);
+                grid.innerHTML = '';
+                for (const key in RECIPES[meal]) {
+                    const r = RECIPES[meal][key];
+                    const comp = r.items.map(([id,g]) => `${ING[id].emoji}${ING[id].name}${g}${id==='soymilk'||id==='milk'?'ml':'g'}`).join(' · ');
+                    const card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.dataset.key = key;
+                    card.innerHTML = `
+                        <div class="check">✓</div>
+                        <div class="info">
+                            <strong>${r.name}</strong>
+                            <div class="meta"></div>
+                            <div class="steps"><div class="ing">🧺 ${comp}</div><div class="how">👨‍🍳 ${r.steps}</div></div>
+                        </div>`;
+                    card.addEventListener('click', function() {
+                        state[meal] = (state[meal] === key) ? null : key;
+                        renderAll();
+                    });
+                    grid.appendChild(card);
+                }
+            }
+        }
+        function renderMetas() {
+            for (const meal of MEALS) {
+                document.querySelectorAll(`.option-grid[data-meal="${meal}"] .option-card`).forEach(card => {
+                    const r = RECIPES[meal][card.dataset.key];
+                    const m = recipeMeta(r.items);
+                    card.querySelector('.meta').textContent = `蛋白${m.p}g · ${m.kcal}kcal · ¥${m.cost}`;
+                });
+            }
+        }
+
+        function renderProfileSummary() {
+            const g = profile.gender === 'male' ? '男' : '女';
+            $('#profileSummary').innerHTML = `<b>${g}</b> · <b>${profile.age}</b>岁 · <b>${profile.weight}</b>kg · <b>${GOAL_NAMES[profile.goal]}</b>`;
+            const t = calcTargets();
+            $('#targetPreview').textContent = `每日目标参考：${t.calories}kcal · 蛋白${t.protein}g · 碳水${t.carbs}g · 脂肪${t.fat}g`;
+        }
+
+        function extrasCost(meal) {
+            return state.extras[meal].reduce((s, e) => s + itemCost(e.id, e.g), 0);
+        }
+        function renderExtrasChip(meal) {
+            const chip = document.querySelector(`.add-chip[data-meal="${meal}"]`);
+            const items = state.extras[meal];
+            if (items.length === 0) {
+                chip.textContent = '＋ 食材';
+                chip.classList.remove('has-items');
+            } else {
+                const first = ING[items[0].id];
+                const label = items.length === 1 ? first.name : first.name + ' 等' + items.length + '项';
+                chip.textContent = `${first.emoji} ${label} · ¥${extrasCost(meal).toFixed(1)}`;
+                chip.classList.add('has-items');
+            }
+        }
+
+        // ==================== 食材弹窗 ====================
+        function openExtrasModal(meal) {
+            currentExtrasMeal = meal;
+            $('#extrasTitle').textContent = MEAL_NAMES[meal] + ' · 自定义食材';
+            renderExtrasRows();
+            $('#extrasModal').classList.add('open');
+        }
+        function renderExtrasRows() {
+            const meal = currentExtrasMeal;
+            const box = $('#extrasRows');
+            box.innerHTML = '';
+            state.extras[meal].forEach((e, idx) => {
+                const n = ING[e.id];
+                const row = document.createElement('div');
+                row.className = 'extra-row';
+                row.innerHTML = `
+                    <span class="nm">${n.emoji} ${n.name}</span>
+                    <input type="number" class="qty" min="0" step="5" value="${e.g}"> g
+                    <span class="ec">¥${itemCost(e.id, e.g).toFixed(1)}</span>
+                    <button class="rm">×</button>`;
+                row.querySelector('.qty').addEventListener('input', function() {
+                    e.g = Math.max(0, parseFloat(this.value) || 0);
+                    row.querySelector('.ec').textContent = '¥' + itemCost(e.id, e.g).toFixed(1);
+                    renderExtrasChip(meal);
+                    renderStats();
+                    saveState();
+                });
+                row.querySelector('.rm').addEventListener('click', function() {
+                    state.extras[meal].splice(idx, 1);
+                    renderExtrasRows();
+                    renderExtrasChip(meal);
+                    renderStats();
+                    saveState();
+                });
+                box.appendChild(row);
+            });
+        }
+        function buildLibGrid() {
+            const grid = $('#libGrid');
+            for (const id in ING) {
+                const n = ING[id];
+                const b = document.createElement('div');
+                b.className = 'lib-item';
+                b.innerHTML = `${n.emoji} ${n.name}<small>+${n.dft}${id==='soymilk'||id==='milk'?'ml':'g'}</small>`;
+                b.addEventListener('click', function() {
+                    state.extras[currentExtrasMeal].push({ id, g: n.dft });
+                    renderExtrasRows();
+                    renderExtrasChip(currentExtrasMeal);
+                    renderStats();
+                    saveState();
+                });
+                grid.appendChild(b);
+            }
+        }
+
+        // ==================== 详情弹窗 ====================
+        function renderStatsModal() {
+            const t = calcTargets();
+            const i = computeIntake();
+            const cost = computeCost();
+            const tips = calcTips(t, i);
+            let html = `<div class="cost-line">💰 今日餐食成本 ≈ <b>¥${cost.toFixed(1)}</b><span class="per-week">一周参考 ≈ ¥${Math.round(cost*7)}</span></div>`;
+            if (tips.length === 0) {
+                html += '<div class="tips-box"><div class="tip-item ok">✅ 今日营养已全覆盖，按计划吃就行。</div></div>';
+            } else {
+                html += '<div class="tips-box">' + tips.map(tp => `<div class="tip-item ${tp.cls||''}">${tp.full}</div>`).join('') + '</div>';
+            }
+            html += barsHtml(t, i);
+            $('#statsModalBody').innerHTML = html;
+        }
+
+        // ==================== 清单/价格弹窗 ====================
+        function buildShopModal() {
+            const rot = AUTO_PLAN[profile.goal];
+            const agg = {};
+            for (let d = 0; d < 7; d++) {
+                const p = rot[d % rot.length];
+                for (let m = 0; m < 3; m++) {
+                    for (const [id, g] of RECIPES[MEALS[m]][p[m]].items) agg[id] = (agg[id]||0) + g;
+                }
+            }
+            let total = 0, html = '';
+            const ids = Object.keys(agg).sort((a,b) => itemCost(b, agg[b]) - itemCost(a, agg[a]));
+            for (const id of ids) {
+                const n = ING[id], g = agg[id], c = itemCost(id, g);
+                total += c;
+                const qty = id === 'egg' ? `≈${Math.round(g/55)}个 / ${g}g` : g + 'g';
+                html += `<div class="shop-row"><span>${n.emoji} ${n.name}</span><span class="qty-info">${qty} · ¥${c.toFixed(1)}</span></div>`;
+            }
+            html += `<div class="shop-total">合计 ≈ ¥${total.toFixed(0)} / 周（¥${(total/7).toFixed(1)}/天）</div>`;
+            html += `<div class="panel-note">按「${GOAL_NAMES[profile.goal]}」模板×7天估算正餐食材。补剂、加碘盐按月购买未计入。周末集中采购一次即可。</div>`;
+            $('#shopModalBody').innerHTML = html;
+        }
+        function buildPriceModal() {
+            let html = '';
+            for (const id in ING) {
+                const n = ING[id];
+                html += `<div class="price-row">
+                    <span>${n.emoji} ${n.name}</span>
+                    <input type="number" step="0.05" min="0" data-pid="${id}" value="${getPrice(id)}">
+                    <span class="unit">元/100g</span>
+                    <span class="note">${n.note||''}</span>
+                </div>`;
+            }
+            html += '<div class="panel-note">按实际采购价改，所有成本数字实时重算。散装/批发价通常比零售低30%以上。</div>';
+            $('#priceModalBody').innerHTML = html;
+            $('#priceModalBody').querySelectorAll('input[data-pid]').forEach(inp => {
+                inp.addEventListener('input', function() {
+                    const v = parseFloat(this.value);
+                    if (v >= 0) {
+                        PRICE[this.dataset.pid] = v;
+                        savePrices();
+                        renderMetas();
+                        renderStats();
+                    }
+                });
+            });
+        }
+
+        // ==================== 主渲染 ====================
+        function renderStats() {
+            const t = calcTargets();
+            const i = computeIntake();
+            const cost = computeCost();
+            const tips = calcTips(t, i);
+            renderBottomBar(t, i, cost, tips);
+            if ($('#statsModal').classList.contains('open')) renderStatsModal();
+        }
+        function renderAll() {
+            $('#displayDate').textContent = fmt(currentDate);
+            renderProfileSummary();
+            renderMetas();
+            for (const meal of MEALS) {
+                document.querySelectorAll(`.option-grid[data-meal="${meal}"] .option-card`).forEach(card => {
+                    card.classList.toggle('selected', state[meal] === card.dataset.key);
+                });
+                renderExtrasChip(meal);
+            }
+            document.querySelectorAll('.mustdo-item').forEach(el => {
+                el.classList.toggle('checked', !!state.mustdo[el.dataset.key]);
+            });
+            document.querySelectorAll('.optional-tag').forEach(el => {
+                el.classList.toggle('active', !!state.optional[el.dataset.key]);
+            });
+            renderStats();
+            saveState();
+        }
+
+        // ==================== 一键方案 / 复制昨日 ====================
+        function autoPlan() {
+            const rot = AUTO_PLAN[profile.goal];
+            const plan = rot[((currentDate.getDay()+6)%7) % rot.length];
+            state.breakfast = plan[0];
+            state.lunch = plan[1];
+            state.dinner = plan[2];
+            state.mustdo.eggs = true;
+            state.mustdo.oil = true;
+            state.mustdo.spinach = true;
+            renderAll();
+        }
+        function copyYesterday() {
+            const y = new Date(currentDate);
+            y.setDate(y.getDate() - 1);
+            const raw = localStorage.getItem(dateKey(y));
+            state = raw ? normalize(JSON.parse(raw)) : normalize(null);
+            renderAll();
+        }
+
+        // ==================== 弹窗通用关闭 ====================
+        document.querySelectorAll('.modal').forEach(m => {
+            m.addEventListener('click', e => {
+                if (e.target === m || e.target.classList.contains('close-x') || e.target.classList.contains('close-x-btn')) {
+                    m.classList.remove('open');
+                }
+            });
+        });
+
+        // ==================== 事件绑定 ====================
+        $('#prevDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            loadState();
+            renderAll();
+        });
+        $('#nextDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            loadState();
+            renderAll();
+        });
+        $('#autoPlanBtn').addEventListener('click', autoPlan);
+        $('#copyYestBtn').addEventListener('click', copyYesterday);
+        $('#shopBtn').addEventListener('click', () => { buildShopModal(); $('#shopModal').classList.add('open'); });
+        $('#priceBtn').addEventListener('click', () => { buildPriceModal(); $('#priceModal').classList.add('open'); });
+        $('#profileBtn').addEventListener('click', () => { renderProfileSummary(); $('#profileModal').classList.add('open'); });
+        $('#profileDone').addEventListener('click', () => $('#profileModal').classList.remove('open'));
+        $('#bbDetail').addEventListener('click', () => { renderStatsModal(); $('#statsModal').classList.add('open'); });
+        $('#bbTrack').addEventListener('click', e => {
+            if (e.target.classList.contains('bb-item')) { renderStatsModal(); $('#statsModal').classList.add('open'); }
+        });
+        document.querySelectorAll('.add-chip').forEach(ch => {
+            ch.addEventListener('click', () => openExtrasModal(ch.dataset.meal));
+        });
+        $('#clearTodayBtn').addEventListener('click', function() {
+            $('#confirmModal').classList.add('open');
+        });
+        $('#confirmCancel').addEventListener('click', function() {
+            $('#confirmModal').classList.remove('open');
+        });
+        $('#confirmOk').addEventListener('click', function() {
+            $('#confirmModal').classList.remove('open');
+            resetState();
+            renderAll();
+        });
+        document.querySelectorAll('.mustdo-item').forEach(el => {
+            el.addEventListener('click', function() {
+                const k = this.dataset.key;
+                state.mustdo[k] = !state.mustdo[k];
+                renderAll();
+            });
+        });
+        document.querySelectorAll('.optional-tag').forEach(el => {
+            el.addEventListener('click', function() {
+                const k = this.dataset.key;
+                state.optional[k] = !state.optional[k];
+                renderAll();
+            });
+        });
+        [$('#genderSel'), $('#ageInput'), $('#weightInput'), $('#goalSel')].forEach(el => {
+            el.addEventListener('change', () => { saveProfile(); renderProfileSummary(); renderStats(); });
+            el.addEventListener('input', () => { saveProfile(); renderProfileSummary(); renderStats(); });
+        });
+
+        // ==================== 启动 ====================
+        loadPrices();
+        loadProfile();
+        loadState();
+        buildCards();
+        buildLibGrid();
+        renderAll();
+        requestAnimationFrame(marqueeTick);
+    })();
+</script>
+</body>
+</html>

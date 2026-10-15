@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>运营配置管理</title>
+    <!-- 统一后台认证与导航 -->
+    <link rel="stylesheet" href="../admin.css">
+    <script src="../admin-auth.js"></script>
+    <script src="../admin-nav.js"></script>
+    <style>
+        body { background: #f5f6fa; }
+        .cfg-wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px 60px; }
+        .cfg-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .cfg-toolbar h2 { margin: 0; font-size: 20px; color: #333; }
+        .cfg-toolbar .cfg-sub { font-size: 13px; color: #999; }
+        .cfg-card {
+            background: #fff; border: 1px solid #eee; border-radius: 12px;
+            padding: 18px 20px; margin-bottom: 14px;
+        }
+        .cfg-card h3 { font-size: 15px; margin: 0 0 12px; color: #b41408; }
+        .cfg-card label { display: block; font-size: 13px; color: #666; margin: 12px 0 6px; }
+        .cfg-card label:first-of-type { margin-top: 0; }
+        .cfg-card input[type="text"],
+        .cfg-card input[type="number"],
+        .cfg-card textarea {
+            width: 100%; box-sizing: border-box; border: 1px solid #ddd; border-radius: 8px;
+            padding: 10px 12px; font-size: 14px; outline: none; background: #fafafa; font-family: inherit;
+        }
+        .cfg-card input:focus, .cfg-card textarea:focus { border-color: #b41408; background: #fff; }
+        .cfg-card textarea { resize: vertical; min-height: 64px; line-height: 1.6; }
+        .cfg-num-grid { display: flex; gap: 10px; }
+        .cfg-num-grid > div { flex: 1; }
+        .cfg-num-grid label { font-size: 12px; }
+        .cfg-hint { font-size: 12px; color: #999; margin-top: 10px; line-height: 1.7; }
+        .cfg-btns { display: flex; gap: 12px; margin-top: 18px; }
+        .cfg-btns button {
+            flex: 1; height: 44px; border: none; border-radius: 22px;
+            font-size: 15px; cursor: pointer;
+        }
+        .cfg-btn-save { background: linear-gradient(135deg, #b41408, #da4b40); color: #fff; }
+        .cfg-btn-load { background: #fff; color: #555; border: 1px solid #ddd; }
+        .cfg-btns button:active { opacity: 0.85; }
+        .cfg-btns button:disabled { opacity: 0.5; cursor: default; }
+        .cfg-msg { margin-top: 14px; font-size: 13px; display: none; padding: 10px 12px; border-radius: 8px; line-height: 1.6; }
+        .cfg-msg.ok { display: block; background: #e8f7ee; color: #0a7d43; }
+        .cfg-msg.err { display: block; background: #fdeaea; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="manage-content">
+        <div class="cfg-wrap">
+            <div class="cfg-toolbar">
+                <h2>运营配置管理</h2>
+                <span class="cfg-sub">短信提示文案 / 注册赠送次数 / 品牌分项奖励次数（网页端与小程序共用）</span>
+            </div>
+
+            <div class="cfg-card">
+                <h3>短信提示文案</h3>
+                <label for="smsNotice">发送验证码成功后的提示小字</label>
+                <textarea id="smsNotice" maxlength="100" placeholder="验证码由 【上海探索好科技】发送，请注意查收"></textarea>
+            </div>
+
+            <div class="cfg-card">
+                <h3>下载次数配置</h3>
+                <label for="registerBonus">新用户注册赠送下载次数</label>
+                <input type="number" id="registerBonus" min="0" max="999" placeholder="5" />
+
+                <label style="margin-top:16px;">完善品牌信息分项奖励（每项终身限领一次）</label>
+                <div class="cfg-num-grid">
+                    <div>
+                        <label for="bbLogo">商家 Logo</label>
+                        <input type="number" id="bbLogo" min="0" max="99" placeholder="3" />
+                    </div>
+                    <div>
+                        <label for="bbQrcode">商家二维码</label>
+                        <input type="number" id="bbQrcode" min="0" max="99" placeholder="3" />
+                    </div>
+                    <div>
+                        <label for="bbName">商家名称</label>
+                        <input type="number" id="bbName" min="0" max="99" placeholder="1" />
+                    </div>
+                    <div>
+                        <label for="bbPromo">商家引流文案</label>
+                        <input type="number" id="bbPromo" min="0" max="99" placeholder="3" />
+                    </div>
+                </div>
+                <div class="cfg-hint">注册赠送次数：新用户注册时发放；分项奖励：用户完善对应信息后立即发放，每项每账号终身仅一次（小程序与网页端一致）。</div>
+            </div>
+
+            <div class="cfg-btns">
+                <button class="cfg-btn-load" id="btnLoad">读取当前配置</button>
+                <button class="cfg-btn-save" id="btnSave">保存配置</button>
+            </div>
+            <div class="cfg-msg" id="msg"></div>
+        </div>
+    </div>
+
+    <script>
+        var API_BASE = 'https://api.peacelove.top';
+
+        var $ = function (id) { return document.getElementById(id); };
+        var msgTimer = null;
+
+        function showMsg(text, ok) {
+            var el = $('msg');
+            el.className = 'cfg-msg ' + (ok ? 'ok' : 'err');
+            el.textContent = text;
+            clearTimeout(msgTimer);
+            if (ok) msgTimer = setTimeout(function () { el.className = 'cfg-msg'; }, 4000);
+        }
+
+        // 统一后台登录态（admin-auth.js 登录成功后写入），保存配置时作为鉴权凭据
+        function getAdminCreds() {
+            try {
+                return {
+                    adminUserId: localStorage.getItem('postdiy_admin_user_id') || '',
+                    adminPassword: localStorage.getItem('postdiy_admin_password') || ''
+                };
+            } catch (e) { return { adminUserId: '', adminPassword: '' }; }
+        }
+
+        function fillForm(cfg) {
+            $('smsNotice').value = (cfg && cfg.smsNotice) || '';
+            $('registerBonus').value = cfg && cfg.registerBonus != null ? cfg.registerBonus : 5;
+            var bb = (cfg && cfg.brandBonus) || {};
+            $('bbLogo').value = bb.logo != null ? bb.logo : 3;
+            $('bbQrcode').value = bb.qrcode != null ? bb.qrcode : 3;
+            $('bbName').value = bb.name != null ? bb.name : 1;
+            $('bbPromo').value = bb.promo != null ? bb.promo : 3;
+        }
+
+        function post(name, data) {
+            return fetch(API_BASE + '/' + name, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data || {})
+            }).then(function (r) { return r.json(); });
+        }
+
+        $('btnLoad').addEventListener('click', function () {
+            var btn = $('btnLoad');
+            btn.disabled = true;
+            btn.textContent = '读取中...';
+            post('get-app-config', {})
+                .then(function (res) {
+                    if (res.success && res.data) {
+                        fillForm(res.data);
+                        showMsg('配置读取成功', true);
+                    } else {
+                        showMsg(res.message || '读取失败', false);
+                    }
+                })
+                .catch(function () { showMsg('网络异常，读取失败', false); })
+                .finally(function () {
+                    btn.disabled = false;
+                    btn.textContent = '读取当前配置';
+                });
+        });
+
+        $('btnSave').addEventListener('click', function () {
+            var creds = getAdminCreds();
+            if (!creds.adminUserId || !creds.adminPassword) {
+                showMsg('登录状态已失效，请刷新页面重新登录后台', false);
+                return;
+            }
+            var config = {
+                smsNotice: $('smsNotice').value.trim() || '验证码由 【上海探索好科技】发送，请注意查收',
+                registerBonus: parseInt($('registerBonus').value, 10),
+                brandBonus: {
+                    logo: parseInt($('bbLogo').value, 10),
+                    qrcode: parseInt($('bbQrcode').value, 10),
+                    name: parseInt($('bbName').value, 10),
+                    promo: parseInt($('bbPromo').value, 10)
+                }
+            };
+            if (!(config.registerBonus >= 0) || !(config.brandBonus.logo >= 0) || !(config.brandBonus.qrcode >= 0) ||
+                !(config.brandBonus.name >= 0) || !(config.brandBonus.promo >= 0)) {
+                showMsg('次数请填写 0 以上的数字', false);
+                return;
+            }
+            var btn = $('btnSave');
+            btn.disabled = true;
+            btn.textContent = '保存中...';
+            post('save-app-config', {
+                adminUserId: creds.adminUserId,
+                adminPassword: creds.adminPassword,
+                config: config
+            })
+                .then(function (res) {
+                    if (res.success) {
+                        fillForm(res.data);
+                        showMsg('保存成功，网页端与小程序即时生效', true);
+                    } else {
+                        showMsg(res.message || '保存失败', false);
+                    }
+                })
+                .catch(function () { showMsg('网络异常，保存失败', false); })
+                .finally(function () {
+                    btn.disabled = false;
+                    btn.textContent = '保存配置';
+                });
+        });
+
+        // 初始化：自动读取当前配置
+        (function init() {
+            $('btnLoad').click();
+        })();
+    </script>
+</body>
+</html>

@@ -26,7 +26,8 @@ const VIPSystem = (function() {
     adminVipPackages: `${API_BASE_URL}/admin-vip-packages`,
     downloadQuotaManage: `${API_BASE_URL}/download-quota-manage`,
     downloadQuotaLogs: `${API_BASE_URL}/download-quota-logs`,
-    getInviteInfo: `${API_BASE_URL}/get-invite-info`
+    getInviteInfo: `${API_BASE_URL}/get-invite-info`,
+    getAppConfig: `${API_BASE_URL}/get-app-config`
   };
 
   // 本地存储键名
@@ -710,6 +711,58 @@ const VIPSystem = (function() {
     }
   }
 
+  // 领取完善品牌信息分项奖励（item ∈ logo/qrcode/name/promo，云端每项终身限领一次）
+  async function claimBrandBonusItem(item) {
+    try {
+      const userId = getUserId()
+      if (!userId) {
+        return { success: false, message: '请先登录' }
+      }
+
+      const response = await fetch(APIs.downloadQuotaManage, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'claimBrandBonus', userId, item })
+      })
+
+      const result = await response.json()
+      if (result.success && result.data) {
+        // 同步最新剩余次数到本地缓存
+        const userInfo = getUserInfo()
+        if (userInfo) {
+          userInfo.downloadQuota = result.data.downloadQuota
+          setUserInfo(userInfo)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('领取品牌分项奖励失败:', error)
+      return { success: false, message: '领取失败，请稍后重试' }
+    }
+  }
+
+  // 读取全局运营配置（短信提示/注册赠送次数/品牌分项奖励次数；结果进程内缓存）
+  let _appConfigCache = null
+  async function getAppConfig(force) {
+    try {
+      if (_appConfigCache && !force) return { success: true, data: _appConfigCache }
+      const response = await fetch(APIs.getAppConfig, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      const result = await response.json()
+      if (result.success && result.data) {
+        _appConfigCache = result.data
+        return { success: true, data: result.data }
+      }
+      return { success: false, message: result.message || '获取配置失败' }
+    } catch (error) {
+      console.error('获取运营配置失败:', error)
+      return { success: false, message: '获取配置失败' }
+    }
+  }
+
   // 获取下载次数变更记录
   async function getDownloadQuotaLogs(page = 1, pageSize = 20) {
     try {
@@ -790,6 +843,8 @@ const VIPSystem = (function() {
     getDownloadQuota,
     deductDownloadQuota,
     addDownloadQuota,
+    claimBrandBonusItem,
+    getAppConfig,
     getDownloadQuotaLogs,
     getInviteInfo
   };

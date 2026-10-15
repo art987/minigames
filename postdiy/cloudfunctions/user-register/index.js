@@ -7,6 +7,19 @@ cloud.init({
 const db = cloud.database()
 const _ = db.command
 
+// 注册赠送下载次数默认值（实际发放优先读 app_config.main.registerBonus，云端可配置）
+const DEFAULT_REGISTER_BONUS = 5
+
+// 读取注册赠送次数配置（读不到时回退默认值）
+async function readRegisterBonus() {
+  try {
+    const res = await db.collection('app_config').doc('main').get()
+    const n = Number(res.data && res.data.registerBonus)
+    if (Number.isFinite(n) && n >= 0) return Math.floor(n)
+  } catch (e) { /* 配置缺失按默认值 */ }
+  return DEFAULT_REGISTER_BONUS
+}
+
 // 生成邀请码：2位字母（去掉I、O）+ 3位数字（不含4，必须含6或8）
 function generateInviteCode() {
   const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ' // 去掉I、O
@@ -108,6 +121,8 @@ exports.main = async (event, context) => {
 
     let userId
     let isNewUser = false
+    // 注册赠送下载次数（新用户时读云端配置，默认 5）
+    let registerBonus = DEFAULT_REGISTER_BONUS
 
     let newInviteCode = ''
     let referrerUserId = ''
@@ -150,12 +165,15 @@ exports.main = async (event, context) => {
       newInviteCode = await generateUniqueInviteCode()
       console.log('新用户邀请码:', newInviteCode)
 
+      // 注册赠送下载次数（云端配置优先，默认 5）
+      registerBonus = await readRegisterBonus()
+
       const addRes = await db.collection('users').add({
         data: {
           phone,
           vipValidUntil: null,
           isVip: false,
-          downloadQuota: 5,
+          downloadQuota: registerBonus,
           logoUrl: '',
           logoTencentUrl: '',
           qrcodeUrl: '',
@@ -174,9 +192,9 @@ exports.main = async (event, context) => {
       db.collection('download_quota_logs').add({
         data: {
           userId: addRes._id,
-          changeAmount: 5,
+          changeAmount: registerBonus,
           beforeQuota: 0,
-          afterQuota: 5,
+          afterQuota: registerBonus,
           type: 'grant',
           source: 'new_user',
           remark: '新用户注册赠送',
@@ -259,7 +277,7 @@ exports.main = async (event, context) => {
           phone,
           isVip: isVipNow,
           vipValidUntil: oldUser ? (oldUser.vipValidUntil || null) : null,
-          downloadQuota: isNewUser ? 5 : (userRes.data[0].downloadQuota || 0),
+          downloadQuota: isNewUser ? registerBonus : (userRes.data[0].downloadQuota || 0),
           brandname: oldUser ? (oldUser.brandname || '') : '',
           promoText: oldUser ? (oldUser.promoText || '') : '',
           logoUrl: oldUser ? (oldUser.logoUrl || '') : '',

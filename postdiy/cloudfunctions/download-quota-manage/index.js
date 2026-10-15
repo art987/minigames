@@ -9,6 +9,42 @@ const _ = db.command
 
 const DEFAULT_QUOTA = 5
 
+// 品牌分项奖励默认次数（与 get-app-config 保持一致；实际发放金额优先读 app_config.main）
+const DEFAULT_BRAND_BONUS = { logo: 3, qrcode: 3, name: 1, promo: 3 }
+// 分项 key → 用户资料字段（服务端完整性校验：字段没填好不允许领取）
+const BRAND_ITEM_FIELD = {
+  logo: 'logo',
+  qrcode: 'qrcode',
+  name: 'name',
+  promo: 'promo'
+}
+const BRAND_ITEM_LABEL = {
+  logo: '商家Logo',
+  qrcode: '商家二维码',
+  name: '商家名称',
+  promo: '商家引流文案'
+}
+
+// 读取品牌分项奖励配置（读不到时回退默认值）
+async function readBrandBonusConfig() {
+  try {
+    const res = await db.collection('app_config').doc('main').get()
+    const bb = (res.data && res.data.brandBonus) || {}
+    const numOr = (v, d) => {
+      const n = Number(v)
+      return Number.isFinite(n) && n >= 0 ? Math.floor(n) : d
+    }
+    return {
+      logo: numOr(bb.logo, DEFAULT_BRAND_BONUS.logo),
+      qrcode: numOr(bb.qrcode, DEFAULT_BRAND_BONUS.qrcode),
+      name: numOr(bb.name, DEFAULT_BRAND_BONUS.name),
+      promo: numOr(bb.promo, DEFAULT_BRAND_BONUS.promo)
+    }
+  } catch (e) {
+    return { ...DEFAULT_BRAND_BONUS }
+  }
+}
+
 // CORS 响应头
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -100,7 +136,7 @@ exports.main = async (event, context) => {
     return response(false, '参数解析失败')
   }
 
-  const { action, userId, amount, source, templateId, templateName, remark } = body
+  const { action, userId, amount, source, templateId, templateName, remark, item } = body
 
   if (!userId) {
     return response(false, '用户ID不能为空')
@@ -116,6 +152,8 @@ exports.main = async (event, context) => {
         return await deductQuota(userId, templateId, templateName)
       case 'add':
         return await addQuota(userId, amount, source, remark)
+      case 'claimBrandBonus':
+        return await claimBrandBonus(userId, item)
       default:
         return response(false, '未知的操作类型')
     }
@@ -273,4 +311,93 @@ async function addQuota(userId, amount, source, remark) {
   })
 
   return response(true, { downloadQuota: newQuota })
+}
+
+// 领取完善品牌信息分项奖励（item ∈ logo/qrcode/name/promo，每项终身限领一次）
+// 防重标记：users.brandBonusItems.<item> = true（旧数据兼容：整体领取标记 brandBonusClaimed=true 时全拒）
+// 奖励金额读 app_config.main.brandBonus（读不到回退默认 3/3/1/3）
+async function claimBrandBonus(userId, item) {
+  const label = BRAND_ITEM_LABEL[item]
+  if (!label) {
+    return response(false, '无效的奖励项')
+  }
+  const userData = await getUserData(userId)
+  if (!userData) {
+    return response(false, '用户不存在')
+  }
+  // 旧版整体领取过 → 所有分项都视为已领
+  if (userData.brandBonusClaimed === true) {
+    return response(false, '该奖励已领取过')
+  }
+  const items = userData.brandBonusItems || {}
+  if (items[item] === true) {
+    return response(false, '该奖励已领取过')
+  }
+  // 兼容历史：早期整体发放只写了日志没打标记，按领取日志补判一次（命中即打整体标记并拒绝）
+  try {
+    const logRes = await db
+      .collection('download_quota_logs')
+      .where({ userId, type: 'add', source: 'brand_info_completed' })
+      .limit(1)
+      .get()
+    if (logRes.data && logRes.data.length > 0) {
+      await db.collection('users').doc(userId).update({
+        data: { brandBonusClaimed: true, updateTime: db.serverDate() }
+      })
+      return response(false, '该奖励已领取过')
+    }
+  } catch (e) {
+    // 日志集合不存在/查询失败时按未领取继续（不阻断首次发放）
+    console.error('查询品牌奖励历史日志失败（按未领取处理）:', e)
+  }
+
+  // 奖励金额（云端配置优先）
+  const bonusConfig = await readBrandBonusConfig()
+  const amount = bonusConfig[item]
+  if (!amount || amount <= 0) {
+    return response(false, '该奖励项未开放')
+  }
+
+  // 服务端完整性校验：对应用户资料字段需已填写
+  // （logo/qrcode 看腾讯云 URL 或原始 URL；name/promo 看文本字段；字段由两端保存商家信息时写入 users 集合）
+  const field = BRAND_ITEM_FIELD[item]
+  let filled = false
+  if (field === 'logo') filled = !!(userData.logoTencentUrl || userData.logoUrl)
+  else if (field === 'qrcode') filled = !!(userData.qrcodeTencentUrl || userData.qrcodeUrl)
+  else if (field === 'name') filled = !!String(userData.brandname || '').trim()
+  else if (field === 'promo') filled = !!String(userData.promoText || '').trim()
+  if (!filled) {
+    return response(false, '该信息尚未完善，暂不能领取')
+  }
+
+  // 原子条件更新：仅当（旧整体标记 ≠ true 且 分项标记 ≠ true）时加次数并打分项标记
+  const beforeQuota = userData.downloadQuota || 0
+  const claimRes = await db
+    .collection('users')
+    .where({
+      _id: userId,
+      brandBonusClaimed: _.neq(true),
+      [`brandBonusItems.${item}`]: _.neq(true)
+    })
+    .update({
+      data: {
+        downloadQuota: _.inc(amount),
+        [`brandBonusItems.${item}`]: true,
+        updateTime: db.serverDate()
+      }
+    })
+  if (!claimRes.stats || claimRes.stats.updated === 0) {
+    return response(false, '该奖励已领取过')
+  }
+  writeLog({
+    userId,
+    changeAmount: amount,
+    beforeQuota,
+    afterQuota: beforeQuota + amount,
+    type: 'add',
+    source: `brand_${item}`,
+    remark: `完善品牌信息奖励-${label}`,
+    createTime: db.serverDate()
+  })
+  return response(true, { downloadQuota: beforeQuota + amount, amount, item })
 }

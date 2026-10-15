@@ -100,6 +100,7 @@
       "memorySize": 256,
       "environment": {},
       "vpc": {},
+      "installDependency": false,
       "deployMethod": "cos"
     },
     {
@@ -140,7 +141,7 @@
       "memorySize": 256,
       "environment": {},
       "vpc": {},
-      "installDependency": true,
+      "installDependency": false,
       "deployMethod": "cos"
     },
     {
@@ -152,6 +153,28 @@
       "environment": {},
       "vpc": {},
       "installDependency": true,
+      "deployMethod": "cos"
+    },
+    {
+      "name": "get-app-config",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
+    },
+    {
+      "name": "save-app-config",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
       "deployMethod": "cos"
     }
   ]
