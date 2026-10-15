@@ -34,6 +34,8 @@
         .cfg-num-grid > div { flex: 1; }
         .cfg-num-grid label { font-size: 12px; }
         .cfg-hint { font-size: 12px; color: #999; margin-top: 10px; line-height: 1.7; }
+        .cfg-switch-row { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; margin: 0 !important; cursor: pointer; }
+        .cfg-switch-row input { width: 18px; height: 18px; accent-color: #b41408; }
         .cfg-btns { display: flex; gap: 12px; margin-top: 18px; }
         .cfg-btns button {
             flex: 1; height: 44px; border: none; border-radius: 22px;
@@ -60,6 +62,20 @@
                 <h3>短信提示文案</h3>
                 <label for="smsNotice">发送验证码成功后的提示小字</label>
                 <textarea id="smsNotice" maxlength="100" placeholder="验证码由 【上海探索好科技】发送，请注意查收"></textarea>
+            </div>
+
+            <div class="cfg-card">
+                <h3>登录页轮播文案</h3>
+                <label for="loginSlogans">品牌区轮播文案（每行一条，最多 6 条，单条限 60 字；仅 1 条时不轮播）</label>
+                <textarea id="loginSlogans" style="min-height:84px;" placeholder="覆盖全年朋友圈节日节气海报&#10;自定义品牌 - 操作简单 - 原创模板授权"></textarea>
+            </div>
+
+            <div class="cfg-card">
+                <h3>VIP 页虚拟支付声明横幅</h3>
+                <label class="cfg-switch-row" for="showVpayBanner">
+                    <input type="checkbox" id="showVpayBanner" />
+                    <span>在 VIP 页显示「已接入微信小程序虚拟支付」横幅</span>
+                </label>
             </div>
 
             <div class="cfg-card">
@@ -129,6 +145,9 @@
             $('bbQrcode').value = bb.qrcode != null ? bb.qrcode : 3;
             $('bbName').value = bb.name != null ? bb.name : 1;
             $('bbPromo').value = bb.promo != null ? bb.promo : 3;
+            var sl = cfg && Array.isArray(cfg.loginSlogans) ? cfg.loginSlogans : [];
+            $('loginSlogans').value = sl.join('\n');
+            $('showVpayBanner').checked = !(cfg && cfg.showVpayBanner === false);
         }
 
         function post(name, data) {
@@ -167,6 +186,8 @@
             }
             var config = {
                 smsNotice: $('smsNotice').value.trim() || '验证码由 【上海探索好科技】发送，请注意查收',
+                loginSlogans: $('loginSlogans').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
+                showVpayBanner: $('showVpayBanner').checked,
                 registerBonus: parseInt($('registerBonus').value, 10),
                 brandBonus: {
                     logo: parseInt($('bbLogo').value, 10),

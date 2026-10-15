@@ -51,12 +51,26 @@ const DEFAULT_CONFIG = {
     qrcode: 3,
     name: 1,
     promo: 3
-  }
+  },
+  loginSlogans: ['覆盖全年朋友圈节日节气海报', '自定义品牌 - 操作简单 - 原创模板授权'],
+  showVpayBanner: true
 }
 
 function numOr(v, def) {
   const n = Number(v)
   return Number.isFinite(n) && n >= 0 ? Math.floor(n) : def
+}
+
+function strArrayOr(v, def) {
+  if (!Array.isArray(v)) return def
+  const list = v
+    .map((s) => String(s == null ? '' : s).trim().slice(0, 60))
+    .filter(Boolean)
+  return list.length > 0 ? list.slice(0, 6) : def
+}
+
+function boolOr(v, def) {
+  return typeof v === 'boolean' ? v : def
 }
 
 // 规整入参配置：只接受已知字段，类型非法回退默认值（避免脏数据进库）
@@ -74,7 +88,9 @@ function normalizeConfig(input) {
       qrcode: numOr(bb.qrcode, DEFAULT_CONFIG.brandBonus.qrcode),
       name: numOr(bb.name, DEFAULT_CONFIG.brandBonus.name),
       promo: numOr(bb.promo, DEFAULT_CONFIG.brandBonus.promo)
-    }
+    },
+    loginSlogans: strArrayOr(src.loginSlogans, DEFAULT_CONFIG.loginSlogans),
+    showVpayBanner: boolOr(src.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
   }
 }
 

@@ -39,13 +39,31 @@ const DEFAULT_CONFIG = {
     qrcode: 3, // 商家二维码
     name: 1,   // 商家名称
     promo: 3   // 商家引流文案
-  }
+  },
+  // 登录页品牌区轮播文案（多条时定时轮番切换）
+  loginSlogans: ['覆盖全年朋友圈节日节气海报', '自定义品牌 - 操作简单 - 原创模板授权'],
+  // VIP 页虚拟支付声明横幅是否显示
+  showVpayBanner: true
 }
 
 // 数值字段规整：非负整数，非法回退默认值
 function numOr(v, def) {
   const n = Number(v)
   return Number.isFinite(n) && n >= 0 ? Math.floor(n) : def
+}
+
+// 字符串数组规整：去空格/去空项/每条限 60 字/最多 6 条
+function strArrayOr(v, def) {
+  if (!Array.isArray(v)) return def
+  const list = v
+    .map((s) => String(s == null ? '' : s).trim().slice(0, 60))
+    .filter(Boolean)
+  return list.length > 0 ? list.slice(0, 6) : def
+}
+
+// 布尔字段规整：仅接受 true/false，非法回退默认值
+function boolOr(v, def) {
+  return typeof v === 'boolean' ? v : def
 }
 
 // 读取并规整配置；集合/文档不存在时自动建集合并返回默认值
@@ -65,7 +83,9 @@ async function readConfig() {
         qrcode: numOr(bb.qrcode, DEFAULT_CONFIG.brandBonus.qrcode),
         name: numOr(bb.name, DEFAULT_CONFIG.brandBonus.name),
         promo: numOr(bb.promo, DEFAULT_CONFIG.brandBonus.promo)
-      }
+      },
+      loginSlogans: strArrayOr(c.loginSlogans, DEFAULT_CONFIG.loginSlogans),
+      showVpayBanner: boolOr(c.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
     }
   } catch (e) {
     // 集合不存在 → 创建后返回默认值；其它异常（含文档不存在）也返回默认值
