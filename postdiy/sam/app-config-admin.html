@@ -65,6 +65,12 @@
             </div>
 
             <div class="cfg-card">
+                <h3>VIP 页底部服务说明</h3>
+                <label for="noticeText">底部说明文案（一段，超长自动换行，限 120 字）</label>
+                <textarea id="noticeText" maxlength="120" style="min-height:64px;" placeholder="会员服务由「闪喵海报」小程序提供，VIP会员开通已接入微信「小程序虚拟支付」，支付遇到问题请联系客服处理"></textarea>
+            </div>
+
+            <div class="cfg-card">
                 <h3>登录页轮播文案</h3>
                 <label for="loginSlogans">品牌区轮播文案（每行一条，最多 6 条，单条限 60 字；仅 1 条时不轮播）</label>
                 <textarea id="loginSlogans" style="min-height:84px;" placeholder="覆盖全年朋友圈节日节气海报&#10;自定义品牌 - 操作简单 - 原创模板授权"></textarea>
@@ -139,6 +145,7 @@
 
         function fillForm(cfg) {
             $('smsNotice').value = (cfg && cfg.smsNotice) || '';
+            $('noticeText').value = (cfg && cfg.noticeText) || '';
             $('registerBonus').value = cfg && cfg.registerBonus != null ? cfg.registerBonus : 5;
             var bb = (cfg && cfg.brandBonus) || {};
             $('bbLogo').value = bb.logo != null ? bb.logo : 3;
@@ -186,6 +193,7 @@
             }
             var config = {
                 smsNotice: $('smsNotice').value.trim() || '验证码由 【上海探索好科技】发送，请注意查收',
+                noticeText: $('noticeText').value.trim() || '会员服务由「闪喵海报」小程序提供，VIP会员开通已接入微信「小程序虚拟支付」，支付遇到问题请联系客服处理',
                 loginSlogans: $('loginSlogans').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean),
                 showVpayBanner: $('showVpayBanner').checked,
                 registerBonus: parseInt($('registerBonus').value, 10),

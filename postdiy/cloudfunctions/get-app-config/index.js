@@ -42,6 +42,8 @@ const DEFAULT_CONFIG = {
   },
   // 登录页品牌区轮播文案（多条时定时轮番切换）
   loginSlogans: ['覆盖全年朋友圈节日节气海报', '自定义品牌 - 操作简单 - 原创模板授权'],
+  // VIP 页底部服务说明文案（一段，超长自动换行）
+  noticeText: '会员服务由「闪喵海报」小程序提供，VIP会员开通已接入微信「小程序虚拟支付」，支付遇到问题请联系客服处理',
   // VIP 页虚拟支付声明横幅是否显示
   showVpayBanner: true
 }
@@ -50,6 +52,12 @@ const DEFAULT_CONFIG = {
 function numOr(v, def) {
   const n = Number(v)
   return Number.isFinite(n) && n >= 0 ? Math.floor(n) : def
+}
+
+// 字符串规整：去首尾空格，空值回退默认
+function strOr(v, def) {
+  const s = String(v == null ? '' : v).trim()
+  return s || def
 }
 
 // 字符串数组规整：去空格/去空项/每条限 60 字/最多 6 条
@@ -85,6 +93,7 @@ async function readConfig() {
         promo: numOr(bb.promo, DEFAULT_CONFIG.brandBonus.promo)
       },
       loginSlogans: strArrayOr(c.loginSlogans, DEFAULT_CONFIG.loginSlogans),
+      noticeText: strOr(c.noticeText, DEFAULT_CONFIG.noticeText),
       showVpayBanner: boolOr(c.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
     }
   } catch (e) {

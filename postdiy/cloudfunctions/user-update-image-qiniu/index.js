@@ -28,19 +28,22 @@ exports.main = async (event, context) => {
     hasQiniuDomain: !!process.env.QINIU_DOMAIN
   })
   
-  let userId, imageType, imageData, metadata
-  
+  let userId, imageType, imageData, metadata, imageMime
+
   try {
-    const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+    // HTTP 网关调用：body 为 JSON 字符串/对象；callFunction 调用：参数直接在 event 上（body 为 undefined → 回退 event）
+    const body = typeof event.body === 'string' ? JSON.parse(event.body) : (event.body || event)
     userId = body.userId
     imageType = body.imageType
     imageData = body.imageData
     metadata = body.metadata
+    imageMime = body.imageMime
   } catch (error) {
     userId = event.userId
     imageType = event.imageType
     imageData = event.imageData
     metadata = event.metadata
+    imageMime = event.imageMime
   }
   
   console.log('user-update-image-qiniu 接收到的参数:', { userId, imageType, hasImageData: !!imageData })
@@ -90,11 +93,35 @@ exports.main = async (event, context) => {
 
   try {
     const docId = `${userId}_${imageType}`
-    
+
+    // 图片数据两种形态：
+    // 1) dataURL/base64：直接解码（HTTP 网关通道，网页端/H5）
+    // 2) http(s) URL：wx.cloud.CDN 标记传输的大文件（小程序端，绕开 callFunction 100KB 限制），先下载再传七牛
+    let imageBuffer
+    let mime = imageMime || ''
+    if (/^https?:\/\//i.test(imageData)) {
+      console.log('imageData 为 CDN URL，开始下载:', String(imageData).slice(0, 120))
+      const resp = await fetch(imageData)
+      if (!resp.ok) throw new Error(`CDN 图片下载失败: HTTP ${resp.status}`)
+      imageBuffer = Buffer.from(await resp.arrayBuffer())
+      console.log(`CDN 图片下载完成: ${imageBuffer.length} bytes`)
+      if (!mime) {
+        const ct = String(resp.headers.get('content-type') || '')
+        if (ct.includes('png')) mime = 'png'
+        else if (ct.includes('webp')) mime = 'webp'
+        else if (ct.includes('jpeg') || ct.includes('jpg')) mime = 'jpg'
+      }
+    } else {
+      const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '')
+      imageBuffer = Buffer.from(base64Data, 'base64')
+      if (!mime) {
+        mime = imageData.includes('image/png') ? 'png' : imageData.includes('image/webp') ? 'webp' : 'jpg'
+      }
+    }
+
     // 生成七牛云key：userimage/{userId}/{imageType}.{extension}
-    const extension = imageData.includes('image/png') ? 'png' : 
-                      imageData.includes('image/webp') ? 'webp' : 'jpg'
-    
+    const extension = mime === 'png' ? 'png' : mime === 'webp' ? 'webp' : 'jpg'
+
     const qiniuKey = `${USER_IMAGE_PREFIX}/${userId}/${imageType}.${extension}`
     
     // 检查是否有旧的图片需要删除（避免占用资源）
@@ -130,12 +157,9 @@ exports.main = async (event, context) => {
       }
     }
     console.log('旧文件删除完成，开始上传新文件...')
-    
-    // 上传到七牛云
-    const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '')
-    const buffer = Buffer.from(base64Data, 'base64')
-    
-    console.log(`开始上传到七牛云: ${qiniuKey}, 大小: ${buffer.length} bytes`)
+
+    // 上传到七牛云（imageBuffer：base64 解码 或 CDN URL 下载所得）
+    console.log(`开始上传到七牛云: ${qiniuKey}, 大小: ${imageBuffer.length} bytes`)
     
     // 生成上传凭证
     const options = {
@@ -149,7 +173,7 @@ exports.main = async (event, context) => {
     const putExtra = new qiniu.form_up.PutExtra()
     
     const uploadResult = await new Promise((resolve, reject) => {
-      formUploader.put(uploadToken, qiniuKey, buffer, putExtra, (err, respBody, respInfo) => {
+      formUploader.put(uploadToken, qiniuKey, imageBuffer, putExtra, (err, respBody, respInfo) => {
         if (err) {
           reject(err)
         } else {

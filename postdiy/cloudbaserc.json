@@ -3,6 +3,17 @@
   "functionRoot": "./cloudfunctions",
   "functions": [
     {
+      "name": "send-sms",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
+    },
+    {
       "name": "admin-vip-packages",
       "runtime": "Nodejs18.15",
       "handler": "index.main",
@@ -121,6 +132,17 @@
       "memorySize": 256,
       "environment": {},
       "vpc": {},
+      "deployMethod": "cos"
+    },
+    {
+      "name": "user-update-image-qiniu",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
       "deployMethod": "cos"
     },
     {

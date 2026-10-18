@@ -53,6 +53,7 @@ const DEFAULT_CONFIG = {
     promo: 3
   },
   loginSlogans: ['覆盖全年朋友圈节日节气海报', '自定义品牌 - 操作简单 - 原创模板授权'],
+  noticeText: '会员服务由「闪喵海报」小程序提供，VIP会员开通已接入微信「小程序虚拟支付」，支付遇到问题请联系客服处理',
   showVpayBanner: true
 }
 
@@ -90,6 +91,10 @@ function normalizeConfig(input) {
       promo: numOr(bb.promo, DEFAULT_CONFIG.brandBonus.promo)
     },
     loginSlogans: strArrayOr(src.loginSlogans, DEFAULT_CONFIG.loginSlogans),
+    noticeText:
+      typeof src.noticeText === 'string' && src.noticeText.trim()
+        ? src.noticeText.trim().slice(0, 120)
+        : DEFAULT_CONFIG.noticeText,
     showVpayBanner: boolOr(src.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
   }
 }

@@ -98,7 +98,8 @@ exports.main = async (event, context) => {
           // Logo 按模板缩放映射表（JSON 字符串：{模板id: 倍率}）
           logoScaleMap: user.logoScaleMap || '',
           hasPassword: user.hasPassword,
-          downloadQuota: user.downloadQuota || 0
+          // 微信轻量账号（source=miniapp）额度存在 freeDownloads 字段，其余账号在 downloadQuota
+          downloadQuota: user.source === 'miniapp' ? (user.freeDownloads || 0) : (user.downloadQuota || 0)
         }
       })
     }

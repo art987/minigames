@@ -131,7 +131,8 @@ exports.main = async (event, context) => {
 
   let body
   try {
-    body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+    // HTTP 网关调用：body 为 JSON 字符串/对象；callFunction 调用：参数直接在 event 上（body 为 undefined → 回退 event）
+    body = typeof event.body === 'string' ? JSON.parse(event.body) : (event.body || event)
   } catch (e) {
     return response(false, '参数解析失败')
   }
@@ -257,17 +258,19 @@ async function addQuota(userId, amount, source, remark) {
       console.error('查询品牌奖励历史日志失败（按未领取处理）:', e)
     }
     // 原子条件更新：仅当 brandBonusClaimed ≠ true 时加次数并打标记（并发请求只会有一个成功）
-    const beforeQuota = userData.downloadQuota || 0
-    const claimRes = await db
-      .collection('users')
-      .where({ _id: userId, brandBonusClaimed: _.neq(true) })
-      .update({
-        data: {
-          downloadQuota: _.inc(amount),
-          brandBonusClaimed: true,
-          updateTime: db.serverDate()
-        }
-      })
+  // 额度字段：微信轻量账号（source=miniapp）用 freeDownloads，其余（手机号老账号）用 downloadQuota
+  const quotaField = userData.source === 'miniapp' ? 'freeDownloads' : 'downloadQuota'
+  const beforeQuota = userData[quotaField] || 0
+  const claimRes = await db
+    .collection('users')
+    .where({ _id: userId, brandBonusClaimed: _.neq(true) })
+    .update({
+      data: {
+        [quotaField]: _.inc(amount),
+        brandBonusClaimed: true,
+        updateTime: db.serverDate()
+      }
+    })
     if (!claimRes.stats || claimRes.stats.updated === 0) {
       return response(false, '该奖励已领取过')
     }
@@ -371,7 +374,9 @@ async function claimBrandBonus(userId, item) {
   }
 
   // 原子条件更新：仅当（旧整体标记 ≠ true 且 分项标记 ≠ true）时加次数并打分项标记
-  const beforeQuota = userData.downloadQuota || 0
+  // 额度字段：微信轻量账号（source=miniapp）用 freeDownloads，其余（手机号老账号）用 downloadQuota
+  const quotaField = userData.source === 'miniapp' ? 'freeDownloads' : 'downloadQuota'
+  const beforeQuota = userData[quotaField] || 0
   const claimRes = await db
     .collection('users')
     .where({
@@ -381,7 +386,7 @@ async function claimBrandBonus(userId, item) {
     })
     .update({
       data: {
-        downloadQuota: _.inc(amount),
+        [quotaField]: _.inc(amount),
         [`brandBonusItems.${item}`]: true,
         updateTime: db.serverDate()
       }
