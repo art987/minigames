@@ -6354,6 +6354,166 @@ var templates = {
       festivals: ['万圣节'],
       description: '万圣节魔法主题海报模板',
       type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-012',
+      name: '万圣节蝙蝠',      image: 'images/wanshengjie/12.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节蝙蝠主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-013',
+      name: '万圣节女巫帽',      image: 'images/wanshengjie/13.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节女巫帽主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-014',
+      name: '万圣节黑猫',      image: 'images/wanshengjie/14.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节黑猫主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-015',
+      name: '万圣节骷髅',      image: 'images/wanshengjie/15.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节骷髅主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-016',
+      name: '万圣节吸血鬼',      image: 'images/wanshengjie/16.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节吸血鬼主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-017',
+      name: '万圣节蜘蛛',      image: 'images/wanshengjie/17.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节蜘蛛主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-018',
+      name: '万圣节月夜',      image: 'images/wanshengjie/18.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节月夜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-019',
+      name: '万圣节城堡',      image: 'images/wanshengjie/19.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节城堡主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-020',
+      name: '万圣节巫术',      image: 'images/wanshengjie/20.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节巫术主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-021',
+      name: '万圣节精灵',      image: 'images/wanshengjie/21.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节精灵主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-022',
+      name: '万圣节恶作剧',      image: 'images/wanshengjie/22.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节恶作剧主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-023',
+      name: '万圣节神秘',      image: 'images/wanshengjie/23.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节神秘主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-024',
+      name: '万圣节暗夜',      image: 'images/wanshengjie/24.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节暗夜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-025',
+      name: '万圣节南瓜灯',      image: 'images/wanshengjie/25.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节南瓜灯主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-026',
+      name: '万圣节鬼屋',      image: 'images/wanshengjie/26.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节鬼屋主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-027',
+      name: '万圣节巫婆',      image: 'images/wanshengjie/27.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节巫婆主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-028',
+      name: '万圣节诡秘',      image: 'images/wanshengjie/28.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节诡秘主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-029',
+      name: '万圣节幽灵船',      image: 'images/wanshengjie/29.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节幽灵船主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-030',
+      name: '万圣节狂欢夜',      image: 'images/wanshengjie/30.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节狂欢夜主题海报模板',
+      type: '西方节日'
+    },
+    {
+      id: 'wanshengjie-2024-031',
+      name: '万圣节盛宴',      image: 'images/wanshengjie/31.png',
+      months: [10],
+      festivals: ['万圣节'],
+      description: '万圣节盛宴主题海报模板',
+      type: '西方节日'
     }
   ],
 
