@@ -198,6 +198,17 @@
       "vpc": {},
       "installDependency": false,
       "deployMethod": "cos"
+    },
+    {
+      "name": "news-manage",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 20,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
     }
   ]
 }

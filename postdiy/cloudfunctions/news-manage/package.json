@@ -1,0 +1,9 @@
+{
+  "name": "save-app-config",
+  "version": "1.0.0",
+  "description": "保存全局运营配置（管理密钥校验，写入 app_config.main）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

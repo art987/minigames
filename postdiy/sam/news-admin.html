@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消息资讯管理</title>
+  <link rel="stylesheet" href="../libs/svg-icons/svg-icons.css">
+  <link rel="stylesheet" href="../admin.css">
+  <script src="../admin-auth.js"></script>
+  <script src="../admin-nav.js"></script>
+  <style>
+    .manage-content { display: none; max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+    .manage-content.active { display: block; }
+
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid #eef0f4; }
+    .tab-btn { padding: 10px 22px; font-size: 15px; font-weight: 600; color: #666; background: none; border: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+    .tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; }
+
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .btn { padding: 9px 18px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .btn-primary { background: #4f46e5; color: #fff; }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-ghost { background: #f1f2f6; color: #444; }
+    .btn-ghost:hover { background: #e4e6ec; }
+    .btn-danger { background: #fee2e2; color: #b91c1c; }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-sm { padding: 5px 12px; font-size: 13px; border-radius: 6px; }
+
+    .card-list { display: flex; flex-direction: column; gap: 10px; }
+    .item-card { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #fff; border: 1px solid #e8eaf0; border-radius: 10px; }
+    .item-cover { width: 86px; height: 56px; object-fit: cover; border-radius: 6px; background: #f3f4f6; flex-shrink: 0; }
+    .item-cover.ph { display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 12px; }
+    .item-main { flex: 1; min-width: 0; }
+    .item-title { font-size: 15px; font-weight: 600; color: #222; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .item-meta { font-size: 12.5px; color: #888; margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .badge { display: inline-block; padding: 1px 8px; border-radius: 9px; font-size: 11.5px; }
+    .badge.on { background: #dcfce7; color: #15803d; }
+    .badge.off { background: #f1f5f9; color: #64748b; }
+    .badge.push { background: #fef3c7; color: #b45309; }
+    .badge.cat { background: #e0e7ff; color: #4338ca; }
+    .item-ops { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .empty-tip { text-align: center; color: #999; padding: 48px 0; font-size: 14px; }
+
+    /* 编辑器弹层 */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(15,18,30,.5); z-index: 900; overflow-y: auto; padding: 30px 14px; }
+    .overlay.show { display: block; }
+    .editor-panel { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 14px; padding: 26px 26px 30px; }
+    .editor-panel h3 { font-size: 18px; margin-bottom: 20px; color: #1a1a2e; }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-size: 13.5px; font-weight: 600; color: #444; margin-bottom: 6px; }
+    .form-row input[type=text], .form-row textarea, .form-row select { width: 100%; padding: 10px 12px; border: 1.5px solid #dfe2ea; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+    .form-row textarea { resize: vertical; min-height: 64px; font-family: inherit; }
+    .form-row input:focus, .form-row textarea:focus, .form-row select:focus { outline: none; border-color: #4f46e5; }
+    .form-inline { display: flex; gap: 12px; }
+    .form-inline .form-row { flex: 1; }
+    .switch-line { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #444; font-weight: 600; }
+    .switch-line input { width: 17px; height: 17px; }
+
+    .cover-box { display: flex; align-items: center; gap: 12px; }
+    .cover-preview { width: 132px; height: 86px; border-radius: 8px; background: #f3f4f6; object-fit: cover; border: 1px solid #e8eaf0; }
+    .cover-preview.ph { display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 12px; }
+
+    /* blocks 编辑器 */
+    .blocks-box { display: flex; flex-direction: column; gap: 10px; }
+    .block-item { border: 1.5px solid #e4e6ee; border-radius: 10px; padding: 10px 12px; background: #fafbfe; }
+    .block-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .block-tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 8px; }
+    .block-tag.text { background: #e0f2fe; color: #0369a1; }
+    .block-tag.image { background: #dcfce7; color: #15803d; }
+    .block-tag.video { background: #fce7f3; color: #be185d; }
+    .block-head .spacer { flex: 1; }
+    .block-op { border: none; background: #eef0f5; color: #555; width: 26px; height: 24px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .block-op:hover { background: #e0e3ea; }
+    .block-item textarea { width: 100%; min-height: 72px; padding: 8px 10px; border: 1px solid #dde0e8; border-radius: 7px; font-size: 14px; box-sizing: border-box; font-family: inherit; resize: vertical; }
+    .block-item input[type=text] { width: 100%; padding: 8px 10px; border: 1px solid #dde0e8; border-radius: 7px; font-size: 13.5px; box-sizing: border-box; }
+    .block-item img { max-width: 100%; max-height: 160px; border-radius: 6px; display: block; }
+    .block-hint { font-size: 12px; color: #999; margin-top: 5px; }
+    .add-blocks { display: flex; gap: 8px; margin-top: 10px; }
+    .uploading { color: #4f46e5; font-size: 13px; }
+
+    .editor-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+
+    .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 14px; z-index: 1200; opacity: 0; transition: opacity .25s; pointer-events: none; }
+    .toast.show { opacity: .95; }
+
+    .push-panel { background: #fff; border: 1px solid #e8eaf0; border-radius: 12px; padding: 22px; max-width: 620px; }
+    .push-panel .form-row select { max-width: 100%; }
+    .push-tip { font-size: 13px; color: #888; line-height: 1.7; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="manage-content">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="articles">资讯管理</button>
+      <button class="tab-btn" data-tab="cats">分类管理</button>
+      <button class="tab-btn" data-tab="push">首页推送</button>
+    </div>
+
+    <!-- 资讯列表 -->
+    <div id="tab-articles">
+      <div class="toolbar">
+        <span style="font-size:13.5px;color:#888;" id="artTotal"></span>
+        <button class="btn btn-primary" id="btnNew">+ 新建资讯</button>
+      </div>
+      <div class="card-list" id="artList"></div>
+    </div>
+
+    <!-- 分类管理 -->
+    <div id="tab-cats" style="display:none;">
+      <div class="toolbar">
+        <span style="font-size:13.5px;color:#888;">分类会按排序值从小到大显示在小程序分类栏</span>
+        <button class="btn btn-primary" id="btnAddCat">+ 新增分类</button>
+      </div>
+      <div class="card-list" id="catList"></div>
+    </div>
+
+    <!-- 推送设置 -->
+    <div id="tab-push" style="display:none;">
+      <div class="push-panel">
+        <div class="form-row">
+          <label>首页资讯弹窗</label>
+          <div class="switch-line">
+            <input type="checkbox" id="pushEnabled">
+            <span>开启后，用户进入首页时弹窗提示推送的资讯（每条推送只弹一次，有封面显示封面，无封面显示文字）</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>推送的资讯（单选一条）</label>
+          <select id="pushArticle"><option value="">暂不选择</option></select>
+        </div>
+        <button class="btn btn-primary" id="btnSavePush">保存推送设置</button>
+        <div class="push-tip">
+          提示：弹窗触发条件 = 开关开启 + 已选资讯且处于发布状态 + 该用户未读过此资讯。用户读过（点进详情）后不再弹；更换推送资讯后会对所有用户重新弹一次。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 资讯编辑器 -->
+  <div class="overlay" id="editorOverlay">
+    <div class="editor-panel">
+      <h3 id="editorTitle">新建资讯</h3>
+      <div class="form-row">
+        <label>标题（必填，60字内）</label>
+        <input type="text" id="edTitle" maxlength="60" placeholder="请输入资讯标题">
+      </div>
+      <div class="form-inline">
+        <div class="form-row">
+          <label>所属分类</label>
+          <select id="edCategory"></select>
+        </div>
+        <div class="form-row" style="flex:0 0 130px; display:flex; align-items:flex-end;">
+          <div class="switch-line" style="padding-bottom:10px;">
+            <input type="checkbox" id="edPublished" checked>
+            <span>发布</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>封面图（可选，未读弹窗与列表卡片展示）</label>
+        <div class="cover-box">
+          <img id="edCoverImg" class="cover-preview" style="display:none;">
+          <div id="edCoverPh" class="cover-preview ph">未设置</div>
+          <div>
+            <input type="file" id="edCoverFile" accept="image/*" style="display:none;">
+            <button class="btn btn-ghost btn-sm" id="btnPickCover">选择图片</button>
+            <button class="btn btn-ghost btn-sm" id="btnClearCover" style="margin-left:6px;">移除</button>
+            <div class="uploading" id="coverUpTip" style="display:none;">上传中...</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>摘要（列表卡片与无封面弹窗显示，200字内）</label>
+        <textarea id="edSummary" maxlength="200" placeholder="请输入资讯摘要"></textarea>
+      </div>
+      <div class="form-row">
+        <label>正文内容（可混合文字 / 图片 / 视频）</label>
+        <div class="blocks-box" id="blocksBox"></div>
+        <div class="add-blocks">
+          <button class="btn btn-ghost btn-sm" id="btnAddText">+ 文字段</button>
+          <button class="btn btn-ghost btn-sm" id="btnAddImage">+ 图片</button>
+          <button class="btn btn-ghost btn-sm" id="btnAddVideo">+ 视频</button>
+        </div>
+      </div>
+      <div class="editor-footer">
+        <button class="btn btn-ghost" id="btnCancel">取消</button>
+        <button class="btn btn-primary" id="btnSave">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 双域名兜底：自定义域名优先，失败自动切官方 HTTP 访问域名
+    const APIS = [
+      'https://api.peacelove.top/news-manage',
+      'https://postdiy-0g2mftaf6a0fc450.service.tcloudbase.com/news-manage'
+    ];
+    let apiIdx = 0;
+
+    async function callApi(action, extra) {
+      const payload = Object.assign({ action }, window.AdminAuth.credentials(), extra || {});
+      for (let i = 0; i < APIS.length; i++) {
+        const idx = (apiIdx + i) % APIS.length;
+        try {
+          const res = await fetch(APIS[idx], {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const json = await res.json();
+          if (json && json.success === false && json.message && json.message.includes('鉴权')) {
+            window.AdminAuth.logout(); window.location.reload(); return new Promise(() => {});
+          }
+          apiIdx = idx;
+          return json;
+        } catch (e) { /* 换下一个域名 */ }
+      }
+      return { success: false, message: '网络异常，请稍后重试' };
+    }
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(t._tm); t._tm = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+    function fmtTime(ts) {
+      if (!ts) return '';
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      const p = (n) => String(n).padStart(2, '0');
+      return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+    }
+
+    let categories = [];
+    let articles = [];
+    let editingId = null;   // null=新建
+    let blocks = [];        // 编辑器内容块
+    let coverUrl = '';
+
+    // ---------- Tabs ----------
+    document.querySelectorAll('.tab-btn').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        ['articles', 'cats', 'push'].forEach((t) => {
+          document.getElementById('tab-' + t).style.display = b.dataset.tab === t ? '' : 'none';
+        });
+      });
+    });
+
+    // ---------- 分类 ----------
+    async function loadCats() {
+      const res = await callApi('cat.list');
+      categories = res.success ? res.data : [];
+      renderCats();
+      renderCatOptions();
+    }
+
+    function renderCats() {
+      const box = document.getElementById('catList');
+      if (!categories.length) { box.innerHTML = '<div class="empty-tip">暂无分类，点击右上角「新增分类」创建</div>'; return; }
+      box.innerHTML = categories.map((c) =>
+        '<div class="item-card">' +
+          '<div class="item-main">' +
+            '<div class="item-title">' + esc(c.name) + '</div>' +
+            '<div class="item-meta"><span class="badge cat">排序 ' + (c.sort || 0) + '</span><span>' + (c.articleCount || 0) + ' 篇资讯</span></div>' +
+          '</div>' +
+          '<div class="item-ops">' +
+            '<button class="btn btn-ghost btn-sm" onclick="renameCat(\'' + c._id + '\')">重命名</button>' +
+            '<button class="btn btn-ghost btn-sm" onclick="resortCat(\'' + c._id + '\')">排序</button>' +
+            '<button class="btn btn-danger btn-sm" onclick="delCat(\'' + c._id + '\')">删除</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function renderCatOptions() {
+      const sel = document.getElementById('edCategory');
+      sel.innerHTML = '<option value="">未分类</option>' + categories.map((c) =>
+        '<option value="' + c._id + '">' + esc(c.name) + '</option>').join('');
+      const pushSel = document.getElementById('pushArticle');
+      const cur = pushSel.value;
+      pushSel.innerHTML = '<option value="">暂不选择</option>' + articles.map((a) =>
+        '<option value="' + a._id + '">' + esc(a.title) + (a.isPublished ? '' : '（未发布）') + '</option>').join('');
+      pushSel.value = cur;
+    }
+
+    window.renameCat = async function (id) {
+      const c = categories.find((x) => x._id === id);
+      const name = prompt('修改分类名称：', c ? c.name : '');
+      if (!name || !name.trim()) return;
+      const res = await callApi('cat.rename', { id, name: name.trim() });
+      if (res.success) { toast('已重命名'); loadCats(); } else toast(res.message || '失败');
+    };
+    window.resortCat = async function (id) {
+      const c = categories.find((x) => x._id === id);
+      const sort = prompt('排序值（数字，越小越靠前）：', c ? (c.sort || 0) : 0);
+      if (sort == null || sort.trim() === '') return;
+      const res = await callApi('cat.rename', { id, name: c.name, sort: Number(sort) || 0 });
+      if (res.success) { toast('已更新排序'); loadCats(); } else toast(res.message || '失败');
+    };
+    window.delCat = async function (id) {
+      const c = categories.find((x) => x._id === id);
+      if (!confirm('确认删除分类「' + (c ? c.name : '') + '」？（分类下有资讯时将无法删除）')) return;
+      const res = await callApi('cat.del', { id });
+      if (res.success) { toast('已删除'); loadCats(); } else toast(res.message || '失败');
+    };
+    document.getElementById('btnAddCat').addEventListener('click', async () => {
+      const name = prompt('新分类名称：');
+      if (!name || !name.trim()) return;
+      const maxSort = categories.reduce((m, c) => Math.max(m, c.sort || 0), 0);
+      const res = await callApi('cat.add', { name: name.trim(), sort: maxSort + 1 });
+      if (res.success) { toast('分类已创建'); loadCats(); } else toast(res.message || '失败');
+    });
+
+    // ---------- 资讯列表 ----------
+    async function loadArticles() {
+      const res = await callApi('art.list', { page: 1, pageSize: 50 });
+      articles = res.success ? res.data.list : [];
+      document.getElementById('artTotal').textContent = '共 ' + (res.success ? res.data.total : 0) + ' 篇资讯';
+      renderArticles();
+      renderCatOptions();
+      loadPushCfg();
+    }
+
+    function renderArticles() {
+      const box = document.getElementById('artList');
+      if (!articles.length) { box.innerHTML = '<div class="empty-tip">暂无资讯，点击右上角「新建资讯」发布第一条</div>'; return; }
+      box.innerHTML = articles.map((a) =>
+        '<div class="item-card">' +
+          (a.coverUrl
+            ? '<img class="item-cover" src="' + esc(a.coverUrl) + '">'
+            : '<div class="item-cover ph">无封面</div>') +
+          '<div class="item-main">' +
+            '<div class="item-title">' + esc(a.title) + '</div>' +
+            '<div class="item-meta">' +
+              '<span class="badge ' + (a.isPublished ? 'on' : 'off') + '">' + (a.isPublished ? '已发布' : '未发布') + '</span>' +
+              (a.categoryName ? '<span class="badge cat">' + esc(a.categoryName) + '</span>' : '') +
+              '<span>' + fmtTime(a.createdAt) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="item-ops">' +
+            '<button class="btn btn-ghost btn-sm" onclick="editArt(\'' + a._id + '\')">编辑</button>' +
+            '<button class="btn btn-ghost btn-sm" onclick="toggleArt(\'' + a._id + '\')">' + (a.isPublished ? '下架' : '发布') + '</button>' +
+            '<button class="btn btn-danger btn-sm" onclick="delArt(\'' + a._id + '\')">删除</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    window.toggleArt = async function (id) {
+      const a = articles.find((x) => x._id === id);
+      if (!a) return;
+      const next = !a.isPublished;
+      const payload = {
+        id,
+        article: {
+          title: a.title, summary: a.summary, coverUrl: a.coverUrl,
+          categoryId: a.categoryId, blocks: a.blocks, isPublished: next
+        }
+      };
+      const res = await callApi('art.update', payload);
+      if (res.success) { toast(next ? '已发布' : '已下架'); loadArticles(); } else toast(res.message || '失败');
+    };
+    window.delArt = async function (id) {
+      if (!confirm('确认删除该资讯？删除后不可恢复。')) return;
+      const res = await callApi('art.del', { id });
+      if (res.success) { toast('已删除'); loadArticles(); } else toast(res.message || '失败');
+    };
+
+    // ---------- 编辑器 ----------
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    document.getElementById('btnNew').addEventListener('click', () => openEditor(null));
+    window.editArt = async function (id) {
+      const res = await callApi('art.get', { id });
+      if (!res.success) { toast(res.message || '读取失败'); return; }
+      openEditor(res.data);
+    };
+
+    function openEditor(art) {
+      editingId = art ? art._id : null;
+      document.getElementById('editorTitle').textContent = art ? '编辑资讯' : '新建资讯';
+      document.getElementById('edTitle').value = art ? art.title : '';
+      document.getElementById('edSummary').value = art ? art.summary : '';
+      document.getElementById('edPublished').checked = art ? !!art.isPublished : true;
+      document.getElementById('edCategory').value = art ? (art.categoryId || '') : '';
+      blocks = art ? JSON.parse(JSON.stringify(art.blocks || [])) : [];
+      setCover(art ? art.coverUrl : '');
+      renderBlocks();
+      document.getElementById('editorOverlay').classList.add('show');
+      document.getElementById('editorOverlay').scrollTop = 0;
+    }
+    function closeEditor() { document.getElementById('editorOverlay').classList.remove('show'); }
+    document.getElementById('btnCancel').addEventListener('click', closeEditor);
+
+    function setCover(url) {
+      coverUrl = url || '';
+      const img = document.getElementById('edCoverImg');
+      const ph = document.getElementById('edCoverPh');
+      if (coverUrl) { img.src = coverUrl; img.style.display = ''; ph.style.display = 'none'; }
+      else { img.style.display = 'none'; ph.style.display = 'flex'; }
+    }
+
+    // 图片压缩后转 base64（最长边 1600，质量 0.85）
+    function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const MAX = 1600;
+            let w = img.width, h = img.height;
+            if (w > MAX || h > MAX) {
+              const r = Math.min(MAX / w, MAX / h);
+              w = Math.round(w * r); h = Math.round(h * r);
+            }
+            const cv = document.createElement('canvas');
+            cv.width = w; cv.height = h;
+            cv.getContext('2d').drawImage(img, 0, 0, w, h);
+            resolve(cv.toDataURL('image/jpeg', 0.85).split(',')[1]);
+          };
+          img.onerror = reject;
+          img.src = reader.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function uploadFile(file, tipEl) {
+      const b64 = await compressImage(file);
+      tipEl.style.display = '';
+      const res = await callApi('upload', { fileName: 'img.jpg', base64: b64 });
+      tipEl.style.display = 'none';
+      if (!res.success) { toast(res.message || '上传失败'); return null; }
+      return res.data.url || res.data.fileId;
+    }
+
+    document.getElementById('btnPickCover').addEventListener('click', () => document.getElementById('edCoverFile').click());
+    document.getElementById('edCoverFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      e.target.value = '';
+      if (!f) return;
+      const url = await uploadFile(f, document.getElementById('coverUpTip'));
+      if (url) { setCover(url); toast('封面上传成功'); }
+    });
+    document.getElementById('btnClearCover').addEventListener('click', () => setCover(''));
+
+    // blocks 渲染与操作
+    function renderBlocks() {
+      const box = document.getElementById('blocksBox');
+      if (!blocks.length) {
+        box.innerHTML = '<div class="block-hint" style="margin:0;">暂无内容，点击下方按钮添加文字 / 图片 / 视频段落</div>';
+        return;
+      }
+      box.innerHTML = blocks.map((b, i) => {
+        const ops =
+          '<button class="block-op" title="上移" onclick="moveBlock(' + i + ',-1)">↑</button>' +
+          '<button class="block-op" title="下移" onclick="moveBlock(' + i + ',1)">↓</button>' +
+          '<button class="block-op" title="删除" onclick="delBlock(' + i + ')">✕</button>';
+        let body = '';
+        if (b.type === 'text') {
+          body = '<textarea placeholder="输入文字内容" oninput="setBlockText(' + i + ', this.value)">' + esc(b.text) + '</textarea>';
+        } else if (b.type === 'image') {
+          body = '<div>' +
+            (b.url && !b.url.startsWith('cloud://uploading') ? '<img src="' + esc(b.url) + '">' : '<div class="uploading">上传中...</div>') +
+            '<div class="block-hint">' + esc(b.url || '') + '</div></div>';
+        } else if (b.type === 'video') {
+          body = '<input type="text" placeholder="视频链接（https，支持七牛等任意 CDN）" value="' + esc(b.url) + '" oninput="setBlockField(' + i + ',\'url\', this.value)">' +
+            '<div style="margin-top:6px;"><input type="text" placeholder="视频封面图链接（可选）" value="' + esc(b.poster || '') + '" oninput="setBlockField(' + i + ',\'poster\', this.value)"></div>' +
+            '<div class="block-hint">建议使用已托管到七牛云或其他 CDN 的 https 视频地址</div>';
+        }
+        return '<div class="block-item">' +
+          '<div class="block-head"><span class="block-tag ' + b.type + '">' +
+            (b.type === 'text' ? '文字' : b.type === 'image' ? '图片' : '视频') + '</span>' +
+            '<span class="spacer"></span>' + ops + '</div>' + body + '</div>';
+      }).join('');
+    }
+
+    window.setBlockText = function (i, v) { if (blocks[i]) blocks[i].text = v; };
+    window.setBlockField = function (i, k, v) { if (blocks[i]) blocks[i][k] = v.trim(); };
+    window.moveBlock = function (i, d) {
+      const j = i + d;
+      if (j < 0 || j >= blocks.length) return;
+      const t = blocks[i]; blocks[i] = blocks[j]; blocks[j] = t;
+      renderBlocks();
+    };
+    window.delBlock = function (i) { blocks.splice(i, 1); renderBlocks(); };
+
+    document.getElementById('btnAddText').addEventListener('click', () => { blocks.push({ type: 'text', text: '' }); renderBlocks(); });
+    document.getElementById('btnAddImage').addEventListener('click', () => {
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = 'image/*';
+      inp.onchange = async () => {
+        const f = inp.files[0];
+        if (!f) return;
+        const idx = blocks.push({ type: 'image', url: '' }) - 1;
+        renderBlocks();
+        const url = await uploadFile(f, { style: { display: '' }, _fake: true } && document.getElementById('coverUpTip'));
+        if (url) { blocks[idx].url = url; toast('图片上传成功'); }
+        renderBlocks();
+      };
+      inp.click();
+    });
+    document.getElementById('btnAddVideo').addEventListener('click', () => { blocks.push({ type: 'video', url: '', poster: '' }); renderBlocks(); });
+
+    document.getElementById('btnSave').addEventListener('click', async () => {
+      const title = document.getElementById('edTitle').value.trim();
+      if (!title) { toast('请输入标题'); return; }
+      const payload = {
+        id: editingId,
+        article: {
+          title,
+          summary: document.getElementById('edSummary').value.trim(),
+          coverUrl,
+          categoryId: document.getElementById('edCategory').value,
+          blocks: blocks.filter((b) =>
+            (b.type === 'text' && b.text && b.text.trim()) ||
+            (b.type === 'image' && b.url) ||
+            (b.type === 'video' && b.url)),
+          isPublished: document.getElementById('edPublished').checked
+        }
+      };
+      const btn = document.getElementById('btnSave');
+      btn.disabled = true; btn.textContent = '保存中...';
+      const res = await callApi(editingId ? 'art.update' : 'art.create', payload);
+      btn.disabled = false; btn.textContent = '保存';
+      if (res.success) { toast('保存成功'); closeEditor(); loadArticles(); }
+      else toast(res.message || '保存失败');
+    });
+
+    // ---------- 推送设置 ----------
+    let pushCfg = { enabled: false, articleId: null };
+    async function loadPushCfg() {
+      const res = await callApi('push.get');
+      if (res.success) {
+        pushCfg = { enabled: !!res.data.enabled, articleId: res.data.articleId || null };
+        document.getElementById('pushEnabled').checked = pushCfg.enabled;
+        renderCatOptions();
+        document.getElementById('pushArticle').value = pushCfg.articleId || '';
+      }
+    }
+    document.getElementById('btnSavePush').addEventListener('click', async () => {
+      const res = await callApi('push.set', {
+        enabled: document.getElementById('pushEnabled').checked,
+        articleId: document.getElementById('pushArticle').value || null
+      });
+      if (res.success) toast('推送设置已保存'); else toast(res.message || '保存失败');
+    });
+
+    // ---------- init ----------
+    loadCats().then(loadArticles);
+  </script>
+</body>
+</html>
