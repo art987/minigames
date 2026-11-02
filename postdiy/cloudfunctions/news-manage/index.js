@@ -55,34 +55,8 @@ async function withCollection(name, fn) {
   }
 }
 
-// 规整资讯字段
-function normalizeBlocks(blocks) {
-  if (!Array.isArray(blocks)) return []
-  return blocks
-    .map((b) => {
-      if (!b || typeof b !== 'object') return null
-      const type = String(b.type || '')
-      if (type === 'text') {
-        const text = String(b.text == null ? '' : b.text).slice(0, 5000)
-        return text.trim() ? { type: 'text', text } : null
-      }
-      if (type === 'image') {
-        const url = String(b.url == null ? '' : b.url).trim()
-        return url ? { type: 'image', url } : null
-      }
-      if (type === 'video') {
-        const url = String(b.url == null ? '' : b.url).trim()
-        if (!url) return null
-        const item = { type: 'video', url }
-        const poster = String(b.poster == null ? '' : b.poster).trim()
-        if (poster) item.poster = poster
-        return item
-      }
-      return null
-    })
-    .filter(Boolean)
-    .slice(0, 200)
-}
+// 规整资讯字段（正文为富文本 HTML，由管理后台编辑器产出、小程序 rich-text 渲染）
+const MAX_CONTENT_LEN = 300 * 1024
 
 function normalizeArticle(input) {
   const src = input && typeof input === 'object' ? input : {}
@@ -90,18 +64,38 @@ function normalizeArticle(input) {
   const summary = String(src.summary == null ? '' : src.summary).trim().slice(0, 200)
   const coverUrl = String(src.coverUrl == null ? '' : src.coverUrl).trim().slice(0, 500)
   const categoryId = String(src.categoryId == null ? '' : src.categoryId).trim()
+  const content = String(src.content == null ? '' : src.content).slice(0, MAX_CONTENT_LEN)
   return {
     title,
     summary,
     coverUrl,
     categoryId,
-    blocks: normalizeBlocks(src.blocks),
+    content,
     isPublished: !!src.isPublished
   }
 }
 
-// 上传文件大小上限（base64 后约 6.7MB，HTTP 网关 body 限制内）
-const MAX_UPLOAD_B64 = 7 * 1024 * 1024
+// ---------- 七牛上传凭证签发（前端直传，文件内容不经过云函数，支持大体积视频） ----------
+const crypto = require('crypto')
+const QINIU_AK = process.env.QINIU_ACCESS_KEY || '4TVRjmuj-nLeEcwFFOCbCBMiWlQR2BYt2Ee4ZPdb'
+const QINIU_SK = process.env.QINIU_SECRET_KEY || 'C_y75p4asBDZ22BJ0JjGl1I1CsBSUcoiixDG262O'
+const QINIU_BUCKET = process.env.QINIU_BUCKET || 'posterbg'
+const QINIU_DOMAIN = 'https://7ncdn.peacelove.top'
+const QINIU_UPLOAD_URL = 'https://up-z2.qiniup.com' // 华南 z2
+
+function qiniuSafe64(buf) {
+  return buf.toString('base64').replace(/\+/g, '-').replace(/\//g, '_')
+}
+
+function makeQiniuToken(key) {
+  const putPolicy = JSON.stringify({
+    scope: `${QINIU_BUCKET}:${key}`,
+    deadline: Math.floor(Date.now() / 1000) + 1800
+  })
+  const encoded = qiniuSafe64(Buffer.from(putPolicy))
+  const sign = qiniuSafe64(crypto.createHmac('sha1', QINIU_SK).update(encoded).digest())
+  return `${QINIU_AK}:${sign}:${encoded}`
+}
 
 exports.main = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
@@ -266,22 +260,19 @@ exports.main = async (event) => {
         return response(true, { enabled, articleId })
       }
 
-      // ---------- 上传（图片存云存储，返回永久 https 链接） ----------
-      case 'upload': {
-        const b64 = String(body.base64 || '')
-        if (!b64 || b64.length > MAX_UPLOAD_B64) return response(false, '文件过大（限 5MB 内）')
-        const buf = Buffer.from(b64, 'base64')
-        if (buf.length < 100) return response(false, '文件内容无效')
-        const fileName = String(body.fileName || 'img.png').replace(/[^\w.\-]/g, '_').slice(-60)
-        const cloudPath = `news/${Date.now()}_${Math.floor(Math.random() * 10000)}_${fileName}`
-        const up = await cloud.uploadFile({ cloudPath, fileContent: buf })
-        // 拼 tcb 永久 https 链接（存储默认所有用户可读）
-        let envId = ''
-        try {
-          envId = (cloud.getWXContext() || {}).ENV || process.env.TCB_ENV || ''
-        } catch (e) { void e }
-        const url = envId ? `https://${envId}.tcb.qcloud.la/${cloudPath}` : ''
-        return response(true, { fileId: up.fileID, url })
+      // ---------- 上传凭证（前端直传七牛：封面/插图/视频统一走 7ncdn.peacelove.top/news/） ----------
+      case 'upload.token': {
+        let ext = String(body.ext || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 5)
+        if (ext === 'jpeg') ext = 'jpg'
+        const allowed = ['jpg', 'png', 'webp', 'gif', 'mp4', 'mov', 'm4v', 'webm']
+        if (!allowed.includes(ext)) ext = 'jpg'
+        const key = `news/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${ext}`
+        return response(true, {
+          key,
+          token: makeQiniuToken(key),
+          url: `${QINIU_DOMAIN}/${key}`,
+          uploadUrl: QINIU_UPLOAD_URL
+        })
       }
 
       default:

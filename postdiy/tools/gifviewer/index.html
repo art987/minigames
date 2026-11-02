@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GIF 播放器</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- GIF 解码器 (gifuct-js 打包版) -->
+    <script src="libs/gifuct.js"></script>
+    <!-- JSZip 用于打包下载 -->
+    <script src="node_modules/jszip/dist/jszip.min.js"></script>
+</head>
+<body>
+    <!-- 主容器 -->
+    <div id="app">
+        <!-- 顶部工具栏 -->
+        <header class="toolbar">
+            <button class="icon-btn" id="btn-gallery" title="图片库">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+            </button>
+            <h1 class="title">GIF 播放器</h1>
+            <button class="icon-btn" id="btn-upload" title="上传文件">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+            </button>
+            <button class="icon-btn" id="btn-settings" title="设置">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+            </button>
+            <button class="icon-btn" id="btn-export" title="导出帧">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+            </button>
+            <input type="file" id="file-input" accept=".gif" multiple hidden>
+        </header>
+
+        <!-- 播放区域 -->
+        <main class="player-area">
+            <div class="canvas-wrapper" id="canvas-wrapper">
+                <canvas id="gif-canvas"></canvas>
+                <div class="placeholder" id="placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M7 7h3v3H7zM14 7h3M7 14h3v3H7zM14 14h3v3h-3z"/>
+                    </svg>
+                    <p>选择或上传 GIF 文件开始播放</p>
+                </div>
+            </div>
+            <!-- 左右点击热区 -->
+            <div class="tap-zone tap-left" id="tap-left" title="上一帧"></div>
+            <div class="tap-zone tap-right" id="tap-right" title="下一帧"></div>
+        </main>
+
+        <!-- 底部控制栏 -->
+        <footer class="controls" id="controls" style="display:none;">
+            <div class="timeline-wrapper">
+                <div class="timeline" id="timeline">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                    <div class="timeline-thumb" id="timeline-thumb"></div>
+                </div>
+            </div>
+
+            <div class="control-buttons">
+                <!-- 左组：prev + play + next 放一起 -->
+                <div class="btn-group btn-group-main">
+                    <button class="ctrl-btn" id="btn-prev" title="上一帧">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button class="ctrl-btn play-btn" id="btn-play" title="播放/暂停">
+                        <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                    <button class="ctrl-btn" id="btn-next" title="下一帧">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </button>
+                    <button class="ctrl-btn" id="btn-capture" title="截帧" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 右组：速度滑块 -->
+                <div class="btn-group btn-group-side">
+                    <div class="speed-inline">
+                        <input type="range" id="speed-slider" min="200" max="3000" value="500" step="50">
+                        <div class="speed-tooltip" id="speed-tooltip"><span id="speed-value">500</span>ms</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 图片库弹窗 -->
+    <div class="modal" id="modal-gallery">
+        <div class="modal-content gallery-modal">
+            <div class="modal-header">
+                <h2>图片库</h2>
+                <button class="close-btn" data-close="modal-gallery">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="gallery-grid" id="gallery-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div class="modal" id="modal-settings">
+        <div class="modal-content settings-modal">
+            <div class="modal-header">
+                <h2>播放设置</h2>
+                <button class="close-btn" data-close="modal-settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>播放速度</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="speed-slider" min="10" max="500" value="100" step="10">
+                        <span class="slider-value"><span id="speed-value">100</span>ms</span>
+                    </div>
+                </div>
+                <div class="setting-item toggle-item">
+                    <label>反向播放</label>
+                    <label class="switch">
+                        <input type="checkbox" id="reverse-toggle">
+                        <span class="slider-switch"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>循环模式</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="loop" value="loop" checked> <span>循环播放</span></label>
+                        <label class="radio-label"><input type="radio" name="loop" value="once"> <span>播放一次</span></label>
+                        <label class="radio-label"><input type="radio" name="loop" value="pingpong"> <span>往复播放</span></label>
+                    </div>
+                </div>
+                <div class="gif-info" id="gif-info" style="display:none;">
+                    <h3>GIF 信息</h3>
+                    <div class="info-row"><span>文件名</span><span id="info-name">-</span></div>
+                    <div class="info-row"><span>尺寸</span><span id="info-size">-</span></div>
+                    <div class="info-row"><span>帧数</span><span id="info-frames">-</span></div>
+                    <div class="info-row"><span>总时长</span><span id="info-duration">-</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导出弹窗 -->
+    <div class="modal" id="modal-export">
+        <div class="modal-content export-modal">
+            <div class="modal-header">
+                <h2>导出帧</h2>
+                <button class="close-btn" data-close="modal-export">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="export-btn" id="btn-save-current">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    <span>保存当前帧</span>
+                </button>
+                <button class="export-btn primary" id="btn-download-all">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>下载所有帧 (ZIP)</span>
+                </button>
+                <div class="frame-list-preview" id="frame-list-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载提示 -->
+    <div class="loading" id="loading" style="display:none;">
+        <div class="spinner"></div>
+        <p id="loading-text">加载中...</p>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="app.js"></script>
+</body>
+</html>

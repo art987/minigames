@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "gifuct-js": "^2.1.2",
+    "jszip": "^3.10.2"
+  }
+}
