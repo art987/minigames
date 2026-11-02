@@ -59,10 +59,18 @@ function applyScalerTransform() {
     s.style.transform = `translate(${scalerState.tx}px, ${scalerState.ty}px) scale(${scalerState.scale})`;
     // 放大时禁用左右热区，让手势能作用到 canvas 上
     const player = document.querySelector('.player-area');
+    const zoomBar = $('zoom-bar');
     if (scalerState.scale > 1) {
         player.classList.add('zoomed');
+        zoomBar.classList.add('can-move');
     } else {
         player.classList.remove('zoomed');
+        zoomBar.classList.remove('can-move');
+    }
+    // 1x 按钮高亮
+    document.querySelectorAll('.zoom-btn[data-zoom]').forEach(btn => btn.classList.remove('is-normal'));
+    if (Math.abs(scalerState.scale - 1) < 0.001) {
+        document.querySelector('.zoom-btn[data-zoom="normal"]')?.classList.add('is-normal');
     }
 }
 
@@ -145,6 +153,37 @@ function bindGestures() {
     wrapper.addEventListener('touchcancel', endAll);
     wrapper.addEventListener('touchleave', endAll);
 
+    // 桌面端：放大时鼠标拖拽
+    let mouseDragging = false;
+    let mouseStartX = 0, mouseStartY = 0;
+    let mouseStartTx = 0, mouseStartTy = 0;
+
+    wrapper.addEventListener('mousedown', (e) => {
+        if (scalerState.scale > 1 && e.button === 0) {
+            mouseDragging = true;
+            mouseStartX = e.clientX;
+            mouseStartY = e.clientY;
+            mouseStartTx = scalerState.tx;
+            mouseStartTy = scalerState.ty;
+            $('canvas-scaler').classList.add('dragging');
+            e.preventDefault();
+        }
+    });
+    document.addEventListener('mousemove', (e) => {
+        if (!mouseDragging) return;
+        const dx = e.clientX - mouseStartX;
+        const dy = e.clientY - mouseStartY;
+        scalerState.tx = mouseStartTx + dx;
+        scalerState.ty = mouseStartTy + dy;
+        applyScalerTransform();
+    });
+    document.addEventListener('mouseup', () => {
+        if (mouseDragging) {
+            mouseDragging = false;
+            $('canvas-scaler').classList.remove('dragging');
+        }
+    });
+
     // 桌面端：Ctrl+滚轮缩放 + Shift+滚轮/右键拖拽
     wrapper.addEventListener('wheel', (e) => {
         e.preventDefault();
@@ -161,6 +200,80 @@ function bindGestures() {
             applyScalerTransform();
         }
     }, { passive: false });
+}
+
+// ========== 缩放控制按钮（长按持续） ==========
+function bindZoomBar() {
+    const bar = $('zoom-bar');
+    const STEP_SCALE = 0.12;     // 单次点击缩放步长
+    const STEP_MOVE = 25;        // 单次点击移动像素
+    const MAX_SCALE = 6;
+    let repeatTimer = null;
+
+    function stopRepeat() {
+        if (repeatTimer) {
+            clearInterval(repeatTimer);
+            repeatTimer = null;
+        }
+    }
+
+    function handleZoom(action) {
+        if (action === 'in') {
+            scalerState.scale = Math.min(MAX_SCALE, scalerState.scale + STEP_SCALE);
+        } else if (action === 'out') {
+            scalerState.scale = Math.max(1, scalerState.scale - STEP_SCALE);
+            if (scalerState.scale <= 1) { scalerState.scale = 1; scalerState.tx = 0; scalerState.ty = 0; }
+        } else if (action === 'normal') {
+            scalerState.scale = 1;
+            scalerState.tx = 0;
+            scalerState.ty = 0;
+        }
+        applyScalerTransform();
+    }
+
+    function handleMove(dir) {
+        if (scalerState.scale <= 1) return;
+        switch (dir) {
+            case 'left':   scalerState.tx += STEP_MOVE; break;
+            case 'right':  scalerState.tx -= STEP_MOVE; break;
+            case 'up':     scalerState.ty += STEP_MOVE; break;
+            case 'down':   scalerState.ty -= STEP_MOVE; break;
+            case 'center': scalerState.tx = 0; scalerState.ty = 0; break;
+        }
+        applyScalerTransform();
+    }
+
+    bar.querySelectorAll('.zoom-btn').forEach(btn => {
+        const zoom = btn.dataset.zoom;
+        const move = btn.dataset.move;
+        const isRepeatable = zoom === 'in' || zoom === 'out' ||
+                             move === 'left' || move === 'right' || move === 'up' || move === 'down';
+
+        function doAction() {
+            if (zoom) handleZoom(zoom);
+            else if (move) handleMove(move);
+        }
+
+        // click 处理
+        btn.addEventListener('click', doAction);
+
+        // 长按持续
+        if (isRepeatable) {
+            function startRepeat(e) {
+                e.preventDefault();
+                stopRepeat();
+                doAction();
+                repeatTimer = setInterval(doAction, 110);
+            }
+            btn.addEventListener('mousedown', startRepeat);
+            btn.addEventListener('touchstart', startRepeat, { passive: false });
+            btn.addEventListener('mouseup', stopRepeat);
+            btn.addEventListener('mouseleave', stopRepeat);
+            btn.addEventListener('touchend', stopRepeat);
+            btn.addEventListener('touchcancel', stopRepeat);
+            btn.addEventListener('contextmenu', (e) => e.preventDefault());
+        }
+    });
 }
 
 // ========== 切换 GIF 文件（上一张/下一张） ==========
@@ -182,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     state.ctx = ctx;
     bindEvents();
     bindGestures();
+    bindZoomBar();
     loadGallery();
     // 默认打开图库
     openModal('modal-gallery');
@@ -448,6 +562,7 @@ async function loadGif(url, name) {
         canvas.classList.add('active');
         placeholder.style.display = 'none';
         controls.style.display = 'block';
+        $('zoom-bar').style.display = 'flex';
 
         // 更新 UI
         updateFrameInfo();
