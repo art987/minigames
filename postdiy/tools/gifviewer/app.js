@@ -26,7 +26,8 @@ const $ = (id) => document.getElementById(id);
 const canvas = $('gif-canvas');
 const ctx = canvas.getContext('2d');
 const placeholder = $('placeholder');
-const controls = $('controls');
+const bottomBar = $('bottom-bar');
+const speedVbox = $('speed-vbox');
 const loading = $('loading');
 const loadingText = $('loading-text');
 
@@ -309,8 +310,6 @@ function bindEvents() {
     $('file-input').addEventListener('change', handleFileUpload);
 
     // 控制按钮
-    $('btn-prev').addEventListener('click', () => stepFrame(-1));
-    $('btn-next').addEventListener('click', () => stepFrame(1));
     $('btn-play').addEventListener('click', togglePlay);
     $('btn-capture').addEventListener('click', captureCurrentFrame);
     $('btn-settings').addEventListener('click', () => openModal('modal-settings'));
@@ -329,20 +328,18 @@ function bindEvents() {
         goToFrame(frameIdx);
     });
 
-    // 播放区域四列点击热区
-    document.querySelectorAll('.tap-zone').forEach(zone => {
-        zone.addEventListener('click', () => {
-            const action = zone.dataset.tap;
-            switch (action) {
-                case 'prev-file': switchFile(-1); break;
-                case 'next-file': switchFile(1); break;
-                case 'prev-frame': stepFrame(-1); break;
-                case 'next-frame': stepFrame(1); break;
-            }
+    // 文件切换浮动按钮（左右两侧）
+    $('file-prev').addEventListener('click', () => switchFile(-1));
+    $('file-next').addEventListener('click', () => switchFile(1));
+
+    // zoom-bar 帧切换按钮（data-frame="prev"/"next"）
+    document.querySelectorAll('.zoom-btn[data-frame]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            stepFrame(btn.dataset.frame === 'prev' ? -1 : 1);
         });
     });
 
-    // 设置弹窗
+    // 速度滑块（竖排）
     const speedSlider = $('speed-slider');
     const speedTooltip = $('speed-tooltip');
     let tooltipHideTimer = null;
@@ -353,7 +350,6 @@ function bindEvents() {
         if (state.isPlaying) {
             restartPlayback();
         }
-        // 显示 tooltip
         speedTooltip.style.opacity = '1';
         speedTooltip.style.visibility = 'visible';
         clearTimeout(tooltipHideTimer);
@@ -363,17 +359,14 @@ function bindEvents() {
         }, 1500);
     });
 
-    // 滑块聚焦也显示
     speedSlider.addEventListener('focus', () => {
         speedTooltip.style.opacity = '1';
         speedTooltip.style.visibility = 'visible';
     });
     speedSlider.addEventListener('blur', () => {
         setTimeout(() => {
-            if (!tooltipHideTimer) {
-                speedTooltip.style.opacity = '';
-                speedTooltip.style.visibility = '';
-            }
+            speedTooltip.style.opacity = '';
+            speedTooltip.style.visibility = '';
         }, 1500);
     });
 
@@ -561,8 +554,8 @@ async function loadGif(url, name) {
         canvas.height = state.canvasHeight;
         canvas.classList.add('active');
         placeholder.style.display = 'none';
-        controls.style.display = 'block';
-        $('zoom-bar').style.display = 'flex';
+        bottomBar.style.display = 'block';
+        speedVbox.style.display = 'flex';
 
         // 更新 UI
         updateFrameInfo();
