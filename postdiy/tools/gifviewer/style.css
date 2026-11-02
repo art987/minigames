@@ -93,38 +93,61 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     z-index: 1;
 }
 
-/* 左右点击热区 */
-.tap-zone {
+/* transform 包装 - 双指缩放 + 拖拽 */
+.canvas-scaler {
+    display: inline-block;
+    transform-origin: center center;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
+    transition: transform 0.08s ease-out;
+}
+
+.canvas-scaler.dragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+/* 四列点击热区 */
+.tap-zones {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
+    inset: 0;
+    display: flex;
     z-index: 2;
+}
+
+.tap-zone {
+    flex: 1;
     cursor: pointer;
     transition: background 0.15s;
 }
 
-.tap-left {
-    left: 0;
-}
-
-.tap-right {
-    right: 0;
+.player-area.zoomed .tap-zones {
+    pointer-events: none;
+    opacity: 0;
 }
 
 .tap-zone:active {
-    background: rgba(99, 102, 241, 0.08);
+    background: rgba(99, 102, 241, 0.15);
 }
 
-.tap-left:active {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.12), transparent);
+.tap-zone[data-tap="prev-file"]:active {
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.18), transparent);
 }
-
-.tap-right:active {
-    background: linear-gradient(270deg, rgba(99, 102, 241, 0.12), transparent);
+.tap-zone[data-tap="prev-frame"]:active {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), transparent);
+}
+.tap-zone[data-tap="next-frame"]:active {
+    background: linear-gradient(270deg, rgba(99, 102, 241, 0.15), transparent);
+}
+.tap-zone[data-tap="next-file"]:active {
+    background: linear-gradient(270deg, rgba(168, 85, 247, 0.18), transparent);
 }
 
 #gif-canvas {
@@ -395,6 +418,38 @@ body {
     color: #fafafa;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dir-select {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #27272a;
+    color: #e4e4e7;
+    border: 1px solid #3f3f46;
+    padding: 5px 28px 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    background-size: 14px;
+    transition: border-color 0.15s;
+}
+
+.dir-select:hover {
+    border-color: #52525b;
+}
+
+.dir-select:focus {
+    outline: none;
+    border-color: #6366f1;
+}
+
 .close-btn {
     width: 32px;
     height: 32px;
@@ -427,13 +482,26 @@ body {
 
 /* ========== 图片库弹窗 ========== */
 .gallery-modal {
-    max-width: 560px;
+    width: 95vw;
+    height: 95vh;
+    max-width: 95vw;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-modal .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 12px;
+    padding-bottom: 16px;
 }
 
 .gallery-item {
