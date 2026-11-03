@@ -491,7 +491,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid #27272a;
     flex-shrink: 0;
 }
@@ -514,9 +514,9 @@ body {
     background: #27272a;
     color: #e4e4e7;
     border: 1px solid #3f3f46;
-    padding: 5px 28px 5px 10px;
+    padding: 5px 34px 5px 15px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 15px;
     cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -568,9 +568,9 @@ body {
 .gallery-modal {
     width: 95vw;
     max-width: 95vw;
-    margin-top: calc(env(safe-area-inset-top) + 12px);
-    height: calc(100vh - env(safe-area-inset-top) - 24px);
-    max-height: calc(100vh - env(safe-area-inset-top) - 24px);
+    margin-top: calc(env(safe-area-inset-top) + 40px);
+    height: calc(100vh - env(safe-area-inset-top) - 80px);
+    max-height: calc(100vh - env(safe-area-inset-top) - 60px);
     display: flex;
     flex-direction: column;
 }
