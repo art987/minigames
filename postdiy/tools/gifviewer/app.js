@@ -17,6 +17,7 @@ const state = {
     ctx: null,            // Canvas 上下文
     canvasWidth: 0,       // GIF 原始宽度
     canvasHeight: 0,      // GIF 原始高度
+    nativeImgMode: false, // 浏览器原生 img 兜底模式（gifuct-js 解码失败时启用）
     fileName: '',         // 当前文件名
     fileUrl: '',          // 当前文件 URL (blob: 或相对路径)
 };
@@ -533,11 +534,23 @@ async function loadGif(url, name) {
         const response = await fetch(url);
         const buffer = await response.arrayBuffer();
         
-        // 使用 gifuct-js 解码
+        // gifuct-js 解码
         const gif = GIFUTCGif.parseGIF(buffer);
         const frames = GIFUTCGif.decompressFrames(gif, true);
         
-        // 保存状态
+        // 透明像素 RGB 清理（防止垃圾色污染 drawImage 合成）
+        let dirty = 0;
+        for (const frame of frames) {
+            const patch = frame.patch;
+            for (let i = 0; i < patch.length; i += 4) {
+                if (patch[i+3] === 0 && (patch[i] || patch[i+1] || patch[i+2])) {
+                    patch[i] = patch[i+1] = patch[i+2] = 0;
+                    dirty++;
+                }
+            }
+        }
+        if (dirty > 0) console.info(`GIF清理: ${dirty} 透明像素`);
+
         state.frames = frames;
         state.fileName = name;
         state.fileUrl = url;
@@ -545,30 +558,35 @@ async function loadGif(url, name) {
         state.canvasHeight = gif.lsd.height;
         state.currentFrame = 0;
         state.isPlaying = false;
+        state.nativeImgMode = false;
 
-        // 重置缩放/拖拽
         resetScaler();
+        resetAccumulated();
 
-        // 设置 canvas 尺寸
+        // ===== canvas 渲染 =====
+        canvas.style.display = 'block';
         canvas.width = state.canvasWidth;
         canvas.height = state.canvasHeight;
         canvas.classList.add('active');
-        placeholder.style.display = 'none';
-        bottomBar.style.display = 'block';
-        speedVbox.style.display = 'flex';
+        
+        const native = $('gif-native');
+        native.src = '';
+        native.style.display = 'none';
 
-        // 更新 UI
+        placeholder.style.display = 'none';
+        bottomBar.style.display = 'flex';
+        speedVbox.style.display = 'flex';
+        const capture = $('btn-capture'); if (capture) capture.disabled = false;
+        const play = $('btn-play'); if (play) play.disabled = false;
+        document.querySelectorAll('.zoom-bar [data-frame]').forEach(b => b.disabled = false);
+
         updateFrameInfo();
         updateGifInfo();
         $('icon-play').style.display = '';
         $('icon-pause').style.display = 'none';
 
-        // 渲染第一帧
         renderFrame(0);
-        
         hideLoading();
-        
-        // 自动开始播放
         togglePlay();
 
     } catch (err) {
@@ -578,26 +596,68 @@ async function loadGif(url, name) {
     }
 }
 
-// ========== 帧渲染 ==========
-function renderFrame(index) {
+// ========== 帧渲染（增量累积法） ==========
+// 关键：用 drawImage 而非 putImageData 来叠加帧！
+// putImageData 是"整块替换" — 透明像素(alpha=0)也会擦掉画布上已有的颜色
+// drawImage 尊重 source-over alpha 合成 — 透明像素自然保留下方已有内容
+// 这就是之前累积合成出彩斑的根因！
+let accumulatedLastFrame = -1;
+let accumulatedSnapshot = null;
+const _frameTmpCanvas = document.createElement('canvas');  // 复用的临时 canvas
+const _frameTmpCtx = _frameTmpCanvas.getContext('2d');
+
+function resetAccumulated() {
+    accumulatedLastFrame = -1;
+    accumulatedSnapshot = null;
+}
+
+function renderFrame(targetIndex) {
     if (state.frames.length === 0) return;
+    const W = state.canvasWidth;
+    const H = state.canvasHeight;
+
+    const needReset = targetIndex < accumulatedLastFrame || 
+                      accumulatedLastFrame < 0 ||
+                      (targetIndex - accumulatedLastFrame > 5);
     
-    const frame = state.frames[index];
-    if (!frame) return;
-
-    // 获取帧的 ImageData 并绘制
-    const imageData = new ImageData(
-        new Uint8ClampedArray(frame.patch),
-        frame.dims.width,
-        frame.dims.height
-    );
-
-    // 处理 GIF 的 disposal method（背景清除）
-    if (index === 0 || frame.disposalType === 2) {
-        ctx.clearRect(0, 0, state.canvasWidth, state.canvasHeight);
+    if (needReset) {
+        ctx.clearRect(0, 0, W, H);
+        accumulatedLastFrame = -1;
+        accumulatedSnapshot = null;
     }
+
+    const startFrom = accumulatedLastFrame + 1;
     
-    ctx.putImageData(imageData, frame.dims.left, frame.dims.top);
+    for (let i = startFrom; i <= targetIndex; i++) {
+        const frame = state.frames[i];
+
+        // ① 处理【上一帧】的 disposal method
+        if (i > 0) {
+            const prev = state.frames[i - 1];
+            switch (prev.disposalType) {
+                case 2:  ctx.clearRect(0, 0, W, H); accumulatedSnapshot = null; break;
+                case 3:  if (accumulatedSnapshot) ctx.putImageData(accumulatedSnapshot, 0, 0);
+                         else ctx.clearRect(0, 0, W, H);
+                         accumulatedSnapshot = null; break;
+                default: break;
+            }
+        }
+
+        // ② 保存快照（给下一帧 disposal=3 用）
+        accumulatedSnapshot = ctx.getImageData(0, 0, W, H);
+
+        // ③ 叠加当前帧 —— 用 drawImage 做 alpha 合成！
+        _frameTmpCanvas.width = frame.dims.width;
+        _frameTmpCanvas.height = frame.dims.height;
+        _frameTmpCtx.clearRect(0, 0, frame.dims.width, frame.dims.height);
+        _frameTmpCtx.putImageData(
+            new ImageData(new Uint8ClampedArray(frame.patch), frame.dims.width, frame.dims.height),
+            0, 0
+        );
+        ctx.drawImage(_frameTmpCanvas, frame.dims.left, frame.dims.top);
+    }
+
+    accumulatedLastFrame = targetIndex;
 }
 
 // ========== 播放控制 ==========
