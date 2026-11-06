@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>极光星空雪山</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:system-ui}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+
+#panel{
+  position:fixed;top:16px;left:16px;
+  background:rgba(0,0,0,0.65);
+  color:#fff;padding:14px;border-radius:12px;
+  min-width:260px;backdrop-filter:blur(8px);
+  z-index:10;transition:.3s
+}
+#panel.collapse{width:44px;height:44px;overflow:hidden;min-width:unset;padding:0}
+#toggleBtn{
+  float:right;border:none;background:#333;color:#fff;
+  width:32px;height:32px;border-radius:8px;cursor:pointer
+}
+.row{margin:10px 0}
+label{display:block;font-size:13px;margin-bottom:4px;color:#ddd}
+input[type="range"]{width:100%}
+.val{font-size:12px;color:#aaa}
+#paramText{
+  margin-top:12px;padding:8px;background:#111;border-radius:6px;
+  font-size:11px;white-space:pre-wrap;max-height:120px;overflow-y:auto;color:#9cf
+}
+</style>
+</head>
+<body>
+<canvas id="aurora"></canvas>
+
+<div id="panel">
+  <button id="toggleBtn">—</button>
+  <div class="body">
+    <div class="row">
+      <label>曲面模糊 <span class="val" id="blurVal"></span></label>
+      <input type="range" id="blurSlider" min="0.4" max="2.2" step="0.05">
+    </div>
+    <div class="row">
+      <label>流星上限 <span class="val" id="meteorVal"></span></label>
+      <input type="range" id="meteorSlider" min="0" max="10" step="1">
+    </div>
+    <div class="row">
+      <label>波浪切换速度 <span class="val" id="waveSpeedVal"></span></label>
+      <input type="range" id="waveSpeedSlider" min="0.0005" max="0.003" step="0.0001">
+    </div>
+    <div class="row">
+      <label>曲面亮度 <span class="val" id="brightVal"></span></label>
+      <input type="range" id="brightSlider" min="0.08" max="0.35" step="0.01">
+    </div>
+    <div class="row">
+      <label>星空强度 <span class="val" id="starVal"></span></label>
+      <input type="range" id="starSlider" min="0.3" max="1.6" step="0.05">
+    </div>
+    <div id="paramText"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('aurora');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  const defaultCfg = {
+    blur: 1.0,
+    meteorMax: 8,
+    waveSpeed: 0.0012,
+    brightness: 0.26,
+    starPower: 1.10
+  };
+  let cfg = JSON.parse(localStorage.getItem('auroraMountainV1')) || {...defaultCfg};
+
+  const panel = document.getElementById('panel');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const blurSlider = document.getElementById('blurSlider');
+  const blurVal = document.getElementById('blurVal');
+  const meteorSlider = document.getElementById('meteorSlider');
+  const meteorVal = document.getElementById('meteorVal');
+  const waveSpeedSlider = document.getElementById('waveSpeedSlider');
+  const waveSpeedVal = document.getElementById('waveSpeedVal');
+  const brightSlider = document.getElementById('brightSlider');
+  const brightVal = document.getElementById('brightVal');
+  const starSlider = document.getElementById('starSlider');
+  const starVal = document.getElementById('starVal');
+  const paramText = document.getElementById('paramText');
+
+  let stars = [];
+  let meteors = [];
+  let particles = [];
+  const METEOR_ANGLE = Math.PI / 4;
+
+  const rainbow = [
+    [255, 70, 120],
+    [255, 140, 50],
+    [255, 230, 80],
+    [90, 255, 150],
+    [60, 170, 255],
+    [130, 70, 255],
+    [255, 90, 210],
+    [255, 70, 120]
+  ];
+
+  function saveCfg() {
+    localStorage.setItem('auroraMountainV1', JSON.stringify(cfg));
+    updateUI();
+  }
+  function updateUI() {
+    blurSlider.value = cfg.blur;
+    meteorSlider.value = cfg.meteorMax;
+    waveSpeedSlider.value = cfg.waveSpeed;
+    brightSlider.value = cfg.brightness;
+    starSlider.value = cfg.starPower;
+    blurVal.textContent = cfg.blur.toFixed(2);
+    meteorVal.textContent = cfg.meteorMax;
+    waveSpeedVal.textContent = cfg.waveSpeed.toFixed(4);
+    brightVal.textContent = cfg.brightness.toFixed(2);
+    starVal.textContent = cfg.starPower.toFixed(2);
+    paramText.textContent = JSON.stringify(cfg, null, 2);
+  }
+  toggleBtn.onclick = () => {
+    panel.classList.toggle('collapse');
+    toggleBtn.textContent = panel.classList.contains('collapse') ? "+" : "—";
+  };
+  blurSlider.oninput = () => { cfg.blur = Number(blurSlider.value); saveCfg(); };
+  meteorSlider.oninput = () => { cfg.meteorMax = Number(meteorSlider.value); saveCfg(); };
+  waveSpeedSlider.oninput = () => { cfg.waveSpeed = Number(waveSpeedSlider.value); saveCfg(); };
+  brightSlider.oninput = () => { cfg.brightness = Number(brightSlider.value); saveCfg(); };
+  starSlider.oninput = () => { cfg.starPower = Number(starSlider.value); saveCfg(); };
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function resize() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    initStars();
+  }
+
+  function drawTopFade() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    const grad = ctx.createLinearGradient(0, 0, 0, h * 0.8);
+    grad.addColorStop(0, 'rgba(0,0,0,1)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h * 0.8);
+    ctx.restore();
+  }
+
+  function drawMountains() {
+    const baseY = h;
+    const snowPeakScale = h * 0.05;
+    const blackPeakScale = h * 0.03;
+
+    const peaks = [
+      { x: w * 0.04, height: 0.48, width: 0.10 },
+      { x: w * 0.10, height: 0.76, width: 0.12 },
+      { x: w * 0.18, height: 0.62, width: 0.10 },
+      { x: w * 0.26, height: 0.84, width: 0.13 },
+      { x: w * 0.34, height: 0.55, width: 0.09 },
+      { x: w * 0.42, height: 0.70, width: 0.11 },
+      { x: w * 0.50, height: 0.60, width: 0.10 },
+      { x: w * 0.58, height: 0.78, width: 0.12 },
+      { x: w * 0.66, height: 0.66, width: 0.10 },
+      { x: w * 0.74, height: 0.52, width: 0.09 },
+      { x: w * 0.82, height: 0.82, width: 0.11 },
+      { x: w * 0.90, height: 0.58, width: 0.10 },
+      { x: w * 0.96, height: 0.44, width: 0.09 }
+    ];
+
+    // 远景雪山：整体透明度 30%
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 0.20;
+    ctx.beginPath();
+    ctx.moveTo(-20, baseY);
+
+    for (let x = -20; x <= w + 20; x += 10) {
+      let y = baseY;
+      for (const peak of peaks) {
+        const dx = (x - peak.x) / (peak.width * w * 0.5);
+        const gauss = Math.exp(-dx * dx * 1.5);
+        y -= gauss * peak.height * snowPeakScale;
+      }
+      y -= Math.sin(x * 0.016 + 0.7) * snowPeakScale * 0.18;
+      y -= Math.sin(x * 0.03 + 1.3) * snowPeakScale * 0.10;
+      y -= Math.max(0, Math.sin(x * 0.055 + 2.1) * 0.24) * snowPeakScale * 0.22;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w + 20, baseY);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, baseY - snowPeakScale, 0, baseY);
+    grad.addColorStop(0, 'rgba(180,210,255,1)');
+    grad.addColorStop(0.55, 'rgba(110,140,190,1)');
+    grad.addColorStop(1, 'rgba(30,40,60,1)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.restore();
+
+    // 近山黑色剪影：保持不透明
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.beginPath();
+    ctx.moveTo(-20, baseY);
+    for (let x = -20; x <= w + 20; x += 8) {
+      let y = baseY;
+      for (const peak of peaks) {
+        const dx = (x - peak.x) / (peak.width * w * 0.42);
+        const gauss = Math.exp(-dx * dx * 1.8);
+        y -= gauss * peak.height * blackPeakScale;
+      }
+      y -= Math.abs(Math.sin(x * 0.07 + 1.9)) * blackPeakScale * 0.18;
+      y -= Math.sin(x * 0.022 + 2.3) * blackPeakScale * 0.12;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w + 20, baseY);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(0,0,0,1)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function initStars() {
+    stars = [];
+    const brightCount = Math.floor((w * h) / 600);
+    for (let i = 0; i < brightCount; i++) {
+      const y = Math.random() * h;
+      const baseA = y < h * 0.8 ? 0.72 : 0.52;
+      stars.push({
+        x: Math.random() * w,
+        y: y,
+        r: Math.random() * 0.55 + 0.35,
+        baseA,
+        flashA:1.0,
+        timer: rand(0, 2000),
+        interval: rand(800, 2400),
+        duration: rand(180, 420),
+        flashing: false,
+        type: 'bright'
+      });
+    }
+    const faintCount = Math.floor((w * h) / 320);
+    for (let i = 0; i < faintCount; i++) {
+      const y = Math.random() * h;
+      const baseA = y < h * 0.8 ? 0.42 : 0.32;
+      stars.push({
+        x: Math.random() * w,
+        y: y,
+        r: Math.random() * 0.25 + 0.12,
+        baseA,
+        flashA:0.6,
+        timer: rand(0, 1600),
+        interval: rand(600, 2000),
+        duration: rand(120, 320),
+        flashing: false,
+        type: 'faint'
+      });
+    }
+  }
+
+  function updateStars(dt) {
+    for (const s of stars) {
+      s.timer += dt;
+      if (!s.flashing && s.timer >= s.interval) {
+        s.flashing = true;
+        s.timer = 0;
+      }
+      if (s.flashing) {
+        if (s.timer >= s.duration) {
+          s.flashing = false;
+          s.timer = 0;
+          s.interval = rand(600, 2400);
+        }
+      }
+    }
+  }
+
+  function drawStars() {
+    for (const s of stars) {
+      let alpha = s.baseA;
+      if (s.flashing) {
+        const k = Math.min(1, s.timer / s.duration);
+        const ease = k < 0.25 ? k / 0.25 : 1 - (k - 0.25) / 0.75;
+        alpha = s.baseA + (s.flashA - s.baseA) * ease;
+      }
+      alpha = Math.max(0, Math.min(1, alpha * cfg.starPower));
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawFullscreenAurora() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    const grad = ctx.createLinearGradient(-60, 0, w + 60, 0);
+    const seg = 1 / (rainbow.length - 1);
+    for (let i = 0; i < rainbow.length; i++) {
+      const c = rainbow[i];
+      const shift = ((i * seg) + (performance.now() * 0.000045)) % 1;
+      grad.addColorStop(shift, `rgba(${c[0]},${c[1]},${c[2]},${cfg.brightness})`);
+    }
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+
+  function drawMeteors() {
+    for (let i = meteors.length - 1; i >= 0; i--) {
+      const m = meteors[i];
+      m.age++;
+      m.x += Math.cos(m.angle) * m.speed;
+      m.y += Math.sin(m.angle) * m.speed;
+      m.alpha = Math.max(0, 1 - m.age / m.life);
+      if (m.age % 3 === 0) createTailParticles(m);
+      const tailX = m.x - Math.cos(m.angle) * m.len;
+      const tailY = m.y - Math.sin(m.angle) * m.len;
+      const g = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+      g.addColorStop(0, 'rgba(255,255,255,0)');
+      g.addColorStop(0.45, 'rgba(140,190,255,0.28)');
+      g.addColorStop(0.85, 'rgba(255,255,255,0.75)');
+      g.addColorStop(1, `rgba(255,255,255,${m.alpha})`);
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(m.x, m.y);
+      ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${m.alpha})`;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, 2, 0, Math.PI * 2);
+      ctx.fill();
+      const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 14);
+      glow.addColorStop(0, `rgba(255,255,255,${0.28 * m.alpha})`);
+      glow.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      if (m.age >= m.life || m.x > w + 400 || m.y > h + 400) meteors.splice(i, 1);
+    }
+  }
+  function drawParticles() {
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.age++;
+      p.x += p.vx; p.y += p.vy;
+      p.vx *= 0.98; p.vy *= 0.98;
+      const a = Math.max(0, 1 - p.age / p.life);
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = a;
+      ctx.fillStyle = `rgba(${p.color[0]},${p.color[1]},${p.color[2]},${a})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      if (p.age >= p.life) particles.splice(i,1);
+    }
+  }
+  function createMeteor() {
+    if (meteors.length >= cfg.meteorMax) { setTimeout(createMeteor,700); return; }
+    meteors.push({
+      x: rand(-w*0.4, w*0.3),
+      y: rand(-h*0.3, h*0.15),
+      len: rand(130,220),
+      speed: rand(2.2,4.5),
+      angle: METEOR_ANGLE,
+      alpha:1,
+      life: rand(130,210),
+      age:0
+    });
+    setTimeout(createMeteor, rand(2200,4000));
+  }
+  function createTailParticles(m) {
+    for(let i=0;i<4;i++){
+      particles.push({
+        x: m.x - Math.cos(m.angle)*m.len*(i/4),
+        y: m.y - Math.sin(m.angle)*m.len*(i/4),
+        vx: -Math.cos(m.angle)*rand(0.12,0.35)+rand(-0.02,0.02),
+        vy: -Math.sin(m.angle)*rand(0.12,0.35)+rand(-0.02,0.02),
+        life: rand(35,65), age:0, r:rand(0.35,1.0),
+        color: Math.random()<0.5 ? [255,255,255] : [150,190,255]
+      })
+    }
+  }
+  function drawBg(){
+    const grad = ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0,'rgba(7,11,26,1)');
+    grad.addColorStop(0.5,'rgba(18,9,36,1)');
+    grad.addColorStop(1,'rgba(36,9,46,1)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,w,h);
+  }
+
+  let last = performance.now();
+  function loop(now){
+    const dt = now - last;
+    last = now;
+
+    drawBg();
+    updateStars(dt);
+    drawStars();
+    drawFullscreenAurora();
+    drawMountains();
+    drawTopFade();
+    drawMeteors();
+    drawParticles();
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('resize', resize);
+  updateUI();
+  resize();
+  createMeteor();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

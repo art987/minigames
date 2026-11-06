@@ -36,8 +36,7 @@
 window.FrameCategoriesData = [
   { name: '商务', start: 1, end: 10, colorAdjustEnabled: true },
   { name: '渐变', start: 11, end: 15, colorAdjustEnabled: true },
-  { name: '女性', colorAdjustEnabled: false },
-  { name: '现代', colorAdjustEnabled: false },
+  { name: '女性', start: 93, end: 102, colorAdjustEnabled: false },
   { name: '国风', start: 77, end: 92, colorAdjustEnabled: false },
   { name: '电商', start: 51, end: 66, colorAdjustEnabled: false },
   { name: '卡通', start: 20, end: 43, colorAdjustEnabled: false }

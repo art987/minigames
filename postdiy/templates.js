@@ -13119,22 +13119,6 @@ var templates = {
       description: '安详宁静晚安主题海报模板',
       type: '著名美景'
     },
-    {
-      id: 'wanan-2024-035',
-      name: '晚安祥和',      image: 'images/wanan/35.png',
-      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      festivals: ['晚安'],
-      description: '祥和温馨晚安主题海报模板',
-      type: '著名美景'
-    },
-    {
-      id: 'wanan-2024-036',
-      name: '晚安美满',      image: 'images/wanan/36.png',
-      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      festivals: ['晚安'],
-      description: '美满幸福晚安主题海报模板',
-      type: '著名美景'
-    },
 
     // 可爱卡通 (1-33)
     {
