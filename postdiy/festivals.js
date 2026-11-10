@@ -397,13 +397,6 @@ window.westernFestivals = {
     day: 22,
     format: 'solar'
   },
-  '双十一': {
-    name: '双十一',
-    description: '购物狂欢、电商促销、光棍节',
-    month: 11,
-    day: 11,
-    format: 'solar'
-  },
   '双十二': {
     name: '双十二',
     description: '电商促销、年终购物、优惠活动',
