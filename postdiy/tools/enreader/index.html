@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EN Reader · 英语阅读</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="stylesheet" href="assets/style.css?v=16">
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>EN Reader</h1>
+    <p>分级英语短文 · 整篇 / 单句 / 单词点读，只读英文，为你带来沉浸式跟读体验。</p>
+  </header>
+  <main id="cats"></main>
+  <footer class="foot">
+    把新短文放进 pedingfiles/ 目录，运行 <b>python build.py</b> 即可上架新章节。
+  </footer>
+</div>
+<script src="data/articles.js?v=16"></script>
+<script src="assets/common.js?v=16"></script>
+<script>
+(function () {
+  ENR.applyTheme();
+  const root = document.getElementById("cats");
+  (window.ENR_DATA.categories || []).forEach(cat => {
+    if (!cat.articles || !cat.articles.length) return;
+    const sec = document.createElement("section");
+    sec.className = "cat";
+    sec.innerHTML = `<div class="cat-h"><span class="ic">${cat.icon || "📗"}</span><h2>${cat.name}</h2><span class="cnt">${cat.articles.length} 篇</span></div>`;
+    cat.articles.forEach(a => {
+      const pos = parseInt(localStorage.getItem("enr:pos:" + a.id) || "0", 10) || 0;
+      const pct = Math.min(100, Math.round(pos / a.sentCount * 100));
+      const btn = document.createElement("button");
+      btn.className = "acard";
+      btn.innerHTML =
+        `<span class="go">${pct > 0 && pct < 100 ? "继续 →" : "阅读 →"}</span>` +
+        `<div class="t">${a.title}</div>` +
+        `<div class="m"><span>${a.difficulty}难度</span><span class="dot"></span>` +
+        `<span>${a.paragraphs.length} 段 · ${a.sentCount} 句</span><span class="dot"></span>` +
+        `<span>约 ${a.estWords} 字</span></div>` +
+        (pct > 0 ? `<div class="bar"><i style="width:${pct}%"></i></div>` : "");
+      btn.addEventListener("click", () => location.href = "article.html?id=" + encodeURIComponent(a.id));
+      sec.appendChild(btn);
+    });
+    root.appendChild(sec);
+  });
+})();
+</script>
+</body>
+</html>
