@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>阶段课程 · EN Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="stylesheet" href="assets/style.css?v=19">
+</head>
+<body>
+
+<button class="backfab" id="backBtn" title="返回课程首页">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+</button>
+
+<div class="wrap">
+  <header class="hero stage-hero">
+    <div class="stg-top" id="stgTop"></div>
+    <h1 id="stgName"></h1>
+    <p id="stgDesc"></p>
+  </header>
+  <main id="days"></main>
+  <footer class="foot"></footer>
+</div>
+
+<script src="data/course-manifest.js?v=19"></script>
+<script>
+(function () {
+  const stageId = parseInt(new URLSearchParams(location.search).get("stage"), 10) || 1;
+  const st = (window.ENR_COURSE.stages || []).find(s => s.id === stageId) || window.ENR_COURSE.stages[0];
+  const arts = (window.ENR_COURSE.articles || []).filter(a => a.stage === st.id)
+    .sort((a, b) => a.day - b.day);
+
+  document.title = st.name + " · EN Reader";
+  function $(id) { return document.getElementById(id); }
+  $("stgTop").innerHTML = `<span class="no">Stage ${String(st.id).padStart(2, "0")}</span><span class="cefr">${st.cefr}</span>`;
+  $("stgName").textContent = st.name;
+  $("stgDesc").innerHTML = `<span class="tag">${st.short}</span> 每篇 ${st.range[0]}–${st.range[1]} 词 · 共 ${st.days[1] - st.days[0] + 1} 天课程 · 目前已上架 ${arts.length} 篇`;
+
+  const doneOf = id => localStorage.getItem("enr:done:" + id) === "1";
+  const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
+  const root = $("days");
+
+  arts.forEach(a => {
+    const done = doneOf(a.id);
+    const pos = Math.min(posOf(a.id), a.sentCount - 1);
+    const pct = done ? 100 : (pos > 0 ? Math.round(pos / a.sentCount * 100) : 0);
+    const btn = document.createElement("button");
+    btn.className = "dcard" + (done ? " done" : "");
+    btn.innerHTML =
+      `<div class="dnum">Day ${String(a.day).padStart(3, "0")}${done ? '<span class="dchk">✓</span>' : ""}</div>` +
+      `<div class="dmain">` +
+        `<div class="t">${a.titleEn}<span class="tcn">${a.titleCn}</span></div>` +
+        `<div class="m"><span>${a.category}</span><span class="dot"></span><span>${a.scene}</span>` +
+        `<span class="dot"></span><span>${a.wordCount} 词 · ${a.sentCount} 句</span>` +
+        (a.seconds ? `<span class="dot"></span><span>约 ${a.seconds} 秒</span>` : "") + `</div>` +
+        (pct > 0 ? `<div class="bar"><i style="width:${pct}%"></i></div>` : "") +
+      `</div>` +
+      `<div class="go">${done ? "重读 →" : (pct > 0 ? "继续 →" : "学习 →")}</div>`;
+    btn.addEventListener("click", () => location.href = "article.html?id=" + a.id);
+    root.appendChild(btn);
+  });
+
+  if (!arts.length) root.innerHTML = '<div class="empty">这个阶段的内容还在制作中，敬请期待。</div>';
+  $("backBtn").addEventListener("click", () => location.href = "index.html");
+})();
+</script>
+</body>
+</html>

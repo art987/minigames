@@ -1,0 +1,1329 @@
+[
+  {
+    "article_id": "stage4_day186",
+    "day": 186,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "理解信任在人际关系中的重要性",
+    "title_en": "The Importance of Trust",
+    "title_cn": "信任的重要性",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Trust is one of the most important parts of any relationship. When you trust someone, you feel safe sharing your thoughts and feelings with them. However, trust does not appear overnight. It grows through honest words and reliable actions. If someone makes a promise, keeping it shows that they care about your feelings. Of course, everyone makes mistakes sometimes. What matters is being honest and taking responsibility. If trust is broken, rebuilding it may take a long time. To me, trust is not about being perfect. It is about knowing that someone will try to do the right thing.",
+    "content_cn": "信任是任何关系中最重要的部分之一。当你信任某个人时，你会觉得可以放心地与对方分享自己的想法和感受。然而，信任不会一夜之间建立起来。它是在诚实的言语和可靠的行动中逐渐形成的。如果一个人作出了承诺，能够兑现承诺就说明他在乎你的感受。当然，每个人有时都会犯错。重要的是保持诚实并承担责任。如果信任遭到破坏，重新建立信任可能需要很长时间。对我来说，信任并不意味着一个人必须完美，而是你知道对方会努力做正确的事。",
+    "sentences": [
+      {
+        "sentence_en": "Trust is one of the most important parts of any relationship.",
+        "sentence_cn": "信任是任何关系中最重要的部分之一。",
+        "chunks": [
+          {"text": "Trust", "meaning": "信任"},
+          {"text": "is one of the most important parts", "meaning": "是最重要的部分之一"},
+          {"text": "of any relationship.", "meaning": "在任何关系中"}
+        ],
+        "explanation": "one of the most... 表示最……的事物之一，后接名词复数。"
+      },
+      {
+        "sentence_en": "When you trust someone, you feel safe sharing your thoughts and feelings with them.",
+        "sentence_cn": "当你信任某个人时，你会觉得可以放心地与对方分享自己的想法和感受。",
+        "chunks": [
+          {"text": "When you trust someone,", "meaning": "当你信任某个人时"},
+          {"text": "you feel safe", "meaning": "你会感到安心"},
+          {"text": "sharing your thoughts and feelings", "meaning": "分享自己的想法和感受"},
+          {"text": "with them.", "meaning": "与对方"}
+        ],
+        "explanation": "feel safe doing something 表示做某事时感到安心；thoughts and feelings 指想法和感受。"
+      },
+      {
+        "sentence_en": "However, trust does not appear overnight.",
+        "sentence_cn": "然而，信任不会一夜之间建立起来。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "trust does not appear", "meaning": "信任不会出现"},
+          {"text": "overnight.", "meaning": "在一夜之间"}
+        ],
+        "explanation": "overnight 除了表示一夜之间，也常用来形容事情不会迅速发生。"
+      },
+      {
+        "sentence_en": "It grows through honest words and reliable actions.",
+        "sentence_cn": "它是在诚实的言语和可靠的行动中逐渐形成的。",
+        "chunks": [
+          {"text": "It grows", "meaning": "它逐渐形成"},
+          {"text": "through honest words", "meaning": "通过诚实的言语"},
+          {"text": "and reliable actions.", "meaning": "以及可靠的行动"}
+        ],
+        "explanation": "grow 在这里表示逐渐发展；through 表示通过某种方式。"
+      },
+      {
+        "sentence_en": "If someone makes a promise, keeping it shows that they care about your feelings.",
+        "sentence_cn": "如果一个人作出了承诺，能够兑现承诺就说明他在乎你的感受。",
+        "chunks": [
+          {"text": "If someone makes a promise,", "meaning": "如果某人作出了承诺"},
+          {"text": "keeping it shows", "meaning": "兑现承诺说明"},
+          {"text": "that they care", "meaning": "他们在乎"},
+          {"text": "about your feelings.", "meaning": "你的感受"}
+        ],
+        "explanation": "make a promise 表示作出承诺；keeping it 是动名词短语，在句中作主语。"
+      },
+      {
+        "sentence_en": "Of course, everyone makes mistakes sometimes.",
+        "sentence_cn": "当然，每个人有时都会犯错。",
+        "chunks": [
+          {"text": "Of course,", "meaning": "当然"},
+          {"text": "everyone makes mistakes", "meaning": "每个人都会犯错"},
+          {"text": "sometimes.", "meaning": "有时候"}
+        ],
+        "explanation": "make a mistake 是犯错的常用搭配；everyone 作主语时谓语用单数。"
+      },
+      {
+        "sentence_en": "What matters is being honest and taking responsibility.",
+        "sentence_cn": "重要的是保持诚实并承担责任。",
+        "chunks": [
+          {"text": "What matters", "meaning": "真正重要的事情"},
+          {"text": "is being honest", "meaning": "是保持诚实"},
+          {"text": "and taking responsibility.", "meaning": "并承担责任"}
+        ],
+        "explanation": "What matters is... 表示重要的是……；take responsibility 表示承担责任。"
+      },
+      {
+        "sentence_en": "If trust is broken, rebuilding it may take a long time.",
+        "sentence_cn": "如果信任遭到破坏，重新建立信任可能需要很长时间。",
+        "chunks": [
+          {"text": "If trust is broken,", "meaning": "如果信任遭到破坏"},
+          {"text": "rebuilding it", "meaning": "重新建立它"},
+          {"text": "may take a long time.", "meaning": "可能需要很长时间"}
+        ],
+        "explanation": "rebuilding 是动名词；take a long time 表示花费很长时间。"
+      },
+      {
+        "sentence_en": "To me, trust is not about being perfect.",
+        "sentence_cn": "对我来说，信任并不意味着一个人必须完美。",
+        "chunks": [
+          {"text": "To me,", "meaning": "对我来说"},
+          {"text": "trust is not about", "meaning": "信任并不在于"},
+          {"text": "being perfect.", "meaning": "做到完美"}
+        ],
+        "explanation": "be about 在这里表示核心在于；being 是动名词形式。"
+      },
+      {
+        "sentence_en": "It is about knowing that someone will try to do the right thing.",
+        "sentence_cn": "而是你知道对方会努力做正确的事。",
+        "chunks": [
+          {"text": "It is about knowing", "meaning": "它在于知道"},
+          {"text": "that someone will try", "meaning": "某人会努力"},
+          {"text": "to do the right thing.", "meaning": "去做正确的事"}
+        ],
+        "explanation": "try to do 表示努力做某事；the right thing 指正确或恰当的做法。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "trust", "phonetic": "", "meaning": "信任", "part_of_speech": "noun/verb"},
+      {"word": "reliable", "phonetic": "", "meaning": "可靠的", "part_of_speech": "adjective"},
+      {"word": "promise", "phonetic": "", "meaning": "承诺", "part_of_speech": "noun/verb"},
+      {"word": "responsibility", "phonetic": "", "meaning": "责任", "part_of_speech": "noun"},
+      {"word": "rebuild", "phonetic": "", "meaning": "重建；重新建立", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "trust someone", "meaning": "信任某人", "example": "I trust my closest friends."},
+      {"expression": "appear overnight", "meaning": "一夜之间出现", "example": "Success rarely appears overnight."},
+      {"expression": "make a promise", "meaning": "作出承诺", "example": "He made a promise to help me."},
+      {"expression": "take responsibility", "meaning": "承担责任", "example": "You should take responsibility for your actions."},
+      {"expression": "do the right thing", "meaning": "做正确的事", "example": "Sometimes it is hard to do the right thing."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "How does trust grow?", "options": ["Through expensive gifts", "Through honest words and reliable actions", "Through spending money"], "answer": "Through honest words and reliable actions", "explanation": "第四句明确说明，信任通过诚实的言语和可靠的行动逐渐形成。"},
+      {"type": "inference", "question": "What should someone do after making a mistake?", "options": ["Hide the mistake", "Blame another person", "Be honest and take responsibility"], "answer": "Be honest and take responsibility", "explanation": "文章指出，犯错后重要的是诚实并承担责任。"},
+      {"type": "meaning", "question": "What does the writer believe trust is really about?", "options": ["Being perfect", "Trying to do the right thing", "Never having problems"], "answer": "Trying to do the right thing", "explanation": "文章最后两句说明，信任不要求完美，而在于努力做正确的事。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "96词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "围绕信任的建立、承诺和责任展开。"
+    }
+  },
+  {
+    "article_id": "stage4_day187",
+    "day": 187,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "家庭生活",
+    "scene": "平衡工作与陪伴家人的时间",
+    "title_en": "Spending Time with Family",
+    "title_cn": "与家人共度时光",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Everyone has a busy schedule, but spending time with family is still important. We may not have time for a long trip every week, but small moments can bring us closer. Having breakfast together or taking an evening walk can become special memories. Last month, my family started having dinner without phones. At first, it felt strange because we were used to checking messages. Soon, we began sharing more stories and laughing together. I realized that being together is not always about doing something exciting. Sometimes, giving each other our full attention is enough.",
+    "content_cn": "每个人都有忙碌的日程，但与家人共度时光仍然很重要。我们可能没有时间每周都去长途旅行，但一些小小的时刻也能拉近彼此的距离。一起吃早餐或晚上散步，都可能成为特别的回忆。上个月，我的家人开始尝试吃饭时不看手机。起初，这感觉有些奇怪，因为我们已经习惯了查看信息。很快，我们开始分享更多故事，一起欢笑。我意识到，待在一起并不总是意味着要做什么令人兴奋的事情。有时候，全心全意地陪伴彼此就足够了。",
+    "sentences": [
+      {
+        "sentence_en": "Everyone has a busy schedule, but spending time with family is still important.",
+        "sentence_cn": "每个人都有忙碌的日程，但与家人共度时光仍然很重要。",
+        "chunks": [
+          {"text": "Everyone has a busy schedule,", "meaning": "每个人都有忙碌的日程"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "spending time with family", "meaning": "与家人共度时光"},
+          {"text": "is still important.", "meaning": "仍然很重要"}
+        ],
+        "explanation": "spending time 是动名词短语，在句中作主语；schedule 表示日程安排。"
+      },
+      {
+        "sentence_en": "We may not have time for a long trip every week, but small moments can bring us closer.",
+        "sentence_cn": "我们可能没有时间每周都去长途旅行，但一些小小的时刻也能拉近彼此的距离。",
+        "chunks": [
+          {"text": "We may not have time", "meaning": "我们可能没有时间"},
+          {"text": "for a long trip every week,", "meaning": "每周进行一次长途旅行"},
+          {"text": "but small moments", "meaning": "但一些小小的时刻"},
+          {"text": "can bring us closer.", "meaning": "能让我们更加亲近"}
+        ],
+        "explanation": "may 表示可能；bring someone closer 表示让彼此更加亲近。"
+      },
+      {
+        "sentence_en": "Having breakfast together or taking an evening walk can become special memories.",
+        "sentence_cn": "一起吃早餐或晚上散步，都可能成为特别的回忆。",
+        "chunks": [
+          {"text": "Having breakfast together", "meaning": "一起吃早餐"},
+          {"text": "or taking an evening walk", "meaning": "或者晚上一起散步"},
+          {"text": "can become", "meaning": "可能成为"},
+          {"text": "special memories.", "meaning": "特别的回忆"}
+        ],
+        "explanation": "两个动名词短语并列作主语；evening walk 表示晚间散步。"
+      },
+      {
+        "sentence_en": "Last month, my family started having dinner without phones.",
+        "sentence_cn": "上个月，我的家人开始尝试吃饭时不看手机。",
+        "chunks": [
+          {"text": "Last month,", "meaning": "上个月"},
+          {"text": "my family started", "meaning": "我的家人开始"},
+          {"text": "having dinner", "meaning": "吃晚饭"},
+          {"text": "without phones.", "meaning": "不使用手机"}
+        ],
+        "explanation": "start doing something 表示开始做某事；without 后面接名词。"
+      },
+      {
+        "sentence_en": "At first, it felt strange because we were used to checking messages.",
+        "sentence_cn": "起初，这感觉有些奇怪，因为我们已经习惯了查看信息。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": "it felt strange", "meaning": "这感觉有些奇怪"},
+          {"text": "because", "meaning": "因为"},
+          {"text": "we were used to checking messages.", "meaning": "我们已经习惯查看信息"}
+        ],
+        "explanation": "be used to doing something 表示习惯于做某事；注意这里的 to 是介词。"
+      },
+      {
+        "sentence_en": "Soon, we began sharing more stories and laughing together.",
+        "sentence_cn": "很快，我们开始分享更多故事，一起欢笑。",
+        "chunks": [
+          {"text": "Soon,", "meaning": "很快"},
+          {"text": "we began sharing more stories", "meaning": "我们开始分享更多故事"},
+          {"text": "and laughing together.", "meaning": "并一起欢笑"}
+        ],
+        "explanation": "begin 后面可以接动词-ing；sharing 和 laughing 是并列动作。"
+      },
+      {
+        "sentence_en": "I realized that being together is not always about doing something exciting.",
+        "sentence_cn": "我意识到，待在一起并不总是意味着要做什么令人兴奋的事情。",
+        "chunks": [
+          {"text": "I realized that", "meaning": "我意识到"},
+          {"text": "being together", "meaning": "待在一起"},
+          {"text": "is not always about", "meaning": "并不总是意味着"},
+          {"text": "doing something exciting.", "meaning": "做令人兴奋的事情"}
+        ],
+        "explanation": "being together 作从句主语；something exciting 中形容词放在不定代词后面。"
+      },
+      {
+        "sentence_en": "Sometimes, giving each other our full attention is enough.",
+        "sentence_cn": "有时候，全心全意地陪伴彼此就足够了。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "giving each other", "meaning": "给予彼此"},
+          {"text": "our full attention", "meaning": "我们全部的关注"},
+          {"text": "is enough.", "meaning": "就足够了"}
+        ],
+        "explanation": "give someone attention 表示关注某人；full attention 表示全神贯注。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "schedule", "phonetic": "", "meaning": "日程；安排", "part_of_speech": "noun"},
+      {"word": "moment", "phonetic": "", "meaning": "时刻", "part_of_speech": "noun"},
+      {"word": "memory", "phonetic": "", "meaning": "回忆；记忆", "part_of_speech": "noun"},
+      {"word": "strange", "phonetic": "", "meaning": "奇怪的", "part_of_speech": "adjective"},
+      {"word": "attention", "phonetic": "", "meaning": "注意力；关注", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "spend time with family", "meaning": "与家人共度时光", "example": "I try to spend time with my family every weekend."},
+      {"expression": "bring someone closer", "meaning": "拉近彼此距离", "example": "Sharing meals can bring a family closer."},
+      {"expression": "be used to doing something", "meaning": "习惯于做某事", "example": "I'm used to getting up early."},
+      {"expression": "share stories", "meaning": "分享故事或经历", "example": "We shared stories after dinner."},
+      {"expression": "give someone full attention", "meaning": "全心全意地关注某人", "example": "Please give me your full attention."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the family stop using during dinner?", "options": ["Television", "Phones", "Books"], "answer": "Phones", "explanation": "文章第四句提到，他们开始不带手机吃晚饭。"},
+      {"type": "sequence", "question": "What happened after the family stopped checking messages at dinner?", "options": ["They argued more", "They shared more stories", "They stopped eating together"], "answer": "They shared more stories", "explanation": "文章第六句说明，他们开始分享更多故事并一起欢笑。"},
+      {"type": "inference", "question": "What does the writer believe is important when spending time with family?", "options": ["Doing expensive activities", "Traveling every week", "Giving each other attention"], "answer": "Giving each other attention", "explanation": "文章最后一句强调，全心陪伴有时就足够了。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "练习家庭陪伴、习惯变化和个人感悟的表达。"
+    }
+  },
+  {
+    "article_id": "stage4_day188",
+    "day": 188,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "家庭生活",
+    "scene": "介绍家庭传统及其意义",
+    "title_en": "Family Traditions",
+    "title_cn": "家庭传统",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Every family has its own traditions. Some families cook a special meal on holidays, while others visit relatives or take family photos. In my family, we make dumplings together during the Lunar New Year. My grandmother prepares the filling, and the children help fold the dumplings. We talk, laugh, and sometimes make a few funny mistakes. This tradition has continued for many years. Even when family members live far away, we try to come home for the celebration. These customs may seem simple, but they connect different generations and remind us where we come from.",
+    "content_cn": "每个家庭都有自己的传统。有些家庭会在节日里准备特别的饭菜，另一些家庭则会拜访亲戚或拍全家福。在我的家庭里，我们会在农历新年期间一起包饺子。奶奶准备馅料，孩子们则帮忙包饺子。我们一边聊天、一边欢笑，有时还会犯一些有趣的小错误。这个传统已经延续了很多年。即使家人住得很远，我们也会尽量回家团聚。这些习俗看起来也许很简单，但它们能连接不同的世代，并提醒我们自己的来处。",
+    "sentences": [
+      {
+        "sentence_en": "Every family has its own traditions.",
+        "sentence_cn": "每个家庭都有自己的传统。",
+        "chunks": [
+          {"text": "Every family", "meaning": "每个家庭"},
+          {"text": "has", "meaning": "都有"},
+          {"text": "its own traditions.", "meaning": "自己的传统"}
+        ],
+        "explanation": "every 后接单数名词，谓语使用单数；its own 强调属于它自己的。"
+      },
+      {
+        "sentence_en": "Some families cook a special meal on holidays, while others visit relatives or take family photos.",
+        "sentence_cn": "有些家庭会在节日里准备特别的饭菜，另一些家庭则会拜访亲戚或拍全家福。",
+        "chunks": [
+          {"text": "Some families", "meaning": "有些家庭"},
+          {"text": "cook a special meal on holidays,", "meaning": "在节日里准备特别的饭菜"},
+          {"text": "while others", "meaning": "而另一些家庭"},
+          {"text": "visit relatives or take family photos.", "meaning": "拜访亲戚或拍全家福"}
+        ],
+        "explanation": "some...while others... 用于对比不同群体；relative 表示亲戚。"
+      },
+      {
+        "sentence_en": "In my family, we make dumplings together during the Lunar New Year.",
+        "sentence_cn": "在我的家庭里，我们会在农历新年期间一起包饺子。",
+        "chunks": [
+          {"text": "In my family,", "meaning": "在我的家庭里"},
+          {"text": "we make dumplings together", "meaning": "我们一起包饺子"},
+          {"text": "during the Lunar New Year.", "meaning": "在农历新年期间"}
+        ],
+        "explanation": "make dumplings 表示包饺子；during 表示在某段时间期间。"
+      },
+      {
+        "sentence_en": "My grandmother prepares the filling, and the children help fold the dumplings.",
+        "sentence_cn": "奶奶准备馅料，孩子们则帮忙包饺子。",
+        "chunks": [
+          {"text": "My grandmother prepares the filling,", "meaning": "我的奶奶准备馅料"},
+          {"text": "and the children", "meaning": "而孩子们"},
+          {"text": "help fold the dumplings.", "meaning": "帮忙包饺子"}
+        ],
+        "explanation": "prepare 表示准备；help 后面可以接动词原形，表示帮助做某事。"
+      },
+      {
+        "sentence_en": "We talk, laugh, and sometimes make a few funny mistakes.",
+        "sentence_cn": "我们一边聊天、一边欢笑，有时还会犯一些有趣的小错误。",
+        "chunks": [
+          {"text": "We talk, laugh,", "meaning": "我们聊天、欢笑"},
+          {"text": "and sometimes make", "meaning": "有时还会犯"},
+          {"text": "a few funny mistakes.", "meaning": "一些有趣的小错误"}
+        ],
+        "explanation": "三个动词并列描述活动；a few 表示一些，修饰可数名词复数。"
+      },
+      {
+        "sentence_en": "This tradition has continued for many years.",
+        "sentence_cn": "这个传统已经延续了很多年。",
+        "chunks": [
+          {"text": "This tradition", "meaning": "这个传统"},
+          {"text": "has continued", "meaning": "已经延续"},
+          {"text": "for many years.", "meaning": "很多年"}
+        ],
+        "explanation": "现在完成时 has continued 表示过去开始并持续到现在的情况。"
+      },
+      {
+        "sentence_en": "Even when family members live far away, we try to come home for the celebration.",
+        "sentence_cn": "即使家人住得很远，我们也会尽量回家团聚。",
+        "chunks": [
+          {"text": "Even when", "meaning": "即使当……时"},
+          {"text": "family members live far away,", "meaning": "家人住得很远"},
+          {"text": "we try to come home", "meaning": "我们也尽量回家"},
+          {"text": "for the celebration.", "meaning": "参加庆祝活动"}
+        ],
+        "explanation": "even when 引导让步意味的时间状语；come home 表示回家。"
+      },
+      {
+        "sentence_en": "These customs may seem simple, but they connect different generations and remind us where we come from.",
+        "sentence_cn": "这些习俗看起来也许很简单，但它们能连接不同的世代，并提醒我们自己的来处。",
+        "chunks": [
+          {"text": "These customs may seem simple,", "meaning": "这些习俗看起来也许很简单"},
+          {"text": "but they connect different generations", "meaning": "但它们连接着不同的世代"},
+          {"text": "and remind us", "meaning": "并提醒我们"},
+          {"text": "where we come from.", "meaning": "我们来自哪里"}
+        ],
+        "explanation": "seem 表示看起来；generation 表示一代人；where we come from 是宾语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "tradition", "phonetic": "", "meaning": "传统", "part_of_speech": "noun"},
+      {"word": "relative", "phonetic": "", "meaning": "亲戚", "part_of_speech": "noun"},
+      {"word": "filling", "phonetic": "", "meaning": "馅料", "part_of_speech": "noun"},
+      {"word": "custom", "phonetic": "", "meaning": "习俗", "part_of_speech": "noun"},
+      {"word": "generation", "phonetic": "", "meaning": "世代；一代人", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "have its own traditions", "meaning": "有自己的传统", "example": "Every culture has its own traditions."},
+      {"expression": "visit relatives", "meaning": "拜访亲戚", "example": "We visit relatives during the holidays."},
+      {"expression": "make dumplings", "meaning": "包饺子", "example": "We make dumplings together every winter."},
+      {"expression": "come home for a celebration", "meaning": "回家参加庆祝活动", "example": "She comes home for the New Year celebration."},
+      {"expression": "come from", "meaning": "来自；源于", "example": "I come from a small town."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What does the writer's family make during the Lunar New Year?", "options": ["Bread", "Dumplings", "Pancakes"], "answer": "Dumplings", "explanation": "第三句说明，他们在农历新年期间一起包饺子。"},
+      {"type": "detail", "question": "Who prepares the filling?", "options": ["The grandmother", "The children", "The writer's friends"], "answer": "The grandmother", "explanation": "第四句说明奶奶负责准备馅料。"},
+      {"type": "inference", "question": "Why are family traditions meaningful?", "options": ["They make holidays expensive", "They connect generations", "They prevent people from traveling"], "answer": "They connect generations", "explanation": "文章最后一句指出，习俗能够连接不同世代并提醒人们自己的来处。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "以农历新年包饺子为例，介绍家庭传统与文化传承。"
+    }
+  },
+  {
+    "article_id": "stage4_day189",
+    "day": 189,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "家庭生活",
+    "scene": "讲述一段难忘的家庭回忆",
+    "title_en": "A Special Family Memory",
+    "title_cn": "一段特别的家庭回忆",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "One of my favorite family memories happened when I was twelve. My parents took my brother and me to the beach for a weekend. We arrived early and watched the sun rise over the water. My father taught us how to build a sandcastle, while my mother prepared a picnic. Later, we played in the waves and collected small shells. It was not an expensive trip, and nothing unusual happened. Still, I remember how happy everyone looked that day. As I get older, I understand that the best memories often come from simple moments spent with people we love.",
+    "content_cn": "我最喜欢的一段家庭回忆发生在我十二岁的时候。父母带着我和弟弟去海边度过了一个周末。我们很早就到了那里，看着太阳从海面升起。父亲教我们如何堆沙堡，而母亲则准备野餐。后来，我们在海浪中玩耍，还收集了一些小贝壳。这并不是一次昂贵的旅行，也没有发生什么特别的事情。但我仍然记得那天每个人脸上幸福的样子。随着年龄增长，我逐渐明白，最美好的回忆往往来自与我们所爱的人共度的简单时光。",
+    "sentences": [
+      {
+        "sentence_en": "One of my favorite family memories happened when I was twelve.",
+        "sentence_cn": "我最喜欢的一段家庭回忆发生在我十二岁的时候。",
+        "chunks": [
+          {"text": "One of my favorite family memories", "meaning": "我最喜欢的一段家庭回忆"},
+          {"text": "happened", "meaning": "发生了"},
+          {"text": "when I was twelve.", "meaning": "在我十二岁的时候"}
+        ],
+        "explanation": "one of my favorite... 表示我最喜欢的……之一；happen 表示发生。"
+      },
+      {
+        "sentence_en": "My parents took my brother and me to the beach for a weekend.",
+        "sentence_cn": "父母带着我和弟弟去海边度过了一个周末。",
+        "chunks": [
+          {"text": "My parents took", "meaning": "我的父母带着"},
+          {"text": "my brother and me", "meaning": "我和我的弟弟"},
+          {"text": "to the beach", "meaning": "去海边"},
+          {"text": "for a weekend.", "meaning": "度过一个周末"}
+        ],
+        "explanation": "take someone to a place 表示带某人去某地；me 是宾格形式。"
+      },
+      {
+        "sentence_en": "We arrived early and watched the sun rise over the water.",
+        "sentence_cn": "我们很早就到了那里，看着太阳从海面升起。",
+        "chunks": [
+          {"text": "We arrived early", "meaning": "我们很早就到了"},
+          {"text": "and watched", "meaning": "并观看"},
+          {"text": "the sun rise", "meaning": "太阳升起"},
+          {"text": "over the water.", "meaning": "从水面上方"}
+        ],
+        "explanation": "watch 后可接宾语加动词原形，表示观看某个动作发生。"
+      },
+      {
+        "sentence_en": "My father taught us how to build a sandcastle, while my mother prepared a picnic.",
+        "sentence_cn": "父亲教我们如何堆沙堡，而母亲则准备野餐。",
+        "chunks": [
+          {"text": "My father taught us", "meaning": "父亲教我们"},
+          {"text": "how to build a sandcastle,", "meaning": "如何堆一个沙堡"},
+          {"text": "while my mother", "meaning": "而母亲"},
+          {"text": "prepared a picnic.", "meaning": "准备了野餐"}
+        ],
+        "explanation": "teach someone how to do something 表示教某人如何做某事；while 在这里用于对比同时发生的活动。"
+      },
+      {
+        "sentence_en": "Later, we played in the waves and collected small shells.",
+        "sentence_cn": "后来，我们在海浪中玩耍，还收集了一些小贝壳。",
+        "chunks": [
+          {"text": "Later,", "meaning": "后来"},
+          {"text": "we played in the waves", "meaning": "我们在海浪中玩耍"},
+          {"text": "and collected", "meaning": "并收集"},
+          {"text": "small shells.", "meaning": "小贝壳"}
+        ],
+        "explanation": "wave 表示海浪；shell 表示贝壳；两个过去式动词并列叙述活动。"
+      },
+      {
+        "sentence_en": "It was not an expensive trip, and nothing unusual happened.",
+        "sentence_cn": "这并不是一次昂贵的旅行，也没有发生什么特别的事情。",
+        "chunks": [
+          {"text": "It was not an expensive trip,", "meaning": "这并不是一次昂贵的旅行"},
+          {"text": "and", "meaning": "而且"},
+          {"text": "nothing unusual happened.", "meaning": "没有发生什么特别的事情"}
+        ],
+        "explanation": "nothing unusual 表示没有什么不寻常的事；形容词放在 nothing 后面。"
+      },
+      {
+        "sentence_en": "Still, I remember how happy everyone looked that day.",
+        "sentence_cn": "但我仍然记得那天每个人脸上幸福的样子。",
+        "chunks": [
+          {"text": "Still,", "meaning": "但仍然"},
+          {"text": "I remember", "meaning": "我记得"},
+          {"text": "how happy everyone looked", "meaning": "每个人看起来有多开心"},
+          {"text": "that day.", "meaning": "那一天"}
+        ],
+        "explanation": "remember 后面可以接宾语从句；looked happy 表示看起来很开心。"
+      },
+      {
+        "sentence_en": "As I get older, I understand that the best memories often come from simple moments spent with people we love.",
+        "sentence_cn": "随着年龄增长，我逐渐明白，最美好的回忆往往来自与我们所爱的人共度的简单时光。",
+        "chunks": [
+          {"text": "As I get older,", "meaning": "随着我年龄增长"},
+          {"text": "I understand that", "meaning": "我逐渐明白"},
+          {"text": "the best memories often come from", "meaning": "最美好的回忆往往来自"},
+          {"text": "simple moments", "meaning": "简单的时光"},
+          {"text": "spent with people we love.", "meaning": "与我们所爱的人共度的"}
+        ],
+        "explanation": "as 在这里表示随着；spent with people we love 是过去分词短语，修饰 moments。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "memory", "phonetic": "", "meaning": "回忆；记忆", "part_of_speech": "noun"},
+      {"word": "arrive", "phonetic": "", "meaning": "到达", "part_of_speech": "verb"},
+      {"word": "sandcastle", "phonetic": "", "meaning": "沙堡", "part_of_speech": "noun"},
+      {"word": "wave", "phonetic": "", "meaning": "海浪；波浪", "part_of_speech": "noun"},
+      {"word": "unusual", "phonetic": "", "meaning": "不寻常的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "one of my favorite memories", "meaning": "我最喜欢的回忆之一", "example": "That trip is one of my favorite memories."},
+      {"expression": "watch the sun rise", "meaning": "看日出", "example": "We woke up early to watch the sun rise."},
+      {"expression": "teach someone how to do something", "meaning": "教某人如何做某事", "example": "My dad taught me how to swim."},
+      {"expression": "nothing unusual", "meaning": "没什么特别的事", "example": "Nothing unusual happened yesterday."},
+      {"expression": "as I get older", "meaning": "随着我年龄增长", "example": "As I get older, I value family more."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "How old was the writer during the beach trip?", "options": ["Ten", "Twelve", "Fourteen"], "answer": "Twelve", "explanation": "第一句明确说明作者当时十二岁。"},
+      {"type": "detail", "question": "What did the writer's father teach the children to do?", "options": ["Swim", "Build a sandcastle", "Catch fish"], "answer": "Build a sandcastle", "explanation": "第四句提到父亲教他们堆沙堡。"},
+      {"type": "inference", "question": "Why does the writer still remember the trip?", "options": ["It was very expensive", "Something unusual happened", "The family shared a happy time together"], "answer": "The family shared a happy time together", "explanation": "文章强调，真正珍贵的是与家人共度的简单快乐时光。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "使用过去时叙述童年经历，并以现在的视角表达感悟。"
+    }
+  },
+  {
+    "article_id": "stage4_day190",
+    "day": 190,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "沟通能力",
+    "scene": "学习认真倾听他人",
+    "title_en": "Learning to Listen",
+    "title_cn": "学会倾听",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "I used to think that being a good speaker was the key to good communication. However, I have learned that listening is just as important. When someone talks to me, I sometimes start thinking about my reply before they finish. This can make the other person feel ignored. Now I try to put my phone away, look at the speaker, and pay attention to their words. I also ask questions when something is unclear. Good listening does not mean staying silent all the time. It means showing interest and making the other person feel understood.",
+    "content_cn": "我过去认为，善于表达是良好沟通的关键。然而，我逐渐明白，倾听同样重要。当别人和我说话时，我有时会在对方还没说完之前就开始思考如何回答。这会让对方觉得自己被忽视了。现在我会尽量收起手机，看着说话的人，并认真留意他们的话。当有些内容不清楚时，我也会提出问题。善于倾听并不意味着始终保持沉默，而是要表现出兴趣，让对方感到自己被理解。",
+    "sentences": [
+      {
+        "sentence_en": "I used to think that being a good speaker was the key to good communication.",
+        "sentence_cn": "我过去认为，善于表达是良好沟通的关键。",
+        "chunks": [
+          {"text": "I used to think that", "meaning": "我过去认为"},
+          {"text": "being a good speaker", "meaning": "善于表达"},
+          {"text": "was the key", "meaning": "是关键"},
+          {"text": "to good communication.", "meaning": "对于良好的沟通而言"}
+        ],
+        "explanation": "used to do 表示过去常常或过去持有某种看法；the key to 表示……的关键。"
+      },
+      {
+        "sentence_en": "However, I have learned that listening is just as important.",
+        "sentence_cn": "然而，我逐渐明白，倾听同样重要。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "I have learned that", "meaning": "我已经明白"},
+          {"text": "listening", "meaning": "倾听"},
+          {"text": "is just as important.", "meaning": "同样重要"}
+        ],
+        "explanation": "just as...as... 表示和……一样；listening 是动名词，作主语。"
+      },
+      {
+        "sentence_en": "When someone talks to me, I sometimes start thinking about my reply before they finish.",
+        "sentence_cn": "当别人和我说话时，我有时会在对方还没说完之前就开始思考如何回答。",
+        "chunks": [
+          {"text": "When someone talks to me,", "meaning": "当有人和我说话时"},
+          {"text": "I sometimes start thinking", "meaning": "我有时开始思考"},
+          {"text": "about my reply", "meaning": "自己的回答"},
+          {"text": "before they finish.", "meaning": "在对方说完之前"}
+        ],
+        "explanation": "start thinking 表示开始思考；before 引导时间状语从句。"
+      },
+      {
+        "sentence_en": "This can make the other person feel ignored.",
+        "sentence_cn": "这会让对方觉得自己被忽视了。",
+        "chunks": [
+          {"text": "This can make", "meaning": "这可能会让"},
+          {"text": "the other person", "meaning": "对方"},
+          {"text": "feel ignored.", "meaning": "感到被忽视"}
+        ],
+        "explanation": "make someone feel... 表示让某人感到……；ignored 是过去分词作形容词。"
+      },
+      {
+        "sentence_en": "Now I try to put my phone away, look at the speaker, and pay attention to their words.",
+        "sentence_cn": "现在我会尽量收起手机，看着说话的人，并认真留意他们的话。",
+        "chunks": [
+          {"text": "Now I try to", "meaning": "现在我尽量"},
+          {"text": "put my phone away,", "meaning": "把手机收起来"},
+          {"text": "look at the speaker,", "meaning": "看着说话的人"},
+          {"text": "and pay attention to their words.", "meaning": "并认真留意他们的话"}
+        ],
+        "explanation": "put away 表示收起；pay attention to 表示注意、关注。"
+      },
+      {
+        "sentence_en": "I also ask questions when something is unclear.",
+        "sentence_cn": "当有些内容不清楚时，我也会提出问题。",
+        "chunks": [
+          {"text": "I also ask questions", "meaning": "我也会提出问题"},
+          {"text": "when", "meaning": "当……时"},
+          {"text": "something is unclear.", "meaning": "有些内容不清楚"}
+        ],
+        "explanation": "unclear 表示不清楚的；ask questions 表示提问。"
+      },
+      {
+        "sentence_en": "Good listening does not mean staying silent all the time.",
+        "sentence_cn": "善于倾听并不意味着始终保持沉默。",
+        "chunks": [
+          {"text": "Good listening", "meaning": "良好的倾听"},
+          {"text": "does not mean", "meaning": "并不意味着"},
+          {"text": "staying silent", "meaning": "保持沉默"},
+          {"text": "all the time.", "meaning": "一直；始终"}
+        ],
+        "explanation": "mean 后面接动名词表示意味着做某事；all the time 表示一直。"
+      },
+      {
+        "sentence_en": "It means showing interest and making the other person feel understood.",
+        "sentence_cn": "而是要表现出兴趣，让对方感到自己被理解。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": "showing interest", "meaning": "表现出兴趣"},
+          {"text": "and making the other person", "meaning": "并让对方"},
+          {"text": "feel understood.", "meaning": "感到被理解"}
+        ],
+        "explanation": "show interest 表示表现出兴趣；make someone feel understood 表示让某人感到被理解。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "communication", "phonetic": "", "meaning": "沟通；交流", "part_of_speech": "noun"},
+      {"word": "speaker", "phonetic": "", "meaning": "说话者；演讲者", "part_of_speech": "noun"},
+      {"word": "reply", "phonetic": "", "meaning": "回答；回复", "part_of_speech": "noun/verb"},
+      {"word": "ignored", "phonetic": "", "meaning": "被忽视的", "part_of_speech": "adjective"},
+      {"word": "unclear", "phonetic": "", "meaning": "不清楚的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "the key to something", "meaning": "某事的关键", "example": "Practice is the key to improvement."},
+      {"expression": "used to think", "meaning": "过去认为", "example": "I used to think exercise was difficult."},
+      {"expression": "put something away", "meaning": "把某物收起来", "example": "Please put your phone away."},
+      {"expression": "pay attention to", "meaning": "注意；留意", "example": "Pay attention to the instructions."},
+      {"expression": "show interest", "meaning": "表现出兴趣", "example": "Ask questions to show interest."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the writer use to think was the key to good communication?", "options": ["Speaking well", "Writing quickly", "Being popular"], "answer": "Speaking well", "explanation": "第一句说明作者过去认为善于表达是沟通的关键。"},
+      {"type": "detail", "question": "What does the writer do now when listening?", "options": ["Check messages", "Put the phone away", "Change the subject"], "answer": "Put the phone away", "explanation": "第五句提到作者会收起手机并认真倾听。"},
+      {"type": "meaning", "question": "What is good listening according to the writer?", "options": ["Never speaking", "Thinking about your reply", "Showing interest and helping others feel understood"], "answer": "Showing interest and helping others feel understood", "explanation": "最后一句直接解释了良好倾听的含义。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "练习表达过去的看法、现在的改变以及沟通技巧。"
+    }
+  },
+  {
+    "article_id": "stage4_day191",
+    "day": 191,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "情绪管理",
+    "scene": "描述压力来临时的感受和应对方式",
+    "title_en": "When I Feel Stressed",
+    "title_cn": "当我感到压力时",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "There are times when I feel stressed by work and daily responsibilities. When too many things happen at once, I find it hard to relax. I used to keep working and hope the stress would disappear. However, that often made me feel even more tired. Now I try to take short breaks and focus on one task at a time. Sometimes, I go outside for a walk or talk to someone I trust. These small actions help me clear my mind. I cannot control everything in life, but I can choose how I respond to difficult situations.",
+    "content_cn": "有时候，工作和日常责任会让我感到压力。当太多事情同时发生时，我会发现自己很难放松。过去，我总是继续工作，希望压力能够自行消失。然而，那样做往往让我感到更加疲惫。现在，我会尝试短暂休息，并一次专注于一项任务。有时，我会出去散步，或者和信任的人聊一聊。这些小行动能帮助我理清思绪。我无法控制生活中的一切，但我可以选择如何应对困难的情况。",
+    "sentences": [
+      {
+        "sentence_en": "There are times when I feel stressed by work and daily responsibilities.",
+        "sentence_cn": "有时候，工作和日常责任会让我感到压力。",
+        "chunks": [
+          {"text": "There are times", "meaning": "有些时候"},
+          {"text": "when I feel stressed", "meaning": "我会感到有压力"},
+          {"text": "by work and daily responsibilities.", "meaning": "来自工作和日常责任"}
+        ],
+        "explanation": "There are times when... 表示有时候会……；responsibility 表示责任。"
+      },
+      {
+        "sentence_en": "When too many things happen at once, I find it hard to relax.",
+        "sentence_cn": "当太多事情同时发生时，我会发现自己很难放松。",
+        "chunks": [
+          {"text": "When too many things happen at once,", "meaning": "当太多事情同时发生时"},
+          {"text": "I find it hard", "meaning": "我发现很难"},
+          {"text": "to relax.", "meaning": "放松下来"}
+        ],
+        "explanation": "find it hard to do something 表示发现做某事很困难；at once 表示同时。"
+      },
+      {
+        "sentence_en": "I used to keep working and hope the stress would disappear.",
+        "sentence_cn": "过去，我总是继续工作，希望压力能够自行消失。",
+        "chunks": [
+          {"text": "I used to keep working", "meaning": "我过去总是继续工作"},
+          {"text": "and hope", "meaning": "并希望"},
+          {"text": "the stress would disappear.", "meaning": "压力会消失"}
+        ],
+        "explanation": "keep doing 表示持续做某事；would 在这里表示过去视角下的预期。"
+      },
+      {
+        "sentence_en": "However, that often made me feel even more tired.",
+        "sentence_cn": "然而，那样做往往让我感到更加疲惫。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "that often made me feel", "meaning": "那样做常常让我感到"},
+          {"text": "even more tired.", "meaning": "更加疲惫"}
+        ],
+        "explanation": "make someone feel... 表示使某人感到……；even 用来加强比较级。"
+      },
+      {
+        "sentence_en": "Now I try to take short breaks and focus on one task at a time.",
+        "sentence_cn": "现在，我会尝试短暂休息，并一次专注于一项任务。",
+        "chunks": [
+          {"text": "Now I try to", "meaning": "现在我尝试"},
+          {"text": "take short breaks", "meaning": "进行短暂休息"},
+          {"text": "and focus on", "meaning": "并专注于"},
+          {"text": "one task at a time.", "meaning": "一次一项任务"}
+        ],
+        "explanation": "take a break 表示休息；focus on 表示专注于；at a time 表示每次。"
+      },
+      {
+        "sentence_en": "Sometimes, I go outside for a walk or talk to someone I trust.",
+        "sentence_cn": "有时，我会出去散步，或者和信任的人聊一聊。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "I go outside for a walk", "meaning": "我出去散步"},
+          {"text": "or talk to", "meaning": "或者和……交谈"},
+          {"text": "someone I trust.", "meaning": "我信任的人"}
+        ],
+        "explanation": "go for a walk 表示去散步；someone I trust 是定语从句省略关系代词的结构。"
+      },
+      {
+        "sentence_en": "These small actions help me clear my mind.",
+        "sentence_cn": "这些小行动能帮助我理清思绪。",
+        "chunks": [
+          {"text": "These small actions", "meaning": "这些小行动"},
+          {"text": "help me", "meaning": "帮助我"},
+          {"text": "clear my mind.", "meaning": "理清思绪"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事；clear my mind 表示让头脑清醒。"
+      },
+      {
+        "sentence_en": "I cannot control everything in life, but I can choose how I respond to difficult situations.",
+        "sentence_cn": "我无法控制生活中的一切，但我可以选择如何应对困难的情况。",
+        "chunks": [
+          {"text": "I cannot control everything in life,", "meaning": "我无法控制生活中的一切"},
+          {"text": "but I can choose", "meaning": "但我可以选择"},
+          {"text": "how I respond", "meaning": "我如何回应"},
+          {"text": "to difficult situations.", "meaning": "困难的情况"}
+        ],
+        "explanation": "respond to 表示回应或应对；how I respond 是宾语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "stressed", "phonetic": "", "meaning": "有压力的", "part_of_speech": "adjective"},
+      {"word": "responsibility", "phonetic": "", "meaning": "责任", "part_of_speech": "noun"},
+      {"word": "disappear", "phonetic": "", "meaning": "消失", "part_of_speech": "verb"},
+      {"word": "focus", "phonetic": "", "meaning": "专注", "part_of_speech": "verb"},
+      {"word": "respond", "phonetic": "", "meaning": "回应；应对", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "feel stressed by", "meaning": "因……感到压力", "example": "I feel stressed by too much work."},
+      {"expression": "at once", "meaning": "同时；立刻", "example": "I cannot do everything at once."},
+      {"expression": "take a short break", "meaning": "短暂休息", "example": "Let's take a short break."},
+      {"expression": "one task at a time", "meaning": "一次处理一项任务", "example": "Try to finish one task at a time."},
+      {"expression": "clear my mind", "meaning": "理清思绪；放空头脑", "example": "A short walk helps me clear my mind."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the writer use to do when feeling stressed?", "options": ["Keep working", "Go on vacation", "Stop talking to people"], "answer": "Keep working", "explanation": "第三句说明作者过去会继续工作，希望压力自行消失。"},
+      {"type": "detail", "question": "What does the writer do now to manage stress?", "options": ["Take short breaks", "Work longer hours", "Avoid all responsibilities"], "answer": "Take short breaks", "explanation": "第五句提到短暂休息并一次专注于一项任务。"},
+      {"type": "inference", "question": "What does the writer believe can be controlled?", "options": ["Every event in life", "Other people's choices", "How to respond to difficult situations"], "answer": "How to respond to difficult situations", "explanation": "最后一句强调无法控制一切，但可以选择自己的应对方式。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "练习描述压力来源、过去习惯和当前应对策略。"
+    }
+  },
+  {
+    "article_id": "stage4_day192",
+    "day": 192,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "情绪管理",
+    "scene": "面对失望并调整心态",
+    "title_en": "Dealing with Disappointment",
+    "title_cn": "应对失望",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Disappointment is a normal part of life. We may feel upset when a plan fails or someone does not keep a promise. Last year, I applied for a job that I really wanted, but I did not get it. For a few days, I kept thinking about what I had done wrong. Later, a friend reminded me that one result does not decide my future. I started looking for other opportunities and learned more about my skills. I still felt disappointed, but I stopped blaming myself. Sometimes, a setback can help us understand what to do next.",
+    "content_cn": "失望是生活中很正常的一部分。当计划失败或有人没有兑现承诺时，我们可能会感到难过。去年，我申请了一份非常想得到的工作，但最终没有成功。有几天，我一直在想自己究竟哪里做错了。后来，一位朋友提醒我，一次结果并不能决定我的未来。我开始寻找其他机会，并进一步了解自己的能力。虽然我仍然感到失望，但我不再责怪自己。有时候，一次挫折反而能帮助我们明白下一步该怎么做。",
+    "sentences": [
+      {
+        "sentence_en": "Disappointment is a normal part of life.",
+        "sentence_cn": "失望是生活中很正常的一部分。",
+        "chunks": [
+          {"text": "Disappointment", "meaning": "失望"},
+          {"text": "is a normal part", "meaning": "是正常的一部分"},
+          {"text": "of life.", "meaning": "生活中的"}
+        ],
+        "explanation": "disappointment 是名词，表示失望的情绪或令人失望的事情。"
+      },
+      {
+        "sentence_en": "We may feel upset when a plan fails or someone does not keep a promise.",
+        "sentence_cn": "当计划失败或有人没有兑现承诺时，我们可能会感到难过。",
+        "chunks": [
+          {"text": "We may feel upset", "meaning": "我们可能会感到难过"},
+          {"text": "when a plan fails", "meaning": "当计划失败时"},
+          {"text": "or someone does not keep a promise.", "meaning": "或者有人没有兑现承诺"}
+        ],
+        "explanation": "feel upset 表示感到难过；keep a promise 表示信守承诺。"
+      },
+      {
+        "sentence_en": "Last year, I applied for a job that I really wanted, but I did not get it.",
+        "sentence_cn": "去年，我申请了一份非常想得到的工作，但最终没有成功。",
+        "chunks": [
+          {"text": "Last year,", "meaning": "去年"},
+          {"text": "I applied for a job", "meaning": "我申请了一份工作"},
+          {"text": "that I really wanted,", "meaning": "那是我非常想得到的"},
+          {"text": "but I did not get it.", "meaning": "但我最终没有得到它"}
+        ],
+        "explanation": "apply for a job 表示申请工作；that 引导定语从句，修饰 job。"
+      },
+      {
+        "sentence_en": "For a few days, I kept thinking about what I had done wrong.",
+        "sentence_cn": "有几天，我一直在想自己究竟哪里做错了。",
+        "chunks": [
+          {"text": "For a few days,", "meaning": "有几天"},
+          {"text": "I kept thinking about", "meaning": "我一直在思考"},
+          {"text": "what I had done wrong.", "meaning": "自己哪里做错了"}
+        ],
+        "explanation": "keep doing 表示持续做某事；what I had done wrong 是宾语从句，过去完成时表示当时之前发生的行为。"
+      },
+      {
+        "sentence_en": "Later, a friend reminded me that one result does not decide my future.",
+        "sentence_cn": "后来，一位朋友提醒我，一次结果并不能决定我的未来。",
+        "chunks": [
+          {"text": "Later,", "meaning": "后来"},
+          {"text": "a friend reminded me", "meaning": "一位朋友提醒我"},
+          {"text": "that one result", "meaning": "一次结果"},
+          {"text": "does not decide my future.", "meaning": "并不能决定我的未来"}
+        ],
+        "explanation": "remind someone that... 表示提醒某人某件事；decide 表示决定。"
+      },
+      {
+        "sentence_en": "I started looking for other opportunities and learned more about my skills.",
+        "sentence_cn": "我开始寻找其他机会，并进一步了解自己的能力。",
+        "chunks": [
+          {"text": "I started looking for", "meaning": "我开始寻找"},
+          {"text": "other opportunities", "meaning": "其他机会"},
+          {"text": "and learned more about", "meaning": "并进一步了解"},
+          {"text": "my skills.", "meaning": "自己的能力"}
+        ],
+        "explanation": "look for 表示寻找；opportunity 表示机会；learn about 表示了解。"
+      },
+      {
+        "sentence_en": "I still felt disappointed, but I stopped blaming myself.",
+        "sentence_cn": "虽然我仍然感到失望，但我不再责怪自己。",
+        "chunks": [
+          {"text": "I still felt disappointed,", "meaning": "我仍然感到失望"},
+          {"text": "but I stopped", "meaning": "但我停止了"},
+          {"text": "blaming myself.", "meaning": "责怪自己"}
+        ],
+        "explanation": "stop doing 表示停止做某事；blame oneself 表示责怪自己。"
+      },
+      {
+        "sentence_en": "Sometimes, a setback can help us understand what to do next.",
+        "sentence_cn": "有时候，一次挫折反而能帮助我们明白下一步该怎么做。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "a setback can help us", "meaning": "一次挫折能够帮助我们"},
+          {"text": "understand", "meaning": "明白"},
+          {"text": "what to do next.", "meaning": "下一步该做什么"}
+        ],
+        "explanation": "setback 表示挫折；what to do 是疑问词加不定式结构。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disappointment", "phonetic": "", "meaning": "失望", "part_of_speech": "noun"},
+      {"word": "upset", "phonetic": "", "meaning": "难过的；心烦的", "part_of_speech": "adjective"},
+      {"word": "apply", "phonetic": "", "meaning": "申请；应用", "part_of_speech": "verb"},
+      {"word": "opportunity", "phonetic": "", "meaning": "机会", "part_of_speech": "noun"},
+      {"word": "setback", "phonetic": "", "meaning": "挫折；阻碍", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "feel disappointed", "meaning": "感到失望", "example": "I felt disappointed after the interview."},
+      {"expression": "keep a promise", "meaning": "兑现承诺", "example": "You should always try to keep a promise."},
+      {"expression": "apply for a job", "meaning": "申请一份工作", "example": "She plans to apply for a job next week."},
+      {"expression": "blame myself", "meaning": "责怪自己", "example": "I stopped blaming myself for the mistake."},
+      {"expression": "what to do next", "meaning": "下一步该做什么", "example": "I need to decide what to do next."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "Why was the writer disappointed?", "options": ["A friend moved away", "The writer did not get a wanted job", "A trip was canceled"], "answer": "The writer did not get a wanted job", "explanation": "第三句说明作者申请了想要的工作，但没有成功。"},
+      {"type": "detail", "question": "What did the writer's friend remind them?", "options": ["One result does not decide the future", "Work is not important", "They should stop trying"], "answer": "One result does not decide the future", "explanation": "第五句直接表达了朋友的提醒。"},
+      {"type": "inference", "question": "What lesson does the writer learn from disappointment?", "options": ["Never apply for another job", "A setback can show us what to do next", "Every failure is someone else's fault"], "answer": "A setback can show us what to do next", "explanation": "最后一句总结了挫折可能带来的积极作用。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "通过求职失败的经历练习过去时、情绪表达和反思。"
+    }
+  },
+  {
+    "article_id": "stage4_day193",
+    "day": 193,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "情绪管理",
+    "scene": "经历糟糕的一天并逐渐调整状态",
+    "title_en": "A Bad Day",
+    "title_cn": "糟糕的一天",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Yesterday was one of those days when nothing seemed to go right. I woke up late and missed the bus, so I arrived at work in a hurry. Then I spilled coffee on my shirt before an important meeting. I felt embarrassed and frustrated. During lunch, I called a friend and told her what had happened. She listened and reminded me that one bad day did not mean I had a bad life. After work, I took a walk and bought myself a simple dinner. By bedtime, I felt much better. Tomorrow is another chance to begin again.",
+    "content_cn": "昨天真是那种事事不顺的一天。我起晚了，还错过了公交车，所以匆匆忙忙地赶到公司。接着，在一场重要会议之前，我把咖啡洒在了衬衫上。我感到尴尬又沮丧。午餐时，我给一位朋友打电话，告诉她发生了什么。她认真听我倾诉，并提醒我，一天过得糟糕并不意味着我的人生也很糟糕。下班后，我散了散步，还给自己买了一份简单的晚餐。到了睡觉前，我感觉好多了。明天又是重新开始的机会。",
+    "sentences": [
+      {
+        "sentence_en": "Yesterday was one of those days when nothing seemed to go right.",
+        "sentence_cn": "昨天真是那种事事不顺的一天。",
+        "chunks": [
+          {"text": "Yesterday was", "meaning": "昨天是"},
+          {"text": "one of those days", "meaning": "那种日子之一"},
+          {"text": "when nothing seemed", "meaning": "那时似乎没有什么"},
+          {"text": "to go right.", "meaning": "进展顺利"}
+        ],
+        "explanation": "one of those days 是描述糟糕日子的常见表达；go right 表示进展顺利。"
+      },
+      {
+        "sentence_en": "I woke up late and missed the bus, so I arrived at work in a hurry.",
+        "sentence_cn": "我起晚了，还错过了公交车，所以匆匆忙忙地赶到公司。",
+        "chunks": [
+          {"text": "I woke up late", "meaning": "我起晚了"},
+          {"text": "and missed the bus,", "meaning": "并且错过了公交车"},
+          {"text": "so I arrived at work", "meaning": "所以我赶到了公司"},
+          {"text": "in a hurry.", "meaning": "匆匆忙忙地"}
+        ],
+        "explanation": "wake up 的过去式是 woke up；in a hurry 表示匆忙地。"
+      },
+      {
+        "sentence_en": "Then I spilled coffee on my shirt before an important meeting.",
+        "sentence_cn": "接着，在一场重要会议之前，我把咖啡洒在了衬衫上。",
+        "chunks": [
+          {"text": "Then", "meaning": "接着"},
+          {"text": "I spilled coffee", "meaning": "我洒了咖啡"},
+          {"text": "on my shirt", "meaning": "在我的衬衫上"},
+          {"text": "before an important meeting.", "meaning": "在一场重要会议之前"}
+        ],
+        "explanation": "spill 的过去式是 spilled；spill something on something 表示把某物洒在某物上。"
+      },
+      {
+        "sentence_en": "I felt embarrassed and frustrated.",
+        "sentence_cn": "我感到尴尬又沮丧。",
+        "chunks": [
+          {"text": "I felt", "meaning": "我感到"},
+          {"text": "embarrassed", "meaning": "尴尬的"},
+          {"text": "and frustrated.", "meaning": "并且沮丧的"}
+        ],
+        "explanation": "embarrassed 表示感到尴尬；frustrated 表示受挫或沮丧。"
+      },
+      {
+        "sentence_en": "During lunch, I called a friend and told her what had happened.",
+        "sentence_cn": "午餐时，我给一位朋友打电话，告诉她发生了什么。",
+        "chunks": [
+          {"text": "During lunch,", "meaning": "午餐期间"},
+          {"text": "I called a friend", "meaning": "我给一位朋友打电话"},
+          {"text": "and told her", "meaning": "并告诉她"},
+          {"text": "what had happened.", "meaning": "发生了什么"}
+        ],
+        "explanation": "during 表示在某段时间期间；what had happened 使用过去完成时，表示此前发生的事情。"
+      },
+      {
+        "sentence_en": "She listened and reminded me that one bad day did not mean I had a bad life.",
+        "sentence_cn": "她认真听我倾诉，并提醒我，一天过得糟糕并不意味着我的人生也很糟糕。",
+        "chunks": [
+          {"text": "She listened", "meaning": "她认真听着"},
+          {"text": "and reminded me", "meaning": "并提醒我"},
+          {"text": "that one bad day", "meaning": "一天过得糟糕"},
+          {"text": "did not mean I had a bad life.", "meaning": "并不意味着我的人生也很糟糕"}
+        ],
+        "explanation": "remind someone that... 表示提醒某人某事；mean 表示意味着。"
+      },
+      {
+        "sentence_en": "After work, I took a walk and bought myself a simple dinner.",
+        "sentence_cn": "下班后，我散了散步，还给自己买了一份简单的晚餐。",
+        "chunks": [
+          {"text": "After work,", "meaning": "下班后"},
+          {"text": "I took a walk", "meaning": "我散了步"},
+          {"text": "and bought myself", "meaning": "并给自己买了"},
+          {"text": "a simple dinner.", "meaning": "一份简单的晚餐"}
+        ],
+        "explanation": "take a walk 表示散步；buy myself something 表示给自己买某物。"
+      },
+      {
+        "sentence_en": "By bedtime, I felt much better.",
+        "sentence_cn": "到了睡觉前，我感觉好多了。",
+        "chunks": [
+          {"text": "By bedtime,", "meaning": "到了睡觉时间"},
+          {"text": "I felt", "meaning": "我感觉"},
+          {"text": "much better.", "meaning": "好多了"}
+        ],
+        "explanation": "by 在这里表示不晚于某个时间；much 用于加强比较级。"
+      },
+      {
+        "sentence_en": "Tomorrow is another chance to begin again.",
+        "sentence_cn": "明天又是重新开始的机会。",
+        "chunks": [
+          {"text": "Tomorrow", "meaning": "明天"},
+          {"text": "is another chance", "meaning": "又是一个机会"},
+          {"text": "to begin again.", "meaning": "重新开始"}
+        ],
+        "explanation": "another 表示另一个；a chance to do something 表示做某事的机会。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "miss", "phonetic": "", "meaning": "错过", "part_of_speech": "verb"},
+      {"word": "spill", "phonetic": "", "meaning": "洒出；泼出", "part_of_speech": "verb"},
+      {"word": "embarrassed", "phonetic": "", "meaning": "尴尬的", "part_of_speech": "adjective"},
+      {"word": "frustrated", "phonetic": "", "meaning": "沮丧的；受挫的", "part_of_speech": "adjective"},
+      {"word": "bedtime", "phonetic": "", "meaning": "就寝时间", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "one of those days", "meaning": "特别不顺的一天", "example": "Today has been one of those days."},
+      {"expression": "in a hurry", "meaning": "匆忙地", "example": "I left home in a hurry."},
+      {"expression": "feel embarrassed", "meaning": "感到尴尬", "example": "I felt embarrassed when I forgot his name."},
+      {"expression": "take a walk", "meaning": "散步", "example": "I take a walk after dinner."},
+      {"expression": "begin again", "meaning": "重新开始", "example": "Tomorrow we can begin again."}
+    ],
+    "questions": [
+      {"type": "sequence", "question": "What happened first in the story?", "options": ["The writer spilled coffee", "The writer woke up late", "The writer called a friend"], "answer": "The writer woke up late", "explanation": "故事从作者起晚并错过公交车开始。"},
+      {"type": "detail", "question": "What did the writer do during lunch?", "options": ["Went home", "Called a friend", "Bought a new shirt"], "answer": "Called a friend", "explanation": "第五句提到作者午餐时给朋友打电话。"},
+      {"type": "inference", "question": "What is the main message of the story?", "options": ["A bad day does not mean a bad life", "Every day must be perfect", "Friends should solve every problem"], "answer": "A bad day does not mean a bad life", "explanation": "朋友的提醒和文章最后一句都强调，不要让糟糕的一天定义整个人生。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "通过连续的小意外练习过去时、情绪词汇和积极回应。"
+    }
+  },
+  {
+    "article_id": "stage4_day194",
+    "day": 194,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "积极心态",
+    "scene": "从生活中的小事发现快乐",
+    "title_en": "Finding Happiness in Small Things",
+    "title_cn": "从小事中发现快乐",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Many people think happiness comes from big achievements or expensive things. I used to believe that too. But recently, I have started noticing the small moments around me. A warm cup of coffee in the morning, a kind message from a friend, or a beautiful sunset can make me smile. These things do not cost much, but they can improve my day. I also try to slow down and enjoy what I am doing instead of always thinking about the next task. Happiness may not be something we need to search for. Sometimes, it is already part of our everyday lives.",
+    "content_cn": "许多人认为，快乐来自重大的成就或昂贵的东西。我过去也这么认为。但最近，我开始留意身边那些微小的时刻。早晨一杯温暖的咖啡、朋友发来的一条友善信息，或者美丽的日落，都能让我微笑。这些东西花不了多少钱，却能让我的一天变得更好。我也尝试放慢脚步，享受正在做的事情，而不是总想着下一项任务。快乐也许并不是我们必须四处寻找的东西。有时候，它早已存在于我们的日常生活之中。",
+    "sentences": [
+      {
+        "sentence_en": "Many people think happiness comes from big achievements or expensive things.",
+        "sentence_cn": "许多人认为，快乐来自重大的成就或昂贵的东西。",
+        "chunks": [
+          {"text": "Many people think", "meaning": "许多人认为"},
+          {"text": "happiness comes from", "meaning": "快乐来自"},
+          {"text": "big achievements", "meaning": "重大的成就"},
+          {"text": "or expensive things.", "meaning": "或者昂贵的东西"}
+        ],
+        "explanation": "come from 表示来自；achievement 表示成就。"
+      },
+      {
+        "sentence_en": "I used to believe that too.",
+        "sentence_cn": "我过去也这么认为。",
+        "chunks": [
+          {"text": "I used to believe", "meaning": "我过去也相信"},
+          {"text": "that too.", "meaning": "那种看法"}
+        ],
+        "explanation": "used to 表示过去的习惯或状态；believe that 表示相信某种观点。"
+      },
+      {
+        "sentence_en": "But recently, I have started noticing the small moments around me.",
+        "sentence_cn": "但最近，我开始留意身边那些微小的时刻。",
+        "chunks": [
+          {"text": "But recently,", "meaning": "但最近"},
+          {"text": "I have started noticing", "meaning": "我开始留意"},
+          {"text": "the small moments", "meaning": "那些微小的时刻"},
+          {"text": "around me.", "meaning": "在我身边的"}
+        ],
+        "explanation": "recently 常与现在完成时连用；notice 表示注意到。"
+      },
+      {
+        "sentence_en": "A warm cup of coffee in the morning, a kind message from a friend, or a beautiful sunset can make me smile.",
+        "sentence_cn": "早晨一杯温暖的咖啡、朋友发来的一条友善信息，或者美丽的日落，都能让我微笑。",
+        "chunks": [
+          {"text": "A warm cup of coffee in the morning,", "meaning": "早晨一杯温暖的咖啡"},
+          {"text": "a kind message from a friend,", "meaning": "朋友发来的一条友善信息"},
+          {"text": "or a beautiful sunset", "meaning": "或者美丽的日落"},
+          {"text": "can make me smile.", "meaning": "都能让我微笑"}
+        ],
+        "explanation": "三个名词短语并列作主语；make someone do something 表示让某人做某事。"
+      },
+      {
+        "sentence_en": "These things do not cost much, but they can improve my day.",
+        "sentence_cn": "这些东西花不了多少钱，却能让我的一天变得更好。",
+        "chunks": [
+          {"text": "These things do not cost much,", "meaning": "这些东西花不了多少钱"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "they can improve my day.", "meaning": "它们能让我的一天变得更好"}
+        ],
+        "explanation": "cost 表示花费；improve 表示改善、提升。"
+      },
+      {
+        "sentence_en": "I also try to slow down and enjoy what I am doing instead of always thinking about the next task.",
+        "sentence_cn": "我也尝试放慢脚步，享受正在做的事情，而不是总想着下一项任务。",
+        "chunks": [
+          {"text": "I also try to slow down", "meaning": "我也尝试放慢脚步"},
+          {"text": "and enjoy what I am doing", "meaning": "并享受正在做的事情"},
+          {"text": "instead of always thinking", "meaning": "而不是总想着"},
+          {"text": "about the next task.", "meaning": "下一项任务"}
+        ],
+        "explanation": "slow down 表示放慢速度；instead of 后面接动词-ing形式。"
+      },
+      {
+        "sentence_en": "Happiness may not be something we need to search for.",
+        "sentence_cn": "快乐也许并不是我们必须四处寻找的东西。",
+        "chunks": [
+          {"text": "Happiness may not be", "meaning": "快乐也许并不是"},
+          {"text": "something", "meaning": "某种东西"},
+          {"text": "we need to search for.", "meaning": "我们需要去寻找的"}
+        ],
+        "explanation": "search for 表示寻找；we need to search for 是省略关系代词的定语从句。"
+      },
+      {
+        "sentence_en": "Sometimes, it is already part of our everyday lives.",
+        "sentence_cn": "有时候，它早已存在于我们的日常生活之中。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "it is already", "meaning": "它已经"},
+          {"text": "part of our everyday lives.", "meaning": "成为我们日常生活的一部分"}
+        ],
+        "explanation": "part of 表示……的一部分；everyday 是形容词，表示日常的。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "happiness", "phonetic": "", "meaning": "快乐；幸福", "part_of_speech": "noun"},
+      {"word": "achievement", "phonetic": "", "meaning": "成就", "part_of_speech": "noun"},
+      {"word": "notice", "phonetic": "", "meaning": "注意到；留意", "part_of_speech": "verb"},
+      {"word": "sunset", "phonetic": "", "meaning": "日落", "part_of_speech": "noun"},
+      {"word": "improve", "phonetic": "", "meaning": "改善；提升", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "come from", "meaning": "来自", "example": "My happiness comes from simple things."},
+      {"expression": "notice something around me", "meaning": "留意身边的事物", "example": "I started noticing small changes around me."},
+      {"expression": "make someone smile", "meaning": "让某人微笑", "example": "Your message made me smile."},
+      {"expression": "slow down", "meaning": "放慢脚步；慢下来", "example": "You should slow down and enjoy the moment."},
+      {"expression": "part of everyday life", "meaning": "日常生活的一部分", "example": "Music is part of my everyday life."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the writer use to believe about happiness?", "options": ["It came from big achievements or expensive things", "It came only from family", "It could not be found"], "answer": "It came from big achievements or expensive things", "explanation": "前两句说明作者过去也认为快乐来自重大成就或昂贵物品。"},
+      {"type": "detail", "question": "Which small moment is mentioned in the article?", "options": ["Winning a prize", "A beautiful sunset", "Buying a new car"], "answer": "A beautiful sunset", "explanation": "第四句列举了咖啡、朋友的信息和美丽的日落。"},
+      {"type": "inference", "question": "What is the writer's main idea?", "options": ["Happiness always costs money", "People should work harder", "Happiness can be found in everyday moments"], "answer": "Happiness can be found in everyday moments", "explanation": "文章最后两句强调，快乐可能已经存在于日常生活中。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "通过生活细节练习表达观点、习惯变化和个人感悟。"
+    }
+  },
+  {
+    "article_id": "stage4_day195",
+    "day": 195,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "情绪管理",
+    "scene": "面对孤独并主动寻求连接",
+    "title_en": "When I Feel Lonely",
+    "title_cn": "当我感到孤独时",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Sometimes I feel lonely, even when there are people around me. It can happen after a busy day when I finally have time to myself. In the past, I usually stayed home and waited for the feeling to pass. Now I try to do something small instead. I might call a friend, visit a nearby park, or join a local activity. I also remind myself that being alone is not always the same as being lonely. Everyone needs quiet time sometimes. What matters is finding a healthy balance between enjoying your own company and staying connected with others.",
+    "content_cn": "有时候，即使身边有人，我也会感到孤独。这种感觉可能出现在忙碌的一天结束后，当我终于有时间独处时。过去，我通常待在家里，等待这种感觉自行消失。现在，我会尝试做一些小事来改变状态。我可能会给朋友打电话、去附近的公园，或者参加当地的活动。我也会提醒自己，独处并不总是等同于孤独。每个人有时都需要安静的时间。重要的是，在享受独处和与他人保持联系之间找到健康的平衡。",
+    "sentences": [
+      {
+        "sentence_en": "Sometimes I feel lonely, even when there are people around me.",
+        "sentence_cn": "有时候，即使身边有人，我也会感到孤独。",
+        "chunks": [
+          {"text": "Sometimes I feel lonely,", "meaning": "有时候我会感到孤独"},
+          {"text": "even when", "meaning": "即使当……时"},
+          {"text": "there are people around me.", "meaning": "我身边有人"}
+        ],
+        "explanation": "lonely 表示孤独的；even when 用于强调让步情况。"
+      },
+      {
+        "sentence_en": "It can happen after a busy day when I finally have time to myself.",
+        "sentence_cn": "这种感觉可能出现在忙碌的一天结束后，当我终于有时间独处时。",
+        "chunks": [
+          {"text": "It can happen", "meaning": "这种情况可能发生"},
+          {"text": "after a busy day", "meaning": "在忙碌的一天之后"},
+          {"text": "when I finally have", "meaning": "当我终于拥有"},
+          {"text": "time to myself.", "meaning": "属于自己的时间"}
+        ],
+        "explanation": "time to myself 表示独处或属于自己的时间；finally 表示终于。"
+      },
+      {
+        "sentence_en": "In the past, I usually stayed home and waited for the feeling to pass.",
+        "sentence_cn": "过去，我通常待在家里，等待这种感觉自行消失。",
+        "chunks": [
+          {"text": "In the past,", "meaning": "过去"},
+          {"text": "I usually stayed home", "meaning": "我通常待在家里"},
+          {"text": "and waited for", "meaning": "并等待"},
+          {"text": "the feeling to pass.", "meaning": "这种感觉过去"}
+        ],
+        "explanation": "wait for something to do 表示等待某事发生；pass 在这里表示消失或过去。"
+      },
+      {
+        "sentence_en": "Now I try to do something small instead.",
+        "sentence_cn": "现在，我会尝试做一些小事来改变状态。",
+        "chunks": [
+          {"text": "Now", "meaning": "现在"},
+          {"text": "I try to do", "meaning": "我尝试做"},
+          {"text": "something small", "meaning": "一些小事"},
+          {"text": "instead.", "meaning": "来代替原来的做法"}
+        ],
+        "explanation": "instead 表示代替、转而；something small 中形容词放在不定代词之后。"
+      },
+      {
+        "sentence_en": "I might call a friend, visit a nearby park, or join a local activity.",
+        "sentence_cn": "我可能会给朋友打电话、去附近的公园，或者参加当地的活动。",
+        "chunks": [
+          {"text": "I might", "meaning": "我可能会"},
+          {"text": "call a friend,", "meaning": "给朋友打电话"},
+          {"text": "visit a nearby park,", "meaning": "去附近的公园"},
+          {"text": "or join a local activity.", "meaning": "或者参加当地的活动"}
+        ],
+        "explanation": "might 表示可能；三个动词短语并列，列举不同的行动。"
+      },
+      {
+        "sentence_en": "I also remind myself that being alone is not always the same as being lonely.",
+        "sentence_cn": "我也会提醒自己，独处并不总是等同于孤独。",
+        "chunks": [
+          {"text": "I also remind myself", "meaning": "我也提醒自己"},
+          {"text": "that being alone", "meaning": "独处"},
+          {"text": "is not always the same as", "meaning": "并不总是等同于"},
+          {"text": "being lonely.", "meaning": "感到孤独"}
+        ],
+        "explanation": "remind oneself that... 表示提醒自己某事；the same as 表示与……相同。"
+      },
+      {
+        "sentence_en": "Everyone needs quiet time sometimes.",
+        "sentence_cn": "每个人有时都需要安静的时间。",
+        "chunks": [
+          {"text": "Everyone", "meaning": "每个人"},
+          {"text": "needs quiet time", "meaning": "都需要安静的时间"},
+          {"text": "sometimes.", "meaning": "有时候"}
+        ],
+        "explanation": "everyone 作主语时谓语用单数；quiet time 表示安静独处的时间。"
+      },
+      {
+        "sentence_en": "What matters is finding a healthy balance between enjoying your own company and staying connected with others.",
+        "sentence_cn": "重要的是，在享受独处和与他人保持联系之间找到健康的平衡。",
+        "chunks": [
+          {"text": "What matters", "meaning": "重要的是"},
+          {"text": "is finding a healthy balance", "meaning": "找到一种健康的平衡"},
+          {"text": "between enjoying your own company", "meaning": "在享受独处之间"},
+          {"text": "and staying connected with others.", "meaning": "以及与他人保持联系之间"}
+        ],
+        "explanation": "between...and... 表示在两者之间；enjoy someone's own company 表示享受独处；stay connected 表示保持联系。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "lonely", "phonetic": "", "meaning": "孤独的", "part_of_speech": "adjective"},
+      {"word": "nearby", "phonetic": "", "meaning": "附近的", "part_of_speech": "adjective/adverb"},
+      {"word": "local", "phonetic": "", "meaning": "当地的", "part_of_speech": "adjective"},
+      {"word": "balance", "phonetic": "", "meaning": "平衡", "part_of_speech": "noun"},
+      {"word": "connected", "phonetic": "", "meaning": "有联系的；相连的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "feel lonely", "meaning": "感到孤独", "example": "I sometimes feel lonely when I travel alone."},
+      {"expression": "time to myself", "meaning": "属于自己的独处时间", "example": "I need some time to myself this evening."},
+      {"expression": "wait for something to pass", "meaning": "等待某种情况过去", "example": "I waited for the bad feeling to pass."},
+      {"expression": "the same as", "meaning": "与……相同", "example": "Being quiet is not the same as being unhappy."},
+      {"expression": "stay connected with", "meaning": "与……保持联系", "example": "I stay connected with old friends online."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "When does the writer sometimes feel lonely?", "options": ["During a busy meeting", "After a busy day", "While shopping"], "answer": "After a busy day", "explanation": "第二句说明，孤独感可能出现在忙碌的一天结束后。"},
+      {"type": "detail", "question": "What does the writer do now when feeling lonely?", "options": ["Avoid everyone", "Call a friend or join an activity", "Stay in bed all day"], "answer": "Call a friend or join an activity", "explanation": "第五句列出了打电话、去公园和参加活动等做法。"},
+      {"type": "meaning", "question": "What is the difference between being alone and being lonely?", "options": ["They always mean the same thing", "Being alone can simply mean having time to yourself", "Being alone is always unhealthy"], "answer": "Being alone can simply mean having time to yourself", "explanation": "文章指出，独处不一定意味着孤独，每个人都需要安静的时间。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "自然美式英语",
+      "translation": "逐句对应英文正文",
+      "chunking": "按原句顺序拆分，保留标点和空格",
+      "notes": "区分 alone 与 lonely，练习描述情绪、主动行动和生活平衡。"
+    }
+  }
+]

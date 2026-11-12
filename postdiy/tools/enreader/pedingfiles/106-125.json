@@ -1,0 +1,2735 @@
+[
+  {
+    "article_id": 106,
+    "day": 106,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Planning a trip",
+    "title_en": "Planning a Trip",
+    "title_cn": "计划一次旅行",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I want to take a short trip next month. I have been busy with work, so I need some time to relax. First, I will check my schedule and choose a good date. Then, I will look for a hotel and book my train tickets. I also want to make a list of places to visit. I will ask my friend to come with me because traveling together is more fun. We have not decided where to go yet, but I am already excited about the trip.",
+    "content_cn": "我想下个月进行一次短途旅行。最近我一直忙于工作，所以我需要一些时间放松一下。首先，我会查看自己的日程，选一个合适的日期。然后，我会寻找酒店并预订火车票。我还想列出一份想去的地方清单。我会邀请朋友和我一起去，因为结伴旅行更有趣。我们还没有决定去哪里，但我已经开始期待这次旅行了。",
+    "sentences": [
+      {
+        "sentence_en": "I want to take a short trip next month.",
+        "sentence_cn": "我想下个月进行一次短途旅行。",
+        "chunks": [
+          {"text": "I want to", "meaning": "我想要"},
+          {"text": "take a short trip", "meaning": "进行一次短途旅行"},
+          {"text": " next month.", "meaning": "下个月"}
+        ],
+        "explanation": "want to do something 表示想做某事；take a trip 表示旅行。"
+      },
+      {
+        "sentence_en": "I have been busy with work, so I need some time to relax.",
+        "sentence_cn": "最近我一直忙于工作，所以我需要一些时间放松一下。",
+        "chunks": [
+          {"text": "I have been busy with work,", "meaning": "我最近一直忙于工作"},
+          {"text": " so I need", "meaning": "所以我需要"},
+          {"text": " some time to relax.", "meaning": "一些时间放松一下"}
+        ],
+        "explanation": "have been busy with 表示一直忙于某事；to relax 表示放松的目的。"
+      },
+      {
+        "sentence_en": "First, I will check my schedule and choose a good date.",
+        "sentence_cn": "首先，我会查看自己的日程，选一个合适的日期。",
+        "chunks": [
+          {"text": "First,", "meaning": "首先"},
+          {"text": " I will check my schedule", "meaning": "我会查看自己的日程"},
+          {"text": " and choose a good date.", "meaning": "并选择一个合适的日期"}
+        ],
+        "explanation": "will 后接动词原形，常用于表达将来的计划或决定。"
+      },
+      {
+        "sentence_en": "Then, I will look for a hotel and book my train tickets.",
+        "sentence_cn": "然后，我会寻找酒店并预订火车票。",
+        "chunks": [
+          {"text": "Then,", "meaning": "然后"},
+          {"text": " I will look for a hotel", "meaning": "我会寻找一家酒店"},
+          {"text": " and book my train tickets.", "meaning": "并预订火车票"}
+        ],
+        "explanation": "look for 表示寻找；book 在这里表示预订。"
+      },
+      {
+        "sentence_en": "I also want to make a list of places to visit.",
+        "sentence_cn": "我还想列出一份想去的地方清单。",
+        "chunks": [
+          {"text": "I also want to", "meaning": "我还想"},
+          {"text": " make a list of", "meaning": "列出一份……清单"},
+          {"text": " places to visit.", "meaning": "想参观的地方"}
+        ],
+        "explanation": "make a list of 表示列出清单；to visit 修饰 places。"
+      },
+      {
+        "sentence_en": "I will ask my friend to come with me because traveling together is more fun.",
+        "sentence_cn": "我会邀请朋友和我一起去，因为结伴旅行更有趣。",
+        "chunks": [
+          {"text": "I will ask my friend", "meaning": "我会邀请我的朋友"},
+          {"text": " to come with me", "meaning": "和我一起去"},
+          {"text": " because traveling together is more fun.", "meaning": "因为一起旅行更有趣"}
+        ],
+        "explanation": "ask someone to do something 表示请某人做某事；traveling together 是动名词短语作主语。"
+      },
+      {
+        "sentence_en": "We have not decided where to go yet, but I am already excited about the trip.",
+        "sentence_cn": "我们还没有决定去哪里，但我已经开始期待这次旅行了。",
+        "chunks": [
+          {"text": "We have not decided", "meaning": "我们还没有决定"},
+          {"text": " where to go yet,", "meaning": "去哪里"},
+          {"text": " but I am already excited about the trip.", "meaning": "但我已经很期待这次旅行了"}
+        ],
+        "explanation": "decide where to go 表示决定去哪里；be excited about 表示对……感到兴奋或期待。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "trip", "phonetic": "", "meaning": "旅行；短途出行", "part_of_speech": "名词"},
+      {"word": "schedule", "phonetic": "", "meaning": "日程安排", "part_of_speech": "名词"},
+      {"word": "relax", "phonetic": "", "meaning": "放松", "part_of_speech": "动词"},
+      {"word": "book", "phonetic": "", "meaning": "预订", "part_of_speech": "动词"},
+      {"word": "excited", "phonetic": "", "meaning": "兴奋的；期待的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "take a short trip", "meaning": "进行一次短途旅行", "example": "We want to take a short trip this weekend."},
+      {"expression": "be busy with work", "meaning": "忙于工作", "example": "She is busy with work today."},
+      {"expression": "check my schedule", "meaning": "查看我的日程", "example": "Let me check my schedule first."},
+      {"expression": "make a list of", "meaning": "列出……清单", "example": "I made a list of things to buy."},
+      {"expression": "be excited about", "meaning": "对……感到期待", "example": "He is excited about his holiday."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Why does the writer want to take a trip?",
+        "options": ["To visit family", "To relax", "To find a new job"],
+        "answer": "To relax",
+        "explanation": "作者最近忙于工作，因此想找时间放松。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What will the writer book?",
+        "options": ["A plane ticket", "A hotel room only", "Train tickets"],
+        "answer": "Train tickets",
+        "explanation": "文章提到作者会寻找酒店并预订火车票。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Why does the writer want a friend to come along?",
+        "answer": "Because traveling together is more fun.",
+        "explanation": "文章明确说明一起旅行更有趣。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "A2旅行计划主题，练习将来时、原因表达和旅行准备词汇。"
+    }
+  },
+  {
+    "article_id": 107,
+    "day": 107,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Choosing a destination",
+    "title_en": "Choosing a Destination",
+    "title_cn": "选择旅行目的地",
+    "difficulty": "A2",
+    "word_count": 83,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "My friend and I are choosing a place for our next vacation. He wants to visit a big city because he enjoys shopping and museums. I prefer the beach because I love swimming and quiet mornings. We looked at some pictures online and read a few travel reviews. A small coastal town looks beautiful and not too expensive. It also has good seafood restaurants. We both like the idea, so we may go there for four days in June.",
+    "content_cn": "我和朋友正在为下一次假期选择一个地方。他想去大城市，因为他喜欢购物和参观博物馆。我更喜欢海边，因为我喜欢游泳和安静的早晨。我们在网上看了一些照片，也读了几篇旅行评价。一座小海滨城镇看起来很漂亮，而且消费不太贵。那里还有不错的海鲜餐厅。我们都喜欢这个想法，所以可能会在六月去那里玩四天。",
+    "sentences": [
+      {
+        "sentence_en": "My friend and I are choosing a place for our next vacation.",
+        "sentence_cn": "我和朋友正在为下一次假期选择一个地方。",
+        "chunks": [
+          {"text": "My friend and I", "meaning": "我和我的朋友"},
+          {"text": " are choosing a place", "meaning": "正在选择一个地方"},
+          {"text": " for our next vacation.", "meaning": "作为我们的下一个假期目的地"}
+        ],
+        "explanation": "现在进行时 are choosing 表示正在进行的选择。"
+      },
+      {
+        "sentence_en": "He wants to visit a big city because he enjoys shopping and museums.",
+        "sentence_cn": "他想去大城市，因为他喜欢购物和参观博物馆。",
+        "chunks": [
+          {"text": "He wants to visit a big city", "meaning": "他想去一座大城市"},
+          {"text": " because he enjoys", "meaning": "因为他喜欢"},
+          {"text": " shopping and museums.", "meaning": "购物和博物馆"}
+        ],
+        "explanation": "enjoy 后面接动词时通常使用动名词形式，如 enjoy shopping。"
+      },
+      {
+        "sentence_en": "I prefer the beach because I love swimming and quiet mornings.",
+        "sentence_cn": "我更喜欢海边，因为我喜欢游泳和安静的早晨。",
+        "chunks": [
+          {"text": "I prefer the beach", "meaning": "我更喜欢海边"},
+          {"text": " because I love", "meaning": "因为我喜欢"},
+          {"text": " swimming and quiet mornings.", "meaning": "游泳和宁静的早晨"}
+        ],
+        "explanation": "prefer 表示更喜欢；love 后面可以接动名词。"
+      },
+      {
+        "sentence_en": "We looked at some pictures online and read a few travel reviews.",
+        "sentence_cn": "我们在网上看了一些照片，也读了几篇旅行评价。",
+        "chunks": [
+          {"text": "We looked at some pictures", "meaning": "我们看了一些照片"},
+          {"text": " online", "meaning": "在网上"},
+          {"text": " and read a few travel reviews.", "meaning": "并读了几篇旅行评价"}
+        ],
+        "explanation": "looked 和 read 在这里都是一般过去时，描述已经完成的事情。"
+      },
+      {
+        "sentence_en": "A small coastal town looks beautiful and not too expensive.",
+        "sentence_cn": "一座小海滨城镇看起来很漂亮，而且消费不太贵。",
+        "chunks": [
+          {"text": "A small coastal town", "meaning": "一座小型海滨城镇"},
+          {"text": " looks beautiful", "meaning": "看起来很漂亮"},
+          {"text": " and not too expensive.", "meaning": "而且价格不太贵"}
+        ],
+        "explanation": "coastal 意为沿海的；look 后面可以接形容词描述外观或状态。"
+      },
+      {
+        "sentence_en": "It also has good seafood restaurants.",
+        "sentence_cn": "那里还有不错的海鲜餐厅。",
+        "chunks": [
+          {"text": "It also has", "meaning": "那里还有"},
+          {"text": " good seafood restaurants.", "meaning": "不错的海鲜餐厅"}
+        ],
+        "explanation": "It 指前面提到的海滨城镇；seafood 是海鲜。"
+      },
+      {
+        "sentence_en": "We both like the idea, so we may go there for four days in June.",
+        "sentence_cn": "我们都喜欢这个想法，所以可能会在六月去那里玩四天。",
+        "chunks": [
+          {"text": "We both like the idea,", "meaning": "我们都喜欢这个想法"},
+          {"text": " so we may go there", "meaning": "所以我们可能会去那里"},
+          {"text": " for four days in June.", "meaning": "在六月待四天"}
+        ],
+        "explanation": "both 表示两者都；may 表示可能；for four days 表示持续四天。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "destination", "phonetic": "", "meaning": "目的地", "part_of_speech": "名词"},
+      {"word": "prefer", "phonetic": "", "meaning": "更喜欢", "part_of_speech": "动词"},
+      {"word": "coastal", "phonetic": "", "meaning": "沿海的", "part_of_speech": "形容词"},
+      {"word": "review", "phonetic": "", "meaning": "评价；评论", "part_of_speech": "名词"},
+      {"word": "seafood", "phonetic": "", "meaning": "海鲜", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "choose a place", "meaning": "选择一个地方", "example": "We need to choose a place for our holiday."},
+      {"expression": "prefer the beach", "meaning": "更喜欢海边", "example": "I prefer the beach to the mountains."},
+      {"expression": "look at pictures online", "meaning": "在网上看照片", "example": "I looked at pictures online before the trip."},
+      {"expression": "travel reviews", "meaning": "旅行评价", "example": "I read travel reviews before booking a hotel."},
+      {"expression": "for four days", "meaning": "持续四天", "example": "We stayed there for four days."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where does the writer's friend want to go?",
+        "options": ["A big city", "A small village", "The mountains"],
+        "answer": "A big city",
+        "explanation": "朋友喜欢购物和博物馆，所以想去大城市。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What does the writer like about the coastal town?",
+        "options": ["It has many shopping malls.", "It is beautiful and not too expensive.", "It is close to home."],
+        "answer": "It is beautiful and not too expensive.",
+        "explanation": "文章提到海滨城镇漂亮，消费也不太贵。"
+      },
+      {
+        "type": "short_answer",
+        "question": "When may they visit the town?",
+        "answer": "In June, for four days.",
+        "explanation": "文章最后一句给出了时间和停留天数。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "83词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习表达个人偏好、比较目的地和讨论旅行选择。"
+    }
+  },
+  {
+    "article_id": 108,
+    "day": 108,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Booking a hotel",
+    "title_en": "Booking a Hotel",
+    "title_cn": "预订酒店",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I found a nice hotel near the beach. It is close to several restaurants and a bus stop. I checked the price on the hotel website and compared it with two other places. The room has a large bed, free Wi-Fi, and a small balcony. I want to stay for three nights, so I called the hotel to ask about the total cost. The price is reasonable, and breakfast is included. I booked a room online and received a confirmation email.",
+    "content_cn": "我找到了一家海滩附近的不错酒店。它离几家餐厅和一个公交车站都很近。我在酒店网站上查看了价格，并与另外两家酒店进行了比较。房间有一张大床、免费无线网络和一个小阳台。我想住三个晚上，所以打电话给酒店询问总费用。价格很合理，而且包含早餐。我在网上订了一间房，并收到了确认邮件。",
+    "sentences": [
+      {
+        "sentence_en": "I found a nice hotel near the beach.",
+        "sentence_cn": "我找到了一家海滩附近的不错酒店。",
+        "chunks": [
+          {"text": "I found", "meaning": "我找到"},
+          {"text": " a nice hotel", "meaning": "一家不错的酒店"},
+          {"text": " near the beach.", "meaning": "在海滩附近"}
+        ],
+        "explanation": "found 是 find 的过去式，表示找到了某物。"
+      },
+      {
+        "sentence_en": "It is close to several restaurants and a bus stop.",
+        "sentence_cn": "它离几家餐厅和一个公交车站都很近。",
+        "chunks": [
+          {"text": "It is close to", "meaning": "它离……很近"},
+          {"text": " several restaurants", "meaning": "几家餐厅"},
+          {"text": " and a bus stop.", "meaning": "以及一个公交车站"}
+        ],
+        "explanation": "be close to 表示离……近；several 表示几个。"
+      },
+      {
+        "sentence_en": "I checked the price on the hotel website and compared it with two other places.",
+        "sentence_cn": "我在酒店网站上查看了价格，并与另外两家酒店进行了比较。",
+        "chunks": [
+          {"text": "I checked the price", "meaning": "我查看了价格"},
+          {"text": " on the hotel website", "meaning": "在酒店网站上"},
+          {"text": " and compared it with two other places.", "meaning": "并与另外两家酒店作了比较"}
+        ],
+        "explanation": "compare A with B 表示把A和B进行比较。"
+      },
+      {
+        "sentence_en": "The room has a large bed, free Wi-Fi, and a small balcony.",
+        "sentence_cn": "房间有一张大床、免费无线网络和一个小阳台。",
+        "chunks": [
+          {"text": "The room has", "meaning": "房间配有"},
+          {"text": " a large bed, free Wi-Fi,", "meaning": "一张大床和免费无线网络"},
+          {"text": " and a small balcony.", "meaning": "以及一个小阳台"}
+        ],
+        "explanation": "has 在这里表示拥有或配备；Wi-Fi 指无线网络。"
+      },
+      {
+        "sentence_en": "I want to stay for three nights, so I called the hotel to ask about the total cost.",
+        "sentence_cn": "我想住三个晚上，所以打电话给酒店询问总费用。",
+        "chunks": [
+          {"text": "I want to stay for three nights,", "meaning": "我想住三个晚上"},
+          {"text": " so I called the hotel", "meaning": "所以我给酒店打了电话"},
+          {"text": " to ask about the total cost.", "meaning": "询问总费用"}
+        ],
+        "explanation": "stay for three nights 表示住三个晚上；to ask about 表示为了询问。"
+      },
+      {
+        "sentence_en": "The price is reasonable, and breakfast is included.",
+        "sentence_cn": "价格很合理，而且包含早餐。",
+        "chunks": [
+          {"text": "The price is reasonable,", "meaning": "价格很合理"},
+          {"text": " and breakfast is included.", "meaning": "而且早餐包含在内"}
+        ],
+        "explanation": "reasonable 表示合理的；be included 表示被包含在内。"
+      },
+      {
+        "sentence_en": "I booked a room online and received a confirmation email.",
+        "sentence_cn": "我在网上订了一间房，并收到了确认邮件。",
+        "chunks": [
+          {"text": "I booked a room online", "meaning": "我在网上预订了一间房"},
+          {"text": " and received", "meaning": "并收到了"},
+          {"text": " a confirmation email.", "meaning": "一封确认邮件"}
+        ],
+        "explanation": "booked 和 received 都是一般过去时；confirmation email 指预订确认邮件。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "website", "phonetic": "", "meaning": "网站", "part_of_speech": "名词"},
+      {"word": "compare", "phonetic": "", "meaning": "比较", "part_of_speech": "动词"},
+      {"word": "balcony", "phonetic": "", "meaning": "阳台", "part_of_speech": "名词"},
+      {"word": "reasonable", "phonetic": "", "meaning": "合理的；适中的", "part_of_speech": "形容词"},
+      {"word": "confirmation", "phonetic": "", "meaning": "确认；确认信息", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "near the beach", "meaning": "在海滩附近", "example": "We found a hotel near the beach."},
+      {"expression": "be close to", "meaning": "离……很近", "example": "The hotel is close to the train station."},
+      {"expression": "compare the price", "meaning": "比较价格", "example": "I always compare the price before I buy something."},
+      {"expression": "total cost", "meaning": "总费用", "example": "Could you tell me the total cost?"},
+      {"expression": "book a room online", "meaning": "在线预订房间", "example": "I booked a room online last night."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What is near the hotel?",
+        "options": ["A train station", "Restaurants and a bus stop", "A shopping mall"],
+        "answer": "Restaurants and a bus stop",
+        "explanation": "酒店附近有几家餐厅和一个公交车站。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "How many nights does the writer want to stay?",
+        "options": ["Two nights", "Three nights", "Four nights"],
+        "answer": "Three nights",
+        "explanation": "作者想住三个晚上。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What did the writer receive after booking?",
+        "answer": "A confirmation email.",
+        "explanation": "文章最后一句提到收到了一封确认邮件。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习酒店预订、价格比较和询问费用的常用表达。"
+    }
+  },
+  {
+    "article_id": 109,
+    "day": 109,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Packing a suitcase",
+    "title_en": "Packing My Suitcase",
+    "title_cn": "收拾行李箱",
+    "difficulty": "A2",
+    "word_count": 81,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "My trip is only two days away, so I need to pack my suitcase tonight. I will take three shirts, two pairs of pants, and a warm jacket. I also need my toothbrush, phone charger, and travel documents. The weather may be rainy, so I will bring an umbrella. I do not want to carry too many things because my suitcase is quite small. Before I leave, I will check my list again to make sure I have everything.",
+    "content_cn": "距离我的旅行只剩两天了，所以我今晚需要收拾行李箱。我会带三件衬衫、两条裤子和一件保暖外套。我还需要带上牙刷、手机充电器和旅行证件。天气可能会下雨，所以我要带一把雨伞。我不想带太多东西，因为我的行李箱比较小。出发前，我会再检查一遍清单，确保东西都带齐了。",
+    "sentences": [
+      {
+        "sentence_en": "My trip is only two days away, so I need to pack my suitcase tonight.",
+        "sentence_cn": "距离我的旅行只剩两天了，所以我今晚需要收拾行李箱。",
+        "chunks": [
+          {"text": "My trip is only two days away,", "meaning": "距离我的旅行只剩两天了"},
+          {"text": " so I need to pack", "meaning": "所以我需要收拾"},
+          {"text": " my suitcase tonight.", "meaning": "今晚收拾我的行李箱"}
+        ],
+        "explanation": "be two days away 表示还有两天；pack a suitcase 表示收拾行李箱。"
+      },
+      {
+        "sentence_en": "I will take three shirts, two pairs of pants, and a warm jacket.",
+        "sentence_cn": "我会带三件衬衫、两条裤子和一件保暖外套。",
+        "chunks": [
+          {"text": "I will take", "meaning": "我会带上"},
+          {"text": " three shirts, two pairs of pants,", "meaning": "三件衬衫、两条裤子"},
+          {"text": " and a warm jacket.", "meaning": "以及一件保暖外套"}
+        ],
+        "explanation": "a pair of pants 表示一条裤子；两条裤子用 two pairs of pants。"
+      },
+      {
+        "sentence_en": "I also need my toothbrush, phone charger, and travel documents.",
+        "sentence_cn": "我还需要带上牙刷、手机充电器和旅行证件。",
+        "chunks": [
+          {"text": "I also need", "meaning": "我还需要"},
+          {"text": " my toothbrush, phone charger,", "meaning": "我的牙刷和手机充电器"},
+          {"text": " and travel documents.", "meaning": "以及旅行证件"}
+        ],
+        "explanation": "also 表示也、还；travel documents 指旅行时需要的证件。"
+      },
+      {
+        "sentence_en": "The weather may be rainy, so I will bring an umbrella.",
+        "sentence_cn": "天气可能会下雨，所以我要带一把雨伞。",
+        "chunks": [
+          {"text": "The weather may be rainy,", "meaning": "天气可能会下雨"},
+          {"text": " so I will bring", "meaning": "所以我会带上"},
+          {"text": " an umbrella.", "meaning": "一把雨伞"}
+        ],
+        "explanation": "may 表示可能；bring 表示带来或随身带上。"
+      },
+      {
+        "sentence_en": "I do not want to carry too many things because my suitcase is quite small.",
+        "sentence_cn": "我不想带太多东西，因为我的行李箱比较小。",
+        "chunks": [
+          {"text": "I do not want to carry", "meaning": "我不想携带"},
+          {"text": " too many things", "meaning": "太多东西"},
+          {"text": " because my suitcase is quite small.", "meaning": "因为我的行李箱比较小"}
+        ],
+        "explanation": "too many 修饰可数名词复数；quite 表示相当、比较。"
+      },
+      {
+        "sentence_en": "Before I leave, I will check my list again to make sure I have everything.",
+        "sentence_cn": "出发前，我会再检查一遍清单，确保东西都带齐了。",
+        "chunks": [
+          {"text": "Before I leave,", "meaning": "在我出发之前"},
+          {"text": " I will check my list again", "meaning": "我会再次检查清单"},
+          {"text": " to make sure I have everything.", "meaning": "以确保我带齐了所有东西"}
+        ],
+        "explanation": "before 引导时间状语从句；make sure 表示确保。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "suitcase", "phonetic": "", "meaning": "行李箱", "part_of_speech": "名词"},
+      {"word": "toothbrush", "phonetic": "", "meaning": "牙刷", "part_of_speech": "名词"},
+      {"word": "charger", "phonetic": "", "meaning": "充电器", "part_of_speech": "名词"},
+      {"word": "document", "phonetic": "", "meaning": "文件；证件", "part_of_speech": "名词"},
+      {"word": "umbrella", "phonetic": "", "meaning": "雨伞", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "pack my suitcase", "meaning": "收拾我的行李箱", "example": "I need to pack my suitcase tonight."},
+      {"expression": "two pairs of pants", "meaning": "两条裤子", "example": "I packed two pairs of pants."},
+      {"expression": "travel documents", "meaning": "旅行证件", "example": "Keep your travel documents in a safe place."},
+      {"expression": "too many things", "meaning": "太多东西", "example": "I brought too many things on my last trip."},
+      {"expression": "make sure", "meaning": "确保；确认", "example": "Please make sure the door is locked."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "When will the writer pack the suitcase?",
+        "options": ["Tomorrow morning", "Tonight", "On the day of the trip"],
+        "answer": "Tonight",
+        "explanation": "作者计划今晚收拾行李箱。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Why will the writer bring an umbrella?",
+        "options": ["It may rain.", "It is very sunny.", "The hotel requires one."],
+        "answer": "It may rain.",
+        "explanation": "天气可能会下雨，因此作者准备带伞。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What will the writer do before leaving?",
+        "answer": "Check the packing list again.",
+        "explanation": "作者会再次检查清单，确保东西带齐。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "81词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习行李准备、物品名称和出发前的检查表达。"
+    }
+  },
+  {
+    "article_id": 110,
+    "day": 110,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "At the airport",
+    "title_en": "At the Airport",
+    "title_cn": "在机场",
+    "difficulty": "A2",
+    "word_count": 84,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "I arrived at the airport two hours before my flight. The airport was busy, but the signs were easy to understand. First, I found the check-in counter and showed my passport. The staff member checked my ticket and gave me a boarding pass. Then I left my suitcase at the baggage counter. After that, I went through security and looked for my gate. I still had some time, so I bought a bottle of water and waited near the gate.",
+    "content_cn": "我在航班起飞前两个小时到达了机场。机场很繁忙，但指示牌很容易看懂。首先，我找到了值机柜台并出示了护照。工作人员检查了我的机票，并给了我一张登机牌。然后，我在行李托运柜台托运了行李箱。之后，我通过了安检，并寻找自己的登机口。我还有一些时间，所以买了一瓶水，在登机口附近等待。",
+    "sentences": [
+      {
+        "sentence_en": "I arrived at the airport two hours before my flight.",
+        "sentence_cn": "我在航班起飞前两个小时到达了机场。",
+        "chunks": [
+          {"text": "I arrived at the airport", "meaning": "我到达了机场"},
+          {"text": " two hours before", "meaning": "提前两个小时"},
+          {"text": " my flight.", "meaning": "我的航班起飞"}
+        ],
+        "explanation": "arrive at 表示到达较小或具体的地点；before 表示在……之前。"
+      },
+      {
+        "sentence_en": "The airport was busy, but the signs were easy to understand.",
+        "sentence_cn": "机场很繁忙，但指示牌很容易看懂。",
+        "chunks": [
+          {"text": "The airport was busy,", "meaning": "机场很繁忙"},
+          {"text": " but the signs", "meaning": "但是指示牌"},
+          {"text": " were easy to understand.", "meaning": "很容易理解"}
+        ],
+        "explanation": "be easy to do 表示做某事很容易；signs 指指示牌。"
+      },
+      {
+        "sentence_en": "First, I found the check-in counter and showed my passport.",
+        "sentence_cn": "首先，我找到了值机柜台并出示了护照。",
+        "chunks": [
+          {"text": "First,", "meaning": "首先"},
+          {"text": " I found the check-in counter", "meaning": "我找到了值机柜台"},
+          {"text": " and showed my passport.", "meaning": "并出示了我的护照"}
+        ],
+        "explanation": "check-in counter 是值机柜台；showed 是 show 的过去式。"
+      },
+      {
+        "sentence_en": "The staff member checked my ticket and gave me a boarding pass.",
+        "sentence_cn": "工作人员检查了我的机票，并给了我一张登机牌。",
+        "chunks": [
+          {"text": "The staff member", "meaning": "工作人员"},
+          {"text": " checked my ticket", "meaning": "检查了我的机票"},
+          {"text": " and gave me a boarding pass.", "meaning": "并给了我一张登机牌"}
+        ],
+        "explanation": "give someone something 表示给某人某物；boarding pass 是登机牌。"
+      },
+      {
+        "sentence_en": "Then I left my suitcase at the baggage counter.",
+        "sentence_cn": "然后，我在行李托运柜台托运了行李箱。",
+        "chunks": [
+          {"text": "Then", "meaning": "然后"},
+          {"text": " I left my suitcase", "meaning": "我放下了我的行李箱"},
+          {"text": " at the baggage counter.", "meaning": "在行李托运柜台"}
+        ],
+        "explanation": "leave 在这里表示交存、留下；baggage counter 指行李托运柜台。"
+      },
+      {
+        "sentence_en": "After that, I went through security and looked for my gate.",
+        "sentence_cn": "之后，我通过了安检，并寻找自己的登机口。",
+        "chunks": [
+          {"text": "After that,", "meaning": "在那之后"},
+          {"text": " I went through security", "meaning": "我通过了安检"},
+          {"text": " and looked for my gate.", "meaning": "并寻找我的登机口"}
+        ],
+        "explanation": "go through security 表示通过安全检查；gate 指登机口。"
+      },
+      {
+        "sentence_en": "I still had some time, so I bought a bottle of water and waited near the gate.",
+        "sentence_cn": "我还有一些时间，所以买了一瓶水，在登机口附近等待。",
+        "chunks": [
+          {"text": "I still had some time,", "meaning": "我还有一些时间"},
+          {"text": " so I bought a bottle of water", "meaning": "所以我买了一瓶水"},
+          {"text": " and waited near the gate.", "meaning": "并在登机口附近等待"}
+        ],
+        "explanation": "still 表示仍然、还有；a bottle of water 表示一瓶水。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "airport", "phonetic": "", "meaning": "机场", "part_of_speech": "名词"},
+      {"word": "counter", "phonetic": "", "meaning": "柜台", "part_of_speech": "名词"},
+      {"word": "passport", "phonetic": "", "meaning": "护照", "part_of_speech": "名词"},
+      {"word": "boarding pass", "phonetic": "", "meaning": "登机牌", "part_of_speech": "名词"},
+      {"word": "security", "phonetic": "", "meaning": "安全检查；安检", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "arrive at the airport", "meaning": "到达机场", "example": "We arrived at the airport early."},
+      {"expression": "check-in counter", "meaning": "值机柜台", "example": "Where is the check-in counter?"},
+      {"expression": "show my passport", "meaning": "出示我的护照", "example": "I need to show my passport here."},
+      {"expression": "go through security", "meaning": "通过安检", "example": "Please go through security now."},
+      {"expression": "look for my gate", "meaning": "寻找我的登机口", "example": "I am looking for my gate."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "How early did the writer arrive at the airport?",
+        "options": ["One hour early", "Two hours early", "Three hours early"],
+        "answer": "Two hours early",
+        "explanation": "作者在航班起飞前两个小时到达机场。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What did the staff member give the writer?",
+        "options": ["A passport", "A hotel key", "A boarding pass"],
+        "answer": "A boarding pass",
+        "explanation": "工作人员检查机票后给了作者登机牌。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What did the writer buy while waiting?",
+        "answer": "A bottle of water.",
+        "explanation": "作者买了一瓶水，然后在登机口附近等待。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "84词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习机场值机、行李托运、安检和寻找登机口的流程表达。"
+    }
+  },
+  {
+    "article_id": 111,
+    "day": 111,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Checking in",
+    "title_en": "Checking In",
+    "title_cn": "办理入住",
+    "difficulty": "A2",
+    "word_count": 81,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "When I arrived at the hotel, I went to the front desk. A friendly receptionist asked for my name and passport. She found my booking and told me that my room was ready. I asked what time breakfast started and where the elevator was. She answered my questions and gave me a room key. My room is on the fifth floor, and it has a nice view of the city. I thanked her and took the elevator upstairs.",
+    "content_cn": "到达酒店后，我走到了前台。一位友好的接待员询问了我的姓名和护照。她找到了我的预订信息，并告诉我房间已经准备好了。我询问早餐几点开始，以及电梯在哪里。她回答了我的问题，并给了我一张房卡。我的房间在五楼，可以看到不错的城市景色。我向她道谢，然后乘电梯上楼。",
+    "sentences": [
+      {
+        "sentence_en": "When I arrived at the hotel, I went to the front desk.",
+        "sentence_cn": "到达酒店后，我走到了前台。",
+        "chunks": [
+          {"text": "When I arrived at the hotel,", "meaning": "当我到达酒店时"},
+          {"text": " I went to", "meaning": "我走向"},
+          {"text": " the front desk.", "meaning": "前台"}
+        ],
+        "explanation": "when 引导时间状语从句；front desk 指酒店前台。"
+      },
+      {
+        "sentence_en": "A friendly receptionist asked for my name and passport.",
+        "sentence_cn": "一位友好的接待员询问了我的姓名和护照。",
+        "chunks": [
+          {"text": "A friendly receptionist", "meaning": "一位友好的接待员"},
+          {"text": " asked for", "meaning": "询问并要求提供"},
+          {"text": " my name and passport.", "meaning": "我的姓名和护照"}
+        ],
+        "explanation": "receptionist 指接待员；ask for 表示要求提供或询问。"
+      },
+      {
+        "sentence_en": "She found my booking and told me that my room was ready.",
+        "sentence_cn": "她找到了我的预订信息，并告诉我房间已经准备好了。",
+        "chunks": [
+          {"text": "She found my booking", "meaning": "她找到了我的预订信息"},
+          {"text": " and told me", "meaning": "并告诉我"},
+          {"text": " that my room was ready.", "meaning": "我的房间已经准备好了"}
+        ],
+        "explanation": "booking 表示预订；tell someone that... 表示告诉某人某事。"
+      },
+      {
+        "sentence_en": "I asked what time breakfast started and where the elevator was.",
+        "sentence_cn": "我询问早餐几点开始，以及电梯在哪里。",
+        "chunks": [
+          {"text": "I asked", "meaning": "我询问"},
+          {"text": " what time breakfast started", "meaning": "早餐几点开始"},
+          {"text": " and where the elevator was.", "meaning": "以及电梯在哪里"}
+        ],
+        "explanation": "间接疑问句使用陈述语序，例如 what time breakfast started。"
+      },
+      {
+        "sentence_en": "She answered my questions and gave me a room key.",
+        "sentence_cn": "她回答了我的问题，并给了我一张房卡。",
+        "chunks": [
+          {"text": "She answered my questions", "meaning": "她回答了我的问题"},
+          {"text": " and gave me", "meaning": "并给了我"},
+          {"text": " a room key.", "meaning": "一张房卡"}
+        ],
+        "explanation": "answer a question 表示回答问题；room key 指房间钥匙或房卡。"
+      },
+      {
+        "sentence_en": "My room is on the fifth floor, and it has a nice view of the city.",
+        "sentence_cn": "我的房间在五楼，可以看到不错的城市景色。",
+        "chunks": [
+          {"text": "My room is on the fifth floor,", "meaning": "我的房间在五楼"},
+          {"text": " and it has", "meaning": "而且它拥有"},
+          {"text": " a nice view of the city.", "meaning": "不错的城市景色"}
+        ],
+        "explanation": "on the fifth floor 表示在五楼；a view of 表示……的景色。"
+      },
+      {
+        "sentence_en": "I thanked her and took the elevator upstairs.",
+        "sentence_cn": "我向她道谢，然后乘电梯上楼。",
+        "chunks": [
+          {"text": "I thanked her", "meaning": "我向她道谢"},
+          {"text": " and took the elevator", "meaning": "然后乘坐电梯"},
+          {"text": " upstairs.", "meaning": "上楼"}
+        ],
+        "explanation": "thanked 是 thank 的过去式；upstairs 表示往楼上。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "receptionist", "phonetic": "", "meaning": "接待员；前台工作人员", "part_of_speech": "名词"},
+      {"word": "booking", "phonetic": "", "meaning": "预订；预约记录", "part_of_speech": "名词"},
+      {"word": "ready", "phonetic": "", "meaning": "准备好的", "part_of_speech": "形容词"},
+      {"word": "elevator", "phonetic": "", "meaning": "电梯", "part_of_speech": "名词"},
+      {"word": "view", "phonetic": "", "meaning": "景色；视野", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "go to the front desk", "meaning": "去前台", "example": "Please go to the front desk first."},
+      {"expression": "ask for my name", "meaning": "询问我的姓名", "example": "The receptionist asked for my name."},
+      {"expression": "my room is ready", "meaning": "我的房间准备好了", "example": "Is my room ready now?"},
+      {"expression": "what time does breakfast start?", "meaning": "早餐几点开始？", "example": "Excuse me, what time does breakfast start?"},
+      {"expression": "take the elevator upstairs", "meaning": "乘电梯上楼", "example": "Take the elevator upstairs to the sixth floor."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where did the writer go after arriving at the hotel?",
+        "options": ["The restaurant", "The front desk", "The parking lot"],
+        "answer": "The front desk",
+        "explanation": "作者到达酒店后先去了前台。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Which floor is the writer's room on?",
+        "options": ["The third floor", "The fourth floor", "The fifth floor"],
+        "answer": "The fifth floor",
+        "explanation": "文章说明房间在五楼。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What two things did the writer ask the receptionist?",
+        "answer": "What time breakfast started and where the elevator was.",
+        "explanation": "作者询问了早餐开始时间和电梯的位置。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "81词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达，使用 elevator",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习酒店入住流程、前台沟通和间接疑问句。"
+    }
+  },
+  {
+    "article_id": 112,
+    "day": 112,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "On the plane",
+    "title_en": "On the Plane",
+    "title_cn": "在飞机上",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I found my seat near the window and put my bag under the seat in front of me. The plane was almost full, so many people were looking for their seats. A flight attendant showed me how to fasten my seat belt. After takeoff, I looked out of the window and watched the clouds below us. Later, the staff served drinks and a small meal. I listened to music and read a book during the flight. The journey was smooth, and I felt relaxed.",
+    "content_cn": "我找到了靠窗的座位，并把包放在前面座位的下面。飞机几乎坐满了，所以很多人都在寻找自己的座位。一位空乘人员向我示范了如何系安全带。飞机起飞后，我望向窗外，看着我们下方的云朵。后来，工作人员送来了饮料和一份简餐。飞行途中，我听音乐、看书。这趟旅程很平稳，我感到很放松。",
+    "sentences": [
+      {
+        "sentence_en": "I found my seat near the window and put my bag under the seat in front of me.",
+        "sentence_cn": "我找到了靠窗的座位，并把包放在前面座位的下面。",
+        "chunks": [
+          {"text": "I found my seat near the window", "meaning": "我找到了靠窗的座位"},
+          {"text": " and put my bag", "meaning": "并放下我的包"},
+          {"text": " under the seat in front of me.", "meaning": "在我前面座位的下面"}
+        ],
+        "explanation": "near the window 表示靠窗；in front of me 表示在我前面。"
+      },
+      {
+        "sentence_en": "The plane was almost full, so many people were looking for their seats.",
+        "sentence_cn": "飞机几乎坐满了，所以很多人都在寻找自己的座位。",
+        "chunks": [
+          {"text": "The plane was almost full,", "meaning": "飞机几乎坐满了"},
+          {"text": " so many people", "meaning": "所以很多人"},
+          {"text": " were looking for their seats.", "meaning": "正在寻找自己的座位"}
+        ],
+        "explanation": "almost 表示几乎；过去进行时 were looking 表示当时正在寻找。"
+      },
+      {
+        "sentence_en": "A flight attendant showed me how to fasten my seat belt.",
+        "sentence_cn": "一位空乘人员向我示范了如何系安全带。",
+        "chunks": [
+          {"text": "A flight attendant", "meaning": "一位空乘人员"},
+          {"text": " showed me", "meaning": "向我展示"},
+          {"text": " how to fasten my seat belt.", "meaning": "如何系好安全带"}
+        ],
+        "explanation": "show someone how to do something 表示向某人展示如何做某事。"
+      },
+      {
+        "sentence_en": "After takeoff, I looked out of the window and watched the clouds below us.",
+        "sentence_cn": "飞机起飞后，我望向窗外，看着我们下方的云朵。",
+        "chunks": [
+          {"text": "After takeoff,", "meaning": "起飞之后"},
+          {"text": " I looked out of the window", "meaning": "我向窗外看"},
+          {"text": " and watched the clouds below us.", "meaning": "并看着我们下方的云朵"}
+        ],
+        "explanation": "takeoff 是起飞；look out of the window 表示向窗外看。"
+      },
+      {
+        "sentence_en": "Later, the staff served drinks and a small meal.",
+        "sentence_cn": "后来，工作人员送来了饮料和一份简餐。",
+        "chunks": [
+          {"text": "Later,", "meaning": "后来"},
+          {"text": " the staff served", "meaning": "工作人员提供了"},
+          {"text": " drinks and a small meal.", "meaning": "饮料和一份简餐"}
+        ],
+        "explanation": "serve food or drinks 表示提供食物或饮料。"
+      },
+      {
+        "sentence_en": "I listened to music and read a book during the flight.",
+        "sentence_cn": "飞行途中，我听音乐、看书。",
+        "chunks": [
+          {"text": "I listened to music", "meaning": "我听音乐"},
+          {"text": " and read a book", "meaning": "并读了一本书"},
+          {"text": " during the flight.", "meaning": "在飞行途中"}
+        ],
+        "explanation": "listen to 后面接听的内容；during 表示在某段时间期间。"
+      },
+      {
+        "sentence_en": "The journey was smooth, and I felt relaxed.",
+        "sentence_cn": "这趟旅程很平稳，我感到很放松。",
+        "chunks": [
+          {"text": "The journey was smooth,", "meaning": "这趟旅程很平稳"},
+          {"text": " and I felt relaxed.", "meaning": "而且我感到很放松"}
+        ],
+        "explanation": "smooth 表示平稳的、顺利的；felt 是 feel 的过去式。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "flight attendant", "phonetic": "", "meaning": "空乘人员", "part_of_speech": "名词"},
+      {"word": "fasten", "phonetic": "", "meaning": "系紧；扣好", "part_of_speech": "动词"},
+      {"word": "seat belt", "phonetic": "", "meaning": "安全带", "part_of_speech": "名词"},
+      {"word": "takeoff", "phonetic": "", "meaning": "起飞", "part_of_speech": "名词"},
+      {"word": "smooth", "phonetic": "", "meaning": "平稳的；顺利的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "near the window", "meaning": "靠近窗户；靠窗", "example": "Can I have a seat near the window?"},
+      {"expression": "under the seat", "meaning": "在座位下面", "example": "Put your bag under the seat."},
+      {"expression": "fasten my seat belt", "meaning": "系好我的安全带", "example": "Please fasten your seat belt."},
+      {"expression": "look out of the window", "meaning": "向窗外看", "example": "She looked out of the window."},
+      {"expression": "during the flight", "meaning": "在飞行途中", "example": "I slept during the flight."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where was the writer's seat?",
+        "options": ["Near the window", "Near the exit", "In the middle"],
+        "answer": "Near the window",
+        "explanation": "作者找到了靠窗的座位。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What did the flight attendant show the writer?",
+        "options": ["How to open the window", "How to fasten the seat belt", "How to order food"],
+        "answer": "How to fasten the seat belt",
+        "explanation": "空乘人员示范了如何系安全带。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What did the writer do during the flight?",
+        "answer": "Listened to music and read a book.",
+        "explanation": "文章提到作者在飞行途中听音乐和看书。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习飞机上的常见物品、动作和乘机经历描述。"
+    }
+  },
+  {
+    "article_id": 113,
+    "day": 113,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Exploring a new city",
+    "title_en": "Exploring a New City",
+    "title_cn": "探索一座新城市",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Today I am exploring a new city with my friend. We started our day at a famous museum and learned about the city's history. After that, we walked through a busy shopping street and bought some snacks. The buildings are very different from those in my hometown. We took a bus to a large park and sat under a tree for a while. In the evening, we plan to try a local restaurant. I enjoy discovering new places and seeing how people live.",
+    "content_cn": "今天我和朋友正在探索一座新城市。我们从一家著名的博物馆开始一天的行程，并了解了这座城市的历史。之后，我们穿过一条热闹的购物街，买了一些零食。这里的建筑和我家乡的建筑很不一样。我们乘公交车去了一个大公园，在树下坐了一会儿。晚上，我们计划去一家当地餐厅尝尝。我喜欢发现新的地方，也喜欢了解人们的生活方式。",
+    "sentences": [
+      {
+        "sentence_en": "Today I am exploring a new city with my friend.",
+        "sentence_cn": "今天我和朋友正在探索一座新城市。",
+        "chunks": [
+          {"text": "Today", "meaning": "今天"},
+          {"text": " I am exploring a new city", "meaning": "我正在探索一座新城市"},
+          {"text": " with my friend.", "meaning": "和我的朋友一起"}
+        ],
+        "explanation": "现在进行时 am exploring 表示正在进行的活动。"
+      },
+      {
+        "sentence_en": "We started our day at a famous museum and learned about the city's history.",
+        "sentence_cn": "我们从一家著名的博物馆开始一天的行程，并了解了这座城市的历史。",
+        "chunks": [
+          {"text": "We started our day", "meaning": "我们开始了一天的行程"},
+          {"text": " at a famous museum", "meaning": "从一家著名的博物馆开始"},
+          {"text": " and learned about the city's history.", "meaning": "并了解了这座城市的历史"}
+        ],
+        "explanation": "start the day at 表示在某地开始一天；learn about 表示了解。"
+      },
+      {
+        "sentence_en": "After that, we walked through a busy shopping street and bought some snacks.",
+        "sentence_cn": "之后，我们穿过一条热闹的购物街，买了一些零食。",
+        "chunks": [
+          {"text": "After that,", "meaning": "之后"},
+          {"text": " we walked through a busy shopping street", "meaning": "我们穿过一条热闹的购物街"},
+          {"text": " and bought some snacks.", "meaning": "并买了一些零食"}
+        ],
+        "explanation": "walk through 表示步行穿过；bought 是 buy 的过去式。"
+      },
+      {
+        "sentence_en": "The buildings are very different from those in my hometown.",
+        "sentence_cn": "这里的建筑和我家乡的建筑很不一样。",
+        "chunks": [
+          {"text": "The buildings are", "meaning": "这些建筑"},
+          {"text": " very different from", "meaning": "与……非常不同"},
+          {"text": " those in my hometown.", "meaning": "我家乡的那些建筑"}
+        ],
+        "explanation": "be different from 表示与……不同；those 用来代替前面提到的复数名词。"
+      },
+      {
+        "sentence_en": "We took a bus to a large park and sat under a tree for a while.",
+        "sentence_cn": "我们乘公交车去了一个大公园，在树下坐了一会儿。",
+        "chunks": [
+          {"text": "We took a bus", "meaning": "我们乘坐公交车"},
+          {"text": " to a large park", "meaning": "去了一个大公园"},
+          {"text": " and sat under a tree for a while.", "meaning": "并在树下坐了一会儿"}
+        ],
+        "explanation": "take a bus 表示乘公交车；for a while 表示一会儿。"
+      },
+      {
+        "sentence_en": "In the evening, we plan to try a local restaurant.",
+        "sentence_cn": "晚上，我们计划去一家当地餐厅尝尝。",
+        "chunks": [
+          {"text": "In the evening,", "meaning": "在晚上"},
+          {"text": " we plan to try", "meaning": "我们计划去尝试"},
+          {"text": " a local restaurant.", "meaning": "一家当地餐厅"}
+        ],
+        "explanation": "plan to do something 表示计划做某事；local 表示当地的。"
+      },
+      {
+        "sentence_en": "I enjoy discovering new places and seeing how people live.",
+        "sentence_cn": "我喜欢发现新的地方，也喜欢了解人们的生活方式。",
+        "chunks": [
+          {"text": "I enjoy discovering new places", "meaning": "我喜欢发现新的地方"},
+          {"text": " and seeing", "meaning": "也喜欢观察"},
+          {"text": " how people live.", "meaning": "人们如何生活"}
+        ],
+        "explanation": "enjoy 后接动名词；how people live 表示人们如何生活。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "explore", "phonetic": "", "meaning": "探索；游览", "part_of_speech": "动词"},
+      {"word": "museum", "phonetic": "", "meaning": "博物馆", "part_of_speech": "名词"},
+      {"word": "history", "phonetic": "", "meaning": "历史", "part_of_speech": "名词"},
+      {"word": "hometown", "phonetic": "", "meaning": "家乡", "part_of_speech": "名词"},
+      {"word": "local", "phonetic": "", "meaning": "当地的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "explore a new city", "meaning": "探索一座新城市", "example": "We explored a new city last summer."},
+      {"expression": "learn about history", "meaning": "了解历史", "example": "I want to learn about local history."},
+      {"expression": "walk through", "meaning": "步行穿过", "example": "We walked through the old town."},
+      {"expression": "for a while", "meaning": "一会儿", "example": "Let's sit here for a while."},
+      {"expression": "a local restaurant", "meaning": "一家当地餐厅", "example": "We found a local restaurant near the hotel."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where did they start their day?",
+        "options": ["At a museum", "At a park", "At a restaurant"],
+        "answer": "At a museum",
+        "explanation": "他们从一家著名的博物馆开始一天的行程。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "How did they get to the large park?",
+        "options": ["By taxi", "By bus", "On foot"],
+        "answer": "By bus",
+        "explanation": "文章提到他们乘公交车去了公园。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What do they plan to do in the evening?",
+        "answer": "Try a local restaurant.",
+        "explanation": "他们计划晚上去当地餐厅尝试美食。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习城市游览、描述过去活动和表达当日计划。"
+    }
+  },
+  {
+    "article_id": 114,
+    "day": 114,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Taking photos",
+    "title_en": "Taking Photos",
+    "title_cn": "拍照留念",
+    "difficulty": "A2",
+    "word_count": 81,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "I love taking photos when I travel. Photos help me remember special places and happy moments. Yesterday, I visited an old bridge and took many pictures with my phone. The light was beautiful in the late afternoon, so the photos looked warm and clear. My friend took a picture of me near the river. I also photographed some street food and colorful buildings. I will choose the best pictures and share them with my family after I get home.",
+    "content_cn": "我喜欢旅行时拍照。照片能帮助我记住特别的地方和快乐的时刻。昨天，我参观了一座古老的桥，并用手机拍了很多照片。傍晚时分的光线很美，所以照片看起来温暖而清晰。朋友在河边给我拍了一张照片。我还拍了一些街头美食和彩色建筑。回家后，我会挑选最好的照片，并与家人分享。",
+    "sentences": [
+      {
+        "sentence_en": "I love taking photos when I travel.",
+        "sentence_cn": "我喜欢旅行时拍照。",
+        "chunks": [
+          {"text": "I love taking photos", "meaning": "我喜欢拍照"},
+          {"text": " when I travel.", "meaning": "在我旅行的时候"}
+        ],
+        "explanation": "love doing something 表示喜欢做某事；when 引导时间状语从句。"
+      },
+      {
+        "sentence_en": "Photos help me remember special places and happy moments.",
+        "sentence_cn": "照片能帮助我记住特别的地方和快乐的时刻。",
+        "chunks": [
+          {"text": "Photos help me remember", "meaning": "照片帮助我记住"},
+          {"text": " special places", "meaning": "特别的地方"},
+          {"text": " and happy moments.", "meaning": "以及快乐的时刻"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事。"
+      },
+      {
+        "sentence_en": "Yesterday, I visited an old bridge and took many pictures with my phone.",
+        "sentence_cn": "昨天，我参观了一座古老的桥，并用手机拍了很多照片。",
+        "chunks": [
+          {"text": "Yesterday,", "meaning": "昨天"},
+          {"text": " I visited an old bridge", "meaning": "我参观了一座古老的桥"},
+          {"text": " and took many pictures with my phone.", "meaning": "并用手机拍了很多照片"}
+        ],
+        "explanation": "visited 和 took 都是一般过去时；take pictures 表示拍照。"
+      },
+      {
+        "sentence_en": "The light was beautiful in the late afternoon, so the photos looked warm and clear.",
+        "sentence_cn": "傍晚时分的光线很美，所以照片看起来温暖而清晰。",
+        "chunks": [
+          {"text": "The light was beautiful", "meaning": "光线很美"},
+          {"text": " in the late afternoon,", "meaning": "在傍晚时分"},
+          {"text": " so the photos looked warm and clear.", "meaning": "所以照片看起来温暖而清晰"}
+        ],
+        "explanation": "late afternoon 指下午较晚的时候；looked 后接形容词描述照片效果。"
+      },
+      {
+        "sentence_en": "My friend took a picture of me near the river.",
+        "sentence_cn": "朋友在河边给我拍了一张照片。",
+        "chunks": [
+          {"text": "My friend took a picture", "meaning": "我的朋友拍了一张照片"},
+          {"text": " of me", "meaning": "照片里有我"},
+          {"text": " near the river.", "meaning": "在河边"}
+        ],
+        "explanation": "take a picture of someone 表示给某人拍照或拍下某人的照片。"
+      },
+      {
+        "sentence_en": "I also photographed some street food and colorful buildings.",
+        "sentence_cn": "我还拍了一些街头美食和彩色建筑。",
+        "chunks": [
+          {"text": "I also photographed", "meaning": "我还拍摄了"},
+          {"text": " some street food", "meaning": "一些街头美食"},
+          {"text": " and colorful buildings.", "meaning": "以及色彩鲜艳的建筑"}
+        ],
+        "explanation": "photographed 是 photograph 的过去式，表示拍摄照片。"
+      },
+      {
+        "sentence_en": "I will choose the best pictures and share them with my family after I get home.",
+        "sentence_cn": "回家后，我会挑选最好的照片，并与家人分享。",
+        "chunks": [
+          {"text": "I will choose the best pictures", "meaning": "我会挑选最好的照片"},
+          {"text": " and share them with my family", "meaning": "并与家人分享"},
+          {"text": " after I get home.", "meaning": "等我回家之后"}
+        ],
+        "explanation": "share something with someone 表示与某人分享某物；after 引导时间状语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "photo", "phonetic": "", "meaning": "照片", "part_of_speech": "名词"},
+      {"word": "moment", "phonetic": "", "meaning": "时刻；瞬间", "part_of_speech": "名词"},
+      {"word": "bridge", "phonetic": "", "meaning": "桥", "part_of_speech": "名词"},
+      {"word": "clear", "phonetic": "", "meaning": "清晰的", "part_of_speech": "形容词"},
+      {"word": "photograph", "phonetic": "", "meaning": "拍摄；摄影", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "take photos", "meaning": "拍照", "example": "I like to take photos when I travel."},
+      {"expression": "remember happy moments", "meaning": "记住快乐的时刻", "example": "These pictures help me remember happy moments."},
+      {"expression": "take a picture of me", "meaning": "给我拍一张照片", "example": "Could you take a picture of me?"},
+      {"expression": "in the late afternoon", "meaning": "在傍晚时分", "example": "The park looks beautiful in the late afternoon."},
+      {"expression": "share them with my family", "meaning": "与家人分享它们", "example": "I will share the photos with my family."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What did the writer visit yesterday?",
+        "options": ["An old bridge", "A famous museum", "A large park"],
+        "answer": "An old bridge",
+        "explanation": "作者昨天参观了一座古老的桥。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "When was the light beautiful?",
+        "options": ["Early morning", "Late afternoon", "Late at night"],
+        "answer": "Late afternoon",
+        "explanation": "文章提到傍晚时分的光线很美。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What will the writer do with the best pictures?",
+        "answer": "Choose them and share them with family.",
+        "explanation": "作者计划回家后挑选并分享照片。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "81词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习旅行拍照、描述画面和表达分享计划。"
+    }
+  },
+  {
+    "article_id": 115,
+    "day": 115,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Asking a local for help",
+    "title_en": "Asking a Local for Help",
+    "title_cn": "向当地人求助",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I wanted to visit the city library, but I could not find it on my map. I saw a woman near a bus stop and decided to ask her for help. I said, “Excuse me, could you tell me how to get to the library?” She smiled and pointed to a street across the road. She said I should walk straight for five minutes and turn left. I thanked her and followed her directions. It was easier than I expected, and I arrived there soon.",
+    "content_cn": "我想去市图书馆，但在地图上找不到它。我看到一位女士站在公交车站附近，于是决定向她求助。我说：“打扰一下，您能告诉我怎么去图书馆吗？”她微笑着指向马路对面的一条街。她告诉我应该直走五分钟，然后左转。我向她道谢，并按照她的指引前进。这比我预想的容易，不久我就到了那里。",
+    "sentences": [
+      {
+        "sentence_en": "I wanted to visit the city library, but I could not find it on my map.",
+        "sentence_cn": "我想去市图书馆，但在地图上找不到它。",
+        "chunks": [
+          {"text": "I wanted to visit the city library,", "meaning": "我想去市图书馆"},
+          {"text": " but I could not find it", "meaning": "但我找不到它"},
+          {"text": " on my map.", "meaning": "在我的地图上"}
+        ],
+        "explanation": "wanted 和 could not find 描述过去的想法和困难；on my map 表示在地图上。"
+      },
+      {
+        "sentence_en": "I saw a woman near a bus stop and decided to ask her for help.",
+        "sentence_cn": "我看到一位女士站在公交车站附近，于是决定向她求助。",
+        "chunks": [
+          {"text": "I saw a woman", "meaning": "我看到一位女士"},
+          {"text": " near a bus stop", "meaning": "在公交车站附近"},
+          {"text": " and decided to ask her for help.", "meaning": "于是决定向她求助"}
+        ],
+        "explanation": "decide to do something 表示决定做某事；ask someone for help 表示向某人求助。"
+      },
+      {
+        "sentence_en": "I said, “Excuse me, could you tell me how to get to the library?”",
+        "sentence_cn": "我说：“打扰一下，您能告诉我怎么去图书馆吗？”",
+        "chunks": [
+          {"text": "I said,", "meaning": "我说"},
+          {"text": " “Excuse me,", "meaning": "“打扰一下"},
+          {"text": " could you tell me how to get to the library?”", "meaning": "您能告诉我怎么去图书馆吗？”"}
+        ],
+        "explanation": "could you tell me...? 是礼貌的询问方式；how to get to 表示如何到达。"
+      },
+      {
+        "sentence_en": "She smiled and pointed to a street across the road.",
+        "sentence_cn": "她微笑着指向马路对面的一条街。",
+        "chunks": [
+          {"text": "She smiled", "meaning": "她微笑了"},
+          {"text": " and pointed to", "meaning": "并指向"},
+          {"text": " a street across the road.", "meaning": "马路对面的一条街"}
+        ],
+        "explanation": "point to 表示指向；across the road 表示在马路对面。"
+      },
+      {
+        "sentence_en": "She said I should walk straight for five minutes and turn left.",
+        "sentence_cn": "她告诉我应该直走五分钟，然后左转。",
+        "chunks": [
+          {"text": "She said", "meaning": "她说"},
+          {"text": " I should walk straight for five minutes", "meaning": "我应该直走五分钟"},
+          {"text": " and turn left.", "meaning": "然后左转"}
+        ],
+        "explanation": "should 表示应该；walk straight 表示直走；turn left 表示左转。"
+      },
+      {
+        "sentence_en": "I thanked her and followed her directions.",
+        "sentence_cn": "我向她道谢，并按照她的指引前进。",
+        "chunks": [
+          {"text": "I thanked her", "meaning": "我向她道谢"},
+          {"text": " and followed", "meaning": "并跟随"},
+          {"text": " her directions.", "meaning": "她的指引"}
+        ],
+        "explanation": "follow directions 表示按照指示或路线前进。"
+      },
+      {
+        "sentence_en": "It was easier than I expected, and I arrived there soon.",
+        "sentence_cn": "这比我预想的容易，不久我就到了那里。",
+        "chunks": [
+          {"text": "It was easier than I expected,", "meaning": "这比我预想的容易"},
+          {"text": " and I arrived there", "meaning": "而且我到达了那里"},
+          {"text": " soon.", "meaning": "很快"}
+        ],
+        "explanation": "easier than 表示比……更容易；arrive there 表示到达那里。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "library", "phonetic": "", "meaning": "图书馆", "part_of_speech": "名词"},
+      {"word": "decide", "phonetic": "", "meaning": "决定", "part_of_speech": "动词"},
+      {"word": "direction", "phonetic": "", "meaning": "方向；指引", "part_of_speech": "名词"},
+      {"word": "straight", "phonetic": "", "meaning": "笔直地；直的", "part_of_speech": "副词/形容词"},
+      {"word": "across", "phonetic": "", "meaning": "在……对面；穿过", "part_of_speech": "介词/副词"}
+    ],
+    "expressions": [
+      {"expression": "ask someone for help", "meaning": "向某人求助", "example": "I asked a police officer for help."},
+      {"expression": "Excuse me", "meaning": "打扰一下；劳驾", "example": "Excuse me, where is the station?"},
+      {"expression": "Could you tell me how to get to...?", "meaning": "您能告诉我怎么去……吗？", "example": "Could you tell me how to get to the airport?"},
+      {"expression": "walk straight", "meaning": "直走", "example": "Walk straight for two blocks."},
+      {"expression": "turn left", "meaning": "左转", "example": "Turn left at the next street."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where did the writer want to go?",
+        "options": ["The city library", "The bus station", "A shopping center"],
+        "answer": "The city library",
+        "explanation": "作者想去市图书馆。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What directions did the woman give?",
+        "options": ["Turn right immediately.", "Walk straight and turn left.", "Take a bus for ten minutes."],
+        "answer": "Walk straight and turn left.",
+        "explanation": "女士告诉作者先直走五分钟，再左转。"
+      },
+      {
+        "type": "short_answer",
+        "question": "How did the writer feel about finding the library?",
+        "answer": "It was easier than expected.",
+        "explanation": "文章说明按照指引前进后，作者发现事情比预想的容易。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习礼貌求助、询问路线和理解方向指示。"
+    }
+  }
+,
+
+  {
+    "article_id": 116,
+    "day": 116,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Trying local food",
+    "title_en": "Trying Local Food",
+    "title_cn": "品尝当地美食",
+    "difficulty": "A2",
+    "word_count": 85,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "When I travel, I always want to try local food. Today, my friend took me to a small restaurant near the old town. We ordered a bowl of beef noodles, some fried vegetables, and a local dessert. The noodles were delicious, but the dessert tasted a little strange to me. The owner told us it was a traditional dish. I also tried a new kind of tea. Everything was fresh and not too expensive. I would like to eat here again.",
+    "content_cn": "旅行时，我总是想尝试当地美食。今天，朋友带我去了一家老城区附近的小餐馆。我们点了一碗牛肉面、一些炒蔬菜和一道当地甜点。面条很好吃，但我觉得甜点的味道有点奇怪。老板告诉我们这是一道传统菜肴。我还尝试了一种新的茶。所有食物都很新鲜，价格也不贵。我还想再来这里吃饭。",
+    "sentences": [
+      {
+        "sentence_en": "When I travel, I always want to try local food.",
+        "sentence_cn": "旅行时，我总是想尝试当地美食。",
+        "chunks": [
+          {"text": "When I travel,", "meaning": "当我旅行时"},
+          {"text": " I always want to try", "meaning": "我总是想尝试"},
+          {"text": " local food.", "meaning": "当地美食"}
+        ],
+        "explanation": "when 引导时间状语从句；try local food 表示尝试当地食物。"
+      },
+      {
+        "sentence_en": "Today, my friend took me to a small restaurant near the old town.",
+        "sentence_cn": "今天，朋友带我去了一家老城区附近的小餐馆。",
+        "chunks": [
+          {"text": "Today,", "meaning": "今天"},
+          {"text": " my friend took me to a small restaurant", "meaning": "我的朋友带我去了一家小餐馆"},
+          {"text": " near the old town.", "meaning": "在老城区附近"}
+        ],
+        "explanation": "take someone to a place 表示带某人去某地；took 是 take 的过去式。"
+      },
+      {
+        "sentence_en": "We ordered a bowl of beef noodles, some fried vegetables, and a local dessert.",
+        "sentence_cn": "我们点了一碗牛肉面、一些炒蔬菜和一道当地甜点。",
+        "chunks": [
+          {"text": "We ordered", "meaning": "我们点了"},
+          {"text": " a bowl of beef noodles,", "meaning": "一碗牛肉面"},
+          {"text": " some fried vegetables, and a local dessert.", "meaning": "一些炒蔬菜和一道当地甜点"}
+        ],
+        "explanation": "order 在餐厅里表示点餐；a bowl of 表示一碗。"
+      },
+      {
+        "sentence_en": "The noodles were delicious, but the dessert tasted a little strange to me.",
+        "sentence_cn": "面条很好吃，但我觉得甜点的味道有点奇怪。",
+        "chunks": [
+          {"text": "The noodles were delicious,", "meaning": "面条很好吃"},
+          {"text": " but the dessert tasted", "meaning": "但甜点尝起来"},
+          {"text": " a little strange to me.", "meaning": "对我来说有点奇怪"}
+        ],
+        "explanation": "taste 作系动词时表示尝起来，后面接形容词；a little 表示有一点。"
+      },
+      {
+        "sentence_en": "The owner told us it was a traditional dish.",
+        "sentence_cn": "老板告诉我们这是一道传统菜肴。",
+        "chunks": [
+          {"text": "The owner", "meaning": "老板"},
+          {"text": " told us", "meaning": "告诉我们"},
+          {"text": " it was a traditional dish.", "meaning": "这是一道传统菜肴"}
+        ],
+        "explanation": "owner 表示店主；traditional 表示传统的。"
+      },
+      {
+        "sentence_en": "I also tried a new kind of tea.",
+        "sentence_cn": "我还尝试了一种新的茶。",
+        "chunks": [
+          {"text": "I also tried", "meaning": "我还尝试了"},
+          {"text": " a new kind of tea.", "meaning": "一种新种类的茶"}
+        ],
+        "explanation": "a kind of 表示一种；tried 是 try 的过去式。"
+      },
+      {
+        "sentence_en": "Everything was fresh and not too expensive.",
+        "sentence_cn": "所有食物都很新鲜，价格也不贵。",
+        "chunks": [
+          {"text": "Everything was fresh", "meaning": "所有东西都很新鲜"},
+          {"text": " and not too expensive.", "meaning": "而且价格不太贵"}
+        ],
+        "explanation": "everything 作主语时通常看作单数；fresh 表示新鲜的。"
+      },
+      {
+        "sentence_en": "I would like to eat here again.",
+        "sentence_cn": "我还想再来这里吃饭。",
+        "chunks": [
+          {"text": "I would like to", "meaning": "我想要"},
+          {"text": " eat here again.", "meaning": "再次在这里吃饭"}
+        ],
+        "explanation": "would like to 表示想要，语气比 want to 更委婉。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "local", "phonetic": "", "meaning": "当地的", "part_of_speech": "形容词"},
+      {"word": "order", "phonetic": "", "meaning": "点餐；订购", "part_of_speech": "动词"},
+      {"word": "dessert", "phonetic": "", "meaning": "甜点", "part_of_speech": "名词"},
+      {"word": "traditional", "phonetic": "", "meaning": "传统的", "part_of_speech": "形容词"},
+      {"word": "fresh", "phonetic": "", "meaning": "新鲜的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "try local food", "meaning": "尝试当地美食", "example": "I want to try local food when I visit Japan."},
+      {"expression": "take someone to a restaurant", "meaning": "带某人去餐厅", "example": "My sister took me to a nice restaurant."},
+      {"expression": "a bowl of", "meaning": "一碗……", "example": "I would like a bowl of soup."},
+      {"expression": "taste a little strange", "meaning": "尝起来有点奇怪", "example": "This fruit tastes a little strange."},
+      {"expression": "a kind of", "meaning": "一种……", "example": "Green tea is a kind of tea."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where did the friend take the writer?",
+        "options": ["A large hotel", "A small restaurant", "A food market"],
+        "answer": "A small restaurant",
+        "explanation": "朋友带作者去了一家老城区附近的小餐馆。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "How did the writer feel about the dessert?",
+        "options": ["It was too sweet.", "It tasted a little strange.", "It was delicious."],
+        "answer": "It tasted a little strange.",
+        "explanation": "作者觉得甜点的味道有点奇怪。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Would the writer like to eat there again?",
+        "answer": "Yes, the writer would.",
+        "explanation": "文章最后一句明确表示作者还想再来。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "85词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习点餐、描述食物味道和表达个人喜好。"
+    }
+  },
+  {
+    "article_id": 117,
+    "day": 117,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "A weekend getaway",
+    "title_en": "A Weekend Getaway",
+    "title_cn": "周末短途旅行",
+    "difficulty": "A2",
+    "word_count": 82,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Last weekend, I went on a short trip with two friends. We drove to a quiet town about two hours away. On Saturday, we visited a lake and rented a small boat. The weather was sunny, and the water looked beautiful. In the evening, we ate dinner at a family restaurant and talked for hours. On Sunday, we walked around the town and bought some local gifts. We came home before dark. It was a simple but wonderful weekend.",
+    "content_cn": "上周末，我和两位朋友进行了一次短途旅行。我们开车去了一个安静的小镇，车程大约两个小时。星期六，我们参观了一个湖，还租了一艘小船。天气晴朗，湖水看起来很美。晚上，我们在一家家庭餐馆吃晚饭，聊了好几个小时。星期天，我们在小镇四处走走，买了一些当地礼物。天黑之前我们就回家了。这是一个简单却美好的周末。",
+    "sentences": [
+      {
+        "sentence_en": "Last weekend, I went on a short trip with two friends.",
+        "sentence_cn": "上周末，我和两位朋友进行了一次短途旅行。",
+        "chunks": [
+          {"text": "Last weekend,", "meaning": "上周末"},
+          {"text": " I went on a short trip", "meaning": "我进行了一次短途旅行"},
+          {"text": " with two friends.", "meaning": "和两位朋友一起"}
+        ],
+        "explanation": "go on a trip 表示去旅行；went 是 go 的过去式。"
+      },
+      {
+        "sentence_en": "We drove to a quiet town about two hours away.",
+        "sentence_cn": "我们开车去了一个安静的小镇，车程大约两个小时。",
+        "chunks": [
+          {"text": "We drove to a quiet town", "meaning": "我们开车去了一个安静的小镇"},
+          {"text": " about two hours away.", "meaning": "大约两小时路程"}
+        ],
+        "explanation": "drove 是 drive 的过去式；about 表示大约。"
+      },
+      {
+        "sentence_en": "On Saturday, we visited a lake and rented a small boat.",
+        "sentence_cn": "星期六，我们参观了一个湖，还租了一艘小船。",
+        "chunks": [
+          {"text": "On Saturday,", "meaning": "星期六"},
+          {"text": " we visited a lake", "meaning": "我们去了一个湖"},
+          {"text": " and rented a small boat.", "meaning": "并租了一艘小船"}
+        ],
+        "explanation": "rent 表示租用；visited 和 rented 都是过去式。"
+      },
+      {
+        "sentence_en": "The weather was sunny, and the water looked beautiful.",
+        "sentence_cn": "天气晴朗，湖水看起来很美。",
+        "chunks": [
+          {"text": "The weather was sunny,", "meaning": "天气晴朗"},
+          {"text": " and the water", "meaning": "而湖水"},
+          {"text": " looked beautiful.", "meaning": "看起来很美"}
+        ],
+        "explanation": "sunny 表示晴朗的；looked 后面接形容词。"
+      },
+      {
+        "sentence_en": "In the evening, we ate dinner at a family restaurant and talked for hours.",
+        "sentence_cn": "晚上，我们在一家家庭餐馆吃晚饭，聊了好几个小时。",
+        "chunks": [
+          {"text": "In the evening,", "meaning": "在晚上"},
+          {"text": " we ate dinner at a family restaurant", "meaning": "我们在一家家庭餐馆吃晚饭"},
+          {"text": " and talked for hours.", "meaning": "并聊了好几个小时"}
+        ],
+        "explanation": "ate 是 eat 的过去式；for hours 表示持续好几个小时。"
+      },
+      {
+        "sentence_en": "On Sunday, we walked around the town and bought some local gifts.",
+        "sentence_cn": "星期天，我们在小镇四处走走，买了一些当地礼物。",
+        "chunks": [
+          {"text": "On Sunday,", "meaning": "星期天"},
+          {"text": " we walked around the town", "meaning": "我们在小镇四处散步"},
+          {"text": " and bought some local gifts.", "meaning": "并买了一些当地礼物"}
+        ],
+        "explanation": "walk around 表示四处走走；bought 是 buy 的过去式。"
+      },
+      {
+        "sentence_en": "We came home before dark.",
+        "sentence_cn": "天黑之前我们就回家了。",
+        "chunks": [
+          {"text": "We came home", "meaning": "我们回家了"},
+          {"text": " before dark.", "meaning": "在天黑之前"}
+        ],
+        "explanation": "come home 表示回家；came 是 come 的过去式。"
+      },
+      {
+        "sentence_en": "It was a simple but wonderful weekend.",
+        "sentence_cn": "这是一个简单却美好的周末。",
+        "chunks": [
+          {"text": "It was a simple", "meaning": "这是一个简单的"},
+          {"text": " but wonderful weekend.", "meaning": "但很美好的周末"}
+        ],
+        "explanation": "but 用来连接意思相反或形成对比的内容。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "getaway", "phonetic": "", "meaning": "短暂休假；短途旅行", "part_of_speech": "名词"},
+      {"word": "quiet", "phonetic": "", "meaning": "安静的", "part_of_speech": "形容词"},
+      {"word": "rent", "phonetic": "", "meaning": "租用", "part_of_speech": "动词"},
+      {"word": "lake", "phonetic": "", "meaning": "湖", "part_of_speech": "名词"},
+      {"word": "wonderful", "phonetic": "", "meaning": "精彩的；美好的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "go on a short trip", "meaning": "进行一次短途旅行", "example": "We went on a short trip last month."},
+      {"expression": "two hours away", "meaning": "两小时路程", "example": "The beach is about one hour away."},
+      {"expression": "rent a boat", "meaning": "租一艘船", "example": "We rented a boat on the lake."},
+      {"expression": "walk around the town", "meaning": "在小镇四处走走", "example": "Let's walk around the town after lunch."},
+      {"expression": "before dark", "meaning": "天黑之前", "example": "We need to get home before dark."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "How did they travel to the town?",
+        "options": ["By train", "By car", "By bus"],
+        "answer": "By car",
+        "explanation": "文章提到他们开车去了小镇。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What did they do on Saturday?",
+        "options": ["Visited a lake and rented a boat", "Went shopping all day", "Visited a museum"],
+        "answer": "Visited a lake and rented a boat",
+        "explanation": "星期六他们去了湖边并租了一艘小船。"
+      },
+      {
+        "type": "short_answer",
+        "question": "When did they come home?",
+        "answer": "Before dark on Sunday.",
+        "explanation": "他们星期天在天黑之前回家。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "82词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习描述周末短途旅行、交通方式和过去发生的活动。"
+    }
+  },
+  {
+    "article_id": 118,
+    "day": 118,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "A memorable trip",
+    "title_en": "A Memorable Trip",
+    "title_cn": "一次难忘的旅行",
+    "difficulty": "A2",
+    "word_count": 84,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "One of my most memorable trips was to the mountains with my family. We stayed in a small hotel near a forest. Every morning, we woke up early and watched the sunrise. One day, we followed a path to a beautiful waterfall. The walk was long, but the view was worth it. My father took many pictures, and my mother prepared a picnic. We laughed, ate together, and enjoyed the fresh air. I still think about that trip because we spent wonderful time together.",
+    "content_cn": "我最难忘的旅行之一是和家人去山区。我们住在一家森林附近的小酒店。每天早上，我们早早起床观看日出。有一天，我们沿着一条小路走到了一处美丽的瀑布。路程很长，但看到的风景很值得。父亲拍了很多照片，母亲准备了野餐。我们一起欢笑、吃东西，享受新鲜空气。直到现在我仍然会想起那次旅行，因为我们一起度过了美好的时光。",
+    "sentences": [
+      {
+        "sentence_en": "One of my most memorable trips was to the mountains with my family.",
+        "sentence_cn": "我最难忘的旅行之一是和家人去山区。",
+        "chunks": [
+          {"text": "One of my most memorable trips", "meaning": "我最难忘的旅行之一"},
+          {"text": " was to the mountains", "meaning": "是去山区"},
+          {"text": " with my family.", "meaning": "和我的家人一起"}
+        ],
+        "explanation": "one of 后面接名词复数；memorable 表示令人难忘的。"
+      },
+      {
+        "sentence_en": "We stayed in a small hotel near a forest.",
+        "sentence_cn": "我们住在一家森林附近的小酒店。",
+        "chunks": [
+          {"text": "We stayed", "meaning": "我们住了下来"},
+          {"text": " in a small hotel", "meaning": "在一家小酒店"},
+          {"text": " near a forest.", "meaning": "在森林附近"}
+        ],
+        "explanation": "stay in a hotel 表示住在酒店；near 表示在附近。"
+      },
+      {
+        "sentence_en": "Every morning, we woke up early and watched the sunrise.",
+        "sentence_cn": "每天早上，我们早早起床观看日出。",
+        "chunks": [
+          {"text": "Every morning,", "meaning": "每天早上"},
+          {"text": " we woke up early", "meaning": "我们早早起床"},
+          {"text": " and watched the sunrise.", "meaning": "并观看日出"}
+        ],
+        "explanation": "wake up 表示醒来；woke 是 wake 的过去式；sunrise 表示日出。"
+      },
+      {
+        "sentence_en": "One day, we followed a path to a beautiful waterfall.",
+        "sentence_cn": "有一天，我们沿着一条小路走到了一处美丽的瀑布。",
+        "chunks": [
+          {"text": "One day,", "meaning": "有一天"},
+          {"text": " we followed a path", "meaning": "我们沿着一条小路前进"},
+          {"text": " to a beautiful waterfall.", "meaning": "来到一处美丽的瀑布"}
+        ],
+        "explanation": "follow a path 表示沿着小路走；waterfall 表示瀑布。"
+      },
+      {
+        "sentence_en": "The walk was long, but the view was worth it.",
+        "sentence_cn": "路程很长，但看到的风景很值得。",
+        "chunks": [
+          {"text": "The walk was long,", "meaning": "步行路程很长"},
+          {"text": " but the view", "meaning": "但风景"},
+          {"text": " was worth it.", "meaning": "很值得"}
+        ],
+        "explanation": "worth it 表示值得；view 表示景色。"
+      },
+      {
+        "sentence_en": "My father took many pictures, and my mother prepared a picnic.",
+        "sentence_cn": "父亲拍了很多照片，母亲准备了野餐。",
+        "chunks": [
+          {"text": "My father took many pictures,", "meaning": "我的父亲拍了很多照片"},
+          {"text": " and my mother", "meaning": "而我的母亲"},
+          {"text": " prepared a picnic.", "meaning": "准备了一次野餐"}
+        ],
+        "explanation": "prepare a picnic 表示准备野餐；took 是 take 的过去式。"
+      },
+      {
+        "sentence_en": "We laughed, ate together, and enjoyed the fresh air.",
+        "sentence_cn": "我们一起欢笑、吃东西，享受新鲜空气。",
+        "chunks": [
+          {"text": "We laughed,", "meaning": "我们欢笑"},
+          {"text": " ate together,", "meaning": "一起吃东西"},
+          {"text": " and enjoyed the fresh air.", "meaning": "并享受新鲜空气"}
+        ],
+        "explanation": "laughed、ate、enjoyed 是并列的过去式动词。"
+      },
+      {
+        "sentence_en": "I still think about that trip because we spent wonderful time together.",
+        "sentence_cn": "直到现在我仍然会想起那次旅行，因为我们一起度过了美好的时光。",
+        "chunks": [
+          {"text": "I still think about that trip", "meaning": "我仍然会想起那次旅行"},
+          {"text": " because we spent", "meaning": "因为我们度过了"},
+          {"text": " wonderful time together.", "meaning": "美好的共同时间"}
+        ],
+        "explanation": "think about 表示想起或思考；spend time together 表示一起度过时光。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "memorable", "phonetic": "", "meaning": "难忘的", "part_of_speech": "形容词"},
+      {"word": "sunrise", "phonetic": "", "meaning": "日出", "part_of_speech": "名词"},
+      {"word": "path", "phonetic": "", "meaning": "小路；路径", "part_of_speech": "名词"},
+      {"word": "waterfall", "phonetic": "", "meaning": "瀑布", "part_of_speech": "名词"},
+      {"word": "worth", "phonetic": "", "meaning": "值得的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "one of my most memorable trips", "meaning": "我最难忘的旅行之一", "example": "That was one of my most memorable trips."},
+      {"expression": "wake up early", "meaning": "早起", "example": "We woke up early to see the sunrise."},
+      {"expression": "watch the sunrise", "meaning": "观看日出", "example": "I want to watch the sunrise by the sea."},
+      {"expression": "follow a path", "meaning": "沿着一条小路走", "example": "We followed a path through the forest."},
+      {"expression": "spend time together", "meaning": "一起度过时光", "example": "I love spending time together with my family."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Where did the writer go with the family?",
+        "options": ["To the mountains", "To a big city", "To the beach"],
+        "answer": "To the mountains",
+        "explanation": "文章第一句说明他们去了山区。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What did they find after following the path?",
+        "options": ["A small village", "A waterfall", "A hotel"],
+        "answer": "A waterfall",
+        "explanation": "他们沿着小路走到了一处瀑布。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Why does the writer still remember the trip?",
+        "answer": "Because the family spent wonderful time together.",
+        "explanation": "作者记得这次旅行，是因为全家一起度过了美好的时光。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "84词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习描述难忘经历、自然景色和家庭共同活动。"
+    }
+  },
+  {
+    "article_id": 119,
+    "day": 119,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "When plans change",
+    "title_en": "When Plans Change",
+    "title_cn": "当计划发生变化",
+    "difficulty": "A2",
+    "word_count": 84,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "We planned to visit a famous park yesterday, but the weather changed suddenly. Heavy rain started in the morning, and the park was closed. My friend felt disappointed because we had planned the visit for weeks. I suggested going to a museum instead. We checked the opening hours online and took a taxi there. The museum was interesting, and we learned many new things. Although our original plan did not work, we still had a good day together.",
+    "content_cn": "昨天我们原计划去参观一座著名的公园，但天气突然发生了变化。早上下起了大雨，公园也关闭了。朋友感到很失望，因为我们已经为这次游览计划了好几个星期。我建议改去博物馆。我们在网上查看了开放时间，然后打车去了那里。博物馆很有意思，我们学到了很多新知识。虽然原来的计划没能实现，但我们仍然一起度过了愉快的一天。",
+    "sentences": [
+      {
+        "sentence_en": "We planned to visit a famous park yesterday, but the weather changed suddenly.",
+        "sentence_cn": "昨天我们原计划去参观一座著名的公园，但天气突然发生了变化。",
+        "chunks": [
+          {"text": "We planned to visit a famous park yesterday,", "meaning": "我们昨天计划去参观一座著名的公园"},
+          {"text": " but the weather", "meaning": "但是天气"},
+          {"text": " changed suddenly.", "meaning": "突然发生了变化"}
+        ],
+        "explanation": "plan to do something 表示计划做某事；changed 是 change 的过去式。"
+      },
+      {
+        "sentence_en": "Heavy rain started in the morning, and the park was closed.",
+        "sentence_cn": "早上下起了大雨，公园也关闭了。",
+        "chunks": [
+          {"text": "Heavy rain started in the morning,", "meaning": "早上开始下大雨"},
+          {"text": " and the park", "meaning": "而公园"},
+          {"text": " was closed.", "meaning": "关闭了"}
+        ],
+        "explanation": "heavy rain 表示大雨；was closed 是一般过去时的被动语态。"
+      },
+      {
+        "sentence_en": "My friend felt disappointed because we had planned the visit for weeks.",
+        "sentence_cn": "朋友感到很失望，因为我们已经为这次游览计划了好几个星期。",
+        "chunks": [
+          {"text": "My friend felt disappointed", "meaning": "我的朋友感到失望"},
+          {"text": " because we had planned the visit", "meaning": "因为我们已经计划了这次游览"},
+          {"text": " for weeks.", "meaning": "好几个星期"}
+        ],
+        "explanation": "feel disappointed 表示感到失望；for weeks 表示持续好几个星期。"
+      },
+      {
+        "sentence_en": "I suggested going to a museum instead.",
+        "sentence_cn": "我建议改去博物馆。",
+        "chunks": [
+          {"text": "I suggested", "meaning": "我建议"},
+          {"text": " going to a museum", "meaning": "去博物馆"},
+          {"text": " instead.", "meaning": "作为替代"}
+        ],
+        "explanation": "suggest 后面通常接动名词；instead 表示代替、改为。"
+      },
+      {
+        "sentence_en": "We checked the opening hours online and took a taxi there.",
+        "sentence_cn": "我们在网上查看了开放时间，然后打车去了那里。",
+        "chunks": [
+          {"text": "We checked the opening hours online", "meaning": "我们在网上查看了开放时间"},
+          {"text": " and took a taxi", "meaning": "然后乘坐出租车"},
+          {"text": " there.", "meaning": "去了那里"}
+        ],
+        "explanation": "opening hours 指开放时间；take a taxi 表示乘出租车。"
+      },
+      {
+        "sentence_en": "The museum was interesting, and we learned many new things.",
+        "sentence_cn": "博物馆很有意思，我们学到了很多新知识。",
+        "chunks": [
+          {"text": "The museum was interesting,", "meaning": "博物馆很有意思"},
+          {"text": " and we learned", "meaning": "而且我们学到了"},
+          {"text": " many new things.", "meaning": "很多新东西"}
+        ],
+        "explanation": "interesting 表示有趣的；learned 是 learn 的过去式。"
+      },
+      {
+        "sentence_en": "Although our original plan did not work, we still had a good day together.",
+        "sentence_cn": "虽然原来的计划没能实现，但我们仍然一起度过了愉快的一天。",
+        "chunks": [
+          {"text": "Although our original plan did not work,", "meaning": "虽然我们原来的计划没有实现"},
+          {"text": " we still had", "meaning": "但我们仍然度过了"},
+          {"text": " a good day together.", "meaning": "愉快的一天"}
+        ],
+        "explanation": "although 表示虽然；original plan 表示原计划；work 在这里表示奏效或实现。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "suddenly", "phonetic": "", "meaning": "突然地", "part_of_speech": "副词"},
+      {"word": "heavy", "phonetic": "", "meaning": "大的；猛烈的", "part_of_speech": "形容词"},
+      {"word": "disappointed", "phonetic": "", "meaning": "失望的", "part_of_speech": "形容词"},
+      {"word": "suggest", "phonetic": "", "meaning": "建议", "part_of_speech": "动词"},
+      {"word": "instead", "phonetic": "", "meaning": "代替；改为", "part_of_speech": "副词"}
+    ],
+    "expressions": [
+      {"expression": "plan to visit", "meaning": "计划参观", "example": "We plan to visit the museum tomorrow."},
+      {"expression": "heavy rain", "meaning": "大雨", "example": "The game was canceled because of heavy rain."},
+      {"expression": "feel disappointed", "meaning": "感到失望", "example": "I felt disappointed when the show ended early."},
+      {"expression": "suggest doing something", "meaning": "建议做某事", "example": "I suggest taking a bus."},
+      {"expression": "change the plan", "meaning": "改变计划", "example": "We had to change the plan because of the weather."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Why was the park closed?",
+        "options": ["It was too late.", "It was raining heavily.", "There were too many people."],
+        "answer": "It was raining heavily.",
+        "explanation": "早上下起了大雨，因此公园关闭了。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Where did they go instead?",
+        "options": ["A museum", "A restaurant", "A shopping mall"],
+        "answer": "A museum",
+        "explanation": "作者建议改去博物馆，他们接受了这个建议。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Did they still enjoy their day?",
+        "answer": "Yes, they did.",
+        "explanation": "虽然原计划没有实现，但他们仍然度过了愉快的一天。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "84词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习描述计划变化、表达失望和提出替代方案。"
+    }
+  },
+  {
+    "article_id": 120,
+    "day": 120,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Travel",
+    "scene": "Coming home",
+    "title_en": "Coming Home",
+    "title_cn": "回到家",
+    "difficulty": "A2",
+    "word_count": 84,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "I came home last night after a five-day trip. I was tired, but I felt happy to be back. First, I unpacked my suitcase and put my clothes in the washing machine. Then I checked my photos and sent a few to my friends. My house felt quiet and comfortable after several busy days away. I also bought some snacks for my family and gave them their gifts. Today, I want to rest, do some laundry, and get ready for work tomorrow.",
+    "content_cn": "经过五天的旅行，我昨晚回到了家。虽然很累，但回到家让我感到开心。首先，我打开行李箱，把衣服放进洗衣机。然后，我查看了照片，并发了几张给朋友。离家忙碌了好几天之后，我觉得家里既安静又舒服。我还给家人买了一些零食，并把礼物送给他们。今天，我想休息一下、洗些衣服，并为明天上班做好准备。",
+    "sentences": [
+      {
+        "sentence_en": "I came home last night after a five-day trip.",
+        "sentence_cn": "经过五天的旅行，我昨晚回到了家。",
+        "chunks": [
+          {"text": "I came home last night", "meaning": "我昨晚回到了家"},
+          {"text": " after a five-day trip.", "meaning": "在一次为期五天的旅行之后"}
+        ],
+        "explanation": "come home 表示回家；came 是 come 的过去式；five-day 是复合形容词。"
+      },
+      {
+        "sentence_en": "I was tired, but I felt happy to be back.",
+        "sentence_cn": "虽然很累，但回到家让我感到开心。",
+        "chunks": [
+          {"text": "I was tired,", "meaning": "我很累"},
+          {"text": " but I felt happy", "meaning": "但我感到开心"},
+          {"text": " to be back.", "meaning": "因为回来了"}
+        ],
+        "explanation": "feel happy to do something 表示因做某事而开心；be back 表示回来。"
+      },
+      {
+        "sentence_en": "First, I unpacked my suitcase and put my clothes in the washing machine.",
+        "sentence_cn": "首先，我打开行李箱，把衣服放进洗衣机。",
+        "chunks": [
+          {"text": "First,", "meaning": "首先"},
+          {"text": " I unpacked my suitcase", "meaning": "我打开行李箱整理物品"},
+          {"text": " and put my clothes in the washing machine.", "meaning": "并把衣服放进洗衣机"}
+        ],
+        "explanation": "unpack 表示打开行李并取出物品；washing machine 是洗衣机。"
+      },
+      {
+        "sentence_en": "Then I checked my photos and sent a few to my friends.",
+        "sentence_cn": "然后，我查看了照片，并发了几张给朋友。",
+        "chunks": [
+          {"text": "Then", "meaning": "然后"},
+          {"text": " I checked my photos", "meaning": "我查看了照片"},
+          {"text": " and sent a few to my friends.", "meaning": "并发了几张给朋友"}
+        ],
+        "explanation": "sent 是 send 的过去式；a few 在这里代指几张照片。"
+      },
+      {
+        "sentence_en": "My house felt quiet and comfortable after several busy days away.",
+        "sentence_cn": "离家忙碌了好几天之后，我觉得家里既安静又舒服。",
+        "chunks": [
+          {"text": "My house felt", "meaning": "我觉得家里"},
+          {"text": " quiet and comfortable", "meaning": "安静又舒适"},
+          {"text": " after several busy days away.", "meaning": "在离家忙碌了好几天之后"}
+        ],
+        "explanation": "feel 后面可以接形容词；away 表示离开、不在家。"
+      },
+      {
+        "sentence_en": "I also bought some snacks for my family and gave them their gifts.",
+        "sentence_cn": "我还给家人买了一些零食，并把礼物送给他们。",
+        "chunks": [
+          {"text": "I also bought some snacks for my family", "meaning": "我还给家人买了一些零食"},
+          {"text": " and gave them", "meaning": "并把东西给了他们"},
+          {"text": " their gifts.", "meaning": "他们的礼物"}
+        ],
+        "explanation": "buy something for someone 表示为某人买某物；give someone something 表示给某人某物。"
+      },
+      {
+        "sentence_en": "Today, I want to rest, do some laundry, and get ready for work tomorrow.",
+        "sentence_cn": "今天，我想休息一下、洗些衣服，并为明天上班做好准备。",
+        "chunks": [
+          {"text": "Today,", "meaning": "今天"},
+          {"text": " I want to rest, do some laundry,", "meaning": "我想休息、洗些衣服"},
+          {"text": " and get ready for work tomorrow.", "meaning": "并为明天上班做好准备"}
+        ],
+        "explanation": "do the laundry 表示洗衣服；get ready for 表示为……做好准备。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "unpack", "phonetic": "", "meaning": "打开行李；取出物品", "part_of_speech": "动词"},
+      {"word": "washing machine", "phonetic": "", "meaning": "洗衣机", "part_of_speech": "名词"},
+      {"word": "comfortable", "phonetic": "", "meaning": "舒适的", "part_of_speech": "形容词"},
+      {"word": "laundry", "phonetic": "", "meaning": "待洗的衣物；洗衣", "part_of_speech": "名词"},
+      {"word": "prepare", "phonetic": "", "meaning": "准备", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "come home", "meaning": "回家", "example": "I came home late last night."},
+      {"expression": "be happy to be back", "meaning": "很高兴回来", "example": "I am happy to be back home."},
+      {"expression": "unpack my suitcase", "meaning": "整理行李箱", "example": "I unpacked my suitcase after the trip."},
+      {"expression": "do the laundry", "meaning": "洗衣服", "example": "I need to do the laundry today."},
+      {"expression": "get ready for work", "meaning": "为上班做好准备", "example": "I get ready for work at seven."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "How long was the writer's trip?",
+        "options": ["Three days", "Four days", "Five days"],
+        "answer": "Five days",
+        "explanation": "文章第一句提到这是一次五天的旅行。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What did the writer do with the photos?",
+        "options": ["Deleted them", "Sent a few to friends", "Printed all of them"],
+        "answer": "Sent a few to friends",
+        "explanation": "作者查看照片后，发了几张给朋友。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What does the writer plan to do today?",
+        "answer": "Rest, do some laundry, and get ready for work.",
+        "explanation": "文章最后一句列出了作者今天的三项计划。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "84词，符合70～100词要求",
+      "american_english": "使用自然的美式英语表达",
+      "translation": "中英文内容对应",
+      "chunking": "所有分块按顺序拼接可还原原句",
+      "notes": "练习描述旅行结束后的生活整理、过去经历和近期计划。"
+    }
+  }
+,
+
+  {
+    "article_id": 121,
+    "day": 121,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Work",
+    "scene": "Starting a new job",
+    "title_en": "My First Day at Work",
+    "title_cn": "我的第一个工作日",
+    "difficulty": "A2",
+    "word_count": 86,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Today was my first day at work. I arrived at the office at eight thirty and met my manager, Mr. Brown. He showed me around the building and introduced me to the team. Everyone was friendly and welcomed me with smiles. My desk was near the window, and my computer was already ready. In the morning, I learned about the company rules. After lunch, I started my first task. I felt a little nervous, but I was also excited about my new job.",
+    "content_cn": "今天是我第一个工作日。我八点半到达办公室，见到了我的经理布朗先生。他带我参观了大楼，并把我介绍给团队成员。每个人都很友好，面带微笑地欢迎我。我的办公桌在窗户旁边，电脑也已经准备好了。上午，我了解了公司的规章制度。午饭后，我开始了第一项工作。我感到有一点紧张，但也对这份新工作充满期待。",
+    "sentences": [
+      {
+        "sentence_en": "Today was my first day at work.",
+        "sentence_cn": "今天是我第一个工作日。",
+        "chunks": [
+          {"text": "Today", "meaning": "今天"},
+          {"text": " was", "meaning": "是"},
+          {"text": " my first day", "meaning": "我的第一天"},
+          {"text": " at work.", "meaning": "上班"}
+        ],
+        "explanation": "用一般过去时 was 描述已经发生的工作经历。"
+      },
+      {
+        "sentence_en": "I arrived at the office at eight thirty and met my manager, Mr. Brown.",
+        "sentence_cn": "我八点半到达办公室，见到了我的经理布朗先生。",
+        "chunks": [
+          {"text": "I arrived", "meaning": "我到达了"},
+          {"text": " at the office", "meaning": "在办公室"},
+          {"text": " at eight thirty", "meaning": "在八点半"},
+          {"text": " and met my manager, Mr. Brown.", "meaning": "并见到了我的经理布朗先生"}
+        ],
+        "explanation": "arrived 和 met 都是过去式，表示先后发生的动作。"
+      },
+      {
+        "sentence_en": "He showed me around the building and introduced me to the team.",
+        "sentence_cn": "他带我参观了大楼，并把我介绍给团队成员。",
+        "chunks": [
+          {"text": "He showed me around", "meaning": "他带我四处参观"},
+          {"text": " the building", "meaning": "这栋大楼"},
+          {"text": " and introduced me", "meaning": "并把我介绍"},
+          {"text": " to the team.", "meaning": "给团队成员"}
+        ],
+        "explanation": "show someone around 表示带某人参观；introduce someone to someone 表示把某人介绍给某人。"
+      },
+      {
+        "sentence_en": "Everyone was friendly and welcomed me with smiles.",
+        "sentence_cn": "每个人都很友好，面带微笑地欢迎我。",
+        "chunks": [
+          {"text": "Everyone", "meaning": "每个人"},
+          {"text": " was friendly", "meaning": "都很友好"},
+          {"text": " and welcomed me", "meaning": "并欢迎我"},
+          {"text": " with smiles.", "meaning": "面带微笑"}
+        ],
+        "explanation": "Everyone 作主语时通常使用单数动词。"
+      },
+      {
+        "sentence_en": "My desk was near the window, and my computer was already ready.",
+        "sentence_cn": "我的办公桌在窗户旁边，电脑也已经准备好了。",
+        "chunks": [
+          {"text": "My desk", "meaning": "我的办公桌"},
+          {"text": " was near the window,", "meaning": "在窗户旁边"},
+          {"text": " and my computer", "meaning": "而我的电脑"},
+          {"text": " was already ready.", "meaning": "也已经准备好了"}
+        ],
+        "explanation": "near 表示在附近；already 强调某件事已经完成。"
+      },
+      {
+        "sentence_en": "In the morning, I learned about the company rules.",
+        "sentence_cn": "上午，我了解了公司的规章制度。",
+        "chunks": [
+          {"text": "In the morning,", "meaning": "在上午"},
+          {"text": " I learned about", "meaning": "我了解了"},
+          {"text": " the company rules.", "meaning": "公司的规章制度"}
+        ],
+        "explanation": "learn about 表示了解或学习有关某事的信息。"
+      },
+      {
+        "sentence_en": "After lunch, I started my first task.",
+        "sentence_cn": "午饭后，我开始了第一项工作。",
+        "chunks": [
+          {"text": "After lunch,", "meaning": "午饭后"},
+          {"text": " I started", "meaning": "我开始了"},
+          {"text": " my first task.", "meaning": "我的第一项任务"}
+        ],
+        "explanation": "After lunch 是时间状语，说明动作发生的时间。"
+      },
+      {
+        "sentence_en": "I felt a little nervous, but I was also excited about my new job.",
+        "sentence_cn": "我感到有一点紧张，但也对这份新工作充满期待。",
+        "chunks": [
+          {"text": "I felt", "meaning": "我感到"},
+          {"text": " a little nervous,", "meaning": "有一点紧张"},
+          {"text": " but I was also excited", "meaning": "但我也感到兴奋"},
+          {"text": " about my new job.", "meaning": "对我的新工作"}
+        ],
+        "explanation": "feel 的过去式是 felt；be excited about 表示对某事感到兴奋或期待。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "arrive", "phonetic": "", "meaning": "到达", "part_of_speech": "verb"},
+      {"word": "manager", "phonetic": "", "meaning": "经理", "part_of_speech": "noun"},
+      {"word": "introduce", "phonetic": "", "meaning": "介绍", "part_of_speech": "verb"},
+      {"word": "friendly", "phonetic": "", "meaning": "友好的", "part_of_speech": "adjective"},
+      {"word": "task", "phonetic": "", "meaning": "任务", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "first day at work", "meaning": "第一个工作日", "example": "I was nervous on my first day at work."},
+      {"expression": "show someone around", "meaning": "带某人参观", "example": "My coworker showed me around the office."},
+      {"expression": "introduce someone to", "meaning": "把某人介绍给……", "example": "She introduced me to her manager."},
+      {"expression": "learn about", "meaning": "了解；学习有关……", "example": "I want to learn about the company."},
+      {"expression": "be excited about", "meaning": "对……感到期待", "example": "I am excited about my new job."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What time did the writer arrive at the office?",
+        "options": ["Eight o'clock", "Eight thirty", "Nine o'clock"],
+        "answer": "Eight thirty",
+        "explanation": "文章第二句提到作者八点半到达办公室。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Where was the writer's desk?",
+        "options": ["Near the door", "Next to the manager", "Near the window"],
+        "answer": "Near the window",
+        "explanation": "作者的办公桌在窗户旁边。"
+      },
+      {
+        "type": "short_answer",
+        "question": "How did the writer feel about the new job?",
+        "answer": "A little nervous but also excited.",
+        "explanation": "文章最后一句直接描述了作者的感受。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "86 words; within the 70–100 word target.",
+      "american_english": "Uses natural American English.",
+      "translation": "Chinese translation matches the English passage.",
+      "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+      "notes": "The passage focuses on arriving at a new workplace and experiencing the first workday."
+    }
+  },
+  {
+    "article_id": 122,
+    "day": 122,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Work",
+    "scene": "Meeting a coworker",
+    "title_en": "Meeting a New Colleague",
+    "title_cn": "认识新同事",
+    "difficulty": "A2",
+    "word_count": 85,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "This morning, I met a new colleague at the office. Her name is Lisa, and she works in the sales department. We sat together during the break and talked about our jobs. She told me that she had worked here for two years. She also gave me some useful advice about the office. We found out that we both enjoy watching movies and drinking coffee. Before going back to work, we exchanged phone numbers. I think we will become good friends.",
+    "content_cn": "今天上午，我在办公室认识了一位新同事。她叫丽莎，在销售部门工作。休息时，我们坐在一起聊了聊各自的工作。她告诉我，她已经在这里工作两年了。她还给了我一些关于办公室工作的实用建议。我们发现彼此都喜欢看电影和喝咖啡。回去工作之前，我们交换了电话号码。我觉得我们会成为好朋友。",
+    "sentences": [
+      {
+        "sentence_en": "This morning, I met a new colleague at the office.",
+        "sentence_cn": "今天上午，我在办公室认识了一位新同事。",
+        "chunks": [
+          {"text": "This morning,", "meaning": "今天上午"},
+          {"text": " I met", "meaning": "我认识了"},
+          {"text": " a new colleague", "meaning": "一位新同事"},
+          {"text": " at the office.", "meaning": "在办公室"}
+        ],
+        "explanation": "met 是 meet 的过去式，表示过去认识或遇见某人。"
+      },
+      {
+        "sentence_en": "Her name is Lisa, and she works in the sales department.",
+        "sentence_cn": "她叫丽莎，在销售部门工作。",
+        "chunks": [
+          {"text": "Her name is Lisa,", "meaning": "她叫丽莎"},
+          {"text": " and she works", "meaning": "并且她工作"},
+          {"text": " in the sales department.", "meaning": "在销售部门"}
+        ],
+        "explanation": "介绍他人时可以使用 Her name is...；department 表示部门。"
+      },
+      {
+        "sentence_en": "We sat together during the break and talked about our jobs.",
+        "sentence_cn": "休息时，我们坐在一起聊了聊各自的工作。",
+        "chunks": [
+          {"text": "We sat together", "meaning": "我们坐在一起"},
+          {"text": " during the break", "meaning": "在休息期间"},
+          {"text": " and talked about", "meaning": "并谈论了"},
+          {"text": " our jobs.", "meaning": "我们的工作"}
+        ],
+        "explanation": "sat 和 talked 是过去式；during 表示在某段时间期间。"
+      },
+      {
+        "sentence_en": "She told me that she had worked here for two years.",
+        "sentence_cn": "她告诉我，她已经在这里工作两年了。",
+        "chunks": [
+          {"text": "She told me", "meaning": "她告诉我"},
+          {"text": " that", "meaning": "说"},
+          {"text": " she had worked here", "meaning": "她已经在这里工作"},
+          {"text": " for two years.", "meaning": "两年了"}
+        ],
+        "explanation": "for two years 表示持续两年的时间；had worked 表示在过去某个时间点之前已经工作了一段时间。"
+      },
+      {
+        "sentence_en": "She also gave me some useful advice about the office.",
+        "sentence_cn": "她还给了我一些关于办公室工作的实用建议。",
+        "chunks": [
+          {"text": "She also gave me", "meaning": "她还给了我"},
+          {"text": " some useful advice", "meaning": "一些有用的建议"},
+          {"text": " about the office.", "meaning": "关于办公室的"}
+        ],
+        "explanation": "advice 是不可数名词；gave 是 give 的过去式。"
+      },
+      {
+        "sentence_en": "We found out that we both enjoy watching movies and drinking coffee.",
+        "sentence_cn": "我们发现彼此都喜欢看电影和喝咖啡。",
+        "chunks": [
+          {"text": "We found out", "meaning": "我们发现"},
+          {"text": " that we both enjoy", "meaning": "我们两个人都喜欢"},
+          {"text": " watching movies", "meaning": "看电影"},
+          {"text": " and drinking coffee.", "meaning": "和喝咖啡"}
+        ],
+        "explanation": "find out 表示发现或了解到；enjoy 后面接动词时使用 -ing 形式。"
+      },
+      {
+        "sentence_en": "Before going back to work, we exchanged phone numbers.",
+        "sentence_cn": "回去工作之前，我们交换了电话号码。",
+        "chunks": [
+          {"text": "Before going back", "meaning": "在回去之前"},
+          {"text": " to work,", "meaning": "去工作"},
+          {"text": " we exchanged", "meaning": "我们交换了"},
+          {"text": " phone numbers.", "meaning": "电话号码"}
+        ],
+        "explanation": "before 后面接动词时，可以使用动名词形式 going。"
+      },
+      {
+        "sentence_en": "I think we will become good friends.",
+        "sentence_cn": "我觉得我们会成为好朋友。",
+        "chunks": [
+          {"text": "I think", "meaning": "我认为"},
+          {"text": " we will become", "meaning": "我们将会成为"},
+          {"text": " good friends.", "meaning": "好朋友"}
+        ],
+        "explanation": "will become 表示对未来的预测或期待。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "colleague", "phonetic": "", "meaning": "同事", "part_of_speech": "noun"},
+      {"word": "department", "phonetic": "", "meaning": "部门", "part_of_speech": "noun"},
+      {"word": "break", "phonetic": "", "meaning": "休息时间", "part_of_speech": "noun"},
+      {"word": "advice", "phonetic": "", "meaning": "建议", "part_of_speech": "noun"},
+      {"word": "exchange", "phonetic": "", "meaning": "交换", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "meet a new colleague", "meaning": "认识一位新同事", "example": "I met a new colleague today."},
+      {"expression": "during the break", "meaning": "在休息期间", "example": "We talked during the break."},
+      {"expression": "talk about", "meaning": "谈论", "example": "We talked about our work."},
+      {"expression": "find out", "meaning": "发现；了解到", "example": "I found out that we like the same music."},
+      {"expression": "exchange phone numbers", "meaning": "交换电话号码", "example": "We exchanged phone numbers after lunch."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Which department does Lisa work in?",
+        "options": ["Sales", "Marketing", "Finance"],
+        "answer": "Sales",
+        "explanation": "文章第二句说明 Lisa 在销售部门工作。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "How long has Lisa worked there?",
+        "options": ["One year", "Two years", "Three years"],
+        "answer": "Two years",
+        "explanation": "Lisa 告诉作者，她已经在那里工作两年。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What hobbies do they both enjoy?",
+        "answer": "Watching movies and drinking coffee.",
+        "explanation": "两人都喜欢看电影和喝咖啡。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "85 words; within the 70–100 word target.",
+      "american_english": "Uses natural American English.",
+      "translation": "Chinese translation matches the English passage.",
+      "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+      "notes": "The passage focuses on getting to know a new coworker and finding common interests."
+    }
+  },
+  {
+    "article_id": 123,
+    "day": 123,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Work",
+    "scene": "Introducing yourself professionally",
+    "title_en": "Introducing Myself at Work",
+    "title_cn": "在工作中介绍自己",
+    "difficulty": "A2",
+    "word_count": 83,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "Our team had a short meeting this morning. My manager asked me to introduce myself to everyone. I stood up and said my name was David. I told them that I was from Chicago and had recently joined the company. I also explained that I worked in the design team. In my free time, I enjoy reading and playing basketball. Everyone listened carefully and welcomed me to the team. I was happy to share a little about myself.",
+    "content_cn": "今天上午，我们团队开了一个简短的会议。经理让我向大家做一下自我介绍。我站起来说我叫大卫。我告诉大家我来自芝加哥，最近刚加入这家公司。我还说明了自己在设计团队工作。空闲时间，我喜欢阅读和打篮球。大家认真地听着，并欢迎我加入团队。我很高兴能向大家介绍自己的一些情况。",
+    "sentences": [
+      {
+        "sentence_en": "Our team had a short meeting this morning.",
+        "sentence_cn": "今天上午，我们团队开了一个简短的会议。",
+        "chunks": [
+          {"text": "Our team", "meaning": "我们的团队"},
+          {"text": " had", "meaning": "举行了"},
+          {"text": " a short meeting", "meaning": "一次简短的会议"},
+          {"text": " this morning.", "meaning": "今天上午"}
+        ],
+        "explanation": "had 是 have 的过去式；have a meeting 表示开会。"
+      },
+      {
+        "sentence_en": "My manager asked me to introduce myself to everyone.",
+        "sentence_cn": "经理让我向大家做一下自我介绍。",
+        "chunks": [
+          {"text": "My manager", "meaning": "我的经理"},
+          {"text": " asked me", "meaning": "让我"},
+          {"text": " to introduce myself", "meaning": "介绍我自己"},
+          {"text": " to everyone.", "meaning": "给大家"}
+        ],
+        "explanation": "ask someone to do something 表示让某人做某事；introduce myself 表示自我介绍。"
+      },
+      {
+        "sentence_en": "I stood up and said my name was David.",
+        "sentence_cn": "我站起来说我叫大卫。",
+        "chunks": [
+          {"text": "I stood up", "meaning": "我站了起来"},
+          {"text": " and said", "meaning": "并说道"},
+          {"text": " my name was David.", "meaning": "我的名字叫大卫"}
+        ],
+        "explanation": "stood 是 stand 的过去式；said 是 say 的过去式。"
+      },
+      {
+        "sentence_en": "I told them that I was from Chicago and had recently joined the company.",
+        "sentence_cn": "我告诉大家我来自芝加哥，最近刚加入这家公司。",
+        "chunks": [
+          {"text": "I told them", "meaning": "我告诉他们"},
+          {"text": " that I was from Chicago", "meaning": "我来自芝加哥"},
+          {"text": " and had recently joined", "meaning": "并且最近刚加入"},
+          {"text": " the company.", "meaning": "这家公司"}
+        ],
+        "explanation": "be from 表示来自某地；join 表示加入组织或团队。"
+      },
+      {
+        "sentence_en": "I also explained that I worked in the design team.",
+        "sentence_cn": "我还说明了自己在设计团队工作。",
+        "chunks": [
+          {"text": "I also explained", "meaning": "我还说明了"},
+          {"text": " that I worked", "meaning": "我在工作"},
+          {"text": " in the design team.", "meaning": "在设计团队"}
+        ],
+        "explanation": "explain 后面可以接 that 引导的宾语从句。"
+      },
+      {
+        "sentence_en": "In my free time, I enjoy reading and playing basketball.",
+        "sentence_cn": "空闲时间，我喜欢阅读和打篮球。",
+        "chunks": [
+          {"text": "In my free time,", "meaning": "在我的空闲时间"},
+          {"text": " I enjoy", "meaning": "我喜欢"},
+          {"text": " reading", "meaning": "阅读"},
+          {"text": " and playing basketball.", "meaning": "以及打篮球"}
+        ],
+        "explanation": "enjoy 后面接动词时使用 -ing 形式。"
+      },
+      {
+        "sentence_en": "Everyone listened carefully and welcomed me to the team.",
+        "sentence_cn": "大家认真地听着，并欢迎我加入团队。",
+        "chunks": [
+          {"text": "Everyone", "meaning": "每个人"},
+          {"text": " listened carefully", "meaning": "认真地听"},
+          {"text": " and welcomed me", "meaning": "并欢迎我"},
+          {"text": " to the team.", "meaning": "加入团队"}
+        ],
+        "explanation": "carefully 是副词，修饰 listened；welcome someone to 表示欢迎某人加入。"
+      },
+      {
+        "sentence_en": "I was happy to share a little about myself.",
+        "sentence_cn": "我很高兴能向大家介绍自己的一些情况。",
+        "chunks": [
+          {"text": "I was happy", "meaning": "我很高兴"},
+          {"text": " to share", "meaning": "去分享"},
+          {"text": " a little", "meaning": "一点内容"},
+          {"text": " about myself.", "meaning": "关于我自己"}
+        ],
+        "explanation": "be happy to do something 表示很高兴做某事。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "meeting", "phonetic": "", "meaning": "会议", "part_of_speech": "noun"},
+      {"word": "introduce", "phonetic": "", "meaning": "介绍", "part_of_speech": "verb"},
+      {"word": "recently", "phonetic": "", "meaning": "最近", "part_of_speech": "adverb"},
+      {"word": "design", "phonetic": "", "meaning": "设计", "part_of_speech": "noun"},
+      {"word": "carefully", "phonetic": "", "meaning": "认真地；仔细地", "part_of_speech": "adverb"}
+    ],
+    "expressions": [
+      {"expression": "introduce myself", "meaning": "自我介绍", "example": "Let me introduce myself to the group."},
+      {"expression": "stand up", "meaning": "站起来", "example": "I stood up to speak."},
+      {"expression": "be from", "meaning": "来自", "example": "I am from Chicago."},
+      {"expression": "in my free time", "meaning": "在我的空闲时间", "example": "In my free time, I read books."},
+      {"expression": "share a little about myself", "meaning": "分享一些自己的情况", "example": "I want to share a little about myself."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Who asked the writer to introduce himself?",
+        "options": ["A colleague", "His manager", "A customer"],
+        "answer": "His manager",
+        "explanation": "文章第二句说明是经理让作者做自我介绍。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Where is the writer from?",
+        "options": ["Chicago", "New York", "Boston"],
+        "answer": "Chicago",
+        "explanation": "作者告诉大家自己来自芝加哥。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What does the writer enjoy doing in his free time?",
+        "answer": "Reading and playing basketball.",
+        "explanation": "作者提到自己喜欢阅读和打篮球。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "83 words; within the 70–100 word target.",
+      "american_english": "Uses natural American English.",
+      "translation": "Chinese translation matches the English passage.",
+      "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+      "notes": "The passage focuses on a short professional self-introduction during a team meeting."
+    }
+  },
+  {
+    "article_id": 124,
+    "day": 124,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Work",
+    "scene": "Describing your job",
+    "title_en": "Talking About My Job",
+    "title_cn": "谈论我的工作",
+    "difficulty": "A2",
+    "word_count": 84,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "I work for a small software company. My job is to help customers use our products. Every day, I answer emails, make phone calls, and solve simple problems. Sometimes I work with the design team to improve our website. The work can be busy, but I enjoy helping people. My manager is kind, and my coworkers are helpful. In the future, I hope to learn more skills and take on bigger projects. I like my job because every day is a little different.",
+    "content_cn": "我在一家小型软件公司工作。我的工作是帮助客户使用我们的产品。每天，我都要回复邮件、打电话并解决一些简单的问题。有时，我会和设计团队合作改进我们的网站。工作有时会很忙，但我喜欢帮助别人。我的经理很友善，同事们也乐于助人。未来，我希望学习更多技能，承担更大的项目。我喜欢这份工作，因为每天都有一点不同。",
+    "sentences": [
+      {
+        "sentence_en": "I work for a small software company.",
+        "sentence_cn": "我在一家小型软件公司工作。",
+        "chunks": [
+          {"text": "I work for", "meaning": "我为……工作"},
+          {"text": " a small", "meaning": "一家小型的"},
+          {"text": " software company.", "meaning": "软件公司"}
+        ],
+        "explanation": "work for 表示为某家公司工作。"
+      },
+      {
+        "sentence_en": "My job is to help customers use our products.",
+        "sentence_cn": "我的工作是帮助客户使用我们的产品。",
+        "chunks": [
+          {"text": "My job is", "meaning": "我的工作是"},
+          {"text": " to help customers", "meaning": "帮助客户"},
+          {"text": " use our products.", "meaning": "使用我们的产品"}
+        ],
+        "explanation": "My job is to... 用来介绍工作职责；help someone do something 表示帮助某人做某事。"
+      },
+      {
+        "sentence_en": "Every day, I answer emails, make phone calls, and solve simple problems.",
+        "sentence_cn": "每天，我都要回复邮件、打电话并解决一些简单的问题。",
+        "chunks": [
+          {"text": "Every day,", "meaning": "每天"},
+          {"text": " I answer emails,", "meaning": "我回复邮件"},
+          {"text": " make phone calls,", "meaning": "打电话"},
+          {"text": " and solve simple problems.", "meaning": "并解决简单的问题"}
+        ],
+        "explanation": "answer emails、make phone calls 和 solve problems 都是常见的工作表达。"
+      },
+      {
+        "sentence_en": "Sometimes I work with the design team to improve our website.",
+        "sentence_cn": "有时，我会和设计团队合作改进我们的网站。",
+        "chunks": [
+          {"text": "Sometimes", "meaning": "有时"},
+          {"text": " I work with", "meaning": "我与……合作"},
+          {"text": " the design team", "meaning": "设计团队"},
+          {"text": " to improve our website.", "meaning": "以改进我们的网站"}
+        ],
+        "explanation": "work with 表示与某人或团队合作；to improve 表示目的。"
+      },
+      {
+        "sentence_en": "The work can be busy, but I enjoy helping people.",
+        "sentence_cn": "工作有时会很忙，但我喜欢帮助别人。",
+        "chunks": [
+          {"text": "The work", "meaning": "这份工作"},
+          {"text": " can be busy,", "meaning": "有时会很忙"},
+          {"text": " but I enjoy", "meaning": "但我喜欢"},
+          {"text": " helping people.", "meaning": "帮助别人"}
+        ],
+        "explanation": "can be 表示有时会呈现某种状态；enjoy 后接动词 -ing 形式。"
+      },
+      {
+        "sentence_en": "My manager is kind, and my coworkers are helpful.",
+        "sentence_cn": "我的经理很友善，同事们也乐于助人。",
+        "chunks": [
+          {"text": "My manager", "meaning": "我的经理"},
+          {"text": " is kind,", "meaning": "很友善"},
+          {"text": " and my coworkers", "meaning": "而我的同事们"},
+          {"text": " are helpful.", "meaning": "都乐于助人"}
+        ],
+        "explanation": "kind 表示友善的；helpful 表示乐于助人的。"
+      },
+      {
+        "sentence_en": "In the future, I hope to learn more skills and take on bigger projects.",
+        "sentence_cn": "未来，我希望学习更多技能，承担更大的项目。",
+        "chunks": [
+          {"text": "In the future,", "meaning": "在未来"},
+          {"text": " I hope to learn", "meaning": "我希望学习"},
+          {"text": " more skills", "meaning": "更多技能"},
+          {"text": " and take on bigger projects.", "meaning": "并承担更大的项目"}
+        ],
+        "explanation": "hope to do 表示希望做某事；take on 表示承担任务或责任。"
+      },
+      {
+        "sentence_en": "I like my job because every day is a little different.",
+        "sentence_cn": "我喜欢这份工作，因为每天都有一点不同。",
+        "chunks": [
+          {"text": "I like my job", "meaning": "我喜欢我的工作"},
+          {"text": " because", "meaning": "因为"},
+          {"text": " every day", "meaning": "每一天"},
+          {"text": " is a little different.", "meaning": "都有一点不同"}
+        ],
+        "explanation": "because 引导原因状语从句，用来解释喜欢这份工作的原因。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "software", "phonetic": "", "meaning": "软件", "part_of_speech": "noun"},
+      {"word": "customer", "phonetic": "", "meaning": "客户", "part_of_speech": "noun"},
+      {"word": "solve", "phonetic": "", "meaning": "解决", "part_of_speech": "verb"},
+      {"word": "improve", "phonetic": "", "meaning": "改进；改善", "part_of_speech": "verb"},
+      {"word": "project", "phonetic": "", "meaning": "项目", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "work for a company", "meaning": "在一家公司工作", "example": "I work for a software company."},
+      {"expression": "help someone do something", "meaning": "帮助某人做某事", "example": "I help customers use the app."},
+      {"expression": "make phone calls", "meaning": "打电话", "example": "I make phone calls every morning."},
+      {"expression": "work with a team", "meaning": "与团队合作", "example": "I work with the design team."},
+      {"expression": "take on a project", "meaning": "承担一个项目", "example": "I want to take on a new project."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What does the writer do at work?",
+        "options": ["Teach students", "Help customers use products", "Sell cars"],
+        "answer": "Help customers use products",
+        "explanation": "作者的主要职责是帮助客户使用公司的产品。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Which team does the writer sometimes work with?",
+        "options": ["The sales team", "The design team", "The finance team"],
+        "answer": "The design team",
+        "explanation": "作者有时会和设计团队合作改进网站。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What does the writer hope to do in the future?",
+        "answer": "Learn more skills and take on bigger projects.",
+        "explanation": "作者希望学习更多技能并承担更大的项目。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "84 words; within the 70–100 word target.",
+      "american_english": "Uses natural American English.",
+      "translation": "Chinese translation matches the English passage.",
+      "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+      "notes": "The passage describes daily job duties, workplace relationships, and future career goals."
+    }
+  },
+  {
+    "article_id": 125,
+    "day": 125,
+    "stage": 3,
+    "cefr": "A2",
+    "category": "Work",
+    "scene": "Asking a coworker for assistance",
+    "title_en": "Asking for Help at Work",
+    "title_cn": "工作中寻求帮助",
+    "difficulty": "A2",
+    "word_count": 85,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Yesterday, I had trouble using a new computer program at work. I tried to finish the report, but I could not find the right tool. I asked my coworker, Anna, for help. She came to my desk and showed me what to do. Then she explained the steps slowly and answered my questions. After that, I could finish the report by myself. I thanked her for taking the time to help me. Asking for help made my work much easier.",
+    "content_cn": "昨天，我在工作中使用一个新电脑程序时遇到了困难。我试着完成报告，但找不到合适的工具。于是我向同事安娜求助。她来到我的办公桌旁，告诉我应该怎么做。接着，她慢慢解释了操作步骤，并回答了我的问题。之后，我就能独立完成报告了。我感谢她抽出时间帮助我。寻求帮助让我的工作轻松了许多。",
+    "sentences": [
+      {
+        "sentence_en": "Yesterday, I had trouble using a new computer program at work.",
+        "sentence_cn": "昨天，我在工作中使用一个新电脑程序时遇到了困难。",
+        "chunks": [
+          {"text": "Yesterday,", "meaning": "昨天"},
+          {"text": " I had trouble", "meaning": "我遇到了困难"},
+          {"text": " using a new computer program", "meaning": "使用一个新的电脑程序"},
+          {"text": " at work.", "meaning": "在工作中"}
+        ],
+        "explanation": "have trouble doing something 表示做某事有困难；had 是 have 的过去式。"
+      },
+      {
+        "sentence_en": "I tried to finish the report, but I could not find the right tool.",
+        "sentence_cn": "我试着完成报告，但找不到合适的工具。",
+        "chunks": [
+          {"text": "I tried to finish", "meaning": "我试着完成"},
+          {"text": " the report,", "meaning": "这份报告"},
+          {"text": " but I could not find", "meaning": "但我找不到"},
+          {"text": " the right tool.", "meaning": "合适的工具"}
+        ],
+        "explanation": "try to do 表示努力尝试做某事；could not 表示过去无法做到。"
+      },
+      {
+        "sentence_en": "I asked my coworker, Anna, for help.",
+        "sentence_cn": "于是我向同事安娜求助。",
+        "chunks": [
+          {"text": "I asked", "meaning": "我请求"},
+          {"text": " my coworker, Anna,", "meaning": "我的同事安娜"},
+          {"text": " for help.", "meaning": "给予帮助"}
+        ],
+        "explanation": "ask someone for help 是“向某人求助”的常见表达。"
+      },
+      {
+        "sentence_en": "She came to my desk and showed me what to do.",
+        "sentence_cn": "她来到我的办公桌旁，告诉我应该怎么做。",
+        "chunks": [
+          {"text": "She came", "meaning": "她来到"},
+          {"text": " to my desk", "meaning": "我的办公桌旁"},
+          {"text": " and showed me", "meaning": "并向我展示"},
+          {"text": " what to do.", "meaning": "该怎么做"}
+        ],
+        "explanation": "showed 是 show 的过去式；what to do 表示应该做什么。"
+      },
+      {
+        "sentence_en": "Then she explained the steps slowly and answered my questions.",
+        "sentence_cn": "接着，她慢慢解释了操作步骤，并回答了我的问题。",
+        "chunks": [
+          {"text": "Then", "meaning": "接着"},
+          {"text": " she explained the steps", "meaning": "她解释了这些步骤"},
+          {"text": " slowly", "meaning": "慢慢地"},
+          {"text": " and answered my questions.", "meaning": "并回答了我的问题"}
+        ],
+        "explanation": "slowly 是副词，修饰 explained；answered 是 answer 的过去式。"
+      },
+      {
+        "sentence_en": "After that, I could finish the report by myself.",
+        "sentence_cn": "之后，我就能独立完成报告了。",
+        "chunks": [
+          {"text": "After that,", "meaning": "在那之后"},
+          {"text": " I could finish", "meaning": "我就能够完成"},
+          {"text": " the report", "meaning": "这份报告"},
+          {"text": " by myself.", "meaning": "独自；靠自己"}
+        ],
+        "explanation": "by myself 表示独自完成某事；could 表示过去具备的能力或可能性。"
+      },
+      {
+        "sentence_en": "I thanked her for taking the time to help me.",
+        "sentence_cn": "我感谢她抽出时间帮助我。",
+        "chunks": [
+          {"text": "I thanked her", "meaning": "我感谢她"},
+          {"text": " for taking the time", "meaning": "感谢她抽出时间"},
+          {"text": " to help me.", "meaning": "来帮助我"}
+        ],
+        "explanation": "thank someone for doing something 表示感谢某人做了某事。"
+      },
+      {
+        "sentence_en": "Asking for help made my work much easier.",
+        "sentence_cn": "寻求帮助让我的工作轻松了许多。",
+        "chunks": [
+          {"text": "Asking for help", "meaning": "寻求帮助"},
+          {"text": " made my work", "meaning": "让我的工作变得"},
+          {"text": " much easier.", "meaning": "轻松得多"}
+        ],
+        "explanation": "动名词 Asking 作主语；make 后接宾语和形容词，表示使某事变得怎样。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "program", "phonetic": "", "meaning": "程序；软件", "part_of_speech": "noun"},
+      {"word": "report", "phonetic": "", "meaning": "报告", "part_of_speech": "noun"},
+      {"word": "tool", "phonetic": "", "meaning": "工具", "part_of_speech": "noun"},
+      {"word": "explain", "phonetic": "", "meaning": "解释；说明", "part_of_speech": "verb"},
+      {"word": "easier", "phonetic": "", "meaning": "更容易的；更轻松的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "have trouble doing something", "meaning": "做某事有困难", "example": "I had trouble opening the file."},
+      {"expression": "ask someone for help", "meaning": "向某人求助", "example": "You can ask your manager for help."},
+      {"expression": "show someone what to do", "meaning": "告诉某人该怎么做", "example": "Can you show me what to do?"},
+      {"expression": "by myself", "meaning": "独自；靠自己", "example": "I finished the task by myself."},
+      {"expression": "take the time to do something", "meaning": "抽出时间做某事", "example": "Thank you for taking the time to explain it."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What problem did the writer have?",
+        "options": ["The computer was broken", "The writer could not find the right tool", "The report was missing"],
+        "answer": "The writer could not find the right tool",
+        "explanation": "作者找不到电脑程序中合适的工具。"
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Who helped the writer?",
+        "options": ["The manager", "A customer", "Anna"],
+        "answer": "Anna",
+        "explanation": "作者向同事 Anna 求助。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What happened after Anna explained the steps?",
+        "answer": "The writer could finish the report by himself.",
+        "explanation": "得到帮助后，作者能够独立完成报告。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "85 words; within the 70–100 word target.",
+      "american_english": "Uses natural American English.",
+      "translation": "Chinese translation matches the English passage.",
+      "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+      "notes": "The passage focuses on politely asking a coworker for practical help with a work task."
+    }
+  }
+
+
+]

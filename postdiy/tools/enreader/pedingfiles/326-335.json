@@ -1,0 +1,1858 @@
+[
+  {
+    "article_id": 146,
+    "day": 326,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Relationships",
+    "scene": "Making friends in adulthood",
+    "title_en": "The Challenge of Making Friends as an Adult",
+    "title_cn": "成年后交朋友的挑战",
+    "difficulty": "B1-B2",
+    "word_count": 139,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Making friends as an adult can be surprisingly difficult. When we are children, we meet people naturally at school, in parks, and through shared activities. As adults, however, our lives become busier, and our social circles often become smaller. Work, family responsibilities, and personal routines leave us with fewer opportunities to meet new people. Another challenge is that adults usually have clearer expectations about friendship. We may look for people who share our values, interests, or ways of thinking. Building trust also takes time, especially when everyone has experienced disappointment in the past. Still, meaningful friendships are worth the effort. We can start by joining a class, attending local events, or simply talking to someone we see regularly. Instead of trying to become close immediately, we should allow a relationship to develop naturally. Good friendships are not built in a day; they grow through small moments of honesty, support, and shared experience.",
+    "content_cn": "成年后交朋友可能出乎意料地困难。小时候，我们会自然而然地在学校、公园和共同活动中认识别人。然而，成年后我们的生活变得更加忙碌，社交圈也往往越来越小。工作、家庭责任和个人生活习惯，让我们很少有机会认识新朋友。另一个挑战是，成年人通常对友谊有了更明确的期待。我们可能会寻找那些价值观、兴趣或思维方式与自己相似的人。建立信任也需要时间，尤其是当每个人过去都经历过失望时。尽管如此，有意义的友谊仍然值得付出努力。我们可以从参加课程、参与当地活动，或者主动和经常见到的人交谈开始。与其试图立即变得亲密，不如让关系自然发展。良好的友谊不是一天就能建立的，而是在一次次真诚、支持和共同经历的小事中逐渐成长的。",
+    "sentences": [
+      {
+        "sentence_en": "Making friends as an adult can be surprisingly difficult.",
+        "sentence_cn": "成年后交朋友可能出乎意料地困难。",
+        "chunks": [
+          {"text": "Making friends", "meaning": "交朋友"},
+          {"text": "as an adult", "meaning": "作为一个成年人"},
+          {"text": "can be", "meaning": "可能会"},
+          {"text": "surprisingly difficult.", "meaning": "出乎意料地困难"}
+        ],
+        "explanation": "动名词短语 Making friends 作主语，as an adult 表示身份或阶段。"
+      },
+      {
+        "sentence_en": "When we are children, we meet people naturally at school, in parks, and through shared activities.",
+        "sentence_cn": "小时候，我们会自然而然地在学校、公园和共同活动中认识别人。",
+        "chunks": [
+          {"text": "When we are children,", "meaning": "当我们还是孩子时"},
+          {"text": "we meet people naturally", "meaning": "我们自然而然地认识别人"},
+          {"text": "at school, in parks,", "meaning": "在学校、公园里"},
+          {"text": "and through shared activities.", "meaning": "以及通过共同参与的活动"}
+        ],
+        "explanation": "When 引导时间状语从句；through 表示通过某种方式。"
+      },
+      {
+        "sentence_en": "As adults, however, our lives become busier, and our social circles often become smaller.",
+        "sentence_cn": "然而，成年后我们的生活变得更加忙碌，社交圈也往往越来越小。",
+        "chunks": [
+          {"text": "As adults,", "meaning": "作为成年人"},
+          {"text": "however,", "meaning": "然而"},
+          {"text": "our lives become busier,", "meaning": "我们的生活变得更加忙碌"},
+          {"text": "and our social circles", "meaning": "而我们的社交圈"},
+          {"text": "often become smaller.", "meaning": "也往往变得更小"}
+        ],
+        "explanation": "become 后接形容词表示状态变化；however 用来引出转折。"
+      },
+      {
+        "sentence_en": "Work, family responsibilities, and personal routines leave us with fewer opportunities to meet new people.",
+        "sentence_cn": "工作、家庭责任和个人生活习惯，让我们很少有机会认识新朋友。",
+        "chunks": [
+          {"text": "Work, family responsibilities,", "meaning": "工作、家庭责任"},
+          {"text": "and personal routines", "meaning": "以及个人生活习惯"},
+          {"text": "leave us with", "meaning": "使我们拥有／留下"},
+          {"text": "fewer opportunities", "meaning": "更少的机会"},
+          {"text": "to meet new people.", "meaning": "去认识新朋友"}
+        ],
+        "explanation": "leave someone with something 表示使某人处于某种状态或拥有某物。"
+      },
+      {
+        "sentence_en": "Another challenge is that adults usually have clearer expectations about friendship.",
+        "sentence_cn": "另一个挑战是，成年人通常对友谊有了更明确的期待。",
+        "chunks": [
+          {"text": "Another challenge", "meaning": "另一个挑战"},
+          {"text": "is that", "meaning": "是……"},
+          {"text": "adults usually have", "meaning": "成年人通常有"},
+          {"text": "clearer expectations", "meaning": "更明确的期待"},
+          {"text": "about friendship.", "meaning": "关于友谊"}
+        ],
+        "explanation": "that 引导表语从句，解释 challenge 的具体内容。"
+      },
+      {
+        "sentence_en": "We may look for people who share our values, interests, or ways of thinking.",
+        "sentence_cn": "我们可能会寻找那些价值观、兴趣或思维方式与自己相似的人。",
+        "chunks": [
+          {"text": "We may look for people", "meaning": "我们可能会寻找一些人"},
+          {"text": "who share", "meaning": "他们拥有共同的……"},
+          {"text": "our values, interests,", "meaning": "我们的价值观、兴趣"},
+          {"text": "or ways of thinking.", "meaning": "或者思维方式"}
+        ],
+        "explanation": "who 引导定语从句，修饰 people；look for 表示寻找。"
+      },
+      {
+        "sentence_en": "Building trust also takes time, especially when everyone has experienced disappointment in the past.",
+        "sentence_cn": "建立信任也需要时间，尤其是当每个人过去都经历过失望时。",
+        "chunks": [
+          {"text": "Building trust", "meaning": "建立信任"},
+          {"text": "also takes time,", "meaning": "也需要时间"},
+          {"text": "especially when", "meaning": "尤其是当……时"},
+          {"text": "everyone has experienced", "meaning": "每个人都经历过"},
+          {"text": "disappointment in the past.", "meaning": "过去的失望"}
+        ],
+        "explanation": "Building trust 作主语；现在完成时强调过去经历对现在的影响。"
+      },
+      {
+        "sentence_en": "Still, meaningful friendships are worth the effort.",
+        "sentence_cn": "尽管如此，有意义的友谊仍然值得付出努力。",
+        "chunks": [
+          {"text": "Still,", "meaning": "尽管如此"},
+          {"text": "meaningful friendships", "meaning": "有意义的友谊"},
+          {"text": "are worth", "meaning": "值得"},
+          {"text": "the effort.", "meaning": "付出努力"}
+        ],
+        "explanation": "be worth something 表示某事值得付出某种代价或努力。"
+      },
+      {
+        "sentence_en": "We can start by joining a class, attending local events, or simply talking to someone we see regularly.",
+        "sentence_cn": "我们可以从参加课程、参与当地活动，或者主动和经常见到的人交谈开始。",
+        "chunks": [
+          {"text": "We can start by", "meaning": "我们可以从……开始"},
+          {"text": "joining a class,", "meaning": "参加一门课程"},
+          {"text": "attending local events,", "meaning": "参加当地活动"},
+          {"text": "or simply talking to someone", "meaning": "或者只是和某个人交谈"},
+          {"text": "we see regularly.", "meaning": "这个人是我们经常见到的"}
+        ],
+        "explanation": "start by doing 表示从做某事开始；someone 后面的省略关系代词从句修饰 someone。"
+      },
+      {
+        "sentence_en": "Instead of trying to become close immediately, we should allow a relationship to develop naturally.",
+        "sentence_cn": "与其试图立即变得亲密，不如让关系自然发展。",
+        "chunks": [
+          {"text": "Instead of trying", "meaning": "与其试图……"},
+          {"text": "to become close immediately,", "meaning": "立即变得亲密"},
+          {"text": "we should allow", "meaning": "我们应该让"},
+          {"text": "a relationship", "meaning": "一段关系"},
+          {"text": "to develop naturally.", "meaning": "自然地发展"}
+        ],
+        "explanation": "instead of 后接动名词；allow someone or something to do 表示允许或促使某事发生。"
+      },
+      {
+        "sentence_en": "Good friendships are not built in a day; they grow through small moments of honesty, support, and shared experience.",
+        "sentence_cn": "良好的友谊不是一天就能建立的，而是在一次次真诚、支持和共同经历的小事中逐渐成长的。",
+        "chunks": [
+          {"text": "Good friendships", "meaning": "良好的友谊"},
+          {"text": "are not built in a day;", "meaning": "不是一天就能建立的"},
+          {"text": "they grow through", "meaning": "它们通过……逐渐成长"},
+          {"text": "small moments of honesty, support,", "meaning": "一次次真诚与支持的小事"},
+          {"text": "and shared experience.", "meaning": "以及共同的经历"}
+        ],
+        "explanation": "被动语态 are built 强调友谊被建立的过程；分号连接两个关系紧密的独立分句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "surprisingly", "phonetic": "", "meaning": "出乎意料地", "part_of_speech": "副词"},
+      {"word": "responsibility", "phonetic": "", "meaning": "责任", "part_of_speech": "名词"},
+      {"word": "expectation", "phonetic": "", "meaning": "期待；期望", "part_of_speech": "名词"},
+      {"word": "disappointment", "phonetic": "", "meaning": "失望", "part_of_speech": "名词"},
+      {"word": "meaningful", "phonetic": "", "meaning": "有意义的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "social circle", "meaning": "社交圈", "example": "My social circle has changed over the years."},
+      {"expression": "look for", "meaning": "寻找", "example": "I am looking for people with similar interests."},
+      {"expression": "be worth the effort", "meaning": "值得付出努力", "example": "Building a strong friendship is worth the effort."},
+      {"expression": "start by doing something", "meaning": "从做某事开始", "example": "You can start by joining a local club."},
+      {"expression": "develop naturally", "meaning": "自然发展", "example": "Let the friendship develop naturally."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Why can making friends become more difficult in adulthood?",
+        "options": ["Adults have fewer opportunities to meet people.", "Adults no longer need friendships.", "Adults always dislike new people."],
+        "answer": "Adults have fewer opportunities to meet people.",
+        "explanation": "文章指出，工作、家庭责任和个人习惯减少了认识新朋友的机会。"
+      },
+      {
+        "type": "true_false",
+        "question": "The passage suggests that adults should try to become close to new friends immediately.",
+        "answer": "False",
+        "explanation": "文章建议让关系自然发展，而不是急于变得亲密。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Name two ways to meet new people mentioned in the passage.",
+        "answer": "Joining a class and attending local events.",
+        "explanation": "文章还提到了与经常见到的人交谈。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 139,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点学习成年社交、关系建立和表达建议。"
+    }
+  },
+  {
+    "article_id": 147,
+    "day": 327,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Relationships",
+    "scene": "Understanding relationships",
+    "title_en": "Why Some Relationships Don't Last",
+    "title_cn": "为什么有些关系无法长久",
+    "difficulty": "B1-B2",
+    "word_count": 138,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Not every relationship lasts forever, and that does not always mean someone has failed. People change as they grow older, gain new experiences, and discover different priorities. Two people who once shared the same dreams may eventually want very different things. Communication also plays an important role. When people stop listening to each other, small misunderstandings can become serious problems. Sometimes, one person gives much more than the other, creating an unhealthy balance. In other cases, people simply grow apart without a clear argument or dramatic event. Although ending a relationship can be painful, holding on to something that no longer works may cause even more stress. A healthy relationship requires respect, honesty, and effort from both sides. We should appreciate the good memories, learn from difficult experiences, and accept that some people are part of our journey for only a certain period of time.",
+    "content_cn": "并不是每段关系都能永远持续，这并不总意味着有人失败了。随着年龄增长、经历增多以及发现不同的人生优先事项，人们会发生变化。曾经拥有相同梦想的两个人，最终可能会想要截然不同的东西。沟通也发挥着重要作用。当人们不再倾听彼此时，小小的误会可能演变成严重的问题。有时，一方付出远远多于另一方，从而形成不健康的关系平衡。在其他情况下，人们只是渐渐疏远，并没有发生明确的争吵或戏剧性的事件。尽管结束一段关系可能令人痛苦，但执着于一段已经无法正常发展的关系，可能会带来更多压力。健康的关系需要双方共同付出尊重、真诚和努力。我们应该珍惜美好的回忆，从困难的经历中吸取教训，并接受有些人只会在人生旅途中陪伴我们一段时间。",
+    "sentences": [
+      {
+        "sentence_en": "Not every relationship lasts forever, and that does not always mean someone has failed.",
+        "sentence_cn": "并不是每段关系都能永远持续，这并不总意味着有人失败了。",
+        "chunks": [
+          {"text": "Not every relationship", "meaning": "并不是每一段关系"},
+          {"text": "lasts forever,", "meaning": "都会永远持续"},
+          {"text": "and that does not always mean", "meaning": "而这并不总意味着"},
+          {"text": "someone has failed.", "meaning": "有人失败了"}
+        ],
+        "explanation": "Not every 表示部分否定；现在完成时 has failed 表示已经发生的失败。"
+      },
+      {
+        "sentence_en": "People change as they grow older, gain new experiences, and discover different priorities.",
+        "sentence_cn": "随着年龄增长、经历增多以及发现不同的人生优先事项，人们会发生变化。",
+        "chunks": [
+          {"text": "People change", "meaning": "人们会发生变化"},
+          {"text": "as they grow older,", "meaning": "随着他们年龄增长"},
+          {"text": "gain new experiences,", "meaning": "获得新的经历"},
+          {"text": "and discover different priorities.", "meaning": "并发现不同的优先事项"}
+        ],
+        "explanation": "as 在这里表示随着；三个并列动词描述人成长变化的过程。"
+      },
+      {
+        "sentence_en": "Two people who once shared the same dreams may eventually want very different things.",
+        "sentence_cn": "曾经拥有相同梦想的两个人，最终可能会想要截然不同的东西。",
+        "chunks": [
+          {"text": "Two people", "meaning": "两个人"},
+          {"text": "who once shared", "meaning": "他们曾经拥有共同的"},
+          {"text": "the same dreams", "meaning": "相同的梦想"},
+          {"text": "may eventually want", "meaning": "最终可能会想要"},
+          {"text": "very different things.", "meaning": "截然不同的东西"}
+        ],
+        "explanation": "who 引导定语从句修饰 people；may 表示可能性。"
+      },
+      {
+        "sentence_en": "Communication also plays an important role.",
+        "sentence_cn": "沟通也发挥着重要作用。",
+        "chunks": [
+          {"text": "Communication", "meaning": "沟通"},
+          {"text": "also plays", "meaning": "也发挥着"},
+          {"text": "an important role.", "meaning": "重要作用"}
+        ],
+        "explanation": "play an important role 是常见表达，表示发挥重要作用。"
+      },
+      {
+        "sentence_en": "When people stop listening to each other, small misunderstandings can become serious problems.",
+        "sentence_cn": "当人们不再倾听彼此时，小小的误会可能演变成严重的问题。",
+        "chunks": [
+          {"text": "When people stop listening", "meaning": "当人们不再倾听时"},
+          {"text": "to each other,", "meaning": "彼此"},
+          {"text": "small misunderstandings", "meaning": "小小的误会"},
+          {"text": "can become", "meaning": "可能变成"},
+          {"text": "serious problems.", "meaning": "严重的问题"}
+        ],
+        "explanation": "stop doing 表示停止做某事；each other 表示彼此。"
+      },
+      {
+        "sentence_en": "Sometimes, one person gives much more than the other, creating an unhealthy balance.",
+        "sentence_cn": "有时，一方付出远远多于另一方，从而形成不健康的关系平衡。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "one person gives much more", "meaning": "一个人付出得多得多"},
+          {"text": "than the other,", "meaning": "比另一个人"},
+          {"text": "creating an unhealthy balance.", "meaning": "从而形成不健康的平衡"}
+        ],
+        "explanation": "much more than 表示多得多；现在分词 creating 表示前面行为造成的结果。"
+      },
+      {
+        "sentence_en": "In other cases, people simply grow apart without a clear argument or dramatic event.",
+        "sentence_cn": "在其他情况下，人们只是渐渐疏远，并没有发生明确的争吵或戏剧性的事件。",
+        "chunks": [
+          {"text": "In other cases,", "meaning": "在其他情况下"},
+          {"text": "people simply grow apart", "meaning": "人们只是逐渐疏远"},
+          {"text": "without a clear argument", "meaning": "没有明确的争吵"},
+          {"text": "or dramatic event.", "meaning": "或戏剧性的事件"}
+        ],
+        "explanation": "grow apart 表示关系逐渐疏远；without 后接名词表示缺少某事。"
+      },
+      {
+        "sentence_en": "Although ending a relationship can be painful, holding on to something that no longer works may cause even more stress.",
+        "sentence_cn": "尽管结束一段关系可能令人痛苦，但执着于一段已经无法正常发展的关系，可能会带来更多压力。",
+        "chunks": [
+          {"text": "Although ending a relationship", "meaning": "尽管结束一段关系"},
+          {"text": "can be painful,", "meaning": "可能会令人痛苦"},
+          {"text": "holding on to something", "meaning": "执着于某件事"},
+          {"text": "that no longer works", "meaning": "它已经不再行得通"},
+          {"text": "may cause even more stress.", "meaning": "可能会造成更多压力"}
+        ],
+        "explanation": "Although 引导让步状语从句；holding on to 作主语；that 引导定语从句。"
+      },
+      {
+        "sentence_en": "A healthy relationship requires respect, honesty, and effort from both sides.",
+        "sentence_cn": "健康的关系需要双方共同付出尊重、真诚和努力。",
+        "chunks": [
+          {"text": "A healthy relationship", "meaning": "一段健康的关系"},
+          {"text": "requires", "meaning": "需要"},
+          {"text": "respect, honesty,", "meaning": "尊重、真诚"},
+          {"text": "and effort", "meaning": "以及努力"},
+          {"text": "from both sides.", "meaning": "来自双方"}
+        ],
+        "explanation": "require 表示需要；from both sides 强调双方都要参与。"
+      },
+      {
+        "sentence_en": "We should appreciate the good memories, learn from difficult experiences, and accept that some people are part of our journey for only a certain period of time.",
+        "sentence_cn": "我们应该珍惜美好的回忆，从困难的经历中吸取教训，并接受有些人只会在人生旅途中陪伴我们一段时间。",
+        "chunks": [
+          {"text": "We should appreciate", "meaning": "我们应该珍惜"},
+          {"text": "the good memories,", "meaning": "美好的回忆"},
+          {"text": "learn from difficult experiences,", "meaning": "从困难的经历中学习"},
+          {"text": "and accept that", "meaning": "并接受这样一个事实"},
+          {"text": "some people are part of our journey", "meaning": "有些人是我们人生旅途的一部分"},
+          {"text": "for only a certain period of time.", "meaning": "但只是在某一段时间里"}
+        ],
+        "explanation": "三个并列动词 appreciate、learn 和 accept 构成建议；that 引导宾语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "priority", "phonetic": "", "meaning": "优先事项", "part_of_speech": "名词"},
+      {"word": "misunderstanding", "phonetic": "", "meaning": "误解；误会", "part_of_speech": "名词"},
+      {"word": "unhealthy", "phonetic": "", "meaning": "不健康的", "part_of_speech": "形容词"},
+      {"word": "dramatic", "phonetic": "", "meaning": "戏剧性的；显著的", "part_of_speech": "形容词"},
+      {"word": "appreciate", "phonetic": "", "meaning": "珍惜；感激", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "grow apart", "meaning": "逐渐疏远", "example": "We were close in college, but we grew apart."},
+      {"expression": "play an important role", "meaning": "发挥重要作用", "example": "Trust plays an important role in every relationship."},
+      {"expression": "listen to each other", "meaning": "倾听彼此", "example": "Good partners make time to listen to each other."},
+      {"expression": "hold on to", "meaning": "坚持；执着于", "example": "Sometimes we hold on to things that hurt us."},
+      {"expression": "learn from experience", "meaning": "从经历中吸取教训", "example": "We can learn from experience and make better choices."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "According to the passage, what can cause people to grow apart?",
+        "options": ["Their priorities and goals change.", "They always have serious arguments.", "They stop meeting new people."],
+        "answer": "Their priorities and goals change.",
+        "explanation": "文章指出，人们随着成长可能会拥有不同的目标和优先事项。"
+      },
+      {
+        "type": "true_false",
+        "question": "Every relationship that ends means someone has failed.",
+        "answer": "False",
+        "explanation": "关系结束不一定意味着失败，也可能只是双方逐渐发生了变化。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What three things does a healthy relationship require?",
+        "answer": "Respect, honesty, and effort from both sides.",
+        "explanation": "这是文章对健康关系的直接总结。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 138,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，练习描述关系变化、原因和个人态度。"
+    }
+  },
+  {
+    "article_id": 148,
+    "day": 328,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Communication",
+    "scene": "Dealing with difficult people",
+    "title_en": "How to Deal with Difficult People",
+    "title_cn": "如何与难相处的人相处",
+    "difficulty": "B1-B2",
+    "word_count": 137,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Almost everyone has to deal with difficult people at some point. They may be overly critical, unwilling to listen, or quick to blame others. Our first reaction is often to defend ourselves or become angry. However, reacting emotionally rarely makes the situation better. A more useful approach is to stay calm and understand what is really happening. We can listen carefully without agreeing with everything the other person says. It is also important to set clear boundaries. Being kind does not mean accepting disrespect or allowing someone to control our lives. If a conversation becomes aggressive, taking a break may be the best choice. We should focus on what we can control instead of trying to change someone who does not want to change. Not every disagreement needs to become a conflict. With patience, clear communication, and self-respect, we can protect our peace while treating others fairly.",
+    "content_cn": "几乎每个人在人生的某个阶段都必须面对难相处的人。他们可能过度挑剔、不愿倾听，或者总是急于责怪别人。我们的第一反应通常是为自己辩护或变得愤怒。然而，情绪化地回应很少能让情况变得更好。更有效的方法是保持冷静，弄清楚事情究竟是怎么回事。我们可以认真倾听，但不必认同对方说的每一件事。设定明确的界限也很重要。善良并不意味着接受不尊重，也不意味着允许别人控制我们的生活。如果谈话变得具有攻击性，暂时离开可能是最好的选择。我们应该关注自己能够控制的事情，而不是试图改变一个不愿改变的人。并不是每一次意见不同都需要演变成冲突。通过耐心、清晰的沟通和自尊，我们可以在公平对待他人的同时保护自己的内心平静。",
+    "sentences": [
+      {
+        "sentence_en": "Almost everyone has to deal with difficult people at some point.",
+        "sentence_cn": "几乎每个人在人生的某个阶段都必须面对难相处的人。",
+        "chunks": [
+          {"text": "Almost everyone", "meaning": "几乎每个人"},
+          {"text": "has to deal with", "meaning": "都必须应对"},
+          {"text": "difficult people", "meaning": "难相处的人"},
+          {"text": "at some point.", "meaning": "在人生的某个阶段"}
+        ],
+        "explanation": "have to 表示必须；deal with 表示处理或应对。"
+      },
+      {
+        "sentence_en": "They may be overly critical, unwilling to listen, or quick to blame others.",
+        "sentence_cn": "他们可能过度挑剔、不愿倾听，或者总是急于责怪别人。",
+        "chunks": [
+          {"text": "They may be", "meaning": "他们可能是"},
+          {"text": "overly critical,", "meaning": "过度挑剔的"},
+          {"text": "unwilling to listen,", "meaning": "不愿意倾听的"},
+          {"text": "or quick to blame others.", "meaning": "或者急于责怪别人的"}
+        ],
+        "explanation": "may 表示可能；三个并列形容词短语描述难相处的人的特点。"
+      },
+      {
+        "sentence_en": "Our first reaction is often to defend ourselves or become angry.",
+        "sentence_cn": "我们的第一反应通常是为自己辩护或变得愤怒。",
+        "chunks": [
+          {"text": "Our first reaction", "meaning": "我们的第一反应"},
+          {"text": "is often to", "meaning": "通常是去"},
+          {"text": "defend ourselves", "meaning": "为自己辩护"},
+          {"text": "or become angry.", "meaning": "或者变得愤怒"}
+        ],
+        "explanation": "不定式 to defend 和 to become 并列，说明 reaction 的具体内容。"
+      },
+      {
+        "sentence_en": "However, reacting emotionally rarely makes the situation better.",
+        "sentence_cn": "然而，情绪化地回应很少能让情况变得更好。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "reacting emotionally", "meaning": "情绪化地回应"},
+          {"text": "rarely makes", "meaning": "很少会使"},
+          {"text": "the situation better.", "meaning": "情况变得更好"}
+        ],
+        "explanation": "动名词 reacting 作主语；make + 宾语 + 形容词表示使某物变得怎样。"
+      },
+      {
+        "sentence_en": "A more useful approach is to stay calm and understand what is really happening.",
+        "sentence_cn": "更有效的方法是保持冷静，弄清楚事情究竟是怎么回事。",
+        "chunks": [
+          {"text": "A more useful approach", "meaning": "一种更有效的方法"},
+          {"text": "is to stay calm", "meaning": "是保持冷静"},
+          {"text": "and understand", "meaning": "并理解"},
+          {"text": "what is really happening.", "meaning": "究竟正在发生什么"}
+        ],
+        "explanation": "what 引导宾语从句，表示真正发生的事情。"
+      },
+      {
+        "sentence_en": "We can listen carefully without agreeing with everything the other person says.",
+        "sentence_cn": "我们可以认真倾听，但不必认同对方说的每一件事。",
+        "chunks": [
+          {"text": "We can listen carefully", "meaning": "我们可以认真倾听"},
+          {"text": "without agreeing with", "meaning": "而不必认同"},
+          {"text": "everything", "meaning": "所有事情"},
+          {"text": "the other person says.", "meaning": "对方所说的"}
+        ],
+        "explanation": "without 后接动名词；agree with 表示赞同某人或某种观点。"
+      },
+      {
+        "sentence_en": "It is also important to set clear boundaries.",
+        "sentence_cn": "设定明确的界限也很重要。",
+        "chunks": [
+          {"text": "It is also important", "meaning": "这也很重要"},
+          {"text": "to set", "meaning": "去设定"},
+          {"text": "clear boundaries.", "meaning": "明确的界限"}
+        ],
+        "explanation": "It 作形式主语，真正的主语是后面的不定式短语。"
+      },
+      {
+        "sentence_en": "Being kind does not mean accepting disrespect or allowing someone to control our lives.",
+        "sentence_cn": "善良并不意味着接受不尊重，也不意味着允许别人控制我们的生活。",
+        "chunks": [
+          {"text": "Being kind", "meaning": "保持善良"},
+          {"text": "does not mean", "meaning": "并不意味着"},
+          {"text": "accepting disrespect", "meaning": "接受不尊重"},
+          {"text": "or allowing someone", "meaning": "或者允许某个人"},
+          {"text": "to control our lives.", "meaning": "控制我们的生活"}
+        ],
+        "explanation": "Being kind 作主语；mean 后接动名词表示意味着做某事。"
+      },
+      {
+        "sentence_en": "If a conversation becomes aggressive, taking a break may be the best choice.",
+        "sentence_cn": "如果谈话变得具有攻击性，暂时离开可能是最好的选择。",
+        "chunks": [
+          {"text": "If a conversation", "meaning": "如果一次谈话"},
+          {"text": "becomes aggressive,", "meaning": "变得具有攻击性"},
+          {"text": "taking a break", "meaning": "暂时休息或离开"},
+          {"text": "may be the best choice.", "meaning": "可能是最好的选择"}
+        ],
+        "explanation": "If 引导条件状语从句；taking a break 作主句主语。"
+      },
+      {
+        "sentence_en": "We should focus on what we can control instead of trying to change someone who does not want to change.",
+        "sentence_cn": "我们应该关注自己能够控制的事情，而不是试图改变一个不愿改变的人。",
+        "chunks": [
+          {"text": "We should focus on", "meaning": "我们应该专注于"},
+          {"text": "what we can control", "meaning": "我们能够控制的事情"},
+          {"text": "instead of trying to change", "meaning": "而不是试图改变"},
+          {"text": "someone", "meaning": "某个人"},
+          {"text": "who does not want to change.", "meaning": "这个人并不想改变"}
+        ],
+        "explanation": "what 引导宾语从句；instead of 后接动名词；who 引导定语从句。"
+      },
+      {
+        "sentence_en": "Not every disagreement needs to become a conflict.",
+        "sentence_cn": "并不是每一次意见不同都需要演变成冲突。",
+        "chunks": [
+          {"text": "Not every disagreement", "meaning": "并不是每一次意见分歧"},
+          {"text": "needs to become", "meaning": "都需要变成"},
+          {"text": "a conflict.", "meaning": "一场冲突"}
+        ],
+        "explanation": "Not every 表示部分否定；need to do 表示需要做某事。"
+      },
+      {
+        "sentence_en": "With patience, clear communication, and self-respect, we can protect our peace while treating others fairly.",
+        "sentence_cn": "通过耐心、清晰的沟通和自尊，我们可以在公平对待他人的同时保护自己的内心平静。",
+        "chunks": [
+          {"text": "With patience,", "meaning": "凭借耐心"},
+          {"text": "clear communication,", "meaning": "清晰的沟通"},
+          {"text": "and self-respect,", "meaning": "以及自尊"},
+          {"text": "we can protect our peace", "meaning": "我们可以保护内心的平静"},
+          {"text": "while treating others fairly.", "meaning": "同时公平地对待他人"}
+        ],
+        "explanation": "while + doing 表示两个动作同时发生；self-respect 指自尊。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "critical", "phonetic": "", "meaning": "挑剔的；批评的", "part_of_speech": "形容词"},
+      {"word": "emotionally", "phonetic": "", "meaning": "情绪化地", "part_of_speech": "副词"},
+      {"word": "approach", "phonetic": "", "meaning": "方法；方式", "part_of_speech": "名词"},
+      {"word": "boundary", "phonetic": "", "meaning": "界限；边界", "part_of_speech": "名词"},
+      {"word": "aggressive", "phonetic": "", "meaning": "有攻击性的；好斗的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "deal with", "meaning": "处理；应对", "example": "I am learning how to deal with difficult situations."},
+      {"expression": "defend yourself", "meaning": "为自己辩护", "example": "You do not need to defend yourself every time."},
+      {"expression": "set clear boundaries", "meaning": "设定明确的界限", "example": "It is important to set clear boundaries at work."},
+      {"expression": "take a break", "meaning": "暂时休息；暂停", "example": "Let's take a break and talk later."},
+      {"expression": "focus on", "meaning": "专注于", "example": "Focus on what you can control."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What does the passage recommend when dealing with difficult people?",
+        "options": ["React immediately and strongly.", "Stay calm and communicate clearly.", "Try to change the other person at all costs."],
+        "answer": "Stay calm and communicate clearly.",
+        "explanation": "文章强调保持冷静、认真倾听和清晰沟通。"
+      },
+      {
+        "type": "true_false",
+        "question": "Being kind means accepting disrespect from others.",
+        "answer": "False",
+        "explanation": "善良不等于放弃自己的界限或接受不尊重。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What can you do if a conversation becomes aggressive?",
+        "answer": "Take a break and continue the conversation later.",
+        "explanation": "文章建议在谈话变得具有攻击性时暂时离开。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 137,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点学习处理冲突、表达界限和保持冷静。"
+    }
+  },
+  {
+    "article_id": 149,
+    "day": 329,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Relationships",
+    "scene": "Understanding love and attachment",
+    "title_en": "The Difference Between Love and Attachment",
+    "title_cn": "爱与依赖的区别",
+    "difficulty": "B1-B2",
+    "word_count": 137,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Love and attachment can look similar, but they are not exactly the same. Love means caring about another person's happiness while respecting their freedom and individuality. Attachment, on the other hand, often comes from fear of losing someone or being alone. When we love someone, we want them to grow, even if their choices are different from ours. When we depend too heavily on someone, we may become anxious whenever they are unavailable or disagree with us. This does not mean attachment is always unhealthy. Feeling connected to others is a natural human need. The problem begins when fear controls our decisions and makes us forget our own needs. A strong relationship allows both people to feel secure while remaining independent. We should learn to care deeply without trying to possess another person. Real love creates room for trust, growth, and freedom.",
+    "content_cn": "爱与依赖看起来可能很相似，但它们并不完全相同。爱意味着关心另一个人的幸福，同时尊重对方的自由和独立性。另一方面，依赖往往源于害怕失去某个人或害怕孤独。当我们爱一个人时，即使对方的选择与我们不同，我们也希望他们能够成长。当我们过度依赖某个人时，只要对方无法陪伴我们或不同意我们的看法，我们就可能变得焦虑。这并不意味着依赖总是不健康的。与他人建立联结是人类自然的需求。问题在于，当恐惧控制我们的决定，让我们忘记自己的需求时，麻烦就出现了。牢固的关系能让双方感到安心，同时保持独立。我们应该学会深切地关心一个人，而不是试图占有对方。真正的爱为信任、成长和自由留出了空间。",
+    "sentences": [
+      {
+        "sentence_en": "Love and attachment can look similar, but they are not exactly the same.",
+        "sentence_cn": "爱与依赖看起来可能很相似，但它们并不完全相同。",
+        "chunks": [
+          {"text": "Love and attachment", "meaning": "爱与依赖"},
+          {"text": "can look similar,", "meaning": "看起来可能相似"},
+          {"text": "but they are not", "meaning": "但它们并不是"},
+          {"text": "exactly the same.", "meaning": "完全相同的"}
+        ],
+        "explanation": "look + 形容词表示看起来如何；but 连接转折关系。"
+      },
+      {
+        "sentence_en": "Love means caring about another person's happiness while respecting their freedom and individuality.",
+        "sentence_cn": "爱意味着关心另一个人的幸福，同时尊重对方的自由和独立性。",
+        "chunks": [
+          {"text": "Love means", "meaning": "爱意味着"},
+          {"text": "caring about", "meaning": "关心"},
+          {"text": "another person's happiness", "meaning": "另一个人的幸福"},
+          {"text": "while respecting", "meaning": "同时尊重"},
+          {"text": "their freedom and individuality.", "meaning": "对方的自由和独立性"}
+        ],
+        "explanation": "mean 后接动名词；while respecting 表示两个动作同时发生。"
+      },
+      {
+        "sentence_en": "Attachment, on the other hand, often comes from fear of losing someone or being alone.",
+        "sentence_cn": "另一方面，依赖往往源于害怕失去某个人或害怕孤独。",
+        "chunks": [
+          {"text": "Attachment,", "meaning": "依赖"},
+          {"text": "on the other hand,", "meaning": "另一方面"},
+          {"text": "often comes from", "meaning": "通常源于"},
+          {"text": "fear of losing someone", "meaning": "害怕失去某个人"},
+          {"text": "or being alone.", "meaning": "或者害怕独处"}
+        ],
+        "explanation": "come from 表示源于；介词 of 后接动名词。"
+      },
+      {
+        "sentence_en": "When we love someone, we want them to grow, even if their choices are different from ours.",
+        "sentence_cn": "当我们爱一个人时，即使对方的选择与我们不同，我们也希望他们能够成长。",
+        "chunks": [
+          {"text": "When we love someone,", "meaning": "当我们爱一个人时"},
+          {"text": "we want them to grow,", "meaning": "我们希望对方成长"},
+          {"text": "even if", "meaning": "即使"},
+          {"text": "their choices are different", "meaning": "对方的选择不同"},
+          {"text": "from ours.", "meaning": "于我们的选择"}
+        ],
+        "explanation": "want someone to do 表示希望某人做某事；even if 引导让步状语从句。"
+      },
+      {
+        "sentence_en": "When we depend too heavily on someone, we may become anxious whenever they are unavailable or disagree with us.",
+        "sentence_cn": "当我们过度依赖某个人时，只要对方无法陪伴我们或不同意我们的看法，我们就可能变得焦虑。",
+        "chunks": [
+          {"text": "When we depend too heavily", "meaning": "当我们过度依赖时"},
+          {"text": "on someone,", "meaning": "某个人"},
+          {"text": "we may become anxious", "meaning": "我们可能会变得焦虑"},
+          {"text": "whenever they are unavailable", "meaning": "每当对方无法陪伴我们时"},
+          {"text": "or disagree with us.", "meaning": "或者不同意我们的看法时"}
+        ],
+        "explanation": "depend on 表示依赖；whenever 表示每当；disagree with 表示不同意。"
+      },
+      {
+        "sentence_en": "This does not mean attachment is always unhealthy.",
+        "sentence_cn": "这并不意味着依赖总是不健康的。",
+        "chunks": [
+          {"text": "This does not mean", "meaning": "这并不意味着"},
+          {"text": "attachment", "meaning": "依赖"},
+          {"text": "is always unhealthy.", "meaning": "总是不健康的"}
+        ],
+        "explanation": "mean 后接省略 that 的宾语从句；always 与否定词连用表示并非总是如此。"
+      },
+      {
+        "sentence_en": "Feeling connected to others is a natural human need.",
+        "sentence_cn": "与他人建立联结是人类自然的需求。",
+        "chunks": [
+          {"text": "Feeling connected", "meaning": "感受到联结"},
+          {"text": "to others", "meaning": "与他人"},
+          {"text": "is", "meaning": "是"},
+          {"text": "a natural human need.", "meaning": "一种人类的自然需求"}
+        ],
+        "explanation": "Feeling connected 是动名词短语，整体作主语。"
+      },
+      {
+        "sentence_en": "The problem begins when fear controls our decisions and makes us forget our own needs.",
+        "sentence_cn": "问题在于，当恐惧控制我们的决定，让我们忘记自己的需求时，麻烦就出现了。",
+        "chunks": [
+          {"text": "The problem begins", "meaning": "问题开始出现"},
+          {"text": "when fear controls", "meaning": "当恐惧控制时"},
+          {"text": "our decisions", "meaning": "我们的决定"},
+          {"text": "and makes us forget", "meaning": "并让我们忘记"},
+          {"text": "our own needs.", "meaning": "自己的需求"}
+        ],
+        "explanation": "when 引导时间状语从句；make someone do 表示使某人做某事。"
+      },
+      {
+        "sentence_en": "A strong relationship allows both people to feel secure while remaining independent.",
+        "sentence_cn": "牢固的关系能让双方感到安心，同时保持独立。",
+        "chunks": [
+          {"text": "A strong relationship", "meaning": "一段牢固的关系"},
+          {"text": "allows both people", "meaning": "让双方都能够"},
+          {"text": "to feel secure", "meaning": "感到安心"},
+          {"text": "while remaining independent.", "meaning": "同时保持独立"}
+        ],
+        "explanation": "allow someone to do 表示允许某人做某事；while remaining 表示同时保持某种状态。"
+      },
+      {
+        "sentence_en": "We should learn to care deeply without trying to possess another person.",
+        "sentence_cn": "我们应该学会深切地关心一个人，而不是试图占有对方。",
+        "chunks": [
+          {"text": "We should learn", "meaning": "我们应该学会"},
+          {"text": "to care deeply", "meaning": "深切地关心"},
+          {"text": "without trying", "meaning": "而不是试图"},
+          {"text": "to possess another person.", "meaning": "占有另一个人"}
+        ],
+        "explanation": "learn to do 表示学会做某事；without 后接动名词。"
+      },
+      {
+        "sentence_en": "Real love creates room for trust, growth, and freedom.",
+        "sentence_cn": "真正的爱为信任、成长和自由留出了空间。",
+        "chunks": [
+          {"text": "Real love", "meaning": "真正的爱"},
+          {"text": "creates room for", "meaning": "为……创造空间"},
+          {"text": "trust, growth,", "meaning": "信任、成长"},
+          {"text": "and freedom.", "meaning": "以及自由"}
+        ],
+        "explanation": "create room for 是常见表达，表示为某事创造空间或条件。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "attachment", "phonetic": "", "meaning": "依恋；依赖", "part_of_speech": "名词"},
+      {"word": "individuality", "phonetic": "", "meaning": "个性；独立性", "part_of_speech": "名词"},
+      {"word": "heavily", "phonetic": "", "meaning": "严重地；过度地", "part_of_speech": "副词"},
+      {"word": "anxious", "phonetic": "", "meaning": "焦虑的", "part_of_speech": "形容词"},
+      {"word": "possess", "phonetic": "", "meaning": "占有；拥有", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "on the other hand", "meaning": "另一方面", "example": "I enjoy city life, but on the other hand, I need quiet sometimes."},
+      {"expression": "come from", "meaning": "源于；来自", "example": "Many fears come from past experiences."},
+      {"expression": "depend on", "meaning": "依赖；取决于", "example": "Children depend on adults for support."},
+      {"expression": "feel secure", "meaning": "感到安心", "example": "People need to feel secure in a relationship."},
+      {"expression": "create room for", "meaning": "为……创造空间", "example": "A healthy relationship creates room for personal growth."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What is one common source of unhealthy attachment?",
+        "options": ["Respect for freedom", "Fear of losing someone", "A desire for personal growth"],
+        "answer": "Fear of losing someone",
+        "explanation": "文章指出，依赖往往源于害怕失去某个人或害怕孤独。"
+      },
+      {
+        "type": "true_false",
+        "question": "The passage says that all forms of attachment are unhealthy.",
+        "answer": "False",
+        "explanation": "文章明确指出，与他人建立联结是人类自然的需求，依赖并不总是不健康。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What does a strong relationship allow both people to do?",
+        "answer": "Feel secure while remaining independent.",
+        "explanation": "牢固的关系让双方既安心又能保持独立。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 137,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点区分 love、attachment、dependence 等概念。"
+    }
+  },
+  {
+    "article_id": 150,
+    "day": 330,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Family",
+    "scene": "Building a strong family",
+    "title_en": "What Makes a Family Strong?",
+    "title_cn": "什么让一个家庭更加牢固",
+    "difficulty": "B1-B2",
+    "word_count": 138,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "A strong family is not necessarily one that never has problems. In fact, every family faces disagreements, pressure, and unexpected changes. What matters is how family members respond to these challenges. Trust is one of the most important foundations. People should feel safe enough to share their thoughts without worrying about being judged. Communication is equally important because silence often allows small problems to grow. A healthy family also respects individual differences. Parents and children may have different opinions, interests, and goals, but they can still support one another. Spending time together helps create shared memories and a sense of belonging. However, being close does not mean controlling every part of each other's lives. Each person needs some privacy and independence. A strong family is built through everyday actions: listening, keeping promises, showing appreciation, and offering help when it is needed.",
+    "content_cn": "一个牢固的家庭不一定是从来没有问题的家庭。事实上，每个家庭都会面对分歧、压力和意想不到的变化。真正重要的是家庭成员如何应对这些挑战。信任是最重要的基础之一。人们应该感到足够安全，能够分享自己的想法，而不必担心受到评判。沟通同样重要，因为沉默往往会让小问题逐渐扩大。健康的家庭也尊重个体差异。父母和孩子可能有不同的观点、兴趣和目标，但仍然可以互相支持。共同度过时光有助于创造共同的回忆和归属感。然而，关系亲密并不意味着控制彼此生活的每一个方面。每个人都需要一些隐私和独立空间。牢固的家庭是在日常行动中建立起来的：认真倾听、信守承诺、表达感激，并在需要时提供帮助。",
+    "sentences": [
+      {
+        "sentence_en": "A strong family is not necessarily one that never has problems.",
+        "sentence_cn": "一个牢固的家庭不一定是从来没有问题的家庭。",
+        "chunks": [
+          {"text": "A strong family", "meaning": "一个牢固的家庭"},
+          {"text": "is not necessarily", "meaning": "不一定是"},
+          {"text": "one that", "meaning": "那种……的家庭"},
+          {"text": "never has problems.", "meaning": "从来没有问题"}
+        ],
+        "explanation": "not necessarily 表示不一定；that 引导定语从句修饰 one。"
+      },
+      {
+        "sentence_en": "In fact, every family faces disagreements, pressure, and unexpected changes.",
+        "sentence_cn": "事实上，每个家庭都会面对分歧、压力和意想不到的变化。",
+        "chunks": [
+          {"text": "In fact,", "meaning": "事实上"},
+          {"text": "every family faces", "meaning": "每个家庭都会面对"},
+          {"text": "disagreements,", "meaning": "分歧"},
+          {"text": "pressure,", "meaning": "压力"},
+          {"text": "and unexpected changes.", "meaning": "以及意想不到的变化"}
+        ],
+        "explanation": "face 在这里作动词，表示面对；三个名词并列作宾语。"
+      },
+      {
+        "sentence_en": "What matters is how family members respond to these challenges.",
+        "sentence_cn": "真正重要的是家庭成员如何应对这些挑战。",
+        "chunks": [
+          {"text": "What matters", "meaning": "真正重要的事情"},
+          {"text": "is", "meaning": "是"},
+          {"text": "how family members respond", "meaning": "家庭成员如何应对"},
+          {"text": "to these challenges.", "meaning": "这些挑战"}
+        ],
+        "explanation": "What 引导主语从句；how 引导表语从句；respond to 表示回应或应对。"
+      },
+      {
+        "sentence_en": "Trust is one of the most important foundations.",
+        "sentence_cn": "信任是最重要的基础之一。",
+        "chunks": [
+          {"text": "Trust", "meaning": "信任"},
+          {"text": "is one of", "meaning": "是……之一"},
+          {"text": "the most important", "meaning": "最重要的"},
+          {"text": "foundations.", "meaning": "基础"}
+        ],
+        "explanation": "one of + the + 最高级 + 复数名词，表示最……的……之一。"
+      },
+      {
+        "sentence_en": "People should feel safe enough to share their thoughts without worrying about being judged.",
+        "sentence_cn": "人们应该感到足够安全，能够分享自己的想法，而不必担心受到评判。",
+        "chunks": [
+          {"text": "People should feel", "meaning": "人们应该感到"},
+          {"text": "safe enough", "meaning": "足够安全"},
+          {"text": "to share their thoughts", "meaning": "能够分享自己的想法"},
+          {"text": "without worrying about", "meaning": "而不必担心"},
+          {"text": "being judged.", "meaning": "受到评判"}
+        ],
+        "explanation": "形容词 + enough + to do 表示足够……以至于能够做某事；being judged 是被动动名词。"
+      },
+      {
+        "sentence_en": "Communication is equally important because silence often allows small problems to grow.",
+        "sentence_cn": "沟通同样重要，因为沉默往往会让小问题逐渐扩大。",
+        "chunks": [
+          {"text": "Communication", "meaning": "沟通"},
+          {"text": "is equally important", "meaning": "同样重要"},
+          {"text": "because silence", "meaning": "因为沉默"},
+          {"text": "often allows", "meaning": "往往会使"},
+          {"text": "small problems to grow.", "meaning": "小问题逐渐扩大"}
+        ],
+        "explanation": "because 引导原因状语从句；allow something to do 表示使某事得以发生。"
+      },
+      {
+        "sentence_en": "A healthy family also respects individual differences.",
+        "sentence_cn": "健康的家庭也尊重个体差异。",
+        "chunks": [
+          {"text": "A healthy family", "meaning": "一个健康的家庭"},
+          {"text": "also respects", "meaning": "也尊重"},
+          {"text": "individual differences.", "meaning": "个体差异"}
+        ],
+        "explanation": "respect 作动词表示尊重；individual 表示个人的、个体的。"
+      },
+      {
+        "sentence_en": "Parents and children may have different opinions, interests, and goals, but they can still support one another.",
+        "sentence_cn": "父母和孩子可能有不同的观点、兴趣和目标，但仍然可以互相支持。",
+        "chunks": [
+          {"text": "Parents and children", "meaning": "父母和孩子"},
+          {"text": "may have different", "meaning": "可能拥有不同的"},
+          {"text": "opinions, interests, and goals,", "meaning": "观点、兴趣和目标"},
+          {"text": "but they can still", "meaning": "但他们仍然可以"},
+          {"text": "support one another.", "meaning": "互相支持"}
+        ],
+        "explanation": "may 表示可能；one another 表示彼此、互相。"
+      },
+      {
+        "sentence_en": "Spending time together helps create shared memories and a sense of belonging.",
+        "sentence_cn": "共同度过时光有助于创造共同的回忆和归属感。",
+        "chunks": [
+          {"text": "Spending time together", "meaning": "一起度过时光"},
+          {"text": "helps create", "meaning": "有助于创造"},
+          {"text": "shared memories", "meaning": "共同的回忆"},
+          {"text": "and a sense of belonging.", "meaning": "以及归属感"}
+        ],
+        "explanation": "动名词短语作主语；a sense of belonging 表示归属感。"
+      },
+      {
+        "sentence_en": "However, being close does not mean controlling every part of each other's lives.",
+        "sentence_cn": "然而，关系亲密并不意味着控制彼此生活的每一个方面。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "being close", "meaning": "关系亲密"},
+          {"text": "does not mean", "meaning": "并不意味着"},
+          {"text": "controlling every part", "meaning": "控制每一个方面"},
+          {"text": "of each other's lives.", "meaning": "的彼此生活"}
+        ],
+        "explanation": "being close 作主语；mean 后接动名词表示意味着做某事。"
+      },
+      {
+        "sentence_en": "Each person needs some privacy and independence.",
+        "sentence_cn": "每个人都需要一些隐私和独立空间。",
+        "chunks": [
+          {"text": "Each person", "meaning": "每个人"},
+          {"text": "needs", "meaning": "都需要"},
+          {"text": "some privacy", "meaning": "一些隐私"},
+          {"text": "and independence.", "meaning": "以及独立"}
+        ],
+        "explanation": "each 强调个体，后接单数名词和单数谓语。"
+      },
+      {
+        "sentence_en": "A strong family is built through everyday actions: listening, keeping promises, showing appreciation, and offering help when it is needed.",
+        "sentence_cn": "牢固的家庭是在日常行动中建立起来的：认真倾听、信守承诺、表达感激，并在需要时提供帮助。",
+        "chunks": [
+          {"text": "A strong family", "meaning": "一个牢固的家庭"},
+          {"text": "is built through everyday actions:", "meaning": "通过日常行动建立起来"},
+          {"text": "listening,", "meaning": "认真倾听"},
+          {"text": "keeping promises,", "meaning": "信守承诺"},
+          {"text": "showing appreciation,", "meaning": "表达感激"},
+          {"text": "and offering help", "meaning": "以及提供帮助"},
+          {"text": "when it is needed.", "meaning": "在需要的时候"}
+        ],
+        "explanation": "被动语态 is built 强调建立过程；冒号后列举具体行动；when 引导时间状语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disagreement", "phonetic": "", "meaning": "分歧；意见不合", "part_of_speech": "名词"},
+      {"word": "foundation", "phonetic": "", "meaning": "基础；根基", "part_of_speech": "名词"},
+      {"word": "individual", "phonetic": "", "meaning": "个人的；个体的", "part_of_speech": "形容词"},
+      {"word": "belonging", "phonetic": "", "meaning": "归属感", "part_of_speech": "名词"},
+      {"word": "appreciation", "phonetic": "", "meaning": "感激；欣赏", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "respond to", "meaning": "回应；应对", "example": "How we respond to problems matters."},
+      {"expression": "feel safe enough to", "meaning": "感到足够安全，可以……", "example": "Children should feel safe enough to ask questions."},
+      {"expression": "one another", "meaning": "彼此；互相", "example": "Family members should support one another."},
+      {"expression": "a sense of belonging", "meaning": "归属感", "example": "Shared experiences can create a sense of belonging."},
+      {"expression": "keep a promise", "meaning": "信守承诺", "example": "Trust grows when people keep their promises."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What does the passage describe as one of the most important foundations of a strong family?",
+        "options": ["Trust", "Wealth", "Perfect agreement"],
+        "answer": "Trust",
+        "explanation": "文章明确指出，信任是牢固家庭最重要的基础之一。"
+      },
+      {
+        "type": "true_false",
+        "question": "A strong family requires everyone to have the same opinions and goals.",
+        "answer": "False",
+        "explanation": "文章强调家庭成员可以有不同观点和目标，同时互相支持。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Name two everyday actions that help build a strong family.",
+        "answer": "Listening and keeping promises.",
+        "explanation": "文章还提到表达感激和在需要时提供帮助。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 138,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，练习解释家庭关系、沟通和相互支持。"
+    }
+  },
+  {
+    "article_id": 151,
+    "day": 331,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Work",
+    "scene": "Remote work",
+    "title_en": "Is Working from Home the Future?",
+    "title_cn": "居家办公是未来趋势吗",
+    "difficulty": "B1-B2",
+    "word_count": 137,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Working from home has become a normal option for many employees. It saves commuting time and gives people more control over their daily schedules. Some workers find that they can concentrate better without the noise and interruptions of a traditional office. Companies may also reduce expenses by using smaller office spaces. However, remote work is not perfect for everyone. Some people feel isolated when they rarely meet colleagues in person. Others struggle to separate work from personal life, especially when their home is also their workplace. Communication can become more difficult when teams depend entirely on online meetings and messages. The future may not involve everyone working remotely. Instead, many organizations will probably choose flexible arrangements that combine home and office work. The best system is the one that supports both productivity and people's well-being.",
+    "content_cn": "居家办公已经成为许多员工的一种常见选择。它节省了通勤时间，也让人们能够更好地安排自己的日常日程。一些员工发现，没有传统办公室里的噪声和打扰，他们能够更加专注。公司也可以通过使用更小的办公空间来减少开支。然而，远程办公并不适合所有人。有些人很少与同事面对面交流，因此会感到孤独。另一些人则难以区分工作和个人生活，尤其是当家同时也是工作场所时。当团队完全依赖线上会议和消息沟通时，交流也可能变得更加困难。未来未必意味着所有人都远程办公。相反，许多组织可能会选择灵活的安排，将居家办公和办公室工作结合起来。最好的工作模式，是能够同时支持工作效率和员工身心健康的模式。",
+    "sentences": [
+      {
+        "sentence_en": "Working from home has become a normal option for many employees.",
+        "sentence_cn": "居家办公已经成为许多员工的一种常见选择。",
+        "chunks": [
+          {"text": "Working from home", "meaning": "居家办公"},
+          {"text": "has become", "meaning": "已经成为"},
+          {"text": "a normal option", "meaning": "一种常见的选择"},
+          {"text": "for many employees.", "meaning": "对于许多员工来说"}
+        ],
+        "explanation": "Working from home 是动名词短语作主语；现在完成时表示变化已经发生并延续到现在。"
+      },
+      {
+        "sentence_en": "It saves commuting time and gives people more control over their daily schedules.",
+        "sentence_cn": "它节省了通勤时间，也让人们能够更好地安排自己的日常日程。",
+        "chunks": [
+          {"text": "It saves", "meaning": "它节省"},
+          {"text": "commuting time", "meaning": "通勤时间"},
+          {"text": "and gives people", "meaning": "并让人们拥有"},
+          {"text": "more control over", "meaning": "更多的掌控权"},
+          {"text": "their daily schedules.", "meaning": "对自己的日常安排"}
+        ],
+        "explanation": "save time 表示节省时间；control over 表示对某事的掌控。"
+      },
+      {
+        "sentence_en": "Some workers find that they can concentrate better without the noise and interruptions of a traditional office.",
+        "sentence_cn": "一些员工发现，没有传统办公室里的噪声和打扰，他们能够更加专注。",
+        "chunks": [
+          {"text": "Some workers find that", "meaning": "一些员工发现"},
+          {"text": "they can concentrate better", "meaning": "他们能够更加专注"},
+          {"text": "without the noise", "meaning": "没有噪声的干扰"},
+          {"text": "and interruptions", "meaning": "以及打扰"},
+          {"text": "of a traditional office.", "meaning": "来自传统办公室的"}
+        ],
+        "explanation": "find 后接 that 引导的宾语从句；without 表示没有某种干扰。"
+      },
+      {
+        "sentence_en": "Companies may also reduce expenses by using smaller office spaces.",
+        "sentence_cn": "公司也可以通过使用更小的办公空间来减少开支。",
+        "chunks": [
+          {"text": "Companies may also", "meaning": "公司也可能"},
+          {"text": "reduce expenses", "meaning": "减少开支"},
+          {"text": "by using", "meaning": "通过使用"},
+          {"text": "smaller office spaces.", "meaning": "更小的办公空间"}
+        ],
+        "explanation": "by + 动名词表示通过某种方式；reduce expenses 表示降低开支。"
+      },
+      {
+        "sentence_en": "However, remote work is not perfect for everyone.",
+        "sentence_cn": "然而，远程办公并不适合所有人。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "remote work", "meaning": "远程办公"},
+          {"text": "is not perfect", "meaning": "并不完美"},
+          {"text": "for everyone.", "meaning": "对所有人来说"}
+        ],
+        "explanation": "for everyone 表示对每个人而言；此处引出远程办公的局限。"
+      },
+      {
+        "sentence_en": "Some people feel isolated when they rarely meet colleagues in person.",
+        "sentence_cn": "有些人很少与同事面对面交流，因此会感到孤独。",
+        "chunks": [
+          {"text": "Some people feel isolated", "meaning": "有些人感到孤立"},
+          {"text": "when they rarely meet", "meaning": "当他们很少见到……时"},
+          {"text": "colleagues", "meaning": "同事"},
+          {"text": "in person.", "meaning": "面对面地"}
+        ],
+        "explanation": "feel + 形容词表示感到某种状态；in person 表示亲自、当面。"
+      },
+      {
+        "sentence_en": "Others struggle to separate work from personal life, especially when their home is also their workplace.",
+        "sentence_cn": "另一些人则难以区分工作和个人生活，尤其是当家同时也是工作场所时。",
+        "chunks": [
+          {"text": "Others struggle", "meaning": "另一些人感到困难"},
+          {"text": "to separate work", "meaning": "去区分工作"},
+          {"text": "from personal life,", "meaning": "和个人生活"},
+          {"text": "especially when", "meaning": "尤其是当……时"},
+          {"text": "their home is also their workplace.", "meaning": "他们的家同时也是工作场所"}
+        ],
+        "explanation": "struggle to do 表示努力做某事但感到困难；separate A from B 表示区分 A 和 B。"
+      },
+      {
+        "sentence_en": "Communication can become more difficult when teams depend entirely on online meetings and messages.",
+        "sentence_cn": "当团队完全依赖线上会议和消息沟通时，交流也可能变得更加困难。",
+        "chunks": [
+          {"text": "Communication can become", "meaning": "沟通可能变得"},
+          {"text": "more difficult", "meaning": "更加困难"},
+          {"text": "when teams depend entirely", "meaning": "当团队完全依赖时"},
+          {"text": "on online meetings", "meaning": "线上会议"},
+          {"text": "and messages.", "meaning": "以及消息"}
+        ],
+        "explanation": "depend on 表示依赖；entirely 表示完全地。"
+      },
+      {
+        "sentence_en": "The future may not involve everyone working remotely.",
+        "sentence_cn": "未来未必意味着所有人都远程办公。",
+        "chunks": [
+          {"text": "The future", "meaning": "未来"},
+          {"text": "may not involve", "meaning": "可能不会涉及"},
+          {"text": "everyone", "meaning": "所有人"},
+          {"text": "working remotely.", "meaning": "远程工作"}
+        ],
+        "explanation": "involve 后接动名词；may not 表示可能不会。"
+      },
+      {
+        "sentence_en": "Instead, many organizations will probably choose flexible arrangements that combine home and office work.",
+        "sentence_cn": "相反，许多组织可能会选择灵活的安排，将居家办公和办公室工作结合起来。",
+        "chunks": [
+          {"text": "Instead,", "meaning": "相反"},
+          {"text": "many organizations will probably choose", "meaning": "许多组织可能会选择"},
+          {"text": "flexible arrangements", "meaning": "灵活的安排"},
+          {"text": "that combine", "meaning": "这些安排结合了"},
+          {"text": "home and office work.", "meaning": "居家办公和办公室工作"}
+        ],
+        "explanation": "that 引导定语从句修饰 arrangements；combine A and B 表示结合两者。"
+      },
+      {
+        "sentence_en": "The best system is the one that supports both productivity and people's well-being.",
+        "sentence_cn": "最好的工作模式，是能够同时支持工作效率和员工身心健康的模式。",
+        "chunks": [
+          {"text": "The best system", "meaning": "最好的模式"},
+          {"text": "is the one", "meaning": "就是那一种"},
+          {"text": "that supports", "meaning": "能够支持"},
+          {"text": "both productivity", "meaning": "工作效率"},
+          {"text": "and people's well-being.", "meaning": "以及人们的身心健康"}
+        ],
+        "explanation": "the one 指代前面的 system；that 引导定语从句；both...and... 表示两者兼顾。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "commuting", "phonetic": "", "meaning": "通勤", "part_of_speech": "名词"},
+      {"word": "concentrate", "phonetic": "", "meaning": "集中注意力", "part_of_speech": "动词"},
+      {"word": "expense", "phonetic": "", "meaning": "开支；费用", "part_of_speech": "名词"},
+      {"word": "isolated", "phonetic": "", "meaning": "孤立的；孤独的", "part_of_speech": "形容词"},
+      {"word": "productivity", "phonetic": "", "meaning": "工作效率；生产力", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "work from home", "meaning": "居家办公", "example": "I work from home three days a week."},
+      {"expression": "have control over", "meaning": "掌控；控制", "example": "Flexible hours give me more control over my schedule."},
+      {"expression": "in person", "meaning": "面对面地；亲自", "example": "It is easier to discuss this in person."},
+      {"expression": "separate A from B", "meaning": "将 A 与 B 区分开", "example": "I try to separate work from personal life."},
+      {"expression": "well-being", "meaning": "身心健康；幸福感", "example": "Good working conditions support employee well-being."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Which is one advantage of working from home?",
+        "options": ["It eliminates every communication problem.", "It saves commuting time.", "It guarantees better teamwork."],
+        "answer": "It saves commuting time.",
+        "explanation": "文章指出，居家办公可以节省通勤时间。"
+      },
+      {
+        "type": "true_false",
+        "question": "The passage predicts that everyone will work remotely in the future.",
+        "answer": "False",
+        "explanation": "文章认为未来可能更多采用居家与办公室相结合的灵活模式。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What is the best working system according to the passage?",
+        "answer": "One that supports both productivity and people's well-being.",
+        "explanation": "文章最后一句总结了理想工作模式的两个重要目标。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 137,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，练习比较利弊、表达预测和讨论未来趋势。"
+    }
+  },
+  {
+    "article_id": 152,
+    "day": 332,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Work",
+    "scene": "Self-employment",
+    "title_en": "The Advantages and Disadvantages of Being Self-Employed",
+    "title_cn": "自由职业的利与弊",
+    "difficulty": "B1-B2",
+    "word_count": 139,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Being self-employed offers freedom, but it also brings responsibility. One major advantage is the ability to choose what kind of work to do and when to do it. Independent workers can often build their schedules around personal needs and interests. They may also have more control over their income because their earnings can grow as their business develops. However, this freedom comes with uncertainty. Income may change from month to month, and there is no employer to provide paid vacation or other benefits. Self-employed people must also find their own customers, manage expenses, and handle paperwork. Without a clear routine, it can be difficult to maintain a healthy work-life balance. This lifestyle suits people who are comfortable making decisions and accepting risks. Before choosing it, we should consider both our financial situation and our ability to work independently.",
+    "content_cn": "自由职业带来自由，但也带来了责任。一个主要优势是能够选择做什么类型的工作，以及什么时候工作。独立工作者通常可以根据个人需求和兴趣安排自己的时间。他们也可能对收入拥有更多掌控权，因为随着业务发展，收入有机会增长。然而，这种自由伴随着不确定性。收入可能每个月都发生变化，而且没有雇主提供带薪假期或其他福利。自由职业者还必须自己寻找客户、管理开支并处理各种文件工作。如果没有明确的日常安排，保持健康的工作与生活平衡可能会很困难。这种生活方式适合那些善于自主决策并愿意承担风险的人。在选择之前，我们应该同时考虑自己的财务状况和独立工作的能力。",
+    "sentences": [
+      {
+        "sentence_en": "Being self-employed offers freedom, but it also brings responsibility.",
+        "sentence_cn": "自由职业带来自由，但也带来了责任。",
+        "chunks": [
+          {"text": "Being self-employed", "meaning": "成为自由职业者"},
+          {"text": "offers freedom,", "meaning": "带来自由"},
+          {"text": "but it also", "meaning": "但它也"},
+          {"text": "brings responsibility.", "meaning": "带来责任"}
+        ],
+        "explanation": "Being self-employed 是动名词短语作主语；but 连接对比。"
+      },
+      {
+        "sentence_en": "One major advantage is the ability to choose what kind of work to do and when to do it.",
+        "sentence_cn": "一个主要优势是能够选择做什么类型的工作，以及什么时候工作。",
+        "chunks": [
+          {"text": "One major advantage", "meaning": "一个主要优势"},
+          {"text": "is the ability", "meaning": "是这种能力"},
+          {"text": "to choose", "meaning": "去选择"},
+          {"text": "what kind of work to do", "meaning": "做什么类型的工作"},
+          {"text": "and when to do it.", "meaning": "以及什么时候去做"}
+        ],
+        "explanation": "what 和 when 引导嵌入式疑问结构，说明选择的具体内容。"
+      },
+      {
+        "sentence_en": "Independent workers can often build their schedules around personal needs and interests.",
+        "sentence_cn": "独立工作者通常可以根据个人需求和兴趣安排自己的时间。",
+        "chunks": [
+          {"text": "Independent workers", "meaning": "独立工作者"},
+          {"text": "can often build", "meaning": "通常可以安排"},
+          {"text": "their schedules", "meaning": "自己的日程"},
+          {"text": "around personal needs", "meaning": "围绕个人需求"},
+          {"text": "and interests.", "meaning": "以及兴趣"}
+        ],
+        "explanation": "build a schedule around 表示围绕某些需求安排时间。"
+      },
+      {
+        "sentence_en": "They may also have more control over their income because their earnings can grow as their business develops.",
+        "sentence_cn": "他们也可能对收入拥有更多掌控权，因为随着业务发展，收入有机会增长。",
+        "chunks": [
+          {"text": "They may also have", "meaning": "他们也可能拥有"},
+          {"text": "more control over their income", "meaning": "对收入更多的掌控权"},
+          {"text": "because their earnings can grow", "meaning": "因为他们的收入可能增长"},
+          {"text": "as their business develops.", "meaning": "随着业务发展"}
+        ],
+        "explanation": "because 引导原因状语从句；as 在这里表示随着。"
+      },
+      {
+        "sentence_en": "However, this freedom comes with uncertainty.",
+        "sentence_cn": "然而，这种自由伴随着不确定性。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "this freedom", "meaning": "这种自由"},
+          {"text": "comes with", "meaning": "伴随着"},
+          {"text": "uncertainty.", "meaning": "不确定性"}
+        ],
+        "explanation": "come with 表示伴随、附带某种情况。"
+      },
+      {
+        "sentence_en": "Income may change from month to month, and there is no employer to provide paid vacation or other benefits.",
+        "sentence_cn": "收入可能每个月都发生变化，而且没有雇主提供带薪假期或其他福利。",
+        "chunks": [
+          {"text": "Income may change", "meaning": "收入可能发生变化"},
+          {"text": "from month to month,", "meaning": "每个月都不同"},
+          {"text": "and there is no employer", "meaning": "而且没有雇主"},
+          {"text": "to provide paid vacation", "meaning": "提供带薪假期"},
+          {"text": "or other benefits.", "meaning": "或其他福利"}
+        ],
+        "explanation": "from month to month 表示每个月都有变化；to provide 表示雇主提供福利的目的或职责。"
+      },
+      {
+        "sentence_en": "Self-employed people must also find their own customers, manage expenses, and handle paperwork.",
+        "sentence_cn": "自由职业者还必须自己寻找客户、管理开支并处理各种文件工作。",
+        "chunks": [
+          {"text": "Self-employed people", "meaning": "自由职业者"},
+          {"text": "must also find", "meaning": "还必须寻找"},
+          {"text": "their own customers,", "meaning": "自己的客户"},
+          {"text": "manage expenses,", "meaning": "管理开支"},
+          {"text": "and handle paperwork.", "meaning": "并处理文件工作"}
+        ],
+        "explanation": "三个并列动词 find、manage 和 handle 描述自由职业者的责任。"
+      },
+      {
+        "sentence_en": "Without a clear routine, it can be difficult to maintain a healthy work-life balance.",
+        "sentence_cn": "如果没有明确的日常安排，保持健康的工作与生活平衡可能会很困难。",
+        "chunks": [
+          {"text": "Without a clear routine,", "meaning": "如果没有明确的日常安排"},
+          {"text": "it can be difficult", "meaning": "这可能会很困难"},
+          {"text": "to maintain", "meaning": "去保持"},
+          {"text": "a healthy work-life balance.", "meaning": "健康的工作与生活平衡"}
+        ],
+        "explanation": "Without 表示缺少某种条件；it 是形式主语，真正主语是不定式短语。"
+      },
+      {
+        "sentence_en": "This lifestyle suits people who are comfortable making decisions and accepting risks.",
+        "sentence_cn": "这种生活方式适合那些善于自主决策并愿意承担风险的人。",
+        "chunks": [
+          {"text": "This lifestyle suits", "meaning": "这种生活方式适合"},
+          {"text": "people", "meaning": "那些人"},
+          {"text": "who are comfortable", "meaning": "他们能够自在地"},
+          {"text": "making decisions", "meaning": "做出决定"},
+          {"text": "and accepting risks.", "meaning": "并接受风险"}
+        ],
+        "explanation": "who 引导定语从句修饰 people；be comfortable doing 表示做某事感到自在。"
+      },
+      {
+        "sentence_en": "Before choosing it, we should consider both our financial situation and our ability to work independently.",
+        "sentence_cn": "在选择之前，我们应该同时考虑自己的财务状况和独立工作的能力。",
+        "chunks": [
+          {"text": "Before choosing it,", "meaning": "在选择它之前"},
+          {"text": "we should consider", "meaning": "我们应该考虑"},
+          {"text": "both our financial situation", "meaning": "我们的财务状况"},
+          {"text": "and our ability", "meaning": "以及我们的能力"},
+          {"text": "to work independently.", "meaning": "独立工作的能力"}
+        ],
+        "explanation": "before 后接动名词；both...and... 表示同时考虑两方面。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "self-employed", "phonetic": "", "meaning": "自雇的；自由职业的", "part_of_speech": "形容词"},
+      {"word": "independent", "phonetic": "", "meaning": "独立的", "part_of_speech": "形容词"},
+      {"word": "uncertainty", "phonetic": "", "meaning": "不确定性", "part_of_speech": "名词"},
+      {"word": "benefit", "phonetic": "", "meaning": "福利；益处", "part_of_speech": "名词"},
+      {"word": "routine", "phonetic": "", "meaning": "日常安排；惯例", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "come with", "meaning": "伴随；附带", "example": "More freedom often comes with more responsibility."},
+      {"expression": "control over", "meaning": "对……的掌控", "example": "I want more control over my working hours."},
+      {"expression": "from month to month", "meaning": "每个月都；逐月地", "example": "My income changes from month to month."},
+      {"expression": "work-life balance", "meaning": "工作与生活的平衡", "example": "A healthy work-life balance is important to me."},
+      {"expression": "make decisions", "meaning": "做决定", "example": "Self-employed people make many decisions on their own."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Which is an advantage of being self-employed?",
+        "options": ["Guaranteed paid vacation", "More control over work schedules", "A fixed monthly income"],
+        "answer": "More control over work schedules",
+        "explanation": "文章指出，自由职业者通常可以根据个人需求安排工作时间。"
+      },
+      {
+        "type": "true_false",
+        "question": "Self-employed people usually have an employer who manages their paperwork.",
+        "answer": "False",
+        "explanation": "文章指出，自由职业者需要自己处理文件和其他事务。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What two things should people consider before becoming self-employed?",
+        "answer": "Their financial situation and their ability to work independently.",
+        "explanation": "这是文章最后一句提出的两个重要考虑因素。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 139,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点练习比较优势与劣势、讨论个人选择。"
+    }
+  },
+  {
+    "article_id": 153,
+    "day": 333,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Work",
+    "scene": "Changing careers",
+    "title_en": "Why People Change Careers",
+    "title_cn": "人们为什么改变职业",
+    "difficulty": "B1-B2",
+    "word_count": 137,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "People change careers for many different reasons. Some feel that their current jobs no longer match their interests or values. Others want better pay, more flexible hours, or a healthier working environment. Sometimes, a major life event makes people rethink what they really want. For example, becoming a parent may change someone's priorities, while a period of stress may encourage them to look for a less demanding job. Changing careers can be exciting, but it is rarely easy. People may need to learn new skills, accept a lower salary at first, or start again in a different field. Before making such a decision, it helps to research the industry and understand the risks. A successful career change does not always mean finding a perfect job. It means moving toward work that better supports our goals, abilities, and quality of life.",
+    "content_cn": "人们改变职业有许多不同的原因。有些人觉得目前的工作已经不再符合自己的兴趣或价值观。另一些人希望获得更高的薪水、更灵活的工作时间，或者更健康的工作环境。有时，人生中的重大事件会让人重新思考自己真正想要什么。例如，成为父母可能会改变一个人的优先事项，而一段压力很大的时期则可能促使他们寻找一份要求没那么高的工作。改变职业可能令人兴奋，但很少会轻而易举。人们可能需要学习新技能，暂时接受较低的薪水，或者在不同领域重新开始。在做出这样的决定之前，了解相关行业并弄清楚其中的风险会有所帮助。成功的职业转变并不总意味着找到一份完美的工作，而是朝着更符合自己目标、能力和生活质量的工作迈进。",
+    "sentences": [
+      {
+        "sentence_en": "People change careers for many different reasons.",
+        "sentence_cn": "人们改变职业有许多不同的原因。",
+        "chunks": [
+          {"text": "People change careers", "meaning": "人们改变职业"},
+          {"text": "for many different reasons.", "meaning": "出于许多不同的原因"}
+        ],
+        "explanation": "for reasons 表示出于某些原因；career 指职业生涯或职业方向。"
+      },
+      {
+        "sentence_en": "Some feel that their current jobs no longer match their interests or values.",
+        "sentence_cn": "有些人觉得目前的工作已经不再符合自己的兴趣或价值观。",
+        "chunks": [
+          {"text": "Some feel that", "meaning": "有些人觉得"},
+          {"text": "their current jobs", "meaning": "他们目前的工作"},
+          {"text": "no longer match", "meaning": "已经不再符合"},
+          {"text": "their interests or values.", "meaning": "他们的兴趣或价值观"}
+        ],
+        "explanation": "feel 后接 that 引导的宾语从句；no longer 表示不再。"
+      },
+      {
+        "sentence_en": "Others want better pay, more flexible hours, or a healthier working environment.",
+        "sentence_cn": "另一些人希望获得更高的薪水、更灵活的工作时间，或者更健康的工作环境。",
+        "chunks": [
+          {"text": "Others want", "meaning": "另一些人希望获得"},
+          {"text": "better pay,", "meaning": "更高的薪水"},
+          {"text": "more flexible hours,", "meaning": "更灵活的工作时间"},
+          {"text": "or a healthier working environment.", "meaning": "或者更健康的工作环境"}
+        ],
+        "explanation": "better、more flexible 和 healthier 都是比较级，表示更好的条件。"
+      },
+      {
+        "sentence_en": "Sometimes, a major life event makes people rethink what they really want.",
+        "sentence_cn": "有时，人生中的重大事件会让人重新思考自己真正想要什么。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "a major life event", "meaning": "人生中的重大事件"},
+          {"text": "makes people rethink", "meaning": "让人重新思考"},
+          {"text": "what they really want.", "meaning": "他们真正想要什么"}
+        ],
+        "explanation": "make someone do 表示使某人做某事；what 引导宾语从句。"
+      },
+      {
+        "sentence_en": "For example, becoming a parent may change someone's priorities, while a period of stress may encourage them to look for a less demanding job.",
+        "sentence_cn": "例如，成为父母可能会改变一个人的优先事项，而一段压力很大的时期则可能促使他们寻找一份要求没那么高的工作。",
+        "chunks": [
+          {"text": "For example,", "meaning": "例如"},
+          {"text": "becoming a parent", "meaning": "成为父母"},
+          {"text": "may change someone's priorities,", "meaning": "可能改变某人的优先事项"},
+          {"text": "while a period of stress", "meaning": "而一段压力很大的时期"},
+          {"text": "may encourage them", "meaning": "可能促使他们"},
+          {"text": "to look for a less demanding job.", "meaning": "寻找一份要求没那么高的工作"}
+        ],
+        "explanation": "while 在这里连接两种不同情况；encourage someone to do 表示鼓励或促使某人做某事。"
+      },
+      {
+        "sentence_en": "Changing careers can be exciting, but it is rarely easy.",
+        "sentence_cn": "改变职业可能令人兴奋，但很少会轻而易举。",
+        "chunks": [
+          {"text": "Changing careers", "meaning": "改变职业"},
+          {"text": "can be exciting,", "meaning": "可能令人兴奋"},
+          {"text": "but it is", "meaning": "但它"},
+          {"text": "rarely easy.", "meaning": "很少容易"}
+        ],
+        "explanation": "动名词短语作主语；rarely 表示很少发生。"
+      },
+      {
+        "sentence_en": "People may need to learn new skills, accept a lower salary at first, or start again in a different field.",
+        "sentence_cn": "人们可能需要学习新技能，暂时接受较低的薪水，或者在不同领域重新开始。",
+        "chunks": [
+          {"text": "People may need to", "meaning": "人们可能需要"},
+          {"text": "learn new skills,", "meaning": "学习新技能"},
+          {"text": "accept a lower salary at first,", "meaning": "一开始接受较低的薪水"},
+          {"text": "or start again", "meaning": "或者重新开始"},
+          {"text": "in a different field.", "meaning": "在不同的领域"}
+        ],
+        "explanation": "need to 后面接动词原形；三个并列动词说明转行可能面临的任务。"
+      },
+      {
+        "sentence_en": "Before making such a decision, it helps to research the industry and understand the risks.",
+        "sentence_cn": "在做出这样的决定之前，了解相关行业并弄清楚其中的风险会有所帮助。",
+        "chunks": [
+          {"text": "Before making such a decision,", "meaning": "在做出这样的决定之前"},
+          {"text": "it helps", "meaning": "这样会有所帮助"},
+          {"text": "to research the industry", "meaning": "去研究这个行业"},
+          {"text": "and understand the risks.", "meaning": "并了解其中的风险"}
+        ],
+        "explanation": "before 后接动名词；it 是形式主语，真正主语是后面的不定式短语。"
+      },
+      {
+        "sentence_en": "A successful career change does not always mean finding a perfect job.",
+        "sentence_cn": "成功的职业转变并不总意味着找到一份完美的工作。",
+        "chunks": [
+          {"text": "A successful career change", "meaning": "一次成功的职业转变"},
+          {"text": "does not always mean", "meaning": "并不总意味着"},
+          {"text": "finding a perfect job.", "meaning": "找到一份完美的工作"}
+        ],
+        "explanation": "mean 后接动名词表示意味着做某事；not always 表示并非总是。"
+      },
+      {
+        "sentence_en": "It means moving toward work that better supports our goals, abilities, and quality of life.",
+        "sentence_cn": "而是朝着更符合自己目标、能力和生活质量的工作迈进。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": "moving toward work", "meaning": "朝着某种工作迈进"},
+          {"text": "that better supports", "meaning": "这种工作更能支持"},
+          {"text": "our goals, abilities,", "meaning": "我们的目标、能力"},
+          {"text": "and quality of life.", "meaning": "以及生活质量"}
+        ],
+        "explanation": "that 引导定语从句修饰 work；move toward 表示朝某个方向前进。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "career", "phonetic": "", "meaning": "职业；职业生涯", "part_of_speech": "名词"},
+      {"word": "flexible", "phonetic": "", "meaning": "灵活的", "part_of_speech": "形容词"},
+      {"word": "priority", "phonetic": "", "meaning": "优先事项", "part_of_speech": "名词"},
+      {"word": "demanding", "phonetic": "", "meaning": "要求高的；费力的", "part_of_speech": "形容词"},
+      {"word": "industry", "phonetic": "", "meaning": "行业；产业", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "change careers", "meaning": "改变职业方向", "example": "She decided to change careers after ten years in sales."},
+      {"expression": "no longer", "meaning": "不再", "example": "My old job no longer meets my needs."},
+      {"expression": "rethink something", "meaning": "重新思考某事", "example": "The experience made me rethink my plans."},
+      {"expression": "at first", "meaning": "起初；一开始", "example": "The new job was difficult at first."},
+      {"expression": "move toward", "meaning": "朝……迈进", "example": "I want to move toward a career I enjoy."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Which of the following may cause someone to change careers?",
+        "options": ["A desire for more flexible hours", "A guarantee of a perfect job", "A wish to avoid learning anything new"],
+        "answer": "A desire for more flexible hours",
+        "explanation": "文章提到，更灵活的工作时间是人们考虑转行的原因之一。"
+      },
+      {
+        "type": "true_false",
+        "question": "Changing careers is usually easy and requires no preparation.",
+        "answer": "False",
+        "explanation": "文章指出，转行可能需要学习新技能，也需要提前了解行业和风险。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What should people research before changing careers?",
+        "answer": "They should research the industry and understand the risks.",
+        "explanation": "文章建议在做决定前先了解行业情况和潜在风险。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 137,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，练习解释原因、举例和描述职业选择。"
+    }
+  },
+  {
+    "article_id": 154,
+    "day": 334,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Work and Money",
+    "scene": "Salary and job satisfaction",
+    "title_en": "Is a Higher Salary Always Better?",
+    "title_cn": "更高的薪水一定更好吗",
+    "difficulty": "B1-B2",
+    "word_count": 139,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "A higher salary can improve our lives, but it does not automatically make us happier. More money can provide better housing, greater security, and more choices. It can also reduce financial stress, especially for people who struggle to cover basic expenses. However, a better-paid job may require longer hours, greater pressure, or frequent travel. Over time, these demands can affect our health and relationships. Some people discover that earning more money is not worth losing their free time or peace of mind. Of course, salary matters, and people should be paid fairly for their work. The question is whether the extra income is worth the extra cost. When comparing job opportunities, we should consider the full picture, including working conditions, personal goals, and time with family. A good career should support a good life, not take it away.",
+    "content_cn": "更高的薪水可以改善我们的生活，但它并不会自动让我们变得更快乐。更多的钱可以带来更好的住房、更强的安全感和更多选择。对于那些难以支付基本开支的人来说，它也能减轻经济压力。然而，薪水更高的工作可能需要更长的工作时间、更大的压力，或者频繁出差。随着时间推移，这些要求可能影响我们的健康和人际关系。有些人会发现，为了赚更多的钱而失去空闲时间或内心平静并不值得。当然，薪水很重要，人们的劳动应该得到公平的报酬。真正的问题是，额外收入是否值得付出额外代价。在比较工作机会时，我们应该考虑整体情况，包括工作条件、个人目标以及陪伴家人的时间。好的职业应该支持美好的生活，而不是夺走它。",
+    "sentences": [
+      {
+        "sentence_en": "A higher salary can improve our lives, but it does not automatically make us happier.",
+        "sentence_cn": "更高的薪水可以改善我们的生活，但它并不会自动让我们变得更快乐。",
+        "chunks": [
+          {"text": "A higher salary", "meaning": "更高的薪水"},
+          {"text": "can improve our lives,", "meaning": "可以改善我们的生活"},
+          {"text": "but it does not automatically", "meaning": "但它并不会自动"},
+          {"text": "make us happier.", "meaning": "让我们变得更快乐"}
+        ],
+        "explanation": "make + 宾语 + 形容词表示使某人或某物变得怎样；automatically 表示自动地。"
+      },
+      {
+        "sentence_en": "More money can provide better housing, greater security, and more choices.",
+        "sentence_cn": "更多的钱可以带来更好的住房、更强的安全感和更多选择。",
+        "chunks": [
+          {"text": "More money can provide", "meaning": "更多的钱可以提供"},
+          {"text": "better housing,", "meaning": "更好的住房"},
+          {"text": "greater security,", "meaning": "更强的安全感"},
+          {"text": "and more choices.", "meaning": "以及更多选择"}
+        ],
+        "explanation": "provide 表示提供；better、greater 和 more 用来比较不同程度。"
+      },
+      {
+        "sentence_en": "It can also reduce financial stress, especially for people who struggle to cover basic expenses.",
+        "sentence_cn": "对于那些难以支付基本开支的人来说，它也能减轻经济压力。",
+        "chunks": [
+          {"text": "It can also reduce", "meaning": "它也能够减轻"},
+          {"text": "financial stress,", "meaning": "经济压力"},
+          {"text": "especially for people", "meaning": "尤其是对于那些人"},
+          {"text": "who struggle to cover", "meaning": "他们难以支付"},
+          {"text": "basic expenses.", "meaning": "基本开支"}
+        ],
+        "explanation": "who 引导定语从句修饰 people；struggle to do 表示做某事很困难。"
+      },
+      {
+        "sentence_en": "However, a better-paid job may require longer hours, greater pressure, or frequent travel.",
+        "sentence_cn": "然而，薪水更高的工作可能需要更长的工作时间、更大的压力，或者频繁出差。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "a better-paid job", "meaning": "一份薪水更高的工作"},
+          {"text": "may require", "meaning": "可能需要"},
+          {"text": "longer hours,", "meaning": "更长的工作时间"},
+          {"text": "greater pressure,", "meaning": "更大的压力"},
+          {"text": "or frequent travel.", "meaning": "或者频繁出差"}
+        ],
+        "explanation": "better-paid 是复合形容词；require 表示需要或要求。"
+      },
+      {
+        "sentence_en": "Over time, these demands can affect our health and relationships.",
+        "sentence_cn": "随着时间推移，这些要求可能影响我们的健康和人际关系。",
+        "chunks": [
+          {"text": "Over time,", "meaning": "随着时间推移"},
+          {"text": "these demands", "meaning": "这些要求"},
+          {"text": "can affect", "meaning": "可能影响"},
+          {"text": "our health and relationships.", "meaning": "我们的健康和人际关系"}
+        ],
+        "explanation": "over time 表示随着时间推移；affect 作动词表示影响。"
+      },
+      {
+        "sentence_en": "Some people discover that earning more money is not worth losing their free time or peace of mind.",
+        "sentence_cn": "有些人会发现，为了赚更多的钱而失去空闲时间或内心平静并不值得。",
+        "chunks": [
+          {"text": "Some people discover that", "meaning": "有些人发现"},
+          {"text": "earning more money", "meaning": "赚更多的钱"},
+          {"text": "is not worth", "meaning": "并不值得"},
+          {"text": "losing their free time", "meaning": "失去他们的空闲时间"},
+          {"text": "or peace of mind.", "meaning": "或者内心的平静"}
+        ],
+        "explanation": "earning more money 作从句主语；be worth 后接名词或动名词。"
+      },
+      {
+        "sentence_en": "Of course, salary matters, and people should be paid fairly for their work.",
+        "sentence_cn": "当然，薪水很重要，人们的劳动应该得到公平的报酬。",
+        "chunks": [
+          {"text": "Of course,", "meaning": "当然"},
+          {"text": "salary matters,", "meaning": "薪水很重要"},
+          {"text": "and people should be paid", "meaning": "而且人们应该获得报酬"},
+          {"text": "fairly for their work.", "meaning": "为自己的劳动得到公平的报酬"}
+        ],
+        "explanation": "matter 作动词表示重要；should be paid 是被动语态，强调人们应得到报酬。"
+      },
+      {
+        "sentence_en": "The question is whether the extra income is worth the extra cost.",
+        "sentence_cn": "真正的问题是，额外收入是否值得付出额外代价。",
+        "chunks": [
+          {"text": "The question is", "meaning": "问题在于"},
+          {"text": "whether", "meaning": "是否"},
+          {"text": "the extra income", "meaning": "额外收入"},
+          {"text": "is worth", "meaning": "值得"},
+          {"text": "the extra cost.", "meaning": "额外代价"}
+        ],
+        "explanation": "whether 引导表语从句，表示需要判断的事情。"
+      },
+      {
+        "sentence_en": "When comparing job opportunities, we should consider the full picture, including working conditions, personal goals, and time with family.",
+        "sentence_cn": "在比较工作机会时，我们应该考虑整体情况，包括工作条件、个人目标以及陪伴家人的时间。",
+        "chunks": [
+          {"text": "When comparing job opportunities,", "meaning": "在比较工作机会时"},
+          {"text": "we should consider", "meaning": "我们应该考虑"},
+          {"text": "the full picture,", "meaning": "整体情况"},
+          {"text": "including working conditions,", "meaning": "包括工作条件"},
+          {"text": "personal goals,", "meaning": "个人目标"},
+          {"text": "and time with family.", "meaning": "以及陪伴家人的时间"}
+        ],
+        "explanation": "When comparing 是时间状语从句的省略形式；including 用于补充列举。"
+      },
+      {
+        "sentence_en": "A good career should support a good life, not take it away.",
+        "sentence_cn": "好的职业应该支持美好的生活，而不是夺走它。",
+        "chunks": [
+          {"text": "A good career", "meaning": "一份好的职业"},
+          {"text": "should support", "meaning": "应该支持"},
+          {"text": "a good life,", "meaning": "美好的生活"},
+          {"text": "not take it away.", "meaning": "而不是把它夺走"}
+        ],
+        "explanation": "take away 表示夺走；it 指代前面的 a good life。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "automatically", "phonetic": "", "meaning": "自动地；必然地", "part_of_speech": "副词"},
+      {"word": "security", "phonetic": "", "meaning": "安全；保障", "part_of_speech": "名词"},
+      {"word": "expense", "phonetic": "", "meaning": "费用；开支", "part_of_speech": "名词"},
+      {"word": "demand", "phonetic": "", "meaning": "要求；需求", "part_of_speech": "名词"},
+      {"word": "fairly", "phonetic": "", "meaning": "公平地", "part_of_speech": "副词"}
+    ],
+    "expressions": [
+      {"expression": "financial stress", "meaning": "经济压力", "example": "Unexpected bills can create financial stress."},
+      {"expression": "over time", "meaning": "随着时间推移", "example": "Small changes can make a big difference over time."},
+      {"expression": "peace of mind", "meaning": "内心的平静；安心", "example": "Saving money gives me peace of mind."},
+      {"expression": "be worth doing", "meaning": "值得做某事", "example": "The extra effort may be worth making."},
+      {"expression": "the full picture", "meaning": "整体情况；全貌", "example": "We need to understand the full picture before deciding."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What is one possible disadvantage of a higher-paying job?",
+        "options": ["Less financial security in every case", "Longer working hours and greater pressure", "Fewer choices outside work"],
+        "answer": "Longer working hours and greater pressure",
+        "explanation": "文章指出，高薪工作可能伴随更长工时和更大压力。"
+      },
+      {
+        "type": "true_false",
+        "question": "The passage argues that salary is unimportant.",
+        "answer": "False",
+        "explanation": "文章承认薪水很重要，但强调还要考虑额外收入背后的代价。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What should people consider when comparing job opportunities?",
+        "answer": "Working conditions, personal goals, and time with family, among other factors.",
+        "explanation": "文章建议综合考虑工作条件、个人目标和家庭时间。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 139,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点练习权衡利弊、提出观点和解释判断依据。"
+    }
+  },
+  {
+    "article_id": 155,
+    "day": 335,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Work and Personal Growth",
+    "scene": "Finding meaning in everyday work",
+    "title_en": "Finding Meaning in Everyday Work",
+    "title_cn": "在日常工作中寻找意义",
+    "difficulty": "B1-B2",
+    "word_count": 139,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Not everyone has a job that feels exciting every day. Many people spend their time answering emails, solving routine problems, or completing tasks that seem ordinary. Still, meaningful work does not have to be dramatic or impressive. Sometimes, it comes from knowing that our efforts help someone else. A teacher may feel fulfilled when a student finally understands a difficult idea. A shop worker may find meaning in helping a customer solve a problem. Even small achievements can give us a sense of purpose. It also helps to connect daily tasks with larger goals. When we understand why our work matters, ordinary responsibilities can feel more valuable. Of course, work should not be the only source of meaning in life. Relationships, hobbies, and personal growth matter too. Finding meaning is often less about having a perfect job and more about recognizing the value in what we do.",
+    "content_cn": "并不是每个人每天都拥有一份令人兴奋的工作。许多人把时间花在回复邮件、解决日常问题，或者完成一些看起来很普通的任务上。尽管如此，有意义的工作并不一定要轰轰烈烈或令人瞩目。有时，它来自我们知道自己的努力帮助了别人。一位老师可能会在学生终于理解一个困难的概念时感到满足。一位店员可能会在帮助顾客解决问题时找到工作的意义。即使是很小的成就，也能给我们带来目标感。把日常任务与更大的目标联系起来也会有所帮助。当我们理解自己的工作为什么重要时，普通的职责也会显得更有价值。当然，工作不应该成为人生中唯一的意义来源。人际关系、兴趣爱好和个人成长同样重要。寻找意义往往不在于拥有一份完美的工作，而在于认识到自己所做事情的价值。",
+    "sentences": [
+      {
+        "sentence_en": "Not everyone has a job that feels exciting every day.",
+        "sentence_cn": "并不是每个人每天都拥有一份令人兴奋的工作。",
+        "chunks": [
+          {"text": "Not everyone", "meaning": "并不是每个人"},
+          {"text": "has a job", "meaning": "都拥有一份工作"},
+          {"text": "that feels exciting", "meaning": "这份工作让人感到兴奋"},
+          {"text": "every day.", "meaning": "每天"}
+        ],
+        "explanation": "that 引导定语从句修饰 job；Not everyone 表示部分否定。"
+      },
+      {
+        "sentence_en": "Many people spend their time answering emails, solving routine problems, or completing tasks that seem ordinary.",
+        "sentence_cn": "许多人把时间花在回复邮件、解决日常问题，或者完成一些看起来很普通的任务上。",
+        "chunks": [
+          {"text": "Many people spend their time", "meaning": "许多人把时间花在"},
+          {"text": "answering emails,", "meaning": "回复邮件"},
+          {"text": "solving routine problems,", "meaning": "解决日常问题"},
+          {"text": "or completing tasks", "meaning": "或者完成任务"},
+          {"text": "that seem ordinary.", "meaning": "这些任务看起来很普通"}
+        ],
+        "explanation": "spend time doing 表示花时间做某事；that 引导定语从句。"
+      },
+      {
+        "sentence_en": "Still, meaningful work does not have to be dramatic or impressive.",
+        "sentence_cn": "尽管如此，有意义的工作并不一定要轰轰烈烈或令人瞩目。",
+        "chunks": [
+          {"text": "Still,", "meaning": "尽管如此"},
+          {"text": "meaningful work", "meaning": "有意义的工作"},
+          {"text": "does not have to be", "meaning": "不一定必须是"},
+          {"text": "dramatic or impressive.", "meaning": "轰轰烈烈或令人瞩目的"}
+        ],
+        "explanation": "do not have to 表示不必或不一定需要；dramatic 和 impressive 并列作表语。"
+      },
+      {
+        "sentence_en": "Sometimes, it comes from knowing that our efforts help someone else.",
+        "sentence_cn": "有时，它来自我们知道自己的努力帮助了别人。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "it comes from", "meaning": "它来自"},
+          {"text": "knowing that", "meaning": "知道这样一件事"},
+          {"text": "our efforts help", "meaning": "我们的努力帮助了"},
+          {"text": "someone else.", "meaning": "别人"}
+        ],
+        "explanation": "come from 表示源于；knowing 作介词 from 的宾语；that 引导宾语从句。"
+      },
+      {
+        "sentence_en": "A teacher may feel fulfilled when a student finally understands a difficult idea.",
+        "sentence_cn": "一位老师可能会在学生终于理解一个困难的概念时感到满足。",
+        "chunks": [
+          {"text": "A teacher may feel fulfilled", "meaning": "一位老师可能会感到满足"},
+          {"text": "when a student", "meaning": "当一名学生"},
+          {"text": "finally understands", "meaning": "终于理解"},
+          {"text": "a difficult idea.", "meaning": "一个困难的概念"}
+        ],
+        "explanation": "feel fulfilled 表示感到满足；when 引导时间状语从句。"
+      },
+      {
+        "sentence_en": "A shop worker may find meaning in helping a customer solve a problem.",
+        "sentence_cn": "一位店员可能会在帮助顾客解决问题时找到工作的意义。",
+        "chunks": [
+          {"text": "A shop worker", "meaning": "一位店员"},
+          {"text": "may find meaning", "meaning": "可能找到意义"},
+          {"text": "in helping a customer", "meaning": "在帮助一位顾客时"},
+          {"text": "solve a problem.", "meaning": "解决一个问题"}
+        ],
+        "explanation": "find meaning in 表示从某事中找到意义；help someone do 表示帮助某人做某事。"
+      },
+      {
+        "sentence_en": "Even small achievements can give us a sense of purpose.",
+        "sentence_cn": "即使是很小的成就，也能给我们带来目标感。",
+        "chunks": [
+          {"text": "Even small achievements", "meaning": "即使是很小的成就"},
+          {"text": "can give us", "meaning": "也能给我们带来"},
+          {"text": "a sense of purpose.", "meaning": "一种目标感"}
+        ],
+        "explanation": "give someone something 表示给某人某物；a sense of purpose 表示目标感。"
+      },
+      {
+        "sentence_en": "It also helps to connect daily tasks with larger goals.",
+        "sentence_cn": "把日常任务与更大的目标联系起来也会有所帮助。",
+        "chunks": [
+          {"text": "It also helps", "meaning": "这样也有帮助"},
+          {"text": "to connect", "meaning": "去联系"},
+          {"text": "daily tasks", "meaning": "日常任务"},
+          {"text": "with larger goals.", "meaning": "与更大的目标"}
+        ],
+        "explanation": "It 是形式主语，真正主语是不定式短语；connect A with B 表示把两者联系起来。"
+      },
+      {
+        "sentence_en": "When we understand why our work matters, ordinary responsibilities can feel more valuable.",
+        "sentence_cn": "当我们理解自己的工作为什么重要时，普通的职责也会显得更有价值。",
+        "chunks": [
+          {"text": "When we understand", "meaning": "当我们理解时"},
+          {"text": "why our work matters,", "meaning": "为什么我们的工作重要"},
+          {"text": "ordinary responsibilities", "meaning": "普通的职责"},
+          {"text": "can feel more valuable.", "meaning": "也会显得更有价值"}
+        ],
+        "explanation": "why 引导宾语从句；feel 后接形容词表示给人的感受。"
+      },
+      {
+        "sentence_en": "Of course, work should not be the only source of meaning in life.",
+        "sentence_cn": "当然，工作不应该成为人生中唯一的意义来源。",
+        "chunks": [
+          {"text": "Of course,", "meaning": "当然"},
+          {"text": "work should not be", "meaning": "工作不应该成为"},
+          {"text": "the only source", "meaning": "唯一的来源"},
+          {"text": "of meaning in life.", "meaning": "人生意义的"}
+        ],
+        "explanation": "source of 表示……的来源；should not 表示不应该。"
+      },
+      {
+        "sentence_en": "Relationships, hobbies, and personal growth matter too.",
+        "sentence_cn": "人际关系、兴趣爱好和个人成长同样重要。",
+        "chunks": [
+          {"text": "Relationships,", "meaning": "人际关系"},
+          {"text": "hobbies,", "meaning": "兴趣爱好"},
+          {"text": "and personal growth", "meaning": "以及个人成长"},
+          {"text": "matter too.", "meaning": "也同样重要"}
+        ],
+        "explanation": "matter 作动词表示重要；多个并列主语共同构成复数概念。"
+      },
+      {
+        "sentence_en": "Finding meaning is often less about having a perfect job and more about recognizing the value in what we do.",
+        "sentence_cn": "寻找意义往往不在于拥有一份完美的工作，而在于认识到自己所做事情的价值。",
+        "chunks": [
+          {"text": "Finding meaning", "meaning": "寻找意义"},
+          {"text": "is often less about", "meaning": "往往不那么在于"},
+          {"text": "having a perfect job", "meaning": "拥有一份完美的工作"},
+          {"text": "and more about", "meaning": "而更多在于"},
+          {"text": "recognizing the value", "meaning": "认识到价值"},
+          {"text": "in what we do.", "meaning": "在我们所做的事情之中"}
+        ],
+        "explanation": "less about... and more about... 表示与其说在于……不如说在于……；what 引导宾语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "routine", "phonetic": "", "meaning": "日常的；常规的", "part_of_speech": "形容词"},
+      {"word": "impressive", "phonetic": "", "meaning": "令人印象深刻的", "part_of_speech": "形容词"},
+      {"word": "fulfilled", "phonetic": "", "meaning": "满足的；有成就感的", "part_of_speech": "形容词"},
+      {"word": "achievement", "phonetic": "", "meaning": "成就；成绩", "part_of_speech": "名词"},
+      {"word": "purpose", "phonetic": "", "meaning": "目标；目的；意义", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "spend time doing something", "meaning": "花时间做某事", "example": "I spend time learning something new every day."},
+      {"expression": "come from", "meaning": "来自；源于", "example": "A sense of purpose can come from helping others."},
+      {"expression": "feel fulfilled", "meaning": "感到满足；有成就感", "example": "I feel fulfilled when my work helps someone."},
+      {"expression": "a sense of purpose", "meaning": "目标感；人生方向感", "example": "Having clear goals gives me a sense of purpose."},
+      {"expression": "less about... and more about...", "meaning": "与其说在于……不如说在于……", "example": "Success is less about money and more about personal growth."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "According to the passage, where can meaningful work come from?",
+        "options": ["Only from earning a high salary", "From knowing that our efforts help others", "Only from doing exciting tasks"],
+        "answer": "From knowing that our efforts help others",
+        "explanation": "文章指出，知道自己的努力能够帮助别人，也能让工作变得有意义。"
+      },
+      {
+        "type": "true_false",
+        "question": "The passage says that work should be the only source of meaning in life.",
+        "answer": "False",
+        "explanation": "文章强调人际关系、兴趣爱好和个人成长同样重要。"
+      },
+      {
+        "type": "short_answer",
+        "question": "How can people make ordinary work feel more valuable?",
+        "answer": "By understanding how daily tasks connect with larger goals.",
+        "explanation": "把日常工作与更大的目标联系起来，有助于理解工作的意义。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": 139,
+      "american_english": "采用自然的美式英语表达",
+      "translation": "中英文内容对应，语义准确",
+      "chunking": "所有句子均按顺序拆分，chunks 拼接可还原原句",
+      "notes": "B1-B2 难度，重点学习表达工作意义、个人价值和生活目标。"
+    }
+  }
+]

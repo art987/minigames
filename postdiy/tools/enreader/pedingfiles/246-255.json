@@ -1,0 +1,1413 @@
+[
+  {
+    "article_id": 66,
+    "day": 246,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experience",
+    "scene": "Unexpected Situations",
+    "title_en": "When Things Don't Go as Planned",
+    "title_cn": "当事情不按计划进行时",
+    "difficulty": "A2-B1",
+    "word_count": 101,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Last Saturday, I planned to spend the day at the beach. I packed my bag, prepared some food, and left home early. However, dark clouds appeared while I was on the bus. Soon, heavy rain began, and the beach trip was no longer possible. At first, I felt disappointed because I had been looking forward to it all week. Then I remembered a small art museum near the bus station. I decided to visit it instead. The museum was quiet and interesting, and I discovered several paintings I really liked. That evening, I realized that a change of plan could still lead to a good day.",
+    "content_cn": "上周六，我计划去海边度过一天。我收拾好包，准备了一些食物，然后很早就离开了家。然而，我在公交车上时，天空出现了乌云。很快，大雨开始下起来，海滩之行也无法继续了。起初，我感到很失望，因为我整整期待了一周。后来，我想起了公交车站附近的一家小型艺术博物馆。我决定改去那里参观。博物馆很安静，也很有意思，我发现了几幅自己非常喜欢的画作。那天晚上，我意识到，计划改变了，仍然可能迎来美好的一天。",
+    "sentences": [
+      {
+        "sentence_en": "Last Saturday, I planned to spend the day at the beach.",
+        "sentence_cn": "上周六，我计划去海边度过一天。",
+        "chunks": [
+          {"text": "Last Saturday,", "meaning": "上周六"},
+          {"text": "I planned to", "meaning": "我计划"},
+          {"text": "spend the day", "meaning": "度过一天"},
+          {"text": "at the beach.", "meaning": "在海边"}
+        ],
+        "explanation": "plan to do something 表示计划做某事，后面接动词原形。"
+      },
+      {
+        "sentence_en": "I packed my bag, prepared some food, and left home early.",
+        "sentence_cn": "我收拾好包，准备了一些食物，然后很早就离开了家。",
+        "chunks": [
+          {"text": "I packed my bag,", "meaning": "我收拾好包"},
+          {"text": "prepared some food,", "meaning": "准备了一些食物"},
+          {"text": "and left home early.", "meaning": "然后很早离开了家"}
+        ],
+        "explanation": "packed、prepared 和 left 是三个并列的过去式动作。"
+      },
+      {
+        "sentence_en": "However, dark clouds appeared while I was on the bus.",
+        "sentence_cn": "然而，我在公交车上时，天空出现了乌云。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "dark clouds appeared", "meaning": "乌云出现了"},
+          {"text": "while I was on the bus.", "meaning": "当我在公交车上时"}
+        ],
+        "explanation": "while 引导时间状语从句，表示两个动作发生的时间关系。"
+      },
+      {
+        "sentence_en": "Soon, heavy rain began, and the beach trip was no longer possible.",
+        "sentence_cn": "很快，大雨开始下起来，海滩之行也无法继续了。",
+        "chunks": [
+          {"text": "Soon,", "meaning": "很快"},
+          {"text": "heavy rain began,", "meaning": "大雨开始下起来"},
+          {"text": "and the beach trip", "meaning": "而海滩之行"},
+          {"text": "was no longer possible.", "meaning": "已经不再可行"}
+        ],
+        "explanation": "no longer 表示不再，常放在 be 动词之后。"
+      },
+      {
+        "sentence_en": "At first, I felt disappointed because I had been looking forward to it all week.",
+        "sentence_cn": "起初，我感到很失望，因为我整整期待了一周。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": "I felt disappointed", "meaning": "我感到失望"},
+          {"text": "because", "meaning": "因为"},
+          {"text": "I had been looking forward to it", "meaning": "我一直期待着它"},
+          {"text": "all week.", "meaning": "整整一周"}
+        ],
+        "explanation": "look forward to 后接名词或动名词，表示期待。"
+      },
+      {
+        "sentence_en": "Then I remembered a small art museum near the bus station.",
+        "sentence_cn": "后来，我想起了公交车站附近的一家小型艺术博物馆。",
+        "chunks": [
+          {"text": "Then", "meaning": "后来"},
+          {"text": "I remembered", "meaning": "我想起了"},
+          {"text": "a small art museum", "meaning": "一家小型艺术博物馆"},
+          {"text": "near the bus station.", "meaning": "在公交车站附近"}
+        ],
+        "explanation": "remember 在这里表示想起某件已经知道的事情。"
+      },
+      {
+        "sentence_en": "I decided to visit it instead.",
+        "sentence_cn": "我决定改去那里参观。",
+        "chunks": [
+          {"text": "I decided to", "meaning": "我决定"},
+          {"text": "visit it", "meaning": "参观那里"},
+          {"text": "instead.", "meaning": "作为替代"}
+        ],
+        "explanation": "decide to do something 表示决定做某事；instead 表示改为另一种选择。"
+      },
+      {
+        "sentence_en": "The museum was quiet and interesting, and I discovered several paintings I really liked.",
+        "sentence_cn": "博物馆很安静，也很有意思，我发现了几幅自己非常喜欢的画作。",
+        "chunks": [
+          {"text": "The museum", "meaning": "这家博物馆"},
+          {"text": "was quiet and interesting,", "meaning": "安静而且有意思"},
+          {"text": "and I discovered", "meaning": "而且我发现了"},
+          {"text": "several paintings", "meaning": "几幅画作"},
+          {"text": "I really liked.", "meaning": "我非常喜欢的"}
+        ],
+        "explanation": "several 表示几个、数个；really 用来加强 liked 的语气。"
+      },
+      {
+        "sentence_en": "That evening, I realized that a change of plan could still lead to a good day.",
+        "sentence_cn": "那天晚上，我意识到，计划改变了，仍然可能迎来美好的一天。",
+        "chunks": [
+          {"text": "That evening,", "meaning": "那天晚上"},
+          {"text": "I realized that", "meaning": "我意识到"},
+          {"text": "a change of plan", "meaning": "计划的改变"},
+          {"text": "could still lead to", "meaning": "仍然可能带来"},
+          {"text": "a good day.", "meaning": "美好的一天"}
+        ],
+        "explanation": "lead to 表示导致或带来，后面可以接名词或动名词。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disappointed", "phonetic": "", "meaning": "失望的", "part_of_speech": "adjective"},
+      {"word": "museum", "phonetic": "", "meaning": "博物馆", "part_of_speech": "noun"},
+      {"word": "instead", "phonetic": "", "meaning": "代替；反而", "part_of_speech": "adverb"},
+      {"word": "discover", "phonetic": "", "meaning": "发现", "part_of_speech": "verb"},
+      {"word": "realize", "phonetic": "", "meaning": "意识到", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "look forward to", "meaning": "期待", "example": "I look forward to the weekend."},
+      {"expression": "at first", "meaning": "起初", "example": "At first, I was nervous."},
+      {"expression": "no longer", "meaning": "不再", "example": "This road is no longer open."},
+      {"expression": "decide to do something", "meaning": "决定做某事", "example": "She decided to stay home."},
+      {"expression": "lead to", "meaning": "带来；导致", "example": "Small changes can lead to big results."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why couldn't the writer go to the beach?", "options": ["The bus was late.", "It started raining heavily.", "The beach was closed.", "The writer felt sick."], "answer": "It started raining heavily.", "explanation": "文章提到大雨开始下起来，海滩之行无法继续。"},
+      {"type": "true_false", "question": "The writer visited an art museum instead.", "answer": true, "explanation": "作者改去公交车站附近的艺术博物馆。"},
+      {"type": "short_answer", "question": "What did the writer learn that evening?", "answer": "A change of plan could still lead to a good day.", "explanation": "文章最后一句表达了作者的感悟。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "101 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Everyday vocabulary and past-tense narration."
+    }
+  },
+  {
+    "article_id": 67,
+    "day": 247,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Lessons",
+    "scene": "Meeting Someone New",
+    "title_en": "A Lesson from a Stranger",
+    "title_cn": "一位陌生人给我的启示",
+    "difficulty": "A2-B1",
+    "word_count": 102,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "One afternoon, I was waiting for a train when an old man sat beside me. He noticed that I was looking at my phone again and again. He smiled and asked if I was waiting for important news. I told him that I was worried about a job interview. He listened quietly and then shared a story about his first job. He said he had made many mistakes, but each one had taught him something useful. His words helped me feel calmer. When my train arrived, I thanked him. I never learned his name, but I still remember his simple advice: keep trying and learn along the way.",
+    "content_cn": "一天下午，我正在等火车，一位老人坐到了我旁边。他注意到我一次又一次地看手机。他微笑着问我是不是在等重要消息。我告诉他，我正在为一场工作面试感到担忧。他安静地听着，然后分享了自己第一份工作的故事。他说自己犯过很多错误，但每一次错误都教会了他一些有用的东西。他的话让我平静了许多。火车到站时，我向他道了谢。我始终不知道他的名字，但我一直记得他那句简单的建议：继续尝试，并在过程中学习。",
+    "sentences": [
+      {
+        "sentence_en": "One afternoon, I was waiting for a train when an old man sat beside me.",
+        "sentence_cn": "一天下午，我正在等火车，一位老人坐到了我旁边。",
+        "chunks": [
+          {"text": "One afternoon,", "meaning": "一天下午"},
+          {"text": "I was waiting for a train", "meaning": "我正在等火车"},
+          {"text": "when", "meaning": "这时"},
+          {"text": "an old man sat beside me.", "meaning": "一位老人坐到了我旁边"}
+        ],
+        "explanation": "过去进行时 was waiting 描述当时正在发生的动作，when 引出另一个动作。"
+      },
+      {
+        "sentence_en": "He noticed that I was looking at my phone again and again.",
+        "sentence_cn": "他注意到我一次又一次地看手机。",
+        "chunks": [
+          {"text": "He noticed that", "meaning": "他注意到"},
+          {"text": "I was looking at my phone", "meaning": "我正在看手机"},
+          {"text": "again and again.", "meaning": "一次又一次"}
+        ],
+        "explanation": "notice that 表示注意到某个情况；again and again 表示反复地。"
+      },
+      {
+        "sentence_en": "He smiled and asked if I was waiting for important news.",
+        "sentence_cn": "他微笑着问我是不是在等重要消息。",
+        "chunks": [
+          {"text": "He smiled", "meaning": "他微笑了"},
+          {"text": "and asked if", "meaning": "并问是否"},
+          {"text": "I was waiting for", "meaning": "我正在等待"},
+          {"text": "important news.", "meaning": "重要消息"}
+        ],
+        "explanation": "ask if 引导间接疑问句，语序使用陈述语序。"
+      },
+      {
+        "sentence_en": "I told him that I was worried about a job interview.",
+        "sentence_cn": "我告诉他，我正在为一场工作面试感到担忧。",
+        "chunks": [
+          {"text": "I told him that", "meaning": "我告诉他"},
+          {"text": "I was worried about", "meaning": "我正在为……担忧"},
+          {"text": "a job interview.", "meaning": "一场工作面试"}
+        ],
+        "explanation": "be worried about 表示对某事感到担忧，about 后接名词或动名词。"
+      },
+      {
+        "sentence_en": "He listened quietly and then shared a story about his first job.",
+        "sentence_cn": "他安静地听着，然后分享了自己第一份工作的故事。",
+        "chunks": [
+          {"text": "He listened quietly", "meaning": "他安静地听着"},
+          {"text": "and then shared", "meaning": "然后分享了"},
+          {"text": "a story about", "meaning": "一个关于……的故事"},
+          {"text": "his first job.", "meaning": "他的第一份工作"}
+        ],
+        "explanation": "quietly 是副词，用来描述 listened 的方式。"
+      },
+      {
+        "sentence_en": "He said he had made many mistakes, but each one had taught him something useful.",
+        "sentence_cn": "他说自己犯过很多错误，但每一次错误都教会了他一些有用的东西。",
+        "chunks": [
+          {"text": "He said", "meaning": "他说"},
+          {"text": "he had made many mistakes,", "meaning": "他犯过很多错误"},
+          {"text": "but each one", "meaning": "但每一个错误"},
+          {"text": "had taught him", "meaning": "都教会了他"},
+          {"text": "something useful.", "meaning": "一些有用的东西"}
+        ],
+        "explanation": "had made 和 had taught 使用过去完成时，强调过去某个时间之前的经历和结果。"
+      },
+      {
+        "sentence_en": "His words helped me feel calmer.",
+        "sentence_cn": "他的话让我平静了许多。",
+        "chunks": [
+          {"text": "His words", "meaning": "他的话"},
+          {"text": "helped me", "meaning": "帮助我"},
+          {"text": "feel calmer.", "meaning": "感觉更加平静"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事；calmer 是 calm 的比较级。"
+      },
+      {
+        "sentence_en": "When my train arrived, I thanked him.",
+        "sentence_cn": "火车到站时，我向他道了谢。",
+        "chunks": [
+          {"text": "When my train arrived,", "meaning": "当我的火车到站时"},
+          {"text": "I thanked him.", "meaning": "我向他道了谢"}
+        ],
+        "explanation": "thank someone 表示感谢某人，thank 是动词。"
+      },
+      {
+        "sentence_en": "I never learned his name, but I still remember his simple advice: keep trying and learn along the way.",
+        "sentence_cn": "我始终不知道他的名字，但我一直记得他那句简单的建议：继续尝试，并在过程中学习。",
+        "chunks": [
+          {"text": "I never learned his name,", "meaning": "我始终不知道他的名字"},
+          {"text": "but I still remember", "meaning": "但我仍然记得"},
+          {"text": "his simple advice:", "meaning": "他简单的建议"},
+          {"text": "keep trying", "meaning": "继续尝试"},
+          {"text": "and learn along the way.", "meaning": "并在过程中学习"}
+        ],
+        "explanation": "keep doing something 表示持续做某事；along the way 表示在过程中。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "stranger", "phonetic": "", "meaning": "陌生人", "part_of_speech": "noun"},
+      {"word": "notice", "phonetic": "", "meaning": "注意到", "part_of_speech": "verb"},
+      {"word": "interview", "phonetic": "", "meaning": "面试；采访", "part_of_speech": "noun"},
+      {"word": "mistake", "phonetic": "", "meaning": "错误", "part_of_speech": "noun"},
+      {"word": "advice", "phonetic": "", "meaning": "建议", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "again and again", "meaning": "一次又一次", "example": "He read the message again and again."},
+      {"expression": "be worried about", "meaning": "为……担忧", "example": "She is worried about her exam."},
+      {"expression": "listen quietly", "meaning": "安静地倾听", "example": "He listened quietly to her story."},
+      {"expression": "help someone feel", "meaning": "帮助某人感觉……", "example": "Music helps me feel relaxed."},
+      {"expression": "along the way", "meaning": "在过程中", "example": "We learned a lot along the way."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why was the writer worried?", "options": ["About a train delay.", "About a job interview.", "About an old friend.", "About losing a phone."], "answer": "About a job interview.", "explanation": "作者告诉老人，自己正在为工作面试担忧。"},
+      {"type": "true_false", "question": "The old man said he had never made mistakes at work.", "answer": false, "explanation": "老人说自己犯过很多错误，并从中学到了东西。"},
+      {"type": "short_answer", "question": "What advice did the old man give?", "answer": "Keep trying and learn along the way.", "explanation": "文章最后直接写出了老人的建议。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "102 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Includes past continuous, reported speech, and a practical life lesson."
+    }
+  },
+  {
+    "article_id": 68,
+    "day": 248,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Speaking Up",
+    "title_en": "A Small Act of Courage",
+    "title_cn": "一次小小的勇敢行动",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "I used to avoid speaking in front of other people. Even in small meetings, I stayed quiet because I was afraid of making mistakes. One day, my team needed someone to explain a new idea. Nobody volunteered, so I took a deep breath and raised my hand. My voice was not very strong, and I forgot one important point. However, my coworkers listened and asked useful questions. After the meeting, my manager thanked me for trying. I felt proud, not because I was perfect, but because I had taken the first step. Since then, speaking up has become a little easier.",
+    "content_cn": "我过去常常避免在别人面前讲话。即使是在小型会议上，我也保持沉默，因为我害怕犯错。一天，我们团队需要有人解释一个新想法。没有人主动报名，于是我深吸一口气，举起了手。我的声音不太响亮，而且忘记了一个重要的要点。然而，同事们认真倾听，还提出了一些有用的问题。会议结束后，经理感谢我愿意尝试。我感到自豪，并不是因为自己表现得完美，而是因为我迈出了第一步。从那以后，主动表达自己的想法变得容易了一些。",
+    "sentences": [
+      {
+        "sentence_en": "I used to avoid speaking in front of other people.",
+        "sentence_cn": "我过去常常避免在别人面前讲话。",
+        "chunks": [
+          {"text": "I used to", "meaning": "我过去常常"},
+          {"text": "avoid speaking", "meaning": "避免讲话"},
+          {"text": "in front of other people.", "meaning": "在别人面前"}
+        ],
+        "explanation": "used to do 表示过去经常做、现在可能已经改变的习惯。avoid 后接动名词。"
+      },
+      {
+        "sentence_en": "Even in small meetings, I stayed quiet because I was afraid of making mistakes.",
+        "sentence_cn": "即使是在小型会议上，我也保持沉默，因为我害怕犯错。",
+        "chunks": [
+          {"text": "Even in small meetings,", "meaning": "即使在小型会议上"},
+          {"text": "I stayed quiet", "meaning": "我也保持沉默"},
+          {"text": "because", "meaning": "因为"},
+          {"text": "I was afraid of", "meaning": "我害怕"},
+          {"text": "making mistakes.", "meaning": "犯错误"}
+        ],
+        "explanation": "be afraid of 后接名词或动名词，表示害怕某事。"
+      },
+      {
+        "sentence_en": "One day, my team needed someone to explain a new idea.",
+        "sentence_cn": "一天，我们团队需要有人解释一个新想法。",
+        "chunks": [
+          {"text": "One day,", "meaning": "一天"},
+          {"text": "my team needed", "meaning": "我的团队需要"},
+          {"text": "someone to explain", "meaning": "有人来解释"},
+          {"text": "a new idea.", "meaning": "一个新想法"}
+        ],
+        "explanation": "need someone to do something 表示需要某人做某事。"
+      },
+      {
+        "sentence_en": "Nobody volunteered, so I took a deep breath and raised my hand.",
+        "sentence_cn": "没有人主动报名，于是我深吸一口气，举起了手。",
+        "chunks": [
+          {"text": "Nobody volunteered,", "meaning": "没有人主动报名"},
+          {"text": "so", "meaning": "所以"},
+          {"text": "I took a deep breath", "meaning": "我深吸了一口气"},
+          {"text": "and raised my hand.", "meaning": "并举起了手"}
+        ],
+        "explanation": "take a deep breath 是深呼吸；raise one's hand 是举手。"
+      },
+      {
+        "sentence_en": "My voice was not very strong, and I forgot one important point.",
+        "sentence_cn": "我的声音不太响亮，而且忘记了一个重要的要点。",
+        "chunks": [
+          {"text": "My voice", "meaning": "我的声音"},
+          {"text": "was not very strong,", "meaning": "不太响亮"},
+          {"text": "and I forgot", "meaning": "而且我忘记了"},
+          {"text": "one important point.", "meaning": "一个重要的要点"}
+        ],
+        "explanation": "point 在这里表示观点、要点，而不是地点。"
+      },
+      {
+        "sentence_en": "However, my coworkers listened and asked useful questions.",
+        "sentence_cn": "然而，同事们认真倾听，还提出了一些有用的问题。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "my coworkers", "meaning": "我的同事们"},
+          {"text": "listened", "meaning": "认真听着"},
+          {"text": "and asked useful questions.", "meaning": "并提出了有用的问题"}
+        ],
+        "explanation": "coworker 指同事；ask a question 表示提问。"
+      },
+      {
+        "sentence_en": "After the meeting, my manager thanked me for trying.",
+        "sentence_cn": "会议结束后，经理感谢我愿意尝试。",
+        "chunks": [
+          {"text": "After the meeting,", "meaning": "会议结束后"},
+          {"text": "my manager", "meaning": "我的经理"},
+          {"text": "thanked me for", "meaning": "因……而感谢我"},
+          {"text": "trying.", "meaning": "尝试"}
+        ],
+        "explanation": "thank someone for doing something 表示因某人做了某事而感谢他。"
+      },
+      {
+        "sentence_en": "I felt proud, not because I was perfect, but because I had taken the first step.",
+        "sentence_cn": "我感到自豪，并不是因为自己表现得完美，而是因为我迈出了第一步。",
+        "chunks": [
+          {"text": "I felt proud,", "meaning": "我感到自豪"},
+          {"text": "not because I was perfect,", "meaning": "不是因为我很完美"},
+          {"text": "but because", "meaning": "而是因为"},
+          {"text": "I had taken the first step.", "meaning": "我已经迈出了第一步"}
+        ],
+        "explanation": "not because... but because... 表示不是因为……而是因为……。"
+      },
+      {
+        "sentence_en": "Since then, speaking up has become a little easier.",
+        "sentence_cn": "从那以后，主动表达自己的想法变得容易了一些。",
+        "chunks": [
+          {"text": "Since then,", "meaning": "从那以后"},
+          {"text": "speaking up", "meaning": "主动表达意见"},
+          {"text": "has become", "meaning": "已经变得"},
+          {"text": "a little easier.", "meaning": "容易了一些"}
+        ],
+        "explanation": "speaking up 是动名词短语作主语；since then 常与现在完成时连用。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "avoid", "phonetic": "", "meaning": "避免", "part_of_speech": "verb"},
+      {"word": "volunteer", "phonetic": "", "meaning": "主动承担；自愿参加", "part_of_speech": "verb"},
+      {"word": "coworker", "phonetic": "", "meaning": "同事", "part_of_speech": "noun"},
+      {"word": "proud", "phonetic": "", "meaning": "自豪的", "part_of_speech": "adjective"},
+      {"word": "courage", "phonetic": "", "meaning": "勇气", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "used to do something", "meaning": "过去常常做某事", "example": "I used to live near the sea."},
+      {"expression": "in front of", "meaning": "在……面前", "example": "She spoke in front of the class."},
+      {"expression": "take a deep breath", "meaning": "深吸一口气", "example": "Take a deep breath and relax."},
+      {"expression": "raise one's hand", "meaning": "举手", "example": "He raised his hand to answer."},
+      {"expression": "take the first step", "meaning": "迈出第一步", "example": "Starting is the first step toward change."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why did the writer usually stay quiet?", "options": ["The meetings were too long.", "The writer was afraid of making mistakes.", "The writer did not understand the topic.", "The manager asked everyone to be quiet."], "answer": "The writer was afraid of making mistakes.", "explanation": "第二句说明作者因为害怕犯错而保持沉默。"},
+      {"type": "true_false", "question": "The writer gave a perfect explanation during the meeting.", "answer": false, "explanation": "作者忘记了一个重要的要点。"},
+      {"type": "short_answer", "question": "Why did the writer feel proud?", "answer": "Because the writer had taken the first step.", "explanation": "作者为自己勇敢迈出第一步而感到自豪。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "99 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Focuses on courage, workplace communication, and personal growth."
+    }
+  },
+  {
+    "article_id": 69,
+    "day": 249,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Looking Back on Life",
+    "title_en": "How I Changed Over the Years",
+    "title_cn": "这些年来我是如何改变的",
+    "difficulty": "A2-B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "When I was younger, I wanted everything to happen quickly. I often became upset when things did not go my way. I also cared too much about what other people thought of me. Over the years, my experiences have slowly changed the way I see life. I have learned to be more patient and to accept that I cannot control everything. I now spend more time on things that truly matter, such as my health, family, and personal goals. I still make mistakes, but I do not judge myself as harshly as before. Growing older has not made me perfect, but it has helped me understand myself better.",
+    "content_cn": "年轻时，我希望所有事情都能迅速发生。当事情不如我意时，我常常会感到烦恼。我也过于在意别人对我的看法。这些年来，我的经历慢慢改变了我看待生活的方式。我学会了更加耐心，也学会接受自己无法控制所有事情。现在，我会把更多时间花在真正重要的事情上，比如健康、家庭和个人目标。我仍然会犯错，但不会像以前那样严厉地批评自己。年龄增长并没有让我变得完美，却帮助我更好地了解自己。",
+    "sentences": [
+      {
+        "sentence_en": "When I was younger, I wanted everything to happen quickly.",
+        "sentence_cn": "年轻时，我希望所有事情都能迅速发生。",
+        "chunks": [
+          {"text": "When I was younger,", "meaning": "当我年轻时"},
+          {"text": "I wanted", "meaning": "我希望"},
+          {"text": "everything to happen", "meaning": "所有事情都发生"},
+          {"text": "quickly.", "meaning": "迅速地"}
+        ],
+        "explanation": "want something to happen 表示希望某事发生。"
+      },
+      {
+        "sentence_en": "I often became upset when things did not go my way.",
+        "sentence_cn": "当事情不如我意时，我常常会感到烦恼。",
+        "chunks": [
+          {"text": "I often became upset", "meaning": "我常常变得烦恼"},
+          {"text": "when", "meaning": "当……时"},
+          {"text": "things did not go my way.", "meaning": "事情不按我的想法发展"}
+        ],
+        "explanation": "go one's way 表示按照某人的想法或期望发展。"
+      },
+      {
+        "sentence_en": "I also cared too much about what other people thought of me.",
+        "sentence_cn": "我也过于在意别人对我的看法。",
+        "chunks": [
+          {"text": "I also cared too much", "meaning": "我也过于在意"},
+          {"text": "about", "meaning": "关于"},
+          {"text": "what other people thought", "meaning": "别人所想的"},
+          {"text": "of me.", "meaning": "关于我"}
+        ],
+        "explanation": "what 引导名词性从句；think of someone 表示对某人的看法。"
+      },
+      {
+        "sentence_en": "Over the years, my experiences have slowly changed the way I see life.",
+        "sentence_cn": "这些年来，我的经历慢慢改变了我看待生活的方式。",
+        "chunks": [
+          {"text": "Over the years,", "meaning": "这些年来"},
+          {"text": "my experiences", "meaning": "我的经历"},
+          {"text": "have slowly changed", "meaning": "已经慢慢改变了"},
+          {"text": "the way", "meaning": "……的方式"},
+          {"text": "I see life.", "meaning": "我看待生活"}
+        ],
+        "explanation": "over the years 表示这些年来；the way 后可以接定语从句。"
+      },
+      {
+        "sentence_en": "I have learned to be more patient and to accept that I cannot control everything.",
+        "sentence_cn": "我学会了更加耐心，也学会接受自己无法控制所有事情。",
+        "chunks": [
+          {"text": "I have learned", "meaning": "我已经学会"},
+          {"text": "to be more patient", "meaning": "变得更加耐心"},
+          {"text": "and to accept", "meaning": "并且接受"},
+          {"text": "that I cannot control everything.", "meaning": "我无法控制所有事情这一事实"}
+        ],
+        "explanation": "learn to do something 表示学会做某事；accept 后可以接 that 从句。"
+      },
+      {
+        "sentence_en": "I now spend more time on things that truly matter, such as my health, family, and personal goals.",
+        "sentence_cn": "现在，我会把更多时间花在真正重要的事情上，比如健康、家庭和个人目标。",
+        "chunks": [
+          {"text": "I now spend more time", "meaning": "现在我花更多时间"},
+          {"text": "on things", "meaning": "在一些事情上"},
+          {"text": "that truly matter,", "meaning": "那些真正重要的"},
+          {"text": "such as", "meaning": "例如"},
+          {"text": "my health, family, and personal goals.", "meaning": "我的健康、家庭和个人目标"}
+        ],
+        "explanation": "spend time on something 表示在某事上花时间；matter 作动词表示重要。"
+      },
+      {
+        "sentence_en": "I still make mistakes, but I do not judge myself as harshly as before.",
+        "sentence_cn": "我仍然会犯错，但不会像以前那样严厉地批评自己。",
+        "chunks": [
+          {"text": "I still make mistakes,", "meaning": "我仍然会犯错"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "I do not judge myself", "meaning": "我不再评判自己"},
+          {"text": "as harshly as before.", "meaning": "像以前那样严厉"}
+        ],
+        "explanation": "as...as... 表示同等程度；judge oneself 表示评判自己。"
+      },
+      {
+        "sentence_en": "Growing older has not made me perfect, but it has helped me understand myself better.",
+        "sentence_cn": "年龄增长并没有让我变得完美，却帮助我更好地了解自己。",
+        "chunks": [
+          {"text": "Growing older", "meaning": "随着年龄增长"},
+          {"text": "has not made me perfect,", "meaning": "并没有让我变得完美"},
+          {"text": "but it has helped me", "meaning": "但它帮助了我"},
+          {"text": "understand myself better.", "meaning": "更好地了解自己"}
+        ],
+        "explanation": "动名词短语 Growing older 作主语；make someone + adjective 表示使某人变得……。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "upset", "phonetic": "", "meaning": "烦恼的；难过的", "part_of_speech": "adjective"},
+      {"word": "experience", "phonetic": "", "meaning": "经历；经验", "part_of_speech": "noun"},
+      {"word": "patient", "phonetic": "", "meaning": "有耐心的", "part_of_speech": "adjective"},
+      {"word": "control", "phonetic": "", "meaning": "控制", "part_of_speech": "verb"},
+      {"word": "harshly", "phonetic": "", "meaning": "严厉地", "part_of_speech": "adverb"}
+    ],
+    "expressions": [
+      {"expression": "go one's way", "meaning": "按照某人的意愿发展", "example": "Things do not always go my way."},
+      {"expression": "over the years", "meaning": "这些年来", "example": "I have changed a lot over the years."},
+      {"expression": "learn to do something", "meaning": "学会做某事", "example": "We all need to learn to listen."},
+      {"expression": "spend time on", "meaning": "在……上花时间", "example": "She spends time on her hobbies."},
+      {"expression": "make someone better", "meaning": "使某人变得更好", "example": "Practice can make you better."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What did the writer care too much about when younger?", "options": ["Money.", "Other people's opinions.", "Traveling.", "Work schedules."], "answer": "Other people's opinions.", "explanation": "第三句说明作者过去过于在意别人对自己的看法。"},
+      {"type": "true_false", "question": "The writer now believes that everything can be controlled.", "answer": false, "explanation": "作者学会接受自己无法控制所有事情。"},
+      {"type": "short_answer", "question": "What important things does the writer spend more time on now?", "answer": "Health, family, and personal goals.", "explanation": "文章第六句列出了这三个方面。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "103 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Uses present perfect to describe gradual personal change."
+    }
+  },
+  {
+    "article_id": 70,
+    "day": 250,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Lessons",
+    "scene": "Receiving Advice",
+    "title_en": "The Best Advice I Ever Received",
+    "title_cn": "我曾收到过的最好建议",
+    "difficulty": "A2-B1",
+    "word_count": 102,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A few years ago, I was unhappy with my progress at work. I compared myself with others and felt that I was falling behind. One day, my father noticed my mood and asked what was wrong. After listening to me, he said, \"Don't compare your beginning with someone else's middle.\" At first, I did not fully understand his words. Later, I realized that everyone has a different path and moves at a different speed. Since then, I have focused more on my own goals. I still look at what others achieve, but I use it for inspiration instead of pressure. That advice has helped me become more confident.",
+    "content_cn": "几年前，我对自己在工作上的进步感到不满意。我总是拿自己和别人比较，觉得自己落在了后面。一天，父亲注意到了我的情绪，便问我出了什么事。听我说完后，他说：“不要拿自己的起点和别人的中途相比。”起初，我并没有完全理解他的话。后来，我意识到每个人都有不同的人生道路，前进的速度也不一样。从那以后，我更加专注于自己的目标。我仍然会关注别人的成就，但我把它们当作激励，而不是压力。这条建议帮助我变得更加自信。",
+    "sentences": [
+      {
+        "sentence_en": "A few years ago, I was unhappy with my progress at work.",
+        "sentence_cn": "几年前，我对自己在工作上的进步感到不满意。",
+        "chunks": [
+          {"text": "A few years ago,", "meaning": "几年前"},
+          {"text": "I was unhappy with", "meaning": "我对……感到不满意"},
+          {"text": "my progress", "meaning": "我的进步"},
+          {"text": "at work.", "meaning": "在工作中"}
+        ],
+        "explanation": "be unhappy with 表示对某事不满意；progress 表示进步或进展。"
+      },
+      {
+        "sentence_en": "I compared myself with others and felt that I was falling behind.",
+        "sentence_cn": "我总是拿自己和别人比较，觉得自己落在了后面。",
+        "chunks": [
+          {"text": "I compared myself", "meaning": "我拿自己比较"},
+          {"text": "with others", "meaning": "和其他人"},
+          {"text": "and felt that", "meaning": "并且觉得"},
+          {"text": "I was falling behind.", "meaning": "我正在落后"}
+        ],
+        "explanation": "compare A with B 表示将A与B比较；fall behind 表示落后。"
+      },
+      {
+        "sentence_en": "One day, my father noticed my mood and asked what was wrong.",
+        "sentence_cn": "一天，父亲注意到了我的情绪，便问我出了什么事。",
+        "chunks": [
+          {"text": "One day,", "meaning": "一天"},
+          {"text": "my father noticed my mood", "meaning": "父亲注意到了我的情绪"},
+          {"text": "and asked", "meaning": "并问"},
+          {"text": "what was wrong.", "meaning": "出了什么问题"}
+        ],
+        "explanation": "what was wrong 是间接疑问句，使用陈述语序。"
+      },
+      {
+        "sentence_en": "After listening to me, he said, \"Don't compare your beginning with someone else's middle.\"",
+        "sentence_cn": "听我说完后，他说：“不要拿自己的起点和别人的中途相比。”",
+        "chunks": [
+          {"text": "After listening to me,", "meaning": "听我说完后"},
+          {"text": "he said,", "meaning": "他说"},
+          {"text": "\"Don't compare", "meaning": "不要比较"},
+          {"text": "your beginning", "meaning": "你的起点"},
+          {"text": "with someone else's middle.\"", "meaning": "和别人的中途"}
+        ],
+        "explanation": "Don't + 动词原形构成否定祈使句；someone else's 表示别人的。"
+      },
+      {
+        "sentence_en": "At first, I did not fully understand his words.",
+        "sentence_cn": "起初，我并没有完全理解他的话。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": "I did not fully understand", "meaning": "我没有完全理解"},
+          {"text": "his words.", "meaning": "他的话"}
+        ],
+        "explanation": "did not 后面使用动词原形；fully 表示完全地。"
+      },
+      {
+        "sentence_en": "Later, I realized that everyone has a different path and moves at a different speed.",
+        "sentence_cn": "后来，我意识到每个人都有不同的人生道路，前进的速度也不一样。",
+        "chunks": [
+          {"text": "Later,", "meaning": "后来"},
+          {"text": "I realized that", "meaning": "我意识到"},
+          {"text": "everyone has a different path", "meaning": "每个人都有不同的道路"},
+          {"text": "and moves", "meaning": "并且前进"},
+          {"text": "at a different speed.", "meaning": "以不同的速度"}
+        ],
+        "explanation": "everyone 作主语时，谓语动词使用第三人称单数形式。"
+      },
+      {
+        "sentence_en": "Since then, I have focused more on my own goals.",
+        "sentence_cn": "从那以后，我更加专注于自己的目标。",
+        "chunks": [
+          {"text": "Since then,", "meaning": "从那以后"},
+          {"text": "I have focused more", "meaning": "我更加专注"},
+          {"text": "on my own goals.", "meaning": "于自己的目标"}
+        ],
+        "explanation": "focus on 表示专注于；since then 常与现在完成时连用。"
+      },
+      {
+        "sentence_en": "I still look at what others achieve, but I use it for inspiration instead of pressure.",
+        "sentence_cn": "我仍然会关注别人的成就，但我把它们当作激励，而不是压力。",
+        "chunks": [
+          {"text": "I still look at", "meaning": "我仍然关注"},
+          {"text": "what others achieve,", "meaning": "别人所取得的成就"},
+          {"text": "but I use it", "meaning": "但我利用它"},
+          {"text": "for inspiration", "meaning": "作为激励"},
+          {"text": "instead of pressure.", "meaning": "而不是压力"}
+        ],
+        "explanation": "instead of 后接名词或动名词，表示代替而不是。"
+      },
+      {
+        "sentence_en": "That advice has helped me become more confident.",
+        "sentence_cn": "这条建议帮助我变得更加自信。",
+        "chunks": [
+          {"text": "That advice", "meaning": "那条建议"},
+          {"text": "has helped me", "meaning": "已经帮助我"},
+          {"text": "become more confident.", "meaning": "变得更加自信"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事；confident 表示自信的。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "progress", "phonetic": "", "meaning": "进步；进展", "part_of_speech": "noun"},
+      {"word": "compare", "phonetic": "", "meaning": "比较", "part_of_speech": "verb"},
+      {"word": "behind", "phonetic": "", "meaning": "落后；在后面", "part_of_speech": "adverb"},
+      {"word": "inspiration", "phonetic": "", "meaning": "激励；灵感", "part_of_speech": "noun"},
+      {"word": "confident", "phonetic": "", "meaning": "自信的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "compare A with B", "meaning": "将A与B比较", "example": "Don't compare your life with mine."},
+      {"expression": "fall behind", "meaning": "落后", "example": "He worked hard so he would not fall behind."},
+      {"expression": "what is wrong", "meaning": "出了什么问题", "example": "You look upset. What is wrong?"},
+      {"expression": "focus on", "meaning": "专注于", "example": "I need to focus on my work."},
+      {"expression": "instead of", "meaning": "而不是；代替", "example": "Let's walk instead of driving."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why was the writer unhappy?", "options": ["The writer had lost a job.", "The writer felt behind others at work.", "The writer wanted to move away.", "The writer had no friends."], "answer": "The writer felt behind others at work.", "explanation": "作者将自己和别人比较，觉得自己落后了。"},
+      {"type": "true_false", "question": "The writer stopped noticing other people's achievements.", "answer": false, "explanation": "作者仍然关注别人的成就，只是把它们当作激励。"},
+      {"type": "short_answer", "question": "What did the father's advice teach the writer?", "answer": "Everyone has a different path and moves at a different speed.", "explanation": "每个人的道路和前进速度都不同，不必盲目比较。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "102 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Uses a memorable quotation and practical comparison vocabulary."
+    }
+  },
+  {
+    "article_id": 71,
+    "day": 251,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Culture and Festivals",
+    "scene": "Christmas Celebration",
+    "title_en": "Celebrating Christmas",
+    "title_cn": "庆祝圣诞节",
+    "difficulty": "A2-B1",
+    "word_count": 101,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Christmas is one of the most popular holidays in many countries. In December, streets and stores are often decorated with lights, trees, and colorful signs. Families may put up a Christmas tree at home and place gifts under it. On Christmas Eve, some people attend church, while others enjoy dinner with their families. Children often look forward to opening their presents the next morning. Food is also an important part of the celebration. People may share roasted meat, cookies, and other special dishes. Although traditions are different from place to place, Christmas is often a time for kindness, family, and sharing.",
+    "content_cn": "圣诞节是许多国家最受欢迎的节日之一。到了十二月，街道和商店通常会用灯饰、圣诞树和彩色标志装饰起来。许多家庭会在家里摆放圣诞树，并把礼物放在树下。平安夜时，一些人会去教堂，而另一些人则和家人共进晚餐。孩子们通常期待第二天早上打开礼物。食物也是庆祝活动的重要组成部分。人们可能会分享烤肉、饼干和其他特色菜肴。虽然不同地方的传统有所不同，但圣诞节通常是一个充满善意、家庭温情和分享的时刻。",
+    "sentences": [
+      {
+        "sentence_en": "Christmas is one of the most popular holidays in many countries.",
+        "sentence_cn": "圣诞节是许多国家最受欢迎的节日之一。",
+        "chunks": [
+          {"text": "Christmas", "meaning": "圣诞节"},
+          {"text": "is one of", "meaning": "是……之一"},
+          {"text": "the most popular holidays", "meaning": "最受欢迎的节日"},
+          {"text": "in many countries.", "meaning": "在许多国家"}
+        ],
+        "explanation": "one of the + 最高级 + 名词复数，表示最……的……之一。"
+      },
+      {
+        "sentence_en": "In December, streets and stores are often decorated with lights, trees, and colorful signs.",
+        "sentence_cn": "到了十二月，街道和商店通常会用灯饰、圣诞树和彩色标志装饰起来。",
+        "chunks": [
+          {"text": "In December,", "meaning": "在十二月"},
+          {"text": "streets and stores", "meaning": "街道和商店"},
+          {"text": "are often decorated with", "meaning": "通常用……装饰"},
+          {"text": "lights, trees, and colorful signs.", "meaning": "灯饰、树木和彩色标志"}
+        ],
+        "explanation": "be decorated with 表示用……装饰，是常见的被动语态表达。"
+      },
+      {
+        "sentence_en": "Families may put up a Christmas tree at home and place gifts under it.",
+        "sentence_cn": "许多家庭会在家里摆放圣诞树，并把礼物放在树下。",
+        "chunks": [
+          {"text": "Families may", "meaning": "家庭可能会"},
+          {"text": "put up a Christmas tree", "meaning": "摆放一棵圣诞树"},
+          {"text": "at home", "meaning": "在家里"},
+          {"text": "and place gifts", "meaning": "并放置礼物"},
+          {"text": "under it.", "meaning": "在它下面"}
+        ],
+        "explanation": "put up 在这里表示竖起或摆放；may 表示可能。"
+      },
+      {
+        "sentence_en": "On Christmas Eve, some people attend church, while others enjoy dinner with their families.",
+        "sentence_cn": "平安夜时，一些人会去教堂，而另一些人则和家人共进晚餐。",
+        "chunks": [
+          {"text": "On Christmas Eve,", "meaning": "在平安夜"},
+          {"text": "some people attend church,", "meaning": "一些人参加教堂活动"},
+          {"text": "while others", "meaning": "而另一些人"},
+          {"text": "enjoy dinner with their families.", "meaning": "和家人享用晚餐"}
+        ],
+        "explanation": "while 在这里表示对比；Christmas Eve 指圣诞前夜。"
+      },
+      {
+        "sentence_en": "Children often look forward to opening their presents the next morning.",
+        "sentence_cn": "孩子们通常期待第二天早上打开礼物。",
+        "chunks": [
+          {"text": "Children often", "meaning": "孩子们通常"},
+          {"text": "look forward to", "meaning": "期待"},
+          {"text": "opening their presents", "meaning": "打开他们的礼物"},
+          {"text": "the next morning.", "meaning": "第二天早上"}
+        ],
+        "explanation": "look forward to 后面接动名词；present 在这里表示礼物。"
+      },
+      {
+        "sentence_en": "Food is also an important part of the celebration.",
+        "sentence_cn": "食物也是庆祝活动的重要组成部分。",
+        "chunks": [
+          {"text": "Food is also", "meaning": "食物也是"},
+          {"text": "an important part", "meaning": "重要的一部分"},
+          {"text": "of the celebration.", "meaning": "属于这场庆祝活动"}
+        ],
+        "explanation": "an important part of 表示……的重要组成部分。"
+      },
+      {
+        "sentence_en": "People may share roasted meat, cookies, and other special dishes.",
+        "sentence_cn": "人们可能会分享烤肉、饼干和其他特色菜肴。",
+        "chunks": [
+          {"text": "People may share", "meaning": "人们可能会分享"},
+          {"text": "roasted meat,", "meaning": "烤肉"},
+          {"text": "cookies,", "meaning": "饼干"},
+          {"text": "and other special dishes.", "meaning": "以及其他特色菜肴"}
+        ],
+        "explanation": "roasted 是 roast 的过去分词形式，在这里作形容词，表示烤制的。"
+      },
+      {
+        "sentence_en": "Although traditions are different from place to place, Christmas is often a time for kindness, family, and sharing.",
+        "sentence_cn": "虽然不同地方的传统有所不同，但圣诞节通常是一个充满善意、家庭温情和分享的时刻。",
+        "chunks": [
+          {"text": "Although", "meaning": "虽然"},
+          {"text": "traditions are different", "meaning": "传统有所不同"},
+          {"text": "from place to place,", "meaning": "在不同地方之间"},
+          {"text": "Christmas is often a time for", "meaning": "圣诞节通常是一个……的时刻"},
+          {"text": "kindness, family, and sharing.", "meaning": "善意、家庭和分享"}
+        ],
+        "explanation": "although 引导让步状语从句；from place to place 表示不同地方之间。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "holiday", "phonetic": "", "meaning": "节日；假期", "part_of_speech": "noun"},
+      {"word": "decorate", "phonetic": "", "meaning": "装饰", "part_of_speech": "verb"},
+      {"word": "present", "phonetic": "", "meaning": "礼物", "part_of_speech": "noun"},
+      {"word": "celebration", "phonetic": "", "meaning": "庆祝活动", "part_of_speech": "noun"},
+      {"word": "tradition", "phonetic": "", "meaning": "传统", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "put up", "meaning": "摆放；竖起", "example": "We put up a tree in the living room."},
+      {"expression": "Christmas Eve", "meaning": "平安夜", "example": "We have dinner together on Christmas Eve."},
+      {"expression": "look forward to", "meaning": "期待", "example": "The children look forward to the holiday."},
+      {"expression": "an important part of", "meaning": "……的重要组成部分", "example": "Exercise is an important part of my life."},
+      {"expression": "from place to place", "meaning": "在不同地方之间", "example": "The rules may change from place to place."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What do some families put gifts under?", "options": ["A table.", "A Christmas tree.", "A window.", "A bed."], "answer": "A Christmas tree.", "explanation": "文章第三句提到家庭会把礼物放在圣诞树下。"},
+      {"type": "true_false", "question": "Everyone celebrates Christmas in exactly the same way.", "answer": false, "explanation": "文章指出不同地方的传统有所不同。"},
+      {"type": "short_answer", "question": "What values does Christmas often represent in the passage?", "answer": "Kindness, family, and sharing.", "explanation": "文章最后一句概括了圣诞节所代表的意义。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "101 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Introduces common Christmas customs without assuming everyone celebrates the holiday."
+    }
+  },
+  {
+    "article_id": 72,
+    "day": 252,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Culture and Festivals",
+    "scene": "Chinese New Year",
+    "title_en": "Chinese New Year Traditions",
+    "title_cn": "中国春节传统",
+    "difficulty": "A2-B1",
+    "word_count": 104,
+    "estimated_reading_time_seconds": 47,
+    "content_en": "Chinese New Year is an important festival for many families. Before the holiday, people clean their homes to welcome a fresh start. Red decorations are placed on doors and windows because red is a symbol of good luck. Many people travel to their hometowns to spend time with relatives. On New Year's Eve, families often enjoy a large dinner together. Children may receive red envelopes with money inside. During the holiday, people visit relatives, share food, and exchange good wishes. Fireworks are also part of the celebration in some places. For many people, the most meaningful part is not the decorations or gifts, but being together with family.",
+    "content_cn": "春节对许多家庭来说是一个重要的节日。节日前，人们会打扫房屋，迎接一个新的开始。红色装饰品会被贴在门窗上，因为红色象征着好运。许多人会回到家乡，与亲人团聚。除夕夜，家人通常会一起享用丰盛的晚餐。孩子们可能会收到装有钱的红包。春节期间，人们走亲访友、分享食物，并互相送上美好的祝福。在一些地方，烟花也是庆祝活动的一部分。对许多人来说，最有意义的并不是装饰或礼物，而是与家人团聚。",
+    "sentences": [
+      {
+        "sentence_en": "Chinese New Year is an important festival for many families.",
+        "sentence_cn": "春节对许多家庭来说是一个重要的节日。",
+        "chunks": [
+          {"text": "Chinese New Year", "meaning": "中国春节"},
+          {"text": "is an important festival", "meaning": "是一个重要的节日"},
+          {"text": "for many families.", "meaning": "对许多家庭来说"}
+        ],
+        "explanation": "important festival 表示重要节日；for 在这里表示对……而言。"
+      },
+      {
+        "sentence_en": "Before the holiday, people clean their homes to welcome a fresh start.",
+        "sentence_cn": "节日前，人们会打扫房屋，迎接一个新的开始。",
+        "chunks": [
+          {"text": "Before the holiday,", "meaning": "节日之前"},
+          {"text": "people clean their homes", "meaning": "人们打扫自己的房屋"},
+          {"text": "to welcome", "meaning": "为了迎接"},
+          {"text": "a fresh start.", "meaning": "一个新的开始"}
+        ],
+        "explanation": "to welcome 表示目的，即为了迎接；fresh start 指新的开始。"
+      },
+      {
+        "sentence_en": "Red decorations are placed on doors and windows because red is a symbol of good luck.",
+        "sentence_cn": "红色装饰品会被贴在门窗上，因为红色象征着好运。",
+        "chunks": [
+          {"text": "Red decorations", "meaning": "红色装饰品"},
+          {"text": "are placed", "meaning": "被放置"},
+          {"text": "on doors and windows", "meaning": "在门和窗户上"},
+          {"text": "because", "meaning": "因为"},
+          {"text": "red is a symbol of good luck.", "meaning": "红色是好运的象征"}
+        ],
+        "explanation": "are placed 是一般现在时被动语态；a symbol of 表示……的象征。"
+      },
+      {
+        "sentence_en": "Many people travel to their hometowns to spend time with relatives.",
+        "sentence_cn": "许多人会回到家乡，与亲人团聚。",
+        "chunks": [
+          {"text": "Many people travel", "meaning": "许多人出行"},
+          {"text": "to their hometowns", "meaning": "回到他们的家乡"},
+          {"text": "to spend time with", "meaning": "为了与……共度时光"},
+          {"text": "relatives.", "meaning": "亲人"}
+        ],
+        "explanation": "hometown 表示家乡；relative 表示亲戚或亲属。"
+      },
+      {
+        "sentence_en": "On New Year's Eve, families often enjoy a large dinner together.",
+        "sentence_cn": "除夕夜，家人通常会一起享用丰盛的晚餐。",
+        "chunks": [
+          {"text": "On New Year's Eve,", "meaning": "在除夕夜"},
+          {"text": "families often enjoy", "meaning": "家庭通常享用"},
+          {"text": "a large dinner", "meaning": "一顿丰盛的晚餐"},
+          {"text": "together.", "meaning": "一起"}
+        ],
+        "explanation": "New Year's Eve 指新年前夜；enjoy dinner 表示享用晚餐。"
+      },
+      {
+        "sentence_en": "Children may receive red envelopes with money inside.",
+        "sentence_cn": "孩子们可能会收到装有钱的红包。",
+        "chunks": [
+          {"text": "Children may receive", "meaning": "孩子们可能会收到"},
+          {"text": "red envelopes", "meaning": "红包"},
+          {"text": "with money inside.", "meaning": "里面装着钱"}
+        ],
+        "explanation": "receive 表示收到；with money inside 表示里面装有钱。"
+      },
+      {
+        "sentence_en": "During the holiday, people visit relatives, share food, and exchange good wishes.",
+        "sentence_cn": "春节期间，人们走亲访友、分享食物，并互相送上美好的祝福。",
+        "chunks": [
+          {"text": "During the holiday,", "meaning": "节日期间"},
+          {"text": "people visit relatives,", "meaning": "人们拜访亲友"},
+          {"text": "share food,", "meaning": "分享食物"},
+          {"text": "and exchange good wishes.", "meaning": "并互相送上美好祝福"}
+        ],
+        "explanation": "exchange wishes 表示互相表达祝愿；during 表示在……期间。"
+      },
+      {
+        "sentence_en": "Fireworks are also part of the celebration in some places.",
+        "sentence_cn": "在一些地方，烟花也是庆祝活动的一部分。",
+        "chunks": [
+          {"text": "Fireworks", "meaning": "烟花"},
+          {"text": "are also part of", "meaning": "也是……的一部分"},
+          {"text": "the celebration", "meaning": "这场庆祝活动"},
+          {"text": "in some places.", "meaning": "在一些地方"}
+        ],
+        "explanation": "fireworks 是烟花；part of 表示……的一部分。"
+      },
+      {
+        "sentence_en": "For many people, the most meaningful part is not the decorations or gifts, but being together with family.",
+        "sentence_cn": "对许多人来说，最有意义的并不是装饰或礼物，而是与家人团聚。",
+        "chunks": [
+          {"text": "For many people,", "meaning": "对许多人来说"},
+          {"text": "the most meaningful part", "meaning": "最有意义的部分"},
+          {"text": "is not the decorations or gifts,", "meaning": "不是装饰品或礼物"},
+          {"text": "but being together with family.", "meaning": "而是与家人团聚"}
+        ],
+        "explanation": "not... but... 表示不是……而是……；being together 是动名词短语。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "festival", "phonetic": "", "meaning": "节日；庆典", "part_of_speech": "noun"},
+      {"word": "decoration", "phonetic": "", "meaning": "装饰品", "part_of_speech": "noun"},
+      {"word": "symbol", "phonetic": "", "meaning": "象征；符号", "part_of_speech": "noun"},
+      {"word": "relative", "phonetic": "", "meaning": "亲戚；亲属", "part_of_speech": "noun"},
+      {"word": "meaningful", "phonetic": "", "meaning": "有意义的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "a fresh start", "meaning": "一个新的开始", "example": "The new year is a chance for a fresh start."},
+      {"expression": "a symbol of", "meaning": "……的象征", "example": "White is a symbol of peace in some cultures."},
+      {"expression": "spend time with", "meaning": "与……共度时光", "example": "I like to spend time with my family."},
+      {"expression": "New Year's Eve", "meaning": "除夕；新年前夜", "example": "We watched the countdown on New Year's Eve."},
+      {"expression": "exchange good wishes", "meaning": "互相送上美好祝福", "example": "Friends exchange good wishes during the holiday."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why do people clean their homes before Chinese New Year?", "options": ["To welcome a fresh start.", "To prepare for guests from work.", "To make room for new furniture.", "To sell their homes."], "answer": "To welcome a fresh start.", "explanation": "文章第二句直接说明了打扫房屋的目的。"},
+      {"type": "true_false", "question": "Red is described as a symbol of good luck.", "answer": true, "explanation": "第三句明确说明红色象征好运。"},
+      {"type": "short_answer", "question": "What is the most meaningful part of the holiday for many people?", "answer": "Being together with family.", "explanation": "文章最后强调，家人团聚比装饰和礼物更有意义。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "104 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Explains common Chinese New Year customs in accessible English."
+    }
+  },
+  {
+    "article_id": 73,
+    "day": 253,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Culture and Daily Life",
+    "scene": "Birthday Celebrations",
+    "title_en": "How People Celebrate Birthdays",
+    "title_cn": "人们如何庆祝生日",
+    "difficulty": "A2-B1",
+    "word_count": 101,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Birthdays are special days for people of all ages. Some families celebrate at home with a cake, candles, and a homemade meal. Others invite friends to a restaurant or plan an outdoor activity. At a birthday party, guests often sing a song and give presents to the person being celebrated. In some places, people make a wish before blowing out the candles. Not everyone enjoys a big party, though. Some people prefer a quiet dinner or a simple phone call from someone they love. No matter how people celebrate, a birthday can be a chance to feel remembered and appreciated by others.",
+    "content_cn": "生日对各个年龄段的人来说都是特别的日子。一些家庭会在家里用蛋糕、蜡烛和自制餐食来庆祝。另一些人则邀请朋友去餐厅，或者安排户外活动。在生日聚会上，客人们通常会唱生日歌，并向过生日的人赠送礼物。在一些地方，人们会在吹灭蜡烛前许个愿。不过，并不是每个人都喜欢大型派对。有些人更喜欢安静地吃顿晚餐，或者接到心爱之人的一个简单电话。无论人们如何庆祝，生日都可以成为一个感受到他人惦记和珍惜的机会。",
+    "sentences": [
+      {
+        "sentence_en": "Birthdays are special days for people of all ages.",
+        "sentence_cn": "生日对各个年龄段的人来说都是特别的日子。",
+        "chunks": [
+          {"text": "Birthdays", "meaning": "生日"},
+          {"text": "are special days", "meaning": "是特别的日子"},
+          {"text": "for people of all ages.", "meaning": "对所有年龄段的人来说"}
+        ],
+        "explanation": "of all ages 表示所有年龄段的。"
+      },
+      {
+        "sentence_en": "Some families celebrate at home with a cake, candles, and a homemade meal.",
+        "sentence_cn": "一些家庭会在家里用蛋糕、蜡烛和自制餐食来庆祝。",
+        "chunks": [
+          {"text": "Some families celebrate", "meaning": "一些家庭庆祝"},
+          {"text": "at home", "meaning": "在家里"},
+          {"text": "with a cake, candles,", "meaning": "准备蛋糕、蜡烛"},
+          {"text": "and a homemade meal.", "meaning": "以及自制餐食"}
+        ],
+        "explanation": "homemade 表示自制的；celebrate at home 表示在家庆祝。"
+      },
+      {
+        "sentence_en": "Others invite friends to a restaurant or plan an outdoor activity.",
+        "sentence_cn": "另一些人则邀请朋友去餐厅，或者安排户外活动。",
+        "chunks": [
+          {"text": "Others", "meaning": "另一些人"},
+          {"text": "invite friends", "meaning": "邀请朋友"},
+          {"text": "to a restaurant", "meaning": "去餐厅"},
+          {"text": "or plan", "meaning": "或者安排"},
+          {"text": "an outdoor activity.", "meaning": "一项户外活动"}
+        ],
+        "explanation": "others 指其他人；invite someone to a place 表示邀请某人去某处。"
+      },
+      {
+        "sentence_en": "At a birthday party, guests often sing a song and give presents to the person being celebrated.",
+        "sentence_cn": "在生日聚会上，客人们通常会唱生日歌，并向过生日的人赠送礼物。",
+        "chunks": [
+          {"text": "At a birthday party,", "meaning": "在生日聚会上"},
+          {"text": "guests often sing a song", "meaning": "客人们通常唱歌"},
+          {"text": "and give presents", "meaning": "并赠送礼物"},
+          {"text": "to the person being celebrated.", "meaning": "给正在庆祝生日的人"}
+        ],
+        "explanation": "guest 表示客人；being celebrated 是现在分词被动结构，表示正在被庆祝的人。"
+      },
+      {
+        "sentence_en": "In some places, people make a wish before blowing out the candles.",
+        "sentence_cn": "在一些地方，人们会在吹灭蜡烛前许个愿。",
+        "chunks": [
+          {"text": "In some places,", "meaning": "在一些地方"},
+          {"text": "people make a wish", "meaning": "人们许愿"},
+          {"text": "before blowing out", "meaning": "在吹灭……之前"},
+          {"text": "the candles.", "meaning": "蜡烛"}
+        ],
+        "explanation": "make a wish 表示许愿；blow out 表示吹灭。"
+      },
+      {
+        "sentence_en": "Not everyone enjoys a big party, though.",
+        "sentence_cn": "不过，并不是每个人都喜欢大型派对。",
+        "chunks": [
+          {"text": "Not everyone", "meaning": "并不是每个人"},
+          {"text": "enjoys a big party,", "meaning": "都喜欢大型派对"},
+          {"text": "though.", "meaning": "不过"}
+        ],
+        "explanation": "not everyone 表示并非所有人；though 放在句末时常表示不过、然而。"
+      },
+      {
+        "sentence_en": "Some people prefer a quiet dinner or a simple phone call from someone they love.",
+        "sentence_cn": "有些人更喜欢安静地吃顿晚餐，或者接到心爱之人的一个简单电话。",
+        "chunks": [
+          {"text": "Some people prefer", "meaning": "有些人更喜欢"},
+          {"text": "a quiet dinner", "meaning": "一顿安静的晚餐"},
+          {"text": "or a simple phone call", "meaning": "或者一个简单的电话"},
+          {"text": "from someone they love.", "meaning": "来自他们所爱的人"}
+        ],
+        "explanation": "prefer A or B 表示更喜欢A或B；someone they love 表示他们所爱的人。"
+      },
+      {
+        "sentence_en": "No matter how people celebrate, a birthday can be a chance to feel remembered and appreciated by others.",
+        "sentence_cn": "无论人们如何庆祝，生日都可以成为一个感受到他人惦记和珍惜的机会。",
+        "chunks": [
+          {"text": "No matter how people celebrate,", "meaning": "无论人们如何庆祝"},
+          {"text": "a birthday can be a chance", "meaning": "生日都可以成为一个机会"},
+          {"text": "to feel remembered", "meaning": "感受到自己被惦记"},
+          {"text": "and appreciated by others.", "meaning": "并受到他人的珍惜"}
+        ],
+        "explanation": "no matter how 表示无论如何；appreciated 表示受到欣赏或珍惜。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "birthday", "phonetic": "", "meaning": "生日", "part_of_speech": "noun"},
+      {"word": "homemade", "phonetic": "", "meaning": "自制的", "part_of_speech": "adjective"},
+      {"word": "guest", "phonetic": "", "meaning": "客人；宾客", "part_of_speech": "noun"},
+      {"word": "prefer", "phonetic": "", "meaning": "更喜欢", "part_of_speech": "verb"},
+      {"word": "appreciate", "phonetic": "", "meaning": "感激；珍惜", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "of all ages", "meaning": "所有年龄段的", "example": "This game is popular with people of all ages."},
+      {"expression": "make a wish", "meaning": "许愿", "example": "Close your eyes and make a wish."},
+      {"expression": "blow out", "meaning": "吹灭", "example": "She blew out the candles."},
+      {"expression": "prefer A to B", "meaning": "比起B更喜欢A", "example": "I prefer tea to coffee."},
+      {"expression": "no matter how", "meaning": "无论如何；不管怎样", "example": "No matter how busy I am, I call my family."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What do some people prefer instead of a big birthday party?", "options": ["A quiet dinner or a phone call.", "A long trip abroad.", "A large shopping trip.", "A sports competition."], "answer": "A quiet dinner or a phone call.", "explanation": "第七句提到有些人更喜欢安静的晚餐或简单的电话。"},
+      {"type": "true_false", "question": "Everyone celebrates birthdays with a large party.", "answer": false, "explanation": "文章明确指出并不是每个人都喜欢大型派对。"},
+      {"type": "short_answer", "question": "What can a birthday help people feel?", "answer": "Remembered and appreciated by others.", "explanation": "文章最后指出生日能让人感受到他人的惦记和珍惜。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "101 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Compares different birthday customs and personal preferences."
+    }
+  },
+  {
+    "article_id": 74,
+    "day": 254,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Culture and Society",
+    "scene": "Cultural Differences",
+    "title_en": "Different Cultures, Different Customs",
+    "title_cn": "不同文化，不同习俗",
+    "difficulty": "A2-B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "When people visit another country, they may notice customs that are different from their own. In some cultures, people take off their shoes before entering a home. In others, guests may bring a small gift when visiting someone. The way people greet each other can also be different. Some shake hands, while others bow or hug. Even eating habits can vary. In one place, people may eat with chopsticks, while in another, they use forks and knives. These differences can seem surprising at first. However, learning about local customs helps travelers show respect and avoid misunderstandings. Being curious and open-minded makes meeting new cultures more enjoyable.",
+    "content_cn": "当人们访问另一个国家时，可能会注意到一些与自己国家不同的习俗。在某些文化中，人们进屋前会脱鞋。在另一些地方，客人拜访别人时可能会带一份小礼物。人们互相问候的方式也可能不同。有些人握手，有些人鞠躬或拥抱。甚至饮食习惯也会有所不同。在一个地方，人们可能用筷子吃饭，而在另一个地方，人们使用叉子和刀。这些差异起初可能让人感到惊讶。然而，了解当地习俗有助于旅行者表达尊重，并避免误解。保持好奇和开放的心态，会让接触新文化变得更加愉快。",
+    "sentences": [
+      {
+        "sentence_en": "When people visit another country, they may notice customs that are different from their own.",
+        "sentence_cn": "当人们访问另一个国家时，可能会注意到一些与自己国家不同的习俗。",
+        "chunks": [
+          {"text": "When people visit another country,", "meaning": "当人们访问另一个国家时"},
+          {"text": "they may notice", "meaning": "他们可能会注意到"},
+          {"text": "customs", "meaning": "一些习俗"},
+          {"text": "that are different from their own.", "meaning": "这些习俗与他们自己的不同"}
+        ],
+        "explanation": "different from 表示与……不同；their own 指他们自己的习俗。"
+      },
+      {
+        "sentence_en": "In some cultures, people take off their shoes before entering a home.",
+        "sentence_cn": "在某些文化中，人们进屋前会脱鞋。",
+        "chunks": [
+          {"text": "In some cultures,", "meaning": "在某些文化中"},
+          {"text": "people take off their shoes", "meaning": "人们脱掉鞋子"},
+          {"text": "before entering a home.", "meaning": "在进入家门之前"}
+        ],
+        "explanation": "take off 表示脱掉；before 后面可以接动名词。"
+      },
+      {
+        "sentence_en": "In others, guests may bring a small gift when visiting someone.",
+        "sentence_cn": "在另一些地方，客人拜访别人时可能会带一份小礼物。",
+        "chunks": [
+          {"text": "In others,", "meaning": "在另一些文化中"},
+          {"text": "guests may bring", "meaning": "客人可能会带来"},
+          {"text": "a small gift", "meaning": "一份小礼物"},
+          {"text": "when visiting someone.", "meaning": "拜访某人时"}
+        ],
+        "explanation": "when visiting 是 when they visit 的简化表达。"
+      },
+      {
+        "sentence_en": "The way people greet each other can also be different.",
+        "sentence_cn": "人们互相问候的方式也可能不同。",
+        "chunks": [
+          {"text": "The way", "meaning": "方式"},
+          {"text": "people greet each other", "meaning": "人们互相问候"},
+          {"text": "can also be different.", "meaning": "也可能不同"}
+        ],
+        "explanation": "greet each other 表示互相问候；the way 后接从句说明方式。"
+      },
+      {
+        "sentence_en": "Some shake hands, while others bow or hug.",
+        "sentence_cn": "有些人握手，有些人鞠躬或拥抱。",
+        "chunks": [
+          {"text": "Some shake hands,", "meaning": "有些人握手"},
+          {"text": "while others", "meaning": "而另一些人"},
+          {"text": "bow or hug.", "meaning": "鞠躬或拥抱"}
+        ],
+        "explanation": "shake hands 表示握手；while 在这里用于对比。"
+      },
+      {
+        "sentence_en": "Even eating habits can vary.",
+        "sentence_cn": "甚至饮食习惯也会有所不同。",
+        "chunks": [
+          {"text": "Even", "meaning": "甚至"},
+          {"text": "eating habits", "meaning": "饮食习惯"},
+          {"text": "can vary.", "meaning": "也会变化"}
+        ],
+        "explanation": "eating habits 是动名词作定语；vary 表示变化或不同。"
+      },
+      {
+        "sentence_en": "In one place, people may eat with chopsticks, while in another, they use forks and knives.",
+        "sentence_cn": "在一个地方，人们可能用筷子吃饭，而在另一个地方，人们使用叉子和刀。",
+        "chunks": [
+          {"text": "In one place,", "meaning": "在一个地方"},
+          {"text": "people may eat with chopsticks,", "meaning": "人们可能用筷子吃饭"},
+          {"text": "while in another,", "meaning": "而在另一个地方"},
+          {"text": "they use forks and knives.", "meaning": "他们使用叉子和刀"}
+        ],
+        "explanation": "eat with 表示使用某种工具吃饭；chopsticks 是筷子。"
+      },
+      {
+        "sentence_en": "These differences can seem surprising at first.",
+        "sentence_cn": "这些差异起初可能让人感到惊讶。",
+        "chunks": [
+          {"text": "These differences", "meaning": "这些差异"},
+          {"text": "can seem", "meaning": "可能显得"},
+          {"text": "surprising", "meaning": "令人惊讶"},
+          {"text": "at first.", "meaning": "起初"}
+        ],
+        "explanation": "seem + 形容词表示看起来或似乎……；surprising 表示令人惊讶的。"
+      },
+      {
+        "sentence_en": "However, learning about local customs helps travelers show respect and avoid misunderstandings.",
+        "sentence_cn": "然而，了解当地习俗有助于旅行者表达尊重，并避免误解。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "learning about local customs", "meaning": "了解当地习俗"},
+          {"text": "helps travelers", "meaning": "帮助旅行者"},
+          {"text": "show respect", "meaning": "表达尊重"},
+          {"text": "and avoid misunderstandings.", "meaning": "并避免误解"}
+        ],
+        "explanation": "learning about 是动名词短语作主语；help 后可以接动词原形。"
+      },
+      {
+        "sentence_en": "Being curious and open-minded makes meeting new cultures more enjoyable.",
+        "sentence_cn": "保持好奇和开放的心态，会让接触新文化变得更加愉快。",
+        "chunks": [
+          {"text": "Being curious and open-minded", "meaning": "保持好奇和开放的心态"},
+          {"text": "makes", "meaning": "使得"},
+          {"text": "meeting new cultures", "meaning": "接触新的文化"},
+          {"text": "more enjoyable.", "meaning": "更加愉快"}
+        ],
+        "explanation": "Being... 是动名词短语作主语；make + 宾语 + 形容词表示使某事或某人变得……。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "custom", "phonetic": "", "meaning": "习俗；惯例", "part_of_speech": "noun"},
+      {"word": "culture", "phonetic": "", "meaning": "文化", "part_of_speech": "noun"},
+      {"word": "greet", "phonetic": "", "meaning": "问候；打招呼", "part_of_speech": "verb"},
+      {"word": "vary", "phonetic": "", "meaning": "变化；不同", "part_of_speech": "verb"},
+      {"word": "respect", "phonetic": "", "meaning": "尊重", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "take off one's shoes", "meaning": "脱鞋", "example": "Please take off your shoes at the door."},
+      {"expression": "bring a gift", "meaning": "带一份礼物", "example": "We brought a gift for our host."},
+      {"expression": "shake hands", "meaning": "握手", "example": "They shook hands after the meeting."},
+      {"expression": "at first", "meaning": "起初", "example": "At first, the new place felt strange."},
+      {"expression": "show respect", "meaning": "表达尊重", "example": "We should show respect for local traditions."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What might guests do in some cultures when visiting someone?", "options": ["Take a photograph.", "Bring a small gift.", "Cook dinner.", "Sing a song."], "answer": "Bring a small gift.", "explanation": "第三句提到拜访别人时可能会带一份小礼物。"},
+      {"type": "true_false", "question": "People greet each other in exactly the same way around the world.", "answer": false, "explanation": "文章列举了握手、鞠躬和拥抱等不同方式。"},
+      {"type": "short_answer", "question": "Why should travelers learn about local customs?", "answer": "To show respect and avoid misunderstandings.", "explanation": "文章倒数第二句直接给出了原因。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "103 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Uses everyday examples to introduce cultural awareness and respect."
+    }
+  },
+  {
+    "article_id": 75,
+    "day": 255,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Personal Stories",
+    "scene": "Sharing Life Experiences",
+    "title_en": "Sharing My Life Stories",
+    "title_cn": "分享我的人生故事",
+    "difficulty": "A2-B1",
+    "word_count": 105,
+    "estimated_reading_time_seconds": 47,
+    "content_en": "Everyone has stories worth sharing, even if their lives seem ordinary. I used to think that my experiences were not interesting enough to talk about. However, a friend once asked me to share a memory from childhood. I told him about a summer when I learned to ride a bicycle. I fell many times, but my grandfather encouraged me to try again. My friend enjoyed the story and shared one of his own. That conversation reminded me that small moments can mean a lot. Since then, I have become more willing to talk about my past. Sharing stories helps people understand each other and feel closer.",
+    "content_cn": "每个人都有值得分享的故事，即使他们的生活看起来很普通。我过去常常认为自己的经历不够有趣，不值得讲出来。然而，有一次，一位朋友请我分享一段童年回忆。我给他讲了自己在一个夏天学骑自行车的经历。我摔倒过很多次，但祖父一直鼓励我再试一次。朋友很喜欢这个故事，也分享了他自己的故事。这次交谈让我想起，小小的瞬间也可能意义重大。从那以后，我变得更愿意谈论自己的过去。分享故事能帮助人们相互理解，并让彼此的关系更加亲近。",
+    "sentences": [
+      {
+        "sentence_en": "Everyone has stories worth sharing, even if their lives seem ordinary.",
+        "sentence_cn": "每个人都有值得分享的故事，即使他们的生活看起来很普通。",
+        "chunks": [
+          {"text": "Everyone has", "meaning": "每个人都有"},
+          {"text": "stories worth sharing,", "meaning": "值得分享的故事"},
+          {"text": "even if", "meaning": "即使"},
+          {"text": "their lives seem ordinary.", "meaning": "他们的生活看起来很普通"}
+        ],
+        "explanation": "worth doing 表示值得做某事；even if 引导让步状语从句。"
+      },
+      {
+        "sentence_en": "I used to think that my experiences were not interesting enough to talk about.",
+        "sentence_cn": "我过去常常认为自己的经历不够有趣，不值得讲出来。",
+        "chunks": [
+          {"text": "I used to think that", "meaning": "我过去常常认为"},
+          {"text": "my experiences", "meaning": "我的经历"},
+          {"text": "were not interesting enough", "meaning": "不够有趣"},
+          {"text": "to talk about.", "meaning": "不值得谈论"}
+        ],
+        "explanation": "used to 表示过去的习惯或状态；形容词 + enough to do 表示足够……可以做某事。"
+      },
+      {
+        "sentence_en": "However, a friend once asked me to share a memory from childhood.",
+        "sentence_cn": "然而，有一次，一位朋友请我分享一段童年回忆。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "a friend once asked me", "meaning": "有一次，一位朋友请我"},
+          {"text": "to share", "meaning": "分享"},
+          {"text": "a memory from childhood.", "meaning": "一段童年回忆"}
+        ],
+        "explanation": "ask someone to do something 表示请某人做某事；memory 表示回忆。"
+      },
+      {
+        "sentence_en": "I told him about a summer when I learned to ride a bicycle.",
+        "sentence_cn": "我给他讲了自己在一个夏天学骑自行车的经历。",
+        "chunks": [
+          {"text": "I told him about", "meaning": "我告诉他关于"},
+          {"text": "a summer", "meaning": "一个夏天"},
+          {"text": "when I learned", "meaning": "那时我学会了"},
+          {"text": "to ride a bicycle.", "meaning": "骑自行车"}
+        ],
+        "explanation": "tell someone about something 表示告诉某人某事；learn to ride 表示学会骑行。"
+      },
+      {
+        "sentence_en": "I fell many times, but my grandfather encouraged me to try again.",
+        "sentence_cn": "我摔倒过很多次，但祖父一直鼓励我再试一次。",
+        "chunks": [
+          {"text": "I fell many times,", "meaning": "我摔倒过很多次"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "my grandfather encouraged me", "meaning": "我的祖父鼓励我"},
+          {"text": "to try again.", "meaning": "再次尝试"}
+        ],
+        "explanation": "fall 的过去式是 fell；encourage someone to do something 表示鼓励某人做某事。"
+      },
+      {
+        "sentence_en": "My friend enjoyed the story and shared one of his own.",
+        "sentence_cn": "朋友很喜欢这个故事，也分享了他自己的故事。",
+        "chunks": [
+          {"text": "My friend enjoyed the story", "meaning": "我的朋友喜欢这个故事"},
+          {"text": "and shared", "meaning": "并分享了"},
+          {"text": "one of his own.", "meaning": "他自己的一个故事"}
+        ],
+        "explanation": "one of his own 是省略表达，指他自己的一个故事；enjoy 后接名词或动名词。"
+      },
+      {
+        "sentence_en": "That conversation reminded me that small moments can mean a lot.",
+        "sentence_cn": "这次交谈让我想起，小小的瞬间也可能意义重大。",
+        "chunks": [
+          {"text": "That conversation", "meaning": "那次交谈"},
+          {"text": "reminded me that", "meaning": "让我想起"},
+          {"text": "small moments", "meaning": "小小的瞬间"},
+          {"text": "can mean a lot.", "meaning": "可能意义重大"}
+        ],
+        "explanation": "remind someone that 表示提醒某人某事；mean a lot 表示意义重大。"
+      },
+      {
+        "sentence_en": "Since then, I have become more willing to talk about my past.",
+        "sentence_cn": "从那以后，我变得更愿意谈论自己的过去。",
+        "chunks": [
+          {"text": "Since then,", "meaning": "从那以后"},
+          {"text": "I have become", "meaning": "我已经变得"},
+          {"text": "more willing", "meaning": "更加愿意"},
+          {"text": "to talk about my past.", "meaning": "谈论自己的过去"}
+        ],
+        "explanation": "be willing to do something 表示愿意做某事；since then 常与现在完成时连用。"
+      },
+      {
+        "sentence_en": "Sharing stories helps people understand each other and feel closer.",
+        "sentence_cn": "分享故事能帮助人们相互理解，并让彼此的关系更加亲近。",
+        "chunks": [
+          {"text": "Sharing stories", "meaning": "分享故事"},
+          {"text": "helps people", "meaning": "帮助人们"},
+          {"text": "understand each other", "meaning": "相互理解"},
+          {"text": "and feel closer.", "meaning": "并感觉彼此更亲近"}
+        ],
+        "explanation": "Sharing stories 是动名词短语作主语；each other 表示彼此、互相。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "ordinary", "phonetic": "", "meaning": "普通的；平常的", "part_of_speech": "adjective"},
+      {"word": "experience", "phonetic": "", "meaning": "经历；经验", "part_of_speech": "noun"},
+      {"word": "memory", "phonetic": "", "meaning": "记忆；回忆", "part_of_speech": "noun"},
+      {"word": "encourage", "phonetic": "", "meaning": "鼓励", "part_of_speech": "verb"},
+      {"word": "willing", "phonetic": "", "meaning": "愿意的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "worth doing", "meaning": "值得做", "example": "This book is worth reading."},
+      {"expression": "even if", "meaning": "即使；哪怕", "example": "I will go even if it rains."},
+      {"expression": "from childhood", "meaning": "从童年时期", "example": "We have been friends from childhood."},
+      {"expression": "try again", "meaning": "再试一次", "example": "Don't give up. Try again."},
+      {"expression": "mean a lot", "meaning": "意义重大；非常重要", "example": "Your support means a lot to me."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What childhood memory did the writer share?", "options": ["Learning to swim.", "Learning to ride a bicycle.", "Taking a train alone.", "Visiting a museum."], "answer": "Learning to ride a bicycle.", "explanation": "作者分享的是小时候学习骑自行车的经历。"},
+      {"type": "true_false", "question": "The writer's grandfather encouraged the writer to keep trying.", "answer": true, "explanation": "文章第五句提到祖父鼓励作者再次尝试。"},
+      {"type": "short_answer", "question": "How can sharing stories help people?", "answer": "It helps people understand each other and feel closer.", "explanation": "文章最后一句概括了分享故事的意义。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "105 words",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Passed; all chunks reconstruct the original sentences.",
+      "notes": "Uses a personal childhood memory to explain the value of sharing experiences."
+    }
+  }
+]

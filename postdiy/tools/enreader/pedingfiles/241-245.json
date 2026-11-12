@@ -1,0 +1,766 @@
+[
+  {
+    "article_id": 61,
+    "day": 241,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experiences",
+    "scene": "Unexpected Encounters",
+    "title_en": "An Unexpected Meeting",
+    "title_cn": "一次意外的相遇",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Last Saturday, I went to a bookstore to buy a gift for my friend. While I was looking at some books, I heard someone call my name. I turned around and saw an old classmate I had not met for nearly ten years. We were both surprised and excited. We found a quiet coffee shop nearby and talked about our lives. He had moved to another city and started his own business. I told him about my recent experiences, too. Before leaving, we exchanged phone numbers and promised to meet again. It was amazing how one ordinary afternoon brought two old friends together.",
+    "content_cn": "上周六，我去书店给朋友买礼物。正当我看书时，听到有人叫我的名字。我转过身，看到了一位将近十年没见过的老同学。我们都感到既惊讶又兴奋。我们在附近找到一家安静的咖啡馆，聊起了各自的生活。他已经搬到了另一座城市，并开始经营自己的生意。我也告诉了他自己最近的一些经历。离开之前，我们交换了电话号码，并约好再次见面。一个普通的下午竟然让两位老朋友重新相聚，这真是令人惊喜。",
+    "sentences": [
+      {
+        "sentence_en": "Last Saturday, I went to a bookstore to buy a gift for my friend.",
+        "sentence_cn": "上周六，我去书店给朋友买礼物。",
+        "chunks": [
+          {"text": "Last Saturday,", "meaning": "上周六"},
+          {"text": " I went to a bookstore", "meaning": "我去了书店"},
+          {"text": " to buy a gift", "meaning": "为了买一份礼物"},
+          {"text": " for my friend.", "meaning": "送给我的朋友"}
+        ],
+        "explanation": "to buy 表示目的，即“为了购买”。go to a place 表示去某个地方。"
+      },
+      {
+        "sentence_en": "While I was looking at some books, I heard someone call my name.",
+        "sentence_cn": "正当我看书时，听到有人叫我的名字。",
+        "chunks": [
+          {"text": "While I was looking at some books,", "meaning": "当我正在看一些书时"},
+          {"text": " I heard", "meaning": "我听到"},
+          {"text": " someone call my name.", "meaning": "有人叫我的名字"}
+        ],
+        "explanation": "while 引导时间状语从句。hear someone do something 表示听到某人做某事，强调听到了整个动作。"
+      },
+      {
+        "sentence_en": "I turned around and saw an old classmate I had not met for nearly ten years.",
+        "sentence_cn": "我转过身，看到了一位将近十年没见过的老同学。",
+        "chunks": [
+          {"text": "I turned around", "meaning": "我转过身"},
+          {"text": " and saw an old classmate", "meaning": "并看到了一位老同学"},
+          {"text": " I had not met", "meaning": "我之前没有见过"},
+          {"text": " for nearly ten years.", "meaning": "将近十年"}
+        ],
+        "explanation": "turn around 表示转身。had not met 是过去完成时，表示在那次相遇之前一直没有见面。"
+      },
+      {
+        "sentence_en": "We were both surprised and excited.",
+        "sentence_cn": "我们都感到既惊讶又兴奋。",
+        "chunks": [
+          {"text": "We were both", "meaning": "我们两个人都"},
+          {"text": " surprised and excited.", "meaning": "感到惊讶和兴奋"}
+        ],
+        "explanation": "both 表示两者都。surprised 和 excited 是描述人的感受的形容词。"
+      },
+      {
+        "sentence_en": "We found a quiet coffee shop nearby and talked about our lives.",
+        "sentence_cn": "我们在附近找到一家安静的咖啡馆，聊起了各自的生活。",
+        "chunks": [
+          {"text": "We found", "meaning": "我们找到了"},
+          {"text": " a quiet coffee shop nearby", "meaning": "附近一家安静的咖啡馆"},
+          {"text": " and talked about", "meaning": "并谈论了"},
+          {"text": " our lives.", "meaning": "我们的生活"}
+        ],
+        "explanation": "nearby 表示附近。found 和 talked 是并列的过去式动词。"
+      },
+      {
+        "sentence_en": "He had moved to another city and started his own business.",
+        "sentence_cn": "他已经搬到了另一座城市，并开始经营自己的生意。",
+        "chunks": [
+          {"text": "He had moved", "meaning": "他已经搬到了"},
+          {"text": " to another city", "meaning": "另一座城市"},
+          {"text": " and started", "meaning": "并开始了"},
+          {"text": " his own business.", "meaning": "他自己的生意"}
+        ],
+        "explanation": "had moved 和 started 描述相遇前已经发生的经历。start a business 表示创办或经营生意。"
+      },
+      {
+        "sentence_en": "I told him about my recent experiences, too.",
+        "sentence_cn": "我也告诉了他自己最近的一些经历。",
+        "chunks": [
+          {"text": "I told him", "meaning": "我告诉了他"},
+          {"text": " about my recent experiences,", "meaning": "关于我最近的经历"},
+          {"text": " too.", "meaning": "也"}
+        ],
+        "explanation": "tell someone about something 表示告诉某人某事。recent 表示最近的。"
+      },
+      {
+        "sentence_en": "Before leaving, we exchanged phone numbers and promised to meet again.",
+        "sentence_cn": "离开之前，我们交换了电话号码，并约好再次见面。",
+        "chunks": [
+          {"text": "Before leaving,", "meaning": "在离开之前"},
+          {"text": " we exchanged phone numbers", "meaning": "我们交换了电话号码"},
+          {"text": " and promised", "meaning": "并承诺"},
+          {"text": " to meet again.", "meaning": "再次见面"}
+        ],
+        "explanation": "before leaving 是 before 加动名词结构。promise to do something 表示承诺做某事。"
+      },
+      {
+        "sentence_en": "It was amazing how one ordinary afternoon brought two old friends together.",
+        "sentence_cn": "一个普通的下午竟然让两位老朋友重新相聚，这真是令人惊喜。",
+        "chunks": [
+          {"text": "It was amazing", "meaning": "这真令人惊喜"},
+          {"text": " how one ordinary afternoon", "meaning": "一个普通的下午竟然"},
+          {"text": " brought two old friends together.", "meaning": "让两位老朋友重新相聚"}
+        ],
+        "explanation": "bring people together 表示让人们相聚。how 引导的从句说明令人惊喜的具体内容。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "classmate", "phonetic": "", "meaning": "同学", "part_of_speech": "名词"},
+      {"word": "nearly", "phonetic": "", "meaning": "几乎；将近", "part_of_speech": "副词"},
+      {"word": "surprised", "phonetic": "", "meaning": "惊讶的", "part_of_speech": "形容词"},
+      {"word": "exchange", "phonetic": "", "meaning": "交换", "part_of_speech": "动词"},
+      {"word": "ordinary", "phonetic": "", "meaning": "普通的；平常的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "turn around", "meaning": "转过身", "example": "I turned around when I heard my name."},
+      {"expression": "for nearly ten years", "meaning": "将近十年", "example": "They have lived here for nearly ten years."},
+      {"expression": "start a business", "meaning": "创办生意；开始创业", "example": "She wants to start a business."},
+      {"expression": "exchange phone numbers", "meaning": "交换电话号码", "example": "We exchanged phone numbers after the meeting."},
+      {"expression": "bring people together", "meaning": "让人们相聚；拉近人与人之间的距离", "example": "Music can bring people together."}
+    ],
+    "questions": [
+      {
+        "type": "细节理解",
+        "question": "Where did the writer meet the old classmate?",
+        "options": ["At a bookstore", "At a school", "At a restaurant", "At a train station"],
+        "answer": "At a bookstore",
+        "explanation": "作者在书店买礼物时听到有人叫自己的名字，随后遇到了老同学。"
+      },
+      {
+        "type": "细节理解",
+        "question": "How long had it been since they last met?",
+        "options": ["About two years", "Nearly ten years", "Twenty years", "Only a few months"],
+        "answer": "Nearly ten years",
+        "explanation": "文章说作者将近十年没有见过这位老同学。"
+      },
+      {
+        "type": "主旨理解",
+        "question": "What made the afternoon special?",
+        "options": ["The writer bought an expensive gift.", "The writer found a new job.", "Two old friends met unexpectedly.", "The writer traveled to another city."],
+        "answer": "Two old friends met unexpectedly.",
+        "explanation": "文章重点描述了一次意外的重逢，以及两位老朋友重新建立联系的过程。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过偶遇老同学的故事练习过去经历、重逢和重新联系的表达。"
+    }
+  },
+  {
+    "article_id": 62,
+    "day": 242,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experiences",
+    "scene": "Difficult Conversations",
+    "title_en": "A Difficult Conversation",
+    "title_cn": "一次艰难的谈话",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A few weeks ago, I had a difficult conversation with my roommate. He often left dirty dishes in the kitchen, and I was getting tired of cleaning them. At first, I wanted to complain, but I knew that might make things worse. Instead, I waited until we were both relaxed and explained how I felt. I also listened to his side of the story. He said he had been very busy and promised to help more. We agreed to share the housework fairly. The conversation was not easy, but it helped us understand each other and made living together much better.",
+    "content_cn": "几周前，我和室友进行了一次艰难的谈话。他经常把脏盘子留在厨房里，而我已经厌倦了替他收拾。一开始，我想抱怨，但我知道那可能会让事情变得更糟。相反，我等到我们两个人都放松下来时，才解释自己的感受。我也听了他的说法。他说自己最近一直很忙，并承诺以后会多帮忙。我们同意公平分担家务。这次谈话并不容易，但它帮助我们更好地理解彼此，也让共同生活变得更加愉快。",
+    "sentences": [
+      {
+        "sentence_en": "A few weeks ago, I had a difficult conversation with my roommate.",
+        "sentence_cn": "几周前，我和室友进行了一次艰难的谈话。",
+        "chunks": [
+          {"text": "A few weeks ago,", "meaning": "几周前"},
+          {"text": " I had", "meaning": "我进行了一次"},
+          {"text": " a difficult conversation", "meaning": "艰难的谈话"},
+          {"text": " with my roommate.", "meaning": "和我的室友"}
+        ],
+        "explanation": "a few 表示几个。have a conversation 是“进行谈话”的常用表达。"
+      },
+      {
+        "sentence_en": "He often left dirty dishes in the kitchen, and I was getting tired of cleaning them.",
+        "sentence_cn": "他经常把脏盘子留在厨房里，而我已经厌倦了替他收拾。",
+        "chunks": [
+          {"text": "He often left dirty dishes", "meaning": "他经常把脏盘子留下"},
+          {"text": " in the kitchen,", "meaning": "在厨房里"},
+          {"text": " and I was getting tired of", "meaning": "而我逐渐厌倦了"},
+          {"text": " cleaning them.", "meaning": "清洗它们"}
+        ],
+        "explanation": "leave something somewhere 表示把某物留在某处。get tired of 后接名词或动名词。"
+      },
+      {
+        "sentence_en": "At first, I wanted to complain, but I knew that might make things worse.",
+        "sentence_cn": "一开始，我想抱怨，但我知道那可能会让事情变得更糟。",
+        "chunks": [
+          {"text": "At first,", "meaning": "一开始"},
+          {"text": " I wanted to complain,", "meaning": "我想抱怨"},
+          {"text": " but I knew", "meaning": "但我知道"},
+          {"text": " that might make things worse.", "meaning": "那可能会让事情变得更糟"}
+        ],
+        "explanation": "complain 表示抱怨。make things worse 表示让情况变得更糟。"
+      },
+      {
+        "sentence_en": "Instead, I waited until we were both relaxed and explained how I felt.",
+        "sentence_cn": "相反，我等到我们两个人都放松下来时，才解释自己的感受。",
+        "chunks": [
+          {"text": "Instead,", "meaning": "相反"},
+          {"text": " I waited until", "meaning": "我一直等到"},
+          {"text": " we were both relaxed", "meaning": "我们两个人都放松下来"},
+          {"text": " and explained how I felt.", "meaning": "并解释了我的感受"}
+        ],
+        "explanation": "wait until 表示一直等到某个时间或情况发生。how I felt 是间接疑问句，使用陈述句语序。"
+      },
+      {
+        "sentence_en": "I also listened to his side of the story.",
+        "sentence_cn": "我也听了他的说法。",
+        "chunks": [
+          {"text": "I also listened to", "meaning": "我也听了"},
+          {"text": " his side of the story.", "meaning": "他对这件事的说法"}
+        ],
+        "explanation": "listen to 表示倾听。someone's side of the story 指某人对一件事情的解释或看法。"
+      },
+      {
+        "sentence_en": "He said he had been very busy and promised to help more.",
+        "sentence_cn": "他说自己最近一直很忙，并承诺以后会多帮忙。",
+        "chunks": [
+          {"text": "He said", "meaning": "他说"},
+          {"text": " he had been very busy", "meaning": "他之前一直很忙"},
+          {"text": " and promised", "meaning": "并承诺"},
+          {"text": " to help more.", "meaning": "多帮一些忙"}
+        ],
+        "explanation": "had been 是过去完成时，描述谈话之前持续的状态。promise to do something 表示承诺做某事。"
+      },
+      {
+        "sentence_en": "We agreed to share the housework fairly.",
+        "sentence_cn": "我们同意公平分担家务。",
+        "chunks": [
+          {"text": "We agreed", "meaning": "我们同意"},
+          {"text": " to share", "meaning": "分担"},
+          {"text": " the housework", "meaning": "家务"},
+          {"text": " fairly.", "meaning": "公平地"}
+        ],
+        "explanation": "agree to do something 表示同意做某事。fairly 是副词，表示公平地。"
+      },
+      {
+        "sentence_en": "The conversation was not easy, but it helped us understand each other and made living together much better.",
+        "sentence_cn": "这次谈话并不容易，但它帮助我们更好地理解彼此，也让共同生活变得更加愉快。",
+        "chunks": [
+          {"text": "The conversation was not easy,", "meaning": "这次谈话并不容易"},
+          {"text": " but it helped us", "meaning": "但它帮助我们"},
+          {"text": " understand each other", "meaning": "互相理解"},
+          {"text": " and made living together", "meaning": "并让共同生活"},
+          {"text": " much better.", "meaning": "变得好得多"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事。make 后接宾语和形容词，表示使某事变得怎样。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "roommate", "phonetic": "", "meaning": "室友", "part_of_speech": "名词"},
+      {"word": "complain", "phonetic": "", "meaning": "抱怨；投诉", "part_of_speech": "动词"},
+      {"word": "relaxed", "phonetic": "", "meaning": "放松的", "part_of_speech": "形容词"},
+      {"word": "housework", "phonetic": "", "meaning": "家务", "part_of_speech": "名词"},
+      {"word": "fairly", "phonetic": "", "meaning": "公平地", "part_of_speech": "副词"}
+    ],
+    "expressions": [
+      {"expression": "get tired of", "meaning": "厌倦；对……感到厌烦", "example": "I get tired of doing the same thing every day."},
+      {"expression": "make things worse", "meaning": "让事情变得更糟", "example": "Don't say something that may make things worse."},
+      {"expression": "side of the story", "meaning": "某人的说法；事情的一面", "example": "I want to hear your side of the story."},
+      {"expression": "share the housework", "meaning": "分担家务", "example": "Everyone should share the housework."},
+      {"expression": "understand each other", "meaning": "互相理解", "example": "Good communication helps us understand each other."}
+    ],
+    "questions": [
+      {
+        "type": "细节理解",
+        "question": "What was the problem between the writer and the roommate?",
+        "options": ["The roommate played loud music.", "The roommate left dirty dishes in the kitchen.", "The roommate invited too many guests.", "The roommate borrowed money."],
+        "answer": "The roommate left dirty dishes in the kitchen.",
+        "explanation": "文章说明室友经常把脏盘子留在厨房里。"
+      },
+      {
+        "type": "细节理解",
+        "question": "What did the writer do instead of complaining immediately?",
+        "options": ["Moved out", "Stopped talking to the roommate", "Waited until they were both relaxed", "Asked a neighbor for help"],
+        "answer": "Waited until they were both relaxed",
+        "explanation": "作者没有立即抱怨，而是等到双方都放松时再谈自己的感受。"
+      },
+      {
+        "type": "主旨理解",
+        "question": "What was the result of the conversation?",
+        "options": ["They decided to live separately.", "They agreed to share the housework.", "They stopped being friends.", "The writer did all the housework."],
+        "answer": "They agreed to share the housework.",
+        "explanation": "两人最终同意公平分担家务，关系和共同生活也有所改善。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "100词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "练习表达不满、倾听对方解释以及协商解决问题。"
+    }
+  },
+  {
+    "article_id": 63,
+    "day": 243,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experiences",
+    "scene": "Acts of Kindness",
+    "title_en": "A Moment of Kindness",
+    "title_cn": "一个温暖的善意瞬间",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "One cold morning, I was waiting for the bus when I noticed an older woman carrying several heavy bags. She looked tired and had trouble holding them. A young man nearby offered to help her carry the bags onto the bus. She smiled and thanked him warmly. The man simply nodded and returned to his seat. I was touched by this small act of kindness. It did not take much time or effort, but it made someone's day easier. Since then, I have tried to notice when people need help. Sometimes, a little kindness can mean more than we imagine.",
+    "content_cn": "一个寒冷的早晨，我正在等公交车时，注意到一位年长的女士提着几个沉重的袋子。她看起来很疲惫，拿着袋子也有些吃力。附近一位年轻男子主动提出帮她把袋子拿上公交车。她微笑着向他表示感谢。男子只是点了点头，然后回到自己的座位。我被这个小小的善举打动了。这并没有花费多少时间或精力，却让一个人的一天变得轻松了一些。从那以后，我开始留意身边是否有人需要帮助。有时候，一点点善意带来的意义可能超出我们的想象。",
+    "sentences": [
+      {
+        "sentence_en": "One cold morning, I was waiting for the bus when I noticed an older woman carrying several heavy bags.",
+        "sentence_cn": "一个寒冷的早晨，我正在等公交车时，注意到一位年长的女士提着几个沉重的袋子。",
+        "chunks": [
+          {"text": "One cold morning,", "meaning": "一个寒冷的早晨"},
+          {"text": " I was waiting for the bus", "meaning": "我正在等公交车"},
+          {"text": " when I noticed", "meaning": "这时我注意到"},
+          {"text": " an older woman carrying several heavy bags.", "meaning": "一位提着几个沉重袋子的年长女士"}
+        ],
+        "explanation": "was waiting 表示当时正在发生的动作。notice someone doing something 表示注意到某人正在做某事。"
+      },
+      {
+        "sentence_en": "She looked tired and had trouble holding them.",
+        "sentence_cn": "她看起来很疲惫，拿着袋子也有些吃力。",
+        "chunks": [
+          {"text": "She looked tired", "meaning": "她看起来很疲惫"},
+          {"text": " and had trouble", "meaning": "并且有困难"},
+          {"text": " holding them.", "meaning": "拿着它们"}
+        ],
+        "explanation": "look + 形容词表示看起来怎么样。have trouble doing something 表示做某事有困难。"
+      },
+      {
+        "sentence_en": "A young man nearby offered to help her carry the bags onto the bus.",
+        "sentence_cn": "附近一位年轻男子主动提出帮她把袋子拿上公交车。",
+        "chunks": [
+          {"text": "A young man nearby", "meaning": "附近一位年轻男子"},
+          {"text": " offered to help her", "meaning": "主动提出帮助她"},
+          {"text": " carry the bags", "meaning": "搬拿那些袋子"},
+          {"text": " onto the bus.", "meaning": "上公交车"}
+        ],
+        "explanation": "offer to do something 表示主动提出做某事。help someone do something 表示帮助某人做某事。"
+      },
+      {
+        "sentence_en": "She smiled and thanked him warmly.",
+        "sentence_cn": "她微笑着向他表示感谢。",
+        "chunks": [
+          {"text": "She smiled", "meaning": "她微笑了"},
+          {"text": " and thanked him", "meaning": "并感谢了他"},
+          {"text": " warmly.", "meaning": "热情地"}
+        ],
+        "explanation": "thanked 是 thank 的过去式。warmly 是副词，表示热情地、真诚地。"
+      },
+      {
+        "sentence_en": "The man simply nodded and returned to his seat.",
+        "sentence_cn": "男子只是点了点头，然后回到自己的座位。",
+        "chunks": [
+          {"text": "The man simply nodded", "meaning": "男子只是点了点头"},
+          {"text": " and returned", "meaning": "然后回到了"},
+          {"text": " to his seat.", "meaning": "自己的座位"}
+        ],
+        "explanation": "nod 表示点头。return to 表示返回某处。"
+      },
+      {
+        "sentence_en": "I was touched by this small act of kindness.",
+        "sentence_cn": "我被这个小小的善举打动了。",
+        "chunks": [
+          {"text": "I was touched", "meaning": "我被打动了"},
+          {"text": " by this small act", "meaning": "被这个小小的行为"},
+          {"text": " of kindness.", "meaning": "所表现出的善意"}
+        ],
+        "explanation": "was touched by 是被动语态，表示被某事感动。an act of kindness 指一个善意的行为。"
+      },
+      {
+        "sentence_en": "It did not take much time or effort, but it made someone's day easier.",
+        "sentence_cn": "这并没有花费多少时间或精力，却让一个人的一天变得轻松了一些。",
+        "chunks": [
+          {"text": "It did not take", "meaning": "这没有花费"},
+          {"text": " much time or effort,", "meaning": "多少时间或精力"},
+          {"text": " but it made someone's day", "meaning": "但它让某人的一天"},
+          {"text": " easier.", "meaning": "变得更轻松"}
+        ],
+        "explanation": "take time or effort 表示花费时间或精力。make someone's day easier 表示让某人的一天过得更轻松。"
+      },
+      {
+        "sentence_en": "Since then, I have tried to notice when people need help.",
+        "sentence_cn": "从那以后，我开始留意身边是否有人需要帮助。",
+        "chunks": [
+          {"text": "Since then,", "meaning": "从那以后"},
+          {"text": " I have tried to notice", "meaning": "我一直尝试留意"},
+          {"text": " when people need help.", "meaning": "人们什么时候需要帮助"}
+        ],
+        "explanation": "since then 常与现在完成时连用，表示从过去某时持续到现在。"
+      },
+      {
+        "sentence_en": "Sometimes, a little kindness can mean more than we imagine.",
+        "sentence_cn": "有时候，一点点善意带来的意义可能超出我们的想象。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": " a little kindness", "meaning": "一点点善意"},
+          {"text": " can mean more", "meaning": "可能意味着更多"},
+          {"text": " than we imagine.", "meaning": "比我们想象的还要多"}
+        ],
+        "explanation": "more than 表示超过、多于。imagine 表示想象。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "notice", "phonetic": "", "meaning": "注意到；留意", "part_of_speech": "动词"},
+      {"word": "heavy", "phonetic": "", "meaning": "沉重的", "part_of_speech": "形容词"},
+      {"word": "offer", "phonetic": "", "meaning": "主动提出；提供", "part_of_speech": "动词"},
+      {"word": "kindness", "phonetic": "", "meaning": "善意；友善", "part_of_speech": "名词"},
+      {"word": "effort", "phonetic": "", "meaning": "努力；精力", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "have trouble doing something", "meaning": "做某事有困难", "example": "I have trouble sleeping when it is noisy."},
+      {"expression": "offer to help", "meaning": "主动提出帮忙", "example": "She offered to help me with my bags."},
+      {"expression": "act of kindness", "meaning": "善举；善意的行为", "example": "Helping a stranger is a simple act of kindness."},
+      {"expression": "be touched by", "meaning": "被……感动", "example": "I was touched by his words."},
+      {"expression": "since then", "meaning": "从那以后", "example": "Since then, we have stayed in touch."}
+    ],
+    "questions": [
+      {
+        "type": "细节理解",
+        "question": "Where did the writer see the older woman?",
+        "options": ["At a supermarket", "At a bus stop", "In a hospital", "At a train station"],
+        "answer": "At a bus stop",
+        "explanation": "作者当时正在等公交车，因此在公交车站看到了那位女士。"
+      },
+      {
+        "type": "细节理解",
+        "question": "How did the young man help the woman?",
+        "options": ["He bought her food.", "He carried her bags onto the bus.", "He gave her money.", "He called her family."],
+        "answer": "He carried her bags onto the bus.",
+        "explanation": "年轻男子主动帮她把沉重的袋子拿上公交车。"
+      },
+      {
+        "type": "主旨理解",
+        "question": "What lesson did the writer learn?",
+        "options": ["Kindness always requires money.", "Small acts of kindness can make a difference.", "People should avoid strangers.", "Helping others takes too much time."],
+        "answer": "Small acts of kindness can make a difference.",
+        "explanation": "作者意识到，即使很小的善举，也可能给别人带来很大的帮助。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过公交车站的小故事练习描述善举、表达感动和分享人生感悟。"
+    }
+  },
+  {
+    "article_id": 64,
+    "day": 244,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experiences",
+    "scene": "Missed Opportunities",
+    "title_en": "A Missed Opportunity",
+    "title_cn": "一次错过的机会",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Last year, my company offered me a chance to work on an exciting project. I was interested, but I worried that I did not have enough experience. I spent too much time thinking about the risks and finally turned down the offer. A few months later, I learned that the project had been very successful. I felt disappointed because I had let fear make the decision for me. However, I also learned something important. Opportunities do not always come twice, and we cannot wait until we feel completely ready. Now, I try to consider both the risks and the possible rewards before making a choice.",
+    "content_cn": "去年，公司给了我一个参与令人兴奋的项目的机会。我很感兴趣，但担心自己经验不足。我花了太多时间考虑风险，最后还是拒绝了这个机会。几个月后，我得知那个项目取得了很大的成功。我感到失望，因为我让恐惧替自己做了决定。不过，我也学到了重要的一课：机会并不总是会再次出现，而且我们不能一直等到自己完全准备好才行动。现在，在做决定之前，我会尽量同时考虑风险和可能获得的回报。",
+    "sentences": [
+      {
+        "sentence_en": "Last year, my company offered me a chance to work on an exciting project.",
+        "sentence_cn": "去年，公司给了我一个参与令人兴奋的项目的机会。",
+        "chunks": [
+          {"text": "Last year,", "meaning": "去年"},
+          {"text": " my company offered me", "meaning": "我的公司给了我"},
+          {"text": " a chance", "meaning": "一个机会"},
+          {"text": " to work on an exciting project.", "meaning": "参与一个令人兴奋的项目"}
+        ],
+        "explanation": "offer someone something 表示向某人提供某物。a chance to do something 表示做某事的机会。"
+      },
+      {
+        "sentence_en": "I was interested, but I worried that I did not have enough experience.",
+        "sentence_cn": "我很感兴趣，但担心自己经验不足。",
+        "chunks": [
+          {"text": "I was interested,", "meaning": "我很感兴趣"},
+          {"text": " but I worried", "meaning": "但我担心"},
+          {"text": " that I did not have", "meaning": "自己没有"},
+          {"text": " enough experience.", "meaning": "足够的经验"}
+        ],
+        "explanation": "be interested 表示感兴趣。worry that 后面可以接完整句子，表达担心的内容。"
+      },
+      {
+        "sentence_en": "I spent too much time thinking about the risks and finally turned down the offer.",
+        "sentence_cn": "我花了太多时间考虑风险，最后还是拒绝了这个机会。",
+        "chunks": [
+          {"text": "I spent too much time", "meaning": "我花了太多时间"},
+          {"text": " thinking about the risks", "meaning": "思考这些风险"},
+          {"text": " and finally", "meaning": "并最终"},
+          {"text": " turned down the offer.", "meaning": "拒绝了这个提议"}
+        ],
+        "explanation": "spend time doing something 表示花时间做某事。turn down 表示拒绝。"
+      },
+      {
+        "sentence_en": "A few months later, I learned that the project had been very successful.",
+        "sentence_cn": "几个月后，我得知那个项目取得了很大的成功。",
+        "chunks": [
+          {"text": "A few months later,", "meaning": "几个月后"},
+          {"text": " I learned", "meaning": "我得知"},
+          {"text": " that the project", "meaning": "那个项目"},
+          {"text": " had been very successful.", "meaning": "已经取得了很大的成功"}
+        ],
+        "explanation": "had been 是过去完成时，表示在我得知之前，项目已经取得成功。successful 表示成功的。"
+      },
+      {
+        "sentence_en": "I felt disappointed because I had let fear make the decision for me.",
+        "sentence_cn": "我感到失望，因为我让恐惧替自己做了决定。",
+        "chunks": [
+          {"text": "I felt disappointed", "meaning": "我感到失望"},
+          {"text": " because", "meaning": "因为"},
+          {"text": " I had let fear", "meaning": "我让恐惧"},
+          {"text": " make the decision for me.", "meaning": "替我做出了决定"}
+        ],
+        "explanation": "let someone do something 表示让某人做某事，let 后接动词原形。make a decision 表示做决定。"
+      },
+      {
+        "sentence_en": "However, I also learned something important.",
+        "sentence_cn": "不过，我也学到了重要的一课。",
+        "chunks": [
+          {"text": "However,", "meaning": "不过；然而"},
+          {"text": " I also learned", "meaning": "我也学到了"},
+          {"text": " something important.", "meaning": "一些重要的东西"}
+        ],
+        "explanation": "however 用于转折。something important 中形容词放在不定代词之后。"
+      },
+      {
+        "sentence_en": "Opportunities do not always come twice, and we cannot wait until we feel completely ready.",
+        "sentence_cn": "机会并不总是会再次出现，而且我们不能一直等到自己完全准备好才行动。",
+        "chunks": [
+          {"text": "Opportunities do not always come twice,", "meaning": "机会并不总是会再次出现"},
+          {"text": " and we cannot wait", "meaning": "而且我们不能一直等待"},
+          {"text": " until we feel", "meaning": "直到我们觉得"},
+          {"text": " completely ready.", "meaning": "自己完全准备好了"}
+        ],
+        "explanation": "not always 表示并不总是。wait until 表示等到某个时间或条件出现。"
+      },
+      {
+        "sentence_en": "Now, I try to consider both the risks and the possible rewards before making a choice.",
+        "sentence_cn": "现在，在做决定之前，我会尽量同时考虑风险和可能获得的回报。",
+        "chunks": [
+          {"text": "Now,", "meaning": "现在"},
+          {"text": " I try to consider", "meaning": "我尽量考虑"},
+          {"text": " both the risks", "meaning": "风险"},
+          {"text": " and the possible rewards", "meaning": "以及可能获得的回报"},
+          {"text": " before making a choice.", "meaning": "在做出选择之前"}
+        ],
+        "explanation": "both...and... 表示两者都。before making a choice 是 before 加动名词结构。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "opportunity", "phonetic": "", "meaning": "机会", "part_of_speech": "名词"},
+      {"word": "experience", "phonetic": "", "meaning": "经验；经历", "part_of_speech": "名词"},
+      {"word": "risk", "phonetic": "", "meaning": "风险", "part_of_speech": "名词"},
+      {"word": "disappointed", "phonetic": "", "meaning": "失望的", "part_of_speech": "形容词"},
+      {"word": "reward", "phonetic": "", "meaning": "回报；奖励", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "offer someone a chance", "meaning": "给某人一个机会", "example": "The manager offered me a chance to lead the team."},
+      {"expression": "think about the risks", "meaning": "考虑风险", "example": "Think about the risks before you decide."},
+      {"expression": "turn down an offer", "meaning": "拒绝一个提议", "example": "She turned down the job offer."},
+      {"expression": "make a decision", "meaning": "做出决定", "example": "I need more time to make a decision."},
+      {"expression": "feel ready", "meaning": "感到准备好了", "example": "I don't feel ready to speak in public yet."}
+    ],
+    "questions": [
+      {
+        "type": "细节理解",
+        "question": "Why did the writer turn down the project?",
+        "options": ["The pay was too low.", "The project was too far away.", "The writer worried about not having enough experience.", "The writer disliked the team."],
+        "answer": "The writer worried about not having enough experience.",
+        "explanation": "作者担心自己没有足够的经验，因此最终拒绝了机会。"
+      },
+      {
+        "type": "细节理解",
+        "question": "What happened to the project a few months later?",
+        "options": ["It was canceled.", "It was very successful.", "It moved to another company.", "It never started."],
+        "answer": "It was very successful.",
+        "explanation": "作者后来得知，这个项目取得了很大的成功。"
+      },
+      {
+        "type": "主旨理解",
+        "question": "What lesson did the writer learn?",
+        "options": ["Never take any risks.", "Wait until everything is perfect.", "Consider opportunities carefully instead of letting fear decide.", "Always accept every offer."],
+        "answer": "Consider opportunities carefully instead of letting fear decide.",
+        "explanation": "作者认识到不能只让恐惧替自己做决定，而应同时考虑风险和潜在回报。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "围绕错过工作机会的经历，练习描述遗憾、风险和个人反思。"
+    }
+  },
+  {
+    "article_id": 65,
+    "day": 245,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Life Experiences",
+    "scene": "Decisions and Regrets",
+    "title_en": "A Decision I Almost Regretted",
+    "title_cn": "一个让我差点后悔的决定",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Two years ago, I decided to move to a new city for work. I was excited about the opportunity, but leaving my family and friends was harder than I expected. During the first few weeks, I felt lonely and often wondered if I had made the right choice. I even thought about going back home. Then I joined a local sports club and met some friendly people. Slowly, the new city began to feel like home. Looking back, I am glad I stayed. That decision taught me that difficult changes can bring unexpected opportunities, even when the beginning feels uncomfortable.",
+    "content_cn": "两年前，我决定为了工作搬到一座新城市。我对这个机会感到兴奋，但离开家人和朋友比我想象的更难。在最初的几周里，我感到孤独，经常怀疑自己是否做出了正确的选择。我甚至想过回家。后来，我加入了当地的一家运动俱乐部，并认识了一些友善的人。慢慢地，这座新城市开始让我有了家的感觉。现在回头看，我很庆幸自己留下来了。这个决定让我明白，即使开始时让人感到不适应，艰难的改变也可能带来意想不到的机会。",
+    "sentences": [
+      {
+        "sentence_en": "Two years ago, I decided to move to a new city for work.",
+        "sentence_cn": "两年前，我决定为了工作搬到一座新城市。",
+        "chunks": [
+          {"text": "Two years ago,", "meaning": "两年前"},
+          {"text": " I decided", "meaning": "我决定"},
+          {"text": " to move to a new city", "meaning": "搬到一座新城市"},
+          {"text": " for work.", "meaning": "为了工作"}
+        ],
+        "explanation": "decide to do something 表示决定做某事。move to a city 表示搬到一座城市。"
+      },
+      {
+        "sentence_en": "I was excited about the opportunity, but leaving my family and friends was harder than I expected.",
+        "sentence_cn": "我对这个机会感到兴奋，但离开家人和朋友比我想象的更难。",
+        "chunks": [
+          {"text": "I was excited about the opportunity,", "meaning": "我对这个机会感到兴奋"},
+          {"text": " but leaving my family and friends", "meaning": "但离开家人和朋友"},
+          {"text": " was harder", "meaning": "更加困难"},
+          {"text": " than I expected.", "meaning": "比我预想的"}
+        ],
+        "explanation": "be excited about 表示对……感到兴奋。leaving 是动名词短语，作主语；harder than 是比较级结构。"
+      },
+      {
+        "sentence_en": "During the first few weeks, I felt lonely and often wondered if I had made the right choice.",
+        "sentence_cn": "在最初的几周里，我感到孤独，经常怀疑自己是否做出了正确的选择。",
+        "chunks": [
+          {"text": "During the first few weeks,", "meaning": "在最初的几周里"},
+          {"text": " I felt lonely", "meaning": "我感到孤独"},
+          {"text": " and often wondered", "meaning": "并且经常想知道"},
+          {"text": " if I had made the right choice.", "meaning": "自己是否做出了正确的选择"}
+        ],
+        "explanation": "wonder if 表示想知道是否。had made 是过去完成时，表示在当时之前已经做出的决定。"
+      },
+      {
+        "sentence_en": "I even thought about going back home.",
+        "sentence_cn": "我甚至想过回家。",
+        "chunks": [
+          {"text": "I even thought about", "meaning": "我甚至考虑过"},
+          {"text": " going back home.", "meaning": "回家"}
+        ],
+        "explanation": "think about 后面接名词或动名词。go back home 表示回家。"
+      },
+      {
+        "sentence_en": "Then I joined a local sports club and met some friendly people.",
+        "sentence_cn": "后来，我加入了当地的一家运动俱乐部，并认识了一些友善的人。",
+        "chunks": [
+          {"text": "Then", "meaning": "后来"},
+          {"text": " I joined a local sports club", "meaning": "我加入了当地的一家运动俱乐部"},
+          {"text": " and met", "meaning": "并认识了"},
+          {"text": " some friendly people.", "meaning": "一些友善的人"}
+        ],
+        "explanation": "join 表示加入组织或团体。joined 和 met 是并列的过去式动词。"
+      },
+      {
+        "sentence_en": "Slowly, the new city began to feel like home.",
+        "sentence_cn": "慢慢地，这座新城市开始让我有了家的感觉。",
+        "chunks": [
+          {"text": "Slowly,", "meaning": "慢慢地"},
+          {"text": " the new city", "meaning": "这座新城市"},
+          {"text": " began to feel", "meaning": "开始让人感觉"},
+          {"text": " like home.", "meaning": "像家一样"}
+        ],
+        "explanation": "begin to do something 表示开始做某事。feel like home 表示有家的感觉。"
+      },
+      {
+        "sentence_en": "Looking back, I am glad I stayed.",
+        "sentence_cn": "现在回头看，我很庆幸自己留下来了。",
+        "chunks": [
+          {"text": "Looking back,", "meaning": "回头看；回顾过去"},
+          {"text": " I am glad", "meaning": "我很庆幸"},
+          {"text": " I stayed.", "meaning": "自己留下来了"}
+        ],
+        "explanation": "look back 表示回顾过去。be glad 后面可以接从句，说明感到高兴或庆幸的原因。"
+      },
+      {
+        "sentence_en": "That decision taught me that difficult changes can bring unexpected opportunities, even when the beginning feels uncomfortable.",
+        "sentence_cn": "这个决定让我明白，即使开始时让人感到不适应，艰难的改变也可能带来意想不到的机会。",
+        "chunks": [
+          {"text": "That decision taught me", "meaning": "那个决定让我明白"},
+          {"text": " that difficult changes", "meaning": "艰难的改变"},
+          {"text": " can bring unexpected opportunities,", "meaning": "可能带来意想不到的机会"},
+          {"text": " even when the beginning", "meaning": "即使在开始的时候"},
+          {"text": " feels uncomfortable.", "meaning": "感觉不舒服或不适应"}
+        ],
+        "explanation": "teach someone that... 表示让某人明白某事。even when 引导让步意味的时间状语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "opportunity", "phonetic": "", "meaning": "机会", "part_of_speech": "名词"},
+      {"word": "lonely", "phonetic": "", "meaning": "孤独的", "part_of_speech": "形容词"},
+      {"word": "wonder", "phonetic": "", "meaning": "想知道；琢磨", "part_of_speech": "动词"},
+      {"word": "local", "phonetic": "", "meaning": "当地的", "part_of_speech": "形容词"},
+      {"word": "unexpected", "phonetic": "", "meaning": "意想不到的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "move to a new city", "meaning": "搬到一座新城市", "example": "She moved to a new city for college."},
+      {"expression": "make the right choice", "meaning": "做出正确的选择", "example": "I hope I made the right choice."},
+      {"expression": "go back home", "meaning": "回家", "example": "We decided to go back home early."},
+      {"expression": "feel like home", "meaning": "有家的感觉", "example": "This small town feels like home to me."},
+      {"expression": "look back", "meaning": "回顾过去", "example": "When I look back, I can see how much I learned."}
+    ],
+    "questions": [
+      {
+        "type": "细节理解",
+        "question": "Why did the writer move to a new city?",
+        "options": ["To study at a university", "For work", "To visit relatives", "To travel"],
+        "answer": "For work",
+        "explanation": "文章第一句说明，作者为了工作决定搬到一座新城市。"
+      },
+      {
+        "type": "细节理解",
+        "question": "What helped the writer feel more comfortable in the new city?",
+        "options": ["Buying a new car", "Joining a local sports club", "Changing jobs", "Moving to another apartment"],
+        "answer": "Joining a local sports club",
+        "explanation": "作者加入当地运动俱乐部，并在那里认识了友善的人。"
+      },
+      {
+        "type": "主旨理解",
+        "question": "What did the writer learn from the experience?",
+        "options": ["Moving is always a mistake.", "New places are never comfortable.", "Difficult changes can bring unexpected opportunities.", "People should never leave their hometown."],
+        "answer": "Difficult changes can bring unexpected opportunities.",
+        "explanation": "作者认识到，艰难的改变虽然开始时不容易，却可能带来新的机会。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "100词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过搬到新城市的经历练习表达犹豫、适应和事后反思。"
+    }
+  }
+]

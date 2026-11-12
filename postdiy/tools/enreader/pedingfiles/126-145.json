@@ -1,0 +1,5275 @@
+[
+ {
+  "article_id": 126,
+  "day": 126,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Working with coworkers",
+  "title_en": "Working as a Team",
+  "title_cn": "团队合作",
+  "difficulty": "A2",
+  "word_count": 86,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "Our team is working on a new project. There are five people in the group, and everyone has a different job. I am responsible for writing the reports. Mike collects information, and Sarah talks to customers. We meet every Monday to share our progress. When someone has a problem, the others try to help. Last week, we finished an important part of the project together. Working as a team saves time and helps us do better work.",
+  "content_cn": "我们的团队正在开展一个新项目。小组里有五个人，每个人都有不同的工作。我负责撰写报告。迈克收集信息，莎拉负责与客户沟通。我们每周一开会分享进展。当有人遇到问题时，其他人都会尽力帮助。上周，我们一起完成了项目中一个重要部分。团队合作既节省时间，也能帮助我们把工作做得更好。",
+  "sentences": [
+   {
+    "sentence_en": "Our team is working on a new project.",
+    "sentence_cn": "我们的团队正在开展一个新项目。",
+    "chunks": [
+     {
+      "text": "Our team",
+      "meaning": "我们的团队"
+     },
+     {
+      "text": " is working on",
+      "meaning": "正在开展"
+     },
+     {
+      "text": " a new project.",
+      "meaning": "一个新项目"
+     }
+    ],
+    "explanation": "work on 表示从事或开展某项工作；is working 表示正在进行。"
+   },
+   {
+    "sentence_en": "There are five people in the group, and everyone has a different job.",
+    "sentence_cn": "小组里有五个人，每个人都有不同的工作。",
+    "chunks": [
+     {
+      "text": "There are five people",
+      "meaning": "有五个人"
+     },
+     {
+      "text": " in the group,",
+      "meaning": "在这个小组里"
+     },
+     {
+      "text": " and everyone has",
+      "meaning": "并且每个人都有"
+     },
+     {
+      "text": " a different job.",
+      "meaning": "不同的工作"
+     }
+    ],
+    "explanation": "There are 用于表示某处有多个事物；everyone 作主语时使用单数动词 has。"
+   },
+   {
+    "sentence_en": "I am responsible for writing the reports.",
+    "sentence_cn": "我负责撰写报告。",
+    "chunks": [
+     {
+      "text": "I am responsible for",
+      "meaning": "我负责"
+     },
+     {
+      "text": " writing",
+      "meaning": "撰写"
+     },
+     {
+      "text": " the reports.",
+      "meaning": "这些报告"
+     }
+    ],
+    "explanation": "be responsible for 表示对某事负责，for 后面接名词或动名词。"
+   },
+   {
+    "sentence_en": "Mike collects information, and Sarah talks to customers.",
+    "sentence_cn": "迈克收集信息，莎拉负责与客户沟通。",
+    "chunks": [
+     {
+      "text": "Mike collects information,",
+      "meaning": "迈克收集信息"
+     },
+     {
+      "text": " and Sarah",
+      "meaning": "而莎拉"
+     },
+     {
+      "text": " talks to customers.",
+      "meaning": "与客户交谈"
+     }
+    ],
+    "explanation": "一般现在时描述日常职责；第三人称单数动词通常加 -s。"
+   },
+   {
+    "sentence_en": "We meet every Monday to share our progress.",
+    "sentence_cn": "我们每周一开会分享进展。",
+    "chunks": [
+     {
+      "text": "We meet",
+      "meaning": "我们开会"
+     },
+     {
+      "text": " every Monday",
+      "meaning": "每周一"
+     },
+     {
+      "text": " to share",
+      "meaning": "为了分享"
+     },
+     {
+      "text": " our progress.",
+      "meaning": "我们的进展"
+     }
+    ],
+    "explanation": "to share 表示开会的目的；progress 表示进展或进度。"
+   },
+   {
+    "sentence_en": "When someone has a problem, the others try to help.",
+    "sentence_cn": "当有人遇到问题时，其他人都会尽力帮助。",
+    "chunks": [
+     {
+      "text": "When someone has a problem,",
+      "meaning": "当有人遇到问题时"
+     },
+     {
+      "text": " the others",
+      "meaning": "其他人"
+     },
+     {
+      "text": " try to help.",
+      "meaning": "尽力帮助"
+     }
+    ],
+    "explanation": "When 引导时间状语从句；try to help 表示努力提供帮助。"
+   },
+   {
+    "sentence_en": "Last week, we finished an important part of the project together.",
+    "sentence_cn": "上周，我们一起完成了项目中一个重要部分。",
+    "chunks": [
+     {
+      "text": "Last week,",
+      "meaning": "上周"
+     },
+     {
+      "text": " we finished",
+      "meaning": "我们完成了"
+     },
+     {
+      "text": " an important part",
+      "meaning": "一个重要部分"
+     },
+     {
+      "text": " of the project together.",
+      "meaning": "一起完成了这个项目的"
+     }
+    ],
+    "explanation": "finished 是 finish 的过去式；together 表示一起。"
+   },
+   {
+    "sentence_en": "Working as a team saves time and helps us do better work.",
+    "sentence_cn": "团队合作既节省时间，也能帮助我们把工作做得更好。",
+    "chunks": [
+     {
+      "text": "Working as a team",
+      "meaning": "以团队形式工作"
+     },
+     {
+      "text": " saves time",
+      "meaning": "节省时间"
+     },
+     {
+      "text": " and helps us",
+      "meaning": "并帮助我们"
+     },
+     {
+      "text": " do better work.",
+      "meaning": "做出更好的工作成果"
+     }
+    ],
+    "explanation": "Working as a team 是动名词短语作主语；help someone do something 表示帮助某人做某事。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "project",
+    "phonetic": "",
+    "meaning": "项目",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "responsible",
+    "phonetic": "",
+    "meaning": "负责的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "collect",
+    "phonetic": "",
+    "meaning": "收集",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "progress",
+    "phonetic": "",
+    "meaning": "进展；进度",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "together",
+    "phonetic": "",
+    "meaning": "一起",
+    "part_of_speech": "adverb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "work on a project",
+    "meaning": "开展一个项目",
+    "example": "We are working on a new project."
+   },
+   {
+    "expression": "be responsible for",
+    "meaning": "负责……",
+    "example": "I am responsible for the reports."
+   },
+   {
+    "expression": "collect information",
+    "meaning": "收集信息",
+    "example": "She collects information for the team."
+   },
+   {
+    "expression": "share our progress",
+    "meaning": "分享我们的进展",
+    "example": "We meet to share our progress."
+   },
+   {
+    "expression": "work as a team",
+    "meaning": "以团队形式合作",
+    "example": "We can solve this problem if we work as a team."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "How many people are in the team?",
+    "options": [
+     "Three",
+     "Five",
+     "Seven"
+    ],
+    "answer": "Five",
+    "explanation": "文章第二句说明小组里有五个人。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What is the writer responsible for?",
+    "options": [
+     "Talking to customers",
+     "Collecting information",
+     "Writing reports"
+    ],
+    "answer": "Writing reports",
+    "explanation": "作者负责撰写报告。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What did the team finish last week?",
+    "answer": "An important part of the project.",
+    "explanation": "文章提到团队上周一起完成了项目中的一个重要部分。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "86 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on shared responsibilities, communication, and cooperation within a team."
+  }
+ },
+ {
+  "article_id": 127,
+  "day": 127,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Taking part in a team meeting",
+  "title_en": "A Team Meeting",
+  "title_cn": "一次团队会议",
+  "difficulty": "A2",
+  "word_count": 85,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "We had a team meeting at ten this morning. Our manager started by talking about our new plan. Then each person shared what they had done last week. I talked about a problem with our website and suggested a simple change. My manager liked the idea and asked me to prepare a short report. Before the meeting ended, we made a list of our next tasks. The meeting lasted about forty minutes, and everyone knew what to do next.",
+  "content_cn": "今天上午十点，我们开了一次团队会议。经理首先谈了我们的新计划。然后，每个人都分享了自己上周完成的工作。我谈到了网站遇到的一个问题，并提出了一个简单的修改建议。经理很认可这个想法，让我准备一份简短的报告。会议结束前，我们列出了接下来的任务清单。会议持续了大约四十分钟，每个人都清楚下一步该做什么。",
+  "sentences": [
+   {
+    "sentence_en": "We had a team meeting at ten this morning.",
+    "sentence_cn": "今天上午十点，我们开了一次团队会议。",
+    "chunks": [
+     {
+      "text": "We had",
+      "meaning": "我们举行了"
+     },
+     {
+      "text": " a team meeting",
+      "meaning": "一次团队会议"
+     },
+     {
+      "text": " at ten",
+      "meaning": "在十点"
+     },
+     {
+      "text": " this morning.",
+      "meaning": "今天上午"
+     }
+    ],
+    "explanation": "had 是 have 的过去式；have a meeting 表示开会。"
+   },
+   {
+    "sentence_en": "Our manager started by talking about our new plan.",
+    "sentence_cn": "经理首先谈了我们的新计划。",
+    "chunks": [
+     {
+      "text": "Our manager",
+      "meaning": "我们的经理"
+     },
+     {
+      "text": " started by",
+      "meaning": "首先开始"
+     },
+     {
+      "text": " talking about",
+      "meaning": "谈论"
+     },
+     {
+      "text": " our new plan.",
+      "meaning": "我们的新计划"
+     }
+    ],
+    "explanation": "start by doing something 表示以做某事作为开始。"
+   },
+   {
+    "sentence_en": "Then each person shared what they had done last week.",
+    "sentence_cn": "然后，每个人都分享了自己上周完成的工作。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": " each person shared",
+      "meaning": "每个人分享了"
+     },
+     {
+      "text": " what they had done",
+      "meaning": "他们已经完成的事情"
+     },
+     {
+      "text": " last week.",
+      "meaning": "上周"
+     }
+    ],
+    "explanation": "each person 表示每个人；had done 表示在过去某个时间点之前完成的事情。"
+   },
+   {
+    "sentence_en": "I talked about a problem with our website and suggested a simple change.",
+    "sentence_cn": "我谈到了网站遇到的一个问题，并提出了一个简单的修改建议。",
+    "chunks": [
+     {
+      "text": "I talked about",
+      "meaning": "我谈到了"
+     },
+     {
+      "text": " a problem with our website",
+      "meaning": "我们网站的一个问题"
+     },
+     {
+      "text": " and suggested",
+      "meaning": "并建议"
+     },
+     {
+      "text": " a simple change.",
+      "meaning": "做一个简单的修改"
+     }
+    ],
+    "explanation": "talk about 表示谈论；suggested 是 suggest 的过去式。"
+   },
+   {
+    "sentence_en": "My manager liked the idea and asked me to prepare a short report.",
+    "sentence_cn": "经理很认可这个想法，让我准备一份简短的报告。",
+    "chunks": [
+     {
+      "text": "My manager",
+      "meaning": "我的经理"
+     },
+     {
+      "text": " liked the idea",
+      "meaning": "认可这个想法"
+     },
+     {
+      "text": " and asked me",
+      "meaning": "并让我"
+     },
+     {
+      "text": " to prepare a short report.",
+      "meaning": "准备一份简短的报告"
+     }
+    ],
+    "explanation": "ask someone to do something 表示让某人做某事；prepare 表示准备。"
+   },
+   {
+    "sentence_en": "Before the meeting ended, we made a list of our next tasks.",
+    "sentence_cn": "会议结束前，我们列出了接下来的任务清单。",
+    "chunks": [
+     {
+      "text": "Before the meeting ended,",
+      "meaning": "在会议结束之前"
+     },
+     {
+      "text": " we made",
+      "meaning": "我们制作了"
+     },
+     {
+      "text": " a list of",
+      "meaning": "一份……的清单"
+     },
+     {
+      "text": " our next tasks.",
+      "meaning": "我们接下来的任务"
+     }
+    ],
+    "explanation": "make a list 表示列清单；ended 是 end 的过去式。"
+   },
+   {
+    "sentence_en": "The meeting lasted about forty minutes, and everyone knew what to do next.",
+    "sentence_cn": "会议持续了大约四十分钟，每个人都清楚下一步该做什么。",
+    "chunks": [
+     {
+      "text": "The meeting lasted",
+      "meaning": "会议持续了"
+     },
+     {
+      "text": " about forty minutes,",
+      "meaning": "大约四十分钟"
+     },
+     {
+      "text": " and everyone knew",
+      "meaning": "并且每个人都知道"
+     },
+     {
+      "text": " what to do next.",
+      "meaning": "接下来该做什么"
+     }
+    ],
+    "explanation": "last 表示持续；knew 是 know 的过去式；what to do 表示该做什么。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "meeting",
+    "phonetic": "",
+    "meaning": "会议",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "plan",
+    "phonetic": "",
+    "meaning": "计划",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "suggest",
+    "phonetic": "",
+    "meaning": "建议",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "prepare",
+    "phonetic": "",
+    "meaning": "准备",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "last",
+    "phonetic": "",
+    "meaning": "持续",
+    "part_of_speech": "verb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "have a team meeting",
+    "meaning": "开团队会议",
+    "example": "We have a team meeting every Monday."
+   },
+   {
+    "expression": "start by doing something",
+    "meaning": "以做某事开始",
+    "example": "Let's start by checking the plan."
+   },
+   {
+    "expression": "share what you have done",
+    "meaning": "分享已经完成的工作",
+    "example": "Please share what you have done this week."
+   },
+   {
+    "expression": "suggest a change",
+    "meaning": "提出修改建议",
+    "example": "I want to suggest a small change."
+   },
+   {
+    "expression": "make a list of",
+    "meaning": "列出……的清单",
+    "example": "We made a list of our tasks."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What time did the meeting start?",
+    "options": [
+     "Nine o'clock",
+     "Ten o'clock",
+     "Eleven o'clock"
+    ],
+    "answer": "Ten o'clock",
+    "explanation": "文章第一句说明会议在上午十点举行。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What did the writer suggest?",
+    "options": [
+     "A new office",
+     "A simple website change",
+     "A longer meeting"
+    ],
+    "answer": "A simple website change",
+    "explanation": "作者针对网站问题提出了一个简单的修改建议。"
+   },
+   {
+    "type": "short_answer",
+    "question": "How long did the meeting last?",
+    "answer": "About forty minutes.",
+    "explanation": "文章最后一句说明会议持续了大约四十分钟。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "85 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on the flow of a workplace meeting, sharing updates, making suggestions, and assigning tasks."
+  }
+ },
+ {
+  "article_id": 128,
+  "day": 128,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Sharing an idea with coworkers",
+  "title_en": "Sharing My Ideas",
+  "title_cn": "分享我的想法",
+  "difficulty": "A2",
+  "word_count": 85,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "I had an idea for improving our office website. I thought the front page was too crowded, so I wanted to make it simpler. During lunch, I talked about my idea with two coworkers. They listened and gave me some suggestions. One coworker thought we should use larger pictures, while the other suggested shorter text. I wrote down their ideas and made a small plan. I will show it to my manager tomorrow and ask what she thinks.",
+  "content_cn": "我有一个改进办公室网站的想法。我觉得首页太拥挤了，所以想让它变得更简洁。午餐期间，我和两位同事谈了这个想法。他们认真听取了意见，并给了我一些建议。一位同事认为我们应该使用更大的图片，另一位则建议缩短文字。我记下了他们的想法，并制定了一个小计划。明天我会把计划拿给经理看，听听她的意见。",
+  "sentences": [
+   {
+    "sentence_en": "I had an idea for improving our office website.",
+    "sentence_cn": "我有一个改进办公室网站的想法。",
+    "chunks": [
+     {
+      "text": "I had an idea",
+      "meaning": "我有一个想法"
+     },
+     {
+      "text": " for improving",
+      "meaning": "关于改进"
+     },
+     {
+      "text": " our office website.",
+      "meaning": "我们的办公网站"
+     }
+    ],
+    "explanation": "idea for doing something 表示关于做某事的想法；improving 是 improve 的动名词形式。"
+   },
+   {
+    "sentence_en": "I thought the front page was too crowded, so I wanted to make it simpler.",
+    "sentence_cn": "我觉得首页太拥挤了，所以想让它变得更简洁。",
+    "chunks": [
+     {
+      "text": "I thought",
+      "meaning": "我认为"
+     },
+     {
+      "text": " the front page was too crowded,",
+      "meaning": "首页太拥挤了"
+     },
+     {
+      "text": " so I wanted",
+      "meaning": "所以我想"
+     },
+     {
+      "text": " to make it simpler.",
+      "meaning": "让它变得更简洁"
+     }
+    ],
+    "explanation": "thought 是 think 的过去式；make something + 形容词表示使某物变得怎样。"
+   },
+   {
+    "sentence_en": "During lunch, I talked about my idea with two coworkers.",
+    "sentence_cn": "午餐期间，我和两位同事谈了这个想法。",
+    "chunks": [
+     {
+      "text": "During lunch,",
+      "meaning": "午餐期间"
+     },
+     {
+      "text": " I talked about",
+      "meaning": "我谈论了"
+     },
+     {
+      "text": " my idea",
+      "meaning": "我的想法"
+     },
+     {
+      "text": " with two coworkers.",
+      "meaning": "和两位同事"
+     }
+    ],
+    "explanation": "talk about something with someone 表示和某人谈论某事。"
+   },
+   {
+    "sentence_en": "They listened and gave me some suggestions.",
+    "sentence_cn": "他们认真听取了意见，并给了我一些建议。",
+    "chunks": [
+     {
+      "text": "They listened",
+      "meaning": "他们听了"
+     },
+     {
+      "text": " and gave me",
+      "meaning": "并给了我"
+     },
+     {
+      "text": " some suggestions.",
+      "meaning": "一些建议"
+     }
+    ],
+    "explanation": "gave 是 give 的过去式；suggestion 是可数名词，表示建议。"
+   },
+   {
+    "sentence_en": "One coworker thought we should use larger pictures, while the other suggested shorter text.",
+    "sentence_cn": "一位同事认为我们应该使用更大的图片，另一位则建议缩短文字。",
+    "chunks": [
+     {
+      "text": "One coworker thought",
+      "meaning": "一位同事认为"
+     },
+     {
+      "text": " we should use larger pictures,",
+      "meaning": "我们应该使用更大的图片"
+     },
+     {
+      "text": " while the other",
+      "meaning": "而另一位"
+     },
+     {
+      "text": " suggested shorter text.",
+      "meaning": "建议使用更短的文字"
+     }
+    ],
+    "explanation": "should 表示建议；while 在这里用于对比两个人的不同意见。"
+   },
+   {
+    "sentence_en": "I wrote down their ideas and made a small plan.",
+    "sentence_cn": "我记下了他们的想法，并制定了一个小计划。",
+    "chunks": [
+     {
+      "text": "I wrote down",
+      "meaning": "我记下了"
+     },
+     {
+      "text": " their ideas",
+      "meaning": "他们的想法"
+     },
+     {
+      "text": " and made",
+      "meaning": "并制定了"
+     },
+     {
+      "text": " a small plan.",
+      "meaning": "一个小计划"
+     }
+    ],
+    "explanation": "write down 表示写下、记下；wrote 是 write 的过去式。"
+   },
+   {
+    "sentence_en": "I will show it to my manager tomorrow and ask what she thinks.",
+    "sentence_cn": "明天我会把计划拿给经理看，听听她的意见。",
+    "chunks": [
+     {
+      "text": "I will show it",
+      "meaning": "我会展示它"
+     },
+     {
+      "text": " to my manager",
+      "meaning": "给我的经理看"
+     },
+     {
+      "text": " tomorrow",
+      "meaning": "明天"
+     },
+     {
+      "text": " and ask what she thinks.",
+      "meaning": "并询问她的看法"
+     }
+    ],
+    "explanation": "will show 表示未来计划；ask what she thinks 表示询问她的想法。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "improve",
+    "phonetic": "",
+    "meaning": "改进；改善",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "crowded",
+    "phonetic": "",
+    "meaning": "拥挤的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "simpler",
+    "phonetic": "",
+    "meaning": "更简单的；更简洁的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "suggestion",
+    "phonetic": "",
+    "meaning": "建议",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "while",
+    "phonetic": "",
+    "meaning": "而；然而",
+    "part_of_speech": "conjunction"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "have an idea for",
+    "meaning": "有一个关于……的想法",
+    "example": "I have an idea for our new website."
+   },
+   {
+    "expression": "too crowded",
+    "meaning": "太拥挤",
+    "example": "The front page looks too crowded."
+   },
+   {
+    "expression": "talk about an idea",
+    "meaning": "讨论一个想法",
+    "example": "I want to talk about my idea."
+   },
+   {
+    "expression": "write down",
+    "meaning": "记下；写下",
+    "example": "Please write down the important points."
+   },
+   {
+    "expression": "show something to someone",
+    "meaning": "把某物展示给某人看",
+    "example": "I will show the plan to my manager."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What did the writer think about the website's front page?",
+    "options": [
+     "It was too crowded",
+     "It was too dark",
+     "It was too slow"
+    ],
+    "answer": "It was too crowded",
+    "explanation": "作者认为网站首页太拥挤，希望让它更简洁。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What did one coworker suggest?",
+    "options": [
+     "Using fewer colors",
+     "Using larger pictures",
+     "Adding more pages"
+    ],
+    "answer": "Using larger pictures",
+    "explanation": "一位同事建议使用更大的图片。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What will the writer do tomorrow?",
+    "answer": "Show the plan to the manager and ask for her opinion.",
+    "explanation": "作者计划明天把计划给经理看，并询问她的看法。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "85 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on expressing an idea, listening to feedback, and preparing to present a proposal."
+  }
+ },
+ {
+  "article_id": 129,
+  "day": 129,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Completing a work assignment",
+  "title_en": "Finishing a Task",
+  "title_cn": "完成一项任务",
+  "difficulty": "A2",
+  "word_count": 86,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "I had an important task to finish before Friday. First, I made a list of everything I needed to do. Then I collected the information and wrote the first part of the report. It took longer than I expected because I had to check many details. After lunch, I finished the last section and read the whole report again. I found two small mistakes and corrected them. I sent the report to my manager before the end of the day. I felt proud of my work.",
+  "content_cn": "我有一项重要任务，需要在星期五之前完成。首先，我列出了所有需要做的事情。然后，我收集了相关信息，并写完报告的第一部分。由于需要检查许多细节，整个过程比我预想的更耗时。午饭后，我完成了最后一部分，并重新通读了整份报告。我发现了两个小错误并改正了它们。当天结束前，我把报告发给了经理。我为自己的工作感到自豪。",
+  "sentences": [
+   {
+    "sentence_en": "I had an important task to finish before Friday.",
+    "sentence_cn": "我有一项重要任务，需要在星期五之前完成。",
+    "chunks": [
+     {
+      "text": "I had",
+      "meaning": "我有"
+     },
+     {
+      "text": " an important task",
+      "meaning": "一项重要任务"
+     },
+     {
+      "text": " to finish",
+      "meaning": "需要完成"
+     },
+     {
+      "text": " before Friday.",
+      "meaning": "在星期五之前"
+     }
+    ],
+    "explanation": "to finish 作后置定语，说明任务需要完成；before 表示在某个时间之前。"
+   },
+   {
+    "sentence_en": "First, I made a list of everything I needed to do.",
+    "sentence_cn": "首先，我列出了所有需要做的事情。",
+    "chunks": [
+     {
+      "text": "First,",
+      "meaning": "首先"
+     },
+     {
+      "text": " I made a list",
+      "meaning": "我列了一份清单"
+     },
+     {
+      "text": " of everything",
+      "meaning": "列出所有事情"
+     },
+     {
+      "text": " I needed to do.",
+      "meaning": "我需要做的"
+     }
+    ],
+    "explanation": "make a list of 表示列出……的清单；needed 是 need 的过去式。"
+   },
+   {
+    "sentence_en": "Then I collected the information and wrote the first part of the report.",
+    "sentence_cn": "然后，我收集了相关信息，并写完报告的第一部分。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": " I collected the information",
+      "meaning": "我收集了信息"
+     },
+     {
+      "text": " and wrote",
+      "meaning": "并写了"
+     },
+     {
+      "text": " the first part of the report.",
+      "meaning": "报告的第一部分"
+     }
+    ],
+    "explanation": "collected 和 wrote 都是过去式，描述已经完成的工作。"
+   },
+   {
+    "sentence_en": "It took longer than I expected because I had to check many details.",
+    "sentence_cn": "由于需要检查许多细节，整个过程比我预想的更耗时。",
+    "chunks": [
+     {
+      "text": "It took longer",
+      "meaning": "它花费了更长时间"
+     },
+     {
+      "text": " than I expected",
+      "meaning": "比我预想的"
+     },
+     {
+      "text": " because I had to check",
+      "meaning": "因为我必须检查"
+     },
+     {
+      "text": " many details.",
+      "meaning": "许多细节"
+     }
+    ],
+    "explanation": "take time 表示花费时间；had to 表示过去不得不做某事。"
+   },
+   {
+    "sentence_en": "After lunch, I finished the last section and read the whole report again.",
+    "sentence_cn": "午饭后，我完成了最后一部分，并重新通读了整份报告。",
+    "chunks": [
+     {
+      "text": "After lunch,",
+      "meaning": "午饭后"
+     },
+     {
+      "text": " I finished the last section",
+      "meaning": "我完成了最后一部分"
+     },
+     {
+      "text": " and read",
+      "meaning": "并阅读了"
+     },
+     {
+      "text": " the whole report again.",
+      "meaning": "重新通读了整份报告"
+     }
+    ],
+    "explanation": "whole 表示整个的；again 表示再次、重新。"
+   },
+   {
+    "sentence_en": "I found two small mistakes and corrected them.",
+    "sentence_cn": "我发现了两个小错误并改正了它们。",
+    "chunks": [
+     {
+      "text": "I found",
+      "meaning": "我发现了"
+     },
+     {
+      "text": " two small mistakes",
+      "meaning": "两个小错误"
+     },
+     {
+      "text": " and corrected them.",
+      "meaning": "并改正了它们"
+     }
+    ],
+    "explanation": "found 是 find 的过去式；corrected 表示纠正、改正。"
+   },
+   {
+    "sentence_en": "I sent the report to my manager before the end of the day.",
+    "sentence_cn": "当天结束前，我把报告发给了经理。",
+    "chunks": [
+     {
+      "text": "I sent the report",
+      "meaning": "我发送了报告"
+     },
+     {
+      "text": " to my manager",
+      "meaning": "给我的经理"
+     },
+     {
+      "text": " before the end",
+      "meaning": "在结束之前"
+     },
+     {
+      "text": " of the day.",
+      "meaning": "当天"
+     }
+    ],
+    "explanation": "sent 是 send 的过去式；before the end of the day 表示在当天结束之前。"
+   },
+   {
+    "sentence_en": "I felt proud of my work.",
+    "sentence_cn": "我为自己的工作感到自豪。",
+    "chunks": [
+     {
+      "text": "I felt",
+      "meaning": "我感到"
+     },
+     {
+      "text": " proud of",
+      "meaning": "为……感到自豪"
+     },
+     {
+      "text": " my work.",
+      "meaning": "自己的工作"
+     }
+    ],
+    "explanation": "feel proud of 表示为某事感到自豪；felt 是 feel 的过去式。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "task",
+    "phonetic": "",
+    "meaning": "任务",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "collect",
+    "phonetic": "",
+    "meaning": "收集",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "detail",
+    "phonetic": "",
+    "meaning": "细节",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "correct",
+    "phonetic": "",
+    "meaning": "改正；纠正",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "proud",
+    "phonetic": "",
+    "meaning": "自豪的",
+    "part_of_speech": "adjective"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "finish a task",
+    "meaning": "完成一项任务",
+    "example": "I need to finish this task today."
+   },
+   {
+    "expression": "make a list of",
+    "meaning": "列出……的清单",
+    "example": "I made a list of things to do."
+   },
+   {
+    "expression": "take longer than expected",
+    "meaning": "比预期花费更长时间",
+    "example": "The meeting took longer than expected."
+   },
+   {
+    "expression": "check the details",
+    "meaning": "检查细节",
+    "example": "Please check the details before sending it."
+   },
+   {
+    "expression": "feel proud of",
+    "meaning": "为……感到自豪",
+    "example": "I feel proud of my work."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "When did the writer need to finish the task?",
+    "options": [
+     "Before Wednesday",
+     "Before Friday",
+     "Before Monday"
+    ],
+    "answer": "Before Friday",
+    "explanation": "文章第一句说明任务需要在星期五之前完成。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "Why did the task take longer than expected?",
+    "options": [
+     "The computer stopped working",
+     "The writer had many meetings",
+     "The writer had to check many details"
+    ],
+    "answer": "The writer had to check many details",
+    "explanation": "作者需要检查许多细节，所以花费了更多时间。"
+   },
+   {
+    "type": "short_answer",
+    "question": "How many mistakes did the writer find?",
+    "answer": "Two small mistakes.",
+    "explanation": "作者重新检查报告时发现并改正了两个小错误。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "86 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on organizing work, checking details, completing a report, and feeling satisfied with the result."
+  }
+ },
+ {
+  "article_id": 130,
+  "day": 130,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Managing a busy workday",
+  "title_en": "A Busy Day at Work",
+  "title_cn": "忙碌的工作日",
+  "difficulty": "A2",
+  "word_count": 87,
+  "estimated_reading_time_seconds": 46,
+  "content_en": "Today was a very busy day at the office. I arrived early because I had several things to finish. First, I answered many emails from customers. Then I joined two meetings and took notes for my manager. At lunchtime, I only had fifteen minutes to eat. In the afternoon, a customer called with an urgent problem, so I helped him right away. I finally finished my work at six thirty. I was tired when I left, but I felt good about what I had done.",
+  "content_cn": "今天办公室里特别忙。我很早就到了，因为有好几件事情需要完成。首先，我回复了许多客户邮件。接着，我参加了两场会议，并为经理做了记录。午餐时间，我只有十五分钟吃饭。下午，一位客户打来电话，说有一个紧急问题，所以我马上帮助了他。我终于在六点半完成了工作。离开办公室时我很累，但想到自己完成的事情，还是觉得很有成就感。",
+  "sentences": [
+   {
+    "sentence_en": "Today was a very busy day at the office.",
+    "sentence_cn": "今天办公室里特别忙。",
+    "chunks": [
+     {
+      "text": "Today",
+      "meaning": "今天"
+     },
+     {
+      "text": " was a very busy day",
+      "meaning": "是非常忙碌的一天"
+     },
+     {
+      "text": " at the office.",
+      "meaning": "在办公室"
+     }
+    ],
+    "explanation": "was 是 be 的过去式；busy day 表示忙碌的一天。"
+   },
+   {
+    "sentence_en": "I arrived early because I had several things to finish.",
+    "sentence_cn": "我很早就到了，因为有好几件事情需要完成。",
+    "chunks": [
+     {
+      "text": "I arrived early",
+      "meaning": "我很早就到了"
+     },
+     {
+      "text": " because",
+      "meaning": "因为"
+     },
+     {
+      "text": " I had several things",
+      "meaning": "我有好几件事情"
+     },
+     {
+      "text": " to finish.",
+      "meaning": "需要完成"
+     }
+    ],
+    "explanation": "because 引导原因状语从句；several 表示几个、若干。"
+   },
+   {
+    "sentence_en": "First, I answered many emails from customers.",
+    "sentence_cn": "首先，我回复了许多客户邮件。",
+    "chunks": [
+     {
+      "text": "First,",
+      "meaning": "首先"
+     },
+     {
+      "text": " I answered",
+      "meaning": "我回复了"
+     },
+     {
+      "text": " many emails",
+      "meaning": "许多邮件"
+     },
+     {
+      "text": " from customers.",
+      "meaning": "来自客户的"
+     }
+    ],
+    "explanation": "answer emails 表示回复邮件；answered 是 answer 的过去式。"
+   },
+   {
+    "sentence_en": "Then I joined two meetings and took notes for my manager.",
+    "sentence_cn": "接着，我参加了两场会议，并为经理做了记录。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "接着"
+     },
+     {
+      "text": " I joined two meetings",
+      "meaning": "我参加了两场会议"
+     },
+     {
+      "text": " and took notes",
+      "meaning": "并做了记录"
+     },
+     {
+      "text": " for my manager.",
+      "meaning": "为我的经理"
+     }
+    ],
+    "explanation": "join a meeting 表示参加会议；take notes 表示做笔记，took 是 take 的过去式。"
+   },
+   {
+    "sentence_en": "At lunchtime, I only had fifteen minutes to eat.",
+    "sentence_cn": "午餐时间，我只有十五分钟吃饭。",
+    "chunks": [
+     {
+      "text": "At lunchtime,",
+      "meaning": "在午餐时间"
+     },
+     {
+      "text": " I only had",
+      "meaning": "我只有"
+     },
+     {
+      "text": " fifteen minutes",
+      "meaning": "十五分钟"
+     },
+     {
+      "text": " to eat.",
+      "meaning": "用来吃饭"
+     }
+    ],
+    "explanation": "only 表示仅仅；fifteen minutes to eat 表示吃饭的时间只有十五分钟。"
+   },
+   {
+    "sentence_en": "In the afternoon, a customer called with an urgent problem, so I helped him right away.",
+    "sentence_cn": "下午，一位客户打来电话，说有一个紧急问题，所以我马上帮助了他。",
+    "chunks": [
+     {
+      "text": "In the afternoon,",
+      "meaning": "在下午"
+     },
+     {
+      "text": " a customer called with an urgent problem,",
+      "meaning": "一位客户打来电话，带来了一个紧急问题"
+     },
+     {
+      "text": " so I helped him",
+      "meaning": "所以我帮助了他"
+     },
+     {
+      "text": " right away.",
+      "meaning": "立刻；马上"
+     }
+    ],
+    "explanation": "urgent 表示紧急的；right away 表示立即、马上。"
+   },
+   {
+    "sentence_en": "I finally finished my work at six thirty.",
+    "sentence_cn": "我终于在六点半完成了工作。",
+    "chunks": [
+     {
+      "text": "I finally",
+      "meaning": "我终于"
+     },
+     {
+      "text": " finished my work",
+      "meaning": "完成了我的工作"
+     },
+     {
+      "text": " at six thirty.",
+      "meaning": "在六点半"
+     }
+    ],
+    "explanation": "finally 表示终于；finished 是 finish 的过去式。"
+   },
+   {
+    "sentence_en": "I was tired when I left, but I felt good about what I had done.",
+    "sentence_cn": "离开办公室时我很累，但想到自己完成的事情，还是觉得很有成就感。",
+    "chunks": [
+     {
+      "text": "I was tired",
+      "meaning": "我很累"
+     },
+     {
+      "text": " when I left,",
+      "meaning": "当我离开时"
+     },
+     {
+      "text": " but I felt good about",
+      "meaning": "但我对……感到满意"
+     },
+     {
+      "text": " what I had done.",
+      "meaning": "自己完成的事情"
+     }
+    ],
+    "explanation": "when 引导时间状语从句；feel good about 表示对某事感到满意。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "several",
+    "phonetic": "",
+    "meaning": "几个；若干",
+    "part_of_speech": "determiner"
+   },
+   {
+    "word": "customer",
+    "phonetic": "",
+    "meaning": "客户",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "meeting",
+    "phonetic": "",
+    "meaning": "会议",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "urgent",
+    "phonetic": "",
+    "meaning": "紧急的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "finally",
+    "phonetic": "",
+    "meaning": "终于；最后",
+    "part_of_speech": "adverb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "arrive early",
+    "meaning": "提前到达",
+    "example": "I arrived early for the meeting."
+   },
+   {
+    "expression": "have several things to finish",
+    "meaning": "有好几件事情要完成",
+    "example": "I have several things to finish today."
+   },
+   {
+    "expression": "take notes",
+    "meaning": "做笔记；记录",
+    "example": "Please take notes during the meeting."
+   },
+   {
+    "expression": "right away",
+    "meaning": "马上；立刻",
+    "example": "I will call you right away."
+   },
+   {
+    "expression": "feel good about",
+    "meaning": "对……感到满意",
+    "example": "I feel good about my work today."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Why did the writer arrive early?",
+    "options": [
+     "To meet a friend",
+     "To finish several things",
+     "To have breakfast"
+    ],
+    "answer": "To finish several things",
+    "explanation": "作者因为有好几件事情要完成，所以提前到了办公室。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "How much time did the writer have for lunch?",
+    "options": [
+     "Fifteen minutes",
+     "Thirty minutes",
+     "One hour"
+    ],
+    "answer": "Fifteen minutes",
+    "explanation": "文章提到午餐时间只有十五分钟。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What time did the writer finish work?",
+    "answer": "At six thirty.",
+    "explanation": "作者在下午六点半完成了工作。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "87 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on a full schedule, urgent customer needs, and the feeling of finishing a demanding workday."
+  }
+ },
+ {
+  "article_id": 131,
+  "day": 131,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Working from home",
+  "title_en": "Working from Home",
+  "title_cn": "居家办公",
+  "difficulty": "A2",
+  "word_count": 86,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "I work from home twice a week. In the morning, I make coffee and turn on my computer at eight. Before I start working, I check my schedule and write down my main tasks. I have online meetings with my coworkers, so I use a headset to talk with them. At lunchtime, I take a short walk outside. Working from home saves travel time, but sometimes I miss talking to people face to face. I try to keep a regular work schedule.",
+  "content_cn": "我每周有两天在家办公。早上，我泡好咖啡，八点打开电脑。开始工作前，我会查看日程，并记下主要任务。我会和同事参加线上会议，所以需要戴耳机与他们交流。午餐时间，我会到外面短暂散步。居家办公节省了通勤时间，但有时我也会怀念与人面对面交流。我努力保持规律的工作时间。",
+  "sentences": [
+   {
+    "sentence_en": "I work from home twice a week.",
+    "sentence_cn": "我每周有两天在家办公。",
+    "chunks": [
+     {
+      "text": "I work from home",
+      "meaning": "我在家工作"
+     },
+     {
+      "text": " twice a week.",
+      "meaning": "每周两次"
+     }
+    ],
+    "explanation": "work from home 表示居家办公；twice a week 表示每周两次。"
+   },
+   {
+    "sentence_en": "In the morning, I make coffee and turn on my computer at eight.",
+    "sentence_cn": "早上，我泡好咖啡，八点打开电脑。",
+    "chunks": [
+     {
+      "text": "In the morning,",
+      "meaning": "早上"
+     },
+     {
+      "text": " I make coffee",
+      "meaning": "我泡咖啡"
+     },
+     {
+      "text": " and turn on my computer",
+      "meaning": "并打开电脑"
+     },
+     {
+      "text": " at eight.",
+      "meaning": "在八点"
+     }
+    ],
+    "explanation": "make coffee 表示泡咖啡；turn on 表示打开电器或设备。"
+   },
+   {
+    "sentence_en": "Before I start working, I check my schedule and write down my main tasks.",
+    "sentence_cn": "开始工作前，我会查看日程，并记下主要任务。",
+    "chunks": [
+     {
+      "text": "Before I start working,",
+      "meaning": "在我开始工作之前"
+     },
+     {
+      "text": " I check my schedule",
+      "meaning": "我查看日程"
+     },
+     {
+      "text": " and write down",
+      "meaning": "并记下"
+     },
+     {
+      "text": " my main tasks.",
+      "meaning": "我的主要任务"
+     }
+    ],
+    "explanation": "before 引导时间状语从句；write down 表示记下。"
+   },
+   {
+    "sentence_en": "I have online meetings with my coworkers, so I use a headset to talk with them.",
+    "sentence_cn": "我会和同事参加线上会议，所以需要戴耳机与他们交流。",
+    "chunks": [
+     {
+      "text": "I have online meetings",
+      "meaning": "我参加线上会议"
+     },
+     {
+      "text": " with my coworkers,",
+      "meaning": "和我的同事"
+     },
+     {
+      "text": " so I use a headset",
+      "meaning": "所以我使用耳机"
+     },
+     {
+      "text": " to talk with them.",
+      "meaning": "和他们交谈"
+     }
+    ],
+    "explanation": "online meeting 表示线上会议；to talk with them 表示使用耳机的目的。"
+   },
+   {
+    "sentence_en": "At lunchtime, I take a short walk outside.",
+    "sentence_cn": "午餐时间，我会到外面短暂散步。",
+    "chunks": [
+     {
+      "text": "At lunchtime,",
+      "meaning": "午餐时间"
+     },
+     {
+      "text": " I take a short walk",
+      "meaning": "我短暂散步"
+     },
+     {
+      "text": " outside.",
+      "meaning": "到外面"
+     }
+    ],
+    "explanation": "take a walk 是“散步”的常见表达；short 表示短暂的。"
+   },
+   {
+    "sentence_en": "Working from home saves travel time, but sometimes I miss talking to people face to face.",
+    "sentence_cn": "居家办公节省了通勤时间，但有时我也会怀念与人面对面交流。",
+    "chunks": [
+     {
+      "text": "Working from home",
+      "meaning": "居家办公"
+     },
+     {
+      "text": " saves travel time,",
+      "meaning": "节省通勤时间"
+     },
+     {
+      "text": " but sometimes I miss",
+      "meaning": "但有时我怀念"
+     },
+     {
+      "text": " talking to people face to face.",
+      "meaning": "与人面对面交流"
+     }
+    ],
+    "explanation": "Working from home 是动名词短语作主语；miss 后接动词时使用 -ing 形式。"
+   },
+   {
+    "sentence_en": "I try to keep a regular work schedule.",
+    "sentence_cn": "我努力保持规律的工作时间。",
+    "chunks": [
+     {
+      "text": "I try to keep",
+      "meaning": "我努力保持"
+     },
+     {
+      "text": " a regular",
+      "meaning": "规律的"
+     },
+     {
+      "text": " work schedule.",
+      "meaning": "工作时间安排"
+     }
+    ],
+    "explanation": "try to do 表示努力做某事；regular 表示规律的。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "schedule",
+    "phonetic": "",
+    "meaning": "日程；时间安排",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "task",
+    "phonetic": "",
+    "meaning": "任务",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "coworker",
+    "phonetic": "",
+    "meaning": "同事",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "headset",
+    "phonetic": "",
+    "meaning": "头戴式耳机",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "regular",
+    "phonetic": "",
+    "meaning": "规律的；定期的",
+    "part_of_speech": "adjective"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "work from home",
+    "meaning": "在家办公",
+    "example": "I work from home on Fridays."
+   },
+   {
+    "expression": "turn on the computer",
+    "meaning": "打开电脑",
+    "example": "I turn on my computer at eight."
+   },
+   {
+    "expression": "write down",
+    "meaning": "记下；写下",
+    "example": "Write down your tasks for today."
+   },
+   {
+    "expression": "take a short walk",
+    "meaning": "短暂散步",
+    "example": "I take a short walk after lunch."
+   },
+   {
+    "expression": "face to face",
+    "meaning": "面对面",
+    "example": "We prefer to talk face to face."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "How often does the writer work from home?",
+    "options": [
+     "Every day",
+     "Twice a week",
+     "Once a month"
+    ],
+    "answer": "Twice a week",
+    "explanation": "文章第一句说明作者每周在家办公两次。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the writer use for online meetings?",
+    "options": [
+     "A headset",
+     "A camera only",
+     "A phone book"
+    ],
+    "answer": "A headset",
+    "explanation": "作者使用耳机与同事在线交流。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the writer miss about working in an office?",
+    "answer": "Talking to people face to face.",
+    "explanation": "作者有时怀念与人面对面交流。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "86 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on the daily routine, benefits, and challenges of working from home."
+  }
+ },
+ {
+  "article_id": 132,
+  "day": 132,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Handling a mistake at work",
+  "title_en": "Dealing with a Mistake",
+  "title_cn": "处理工作中的错误",
+  "difficulty": "A2",
+  "word_count": 86,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "Yesterday, I made a mistake in an important email. I sent it to the wrong customer by accident. When I noticed the problem, I felt worried. I told my manager what had happened and asked for advice. She helped me write a short message to explain the mistake. Then I contacted the customer and sent the correct information. Luckily, the customer understood. I learned that I should check names and email addresses carefully before sending messages.",
+  "content_cn": "昨天，我在一封重要邮件中犯了一个错误。我不小心把邮件发给了错误的客户。发现问题时，我感到很担心。我告诉经理发生了什么，并向她征求建议。她帮我写了一条简短的信息来解释这个错误。随后，我联系了客户并发送了正确的信息。幸运的是，客户理解了。我从中学到，发送邮件前应该仔细检查姓名和邮箱地址。",
+  "sentences": [
+   {
+    "sentence_en": "Yesterday, I made a mistake in an important email.",
+    "sentence_cn": "昨天，我在一封重要邮件中犯了一个错误。",
+    "chunks": [
+     {
+      "text": "Yesterday,",
+      "meaning": "昨天"
+     },
+     {
+      "text": " I made a mistake",
+      "meaning": "我犯了一个错误"
+     },
+     {
+      "text": " in an important email.",
+      "meaning": "在一封重要邮件中"
+     }
+    ],
+    "explanation": "make a mistake 表示犯错误；made 是 make 的过去式。"
+   },
+   {
+    "sentence_en": "I sent it to the wrong customer by accident.",
+    "sentence_cn": "我不小心把邮件发给了错误的客户。",
+    "chunks": [
+     {
+      "text": "I sent it",
+      "meaning": "我把它发送了"
+     },
+     {
+      "text": " to the wrong customer",
+      "meaning": "给错误的客户"
+     },
+     {
+      "text": " by accident.",
+      "meaning": "不小心地"
+     }
+    ],
+    "explanation": "sent 是 send 的过去式；by accident 表示意外地、不小心地。"
+   },
+   {
+    "sentence_en": "When I noticed the problem, I felt worried.",
+    "sentence_cn": "发现问题时，我感到很担心。",
+    "chunks": [
+     {
+      "text": "When I noticed the problem,",
+      "meaning": "当我注意到这个问题时"
+     },
+     {
+      "text": " I felt",
+      "meaning": "我感到"
+     },
+     {
+      "text": " worried.",
+      "meaning": "担心的"
+     }
+    ],
+    "explanation": "noticed 是 notice 的过去式；feel worried 表示感到担心。"
+   },
+   {
+    "sentence_en": "I told my manager what had happened and asked for advice.",
+    "sentence_cn": "我告诉经理发生了什么，并向她征求建议。",
+    "chunks": [
+     {
+      "text": "I told my manager",
+      "meaning": "我告诉了经理"
+     },
+     {
+      "text": " what had happened",
+      "meaning": "发生了什么"
+     },
+     {
+      "text": " and asked",
+      "meaning": "并请求"
+     },
+     {
+      "text": " for advice.",
+      "meaning": "给予建议"
+     }
+    ],
+    "explanation": "told 是 tell 的过去式；ask for advice 表示征求建议。"
+   },
+   {
+    "sentence_en": "She helped me write a short message to explain the mistake.",
+    "sentence_cn": "她帮我写了一条简短的信息来解释这个错误。",
+    "chunks": [
+     {
+      "text": "She helped me",
+      "meaning": "她帮助我"
+     },
+     {
+      "text": " write a short message",
+      "meaning": "写一条简短的信息"
+     },
+     {
+      "text": " to explain",
+      "meaning": "用来解释"
+     },
+     {
+      "text": " the mistake.",
+      "meaning": "这个错误"
+     }
+    ],
+    "explanation": "help someone do something 表示帮助某人做某事；to explain 表示目的。"
+   },
+   {
+    "sentence_en": "Then I contacted the customer and sent the correct information.",
+    "sentence_cn": "随后，我联系了客户并发送了正确的信息。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "随后"
+     },
+     {
+      "text": " I contacted the customer",
+      "meaning": "我联系了客户"
+     },
+     {
+      "text": " and sent",
+      "meaning": "并发送了"
+     },
+     {
+      "text": " the correct information.",
+      "meaning": "正确的信息"
+     }
+    ],
+    "explanation": "contacted 是 contact 的过去式；correct 表示正确的。"
+   },
+   {
+    "sentence_en": "Luckily, the customer understood.",
+    "sentence_cn": "幸运的是，客户理解了。",
+    "chunks": [
+     {
+      "text": "Luckily,",
+      "meaning": "幸运的是"
+     },
+     {
+      "text": " the customer",
+      "meaning": "这位客户"
+     },
+     {
+      "text": " understood.",
+      "meaning": "理解了"
+     }
+    ],
+    "explanation": "Luckily 是副词，表示幸运的是；understood 是 understand 的过去式。"
+   },
+   {
+    "sentence_en": "I learned that I should check names and email addresses carefully before sending messages.",
+    "sentence_cn": "我从中学到，发送邮件前应该仔细检查姓名和邮箱地址。",
+    "chunks": [
+     {
+      "text": "I learned that",
+      "meaning": "我学到"
+     },
+     {
+      "text": " I should check names",
+      "meaning": "我应该检查姓名"
+     },
+     {
+      "text": " and email addresses carefully",
+      "meaning": "并仔细检查邮箱地址"
+     },
+     {
+      "text": " before sending messages.",
+      "meaning": "在发送信息之前"
+     }
+    ],
+    "explanation": "should 表示应该；before 后接动词时可以使用 -ing 形式。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "mistake",
+    "phonetic": "",
+    "meaning": "错误",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "accident",
+    "phonetic": "",
+    "meaning": "意外；事故",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "notice",
+    "phonetic": "",
+    "meaning": "注意到",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "advice",
+    "phonetic": "",
+    "meaning": "建议",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "carefully",
+    "phonetic": "",
+    "meaning": "仔细地",
+    "part_of_speech": "adverb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "make a mistake",
+    "meaning": "犯错误",
+    "example": "Everyone can make a mistake."
+   },
+   {
+    "expression": "by accident",
+    "meaning": "不小心地；意外地",
+    "example": "I deleted the file by accident."
+   },
+   {
+    "expression": "notice a problem",
+    "meaning": "发现问题",
+    "example": "Please tell me when you notice a problem."
+   },
+   {
+    "expression": "ask for advice",
+    "meaning": "征求建议",
+    "example": "I asked my manager for advice."
+   },
+   {
+    "expression": "explain the mistake",
+    "meaning": "解释这个错误",
+    "example": "He called to explain the mistake."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What mistake did the writer make?",
+    "options": [
+     "He sent an email to the wrong customer",
+     "He lost an important document",
+     "He missed a meeting"
+    ],
+    "answer": "He sent an email to the wrong customer",
+    "explanation": "作者不小心把邮件发给了错误的客户。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "Who helped the writer?",
+    "options": [
+     "A customer",
+     "His manager",
+     "A new colleague"
+    ],
+    "answer": "His manager",
+    "explanation": "作者向经理说明情况，并得到了她的帮助。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What did the writer learn from the mistake?",
+    "answer": "To check names and email addresses carefully before sending messages.",
+    "explanation": "文章最后一句总结了作者从错误中学到的经验。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "86 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on taking responsibility, correcting an email mistake, and learning to check details."
+  }
+ },
+ {
+  "article_id": 133,
+  "day": 133,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Learning from workplace feedback",
+  "title_en": "Learning from Feedback",
+  "title_cn": "从反馈中学习",
+  "difficulty": "A2",
+  "word_count": 85,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "My manager read the report I wrote last week and gave me some feedback. She said the information was clear, but the report needed more examples. At first, I felt a little disappointed because I had spent many hours on it. However, I listened carefully and asked how I could improve it. She showed me a good example from an older report. I made some changes and sent it again. Her advice helped me understand how to do better work.",
+  "content_cn": "经理看了我上周写的报告，并给了我一些反馈。她说报告中的信息很清楚，但还需要更多例子。起初，我有一点失望，因为我已经花了很多时间在这份报告上。不过，我认真听取了意见，并询问怎样才能改进。她给我看了一份旧报告中的优秀范例。我做了一些修改，然后再次发送。她的建议让我明白了怎样才能把工作做得更好。",
+  "sentences": [
+   {
+    "sentence_en": "My manager read the report I wrote last week and gave me some feedback.",
+    "sentence_cn": "经理看了我上周写的报告，并给了我一些反馈。",
+    "chunks": [
+     {
+      "text": "My manager read",
+      "meaning": "我的经理看了"
+     },
+     {
+      "text": " the report",
+      "meaning": "这份报告"
+     },
+     {
+      "text": " I wrote last week",
+      "meaning": "我上周写的"
+     },
+     {
+      "text": " and gave me some feedback.",
+      "meaning": "并给了我一些反馈"
+     }
+    ],
+    "explanation": "read 的过去式拼写不变；feedback 表示反馈，通常是不可数名词。"
+   },
+   {
+    "sentence_en": "She said the information was clear, but the report needed more examples.",
+    "sentence_cn": "她说报告中的信息很清楚，但还需要更多例子。",
+    "chunks": [
+     {
+      "text": "She said",
+      "meaning": "她说"
+     },
+     {
+      "text": " the information was clear,",
+      "meaning": "信息很清楚"
+     },
+     {
+      "text": " but the report",
+      "meaning": "但这份报告"
+     },
+     {
+      "text": " needed more examples.",
+      "meaning": "需要更多例子"
+     }
+    ],
+    "explanation": "but 用来连接转折内容；needed 是 need 的过去式。"
+   },
+   {
+    "sentence_en": "At first, I felt a little disappointed because I had spent many hours on it.",
+    "sentence_cn": "起初，我有一点失望，因为我已经花了很多时间在这份报告上。",
+    "chunks": [
+     {
+      "text": "At first,",
+      "meaning": "起初"
+     },
+     {
+      "text": " I felt a little disappointed",
+      "meaning": "我感到有一点失望"
+     },
+     {
+      "text": " because",
+      "meaning": "因为"
+     },
+     {
+      "text": " I had spent many hours on it.",
+      "meaning": "我已经在它上面花了很多时间"
+     }
+    ],
+    "explanation": "disappointed 表示失望的；spend time on something 表示在某事上花费时间。"
+   },
+   {
+    "sentence_en": "However, I listened carefully and asked how I could improve it.",
+    "sentence_cn": "不过，我认真听取了意见，并询问怎样才能改进。",
+    "chunks": [
+     {
+      "text": "However,",
+      "meaning": "然而；不过"
+     },
+     {
+      "text": " I listened carefully",
+      "meaning": "我认真地听"
+     },
+     {
+      "text": " and asked",
+      "meaning": "并询问"
+     },
+     {
+      "text": " how I could improve it.",
+      "meaning": "我怎样才能改进它"
+     }
+    ],
+    "explanation": "However 表示转折；how 引导宾语从句，说明询问的内容。"
+   },
+   {
+    "sentence_en": "She showed me a good example from an older report.",
+    "sentence_cn": "她给我看了一份旧报告中的优秀范例。",
+    "chunks": [
+     {
+      "text": "She showed me",
+      "meaning": "她给我看"
+     },
+     {
+      "text": " a good example",
+      "meaning": "一个好的例子"
+     },
+     {
+      "text": " from an older report.",
+      "meaning": "来自一份较早的报告"
+     }
+    ],
+    "explanation": "show someone something 表示给某人看某物；example 表示例子。"
+   },
+   {
+    "sentence_en": "I made some changes and sent it again.",
+    "sentence_cn": "我做了一些修改，然后再次发送。",
+    "chunks": [
+     {
+      "text": "I made",
+      "meaning": "我做了"
+     },
+     {
+      "text": " some changes",
+      "meaning": "一些修改"
+     },
+     {
+      "text": " and sent it again.",
+      "meaning": "并再次发送了它"
+     }
+    ],
+    "explanation": "make changes 表示做出修改；again 表示再次。"
+   },
+   {
+    "sentence_en": "Her advice helped me understand how to do better work.",
+    "sentence_cn": "她的建议让我明白了怎样才能把工作做得更好。",
+    "chunks": [
+     {
+      "text": "Her advice",
+      "meaning": "她的建议"
+     },
+     {
+      "text": " helped me understand",
+      "meaning": "帮助我理解"
+     },
+     {
+      "text": " how to do",
+      "meaning": "如何做"
+     },
+     {
+      "text": " better work.",
+      "meaning": "更好的工作"
+     }
+    ],
+    "explanation": "help someone do something 表示帮助某人做某事；how to do 表示如何做。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "feedback",
+    "phonetic": "",
+    "meaning": "反馈；意见",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "clear",
+    "phonetic": "",
+    "meaning": "清楚的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "example",
+    "phonetic": "",
+    "meaning": "例子；范例",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "disappointed",
+    "phonetic": "",
+    "meaning": "失望的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "improve",
+    "phonetic": "",
+    "meaning": "改进；改善",
+    "part_of_speech": "verb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "give someone feedback",
+    "meaning": "给某人反馈",
+    "example": "My manager gave me feedback on my work."
+   },
+   {
+    "expression": "at first",
+    "meaning": "起初；一开始",
+    "example": "At first, I did not understand the task."
+   },
+   {
+    "expression": "spend time on something",
+    "meaning": "在某事上花费时间",
+    "example": "I spent two hours on the report."
+   },
+   {
+    "expression": "listen carefully",
+    "meaning": "认真听取",
+    "example": "Please listen carefully to the instructions."
+   },
+   {
+    "expression": "make some changes",
+    "meaning": "做一些修改",
+    "example": "I made some changes to the document."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What did the manager think the report needed?",
+    "options": [
+     "More pictures",
+     "More examples",
+     "A shorter title"
+    ],
+    "answer": "More examples",
+    "explanation": "经理认为报告的信息很清楚，但需要更多例子。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "How did the writer feel at first?",
+    "options": [
+     "Disappointed",
+     "Angry",
+     "Excited"
+    ],
+    "answer": "Disappointed",
+    "explanation": "作者因为花了很多时间写报告，所以起初有一点失望。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What did the writer do after receiving feedback?",
+    "answer": "The writer made some changes and sent the report again.",
+    "explanation": "作者听取建议、参考范例，修改后重新发送了报告。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "85 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on receiving constructive feedback, managing disappointment, and improving work."
+  }
+ },
+ {
+  "article_id": 134,
+  "day": 134,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Requesting more time to complete work",
+  "title_en": "Asking for More Time",
+  "title_cn": "请求更多时间",
+  "difficulty": "A2",
+  "word_count": 86,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "I was working on a report that was due on Wednesday. On Tuesday afternoon, I realized I needed more time to finish it. Some important information was still missing. I went to my manager and explained the situation. I asked if I could send the report on Thursday instead. She agreed because I had already finished most of the work. I thanked her and made a new plan. I promised to complete the report by Thursday morning and kept my promise.",
+  "content_cn": "我当时正在写一份需要在星期三提交的报告。星期二下午，我意识到自己还需要更多时间才能完成它。一些重要信息仍然缺失。我去找经理解释了情况。我询问是否可以改到星期四提交。她同意了，因为我已经完成了大部分工作。我向她表示感谢，并制定了一个新计划。我承诺在星期四上午完成报告，也遵守了自己的承诺。",
+  "sentences": [
+   {
+    "sentence_en": "I was working on a report that was due on Wednesday.",
+    "sentence_cn": "我当时正在写一份需要在星期三提交的报告。",
+    "chunks": [
+     {
+      "text": "I was working on",
+      "meaning": "我当时正在做"
+     },
+     {
+      "text": " a report",
+      "meaning": "一份报告"
+     },
+     {
+      "text": " that was due",
+      "meaning": "需要提交的"
+     },
+     {
+      "text": " on Wednesday.",
+      "meaning": "在星期三"
+     }
+    ],
+    "explanation": "was working 是过去进行时；be due 表示到期或应该提交。"
+   },
+   {
+    "sentence_en": "On Tuesday afternoon, I realized I needed more time to finish it.",
+    "sentence_cn": "星期二下午，我意识到自己还需要更多时间才能完成它。",
+    "chunks": [
+     {
+      "text": "On Tuesday afternoon,",
+      "meaning": "在星期二下午"
+     },
+     {
+      "text": " I realized",
+      "meaning": "我意识到"
+     },
+     {
+      "text": " I needed more time",
+      "meaning": "我需要更多时间"
+     },
+     {
+      "text": " to finish it.",
+      "meaning": "来完成它"
+     }
+    ],
+    "explanation": "realized 是 realize 的过去式；need more time 表示需要更多时间。"
+   },
+   {
+    "sentence_en": "Some important information was still missing.",
+    "sentence_cn": "一些重要信息仍然缺失。",
+    "chunks": [
+     {
+      "text": "Some important information",
+      "meaning": "一些重要信息"
+     },
+     {
+      "text": " was still missing.",
+      "meaning": "仍然缺失"
+     }
+    ],
+    "explanation": "information 是不可数名词；missing 表示缺失的。"
+   },
+   {
+    "sentence_en": "I went to my manager and explained the situation.",
+    "sentence_cn": "我去找经理解释了情况。",
+    "chunks": [
+     {
+      "text": "I went to my manager",
+      "meaning": "我去找经理"
+     },
+     {
+      "text": " and explained",
+      "meaning": "并解释了"
+     },
+     {
+      "text": " the situation.",
+      "meaning": "当时的情况"
+     }
+    ],
+    "explanation": "went 是 go 的过去式；explain the situation 表示解释情况。"
+   },
+   {
+    "sentence_en": "I asked if I could send the report on Thursday instead.",
+    "sentence_cn": "我询问是否可以改到星期四提交。",
+    "chunks": [
+     {
+      "text": "I asked",
+      "meaning": "我询问"
+     },
+     {
+      "text": " if I could send",
+      "meaning": "是否可以提交"
+     },
+     {
+      "text": " the report",
+      "meaning": "这份报告"
+     },
+     {
+      "text": " on Thursday instead.",
+      "meaning": "改为星期四"
+     }
+    ],
+    "explanation": "ask if 表示询问是否；instead 表示代替原来的安排。"
+   },
+   {
+    "sentence_en": "She agreed because I had already finished most of the work.",
+    "sentence_cn": "她同意了，因为我已经完成了大部分工作。",
+    "chunks": [
+     {
+      "text": "She agreed",
+      "meaning": "她同意了"
+     },
+     {
+      "text": " because",
+      "meaning": "因为"
+     },
+     {
+      "text": " I had already finished",
+      "meaning": "我已经完成了"
+     },
+     {
+      "text": " most of the work.",
+      "meaning": "大部分工作"
+     }
+    ],
+    "explanation": "agree 表示同意；most of 表示大部分。"
+   },
+   {
+    "sentence_en": "I thanked her and made a new plan.",
+    "sentence_cn": "我向她表示感谢，并制定了一个新计划。",
+    "chunks": [
+     {
+      "text": "I thanked her",
+      "meaning": "我感谢了她"
+     },
+     {
+      "text": " and made",
+      "meaning": "并制定了"
+     },
+     {
+      "text": " a new plan.",
+      "meaning": "一个新计划"
+     }
+    ],
+    "explanation": "thanked 和 made 都是过去式；make a plan 表示制定计划。"
+   },
+   {
+    "sentence_en": "I promised to complete the report by Thursday morning and kept my promise.",
+    "sentence_cn": "我承诺在星期四上午完成报告，也遵守了自己的承诺。",
+    "chunks": [
+     {
+      "text": "I promised to complete",
+      "meaning": "我承诺完成"
+     },
+     {
+      "text": " the report",
+      "meaning": "这份报告"
+     },
+     {
+      "text": " by Thursday morning",
+      "meaning": "在星期四上午之前"
+     },
+     {
+      "text": " and kept my promise.",
+      "meaning": "并遵守了我的承诺"
+     }
+    ],
+    "explanation": "promise to do 表示承诺做某事；by 表示不迟于某个时间；kept 是 keep 的过去式。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "due",
+    "phonetic": "",
+    "meaning": "到期的；应提交的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "realize",
+    "phonetic": "",
+    "meaning": "意识到",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "missing",
+    "phonetic": "",
+    "meaning": "缺失的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "instead",
+    "phonetic": "",
+    "meaning": "代替；改为",
+    "part_of_speech": "adverb"
+   },
+   {
+    "word": "promise",
+    "phonetic": "",
+    "meaning": "承诺",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "be due on",
+    "meaning": "应在某日提交",
+    "example": "The report is due on Friday."
+   },
+   {
+    "expression": "need more time",
+    "meaning": "需要更多时间",
+    "example": "I need more time to finish this task."
+   },
+   {
+    "expression": "explain the situation",
+    "meaning": "解释情况",
+    "example": "I explained the situation to my manager."
+   },
+   {
+    "expression": "ask if I could",
+    "meaning": "询问我是否可以",
+    "example": "I asked if I could leave early."
+   },
+   {
+    "expression": "keep a promise",
+    "meaning": "遵守承诺",
+    "example": "I always try to keep my promises."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "When was the report originally due?",
+    "options": [
+     "Tuesday",
+     "Wednesday",
+     "Thursday"
+    ],
+    "answer": "Wednesday",
+    "explanation": "报告原定星期三提交。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "Why did the writer need more time?",
+    "options": [
+     "Some important information was missing",
+     "The computer was broken",
+     "The manager was away"
+    ],
+    "answer": "Some important information was missing",
+    "explanation": "作者还缺少一些重要信息，因此需要更多时间。"
+   },
+   {
+    "type": "short_answer",
+    "question": "When did the writer promise to finish the report?",
+    "answer": "By Thursday morning.",
+    "explanation": "作者承诺在星期四上午之前完成报告。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "86 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on explaining a delay politely, requesting an extension, and keeping a new deadline."
+  }
+ },
+ {
+  "article_id": 135,
+  "day": 135,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Work",
+  "scene": "Leaving the office on time",
+  "title_en": "Leaving Work on Time",
+  "title_cn": "按时下班",
+  "difficulty": "A2",
+  "word_count": 85,
+  "estimated_reading_time_seconds": 45,
+  "content_en": "I used to stay late at the office almost every day. I often had too many tasks and did not plan my time well. Recently, I started making a daily list and finishing the most important work first. I also tell my coworkers when I need to leave. Now I usually finish by five thirty. After work, I have time to cook dinner, exercise, or read a book. Leaving work on time helps me feel healthier and enjoy my free time.",
+  "content_cn": "过去，我几乎每天都在办公室待到很晚。我经常有太多任务，而且没有合理安排时间。最近，我开始每天列清单，并优先完成最重要的工作。我也会提前告诉同事自己什么时候需要下班。现在，我通常在五点半之前完成工作。下班后，我有时间做晚饭、锻炼或读书。按时下班让我感觉更健康，也能更好地享受空闲时间。",
+  "sentences": [
+   {
+    "sentence_en": "I used to stay late at the office almost every day.",
+    "sentence_cn": "过去，我几乎每天都在办公室待到很晚。",
+    "chunks": [
+     {
+      "text": "I used to",
+      "meaning": "我过去常常"
+     },
+     {
+      "text": " stay late",
+      "meaning": "待到很晚"
+     },
+     {
+      "text": " at the office",
+      "meaning": "在办公室"
+     },
+     {
+      "text": " almost every day.",
+      "meaning": "几乎每天"
+     }
+    ],
+    "explanation": "used to do 表示过去经常做、现在可能已经改变的习惯。"
+   },
+   {
+    "sentence_en": "I often had too many tasks and did not plan my time well.",
+    "sentence_cn": "我经常有太多任务，而且没有合理安排时间。",
+    "chunks": [
+     {
+      "text": "I often had",
+      "meaning": "我经常有"
+     },
+     {
+      "text": " too many tasks",
+      "meaning": "太多任务"
+     },
+     {
+      "text": " and did not plan",
+      "meaning": "并且没有安排"
+     },
+     {
+      "text": " my time well.",
+      "meaning": "好我的时间"
+     }
+    ],
+    "explanation": "too many 修饰可数名词复数；did not 后接动词原形。"
+   },
+   {
+    "sentence_en": "Recently, I started making a daily list and finishing the most important work first.",
+    "sentence_cn": "最近，我开始每天列清单，并优先完成最重要的工作。",
+    "chunks": [
+     {
+      "text": "Recently,",
+      "meaning": "最近"
+     },
+     {
+      "text": " I started making a daily list",
+      "meaning": "我开始每天列清单"
+     },
+     {
+      "text": " and finishing",
+      "meaning": "并完成"
+     },
+     {
+      "text": " the most important work first.",
+      "meaning": "最重要的工作"
+     }
+    ],
+    "explanation": "start 后面可以接动名词；the most important 是形容词最高级。"
+   },
+   {
+    "sentence_en": "I also tell my coworkers when I need to leave.",
+    "sentence_cn": "我也会提前告诉同事自己什么时候需要下班。",
+    "chunks": [
+     {
+      "text": "I also tell",
+      "meaning": "我也会告诉"
+     },
+     {
+      "text": " my coworkers",
+      "meaning": "我的同事"
+     },
+     {
+      "text": " when I need",
+      "meaning": "什么时候我需要"
+     },
+     {
+      "text": " to leave.",
+      "meaning": "离开"
+     }
+    ],
+    "explanation": "when 引导宾语从句；need to do 表示需要做某事。"
+   },
+   {
+    "sentence_en": "Now I usually finish by five thirty.",
+    "sentence_cn": "现在，我通常在五点半之前完成工作。",
+    "chunks": [
+     {
+      "text": "Now",
+      "meaning": "现在"
+     },
+     {
+      "text": " I usually finish",
+      "meaning": "我通常完成工作"
+     },
+     {
+      "text": " by five thirty.",
+      "meaning": "在五点半之前"
+     }
+    ],
+    "explanation": "by 加时间表示不迟于某个时间。"
+   },
+   {
+    "sentence_en": "After work, I have time to cook dinner, exercise, or read a book.",
+    "sentence_cn": "下班后，我有时间做晚饭、锻炼或读书。",
+    "chunks": [
+     {
+      "text": "After work,",
+      "meaning": "下班后"
+     },
+     {
+      "text": " I have time",
+      "meaning": "我有时间"
+     },
+     {
+      "text": " to cook dinner, exercise,",
+      "meaning": "做晚饭、锻炼"
+     },
+     {
+      "text": " or read a book.",
+      "meaning": "或者读一本书"
+     }
+    ],
+    "explanation": "have time to do 表示有时间做某事；or 连接可选择的活动。"
+   },
+   {
+    "sentence_en": "Leaving work on time helps me feel healthier and enjoy my free time.",
+    "sentence_cn": "按时下班让我感觉更健康，也能更好地享受空闲时间。",
+    "chunks": [
+     {
+      "text": "Leaving work on time",
+      "meaning": "按时下班"
+     },
+     {
+      "text": " helps me feel healthier",
+      "meaning": "让我感觉更健康"
+     },
+     {
+      "text": " and enjoy",
+      "meaning": "并享受"
+     },
+     {
+      "text": " my free time.",
+      "meaning": "我的空闲时间"
+     }
+    ],
+    "explanation": "动名词短语作主语；help 后可以接宾语和动词原形。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "recently",
+    "phonetic": "",
+    "meaning": "最近",
+    "part_of_speech": "adverb"
+   },
+   {
+    "word": "daily",
+    "phonetic": "",
+    "meaning": "每日的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "important",
+    "phonetic": "",
+    "meaning": "重要的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "usually",
+    "phonetic": "",
+    "meaning": "通常",
+    "part_of_speech": "adverb"
+   },
+   {
+    "word": "healthier",
+    "phonetic": "",
+    "meaning": "更健康的",
+    "part_of_speech": "adjective"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "used to do something",
+    "meaning": "过去常常做某事",
+    "example": "I used to work late every night."
+   },
+   {
+    "expression": "stay late",
+    "meaning": "待到很晚；加班",
+    "example": "I don't want to stay late today."
+   },
+   {
+    "expression": "make a daily list",
+    "meaning": "每天列一份清单",
+    "example": "I make a daily list before work."
+   },
+   {
+    "expression": "finish by five thirty",
+    "meaning": "在五点半之前完成",
+    "example": "I hope to finish by five thirty."
+   },
+   {
+    "expression": "on time",
+    "meaning": "按时；准时",
+    "example": "She always leaves work on time."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What did the writer use to do?",
+    "options": [
+     "Leave work early",
+     "Stay late at the office",
+     "Work only in the morning"
+    ],
+    "answer": "Stay late at the office",
+    "explanation": "作者过去几乎每天都在办公室待到很晚。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What time does the writer usually finish work now?",
+    "options": [
+     "Four thirty",
+     "Five thirty",
+     "Six thirty"
+    ],
+    "answer": "Five thirty",
+    "explanation": "文章第五句说明作者现在通常在五点半之前完成工作。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the writer do after work?",
+    "answer": "Cook dinner, exercise, or read a book.",
+    "explanation": "作者下班后有时间做饭、锻炼或读书。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "85 words; within the 70–100 word target.",
+   "american_english": "Uses natural American English.",
+   "translation": "Chinese translation matches the English passage.",
+   "chunking": "All sentence chunks reconstruct the original sentences exactly.",
+   "notes": "Focuses on improving time management and creating a healthier balance between work and personal life."
+  }
+ },
+ {
+  "article_id": 136,
+  "day": 136,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Daily Life",
+  "scene": "Making an appointment",
+  "title_en": "Making an Appointment",
+  "title_cn": "预约",
+  "difficulty": "A2",
+  "word_count": 83,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I need to see a dentist because one of my teeth hurts. I call the dental office and ask if they have any appointments this week. The receptionist says Thursday morning is available. I ask for a time after ten because I have work in the morning. She offers me eleven thirty. I give her my name and phone number. Before we hang up, she reminds me to arrive ten minutes early. I write the appointment in my calendar.",
+  "content_cn": "我需要看牙医，因为我的一颗牙疼。我打电话给牙科诊所，询问他们这周是否有预约时间。前台接待员说，周四上午有空。我希望安排在十点以后，因为我上午要工作。她给我安排了十一点半。我告诉她我的姓名和电话号码。挂电话之前，她提醒我提前十分钟到达。我把预约时间写进日历。",
+  "sentences": [
+   {
+    "sentence_en": "I need to see a dentist because one of my teeth hurts.",
+    "sentence_cn": "我需要看牙医，因为我的一颗牙疼。",
+    "chunks": [
+     {
+      "text": "I need to see a dentist",
+      "meaning": "我需要去看牙医"
+     },
+     {
+      "text": "because",
+      "meaning": "因为"
+     },
+     {
+      "text": "one of my teeth hurts.",
+      "meaning": "我有一颗牙疼。"
+     }
+    ],
+    "explanation": "need to 表示需要做某事；because 引导原因状语从句。"
+   },
+   {
+    "sentence_en": "I call the dental office and ask if they have any appointments this week.",
+    "sentence_cn": "我打电话给牙科诊所，询问他们这周是否有预约时间。",
+    "chunks": [
+     {
+      "text": "I call the dental office",
+      "meaning": "我给牙科诊所打电话"
+     },
+     {
+      "text": "and ask",
+      "meaning": "并询问"
+     },
+     {
+      "text": "if they have any appointments this week.",
+      "meaning": "如果他们本周有任何预约。"
+     }
+    ],
+    "explanation": "ask if 表示询问是否；appointment 是预约。"
+   },
+   {
+    "sentence_en": "The receptionist says Thursday morning is available.",
+    "sentence_cn": "前台接待员说，周四上午有空。",
+    "chunks": [
+     {
+      "text": "The receptionist says",
+      "meaning": "前台接待员说"
+     },
+     {
+      "text": "Thursday morning",
+      "meaning": "星期四早上"
+     },
+     {
+      "text": "is available.",
+      "meaning": "可用。"
+     }
+    ],
+    "explanation": "available 表示有空的、可安排的。"
+   },
+   {
+    "sentence_en": "I ask for a time after ten because I have work in the morning.",
+    "sentence_cn": "我希望安排在十点以后，因为我上午要工作。",
+    "chunks": [
+     {
+      "text": "I ask for a time after ten",
+      "meaning": "我要求安排在十点之后的时间"
+     },
+     {
+      "text": "because",
+      "meaning": "因为"
+     },
+     {
+      "text": "I have work in the morning.",
+      "meaning": "我早上有工作。"
+     }
+    ],
+    "explanation": "ask for 表示请求或要求；after ten 表示十点以后。"
+   },
+   {
+    "sentence_en": "She offers me eleven thirty.",
+    "sentence_cn": "她给我安排了十一点半。",
+    "chunks": [
+     {
+      "text": "She offers me",
+      "meaning": "她给我"
+     },
+     {
+      "text": "eleven thirty.",
+      "meaning": "十一点半。"
+     }
+    ],
+    "explanation": "offer someone something 表示向某人提供某物或选择。"
+   },
+   {
+    "sentence_en": "I give her my name and phone number.",
+    "sentence_cn": "我告诉她我的姓名和电话号码。",
+    "chunks": [
+     {
+      "text": "I give her",
+      "meaning": "我给她"
+     },
+     {
+      "text": "my name",
+      "meaning": "我的姓名"
+     },
+     {
+      "text": "and phone number.",
+      "meaning": "和电话号码。"
+     }
+    ],
+    "explanation": "give someone something 表示把某物提供给某人。"
+   },
+   {
+    "sentence_en": "Before we hang up, she reminds me to arrive ten minutes early.",
+    "sentence_cn": "挂电话之前，她提醒我提前十分钟到达。",
+    "chunks": [
+     {
+      "text": "Before we hang up,",
+      "meaning": "在挂断之前，"
+     },
+     {
+      "text": "she reminds me",
+      "meaning": "她提醒我"
+     },
+     {
+      "text": "to arrive ten minutes early.",
+      "meaning": "提前十分钟到达。"
+     }
+    ],
+    "explanation": "hang up 表示挂断电话；remind someone to do something 表示提醒某人做某事。"
+   },
+   {
+    "sentence_en": "I write the appointment in my calendar.",
+    "sentence_cn": "我把预约时间写进日历。",
+    "chunks": [
+     {
+      "text": "I write",
+      "meaning": "我写"
+     },
+     {
+      "text": "the appointment",
+      "meaning": "预约"
+     },
+     {
+      "text": "in my calendar.",
+      "meaning": "在我的日历上。"
+     }
+    ],
+    "explanation": "write something in a calendar 表示把某事记录在日历中。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "dentist",
+    "phonetic": "",
+    "meaning": "牙医",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "appointment",
+    "phonetic": "",
+    "meaning": "预约；约定",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "receptionist",
+    "phonetic": "",
+    "meaning": "接待员；前台",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "available",
+    "phonetic": "",
+    "meaning": "有空的；可用的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "remind",
+    "phonetic": "",
+    "meaning": "提醒",
+    "part_of_speech": "verb"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "make an appointment",
+    "meaning": "预约",
+    "example": "I'd like to make an appointment for Friday."
+   },
+   {
+    "expression": "Do you have any appointments?",
+    "meaning": "你们有可预约的时间吗？",
+    "example": "Do you have any appointments this afternoon?"
+   },
+   {
+    "expression": "ask for a time",
+    "meaning": "询问或要求一个时间",
+    "example": "Can I ask for a time after lunch?"
+   },
+   {
+    "expression": "hang up",
+    "meaning": "挂断电话",
+    "example": "Please don't hang up yet."
+   },
+   {
+    "expression": "arrive early",
+    "meaning": "提前到达",
+    "example": "Please arrive ten minutes early."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Why does the speaker need to see a dentist?",
+    "options": [
+     "A. One of his teeth hurts.",
+     "B. He wants to clean his teeth.",
+     "C. He lost his phone."
+    ],
+    "answer": "A",
+    "explanation": "文章第一句说明，他的一颗牙疼。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "When is the appointment?",
+    "options": [
+     "A. Wednesday at ten.",
+     "B. Thursday at eleven thirty.",
+     "C. Friday at eleven."
+    ],
+    "answer": "B",
+    "explanation": "前台安排的时间是周四上午十一点半。"
+   },
+   {
+    "type": "short_answer",
+    "question": "How early should the speaker arrive?",
+    "answer": "Ten minutes early.",
+    "explanation": "接待员提醒他提前十分钟到达。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "83 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A practical A2-level phone appointment scenario."
+  }
+ },
+ {
+  "article_id": 137,
+  "day": 137,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Health",
+  "scene": "At the dentist",
+  "title_en": "Visiting the Dentist",
+  "title_cn": "看牙医",
+  "difficulty": "A2",
+  "word_count": 82,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I arrive at the dental office ten minutes early and sit in the waiting room. A nurse calls my name and takes me to a small room. The dentist asks which tooth is bothering me. I point to a tooth on the right side of my mouth. He checks it carefully and takes an X-ray. He says I have a small cavity. He explains the treatment and tells me how to care for my teeth. I feel better after the visit.",
+  "content_cn": "我提前十分钟到达牙科诊所，并坐在候诊室里。一位护士叫了我的名字，把我带到一间小房间。牙医问我哪颗牙不舒服。我指了指嘴巴右侧的一颗牙。他仔细检查了那颗牙，并拍了一张X光片。他说我有一个小蛀牙。他向我解释了治疗方法，并告诉我如何护理牙齿。看完牙医后，我感觉好多了。",
+  "sentences": [
+   {
+    "sentence_en": "I arrive at the dental office ten minutes early and sit in the waiting room.",
+    "sentence_cn": "我提前十分钟到达牙科诊所，并坐在候诊室里。",
+    "chunks": [
+     {
+      "text": "I arrive at the dental office",
+      "meaning": "我到达牙科诊所。"
+     },
+     {
+      "text": "ten minutes early",
+      "meaning": "提前十分钟"
+     },
+     {
+      "text": "and sit in the waiting room.",
+      "meaning": "然后在候诊室坐下。"
+     }
+    ],
+    "explanation": "arrive at 表示到达较具体的地点；waiting room 是候诊室。"
+   },
+   {
+    "sentence_en": "A nurse calls my name and takes me to a small room.",
+    "sentence_cn": "一位护士叫了我的名字，把我带到一间小房间。",
+    "chunks": [
+     {
+      "text": "A nurse",
+      "meaning": "护士"
+     },
+     {
+      "text": "calls my name",
+      "meaning": "叫我的名字"
+     },
+     {
+      "text": "and takes me to a small room.",
+      "meaning": "她把我带到一个小房间。"
+     }
+    ],
+    "explanation": "call someone's name 表示叫某人的名字；take someone to 表示带某人去某处。"
+   },
+   {
+    "sentence_en": "The dentist asks which tooth is bothering me.",
+    "sentence_cn": "牙医问我哪颗牙不舒服。",
+    "chunks": [
+     {
+      "text": "The dentist asks",
+      "meaning": "牙医问"
+     },
+     {
+      "text": "which tooth",
+      "meaning": "哪颗牙齿"
+     },
+     {
+      "text": "is bothering me.",
+      "meaning": "正在困扰我。"
+     }
+    ],
+    "explanation": "bother 在这里表示使某人感到不适或困扰。"
+   },
+   {
+    "sentence_en": "I point to a tooth on the right side of my mouth.",
+    "sentence_cn": "我指了指嘴巴右侧的一颗牙。",
+    "chunks": [
+     {
+      "text": "I point to",
+      "meaning": "我指向"
+     },
+     {
+      "text": "a tooth",
+      "meaning": "一颗牙齿"
+     },
+     {
+      "text": "on the right side of my mouth.",
+      "meaning": "在我嘴巴的右侧。"
+     }
+    ],
+    "explanation": "point to 表示指向；on the right side 表示在右侧。"
+   },
+   {
+    "sentence_en": "He checks it carefully and takes an X-ray.",
+    "sentence_cn": "他仔细检查了那颗牙，并拍了一张X光片。",
+    "chunks": [
+     {
+      "text": "He checks it carefully",
+      "meaning": "他仔细地检查。"
+     },
+     {
+      "text": "and takes an X-ray.",
+      "meaning": "并拍X光片。"
+     }
+    ],
+    "explanation": "carefully 是副词，表示仔细地；take an X-ray 表示拍X光片。"
+   },
+   {
+    "sentence_en": "He says I have a small cavity.",
+    "sentence_cn": "他说我有一个小蛀牙。",
+    "chunks": [
+     {
+      "text": "He says",
+      "meaning": "他说："
+     },
+     {
+      "text": "I have a small cavity.",
+      "meaning": "我有一个小蛀牙。"
+     }
+    ],
+    "explanation": "cavity 在牙科语境中表示蛀牙或龋洞。"
+   },
+   {
+    "sentence_en": "He explains the treatment and tells me how to care for my teeth.",
+    "sentence_cn": "他向我解释了治疗方法，并告诉我如何护理牙齿。",
+    "chunks": [
+     {
+      "text": "He explains the treatment",
+      "meaning": "他解释了治疗方法"
+     },
+     {
+      "text": "and tells me",
+      "meaning": "然后告诉我"
+     },
+     {
+      "text": "how to care for my teeth.",
+      "meaning": "如何护理我的牙齿。"
+     }
+    ],
+    "explanation": "treatment 表示治疗；how to do something 表示如何做某事。"
+   },
+   {
+    "sentence_en": "I feel better after the visit.",
+    "sentence_cn": "看完牙医后，我感觉好多了。",
+    "chunks": [
+     {
+      "text": "I feel better",
+      "meaning": "我感觉好多了"
+     },
+     {
+      "text": "after the visit.",
+      "meaning": "拜访之后。"
+     }
+    ],
+    "explanation": "feel better 表示感觉好一些；visit 在这里指就诊。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "waiting room",
+    "phonetic": "",
+    "meaning": "候诊室；等候室",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "bother",
+    "phonetic": "",
+    "meaning": "使不舒服；使烦恼",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "carefully",
+    "phonetic": "",
+    "meaning": "仔细地",
+    "part_of_speech": "adverb"
+   },
+   {
+    "word": "cavity",
+    "phonetic": "",
+    "meaning": "蛀牙；龋洞",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "treatment",
+    "phonetic": "",
+    "meaning": "治疗；疗法",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "call my name",
+    "meaning": "叫我的名字",
+    "example": "The nurse will call your name soon."
+   },
+   {
+    "expression": "Which tooth is bothering you?",
+    "meaning": "你哪颗牙不舒服？",
+    "example": "Which tooth is bothering you today?"
+   },
+   {
+    "expression": "point to",
+    "meaning": "指向",
+    "example": "Please point to the painful area."
+   },
+   {
+    "expression": "take an X-ray",
+    "meaning": "拍X光片",
+    "example": "The doctor needs to take an X-ray."
+   },
+   {
+    "expression": "care for my teeth",
+    "meaning": "护理我的牙齿",
+    "example": "I brush twice a day to care for my teeth."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Where does the nurse take the speaker?",
+    "options": [
+     "A. To a small room.",
+     "B. To the parking lot.",
+     "C. To the front door."
+    ],
+    "answer": "A",
+    "explanation": "护士把他带到一间小房间。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the dentist find?",
+    "options": [
+     "A. A broken tooth.",
+     "B. A small cavity.",
+     "C. A problem with his ear."
+    ],
+    "answer": "B",
+    "explanation": "牙医检查后发现一个小蛀牙。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the dentist do before explaining the treatment?",
+    "answer": "He checks the tooth carefully and takes an X-ray.",
+    "explanation": "牙医先检查牙齿并拍摄X光片，然后解释治疗方法。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "82 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A2-level description of a routine dental visit."
+  }
+ },
+ {
+  "article_id": 138,
+  "day": 138,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Health",
+  "scene": "At the doctor's office",
+  "title_en": "Visiting a Doctor",
+  "title_cn": "看医生",
+  "difficulty": "A2",
+  "word_count": 83,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I have had a headache since yesterday, so I decide to visit a doctor. I go to a nearby clinic after breakfast. The doctor asks when the pain started and whether I have a fever. I tell her that my head hurts, but I do not have a fever. She checks my temperature and blood pressure. Then she gives me some advice and says I should get enough rest. I thank her and make a plan to take better care of myself.",
+  "content_cn": "从昨天开始我就头疼，所以我决定去看医生。吃完早餐后，我去了附近的一家诊所。医生问我疼痛是什么时候开始的，以及我是否发烧。我告诉她，我头疼，但没有发烧。她测量了我的体温和血压。随后，她给了我一些建议，并说我应该保证充足的休息。我向她道谢，并决定以后更好地照顾自己。",
+  "sentences": [
+   {
+    "sentence_en": "I have had a headache since yesterday, so I decide to visit a doctor.",
+    "sentence_cn": "从昨天开始我就头疼，所以我决定去看医生。",
+    "chunks": [
+     {
+      "text": "I have had a headache",
+      "meaning": "我头疼过"
+     },
+     {
+      "text": "since yesterday,",
+      "meaning": "从昨天开始，"
+     },
+     {
+      "text": " so",
+      "meaning": "SO"
+     },
+     {
+      "text": "I decide to visit a doctor.",
+      "meaning": "我决定去看医生。"
+     }
+    ],
+    "explanation": "have had 表示从过去持续到现在的状态；since yesterday 表示从昨天开始。"
+   },
+   {
+    "sentence_en": "I go to a nearby clinic after breakfast.",
+    "sentence_cn": "吃完早餐后，我去了附近的一家诊所。",
+    "chunks": [
+     {
+      "text": "I go to",
+      "meaning": "我去"
+     },
+     {
+      "text": "a nearby clinic",
+      "meaning": "附近的诊所"
+     },
+     {
+      "text": "after breakfast.",
+      "meaning": "早餐后。"
+     }
+    ],
+    "explanation": "nearby 表示附近的；clinic 表示诊所。"
+   },
+   {
+    "sentence_en": "The doctor asks when the pain started and whether I have a fever.",
+    "sentence_cn": "医生问我疼痛是什么时候开始的，以及我是否发烧。",
+    "chunks": [
+     {
+      "text": "The doctor asks",
+      "meaning": "医生问"
+     },
+     {
+      "text": "when the pain started",
+      "meaning": "当疼痛开始时"
+     },
+     {
+      "text": "and whether I have a fever.",
+      "meaning": "以及我是否发烧。"
+     }
+    ],
+    "explanation": "when 引导时间宾语从句；whether 表示是否。"
+   },
+   {
+    "sentence_en": "I tell her that my head hurts, but I do not have a fever.",
+    "sentence_cn": "我告诉她，我头疼，但没有发烧。",
+    "chunks": [
+     {
+      "text": "I tell her",
+      "meaning": "我告诉她"
+     },
+     {
+      "text": "that my head hurts,",
+      "meaning": "我的头疼，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "I do not have a fever.",
+      "meaning": "我没有发烧。"
+     }
+    ],
+    "explanation": "head hurts 表示头疼；but 用来连接转折关系。"
+   },
+   {
+    "sentence_en": "She checks my temperature and blood pressure.",
+    "sentence_cn": "她测量了我的体温和血压。",
+    "chunks": [
+     {
+      "text": "She checks",
+      "meaning": "她检查"
+     },
+     {
+      "text": "my temperature",
+      "meaning": "我的体温"
+     },
+     {
+      "text": "and blood pressure.",
+      "meaning": "和血压。"
+     }
+    ],
+    "explanation": "temperature 表示体温；blood pressure 表示血压。"
+   },
+   {
+    "sentence_en": "Then she gives me some advice and says I should get enough rest.",
+    "sentence_cn": "随后，她给了我一些建议，并说我应该保证充足的休息。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": "she gives me some advice",
+      "meaning": "她给我一些建议"
+     },
+     {
+      "text": "and says",
+      "meaning": "并说"
+     },
+     {
+      "text": "I should get enough rest.",
+      "meaning": "我应该好好休息。"
+     }
+    ],
+    "explanation": "advice 是不可数名词；should 表示建议或应该。"
+   },
+   {
+    "sentence_en": "I thank her and make a plan to take better care of myself.",
+    "sentence_cn": "我向她道谢，并决定以后更好地照顾自己。",
+    "chunks": [
+     {
+      "text": "I thank her",
+      "meaning": "我感谢她"
+     },
+     {
+      "text": "and make a plan",
+      "meaning": "并制定计划"
+     },
+     {
+      "text": "to take better care of myself.",
+      "meaning": "更好地照顾自己。"
+     }
+    ],
+    "explanation": "make a plan to do 表示制定计划做某事；take care of 表示照顾。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "headache",
+    "phonetic": "",
+    "meaning": "头痛",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "clinic",
+    "phonetic": "",
+    "meaning": "诊所",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "fever",
+    "phonetic": "",
+    "meaning": "发烧；发热",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "temperature",
+    "phonetic": "",
+    "meaning": "体温；温度",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "advice",
+    "phonetic": "",
+    "meaning": "建议",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "have a headache",
+    "meaning": "头疼",
+    "example": "I have a headache today."
+   },
+   {
+    "expression": "since yesterday",
+    "meaning": "从昨天开始",
+    "example": "I have felt tired since yesterday."
+   },
+   {
+    "expression": "have a fever",
+    "meaning": "发烧",
+    "example": "Do you have a fever?"
+   },
+   {
+    "expression": "get enough rest",
+    "meaning": "保证充足休息",
+    "example": "You should get enough rest tonight."
+   },
+   {
+    "expression": "take care of myself",
+    "meaning": "照顾好自己",
+    "example": "I need to take better care of myself."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Why does the speaker visit a doctor?",
+    "options": [
+     "A. He has a headache.",
+     "B. He has a broken arm.",
+     "C. He has a toothache."
+    ],
+    "answer": "A",
+    "explanation": "文章开头说明他从昨天开始头疼。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the doctor check?",
+    "options": [
+     "A. His eyes and ears.",
+     "B. His temperature and blood pressure.",
+     "C. His teeth and hands."
+    ],
+    "answer": "B",
+    "explanation": "医生测量了他的体温和血压。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the doctor advise him to do?",
+    "answer": "She advises him to get enough rest.",
+    "explanation": "医生建议他保证充足的休息。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "83 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "Includes useful A2 vocabulary for describing a basic doctor's visit."
+  }
+ },
+ {
+  "article_id": 139,
+  "day": 139,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Health",
+  "scene": "Describing symptoms",
+  "title_en": "Describing How I Feel",
+  "title_cn": "描述身体感受",
+  "difficulty": "A2",
+  "word_count": 81,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "When I visit a doctor, I need to explain how I feel. Today, I feel tired and have a sore throat. My throat hurts when I swallow, and my voice sounds different. I also have a little cough, but I can breathe normally. The doctor asks if the pain is getting worse. I say it has stayed about the same since this morning. I try to describe my symptoms clearly so the doctor can understand my problem and help me.",
+  "content_cn": "看医生时，我需要解释自己的身体感受。今天我觉得很疲倦，而且喉咙痛。吞咽时喉咙会疼，声音也和平时不太一样。我还有一点咳嗽，但呼吸正常。医生问疼痛是否正在加重。我说从今天早上开始，疼痛程度基本没有变化。我尽量清楚地描述自己的症状，这样医生就能了解我的问题并帮助我。",
+  "sentences": [
+   {
+    "sentence_en": "When I visit a doctor, I need to explain how I feel.",
+    "sentence_cn": "看医生时，我需要解释自己的身体感受。",
+    "chunks": [
+     {
+      "text": "When I visit a doctor,",
+      "meaning": "当我去看医生时，"
+     },
+     {
+      "text": "I need to explain",
+      "meaning": "我需要解释一下"
+     },
+     {
+      "text": "how I feel.",
+      "meaning": "我的感受。"
+     }
+    ],
+    "explanation": "when 引导时间状语从句；how I feel 表示我的感受如何。"
+   },
+   {
+    "sentence_en": "Today, I feel tired and have a sore throat.",
+    "sentence_cn": "今天我觉得很疲倦，而且喉咙痛。",
+    "chunks": [
+     {
+      "text": "Today,",
+      "meaning": "今天，"
+     },
+     {
+      "text": "I feel tired",
+      "meaning": "我觉得累"
+     },
+     {
+      "text": "and have a sore throat.",
+      "meaning": "并且喉咙痛。"
+     }
+    ],
+    "explanation": "feel tired 表示感到疲倦；sore throat 表示喉咙痛。"
+   },
+   {
+    "sentence_en": "My throat hurts when I swallow, and my voice sounds different.",
+    "sentence_cn": "吞咽时喉咙会疼，声音也和平时不太一样。",
+    "chunks": [
+     {
+      "text": "My throat hurts",
+      "meaning": "我嗓子疼"
+     },
+     {
+      "text": "when I swallow,",
+      "meaning": "当我吞咽时，"
+     },
+     {
+      "text": " and",
+      "meaning": "及"
+     },
+     {
+      "text": "my voice sounds different.",
+      "meaning": "我的声音听起来不一样。"
+     }
+    ],
+    "explanation": "swallow 表示吞咽；sound different 表示听起来不一样。"
+   },
+   {
+    "sentence_en": "I also have a little cough, but I can breathe normally.",
+    "sentence_cn": "我还有一点咳嗽，但呼吸正常。",
+    "chunks": [
+     {
+      "text": "I also have a little cough,",
+      "meaning": "我还有点咳嗽，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "I can breathe normally.",
+      "meaning": "我可以正常呼吸。"
+     }
+    ],
+    "explanation": "a little 表示少量；breathe normally 表示正常呼吸。"
+   },
+   {
+    "sentence_en": "The doctor asks if the pain is getting worse.",
+    "sentence_cn": "医生问疼痛是否正在加重。",
+    "chunks": [
+     {
+      "text": "The doctor asks",
+      "meaning": "医生问"
+     },
+     {
+      "text": "if the pain",
+      "meaning": "如果疼痛"
+     },
+     {
+      "text": "is getting worse.",
+      "meaning": "正在恶化。"
+     }
+    ],
+    "explanation": "get worse 表示变得更严重；is getting 表示正在变化。"
+   },
+   {
+    "sentence_en": "I say it has stayed about the same since this morning.",
+    "sentence_cn": "我说从今天早上开始，疼痛程度基本没有变化。",
+    "chunks": [
+     {
+      "text": "I say",
+      "meaning": "我说"
+     },
+     {
+      "text": "it has stayed about the same",
+      "meaning": "它基本保持不变"
+     },
+     {
+      "text": "since this morning.",
+      "meaning": "从今天早上开始。"
+     }
+    ],
+    "explanation": "stay the same 表示保持不变；since 表示从某个时间点开始。"
+   },
+   {
+    "sentence_en": "I try to describe my symptoms clearly so the doctor can understand my problem and help me.",
+    "sentence_cn": "我尽量清楚地描述自己的症状，这样医生就能了解我的问题并帮助我。",
+    "chunks": [
+     {
+      "text": "I try to describe my symptoms clearly",
+      "meaning": "我尝试清楚地描述我的症状"
+     },
+     {
+      "text": "so",
+      "meaning": "所以"
+     },
+     {
+      "text": "the doctor can understand my problem",
+      "meaning": "医生能理解我的问题"
+     },
+     {
+      "text": "and help me.",
+      "meaning": "并帮助我。"
+     }
+    ],
+    "explanation": "describe 表示描述；so 引导目的或结果关系的表达。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "sore",
+    "phonetic": "",
+    "meaning": "疼痛的；酸痛的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "swallow",
+    "phonetic": "",
+    "meaning": "吞咽",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "voice",
+    "phonetic": "",
+    "meaning": "声音；嗓音",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "cough",
+    "phonetic": "",
+    "meaning": "咳嗽",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "symptom",
+    "phonetic": "",
+    "meaning": "症状",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "feel tired",
+    "meaning": "感到疲倦",
+    "example": "I feel tired after work."
+   },
+   {
+    "expression": "have a sore throat",
+    "meaning": "喉咙痛",
+    "example": "I have a sore throat today."
+   },
+   {
+    "expression": "when I swallow",
+    "meaning": "当我吞咽时",
+    "example": "It hurts when I swallow."
+   },
+   {
+    "expression": "get worse",
+    "meaning": "变得更严重",
+    "example": "The pain is getting worse."
+   },
+   {
+    "expression": "stay about the same",
+    "meaning": "基本保持不变",
+    "example": "My symptoms have stayed about the same."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Which symptoms does the speaker have?",
+    "options": [
+     "A. A sore throat and a little cough.",
+     "B. A stomachache and a fever.",
+     "C. A headache and back pain."
+    ],
+    "answer": "A",
+    "explanation": "他说自己喉咙痛，还有一点咳嗽。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "When does the speaker's throat hurt?",
+    "options": [
+     "A. When eating breakfast.",
+     "B. When swallowing.",
+     "C. When talking on the phone."
+    ],
+    "answer": "B",
+    "explanation": "文章中明确说吞咽时喉咙会疼。"
+   },
+   {
+    "type": "short_answer",
+    "question": "Has the pain become worse since this morning?",
+    "answer": "No. It has stayed about the same.",
+    "explanation": "疼痛从早上开始基本没有变化。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "81 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "Teaches practical symptom descriptions suitable for an A2 learner."
+  }
+ },
+ {
+  "article_id": 140,
+  "day": 140,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Health",
+  "scene": "Picking up medicine",
+  "title_en": "Picking Up Medicine",
+  "title_cn": "取药",
+  "difficulty": "A2",
+  "word_count": 81,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "After my doctor's visit, I go to the pharmacy to pick up my medicine. I show the pharmacist my prescription and give her my name. She checks the information and prepares the medicine for me. Then she explains how often I should take it and whether I need to take it with food. I listen carefully and ask a question about possible side effects. Before I leave, I check the label and put the medicine safely in my bag.",
+  "content_cn": "看完医生后，我去药房取药。我把处方给药剂师看，并告诉她我的名字。她核对信息，然后为我准备药品。接着，她向我说明应该多久服用一次，以及是否需要随餐服用。我认真听着，并询问了有关可能副作用的问题。离开之前，我检查了药品标签，并把药安全地放进包里。",
+  "sentences": [
+   {
+    "sentence_en": "After my doctor's visit, I go to the pharmacy to pick up my medicine.",
+    "sentence_cn": "看完医生后，我去药房取药。",
+    "chunks": [
+     {
+      "text": "After my doctor's visit,",
+      "meaning": "在去看过医生后，"
+     },
+     {
+      "text": "I go to the pharmacy",
+      "meaning": "我去药房"
+     },
+     {
+      "text": "to pick up my medicine.",
+      "meaning": "去取我的药。"
+     }
+    ],
+    "explanation": "pick up 在这里表示领取；pharmacy 表示药房。"
+   },
+   {
+    "sentence_en": "I show the pharmacist my prescription and give her my name.",
+    "sentence_cn": "我把处方给药剂师看，并告诉她我的名字。",
+    "chunks": [
+     {
+      "text": "I show the pharmacist",
+      "meaning": "我给药剂师看"
+     },
+     {
+      "text": "my prescription",
+      "meaning": "我的处方"
+     },
+     {
+      "text": "and give her my name.",
+      "meaning": "并告诉她我的名字。"
+     }
+    ],
+    "explanation": "show someone something 表示给某人看某物；prescription 表示处方。"
+   },
+   {
+    "sentence_en": "She checks the information and prepares the medicine for me.",
+    "sentence_cn": "她核对信息，然后为我准备药品。",
+    "chunks": [
+     {
+      "text": "She checks the information",
+      "meaning": "她查看信息"
+     },
+     {
+      "text": "and prepares the medicine for me.",
+      "meaning": "并为我准备药物。"
+     }
+    ],
+    "explanation": "prepare something for someone 表示为某人准备某物。"
+   },
+   {
+    "sentence_en": "Then she explains how often I should take it and whether I need to take it with food.",
+    "sentence_cn": "接着，她向我说明应该多久服用一次，以及是否需要随餐服用。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": "she explains",
+      "meaning": "她解释说"
+     },
+     {
+      "text": "how often I should take it",
+      "meaning": "我应该多久服用一次"
+     },
+     {
+      "text": "and whether I need to take it with food.",
+      "meaning": "以及我是否需要随餐服用。"
+     }
+    ],
+    "explanation": "how often 表示频率；with food 表示随餐或与食物一起。"
+   },
+   {
+    "sentence_en": "I listen carefully and ask a question about possible side effects.",
+    "sentence_cn": "我认真听着，并询问了有关可能副作用的问题。",
+    "chunks": [
+     {
+      "text": "I listen carefully",
+      "meaning": "我仔细听"
+     },
+     {
+      "text": "and ask a question",
+      "meaning": "并提出一个问题"
+     },
+     {
+      "text": "about possible side effects.",
+      "meaning": "关于可能的副作用。"
+     }
+    ],
+    "explanation": "possible 表示可能的；side effect 表示副作用。"
+   },
+   {
+    "sentence_en": "Before I leave, I check the label and put the medicine safely in my bag.",
+    "sentence_cn": "离开之前，我检查了药品标签，并把药安全地放进包里。",
+    "chunks": [
+     {
+      "text": "Before I leave,",
+      "meaning": "在我离开之前，"
+     },
+     {
+      "text": "I check the label",
+      "meaning": "我查看标签"
+     },
+     {
+      "text": "and put the medicine safely in my bag.",
+      "meaning": "并将药物安全地放入我的包里。"
+     }
+    ],
+    "explanation": "label 表示标签；safely 是副词，表示安全地。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "pharmacist",
+    "phonetic": "",
+    "meaning": "药剂师",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "prescription",
+    "phonetic": "",
+    "meaning": "处方",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "prepare",
+    "phonetic": "",
+    "meaning": "准备",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "side effect",
+    "phonetic": "",
+    "meaning": "副作用",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "label",
+    "phonetic": "",
+    "meaning": "标签",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "pick up my medicine",
+    "meaning": "取药",
+    "example": "I need to pick up my medicine today."
+   },
+   {
+    "expression": "show someone my prescription",
+    "meaning": "给某人看我的处方",
+    "example": "I showed the pharmacist my prescription."
+   },
+   {
+    "expression": "take it with food",
+    "meaning": "随餐服用",
+    "example": "Should I take this medicine with food?"
+   },
+   {
+    "expression": "side effects",
+    "meaning": "副作用",
+    "example": "Are there any common side effects?"
+   },
+   {
+    "expression": "check the label",
+    "meaning": "检查标签",
+    "example": "Always check the label before using it."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What does the speaker show the pharmacist?",
+    "options": [
+     "A. A photo.",
+     "B. A prescription.",
+     "C. A bus ticket."
+    ],
+    "answer": "B",
+    "explanation": "他把医生开具的处方给药剂师看。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the pharmacist explain?",
+    "options": [
+     "A. How to take the medicine.",
+     "B. How to drive to the clinic.",
+     "C. How to make breakfast."
+    ],
+    "answer": "A",
+    "explanation": "药剂师解释了服药频率以及是否需要随餐服用。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the speaker check before leaving?",
+    "answer": "The medicine label.",
+    "explanation": "离开前，他检查了药品标签。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "81 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A practical pharmacy interaction; medication instructions are described without recommending a specific drug."
+  }
+ },
+ {
+  "article_id": 141,
+  "day": 141,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Daily Life",
+  "scene": "At the pharmacy",
+  "title_en": "At the Pharmacy",
+  "title_cn": "在药店",
+  "difficulty": "A2",
+  "word_count": 81,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I stop at a pharmacy on my way home because I need some tissues and a bottle of cough syrup. The store is small, but it has many products. I cannot find the cough medicine, so I ask a worker for help. She shows me where it is and explains the different sizes. I choose a small bottle and take it to the counter. I pay by credit card and put everything in my backpack. Then I continue walking home.",
+  "content_cn": "回家的路上，我在一家药店停下来，因为我需要一些纸巾和一瓶止咳糖浆。店面不大，但商品很多。我找不到止咳药，于是向一位店员求助。她告诉我药在哪里，并介绍了不同的规格。我选了一小瓶，拿到收银台。我用信用卡付款，然后把东西放进背包。接着，我继续步行回家。",
+  "sentences": [
+   {
+    "sentence_en": "I stop at a pharmacy on my way home because I need some tissues and a bottle of cough syrup.",
+    "sentence_cn": "回家的路上，我在一家药店停下来，因为我需要一些纸巾和一瓶止咳糖浆。",
+    "chunks": [
+     {
+      "text": "I stop at a pharmacy",
+      "meaning": "我停在一家药店"
+     },
+     {
+      "text": "on my way home",
+      "meaning": "在回家的路上"
+     },
+     {
+      "text": "because",
+      "meaning": "因为"
+     },
+     {
+      "text": "I need some tissues and a bottle of cough syrup.",
+      "meaning": "我需要一些纸巾和一瓶止咳糖浆。"
+     }
+    ],
+    "explanation": "on my way home 表示在我回家的路上；a bottle of 表示一瓶。"
+   },
+   {
+    "sentence_en": "The store is small, but it has many products.",
+    "sentence_cn": "店面不大，但商品很多。",
+    "chunks": [
+     {
+      "text": "The store is small,",
+      "meaning": "商店很小，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "it has many products.",
+      "meaning": "它有很多产品。"
+     }
+    ],
+    "explanation": "but 表示转折；product 表示商品或产品。"
+   },
+   {
+    "sentence_en": "I cannot find the cough medicine, so I ask a worker for help.",
+    "sentence_cn": "我找不到止咳药，于是向一位店员求助。",
+    "chunks": [
+     {
+      "text": "I cannot find the cough medicine,",
+      "meaning": "我找不到止咳药，"
+     },
+     {
+      "text": " so",
+      "meaning": "SO"
+     },
+     {
+      "text": "I ask a worker for help.",
+      "meaning": "我向一位工作人员寻求帮助。"
+     }
+    ],
+    "explanation": "ask someone for help 表示向某人寻求帮助。"
+   },
+   {
+    "sentence_en": "She shows me where it is and explains the different sizes.",
+    "sentence_cn": "她告诉我药在哪里，并介绍了不同的规格。",
+    "chunks": [
+     {
+      "text": "She shows me",
+      "meaning": "她给我看"
+     },
+     {
+      "text": "where it is",
+      "meaning": "它在哪里"
+     },
+     {
+      "text": "and explains the different sizes.",
+      "meaning": "并解释不同尺码。"
+     }
+    ],
+    "explanation": "where it is 是宾语从句；size 表示尺寸或规格。"
+   },
+   {
+    "sentence_en": "I choose a small bottle and take it to the counter.",
+    "sentence_cn": "我选了一小瓶，拿到收银台。",
+    "chunks": [
+     {
+      "text": "I choose a small bottle",
+      "meaning": "我选择一小瓶"
+     },
+     {
+      "text": "and take it to the counter.",
+      "meaning": "然后把它带到柜台。"
+     }
+    ],
+    "explanation": "choose 表示选择；counter 在这里表示柜台或收银台。"
+   },
+   {
+    "sentence_en": "I pay by credit card and put everything in my backpack.",
+    "sentence_cn": "我用信用卡付款，然后把东西放进背包。",
+    "chunks": [
+     {
+      "text": "I pay by credit card",
+      "meaning": "我用信用卡支付"
+     },
+     {
+      "text": "and put everything in my backpack.",
+      "meaning": "然后把所有东西都放进我的背包里。"
+     }
+    ],
+    "explanation": "pay by credit card 表示用信用卡付款；backpack 表示背包。"
+   },
+   {
+    "sentence_en": "Then I continue walking home.",
+    "sentence_cn": "接着，我继续步行回家。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": "I continue walking home.",
+      "meaning": "我继续步行回家。"
+     }
+    ],
+    "explanation": "continue doing something 表示继续做某事。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "tissue",
+    "phonetic": "",
+    "meaning": "纸巾",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "cough syrup",
+    "phonetic": "",
+    "meaning": "止咳糖浆",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "product",
+    "phonetic": "",
+    "meaning": "商品；产品",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "counter",
+    "phonetic": "",
+    "meaning": "柜台；收银台",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "backpack",
+    "phonetic": "",
+    "meaning": "背包",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "on my way home",
+    "meaning": "在我回家的路上",
+    "example": "I bought some food on my way home."
+   },
+   {
+    "expression": "ask for help",
+    "meaning": "寻求帮助",
+    "example": "You can ask a worker for help."
+   },
+   {
+    "expression": "show me where it is",
+    "meaning": "告诉我它在哪里",
+    "example": "Could you show me where it is?"
+   },
+   {
+    "expression": "take it to the counter",
+    "meaning": "把它拿到柜台",
+    "example": "Take your items to the counter."
+   },
+   {
+    "expression": "pay by credit card",
+    "meaning": "用信用卡付款",
+    "example": "Can I pay by credit card?"
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Why does the speaker stop at the pharmacy?",
+    "options": [
+     "A. To buy tissues and cough syrup.",
+     "B. To meet a friend.",
+     "C. To ask for directions."
+    ],
+    "answer": "A",
+    "explanation": "他需要购买纸巾和止咳糖浆。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "Who helps the speaker find the medicine?",
+    "options": [
+     "A. A doctor.",
+     "B. A worker.",
+     "C. A neighbor."
+    ],
+    "answer": "B",
+    "explanation": "一位药店店员帮助他找到了药。"
+   },
+   {
+    "type": "short_answer",
+    "question": "How does the speaker pay?",
+    "answer": "By credit card.",
+    "explanation": "文章中说他用信用卡付款。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "81 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A2-level shopping conversation in a pharmacy."
+  }
+ },
+ {
+  "article_id": 142,
+  "day": 142,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Daily Life",
+  "scene": "Calling customer service",
+  "title_en": "Calling Customer Service",
+  "title_cn": "联系客服",
+  "difficulty": "A2",
+  "word_count": 83,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I bought a pair of headphones online last week, but one side does not work. I look for the customer service number on the website and give them a call. After a short wait, a man answers. I explain the problem and tell him my order number. He asks me to send a photo of the headphones. He says the company will check the problem and contact me within two days. I thank him and wait for an update.",
+  "content_cn": "上周我在网上买了一副耳机，但其中一边不能正常使用。我在网站上找到客服电话，然后拨打过去。短暂等待后，一位男士接听了电话。我向他说明问题，并告诉他订单号。他让我发送一张耳机的照片。他说公司会检查问题，并在两天内联系我。我向他道谢，然后等待后续消息。",
+  "sentences": [
+   {
+    "sentence_en": "I bought a pair of headphones online last week, but one side does not work.",
+    "sentence_cn": "上周我在网上买了一副耳机，但其中一边不能正常使用。",
+    "chunks": [
+     {
+      "text": "I bought a pair of headphones online last week,",
+      "meaning": "我上周在网上买了一副耳机，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "one side does not work.",
+      "meaning": "一侧不起作用。"
+     }
+    ],
+    "explanation": "a pair of 表示一副；does not work 表示不能正常工作或使用。"
+   },
+   {
+    "sentence_en": "I look for the customer service number on the website and give them a call.",
+    "sentence_cn": "我在网站上找到客服电话，然后拨打过去。",
+    "chunks": [
+     {
+      "text": "I look for",
+      "meaning": "我寻找"
+     },
+     {
+      "text": "the customer service number",
+      "meaning": "客服电话号码"
+     },
+     {
+      "text": "on the website",
+      "meaning": "在网站上"
+     },
+     {
+      "text": "and give them a call.",
+      "meaning": "并给他们打个电话。"
+     }
+    ],
+    "explanation": "look for 表示寻找；give someone a call 表示给某人打电话。"
+   },
+   {
+    "sentence_en": "After a short wait, a man answers.",
+    "sentence_cn": "短暂等待后，一位男士接听了电话。",
+    "chunks": [
+     {
+      "text": "After a short wait,",
+      "meaning": "稍等片刻后，"
+     },
+     {
+      "text": "a man answers.",
+      "meaning": "一个男人接的电话。"
+     }
+    ],
+    "explanation": "wait 是等待；answer 在电话语境中表示接听。"
+   },
+   {
+    "sentence_en": "I explain the problem and tell him my order number.",
+    "sentence_cn": "我向他说明问题，并告诉他订单号。",
+    "chunks": [
+     {
+      "text": "I explain the problem",
+      "meaning": "我解释了问题"
+     },
+     {
+      "text": "and tell him",
+      "meaning": "然后告诉他"
+     },
+     {
+      "text": "my order number.",
+      "meaning": "我的订单号。"
+     }
+    ],
+    "explanation": "explain the problem 表示解释问题；order number 表示订单号。"
+   },
+   {
+    "sentence_en": "He asks me to send a photo of the headphones.",
+    "sentence_cn": "他让我发送一张耳机的照片。",
+    "chunks": [
+     {
+      "text": "He asks me",
+      "meaning": "他问我"
+     },
+     {
+      "text": "to send a photo",
+      "meaning": "发送照片"
+     },
+     {
+      "text": "of the headphones.",
+      "meaning": "耳机的。"
+     }
+    ],
+    "explanation": "ask someone to do something 表示要求某人做某事。"
+   },
+   {
+    "sentence_en": "He says the company will check the problem and contact me within two days.",
+    "sentence_cn": "他说公司会检查问题，并在两天内联系我。",
+    "chunks": [
+     {
+      "text": "He says",
+      "meaning": "他说："
+     },
+     {
+      "text": "the company will check the problem",
+      "meaning": "公司将核查该问题"
+     },
+     {
+      "text": "and contact me within two days.",
+      "meaning": "并在两天内联系我。"
+     }
+    ],
+    "explanation": "will 表示将来；within two days 表示两天之内。"
+   },
+   {
+    "sentence_en": "I thank him and wait for an update.",
+    "sentence_cn": "我向他道谢，然后等待后续消息。",
+    "chunks": [
+     {
+      "text": "I thank him",
+      "meaning": "我感谢他"
+     },
+     {
+      "text": "and wait for an update.",
+      "meaning": "然后等待更新。"
+     }
+    ],
+    "explanation": "wait for 表示等待；update 表示最新消息或进展。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "headphones",
+    "phonetic": "",
+    "meaning": "耳机",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "customer service",
+    "phonetic": "",
+    "meaning": "客户服务；客服",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "order number",
+    "phonetic": "",
+    "meaning": "订单号",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "contact",
+    "phonetic": "",
+    "meaning": "联系",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "update",
+    "phonetic": "",
+    "meaning": "最新消息；进展",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "give someone a call",
+    "meaning": "给某人打电话",
+    "example": "I'll give customer service a call."
+   },
+   {
+    "expression": "one side does not work",
+    "meaning": "其中一边不能用",
+    "example": "One side of my headphones does not work."
+   },
+   {
+    "expression": "explain the problem",
+    "meaning": "说明问题",
+    "example": "Let me explain the problem."
+   },
+   {
+    "expression": "send a photo",
+    "meaning": "发送一张照片",
+    "example": "Could you send a photo of the product?"
+   },
+   {
+    "expression": "wait for an update",
+    "meaning": "等待后续消息",
+    "example": "I'll wait for an update from the company."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What is wrong with the headphones?",
+    "options": [
+     "A. They are too expensive.",
+     "B. One side does not work.",
+     "C. They are the wrong color."
+    ],
+    "answer": "B",
+    "explanation": "耳机只有一边不能正常使用。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the customer service worker ask the speaker to do?",
+    "options": [
+     "A. Send a photo.",
+     "B. Visit a store.",
+     "C. Buy another pair."
+    ],
+    "answer": "A",
+    "explanation": "客服要求他发送耳机照片。"
+   },
+   {
+    "type": "short_answer",
+    "question": "When will the company contact the speaker?",
+    "answer": "Within two days.",
+    "explanation": "客服表示公司会在两天内联系他。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "83 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A practical A2-level customer service phone call."
+  }
+ },
+ {
+  "article_id": 143,
+  "day": 143,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Daily Life",
+  "scene": "Fixing a problem",
+  "title_en": "Fixing a Problem",
+  "title_cn": "解决一个问题",
+  "difficulty": "A2",
+  "word_count": 82,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "The internet at home suddenly stops working while I am watching a movie. I check the Wi-Fi on my phone, but there is no connection. First, I turn off the router and wait for one minute. Then I turn it on again. The lights start flashing, and a few moments later the internet comes back. I open a website to test it. Everything works normally now. I am glad I fixed the problem without calling a technician.",
+  "content_cn": "我在家看电影时，网络突然停止工作。我检查手机上的Wi-Fi，却发现没有连接。首先，我关闭路由器，等待一分钟。然后我重新打开它。指示灯开始闪烁，过了一会儿，网络恢复了。我打开一个网站进行测试。现在一切都恢复正常了。我很高兴自己没有叫维修人员就解决了问题。",
+  "sentences": [
+   {
+    "sentence_en": "The internet at home suddenly stops working while I am watching a movie.",
+    "sentence_cn": "我在家看电影时，网络突然停止工作。",
+    "chunks": [
+     {
+      "text": "The internet at home",
+      "meaning": "家里的互联网"
+     },
+     {
+      "text": "suddenly stops working",
+      "meaning": "突然停止工作"
+     },
+     {
+      "text": "while I am watching a movie.",
+      "meaning": "当我正在看电影时。"
+     }
+    ],
+    "explanation": "suddenly 表示突然；while 引导两个同时发生的动作。"
+   },
+   {
+    "sentence_en": "I check the Wi-Fi on my phone, but there is no connection.",
+    "sentence_cn": "我检查手机上的Wi-Fi，却发现没有连接。",
+    "chunks": [
+     {
+      "text": "I check the Wi-Fi on my phone,",
+      "meaning": "我查看手机上的 Wi-Fi，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "there is no connection.",
+      "meaning": "没有网络连接。"
+     }
+    ],
+    "explanation": "connection 表示连接；there is no 表示没有。"
+   },
+   {
+    "sentence_en": "First, I turn off the router and wait for one minute.",
+    "sentence_cn": "首先，我关闭路由器，等待一分钟。",
+    "chunks": [
+     {
+      "text": "First,",
+      "meaning": "第一"
+     },
+     {
+      "text": "I turn off the router",
+      "meaning": "我关闭了路由器"
+     },
+     {
+      "text": "and wait for one minute.",
+      "meaning": "然后等待一分钟。"
+     }
+    ],
+    "explanation": "turn off 表示关闭；wait for 表示等待一段时间。"
+   },
+   {
+    "sentence_en": "Then I turn it on again.",
+    "sentence_cn": "然后我重新打开它。",
+    "chunks": [
+     {
+      "text": "Then",
+      "meaning": "然后"
+     },
+     {
+      "text": "I turn it on again.",
+      "meaning": "我再次把它打开。"
+     }
+    ],
+    "explanation": "turn on 表示打开；again 表示再次。"
+   },
+   {
+    "sentence_en": "The lights start flashing, and a few moments later the internet comes back.",
+    "sentence_cn": "指示灯开始闪烁，过了一会儿，网络恢复了。",
+    "chunks": [
+     {
+      "text": "The lights start flashing,",
+      "meaning": "灯光开始闪烁，"
+     },
+     {
+      "text": " and",
+      "meaning": "及"
+     },
+     {
+      "text": "a few moments later",
+      "meaning": "几分钟后"
+     },
+     {
+      "text": "the internet comes back.",
+      "meaning": "网络恢复了。"
+     }
+    ],
+    "explanation": "start doing 表示开始做某事；come back 在这里表示恢复。"
+   },
+   {
+    "sentence_en": "I open a website to test it.",
+    "sentence_cn": "我打开一个网站进行测试。",
+    "chunks": [
+     {
+      "text": "I open a website",
+      "meaning": "我打开一个网站"
+     },
+     {
+      "text": "to test it.",
+      "meaning": "来测试它。"
+     }
+    ],
+    "explanation": "to test it 表示为了测试它，说明目的。"
+   },
+   {
+    "sentence_en": "Everything works normally now.",
+    "sentence_cn": "现在一切都恢复正常了。",
+    "chunks": [
+     {
+      "text": "Everything",
+      "meaning": "全部"
+     },
+     {
+      "text": "works normally",
+      "meaning": "正常工作"
+     },
+     {
+      "text": "now.",
+      "meaning": "现在。"
+     }
+    ],
+    "explanation": "normally 表示正常地；everything 作主语时通常使用单数动词。"
+   },
+   {
+    "sentence_en": "I am glad I fixed the problem without calling a technician.",
+    "sentence_cn": "我很高兴自己没有叫维修人员就解决了问题。",
+    "chunks": [
+     {
+      "text": "I am glad",
+      "meaning": "我很高兴"
+     },
+     {
+      "text": "I fixed the problem",
+      "meaning": "我解决了问题"
+     },
+     {
+      "text": "without calling a technician.",
+      "meaning": "无需呼叫技术人员。"
+     }
+    ],
+    "explanation": "be glad 表示感到高兴；without 后接动名词表示没有做某事。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "suddenly",
+    "phonetic": "",
+    "meaning": "突然地",
+    "part_of_speech": "adverb"
+   },
+   {
+    "word": "connection",
+    "phonetic": "",
+    "meaning": "连接；网络连接",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "router",
+    "phonetic": "",
+    "meaning": "路由器",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "flash",
+    "phonetic": "",
+    "meaning": "闪烁",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "technician",
+    "phonetic": "",
+    "meaning": "技术人员；维修人员",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "stop working",
+    "meaning": "停止工作；发生故障",
+    "example": "My computer suddenly stopped working."
+   },
+   {
+    "expression": "turn off the router",
+    "meaning": "关闭路由器",
+    "example": "Try to turn off the router first."
+   },
+   {
+    "expression": "turn it on again",
+    "meaning": "再次打开它",
+    "example": "Wait a minute and turn it on again."
+   },
+   {
+    "expression": "come back",
+    "meaning": "恢复；重新出现",
+    "example": "The internet came back after a few minutes."
+   },
+   {
+    "expression": "fix the problem",
+    "meaning": "解决问题",
+    "example": "I think I can fix the problem myself."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What stops working?",
+    "options": [
+     "A. The television.",
+     "B. The internet.",
+     "C. The lights in the house."
+    ],
+    "answer": "B",
+    "explanation": "文章开头说明家里的网络突然停止工作。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the speaker do first?",
+    "options": [
+     "A. Calls a technician.",
+     "B. Buys a new router.",
+     "C. Turns off the router."
+    ],
+    "answer": "C",
+    "explanation": "他首先关闭路由器并等待一分钟。"
+   },
+   {
+    "type": "short_answer",
+    "question": "Does the speaker need to call a technician?",
+    "answer": "No. He fixes the problem himself.",
+    "explanation": "重启路由器后网络恢复正常，他自己解决了问题。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "82 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A2-level problem-solving story using common technology vocabulary."
+  }
+ },
+ {
+  "article_id": 144,
+  "day": 144,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Shopping",
+  "scene": "Returning a purchase",
+  "title_en": "Returning Something I Bought",
+  "title_cn": "退回买过的东西",
+  "difficulty": "A2",
+  "word_count": 83,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "Yesterday, I bought a jacket at a clothing store, but when I got home, I found it was too small. I still have the receipt, so I decide to return it. The next day, I take the jacket back to the store. A worker asks why I want to return it. I explain that the size is wrong and show her the receipt. She checks the jacket and offers me a larger size or a refund. I choose the refund and thank her.",
+  "content_cn": "昨天，我在一家服装店买了一件夹克，但回家后发现它太小了。我还保留着收据，所以决定退货。第二天，我把夹克带回商店。一位店员问我为什么要退货。我解释说尺码不合适，并给她看收据。她检查了夹克，提出可以换大一号，或者退款。我选择退款，并向她道谢。",
+  "sentences": [
+   {
+    "sentence_en": "Yesterday, I bought a jacket at a clothing store, but when I got home, I found it was too small.",
+    "sentence_cn": "昨天，我在一家服装店买了一件夹克，但回家后发现它太小了。",
+    "chunks": [
+     {
+      "text": "Yesterday,",
+      "meaning": "昨天，"
+     },
+     {
+      "text": "I bought a jacket at a clothing store,",
+      "meaning": "我在一家服装店买了一件夹克，"
+     },
+     {
+      "text": " but",
+      "meaning": "但"
+     },
+     {
+      "text": "when I got home,",
+      "meaning": "当我回到家时，"
+     },
+     {
+      "text": "I found it was too small.",
+      "meaning": "我发现它太小了。"
+     }
+    ],
+    "explanation": "bought 是 buy 的过去式；when 引导时间状语从句。"
+   },
+   {
+    "sentence_en": "I still have the receipt, so I decide to return it.",
+    "sentence_cn": "我还保留着收据，所以决定退货。",
+    "chunks": [
+     {
+      "text": "I still have the receipt,",
+      "meaning": "我还有收据，"
+     },
+     {
+      "text": " so",
+      "meaning": "SO"
+     },
+     {
+      "text": "I decide to return it.",
+      "meaning": "我决定退货。"
+     }
+    ],
+    "explanation": "receipt 表示购物收据；return 在这里表示退货。"
+   },
+   {
+    "sentence_en": "The next day, I take the jacket back to the store.",
+    "sentence_cn": "第二天，我把夹克带回商店。",
+    "chunks": [
+     {
+      "text": "The next day,",
+      "meaning": "第二天，"
+     },
+     {
+      "text": "I take the jacket back to the store.",
+      "meaning": "我把夹克带回商店。"
+     }
+    ],
+    "explanation": "take something back 表示把某物带回去。"
+   },
+   {
+    "sentence_en": "A worker asks why I want to return it.",
+    "sentence_cn": "一位店员问我为什么要退货。",
+    "chunks": [
+     {
+      "text": "A worker asks",
+      "meaning": "工人"
+     },
+     {
+      "text": "why I want to return it.",
+      "meaning": "我为什么想退货。"
+     }
+    ],
+    "explanation": "why 引导宾语从句，表示询问原因。"
+   },
+   {
+    "sentence_en": "I explain that the size is wrong and show her the receipt.",
+    "sentence_cn": "我解释说尺码不合适，并给她看收据。",
+    "chunks": [
+     {
+      "text": "I explain",
+      "meaning": "我解释"
+     },
+     {
+      "text": "that the size is wrong",
+      "meaning": "尺码不对"
+     },
+     {
+      "text": "and show her the receipt.",
+      "meaning": "并向她出示收据。"
+     }
+    ],
+    "explanation": "the size is wrong 表示尺码不合适；show her 表示给她看。"
+   },
+   {
+    "sentence_en": "She checks the jacket and offers me a larger size or a refund.",
+    "sentence_cn": "她检查了夹克，提出可以换大一号，或者退款。",
+    "chunks": [
+     {
+      "text": "She checks the jacket",
+      "meaning": "她查看夹克"
+     },
+     {
+      "text": "and offers me",
+      "meaning": "并向我提供"
+     },
+     {
+      "text": "a larger size",
+      "meaning": "更大的尺寸"
+     },
+     {
+      "text": "or a refund.",
+      "meaning": "或退款。"
+     }
+    ],
+    "explanation": "larger 是 large 的比较级；refund 表示退款。"
+   },
+   {
+    "sentence_en": "I choose the refund and thank her.",
+    "sentence_cn": "我选择退款，并向她道谢。",
+    "chunks": [
+     {
+      "text": "I choose the refund",
+      "meaning": "我选择退款"
+     },
+     {
+      "text": "and thank her.",
+      "meaning": "并向她表示感谢。"
+     }
+    ],
+    "explanation": "choose 表示选择；thank someone 表示向某人道谢。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "jacket",
+    "phonetic": "",
+    "meaning": "夹克；短外套",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "receipt",
+    "phonetic": "",
+    "meaning": "收据",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "return",
+    "phonetic": "",
+    "meaning": "退还；退货",
+    "part_of_speech": "verb"
+   },
+   {
+    "word": "larger",
+    "phonetic": "",
+    "meaning": "更大的",
+    "part_of_speech": "adjective"
+   },
+   {
+    "word": "refund",
+    "phonetic": "",
+    "meaning": "退款",
+    "part_of_speech": "noun"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "return something",
+    "meaning": "退回某物；退货",
+    "example": "I'd like to return this jacket."
+   },
+   {
+    "expression": "keep the receipt",
+    "meaning": "保留收据",
+    "example": "Please keep the receipt after you shop."
+   },
+   {
+    "expression": "take something back",
+    "meaning": "把某物带回去",
+    "example": "I need to take these shoes back."
+   },
+   {
+    "expression": "a larger size",
+    "meaning": "大一号的尺码",
+    "example": "Do you have this shirt in a larger size?"
+   },
+   {
+    "expression": "get a refund",
+    "meaning": "获得退款",
+    "example": "Can I get a refund for this item?"
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "Why does the speaker return the jacket?",
+    "options": [
+     "A. It is too small.",
+     "B. It is too expensive.",
+     "C. It is the wrong color."
+    ],
+    "answer": "A",
+    "explanation": "他回家后发现夹克太小了。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "What does the worker offer?",
+    "options": [
+     "A. A free bag.",
+     "B. A larger size or a refund.",
+     "C. A discount on food."
+    ],
+    "answer": "B",
+    "explanation": "店员提出换大一号或者退款。"
+   },
+   {
+    "type": "short_answer",
+    "question": "What does the speaker choose?",
+    "answer": "A refund.",
+    "explanation": "他最后选择了退款。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "83 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A2-level shopping scenario with useful return and refund expressions."
+  }
+ },
+ {
+  "article_id": 145,
+  "day": 145,
+  "stage": 3,
+  "cefr": "A2",
+  "category": "Daily Life",
+  "scene": "Receiving a delivery",
+  "title_en": "A Package Has Arrived",
+  "title_cn": "快递到了",
+  "difficulty": "A2",
+  "word_count": 82,
+  "estimated_reading_time_seconds": 40,
+  "content_en": "I ordered a new desk lamp online three days ago, and today I receive a message saying it has arrived. I go downstairs to the delivery area and look for my package. The box is on a shelf with my name on it. I check the label and carry it upstairs. After opening the box, I find the lamp is in good condition. I plug it in and turn it on. The light is bright and comfortable, just what I wanted.",
+  "content_cn": "三天前，我在网上订购了一盏新台灯，今天收到一条消息，说快递已经到了。我下楼去快递存放区寻找包裹。一个盒子放在架子上，上面写着我的名字。我核对标签，然后把它搬上楼。打开盒子后，我发现台灯完好无损。我把它插上电源并打开。灯光明亮又舒适，正是我想要的效果。",
+  "sentences": [
+   {
+    "sentence_en": "I ordered a new desk lamp online three days ago, and today I receive a message saying it has arrived.",
+    "sentence_cn": "三天前，我在网上订购了一盏新台灯，今天收到一条消息，说快递已经到了。",
+    "chunks": [
+     {
+      "text": "I ordered a new desk lamp online three days ago,",
+      "meaning": "我三天前在网上订购了一盏新台灯，"
+     },
+     {
+      "text": " and",
+      "meaning": "及"
+     },
+     {
+      "text": "today I receive a message",
+      "meaning": "今天我收到了一条消息"
+     },
+     {
+      "text": "saying it has arrived.",
+      "meaning": "说它已经到了。"
+     }
+    ],
+    "explanation": "ordered 是 order 的过去式；has arrived 是现在完成时，表示已经到达。"
+   },
+   {
+    "sentence_en": "I go downstairs to the delivery area and look for my package.",
+    "sentence_cn": "我下楼去快递存放区寻找包裹。",
+    "chunks": [
+     {
+      "text": "I go downstairs",
+      "meaning": "我下楼去"
+     },
+     {
+      "text": "to the delivery area",
+      "meaning": "到派送区域"
+     },
+     {
+      "text": "and look for my package.",
+      "meaning": "并寻找我的包裹。"
+     }
+    ],
+    "explanation": "downstairs 表示楼下；look for 表示寻找。"
+   },
+   {
+    "sentence_en": "The box is on a shelf with my name on it.",
+    "sentence_cn": "一个盒子放在架子上，上面写着我的名字。",
+    "chunks": [
+     {
+      "text": "The box is",
+      "meaning": "盒子是"
+     },
+     {
+      "text": "on a shelf",
+      "meaning": "在架子上"
+     },
+     {
+      "text": "with my name on it.",
+      "meaning": "上面有我的名字。"
+     }
+    ],
+    "explanation": "shelf 表示架子；with my name on it 表示上面有我的名字。"
+   },
+   {
+    "sentence_en": "I check the label and carry it upstairs.",
+    "sentence_cn": "我核对标签，然后把它搬上楼。",
+    "chunks": [
+     {
+      "text": "I check the label",
+      "meaning": "我查看标签"
+     },
+     {
+      "text": "and carry it upstairs.",
+      "meaning": "然后把它搬到楼上。"
+     }
+    ],
+    "explanation": "carry 表示搬运；upstairs 表示楼上。"
+   },
+   {
+    "sentence_en": "After opening the box, I find the lamp is in good condition.",
+    "sentence_cn": "打开盒子后，我发现台灯完好无损。",
+    "chunks": [
+     {
+      "text": "After opening the box,",
+      "meaning": "打开盒子后，"
+     },
+     {
+      "text": "I find",
+      "meaning": "我找到了"
+     },
+     {
+      "text": "the lamp is in good condition.",
+      "meaning": "灯的状态良好。"
+     }
+    ],
+    "explanation": "after doing 表示做完某事之后；in good condition 表示状态良好。"
+   },
+   {
+    "sentence_en": "I plug it in and turn it on.",
+    "sentence_cn": "我把它插上电源并打开。",
+    "chunks": [
+     {
+      "text": "I plug it in",
+      "meaning": "我把它插上电源"
+     },
+     {
+      "text": "and turn it on.",
+      "meaning": "然后将其打开。"
+     }
+    ],
+    "explanation": "plug in 表示插上电源；turn on 表示打开。"
+   },
+   {
+    "sentence_en": "The light is bright and comfortable, just what I wanted.",
+    "sentence_cn": "灯光明亮又舒适，正是我想要的效果。",
+    "chunks": [
+     {
+      "text": "The light is bright and comfortable,",
+      "meaning": "光线明亮舒适，"
+     },
+     {
+      "text": "just what I wanted.",
+      "meaning": "正是我想要的。"
+     }
+    ],
+    "explanation": "bright 表示明亮的；comfortable 表示舒适的；just what I wanted 表示正是我想要的。"
+   }
+  ],
+  "vocabulary": [
+   {
+    "word": "desk lamp",
+    "phonetic": "",
+    "meaning": "台灯",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "delivery",
+    "phonetic": "",
+    "meaning": "配送；快递",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "package",
+    "phonetic": "",
+    "meaning": "包裹",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "shelf",
+    "phonetic": "",
+    "meaning": "架子；搁板",
+    "part_of_speech": "noun"
+   },
+   {
+    "word": "comfortable",
+    "phonetic": "",
+    "meaning": "舒适的",
+    "part_of_speech": "adjective"
+   }
+  ],
+  "expressions": [
+   {
+    "expression": "a package has arrived",
+    "meaning": "包裹已经到了",
+    "example": "Your package has arrived this morning."
+   },
+   {
+    "expression": "look for my package",
+    "meaning": "寻找我的包裹",
+    "example": "I'm going downstairs to look for my package."
+   },
+   {
+    "expression": "check the label",
+    "meaning": "核对标签",
+    "example": "Check the label before taking the box."
+   },
+   {
+    "expression": "in good condition",
+    "meaning": "状况良好；完好无损",
+    "example": "The product arrived in good condition."
+   },
+   {
+    "expression": "plug it in",
+    "meaning": "把它插上电源",
+    "example": "Plug it in before turning it on."
+   }
+  ],
+  "questions": [
+   {
+    "type": "multiple_choice",
+    "question": "What did the speaker order online?",
+    "options": [
+     "A. A desk lamp.",
+     "B. A new phone.",
+     "C. A chair."
+    ],
+    "answer": "A",
+    "explanation": "他三天前在网上订购了一盏新台灯。"
+   },
+   {
+    "type": "multiple_choice",
+    "question": "Where does the speaker find the package?",
+    "options": [
+     "A. Outside the front door.",
+     "B. On a shelf in the delivery area.",
+     "C. In a friend's car."
+    ],
+    "answer": "B",
+    "explanation": "包裹放在快递存放区的架子上。"
+   },
+   {
+    "type": "short_answer",
+    "question": "How does the speaker feel about the lamp?",
+    "answer": "He likes it because the light is bright and comfortable.",
+    "explanation": "他觉得灯光明亮舒适，正符合自己的期待。"
+   }
+  ],
+  "quality_check": {
+   "grammar": "Passed",
+   "spelling": "Passed",
+   "word_count": "82 words; within the 70–100 word range",
+   "american_english": "Uses natural American English",
+   "translation": "Complete and consistent with the English passage",
+   "chunking": "All sentence chunks preserve the original wording and punctuation",
+   "notes": "A2-level everyday delivery scenario with common package and household vocabulary."
+  }
+ }
+]

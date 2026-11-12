@@ -3,7 +3,7 @@ window.ENR = (function () {
   "use strict";
 
   /* ---------- 设置（全部按默认运行；设置面板已移除，仅语速可在播放条调整并记忆） ---------- */
-  const DEFAULTS = { fs: 19, rate: 1, cn: true, stress: true, tips: false, autoscroll: true };
+  const DEFAULTS = { rate: 1 };
   let settings = Object.assign({}, DEFAULTS);
   try {
     const saved = JSON.parse(localStorage.getItem("enr:set") || "{}");
@@ -77,20 +77,5 @@ window.ENR = (function () {
     toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
   }
 
-  /* ---------- 单词还原（查词表：gestures→gesture 等） ---------- */
-  function lookupVocab(word, vocabMap) {
-    const w = word.toLowerCase();
-    if (vocabMap[w]) return vocabMap[w];
-    const tries = [];
-    if (w.endsWith("ies")) tries.push(w.slice(0, -3) + "y");
-    if (w.endsWith("es")) tries.push(w.slice(0, -2), w.slice(0, -1));
-    if (w.endsWith("s")) tries.push(w.slice(0, -1));
-    if (w.endsWith("ed")) tries.push(w.slice(0, -2), w.slice(0, -1));
-    if (w.endsWith("ing")) tries.push(w.slice(0, -3), w.slice(0, -3) + "e");
-    if (w.endsWith("ed") && w.endsWith("ied")) tries.push(w.slice(0, -3) + "y");
-    for (const t of tries) if (vocabMap[t]) return vocabMap[t];
-    return null;
-  }
-
-  return { settings, set, saveSettings, applyTheme, tts, ttsOK, toast, lookupVocab };
+  return { settings, set, saveSettings, applyTheme, tts, ttsOK, toast };
 })();

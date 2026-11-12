@@ -1,150 +1,145 @@
-/* ============ enreader 文章页：渲染 + 朗读引擎 ============ */
+/* ============ enreader 文章页：课程数据加载 + 渲染 + 朗读引擎 ============ */
 (function () {
   "use strict";
   const { settings, set, tts, ttsOK, toast } = ENR;
   const $ = id => document.getElementById(id);
 
-  /* ---------- 定位文章 ---------- */
-  const id = new URLSearchParams(location.search).get("id");
-  let cat = null, art = null;
-  for (const c of (window.ENR_DATA.categories || [])) {
-    const a = (c.articles || []).find(x => x.id === id);
-    if (a) { cat = c; art = a; break; }
+  /* ---------- 定位课程文章（manifest → 按需加载单日数据） ---------- */
+  const M = window.ENR_COURSE;
+  let id = new URLSearchParams(location.search).get("id");
+  if (!id || !M.articles.some(a => a.id === id)) {
+    id = (M.articles[0] || {}).id;
   }
-  if (!art) {
-    cat = window.ENR_DATA.categories.find(c => c.articles && c.articles.length);
-    art = cat.articles[0];
+  if (!id) { document.body.innerHTML = '<p style="padding:60px 30px;color:#5d6b80">课程数据为空，请先运行 build_course.py。</p>'; return; }
+
+  const meta = M.articles.find(a => a.id === id);
+  let art = null;
+
+  const script = document.createElement("script");
+  script.src = "data/days/" + id + ".js?v=19";
+  script.onload = start;
+  script.onerror = () => { document.body.innerHTML = '<p style="padding:60px 30px;color:#5d6b80">课程数据加载失败。</p>'; };
+  document.head.appendChild(script);
+
+  function start() {
+    art = window.ENR_DAY;
+    if (!art) return;
+    init();
   }
-  const S = art.paragraphs.flatMap(p => p.sentences);   // 全部句子（扁平）
+
+  function init() {
+  const S = art.sentences;        // 全部句子
   const N = S.length;
   const POS_KEY = "enr:pos:" + art.id;
+  const DONE_KEY = "enr:done:" + art.id;
   const savedPos = Math.min(parseInt(localStorage.getItem(POS_KEY) || "0", 10) || 0, N - 1);
 
-  document.title = art.title + " · 英语阅读";
-  $("headTitle").textContent = art.title;
-  $("headBadge").textContent = art.difficulty;
-  $("artTitle").textContent = art.title;
+  document.title = `Day ${String(art.day).padStart(3, "0")} · ${art.titleEn} · 英语朗读`;
+  $("artTitle").textContent = `Day ${String(art.day).padStart(3, "0")} · ${art.titleEn}`;
+  $("artSub").textContent = art.titleCn;
 
   /* ---------- 渲染正文 ---------- */
   const body = $("artBody");
   const sntEls = [];        // 句子 DOM
-  const tokEls = [];        // 句子内全部 token span（按短语顺序拍平）
-  const phRanges = [];      // 每句：每短语在 tokEls 中的 [start, end)
+  const tokEls = [];        // 句子内全部 token span（按 chunk 顺序拍平）
+  const phRanges = [];      // 每句：每 chunk 在 tokEls 中的 [start, end)
   let g = 0;                // 全局句子序号
 
-  art.paragraphs.forEach(para => {
-    const pd = document.createElement("div");
-    pd.className = "para";
-    para.sentences.forEach(sent => {
-      const s = g++;
-      const el = document.createElement("div");
-      el.className = "snt";
-      el.dataset.s = s;
+  S.forEach(sent => {
+    const s = g++;
+    const el = document.createElement("div");
+    el.className = "snt";
+    el.dataset.s = s;
 
-      const play = document.createElement("button");
-      play.className = "play"; play.title = "朗读本句";
-      play.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
-      el.appendChild(play);
+    const play = document.createElement("button");
+    play.className = "play"; play.title = "朗读本句";
+    play.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
+    el.appendChild(play);
 
-      const en = document.createElement("div");
-      en.className = "en";
-      const toks = [], ranges = [];
-      sent.phrases.forEach((ph, pi) => {
-        const phEl = document.createElement("span");
-        phEl.className = "ph";
-        const start = toks.length;
-        // 按 ╷ 组边界把单元分组成块（组与中文块一一对应）
-        const groups = [[]];
-        ph.units.forEach((u, k) => {
-          if (k > 0 && ph.seps[k - 1] === "b") groups.push([]);
-          groups[groups.length - 1].push(u);
-        });
-        groups.forEach((grp, gi) => {
-          const gEl = document.createElement("span");
-          gEl.className = "grp";
-          const ews = document.createElement("span");
-          ews.className = "ews";
-          grp.forEach(u => {
-            const ew = document.createElement("span");
-            ew.className = "ew tok" + (u.s ? " st" : "");
-            ew.textContent = u.ew;
-            ew.dataset.w = u.ew;
-            ews.appendChild(ew);
-            toks.push(ew);
-          });
-          gEl.appendChild(ews);
-          const cwText = grp.map(u => u.cw).filter(Boolean).join(" ");
-          if (cwText) {
-            const cw = document.createElement("span");
-            cw.className = "gcw";
-            cw.textContent = cwText;
-            gEl.appendChild(cw);
-          }
-          phEl.appendChild(gEl);
-          if (gi < groups.length - 1) {
-            // 气口 ╷：作者标注的组间换气缝隙，可视化保留
-            const gsep = document.createElement("span");
-            gsep.className = "gsep";
-            gsep.textContent = "╷";
-            phEl.appendChild(gsep);
-          }
-        });
-        ranges.push([start, toks.length]);
-        en.appendChild(phEl);
-        if (pi < sent.phrases.length - 1) {
-          // 短语停顿 /：作者标注的半秒停顿点，可视化保留
-          const psep = document.createElement("span");
-          psep.className = "psep";
-          psep.textContent = "/";
-          en.appendChild(psep);
-        }
+    const en = document.createElement("div");
+    en.className = "en";
+    const toks = [], ranges = [];
+    sent.chunks.forEach((ch, ci) => {
+      // chunk = 一个组：英文 text 拆成单词（点读），meaning 作为组底中文对照
+      const gEl = document.createElement("span");
+      gEl.className = "grp";
+      const ews = document.createElement("span");
+      ews.className = "ews";
+      const start = toks.length;
+      ch.text.split(/\s+/).forEach(w => {
+        const ew = document.createElement("span");
+        ew.className = "ew tok";
+        ew.textContent = w;
+        ew.dataset.w = w;
+        ews.appendChild(ew);
+        toks.push(ew);
       });
-      el.appendChild(en);
-
-      const cn = document.createElement("div");
-      cn.className = "cn";
-      cn.textContent = sent.cn;
-      el.appendChild(cn);
-
-      // 交互：点短语间隙 → 单句朗读；点单词 → 单词朗读
-      el.addEventListener("click", e => {
-        const tok = e.target.closest(".tok");
-        if (tok && el.contains(tok)) { onWordClick(tok, e); return; }
-        if (e.target === play) { playSingle(s); return; }
-        playSingle(s);
-      });
-      pd.appendChild(el);
-      sntEls.push(el); tokEls.push(toks); phRanges.push(ranges);
+      gEl.appendChild(ews);
+      if (ch.meaning) {
+        const cw = document.createElement("span");
+        cw.className = "gcw";
+        cw.textContent = ch.meaning;
+        gEl.appendChild(cw);
+      }
+      en.appendChild(gEl);
+      if (ci < sent.chunks.length - 1) {
+        // 意群停顿 /：作者标注的停顿点，可视化保留
+        const psep = document.createElement("span");
+        psep.className = "psep";
+        psep.textContent = "/";
+        en.appendChild(psep);
+      }
+      ranges.push([start, toks.length]);
     });
+    // 句级中文翻译放在句子开头（英文行上方）
+    const cn = document.createElement("div");
+    cn.className = "cn";
+    cn.textContent = sent.cn;
+    el.appendChild(cn);
 
-    if (para.tips && para.tips.length) pd.appendChild(buildTips(para.tips, g));
-    body.appendChild(pd);
+    el.appendChild(en);
+
+    if (sent.tip) {
+      const tip = document.createElement("div");
+      tip.className = "tip";
+      tip.textContent = "💡 " + sent.tip;
+      el.appendChild(tip);
+    }
+
+    // 交互：点短语间隙 → 单句朗读；点单词 → 单词朗读
+    el.addEventListener("click", e => {
+      const tok = e.target.closest(".tok");
+      if (tok && el.contains(tok)) { onWordClick(tok, e); return; }
+      if (e.target === play) { playSingle(s); return; }
+      playSingle(s);
+    });
+    body.appendChild(el);
+    sntEls.push(el); tokEls.push(toks); phRanges.push(ranges);
   });
 
-  function buildTips(tips) {
-    const box = document.createElement("div");
-    box.className = "tipsbox" + (settings.tips ? " open" : "");
-    const head = document.createElement("button");
-    head.className = "thead";
-    head.innerHTML = '<span>📖 朗读建议</span><span class="arr">▶</span>';
-    const wrap = document.createElement("div");
-    wrap.className = "tbody";
-    const inner = document.createElement("div");
-    const ul = document.createElement("ul");
-    tips.forEach(t => {
-      const li = document.createElement("li");
-      const m = t.match(/^([^：]{1,6})：(.*)$/s);
-      if (m) { const b = document.createElement("b"); b.textContent = m[1] + "："; li.appendChild(b); li.appendChild(document.createTextNode(m[2])); }
-      else li.textContent = t;
-      ul.appendChild(li);
+  /* ---------- 核心表达 ---------- */
+  if (art.exprs && art.exprs.length) {
+    const sec = document.createElement("div");
+    sec.className = "vocab exprs";
+    sec.innerHTML = `<h2>核心表达</h2><div class="sub">共 ${art.exprs.length} 个 · 点击卡片听发音</div>`;
+    const grid = document.createElement("div");
+    grid.className = "vgrid";
+    art.exprs.forEach(x => {
+      const b = document.createElement("button");
+      b.className = "vchip";
+      const w = document.createElement("div"); w.className = "w";
+      w.innerHTML = `${x.e}<span class="sp">🔊</span>`;
+      const cn = document.createElement("div"); cn.className = "ipa"; cn.textContent = x.cn;
+      const ex = document.createElement("div"); ex.className = "cn"; ex.textContent = x.ex;
+      b.appendChild(w); b.appendChild(cn); b.appendChild(ex);
+      b.addEventListener("click", () => speakPhrase(x.e));
+      grid.appendChild(b);
     });
-    inner.appendChild(ul); wrap.appendChild(inner);
-    head.addEventListener("click", () => box.classList.toggle("open"));
-    box.appendChild(head); box.appendChild(wrap);
-    return box;
+    sec.appendChild(grid);
+    body.appendChild(sec);
   }
 
-  /* ---------- 词汇区 ---------- */
+  /* ---------- 重点词汇 ---------- */
   if (art.vocab && art.vocab.length) {
     const sec = document.createElement("div");
     sec.className = "vocab";
@@ -156,13 +151,31 @@
       b.className = "vchip";
       const w = document.createElement("div"); w.className = "w";
       w.innerHTML = `${v.w}<span class="sp">🔊</span>`;
-      const ipa = document.createElement("div"); ipa.className = "ipa"; ipa.textContent = v.ipa;
+      const ipa = document.createElement("div"); ipa.className = "ipa"; ipa.textContent = `${v.ipa}${v.pos ? " · " + v.pos : ""}`;
       const cn = document.createElement("div"); cn.className = "cn"; cn.textContent = v.cn;
       b.appendChild(w); b.appendChild(ipa); b.appendChild(cn);
       b.addEventListener("click", () => speakWord(v.w));
       grid.appendChild(b);
     });
     sec.appendChild(grid);
+    body.appendChild(sec);
+  }
+
+  /* ---------- 开口练习 ---------- */
+  if (art.ask && art.ask.length) {
+    const sec = document.createElement("div");
+    sec.className = "vocab ask";
+    sec.innerHTML = `<h2>开口练习</h2><div class="sub">联系你自己的生活回答 · 点击问题听发音</div>`;
+    const list = document.createElement("div");
+    list.className = "alist";
+    art.ask.forEach((q, qi) => {
+      const b = document.createElement("button");
+      b.className = "aitem";
+      b.innerHTML = `<span class="qno">Q${qi + 1}</span><span class="q">${q}</span><span class="sp">🔊</span>`;
+      b.addEventListener("click", () => speakPhrase(q));
+      list.appendChild(b);
+    });
+    sec.appendChild(list);
     body.appendChild(sec);
   }
 
@@ -208,26 +221,33 @@
   }
 
   /* ---------- 朗读链 ---------- */
+  // chunk 文本 → 朗读词序列（数字转英文单词，标点保留）
+  function spokenWords(text) {
+    return text.split(/\s+/).map(w => {
+      const m = w.match(/^([^A-Za-z0-9]*)([A-Za-z0-9'’-]+)([^A-Za-z0-9]*)$/);
+      if (!m) return w;
+      const conv = numToEn(m[2]);
+      return conv === m[2] ? w : m[1] + conv + m[3];
+    });
+  }
+
   function chain(s, p, myGen, stopAfter) {
     if (myGen !== gen || !playing) return;
     if (s >= N) { finish(true); return; }
     cur = { s, p };
     mark(s); updatePlayer();
     localStorage.setItem(POS_KEY, s);
-    if (settings.autoscroll && p === 0) scrollToCur();
+    if (p === 0) scrollToCur();
 
-    const sent = S[s], ph = sent.phrases[p];
-    const isLastPh = p === sent.phrases.length - 1;
-    const tail = isLastPh ? (/[.!?]$/.test(ph.text) ? "" : ".") : ",";
+    const sent = S[s], ch = sent.chunks[p];
+    const isLastPh = p === sent.chunks.length - 1;
     // 重建朗读文本：数字 token 转英文单词（默认中文语音会把孤立数字读成中文），并记录各 token 朗读偏移供重读高亮
     let spoken = "", spRanges = [];
-    ph.units.forEach(u => {
-      if (spRanges.length) spoken += " ";
-      const en = numToEn(u.ew);
-      spRanges.push([spoken.length, spoken.length + en.length]);
-      spoken += en;
+    spokenWords(ch.text).forEach(w => {
+      if (spoken) spoken += " ";
+      spRanges.push([spoken.length, spoken.length + w.length]);
+      spoken += w;
     });
-    spoken += tail;
     tts.speak(spoken, {
       rate: settings.rate,
       onboundary: e => {
@@ -241,7 +261,7 @@
         clearWordHl();
         if (stopAfter && isLastPh) { finish(false); return; }
         let ns = s, np = p + 1;
-        if (np >= sent.phrases.length) { ns = s + 1; np = 0; }
+        if (np >= sent.chunks.length) { ns = s + 1; np = 0; }
         const gap = (isLastPh ? SENT_GAP : PHRASE_GAP) / Math.max(0.5, settings.rate);
         setTimeout(() => chain(ns, np, myGen, stopAfter), gap);
       },
@@ -264,7 +284,8 @@
     playing = false;
     clearWordHl();
     if (allDone) {
-      toast("已读完整篇");
+      toast("已读完整篇，Day 完成 🎉");
+      localStorage.setItem(DONE_KEY, "1");
       localStorage.removeItem(POS_KEY);
       cur = { s: 0, p: 0 };
       sntEls.forEach(el => el.classList.remove("on"));
@@ -328,6 +349,10 @@
     if (!ttsOK()) { toast(NO_TTS_MSG); return; }
     tts.speak(numToEn(word), { rate: Math.max(0.6, settings.rate * 0.9) });
   }
+  function speakPhrase(text) {
+    if (!ttsOK()) { toast(NO_TTS_MSG); return; }
+    tts.speak(spokenWords(text).join(" "), { rate: Math.max(0.6, settings.rate * 0.9) });
+  }
   function onWordClick(tok, e) {
     e.stopPropagation();
     const w = tok.dataset.w.replace(/[^\w'’-]/g, "");
@@ -335,7 +360,7 @@
     flashCw(tok);
     if (!ttsOK()) { toast(NO_TTS_MSG); return; }
     if (playing) {
-      // 打断当前句 → 读单词 → 从当前短语继续
+      // 打断当前句 → 读单词 → 从当前 chunk 继续
       const myGen = nextGen();
       tts.stop();
       clearWordHl();
@@ -355,7 +380,7 @@
   $("playBtn").addEventListener("click", playAll);
   $("prevBtn").addEventListener("click", () => step(-1));
   $("nextBtn").addEventListener("click", () => step(1));
-  $("backBtn").addEventListener("click", () => { location.href = "index.html"; });
+  $("backBtn").addEventListener("click", () => { location.href = "stage.html?stage=" + art.stage; });
 
   $("pprog").addEventListener("click", e => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -365,8 +390,10 @@
     else select(s, 0, true);
   });
 
-  $("rateSel").value = String(settings.rate);
-  $("rateSel").addEventListener("change", e => { set("rate", parseFloat(e.target.value)); });
+  const rateSel = $("rateSel");
+  if (![...rateSel.options].some(o => o.value === String(settings.rate))) set("rate", 1); // 旧存的 0.8/0.9 等已下架档位归一化
+  rateSel.value = String(settings.rate);
+  rateSel.addEventListener("change", e => { set("rate", parseFloat(e.target.value)); });
 
   document.addEventListener("keydown", e => {
     const tag = (e.target.tagName || "").toLowerCase();
@@ -377,7 +404,7 @@
   });
 
   /* ---------- 顶部"继续阅读" ---------- */
-  if (savedPos > 0 && savedPos < N - 1) {
+  if (savedPos > 0 && savedPos < N - 1 && localStorage.getItem(DONE_KEY) !== "1") {
     const chip = document.createElement("button");
     chip.className = "continue-chip";
     chip.textContent = `上次读到第 ${savedPos + 1} 句 · 点击继续`;
@@ -387,13 +414,14 @@
 
   /* ---------- 初始 ---------- */
   const metaHtml = [];
-  metaHtml.push(cat.name);
-  metaHtml.push(`${art.difficulty}难度`);
-  metaHtml.push(`${art.paragraphs.length} 段 · ${N} 句`);
-  if (art.estWords) metaHtml.push(`约 ${art.estWords} 字`);
+  metaHtml.push(`Stage ${art.stage} · ${art.titleCn}`);
+  metaHtml.push(`${art.category} · ${art.scene}`);
+  metaHtml.push(`${art.wordCount} 词 · ${N} 句`);
+  if (meta && meta.seconds) metaHtml.push(`约 ${meta.seconds} 秒`);
   $("artMeta").insertAdjacentHTML("afterbegin",
     metaHtml.map(t => `<span>${t}</span>`).join('<span class="dot"></span>'));
 
   select(savedPos, 0, false);
   window.addEventListener("beforeunload", () => { tts.stop(); localStorage.setItem(POS_KEY, cur.s); });
+  } /* init */
 })();

@@ -1,0 +1,1352 @@
+[
+  {
+    "article_id": "article_196",
+    "day": 196,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Learning patience in daily life",
+    "title_en": "Learning to Be Patient",
+    "title_cn": "学会耐心",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I used to get upset when things did not happen quickly. If a bus was late, I felt angry. If someone took a long time to reply, I thought they did not care about me. Over time, I learned that being impatient only made me feel worse. Now I try to take a deep breath and look at the situation calmly. Some things need time to develop. A good relationship, a new skill, or a personal goal cannot be built in one day. Patience does not mean doing nothing. It means continuing to make an effort without expecting instant results.",
+    "content_cn": "过去，只要事情没有很快发生，我就会感到烦躁。如果公交车晚点，我会生气；如果有人很久没有回复我，我就会觉得对方不在乎我。慢慢地，我明白了，缺乏耐心只会让我感觉更糟。现在，我会试着深呼吸，冷静地看待情况。有些事情需要时间才能发展。一段良好的关系、一项新技能或一个个人目标，都不可能在一天之内建立起来。耐心并不意味着什么都不做，而是继续努力，同时不期待立刻得到结果。",
+    "sentences": [
+      {"sentence_en":"I used to get upset when things did not happen quickly.","sentence_cn":"过去，只要事情没有很快发生，我就会感到烦躁。","chunks":[{"text":"I used to","meaning":"我过去常常"},{"text":"get upset","meaning":"感到烦躁"},{"text":"when things did not happen quickly.","meaning":"当事情没有很快发生时"}],"explanation":"used to 表示过去经常发生、现在可能已经改变的习惯。"},
+      {"sentence_en":"If a bus was late, I felt angry.","sentence_cn":"如果公交车晚点，我会生气。","chunks":[{"text":"If a bus was late,","meaning":"如果公交车晚点"},{"text":"I felt angry.","meaning":"我会感到生气"}],"explanation":"if 引导条件状语从句，描述一种常见情况。"},
+      {"sentence_en":"If someone took a long time to reply, I thought they did not care about me.","sentence_cn":"如果有人很久没有回复我，我就会觉得对方不在乎我。","chunks":[{"text":"If someone took a long time to reply,","meaning":"如果有人花很长时间回复"},{"text":"I thought","meaning":"我就认为"},{"text":"they did not care about me.","meaning":"对方不在乎我"}],"explanation":"take a long time to do something 表示做某事花费很长时间。"},
+      {"sentence_en":"Over time, I learned that being impatient only made me feel worse.","sentence_cn":"慢慢地，我明白了，缺乏耐心只会让我感觉更糟。","chunks":[{"text":"Over time,","meaning":"随着时间推移"},{"text":"I learned that","meaning":"我明白了"},{"text":"being impatient","meaning":"缺乏耐心"},{"text":"only made me feel worse.","meaning":"只会让我感觉更糟"}],"explanation":"being impatient 是动名词短语，在 that 从句中作主语。"},
+      {"sentence_en":"Now I try to take a deep breath and look at the situation calmly.","sentence_cn":"现在，我会试着深呼吸，冷静地看待情况。","chunks":[{"text":"Now I try to","meaning":"现在我试着"},{"text":"take a deep breath","meaning":"深吸一口气"},{"text":"and look at the situation calmly.","meaning":"并冷静地看待情况"}],"explanation":"try to 后接动词原形；calmly 修饰 look at。"},
+      {"sentence_en":"Some things need time to develop.","sentence_cn":"有些事情需要时间才能发展。","chunks":[{"text":"Some things","meaning":"有些事情"},{"text":"need time","meaning":"需要时间"},{"text":"to develop.","meaning":"去发展"}],"explanation":"need time to do 表示需要时间做某事。"},
+      {"sentence_en":"A good relationship, a new skill, or a personal goal cannot be built in one day.","sentence_cn":"一段良好的关系、一项新技能或一个个人目标，都不可能在一天之内建立起来。","chunks":[{"text":"A good relationship, a new skill, or a personal goal","meaning":"良好的关系、新技能或个人目标"},{"text":"cannot be built","meaning":"不可能被建立"},{"text":"in one day.","meaning":"在一天之内"}],"explanation":"cannot be built 是被动语态，强调事物不是短时间形成的。"},
+      {"sentence_en":"Patience does not mean doing nothing.","sentence_cn":"耐心并不意味着什么都不做。","chunks":[{"text":"Patience","meaning":"耐心"},{"text":"does not mean","meaning":"并不意味着"},{"text":"doing nothing.","meaning":"什么都不做"}],"explanation":"mean doing 表示意味着做某事。"},
+      {"sentence_en":"It means continuing to make an effort without expecting instant results.","sentence_cn":"而是继续努力，同时不期待立刻得到结果。","chunks":[{"text":"It means","meaning":"它意味着"},{"text":"continuing to make an effort","meaning":"继续付出努力"},{"text":"without expecting instant results.","meaning":"而不期待立即得到结果"}],"explanation":"without 后接动名词，表示不做某事。"}
+    ],
+    "vocabulary":[
+      {"word":"impatient","phonetic":"","meaning":"没有耐心的","part_of_speech":"adjective"},
+      {"word":"upset","phonetic":"","meaning":"烦躁的；难过的","part_of_speech":"adjective"},
+      {"word":"calmly","phonetic":"","meaning":"冷静地","part_of_speech":"adverb"},
+      {"word":"develop","phonetic":"","meaning":"发展；形成","part_of_speech":"verb"},
+      {"word":"instant","phonetic":"","meaning":"立即的；即时的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"get upset","meaning":"感到烦躁或难过","example":"I get upset when plans change."},
+      {"expression":"take a deep breath","meaning":"深呼吸","example":"Take a deep breath and relax."},
+      {"expression":"over time","meaning":"随着时间推移","example":"Things will get better over time."},
+      {"expression":"make an effort","meaning":"付出努力","example":"You need to make an effort."},
+      {"expression":"in one day","meaning":"在一天之内","example":"You cannot learn everything in one day."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What made the writer angry in the past?","answer":"A late bus or a slow reply."},
+      {"type":"inference","question":"Why does the writer try to stay calm now?","answer":"Because impatience only made the writer feel worse."},
+      {"type":"main_idea","question":"What does patience mean to the writer?","answer":"Continuing to make an effort without expecting instant results."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"自然表达，符合A2-B1难度。"}
+  },
+  {
+    "article_id": "article_197",
+    "day": 197,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Emotional Intelligence",
+    "scene": "Managing anger in everyday situations",
+    "title_en": "How I Deal with Anger",
+    "title_cn": "我如何面对愤怒",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Everyone gets angry sometimes, but people deal with anger in different ways. In the past, I often spoke too quickly when I was upset. Later, I sometimes regretted my words. Now I try to notice the signs of anger before it becomes too strong. My face may feel hot, or my voice may become louder. When this happens, I stop talking for a moment. I may walk outside or drink some water. After I calm down, I can explain what is bothering me. I have learned that controlling anger is not about hiding feelings. It is about expressing them in a better way.",
+    "content_cn": "每个人有时都会生气，但每个人处理愤怒的方式不同。过去，当我心情不好时，我常常说话太快。后来，我有时会后悔自己说过的话。现在，我会尽量在愤怒变得强烈之前，注意到它出现的迹象。我的脸可能会发热，或者声音变大。这种情况发生时，我会暂时停止说话。我可能会到外面走走，或者喝点水。等我平静下来，就能解释是什么事情让我烦恼。我逐渐明白，控制愤怒并不是隐藏情绪，而是用更好的方式表达它们。",
+    "sentences":[
+      {"sentence_en":"Everyone gets angry sometimes, but people deal with anger in different ways.","sentence_cn":"每个人有时都会生气，但每个人处理愤怒的方式不同。","chunks":[{"text":"Everyone gets angry sometimes,","meaning":"每个人有时都会生气"},{"text":"but people deal with anger","meaning":"但人们处理愤怒"},{"text":"in different ways.","meaning":"有不同的方式"}],"explanation":"deal with 表示处理、应对。"},
+      {"sentence_en":"In the past, I often spoke too quickly when I was upset.","sentence_cn":"过去，当我心情不好时，我常常说话太快。","chunks":[{"text":"In the past,","meaning":"过去"},{"text":"I often spoke too quickly","meaning":"我常常说话太快"},{"text":"when I was upset.","meaning":"当我心情不好时"}],"explanation":"spoke 是 speak 的过去式；too quickly 表示过快。"},
+      {"sentence_en":"Later, I sometimes regretted my words.","sentence_cn":"后来，我有时会后悔自己说过的话。","chunks":[{"text":"Later,","meaning":"后来"},{"text":"I sometimes regretted","meaning":"我有时会后悔"},{"text":"my words.","meaning":"自己说过的话"}],"explanation":"regret 表示后悔，后接名词或动名词。"},
+      {"sentence_en":"Now I try to notice the signs of anger before it becomes too strong.","sentence_cn":"现在，我会尽量在愤怒变得强烈之前，注意到它出现的迹象。","chunks":[{"text":"Now I try to notice","meaning":"现在我试着留意"},{"text":"the signs of anger","meaning":"愤怒的迹象"},{"text":"before it becomes too strong.","meaning":"在它变得过于强烈之前"}],"explanation":"before 引导时间状语从句。"},
+      {"sentence_en":"My face may feel hot, or my voice may become louder.","sentence_cn":"我的脸可能会发热，或者声音变大。","chunks":[{"text":"My face may feel hot,","meaning":"我的脸可能会发热"},{"text":"or my voice may become louder.","meaning":"或者我的声音可能变大"}],"explanation":"may 表示可能；become 后接形容词。"},
+      {"sentence_en":"When this happens, I stop talking for a moment.","sentence_cn":"这种情况发生时，我会暂时停止说话。","chunks":[{"text":"When this happens,","meaning":"当这种情况发生时"},{"text":"I stop talking","meaning":"我停止说话"},{"text":"for a moment.","meaning":"片刻"}],"explanation":"stop doing 表示停止正在做的事情。"},
+      {"sentence_en":"I may walk outside or drink some water.","sentence_cn":"我可能会到外面走走，或者喝点水。","chunks":[{"text":"I may","meaning":"我可能会"},{"text":"walk outside","meaning":"到外面走走"},{"text":"or drink some water.","meaning":"或者喝点水"}],"explanation":"or 连接两个并列动作。"},
+      {"sentence_en":"After I calm down, I can explain what is bothering me.","sentence_cn":"等我平静下来，就能解释是什么事情让我烦恼。","chunks":[{"text":"After I calm down,","meaning":"等我平静下来之后"},{"text":"I can explain","meaning":"我就能解释"},{"text":"what is bothering me.","meaning":"是什么事情让我烦恼"}],"explanation":"what 引导宾语从句；bother 表示使烦恼。"},
+      {"sentence_en":"I have learned that controlling anger is not about hiding feelings.","sentence_cn":"我逐渐明白，控制愤怒并不是隐藏情绪。","chunks":[{"text":"I have learned that","meaning":"我已经明白"},{"text":"controlling anger","meaning":"控制愤怒"},{"text":"is not about hiding feelings.","meaning":"并不是隐藏情绪"}],"explanation":"现在完成时表示逐渐获得的经验。"},
+      {"sentence_en":"It is about expressing them in a better way.","sentence_cn":"而是用更好的方式表达它们。","chunks":[{"text":"It is about","meaning":"它的重点在于"},{"text":"expressing them","meaning":"表达它们"},{"text":"in a better way.","meaning":"用更好的方式"}],"explanation":"be about doing 表示重点在于做某事。"}
+    ],
+    "vocabulary":[
+      {"word":"anger","phonetic":"","meaning":"愤怒","part_of_speech":"noun"},
+      {"word":"regret","phonetic":"","meaning":"后悔","part_of_speech":"verb"},
+      {"word":"notice","phonetic":"","meaning":"注意到","part_of_speech":"verb"},
+      {"word":"sign","phonetic":"","meaning":"迹象；标志","part_of_speech":"noun"},
+      {"word":"express","phonetic":"","meaning":"表达","part_of_speech":"verb"}
+    ],
+    "expressions":[
+      {"expression":"deal with","meaning":"处理；应对","example":"I need to deal with this problem."},
+      {"expression":"in the past","meaning":"过去","example":"I was very shy in the past."},
+      {"expression":"calm down","meaning":"平静下来","example":"Please calm down and listen."},
+      {"expression":"for a moment","meaning":"片刻","example":"Wait here for a moment."},
+      {"expression":"be bothered by","meaning":"因……而烦恼","example":"She was bothered by the noise."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What did the writer often do when upset in the past?","answer":"The writer spoke too quickly."},
+      {"type":"sequence","question":"What does the writer do when anger appears?","answer":"The writer stops talking, walks outside or drinks water, and waits to calm down."},
+      {"type":"main_idea","question":"What is controlling anger about?","answer":"Expressing feelings in a better way rather than hiding them."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"情绪表达场景自然，句型难度适中。"}
+  },
+  {
+    "article_id": "article_198",
+    "day": 198,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Facing personal fears",
+    "title_en": "Overcoming My Fears",
+    "title_cn": "克服我的恐惧",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I used to be afraid of speaking in front of other people. Even when I knew the answer, I stayed quiet because I worried about making mistakes. One day, my teacher asked me to introduce a small project. My hands were shaking, but I decided to try. I prepared a few notes and practiced at home. The presentation was not perfect, but people understood me. That experience changed the way I saw fear. I realized that confidence does not always come before action. Sometimes, we become more confident by doing the things that scare us.",
+    "content_cn": "过去，我很害怕在别人面前讲话。即使我知道答案，也会因为担心犯错而保持沉默。有一天，老师让我介绍一个小项目。我的双手在发抖，但我还是决定试一试。我准备了一些笔记，并在家里练习。那次展示并不完美，但大家听懂了我的意思。这次经历改变了我看待恐惧的方式。我意识到，自信并不总是在行动之前出现。有时候，我们正是通过做那些让自己害怕的事情，才逐渐变得更加自信。",
+    "sentences":[
+      {"sentence_en":"I used to be afraid of speaking in front of other people.","sentence_cn":"过去，我很害怕在别人面前讲话。","chunks":[{"text":"I used to be afraid of","meaning":"我过去很害怕"},{"text":"speaking","meaning":"讲话"},{"text":"in front of other people.","meaning":"在其他人面前"}],"explanation":"be afraid of 后接名词或动名词。"},
+      {"sentence_en":"Even when I knew the answer, I stayed quiet because I worried about making mistakes.","sentence_cn":"即使我知道答案，也会因为担心犯错而保持沉默。","chunks":[{"text":"Even when I knew the answer,","meaning":"即使我知道答案"},{"text":"I stayed quiet","meaning":"我仍然保持沉默"},{"text":"because I worried about making mistakes.","meaning":"因为我担心犯错"}],"explanation":"even when 表示即使在某种情况下；worry about 后接动名词。"},
+      {"sentence_en":"One day, my teacher asked me to introduce a small project.","sentence_cn":"有一天，老师让我介绍一个小项目。","chunks":[{"text":"One day,","meaning":"有一天"},{"text":"my teacher asked me","meaning":"老师让我"},{"text":"to introduce a small project.","meaning":"介绍一个小项目"}],"explanation":"ask someone to do something 表示让某人做某事。"},
+      {"sentence_en":"My hands were shaking, but I decided to try.","sentence_cn":"我的双手在发抖，但我还是决定试一试。","chunks":[{"text":"My hands were shaking,","meaning":"我的双手正在发抖"},{"text":"but I decided","meaning":"但我决定"},{"text":"to try.","meaning":"试一试"}],"explanation":"过去进行时描述当时正在发生的动作。"},
+      {"sentence_en":"I prepared a few notes and practiced at home.","sentence_cn":"我准备了一些笔记，并在家里练习。","chunks":[{"text":"I prepared a few notes","meaning":"我准备了一些笔记"},{"text":"and practiced","meaning":"并进行了练习"},{"text":"at home.","meaning":"在家里"}],"explanation":"prepared 和 practiced 是并列的过去式动作。"},
+      {"sentence_en":"The presentation was not perfect, but people understood me.","sentence_cn":"那次展示并不完美，但大家听懂了我的意思。","chunks":[{"text":"The presentation was not perfect,","meaning":"这次展示并不完美"},{"text":"but people understood me.","meaning":"但大家理解了我"}],"explanation":"understood 是 understand 的过去式。"},
+      {"sentence_en":"That experience changed the way I saw fear.","sentence_cn":"这次经历改变了我看待恐惧的方式。","chunks":[{"text":"That experience","meaning":"那次经历"},{"text":"changed the way","meaning":"改变了……的方式"},{"text":"I saw fear.","meaning":"我看待恐惧"}],"explanation":"the way 后可接定语从句，说明看待事物的方式。"},
+      {"sentence_en":"I realized that confidence does not always come before action.","sentence_cn":"我意识到，自信并不总是在行动之前出现。","chunks":[{"text":"I realized that","meaning":"我意识到"},{"text":"confidence does not always come","meaning":"自信并不总是出现"},{"text":"before action.","meaning":"在行动之前"}],"explanation":"realize 后接 that 引导的宾语从句。"},
+      {"sentence_en":"Sometimes, we become more confident by doing the things that scare us.","sentence_cn":"有时候，我们正是通过做那些让自己害怕的事情，才逐渐变得更加自信。","chunks":[{"text":"Sometimes,","meaning":"有时候"},{"text":"we become more confident","meaning":"我们会变得更加自信"},{"text":"by doing the things","meaning":"通过做那些事情"},{"text":"that scare us.","meaning":"让我们害怕的事情"}],"explanation":"by doing 表示通过某种方式；that 引导定语从句。"}
+    ],
+    "vocabulary":[
+      {"word":"fear","phonetic":"","meaning":"恐惧","part_of_speech":"noun"},
+      {"word":"introduce","phonetic":"","meaning":"介绍","part_of_speech":"verb"},
+      {"word":"shake","phonetic":"","meaning":"发抖；摇动","part_of_speech":"verb"},
+      {"word":"presentation","phonetic":"","meaning":"展示；演讲","part_of_speech":"noun"},
+      {"word":"confidence","phonetic":"","meaning":"自信","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"be afraid of","meaning":"害怕……","example":"I am afraid of making mistakes."},
+      {"expression":"stay quiet","meaning":"保持安静；不说话","example":"He stayed quiet during the meeting."},
+      {"expression":"make mistakes","meaning":"犯错误","example":"Everyone makes mistakes."},
+      {"expression":"decide to try","meaning":"决定尝试","example":"I decided to try something new."},
+      {"expression":"by doing","meaning":"通过做某事","example":"You learn by doing."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What was the writer afraid of?","answer":"Speaking in front of other people."},
+      {"type":"sequence","question":"How did the writer prepare for the presentation?","answer":"The writer prepared notes and practiced at home."},
+      {"type":"inference","question":"What lesson did the writer learn about confidence?","answer":"Confidence can grow after taking action, even when we feel afraid."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"使用具体经历呈现克服恐惧的过程。"}
+  },
+  {
+    "article_id": "article_199",
+    "day": 199,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Positive Thinking",
+    "scene": "Building a positive attitude",
+    "title_en": "The Power of a Positive Attitude",
+    "title_cn": "积极心态的力量",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A positive attitude cannot solve every problem, but it can change how we face them. When I have a difficult day, I try not to think that everything is going wrong. Instead, I ask myself what I can learn from the situation. This does not mean pretending that everything is fine. It means looking for a useful next step. For example, if I fail an exam, I can review my mistakes and prepare better next time. A positive attitude helps me keep moving forward. It reminds me that one bad experience does not decide what my whole future will be like.",
+    "content_cn": "积极的心态无法解决所有问题，但它能够改变我们面对问题的方式。当我度过艰难的一天时，我尽量不去想是不是所有事情都在变糟。相反，我会问自己能从这件事中学到什么。这并不意味着假装一切都很好，而是寻找一个有用的下一步。例如，如果考试失败了，我可以复习自己的错误，为下一次做好准备。积极的心态能帮助我继续前进。它提醒我，一次糟糕的经历并不能决定我的整个未来。",
+    "sentences":[
+      {"sentence_en":"A positive attitude cannot solve every problem, but it can change how we face them.","sentence_cn":"积极的心态无法解决所有问题，但它能够改变我们面对问题的方式。","chunks":[{"text":"A positive attitude","meaning":"积极的心态"},{"text":"cannot solve every problem,","meaning":"无法解决所有问题"},{"text":"but it can change","meaning":"但它能够改变"},{"text":"how we face them.","meaning":"我们面对它们的方式"}],"explanation":"how 引导宾语从句，说明面对问题的方式。"},
+      {"sentence_en":"When I have a difficult day, I try not to think that everything is going wrong.","sentence_cn":"当我度过艰难的一天时，我尽量不去想是不是所有事情都在变糟。","chunks":[{"text":"When I have a difficult day,","meaning":"当我度过艰难的一天时"},{"text":"I try not to think","meaning":"我尽量不去想"},{"text":"that everything is going wrong.","meaning":"所有事情都在变糟"}],"explanation":"try not to do 表示尽量不做某事。"},
+      {"sentence_en":"Instead, I ask myself what I can learn from the situation.","sentence_cn":"相反，我会问自己能从这件事中学到什么。","chunks":[{"text":"Instead,","meaning":"相反"},{"text":"I ask myself","meaning":"我问自己"},{"text":"what I can learn","meaning":"我能学到什么"},{"text":"from the situation.","meaning":"从这种情况中"}],"explanation":"what 引导宾语从句，使用陈述语序。"},
+      {"sentence_en":"This does not mean pretending that everything is fine.","sentence_cn":"这并不意味着假装一切都很好。","chunks":[{"text":"This does not mean","meaning":"这并不意味着"},{"text":"pretending","meaning":"假装"},{"text":"that everything is fine.","meaning":"一切都很好"}],"explanation":"mean 后接动名词；pretend 表示假装。"},
+      {"sentence_en":"It means looking for a useful next step.","sentence_cn":"而是寻找一个有用的下一步。","chunks":[{"text":"It means","meaning":"它意味着"},{"text":"looking for","meaning":"寻找"},{"text":"a useful next step.","meaning":"一个有用的下一步"}],"explanation":"look for 表示寻找。"},
+      {"sentence_en":"For example, if I fail an exam, I can review my mistakes and prepare better next time.","sentence_cn":"例如，如果考试失败了，我可以复习自己的错误，为下一次做好准备。","chunks":[{"text":"For example,","meaning":"例如"},{"text":"if I fail an exam,","meaning":"如果我考试不及格"},{"text":"I can review my mistakes","meaning":"我可以复习自己的错误"},{"text":"and prepare better next time.","meaning":"并为下一次做得更好而准备"}],"explanation":"if 引导条件句，主句使用 can 表示可能采取的行动。"},
+      {"sentence_en":"A positive attitude helps me keep moving forward.","sentence_cn":"积极的心态能帮助我继续前进。","chunks":[{"text":"A positive attitude","meaning":"积极的心态"},{"text":"helps me","meaning":"帮助我"},{"text":"keep moving forward.","meaning":"继续向前"}],"explanation":"help someone do；keep doing 表示持续做某事。"},
+      {"sentence_en":"It reminds me that one bad experience does not decide what my whole future will be like.","sentence_cn":"它提醒我，一次糟糕的经历并不能决定我的整个未来。","chunks":[{"text":"It reminds me that","meaning":"它提醒我"},{"text":"one bad experience","meaning":"一次糟糕的经历"},{"text":"does not decide","meaning":"并不能决定"},{"text":"what my whole future will be like.","meaning":"我的整个未来会是什么样"}],"explanation":"remind someone that 表示提醒某人某事；what 引导宾语从句。"}
+    ],
+    "vocabulary":[
+      {"word":"attitude","phonetic":"","meaning":"态度；心态","part_of_speech":"noun"},
+      {"word":"situation","phonetic":"","meaning":"情况；处境","part_of_speech":"noun"},
+      {"word":"pretend","phonetic":"","meaning":"假装","part_of_speech":"verb"},
+      {"word":"review","phonetic":"","meaning":"复习；回顾","part_of_speech":"verb"},
+      {"word":"remind","phonetic":"","meaning":"提醒","part_of_speech":"verb"}
+    ],
+    "expressions":[
+      {"expression":"face a problem","meaning":"面对问题","example":"We need to face the problem together."},
+      {"expression":"instead of","meaning":"而不是","example":"Walk instead of taking a taxi."},
+      {"expression":"learn from","meaning":"从……中学习","example":"I learned a lot from the experience."},
+      {"expression":"for example","meaning":"例如","example":"For example, you can start with a short walk."},
+      {"expression":"move forward","meaning":"继续前进","example":"Let us forget the past and move forward."}
+    ],
+    "questions":[
+      {"type":"main_idea","question":"What can a positive attitude change?","answer":"It can change how we face problems."},
+      {"type":"detail","question":"What can the writer do after failing an exam?","answer":"Review mistakes and prepare better next time."},
+      {"type":"inference","question":"Does a positive attitude mean ignoring problems?","answer":"No. It means accepting the situation and looking for a useful next step."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"强调积极心态不是盲目乐观，而是采取行动。"}
+  },
+  {
+    "article_id": "article_200",
+    "day": 200,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Health and Lifestyle",
+    "scene": "Developing a self-care routine",
+    "title_en": "Taking Care of Myself",
+    "title_cn": "照顾好自己",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "For a long time, I thought taking care of myself was selfish. I often put work and other people's needs first. As a result, I felt tired and had little time to enjoy life. Now I understand that self-care is an important part of a healthy routine. I try to get enough sleep, eat regular meals, and spend some time outdoors. I also allow myself to take breaks when I need them. These small habits do not take much time, but they make a real difference. When I feel better, I have more energy to help others and finish my work.",
+    "content_cn": "很长一段时间里，我认为照顾自己是一种自私的行为。我经常把工作和别人的需求放在第一位。结果，我总是感到疲惫，也很少有时间享受生活。现在我明白了，自我照顾是健康生活习惯的重要组成部分。我尽量保证充足睡眠、按时吃饭，并花一些时间到户外活动。我也允许自己在需要时休息一下。这些小习惯并不占用太多时间，却能带来真正的改变。当我感觉更好时，就会有更多精力帮助别人和完成工作。",
+    "sentences":[
+      {"sentence_en":"For a long time, I thought taking care of myself was selfish.","sentence_cn":"很长一段时间里，我认为照顾自己是一种自私的行为。","chunks":[{"text":"For a long time,","meaning":"很长一段时间里"},{"text":"I thought","meaning":"我认为"},{"text":"taking care of myself","meaning":"照顾自己"},{"text":"was selfish.","meaning":"是自私的"}],"explanation":"taking care of myself 是动名词短语，作宾语从句的主语。"},
+      {"sentence_en":"I often put work and other people's needs first.","sentence_cn":"我经常把工作和别人的需求放在第一位。","chunks":[{"text":"I often","meaning":"我经常"},{"text":"put work and other people's needs","meaning":"把工作和别人的需求"},{"text":"first.","meaning":"放在首位"}],"explanation":"put something first 表示把某事放在优先位置。"},
+      {"sentence_en":"As a result, I felt tired and had little time to enjoy life.","sentence_cn":"结果，我总是感到疲惫，也很少有时间享受生活。","chunks":[{"text":"As a result,","meaning":"结果"},{"text":"I felt tired","meaning":"我感到疲惫"},{"text":"and had little time","meaning":"并且几乎没有时间"},{"text":"to enjoy life.","meaning":"享受生活"}],"explanation":"as a result 用于引出结果；little 表示几乎没有。"},
+      {"sentence_en":"Now I understand that self-care is an important part of a healthy routine.","sentence_cn":"现在我明白了，自我照顾是健康生活习惯的重要组成部分。","chunks":[{"text":"Now I understand that","meaning":"现在我明白"},{"text":"self-care","meaning":"自我照顾"},{"text":"is an important part of","meaning":"是……的重要组成部分"},{"text":"a healthy routine.","meaning":"健康的日常习惯"}],"explanation":"an important part of 是常见表达。"},
+      {"sentence_en":"I try to get enough sleep, eat regular meals, and spend some time outdoors.","sentence_cn":"我尽量保证充足睡眠、按时吃饭，并花一些时间到户外活动。","chunks":[{"text":"I try to","meaning":"我尽量"},{"text":"get enough sleep,","meaning":"获得充足睡眠"},{"text":"eat regular meals,","meaning":"按时吃饭"},{"text":"and spend some time outdoors.","meaning":"并花些时间在户外"}],"explanation":"三个动词短语并列，结构保持一致。"},
+      {"sentence_en":"I also allow myself to take breaks when I need them.","sentence_cn":"我也允许自己在需要时休息一下。","chunks":[{"text":"I also allow myself","meaning":"我也允许自己"},{"text":"to take breaks","meaning":"休息一下"},{"text":"when I need them.","meaning":"在我需要的时候"}],"explanation":"allow someone to do something 表示允许某人做某事。"},
+      {"sentence_en":"These small habits do not take much time, but they make a real difference.","sentence_cn":"这些小习惯并不占用太多时间，却能带来真正的改变。","chunks":[{"text":"These small habits","meaning":"这些小习惯"},{"text":"do not take much time,","meaning":"不会占用太多时间"},{"text":"but they make a real difference.","meaning":"但它们能带来真正的改变"}],"explanation":"make a difference 表示产生影响或带来改变。"},
+      {"sentence_en":"When I feel better, I have more energy to help others and finish my work.","sentence_cn":"当我感觉更好时，就会有更多精力帮助别人和完成工作。","chunks":[{"text":"When I feel better,","meaning":"当我感觉更好时"},{"text":"I have more energy","meaning":"我就有更多精力"},{"text":"to help others","meaning":"去帮助别人"},{"text":"and finish my work.","meaning":"并完成工作"}],"explanation":"energy to do 表示做某事的精力。"}
+    ],
+    "vocabulary":[
+      {"word":"self-care","phonetic":"","meaning":"自我照顾","part_of_speech":"noun"},
+      {"word":"selfish","phonetic":"","meaning":"自私的","part_of_speech":"adjective"},
+      {"word":"routine","phonetic":"","meaning":"日常习惯；常规","part_of_speech":"noun"},
+      {"word":"regular","phonetic":"","meaning":"有规律的；定期的","part_of_speech":"adjective"},
+      {"word":"energy","phonetic":"","meaning":"精力；能量","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"take care of","meaning":"照顾","example":"I need to take care of myself."},
+      {"expression":"put something first","meaning":"把某事放在第一位","example":"She always puts her family first."},
+      {"expression":"as a result","meaning":"因此；结果","example":"He practiced every day. As a result, he improved."},
+      {"expression":"take a break","meaning":"休息一下","example":"Let's take a short break."},
+      {"expression":"make a real difference","meaning":"带来真正的改变","example":"Small actions can make a real difference."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Why did the writer feel tired in the past?","answer":"The writer put work and other people's needs first."},
+      {"type":"detail","question":"Name two self-care habits from the passage.","answer":"Getting enough sleep and eating regular meals."},
+      {"type":"inference","question":"Why does self-care also help other people?","answer":"Because feeling better gives the writer more energy to help others."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"生活方式主题，强调可执行的小习惯。"}
+  },
+  {
+    "article_id": "article_201",
+    "day": 201,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Reading and Learning",
+    "scene": "Developing a reading habit",
+    "title_en": "Why I Love Reading",
+    "title_cn": "我为什么喜欢阅读",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Reading has become one of my favorite ways to spend free time. I enjoy books because they let me visit different places and understand other people's lives. Some books teach me useful information, while others help me imagine new worlds. I do not try to finish a book as quickly as possible. Instead, I read a few pages every day and think about what I have learned. Sometimes, a single sentence stays in my mind for a long time. Reading also helps me slow down and focus. It is a simple activity, but it can make my world much bigger.",
+    "content_cn": "阅读已经成为我最喜欢的休闲方式之一。我喜欢书籍，因为它们能让我去往不同的地方，了解其他人的生活。有些书教给我有用的知识，另一些则帮助我想象新的世界。我不会刻意追求尽快读完一本书，而是每天阅读几页，并思考自己学到了什么。有时，一句话就能在我的脑海中停留很久。阅读也能帮助我放慢节奏、集中注意力。这是一项简单的活动，却能让我的世界变得更加广阔。",
+    "sentences":[
+      {"sentence_en":"Reading has become one of my favorite ways to spend free time.","sentence_cn":"阅读已经成为我最喜欢的休闲方式之一。","chunks":[{"text":"Reading","meaning":"阅读"},{"text":"has become","meaning":"已经成为"},{"text":"one of my favorite ways","meaning":"我最喜欢的方式之一"},{"text":"to spend free time.","meaning":"度过空闲时间"}],"explanation":"现在完成时表示阅读逐渐成为一种习惯。"},
+      {"sentence_en":"I enjoy books because they let me visit different places and understand other people's lives.","sentence_cn":"我喜欢书籍，因为它们能让我去往不同的地方，了解其他人的生活。","chunks":[{"text":"I enjoy books","meaning":"我喜欢书籍"},{"text":"because they let me","meaning":"因为它们让我能够"},{"text":"visit different places","meaning":"去往不同的地方"},{"text":"and understand other people's lives.","meaning":"并了解其他人的生活"}],"explanation":"let someone do something 表示让某人做某事。"},
+      {"sentence_en":"Some books teach me useful information, while others help me imagine new worlds.","sentence_cn":"有些书教给我有用的知识，另一些则帮助我想象新的世界。","chunks":[{"text":"Some books teach me","meaning":"有些书教给我"},{"text":"useful information,","meaning":"有用的信息"},{"text":"while others help me","meaning":"而另一些则帮助我"},{"text":"imagine new worlds.","meaning":"想象新的世界"}],"explanation":"while 在这里表示对比。"},
+      {"sentence_en":"I do not try to finish a book as quickly as possible.","sentence_cn":"我不会刻意追求尽快读完一本书。","chunks":[{"text":"I do not try to","meaning":"我不会试图"},{"text":"finish a book","meaning":"读完一本书"},{"text":"as quickly as possible.","meaning":"尽可能快地"}],"explanation":"as...as possible 表示尽可能……。"},
+      {"sentence_en":"Instead, I read a few pages every day and think about what I have learned.","sentence_cn":"相反，我每天阅读几页，并思考自己学到了什么。","chunks":[{"text":"Instead,","meaning":"相反"},{"text":"I read a few pages every day","meaning":"我每天阅读几页"},{"text":"and think about","meaning":"并思考"},{"text":"what I have learned.","meaning":"我学到了什么"}],"explanation":"what 引导宾语从句；have learned 为现在完成时。"},
+      {"sentence_en":"Sometimes, a single sentence stays in my mind for a long time.","sentence_cn":"有时，一句话就能在我的脑海中停留很久。","chunks":[{"text":"Sometimes,","meaning":"有时"},{"text":"a single sentence","meaning":"一句话"},{"text":"stays in my mind","meaning":"留在我的脑海中"},{"text":"for a long time.","meaning":"很长时间"}],"explanation":"stay in one's mind 表示留在某人的记忆或脑海中。"},
+      {"sentence_en":"Reading also helps me slow down and focus.","sentence_cn":"阅读也能帮助我放慢节奏、集中注意力。","chunks":[{"text":"Reading also helps me","meaning":"阅读也帮助我"},{"text":"slow down","meaning":"放慢节奏"},{"text":"and focus.","meaning":"并集中注意力"}],"explanation":"help 后可接动词原形。"},
+      {"sentence_en":"It is a simple activity, but it can make my world much bigger.","sentence_cn":"这是一项简单的活动，却能让我的世界变得更加广阔。","chunks":[{"text":"It is a simple activity,","meaning":"这是一项简单的活动"},{"text":"but it can make","meaning":"但它能够让"},{"text":"my world much bigger.","meaning":"我的世界变得更加广阔"}],"explanation":"make 后接宾语和形容词，表示使某物变得怎样。"}
+    ],
+    "vocabulary":[
+      {"word":"reading","phonetic":"","meaning":"阅读","part_of_speech":"noun"},
+      {"word":"imagine","phonetic":"","meaning":"想象","part_of_speech":"verb"},
+      {"word":"information","phonetic":"","meaning":"信息；知识","part_of_speech":"noun"},
+      {"word":"single","phonetic":"","meaning":"单一的；单独的","part_of_speech":"adjective"},
+      {"word":"focus","phonetic":"","meaning":"集中注意力","part_of_speech":"verb"}
+    ],
+    "expressions":[
+      {"expression":"free time","meaning":"空闲时间","example":"I like walking in my free time."},
+      {"expression":"as quickly as possible","meaning":"尽可能快地","example":"Please reply as quickly as possible."},
+      {"expression":"think about","meaning":"思考；考虑","example":"Think about what you really want."},
+      {"expression":"stay in my mind","meaning":"留在我的脑海中","example":"That story stayed in my mind."},
+      {"expression":"slow down","meaning":"放慢速度","example":"You should slow down and enjoy life."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Why does the writer enjoy books?","answer":"They allow the writer to visit different places and understand other people's lives."},
+      {"type":"detail","question":"How much does the writer read each day?","answer":"A few pages."},
+      {"type":"main_idea","question":"What does reading bring to the writer?","answer":"Knowledge, imagination, focus, and a bigger view of the world."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"阅读主题，句型清晰，适合日常口语表达。"}
+  },
+  {
+    "article_id": "article_202",
+    "day": 202,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Entertainment",
+    "scene": "Talking about a favorite movie",
+    "title_en": "My Favorite Movie",
+    "title_cn": "我最喜欢的电影",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "One of my favorite movies is about a young man who never gives up on his dream. His life is not easy, and he faces many problems along the way. However, he keeps trying even when other people doubt him. I enjoy this movie because it is not only entertaining but also meaningful. The story reminds me that success often requires time, courage, and hard work. I also like the way the actors show their feelings. Whenever I watch the movie again, I notice something new. A good movie can stay with us long after the final scene ends.",
+    "content_cn": "我最喜欢的电影之一，讲述了一个永不放弃梦想的年轻人的故事。他的生活并不容易，一路上遇到了很多困难。然而，即使别人不看好他，他仍然不断尝试。我喜欢这部电影，因为它不仅有趣，而且富有意义。这个故事提醒我，成功往往需要时间、勇气和努力。我也喜欢演员表达情感的方式。每当我再次观看这部电影时，总能发现一些新的东西。一部好电影即使在最后一个场景结束很久之后，仍然会留在我们的心中。",
+    "sentences":[
+      {"sentence_en":"One of my favorite movies is about a young man who never gives up on his dream.","sentence_cn":"我最喜欢的电影之一，讲述了一个永不放弃梦想的年轻人的故事。","chunks":[{"text":"One of my favorite movies","meaning":"我最喜欢的电影之一"},{"text":"is about a young man","meaning":"讲述了一个年轻人的故事"},{"text":"who never gives up on his dream.","meaning":"他从不放弃自己的梦想"}],"explanation":"who 引导定语从句，修饰 young man。"},
+      {"sentence_en":"His life is not easy, and he faces many problems along the way.","sentence_cn":"他的生活并不容易，一路上遇到了很多困难。","chunks":[{"text":"His life is not easy,","meaning":"他的生活并不容易"},{"text":"and he faces many problems","meaning":"而且他面对许多问题"},{"text":"along the way.","meaning":"在这个过程中"}],"explanation":"along the way 表示在过程中。"},
+      {"sentence_en":"However, he keeps trying even when other people doubt him.","sentence_cn":"然而，即使别人不看好他，他仍然不断尝试。","chunks":[{"text":"However,","meaning":"然而"},{"text":"he keeps trying","meaning":"他不断尝试"},{"text":"even when other people doubt him.","meaning":"即使别人怀疑他"}],"explanation":"keep doing 表示持续做某事；doubt 表示怀疑。"},
+      {"sentence_en":"I enjoy this movie because it is not only entertaining but also meaningful.","sentence_cn":"我喜欢这部电影，因为它不仅有趣，而且富有意义。","chunks":[{"text":"I enjoy this movie","meaning":"我喜欢这部电影"},{"text":"because it is","meaning":"因为它"},{"text":"not only entertaining","meaning":"不仅有趣"},{"text":"but also meaningful.","meaning":"而且富有意义"}],"explanation":"not only...but also... 表示不仅……而且……。"},
+      {"sentence_en":"The story reminds me that success often requires time, courage, and hard work.","sentence_cn":"这个故事提醒我，成功往往需要时间、勇气和努力。","chunks":[{"text":"The story reminds me that","meaning":"这个故事提醒我"},{"text":"success often requires","meaning":"成功往往需要"},{"text":"time, courage, and hard work.","meaning":"时间、勇气和努力"}],"explanation":"require 表示需要、要求。"},
+      {"sentence_en":"I also like the way the actors show their feelings.","sentence_cn":"我也喜欢演员表达情感的方式。","chunks":[{"text":"I also like","meaning":"我也喜欢"},{"text":"the way","meaning":"……的方式"},{"text":"the actors show their feelings.","meaning":"演员表达情感"}],"explanation":"the way 后接定语从句，说明具体方式。"},
+      {"sentence_en":"Whenever I watch the movie again, I notice something new.","sentence_cn":"每当我再次观看这部电影时，总能发现一些新的东西。","chunks":[{"text":"Whenever I watch the movie again,","meaning":"每当我再次看这部电影时"},{"text":"I notice","meaning":"我就会注意到"},{"text":"something new.","meaning":"一些新的东西"}],"explanation":"whenever 表示每当；something new 中形容词放在不定代词后。"},
+      {"sentence_en":"A good movie can stay with us long after the final scene ends.","sentence_cn":"一部好电影即使在最后一个场景结束很久之后，仍然会留在我们的心中。","chunks":[{"text":"A good movie","meaning":"一部好电影"},{"text":"can stay with us","meaning":"能够留在我们心中"},{"text":"long after the final scene ends.","meaning":"在最后一个场景结束很久之后"}],"explanation":"stay with someone 表示给某人留下长久印象。"}
+    ],
+    "vocabulary":[
+      {"word":"dream","phonetic":"","meaning":"梦想","part_of_speech":"noun"},
+      {"word":"doubt","phonetic":"","meaning":"怀疑","part_of_speech":"verb"},
+      {"word":"entertaining","phonetic":"","meaning":"有趣的；娱乐性强的","part_of_speech":"adjective"},
+      {"word":"meaningful","phonetic":"","meaning":"有意义的","part_of_speech":"adjective"},
+      {"word":"courage","phonetic":"","meaning":"勇气","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"give up on","meaning":"放弃……","example":"Never give up on your dreams."},
+      {"expression":"along the way","meaning":"在过程中","example":"I learned a lot along the way."},
+      {"expression":"keep trying","meaning":"继续尝试","example":"Keep trying until you succeed."},
+      {"expression":"not only...but also...","meaning":"不仅……而且……","example":"The book is not only useful but also interesting."},
+      {"expression":"stay with someone","meaning":"给某人留下长久印象","example":"The memory will stay with me."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What is the movie about?","answer":"A young man who never gives up on his dream."},
+      {"type":"detail","question":"What qualities does success require in the story?","answer":"Time, courage, and hard work."},
+      {"type":"inference","question":"Why does the writer watch the movie again?","answer":"Because the story is meaningful and the writer notices something new each time."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"电影话题适合表达观点与个人喜好。"}
+  },
+  {
+    "article_id": "article_203",
+    "day": 203,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Music and Emotion",
+    "scene": "Describing an emotional song",
+    "title_en": "A Song That Moves Me",
+    "title_cn": "一首打动我的歌",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "There is a song that always makes me feel peaceful. I first heard it on a rainy evening when I was having a difficult time. The music was gentle, and the singer's voice sounded warm and honest. I did not understand every word, but I could feel the emotion behind the song. Since then, I have listened to it many times. Sometimes I play it while working, and sometimes I listen to it before going to bed. Music cannot change the past, but it can help us understand our feelings. That is why this song is special to me.",
+    "content_cn": "有一首歌总能让我感到平静。我第一次听到它，是在一个下雨的夜晚，当时我正经历一段艰难的时期。音乐很柔和，歌手的声音听起来温暖而真诚。我并没有听懂每一个词，但能感受到歌曲背后的情绪。从那以后，我听过它很多次。有时我会在工作时播放它，有时则会在睡前聆听。音乐无法改变过去，但它能够帮助我们理解自己的感受。这就是这首歌对我来说特别的原因。",
+    "sentences":[
+      {"sentence_en":"There is a song that always makes me feel peaceful.","sentence_cn":"有一首歌总能让我感到平静。","chunks":[{"text":"There is a song","meaning":"有一首歌"},{"text":"that always makes me","meaning":"它总是让我"},{"text":"feel peaceful.","meaning":"感到平静"}],"explanation":"that 引导定语从句；make 后接宾语和动词原形。"},
+      {"sentence_en":"I first heard it on a rainy evening when I was having a difficult time.","sentence_cn":"我第一次听到它，是在一个下雨的夜晚，当时我正经历一段艰难的时期。","chunks":[{"text":"I first heard it","meaning":"我第一次听到它"},{"text":"on a rainy evening","meaning":"在一个下雨的夜晚"},{"text":"when I was having a difficult time.","meaning":"当时我正经历困难时期"}],"explanation":"when 引导时间状语从句；was having 表示当时正在经历。"},
+      {"sentence_en":"The music was gentle, and the singer's voice sounded warm and honest.","sentence_cn":"音乐很柔和，歌手的声音听起来温暖而真诚。","chunks":[{"text":"The music was gentle,","meaning":"音乐很柔和"},{"text":"and the singer's voice","meaning":"而歌手的声音"},{"text":"sounded warm and honest.","meaning":"听起来温暖而真诚"}],"explanation":"sound 作系动词，后接形容词。"},
+      {"sentence_en":"I did not understand every word, but I could feel the emotion behind the song.","sentence_cn":"我并没有听懂每一个词，但能感受到歌曲背后的情绪。","chunks":[{"text":"I did not understand every word,","meaning":"我没有听懂每一个词"},{"text":"but I could feel","meaning":"但我能够感受到"},{"text":"the emotion behind the song.","meaning":"歌曲背后的情绪"}],"explanation":"could 表示过去能够做到某事。"},
+      {"sentence_en":"Since then, I have listened to it many times.","sentence_cn":"从那以后，我听过它很多次。","chunks":[{"text":"Since then,","meaning":"从那以后"},{"text":"I have listened to it","meaning":"我一直听这首歌"},{"text":"many times.","meaning":"很多次"}],"explanation":"since then 常与现在完成时连用。"},
+      {"sentence_en":"Sometimes I play it while working, and sometimes I listen to it before going to bed.","sentence_cn":"有时我会在工作时播放它，有时则会在睡前聆听。","chunks":[{"text":"Sometimes I play it","meaning":"有时我播放它"},{"text":"while working,","meaning":"在工作时"},{"text":"and sometimes I listen to it","meaning":"有时我听它"},{"text":"before going to bed.","meaning":"在睡觉之前"}],"explanation":"while working 是 while I am working 的省略形式。"},
+      {"sentence_en":"Music cannot change the past, but it can help us understand our feelings.","sentence_cn":"音乐无法改变过去，但它能够帮助我们理解自己的感受。","chunks":[{"text":"Music cannot change the past,","meaning":"音乐无法改变过去"},{"text":"but it can help us","meaning":"但它能帮助我们"},{"text":"understand our feelings.","meaning":"理解自己的感受"}],"explanation":"help 后接动词原形。"},
+      {"sentence_en":"That is why this song is special to me.","sentence_cn":"这就是这首歌对我来说特别的原因。","chunks":[{"text":"That is why","meaning":"这就是为什么"},{"text":"this song is special","meaning":"这首歌很特别"},{"text":"to me.","meaning":"对我而言"}],"explanation":"That is why 用于解释原因和结果。"}
+    ],
+    "vocabulary":[
+      {"word":"peaceful","phonetic":"","meaning":"平静的","part_of_speech":"adjective"},
+      {"word":"gentle","phonetic":"","meaning":"柔和的；温和的","part_of_speech":"adjective"},
+      {"word":"honest","phonetic":"","meaning":"真诚的；诚实的","part_of_speech":"adjective"},
+      {"word":"emotion","phonetic":"","meaning":"情绪；情感","part_of_speech":"noun"},
+      {"word":"special","phonetic":"","meaning":"特别的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"have a difficult time","meaning":"经历一段困难时期","example":"I had a difficult time last year."},
+      {"expression":"sound warm","meaning":"听起来温暖","example":"Her voice sounds warm and friendly."},
+      {"expression":"since then","meaning":"从那以后","example":"Since then, we have stayed in touch."},
+      {"expression":"while working","meaning":"在工作时","example":"I listen to music while working."},
+      {"expression":"before going to bed","meaning":"睡觉前","example":"I read before going to bed."}
+    ],
+    "questions":[
+      {"type":"detail","question":"When did the writer first hear the song?","answer":"On a rainy evening during a difficult time."},
+      {"type":"detail","question":"What did the writer think of the singer's voice?","answer":"It sounded warm and honest."},
+      {"type":"inference","question":"Why is the song special to the writer?","answer":"It brings peace and helps the writer understand personal feelings."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"使用音乐与情绪联系，适合描述个人感受。"}
+  },
+  {
+    "article_id": "article_204",
+    "day": 204,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Daily Skills",
+    "scene": "Learning to cook at home",
+    "title_en": "Learning to Cook",
+    "title_cn": "学习做饭",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "I did not know how to cook when I first lived alone. Most days, I bought food from nearby restaurants. It was convenient, but it cost more than I expected. One weekend, I decided to learn a few simple dishes. I started with fried rice, vegetable soup, and scrambled eggs. My first meals were not very good, but I kept practicing. I also learned how to choose fresh ingredients and use less oil. Cooking has become a useful skill and a relaxing activity. Now I enjoy preparing food for myself, and sometimes I invite friends to share a meal.",
+    "content_cn": "刚开始独自生活时，我还不会做饭。大多数时候，我都从附近的餐馆买食物。这样虽然方便，但花费比我预想的更多。一个周末，我决定学习做几道简单的菜。我从炒饭、蔬菜汤和炒鸡蛋开始。最初做出来的饭菜并不怎么样，但我坚持练习。我还学会了如何挑选新鲜食材，以及如何少放一些油。做饭已经成为一项实用技能，也是一种放松的活动。现在，我喜欢为自己准备食物，有时还会邀请朋友一起吃饭。",
+    "sentences":[
+      {"sentence_en":"I did not know how to cook when I first lived alone.","sentence_cn":"刚开始独自生活时，我还不会做饭。","chunks":[{"text":"I did not know","meaning":"我不知道"},{"text":"how to cook","meaning":"如何做饭"},{"text":"when I first lived alone.","meaning":"当我刚开始独自生活时"}],"explanation":"how to cook 是疑问词加不定式结构。"},
+      {"sentence_en":"Most days, I bought food from nearby restaurants.","sentence_cn":"大多数时候，我都从附近的餐馆买食物。","chunks":[{"text":"Most days,","meaning":"大多数时候"},{"text":"I bought food","meaning":"我买食物"},{"text":"from nearby restaurants.","meaning":"从附近的餐馆"}],"explanation":"bought 是 buy 的过去式。"},
+      {"sentence_en":"It was convenient, but it cost more than I expected.","sentence_cn":"这样虽然方便，但花费比我预想的更多。","chunks":[{"text":"It was convenient,","meaning":"这样很方便"},{"text":"but it cost more","meaning":"但它花费更多"},{"text":"than I expected.","meaning":"比我预想的"}],"explanation":"more than 表示比较；cost 是过去式也是原形。"},
+      {"sentence_en":"One weekend, I decided to learn a few simple dishes.","sentence_cn":"一个周末，我决定学习做几道简单的菜。","chunks":[{"text":"One weekend,","meaning":"一个周末"},{"text":"I decided to learn","meaning":"我决定学习"},{"text":"a few simple dishes.","meaning":"几道简单的菜"}],"explanation":"decide to do 表示决定做某事。"},
+      {"sentence_en":"I started with fried rice, vegetable soup, and scrambled eggs.","sentence_cn":"我从炒饭、蔬菜汤和炒鸡蛋开始。","chunks":[{"text":"I started with","meaning":"我从……开始"},{"text":"fried rice,","meaning":"炒饭"},{"text":"vegetable soup,","meaning":"蔬菜汤"},{"text":"and scrambled eggs.","meaning":"以及炒鸡蛋"}],"explanation":"start with 表示从某事开始。"},
+      {"sentence_en":"My first meals were not very good, but I kept practicing.","sentence_cn":"最初做出来的饭菜并不怎么样，但我坚持练习。","chunks":[{"text":"My first meals","meaning":"我最初做的饭菜"},{"text":"were not very good,","meaning":"并不是很好"},{"text":"but I kept practicing.","meaning":"但我坚持练习"}],"explanation":"keep doing 表示持续做某事。"},
+      {"sentence_en":"I also learned how to choose fresh ingredients and use less oil.","sentence_cn":"我还学会了如何挑选新鲜食材，以及如何少放一些油。","chunks":[{"text":"I also learned","meaning":"我还学会了"},{"text":"how to choose fresh ingredients","meaning":"如何挑选新鲜食材"},{"text":"and use less oil.","meaning":"以及少用一些油"}],"explanation":"how to do 表示如何做某事。"},
+      {"sentence_en":"Cooking has become a useful skill and a relaxing activity.","sentence_cn":"做饭已经成为一项实用技能，也是一种放松的活动。","chunks":[{"text":"Cooking","meaning":"做饭"},{"text":"has become","meaning":"已经成为"},{"text":"a useful skill","meaning":"一项实用技能"},{"text":"and a relaxing activity.","meaning":"以及一种放松的活动"}],"explanation":"动名词 cooking 作主语；现在完成时强调变化。"},
+      {"sentence_en":"Now I enjoy preparing food for myself, and sometimes I invite friends to share a meal.","sentence_cn":"现在，我喜欢为自己准备食物，有时还会邀请朋友一起吃饭。","chunks":[{"text":"Now I enjoy preparing food","meaning":"现在我喜欢准备食物"},{"text":"for myself,","meaning":"给自己"},{"text":"and sometimes I invite friends","meaning":"有时我还邀请朋友"},{"text":"to share a meal.","meaning":"一起分享一顿饭"}],"explanation":"enjoy 后接动名词；invite someone to do 表示邀请某人做某事。"}
+    ],
+    "vocabulary":[
+      {"word":"convenient","phonetic":"","meaning":"方便的","part_of_speech":"adjective"},
+      {"word":"dish","phonetic":"","meaning":"菜肴","part_of_speech":"noun"},
+      {"word":"ingredient","phonetic":"","meaning":"食材；原料","part_of_speech":"noun"},
+      {"word":"fresh","phonetic":"","meaning":"新鲜的","part_of_speech":"adjective"},
+      {"word":"prepare","phonetic":"","meaning":"准备","part_of_speech":"verb"}
+    ],
+    "expressions":[
+      {"expression":"live alone","meaning":"独自生活","example":"I lived alone for two years."},
+      {"expression":"nearby restaurant","meaning":"附近的餐馆","example":"There is a nearby restaurant."},
+      {"expression":"start with","meaning":"从……开始","example":"Let's start with something simple."},
+      {"expression":"keep practicing","meaning":"坚持练习","example":"Keep practicing and you will improve."},
+      {"expression":"share a meal","meaning":"一起吃饭；分享一餐","example":"We often share a meal on weekends."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Why did the writer decide to learn cooking?","answer":"Buying food was convenient but more expensive than expected."},
+      {"type":"detail","question":"What dishes did the writer learn first?","answer":"Fried rice, vegetable soup, and scrambled eggs."},
+      {"type":"sequence","question":"What did the writer learn after practicing?","answer":"How to choose fresh ingredients and use less oil."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"实用生活场景，食物名称和表达自然。"}
+  },
+  {
+    "article_id": "article_205",
+    "day": 205,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Hobbies",
+    "scene": "Finding a new hobby",
+    "title_en": "Discovering a New Hobby",
+    "title_cn": "发现一项新爱好",
+    "difficulty": "A2-B1",
+    "word_count": 95,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "After work, I used to spend most of my free time looking at my phone. One day, I wanted to try something different. I visited a small art shop and bought a simple sketchbook and some pencils. At first, I could only draw basic shapes, but I enjoyed the process. I started drawing objects around my home and scenes outside my window. I did not worry about making perfect pictures. The important thing was to enjoy learning something new. This hobby gives me a quiet break from daily stress and helps me notice small details in the world.",
+    "content_cn": "过去，下班后我大部分空闲时间都在看手机。有一天，我想尝试一些不同的事情。我去了一家小美术用品店，买了一本简单的素描本和一些铅笔。刚开始，我只能画一些基本形状，但我很享受这个过程。我开始画家里的物品，以及窗外的景色。我并不担心自己能不能画出完美的作品。重要的是享受学习新事物的过程。这项爱好让我从日常压力中获得一段安静的休息，也帮助我留意生活中的细节。",
+    "sentences":[
+      {"sentence_en":"After work, I used to spend most of my free time looking at my phone.","sentence_cn":"过去，下班后我大部分空闲时间都在看手机。","chunks":[{"text":"After work,","meaning":"下班后"},{"text":"I used to spend","meaning":"我过去常常花费"},{"text":"most of my free time","meaning":"大部分空闲时间"},{"text":"looking at my phone.","meaning":"看手机"}],"explanation":"spend time doing 表示花时间做某事。"},
+      {"sentence_en":"One day, I wanted to try something different.","sentence_cn":"有一天，我想尝试一些不同的事情。","chunks":[{"text":"One day,","meaning":"有一天"},{"text":"I wanted to try","meaning":"我想尝试"},{"text":"something different.","meaning":"一些不同的事情"}],"explanation":"something 后接形容词作后置定语。"},
+      {"sentence_en":"I visited a small art shop and bought a simple sketchbook and some pencils.","sentence_cn":"我去了一家小美术用品店，买了一本简单的素描本和一些铅笔。","chunks":[{"text":"I visited a small art shop","meaning":"我去了一家小美术用品店"},{"text":"and bought","meaning":"并买了"},{"text":"a simple sketchbook","meaning":"一本简单的素描本"},{"text":"and some pencils.","meaning":"和一些铅笔"}],"explanation":"visited 和 bought 是并列的过去式动作。"},
+      {"sentence_en":"At first, I could only draw basic shapes, but I enjoyed the process.","sentence_cn":"刚开始，我只能画一些基本形状，但我很享受这个过程。","chunks":[{"text":"At first,","meaning":"刚开始"},{"text":"I could only draw basic shapes,","meaning":"我只能画基本形状"},{"text":"but I enjoyed the process.","meaning":"但我很享受这个过程"}],"explanation":"at first 表示起初；process 表示过程。"},
+      {"sentence_en":"I started drawing objects around my home and scenes outside my window.","sentence_cn":"我开始画家里的物品，以及窗外的景色。","chunks":[{"text":"I started drawing","meaning":"我开始画"},{"text":"objects around my home","meaning":"家里的物品"},{"text":"and scenes outside my window.","meaning":"以及窗外的景色"}],"explanation":"start doing 表示开始做某事。"},
+      {"sentence_en":"I did not worry about making perfect pictures.","sentence_cn":"我并不担心自己能不能画出完美的作品。","chunks":[{"text":"I did not worry about","meaning":"我并不担心"},{"text":"making perfect pictures.","meaning":"画出完美的作品"}],"explanation":"worry about 后接名词或动名词。"},
+      {"sentence_en":"The important thing was to enjoy learning something new.","sentence_cn":"重要的是享受学习新事物的过程。","chunks":[{"text":"The important thing","meaning":"重要的事情"},{"text":"was to enjoy","meaning":"是享受"},{"text":"learning something new.","meaning":"学习新事物"}],"explanation":"不定式 to enjoy 作表语。"},
+      {"sentence_en":"This hobby gives me a quiet break from daily stress and helps me notice small details in the world.","sentence_cn":"这项爱好让我从日常压力中获得一段安静的休息，也帮助我留意生活中的细节。","chunks":[{"text":"This hobby gives me","meaning":"这项爱好给我"},{"text":"a quiet break from daily stress","meaning":"一段远离日常压力的安静时光"},{"text":"and helps me notice","meaning":"并帮助我留意"},{"text":"small details in the world.","meaning":"世界中的细节"}],"explanation":"give someone a break 表示让某人休息；help 后接动词原形。"}
+    ],
+    "vocabulary":[
+      {"word":"hobby","phonetic":"","meaning":"爱好","part_of_speech":"noun"},
+      {"word":"sketchbook","phonetic":"","meaning":"素描本","part_of_speech":"noun"},
+      {"word":"shape","phonetic":"","meaning":"形状","part_of_speech":"noun"},
+      {"word":"process","phonetic":"","meaning":"过程","part_of_speech":"noun"},
+      {"word":"detail","phonetic":"","meaning":"细节","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"after work","meaning":"下班后","example":"I usually exercise after work."},
+      {"expression":"try something different","meaning":"尝试不同的事情","example":"I want to try something different this weekend."},
+      {"expression":"at first","meaning":"起初","example":"At first, it was difficult."},
+      {"expression":"worry about","meaning":"担心","example":"Don't worry about small mistakes."},
+      {"expression":"daily stress","meaning":"日常压力","example":"Walking helps me deal with daily stress."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What did the writer buy at the art shop?","answer":"A sketchbook and some pencils."},
+      {"type":"sequence","question":"What did the writer start drawing?","answer":"Objects at home and scenes outside the window."},
+      {"type":"main_idea","question":"What does the writer value most about the new hobby?","answer":"Enjoying the learning process rather than making perfect pictures."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"95","american_english":"passed","translation":"passed","chunking":"passed","notes":"爱好主题，强调过程而非结果。"}
+  },
+  {
+    "article_id": "article_206",
+    "day": 206,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Outdoor Activities",
+    "scene": "Spending a day outdoors",
+    "title_en": "A Perfect Day Outdoors",
+    "title_cn": "完美的户外一天",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "My perfect day outdoors would begin with an early breakfast and a short drive to the mountains. I would bring some water, fruit, and a light lunch. After arriving, I would walk along a quiet path and enjoy the fresh air. I would take pictures of the trees, flowers, and distant hills. Around noon, I would find a comfortable place to sit and eat. In the afternoon, I might read a book or simply watch the clouds. I do not need an exciting adventure every time. Sometimes, a peaceful day in nature is exactly what I need.",
+    "content_cn": "我理想中的户外一天，会从一顿早早餐和一段前往山区的短途车程开始。我会带上一些水、水果和简单的午餐。到达之后，我会沿着安静的小路散步，享受清新的空气。我会拍下树木、花朵和远处的山丘。中午左右，我会找一个舒适的地方坐下来吃饭。下午，我可能会读一本书，或者只是看着云朵。我并不需要每次都进行刺激的冒险。有时候，在大自然中度过平静的一天，正是我所需要的。",
+    "sentences":[
+      {"sentence_en":"My perfect day outdoors would begin with an early breakfast and a short drive to the mountains.","sentence_cn":"我理想中的户外一天，会从一顿早早餐和一段前往山区的短途车程开始。","chunks":[{"text":"My perfect day outdoors","meaning":"我理想中的户外一天"},{"text":"would begin with","meaning":"将从……开始"},{"text":"an early breakfast","meaning":"一顿较早的早餐"},{"text":"and a short drive to the mountains.","meaning":"以及一段前往山区的短途车程"}],"explanation":"would 表示设想中的情景；begin with 表示以……开始。"},
+      {"sentence_en":"I would bring some water, fruit, and a light lunch.","sentence_cn":"我会带上一些水、水果和简单的午餐。","chunks":[{"text":"I would bring","meaning":"我会带上"},{"text":"some water, fruit,","meaning":"一些水和水果"},{"text":"and a light lunch.","meaning":"以及一份简单的午餐"}],"explanation":"would bring 表示假设情况下的安排。"},
+      {"sentence_en":"After arriving, I would walk along a quiet path and enjoy the fresh air.","sentence_cn":"到达之后，我会沿着安静的小路散步，享受清新的空气。","chunks":[{"text":"After arriving,","meaning":"到达之后"},{"text":"I would walk along","meaning":"我会沿着……走"},{"text":"a quiet path","meaning":"一条安静的小路"},{"text":"and enjoy the fresh air.","meaning":"并享受清新的空气"}],"explanation":"after 后接动名词；walk along 表示沿着……走。"},
+      {"sentence_en":"I would take pictures of the trees, flowers, and distant hills.","sentence_cn":"我会拍下树木、花朵和远处的山丘。","chunks":[{"text":"I would take pictures of","meaning":"我会拍摄"},{"text":"the trees, flowers,","meaning":"树木和花朵"},{"text":"and distant hills.","meaning":"以及远处的山丘"}],"explanation":"take pictures of 表示拍摄某物。"},
+      {"sentence_en":"Around noon, I would find a comfortable place to sit and eat.","sentence_cn":"中午左右，我会找一个舒适的地方坐下来吃饭。","chunks":[{"text":"Around noon,","meaning":"中午左右"},{"text":"I would find","meaning":"我会找到"},{"text":"a comfortable place","meaning":"一个舒适的地方"},{"text":"to sit and eat.","meaning":"坐下来吃饭"}],"explanation":"place 后接不定式，说明这个地方适合做什么。"},
+      {"sentence_en":"In the afternoon, I might read a book or simply watch the clouds.","sentence_cn":"下午，我可能会读一本书，或者只是看着云朵。","chunks":[{"text":"In the afternoon,","meaning":"在下午"},{"text":"I might read a book","meaning":"我可能会读一本书"},{"text":"or simply watch the clouds.","meaning":"或者只是看云"}],"explanation":"might 表示不确定的可能性。"},
+      {"sentence_en":"I do not need an exciting adventure every time.","sentence_cn":"我并不需要每次都进行刺激的冒险。","chunks":[{"text":"I do not need","meaning":"我并不需要"},{"text":"an exciting adventure","meaning":"一次刺激的冒险"},{"text":"every time.","meaning":"每一次"}],"explanation":"every time 表示每次。"},
+      {"sentence_en":"Sometimes, a peaceful day in nature is exactly what I need.","sentence_cn":"有时候，在大自然中度过平静的一天，正是我所需要的。","chunks":[{"text":"Sometimes,","meaning":"有时候"},{"text":"a peaceful day in nature","meaning":"在大自然中平静的一天"},{"text":"is exactly what I need.","meaning":"正是我需要的"}],"explanation":"what 引导表语从句，表示我所需要的东西。"}
+    ],
+    "vocabulary":[
+      {"word":"outdoors","phonetic":"","meaning":"在户外","part_of_speech":"adverb"},
+      {"word":"mountain","phonetic":"","meaning":"山；山脉","part_of_speech":"noun"},
+      {"word":"path","phonetic":"","meaning":"小路；路径","part_of_speech":"noun"},
+      {"word":"distant","phonetic":"","meaning":"遥远的","part_of_speech":"adjective"},
+      {"word":"adventure","phonetic":"","meaning":"冒险；奇遇","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"begin with","meaning":"以……开始","example":"The day began with a good breakfast."},
+      {"expression":"walk along","meaning":"沿着……走","example":"We walked along the river."},
+      {"expression":"fresh air","meaning":"新鲜空气","example":"Let's go outside and get some fresh air."},
+      {"expression":"around noon","meaning":"中午左右","example":"We arrived around noon."},
+      {"expression":"in nature","meaning":"在大自然中","example":"I feel relaxed in nature."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Where would the writer go?","answer":"To the mountains."},
+      {"type":"sequence","question":"What would the writer do after arriving?","answer":"Walk along a quiet path and enjoy the fresh air."},
+      {"type":"inference","question":"Does the writer prefer exciting activities every time?","answer":"No. The writer sometimes prefers a peaceful day in nature."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"使用would描述理想安排，适合表达假设。"}
+  },
+  {
+    "article_id": "article_207",
+    "day": 207,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Travel",
+    "scene": "Talking about the joy of traveling",
+    "title_en": "The Joy of Traveling",
+    "title_cn": "旅行的乐趣",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Traveling gives me a chance to see life from a different point of view. When I visit a new place, I enjoy walking through local streets, trying traditional food, and talking to people who live there. I do not always need a busy schedule. Sometimes, getting lost in a small town leads to the most interesting moments. Travel also teaches me to be more flexible. Trains may be delayed, the weather may change, and plans may not work out. Instead of getting upset, I try to enjoy the experience. The best memories often come from unexpected moments.",
+    "content_cn": "旅行让我有机会从不同的角度看待生活。每当我去一个新的地方，我都喜欢在当地街道上散步、品尝传统美食，并与当地居民交谈。我并不总是需要安排得满满当当。有时候，在一个小镇里迷路，反而会带来最有趣的时刻。旅行也教会我变得更加灵活。火车可能晚点，天气可能变化，计划也可能无法顺利进行。我尽量不因此烦躁，而是享受整个经历。最美好的回忆往往来自意想不到的时刻。",
+    "sentences":[
+      {"sentence_en":"Traveling gives me a chance to see life from a different point of view.","sentence_cn":"旅行让我有机会从不同的角度看待生活。","chunks":[{"text":"Traveling gives me","meaning":"旅行给我"},{"text":"a chance","meaning":"一个机会"},{"text":"to see life","meaning":"去看待生活"},{"text":"from a different point of view.","meaning":"从不同的角度"}],"explanation":"give someone a chance to do 表示给某人做某事的机会。"},
+      {"sentence_en":"When I visit a new place, I enjoy walking through local streets, trying traditional food, and talking to people who live there.","sentence_cn":"每当我去一个新的地方，我都喜欢在当地街道上散步、品尝传统美食，并与当地居民交谈。","chunks":[{"text":"When I visit a new place,","meaning":"当我去一个新地方时"},{"text":"I enjoy","meaning":"我喜欢"},{"text":"walking through local streets,","meaning":"穿过当地街道散步"},{"text":"trying traditional food,","meaning":"品尝传统食物"},{"text":"and talking to people who live there.","meaning":"并与住在那里的人交谈"}],"explanation":"enjoy 后接动名词；who 引导定语从句。"},
+      {"sentence_en":"I do not always need a busy schedule.","sentence_cn":"我并不总是需要安排得满满当当。","chunks":[{"text":"I do not always need","meaning":"我并不总是需要"},{"text":"a busy schedule.","meaning":"紧凑的日程安排"}],"explanation":"not always 表示并不总是。"},
+      {"sentence_en":"Sometimes, getting lost in a small town leads to the most interesting moments.","sentence_cn":"有时候，在一个小镇里迷路，反而会带来最有趣的时刻。","chunks":[{"text":"Sometimes,","meaning":"有时候"},{"text":"getting lost in a small town","meaning":"在小镇里迷路"},{"text":"leads to","meaning":"会带来"},{"text":"the most interesting moments.","meaning":"最有趣的时刻"}],"explanation":"getting lost 是动名词短语作主语；lead to 表示导致或带来。"},
+      {"sentence_en":"Travel also teaches me to be more flexible.","sentence_cn":"旅行也教会我变得更加灵活。","chunks":[{"text":"Travel also teaches me","meaning":"旅行也教会我"},{"text":"to be more flexible.","meaning":"变得更加灵活"}],"explanation":"teach someone to do 表示教某人做某事。"},
+      {"sentence_en":"Trains may be delayed, the weather may change, and plans may not work out.","sentence_cn":"火车可能晚点，天气可能变化，计划也可能无法顺利进行。","chunks":[{"text":"Trains may be delayed,","meaning":"火车可能会晚点"},{"text":"the weather may change,","meaning":"天气可能会变化"},{"text":"and plans may not work out.","meaning":"计划也可能无法顺利进行"}],"explanation":"may 表示可能；work out 表示进展顺利或成功。"},
+      {"sentence_en":"Instead of getting upset, I try to enjoy the experience.","sentence_cn":"我尽量不因此烦躁，而是享受整个经历。","chunks":[{"text":"Instead of getting upset,","meaning":"我不让自己烦躁"},{"text":"I try to enjoy","meaning":"我尽量享受"},{"text":"the experience.","meaning":"这段经历"}],"explanation":"instead of 后接名词或动名词。"},
+      {"sentence_en":"The best memories often come from unexpected moments.","sentence_cn":"最美好的回忆往往来自意想不到的时刻。","chunks":[{"text":"The best memories","meaning":"最美好的回忆"},{"text":"often come from","meaning":"往往来自"},{"text":"unexpected moments.","meaning":"意想不到的时刻"}],"explanation":"come from 表示来自。"}
+    ],
+    "vocabulary":[
+      {"word":"traveling","phonetic":"","meaning":"旅行","part_of_speech":"noun"},
+      {"word":"traditional","phonetic":"","meaning":"传统的","part_of_speech":"adjective"},
+      {"word":"schedule","phonetic":"","meaning":"日程安排","part_of_speech":"noun"},
+      {"word":"flexible","phonetic":"","meaning":"灵活的","part_of_speech":"adjective"},
+      {"word":"unexpected","phonetic":"","meaning":"意想不到的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"a point of view","meaning":"一种观点；一个角度","example":"Try to see it from my point of view."},
+      {"expression":"walk through","meaning":"步行穿过","example":"We walked through the old town."},
+      {"expression":"get lost","meaning":"迷路","example":"We got lost in the city."},
+      {"expression":"work out","meaning":"进展顺利；成功","example":"I hope everything works out."},
+      {"expression":"come from","meaning":"来自","example":"Good ideas can come from simple things."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What does the writer enjoy doing in a new place?","answer":"Walking through local streets, trying traditional food, and talking to local people."},
+      {"type":"detail","question":"What problems might happen during travel?","answer":"Train delays, changing weather, and plans that do not work out."},
+      {"type":"main_idea","question":"What does traveling teach the writer?","answer":"To be flexible and enjoy unexpected experiences."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"旅行主题，包含常见突发情况表达。"}
+  },
+  {
+    "article_id": "article_208",
+    "day": 208,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Trying something unfamiliar",
+    "title_en": "Trying Something Outside My Comfort Zone",
+    "title_cn": "尝试舒适区之外的事情",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "I usually choose activities that feel familiar and safe. However, I know that staying in the same place does not help me grow. Last month, I joined a beginner's dance class even though I had never danced before. At first, I felt awkward because I could not follow the steps. The teacher encouraged me to keep going, and the other students were friendly. After a few classes, I became more comfortable. I still make mistakes, but I no longer feel embarrassed. Trying something new has shown me that personal growth often begins with a little discomfort.",
+    "content_cn": "我通常会选择那些熟悉而安全的活动。然而，我知道一直停留在原地并不能帮助自己成长。上个月，尽管我以前从未跳过舞，我还是参加了一个初学者舞蹈班。刚开始，我觉得很不自在，因为我跟不上动作。老师鼓励我继续练习，其他学生也很友好。上了几节课之后，我逐渐适应了。虽然我仍然会犯错，但已经不再感到尴尬。尝试新事物让我明白，个人成长往往始于一点点不适。",
+    "sentences":[
+      {"sentence_en":"I usually choose activities that feel familiar and safe.","sentence_cn":"我通常会选择那些熟悉而安全的活动。","chunks":[{"text":"I usually choose","meaning":"我通常选择"},{"text":"activities","meaning":"活动"},{"text":"that feel familiar and safe.","meaning":"那些让人感到熟悉和安全的"}],"explanation":"that 引导定语从句，修饰 activities。"},
+      {"sentence_en":"However, I know that staying in the same place does not help me grow.","sentence_cn":"然而，我知道一直停留在原地并不能帮助自己成长。","chunks":[{"text":"However,","meaning":"然而"},{"text":"I know that","meaning":"我知道"},{"text":"staying in the same place","meaning":"停留在同一个地方"},{"text":"does not help me grow.","meaning":"并不能帮助我成长"}],"explanation":"动名词短语 staying... 作从句主语。"},
+      {"sentence_en":"Last month, I joined a beginner's dance class even though I had never danced before.","sentence_cn":"上个月，尽管我以前从未跳过舞，我还是参加了一个初学者舞蹈班。","chunks":[{"text":"Last month,","meaning":"上个月"},{"text":"I joined a beginner's dance class","meaning":"我参加了一个初学者舞蹈班"},{"text":"even though","meaning":"尽管"},{"text":"I had never danced before.","meaning":"我以前从未跳过舞"}],"explanation":"even though 引导让步状语从句；过去完成时表示参加课程前的经历。"},
+      {"sentence_en":"At first, I felt awkward because I could not follow the steps.","sentence_cn":"刚开始，我觉得很不自在，因为我跟不上动作。","chunks":[{"text":"At first,","meaning":"刚开始"},{"text":"I felt awkward","meaning":"我觉得不自在"},{"text":"because I could not follow the steps.","meaning":"因为我跟不上动作"}],"explanation":"follow the steps 表示跟上动作步骤。"},
+      {"sentence_en":"The teacher encouraged me to keep going, and the other students were friendly.","sentence_cn":"老师鼓励我继续练习，其他学生也很友好。","chunks":[{"text":"The teacher encouraged me","meaning":"老师鼓励我"},{"text":"to keep going,","meaning":"继续下去"},{"text":"and the other students were friendly.","meaning":"而其他学生也很友好"}],"explanation":"encourage someone to do 表示鼓励某人做某事。"},
+      {"sentence_en":"After a few classes, I became more comfortable.","sentence_cn":"上了几节课之后，我逐渐适应了。","chunks":[{"text":"After a few classes,","meaning":"上了几节课之后"},{"text":"I became","meaning":"我变得"},{"text":"more comfortable.","meaning":"更加自在"}],"explanation":"become 后接形容词，表示状态变化。"},
+      {"sentence_en":"I still make mistakes, but I no longer feel embarrassed.","sentence_cn":"虽然我仍然会犯错，但已经不再感到尴尬。","chunks":[{"text":"I still make mistakes,","meaning":"我仍然会犯错"},{"text":"but I no longer feel","meaning":"但我不再感到"},{"text":"embarrassed.","meaning":"尴尬"}],"explanation":"no longer 表示不再。"},
+      {"sentence_en":"Trying something new has shown me that personal growth often begins with a little discomfort.","sentence_cn":"尝试新事物让我明白，个人成长往往始于一点点不适。","chunks":[{"text":"Trying something new","meaning":"尝试新事物"},{"text":"has shown me that","meaning":"让我明白"},{"text":"personal growth often begins","meaning":"个人成长往往开始"},{"text":"with a little discomfort.","meaning":"于一点点不适"}],"explanation":"现在完成时 has shown 表示经历带来的认识；begin with 表示从……开始。"}
+    ],
+    "vocabulary":[
+      {"word":"familiar","phonetic":"","meaning":"熟悉的","part_of_speech":"adjective"},
+      {"word":"beginner","phonetic":"","meaning":"初学者","part_of_speech":"noun"},
+      {"word":"awkward","phonetic":"","meaning":"不自在的；尴尬的","part_of_speech":"adjective"},
+      {"word":"encourage","phonetic":"","meaning":"鼓励","part_of_speech":"verb"},
+      {"word":"discomfort","phonetic":"","meaning":"不适；不舒服","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"feel familiar","meaning":"感觉熟悉","example":"The place feels familiar to me."},
+      {"expression":"even though","meaning":"尽管","example":"I went out even though it was raining."},
+      {"expression":"at first","meaning":"起初","example":"At first, I was nervous."},
+      {"expression":"keep going","meaning":"继续坚持","example":"Keep going. You are doing well."},
+      {"expression":"no longer","meaning":"不再","example":"I no longer worry about that."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What new activity did the writer try?","answer":"A beginner's dance class."},
+      {"type":"sequence","question":"How did the writer feel after a few classes?","answer":"More comfortable and less embarrassed."},
+      {"type":"main_idea","question":"What does the writer learn from the experience?","answer":"Personal growth often begins with a little discomfort."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"突出从不熟悉到逐渐适应的过程。"}
+  },
+  {
+    "article_id": "article_209",
+    "day": 209,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Personal Development",
+    "scene": "A hobby that creates lasting change",
+    "title_en": "A Hobby That Changed My Life",
+    "title_cn": "改变我生活的一项爱好",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A few years ago, I started taking photographs during my walks. At first, I only wanted to save pictures of beautiful places. Soon, I began to notice details that I had never paid attention to before. I learned about light, color, and composition by taking pictures every week. Photography also encouraged me to spend more time outside and explore my neighborhood. I even made new friends through a local photography group. This hobby has changed the way I see ordinary things. Now, I can find something interesting in a simple street or a quiet corner.",
+    "content_cn": "几年前，我开始在散步时拍照。起初，我只是想保存一些美丽地方的照片。很快，我开始注意到以前从未留意过的细节。通过每周拍照，我学会了光线、色彩和构图。摄影也鼓励我花更多时间待在户外，探索自己居住的社区。我甚至通过当地的摄影小组结识了新朋友。这项爱好改变了我看待普通事物的方式。现在，即使是一条普通的街道或一个安静的角落，我也能发现其中有趣的地方。",
+    "sentences":[
+      {"sentence_en":"A few years ago, I started taking photographs during my walks.","sentence_cn":"几年前，我开始在散步时拍照。","chunks":[{"text":"A few years ago,","meaning":"几年前"},{"text":"I started taking photographs","meaning":"我开始拍照"},{"text":"during my walks.","meaning":"在散步时"}],"explanation":"start doing 表示开始做某事；during 表示在……期间。"},
+      {"sentence_en":"At first, I only wanted to save pictures of beautiful places.","sentence_cn":"起初，我只是想保存一些美丽地方的照片。","chunks":[{"text":"At first,","meaning":"起初"},{"text":"I only wanted to save","meaning":"我只是想保存"},{"text":"pictures of beautiful places.","meaning":"美丽地方的照片"}],"explanation":"want to do 表示想要做某事。"},
+      {"sentence_en":"Soon, I began to notice details that I had never paid attention to before.","sentence_cn":"很快，我开始注意到以前从未留意过的细节。","chunks":[{"text":"Soon,","meaning":"很快"},{"text":"I began to notice details","meaning":"我开始注意到细节"},{"text":"that I had never paid attention to before.","meaning":"那些我以前从未留意过的"}],"explanation":"that 引导定语从句；过去完成时表示更早之前没有注意到。"},
+      {"sentence_en":"I learned about light, color, and composition by taking pictures every week.","sentence_cn":"通过每周拍照，我学会了光线、色彩和构图。","chunks":[{"text":"I learned about","meaning":"我学习了"},{"text":"light, color, and composition","meaning":"光线、色彩和构图"},{"text":"by taking pictures every week.","meaning":"通过每周拍照"}],"explanation":"by doing 表示通过某种方式。"},
+      {"sentence_en":"Photography also encouraged me to spend more time outside and explore my neighborhood.","sentence_cn":"摄影也鼓励我花更多时间待在户外，探索自己居住的社区。","chunks":[{"text":"Photography also encouraged me","meaning":"摄影也鼓励我"},{"text":"to spend more time outside","meaning":"花更多时间在户外"},{"text":"and explore my neighborhood.","meaning":"并探索我的社区"}],"explanation":"encourage someone to do 表示鼓励某人做某事。"},
+      {"sentence_en":"I even made new friends through a local photography group.","sentence_cn":"我甚至通过当地的摄影小组结识了新朋友。","chunks":[{"text":"I even made new friends","meaning":"我甚至结识了新朋友"},{"text":"through a local photography group.","meaning":"通过当地的摄影小组"}],"explanation":"through 表示通过某种途径。"},
+      {"sentence_en":"This hobby has changed the way I see ordinary things.","sentence_cn":"这项爱好改变了我看待普通事物的方式。","chunks":[{"text":"This hobby has changed","meaning":"这项爱好改变了"},{"text":"the way","meaning":"……的方式"},{"text":"I see ordinary things.","meaning":"我看待普通事物"}],"explanation":"现在完成时强调过去的爱好对现在产生的影响。"},
+      {"sentence_en":"Now, I can find something interesting in a simple street or a quiet corner.","sentence_cn":"现在，即使是一条普通的街道或一个安静的角落，我也能发现其中有趣的地方。","chunks":[{"text":"Now,","meaning":"现在"},{"text":"I can find something interesting","meaning":"我能发现一些有趣的东西"},{"text":"in a simple street","meaning":"在一条普通街道上"},{"text":"or a quiet corner.","meaning":"或一个安静的角落"}],"explanation":"something interesting 中形容词放在不定代词之后。"}
+    ],
+    "vocabulary":[
+      {"word":"photograph","phonetic":"","meaning":"照片；拍照","part_of_speech":"noun"},
+      {"word":"detail","phonetic":"","meaning":"细节","part_of_speech":"noun"},
+      {"word":"composition","phonetic":"","meaning":"构图；组成","part_of_speech":"noun"},
+      {"word":"neighborhood","phonetic":"","meaning":"社区；街区","part_of_speech":"noun"},
+      {"word":"ordinary","phonetic":"","meaning":"普通的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"a few years ago","meaning":"几年前","example":"I moved here a few years ago."},
+      {"expression":"pay attention to","meaning":"注意；留意","example":"Pay attention to the details."},
+      {"expression":"learn about","meaning":"学习了解","example":"I want to learn about photography."},
+      {"expression":"spend time outside","meaning":"花时间在户外","example":"Children should spend time outside."},
+      {"expression":"the way I see","meaning":"我看待……的方式","example":"That changed the way I see things."}
+    ],
+    "questions":[
+      {"type":"detail","question":"When did the writer start taking photographs?","answer":"A few years ago."},
+      {"type":"detail","question":"What did the writer learn through photography?","answer":"Light, color, and composition."},
+      {"type":"inference","question":"How did photography change the writer's life?","answer":"It encouraged outdoor activities, new friendships, and a different way of seeing ordinary things."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"将爱好与观察力、社交和生活方式联系起来。"}
+  },
+  {
+    "article_id": "article_210",
+    "day": 210,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Leisure and Lifestyle",
+    "scene": "Making time for enjoyment",
+    "title_en": "Making Time for Fun",
+    "title_cn": "给快乐留出时间",
+    "difficulty": "A2-B1",
+    "word_count": 95,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "When I was younger, I thought free time was something I could enjoy only after finishing all my work. However, there was always another task waiting for me. I slowly realized that if I did not make time for fun, I would never have enough of it. Now I try to plan enjoyable activities just as I plan important tasks. I may meet a friend, watch a movie, or take a long walk. These moments help me relax and return to work with a clearer mind. Life should not be only about finishing things. We also need time to enjoy it.",
+    "content_cn": "年轻时，我认为只有完成所有工作之后，才能享受空闲时间。然而，总会有另一项任务在等着我。慢慢地，我意识到，如果我不主动为快乐留出时间，就永远不会拥有足够的时间。现在，我会像安排重要任务一样，安排一些令人愉快的活动。我可能会见朋友、看电影，或者散一次长步。这些时刻能帮助我放松，并以更清晰的头脑重新投入工作。生活不应该只有完成各种事情，我们也需要时间去享受生活。",
+    "sentences":[
+      {"sentence_en":"When I was younger, I thought free time was something I could enjoy only after finishing all my work.","sentence_cn":"年轻时，我认为只有完成所有工作之后，才能享受空闲时间。","chunks":[{"text":"When I was younger,","meaning":"当我年轻时"},{"text":"I thought","meaning":"我认为"},{"text":"free time was something","meaning":"空闲时间是某种东西"},{"text":"I could enjoy only after finishing all my work.","meaning":"只有完成所有工作后我才能享受"}],"explanation":"after finishing 是 after 加动名词结构。"},
+      {"sentence_en":"However, there was always another task waiting for me.","sentence_cn":"然而，总会有另一项任务在等着我。","chunks":[{"text":"However,","meaning":"然而"},{"text":"there was always","meaning":"总会有"},{"text":"another task","meaning":"另一项任务"},{"text":"waiting for me.","meaning":"在等着我"}],"explanation":"there be 句型；waiting for me 是现在分词短语作后置定语。"},
+      {"sentence_en":"I slowly realized that if I did not make time for fun, I would never have enough of it.","sentence_cn":"慢慢地，我意识到，如果我不主动为快乐留出时间，就永远不会拥有足够的时间。","chunks":[{"text":"I slowly realized that","meaning":"我慢慢意识到"},{"text":"if I did not make time for fun,","meaning":"如果我不为快乐留出时间"},{"text":"I would never have enough of it.","meaning":"我就永远不会拥有足够的时间"}],"explanation":"if 从句描述条件，would 表示假设结果。"},
+      {"sentence_en":"Now I try to plan enjoyable activities just as I plan important tasks.","sentence_cn":"现在，我会像安排重要任务一样，安排一些令人愉快的活动。","chunks":[{"text":"Now I try to plan","meaning":"现在我试着安排"},{"text":"enjoyable activities","meaning":"令人愉快的活动"},{"text":"just as I plan important tasks.","meaning":"就像安排重要任务一样"}],"explanation":"just as 表示正如；enjoyable 是形容词。"},
+      {"sentence_en":"I may meet a friend, watch a movie, or take a long walk.","sentence_cn":"我可能会见朋友、看电影，或者散一次长步。","chunks":[{"text":"I may","meaning":"我可能会"},{"text":"meet a friend,","meaning":"见朋友"},{"text":"watch a movie,","meaning":"看电影"},{"text":"or take a long walk.","meaning":"或者散步"}],"explanation":"三个并列动词短语构成选择。"},
+      {"sentence_en":"These moments help me relax and return to work with a clearer mind.","sentence_cn":"这些时刻能帮助我放松，并以更清晰的头脑重新投入工作。","chunks":[{"text":"These moments help me","meaning":"这些时刻帮助我"},{"text":"relax","meaning":"放松"},{"text":"and return to work","meaning":"并重新投入工作"},{"text":"with a clearer mind.","meaning":"带着更清晰的头脑"}],"explanation":"help 后接动词原形；with 表示伴随状态。"},
+      {"sentence_en":"Life should not be only about finishing things.","sentence_cn":"生活不应该只有完成各种事情。","chunks":[{"text":"Life should not be","meaning":"生活不应该"},{"text":"only about","meaning":"仅仅围绕"},{"text":"finishing things.","meaning":"完成各种事情"}],"explanation":"should not 表示不应该；about 后接动名词。"},
+      {"sentence_en":"We also need time to enjoy it.","sentence_cn":"我们也需要时间去享受生活。","chunks":[{"text":"We also need","meaning":"我们也需要"},{"text":"time","meaning":"时间"},{"text":"to enjoy it.","meaning":"去享受它"}],"explanation":"need time to do 表示需要时间做某事。"}
+    ],
+    "vocabulary":[
+      {"word":"task","phonetic":"","meaning":"任务","part_of_speech":"noun"},
+      {"word":"realize","phonetic":"","meaning":"意识到","part_of_speech":"verb"},
+      {"word":"enjoyable","phonetic":"","meaning":"令人愉快的","part_of_speech":"adjective"},
+      {"word":"relax","phonetic":"","meaning":"放松","part_of_speech":"verb"},
+      {"word":"clearer","phonetic":"","meaning":"更清晰的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"free time","meaning":"空闲时间","example":"I read books in my free time."},
+      {"expression":"make time for","meaning":"为……腾出时间","example":"Make time for the people you love."},
+      {"expression":"just as","meaning":"正如；就像","example":"I exercise just as I planned."},
+      {"expression":"take a long walk","meaning":"散一次长步","example":"Let's take a long walk after dinner."},
+      {"expression":"return to work","meaning":"重新投入工作","example":"I will return to work tomorrow."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What did the writer believe when younger?","answer":"Free time could only be enjoyed after finishing all work."},
+      {"type":"detail","question":"What activities might the writer plan?","answer":"Meeting a friend, watching a movie, or taking a long walk."},
+      {"type":"main_idea","question":"What is the main message?","answer":"We should make time for enjoyment instead of waiting until all work is finished."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"95","american_english":"passed","translation":"passed","chunking":"passed","notes":"适合讨论工作与休闲的平衡。"}
+  },
+  {
+    "article_id": "article_211",
+    "day": 211,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Work and Life",
+    "scene": "Balancing work and personal life",
+    "title_en": "Work-Life Balance",
+    "title_cn": "工作与生活的平衡",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Finding a balance between work and personal life is not always easy. Some days, I have too many tasks and feel that there is no time for anything else. In the past, I often worked late and checked messages during meals. This made it difficult to relax. Now I try to set clear working hours and leave work messages until the next morning when possible. I also make time for exercise and family. I understand that work is important, but it should not take up every part of life. A healthy balance helps me stay productive and feel happier.",
+    "content_cn": "在工作和个人生活之间找到平衡并不总是容易的。有些日子，我有太多任务，感觉没有时间做其他事情。过去，我经常工作到很晚，吃饭时也查看工作消息，这让我很难放松。现在，我尽量设定明确的工作时间，并在可能的情况下把工作消息留到第二天早上处理。我也会为运动和家人留出时间。我明白工作很重要，但它不应该占据生活的每一个部分。健康的平衡能让我保持效率，也让自己更加快乐。",
+    "sentences":[
+      {"sentence_en":"Finding a balance between work and personal life is not always easy.","sentence_cn":"在工作和个人生活之间找到平衡并不总是容易的。","chunks":[{"text":"Finding a balance","meaning":"找到平衡"},{"text":"between work and personal life","meaning":"在工作与个人生活之间"},{"text":"is not always easy.","meaning":"并不总是容易"}],"explanation":"动名词短语 finding a balance 作主语。"},
+      {"sentence_en":"Some days, I have too many tasks and feel that there is no time for anything else.","sentence_cn":"有些日子，我有太多任务，感觉没有时间做其他事情。","chunks":[{"text":"Some days,","meaning":"有些日子"},{"text":"I have too many tasks","meaning":"我有太多任务"},{"text":"and feel that","meaning":"并且觉得"},{"text":"there is no time for anything else.","meaning":"没有时间做其他事情"}],"explanation":"too many 修饰可数名词复数；anything else 表示其他任何事情。"},
+      {"sentence_en":"In the past, I often worked late and checked messages during meals.","sentence_cn":"过去，我经常工作到很晚，吃饭时也查看工作消息。","chunks":[{"text":"In the past,","meaning":"过去"},{"text":"I often worked late","meaning":"我经常工作到很晚"},{"text":"and checked messages","meaning":"并查看消息"},{"text":"during meals.","meaning":"在吃饭期间"}],"explanation":"两个过去式动词并列。"},
+      {"sentence_en":"This made it difficult to relax.","sentence_cn":"这让我很难放松。","chunks":[{"text":"This made it","meaning":"这使得它"},{"text":"difficult to relax.","meaning":"很难放松"}],"explanation":"make it + 形容词 + to do 是常见结构。"},
+      {"sentence_en":"Now I try to set clear working hours and leave work messages until the next morning when possible.","sentence_cn":"现在，我尽量设定明确的工作时间，并在可能的情况下把工作消息留到第二天早上处理。","chunks":[{"text":"Now I try to set","meaning":"现在我尽量设定"},{"text":"clear working hours","meaning":"明确的工作时间"},{"text":"and leave work messages","meaning":"并把工作消息留到"},{"text":"until the next morning","meaning":"第二天早上"},{"text":"when possible.","meaning":"在可能的情况下"}],"explanation":"when possible 是 when it is possible 的省略形式。"},
+      {"sentence_en":"I also make time for exercise and family.","sentence_cn":"我也会为运动和家人留出时间。","chunks":[{"text":"I also make time for","meaning":"我也为……留出时间"},{"text":"exercise and family.","meaning":"运动和家人"}],"explanation":"make time for 表示为某事腾出时间。"},
+      {"sentence_en":"I understand that work is important, but it should not take up every part of life.","sentence_cn":"我明白工作很重要，但它不应该占据生活的每一个部分。","chunks":[{"text":"I understand that","meaning":"我明白"},{"text":"work is important,","meaning":"工作很重要"},{"text":"but it should not take up","meaning":"但它不应该占据"},{"text":"every part of life.","meaning":"生活的每一个部分"}],"explanation":"take up 表示占据时间或空间。"},
+      {"sentence_en":"A healthy balance helps me stay productive and feel happier.","sentence_cn":"健康的平衡能让我保持效率，也让自己更加快乐。","chunks":[{"text":"A healthy balance","meaning":"健康的平衡"},{"text":"helps me stay productive","meaning":"帮助我保持高效"},{"text":"and feel happier.","meaning":"并感到更加快乐"}],"explanation":"help 后接动词原形；stay 后接形容词。"}
+    ],
+    "vocabulary":[
+      {"word":"balance","phonetic":"","meaning":"平衡","part_of_speech":"noun"},
+      {"word":"personal","phonetic":"","meaning":"个人的","part_of_speech":"adjective"},
+      {"word":"message","phonetic":"","meaning":"消息；信息","part_of_speech":"noun"},
+      {"word":"productive","phonetic":"","meaning":"高效的；多产的","part_of_speech":"adjective"},
+      {"word":"working hours","phonetic":"","meaning":"工作时间","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"work-life balance","meaning":"工作与生活的平衡","example":"Work-life balance is important to me."},
+      {"expression":"work late","meaning":"工作到很晚","example":"I don't want to work late tonight."},
+      {"expression":"set clear hours","meaning":"设定明确的时间","example":"Set clear hours for your work."},
+      {"expression":"make time for","meaning":"为……腾出时间","example":"I make time for exercise."},
+      {"expression":"take up time","meaning":"占用时间","example":"Meetings take up too much time."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What did the writer do during meals in the past?","answer":"Checked work messages."},
+      {"type":"detail","question":"What does the writer do to improve work-life balance?","answer":"Sets clear working hours and makes time for exercise and family."},
+      {"type":"main_idea","question":"Why is a healthy balance important?","answer":"It helps the writer stay productive and feel happier."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"职场生活主题，表达自然实用。"}
+  },
+  {
+    "article_id": "article_212",
+    "day": 212,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Modern Work",
+    "scene": "Working remotely",
+    "title_en": "Working from Anywhere",
+    "title_cn": "在任何地方工作",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Technology has made it possible for many people to work from almost anywhere. I sometimes work from home, and on other days I visit a quiet coffee shop. This gives me more freedom and saves time on commuting. However, remote work also requires self-discipline. It is easy to become distracted by household tasks or social media. I try to plan my day before starting and keep my phone away when I need to focus. I also stay in touch with my coworkers through video calls. Working remotely is convenient, but good communication and clear routines are still important.",
+    "content_cn": "科技让许多人能够在几乎任何地方工作。有时我在家工作，其他日子则会去一家安静的咖啡馆。这让我拥有更多自由，也节省了通勤时间。然而，远程工作同样需要自律。人们很容易被家务或社交媒体分散注意力。我会在开始工作前安排好一天的计划，并在需要集中注意力时把手机放远一些。我也会通过视频通话与同事保持联系。远程工作虽然方便，但良好的沟通和明确的日常安排仍然很重要。",
+    "sentences":[
+      {"sentence_en":"Technology has made it possible for many people to work from almost anywhere.","sentence_cn":"科技让许多人能够在几乎任何地方工作。","chunks":[{"text":"Technology has made it possible","meaning":"科技已经让……成为可能"},{"text":"for many people","meaning":"对许多人来说"},{"text":"to work from almost anywhere.","meaning":"在几乎任何地方工作"}],"explanation":"make it possible for someone to do 表示使某人能够做某事。"},
+      {"sentence_en":"I sometimes work from home, and on other days I visit a quiet coffee shop.","sentence_cn":"有时我在家工作，其他日子则会去一家安静的咖啡馆。","chunks":[{"text":"I sometimes work from home,","meaning":"有时我在家工作"},{"text":"and on other days","meaning":"而在其他日子"},{"text":"I visit a quiet coffee shop.","meaning":"我会去一家安静的咖啡馆"}],"explanation":"on other days 表示在其他日子。"},
+      {"sentence_en":"This gives me more freedom and saves time on commuting.","sentence_cn":"这让我拥有更多自由，也节省了通勤时间。","chunks":[{"text":"This gives me","meaning":"这给我带来"},{"text":"more freedom","meaning":"更多自由"},{"text":"and saves time on commuting.","meaning":"并节省通勤时间"}],"explanation":"save time on 表示在某方面节省时间。"},
+      {"sentence_en":"However, remote work also requires self-discipline.","sentence_cn":"然而，远程工作同样需要自律。","chunks":[{"text":"However,","meaning":"然而"},{"text":"remote work","meaning":"远程工作"},{"text":"also requires","meaning":"同样需要"},{"text":"self-discipline.","meaning":"自律"}],"explanation":"require 表示需要；self-discipline 是自律。"},
+      {"sentence_en":"It is easy to become distracted by household tasks or social media.","sentence_cn":"人们很容易被家务或社交媒体分散注意力。","chunks":[{"text":"It is easy","meaning":"很容易"},{"text":"to become distracted","meaning":"变得注意力分散"},{"text":"by household tasks or social media.","meaning":"被家务或社交媒体影响"}],"explanation":"be distracted by 表示被……分散注意力。"},
+      {"sentence_en":"I try to plan my day before starting and keep my phone away when I need to focus.","sentence_cn":"我会在开始工作前安排好一天的计划，并在需要集中注意力时把手机放远一些。","chunks":[{"text":"I try to plan my day","meaning":"我试着安排好一天"},{"text":"before starting","meaning":"在开始之前"},{"text":"and keep my phone away","meaning":"并把手机放远"},{"text":"when I need to focus.","meaning":"当我需要集中注意力时"}],"explanation":"keep something away 表示让某物远离；before starting 是省略结构。"},
+      {"sentence_en":"I also stay in touch with my coworkers through video calls.","sentence_cn":"我也会通过视频通话与同事保持联系。","chunks":[{"text":"I also stay in touch with","meaning":"我也与……保持联系"},{"text":"my coworkers","meaning":"我的同事"},{"text":"through video calls.","meaning":"通过视频通话"}],"explanation":"stay in touch with 表示与某人保持联系。"},
+      {"sentence_en":"Working remotely is convenient, but good communication and clear routines are still important.","sentence_cn":"远程工作虽然方便，但良好的沟通和明确的日常安排仍然很重要。","chunks":[{"text":"Working remotely is convenient,","meaning":"远程工作很方便"},{"text":"but good communication","meaning":"但良好的沟通"},{"text":"and clear routines","meaning":"以及明确的日常安排"},{"text":"are still important.","meaning":"仍然很重要"}],"explanation":"working remotely 是动名词短语作主语。"}
+    ],
+    "vocabulary":[
+      {"word":"technology","phonetic":"","meaning":"科技；技术","part_of_speech":"noun"},
+      {"word":"remote","phonetic":"","meaning":"远程的","part_of_speech":"adjective"},
+      {"word":"commute","phonetic":"","meaning":"通勤","part_of_speech":"verb"},
+      {"word":"distracted","phonetic":"","meaning":"注意力分散的","part_of_speech":"adjective"},
+      {"word":"coworker","phonetic":"","meaning":"同事","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"work from home","meaning":"在家工作","example":"I work from home twice a week."},
+      {"expression":"save time on","meaning":"在……方面节省时间","example":"This route saves time on travel."},
+      {"expression":"remote work","meaning":"远程工作","example":"Remote work gives people more flexibility."},
+      {"expression":"stay in touch with","meaning":"与……保持联系","example":"I stay in touch with old friends."},
+      {"expression":"focus on","meaning":"专注于","example":"I need to focus on my work."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Where does the writer sometimes work?","answer":"At home or in a quiet coffee shop."},
+      {"type":"detail","question":"What can distract people who work remotely?","answer":"Household tasks and social media."},
+      {"type":"inference","question":"Why are routines important for remote work?","answer":"They help people stay focused and organized."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"现代职场话题，包含远程办公常用表达。"}
+  },
+  {
+    "article_id": "article_213",
+    "day": 213,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Work and Stress",
+    "scene": "Managing pressure at work",
+    "title_en": "Dealing with Work Pressure",
+    "title_cn": "应对工作压力",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Work can become stressful when several important tasks need to be finished at the same time. I used to feel overwhelmed and try to do everything at once. This often led to mistakes and made me even more tired. Now I write down all my tasks and decide which ones are most urgent. I break large projects into smaller steps and take short breaks between them. If I need help, I try to ask early instead of waiting until the last minute. I cannot remove every kind of pressure, but I can manage my time and response more effectively.",
+    "content_cn": "当几项重要任务需要同时完成时，工作就可能变得很有压力。过去，我常常感到不知所措，试图一次完成所有事情。这往往导致错误，也让我更加疲惫。现在，我会把所有任务写下来，并判断哪些最紧急。我把大型项目拆分成较小的步骤，并在步骤之间短暂休息。如果需要帮助，我会尽早提出，而不是等到最后一刻。我无法消除所有压力，但我可以更有效地管理时间和自己的应对方式。",
+    "sentences":[
+      {"sentence_en":"Work can become stressful when several important tasks need to be finished at the same time.","sentence_cn":"当几项重要任务需要同时完成时，工作就可能变得很有压力。","chunks":[{"text":"Work can become stressful","meaning":"工作可能变得有压力"},{"text":"when several important tasks","meaning":"当几项重要任务"},{"text":"need to be finished","meaning":"需要被完成"},{"text":"at the same time.","meaning":"在同一时间"}],"explanation":"need to be finished 是被动结构，表示需要被完成。"},
+      {"sentence_en":"I used to feel overwhelmed and try to do everything at once.","sentence_cn":"过去，我常常感到不知所措，试图一次完成所有事情。","chunks":[{"text":"I used to feel overwhelmed","meaning":"我过去常常感到不知所措"},{"text":"and try to do","meaning":"并试图做"},{"text":"everything at once.","meaning":"一次完成所有事情"}],"explanation":"used to 表示过去的习惯；at once 表示同时或立刻。"},
+      {"sentence_en":"This often led to mistakes and made me even more tired.","sentence_cn":"这往往导致错误，也让我更加疲惫。","chunks":[{"text":"This often led to mistakes","meaning":"这常常导致错误"},{"text":"and made me","meaning":"并让我"},{"text":"even more tired.","meaning":"更加疲惫"}],"explanation":"lead to 表示导致；make 后接宾语和形容词。"},
+      {"sentence_en":"Now I write down all my tasks and decide which ones are most urgent.","sentence_cn":"现在，我会把所有任务写下来，并判断哪些最紧急。","chunks":[{"text":"Now I write down","meaning":"现在我写下"},{"text":"all my tasks","meaning":"所有任务"},{"text":"and decide","meaning":"并判断"},{"text":"which ones are most urgent.","meaning":"哪些最紧急"}],"explanation":"which 引导宾语从句；write down 表示写下。"},
+      {"sentence_en":"I break large projects into smaller steps and take short breaks between them.","sentence_cn":"我把大型项目拆分成较小的步骤，并在步骤之间短暂休息。","chunks":[{"text":"I break large projects","meaning":"我把大型项目拆分"},{"text":"into smaller steps","meaning":"成更小的步骤"},{"text":"and take short breaks","meaning":"并进行短暂休息"},{"text":"between them.","meaning":"在它们之间"}],"explanation":"break something into 表示把某物拆分成若干部分。"},
+      {"sentence_en":"If I need help, I try to ask early instead of waiting until the last minute.","sentence_cn":"如果需要帮助，我会尽早提出，而不是等到最后一刻。","chunks":[{"text":"If I need help,","meaning":"如果我需要帮助"},{"text":"I try to ask early","meaning":"我尽量尽早提出"},{"text":"instead of waiting","meaning":"而不是等待"},{"text":"until the last minute.","meaning":"直到最后一刻"}],"explanation":"instead of 后接动名词；last minute 表示最后一刻。"},
+      {"sentence_en":"I cannot remove every kind of pressure, but I can manage my time and response more effectively.","sentence_cn":"我无法消除所有压力，但我可以更有效地管理时间和自己的应对方式。","chunks":[{"text":"I cannot remove every kind of pressure,","meaning":"我无法消除所有类型的压力"},{"text":"but I can manage","meaning":"但我能够管理"},{"text":"my time and response","meaning":"我的时间和应对方式"},{"text":"more effectively.","meaning":"更加有效地"}],"explanation":"effectively 是副词，修饰 manage。"}
+    ],
+    "vocabulary":[
+      {"word":"stressful","phonetic":"","meaning":"有压力的","part_of_speech":"adjective"},
+      {"word":"overwhelmed","phonetic":"","meaning":"不知所措的","part_of_speech":"adjective"},
+      {"word":"urgent","phonetic":"","meaning":"紧急的","part_of_speech":"adjective"},
+      {"word":"project","phonetic":"","meaning":"项目","part_of_speech":"noun"},
+      {"word":"effectively","phonetic":"","meaning":"有效地","part_of_speech":"adverb"}
+    ],
+    "expressions":[
+      {"expression":"at the same time","meaning":"同时","example":"I cannot do two things at the same time."},
+      {"expression":"feel overwhelmed","meaning":"感到不知所措","example":"I feel overwhelmed by the amount of work."},
+      {"expression":"lead to","meaning":"导致","example":"Poor planning can lead to problems."},
+      {"expression":"write down","meaning":"写下来","example":"Write down your ideas."},
+      {"expression":"at the last minute","meaning":"在最后一刻","example":"Don't wait until the last minute."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What did the writer do in the past when facing many tasks?","answer":"Tried to do everything at once."},
+      {"type":"sequence","question":"How does the writer organize work now?","answer":"Writes down tasks, chooses urgent ones, and breaks projects into smaller steps."},
+      {"type":"main_idea","question":"What is the writer's approach to work pressure?","answer":"Manage time and respond more effectively instead of trying to remove all pressure."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"强调任务拆分和优先级管理。"}
+  },
+  {
+    "article_id": "article_214",
+    "day": 214,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Work Environment",
+    "scene": "Describing a good workplace",
+    "title_en": "A Good Working Environment",
+    "title_cn": "良好的工作环境",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "A good working environment is about more than comfortable chairs and modern equipment. People also need respect, clear communication, and a sense of trust. In a healthy workplace, employees can ask questions without feeling embarrassed. Managers listen to different opinions and give useful feedback. Team members are willing to help each other when problems appear. I also believe that a clean and quiet space makes it easier to focus. No workplace is perfect, but a supportive atmosphere can make a big difference. When people feel valued, they are more likely to do their best work.",
+    "content_cn": "良好的工作环境不仅仅是舒适的椅子和现代化设备。人们还需要尊重、清晰的沟通以及信任感。在健康的工作场所，员工可以提出问题，而不必感到尴尬。管理者会倾听不同意见，并给予有用的反馈。团队成员在出现问题时也愿意互相帮助。我还认为，整洁安静的空间更容易让人集中注意力。没有任何工作场所是完美的，但支持性的氛围能带来很大改变。当人们感到自己受到重视时，就更有可能尽力做好工作。",
+    "sentences":[
+      {"sentence_en":"A good working environment is about more than comfortable chairs and modern equipment.","sentence_cn":"良好的工作环境不仅仅是舒适的椅子和现代化设备。","chunks":[{"text":"A good working environment","meaning":"良好的工作环境"},{"text":"is about more than","meaning":"不仅仅是"},{"text":"comfortable chairs and modern equipment.","meaning":"舒适的椅子和现代化设备"}],"explanation":"more than 表示不仅仅是或超过。"},
+      {"sentence_en":"People also need respect, clear communication, and a sense of trust.","sentence_cn":"人们还需要尊重、清晰的沟通以及信任感。","chunks":[{"text":"People also need","meaning":"人们还需要"},{"text":"respect, clear communication,","meaning":"尊重和清晰的沟通"},{"text":"and a sense of trust.","meaning":"以及信任感"}],"explanation":"a sense of 表示一种……的感觉。"},
+      {"sentence_en":"In a healthy workplace, employees can ask questions without feeling embarrassed.","sentence_cn":"在健康的工作场所，员工可以提出问题，而不必感到尴尬。","chunks":[{"text":"In a healthy workplace,","meaning":"在健康的工作环境中"},{"text":"employees can ask questions","meaning":"员工可以提出问题"},{"text":"without feeling embarrassed.","meaning":"而不感到尴尬"}],"explanation":"without 后接动名词。"},
+      {"sentence_en":"Managers listen to different opinions and give useful feedback.","sentence_cn":"管理者会倾听不同意见，并给予有用的反馈。","chunks":[{"text":"Managers listen to","meaning":"管理者倾听"},{"text":"different opinions","meaning":"不同的意见"},{"text":"and give useful feedback.","meaning":"并给予有用的反馈"}],"explanation":"listen to 表示倾听；feedback 通常作不可数名词。"},
+      {"sentence_en":"Team members are willing to help each other when problems appear.","sentence_cn":"团队成员在出现问题时也愿意互相帮助。","chunks":[{"text":"Team members","meaning":"团队成员"},{"text":"are willing to help each other","meaning":"愿意互相帮助"},{"text":"when problems appear.","meaning":"当问题出现时"}],"explanation":"be willing to do 表示愿意做某事。"},
+      {"sentence_en":"I also believe that a clean and quiet space makes it easier to focus.","sentence_cn":"我还认为，整洁安静的空间更容易让人集中注意力。","chunks":[{"text":"I also believe that","meaning":"我还认为"},{"text":"a clean and quiet space","meaning":"一个整洁安静的空间"},{"text":"makes it easier","meaning":"使……更容易"},{"text":"to focus.","meaning":"集中注意力"}],"explanation":"make it + 形容词 + to do 是常见结构。"},
+      {"sentence_en":"No workplace is perfect, but a supportive atmosphere can make a big difference.","sentence_cn":"没有任何工作场所是完美的，但支持性的氛围能带来很大改变。","chunks":[{"text":"No workplace is perfect,","meaning":"没有工作场所是完美的"},{"text":"but a supportive atmosphere","meaning":"但支持性的氛围"},{"text":"can make a big difference.","meaning":"能够带来很大改变"}],"explanation":"supportive 表示给予支持的；make a difference 表示产生影响。"},
+      {"sentence_en":"When people feel valued, they are more likely to do their best work.","sentence_cn":"当人们感到自己受到重视时，就更有可能尽力做好工作。","chunks":[{"text":"When people feel valued,","meaning":"当人们感到受到重视时"},{"text":"they are more likely","meaning":"他们更有可能"},{"text":"to do their best work.","meaning":"尽力做好工作"}],"explanation":"be likely to do 表示有可能做某事。"}
+    ],
+    "vocabulary":[
+      {"word":"environment","phonetic":"","meaning":"环境","part_of_speech":"noun"},
+      {"word":"respect","phonetic":"","meaning":"尊重","part_of_speech":"noun"},
+      {"word":"employee","phonetic":"","meaning":"员工","part_of_speech":"noun"},
+      {"word":"feedback","phonetic":"","meaning":"反馈","part_of_speech":"noun"},
+      {"word":"supportive","phonetic":"","meaning":"支持性的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"working environment","meaning":"工作环境","example":"A positive working environment matters."},
+      {"expression":"a sense of trust","meaning":"信任感","example":"Good communication creates a sense of trust."},
+      {"expression":"listen to opinions","meaning":"倾听意见","example":"Managers should listen to opinions."},
+      {"expression":"be willing to","meaning":"愿意做……","example":"I am willing to help."},
+      {"expression":"do one's best","meaning":"尽最大努力","example":"Everyone should do their best."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What do people need besides comfortable equipment?","answer":"Respect, clear communication, and trust."},
+      {"type":"detail","question":"What do managers do in a healthy workplace?","answer":"They listen to different opinions and give useful feedback."},
+      {"type":"inference","question":"Why is feeling valued important?","answer":"People are more likely to do their best work when they feel valued."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"职场环境主题，表达适合讨论团队文化。"}
+  },
+  {
+    "article_id": "article_215",
+    "day": 215,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Work Relationships",
+    "scene": "Learning from coworkers",
+    "title_en": "Learning from Colleagues",
+    "title_cn": "向同事学习",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Working with different people has taught me many useful lessons. Some colleagues are good at organizing tasks, while others are excellent at solving problems. I try to observe how they work and ask questions when I do not understand something. One coworker showed me a faster way to prepare reports, which saved me a lot of time. Another taught me how to communicate more clearly with customers. I have learned that everyone has different strengths. Instead of feeling jealous of someone's skills, I can learn from them and improve my own abilities.",
+    "content_cn": "与不同的人一起工作，让我学到了许多有用的东西。有些同事擅长安排任务，另一些则很善于解决问题。我会观察他们的工作方式，并在不理解某件事时主动提问。一位同事向我展示了一种更快制作报告的方法，为我节省了很多时间。另一位则教会我如何更清楚地与客户沟通。我逐渐明白，每个人都有不同的长处。与其嫉妒别人的技能，不如向他们学习，提高自己的能力。",
+    "sentences":[
+      {"sentence_en":"Working with different people has taught me many useful lessons.","sentence_cn":"与不同的人一起工作，让我学到了许多有用的东西。","chunks":[{"text":"Working with different people","meaning":"与不同的人一起工作"},{"text":"has taught me","meaning":"已经教会我"},{"text":"many useful lessons.","meaning":"许多有用的经验"}],"explanation":"动名词短语作主语；现在完成时强调经验积累。"},
+      {"sentence_en":"Some colleagues are good at organizing tasks, while others are excellent at solving problems.","sentence_cn":"有些同事擅长安排任务，另一些则很善于解决问题。","chunks":[{"text":"Some colleagues","meaning":"有些同事"},{"text":"are good at organizing tasks,","meaning":"擅长安排任务"},{"text":"while others","meaning":"而另一些人"},{"text":"are excellent at solving problems.","meaning":"非常善于解决问题"}],"explanation":"be good at 和 be excellent at 后接名词或动名词。"},
+      {"sentence_en":"I try to observe how they work and ask questions when I do not understand something.","sentence_cn":"我会观察他们的工作方式，并在不理解某件事时主动提问。","chunks":[{"text":"I try to observe","meaning":"我试着观察"},{"text":"how they work","meaning":"他们如何工作"},{"text":"and ask questions","meaning":"并提出问题"},{"text":"when I do not understand something.","meaning":"当我不理解某件事时"}],"explanation":"how 引导宾语从句；when 引导时间状语从句。"},
+      {"sentence_en":"One coworker showed me a faster way to prepare reports, which saved me a lot of time.","sentence_cn":"一位同事向我展示了一种更快制作报告的方法，为我节省了很多时间。","chunks":[{"text":"One coworker showed me","meaning":"一位同事向我展示"},{"text":"a faster way to prepare reports,","meaning":"一种更快准备报告的方法"},{"text":"which saved me","meaning":"这为我节省了"},{"text":"a lot of time.","meaning":"很多时间"}],"explanation":"which 引导非限制性定语从句，补充说明前面的事情。"},
+      {"sentence_en":"Another taught me how to communicate more clearly with customers.","sentence_cn":"另一位则教会我如何更清楚地与客户沟通。","chunks":[{"text":"Another taught me","meaning":"另一位教会我"},{"text":"how to communicate","meaning":"如何沟通"},{"text":"more clearly with customers.","meaning":"更清楚地与客户沟通"}],"explanation":"how to communicate 是疑问词加不定式结构。"},
+      {"sentence_en":"I have learned that everyone has different strengths.","sentence_cn":"我逐渐明白，每个人都有不同的长处。","chunks":[{"text":"I have learned that","meaning":"我已经明白"},{"text":"everyone has","meaning":"每个人都有"},{"text":"different strengths.","meaning":"不同的长处"}],"explanation":"strength 表示优势、长处。"},
+      {"sentence_en":"Instead of feeling jealous of someone's skills, I can learn from them and improve my own abilities.","sentence_cn":"与其嫉妒别人的技能，不如向他们学习，提高自己的能力。","chunks":[{"text":"Instead of feeling jealous","meaning":"与其感到嫉妒"},{"text":"of someone's skills,","meaning":"别人的技能"},{"text":"I can learn from them","meaning":"我可以向他们学习"},{"text":"and improve my own abilities.","meaning":"并提高自己的能力"}],"explanation":"instead of 后接动名词；learn from 表示向……学习。"}
+    ],
+    "vocabulary":[
+      {"word":"colleague","phonetic":"","meaning":"同事","part_of_speech":"noun"},
+      {"word":"organize","phonetic":"","meaning":"组织；安排","part_of_speech":"verb"},
+      {"word":"observe","phonetic":"","meaning":"观察","part_of_speech":"verb"},
+      {"word":"strength","phonetic":"","meaning":"优势；长处","part_of_speech":"noun"},
+      {"word":"ability","phonetic":"","meaning":"能力","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"be good at","meaning":"擅长","example":"She is good at solving problems."},
+      {"expression":"ask questions","meaning":"提出问题","example":"Don't be afraid to ask questions."},
+      {"expression":"show someone a way","meaning":"向某人展示一种方法","example":"He showed me a better way."},
+      {"expression":"save time","meaning":"节省时间","example":"This tool can save time."},
+      {"expression":"learn from someone","meaning":"向某人学习","example":"I learned a lot from my coworkers."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What was one colleague good at?","answer":"Preparing reports more quickly."},
+      {"type":"detail","question":"What did another colleague teach the writer?","answer":"How to communicate more clearly with customers."},
+      {"type":"main_idea","question":"What is the writer's attitude toward other people's strengths?","answer":"The writer prefers learning from them rather than feeling jealous."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"自然表达职场学习和同事交流。"}
+  },
+  {
+    "article_id": "article_216",
+    "day": 216,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Work Challenges",
+    "scene": "Handling difficult work situations",
+    "title_en": "When Work Gets Difficult",
+    "title_cn": "当工作变得困难时",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Every job has difficult days. Sometimes a project takes longer than expected, or a customer is unhappy with the result. When this happens, I try not to panic. First, I look at the problem carefully and find out what went wrong. Then I think about possible solutions and choose the most practical one. If I cannot solve the problem alone, I talk to a coworker or manager. Difficult situations can be frustrating, but they also help me develop new skills. I have learned that asking for help is not a sign of weakness. It is often a smart way to move forward.",
+    "content_cn": "每份工作都会有困难的时候。有时，一个项目花费的时间比预期更长，或者客户对结果不满意。遇到这种情况时，我尽量不让自己慌张。首先，我会仔细分析问题，找出哪里出了差错。然后，我会思考可能的解决办法，并选择最实际的一种。如果我无法独自解决，就会和同事或经理沟通。困难的情况可能令人沮丧，但也能帮助我培养新技能。我逐渐明白，寻求帮助并不是软弱的表现，而往往是一种继续前进的明智方式。",
+    "sentences":[
+      {"sentence_en":"Every job has difficult days.","sentence_cn":"每份工作都会有困难的时候。","chunks":[{"text":"Every job","meaning":"每份工作"},{"text":"has difficult days.","meaning":"都会有困难的日子"}],"explanation":"every 后接单数名词，谓语动词使用单数形式。"},
+      {"sentence_en":"Sometimes a project takes longer than expected, or a customer is unhappy with the result.","sentence_cn":"有时，一个项目花费的时间比预期更长，或者客户对结果不满意。","chunks":[{"text":"Sometimes a project takes longer","meaning":"有时一个项目花费更长时间"},{"text":"than expected,","meaning":"比预期的"},{"text":"or a customer is unhappy","meaning":"或者客户不满意"},{"text":"with the result.","meaning":"对结果"}],"explanation":"longer than expected 表示比预期更久。"},
+      {"sentence_en":"When this happens, I try not to panic.","sentence_cn":"遇到这种情况时，我尽量不让自己慌张。","chunks":[{"text":"When this happens,","meaning":"当这种情况发生时"},{"text":"I try not to panic.","meaning":"我尽量不慌张"}],"explanation":"try not to do 表示尽量不做某事。"},
+      {"sentence_en":"First, I look at the problem carefully and find out what went wrong.","sentence_cn":"首先，我会仔细分析问题，找出哪里出了差错。","chunks":[{"text":"First,","meaning":"首先"},{"text":"I look at the problem carefully","meaning":"我仔细查看问题"},{"text":"and find out","meaning":"并弄清楚"},{"text":"what went wrong.","meaning":"哪里出了问题"}],"explanation":"find out 表示查明；what 引导宾语从句。"},
+      {"sentence_en":"Then I think about possible solutions and choose the most practical one.","sentence_cn":"然后，我会思考可能的解决办法，并选择最实际的一种。","chunks":[{"text":"Then I think about","meaning":"然后我思考"},{"text":"possible solutions","meaning":"可能的解决办法"},{"text":"and choose","meaning":"并选择"},{"text":"the most practical one.","meaning":"最实际的一个"}],"explanation":"one 用来代替前面提到的 solution。"},
+      {"sentence_en":"If I cannot solve the problem alone, I talk to a coworker or manager.","sentence_cn":"如果我无法独自解决，就会和同事或经理沟通。","chunks":[{"text":"If I cannot solve the problem alone,","meaning":"如果我无法独自解决问题"},{"text":"I talk to","meaning":"我会和……交谈"},{"text":"a coworker or manager.","meaning":"一位同事或经理"}],"explanation":"if 引导条件状语从句。"},
+      {"sentence_en":"Difficult situations can be frustrating, but they also help me develop new skills.","sentence_cn":"困难的情况可能令人沮丧，但也能帮助我培养新技能。","chunks":[{"text":"Difficult situations can be frustrating,","meaning":"困难的情况可能令人沮丧"},{"text":"but they also help me","meaning":"但它们也帮助我"},{"text":"develop new skills.","meaning":"培养新技能"}],"explanation":"frustrating 表示令人沮丧的；help 后接动词原形。"},
+      {"sentence_en":"I have learned that asking for help is not a sign of weakness.","sentence_cn":"我逐渐明白，寻求帮助并不是软弱的表现。","chunks":[{"text":"I have learned that","meaning":"我已经明白"},{"text":"asking for help","meaning":"寻求帮助"},{"text":"is not a sign of weakness.","meaning":"并不是软弱的表现"}],"explanation":"asking for help 是动名词短语作主语。"},
+      {"sentence_en":"It is often a smart way to move forward.","sentence_cn":"这往往是一种继续前进的明智方式。","chunks":[{"text":"It is often","meaning":"这往往是"},{"text":"a smart way","meaning":"一种明智的方式"},{"text":"to move forward.","meaning":"继续前进"}],"explanation":"way to do 表示做某事的方法。"}
+    ],
+    "vocabulary":[
+      {"word":"project","phonetic":"","meaning":"项目","part_of_speech":"noun"},
+      {"word":"panic","phonetic":"","meaning":"惊慌；恐慌","part_of_speech":"verb"},
+      {"word":"solution","phonetic":"","meaning":"解决办法","part_of_speech":"noun"},
+      {"word":"practical","phonetic":"","meaning":"实际的；实用的","part_of_speech":"adjective"},
+      {"word":"weakness","phonetic":"","meaning":"弱点；软弱","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"take longer than expected","meaning":"比预期花费更长时间","example":"The meeting took longer than expected."},
+      {"expression":"be unhappy with","meaning":"对……不满意","example":"The customer was unhappy with the service."},
+      {"expression":"find out","meaning":"查明；弄清楚","example":"Let's find out what happened."},
+      {"expression":"solve a problem","meaning":"解决问题","example":"We need to solve this problem."},
+      {"expression":"ask for help","meaning":"寻求帮助","example":"Don't be afraid to ask for help."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What are two problems mentioned in the passage?","answer":"A project takes too long, or a customer is unhappy with the result."},
+      {"type":"sequence","question":"What does the writer do first when a problem appears?","answer":"Looks at the problem carefully and finds out what went wrong."},
+      {"type":"inference","question":"Why does the writer think asking for help is smart?","answer":"Because other people may help find a practical solution and move the work forward."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"突出问题分析、解决方案与主动求助。"}
+  },
+  {
+    "article_id": "article_217",
+    "day": 217,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Teamwork",
+    "scene": "Working together as a team",
+    "title_en": "The Value of Teamwork",
+    "title_cn": "团队合作的价值",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A good team can achieve things that one person may find difficult to do alone. Each member brings different skills and ideas. When people share their knowledge, the whole group becomes stronger. However, teamwork does not mean that everyone must agree all the time. People may have different opinions, and that can be useful. The important thing is to listen carefully and focus on the common goal. In one project, my team solved a difficult problem because everyone contributed something. I learned that cooperation is not about being the best person in the room. It is about helping everyone succeed.",
+    "content_cn": "一个优秀的团队能够完成一个人独自完成时可能觉得困难的事情。每个成员都会带来不同的技能和想法。当人们分享知识时，整个团队就会变得更强大。然而，团队合作并不意味着每个人必须始终意见一致。人们可能有不同的看法，而这也可能带来帮助。重要的是认真倾听，并把注意力放在共同目标上。在一次项目中，因为每个人都贡献了自己的力量，我们团队解决了一个难题。我明白了，合作并不是要成为房间里最优秀的人，而是帮助每个人取得成功。",
+    "sentences":[
+      {"sentence_en":"A good team can achieve things that one person may find difficult to do alone.","sentence_cn":"一个优秀的团队能够完成一个人独自完成时可能觉得困难的事情。","chunks":[{"text":"A good team can achieve things","meaning":"一个优秀的团队能够完成一些事情"},{"text":"that one person may find difficult","meaning":"一个人可能觉得困难的"},{"text":"to do alone.","meaning":"独自去做"}],"explanation":"that 引导定语从句；find something difficult 表示觉得某事困难。"},
+      {"sentence_en":"Each member brings different skills and ideas.","sentence_cn":"每个成员都会带来不同的技能和想法。","chunks":[{"text":"Each member","meaning":"每个成员"},{"text":"brings","meaning":"带来"},{"text":"different skills and ideas.","meaning":"不同的技能和想法"}],"explanation":"each 后接单数名词，谓语使用单数形式。"},
+      {"sentence_en":"When people share their knowledge, the whole group becomes stronger.","sentence_cn":"当人们分享知识时，整个团队就会变得更强大。","chunks":[{"text":"When people share their knowledge,","meaning":"当人们分享知识时"},{"text":"the whole group","meaning":"整个团队"},{"text":"becomes stronger.","meaning":"会变得更强大"}],"explanation":"when 引导时间状语从句。"},
+      {"sentence_en":"However, teamwork does not mean that everyone must agree all the time.","sentence_cn":"然而，团队合作并不意味着每个人必须始终意见一致。","chunks":[{"text":"However,","meaning":"然而"},{"text":"teamwork does not mean that","meaning":"团队合作并不意味着"},{"text":"everyone must agree","meaning":"每个人都必须同意"},{"text":"all the time.","meaning":"一直"}],"explanation":"all the time 表示一直；must 表示必须。"},
+      {"sentence_en":"People may have different opinions, and that can be useful.","sentence_cn":"人们可能有不同的看法，而这也可能带来帮助。","chunks":[{"text":"People may have","meaning":"人们可能有"},{"text":"different opinions,","meaning":"不同的意见"},{"text":"and that can be useful.","meaning":"而这可能是有益的"}],"explanation":"that 指代前面提到的不同意见。"},
+      {"sentence_en":"The important thing is to listen carefully and focus on the common goal.","sentence_cn":"重要的是认真倾听，并把注意力放在共同目标上。","chunks":[{"text":"The important thing","meaning":"重要的事情"},{"text":"is to listen carefully","meaning":"是认真倾听"},{"text":"and focus on","meaning":"并专注于"},{"text":"the common goal.","meaning":"共同目标"}],"explanation":"focus on 表示专注于。"},
+      {"sentence_en":"In one project, my team solved a difficult problem because everyone contributed something.","sentence_cn":"在一次项目中，因为每个人都贡献了自己的力量，我们团队解决了一个难题。","chunks":[{"text":"In one project,","meaning":"在一个项目中"},{"text":"my team solved a difficult problem","meaning":"我的团队解决了一个难题"},{"text":"because everyone contributed something.","meaning":"因为每个人都作出了贡献"}],"explanation":"because 引导原因状语从句。"},
+      {"sentence_en":"I learned that cooperation is not about being the best person in the room.","sentence_cn":"我明白了，合作并不是要成为房间里最优秀的人。","chunks":[{"text":"I learned that","meaning":"我明白了"},{"text":"cooperation is not about","meaning":"合作并不是要"},{"text":"being the best person in the room.","meaning":"成为房间里最优秀的人"}],"explanation":"be about doing 表示重点在于做某事。"},
+      {"sentence_en":"It is about helping everyone succeed.","sentence_cn":"而是帮助每个人取得成功。","chunks":[{"text":"It is about","meaning":"它的重点在于"},{"text":"helping everyone","meaning":"帮助每个人"},{"text":"succeed.","meaning":"取得成功"}],"explanation":"helping 是动名词，作介词 about 的宾语。"}
+    ],
+    "vocabulary":[
+      {"word":"achieve","phonetic":"","meaning":"实现；完成","part_of_speech":"verb"},
+      {"word":"member","phonetic":"","meaning":"成员","part_of_speech":"noun"},
+      {"word":"knowledge","phonetic":"","meaning":"知识","part_of_speech":"noun"},
+      {"word":"contribute","phonetic":"","meaning":"贡献","part_of_speech":"verb"},
+      {"word":"cooperation","phonetic":"","meaning":"合作","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"work as a team","meaning":"作为团队合作","example":"We need to work as a team."},
+      {"expression":"share knowledge","meaning":"分享知识","example":"Good teachers share knowledge."},
+      {"expression":"all the time","meaning":"一直；始终","example":"You don't need to be busy all the time."},
+      {"expression":"focus on","meaning":"专注于","example":"Let's focus on our common goal."},
+      {"expression":"make a contribution","meaning":"作出贡献","example":"Everyone can make a contribution."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What does each team member bring?","answer":"Different skills and ideas."},
+      {"type":"inference","question":"Does teamwork require everyone to agree?","answer":"No. Different opinions can be useful."},
+      {"type":"main_idea","question":"What is the writer's understanding of cooperation?","answer":"It is about helping everyone succeed, not being the best person."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"团队合作主题，强调共同目标和贡献。"}
+  },
+  {
+    "article_id": "article_218",
+    "day": 218,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Motivation",
+    "scene": "Staying motivated at work",
+    "title_en": "Finding Motivation at Work",
+    "title_cn": "在工作中寻找动力",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "There are days when I do not feel motivated to work. The tasks may seem boring, or the results may take a long time to appear. On those days, I remind myself why I started. I also set small goals that I can finish within a few hours. Completing one task gives me a sense of progress and makes the next one easier to begin. Sometimes, talking with a coworker or taking a short walk helps me feel refreshed. Motivation does not always come naturally. I have learned that taking action can create the energy I need to continue.",
+    "content_cn": "有些日子，我并没有工作的动力。任务可能看起来很枯燥，或者成果需要很长时间才能显现。在这样的日子里，我会提醒自己当初为什么开始。我也会设定一些能够在几小时内完成的小目标。完成一项任务会让我感受到进步，也让下一项任务更容易开始。有时候，与同事聊一聊或者短暂散步，都能让我重新恢复精神。动力并不总是自然而然地出现。我逐渐明白，采取行动本身就能创造继续前进所需要的能量。",
+    "sentences":[
+      {"sentence_en":"There are days when I do not feel motivated to work.","sentence_cn":"有些日子，我并没有工作的动力。","chunks":[{"text":"There are days","meaning":"有些日子"},{"text":"when I do not feel motivated","meaning":"在那些日子里我没有动力"},{"text":"to work.","meaning":"去工作"}],"explanation":"when 引导定语从句，修饰 days。"},
+      {"sentence_en":"The tasks may seem boring, or the results may take a long time to appear.","sentence_cn":"任务可能看起来很枯燥，或者成果需要很长时间才能显现。","chunks":[{"text":"The tasks may seem boring,","meaning":"任务可能看起来很无聊"},{"text":"or the results may take","meaning":"或者成果可能需要"},{"text":"a long time to appear.","meaning":"很长时间才会出现"}],"explanation":"seem 后接形容词；take time to do 表示花时间做某事。"},
+      {"sentence_en":"On those days, I remind myself why I started.","sentence_cn":"在这样的日子里，我会提醒自己当初为什么开始。","chunks":[{"text":"On those days,","meaning":"在那些日子里"},{"text":"I remind myself","meaning":"我提醒自己"},{"text":"why I started.","meaning":"当初为什么开始"}],"explanation":"why 引导宾语从句，使用陈述语序。"},
+      {"sentence_en":"I also set small goals that I can finish within a few hours.","sentence_cn":"我也会设定一些能够在几小时内完成的小目标。","chunks":[{"text":"I also set small goals","meaning":"我也设定小目标"},{"text":"that I can finish","meaning":"这些目标我能够完成"},{"text":"within a few hours.","meaning":"在几小时之内"}],"explanation":"that 引导定语从句，修饰 goals。"},
+      {"sentence_en":"Completing one task gives me a sense of progress and makes the next one easier to begin.","sentence_cn":"完成一项任务会让我感受到进步，也让下一项任务更容易开始。","chunks":[{"text":"Completing one task","meaning":"完成一项任务"},{"text":"gives me a sense of progress","meaning":"让我感受到进步"},{"text":"and makes the next one","meaning":"并让下一项任务"},{"text":"easier to begin.","meaning":"更容易开始"}],"explanation":"动名词短语作主语；make 后接宾语和形容词。"},
+      {"sentence_en":"Sometimes, talking with a coworker or taking a short walk helps me feel refreshed.","sentence_cn":"有时候，与同事聊一聊或者短暂散步，都能让我重新恢复精神。","chunks":[{"text":"Sometimes,","meaning":"有时候"},{"text":"talking with a coworker","meaning":"与同事交谈"},{"text":"or taking a short walk","meaning":"或者短暂散步"},{"text":"helps me feel refreshed.","meaning":"帮助我恢复精神"}],"explanation":"两个动名词短语并列作主语，整体视为一组活动。"},
+      {"sentence_en":"Motivation does not always come naturally.","sentence_cn":"动力并不总是自然而然地出现。","chunks":[{"text":"Motivation","meaning":"动力"},{"text":"does not always come","meaning":"并不总是出现"},{"text":"naturally.","meaning":"自然而然地"}],"explanation":"naturally 是副词，修饰 come。"},
+      {"sentence_en":"I have learned that taking action can create the energy I need to continue.","sentence_cn":"我逐渐明白，采取行动本身就能创造继续前进所需要的能量。","chunks":[{"text":"I have learned that","meaning":"我已经明白"},{"text":"taking action can create","meaning":"采取行动能够创造"},{"text":"the energy","meaning":"能量"},{"text":"I need to continue.","meaning":"我继续前进所需要的"}],"explanation":"taking action 作宾语从句主语；I need to continue 是定语从句的省略关系代词结构。"}
+    ],
+    "vocabulary":[
+      {"word":"motivated","phonetic":"","meaning":"有动力的","part_of_speech":"adjective"},
+      {"word":"boring","phonetic":"","meaning":"枯燥的；无聊的","part_of_speech":"adjective"},
+      {"word":"progress","phonetic":"","meaning":"进步","part_of_speech":"noun"},
+      {"word":"refreshed","phonetic":"","meaning":"恢复精神的","part_of_speech":"adjective"},
+      {"word":"naturally","phonetic":"","meaning":"自然地","part_of_speech":"adverb"}
+    ],
+    "expressions":[
+      {"expression":"feel motivated","meaning":"感到有动力","example":"I feel motivated to learn English."},
+      {"expression":"remind myself","meaning":"提醒自己","example":"I remind myself to stay calm."},
+      {"expression":"set small goals","meaning":"设定小目标","example":"Set small goals for each week."},
+      {"expression":"a sense of progress","meaning":"进步感","example":"Small wins give me a sense of progress."},
+      {"expression":"take action","meaning":"采取行动","example":"It is time to take action."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Why might the writer lose motivation?","answer":"Tasks may seem boring or results may take a long time to appear."},
+      {"type":"detail","question":"What kind of goals does the writer set?","answer":"Small goals that can be finished within a few hours."},
+      {"type":"main_idea","question":"What creates motivation according to the writer?","answer":"Taking action can create the energy needed to continue."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"强调行动带来动力，而非等待动力出现。"}
+  },
+  {
+    "article_id": "article_219",
+    "day": 219,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Career Development",
+    "scene": "Taking a break from work",
+    "title_en": "Taking a Career Break",
+    "title_cn": "暂时离开职场",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "After working for several years without a long break, I began to feel exhausted. I decided to take a few months away from my usual job. At first, I worried about losing my skills or falling behind other people. However, the break gave me time to rest, travel, and think about my future. I also took an online course to learn something new. When I returned to work, I felt more focused and had a clearer idea of what I wanted. A career break is not right for everyone, but sometimes stepping away can help us move forward with greater purpose.",
+    "content_cn": "连续工作几年而没有长时间休息后，我开始感到精疲力尽。我决定暂时离开原来的工作几个月。起初，我担心自己会失去技能，或者落后于别人。然而，这段休息时间让我有机会休息、旅行，并思考自己的未来。我还参加了一门在线课程，学习新知识。当我重新回到工作岗位时，我感觉更加专注，也更清楚自己想要什么。职业间隔期并不适合每个人，但有时暂时离开，反而能帮助我们更有目标地继续前进。",
+    "sentences":[
+      {"sentence_en":"After working for several years without a long break, I began to feel exhausted.","sentence_cn":"连续工作几年而没有长时间休息后，我开始感到精疲力尽。","chunks":[{"text":"After working for several years","meaning":"连续工作几年之后"},{"text":"without a long break,","meaning":"没有长时间休息"},{"text":"I began to feel exhausted.","meaning":"我开始感到精疲力尽"}],"explanation":"after 后接动名词；begin to do 表示开始做某事。"},
+      {"sentence_en":"I decided to take a few months away from my usual job.","sentence_cn":"我决定暂时离开原来的工作几个月。","chunks":[{"text":"I decided","meaning":"我决定"},{"text":"to take a few months away","meaning":"暂时离开几个月"},{"text":"from my usual job.","meaning":"原来的工作"}],"explanation":"decide to do 表示决定做某事。"},
+      {"sentence_en":"At first, I worried about losing my skills or falling behind other people.","sentence_cn":"起初，我担心自己会失去技能，或者落后于别人。","chunks":[{"text":"At first,","meaning":"起初"},{"text":"I worried about","meaning":"我担心"},{"text":"losing my skills","meaning":"失去自己的技能"},{"text":"or falling behind other people.","meaning":"或者落后于别人"}],"explanation":"worry about 后接动名词；fall behind 表示落后。"},
+      {"sentence_en":"However, the break gave me time to rest, travel, and think about my future.","sentence_cn":"然而，这段休息时间让我有机会休息、旅行，并思考自己的未来。","chunks":[{"text":"However,","meaning":"然而"},{"text":"the break gave me time","meaning":"这段休息给了我时间"},{"text":"to rest, travel,","meaning":"去休息、旅行"},{"text":"and think about my future.","meaning":"并思考我的未来"}],"explanation":"give someone time to do 表示给某人时间做某事。"},
+      {"sentence_en":"I also took an online course to learn something new.","sentence_cn":"我还参加了一门在线课程，学习新知识。","chunks":[{"text":"I also took","meaning":"我还参加了"},{"text":"an online course","meaning":"一门在线课程"},{"text":"to learn something new.","meaning":"去学习新东西"}],"explanation":"不定式 to learn 表示目的。"},
+      {"sentence_en":"When I returned to work, I felt more focused and had a clearer idea of what I wanted.","sentence_cn":"当我重新回到工作岗位时，我感觉更加专注，也更清楚自己想要什么。","chunks":[{"text":"When I returned to work,","meaning":"当我重新回到工作时"},{"text":"I felt more focused","meaning":"我感觉更加专注"},{"text":"and had a clearer idea","meaning":"并有了更清晰的想法"},{"text":"of what I wanted.","meaning":"关于自己想要什么"}],"explanation":"what 引导宾语从句；a clearer idea of 表示对……有更清晰的认识。"},
+      {"sentence_en":"A career break is not right for everyone, but sometimes stepping away can help us move forward with greater purpose.","sentence_cn":"职业间隔期并不适合每个人，但有时暂时离开，反而能帮助我们更有目标地继续前进。","chunks":[{"text":"A career break is not right for everyone,","meaning":"职业间隔期并不适合每个人"},{"text":"but sometimes stepping away","meaning":"但有时暂时离开"},{"text":"can help us move forward","meaning":"能帮助我们继续前进"},{"text":"with greater purpose.","meaning":"带着更明确的目标"}],"explanation":"stepping away 作主语；help 后接动词原形。"}
+    ],
+    "vocabulary":[
+      {"word":"exhausted","phonetic":"","meaning":"精疲力尽的","part_of_speech":"adjective"},
+      {"word":"career","phonetic":"","meaning":"职业；事业","part_of_speech":"noun"},
+      {"word":"break","phonetic":"","meaning":"休息；间隔","part_of_speech":"noun"},
+      {"word":"focused","phonetic":"","meaning":"专注的","part_of_speech":"adjective"},
+      {"word":"purpose","phonetic":"","meaning":"目标；目的","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"take a break","meaning":"休息一下","example":"You should take a break."},
+      {"expression":"fall behind","meaning":"落后","example":"I don't want to fall behind."},
+      {"expression":"think about the future","meaning":"思考未来","example":"It's time to think about the future."},
+      {"expression":"return to work","meaning":"重新回到工作岗位","example":"She returned to work last week."},
+      {"expression":"move forward","meaning":"继续前进","example":"We need to move forward."}
+    ],
+    "questions":[
+      {"type":"detail","question":"Why did the writer take a career break?","answer":"The writer felt exhausted after working for several years without a long break."},
+      {"type":"detail","question":"What did the writer do during the break?","answer":"Rested, traveled, thought about the future, and took an online course."},
+      {"type":"inference","question":"What was the main benefit of the break?","answer":"The writer returned with more focus and a clearer idea of personal goals."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"职业发展主题，保持中性，不把职业间隔描述为人人适用。"}
+  },
+  {
+    "article_id": "article_220",
+    "day": 220,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Career and Work",
+    "scene": "Understanding job satisfaction",
+    "title_en": "What Makes a Job Enjoyable?",
+    "title_cn": "什么让一份工作令人愉快",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "A good salary is important, but it is not the only thing that makes a job enjoyable. I also want to feel that my work has meaning. Having friendly coworkers and a manager who listens can make daily tasks easier. I like jobs that give me some freedom to make decisions and opportunities to learn new skills. Of course, every job has boring or difficult moments. However, when I understand the purpose of my work and feel respected, I am more willing to do my best. For me, an enjoyable job is one that supports both personal growth and a comfortable life.",
+    "content_cn": "好的薪水很重要，但它并不是让一份工作令人愉快的唯一因素。我也希望感受到自己的工作是有意义的。拥有友善的同事和愿意倾听的管理者，能够让日常工作变得更轻松。我喜欢那些给予我一定决策自由，并提供学习新技能机会的工作。当然，每份工作都会有枯燥或困难的时刻。然而，当我理解工作的意义并感受到尊重时，就更愿意尽力做好。对我来说，一份令人愉快的工作，应该既能支持个人成长，也能带来舒适的生活。",
+    "sentences":[
+      {"sentence_en":"A good salary is important, but it is not the only thing that makes a job enjoyable.","sentence_cn":"好的薪水很重要，但它并不是让一份工作令人愉快的唯一因素。","chunks":[{"text":"A good salary is important,","meaning":"好的薪水很重要"},{"text":"but it is not the only thing","meaning":"但它并不是唯一的事情"},{"text":"that makes a job enjoyable.","meaning":"能让工作令人愉快的"}],"explanation":"that 引导定语从句；make 后接宾语和形容词。"},
+      {"sentence_en":"I also want to feel that my work has meaning.","sentence_cn":"我也希望感受到自己的工作是有意义的。","chunks":[{"text":"I also want to feel","meaning":"我也希望感受到"},{"text":"that my work","meaning":"我的工作"},{"text":"has meaning.","meaning":"有意义"}],"explanation":"want to do 表示想做某事；that 引导宾语从句。"},
+      {"sentence_en":"Having friendly coworkers and a manager who listens can make daily tasks easier.","sentence_cn":"拥有友善的同事和愿意倾听的管理者，能够让日常工作变得更轻松。","chunks":[{"text":"Having friendly coworkers","meaning":"拥有友善的同事"},{"text":"and a manager who listens","meaning":"以及一位愿意倾听的管理者"},{"text":"can make daily tasks easier.","meaning":"能让日常任务更轻松"}],"explanation":"having 作主语；who 引导定语从句。"},
+      {"sentence_en":"I like jobs that give me some freedom to make decisions and opportunities to learn new skills.","sentence_cn":"我喜欢那些给予我一定决策自由，并提供学习新技能机会的工作。","chunks":[{"text":"I like jobs","meaning":"我喜欢那些工作"},{"text":"that give me some freedom","meaning":"它们给我一些自由"},{"text":"to make decisions","meaning":"去做决定"},{"text":"and opportunities to learn new skills.","meaning":"以及学习新技能的机会"}],"explanation":"that 引导定语从句；opportunity to do 表示做某事的机会。"},
+      {"sentence_en":"Of course, every job has boring or difficult moments.","sentence_cn":"当然，每份工作都会有枯燥或困难的时刻。","chunks":[{"text":"Of course,","meaning":"当然"},{"text":"every job has","meaning":"每份工作都有"},{"text":"boring or difficult moments.","meaning":"枯燥或困难的时刻"}],"explanation":"every 后接单数名词。"},
+      {"sentence_en":"However, when I understand the purpose of my work and feel respected, I am more willing to do my best.","sentence_cn":"然而，当我理解工作的意义并感受到尊重时，就更愿意尽力做好。","chunks":[{"text":"However,","meaning":"然而"},{"text":"when I understand the purpose of my work","meaning":"当我理解工作的意义时"},{"text":"and feel respected,","meaning":"并感受到尊重时"},{"text":"I am more willing to do my best.","meaning":"我就更愿意尽力做好"}],"explanation":"be willing to do 表示愿意做某事；respected 是过去分词作形容词。"},
+      {"sentence_en":"For me, an enjoyable job is one that supports both personal growth and a comfortable life.","sentence_cn":"对我来说，一份令人愉快的工作，应该既能支持个人成长，也能带来舒适的生活。","chunks":[{"text":"For me,","meaning":"对我来说"},{"text":"an enjoyable job is one","meaning":"令人愉快的工作是那种"},{"text":"that supports both personal growth","meaning":"既支持个人成长"},{"text":"and a comfortable life.","meaning":"也支持舒适生活的工作"}],"explanation":"both...and... 表示两者都；that 引导定语从句。"}
+    ],
+    "vocabulary":[
+      {"word":"salary","phonetic":"","meaning":"薪水","part_of_speech":"noun"},
+      {"word":"meaning","phonetic":"","meaning":"意义","part_of_speech":"noun"},
+      {"word":"freedom","phonetic":"","meaning":"自由","part_of_speech":"noun"},
+      {"word":"opportunity","phonetic":"","meaning":"机会","part_of_speech":"noun"},
+      {"word":"respect","phonetic":"","meaning":"尊重","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"good salary","meaning":"不错的薪水","example":"The job offers a good salary."},
+      {"expression":"make decisions","meaning":"做决定","example":"I want to make my own decisions."},
+      {"expression":"learn new skills","meaning":"学习新技能","example":"I enjoy learning new skills."},
+      {"expression":"do one's best","meaning":"尽最大努力","example":"I always try to do my best."},
+      {"expression":"both...and...","meaning":"既……又……","example":"The job offers both freedom and stability."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What does the writer value besides salary?","answer":"Meaningful work, friendly coworkers, supportive management, and learning opportunities."},
+      {"type":"detail","question":"What kind of freedom does the writer want?","answer":"Some freedom to make decisions."},
+      {"type":"main_idea","question":"What makes a job enjoyable for the writer?","answer":"A job that supports personal growth and a comfortable life."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"98","american_english":"passed","translation":"passed","chunking":"passed","notes":"表达工作满意度，适合观点类阅读。"}
+  },
+  {
+    "article_id": "article_221",
+    "day": 221,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "City Life",
+    "scene": "Living in a large city",
+    "title_en": "Life in a Big City",
+    "title_cn": "大城市生活",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Living in a big city has both advantages and disadvantages. There are many job opportunities, restaurants, shops, and cultural activities. Public services are often easy to reach, and it is usually possible to find something interesting to do. However, city life can also be noisy and expensive. Traffic may be heavy, and crowded places can make people feel tired. I enjoy the convenience of a big city, but I also need quiet time to relax. I think the best way to enjoy city life is to find a comfortable routine and choose places that match your lifestyle.",
+    "content_cn": "生活在大城市既有优点，也有缺点。这里有许多工作机会、餐馆、商店和文化活动。公共服务通常很容易到达，而且人们一般总能找到有趣的事情去做。然而，城市生活也可能很吵闹、很昂贵。交通可能拥堵，拥挤的地方也会让人感到疲惫。我喜欢大城市的便利，但我也需要安静的时间来放松。我认为，享受城市生活的最好方式，就是找到舒适的生活节奏，并选择适合自己生活方式的地方。",
+    "sentences":[
+      {"sentence_en":"Living in a big city has both advantages and disadvantages.","sentence_cn":"生活在大城市既有优点，也有缺点。","chunks":[{"text":"Living in a big city","meaning":"生活在大城市"},{"text":"has both","meaning":"既有"},{"text":"advantages and disadvantages.","meaning":"优点和缺点"}],"explanation":"动名词短语作主语；both...and... 表示两者都。"},
+      {"sentence_en":"There are many job opportunities, restaurants, shops, and cultural activities.","sentence_cn":"这里有许多工作机会、餐馆、商店和文化活动。","chunks":[{"text":"There are","meaning":"有"},{"text":"many job opportunities,","meaning":"许多工作机会"},{"text":"restaurants, shops,","meaning":"餐馆和商店"},{"text":"and cultural activities.","meaning":"以及文化活动"}],"explanation":"there are 用于引出复数名词。"},
+      {"sentence_en":"Public services are often easy to reach, and it is usually possible to find something interesting to do.","sentence_cn":"公共服务通常很容易到达，而且人们一般总能找到有趣的事情去做。","chunks":[{"text":"Public services","meaning":"公共服务"},{"text":"are often easy to reach,","meaning":"通常很容易到达"},{"text":"and it is usually possible","meaning":"而且通常有可能"},{"text":"to find something interesting to do.","meaning":"找到有趣的事情做"}],"explanation":"it is possible to do 表示做某事是可能的。"},
+      {"sentence_en":"However, city life can also be noisy and expensive.","sentence_cn":"然而，城市生活也可能很吵闹、很昂贵。","chunks":[{"text":"However,","meaning":"然而"},{"text":"city life can also be","meaning":"城市生活也可能"},{"text":"noisy and expensive.","meaning":"吵闹且昂贵"}],"explanation":"can be 后接形容词，表示可能具有某种状态。"},
+      {"sentence_en":"Traffic may be heavy, and crowded places can make people feel tired.","sentence_cn":"交通可能拥堵，拥挤的地方也会让人感到疲惫。","chunks":[{"text":"Traffic may be heavy,","meaning":"交通可能很拥堵"},{"text":"and crowded places","meaning":"而拥挤的地方"},{"text":"can make people feel tired.","meaning":"会让人感到疲惫"}],"explanation":"make someone feel 表示使某人感到。"},
+      {"sentence_en":"I enjoy the convenience of a big city, but I also need quiet time to relax.","sentence_cn":"我喜欢大城市的便利，但我也需要安静的时间来放松。","chunks":[{"text":"I enjoy the convenience","meaning":"我喜欢便利"},{"text":"of a big city,","meaning":"大城市所带来的"},{"text":"but I also need","meaning":"但我也需要"},{"text":"quiet time to relax.","meaning":"安静的时间来放松"}],"explanation":"convenience 是 convenient 的名词形式。"},
+      {"sentence_en":"I think the best way to enjoy city life is to find a comfortable routine and choose places that match your lifestyle.","sentence_cn":"我认为，享受城市生活的最好方式，就是找到舒适的生活节奏，并选择适合自己生活方式的地方。","chunks":[{"text":"I think","meaning":"我认为"},{"text":"the best way to enjoy city life","meaning":"享受城市生活的最好方式"},{"text":"is to find a comfortable routine","meaning":"是找到舒适的生活节奏"},{"text":"and choose places","meaning":"并选择一些地方"},{"text":"that match your lifestyle.","meaning":"这些地方适合你的生活方式"}],"explanation":"the best way to do 表示做某事的最佳方式；that 引导定语从句。"}
+    ],
+    "vocabulary":[
+      {"word":"advantage","phonetic":"","meaning":"优点","part_of_speech":"noun"},
+      {"word":"disadvantage","phonetic":"","meaning":"缺点","part_of_speech":"noun"},
+      {"word":"opportunity","phonetic":"","meaning":"机会","part_of_speech":"noun"},
+      {"word":"crowded","phonetic":"","meaning":"拥挤的","part_of_speech":"adjective"},
+      {"word":"convenience","phonetic":"","meaning":"便利","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"both advantages and disadvantages","meaning":"既有优点也有缺点","example":"Living alone has both advantages and disadvantages."},
+      {"expression":"job opportunity","meaning":"工作机会","example":"The city offers many job opportunities."},
+      {"expression":"easy to reach","meaning":"容易到达","example":"The station is easy to reach."},
+      {"expression":"city life","meaning":"城市生活","example":"City life can be exciting."},
+      {"expression":"match your lifestyle","meaning":"符合你的生活方式","example":"Choose a place that matches your lifestyle."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What are two advantages of living in a big city?","answer":"More job opportunities and easy access to services and activities."},
+      {"type":"detail","question":"What are two disadvantages mentioned?","answer":"Noise and high costs; traffic and crowds can also be tiring."},
+      {"type":"main_idea","question":"What does the writer suggest for enjoying city life?","answer":"Find a comfortable routine and choose places that match your lifestyle."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"城市生活主题，采用优缺点对比结构。"}
+  },
+  {
+    "article_id": "article_222",
+    "day": 222,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Rural Life",
+    "scene": "Living in the countryside",
+    "title_en": "Living in the Countryside",
+    "title_cn": "乡村生活",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "The countryside offers a very different lifestyle from a busy city. The air is often cleaner, the streets are quieter, and people may have more space around their homes. I enjoy the idea of waking up to birds singing and seeing green fields outside my window. However, country life also has challenges. Shops and hospitals may be far away, and public transportation is sometimes limited. People may need a car to get around. I would enjoy living in the countryside if I could still have a reliable internet connection and easy access to basic services.",
+    "content_cn": "乡村提供了与繁忙城市截然不同的生活方式。这里的空气通常更清新，街道更安静，人们的住宅周围也可能有更多空间。我很喜欢这样的生活：早晨在鸟鸣声中醒来，窗外就是绿色的田野。然而，乡村生活也有挑战。商店和医院可能离得很远，公共交通有时也比较有限。人们可能需要开车出行。如果仍然能够拥有稳定的网络连接，并方便地获得基本服务，我会很喜欢在乡村生活。",
+    "sentences":[
+      {"sentence_en":"The countryside offers a very different lifestyle from a busy city.","sentence_cn":"乡村提供了与繁忙城市截然不同的生活方式。","chunks":[{"text":"The countryside offers","meaning":"乡村提供"},{"text":"a very different lifestyle","meaning":"一种截然不同的生活方式"},{"text":"from a busy city.","meaning":"相较于繁忙的城市"}],"explanation":"different from 表示与……不同。"},
+      {"sentence_en":"The air is often cleaner, the streets are quieter, and people may have more space around their homes.","sentence_cn":"这里的空气通常更清新，街道更安静，人们的住宅周围也可能有更多空间。","chunks":[{"text":"The air is often cleaner,","meaning":"空气通常更清新"},{"text":"the streets are quieter,","meaning":"街道更安静"},{"text":"and people may have","meaning":"而且人们可能拥有"},{"text":"more space around their homes.","meaning":"住宅周围更多的空间"}],"explanation":"cleaner 和 quieter 是比较级。"},
+      {"sentence_en":"I enjoy the idea of waking up to birds singing and seeing green fields outside my window.","sentence_cn":"我很喜欢这样的生活：早晨在鸟鸣声中醒来，窗外就是绿色的田野。","chunks":[{"text":"I enjoy the idea of","meaning":"我喜欢这样的想法"},{"text":"waking up to birds singing","meaning":"在鸟鸣声中醒来"},{"text":"and seeing green fields","meaning":"并看到绿色田野"},{"text":"outside my window.","meaning":"在窗外"}],"explanation":"the idea of 后接动名词；wake up to 表示醒来时听到或看到。"},
+      {"sentence_en":"However, country life also has challenges.","sentence_cn":"然而，乡村生活也有挑战。","chunks":[{"text":"However,","meaning":"然而"},{"text":"country life","meaning":"乡村生活"},{"text":"also has challenges.","meaning":"也存在挑战"}],"explanation":"challenge 表示挑战、难题。"},
+      {"sentence_en":"Shops and hospitals may be far away, and public transportation is sometimes limited.","sentence_cn":"商店和医院可能离得很远，公共交通有时也比较有限。","chunks":[{"text":"Shops and hospitals","meaning":"商店和医院"},{"text":"may be far away,","meaning":"可能离得很远"},{"text":"and public transportation","meaning":"而公共交通"},{"text":"is sometimes limited.","meaning":"有时比较有限"}],"explanation":"far away 表示距离遥远；limited 表示有限的。"},
+      {"sentence_en":"People may need a car to get around.","sentence_cn":"人们可能需要开车出行。","chunks":[{"text":"People may need","meaning":"人们可能需要"},{"text":"a car","meaning":"一辆汽车"},{"text":"to get around.","meaning":"用于四处出行"}],"explanation":"get around 表示四处走动或出行。"},
+      {"sentence_en":"I would enjoy living in the countryside if I could still have a reliable internet connection and easy access to basic services.","sentence_cn":"如果仍然能够拥有稳定的网络连接，并方便地获得基本服务，我会很喜欢在乡村生活。","chunks":[{"text":"I would enjoy living in the countryside","meaning":"我会喜欢住在乡村"},{"text":"if I could still have","meaning":"如果我仍然能够拥有"},{"text":"a reliable internet connection","meaning":"稳定的网络连接"},{"text":"and easy access to basic services.","meaning":"以及方便获得基本服务的条件"}],"explanation":"would 和 could 构成假设语气；enjoy 后接动名词。"}
+    ],
+    "vocabulary":[
+      {"word":"countryside","phonetic":"","meaning":"乡村；农村","part_of_speech":"noun"},
+      {"word":"lifestyle","phonetic":"","meaning":"生活方式","part_of_speech":"noun"},
+      {"word":"field","phonetic":"","meaning":"田野；领域","part_of_speech":"noun"},
+      {"word":"transportation","phonetic":"","meaning":"交通运输","part_of_speech":"noun"},
+      {"word":"reliable","phonetic":"","meaning":"可靠的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"far away","meaning":"距离遥远","example":"The nearest hospital is far away."},
+      {"expression":"public transportation","meaning":"公共交通","example":"Public transportation is limited here."},
+      {"expression":"get around","meaning":"出行；四处走动","example":"It is easy to get around by bus."},
+      {"expression":"internet connection","meaning":"网络连接","example":"The internet connection is reliable."},
+      {"expression":"basic services","meaning":"基本服务","example":"The town needs better basic services."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What does the writer like about countryside life?","answer":"Cleaner air, quiet streets, more space, birds singing, and green fields."},
+      {"type":"detail","question":"What challenges are mentioned?","answer":"Shops and hospitals may be far away, and public transportation may be limited."},
+      {"type":"inference","question":"What would make countryside life suitable for the writer?","answer":"Reliable internet and easy access to basic services."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"乡村生活主题，呈现吸引力与现实限制。"}
+  },
+  {
+    "article_id": "article_223",
+    "day": 223,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Neighborhood",
+    "scene": "Describing a quiet neighborhood",
+    "title_en": "A Quiet Neighborhood",
+    "title_cn": "一个安静的社区",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I live in a quiet neighborhood not far from the city center. There are small stores, a park, and a few coffee shops within walking distance. Most people are friendly, and the streets are usually peaceful in the evening. I often take a walk after dinner and sometimes stop to talk with a neighbor. The area is not very exciting, but it feels safe and comfortable. I also like that there are trees along the roads and places to sit outside. A good neighborhood does not need to be famous. It just needs to make daily life pleasant.",
+    "content_cn": "我住在一个安静的社区，距离市中心不远。步行范围内有小商店、公园和几家咖啡馆。大多数人都很友好，晚上街道通常十分安静。晚饭后，我经常出去散步，有时还会停下来和邻居聊几句。这里并不是特别热闹，但让人感到安全和舒适。我也喜欢道路两旁有树木，还有可以坐在户外休息的地方。一个好的社区不需要很有名，只需要让日常生活变得愉快。",
+    "sentences":[
+      {"sentence_en":"I live in a quiet neighborhood not far from the city center.","sentence_cn":"我住在一个安静的社区，距离市中心不远。","chunks":[{"text":"I live in","meaning":"我住在"},{"text":"a quiet neighborhood","meaning":"一个安静的社区"},{"text":"not far from the city center.","meaning":"离市中心不远"}],"explanation":"not far from 表示距离……不远。"},
+      {"sentence_en":"There are small stores, a park, and a few coffee shops within walking distance.","sentence_cn":"步行范围内有小商店、公园和几家咖啡馆。","chunks":[{"text":"There are","meaning":"有"},{"text":"small stores, a park,","meaning":"小商店和一个公园"},{"text":"and a few coffee shops","meaning":"以及几家咖啡馆"},{"text":"within walking distance.","meaning":"在步行可达的范围内"}],"explanation":"within walking distance 表示步行可到达。"},
+      {"sentence_en":"Most people are friendly, and the streets are usually peaceful in the evening.","sentence_cn":"大多数人都很友好，晚上街道通常十分安静。","chunks":[{"text":"Most people are friendly,","meaning":"大多数人都很友好"},{"text":"and the streets are usually peaceful","meaning":"而街道通常很安静"},{"text":"in the evening.","meaning":"在晚上"}],"explanation":"peaceful 表示平静的、安宁的。"},
+      {"sentence_en":"I often take a walk after dinner and sometimes stop to talk with a neighbor.","sentence_cn":"晚饭后，我经常出去散步，有时还会停下来和邻居聊几句。","chunks":[{"text":"I often take a walk","meaning":"我经常散步"},{"text":"after dinner","meaning":"晚饭后"},{"text":"and sometimes stop","meaning":"有时还会停下来"},{"text":"to talk with a neighbor.","meaning":"和邻居交谈"}],"explanation":"stop to do 表示停下来去做另一件事。"},
+      {"sentence_en":"The area is not very exciting, but it feels safe and comfortable.","sentence_cn":"这里并不是特别热闹，但让人感到安全和舒适。","chunks":[{"text":"The area is not very exciting,","meaning":"这个区域并不特别热闹"},{"text":"but it feels","meaning":"但它让人感觉"},{"text":"safe and comfortable.","meaning":"安全而舒适"}],"explanation":"feel 后接形容词，表示感觉如何。"},
+      {"sentence_en":"I also like that there are trees along the roads and places to sit outside.","sentence_cn":"我也喜欢道路两旁有树木，还有可以坐在户外休息的地方。","chunks":[{"text":"I also like that","meaning":"我也喜欢"},{"text":"there are trees along the roads","meaning":"道路两旁有树木"},{"text":"and places to sit outside.","meaning":"还有可以在户外坐下的地方"}],"explanation":"like 后接 that 宾语从句；places to sit 是不定式作后置定语。"},
+      {"sentence_en":"A good neighborhood does not need to be famous.","sentence_cn":"一个好的社区不需要很有名。","chunks":[{"text":"A good neighborhood","meaning":"一个好的社区"},{"text":"does not need to be","meaning":"不需要成为"},{"text":"famous.","meaning":"有名的"}],"explanation":"need to be 表示需要处于某种状态。"},
+      {"sentence_en":"It just needs to make daily life pleasant.","sentence_cn":"它只需要让日常生活变得愉快。","chunks":[{"text":"It just needs to","meaning":"它只需要"},{"text":"make daily life","meaning":"让日常生活"},{"text":"pleasant.","meaning":"变得愉快"}],"explanation":"make 后接宾语和形容词。"}
+    ],
+    "vocabulary":[
+      {"word":"neighborhood","phonetic":"","meaning":"社区；街区","part_of_speech":"noun"},
+      {"word":"within","phonetic":"","meaning":"在……范围内","part_of_speech":"preposition"},
+      {"word":"peaceful","phonetic":"","meaning":"安静的；平和的","part_of_speech":"adjective"},
+      {"word":"neighbor","phonetic":"","meaning":"邻居","part_of_speech":"noun"},
+      {"word":"pleasant","phonetic":"","meaning":"令人愉快的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"city center","meaning":"市中心","example":"The hotel is near the city center."},
+      {"expression":"within walking distance","meaning":"步行可达","example":"The supermarket is within walking distance."},
+      {"expression":"take a walk","meaning":"散步","example":"I take a walk every evening."},
+      {"expression":"talk with a neighbor","meaning":"和邻居交谈","example":"I talked with a neighbor yesterday."},
+      {"expression":"feel safe and comfortable","meaning":"感到安全舒适","example":"I feel safe and comfortable here."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What places are within walking distance?","answer":"Small stores, a park, and a few coffee shops."},
+      {"type":"detail","question":"What does the writer do after dinner?","answer":"Takes a walk and sometimes talks with a neighbor."},
+      {"type":"main_idea","question":"What makes the neighborhood good for the writer?","answer":"It is safe, comfortable, peaceful, and convenient for daily life."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"96","american_english":"passed","translation":"passed","chunking":"passed","notes":"社区环境主题，适合描述居住体验。"}
+  },
+  {
+    "article_id": "article_224",
+    "day": 224,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Money and Lifestyle",
+    "scene": "Understanding the cost of living",
+    "title_en": "The Cost of Living",
+    "title_cn": "生活成本",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "The cost of living can be very different from one place to another. In some cities, rent takes up a large part of people's income. Food, transportation, and other daily expenses can also become expensive. When I choose where to live, I do not look only at the salary I might earn. I also consider how much I need to spend each month. A higher income does not always mean a better quality of life if basic costs are too high. I believe it is important to make a simple budget and understand where the money goes.",
+    "content_cn": "不同地方的生活成本可能有很大差异。在一些城市，房租会占据人们收入的很大一部分。食物、交通和其他日常开销也可能变得昂贵。当我选择居住地时，我不会只看自己可能获得多少薪水，还会考虑每个月需要花多少钱。如果基本生活成本太高，那么更高的收入并不总是意味着更好的生活质量。我认为，制定一份简单的预算，并了解钱花在了哪里，是很重要的。",
+    "sentences":[
+      {"sentence_en":"The cost of living can be very different from one place to another.","sentence_cn":"不同地方的生活成本可能有很大差异。","chunks":[{"text":"The cost of living","meaning":"生活成本"},{"text":"can be very different","meaning":"可能有很大不同"},{"text":"from one place to another.","meaning":"从一个地方到另一个地方"}],"explanation":"from one...to another 表示从一个……到另一个……。"},
+      {"sentence_en":"In some cities, rent takes up a large part of people's income.","sentence_cn":"在一些城市，房租会占据人们收入的很大一部分。","chunks":[{"text":"In some cities,","meaning":"在一些城市"},{"text":"rent takes up","meaning":"房租占据"},{"text":"a large part of people's income.","meaning":"人们收入的很大一部分"}],"explanation":"take up 表示占据；income 表示收入。"},
+      {"sentence_en":"Food, transportation, and other daily expenses can also become expensive.","sentence_cn":"食物、交通和其他日常开销也可能变得昂贵。","chunks":[{"text":"Food, transportation,","meaning":"食物和交通"},{"text":"and other daily expenses","meaning":"以及其他日常开销"},{"text":"can also become expensive.","meaning":"也可能变得昂贵"}],"explanation":"expense 表示开销、费用。"},
+      {"sentence_en":"When I choose where to live, I do not look only at the salary I might earn.","sentence_cn":"当我选择居住地时，我不会只看自己可能获得多少薪水。","chunks":[{"text":"When I choose where to live,","meaning":"当我选择住在哪里时"},{"text":"I do not look only at","meaning":"我不会只看"},{"text":"the salary","meaning":"薪水"},{"text":"I might earn.","meaning":"我可能赚到的"}],"explanation":"where to live 是疑问词加不定式；might 表示可能。"},
+      {"sentence_en":"I also consider how much I need to spend each month.","sentence_cn":"我还会考虑每个月需要花多少钱。","chunks":[{"text":"I also consider","meaning":"我还会考虑"},{"text":"how much I need to spend","meaning":"我需要花多少钱"},{"text":"each month.","meaning":"每个月"}],"explanation":"how much 引导宾语从句，询问金额。"},
+      {"sentence_en":"A higher income does not always mean a better quality of life if basic costs are too high.","sentence_cn":"如果基本生活成本太高，那么更高的收入并不总是意味着更好的生活质量。","chunks":[{"text":"A higher income","meaning":"更高的收入"},{"text":"does not always mean","meaning":"并不总是意味着"},{"text":"a better quality of life","meaning":"更好的生活质量"},{"text":"if basic costs are too high.","meaning":"如果基本成本太高"}],"explanation":"quality of life 表示生活质量；if 引导条件从句。"},
+      {"sentence_en":"I believe it is important to make a simple budget and understand where the money goes.","sentence_cn":"我认为，制定一份简单的预算，并了解钱花在了哪里，是很重要的。","chunks":[{"text":"I believe","meaning":"我认为"},{"text":"it is important","meaning":"这是重要的"},{"text":"to make a simple budget","meaning":"制定一份简单预算"},{"text":"and understand where the money goes.","meaning":"并了解钱花到哪里去了"}],"explanation":"it is important to do 是常见结构；where 引导宾语从句。"}
+    ],
+    "vocabulary":[
+      {"word":"cost","phonetic":"","meaning":"成本；费用","part_of_speech":"noun"},
+      {"word":"rent","phonetic":"","meaning":"房租","part_of_speech":"noun"},
+      {"word":"income","phonetic":"","meaning":"收入","part_of_speech":"noun"},
+      {"word":"expense","phonetic":"","meaning":"开销；费用","part_of_speech":"noun"},
+      {"word":"budget","phonetic":"","meaning":"预算","part_of_speech":"noun"}
+    ],
+    "expressions":[
+      {"expression":"cost of living","meaning":"生活成本","example":"The cost of living is high in this city."},
+      {"expression":"take up a large part","meaning":"占据很大一部分","example":"Rent takes up a large part of my income."},
+      {"expression":"daily expenses","meaning":"日常开销","example":"I keep track of my daily expenses."},
+      {"expression":"quality of life","meaning":"生活质量","example":"Health affects our quality of life."},
+      {"expression":"make a budget","meaning":"制定预算","example":"I make a budget at the beginning of each month."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What expenses are mentioned in the passage?","answer":"Rent, food, transportation, and other daily expenses."},
+      {"type":"detail","question":"What does the writer consider when choosing where to live?","answer":"Both the possible salary and the monthly cost of living."},
+      {"type":"main_idea","question":"What does the writer suggest about money?","answer":"People should make a budget and understand their spending."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"生活成本主题，包含收入、支出和预算表达。"}
+  },
+  {
+    "article_id": "article_225",
+    "day": 225,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Transportation",
+    "scene": "Using public transportation",
+    "title_en": "Public Transportation",
+    "title_cn": "公共交通",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "Public transportation is an important part of life in many cities. Buses and trains help people get to work, school, and other places without driving. They can also reduce traffic and save money on fuel and parking. However, public transportation is not always perfect. Sometimes buses arrive late, or trains become crowded during rush hour. I usually check the schedule before leaving home and allow extra time for my trip. When the system is convenient and reliable, more people are willing to use it. This can make a city cleaner and easier to live in.",
+    "content_cn": "公共交通是许多城市生活的重要组成部分。公交车和火车帮助人们在不开车的情况下前往工作地点、学校和其他地方。它们还可以减少交通拥堵，并节省燃油和停车费用。然而，公共交通并不总是完美的。有时公交车会晚点，或者火车在高峰时段变得拥挤。我通常会在出门前查看时刻表，并为行程预留额外时间。当公共交通系统方便又可靠时，就会有更多人愿意使用它。这能让城市变得更加清洁，也更适合居住。",
+    "sentences":[
+      {"sentence_en":"Public transportation is an important part of life in many cities.","sentence_cn":"公共交通是许多城市生活的重要组成部分。","chunks":[{"text":"Public transportation","meaning":"公共交通"},{"text":"is an important part of","meaning":"是……的重要组成部分"},{"text":"life in many cities.","meaning":"许多城市的生活"}],"explanation":"an important part of 是常见表达。"},
+      {"sentence_en":"Buses and trains help people get to work, school, and other places without driving.","sentence_cn":"公交车和火车帮助人们在不开车的情况下前往工作地点、学校和其他地方。","chunks":[{"text":"Buses and trains help people","meaning":"公交车和火车帮助人们"},{"text":"get to work, school, and other places","meaning":"到达工作地点、学校和其他地方"},{"text":"without driving.","meaning":"而不需要开车"}],"explanation":"help someone do；without 后接动名词。"},
+      {"sentence_en":"They can also reduce traffic and save money on fuel and parking.","sentence_cn":"它们还可以减少交通拥堵，并节省燃油和停车费用。","chunks":[{"text":"They can also reduce traffic","meaning":"它们还可以减少交通拥堵"},{"text":"and save money","meaning":"并节省费用"},{"text":"on fuel and parking.","meaning":"在燃油和停车方面"}],"explanation":"save money on 表示在某方面省钱。"},
+      {"sentence_en":"However, public transportation is not always perfect.","sentence_cn":"然而，公共交通并不总是完美的。","chunks":[{"text":"However,","meaning":"然而"},{"text":"public transportation","meaning":"公共交通"},{"text":"is not always perfect.","meaning":"并不总是完美"}],"explanation":"not always 表示并不总是。"},
+      {"sentence_en":"Sometimes buses arrive late, or trains become crowded during rush hour.","sentence_cn":"有时公交车会晚点，或者火车在高峰时段变得拥挤。","chunks":[{"text":"Sometimes buses arrive late,","meaning":"有时公交车会晚点"},{"text":"or trains become crowded","meaning":"或者火车变得拥挤"},{"text":"during rush hour.","meaning":"在交通高峰时段"}],"explanation":"arrive late 表示晚到；rush hour 表示交通高峰期。"},
+      {"sentence_en":"I usually check the schedule before leaving home and allow extra time for my trip.","sentence_cn":"我通常会在出门前查看时刻表，并为行程预留额外时间。","chunks":[{"text":"I usually check the schedule","meaning":"我通常查看时刻表"},{"text":"before leaving home","meaning":"在离开家之前"},{"text":"and allow extra time","meaning":"并预留额外时间"},{"text":"for my trip.","meaning":"用于我的行程"}],"explanation":"before leaving 是 before 加动名词；allow time 表示预留时间。"},
+      {"sentence_en":"When the system is convenient and reliable, more people are willing to use it.","sentence_cn":"当公共交通系统方便又可靠时，就会有更多人愿意使用它。","chunks":[{"text":"When the system is convenient and reliable,","meaning":"当这个系统方便又可靠时"},{"text":"more people","meaning":"更多的人"},{"text":"are willing to use it.","meaning":"愿意使用它"}],"explanation":"be willing to do 表示愿意做某事。"},
+      {"sentence_en":"This can make a city cleaner and easier to live in.","sentence_cn":"这能让城市变得更加清洁，也更适合居住。","chunks":[{"text":"This can make a city","meaning":"这能让一座城市"},{"text":"cleaner","meaning":"更加清洁"},{"text":"and easier to live in.","meaning":"并且更适合居住"}],"explanation":"make 后接宾语和形容词；live in 的介词不能省略。"}
+    ],
+    "vocabulary":[
+      {"word":"transportation","phonetic":"","meaning":"交通运输","part_of_speech":"noun"},
+      {"word":"reduce","phonetic":"","meaning":"减少","part_of_speech":"verb"},
+      {"word":"fuel","phonetic":"","meaning":"燃油；燃料","part_of_speech":"noun"},
+      {"word":"schedule","phonetic":"","meaning":"时刻表；日程","part_of_speech":"noun"},
+      {"word":"reliable","phonetic":"","meaning":"可靠的","part_of_speech":"adjective"}
+    ],
+    "expressions":[
+      {"expression":"public transportation","meaning":"公共交通","example":"I use public transportation every day."},
+      {"expression":"get to work","meaning":"去上班；到达工作地点","example":"I take the bus to get to work."},
+      {"expression":"rush hour","meaning":"交通高峰期","example":"The roads are busy during rush hour."},
+      {"expression":"check the schedule","meaning":"查看时刻表","example":"Check the schedule before you leave."},
+      {"expression":"allow extra time","meaning":"预留额外时间","example":"Allow extra time for the journey."}
+    ],
+    "questions":[
+      {"type":"detail","question":"What are two benefits of public transportation?","answer":"It helps people travel without driving, reduces traffic, and saves money."},
+      {"type":"detail","question":"What problems may happen during rush hour?","answer":"Buses may arrive late and trains may become crowded."},
+      {"type":"inference","question":"How can public transportation improve city life?","answer":"A convenient and reliable system can encourage more people to use it, making the city cleaner and easier to live in."}
+    ],
+    "quality_check":{"grammar":"passed","spelling":"passed","word_count":"97","american_english":"passed","translation":"passed","chunking":"passed","notes":"Stage 4 Day225，城市交通主题；本批次结束。"}
+  }
+]

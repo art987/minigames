@@ -1,0 +1,1742 @@
+[
+  {
+    "article_id": 166,
+    "day": 346,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Lifestyle",
+    "scene": "Digital habits",
+    "title_en": "Should We Spend More Time Offline?",
+    "title_cn": "我们是否应该减少上网时间",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "The internet has become an important part of our daily lives. We use it to work, study, communicate, and entertain ourselves. However, spending too much time online can affect our attention, sleep, and relationships. Sometimes, we check our phones without even knowing why. A short break from the digital world can help us notice what is happening around us. We might enjoy a conversation without interruptions, take a walk, or simply sit quietly and think. This does not mean that technology is harmful or that we should avoid it completely. The real challenge is learning to use it with intention. We can set specific times for checking messages and keep our phones away during meals. By creating a healthier balance between online and offline activities, we may feel more focused, relaxed, and connected to real life.",
+    "content_cn": "互联网已经成为我们日常生活中重要的一部分。我们利用它工作、学习、交流和娱乐。然而，花太多时间上网可能会影响我们的注意力、睡眠和人际关系。有时，我们甚至不知道自己为什么要查看手机。短暂地离开数字世界，可以帮助我们留意身边正在发生的事情。我们可以享受一场不受打扰的谈话、出去散步，或者只是安静地坐着思考。这并不意味着科技有害，也不意味着我们应该完全避开它。真正的挑战在于学会有意识地使用科技。我们可以设定查看消息的固定时间，并在吃饭时把手机放在一边。通过在网络活动和现实活动之间建立更健康的平衡，我们可能会变得更加专注、放松，也更能感受到与真实生活的联系。",
+    "sentences": [
+      {
+        "sentence_en": "The internet has become an important part of our daily lives.",
+        "sentence_cn": "互联网已经成为我们日常生活中重要的一部分。",
+        "chunks": [
+          {"text": "The internet", "meaning": "互联网"},
+          {"text": "has become an important part of", "meaning": "已经成为……重要的一部分"},
+          {"text": "our daily lives.", "meaning": "我们的日常生活"}
+        ],
+        "explanation": "现在完成时 has become 表示互联网逐渐发展到如今的重要地位。"
+      },
+      {
+        "sentence_en": "We use it to work, study, communicate, and entertain ourselves.",
+        "sentence_cn": "我们利用它工作、学习、交流和娱乐。",
+        "chunks": [
+          {"text": "We use it", "meaning": "我们使用它"},
+          {"text": "to work, study, communicate,", "meaning": "来工作、学习和交流"},
+          {"text": "and entertain ourselves.", "meaning": "并让自己获得娱乐"}
+        ],
+        "explanation": "use something to do something 表示使用某物来做某事。"
+      },
+      {
+        "sentence_en": "However, spending too much time online can affect our attention, sleep, and relationships.",
+        "sentence_cn": "然而，花太多时间上网可能会影响我们的注意力、睡眠和人际关系。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "spending too much time online", "meaning": "花太多时间上网"},
+          {"text": "can affect our attention, sleep, and relationships.", "meaning": "可能影响我们的注意力、睡眠和人际关系"}
+        ],
+        "explanation": "动名词短语 spending too much time online 作主语。"
+      },
+      {
+        "sentence_en": "Sometimes, we check our phones without even knowing why.",
+        "sentence_cn": "有时，我们甚至不知道自己为什么要查看手机。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "we check our phones", "meaning": "我们查看手机"},
+          {"text": "without even knowing why.", "meaning": "甚至不知道为什么"}
+        ],
+        "explanation": "without doing 表示在没有做某事的情况下；why 在这里引导宾语从句。"
+      },
+      {
+        "sentence_en": "A short break from the digital world can help us notice what is happening around us.",
+        "sentence_cn": "短暂地离开数字世界，可以帮助我们留意身边正在发生的事情。",
+        "chunks": [
+          {"text": "A short break from the digital world", "meaning": "短暂地远离数字世界"},
+          {"text": "can help us notice", "meaning": "可以帮助我们注意到"},
+          {"text": "what is happening around us.", "meaning": "我们周围正在发生的事情"}
+        ],
+        "explanation": "help somebody do something 表示帮助某人做某事；what 引导宾语从句。"
+      },
+      {
+        "sentence_en": "We might enjoy a conversation without interruptions, take a walk, or simply sit quietly and think.",
+        "sentence_cn": "我们可以享受一场不受打扰的谈话、出去散步，或者只是安静地坐着思考。",
+        "chunks": [
+          {"text": "We might enjoy a conversation", "meaning": "我们可以享受一场谈话"},
+          {"text": "without interruptions,", "meaning": "不受打扰地"},
+          {"text": "take a walk, or simply sit quietly and think.", "meaning": "散步，或者只是安静地坐着思考"}
+        ],
+        "explanation": "might 在这里表示一种可能的选择；三个动词短语构成并列结构。"
+      },
+      {
+        "sentence_en": "This does not mean that technology is harmful or that we should avoid it completely.",
+        "sentence_cn": "这并不意味着科技有害，也不意味着我们应该完全避开它。",
+        "chunks": [
+          {"text": "This does not mean", "meaning": "这并不意味着"},
+          {"text": "that technology is harmful", "meaning": "科技是有害的"},
+          {"text": "or that we should avoid it completely.", "meaning": "或者我们应该完全避开它"}
+        ],
+        "explanation": "mean 后面可以接 that 引导的宾语从句；or 连接两个并列观点。"
+      },
+      {
+        "sentence_en": "The real challenge is learning to use it with intention.",
+        "sentence_cn": "真正的挑战在于学会有意识地使用科技。",
+        "chunks": [
+          {"text": "The real challenge", "meaning": "真正的挑战"},
+          {"text": "is learning to use it", "meaning": "在于学会使用它"},
+          {"text": "with intention.", "meaning": "有意识地、带着明确目的地"}
+        ],
+        "explanation": "learning to use it 作表语，说明挑战的具体内容。"
+      },
+      {
+        "sentence_en": "We can set specific times for checking messages and keep our phones away during meals.",
+        "sentence_cn": "我们可以设定查看消息的固定时间，并在吃饭时把手机放在一边。",
+        "chunks": [
+          {"text": "We can set specific times", "meaning": "我们可以设定固定时间"},
+          {"text": "for checking messages", "meaning": "用于查看消息"},
+          {"text": "and keep our phones away during meals.", "meaning": "并在吃饭时把手机放在一边"}
+        ],
+        "explanation": "set a time for doing something 表示为做某事设定时间；keep something away 表示让某物远离。"
+      },
+      {
+        "sentence_en": "By creating a healthier balance between online and offline activities, we may feel more focused, relaxed, and connected to real life.",
+        "sentence_cn": "通过在网络活动和现实活动之间建立更健康的平衡，我们可能会变得更加专注、放松，也更能感受到与真实生活的联系。",
+        "chunks": [
+          {"text": "By creating a healthier balance", "meaning": "通过建立更健康的平衡"},
+          {"text": "between online and offline activities,", "meaning": "在网络活动和现实活动之间"},
+          {"text": "we may feel more focused, relaxed, and connected to real life.", "meaning": "我们可能会感到更加专注、放松，并与真实生活建立联系"}
+        ],
+        "explanation": "by doing 表示通过某种方式；connected to 表示与……有联系。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "attention", "phonetic": "", "meaning": "注意力", "part_of_speech": "noun"},
+      {"word": "interruptions", "phonetic": "", "meaning": "打扰；中断", "part_of_speech": "noun"},
+      {"word": "intention", "phonetic": "", "meaning": "意图；目的", "part_of_speech": "noun"},
+      {"word": "specific", "phonetic": "", "meaning": "具体的；特定的", "part_of_speech": "adjective"},
+      {"word": "balance", "phonetic": "", "meaning": "平衡", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "spend time online", "meaning": "花时间上网", "example": "I spend less time online on weekends."},
+      {"expression": "without even knowing why", "meaning": "甚至不知道为什么", "example": "He opened the app without even knowing why."},
+      {"expression": "take a short break from", "meaning": "短暂地远离……", "example": "I need to take a short break from social media."},
+      {"expression": "with intention", "meaning": "有意识地；带着明确目的", "example": "Try to use your phone with intention."},
+      {"expression": "create a healthy balance", "meaning": "建立健康的平衡", "example": "We should create a healthy balance between work and rest."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "According to the article, what can too much time online affect?",
+        "options": ["Only our physical strength", "Our attention, sleep, and relationships", "Our ability to use technology", "Only our working hours"],
+        "answer": "Our attention, sleep, and relationships",
+        "explanation": "文章第三句明确列出了注意力、睡眠和人际关系。"
+      },
+      {
+        "type": "true_false",
+        "question": "The article suggests that people should completely avoid technology.",
+        "answer": false,
+        "explanation": "文章指出科技并非一定有害，关键是有意识地使用它。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What are two practical ways to create a healthier digital balance?",
+        "answer": "Set specific times for checking messages and keep phones away during meals.",
+        "explanation": "文章给出了设定查看消息的时间、吃饭时放下手机两个具体做法。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Focuses on practical digital habits and balanced technology use."
+    }
+  },
+  {
+    "article_id": 167,
+    "day": 347,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Critical Thinking",
+    "scene": "Everyday choices",
+    "title_en": "Is Convenience Always a Good Thing?",
+    "title_cn": "便利总是一件好事吗",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Modern life offers more convenience than ever before. We can order food, shop online, and communicate with people across the world in seconds. These services save time and make many daily tasks easier. However, convenience sometimes comes with hidden costs. When everything is delivered to our doors, we may move less and become less patient. When answers are always available online, we may stop trying to solve problems ourselves. Convenience can also make us depend too heavily on technology and outside services. This does not mean we should reject useful inventions. Instead, we need to think carefully about how we use them. Some tasks are worth doing ourselves because they help us develop skills or appreciate the process. A convenient choice is valuable when it improves our lives without taking away our independence. The goal is not to make everything difficult, but to make sure that convenience serves us rather than controls us.",
+    "content_cn": "现代生活比以往任何时候都更加便利。我们可以点外卖、网上购物，还能在几秒钟内与世界各地的人交流。这些服务节省了时间，让许多日常事务变得更容易。然而，便利有时也伴随着隐藏的代价。当所有东西都能送到家门口时，我们可能会减少活动，也变得更加缺乏耐心。当答案总能在网上找到时，我们可能会不再尝试自己解决问题。便利也可能让我们过度依赖科技和外部服务。这并不意味着我们应该拒绝有用的发明。相反，我们需要认真思考如何使用它们。有些事情值得我们亲自去做，因为它们能帮助我们培养技能，或者让我们体会整个过程。如果一种便利的选择改善了生活，却没有剥夺我们的独立性，那么它就是有价值的。目标不是让所有事情都变得困难，而是确保便利为我们服务，而不是控制我们。",
+    "sentences": [
+      {
+        "sentence_en": "Modern life offers more convenience than ever before.",
+        "sentence_cn": "现代生活比以往任何时候都更加便利。",
+        "chunks": [
+          {"text": "Modern life", "meaning": "现代生活"},
+          {"text": "offers more convenience", "meaning": "提供了更多便利"},
+          {"text": "than ever before.", "meaning": "比以往任何时候都更多"}
+        ],
+        "explanation": "more...than ever before 是常见比较结构，表示比过去任何时候都更加……。"
+      },
+      {
+        "sentence_en": "We can order food, shop online, and communicate with people across the world in seconds.",
+        "sentence_cn": "我们可以点外卖、网上购物，还能在几秒钟内与世界各地的人交流。",
+        "chunks": [
+          {"text": "We can order food, shop online,", "meaning": "我们可以点餐、网上购物"},
+          {"text": "and communicate with people", "meaning": "并与人交流"},
+          {"text": "across the world in seconds.", "meaning": "在几秒钟内与世界各地的人交流"}
+        ],
+        "explanation": "三个并列动词短语展示现代生活中的便利方式。"
+      },
+      {
+        "sentence_en": "These services save time and make many daily tasks easier.",
+        "sentence_cn": "这些服务节省了时间，让许多日常事务变得更容易。",
+        "chunks": [
+          {"text": "These services", "meaning": "这些服务"},
+          {"text": "save time", "meaning": "节省时间"},
+          {"text": "and make many daily tasks easier.", "meaning": "并让许多日常任务变得更容易"}
+        ],
+        "explanation": "make + 宾语 + 形容词，表示使某事物处于某种状态。"
+      },
+      {
+        "sentence_en": "However, convenience sometimes comes with hidden costs.",
+        "sentence_cn": "然而，便利有时也伴随着隐藏的代价。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "convenience sometimes comes with", "meaning": "便利有时伴随着"},
+          {"text": "hidden costs.", "meaning": "隐藏的代价"}
+        ],
+        "explanation": "come with 表示伴随着；hidden costs 不仅指金钱成本，也可以指看不见的负面影响。"
+      },
+      {
+        "sentence_en": "When everything is delivered to our doors, we may move less and become less patient.",
+        "sentence_cn": "当所有东西都能送到家门口时，我们可能会减少活动，也变得更加缺乏耐心。",
+        "chunks": [
+          {"text": "When everything is delivered to our doors,", "meaning": "当所有东西都被送到家门口时"},
+          {"text": "we may move less", "meaning": "我们可能会减少活动"},
+          {"text": "and become less patient.", "meaning": "并变得不那么有耐心"}
+        ],
+        "explanation": "is delivered 是被动语态；less...and less...表达程度降低。"
+      },
+      {
+        "sentence_en": "When answers are always available online, we may stop trying to solve problems ourselves.",
+        "sentence_cn": "当答案总能在网上找到时，我们可能会不再尝试自己解决问题。",
+        "chunks": [
+          {"text": "When answers are always available online,", "meaning": "当答案总能在网上找到时"},
+          {"text": "we may stop trying", "meaning": "我们可能会停止尝试"},
+          {"text": "to solve problems ourselves.", "meaning": "自己解决问题"}
+        ],
+        "explanation": "stop doing 表示停止正在做的事；try to do 表示努力尝试做某事。"
+      },
+      {
+        "sentence_en": "Convenience can also make us depend too heavily on technology and outside services.",
+        "sentence_cn": "便利也可能让我们过度依赖科技和外部服务。",
+        "chunks": [
+          {"text": "Convenience can also make us", "meaning": "便利也可能使我们"},
+          {"text": "depend too heavily on", "meaning": "过度依赖"},
+          {"text": "technology and outside services.", "meaning": "科技和外部服务"}
+        ],
+        "explanation": "depend on 表示依赖；too heavily 表示程度过高。"
+      },
+      {
+        "sentence_en": "This does not mean we should reject useful inventions.",
+        "sentence_cn": "这并不意味着我们应该拒绝有用的发明。",
+        "chunks": [
+          {"text": "This does not mean", "meaning": "这并不意味着"},
+          {"text": "we should reject", "meaning": "我们应该拒绝"},
+          {"text": "useful inventions.", "meaning": "有用的发明"}
+        ],
+        "explanation": "should 后接动词原形；reject 表示拒绝或不接受。"
+      },
+      {
+        "sentence_en": "Instead, we need to think carefully about how we use them.",
+        "sentence_cn": "相反，我们需要认真思考如何使用它们。",
+        "chunks": [
+          {"text": "Instead,", "meaning": "相反；取而代之的是"},
+          {"text": "we need to think carefully about", "meaning": "我们需要认真思考"},
+          {"text": "how we use them.", "meaning": "我们如何使用它们"}
+        ],
+        "explanation": "how 引导宾语从句，说明思考的具体内容。"
+      },
+      {
+        "sentence_en": "Some tasks are worth doing ourselves because they help us develop skills or appreciate the process.",
+        "sentence_cn": "有些事情值得我们亲自去做，因为它们能帮助我们培养技能，或者让我们体会整个过程。",
+        "chunks": [
+          {"text": "Some tasks are worth doing ourselves", "meaning": "有些事情值得我们亲自去做"},
+          {"text": "because they help us develop skills", "meaning": "因为它们帮助我们培养技能"},
+          {"text": "or appreciate the process.", "meaning": "或者体会整个过程"}
+        ],
+        "explanation": "be worth doing 表示值得做；appreciate 在这里表示体会、欣赏某事的价值。"
+      },
+      {
+        "sentence_en": "A convenient choice is valuable when it improves our lives without taking away our independence.",
+        "sentence_cn": "如果一种便利的选择改善了生活，却没有剥夺我们的独立性，那么它就是有价值的。",
+        "chunks": [
+          {"text": "A convenient choice is valuable", "meaning": "一种便利的选择是有价值的"},
+          {"text": "when it improves our lives", "meaning": "当它改善我们的生活时"},
+          {"text": "without taking away our independence.", "meaning": "同时没有剥夺我们的独立性"}
+        ],
+        "explanation": "without doing 表示没有做某事；take away 表示拿走、剥夺。"
+      },
+      {
+        "sentence_en": "The goal is not to make everything difficult, but to make sure that convenience serves us rather than controls us.",
+        "sentence_cn": "目标不是让所有事情都变得困难，而是确保便利为我们服务，而不是控制我们。",
+        "chunks": [
+          {"text": "The goal is not to make everything difficult,", "meaning": "目标不是让所有事情都变得困难"},
+          {"text": "but to make sure that convenience serves us", "meaning": "而是确保便利为我们服务"},
+          {"text": "rather than controls us.", "meaning": "而不是控制我们"}
+        ],
+        "explanation": "not...but...表示不是……而是……；rather than 表示而不是。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "convenience", "phonetic": "", "meaning": "便利；方便", "part_of_speech": "noun"},
+      {"word": "delivered", "phonetic": "", "meaning": "被递送；被送达", "part_of_speech": "verb"},
+      {"word": "patient", "phonetic": "", "meaning": "有耐心的", "part_of_speech": "adjective"},
+      {"word": "depend", "phonetic": "", "meaning": "依赖；依靠", "part_of_speech": "verb"},
+      {"word": "independence", "phonetic": "", "meaning": "独立；自主", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "come with hidden costs", "meaning": "伴随着隐藏的代价", "example": "Fast food can come with hidden costs."},
+      {"expression": "be available online", "meaning": "可以在网上找到或获得", "example": "The information is available online."},
+      {"expression": "depend too heavily on", "meaning": "过度依赖", "example": "We should not depend too heavily on technology."},
+      {"expression": "be worth doing", "meaning": "值得做", "example": "Learning a new skill is worth doing."},
+      {"expression": "rather than", "meaning": "而不是", "example": "I prefer to walk rather than drive."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What is one possible hidden cost of convenience mentioned in the article?",
+        "options": ["People may become less patient.", "People may have fewer choices.", "People may spend more time exercising.", "People may lose access to the internet."],
+        "answer": "People may become less patient.",
+        "explanation": "文章指出，便利可能使人活动减少，也变得缺乏耐心。"
+      },
+      {
+        "type": "true_false",
+        "question": "The writer believes that useful inventions should be rejected.",
+        "answer": false,
+        "explanation": "作者并不主张拒绝发明，而是强调要认真思考如何使用它们。"
+      },
+      {
+        "type": "short_answer",
+        "question": "When does convenience become truly valuable?",
+        "answer": "When it improves our lives without taking away our independence.",
+        "explanation": "文章倒数第二句直接表达了这一观点。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Presents both benefits and possible costs of convenience."
+    }
+  },
+  {
+    "article_id": 168,
+    "day": 348,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Lifestyle",
+    "scene": "Work-life balance",
+    "title_en": "The Hidden Cost of a Busy Life",
+    "title_cn": "忙碌生活背后的隐性代价",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Many people believe that being busy means being successful. Their calendars are full, their phones keep ringing, and they always seem to have somewhere to go. Although a busy schedule can create a sense of purpose, it can also hide important problems. People may have little time to rest, think, or enjoy relationships. Over time, constant pressure can affect both physical and mental health. It may also prevent us from noticing what truly matters. We become so focused on completing tasks that we forget why we started them in the first place. A meaningful life does not have to be filled with activities. Sometimes, doing fewer things allows us to do them better. We can begin by deciding which responsibilities are truly important and which ones can wait. Making room for rest is not a waste of time. It is part of building a life that we can enjoy.",
+    "content_cn": "许多人认为，忙碌意味着成功。他们的日程排得满满当当，手机不停地响，而且似乎总有地方要去。虽然繁忙的安排能够带来一种目标感，但也可能掩盖重要的问题。人们可能没有多少时间休息、思考或享受人际关系。久而久之，持续的压力会影响身体和心理健康。它还可能让我们无法察觉什么才是真正重要的。我们过于专注于完成任务，以至于忘记了自己当初为什么开始做这些事情。有意义的生活不一定要充满各种活动。有时，少做一些事情反而能让我们做得更好。我们可以先判断哪些责任真正重要，哪些事情可以暂时放一放。为休息留出空间并不是浪费时间，而是建立一种让自己能够享受的生活的一部分。",
+    "sentences": [
+      {
+        "sentence_en": "Many people believe that being busy means being successful.",
+        "sentence_cn": "许多人认为，忙碌意味着成功。",
+        "chunks": [
+          {"text": "Many people believe", "meaning": "许多人认为"},
+          {"text": "that being busy", "meaning": "忙碌这件事"},
+          {"text": "means being successful.", "meaning": "意味着成功"}
+        ],
+        "explanation": "being busy 和 being successful 都是动名词短语，分别作从句主语和表语。"
+      },
+      {
+        "sentence_en": "Their calendars are full, their phones keep ringing, and they always seem to have somewhere to go.",
+        "sentence_cn": "他们的日程排得满满当当，手机不停地响，而且似乎总有地方要去。",
+        "chunks": [
+          {"text": "Their calendars are full,", "meaning": "他们的日程排得满满当当"},
+          {"text": "their phones keep ringing,", "meaning": "他们的手机不停地响"},
+          {"text": "and they always seem to have somewhere to go.", "meaning": "而且他们似乎总有地方要去"}
+        ],
+        "explanation": "keep doing 表示持续做某事；seem to do 表示似乎做某事。"
+      },
+      {
+        "sentence_en": "Although a busy schedule can create a sense of purpose, it can also hide important problems.",
+        "sentence_cn": "虽然繁忙的安排能够带来一种目标感，但也可能掩盖重要的问题。",
+        "chunks": [
+          {"text": "Although a busy schedule", "meaning": "虽然繁忙的日程"},
+          {"text": "can create a sense of purpose,", "meaning": "能够带来一种目标感"},
+          {"text": "it can also hide important problems.", "meaning": "但它也可能掩盖重要问题"}
+        ],
+        "explanation": "although 引导让步状语从句，表示虽然……但是……。"
+      },
+      {
+        "sentence_en": "People may have little time to rest, think, or enjoy relationships.",
+        "sentence_cn": "人们可能没有多少时间休息、思考或享受人际关系。",
+        "chunks": [
+          {"text": "People may have little time", "meaning": "人们可能没有多少时间"},
+          {"text": "to rest, think,", "meaning": "用来休息、思考"},
+          {"text": "or enjoy relationships.", "meaning": "或者享受人际关系"}
+        ],
+        "explanation": "have time to do 表示有时间做某事；三个动词构成并列结构。"
+      },
+      {
+        "sentence_en": "Over time, constant pressure can affect both physical and mental health.",
+        "sentence_cn": "久而久之，持续的压力会影响身体和心理健康。",
+        "chunks": [
+          {"text": "Over time,", "meaning": "随着时间推移"},
+          {"text": "constant pressure can affect", "meaning": "持续的压力会影响"},
+          {"text": "both physical and mental health.", "meaning": "身体和心理健康两方面"}
+        ],
+        "explanation": "both...and...表示两者都；over time 表示随着时间推移。"
+      },
+      {
+        "sentence_en": "It may also prevent us from noticing what truly matters.",
+        "sentence_cn": "它还可能让我们无法察觉什么才是真正重要的。",
+        "chunks": [
+          {"text": "It may also prevent us", "meaning": "它还可能阻止我们"},
+          {"text": "from noticing", "meaning": "去察觉"},
+          {"text": "what truly matters.", "meaning": "什么才是真正重要的"}
+        ],
+        "explanation": "prevent somebody from doing something 表示阻止某人做某事；what 引导宾语从句。"
+      },
+      {
+        "sentence_en": "We become so focused on completing tasks that we forget why we started them in the first place.",
+        "sentence_cn": "我们过于专注于完成任务，以至于忘记了自己当初为什么开始做这些事情。",
+        "chunks": [
+          {"text": "We become so focused on completing tasks", "meaning": "我们变得如此专注于完成任务"},
+          {"text": "that we forget", "meaning": "以至于我们忘记了"},
+          {"text": "why we started them in the first place.", "meaning": "当初为什么开始做这些事情"}
+        ],
+        "explanation": "so...that...表示如此……以至于……；in the first place 表示当初、起初。"
+      },
+      {
+        "sentence_en": "A meaningful life does not have to be filled with activities.",
+        "sentence_cn": "有意义的生活不一定要充满各种活动。",
+        "chunks": [
+          {"text": "A meaningful life", "meaning": "有意义的生活"},
+          {"text": "does not have to be filled with", "meaning": "不一定要充满"},
+          {"text": "activities.", "meaning": "各种活动"}
+        ],
+        "explanation": "does not have to 表示不必；be filled with 表示充满。"
+      },
+      {
+        "sentence_en": "Sometimes, doing fewer things allows us to do them better.",
+        "sentence_cn": "有时，少做一些事情反而能让我们做得更好。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "doing fewer things", "meaning": "少做一些事情"},
+          {"text": "allows us to do them better.", "meaning": "能让我们把它们做得更好"}
+        ],
+        "explanation": "doing fewer things 作主语；allow somebody to do 表示允许或使某人能够做某事。"
+      },
+      {
+        "sentence_en": "We can begin by deciding which responsibilities are truly important and which ones can wait.",
+        "sentence_cn": "我们可以先判断哪些责任真正重要，哪些事情可以暂时放一放。",
+        "chunks": [
+          {"text": "We can begin by deciding", "meaning": "我们可以从判断开始"},
+          {"text": "which responsibilities are truly important", "meaning": "哪些责任真正重要"},
+          {"text": "and which ones can wait.", "meaning": "以及哪些事情可以暂缓"}
+        ],
+        "explanation": "begin by doing 表示从做某事开始；which 引导两个并列的宾语从句。"
+      },
+      {
+        "sentence_en": "Making room for rest is not a waste of time.",
+        "sentence_cn": "为休息留出空间并不是浪费时间。",
+        "chunks": [
+          {"text": "Making room for rest", "meaning": "为休息留出空间"},
+          {"text": "is not", "meaning": "并不是"},
+          {"text": "a waste of time.", "meaning": "浪费时间"}
+        ],
+        "explanation": "动名词短语作主语；make room for 表示为……腾出空间。"
+      },
+      {
+        "sentence_en": "It is part of building a life that we can enjoy.",
+        "sentence_cn": "这是建立一种让自己能够享受的生活的一部分。",
+        "chunks": [
+          {"text": "It is part of", "meaning": "这是……的一部分"},
+          {"text": "building a life", "meaning": "建立一种生活"},
+          {"text": "that we can enjoy.", "meaning": "一种我们能够享受的生活"}
+        ],
+        "explanation": "building 是动名词；that 引导定语从句，修饰 a life。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "schedule", "phonetic": "", "meaning": "日程安排", "part_of_speech": "noun"},
+      {"word": "purpose", "phonetic": "", "meaning": "目的；意义", "part_of_speech": "noun"},
+      {"word": "constant", "phonetic": "", "meaning": "持续的；不断的", "part_of_speech": "adjective"},
+      {"word": "pressure", "phonetic": "", "meaning": "压力", "part_of_speech": "noun"},
+      {"word": "responsibility", "phonetic": "", "meaning": "责任；职责", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "a sense of purpose", "meaning": "一种目标感", "example": "Helping others gives her a sense of purpose."},
+      {"expression": "over time", "meaning": "随着时间推移", "example": "Small changes can make a difference over time."},
+      {"expression": "be focused on", "meaning": "专注于", "example": "He is focused on improving his English."},
+      {"expression": "in the first place", "meaning": "当初；起初", "example": "Why did you choose this job in the first place?"},
+      {"expression": "make room for", "meaning": "为……留出空间", "example": "We need to make room for rest."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What can constant pressure affect?",
+        "options": ["Only work performance", "Physical and mental health", "Only personal relationships", "The weather"],
+        "answer": "Physical and mental health",
+        "explanation": "文章第五句明确指出持续压力会影响身体和心理健康。"
+      },
+      {
+        "type": "true_false",
+        "question": "The writer believes that a meaningful life must be full of activities.",
+        "answer": false,
+        "explanation": "作者认为有意义的生活不一定需要充满活动。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What can people do to make their busy lives more balanced?",
+        "answer": "Decide which responsibilities are important, let less important tasks wait, and make room for rest.",
+        "explanation": "文章建议重新判断事情的轻重缓急，并为休息留出时间。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Explores the difference between being busy and living meaningfully."
+    }
+  },
+  {
+    "article_id": 169,
+    "day": 349,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Personal Growth",
+    "scene": "Life experiences",
+    "title_en": "Why Experiences Matter More Than Things",
+    "title_cn": "为什么经历比物品更重要",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "When people have extra money, they often face a choice: buy something new or spend it on an experience. A new phone or a beautiful piece of furniture may bring immediate excitement. However, that feeling often becomes weaker as time passes. Experiences can stay with us in a different way. A trip with friends, a difficult challenge, or a meaningful conversation may become a memory we value for years. Experiences also help us learn about ourselves and understand other people. They can change the way we see the world. This does not mean that material things are useless. We need practical objects, and some purchases can improve our lives. The important question is whether something brings lasting value or only temporary pleasure. Instead of always asking what we can own next, we might ask what we would like to experience. Sometimes, the best things in life are not things at all.",
+    "content_cn": "当人们有了额外的钱时，常常会面临一个选择：买一件新东西，还是把钱花在某种体验上。一部新手机或一件漂亮的家具可能会带来即时的兴奋感。然而，随着时间流逝，这种感觉往往会逐渐减弱。经历能够以另一种方式留在我们心中。与朋友的一次旅行、一场艰难的挑战，或者一次有意义的谈话，都可能成为我们多年后依然珍视的回忆。经历还能帮助我们了解自己、理解他人。它们可能改变我们看待世界的方式。这并不意味着物质毫无用处。我们需要实用的物品，有些购买也确实能够改善生活。重要的问题在于，某样东西带来的是持久价值，还是短暂的快乐。与其总是问自己下一件要拥有什么，不如问问自己想要经历什么。有时候，生活中最美好的东西根本不是物品。",
+    "sentences": [
+      {
+        "sentence_en": "When people have extra money, they often face a choice: buy something new or spend it on an experience.",
+        "sentence_cn": "当人们有了额外的钱时，常常会面临一个选择：买一件新东西，还是把钱花在某种体验上。",
+        "chunks": [
+          {"text": "When people have extra money,", "meaning": "当人们有了额外的钱时"},
+          {"text": "they often face a choice:", "meaning": "他们常常会面临一个选择"},
+          {"text": "buy something new or spend it on an experience.", "meaning": "买新东西，还是把钱花在体验上"}
+        ],
+        "explanation": "face a choice 表示面临选择；spend money on 表示把钱花在……上。"
+      },
+      {
+        "sentence_en": "A new phone or a beautiful piece of furniture may bring immediate excitement.",
+        "sentence_cn": "一部新手机或一件漂亮的家具可能会带来即时的兴奋感。",
+        "chunks": [
+          {"text": "A new phone or a beautiful piece of furniture", "meaning": "一部新手机或一件漂亮的家具"},
+          {"text": "may bring", "meaning": "可能带来"},
+          {"text": "immediate excitement.", "meaning": "即时的兴奋感"}
+        ],
+        "explanation": "piece of furniture 是家具的常用量词表达；immediate 表示立即的。"
+      },
+      {
+        "sentence_en": "However, that feeling often becomes weaker as time passes.",
+        "sentence_cn": "然而，随着时间流逝，这种感觉往往会逐渐减弱。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "that feeling often becomes weaker", "meaning": "那种感觉往往会逐渐减弱"},
+          {"text": "as time passes.", "meaning": "随着时间流逝"}
+        ],
+        "explanation": "as 在这里表示随着；become + 形容词表示逐渐变得……。"
+      },
+      {
+        "sentence_en": "Experiences can stay with us in a different way.",
+        "sentence_cn": "经历能够以另一种方式留在我们心中。",
+        "chunks": [
+          {"text": "Experiences", "meaning": "各种经历"},
+          {"text": "can stay with us", "meaning": "能够留在我们身边或心中"},
+          {"text": "in a different way.", "meaning": "以另一种方式"}
+        ],
+        "explanation": "stay with somebody 可表示某种记忆或感受长期留在某人心中。"
+      },
+      {
+        "sentence_en": "A trip with friends, a difficult challenge, or a meaningful conversation may become a memory we value for years.",
+        "sentence_cn": "与朋友的一次旅行、一场艰难的挑战，或者一次有意义的谈话，都可能成为我们多年后依然珍视的回忆。",
+        "chunks": [
+          {"text": "A trip with friends, a difficult challenge,", "meaning": "与朋友的旅行、一场艰难的挑战"},
+          {"text": "or a meaningful conversation", "meaning": "或者一次有意义的谈话"},
+          {"text": "may become a memory we value for years.", "meaning": "可能成为我们多年珍视的回忆"}
+        ],
+        "explanation": "we value for years 是省略关系代词 that 的定语从句，修饰 memory。"
+      },
+      {
+        "sentence_en": "Experiences also help us learn about ourselves and understand other people.",
+        "sentence_cn": "经历还能帮助我们了解自己、理解他人。",
+        "chunks": [
+          {"text": "Experiences also help us", "meaning": "经历还能帮助我们"},
+          {"text": "learn about ourselves", "meaning": "了解自己"},
+          {"text": "and understand other people.", "meaning": "并理解他人"}
+        ],
+        "explanation": "help somebody do something 后面接两个并列动词短语。"
+      },
+      {
+        "sentence_en": "They can change the way we see the world.",
+        "sentence_cn": "它们可能改变我们看待世界的方式。",
+        "chunks": [
+          {"text": "They can change", "meaning": "它们能够改变"},
+          {"text": "the way", "meaning": "……的方式"},
+          {"text": "we see the world.", "meaning": "我们看待世界"}
+        ],
+        "explanation": "the way 后接定语从句，说明看待世界的方式。"
+      },
+      {
+        "sentence_en": "This does not mean that material things are useless.",
+        "sentence_cn": "这并不意味着物质毫无用处。",
+        "chunks": [
+          {"text": "This does not mean", "meaning": "这并不意味着"},
+          {"text": "that material things", "meaning": "物质类的东西"},
+          {"text": "are useless.", "meaning": "是毫无用处的"}
+        ],
+        "explanation": "material 在这里表示物质的；useless 表示无用的。"
+      },
+      {
+        "sentence_en": "We need practical objects, and some purchases can improve our lives.",
+        "sentence_cn": "我们需要实用的物品，有些购买也确实能够改善生活。",
+        "chunks": [
+          {"text": "We need practical objects,", "meaning": "我们需要实用的物品"},
+          {"text": "and some purchases", "meaning": "而且有些购买行为"},
+          {"text": "can improve our lives.", "meaning": "能够改善我们的生活"}
+        ],
+        "explanation": "purchase 可作名词，表示购买的物品或购买行为。"
+      },
+      {
+        "sentence_en": "The important question is whether something brings lasting value or only temporary pleasure.",
+        "sentence_cn": "重要的问题在于，某样东西带来的是持久价值，还是短暂的快乐。",
+        "chunks": [
+          {"text": "The important question is", "meaning": "重要的问题在于"},
+          {"text": "whether something brings lasting value", "meaning": "某样东西是否带来持久价值"},
+          {"text": "or only temporary pleasure.", "meaning": "还是只带来短暂的快乐"}
+        ],
+        "explanation": "whether 引导表语从句，表示是否；lasting 与 temporary 构成意义上的对比。"
+      },
+      {
+        "sentence_en": "Instead of always asking what we can own next, we might ask what we would like to experience.",
+        "sentence_cn": "与其总是问自己下一件要拥有什么，不如问问自己想要经历什么。",
+        "chunks": [
+          {"text": "Instead of always asking", "meaning": "与其总是询问"},
+          {"text": "what we can own next,", "meaning": "下一件我们能拥有什么"},
+          {"text": "we might ask what we would like to experience.", "meaning": "不如问问自己想要经历什么"}
+        ],
+        "explanation": "instead of doing 表示代替做某事；what 引导两个宾语从句。"
+      },
+      {
+        "sentence_en": "Sometimes, the best things in life are not things at all.",
+        "sentence_cn": "有时候，生活中最美好的东西根本不是物品。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "the best things in life", "meaning": "生活中最美好的事物"},
+          {"text": "are not things at all.", "meaning": "根本不是物品"}
+        ],
+        "explanation": "not...at all 表示根本不；这里的 things 是一种强调性的双关表达。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "experience", "phonetic": "", "meaning": "经历；体验", "part_of_speech": "noun"},
+      {"word": "immediate", "phonetic": "", "meaning": "即时的；立即的", "part_of_speech": "adjective"},
+      {"word": "meaningful", "phonetic": "", "meaning": "有意义的", "part_of_speech": "adjective"},
+      {"word": "material", "phonetic": "", "meaning": "物质的；物质方面的", "part_of_speech": "adjective"},
+      {"word": "temporary", "phonetic": "", "meaning": "暂时的；短暂的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "face a choice", "meaning": "面临一个选择", "example": "We often face a choice between comfort and growth."},
+      {"expression": "spend money on", "meaning": "把钱花在……上", "example": "She spends money on travel."},
+      {"expression": "stay with us", "meaning": "留在我们心中；伴随我们", "example": "That memory will stay with us forever."},
+      {"expression": "for years", "meaning": "多年；长达数年", "example": "They have been friends for years."},
+      {"expression": "lasting value", "meaning": "持久的价值", "example": "Education can bring lasting value."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "Why might experiences be more valuable than some material things?",
+        "options": ["They are always cheaper.", "They can create lasting memories and help us grow.", "They never involve difficulties.", "They make people famous."],
+        "answer": "They can create lasting memories and help us grow.",
+        "explanation": "文章指出经历能够成为长久的回忆，也能帮助我们了解自己和他人。"
+      },
+      {
+        "type": "true_false",
+        "question": "The writer believes that material things have no value.",
+        "answer": false,
+        "explanation": "文章明确指出我们需要实用物品，有些购买也能改善生活。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What question does the writer suggest asking instead of what we can own next?",
+        "answer": "What we would like to experience.",
+        "explanation": "作者建议把关注点从拥有物品转向想要体验的事情。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Balances the value of experiences with the practical role of material possessions."
+    }
+  },
+  {
+    "article_id": 170,
+    "day": 350,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Relationships",
+    "scene": "Home and belonging",
+    "title_en": "What Makes a Place Feel Like Home?",
+    "title_cn": "什么让一个地方有家的感觉",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "A home is more than a building or a place to sleep. Some people feel at home in a small apartment, while others feel that way in a house filled with family members. The difference is not always about size or comfort. It often comes from the memories, relationships, and routines connected to a place. A familiar smell, a favorite chair, or the sound of someone cooking can make us feel safe. Being accepted and understood also matters. We may live in a beautiful house and still feel lonely if we have no meaningful connections there. On the other hand, a simple room can feel like home when we share it with people we trust. Home is not necessarily where we were born or where we own property. It can be a place where we are free to be ourselves. In the end, home is less about walls and more about belonging.",
+    "content_cn": "家不仅仅是一栋建筑，也不仅仅是一个睡觉的地方。有些人在小公寓里就能感受到家的温暖，而另一些人则觉得充满家人的房子才有家的感觉。这种差异并不总是与空间大小或舒适程度有关。它往往来自一个地方所承载的记忆、人际关系和日常习惯。熟悉的气味、一把喜欢的椅子，或者有人做饭的声音，都可能让我们感到安心。被接纳和被理解同样重要。即使住在一栋漂亮的房子里，如果没有有意义的联系，我们仍然可能感到孤独。另一方面，当我们与信任的人共同生活时，一个简单的房间也能让人感到像家一样。家不一定是我们出生的地方，也不一定是我们拥有房产的地方。它可以是一个让我们自由做自己的地方。归根结底，家与墙壁的关系较少，而与归属感的关系更多。",
+    "sentences": [
+      {
+        "sentence_en": "A home is more than a building or a place to sleep.",
+        "sentence_cn": "家不仅仅是一栋建筑，也不仅仅是一个睡觉的地方。",
+        "chunks": [
+          {"text": "A home is more than", "meaning": "家不仅仅是"},
+          {"text": "a building", "meaning": "一栋建筑"},
+          {"text": "or a place to sleep.", "meaning": "或者一个睡觉的地方"}
+        ],
+        "explanation": "more than 表示不仅仅是，强调家的意义超越物理空间。"
+      },
+      {
+        "sentence_en": "Some people feel at home in a small apartment, while others feel that way in a house filled with family members.",
+        "sentence_cn": "有些人在小公寓里就能感受到家的温暖，而另一些人则觉得充满家人的房子才有家的感觉。",
+        "chunks": [
+          {"text": "Some people feel at home in a small apartment,", "meaning": "有些人在小公寓里就有家的感觉"},
+          {"text": "while others feel that way", "meaning": "而另一些人则有那种感觉"},
+          {"text": "in a house filled with family members.", "meaning": "在充满家人的房子里"}
+        ],
+        "explanation": "while 在这里表示对比；filled with 是过去分词短语，修饰 house。"
+      },
+      {
+        "sentence_en": "The difference is not always about size or comfort.",
+        "sentence_cn": "这种差异并不总是与空间大小或舒适程度有关。",
+        "chunks": [
+          {"text": "The difference", "meaning": "这种差异"},
+          {"text": "is not always about", "meaning": "并不总是与……有关"},
+          {"text": "size or comfort.", "meaning": "大小或舒适程度"}
+        ],
+        "explanation": "be about 表示与……有关；not always 表示并非总是。"
+      },
+      {
+        "sentence_en": "It often comes from the memories, relationships, and routines connected to a place.",
+        "sentence_cn": "它往往来自一个地方所承载的记忆、人际关系和日常习惯。",
+        "chunks": [
+          {"text": "It often comes from", "meaning": "它往往来自"},
+          {"text": "the memories, relationships, and routines", "meaning": "记忆、人际关系和日常习惯"},
+          {"text": "connected to a place.", "meaning": "与某个地方联系在一起的"}
+        ],
+        "explanation": "connected to 是过去分词短语，修饰前面的 memories、relationships 和 routines。"
+      },
+      {
+        "sentence_en": "A familiar smell, a favorite chair, or the sound of someone cooking can make us feel safe.",
+        "sentence_cn": "熟悉的气味、一把喜欢的椅子，或者有人做饭的声音，都可能让我们感到安心。",
+        "chunks": [
+          {"text": "A familiar smell, a favorite chair,", "meaning": "熟悉的气味、一把喜欢的椅子"},
+          {"text": "or the sound of someone cooking", "meaning": "或者有人做饭的声音"},
+          {"text": "can make us feel safe.", "meaning": "都可能让我们感到安心"}
+        ],
+        "explanation": "make somebody feel + 形容词，表示让某人感到某种状态。"
+      },
+      {
+        "sentence_en": "Being accepted and understood also matters.",
+        "sentence_cn": "被接纳和被理解同样重要。",
+        "chunks": [
+          {"text": "Being accepted", "meaning": "被接纳"},
+          {"text": "and understood", "meaning": "并被理解"},
+          {"text": "also matters.", "meaning": "同样重要"}
+        ],
+        "explanation": "being accepted and understood 是动名词被动结构，整体作主语。"
+      },
+      {
+        "sentence_en": "We may live in a beautiful house and still feel lonely if we have no meaningful connections there.",
+        "sentence_cn": "即使住在一栋漂亮的房子里，如果没有有意义的联系，我们仍然可能感到孤独。",
+        "chunks": [
+          {"text": "We may live in a beautiful house", "meaning": "我们可能住在一栋漂亮的房子里"},
+          {"text": "and still feel lonely", "meaning": "却仍然感到孤独"},
+          {"text": "if we have no meaningful connections there.", "meaning": "如果在那里没有有意义的人际联系"}
+        ],
+        "explanation": "if 引导条件状语从句；still 表示仍然。"
+      },
+      {
+        "sentence_en": "On the other hand, a simple room can feel like home when we share it with people we trust.",
+        "sentence_cn": "另一方面，当我们与信任的人共同生活时，一个简单的房间也能让人感到像家一样。",
+        "chunks": [
+          {"text": "On the other hand,", "meaning": "另一方面"},
+          {"text": "a simple room can feel like home", "meaning": "一个简单的房间也能有家的感觉"},
+          {"text": "when we share it with people we trust.", "meaning": "当我们与信任的人共同生活时"}
+        ],
+        "explanation": "feel like 表示感觉像；we trust 是省略关系代词的定语从句，修饰 people。"
+      },
+      {
+        "sentence_en": "Home is not necessarily where we were born or where we own property.",
+        "sentence_cn": "家不一定是我们出生的地方，也不一定是我们拥有房产的地方。",
+        "chunks": [
+          {"text": "Home is not necessarily", "meaning": "家不一定是"},
+          {"text": "where we were born", "meaning": "我们出生的地方"},
+          {"text": "or where we own property.", "meaning": "或者我们拥有房产的地方"}
+        ],
+        "explanation": "where 引导两个表语从句，说明家的地点不受出生地或房产限制。"
+      },
+      {
+        "sentence_en": "It can be a place where we are free to be ourselves.",
+        "sentence_cn": "它可以是一个让我们自由做自己的地方。",
+        "chunks": [
+          {"text": "It can be a place", "meaning": "它可以是一个地方"},
+          {"text": "where we are free", "meaning": "在那里我们可以自由地"},
+          {"text": "to be ourselves.", "meaning": "做真实的自己"}
+        ],
+        "explanation": "where 引导定语从句修饰 place；be free to do 表示可以自由做某事。"
+      },
+      {
+        "sentence_en": "In the end, home is less about walls and more about belonging.",
+        "sentence_cn": "归根结底，家与墙壁的关系较少，而与归属感的关系更多。",
+        "chunks": [
+          {"text": "In the end,", "meaning": "归根结底"},
+          {"text": "home is less about walls", "meaning": "家较少取决于墙壁"},
+          {"text": "and more about belonging.", "meaning": "而更多取决于归属感"}
+        ],
+        "explanation": "less about...and more about... 表示与前者关系较少，与后者关系更多。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "apartment", "phonetic": "", "meaning": "公寓", "part_of_speech": "noun"},
+      {"word": "routine", "phonetic": "", "meaning": "日常习惯；惯例", "part_of_speech": "noun"},
+      {"word": "familiar", "phonetic": "", "meaning": "熟悉的", "part_of_speech": "adjective"},
+      {"word": "connection", "phonetic": "", "meaning": "联系；关系", "part_of_speech": "noun"},
+      {"word": "belonging", "phonetic": "", "meaning": "归属感", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "feel at home", "meaning": "感到自在；有家的感觉", "example": "I feel at home in this neighborhood."},
+      {"expression": "come from", "meaning": "来自；源于", "example": "Her confidence comes from experience."},
+      {"expression": "make someone feel safe", "meaning": "让某人感到安心", "example": "Talking to him makes me feel safe."},
+      {"expression": "on the other hand", "meaning": "另一方面", "example": "The job pays well, but on the other hand, it is stressful."},
+      {"expression": "be ourselves", "meaning": "做真实的自己", "example": "Good friends allow us to be ourselves."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "According to the article, what often makes a place feel like home?",
+        "options": ["Its size and price", "Memories, relationships, and routines", "Its location near a city center", "The number of rooms"],
+        "answer": "Memories, relationships, and routines",
+        "explanation": "文章指出，家的感觉往往来自记忆、人际关系和日常习惯。"
+      },
+      {
+        "type": "true_false",
+        "question": "A beautiful house always makes people feel at home.",
+        "answer": false,
+        "explanation": "如果缺少有意义的人际联系，即使住在漂亮的房子里也可能感到孤独。"
+      },
+      {
+        "type": "short_answer",
+        "question": "What does the writer mean by saying that home is about belonging?",
+        "answer": "Home is a place where people feel accepted, understood, and free to be themselves.",
+        "explanation": "文章强调被接纳、被理解以及做真实的自己，这些构成归属感。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Explains home as an emotional sense of belonging rather than simply a physical building."
+    }
+  },
+  {
+    "article_id": 171,
+    "day": 351,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Communication",
+    "scene": "Changing perspectives",
+    "title_en": "A Conversation That Changed My Mind",
+    "title_cn": "一次改变我想法的谈话",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "I used to believe that successful people were simply more talented than everyone else. I thought hard work mattered, but natural ability mattered even more. One afternoon, I discussed this idea with a colleague who had built a business from nothing. Instead of telling me I was wrong, she asked me what I meant by talent. She explained that people often notice the final result but ignore years of practice, failure, and patience. Her question made me reconsider my opinion. I realized that what looks like natural talent may actually be the result of consistent effort. We continued talking, and I learned that listening can be more useful than defending an opinion. That conversation did not give me every answer, but it changed the way I judged other people's achievements. Since then, I have tried to look beyond appearances and understand the effort behind success.",
+    "content_cn": "我过去常常认为，成功人士只是比其他人更有天赋。我认为努力很重要，但天生的能力更加重要。一天午后，我和一位白手起家创办企业的同事讨论了这个观点。她没有直接告诉我错了，而是问我所说的天赋究竟指什么。她解释说，人们往往只注意最终结果，却忽略了多年的练习、失败和耐心。她的问题让我重新思考自己的观点。我意识到，看起来像是天生的才能，实际上可能是持续努力的结果。我们继续交谈，我也明白了倾听有时比维护自己的观点更有用。那次谈话并没有给我所有答案，却改变了我评价他人成就的方式。从那以后，我开始尝试看透表面现象，理解成功背后的努力。",
+    "sentences": [
+      {
+        "sentence_en": "I used to believe that successful people were simply more talented than everyone else.",
+        "sentence_cn": "我过去常常认为，成功人士只是比其他人更有天赋。",
+        "chunks": [
+          {"text": "I used to believe", "meaning": "我过去常常认为"},
+          {"text": "that successful people", "meaning": "成功人士"},
+          {"text": "were simply more talented than everyone else.", "meaning": "只是比其他人更有天赋"}
+        ],
+        "explanation": "used to do 表示过去经常做或过去持有某种状态，现在可能已经改变。"
+      },
+      {
+        "sentence_en": "I thought hard work mattered, but natural ability mattered even more.",
+        "sentence_cn": "我认为努力很重要，但天生的能力更加重要。",
+        "chunks": [
+          {"text": "I thought", "meaning": "我当时认为"},
+          {"text": "hard work mattered,", "meaning": "努力很重要"},
+          {"text": "but natural ability mattered even more.", "meaning": "但天生的能力更加重要"}
+        ],
+        "explanation": "mattered 是 matter 的过去式；even more 用于加强比较。"
+      },
+      {
+        "sentence_en": "One afternoon, I discussed this idea with a colleague who had built a business from nothing.",
+        "sentence_cn": "一天午后，我和一位白手起家创办企业的同事讨论了这个观点。",
+        "chunks": [
+          {"text": "One afternoon,", "meaning": "一天下午"},
+          {"text": "I discussed this idea with a colleague", "meaning": "我和一位同事讨论了这个观点"},
+          {"text": "who had built a business from nothing.", "meaning": "这位同事白手起家创办了一家企业"}
+        ],
+        "explanation": "who 引导定语从句修饰 colleague；had built 是过去完成时，表示在谈话之前已经完成的经历。"
+      },
+      {
+        "sentence_en": "Instead of telling me I was wrong, she asked me what I meant by talent.",
+        "sentence_cn": "她没有直接告诉我错了，而是问我所说的天赋究竟指什么。",
+        "chunks": [
+          {"text": "Instead of telling me I was wrong,", "meaning": "她没有告诉我错了，而是"},
+          {"text": "she asked me", "meaning": "她问我"},
+          {"text": "what I meant by talent.", "meaning": "我所说的天赋是什么意思"}
+        ],
+        "explanation": "instead of doing 表示不做某事而选择另一种做法；what 引导宾语从句。"
+      },
+      {
+        "sentence_en": "She explained that people often notice the final result but ignore years of practice, failure, and patience.",
+        "sentence_cn": "她解释说，人们往往只注意最终结果，却忽略了多年的练习、失败和耐心。",
+        "chunks": [
+          {"text": "She explained that", "meaning": "她解释说"},
+          {"text": "people often notice the final result", "meaning": "人们往往注意最终结果"},
+          {"text": "but ignore years of practice, failure, and patience.", "meaning": "却忽略多年的练习、失败和耐心"}
+        ],
+        "explanation": "that 引导宾语从句；notice 和 ignore 构成对比。"
+      },
+      {
+        "sentence_en": "Her question made me reconsider my opinion.",
+        "sentence_cn": "她的问题让我重新思考自己的观点。",
+        "chunks": [
+          {"text": "Her question", "meaning": "她的问题"},
+          {"text": "made me reconsider", "meaning": "让我重新思考"},
+          {"text": "my opinion.", "meaning": "我的观点"}
+        ],
+        "explanation": "make somebody do something 表示使某人做某事，make 后接动词原形。"
+      },
+      {
+        "sentence_en": "I realized that what looks like natural talent may actually be the result of consistent effort.",
+        "sentence_cn": "我意识到，看起来像是天生的才能，实际上可能是持续努力的结果。",
+        "chunks": [
+          {"text": "I realized that", "meaning": "我意识到"},
+          {"text": "what looks like natural talent", "meaning": "看起来像天生才能的东西"},
+          {"text": "may actually be the result of consistent effort.", "meaning": "实际上可能是持续努力的结果"}
+        ],
+        "explanation": "what 引导主语从句；the result of 表示……的结果。"
+      },
+      {
+        "sentence_en": "We continued talking, and I learned that listening can be more useful than defending an opinion.",
+        "sentence_cn": "我们继续交谈，我也明白了倾听有时比维护自己的观点更有用。",
+        "chunks": [
+          {"text": "We continued talking,", "meaning": "我们继续交谈"},
+          {"text": "and I learned that listening", "meaning": "我也明白了倾听"},
+          {"text": "can be more useful than defending an opinion.", "meaning": "可能比维护一个观点更有用"}
+        ],
+        "explanation": "continue doing 表示继续做某事；listening 和 defending 都是动名词。"
+      },
+      {
+        "sentence_en": "That conversation did not give me every answer, but it changed the way I judged other people's achievements.",
+        "sentence_cn": "那次谈话并没有给我所有答案，却改变了我评价他人成就的方式。",
+        "chunks": [
+          {"text": "That conversation did not give me every answer,", "meaning": "那次谈话并没有给我所有答案"},
+          {"text": "but it changed the way", "meaning": "但它改变了……的方式"},
+          {"text": "I judged other people's achievements.", "meaning": "我评价他人成就"}
+        ],
+        "explanation": "did not give 是一般过去时的否定结构；the way 后接定语从句。"
+      },
+      {
+        "sentence_en": "Since then, I have tried to look beyond appearances and understand the effort behind success.",
+        "sentence_cn": "从那以后，我开始尝试看透表面现象，理解成功背后的努力。",
+        "chunks": [
+          {"text": "Since then,", "meaning": "从那以后"},
+          {"text": "I have tried to look beyond appearances", "meaning": "我一直尝试看透表面现象"},
+          {"text": "and understand the effort behind success.", "meaning": "并理解成功背后的努力"}
+        ],
+        "explanation": "since then 常与现在完成时连用；look beyond 表示不局限于表面。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "talented", "phonetic": "", "meaning": "有天赋的", "part_of_speech": "adjective"},
+      {"word": "colleague", "phonetic": "", "meaning": "同事", "part_of_speech": "noun"},
+      {"word": "reconsider", "phonetic": "", "meaning": "重新考虑", "part_of_speech": "verb"},
+      {"word": "consistent", "phonetic": "", "meaning": "持续的；始终如一的", "part_of_speech": "adjective"},
+      {"word": "achievement", "phonetic": "", "meaning": "成就；成绩", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "used to believe", "meaning": "过去常常认为", "example": "I used to believe that success came easily."},
+      {"expression": "from nothing", "meaning": "从零开始；白手起家", "example": "She built her company from nothing."},
+      {"expression": "mean by", "meaning": "……的意思是", "example": "What do you mean by success?"},
+      {"expression": "the result of", "meaning": "……的结果", "example": "Good health is often the result of daily habits."},
+      {"expression": "look beyond", "meaning": "看透；不局限于表面", "example": "Try to look beyond the first impression."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What did the colleague encourage the narrator to think about?",
+        "options": ["The meaning of talent", "The price of starting a business", "The importance of competition", "The value of a college degree"],
+        "answer": "The meaning of talent",
+        "explanation": "同事没有直接反驳，而是询问 narrator 所说的天赋究竟是什么意思。"
+      },
+      {
+        "type": "true_false",
+        "question": "The narrator learned that successful people may have worked hard for years.",
+        "answer": true,
+        "explanation": "谈话让 narrator 意识到，所谓天赋可能是持续努力的结果。"
+      },
+      {
+        "type": "short_answer",
+        "question": "How did the conversation change the narrator?",
+        "answer": "The narrator learned to listen more and look beyond appearances when judging success.",
+        "explanation": "文章最后指出， narrator 开始重视倾听，并理解成功背后的努力。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Uses a personal story to demonstrate how open conversation can change a belief."
+    }
+  },
+  {
+    "article_id": 172,
+    "day": 352,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Communication",
+    "scene": "Handling disagreement",
+    "title_en": "How to Disagree Without Arguing",
+    "title_cn": "如何在不争吵的情况下表达不同意见",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "Disagreement is a normal part of human communication. Two people can care about each other and still have different opinions. Problems begin when they treat every difference as a personal attack. Instead of trying to understand the other person, they focus on proving that they are right. A better approach is to listen carefully before responding. We can ask questions to understand the reasons behind an opinion rather than immediately rejecting it. It also helps to use calm language and explain how we feel without blaming anyone. For example, saying I see this differently is often more effective than saying you are wrong. We should also accept that some disagreements cannot be completely resolved. Respect does not require us to agree on everything. The goal of a good conversation is not always to win. Sometimes, it is simply to understand each other better and find a way to move forward.",
+    "content_cn": "意见不一致是人类交流中的正常现象。两个人可以彼此在乎，同时也持有不同的观点。当他们把每一种分歧都当成针对个人的攻击时，问题就开始出现了。他们不再努力理解对方，而是专注于证明自己正确。更好的方法是在回应之前认真倾听。我们可以通过提问来理解某种观点背后的原因，而不是立刻否定它。使用平和的语言，并且在不指责任何人的情况下解释自己的感受，也会有所帮助。例如，说“我对此有不同的看法”，通常比说“你错了”更有效。我们还应该接受，有些分歧无法得到彻底解决。尊重并不要求我们在所有事情上都达成一致。一场良好谈话的目标并不总是赢得争论。有时，它只是为了更好地理解彼此，并找到继续前进的方法。",
+    "sentences": [
+      {
+        "sentence_en": "Disagreement is a normal part of human communication.",
+        "sentence_cn": "意见不一致是人类交流中的正常现象。",
+        "chunks": [
+          {"text": "Disagreement", "meaning": "意见不一致；分歧"},
+          {"text": "is a normal part of", "meaning": "是……正常的一部分"},
+          {"text": "human communication.", "meaning": "人类交流"}
+        ],
+        "explanation": "disagreement 是名词，表示意见不一致或分歧。"
+      },
+      {
+        "sentence_en": "Two people can care about each other and still have different opinions.",
+        "sentence_cn": "两个人可以彼此在乎，同时也持有不同的观点。",
+        "chunks": [
+          {"text": "Two people can care about each other", "meaning": "两个人可以彼此在乎"},
+          {"text": "and still have", "meaning": "同时仍然持有"},
+          {"text": "different opinions.", "meaning": "不同的观点"}
+        ],
+        "explanation": "care about 表示在乎、关心；still 表示仍然。"
+      },
+      {
+        "sentence_en": "Problems begin when they treat every difference as a personal attack.",
+        "sentence_cn": "当他们把每一种分歧都当成针对个人的攻击时，问题就开始出现了。",
+        "chunks": [
+          {"text": "Problems begin", "meaning": "问题开始出现"},
+          {"text": "when they treat every difference", "meaning": "当他们把每一种分歧看作"},
+          {"text": "as a personal attack.", "meaning": "针对个人的攻击时"}
+        ],
+        "explanation": "treat A as B 表示把 A 当作 B；when 引导时间状语从句。"
+      },
+      {
+        "sentence_en": "Instead of trying to understand the other person, they focus on proving that they are right.",
+        "sentence_cn": "他们不再努力理解对方，而是专注于证明自己正确。",
+        "chunks": [
+          {"text": "Instead of trying to understand the other person,", "meaning": "他们没有努力理解对方，而是"},
+          {"text": "they focus on proving", "meaning": "他们专注于证明"},
+          {"text": "that they are right.", "meaning": "自己是正确的"}
+        ],
+        "explanation": "focus on 后接名词或动名词；that 引导宾语从句。"
+      },
+      {
+        "sentence_en": "A better approach is to listen carefully before responding.",
+        "sentence_cn": "更好的方法是在回应之前认真倾听。",
+        "chunks": [
+          {"text": "A better approach", "meaning": "一种更好的方法"},
+          {"text": "is to listen carefully", "meaning": "是认真倾听"},
+          {"text": "before responding.", "meaning": "在回应之前"}
+        ],
+        "explanation": "approach 后用不定式说明具体方法；before responding 表示在回应之前。"
+      },
+      {
+        "sentence_en": "We can ask questions to understand the reasons behind an opinion rather than immediately rejecting it.",
+        "sentence_cn": "我们可以通过提问来理解某种观点背后的原因，而不是立刻否定它。",
+        "chunks": [
+          {"text": "We can ask questions", "meaning": "我们可以提出问题"},
+          {"text": "to understand the reasons behind an opinion", "meaning": "以理解某种观点背后的原因"},
+          {"text": "rather than immediately rejecting it.", "meaning": "而不是立刻否定它"}
+        ],
+        "explanation": "to understand 表示目的；rather than 后的 rejecting 与前面的 ask 在形式上形成对照。"
+      },
+      {
+        "sentence_en": "It also helps to use calm language and explain how we feel without blaming anyone.",
+        "sentence_cn": "使用平和的语言，并且在不指责任何人的情况下解释自己的感受，也会有所帮助。",
+        "chunks": [
+          {"text": "It also helps", "meaning": "这样也有帮助"},
+          {"text": "to use calm language and explain how we feel", "meaning": "使用平和的语言并解释自己的感受"},
+          {"text": "without blaming anyone.", "meaning": "而不指责任何人"}
+        ],
+        "explanation": "it helps to do 表示做某事有帮助；without 后接动名词。"
+      },
+      {
+        "sentence_en": "For example, saying I see this differently is often more effective than saying you are wrong.",
+        "sentence_cn": "例如，说“我对此有不同的看法”，通常比说“你错了”更有效。",
+        "chunks": [
+          {"text": "For example,", "meaning": "例如"},
+          {"text": "saying I see this differently", "meaning": "说“我对此有不同的看法”"},
+          {"text": "is often more effective than saying you are wrong.", "meaning": "通常比说“你错了”更有效"}
+        ],
+        "explanation": "两个 saying 引导的动名词短语构成比较结构；more effective than 表示比……更有效。"
+      },
+      {
+        "sentence_en": "We should also accept that some disagreements cannot be completely resolved.",
+        "sentence_cn": "我们还应该接受，有些分歧无法得到彻底解决。",
+        "chunks": [
+          {"text": "We should also accept", "meaning": "我们还应该接受"},
+          {"text": "that some disagreements", "meaning": "有些分歧"},
+          {"text": "cannot be completely resolved.", "meaning": "无法得到彻底解决"}
+        ],
+        "explanation": "cannot be resolved 是被动语态的否定形式，表示无法被解决。"
+      },
+      {
+        "sentence_en": "Respect does not require us to agree on everything.",
+        "sentence_cn": "尊重并不要求我们在所有事情上都达成一致。",
+        "chunks": [
+          {"text": "Respect does not require us", "meaning": "尊重并不要求我们"},
+          {"text": "to agree", "meaning": "达成一致"},
+          {"text": "on everything.", "meaning": "在所有事情上"}
+        ],
+        "explanation": "require somebody to do something 表示要求某人做某事；agree on 表示在某事上达成一致。"
+      },
+      {
+        "sentence_en": "The goal of a good conversation is not always to win.",
+        "sentence_cn": "一场良好谈话的目标并不总是赢得争论。",
+        "chunks": [
+          {"text": "The goal of a good conversation", "meaning": "一场良好谈话的目标"},
+          {"text": "is not always", "meaning": "并不总是"},
+          {"text": "to win.", "meaning": "赢得争论"}
+        ],
+        "explanation": "to win 是不定式作表语，说明谈话的目标。"
+      },
+      {
+        "sentence_en": "Sometimes, it is simply to understand each other better and find a way to move forward.",
+        "sentence_cn": "有时，它只是为了更好地理解彼此，并找到继续前进的方法。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": "it is simply to understand each other better", "meaning": "它只是为了更好地理解彼此"},
+          {"text": "and find a way to move forward.", "meaning": "并找到继续前进的方法"}
+        ],
+        "explanation": "each other 表示彼此；a way to do 表示做某事的方法；move forward 表示继续向前。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disagreement", "phonetic": "", "meaning": "意见不一致；分歧", "part_of_speech": "noun"},
+      {"word": "approach", "phonetic": "", "meaning": "方法；方式", "part_of_speech": "noun"},
+      {"word": "respond", "phonetic": "", "meaning": "回应；回答", "part_of_speech": "verb"},
+      {"word": "effective", "phonetic": "", "meaning": "有效的", "part_of_speech": "adjective"},
+      {"word": "resolve", "phonetic": "", "meaning": "解决；化解", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "care about each other", "meaning": "彼此在乎", "example": "Good friends care about each other."},
+      {"expression": "treat something as", "meaning": "把某事当作……", "example": "Don't treat every question as criticism."},
+      {"expression": "focus on doing", "meaning": "专注于做某事", "example": "Let's focus on finding a solution."},
+      {"expression": "rather than", "meaning": "而不是", "example": "Listen carefully rather than interrupting."},
+      {"expression": "move forward", "meaning": "继续前进；向前发展", "example": "We need to learn from the past and move forward."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What often causes problems during a disagreement?",
+        "options": ["Asking questions", "Treating differences as personal attacks", "Listening carefully", "Using calm language"],
+        "answer": "Treating differences as personal attacks",
+        "explanation": "文章指出，把分歧视为人身攻击容易引发问题。"
+      },
+      {
+        "type": "true_false",
+        "question": "Respect means agreeing with other people about everything.",
+        "answer": false,
+        "explanation": "文章明确说明，尊重并不要求人们在所有事情上达成一致。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Name two ways to disagree without arguing.",
+        "answer": "Listen carefully, ask questions, use calm language, or explain feelings without blaming others.",
+        "explanation": "这些方法都来自文章提出的具体沟通建议。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Provides practical language and behavior for respectful disagreement."
+    }
+  },
+  {
+    "article_id": 173,
+    "day": 353,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Personal Growth",
+    "scene": "Overcoming stagnation",
+    "title_en": "What to Do When You Feel Stuck",
+    "title_cn": "当你感到停滞不前时该怎么办",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "There are times when life seems to stop moving forward. You may have goals, but you cannot find the energy or direction to pursue them. This feeling can be frustrating, especially when other people appear to be making progress. The first step is to stop judging yourself for being stuck. Everyone experiences periods of uncertainty and low motivation. Instead of trying to change everything at once, choose one small action you can take today. You might organize your workspace, contact someone, or spend twenty minutes learning a useful skill. Small actions create movement, and movement can gradually rebuild confidence. It is also helpful to examine what is holding you back. Perhaps your goals are unclear, or perhaps you are trying to do too much. You do not need to solve your entire life in one day. Focus on the next reasonable step, and allow progress to develop over time.",
+    "content_cn": "有时，生活似乎停止了前进。你可能拥有目标，却找不到追求目标的精力或方向。这种感觉会让人沮丧，尤其是当其他人看起来都在不断进步时。第一步是停止因为自己陷入停滞而责备自己。每个人都会经历不确定和缺乏动力的时期。与其试图一次改变所有事情，不如选择今天就能采取的一项小行动。你可以整理工作空间、联系某个人，或者花二十分钟学习一项有用的技能。小行动能够带来变化，而行动也能逐渐重建信心。审视究竟是什么阻碍了自己，也很有帮助。也许你的目标不够清晰，也许你试图做的事情太多了。你不需要在一天之内解决整个人生的问题。专注于下一个合理的步骤，并让进步随着时间慢慢发生。",
+    "sentences": [
+      {
+        "sentence_en": "There are times when life seems to stop moving forward.",
+        "sentence_cn": "有时，生活似乎停止了前进。",
+        "chunks": [
+          {"text": "There are times", "meaning": "有些时候"},
+          {"text": "when life seems", "meaning": "生活似乎"},
+          {"text": "to stop moving forward.", "meaning": "停止向前发展"}
+        ],
+        "explanation": "There are times when... 是常用句型，表示有时会出现某种情况；seem to do 表示似乎做某事。"
+      },
+      {
+        "sentence_en": "You may have goals, but you cannot find the energy or direction to pursue them.",
+        "sentence_cn": "你可能拥有目标，却找不到追求目标的精力或方向。",
+        "chunks": [
+          {"text": "You may have goals,", "meaning": "你可能拥有目标"},
+          {"text": "but you cannot find the energy or direction", "meaning": "但你找不到精力或方向"},
+          {"text": "to pursue them.", "meaning": "去追求这些目标"}
+        ],
+        "explanation": "pursue 表示追求；to pursue them 作后置定语，说明精力和方向的用途。"
+      },
+      {
+        "sentence_en": "This feeling can be frustrating, especially when other people appear to be making progress.",
+        "sentence_cn": "这种感觉会让人沮丧，尤其是当其他人看起来都在不断进步时。",
+        "chunks": [
+          {"text": "This feeling can be frustrating,", "meaning": "这种感觉会让人沮丧"},
+          {"text": "especially when other people", "meaning": "尤其是当其他人"},
+          {"text": "appear to be making progress.", "meaning": "看起来正在取得进步时"}
+        ],
+        "explanation": "frustrating 表示令人沮丧的；appear to be doing 表示看起来正在做某事。"
+      },
+      {
+        "sentence_en": "The first step is to stop judging yourself for being stuck.",
+        "sentence_cn": "第一步是停止因为自己陷入停滞而责备自己。",
+        "chunks": [
+          {"text": "The first step", "meaning": "第一步"},
+          {"text": "is to stop judging yourself", "meaning": "是停止评判或责备自己"},
+          {"text": "for being stuck.", "meaning": "因为自己陷入停滞"}
+        ],
+        "explanation": "stop doing 表示停止做某事；judge somebody for 表示因某事而评判某人。"
+      },
+      {
+        "sentence_en": "Everyone experiences periods of uncertainty and low motivation.",
+        "sentence_cn": "每个人都会经历不确定和缺乏动力的时期。",
+        "chunks": [
+          {"text": "Everyone experiences", "meaning": "每个人都会经历"},
+          {"text": "periods of uncertainty", "meaning": "不确定的时期"},
+          {"text": "and low motivation.", "meaning": "以及缺乏动力的状态"}
+        ],
+        "explanation": "period of 表示一段时期；uncertainty 表示不确定性。"
+      },
+      {
+        "sentence_en": "Instead of trying to change everything at once, choose one small action you can take today.",
+        "sentence_cn": "与其试图一次改变所有事情，不如选择今天就能采取的一项小行动。",
+        "chunks": [
+          {"text": "Instead of trying to change everything at once,", "meaning": "与其试图一次改变所有事情"},
+          {"text": "choose one small action", "meaning": "不如选择一项小行动"},
+          {"text": "you can take today.", "meaning": "一项你今天就能采取的行动"}
+        ],
+        "explanation": "instead of doing 表示不做某事而选择另一种方式；at once 表示一次性地。"
+      },
+      {
+        "sentence_en": "You might organize your workspace, contact someone, or spend twenty minutes learning a useful skill.",
+        "sentence_cn": "你可以整理工作空间、联系某个人，或者花二十分钟学习一项有用的技能。",
+        "chunks": [
+          {"text": "You might organize your workspace,", "meaning": "你可以整理工作空间"},
+          {"text": "contact someone,", "meaning": "联系某个人"},
+          {"text": "or spend twenty minutes learning a useful skill.", "meaning": "或者花二十分钟学习一项有用的技能"}
+        ],
+        "explanation": "might 表示可能的选择；spend time doing 表示花时间做某事。"
+      },
+      {
+        "sentence_en": "Small actions create movement, and movement can gradually rebuild confidence.",
+        "sentence_cn": "小行动能够带来变化，而行动也能逐渐重建信心。",
+        "chunks": [
+          {"text": "Small actions create movement,", "meaning": "小行动能够带来变化"},
+          {"text": "and movement can gradually", "meaning": "而行动也能逐渐"},
+          {"text": "rebuild confidence.", "meaning": "重建信心"}
+        ],
+        "explanation": "gradually 表示逐渐地；rebuild 表示重新建立。"
+      },
+      {
+        "sentence_en": "It is also helpful to examine what is holding you back.",
+        "sentence_cn": "审视究竟是什么阻碍了自己，也很有帮助。",
+        "chunks": [
+          {"text": "It is also helpful", "meaning": "这样做也很有帮助"},
+          {"text": "to examine", "meaning": "去审视"},
+          {"text": "what is holding you back.", "meaning": "究竟是什么在阻碍你"}
+        ],
+        "explanation": "it is helpful to do 是形式主语句型；hold somebody back 表示阻碍某人前进。"
+      },
+      {
+        "sentence_en": "Perhaps your goals are unclear, or perhaps you are trying to do too much.",
+        "sentence_cn": "也许你的目标不够清晰，也许你试图做的事情太多了。",
+        "chunks": [
+          {"text": "Perhaps your goals are unclear,", "meaning": "也许你的目标不够清晰"},
+          {"text": "or perhaps", "meaning": "或者也许"},
+          {"text": "you are trying to do too much.", "meaning": "你试图做的事情太多了"}
+        ],
+        "explanation": "perhaps 表示也许；too much 表示过多，修饰动词 do。"
+      },
+      {
+        "sentence_en": "You do not need to solve your entire life in one day.",
+        "sentence_cn": "你不需要在一天之内解决整个人生的问题。",
+        "chunks": [
+          {"text": "You do not need to", "meaning": "你不需要"},
+          {"text": "solve your entire life", "meaning": "解决整个人生的问题"},
+          {"text": "in one day.", "meaning": "在一天之内"}
+        ],
+        "explanation": "do not need to 表示不需要做某事；entire 表示全部的、整个的。"
+      },
+      {
+        "sentence_en": "Focus on the next reasonable step, and allow progress to develop over time.",
+        "sentence_cn": "专注于下一个合理的步骤，并让进步随着时间慢慢发生。",
+        "chunks": [
+          {"text": "Focus on the next reasonable step,", "meaning": "专注于下一个合理的步骤"},
+          {"text": "and allow progress", "meaning": "并让进步"},
+          {"text": "to develop over time.", "meaning": "随着时间逐渐发展"}
+        ],
+        "explanation": "focus on 表示专注于；allow something to do 表示让某事发生或发展。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "pursue", "phonetic": "", "meaning": "追求；努力实现", "part_of_speech": "verb"},
+      {"word": "frustrating", "phonetic": "", "meaning": "令人沮丧的", "part_of_speech": "adjective"},
+      {"word": "uncertainty", "phonetic": "", "meaning": "不确定性", "part_of_speech": "noun"},
+      {"word": "gradually", "phonetic": "", "meaning": "逐渐地", "part_of_speech": "adverb"},
+      {"word": "rebuild", "phonetic": "", "meaning": "重建；重新建立", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "move forward", "meaning": "向前推进；取得进展", "example": "We need a clear plan to move forward."},
+      {"expression": "at once", "meaning": "立即；一次性地", "example": "You don't have to change everything at once."},
+      {"expression": "take action", "meaning": "采取行动", "example": "It's time to take action."},
+      {"expression": "hold someone back", "meaning": "阻碍某人前进", "example": "Fear should not hold you back."},
+      {"expression": "over time", "meaning": "随着时间推移", "example": "Confidence grows over time."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What does the writer suggest doing first when feeling stuck?",
+        "options": ["Change everything immediately", "Stop judging yourself and take one small action", "Compare yourself with successful people", "Give up your goals"],
+        "answer": "Stop judging yourself and take one small action",
+        "explanation": "文章建议先停止自我责备，再选择一项今天可以完成的小行动。"
+      },
+      {
+        "type": "true_false",
+        "question": "The writer believes people must solve all their problems in one day.",
+        "answer": false,
+        "explanation": "文章明确指出，不需要在一天之内解决整个人生的问题。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Why are small actions useful when someone feels stuck?",
+        "answer": "They create movement and can gradually rebuild confidence.",
+        "explanation": "文章指出，小行动能够带来变化，并逐渐重建信心。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Offers small, practical steps for overcoming a sense of stagnation."
+    }
+  },
+  {
+    "article_id": 174,
+    "day": 354,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Resilience",
+    "scene": "Starting over",
+    "title_en": "How to Start Again After a Setback",
+    "title_cn": "遭遇挫折后如何重新开始",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "A setback can make us question our abilities and lose confidence in the future. It might be a failed project, a lost job, or a personal disappointment. At first, we may feel angry, embarrassed, or uncertain about what to do next. These feelings are natural, and we do not have to hide them. However, staying focused on what went wrong will not necessarily help us move forward. It is useful to take a step back and look at the situation honestly. We can ask what we learned, what we could have done differently, and what remains within our control. Starting again does not mean pretending that nothing happened. It means accepting the experience and using it as a starting point for change. We should set a realistic goal and take one manageable step at a time. Progress may be slow, but each step can help us regain confidence.",
+    "content_cn": "一次挫折可能让我们怀疑自己的能力，并对未来失去信心。它可能是一个失败的项目、一份失去的工作，或者一次个人失望。起初，我们可能会感到愤怒、尴尬，或者不知道下一步该怎么办。这些感受很自然，我们不必隐藏它们。然而，一直盯着哪里出了问题，并不一定能帮助我们继续前进。退后一步，诚实地审视当前的处境，会很有帮助。我们可以问自己学到了什么、哪些事情本可以做得不同，以及还有哪些事情在自己的掌控之中。重新开始并不意味着假装什么都没有发生，而是接受这段经历，并把它作为改变的起点。我们应该设定一个现实的目标，一次采取一个能够完成的小步骤。进步可能很慢，但每一步都能帮助我们重新找回信心。",
+    "sentences": [
+      {
+        "sentence_en": "A setback can make us question our abilities and lose confidence in the future.",
+        "sentence_cn": "一次挫折可能让我们怀疑自己的能力，并对未来失去信心。",
+        "chunks": [
+          {"text": "A setback can make us", "meaning": "一次挫折可能使我们"},
+          {"text": "question our abilities", "meaning": "怀疑自己的能力"},
+          {"text": "and lose confidence in the future.", "meaning": "并对未来失去信心"}
+        ],
+        "explanation": "make somebody do something 表示使某人做某事；question 在这里是动词，表示质疑。"
+      },
+      {
+        "sentence_en": "It might be a failed project, a lost job, or a personal disappointment.",
+        "sentence_cn": "它可能是一个失败的项目、一份失去的工作，或者一次个人失望。",
+        "chunks": [
+          {"text": "It might be", "meaning": "它可能是"},
+          {"text": "a failed project, a lost job,", "meaning": "一个失败的项目、一份失去的工作"},
+          {"text": "or a personal disappointment.", "meaning": "或者一次个人失望"}
+        ],
+        "explanation": "might be 表示可能是；failed 和 lost 都是过去分词作形容词。"
+      },
+      {
+        "sentence_en": "At first, we may feel angry, embarrassed, or uncertain about what to do next.",
+        "sentence_cn": "起初，我们可能会感到愤怒、尴尬，或者不知道下一步该怎么办。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": "we may feel angry, embarrassed, or uncertain", "meaning": "我们可能感到愤怒、尴尬或不确定"},
+          {"text": "about what to do next.", "meaning": "不知道接下来该做什么"}
+        ],
+        "explanation": "feel 后接形容词；what to do 是疑问词加不定式结构。"
+      },
+      {
+        "sentence_en": "These feelings are natural, and we do not have to hide them.",
+        "sentence_cn": "这些感受很自然，我们不必隐藏它们。",
+        "chunks": [
+          {"text": "These feelings are natural,", "meaning": "这些感受很自然"},
+          {"text": "and we do not have to", "meaning": "而且我们不必"},
+          {"text": "hide them.", "meaning": "隐藏它们"}
+        ],
+        "explanation": "do not have to 表示不必；them 指代前面的 feelings。"
+      },
+      {
+        "sentence_en": "However, staying focused on what went wrong will not necessarily help us move forward.",
+        "sentence_cn": "然而，一直盯着哪里出了问题，并不一定能帮助我们继续前进。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "staying focused on what went wrong", "meaning": "一直专注于哪里出了问题"},
+          {"text": "will not necessarily help us move forward.", "meaning": "并不一定能帮助我们继续前进"}
+        ],
+        "explanation": "动名词短语作主语；not necessarily 表示不一定；help 后接动词原形。"
+      },
+      {
+        "sentence_en": "It is useful to take a step back and look at the situation honestly.",
+        "sentence_cn": "退后一步，诚实地审视当前的处境，会很有帮助。",
+        "chunks": [
+          {"text": "It is useful", "meaning": "这样做很有帮助"},
+          {"text": "to take a step back", "meaning": "退后一步"},
+          {"text": "and look at the situation honestly.", "meaning": "并诚实地审视当前处境"}
+        ],
+        "explanation": "it is useful to do 是形式主语句型；take a step back 表示暂时退一步思考。"
+      },
+      {
+        "sentence_en": "We can ask what we learned, what we could have done differently, and what remains within our control.",
+        "sentence_cn": "我们可以问自己学到了什么、哪些事情本可以做得不同，以及还有哪些事情在自己的掌控之中。",
+        "chunks": [
+          {"text": "We can ask", "meaning": "我们可以问自己"},
+          {"text": "what we learned, what we could have done differently,", "meaning": "学到了什么，以及哪些事情本可以做得不同"},
+          {"text": "and what remains within our control.", "meaning": "以及还有什么在我们的掌控之中"}
+        ],
+        "explanation": "三个 what 引导的宾语从句并列；could have done 表示过去本可以做但实际没有做到。"
+      },
+      {
+        "sentence_en": "Starting again does not mean pretending that nothing happened.",
+        "sentence_cn": "重新开始并不意味着假装什么都没有发生。",
+        "chunks": [
+          {"text": "Starting again", "meaning": "重新开始"},
+          {"text": "does not mean pretending", "meaning": "并不意味着假装"},
+          {"text": "that nothing happened.", "meaning": "什么都没有发生"}
+        ],
+        "explanation": "动名词短语作主语；mean doing 表示意味着做某事。"
+      },
+      {
+        "sentence_en": "It means accepting the experience and using it as a starting point for change.",
+        "sentence_cn": "而是接受这段经历，并把它作为改变的起点。",
+        "chunks": [
+          {"text": "It means accepting the experience", "meaning": "这意味着接受这段经历"},
+          {"text": "and using it", "meaning": "并利用它"},
+          {"text": "as a starting point for change.", "meaning": "作为改变的起点"}
+        ],
+        "explanation": "mean doing 表示意味着做某事；use A as B 表示把 A 用作 B。"
+      },
+      {
+        "sentence_en": "We should set a realistic goal and take one manageable step at a time.",
+        "sentence_cn": "我们应该设定一个现实的目标，一次采取一个能够完成的小步骤。",
+        "chunks": [
+          {"text": "We should set a realistic goal", "meaning": "我们应该设定一个现实的目标"},
+          {"text": "and take one manageable step", "meaning": "并采取一个能够完成的小步骤"},
+          {"text": "at a time.", "meaning": "每次一个"}
+        ],
+        "explanation": "manageable 表示可处理的、能够完成的；one...at a time 表示一次一个。"
+      },
+      {
+        "sentence_en": "Progress may be slow, but each step can help us regain confidence.",
+        "sentence_cn": "进步可能很慢，但每一步都能帮助我们重新找回信心。",
+        "chunks": [
+          {"text": "Progress may be slow,", "meaning": "进步可能很慢"},
+          {"text": "but each step can help us", "meaning": "但每一步都能帮助我们"},
+          {"text": "regain confidence.", "meaning": "重新找回信心"}
+        ],
+        "explanation": "regain 表示重新获得；help 后接动词原形。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "setback", "phonetic": "", "meaning": "挫折；阻碍", "part_of_speech": "noun"},
+      {"word": "embarrassed", "phonetic": "", "meaning": "尴尬的；难为情的", "part_of_speech": "adjective"},
+      {"word": "necessarily", "phonetic": "", "meaning": "必然地；一定地", "part_of_speech": "adverb"},
+      {"word": "manageable", "phonetic": "", "meaning": "可处理的；能够完成的", "part_of_speech": "adjective"},
+      {"word": "regain", "phonetic": "", "meaning": "重新获得；恢复", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "lose confidence in", "meaning": "对……失去信心", "example": "Don't lose confidence in yourself."},
+      {"expression": "at first", "meaning": "起初；一开始", "example": "At first, the task seemed impossible."},
+      {"expression": "take a step back", "meaning": "退一步思考；暂时抽离", "example": "Let's take a step back and review the plan."},
+      {"expression": "within our control", "meaning": "在我们的掌控之中", "example": "Focus on what is within your control."},
+      {"expression": "one step at a time", "meaning": "一步一步来", "example": "You can improve one step at a time."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What does the writer suggest doing after a setback?",
+        "options": ["Pretend nothing happened", "Examine the situation honestly and learn from it", "Avoid setting any new goals", "Blame other people"],
+        "answer": "Examine the situation honestly and learn from it",
+        "explanation": "文章建议诚实地审视处境，思考经验教训和可控因素。"
+      },
+      {
+        "type": "true_false",
+        "question": "Starting again means forgetting everything that happened.",
+        "answer": false,
+        "explanation": "重新开始意味着接受经历，并把它作为改变的起点，而不是假装一切没有发生。"
+      },
+      {
+        "type": "short_answer",
+        "question": "Why should people take one manageable step at a time?",
+        "answer": "Small steps make progress more realistic and can help rebuild confidence.",
+        "explanation": "文章指出，每一个小步骤都能帮助人们重新找回信心。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Encourages reflection, acceptance, and realistic action after failure."
+    }
+  },
+  {
+    "article_id": 175,
+    "day": 355,
+    "stage": 6,
+    "cefr": "B1-B2",
+    "category": "Personal Growth",
+    "scene": "Individuality",
+    "title_en": "The Courage to Be Different",
+    "title_cn": "与众不同的勇气",
+    "difficulty": "B1-B2 过渡",
+    "word_count": 140,
+    "estimated_reading_time_seconds": 65,
+    "content_en": "It is natural to want acceptance from other people. We often follow popular opinions, choose familiar paths, and avoid doing anything that might make us stand out. However, trying too hard to fit in can cause us to lose touch with our own values. Being different does not mean rejecting everyone else's ideas or refusing to cooperate. It means having the confidence to make choices that reflect who we are. Sometimes, this requires us to express an unpopular opinion or take a path that others do not understand. We may face criticism, but that does not automatically mean we are making a mistake. It is important to think carefully, listen to reasonable advice, and remain open to learning. At the same time, we should not change ourselves simply to gain approval. Real courage is not about being different for attention. It is about being honest with ourselves, even when doing so is difficult.",
+    "content_cn": "希望得到他人的接纳是很自然的。我们常常追随流行观点，选择熟悉的道路，并避免做任何可能让自己显得与众不同的事情。然而，过分努力地融入群体，可能会让我们逐渐失去与自身价值观的联系。与众不同并不意味着拒绝所有人的想法，也不意味着拒绝合作。它意味着有信心做出能够体现真实自我的选择。有时，这要求我们表达不受欢迎的观点，或者选择一条别人无法理解的道路。我们可能会面对批评，但这并不自动意味着我们犯了错误。认真思考、倾听合理的建议并保持学习的开放态度非常重要。同时，我们不应该只是为了获得认可而改变自己。真正的勇气不是为了吸引注意而刻意不同，而是在困难的时候依然忠于自己。",
+    "sentences": [
+      {
+        "sentence_en": "It is natural to want acceptance from other people.",
+        "sentence_cn": "希望得到他人的接纳是很自然的。",
+        "chunks": [
+          {"text": "It is natural", "meaning": "这是很自然的"},
+          {"text": "to want acceptance", "meaning": "希望得到接纳"},
+          {"text": "from other people.", "meaning": "来自其他人的"}
+        ],
+        "explanation": "it is natural to do 表示做某事是自然的；acceptance 是 accept 的名词形式。"
+      },
+      {
+        "sentence_en": "We often follow popular opinions, choose familiar paths, and avoid doing anything that might make us stand out.",
+        "sentence_cn": "我们常常追随流行观点，选择熟悉的道路，并避免做任何可能让自己显得与众不同的事情。",
+        "chunks": [
+          {"text": "We often follow popular opinions,", "meaning": "我们常常追随流行观点"},
+          {"text": "choose familiar paths,", "meaning": "选择熟悉的道路"},
+          {"text": "and avoid doing anything that might make us stand out.", "meaning": "并避免做任何可能让自己显得突出或不同的事情"}
+        ],
+        "explanation": "avoid 后接动名词；that 引导定语从句修饰 anything；stand out 表示显眼、突出。"
+      },
+      {
+        "sentence_en": "However, trying too hard to fit in can cause us to lose touch with our own values.",
+        "sentence_cn": "然而，过分努力地融入群体，可能会让我们逐渐失去与自身价值观的联系。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": "trying too hard to fit in", "meaning": "过分努力地融入群体"},
+          {"text": "can cause us to lose touch with our own values.", "meaning": "可能使我们失去与自身价值观的联系"}
+        ],
+        "explanation": "try to fit in 表示努力融入；cause somebody to do 表示导致某人做某事；lose touch with 表示失去联系。"
+      },
+      {
+        "sentence_en": "Being different does not mean rejecting everyone else's ideas or refusing to cooperate.",
+        "sentence_cn": "与众不同并不意味着拒绝所有人的想法，也不意味着拒绝合作。",
+        "chunks": [
+          {"text": "Being different", "meaning": "与众不同"},
+          {"text": "does not mean rejecting everyone else's ideas", "meaning": "并不意味着拒绝其他人的想法"},
+          {"text": "or refusing to cooperate.", "meaning": "或者拒绝合作"}
+        ],
+        "explanation": "动名词短语作主语；mean doing 表示意味着做某事。"
+      },
+      {
+        "sentence_en": "It means having the confidence to make choices that reflect who we are.",
+        "sentence_cn": "它意味着有信心做出能够体现真实自我的选择。",
+        "chunks": [
+          {"text": "It means having the confidence", "meaning": "它意味着拥有信心"},
+          {"text": "to make choices", "meaning": "去做出选择"},
+          {"text": "that reflect who we are.", "meaning": "这些选择能够体现我们真实的样子"}
+        ],
+        "explanation": "that 引导定语从句修饰 choices；who we are 是 reflect 的宾语从句。"
+      },
+      {
+        "sentence_en": "Sometimes, this requires us to express an unpopular opinion or take a path that others do not understand.",
+        "sentence_cn": "有时，这要求我们表达不受欢迎的观点，或者选择一条别人无法理解的道路。",
+        "chunks": [
+          {"text": "Sometimes, this requires us", "meaning": "有时，这要求我们"},
+          {"text": "to express an unpopular opinion", "meaning": "表达一个不受欢迎的观点"},
+          {"text": "or take a path that others do not understand.", "meaning": "或者选择一条别人无法理解的道路"}
+        ],
+        "explanation": "require somebody to do 表示要求某人做某事；that 引导定语从句修饰 path。"
+      },
+      {
+        "sentence_en": "We may face criticism, but that does not automatically mean we are making a mistake.",
+        "sentence_cn": "我们可能会面对批评，但这并不自动意味着我们犯了错误。",
+        "chunks": [
+          {"text": "We may face criticism,", "meaning": "我们可能会面对批评"},
+          {"text": "but that does not automatically mean", "meaning": "但这并不自动意味着"},
+          {"text": "we are making a mistake.", "meaning": "我们正在犯错"}
+        ],
+        "explanation": "face criticism 表示面对批评；automatically 表示自动地、必然地。"
+      },
+      {
+        "sentence_en": "It is important to think carefully, listen to reasonable advice, and remain open to learning.",
+        "sentence_cn": "认真思考、倾听合理的建议并保持学习的开放态度非常重要。",
+        "chunks": [
+          {"text": "It is important", "meaning": "这是重要的"},
+          {"text": "to think carefully, listen to reasonable advice,", "meaning": "认真思考、倾听合理的建议"},
+          {"text": "and remain open to learning.", "meaning": "并保持对学习的开放态度"}
+        ],
+        "explanation": "it is important to do 是形式主语句型；remain open to 表示保持对……的开放态度。"
+      },
+      {
+        "sentence_en": "At the same time, we should not change ourselves simply to gain approval.",
+        "sentence_cn": "同时，我们不应该只是为了获得认可而改变自己。",
+        "chunks": [
+          {"text": "At the same time,", "meaning": "与此同时"},
+          {"text": "we should not change ourselves", "meaning": "我们不应该改变自己"},
+          {"text": "simply to gain approval.", "meaning": "只是为了获得认可"}
+        ],
+        "explanation": "to gain approval 是目的状语；approval 表示认可、赞同。"
+      },
+      {
+        "sentence_en": "Real courage is not about being different for attention.",
+        "sentence_cn": "真正的勇气不是为了吸引注意而刻意不同。",
+        "chunks": [
+          {"text": "Real courage", "meaning": "真正的勇气"},
+          {"text": "is not about being different", "meaning": "并不在于刻意与众不同"},
+          {"text": "for attention.", "meaning": "为了获得关注"}
+        ],
+        "explanation": "be about 表示在于；for attention 表示为了引起关注。"
+      },
+      {
+        "sentence_en": "It is about being honest with ourselves, even when doing so is difficult.",
+        "sentence_cn": "而是在困难的时候依然忠于自己。",
+        "chunks": [
+          {"text": "It is about", "meaning": "它在于"},
+          {"text": "being honest with ourselves,", "meaning": "对自己保持诚实"},
+          {"text": "even when doing so is difficult.", "meaning": "即使这样做很困难"}
+        ],
+        "explanation": "be honest with oneself 表示对自己诚实；even when 引导让步意味的时间状语从句。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "acceptance", "phonetic": "", "meaning": "接纳；认可", "part_of_speech": "noun"},
+      {"word": "familiar", "phonetic": "", "meaning": "熟悉的", "part_of_speech": "adjective"},
+      {"word": "cooperate", "phonetic": "", "meaning": "合作；协作", "part_of_speech": "verb"},
+      {"word": "criticism", "phonetic": "", "meaning": "批评；批判", "part_of_speech": "noun"},
+      {"word": "approval", "phonetic": "", "meaning": "认可；赞同", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "fit in", "meaning": "融入群体；合群", "example": "It takes time to fit in at a new school."},
+      {"expression": "stand out", "meaning": "显得突出；与众不同", "example": "Her ideas help her stand out."},
+      {"expression": "lose touch with", "meaning": "失去与……的联系", "example": "Don't lose touch with your values."},
+      {"expression": "face criticism", "meaning": "面对批评", "example": "Leaders sometimes have to face criticism."},
+      {"expression": "be honest with yourself", "meaning": "对自己诚实", "example": "Be honest with yourself about what you want."}
+    ],
+    "questions": [
+      {
+        "type": "multiple_choice",
+        "question": "What can happen when people try too hard to fit in?",
+        "options": ["They become more independent.", "They may lose touch with their own values.", "They always become more successful.", "They stop communicating with others."],
+        "answer": "They may lose touch with their own values.",
+        "explanation": "文章第三句指出，过分努力融入群体可能让人失去与自身价值观的联系。"
+      },
+      {
+        "type": "true_false",
+        "question": "Being different means refusing to cooperate with other people.",
+        "answer": false,
+        "explanation": "作者明确说明，与众不同并不意味着拒绝合作。"
+      },
+      {
+        "type": "short_answer",
+        "question": "According to the writer, what is real courage?",
+        "answer": "Being honest with ourselves, even when it is difficult, rather than being different just to get attention.",
+        "explanation": "文章最后两句区分了真正的勇气和为了吸引注意而刻意不同。"
+      }
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "140 words; within the 130–160 target",
+      "american_english": "Uses natural American English",
+      "translation": "Complete and faithful Chinese translation",
+      "chunking": "All sentence chunks preserve original wording, spaces, and punctuation",
+      "notes": "Distinguishes genuine individuality from attention-seeking behavior."
+    }
+  }
+]

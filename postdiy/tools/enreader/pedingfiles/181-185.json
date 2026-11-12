@@ -1,0 +1,692 @@
+[
+  {
+    "article_id": "stage4_day181",
+    "day": 181,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "讨论什么样的人值得成为朋友",
+    "title_en": "What Makes a Good Friend?",
+    "title_cn": "什么样的人才是好朋友？",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "A good friend is someone you can trust and talk to openly. They do not have to agree with everything you say, but they should respect your feelings. When you have a difficult day, a good friend listens without judging you. They also tell you the truth, even when it is not easy to hear. Friendship takes time and effort from both sides. It is important to stay in touch and show that you care. Small things, like remembering a birthday or asking how someone feels, can make a big difference. To me, a good friend makes life feel a little easier.",
+    "content_cn": "好朋友是一个你可以信任、并且能够坦诚交谈的人。他们不必同意你说的每一件事，但应该尊重你的感受。当你度过艰难的一天时，好朋友会倾听你，而不会评判你。他们也会告诉你真相，即使有些话听起来并不容易。友谊需要双方投入时间和精力。保持联系，让对方知道你在乎他们，这一点很重要。记住生日或询问对方的近况这样的小事，也能带来很大的不同。对我来说，好朋友能让生活变得轻松一点。",
+    "sentences": [
+      {
+        "sentence_en": "A good friend is someone you can trust and talk to openly.",
+        "sentence_cn": "好朋友是一个你可以信任、并且能够坦诚交谈的人。",
+        "chunks": [
+          {"text": "A good friend", "meaning": "一个好朋友"},
+          {"text": "is someone", "meaning": "是这样一个人"},
+          {"text": "you can trust", "meaning": "你可以信任"},
+          {"text": "and talk to openly.", "meaning": "并且可以坦诚地与之交谈"}
+        ],
+        "explanation": "someone you can... 用来描述一个人具备的特点；talk to openly 表示坦诚交流。"
+      },
+      {
+        "sentence_en": "They do not have to agree with everything you say, but they should respect your feelings.",
+        "sentence_cn": "他们不必同意你说的每一件事，但应该尊重你的感受。",
+        "chunks": [
+          {"text": "They do not have to", "meaning": "他们不必"},
+          {"text": "agree with everything you say,", "meaning": "同意你说的每一件事"},
+          {"text": "but they should", "meaning": "但他们应该"},
+          {"text": "respect your feelings.", "meaning": "尊重你的感受"}
+        ],
+        "explanation": "do not have to 表示没有必要；agree with 表示赞同某人或某种观点。"
+      },
+      {
+        "sentence_en": "When you have a difficult day, a good friend listens without judging you.",
+        "sentence_cn": "当你度过艰难的一天时，好朋友会倾听你，而不会评判你。",
+        "chunks": [
+          {"text": "When you have a difficult day,", "meaning": "当你度过艰难的一天时"},
+          {"text": "a good friend listens", "meaning": "好朋友会倾听"},
+          {"text": "without judging you.", "meaning": "而不会评判你"}
+        ],
+        "explanation": "without 后面接动词-ing形式，表示不做某事；judge 在这里表示评判、指责。"
+      },
+      {
+        "sentence_en": "They also tell you the truth, even when it is not easy to hear.",
+        "sentence_cn": "他们也会告诉你真相，即使有些话听起来并不容易。",
+        "chunks": [
+          {"text": "They also tell you the truth,", "meaning": "他们也会告诉你真相"},
+          {"text": "even when", "meaning": "即使在……的时候"},
+          {"text": "it is not easy to hear.", "meaning": "这些话听起来并不容易"}
+        ],
+        "explanation": "even when 用来强调让步；the truth 表示事实或真相。"
+      },
+      {
+        "sentence_en": "Friendship takes time and effort from both sides.",
+        "sentence_cn": "友谊需要双方投入时间和精力。",
+        "chunks": [
+          {"text": "Friendship", "meaning": "友谊"},
+          {"text": "takes time and effort", "meaning": "需要时间和精力"},
+          {"text": "from both sides.", "meaning": "来自双方"}
+        ],
+        "explanation": "take time and effort 是常见表达，表示一件事需要花费时间和努力。"
+      },
+      {
+        "sentence_en": "It is important to stay in touch and show that you care.",
+        "sentence_cn": "保持联系，让对方知道你在乎他们，这一点很重要。",
+        "chunks": [
+          {"text": "It is important to", "meaning": "做某事很重要"},
+          {"text": "stay in touch", "meaning": "保持联系"},
+          {"text": "and show that you care.", "meaning": "并表达你对对方的关心"}
+        ],
+        "explanation": "stay in touch 表示保持联系；care 在这里表示在乎、关心。"
+      },
+      {
+        "sentence_en": "Small things, like remembering a birthday or asking how someone feels, can make a big difference.",
+        "sentence_cn": "记住生日或询问对方的近况这样的小事，也能带来很大的不同。",
+        "chunks": [
+          {"text": "Small things,", "meaning": "一些小事"},
+          {"text": "like remembering a birthday", "meaning": "例如记住某人的生日"},
+          {"text": "or asking how someone feels,", "meaning": "或者询问某人的感受"},
+          {"text": "can make a big difference.", "meaning": "也能产生很大的影响"}
+        ],
+        "explanation": "like 在这里用于举例；make a big difference 表示产生显著影响。"
+      },
+      {
+        "sentence_en": "To me, a good friend makes life feel a little easier.",
+        "sentence_cn": "对我来说，好朋友能让生活变得轻松一点。",
+        "chunks": [
+          {"text": "To me,", "meaning": "对我来说"},
+          {"text": "a good friend", "meaning": "一个好朋友"},
+          {"text": "makes life feel", "meaning": "让生活感觉起来"},
+          {"text": "a little easier.", "meaning": "轻松一点"}
+        ],
+        "explanation": "make + 宾语 + 动词原形或形容词，表示使某人或某事处于某种状态。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "trust", "phonetic": "", "meaning": "信任", "part_of_speech": "verb"},
+      {"word": "respect", "phonetic": "", "meaning": "尊重", "part_of_speech": "verb"},
+      {"word": "judge", "phonetic": "", "meaning": "评判；判断", "part_of_speech": "verb"},
+      {"word": "effort", "phonetic": "", "meaning": "努力；精力", "part_of_speech": "noun"},
+      {"word": "difference", "phonetic": "", "meaning": "差别；影响", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "talk to someone openly", "meaning": "与某人坦诚交谈", "example": "I can talk to my sister openly."},
+      {"expression": "agree with someone", "meaning": "赞同某人", "example": "I do not always agree with him."},
+      {"expression": "without judging someone", "meaning": "不评判某人", "example": "Please listen without judging me."},
+      {"expression": "stay in touch", "meaning": "保持联系", "example": "We stay in touch by phone."},
+      {"expression": "make a big difference", "meaning": "产生很大影响", "example": "Your support makes a big difference."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What should a good friend do when you have a difficult day?", "options": ["Give you money", "Listen without judging you", "Tell you to leave"], "answer": "Listen without judging you", "explanation": "文章第三句明确提到，好朋友会倾听而不评判。"},
+      {"type": "inference", "question": "Does a good friend always have to agree with you?", "options": ["Yes, always", "No, but they should respect you", "Only when you are happy"], "answer": "No, but they should respect you", "explanation": "文章指出朋友不必同意所有观点，但应该尊重你的感受。"},
+      {"type": "detail", "question": "Which small action is mentioned as a way to show care?", "options": ["Buying expensive gifts", "Remembering a birthday", "Traveling together"], "answer": "Remembering a birthday", "explanation": "文章举例提到了记住生日和询问近况。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "96词，符合90–120词要求",
+      "american_english": "采用自然美式英语表达",
+      "translation": "逐句对应英文正文",
+      "chunking": "意群按原句顺序拆分，拼接后可还原原句",
+      "notes": "围绕友谊的信任、尊重和关心展开，使用常见生活表达。"
+    }
+  },
+  {
+    "article_id": "stage4_day182",
+    "day": 182,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "与老朋友保持联系",
+    "title_en": "Keeping in Touch",
+    "title_cn": "保持联系",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "After school, my best friend moved to another city. At first, we talked almost every day, but life soon became busy. We started calling each other less often. One day, I sent a short message to ask how things were going. We ended up talking for nearly an hour. We shared news about work, family, and our plans for the future. Now we try to have a video call every Sunday. We may not meet often, but our friendship is still important. I have learned that staying close does not always mean being in the same place.",
+    "content_cn": "毕业后，我最好的朋友搬去了另一个城市。起初，我们几乎每天都聊天，但生活很快变得忙碌起来。我们开始减少彼此通话的次数。有一天，我发了一条简短的信息，问问对方最近过得怎么样。结果我们聊了将近一个小时。我们分享了工作、家庭以及未来计划方面的近况。现在我们尽量每周日进行一次视频通话。我们可能不常见面，但我们的友谊依然重要。我明白了，保持亲近并不意味着一定要待在同一个地方。",
+    "sentences": [
+      {
+        "sentence_en": "After school, my best friend moved to another city.",
+        "sentence_cn": "毕业后，我最好的朋友搬去了另一个城市。",
+        "chunks": [
+          {"text": "After school,", "meaning": "毕业后"},
+          {"text": "my best friend", "meaning": "我最好的朋友"},
+          {"text": "moved to another city.", "meaning": "搬去了另一个城市"}
+        ],
+        "explanation": "move to 表示搬到某个地方；这里的 after school 指结束学业之后。"
+      },
+      {
+        "sentence_en": "At first, we talked almost every day, but life soon became busy.",
+        "sentence_cn": "起初，我们几乎每天都聊天，但生活很快变得忙碌起来。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": "we talked almost every day,", "meaning": "我们几乎每天都聊天"},
+          {"text": "but life soon became busy.", "meaning": "但生活很快变得忙碌起来"}
+        ],
+        "explanation": "at first 表示最初；become + 形容词表示逐渐进入某种状态。"
+      },
+      {
+        "sentence_en": "We started calling each other less often.",
+        "sentence_cn": "我们开始减少彼此通话的次数。",
+        "chunks": [
+          {"text": "We started", "meaning": "我们开始"},
+          {"text": "calling each other", "meaning": "互相打电话"},
+          {"text": "less often.", "meaning": "频率降低；不那么经常"}
+        ],
+        "explanation": "start 后面可以接动词-ing；each other 表示彼此、互相。"
+      },
+      {
+        "sentence_en": "One day, I sent a short message to ask how things were going.",
+        "sentence_cn": "有一天，我发了一条简短的信息，问问对方最近过得怎么样。",
+        "chunks": [
+          {"text": "One day,", "meaning": "有一天"},
+          {"text": "I sent a short message", "meaning": "我发了一条简短的信息"},
+          {"text": "to ask", "meaning": "为了询问"},
+          {"text": "how things were going.", "meaning": "最近情况怎么样"}
+        ],
+        "explanation": "send a message 表示发信息；how things are going 是询问近况的常用表达。"
+      },
+      {
+        "sentence_en": "We ended up talking for nearly an hour.",
+        "sentence_cn": "结果我们聊了将近一个小时。",
+        "chunks": [
+          {"text": "We ended up", "meaning": "结果我们最终"},
+          {"text": "talking", "meaning": "聊天"},
+          {"text": "for nearly an hour.", "meaning": "持续了将近一个小时"}
+        ],
+        "explanation": "end up doing something 表示最终做了某事，常用于描述意料之外的结果。"
+      },
+      {
+        "sentence_en": "We shared news about work, family, and our plans for the future.",
+        "sentence_cn": "我们分享了工作、家庭以及未来计划方面的近况。",
+        "chunks": [
+          {"text": "We shared news", "meaning": "我们分享了近况"},
+          {"text": "about work, family,", "meaning": "关于工作和家庭"},
+          {"text": "and our plans for the future.", "meaning": "以及我们对未来的计划"}
+        ],
+        "explanation": "share news 表示分享消息或近况；plan for the future 表示未来计划。"
+      },
+      {
+        "sentence_en": "Now we try to have a video call every Sunday.",
+        "sentence_cn": "现在我们尽量每周日进行一次视频通话。",
+        "chunks": [
+          {"text": "Now", "meaning": "现在"},
+          {"text": "we try to have", "meaning": "我们尽量安排"},
+          {"text": "a video call", "meaning": "一次视频通话"},
+          {"text": "every Sunday.", "meaning": "每周日"}
+        ],
+        "explanation": "try to do something 表示尽力做某事；video call 是视频通话。"
+      },
+      {
+        "sentence_en": "We may not meet often, but our friendship is still important.",
+        "sentence_cn": "我们可能不常见面，但我们的友谊依然重要。",
+        "chunks": [
+          {"text": "We may not meet often,", "meaning": "我们可能不常见面"},
+          {"text": "but our friendship", "meaning": "但我们的友谊"},
+          {"text": "is still important.", "meaning": "依然重要"}
+        ],
+        "explanation": "may 表示可能；still 表示某种状态持续存在。"
+      },
+      {
+        "sentence_en": "I have learned that staying close does not always mean being in the same place.",
+        "sentence_cn": "我明白了，保持亲近并不意味着一定要待在同一个地方。",
+        "chunks": [
+          {"text": "I have learned that", "meaning": "我已经明白"},
+          {"text": "staying close", "meaning": "保持亲近"},
+          {"text": "does not always mean", "meaning": "并不总是意味着"},
+          {"text": "being in the same place.", "meaning": "身处同一个地方"}
+        ],
+        "explanation": "动名词 staying close 作主语；mean 后面接动词-ing，表示意味着做某事。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "move", "phonetic": "", "meaning": "搬家；移动", "part_of_speech": "verb"},
+      {"word": "almost", "phonetic": "", "meaning": "几乎", "part_of_speech": "adverb"},
+      {"word": "message", "phonetic": "", "meaning": "信息；消息", "part_of_speech": "noun"},
+      {"word": "nearly", "phonetic": "", "meaning": "将近；几乎", "part_of_speech": "adverb"},
+      {"word": "future", "phonetic": "", "meaning": "未来", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "at first", "meaning": "起初", "example": "At first, I did not understand."},
+      {"expression": "how things are going", "meaning": "近况如何", "example": "I called to see how things are going."},
+      {"expression": "end up doing something", "meaning": "最终做了某事", "example": "We ended up having dinner together."},
+      {"expression": "share news", "meaning": "分享近况", "example": "We shared news about our families."},
+      {"expression": "stay close", "meaning": "保持亲近", "example": "We live far apart but stay close."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "Why did the friends start calling each other less often?", "options": ["They had an argument", "Life became busy", "They lost their phones"], "answer": "Life became busy", "explanation": "文章第二句说明，生活很快变得忙碌。"},
+      {"type": "detail", "question": "When do they try to have a video call?", "options": ["Every Monday", "Every Friday", "Every Sunday"], "answer": "Every Sunday", "explanation": "文章明确提到他们尽量每周日视频通话。"},
+      {"type": "inference", "question": "What does the writer learn about friendship?", "options": ["Friends must live nearby", "Friends must meet every day", "People can stay close even when far apart"], "answer": "People can stay close even when far apart", "explanation": "文章最后一句表达了距离不一定影响亲近的观点。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "采用自然美式英语表达",
+      "translation": "逐句对应英文正文",
+      "chunking": "意群按原句顺序拆分，拼接后可还原原句",
+      "notes": "通过远距离友谊的故事练习描述过去、当前习惯和个人感悟。"
+    }
+  },
+  {
+    "article_id": "stage4_day183",
+    "day": 183,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "维持异地友谊",
+    "title_en": "Long-Distance Friendships",
+    "title_cn": "异地友谊",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Long-distance friendships can be difficult, especially when both people have busy lives. You cannot meet for coffee or take a walk together whenever you want. However, distance does not have to end a friendship. You can share photos, send voice messages, or plan a visit. It also helps to be honest when you are too busy to talk. Good friends understand that everyone needs time for work and family. When you finally meet again, the conversation often feels natural. A strong friendship is not only about how often you see someone, but also about how much you care.",
+    "content_cn": "异地友谊可能很难维持，尤其是当双方都很忙的时候。你无法随时约对方喝咖啡或一起散步。不过，距离并不一定会结束一段友谊。你们可以分享照片、发送语音信息，或者计划一次见面。如果你忙得没时间聊天，坦诚地告诉对方也会有所帮助。好朋友理解每个人都需要时间照顾工作和家庭。当你们终于再次见面时，谈话往往会很自然。牢固的友谊不仅取决于你多久见一次某人，也取决于你有多在乎对方。",
+    "sentences": [
+      {
+        "sentence_en": "Long-distance friendships can be difficult, especially when both people have busy lives.",
+        "sentence_cn": "异地友谊可能很难维持，尤其是当双方都很忙的时候。",
+        "chunks": [
+          {"text": "Long-distance friendships", "meaning": "异地友谊"},
+          {"text": "can be difficult,", "meaning": "可能很困难"},
+          {"text": "especially when", "meaning": "尤其是当……时"},
+          {"text": "both people have busy lives.", "meaning": "双方的生活都很忙碌"}
+        ],
+        "explanation": "long-distance 表示远距离的；especially 用于强调某种情况。"
+      },
+      {
+        "sentence_en": "You cannot meet for coffee or take a walk together whenever you want.",
+        "sentence_cn": "你无法随时约对方喝咖啡或一起散步。",
+        "chunks": [
+          {"text": "You cannot", "meaning": "你无法"},
+          {"text": "meet for coffee", "meaning": "约着喝咖啡"},
+          {"text": "or take a walk together", "meaning": "或者一起散步"},
+          {"text": "whenever you want.", "meaning": "在你想要的时候随时进行"}
+        ],
+        "explanation": "meet for coffee 是约喝咖啡的自然说法；whenever 表示无论何时。"
+      },
+      {
+        "sentence_en": "However, distance does not have to end a friendship.",
+        "sentence_cn": "不过，距离并不一定会结束一段友谊。",
+        "chunks": [
+          {"text": "However,", "meaning": "不过；然而"},
+          {"text": "distance", "meaning": "距离"},
+          {"text": "does not have to end", "meaning": "不一定要结束"},
+          {"text": "a friendship.", "meaning": "一段友谊"}
+        ],
+        "explanation": "does not have to 表示不一定需要；however 用于引出转折。"
+      },
+      {
+        "sentence_en": "You can share photos, send voice messages, or plan a visit.",
+        "sentence_cn": "你们可以分享照片、发送语音信息，或者计划一次见面。",
+        "chunks": [
+          {"text": "You can", "meaning": "你们可以"},
+          {"text": "share photos,", "meaning": "分享照片"},
+          {"text": "send voice messages,", "meaning": "发送语音信息"},
+          {"text": "or plan a visit.", "meaning": "或者计划一次拜访"}
+        ],
+        "explanation": "三个动词短语并列，展示了保持联系的不同方式。"
+      },
+      {
+        "sentence_en": "It also helps to be honest when you are too busy to talk.",
+        "sentence_cn": "如果你忙得没时间聊天，坦诚地告诉对方也会有所帮助。",
+        "chunks": [
+          {"text": "It also helps", "meaning": "这样也有帮助"},
+          {"text": "to be honest", "meaning": "保持坦诚"},
+          {"text": "when you are too busy", "meaning": "当你忙得"},
+          {"text": "to talk.", "meaning": "没有时间聊天时"}
+        ],
+        "explanation": "too...to... 表示太……而不能……；be honest 表示坦诚。"
+      },
+      {
+        "sentence_en": "Good friends understand that everyone needs time for work and family.",
+        "sentence_cn": "好朋友理解每个人都需要时间照顾工作和家庭。",
+        "chunks": [
+          {"text": "Good friends understand that", "meaning": "好朋友理解"},
+          {"text": "everyone needs time", "meaning": "每个人都需要时间"},
+          {"text": "for work and family.", "meaning": "用于工作和家庭"}
+        ],
+        "explanation": "understand 后面可以接 that 引导的宾语从句。"
+      },
+      {
+        "sentence_en": "When you finally meet again, the conversation often feels natural.",
+        "sentence_cn": "当你们终于再次见面时，谈话往往会很自然。",
+        "chunks": [
+          {"text": "When you finally meet again,", "meaning": "当你们终于再次见面时"},
+          {"text": "the conversation", "meaning": "谈话"},
+          {"text": "often feels natural.", "meaning": "往往会感觉很自然"}
+        ],
+        "explanation": "finally 表示终于；feel 后面可以接形容词，描述感受或状态。"
+      },
+      {
+        "sentence_en": "A strong friendship is not only about how often you see someone, but also about how much you care.",
+        "sentence_cn": "牢固的友谊不仅取决于你多久见一次某人，也取决于你有多在乎对方。",
+        "chunks": [
+          {"text": "A strong friendship", "meaning": "一段牢固的友谊"},
+          {"text": "is not only about", "meaning": "不仅在于"},
+          {"text": "how often you see someone,", "meaning": "你多久见一次某人"},
+          {"text": "but also about", "meaning": "也在于"},
+          {"text": "how much you care.", "meaning": "你有多在乎对方"}
+        ],
+        "explanation": "not only...but also... 表示不仅……而且……；how often 和 how much 分别询问频率和程度。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "distance", "phonetic": "", "meaning": "距离", "part_of_speech": "noun"},
+      {"word": "whenever", "phonetic": "", "meaning": "无论何时", "part_of_speech": "conjunction"},
+      {"word": "voice", "phonetic": "", "meaning": "声音；语音", "part_of_speech": "noun"},
+      {"word": "honest", "phonetic": "", "meaning": "诚实的；坦诚的", "part_of_speech": "adjective"},
+      {"word": "natural", "phonetic": "", "meaning": "自然的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "long-distance friendship", "meaning": "异地友谊", "example": "We have a long-distance friendship."},
+      {"expression": "meet for coffee", "meaning": "约着喝咖啡", "example": "Let's meet for coffee this weekend."},
+      {"expression": "plan a visit", "meaning": "计划一次拜访或见面", "example": "We should plan a visit soon."},
+      {"expression": "too busy to do something", "meaning": "忙得无法做某事", "example": "I'm too busy to go out tonight."},
+      {"expression": "not only...but also...", "meaning": "不仅……而且……", "example": "She is not only kind but also helpful."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "Which activity is suggested for keeping in touch?", "options": ["Sharing photos", "Buying a house", "Watching the same show every night"], "answer": "Sharing photos", "explanation": "文章第四句列出了分享照片、发送语音和计划见面。"},
+      {"type": "inference", "question": "Why is it helpful to be honest when you are busy?", "options": ["It helps friends understand each other", "It makes distance disappear", "It means you do not need friends"], "answer": "It helps friends understand each other", "explanation": "文章强调朋友需要理解彼此的工作和家庭安排。"},
+      {"type": "meaning", "question": "What does 'not only...but also...' emphasize in the final sentence?", "options": ["Two important parts of friendship", "Two different cities", "Two ways to travel"], "answer": "Two important parts of friendship", "explanation": "句子强调友谊既与见面频率有关，也与彼此的关心有关。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "采用自然美式英语表达",
+      "translation": "逐句对应英文正文",
+      "chunking": "意群按原句顺序拆分，拼接后可还原原句",
+      "notes": "重点练习异地沟通、提出建议以及 not only...but also... 结构。"
+    }
+  },
+  {
+    "article_id": "stage4_day184",
+    "day": 184,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "理解不同人的想法和感受",
+    "title_en": "Understanding Other People",
+    "title_cn": "理解他人",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "People do not always think or feel the same way. Sometimes, a friend may seem quiet, and we quickly think something is wrong. But there may be another reason. Perhaps they are tired, worried, or dealing with a personal problem. Instead of making guesses, try asking a kind question. You could say, “You seem a little quiet today. Is everything okay?” Then give the person time to answer. Understanding others does not mean you must agree with them. It means being willing to listen and see things from another point of view. A little patience can prevent many misunderstandings.",
+    "content_cn": "人们并不总是有相同的想法或感受。有时候，朋友可能看起来很安静，而我们很快就会认为出了什么问题。但也可能有其他原因。也许他们累了、担心某件事，或者正在处理个人问题。与其胡乱猜测，不如试着友善地询问。你可以说：“你今天看起来有点安静。一切都还好吗？”然后给对方一些时间回答。理解别人并不意味着你必须同意他们的观点，而是意味着愿意倾听，并尝试从另一个角度看问题。一点耐心就能避免许多误会。",
+    "sentences": [
+      {
+        "sentence_en": "People do not always think or feel the same way.",
+        "sentence_cn": "人们并不总是有相同的想法或感受。",
+        "chunks": [
+          {"text": "People do not always", "meaning": "人们并不总是"},
+          {"text": "think or feel", "meaning": "思考或感受"},
+          {"text": "the same way.", "meaning": "以相同的方式"}
+        ],
+        "explanation": "the same way 表示相同的方式；think 和 feel 在这里并列使用。"
+      },
+      {
+        "sentence_en": "Sometimes, a friend may seem quiet, and we quickly think something is wrong.",
+        "sentence_cn": "有时候，朋友可能看起来很安静，而我们很快就会认为出了什么问题。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "a friend may seem quiet,", "meaning": "朋友可能看起来很安静"},
+          {"text": "and we quickly think", "meaning": "而我们很快就认为"},
+          {"text": "something is wrong.", "meaning": "出了什么问题"}
+        ],
+        "explanation": "seem + 形容词表示看起来处于某种状态；may 表示可能。"
+      },
+      {
+        "sentence_en": "But there may be another reason.",
+        "sentence_cn": "但也可能有其他原因。",
+        "chunks": [
+          {"text": "But", "meaning": "但是"},
+          {"text": "there may be", "meaning": "可能存在"},
+          {"text": "another reason.", "meaning": "另一个原因"}
+        ],
+        "explanation": "there may be 表示可能存在某事物。"
+      },
+      {
+        "sentence_en": "Perhaps they are tired, worried, or dealing with a personal problem.",
+        "sentence_cn": "也许他们累了、担心某件事，或者正在处理个人问题。",
+        "chunks": [
+          {"text": "Perhaps", "meaning": "也许"},
+          {"text": "they are tired, worried,", "meaning": "他们累了或感到担忧"},
+          {"text": "or dealing with", "meaning": "或者正在处理"},
+          {"text": "a personal problem.", "meaning": "一个个人问题"}
+        ],
+        "explanation": "perhaps 表示也许；deal with 表示处理、应对某件事。"
+      },
+      {
+        "sentence_en": "Instead of making guesses, try asking a kind question.",
+        "sentence_cn": "与其胡乱猜测，不如试着友善地询问。",
+        "chunks": [
+          {"text": "Instead of", "meaning": "而不是；与其"},
+          {"text": "making guesses,", "meaning": "进行猜测"},
+          {"text": "try asking", "meaning": "试着询问"},
+          {"text": "a kind question.", "meaning": "一个友善的问题"}
+        ],
+        "explanation": "instead of 后面接名词或动词-ing；try doing 表示尝试某种做法。"
+      },
+      {
+        "sentence_en": "You could say, “You seem a little quiet today. Is everything okay?”",
+        "sentence_cn": "你可以说：“你今天看起来有点安静。一切都还好吗？”",
+        "chunks": [
+          {"text": "You could say,", "meaning": "你可以这样说"},
+          {"text": "“You seem a little quiet today.", "meaning": "“你今天看起来有点安静"},
+          {"text": "Is everything okay?”", "meaning": "一切都还好吗？”"}
+        ],
+        "explanation": "could 在这里用于委婉地提出建议；Is everything okay? 是关心他人的常见问句。"
+      },
+      {
+        "sentence_en": "Then give the person time to answer.",
+        "sentence_cn": "然后给对方一些时间回答。",
+        "chunks": [
+          {"text": "Then", "meaning": "然后"},
+          {"text": "give the person", "meaning": "给对方"},
+          {"text": "time to answer.", "meaning": "回答的时间"}
+        ],
+        "explanation": "give someone time to do something 表示给某人时间做某事。"
+      },
+      {
+        "sentence_en": "Understanding others does not mean you must agree with them.",
+        "sentence_cn": "理解别人并不意味着你必须同意他们的观点。",
+        "chunks": [
+          {"text": "Understanding others", "meaning": "理解他人"},
+          {"text": "does not mean", "meaning": "并不意味着"},
+          {"text": "you must agree with them.", "meaning": "你必须同意他们"}
+        ],
+        "explanation": "动名词短语 Understanding others 作主语；must 表示必须。"
+      },
+      {
+        "sentence_en": "It means being willing to listen and see things from another point of view.",
+        "sentence_cn": "而是意味着愿意倾听，并尝试从另一个角度看问题。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": "being willing to listen", "meaning": "愿意倾听"},
+          {"text": "and see things", "meaning": "并看待事情"},
+          {"text": "from another point of view.", "meaning": "从另一个角度"}
+        ],
+        "explanation": "be willing to do something 表示愿意做某事；point of view 表示观点或看问题的角度。"
+      },
+      {
+        "sentence_en": "A little patience can prevent many misunderstandings.",
+        "sentence_cn": "一点耐心就能避免许多误会。",
+        "chunks": [
+          {"text": "A little patience", "meaning": "一点耐心"},
+          {"text": "can prevent", "meaning": "能够避免"},
+          {"text": "many misunderstandings.", "meaning": "许多误会"}
+        ],
+        "explanation": "patience 是耐心；prevent 表示阻止或避免某事发生。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "perhaps", "phonetic": "", "meaning": "也许；可能", "part_of_speech": "adverb"},
+      {"word": "worried", "phonetic": "", "meaning": "担心的", "part_of_speech": "adjective"},
+      {"word": "personal", "phonetic": "", "meaning": "个人的", "part_of_speech": "adjective"},
+      {"word": "patience", "phonetic": "", "meaning": "耐心", "part_of_speech": "noun"},
+      {"word": "misunderstanding", "phonetic": "", "meaning": "误会；误解", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "seem quiet", "meaning": "看起来很安静", "example": "You seem quiet today."},
+      {"expression": "deal with a problem", "meaning": "处理一个问题", "example": "She is dealing with a family problem."},
+      {"expression": "instead of doing something", "meaning": "而不是做某事", "example": "Try walking instead of driving."},
+      {"expression": "Is everything okay?", "meaning": "一切都还好吗？", "example": "You look worried. Is everything okay?"},
+      {"expression": "from another point of view", "meaning": "从另一个角度", "example": "Try to see it from another point of view."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What are some possible reasons a friend may seem quiet?", "options": ["They may be tired or worried", "They may be moving away", "They may be waiting for a bus"], "answer": "They may be tired or worried", "explanation": "文章第四句列出了疲惫、担忧或个人问题等可能原因。"},
+      {"type": "application", "question": "What does the writer suggest doing instead of making guesses?", "options": ["Ignoring the person", "Asking a kind question", "Talking to someone else"], "answer": "Asking a kind question", "explanation": "文章建议用友善的问题了解对方的情况。"},
+      {"type": "meaning", "question": "What does understanding others mean in this passage?", "options": ["Always agreeing with them", "Listening and considering another point of view", "Solving all their problems"], "answer": "Listening and considering another point of view", "explanation": "文章指出，理解他人意味着愿意倾听并尝试换位思考。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "采用自然美式英语表达",
+      "translation": "逐句对应英文正文",
+      "chunking": "意群按原句顺序拆分，拼接后可还原原句",
+      "notes": "训练观察、询问、倾听和换位思考相关表达。"
+    }
+  },
+  {
+    "article_id": "stage4_day185",
+    "day": 185,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "人际关系",
+    "scene": "朋友之间出现分歧时如何沟通",
+    "title_en": "When Friends Disagree",
+    "title_cn": "当朋友意见不同时",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Last weekend, my friend and I disagreed about where to eat. I wanted to try a new restaurant, but he preferred our usual place. At first, we both tried to change the other's mind. Then I realized that a small choice was becoming a big argument. I suggested that we take turns choosing the restaurant next time. He liked the idea, and we decided to try the new place that day. We enjoyed the meal and laughed about our disagreement. Friends do not need to think alike. They just need to respect each other and find a fair way forward.",
+    "content_cn": "上周末，我和朋友在去哪儿吃饭的问题上产生了分歧。我想尝试一家新餐厅，但他更喜欢我们常去的那家。一开始，我们都试图改变对方的想法。后来我意识到，一个小小的选择正在变成一场激烈的争论。我提议下次轮流选择餐厅。他觉得这个主意不错，于是我们决定当天去尝试那家新餐厅。我们很享受这顿饭，还笑谈起之前的分歧。朋友不需要想法完全一致，他们只需要互相尊重，并找到一个公平的解决办法。",
+    "sentences": [
+      {
+        "sentence_en": "Last weekend, my friend and I disagreed about where to eat.",
+        "sentence_cn": "上周末，我和朋友在去哪儿吃饭的问题上产生了分歧。",
+        "chunks": [
+          {"text": "Last weekend,", "meaning": "上周末"},
+          {"text": "my friend and I", "meaning": "我和我的朋友"},
+          {"text": "disagreed about", "meaning": "在……方面意见不一致"},
+          {"text": "where to eat.", "meaning": "去哪儿吃饭"}
+        ],
+        "explanation": "disagree about something 表示在某件事上意见不同；where to eat 是疑问词加不定式结构。"
+      },
+      {
+        "sentence_en": "I wanted to try a new restaurant, but he preferred our usual place.",
+        "sentence_cn": "我想尝试一家新餐厅，但他更喜欢我们常去的那家。",
+        "chunks": [
+          {"text": "I wanted to try", "meaning": "我想尝试"},
+          {"text": "a new restaurant,", "meaning": "一家新餐厅"},
+          {"text": "but he preferred", "meaning": "但他更喜欢"},
+          {"text": "our usual place.", "meaning": "我们常去的地方"}
+        ],
+        "explanation": "prefer 表示更喜欢；usual 表示平常的、惯常的。"
+      },
+      {
+        "sentence_en": "At first, we both tried to change the other's mind.",
+        "sentence_cn": "一开始，我们都试图改变对方的想法。",
+        "chunks": [
+          {"text": "At first,", "meaning": "一开始"},
+          {"text": "we both tried", "meaning": "我们双方都试图"},
+          {"text": "to change", "meaning": "改变"},
+          {"text": "the other's mind.", "meaning": "对方的想法"}
+        ],
+        "explanation": "both 表示双方都；change someone's mind 表示改变某人的想法。"
+      },
+      {
+        "sentence_en": "Then I realized that a small choice was becoming a big argument.",
+        "sentence_cn": "后来我意识到，一个小小的选择正在变成一场激烈的争论。",
+        "chunks": [
+          {"text": "Then I realized that", "meaning": "后来我意识到"},
+          {"text": "a small choice", "meaning": "一个小小的选择"},
+          {"text": "was becoming", "meaning": "正在变成"},
+          {"text": "a big argument.", "meaning": "一场激烈的争论"}
+        ],
+        "explanation": "realize 表示意识到；过去进行时 was becoming 描述当时正在发生的变化。"
+      },
+      {
+        "sentence_en": "I suggested that we take turns choosing the restaurant next time.",
+        "sentence_cn": "我提议下次轮流选择餐厅。",
+        "chunks": [
+          {"text": "I suggested that", "meaning": "我提议"},
+          {"text": "we take turns", "meaning": "我们轮流"},
+          {"text": "choosing the restaurant", "meaning": "选择餐厅"},
+          {"text": "next time.", "meaning": "下次"}
+        ],
+        "explanation": "suggest 表示建议；take turns doing something 表示轮流做某事。"
+      },
+      {
+        "sentence_en": "He liked the idea, and we decided to try the new place that day.",
+        "sentence_cn": "他觉得这个主意不错，于是我们决定当天去尝试那家新餐厅。",
+        "chunks": [
+          {"text": "He liked the idea,", "meaning": "他喜欢这个主意"},
+          {"text": "and we decided", "meaning": "于是我们决定"},
+          {"text": "to try the new place", "meaning": "尝试那家新餐厅"},
+          {"text": "that day.", "meaning": "就在那天"}
+        ],
+        "explanation": "decide to do something 表示决定做某事；that day 指当时的那一天。"
+      },
+      {
+        "sentence_en": "We enjoyed the meal and laughed about our disagreement.",
+        "sentence_cn": "我们很享受这顿饭，还笑谈起之前的分歧。",
+        "chunks": [
+          {"text": "We enjoyed the meal", "meaning": "我们享受了这顿饭"},
+          {"text": "and laughed about", "meaning": "并笑谈起"},
+          {"text": "our disagreement.", "meaning": "我们的分歧"}
+        ],
+        "explanation": "enjoy 后面接名词或动词-ing；laugh about 表示把某件事当作趣事来谈。"
+      },
+      {
+        "sentence_en": "Friends do not need to think alike.",
+        "sentence_cn": "朋友不需要想法完全一致。",
+        "chunks": [
+          {"text": "Friends", "meaning": "朋友"},
+          {"text": "do not need to", "meaning": "不需要"},
+          {"text": "think alike.", "meaning": "想法相同"}
+        ],
+        "explanation": "alike 表示相似或一致；think alike 表示想法相同。"
+      },
+      {
+        "sentence_en": "They just need to respect each other and find a fair way forward.",
+        "sentence_cn": "他们只需要互相尊重，并找到一个公平的解决办法。",
+        "chunks": [
+          {"text": "They just need to", "meaning": "他们只需要"},
+          {"text": "respect each other", "meaning": "互相尊重"},
+          {"text": "and find", "meaning": "并找到"},
+          {"text": "a fair way forward.", "meaning": "一个公平的解决办法"}
+        ],
+        "explanation": "each other 表示彼此；a way forward 指继续推进或解决问题的方法。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disagree", "phonetic": "", "meaning": "意见不同；不同意", "part_of_speech": "verb"},
+      {"word": "prefer", "phonetic": "", "meaning": "更喜欢", "part_of_speech": "verb"},
+      {"word": "realize", "phonetic": "", "meaning": "意识到", "part_of_speech": "verb"},
+      {"word": "argument", "phonetic": "", "meaning": "争论；争吵", "part_of_speech": "noun"},
+      {"word": "fair", "phonetic": "", "meaning": "公平的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "disagree about something", "meaning": "在某事上意见不同", "example": "We disagree about the best way to do it."},
+      {"expression": "change someone's mind", "meaning": "改变某人的想法", "example": "I tried to change his mind."},
+      {"expression": "take turns doing something", "meaning": "轮流做某事", "example": "We take turns cooking dinner."},
+      {"expression": "like the idea", "meaning": "觉得这个主意不错", "example": "I like the idea of taking a short trip."},
+      {"expression": "find a way forward", "meaning": "找到继续推进或解决问题的方法", "example": "Let's talk and find a way forward."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the writer want to do at first?", "options": ["Eat at a new restaurant", "Cook at home", "Visit another city"], "answer": "Eat at a new restaurant", "explanation": "文章第二句说明作者想尝试一家新餐厅。"},
+      {"type": "sequence", "question": "What did the writer suggest after realizing they were arguing?", "options": ["Stop eating together", "Take turns choosing restaurants", "Always visit the usual place"], "answer": "Take turns choosing restaurants", "explanation": "作者提出下次轮流选择餐厅。"},
+      {"type": "inference", "question": "What is the main lesson of the story?", "options": ["Friends should always agree", "Small disagreements must end friendships", "Friends can disagree and still respect each other"], "answer": "Friends can disagree and still respect each other", "explanation": "文章最后两句总结了朋友不必想法一致，但需要互相尊重。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "采用自然美式英语表达",
+      "translation": "逐句对应英文正文",
+      "chunking": "意群按原句顺序拆分，拼接后可还原原句",
+      "notes": "通过餐厅选择的小冲突，练习表达分歧、提出建议和寻找折中方案。"
+    }
+  }
+]

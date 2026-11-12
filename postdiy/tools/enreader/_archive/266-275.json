@@ -1,0 +1,1375 @@
+[
+  {
+    "article_id": 86,
+    "day": 266,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Relationships",
+    "scene": "Daily life",
+    "title_en": "The Importance of Trust",
+    "title_cn": "信任的重要性",
+    "difficulty": "B1",
+    "word_count": 104,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Trust is one of the most important parts of any relationship. When we trust someone, we feel safe sharing our thoughts and feelings. Trust takes time to build, but it can be lost very quickly. Small actions, such as keeping promises and telling the truth, help people trust each other. However, trust does not mean that people never make mistakes. Everyone has weaknesses, and misunderstandings sometimes happen. What matters is how we deal with these problems. We should communicate honestly, take responsibility, and give others a chance to explain. A relationship with trust may not be perfect, but it can become stronger over time.",
+    "content_cn": "信任是任何关系中最重要的部分之一。当我们信任一个人时，就会感到安心，并愿意分享自己的想法和感受。信任需要时间建立，却可能在很短的时间内失去。遵守承诺、说实话等小小的行动，都有助于人们彼此信任。然而，信任并不意味着人们永远不会犯错。每个人都有缺点，误解有时也会发生。重要的是我们如何处理这些问题。我们应该坦诚沟通、承担责任，并给别人解释的机会。拥有信任的关系或许并不完美，但随着时间推移，它可以变得更加牢固。",
+    "sentences": [
+      {
+        "sentence_en": "Trust is one of the most important parts of any relationship.",
+        "sentence_cn": "信任是任何关系中最重要的部分之一。",
+        "chunks": [
+          {"text": "Trust", "meaning": "信任"},
+          {"text": " is", "meaning": "是"},
+          {"text": " one of the most important parts", "meaning": "最重要的部分之一"},
+          {"text": " of any relationship.", "meaning": "任何关系中的"}
+        ],
+        "explanation": "one of the most + 形容词最高级 + 复数名词，表示“最……的……之一”。"
+      },
+      {
+        "sentence_en": "When we trust someone, we feel safe sharing our thoughts and feelings.",
+        "sentence_cn": "当我们信任一个人时，就会感到安心，并愿意分享自己的想法和感受。",
+        "chunks": [
+          {"text": "When we trust someone,", "meaning": "当我们信任一个人时"},
+          {"text": " we feel safe", "meaning": "我们会感到安心"},
+          {"text": " sharing our thoughts and feelings.", "meaning": "分享我们的想法和感受"}
+        ],
+        "explanation": "feel safe doing something 表示“做某事时感到安心”。"
+      },
+      {
+        "sentence_en": "Trust takes time to build, but it can be lost very quickly.",
+        "sentence_cn": "信任需要时间建立，却可能在很短的时间内失去。",
+        "chunks": [
+          {"text": "Trust takes time to build,", "meaning": "信任需要时间建立"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " it can be lost very quickly.", "meaning": "它也可能很快失去"}
+        ],
+        "explanation": "take time to do something 表示“做某事需要时间”；be lost 是被动语态。"
+      },
+      {
+        "sentence_en": "Small actions, such as keeping promises and telling the truth, help people trust each other.",
+        "sentence_cn": "遵守承诺、说实话等小小的行动，都有助于人们彼此信任。",
+        "chunks": [
+          {"text": "Small actions,", "meaning": "小小的行动"},
+          {"text": " such as keeping promises and telling the truth,", "meaning": "例如遵守承诺和说实话"},
+          {"text": " help people trust each other.", "meaning": "帮助人们彼此信任"}
+        ],
+        "explanation": "such as 用于举例；help someone do something 表示“帮助某人做某事”。"
+      },
+      {
+        "sentence_en": "However, trust does not mean that people never make mistakes.",
+        "sentence_cn": "然而，信任并不意味着人们永远不会犯错。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": " trust does not mean", "meaning": "信任并不意味着"},
+          {"text": " that people never make mistakes.", "meaning": "人们永远不会犯错"}
+        ],
+        "explanation": "mean 后面可以接 that 引导的宾语从句；make mistakes 表示“犯错”。"
+      },
+      {
+        "sentence_en": "Everyone has weaknesses, and misunderstandings sometimes happen.",
+        "sentence_cn": "每个人都有缺点，误解有时也会发生。",
+        "chunks": [
+          {"text": "Everyone has weaknesses,", "meaning": "每个人都有缺点"},
+          {"text": " and", "meaning": "并且"},
+          {"text": " misunderstandings sometimes happen.", "meaning": "误解有时会发生"}
+        ],
+        "explanation": "everyone 作主语时，谓语动词使用第三人称单数形式。"
+      },
+      {
+        "sentence_en": "What matters is how we deal with these problems.",
+        "sentence_cn": "重要的是我们如何处理这些问题。",
+        "chunks": [
+          {"text": "What matters", "meaning": "重要的事情"},
+          {"text": " is", "meaning": "是"},
+          {"text": " how we deal with these problems.", "meaning": "我们如何处理这些问题"}
+        ],
+        "explanation": "What matters 是主语从句；deal with 表示“处理、应对”。"
+      },
+      {
+        "sentence_en": "We should communicate honestly, take responsibility, and give others a chance to explain.",
+        "sentence_cn": "我们应该坦诚沟通、承担责任，并给别人解释的机会。",
+        "chunks": [
+          {"text": "We should communicate honestly,", "meaning": "我们应该坦诚地沟通"},
+          {"text": " take responsibility,", "meaning": "承担责任"},
+          {"text": " and give others a chance to explain.", "meaning": "并给别人解释的机会"}
+        ],
+        "explanation": "should 后面接动词原形；give someone a chance to do something 表示“给某人做某事的机会”。"
+      },
+      {
+        "sentence_en": "A relationship with trust may not be perfect, but it can become stronger over time.",
+        "sentence_cn": "拥有信任的关系或许并不完美，但随着时间推移，它可以变得更加牢固。",
+        "chunks": [
+          {"text": "A relationship with trust", "meaning": "一段拥有信任的关系"},
+          {"text": " may not be perfect,", "meaning": "可能并不完美"},
+          {"text": " but it can become stronger", "meaning": "但它可以变得更加牢固"},
+          {"text": " over time.", "meaning": "随着时间推移"}
+        ],
+        "explanation": "may not 表示“可能不”；over time 表示“随着时间推移”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "trust", "phonetic": "", "meaning": "信任", "part_of_speech": "noun/verb"},
+      {"word": "relationship", "phonetic": "", "meaning": "关系", "part_of_speech": "noun"},
+      {"word": "promise", "phonetic": "", "meaning": "承诺", "part_of_speech": "noun/verb"},
+      {"word": "misunderstanding", "phonetic": "", "meaning": "误解", "part_of_speech": "noun"},
+      {"word": "responsibility", "phonetic": "", "meaning": "责任", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "build trust", "meaning": "建立信任", "example": "It takes time to build trust."},
+      {"expression": "keep a promise", "meaning": "遵守承诺", "example": "You should always try to keep a promise."},
+      {"expression": "tell the truth", "meaning": "说实话", "example": "It is better to tell the truth."},
+      {"expression": "deal with a problem", "meaning": "处理问题", "example": "We need to deal with this problem together."},
+      {"expression": "over time", "meaning": "随着时间推移", "example": "Their friendship became stronger over time."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What helps people build trust?", "options": ["Keeping promises", "Avoiding conversations", "Hiding mistakes"], "answer": "Keeping promises", "explanation": "文章指出，遵守承诺和说实话有助于建立信任。"},
+      {"type": "true_false", "question": "Trust means that people never make mistakes.", "answer": false, "explanation": "信任并不意味着人们不会犯错。"},
+      {"type": "short_answer", "question": "What should people do when misunderstandings happen?", "answer": "They should communicate honestly, take responsibility, and give others a chance to explain.", "explanation": "答案来自文章关于处理问题的建议。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about trust and healthy relationships."
+    }
+  },
+  {
+    "article_id": 87,
+    "day": 267,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Emotions",
+    "scene": "Personal relationships",
+    "title_en": "Learning to Forgive",
+    "title_cn": "学会宽恕",
+    "difficulty": "B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Everyone gets hurt by others at some point in life. Sometimes, a friend says something unkind, or a family member makes a poor choice. It is natural to feel angry or disappointed. However, holding on to these feelings for a long time can make us unhappy. Forgiving someone does not mean saying that their actions were right. It means choosing not to let the past control our future. Forgiveness can take time, especially when the pain is deep. We do not have to forget what happened, but we can learn from it. When we forgive, we give ourselves more room to move forward.",
+    "content_cn": "在人生的某个阶段，每个人都曾受到他人的伤害。有时，朋友说了不友善的话，或者家人做出了不明智的选择。感到愤怒或失望是很自然的。然而，长时间抓住这些情绪不放，可能会让我们不快乐。宽恕一个人，并不意味着承认对方的行为是正确的。它意味着选择不让过去控制我们的未来。宽恕需要时间，尤其是在伤害很深的时候。我们不必忘记发生过的事情，但可以从中吸取教训。当我们选择宽恕时，也是在给自己更多向前走的空间。",
+    "sentences": [
+      {
+        "sentence_en": "Everyone gets hurt by others at some point in life.",
+        "sentence_cn": "在人生的某个阶段，每个人都曾受到他人的伤害。",
+        "chunks": [
+          {"text": "Everyone", "meaning": "每个人"},
+          {"text": " gets hurt by others", "meaning": "都会受到他人的伤害"},
+          {"text": " at some point in life.", "meaning": "在人生的某个阶段"}
+        ],
+        "explanation": "get hurt 表示“受到伤害”；at some point 表示“在某个时候”。"
+      },
+      {
+        "sentence_en": "Sometimes, a friend says something unkind, or a family member makes a poor choice.",
+        "sentence_cn": "有时，朋友说了不友善的话，或者家人做出了不明智的选择。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": " a friend says something unkind,", "meaning": "朋友会说一些不友善的话"},
+          {"text": " or a family member makes a poor choice.", "meaning": "或者家人会做出不明智的选择"}
+        ],
+        "explanation": "something unkind 表示“不友善的事情或话语”；make a choice 表示“做出选择”。"
+      },
+      {
+        "sentence_en": "It is natural to feel angry or disappointed.",
+        "sentence_cn": "感到愤怒或失望是很自然的。",
+        "chunks": [
+          {"text": "It is natural", "meaning": "这是很自然的"},
+          {"text": " to feel angry or disappointed.", "meaning": "感到愤怒或失望"}
+        ],
+        "explanation": "It is + 形容词 + to do 是常见句型，表示“做某事是……的”。"
+      },
+      {
+        "sentence_en": "However, holding on to these feelings for a long time can make us unhappy.",
+        "sentence_cn": "然而，长时间抓住这些情绪不放，可能会让我们不快乐。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": " holding on to these feelings", "meaning": "一直抓住这些情绪不放"},
+          {"text": " for a long time", "meaning": "很长时间"},
+          {"text": " can make us unhappy.", "meaning": "可能会让我们不快乐"}
+        ],
+        "explanation": "hold on to 表示“紧抓不放”；make someone + 形容词表示“使某人处于某种状态”。"
+      },
+      {
+        "sentence_en": "Forgiving someone does not mean saying that their actions were right.",
+        "sentence_cn": "宽恕一个人，并不意味着承认对方的行为是正确的。",
+        "chunks": [
+          {"text": "Forgiving someone", "meaning": "宽恕某人"},
+          {"text": " does not mean", "meaning": "并不意味着"},
+          {"text": " saying that their actions were right.", "meaning": "说他们的行为是正确的"}
+        ],
+        "explanation": "动名词 Forgiving 作主语；mean doing something 表示“意味着做某事”。"
+      },
+      {
+        "sentence_en": "It means choosing not to let the past control our future.",
+        "sentence_cn": "它意味着选择不让过去控制我们的未来。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": " choosing not to let", "meaning": "选择不让"},
+          {"text": " the past control our future.", "meaning": "过去控制我们的未来"}
+        ],
+        "explanation": "let someone do something 表示“让某人做某事”，let 后接动词原形。"
+      },
+      {
+        "sentence_en": "Forgiveness can take time, especially when the pain is deep.",
+        "sentence_cn": "宽恕需要时间，尤其是在伤害很深的时候。",
+        "chunks": [
+          {"text": "Forgiveness can take time,", "meaning": "宽恕可能需要时间"},
+          {"text": " especially", "meaning": "尤其是"},
+          {"text": " when the pain is deep.", "meaning": "当痛苦很深的时候"}
+        ],
+        "explanation": "especially 用于强调；take time 表示“需要时间”。"
+      },
+      {
+        "sentence_en": "We do not have to forget what happened, but we can learn from it.",
+        "sentence_cn": "我们不必忘记发生过的事情，但可以从中吸取教训。",
+        "chunks": [
+          {"text": "We do not have to forget", "meaning": "我们不必忘记"},
+          {"text": " what happened,", "meaning": "发生过的事情"},
+          {"text": " but we can learn from it.", "meaning": "但我们可以从中学习"}
+        ],
+        "explanation": "do not have to 表示“不必”；learn from 表示“从……中学习”。"
+      },
+      {
+        "sentence_en": "When we forgive, we give ourselves more room to move forward.",
+        "sentence_cn": "当我们选择宽恕时，也是在给自己更多向前走的空间。",
+        "chunks": [
+          {"text": "When we forgive,", "meaning": "当我们宽恕时"},
+          {"text": " we give ourselves", "meaning": "我们给自己"},
+          {"text": " more room to move forward.", "meaning": "更多向前迈进的空间"}
+        ],
+        "explanation": "give oneself room to do something 表示“给自己空间去做某事”；move forward 表示“继续向前”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "forgive", "phonetic": "", "meaning": "宽恕；原谅", "part_of_speech": "verb"},
+      {"word": "disappointed", "phonetic": "", "meaning": "失望的", "part_of_speech": "adjective"},
+      {"word": "unkind", "phonetic": "", "meaning": "不友善的", "part_of_speech": "adjective"},
+      {"word": "forgiveness", "phonetic": "", "meaning": "宽恕；原谅", "part_of_speech": "noun"},
+      {"word": "control", "phonetic": "", "meaning": "控制", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "get hurt", "meaning": "受到伤害", "example": "People sometimes get hurt by careless words."},
+      {"expression": "hold on to", "meaning": "紧抓不放；执着于", "example": "Try not to hold on to anger."},
+      {"expression": "at some point", "meaning": "在某个时候", "example": "Everyone makes mistakes at some point."},
+      {"expression": "learn from the past", "meaning": "从过去吸取教训", "example": "We should learn from the past."},
+      {"expression": "move forward", "meaning": "继续向前；向前迈进", "example": "It is time to move forward."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What does forgiveness mean in the article?", "options": ["Saying every action was right", "Not letting the past control the future", "Forgetting everything immediately"], "answer": "Not letting the past control the future", "explanation": "文章将宽恕解释为不让过去控制未来。"},
+      {"type": "true_false", "question": "The article says we must forget everything that happened before we can forgive.", "answer": false, "explanation": "文章明确指出，我们不必忘记发生过的事情。"},
+      {"type": "short_answer", "question": "Why can holding on to painful feelings be harmful?", "answer": "Because it can make us unhappy for a long time.", "explanation": "文章指出，长期抓住痛苦情绪不放会让人不快乐。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about forgiveness and emotional growth."
+    }
+  },
+  {
+    "article_id": 88,
+    "day": 268,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Communication",
+    "scene": "Daily conversations",
+    "title_en": "Why Communication Matters",
+    "title_cn": "为什么沟通很重要",
+    "difficulty": "B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Good communication is important in almost every part of life. At home, it helps family members understand each other. At work, it makes teamwork easier and prevents many problems. However, communication is not only about speaking. Listening carefully is just as important because people want to feel heard. Sometimes, we misunderstand others because we make quick judgments. Instead of reacting immediately, we should ask questions and try to understand their ideas. Clear and respectful communication can solve small problems before they become serious. It also helps people build stronger relationships. Learning to communicate well is a skill that improves with practice.",
+    "content_cn": "良好的沟通在生活的几乎每个方面都很重要。在家里，它能帮助家庭成员相互理解。在工作中，它能让团队合作更加容易，并避免许多问题。然而，沟通不仅仅是说话。认真倾听同样重要，因为人们希望自己的声音被听见。有时，我们会因为匆忙下判断而误解别人。与其立即做出反应，不如提出问题，尝试理解对方的想法。清晰而尊重他人的沟通，可以在小问题变得严重之前解决它们。它也能帮助人们建立更牢固的关系。学会良好沟通是一项能够通过练习不断提升的技能。",
+    "sentences": [
+      {
+        "sentence_en": "Good communication is important in almost every part of life.",
+        "sentence_cn": "良好的沟通在生活的几乎每个方面都很重要。",
+        "chunks": [
+          {"text": "Good communication", "meaning": "良好的沟通"},
+          {"text": " is important", "meaning": "很重要"},
+          {"text": " in almost every part of life.", "meaning": "在生活的几乎每个方面"}
+        ],
+        "explanation": "almost 表示“几乎”；communication 是不可数名词。"
+      },
+      {
+        "sentence_en": "At home, it helps family members understand each other.",
+        "sentence_cn": "在家里，它能帮助家庭成员相互理解。",
+        "chunks": [
+          {"text": "At home,", "meaning": "在家里"},
+          {"text": " it helps family members", "meaning": "它帮助家庭成员"},
+          {"text": " understand each other.", "meaning": "相互理解"}
+        ],
+        "explanation": "help someone do something 表示“帮助某人做某事”；each other 表示“彼此”。"
+      },
+      {
+        "sentence_en": "At work, it makes teamwork easier and prevents many problems.",
+        "sentence_cn": "在工作中，它能让团队合作更加容易，并避免许多问题。",
+        "chunks": [
+          {"text": "At work,", "meaning": "在工作中"},
+          {"text": " it makes teamwork easier", "meaning": "它让团队合作更加容易"},
+          {"text": " and prevents many problems.", "meaning": "并避免许多问题"}
+        ],
+        "explanation": "make + 宾语 + 形容词，表示“使……变得……”；prevent 表示“阻止、避免”。"
+      },
+      {
+        "sentence_en": "However, communication is not only about speaking.",
+        "sentence_cn": "然而，沟通不仅仅是说话。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": " communication", "meaning": "沟通"},
+          {"text": " is not only about speaking.", "meaning": "不仅仅是关于说话"}
+        ],
+        "explanation": "be about 表示“涉及、关于”；speaking 在这里是动名词。"
+      },
+      {
+        "sentence_en": "Listening carefully is just as important because people want to feel heard.",
+        "sentence_cn": "认真倾听同样重要，因为人们希望自己的声音被听见。",
+        "chunks": [
+          {"text": "Listening carefully", "meaning": "认真倾听"},
+          {"text": " is just as important", "meaning": "同样重要"},
+          {"text": " because people want", "meaning": "因为人们希望"},
+          {"text": " to feel heard.", "meaning": "自己被听见"}
+        ],
+        "explanation": "just as important 表示“同样重要”；feel heard 表示“感到自己的声音被听见”。"
+      },
+      {
+        "sentence_en": "Sometimes, we misunderstand others because we make quick judgments.",
+        "sentence_cn": "有时，我们会因为匆忙下判断而误解别人。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": " we misunderstand others", "meaning": "我们会误解别人"},
+          {"text": " because we make quick judgments.", "meaning": "因为我们匆忙做出判断"}
+        ],
+        "explanation": "misunderstand 表示“误解”；make a judgment 表示“做出判断”。"
+      },
+      {
+        "sentence_en": "Instead of reacting immediately, we should ask questions and try to understand their ideas.",
+        "sentence_cn": "与其立即做出反应，不如提出问题，尝试理解对方的想法。",
+        "chunks": [
+          {"text": "Instead of reacting immediately,", "meaning": "与其立即做出反应"},
+          {"text": " we should ask questions", "meaning": "我们应该提出问题"},
+          {"text": " and try to understand their ideas.", "meaning": "并尝试理解他们的想法"}
+        ],
+        "explanation": "instead of 后面接名词或动名词；try to do 表示“尝试做某事”。"
+      },
+      {
+        "sentence_en": "Clear and respectful communication can solve small problems before they become serious.",
+        "sentence_cn": "清晰而尊重他人的沟通，可以在小问题变得严重之前解决它们。",
+        "chunks": [
+          {"text": "Clear and respectful communication", "meaning": "清晰而尊重他人的沟通"},
+          {"text": " can solve small problems", "meaning": "能够解决小问题"},
+          {"text": " before they become serious.", "meaning": "在它们变得严重之前"}
+        ],
+        "explanation": "before 引导时间状语从句；become serious 表示“变得严重”。"
+      },
+      {
+        "sentence_en": "It also helps people build stronger relationships.",
+        "sentence_cn": "它也能帮助人们建立更牢固的关系。",
+        "chunks": [
+          {"text": "It also helps people", "meaning": "它也帮助人们"},
+          {"text": " build stronger relationships.", "meaning": "建立更牢固的关系"}
+        ],
+        "explanation": "stronger 是 strong 的比较级，表示“更牢固的”。"
+      },
+      {
+        "sentence_en": "Learning to communicate well is a skill that improves with practice.",
+        "sentence_cn": "学会良好沟通是一项能够通过练习不断提升的技能。",
+        "chunks": [
+          {"text": "Learning to communicate well", "meaning": "学会良好沟通"},
+          {"text": " is a skill", "meaning": "是一项技能"},
+          {"text": " that improves with practice.", "meaning": "能够通过练习不断提升"}
+        ],
+        "explanation": "that 引导定语从句修饰 skill；with practice 表示“通过练习”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "communication", "phonetic": "", "meaning": "沟通；交流", "part_of_speech": "noun"},
+      {"word": "teamwork", "phonetic": "", "meaning": "团队合作", "part_of_speech": "noun"},
+      {"word": "prevent", "phonetic": "", "meaning": "预防；阻止", "part_of_speech": "verb"},
+      {"word": "judgment", "phonetic": "", "meaning": "判断；看法", "part_of_speech": "noun"},
+      {"word": "respectful", "phonetic": "", "meaning": "尊重他人的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "understand each other", "meaning": "相互理解", "example": "Good friends try to understand each other."},
+      {"expression": "listen carefully", "meaning": "认真倾听", "example": "Please listen carefully to the instructions."},
+      {"expression": "make a quick judgment", "meaning": "匆忙做出判断", "example": "Do not make a quick judgment about someone."},
+      {"expression": "instead of", "meaning": "而不是；代替", "example": "Try walking instead of driving."},
+      {"expression": "with practice", "meaning": "通过练习", "example": "Your speaking will improve with practice."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "According to the article, what is just as important as speaking?", "options": ["Listening carefully", "Speaking loudly", "Giving advice"], "answer": "Listening carefully", "explanation": "文章强调认真倾听与表达同样重要。"},
+      {"type": "true_false", "question": "Good communication can help solve small problems before they become serious.", "answer": true, "explanation": "这是文章直接表达的观点。"},
+      {"type": "short_answer", "question": "What should we do instead of reacting immediately?", "answer": "We should ask questions and try to understand other people's ideas.", "explanation": "文章建议先提问并理解对方的想法。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about effective communication."
+    }
+  },
+  {
+    "article_id": 89,
+    "day": 269,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Emotions",
+    "scene": "Personal reflection",
+    "title_en": "The Difference Between Being Alone and Feeling Lonely",
+    "title_cn": "独处与孤独的区别",
+    "difficulty": "B1",
+    "word_count": 106,
+    "estimated_reading_time_seconds": 58,
+    "content_en": "Being alone and feeling lonely may sound like the same thing, but they are different. Being alone simply means having no one around you at a certain moment. Some people enjoy this time because it allows them to rest, think, and focus on their interests. Feeling lonely, however, is an emotional experience. It can happen even when we are surrounded by other people. We may feel that nobody understands us or truly cares about us. Spending time alone can be healthy, but staying disconnected from others for too long may be difficult. The important thing is to find a balance between enjoying our own company and building meaningful connections.",
+    "content_cn": "独处和感到孤独听起来可能是一回事，但它们并不相同。独处只是意味着在某个时刻身边没有其他人。有些人喜欢这样的时光，因为它能让他们休息、思考，并专注于自己的兴趣。然而，感到孤独是一种情绪体验。即使我们身边围绕着很多人，也可能感到孤独。我们可能觉得没有人理解我们，或者真正关心我们。独处可以是健康的，但长时间与他人失去联系可能会让人感到困难。重要的是，在享受独处和建立有意义的人际联系之间找到平衡。",
+    "sentences": [
+      {
+        "sentence_en": "Being alone and feeling lonely may sound like the same thing, but they are different.",
+        "sentence_cn": "独处和感到孤独听起来可能是一回事，但它们并不相同。",
+        "chunks": [
+          {"text": "Being alone and feeling lonely", "meaning": "独处和感到孤独"},
+          {"text": " may sound like the same thing,", "meaning": "听起来可能像同一回事"},
+          {"text": " but they are different.", "meaning": "但它们是不同的"}
+        ],
+        "explanation": "sound like 表示“听起来像”；Being alone 和 feeling lonely 都是动名词短语。"
+      },
+      {
+        "sentence_en": "Being alone simply means having no one around you at a certain moment.",
+        "sentence_cn": "独处只是意味着在某个时刻身边没有其他人。",
+        "chunks": [
+          {"text": "Being alone", "meaning": "独处"},
+          {"text": " simply means", "meaning": "仅仅意味着"},
+          {"text": " having no one around you", "meaning": "身边没有其他人"},
+          {"text": " at a certain moment.", "meaning": "在某个特定时刻"}
+        ],
+        "explanation": "mean doing something 表示“意味着做某事”；around you 表示“在你身边”。"
+      },
+      {
+        "sentence_en": "Some people enjoy this time because it allows them to rest, think, and focus on their interests.",
+        "sentence_cn": "有些人喜欢这样的时光，因为它能让他们休息、思考，并专注于自己的兴趣。",
+        "chunks": [
+          {"text": "Some people enjoy this time", "meaning": "有些人喜欢这样的时光"},
+          {"text": " because it allows them", "meaning": "因为它让他们能够"},
+          {"text": " to rest, think, and focus on their interests.", "meaning": "休息、思考并专注于自己的兴趣"}
+        ],
+        "explanation": "allow someone to do something 表示“允许或使某人能够做某事”；focus on 表示“专注于”。"
+      },
+      {
+        "sentence_en": "Feeling lonely, however, is an emotional experience.",
+        "sentence_cn": "然而，感到孤独是一种情绪体验。",
+        "chunks": [
+          {"text": "Feeling lonely,", "meaning": "感到孤独"},
+          {"text": " however,", "meaning": "然而"},
+          {"text": " is an emotional experience.", "meaning": "是一种情绪体验"}
+        ],
+        "explanation": "Feeling lonely 作句子的主语；emotional 是形容词，表示“情绪上的”。"
+      },
+      {
+        "sentence_en": "It can happen even when we are surrounded by other people.",
+        "sentence_cn": "即使我们身边围绕着很多人，也可能感到孤独。",
+        "chunks": [
+          {"text": "It can happen", "meaning": "这种情况也可能发生"},
+          {"text": " even when", "meaning": "即使在……时候"},
+          {"text": " we are surrounded by other people.", "meaning": "我们被其他人包围着"}
+        ],
+        "explanation": "even when 表示“即使在……的时候”；be surrounded by 表示“被……包围”。"
+      },
+      {
+        "sentence_en": "We may feel that nobody understands us or truly cares about us.",
+        "sentence_cn": "我们可能觉得没有人理解我们，或者真正关心我们。",
+        "chunks": [
+          {"text": "We may feel", "meaning": "我们可能觉得"},
+          {"text": " that nobody understands us", "meaning": "没有人理解我们"},
+          {"text": " or truly cares about us.", "meaning": "或者真正关心我们"}
+        ],
+        "explanation": "may 表示可能性；care about 表示“关心、在乎”。"
+      },
+      {
+        "sentence_en": "Spending time alone can be healthy, but staying disconnected from others for too long may be difficult.",
+        "sentence_cn": "独处可以是健康的，但长时间与他人失去联系可能会让人感到困难。",
+        "chunks": [
+          {"text": "Spending time alone can be healthy,", "meaning": "花时间独处可以是健康的"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " staying disconnected from others", "meaning": "一直与他人失去联系"},
+          {"text": " for too long may be difficult.", "meaning": "太长时间可能会很困难"}
+        ],
+        "explanation": "spending 和 staying 都是动名词；disconnected from 表示“与……失去联系”。"
+      },
+      {
+        "sentence_en": "The important thing is to find a balance between enjoying our own company and building meaningful connections.",
+        "sentence_cn": "重要的是，在享受独处和建立有意义的人际联系之间找到平衡。",
+        "chunks": [
+          {"text": "The important thing", "meaning": "重要的事情"},
+          {"text": " is to find a balance", "meaning": "是找到一种平衡"},
+          {"text": " between enjoying our own company", "meaning": "在享受独处之间"},
+          {"text": " and building meaningful connections.", "meaning": "以及建立有意义的人际联系之间"}
+        ],
+        "explanation": "a balance between A and B 表示“A与B之间的平衡”；own company 在这里指“独自相处的时光”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "lonely", "phonetic": "", "meaning": "孤独的；寂寞的", "part_of_speech": "adjective"},
+      {"word": "surrounded", "phonetic": "", "meaning": "被包围的", "part_of_speech": "adjective"},
+      {"word": "emotional", "phonetic": "", "meaning": "情绪上的；情感的", "part_of_speech": "adjective"},
+      {"word": "disconnected", "phonetic": "", "meaning": "失去联系的", "part_of_speech": "adjective"},
+      {"word": "meaningful", "phonetic": "", "meaning": "有意义的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "feel lonely", "meaning": "感到孤独", "example": "You can feel lonely even in a crowd."},
+      {"expression": "focus on", "meaning": "专注于", "example": "I need to focus on my work."},
+      {"expression": "be surrounded by", "meaning": "被……包围", "example": "The garden is surrounded by trees."},
+      {"expression": "care about", "meaning": "关心；在乎", "example": "My friends care about me."},
+      {"expression": "find a balance", "meaning": "找到平衡", "example": "We need to find a balance between work and rest."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What is the main difference between being alone and feeling lonely?", "options": ["One describes a situation, while the other describes an emotion.", "They mean exactly the same thing.", "Being alone is always unhealthy."], "answer": "One describes a situation, while the other describes an emotion.", "explanation": "独处描述一种状态，孤独则是一种情绪体验。"},
+      {"type": "true_false", "question": "People can feel lonely even when they are with others.", "answer": true, "explanation": "文章明确说明，即使被他人包围也可能感到孤独。"},
+      {"type": "short_answer", "question": "What balance does the article suggest finding?", "answer": "A balance between enjoying time alone and building meaningful connections.", "explanation": "文章最后一句总结了这一建议。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading distinguishing solitude from loneliness."
+    }
+  },
+  {
+    "article_id": 90,
+    "day": 270,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Relationships",
+    "scene": "Friendship and family",
+    "title_en": "What Makes a Relationship Last?",
+    "title_cn": "什么让一段关系长久",
+    "difficulty": "B1",
+    "word_count": 105,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "A lasting relationship is not built on perfect moments. It grows through trust, respect, and daily effort. People who care about each other do not always agree, but they try to understand different opinions. They also make time for honest conversations, even when life becomes busy. Small acts of kindness can mean more than expensive gifts. Of course, every relationship faces difficult times. During these moments, patience and good communication become especially important. Both people need to take responsibility instead of blaming each other. A strong relationship does not mean two people never change. It means they are willing to grow together while respecting each other's differences.",
+    "content_cn": "一段长久的关系并不是建立在完美的时刻之上。它是在信任、尊重和日常付出中逐渐成长的。彼此在乎的人不一定总是意见一致，但他们会努力理解不同的观点。即使生活变得忙碌，他们也会抽出时间进行坦诚的交流。小小的善意举动，有时比昂贵的礼物更有意义。当然，每段关系都会面临困难时期。在这些时刻，耐心和良好的沟通尤其重要。双方都需要承担责任，而不是互相指责。一段牢固的关系并不意味着两个人永远不会改变，而是意味着他们愿意在尊重彼此差异的同时共同成长。",
+    "sentences": [
+      {
+        "sentence_en": "A lasting relationship is not built on perfect moments.",
+        "sentence_cn": "一段长久的关系并不是建立在完美的时刻之上。",
+        "chunks": [
+          {"text": "A lasting relationship", "meaning": "一段长久的关系"},
+          {"text": " is not built on", "meaning": "并不是建立在"},
+          {"text": " perfect moments.", "meaning": "完美的时刻之上"}
+        ],
+        "explanation": "be built on 表示“建立在……基础上”；lasting 表示“持久的”。"
+      },
+      {
+        "sentence_en": "It grows through trust, respect, and daily effort.",
+        "sentence_cn": "它是在信任、尊重和日常付出中逐渐成长的。",
+        "chunks": [
+          {"text": "It grows", "meaning": "它逐渐成长"},
+          {"text": " through trust, respect,", "meaning": "通过信任、尊重"},
+          {"text": " and daily effort.", "meaning": "以及日常的努力"}
+        ],
+        "explanation": "through 在这里表示“通过”；effort 表示“努力、付出”。"
+      },
+      {
+        "sentence_en": "People who care about each other do not always agree, but they try to understand different opinions.",
+        "sentence_cn": "彼此在乎的人不一定总是意见一致，但他们会努力理解不同的观点。",
+        "chunks": [
+          {"text": "People who care about each other", "meaning": "彼此在乎的人"},
+          {"text": " do not always agree,", "meaning": "并不总是意见一致"},
+          {"text": " but they try to understand different opinions.", "meaning": "但他们会努力理解不同的观点"}
+        ],
+        "explanation": "who 引导定语从句修饰 people；not always 表示“不总是”。"
+      },
+      {
+        "sentence_en": "They also make time for honest conversations, even when life becomes busy.",
+        "sentence_cn": "即使生活变得忙碌，他们也会抽出时间进行坦诚的交流。",
+        "chunks": [
+          {"text": "They also make time for", "meaning": "他们也会为……留出时间"},
+          {"text": " honest conversations,", "meaning": "坦诚的交流"},
+          {"text": " even when life becomes busy.", "meaning": "即使生活变得忙碌"}
+        ],
+        "explanation": "make time for 表示“为……安排时间”；even when 表示“即使在……时候”。"
+      },
+      {
+        "sentence_en": "Small acts of kindness can mean more than expensive gifts.",
+        "sentence_cn": "小小的善意举动，有时比昂贵的礼物更有意义。",
+        "chunks": [
+          {"text": "Small acts of kindness", "meaning": "小小的善意举动"},
+          {"text": " can mean more than", "meaning": "可能比……更有意义"},
+          {"text": " expensive gifts.", "meaning": "昂贵的礼物"}
+        ],
+        "explanation": "acts of kindness 表示“善意的行为”；more than 用于比较。"
+      },
+      {
+        "sentence_en": "Of course, every relationship faces difficult times.",
+        "sentence_cn": "当然，每段关系都会面临困难时期。",
+        "chunks": [
+          {"text": "Of course,", "meaning": "当然"},
+          {"text": " every relationship", "meaning": "每一段关系"},
+          {"text": " faces difficult times.", "meaning": "都会面临困难时期"}
+        ],
+        "explanation": "face a problem 或 face a difficult time 表示“面对问题或困难时期”。"
+      },
+      {
+        "sentence_en": "During these moments, patience and good communication become especially important.",
+        "sentence_cn": "在这些时刻，耐心和良好的沟通尤其重要。",
+        "chunks": [
+          {"text": "During these moments,", "meaning": "在这些时刻"},
+          {"text": " patience and good communication", "meaning": "耐心和良好的沟通"},
+          {"text": " become especially important.", "meaning": "变得尤其重要"}
+        ],
+        "explanation": "during 表示“在……期间”；especially 表示“尤其”。"
+      },
+      {
+        "sentence_en": "Both people need to take responsibility instead of blaming each other.",
+        "sentence_cn": "双方都需要承担责任，而不是互相指责。",
+        "chunks": [
+          {"text": "Both people", "meaning": "双方"},
+          {"text": " need to take responsibility", "meaning": "需要承担责任"},
+          {"text": " instead of blaming each other.", "meaning": "而不是互相指责"}
+        ],
+        "explanation": "both 表示“两者都”；instead of 后接动名词 blaming。"
+      },
+      {
+        "sentence_en": "A strong relationship does not mean two people never change.",
+        "sentence_cn": "一段牢固的关系并不意味着两个人永远不会改变。",
+        "chunks": [
+          {"text": "A strong relationship", "meaning": "一段牢固的关系"},
+          {"text": " does not mean", "meaning": "并不意味着"},
+          {"text": " two people never change.", "meaning": "两个人永远不会改变"}
+        ],
+        "explanation": "mean 后可接宾语从句；never 表示“从不、永远不”。"
+      },
+      {
+        "sentence_en": "It means they are willing to grow together while respecting each other's differences.",
+        "sentence_cn": "而是意味着他们愿意在尊重彼此差异的同时共同成长。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": " they are willing to grow together", "meaning": "他们愿意共同成长"},
+          {"text": " while respecting each other's differences.", "meaning": "同时尊重彼此的差异"}
+        ],
+        "explanation": "be willing to do 表示“愿意做某事”；while doing 表示“在做某事的同时”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "lasting", "phonetic": "", "meaning": "持久的；长久的", "part_of_speech": "adjective"},
+      {"word": "effort", "phonetic": "", "meaning": "努力；付出", "part_of_speech": "noun"},
+      {"word": "respect", "phonetic": "", "meaning": "尊重", "part_of_speech": "noun/verb"},
+      {"word": "patience", "phonetic": "", "meaning": "耐心", "part_of_speech": "noun"},
+      {"word": "blame", "phonetic": "", "meaning": "责备；指责", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "care about each other", "meaning": "彼此在乎", "example": "They truly care about each other."},
+      {"expression": "make time for", "meaning": "为……留出时间", "example": "Make time for the people you love."},
+      {"expression": "acts of kindness", "meaning": "善意的举动", "example": "Small acts of kindness can brighten someone's day."},
+      {"expression": "take responsibility", "meaning": "承担责任", "example": "We should take responsibility for our choices."},
+      {"expression": "grow together", "meaning": "共同成长", "example": "A good team learns and grows together."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What helps a relationship grow?", "options": ["Trust, respect, and daily effort", "Perfect moments only", "Expensive gifts"], "answer": "Trust, respect, and daily effort", "explanation": "文章第二句直接说明了关系成长的基础。"},
+      {"type": "true_false", "question": "People in a strong relationship must always agree with each other.", "answer": false, "explanation": "文章指出，彼此在乎的人不一定总是意见一致。"},
+      {"type": "short_answer", "question": "What should both people do during difficult times?", "answer": "They should be patient, communicate well, and take responsibility.", "explanation": "答案概括了文章关于困难时期的建议。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about long-term relationships."
+    }
+  },
+  {
+    "article_id": 91,
+    "day": 271,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Personal Growth",
+    "scene": "Life goals",
+    "title_en": "Following Your Dreams",
+    "title_cn": "追寻自己的梦想",
+    "difficulty": "B1",
+    "word_count": 104,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Everyone has dreams, but not everyone takes action to achieve them. Some people wait for the perfect moment, while others are afraid of making mistakes. The truth is that progress often begins with a small step. You do not need to know exactly how everything will work out. Instead, choose a clear goal and start working toward it. There will be challenges, and sometimes you may feel like giving up. During those moments, remember why you started. Learn from your mistakes and adjust your plan when necessary. Following your dreams does not guarantee success, but it gives your life direction and a reason to keep growing.",
+    "content_cn": "每个人都有梦想，但并不是每个人都会采取行动去实现它们。有些人一直等待完美的时机，而另一些人则害怕犯错。事实上，进步往往始于一个小小的步骤。你不需要准确知道一切最终会如何发展。相反，选择一个明确的目标，然后开始为它努力。过程中会遇到挑战，有时你可能会想要放弃。在那些时刻，记住自己为什么出发。从错误中学习，并在必要时调整计划。追寻梦想并不能保证成功，但它能为人生指明方向，并给你继续成长的理由。",
+    "sentences": [
+      {
+        "sentence_en": "Everyone has dreams, but not everyone takes action to achieve them.",
+        "sentence_cn": "每个人都有梦想，但并不是每个人都会采取行动去实现它们。",
+        "chunks": [
+          {"text": "Everyone has dreams,", "meaning": "每个人都有梦想"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " not everyone takes action", "meaning": "并不是每个人都会采取行动"},
+          {"text": " to achieve them.", "meaning": "去实现它们"}
+        ],
+        "explanation": "take action 表示“采取行动”；achieve 表示“实现、达成”。"
+      },
+      {
+        "sentence_en": "Some people wait for the perfect moment, while others are afraid of making mistakes.",
+        "sentence_cn": "有些人一直等待完美的时机，而另一些人则害怕犯错。",
+        "chunks": [
+          {"text": "Some people wait for the perfect moment,", "meaning": "有些人等待完美的时机"},
+          {"text": " while others", "meaning": "而另一些人"},
+          {"text": " are afraid of making mistakes.", "meaning": "害怕犯错"}
+        ],
+        "explanation": "while 用于对比；be afraid of 后接名词或动名词。"
+      },
+      {
+        "sentence_en": "The truth is that progress often begins with a small step.",
+        "sentence_cn": "事实上，进步往往始于一个小小的步骤。",
+        "chunks": [
+          {"text": "The truth is that", "meaning": "事实是"},
+          {"text": " progress often begins", "meaning": "进步往往开始"},
+          {"text": " with a small step.", "meaning": "从一个小步骤开始"}
+        ],
+        "explanation": "The truth is that 是常见表达；begin with 表示“以……开始”。"
+      },
+      {
+        "sentence_en": "You do not need to know exactly how everything will work out.",
+        "sentence_cn": "你不需要准确知道一切最终会如何发展。",
+        "chunks": [
+          {"text": "You do not need to know", "meaning": "你不需要知道"},
+          {"text": " exactly", "meaning": "确切地"},
+          {"text": " how everything will work out.", "meaning": "一切最终会如何发展"}
+        ],
+        "explanation": "do not need to 表示“不需要”；work out 表示“最终发展成某种结果”。"
+      },
+      {
+        "sentence_en": "Instead, choose a clear goal and start working toward it.",
+        "sentence_cn": "相反，选择一个明确的目标，然后开始为它努力。",
+        "chunks": [
+          {"text": "Instead,", "meaning": "相反"},
+          {"text": " choose a clear goal", "meaning": "选择一个明确的目标"},
+          {"text": " and start working toward it.", "meaning": "并开始朝它努力"}
+        ],
+        "explanation": "start doing 表示“开始做某事”；work toward 表示“朝……努力”。"
+      },
+      {
+        "sentence_en": "There will be challenges, and sometimes you may feel like giving up.",
+        "sentence_cn": "过程中会遇到挑战，有时你可能会想要放弃。",
+        "chunks": [
+          {"text": "There will be challenges,", "meaning": "将会遇到挑战"},
+          {"text": " and sometimes", "meaning": "有时"},
+          {"text": " you may feel like giving up.", "meaning": "你可能会想要放弃"}
+        ],
+        "explanation": "There will be 表示“将会有”；feel like doing 表示“想做某事”。"
+      },
+      {
+        "sentence_en": "During those moments, remember why you started.",
+        "sentence_cn": "在那些时刻，记住自己为什么出发。",
+        "chunks": [
+          {"text": "During those moments,", "meaning": "在那些时刻"},
+          {"text": " remember", "meaning": "记住"},
+          {"text": " why you started.", "meaning": "你为什么开始"}
+        ],
+        "explanation": "why you started 是宾语从句，使用陈述句语序。"
+      },
+      {
+        "sentence_en": "Learn from your mistakes and adjust your plan when necessary.",
+        "sentence_cn": "从错误中学习，并在必要时调整计划。",
+        "chunks": [
+          {"text": "Learn from your mistakes", "meaning": "从错误中学习"},
+          {"text": " and adjust your plan", "meaning": "并调整你的计划"},
+          {"text": " when necessary.", "meaning": "在必要时"}
+        ],
+        "explanation": "learn from 表示“从……中学习”；when necessary 是 when it is necessary 的省略形式。"
+      },
+      {
+        "sentence_en": "Following your dreams does not guarantee success, but it gives your life direction and a reason to keep growing.",
+        "sentence_cn": "追寻梦想并不能保证成功，但它能为人生指明方向，并给你继续成长的理由。",
+        "chunks": [
+          {"text": "Following your dreams", "meaning": "追寻你的梦想"},
+          {"text": " does not guarantee success,", "meaning": "并不能保证成功"},
+          {"text": " but it gives your life direction", "meaning": "但它能为你的人生指明方向"},
+          {"text": " and a reason to keep growing.", "meaning": "并给你继续成长的理由"}
+        ],
+        "explanation": "guarantee 表示“保证”；keep doing 表示“持续做某事”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "achieve", "phonetic": "", "meaning": "实现；达成", "part_of_speech": "verb"},
+      {"word": "progress", "phonetic": "", "meaning": "进步；进展", "part_of_speech": "noun"},
+      {"word": "challenge", "phonetic": "", "meaning": "挑战", "part_of_speech": "noun"},
+      {"word": "adjust", "phonetic": "", "meaning": "调整", "part_of_speech": "verb"},
+      {"word": "direction", "phonetic": "", "meaning": "方向", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "take action", "meaning": "采取行动", "example": "It is time to take action."},
+      {"expression": "wait for the perfect moment", "meaning": "等待完美时机", "example": "Do not wait for the perfect moment."},
+      {"expression": "work toward a goal", "meaning": "朝着目标努力", "example": "She works toward her goal every day."},
+      {"expression": "feel like giving up", "meaning": "想要放弃", "example": "I sometimes feel like giving up."},
+      {"expression": "when necessary", "meaning": "在必要时", "example": "Change your plan when necessary."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "According to the article, how does progress often begin?", "options": ["With a small step", "With a perfect plan", "With no mistakes"], "answer": "With a small step", "explanation": "文章指出，进步往往始于一个小步骤。"},
+      {"type": "true_false", "question": "Following your dreams guarantees success.", "answer": false, "explanation": "文章明确说追寻梦想并不能保证成功。"},
+      {"type": "short_answer", "question": "What should you remember when you feel like giving up?", "answer": "Remember why you started.", "explanation": "文章建议在困难时记住自己最初出发的原因。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about goals, action, and persistence."
+    }
+  },
+  {
+    "article_id": 92,
+    "day": 272,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Decision Making",
+    "scene": "Everyday choices",
+    "title_en": "Making Difficult Choices",
+    "title_cn": "做出艰难的选择",
+    "difficulty": "B1",
+    "word_count": 105,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Making difficult choices is a normal part of life. Sometimes, we must choose between two things that both matter to us. We may worry about making the wrong decision or disappointing someone. In these situations, it helps to slow down and think clearly. First, understand what is most important to you. Then, consider the possible results of each choice. Asking someone you trust for advice can also be useful, but the final decision should be yours. No choice can make every person happy. Once you have made a decision, accept the result and learn from the experience. Even a difficult choice can help you understand yourself better.",
+    "content_cn": "做出艰难的选择是生活中很正常的一部分。有时，我们必须在两件对自己都很重要的事情之间做出选择。我们可能会担心做出错误的决定，或者让某个人失望。在这种情况下，放慢脚步、冷静思考会有所帮助。首先，弄清楚什么对你最重要。然后，考虑每个选择可能带来的结果。向你信任的人征求建议也很有用，但最终的决定应该由你自己做出。没有任何选择能够让所有人都满意。一旦做出决定，就要接受结果，并从这段经历中学习。即使是艰难的选择，也能帮助你更好地了解自己。",
+    "sentences": [
+      {
+        "sentence_en": "Making difficult choices is a normal part of life.",
+        "sentence_cn": "做出艰难的选择是生活中很正常的一部分。",
+        "chunks": [
+          {"text": "Making difficult choices", "meaning": "做出艰难的选择"},
+          {"text": " is", "meaning": "是"},
+          {"text": " a normal part of life.", "meaning": "生活中很正常的一部分"}
+        ],
+        "explanation": "动名词短语 Making difficult choices 作主语。"
+      },
+      {
+        "sentence_en": "Sometimes, we must choose between two things that both matter to us.",
+        "sentence_cn": "有时，我们必须在两件对自己都很重要的事情之间做出选择。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": " we must choose between two things", "meaning": "我们必须在两件事情之间做选择"},
+          {"text": " that both matter to us.", "meaning": "而这两件事对我们都很重要"}
+        ],
+        "explanation": "choose between A and B 表示“在A和B之间选择”；matter to 表示“对……重要”。"
+      },
+      {
+        "sentence_en": "We may worry about making the wrong decision or disappointing someone.",
+        "sentence_cn": "我们可能会担心做出错误的决定，或者让某个人失望。",
+        "chunks": [
+          {"text": "We may worry about", "meaning": "我们可能会担心"},
+          {"text": " making the wrong decision", "meaning": "做出错误的决定"},
+          {"text": " or disappointing someone.", "meaning": "或者让某人失望"}
+        ],
+        "explanation": "worry about 后接名词或动名词；disappoint 表示“使失望”。"
+      },
+      {
+        "sentence_en": "In these situations, it helps to slow down and think clearly.",
+        "sentence_cn": "在这种情况下，放慢脚步、冷静思考会有所帮助。",
+        "chunks": [
+          {"text": "In these situations,", "meaning": "在这些情况下"},
+          {"text": " it helps", "meaning": "会有所帮助"},
+          {"text": " to slow down and think clearly.", "meaning": "放慢速度并清晰地思考"}
+        ],
+        "explanation": "slow down 表示“放慢速度”；think clearly 表示“清晰地思考”。"
+      },
+      {
+        "sentence_en": "First, understand what is most important to you.",
+        "sentence_cn": "首先，弄清楚什么对你最重要。",
+        "chunks": [
+          {"text": "First,", "meaning": "首先"},
+          {"text": " understand", "meaning": "弄清楚"},
+          {"text": " what is most important to you.", "meaning": "什么对你最重要"}
+        ],
+        "explanation": "what 引导宾语从句，在从句中作主语。"
+      },
+      {
+        "sentence_en": "Then, consider the possible results of each choice.",
+        "sentence_cn": "然后，考虑每个选择可能带来的结果。",
+        "chunks": [
+          {"text": "Then,", "meaning": "然后"},
+          {"text": " consider", "meaning": "考虑"},
+          {"text": " the possible results of each choice.", "meaning": "每个选择可能带来的结果"}
+        ],
+        "explanation": "consider 后面可以直接接名词；possible 表示“可能的”。"
+      },
+      {
+        "sentence_en": "Asking someone you trust for advice can also be useful, but the final decision should be yours.",
+        "sentence_cn": "向你信任的人征求建议也很有用，但最终的决定应该由你自己做出。",
+        "chunks": [
+          {"text": "Asking someone you trust for advice", "meaning": "向你信任的人征求建议"},
+          {"text": " can also be useful,", "meaning": "也可能很有用"},
+          {"text": " but the final decision", "meaning": "但最终的决定"},
+          {"text": " should be yours.", "meaning": "应该由你自己做出"}
+        ],
+        "explanation": "ask someone for advice 表示“向某人征求建议”；yours 是名词性物主代词。"
+      },
+      {
+        "sentence_en": "No choice can make every person happy.",
+        "sentence_cn": "没有任何选择能够让所有人都满意。",
+        "chunks": [
+          {"text": "No choice", "meaning": "没有任何选择"},
+          {"text": " can make", "meaning": "能够让"},
+          {"text": " every person happy.", "meaning": "每个人都满意"}
+        ],
+        "explanation": "make + 宾语 + 形容词，表示“使某人处于某种状态”。"
+      },
+      {
+        "sentence_en": "Once you have made a decision, accept the result and learn from the experience.",
+        "sentence_cn": "一旦做出决定，就要接受结果，并从这段经历中学习。",
+        "chunks": [
+          {"text": "Once you have made a decision,", "meaning": "一旦你已经做出决定"},
+          {"text": " accept the result", "meaning": "接受结果"},
+          {"text": " and learn from the experience.", "meaning": "并从这段经历中学习"}
+        ],
+        "explanation": "once 引导时间状语从句；make a decision 表示“做决定”。"
+      },
+      {
+        "sentence_en": "Even a difficult choice can help you understand yourself better.",
+        "sentence_cn": "即使是艰难的选择，也能帮助你更好地了解自己。",
+        "chunks": [
+          {"text": "Even a difficult choice", "meaning": "即使是一个艰难的选择"},
+          {"text": " can help you", "meaning": "也能帮助你"},
+          {"text": " understand yourself better.", "meaning": "更好地了解自己"}
+        ],
+        "explanation": "help 后可接宾语加动词原形；better 是 well 的比较级。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "choice", "phonetic": "", "meaning": "选择", "part_of_speech": "noun"},
+      {"word": "decision", "phonetic": "", "meaning": "决定", "part_of_speech": "noun"},
+      {"word": "disappoint", "phonetic": "", "meaning": "使失望", "part_of_speech": "verb"},
+      {"word": "consider", "phonetic": "", "meaning": "考虑", "part_of_speech": "verb"},
+      {"word": "experience", "phonetic": "", "meaning": "经历；经验", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "make a difficult choice", "meaning": "做出艰难的选择", "example": "Sometimes we have to make a difficult choice."},
+      {"expression": "worry about", "meaning": "担心；忧虑", "example": "Do not worry about every small detail."},
+      {"expression": "slow down", "meaning": "放慢速度；冷静下来", "example": "Take a breath and slow down."},
+      {"expression": "ask for advice", "meaning": "征求建议", "example": "I asked my teacher for advice."},
+      {"expression": "learn from the experience", "meaning": "从经历中学习", "example": "We can learn from the experience."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What should you do first when facing a difficult choice?", "options": ["Understand what matters most to you", "Ask everyone to decide for you", "Choose as quickly as possible"], "answer": "Understand what matters most to you", "explanation": "文章建议首先弄清楚什么对自己最重要。"},
+      {"type": "true_false", "question": "The final decision should always be made by someone else.", "answer": false, "explanation": "文章指出可以征求建议，但最终决定应该由自己做出。"},
+      {"type": "short_answer", "question": "What can a difficult choice help you do?", "answer": "It can help you understand yourself better.", "explanation": "这是文章最后一句表达的观点。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about decision-making and personal responsibility."
+    }
+  },
+  {
+    "article_id": 93,
+    "day": 273,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Personal Growth",
+    "scene": "Daily responsibilities",
+    "title_en": "Taking Responsibility",
+    "title_cn": "承担责任",
+    "difficulty": "B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Taking responsibility means understanding that our choices have consequences. It is easy to blame other people when something goes wrong, but this does not solve the problem. Responsible people are willing to admit their mistakes and try to make things right. They do not always have all the answers, but they are ready to learn. Responsibility also means keeping promises and finishing what we start. At home, at work, and in our relationships, our actions affect others. We cannot control everything that happens, but we can control how we respond. When we take responsibility, we gain more control over our lives and become more reliable.",
+    "content_cn": "承担责任意味着明白我们的选择会带来后果。当事情出错时，责怪别人很容易，但这并不能解决问题。有责任感的人愿意承认自己的错误，并努力弥补。他们并不总是知道所有答案，但愿意学习。责任也意味着遵守承诺，并完成自己开始的事情。在家庭、工作和人际关系中，我们的行为都会影响他人。我们无法控制发生的一切，但可以控制自己如何回应。当我们承担责任时，就能对自己的生活拥有更多掌控，也会变得更加可靠。",
+    "sentences": [
+      {
+        "sentence_en": "Taking responsibility means understanding that our choices have consequences.",
+        "sentence_cn": "承担责任意味着明白我们的选择会带来后果。",
+        "chunks": [
+          {"text": "Taking responsibility", "meaning": "承担责任"},
+          {"text": " means understanding", "meaning": "意味着理解"},
+          {"text": " that our choices have consequences.", "meaning": "我们的选择会带来后果"}
+        ],
+        "explanation": "take responsibility 表示“承担责任”；consequence 表示“结果、后果”。"
+      },
+      {
+        "sentence_en": "It is easy to blame other people when something goes wrong, but this does not solve the problem.",
+        "sentence_cn": "当事情出错时，责怪别人很容易，但这并不能解决问题。",
+        "chunks": [
+          {"text": "It is easy to blame other people", "meaning": "责怪别人很容易"},
+          {"text": " when something goes wrong,", "meaning": "当某件事出错时"},
+          {"text": " but this does not solve the problem.", "meaning": "但这并不能解决问题"}
+        ],
+        "explanation": "go wrong 表示“出错”；blame someone 表示“责怪某人”。"
+      },
+      {
+        "sentence_en": "Responsible people are willing to admit their mistakes and try to make things right.",
+        "sentence_cn": "有责任感的人愿意承认自己的错误，并努力弥补。",
+        "chunks": [
+          {"text": "Responsible people", "meaning": "有责任感的人"},
+          {"text": " are willing to admit their mistakes", "meaning": "愿意承认自己的错误"},
+          {"text": " and try to make things right.", "meaning": "并努力把事情补救好"}
+        ],
+        "explanation": "be willing to 表示“愿意”；make things right 表示“纠正错误、弥补问题”。"
+      },
+      {
+        "sentence_en": "They do not always have all the answers, but they are ready to learn.",
+        "sentence_cn": "他们并不总是知道所有答案，但愿意学习。",
+        "chunks": [
+          {"text": "They do not always have all the answers,", "meaning": "他们并不总是拥有所有答案"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " they are ready to learn.", "meaning": "他们已经准备好学习"}
+        ],
+        "explanation": "not always 表示“不总是”；be ready to do 表示“准备好做某事”。"
+      },
+      {
+        "sentence_en": "Responsibility also means keeping promises and finishing what we start.",
+        "sentence_cn": "责任也意味着遵守承诺，并完成自己开始的事情。",
+        "chunks": [
+          {"text": "Responsibility also means", "meaning": "责任也意味着"},
+          {"text": " keeping promises", "meaning": "遵守承诺"},
+          {"text": " and finishing what we start.", "meaning": "并完成我们开始的事情"}
+        ],
+        "explanation": "mean doing something 表示“意味着做某事”；what we start 是宾语从句。"
+      },
+      {
+        "sentence_en": "At home, at work, and in our relationships, our actions affect others.",
+        "sentence_cn": "在家庭、工作和人际关系中，我们的行为都会影响他人。",
+        "chunks": [
+          {"text": "At home, at work,", "meaning": "在家里、在工作中"},
+          {"text": " and in our relationships,", "meaning": "以及在人际关系中"},
+          {"text": " our actions affect others.", "meaning": "我们的行为会影响他人"}
+        ],
+        "explanation": "affect 是动词，表示“影响”；others 表示“其他人”。"
+      },
+      {
+        "sentence_en": "We cannot control everything that happens, but we can control how we respond.",
+        "sentence_cn": "我们无法控制发生的一切，但可以控制自己如何回应。",
+        "chunks": [
+          {"text": "We cannot control everything", "meaning": "我们无法控制所有事情"},
+          {"text": " that happens,", "meaning": "那些发生的事情"},
+          {"text": " but we can control", "meaning": "但我们可以控制"},
+          {"text": " how we respond.", "meaning": "自己如何回应"}
+        ],
+        "explanation": "that happens 修饰 everything；how we respond 是宾语从句。"
+      },
+      {
+        "sentence_en": "When we take responsibility, we gain more control over our lives and become more reliable.",
+        "sentence_cn": "当我们承担责任时，就能对自己的生活拥有更多掌控，也会变得更加可靠。",
+        "chunks": [
+          {"text": "When we take responsibility,", "meaning": "当我们承担责任时"},
+          {"text": " we gain more control over our lives", "meaning": "我们对自己的生活拥有更多掌控"},
+          {"text": " and become more reliable.", "meaning": "并变得更加可靠"}
+        ],
+        "explanation": "gain control over 表示“获得对……的掌控”；reliable 表示“可靠的”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "responsibility", "phonetic": "", "meaning": "责任", "part_of_speech": "noun"},
+      {"word": "consequence", "phonetic": "", "meaning": "结果；后果", "part_of_speech": "noun"},
+      {"word": "blame", "phonetic": "", "meaning": "责怪；指责", "part_of_speech": "verb"},
+      {"word": "admit", "phonetic": "", "meaning": "承认", "part_of_speech": "verb"},
+      {"word": "reliable", "phonetic": "", "meaning": "可靠的", "part_of_speech": "adjective"}
+    ],
+    "expressions": [
+      {"expression": "take responsibility", "meaning": "承担责任", "example": "We should take responsibility for our actions."},
+      {"expression": "go wrong", "meaning": "出错；出现问题", "example": "Something went wrong with the plan."},
+      {"expression": "admit a mistake", "meaning": "承认错误", "example": "It takes courage to admit a mistake."},
+      {"expression": "make things right", "meaning": "弥补错误；把事情做好", "example": "He tried to make things right."},
+      {"expression": "be ready to learn", "meaning": "愿意学习；准备好学习", "example": "Stay curious and be ready to learn."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "What do responsible people do when they make mistakes?", "options": ["Admit them and try to make things right", "Always blame others", "Pretend nothing happened"], "answer": "Admit them and try to make things right", "explanation": "文章第三句直接描述了有责任感的人如何面对错误。"},
+      {"type": "true_false", "question": "We can control everything that happens in our lives.", "answer": false, "explanation": "文章指出，我们无法控制所有事情，但可以控制自己的回应。"},
+      {"type": "short_answer", "question": "What does taking responsibility help us gain?", "answer": "More control over our lives and greater reliability.", "explanation": "答案来自文章最后一句。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about personal responsibility."
+    }
+  },
+  {
+    "article_id": 94,
+    "day": 274,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Personal Growth",
+    "scene": "Boundaries and relationships",
+    "title_en": "The Courage to Say No",
+    "title_cn": "拒绝的勇气",
+    "difficulty": "B1",
+    "word_count": 103,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Many people find it difficult to say no because they do not want to disappoint others. They may agree to things they do not really want to do. Over time, this can make them feel tired and unhappy. Saying no does not mean being selfish or unkind. It means understanding your limits and respecting your own needs. Of course, we should consider other people's feelings when we refuse a request. A clear and polite answer is often better than making a promise we cannot keep. We cannot please everyone all the time. Learning to say no helps us protect our time, energy, and personal boundaries.",
+    "content_cn": "许多人觉得拒绝很困难，因为他们不想让别人失望。他们可能会答应一些自己其实并不想做的事情。久而久之，这会让他们感到疲惫和不快乐。说“不”并不意味着自私或不友善，而是意味着了解自己的限度，并尊重自己的需求。当然，在拒绝请求时，我们也应该考虑别人的感受。清晰而礼貌地回答，通常比做出无法兑现的承诺更好。我们不可能一直让所有人满意。学会拒绝，有助于保护自己的时间、精力和个人边界。",
+    "sentences": [
+      {
+        "sentence_en": "Many people find it difficult to say no because they do not want to disappoint others.",
+        "sentence_cn": "许多人觉得拒绝很困难，因为他们不想让别人失望。",
+        "chunks": [
+          {"text": "Many people find it difficult", "meaning": "许多人觉得这很困难"},
+          {"text": " to say no", "meaning": "说不；拒绝"},
+          {"text": " because they do not want", "meaning": "因为他们不想"},
+          {"text": " to disappoint others.", "meaning": "让别人失望"}
+        ],
+        "explanation": "find it + 形容词 + to do 表示“觉得做某事……”；disappoint 表示“使失望”。"
+      },
+      {
+        "sentence_en": "They may agree to things they do not really want to do.",
+        "sentence_cn": "他们可能会答应一些自己其实并不想做的事情。",
+        "chunks": [
+          {"text": "They may agree to things", "meaning": "他们可能会答应一些事情"},
+          {"text": " they do not really want to do.", "meaning": "而这些事情他们其实并不想做"}
+        ],
+        "explanation": "agree to 表示“同意、答应”；they do not really want to do 是修饰 things 的定语从句。"
+      },
+      {
+        "sentence_en": "Over time, this can make them feel tired and unhappy.",
+        "sentence_cn": "久而久之，这会让他们感到疲惫和不快乐。",
+        "chunks": [
+          {"text": "Over time,", "meaning": "随着时间推移"},
+          {"text": " this can make them feel", "meaning": "这可能会让他们感到"},
+          {"text": " tired and unhappy.", "meaning": "疲惫和不快乐"}
+        ],
+        "explanation": "make someone feel 表示“使某人感到”；over time 表示“久而久之”。"
+      },
+      {
+        "sentence_en": "Saying no does not mean being selfish or unkind.",
+        "sentence_cn": "说“不”并不意味着自私或不友善。",
+        "chunks": [
+          {"text": "Saying no", "meaning": "说不；拒绝"},
+          {"text": " does not mean", "meaning": "并不意味着"},
+          {"text": " being selfish or unkind.", "meaning": "自私或不友善"}
+        ],
+        "explanation": "动名词 Saying no 作主语；mean 后接动名词表示“意味着”。"
+      },
+      {
+        "sentence_en": "It means understanding your limits and respecting your own needs.",
+        "sentence_cn": "而是意味着了解自己的限度，并尊重自己的需求。",
+        "chunks": [
+          {"text": "It means", "meaning": "它意味着"},
+          {"text": " understanding your limits", "meaning": "了解自己的限度"},
+          {"text": " and respecting your own needs.", "meaning": "并尊重自己的需求"}
+        ],
+        "explanation": "limit 表示“限度”；respect 表示“尊重”。"
+      },
+      {
+        "sentence_en": "Of course, we should consider other people's feelings when we refuse a request.",
+        "sentence_cn": "当然，在拒绝请求时，我们也应该考虑别人的感受。",
+        "chunks": [
+          {"text": "Of course,", "meaning": "当然"},
+          {"text": " we should consider other people's feelings", "meaning": "我们应该考虑别人的感受"},
+          {"text": " when we refuse a request.", "meaning": "当我们拒绝一个请求时"}
+        ],
+        "explanation": "consider 表示“考虑”；refuse a request 表示“拒绝请求”。"
+      },
+      {
+        "sentence_en": "A clear and polite answer is often better than making a promise we cannot keep.",
+        "sentence_cn": "清晰而礼貌地回答，通常比做出无法兑现的承诺更好。",
+        "chunks": [
+          {"text": "A clear and polite answer", "meaning": "清晰而礼貌的回答"},
+          {"text": " is often better than", "meaning": "通常比……更好"},
+          {"text": " making a promise we cannot keep.", "meaning": "做出一个我们无法兑现的承诺"}
+        ],
+        "explanation": "better than 表示“比……更好”；keep a promise 表示“遵守承诺”。"
+      },
+      {
+        "sentence_en": "We cannot please everyone all the time.",
+        "sentence_cn": "我们不可能一直让所有人满意。",
+        "chunks": [
+          {"text": "We cannot please", "meaning": "我们不可能让……满意"},
+          {"text": " everyone", "meaning": "每个人"},
+          {"text": " all the time.", "meaning": "一直；始终"}
+        ],
+        "explanation": "please 在这里是动词，表示“使满意”；all the time 表示“一直”。"
+      },
+      {
+        "sentence_en": "Learning to say no helps us protect our time, energy, and personal boundaries.",
+        "sentence_cn": "学会拒绝，有助于保护自己的时间、精力和个人边界。",
+        "chunks": [
+          {"text": "Learning to say no", "meaning": "学会拒绝"},
+          {"text": " helps us protect", "meaning": "帮助我们保护"},
+          {"text": " our time, energy, and personal boundaries.", "meaning": "我们的时间、精力和个人边界"}
+        ],
+        "explanation": "help someone do something 表示“帮助某人做某事”；boundary 表示“边界、界限”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "disappoint", "phonetic": "", "meaning": "使失望", "part_of_speech": "verb"},
+      {"word": "selfish", "phonetic": "", "meaning": "自私的", "part_of_speech": "adjective"},
+      {"word": "limit", "phonetic": "", "meaning": "限度；界限", "part_of_speech": "noun"},
+      {"word": "refuse", "phonetic": "", "meaning": "拒绝", "part_of_speech": "verb"},
+      {"word": "boundary", "phonetic": "", "meaning": "边界；界限", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "say no", "meaning": "拒绝；说不", "example": "It is okay to say no sometimes."},
+      {"expression": "agree to", "meaning": "同意；答应", "example": "She agreed to help me."},
+      {"expression": "over time", "meaning": "随着时间推移", "example": "Small habits can change your life over time."},
+      {"expression": "keep a promise", "meaning": "遵守承诺", "example": "Do not make a promise you cannot keep."},
+      {"expression": "personal boundaries", "meaning": "个人边界", "example": "Healthy relationships need personal boundaries."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "Why do many people find it difficult to say no?", "options": ["They do not want to disappoint others.", "They have too much free time.", "They dislike making plans."], "answer": "They do not want to disappoint others.", "explanation": "文章第一句直接说明了这一原因。"},
+      {"type": "true_false", "question": "Saying no always means being selfish.", "answer": false, "explanation": "文章指出，拒绝也可以是了解自己的限度并尊重自身需求。"},
+      {"type": "short_answer", "question": "What can learning to say no help us protect?", "answer": "Our time, energy, and personal boundaries.", "explanation": "答案来自文章最后一句。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about healthy boundaries and polite refusal."
+    }
+  },
+  {
+    "article_id": 95,
+    "day": 275,
+    "stage": 5,
+    "cefr": "B1",
+    "category": "Decision Making",
+    "scene": "Personal growth",
+    "title_en": "When Should We Give Up?",
+    "title_cn": "我们什么时候应该放弃",
+    "difficulty": "B1",
+    "word_count": 106,
+    "estimated_reading_time_seconds": 57,
+    "content_en": "People often say that we should never give up, but is that always true? Persistence is important when we are working toward something meaningful. However, continuing in the wrong direction can waste our time and energy. Sometimes, a goal no longer matches our values or current situation. In that case, changing direction may be a wise choice. Giving up one plan does not mean giving up on life. It can mean making room for a better opportunity. Before making a decision, think about why you started and what has changed. The key is to know the difference between quitting because things are difficult and stopping because something is no longer right for you.",
+    "content_cn": "人们常说我们永远不应该放弃，但这真的总是正确的吗？当我们朝着有意义的事情努力时，坚持很重要。然而，沿着错误的方向继续前进，可能会浪费我们的时间和精力。有时，一个目标已经不再符合我们的价值观或当前处境。在这种情况下，改变方向可能是明智的选择。放弃一个计划，并不意味着放弃人生。它也可能意味着为更好的机会腾出空间。在做决定之前，想一想自己当初为什么开始，以及现在发生了什么变化。关键在于分清：我们是因为事情困难而放弃，还是因为这件事已经不再适合自己而选择停下。",
+    "sentences": [
+      {
+        "sentence_en": "People often say that we should never give up, but is that always true?",
+        "sentence_cn": "人们常说我们永远不应该放弃，但这真的总是正确的吗？",
+        "chunks": [
+          {"text": "People often say that", "meaning": "人们常说"},
+          {"text": " we should never give up,", "meaning": "我们永远不应该放弃"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " is that always true?", "meaning": "这真的总是正确的吗"}
+        ],
+        "explanation": "give up 表示“放弃”；that 引导宾语从句。"
+      },
+      {
+        "sentence_en": "Persistence is important when we are working toward something meaningful.",
+        "sentence_cn": "当我们朝着有意义的事情努力时，坚持很重要。",
+        "chunks": [
+          {"text": "Persistence is important", "meaning": "坚持很重要"},
+          {"text": " when we are working toward", "meaning": "当我们朝着……努力时"},
+          {"text": " something meaningful.", "meaning": "某件有意义的事情"}
+        ],
+        "explanation": "persistence 表示“坚持”；work toward 表示“朝着……努力”。"
+      },
+      {
+        "sentence_en": "However, continuing in the wrong direction can waste our time and energy.",
+        "sentence_cn": "然而，沿着错误的方向继续前进，可能会浪费我们的时间和精力。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": " continuing in the wrong direction", "meaning": "沿着错误的方向继续"},
+          {"text": " can waste our time and energy.", "meaning": "可能会浪费我们的时间和精力"}
+        ],
+        "explanation": "continuing 是动名词；waste time and energy 表示“浪费时间和精力”。"
+      },
+      {
+        "sentence_en": "Sometimes, a goal no longer matches our values or current situation.",
+        "sentence_cn": "有时，一个目标已经不再符合我们的价值观或当前处境。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时"},
+          {"text": " a goal", "meaning": "一个目标"},
+          {"text": " no longer matches", "meaning": "不再符合"},
+          {"text": " our values or current situation.", "meaning": "我们的价值观或当前处境"}
+        ],
+        "explanation": "no longer 表示“不再”；match 表示“符合、匹配”。"
+      },
+      {
+        "sentence_en": "In that case, changing direction may be a wise choice.",
+        "sentence_cn": "在这种情况下，改变方向可能是明智的选择。",
+        "chunks": [
+          {"text": "In that case,", "meaning": "在那种情况下"},
+          {"text": " changing direction", "meaning": "改变方向"},
+          {"text": " may be a wise choice.", "meaning": "可能是一个明智的选择"}
+        ],
+        "explanation": "in that case 表示“在那种情况下”；wise 表示“明智的”。"
+      },
+      {
+        "sentence_en": "Giving up one plan does not mean giving up on life.",
+        "sentence_cn": "放弃一个计划，并不意味着放弃人生。",
+        "chunks": [
+          {"text": "Giving up one plan", "meaning": "放弃一个计划"},
+          {"text": " does not mean", "meaning": "并不意味着"},
+          {"text": " giving up on life.", "meaning": "放弃人生"}
+        ],
+        "explanation": "give up a plan 是放弃某个计划；give up on life 表示对人生失去希望，语义不同。"
+      },
+      {
+        "sentence_en": "It can mean making room for a better opportunity.",
+        "sentence_cn": "它也可能意味着为更好的机会腾出空间。",
+        "chunks": [
+          {"text": "It can mean", "meaning": "它也可能意味着"},
+          {"text": " making room for", "meaning": "为……腾出空间"},
+          {"text": " a better opportunity.", "meaning": "一个更好的机会"}
+        ],
+        "explanation": "make room for 表示“为……腾出空间”；opportunity 表示“机会”。"
+      },
+      {
+        "sentence_en": "Before making a decision, think about why you started and what has changed.",
+        "sentence_cn": "在做决定之前，想一想自己当初为什么开始，以及现在发生了什么变化。",
+        "chunks": [
+          {"text": "Before making a decision,", "meaning": "在做决定之前"},
+          {"text": " think about", "meaning": "思考"},
+          {"text": " why you started", "meaning": "你当初为什么开始"},
+          {"text": " and what has changed.", "meaning": "以及发生了什么变化"}
+        ],
+        "explanation": "before 后接动名词；why 和 what 分别引导宾语从句。"
+      },
+      {
+        "sentence_en": "The key is to know the difference between quitting because things are difficult and stopping because something is no longer right for you.",
+        "sentence_cn": "关键在于分清：我们是因为事情困难而放弃，还是因为这件事已经不再适合自己而选择停下。",
+        "chunks": [
+          {"text": "The key is to know", "meaning": "关键在于明白"},
+          {"text": " the difference between", "meaning": "……之间的区别"},
+          {"text": " quitting because things are difficult", "meaning": "因为事情困难而放弃"},
+          {"text": " and stopping because something is no longer right for you.", "meaning": "以及因为某件事不再适合自己而停下"}
+        ],
+        "explanation": "the difference between A and B 表示“A与B之间的区别”；no longer right for you 表示“不再适合你”。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "persistence", "phonetic": "", "meaning": "坚持；毅力", "part_of_speech": "noun"},
+      {"word": "direction", "phonetic": "", "meaning": "方向", "part_of_speech": "noun"},
+      {"word": "meaningful", "phonetic": "", "meaning": "有意义的", "part_of_speech": "adjective"},
+      {"word": "opportunity", "phonetic": "", "meaning": "机会", "part_of_speech": "noun"},
+      {"word": "quit", "phonetic": "", "meaning": "放弃；停止", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "give up", "meaning": "放弃", "example": "Do not give up too easily."},
+      {"expression": "work toward", "meaning": "朝着……努力", "example": "She is working toward a better future."},
+      {"expression": "no longer", "meaning": "不再", "example": "This plan is no longer useful."},
+      {"expression": "in that case", "meaning": "在那种情况下", "example": "In that case, we should try another way."},
+      {"expression": "make room for", "meaning": "为……腾出空间", "example": "Make room for new ideas."}
+    ],
+    "questions": [
+      {"type": "multiple_choice", "question": "When might changing direction be a wise choice?", "options": ["When a goal no longer matches our values or situation", "Whenever something becomes slightly difficult", "Whenever someone disagrees with us"], "answer": "When a goal no longer matches our values or situation", "explanation": "文章指出，当目标不再符合自身价值观或处境时，改变方向可能是明智的。"},
+      {"type": "true_false", "question": "Giving up one plan always means giving up on life.", "answer": false, "explanation": "文章明确区分了放弃一个计划和放弃人生。"},
+      {"type": "short_answer", "question": "What should we think about before deciding to stop?", "answer": "We should think about why we started and what has changed.", "explanation": "这是文章倒数第二句给出的建议。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "Within target range",
+      "american_english": "Passed",
+      "translation": "Passed",
+      "chunking": "Chunks preserve original sentence wording and punctuation.",
+      "notes": "B1-level reading about persistence, changing direction, and thoughtful decisions."
+    }
+  }
+]

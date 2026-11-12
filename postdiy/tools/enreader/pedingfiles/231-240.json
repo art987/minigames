@@ -1,0 +1,1337 @@
+[
+  {
+    "article_id": 51,
+    "day": 231,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Social Conversation",
+    "title_en": "Making Small Talk",
+    "title_cn": "闲聊与寒暄",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "I used to feel nervous when I had to make small talk with people I did not know well. I never knew what to say, so I often stayed quiet. One day, I started talking to a neighbor while we were waiting for the elevator. I asked how his day was going, and he told me about his new job. Soon, we were chatting like old friends. I learned that small talk does not need to be interesting or clever. A simple question and a friendly smile can make people feel comfortable. Now, I try to start short conversations whenever I get the chance.",
+    "content_cn": "过去，当我不得不和不太熟悉的人闲聊时，我常常感到紧张。我不知道该说什么，所以经常保持沉默。一天，我在等电梯时开始和一位邻居聊天。我问他今天过得怎么样，他告诉我他的新工作。不久，我们就像老朋友一样聊了起来。我明白了，闲聊不一定要有趣或聪明。一个简单的问题和友好的微笑，就能让人感到自在。现在，只要有机会，我就会尝试开启简短的对话。",
+    "sentences": [
+      {
+        "sentence_en": "I used to feel nervous when I had to make small talk with people I did not know well.",
+        "sentence_cn": "过去，当我不得不和不太熟悉的人闲聊时，我常常感到紧张。",
+        "chunks": [
+          {"text": "I used to feel nervous", "meaning": "我过去常常感到紧张"},
+          {"text": " when I had to make small talk", "meaning": "当我不得不闲聊时"},
+          {"text": " with people", "meaning": "和别人"},
+          {"text": " I did not know well.", "meaning": "那些我不太熟悉的人"}
+        ],
+        "explanation": "used to 表示过去经常发生、现在可能已经改变的习惯。make small talk 指进行轻松的闲聊。"
+      },
+      {
+        "sentence_en": "I never knew what to say, so I often stayed quiet.",
+        "sentence_cn": "我不知道该说什么，所以经常保持沉默。",
+        "chunks": [
+          {"text": "I never knew", "meaning": "我从来不知道"},
+          {"text": " what to say,", "meaning": "该说些什么"},
+          {"text": " so I often stayed quiet.", "meaning": "所以我经常保持安静"}
+        ],
+        "explanation": "what to say 是疑问词加不定式结构，表示“该说什么”。stay quiet 表示保持安静。"
+      },
+      {
+        "sentence_en": "One day, I started talking to a neighbor while we were waiting for the elevator.",
+        "sentence_cn": "一天，我们等电梯时，我开始和一位邻居聊天。",
+        "chunks": [
+          {"text": "One day,", "meaning": "一天"},
+          {"text": " I started talking to a neighbor", "meaning": "我开始和一位邻居交谈"},
+          {"text": " while we were waiting", "meaning": "当我们正在等待时"},
+          {"text": " for the elevator.", "meaning": "电梯"}
+        ],
+        "explanation": "start doing something 表示开始做某事。while 引导时间状语从句，强调两个动作同时发生。"
+      },
+      {
+        "sentence_en": "I asked how his day was going, and he told me about his new job.",
+        "sentence_cn": "我问他今天过得怎么样，他告诉我他的新工作。",
+        "chunks": [
+          {"text": "I asked", "meaning": "我问道"},
+          {"text": " how his day was going,", "meaning": "他今天过得怎么样"},
+          {"text": " and he told me", "meaning": "他告诉我"},
+          {"text": " about his new job.", "meaning": "关于他的新工作"}
+        ],
+        "explanation": "how his day was going 是间接疑问句，语序使用陈述句语序。tell someone about something 表示告诉某人某事。"
+      },
+      {
+        "sentence_en": "Soon, we were chatting like old friends.",
+        "sentence_cn": "不久，我们就像老朋友一样聊了起来。",
+        "chunks": [
+          {"text": "Soon,", "meaning": "不久"},
+          {"text": " we were chatting", "meaning": "我们聊了起来"},
+          {"text": " like old friends.", "meaning": "像老朋友一样"}
+        ],
+        "explanation": "were chatting 是过去进行时，描写当时持续进行的聊天状态。like 在这里表示“像”。"
+      },
+      {
+        "sentence_en": "I learned that small talk does not need to be interesting or clever.",
+        "sentence_cn": "我明白了，闲聊不一定要有趣或聪明。",
+        "chunks": [
+          {"text": "I learned", "meaning": "我明白了"},
+          {"text": " that small talk", "meaning": "闲聊"},
+          {"text": " does not need to be", "meaning": "不需要是"},
+          {"text": " interesting or clever.", "meaning": "有趣或巧妙的"}
+        ],
+        "explanation": "need to be 表示需要处于某种状态。not...or... 在否定句中表示“既不……也不……”。"
+      },
+      {
+        "sentence_en": "A simple question and a friendly smile can make people feel comfortable.",
+        "sentence_cn": "一个简单的问题和友好的微笑，就能让人感到自在。",
+        "chunks": [
+          {"text": "A simple question", "meaning": "一个简单的问题"},
+          {"text": " and a friendly smile", "meaning": "和一个友好的微笑"},
+          {"text": " can make people", "meaning": "能够让人"},
+          {"text": " feel comfortable.", "meaning": "感到自在"}
+        ],
+        "explanation": "make someone do something 表示让某人做某事；feel comfortable 表示感到舒服、自在。"
+      },
+      {
+        "sentence_en": "Now, I try to start short conversations whenever I get the chance.",
+        "sentence_cn": "现在，只要有机会，我就会尝试开启简短的对话。",
+        "chunks": [
+          {"text": "Now,", "meaning": "现在"},
+          {"text": " I try to start", "meaning": "我尝试开始"},
+          {"text": " short conversations", "meaning": "简短的交谈"},
+          {"text": " whenever I get the chance.", "meaning": "每当我有机会时"}
+        ],
+        "explanation": "try to do something 表示尝试做某事。whenever 意为“每当、无论何时”，get the chance 表示获得机会。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "nervous", "phonetic": "", "meaning": "紧张的", "part_of_speech": "形容词"},
+      {"word": "neighbor", "phonetic": "", "meaning": "邻居", "part_of_speech": "名词"},
+      {"word": "elevator", "phonetic": "", "meaning": "电梯", "part_of_speech": "名词"},
+      {"word": "comfortable", "phonetic": "", "meaning": "自在的；舒适的", "part_of_speech": "形容词"},
+      {"word": "conversation", "phonetic": "", "meaning": "交谈；对话", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "make small talk", "meaning": "闲聊；寒暄", "example": "It's easy to make small talk with her."},
+      {"expression": "what to say", "meaning": "该说什么", "example": "I don't always know what to say."},
+      {"expression": "talk to someone", "meaning": "和某人交谈", "example": "I talked to my neighbor yesterday."},
+      {"expression": "like old friends", "meaning": "像老朋友一样", "example": "They laughed together like old friends."},
+      {"expression": "get the chance", "meaning": "有机会", "example": "I'll ask him when I get the chance."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Where did the writer start talking to the neighbor?", "options": ["At a bus stop", "In an elevator", "While waiting for the elevator", "At work"], "answer": "While waiting for the elevator", "explanation": "文章提到作者在等电梯时开始和邻居聊天。"},
+      {"type": "原因理解", "question": "Why did the writer often stay quiet in the past?", "options": ["He was always busy.", "He did not know what to say.", "He disliked his neighbors.", "He was tired."], "answer": "He did not know what to say.", "explanation": "作者说自己不知道该说什么，所以经常保持沉默。"},
+      {"type": "主旨理解", "question": "What did the writer learn about small talk?", "options": ["It must be funny.", "It should be very long.", "Simple questions can help people feel comfortable.", "Only close friends can enjoy it."], "answer": "Simple questions can help people feel comfortable.", "explanation": "文章强调简单的问题和友好的微笑就能让人感到自在。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "主题聚焦日常闲聊，包含过去习惯与现在变化的表达。"
+    }
+  },
+  {
+    "article_id": 52,
+    "day": 232,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Casual Conversation",
+    "title_en": "Talking About the Weather",
+    "title_cn": "聊聊天气",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "The weather is one of the easiest topics to talk about with almost anyone. Yesterday, I met a new coworker outside the office. It was raining heavily, so I said, “What a rainy day!” She laughed and told me that she preferred sunny weather. I said I enjoyed rainy days because they made me want to stay home and read. We soon discovered that we both liked talking about the seasons. Although the weather may seem like a boring subject, it can help people begin a conversation. Sometimes, a simple comment about the sky is all you need to start talking.",
+    "content_cn": "天气是一个很容易与几乎任何人聊起来的话题。昨天，我在办公室外遇到一位新同事。当时雨下得很大，所以我说：“真是个下雨天啊！”她笑了笑，告诉我她更喜欢晴天。我说我喜欢雨天，因为雨天会让我想待在家里看书。我们很快发现，我们都喜欢聊季节。虽然天气看起来可能是个无聊的话题，但它能帮助人们开启对话。有时候，简单地评论一下天空，就足以让你开始聊天。",
+    "sentences": [
+      {
+        "sentence_en": "The weather is one of the easiest topics to talk about with almost anyone.",
+        "sentence_cn": "天气是一个很容易与几乎任何人聊起来的话题。",
+        "chunks": [
+          {"text": "The weather", "meaning": "天气"},
+          {"text": " is one of the easiest topics", "meaning": "是最容易的话题之一"},
+          {"text": " to talk about", "meaning": "可以拿来交谈"},
+          {"text": " with almost anyone.", "meaning": "与几乎任何人"}
+        ],
+        "explanation": "one of the + 最高级 + 名词复数，表示“最……的……之一”。talk about 表示谈论。"
+      },
+      {
+        "sentence_en": "Yesterday, I met a new coworker outside the office.",
+        "sentence_cn": "昨天，我在办公室外遇到一位新同事。",
+        "chunks": [
+          {"text": "Yesterday,", "meaning": "昨天"},
+          {"text": " I met", "meaning": "我遇到了"},
+          {"text": " a new coworker", "meaning": "一位新同事"},
+          {"text": " outside the office.", "meaning": "在办公室外面"}
+        ],
+        "explanation": "met 是 meet 的过去式，表示遇见。coworker 是美式英语中常用的“同事”。"
+      },
+      {
+        "sentence_en": "It was raining heavily, so I said, “What a rainy day!”",
+        "sentence_cn": "当时雨下得很大，所以我说：“真是个下雨天啊！”",
+        "chunks": [
+          {"text": "It was raining heavily,", "meaning": "当时雨下得很大"},
+          {"text": " so I said,", "meaning": "所以我说"},
+          {"text": " “What a rainy day!”", "meaning": "“真是个下雨天啊！”"}
+        ],
+        "explanation": "was raining 是过去进行时。What a...! 是感叹句结构，表达强烈感受。"
+      },
+      {
+        "sentence_en": "She laughed and told me that she preferred sunny weather.",
+        "sentence_cn": "她笑了笑，告诉我她更喜欢晴天。",
+        "chunks": [
+          {"text": "She laughed", "meaning": "她笑了"},
+          {"text": " and told me", "meaning": "并告诉我"},
+          {"text": " that she preferred", "meaning": "她更喜欢"},
+          {"text": " sunny weather.", "meaning": "晴朗的天气"}
+        ],
+        "explanation": "prefer 表示更喜欢。preferred 是过去式，与前面的 laughed 和 told 保持时态一致。"
+      },
+      {
+        "sentence_en": "I said I enjoyed rainy days because they made me want to stay home and read.",
+        "sentence_cn": "我说我喜欢雨天，因为雨天会让我想待在家里看书。",
+        "chunks": [
+          {"text": "I said", "meaning": "我说"},
+          {"text": " I enjoyed rainy days", "meaning": "我喜欢雨天"},
+          {"text": " because they made me want", "meaning": "因为它们让我想要"},
+          {"text": " to stay home and read.", "meaning": "待在家里看书"}
+        ],
+        "explanation": "make someone want to do something 表示让某人想做某事。stay home 是美式常用表达。"
+      },
+      {
+        "sentence_en": "We soon discovered that we both liked talking about the seasons.",
+        "sentence_cn": "我们很快发现，我们都喜欢聊季节。",
+        "chunks": [
+          {"text": "We soon discovered", "meaning": "我们很快发现"},
+          {"text": " that we both liked", "meaning": "我们两个人都喜欢"},
+          {"text": " talking about the seasons.", "meaning": "谈论季节"}
+        ],
+        "explanation": "both 表示两者都。like doing something 表示喜欢做某事。"
+      },
+      {
+        "sentence_en": "Although the weather may seem like a boring subject, it can help people begin a conversation.",
+        "sentence_cn": "虽然天气看起来可能是个无聊的话题，但它能帮助人们开启对话。",
+        "chunks": [
+          {"text": "Although the weather", "meaning": "虽然天气"},
+          {"text": " may seem like a boring subject,", "meaning": "可能看起来像一个无聊的话题"},
+          {"text": " it can help people", "meaning": "它能够帮助人们"},
+          {"text": " begin a conversation.", "meaning": "开始一段对话"}
+        ],
+        "explanation": "although 引导让步状语从句。seem like 表示看起来像；help someone do something 表示帮助某人做某事。"
+      },
+      {
+        "sentence_en": "Sometimes, a simple comment about the sky is all you need to start talking.",
+        "sentence_cn": "有时候，简单地评论一下天空，就足以让你开始聊天。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": " a simple comment about the sky", "meaning": "一句关于天空的简单评论"},
+          {"text": " is all you need", "meaning": "就是你所需要的一切"},
+          {"text": " to start talking.", "meaning": "用来开始交谈"}
+        ],
+        "explanation": "all you need 表示“你所需要的一切”。to start talking 说明 comment 的用途。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "weather", "phonetic": "", "meaning": "天气", "part_of_speech": "名词"},
+      {"word": "coworker", "phonetic": "", "meaning": "同事", "part_of_speech": "名词"},
+      {"word": "heavily", "phonetic": "", "meaning": "猛烈地；大量地", "part_of_speech": "副词"},
+      {"word": "prefer", "phonetic": "", "meaning": "更喜欢", "part_of_speech": "动词"},
+      {"word": "subject", "phonetic": "", "meaning": "话题；主题", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "talk about the weather", "meaning": "谈论天气", "example": "We talked about the weather on the way home."},
+      {"expression": "What a rainy day!", "meaning": "真是个下雨天！", "example": "What a rainy day! I forgot my umbrella."},
+      {"expression": "prefer sunny weather", "meaning": "更喜欢晴朗的天气", "example": "My parents prefer sunny weather."},
+      {"expression": "stay home", "meaning": "待在家里", "example": "I want to stay home this weekend."},
+      {"expression": "begin a conversation", "meaning": "开启一段对话", "example": "A friendly question can begin a conversation."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Where did the writer meet the new coworker?", "options": ["At home", "Outside the office", "At a restaurant", "On a bus"], "answer": "Outside the office", "explanation": "文章第一段提到作者在办公室外遇到新同事。"},
+      {"type": "细节理解", "question": "What kind of weather did the coworker prefer?", "options": ["Rainy weather", "Snowy weather", "Sunny weather", "Windy weather"], "answer": "Sunny weather", "explanation": "同事告诉作者，她更喜欢晴天。"},
+      {"type": "主旨理解", "question": "Why is weather a useful topic for conversation?", "options": ["Everyone likes rain.", "It helps people begin talking.", "It is always exciting.", "It gives people important news."], "answer": "It helps people begin talking.", "explanation": "文章指出，简单评论天气就能帮助人们开启对话。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "97词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过天气话题展示自然开启日常对话的方式。"
+    }
+  },
+  {
+    "article_id": 53,
+    "day": 233,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Sharing Personal Experiences",
+    "title_en": "Sharing Weekend Stories",
+    "title_cn": "分享周末趣事",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "On Monday morning, my coworkers often ask each other about the weekend. Last weekend, I visited a small town with my sister. We walked around the old streets, tried some local food, and took many pictures. The best part was finding a quiet coffee shop near the river. I told my coworkers about it during lunch. They asked me what the town was like and whether I would visit again. Sharing a weekend story is a good way to connect with others. You do not need an exciting adventure. Even a small, happy moment can give people something to talk about.",
+    "content_cn": "周一早上，我的同事们经常互相询问周末过得怎么样。上周末，我和姐姐去了一个小镇。我们在老街上散步，品尝了当地美食，还拍了很多照片。最棒的是，我们在河边发现了一家安静的咖啡馆。午餐时，我把这件事告诉了同事。他们问我那个小镇是什么样的，以及我是否还会再去。分享周末故事是与他人建立联系的好方法。你不需要经历什么惊险刺激的冒险。即使是一个小小的快乐瞬间，也能成为大家聊天的话题。",
+    "sentences": [
+      {
+        "sentence_en": "On Monday morning, my coworkers often ask each other about the weekend.",
+        "sentence_cn": "周一早上，我的同事们经常互相询问周末过得怎么样。",
+        "chunks": [
+          {"text": "On Monday morning,", "meaning": "在周一早上"},
+          {"text": " my coworkers often ask", "meaning": "我的同事们经常询问"},
+          {"text": " each other", "meaning": "彼此"},
+          {"text": " about the weekend.", "meaning": "关于周末的情况"}
+        ],
+        "explanation": "ask each other 表示互相询问。about 引出询问的内容。"
+      },
+      {
+        "sentence_en": "Last weekend, I visited a small town with my sister.",
+        "sentence_cn": "上周末，我和姐姐去了一个小镇。",
+        "chunks": [
+          {"text": "Last weekend,", "meaning": "上周末"},
+          {"text": " I visited", "meaning": "我去了"},
+          {"text": " a small town", "meaning": "一个小镇"},
+          {"text": " with my sister.", "meaning": "和我的姐姐一起"}
+        ],
+        "explanation": "visited 是 visit 的过去式。visit 后面可以直接接地点，不需要加 to。"
+      },
+      {
+        "sentence_en": "We walked around the old streets, tried some local food, and took many pictures.",
+        "sentence_cn": "我们在老街上散步，品尝了当地美食，还拍了很多照片。",
+        "chunks": [
+          {"text": "We walked around", "meaning": "我们在周围散步"},
+          {"text": " the old streets,", "meaning": "那些老街"},
+          {"text": " tried some local food,", "meaning": "品尝了一些当地食物"},
+          {"text": " and took many pictures.", "meaning": "还拍了很多照片"}
+        ],
+        "explanation": "三个过去式动词 walked、tried、took 并列，依次描述周末活动。"
+      },
+      {
+        "sentence_en": "The best part was finding a quiet coffee shop near the river.",
+        "sentence_cn": "最棒的是，我们在河边发现了一家安静的咖啡馆。",
+        "chunks": [
+          {"text": "The best part", "meaning": "最棒的部分"},
+          {"text": " was finding", "meaning": "是发现"},
+          {"text": " a quiet coffee shop", "meaning": "一家安静的咖啡馆"},
+          {"text": " near the river.", "meaning": "在河边"}
+        ],
+        "explanation": "finding 是动名词，在句中作表语，说明最棒的事情是什么。"
+      },
+      {
+        "sentence_en": "I told my coworkers about it during lunch.",
+        "sentence_cn": "午餐时，我把这件事告诉了同事。",
+        "chunks": [
+          {"text": "I told my coworkers", "meaning": "我告诉了我的同事们"},
+          {"text": " about it", "meaning": "关于这件事"},
+          {"text": " during lunch.", "meaning": "在午餐期间"}
+        ],
+        "explanation": "tell someone about something 表示告诉某人某事。during 表示在某段时间期间。"
+      },
+      {
+        "sentence_en": "They asked me what the town was like and whether I would visit again.",
+        "sentence_cn": "他们问我那个小镇是什么样的，以及我是否还会再去。",
+        "chunks": [
+          {"text": "They asked me", "meaning": "他们问我"},
+          {"text": " what the town was like", "meaning": "那个小镇是什么样的"},
+          {"text": " and whether", "meaning": "以及是否"},
+          {"text": " I would visit again.", "meaning": "我还会再去"}
+        ],
+        "explanation": "what...was like 用来询问某事物的样子或特点。whether 引导间接疑问句，表示“是否”。"
+      },
+      {
+        "sentence_en": "Sharing a weekend story is a good way to connect with others.",
+        "sentence_cn": "分享周末故事是与他人建立联系的好方法。",
+        "chunks": [
+          {"text": "Sharing a weekend story", "meaning": "分享一个周末故事"},
+          {"text": " is a good way", "meaning": "是一个好方法"},
+          {"text": " to connect with others.", "meaning": "用来与他人建立联系"}
+        ],
+        "explanation": "动名词短语作主语。a way to do something 表示做某事的方法。"
+      },
+      {
+        "sentence_en": "You do not need an exciting adventure.",
+        "sentence_cn": "你不需要经历什么惊险刺激的冒险。",
+        "chunks": [
+          {"text": "You do not need", "meaning": "你不需要"},
+          {"text": " an exciting adventure.", "meaning": "一次刺激的冒险"}
+        ],
+        "explanation": "do not need 表示不需要。exciting 描述令人兴奋的事物。"
+      },
+      {
+        "sentence_en": "Even a small, happy moment can give people something to talk about.",
+        "sentence_cn": "即使是一个小小的快乐瞬间，也能成为大家聊天的话题。",
+        "chunks": [
+          {"text": "Even a small, happy moment", "meaning": "即使是一个小小的快乐瞬间"},
+          {"text": " can give people", "meaning": "也能给人们"},
+          {"text": " something to talk about.", "meaning": "一些可以谈论的事情"}
+        ],
+        "explanation": "even 用来强调“即使”。something to talk about 表示可以拿来谈论的事情。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "coworker", "phonetic": "", "meaning": "同事", "part_of_speech": "名词"},
+      {"word": "local", "phonetic": "", "meaning": "当地的", "part_of_speech": "形容词"},
+      {"word": "quiet", "phonetic": "", "meaning": "安静的", "part_of_speech": "形容词"},
+      {"word": "connect", "phonetic": "", "meaning": "建立联系；连接", "part_of_speech": "动词"},
+      {"word": "adventure", "phonetic": "", "meaning": "冒险；奇遇", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "ask each other", "meaning": "互相询问", "example": "We ask each other about our plans."},
+      {"expression": "walk around", "meaning": "四处走走", "example": "We walked around the city after lunch."},
+      {"expression": "the best part", "meaning": "最棒的部分", "example": "The best part was meeting new people."},
+      {"expression": "what ... is like", "meaning": "……是什么样的", "example": "What is your new school like?"},
+      {"expression": "connect with others", "meaning": "与他人建立联系", "example": "Sports help me connect with others."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Who did the writer visit the town with?", "options": ["A friend", "A sister", "A coworker", "A brother"], "answer": "A sister", "explanation": "作者说自己上周末和姐姐一起去了一个小镇。"},
+      {"type": "细节理解", "question": "What was the best part of the trip?", "options": ["Taking pictures", "Eating dinner", "Finding a quiet coffee shop", "Buying gifts"], "answer": "Finding a quiet coffee shop", "explanation": "文章明确指出，最棒的是在河边发现了一家安静的咖啡馆。"},
+      {"type": "主旨理解", "question": "What is the main idea of the passage?", "options": ["Weekend trips must be exciting.", "Sharing small experiences can help people connect.", "People should travel every weekend.", "Coworkers should not ask personal questions."], "answer": "Sharing small experiences can help people connect.", "explanation": "文章强调，即使是普通的快乐瞬间，也能成为交流和建立联系的话题。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "以周末经历为素材，练习讲述过去活动和回应追问。"
+    }
+  },
+  {
+    "article_id": 54,
+    "day": 234,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Giving Advice",
+    "title_en": "Giving Someone Advice",
+    "title_cn": "给别人一些建议",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "My friend Alex has been feeling tired because he works late almost every night. Last week, he told me that he wanted to feel better but did not know where to start. I listened first and asked about his daily routine. Then I suggested taking a short walk after work and going to bed a little earlier. I also told him not to change everything at once. He thanked me and said he would try my ideas. Giving advice is not about telling people what to do. It is more important to understand their problems and offer helpful ideas with kindness.",
+    "content_cn": "我的朋友亚历克斯最近一直感到疲惫，因为他几乎每天晚上都工作到很晚。上周，他告诉我，他想让自己感觉好一些，却不知道从哪里开始。我先听他说，然后询问了他的日常安排。接着，我建议他下班后散一会儿步，并稍微早点睡觉。我还告诉他，不要一下子改变所有事情。他感谢了我，并说会尝试我的建议。给别人建议并不是告诉别人应该怎么做。更重要的是理解他们的问题，并友善地提供有帮助的想法。",
+    "sentences": [
+      {
+        "sentence_en": "My friend Alex has been feeling tired because he works late almost every night.",
+        "sentence_cn": "我的朋友亚历克斯最近一直感到疲惫，因为他几乎每天晚上都工作到很晚。",
+        "chunks": [
+          {"text": "My friend Alex", "meaning": "我的朋友亚历克斯"},
+          {"text": " has been feeling tired", "meaning": "最近一直感到疲惫"},
+          {"text": " because he works late", "meaning": "因为他工作到很晚"},
+          {"text": " almost every night.", "meaning": "几乎每个晚上"}
+        ],
+        "explanation": "has been feeling 是现在完成进行时，表示从过去持续到现在的状态。because 引导原因状语从句。"
+      },
+      {
+        "sentence_en": "Last week, he told me that he wanted to feel better but did not know where to start.",
+        "sentence_cn": "上周，他告诉我，他想让自己感觉好一些，却不知道从哪里开始。",
+        "chunks": [
+          {"text": "Last week,", "meaning": "上周"},
+          {"text": " he told me", "meaning": "他告诉我"},
+          {"text": " that he wanted to feel better", "meaning": "他想让自己感觉好一些"},
+          {"text": " but did not know", "meaning": "但不知道"},
+          {"text": " where to start.", "meaning": "从哪里开始"}
+        ],
+        "explanation": "where to start 是疑问词加不定式结构。told、wanted、did not know 均使用过去时。"
+      },
+      {
+        "sentence_en": "I listened first and asked about his daily routine.",
+        "sentence_cn": "我先听他说，然后询问了他的日常安排。",
+        "chunks": [
+          {"text": "I listened first", "meaning": "我先听他说"},
+          {"text": " and asked about", "meaning": "然后询问"},
+          {"text": " his daily routine.", "meaning": "他的日常安排"}
+        ],
+        "explanation": "listened 和 asked 是并列的过去式动词。daily routine 指每天固定的生活或工作安排。"
+      },
+      {
+        "sentence_en": "Then I suggested taking a short walk after work and going to bed a little earlier.",
+        "sentence_cn": "接着，我建议他下班后散一会儿步，并稍微早点睡觉。",
+        "chunks": [
+          {"text": "Then", "meaning": "接着"},
+          {"text": " I suggested", "meaning": "我建议"},
+          {"text": " taking a short walk after work", "meaning": "下班后散一会儿步"},
+          {"text": " and going to bed", "meaning": "并去睡觉"},
+          {"text": " a little earlier.", "meaning": "稍微早一点"}
+        ],
+        "explanation": "suggest 后面通常接动名词，不直接接不定式。taking 和 going 是并列结构。"
+      },
+      {
+        "sentence_en": "I also told him not to change everything at once.",
+        "sentence_cn": "我还告诉他，不要一下子改变所有事情。",
+        "chunks": [
+          {"text": "I also told him", "meaning": "我还告诉他"},
+          {"text": " not to change", "meaning": "不要改变"},
+          {"text": " everything", "meaning": "所有事情"},
+          {"text": " at once.", "meaning": "一下子；同时"}
+        ],
+        "explanation": "tell someone not to do something 表示告诉某人不要做某事。at once 表示立即或一下子。"
+      },
+      {
+        "sentence_en": "He thanked me and said he would try my ideas.",
+        "sentence_cn": "他感谢了我，并说会尝试我的建议。",
+        "chunks": [
+          {"text": "He thanked me", "meaning": "他感谢了我"},
+          {"text": " and said", "meaning": "并说道"},
+          {"text": " he would try", "meaning": "他会尝试"},
+          {"text": " my ideas.", "meaning": "我的想法"}
+        ],
+        "explanation": "would try 是过去视角下的将来表达，表示他当时说以后会尝试。"
+      },
+      {
+        "sentence_en": "Giving advice is not about telling people what to do.",
+        "sentence_cn": "给别人建议并不是告诉别人应该怎么做。",
+        "chunks": [
+          {"text": "Giving advice", "meaning": "给别人建议"},
+          {"text": " is not about", "meaning": "并不是在于"},
+          {"text": " telling people", "meaning": "告诉别人"},
+          {"text": " what to do.", "meaning": "应该做什么"}
+        ],
+        "explanation": "Giving advice 是动名词短语，作主语。be about 表示“重点在于”。"
+      },
+      {
+        "sentence_en": "It is more important to understand their problems and offer helpful ideas with kindness.",
+        "sentence_cn": "更重要的是理解他们的问题，并友善地提供有帮助的想法。",
+        "chunks": [
+          {"text": "It is more important", "meaning": "这更加重要"},
+          {"text": " to understand their problems", "meaning": "去理解他们的问题"},
+          {"text": " and offer helpful ideas", "meaning": "并提供有帮助的想法"},
+          {"text": " with kindness.", "meaning": "带着善意"}
+        ],
+        "explanation": "It is + 形容词 + to do 是常见句型。with kindness 表示以友善的方式。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "routine", "phonetic": "", "meaning": "日常安排；惯例", "part_of_speech": "名词"},
+      {"word": "suggest", "phonetic": "", "meaning": "建议；提议", "part_of_speech": "动词"},
+      {"word": "earlier", "phonetic": "", "meaning": "更早地", "part_of_speech": "副词"},
+      {"word": "advice", "phonetic": "", "meaning": "建议", "part_of_speech": "名词"},
+      {"word": "kindness", "phonetic": "", "meaning": "善意；友善", "part_of_speech": "名词"}
+    ],
+    "expressions": [
+      {"expression": "feel better", "meaning": "感觉好一些", "example": "I hope you feel better soon."},
+      {"expression": "where to start", "meaning": "从哪里开始", "example": "I have many things to do and don't know where to start."},
+      {"expression": "daily routine", "meaning": "日常安排", "example": "Exercise is part of my daily routine."},
+      {"expression": "at once", "meaning": "立刻；一下子", "example": "You don't need to finish everything at once."},
+      {"expression": "give advice", "meaning": "给出建议", "example": "My teacher gave me some useful advice."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Why was Alex feeling tired?", "options": ["He traveled too much.", "He worked late almost every night.", "He did not exercise.", "He had too many visitors."], "answer": "He worked late almost every night.", "explanation": "文章第一句说明，亚历克斯几乎每天晚上都工作到很晚。"},
+      {"type": "细节理解", "question": "What did the writer suggest?", "options": ["Changing jobs", "Taking a short walk and going to bed earlier", "Working harder", "Moving to another city"], "answer": "Taking a short walk and going to bed earlier", "explanation": "作者建议他下班后散步，并稍微早点睡觉。"},
+      {"type": "主旨理解", "question": "What is the writer's opinion about giving advice?", "options": ["People should always follow your advice.", "Advice should be given quickly.", "Understanding people is more important than telling them what to do.", "Only experts can give advice."], "answer": "Understanding people is more important than telling them what to do.", "explanation": "文章最后强调，给建议时更重要的是理解对方的问题，并友善地提供想法。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "练习倾听、提出建议以及表达建议时的礼貌态度。"
+    }
+  },
+  {
+    "article_id": 55,
+    "day": 235,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Asking for Opinions",
+    "title_en": "Asking for an Opinion",
+    "title_cn": "征求别人的意见",
+    "difficulty": "A2-B1",
+    "word_count": 96,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "I wanted to buy a new laptop, but there were too many choices. Some models were light, while others had better screens. I could not decide which one was right for me, so I asked my friend Nina for her opinion. I explained how I planned to use the laptop and how much I wanted to spend. She asked a few questions before sharing her thoughts. Her advice helped me notice things I had not considered. In the end, I chose a model that matched my needs. Asking for an opinion does not mean you must follow it. It simply gives you another point of view.",
+    "content_cn": "我想买一台新笔记本电脑，但可选的型号实在太多了。有些型号很轻，而另一些屏幕更好。我无法决定哪一款适合自己，于是向朋友妮娜征求意见。我向她解释了自己打算如何使用电脑，以及希望花多少钱。她先问了几个问题，然后才分享她的想法。她的建议让我注意到一些之前没有考虑过的事情。最后，我选择了一款符合自己需求的型号。征求别人的意见并不意味着你必须听从。它只是让你多了一个看问题的角度。",
+    "sentences": [
+      {
+        "sentence_en": "I wanted to buy a new laptop, but there were too many choices.",
+        "sentence_cn": "我想买一台新笔记本电脑，但可选的型号实在太多了。",
+        "chunks": [
+          {"text": "I wanted to buy", "meaning": "我想买"},
+          {"text": " a new laptop,", "meaning": "一台新笔记本电脑"},
+          {"text": " but there were", "meaning": "但有"},
+          {"text": " too many choices.", "meaning": "太多选择"}
+        ],
+        "explanation": "there were 表示过去某处或某种情况存在某物。too many 修饰可数名词复数。"
+      },
+      {
+        "sentence_en": "Some models were light, while others had better screens.",
+        "sentence_cn": "有些型号很轻，而另一些屏幕更好。",
+        "chunks": [
+          {"text": "Some models", "meaning": "有些型号"},
+          {"text": " were light,", "meaning": "比较轻"},
+          {"text": " while others", "meaning": "而另一些"},
+          {"text": " had better screens.", "meaning": "拥有更好的屏幕"}
+        ],
+        "explanation": "some...while others... 用于对比不同事物。better 是 good 的比较级。"
+      },
+      {
+        "sentence_en": "I could not decide which one was right for me, so I asked my friend Nina for her opinion.",
+        "sentence_cn": "我无法决定哪一款适合自己，于是向朋友妮娜征求意见。",
+        "chunks": [
+          {"text": "I could not decide", "meaning": "我无法决定"},
+          {"text": " which one was right for me,", "meaning": "哪一款适合我"},
+          {"text": " so I asked my friend Nina", "meaning": "所以我询问了我的朋友妮娜"},
+          {"text": " for her opinion.", "meaning": "征求她的意见"}
+        ],
+        "explanation": "decide 后可接 which 引导的间接疑问句。ask someone for an opinion 表示向某人征求意见。"
+      },
+      {
+        "sentence_en": "I explained how I planned to use the laptop and how much I wanted to spend.",
+        "sentence_cn": "我向她解释了自己打算如何使用电脑，以及希望花多少钱。",
+        "chunks": [
+          {"text": "I explained", "meaning": "我解释了"},
+          {"text": " how I planned to use the laptop", "meaning": "我打算如何使用这台电脑"},
+          {"text": " and how much", "meaning": "以及多少钱"},
+          {"text": " I wanted to spend.", "meaning": "我想花费"}
+        ],
+        "explanation": "how 和 how much 引导两个并列的间接疑问句。plan to do something 表示计划做某事。"
+      },
+      {
+        "sentence_en": "She asked a few questions before sharing her thoughts.",
+        "sentence_cn": "她先问了几个问题，然后才分享她的想法。",
+        "chunks": [
+          {"text": "She asked a few questions", "meaning": "她问了几个问题"},
+          {"text": " before sharing", "meaning": "在分享之前"},
+          {"text": " her thoughts.", "meaning": "她的想法"}
+        ],
+        "explanation": "before 后接动名词 sharing，表示在做某事之前。a few 表示几个。"
+      },
+      {
+        "sentence_en": "Her advice helped me notice things I had not considered.",
+        "sentence_cn": "她的建议让我注意到一些之前没有考虑过的事情。",
+        "chunks": [
+          {"text": "Her advice", "meaning": "她的建议"},
+          {"text": " helped me notice", "meaning": "帮助我注意到"},
+          {"text": " things", "meaning": "一些事情"},
+          {"text": " I had not considered.", "meaning": "我之前没有考虑过的"}
+        ],
+        "explanation": "help someone do something 表示帮助某人做某事。had not considered 是过去完成时，表示在当时之前没有考虑过。"
+      },
+      {
+        "sentence_en": "In the end, I chose a model that matched my needs.",
+        "sentence_cn": "最后，我选择了一款符合自己需求的型号。",
+        "chunks": [
+          {"text": "In the end,", "meaning": "最后"},
+          {"text": " I chose a model", "meaning": "我选择了一款型号"},
+          {"text": " that matched my needs.", "meaning": "它符合我的需求"}
+        ],
+        "explanation": "chose 是 choose 的过去式。that 引导定语从句，修饰 model。"
+      },
+      {
+        "sentence_en": "Asking for an opinion does not mean you must follow it.",
+        "sentence_cn": "征求别人的意见并不意味着你必须听从。",
+        "chunks": [
+          {"text": "Asking for an opinion", "meaning": "征求一个意见"},
+          {"text": " does not mean", "meaning": "并不意味着"},
+          {"text": " you must follow it.", "meaning": "你必须听从它"}
+        ],
+        "explanation": "动名词短语作主语。mean 在这里表示“意味着”，follow 表示听从、遵循。"
+      },
+      {
+        "sentence_en": "It simply gives you another point of view.",
+        "sentence_cn": "它只是让你多了一个看问题的角度。",
+        "chunks": [
+          {"text": "It simply gives you", "meaning": "它只是给你"},
+          {"text": " another point of view.", "meaning": "另一个看问题的角度"}
+        ],
+        "explanation": "give someone something 表示给某人某物。point of view 是“观点、看法”的常用表达。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "laptop", "phonetic": "", "meaning": "笔记本电脑", "part_of_speech": "名词"},
+      {"word": "choice", "phonetic": "", "meaning": "选择", "part_of_speech": "名词"},
+      {"word": "opinion", "phonetic": "", "meaning": "意见；看法", "part_of_speech": "名词"},
+      {"word": "consider", "phonetic": "", "meaning": "考虑", "part_of_speech": "动词"},
+      {"word": "match", "phonetic": "", "meaning": "符合；匹配", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "ask for an opinion", "meaning": "征求意见", "example": "I asked my teacher for an opinion."},
+      {"expression": "right for me", "meaning": "适合我", "example": "This job is right for me."},
+      {"expression": "plan to do something", "meaning": "计划做某事", "example": "I plan to study abroad."},
+      {"expression": "in the end", "meaning": "最后；最终", "example": "In the end, we stayed home."},
+      {"expression": "point of view", "meaning": "观点；看问题的角度", "example": "I understand your point of view."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "What did the writer want to buy?", "options": ["A phone", "A laptop", "A camera", "A tablet"], "answer": "A laptop", "explanation": "文章开头说明作者想买一台新笔记本电脑。"},
+      {"type": "细节理解", "question": "What did Nina do before sharing her thoughts?", "options": ["She bought a laptop.", "She searched online.", "She asked a few questions.", "She called another friend."], "answer": "She asked a few questions.", "explanation": "文章提到妮娜在分享想法前先问了几个问题。"},
+      {"type": "观点理解", "question": "What does asking for an opinion mean to the writer?", "options": ["You must follow the advice.", "You get another point of view.", "You should avoid making decisions.", "Other people know everything."], "answer": "You get another point of view.", "explanation": "作者认为征求意见只是获得另一个角度，并不意味着必须听从。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "96词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "练习说明需求、征求意见以及表达个人判断。"
+    }
+  },
+  {
+    "article_id": 56,
+    "day": 236,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Expressing Agreement and Disagreement",
+    "title_en": "Agreeing and Disagreeing",
+    "title_cn": "表达赞同与不同意见",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "During a team meeting, we discussed whether working from home was better than working in an office. I agreed that staying home saved travel time and offered more freedom. However, my coworker believed that people worked better when they could meet face to face. I understood her point, but I had a different opinion. Instead of saying she was wrong, I explained my reasons calmly. We listened to each other and found that both ideas had value. I learned that disagreeing does not have to create an argument. People can have different opinions and still respect one another.",
+    "content_cn": "在一次团队会议上，我们讨论了在家办公是否比在办公室工作更好。我赞同在家办公可以节省通勤时间，也更加自由。然而，我的同事认为，人们能够面对面交流时，工作效率会更高。我理解她的观点，但我有不同的看法。我没有直接说她错了，而是平静地解释了自己的理由。我们互相倾听，发现两种想法都有价值。我明白了，意见不一致并不一定会引发争论。人们可以有不同的观点，同时仍然尊重彼此。",
+    "sentences": [
+      {
+        "sentence_en": "During a team meeting, we discussed whether working from home was better than working in an office.",
+        "sentence_cn": "在一次团队会议上，我们讨论了在家办公是否比在办公室工作更好。",
+        "chunks": [
+          {"text": "During a team meeting,", "meaning": "在一次团队会议期间"},
+          {"text": " we discussed", "meaning": "我们讨论了"},
+          {"text": " whether working from home", "meaning": "在家办公是否"},
+          {"text": " was better than working in an office.", "meaning": "比在办公室工作更好"}
+        ],
+        "explanation": "whether 引导间接疑问句，表示“是否”。better than 是比较级结构，表示“比……更好”。"
+      },
+      {
+        "sentence_en": "I agreed that staying home saved travel time and offered more freedom.",
+        "sentence_cn": "我赞同在家办公可以节省通勤时间，也更加自由。",
+        "chunks": [
+          {"text": "I agreed", "meaning": "我赞同"},
+          {"text": " that staying home", "meaning": "在家待着"},
+          {"text": " saved travel time", "meaning": "节省了通勤时间"},
+          {"text": " and offered more freedom.", "meaning": "并提供了更多自由"}
+        ],
+        "explanation": "agree that... 表示赞同某个观点。staying home 是动名词短语，作从句主语。"
+      },
+      {
+        "sentence_en": "However, my coworker believed that people worked better when they could meet face to face.",
+        "sentence_cn": "然而，我的同事认为，人们能够面对面交流时，工作效率会更高。",
+        "chunks": [
+          {"text": "However,", "meaning": "然而"},
+          {"text": " my coworker believed", "meaning": "我的同事认为"},
+          {"text": " that people worked better", "meaning": "人们工作得更好"},
+          {"text": " when they could meet face to face.", "meaning": "当他们能够面对面交流时"}
+        ],
+        "explanation": "however 用于引出转折。face to face 是固定表达，意为“面对面地”。"
+      },
+      {
+        "sentence_en": "I understood her point, but I had a different opinion.",
+        "sentence_cn": "我理解她的观点，但我有不同的看法。",
+        "chunks": [
+          {"text": "I understood her point,", "meaning": "我理解她的观点"},
+          {"text": " but", "meaning": "但是"},
+          {"text": " I had a different opinion.", "meaning": "我有不同的意见"}
+        ],
+        "explanation": "understood 是 understand 的过去式。but 连接两个意思相反或不同的分句。"
+      },
+      {
+        "sentence_en": "Instead of saying she was wrong, I explained my reasons calmly.",
+        "sentence_cn": "我没有直接说她错了，而是平静地解释了自己的理由。",
+        "chunks": [
+          {"text": "Instead of saying", "meaning": "没有……而是；代替说"},
+          {"text": " she was wrong,", "meaning": "她是错的"},
+          {"text": " I explained my reasons", "meaning": "我解释了自己的理由"},
+          {"text": " calmly.", "meaning": "平静地"}
+        ],
+        "explanation": "instead of 后接名词或动名词，表示“而不是”。calmly 是副词，修饰 explained。"
+      },
+      {
+        "sentence_en": "We listened to each other and found that both ideas had value.",
+        "sentence_cn": "我们互相倾听，发现两种想法都有价值。",
+        "chunks": [
+          {"text": "We listened to each other", "meaning": "我们互相倾听"},
+          {"text": " and found", "meaning": "并发现"},
+          {"text": " that both ideas", "meaning": "两种想法都"},
+          {"text": " had value.", "meaning": "有价值"}
+        ],
+        "explanation": "listen to 是固定搭配。both 表示两者都；have value 表示有价值。"
+      },
+      {
+        "sentence_en": "I learned that disagreeing does not have to create an argument.",
+        "sentence_cn": "我明白了，意见不一致并不一定会引发争论。",
+        "chunks": [
+          {"text": "I learned", "meaning": "我明白了"},
+          {"text": " that disagreeing", "meaning": "意见不一致"},
+          {"text": " does not have to create", "meaning": "不一定会引发"},
+          {"text": " an argument.", "meaning": "一场争论"}
+        ],
+        "explanation": "disagreeing 是动名词，作从句主语。does not have to 表示“不必、不一定”。"
+      },
+      {
+        "sentence_en": "People can have different opinions and still respect one another.",
+        "sentence_cn": "人们可以有不同的观点，同时仍然尊重彼此。",
+        "chunks": [
+          {"text": "People can have", "meaning": "人们可以有"},
+          {"text": " different opinions", "meaning": "不同的观点"},
+          {"text": " and still respect", "meaning": "并且仍然尊重"},
+          {"text": " one another.", "meaning": "彼此"}
+        ],
+        "explanation": "still 表示“仍然”。one another 与 each other 意思相近，都表示彼此。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "discuss", "phonetic": "", "meaning": "讨论", "part_of_speech": "动词"},
+      {"word": "freedom", "phonetic": "", "meaning": "自由", "part_of_speech": "名词"},
+      {"word": "opinion", "phonetic": "", "meaning": "意见；观点", "part_of_speech": "名词"},
+      {"word": "calmly", "phonetic": "", "meaning": "平静地", "part_of_speech": "副词"},
+      {"word": "respect", "phonetic": "", "meaning": "尊重", "part_of_speech": "动词"}
+    ],
+    "expressions": [
+      {"expression": "agree that", "meaning": "赞同……", "example": "I agree that exercise is important."},
+      {"expression": "face to face", "meaning": "面对面地", "example": "We prefer to talk face to face."},
+      {"expression": "have a different opinion", "meaning": "有不同的意见", "example": "I have a different opinion about this plan."},
+      {"expression": "instead of", "meaning": "而不是；代替", "example": "I walked instead of taking a taxi."},
+      {"expression": "one another", "meaning": "彼此", "example": "Good friends should respect one another."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "What topic did the team discuss?", "options": ["Working hours", "Working from home or in an office", "Company holidays", "New computers"], "answer": "Working from home or in an office", "explanation": "团队讨论的是在家办公是否比在办公室工作更好。"},
+      {"type": "细节理解", "question": "Why did the coworker prefer office work?", "options": ["It saved money.", "She liked the office building.", "People could meet face to face.", "She wanted longer hours."], "answer": "People could meet face to face.", "explanation": "同事认为面对面交流能让人们工作得更好。"},
+      {"type": "主旨理解", "question": "What did the writer learn?", "options": ["Disagreements always cause problems.", "People should hide their opinions.", "People can disagree and still respect each other.", "One person must always be right."], "answer": "People can disagree and still respect each other.", "explanation": "文章最后强调，即使观点不同，人们仍然可以互相尊重。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "100词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "练习礼貌表达赞同、不同意见和尊重他人。"
+    }
+  },
+  {
+    "article_id": 57,
+    "day": 237,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Changing Conversation Topics",
+    "title_en": "Changing the Subject",
+    "title_cn": "自然地转换话题",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "Sometimes a conversation reaches a point where nobody knows what to say next. This happened at dinner with some friends last Friday. We had talked about work for a long time, and the mood was becoming a little serious. I wanted to bring up something more cheerful, so I said, “By the way, has anyone seen the new movie?” Everyone started sharing their thoughts about it. The conversation became lively again. Changing the subject does not have to feel strange. You can use a simple phrase to move to a new topic and help everyone enjoy the conversation.",
+    "content_cn": "有时候，谈话会进行到一个大家都不知道接下来该说什么的阶段。上周五和朋友吃晚饭时就发生了这样的事。我们聊了很久的工作，气氛开始变得有些严肃。我想聊点更轻松的内容，于是说：“对了，有人看过那部新电影吗？”大家开始分享各自的看法，谈话又变得热闹起来。转换话题不一定会让人觉得尴尬。你可以用一个简单的短语转到新话题，让大家继续享受交谈。",
+    "sentences": [
+      {
+        "sentence_en": "Sometimes a conversation reaches a point where nobody knows what to say next.",
+        "sentence_cn": "有时候，谈话会进行到一个大家都不知道接下来该说什么的阶段。",
+        "chunks": [
+          {"text": "Sometimes", "meaning": "有时候"},
+          {"text": " a conversation reaches a point", "meaning": "一段谈话会到达某个阶段"},
+          {"text": " where nobody knows", "meaning": "在这个阶段没有人知道"},
+          {"text": " what to say next.", "meaning": "接下来该说什么"}
+        ],
+        "explanation": "where 引导定语从句，修饰 point。what to say next 表示接下来该说什么。"
+      },
+      {
+        "sentence_en": "This happened at dinner with some friends last Friday.",
+        "sentence_cn": "上周五和朋友吃晚饭时就发生了这样的事。",
+        "chunks": [
+          {"text": "This happened", "meaning": "这件事发生了"},
+          {"text": " at dinner", "meaning": "在晚餐时"},
+          {"text": " with some friends", "meaning": "和几位朋友一起"},
+          {"text": " last Friday.", "meaning": "在上周五"}
+        ],
+        "explanation": "happened 是 happen 的过去式。at dinner 表示在吃晚餐时。"
+      },
+      {
+        "sentence_en": "We had talked about work for a long time, and the mood was becoming a little serious.",
+        "sentence_cn": "我们聊了很久的工作，气氛开始变得有些严肃。",
+        "chunks": [
+          {"text": "We had talked about work", "meaning": "我们已经聊过工作"},
+          {"text": " for a long time,", "meaning": "很长一段时间"},
+          {"text": " and the mood", "meaning": "而气氛"},
+          {"text": " was becoming a little serious.", "meaning": "正变得有些严肃"}
+        ],
+        "explanation": "had talked 是过去完成时，强调在当时之前已经持续了一段时间。was becoming 表示当时逐渐变化的状态。"
+      },
+      {
+        "sentence_en": "I wanted to bring up something more cheerful, so I said, “By the way, has anyone seen the new movie?”",
+        "sentence_cn": "我想聊点更轻松的内容，于是说：“对了，有人看过那部新电影吗？”",
+        "chunks": [
+          {"text": "I wanted to bring up", "meaning": "我想提起"},
+          {"text": " something more cheerful,", "meaning": "一些更令人愉快的事情"},
+          {"text": " so I said,", "meaning": "所以我说"},
+          {"text": " “By the way,", "meaning": "“对了，"},
+          {"text": " has anyone seen the new movie?”", "meaning": "有人看过那部新电影吗？”"}
+        ],
+        "explanation": "bring up 表示提起话题。By the way 是转换话题时常用的表达。"
+      },
+      {
+        "sentence_en": "Everyone started sharing their thoughts about it.",
+        "sentence_cn": "大家开始分享各自的看法。",
+        "chunks": [
+          {"text": "Everyone started", "meaning": "每个人都开始"},
+          {"text": " sharing their thoughts", "meaning": "分享自己的想法"},
+          {"text": " about it.", "meaning": "关于它"}
+        ],
+        "explanation": "start doing something 表示开始做某事。everyone 作主语时，谓语动词通常使用单数形式。"
+      },
+      {
+        "sentence_en": "The conversation became lively again.",
+        "sentence_cn": "谈话又变得热闹起来。",
+        "chunks": [
+          {"text": "The conversation", "meaning": "这场谈话"},
+          {"text": " became lively", "meaning": "变得热闹"},
+          {"text": " again.", "meaning": "再次"}
+        ],
+        "explanation": "became 是 become 的过去式。lively 表示活跃的、热闹的。"
+      },
+      {
+        "sentence_en": "Changing the subject does not have to feel strange.",
+        "sentence_cn": "转换话题不一定会让人觉得尴尬。",
+        "chunks": [
+          {"text": "Changing the subject", "meaning": "转换话题"},
+          {"text": " does not have to", "meaning": "不一定会"},
+          {"text": " feel strange.", "meaning": "让人觉得奇怪"}
+        ],
+        "explanation": "动名词短语作主语。does not have to 表示“不必、不一定”。"
+      },
+      {
+        "sentence_en": "You can use a simple phrase to move to a new topic and help everyone enjoy the conversation.",
+        "sentence_cn": "你可以用一个简单的短语转到新话题，让大家继续享受交谈。",
+        "chunks": [
+          {"text": "You can use", "meaning": "你可以使用"},
+          {"text": " a simple phrase", "meaning": "一个简单的短语"},
+          {"text": " to move to a new topic", "meaning": "来转到一个新话题"},
+          {"text": " and help everyone", "meaning": "并帮助每个人"},
+          {"text": " enjoy the conversation.", "meaning": "享受这场交谈"}
+        ],
+        "explanation": "to move 表示使用短语的目的。help everyone enjoy 中的 enjoy 使用动词原形。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "subject", "phonetic": "", "meaning": "话题；主题", "part_of_speech": "名词"},
+      {"word": "mood", "phonetic": "", "meaning": "气氛；心情", "part_of_speech": "名词"},
+      {"word": "serious", "phonetic": "", "meaning": "严肃的", "part_of_speech": "形容词"},
+      {"word": "cheerful", "phonetic": "", "meaning": "令人愉快的；开朗的", "part_of_speech": "形容词"},
+      {"word": "lively", "phonetic": "", "meaning": "活跃的；热闹的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "reach a point", "meaning": "达到某个阶段", "example": "We reached a point where we needed help."},
+      {"expression": "bring up a topic", "meaning": "提出一个话题", "example": "She brought up an interesting topic."},
+      {"expression": "by the way", "meaning": "顺便说一下；对了", "example": "By the way, are you free tomorrow?"},
+      {"expression": "change the subject", "meaning": "转换话题", "example": "He changed the subject when things got uncomfortable."},
+      {"expression": "move to a new topic", "meaning": "转到一个新话题", "example": "Let's move to a new topic."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Where did the conversation take place?", "options": ["At the office", "At a friend's home during dinner", "At a movie theater", "At a coffee shop"], "answer": "At a friend's home during dinner", "explanation": "文章说这件事发生在上周五和朋友吃晚饭时。"},
+      {"type": "细节理解", "question": "What topic did the writer use to change the subject?", "options": ["Sports", "Travel", "A new movie", "Food"], "answer": "A new movie", "explanation": "作者问大家是否看过那部新电影。"},
+      {"type": "主旨理解", "question": "What does the passage teach about changing the subject?", "options": ["It is always rude.", "It can be done naturally with a simple phrase.", "It should be avoided.", "It only works with close friends."], "answer": "It can be done naturally with a simple phrase.", "explanation": "文章强调，使用简单的表达就能自然地转到新话题。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "98词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "重点练习 By the way 和 bring up 等自然转换话题的表达。"
+    }
+  },
+  {
+    "article_id": 58,
+    "day": 238,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Maintaining a Conversation",
+    "title_en": "Keeping a Conversation Going",
+    "title_cn": "让谈话继续下去",
+    "difficulty": "A2-B1",
+    "word_count": 99,
+    "estimated_reading_time_seconds": 45,
+    "content_en": "A good conversation is not just about talking. It is also about listening and showing interest. When my cousin tells me about her travels, I do not simply say, “That's nice.” I ask questions like, “What was your favorite place?” or “What did you do there?” These questions encourage her to share more details. I also share a little about my own experiences, so the conversation feels natural. If I do not understand something, I ask her to explain it. Keeping a conversation going takes practice, but it becomes easier when both people listen carefully and take turns speaking.",
+    "content_cn": "一场好的谈话不只是说话，也包括倾听和表现出兴趣。当我的表姐告诉我她的旅行经历时，我不会只是说一句“真不错”。我会问一些问题，比如：“你最喜欢的地方是哪里？”或者“你在那里做了什么？”这些问题会鼓励她分享更多细节。我也会分享一些自己的经历，让谈话听起来更自然。如果有些内容我不明白，我会请她解释。让谈话持续下去需要练习，但当双方都认真倾听并轮流发言时，交流就会变得更容易。",
+    "sentences": [
+      {
+        "sentence_en": "A good conversation is not just about talking.",
+        "sentence_cn": "一场好的谈话不只是说话。",
+        "chunks": [
+          {"text": "A good conversation", "meaning": "一场好的谈话"},
+          {"text": " is not just about", "meaning": "不只是关于"},
+          {"text": " talking.", "meaning": "说话"}
+        ],
+        "explanation": "not just about 表示“不只是关于……”，强调还有其他重要方面。"
+      },
+      {
+        "sentence_en": "It is also about listening and showing interest.",
+        "sentence_cn": "它也包括倾听和表现出兴趣。",
+        "chunks": [
+          {"text": "It is also about", "meaning": "它也包括"},
+          {"text": " listening", "meaning": "倾听"},
+          {"text": " and showing interest.", "meaning": "以及表现出兴趣"}
+        ],
+        "explanation": "also 表示“也”。listening 和 showing 是并列的动名词结构。"
+      },
+      {
+        "sentence_en": "When my cousin tells me about her travels, I do not simply say, “That's nice.”",
+        "sentence_cn": "当我的表姐告诉我她的旅行经历时，我不会只是说一句“真不错”。",
+        "chunks": [
+          {"text": "When my cousin tells me", "meaning": "当我的表姐告诉我"},
+          {"text": " about her travels,", "meaning": "她的旅行经历时"},
+          {"text": " I do not simply say,", "meaning": "我不会只是说"},
+          {"text": " “That's nice.”", "meaning": "“真不错。”"}
+        ],
+        "explanation": "when 引导时间状语从句。tell someone about something 表示告诉某人某事。"
+      },
+      {
+        "sentence_en": "I ask questions like, “What was your favorite place?” or “What did you do there?”",
+        "sentence_cn": "我会问一些问题，比如：“你最喜欢的地方是哪里？”或者“你在那里做了什么？”",
+        "chunks": [
+          {"text": "I ask questions", "meaning": "我会提出问题"},
+          {"text": " like,", "meaning": "比如"},
+          {"text": " “What was your favorite place?”", "meaning": "“你最喜欢的地方是哪里？”"},
+          {"text": " or", "meaning": "或者"},
+          {"text": " “What did you do there?”", "meaning": "“你在那里做了什么？”"}
+        ],
+        "explanation": "like 在这里表示“例如”。第二个问句使用 did 构成一般过去时疑问句。"
+      },
+      {
+        "sentence_en": "These questions encourage her to share more details.",
+        "sentence_cn": "这些问题会鼓励她分享更多细节。",
+        "chunks": [
+          {"text": "These questions", "meaning": "这些问题"},
+          {"text": " encourage her", "meaning": "鼓励她"},
+          {"text": " to share", "meaning": "去分享"},
+          {"text": " more details.", "meaning": "更多细节"}
+        ],
+        "explanation": "encourage someone to do something 表示鼓励某人做某事。"
+      },
+      {
+        "sentence_en": "I also share a little about my own experiences, so the conversation feels natural.",
+        "sentence_cn": "我也会分享一些自己的经历，让谈话听起来更自然。",
+        "chunks": [
+          {"text": "I also share", "meaning": "我也会分享"},
+          {"text": " a little about my own experiences,", "meaning": "一些我自己的经历"},
+          {"text": " so the conversation", "meaning": "因此谈话"},
+          {"text": " feels natural.", "meaning": "听起来很自然"}
+        ],
+        "explanation": "a little 表示一点。so 在这里连接结果，表示“因此”。"
+      },
+      {
+        "sentence_en": "If I do not understand something, I ask her to explain it.",
+        "sentence_cn": "如果有些内容我不明白，我会请她解释。",
+        "chunks": [
+          {"text": "If I do not understand something,", "meaning": "如果我有些事情不明白"},
+          {"text": " I ask her", "meaning": "我会请她"},
+          {"text": " to explain it.", "meaning": "解释一下"}
+        ],
+        "explanation": "if 引导条件状语从句。ask someone to do something 表示请求某人做某事。"
+      },
+      {
+        "sentence_en": "Keeping a conversation going takes practice, but it becomes easier when both people listen carefully and take turns speaking.",
+        "sentence_cn": "让谈话持续下去需要练习，但当双方都认真倾听并轮流发言时，交流就会变得更容易。",
+        "chunks": [
+          {"text": "Keeping a conversation going", "meaning": "让一场谈话持续下去"},
+          {"text": " takes practice,", "meaning": "需要练习"},
+          {"text": " but it becomes easier", "meaning": "但它会变得更容易"},
+          {"text": " when both people listen carefully", "meaning": "当双方都认真倾听时"},
+          {"text": " and take turns speaking.", "meaning": "并轮流发言"}
+        ],
+        "explanation": "keep something going 表示让某事持续。take turns doing something 表示轮流做某事。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "conversation", "phonetic": "", "meaning": "谈话；交谈", "part_of_speech": "名词"},
+      {"word": "interest", "phonetic": "", "meaning": "兴趣；关注", "part_of_speech": "名词"},
+      {"word": "encourage", "phonetic": "", "meaning": "鼓励", "part_of_speech": "动词"},
+      {"word": "detail", "phonetic": "", "meaning": "细节", "part_of_speech": "名词"},
+      {"word": "carefully", "phonetic": "", "meaning": "认真地；仔细地", "part_of_speech": "副词"}
+    ],
+    "expressions": [
+      {"expression": "show interest", "meaning": "表现出兴趣", "example": "Ask questions to show interest."},
+      {"expression": "favorite place", "meaning": "最喜欢的地方", "example": "What's your favorite place to visit?"},
+      {"expression": "share details", "meaning": "分享细节", "example": "She shared details about her trip."},
+      {"expression": "take turns doing something", "meaning": "轮流做某事", "example": "We take turns choosing a movie."},
+      {"expression": "keep a conversation going", "meaning": "让谈话继续下去", "example": "Good questions help keep a conversation going."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "What does the writer do when the cousin talks about her travels?", "options": ["Changes the subject", "Asks questions about the trip", "Looks at the phone", "Only says goodbye"], "answer": "Asks questions about the trip", "explanation": "作者会询问她最喜欢的地方以及在那里做了什么。"},
+      {"type": "细节理解", "question": "Why does the writer share personal experiences?", "options": ["To end the conversation", "To make the conversation feel natural", "To change the subject", "To show off"], "answer": "To make the conversation feel natural", "explanation": "作者分享自己的经历，是为了让谈话更加自然。"},
+      {"type": "主旨理解", "question": "What helps keep a conversation going?", "options": ["Talking all the time", "Asking difficult questions", "Listening carefully and taking turns", "Avoiding personal stories"], "answer": "Listening carefully and taking turns", "explanation": "文章最后指出，认真倾听和轮流发言能让交流更容易持续。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "99词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "重点练习追问、分享经历和轮流表达，让对话自然延续。"
+    }
+  },
+  {
+    "article_id": 59,
+    "day": 239,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "Meeting New People",
+    "title_en": "Talking to a Stranger",
+    "title_cn": "与陌生人交谈",
+    "difficulty": "A2-B1",
+    "word_count": 97,
+    "estimated_reading_time_seconds": 44,
+    "content_en": "Last month, I was waiting for a train when a man sat down beside me. He noticed the book in my hands and asked if I enjoyed reading. I smiled and told him it was a travel story. We began talking about places we wanted to visit. He had traveled to several countries and shared some useful tips. I also told him about a city I hoped to see one day. We only talked for about fifteen minutes, but it was a pleasant experience. Talking to a stranger can feel uncomfortable at first, yet a friendly question may lead to an interesting conversation.",
+    "content_cn": "上个月，我正在等火车时，一位男士坐到了我旁边。他注意到我手里的书，便问我是否喜欢阅读。我微笑着告诉他，那是一本旅行故事书。我们开始聊起各自想去的地方。他去过好几个国家，还分享了一些实用建议。我也告诉他，有一座城市是我希望有一天能去看看的。我们只聊了大约十五分钟，但这是一段愉快的经历。与陌生人交谈一开始可能会让人感到不自在，但一个友好的问题也许就能开启一场有趣的对话。",
+    "sentences": [
+      {
+        "sentence_en": "Last month, I was waiting for a train when a man sat down beside me.",
+        "sentence_cn": "上个月，我正在等火车时，一位男士坐到了我旁边。",
+        "chunks": [
+          {"text": "Last month,", "meaning": "上个月"},
+          {"text": " I was waiting for a train", "meaning": "我正在等火车"},
+          {"text": " when a man sat down", "meaning": "这时一位男士坐了下来"},
+          {"text": " beside me.", "meaning": "在我旁边"}
+        ],
+        "explanation": "was waiting 是过去进行时，表示当时正在发生的动作。when 引出另一个动作。"
+      },
+      {
+        "sentence_en": "He noticed the book in my hands and asked if I enjoyed reading.",
+        "sentence_cn": "他注意到我手里的书，便问我是否喜欢阅读。",
+        "chunks": [
+          {"text": "He noticed", "meaning": "他注意到"},
+          {"text": " the book in my hands", "meaning": "我手里的书"},
+          {"text": " and asked", "meaning": "并问道"},
+          {"text": " if I enjoyed reading.", "meaning": "我是否喜欢阅读"}
+        ],
+        "explanation": "if 引导间接疑问句，表示“是否”。enjoy 后接动名词 reading。"
+      },
+      {
+        "sentence_en": "I smiled and told him it was a travel story.",
+        "sentence_cn": "我微笑着告诉他，那是一本旅行故事书。",
+        "chunks": [
+          {"text": "I smiled", "meaning": "我微笑了"},
+          {"text": " and told him", "meaning": "并告诉他"},
+          {"text": " it was", "meaning": "它是"},
+          {"text": " a travel story.", "meaning": "一本旅行故事书"}
+        ],
+        "explanation": "smiled 和 told 是并列的过去式动词。tell someone 后面可以接宾语从句。"
+      },
+      {
+        "sentence_en": "We began talking about places we wanted to visit.",
+        "sentence_cn": "我们开始聊起各自想去的地方。",
+        "chunks": [
+          {"text": "We began talking", "meaning": "我们开始交谈"},
+          {"text": " about places", "meaning": "关于一些地方"},
+          {"text": " we wanted to visit.", "meaning": "我们想去的"}
+        ],
+        "explanation": "begin doing something 表示开始做某事。we wanted to visit 是修饰 places 的定语从句，省略了关系代词。"
+      },
+      {
+        "sentence_en": "He had traveled to several countries and shared some useful tips.",
+        "sentence_cn": "他去过好几个国家，还分享了一些实用建议。",
+        "chunks": [
+          {"text": "He had traveled", "meaning": "他曾经去过"},
+          {"text": " to several countries", "meaning": "好几个国家"},
+          {"text": " and shared", "meaning": "并分享了"},
+          {"text": " some useful tips.", "meaning": "一些实用建议"}
+        ],
+        "explanation": "had traveled 是过去完成时，表示在当时之前已有的旅行经历。tip 在这里表示实用建议。"
+      },
+      {
+        "sentence_en": "I also told him about a city I hoped to see one day.",
+        "sentence_cn": "我也告诉他，有一座城市是我希望有一天能去看看的。",
+        "chunks": [
+          {"text": "I also told him", "meaning": "我也告诉他"},
+          {"text": " about a city", "meaning": "关于一座城市"},
+          {"text": " I hoped to see", "meaning": "我希望去看看"},
+          {"text": " one day.", "meaning": "有一天"}
+        ],
+        "explanation": "hope to do something 表示希望做某事。one day 表示将来的某一天。"
+      },
+      {
+        "sentence_en": "We only talked for about fifteen minutes, but it was a pleasant experience.",
+        "sentence_cn": "我们只聊了大约十五分钟，但这是一段愉快的经历。",
+        "chunks": [
+          {"text": "We only talked", "meaning": "我们只聊了"},
+          {"text": " for about fifteen minutes,", "meaning": "大约十五分钟"},
+          {"text": " but it was", "meaning": "但这是一段"},
+          {"text": " a pleasant experience.", "meaning": "愉快的经历"}
+        ],
+        "explanation": "for 加一段时间表示动作持续多久。pleasant 表示令人愉快的。"
+      },
+      {
+        "sentence_en": "Talking to a stranger can feel uncomfortable at first, yet a friendly question may lead to an interesting conversation.",
+        "sentence_cn": "与陌生人交谈一开始可能会让人感到不自在，但一个友好的问题也许就能开启一场有趣的对话。",
+        "chunks": [
+          {"text": "Talking to a stranger", "meaning": "与陌生人交谈"},
+          {"text": " can feel uncomfortable at first,", "meaning": "一开始可能会让人感到不自在"},
+          {"text": " yet a friendly question", "meaning": "但一个友好的问题"},
+          {"text": " may lead to", "meaning": "可能会带来"},
+          {"text": " an interesting conversation.", "meaning": "一场有趣的对话"}
+        ],
+        "explanation": "at first 表示起初。lead to 表示导致、带来，后面接名词或动名词。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "stranger", "phonetic": "", "meaning": "陌生人", "part_of_speech": "名词"},
+      {"word": "notice", "phonetic": "", "meaning": "注意到", "part_of_speech": "动词"},
+      {"word": "travel", "phonetic": "", "meaning": "旅行", "part_of_speech": "动词"},
+      {"word": "pleasant", "phonetic": "", "meaning": "令人愉快的", "part_of_speech": "形容词"},
+      {"word": "uncomfortable", "phonetic": "", "meaning": "不自在的；不舒服的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "sit down beside someone", "meaning": "坐在某人旁边", "example": "A woman sat down beside me."},
+      {"expression": "enjoy doing something", "meaning": "喜欢做某事", "example": "I enjoy reading before bed."},
+      {"expression": "useful tips", "meaning": "实用建议", "example": "He gave me some useful tips."},
+      {"expression": "one day", "meaning": "有一天", "example": "I hope to visit Japan one day."},
+      {"expression": "at first", "meaning": "起初；一开始", "example": "At first, I felt nervous."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Where did the writer meet the stranger?", "options": ["On a train", "At a hotel", "While waiting for a train", "In a bookstore"], "answer": "While waiting for a train", "explanation": "文章开头说明作者在等火车时遇到了一位陌生人。"},
+      {"type": "细节理解", "question": "What did the man notice?", "options": ["The writer's phone", "The book in the writer's hands", "The writer's bag", "The writer's ticket"], "answer": "The book in the writer's hands", "explanation": "男士注意到了作者手里的书，并询问作者是否喜欢阅读。"},
+      {"type": "主旨理解", "question": "What does the writer think about talking to strangers?", "options": ["It is always dangerous.", "It is never useful.", "It may lead to an interesting conversation.", "It should last a long time."], "answer": "It may lead to an interesting conversation.", "explanation": "文章最后指出，一个友好的问题可能开启一场有趣的对话。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "97词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过车站偶遇场景练习与陌生人开启对话。"
+    }
+  },
+  {
+    "article_id": 60,
+    "day": 240,
+    "stage": 4,
+    "cefr": "A2-B1",
+    "category": "Daily Communication",
+    "scene": "First Impressions",
+    "title_en": "Making a Good First Impression",
+    "title_cn": "留下良好的第一印象",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 46,
+    "content_en": "I was invited to a friend's birthday party, where I would meet many people for the first time. I wanted to make a good impression, so I arrived on time and wore clean, comfortable clothes. When I met the guests, I smiled, introduced myself, and asked them a few simple questions. I also tried to remember their names. At first, I felt a little shy, but everyone was friendly. By the end of the evening, I had made several new friends. I realized that a good first impression does not require perfect words. Being polite, relaxed, and interested in others is often enough.",
+    "content_cn": "我受邀参加一位朋友的生日派对，在那里我会第一次见到许多人。我想给大家留下良好的印象，所以准时到达，并穿上干净舒适的衣服。见到客人时，我微笑着做自我介绍，还问了他们几个简单的问题。我也努力记住他们的名字。起初，我有些害羞，但大家都很友好。到了晚上结束时，我已经交到了几位新朋友。我意识到，留下良好的第一印象并不需要说出完美的话。礼貌、放松，并对他人表现出兴趣，通常就足够了。",
+    "sentences": [
+      {
+        "sentence_en": "I was invited to a friend's birthday party, where I would meet many people for the first time.",
+        "sentence_cn": "我受邀参加一位朋友的生日派对，在那里我会第一次见到许多人。",
+        "chunks": [
+          {"text": "I was invited", "meaning": "我受到了邀请"},
+          {"text": " to a friend's birthday party,", "meaning": "参加一位朋友的生日派对"},
+          {"text": " where I would meet many people", "meaning": "在那里我将见到许多人"},
+          {"text": " for the first time.", "meaning": "这是第一次"}
+        ],
+        "explanation": "was invited 是一般过去时的被动语态。for the first time 表示第一次。"
+      },
+      {
+        "sentence_en": "I wanted to make a good impression, so I arrived on time and wore clean, comfortable clothes.",
+        "sentence_cn": "我想给大家留下良好的印象，所以准时到达，并穿上干净舒适的衣服。",
+        "chunks": [
+          {"text": "I wanted to make a good impression,", "meaning": "我想留下良好的印象"},
+          {"text": " so I arrived on time", "meaning": "所以我准时到达"},
+          {"text": " and wore", "meaning": "并穿上了"},
+          {"text": " clean, comfortable clothes.", "meaning": "干净舒适的衣服"}
+        ],
+        "explanation": "make a good impression 表示留下好印象。on time 表示准时。"
+      },
+      {
+        "sentence_en": "When I met the guests, I smiled, introduced myself, and asked them a few simple questions.",
+        "sentence_cn": "见到客人时，我微笑着做自我介绍，还问了他们几个简单的问题。",
+        "chunks": [
+          {"text": "When I met the guests,", "meaning": "当我见到客人时"},
+          {"text": " I smiled,", "meaning": "我微笑了"},
+          {"text": " introduced myself,", "meaning": "做了自我介绍"},
+          {"text": " and asked them", "meaning": "并询问他们"},
+          {"text": " a few simple questions.", "meaning": "几个简单的问题"}
+        ],
+        "explanation": "smiled、introduced 和 asked 是三个并列的过去式动词。introduce oneself 表示自我介绍。"
+      },
+      {
+        "sentence_en": "I also tried to remember their names.",
+        "sentence_cn": "我也努力记住他们的名字。",
+        "chunks": [
+          {"text": "I also tried", "meaning": "我也尝试"},
+          {"text": " to remember", "meaning": "记住"},
+          {"text": " their names.", "meaning": "他们的名字"}
+        ],
+        "explanation": "try to do something 表示努力或尝试做某事。remember 表示记住。"
+      },
+      {
+        "sentence_en": "At first, I felt a little shy, but everyone was friendly.",
+        "sentence_cn": "起初，我有些害羞，但大家都很友好。",
+        "chunks": [
+          {"text": "At first,", "meaning": "起初"},
+          {"text": " I felt a little shy,", "meaning": "我感到有些害羞"},
+          {"text": " but everyone", "meaning": "但是每个人"},
+          {"text": " was friendly.", "meaning": "都很友好"}
+        ],
+        "explanation": "felt 是 feel 的过去式。a little 修饰形容词 shy，表示有一点。"
+      },
+      {
+        "sentence_en": "By the end of the evening, I had made several new friends.",
+        "sentence_cn": "到了晚上结束时，我已经交到了几位新朋友。",
+        "chunks": [
+          {"text": "By the end of the evening,", "meaning": "到了晚上结束时"},
+          {"text": " I had made", "meaning": "我已经结交了"},
+          {"text": " several new friends.", "meaning": "几位新朋友"}
+        ],
+        "explanation": "by the end of 表示到……结束时。had made 是过去完成时，强调在那个时间点之前已经完成的事情。"
+      },
+      {
+        "sentence_en": "I realized that a good first impression does not require perfect words.",
+        "sentence_cn": "我意识到，留下良好的第一印象并不需要说出完美的话。",
+        "chunks": [
+          {"text": "I realized", "meaning": "我意识到"},
+          {"text": " that a good first impression", "meaning": "良好的第一印象"},
+          {"text": " does not require", "meaning": "并不需要"},
+          {"text": " perfect words.", "meaning": "完美的话语"}
+        ],
+        "explanation": "realize that 表示意识到某事。require 表示需要、要求。"
+      },
+      {
+        "sentence_en": "Being polite, relaxed, and interested in others is often enough.",
+        "sentence_cn": "礼貌、放松，并对他人表现出兴趣，通常就足够了。",
+        "chunks": [
+          {"text": "Being polite,", "meaning": "保持礼貌"},
+          {"text": " relaxed,", "meaning": "放松自然"},
+          {"text": " and interested in others", "meaning": "并对他人感兴趣"},
+          {"text": " is often enough.", "meaning": "通常就足够了"}
+        ],
+        "explanation": "Being... 是动名词短语，作主语。interested in 表示对……感兴趣。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "impression", "phonetic": "", "meaning": "印象", "part_of_speech": "名词"},
+      {"word": "invite", "phonetic": "", "meaning": "邀请", "part_of_speech": "动词"},
+      {"word": "guest", "phonetic": "", "meaning": "客人；来宾", "part_of_speech": "名词"},
+      {"word": "introduce", "phonetic": "", "meaning": "介绍", "part_of_speech": "动词"},
+      {"word": "polite", "phonetic": "", "meaning": "有礼貌的", "part_of_speech": "形容词"}
+    ],
+    "expressions": [
+      {"expression": "make a good impression", "meaning": "留下良好的印象", "example": "I want to make a good impression at the interview."},
+      {"expression": "for the first time", "meaning": "第一次", "example": "I tried sushi for the first time."},
+      {"expression": "arrive on time", "meaning": "准时到达", "example": "Please arrive on time for the meeting."},
+      {"expression": "introduce yourself", "meaning": "自我介绍", "example": "Please introduce yourself to the group."},
+      {"expression": "interested in", "meaning": "对……感兴趣", "example": "She is interested in learning languages."}
+    ],
+    "questions": [
+      {"type": "细节理解", "question": "Where was the writer invited?", "options": ["A wedding", "A birthday party", "A work meeting", "A school event"], "answer": "A birthday party", "explanation": "文章第一句提到作者受邀参加朋友的生日派对。"},
+      {"type": "细节理解", "question": "What did the writer do when meeting the guests?", "options": ["Stayed silent", "Introduced himself and asked questions", "Left early", "Talked only about work"], "answer": "Introduced himself and asked questions", "explanation": "作者微笑、自我介绍，并向客人提出几个简单的问题。"},
+      {"type": "主旨理解", "question": "What does the writer think makes a good first impression?", "options": ["Using perfect words", "Wearing expensive clothes", "Being polite, relaxed, and interested in others", "Talking as much as possible"], "answer": "Being polite, relaxed, and interested in others", "explanation": "文章最后指出，礼貌、放松和对他人表现兴趣通常就足够了。"}
+    ],
+    "quality_check": {
+      "grammar": "通过",
+      "spelling": "通过",
+      "word_count": "100词，符合90–120词要求",
+      "american_english": "使用美式英语表达",
+      "translation": "中英文意思一致",
+      "chunking": "每句分块按顺序可还原原句",
+      "notes": "通过生日派对场景练习初次见面、自我介绍和建立良好印象。"
+    }
+  }
+]

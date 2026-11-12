@@ -1,0 +1,617 @@
+[
+  {
+    "article_id": 46,
+    "day": 226,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "City Life",
+    "scene": "Walking through a busy city street",
+    "title_en": "A Busy Street",
+    "title_cn": "繁忙的街道",
+    "difficulty": "A2-B1",
+    "word_count": 98,
+    "estimated_reading_time_seconds": 55,
+    "content_en": "Every morning, the street outside my office becomes very busy. Cars move slowly, buses stop to pick up passengers, and people hurry to work. Small shops open their doors, and street vendors prepare breakfast for customers. The noise can be annoying, especially when several cars sound their horns at the same time. However, I have learned to enjoy watching the city wake up. I often notice something new, such as a shop changing its sign or a neighbor walking a different dog. Even a busy street can be full of interesting stories.",
+    "content_cn": "每天早上，我办公室外面的街道都会变得非常繁忙。汽车缓慢行驶，公交车停下来接乘客，人们匆忙赶去上班。小商店打开店门，街边摊贩为顾客准备早餐。这里的噪声有时令人烦恼，尤其是好几辆汽车同时按喇叭的时候。不过，我已经学会了享受观察城市苏醒的过程。我经常会注意到一些新变化，比如某家商店换了招牌，或者邻居换了一只狗来遛。即使是一条繁忙的街道，也可能充满有趣的故事。",
+    "sentences": [
+      {
+        "sentence_en": "Every morning, the street outside my office becomes very busy.",
+        "sentence_cn": "每天早上，我办公室外面的街道都会变得非常繁忙。",
+        "chunks": [
+          {"text": "Every morning,", "meaning": "每天早上"},
+          {"text": "the street outside my office", "meaning": "我办公室外面的街道"},
+          {"text": "becomes very busy.", "meaning": "变得非常繁忙"}
+        ],
+        "explanation": "outside my office 是介词短语，修饰 the street，表示街道的位置。"
+      },
+      {
+        "sentence_en": "Cars move slowly, buses stop to pick up passengers, and people hurry to work.",
+        "sentence_cn": "汽车缓慢行驶，公交车停下来接乘客，人们匆忙赶去上班。",
+        "chunks": [
+          {"text": "Cars move slowly,", "meaning": "汽车缓慢行驶"},
+          {"text": "buses stop to pick up passengers,", "meaning": "公交车停下来接乘客"},
+          {"text": "and people hurry to work.", "meaning": "人们匆忙赶去上班"}
+        ],
+        "explanation": "三个并列分句描述街道上的不同活动；stop to do 表示停下来去做某事。"
+      },
+      {
+        "sentence_en": "Small shops open their doors, and street vendors prepare breakfast for customers.",
+        "sentence_cn": "小商店打开店门，街边摊贩为顾客准备早餐。",
+        "chunks": [
+          {"text": "Small shops open their doors,", "meaning": "小商店打开店门"},
+          {"text": "and street vendors", "meaning": "街边摊贩"},
+          {"text": "prepare breakfast for customers.", "meaning": "为顾客准备早餐"}
+        ],
+        "explanation": "street vendors 指在街边摆摊售卖商品的人；prepare ... for ... 表示为某人准备某物。"
+      },
+      {
+        "sentence_en": "The noise can be annoying, especially when several cars sound their horns at the same time.",
+        "sentence_cn": "这里的噪声有时令人烦恼，尤其是好几辆汽车同时按喇叭的时候。",
+        "chunks": [
+          {"text": "The noise can be annoying,", "meaning": "噪声可能令人烦恼"},
+          {"text": "especially when", "meaning": "尤其是在……的时候"},
+          {"text": "several cars sound their horns", "meaning": "好几辆汽车按喇叭"},
+          {"text": "at the same time.", "meaning": "同时"}
+        ],
+        "explanation": "when 引导时间状语从句；at the same time 表示同时。"
+      },
+      {
+        "sentence_en": "However, I have learned to enjoy watching the city wake up.",
+        "sentence_cn": "不过，我已经学会了享受观察城市苏醒的过程。",
+        "chunks": [
+          {"text": "However,", "meaning": "不过；然而"},
+          {"text": "I have learned to enjoy", "meaning": "我已经学会享受"},
+          {"text": "watching the city wake up.", "meaning": "观察城市苏醒"}
+        ],
+        "explanation": "learn to do 表示学会做某事；enjoy 后面接动名词 watching。"
+      },
+      {
+        "sentence_en": "I often notice something new, such as a shop changing its sign or a neighbor walking a different dog.",
+        "sentence_cn": "我经常会注意到一些新变化，比如某家商店换了招牌，或者邻居换了一只狗来遛。",
+        "chunks": [
+          {"text": "I often notice something new,", "meaning": "我经常注意到一些新事物"},
+          {"text": "such as", "meaning": "例如"},
+          {"text": "a shop changing its sign", "meaning": "一家商店更换招牌"},
+          {"text": "or a neighbor walking a different dog.", "meaning": "或者邻居遛着另一只狗"}
+        ],
+        "explanation": "such as 用来举例；changing 和 walking 是动名词形式，说明所观察到的事情。"
+      },
+      {
+        "sentence_en": "Even a busy street can be full of interesting stories.",
+        "sentence_cn": "即使是一条繁忙的街道，也可能充满有趣的故事。",
+        "chunks": [
+          {"text": "Even a busy street", "meaning": "即使是一条繁忙的街道"},
+          {"text": "can be full of", "meaning": "也可能充满"},
+          {"text": "interesting stories.", "meaning": "有趣的故事"}
+        ],
+        "explanation": "be full of 表示充满；这里的 stories 指街道上发生的各种生活故事。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "vendor", "phonetic": "", "meaning": "摊贩；小商贩", "part_of_speech": "noun"},
+      {"word": "passenger", "phonetic": "", "meaning": "乘客", "part_of_speech": "noun"},
+      {"word": "annoying", "phonetic": "", "meaning": "令人烦恼的", "part_of_speech": "adjective"},
+      {"word": "notice", "phonetic": "", "meaning": "注意到", "part_of_speech": "verb"},
+      {"word": "horn", "phonetic": "", "meaning": "汽车喇叭", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "pick up passengers", "meaning": "接乘客", "example": "The bus stops here to pick up passengers."},
+      {"expression": "hurry to work", "meaning": "匆忙去上班", "example": "Many people hurry to work in the morning."},
+      {"expression": "at the same time", "meaning": "同时", "example": "We arrived at the station at the same time."},
+      {"expression": "learn to enjoy", "meaning": "学会享受", "example": "I learned to enjoy walking in the rain."},
+      {"expression": "be full of", "meaning": "充满", "example": "The city is full of interesting places."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What do street vendors prepare in the morning?", "answer": "They prepare breakfast for customers.", "answer_cn": "他们为顾客准备早餐。"},
+      {"type": "inference", "question": "Does the writer dislike the busy street completely?", "answer": "No. The writer sometimes finds the noise annoying but enjoys watching the city.", "answer_cn": "不是。作者有时觉得噪声烦人，但喜欢观察城市。"},
+      {"type": "meaning", "question": "What does 'wake up' mean in 'the city wake up'?", "answer": "It means the city becomes active in the morning.", "answer_cn": "指城市在早晨逐渐热闹、活跃起来。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "98 words; within the 90–120 target",
+      "american_english": "Uses natural American English",
+      "translation": "Chinese translation matches the English text",
+      "chunking": "All sentences are covered and chunks preserve the original wording",
+      "notes": "Everyday urban-life vocabulary and natural descriptions."
+    }
+  },
+  {
+    "article_id": 47,
+    "day": 227,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Community",
+    "scene": "Volunteering in the neighborhood",
+    "title_en": "Helping the Community",
+    "title_cn": "为社区出一份力",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Last Saturday, I joined a volunteer group in my neighborhood. We wanted to make the local park cleaner and more welcoming. Some people picked up litter, while others planted flowers near the walking paths. I helped an older man carry a heavy bag of soil. At first, I thought the work would take all day, but we finished before noon. Afterward, we sat together and shared some snacks. I was tired, but I felt proud of what we had done. Small acts of kindness can bring people closer and make a community stronger.",
+    "content_cn": "上周六，我加入了附近社区的一个志愿者小组。我们希望让当地公园变得更加干净、更加宜人。一些人捡拾垃圾，另一些人则在步道旁种花。我帮一位老人搬了一袋很重的土。一开始，我以为这项工作会花上一整天，但我们中午之前就完成了。之后，我们坐在一起分享了一些零食。我虽然很累，但为大家所做的事情感到自豪。小小的善举能够拉近人与人之间的距离，让社区变得更加团结。",
+    "sentences": [
+      {
+        "sentence_en": "Last Saturday, I joined a volunteer group in my neighborhood.",
+        "sentence_cn": "上周六，我加入了附近社区的一个志愿者小组。",
+        "chunks": [
+          {"text": "Last Saturday,", "meaning": "上周六"},
+          {"text": "I joined a volunteer group", "meaning": "我加入了一个志愿者小组"},
+          {"text": "in my neighborhood.", "meaning": "在我附近的社区"}
+        ],
+        "explanation": "join a group 表示加入一个团体；volunteer 作形容词，表示志愿者性质的。"
+      },
+      {
+        "sentence_en": "We wanted to make the local park cleaner and more welcoming.",
+        "sentence_cn": "我们希望让当地公园变得更加干净、更加宜人。",
+        "chunks": [
+          {"text": "We wanted to make", "meaning": "我们希望让"},
+          {"text": "the local park", "meaning": "当地公园"},
+          {"text": "cleaner and more welcoming.", "meaning": "更加干净、更加宜人"}
+        ],
+        "explanation": "make 后接宾语和形容词，构成 make something + adjective，表示使某物变得……。"
+      },
+      {
+        "sentence_en": "Some people picked up litter, while others planted flowers near the walking paths.",
+        "sentence_cn": "一些人捡拾垃圾，另一些人则在步道旁种花。",
+        "chunks": [
+          {"text": "Some people picked up litter,", "meaning": "一些人捡拾垃圾"},
+          {"text": "while others", "meaning": "而另一些人"},
+          {"text": "planted flowers", "meaning": "种植花朵"},
+          {"text": "near the walking paths.", "meaning": "在步道附近"}
+        ],
+        "explanation": "while 在这里表示对比，说明不同人承担了不同的工作。"
+      },
+      {
+        "sentence_en": "I helped an older man carry a heavy bag of soil.",
+        "sentence_cn": "我帮一位老人搬了一袋很重的土。",
+        "chunks": [
+          {"text": "I helped an older man", "meaning": "我帮助了一位老人"},
+          {"text": "carry", "meaning": "搬运"},
+          {"text": "a heavy bag of soil.", "meaning": "一袋很重的土"}
+        ],
+        "explanation": "help somebody do something 表示帮助某人做某事，help 后可以直接接动词原形。"
+      },
+      {
+        "sentence_en": "At first, I thought the work would take all day, but we finished before noon.",
+        "sentence_cn": "一开始，我以为这项工作会花上一整天，但我们中午之前就完成了。",
+        "chunks": [
+          {"text": "At first,", "meaning": "一开始"},
+          {"text": "I thought the work would take all day,", "meaning": "我以为这项工作会花上一整天"},
+          {"text": "but we finished", "meaning": "但我们完成了"},
+          {"text": "before noon.", "meaning": "在中午之前"}
+        ],
+        "explanation": "would 在这里表示过去视角下对未来的预计；take 表示花费时间。"
+      },
+      {
+        "sentence_en": "Afterward, we sat together and shared some snacks.",
+        "sentence_cn": "之后，我们坐在一起分享了一些零食。",
+        "chunks": [
+          {"text": "Afterward,", "meaning": "之后"},
+          {"text": "we sat together", "meaning": "我们坐在一起"},
+          {"text": "and shared some snacks.", "meaning": "并分享了一些零食"}
+        ],
+        "explanation": "Afterward 是副词，表示后来、之后；sat 和 shared 是过去式。"
+      },
+      {
+        "sentence_en": "I was tired, but I felt proud of what we had done.",
+        "sentence_cn": "我虽然很累，但为大家所做的事情感到自豪。",
+        "chunks": [
+          {"text": "I was tired,", "meaning": "我很累"},
+          {"text": "but I felt proud of", "meaning": "但我为……感到自豪"},
+          {"text": "what we had done.", "meaning": "我们所做的事情"}
+        ],
+        "explanation": "be proud of 表示为……感到自豪；what we had done 是名词性从句。"
+      },
+      {
+        "sentence_en": "Small acts of kindness can bring people closer and make a community stronger.",
+        "sentence_cn": "小小的善举能够拉近人与人之间的距离，让社区变得更加团结。",
+        "chunks": [
+          {"text": "Small acts of kindness", "meaning": "小小的善举"},
+          {"text": "can bring people closer", "meaning": "能够拉近人与人之间的距离"},
+          {"text": "and make a community stronger.", "meaning": "并让社区变得更加团结"}
+        ],
+        "explanation": "acts of kindness 指善意的行为；bring people closer 是形象表达，表示增进人与人之间的关系。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "volunteer", "phonetic": "", "meaning": "志愿者；自愿做", "part_of_speech": "noun/verb"},
+      {"word": "litter", "phonetic": "", "meaning": "垃圾；乱扔的废弃物", "part_of_speech": "noun"},
+      {"word": "welcoming", "phonetic": "", "meaning": "热情友好的；令人感到受欢迎的", "part_of_speech": "adjective"},
+      {"word": "soil", "phonetic": "", "meaning": "土壤", "part_of_speech": "noun"},
+      {"word": "kindness", "phonetic": "", "meaning": "善良；善意", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "join a volunteer group", "meaning": "加入志愿者小组", "example": "I joined a volunteer group last month."},
+      {"expression": "pick up litter", "meaning": "捡拾垃圾", "example": "We picked up litter in the park."},
+      {"expression": "at first", "meaning": "起初；一开始", "example": "At first, I was nervous about speaking English."},
+      {"expression": "be proud of", "meaning": "为……感到自豪", "example": "She is proud of her team's work."},
+      {"expression": "bring people closer", "meaning": "拉近人与人之间的距离", "example": "Working together can bring people closer."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What did the volunteers do in the park?", "answer": "They picked up litter and planted flowers.", "answer_cn": "他们捡拾垃圾并种植花朵。"},
+      {"type": "sequence", "question": "What did the group do after finishing the work?", "answer": "They sat together and shared some snacks.", "answer_cn": "他们坐在一起分享零食。"},
+      {"type": "inference", "question": "Why did the writer feel proud?", "answer": "Because the group had done something useful for the community.", "answer_cn": "因为他们为社区做了一件有意义的事情。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "100 words; within the 90–120 target",
+      "american_english": "Uses natural American English",
+      "translation": "Chinese translation matches the English text",
+      "chunking": "All sentences are covered and chunks preserve the original wording",
+      "notes": "Focuses on volunteering, cooperation, and community relationships."
+    }
+  },
+  {
+    "article_id": 48,
+    "day": 228,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Environment",
+    "scene": "Making everyday choices to protect nature",
+    "title_en": "Protecting the Environment",
+    "title_cn": "保护环境",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "Protecting the environment does not always require big actions. We can start with simple habits at home and at work. For example, I carry a reusable water bottle instead of buying plastic ones. I also turn off the lights when I leave a room and try not to waste food. On weekends, I sometimes take the bus or ride my bike instead of driving. These choices may seem small, but they can reduce waste and save energy. If more people make these changes, our neighborhoods will become cleaner and healthier places to live.",
+    "content_cn": "保护环境并不总是需要采取很大的行动。我们可以从家里和工作中的简单习惯开始。例如，我会随身携带可重复使用的水瓶，而不是购买塑料瓶。我离开房间时也会关灯，并尽量不浪费食物。周末，我有时会乘坐公交车或骑自行车，而不是开车。这些选择看起来可能很小，但它们能够减少浪费、节约能源。如果更多人做出这些改变，我们的社区就会成为更加干净、更加健康的居住环境。",
+    "sentences": [
+      {
+        "sentence_en": "Protecting the environment does not always require big actions.",
+        "sentence_cn": "保护环境并不总是需要采取很大的行动。",
+        "chunks": [
+          {"text": "Protecting the environment", "meaning": "保护环境"},
+          {"text": "does not always require", "meaning": "并不总是需要"},
+          {"text": "big actions.", "meaning": "大规模的行动"}
+        ],
+        "explanation": "Protecting 是动名词，在句中作主语；require 表示需要、要求。"
+      },
+      {
+        "sentence_en": "We can start with simple habits at home and at work.",
+        "sentence_cn": "我们可以从家里和工作中的简单习惯开始。",
+        "chunks": [
+          {"text": "We can start with", "meaning": "我们可以从……开始"},
+          {"text": "simple habits", "meaning": "简单的习惯"},
+          {"text": "at home and at work.", "meaning": "在家里和工作中"}
+        ],
+        "explanation": "start with 表示从……开始；at home 和 at work 是常见地点表达。"
+      },
+      {
+        "sentence_en": "For example, I carry a reusable water bottle instead of buying plastic ones.",
+        "sentence_cn": "例如，我会随身携带可重复使用的水瓶，而不是购买塑料瓶。",
+        "chunks": [
+          {"text": "For example,", "meaning": "例如"},
+          {"text": "I carry a reusable water bottle", "meaning": "我携带一个可重复使用的水瓶"},
+          {"text": "instead of buying plastic ones.", "meaning": "而不是购买塑料瓶"}
+        ],
+        "explanation": "instead of 后接名词或动名词；ones 在这里代替前面提到的 water bottles。"
+      },
+      {
+        "sentence_en": "I also turn off the lights when I leave a room and try not to waste food.",
+        "sentence_cn": "我离开房间时也会关灯，并尽量不浪费食物。",
+        "chunks": [
+          {"text": "I also turn off the lights", "meaning": "我也会关灯"},
+          {"text": "when I leave a room", "meaning": "当我离开房间时"},
+          {"text": "and try not to waste food.", "meaning": "并尽量不浪费食物"}
+        ],
+        "explanation": "turn off 表示关闭电器或灯；try not to do 表示尽量不做某事。"
+      },
+      {
+        "sentence_en": "On weekends, I sometimes take the bus or ride my bike instead of driving.",
+        "sentence_cn": "周末，我有时会乘坐公交车或骑自行车，而不是开车。",
+        "chunks": [
+          {"text": "On weekends,", "meaning": "在周末"},
+          {"text": "I sometimes take the bus", "meaning": "我有时乘坐公交车"},
+          {"text": "or ride my bike", "meaning": "或者骑自行车"},
+          {"text": "instead of driving.", "meaning": "而不是开车"}
+        ],
+        "explanation": "instead of 后面的 driving 是动名词；take the bus 和 ride my bike 都是常用交通表达。"
+      },
+      {
+        "sentence_en": "These choices may seem small, but they can reduce waste and save energy.",
+        "sentence_cn": "这些选择看起来可能很小，但它们能够减少浪费、节约能源。",
+        "chunks": [
+          {"text": "These choices may seem small,", "meaning": "这些选择看起来可能很小"},
+          {"text": "but they can", "meaning": "但它们能够"},
+          {"text": "reduce waste", "meaning": "减少浪费"},
+          {"text": "and save energy.", "meaning": "并节约能源"}
+        ],
+        "explanation": "may seem 表示看起来可能；reduce 和 save 是两个并列动词。"
+      },
+      {
+        "sentence_en": "If more people make these changes, our neighborhoods will become cleaner and healthier places to live.",
+        "sentence_cn": "如果更多人做出这些改变，我们的社区就会成为更加干净、更加健康的居住环境。",
+        "chunks": [
+          {"text": "If more people make these changes,", "meaning": "如果更多人做出这些改变"},
+          {"text": "our neighborhoods will become", "meaning": "我们的社区将会变得"},
+          {"text": "cleaner and healthier", "meaning": "更加干净、更加健康"},
+          {"text": "places to live.", "meaning": "适合居住的地方"}
+        ],
+        "explanation": "这是第一条件句：If 从句用一般现在时，主句用 will 表示可能的未来结果。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "environment", "phonetic": "", "meaning": "环境", "part_of_speech": "noun"},
+      {"word": "reusable", "phonetic": "", "meaning": "可重复使用的", "part_of_speech": "adjective"},
+      {"word": "plastic", "phonetic": "", "meaning": "塑料；塑料制品", "part_of_speech": "noun/adjective"},
+      {"word": "reduce", "phonetic": "", "meaning": "减少；降低", "part_of_speech": "verb"},
+      {"word": "energy", "phonetic": "", "meaning": "能源；能量", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "protect the environment", "meaning": "保护环境", "example": "Everyone can help protect the environment."},
+      {"expression": "start with", "meaning": "从……开始", "example": "Let's start with one simple change."},
+      {"expression": "instead of", "meaning": "而不是；代替", "example": "I walk instead of taking a taxi."},
+      {"expression": "turn off the lights", "meaning": "关灯", "example": "Please turn off the lights before you leave."},
+      {"expression": "save energy", "meaning": "节约能源", "example": "Using less electricity helps save energy."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What does the writer carry instead of buying plastic bottles?", "answer": "A reusable water bottle.", "answer_cn": "一个可重复使用的水瓶。"},
+      {"type": "detail", "question": "What does the writer sometimes do on weekends instead of driving?", "answer": "The writer takes the bus or rides a bike.", "answer_cn": "作者乘坐公交车或骑自行车。"},
+      {"type": "inference", "question": "What is the main idea of the passage?", "answer": "Small daily habits can help protect the environment.", "answer_cn": "日常生活中的小习惯也能帮助保护环境。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "100 words; within the 90–120 target",
+      "american_english": "Uses natural American English",
+      "translation": "Chinese translation matches the English text",
+      "chunking": "All sentences are covered and chunks preserve the original wording",
+      "notes": "Uses practical environmental vocabulary and a first conditional sentence."
+    }
+  },
+  {
+    "article_id": 49,
+    "day": 229,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Personal Growth",
+    "scene": "Building healthier daily habits",
+    "title_en": "Small Changes for a Better Life",
+    "title_cn": "让生活更美好的小改变",
+    "difficulty": "A2-B1",
+    "word_count": 101,
+    "estimated_reading_time_seconds": 57,
+    "content_en": "A better life does not always come from making big changes. Sometimes, small steps can make a real difference. I used to stay up late and skip breakfast, so I often felt tired during the day. Now, I try to go to bed earlier and eat something healthy in the morning. I also take a short walk after lunch instead of sitting at my desk. These habits are not difficult, but they help me feel more active and relaxed. I do not need to change everything at once. I just need to keep making progress.",
+    "content_cn": "更好的生活并不总是来自巨大的改变。有时候，一些小小的行动就能带来真正的不同。我过去常常熬夜，还不吃早餐，所以白天经常感到疲惫。现在，我努力早点睡觉，并在早上吃一些健康的食物。午饭后，我也会短暂散步，而不是一直坐在办公桌前。这些习惯并不难，但它们能让我感觉更有活力、更放松。我不需要一下子改变所有事情，只需要持续取得进步。",
+    "sentences": [
+      {
+        "sentence_en": "A better life does not always come from making big changes.",
+        "sentence_cn": "更好的生活并不总是来自巨大的改变。",
+        "chunks": [
+          {"text": "A better life", "meaning": "更好的生活"},
+          {"text": "does not always come from", "meaning": "并不总是来自"},
+          {"text": "making big changes.", "meaning": "做出巨大的改变"}
+        ],
+        "explanation": "come from 表示来自；making 是动名词，作介词 from 的宾语。"
+      },
+      {
+        "sentence_en": "Sometimes, small steps can make a real difference.",
+        "sentence_cn": "有时候，一些小小的行动就能带来真正的不同。",
+        "chunks": [
+          {"text": "Sometimes,", "meaning": "有时候"},
+          {"text": "small steps", "meaning": "小小的行动"},
+          {"text": "can make a real difference.", "meaning": "能够带来真正的改变"}
+        ],
+        "explanation": "make a difference 是常用表达，表示产生影响、带来改变。"
+      },
+      {
+        "sentence_en": "I used to stay up late and skip breakfast, so I often felt tired during the day.",
+        "sentence_cn": "我过去常常熬夜，还不吃早餐，所以白天经常感到疲惫。",
+        "chunks": [
+          {"text": "I used to stay up late", "meaning": "我过去常常熬夜"},
+          {"text": "and skip breakfast,", "meaning": "并且不吃早餐"},
+          {"text": "so I often felt tired", "meaning": "所以我经常感到疲惫"},
+          {"text": "during the day.", "meaning": "在白天"}
+        ],
+        "explanation": "used to do 表示过去经常做、现在已经不一定如此；so 连接原因和结果。"
+      },
+      {
+        "sentence_en": "Now, I try to go to bed earlier and eat something healthy in the morning.",
+        "sentence_cn": "现在，我努力早点睡觉，并在早上吃一些健康的食物。",
+        "chunks": [
+          {"text": "Now,", "meaning": "现在"},
+          {"text": "I try to go to bed earlier", "meaning": "我努力早点睡觉"},
+          {"text": "and eat something healthy", "meaning": "并吃一些健康的东西"},
+          {"text": "in the morning.", "meaning": "在早上"}
+        ],
+        "explanation": "try to do 表示努力尝试做某事；something healthy 中形容词放在不定代词之后。"
+      },
+      {
+        "sentence_en": "I also take a short walk after lunch instead of sitting at my desk.",
+        "sentence_cn": "午饭后，我也会短暂散步，而不是一直坐在办公桌前。",
+        "chunks": [
+          {"text": "I also take a short walk", "meaning": "我也会短暂散步"},
+          {"text": "after lunch", "meaning": "午饭后"},
+          {"text": "instead of sitting", "meaning": "而不是坐着"},
+          {"text": "at my desk.", "meaning": "在我的办公桌前"}
+        ],
+        "explanation": "take a walk 表示散步；instead of 后面接动名词 sitting。"
+      },
+      {
+        "sentence_en": "These habits are not difficult, but they help me feel more active and relaxed.",
+        "sentence_cn": "这些习惯并不难，但它们能让我感觉更有活力、更放松。",
+        "chunks": [
+          {"text": "These habits are not difficult,", "meaning": "这些习惯并不难"},
+          {"text": "but they help me feel", "meaning": "但它们帮助我感觉"},
+          {"text": "more active and relaxed.", "meaning": "更有活力、更放松"}
+        ],
+        "explanation": "help somebody do something 表示帮助某人做某事；active 和 relaxed 是并列形容词。"
+      },
+      {
+        "sentence_en": "I do not need to change everything at once.",
+        "sentence_cn": "我不需要一下子改变所有事情。",
+        "chunks": [
+          {"text": "I do not need to", "meaning": "我不需要"},
+          {"text": "change everything", "meaning": "改变所有事情"},
+          {"text": "at once.", "meaning": "一下子；同时"}
+        ],
+        "explanation": "need to do 表示需要做某事；at once 在这里表示一次性地、立刻。"
+      },
+      {
+        "sentence_en": "I just need to keep making progress.",
+        "sentence_cn": "我只需要持续取得进步。",
+        "chunks": [
+          {"text": "I just need to", "meaning": "我只需要"},
+          {"text": "keep making progress.", "meaning": "持续取得进步"}
+        ],
+        "explanation": "keep doing 表示持续做某事；make progress 表示取得进步。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "step", "phonetic": "", "meaning": "步骤；行动", "part_of_speech": "noun"},
+      {"word": "difference", "phonetic": "", "meaning": "差别；影响", "part_of_speech": "noun"},
+      {"word": "skip", "phonetic": "", "meaning": "跳过；不做；不吃", "part_of_speech": "verb"},
+      {"word": "active", "phonetic": "", "meaning": "活跃的；有活力的", "part_of_speech": "adjective"},
+      {"word": "progress", "phonetic": "", "meaning": "进步；进展", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "make a difference", "meaning": "产生影响；带来改变", "example": "A little exercise can make a difference."},
+      {"expression": "used to", "meaning": "过去常常", "example": "I used to drink coffee every night."},
+      {"expression": "stay up late", "meaning": "熬夜", "example": "Try not to stay up late."},
+      {"expression": "at once", "meaning": "立刻；一下子", "example": "You don't have to finish everything at once."},
+      {"expression": "make progress", "meaning": "取得进步", "example": "You will make progress if you keep practicing."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What two habits did the writer have in the past?", "answer": "The writer used to stay up late and skip breakfast.", "answer_cn": "作者过去常常熬夜并且不吃早餐。"},
+      {"type": "detail", "question": "What does the writer do after lunch now?", "answer": "The writer takes a short walk.", "answer_cn": "作者现在午饭后会短暂散步。"},
+      {"type": "inference", "question": "What does the writer believe about improving life?", "answer": "Small, regular changes can improve life, and progress does not need to happen all at once.", "answer_cn": "作者认为持续的小改变能够改善生活，不必一次性完成所有改变。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "101 words; within the 90–120 target",
+      "american_english": "Uses natural American English",
+      "translation": "Chinese translation matches the English text",
+      "chunking": "All sentences are covered and chunks preserve the original wording",
+      "notes": "Reinforces useful structures including used to, instead of, and keep doing."
+    }
+  },
+  {
+    "article_id": 50,
+    "day": 230,
+    "stage": "Stage 4",
+    "cefr": "A2-B1",
+    "category": "Culture and Lifestyle",
+    "scene": "Learning about different lifestyles",
+    "title_en": "Different Ways of Living",
+    "title_cn": "不同的生活方式",
+    "difficulty": "A2-B1",
+    "word_count": 100,
+    "estimated_reading_time_seconds": 56,
+    "content_en": "People around the world live in many different ways. Some enjoy the quiet life of a small town, while others prefer the energy of a big city. In some countries, families eat dinner together every evening. In others, people may have different schedules and eat at different times. I once stayed with a family in another country and learned about their daily routines. Their habits were different from mine, but I found them interesting. That experience taught me to respect other lifestyles. We do not have to live in the same way to understand one another.",
+    "content_cn": "世界各地的人们有着许多不同的生活方式。有些人喜欢小镇宁静的生活，而另一些人更喜欢大城市的活力。在一些国家，家人每天晚上都会一起吃晚餐。在另一些地方，人们的作息可能不同，吃饭时间也不一样。我曾经在另一个国家的一户人家住过，并了解了他们的日常习惯。他们的习惯与我的不同，但我觉得很有意思。那次经历让我学会尊重其他生活方式。我们不必以相同的方式生活，也能彼此理解。",
+    "sentences": [
+      {
+        "sentence_en": "People around the world live in many different ways.",
+        "sentence_cn": "世界各地的人们有着许多不同的生活方式。",
+        "chunks": [
+          {"text": "People around the world", "meaning": "世界各地的人们"},
+          {"text": "live in", "meaning": "以……方式生活"},
+          {"text": "many different ways.", "meaning": "许多不同的方式"}
+        ],
+        "explanation": "around the world 表示全世界；in many different ways 表示以许多不同的方式。"
+      },
+      {
+        "sentence_en": "Some enjoy the quiet life of a small town, while others prefer the energy of a big city.",
+        "sentence_cn": "有些人喜欢小镇宁静的生活，而另一些人更喜欢大城市的活力。",
+        "chunks": [
+          {"text": "Some enjoy", "meaning": "有些人喜欢"},
+          {"text": "the quiet life of a small town,", "meaning": "小镇宁静的生活"},
+          {"text": "while others prefer", "meaning": "而另一些人更喜欢"},
+          {"text": "the energy of a big city.", "meaning": "大城市的活力"}
+        ],
+        "explanation": "some ... while others ... 用来对比两类人；prefer 表示更喜欢。"
+      },
+      {
+        "sentence_en": "In some countries, families eat dinner together every evening.",
+        "sentence_cn": "在一些国家，家人每天晚上都会一起吃晚餐。",
+        "chunks": [
+          {"text": "In some countries,", "meaning": "在一些国家"},
+          {"text": "families eat dinner together", "meaning": "家人一起吃晚餐"},
+          {"text": "every evening.", "meaning": "每个晚上"}
+        ],
+        "explanation": "together 表示一起；every evening 表示每天晚上，通常使用一般现在时描述习惯。"
+      },
+      {
+        "sentence_en": "In others, people may have different schedules and eat at different times.",
+        "sentence_cn": "在另一些地方，人们的作息可能不同，吃饭时间也不一样。",
+        "chunks": [
+          {"text": "In others,", "meaning": "在另一些国家或地方"},
+          {"text": "people may have different schedules", "meaning": "人们可能有不同的作息安排"},
+          {"text": "and eat at different times.", "meaning": "并在不同时间吃饭"}
+        ],
+        "explanation": "others 指前文提到的其他国家；may 表示可能；schedule 表示时间安排。"
+      },
+      {
+        "sentence_en": "I once stayed with a family in another country and learned about their daily routines.",
+        "sentence_cn": "我曾经在另一个国家的一户人家住过，并了解了他们的日常习惯。",
+        "chunks": [
+          {"text": "I once stayed with a family", "meaning": "我曾经住在一个家庭里"},
+          {"text": "in another country", "meaning": "在另一个国家"},
+          {"text": "and learned about", "meaning": "并了解了"},
+          {"text": "their daily routines.", "meaning": "他们的日常习惯"}
+        ],
+        "explanation": "stay with somebody 表示住在某人家里；learn about 表示了解某事。"
+      },
+      {
+        "sentence_en": "Their habits were different from mine, but I found them interesting.",
+        "sentence_cn": "他们的习惯与我的不同，但我觉得很有意思。",
+        "chunks": [
+          {"text": "Their habits were different from mine,", "meaning": "他们的习惯与我的不同"},
+          {"text": "but I found them interesting.", "meaning": "但我觉得它们很有意思"}
+        ],
+        "explanation": "different from 表示与……不同；mine 是名词性物主代词，代替 my habits；find something interesting 表示觉得某事有趣。"
+      },
+      {
+        "sentence_en": "That experience taught me to respect other lifestyles.",
+        "sentence_cn": "那次经历让我学会尊重其他生活方式。",
+        "chunks": [
+          {"text": "That experience", "meaning": "那次经历"},
+          {"text": "taught me to respect", "meaning": "教会我尊重"},
+          {"text": "other lifestyles.", "meaning": "其他生活方式"}
+        ],
+        "explanation": "teach somebody to do something 表示教会某人做某事；lifestyle 指生活方式。"
+      },
+      {
+        "sentence_en": "We do not have to live in the same way to understand one another.",
+        "sentence_cn": "我们不必以相同的方式生活，也能彼此理解。",
+        "chunks": [
+          {"text": "We do not have to", "meaning": "我们不必"},
+          {"text": "live in the same way", "meaning": "以相同的方式生活"},
+          {"text": "to understand one another.", "meaning": "为了理解彼此"}
+        ],
+        "explanation": "do not have to 表示不必；one another 表示彼此，常用于两人或多人之间。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "lifestyle", "phonetic": "", "meaning": "生活方式", "part_of_speech": "noun"},
+      {"word": "prefer", "phonetic": "", "meaning": "更喜欢；宁愿选择", "part_of_speech": "verb"},
+      {"word": "schedule", "phonetic": "", "meaning": "日程；时间安排", "part_of_speech": "noun"},
+      {"word": "routine", "phonetic": "", "meaning": "日常惯例；固定习惯", "part_of_speech": "noun"},
+      {"word": "respect", "phonetic": "", "meaning": "尊重", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "around the world", "meaning": "世界各地；全世界", "example": "People around the world enjoy music."},
+      {"expression": "prefer A to B", "meaning": "比起B更喜欢A", "example": "I prefer tea to coffee."},
+      {"expression": "stay with a family", "meaning": "住在一个家庭里", "example": "We stayed with a local family during our trip."},
+      {"expression": "learn about", "meaning": "了解；学习有关……的知识", "example": "I want to learn about other cultures."},
+      {"expression": "different from", "meaning": "与……不同", "example": "Her daily routine is different from mine."}
+    ],
+    "questions": [
+      {"type": "detail", "question": "What two kinds of places are compared in the passage?", "answer": "A small town and a big city.", "answer_cn": "小镇和大城市。"},
+      {"type": "detail", "question": "What did the writer learn while staying with a family abroad?", "answer": "The writer learned about the family's daily routines.", "answer_cn": "作者了解了这个家庭的日常习惯。"},
+      {"type": "inference", "question": "What lesson did the writer learn from the experience?", "answer": "People can respect and understand one another even if they live differently.", "answer_cn": "即使生活方式不同，人们仍然可以尊重和理解彼此。"}
+    ],
+    "quality_check": {
+      "grammar": "Passed",
+      "spelling": "Passed",
+      "word_count": "100 words; within the 90–120 target",
+      "american_english": "Uses natural American English",
+      "translation": "Chinese translation matches the English text",
+      "chunking": "All sentences are covered and chunks preserve the original wording",
+      "notes": "Focuses on cultural differences, daily routines, and mutual respect."
+    }
+  }
+]

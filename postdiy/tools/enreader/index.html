@@ -3,47 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EN Reader · 英语阅读</title>
+<title>EN Reader · 每日英语口语朗读课程</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
-<link rel="stylesheet" href="assets/style.css?v=17">
+<link rel="stylesheet" href="assets/style.css?v=19">
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <h1>EN Reader</h1>
-    <p>分级英语短文 · 整篇 / 单句 / 单词点读，只读英文，为你带来沉浸式跟读体验。</p>
+    <p>365 天 · 每天一篇 · 六个阶段循序渐进。以真实生活场景为内容，以英语朗读为学习方式，从敢开口到自然交流。</p>
   </header>
-  <main id="cats"></main>
+  <main id="stages"></main>
   <footer class="foot">
-    把新短文放进 pedingfiles/ 目录，运行 <b>python build.py</b> 即可上架新章节。
+    课程数据由 <b>pedingfiles/*.json</b> 构建：放入新批次后运行 <b>python build_course.py</b> 即可上架。
   </footer>
 </div>
-<script src="data/articles.js?v=17"></script>
-<script src="assets/common.js?v=17"></script>
+<script src="data/course-manifest.js?v=19"></script>
 <script>
 (function () {
-  ENR.applyTheme();
-  const root = document.getElementById("cats");
-  (window.ENR_DATA.categories || []).forEach(cat => {
-    if (!cat.articles || !cat.articles.length) return;
-    const sec = document.createElement("section");
-    sec.className = "cat";
-    sec.innerHTML = `<div class="cat-h"><span class="ic">${cat.icon || "📗"}</span><h2>${cat.name}</h2><span class="cnt">${cat.articles.length} 篇</span></div>`;
-    cat.articles.forEach(a => {
-      const pos = parseInt(localStorage.getItem("enr:pos:" + a.id) || "0", 10) || 0;
-      const pct = Math.min(100, Math.round(pos / a.sentCount * 100));
-      const btn = document.createElement("button");
-      btn.className = "acard";
-      btn.innerHTML =
-        `<span class="go">${pct > 0 && pct < 100 ? "继续 →" : "阅读 →"}</span>` +
-        `<div class="t">${a.title}</div>` +
-        `<div class="m"><span>${a.difficulty}难度</span><span class="dot"></span>` +
-        `<span>${a.paragraphs.length} 段 · ${a.sentCount} 句</span><span class="dot"></span>` +
-        `<span>约 ${a.estWords} 字</span></div>` +
-        (pct > 0 ? `<div class="bar"><i style="width:${pct}%"></i></div>` : "");
-      btn.addEventListener("click", () => location.href = "article.html?id=" + encodeURIComponent(a.id));
-      sec.appendChild(btn);
-    });
+  const doneOf = id => localStorage.getItem("enr:done:" + id) === "1";
+  const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
+  const root = document.getElementById("stages");
+
+  (window.ENR_COURSE.stages || []).forEach(st => {
+    const arts = (window.ENR_COURSE.articles || []).filter(a => a.stage === st.id);
+    const doneCount = arts.filter(a => doneOf(a.id)).length;
+    const started = arts.some(a => !doneOf(a.id) && (posOf(a.id) > 0 || doneOf(a.id)));
+    const pct = arts.length ? Math.round(doneCount / arts.length * 100) : 0;
+
+    const sec = document.createElement("button");
+    sec.className = "stg" + (arts.length ? "" : " off");
+    sec.innerHTML =
+      `<div class="stg-top"><span class="no">Stage ${String(st.id).padStart(2, "0")}</span>` +
+      `<span class="cefr">${st.cefr}</span></div>` +
+      `<div class="stg-name">${st.name}</div>` +
+      `<div class="stg-meta"><span class="tag">${st.short}</span>` +
+      `<span>Day ${st.days[0]}–${st.days[1]}</span>` +
+      `<span>${arts.length ? `已上架 ${arts.length} 篇` : "内容制作中"}</span></div>` +
+      (arts.length
+        ? `<div class="stg-bar"><i style="width:${pct}%"></i></div>` +
+          `<div class="stg-foot">${doneCount >= arts.length && arts.length ? "✓ 阶段完成" : (started ? "继续学习 →" : "开始学习 →")}<span>${doneCount} / ${arts.length} 篇完成</span></div>`
+        : `<div class="stg-foot"><span>敬请期待</span></div>`);
+    if (arts.length) sec.addEventListener("click", () => location.href = "stage.html?stage=" + st.id);
     root.appendChild(sec);
   });
 })();

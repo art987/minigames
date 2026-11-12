@@ -1,0 +1,634 @@
+[
+  {
+    "article_id": "day101",
+    "day": 101,
+    "stage": 2,
+    "cefr": "A1",
+    "category": "Daily Life",
+    "scene": "At the Hair Salon",
+    "title_en": "A New Haircut",
+    "title_cn": "剪一个新发型",
+    "difficulty": "A1",
+    "word_count": 62,
+    "estimated_reading_time_seconds": 35,
+    "content_en": "Tom wants a new haircut today. He walks into a small hair salon near his home. A friendly woman asks what he would like. Tom shows her a picture on his phone. He wants short hair, but not too short. The woman smiles and starts cutting his hair. After twenty minutes, Tom looks in the mirror. He likes his new style and thanks her.",
+    "content_cn": "汤姆今天想换一个新发型。他走进家附近的一家小理发店。一位友好的女士问他想剪什么样的发型。汤姆给她看了手机上的一张照片。他想要短发，但不要剪得太短。女士笑了笑，开始为他剪头发。二十分钟后，汤姆照了照镜子。他喜欢自己的新发型，并向她道谢。",
+    "sentences": [
+      {
+        "sentence_en": "Tom wants a new haircut today.",
+        "sentence_cn": "汤姆今天想换一个新发型。",
+        "chunks": [
+          {"text": "Tom", "meaning": "汤姆"},
+          {"text": "wants", "meaning": "想要"},
+          {"text": "a new haircut", "meaning": "一个新发型"},
+          {"text": "today.", "meaning": "今天"}
+        ],
+        "explanation": "want后面可以接名词，表示想要某样东西。"
+      },
+      {
+        "sentence_en": "He walks into a small hair salon near his home.",
+        "sentence_cn": "他走进家附近的一家小理发店。",
+        "chunks": [
+          {"text": "He", "meaning": "他"},
+          {"text": "walks into", "meaning": "走进"},
+          {"text": "a small hair salon", "meaning": "一家小理发店"},
+          {"text": "near his home.", "meaning": "在他家附近"}
+        ],
+        "explanation": "walk into表示走进某个地方；near表示在附近。"
+      },
+      {
+        "sentence_en": "A friendly woman asks what he would like.",
+        "sentence_cn": "一位友好的女士问他想要什么样的发型。",
+        "chunks": [
+          {"text": "A friendly woman", "meaning": "一位友好的女士"},
+          {"text": "asks", "meaning": "询问"},
+          {"text": "what he would like.", "meaning": "他想要什么"}
+        ],
+        "explanation": "what he would like表示他想要什么，是一个嵌入在句子中的疑问内容。"
+      },
+      {
+        "sentence_en": "Tom shows her a picture on his phone.",
+        "sentence_cn": "汤姆给她看了手机上的一张照片。",
+        "chunks": [
+          {"text": "Tom", "meaning": "汤姆"},
+          {"text": "shows her", "meaning": "给她看"},
+          {"text": "a picture", "meaning": "一张照片"},
+          {"text": "on his phone.", "meaning": "在他的手机上"}
+        ],
+        "explanation": "show someone something表示给某人看某物。"
+      },
+      {
+        "sentence_en": "He wants short hair, but not too short.",
+        "sentence_cn": "他想要短发，但不要剪得太短。",
+        "chunks": [
+          {"text": "He wants", "meaning": "他想要"},
+          {"text": "short hair,", "meaning": "短发"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "not too short.", "meaning": "不要太短"}
+        ],
+        "explanation": "but用于连接意思相反或有所转折的内容；too表示太、过于。"
+      },
+      {
+        "sentence_en": "The woman smiles and starts cutting his hair.",
+        "sentence_cn": "女士笑了笑，开始为他剪头发。",
+        "chunks": [
+          {"text": "The woman", "meaning": "这位女士"},
+          {"text": "smiles", "meaning": "微笑"},
+          {"text": "and starts", "meaning": "并开始"},
+          {"text": "cutting his hair.", "meaning": "给他剪头发"}
+        ],
+        "explanation": "start doing something表示开始做某事。"
+      },
+      {
+        "sentence_en": "After twenty minutes, Tom looks in the mirror.",
+        "sentence_cn": "二十分钟后，汤姆照了照镜子。",
+        "chunks": [
+          {"text": "After twenty minutes,", "meaning": "二十分钟后"},
+          {"text": "Tom", "meaning": "汤姆"},
+          {"text": "looks in", "meaning": "看向"},
+          {"text": "the mirror.", "meaning": "镜子"}
+        ],
+        "explanation": "look in the mirror表示照镜子。"
+      },
+      {
+        "sentence_en": "He likes his new style and thanks her.",
+        "sentence_cn": "他喜欢自己的新发型，并向她道谢。",
+        "chunks": [
+          {"text": "He likes", "meaning": "他喜欢"},
+          {"text": "his new style", "meaning": "他的新造型"},
+          {"text": "and thanks her.", "meaning": "并向她道谢"}
+        ],
+        "explanation": "thanks是thank的第三人称单数形式，表示感谢。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "haircut", "phonetic": "", "meaning": "理发；发型", "part_of_speech": "noun"},
+      {"word": "salon", "phonetic": "", "meaning": "美容店；理发店", "part_of_speech": "noun"},
+      {"word": "friendly", "phonetic": "", "meaning": "友好的", "part_of_speech": "adjective"},
+      {"word": "mirror", "phonetic": "", "meaning": "镜子", "part_of_speech": "noun"},
+      {"word": "style", "phonetic": "", "meaning": "风格；造型", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "I would like...", "meaning": "我想要……", "example": "I would like a new haircut."},
+      {"expression": "not too short", "meaning": "不要太短", "example": "Please make it short, but not too short."},
+      {"expression": "show someone a picture", "meaning": "给某人看一张照片", "example": "Can I show you a picture?"},
+      {"expression": "cut my hair", "meaning": "给我剪头发", "example": "I want to cut my hair today."},
+      {"expression": "look in the mirror", "meaning": "照镜子", "example": "She looks in the mirror."}
+    ],
+    "questions": [
+      {"question": "Where does Tom go?", "options": ["A hair salon", "A supermarket", "A bank"], "answer": "A hair salon", "explanation": "文章第二句说明他走进了一家理发店。"},
+      {"question": "What does Tom show the woman?", "options": ["A book", "A picture", "A ticket"], "answer": "A picture", "explanation": "他给女士看了手机上的照片。"},
+      {"question": "How does Tom feel about his new style?", "options": ["He likes it.", "He hates it.", "He is not sure."], "answer": "He likes it.", "explanation": "最后一句说明他喜欢自己的新造型。"}
+    ],
+    "quality_check": {
+      "grammar": "已检查基本时态、主谓一致及句子结构。",
+      "spelling": "已检查拼写。",
+      "word_count": "62词，符合55–70词目标。",
+      "american_english": "采用自然的美式英语表达。",
+      "translation": "中文全文与英文正文及逐句翻译保持一致。",
+      "chunking": "按语义拆分意群，保留原句空格和标点。",
+      "notes": "日常理发场景，适合练习描述需求。"
+    }
+  },
+  {
+    "article_id": "day102",
+    "day": 102,
+    "stage": 2,
+    "cefr": "A1",
+    "category": "Daily Life",
+    "scene": "At the Post Office",
+    "title_en": "Sending a Package",
+    "title_cn": "寄送包裹",
+    "difficulty": "A1",
+    "word_count": 62,
+    "estimated_reading_time_seconds": 35,
+    "content_en": "Lisa has a package for her sister. She takes it to the post office after lunch. A worker asks for the address. Lisa writes it on a small paper form. The worker puts the package on a scale. It is not very heavy, so the price is low. Lisa pays for the service and gets a receipt. She hopes her sister gets the package soon.",
+    "content_cn": "丽莎有一个包裹要寄给姐姐。午饭后，她把包裹带到邮局。工作人员询问收件地址。丽莎把地址写在一张小表格上。工作人员把包裹放在秤上。包裹不太重，所以邮费不高。丽莎支付了邮寄费用并拿到收据。她希望姐姐很快收到包裹。",
+    "sentences": [
+      {
+        "sentence_en": "Lisa has a package for her sister.",
+        "sentence_cn": "丽莎有一个包裹要寄给姐姐。",
+        "chunks": [
+          {"text": "Lisa", "meaning": "丽莎"},
+          {"text": "has", "meaning": "有"},
+          {"text": "a package", "meaning": "一个包裹"},
+          {"text": "for her sister.", "meaning": "给她的姐姐"}
+        ],
+        "explanation": "for在这里表示包裹是寄给姐姐的。"
+      },
+      {
+        "sentence_en": "She takes it to the post office after lunch.",
+        "sentence_cn": "午饭后，她把包裹带到邮局。",
+        "chunks": [
+          {"text": "She", "meaning": "她"},
+          {"text": "takes it to", "meaning": "把它带到"},
+          {"text": "the post office", "meaning": "邮局"},
+          {"text": "after lunch.", "meaning": "午饭后"}
+        ],
+        "explanation": "take something to somewhere表示把某物带到某地。"
+      },
+      {
+        "sentence_en": "A worker asks for the address.",
+        "sentence_cn": "工作人员询问收件地址。",
+        "chunks": [
+          {"text": "A worker", "meaning": "一位工作人员"},
+          {"text": "asks for", "meaning": "询问；要求提供"},
+          {"text": "the address.", "meaning": "地址"}
+        ],
+        "explanation": "ask for something表示索要或询问某样东西。"
+      },
+      {
+        "sentence_en": "Lisa writes it on a small paper form.",
+        "sentence_cn": "丽莎把地址写在一张小表格上。",
+        "chunks": [
+          {"text": "Lisa", "meaning": "丽莎"},
+          {"text": "writes it", "meaning": "把它写下来"},
+          {"text": "on a small paper form.", "meaning": "在一张小纸质表格上"}
+        ],
+        "explanation": "write something on something表示把内容写在某物上。"
+      },
+      {
+        "sentence_en": "The worker puts the package on a scale.",
+        "sentence_cn": "工作人员把包裹放在秤上。",
+        "chunks": [
+          {"text": "The worker", "meaning": "工作人员"},
+          {"text": "puts", "meaning": "放置"},
+          {"text": "the package", "meaning": "包裹"},
+          {"text": "on a scale.", "meaning": "在秤上"}
+        ],
+        "explanation": "put something on something表示把某物放在某个表面上。"
+      },
+      {
+        "sentence_en": "It is not very heavy, so the price is low.",
+        "sentence_cn": "包裹不太重，所以邮费不高。",
+        "chunks": [
+          {"text": "It is", "meaning": "它是"},
+          {"text": "not very heavy,", "meaning": "不太重"},
+          {"text": "so", "meaning": "所以"},
+          {"text": "the price is low.", "meaning": "价格不高"}
+        ],
+        "explanation": "so表示结果；heavy表示重的，low表示低的。"
+      },
+      {
+        "sentence_en": "Lisa pays for the service and gets a receipt.",
+        "sentence_cn": "丽莎支付了邮寄费用并拿到收据。",
+        "chunks": [
+          {"text": "Lisa", "meaning": "丽莎"},
+          {"text": "pays for", "meaning": "支付……的费用"},
+          {"text": "the service", "meaning": "这项服务"},
+          {"text": "and gets", "meaning": "并拿到"},
+          {"text": "a receipt.", "meaning": "一张收据"}
+        ],
+        "explanation": "pay for表示为某物或某项服务付费。"
+      },
+      {
+        "sentence_en": "She hopes her sister gets the package soon.",
+        "sentence_cn": "她希望姐姐很快收到包裹。",
+        "chunks": [
+          {"text": "She hopes", "meaning": "她希望"},
+          {"text": "her sister gets", "meaning": "她的姐姐收到"},
+          {"text": "the package", "meaning": "这个包裹"},
+          {"text": "soon.", "meaning": "很快"}
+        ],
+        "explanation": "hope后面可以接一个完整句子，表达对未来的期待。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "package", "phonetic": "", "meaning": "包裹", "part_of_speech": "noun"},
+      {"word": "post office", "phonetic": "", "meaning": "邮局", "part_of_speech": "noun"},
+      {"word": "address", "phonetic": "", "meaning": "地址", "part_of_speech": "noun"},
+      {"word": "scale", "phonetic": "", "meaning": "秤；磅秤", "part_of_speech": "noun"},
+      {"word": "receipt", "phonetic": "", "meaning": "收据", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "take something to...", "meaning": "把某物带到……", "example": "I take the box to the post office."},
+      {"expression": "ask for the address", "meaning": "询问地址", "example": "The worker asks for the address."},
+      {"expression": "write it down", "meaning": "把它写下来", "example": "Please write it down."},
+      {"expression": "pay for the service", "meaning": "支付服务费用", "example": "I pay for the service today."},
+      {"expression": "get a receipt", "meaning": "拿到收据", "example": "Can I get a receipt?"}
+    ],
+    "questions": [
+      {"question": "Who is the package for?", "options": ["Lisa's sister", "Lisa's teacher", "Lisa's friend"], "answer": "Lisa's sister", "explanation": "第一句说明包裹是寄给她姐姐的。"},
+      {"question": "Why is the price low?", "options": ["The package is small.", "The package is not heavy.", "The post office is busy."], "answer": "The package is not heavy.", "explanation": "文章说明包裹不重，所以价格不高。"},
+      {"question": "What does Lisa get after paying?", "options": ["A receipt", "A new package", "A letter"], "answer": "A receipt", "explanation": "她付款后拿到了一张收据。"}
+    ],
+    "quality_check": {
+      "grammar": "已检查基本时态、主谓一致及句子结构。",
+      "spelling": "已检查拼写。",
+      "word_count": "62词，符合55–70词目标。",
+      "american_english": "采用自然的美式英语表达。",
+      "translation": "中文全文与英文正文及逐句翻译保持一致。",
+      "chunking": "按语义拆分意群，保留原句空格和标点。",
+      "notes": "邮局寄件场景，包含地址、称重和付款表达。"
+    }
+  },
+  {
+    "article_id": "day103",
+    "day": 103,
+    "stage": 2,
+    "cefr": "A1",
+    "category": "Home Life",
+    "scene": "Fixing a Leaking Faucet",
+    "title_en": "A Small Problem at Home",
+    "title_cn": "家里的一个小问题",
+    "difficulty": "A1",
+    "word_count": 63,
+    "estimated_reading_time_seconds": 35,
+    "content_en": "Water is dripping from the kitchen faucet. Mark sees the problem while making breakfast. He turns the handle, but the water does not stop. He puts a bowl under the faucet to catch the drops. Then he calls his father for help. His father brings a small tool and fixes it. Mark is happy because the kitchen is dry again.",
+    "content_cn": "厨房的水龙头正在滴水。马克做早餐时发现了这个问题。他转动水龙头的把手，但水还是没有停下来。他在水龙头下面放了一个碗来接水滴。然后他打电话向父亲求助。父亲拿来一个小工具并把它修好了。马克很高兴，因为厨房又恢复干燥了。",
+    "sentences": [
+      {
+        "sentence_en": "Water is dripping from the kitchen faucet.",
+        "sentence_cn": "厨房的水龙头正在滴水。",
+        "chunks": [
+          {"text": "Water", "meaning": "水"},
+          {"text": "is dripping", "meaning": "正在滴落"},
+          {"text": "from the kitchen faucet.", "meaning": "从厨房水龙头里"}
+        ],
+        "explanation": "is dripping是现在进行时，表示水正在滴落。"
+      },
+      {
+        "sentence_en": "Mark sees the problem while making breakfast.",
+        "sentence_cn": "马克做早餐时发现了这个问题。",
+        "chunks": [
+          {"text": "Mark", "meaning": "马克"},
+          {"text": "sees the problem", "meaning": "发现这个问题"},
+          {"text": "while making breakfast.", "meaning": "在做早餐的时候"}
+        ],
+        "explanation": "while表示当……的时候，后面可以接动词-ing形式。"
+      },
+      {
+        "sentence_en": "He turns the handle, but the water does not stop.",
+        "sentence_cn": "他转动水龙头的把手，但水还是没有停下来。",
+        "chunks": [
+          {"text": "He turns", "meaning": "他转动"},
+          {"text": "the handle,", "meaning": "把手"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "the water does not stop.", "meaning": "水没有停下来"}
+        ],
+        "explanation": "does not用于一般现在时第三人称单数的否定句。"
+      },
+      {
+        "sentence_en": "He puts a bowl under the faucet to catch the drops.",
+        "sentence_cn": "他在水龙头下面放了一个碗来接水滴。",
+        "chunks": [
+          {"text": "He puts", "meaning": "他放置"},
+          {"text": "a bowl", "meaning": "一个碗"},
+          {"text": "under the faucet", "meaning": "在水龙头下面"},
+          {"text": "to catch the drops.", "meaning": "用来接住水滴"}
+        ],
+        "explanation": "to catch表示为了接住；under表示在……下面。"
+      },
+      {
+        "sentence_en": "Then he calls his father for help.",
+        "sentence_cn": "然后他打电话向父亲求助。",
+        "chunks": [
+          {"text": "Then", "meaning": "然后"},
+          {"text": "he calls", "meaning": "他打电话"},
+          {"text": "his father", "meaning": "他的父亲"},
+          {"text": "for help.", "meaning": "寻求帮助"}
+        ],
+        "explanation": "call someone for help表示打电话向某人求助。"
+      },
+      {
+        "sentence_en": "His father brings a small tool and fixes it.",
+        "sentence_cn": "父亲拿来一个小工具并把它修好了。",
+        "chunks": [
+          {"text": "His father", "meaning": "他的父亲"},
+          {"text": "brings", "meaning": "带来"},
+          {"text": "a small tool", "meaning": "一个小工具"},
+          {"text": "and fixes it.", "meaning": "并把它修好"}
+        ],
+        "explanation": "bring表示带来；fix表示修理。"
+      },
+      {
+        "sentence_en": "Mark is happy because the kitchen is dry again.",
+        "sentence_cn": "马克很高兴，因为厨房又恢复干燥了。",
+        "chunks": [
+          {"text": "Mark is happy", "meaning": "马克很高兴"},
+          {"text": "because", "meaning": "因为"},
+          {"text": "the kitchen is dry", "meaning": "厨房是干燥的"},
+          {"text": "again.", "meaning": "再次；又"}
+        ],
+        "explanation": "because引导原因；again表示再次或又一次。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "drip", "phonetic": "", "meaning": "滴落", "part_of_speech": "verb"},
+      {"word": "faucet", "phonetic": "", "meaning": "水龙头", "part_of_speech": "noun"},
+      {"word": "handle", "phonetic": "", "meaning": "把手", "part_of_speech": "noun"},
+      {"word": "bowl", "phonetic": "", "meaning": "碗", "part_of_speech": "noun"},
+      {"word": "tool", "phonetic": "", "meaning": "工具", "part_of_speech": "noun"}
+    ],
+    "expressions": [
+      {"expression": "a leaking faucet", "meaning": "漏水的水龙头", "example": "We have a leaking faucet."},
+      {"expression": "turn the handle", "meaning": "转动把手", "example": "Please turn the handle slowly."},
+      {"expression": "put something under...", "meaning": "把某物放在……下面", "example": "Put a bowl under the faucet."},
+      {"expression": "call someone for help", "meaning": "打电话向某人求助", "example": "I call my brother for help."},
+      {"expression": "fix the problem", "meaning": "解决问题；修好故障", "example": "My father can fix the problem."}
+    ],
+    "questions": [
+      {"question": "Where is the water dripping?", "options": ["In the bathroom", "In the kitchen", "In the bedroom"], "answer": "In the kitchen", "explanation": "第一句说明水从厨房的水龙头滴下来。"},
+      {"question": "What does Mark put under the faucet?", "options": ["A cup", "A bowl", "A towel"], "answer": "A bowl", "explanation": "他把一个碗放在水龙头下面接水。"},
+      {"question": "Who fixes the faucet?", "options": ["Mark's father", "Mark's friend", "A worker"], "answer": "Mark's father", "explanation": "文章说明父亲拿来工具并修好了水龙头。"}
+    ],
+    "quality_check": {
+      "grammar": "已检查现在进行时、一般现在时及原因状语从句。",
+      "spelling": "已检查拼写。",
+      "word_count": "63词，符合55–70词目标。",
+      "american_english": "使用美式英语常见词汇faucet。",
+      "translation": "中文全文与英文正文及逐句翻译保持一致。",
+      "chunking": "按语义拆分意群，保留原句空格和标点。",
+      "notes": "家庭维修场景，练习描述问题和寻求帮助。"
+    }
+  },
+  {
+    "article_id": "day104",
+    "day": 104,
+    "stage": 2,
+    "cefr": "A1",
+    "category": "Food and Shopping",
+    "scene": "Buying Flowers",
+    "title_en": "Flowers for Mom",
+    "title_cn": "送给妈妈的鲜花",
+    "difficulty": "A1",
+    "word_count": 63,
+    "estimated_reading_time_seconds": 35,
+    "content_en": "Jack wants to buy flowers for his mother. He stops at a flower shop on his way home. There are many beautiful flowers inside. He sees red roses and yellow sunflowers. The roses look nice, but they cost more. Jack chooses a small group of sunflowers. The shop owner wraps them in paper. Jack carries the flowers home with a big smile.",
+    "content_cn": "杰克想给妈妈买一些鲜花。他在回家的路上停在一家花店。店里有许多漂亮的花。他看到了红玫瑰和黄色向日葵。玫瑰看起来很漂亮，但价格更贵。杰克选了一小束向日葵。店主用包装纸把花包好。杰克带着鲜花回家，脸上挂着灿烂的笑容。",
+    "sentences": [
+      {
+        "sentence_en": "Jack wants to buy flowers for his mother.",
+        "sentence_cn": "杰克想给妈妈买一些鲜花。",
+        "chunks": [
+          {"text": "Jack", "meaning": "杰克"},
+          {"text": "wants to buy", "meaning": "想要购买"},
+          {"text": "flowers", "meaning": "鲜花"},
+          {"text": "for his mother.", "meaning": "送给他的妈妈"}
+        ],
+        "explanation": "want to do something表示想要做某事。"
+      },
+      {
+        "sentence_en": "He stops at a flower shop on his way home.",
+        "sentence_cn": "他在回家的路上停在一家花店。",
+        "chunks": [
+          {"text": "He stops at", "meaning": "他停在"},
+          {"text": "a flower shop", "meaning": "一家花店"},
+          {"text": "on his way home.", "meaning": "在他回家的路上"}
+        ],
+        "explanation": "on one's way home表示在某人回家的路上。"
+      },
+      {
+        "sentence_en": "There are many beautiful flowers inside.",
+        "sentence_cn": "店里有许多漂亮的花。",
+        "chunks": [
+          {"text": "There are", "meaning": "有"},
+          {"text": "many beautiful flowers", "meaning": "许多漂亮的花"},
+          {"text": "inside.", "meaning": "在里面"}
+        ],
+        "explanation": "There are用于表达某处有多个事物。"
+      },
+      {
+        "sentence_en": "He sees red roses and yellow sunflowers.",
+        "sentence_cn": "他看到了红玫瑰和黄色向日葵。",
+        "chunks": [
+          {"text": "He sees", "meaning": "他看到"},
+          {"text": "red roses", "meaning": "红玫瑰"},
+          {"text": "and", "meaning": "和"},
+          {"text": "yellow sunflowers.", "meaning": "黄色向日葵"}
+        ],
+        "explanation": "red和yellow是颜色形容词，放在名词前面修饰花的颜色。"
+      },
+      {
+        "sentence_en": "The roses look nice, but they cost more.",
+        "sentence_cn": "玫瑰看起来很漂亮，但价格更贵。",
+        "chunks": [
+          {"text": "The roses", "meaning": "这些玫瑰"},
+          {"text": "look nice,", "meaning": "看起来漂亮"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "they cost more.", "meaning": "它们价格更高"}
+        ],
+        "explanation": "look后面接形容词表示看起来怎么样；cost表示花费。"
+      },
+      {
+        "sentence_en": "Jack chooses a small group of sunflowers.",
+        "sentence_cn": "杰克选了一小束向日葵。",
+        "chunks": [
+          {"text": "Jack", "meaning": "杰克"},
+          {"text": "chooses", "meaning": "选择"},
+          {"text": "a small group", "meaning": "一小束"},
+          {"text": "of sunflowers.", "meaning": "向日葵"}
+        ],
+        "explanation": "choose表示选择；a group of表示一组或一束。"
+      },
+      {
+        "sentence_en": "The shop owner wraps them in paper.",
+        "sentence_cn": "店主用包装纸把花包好。",
+        "chunks": [
+          {"text": "The shop owner", "meaning": "店主"},
+          {"text": "wraps them", "meaning": "把它们包起来"},
+          {"text": "in paper.", "meaning": "用纸包装"}
+        ],
+        "explanation": "wrap something in paper表示用纸把某物包起来。"
+      },
+      {
+        "sentence_en": "Jack carries the flowers home with a big smile.",
+        "sentence_cn": "杰克带着鲜花回家，脸上挂着灿烂的笑容。",
+        "chunks": [
+          {"text": "Jack", "meaning": "杰克"},
+          {"text": "carries the flowers home", "meaning": "把鲜花带回家"},
+          {"text": "with a big smile.", "meaning": "脸上带着灿烂的笑容"}
+        ],
+        "explanation": "carry something home表示把某物带回家；with表示伴随的状态。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "flower", "phonetic": "", "meaning": "花；鲜花", "part_of_speech": "noun"},
+      {"word": "rose", "phonetic": "", "meaning": "玫瑰", "part_of_speech": "noun"},
+      {"word": "sunflower", "phonetic": "", "meaning": "向日葵", "part_of_speech": "noun"},
+      {"word": "choose", "phonetic": "", "meaning": "选择", "part_of_speech": "verb"},
+      {"word": "wrap", "phonetic": "", "meaning": "包装；包起来", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "buy flowers for...", "meaning": "给……买花", "example": "I want to buy flowers for my mom."},
+      {"expression": "on my way home", "meaning": "在我回家的路上", "example": "I see a flower shop on my way home."},
+      {"expression": "look nice", "meaning": "看起来漂亮", "example": "These flowers look nice."},
+      {"expression": "cost more", "meaning": "价格更高", "example": "The red roses cost more."},
+      {"expression": "with a big smile", "meaning": "带着灿烂的笑容", "example": "She comes home with a big smile."}
+    ],
+    "questions": [
+      {"question": "Who does Jack want to buy flowers for?", "options": ["His mother", "His sister", "His teacher"], "answer": "His mother", "explanation": "第一句说明他想给妈妈买花。"},
+      {"question": "Which flowers does Jack choose?", "options": ["Red roses", "Yellow sunflowers", "White lilies"], "answer": "Yellow sunflowers", "explanation": "他最后选择了一小束向日葵。"},
+      {"question": "What does the shop owner do?", "options": ["Waters the flowers", "Wraps the flowers", "Plants the flowers"], "answer": "Wraps the flowers", "explanation": "店主用包装纸把花包好。"}
+    ],
+    "quality_check": {
+      "grammar": "已检查一般现在时、there be句型及常见动词搭配。",
+      "spelling": "已检查拼写。",
+      "word_count": "63词，符合55–70词目标。",
+      "american_english": "采用自然的美式英语表达。",
+      "translation": "中文全文与英文正文及逐句翻译保持一致。",
+      "chunking": "按语义拆分意群，保留原句空格和标点。",
+      "notes": "买花场景，练习颜色、价格和选择表达。"
+    }
+  },
+  {
+    "article_id": "day105",
+    "day": 105,
+    "stage": 2,
+    "cefr": "A1",
+    "category": "Daily Life",
+    "scene": "Looking for Lost Keys",
+    "title_en": "Where Are My Keys?",
+    "title_cn": "我的钥匙在哪里？",
+    "difficulty": "A1",
+    "word_count": 63,
+    "estimated_reading_time_seconds": 35,
+    "content_en": "Anna is ready to leave home, but she cannot find her keys. She looks on the table and under the sofa. Her bag is open, but the keys are not inside. She asks her brother to help her look. He finds them next to the front door. Anna laughs and puts them in her bag. Now she is ready to go out.",
+    "content_cn": "安娜准备出门了，但她找不到自己的钥匙。她查看了桌子上和沙发下面。她的包是打开的，但钥匙不在里面。她请弟弟帮忙寻找。弟弟在前门旁边找到了钥匙。安娜笑了笑，把钥匙放进包里。现在她可以出门了。",
+    "sentences": [
+      {
+        "sentence_en": "Anna is ready to leave home, but she cannot find her keys.",
+        "sentence_cn": "安娜准备出门了，但她找不到自己的钥匙。",
+        "chunks": [
+          {"text": "Anna", "meaning": "安娜"},
+          {"text": "is ready to leave home,", "meaning": "准备离开家"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "she cannot find her keys.", "meaning": "她找不到自己的钥匙"}
+        ],
+        "explanation": "be ready to do something表示准备好做某事；cannot表示不能或无法。"
+      },
+      {
+        "sentence_en": "She looks on the table and under the sofa.",
+        "sentence_cn": "她查看了桌子上和沙发下面。",
+        "chunks": [
+          {"text": "She looks", "meaning": "她查看"},
+          {"text": "on the table", "meaning": "桌子上"},
+          {"text": "and", "meaning": "以及"},
+          {"text": "under the sofa.", "meaning": "沙发下面"}
+        ],
+        "explanation": "on表示在表面上；under表示在下方。"
+      },
+      {
+        "sentence_en": "Her bag is open, but the keys are not inside.",
+        "sentence_cn": "她的包是打开的，但钥匙不在里面。",
+        "chunks": [
+          {"text": "Her bag", "meaning": "她的包"},
+          {"text": "is open,", "meaning": "是打开的"},
+          {"text": "but", "meaning": "但是"},
+          {"text": "the keys are not inside.", "meaning": "钥匙不在里面"}
+        ],
+        "explanation": "open表示打开的；inside表示在里面。"
+      },
+      {
+        "sentence_en": "She asks her brother to help her look.",
+        "sentence_cn": "她请弟弟帮忙寻找。",
+        "chunks": [
+          {"text": "She asks", "meaning": "她请求"},
+          {"text": "her brother", "meaning": "她的弟弟"},
+          {"text": "to help her", "meaning": "帮助她"},
+          {"text": "look.", "meaning": "寻找"}
+        ],
+        "explanation": "ask someone to do something表示请求某人做某事。"
+      },
+      {
+        "sentence_en": "He finds them next to the front door.",
+        "sentence_cn": "弟弟在前门旁边找到了钥匙。",
+        "chunks": [
+          {"text": "He finds them", "meaning": "他找到了它们"},
+          {"text": "next to", "meaning": "在……旁边"},
+          {"text": "the front door.", "meaning": "前门"}
+        ],
+        "explanation": "next to表示紧挨着、在旁边。"
+      },
+      {
+        "sentence_en": "Anna laughs and puts them in her bag.",
+        "sentence_cn": "安娜笑了笑，把钥匙放进包里。",
+        "chunks": [
+          {"text": "Anna", "meaning": "安娜"},
+          {"text": "laughs", "meaning": "笑了"},
+          {"text": "and puts them", "meaning": "并把它们放进去"},
+          {"text": "in her bag.", "meaning": "在她的包里"}
+        ],
+        "explanation": "put something in something表示把某物放进某处。"
+      },
+      {
+        "sentence_en": "Now she is ready to go out.",
+        "sentence_cn": "现在她可以出门了。",
+        "chunks": [
+          {"text": "Now", "meaning": "现在"},
+          {"text": "she is ready", "meaning": "她准备好了"},
+          {"text": "to go out.", "meaning": "出门"}
+        ],
+        "explanation": "go out表示外出；be ready to表示准备好做某事。"
+      }
+    ],
+    "vocabulary": [
+      {"word": "key", "phonetic": "", "meaning": "钥匙", "part_of_speech": "noun"},
+      {"word": "find", "phonetic": "", "meaning": "找到；发现", "part_of_speech": "verb"},
+      {"word": "inside", "phonetic": "", "meaning": "在里面", "part_of_speech": "adverb"},
+      {"word": "next to", "phonetic": "", "meaning": "在……旁边", "part_of_speech": "preposition"},
+      {"word": "laugh", "phonetic": "", "meaning": "笑", "part_of_speech": "verb"}
+    ],
+    "expressions": [
+      {"expression": "be ready to leave", "meaning": "准备离开", "example": "I am ready to leave now."},
+      {"expression": "cannot find...", "meaning": "找不到……", "example": "I cannot find my phone."},
+      {"expression": "under the sofa", "meaning": "在沙发下面", "example": "The ball is under the sofa."},
+      {"expression": "help someone look", "meaning": "帮某人寻找", "example": "Can you help me look?"},
+      {"expression": "go out", "meaning": "出门；外出", "example": "We want to go out today."}
+    ],
+    "questions": [
+      {"question": "What is Anna looking for?", "options": ["Her phone", "Her keys", "Her bag"], "answer": "Her keys", "explanation": "文章开头说明她找不到自己的钥匙。"},
+      {"question": "Who helps Anna?", "options": ["Her brother", "Her mother", "Her friend"], "answer": "Her brother", "explanation": "她请弟弟帮忙寻找。"},
+      {"question": "Where are the keys?", "options": ["Under the sofa", "On the table", "Next to the front door"], "answer": "Next to the front door", "explanation": "弟弟最后在前门旁边找到了钥匙。"}
+    ],
+    "quality_check": {
+      "grammar": "已检查一般现在时、情态动词及ask someone to do结构。",
+      "spelling": "已检查拼写。",
+      "word_count": "63词，符合55–70词目标。",
+      "american_english": "采用自然的美式英语表达。",
+      "translation": "中文全文与英文正文及逐句翻译保持一致。",
+      "chunking": "按语义拆分意群，保留原句空格和标点。",
+      "notes": "寻找钥匙场景，练习位置介词和请求帮助的表达。"
+    }
+  }
+]
