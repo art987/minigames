@@ -41,6 +41,7 @@
   /* ---------- 渲染正文 ---------- */
   const body = $("artBody");
   const sntEls = [];        // 句子 DOM
+  const enwrapEls = [];     // 句子英文遮挡容器（自译模式）
   const tokEls = [];        // 句子内全部 token span（按 chunk 顺序拍平）
   const phRanges = [];      // 每句：每 chunk 在 tokEls 中的 [start, end)
   let g = 0;                // 全局句子序号
@@ -97,14 +98,42 @@
     cn.textContent = sent.cn;
     el.appendChild(cn);
 
-    el.appendChild(en);
+    // 英文 + 句解包进 enwrap：默认被白色遮挡块盖住（先自己翻译，再看解析）
+    const enwrap = document.createElement("div");
+    enwrap.className = "enwrap covered";
+    enwrap.appendChild(en);
 
     if (sent.tip) {
       const tip = document.createElement("div");
       tip.className = "tip";
       tip.textContent = "💡 " + sent.tip;
-      el.appendChild(tip);
+      enwrap.appendChild(tip);
     }
+
+    const cover = document.createElement("div");
+    cover.className = "cover";
+    cover.innerHTML = '<button class="viewbtn" type="button">查看英文及分隔注解</button><span class="hint">建议自己先翻译下</span>';
+    cover.addEventListener("click", e => e.stopPropagation()); // 点遮挡区不触发单句朗读
+    cover.querySelector(".viewbtn").addEventListener("click", e => {
+      e.stopPropagation();
+      enwrap.classList.remove("covered");
+    });
+    enwrap.appendChild(cover);
+
+    // 揭示后右下角的睁眼圆钮：点击重新遮挡（再练一次自译）
+    const eye = document.createElement("button");
+    eye.className = "eye";
+    eye.type = "button";
+    eye.title = "隐藏英文，再试一次自己翻译";
+    eye.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+    eye.addEventListener("click", e => {
+      e.stopPropagation();
+      enwrap.classList.add("covered");
+    });
+    enwrap.appendChild(eye);
+
+    el.appendChild(enwrap);
+    enwrapEls[s] = enwrap;
 
     // 交互：点短语间隙 → 单句朗读；点单词 → 单词朗读
     el.addEventListener("click", e => {
@@ -237,7 +266,12 @@
     cur = { s, p };
     mark(s); updatePlayer();
     localStorage.setItem(POS_KEY, s);
-    if (p === 0) scrollToCur();
+    if (p === 0) {
+      scrollToCur();
+      // 朗读到被遮挡的句子时自动揭示，用户能边听边看
+      const w = enwrapEls[s];
+      if (w) w.classList.remove("covered");
+    }
 
     const sent = S[s], ch = sent.chunks[p];
     const isLastPh = p === sent.chunks.length - 1;
