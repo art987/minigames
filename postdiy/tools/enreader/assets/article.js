@@ -112,7 +112,7 @@
 
     const cover = document.createElement("div");
     cover.className = "cover";
-    cover.innerHTML = '<button class="viewbtn" type="button">查看英文</button><span class="hint">先尝试口头翻译下，通过对比更能加强学习记忆</span>';
+    cover.innerHTML = '<button class="viewbtn" type="button">查看英文</button>';
     cover.addEventListener("click", e => e.stopPropagation()); // 点遮挡区不触发单句朗读
     cover.querySelector(".viewbtn").addEventListener("click", e => {
       e.stopPropagation();
@@ -165,46 +165,6 @@
       grid.appendChild(b);
     });
     sec.appendChild(grid);
-    body.appendChild(sec);
-  }
-
-  /* ---------- 重点词汇 ---------- */
-  if (art.vocab && art.vocab.length) {
-    const sec = document.createElement("div");
-    sec.className = "vocab";
-    sec.innerHTML = `<h2>重点词汇</h2><div class="sub">共 ${art.vocab.length} 个 · 点击卡片听发音</div>`;
-    const grid = document.createElement("div");
-    grid.className = "vgrid";
-    art.vocab.forEach(v => {
-      const b = document.createElement("button");
-      b.className = "vchip";
-      const w = document.createElement("div"); w.className = "w";
-      w.innerHTML = `${v.w}<span class="sp">🔊</span>`;
-      const ipa = document.createElement("div"); ipa.className = "ipa"; ipa.textContent = `${v.ipa}${v.pos ? " · " + v.pos : ""}`;
-      const cn = document.createElement("div"); cn.className = "cn"; cn.textContent = v.cn;
-      b.appendChild(w); b.appendChild(ipa); b.appendChild(cn);
-      b.addEventListener("click", () => speakWord(v.w));
-      grid.appendChild(b);
-    });
-    sec.appendChild(grid);
-    body.appendChild(sec);
-  }
-
-  /* ---------- 开口练习 ---------- */
-  if (art.ask && art.ask.length) {
-    const sec = document.createElement("div");
-    sec.className = "vocab ask";
-    sec.innerHTML = `<h2>开口练习</h2><div class="sub">联系你自己的生活回答 · 点击问题听发音</div>`;
-    const list = document.createElement("div");
-    list.className = "alist";
-    art.ask.forEach((q, qi) => {
-      const b = document.createElement("button");
-      b.className = "aitem";
-      b.innerHTML = `<span class="qno">Q${qi + 1}</span><span class="q">${q}</span><span class="sp">🔊</span>`;
-      b.addEventListener("click", () => speakPhrase(q));
-      list.appendChild(b);
-    });
-    sec.appendChild(list);
     body.appendChild(sec);
   }
 
@@ -571,7 +531,6 @@
 
   /* ---------- 初始 ---------- */
   const metaHtml = [];
-  metaHtml.push(`Stage ${art.stage} · ${art.titleCn}`);
   metaHtml.push(`${art.category} · ${art.scene}`);
   metaHtml.push(`${art.wordCount} 词 · ${N} 句`);
   if (meta && meta.seconds) metaHtml.push(`约 ${meta.seconds} 秒`);

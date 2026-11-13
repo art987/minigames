@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>阶段课程 · EN Reader</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
-<link rel="stylesheet" href="assets/style.css?v=27">
+<link rel="stylesheet" href="assets/style.css?v=28">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
 
   document.title = st.name + " · EN Reader";
   function $(id) { return document.getElementById(id); }
-  $("stgTop").innerHTML = `<span class="no">Stage ${String(st.id).padStart(2, "0")}</span><span class="cefr">${st.cefr}</span>`;
+  $("stgTop").innerHTML = `<span class="no">Stage ${String(st.id).padStart(2, "0")}</span>`;
   $("stgName").textContent = st.name;
   $("stgDesc").innerHTML = `<span class="tag">${st.short}</span> 每篇 ${st.range[0]}–${st.range[1]} 词 · 共 ${st.days[1] - st.days[0] + 1} 天课程 · 目前已上架 ${arts.length} 篇`;
 
@@ -67,6 +67,16 @@
 
   if (!arts.length) root.innerHTML = '<div class="empty">这个阶段的内容还在制作中，敬请期待。</div>';
   $("backBtn").addEventListener("click", () => location.href = "index.html");
+
+  // 返回按钮：下滑隐藏、上滑显示（与详情页一致，纯透明度渐变）
+  const backFab = $("backBtn");
+  let lastY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    if (y > lastY + 6 && y > 140) backFab.classList.add("hide");
+    else if (y < lastY - 6 || y <= 140) backFab.classList.remove("hide");
+    lastY = y;
+  }, { passive: true });
 })();
 </script>
 </body>
