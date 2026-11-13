@@ -72,7 +72,7 @@ article { padding-bottom: 140px; }
   }
 .snt .play {
   position: absolute;
-  left: 17px;
+  left: 13px;
   top: 21px;
   width: 30px;
   height: 30px;
@@ -235,19 +235,30 @@ article { padding-bottom: 140px; }
   font-family: var(--font-en);
   font-size: 11px;
   font-weight: 700;
-  color: #989898;
+  color: #97a3b6;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   min-width: 40px;
   }
-.dcard .dchk { font-size: 12px; color: #fff; background: #22b573; border-radius: 50%;
-  width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+.dcard .dchk { font-size: 10.5px; line-height: 1; padding: 4px 8px; border-radius: 999px;
+  white-space: nowrap; font-family: var(--sans); font-weight: 500; }
+.dcard .dchk.flag { color: #8a97ad; background: #eef2f8; border: 1px solid var(--line); }
+.dcard .dchk.crown { color: #8a6d00; background: linear-gradient(135deg, #fff6cf, #ffe9a8); border: 1px solid #f0d98c; }
 .dcard .dmain { flex: 1; min-width: 0; }
-.dcard .t { font-family: var(--font-en); font-size: 16.5px; font-weight: 600; color: var(--text);
-  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.dcard .t .tcn {font-family: var(--sans);font-size: 21.5px;font-weight: 400;colo;color: #000;}
+.dcard .t {
+  font-family: var(--sans);
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  padding: 13px 0px;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  }
+.dcard .t .ten { font-family: var(--font-en); font-size: 14px; font-weight: 500; color: var(--faint); }
 .dcard .m { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px; font-size: 12px; color: var(--muted); align-items: center; }
 .dcard .m .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--faint); }
 .dcard .bar { margin-top: 10px; height: 3px; border-radius: 99px; background: var(--line); overflow: hidden; }
@@ -280,7 +291,7 @@ article { padding-bottom: 140px; }
   .art-head {padding-top: 23px;}
   .art-head h1 {font-size: 22px;padding-left: 68px;}
   .snt {padding-left: 18px;}
-  .snt .play { width: 27px; height: 27px; }
+  .snt .play {width: 35px;height: 35px;}
   .player-in { padding: 8px 12px; gap: 8px; }
   .pprog .txt .cur-cn { display: none; }
   .settings { left: 12px; right: 12px; width: auto; }
@@ -292,7 +303,7 @@ article { padding-bottom: 140px; }
 @media (max-width: 760px) {
   .dcard { flex-direction: column; align-items: flex-start; gap: 7px; padding: 14px 16px; }
   .dcard .dnum { flex-direction: row; align-items: center; gap: 8px; min-width: 0; font-size: 12px; }
-  .dcard .t .tcn { font-size: 17.5px; }
+  .dcard .t .ten { font-size: 13px; }
   .dcard .m { margin-top: 3px; row-gap: 5px; }
   .dcard .go { display: none; } /* 整张卡片可点，箭头装饰省掉 */
 }
@@ -300,13 +311,14 @@ article { padding-bottom: 140px; }
 /* ============ 自译遮挡（先自己翻译，再看英文与注解） ============ */
 .enwrap {position: relative;margin-bottom: 21px;background: #fff;margin-top: 21px;padding: 20px 19px;margin-left: 12px;border-radius: 12px;border: 1px solid #efefef;}
 .enwrap.covered { min-height: 84px; }
-.enwrap.covered .en, .enwrap.covered .tip { visibility: hidden; }
+.enwrap.covered .en, .enwrap.covered .tip {/* visibility: hidden; */}
 .enwrap .cover {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: #fff;
+  background: #ffffff59;
   /* border: 1px dashed #eee; */
+  backdrop-filter: blur(5px);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -318,22 +330,23 @@ article { padding-bottom: 140px; }
 }
 .enwrap:not(.covered) .cover { opacity: 0; pointer-events: none; }
 .cover .viewbtn {
-  font-size: 13.5px;
-  color: #23abff;
+  font-size: 15.5px;
+  color: #323333;
   border: 1px solid #eeeeee;
   border-radius: 999px;
-  padding: 8px 20px;
+  background: #fff;
+  padding: 12px 20px;
   cursor: pointer;
   letter-spacing: .02em;
   transition: opacity .2s ease;
 }
 .cover .viewbtn:hover { opacity: .88; }
-.cover .hint {font-size: 14px;color: #333333;}
+.cover .hint {font-size: 14px;color: #398bc4;padding-top: 20px;}
 .enwrap .eye {
   display: none;
   position: absolute;
-  right: 10px;
-  bottom: 42px;
+  left: -25px;
+  bottom: 50%;
   z-index: 3;
   width: 38px;
   height: 38px;
@@ -361,21 +374,40 @@ article { padding-bottom: 140px; }
 
 /* ============ 播放询问弹窗（轻量：无遮罩、纯渐显、右上角关闭、按钮一行） ============ */
 .askpop {
-  position: fixed; left: 50%; top: 16%; transform: translateX(-50%); z-index: 90;
-  background: #fff; border: 1px solid var(--line); border-radius: 14px;
-  box-shadow: 0 10px 34px rgba(30, 60, 120, .16); padding: 13px 15px 14px;
+  position: fixed;
+  left: 50%;
+  top: 28%;
+  transform: translateX(-50%);
+  z-index: 90;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(30, 60, 120, .16);
+  padding: 13px 15px 14px;
   width: min(330px, calc(100vw - 48px));
-  opacity: 0; pointer-events: none; transition: opacity .22s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
 }
 .askpop.show { opacity: 1; pointer-events: auto; }
-.asktop { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.askt { font-size: 14px; font-weight: 600; color: var(--text); }
-.askx { border: none; background: none; font-size: 15px; color: var(--faint); cursor: pointer; line-height: 1; padding: 2px 4px; }
+.asktop {display: flex;align-items: center;justify-content: space-between;gap: 10px;margin-top: 10px;margin-left: 15px;}
+.askt {font-size: 17px;fo;font-weight: 500;lor: var(--text);}
+.askx {border: none;background: none;font-size: 20px;color: #f11515;cursor: pointer;font-weight: bolder;line-height: 1;margin-top: -4px;padding: 2px 4px;}
 .askx:hover { color: var(--text); }
-.askbtns { display: flex; gap: 10px; margin-top: 12px; }
+.askbtns {/* display: flex; */gap: 10px;margin-top: 30px;margin-bottom: 37px;}
 .askbtns button {
-  flex: 1; border-radius: 999px; padding: 9px 0; font-size: 13.5px; cursor: pointer;
-  border: 1px solid var(--accent-line); background: #fff; color: var(--accent); transition: opacity .2s ease;
+  flex: 1;
+  border-radius: 999px;
+  padding: 9px 0;
+  display: block;
+  margin: 16px 0px;
+  width: 100%;
+  font-size: 13.5px;
+  cursor: pointer;
+  border: 1px solid var(--accent-line);
+  background: #fff;
+  color: var(--accent);
+  transition: opacity .2s ease;
 }
 .askbtns button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 .askbtns button:hover { opacity: .85; }

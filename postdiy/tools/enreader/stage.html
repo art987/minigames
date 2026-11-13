@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>阶段课程 · EN Reader</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
-<link rel="stylesheet" href="assets/style.css?v=23">
+<link rel="stylesheet" href="assets/style.css?v=27">
 </head>
 <body>
 
@@ -37,20 +37,24 @@
   $("stgName").textContent = st.name;
   $("stgDesc").innerHTML = `<span class="tag">${st.short}</span> 每篇 ${st.range[0]}–${st.range[1]} 词 · 共 ${st.days[1] - st.days[0] + 1} 天课程 · 目前已上架 ${arts.length} 篇`;
 
-  const doneOf = id => localStorage.getItem("enr:done:" + id) === "1";
+  const countOf = id => parseInt(localStorage.getItem("enr:done:" + id), 10) || 0;
   const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
   const root = $("days");
 
   arts.forEach(a => {
-    const done = doneOf(a.id);
+    const cnt = countOf(a.id);
+    const done = cnt > 0;
     const pos = Math.min(posOf(a.id), a.sentCount - 1);
     const pct = done ? 100 : (pos > 0 ? Math.round(pos / a.sentCount * 100) : 0);
+    const status = done
+      ? `<span class="dchk crown">👑 ×${cnt} 已阅读${cnt}遍</span>`
+      : `<span class="dchk flag">🚩 未开始</span>`;
     const btn = document.createElement("button");
     btn.className = "dcard" + (done ? " done" : "");
     btn.innerHTML =
-      `<div class="dnum">Day ${String(a.day).padStart(3, "0")}${done ? '<span class="dchk">✓</span>' : ""}</div>` +
+      `<div class="dnum">Day ${String(a.day).padStart(3, "0")}${status}</div>` +
       `<div class="dmain">` +
-        `<div class="t">${a.titleEn}<span class="tcn">${a.titleCn}</span></div>` +
+        `<div class="t">${a.titleCn}<span class="ten">${a.titleEn}</span></div>` +
         `<div class="m"><span>${a.category}</span><span class="dot"></span><span>${a.scene}</span>` +
         `<span class="dot"></span><span>${a.wordCount} 词 · ${a.sentCount} 句</span>` +
         (a.seconds ? `<span class="dot"></span><span>约 ${a.seconds} 秒</span>` : "") + `</div>` +

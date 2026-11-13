@@ -21,7 +21,7 @@
 <script src="data/course-manifest.js?v=19"></script>
 <script>
 (function () {
-  const doneOf = id => localStorage.getItem("enr:done:" + id) === "1";
+  const doneOf = id => (parseInt(localStorage.getItem("enr:done:" + id), 10) || 0) > 0;
   const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
   const root = document.getElementById("stages");
 

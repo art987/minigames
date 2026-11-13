@@ -112,7 +112,7 @@
 
     const cover = document.createElement("div");
     cover.className = "cover";
-    cover.innerHTML = '<button class="viewbtn" type="button">查看英文及分隔注解</button><span class="hint">建议自己先翻译下</span>';
+    cover.innerHTML = '<button class="viewbtn" type="button">查看英文</button><span class="hint">先尝试口头翻译下，通过对比更能加强学习记忆</span>';
     cover.addEventListener("click", e => e.stopPropagation()); // 点遮挡区不触发单句朗读
     cover.querySelector(".viewbtn").addEventListener("click", e => {
       e.stopPropagation();
@@ -390,22 +390,22 @@
     }
     playing = true;
     updatePlayer();
-    maybeAskReveal();
-    if (!audioMode.on && !ttsProbed) {
-      // 每个会话首次播放探测一次：speechSynthesis 假可用（存在但不出声）时自动切音频
-      ttsProbed = true;
-      probeTTS(ok => {
-        if (!ok && playing && !audioMode.on) {
-          audioMode.on = true;
-          sessionStorage.setItem("enr:audiomode", "1");
-          tts.stop();
-          clearWordHl();
-          toast("语音不可用，已切换到兼容音频模式");
-          chain(cur.s, 0, nextGen(), stopAfter);
-        }
-      });
+    if (!stopAfter) maybeAskReveal(); // 主播放键询问揭示方式；句内朗读键不打扰
+    if (audioMode.on || ttsProbed) {
+      chain(s, p, nextGen(), stopAfter);
+      return;
     }
-    chain(s, p, nextGen(), stopAfter);
+    // 每个会话首次播放先探测 speechSynthesis 是否真的出声（静音试音），
+    // 探测结束才启动正式播放——否则假可用通道与音频通道竞速会导致中途作废
+    ttsProbed = true;
+    probeTTS(ok => {
+      if (!ok) {
+        audioMode.on = true;
+        sessionStorage.setItem("enr:audiomode", "1");
+        toast("语音不可用，已切换到兼容音频模式");
+      }
+      if (playing) chain(s, p, nextGen(), stopAfter);
+    });
   }
   function pause() {
     playing = false;
@@ -420,7 +420,7 @@
     clearWordHl();
     if (allDone) {
       toast("已读完整篇，Day 完成 🎉");
-      localStorage.setItem(DONE_KEY, "1");
+      localStorage.setItem(DONE_KEY, String((parseInt(localStorage.getItem(DONE_KEY), 10) || 0) + 1)); // 完成次数累加，供 👑×N 显示
       localStorage.removeItem(POS_KEY);
       cur = { s: 0, p: 0 };
       sntEls.forEach(el => el.classList.remove("on"));
@@ -481,9 +481,19 @@
     return en;
   }
   function speakWord(word) {
-    if (audioMode.on) return;
-    if (!ttsOK()) { toast(NO_TTS_MSG); return; }
-    tts.speak(numToEn(word), { rate: Math.max(0.6, settings.rate * 0.9) });
+    // 优先播预生成的单词发音库（音频模式下也能点读、可无限重复），无文件时回退 speechSynthesis
+    const w = numToEn(word);
+    if (!w) return;
+    const file = "data/tts/words/" + w.toLowerCase().replace(/[^a-z0-9'-]/g, "") + ".mp3";
+    const a = new Audio(file);
+    let fell = false;
+    const fallback = () => {
+      if (fell) return;
+      fell = true;
+      if (!audioMode.on && ttsOK()) tts.speak(w, { rate: Math.max(0.6, settings.rate * 0.9) });
+    };
+    a.onerror = fallback;
+    a.play().catch(fallback);
   }
   function speakPhrase(text) {
     if (audioMode.on) return;
@@ -551,7 +561,7 @@
   });
 
   /* ---------- 顶部"继续阅读" ---------- */
-  if (savedPos > 0 && savedPos < N - 1 && localStorage.getItem(DONE_KEY) !== "1") {
+  if (savedPos > 0 && savedPos < N - 1 && !(parseInt(localStorage.getItem(DONE_KEY), 10) > 0)) {
     const chip = document.createElement("button");
     chip.className = "continue-chip";
     chip.textContent = `上次读到第 ${savedPos + 1} 句 · 点击继续`;
