@@ -24,12 +24,15 @@ window.ENR = (function () {
         let s = 0;
         if (/^en-US/i.test(v.lang)) s += 5;
         else if (/^en-GB/i.test(v.lang)) s += 3;
-        else if (/^en/i.test(v.lang)) s += 1;
+        else s += 1;
         if (/natural/i.test(v.name)) s += 6;
-        if (/google (us|uk) english/i.test(v.name)) s += 5;
-        if (/(aria|jenny|guy|guy|samantha|daniel|libby|sonia)/i.test(v.name)) s += 3;
+        if (/(aria|jenny|guy|samantha|daniel|libby|sonia)/i.test(v.name)) s += 3;
         if (/compact|espeak/i.test(v.name)) s -= 4;
-        if (!v.localService) s += 1;
+        // 【兼容关键】本地语音优先：远程语音（如 Chrome 的 Google 云端 TTS）在国内网络
+        // 无法出声（静默失败），必须优先 localService 的系统本地语音（Edge 的 aria/jenny 等）
+        if (v.localService) s += 8;
+        else s -= 6;
+        if (/google/i.test(v.name)) s -= 10;  // Google 云端语音在国内不可达，坚决避开
         return -s;
       };
       this.voices = all.sort((a, b) => score(a) - score(b));

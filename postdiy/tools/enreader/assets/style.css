@@ -45,6 +45,9 @@ button:disabled { opacity: .35; cursor: default; }
 }
 .backfab:hover { color: var(--accent); transform: scale(1.06); box-shadow: 0 4px 16px rgba(46, 124, 246, .20); }
 .backfab:active { transform: scale(.96); }
+/* 下滑隐藏 / 上滑显示（纯透明度渐变，由 article.js 判定滚动方向） */
+.backfab { transition: transform .15s, box-shadow .15s, color .15s, opacity .25s ease; }
+.backfab.hide { opacity: 0; pointer-events: none; }
 
 /* ============ æ–‡ç« å¤´ ============ */
 .art-head { padding: 34px 0 8px; }
@@ -285,6 +288,15 @@ article { padding-bottom: 140px; }
   .vgrid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 
+/* Day 列表中窄屏：三列横排改为纵向堆叠，避免中间标题块被挤压（断点 760，覆盖常见半屏/窄窗口） */
+@media (max-width: 760px) {
+  .dcard { flex-direction: column; align-items: flex-start; gap: 7px; padding: 14px 16px; }
+  .dcard .dnum { flex-direction: row; align-items: center; gap: 8px; min-width: 0; font-size: 12px; }
+  .dcard .t .tcn { font-size: 17.5px; }
+  .dcard .m { margin-top: 3px; row-gap: 5px; }
+  .dcard .go { display: none; } /* 整张卡片可点，箭头装饰省掉 */
+}
+
 /* ============ 自译遮挡（先自己翻译，再看英文与注解） ============ */
 .enwrap {position: relative;margin-bottom: 21px;background: #fff;margin-top: 21px;padding: 20px 19px;margin-left: 12px;border-radius: 12px;border: 1px solid #efefef;}
 .enwrap.covered { min-height: 84px; }
@@ -346,3 +358,24 @@ article { padding-bottom: 140px; }
   from { transform: scale(1); }
   to { transform: scale(1.09); }
 }
+
+/* ============ 播放询问弹窗（轻量：无遮罩、纯渐显、右上角关闭、按钮一行） ============ */
+.askpop {
+  position: fixed; left: 50%; top: 16%; transform: translateX(-50%); z-index: 90;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(30, 60, 120, .16); padding: 13px 15px 14px;
+  width: min(330px, calc(100vw - 48px));
+  opacity: 0; pointer-events: none; transition: opacity .22s ease;
+}
+.askpop.show { opacity: 1; pointer-events: auto; }
+.asktop { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.askt { font-size: 14px; font-weight: 600; color: var(--text); }
+.askx { border: none; background: none; font-size: 15px; color: var(--faint); cursor: pointer; line-height: 1; padding: 2px 4px; }
+.askx:hover { color: var(--text); }
+.askbtns { display: flex; gap: 10px; margin-top: 12px; }
+.askbtns button {
+  flex: 1; border-radius: 999px; padding: 9px 0; font-size: 13.5px; cursor: pointer;
+  border: 1px solid var(--accent-line); background: #fff; color: var(--accent); transition: opacity .2s ease;
+}
+.askbtns button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.askbtns button:hover { opacity: .85; }

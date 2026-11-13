@@ -16,7 +16,7 @@
   let art = null;
 
   const script = document.createElement("script");
-  script.src = "data/days/" + id + ".js?v=19";
+  script.src = "data/days/" + id + ".js?v=24";
   script.onload = start;
   script.onerror = () => { document.body.innerHTML = '<p style="padding:60px 30px;color:#5d6b80">课程数据加载失败。</p>'; };
   document.head.appendChild(script);
@@ -260,17 +260,98 @@
     });
   }
 
+  /* ---------- 音频兜底通道（edge-tts 预生成的单句 MP3）----------
+     speechSynthesis 在部分环境不可用或不出声（微信内置浏览器缺失/损坏、电脑 Chrome
+     的远程语音被墙静默失败），首次播放探测失败后自动切换为播放音频文件，全平台兼容 */
+  const audioMode = { on: sessionStorage.getItem("enr:audiomode") === "1" };
+  let ttsProbed = false;
+  let curAudio = null;
+  function stopAudio() {
+    if (curAudio) { curAudio.onended = curAudio.onerror = null; try { curAudio.pause(); } catch (e) {} curAudio = null; }
+  }
+  /* ---------- 播放询问：显示英文 or 不看练听力 ----------
+     播放不再强制揭示遮挡句；首次播放弹轻量弹窗让用户选择，本会话记住选择 */
+  let playReveal = sessionStorage.getItem("enr:playreveal") === "1";
+  const askPop = document.createElement("div");
+  askPop.className = "askpop";
+  askPop.innerHTML = '<div class="asktop"><span class="askt">播放时是否显示英文及注解？</span>'
+    + '<button class="askx" type="button" title="关闭">✕</button></div>'
+    + '<div class="askbtns"><button class="primary" type="button">显示英文</button>'
+    + '<button type="button">不看，练练听力</button></div>';
+  document.body.appendChild(askPop);
+  function chooseReveal(v) {
+    playReveal = v;
+    sessionStorage.setItem("enr:playreveal", v ? "1" : "0");
+    askPop.classList.remove("show");
+    if (v) { // 选显示英文：当前正在读的这句立即揭示，后续句随朗读揭示
+      const w = enwrapEls[cur.s];
+      if (w) w.classList.remove("covered");
+    }
+  }
+  askPop.querySelector(".askx").addEventListener("click", e => { e.stopPropagation(); chooseReveal(false); });
+  askPop.querySelector(".askbtns .primary").addEventListener("click", e => { e.stopPropagation(); chooseReveal(true); });
+  askPop.querySelector(".askbtns button:not(.primary)").addEventListener("click", e => { e.stopPropagation(); chooseReveal(false); });
+  function maybeAskReveal() {
+    if (sessionStorage.getItem("enr:playreveal") !== null) return; // 本会话已选过
+    if (!document.querySelector(".enwrap.covered")) return;        // 没有遮挡句无需问
+    askPop.classList.add("show");
+  }
+
+  function audioChain(s, myGen, stopAfter) {
+    if (myGen !== gen || !playing) return;
+    if (s >= N) { finish(true); return; }
+    cur = { s, p: 0 };
+    mark(s); updatePlayer();
+    localStorage.setItem(POS_KEY, s);
+    scrollToCur();
+    if (playReveal) {
+      const w = enwrapEls[s];
+      if (w) w.classList.remove("covered");
+    }
+    stopAudio();
+    const a = new Audio("data/tts/" + art.id + "/s" + s + ".mp3");
+    curAudio = a;
+    a.playbackRate = Math.min(3, Math.max(0.5, settings.rate));
+    a.onended = () => {
+      if (myGen !== gen) return;
+      if (stopAfter) { finish(false); return; }
+      setTimeout(() => audioChain(s + 1, myGen, stopAfter), SENT_GAP / 1000);
+    };
+    a.onerror = () => {
+      if (myGen !== gen) return;
+      toast("音频文件缺失，朗读停止");
+      finish(false);
+    };
+    a.play().catch(() => {
+      if (myGen === gen && playing) { toast("音频播放被拦截，请再点一次播放"); finish(false); }
+    });
+  }
+  /* 探测 speechSynthesis 是否真的能出声：静音试音，1.5s 内 onstart 未触发即视为不可用 */
+  function probeTTS(cb) {
+    if (!ttsOK()) { cb(false); return; }
+    let done = false;
+    const u = new SpeechSynthesisUtterance("hello");
+    u.volume = 0; u.rate = 2;
+    const t = setTimeout(() => { if (!done) { done = true; cb(false); } }, 1500);
+    u.onstart = () => { if (!done) { done = true; clearTimeout(t); cb(true); } };
+    u.onerror = () => { if (!done) { done = true; clearTimeout(t); cb(false); } };
+    try { speechSynthesis.speak(u); } catch (e) { if (!done) { done = true; clearTimeout(t); cb(false); } }
+  }
+
   function chain(s, p, myGen, stopAfter) {
     if (myGen !== gen || !playing) return;
+    if (audioMode.on) { tts.stop(); audioChain(s, myGen, stopAfter); return; }
     if (s >= N) { finish(true); return; }
     cur = { s, p };
     mark(s); updatePlayer();
     localStorage.setItem(POS_KEY, s);
     if (p === 0) {
       scrollToCur();
-      // 朗读到被遮挡的句子时自动揭示，用户能边听边看
-      const w = enwrapEls[s];
-      if (w) w.classList.remove("covered");
+      // 播放时是否揭示遮挡句由用户在弹窗中选择（不看则保持遮挡练听力）
+      if (playReveal) {
+        const w = enwrapEls[s];
+        if (w) w.classList.remove("covered");
+      }
     }
 
     const sent = S[s], ch = sent.chunks[p];
@@ -303,19 +384,39 @@
   }
 
   function start(s, p, stopAfter) {
-    if (!ttsOK()) { toast("当前浏览器不支持语音朗读"); return; }
+    if (!audioMode.on && !ttsOK()) {
+      audioMode.on = true;
+      sessionStorage.setItem("enr:audiomode", "1");
+    }
     playing = true;
     updatePlayer();
+    maybeAskReveal();
+    if (!audioMode.on && !ttsProbed) {
+      // 每个会话首次播放探测一次：speechSynthesis 假可用（存在但不出声）时自动切音频
+      ttsProbed = true;
+      probeTTS(ok => {
+        if (!ok && playing && !audioMode.on) {
+          audioMode.on = true;
+          sessionStorage.setItem("enr:audiomode", "1");
+          tts.stop();
+          clearWordHl();
+          toast("语音不可用，已切换到兼容音频模式");
+          chain(cur.s, 0, nextGen(), stopAfter);
+        }
+      });
+    }
     chain(s, p, nextGen(), stopAfter);
   }
   function pause() {
     playing = false;
     tts.stop();
+    stopAudio();
     clearWordHl();
     updatePlayer();
   }
   function finish(allDone) {
     playing = false;
+    stopAudio();
     clearWordHl();
     if (allDone) {
       toast("已读完整篇，Day 完成 🎉");
@@ -380,10 +481,12 @@
     return en;
   }
   function speakWord(word) {
+    if (audioMode.on) return;
     if (!ttsOK()) { toast(NO_TTS_MSG); return; }
     tts.speak(numToEn(word), { rate: Math.max(0.6, settings.rate * 0.9) });
   }
   function speakPhrase(text) {
+    if (audioMode.on) return;
     if (!ttsOK()) { toast(NO_TTS_MSG); return; }
     tts.speak(spokenWords(text).join(" "), { rate: Math.max(0.6, settings.rate * 0.9) });
   }
@@ -392,7 +495,7 @@
     const w = tok.dataset.w.replace(/[^\w'’-]/g, "");
     if (!w) return;
     flashCw(tok);
-    if (!ttsOK()) { toast(NO_TTS_MSG); return; }
+    if (audioMode.on || !ttsOK()) return; // 音频模式下点词只做组级高亮，不朗读
     if (playing) {
       // 打断当前句 → 读单词 → 从当前 chunk 继续
       const myGen = nextGen();
@@ -415,6 +518,16 @@
   $("prevBtn").addEventListener("click", () => step(-1));
   $("nextBtn").addEventListener("click", () => step(1));
   $("backBtn").addEventListener("click", () => { location.href = "stage.html?stage=" + art.stage; });
+
+  // 返回按钮：下滑看后面内容时隐藏，上滑时显示（纯透明度渐变）
+  const backFab = $("backBtn");
+  let lastY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    if (y > lastY + 6 && y > 140) backFab.classList.add("hide");
+    else if (y < lastY - 6 || y <= 140) backFab.classList.remove("hide");
+    lastY = y;
+  }, { passive: true });
 
   $("pprog").addEventListener("click", e => {
     const r = e.currentTarget.getBoundingClientRect();
