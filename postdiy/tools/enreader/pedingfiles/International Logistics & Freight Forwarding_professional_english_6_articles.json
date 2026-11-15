@@ -1,0 +1,674 @@
+[
+  {
+    "article_id": 10031,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Booking a shipment",
+    "title_en": "Booking a Shipment",
+    "title_cn": "订舱与安排出货",
+    "difficulty": "B1-B2",
+    "word_count": 218,
+    "estimated_reading_time_seconds": 95,
+    "content_en": "A customer in Germany contacts a freight forwarder to arrange a shipment from Shenzhen to Hamburg. The cargo consists of 200 cartons of electronic accessories, with a total weight of 1,800 kilograms. The customer hopes to ship the goods by sea because the delivery is not urgent and ocean freight is more economical than air freight.\n\nThe freight forwarder first confirms the cargo details, including the carton dimensions, total volume, gross weight, and expected ready date. These details are necessary for selecting a suitable vessel and calculating the shipping cost. The forwarder then checks available sailing schedules with several shipping lines.\n\nAfter comparing the departure dates, transit times, and freight rates, the forwarder recommends a vessel departing the following Friday. The estimated transit time is around 30 days. The customer accepts the proposal and asks the forwarder to make a booking.\n\nThe forwarder submits a booking request to the shipping line and provides the shipper's information, consignee details, cargo description, and container requirements. Once the shipping line confirms the space, it issues a booking confirmation with the vessel name, voyage number, and cut-off dates.\n\nThe forwarder sends the confirmation to the customer and explains when the cargo must arrive at the warehouse. The customer is also reminded to prepare the export documents before the deadline. Clear communication at this stage helps prevent missed sailings and unnecessary costs.",
+    "content_cn": "一位德国客户联系货运代理，安排一批从深圳运往汉堡的货物。货物包括200箱电子配件，总重量为1800公斤。由于交货时间并不紧迫，而且海运比空运更经济，客户希望通过海运运输。\n\n货运代理首先确认货物信息，包括纸箱尺寸、总体积、毛重以及预计备货日期。这些信息对于选择合适的船舶和计算运输费用非常重要。随后，货代向几家船公司查询可用的船期。\n\n在比较开船日期、运输时间和运费之后，货代推荐了一艘下周五出发的船舶，预计运输时间约为30天。客户接受了这个方案，并要求货代安排订舱。\n\n货代向船公司提交订舱申请，并提供发货人信息、收货人资料、货物描述以及集装箱需求。船公司确认舱位后，会出具订舱确认书，其中包含船名、航次号和各项截单、截关时间。\n\n货代将订舱确认书发送给客户，并说明货物必须在什么时间之前送达仓库。同时提醒客户在截止日期前准备好出口单证。在这一阶段保持清晰沟通，有助于避免错过船期和产生不必要的费用。",
+    "sentences": [
+      {
+        "sentence_en": "A customer in Germany contacts a freight forwarder to arrange a shipment from Shenzhen to Hamburg.",
+        "sentence_cn": "一位德国客户联系货运代理，安排一批从深圳运往汉堡的货物。",
+        "chunks": ["A customer in Germany", "contacts a freight forwarder", "to arrange a shipment", "from Shenzhen to Hamburg"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The cargo consists of 200 cartons of electronic accessories, with a total weight of 1,800 kilograms.",
+        "sentence_cn": "货物包括200箱电子配件，总重量为1800公斤。",
+        "chunks": ["The cargo consists of", "200 cartons of electronic accessories", "with a total weight of", "1,800 kilograms"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer hopes to ship the goods by sea because the delivery is not urgent and ocean freight is more economical than air freight.",
+        "sentence_cn": "由于交货时间并不紧迫，而且海运比空运更经济，客户希望通过海运运输。",
+        "chunks": ["hopes to ship the goods", "by sea", "the delivery is not urgent", "more economical than air freight"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The freight forwarder first confirms the cargo details, including the carton dimensions, total volume, gross weight, and expected ready date.",
+        "sentence_cn": "货运代理首先确认货物信息，包括纸箱尺寸、总体积、毛重以及预计备货日期。",
+        "chunks": ["confirms the cargo details", "including the carton dimensions", "total volume and gross weight", "expected ready date"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "These details are necessary for selecting a suitable vessel and calculating the shipping cost.",
+        "sentence_cn": "这些信息对于选择合适的船舶和计算运输费用非常重要。",
+        "chunks": ["These details are necessary for", "selecting a suitable vessel", "and calculating", "the shipping cost"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After comparing the departure dates, transit times, and freight rates, the forwarder recommends a vessel departing the following Friday.",
+        "sentence_cn": "在比较开船日期、运输时间和运费之后，货代推荐了一艘下周五出发的船舶。",
+        "chunks": ["After comparing", "the departure dates", "transit times and freight rates", "recommends a vessel"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The forwarder submits a booking request to the shipping line and provides the shipper's information, consignee details, cargo description, and container requirements.",
+        "sentence_cn": "货代向船公司提交订舱申请，并提供发货人信息、收货人资料、货物描述以及集装箱需求。",
+        "chunks": ["submits a booking request", "to the shipping line", "provides the shipper's information", "and container requirements"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Once the shipping line confirms the space, it issues a booking confirmation with the vessel name, voyage number, and cut-off dates.",
+        "sentence_cn": "船公司确认舱位后，会出具订舱确认书，其中包含船名、航次号和各项截止时间。",
+        "chunks": ["confirms the space", "issues a booking confirmation", "the vessel name and voyage number", "cut-off dates"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Clear communication at this stage helps prevent missed sailings and unnecessary costs.",
+        "sentence_cn": "在这一阶段保持清晰沟通，有助于避免错过船期和产生不必要的费用。",
+        "chunks": ["Clear communication", "at this stage", "helps prevent", "missed sailings and unnecessary costs"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "arrange a shipment",
+        "meaning": "安排一批货物运输",
+        "example": "We need to arrange a shipment to Germany next week."
+      },
+      {
+        "expression": "cargo details",
+        "meaning": "货物详细信息",
+        "example": "Please confirm the cargo details before booking."
+      },
+      {
+        "expression": "freight rate",
+        "meaning": "货运价格、运费费率",
+        "example": "The freight rate has increased this month."
+      },
+      {
+        "expression": "check the sailing schedule",
+        "meaning": "查询船期",
+        "example": "I will check the sailing schedule with the shipping line."
+      },
+      {
+        "expression": "submit a booking request",
+        "meaning": "提交订舱申请",
+        "example": "We submitted a booking request yesterday."
+      },
+      {
+        "expression": "booking confirmation",
+        "meaning": "订舱确认书",
+        "example": "Please send us the booking confirmation once it is available."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  },
+  {
+    "article_id": 10032,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Preparing shipping documents",
+    "title_en": "Preparing Shipping Documents",
+    "title_cn": "准备国际运输单证",
+    "difficulty": "B1-B2",
+    "word_count": 216,
+    "estimated_reading_time_seconds": 94,
+    "content_en": "An export shipment is scheduled to leave Ningbo for Los Angeles next week. Before the goods can be shipped, the exporter and freight forwarder must prepare several important documents. Accurate paperwork is essential because mistakes may cause customs delays, additional charges, or problems when the buyer collects the cargo.\n\nThe first document is the commercial invoice. It shows the seller's and buyer's details, product descriptions, quantities, unit prices, and total value. Customs authorities use this information to assess the shipment and calculate applicable duties and taxes.\n\nThe packing list provides more detailed information about how the goods are packed. It usually includes the number of packages, dimensions, net weight, and gross weight. The forwarder checks that the information matches the actual cargo and the commercial invoice.\n\nThe shipping line also needs accurate shipping instructions before issuing the bill of lading. These instructions include the shipper, consignee, notify party, port of loading, port of discharge, and cargo description. The exporter must carefully review all names and addresses to avoid errors.\n\nThe forwarder reminds the exporter that the document submission deadline is approaching. After receiving the draft bill of lading, the exporter checks every detail and requests corrections if necessary. Once everything is confirmed, the final document can be issued.\n\nGood document management saves time and reduces the risk of disputes during international transportation.",
+    "content_cn": "一批出口货物计划于下周从宁波运往洛杉矶。在货物装运之前，出口商和货运代理必须准备几份重要单证。准确的文件非常重要，因为任何错误都可能导致海关延误、额外费用，或者影响买方提货。\n\n第一份文件是商业发票。它列明卖方和买方的信息、产品描述、数量、单价以及总金额。海关部门会利用这些信息审核货物，并计算适用的关税和税费。\n\n装箱单则提供更详细的包装信息，通常包括包装件数、尺寸、净重和毛重。货代需要检查这些信息是否与实际货物以及商业发票一致。\n\n船公司在签发提单之前，也需要收到准确的提单补料。这些信息包括发货人、收货人、通知方、装货港、卸货港以及货物描述。出口商必须仔细核对所有名称和地址，避免出现错误。\n\n货代提醒出口商，提交单证的截止时间即将到来。收到提单草稿后，出口商需要逐项检查，并在必要时提出修改要求。所有信息确认无误后，才能签发最终文件。\n\n良好的单证管理能够节省时间，并降低国际运输过程中发生争议的风险。",
+    "sentences": [
+      {
+        "sentence_en": "An export shipment is scheduled to leave Ningbo for Los Angeles next week.",
+        "sentence_cn": "一批出口货物计划于下周从宁波运往洛杉矶。",
+        "chunks": ["An export shipment", "is scheduled to leave", "Ningbo", "for Los Angeles next week"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the goods can be shipped, the exporter and freight forwarder must prepare several important documents.",
+        "sentence_cn": "在货物装运之前，出口商和货运代理必须准备几份重要单证。",
+        "chunks": ["Before the goods can be shipped", "the exporter", "and freight forwarder", "must prepare several important documents"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The first document is the commercial invoice.",
+        "sentence_cn": "第一份文件是商业发票。",
+        "chunks": ["The first document", "is", "the commercial invoice"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It shows the seller's and buyer's details, product descriptions, quantities, unit prices, and total value.",
+        "sentence_cn": "它列明卖方和买方的信息、产品描述、数量、单价以及总金额。",
+        "chunks": ["the seller's and buyer's details", "product descriptions", "quantities and unit prices", "total value"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The packing list provides more detailed information about how the goods are packed.",
+        "sentence_cn": "装箱单则提供更详细的包装信息。",
+        "chunks": ["The packing list", "provides more detailed information", "about", "how the goods are packed"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The forwarder checks that the information matches the actual cargo and the commercial invoice.",
+        "sentence_cn": "货代需要检查这些信息是否与实际货物以及商业发票一致。",
+        "chunks": ["The forwarder checks", "that the information matches", "the actual cargo", "and the commercial invoice"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The shipping line also needs accurate shipping instructions before issuing the bill of lading.",
+        "sentence_cn": "船公司在签发提单之前，也需要收到准确的提单补料。",
+        "chunks": ["The shipping line", "needs accurate shipping instructions", "before issuing", "the bill of lading"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After receiving the draft bill of lading, the exporter checks every detail and requests corrections if necessary.",
+        "sentence_cn": "收到提单草稿后，出口商需要逐项检查，并在必要时提出修改要求。",
+        "chunks": ["After receiving", "the draft bill of lading", "checks every detail", "requests corrections if necessary"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Good document management saves time and reduces the risk of disputes during international transportation.",
+        "sentence_cn": "良好的单证管理能够节省时间，并降低国际运输过程中发生争议的风险。",
+        "chunks": ["Good document management", "saves time", "reduces the risk of disputes", "during international transportation"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "commercial invoice",
+        "meaning": "商业发票",
+        "example": "Please check the commercial invoice before submitting it."
+      },
+      {
+        "expression": "packing list",
+        "meaning": "装箱单",
+        "example": "The packing list shows the weight and dimensions of each package."
+      },
+      {
+        "expression": "bill of lading",
+        "meaning": "提单",
+        "example": "The shipping line will issue the bill of lading after loading."
+      },
+      {
+        "expression": "shipping instructions",
+        "meaning": "提单补料、运输指示",
+        "example": "Please send us the shipping instructions before the deadline."
+      },
+      {
+        "expression": "draft bill of lading",
+        "meaning": "提单草稿",
+        "example": "Please review the draft bill of lading carefully."
+      },
+      {
+        "expression": "request corrections",
+        "meaning": "提出修改要求",
+        "example": "We need to request corrections to the consignee's address."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  },
+  {
+    "article_id": 10033,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Tracking cargo and updating customers",
+    "title_en": "Tracking Cargo and Updating Customers",
+    "title_cn": "追踪货物并更新客户",
+    "difficulty": "B1-B2",
+    "word_count": 213,
+    "estimated_reading_time_seconds": 93,
+    "content_en": "A customer sends an email asking for an update on a shipment from Shanghai to Rotterdam. The goods were loaded onto a vessel ten days ago, but the customer has not received any new information. The delivery date is important because the buyer needs the products for a planned sales campaign.\n\nThe freight forwarder opens the shipment tracking system and checks the latest status. According to the carrier's website, the vessel has departed from Shanghai and is currently sailing toward its next port of call. The estimated arrival time in Rotterdam is still unchanged.\n\nThe forwarder copies the latest tracking information and prepares a short update for the customer. Instead of simply saying that the cargo is in transit, the message explains the vessel's current location, the expected arrival date, and the next stage of the journey.\n\nThe customer also asks whether the shipment can be delivered immediately after arrival. The forwarder explains that the cargo must first be unloaded, cleared through customs, and released by the terminal. Local delivery can only be arranged after these steps are completed.\n\nTo keep the customer informed, the forwarder promises to monitor the shipment and provide another update when the vessel reaches the destination port. If the schedule changes, the customer will be notified as soon as possible.\n\nRegular tracking and timely communication help customers plan their inventory and reduce uncertainty.",
+    "content_cn": "一位客户发来邮件，询问一批从上海运往鹿特丹的货物目前情况。这批货物十天前已经装上船，但客户一直没有收到新的信息。交货日期非常重要，因为买方需要这些产品来配合一场已经计划好的促销活动。\n\n货运代理打开货物追踪系统，查看最新状态。根据承运人的网站信息，船舶已经离开上海，目前正驶向下一个挂靠港。预计抵达鹿特丹的时间暂时没有变化。\n\n货代整理最新的追踪信息，并为客户准备了一份简短的进度更新。邮件不仅简单说明货物正在运输途中，还解释了船舶目前的位置、预计到达日期以及接下来的运输环节。\n\n客户还询问，货物抵达后是否可以立即安排派送。货代解释，货物必须先完成卸船、海关清关，并由码头放行。只有这些步骤完成后，才能安排当地配送。\n\n为了让客户及时了解情况，货代承诺持续跟踪货物，并在船舶抵达目的港时再次提供更新。如果船期发生变化，也会尽快通知客户。\n\n定期追踪货物并及时沟通，可以帮助客户安排库存，并减少不确定性。",
+    "sentences": [
+      {
+        "sentence_en": "A customer sends an email asking for an update on a shipment from Shanghai to Rotterdam.",
+        "sentence_cn": "一位客户发来邮件，询问一批从上海运往鹿特丹的货物目前情况。",
+        "chunks": ["A customer sends an email", "asking for an update", "on a shipment", "from Shanghai to Rotterdam"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The goods were loaded onto a vessel ten days ago, but the customer has not received any new information.",
+        "sentence_cn": "这批货物十天前已经装上船，但客户一直没有收到新的信息。",
+        "chunks": ["The goods were loaded", "onto a vessel", "ten days ago", "has not received any new information"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The freight forwarder opens the shipment tracking system and checks the latest status.",
+        "sentence_cn": "货运代理打开货物追踪系统，查看最新状态。",
+        "chunks": ["The freight forwarder", "opens the shipment tracking system", "and checks", "the latest status"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "According to the carrier's website, the vessel has departed from Shanghai and is currently sailing toward its next port of call.",
+        "sentence_cn": "根据承运人的网站信息，船舶已经离开上海，目前正驶向下一个挂靠港。",
+        "chunks": ["According to the carrier's website", "the vessel has departed", "from Shanghai", "toward its next port of call"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The forwarder copies the latest tracking information and prepares a short update for the customer.",
+        "sentence_cn": "货代整理最新的追踪信息，并为客户准备了一份简短的进度更新。",
+        "chunks": ["copies the latest tracking information", "and prepares", "a short update", "for the customer"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The message explains the vessel's current location, the expected arrival date, and the next stage of the journey.",
+        "sentence_cn": "邮件解释了船舶目前的位置、预计到达日期以及接下来的运输环节。",
+        "chunks": ["the vessel's current location", "the expected arrival date", "and", "the next stage of the journey"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The cargo must first be unloaded, cleared through customs, and released by the terminal.",
+        "sentence_cn": "货物必须先完成卸船、海关清关，并由码头放行。",
+        "chunks": ["The cargo must first be unloaded", "cleared through customs", "and", "released by the terminal"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "If the schedule changes, the customer will be notified as soon as possible.",
+        "sentence_cn": "如果船期发生变化，也会尽快通知客户。",
+        "chunks": ["If the schedule changes", "the customer", "will be notified", "as soon as possible"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Regular tracking and timely communication help customers plan their inventory and reduce uncertainty.",
+        "sentence_cn": "定期追踪货物并及时沟通，可以帮助客户安排库存，并减少不确定性。",
+        "chunks": ["Regular tracking", "and timely communication", "help customers plan their inventory", "and reduce uncertainty"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "shipment tracking",
+        "meaning": "货物追踪",
+        "example": "You can use this number for shipment tracking."
+      },
+      {
+        "expression": "latest status",
+        "meaning": "最新状态",
+        "example": "I will check the latest status with the carrier."
+      },
+      {
+        "expression": "in transit",
+        "meaning": "运输途中",
+        "example": "Your order is currently in transit."
+      },
+      {
+        "expression": "estimated arrival time",
+        "meaning": "预计到达时间",
+        "example": "The estimated arrival time is next Monday."
+      },
+      {
+        "expression": "port of call",
+        "meaning": "挂靠港",
+        "example": "The vessel will stop at its next port of call tomorrow."
+      },
+      {
+        "expression": "keep the customer informed",
+        "meaning": "让客户及时了解情况",
+        "example": "We will keep the customer informed of any changes."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  },
+  {
+    "article_id": 10034,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Handling customs clearance",
+    "title_en": "Handling Customs Clearance",
+    "title_cn": "处理国际货物清关",
+    "difficulty": "B1-B2",
+    "word_count": 216,
+    "estimated_reading_time_seconds": 94,
+    "content_en": "A shipment of kitchen equipment arrives at the port of Hamburg from China. Before the importer can collect the goods, the shipment must go through customs clearance. The importer asks the freight forwarder to coordinate with a local customs broker and check whether all required documents are ready.\n\nThe customs broker reviews the commercial invoice, packing list, bill of lading, and other supporting documents. The broker also checks the product description and customs classification to make sure the declared information is accurate. Correct classification is important because different products may be subject to different duty rates and import requirements.\n\nDuring the review, the broker notices that the product description on the invoice is too general. Customs may need more specific information about the equipment's function and materials. The broker contacts the importer and requests a detailed product description, along with a technical specification sheet.\n\nThe importer sends the additional documents on the same day. The broker updates the customs declaration and submits the information for review. After the customs authorities assess the declaration and confirm that the applicable duties and taxes have been paid, the shipment is released.\n\nThe freight forwarder then arranges delivery from the port to the importer's warehouse. The importer is advised to keep all shipping and customs records for future reference.\n\nAccurate declarations and complete documents make the clearance process smoother and help avoid unnecessary storage charges.",
+    "content_cn": "一批厨房设备从中国抵达汉堡港。进口商在提货之前，必须先完成海关清关。进口商要求货运代理与当地报关行协调，并确认所有必需文件是否已经准备齐全。\n\n报关行审核商业发票、装箱单、提单以及其他支持性文件。同时，报关行还会检查产品描述和海关归类，确保申报信息准确。正确归类非常重要，因为不同产品可能适用不同的关税税率和进口要求。\n\n审核过程中，报关行发现发票上的产品描述过于笼统。海关可能需要了解设备的具体功能和材料。于是报关行联系进口商，要求提供更详细的产品描述以及技术规格说明书。\n\n进口商当天就发送了补充文件。报关行更新海关申报信息，并提交审核。海关部门评估申报内容，并确认相关关税和税费已经缴纳后，货物便可以放行。\n\n随后，货运代理安排将货物从港口运送到进口商的仓库。进口商也被建议保留所有运输和清关记录，以备将来查阅。\n\n准确申报和完整的文件能够让清关流程更加顺畅，并帮助避免不必要的仓储费用。",
+    "sentences": [
+      {
+        "sentence_en": "A shipment of kitchen equipment arrives at the port of Hamburg from China.",
+        "sentence_cn": "一批厨房设备从中国抵达汉堡港。",
+        "chunks": ["A shipment of kitchen equipment", "arrives at", "the port of Hamburg", "from China"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the importer can collect the goods, the shipment must go through customs clearance.",
+        "sentence_cn": "进口商在提货之前，必须先完成海关清关。",
+        "chunks": ["Before the importer can collect the goods", "the shipment", "must go through", "customs clearance"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customs broker reviews the commercial invoice, packing list, bill of lading, and other supporting documents.",
+        "sentence_cn": "报关行审核商业发票、装箱单、提单以及其他支持性文件。",
+        "chunks": ["The customs broker reviews", "the commercial invoice", "packing list and bill of lading", "other supporting documents"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The broker also checks the product description and customs classification to make sure the declared information is accurate.",
+        "sentence_cn": "报关行还会检查产品描述和海关归类，确保申报信息准确。",
+        "chunks": ["checks the product description", "and customs classification", "to make sure", "the declared information is accurate"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Correct classification is important because different products may be subject to different duty rates and import requirements.",
+        "sentence_cn": "正确归类非常重要，因为不同产品可能适用不同的关税税率和进口要求。",
+        "chunks": ["Correct classification", "is important because", "different products may be subject to", "different duty rates"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The broker contacts the importer and requests a detailed product description, along with a technical specification sheet.",
+        "sentence_cn": "报关行联系进口商，要求提供更详细的产品描述以及技术规格说明书。",
+        "chunks": ["contacts the importer", "and requests", "a detailed product description", "a technical specification sheet"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The broker updates the customs declaration and submits the information for review.",
+        "sentence_cn": "报关行更新海关申报信息，并提交审核。",
+        "chunks": ["updates the customs declaration", "and submits", "the information", "for review"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After the customs authorities assess the declaration and confirm that the applicable duties and taxes have been paid, the shipment is released.",
+        "sentence_cn": "海关部门评估申报内容，并确认相关关税和税费已经缴纳后，货物便可以放行。",
+        "chunks": ["the customs authorities assess the declaration", "confirm that", "the applicable duties and taxes", "the shipment is released"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Accurate declarations and complete documents make the clearance process smoother and help avoid unnecessary storage charges.",
+        "sentence_cn": "准确申报和完整的文件能够让清关流程更加顺畅，并帮助避免不必要的仓储费用。",
+        "chunks": ["Accurate declarations", "and complete documents", "make the clearance process smoother", "avoid unnecessary storage charges"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "customs clearance",
+        "meaning": "海关清关",
+        "example": "The goods are waiting for customs clearance."
+      },
+      {
+        "expression": "customs broker",
+        "meaning": "报关行、报关代理",
+        "example": "Our customs broker will handle the import declaration."
+      },
+      {
+        "expression": "customs classification",
+        "meaning": "海关商品归类",
+        "example": "We need to confirm the customs classification first."
+      },
+      {
+        "expression": "supporting documents",
+        "meaning": "支持性文件、辅助单证",
+        "example": "Please provide all supporting documents for the shipment."
+      },
+      {
+        "expression": "customs declaration",
+        "meaning": "海关申报",
+        "example": "The customs declaration has been submitted."
+      },
+      {
+        "expression": "storage charges",
+        "meaning": "仓储费用",
+        "example": "Late clearance may result in additional storage charges."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  },
+  {
+    "article_id": 10035,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Dealing with shipping delays",
+    "title_en": "Dealing with Shipping Delays",
+    "title_cn": "处理国际运输延误",
+    "difficulty": "B1-B2",
+    "word_count": 217,
+    "estimated_reading_time_seconds": 95,
+    "content_en": "A freight forwarder receives an unexpected message from a shipping line. A vessel carrying a customer's goods has been delayed because of severe weather near the destination port. The new estimated arrival date is four days later than the original schedule.\n\nThe forwarder understands that the delay may affect the customer's production plan. The customer has already arranged workers and warehouse space to receive the cargo. If the goods arrive late, the company may need to adjust its delivery commitments to other buyers.\n\nBefore contacting the customer, the forwarder confirms the details with the carrier. The shipping line explains that the vessel has changed its route for safety reasons and that the revised schedule is still subject to change. The forwarder also checks whether the delay will affect the connecting transportation service.\n\nThe forwarder then sends the customer a clear update. The message explains the reason for the delay, the latest estimated arrival date, and the possible impact on local delivery. The forwarder avoids making promises about an exact delivery time because the situation is not fully under control.\n\nTo reduce the impact, the forwarder discusses alternative arrangements with the customer. These may include adjusting warehouse bookings or arranging faster local delivery after the cargo is released. The forwarder also promises to monitor the vessel and share new information immediately.\n\nWhen delays happen, honest communication and practical solutions are more valuable than unrealistic promises.",
+    "content_cn": "货运代理收到船公司的意外通知。一艘装载客户货物的船舶由于目的港附近天气恶劣而发生延误。新的预计到港日期比原计划晚了四天。\n\n货代明白，这次延误可能影响客户的生产计划。客户已经安排好了接收货物的工人和仓库空间。如果货物晚到，公司可能需要调整对其他买家的交货承诺。\n\n在联系客户之前，货代先向承运人确认具体情况。船公司解释，出于安全原因，船舶已经调整航线，而且更新后的船期仍可能发生变化。货代还会检查这次延误是否会影响后续的转运服务。\n\n随后，货代向客户发送清晰的进度通知。邮件解释了延误原因、最新预计到港日期，以及对当地配送可能造成的影响。由于目前情况并不能完全掌控，货代不会对准确的交货时间作出不切实际的承诺。\n\n为了降低影响，货代与客户讨论替代安排。这些方案可能包括调整仓库预约时间，或者在货物放行后安排更快捷的当地配送。货代还承诺持续跟踪船舶，并立即分享新的信息。\n\n发生运输延误时，坦诚沟通和切实可行的解决方案，比不现实的承诺更加重要。",
+    "sentences": [
+      {
+        "sentence_en": "A freight forwarder receives an unexpected message from a shipping line.",
+        "sentence_cn": "货运代理收到船公司的意外通知。",
+        "chunks": ["A freight forwarder", "receives", "an unexpected message", "from a shipping line"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A vessel carrying a customer's goods has been delayed because of severe weather near the destination port.",
+        "sentence_cn": "一艘装载客户货物的船舶由于目的港附近天气恶劣而发生延误。",
+        "chunks": ["A vessel carrying a customer's goods", "has been delayed", "because of severe weather", "near the destination port"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The new estimated arrival date is four days later than the original schedule.",
+        "sentence_cn": "新的预计到港日期比原计划晚了四天。",
+        "chunks": ["The new estimated arrival date", "is", "four days later", "than the original schedule"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The delay may affect the customer's production plan.",
+        "sentence_cn": "这次延误可能影响客户的生产计划。",
+        "chunks": ["The delay", "may affect", "the customer's", "production plan"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before contacting the customer, the forwarder confirms the details with the carrier.",
+        "sentence_cn": "在联系客户之前，货代先向承运人确认具体情况。",
+        "chunks": ["Before contacting the customer", "the forwarder", "confirms the details", "with the carrier"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The shipping line explains that the vessel has changed its route for safety reasons and that the revised schedule is still subject to change.",
+        "sentence_cn": "船公司解释，出于安全原因，船舶已经调整航线，而且更新后的船期仍可能发生变化。",
+        "chunks": ["has changed its route", "for safety reasons", "the revised schedule", "is still subject to change"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The message explains the reason for the delay, the latest estimated arrival date, and the possible impact on local delivery.",
+        "sentence_cn": "邮件解释了延误原因、最新预计到港日期，以及对当地配送可能造成的影响。",
+        "chunks": ["the reason for the delay", "the latest estimated arrival date", "and", "the possible impact on local delivery"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "To reduce the impact, the forwarder discusses alternative arrangements with the customer.",
+        "sentence_cn": "为了降低影响，货代与客户讨论替代安排。",
+        "chunks": ["To reduce the impact", "the forwarder", "discusses", "alternative arrangements with the customer"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Honest communication and practical solutions are more valuable than unrealistic promises.",
+        "sentence_cn": "坦诚沟通和切实可行的解决方案，比不现实的承诺更加重要。",
+        "chunks": ["Honest communication", "and practical solutions", "are more valuable than", "unrealistic promises"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "shipping delay",
+        "meaning": "运输延误",
+        "example": "We apologize for the shipping delay."
+      },
+      {
+        "expression": "estimated arrival date",
+        "meaning": "预计到港日期",
+        "example": "The estimated arrival date has changed."
+      },
+      {
+        "expression": "original schedule",
+        "meaning": "原定计划、原船期",
+        "example": "The vessel is no longer following the original schedule."
+      },
+      {
+        "expression": "subject to change",
+        "meaning": "可能发生变化",
+        "example": "The delivery date is still subject to change."
+      },
+      {
+        "expression": "alternative arrangements",
+        "meaning": "替代安排",
+        "example": "We are discussing alternative arrangements with the customer."
+      },
+      {
+        "expression": "reduce the impact",
+        "meaning": "降低影响",
+        "example": "We are working together to reduce the impact of the delay."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  },
+  {
+    "article_id": 10036,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Calculating freight costs",
+    "title_en": "Calculating Freight Costs",
+    "title_cn": "核算国际运输费用",
+    "difficulty": "B1-B2",
+    "word_count": 218,
+    "estimated_reading_time_seconds": 95,
+    "content_en": "A new customer asks a freight forwarder for a shipping quotation from Guangzhou to New York. The customer has two options: air freight and ocean freight. Before preparing the quotation, the forwarder needs to collect the cargo details and understand the customer's delivery requirements.\n\nThe shipment contains 20 cartons. Each carton measures 60 by 50 by 40 centimeters and weighs 25 kilograms. The forwarder calculates the total volume and gross weight. For air freight, the chargeable weight is determined by comparing the actual gross weight with the volumetric weight. The higher figure is normally used for billing.\n\nFor ocean freight, the forwarder checks whether the shipment should be arranged as less than container load or full container load. Since the cargo volume is relatively small, a less than container load service may be more suitable. The forwarder also checks the origin charges, destination charges, and possible additional fees.\n\nAfter collecting the rates from different carriers, the forwarder prepares two quotations. Each quotation clearly lists the transportation cost, estimated transit time, included services, and any charges that are not included. The forwarder also explains that rates may change before the booking is confirmed.\n\nThe customer compares the two options and chooses ocean freight because the shipment is not urgent. The forwarder confirms the final details and prepares the booking.\n\nA clear quotation helps customers understand the total logistics cost and make better shipping decisions.",
+    "content_cn": "一位新客户向货运代理询问从广州到纽约的运输报价。客户有两个选择：空运和海运。在准备报价之前，货代需要收集货物信息，并了解客户对交货的要求。\n\n这批货物共有20箱。每箱尺寸为60×50×40厘米，重量为25公斤。货代需要计算总体积和毛重。对于空运，计费重量通常通过比较实际毛重和体积重量来确定，并采用较高的数值进行计费。\n\n对于海运，货代需要判断这批货物适合采用拼箱还是整箱运输。由于货物总体积相对较小，拼箱服务可能更加合适。货代还需要核查起运港费用、目的港费用以及可能产生的其他附加费用。\n\n从不同承运人处收集报价后，货代准备了两份运输方案。每份报价都清楚列出运输费用、预计运输时间、包含的服务以及不包含的费用。货代还解释，在订舱确认之前，运价仍有可能发生变化。\n\n客户比较了两种方案，由于货物并不紧急，最终选择了海运。货代确认最终信息并开始安排订舱。\n\n清晰的报价能够帮助客户了解整体物流成本，并作出更合理的运输决策。",
+    "sentences": [
+      {
+        "sentence_en": "A new customer asks a freight forwarder for a shipping quotation from Guangzhou to New York.",
+        "sentence_cn": "一位新客户向货运代理询问从广州到纽约的运输报价。",
+        "chunks": ["A new customer", "asks a freight forwarder", "for a shipping quotation", "from Guangzhou to New York"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before preparing the quotation, the forwarder needs to collect the cargo details and understand the customer's delivery requirements.",
+        "sentence_cn": "在准备报价之前，货代需要收集货物信息，并了解客户对交货的要求。",
+        "chunks": ["Before preparing the quotation", "collect the cargo details", "and understand", "the customer's delivery requirements"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The forwarder calculates the total volume and gross weight.",
+        "sentence_cn": "货代需要计算总体积和毛重。",
+        "chunks": ["The forwarder", "calculates", "the total volume", "and gross weight"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "For air freight, the chargeable weight is determined by comparing the actual gross weight with the volumetric weight.",
+        "sentence_cn": "对于空运，计费重量通常通过比较实际毛重和体积重量来确定。",
+        "chunks": ["For air freight", "the chargeable weight", "is determined by comparing", "gross weight with volumetric weight"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The higher figure is normally used for billing.",
+        "sentence_cn": "通常采用较高的数值进行计费。",
+        "chunks": ["The higher figure", "is normally used", "for billing"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Since the cargo volume is relatively small, a less than container load service may be more suitable.",
+        "sentence_cn": "由于货物总体积相对较小，拼箱服务可能更加合适。",
+        "chunks": ["Since the cargo volume", "is relatively small", "a less than container load service", "may be more suitable"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Each quotation clearly lists the transportation cost, estimated transit time, included services, and any charges that are not included.",
+        "sentence_cn": "每份报价都清楚列出运输费用、预计运输时间、包含的服务以及不包含的费用。",
+        "chunks": ["Each quotation clearly lists", "the transportation cost", "estimated transit time", "and any charges not included"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The forwarder also explains that rates may change before the booking is confirmed.",
+        "sentence_cn": "货代还解释，在订舱确认之前，运价仍有可能发生变化。",
+        "chunks": ["The forwarder also explains", "that rates may change", "before", "the booking is confirmed"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A clear quotation helps customers understand the total logistics cost and make better shipping decisions.",
+        "sentence_cn": "清晰的报价能够帮助客户了解整体物流成本，并作出更合理的运输决策。",
+        "chunks": ["A clear quotation", "helps customers understand", "the total logistics cost", "and make better shipping decisions"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "shipping quotation",
+        "meaning": "运输报价",
+        "example": "Could you send us a shipping quotation for this order?"
+      },
+      {
+        "expression": "chargeable weight",
+        "meaning": "计费重量",
+        "example": "The chargeable weight is based on the higher figure."
+      },
+      {
+        "expression": "volumetric weight",
+        "meaning": "体积重量",
+        "example": "Please provide the carton dimensions to calculate the volumetric weight."
+      },
+      {
+        "expression": "less than container load (LCL)",
+        "meaning": "拼箱运输",
+        "example": "LCL may be a good option for smaller shipments."
+      },
+      {
+        "expression": "additional charges",
+        "meaning": "附加费用",
+        "example": "Please confirm whether there are any additional charges."
+      },
+      {
+        "expression": "estimated transit time",
+        "meaning": "预计运输时间",
+        "example": "The estimated transit time is approximately 25 days."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_logistics",
+    "profession_name": "International Logistics & Freight Forwarding / 国际物流与货代"
+  }
+]

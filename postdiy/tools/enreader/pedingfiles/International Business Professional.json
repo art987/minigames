@@ -1,0 +1,644 @@
+[
+  {
+    "article_id": 10037,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Writing professional emails",
+    "title_en": "Writing Clear and Professional Emails",
+    "title_cn": "撰写清晰专业的英文邮件",
+    "difficulty": "B1-B2",
+    "word_count": 218,
+    "estimated_reading_time_seconds": 95,
+    "content_en": "Working in an international company often means communicating with colleagues and clients by email. A well-written email can save time, prevent misunderstandings, and help people make decisions more quickly.\n\nWhen an employee receives a request from an overseas colleague, the first step is to understand the purpose of the message. If some information is missing, it is better to ask specific questions rather than make assumptions. The employee should also check whether the request has a deadline and whether other team members need to be involved.\n\nA professional email usually starts with a suitable greeting and a clear opening sentence. The main message should be organized into short paragraphs, with each paragraph covering one point. Important information, such as dates, responsibilities, and requested actions, should be easy to find.\n\nFor example, instead of writing, 'Please deal with this soon,' an employee can say, 'Could you please review the attached document by Thursday?' The second sentence is more specific and gives the reader a clear deadline.\n\nBefore sending the email, the writer should check the recipient's name, attachments, spelling, and tone. If several people are involved, the sender should use the copy field carefully and avoid including unnecessary recipients.\n\nClear email communication reflects professional working habits and helps build trust across international teams.",
+    "content_cn": "在国际化公司工作，通常意味着需要通过电子邮件与同事和客户沟通。一封写得好的邮件能够节省时间、避免误解，并帮助人们更快地作出决定。\n\n当员工收到海外同事的请求时，第一步是理解邮件的目的。如果缺少某些信息，最好提出具体问题，而不是自行猜测。员工还应该确认请求是否有截止日期，以及是否需要其他团队成员参与。\n\n一封专业邮件通常以恰当的问候语和清晰的开场句开始。正文应该分成简短的段落，每段表达一个重点。日期、责任分工和需要采取的行动等重要信息，应当让读者容易找到。\n\n例如，与其写“请尽快处理”，员工可以写“您能否在周四之前审核附件中的文件？”第二种表达更加具体，也为读者提供了明确的截止时间。\n\n发送邮件之前，作者应该检查收件人姓名、附件、拼写和语气。如果涉及多个人，发件人应该谨慎使用抄送功能，避免加入不必要的收件人。\n\n清晰的邮件沟通体现了专业的工作习惯，也有助于建立国际团队之间的信任。",
+    "sentences": [
+      {
+        "sentence_en": "Working in an international company often means communicating with colleagues and clients by email.",
+        "sentence_cn": "在国际化公司工作，通常意味着需要通过电子邮件与同事和客户沟通。",
+        "chunks": ["Working in an international company", "often means", "communicating with colleagues and clients", "by email"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A well-written email can save time, prevent misunderstandings, and help people make decisions more quickly.",
+        "sentence_cn": "一封写得好的邮件能够节省时间、避免误解，并帮助人们更快地作出决定。",
+        "chunks": ["A well-written email", "can save time", "prevent misunderstandings", "and help people make decisions"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "If some information is missing, it is better to ask specific questions rather than make assumptions.",
+        "sentence_cn": "如果缺少某些信息，最好提出具体问题，而不是自行猜测。",
+        "chunks": ["If some information is missing", "it is better to", "ask specific questions", "rather than make assumptions"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A professional email usually starts with a suitable greeting and a clear opening sentence.",
+        "sentence_cn": "一封专业邮件通常以恰当的问候语和清晰的开场句开始。",
+        "chunks": ["A professional email", "usually starts with", "a suitable greeting", "and a clear opening sentence"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The main message should be organized into short paragraphs, with each paragraph covering one point.",
+        "sentence_cn": "正文应该分成简短的段落，每段表达一个重点。",
+        "chunks": ["The main message", "should be organized into", "short paragraphs", "each paragraph covering one point"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Could you please review the attached document by Thursday?",
+        "sentence_cn": "您能否在周四之前审核附件中的文件？",
+        "chunks": ["Could you please", "review", "the attached document", "by Thursday"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before sending the email, the writer should check the recipient's name, attachments, spelling, and tone.",
+        "sentence_cn": "发送邮件之前，作者应该检查收件人姓名、附件、拼写和语气。",
+        "chunks": ["Before sending the email", "the writer should check", "the recipient's name and attachments", "spelling and tone"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Clear email communication reflects professional working habits and helps build trust across international teams.",
+        "sentence_cn": "清晰的邮件沟通体现了专业的工作习惯，也有助于建立国际团队之间的信任。",
+        "chunks": ["Clear email communication", "reflects professional working habits", "and helps build trust", "across international teams"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "get back to someone",
+        "meaning": "回复某人、稍后答复某人",
+        "example": "I will get back to you once I have the information."
+      },
+      {
+        "expression": "the attached document",
+        "meaning": "附件中的文件",
+        "example": "Please review the attached document before the meeting."
+      },
+      {
+        "expression": "by the deadline",
+        "meaning": "在截止日期之前",
+        "example": "We need to complete the report by the deadline."
+      },
+      {
+        "expression": "make assumptions",
+        "meaning": "自行猜测、作出假设",
+        "example": "Please ask if anything is unclear instead of making assumptions."
+      },
+      {
+        "expression": "keep someone informed",
+        "meaning": "让某人及时了解情况",
+        "example": "I will keep you informed of any changes."
+      },
+      {
+        "expression": "take action",
+        "meaning": "采取行动",
+        "example": "We need to take action before the issue becomes serious."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  },
+  {
+    "article_id": 10038,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Participating in international meetings",
+    "title_en": "Participating in International Meetings",
+    "title_cn": "参加跨国商务会议",
+    "difficulty": "B1-B2",
+    "word_count": 216,
+    "estimated_reading_time_seconds": 94,
+    "content_en": "An international team holds a weekly online meeting to discuss the progress of a new project. Participants join from China, the United States, and Germany. Since everyone works in a different time zone, the meeting is scheduled in advance and the agenda is shared with all participants.\n\nAt the beginning of the meeting, the team leader briefly reviews the main topics. Each department then gives an update on its work. The marketing manager explains the campaign results, while the product team discusses customer feedback and technical issues.\n\nOne employee notices that an important delivery date may be delayed. She politely raises the concern and explains the possible impact on the project. Instead of simply pointing out the problem, she also suggests two possible solutions. This helps the team focus on what can be done next.\n\nDuring the discussion, participants are encouraged to ask questions and share different opinions. If someone does not understand a point, they can ask the speaker to clarify it. It is also important to avoid interrupting others and to give everyone enough time to express their ideas.\n\nBefore the meeting ends, the team leader summarizes the key decisions and confirms the next steps. Each task is assigned to a responsible person with a clear deadline.\n\nA successful international meeting is not just about exchanging information. It is about making decisions and ensuring that everyone understands their responsibilities.",
+    "content_cn": "一个国际团队每周举行一次线上会议，讨论新项目的进展。参会人员来自中国、美国和德国。由于每个人所在的时区不同，会议会提前安排，并将议程发送给所有参与者。\n\n会议开始时，团队负责人会简要回顾主要议题。随后，各部门分别汇报工作进展。市场经理介绍营销活动的结果，而产品团队则讨论客户反馈和技术问题。\n\n一名员工注意到，一项重要的交付日期可能会延迟。她礼貌地提出了这个问题，并解释了可能对项目造成的影响。她没有仅仅指出问题，还提出了两个可能的解决方案。这有助于团队把注意力集中在接下来可以采取的行动上。\n\n讨论期间，鼓励参会者提问并分享不同观点。如果有人不理解某个观点，可以请发言者进一步解释。同时，也要避免打断别人，并给每个人足够的时间表达想法。\n\n会议结束前，团队负责人总结关键决策，并确认下一步工作。每项任务都会分配给具体负责人，并设定明确的截止时间。\n\n一次成功的国际会议不仅仅是交换信息，更重要的是作出决策，并确保每个人都清楚自己的职责。",
+    "sentences": [
+      {
+        "sentence_en": "An international team holds a weekly online meeting to discuss the progress of a new project.",
+        "sentence_cn": "一个国际团队每周举行一次线上会议，讨论新项目的进展。",
+        "chunks": ["An international team", "holds a weekly online meeting", "to discuss", "the progress of a new project"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Since everyone works in a different time zone, the meeting is scheduled in advance and the agenda is shared with all participants.",
+        "sentence_cn": "由于每个人所在的时区不同，会议会提前安排，并将议程发送给所有参与者。",
+        "chunks": ["Since everyone works", "in a different time zone", "the meeting is scheduled in advance", "the agenda is shared"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "At the beginning of the meeting, the team leader briefly reviews the main topics.",
+        "sentence_cn": "会议开始时，团队负责人会简要回顾主要议题。",
+        "chunks": ["At the beginning of the meeting", "the team leader", "briefly reviews", "the main topics"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Each department then gives an update on its work.",
+        "sentence_cn": "随后，各部门分别汇报工作进展。",
+        "chunks": ["Each department", "then gives", "an update", "on its work"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She politely raises the concern and explains the possible impact on the project.",
+        "sentence_cn": "她礼貌地提出了这个问题，并解释了可能对项目造成的影响。",
+        "chunks": ["She politely", "raises the concern", "and explains", "the possible impact on the project"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "If someone does not understand a point, they can ask the speaker to clarify it.",
+        "sentence_cn": "如果有人不理解某个观点，可以请发言者进一步解释。",
+        "chunks": ["If someone does not understand", "a point", "they can ask the speaker", "to clarify it"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the meeting ends, the team leader summarizes the key decisions and confirms the next steps.",
+        "sentence_cn": "会议结束前，团队负责人总结关键决策，并确认下一步工作。",
+        "chunks": ["Before the meeting ends", "the team leader summarizes", "the key decisions", "and confirms the next steps"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Each task is assigned to a responsible person with a clear deadline.",
+        "sentence_cn": "每项任务都会分配给具体负责人，并设定明确的截止时间。",
+        "chunks": ["Each task", "is assigned to", "a responsible person", "with a clear deadline"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "meeting agenda",
+        "meaning": "会议议程",
+        "example": "I have shared the meeting agenda with everyone."
+      },
+      {
+        "expression": "give an update",
+        "meaning": "汇报最新进展",
+        "example": "Could you give us an update on the project?"
+      },
+      {
+        "expression": "raise a concern",
+        "meaning": "提出担忧或问题",
+        "example": "I would like to raise a concern about the delivery date."
+      },
+      {
+        "expression": "clarify a point",
+        "meaning": "解释清楚某个观点",
+        "example": "Could you clarify that point for me?"
+      },
+      {
+        "expression": "next steps",
+        "meaning": "下一步行动",
+        "example": "Let's confirm the next steps before we finish."
+      },
+      {
+        "expression": "be responsible for",
+        "meaning": "负责某项工作",
+        "example": "Who will be responsible for preparing the report?"
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  },
+  {
+    "article_id": 10039,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Communicating with overseas clients",
+    "title_en": "Communicating with Overseas Clients",
+    "title_cn": "与海外客户进行商务沟通",
+    "difficulty": "B1-B2",
+    "word_count": 220,
+    "estimated_reading_time_seconds": 96,
+    "content_en": "An international business specialist is responsible for maintaining relationships with several overseas clients. One of the clients recently contacted the company to ask about a new product and its delivery options. The specialist needs to understand the client's requirements before making a recommendation.\n\nDuring the conversation, the client explains that product quality is the main priority, but the delivery date is also important. The specialist asks about the expected order quantity, destination, and preferred delivery schedule. These questions help the company prepare a suitable proposal instead of offering a general solution.\n\nAfter checking with the production and logistics teams, the specialist sends the client a detailed response. The email includes product specifications, available quantities, estimated production time, and possible shipping methods. It also explains which details still need confirmation.\n\nThe client asks whether the company can offer a better price for a larger order. The specialist does not make an immediate promise. Instead, the request is discussed with the sales manager, who reviews the expected order volume and production costs.\n\nThe company later provides a revised quotation with a more competitive price. The specialist explains the conditions clearly and invites the client to share any further questions.\n\nProfessional client communication requires more than polite language. It also depends on understanding business needs, providing accurate information, and following up on commitments.",
+    "content_cn": "一名国际业务专员负责维护几位海外客户的关系。最近，其中一位客户联系公司，询问一款新产品及其交付方案。在提出建议之前，业务专员需要先了解客户的具体需求。\n\n沟通过程中，客户解释说，产品质量是最重要的考虑因素，但交货日期也很重要。业务专员询问预计订购数量、目的地以及客户偏好的交货时间。这些问题能够帮助公司制定合适的方案，而不是提供一个笼统的解决办法。\n\n与生产和物流团队确认后，业务专员向客户发送了一份详细回复。邮件包含产品规格、可供数量、预计生产时间以及可选运输方式，同时说明了哪些信息仍需确认。\n\n客户询问，如果订单数量较大，公司是否可以提供更优惠的价格。业务专员没有立即作出承诺，而是将这一请求提交给销售经理，由销售经理评估预计订单量和生产成本。\n\n随后，公司提供了一份调整后的报价，价格更具竞争力。业务专员清楚解释了相关条件，并邀请客户提出其他问题。\n\n专业的客户沟通不仅需要礼貌的语言，还取决于对业务需求的理解、准确信息的提供，以及对承诺事项的持续跟进。",
+    "sentences": [
+      {
+        "sentence_en": "An international business specialist is responsible for maintaining relationships with several overseas clients.",
+        "sentence_cn": "一名国际业务专员负责维护几位海外客户的关系。",
+        "chunks": ["An international business specialist", "is responsible for", "maintaining relationships", "with several overseas clients"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The specialist needs to understand the client's requirements before making a recommendation.",
+        "sentence_cn": "在提出建议之前，业务专员需要先了解客户的具体需求。",
+        "chunks": ["The specialist needs to understand", "the client's requirements", "before", "making a recommendation"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The client explains that product quality is the main priority, but the delivery date is also important.",
+        "sentence_cn": "客户解释说，产品质量是最重要的考虑因素，但交货日期也很重要。",
+        "chunks": ["product quality", "is the main priority", "but", "the delivery date is also important"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "These questions help the company prepare a suitable proposal instead of offering a general solution.",
+        "sentence_cn": "这些问题能够帮助公司制定合适的方案，而不是提供一个笼统的解决办法。",
+        "chunks": ["These questions help the company", "prepare a suitable proposal", "instead of", "offering a general solution"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The email includes product specifications, available quantities, estimated production time, and possible shipping methods.",
+        "sentence_cn": "邮件包含产品规格、可供数量、预计生产时间以及可选运输方式。",
+        "chunks": ["The email includes", "product specifications", "available quantities and estimated production time", "possible shipping methods"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The specialist does not make an immediate promise.",
+        "sentence_cn": "业务专员没有立即作出承诺。",
+        "chunks": ["The specialist", "does not make", "an immediate promise"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The company later provides a revised quotation with a more competitive price.",
+        "sentence_cn": "随后，公司提供了一份调整后的报价，价格更具竞争力。",
+        "chunks": ["The company later provides", "a revised quotation", "with", "a more competitive price"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Professional client communication requires more than polite language.",
+        "sentence_cn": "专业的客户沟通不仅需要礼貌的语言。",
+        "chunks": ["Professional client communication", "requires", "more than", "polite language"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "client requirements",
+        "meaning": "客户需求",
+        "example": "We need to understand the client's requirements first."
+      },
+      {
+        "expression": "make a recommendation",
+        "meaning": "提出建议",
+        "example": "I can make a recommendation after reviewing the details."
+      },
+      {
+        "expression": "product specifications",
+        "meaning": "产品规格",
+        "example": "Please send us the latest product specifications."
+      },
+      {
+        "expression": "estimated production time",
+        "meaning": "预计生产时间",
+        "example": "The estimated production time is about three weeks."
+      },
+      {
+        "expression": "revised quotation",
+        "meaning": "修订后的报价",
+        "example": "We have prepared a revised quotation for your review."
+      },
+      {
+        "expression": "follow up on",
+        "meaning": "跟进某事",
+        "example": "I will follow up on your request tomorrow."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  },
+  {
+    "article_id": 10040,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Reporting project progress",
+    "title_en": "Reporting Project Progress",
+    "title_cn": "汇报项目进度与工作成果",
+    "difficulty": "B1-B2",
+    "word_count": 218,
+    "estimated_reading_time_seconds": 95,
+    "content_en": "An employee in an international company is preparing a weekly project update for the regional manager. The project involves several departments, including sales, marketing, and operations. The manager wants to understand what has been completed, what is still in progress, and whether any problems may affect the final deadline.\n\nThe employee begins by reviewing the project plan and collecting updates from each department. The sales team has completed its customer research, while the marketing team is still preparing campaign materials. The operations team reports that a supplier has not confirmed the delivery date for an important component.\n\nIn the report, the employee separates completed tasks from ongoing work. Each item includes a short description, the person responsible, and the expected completion date. This structure makes it easier for the manager to identify progress and outstanding tasks.\n\nThe employee also highlights the supplier issue because it may affect the project schedule. Rather than hiding the problem, the report explains the current situation and suggests contacting an alternative supplier if confirmation is not received by Wednesday.\n\nBefore sending the report, the employee checks that the information is accurate and that the dates are consistent across departments. The manager reviews the update and agrees with the proposed action.\n\nA useful progress report should be clear, factual, and focused on decisions. It should help managers understand the situation and decide what needs to happen next.",
+    "content_cn": "一家国际公司的员工正在为区域经理准备每周项目进度报告。该项目涉及多个部门，包括销售、市场营销和运营。经理希望了解哪些工作已经完成、哪些仍在进行，以及是否存在可能影响最终截止日期的问题。\n\n员工首先查看项目计划，并收集各部门的最新进展。销售团队已经完成客户调研，而市场团队仍在准备营销材料。运营团队则报告，一家供应商尚未确认某个重要零部件的交货日期。\n\n在报告中，员工将已完成的任务与正在进行的工作分开列出。每项任务都包含简短描述、负责人以及预计完成日期。这种结构便于经理识别项目进展和未完成事项。\n\n员工还特别指出供应商的问题，因为它可能影响项目进度。报告没有隐藏这个问题，而是说明当前情况，并建议如果周三之前仍未收到确认，就联系另一家备选供应商。\n\n发送报告之前，员工检查信息是否准确，以及各部门提供的日期是否一致。经理审核进度后，同意了提出的行动方案。\n\n一份有用的进度报告应该清晰、客观，并聚焦于决策。它应帮助管理者了解实际情况，并判断下一步需要采取什么行动。",
+    "sentences": [
+      {
+        "sentence_en": "An employee in an international company is preparing a weekly project update for the regional manager.",
+        "sentence_cn": "一家国际公司的员工正在为区域经理准备每周项目进度报告。",
+        "chunks": ["An employee in an international company", "is preparing", "a weekly project update", "for the regional manager"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The manager wants to understand what has been completed, what is still in progress, and whether any problems may affect the final deadline.",
+        "sentence_cn": "经理希望了解哪些工作已经完成、哪些仍在进行，以及是否存在可能影响最终截止日期的问题。",
+        "chunks": ["what has been completed", "what is still in progress", "whether any problems", "may affect the final deadline"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The employee begins by reviewing the project plan and collecting updates from each department.",
+        "sentence_cn": "员工首先查看项目计划，并收集各部门的最新进展。",
+        "chunks": ["The employee begins by", "reviewing the project plan", "and collecting updates", "from each department"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The operations team reports that a supplier has not confirmed the delivery date for an important component.",
+        "sentence_cn": "运营团队报告，一家供应商尚未确认某个重要零部件的交货日期。",
+        "chunks": ["The operations team reports", "that a supplier", "has not confirmed", "the delivery date"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Each item includes a short description, the person responsible, and the expected completion date.",
+        "sentence_cn": "每项任务都包含简短描述、负责人以及预计完成日期。",
+        "chunks": ["Each item includes", "a short description", "the person responsible", "and the expected completion date"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The report explains the current situation and suggests contacting an alternative supplier if confirmation is not received by Wednesday.",
+        "sentence_cn": "报告说明当前情况，并建议如果周三之前仍未收到确认，就联系另一家备选供应商。",
+        "chunks": ["The report explains", "the current situation", "suggests contacting an alternative supplier", "if confirmation is not received"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before sending the report, the employee checks that the information is accurate.",
+        "sentence_cn": "发送报告之前，员工检查信息是否准确。",
+        "chunks": ["Before sending the report", "the employee checks", "that", "the information is accurate"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A useful progress report should be clear, factual, and focused on decisions.",
+        "sentence_cn": "一份有用的进度报告应该清晰、客观，并聚焦于决策。",
+        "chunks": ["A useful progress report", "should be", "clear and factual", "focused on decisions"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "project update",
+        "meaning": "项目进度更新",
+        "example": "I will send you a project update every Friday."
+      },
+      {
+        "expression": "in progress",
+        "meaning": "正在进行中",
+        "example": "The final review is still in progress."
+      },
+      {
+        "expression": "outstanding tasks",
+        "meaning": "尚未完成的任务",
+        "example": "We need to review all outstanding tasks."
+      },
+      {
+        "expression": "person responsible",
+        "meaning": "负责人",
+        "example": "Please confirm the person responsible for this task."
+      },
+      {
+        "expression": "affect the schedule",
+        "meaning": "影响进度安排",
+        "example": "The supplier issue may affect the schedule."
+      },
+      {
+        "expression": "alternative supplier",
+        "meaning": "备选供应商",
+        "example": "We should contact an alternative supplier."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  },
+  {
+    "article_id": 10041,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Welcoming overseas visitors",
+    "title_en": "Welcoming Overseas Business Visitors",
+    "title_cn": "接待海外商务访客",
+    "difficulty": "B1-B2",
+    "word_count": 215,
+    "estimated_reading_time_seconds": 94,
+    "content_en": "A company is expecting two business visitors from Singapore next Monday. The visitors will spend one day at the company's office to learn about its products and discuss a possible partnership. An international business specialist is responsible for arranging their visit.\n\nBefore the visitors arrive, the specialist confirms their flight details, hotel information, and expected arrival time. A meeting room is booked, and the relevant departments are informed about the schedule. The specialist also prepares a short company introduction and product presentation in English.\n\nOn the day of the visit, the specialist meets the guests at the office entrance and welcomes them. After introducing the team members, the specialist gives a brief overview of the company, its main products, and its international business activities.\n\nDuring the meeting, the visitors ask questions about production capacity, quality control, and delivery arrangements. The specialist answers the questions clearly and invites colleagues from the production department to explain technical details when necessary.\n\nAt lunchtime, the company takes the visitors to a nearby restaurant. The conversation becomes more relaxed, allowing both sides to learn more about each other's business culture and expectations.\n\nBefore the guests leave, the specialist summarizes the main discussion points and confirms the follow-up actions. A thank-you email is sent later that afternoon.\n\nGood business hospitality is not only about being polite. Careful preparation and thoughtful communication help create a positive first impression and support future cooperation.",
+    "content_cn": "一家公司预计将在下周一接待两位来自新加坡的商务访客。访客将在公司办公室停留一天，了解公司的产品，并讨论潜在的合作机会。一名国际业务专员负责安排此次接待。\n\n在访客到来之前，业务专员确认他们的航班信息、酒店资料和预计抵达时间。会议室提前预订好，相关部门也会收到日程安排。业务专员还准备了一份英文公司简介和产品介绍。\n\n访问当天，业务专员在办公室入口迎接客人。介绍团队成员之后，业务专员简要介绍公司的情况、主要产品以及国际业务活动。\n\n会议期间，访客询问公司的生产能力、质量控制和交付安排。业务专员清楚地回答问题，并在必要时邀请生产部门的同事解释技术细节。\n\n午餐时间，公司带访客前往附近的餐厅。交谈氛围变得更加轻松，双方可以进一步了解彼此的商业文化和合作期望。\n\n客人离开之前，业务专员总结主要讨论内容，并确认后续行动。当天下午晚些时候，公司还会发送一封感谢邮件。\n\n良好的商务接待不仅仅是礼貌待人。充分的准备和周到的沟通能够留下积极的第一印象，并为未来合作提供支持。",
+    "sentences": [
+      {
+        "sentence_en": "A company is expecting two business visitors from Singapore next Monday.",
+        "sentence_cn": "一家公司预计将在下周一接待两位来自新加坡的商务访客。",
+        "chunks": ["A company", "is expecting", "two business visitors", "from Singapore next Monday"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The visitors will spend one day at the company's office to learn about its products and discuss a possible partnership.",
+        "sentence_cn": "访客将在公司办公室停留一天，了解公司的产品，并讨论潜在的合作机会。",
+        "chunks": ["The visitors will spend one day", "at the company's office", "to learn about its products", "and discuss a possible partnership"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the visitors arrive, the specialist confirms their flight details, hotel information, and expected arrival time.",
+        "sentence_cn": "在访客到来之前，业务专员确认他们的航班信息、酒店资料和预计抵达时间。",
+        "chunks": ["Before the visitors arrive", "the specialist confirms", "their flight details and hotel information", "expected arrival time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The specialist also prepares a short company introduction and product presentation in English.",
+        "sentence_cn": "业务专员还准备了一份英文公司简介和产品介绍。",
+        "chunks": ["The specialist also prepares", "a short company introduction", "and product presentation", "in English"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After introducing the team members, the specialist gives a brief overview of the company.",
+        "sentence_cn": "介绍团队成员之后，业务专员简要介绍公司的情况。",
+        "chunks": ["After introducing", "the team members", "the specialist gives", "a brief overview of the company"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The specialist answers the questions clearly and invites colleagues from the production department to explain technical details when necessary.",
+        "sentence_cn": "业务专员清楚地回答问题，并在必要时邀请生产部门的同事解释技术细节。",
+        "chunks": ["answers the questions clearly", "invites colleagues", "from the production department", "to explain technical details"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the guests leave, the specialist summarizes the main discussion points and confirms the follow-up actions.",
+        "sentence_cn": "客人离开之前，业务专员总结主要讨论内容，并确认后续行动。",
+        "chunks": ["Before the guests leave", "the specialist summarizes", "the main discussion points", "and confirms the follow-up actions"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Careful preparation and thoughtful communication help create a positive first impression and support future cooperation.",
+        "sentence_cn": "充分的准备和周到的沟通能够留下积极的第一印象，并为未来合作提供支持。",
+        "chunks": ["Careful preparation", "and thoughtful communication", "help create a positive first impression", "and support future cooperation"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "business visitors",
+        "meaning": "商务访客",
+        "example": "We are expecting several business visitors next week."
+      },
+      {
+        "expression": "confirm the arrangements",
+        "meaning": "确认接待安排",
+        "example": "I will confirm the arrangements with the hotel."
+      },
+      {
+        "expression": "company introduction",
+        "meaning": "公司介绍",
+        "example": "Please prepare a short company introduction in English."
+      },
+      {
+        "expression": "give an overview of",
+        "meaning": "概述、介绍整体情况",
+        "example": "Let me give you an overview of our business."
+      },
+      {
+        "expression": "first impression",
+        "meaning": "第一印象",
+        "example": "A professional welcome creates a positive first impression."
+      },
+      {
+        "expression": "future cooperation",
+        "meaning": "未来合作",
+        "example": "We look forward to future cooperation with your company."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  },
+  {
+    "article_id": 10042,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Working across cultures",
+    "title_en": "Working Across Different Business Cultures",
+    "title_cn": "跨文化商务协作",
+    "difficulty": "B1-B2",
+    "word_count": 221,
+    "estimated_reading_time_seconds": 96,
+    "content_en": "An international project team includes employees from China, France, and the United States. Although everyone is working toward the same goal, differences in communication styles and working habits sometimes create misunderstandings.\n\nDuring one online meeting, a team member gives a very direct opinion about a proposal. Another colleague feels uncomfortable because the comment sounds too critical. The team leader notices the tension and encourages everyone to explain their ideas in a respectful way.\n\nThe team later discusses how to improve communication. Some members prefer detailed written instructions, while others are more comfortable discussing problems in a meeting. The team agrees to share important decisions in writing after each discussion so that everyone has the same information.\n\nThey also talk about time management. Employees in different countries may have different public holidays and working hours. To avoid scheduling problems, the team uses a shared calendar and confirms meeting times in advance. When a deadline is difficult to meet, employees are expected to explain the reason early rather than wait until the last minute.\n\nThe team leader reminds everyone that cultural differences should not be treated as personal problems. Asking questions, listening carefully, and checking understanding can prevent many misunderstandings.\n\nWorking across cultures requires patience and flexibility. When team members respect different perspectives and communicate openly, they can build stronger working relationships and achieve better results together.",
+    "content_cn": "一个国际项目团队由来自中国、法国和美国的员工组成。虽然每个人都朝着相同的目标努力，但沟通方式和工作习惯的差异有时会造成误解。\n\n在一次线上会议中，一名团队成员对某个提案发表了非常直接的意见。另一位同事感到不舒服，因为这番评论听起来过于批评。团队负责人注意到了这种紧张气氛，并鼓励大家以尊重的方式解释自己的观点。\n\n之后，团队讨论如何改善沟通。有些成员更喜欢详细的书面指示，而另一些人则更习惯在会议中讨论问题。团队达成一致：每次讨论结束后，都要以书面形式分享重要决策，确保所有人掌握相同的信息。\n\n他们还讨论了时间管理。不同国家的员工可能有不同的公共假期和工作时间。为了避免日程冲突，团队使用共享日历，并提前确认会议时间。如果某个截止日期难以完成，员工应该尽早说明原因，而不是等到最后一刻。\n\n团队负责人提醒大家，不应该把文化差异当作个人问题。主动提问、认真倾听并确认理解情况，可以避免许多误解。\n\n跨文化协作需要耐心和灵活性。当团队成员尊重不同观点并保持开放沟通时，他们就能建立更牢固的工作关系，并共同取得更好的成果。",
+    "sentences": [
+      {
+        "sentence_en": "An international project team includes employees from China, France, and the United States.",
+        "sentence_cn": "一个国际项目团队由来自中国、法国和美国的员工组成。",
+        "chunks": ["An international project team", "includes", "employees", "from China, France, and the United States"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Differences in communication styles and working habits sometimes create misunderstandings.",
+        "sentence_cn": "沟通方式和工作习惯的差异有时会造成误解。",
+        "chunks": ["Differences in communication styles", "and working habits", "sometimes create", "misunderstandings"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team leader notices the tension and encourages everyone to explain their ideas in a respectful way.",
+        "sentence_cn": "团队负责人注意到了这种紧张气氛，并鼓励大家以尊重的方式解释自己的观点。",
+        "chunks": ["The team leader notices", "the tension", "and encourages everyone", "to explain their ideas in a respectful way"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team agrees to share important decisions in writing after each discussion so that everyone has the same information.",
+        "sentence_cn": "团队达成一致：每次讨论结束后，都要以书面形式分享重要决策，确保所有人掌握相同的信息。",
+        "chunks": ["The team agrees to", "share important decisions in writing", "after each discussion", "so that everyone has the same information"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "To avoid scheduling problems, the team uses a shared calendar and confirms meeting times in advance.",
+        "sentence_cn": "为了避免日程冲突，团队使用共享日历，并提前确认会议时间。",
+        "chunks": ["To avoid scheduling problems", "the team uses", "a shared calendar", "and confirms meeting times in advance"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "When a deadline is difficult to meet, employees are expected to explain the reason early rather than wait until the last minute.",
+        "sentence_cn": "如果某个截止日期难以完成，员工应该尽早说明原因，而不是等到最后一刻。",
+        "chunks": ["When a deadline is difficult to meet", "employees are expected to", "explain the reason early", "rather than wait until the last minute"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Asking questions, listening carefully, and checking understanding can prevent many misunderstandings.",
+        "sentence_cn": "主动提问、认真倾听并确认理解情况，可以避免许多误解。",
+        "chunks": ["Asking questions", "listening carefully", "and checking understanding", "can prevent many misunderstandings"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Working across cultures requires patience and flexibility.",
+        "sentence_cn": "跨文化协作需要耐心和灵活性。",
+        "chunks": ["Working across cultures", "requires", "patience", "and flexibility"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "When team members respect different perspectives and communicate openly, they can build stronger working relationships.",
+        "sentence_cn": "当团队成员尊重不同观点并保持开放沟通时，他们就能建立更牢固的工作关系。",
+        "chunks": ["When team members respect", "different perspectives", "and communicate openly", "they can build stronger working relationships"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "communication style",
+        "meaning": "沟通方式",
+        "example": "Different communication styles can lead to misunderstandings."
+      },
+      {
+        "expression": "working habits",
+        "meaning": "工作习惯",
+        "example": "We need to understand each other's working habits."
+      },
+      {
+        "expression": "in a respectful way",
+        "meaning": "以尊重的方式",
+        "example": "Please express your concerns in a respectful way."
+      },
+      {
+        "expression": "share something in writing",
+        "meaning": "以书面形式分享某事",
+        "example": "Let's share the final decision in writing."
+      },
+      {
+        "expression": "in advance",
+        "meaning": "提前",
+        "example": "Please confirm the meeting time in advance."
+      },
+      {
+        "expression": "check understanding",
+        "meaning": "确认是否理解",
+        "example": "Let me check my understanding before we move on."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "international_business",
+    "profession_name": "International Business Professional / 外企职员与国际业务专员"
+  }
+]

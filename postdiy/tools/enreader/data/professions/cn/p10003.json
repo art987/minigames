@@ -1,0 +1,297 @@
+{
+  "id": "p10003",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Price negotiation",
+          "m": "价格谈判"
+        },
+        {
+          "t": "is a common part of international trade.",
+          "m": "是国际贸易中常见的一部分"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Buyers often ask for discounts,",
+          "m": "买家经常要求折扣"
+        },
+        {
+          "t": "especially when they place large orders.",
+          "m": "尤其是在下大订单时"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "However,",
+          "m": "然而"
+        },
+        {
+          "t": "export sales representatives",
+          "m": "外贸业务代表"
+        },
+        {
+          "t": "must protect the company's profit margin",
+          "m": "必须保护公司的利润空间"
+        },
+        {
+          "t": "while trying to reach an agreement.",
+          "m": "同时努力达成协议"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Michael works",
+          "m": "迈克尔任职"
+        },
+        {
+          "t": "for an electronics manufacturer in Shenzhen.",
+          "m": "于深圳一家电子产品制造企业"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A customer from Australia",
+          "m": "一位澳大利亚客户"
+        },
+        {
+          "t": "received his quotation",
+          "m": "收到了他的报价"
+        },
+        {
+          "t": "for 3,000 wireless headphones",
+          "m": "针对3000副无线耳机"
+        },
+        {
+          "t": "but asked for",
+          "m": "但要求"
+        },
+        {
+          "t": "a 10 percent discount.",
+          "m": "给予10%的折扣"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The customer explained",
+          "m": "客户解释说"
+        },
+        {
+          "t": "that another supplier",
+          "m": "另一家供应商"
+        },
+        {
+          "t": "had offered a lower price.",
+          "m": "提供了更低的价格"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Michael reviewed the production costs",
+          "m": "迈克尔重新核对了生产成本"
+        },
+        {
+          "t": "and discussed the request",
+          "m": "并讨论了这一要求"
+        },
+        {
+          "t": "with his sales manager.",
+          "m": "与他的销售经理"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He knew",
+          "m": "他知道"
+        },
+        {
+          "t": "that accepting such a large discount",
+          "m": "接受如此大的折扣"
+        },
+        {
+          "t": "would reduce the company's profit margin significantly.",
+          "m": "会明显缩小公司的利润空间"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Instead of immediately rejecting the request,",
+          "m": "而非立即拒绝这一要求"
+        },
+        {
+          "t": "Michael proposed an alternative.",
+          "m": "迈克尔提出了替代方案"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He explained",
+          "m": "他解释说"
+        },
+        {
+          "t": "that the company",
+          "m": "公司"
+        },
+        {
+          "t": "could offer a 5 percent discount",
+          "m": "可以提供5%的折扣"
+        },
+        {
+          "t": "if the buyer increased",
+          "m": "如果买家增加"
+        },
+        {
+          "t": "the order quantity to 5,000 units.",
+          "m": "订购数量到5000副"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He also suggested",
+          "m": "他还建议"
+        },
+        {
+          "t": "a more flexible payment arrangement",
+          "m": "更灵活的付款安排"
+        },
+        {
+          "t": "for future orders.",
+          "m": "用于未来的订单"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer was interested",
+          "m": "买家对此感兴趣"
+        },
+        {
+          "t": "but wanted to discuss the proposal",
+          "m": "但想讨论这一提议"
+        },
+        {
+          "t": "with their purchasing team.",
+          "m": "与他们的采购团队"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Michael emphasized the product's quality,",
+          "m": "迈克尔强调了产品质量"
+        },
+        {
+          "t": "warranty service,",
+          "m": "保修服务"
+        },
+        {
+          "t": "and stable production capacity.",
+          "m": "以及稳定的生产能力"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He explained",
+          "m": "他解释说"
+        },
+        {
+          "t": "that choosing a supplier based only on price",
+          "m": "仅凭价格选择供应商"
+        },
+        {
+          "t": "could create risks",
+          "m": "可能带来风险"
+        },
+        {
+          "t": "in the long term.",
+          "m": "从长远来看"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "After several discussions,",
+          "m": "经过几轮讨论"
+        },
+        {
+          "t": "both sides reached an agreement.",
+          "m": "双方达成了协议"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer accepted the revised offer",
+          "m": "买家接受了调整后的报价"
+        },
+        {
+          "t": "and confirmed the larger order.",
+          "m": "并确认了更大的订单"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Michael learned",
+          "m": "迈克尔认识到"
+        },
+        {
+          "t": "that successful negotiation",
+          "m": "成功的谈判"
+        },
+        {
+          "t": "is not simply about lowering prices.",
+          "m": "并不只是降低价格"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "It is about",
+          "m": "关键在于"
+        },
+        {
+          "t": "understanding the other party's priorities",
+          "m": "理解对方的优先考虑"
+        },
+        {
+          "t": "and finding a solution",
+          "m": "并找到解决方案"
+        },
+        {
+          "t": "that benefits both sides.",
+          "m": "让双方都受益"
+        }
+      ]
+    }
+  ]
+}

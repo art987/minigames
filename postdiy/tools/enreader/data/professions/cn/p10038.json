@@ -1,0 +1,65 @@
+{
+  "id": "p10038",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "An international team", "m": "一支国际团队" },
+        { "t": "holds a weekly online meeting", "m": "每周开线上会议" },
+        { "t": "to discuss", "m": "讨论" },
+        { "t": "the progress of a new project.", "m": "新项目的进展" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Since everyone works in a different time zone,", "m": "由于时区各不相同" },
+        { "t": "the meeting is scheduled in advance", "m": "会议提前安排" },
+        { "t": "and the agenda is shared", "m": "议程会被共享" },
+        { "t": "with all participants.", "m": "发给所有参会者" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "At the beginning of the meeting,", "m": "会议开始时" },
+        { "t": "the team leader", "m": "团队负责人" },
+        { "t": "briefly reviews", "m": "简要回顾" },
+        { "t": "the main topics.", "m": "主要议题" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Each department", "m": "各部门" },
+        { "t": "then gives an update", "m": "随后汇报进展" },
+        { "t": "on its work.", "m": "说明本部门工作" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "She politely raises the concern", "m": "她礼貌地提出问题" },
+        { "t": "and explains", "m": "并解释" },
+        { "t": "the possible impact on the project.", "m": "对项目的可能影响" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "If someone does not understand a point,", "m": "如果有人没听懂" },
+        { "t": "they can ask the speaker", "m": "可以请发言者" },
+        { "t": "to clarify it.", "m": "进一步解释" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before the meeting ends,", "m": "会议结束前" },
+        { "t": "the team leader summarizes the key decisions", "m": "负责人总结关键决策" },
+        { "t": "and confirms the next steps.", "m": "并确认下一步" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Each task", "m": "每项任务" },
+        { "t": "is assigned to", "m": "都会分配给" },
+        { "t": "a responsible person", "m": "具体负责人" },
+        { "t": "with a clear deadline.", "m": "并定好截止日期" }
+      ]
+    }
+  ]
+}

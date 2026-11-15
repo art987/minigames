@@ -1,0 +1,281 @@
+{
+  "id": "p10027",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "An international marketing campaign",
+          "m": "一场国际营销活动"
+        },
+        {
+          "t": "needs a clear goal,",
+          "m": "需要明确目标"
+        },
+        {
+          "t": "a suitable audience,",
+          "m": "合适的受众"
+        },
+        {
+          "t": "and a realistic budget.",
+          "m": "和现实的预算"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Our company planned to promote",
+          "m": "公司计划推广"
+        },
+        {
+          "t": "a new fitness product",
+          "m": "一款新健身产品"
+        },
+        {
+          "t": "in three markets:",
+          "m": "在三个市场"
+        },
+        {
+          "t": "the United Kingdom, Australia, and Singapore.",
+          "m": "英国、澳洲与新加坡"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I was responsible for",
+          "m": "我负责"
+        },
+        {
+          "t": "coordinating the campaign plan.",
+          "m": "协调整体活动方案"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "First,",
+          "m": "首先"
+        },
+        {
+          "t": "we agreed on",
+          "m": "我们商定了"
+        },
+        {
+          "t": "the main objective.",
+          "m": "主要目标"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "We wanted to",
+          "m": "我们希望"
+        },
+        {
+          "t": "increase brand awareness",
+          "m": "提升品牌知名度"
+        },
+        {
+          "t": "and generate qualified leads.",
+          "m": "并获取优质潜在客户"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Then I worked with the local teams",
+          "m": "随后我与当地团队合作"
+        },
+        {
+          "t": "to define the target audience",
+          "m": "明确目标受众"
+        },
+        {
+          "t": "in each market.",
+          "m": "在每个市场中"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Although the product was the same,",
+          "m": "虽然产品相同"
+        },
+        {
+          "t": "customer interests and media habits",
+          "m": "客户兴趣和媒体习惯"
+        },
+        {
+          "t": "were different.",
+          "m": "却有差异"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "We selected several channels,",
+          "m": "我们选了多个渠道"
+        },
+        {
+          "t": "including search advertising,",
+          "m": "包括搜索广告"
+        },
+        {
+          "t": "social media,",
+          "m": "社交媒体"
+        },
+        {
+          "t": "email marketing,",
+          "m": "邮件营销"
+        },
+        {
+          "t": "and influencer partnerships.",
+          "m": "和网红博主合作"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Each channel had a specific role.",
+          "m": "每个渠道都有明确作用"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Search ads could reach people",
+          "m": "搜索广告可触达人群"
+        },
+        {
+          "t": "who were already looking for similar products,",
+          "m": "已在寻找类似产品的人"
+        },
+        {
+          "t": "while social media could introduce",
+          "m": "而社交媒体则能介绍"
+        },
+        {
+          "t": "the brand to new audiences.",
+          "m": "把品牌带给新受众"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I prepared a campaign calendar",
+          "m": "我制作了活动日历"
+        },
+        {
+          "t": "with key dates,",
+          "m": "含重要日期"
+        },
+        {
+          "t": "content deadlines,",
+          "m": "内容交付时间"
+        },
+        {
+          "t": "and budget estimates.",
+          "m": "和预算估算"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "We also agreed on performance indicators,",
+          "m": "我们还定下绩效指标"
+        },
+        {
+          "t": "such as website visits,",
+          "m": "如网站访问量"
+        },
+        {
+          "t": "lead conversion rate,",
+          "m": "潜在客户转化率"
+        },
+        {
+          "t": "and cost per lead.",
+          "m": "和单条线索成本"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "This gave the team",
+          "m": "这让团队"
+        },
+        {
+          "t": "a shared way",
+          "m": "有了统一的方式"
+        },
+        {
+          "t": "to measure progress.",
+          "m": "来衡量进展"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Before launch,",
+          "m": "上线之前"
+        },
+        {
+          "t": "I checked that",
+          "m": "我确认"
+        },
+        {
+          "t": "all teams understood their responsibilities.",
+          "m": "各团队都清楚职责"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "We also prepared alternative content",
+          "m": "我们还准备了备用内容"
+        },
+        {
+          "t": "in case",
+          "m": "以防"
+        },
+        {
+          "t": "an advertisement performed poorly.",
+          "m": "某个广告表现不佳"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A well-planned campaign",
+          "m": "周密策划的活动"
+        },
+        {
+          "t": "gives the team direction",
+          "m": "给团队方向"
+        },
+        {
+          "t": "while leaving enough room",
+          "m": "同时留足空间"
+        },
+        {
+          "t": "to respond to market changes.",
+          "m": "应对市场变化"
+        }
+      ]
+    }
+  ]
+}

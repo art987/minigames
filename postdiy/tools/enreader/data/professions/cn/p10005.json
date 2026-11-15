@@ -1,0 +1,305 @@
+{
+  "id": "p10005",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Shipping delays and payment issues",
+          "m": "运输延误和付款问题"
+        },
+        {
+          "t": "are common challenges in international trade.",
+          "m": "是国际贸易中常见的挑战"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "When problems occur,",
+          "m": "当问题发生时"
+        },
+        {
+          "t": "export sales representatives",
+          "m": "外贸业务代表"
+        },
+        {
+          "t": "need to communicate quickly,",
+          "m": "需要迅速沟通"
+        },
+        {
+          "t": "provide accurate information,",
+          "m": "提供准确信息"
+        },
+        {
+          "t": "and offer practical solutions.",
+          "m": "并提出切实可行的解决方案"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "David works",
+          "m": "大卫任职"
+        },
+        {
+          "t": "for a Chinese furniture exporter.",
+          "m": "于一家中国家具出口企业"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "His company recently shipped",
+          "m": "他的公司最近发运了"
+        },
+        {
+          "t": "a large order of office desks",
+          "m": "一大批办公桌订单"
+        },
+        {
+          "t": "to a customer in the United Kingdom.",
+          "m": "给一位英国客户"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "According to the original schedule,",
+          "m": "按照原定计划"
+        },
+        {
+          "t": "the cargo",
+          "m": "货物"
+        },
+        {
+          "t": "was expected to arrive at the destination port",
+          "m": "预计抵达目的港"
+        },
+        {
+          "t": "in 25 days.",
+          "m": "在25天内"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "However,",
+          "m": "然而"
+        },
+        {
+          "t": "David received an update",
+          "m": "大卫收到了最新消息"
+        },
+        {
+          "t": "from the freight forwarder",
+          "m": "来自货运代理"
+        },
+        {
+          "t": "explaining that the vessel",
+          "m": "说明船舶"
+        },
+        {
+          "t": "had been delayed",
+          "m": "已经延误"
+        },
+        {
+          "t": "due to severe weather conditions.",
+          "m": "由于恶劣天气"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The new estimated arrival date",
+          "m": "新的预计到港日期"
+        },
+        {
+          "t": "was five days later than originally planned.",
+          "m": "比原计划晚了五天"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "David immediately informed the customer",
+          "m": "大卫立即通知了客户"
+        },
+        {
+          "t": "and explained the reason",
+          "m": "并解释了"
+        },
+        {
+          "t": "for the delay.",
+          "m": "延误的原因"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He apologized",
+          "m": "他表示歉意"
+        },
+        {
+          "t": "for the inconvenience",
+          "m": "为带来的不便"
+        },
+        {
+          "t": "and provided the updated shipping schedule.",
+          "m": "并提供了更新后的运输计划"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He also contacted the logistics provider",
+          "m": "他还联系了物流服务商"
+        },
+        {
+          "t": "to monitor the shipment",
+          "m": "以跟踪货物"
+        },
+        {
+          "t": "and request further updates.",
+          "m": "并要求提供进一步消息"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "At the same time,",
+          "m": "与此同时"
+        },
+        {
+          "t": "David noticed",
+          "m": "大卫注意到"
+        },
+        {
+          "t": "that the customer",
+          "m": "客户"
+        },
+        {
+          "t": "had not completed",
+          "m": "尚未完成"
+        },
+        {
+          "t": "the remaining balance payment.",
+          "m": "剩余尾款的支付"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "According to their agreement,",
+          "m": "根据双方协议"
+        },
+        {
+          "t": "the balance was due",
+          "m": "尾款需要付清"
+        },
+        {
+          "t": "before the shipping documents",
+          "m": "在运输单据"
+        },
+        {
+          "t": "could be released.",
+          "m": "放行之前"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "David sent a polite reminder",
+          "m": "大卫发送了礼貌的付款提醒"
+        },
+        {
+          "t": "and attached the relevant invoice.",
+          "m": "并附上了相关发票"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He explained",
+          "m": "他解释说"
+        },
+        {
+          "t": "that completing the payment promptly",
+          "m": "及时完成付款"
+        },
+        {
+          "t": "would help avoid additional delays",
+          "m": "有助于避免更多延误"
+        },
+        {
+          "t": "in the delivery process.",
+          "m": "在交付流程中"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The customer appreciated the update",
+          "m": "客户对信息更新表示感谢"
+        },
+        {
+          "t": "and arranged the payment",
+          "m": "并安排了付款"
+        },
+        {
+          "t": "the following day.",
+          "m": "在第二天"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "David realized",
+          "m": "大卫意识到"
+        },
+        {
+          "t": "that handling unexpected problems professionally",
+          "m": "专业地处理突发问题"
+        },
+        {
+          "t": "was just as important",
+          "m": "同样重要"
+        },
+        {
+          "t": "as securing new orders.",
+          "m": "和争取新订单一样"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Honest communication",
+          "m": "坦诚沟通"
+        },
+        {
+          "t": "and timely follow-up",
+          "m": "和及时跟进"
+        },
+        {
+          "t": "helped maintain the customer's confidence.",
+          "m": "有助于维持客户的信任"
+        }
+      ]
+    }
+  ]
+}

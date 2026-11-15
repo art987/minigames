@@ -1,0 +1,297 @@
+{
+ "id": "p10021",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A product team",
+     "m": "产品团队"
+    },
+    {
+     "t": "usually has",
+     "m": "通常有"
+    },
+    {
+     "t": "more ideas than time.",
+     "m": "想法多过时间"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The product manager",
+     "m": "产品经理"
+    },
+    {
+     "t": "must decide",
+     "m": "必须判断"
+    },
+    {
+     "t": "which problems deserve attention first.",
+     "m": "哪些问题该先处理"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "At the beginning of this quarter,",
+     "m": "本季度初"
+    },
+    {
+     "t": "our team had a list",
+     "m": "团队有一份清单"
+    },
+    {
+     "t": "of twelve feature requests,",
+     "m": "十二项功能需求"
+    },
+    {
+     "t": "but we could only deliver",
+     "m": "但只能完成"
+    },
+    {
+     "t": "a few of them.",
+     "m": "其中一部分"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I invited",
+     "m": "我邀请了"
+    },
+    {
+     "t": "design, engineering, sales, and customer support",
+     "m": "设计研发销售与客服"
+    },
+    {
+     "t": "to a prioritization meeting.",
+     "m": "参加优先级评审会"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before the meeting,",
+     "m": "会议之前"
+    },
+    {
+     "t": "I collected information",
+     "m": "我收集了信息"
+    },
+    {
+     "t": "about user impact,",
+     "m": "用户影响"
+    },
+    {
+     "t": "business value,",
+     "m": "业务价值"
+    },
+    {
+     "t": "development effort,",
+     "m": "开发工作量"
+    },
+    {
+     "t": "and urgency.",
+     "m": "和紧急程度"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This helped us",
+     "m": "这让我们能"
+    },
+    {
+     "t": "compare requests",
+     "m": "比较各需求"
+    },
+    {
+     "t": "using the same basic criteria.",
+     "m": "用同一基本标准"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We discussed each idea",
+     "m": "我们逐个讨论"
+    },
+    {
+     "t": "and estimated",
+     "m": "并估算"
+    },
+    {
+     "t": "how many users it might help.",
+     "m": "能帮到多少用户"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A small improvement",
+     "m": "一项小改进"
+    },
+    {
+     "t": "to the checkout process",
+     "m": "对结账流程"
+    },
+    {
+     "t": "could reduce failed payments",
+     "m": "就能减少支付失败"
+    },
+    {
+     "t": "for thousands of customers.",
+     "m": "让数千客户受益"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Another request",
+     "m": "另一项需求"
+    },
+    {
+     "t": "would add a visual option",
+     "m": "是加一个视觉选项"
+    },
+    {
+     "t": "used by only a small group.",
+     "m": "仅少数人会用"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Although both ideas were reasonable,",
+     "m": "两种想法都合理"
+    },
+    {
+     "t": "their expected impact",
+     "m": "预期影响"
+    },
+    {
+     "t": "was very different.",
+     "m": "却大不相同"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also considered the effort required.",
+     "m": "也考虑了所需投入"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The checkout improvement",
+     "m": "结账流程改进"
+    },
+    {
+     "t": "depended on an external payment provider,",
+     "m": "依赖外部支付服务商"
+    },
+    {
+     "t": "so it involved technical risk.",
+     "m": "因此有技术风险"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The team agreed to investigate",
+     "m": "团队决定先调查"
+    },
+    {
+     "t": "that dependency",
+     "m": "这项依赖"
+    },
+    {
+     "t": "before committing to a delivery date.",
+     "m": "再承诺交付日期"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "At the end of the meeting,",
+     "m": "会议结束时"
+    },
+    {
+     "t": "we ranked the work",
+     "m": "我们把工作"
+    },
+    {
+     "t": "into three groups:",
+     "m": "分成三类"
+    },
+    {
+     "t": "high priority, later, and not planned.",
+     "m": "高优先、稍后、暂不做"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I explained",
+     "m": "我解释了"
+    },
+    {
+     "t": "the reasons behind each decision",
+     "m": "每项决定的原因"
+    },
+    {
+     "t": "and recorded the open questions.",
+     "m": "并记录未决问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Prioritization is not simply",
+     "m": "优先级排序不只是"
+    },
+    {
+     "t": "choosing the most popular idea.",
+     "m": "选最受欢迎的想法"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It is making trade-offs transparently",
+     "m": "而是透明地取舍"
+    },
+    {
+     "t": "and focusing limited resources",
+     "m": "并把有限资源"
+    },
+    {
+     "t": "on the outcomes",
+     "m": "集中于成果"
+    },
+    {
+     "t": "that matter most.",
+     "m": "最重要的"
+    }
+   ]
+  }
+ ]
+}

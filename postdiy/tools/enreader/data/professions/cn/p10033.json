@@ -1,0 +1,71 @@
+{
+  "id": "p10033",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A customer sends an email", "m": "客户发来邮件" },
+        { "t": "asking for an update", "m": "询问最新进展" },
+        { "t": "on a shipment", "m": "关于一批货物" },
+        { "t": "from Shanghai to Rotterdam.", "m": "从上海到鹿特丹" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The goods were loaded onto a vessel", "m": "货物已装上船" },
+        { "t": "ten days ago,", "m": "十天前" },
+        { "t": "but the customer", "m": "但客户" },
+        { "t": "has not received any new information.", "m": "一直没收到新消息" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The freight forwarder", "m": "货运代理" },
+        { "t": "opens the shipment tracking system", "m": "打开货物追踪系统" },
+        { "t": "and checks the latest status.", "m": "查看最新状态" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "According to the carrier's website,", "m": "据承运人网站显示" },
+        { "t": "the vessel has departed from Shanghai", "m": "船已驶离上海" },
+        { "t": "and is currently sailing", "m": "目前正航行" },
+        { "t": "toward its next port of call.", "m": "驶向下一个挂靠港" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The forwarder copies the latest tracking information", "m": "货代整理追踪信息" },
+        { "t": "and prepares a short update", "m": "并准备简短更新" },
+        { "t": "for the customer.", "m": "给客户" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The message explains the vessel's current location,", "m": "邮件说明船舶位置" },
+        { "t": "the expected arrival date,", "m": "预计到达日期" },
+        { "t": "and the next stage of the journey.", "m": "和接下来的运输环节" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The cargo must first be unloaded,", "m": "货物须先卸船" },
+        { "t": "cleared through customs,", "m": "办完清关" },
+        { "t": "and released by the terminal.", "m": "再由码头放行" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "If the schedule changes,", "m": "如果船期有变" },
+        { "t": "the customer will be notified", "m": "会通知客户" },
+        { "t": "as soon as possible.", "m": "尽快" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Regular tracking and timely communication", "m": "定期追踪及时沟通" },
+        { "t": "help customers plan their inventory", "m": "帮客户安排库存" },
+        { "t": "and reduce uncertainty.", "m": "并减少不确定性" }
+      ]
+    }
+  ]
+}

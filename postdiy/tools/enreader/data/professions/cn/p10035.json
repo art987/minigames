@@ -1,0 +1,69 @@
+{
+  "id": "p10035",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A freight forwarder", "m": "一位货运代理" },
+        { "t": "receives an unexpected message", "m": "收到意外通知" },
+        { "t": "from a shipping line.", "m": "来自船公司" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "A vessel carrying a customer's goods", "m": "装载客户货物的船" },
+        { "t": "has been delayed", "m": "延误了" },
+        { "t": "because of severe weather", "m": "因恶劣天气" },
+        { "t": "near the destination port.", "m": "在目的港附近" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The new estimated arrival date", "m": "新的预计到港日期" },
+        { "t": "is four days later than the original schedule.", "m": "比原计划晚四天" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The delay", "m": "这次延误" },
+        { "t": "may affect the customer's production plan.", "m": "可能影响生产计划" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before contacting the customer,", "m": "联系客户之前" },
+        { "t": "the forwarder confirms the details", "m": "货代确认细节" },
+        { "t": "with the carrier.", "m": "与承运人" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The shipping line explains", "m": "船公司解释" },
+        { "t": "that the vessel has changed its route", "m": "船舶调整了航线" },
+        { "t": "for safety reasons", "m": "出于安全原因" },
+        { "t": "and that the revised schedule", "m": "且调整后的船期" },
+        { "t": "is still subject to change.", "m": "仍可能再变" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The message explains the reason for the delay,", "m": "邮件说明延误原因" },
+        { "t": "the latest estimated arrival date,", "m": "最新预计到港日期" },
+        { "t": "and the possible impact", "m": "以及可能影响" },
+        { "t": "on local delivery.", "m": "对当地配送" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "To reduce the impact,", "m": "为降低影响" },
+        { "t": "the forwarder discusses alternative arrangements", "m": "货代商讨替代方案" },
+        { "t": "with the customer.", "m": "与客户" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Honest communication and practical solutions", "m": "坦诚沟通与可行方案" },
+        { "t": "are more valuable than unrealistic promises.", "m": "比不现实承诺更有价值" }
+      ]
+    }
+  ]
+}

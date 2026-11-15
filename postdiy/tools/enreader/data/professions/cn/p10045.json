@@ -1,0 +1,193 @@
+{
+ "id": "p10045",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "After selecting a supplier,",
+     "m": "选定供应商后"
+    },
+    {
+     "t": "a purchasing officer",
+     "m": "采购专员"
+    },
+    {
+     "t": "needs to create",
+     "m": "需要创建"
+    },
+    {
+     "t": "a purchase order",
+     "m": "一份采购订单"
+    },
+    {
+     "t": "for the agreed materials.",
+     "m": "为约定的材料"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchase order",
+     "m": "采购订单"
+    },
+    {
+     "t": "is an important business document",
+     "m": "是重要商务文件"
+    },
+    {
+     "t": "because it records",
+     "m": "因为它记录"
+    },
+    {
+     "t": "what the company intends to buy",
+     "m": "公司想买什么"
+    },
+    {
+     "t": "and under which conditions.",
+     "m": "以及依据什么条件"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The product description, item numbers,",
+     "m": "产品描述与物料编号"
+    },
+    {
+     "t": "quantities, unit prices,",
+     "m": "数量与单价"
+    },
+    {
+     "t": "and delivery requirements",
+     "m": "和交付要求"
+    },
+    {
+     "t": "must match",
+     "m": "必须一致"
+    },
+    {
+     "t": "the agreed terms.",
+     "m": "约定的条款"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The system generates",
+     "m": "系统生成"
+    },
+    {
+     "t": "a purchase order number,",
+     "m": "一个采购订单号"
+    },
+    {
+     "t": "which is used",
+     "m": "用于"
+    },
+    {
+     "t": "to track the transaction.",
+     "m": "跟踪这笔交易"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The supplier reviews the details",
+     "m": "供应商审核细节"
+    },
+    {
+     "t": "and confirms",
+     "m": "并确认"
+    },
+    {
+     "t": "that the requested quantity",
+     "m": "所需数量"
+    },
+    {
+     "t": "can be delivered",
+     "m": "能够交付"
+    },
+    {
+     "t": "on time.",
+     "m": "按时"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer records",
+     "m": "采购专员记录"
+    },
+    {
+     "t": "the expected delivery date",
+     "m": "预计交货日期"
+    },
+    {
+     "t": "and shares the information",
+     "m": "并分享信息"
+    },
+    {
+     "t": "with the warehouse and production teams.",
+     "m": "给仓库和生产团队"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Changes to quantity, price,",
+     "m": "数量、价格变化"
+    },
+    {
+     "t": "or delivery terms",
+     "m": "或交付条款"
+    },
+    {
+     "t": "should be documented",
+     "m": "应书面记录"
+    },
+    {
+     "t": "and approved",
+     "m": "并获批准"
+    },
+    {
+     "t": "before they take effect.",
+     "m": "在生效之前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Accurate purchase order management",
+     "m": "准确的订单管理"
+    },
+    {
+     "t": "reduces mistakes,",
+     "m": "减少错误"
+    },
+    {
+     "t": "improves communication,",
+     "m": "改善沟通"
+    },
+    {
+     "t": "and creates",
+     "m": "并建立"
+    },
+    {
+     "t": "a clear record of",
+     "m": "清晰的记录"
+    },
+    {
+     "t": "purchasing activities.",
+     "m": "采购活动"
+    }
+   ]
+  }
+ ]
+}

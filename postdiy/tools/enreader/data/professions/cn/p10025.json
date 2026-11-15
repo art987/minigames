@@ -1,0 +1,261 @@
+{
+  "id": "p10025",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Before entering a new market,",
+          "m": "进入新市场前"
+        },
+        {
+          "t": "a marketing team needs to understand",
+          "m": "营销团队需要了解"
+        },
+        {
+          "t": "local customers, competitors, and business conditions.",
+          "m": "当地客户、对手和环境"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Our company planned to introduce",
+          "m": "公司计划推出"
+        },
+        {
+          "t": "a smart home product in Germany,",
+          "m": "在德国的智能家居产品"
+        },
+        {
+          "t": "so I was responsible for",
+          "m": "因此我负责"
+        },
+        {
+          "t": "preparing an initial market research report.",
+          "m": "准备初步的调研报告"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I started by",
+          "m": "我首先"
+        },
+        {
+          "t": "identifying our target audience.",
+          "m": "找出目标受众"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "We focused on",
+          "m": "我们重点关注"
+        },
+        {
+          "t": "young professionals and families",
+          "m": "年轻职场人士和家庭"
+        },
+        {
+          "t": "who were interested in",
+          "m": "他们感兴趣的"
+        },
+        {
+          "t": "energy saving and home automation.",
+          "m": "节能与家居自动化"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Then I reviewed",
+          "m": "随后我查阅了"
+        },
+        {
+          "t": "industry reports,",
+          "m": "行业报告"
+        },
+        {
+          "t": "competitor websites,",
+          "m": "竞争对手网站"
+        },
+        {
+          "t": "customer reviews,",
+          "m": "客户评价"
+        },
+        {
+          "t": "and online discussions.",
+          "m": "和网络讨论"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "These sources helped me understand",
+          "m": "这些资料让我了解"
+        },
+        {
+          "t": "what customers valued",
+          "m": "客户看重什么"
+        },
+        {
+          "t": "and what problems they often experienced.",
+          "m": "以及常遇到的问题"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I also compared",
+          "m": "我还比较了"
+        },
+        {
+          "t": "the prices and features",
+          "m": "价格与功能"
+        },
+        {
+          "t": "of similar products.",
+          "m": "同类产品的"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Some competitors offered lower prices,",
+          "m": "有的对手价格更低"
+        },
+        {
+          "t": "while others focused on",
+          "m": "而另一些则注重"
+        },
+        {
+          "t": "product quality and customer service.",
+          "m": "产品质量与客户服务"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I noticed that",
+          "m": "我注意到"
+        },
+        {
+          "t": "German customers paid close attention to",
+          "m": "德国客户非常关注"
+        },
+        {
+          "t": "product safety,",
+          "m": "产品安全"
+        },
+        {
+          "t": "energy efficiency,",
+          "m": "能源效率"
+        },
+        {
+          "t": "and clear technical information.",
+          "m": "和清晰的技术信息"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "To understand the market more directly,",
+          "m": "为更直接地了解市场"
+        },
+        {
+          "t": "I interviewed several potential customers",
+          "m": "我采访了几位潜在客户"
+        },
+        {
+          "t": "and asked about their buying habits.",
+          "m": "并询问其购买习惯"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Their feedback showed that",
+          "m": "他们的反馈表明"
+        },
+        {
+          "t": "trust and after-sales support",
+          "m": "信任与售后支持"
+        },
+        {
+          "t": "were important factors",
+          "m": "是重要因素"
+        },
+        {
+          "t": "in purchasing decisions.",
+          "m": "在购买决策中"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Finally,",
+          "m": "最后"
+        },
+        {
+          "t": "I summarized the findings",
+          "m": "我总结了调研结果"
+        },
+        {
+          "t": "and presented the main opportunities and risks",
+          "m": "并介绍主要机会与风险"
+        },
+        {
+          "t": "to the management team.",
+          "m": "给管理团队"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The research helped us",
+          "m": "这项研究帮我们"
+        },
+        {
+          "t": "adjust our positioning",
+          "m": "调整市场定位"
+        },
+        {
+          "t": "before investing in advertising.",
+          "m": "在投放广告之前"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Good market research",
+          "m": "良好的市场调研"
+        },
+        {
+          "t": "reduces uncertainty",
+          "m": "减少不确定性"
+        },
+        {
+          "t": "and helps a company",
+          "m": "并帮助企业"
+        },
+        {
+          "t": "make better decisions.",
+          "m": "做出更好决策"
+        }
+      ]
+    }
+  ]
+}

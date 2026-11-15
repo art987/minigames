@@ -1,0 +1,908 @@
+[
+  {
+    "article_id": 10019,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Gathering and Understanding User Requirements",
+    "title_en": "Gathering and Understanding User Requirements",
+    "title_cn": "收集并理解用户需求",
+    "difficulty": "B1-B2",
+    "word_count": 234,
+    "estimated_reading_time_seconds": 112,
+    "content_en": "A product manager should understand a problem before proposing a solution. Last week, our team received several requests from users who wanted a faster way to find orders. Instead of adding a new search button immediately, I arranged short interviews with five customers and reviewed their support tickets.\n\nDuring the interviews, I asked users to describe the last time they had trouble finding an order. I avoided asking leading questions, because I wanted to hear what actually happened rather than what users thought we wanted to hear. I learned that many customers did not remember the order number. They usually searched by product name, purchase date, or delivery status.\n\nI also checked usage data. The data showed that users often opened the order page but left without finding the information they needed. This supported what I had heard in the interviews.\n\nI summarized the findings in a short document. It included the user problem, the main situations, and evidence from interviews and data. I also separated confirmed needs from assumptions that still required testing.\n\nAt the next team meeting, I shared the findings with design and engineering. We agreed to explore a search experience that supports several filters. By understanding the problem first, we avoided building a feature based on our first guess.",
+    "content_cn": "产品经理应该先理解问题，再提出解决方案。上周，团队收到几位用户的反馈，他们希望能更快地找到自己的订单。我没有立即要求增加一个搜索按钮，而是安排了对五位客户的简短访谈，并查看了客服工单。\n\n访谈时，我请用户描述最近一次找不到订单的经历。我尽量避免提出带有引导性的问题，因为我想听到真实发生的事情，而不是用户认为我们想听到的答案。我了解到，许多客户并不记得订单编号。他们通常会根据商品名称、购买日期或配送状态进行查找。\n\n我还查看了产品使用数据。数据显示，用户经常打开订单页面，却没有找到所需信息便离开了。这与访谈中听到的情况相互印证。\n\n我把研究结果整理成一份简短文档，其中包括用户问题、主要使用场景，以及来自访谈和数据的证据。我还将已经确认的需求与仍需验证的假设区分开来。\n\n在下一次团队会议上，我向设计和研发同事分享了这些发现。我们一致决定探索支持多种筛选条件的搜索体验。先理解问题，帮助我们避免仅凭最初猜测就开发功能。",
+    "sentences": [
+      {
+        "sentence_en": "A product manager should understand a problem before proposing a solution.",
+        "sentence_cn": "产品经理应该先理解问题，再提出解决方案。",
+        "chunks": ["A product manager", "should understand a problem", "before proposing a solution"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Last week, our team received several requests from users who wanted a faster way to find orders.",
+        "sentence_cn": "上周，团队收到几位用户的反馈，他们希望能更快地找到自己的订单。",
+        "chunks": ["Last week", "our team received several requests", "from users", "who wanted a faster way", "to find orders"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of adding a new search button immediately, I arranged short interviews with five customers and reviewed their support tickets.",
+        "sentence_cn": "我没有立即要求增加一个搜索按钮，而是安排了对五位客户的简短访谈，并查看了客服工单。",
+        "chunks": ["Instead of adding a new search button", "immediately", "I arranged short interviews", "with five customers", "and reviewed their support tickets"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "During the interviews, I asked users to describe the last time they had trouble finding an order.",
+        "sentence_cn": "访谈时，我请用户描述最近一次找不到订单的经历。",
+        "chunks": ["During the interviews", "I asked users", "to describe", "the last time", "they had trouble finding an order"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I avoided asking leading questions, because I wanted to hear what actually happened rather than what users thought we wanted to hear.",
+        "sentence_cn": "我尽量避免提出带有引导性的问题，因为我想听到真实发生的事情，而不是用户认为我们想听到的答案。",
+        "chunks": ["I avoided asking leading questions", "because I wanted to hear", "what actually happened", "rather than", "what users thought we wanted to hear"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I learned that many customers did not remember the order number.",
+        "sentence_cn": "我了解到，许多客户并不记得订单编号。",
+        "chunks": ["I learned that", "many customers", "did not remember", "the order number"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "They usually searched by product name, purchase date, or delivery status.",
+        "sentence_cn": "他们通常会根据商品名称、购买日期或配送状态进行查找。",
+        "chunks": ["They usually searched", "by product name", "purchase date", "or delivery status"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I also checked usage data.",
+        "sentence_cn": "我还查看了产品使用数据。",
+        "chunks": ["I also checked", "usage data"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The data showed that users often opened the order page but left without finding the information they needed.",
+        "sentence_cn": "数据显示，用户经常打开订单页面，却没有找到所需信息便离开了。",
+        "chunks": ["The data showed that", "users often opened the order page", "but left", "without finding the information", "they needed"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "This supported what I had heard in the interviews.",
+        "sentence_cn": "这与访谈中听到的情况相互印证。",
+        "chunks": ["This supported", "what I had heard", "in the interviews"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I summarized the findings in a short document.",
+        "sentence_cn": "我把研究结果整理成一份简短文档。",
+        "chunks": ["I summarized the findings", "in a short document"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It included the user problem, the main situations, and evidence from interviews and data.",
+        "sentence_cn": "其中包括用户问题、主要使用场景，以及来自访谈和数据的证据。",
+        "chunks": ["It included", "the user problem", "the main situations", "and evidence", "from interviews and data"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I also separated confirmed needs from assumptions that still required testing.",
+        "sentence_cn": "我还将已经确认的需求与仍需验证的假设区分开来。",
+        "chunks": ["I also separated", "confirmed needs", "from assumptions", "that still required testing"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "At the next team meeting, I shared the findings with design and engineering.",
+        "sentence_cn": "在下一次团队会议上，我向设计和研发同事分享了这些发现。",
+        "chunks": ["At the next team meeting", "I shared the findings", "with design and engineering"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We agreed to explore a search experience that supports several filters.",
+        "sentence_cn": "我们一致决定探索支持多种筛选条件的搜索体验。",
+        "chunks": ["We agreed to explore", "a search experience", "that supports several filters"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "By understanding the problem first, we avoided building a feature based on our first guess.",
+        "sentence_cn": "先理解问题，帮助我们避免仅凭最初猜测就开发功能。",
+        "chunks": ["By understanding the problem first", "we avoided building a feature", "based on our first guess"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "understand a problem",
+        "meaning": "理解一个问题",
+        "example": "We need to understand the problem before choosing a solution."
+      },
+      {
+        "expression": "arrange an interview",
+        "meaning": "安排一次访谈",
+        "example": "I arranged an interview with three active users."
+      },
+      {
+        "expression": "leading question",
+        "meaning": "引导性问题",
+        "example": "Avoid leading questions during user research."
+      },
+      {
+        "expression": "usage data",
+        "meaning": "使用数据",
+        "example": "Usage data shows where customers leave the page."
+      },
+      {
+        "expression": "support a finding",
+        "meaning": "支持某项发现",
+        "example": "The interview results support our finding."
+      },
+      {
+        "expression": "separate needs from assumptions",
+        "meaning": "区分需求与假设",
+        "example": "We should separate confirmed needs from assumptions."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  },
+  {
+    "article_id": 10020,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Writing a Product Requirements Document (PRD)",
+    "title_en": "Writing a Product Requirements Document",
+    "title_cn": "编写产品需求文档",
+    "difficulty": "B1-B2",
+    "word_count": 222,
+    "estimated_reading_time_seconds": 107,
+    "content_en": "After the team agrees on a product direction, the product manager needs to explain what should be built and why. For our new order search feature, I started by writing a product requirements document, usually called a PRD.\n\nThe first section described the user problem and the goal. Customers needed to find orders without remembering an order number. Our goal was to make order lookup faster and reduce support requests. I then described the main user flow, from opening the order page to viewing the matching result.\n\nNext, I listed the functional requirements. Users should be able to search by product name and filter orders by date and delivery status. I also included empty states, error messages, and loading behavior, because these details affect the full experience.\n\nI added acceptance criteria so the team could decide when the feature was complete. For example, a search should return relevant results within an agreed response time. The document also listed items that were out of scope for the first release, such as voice search.\n\nBefore sharing the PRD, I reviewed it with a designer and an engineer. They pointed out two unclear requirements, which I revised. A useful PRD does not need to describe every technical detail. It should give the team a shared understanding of the problem, expected behavior, and conditions for success.",
+    "content_cn": "团队确定产品方向后，产品经理需要说明要开发什么，以及为什么要开发。针对新的订单搜索功能，我首先编写了一份产品需求文档，通常称为 PRD。\n\n第一部分描述用户问题和产品目标。客户需要在不记得订单编号的情况下找到订单。我们的目标是加快订单查找速度，并减少客服咨询。随后，我描述了主要用户流程，从打开订单页面到查看匹配结果。\n\n接下来，我列出了功能需求。用户应该能够通过商品名称搜索，并按日期和配送状态筛选订单。我还补充了空状态、错误提示和加载行为，因为这些细节都会影响完整的使用体验。\n\n我加入了验收标准，以便团队判断功能何时算完成。例如，搜索结果应该在约定的响应时间内返回相关内容。文档还列出了首个版本暂不包含的内容，例如语音搜索。\n\n分享 PRD 之前，我先与设计师和工程师一起评审。他们指出了两处不够清晰的需求，我随后进行了修改。一份有用的 PRD 不必描述所有技术细节，但应该让团队对问题、预期行为和成功标准形成共同理解。",
+    "sentences": [
+      {
+        "sentence_en": "After the team agrees on a product direction, the product manager needs to explain what should be built and why.",
+        "sentence_cn": "团队确定产品方向后，产品经理需要说明要开发什么，以及为什么要开发。",
+        "chunks": ["After the team agrees on a product direction", "the product manager needs to explain", "what should be built", "and why"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "For our new order search feature, I started by writing a product requirements document, usually called a PRD.",
+        "sentence_cn": "针对新的订单搜索功能，我首先编写了一份产品需求文档，通常称为 PRD。",
+        "chunks": ["For our new order search feature", "I started by writing", "a product requirements document", "usually called a PRD"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The first section described the user problem and the goal.",
+        "sentence_cn": "第一部分描述用户问题和产品目标。",
+        "chunks": ["The first section", "described", "the user problem and the goal"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Customers needed to find orders without remembering an order number.",
+        "sentence_cn": "客户需要在不记得订单编号的情况下找到订单。",
+        "chunks": ["Customers needed to find orders", "without remembering", "an order number"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Our goal was to make order lookup faster and reduce support requests.",
+        "sentence_cn": "我们的目标是加快订单查找速度，并减少客服咨询。",
+        "chunks": ["Our goal was to", "make order lookup faster", "and reduce support requests"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I then described the main user flow, from opening the order page to viewing the matching result.",
+        "sentence_cn": "随后，我描述了主要用户流程，从打开订单页面到查看匹配结果。",
+        "chunks": ["I then described", "the main user flow", "from opening the order page", "to viewing the matching result"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Next, I listed the functional requirements.",
+        "sentence_cn": "接下来，我列出了功能需求。",
+        "chunks": ["Next", "I listed", "the functional requirements"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Users should be able to search by product name and filter orders by date and delivery status.",
+        "sentence_cn": "用户应该能够通过商品名称搜索，并按日期和配送状态筛选订单。",
+        "chunks": ["Users should be able to", "search by product name", "and filter orders", "by date and delivery status"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I also included empty states, error messages, and loading behavior, because these details affect the full experience.",
+        "sentence_cn": "我还补充了空状态、错误提示和加载行为，因为这些细节都会影响完整的使用体验。",
+        "chunks": ["I also included", "empty states", "error messages", "and loading behavior", "because these details affect the full experience"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I added acceptance criteria so the team could decide when the feature was complete.",
+        "sentence_cn": "我加入了验收标准，以便团队判断功能何时算完成。",
+        "chunks": ["I added acceptance criteria", "so the team could decide", "when the feature was complete"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "For example, a search should return relevant results within an agreed response time.",
+        "sentence_cn": "例如，搜索结果应该在约定的响应时间内返回相关内容。",
+        "chunks": ["For example", "a search should return relevant results", "within an agreed response time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The document also listed items that were out of scope for the first release, such as voice search.",
+        "sentence_cn": "文档还列出了首个版本暂不包含的内容，例如语音搜索。",
+        "chunks": ["The document also listed", "items that were out of scope", "for the first release", "such as voice search"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before sharing the PRD, I reviewed it with a designer and an engineer.",
+        "sentence_cn": "分享 PRD 之前，我先与设计师和工程师一起评审。",
+        "chunks": ["Before sharing the PRD", "I reviewed it", "with a designer and an engineer"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "They pointed out two unclear requirements, which I revised.",
+        "sentence_cn": "他们指出了两处不够清晰的需求，我随后进行了修改。",
+        "chunks": ["They pointed out", "two unclear requirements", "which I revised"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A useful PRD does not need to describe every technical detail.",
+        "sentence_cn": "一份有用的 PRD 不必描述所有技术细节。",
+        "chunks": ["A useful PRD", "does not need to describe", "every technical detail"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It should give the team a shared understanding of the problem, expected behavior, and conditions for success.",
+        "sentence_cn": "但应该让团队对问题、预期行为和成功标准形成共同理解。",
+        "chunks": ["It should give the team", "a shared understanding", "of the problem", "expected behavior", "and conditions for success"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "product requirements document",
+        "meaning": "产品需求文档",
+        "example": "Please review the product requirements document before planning the work."
+      },
+      {
+        "expression": "user flow",
+        "meaning": "用户流程",
+        "example": "The user flow should be clear and easy to follow."
+      },
+      {
+        "expression": "functional requirement",
+        "meaning": "功能需求",
+        "example": "Each functional requirement should describe expected behavior."
+      },
+      {
+        "expression": "acceptance criteria",
+        "meaning": "验收标准",
+        "example": "We need clear acceptance criteria for this feature."
+      },
+      {
+        "expression": "out of scope",
+        "meaning": "不在范围内",
+        "example": "Voice search is out of scope for the first release."
+      },
+      {
+        "expression": "shared understanding",
+        "meaning": "共同理解",
+        "example": "The PRD gives the team a shared understanding."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  },
+  {
+    "article_id": 10021,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Prioritizing Features and Tasks",
+    "title_en": "Prioritizing Features and Tasks",
+    "title_cn": "功能与任务优先级排序",
+    "difficulty": "B1-B2",
+    "word_count": 224,
+    "estimated_reading_time_seconds": 108,
+    "content_en": "A product team usually has more ideas than time. The product manager must decide which problems deserve attention first. At the beginning of this quarter, our team had a list of twelve feature requests, but we could only deliver a few of them.\n\nI invited design, engineering, sales, and customer support to a prioritization meeting. Before the meeting, I collected information about user impact, business value, development effort, and urgency. This helped us compare requests using the same basic criteria.\n\nWe discussed each idea and estimated how many users it might help. A small improvement to the checkout process could reduce failed payments for thousands of customers. Another request would add a visual option used by only a small group. Although both ideas were reasonable, their expected impact was very different.\n\nWe also considered the effort required. The checkout improvement depended on an external payment provider, so it involved technical risk. The team agreed to investigate that dependency before committing to a delivery date.\n\nAt the end of the meeting, we ranked the work into three groups: high priority, later, and not planned. I explained the reasons behind each decision and recorded the open questions. Prioritization is not simply choosing the most popular idea. It is making trade-offs transparently and focusing limited resources on the outcomes that matter most.",
+    "content_cn": "产品团队通常拥有的想法比可用时间更多。产品经理必须判断哪些问题应该优先处理。本季度初，团队收到了十二项功能需求，但我们只能完成其中一部分。\n\n我邀请设计、研发、销售和客服同事参加优先级评审会。会前，我收集了用户影响、业务价值、开发工作量和紧急程度等信息。这让我们能够使用相同的基本标准比较不同需求。\n\n我们逐一讨论每个想法，并估算它可能帮助多少用户。对结账流程进行一项小改进，就可能减少数千名客户的支付失败。另一项需求则是增加一个只有少数用户使用的视觉选项。两种想法都有合理之处，但预期影响明显不同。\n\n我们也考虑了所需的开发投入。结账改进依赖外部支付服务商，因此存在一定技术风险。团队决定先调查这项依赖，再承诺交付日期。\n\n会议结束时，我们把工作分为三类：高优先级、稍后处理和暂不计划。我解释了每项决定背后的原因，并记录尚未解决的问题。优先级排序并不是简单地选择最受欢迎的想法，而是透明地权衡取舍，把有限资源集中在最重要的成果上。",
+    "sentences": [
+      {
+        "sentence_en": "A product team usually has more ideas than time.",
+        "sentence_cn": "产品团队通常拥有的想法比可用时间更多。",
+        "chunks": ["A product team", "usually has", "more ideas than time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The product manager must decide which problems deserve attention first.",
+        "sentence_cn": "产品经理必须判断哪些问题应该优先处理。",
+        "chunks": ["The product manager", "must decide", "which problems deserve attention first"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "At the beginning of this quarter, our team had a list of twelve feature requests, but we could only deliver a few of them.",
+        "sentence_cn": "本季度初，团队收到了十二项功能需求，但我们只能完成其中一部分。",
+        "chunks": ["At the beginning of this quarter", "our team had a list", "of twelve feature requests", "but we could only deliver", "a few of them"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I invited design, engineering, sales, and customer support to a prioritization meeting.",
+        "sentence_cn": "我邀请设计、研发、销售和客服同事参加优先级评审会。",
+        "chunks": ["I invited", "design, engineering, sales, and customer support", "to a prioritization meeting"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the meeting, I collected information about user impact, business value, development effort, and urgency.",
+        "sentence_cn": "会前，我收集了用户影响、业务价值、开发工作量和紧急程度等信息。",
+        "chunks": ["Before the meeting", "I collected information", "about user impact", "business value", "development effort", "and urgency"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "This helped us compare requests using the same basic criteria.",
+        "sentence_cn": "这让我们能够使用相同的基本标准比较不同需求。",
+        "chunks": ["This helped us", "compare requests", "using the same basic criteria"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We discussed each idea and estimated how many users it might help.",
+        "sentence_cn": "我们逐一讨论每个想法，并估算它可能帮助多少用户。",
+        "chunks": ["We discussed each idea", "and estimated", "how many users", "it might help"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A small improvement to the checkout process could reduce failed payments for thousands of customers.",
+        "sentence_cn": "对结账流程进行一项小改进，就可能减少数千名客户的支付失败。",
+        "chunks": ["A small improvement", "to the checkout process", "could reduce failed payments", "for thousands of customers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Another request would add a visual option used by only a small group.",
+        "sentence_cn": "另一项需求则是增加一个只有少数用户使用的视觉选项。",
+        "chunks": ["Another request", "would add a visual option", "used by only a small group"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Although both ideas were reasonable, their expected impact was very different.",
+        "sentence_cn": "两种想法都有合理之处，但预期影响明显不同。",
+        "chunks": ["Although both ideas were reasonable", "their expected impact", "was very different"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We also considered the effort required.",
+        "sentence_cn": "我们也考虑了所需的开发投入。",
+        "chunks": ["We also considered", "the effort required"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The checkout improvement depended on an external payment provider, so it involved technical risk.",
+        "sentence_cn": "结账改进依赖外部支付服务商，因此存在一定技术风险。",
+        "chunks": ["The checkout improvement", "depended on an external payment provider", "so it involved technical risk"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team agreed to investigate that dependency before committing to a delivery date.",
+        "sentence_cn": "团队决定先调查这项依赖，再承诺交付日期。",
+        "chunks": ["The team agreed to investigate", "that dependency", "before committing to a delivery date"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "At the end of the meeting, we ranked the work into three groups: high priority, later, and not planned.",
+        "sentence_cn": "会议结束时，我们把工作分为三类：高优先级、稍后处理和暂不计划。",
+        "chunks": ["At the end of the meeting", "we ranked the work", "into three groups", "high priority, later, and not planned"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I explained the reasons behind each decision and recorded the open questions.",
+        "sentence_cn": "我解释了每项决定背后的原因，并记录尚未解决的问题。",
+        "chunks": ["I explained", "the reasons behind each decision", "and recorded the open questions"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Prioritization is not simply choosing the most popular idea.",
+        "sentence_cn": "优先级排序并不是简单地选择最受欢迎的想法。",
+        "chunks": ["Prioritization", "is not simply", "choosing the most popular idea"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It is making trade-offs transparently and focusing limited resources on the outcomes that matter most.",
+        "sentence_cn": "而是透明地权衡取舍，把有限资源集中在最重要的成果上。",
+        "chunks": ["It is making trade-offs", "transparently", "and focusing limited resources", "on the outcomes", "that matter most"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "prioritization meeting",
+        "meaning": "优先级评审会",
+        "example": "Let's discuss this request in the prioritization meeting."
+      },
+      {
+        "expression": "user impact",
+        "meaning": "用户影响",
+        "example": "We should consider user impact before adding the feature."
+      },
+      {
+        "expression": "development effort",
+        "meaning": "开发工作量",
+        "example": "The development effort is higher than we expected."
+      },
+      {
+        "expression": "technical risk",
+        "meaning": "技术风险",
+        "example": "We need to understand the technical risk first."
+      },
+      {
+        "expression": "make trade-offs",
+        "meaning": "进行权衡取舍",
+        "example": "Product managers make trade-offs with limited resources."
+      },
+      {
+        "expression": "commit to a date",
+        "meaning": "承诺一个日期",
+        "example": "We should not commit to a date before checking the dependency."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  },
+  {
+    "article_id": 10022,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Working with Designers and Engineers",
+    "title_en": "Working with Designers and Engineers",
+    "title_cn": "与设计师和工程师协作",
+    "difficulty": "B1-B2",
+    "word_count": 215,
+    "estimated_reading_time_seconds": 103,
+    "content_en": "A product manager works between different teams and helps everyone move toward the same goal. During the development of our new account settings page, I worked closely with a product designer and two engineers.\n\nThe designer first shared a prototype. I reviewed it from the user's point of view and checked whether the main tasks were easy to complete. I noticed that the save button was difficult to find on a mobile screen. We discussed the issue and moved the button to a more visible position.\n\nThen the engineers reviewed the design and explained that one part would require changes to an older service. This could increase the development time. Instead of asking them to follow the original plan without discussion, I asked which parts were technically difficult and whether there was a simpler option.\n\nWe agreed to keep the most important settings in the first release and move a less common option to a later update. I updated the requirements and made sure the designer and engineers were working from the same version.\n\nDuring the project, I also shared decisions quickly and recorded important changes. Good collaboration does not mean that everyone always agrees. It means discussing different concerns early, making decisions with clear reasons, and keeping the team informed as the work changes.",
+    "content_cn": "产品经理需要在不同团队之间协作，帮助大家朝着同一个目标前进。在开发新版账户设置页面时，我与一位产品设计师和两位工程师密切合作。\n\n设计师首先分享了一个原型。我从用户角度进行评审，检查主要任务是否容易完成。我发现，在手机屏幕上，保存按钮不容易被注意到。我们讨论了这个问题，并将按钮移动到更醒目的位置。\n\n随后，工程师评审设计稿，并解释其中一部分需要修改旧服务，这可能会延长开发时间。我没有要求他们不加讨论地执行原计划，而是询问哪些部分在技术上比较困难，以及是否存在更简单的方案。\n\n我们最终决定在首个版本中保留最重要的设置，把一个不常用的选项放到后续更新中。我更新了需求，并确保设计师和工程师使用的是同一个版本。\n\n项目期间，我也及时分享决策，并记录重要变更。良好的协作并不意味着每个人始终意见一致，而是尽早讨论不同顾虑，基于明确理由作出决定，并在工作发生变化时让团队及时了解情况。",
+    "sentences": [
+      {
+        "sentence_en": "A product manager works between different teams and helps everyone move toward the same goal.",
+        "sentence_cn": "产品经理需要在不同团队之间协作，帮助大家朝着同一个目标前进。",
+        "chunks": ["A product manager", "works between different teams", "and helps everyone", "move toward the same goal"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "During the development of our new account settings page, I worked closely with a product designer and two engineers.",
+        "sentence_cn": "在开发新版账户设置页面时，我与一位产品设计师和两位工程师密切合作。",
+        "chunks": ["During the development", "of our new account settings page", "I worked closely with", "a product designer and two engineers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The designer first shared a prototype.",
+        "sentence_cn": "设计师首先分享了一个原型。",
+        "chunks": ["The designer", "first shared", "a prototype"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I reviewed it from the user's point of view and checked whether the main tasks were easy to complete.",
+        "sentence_cn": "我从用户角度进行评审，检查主要任务是否容易完成。",
+        "chunks": ["I reviewed it", "from the user's point of view", "and checked whether", "the main tasks were easy to complete"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I noticed that the save button was difficult to find on a mobile screen.",
+        "sentence_cn": "我发现，在手机屏幕上，保存按钮不容易被注意到。",
+        "chunks": ["I noticed that", "the save button", "was difficult to find", "on a mobile screen"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We discussed the issue and moved the button to a more visible position.",
+        "sentence_cn": "我们讨论了这个问题，并将按钮移动到更醒目的位置。",
+        "chunks": ["We discussed the issue", "and moved the button", "to a more visible position"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Then the engineers reviewed the design and explained that one part would require changes to an older service.",
+        "sentence_cn": "随后，工程师评审设计稿，并解释其中一部分需要修改旧服务。",
+        "chunks": ["Then the engineers reviewed the design", "and explained that", "one part would require changes", "to an older service"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "This could increase the development time.",
+        "sentence_cn": "这可能会延长开发时间。",
+        "chunks": ["This could increase", "the development time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of asking them to follow the original plan without discussion, I asked which parts were technically difficult and whether there was a simpler option.",
+        "sentence_cn": "我没有要求他们不加讨论地执行原计划，而是询问哪些部分在技术上比较困难，以及是否存在更简单的方案。",
+        "chunks": ["Instead of asking them", "to follow the original plan", "without discussion", "I asked which parts were technically difficult", "and whether there was a simpler option"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We agreed to keep the most important settings in the first release and move a less common option to a later update.",
+        "sentence_cn": "我们最终决定在首个版本中保留最重要的设置，把一个不常用的选项放到后续更新中。",
+        "chunks": ["We agreed to keep", "the most important settings", "in the first release", "and move a less common option", "to a later update"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I updated the requirements and made sure the designer and engineers were working from the same version.",
+        "sentence_cn": "我更新了需求，并确保设计师和工程师使用的是同一个版本。",
+        "chunks": ["I updated the requirements", "and made sure", "the designer and engineers", "were working from the same version"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "During the project, I also shared decisions quickly and recorded important changes.",
+        "sentence_cn": "项目期间，我也及时分享决策，并记录重要变更。",
+        "chunks": ["During the project", "I also shared decisions quickly", "and recorded important changes"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Good collaboration does not mean that everyone always agrees.",
+        "sentence_cn": "良好的协作并不意味着每个人始终意见一致。",
+        "chunks": ["Good collaboration", "does not mean", "that everyone always agrees"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It means discussing different concerns early, making decisions with clear reasons, and keeping the team informed as the work changes.",
+        "sentence_cn": "而是尽早讨论不同顾虑，基于明确理由作出决定，并在工作发生变化时让团队及时了解情况。",
+        "chunks": ["It means discussing different concerns early", "making decisions with clear reasons", "and keeping the team informed", "as the work changes"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "work closely with",
+        "meaning": "与……密切合作",
+        "example": "I work closely with designers and engineers."
+      },
+      {
+        "expression": "from the user's point of view",
+        "meaning": "从用户角度",
+        "example": "Let's review this flow from the user's point of view."
+      },
+      {
+        "expression": "review a prototype",
+        "meaning": "评审原型",
+        "example": "The team will review the prototype tomorrow."
+      },
+      {
+        "expression": "technically difficult",
+        "meaning": "技术上有难度",
+        "example": "This part may be technically difficult to implement."
+      },
+      {
+        "expression": "later update",
+        "meaning": "后续更新",
+        "example": "We can include this option in a later update."
+      },
+      {
+        "expression": "keep the team informed",
+        "meaning": "让团队及时了解情况",
+        "example": "Please keep the team informed about any changes."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  },
+  {
+    "article_id": 10023,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Reviewing Product Metrics",
+    "title_en": "Reviewing Product Metrics",
+    "title_cn": "分析产品数据指标",
+    "difficulty": "B1-B2",
+    "word_count": 211,
+    "estimated_reading_time_seconds": 101,
+    "content_en": "After a feature is released, the product manager needs to check whether it delivers the expected value. Two weeks after launching our new order search, I reviewed the product metrics with the data analyst.\n\nBefore the launch, we had agreed on three key indicators: search success rate, time needed to find an order, and the number of support requests about missing orders. The purpose was not to collect as many numbers as possible, but to understand whether the feature solved the original problem.\n\nThe results were encouraging. The search success rate increased, and users found orders more quickly. However, support requests had not decreased as much as we expected. When we looked deeper, we found that some users searched with product names that were different from the names shown in the system.\n\nI shared the findings with the team and suggested improving the search matching rules. We also decided to monitor the results for another two weeks before making a larger change.\n\nMetrics need context. A number may look positive while an important user problem remains. I therefore combine quantitative data with customer feedback and user behavior. This helps the team understand not only what happened, but also why it happened and what we should do next.",
+    "content_cn": "功能上线后，产品经理需要检查它是否带来了预期价值。新版订单搜索上线两周后，我与数据分析师一起查看了产品指标。\n\n上线之前，我们约定了三个关键指标：搜索成功率、找到订单所需的时间，以及关于订单无法找到的客服咨询数量。我们的目的不是尽可能多地收集数字，而是判断这个功能是否解决了最初的问题。\n\n结果令人鼓舞。搜索成功率提高了，用户也能更快找到订单。不过，客服咨询数量并没有像预期那样明显下降。进一步分析后，我们发现，一些用户使用的商品名称与系统中显示的名称不同。\n\n我把这些发现分享给团队，并建议改进搜索匹配规则。我们还决定再观察两周，然后再考虑进行更大范围的调整。\n\n指标需要结合背景来理解。某个数字看起来可能是正面的，但重要的用户问题仍然存在。因此，我会把定量数据与客户反馈和用户行为结合起来。这有助于团队不仅了解发生了什么，还能理解为什么发生，以及下一步应该采取什么行动。",
+    "sentences": [
+      {
+        "sentence_en": "After a feature is released, the product manager needs to check whether it delivers the expected value.",
+        "sentence_cn": "功能上线后，产品经理需要检查它是否带来了预期价值。",
+        "chunks": ["After a feature is released", "the product manager needs to check", "whether it delivers", "the expected value"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Two weeks after launching our new order search, I reviewed the product metrics with the data analyst.",
+        "sentence_cn": "新版订单搜索上线两周后，我与数据分析师一起查看了产品指标。",
+        "chunks": ["Two weeks after launching", "our new order search", "I reviewed the product metrics", "with the data analyst"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before the launch, we had agreed on three key indicators: search success rate, time needed to find an order, and the number of support requests about missing orders.",
+        "sentence_cn": "上线之前，我们约定了三个关键指标：搜索成功率、找到订单所需的时间，以及关于订单无法找到的客服咨询数量。",
+        "chunks": ["Before the launch", "we had agreed on three key indicators", "search success rate", "time needed to find an order", "and the number of support requests"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purpose was not to collect as many numbers as possible, but to understand whether the feature solved the original problem.",
+        "sentence_cn": "我们的目的不是尽可能多地收集数字，而是判断这个功能是否解决了最初的问题。",
+        "chunks": ["The purpose was not to", "collect as many numbers as possible", "but to understand", "whether the feature solved the original problem"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The results were encouraging.",
+        "sentence_cn": "结果令人鼓舞。",
+        "chunks": ["The results", "were encouraging"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The search success rate increased, and users found orders more quickly.",
+        "sentence_cn": "搜索成功率提高了，用户也能更快找到订单。",
+        "chunks": ["The search success rate increased", "and users found orders", "more quickly"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "However, support requests had not decreased as much as we expected.",
+        "sentence_cn": "不过，客服咨询数量并没有像预期那样明显下降。",
+        "chunks": ["However", "support requests had not decreased", "as much as we expected"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "When we looked deeper, we found that some users searched with product names that were different from the names shown in the system.",
+        "sentence_cn": "进一步分析后，我们发现，一些用户使用的商品名称与系统中显示的名称不同。",
+        "chunks": ["When we looked deeper", "we found that", "some users searched with product names", "that were different from", "the names shown in the system"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I shared the findings with the team and suggested improving the search matching rules.",
+        "sentence_cn": "我把这些发现分享给团队，并建议改进搜索匹配规则。",
+        "chunks": ["I shared the findings", "with the team", "and suggested improving", "the search matching rules"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We also decided to monitor the results for another two weeks before making a larger change.",
+        "sentence_cn": "我们还决定再观察两周，然后再考虑进行更大范围的调整。",
+        "chunks": ["We also decided to monitor", "the results", "for another two weeks", "before making a larger change"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Metrics need context.",
+        "sentence_cn": "指标需要结合背景来理解。",
+        "chunks": ["Metrics", "need context"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A number may look positive while an important user problem remains.",
+        "sentence_cn": "某个数字看起来可能是正面的，但重要的用户问题仍然存在。",
+        "chunks": ["A number may look positive", "while", "an important user problem remains"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "I therefore combine quantitative data with customer feedback and user behavior.",
+        "sentence_cn": "因此，我会把定量数据与客户反馈和用户行为结合起来。",
+        "chunks": ["I therefore combine", "quantitative data", "with customer feedback", "and user behavior"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "This helps the team understand not only what happened, but also why it happened and what we should do next.",
+        "sentence_cn": "这有助于团队不仅了解发生了什么，还能理解为什么发生，以及下一步应该采取什么行动。",
+        "chunks": ["This helps the team understand", "not only what happened", "but also why it happened", "and what we should do next"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "product metrics",
+        "meaning": "产品指标",
+        "example": "We review product metrics after every major release."
+      },
+      {
+        "expression": "key indicator",
+        "meaning": "关键指标",
+        "example": "Conversion rate is a key indicator for this project."
+      },
+      {
+        "expression": "search success rate",
+        "meaning": "搜索成功率",
+        "example": "The search success rate improved this month."
+      },
+      {
+        "expression": "look deeper",
+        "meaning": "深入分析",
+        "example": "We need to look deeper before changing the design."
+      },
+      {
+        "expression": "quantitative data",
+        "meaning": "定量数据",
+        "example": "Quantitative data should be reviewed with user feedback."
+      },
+      {
+        "expression": "monitor the results",
+        "meaning": "持续观察结果",
+        "example": "Let's monitor the results for another two weeks."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  },
+  {
+    "article_id": 10024,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Planning a Product Launch",
+    "title_en": "Planning a Product Launch",
+    "title_cn": "规划产品上线发布",
+    "difficulty": "B1-B2",
+    "word_count": 218,
+    "estimated_reading_time_seconds": 105,
+    "content_en": "A successful product launch requires more than finishing the development work. The product manager needs to coordinate the release plan, prepare communication, and make sure the team is ready to respond to problems.\n\nFor our new subscription feature, I created a launch checklist with the engineering, marketing, customer support, and operations teams. Engineering confirmed the release date and prepared a rollback plan in case a serious issue appeared. Marketing prepared the announcement and updated the website. Customer support reviewed common questions and wrote response guidelines.\n\nWe also agreed on the launch scope. Instead of making the feature available to everyone at once, we decided to release it to a small group of users first. This would help us identify problems before a wider launch.\n\nOn launch day, I checked the release status and watched the key metrics. The team stayed in a shared communication channel so that questions could be handled quickly. We found a minor payment display issue, and engineering fixed it before the feature reached more users.\n\nAfter the launch, I organized a review meeting. We discussed what went well, what caused delays, and what should change next time. A launch is not the end of a project. It is the beginning of learning from real user behavior.",
+    "content_cn": "一次成功的产品上线，不只是完成开发工作。产品经理还需要协调发布计划、准备沟通内容，并确保团队能够及时应对问题。\n\n针对新的订阅功能，我与研发、市场、客服和运营团队一起制定了上线检查清单。研发团队确认了发布日期，并准备了回滚方案，以便在出现严重问题时恢复旧版本。市场团队准备了公告并更新网站。客服团队整理了常见问题，并编写回复指引。\n\n我们还确定了上线范围。我们没有一次性向所有用户开放功能，而是决定先向一小部分用户发布。这样可以在全面上线之前发现问题。\n\n上线当天，我检查发布状态并关注关键指标。团队留在同一个沟通频道中，以便快速处理问题。我们发现一个轻微的支付显示问题，研发团队在功能开放给更多用户之前修复了它。\n\n上线后，我组织了一次复盘会议。我们讨论了哪些事情进展顺利、哪些因素造成了延迟，以及下次应该做出哪些改变。产品上线并不是项目的终点，而是开始从真实用户行为中学习的起点。",
+    "sentences": [
+      {
+        "sentence_en": "A successful product launch requires more than finishing the development work.",
+        "sentence_cn": "一次成功的产品上线，不只是完成开发工作。",
+        "chunks": ["A successful product launch", "requires more than", "finishing the development work"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The product manager needs to coordinate the release plan, prepare communication, and make sure the team is ready to respond to problems.",
+        "sentence_cn": "产品经理还需要协调发布计划、准备沟通内容，并确保团队能够及时应对问题。",
+        "chunks": ["The product manager needs to", "coordinate the release plan", "prepare communication", "and make sure", "the team is ready to respond to problems"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "For our new subscription feature, I created a launch checklist with the engineering, marketing, customer support, and operations teams.",
+        "sentence_cn": "针对新的订阅功能，我与研发、市场、客服和运营团队一起制定了上线检查清单。",
+        "chunks": ["For our new subscription feature", "I created a launch checklist", "with the engineering, marketing", "customer support, and operations teams"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Engineering confirmed the release date and prepared a rollback plan in case a serious issue appeared.",
+        "sentence_cn": "研发团队确认了发布日期，并准备了回滚方案，以便在出现严重问题时恢复旧版本。",
+        "chunks": ["Engineering confirmed the release date", "and prepared a rollback plan", "in case", "a serious issue appeared"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Marketing prepared the announcement and updated the website.",
+        "sentence_cn": "市场团队准备了公告并更新网站。",
+        "chunks": ["Marketing prepared the announcement", "and updated the website"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Customer support reviewed common questions and wrote response guidelines.",
+        "sentence_cn": "客服团队整理了常见问题，并编写回复指引。",
+        "chunks": ["Customer support reviewed", "common questions", "and wrote response guidelines"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We also agreed on the launch scope.",
+        "sentence_cn": "我们还确定了上线范围。",
+        "chunks": ["We also agreed on", "the launch scope"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of making the feature available to everyone at once, we decided to release it to a small group of users first.",
+        "sentence_cn": "我们没有一次性向所有用户开放功能，而是决定先向一小部分用户发布。",
+        "chunks": ["Instead of making the feature available", "to everyone at once", "we decided to release it", "to a small group of users first"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "This would help us identify problems before a wider launch.",
+        "sentence_cn": "这样可以在全面上线之前发现问题。",
+        "chunks": ["This would help us", "identify problems", "before a wider launch"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "On launch day, I checked the release status and watched the key metrics.",
+        "sentence_cn": "上线当天，我检查发布状态并关注关键指标。",
+        "chunks": ["On launch day", "I checked the release status", "and watched the key metrics"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team stayed in a shared communication channel so that questions could be handled quickly.",
+        "sentence_cn": "团队留在同一个沟通频道中，以便快速处理问题。",
+        "chunks": ["The team stayed", "in a shared communication channel", "so that questions could be handled quickly"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We found a minor payment display issue, and engineering fixed it before the feature reached more users.",
+        "sentence_cn": "我们发现一个轻微的支付显示问题，研发团队在功能开放给更多用户之前修复了它。",
+        "chunks": ["We found", "a minor payment display issue", "and engineering fixed it", "before the feature reached more users"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After the launch, I organized a review meeting.",
+        "sentence_cn": "上线后，我组织了一次复盘会议。",
+        "chunks": ["After the launch", "I organized", "a review meeting"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "We discussed what went well, what caused delays, and what should change next time.",
+        "sentence_cn": "我们讨论了哪些事情进展顺利、哪些因素造成了延迟，以及下次应该做出哪些改变。",
+        "chunks": ["We discussed", "what went well", "what caused delays", "and what should change next time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A launch is not the end of a project.",
+        "sentence_cn": "产品上线并不是项目的终点。",
+        "chunks": ["A launch", "is not", "the end of a project"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It is the beginning of learning from real user behavior.",
+        "sentence_cn": "而是开始从真实用户行为中学习的起点。",
+        "chunks": ["It is the beginning", "of learning", "from real user behavior"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "launch checklist",
+        "meaning": "上线检查清单",
+        "example": "Please complete the launch checklist before release."
+      },
+      {
+        "expression": "release date",
+        "meaning": "发布日期",
+        "example": "The release date has been confirmed by engineering."
+      },
+      {
+        "expression": "rollback plan",
+        "meaning": "回滚方案",
+        "example": "We need a rollback plan for a high-risk release."
+      },
+      {
+        "expression": "launch scope",
+        "meaning": "上线范围",
+        "example": "Let's confirm the launch scope with all teams."
+      },
+      {
+        "expression": "shared communication channel",
+        "meaning": "共享沟通频道",
+        "example": "Use the shared communication channel for urgent updates."
+      },
+      {
+        "expression": "review meeting",
+        "meaning": "复盘会议",
+        "example": "We will hold a review meeting after the launch."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "product_manager",
+    "profession_name": "Product Manager / 产品经理"
+  }
+]

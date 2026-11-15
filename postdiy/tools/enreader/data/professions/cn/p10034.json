@@ -1,0 +1,70 @@
+{
+  "id": "p10034",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A shipment of kitchen equipment", "m": "一批厨房设备" },
+        { "t": "arrives at the port of Hamburg", "m": "抵达汉堡港" },
+        { "t": "from China.", "m": "来自中国" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before the importer can collect the goods,", "m": "在进口商提货前" },
+        { "t": "the shipment must go through customs clearance.", "m": "货物须先清关" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The customs broker reviews the commercial invoice,", "m": "报关行审核商业发票" },
+        { "t": "packing list, bill of lading,", "m": "装箱单和提单" },
+        { "t": "and other supporting documents.", "m": "以及其他支持文件" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The broker also checks", "m": "报关行还检查" },
+        { "t": "the product description", "m": "产品描述" },
+        { "t": "and customs classification", "m": "和海关归类" },
+        { "t": "to make sure", "m": "以确保" },
+        { "t": "the declared information is accurate.", "m": "申报信息准确" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Correct classification is important", "m": "正确归类很重要" },
+        { "t": "because different products", "m": "因为不同产品" },
+        { "t": "may be subject to different duty rates", "m": "适用不同税率" },
+        { "t": "and import requirements.", "m": "和进口要求" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The broker contacts the importer", "m": "报关行联系进口商" },
+        { "t": "and requests a detailed product description,", "m": "要求详细产品描述" },
+        { "t": "along with a technical specification sheet.", "m": "以及技术规格书" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The broker updates the customs declaration", "m": "报关行更新申报信息" },
+        { "t": "and submits the information for review.", "m": "并提交审核" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "After the customs authorities assess the declaration", "m": "海关评估申报内容后" },
+        { "t": "and confirm", "m": "并确认" },
+        { "t": "that the applicable duties and taxes have been paid,", "m": "相关税费已缴清" },
+        { "t": "the shipment is released.", "m": "货物即可放行" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Accurate declarations and complete documents", "m": "申报准确单证齐全" },
+        { "t": "make the clearance process smoother", "m": "让清关更顺畅" },
+        { "t": "and help avoid unnecessary storage charges.", "m": "避免多余仓储费" }
+      ]
+    }
+  ]
+}

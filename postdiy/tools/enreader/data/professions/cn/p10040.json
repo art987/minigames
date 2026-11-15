@@ -1,0 +1,65 @@
+{
+  "id": "p10040",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "An employee in an international company", "m": "国际公司的一名员工" },
+        { "t": "is preparing a weekly project update", "m": "正在准备每周项目进展" },
+        { "t": "for the regional manager.", "m": "给区域经理" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The manager wants to understand", "m": "经理想了解" },
+        { "t": "what has been completed,", "m": "哪些已经完成" },
+        { "t": "what is still in progress,", "m": "哪些仍在进行" },
+        { "t": "and whether any problems", "m": "以及是否有问题" },
+        { "t": "may affect the final deadline.", "m": "可能影响最终截止日期" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The employee begins by", "m": "员工首先" },
+        { "t": "reviewing the project plan", "m": "查看项目计划" },
+        { "t": "and collecting updates", "m": "并收集最新进展" },
+        { "t": "from each department.", "m": "来自各个部门" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The operations team reports that", "m": "运营团队报告说" },
+        { "t": "a supplier has not confirmed", "m": "供应商尚未确认" },
+        { "t": "the delivery date for an important component.", "m": "重要零部件的交货日期" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Each item includes", "m": "每项都包含" },
+        { "t": "a short description,", "m": "简短描述" },
+        { "t": "the person responsible,", "m": "负责人" },
+        { "t": "and the expected completion date.", "m": "以及预计完成日期" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The report explains the current situation", "m": "报告说明现状" },
+        { "t": "and suggests contacting an alternative supplier", "m": "并建议联系备选供应商" },
+        { "t": "if confirmation is not received by Wednesday.", "m": "若周三前未收到确认" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before sending the report,", "m": "发送报告之前" },
+        { "t": "the employee checks that", "m": "员工检查是否" },
+        { "t": "the information is accurate.", "m": "信息准确无误" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "A useful progress report", "m": "有用的进度报告" },
+        { "t": "should be clear, factual,", "m": "应清晰而客观" },
+        { "t": "and focused on decisions.", "m": "并聚焦于决策" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+ "id": "p10007",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "When I receive a new product",
+     "m": "收到新产品时"
+    },
+    {
+     "t": "for our Amazon store,",
+     "m": "为我们的亚马逊店铺"
+    },
+    {
+     "t": "I first collect",
+     "m": "我先收集"
+    },
+    {
+     "t": "all the information I need",
+     "m": "所需的全部信息"
+    },
+    {
+     "t": "before creating the listing.",
+     "m": "在创建详情页之前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This includes the product name,",
+     "m": "包括产品名称"
+    },
+    {
+     "t": "key features, dimensions, materials,",
+     "m": "核心功能、尺寸、材质"
+    },
+    {
+     "t": "target customers,",
+     "m": "目标客户"
+    },
+    {
+     "t": "and high-quality images.",
+     "m": "以及高质量图片"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also check similar products",
+     "m": "我还会查看同类商品"
+    },
+    {
+     "t": "to understand how competitors describe their items",
+     "m": "了解竞品如何介绍商品"
+    },
+    {
+     "t": "and what customers expect.",
+     "m": "以及消费者期待什么"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Next, I prepare a clear title",
+     "m": "接着我写清晰的标题"
+    },
+    {
+     "t": "that includes the most important keywords",
+     "m": "放入最重要的关键词"
+    },
+    {
+     "t": "without making it difficult to read.",
+     "m": "又不影响阅读体验"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The bullet points",
+     "m": "商品要点"
+    },
+    {
+     "t": "focus on customer benefits",
+     "m": "聚焦消费者利益"
+    },
+    {
+     "t": "rather than simply repeating technical details.",
+     "m": "而不是重复技术参数"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For example, instead of saying",
+     "m": "比如我不会只说"
+    },
+    {
+     "t": "that a bottle is made of stainless steel,",
+     "m": "水瓶由不锈钢制成"
+    },
+    {
+     "t": "I explain that",
+     "m": "而会说明"
+    },
+    {
+     "t": "it helps keep drinks cold for hours.",
+     "m": "它能让饮料长时间冰凉"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I write the product description",
+     "m": "我撰写商品描述"
+    },
+    {
+     "t": "in a natural tone",
+     "m": "用自然的语气"
+    },
+    {
+     "t": "and answer common questions",
+     "m": "并提前回答常见问题"
+    },
+    {
+     "t": "before customers need to ask them.",
+     "m": "趁客户还没开口问"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before publishing,",
+     "m": "发布之前"
+    },
+    {
+     "t": "I review the images, variation options,",
+     "m": "我检查图片和变体选项"
+    },
+    {
+     "t": "price, and category",
+     "m": "价格和类目"
+    },
+    {
+     "t": "to make sure everything is accurate.",
+     "m": "确保信息准确无误"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the listing goes live,",
+     "m": "详情页上线后"
+    },
+    {
+     "t": "I monitor impressions, clicks,",
+     "m": "我关注曝光量和点击量"
+    },
+    {
+     "t": "and conversion rates",
+     "m": "以及转化率"
+    },
+    {
+     "t": "to see whether it needs improvement.",
+     "m": "看是否还需要优化"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A good listing",
+     "m": "好的详情页"
+    },
+    {
+     "t": "is not just a product introduction;",
+     "m": "不只是产品介绍"
+    },
+    {
+     "t": "it helps the right customers",
+     "m": "它帮对的客户"
+    },
+    {
+     "t": "understand the value",
+     "m": "理解产品价值"
+    },
+    {
+     "t": "and make a confident purchase.",
+     "m": "放心下单购买"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I keep a record",
+     "m": "我会记录下来"
+    },
+    {
+     "t": "of keyword decisions",
+     "m": "关键词的选择依据"
+    },
+    {
+     "t": "so that future updates",
+     "m": "让今后的更新"
+    },
+    {
+     "t": "remain consistent across the store.",
+     "m": "在全店保持一致"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also make sure",
+     "m": "我还会确认"
+    },
+    {
+     "t": "that the wording follows the platform's rules",
+     "m": "文案符合平台规则"
+    },
+    {
+     "t": "and does not include unsupported claims.",
+     "m": "不含无依据的宣传"
+    }
+   ]
+  }
+ ]
+}

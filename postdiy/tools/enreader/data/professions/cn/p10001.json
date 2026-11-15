@@ -1,0 +1,265 @@
+{
+  "id": "p10001",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "A customer inquiry is often",
+          "m": "客户询盘往往是"
+        },
+        {
+          "t": "the first step in an international business relationship.",
+          "m": "国际商务关系的第一步"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "When a potential buyer contacts a supplier,",
+          "m": "当潜在买家联系供应商时"
+        },
+        {
+          "t": "the export sales representative",
+          "m": "外贸业务代表"
+        },
+        {
+          "t": "needs to understand the customer's requirements",
+          "m": "需要了解客户的要求"
+        },
+        {
+          "t": "and respond professionally.",
+          "m": "并作出专业的回应"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Last Monday,",
+          "m": "上周一"
+        },
+        {
+          "t": "Daniel,",
+          "m": "丹尼尔"
+        },
+        {
+          "t": "an export sales representative",
+          "m": "一位外贸业务代表"
+        },
+        {
+          "t": "at a Chinese manufacturing company,",
+          "m": "在中国一家制造企业"
+        },
+        {
+          "t": "received an inquiry",
+          "m": "收到了一份询盘"
+        },
+        {
+          "t": "from a buyer in the United States.",
+          "m": "来自一位美国买家"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The customer was interested in",
+          "m": "客户有意"
+        },
+        {
+          "t": "purchasing 2,000 stainless steel water bottles",
+          "m": "采购2000个不锈钢水瓶"
+        },
+        {
+          "t": "for a promotional campaign.",
+          "m": "用于一场促销活动"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Before preparing a quotation,",
+          "m": "在准备报价之前"
+        },
+        {
+          "t": "Daniel carefully reviewed the inquiry.",
+          "m": "丹尼尔仔细查看了询盘"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He needed to confirm the product specifications,",
+          "m": "他需要确认产品规格"
+        },
+        {
+          "t": "including the bottle capacity,",
+          "m": "包括水瓶容量"
+        },
+        {
+          "t": "material,",
+          "m": "材质"
+        },
+        {
+          "t": "color,",
+          "m": "颜色"
+        },
+        {
+          "t": "and packaging requirements.",
+          "m": "以及包装要求"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He also wanted to know",
+          "m": "他还想了解"
+        },
+        {
+          "t": "whether the customer needed",
+          "m": "客户是否需要"
+        },
+        {
+          "t": "a customized logo.",
+          "m": "定制标志"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Daniel replied to the email",
+          "m": "丹尼尔回复了邮件"
+        },
+        {
+          "t": "and thanked the buyer",
+          "m": "并感谢了买家"
+        },
+        {
+          "t": "for their interest.",
+          "m": "对他们的关注"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He asked several questions",
+          "m": "他问了几个问题"
+        },
+        {
+          "t": "about the expected delivery date,",
+          "m": "关于预计交货日期"
+        },
+        {
+          "t": "destination port,",
+          "m": "目的港"
+        },
+        {
+          "t": "and preferred shipping method.",
+          "m": "以及偏好的运输方式"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He also offered to send product samples",
+          "m": "他还主动提出寄送产品样品"
+        },
+        {
+          "t": "so that the customer",
+          "m": "以便客户"
+        },
+        {
+          "t": "could check the quality",
+          "m": "能够检查质量"
+        },
+        {
+          "t": "before placing a bulk order.",
+          "m": "在下批量订单之前"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer responded",
+          "m": "买家作出了回复"
+        },
+        {
+          "t": "the following day",
+          "m": "第二天"
+        },
+        {
+          "t": "and provided the missing details.",
+          "m": "并补充了缺失的信息"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Daniel then shared a product catalog",
+          "m": "随后丹尼尔分享了产品目录"
+        },
+        {
+          "t": "and explained the available customization options.",
+          "m": "并介绍了可选的定制方案"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "By asking clear questions",
+          "m": "通过提出清晰的问题"
+        },
+        {
+          "t": "and responding promptly,",
+          "m": "并及时回复"
+        },
+        {
+          "t": "Daniel built a positive first impression.",
+          "m": "丹尼尔留下了良好的第一印象"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "He understood",
+          "m": "他明白"
+        },
+        {
+          "t": "that successful export sales",
+          "m": "成功的外贸销售"
+        },
+        {
+          "t": "depend not only on",
+          "m": "不仅取决于"
+        },
+        {
+          "t": "competitive prices",
+          "m": "有竞争力的价格"
+        },
+        {
+          "t": "but also on",
+          "m": "还取决于"
+        },
+        {
+          "t": "effective communication",
+          "m": "有效沟通"
+        },
+        {
+          "t": "and a clear understanding of customer needs.",
+          "m": "以及对客户需求的准确理解"
+        }
+      ]
+    }
+  ]
+}

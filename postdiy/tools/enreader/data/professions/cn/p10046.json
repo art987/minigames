@@ -1,0 +1,169 @@
+{
+ "id": "p10046",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A production team",
+     "m": "生产团队"
+    },
+    {
+     "t": "is waiting for",
+     "m": "正在等待"
+    },
+    {
+     "t": "an important shipment",
+     "m": "一批重要货物"
+    },
+    {
+     "t": "of machine parts.",
+     "m": "机器零件"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "According to the purchase order,",
+     "m": "根据采购订单"
+    },
+    {
+     "t": "the supplier should deliver",
+     "m": "供应商应交付"
+    },
+    {
+     "t": "the parts",
+     "m": "这些零件"
+    },
+    {
+     "t": "by the end of the week.",
+     "m": "在本周末之前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer",
+     "m": "采购专员"
+    },
+    {
+     "t": "contacts the supplier",
+     "m": "联系供应商"
+    },
+    {
+     "t": "and asks for",
+     "m": "并询问"
+    },
+    {
+     "t": "an update.",
+     "m": "最新进展"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The supplier explains that",
+     "m": "供应商解释说"
+    },
+    {
+     "t": "the parts have passed",
+     "m": "零件已通过"
+    },
+    {
+     "t": "the final inspection",
+     "m": "最终检验"
+    },
+    {
+     "t": "but are still waiting for",
+     "m": "但仍在等待"
+    },
+    {
+     "t": "collection by the logistics company.",
+     "m": "物流公司取货"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer asks",
+     "m": "采购专员询问"
+    },
+    {
+     "t": "whether the supplier can",
+     "m": "供应商能否"
+    },
+    {
+     "t": "arrange an earlier pickup",
+     "m": "安排提前取货"
+    },
+    {
+     "t": "or use a faster transportation service.",
+     "m": "或用更快的运输服务"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The supplier then sends",
+     "m": "供应商随后发送"
+    },
+    {
+     "t": "a revised delivery plan",
+     "m": "更新后的交付计划"
+    },
+    {
+     "t": "and promises to share",
+     "m": "并承诺提供"
+    },
+    {
+     "t": "the tracking information",
+     "m": "追踪信息"
+    },
+    {
+     "t": "once the goods have been collected.",
+     "m": "货物被取走后"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer updates",
+     "m": "采购专员更新"
+    },
+    {
+     "t": "the internal system",
+     "m": "内部系统"
+    },
+    {
+     "t": "and informs the warehouse team",
+     "m": "并通知仓库团队"
+    },
+    {
+     "t": "about the new arrival date.",
+     "m": "新的到货日期"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Regular follow-up",
+     "m": "定期跟进"
+    },
+    {
+     "t": "helps companies",
+     "m": "帮助企业"
+    },
+    {
+     "t": "identify delivery risks early.",
+     "m": "尽早发现交货风险"
+    }
+   ]
+  }
+ ]
+}

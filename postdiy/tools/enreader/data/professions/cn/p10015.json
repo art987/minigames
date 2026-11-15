@@ -1,0 +1,237 @@
+{
+ "id": "p10015",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Before new code is merged ",
+     "m": "在新代码合并之前"
+    },
+    {
+     "t": "into the main branch, ",
+     "m": "到主分支"
+    },
+    {
+     "t": "another developer usually reviews the changes.",
+     "m": "通常由另一位开发审查"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purpose of a code review ",
+     "m": "代码审查的目的"
+    },
+    {
+     "t": "is to improve code quality, ",
+     "m": "是提高代码质量"
+    },
+    {
+     "t": "share knowledge, ",
+     "m": "分享知识"
+    },
+    {
+     "t": "and catch problems early.",
+     "m": "并尽早发现问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "When I open a pull request, ",
+     "m": "提交 PR 时"
+    },
+    {
+     "t": "I write a short description ",
+     "m": "我会简述"
+    },
+    {
+     "t": "of what changed ",
+     "m": "改了什么"
+    },
+    {
+     "t": "and why the change is needed.",
+     "m": "以及为何需要改"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also include screenshots or test steps ",
+     "m": "我还附截图或测试步骤"
+    },
+    {
+     "t": "when they help reviewers understand the result.",
+     "m": "帮助审查者理解结果"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "As a reviewer, ",
+     "m": "作为审查者"
+    },
+    {
+     "t": "I first check ",
+     "m": "我先检查"
+    },
+    {
+     "t": "whether the code matches the task requirements.",
+     "m": "代码是否符合任务需求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then I look at ",
+     "m": "接着我会看"
+    },
+    {
+     "t": "naming, readability, ",
+     "m": "命名与可读性"
+    },
+    {
+     "t": "error handling, performance, ",
+     "m": "错误处理与性能"
+    },
+    {
+     "t": "and possible security issues.",
+     "m": "以及潜在安全问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If I find something unclear, ",
+     "m": "如果发现不清楚之处"
+    },
+    {
+     "t": "I leave a specific comment ",
+     "m": "我会留具体评论"
+    },
+    {
+     "t": "and explain the reason behind my suggestion.",
+     "m": "并解释建议的原因"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I try to focus on the code ",
+     "m": "我尽量只谈代码"
+    },
+    {
+     "t": "rather than making the discussion personal.",
+     "m": "而不针对个人"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The author can reply, ",
+     "m": "作者可以回复"
+    },
+    {
+     "t": "update the code, ",
+     "m": "更新代码"
+    },
+    {
+     "t": "or explain why a different approach is more suitable.",
+     "m": "或解释为何换方案更好"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Once the important comments have been addressed ",
+     "m": "重要评论处理完"
+    },
+    {
+     "t": "and the checks pass, ",
+     "m": "且检查通过"
+    },
+    {
+     "t": "the pull request can be approved.",
+     "m": "即可批准 PR"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A useful review ",
+     "m": "有价值的审查"
+    },
+    {
+     "t": "is respectful and practical, ",
+     "m": "尊重他人且务实"
+    },
+    {
+     "t": "not simply a list of mistakes.",
+     "m": "而非罗列错误"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Over time, ",
+     "m": "日积月累"
+    },
+    {
+     "t": "regular reviews help the whole team ",
+     "m": "定期审查让整个团队"
+    },
+    {
+     "t": "develop more consistent coding habits.",
+     "m": "养成一致的编码习惯"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For larger changes, ",
+     "m": "对于较大的修改"
+    },
+    {
+     "t": "I may suggest breaking the work ",
+     "m": "我可能建议拆分工作"
+    },
+    {
+     "t": "into smaller parts ",
+     "m": "分成更小的部分"
+    },
+    {
+     "t": "so that each part is easier to review.",
+     "m": "让每部分更易审查"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This also makes it easier ",
+     "m": "这样也更容易"
+    },
+    {
+     "t": "to understand the history of a change ",
+     "m": "理解变更的历史"
+    },
+    {
+     "t": "if the team needs to investigate it later.",
+     "m": "便于日后调查回溯"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,225 @@
+{
+ "id": "p10010",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "This morning,",
+     "m": "今天早上"
+    },
+    {
+     "t": "I noticed a negative review",
+     "m": "我看到一条差评"
+    },
+    {
+     "t": "on one of our best-selling products.",
+     "m": "出在我们的热销品上"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The customer said",
+     "m": "客户说"
+    },
+    {
+     "t": "the package arrived late",
+     "m": "包裹到得太晚"
+    },
+    {
+     "t": "and that one part was missing.",
+     "m": "而且少了一个零件"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before replying,",
+     "m": "回复之前"
+    },
+    {
+     "t": "I check the order details",
+     "m": "我先核对订单详情"
+    },
+    {
+     "t": "and contact the warehouse team",
+     "m": "再联系仓库团队"
+    },
+    {
+     "t": "to confirm what happened.",
+     "m": "确认具体情况"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I avoid making assumptions",
+     "m": "我不妄下结论"
+    },
+    {
+     "t": "or blaming the delivery company",
+     "m": "也不怪物流公司"
+    },
+    {
+     "t": "before we have enough information.",
+     "m": "在信息足够之前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "My response begins with an apology",
+     "m": "我的回复先表达歉意"
+    },
+    {
+     "t": "and shows that we understand",
+     "m": "并表明我们理解"
+    },
+    {
+     "t": "the customer's frustration.",
+     "m": "客户的不满"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then I explain what we are checking",
+     "m": "然后说明我们在核查什么"
+    },
+    {
+     "t": "and offer a practical solution,",
+     "m": "再给出实际的解决方案"
+    },
+    {
+     "t": "such as sending the missing part",
+     "m": "比如补寄缺少的零件"
+    },
+    {
+     "t": "or arranging a replacement.",
+     "m": "或者安排换货"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I keep the message polite, clear, and short",
+     "m": "回复保持礼貌、清晰、简短"
+    },
+    {
+     "t": "because customers usually want a solution",
+     "m": "因为客户要的是解决办法"
+    },
+    {
+     "t": "rather than a long explanation.",
+     "m": "而不是长篇解释"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the issue is resolved,",
+     "m": "问题解决后"
+    },
+    {
+     "t": "I follow up",
+     "m": "我还会跟进"
+    },
+    {
+     "t": "to make sure",
+     "m": "确认"
+    },
+    {
+     "t": "the customer is satisfied.",
+     "m": "客户是否满意"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also record the complaint",
+     "m": "我还会记录投诉"
+    },
+    {
+     "t": "and share it with the relevant team.",
+     "m": "并反馈给相关团队"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If several customers report the same problem,",
+     "m": "如果多位客户反映同一问题"
+    },
+    {
+     "t": "we may need to improve",
+     "m": "我们可能就要改进"
+    },
+    {
+     "t": "the product instructions or packaging.",
+     "m": "说明书或包装"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Handling complaints well",
+     "m": "妥善处理投诉"
+    },
+    {
+     "t": "can protect the store's reputation",
+     "m": "能维护店铺声誉"
+    },
+    {
+     "t": "and help us discover problems",
+     "m": "也帮我们发现问题"
+    },
+    {
+     "t": "that are easy to miss.",
+     "m": "那些容易被忽视的"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I never ask the customer",
+     "m": "我绝不要求客户"
+    },
+    {
+     "t": "to change or remove an honest review",
+     "m": "修改或删除真实评价"
+    },
+    {
+     "t": "in exchange for a benefit.",
+     "m": "来换取好处"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Our goal is to solve the problem fairly",
+     "m": "我们的目标是公平解决问题"
+    },
+    {
+     "t": "and prevent the same issue",
+     "m": "并防止同样的问题"
+    },
+    {
+     "t": "from happening again.",
+     "m": "再次发生"
+    }
+   ]
+  }
+ ]
+}

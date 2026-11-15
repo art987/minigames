@@ -1,0 +1,321 @@
+{
+  "id": "p10004",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Clear communication about product specifications",
+          "m": "清晰沟通产品规格"
+        },
+        {
+          "t": "is essential in international trade.",
+          "m": "在国际贸易中至关重要"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Even a small misunderstanding",
+          "m": "即使一个小误解"
+        },
+        {
+          "t": "about materials,",
+          "m": "对材料"
+        },
+        {
+          "t": "dimensions,",
+          "m": "尺寸"
+        },
+        {
+          "t": "or quality standards",
+          "m": "或质量标准"
+        },
+        {
+          "t": "can lead to production problems",
+          "m": "都可能导致生产问题"
+        },
+        {
+          "t": "and customer complaints.",
+          "m": "和客户投诉"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Emily works",
+          "m": "艾米丽任职"
+        },
+        {
+          "t": "for a Chinese manufacturer",
+          "m": "于一家中国制造企业"
+        },
+        {
+          "t": "of stainless steel kitchen equipment.",
+          "m": "生产不锈钢厨房设备"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A customer from Canada",
+          "m": "一位加拿大客户"
+        },
+        {
+          "t": "planned to order",
+          "m": "计划订购"
+        },
+        {
+          "t": "800 commercial food containers.",
+          "m": "800个商用食品容器"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Before production started,",
+          "m": "在生产开始之前"
+        },
+        {
+          "t": "the buyer sent a technical document",
+          "m": "买家发送了一份技术文件"
+        },
+        {
+          "t": "describing the required specifications.",
+          "m": "说明所需的规格"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Emily reviewed the document",
+          "m": "艾米丽查看了文件"
+        },
+        {
+          "t": "and noticed",
+          "m": "并注意到"
+        },
+        {
+          "t": "that some details needed clarification.",
+          "m": "有些细节需要进一步确认"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The customer had specified",
+          "m": "客户已经说明了"
+        },
+        {
+          "t": "the container dimensions",
+          "m": "容器的尺寸"
+        },
+        {
+          "t": "but had not clearly stated",
+          "m": "但没有明确注明"
+        },
+        {
+          "t": "the required material grade",
+          "m": "所需的材料等级"
+        },
+        {
+          "t": "or thickness.",
+          "m": "或厚度"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "These details were important",
+          "m": "这些细节很重要"
+        },
+        {
+          "t": "because they could affect durability,",
+          "m": "因为会影响耐用性"
+        },
+        {
+          "t": "weight,",
+          "m": "重量"
+        },
+        {
+          "t": "and production costs.",
+          "m": "和生产成本"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Emily contacted the buyer",
+          "m": "艾米丽联系了买家"
+        },
+        {
+          "t": "and asked",
+          "m": "并询问"
+        },
+        {
+          "t": "whether they required",
+          "m": "他们是否需要"
+        },
+        {
+          "t": "food-grade stainless steel.",
+          "m": "食品级不锈钢"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She also confirmed",
+          "m": "她还确认了"
+        },
+        {
+          "t": "the acceptable dimensional tolerance",
+          "m": "允许的尺寸偏差"
+        },
+        {
+          "t": "and surface finish.",
+          "m": "和表面处理"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer requested a customized logo",
+          "m": "买家要求定制标志"
+        },
+        {
+          "t": "and specific packaging",
+          "m": "以及特定包装"
+        },
+        {
+          "t": "for retail distribution.",
+          "m": "用于零售销售"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "To avoid mistakes,",
+          "m": "为了避免错误"
+        },
+        {
+          "t": "Emily prepared a sample specification sheet",
+          "m": "艾米丽准备了样品规格表"
+        },
+        {
+          "t": "and sent it for approval.",
+          "m": "并发出供客户确认"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She also arranged",
+          "m": "她还安排了"
+        },
+        {
+          "t": "a pre-production sample",
+          "m": "一件产前样品"
+        },
+        {
+          "t": "so that the customer",
+          "m": "以便客户"
+        },
+        {
+          "t": "could inspect the product",
+          "m": "能够检查产品"
+        },
+        {
+          "t": "before mass production.",
+          "m": "在批量生产之前"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer reviewed the sample",
+          "m": "买家检查了样品"
+        },
+        {
+          "t": "and requested a minor adjustment",
+          "m": "并要求小幅调整"
+        },
+        {
+          "t": "to the lid design.",
+          "m": "调整盖子设计"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Emily coordinated",
+          "m": "艾米丽协调"
+        },
+        {
+          "t": "with the engineering team",
+          "m": "与工程团队"
+        },
+        {
+          "t": "and confirmed",
+          "m": "并确认"
+        },
+        {
+          "t": "that the change",
+          "m": "这一修改"
+        },
+        {
+          "t": "would not affect the production schedule.",
+          "m": "不会影响生产进度"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Once both sides approved the final specifications,",
+          "m": "双方确认最终规格后"
+        },
+        {
+          "t": "the factory began production.",
+          "m": "工厂开始了生产"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Emily understood",
+          "m": "艾米丽明白"
+        },
+        {
+          "t": "that confirming every technical detail in advance",
+          "m": "提前确认每个技术细节"
+        },
+        {
+          "t": "could reduce misunderstandings,",
+          "m": "能减少误解"
+        },
+        {
+          "t": "prevent costly rework,",
+          "m": "防止昂贵的返工"
+        },
+        {
+          "t": "and improve customer satisfaction.",
+          "m": "并提高客户满意度"
+        }
+      ]
+    }
+  ]
+}

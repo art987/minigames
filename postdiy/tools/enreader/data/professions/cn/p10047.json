@@ -1,0 +1,181 @@
+{
+ "id": "p10047",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A warehouse team discovers",
+     "m": "仓库团队发现"
+    },
+    {
+     "t": "that several cartons of newly delivered components",
+     "m": "新到货的几箱零件"
+    },
+    {
+     "t": "have damaged packaging.",
+     "m": "包装已损坏"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Employees find scratches",
+     "m": "员工发现划痕"
+    },
+    {
+     "t": "on some metal parts",
+     "m": "在一些金属零件上"
+    },
+    {
+     "t": "and notice that",
+     "m": "并注意到"
+    },
+    {
+     "t": "a few items",
+     "m": "少数产品"
+    },
+    {
+     "t": "do not match",
+     "m": "不符合"
+    },
+    {
+     "t": "the approved specifications.",
+     "m": "已批准的规格"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The warehouse supervisor",
+     "m": "仓库主管"
+    },
+    {
+     "t": "immediately informs",
+     "m": "立即通知"
+    },
+    {
+     "t": "the purchasing department",
+     "m": "采购部门"
+    },
+    {
+     "t": "and separates",
+     "m": "并分开存放"
+    },
+    {
+     "t": "the affected goods",
+     "m": "受影响的货物"
+    },
+    {
+     "t": "from the acceptable stock.",
+     "m": "与合格库存"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The team also takes photographs",
+     "m": "团队还拍照"
+    },
+    {
+     "t": "and records",
+     "m": "并记录"
+    },
+    {
+     "t": "the item numbers, quantities,",
+     "m": "物料编号与数量"
+    },
+    {
+     "t": "and inspection results.",
+     "m": "和检验结果"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer",
+     "m": "采购专员"
+    },
+    {
+     "t": "contacts the supplier",
+     "m": "联系供应商"
+    },
+    {
+     "t": "and explains",
+     "m": "并说明"
+    },
+    {
+     "t": "the quality problem.",
+     "m": "质量问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The company also requests",
+     "m": "公司还要求"
+    },
+    {
+     "t": "a corrective action plan,",
+     "m": "纠正措施计划"
+    },
+    {
+     "t": "including how the supplier will prevent",
+     "m": "包括供应商将如何防止"
+    },
+    {
+     "t": "the same problem from happening again.",
+     "m": "同样的问题再次发生"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The supplier agrees to",
+     "m": "供应商同意"
+    },
+    {
+     "t": "replace the defective components",
+     "m": "更换缺陷零件"
+    },
+    {
+     "t": "and arrange transportation",
+     "m": "并安排运输"
+    },
+    {
+     "t": "at its own expense.",
+     "m": "自行承担费用"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Recording the issue,",
+     "m": "记录问题"
+    },
+    {
+     "t": "agreeing on corrective actions,",
+     "m": "商定纠正措施"
+    },
+    {
+     "t": "and checking the results",
+     "m": "并检查结果"
+    },
+    {
+     "t": "can help prevent",
+     "m": "有助于防止"
+    },
+    {
+     "t": "repeated problems.",
+     "m": "类似问题复发"
+    }
+   ]
+  }
+ ]
+}

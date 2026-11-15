@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>职业英语 · EN Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="stylesheet" href="assets/style.css?v=31">
+</head>
+<body>
+
+<button class="backfab" id="backBtn" title="返回课程首页">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+</button>
+
+<div class="wrap">
+  <header class="hero stage-hero">
+    <div class="stg-top" id="stgTop"></div>
+    <h1>职业英语</h1>
+    <p id="stgDesc"></p>
+  </header>
+  <main id="profList"></main>
+  <footer class="foot"></footer>
+</div>
+
+<script src="data/professions/prof-manifest.js?v=19"></script>
+<script>
+(function () {
+  const P = window.ENR_PROFS;
+  const profs = P.professions || [];
+  const total = profs.reduce((n, p) => n + (p.articles || []).length, 0);
+
+  function $(id) { return document.getElementById(id); }
+  $("stgTop").innerHTML = `<span class="no">PRO</span>`;
+  $("stgDesc").innerHTML = `<span class="tag">B1-B2</span> ${profs.length} 大热门职业 · ${total} 篇真实工作场景课 · 每篇 200–260 词`;
+
+  const doneOf = id => (parseInt(localStorage.getItem("enr:done:" + id), 10) || 0) > 0;
+  const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
+  const root = $("profList");
+
+  profs.forEach((p, pi) => {
+    const arts = p.articles || [];
+    const doneCount = arts.filter(a => doneOf(a.id)).length;
+    const started = arts.some(a => !doneOf(a.id) && (posOf(a.id) > 0 || doneOf(a.id)));
+    const pct = arts.length ? Math.round(doneCount / arts.length * 100) : 0;
+
+    const sec = document.createElement("button");
+    sec.className = "stg";
+    sec.innerHTML =
+      `<div class="stg-top"><span class="no">PRO ${String(pi + 1).padStart(2, "0")}</span>` +
+      `<span class="cefr">${p.cefr || "B1-B2"}</span></div>` +
+      `<div class="stg-name">${p.nameCn}</div>` +
+      `<div class="stg-meta"><span class="tag">${p.nameEn}</span>` +
+      `<span>${arts.length} 篇场景课</span></div>` +
+      (arts.length
+        ? `<div class="stg-bar"><i style="width:${pct}%"></i></div>` +
+          `<div class="stg-foot">${doneCount >= arts.length && arts.length ? "✓ 已全部学完" : (started ? "继续学习 →" : "开始学习 →")}<span>${doneCount} / ${arts.length} 篇完成</span></div>`
+        : `<div class="stg-foot"><span>敬请期待</span></div>`);
+    if (arts.length) sec.addEventListener("click", () => location.href = "profession.html?prof=" + p.id);
+    root.appendChild(sec);
+  });
+
+  $("backBtn").addEventListener("click", () => location.href = "index.html");
+
+  // 返回按钮：下滑隐藏、上滑显示（与详情页一致，纯透明度渐变）
+  const backFab = $("backBtn");
+  let lastY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    if (y > lastY + 6 && y > 140) backFab.classList.add("hide");
+    else if (y < lastY - 6 || y <= 140) backFab.classList.remove("hide");
+    lastY = y;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "id": "p10031",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A customer in Germany", "m": "德国的一位客户" },
+        { "t": "contacts a freight forwarder", "m": "联系货运代理" },
+        { "t": "to arrange a shipment", "m": "安排一批货运输" },
+        { "t": "from Shenzhen to Hamburg.", "m": "从深圳到汉堡" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The cargo consists of", "m": "货物包括" },
+        { "t": "200 cartons of electronic accessories,", "m": "200箱电子配件" },
+        { "t": "with a total weight of 1,800 kilograms.", "m": "总重1800公斤" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The customer", "m": "客户" },
+        { "t": "hopes to ship the goods by sea", "m": "希望海运出货" },
+        { "t": "because the delivery is not urgent", "m": "因为交货不急" },
+        { "t": "and ocean freight", "m": "而海运" },
+        { "t": "is more economical than air freight.", "m": "比空运更经济" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The freight forwarder", "m": "货运代理" },
+        { "t": "first confirms the cargo details,", "m": "先确认货物信息" },
+        { "t": "including the carton dimensions,", "m": "包括纸箱尺寸" },
+        { "t": "total volume, gross weight,", "m": "总体积和毛重" },
+        { "t": "and expected ready date.", "m": "以及预计备货日期" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "These details are necessary", "m": "这些信息必不可少" },
+        { "t": "for selecting a suitable vessel", "m": "用于选择合适的船舶" },
+        { "t": "and calculating the shipping cost.", "m": "并计算运费" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "After comparing the departure dates,", "m": "比较开船日期后" },
+        { "t": "transit times, and freight rates,", "m": "运输时间和运费" },
+        { "t": "the forwarder recommends a vessel", "m": "货代推荐一艘船" },
+        { "t": "departing the following Friday.", "m": "下周五出发" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The forwarder submits a booking request", "m": "货代提交订舱申请" },
+        { "t": "to the shipping line", "m": "向船公司" },
+        { "t": "and provides the shipper's information,", "m": "并提供发货人信息" },
+        { "t": "consignee details, cargo description,", "m": "收货人与货物描述" },
+        { "t": "and container requirements.", "m": "以及集装箱需求" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Once the shipping line confirms the space,", "m": "船公司确认舱位后" },
+        { "t": "it issues a booking confirmation", "m": "就出具订舱确认书" },
+        { "t": "with the vessel name, voyage number,", "m": "含船名和航次号" },
+        { "t": "and cut-off dates.", "m": "和各项截止时间" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Clear communication at this stage", "m": "这一阶段沟通清楚" },
+        { "t": "helps prevent missed sailings", "m": "有助避免错过船期" },
+        { "t": "and unnecessary costs.", "m": "和不必要费用" }
+      ]
+    }
+  ]
+}

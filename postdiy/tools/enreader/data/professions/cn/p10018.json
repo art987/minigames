@@ -1,0 +1,241 @@
+{
+ "id": "p10018",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Late one afternoon, ",
+     "m": "一天下午晚些时候"
+    },
+    {
+     "t": "our monitoring system sent an alert ",
+     "m": "监控系统发出警报"
+    },
+    {
+     "t": "because the application error rate had increased sharply.",
+     "m": "因为应用错误率骤升"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I checked the service dashboard ",
+     "m": "我查看服务监控面板"
+    },
+    {
+     "t": "and confirmed ",
+     "m": "并确认"
+    },
+    {
+     "t": "that some users could not complete their payments.",
+     "m": "部分用户无法完成付款"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I informed the team ",
+     "m": "我通知了团队"
+    },
+    {
+     "t": "and started investigating the issue ",
+     "m": "并开始排查问题"
+    },
+    {
+     "t": "with another engineer.",
+     "m": "与另一位工程师一起"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We checked recent deployments, ",
+     "m": "我们检查近期部署"
+    },
+    {
+     "t": "application logs, ",
+     "m": "应用日志"
+    },
+    {
+     "t": "database performance, ",
+     "m": "数据库性能"
+    },
+    {
+     "t": "and external service status.",
+     "m": "和外部服务状态"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The problem appeared ",
+     "m": "问题出现"
+    },
+    {
+     "t": "shortly after a new version was released, ",
+     "m": "新版本发布后不久"
+    },
+    {
+     "t": "so we focused on the latest changes first.",
+     "m": "所以先查最近改动"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We found that one request ",
+     "m": "我们发现一个请求"
+    },
+    {
+     "t": "was taking too long ",
+     "m": "耗时过长"
+    },
+    {
+     "t": "and causing other requests to wait.",
+     "m": "拖得其他请求等待"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "To reduce the impact on users, ",
+     "m": "为减少对用户的影响"
+    },
+    {
+     "t": "we decided to roll back the release ",
+     "m": "我们决定先回滚版本"
+    },
+    {
+     "t": "while continuing the investigation.",
+     "m": "同时继续调查"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the rollback, ",
+     "m": "回滚之后"
+    },
+    {
+     "t": "the error rate returned to normal ",
+     "m": "错误率恢复正常"
+    },
+    {
+     "t": "and payment processing recovered.",
+     "m": "支付处理也恢复了"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We then reviewed the code change ",
+     "m": "然后我们复查代码变更"
+    },
+    {
+     "t": "and prepared a safer fix ",
+     "m": "并准备了更稳妥的修复"
+    },
+    {
+     "t": "for further testing.",
+     "m": "供进一步测试"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the incident, ",
+     "m": "故障结束后"
+    },
+    {
+     "t": "we wrote a report ",
+     "m": "我们写了份报告"
+    },
+    {
+     "t": "explaining the timeline, impact, ",
+     "m": "说明时间线与影响"
+    },
+    {
+     "t": "root cause, ",
+     "m": "根本原因"
+    },
+    {
+     "t": "and follow-up actions.",
+     "m": "以及后续行动"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The goal of an incident review ",
+     "m": "故障复盘的目的"
+    },
+    {
+     "t": "is to learn from the failure ",
+     "m": "是从失败中吸取经验"
+    },
+    {
+     "t": "rather than blame one person.",
+     "m": "而不是责怪个人"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Clear communication and quick coordination ",
+     "m": "清晰沟通与快速协作"
+    },
+    {
+     "t": "help the team restore service ",
+     "m": "帮助团队恢复服务"
+    },
+    {
+     "t": "and prevent similar incidents.",
+     "m": "并防止类似故障"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also kept customer support informed ",
+     "m": "我们及时告知客服团队"
+    },
+    {
+     "t": "so they could give users accurate information ",
+     "m": "让他们传达准确信息"
+    },
+    {
+     "t": "during the incident.",
+     "m": "在故障期间"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A short, factual update ",
+     "m": "简短客观的进展说明"
+    },
+    {
+     "t": "is more useful than guessing about the cause ",
+     "m": "比瞎猜原因更有用"
+    },
+    {
+     "t": "before the investigation is complete.",
+     "m": "在调查完成之前"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,273 @@
+{
+  "id": "p10002",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "After receiving the customer's requirements,",
+          "m": "收到客户的具体需求后"
+        },
+        {
+          "t": "the next important step",
+          "m": "下一项重要工作"
+        },
+        {
+          "t": "is preparing a professional price quotation.",
+          "m": "是准备一份专业的报价单"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A clear quotation",
+          "m": "清晰的报价"
+        },
+        {
+          "t": "helps the buyer understand the costs",
+          "m": "帮助买家了解成本"
+        },
+        {
+          "t": "and make a purchasing decision.",
+          "m": "并作出采购决定"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Sophia works as an export sales representative",
+          "m": "索菲娅担任外贸业务代表"
+        },
+        {
+          "t": "for a furniture manufacturer in China.",
+          "m": "供职于中国一家家具制造企业"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A customer from Germany",
+          "m": "一位德国客户"
+        },
+        {
+          "t": "recently requested a quotation",
+          "m": "最近要求提供报价"
+        },
+        {
+          "t": "for 500 office chairs.",
+          "m": "为500把办公椅"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The buyer wanted to know",
+          "m": "买家想了解"
+        },
+        {
+          "t": "the unit price,",
+          "m": "单价"
+        },
+        {
+          "t": "minimum order quantity,",
+          "m": "最小起订量"
+        },
+        {
+          "t": "production lead time,",
+          "m": "生产周期"
+        },
+        {
+          "t": "and available payment methods.",
+          "m": "以及可用的付款方式"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Sophia first checked the production costs",
+          "m": "索菲娅首先核对了生产成本"
+        },
+        {
+          "t": "with the factory.",
+          "m": "向工厂核实"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She then calculated the unit price",
+          "m": "然后她计算了单价"
+        },
+        {
+          "t": "based on the order quantity",
+          "m": "依据订单数量"
+        },
+        {
+          "t": "and selected materials.",
+          "m": "和选定的材料"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Since the customer was ordering a relatively large quantity,",
+          "m": "由于客户订购的数量相对较大"
+        },
+        {
+          "t": "she was able to offer",
+          "m": "她能够提供"
+        },
+        {
+          "t": "a more competitive price.",
+          "m": "更有竞争力的价格"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "In the quotation,",
+          "m": "在报价单中"
+        },
+        {
+          "t": "Sophia included the product description,",
+          "m": "索菲娅列出了产品描述"
+        },
+        {
+          "t": "specifications,",
+          "m": "规格"
+        },
+        {
+          "t": "unit price,",
+          "m": "单价"
+        },
+        {
+          "t": "total amount,",
+          "m": "总金额"
+        },
+        {
+          "t": "and quotation validity period.",
+          "m": "以及报价有效期"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She also explained the payment terms.",
+          "m": "她还解释了付款条件"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The company normally required",
+          "m": "公司通常要求"
+        },
+        {
+          "t": "a 30 percent deposit",
+          "m": "支付30%的定金"
+        },
+        {
+          "t": "before production,",
+          "m": "在生产之前"
+        },
+        {
+          "t": "with the remaining balance",
+          "m": "剩余尾款"
+        },
+        {
+          "t": "paid before shipment.",
+          "m": "在发货前付清"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Sophia clearly stated",
+          "m": "索菲娅清楚说明了"
+        },
+        {
+          "t": "the proposed delivery schedule",
+          "m": "预计的交货时间"
+        },
+        {
+          "t": "and the shipping conditions.",
+          "m": "以及运输条件"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She also reminded the customer",
+          "m": "她还提醒客户"
+        },
+        {
+          "t": "that international freight",
+          "m": "国际运费"
+        },
+        {
+          "t": "and import duties",
+          "m": "和进口关税"
+        },
+        {
+          "t": "might need to be",
+          "m": "可能需要"
+        },
+        {
+          "t": "calculated separately,",
+          "m": "单独计算"
+        },
+        {
+          "t": "depending on the agreed trade terms.",
+          "m": "取决于双方约定的贸易条款"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Before sending the document,",
+          "m": "在发送文件之前"
+        },
+        {
+          "t": "she checked every figure carefully",
+          "m": "她仔细核对了每个数字"
+        },
+        {
+          "t": "to avoid misunderstandings.",
+          "m": "以避免产生误解"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "She understood",
+          "m": "她明白"
+        },
+        {
+          "t": "that an accurate quotation",
+          "m": "准确的报价"
+        },
+        {
+          "t": "could build trust",
+          "m": "能够建立信任"
+        },
+        {
+          "t": "and help move the negotiation forward.",
+          "m": "并推动谈判向前发展"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "p10037",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "Working in an international company", "m": "在国际公司工作" },
+        { "t": "often means", "m": "通常意味着" },
+        { "t": "communicating with colleagues and clients", "m": "与同事和客户沟通" },
+        { "t": "by email.", "m": "通过邮件" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "A well-written email can save time,", "m": "一封好邮件能省时间" },
+        { "t": "prevent misunderstandings,", "m": "避免误解" },
+        { "t": "and help people make decisions more quickly.", "m": "并帮人更快做决定" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "If some information is missing,", "m": "如果信息不全" },
+        { "t": "it is better to", "m": "最好" },
+        { "t": "ask specific questions", "m": "问具体的问题" },
+        { "t": "rather than make assumptions.", "m": "而非自行猜测" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "A professional email", "m": "一封专业的邮件" },
+        { "t": "usually starts with", "m": "通常以…开头" },
+        { "t": "a suitable greeting", "m": "恰当的问候语" },
+        { "t": "and a clear opening sentence.", "m": "和清晰的开场句" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The main message", "m": "正文内容" },
+        { "t": "should be organized into short paragraphs,", "m": "应分成简短段落" },
+        { "t": "with each paragraph covering one point.", "m": "每段讲一个重点" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Could you please", "m": "能否请您" },
+        { "t": "review the attached document", "m": "审核附件文件" },
+        { "t": "by Thursday?", "m": "在周四之前" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before sending the email,", "m": "发送邮件之前" },
+        { "t": "the writer should check", "m": "作者应检查" },
+        { "t": "the recipient's name,", "m": "收件人姓名" },
+        { "t": "attachments, spelling, and tone.", "m": "附件、拼写和语气" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Clear email communication", "m": "清晰的邮件沟通" },
+        { "t": "reflects professional working habits", "m": "体现职业工作习惯" },
+        { "t": "and helps build trust", "m": "有助于建立信任" },
+        { "t": "across international teams.", "m": "在国际团队之间" }
+      ]
+    }
+  ]
+}

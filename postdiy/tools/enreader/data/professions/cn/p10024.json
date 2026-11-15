@@ -1,0 +1,265 @@
+{
+ "id": "p10024",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A successful product launch",
+     "m": "成功的产品上线"
+    },
+    {
+     "t": "requires more than",
+     "m": "不只是"
+    },
+    {
+     "t": "finishing the development work.",
+     "m": "完成开发工作"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The product manager needs to",
+     "m": "产品经理还需要"
+    },
+    {
+     "t": "coordinate the release plan,",
+     "m": "协调发布计划"
+    },
+    {
+     "t": "prepare communication,",
+     "m": "准备沟通内容"
+    },
+    {
+     "t": "and make sure",
+     "m": "并确保"
+    },
+    {
+     "t": "the team is ready to respond to problems.",
+     "m": "团队能及时应对问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For our new subscription feature,",
+     "m": "针对新订阅功能"
+    },
+    {
+     "t": "I created a launch checklist",
+     "m": "我制定了上线清单"
+    },
+    {
+     "t": "with the engineering, marketing,",
+     "m": "联合研发与市场"
+    },
+    {
+     "t": "customer support, and operations teams.",
+     "m": "客服和运营团队"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Engineering confirmed the release date",
+     "m": "研发确认发布日期"
+    },
+    {
+     "t": "and prepared a rollback plan",
+     "m": "并准备回滚方案"
+    },
+    {
+     "t": "in case",
+     "m": "以防"
+    },
+    {
+     "t": "a serious issue appeared.",
+     "m": "出现严重问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Marketing prepared the announcement",
+     "m": "市场准备公告"
+    },
+    {
+     "t": "and updated the website.",
+     "m": "并更新网站"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Customer support reviewed common questions",
+     "m": "客服整理常见问题"
+    },
+    {
+     "t": "and wrote response guidelines.",
+     "m": "并编写回复指引"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also agreed on",
+     "m": "我们还确定了"
+    },
+    {
+     "t": "the launch scope.",
+     "m": "上线范围"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Instead of making the feature available",
+     "m": "没有立即开放功能"
+    },
+    {
+     "t": "to everyone at once,",
+     "m": "一次给所有用户"
+    },
+    {
+     "t": "we decided to release it",
+     "m": "我们决定先发布"
+    },
+    {
+     "t": "to a small group of users first.",
+     "m": "给一小部分用户"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This would help us",
+     "m": "这能帮我们"
+    },
+    {
+     "t": "identify problems",
+     "m": "发现问题"
+    },
+    {
+     "t": "before a wider launch.",
+     "m": "在全面上线前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "On launch day,",
+     "m": "上线当天"
+    },
+    {
+     "t": "I checked the release status",
+     "m": "我检查发布状态"
+    },
+    {
+     "t": "and watched the key metrics.",
+     "m": "并关注关键指标"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The team stayed",
+     "m": "团队留在"
+    },
+    {
+     "t": "in a shared communication channel",
+     "m": "同一个沟通频道"
+    },
+    {
+     "t": "so that questions could be handled quickly.",
+     "m": "便于快速处理问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We found",
+     "m": "我们发现"
+    },
+    {
+     "t": "a minor payment display issue,",
+     "m": "轻微的支付显示问题"
+    },
+    {
+     "t": "and engineering fixed it",
+     "m": "研发及时修复"
+    },
+    {
+     "t": "before the feature reached more users.",
+     "m": "在开放更多用户前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the launch,",
+     "m": "上线之后"
+    },
+    {
+     "t": "I organized a review meeting.",
+     "m": "我组织了复盘会议"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We discussed",
+     "m": "我们讨论了"
+    },
+    {
+     "t": "what went well,",
+     "m": "哪些做得顺利"
+    },
+    {
+     "t": "what caused delays,",
+     "m": "哪些造成延迟"
+    },
+    {
+     "t": "and what should change next time.",
+     "m": "下次该改什么"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A launch is not",
+     "m": "上线并不是"
+    },
+    {
+     "t": "the end of a project.",
+     "m": "项目的终点"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It is the beginning",
+     "m": "而是开端"
+    },
+    {
+     "t": "of learning from real user behavior.",
+     "m": "从真实用户行为学习"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+  "id": "p10032",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "An export shipment", "m": "一批出口货物" },
+        { "t": "is scheduled to leave Ningbo", "m": "计划驶离宁波" },
+        { "t": "for Los Angeles next week.", "m": "下周前往洛杉矶" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before the goods can be shipped,", "m": "在货物装运前" },
+        { "t": "the exporter and freight forwarder", "m": "出口商和货运代理" },
+        { "t": "must prepare several important documents.", "m": "须准备几份重要单证" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The first document", "m": "第一份单证" },
+        { "t": "is the commercial invoice.", "m": "是商业发票" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "It shows the seller's and buyer's details,", "m": "列明买卖双方信息" },
+        { "t": "product descriptions, quantities,", "m": "产品描述和数量" },
+        { "t": "unit prices, and total value.", "m": "单价以及总金额" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The packing list", "m": "装箱单" },
+        { "t": "provides more detailed information", "m": "提供更详细的信息" },
+        { "t": "about how the goods are packed.", "m": "说明货物包装方式" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The forwarder checks", "m": "货代核查" },
+        { "t": "that the information matches", "m": "信息是否一致" },
+        { "t": "the actual cargo", "m": "实际货物" },
+        { "t": "and the commercial invoice.", "m": "和商业发票" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The shipping line", "m": "船公司" },
+        { "t": "also needs accurate shipping instructions", "m": "还需准确的提单补料" },
+        { "t": "before issuing the bill of lading.", "m": "在签发提单之前" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "After receiving the draft bill of lading,", "m": "收到提单草稿后" },
+        { "t": "the exporter checks every detail", "m": "出口商逐项核对" },
+        { "t": "and requests corrections if necessary.", "m": "必要时要求修改" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Good document management saves time", "m": "单证管理节省时间" },
+        { "t": "and reduces the risk of disputes", "m": "并降低争议风险" },
+        { "t": "during international transportation.", "m": "在国际运输中" }
+      ]
+    }
+  ]
+}

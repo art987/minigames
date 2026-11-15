@@ -1,0 +1,638 @@
+[
+  {
+    "article_id": 10043,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Selecting and evaluating suppliers",
+    "title_en": "Selecting and Evaluating Suppliers",
+    "title_cn": "筛选与评估供应商",
+    "difficulty": "B1-B2",
+    "word_count": 225,
+    "estimated_reading_time_seconds": 98,
+    "content_en": "A manufacturing company needs a new supplier for electronic components. The purchasing manager is responsible for finding reliable suppliers who can meet the company's quality, price, and delivery requirements. Instead of choosing the cheapest option, the manager decides to compare several potential suppliers.\n\nFirst, the purchasing team sends a request for information to companies with relevant experience. They ask about production capacity, product certifications, quality control procedures, and previous customers. The team also checks each supplier's business background and financial stability.\n\nAfter collecting the information, the team shortlists three suppliers. Each supplier is asked to provide samples and a formal quotation. The purchasing manager compares their prices, minimum order quantities, lead times, and payment terms. The quality department then tests the samples to make sure they meet the required specifications.\n\nOne supplier offers a very competitive price but has a longer production lead time. Another supplier is more expensive but has better quality records and a more reliable delivery history. After discussing the company's priorities, the team selects the second supplier.\n\nBefore signing the agreement, both sides confirm the product specifications, delivery schedule, inspection standards, and responsibilities. The purchasing manager also plans to review the supplier's performance regularly.\n\nA good supplier is not simply the one with the lowest price. Reliability, product quality, and long-term cooperation are equally important.",
+    "content_cn": "一家制造企业需要寻找新的电子元件供应商。采购经理负责寻找能够满足公司质量、价格和交付要求的可靠供应商。采购经理没有直接选择报价最低的供应商，而是决定对几家潜在供应商进行比较。\n\n首先，采购团队向具有相关经验的企业发送信息征询请求，询问其生产能力、产品认证、质量控制流程以及过往客户情况。团队还会核查每家供应商的经营背景和财务稳定性。\n\n收集信息后，团队筛选出三家候选供应商，并要求每家提供样品和正式报价。采购经理比较它们的价格、最小起订量、生产周期和付款条件。随后，质量部门对样品进行测试，确保产品符合要求的规格。\n\n其中一家供应商报价非常有竞争力，但生产周期较长。另一家供应商价格更高，却拥有更好的质量记录和更可靠的交付历史。经过讨论公司的优先事项，团队最终选择了第二家供应商。\n\n在签订协议之前，双方确认产品规格、交货计划、检验标准以及各自的责任。采购经理还计划定期评估供应商的表现。\n\n优秀的供应商并不只是报价最低的供应商。可靠性、产品质量和长期合作同样重要。",
+    "sentences": [
+      {
+        "sentence_en": "A manufacturing company needs a new supplier for electronic components.",
+        "sentence_cn": "一家制造企业需要寻找新的电子元件供应商。",
+        "chunks": ["A manufacturing company", "needs", "a new supplier", "for electronic components"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing manager is responsible for finding reliable suppliers who can meet the company's quality, price, and delivery requirements.",
+        "sentence_cn": "采购经理负责寻找能够满足公司质量、价格和交付要求的可靠供应商。",
+        "chunks": ["The purchasing manager", "is responsible for finding", "reliable suppliers", "meet the company's requirements"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of choosing the cheapest option, the manager decides to compare several potential suppliers.",
+        "sentence_cn": "采购经理没有直接选择报价最低的供应商，而是决定对几家潜在供应商进行比较。",
+        "chunks": ["Instead of choosing", "the cheapest option", "the manager decides to", "compare several potential suppliers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "They ask about production capacity, product certifications, quality control procedures, and previous customers.",
+        "sentence_cn": "他们询问生产能力、产品认证、质量控制流程以及过往客户情况。",
+        "chunks": ["They ask about", "production capacity", "product certifications", "quality control procedures"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing manager compares their prices, minimum order quantities, lead times, and payment terms.",
+        "sentence_cn": "采购经理比较它们的价格、最小起订量、生产周期和付款条件。",
+        "chunks": ["The purchasing manager compares", "their prices", "minimum order quantities", "lead times and payment terms"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The quality department then tests the samples to make sure they meet the required specifications.",
+        "sentence_cn": "随后，质量部门对样品进行测试，确保产品符合要求的规格。",
+        "chunks": ["The quality department", "tests the samples", "to make sure", "they meet the required specifications"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before signing the agreement, both sides confirm the product specifications, delivery schedule, inspection standards, and responsibilities.",
+        "sentence_cn": "在签订协议之前，双方确认产品规格、交货计划、检验标准以及各自的责任。",
+        "chunks": ["Before signing the agreement", "both sides confirm", "the product specifications", "delivery schedule and responsibilities"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A good supplier is not simply the one with the lowest price.",
+        "sentence_cn": "优秀的供应商并不只是报价最低的供应商。",
+        "chunks": ["A good supplier", "is not simply", "the one", "with the lowest price"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "potential supplier",
+        "meaning": "潜在供应商",
+        "example": "We are currently evaluating several potential suppliers."
+      },
+      {
+        "expression": "production capacity",
+        "meaning": "生产能力",
+        "example": "Can you confirm your monthly production capacity?"
+      },
+      {
+        "expression": "quality control procedures",
+        "meaning": "质量控制流程",
+        "example": "Please explain your quality control procedures."
+      },
+      {
+        "expression": "minimum order quantity (MOQ)",
+        "meaning": "最小起订量",
+        "example": "What is your minimum order quantity?"
+      },
+      {
+        "expression": "lead time",
+        "meaning": "交货周期、生产周期",
+        "example": "The lead time is approximately four weeks."
+      },
+      {
+        "expression": "supplier performance",
+        "meaning": "供应商表现",
+        "example": "We review supplier performance every quarter."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  },
+  {
+    "article_id": 10044,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Requesting and comparing quotations",
+    "title_en": "Requesting and Comparing Quotations",
+    "title_cn": "询价与供应商报价比较",
+    "difficulty": "B1-B2",
+    "word_count": 222,
+    "estimated_reading_time_seconds": 97,
+    "content_en": "A purchasing officer needs to buy 5,000 units of packaging materials for an upcoming production order. The company has worked with several suppliers before, but the purchasing team wants to check current market prices before making a decision.\n\nThe officer prepares a request for quotation and sends it to four suppliers. The document includes product specifications, required quantities, delivery location, expected delivery date, and payment requirements. Suppliers are asked to submit their quotations by Friday.\n\nBy the deadline, three suppliers have responded. The purchasing officer creates a comparison sheet to review the offers. Supplier A provides the lowest unit price, but its quotation does not include transportation costs. Supplier B offers free delivery but requires a larger minimum order. Supplier C has a slightly higher price but can deliver the materials earlier.\n\nThe officer contacts each supplier to clarify the missing information and confirm whether the prices are valid for the next 30 days. After calculating the total landed cost, the team realizes that Supplier B offers the best overall value.\n\nThe purchasing manager reviews the comparison and approves further negotiations with Supplier B. The team then discusses whether a volume discount is available for future orders.\n\nA quotation should not be evaluated by unit price alone. Comparing the full cost, delivery conditions, and service terms helps companies make better purchasing decisions.",
+    "content_cn": "一名采购专员需要为即将开始的生产订单采购5000件包装材料。公司此前与几家供应商合作过，但采购团队希望在作出决定之前了解当前市场价格。\n\n采购专员准备了一份询价单，并发送给四家供应商。文件包括产品规格、所需数量、交货地点、预计交货日期以及付款要求。供应商需要在周五之前提交报价。\n\n截止日期前，有三家供应商作出了回复。采购专员制作了一份报价对比表。A供应商提供的单价最低，但报价不包含运输费用。B供应商提供免费配送，但要求更大的最小起订量。C供应商的价格略高，却能够更早交货。\n\n采购专员联系每家供应商，确认缺失的信息，并核实报价在未来30天内是否有效。在计算包含运输等费用的总到岸成本后，团队发现B供应商的整体报价最有优势。\n\n采购经理审核对比结果，并批准与B供应商进一步谈判。随后，团队还讨论了未来订单是否可以获得批量折扣。\n\n评估报价不能只看单价。比较完整成本、交付条件和服务条款，才能帮助企业作出更好的采购决策。",
+    "sentences": [
+      {
+        "sentence_en": "A purchasing officer needs to buy 5,000 units of packaging materials for an upcoming production order.",
+        "sentence_cn": "一名采购专员需要为即将开始的生产订单采购5000件包装材料。",
+        "chunks": ["A purchasing officer", "needs to buy", "5,000 units of packaging materials", "for an upcoming production order"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The officer prepares a request for quotation and sends it to four suppliers.",
+        "sentence_cn": "采购专员准备了一份询价单，并发送给四家供应商。",
+        "chunks": ["The officer prepares", "a request for quotation", "and sends it", "to four suppliers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The document includes product specifications, required quantities, delivery location, expected delivery date, and payment requirements.",
+        "sentence_cn": "文件包括产品规格、所需数量、交货地点、预计交货日期以及付款要求。",
+        "chunks": ["The document includes", "product specifications", "required quantities", "delivery location and payment requirements"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer creates a comparison sheet to review the offers.",
+        "sentence_cn": "采购专员制作了一份报价对比表。",
+        "chunks": ["The purchasing officer", "creates", "a comparison sheet", "to review the offers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Supplier A provides the lowest unit price, but its quotation does not include transportation costs.",
+        "sentence_cn": "A供应商提供的单价最低，但报价不包含运输费用。",
+        "chunks": ["Supplier A provides", "the lowest unit price", "but its quotation", "does not include transportation costs"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After calculating the total landed cost, the team realizes that Supplier B offers the best overall value.",
+        "sentence_cn": "在计算包含运输等费用的总到岸成本后，团队发现B供应商的整体报价最有优势。",
+        "chunks": ["After calculating", "the total landed cost", "the team realizes", "Supplier B offers the best overall value"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing manager reviews the comparison and approves further negotiations with Supplier B.",
+        "sentence_cn": "采购经理审核对比结果，并批准与B供应商进一步谈判。",
+        "chunks": ["The purchasing manager reviews", "the comparison", "and approves", "further negotiations with Supplier B"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Comparing the full cost, delivery conditions, and service terms helps companies make better purchasing decisions.",
+        "sentence_cn": "比较完整成本、交付条件和服务条款，才能帮助企业作出更好的采购决策。",
+        "chunks": ["Comparing the full cost", "delivery conditions", "and service terms", "helps companies make better purchasing decisions"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "request for quotation (RFQ)",
+        "meaning": "询价单、报价请求",
+        "example": "We sent a request for quotation to three suppliers."
+      },
+      {
+        "expression": "submit a quotation",
+        "meaning": "提交报价",
+        "example": "Please submit your quotation by Friday."
+      },
+      {
+        "expression": "unit price",
+        "meaning": "单位价格、单价",
+        "example": "Could you offer a lower unit price?"
+      },
+      {
+        "expression": "price validity",
+        "meaning": "报价有效期",
+        "example": "Please confirm the price validity of this offer."
+      },
+      {
+        "expression": "total landed cost",
+        "meaning": "总到岸成本",
+        "example": "We need to calculate the total landed cost before choosing a supplier."
+      },
+      {
+        "expression": "volume discount",
+        "meaning": "批量折扣",
+        "example": "Can you offer a volume discount for larger orders?"
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  },
+  {
+    "article_id": 10045,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Creating and managing purchase orders",
+    "title_en": "Creating and Managing Purchase Orders",
+    "title_cn": "创建与管理采购订单",
+    "difficulty": "B1-B2",
+    "word_count": 221,
+    "estimated_reading_time_seconds": 96,
+    "content_en": "After selecting a supplier, a purchasing officer needs to create a purchase order for the agreed materials. The purchase order is an important business document because it records what the company intends to buy and under which conditions.\n\nBefore creating the order, the officer checks the approved quotation and the internal purchase request. The product description, item numbers, quantities, unit prices, and delivery requirements must match the agreed terms. Any difference should be clarified before the order is submitted.\n\nThe officer enters the information into the company's purchasing system. The system generates a purchase order number, which is used to track the transaction. The order is then sent to the supplier for confirmation. The supplier reviews the details and confirms that the requested quantity can be delivered on time.\n\nOnce the purchase order is approved, the supplier starts preparing the materials. The purchasing officer records the expected delivery date and shares the information with the warehouse and production teams. This allows other departments to plan their work more effectively.\n\nIf the supplier cannot meet the original delivery date, the purchasing officer asks for an updated schedule and informs the relevant departments. Changes to quantity, price, or delivery terms should be documented and approved before they take effect.\n\nAccurate purchase order management reduces mistakes, improves communication, and creates a clear record of purchasing activities.",
+    "content_cn": "选定供应商后，采购专员需要为约定的材料创建采购订单。采购订单是一份重要的商务文件，因为它记录了公司准备购买什么，以及购买所依据的条件。\n\n创建订单之前，采购专员会核对已批准的报价和内部采购申请。产品描述、物料编号、数量、单价和交付要求必须与双方约定的条款一致。任何差异都应该在提交订单之前得到确认。\n\n采购专员将相关信息录入公司的采购系统。系统会生成一个采购订单编号，用于跟踪这笔交易。随后，订单会发送给供应商确认。供应商审核详细信息，并确认能否按时交付所需数量。\n\n采购订单获批后，供应商开始准备材料。采购专员记录预计交货日期，并将信息分享给仓库和生产团队。这有助于其他部门更有效地安排工作。\n\n如果供应商无法满足原定交货日期，采购专员需要索取更新后的计划，并通知相关部门。数量、价格或交付条款发生变化时，应当在正式生效之前形成书面记录并获得批准。\n\n准确管理采购订单能够减少错误、改善沟通，并为采购活动建立清晰的记录。",
+    "sentences": [
+      {
+        "sentence_en": "After selecting a supplier, a purchasing officer needs to create a purchase order for the agreed materials.",
+        "sentence_cn": "选定供应商后，采购专员需要为约定的材料创建采购订单。",
+        "chunks": ["After selecting a supplier", "a purchasing officer", "needs to create", "a purchase order"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchase order is an important business document because it records what the company intends to buy and under which conditions.",
+        "sentence_cn": "采购订单是一份重要的商务文件，因为它记录了公司准备购买什么，以及购买所依据的条件。",
+        "chunks": ["The purchase order", "is an important business document", "records what the company intends to buy", "and under which conditions"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The product description, item numbers, quantities, unit prices, and delivery requirements must match the agreed terms.",
+        "sentence_cn": "产品描述、物料编号、数量、单价和交付要求必须与双方约定的条款一致。",
+        "chunks": ["The product description", "item numbers and quantities", "unit prices", "must match the agreed terms"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The system generates a purchase order number, which is used to track the transaction.",
+        "sentence_cn": "系统会生成一个采购订单编号，用于跟踪这笔交易。",
+        "chunks": ["The system generates", "a purchase order number", "which is used", "to track the transaction"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The supplier reviews the details and confirms that the requested quantity can be delivered on time.",
+        "sentence_cn": "供应商审核详细信息，并确认能否按时交付所需数量。",
+        "chunks": ["The supplier reviews the details", "and confirms", "the requested quantity", "can be delivered on time"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer records the expected delivery date and shares the information with the warehouse and production teams.",
+        "sentence_cn": "采购专员记录预计交货日期，并将信息分享给仓库和生产团队。",
+        "chunks": ["The purchasing officer records", "the expected delivery date", "and shares the information", "with the warehouse and production teams"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Changes to quantity, price, or delivery terms should be documented and approved before they take effect.",
+        "sentence_cn": "数量、价格或交付条款发生变化时，应当在正式生效之前形成书面记录并获得批准。",
+        "chunks": ["Changes to quantity", "price or delivery terms", "should be documented and approved", "before they take effect"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Accurate purchase order management reduces mistakes, improves communication, and creates a clear record of purchasing activities.",
+        "sentence_cn": "准确管理采购订单能够减少错误、改善沟通，并为采购活动建立清晰的记录。",
+        "chunks": ["Accurate purchase order management", "reduces mistakes", "improves communication", "and creates a clear record"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "purchase order (PO)",
+        "meaning": "采购订单",
+        "example": "We will issue the purchase order after approval."
+      },
+      {
+        "expression": "purchase request",
+        "meaning": "采购申请",
+        "example": "Please submit a purchase request before placing the order."
+      },
+      {
+        "expression": "agreed terms",
+        "meaning": "双方约定的条款",
+        "example": "All details must match the agreed terms."
+      },
+      {
+        "expression": "place an order",
+        "meaning": "下订单",
+        "example": "We plan to place an order with this supplier today."
+      },
+      {
+        "expression": "confirm the delivery date",
+        "meaning": "确认交货日期",
+        "example": "Could you confirm the delivery date in writing?"
+      },
+      {
+        "expression": "document a change",
+        "meaning": "记录变更事项",
+        "example": "Please document any changes to the order."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  },
+  {
+    "article_id": 10046,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Following up on supplier deliveries",
+    "title_en": "Following Up on Supplier Deliveries",
+    "title_cn": "跟进供应商交货进度",
+    "difficulty": "B1-B2",
+    "word_count": 222,
+    "estimated_reading_time_seconds": 97,
+    "content_en": "A production team is waiting for an important shipment of machine parts. According to the purchase order, the supplier should deliver the parts by the end of the week. However, the purchasing officer has not received a dispatch notice or tracking number.\n\nTo avoid a possible production delay, the officer contacts the supplier and asks for an update. The supplier explains that the parts have passed the final inspection but are still waiting for collection by the logistics company. The expected dispatch date is now Monday instead of Friday.\n\nThe purchasing officer asks whether the supplier can arrange an earlier pickup or use a faster transportation service. The supplier checks with its logistics team and confirms that an express service is available at an additional cost.\n\nThe officer discusses the extra cost with the production manager. Since the parts are urgently needed, the company agrees to pay for the faster service. The supplier then sends a revised delivery plan and promises to share the tracking information once the goods have been collected.\n\nThe purchasing officer updates the internal system and informs the warehouse team about the new arrival date. The production schedule is adjusted to reduce the impact of the delay.\n\nRegular follow-up helps companies identify delivery risks early. It also encourages suppliers to communicate problems before they become serious.",
+    "content_cn": "生产团队正在等待一批重要的机器零件。根据采购订单，供应商应该在本周末之前交货。然而，采购专员还没有收到发货通知或物流追踪号码。\n\n为了避免可能出现的生产延误，采购专员联系供应商并询问最新进度。供应商解释说，零件已经通过最终检验，但仍在等待物流公司取货。预计发货日期现在从周五推迟到了周一。\n\n采购专员询问供应商能否安排提前取货，或者使用更快的运输服务。供应商与物流团队确认后，表示可以提供快递服务，但需要支付额外费用。\n\n采购专员与生产经理讨论这笔额外费用。由于零件急需使用，公司同意支付更快运输服务的费用。随后，供应商发送更新后的交付计划，并承诺货物被取走后提供追踪信息。\n\n采购专员更新内部系统，并将新的预计到货日期通知仓库团队。生产计划也作出调整，以降低延误带来的影响。\n\n定期跟进能够帮助企业尽早发现交货风险，也能促使供应商在问题变得严重之前主动沟通。",
+    "sentences": [
+      {
+        "sentence_en": "A production team is waiting for an important shipment of machine parts.",
+        "sentence_cn": "生产团队正在等待一批重要的机器零件。",
+        "chunks": ["A production team", "is waiting for", "an important shipment", "of machine parts"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "According to the purchase order, the supplier should deliver the parts by the end of the week.",
+        "sentence_cn": "根据采购订单，供应商应该在本周末之前交货。",
+        "chunks": ["According to the purchase order", "the supplier should deliver", "the parts", "by the end of the week"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer contacts the supplier and asks for an update.",
+        "sentence_cn": "采购专员联系供应商并询问最新进度。",
+        "chunks": ["The purchasing officer", "contacts the supplier", "and asks for", "an update"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The supplier explains that the parts have passed the final inspection but are still waiting for collection by the logistics company.",
+        "sentence_cn": "供应商解释说，零件已经通过最终检验，但仍在等待物流公司取货。",
+        "chunks": ["have passed the final inspection", "but are still waiting", "for collection", "by the logistics company"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer asks whether the supplier can arrange an earlier pickup or use a faster transportation service.",
+        "sentence_cn": "采购专员询问供应商能否安排提前取货，或者使用更快的运输服务。",
+        "chunks": ["The purchasing officer asks", "whether the supplier can arrange", "an earlier pickup", "or a faster transportation service"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The supplier then sends a revised delivery plan and promises to share the tracking information once the goods have been collected.",
+        "sentence_cn": "随后，供应商发送更新后的交付计划，并承诺货物被取走后提供追踪信息。",
+        "chunks": ["sends a revised delivery plan", "and promises to share", "the tracking information", "once the goods have been collected"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer updates the internal system and informs the warehouse team about the new arrival date.",
+        "sentence_cn": "采购专员更新内部系统，并将新的预计到货日期通知仓库团队。",
+        "chunks": ["The purchasing officer updates", "the internal system", "and informs the warehouse team", "about the new arrival date"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Regular follow-up helps companies identify delivery risks early.",
+        "sentence_cn": "定期跟进能够帮助企业尽早发现交货风险。",
+        "chunks": ["Regular follow-up", "helps companies identify", "delivery risks", "early"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "ask for an update",
+        "meaning": "询问最新进度",
+        "example": "I am calling to ask for an update on our order."
+      },
+      {
+        "expression": "dispatch notice",
+        "meaning": "发货通知",
+        "example": "Please send us a dispatch notice once the goods leave your warehouse."
+      },
+      {
+        "expression": "pass the final inspection",
+        "meaning": "通过最终检验",
+        "example": "All products must pass the final inspection before shipment."
+      },
+      {
+        "expression": "arrange an earlier pickup",
+        "meaning": "安排提前取货",
+        "example": "Could you arrange an earlier pickup if possible?"
+      },
+      {
+        "expression": "revised delivery plan",
+        "meaning": "更新后的交付计划",
+        "example": "Please share the revised delivery plan with our team."
+      },
+      {
+        "expression": "identify risks early",
+        "meaning": "尽早识别风险",
+        "example": "Regular communication helps us identify risks early."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  },
+  {
+    "article_id": 10047,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Handling product quality issues",
+    "title_en": "Handling Product Quality Issues",
+    "title_cn": "处理采购产品质量异常",
+    "difficulty": "B1-B2",
+    "word_count": 224,
+    "estimated_reading_time_seconds": 98,
+    "content_en": "A warehouse team discovers that several cartons of newly delivered components have damaged packaging. During a closer inspection, employees find scratches on some metal parts and notice that a few items do not match the approved specifications.\n\nThe warehouse supervisor immediately informs the purchasing department and separates the affected goods from the acceptable stock. This prevents the damaged items from being used in production by mistake. The team also takes photographs and records the item numbers, quantities, and inspection results.\n\nThe purchasing officer contacts the supplier and explains the quality problem. The officer attaches the inspection report and asks the supplier to investigate the cause. The company also requests a corrective action plan, including how the supplier will prevent the same problem from happening again.\n\nThe supplier reviews its production and packaging records. It discovers that a handling problem occurred during the packing process. The supplier agrees to replace the defective components and arrange transportation at its own expense.\n\nBefore accepting future deliveries, the purchasing team decides to strengthen the incoming inspection process. The supplier is also asked to provide additional quality checks before shipment.\n\nQuality problems should be handled with clear evidence and professional communication. Recording the issue, agreeing on corrective actions, and checking the results can help prevent repeated problems.",
+    "content_cn": "仓库团队发现，新到货的几箱零部件包装已经损坏。经过进一步检查，员工发现一些金属零件表面有划痕，还有少数产品与已批准的规格不一致。\n\n仓库主管立即通知采购部门，并将受影响的货物与合格库存分开存放。这样可以防止损坏的产品被误用于生产。团队还拍摄了照片，并记录物料编号、数量和检验结果。\n\n采购专员联系供应商，说明质量问题，并附上检验报告，要求供应商调查原因。公司还要求供应商提供纠正措施计划，说明将如何防止同样的问题再次发生。\n\n供应商检查了生产和包装记录，发现问题发生在包装过程中的搬运环节。供应商同意更换有缺陷的零部件，并自行承担运输费用。\n\n在接收未来的货物之前，采购团队决定加强来料检验流程。同时，也要求供应商在发货前增加质量检查。\n\n处理质量问题需要明确的证据和专业的沟通。记录问题、商定纠正措施并检查结果，有助于防止类似问题反复发生。",
+    "sentences": [
+      {
+        "sentence_en": "A warehouse team discovers that several cartons of newly delivered components have damaged packaging.",
+        "sentence_cn": "仓库团队发现，新到货的几箱零部件包装已经损坏。",
+        "chunks": ["A warehouse team discovers", "that several cartons", "of newly delivered components", "have damaged packaging"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Employees find scratches on some metal parts and notice that a few items do not match the approved specifications.",
+        "sentence_cn": "员工发现一些金属零件表面有划痕，还有少数产品与已批准的规格不一致。",
+        "chunks": ["find scratches", "on some metal parts", "notice that a few items", "do not match the approved specifications"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The warehouse supervisor immediately informs the purchasing department and separates the affected goods from the acceptable stock.",
+        "sentence_cn": "仓库主管立即通知采购部门，并将受影响的货物与合格库存分开存放。",
+        "chunks": ["The warehouse supervisor", "immediately informs", "the purchasing department", "separates the affected goods"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team also takes photographs and records the item numbers, quantities, and inspection results.",
+        "sentence_cn": "团队还拍摄了照片，并记录物料编号、数量和检验结果。",
+        "chunks": ["The team also takes photographs", "and records", "the item numbers", "quantities and inspection results"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The purchasing officer contacts the supplier and explains the quality problem.",
+        "sentence_cn": "采购专员联系供应商，说明质量问题。",
+        "chunks": ["The purchasing officer", "contacts the supplier", "and explains", "the quality problem"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The company also requests a corrective action plan, including how the supplier will prevent the same problem from happening again.",
+        "sentence_cn": "公司还要求供应商提供纠正措施计划，说明将如何防止同样的问题再次发生。",
+        "chunks": ["requests a corrective action plan", "including how", "the supplier will prevent", "the same problem from happening again"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The supplier agrees to replace the defective components and arrange transportation at its own expense.",
+        "sentence_cn": "供应商同意更换有缺陷的零部件，并自行承担运输费用。",
+        "chunks": ["The supplier agrees to", "replace the defective components", "and arrange transportation", "at its own expense"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Recording the issue, agreeing on corrective actions, and checking the results can help prevent repeated problems.",
+        "sentence_cn": "记录问题、商定纠正措施并检查结果，有助于防止类似问题反复发生。",
+        "chunks": ["Recording the issue", "agreeing on corrective actions", "and checking the results", "can help prevent repeated problems"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "damaged packaging",
+        "meaning": "包装损坏",
+        "example": "We found damaged packaging during the incoming inspection."
+      },
+      {
+        "expression": "approved specifications",
+        "meaning": "已批准的产品规格",
+        "example": "The delivered items do not match the approved specifications."
+      },
+      {
+        "expression": "inspection report",
+        "meaning": "检验报告",
+        "example": "Please review the inspection report attached to this email."
+      },
+      {
+        "expression": "investigate the cause",
+        "meaning": "调查原因",
+        "example": "We need to investigate the cause of the quality issue."
+      },
+      {
+        "expression": "corrective action plan",
+        "meaning": "纠正措施计划",
+        "example": "Please provide a corrective action plan within three working days."
+      },
+      {
+        "expression": "at its own expense",
+        "meaning": "由其自行承担费用",
+        "example": "The supplier agreed to replace the goods at its own expense."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  },
+  {
+    "article_id": 10048,
+    "day": null,
+    "stage": 4,
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Managing supply chain risks",
+    "title_en": "Managing Supply Chain Risks",
+    "title_cn": "识别与管理供应链风险",
+    "difficulty": "B1-B2",
+    "word_count": 223,
+    "estimated_reading_time_seconds": 97,
+    "content_en": "A company depends on several overseas suppliers for important raw materials. Recently, one supplier has reported production problems, while another has warned that transportation costs may increase. These changes could affect the company's production schedule and operating costs.\n\nThe supply chain manager organizes a meeting with purchasing, production, and logistics teams to review the risks. They identify several possible problems, including supplier delays, limited inventory, rising freight costs, and dependence on a single source for certain materials.\n\nThe team evaluates each risk according to its likelihood and potential impact. The most serious issue is the company's dependence on one supplier for a key component. If that supplier cannot deliver, production may have to stop.\n\nTo reduce this risk, the purchasing team starts looking for alternative suppliers and asks the engineering department whether other approved components can be used. The company also considers keeping a small safety stock of critical materials.\n\nThe logistics team reviews different transportation options and identifies alternative routes in case the usual route becomes unavailable. Meanwhile, the supply chain manager creates a risk monitoring list and assigns a responsible person to each action.\n\nSupply chain management is not only about moving products from one place to another. It also requires anticipating problems, preparing backup plans, and responding quickly when conditions change.",
+    "content_cn": "一家企业依赖几家海外供应商提供重要原材料。最近，一家供应商报告生产出现问题，另一家则提醒运输成本可能上涨。这些变化可能影响公司的生产计划和运营成本。\n\n供应链经理组织采购、生产和物流团队召开会议，评估相关风险。他们识别出多个潜在问题，包括供应商延误、库存不足、运费上涨，以及某些材料过度依赖单一供应来源。\n\n团队根据风险发生的可能性和潜在影响，对每项风险进行评估。最严重的问题是，公司某个关键零部件只有一家供应商。如果这家供应商无法交货，生产可能不得不停下来。\n\n为了降低这一风险，采购团队开始寻找备选供应商，并询问工程部门是否可以使用其他已经获批的零部件。公司还考虑为关键材料保留少量安全库存。\n\n物流团队检查不同的运输方案，并寻找替代路线，以防常用路线无法使用。与此同时，供应链经理建立风险监控清单，并为每项行动指定负责人。\n\n供应链管理不仅仅是把产品从一个地方运到另一个地方。它还需要提前预判问题、制定备用方案，并在情况变化时迅速作出响应。",
+    "sentences": [
+      {
+        "sentence_en": "A company depends on several overseas suppliers for important raw materials.",
+        "sentence_cn": "一家企业依赖几家海外供应商提供重要原材料。",
+        "chunks": ["A company depends on", "several overseas suppliers", "for", "important raw materials"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "These changes could affect the company's production schedule and operating costs.",
+        "sentence_cn": "这些变化可能影响公司的生产计划和运营成本。",
+        "chunks": ["These changes", "could affect", "the company's production schedule", "and operating costs"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The supply chain manager organizes a meeting with purchasing, production, and logistics teams to review the risks.",
+        "sentence_cn": "供应链经理组织采购、生产和物流团队召开会议，评估相关风险。",
+        "chunks": ["The supply chain manager", "organizes a meeting", "with purchasing, production, and logistics teams", "to review the risks"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "They identify several possible problems, including supplier delays, limited inventory, rising freight costs, and dependence on a single source.",
+        "sentence_cn": "他们识别出多个潜在问题，包括供应商延误、库存不足、运费上涨，以及过度依赖单一供应来源。",
+        "chunks": ["They identify", "several possible problems", "including supplier delays and limited inventory", "dependence on a single source"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The team evaluates each risk according to its likelihood and potential impact.",
+        "sentence_cn": "团队根据风险发生的可能性和潜在影响，对每项风险进行评估。",
+        "chunks": ["The team evaluates", "each risk", "according to its likelihood", "and potential impact"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "To reduce this risk, the purchasing team starts looking for alternative suppliers.",
+        "sentence_cn": "为了降低这一风险，采购团队开始寻找备选供应商。",
+        "chunks": ["To reduce this risk", "the purchasing team", "starts looking for", "alternative suppliers"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The logistics team reviews different transportation options and identifies alternative routes.",
+        "sentence_cn": "物流团队检查不同的运输方案，并寻找替代路线。",
+        "chunks": ["The logistics team reviews", "different transportation options", "and identifies", "alternative routes"],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Supply chain management also requires anticipating problems, preparing backup plans, and responding quickly when conditions change.",
+        "sentence_cn": "供应链管理还需要提前预判问题、制定备用方案，并在情况变化时迅速作出响应。",
+        "chunks": ["Supply chain management", "also requires", "anticipating problems and preparing backup plans", "responding quickly when conditions change"],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "raw materials",
+        "meaning": "原材料",
+        "example": "We need to secure enough raw materials for next month's production."
+      },
+      {
+        "expression": "supply chain risk",
+        "meaning": "供应链风险",
+        "example": "The team is reviewing several supply chain risks."
+      },
+      {
+        "expression": "single source",
+        "meaning": "单一供应来源",
+        "example": "Depending on a single source can create serious risks."
+      },
+      {
+        "expression": "alternative supplier",
+        "meaning": "备选供应商",
+        "example": "We are looking for an alternative supplier for this component."
+      },
+      {
+        "expression": "safety stock",
+        "meaning": "安全库存",
+        "example": "We keep safety stock to deal with unexpected demand."
+      },
+      {
+        "expression": "backup plan",
+        "meaning": "备用方案",
+        "example": "We should prepare a backup plan in case delivery is delayed."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "word_count_200_260": true,
+      "has_chinese_translation": true,
+      "core_expressions_count": 6
+    },
+    "profession_id": "procurement_supply_chain",
+    "profession_name": "Procurement & Supply Chain Management / 采购与供应链管理"
+  }
+]

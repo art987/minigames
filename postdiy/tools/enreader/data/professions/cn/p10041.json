@@ -1,0 +1,62 @@
+{
+  "id": "p10041",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A company is expecting", "m": "公司将迎来" },
+        { "t": "two business visitors", "m": "两位商务访客" },
+        { "t": "from Singapore next Monday.", "m": "下周一从新加坡来" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The visitors will spend one day", "m": "访客将停留一天" },
+        { "t": "at the company's office", "m": "在公司办公室" },
+        { "t": "to learn about its products", "m": "了解公司产品" },
+        { "t": "and discuss a possible partnership.", "m": "并探讨合作可能" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before the visitors arrive,", "m": "访客到达之前" },
+        { "t": "the specialist confirms their flight details,", "m": "专员确认航班信息" },
+        { "t": "hotel information, and expected arrival time.", "m": "酒店与预计抵达时间" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The specialist also prepares", "m": "专员还准备了" },
+        { "t": "a short company introduction", "m": "简短的公司简介" },
+        { "t": "and product presentation in English.", "m": "和英文产品介绍" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "After introducing the team members,", "m": "介绍团队之后" },
+        { "t": "the specialist gives a brief overview", "m": "专员简要介绍" },
+        { "t": "of the company.", "m": "公司整体情况" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The specialist answers the questions clearly", "m": "专员清楚作答" },
+        { "t": "and invites colleagues from the production department", "m": "并请生产部同事" },
+        { "t": "to explain technical details when necessary.", "m": "必要时解释技术细节" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before the guests leave,", "m": "客人离开之前" },
+        { "t": "the specialist summarizes the main discussion points", "m": "专员总结讨论要点" },
+        { "t": "and confirms the follow-up actions.", "m": "并确认后续行动" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Careful preparation and thoughtful communication", "m": "周到的准备与沟通" },
+        { "t": "help create a positive first impression", "m": "带来好的第一印象" },
+        { "t": "and support future cooperation.", "m": "并助力未来合作" }
+      ]
+    }
+  ]
+}

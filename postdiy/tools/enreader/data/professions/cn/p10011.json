@@ -1,0 +1,221 @@
+{
+ "id": "p10011",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Inventory management",
+     "m": "库存管理"
+    },
+    {
+     "t": "is one of the most important parts",
+     "m": "是最重要的工作之一"
+    },
+    {
+     "t": "of running an online store.",
+     "m": "在网店经营中"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If we order too much,",
+     "m": "如果订货太多"
+    },
+    {
+     "t": "money is tied up in products",
+     "m": "资金就压在货上"
+    },
+    {
+     "t": "that may take months to sell.",
+     "m": "可能几个月才卖掉"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If we order too little,",
+     "m": "如果订货太少"
+    },
+    {
+     "t": "popular products may run out of stock",
+     "m": "热销品可能缺货"
+    },
+    {
+     "t": "and we may lose sales.",
+     "m": "我们也会丢掉销量"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Every week,",
+     "m": "每周"
+    },
+    {
+     "t": "I review inventory reports",
+     "m": "我都查看库存报告"
+    },
+    {
+     "t": "and check the sales speed",
+     "m": "并检查销售速度"
+    },
+    {
+     "t": "of our main products.",
+     "m": "看主打产品卖多快"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I pay special attention to",
+     "m": "我特别关注"
+    },
+    {
+     "t": "products with low stock",
+     "m": "库存偏低的产品"
+    },
+    {
+     "t": "and products that are selling faster than usual.",
+     "m": "以及卖得比平常快的商品"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "To estimate future demand,",
+     "m": "为预估未来需求"
+    },
+    {
+     "t": "I consider recent sales, seasonal trends,",
+     "m": "我会看近期销量和季节趋势"
+    },
+    {
+     "t": "planned promotions, and supplier lead times.",
+     "m": "以及促销计划和交货周期"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I share the replenishment forecast",
+     "m": "我把补货预测"
+    },
+    {
+     "t": "with the purchasing team",
+     "m": "分享给采购团队"
+    },
+    {
+     "t": "and confirm the expected delivery date.",
+     "m": "并确认预计到货日期"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If a supplier cannot deliver on time,",
+     "m": "如果供应商无法按时交货"
+    },
+    {
+     "t": "I discuss alternative options",
+     "m": "我会商量替代方案"
+    },
+    {
+     "t": "before the inventory becomes critical.",
+     "m": "趁库存还没告急"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also check whether slow-moving products",
+     "m": "我还会看滞销商品"
+    },
+    {
+     "t": "need a price adjustment",
+     "m": "要不要调价"
+    },
+    {
+     "t": "or a special promotion.",
+     "m": "或做特别促销"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Accurate inventory data is essential,",
+     "m": "库存数据必须准确"
+    },
+    {
+     "t": "so I compare the system records",
+     "m": "所以我会拿系统记录"
+    },
+    {
+     "t": "with warehouse information regularly.",
+     "m": "定期和仓库信息核对"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "By planning ahead",
+     "m": "通过提前规划"
+    },
+    {
+     "t": "and communicating with other teams,",
+     "m": "并和其他团队沟通"
+    },
+    {
+     "t": "we can reduce stockouts",
+     "m": "我们能减少缺货"
+    },
+    {
+     "t": "and avoid unnecessary storage costs.",
+     "m": "并省下不必要的仓储费"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For products with long shipping times,",
+     "m": "运输周期长的商品"
+    },
+    {
+     "t": "I place replenishment orders earlier",
+     "m": "我要更早下补货单"
+    },
+    {
+     "t": "and keep a closer eye on demand.",
+     "m": "并更紧地盯着需求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This process also helps the team",
+     "m": "这套流程也帮团队"
+    },
+    {
+     "t": "make better decisions",
+     "m": "做出更好的决策"
+    },
+    {
+     "t": "about purchasing and storage.",
+     "m": "在采购和仓储上"
+    }
+   ]
+  }
+ ]
+}

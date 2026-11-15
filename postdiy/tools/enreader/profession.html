@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>职业英语 · EN Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="stylesheet" href="assets/style.css?v=31">
+</head>
+<body>
+
+<button class="backfab" id="backBtn" title="返回课程首页">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+</button>
+
+<div class="wrap">
+  <header class="hero stage-hero">
+    <div class="stg-top" id="stgTop"></div>
+    <h1 id="stgName"></h1>
+    <p id="stgDesc"></p>
+  </header>
+  <main id="days"></main>
+  <footer class="foot"></footer>
+</div>
+
+<script src="data/professions/prof-manifest.js?v=19"></script>
+<script>
+(function () {
+  const profId = new URLSearchParams(location.search).get("prof");
+  const P = window.ENR_PROFS;
+  const prof = (P.professions || []).find(p => p.id === profId) || P.professions[0];
+  const arts = prof.articles || [];
+
+  document.title = prof.nameCn + " · EN Reader";
+  function $(id) { return document.getElementById(id); }
+  $("stgTop").innerHTML = `<span class="no">职业英语</span>`;
+  $("stgName").textContent = `${prof.nameCn} ${prof.nameEn}`;
+  $("stgDesc").innerHTML = `<span class="tag">${prof.cefr || "B1-B2"}</span> 真实工作场景英语 · 共 ${arts.length} 篇课程 · 每篇约 200–260 词`;
+
+  const countOf = id => parseInt(localStorage.getItem("enr:done:" + id), 10) || 0;
+  const posOf = id => parseInt(localStorage.getItem("enr:pos:" + id) || "0", 10) || 0;
+  const root = $("days");
+
+  arts.forEach((a, i) => {
+    const cnt = countOf(a.id);
+    const done = cnt > 0;
+    const pos = Math.min(posOf(a.id), a.sentCount - 1);
+    const pct = done ? 100 : (pos > 0 ? Math.round(pos / a.sentCount * 100) : 0);
+    const status = done
+      ? `<span class="dchk crown">👑 ×${cnt} 已阅读${cnt}遍</span>`
+      : `<span class="dchk flag">🚩 未开始</span>`;
+    const btn = document.createElement("button");
+    btn.className = "dcard" + (done ? " done" : "");
+    btn.innerHTML =
+      `<div class="dnum">篇 ${String(i + 1).padStart(2, "0")}${status}</div>` +
+      `<div class="dmain">` +
+        `<div class="t">${a.titleCn}<span class="ten">${a.titleEn}</span></div>` +
+        `<div class="m"><span>${a.scene}</span>` +
+        `<span class="dot"></span><span>${a.wordCount} 词 · ${a.sentCount} 句</span>` +
+        (a.seconds ? `<span class="dot"></span><span>约 ${a.seconds} 秒</span>` : "") + `</div>` +
+        (pct > 0 ? `<div class="bar"><i style="width:${pct}%"></i></div>` : "") +
+      `</div>` +
+      `<div class="go">${done ? "重读 →" : (pct > 0 ? "继续 →" : "学习 →")}</div>`;
+    btn.addEventListener("click", () => location.href = "article.html?id=" + a.id);
+    root.appendChild(btn);
+  });
+
+  $("backBtn").addEventListener("click", () => location.href = "index.html");
+
+  // 返回按钮：下滑隐藏、上滑显示（与详情页一致，纯透明度渐变）
+  const backFab = $("backBtn");
+  let lastY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    if (y > lastY + 6 && y > 140) backFab.classList.add("hide");
+    else if (y < lastY - 6 || y <= 140) backFab.classList.remove("hide");
+    lastY = y;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

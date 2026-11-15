@@ -1,0 +1,245 @@
+{
+ "id": "p10023",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "After a feature is released,",
+     "m": "功能上线后"
+    },
+    {
+     "t": "the product manager needs to check",
+     "m": "产品经理要检查"
+    },
+    {
+     "t": "whether it delivers the expected value.",
+     "m": "是否带来预期价值"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Two weeks after launching",
+     "m": "上线两周之后"
+    },
+    {
+     "t": "our new order search,",
+     "m": "我们的新订单搜索"
+    },
+    {
+     "t": "I reviewed the product metrics",
+     "m": "我查看了产品指标"
+    },
+    {
+     "t": "with the data analyst.",
+     "m": "和数据分析师一起"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before the launch,",
+     "m": "上线之前"
+    },
+    {
+     "t": "we had agreed on three key indicators:",
+     "m": "约好三个关键指标"
+    },
+    {
+     "t": "search success rate,",
+     "m": "搜索成功率"
+    },
+    {
+     "t": "time needed to find an order,",
+     "m": "找到订单所需时间"
+    },
+    {
+     "t": "and the number of support requests",
+     "m": "以及客服咨询量"
+    },
+    {
+     "t": "about missing orders.",
+     "m": "关于找不到订单"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purpose was not to",
+     "m": "目的不是为了"
+    },
+    {
+     "t": "collect as many numbers as possible,",
+     "m": "尽可能多地收集数字"
+    },
+    {
+     "t": "but to understand",
+     "m": "而是要弄清"
+    },
+    {
+     "t": "whether the feature solved the original problem.",
+     "m": "是否解决了最初问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The results were encouraging.",
+     "m": "结果令人鼓舞"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The search success rate increased,",
+     "m": "搜索成功率提高了"
+    },
+    {
+     "t": "and users found orders more quickly.",
+     "m": "用户找订单也更快"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "However,",
+     "m": "不过"
+    },
+    {
+     "t": "support requests had not decreased",
+     "m": "客服咨询没有减少"
+    },
+    {
+     "t": "as much as we expected.",
+     "m": "像预期那样多"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "When we looked deeper,",
+     "m": "深入分析后"
+    },
+    {
+     "t": "we found that",
+     "m": "我们发现"
+    },
+    {
+     "t": "some users searched with product names",
+     "m": "一些用户搜索用的名称"
+    },
+    {
+     "t": "that were different from",
+     "m": "不同于"
+    },
+    {
+     "t": "the names shown in the system.",
+     "m": "系统显示的名称"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I shared the findings",
+     "m": "我分享这些发现"
+    },
+    {
+     "t": "with the team",
+     "m": "给团队"
+    },
+    {
+     "t": "and suggested improving",
+     "m": "并建议改进"
+    },
+    {
+     "t": "the search matching rules.",
+     "m": "搜索匹配规则"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also decided to monitor the results",
+     "m": "我们决定继续观察"
+    },
+    {
+     "t": "for another two weeks",
+     "m": "再观察两周"
+    },
+    {
+     "t": "before making a larger change.",
+     "m": "再做较大调整"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Metrics need context.",
+     "m": "指标需要背景"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A number may look positive",
+     "m": "数字看着不错"
+    },
+    {
+     "t": "while an important user problem remains.",
+     "m": "但重要问题仍在"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I therefore combine",
+     "m": "因此我会结合"
+    },
+    {
+     "t": "quantitative data",
+     "m": "定量数据"
+    },
+    {
+     "t": "with customer feedback",
+     "m": "与客户反馈"
+    },
+    {
+     "t": "and user behavior.",
+     "m": "和用户行为"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This helps the team understand",
+     "m": "这帮团队弄清"
+    },
+    {
+     "t": "not only what happened,",
+     "m": "不仅知道发生了什么"
+    },
+    {
+     "t": "but also why it happened",
+     "m": "还明白为什么发生"
+    },
+    {
+     "t": "and what we should do next.",
+     "m": "以及下一步怎么做"
+    }
+   ]
+  }
+ ]
+}

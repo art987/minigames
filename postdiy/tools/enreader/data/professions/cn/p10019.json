@@ -1,0 +1,289 @@
+{
+ "id": "p10019",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A product manager",
+     "m": "产品经理"
+    },
+    {
+     "t": "should understand a problem",
+     "m": "应先理解问题"
+    },
+    {
+     "t": "before proposing a solution.",
+     "m": "在提出方案前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Last week,",
+     "m": "上周"
+    },
+    {
+     "t": "our team received several requests",
+     "m": "收到几条反馈"
+    },
+    {
+     "t": "from users",
+     "m": "来自用户"
+    },
+    {
+     "t": "who wanted a faster way to find orders",
+     "m": "想更快找到订单"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Instead of adding a new search button immediately,",
+     "m": "没有立即加搜索按钮"
+    },
+    {
+     "t": "I arranged short interviews",
+     "m": "我安排简短访谈"
+    },
+    {
+     "t": "with five customers",
+     "m": "与五位客户"
+    },
+    {
+     "t": "and reviewed their support tickets",
+     "m": "并查看客服工单"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During the interviews,",
+     "m": "访谈时"
+    },
+    {
+     "t": "I asked users to describe",
+     "m": "我请用户描述"
+    },
+    {
+     "t": "the last time",
+     "m": "最近一次"
+    },
+    {
+     "t": "they had trouble finding an order",
+     "m": "找不到订单时"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I avoided asking leading questions,",
+     "m": "我避免引导性提问"
+    },
+    {
+     "t": "because I wanted to hear",
+     "m": "因为我想听到"
+    },
+    {
+     "t": "what actually happened",
+     "m": "真实发生的事"
+    },
+    {
+     "t": "rather than",
+     "m": "而不是"
+    },
+    {
+     "t": "what users thought we wanted to hear",
+     "m": "用户以为想听的"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I learned that",
+     "m": "我了解到"
+    },
+    {
+     "t": "many customers did not remember",
+     "m": "许多客户记不得"
+    },
+    {
+     "t": "the order number",
+     "m": "订单编号"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "They usually searched",
+     "m": "他们通常查找"
+    },
+    {
+     "t": "by product name,",
+     "m": "按商品名称"
+    },
+    {
+     "t": "purchase date,",
+     "m": "购买日期"
+    },
+    {
+     "t": "or delivery status.",
+     "m": "或配送状态"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also checked usage data.",
+     "m": "我还查看了使用数据"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The data showed",
+     "m": "数据显示"
+    },
+    {
+     "t": "that users often opened the order page",
+     "m": "用户常打开订单页"
+    },
+    {
+     "t": "but left",
+     "m": "却离开了"
+    },
+    {
+     "t": "without finding the information they needed",
+     "m": "没找到所需信息"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This supported",
+     "m": "这印证了"
+    },
+    {
+     "t": "what I had heard",
+     "m": "我听到的"
+    },
+    {
+     "t": "in the interviews.",
+     "m": "在访谈里"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I summarized the findings",
+     "m": "我汇总了发现"
+    },
+    {
+     "t": "in a short document.",
+     "m": "写成简短文档"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It included",
+     "m": "其中包括"
+    },
+    {
+     "t": "the user problem,",
+     "m": "用户问题"
+    },
+    {
+     "t": "the main situations,",
+     "m": "主要使用场景"
+    },
+    {
+     "t": "and evidence",
+     "m": "以及证据"
+    },
+    {
+     "t": "from interviews and data.",
+     "m": "来自访谈和数据"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also separated",
+     "m": "我还区分了"
+    },
+    {
+     "t": "confirmed needs",
+     "m": "已确认的需求"
+    },
+    {
+     "t": "from assumptions",
+     "m": "与假设"
+    },
+    {
+     "t": "that still required testing.",
+     "m": "仍需验证的"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "At the next team meeting,",
+     "m": "下次团队会议上"
+    },
+    {
+     "t": "I shared the findings",
+     "m": "我分享发现"
+    },
+    {
+     "t": "with design and engineering.",
+     "m": "给设计和研发"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We agreed to explore",
+     "m": "我们决定探索"
+    },
+    {
+     "t": "a search experience",
+     "m": "一种搜索体验"
+    },
+    {
+     "t": "that supports several filters.",
+     "m": "支持多种筛选"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "By understanding the problem first,",
+     "m": "先理解问题"
+    },
+    {
+     "t": "we avoided building a feature",
+     "m": "我们避免了盲目开发"
+    },
+    {
+     "t": "based on our first guess.",
+     "m": "仅凭最初猜测"
+    }
+   ]
+  }
+ ]
+}

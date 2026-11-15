@@ -1,0 +1,185 @@
+{
+ "id": "p10043",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A manufacturing company",
+     "m": "一家制造企业"
+    },
+    {
+     "t": "needs a new supplier",
+     "m": "需要新供应商"
+    },
+    {
+     "t": "for electronic components.",
+     "m": "用于电子元件"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing manager",
+     "m": "采购经理"
+    },
+    {
+     "t": "is responsible for",
+     "m": "负责"
+    },
+    {
+     "t": "finding reliable suppliers",
+     "m": "寻找可靠供应商"
+    },
+    {
+     "t": "who can meet",
+     "m": "能够满足"
+    },
+    {
+     "t": "the company's quality, price,",
+     "m": "公司的质量、价格"
+    },
+    {
+     "t": "and delivery requirements.",
+     "m": "以及交付要求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Instead of choosing the cheapest option,",
+     "m": "而不是选最低价"
+    },
+    {
+     "t": "the manager decides to compare",
+     "m": "经理决定比较"
+    },
+    {
+     "t": "several potential suppliers.",
+     "m": "几家潜在供应商"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "They ask about",
+     "m": "他们询问"
+    },
+    {
+     "t": "production capacity,",
+     "m": "生产能力"
+    },
+    {
+     "t": "product certifications,",
+     "m": "产品认证"
+    },
+    {
+     "t": "quality control procedures,",
+     "m": "质量控制流程"
+    },
+    {
+     "t": "and previous customers.",
+     "m": "以及过往客户"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing manager compares",
+     "m": "采购经理比较"
+    },
+    {
+     "t": "their prices,",
+     "m": "它们的价格"
+    },
+    {
+     "t": "minimum order quantities,",
+     "m": "最小起订量"
+    },
+    {
+     "t": "lead times,",
+     "m": "交货周期"
+    },
+    {
+     "t": "and payment terms.",
+     "m": "和付款条件"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The quality department",
+     "m": "质量部门"
+    },
+    {
+     "t": "then tests the samples",
+     "m": "随后测试样品"
+    },
+    {
+     "t": "to make sure",
+     "m": "以确保"
+    },
+    {
+     "t": "they meet",
+     "m": "它们符合"
+    },
+    {
+     "t": "the required specifications.",
+     "m": "要求的规格"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before signing the agreement,",
+     "m": "签订协议之前"
+    },
+    {
+     "t": "both sides confirm",
+     "m": "双方确认"
+    },
+    {
+     "t": "the product specifications,",
+     "m": "产品规格"
+    },
+    {
+     "t": "delivery schedule,",
+     "m": "交货计划"
+    },
+    {
+     "t": "inspection standards,",
+     "m": "检验标准"
+    },
+    {
+     "t": "and responsibilities.",
+     "m": "以及各自责任"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A good supplier",
+     "m": "好的供应商"
+    },
+    {
+     "t": "is not simply",
+     "m": "并不只是"
+    },
+    {
+     "t": "the one",
+     "m": "那一家"
+    },
+    {
+     "t": "with the lowest price.",
+     "m": "报价最低的"
+    }
+   ]
+  }
+ ]
+}

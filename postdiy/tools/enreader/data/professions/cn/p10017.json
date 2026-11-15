@@ -1,0 +1,245 @@
+{
+ "id": "p10017",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Our team plans to release ",
+     "m": "我们团队计划发布"
+    },
+    {
+     "t": "a new version of the application ",
+     "m": "应用的新版本"
+    },
+    {
+     "t": "this Friday.",
+     "m": "就在本周五"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before deployment, ",
+     "m": "部署之前"
+    },
+    {
+     "t": "I check the release notes ",
+     "m": "我检查版本说明"
+    },
+    {
+     "t": "and confirm which features and bug fixes are included.",
+     "m": "确认包含哪些功能和修复"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I make sure ",
+     "m": "我确保"
+    },
+    {
+     "t": "that the code has been reviewed ",
+     "m": "代码已通过审查"
+    },
+    {
+     "t": "and that all required tests have passed.",
+     "m": "且必需测试全部通过"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also check environment variables, ",
+     "m": "我还检查环境变量"
+    },
+    {
+     "t": "database changes, ",
+     "m": "数据库变更"
+    },
+    {
+     "t": "and configuration settings ",
+     "m": "以及配置设置"
+    },
+    {
+     "t": "that may affect the release.",
+     "m": "看是否影响发布"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For an important database update, ",
+     "m": "重要数据库更新时"
+    },
+    {
+     "t": "we prepare a backup ",
+     "m": "我们先准备备份"
+    },
+    {
+     "t": "and confirm how to restore it ",
+     "m": "并确认如何恢复"
+    },
+    {
+     "t": "if something goes wrong.",
+     "m": "以防出问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We usually deploy to a staging environment first ",
+     "m": "先部署到预发布环境"
+    },
+    {
+     "t": "to check the release ",
+     "m": "检查新版本"
+    },
+    {
+     "t": "under conditions similar to production.",
+     "m": "在接近生产的条件下"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the final checks, ",
+     "m": "最终检查完成后"
+    },
+    {
+     "t": "we schedule the production deployment ",
+     "m": "我们安排正式环境部署"
+    },
+    {
+     "t": "and inform the support team.",
+     "m": "并通知支持团队"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During deployment, ",
+     "m": "部署期间"
+    },
+    {
+     "t": "I monitor the service status, ",
+     "m": "我监控服务状态"
+    },
+    {
+     "t": "error rate, ",
+     "m": "错误率"
+    },
+    {
+     "t": "and application logs.",
+     "m": "以及应用日志"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If the update causes a serious problem, ",
+     "m": "如果更新引发严重问题"
+    },
+    {
+     "t": "we need to roll back ",
+     "m": "我们需要回滚"
+    },
+    {
+     "t": "to the previous stable version.",
+     "m": "到上一个稳定版本"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Once the release is stable, ",
+     "m": "待新版本稳定后"
+    },
+    {
+     "t": "I update the deployment record ",
+     "m": "我更新部署记录"
+    },
+    {
+     "t": "and share the result with the team.",
+     "m": "并向团队同步结果"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A smooth release ",
+     "m": "顺利的发布"
+    },
+    {
+     "t": "depends on preparation, communication, ",
+     "m": "靠充分准备和沟通"
+    },
+    {
+     "t": "and a clear recovery plan.",
+     "m": "以及明确的恢复方案"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The work is not finished ",
+     "m": "工作还没有结束"
+    },
+    {
+     "t": "when the code is deployed; ",
+     "m": "代码部署完并不算完"
+    },
+    {
+     "t": "we still need to confirm ",
+     "m": "我们仍需确认"
+    },
+    {
+     "t": "that the application works for users.",
+     "m": "应用对用户运行正常"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I avoid deploying unrelated changes ",
+     "m": "我避免部署无关修改"
+    },
+    {
+     "t": "at the same time ",
+     "m": "在同一时间"
+    },
+    {
+     "t": "because they make problems harder to identify.",
+     "m": "因为问题会更难定位"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also agree on ",
+     "m": "我们还会商定"
+    },
+    {
+     "t": "who will monitor the release ",
+     "m": "谁来监控发布"
+    },
+    {
+     "t": "and who will communicate with other teams.",
+     "m": "谁去对接其他团队"
+    }
+   ]
+  }
+ ]
+}

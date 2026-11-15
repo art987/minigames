@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EN Reader · 每日英语口语朗读课程</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
-<link rel="stylesheet" href="assets/style.css?v=28">
+<link rel="stylesheet" href="assets/style.css?v=31">
 </head>
 <body>
 <div class="wrap">
@@ -14,11 +14,16 @@
     <p>365 天 · 每天一篇 · 六个阶段循序渐进。以真实生活场景为内容，以英语朗读为学习方式，从敢开口到自然交流。</p>
   </header>
   <main id="stages"></main>
+  <section class="prof-sec">
+    <h2 class="sec-title">职业英语 · 真实工作场景</h2>
+    <main id="profs"></main>
+  </section>
   <footer class="foot">
     课程数据由 <b>pedingfiles/*.json</b> 构建：放入新批次后运行 <b>python build_course.py</b> 即可上架。
   </footer>
 </div>
 <script src="data/course-manifest.js?v=19"></script>
+<script src="data/professions/prof-manifest.js?v=19"></script>
 <script>
 (function () {
   const doneOf = id => (parseInt(localStorage.getItem("enr:done:" + id), 10) || 0) > 0;
@@ -47,6 +52,26 @@
     if (arts.length) sec.addEventListener("click", () => location.href = "stage.html?stage=" + st.id);
     root.appendChild(sec);
   });
+
+  /* ---------- 职业英语板块（首页单卡 → professions.html 总览） ---------- */
+  const proot = document.getElementById("profs");
+  const allProfArts = (window.ENR_PROFS.professions || []).flatMap(p => p.articles || []);
+  const doneCnt = allProfArts.filter(a => doneOf(a.id)).length;
+  const startedProf = allProfArts.some(a => !doneOf(a.id) && (posOf(a.id) > 0 || doneOf(a.id)));
+  const profPct = allProfArts.length ? Math.round(doneCnt / allProfArts.length * 100) : 0;
+
+  const card = document.createElement("button");
+  card.className = "stg";
+  card.innerHTML =
+    `<div class="stg-top"><span class="no">PRO</span>` +
+    `<span class="cefr">B1-B2</span></div>` +
+    `<div class="stg-name">职业英语</div>` +
+    `<div class="stg-meta"><span class="tag">8 大热门职业</span>` +
+    `<span>${allProfArts.length} 篇真实工作场景课</span></div>` +
+    `<div class="stg-bar"><i style="width:${profPct}%"></i></div>` +
+    `<div class="stg-foot">${startedProf ? "继续学习 →" : "开始学习 →"}<span>${doneCnt} / ${allProfArts.length} 篇完成</span></div>`;
+  card.addEventListener("click", () => location.href = "professions.html");
+  proot.appendChild(card);
 })();
 </script>
 </body>

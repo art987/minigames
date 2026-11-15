@@ -1,0 +1,281 @@
+{
+ "id": "p10020",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "After the team agrees on a product direction,",
+     "m": "团队定方向后"
+    },
+    {
+     "t": "the product manager needs to explain",
+     "m": "产品经理需说明"
+    },
+    {
+     "t": "what should be built",
+     "m": "要开发什么"
+    },
+    {
+     "t": "and why.",
+     "m": "以及为什么"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For our new order search feature,",
+     "m": "针对订单搜索功能"
+    },
+    {
+     "t": "I started by writing",
+     "m": "我先动手编写"
+    },
+    {
+     "t": "a product requirements document,",
+     "m": "一份产品需求文档"
+    },
+    {
+     "t": "usually called a PRD.",
+     "m": "通常叫 PRD"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The first section described",
+     "m": "第一部分描述了"
+    },
+    {
+     "t": "the user problem and the goal.",
+     "m": "用户问题和目标"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Customers needed to find orders",
+     "m": "客户要能找到订单"
+    },
+    {
+     "t": "without remembering an order number.",
+     "m": "不必记住订单编号"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Our goal was to",
+     "m": "我们的目标是"
+    },
+    {
+     "t": "make order lookup faster",
+     "m": "加快订单查找"
+    },
+    {
+     "t": "and reduce support requests.",
+     "m": "减少客服咨询"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I then described",
+     "m": "接着我描述了"
+    },
+    {
+     "t": "the main user flow,",
+     "m": "主要用户流程"
+    },
+    {
+     "t": "from opening the order page",
+     "m": "从打开订单页面"
+    },
+    {
+     "t": "to viewing the matching result.",
+     "m": "到查看匹配结果"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Next, I listed the functional requirements.",
+     "m": "接着列出功能需求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Users should be able to",
+     "m": "用户应该能够"
+    },
+    {
+     "t": "search by product name",
+     "m": "按商品名称搜索"
+    },
+    {
+     "t": "and filter orders",
+     "m": "并筛选订单"
+    },
+    {
+     "t": "by date and delivery status.",
+     "m": "按日期和配送状态"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also included",
+     "m": "我还补充了"
+    },
+    {
+     "t": "empty states,",
+     "m": "空状态"
+    },
+    {
+     "t": "error messages,",
+     "m": "错误提示"
+    },
+    {
+     "t": "and loading behavior,",
+     "m": "和加载行为"
+    },
+    {
+     "t": "because these details affect the full experience.",
+     "m": "细节影响整体体验"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I added acceptance criteria",
+     "m": "我加入验收标准"
+    },
+    {
+     "t": "so the team could decide",
+     "m": "以便团队判断"
+    },
+    {
+     "t": "when the feature was complete.",
+     "m": "功能何时算完成"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For example,",
+     "m": "例如"
+    },
+    {
+     "t": "a search should return relevant results",
+     "m": "搜索应返回相关结果"
+    },
+    {
+     "t": "within an agreed response time.",
+     "m": "在约定响应时间内"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The document also listed",
+     "m": "文档还列出了"
+    },
+    {
+     "t": "items that were out of scope",
+     "m": "范围之外的内容"
+    },
+    {
+     "t": "for the first release,",
+     "m": "首个版本不做"
+    },
+    {
+     "t": "such as voice search.",
+     "m": "比如语音搜索"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before sharing the PRD,",
+     "m": "分享 PRD 之前"
+    },
+    {
+     "t": "I reviewed it",
+     "m": "我先评审一遍"
+    },
+    {
+     "t": "with a designer and an engineer.",
+     "m": "与设计师和工程师"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "They pointed out",
+     "m": "他们指出"
+    },
+    {
+     "t": "two unclear requirements,",
+     "m": "两处模糊需求"
+    },
+    {
+     "t": "which I revised.",
+     "m": "我随后修改"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A useful PRD",
+     "m": "有用的 PRD"
+    },
+    {
+     "t": "does not need to describe",
+     "m": "不必描述"
+    },
+    {
+     "t": "every technical detail.",
+     "m": "每个技术细节"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It should give the team",
+     "m": "它应让团队"
+    },
+    {
+     "t": "a shared understanding",
+     "m": "形成共同理解"
+    },
+    {
+     "t": "of the problem,",
+     "m": "对问题"
+    },
+    {
+     "t": "expected behavior,",
+     "m": "预期行为"
+    },
+    {
+     "t": "and conditions for success.",
+     "m": "和成功标准"
+    }
+   ]
+  }
+ ]
+}

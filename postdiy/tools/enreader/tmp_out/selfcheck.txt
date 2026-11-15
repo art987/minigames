@@ -1,0 +1,263 @@
+===== p10013  sentences=14
+[0] Every morning, our development team has a short stand-up meeting to share progress and coordinate the day's work.
+    CN句: 每天早上，我们开发团队都会召开简短的站会，分享工作进展并协调当天的任务。
+    Every→每个 | morning,→早上 | our→我们的 | development→开发 | team→团队 | has→有 | a→一个 | short→简短的 | stand-up→站会 | meeting→会议 | to→去 | share→分享 | progress→进展 | and→和 | coordinate→协调 | the→该 | day's→当天的 | work.→工作
+[1] Each person explains what they completed yesterday, what they plan to do today, and whether anything is blocking their progress.
+    CN句: 每个人都会说明昨天完成了什么、今天计划做什么，以及是否遇到了阻碍工作推进的问题。
+    Each→每个 | person→人 | explains→说明 | what→什么 | they→他们 | completed→已完成 | yesterday,→昨天 | what→什么 | they→他们 | plan→计划 | to→去 | do→做 | today,→今天 | and→和 | whether→是否 | anything→任何事 | is→是 | blocking→阻碍着 | their→他们的 | progress.→进展
+[2] I try to keep my update specific instead of saying that I am simply working on a feature.
+    CN句: 我会尽量让汇报内容具体，而不是只说自己正在开发某项功能。
+    I→我 | try→尝试 | to→去 | keep→保持 | my→我的 | update→更新 | specific→具体的 | instead→而不是 | of→的 | saying→说 | that→（连词） | I→我 | am→是 | simply→只是 | working→正在开发 | on→ | a→一个 | feature.→功能
+[3] For example, I might say that I finished the login validation and am now connecting the user profile page to the API.
+    CN句: 例如，我可能会说登录验证已经完成，现在正在将用户资料页面与 API 接口连接起来。
+    For→例如 | example,→ | I→我 | might→可能 | say→说 | that→（连词） | I→我 | finished→已完成 | the→该 | login→登录 | validation→校验 | and→和 | am→是 | now→现在 | connecting→连接 | the→该 | user→用户 | profile→资料 | page→页面 | to→到 | the→该 | API.→API
+[4] If I have a blocker, I explain what I have tried and what kind of help I need.
+    CN句: 如果遇到阻碍，我会说明自己已经尝试过哪些方法，以及需要什么帮助。
+    If→如果 | I→我 | have→有 | a→一个 | blocker,→阻碍项 | I→我 | explain→说明 | what→什么 | I→我 | have→已经 | tried→尝试过 | and→和 | what→什么 | kind→种类 | of→的 | help→帮助 | I→我 | need.→需要
+[5] This makes it easier for a teammate to offer useful advice or take action after the meeting.
+    CN句: 这样，队友就更容易提供有用的建议，或在会议后采取行动。
+    This→这 | makes→使 | it→它 | easier→更容易 | for→对 | a→一个 | teammate→队友 | to→去 | offer→提供 | useful→有用的 | advice→建议 | or→或 | take→花费 | action→行动 | after→在……之后 | the→该 | meeting.→会议
+[6] I also mention risks early, especially when a task may take longer than expected.
+    CN句: 我也会尽早提出风险，尤其是某项任务可能比预期花费更多时间时。
+    I→我 | also→也 | mention→提到 | risks→风险 | early,→及早 | especially→尤其是 | when→当……时 | a→一个 | task→任务 | may→可能 | take→花费 | longer→更长 | than→比 | expected.→预期的
+[7] The goal is not to give a long technical presentation or prove how busy I am.
+    CN句: 站会的目的不是进行冗长的技术演讲，也不是证明自己有多忙。
+    The→该 | goal→目的 | is→是 | not→不 | to→去 | give→给 | a→进行 | long→冗长 | technical→技术的 | presentation→演示 | or→或 | prove→证明 | how→如何 | busy→忙 | I→我 | am.→是
+[8] It is a quick way to make sure everyone understands the team's current priorities.
+    CN句: 它是一种快速确保所有人了解团队当前工作重点的方式。
+    It→它 | is→是 | a→一个 | quick→快速的 | way→方式 | to→去 | make→ | sure→确保 | everyone→每个人 | understands→理解 | the→该 | team's→团队的 | current→当前的 | priorities.→优先事项
+[9] If a discussion needs more time, we arrange a separate conversation with the relevant people.
+    CN句: 如果某个问题需要更多时间讨论，我们会安排相关人员单独沟通。
+    If→如果 | a→一个 | discussion→讨论 | needs→需要 | more→更多 | time,→时间 | we→我们 | arrange→安排 | a→一个 | separate→单独的 | conversation→对话 | with→与 | the→该 | relevant→相关的 | people.→人员
+[10] A clear update helps the team spot problems early and avoid duplicated work.
+    CN句: 清晰的进展汇报能帮助团队及早发现问题，并避免重复劳动。
+    A→一个 | clear→清晰的 | update→更新 | helps→有助于 | the→该 | team→团队 | spot→发现 | problems→问题 | early→及早 | and→和 | avoid→避免 | duplicated→重复的 | work.→工作
+[11] It also keeps communication open, so small issues do not become serious delays.
+    CN句: 它还能保持沟通畅通，避免小问题逐渐演变成严重的进度延误。
+    It→它 | also→也 | keeps→保持 | communication→沟通 | open,→公开 | so→所以 | small→小的 | issues→问题 | do→ | not→不 | become→变成 | serious→严重的 | delays.→延误
+[12] I usually write down the action items so that everyone knows who is responsible for the next step.
+    CN句: 我通常会记录后续行动事项，让每个人都清楚下一步由谁负责。
+    I→我 | usually→通常 | write→写 | down→记下 | the→该 | action→行动 | items→事项 | so→所以 | that→以便 | everyone→每个人 | knows→知道 | who→谁 | is→是 | responsible→负责 | for→ | the→该 | next→下一步 | step.→步骤
+[13] If priorities change during the day, I update the team rather than letting others work with outdated information.
+    CN句: 如果当天工作重点发生变化，我会及时通知团队，而不是让其他人继续依据过时的信息工作。
+    If→如果 | priorities→优先事项 | change→更改 | during→在……期间 | the→该 | day,→天 | I→我 | update→更新 | the→该 | team→团队 | rather→ | than→而不是 | letting→让 | others→其他人 | work→工作 | with→依据 | outdated→过时的 | information.→信息
+
+===== p10014  sentences=14
+[0] A tester reported that users sometimes see an error after submitting the registration form.
+    CN句: 测试人员反馈，用户提交注册表单后有时会看到错误提示。
+    A→一个 | tester→测试人员 | reported→报告 | that→（连词） | users→用户 | sometimes→有时 | see→看到 | an→一个 | error→错误 | after→在……之后 | submitting→提交 | the→该 | registration→注册 | form.→表单
+[1] Before changing the code, I try to reproduce the problem in a controlled environment.
+    CN句: 在修改代码之前，我会先在可控环境中尝试复现这个问题。
+    Before→在……之前 | changing→更改中 | the→该 | code,→代码 | I→我 | try→尝试 | to→去 | reproduce→复现 | the→该 | problem→问题 | in→在……中 | a→一个 | controlled→可控的 | environment.→环境
+[2] I follow the same steps as the tester and check whether the issue happens every time or only under certain conditions.
+    CN句: 我会按照测试人员相同的步骤操作，并检查问题是每次都会发生，还是只在特定条件下出现。
+    I→我 | follow→按照 | the→该 | same→和 | steps→步骤 | as→作为 | the→该 | tester→测试人员 | and→和 | check→检查 | whether→是否 | the→该 | issue→问题 | happens→发生 | every→每次 | time→ | or→或 | only→只 | under→在……下 | certain→某些 | conditions.→条件
+[3] Next, I review the browser console, server logs, and recent code changes for useful clues.
+    CN句: 接下来，我会查看浏览器控制台、服务器日志以及近期代码变更，寻找有用线索。
+    Next,→接下来 | I→我 | review→评审 | the→该 | browser→浏览器 | console,→控制台 | server→服务器 | logs,→日志 | and→和 | recent→最近的 | code→代码 | changes→变更 | for→寻找 | useful→有用的 | clues.→线索
+[4] The logs show that the request sometimes reaches the server without a required field.
+    CN句: 日志显示，请求有时会在缺少一个必需字段的情况下到达服务器。
+    The→该 | logs→日志 | show→展示 | that→（连词） | the→该 | request→请求 | sometimes→有时 | reaches→达到 | the→缺少 | server→服务器 | without→没有 | a→一个 | required→必需的 | field.→字段
+[5] I check the form validation and discover that one field is not handled correctly when users leave it empty.
+    CN句: 我检查表单验证逻辑后发现，当用户将某个字段留空时，程序没有正确处理这种情况。
+    I→我 | check→检查 | the→该 | form→表单 | validation→校验 | and→和 | discover→发现 | that→（连词） | one→一个 | field→字段 | is→是 | not→不 | handled→已处理 | correctly→正确地 | when→当……时 | users→用户 | leave→留 | it→它 | empty.→空的
+[6] I update the validation logic and add a clear error message so users know what they need to do.
+    CN句: 我更新了验证逻辑，并添加清晰的错误提示，让用户知道接下来应该怎么做。
+    I→我 | update→更新 | the→该 | validation→校验 | logic→逻辑 | and→和 | add→添加 | a→一个 | clear→清晰的 | error→错误 | message→消息 | so→以便 | users→用户 | know→知道 | what→什么 | they→他们 | need→需要 | to→去 | do.→做
+[7] Then I write a test for the empty-field case and run the existing test suite to check for side effects.
+    CN句: 随后，我针对字段为空的情况编写测试，并运行现有测试集，检查是否产生其他影响。
+    Then→然后 | I→我 | write→针对 | a→一个 | test→测试 | for→为了 | the→该 | empty-field→空字段 | case→情况 | and→和 | run→运行 | the→该 | existing→现有的 | test→测试 | suite→套件 | to→去 | check→ | for→其他 | side→端 | effects.→影响
+[8] After the fix passes the tests, I ask the tester to verify it in the testing environment.
+    CN句: 修复通过测试后，我会请测试人员在测试环境中再次验证。
+    After→在……之后 | the→该 | fix→修复 | passes→通过 | the→该 | tests,→测试 | I→我 | ask→询问 | the→该 | tester→测试人员 | to→去 | verify→验证 | it→它 | in→在……中 | the→该 | testing→测试 | environment.→环境
+[9] I also document the root cause and the changes we made.
+    CN句: 我还会记录问题的根本原因以及我们所做的修改。
+    I→我 | also→也 | document→记录 | the→该 | root→根源 | cause→原因 | and→和 | the→该 | changes→做 | we→我们 | made.→完成
+[10] A good bug fix should solve the actual problem without creating new ones.
+    CN句: 一个好的 Bug 修复应该解决真正的问题，同时避免引入新的问题。
+    A→一个 | good→良好的 | bug→bug | fix→修复 | should→应该 | solve→解决 | the→该 | actual→实际的 | problem→问题 | without→没有 | creating→引入 | new→新的 | ones.→问题
+[11] Taking time to investigate carefully is often faster than making several guesses and changing code repeatedly.
+    CN句: 花时间仔细排查，往往比不断猜测并反复修改代码更有效率。
+    Taking→花费 | time→时间 | to→去 | investigate→排查 | carefully→仔细地 | is→是 | often→经常 | faster→更快 | than→比 | making→做 | several→几个 | guesses→猜测 | and→和 | changing→更改中 | code→代码 | repeatedly.→反复
+[12] If the issue cannot be fixed immediately, I share a temporary workaround with the team and keep tracking the investigation.
+    CN句: 如果问题无法立即修复，我会先向团队提供临时解决办法，并持续跟进排查进度。
+    If→如果 | the→该 | issue→问题 | cannot→无法 | be→ | fixed→已修复 | immediately,→立即 | I→我 | share→分享 | a→一个 | temporary→临时的 | workaround→临时方案 | with→与 | the→该 | team→团队 | and→和 | keep→保持 | tracking→跟踪 | the→该 | investigation.→排查
+[13] I avoid closing the bug until the tester confirms that the original steps no longer cause the error.
+    CN句: 在测试人员确认按照原来的步骤操作不再出现错误之前，我不会关闭这个 Bug。
+    I→我 | avoid→避免 | closing→关闭 | the→该 | bug→bug | until→直到 | the→该 | tester→测试人员 | confirms→确认 | that→（连词） | the→该 | original→原始的 | steps→步骤 | no→不再 | longer→ | cause→原因 | the→导致 | error.→错误
+
+===== p10015  sentences=14
+[0] Before new code is merged into the main branch, another developer usually reviews the changes.
+    CN句: 在新代码合并到主分支之前，通常需要另一位开发人员审查这些修改。
+    Before→在……之前 | new→新的 | code→代码 | is→是 | merged→已合并 | into→到……里 | the→该 | main→主要的 | branch,→分支 | another→另一个 | developer→开发者 | usually→通常 | reviews→评审 | the→该 | changes.→变更
+[1] The purpose of a code review is to improve code quality, share knowledge, and catch problems early.
+    CN句: 代码审查的目的是提高代码质量、分享知识，并尽早发现问题。
+    The→该 | purpose→目的 | of→的 | a→一个 | code→代码 | review→评审 | is→是 | to→去 | improve→改进 | code→代码 | quality,→质量 | share→分享 | knowledge,→知识 | and→和 | catch→捕获 | problems→问题 | early.→及早
+[2] When I open a pull request, I write a short description of what changed and why the change is needed.
+    CN句: 提交 Pull Request 时，我会简要说明修改了什么，以及为什么需要这项修改。
+    When→当……时 | I→我 | open→公开 | a→发起 | pull→拉取 | request,→请求 | I→我 | write→写 | a→一个 | short→简短的 | description→描述 | of→的 | what→什么 | changed→已更改 | and→和 | why→为什么 | the→该 | change→更改 | is→是 | needed.→需要
+[3] I also include screenshots or test steps when they help reviewers understand the result.
+    CN句: 如果截图或测试步骤有助于审查人员理解结果，我也会一并提供。
+    I→我 | also→也 | include→包含 | screenshots→截图 | or→或 | test→测试 | steps→步骤 | when→当……时 | they→它们 | help→帮助 | reviewers→评审人 | understand→理解 | the→该 | result.→结果
+[4] As a reviewer, I first check whether the code matches the task requirements.
+    CN句: 作为审查人员，我首先会检查代码是否符合任务需求。
+    As→作为 | a→一个 | reviewer,→评审人 | I→我 | first→首先 | check→检查 | whether→是否 | the→该 | code→代码 | matches→匹配 | the→该 | task→任务 | requirements.→需求
+[5] Then I look at naming, readability, error handling, performance, and possible security issues.
+    CN句: 接着，我会检查命名、可读性、错误处理、性能以及潜在的安全问题。
+    Then→然后 | I→我 | look→查看 | at→在 | naming,→命名 | readability,→可读性 | error→错误 | handling,→处理 | performance,→性能 | and→和 | possible→可能 | security→安全 | issues.→问题
+[6] If I find something unclear, I leave a specific comment and explain the reason behind my suggestion.
+    CN句: 如果发现不清楚的地方，我会留下具体评论，并解释提出建议的原因。
+    If→如果 | I→我 | find→找到 | something→某事 | unclear,→不清晰 | I→我 | leave→留 | a→一个 | specific→具体的 | comment→评论 | and→和 | explain→说明 | the→该 | reason→原因 | behind→背后 | my→我的 | suggestion.→建议
+[7] I try to focus on the code rather than making the discussion personal.
+    CN句: 我会尽量针对代码本身讨论，而不是把讨论变成针对个人的评价。
+    I→我 | try→尝试 | to→去 | focus→聚焦 | on→于 | the→该 | code→代码 | rather→ | than→而不是 | making→做 | the→变成 | discussion→讨论 | personal.→个人的
+[8] The author can reply, update the code, or explain why a different approach is more suitable.
+    CN句: 代码作者可以回复、更新代码，或解释为什么另一种方案更合适。
+    The→该 | author→作者 | can→可以 | reply,→回复 | update→更新 | the→该 | code,→代码 | or→或 | explain→说明 | why→为什么 | a→一个 | different→不同的 | approach→方法 | is→是 | more→更多 | suitable.→合适的
+[9] Once the important comments have been addressed and the checks pass, the pull request can be approved.
+    CN句: 重要评论处理完毕且检查通过后，就可以批准这个 Pull Request。
+    Once→一旦 | the→该 | important→重要的 | comments→意见 | have→已经 | been→ | addressed→已处理 | and→和 | the→该 | checks→检查 | pass,→通过 | the→该 | pull→拉取 | request→请求 | can→可以 | be→ | approved.→已批准
+[10] A useful review is respectful and practical, not simply a list of mistakes.
+    CN句: 一次有价值的代码审查应该尊重他人并注重实际效果，而不只是罗列错误。
+    A→一个 | useful→有用的 | review→评审 | is→是 | respectful→尊重他人 | and→和 | practical,→切实可行的 | not→不 | simply→只是 | a→罗列 | list→列表 | of→的 | mistakes.→失误
+[11] Over time, regular reviews help the whole team develop more consistent coding habits.
+    CN句: 长期坚持代码审查，有助于整个团队形成更一致的编码习惯。
+    Over→随着 | time,→时间 | regular→定期的 | reviews→评审 | help→帮助 | the→该 | whole→整个 | team→团队 | develop→开发 | more→更多 | consistent→一致的 | coding→编码 | habits.→习惯
+[12] For larger changes, I may suggest breaking the work into smaller parts so that each part is easier to review.
+    CN句: 对于较大的修改，我可能会建议将工作拆分成更小的部分，让每一部分都更容易审查。
+    For→为了 | larger→更大 | changes,→变更 | I→我 | may→可能 | suggest→建议 | breaking→拆分 | the→该 | work→为 | into→到……里 | smaller→更小的 | parts→部分 | so→所以 | that→以便 | each→每个 | part→部分 | is→是 | easier→更容易 | to→去 | review.→评审
+[13] This also makes it easier to understand the history of a change if the team needs to investigate it later.
+    CN句: 如果团队以后需要调查某项修改，这样做也更容易理解它的变更历史。
+    This→这 | also→也 | makes→使 | it→它 | easier→更容易 | to→去 | understand→理解 | the→该 | history→历史 | of→的 | a→一个 | change→更改 | if→如果 | the→该 | team→团队 | needs→需要 | to→去 | investigate→排查 | it→它 | later.→稍后
+
+===== p10016  sentences=14
+[0] Our application needs to display shipping information from an external service, so I am responsible for integrating its API.
+    CN句: 我们的应用需要展示来自外部服务的物流信息，因此由我负责接入它的 API。
+    Our→我们的 | application→应用 | needs→需要 | to→去 | display→物流 | shipping→上线 | information→信息 | from→从 | an→一个 | external→外部的 | service,→服务 | so→所以 | I→我 | am→是 | responsible→负责 | for→ | integrating→集成 | its→它的 | API.→API
+[1] I start by reading the API documentation to understand the available endpoints, required parameters, and response format.
+    CN句: 我首先阅读 API 文档，了解可用的接口地址、必需参数以及响应格式。
+    I→我 | start→开始 | by→通过 | reading→阅读 | the→该 | API→API | documentation→文档 | to→去 | understand→理解 | the→该 | available→可用的 | endpoints,→端点 | required→必需的 | parameters,→参数 | and→和 | response→响应 | format.→格式
+[2] I also check the authentication method because the service requires an access token for each request.
+    CN句: 我还会检查身份验证方式，因为该服务要求每次请求都提供访问令牌。
+    I→我 | also→也 | check→检查 | the→该 | authentication→身份验证 | method→方法 | because→因为 | the→该 | service→服务 | requires→需要 | an→一个 | access→访问 | token→令牌 | for→为了 | each→每个 | request.→请求
+[3] Before writing the integration, I test a sample request with a tool such as Postman.
+    CN句: 正式编写接入代码之前，我会使用 Postman 之类的工具测试一个示例请求。
+    Before→在……之前 | writing→编写 | the→该 | integration,→集成 | I→我 | test→测试 | a→一个 | sample→示例 | request→请求 | with→用 | a→一个 | tool→工具 | such→比如 | as→ | Postman.→Postman
+[4] This helps me confirm that the credentials work and that the response contains the data we need.
+    CN句: 这样可以确认凭证有效，并检查响应中是否包含我们需要的数据。
+    This→这 | helps→有助于 | me→我 | confirm→确认 | that→（连词） | the→该 | credentials→凭证 | work→有效 | and→和 | that→（连词） | the→该 | response→响应 | contains→包含 | the→该 | data→数据 | we→我们 | need.→需要
+[5] In the application, I keep the API key on the server instead of exposing it in the front-end code.
+    CN句: 在应用程序中，我会将 API 密钥保存在服务器端，而不是暴露在前端代码中。
+    In→在……中 | the→该 | application,→应用 | I→我 | keep→保存 | the→该 | API→API | key→密钥 | on→于 | the→该 | server→服务器 | instead→而不是 | of→的 | exposing→暴露 | it→它 | in→在……中 | the→该 | front-end→前端 | code.→代码
+[6] I then create a small service module to send requests and handle successful responses and errors.
+    CN句: 随后，我会创建一个小型服务模块，用来发送请求并处理成功响应和错误。
+    I→我 | then→然后 | create→创建 | a→一个 | small→小的 | service→服务 | module→模块 | to→去 | send→发送 | requests→请求 | and→和 | handle→处理 | successful→成功的 | responses→响应 | and→和 | errors.→错误
+[7] Because external services may be slow or temporarily unavailable, I also consider timeouts and retry rules.
+    CN句: 由于外部服务可能响应缓慢或暂时不可用，我还会考虑超时和重试规则。
+    Because→因为 | external→外部的 | services→服务 | may→可能 | be→ | slow→缓慢的 | or→或 | temporarily→临时地 | unavailable,→不可用 | I→我 | also→也 | consider→考虑 | timeouts→超时 | and→和 | retry→重试 | rules.→规则
+[8] I test normal responses, missing data, invalid tokens, and network failures before connecting the feature to the user interface.
+    CN句: 在将功能连接到用户界面之前，我会测试正常响应、数据缺失、令牌无效以及网络故障等情况。
+    I→我 | test→测试 | normal→正常 | responses,→响应 | missing→缺失 | data,→数据 | invalid→无效的 | tokens,→令牌 | and→和 | network→网络 | failures→失败 | before→在……之前 | connecting→连接 | the→该 | feature→功能 | to→到 | the→该 | user→界面 | interface.→接口
+[9] Finally, I add basic logging so the team can investigate problems after release.
+    CN句: 最后，我会添加基础日志记录，方便团队在功能发布后排查问题。
+    Finally,→最后 | I→我 | add→添加 | basic→基本的 | logging→记录日志 | so→所以 | the→该 | team→团队 | can→可以 | investigate→排查 | problems→问题 | after→在……之后 | release.→发布
+[10] A reliable integration depends on more than making one successful request.
+    CN句: 可靠的接口集成不仅仅是成功发送一次请求。
+    A→一个 | reliable→可靠的 | integration→集成 | depends→ | on→不只 | more→是 | than→比 | making→做 | one→一个 | successful→成功的 | request.→请求
+[11] It also needs secure credentials, clear error handling, and a plan for unexpected failures.
+    CN句: 它还需要安全的凭证管理、清晰的错误处理，以及应对意外故障的方案。
+    It→它 | also→也 | needs→需要 | secure→安全的 | credentials,→凭证 | clear→清晰的 | error→错误 | handling,→处理 | and→和 | a→一个 | plan→方案 | for→应对 | unexpected→意外的 | failures.→故障
+[12] I make sure that the integration follows the service's usage limits and does not send unnecessary requests.
+    CN句: 我会确保接口集成遵守服务的调用限制，不发送不必要的请求。
+    I→我 | make→ | sure→确保 | that→（连词） | the→该 | integration→集成 | follows→遵循 | the→该 | service's→服务的 | usage→用量 | limits→限制 | and→和 | does→ | not→不 | send→发送 | unnecessary→不必要的 | requests.→请求
+[13] If the provider changes its API, clear documentation helps us update the integration with less risk.
+    CN句: 如果服务提供商修改了 API，清晰的文档能帮助我们以更低的风险更新集成代码。
+    If→如果 | the→该 | provider→服务商 | changes→变更 | its→它的 | API,→API | clear→清晰的 | documentation→文档 | helps→有助于 | us→我们 | update→更新 | the→该 | integration→集成 | with→与 | less→以 | risk.→风险
+
+===== p10017  sentences=14
+[0] Our team plans to release a new version of the application this Friday.
+    CN句: 我们团队计划在本周五发布应用程序的新版本。
+    Our→我们的 | team→团队 | plans→计划 | to→去 | release→发布 | a→一个 | new→新的 | version→版本 | of→的 | the→该 | application→应用 | this→这 | Friday.→周五
+[1] Before deployment, I check the release notes and confirm which features and bug fixes are included.
+    CN句: 部署之前，我会检查版本说明，并确认本次发布包含哪些功能和 Bug 修复。
+    Before→在……之前 | deployment,→部署 | I→我 | check→检查 | the→该 | release→发布 | notes→说明 | and→和 | confirm→确认 | which→（引导从句） | features→功能 | and→和 | bug→bug | fixes→修复 | are→是 | included.→包含
+[2] I make sure that the code has been reviewed and that all required tests have passed.
+    CN句: 我会确认代码已经通过审查，并且所有必需的测试都已通过。
+    I→我 | make→ | sure→确保 | that→（连词） | the→该 | code→代码 | has→已经 | been→ | reviewed→已评审 | and→和 | that→（连词） | all→所有 | required→必需的 | tests→测试 | have→已经 | passed.→已通过
+[3] I also check environment variables, database changes, and configuration settings that may affect the release.
+    CN句: 我还会检查可能影响发布的环境变量、数据库变更和配置设置。
+    I→我 | also→也 | check→检查 | environment→环境 | variables,→变量 | database→数据库 | changes,→变更 | and→和 | configuration→配置 | settings→设置 | that→（连词） | may→可能 | affect→影响 | the→该 | release.→发布
+[4] For an important database update, we prepare a backup and confirm how to restore it if something goes wrong.
+    CN句: 对于重要的数据库更新，我们会提前准备备份，并确认出现问题时如何恢复。
+    For→为了 | an→一个 | important→重要的 | database→数据库 | update,→更新 | we→我们 | prepare→准备 | a→一个 | backup→备份 | and→和 | confirm→确认 | how→如何 | to→去 | restore→恢复 | it→它 | if→如果 | something→某事 | goes→出 | wrong.→问题
+[5] We usually deploy to a staging environment first to check the release under conditions similar to production.
+    CN句: 我们通常会先部署到预发布环境，在接近生产环境的条件下检查新版本。
+    We→我们 | usually→通常 | deploy→部署 | to→到 | a→一个 | staging→预发环境 | environment→环境 | first→首先 | to→去 | check→检查 | the→该 | release→发布 | under→在……下 | conditions→条件 | similar→类似的 | to→ | production.→生产环境
+[6] After the final checks, we schedule the production deployment and inform the support team.
+    CN句: 最终检查完成后，我们会安排正式环境部署，并通知客服支持团队。
+    After→在……之后 | the→该 | final→最终的 | checks,→检查 | we→我们 | schedule→排期 | the→该 | production→生产环境 | deployment→部署 | and→和 | inform→通知 | the→该 | support→支持 | team.→团队
+[7] During deployment, I monitor the service status, error rate, and application logs.
+    CN句: 部署期间，我会监控服务状态、错误率和应用程序日志。
+    During→在……期间 | deployment,→部署 | I→我 | monitor→监控 | the→该 | service→服务 | status,→状态 | error→错误 | rate,→速率 | and→和 | application→应用 | logs.→日志
+[8] If the update causes a serious problem, we need to roll back to the previous stable version.
+    CN句: 如果更新导致严重问题，我们就需要回滚到之前稳定的版本。
+    If→如果 | the→该 | update→更新 | causes→导致 | a→一个 | serious→严重的 | problem,→问题 | we→我们 | need→需要 | to→去 | roll→回滚 | back→ | to→到 | the→该 | previous→之前的 | stable→稳定的 | version.→版本
+[9] Once the release is stable, I update the deployment record and share the result with the team.
+    CN句: 新版本稳定运行后，我会更新部署记录，并向团队同步结果。
+    Once→一旦 | the→该 | release→发布 | is→是 | stable,→稳定的 | I→我 | update→更新 | the→该 | deployment→部署 | record→记录 | and→和 | share→分享 | the→该 | result→结果 | with→与 | the→该 | team.→团队
+[10] A smooth release depends on preparation, communication, and a clear recovery plan.
+    CN句: 顺利发布取决于充分准备、及时沟通以及明确的恢复方案。
+    A→一个 | smooth→顺利 | release→发布 | depends→ | on→在……上 | preparation,→准备 | communication,→沟通 | and→和 | a→一个 | clear→清晰的 | recovery→恢复 | plan.→计划
+[11] The work is not finished when the code is deployed; we still need to confirm that the application works for users.
+    CN句: 代码部署完成并不意味着工作结束，我们仍然需要确认应用程序对用户来说运行正常。
+    The→该 | work→工作 | is→是 | not→不 | finished→已完成 | when→当……时 | the→该 | code→代码 | is→是 | deployed;→已部署 | we→我们 | still→仍然 | need→需要 | to→去 | confirm→确认 | that→（连词） | the→该 | application→应用 | works→对 | for→为了 | users.→用户
+[12] I avoid deploying unrelated changes at the same time because they make problems harder to identify.
+    CN句: 我会避免在同一时间部署无关的修改，因为这会让问题更难定位。
+    I→我 | avoid→避免 | deploying→正在部署 | unrelated→无关的 | changes→变更 | at→在 | the→该 | same→相同的 | time→时间 | because→因为 | they→他们 | make→使 | problems→问题 | harder→更难 | to→去 | identify.→确定
+[13] We also agree on who will monitor the release and who will communicate with other teams.
+    CN句: 我们还会明确由谁监控发布情况，以及由谁负责与其他团队沟通。
+    We→我们 | also→也 | agree→明确 | on→ | who→谁 | will→将 | monitor→监控 | the→该 | release→发布 | and→和 | who→谁 | will→将 | communicate→沟通 | with→与 | other→其他 | teams.→团队
+
+===== p10018  sentences=14
+[0] Late one afternoon, our monitoring system sent an alert because the application error rate had increased sharply.
+    CN句: 一天下午较晚的时候，监控系统发出警报，因为应用程序的错误率突然大幅上升。
+    Late→较晚的 | one→一天 | afternoon,→下午 | our→我们的 | monitoring→监控 | system→系统 | sent→已发送 | an→一个 | alert→告警 | because→因为 | the→该 | application→应用 | error→错误 | rate→速率 | had→已经 | increased→增加 | sharply.→大幅
+[1] I checked the service dashboard and confirmed that some users could not complete their payments.
+    CN句: 我查看了服务监控面板，并确认部分用户无法完成付款。
+    I→我 | checked→已检查 | the→该 | service→服务 | dashboard→仪表盘 | and→和 | confirmed→已确认 | that→（连词） | some→一些 | users→用户 | could→无法 | not→ | complete→完成 | their→他们的 | payments.→支付
+[2] I informed the team and started investigating the issue with another engineer.
+    CN句: 我通知了团队，并与另一位工程师一起开始排查问题。
+    I→我 | informed→通知 | the→该 | team→团队 | and→和 | started→已开始 | investigating→排查中 | the→该 | issue→问题 | with→与 | another→另一个 | engineer.→工程师
+[3] We checked recent deployments, application logs, database performance, and external service status.
+    CN句: 我们检查了近期部署记录、应用程序日志、数据库性能以及外部服务状态。
+    We→我们 | checked→已检查 | recent→最近的 | deployments,→部署 | application→应用 | logs,→日志 | database→数据库 | performance,→性能 | and→和 | external→外部的 | service→服务 | status.→状态
+[4] The problem appeared shortly after a new version was released, so we focused on the latest changes first.
+    CN句: 问题在新版本发布后不久出现，因此我们首先重点检查最近的代码变更。
+    The→该 | problem→问题 | appeared→出现 | shortly→很快 | after→在……之后 | a→一个 | new→新的 | version→版本 | was→是 | released,→已发布 | so→所以 | we→我们 | focused→ | on→聚焦 | the→于 | latest→最新的 | changes→变更 | first.→首先
+[5] We found that one request was taking too long and causing other requests to wait.
+    CN句: 我们发现有一个请求耗时过长，导致其他请求也不得不等待。
+    We→我们 | found→找到 | that→（连词） | one→一个 | request→请求 | was→是 | taking→花费 | too→正 | long→冗长 | and→长时间 | causing→导致 | other→其他 | requests→请求 | to→去 | wait.→等待
+[6] To reduce the impact on users, we decided to roll back the release while continuing the investigation.
+    CN句: 为了减少对用户的影响，我们决定先回滚版本，同时继续调查问题。
+    To→为了 | reduce→减少 | the→该 | impact→影响 | on→对 | users,→用户 | we→我们 | decided→决定 | to→去 | roll→回滚 | back→ | the→该 | release→发布 | while→同时 | continuing→继续 | the→该 | investigation.→排查
+[7] After the rollback, the error rate returned to normal and payment processing recovered.
+    CN句: 回滚之后，错误率恢复正常，支付处理功能也恢复了。
+    After→在……之后 | the→该 | rollback,→回滚 | the→该 | error→错误 | rate→速率 | returned→返回 | to→恢复 | normal→正常 | and→和 | payment→支付 | processing→处理 | recovered.→已恢复
+[8] We then reviewed the code change and prepared a safer fix for further testing.
+    CN句: 随后，我们重新检查了代码变更，并准备了一个更安全的修复方案进行进一步测试。
+    We→我们 | then→然后 | reviewed→已评审 | the→该 | code→代码 | change→更改 | and→和 | prepared→准备好 | a→一个 | safer→更安全 | fix→修复 | for→为了 | further→用于 | testing.→测试
+[9] After the incident, we wrote a report explaining the timeline, impact, root cause, and follow-up actions.
+    CN句: 故障结束后，我们撰写了一份报告，说明事件时间线、影响范围、根本原因以及后续行动。
+    After→在……之后 | the→该 | incident,→事故 | we→我们 | wrote→写了 | a→一个 | report→时间线 | explaining→说明 | the→该 | timeline,→进度 | impact,→影响 | root→根源 | cause,→原因 | and→和 | follow-up→后续 | actions.→行动事项
+[10] The goal of an incident review is to learn from the failure rather than blame one person.
+    CN句: 故障复盘的目的是从失败中吸取经验，而不是责怪某一个人。
+    The→该 | goal→目的 | of→的 | an→一个 | incident→事故 | review→评审 | is→复盘 | to→去 | learn→了解到 | from→从 | the→该 | failure→失败 | rather→ | than→而不是 | blame→指责 | one→一个 | person.→人
+[11] Clear communication and quick coordination help the team restore service and prevent similar incidents.
+    CN句: 清晰的沟通和快速协作能帮助团队恢复服务，并防止类似故障再次发生。
+    Clear→清晰的 | communication→沟通 | and→和 | quick→快速的 | coordination→协调 | help→帮助 | the→该 | team→团队 | restore→恢复 | service→服务 | and→和 | prevent→防止 | similar→类似的 | incidents.→事故
+[12] We also kept customer support informed so they could give users accurate information during the incident.
+    CN句: 我们也会及时告知客户支持团队，让他们在故障期间能够向用户提供准确的信息。
+    We→我们 | also→也 | kept→让 | customer→客户 | support→支持 | informed→通知 | so→知情 | they→他们 | could→可以 | give→给 | users→用户 | accurate→准确的 | information→信息 | during→在……期间 | the→该 | incident.→事故
+[13] A short, factual update is more useful than guessing about the cause before the investigation is complete.
+    CN句: 在调查完成之前，提供简短、客观的进展说明，比猜测故障原因更有帮助。
+    A→一个 | short,→简短的 | factual→基于事实的 | update→更新 | is→是 | more→更多 | useful→有用的 | than→比 | guessing→猜测 | about→关于 | the→该 | cause→原因 | before→在……之前 | the→该 | investigation→排查 | is→是 | complete.→完成

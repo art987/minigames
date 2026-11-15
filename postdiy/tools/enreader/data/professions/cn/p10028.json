@@ -1,0 +1,269 @@
+{
+  "id": "p10028",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Digital advertising allows companies",
+          "m": "数字广告让企业"
+        },
+        {
+          "t": "to reach specific audiences,",
+          "m": "触达特定受众"
+        },
+        {
+          "t": "but campaigns need",
+          "m": "但活动需要"
+        },
+        {
+          "t": "regular monitoring.",
+          "m": "定期监控"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I manage online advertising",
+          "m": "我管理线上广告"
+        },
+        {
+          "t": "for our company's new software product.",
+          "m": "为公司新软件产品"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Our main channels",
+          "m": "我们的主要渠道"
+        },
+        {
+          "t": "are Google Ads and LinkedIn.",
+          "m": "是Google Ads和领英"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "At the beginning of each campaign,",
+          "m": "每次活动开始时"
+        },
+        {
+          "t": "I define the audience,",
+          "m": "我会确定受众"
+        },
+        {
+          "t": "daily budget,",
+          "m": "每日预算"
+        },
+        {
+          "t": "and advertising objective.",
+          "m": "和广告目标"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "For example,",
+          "m": "例如"
+        },
+        {
+          "t": "one campaign focuses on website traffic,",
+          "m": "一项活动侧重网站流量"
+        },
+        {
+          "t": "while another aims to collect contact information",
+          "m": "另一项要收集联系方式"
+        },
+        {
+          "t": "from potential business customers.",
+          "m": "来自潜在企业客户"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I also prepare",
+          "m": "我还会准备"
+        },
+        {
+          "t": "several versions of headlines and images",
+          "m": "多版标题和图片"
+        },
+        {
+          "t": "for testing.",
+          "m": "用于测试"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "After the advertisements go live,",
+          "m": "广告上线后"
+        },
+        {
+          "t": "I check the performance dashboard",
+          "m": "我查看效果数据面板"
+        },
+        {
+          "t": "every day.",
+          "m": "每天"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I pay attention to",
+          "m": "我重点关注"
+        },
+        {
+          "t": "impressions,",
+          "m": "曝光量"
+        },
+        {
+          "t": "clicks,",
+          "m": "点击量"
+        },
+        {
+          "t": "click-through rate,",
+          "m": "点击率"
+        },
+        {
+          "t": "and conversion rate.",
+          "m": "和转化率"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "These numbers help me understand",
+          "m": "这些数据帮我了解"
+        },
+        {
+          "t": "whether people notice the ads",
+          "m": "人们是否注意到广告"
+        },
+        {
+          "t": "and take the actions we want.",
+          "m": "并采取期望的行动"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Last week,",
+          "m": "上周"
+        },
+        {
+          "t": "one advertisement received many clicks",
+          "m": "一则广告点击很多"
+        },
+        {
+          "t": "but generated very few leads.",
+          "m": "却只带来很少线索"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I reviewed the landing page",
+          "m": "我检查了落地页"
+        },
+        {
+          "t": "and found that",
+          "m": "并发现"
+        },
+        {
+          "t": "its message did not match the advertisement.",
+          "m": "页面信息与广告不符"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Visitors expected a free product demonstration,",
+          "m": "访客期待免费产品演示"
+        },
+        {
+          "t": "but the page mainly described product features.",
+          "m": "页面却主要介绍功能"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I worked with the content team",
+          "m": "我与内容团队合作"
+        },
+        {
+          "t": "to make the message clearer",
+          "m": "让信息更清晰"
+        },
+        {
+          "t": "and added a visible registration button.",
+          "m": "并加了醒目的注册按钮"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "The conversion rate improved",
+          "m": "转化率有所提升"
+        },
+        {
+          "t": "over the following days.",
+          "m": "在随后几天里"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Digital advertising",
+          "m": "数字广告"
+        },
+        {
+          "t": "is not simply about",
+          "m": "并不只是"
+        },
+        {
+          "t": "spending more money.",
+          "m": "花更多钱"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "It requires",
+          "m": "它需要"
+        },
+        {
+          "t": "continuous testing,",
+          "m": "持续测试"
+        },
+        {
+          "t": "careful analysis,",
+          "m": "仔细分析"
+        },
+        {
+          "t": "and regular optimization.",
+          "m": "和定期优化"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "id": "p10029",
+  "sents": [
+    {
+      "chunks": [
+        {
+          "t": "Marketing teams need to measure results",
+          "m": "营销团队要衡量结果"
+        },
+        {
+          "t": "to understand whether",
+          "m": "以了解"
+        },
+        {
+          "t": "their activities are creating business value.",
+          "m": "活动是否创造商业价值"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "At the end of each month,",
+          "m": "每个月月底"
+        },
+        {
+          "t": "I prepare a performance report",
+          "m": "我准备效果报告"
+        },
+        {
+          "t": "for our international marketing campaigns.",
+          "m": "为海外营销活动"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I begin by collecting data",
+          "m": "我先收集数据"
+        },
+        {
+          "t": "from advertising platforms,",
+          "m": "来自广告平台"
+        },
+        {
+          "t": "website analytics,",
+          "m": "网站分析工具"
+        },
+        {
+          "t": "and our customer relationship management system.",
+          "m": "和客户关系管理系统"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I organize the information",
+          "m": "我整理信息"
+        },
+        {
+          "t": "by market",
+          "m": "按市场"
+        },
+        {
+          "t": "and marketing channel.",
+          "m": "和营销渠道"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "This allows me to",
+          "m": "这让我能"
+        },
+        {
+          "t": "compare performance across different countries",
+          "m": "比较各国表现"
+        },
+        {
+          "t": "and identify",
+          "m": "并找出"
+        },
+        {
+          "t": "where our budget is being used most effectively.",
+          "m": "预算用在哪最有效"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "Last month,",
+          "m": "上个月"
+        },
+        {
+          "t": "our campaign in Australia generated",
+          "m": "我们澳洲的活动带来"
+        },
+        {
+          "t": "a large number of website visits,",
+          "m": "大量网站访问量"
+        },
+        {
+          "t": "but the number of sales remained low.",
+          "m": "但销量仍然很低"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "In Singapore,",
+          "m": "在新加坡"
+        },
+        {
+          "t": "traffic was lower,",
+          "m": "流量较低"
+        },
+        {
+          "t": "but visitors were more likely to complete a purchase.",
+          "m": "但访客更可能购买"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "This showed that",
+          "m": "这说明"
+        },
+        {
+          "t": "high traffic",
+          "m": "高流量"
+        },
+        {
+          "t": "did not always mean",
+          "m": "并不总是意味着"
+        },
+        {
+          "t": "strong business results.",
+          "m": "良好的商业结果"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I then reviewed the customer journey",
+          "m": "随后我查看客户旅程"
+        },
+        {
+          "t": "and found that",
+          "m": "发现"
+        },
+        {
+          "t": "Australian visitors often left the website",
+          "m": "澳洲访客常离开网站"
+        },
+        {
+          "t": "during the checkout process.",
+          "m": "在结账过程中"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I discussed this issue",
+          "m": "我讨论了这个问题"
+        },
+        {
+          "t": "with the local team",
+          "m": "和当地团队"
+        },
+        {
+          "t": "and suggested testing",
+          "m": "并建议测试"
+        },
+        {
+          "t": "different payment options",
+          "m": "不同支付方式"
+        },
+        {
+          "t": "and clearer delivery information.",
+          "m": "和更清晰的配送信息"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "In the report,",
+          "m": "在报告中"
+        },
+        {
+          "t": "I included the main results,",
+          "m": "我列出了主要结果"
+        },
+        {
+          "t": "possible reasons,",
+          "m": "可能原因"
+        },
+        {
+          "t": "and recommended actions.",
+          "m": "和建议行动"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "I also compared the results",
+          "m": "我还对比了结果"
+        },
+        {
+          "t": "with the previous month",
+          "m": "与上个月"
+        },
+        {
+          "t": "to identify changes over time.",
+          "m": "以发现一段时间的变化"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "A useful marketing report",
+          "m": "有用的营销报告"
+        },
+        {
+          "t": "should not only present numbers.",
+          "m": "不应只展示数字"
+        }
+      ]
+    },
+    {
+      "chunks": [
+        {
+          "t": "It should explain",
+          "m": "它还应解释"
+        },
+        {
+          "t": "what the numbers mean",
+          "m": "数字代表什么"
+        },
+        {
+          "t": "and help the team decide",
+          "m": "并帮团队决定"
+        },
+        {
+          "t": "what to do next.",
+          "m": "下一步做什么"
+        }
+      ]
+    }
+  ]
+}

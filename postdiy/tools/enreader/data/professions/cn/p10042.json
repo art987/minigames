@@ -1,0 +1,71 @@
+{
+  "id": "p10042",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "An international project team", "m": "国际项目团队" },
+        { "t": "includes employees", "m": "包括员工" },
+        { "t": "from China, France, and the United States.", "m": "来自中美法三国" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Differences in communication styles", "m": "沟通方式差异" },
+        { "t": "and working habits", "m": "和工作习惯" },
+        { "t": "sometimes create misunderstandings.", "m": "有时造成误解" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The team leader notices the tension", "m": "负责人察觉紧张气氛" },
+        { "t": "and encourages everyone", "m": "并鼓励大家" },
+        { "t": "to explain their ideas", "m": "说出自己的想法" },
+        { "t": "in a respectful way.", "m": "以尊重的方式" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The team agrees to", "m": "团队一致同意" },
+        { "t": "share important decisions in writing", "m": "书面分享重要决策" },
+        { "t": "after each discussion", "m": "每次讨论之后" },
+        { "t": "so that everyone has the same information.", "m": "确保大家信息一致" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "To avoid scheduling problems,", "m": "为避免日程冲突" },
+        { "t": "the team uses a shared calendar", "m": "团队使用共享日历" },
+        { "t": "and confirms meeting times in advance.", "m": "并提前确认会议时间" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "When a deadline is difficult to meet,", "m": "当截止日期难以达成" },
+        { "t": "employees are expected to", "m": "员工应当" },
+        { "t": "explain the reason early", "m": "尽早说明原因" },
+        { "t": "rather than wait until the last minute.", "m": "而非拖到最后一刻" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Asking questions,", "m": "主动提问" },
+        { "t": "listening carefully,", "m": "认真倾听" },
+        { "t": "and checking understanding", "m": "并确认理解" },
+        { "t": "can prevent many misunderstandings.", "m": "能避免许多误解" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Working across cultures", "m": "跨文化协作" },
+        { "t": "requires patience and flexibility.", "m": "需要耐心与灵活" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "When team members respect different perspectives", "m": "当成员尊重不同观点" },
+        { "t": "and communicate openly,", "m": "并保持开放沟通" },
+        { "t": "they can build stronger working relationships.", "m": "就能建立更牢固的关系" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+ "id": "p10044",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A purchasing officer",
+     "m": "一名采购专员"
+    },
+    {
+     "t": "needs to buy",
+     "m": "需要购买"
+    },
+    {
+     "t": "5,000 units of packaging materials",
+     "m": "五千件包装材料"
+    },
+    {
+     "t": "for an upcoming production order.",
+     "m": "为即将开始的生产订单"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The officer prepares",
+     "m": "专员准备"
+    },
+    {
+     "t": "a request for quotation",
+     "m": "一份询价单"
+    },
+    {
+     "t": "and sends it",
+     "m": "并发送出去"
+    },
+    {
+     "t": "to four suppliers.",
+     "m": "给四家供应商"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The document includes",
+     "m": "文件包括"
+    },
+    {
+     "t": "product specifications,",
+     "m": "产品规格"
+    },
+    {
+     "t": "required quantities,",
+     "m": "所需数量"
+    },
+    {
+     "t": "delivery location,",
+     "m": "交货地点"
+    },
+    {
+     "t": "expected delivery date,",
+     "m": "预计交货日期"
+    },
+    {
+     "t": "and payment requirements.",
+     "m": "以及付款要求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing officer creates",
+     "m": "采购专员制作"
+    },
+    {
+     "t": "a comparison sheet",
+     "m": "一份对比表"
+    },
+    {
+     "t": "to review the offers.",
+     "m": "以查看报价"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Supplier A provides",
+     "m": "A供应商提供"
+    },
+    {
+     "t": "the lowest unit price,",
+     "m": "最低单价"
+    },
+    {
+     "t": "but its quotation",
+     "m": "但其报价"
+    },
+    {
+     "t": "does not include",
+     "m": "不包含"
+    },
+    {
+     "t": "transportation costs.",
+     "m": "运输费用"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After calculating the total landed cost,",
+     "m": "算完总到岸成本后"
+    },
+    {
+     "t": "the team realizes",
+     "m": "团队发现"
+    },
+    {
+     "t": "that Supplier B offers",
+     "m": "B供应商提供"
+    },
+    {
+     "t": "the best overall value.",
+     "m": "整体最有优势"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The purchasing manager reviews",
+     "m": "采购经理审核"
+    },
+    {
+     "t": "the comparison",
+     "m": "对比结果"
+    },
+    {
+     "t": "and approves",
+     "m": "并批准"
+    },
+    {
+     "t": "further negotiations with Supplier B.",
+     "m": "与B供应商进一步谈判"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Comparing the full cost,",
+     "m": "比较完整成本"
+    },
+    {
+     "t": "delivery conditions,",
+     "m": "交付条件"
+    },
+    {
+     "t": "and service terms",
+     "m": "和服务条款"
+    },
+    {
+     "t": "helps companies",
+     "m": "帮助企业"
+    },
+    {
+     "t": "make better purchasing decisions.",
+     "m": "作出更优采购决策"
+    }
+   ]
+  }
+ ]
+}

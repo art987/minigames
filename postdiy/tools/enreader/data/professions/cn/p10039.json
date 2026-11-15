@@ -1,0 +1,60 @@
+{
+  "id": "p10039",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "An international business specialist", "m": "国际业务专员" },
+        { "t": "is responsible for", "m": "负责" },
+        { "t": "maintaining relationships", "m": "维护客户关系" },
+        { "t": "with several overseas clients.", "m": "与几位海外客户" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The specialist needs to understand", "m": "专员需要先了解" },
+        { "t": "the client's requirements", "m": "客户的具体需求" },
+        { "t": "before making a recommendation.", "m": "再提出建议" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The client explains that", "m": "客户解释说" },
+        { "t": "product quality is the main priority,", "m": "产品质量最优先" },
+        { "t": "but the delivery date is also important.", "m": "但交期也很重要" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "These questions help the company", "m": "这些问题帮公司" },
+        { "t": "prepare a suitable proposal", "m": "制定合适的方案" },
+        { "t": "instead of offering a general solution.", "m": "而非笼统解决办法" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The email includes product specifications,", "m": "邮件包含产品规格" },
+        { "t": "available quantities, estimated production time,", "m": "可供数量与生产时间" },
+        { "t": "and possible shipping methods.", "m": "以及可选运输方式" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The specialist", "m": "业务专员" },
+        { "t": "does not make an immediate promise.", "m": "没有立即作出承诺" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The company later provides", "m": "公司随后提供" },
+        { "t": "a revised quotation", "m": "修订后的报价" },
+        { "t": "with a more competitive price.", "m": "价格更有竞争力" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Professional client communication", "m": "专业的客户沟通" },
+        { "t": "requires more than polite language.", "m": "不止是礼貌用语" }
+      ]
+    }
+  ]
+}

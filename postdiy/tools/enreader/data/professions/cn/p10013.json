@@ -1,0 +1,261 @@
+{
+ "id": "p10013",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Every morning, ",
+     "m": "每天早上"
+    },
+    {
+     "t": "our development team ",
+     "m": "我们开发团队"
+    },
+    {
+     "t": "has a short stand-up meeting ",
+     "m": "开一次简短站会"
+    },
+    {
+     "t": "to share progress ",
+     "m": "分享工作进展"
+    },
+    {
+     "t": "and coordinate the day's work.",
+     "m": "并协调当天任务"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Each person explains ",
+     "m": "每个人说明"
+    },
+    {
+     "t": "what they completed yesterday, ",
+     "m": "昨天完成了什么"
+    },
+    {
+     "t": "what they plan to do today, ",
+     "m": "今天计划做什么"
+    },
+    {
+     "t": "and whether anything is blocking their progress.",
+     "m": "以及是否有阻碍"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I try to keep my update specific ",
+     "m": "我尽量汇报具体"
+    },
+    {
+     "t": "instead of saying ",
+     "m": "而不是只说"
+    },
+    {
+     "t": "that I am simply working on a feature.",
+     "m": "自己在开发某功能"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For example, ",
+     "m": "例如"
+    },
+    {
+     "t": "I might say ",
+     "m": "我可能会说"
+    },
+    {
+     "t": "that I finished the login validation ",
+     "m": "登录验证已完成"
+    },
+    {
+     "t": "and am now connecting the user profile page ",
+     "m": "正在连接用户资料页"
+    },
+    {
+     "t": "to the API.",
+     "m": "到 API 接口"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If I have a blocker, ",
+     "m": "如果遇到阻碍"
+    },
+    {
+     "t": "I explain ",
+     "m": "我会说明"
+    },
+    {
+     "t": "what I have tried ",
+     "m": "试过哪些方法"
+    },
+    {
+     "t": "and what kind of help I need.",
+     "m": "需要什么帮助"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This makes it easier ",
+     "m": "这样更容易"
+    },
+    {
+     "t": "for a teammate ",
+     "m": "让队友"
+    },
+    {
+     "t": "to offer useful advice ",
+     "m": "提供有用建议"
+    },
+    {
+     "t": "or take action after the meeting.",
+     "m": "或在会后采取行动"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also mention risks early, ",
+     "m": "我也会尽早提示风险"
+    },
+    {
+     "t": "especially when a task ",
+     "m": "尤其是某项任务"
+    },
+    {
+     "t": "may take longer than expected.",
+     "m": "可能超出预期"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The goal is not ",
+     "m": "目的并不是"
+    },
+    {
+     "t": "to give a long technical presentation ",
+     "m": "做冗长技术演讲"
+    },
+    {
+     "t": "or prove how busy I am.",
+     "m": "或证明自己多忙"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It is a quick way ",
+     "m": "这是一种快捷方式"
+    },
+    {
+     "t": "to make sure ",
+     "m": "用来确保"
+    },
+    {
+     "t": "everyone understands the team's current priorities.",
+     "m": "所有人都清楚当前重点"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If a discussion needs more time, ",
+     "m": "如果讨论需要更多时间"
+    },
+    {
+     "t": "we arrange a separate conversation ",
+     "m": "我们会安排单独沟通"
+    },
+    {
+     "t": "with the relevant people.",
+     "m": "与相关人员一起"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A clear update ",
+     "m": "清晰的进展汇报"
+    },
+    {
+     "t": "helps the team spot problems early ",
+     "m": "帮助团队及早发现问题"
+    },
+    {
+     "t": "and avoid duplicated work.",
+     "m": "并避免重复劳动"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It also keeps communication open, ",
+     "m": "它还保持沟通畅通"
+    },
+    {
+     "t": "so small issues ",
+     "m": "这样小问题"
+    },
+    {
+     "t": "do not become serious delays.",
+     "m": "不会拖成严重延误"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I usually write down the action items ",
+     "m": "我记下行动事项"
+    },
+    {
+     "t": "so that everyone knows ",
+     "m": "让每个人都知道"
+    },
+    {
+     "t": "who is responsible for the next step.",
+     "m": "下一步由谁负责"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If priorities change during the day, ",
+     "m": "如果当天重点有变"
+    },
+    {
+     "t": "I update the team ",
+     "m": "我会及时通知团队"
+    },
+    {
+     "t": "rather than letting others ",
+     "m": "而不是让别人"
+    },
+    {
+     "t": "work with outdated information.",
+     "m": "用过时信息干活"
+    }
+   ]
+  }
+ ]
+}

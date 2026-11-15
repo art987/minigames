@@ -1,0 +1,229 @@
+{
+ "id": "p10012",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "At the end of each week,",
+     "m": "每周结束时"
+    },
+    {
+     "t": "I prepare an operations report",
+     "m": "我会准备运营报告"
+    },
+    {
+     "t": "for my manager and the rest of the team.",
+     "m": "给经理和团队其他人"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The report covers",
+     "m": "报告涵盖"
+    },
+    {
+     "t": "sales revenue, order volume, traffic,",
+     "m": "销售额、订单量、流量"
+    },
+    {
+     "t": "conversion rate, advertising performance,",
+     "m": "转化率、广告表现"
+    },
+    {
+     "t": "and inventory status.",
+     "m": "以及库存状态"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I do not simply copy numbers from different dashboards;",
+     "m": "我不是从各数据看板照抄数字"
+    },
+    {
+     "t": "I organize the data",
+     "m": "而是先整理数据"
+    },
+    {
+     "t": "so that people can understand the overall situation quickly.",
+     "m": "让大家快速了解整体情况"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I compare this week's results",
+     "m": "我对比本周结果"
+    },
+    {
+     "t": "with our targets",
+     "m": "和目标比"
+    },
+    {
+     "t": "and the previous week's performance.",
+     "m": "也和上周表现比"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "When a metric changes significantly,",
+     "m": "当指标明显波动时"
+    },
+    {
+     "t": "I try to explain the possible reasons",
+     "m": "我会试着解释原因"
+    },
+    {
+     "t": "and provide supporting data.",
+     "m": "并附上佐证数据"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "For example,",
+     "m": "举例来说"
+    },
+    {
+     "t": "sales may increase because of a promotion,",
+     "m": "销售额可能因促销上涨"
+    },
+    {
+     "t": "while profit may decrease",
+     "m": "利润却可能下滑"
+    },
+    {
+     "t": "because the discount was too large.",
+     "m": "因为折扣给得太狠"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I highlight the most important problems",
+     "m": "我突出最重要的问题"
+    },
+    {
+     "t": "and suggest specific actions",
+     "m": "并提出具体措施"
+    },
+    {
+     "t": "for the coming week.",
+     "m": "供下周执行"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before the meeting,",
+     "m": "开会之前"
+    },
+    {
+     "t": "I check the figures carefully",
+     "m": "我仔细核对数字"
+    },
+    {
+     "t": "and make sure that all departments",
+     "m": "并确保各部门"
+    },
+    {
+     "t": "use the same definitions.",
+     "m": "用统一的指标口径"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During the meeting,",
+     "m": "开会时"
+    },
+    {
+     "t": "I explain the key findings",
+     "m": "我讲解关键发现"
+    },
+    {
+     "t": "in a simple way",
+     "m": "讲得简单易懂"
+    },
+    {
+     "t": "and answer questions from the team.",
+     "m": "并回答大家的提问"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A useful report",
+     "m": "有用的报告"
+    },
+    {
+     "t": "should help people make decisions,",
+     "m": "要能帮人做决策"
+    },
+    {
+     "t": "not just show what happened.",
+     "m": "而不只是罗列已发生的事"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Clear reporting makes it easier for the team",
+     "m": "清晰的汇报让团队"
+    },
+    {
+     "t": "to agree on priorities",
+     "m": "更容易统一工作重点"
+    },
+    {
+     "t": "and move forward together.",
+     "m": "并一起向前推进"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I keep the report focused",
+     "m": "我让报告重点突出"
+    },
+    {
+     "t": "and avoid adding charts",
+     "m": "并且不加那些"
+    },
+    {
+     "t": "that do not support a clear point.",
+     "m": "说明不了问题的图表"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "When everyone understands the same information,",
+     "m": "当大家信息一致时"
+    },
+    {
+     "t": "discussions become more productive",
+     "m": "讨论会更高效"
+    },
+    {
+     "t": "and decisions are easier to track.",
+     "m": "决策也更容易跟进"
+    }
+   ]
+  }
+ ]
+}

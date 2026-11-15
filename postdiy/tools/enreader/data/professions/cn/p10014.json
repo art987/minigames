@@ -1,0 +1,249 @@
+{
+ "id": "p10014",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A tester reported ",
+     "m": "测试人员反馈"
+    },
+    {
+     "t": "that users sometimes see an error ",
+     "m": "用户有时会看到报错"
+    },
+    {
+     "t": "after submitting the registration form.",
+     "m": "提交注册表单后"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before changing the code, ",
+     "m": "修改代码之前"
+    },
+    {
+     "t": "I try to reproduce the problem ",
+     "m": "我先复现问题"
+    },
+    {
+     "t": "in a controlled environment.",
+     "m": "在可控环境中"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I follow the same steps as the tester ",
+     "m": "我按测试人员的步骤"
+    },
+    {
+     "t": "and check whether the issue happens every time ",
+     "m": "并检查问题是否每次出现"
+    },
+    {
+     "t": "or only under certain conditions.",
+     "m": "还是仅在特定条件下"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Next, I review ",
+     "m": "接下来我查看"
+    },
+    {
+     "t": "the browser console, ",
+     "m": "浏览器控制台"
+    },
+    {
+     "t": "server logs, ",
+     "m": "服务器日志"
+    },
+    {
+     "t": "and recent code changes ",
+     "m": "以及近期代码变更"
+    },
+    {
+     "t": "for useful clues.",
+     "m": "寻找有用线索"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The logs show ",
+     "m": "日志显示"
+    },
+    {
+     "t": "that the request sometimes reaches the server ",
+     "m": "请求有时到达服务器"
+    },
+    {
+     "t": "without a required field.",
+     "m": "却缺必填字段"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I check the form validation ",
+     "m": "我检查表单验证"
+    },
+    {
+     "t": "and discover ",
+     "m": "然后发现"
+    },
+    {
+     "t": "that one field is not handled correctly ",
+     "m": "有个字段未被正确处理"
+    },
+    {
+     "t": "when users leave it empty.",
+     "m": "当用户留空时"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I update the validation logic ",
+     "m": "我更新验证逻辑"
+    },
+    {
+     "t": "and add a clear error message ",
+     "m": "并加上清晰的报错提示"
+    },
+    {
+     "t": "so users know what they need to do.",
+     "m": "让用户知道该怎么做"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then I write a test ",
+     "m": "然后我写个测试"
+    },
+    {
+     "t": "for the empty-field case ",
+     "m": "针对字段为空的情况"
+    },
+    {
+     "t": "and run the existing test suite ",
+     "m": "并运行现有测试集"
+    },
+    {
+     "t": "to check for side effects.",
+     "m": "检查有无副作用"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the fix passes the tests, ",
+     "m": "修复通过测试后"
+    },
+    {
+     "t": "I ask the tester to verify it ",
+     "m": "我请测试人员验证"
+    },
+    {
+     "t": "in the testing environment.",
+     "m": "在测试环境中"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also document the root cause ",
+     "m": "我还记录根本原因"
+    },
+    {
+     "t": "and the changes we made.",
+     "m": "以及所做的修改"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A good bug fix ",
+     "m": "好的 Bug 修复"
+    },
+    {
+     "t": "should solve the actual problem ",
+     "m": "应解决真正的问题"
+    },
+    {
+     "t": "without creating new ones.",
+     "m": "而不引入新问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Taking time to investigate carefully ",
+     "m": "花时间仔细排查"
+    },
+    {
+     "t": "is often faster ",
+     "m": "往往更快"
+    },
+    {
+     "t": "than making several guesses ",
+     "m": "比多次瞎猜"
+    },
+    {
+     "t": "and changing code repeatedly.",
+     "m": "和反复改代码"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If the issue cannot be fixed immediately, ",
+     "m": "如果无法立即修复"
+    },
+    {
+     "t": "I share a temporary workaround ",
+     "m": "我先给出临时方案"
+    },
+    {
+     "t": "with the team ",
+     "m": "给团队"
+    },
+    {
+     "t": "and keep tracking the investigation.",
+     "m": "并持续跟进排查"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I avoid closing the bug ",
+     "m": "我不会急着关 Bug"
+    },
+    {
+     "t": "until the tester confirms ",
+     "m": "直到测试人员确认"
+    },
+    {
+     "t": "that the original steps no longer cause the error.",
+     "m": "原步骤不再报错"
+    }
+   ]
+  }
+ ]
+}

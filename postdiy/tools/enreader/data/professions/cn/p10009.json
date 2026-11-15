@@ -1,0 +1,249 @@
+{
+ "id": "p10009",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Our team is preparing a promotion",
+     "m": "团队在筹备一场促销"
+    },
+    {
+     "t": "for the upcoming holiday season,",
+     "m": "迎接即将到来的节日季"
+    },
+    {
+     "t": "so I need to build",
+     "m": "所以我要制定"
+    },
+    {
+     "t": "a clear campaign plan.",
+     "m": "一份清晰的活动计划"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "First, I review last year's sales data",
+     "m": "我先看去年的销售数据"
+    },
+    {
+     "t": "to find out",
+     "m": "弄清楚"
+    },
+    {
+     "t": "which products performed well",
+     "m": "哪些产品卖得好"
+    },
+    {
+     "t": "and when customers started buying.",
+     "m": "客户何时开始下单"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also check current inventory",
+     "m": "我还会检查现有库存"
+    },
+    {
+     "t": "and ask the purchasing team",
+     "m": "并询问采购团队"
+    },
+    {
+     "t": "whether more stock can arrive",
+     "m": "补的货能否"
+    },
+    {
+     "t": "before the campaign begins.",
+     "m": "赶在活动开始前到"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Based on the data,",
+     "m": "根据数据"
+    },
+    {
+     "t": "I select the products",
+     "m": "我挑选产品"
+    },
+    {
+     "t": "that have enough stock",
+     "m": "要求库存充足"
+    },
+    {
+     "t": "and a reasonable profit margin.",
+     "m": "利润空间也合理"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then I set a sales target",
+     "m": "然后我定销售目标"
+    },
+    {
+     "t": "and estimate the discount, advertising budget,",
+     "m": "再估算折扣和广告预算"
+    },
+    {
+     "t": "and expected return.",
+     "m": "以及预期回报"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I discuss the plan",
+     "m": "我讨论方案"
+    },
+    {
+     "t": "with the design team",
+     "m": "和设计团队一起"
+    },
+    {
+     "t": "so that banners, product images,",
+     "m": "确保横幅和商品图片"
+    },
+    {
+     "t": "and promotional messages",
+     "m": "以及促销文案"
+    },
+    {
+     "t": "are ready on time.",
+     "m": "都按时准备好"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We also prepare backup plans",
+     "m": "我们还会准备备用方案"
+    },
+    {
+     "t": "in case a popular item",
+     "m": "以防热门商品"
+    },
+    {
+     "t": "sells faster than expected.",
+     "m": "卖得比预期快"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before launch,",
+     "m": "上线之前"
+    },
+    {
+     "t": "I check every promotion setting,",
+     "m": "我检查每项促销设置"
+    },
+    {
+     "t": "including the start time, end time, discount rules,",
+     "m": "包括起止时间和折扣规则"
+    },
+    {
+     "t": "and eligible products.",
+     "m": "以及适用商品"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During the campaign,",
+     "m": "活动期间"
+    },
+    {
+     "t": "I monitor sales and advertising results",
+     "m": "我监控销售和广告效果"
+    },
+    {
+     "t": "several times a day.",
+     "m": "一天看好几次"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If results are weaker than expected,",
+     "m": "如果效果不如预期"
+    },
+    {
+     "t": "I adjust the budget",
+     "m": "我就调整预算"
+    },
+    {
+     "t": "or improve the product pages.",
+     "m": "或优化商品页面"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "After the campaign,",
+     "m": "活动结束后"
+    },
+    {
+     "t": "I compare actual results with our targets",
+     "m": "我把实际结果和目标对比"
+    },
+    {
+     "t": "and write down lessons",
+     "m": "并记下经验教训"
+    },
+    {
+     "t": "for the next event.",
+     "m": "留给下次活动"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I make sure",
+     "m": "我会确保"
+    },
+    {
+     "t": "that the customer service team",
+     "m": "客服团队"
+    },
+    {
+     "t": "knows the campaign rules",
+     "m": "清楚活动规则"
+    },
+    {
+     "t": "before customers start asking questions.",
+     "m": "赶在客户咨询之前"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A promotion should attract customers",
+     "m": "促销要能吸引客户"
+    },
+    {
+     "t": "while still supporting",
+     "m": "同时也要兼顾"
+    },
+    {
+     "t": "the store's long-term business goals.",
+     "m": "店铺的长期经营目标"
+    }
+   ]
+  }
+ ]
+}

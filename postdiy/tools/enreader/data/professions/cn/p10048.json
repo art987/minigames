@@ -1,0 +1,173 @@
+{
+ "id": "p10048",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A company depends on",
+     "m": "企业依赖于"
+    },
+    {
+     "t": "several overseas suppliers",
+     "m": "几家海外供应商"
+    },
+    {
+     "t": "for important raw materials.",
+     "m": "获取重要原材料"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "These changes",
+     "m": "这些变化"
+    },
+    {
+     "t": "could affect",
+     "m": "可能影响"
+    },
+    {
+     "t": "the company's production schedule",
+     "m": "公司生产计划"
+    },
+    {
+     "t": "and operating costs.",
+     "m": "和运营成本"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The supply chain manager",
+     "m": "供应链经理"
+    },
+    {
+     "t": "organizes a meeting",
+     "m": "组织会议"
+    },
+    {
+     "t": "with purchasing, production, and logistics teams",
+     "m": "与采购生产物流团队"
+    },
+    {
+     "t": "to review the risks.",
+     "m": "以评估风险"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "They identify several possible problems,",
+     "m": "识别出多个潜在问题"
+    },
+    {
+     "t": "including supplier delays,",
+     "m": "包括供应商延误"
+    },
+    {
+     "t": "limited inventory,",
+     "m": "库存不足"
+    },
+    {
+     "t": "rising freight costs,",
+     "m": "运费上涨"
+    },
+    {
+     "t": "and dependence on a single source.",
+     "m": "以及依赖单一来源"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The team evaluates",
+     "m": "团队评估"
+    },
+    {
+     "t": "each risk",
+     "m": "每项风险"
+    },
+    {
+     "t": "according to its likelihood",
+     "m": "按发生可能性"
+    },
+    {
+     "t": "and potential impact.",
+     "m": "和潜在影响"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "To reduce this risk,",
+     "m": "为降低此风险"
+    },
+    {
+     "t": "the purchasing team",
+     "m": "采购团队"
+    },
+    {
+     "t": "starts looking for",
+     "m": "开始寻找"
+    },
+    {
+     "t": "alternative suppliers.",
+     "m": "备选供应商"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The logistics team reviews",
+     "m": "物流团队检查"
+    },
+    {
+     "t": "different transportation options",
+     "m": "不同运输方案"
+    },
+    {
+     "t": "and identifies",
+     "m": "并找出"
+    },
+    {
+     "t": "alternative routes.",
+     "m": "替代路线"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Supply chain management",
+     "m": "供应链管理"
+    },
+    {
+     "t": "also requires",
+     "m": "还需要"
+    },
+    {
+     "t": "anticipating problems,",
+     "m": "预判问题"
+    },
+    {
+     "t": "preparing backup plans,",
+     "m": "制定备用方案"
+    },
+    {
+     "t": "and responding quickly",
+     "m": "并快速响应"
+    },
+    {
+     "t": "when conditions change.",
+     "m": "情况变化时"
+    }
+   ]
+  }
+ ]
+}

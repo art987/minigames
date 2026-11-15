@@ -1,0 +1,245 @@
+{
+ "id": "p10008",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Every morning,",
+     "m": "每天早上"
+    },
+    {
+     "t": "I review the performance of our online store",
+     "m": "我先查看网店运营表现"
+    },
+    {
+     "t": "before deciding what tasks to focus on.",
+     "m": "再决定当天的工作重点"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I usually start with",
+     "m": "我通常先看"
+    },
+    {
+     "t": "sales, orders, traffic, advertising costs,",
+     "m": "销售额、订单、流量、广告费"
+    },
+    {
+     "t": "and inventory levels.",
+     "m": "以及库存水平"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I compare the numbers",
+     "m": "我会对比数据"
+    },
+    {
+     "t": "with the previous day",
+     "m": "和前一天比"
+    },
+    {
+     "t": "and the same period last week",
+     "m": "也和上周同期比"
+    },
+    {
+     "t": "to identify unusual changes.",
+     "m": "找出异常变化"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If traffic increases",
+     "m": "如果流量涨了"
+    },
+    {
+     "t": "but sales remain flat,",
+     "m": "销售额却没变"
+    },
+    {
+     "t": "I check the product pages, prices, reviews,",
+     "m": "我就查页面、价格和评价"
+    },
+    {
+     "t": "and delivery information.",
+     "m": "以及配送信息"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A high number of clicks",
+     "m": "点击量高"
+    },
+    {
+     "t": "does not always mean",
+     "m": "不一定代表"
+    },
+    {
+     "t": "that a campaign is successful.",
+     "m": "广告活动就成功"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also look at",
+     "m": "我还会看"
+    },
+    {
+     "t": "the advertising cost of sales",
+     "m": "广告销售成本占比"
+    },
+    {
+     "t": "to understand whether we are spending too much",
+     "m": "判断广告费是否花得过多"
+    },
+    {
+     "t": "to generate revenue.",
+     "m": "来换取销售额"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "When I notice",
+     "m": "当我发现"
+    },
+    {
+     "t": "a sudden drop in sales,",
+     "m": "销售额突然下滑"
+    },
+    {
+     "t": "I first check whether",
+     "m": "我先检查是不是"
+    },
+    {
+     "t": "the product is out of stock",
+     "m": "商品缺货了"
+    },
+    {
+     "t": "or the listing has a problem.",
+     "m": "还是详情页出了问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then I review",
+     "m": "接着我会检查"
+    },
+    {
+     "t": "recent promotions, competitor prices,",
+     "m": "近期促销和竞品价格"
+    },
+    {
+     "t": "and advertising changes.",
+     "m": "以及广告调整"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I record the main findings",
+     "m": "我把主要发现"
+    },
+    {
+     "t": "in a daily report",
+     "m": "记进日报"
+    },
+    {
+     "t": "and share important issues",
+     "m": "再把重要问题"
+    },
+    {
+     "t": "with the team.",
+     "m": "同步给团队"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This routine helps us react quickly",
+     "m": "这样我们能快速反应"
+    },
+    {
+     "t": "instead of waiting",
+     "m": "而不是拖到"
+    },
+    {
+     "t": "until the end of the month.",
+     "m": "月底才发现问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Good operations depend on",
+     "m": "好的运营要靠"
+    },
+    {
+     "t": "understanding the reasons behind the numbers,",
+     "m": "读懂数据背后的原因"
+    },
+    {
+     "t": "not just reporting the numbers themselves.",
+     "m": "而不是只汇报数字"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I pay attention to",
+     "m": "我会留意"
+    },
+    {
+     "t": "the difference between",
+     "m": "两者之间的差异"
+    },
+    {
+     "t": "paid traffic and organic traffic",
+     "m": "付费流量和自然流量"
+    },
+    {
+     "t": "because they may require different actions.",
+     "m": "因为应对措施可能不同"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I share clear observations",
+     "m": "我分享清晰的观察结果"
+    },
+    {
+     "t": "with the team",
+     "m": "给团队"
+    },
+    {
+     "t": "so that we can decide",
+     "m": "好一起决定"
+    },
+    {
+     "t": "what to test next.",
+     "m": "下一步测试什么"
+    }
+   ]
+  }
+ ]
+}

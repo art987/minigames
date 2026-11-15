@@ -4,10 +4,12 @@
   const { settings, set, tts, ttsOK, toast } = ENR;
   const $ = id => document.getElementById(id);
 
-  /* ---------- 定位课程文章（manifest → 按需加载单日数据） ---------- */
+  /* ---------- 定位课程文章（manifest → 按需加载单日/单篇数据） ---------- */
+  // 职业英语专题文章 id 形如 p10001（数据在 data/professions/），Day 文章 id 形如 day004
   const M = window.ENR_COURSE;
-  let id = new URLSearchParams(location.search).get("id");
-  if (!id || !M.articles.some(a => a.id === id)) {
+  let id = new URLSearchParams(location.search).get("id") || "";
+  const isProf = /^p\d+$/.test(id);
+  if (!id || (!isProf && !M.articles.some(a => a.id === id))) {
     id = (M.articles[0] || {}).id;
   }
   if (!id) { document.body.innerHTML = '<p style="padding:60px 30px;color:#5d6b80">课程数据为空，请先运行 build_course.py。</p>'; return; }
@@ -16,7 +18,7 @@
   let art = null;
 
   const script = document.createElement("script");
-  script.src = "data/days/" + id + ".js?v=24";
+  script.src = (isProf ? "data/professions/" : "data/days/") + id + ".js?v=24";
   script.onload = start;
   script.onerror = () => { document.body.innerHTML = '<p style="padding:60px 30px;color:#5d6b80">课程数据加载失败。</p>'; };
   document.head.appendChild(script);
@@ -34,8 +36,9 @@
   const DONE_KEY = "enr:done:" + art.id;
   const savedPos = Math.min(parseInt(localStorage.getItem(POS_KEY) || "0", 10) || 0, N - 1);
 
-  document.title = `Day ${String(art.day).padStart(3, "0")} · ${art.titleEn} · 英语朗读`;
-  $("artTitle").textContent = `Day ${String(art.day).padStart(3, "0")} · ${art.titleEn}`;
+  const headTag = art.day ? `Day ${String(art.day).padStart(3, "0")} · ` : "";
+  document.title = `${headTag}${art.titleEn} · 英语朗读`;
+  $("artTitle").textContent = `${headTag}${art.titleEn}`;
   $("artSub").textContent = art.titleCn;
 
   /* ---------- 渲染正文 ---------- */
@@ -487,7 +490,9 @@
   $("playBtn").addEventListener("click", playAll);
   $("prevBtn").addEventListener("click", () => step(-1));
   $("nextBtn").addEventListener("click", () => step(1));
-  $("backBtn").addEventListener("click", () => { location.href = "stage.html?stage=" + art.stage; });
+  $("backBtn").addEventListener("click", () => {
+    location.href = art.profId ? "profession.html?prof=" + art.profId : "stage.html?stage=" + art.stage;
+  });
 
   // 返回按钮：下滑看后面内容时隐藏，上滑时显示（纯透明度渐变）
   const backFab = $("backBtn");
@@ -533,7 +538,7 @@
   const metaHtml = [];
   metaHtml.push(`${art.category} · ${art.scene}`);
   metaHtml.push(`${art.wordCount} 词 · ${N} 句`);
-  if (meta && meta.seconds) metaHtml.push(`约 ${meta.seconds} 秒`);
+  if (art.seconds) metaHtml.push(`约 ${art.seconds} 秒`);
   $("artMeta").insertAdjacentHTML("afterbegin",
     metaHtml.map(t => `<span>${t}</span>`).join('<span class="dot"></span>'));
 

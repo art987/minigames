@@ -11,18 +11,20 @@ CONCURRENCY = 6
 RETRIES = 3
 
 def load_days():
-    """读取 data/days/*.js（window.ENR_DAY = {...}），返回 [(dayId, [句子文本...]), ...]"""
+    """读取 data/days/day*.js + data/professions/p*.js（window.ENR_DAY = {...}），
+    返回 [(articleId, [句子文本...]), ...]；职业篇音频存 data/tts/p<article_id>/"""
     days = []
-    for path in sorted(glob.glob("data/days/day*.js")):
-        day_id = re.search(r"(day\d+)", path).group(1)
-        js = open(path, encoding="utf-8").read()
-        payload = js.split("window.ENR_DAY = ", 1)[1].rstrip().rstrip(";")
-        art = json.loads(payload)
-        sents = []
-        for s in art["sentences"]:
-            # 与 article.js 朗读文本一致：各 chunk 文本用空格拼接
-            sents.append(" ".join(c["text"] for c in s["chunks"]).strip())
-        days.append((day_id, sents))
+    for pattern in ("data/days/day*.js", "data/professions/p[0-9]*.js"):
+        for path in sorted(glob.glob(pattern)):
+            day_id = re.search(r"(day\d+|p\d+)", path).group(1)
+            js = open(path, encoding="utf-8").read()
+            payload = js.split("window.ENR_DAY = ", 1)[1].rstrip().rstrip(";")
+            art = json.loads(payload)
+            sents = []
+            for s in art["sentences"]:
+                # 与 article.js 朗读文本一致：各 chunk 文本用空格拼接
+                sents.append(" ".join(c["text"] for c in s["chunks"]).strip())
+            days.append((day_id, sents))
     return days
 
 async def gen_one(sem, day_id, idx, text, failed):

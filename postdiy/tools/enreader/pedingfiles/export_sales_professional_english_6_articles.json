@@ -1,0 +1,1350 @@
+[
+  {
+    "article_id": 10001,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Handling an initial inquiry from an overseas buyer",
+    "title_en": "Receiving a Customer Inquiry",
+    "title_cn": "接收客户询盘",
+    "difficulty": "B1-B2",
+    "word_count": 215,
+    "estimated_reading_time_seconds": 99,
+    "content_en": "A customer inquiry is often the first step in an international business relationship. When a potential buyer contacts a supplier, the export sales representative needs to understand the customer's requirements and respond professionally.\n\nLast Monday, Daniel, an export sales representative at a Chinese manufacturing company, received an inquiry from a buyer in the United States. The customer was interested in purchasing 2,000 stainless steel water bottles for a promotional campaign.\n\nBefore preparing a quotation, Daniel carefully reviewed the inquiry. He needed to confirm the product specifications, including the bottle capacity, material, color, and packaging requirements. He also wanted to know whether the customer needed a customized logo.\n\nDaniel replied to the email and thanked the buyer for their interest. He asked several questions about the expected delivery date, destination port, and preferred shipping method. He also offered to send product samples so that the customer could check the quality before placing a bulk order.\n\nThe buyer responded the following day and provided the missing details. Daniel then shared a product catalog and explained the available customization options.\n\nBy asking clear questions and responding promptly, Daniel built a positive first impression. He understood that successful export sales depend not only on competitive prices but also on effective communication and a clear understanding of customer needs.",
+    "content_cn": "客户询盘通常是建立国际商务关系的第一步。当潜在买家联系供应商时，外贸业务代表需要了解客户的要求，并作出专业的回应。\n\n上周一，中国一家制造企业的外贸业务代表丹尼尔收到了一位美国买家的询盘。客户有意采购2000个不锈钢水瓶，用于一场促销活动。\n\n在准备报价之前，丹尼尔仔细查看了询盘内容。他需要确认产品规格，包括水瓶容量、材质、颜色和包装要求。他还想了解客户是否需要定制标志。\n\n丹尼尔回复了邮件，并感谢买家的关注。他询问了预计交货日期、目的港以及客户偏好的运输方式。他还主动提出寄送产品样品，以便客户在下批量订单之前检查产品质量。\n\n买家第二天作出了回复，并补充了缺失的信息。随后，丹尼尔分享了产品目录，并介绍了可供选择的定制方案。\n\n通过提出清晰的问题并及时回复，丹尼尔给客户留下了良好的第一印象。他明白，成功的外贸销售不仅取决于有竞争力的价格，也取决于有效沟通以及对客户需求的准确理解。",
+    "sentences": [
+      {
+        "sentence_en": "A customer inquiry is often the first step in an international business relationship.",
+        "sentence_cn": "客户询盘通常是建立国际商务关系的第一步。",
+        "chunks": [
+          "A customer inquiry is often the",
+          " first step in an international business relationship."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "When a potential buyer contacts a supplier, the export sales representative needs to understand the customer's requirements and respond professionally.",
+        "sentence_cn": "当潜在买家联系供应商时，外贸业务代表需要了解客户的要求，并作出专业的回应。",
+        "chunks": [
+          "When a potential buyer contacts a supplier,",
+          " the export sales representative needs ",
+          "to understand the customer's requirements ",
+          "and respond professionally."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Last Monday, Daniel, an export sales representative at a Chinese manufacturing company, received an inquiry from a buyer in the United States.",
+        "sentence_cn": "上周一，中国一家制造企业的外贸业务代表丹尼尔收到了一位美国买家的询盘。",
+        "chunks": [
+          "Last Monday,",
+          " Daniel,",
+          " an export sales representative at a Chinese manufacturing company,",
+          " received an inquiry from a buyer in the United States."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer was interested in purchasing 2,000 stainless steel water bottles for a promotional campaign.",
+        "sentence_cn": "客户有意采购2000个不锈钢水瓶，用于一场促销活动。",
+        "chunks": [
+          "The customer was interested in purchasing 2,000 stainless steel water bottles ",
+          "for a promotional campaign."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before preparing a quotation, Daniel carefully reviewed the inquiry.",
+        "sentence_cn": "在准备报价之前，丹尼尔仔细查看了询盘内容。",
+        "chunks": [
+          "Before preparing a quotation,",
+          " Daniel carefully reviewed the inquiry."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He needed to confirm the product specifications, including the bottle capacity, material, color, and packaging requirements.",
+        "sentence_cn": "他需要确认产品规格，包括水瓶容量、材质、颜色和包装要求。",
+        "chunks": [
+          "He needed ",
+          "to confirm the product specifications,",
+          " ",
+          "including the bottle capacity,",
+          " material,",
+          " color,",
+          " ",
+          "and packaging requirements."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He also wanted to know whether the customer needed a customized logo.",
+        "sentence_cn": "他还想了解客户是否需要定制标志。",
+        "chunks": [
+          "He also wanted ",
+          "to know whether the customer needed a customized logo."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Daniel replied to the email and thanked the buyer for their interest.",
+        "sentence_cn": "丹尼尔回复了邮件，并感谢买家的关注。",
+        "chunks": [
+          "Daniel replied ",
+          "to the email ",
+          "and thanked the buyer ",
+          "for their interest."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He asked several questions about the expected delivery date, destination port, and preferred shipping method.",
+        "sentence_cn": "他询问了预计交货日期、目的港以及客户偏好的运输方式。",
+        "chunks": [
+          "He asked several questions about the expected delivery date,",
+          " destination port,",
+          " ",
+          "and preferred shipping method."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He also offered to send product samples so that the customer could check the quality before placing a bulk order.",
+        "sentence_cn": "他还主动提出寄送产品样品，以便客户在下批量订单之前检查产品质量。",
+        "chunks": [
+          "He also offered ",
+          "to send product samples ",
+          "so ",
+          "that the customer could check the quality ",
+          "before placing a bulk order."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer responded the following day and provided the missing details.",
+        "sentence_cn": "买家第二天作出了回复，并补充了缺失的信息。",
+        "chunks": [
+          "The buyer responded the following day ",
+          "and provided the missing details."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Daniel then shared a product catalog and explained the available customization options.",
+        "sentence_cn": "随后，丹尼尔分享了产品目录，并介绍了可供选择的定制方案。",
+        "chunks": [
+          "Daniel then shared a product catalog ",
+          "and explained the available customization options."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "By asking clear questions and responding promptly, Daniel built a positive first impression.",
+        "sentence_cn": "通过提出清晰的问题并及时回复，丹尼尔给客户留下了良好的第一印象。",
+        "chunks": [
+          "By asking clear questions ",
+          "and responding promptly,",
+          " Daniel built a positive first impression."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He understood that successful export sales depend not only on competitive prices but also on effective communication and a clear understanding of customer needs.",
+        "sentence_cn": "他明白，成功的外贸销售不仅取决于有竞争力的价格，也取决于有效沟通以及对客户需求的准确理解。",
+        "chunks": [
+          "He understood ",
+          "that successful export sales depend not only on competitive prices ",
+          "but also on effective communication ",
+          "and a clear understanding of customer needs."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "Thank you for your inquiry.",
+        "meaning": "感谢您的询盘。",
+        "example": "Thank you for your inquiry about our products."
+      },
+      {
+        "expression": "Could you confirm the product specifications?",
+        "meaning": "您能确认一下产品规格吗？",
+        "example": "Could you confirm the product specifications before we prepare the quotation?"
+      },
+      {
+        "expression": "Could you let us know your expected order quantity?",
+        "meaning": "您能告知预计订购数量吗？",
+        "example": "Could you let us know your expected order quantity?"
+      },
+      {
+        "expression": "Do you need a customized logo?",
+        "meaning": "您需要定制标志吗？",
+        "example": "Do you need a customized logo on each bottle?"
+      },
+      {
+        "expression": "We would be happy to provide samples.",
+        "meaning": "我们很乐意提供样品。",
+        "example": "We would be happy to provide samples for your evaluation."
+      },
+      {
+        "expression": "We look forward to hearing from you.",
+        "meaning": "期待您的回复。",
+        "example": "We look forward to hearing from you soon."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "215 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  },
+  {
+    "article_id": 10002,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Preparing a formal quotation for an overseas buyer",
+    "title_en": "Preparing a Price Quotation",
+    "title_cn": "准备产品报价",
+    "difficulty": "B1-B2",
+    "word_count": 214,
+    "estimated_reading_time_seconds": 98,
+    "content_en": "After receiving the customer's requirements, the next important step is preparing a professional price quotation. A clear quotation helps the buyer understand the costs and make a purchasing decision.\n\nSophia works as an export sales representative for a furniture manufacturer in China. A customer from Germany recently requested a quotation for 500 office chairs. The buyer wanted to know the unit price, minimum order quantity, production lead time, and available payment methods.\n\nSophia first checked the production costs with the factory. She then calculated the unit price based on the order quantity and selected materials. Since the customer was ordering a relatively large quantity, she was able to offer a more competitive price.\n\nIn the quotation, Sophia included the product description, specifications, unit price, total amount, and quotation validity period. She also explained the payment terms. The company normally required a 30 percent deposit before production, with the remaining balance paid before shipment.\n\nSophia clearly stated the proposed delivery schedule and the shipping conditions. She also reminded the customer that international freight and import duties might need to be calculated separately, depending on the agreed trade terms.\n\nBefore sending the document, she checked every figure carefully to avoid misunderstandings. She understood that an accurate quotation could build trust and help move the negotiation forward.",
+    "content_cn": "收到客户的具体需求后，下一项重要工作就是准备一份专业的报价单。清晰的报价能够帮助买家了解成本，并作出采购决定。\n\n索菲娅是一家中国家具制造企业的外贸业务代表。最近，一位德国客户要求为500把办公椅提供报价。买家希望了解单价、最小起订量、生产周期以及可用的付款方式。\n\n索菲娅首先向工厂确认生产成本，然后根据订单数量和选定的材料计算单价。由于客户订购的数量相对较大，她能够提供更有竞争力的价格。\n\n在报价单中，索菲娅列出了产品描述、规格、单价、总金额以及报价有效期。她还解释了付款条件。公司通常要求生产前支付30%的定金，剩余尾款则在发货前支付。\n\n索菲娅清楚地说明了预计交货时间和运输条件。她还提醒客户，根据双方约定的贸易条款，国际运费和进口关税可能需要单独计算。\n\n在发送文件之前，她仔细核对了每一项数字，以避免产生误解。她明白，准确的报价能够建立客户信任，并推动后续商务谈判。",
+    "sentences": [
+      {
+        "sentence_en": "After receiving the customer's requirements, the next important step is preparing a professional price quotation.",
+        "sentence_cn": "收到客户的具体需求后，下一项重要工作就是准备一份专业的报价单。",
+        "chunks": [
+          "After receiving the customer's requirements,",
+          " the next important step is preparing a professional price quotation."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A clear quotation helps the buyer understand the costs and make a purchasing decision.",
+        "sentence_cn": "清晰的报价能够帮助买家了解成本，并作出采购决定。",
+        "chunks": [
+          "A clear quotation helps the buyer understand the costs ",
+          "and make a purchasing decision."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Sophia works as an export sales representative for a furniture manufacturer in China.",
+        "sentence_cn": "索菲娅是一家中国家具制造企业的外贸业务代表。",
+        "chunks": [
+          "Sophia works as an export sales representative ",
+          "for a furniture manufacturer in China."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A customer from Germany recently requested a quotation for 500 office chairs.",
+        "sentence_cn": "最近，一位德国客户要求为500把办公椅提供报价。",
+        "chunks": [
+          "A customer from Germany recently requested a quotation ",
+          "for 500 office chairs."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer wanted to know the unit price, minimum order quantity, production lead time, and available payment methods.",
+        "sentence_cn": "买家希望了解单价、最小起订量、生产周期以及可用的付款方式。",
+        "chunks": [
+          "The buyer wanted ",
+          "to know the unit price,",
+          " minimum order quantity,",
+          " production lead time,",
+          " ",
+          "and available payment methods."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Sophia first checked the production costs with the factory.",
+        "sentence_cn": "索菲娅首先向工厂确认生产成本。",
+        "chunks": [
+          "Sophia first checked the production costs ",
+          "with the factory."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She then calculated the unit price based on the order quantity and selected materials.",
+        "sentence_cn": "然后，她根据订单数量和选定的材料计算单价。",
+        "chunks": [
+          "She then calculated the unit price based on the order quantity ",
+          "and selected materials."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Since the customer was ordering a relatively large quantity, she was able to offer a more competitive price.",
+        "sentence_cn": "由于客户订购的数量相对较大，她能够提供更有竞争力的价格。",
+        "chunks": [
+          "Since the customer was ordering a relatively large quantity,",
+          " she was able ",
+          "to offer a more competitive price."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "In the quotation, Sophia included the product description, specifications, unit price, total amount, and quotation validity period.",
+        "sentence_cn": "在报价单中，索菲娅列出了产品描述、规格、单价、总金额以及报价有效期。",
+        "chunks": [
+          "In the quotation,",
+          " Sophia included the product description,",
+          " specifications,",
+          " unit price,",
+          " total amount,",
+          " ",
+          "and quotation validity period."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also explained the payment terms.",
+        "sentence_cn": "她还解释了付款条件。",
+        "chunks": [
+          "She also explained the payment terms."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The company normally required a 30 percent deposit before production, with the remaining balance paid before shipment.",
+        "sentence_cn": "公司通常要求生产前支付30%的定金，剩余尾款则在发货前支付。",
+        "chunks": [
+          "The company normally required a 30 percent deposit ",
+          "before production,",
+          " ",
+          "with the remaining balance paid ",
+          "before shipment."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Sophia clearly stated the proposed delivery schedule and the shipping conditions.",
+        "sentence_cn": "索菲娅清楚地说明了预计交货时间和运输条件。",
+        "chunks": [
+          "Sophia clearly stated the proposed delivery schedule ",
+          "and the shipping conditions."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also reminded the customer that international freight and import duties might need to be calculated separately, depending on the agreed trade terms.",
+        "sentence_cn": "她还提醒客户，根据双方约定的贸易条款，国际运费和进口关税可能需要单独计算。",
+        "chunks": [
+          "She also reminded the customer ",
+          "that international freight ",
+          "and import duties might need ",
+          "to be calculated separately,",
+          " depending on the agreed trade terms."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before sending the document, she checked every figure carefully to avoid misunderstandings.",
+        "sentence_cn": "在发送文件之前，她仔细核对了每一项数字，以避免产生误解。",
+        "chunks": [
+          "Before sending the document,",
+          " she checked every figure carefully ",
+          "to avoid misunderstandings."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She understood that an accurate quotation could build trust and help move the negotiation forward.",
+        "sentence_cn": "她明白，准确的报价能够建立客户信任，并推动后续商务谈判。",
+        "chunks": [
+          "She understood ",
+          "that an accurate quotation could build trust ",
+          "and help move the negotiation forward."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "Please find our quotation attached.",
+        "meaning": "请查收随附的报价单。",
+        "example": "Please find our quotation attached for your review."
+      },
+      {
+        "expression": "The unit price is based on the order quantity.",
+        "meaning": "单价根据订购数量确定。",
+        "example": "The unit price is based on the order quantity and material selection."
+      },
+      {
+        "expression": "Our minimum order quantity is 500 units.",
+        "meaning": "我们的最小起订量是500件。",
+        "example": "Our minimum order quantity is 500 units per model."
+      },
+      {
+        "expression": "The quotation is valid for 30 days.",
+        "meaning": "该报价有效期为30天。",
+        "example": "Please note that the quotation is valid for 30 days."
+      },
+      {
+        "expression": "We require a 30 percent deposit before production.",
+        "meaning": "我们要求生产前支付30%的定金。",
+        "example": "We require a 30 percent deposit before production begins."
+      },
+      {
+        "expression": "The remaining balance is due before shipment.",
+        "meaning": "剩余尾款需在发货前支付。",
+        "example": "The remaining balance is due before shipment."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "214 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  },
+  {
+    "article_id": 10003,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Negotiating a discount and order terms",
+    "title_en": "Negotiating Terms and Prices",
+    "title_cn": "商务价格谈判",
+    "difficulty": "B1-B2",
+    "word_count": 233,
+    "estimated_reading_time_seconds": 107,
+    "content_en": "Price negotiation is a common part of international trade. Buyers often ask for discounts, especially when they place large orders. However, export sales representatives must protect the company's profit margin while trying to reach an agreement.\n\nMichael works for an electronics manufacturer in Shenzhen. A customer from Australia received his quotation for 3,000 wireless headphones but asked for a 10 percent discount. The customer explained that another supplier had offered a lower price.\n\nMichael reviewed the production costs and discussed the request with his sales manager. He knew that accepting such a large discount would reduce the company's profit margin significantly.\n\nInstead of immediately rejecting the request, Michael proposed an alternative. He explained that the company could offer a 5 percent discount if the buyer increased the order quantity to 5,000 units. He also suggested a more flexible payment arrangement for future orders.\n\nThe buyer was interested but wanted to discuss the proposal with their purchasing team. Michael emphasized the product's quality, warranty service, and stable production capacity. He explained that choosing a supplier based only on price could create risks in the long term.\n\nAfter several discussions, both sides reached an agreement. The buyer accepted the revised offer and confirmed the larger order.\n\nMichael learned that successful negotiation is not simply about lowering prices. It is about understanding the other party's priorities and finding a solution that benefits both sides.",
+    "content_cn": "价格谈判是国际贸易中常见的一部分。买家经常要求折扣，尤其是在订购大量商品时。然而，外贸业务代表在努力达成协议的同时，也必须保护公司的利润空间。\n\n迈克尔在深圳一家电子产品制造企业工作。一位澳大利亚客户收到了他针对3000副无线耳机的报价，但要求降低10%的价格。客户解释说，另一家供应商提供了更低的价格。\n\n迈克尔重新核算了生产成本，并与销售经理讨论了这一要求。他知道，如果接受如此大的折扣，公司的利润空间将会明显缩小。\n\n迈克尔没有立即拒绝，而是提出了另一种方案。他解释说，如果买家将订购数量增加到5000副，公司可以提供5%的折扣。他还建议为未来的订单提供更灵活的付款安排。\n\n买家对此表示感兴趣，但希望与采购团队讨论这一提议。迈克尔强调了产品质量、保修服务以及稳定的生产能力。他解释说，如果仅仅根据价格选择供应商，长期来看可能会带来风险。\n\n经过几轮讨论，双方最终达成协议。买家接受了调整后的报价，并确认了更大的订单。\n\n迈克尔认识到，成功的谈判并不只是降低价格，而是理解对方的优先考虑，并找到双方都能受益的解决方案。",
+    "sentences": [
+      {
+        "sentence_en": "Price negotiation is a common part of international trade.",
+        "sentence_cn": "价格谈判是国际贸易中常见的一部分。",
+        "chunks": [
+          "Price negotiation is a common part of international trade."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Buyers often ask for discounts, especially when they place large orders.",
+        "sentence_cn": "买家经常要求折扣，尤其是在订购大量商品时。",
+        "chunks": [
+          "Buyers often ask ",
+          "for discounts,",
+          " especially ",
+          "when they place large orders."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "However, export sales representatives must protect the company's profit margin while trying to reach an agreement.",
+        "sentence_cn": "然而，外贸业务代表在努力达成协议的同时，也必须保护公司的利润空间。",
+        "chunks": [
+          "However,",
+          " export sales representatives must protect the company's profit margin ",
+          "while trying ",
+          "to reach an agreement."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Michael works for an electronics manufacturer in Shenzhen.",
+        "sentence_cn": "迈克尔在深圳一家电子产品制造企业工作。",
+        "chunks": [
+          "Michael works ",
+          "for an electronics manufacturer in Shenzhen."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A customer from Australia received his quotation for 3,000 wireless headphones but asked for a 10 percent discount.",
+        "sentence_cn": "一位澳大利亚客户收到了他针对3000副无线耳机的报价，但要求降低10%的价格。",
+        "chunks": [
+          "A customer from Australia received his quotation ",
+          "for 3,000 wireless headphones ",
+          "but asked ",
+          "for a 10 percent discount."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer explained that another supplier had offered a lower price.",
+        "sentence_cn": "客户解释说，另一家供应商提供了更低的价格。",
+        "chunks": [
+          "The customer explained ",
+          "that another supplier had offered a lower price."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Michael reviewed the production costs and discussed the request with his sales manager.",
+        "sentence_cn": "迈克尔重新核算了生产成本，并与销售经理讨论了这一要求。",
+        "chunks": [
+          "Michael reviewed the production costs ",
+          "and discussed the request ",
+          "with his sales manager."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He knew that accepting such a large discount would reduce the company's profit margin significantly.",
+        "sentence_cn": "他知道，如果接受如此大的折扣，公司的利润空间将会明显缩小。",
+        "chunks": [
+          "He knew ",
+          "that accepting such a large discount would reduce the company's profit margin significantly."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of immediately rejecting the request, Michael proposed an alternative.",
+        "sentence_cn": "迈克尔没有立即拒绝，而是提出了另一种方案。",
+        "chunks": [
+          "Instead of immediately rejecting the request,",
+          " Michael proposed an alternative."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He explained that the company could offer a 5 percent discount if the buyer increased the order quantity to 5,000 units.",
+        "sentence_cn": "他解释说，如果买家将订购数量增加到5000副，公司可以提供5%的折扣。",
+        "chunks": [
+          "He explained ",
+          "that the company could offer a 5 percent discount ",
+          "if the buyer increased the order quantity ",
+          "to 5,000 units."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He also suggested a more flexible payment arrangement for future orders.",
+        "sentence_cn": "他还建议为未来的订单提供更灵活的付款安排。",
+        "chunks": [
+          "He also suggested a more flexible payment arrangement ",
+          "for future orders."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer was interested but wanted to discuss the proposal with their purchasing team.",
+        "sentence_cn": "买家对此表示感兴趣，但希望与采购团队讨论这一提议。",
+        "chunks": [
+          "The buyer was interested ",
+          "but wanted ",
+          "to discuss the proposal ",
+          "with their purchasing team."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Michael emphasized the product's quality, warranty service, and stable production capacity.",
+        "sentence_cn": "迈克尔强调了产品质量、保修服务以及稳定的生产能力。",
+        "chunks": [
+          "Michael emphasized the product's quality,",
+          " warranty service,",
+          " ",
+          "and stable production capacity."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He explained that choosing a supplier based only on price could create risks in the long term.",
+        "sentence_cn": "他解释说，如果仅仅根据价格选择供应商，长期来看可能会带来风险。",
+        "chunks": [
+          "He explained ",
+          "that choosing a supplier based only on price could create risks in the long term."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After several discussions, both sides reached an agreement.",
+        "sentence_cn": "经过几轮讨论，双方最终达成协议。",
+        "chunks": [
+          "After several discussions,",
+          " both sides reached an agreement."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer accepted the revised offer and confirmed the larger order.",
+        "sentence_cn": "买家接受了调整后的报价，并确认了更大的订单。",
+        "chunks": [
+          "The buyer accepted the revised offer ",
+          "and confirmed the larger order."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Michael learned that successful negotiation is not simply about lowering prices.",
+        "sentence_cn": "迈克尔认识到，成功的谈判并不只是降低价格。",
+        "chunks": [
+          "Michael learned ",
+          "that successful negotiation is not simply about lowering prices."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "It is about understanding the other party's priorities and finding a solution that benefits both sides.",
+        "sentence_cn": "而是理解对方的优先考虑，并找到双方都能受益的解决方案。",
+        "chunks": [
+          "It is about understanding the other party's priorities ",
+          "and finding a solution ",
+          "that benefits both sides."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "Is there any room for a discount?",
+        "meaning": "价格还有折扣空间吗？",
+        "example": "Is there any room for a discount on this order?"
+      },
+      {
+        "expression": "We understand your budget constraints.",
+        "meaning": "我们理解您的预算限制。",
+        "example": "We understand your budget constraints and will review the pricing."
+      },
+      {
+        "expression": "We can offer a 5 percent discount for larger orders.",
+        "meaning": "对于更大的订单，我们可以提供5%的折扣。",
+        "example": "We can offer a 5 percent discount for orders of 5,000 units or more."
+      },
+      {
+        "expression": "This is the most competitive price we can offer.",
+        "meaning": "这是我们能够提供的最优惠价格。",
+        "example": "After reviewing the costs, this is the most competitive price we can offer."
+      },
+      {
+        "expression": "Could we discuss an alternative arrangement?",
+        "meaning": "我们能否讨论另一种方案？",
+        "example": "Could we discuss an alternative arrangement that works for both sides?"
+      },
+      {
+        "expression": "I believe we can reach a mutually beneficial agreement.",
+        "meaning": "我相信我们能够达成互利的协议。",
+        "example": "I believe we can reach a mutually beneficial agreement."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "233 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  },
+  {
+    "article_id": 10004,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Confirming technical details before mass production",
+    "title_en": "Discussing Product Specifications",
+    "title_cn": "沟通产品规格",
+    "difficulty": "B1-B2",
+    "word_count": 231,
+    "estimated_reading_time_seconds": 106,
+    "content_en": "Clear communication about product specifications is essential in international trade. Even a small misunderstanding about materials, dimensions, or quality standards can lead to production problems and customer complaints.\n\nEmily works for a Chinese manufacturer of stainless steel kitchen equipment. A customer from Canada planned to order 800 commercial food containers. Before production started, the buyer sent a technical document describing the required specifications.\n\nEmily reviewed the document and noticed that some details needed clarification. The customer had specified the container dimensions but had not clearly stated the required material grade or thickness. These details were important because they could affect durability, weight, and production costs.\n\nEmily contacted the buyer and asked whether they required food-grade stainless steel. She also confirmed the acceptable dimensional tolerance and surface finish. The buyer requested a customized logo and specific packaging for retail distribution.\n\nTo avoid mistakes, Emily prepared a sample specification sheet and sent it for approval. She also arranged a pre-production sample so that the customer could inspect the product before mass production.\n\nThe buyer reviewed the sample and requested a minor adjustment to the lid design. Emily coordinated with the engineering team and confirmed that the change would not affect the production schedule.\n\nOnce both sides approved the final specifications, the factory began production.\n\nEmily understood that confirming every technical detail in advance could reduce misunderstandings, prevent costly rework, and improve customer satisfaction.",
+    "content_cn": "在国际贸易中，清晰地沟通产品规格至关重要。即使是对材料、尺寸或质量标准的一个小小误解，也可能导致生产问题和客户投诉。\n\n艾米丽在一家中国不锈钢厨房设备制造企业工作。一位加拿大客户计划订购800个商用食品容器。在生产开始之前，买家发送了一份描述所需规格的技术文件。\n\n艾米丽仔细查看了文件，发现有些细节需要进一步确认。客户已经说明了容器尺寸，但没有明确注明所需的材料等级和厚度。这些细节非常重要，因为它们会影响产品的耐用性、重量和生产成本。\n\n艾米丽联系了买家，询问是否需要食品级不锈钢。她还确认了尺寸允许偏差和表面处理要求。买家提出需要定制标志，并要求使用适合零售销售的特定包装。\n\n为了避免错误，艾米丽准备了一份样品规格表并发送给客户确认。她还安排制作了产前样品，以便客户在批量生产之前检查产品。\n\n买家检查样品后，要求对盖子的设计进行小幅调整。艾米丽与工程团队协调，并确认这一修改不会影响生产进度。\n\n双方最终确认了所有规格后，工厂开始生产。\n\n艾米丽明白，提前确认每一个技术细节能够减少误解、防止昂贵的返工，并提高客户满意度。",
+    "sentences": [
+      {
+        "sentence_en": "Clear communication about product specifications is essential in international trade.",
+        "sentence_cn": "在国际贸易中，清晰地沟通产品规格至关重要。",
+        "chunks": [
+          "Clear communication about product specifications",
+          " is essential in international trade."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Even a small misunderstanding about materials, dimensions, or quality standards can lead to production problems and customer complaints.",
+        "sentence_cn": "即使是对材料、尺寸或质量标准的一个小小误解，也可能导致生产问题和客户投诉。",
+        "chunks": [
+          "Even a small misunderstanding about materials,",
+          " dimensions,",
+          " or quality standards can lead ",
+          "to production problems ",
+          "and customer complaints."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Emily works for a Chinese manufacturer of stainless steel kitchen equipment.",
+        "sentence_cn": "艾米丽在一家中国不锈钢厨房设备制造企业工作。",
+        "chunks": [
+          "Emily works ",
+          "for a Chinese manufacturer of stainless steel kitchen equipment."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "A customer from Canada planned to order 800 commercial food containers.",
+        "sentence_cn": "一位加拿大客户计划订购800个商用食品容器。",
+        "chunks": [
+          "A customer from Canada planned ",
+          "to order 800 commercial food containers."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Before production started, the buyer sent a technical document describing the required specifications.",
+        "sentence_cn": "在生产开始之前，买家发送了一份描述所需规格的技术文件。",
+        "chunks": [
+          "Before production started,",
+          " the buyer sent a technical document describing the required specifications."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Emily reviewed the document and noticed that some details needed clarification.",
+        "sentence_cn": "艾米丽仔细查看了文件，发现有些细节需要进一步确认。",
+        "chunks": [
+          "Emily reviewed the document ",
+          "and noticed ",
+          "that some details needed clarification."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer had specified the container dimensions but had not clearly stated the required material grade or thickness.",
+        "sentence_cn": "客户已经说明了容器尺寸，但没有明确注明所需的材料等级和厚度。",
+        "chunks": [
+          "The customer had specified the container dimensions ",
+          "but had not clearly stated the required material grade or thickness."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "These details were important because they could affect durability, weight, and production costs.",
+        "sentence_cn": "这些细节非常重要，因为它们会影响产品的耐用性、重量和生产成本。",
+        "chunks": [
+          "These details were important ",
+          "because they could affect durability,",
+          " weight,",
+          " ",
+          "and production costs."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Emily contacted the buyer and asked whether they required food-grade stainless steel.",
+        "sentence_cn": "艾米丽联系了买家，询问是否需要食品级不锈钢。",
+        "chunks": [
+          "Emily contacted the buyer ",
+          "and asked whether they required food-grade stainless steel."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also confirmed the acceptable dimensional tolerance and surface finish.",
+        "sentence_cn": "她还确认了尺寸允许偏差和表面处理要求。",
+        "chunks": [
+          "She also confirmed the acceptable dimensional tolerance ",
+          "and surface finish."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer requested a customized logo and specific packaging for retail distribution.",
+        "sentence_cn": "买家提出需要定制标志，并要求使用适合零售销售的特定包装。",
+        "chunks": [
+          "The buyer requested a customized logo ",
+          "and specific packaging ",
+          "for retail distribution."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "To avoid mistakes, Emily prepared a sample specification sheet and sent it for approval.",
+        "sentence_cn": "为了避免错误，艾米丽准备了一份样品规格表并发送给客户确认。",
+        "chunks": [
+          "To avoid mistakes,",
+          " Emily prepared a sample specification sheet ",
+          "and sent it ",
+          "for approval."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also arranged a pre-production sample so that the customer could inspect the product before mass production.",
+        "sentence_cn": "她还安排制作了产前样品，以便客户在批量生产之前检查产品。",
+        "chunks": [
+          "She also arranged a pre-production sample ",
+          "so ",
+          "that the customer could inspect the product ",
+          "before mass production."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The buyer reviewed the sample and requested a minor adjustment to the lid design.",
+        "sentence_cn": "买家检查样品后，要求对盖子的设计进行小幅调整。",
+        "chunks": [
+          "The buyer reviewed the sample ",
+          "and requested a minor adjustment ",
+          "to the lid design."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Emily coordinated with the engineering team and confirmed that the change would not affect the production schedule.",
+        "sentence_cn": "艾米丽与工程团队协调，并确认这一修改不会影响生产进度。",
+        "chunks": [
+          "Emily coordinated ",
+          "with the engineering team ",
+          "and confirmed ",
+          "that the change would not affect the production schedule."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Once both sides approved the final specifications, the factory began production.",
+        "sentence_cn": "双方最终确认了所有规格后，工厂开始生产。",
+        "chunks": [
+          "Once both sides approved the final specifications,",
+          " the factory began production."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Emily understood that confirming every technical detail in advance could reduce misunderstandings, prevent costly rework, and improve customer satisfaction.",
+        "sentence_cn": "艾米丽明白，提前确认每一个技术细节能够减少误解、防止昂贵的返工，并提高客户满意度。",
+        "chunks": [
+          "Emily understood ",
+          "that confirming every technical detail in advance could reduce misunderstandings,",
+          " prevent costly rework,",
+          " ",
+          "and improve customer satisfaction."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "Could you confirm the required material grade?",
+        "meaning": "您能确认所需的材料等级吗？",
+        "example": "Could you confirm the required material grade for this product?"
+      },
+      {
+        "expression": "What thickness do you require?",
+        "meaning": "您需要什么厚度？",
+        "example": "What thickness do you require for the container walls?"
+      },
+      {
+        "expression": "Please confirm the acceptable dimensional tolerance.",
+        "meaning": "请确认可接受的尺寸公差。",
+        "example": "Please confirm the acceptable dimensional tolerance in writing."
+      },
+      {
+        "expression": "Do you require a specific surface finish?",
+        "meaning": "您是否有特定的表面处理要求？",
+        "example": "Do you require a specific surface finish for the product?"
+      },
+      {
+        "expression": "We can provide a pre-production sample for approval.",
+        "meaning": "我们可以提供产前样品供您确认。",
+        "example": "We can provide a pre-production sample for approval before mass production."
+      },
+      {
+        "expression": "Could you approve the final specifications?",
+        "meaning": "您能确认最终产品规格吗？",
+        "example": "Could you approve the final specifications so that we can start production?"
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "231 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  },
+  {
+    "article_id": 10005,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Managing a shipment delay and following up on payment",
+    "title_en": "Handling Shipping and Payment Issues",
+    "title_cn": "处理运输与付款问题",
+    "difficulty": "B1-B2",
+    "word_count": 234,
+    "estimated_reading_time_seconds": 108,
+    "content_en": "Shipping delays and payment issues are common challenges in international trade. When problems occur, export sales representatives need to communicate quickly, provide accurate information, and offer practical solutions.\n\nDavid works for a Chinese furniture exporter. His company recently shipped a large order of office desks to a customer in the United Kingdom. According to the original schedule, the cargo was expected to arrive at the destination port in 25 days.\n\nHowever, David received an update from the freight forwarder explaining that the vessel had been delayed due to severe weather conditions. The new estimated arrival date was five days later than originally planned.\n\nDavid immediately informed the customer and explained the reason for the delay. He apologized for the inconvenience and provided the updated shipping schedule. He also contacted the logistics provider to monitor the shipment and request further updates.\n\nAt the same time, David noticed that the customer had not completed the remaining balance payment. According to their agreement, the balance was due before the shipping documents could be released.\n\nDavid sent a polite reminder and attached the relevant invoice. He explained that completing the payment promptly would help avoid additional delays in the delivery process.\n\nThe customer appreciated the update and arranged the payment the following day.\n\nDavid realized that handling unexpected problems professionally was just as important as securing new orders. Honest communication and timely follow-up helped maintain the customer's confidence.",
+    "content_cn": "运输延误和付款问题是国际贸易中常见的挑战。当问题发生时，外贸业务代表需要迅速沟通、提供准确信息，并提出切实可行的解决方案。\n\n大卫在一家中国家具出口企业工作。他的公司最近向一位英国客户发运了一批办公桌。按照原定计划，货物预计在25天内抵达目的港。\n\n然而，大卫收到了货运代理的最新消息，得知由于恶劣天气，船舶发生了延误。新的预计到港日期比原计划晚了五天。\n\n大卫立即通知了客户，并解释了延误的原因。他为给客户带来的不便表示歉意，同时提供了更新后的运输计划。他还联系物流服务商，要求持续跟踪货物并提供进一步消息。\n\n与此同时，大卫注意到客户尚未支付剩余尾款。根据双方协议，尾款需要在放行运输单据之前结清。\n\n大卫发送了一封礼貌的付款提醒，并附上相关发票。他解释说，及时完成付款有助于避免交付流程出现进一步延误。\n\n客户对这次信息更新表示感谢，并在第二天安排了付款。\n\n大卫意识到，专业地处理突发问题与争取新订单同样重要。坦诚沟通和及时跟进有助于维持客户的信任。",
+    "sentences": [
+      {
+        "sentence_en": "Shipping delays and payment issues are common challenges in international trade.",
+        "sentence_cn": "运输延误和付款问题是国际贸易中常见的挑战。",
+        "chunks": [
+          "Shipping delays ",
+          "and payment issues are common challenges in international trade."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "When problems occur, export sales representatives need to communicate quickly, provide accurate information, and offer practical solutions.",
+        "sentence_cn": "当问题发生时，外贸业务代表需要迅速沟通、提供准确信息，并提出切实可行的解决方案。",
+        "chunks": [
+          "When problems occur,",
+          " export sales representatives need ",
+          "to communicate quickly,",
+          " provide accurate information,",
+          " ",
+          "and offer practical solutions."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "David works for a Chinese furniture exporter.",
+        "sentence_cn": "大卫在一家中国家具出口企业工作。",
+        "chunks": [
+          "David works ",
+          "for a Chinese furniture exporter."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "His company recently shipped a large order of office desks to a customer in the United Kingdom.",
+        "sentence_cn": "他的公司最近向一位英国客户发运了一批办公桌。",
+        "chunks": [
+          "His company recently shipped a large order of office desks ",
+          "to a customer in the United Kingdom."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "According to the original schedule, the cargo was expected to arrive at the destination port in 25 days.",
+        "sentence_cn": "按照原定计划，货物预计在25天内抵达目的港。",
+        "chunks": [
+          "According ",
+          "to the original schedule,",
+          " the cargo was expected ",
+          "to arrive at the destination port in 25 days."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "However, David received an update from the freight forwarder explaining that the vessel had been delayed due to severe weather conditions.",
+        "sentence_cn": "然而，大卫收到了货运代理的最新消息，得知由于恶劣天气，船舶发生了延误。",
+        "chunks": [
+          "However,",
+          " David received an update from the freight forwarder explaining ",
+          "that the vessel had been delayed due ",
+          "to severe weather conditions."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The new estimated arrival date was five days later than originally planned.",
+        "sentence_cn": "新的预计到港日期比原计划晚了五天。",
+        "chunks": [
+          "The new estimated arrival date was",
+          " five days later than originally planned."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "David immediately informed the customer and explained the reason for the delay.",
+        "sentence_cn": "大卫立即通知了客户，并解释了延误的原因。",
+        "chunks": [
+          "David immediately informed the customer ",
+          "and explained the reason ",
+          "for the delay."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He apologized for the inconvenience and provided the updated shipping schedule.",
+        "sentence_cn": "他为给客户带来的不便表示歉意，同时提供了更新后的运输计划。",
+        "chunks": [
+          "He apologized ",
+          "for the inconvenience ",
+          "and provided the updated shipping schedule."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He also contacted the logistics provider to monitor the shipment and request further updates.",
+        "sentence_cn": "他还联系物流服务商，要求持续跟踪货物并提供进一步消息。",
+        "chunks": [
+          "He also contacted the logistics provider ",
+          "to monitor the shipment ",
+          "and request further updates."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "At the same time, David noticed that the customer had not completed the remaining balance payment.",
+        "sentence_cn": "与此同时，大卫注意到客户尚未支付剩余尾款。",
+        "chunks": [
+          "At the same time,",
+          " David noticed ",
+          "that the customer had not completed the remaining balance payment."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "According to their agreement, the balance was due before the shipping documents could be released.",
+        "sentence_cn": "根据双方协议，尾款需要在放行运输单据之前结清。",
+        "chunks": [
+          "According ",
+          "to their agreement,",
+          " the balance was due ",
+          "before the shipping documents could be released."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "David sent a polite reminder and attached the relevant invoice.",
+        "sentence_cn": "大卫发送了一封礼貌的付款提醒，并附上相关发票。",
+        "chunks": [
+          "David sent a polite reminder ",
+          "and attached the relevant invoice."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "He explained that completing the payment promptly would help avoid additional delays in the delivery process.",
+        "sentence_cn": "他解释说，及时完成付款有助于避免交付流程出现进一步延误。",
+        "chunks": [
+          "He explained ",
+          "that completing the payment promptly would help avoid additional delays in the delivery process."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer appreciated the update and arranged the payment the following day.",
+        "sentence_cn": "客户对这次信息更新表示感谢，并在第二天安排了付款。",
+        "chunks": [
+          "The customer appreciated the update ",
+          "and arranged the payment the following day."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "David realized that handling unexpected problems professionally was just as important as securing new orders.",
+        "sentence_cn": "大卫意识到，专业地处理突发问题与争取新订单同样重要。",
+        "chunks": [
+          "David realized ",
+          "that handling unexpected problems professionally was just as important as securing new orders."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Honest communication and timely follow-up helped maintain the customer's confidence.",
+        "sentence_cn": "坦诚沟通和及时跟进有助于维持客户的信任。",
+        "chunks": [
+          "Honest communication ",
+          "and timely follow-up helped maintain the customer's confidence."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "We regret to inform you that the shipment has been delayed.",
+        "meaning": "很遗憾通知您，货物运输出现了延误。",
+        "example": "We regret to inform you that the shipment has been delayed."
+      },
+      {
+        "expression": "The new estimated arrival date is next Friday.",
+        "meaning": "新的预计到港日期是下周五。",
+        "example": "The new estimated arrival date is next Friday."
+      },
+      {
+        "expression": "We are closely monitoring the shipment.",
+        "meaning": "我们正在密切跟踪货物运输情况。",
+        "example": "We are closely monitoring the shipment and will keep you updated."
+      },
+      {
+        "expression": "This is a friendly reminder regarding the outstanding balance.",
+        "meaning": "温馨提醒您，尚有尾款未支付。",
+        "example": "This is a friendly reminder regarding the outstanding balance."
+      },
+      {
+        "expression": "Please arrange the payment at your earliest convenience.",
+        "meaning": "请您方便时尽早安排付款。",
+        "example": "Please arrange the payment at your earliest convenience."
+      },
+      {
+        "expression": "We apologize for any inconvenience caused.",
+        "meaning": "对由此造成的不便，我们深表歉意。",
+        "example": "We apologize for any inconvenience caused by the delay."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "234 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  },
+  {
+    "article_id": 10006,
+    "day": null,
+    "stage": 4,
+    "profession_id": "export_sales",
+    "profession_name": "Export Sales / 外贸业务员",
+    "cefr": "B1-B2",
+    "category": "Professional English",
+    "scene": "Following up after delivery and developing repeat business",
+    "title_en": "Building Long-Term Client Relationships",
+    "title_cn": "维护长期客户关系",
+    "difficulty": "B1-B2",
+    "word_count": 229,
+    "estimated_reading_time_seconds": 105,
+    "content_en": "In international trade, building long-term customer relationships is often more valuable than completing a single transaction. Reliable service, consistent product quality, and effective communication help suppliers develop lasting partnerships.\n\nOlivia is an export sales manager at a Chinese home appliance manufacturer. One of her most important customers is a distributor in Spain. They have worked together for more than three years and place repeat orders several times a year.\n\nAfter completing a recent shipment, Olivia contacted the customer to ask about product quality and delivery performance. The customer was generally satisfied but mentioned that some products had arrived with damaged packaging.\n\nOlivia thanked the customer for the feedback and promised to investigate the issue. She discussed the problem with the packaging team and arranged stronger protective materials for future shipments. She also suggested conducting additional quality inspections before dispatch.\n\nDuring the conversation, the customer shared their sales forecast for the next six months. Based on this information, Olivia discussed a possible production schedule and helped the customer plan future orders.\n\nShe also introduced several new products that might suit the customer's market. Instead of simply trying to increase sales, she focused on understanding the distributor's business goals and market challenges.\n\nBy following up regularly and responding to feedback, Olivia strengthened the partnership. She understood that long-term cooperation depends on trust, reliability, and the ability to create value for customers.",
+    "content_cn": "在国际贸易中，建立长期客户关系往往比完成单笔交易更有价值。可靠的服务、稳定的产品质量和有效的沟通能够帮助供应商建立持久的合作伙伴关系。\n\n奥利维亚是一家中国家电制造企业的外贸销售经理。她最重要的客户之一是一家西班牙经销商。双方已经合作三年多，每年都会多次进行重复采购。\n\n最近一批货物发运完成后，奥利维亚联系客户，询问产品质量和交付情况。客户总体上比较满意，但提到有些产品到货时包装已经损坏。\n\n奥利维亚感谢客户提供反馈，并承诺调查这一问题。她与包装团队讨论了情况，并为未来的货物安排了更坚固的防护材料。她还建议在发货前增加质量检查。\n\n在交流过程中，客户分享了未来六个月的销售预测。根据这些信息，奥利维亚讨论了可能的生产计划，并帮助客户安排未来的订单。\n\n她还介绍了几款可能适合客户市场的新产品。她没有一味追求增加销量，而是把重点放在理解经销商的业务目标和市场挑战上。\n\n通过定期跟进并积极回应反馈，奥利维亚进一步巩固了双方的合作关系。她明白，长期合作依赖于信任、可靠性以及为客户创造价值的能力。",
+    "sentences": [
+      {
+        "sentence_en": "In international trade, building long-term customer relationships is often more valuable than completing a single transaction.",
+        "sentence_cn": "在国际贸易中，建立长期客户关系往往比完成单笔交易更有价值。",
+        "chunks": [
+          "In international trade,",
+          " building long-term customer relationships is often more valuable than completing a single transaction."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Reliable service, consistent product quality, and effective communication help suppliers develop lasting partnerships.",
+        "sentence_cn": "可靠的服务、稳定的产品质量和有效的沟通能够帮助供应商建立持久的合作伙伴关系。",
+        "chunks": [
+          "Reliable service,",
+          " consistent product quality,",
+          " ",
+          "and effective communication help suppliers develop lasting partnerships."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Olivia is an export sales manager at a Chinese home appliance manufacturer.",
+        "sentence_cn": "奥利维亚是一家中国家电制造企业的外贸销售经理。",
+        "chunks": [
+          "Olivia is an export sales manager",
+          " at a Chinese home appliance manufacturer."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "One of her most important customers is a distributor in Spain.",
+        "sentence_cn": "她最重要的客户之一是一家西班牙经销商。",
+        "chunks": [
+          "One of her most important customers is a distributor in Spain."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "They have worked together for more than three years and place repeat orders several times a year.",
+        "sentence_cn": "双方已经合作三年多，每年都会多次进行重复采购。",
+        "chunks": [
+          "They have worked together ",
+          "for more than three years ",
+          "and place repeat orders several times a year."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "After completing a recent shipment, Olivia contacted the customer to ask about product quality and delivery performance.",
+        "sentence_cn": "最近一批货物发运完成后，奥利维亚联系客户，询问产品质量和交付情况。",
+        "chunks": [
+          "After completing a recent shipment,",
+          " Olivia contacted the customer ",
+          "to ask about product quality ",
+          "and delivery performance."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "The customer was generally satisfied but mentioned that some products had arrived with damaged packaging.",
+        "sentence_cn": "客户总体上比较满意，但提到有些产品到货时包装已经损坏。",
+        "chunks": [
+          "The customer was generally satisfied ",
+          "but mentioned ",
+          "that some products had arrived ",
+          "with damaged packaging."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Olivia thanked the customer for the feedback and promised to investigate the issue.",
+        "sentence_cn": "奥利维亚感谢客户提供反馈，并承诺调查这一问题。",
+        "chunks": [
+          "Olivia thanked the customer ",
+          "for the feedback ",
+          "and promised ",
+          "to investigate the issue."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She discussed the problem with the packaging team and arranged stronger protective materials for future shipments.",
+        "sentence_cn": "她与包装团队讨论了情况，并为未来的货物安排了更坚固的防护材料。",
+        "chunks": [
+          "She discussed the problem ",
+          "with the packaging team ",
+          "and arranged stronger protective materials ",
+          "for future shipments."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also suggested conducting additional quality inspections before dispatch.",
+        "sentence_cn": "她还建议在发货前增加质量检查。",
+        "chunks": [
+          "She also suggested conducting additional quality inspections ",
+          "before dispatch."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "During the conversation, the customer shared their sales forecast for the next six months.",
+        "sentence_cn": "在交流过程中，客户分享了未来六个月的销售预测。",
+        "chunks": [
+          "During the conversation,",
+          " the customer shared their sales forecast ",
+          "for the next six months."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Based on this information, Olivia discussed a possible production schedule and helped the customer plan future orders.",
+        "sentence_cn": "根据这些信息，奥利维亚讨论了可能的生产计划，并帮助客户安排未来的订单。",
+        "chunks": [
+          "Based on this information,",
+          " Olivia discussed a possible production schedule ",
+          "and helped the customer plan future orders."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She also introduced several new products that might suit the customer's market.",
+        "sentence_cn": "她还介绍了几款可能适合客户市场的新产品。",
+        "chunks": [
+          "She also introduced several new products ",
+          "that might suit the customer's market."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "Instead of simply trying to increase sales, she focused on understanding the distributor's business goals and market challenges.",
+        "sentence_cn": "她没有一味追求增加销量，而是把重点放在理解经销商的业务目标和市场挑战上。",
+        "chunks": [
+          "Instead of simply trying ",
+          "to increase sales,",
+          " she focused on understanding the distributor's business goals ",
+          "and market challenges."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "By following up regularly and responding to feedback, Olivia strengthened the partnership.",
+        "sentence_cn": "通过定期跟进并积极回应反馈，奥利维亚进一步巩固了双方的合作关系。",
+        "chunks": [
+          "By following up regularly ",
+          "and responding ",
+          "to feedback,",
+          " Olivia strengthened the partnership."
+        ],
+        "explanation": ""
+      },
+      {
+        "sentence_en": "She understood that long-term cooperation depends on trust, reliability, and the ability to create value for customers.",
+        "sentence_cn": "她明白，长期合作依赖于信任、可靠性以及为客户创造价值的能力。",
+        "chunks": [
+          "She understood ",
+          "that long-term cooperation depends on trust,",
+          " reliability,",
+          " ",
+          "and the ability ",
+          "to create value ",
+          "for customers."
+        ],
+        "explanation": ""
+      }
+    ],
+    "vocabulary": [],
+    "expressions": [
+      {
+        "expression": "We would like to hear your feedback on the latest shipment.",
+        "meaning": "我们希望了解您对最近一批货物的反馈。",
+        "example": "We would like to hear your feedback on the latest shipment."
+      },
+      {
+        "expression": "We appreciate your continued cooperation.",
+        "meaning": "感谢您一直以来的合作。",
+        "example": "We appreciate your continued cooperation and support."
+      },
+      {
+        "expression": "We will investigate the issue immediately.",
+        "meaning": "我们会立即调查这个问题。",
+        "example": "We will investigate the issue immediately and update you."
+      },
+      {
+        "expression": "We will take steps to prevent this from happening again.",
+        "meaning": "我们将采取措施防止类似问题再次发生。",
+        "example": "We will take steps to prevent this from happening again."
+      },
+      {
+        "expression": "Could you share your sales forecast for the next six months?",
+        "meaning": "您能分享未来六个月的销售预测吗？",
+        "example": "Could you share your sales forecast for the next six months?"
+      },
+      {
+        "expression": "We look forward to a long-term partnership.",
+        "meaning": "我们期待建立长期合作关系。",
+        "example": "We look forward to building a long-term partnership with you."
+      }
+    ],
+    "questions": [],
+    "quality_check": {
+      "grammar": "已按职场英语场景检查；建议上线前进行人工校对。",
+      "spelling": "使用自然的美式英语拼写与表达。",
+      "word_count": "229 words；职业专题目标约200–260词。",
+      "american_english": "采用美式英语表达。",
+      "translation": "提供完整中文译文。",
+      "chunking": "chunks 按原顺序拼接可还原对应英文句子。",
+      "notes": "职业专题文章；保留核心表达模块，不配置独立词汇表和练习题。"
+    }
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "id": "p10036",
+  "sents": [
+    {
+      "chunks": [
+        { "t": "A new customer", "m": "一位新客户" },
+        { "t": "asks a freight forwarder", "m": "询问货运代理" },
+        { "t": "for a shipping quotation", "m": "要一份运输报价" },
+        { "t": "from Guangzhou to New York.", "m": "从广州到纽约" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Before preparing the quotation,", "m": "在准备报价前" },
+        { "t": "the forwarder needs to collect the cargo details", "m": "货代要收集货物信息" },
+        { "t": "and understand the customer's delivery requirements.", "m": "并了解交货要求" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The forwarder", "m": "货代" },
+        { "t": "calculates the total volume and gross weight.", "m": "计算总体积和毛重" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "For air freight,", "m": "对于空运" },
+        { "t": "the chargeable weight is determined", "m": "计费重量的确定" },
+        { "t": "by comparing the actual gross weight", "m": "比较实际毛重" },
+        { "t": "with the volumetric weight.", "m": "和体积重量" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The higher figure", "m": "较高的数值" },
+        { "t": "is normally used for billing.", "m": "通常用于计费" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Since the cargo volume is relatively small,", "m": "由于货量较小" },
+        { "t": "a less than container load service", "m": "拼箱服务" },
+        { "t": "may be more suitable.", "m": "可能更合适" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "Each quotation clearly lists the transportation cost,", "m": "每份报价列明运费" },
+        { "t": "estimated transit time, included services,", "m": "运输时间和包含服务" },
+        { "t": "and any charges that are not included.", "m": "以及未含费用" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "The forwarder also explains", "m": "货代还说明" },
+        { "t": "that rates may change", "m": "运价可能有变" },
+        { "t": "before the booking is confirmed.", "m": "在订舱确认前" }
+      ]
+    },
+    {
+      "chunks": [
+        { "t": "A clear quotation", "m": "清晰的报价" },
+        { "t": "helps customers understand", "m": "帮客户了解" },
+        { "t": "the total logistics cost", "m": "整体物流成本" },
+        { "t": "and make better shipping decisions.", "m": "做出更好运输决策" }
+      ]
+    }
+  ]
+}

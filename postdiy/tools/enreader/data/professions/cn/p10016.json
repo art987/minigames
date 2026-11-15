@@ -1,0 +1,241 @@
+{
+ "id": "p10016",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "Our application needs to display shipping information ",
+     "m": "应用需展示物流信息"
+    },
+    {
+     "t": "from an external service, ",
+     "m": "来自外部服务"
+    },
+    {
+     "t": "so I am responsible for integrating its API.",
+     "m": "所以我负责接入其 API"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I start by reading the API documentation ",
+     "m": "我先读 API 文档"
+    },
+    {
+     "t": "to understand the available endpoints, ",
+     "m": "了解可用的接口端点"
+    },
+    {
+     "t": "required parameters, ",
+     "m": "必需参数"
+    },
+    {
+     "t": "and response format.",
+     "m": "以及响应格式"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I also check the authentication method ",
+     "m": "我还检查身份验证方式"
+    },
+    {
+     "t": "because the service requires an access token ",
+     "m": "因为该服务要求访问令牌"
+    },
+    {
+     "t": "for each request.",
+     "m": "每次请求都要带"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Before writing the integration, ",
+     "m": "写接入代码之前"
+    },
+    {
+     "t": "I test a sample request ",
+     "m": "我先测示例请求"
+    },
+    {
+     "t": "with a tool such as Postman.",
+     "m": "用 Postman 这类工具"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This helps me confirm ",
+     "m": "这帮我确认"
+    },
+    {
+     "t": "that the credentials work ",
+     "m": "凭证有效"
+    },
+    {
+     "t": "and that the response contains the data we need.",
+     "m": "且响应含所需数据"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "In the application, ",
+     "m": "在应用中"
+    },
+    {
+     "t": "I keep the API key on the server ",
+     "m": "我把 API 密钥放服务器"
+    },
+    {
+     "t": "instead of exposing it in the front-end code.",
+     "m": "而不暴露在前端代码里"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I then create a small service module ",
+     "m": "我再建一个服务模块"
+    },
+    {
+     "t": "to send requests ",
+     "m": "用来发请求"
+    },
+    {
+     "t": "and handle successful responses and errors.",
+     "m": "并处理成功响应和错误"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Because external services may be slow ",
+     "m": "由于外部服务可能很慢"
+    },
+    {
+     "t": "or temporarily unavailable, ",
+     "m": "或暂时不可用"
+    },
+    {
+     "t": "I also consider timeouts and retry rules.",
+     "m": "我还会考虑超时和重试"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I test normal responses, ",
+     "m": "我测正常响应"
+    },
+    {
+     "t": "missing data, ",
+     "m": "数据缺失"
+    },
+    {
+     "t": "invalid tokens, ",
+     "m": "令牌无效"
+    },
+    {
+     "t": "and network failures ",
+     "m": "以及网络故障"
+    },
+    {
+     "t": "before connecting the feature to the user interface.",
+     "m": "再接入用户界面"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Finally, I add basic logging ",
+     "m": "最后我加基础日志"
+    },
+    {
+     "t": "so the team can investigate problems after release.",
+     "m": "方便发布后排查问题"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "A reliable integration ",
+     "m": "可靠的接口集成"
+    },
+    {
+     "t": "depends on more than ",
+     "m": "不只取决于"
+    },
+    {
+     "t": "making one successful request.",
+     "m": "成功发出一次请求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It also needs ",
+     "m": "它还需要"
+    },
+    {
+     "t": "secure credentials, ",
+     "m": "安全的凭证管理"
+    },
+    {
+     "t": "clear error handling, ",
+     "m": "清晰的错误处理"
+    },
+    {
+     "t": "and a plan for unexpected failures.",
+     "m": "以及故障应对方案"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I make sure ",
+     "m": "我确保"
+    },
+    {
+     "t": "that the integration follows the service's usage limits ",
+     "m": "集成遵守服务调用限制"
+    },
+    {
+     "t": "and does not send unnecessary requests.",
+     "m": "不发多余请求"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "If the provider changes its API, ",
+     "m": "如果服务商改了 API"
+    },
+    {
+     "t": "clear documentation helps us update the integration ",
+     "m": "清晰文档帮助更新集成"
+    },
+    {
+     "t": "with less risk.",
+     "m": "风险更低"
+    }
+   ]
+  }
+ ]
+}

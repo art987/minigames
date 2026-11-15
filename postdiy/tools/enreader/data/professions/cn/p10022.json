@@ -1,0 +1,253 @@
+{
+ "id": "p10022",
+ "sents": [
+  {
+   "chunks": [
+    {
+     "t": "A product manager",
+     "m": "产品经理"
+    },
+    {
+     "t": "works between different teams",
+     "m": "在不同团队间工作"
+    },
+    {
+     "t": "and helps everyone",
+     "m": "并帮助大家"
+    },
+    {
+     "t": "move toward the same goal.",
+     "m": "朝同一目标前进"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During the development",
+     "m": "在开发期间"
+    },
+    {
+     "t": "of our new account settings page,",
+     "m": "新版账户设置页"
+    },
+    {
+     "t": "I worked closely with",
+     "m": "我密切合作"
+    },
+    {
+     "t": "a product designer and two engineers.",
+     "m": "一位设计师两位工程师"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "The designer first shared a prototype.",
+     "m": "设计师先分享原型"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I reviewed it",
+     "m": "我先做评审"
+    },
+    {
+     "t": "from the user's point of view",
+     "m": "从用户角度"
+    },
+    {
+     "t": "and checked whether",
+     "m": "并检查"
+    },
+    {
+     "t": "the main tasks were easy to complete.",
+     "m": "主要任务是否好完成"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I noticed that",
+     "m": "我发现"
+    },
+    {
+     "t": "the save button",
+     "m": "保存按钮"
+    },
+    {
+     "t": "was difficult to find",
+     "m": "很难被注意到"
+    },
+    {
+     "t": "on a mobile screen.",
+     "m": "在手机屏幕上"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We discussed the issue",
+     "m": "我们讨论了问题"
+    },
+    {
+     "t": "and moved the button",
+     "m": "并移动按钮"
+    },
+    {
+     "t": "to a more visible position.",
+     "m": "到更醒目的位置"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Then the engineers reviewed the design",
+     "m": "随后工程师评审设计"
+    },
+    {
+     "t": "and explained that",
+     "m": "并解释说"
+    },
+    {
+     "t": "one part would require changes",
+     "m": "有一处要改动"
+    },
+    {
+     "t": "to an older service.",
+     "m": "涉及旧服务"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "This could increase the development time.",
+     "m": "这可能延长开发时间"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Instead of asking them",
+     "m": "我没有强求他们"
+    },
+    {
+     "t": "to follow the original plan without discussion,",
+     "m": "不加讨论照原计划做"
+    },
+    {
+     "t": "I asked which parts were technically difficult",
+     "m": "而是问哪里难做"
+    },
+    {
+     "t": "and whether there was a simpler option.",
+     "m": "有无更简单的方案"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "We agreed to keep",
+     "m": "我们决定保留"
+    },
+    {
+     "t": "the most important settings",
+     "m": "最重要的设置"
+    },
+    {
+     "t": "in the first release",
+     "m": "在首个版本里"
+    },
+    {
+     "t": "and move a less common option",
+     "m": "把不常用选项"
+    },
+    {
+     "t": "to a later update.",
+     "m": "挪到后续更新"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "I updated the requirements",
+     "m": "我更新了需求"
+    },
+    {
+     "t": "and made sure",
+     "m": "并确保"
+    },
+    {
+     "t": "the designer and engineers",
+     "m": "设计师和工程师"
+    },
+    {
+     "t": "were working from the same version.",
+     "m": "用的是同一版本"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "During the project,",
+     "m": "项目期间"
+    },
+    {
+     "t": "I also shared decisions quickly",
+     "m": "我及时分享决策"
+    },
+    {
+     "t": "and recorded important changes.",
+     "m": "并记录重要变更"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "Good collaboration",
+     "m": "良好的协作"
+    },
+    {
+     "t": "does not mean",
+     "m": "并不意味着"
+    },
+    {
+     "t": "that everyone always agrees.",
+     "m": "大家总是意见一致"
+    }
+   ]
+  },
+  {
+   "chunks": [
+    {
+     "t": "It means discussing different concerns early,",
+     "m": "而是尽早谈顾虑"
+    },
+    {
+     "t": "making decisions with clear reasons,",
+     "m": "有理有据做决定"
+    },
+    {
+     "t": "and keeping the team informed",
+     "m": "并让团队知情"
+    },
+    {
+     "t": "as the work changes.",
+     "m": "随工作变化"
+    }
+   ]
+  }
+ ]
+}
