@@ -8114,14 +8114,19 @@ button.future-suggestion-btn[data-action="wanan"] {
   min-height: 0;
 }
 
-/* 左侧行业分类导航栏 */
+/* 左侧行业分类导航栏（仅文案模板弹窗展示） */
 .industry-sidebar {
   width: 100px;
   background: linear-gradient(135deg, #ffffff 0%, #ddfeee 100%);
   border-right: 1px solid #e9ecef;
-  display: none;
+  display: flex;
   flex-direction: column;
   overflow-y: auto;
+}
+
+/* 行业促销文案模板弹窗：不需要左侧行业分类栏，隐藏后右侧模板列表占满宽度 */
+.integrated-industry-template-modal:not(.text-template-modal) .industry-sidebar {
+  display: none;
 }
 
 .industry-categories-vertical {

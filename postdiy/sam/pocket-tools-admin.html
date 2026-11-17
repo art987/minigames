@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>小口袋工具管理</title>
+    <!-- 统一后台认证与导航 -->
+    <link rel="stylesheet" href="../admin.css">
+    <script src="../admin-auth.js"></script>
+    <script src="../admin-nav.js"></script>
+    <style>
+        body { background: #f5f6fa; }
+        .cfg-wrap { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
+        .cfg-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .cfg-toolbar h2 { margin: 0; font-size: 20px; color: #333; }
+        .cfg-toolbar .cfg-sub { font-size: 13px; color: #999; }
+        .cfg-card {
+            background: #fff; border: 1px solid #eee; border-radius: 12px;
+            padding: 18px 20px; margin-bottom: 14px;
+        }
+        .cfg-card h3 { font-size: 15px; margin: 0 0 12px; color: #b41408; }
+        .cfg-card label { display: block; font-size: 13px; color: #666; margin: 12px 0 6px; }
+        .cfg-card label:first-of-type { margin-top: 0; }
+        .cfg-card input[type="text"],
+        .cfg-card input[type="number"] {
+            width: 100%; box-sizing: border-box; border: 1px solid #ddd; border-radius: 8px;
+            padding: 10px 12px; font-size: 14px; outline: none; background: #fafafa; font-family: inherit;
+        }
+        .cfg-card input:focus { border-color: #b41408; background: #fff; }
+        .cfg-hint { font-size: 12px; color: #999; margin-top: 10px; line-height: 1.7; }
+        .cfg-switch-row { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; margin: 0 !important; cursor: pointer; }
+        .cfg-switch-row input { width: 18px; height: 18px; accent-color: #b41408; }
+        /* 工具行 */
+        .tool-row { border: 1px solid #eee; border-radius: 10px; padding: 14px 14px 6px; margin-bottom: 12px; background: #fcfcfc; position: relative; }
+        .tool-row .tool-del { position: absolute; top: 10px; right: 10px; border: 1px solid #e2b1ad; background: #fff; color: #c0392b; border-radius: 6px; font-size: 12px; padding: 4px 10px; cursor: pointer; }
+        .tool-row .tool-del:active { background: #fdeaea; }
+        .tool-grid { display: grid; grid-template-columns: 1fr 130px; gap: 0 12px; }
+        .tool-grid2 { display: grid; grid-template-columns: 1fr 90px 110px; gap: 0 12px; }
+        @media (max-width: 640px) {
+            .tool-grid, .tool-grid2 { grid-template-columns: 1fr; }
+        }
+        .cfg-btns { display: flex; gap: 12px; margin-top: 18px; }
+        .cfg-btns button {
+            flex: 1; height: 44px; border: none; border-radius: 22px;
+            font-size: 15px; cursor: pointer;
+        }
+        .cfg-btn-save { background: linear-gradient(135deg, #b41408, #da4b40); color: #fff; }
+        .cfg-btn-load { background: #fff; color: #555; border: 1px solid #ddd; }
+        .cfg-btn-add { background: #fff; color: #b41408; border: 1px dashed #b41408; width: 100%; height: 40px; border-radius: 10px; cursor: pointer; font-size: 14px; }
+        .cfg-btn-add:active { background: #fdf3f2; }
+        .cfg-btns button:active { opacity: 0.85; }
+        .cfg-btns button:disabled { opacity: 0.5; cursor: default; }
+        .cfg-msg { margin-top: 14px; font-size: 13px; display: none; padding: 10px 12px; border-radius: 8px; line-height: 1.6; }
+        .cfg-msg.ok { display: block; background: #e8f7ee; color: #0a7d43; }
+        .cfg-msg.err { display: block; background: #fdeaea; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="manage-content">
+        <div class="cfg-wrap">
+            <div class="cfg-toolbar">
+                <h2>小口袋工具管理</h2>
+                <span class="cfg-sub">小程序底部「小口袋」Tab 的工具卡片：图标 / 名称 / 简介 / 链接 / 排序 / 是否显示</span>
+            </div>
+
+            <div class="cfg-card">
+                <h3>入口总开关</h3>
+                <label class="cfg-switch-row" for="cfgEnabled">
+                    <input type="checkbox" id="cfgEnabled" checked />
+                    <span>启用「小口袋」页面（关闭后小程序端展示空态）</span>
+                </label>
+                <div class="cfg-hint">说明：底部 Tab 按钮固定存在（原生 tabBar 不支持动态隐藏），此处控制的是页面内容是否展示工具列表。</div>
+            </div>
+
+            <div class="cfg-card">
+                <h3>工具列表（按「排序」数字从小到大展示）</h3>
+                <div id="toolList"></div>
+                <button class="cfg-btn-add" id="btnAdd">＋ 添加工具</button>
+                <div class="cfg-hint">
+                    字段说明：<br>
+                    · 图标：填 emoji（如 🧰）或图片 URL（http 开头按图片渲染）；<br>
+                    · 链接：以 / 开头为小程序内部页面路径（如 /pages/editor/index），http(s) 开头为外链（小程序内自动复制到剪贴板）；留空则点击提示「敬请期待」；<br>
+                    · 是否显示：取消勾选即从「小口袋」页面隐藏，但不删除配置。
+                </div>
+            </div>
+
+            <div class="cfg-btns">
+                <button class="cfg-btn-load" id="btnLoad">读取当前配置</button>
+                <button class="cfg-btn-save" id="btnSave">保存配置</button>
+            </div>
+            <div class="cfg-msg" id="msg"></div>
+        </div>
+    </div>
+
+    <script>
+        var API_BASE = 'https://api.peacelove.top';
+
+        var $ = function (id) { return document.getElementById(id); };
+        var msgTimer = null;
+        // 页面载入时读到的最新完整配置（保存时与本次改动合并，避免覆盖其它栏目字段）
+        var latestConfig = {};
+
+        function showMsg(text, ok) {
+            var el = $('msg');
+            el.className = 'cfg-msg ' + (ok ? 'ok' : 'err');
+            el.textContent = text;
+            clearTimeout(msgTimer);
+            if (ok) msgTimer = setTimeout(function () { el.className = 'cfg-msg'; }, 4000);
+        }
+
+        // 统一后台登录态（admin-auth.js 登录成功后写入），保存配置时作为鉴权凭据
+        function getAdminCreds() {
+            try {
+                return {
+                    adminUserId: localStorage.getItem('postdiy_admin_user_id') || '',
+                    adminPassword: localStorage.getItem('postdiy_admin_password') || ''
+                };
+            } catch (e) { return { adminUserId: '', adminPassword: '' }; }
+        }
+
+        function post(name, data) {
+            return fetch(API_BASE + '/' + name, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data || {})
+            }).then(function (r) { return r.json(); });
+        }
+
+        /* ---------- 工具行渲染 ---------- */
+
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function addToolRow(tool) {
+            var t = tool || { id: '', name: '', icon: '', desc: '', link: '', sort: 0, visible: true };
+            var row = document.createElement('div');
+            row.className = 'tool-row';
+            row.innerHTML =
+                '<button type="button" class="tool-del">删除</button>' +
+                '<div class="tool-grid">' +
+                    '<div><label>名称</label><input type="text" class="t-name" maxlength="20" placeholder="如：九宫格切图" value="' + esc(t.name) + '" /></div>' +
+                    '<div><label>图标</label><input type="text" class="t-icon" maxlength="200" placeholder="emoji 或图片URL" value="' + esc(t.icon) + '" /></div>' +
+                '</div>' +
+                '<div class="tool-grid">' +
+                    '<div><label>一句话简介</label><input type="text" class="t-desc" maxlength="60" placeholder="工具功能一句话说明" value="' + esc(t.desc) + '" /></div>' +
+                '</div>' +
+                '<div class="tool-grid2">' +
+                    '<div><label>链接（/ 开头内部页，http 外链）</label><input type="text" class="t-link" maxlength="300" placeholder="/pages/... 或 https://..." value="' + esc(t.link) + '" /></div>' +
+                    '<div><label>排序</label><input type="number" class="t-sort" value="' + (Number(t.sort) || 0) + '" /></div>' +
+                    '<div><label>是否显示</label><label class="cfg-switch-row"><input type="checkbox" class="t-visible" ' + (t.visible !== false ? 'checked' : '') + ' /><span>显示</span></label></div>' +
+                '</div>';
+            row.querySelector('.tool-del').addEventListener('click', function () { row.remove(); });
+            $('toolList').appendChild(row);
+        }
+
+        $('btnAdd').addEventListener('click', function () { addToolRow(); });
+
+        /* ---------- 读取 / 填充 / 保存 ---------- */
+
+        function fillForm(cfg) {
+            $('toolList').innerHTML = '';
+            var pt = cfg && cfg.pocketTools && Array.isArray(cfg.pocketTools.tools) ? cfg.pocketTools : null;
+            $('cfgEnabled').checked = pt ? pt.enabled !== false : true;
+            var tools = pt ? pt.tools : [];
+            if (!tools.length) {
+                // 无历史配置时预置 2 行空模板，方便快速上手
+                addToolRow();
+                addToolRow();
+                return;
+            }
+            tools.forEach(function (t) { addToolRow(t); });
+        }
+
+        $('btnLoad').addEventListener('click', function () {
+            var btn = $('btnLoad');
+            btn.disabled = true;
+            btn.textContent = '读取中...';
+            post('get-app-config', {})
+                .then(function (res) {
+                    if (res.success && res.data) {
+                        latestConfig = res.data;
+                        fillForm(res.data);
+                        showMsg('配置读取成功', true);
+                    } else {
+                        showMsg(res.message || '读取失败', false);
+                    }
+                })
+                .catch(function () { showMsg('网络异常，读取失败', false); })
+                .finally(function () {
+                    btn.disabled = false;
+                    btn.textContent = '读取当前配置';
+                });
+        });
+
+        $('btnSave').addEventListener('click', function () {
+            var creds = getAdminCreds();
+            if (!creds.adminUserId || !creds.adminPassword) {
+                showMsg('登录状态已失效，请刷新页面重新登录后台', false);
+                return;
+            }
+            var rows = Array.prototype.slice.call(document.querySelectorAll('#toolList .tool-row'));
+            var tools = [];
+            for (var i = 0; i < rows.length; i++) {
+                var r = rows[i];
+                var name = r.querySelector('.t-name').value.trim();
+                if (!name) { showMsg('第 ' + (i + 1) + ' 个工具缺少名称', false); return; }
+                tools.push({
+                    id: 'tool_' + Date.now() + '_' + i,
+                    name: name,
+                    icon: r.querySelector('.t-icon').value.trim(),
+                    desc: r.querySelector('.t-desc').value.trim(),
+                    link: r.querySelector('.t-link').value.trim(),
+                    sort: parseInt(r.querySelector('.t-sort').value, 10) || 0,
+                    visible: r.querySelector('.t-visible').checked
+                });
+            }
+            // 合并保存：以最新配置为底，仅覆盖 pocketTools 字段，避免抹掉运营配置等其它栏目
+            var merged = Object.assign({}, latestConfig, {
+                pocketTools: { enabled: $('cfgEnabled').checked, tools: tools }
+            });
+            var btn = $('btnSave');
+            btn.disabled = true;
+            btn.textContent = '保存中...';
+            post('save-app-config', {
+                adminUserId: creds.adminUserId,
+                adminPassword: creds.adminPassword,
+                config: merged
+            })
+                .then(function (res) {
+                    if (res.success) {
+                        latestConfig = res.data || merged;
+                        showMsg('保存成功，小程序「小口袋」重新进入页面即生效', true);
+                    } else {
+                        showMsg(res.message || '保存失败', false);
+                    }
+                })
+                .catch(function () { showMsg('网络异常，保存失败', false); })
+                .finally(function () {
+                    btn.disabled = false;
+                    btn.textContent = '保存配置';
+                });
+        });
+
+        // 进入页面自动读取一次
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () { $('btnLoad').click(); });
+        } else {
+            $('btnLoad').click();
+        }
+    </script>
+</body>
+</html>

@@ -212,11 +212,16 @@
             var btn = $('btnSave');
             btn.disabled = true;
             btn.textContent = '保存中...';
-            post('save-app-config', {
-                adminUserId: creds.adminUserId,
-                adminPassword: creds.adminPassword,
-                config: config
-            })
+            // 先拉取云端最新完整配置再合并保存：本页只覆盖自己的字段（如 pocketTools 等），防止整包覆盖丢字段
+            post('get-app-config', {})
+                .then(function (res) {
+                    var latest = res.success && res.data ? res.data : {};
+                    return post('save-app-config', {
+                        adminUserId: creds.adminUserId,
+                        adminPassword: creds.adminPassword,
+                        config: Object.assign({}, latest, config)
+                    });
+                })
                 .then(function (res) {
                     if (res.success) {
                         fillForm(res.data);
