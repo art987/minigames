@@ -74,11 +74,29 @@ function boolOr(v, def) {
   return typeof v === 'boolean' ? v : def
 }
 
+// 小口袋工具规整：仅接受结构合法的数据；未配置/非法返回 null（不写入该字段）
+function normalizePocketTools(v) {
+  if (!v || typeof v !== 'object' || !Array.isArray(v.tools)) return null
+  const tools = v.tools
+    .filter((t) => t && typeof t === 'object' && typeof t.name === 'string' && t.name.trim())
+    .slice(0, 50)
+    .map((t, i) => ({
+      id: typeof t.id === 'string' && t.id ? t.id.slice(0, 60) : 'tool_' + Date.now() + '_' + i,
+      name: t.name.trim().slice(0, 30),
+      icon: typeof t.icon === 'string' ? t.icon.trim().slice(0, 300) : '',
+      desc: typeof t.desc === 'string' ? t.desc.trim().slice(0, 60) : '',
+      link: typeof t.link === 'string' ? t.link.trim().slice(0, 300) : '',
+      sort: Number.isFinite(Number(t.sort)) ? Math.floor(Number(t.sort)) : 0,
+      visible: t.visible !== false
+    }))
+  return { enabled: v.enabled !== false, tools }
+}
+
 // 规整入参配置：只接受已知字段，类型非法回退默认值（避免脏数据进库）
 function normalizeConfig(input) {
   const src = input && typeof input === 'object' ? input : {}
   const bb = src.brandBonus && typeof src.brandBonus === 'object' ? src.brandBonus : {}
-  return {
+  const out = {
     smsNotice:
       typeof src.smsNotice === 'string' && src.smsNotice.trim()
         ? src.smsNotice.trim().slice(0, 100)
@@ -97,6 +115,10 @@ function normalizeConfig(input) {
         : DEFAULT_CONFIG.noticeText,
     showVpayBanner: boolOr(src.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
   }
+  // 小口袋工具：结构合法才入库（历史版本无此字段时不写入，保持向后兼容）
+  const pt = normalizePocketTools(src.pocketTools)
+  if (pt) out.pocketTools = pt
+  return out
 }
 
 exports.main = async (event) => {

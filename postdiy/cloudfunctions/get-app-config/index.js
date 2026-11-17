@@ -74,13 +74,31 @@ function boolOr(v, def) {
   return typeof v === 'boolean' ? v : def
 }
 
+// 小口袋工具规整：与 save-app-config 同一规则；未配置/非法返回 null（不下发该字段）
+function normalizePocketTools(v) {
+  if (!v || typeof v !== 'object' || !Array.isArray(v.tools)) return null
+  const tools = v.tools
+    .filter((t) => t && typeof t === 'object' && typeof t.name === 'string' && t.name.trim())
+    .slice(0, 50)
+    .map((t, i) => ({
+      id: typeof t.id === 'string' && t.id ? t.id.slice(0, 60) : 'tool_' + Date.now() + '_' + i,
+      name: t.name.trim().slice(0, 30),
+      icon: typeof t.icon === 'string' ? t.icon.trim().slice(0, 300) : '',
+      desc: typeof t.desc === 'string' ? t.desc.trim().slice(0, 60) : '',
+      link: typeof t.link === 'string' ? t.link.trim().slice(0, 300) : '',
+      sort: Number.isFinite(Number(t.sort)) ? Math.floor(Number(t.sort)) : 0,
+      visible: t.visible !== false
+    }))
+  return { enabled: v.enabled !== false, tools }
+}
+
 // 读取并规整配置；集合/文档不存在时自动建集合并返回默认值
 async function readConfig() {
   try {
     const res = await db.collection('app_config').doc('main').get()
     const c = (res && res.data) || {}
     const bb = c.brandBonus && typeof c.brandBonus === 'object' ? c.brandBonus : {}
-    return {
+    const out = {
       smsNotice:
         typeof c.smsNotice === 'string' && c.smsNotice.trim()
           ? c.smsNotice
@@ -96,6 +114,10 @@ async function readConfig() {
       noticeText: strOr(c.noticeText, DEFAULT_CONFIG.noticeText),
       showVpayBanner: boolOr(c.showVpayBanner, DEFAULT_CONFIG.showVpayBanner)
     }
+    // 小口袋工具：库里有合法结构才下发（历史文档无此字段时保持不带，前端自行走空态）
+    const pt = normalizePocketTools(c.pocketTools)
+    if (pt) out.pocketTools = pt
+    return out
   } catch (e) {
     // 集合不存在 → 创建后返回默认值；其它异常（含文档不存在）也返回默认值
     const isCollectionNotExist =
