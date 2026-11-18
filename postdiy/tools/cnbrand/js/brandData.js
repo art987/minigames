@@ -160,7 +160,8 @@ const brandData = {
             "price": "¥20-30元",
             "feature": "大容量装，控油清爽。"
           }
-        ]
+        ],
+        "logo": "logos/haodi.jpg"
       }
     ]
   },
@@ -474,7 +475,8 @@ const brandData = {
             "price": "¥5-10元",
             "feature": "经典款，清爽不辣口。"
           }
-        ]
+        ],
+        "logo": "logos/heimei.jpg"
       },
       {
         "name": "六必治",
@@ -517,7 +519,8 @@ const brandData = {
             "price": "¥5-10元",
             "feature": "平价基础款。"
           }
-        ]
+        ],
+        "logo": "logos/naaisi.jpg"
       }
     ]
   },
@@ -1680,7 +1683,8 @@ const brandData = {
             "price": "¥5-10元",
             "feature": "经典铁盒装，秋冬防裂。"
           }
-        ]
+        ],
+        "logo": "logos/wanziqianhong.jpg"
       },
       {
         "name": "宫灯杏仁蜜",
@@ -4023,7 +4027,8 @@ const brandData = {
             "price": "¥15-25元",
             "feature": "经典款，凉拌火锅蘸料必备。"
           }
-        ]
+        ],
+        "logo": "logos/gubi.jpg"
       }
     ],
     "豆瓣酱": [
@@ -4298,7 +4303,8 @@ const brandData = {
             "price": "¥8-15元",
             "feature": "经典款，麻辣适中。"
           }
-        ]
+        ],
+        "logo": "logos/qiuxia.jpg"
       }
     ]
   },
@@ -4456,7 +4462,8 @@ const brandData = {
             "price": "¥20-30元",
             "feature": "整箱装，红烧牛肉味经典。"
           }
-        ]
+        ],
+        "logo": "logos/nanjiecun.jpg"
       }
     ],
     "糕点": [
@@ -5421,7 +5428,8 @@ const brandData = {
             "price": "¥10-20元",
             "feature": "低卡辣味，追剧必备。"
           }
-        ]
+        ],
+        "logo": "logos/yanjinpuzi.jpg"
       }
     ]
   },
@@ -5498,6 +5506,10 @@ const brandData = {
     ]
   }
 };
+
+
+
+
 
 
 
