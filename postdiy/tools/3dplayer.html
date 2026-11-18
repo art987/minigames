@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>裸眼3D播放器</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: #0a0a0f;
+    color: #e8e8ea;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  header { padding: 12px 20px 4px; text-align: center; flex: none; }
+  header h1 { font-size: 16px; font-weight: 600; }
+  header p { font-size: 12px; color: #8a8a93; margin-top: 3px; }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap, 0px);
+    padding: 10px;
+    min-height: 0;
+    position: relative;
+  }
+  .pane {
+    position: relative;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #1f1f28;
+    flex: 1 1 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .warper {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 0; height: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+  .pane video {
+    position: absolute;
+    left: 0; top: 0;
+    transform: translate(-50%, -50%);
+    width: 1280px; height: 720px;   /* 载入后由 JS 按视频原始尺寸覆盖 */
+    display: block;
+    pointer-events: none;
+  }
+
+
+  .gesture {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    touch-action: none;
+    cursor: grab;
+  }
+  .gesture:active { cursor: grabbing; }
+  .stage.idle .gesture { display: none; }
+
+  .empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: #6a6a75;
+    text-align: center;
+    padding: 20px;
+  }
+  .empty .big { font-size: 40px; }
+  .empty .hint { font-size: 13px; line-height: 1.7; }
+
+  .controls {
+    border-top: 1px solid #181820;
+    background: #101017;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    flex: none;
+  }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    appearance: none;
+    border: 1px solid #2a2a36;
+    background: #191922;
+    color: #e8e8ea;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .15s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: #22222e; border-color: #3a3a4a; }
+  .btn.primary { background: #141414; border-color: #5e5e5e; }
+  .btn.primary:hover { background: #009ca8; }
+  .btn.mini { padding: 6px 10px; font-size: 12px; }
+  .btn.active { background: #009ca8; border-color: #009ca8; color: #fff; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  .progress {
+    flex: 1;
+    min-width: 90px;
+    height: 6px;
+    background: #26262f;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+  .progress .bar { position: absolute; left: 0; top: 0; bottom: 0; background: #2b6cff; border-radius: 3px; width: 0; }
+  .time { font-size: 12px; color: #9a9aa3; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .group-label { font-size: 12px; color: #9a9aa3; white-space: nowrap; }
+  input[type=range] { accent-color: #2b6cff; }
+  .sep { width: 1px; height: 18px; background: #26262f; margin: 0 2px; flex: none; }
+  .opt { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #b0b0ba; }
+  .opt input { accent-color: #2b6cff; }
+  .fullscreen-btn { margin-left: auto; }
+
+  /* 全屏：只剩左右两格 + 右上角一个小退出按钮 */
+  .exit-fs {
+    display: none;
+    position: fixed;
+    top: calc(10px + env(safe-area-inset-top));
+    right: calc(10px + env(safe-area-inset-right));
+    z-index: 999;
+    width: 32px; height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: .35;
+    transition: opacity .2s, background .2s;
+  }
+  .exit-fs:hover { opacity: 1; background: rgba(0,0,0,.75); }
+
+  body.in-fs header,
+  body.in-fs .controls { display: none !important; }
+  body.in-fs .stage {
+    position: fixed;
+    inset: 0;
+    padding: 0;
+    gap: var(--gap, 0px);
+    background: #000;
+    z-index: 10;
+  }
+  body.in-fs .pane { border-radius: 0; box-shadow: none; }
+  body.in-fs .exit-fs { display: block; }
+  body.in-fs .fs-progress { display: block; }
+
+  .fs-progress {
+    display: none;
+    position: fixed;
+    left: 0; right: 0;
+    bottom: 0;
+    height: 14px;
+    z-index: 998;
+    cursor: pointer;
+  }
+  .fs-progress .bar {
+    height: 3px;
+    position: absolute;
+    left: 0; top: 0;
+    background: #2b6cff;
+    width: 0;
+    opacity: .45;
+    transition: opacity .2s, height .2s;
+  }
+  .fs-progress:hover .bar { opacity: 1; height: 14px; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>裸眼 3D 视频播放器</h1>
+    <p>双指缩放 · 单指拖拽移动</p>
+  </header>
+
+  <div class="empty" id="empty">
+    <div class="big">🎬</div>
+    <button class="btn primary" id="emptyBtn">选择视频</button>
+  </div>
+
+  <div class="stage idle" id="stage">
+    <div class="pane pane-l"><div class="warper" id="wL"><video id="vL" playsinline></video></div></div>
+    <div class="pane pane-r"><div class="warper" id="wR"><video id="vR" playsinline></video></div></div>
+    <div class="gesture" id="gesture"></div>
+  </div>
+
+  <div class="fs-progress" id="fsProgress"><div class="bar" id="fsBar"></div></div>
+  <button class="exit-fs" id="exitFs" title="退出全屏">✕</button>
+
+  <div class="controls" id="controls" style="display:none;">
+    <div class="row">
+      <button class="btn" id="playBtn">▶ 播放</button>
+      <div class="progress" id="progress"><div class="bar" id="bar"></div></div>
+      <span class="time" id="time">0:00 / 0:00</span>
+    </div>
+    <div class="row">
+      <span class="group-label">间距</span>
+      <input type="range" id="gap" min="0" max="200" value="0" style="width:90px;">
+      <span class="time" id="gapVal">0px</span>
+      <div class="sep"></div>
+      <span class="group-label">音量</span>
+      <input type="range" id="vol" min="0" max="100" value="80" style="width:90px;">
+      <span class="time" id="volVal">80</span>
+      <button class="btn mini" id="muteBtn">静音</button>
+    </div>
+    <div class="row">
+       <button class="btn mini" id="pickBtn">打开本地视频</button>
+      <button class="btn mini" id="resetBtn">重置画面居中</button>
+     
+      <button class="btn mini fullscreen-btn" id="fsBtn">⛶ 全屏</button>
+    </div>
+  </div>
+
+  <input type="file" id="file" accept="video/*" hidden>
+
+<script>
+const vL = document.getElementById('vL'), vR = document.getElementById('vR');
+const wL = document.getElementById('wL'), wR = document.getElementById('wR');
+const fileInput = document.getElementById('file');
+const stage = document.getElementById('stage');
+const gesture = document.getElementById('gesture');
+const controls = document.getElementById('controls');
+const empty = document.getElementById('empty');
+const playBtn = document.getElementById('playBtn');
+const progress = document.getElementById('progress');
+const bar = document.getElementById('bar');
+const fsProgress = document.getElementById('fsProgress');
+const fsBar = document.getElementById('fsBar');
+const timeLabel = document.getElementById('time');
+const gapInput = document.getElementById('gap');
+const volInput = document.getElementById('vol');
+const gapVal = document.getElementById('gapVal');
+const volVal = document.getElementById('volVal');
+const resetBtn = document.getElementById('resetBtn');
+const fsBtn = document.getElementById('fsBtn');
+const exitFs = document.getElementById('exitFs');
+
+/* ========== 载入与同步 ========== */
+let seeking = false;
+
+function loadVideo(file) {
+  const url = URL.createObjectURL(file);
+  vL.src = url; vR.src = url;
+  empty.style.display = 'none';
+  stage.classList.remove('idle');
+  controls.style.display = 'flex';
+  vL.load(); vR.load();
+  applyVol();
+  resetView();                                  // 先按占位尺寸居中
+  const onMeta = () => { sizeVideo(); resetView(); vL.removeEventListener('loadedmetadata', onMeta); };
+  vL.addEventListener('loadedmetadata', onMeta);
+  vL.play().catch(() => {});
+}
+function pickFile() { fileInput.click(); }
+document.getElementById('emptyBtn').addEventListener('click', pickFile);
+document.getElementById('pickBtn').addEventListener('click', pickFile);
+fileInput.addEventListener('change', e => { if (e.target.files.length) loadVideo(e.target.files[0]); });
+
+vL.addEventListener('play',  () => { vR.play().catch(()=>{}); playBtn.textContent = '⏸ 暂停'; });
+vL.addEventListener('pause', () => { vR.pause(); playBtn.textContent = '▶ 播放'; });
+vL.addEventListener('ended', () => { vR.pause(); playBtn.textContent = '▶ 播放'; });
+// 左边为主时钟，右边实时跟上
+vR.addEventListener('timeupdate', () => {
+  if (!seeking && Math.abs(vR.currentTime - vL.currentTime) > 0.12) vR.currentTime = vL.currentTime;
+});
+playBtn.addEventListener('click', () => { vL.paused ? vL.play() : vL.pause(); });
+
+function fmt(s) {
+  if (!isFinite(s) || s < 0) s = 0;
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+vL.addEventListener('timeupdate', () => {
+  if (seeking) return;
+  const pct = ((vL.currentTime / vL.duration) * 100 || 0) + '%';
+  bar.style.width = pct; fsBar.style.width = pct;
+  timeLabel.textContent = fmt(vL.currentTime) + ' / ' + fmt(vL.duration);
+});
+function seekToClientX(clientX, el) {
+  const rect = el.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const t = ratio * vL.duration;
+  if (!isFinite(t)) return;
+  vL.currentTime = t; vR.currentTime = t;
+}
+function bindSeek(el) {
+  el.addEventListener('mousedown', e => { seeking = true; seekToClientX(e.clientX, el); e.preventDefault(); });
+  el.addEventListener('touchstart', e => { seeking = true; seekToClientX(e.touches[0].clientX, el); e.preventDefault(); }, {passive:false});
+  el.addEventListener('touchmove', e => { if (seeking) seekToClientX(e.touches[0].clientX, el); e.preventDefault(); }, {passive:false});
+  el.addEventListener('touchend', () => { seeking = false; });
+  el.addEventListener('click', e => seekToClientX(e.clientX, el));
+}
+bindSeek(progress); bindSeek(fsProgress);
+window.addEventListener('mouseup', () => { seeking = false; });
+
+/* ========== 同步缩放平移：左右共用一套参数 ========== */
+const view = { scale: 1, x: 0, y: 0 };   // x,y = 播放区中心 → 视频中心的偏移（屏幕px）
+let fitScale = 1;
+const MIN_S = 0.05, MAX_S = 40;
+
+function render() {
+  const t = `translate(${view.x}px, ${view.y}px) scale(${view.scale})`;
+  wL.style.transform = t;
+  wR.style.transform = t;
+}
+/* 视频按原始像素尺寸铺进 warper，缩放由 warper 的 scale 统一承担，
+   这样左右两格只要共用同一个 view，画面必然完全一致 */
+function sizeVideo() {
+  const vw = vL.videoWidth, vh = vL.videoHeight;
+  if (!vw || !vh) return;
+  for (const v of [vL, vR]) { v.style.width = vw + 'px'; v.style.height = vh + 'px'; }
+}
+function fitRect() { return wL.parentElement.getBoundingClientRect(); }
+function calcFit() {
+  const vw = vL.videoWidth || 16, vh = vL.videoHeight || 9;
+  const p = fitRect();
+  if (!p.width || !p.height) return 1;
+  return Math.min(p.width / vw, p.height / vh);   // contain：完整显示，居中
+}
+/* 初始 / 重置：完整显示整帧，并严格居中于播放区 */
+function resetView() {
+  sizeVideo();
+  fitScale = calcFit();
+  view.scale = fitScale;
+  view.x = 0; view.y = 0;
+  render();
+}
+function clampScale(s) { return Math.max(MIN_S, Math.min(MAX_S, s)); }
+// 以 pane 内焦点 (px,py) 为中心缩放，手指下的点不跑
+function zoomAt(px, py, factor) {
+  const ns = clampScale(view.scale * factor);
+  const k = ns / view.scale;
+  view.x = px - (px - view.x) * k;
+  view.y = py - (py - view.y) * k;
+  view.scale = ns;
+  render();
+}
+function toLocal(clientX, clientY) {
+  const r = wL.parentElement.getBoundingClientRect();
+  return { x: clientX - r.left - r.width / 2, y: clientY - r.top - r.height / 2 };
+}
+
+/* ========== 鼠标：拖动移动，滚轮缩放，双击复位 ========== */
+let dragging = false, lastX = 0, lastY = 0;
+gesture.addEventListener('mousedown', e => {
+  dragging = true; lastX = e.clientX; lastY = e.clientY;
+  try { gesture.setPointerCapture(e.pointerId); } catch(_) {}
+  e.preventDefault();
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  view.x += e.clientX - lastX;
+  view.y += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY;
+  render();
+});
+window.addEventListener('mouseup', () => { dragging = false; });
+gesture.addEventListener('wheel', e => {
+  e.preventDefault();
+  const p = toLocal(e.clientX, e.clientY);
+  zoomAt(p.x, p.y, e.deltaY < 0 ? 1.12 : 1 / 1.12);
+}, {passive:false});
+gesture.addEventListener('dblclick', () => resetView());
+
+/* ========== 触摸：单指拖动，双指缩放 ========== */
+let tMode = null, tLast = null, tPinch = null;
+gesture.addEventListener('touchstart', e => {
+  e.preventDefault();
+  if (e.touches.length === 1) {
+    tMode = 'drag';
+    tLast = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  } else if (e.touches.length >= 2) {
+    tMode = 'pinch';
+    const a = e.touches[0], b = e.touches[1];
+    const c = toLocal((a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2);
+    tPinch = {
+      d0: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1,
+      fx: c.x, fy: c.y,
+      mx: (a.clientX + b.clientX) / 2, my: (a.clientY + b.clientY) / 2
+    };
+  }
+}, {passive:false});
+gesture.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (tMode === 'drag' && e.touches.length === 1) {
+    const t = e.touches[0];
+    view.x += t.clientX - tLast.x;
+    view.y += t.clientY - tLast.y;
+    tLast = { x: t.clientX, y: t.clientY };
+    render();
+  } else if (tMode === 'pinch' && e.touches.length >= 2) {
+    const a = e.touches[0], b = e.touches[1];
+    const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1;
+    const mx = (a.clientX + b.clientX) / 2, my = (a.clientY + b.clientY) / 2;
+    view.x += mx - tPinch.mx;   // 双指整体移动 → 平移
+    view.y += my - tPinch.my;
+    tPinch.mx = mx; tPinch.my = my;
+    zoomAt(tPinch.fx, tPinch.fy, d / tPinch.d0);
+    tPinch.d0 = d;
+  }
+}, {passive:false});
+gesture.addEventListener('touchend', e => {
+  e.preventDefault();
+  if (e.touches.length === 0) { tMode = null; tPinch = null; }
+  else if (e.touches.length === 1) { tMode = 'drag'; tPinch = null; tLast = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }
+}, {passive:false});
+gesture.addEventListener('touchcancel', () => { tMode = null; tPinch = null; });
+
+/* ========== 间距 / 音量 ========== */
+function applyGap() {
+  const g = gapInput.value + 'px';
+  stage.style.setProperty('--gap', g);
+  gapVal.textContent = g;
+}
+function applyVol() {
+  const v = volInput.value / 100;
+  vL.volume = v;
+  vR.volume = 0;          // 只左格出声，避免两遍重叠
+  vL.muted = false;
+  volVal.textContent = volInput.value;
+  muteBtn.classList.toggle('active', v === 0);
+}
+const muteBtn = document.getElementById('muteBtn');
+gapInput.addEventListener('input', applyGap);
+volInput.addEventListener('input', applyVol);
+muteBtn.addEventListener('click', () => {
+  volInput.value = volInput.value > 0 ? 0 : 80;
+  applyVol();
+});
+
+resetBtn.addEventListener('click', resetView);
+
+/* ========== 全屏 ========== */
+function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement; }
+function enterFullscreen() {
+  const el = document.documentElement;
+  const req = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (req) { try { req.call(el); } catch(_) {} }
+  document.body.classList.add('in-fs');   // iOS Safari 不支持时降级为同款沉浸式
+  if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(()=>{});
+  setTimeout(resizeKeepView, 60);
+}
+function exitFullscreen() {
+  if (isFullscreen()) {
+    const ex = document.exitFullscreen || document.webkitExitFullscreen;
+    try { ex.call(document); } catch(_) {}
+  }
+  document.body.classList.remove('in-fs');
+  setTimeout(resizeKeepView, 60);
+}
+fsBtn.addEventListener('click', () => isFullscreen() ? exitFullscreen() : enterFullscreen());
+exitFs.addEventListener('click', exitFullscreen);
+document.addEventListener('fullscreenchange', () => {
+  document.body.classList.toggle('in-fs', !!isFullscreen());
+  setTimeout(resizeKeepView, 60);
+});
+document.addEventListener('webkitfullscreenchange', () => {
+  document.body.classList.toggle('in-fs', !!isFullscreen());
+  setTimeout(resizeKeepView, 60);
+});
+
+/* ========== 尺寸变化：保持当前视觉大小 ========== */
+let resizeTimer = null;
+function resizeKeepView() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (!vL.src) return;
+    const ratio = fitScale ? view.scale / fitScale : 1;
+    fitScale = calcFit();
+    view.scale = clampScale(fitScale * ratio);
+    render();
+  }, 120);
+}
+window.addEventListener('resize', resizeKeepView);
+window.addEventListener('orientationchange', () => setTimeout(resizeKeepView, 250));
+
+/* ========== 键盘 ========== */
+document.addEventListener('keydown', e => {
+  if (!vL.src) return;
+  if (e.code === 'Space') { e.preventDefault(); vL.paused ? vL.play() : vL.pause(); }
+  if (e.key === 'Escape' && isFullscreen()) exitFullscreen();
+  if (e.key === 'f' || e.key === 'F') isFullscreen() ? exitFullscreen() : enterFullscreen();
+  if (e.key === '0') resetView();
+});
+
+applyGap(); applyVol();
+</script>
+</body>
+</html>
