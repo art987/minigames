@@ -2,7 +2,7 @@
 
 // 将相对路径转换为相对于当前页面的路径
 function getLogoPath(logoPath) {
-    if (!logoPath) return '';
+    if (!logoPath) return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
     if (logoPath.startsWith('/') || logoPath.startsWith('http')) {
         return logoPath;
     }
