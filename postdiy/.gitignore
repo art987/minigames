@@ -59,6 +59,7 @@ logs/
 *.log
 
 # 开发记录（含密钥）
+review/
 develop-chat.md
 创建炫酷宣传页面20260926.md
 Review Development Records & Complete Tasks20260927.md
