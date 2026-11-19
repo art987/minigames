@@ -614,51 +614,85 @@
   }
 
   function dbgGenCss(key, tag) {
-    const v = dbgCollect(key, tag);
     const tpl = '[data-tpl="' + tag.dataset.tpl + '"]';
-    const out = [];
+    const out = ['/* 模板 ' + tag.dataset.tpl + ' · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */'];
     function rule(sel, props) {
+      const ps = props.filter(Boolean);
+      if (!ps.length) return;
+      out.push('');
       out.push(sel + ' {');
-      props.filter(Boolean).forEach(function (p) { out.push('  ' + p); });
+      ps.forEach(function (p) { out.push('  ' + p); });
       out.push('}');
     }
-    if (key === 'name' || key === 'slogan') {
-      rule(tpl + ' ' + DEBUG_TARGETS[key], [
-        'left: ' + toMm(tag, v.left) + ';',
-        'top: ' + toMm(tag, v.top) + ';',
-        'width: ' + toMm(tag, v.width) + ';',
-        'height: ' + toMm(tag, v.height) + ';',
+    function typo(v, extra) {
+      return [
         'color: ' + v.color + ';',
         v.fontVar ? 'font-family: ' + v.fontVar + ';' : '',
         'font-size: ' + toMm(tag, v.fontSize) + ';',
-        'font-weight: ' + v.fontWeight + ';',
-        'letter-spacing: ' + toMm(tag, v.letterSpacing) + ';'
-      ]);
-    } else {
-      const posRule = [
-        'left: ' + toMm(tag, v.priceLeft) + ';',
-        'top: ' + toMm(tag, v.priceTop) + ';',
-        'width: ' + toMm(tag, v.priceW) + ';',
-        'height: ' + toMm(tag, v.priceH) + ';',
-        'gap: ' + toMm(tag, v.gap) + ';'
-      ];
-      if (key === 'num') {
-        rule(tpl + ' .ptag-num', [
-          'color: ' + v.color + ';',
-          v.fontVar ? 'font-family: ' + v.fontVar + ';' : '',
-          'font-size: ' + toMm(tag, v.fontSize) + ';',
-          'font-weight: ' + v.fontWeight + ';',
-          v.textShadow ? 'text-shadow: ' + v.textShadow + ';' : ''
-        ]);
-      } else {
-        rule(tpl + ' .ptag-unit', [
-          'color: ' + v.color + ';',
-          v.fontVar ? 'font-family: ' + v.fontVar + ';' : '',
-          'font-size: ' + toMm(tag, v.fontSize) + ';',
-          'font-weight: ' + v.fontWeight + ';'
-        ]);
+        'font-weight: ' + v.fontWeight + ';'
+      ].concat(extra || []);
+    }
+    function box(v, extra) {
+      return [
+        'left: ' + toMm(tag, v.left) + ';',
+        'top: ' + toMm(tag, v.top) + ';',
+        'width: ' + toMm(tag, v.width) + ';',
+        'height: ' + toMm(tag, v.height) + ';'
+      ].concat(extra || []);
+    }
+
+    const name = dbgCollect('name', tag);
+    rule(tpl + ' .ptag-name', box(name, [
+      'color: ' + name.color + ';',
+      name.fontVar ? 'font-family: ' + name.fontVar + ';' : '',
+      'font-size: ' + toMm(tag, name.fontSize) + ';',
+      'font-weight: ' + name.fontWeight + ';',
+      'letter-spacing: ' + toMm(tag, name.letterSpacing) + ';'
+    ]));
+
+    const num = dbgCollect('num', tag);
+    rule(tpl + ' .ptag-price', [
+      'left: ' + toMm(tag, num.priceLeft) + ';',
+      'top: ' + toMm(tag, num.priceTop) + ';',
+      'width: ' + toMm(tag, num.priceW) + ';',
+      'height: ' + toMm(tag, num.priceH) + ';',
+      'gap: ' + toMm(tag, num.gap) + ';'
+    ]);
+    rule(tpl + ' .ptag-num', typo(num, [
+      num.textShadow ? 'text-shadow: ' + num.textShadow + ';' : ''
+    ]));
+
+    const unit = dbgCollect('unit', tag);
+    rule(tpl + ' .ptag-unit', typo(unit));
+
+    const sl = dbgCollect('slogan', tag);
+    rule(tpl + ' .ptag-slogan', box(sl, [
+      'color: ' + sl.color + ';',
+      sl.fontVar ? 'font-family: ' + sl.fontVar + ';' : '',
+      'font-size: ' + toMm(tag, sl.fontSize) + ';',
+      'font-weight: ' + sl.fontWeight + ';'
+    ]));
+
+    // 胶囊底样式（仅 V03/V06 等有 pill 底的模板会产生实际属性）
+    const st = tag.querySelector('.ptag-slogan-text');
+    if (st) {
+      const cs = getComputedStyle(st);
+      const props = [];
+      if (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== 'transparent') {
+        props.push('background: ' + cs.backgroundColor + ';');
       }
-      rule(tpl + ' .ptag-price', posRule);
+      if (cs.borderStyle !== 'none') {
+        props.push('border: calc(var(--mm) * ' + mmOf(tag, pxOf(st, 'borderTopWidth')) + ') ' + cs.borderStyle + ' ' + rgbToHex(cs.borderTopColor) + ';');
+      }
+      const rads = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius];
+      if (rads.some(function (r) { return parseFloat(r) > 0; })) {
+        props.push('border-radius: ' + rads.map(function (r) { return toMm(tag, parseFloat(r)); }).join(' ') + ';');
+      }
+      const pads = [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft];
+      if (pads.some(function (p) { return parseFloat(p) > 0; })) {
+        props.push('padding: ' + pads.map(function (p) { return toMm(tag, parseFloat(p)); }).join(' ') + ';');
+      }
+      rule(tpl + ' .ptag-slogan-text', props);
     }
     return out.join('\n');
   }
@@ -714,9 +748,7 @@
       if (t.dataset.tpl === dbgTag.dataset.tpl) window.TMPLRender.applyDebugOverrides(t);
     });
     $('dbgCss').value = dbgGenCss(dbgKey, dbgTag);
-  }
-
-  function initDebug() {
+  }  function initDebug() {
     document.body.classList.add('debug-on');
 
     // 按住标题栏拖动面板，避免挡住预览区

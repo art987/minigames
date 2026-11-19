@@ -1,9 +1,9 @@
 /* =====================================================
- * 价签工坊 - 全局样式
- * 价签文字的样式在各模板独立 CSS（assets/css/templates/）中
+ * ä»·ç­¾å·¥åŠ - å…¨å±€æ ·å¼
+ * ä»·ç­¾æ–‡å­—çš„æ ·å¼åœ¨å„æ¨¡æ¿ç‹¬ç«‹ CSSï¼ˆassets/css/templates/ï¼‰ä¸­
  * ===================================================== */
 
-/* 注意：本文件位于 tools/tmplmaker/assets/css/，字体在仓库根 postdiy/fonts/ */
+/* æ³¨æ„ï¼šæœ¬æ–‡ä»¶ä½äºŽ tools/tmplmaker/assets/css/ï¼Œå­—ä½“åœ¨ä»“åº“æ ¹ postdiy/fonts/ */
 @font-face {
   font-family: "Alimama DongFang DaKai";
   src: url("../../../../fonts/AlimamaDongFangDaKai-Regular.ttf") format("truetype");
@@ -30,15 +30,15 @@
   --font-douyin: "Douyin Sans Bold", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-zcool: "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
-  --bg: #f5f6f2;
+  --bg: #ffffff;
   --panel: #ffffff;
-  --border: #e3e7dd;
+  --border: #efefef;
   --text-main: #2f3a2e;
   --text-muted: #8a9484;
-  --primary: #4f9d5a;
-  --primary-dark: #3d8248;
-  --primary-soft: #e8f3ea;
-  --accent: #e2452f;
+  --primary: #f00c0c;
+  --primary-dark: #2a2a2a;
+  --primary-soft: #f8f8f8;
+  --accent: #f52204;
   --shadow: 0 6px 24px rgba(60, 80, 60, 0.10);
 }
 
@@ -47,7 +47,6 @@ button { font-family: inherit; cursor: pointer; }
 .hidden { display: none !important; }
 
 body {
-  font-family: var(--font-kai);
   background: var(--bg);
   color: var(--text-main);
   min-height: 100vh;
@@ -55,7 +54,7 @@ body {
   flex-direction: column;
 }
 
-/* ---------- 顶栏 ---------- */
+/* ---------- é¡¶æ  ---------- */
 .topbar {
   background: var(--panel);
   border-bottom: 1px solid var(--border);
@@ -77,7 +76,7 @@ body {
   background: var(--primary-soft);
   border-radius: 12px;
 }
-.brand h1 { font-size: 18px; letter-spacing: 1px; }
+.brand h1 {font-size: 18px;letter-spacing: 1px;/* font-family: var(--font-kai); */}
 .brand p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
 .topbar-actions { display: flex; gap: 10px; }
@@ -94,27 +93,27 @@ body {
 .chip-btn:hover { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-soft); }
 .chip-btn .chip-value { color: var(--primary-dark); font-weight: bold; }
 .chip-btn .chip-change {
-  font-size: 11px;
-  color: var(--text-muted);
-  border-left: 1px solid var(--border);
-  padding-left: 8px;
-  margin-left: 2px;
+  font-size: 12px;
+  color: #de0303;
+  /* border-left: 1px solid var(--border); */
+  /* padding-left: 8px; */
+  margin-left: 0px;
 }
 .chip-btn:hover .chip-change { color: var(--primary-dark); border-color: var(--primary); }
 
-/* ---------- 主体布局 ---------- */
+/* ---------- ä¸»ä½“å¸ƒå±€ ---------- */
 .workspace {
   flex: 1;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  padding: 16px 20px 20px;
+  padding: 0;
   display: flex;
-  gap: 16px;
+  gap: 10px;
   min-height: 0;
 }
 
-/* ---------- 预览区（幻灯片） ---------- */
+/* ---------- é¢„è§ˆåŒºï¼ˆå¹»ç¯ç‰‡ï¼‰ ---------- */
 .preview-area { flex: 1; min-width: 0; display: flex; min-height: 460px; }
 .stage {
   flex: 1;
@@ -122,9 +121,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, #eef1ea 0%, #e3e9de 100%);
-  border: 1px solid var(--border);
-  border-radius: 18px;
+  background-image: linear-gradient(to right, #7e7e7e24 1px, transparent 1px), linear-gradient(to bottom, #a5a5a514 1px, #00000000 1px);
+  background-size: 6px 6px;
+  background-color: #1e1e1e;
+  /* border: 1px solid var(--border); */
+  /* border-radius: 18px; */
   overflow: hidden;
 }
 .slide-frame {
@@ -148,7 +149,7 @@ body {
 }
 .slides.no-anim .slide { transition: none; }
 
-/* ---------- 价签 DOM 通用结构 ---------- */
+/* ---------- ä»·ç­¾ DOM é€šç”¨ç»“æž„ ---------- */
 .ptag {
   position: relative;
   width: 100%;
@@ -157,7 +158,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   box-shadow: 0 12px 40px rgba(50, 70, 50, 0.22);
   --mm: 1px;
 }
@@ -178,7 +179,7 @@ body {
 .ptag .ptag-price {
   white-space: nowrap;
 }
-/* 计价单位竖排：逐字堆叠，节省横向空间 */
+/* è®¡ä»·å•ä½ç«–æŽ’ï¼šé€å­—å †å ï¼ŒèŠ‚çœæ¨ªå‘ç©ºé—´ */
 .ptag .ptag-unit {
   display: inline-flex;
   flex-direction: column;
@@ -188,33 +189,37 @@ body {
 }
 .ptag .ptag-price .ptag-unit { padding-bottom: 0; }
 .ptag .ptag-unit .u-char { display: block; }
-.ptag .ptag-unit .u-slash { transform: scaleY(0.38); }
+.ptag .ptag-unit .u-slash {transform: scaleX(2) scaleY(0.18);height: 0.8rem;}
 .ptag .ptag-slogan { white-space: nowrap; }
 .ptag .ptag-slogan-text { display: inline-block; line-height: 1.2; }
 
-/* 幻灯片翻页按钮 */
+/* å¹»ç¯ç‰‡ç¿»é¡µæŒ‰é’® */
 .nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 38px; height: 38px;
-  border: none;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgb(255 255 255);
   color: var(--text-main);
-  font-size: 20px;
+  font-size: 46px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  line-height: 50px;
+  align-items: center;
+  justify-content: center;
   transition: all 0.15s;
-  z-index: 5;
+  z-index: 25;
 }
 .nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
 .nav-btn.prev { left: 12px; }
 .nav-btn.next { right: 12px; }
-.nav-btn:disabled { opacity: 0.35; cursor: default; }
+.nav-btn:disabled {opacity: 1;cursor: default;}
 .nav-btn:disabled:hover { transform: translateY(-50%); }
 
-/* 指示点 + 页码 */
+/* æŒ‡ç¤ºç‚¹ + é¡µç  */
 .carousel-foot {
   position: absolute;
   left: 0; right: 0; bottom: 12px;
@@ -242,7 +247,7 @@ body {
   text-align: left;
 }
 
-/* ---------- 侧栏模块（每个模块独立一列） ---------- */
+/* ---------- ä¾§æ æ¨¡å—ï¼ˆæ¯ä¸ªæ¨¡å—ç‹¬ç«‹ä¸€åˆ—ï¼‰ ---------- */
 .panel-side {
   width: 280px;
   flex-shrink: 0;
@@ -250,21 +255,22 @@ body {
 }
 .panel {
   background: var(--panel);
-  border: 1px solid var(--border);
+  /* border: 1px solid var(--border); */
   border-radius: 14px;
-  padding: 14px;
+  padding: 10px 22px;
 }
 .panel-title {
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  text-indent: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .panel-sub { font-size: 12px; color: var(--text-muted); font-weight: normal; }
 
-/* ---------- 按钮 ---------- */
+/* ---------- æŒ‰é’® ---------- */
 .btn {
   display: block;
   width: 100%;
@@ -294,7 +300,7 @@ body {
 
 .export-hint { font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.6; }
 
-/* ---------- 弹窗 ---------- */
+/* ---------- å¼¹çª— ---------- */
 .modal {
   position: fixed;
   inset: 0;
@@ -331,18 +337,19 @@ body {
 .modal-head h2 { font-size: 17px; letter-spacing: 1px; }
 .modal-head .modal-desc { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 .modal-close {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border: none;
   border-radius: 50%;
-  background: #f0f2ec;
+  background: #efefef;
   font-size: 16px;
-  color: var(--text-muted);
+  color: #e2452f;
   flex-shrink: 0;
 }
 .modal-close:hover { background: var(--border); color: var(--text-main); }
 .modal-body { padding: 16px 20px 20px; overflow-y: auto; }
 
-/* 行业选择 */
+/* è¡Œä¸šé€‰æ‹© */
 .industry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -360,7 +367,7 @@ body {
   transition: all 0.15s;
 }
 .industry-item .i-emoji { font-size: 32px; }
-.industry-item .i-label { font-size: 15px; }
+.industry-item .i-label {font-size: 20px;}
 .industry-item .i-desc { font-size: 11px; color: var(--text-muted); }
 .industry-item:not(:disabled):hover {
   border-color: var(--primary);
@@ -369,12 +376,12 @@ body {
 }
 .industry-item.active {
   border-color: var(--primary);
-  background: var(--primary-soft);
+  background: #fff;
   box-shadow: inset 0 0 0 1px var(--primary);
 }
 .industry-item:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* 模板选择 */
+/* æ¨¡æ¿é€‰æ‹© */
 .template-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
@@ -404,7 +411,7 @@ body {
 .template-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
 .template-card.active { border-color: var(--primary); background: var(--primary-soft); }
 
-/* 商品卡片：内联编辑 */
+/* å•†å“å¡ç‰‡ï¼šå†…è”ç¼–è¾‘ */
 .product-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 .p-card {
   display: flex;
@@ -413,7 +420,7 @@ body {
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #fbfcfa;
+  background: #f5f5f5;
 }
 .p-grid {
   display: grid;
@@ -436,12 +443,13 @@ body {
   width: 100%;
   min-width: 0;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 9px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fff;
   color: var(--text-main);
+  letter-spacing: 1px;
   outline: none;
   transition: border-color 0.15s;
 }
@@ -460,14 +468,16 @@ body {
 .pc-back:hover { border-color: var(--primary); color: var(--primary-dark); }
 .p-ops { display: flex; gap: 6px; }
 .op-btn {
-  height: 30px;
+  height: 40px;
   padding: 0 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fff;
   font-size: 12px;
   color: var(--text-main);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
   transition: all 0.15s;
 }
@@ -481,14 +491,14 @@ body {
   border: 1.5px dashed var(--border);
   border-radius: 12px;
   background: none;
-  color: var(--text-muted);
+  color: #e10000;
   font-size: 14px;
   margin-bottom: 4px;
   transition: all 0.15s;
 }
 .p-card-add:hover { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-soft); }
 
-/* ---------- 表单 ---------- */
+/* ---------- è¡¨å• ---------- */
 .field { margin-bottom: 14px; }
 .field label {
   display: flex;
@@ -554,7 +564,7 @@ body {
 .form-actions { display: flex; gap: 10px; margin-top: 4px; }
 .form-actions .btn { margin-top: 0; }
 
-/* ---------- 调试面板（DEBUG_MODE） ---------- */
+/* ---------- è°ƒè¯•é¢æ¿ï¼ˆDEBUG_MODEï¼‰ ---------- */
 body.debug-on .ptag-name:hover,
 body.debug-on .ptag-num:hover,
 body.debug-on .ptag-unit:hover,
@@ -571,7 +581,7 @@ body.debug-on .ptag-slogan:hover {
   max-height: 80vh;
   overflow-y: auto;
   background: #fff;
-  border: 2px solid var(--primary);
+  border: 2px solid #000000;
   border-radius: 14px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   z-index: 300;
@@ -584,22 +594,24 @@ body.debug-on .ptag-slogan:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--primary-soft);
+  padding: 4px 14px;
+  background: #f9f9f9;
   border-bottom: 1px solid var(--border);
   cursor: grab;
   user-select: none;
   touch-action: none;
 }
 .dbg-head:active { cursor: grabbing; }
-.dbg-head b { font-size: 14px; }
+.dbg-head b {font-size: 14px;}
 .dbg-head button {
-  width: 26px; height: 26px;
+  width: 26px;
+  height: 26px;
   border: none;
   border-radius: 50%;
   background: #fff;
-  color: var(--text-muted);
+  color: #e30000;
   cursor: pointer;
+  font-weight: bold;
 }
 .dbg-body { padding: 12px 14px 14px; }
 .dbg-grid {
@@ -609,7 +621,7 @@ body.debug-on .ptag-slogan:hover {
   margin-bottom: 8px;
 }
 .dbg-grid label {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   gap: 3px;
   font-size: 12px;
@@ -623,15 +635,18 @@ body.debug-on .ptag-slogan:hover {
   border-radius: 6px;
   background: #fbfcfa;
   outline: none;
-  width: 100%;
+  display: inline;
+  width: 77%;
   box-sizing: border-box;
 }
 .dbg-grid input[type="color"] { padding: 2px; height: 30px; }
-.dbg-tip { font-size: 11px; color: var(--text-muted); margin: 6px 0; line-height: 1.5; }
-.dbg-panel textarea#dbgCss,
+.dbg-tip {font-size: 11px;color: var(--text-muted);margin: 6px 0;line-height: 1.5;display: none;}
 #dbgCss {
   width: 100%;
+  display: none;
   box-sizing: border-box;
+  height: 48px;
+  overflow-y: auto;
   font-family: Consolas, monospace;
   font-size: 11px;
   line-height: 1.5;
@@ -663,7 +678,7 @@ body.debug-on .ptag-slogan:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ---------- 响应式 ---------- */
+/* ---------- å“åº”å¼ ---------- */
 @media (max-width: 900px) {
   .workspace { flex-direction: column; }
   .panel-side { width: 100%; }

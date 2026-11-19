@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>价签工坊 - A4 价格牌制作工具</title>
-<link rel="stylesheet" href="assets/css/style.css?v=17">
+<link rel="stylesheet" href="assets/css/style.css?v=18">
 <link rel="stylesheet" href="assets/css/templates/V01.css?v=6">
 <link rel="stylesheet" href="assets/css/templates/V02.css?v=6">
 <link rel="stylesheet" href="assets/css/templates/V03.css?v=6">
@@ -28,10 +28,10 @@
     </div>
     <div class="topbar-actions">
       <button class="chip-btn" id="btnIndustry" title="点击更换行业">
-        <span>行业</span><span class="chip-value" id="industryValue">🥬 蔬菜</span><span class="chip-change">更换</span>
+       <span class="chip-change">更换行业</span>
       </button>
       <button class="chip-btn" id="btnTemplate" title="点击更换模板">
-        <span>模板</span><span class="chip-value" id="templateValue">V01</span><span class="chip-change">更换</span>
+        <span class="chip-change">更换模板</span>
       </button>
     </div>
   </div>
@@ -118,7 +118,7 @@
           <option value="">系统默认</option>
         </select>
       </label>
-      <label>字号 mm
+      <label>字号
         <input type="number" id="dbgSize" step="0.5" min="2">
       </label>
       <label>粗细
@@ -131,20 +131,20 @@
       <label>颜色
         <input type="color" id="dbgColor">
       </label>
-      <label>左右 mm
+      <label>左右
         <input type="number" id="dbgLeft" step="0.5">
       </label>
-      <label>上下 mm
+      <label>上下
         <input type="number" id="dbgTop" step="0.5">
       </label>
     </div>
     <p class="dbg-tip" id="dbgPosTip"></p>
-    <textarea id="dbgCss" rows="9" readonly spellcheck="false"></textarea>
+    <textarea id="dbgCss" rows="6" readonly spellcheck="false"></textarea>
     <div class="dbg-actions">
-      <button class="btn" id="dbgCopy" type="button">复制 CSS</button>
+      <button class="btn" id="dbgCopy" type="button">复制模板CSS</button>
       <button class="btn" id="dbgReset" type="button">恢复默认</button>
     </div>
-    <p class="dbg-tip">复制后粘贴覆盖 assets/css/templates/ 对应模板文件里的规则（宣传语的胶囊底样式在 .ptag-slogan-text，需手动调）</p>
+    <p class="dbg-tip">输出的是当前模板的全部规则，复制后整体粘贴覆盖 assets/css/templates/ 对应模板文件里的同名规则即可</p>
   </div>
 </div>
 
@@ -152,6 +152,6 @@
 
 <script src="assets/js/templates.js?v=5"></script>
 <script src="assets/js/render.js?v=17"></script>
-<script src="assets/js/app.js?v=17"></script>
+<script src="assets/js/app.js?v=18"></script>
 </body>
 </html>
