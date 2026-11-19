@@ -1,0 +1,44 @@
+/* =====================================================
+ * V08 阳光农场 —— 模板独立样式
+ * ===================================================== */
+
+[data-tpl="V08"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 42);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 26);
+  color: #5d5226;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 34);
+  letter-spacing: calc(var(--mm) * 1);
+}
+
+[data-tpl="V08"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 102);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 78);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="V08"] .ptag-num {
+  color: #e8a13c;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 118);
+  text-shadow: 0 calc(var(--mm) * 1.3) 0 rgba(255, 255, 255, 0.65);
+}
+[data-tpl="V08"] .ptag-unit {
+  color: #c9862a;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 30);
+  padding-bottom: calc(var(--mm) * 8);
+}
+
+[data-tpl="V08"] .ptag-slogan {
+  left: calc(var(--mm) * 35);
+  top: calc(var(--mm) * 208);
+  width: calc(var(--mm) * 140);
+  height: calc(var(--mm) * 22);
+  color: #a3945f;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 22);
+}

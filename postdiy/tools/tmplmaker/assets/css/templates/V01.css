@@ -1,0 +1,50 @@
+/* =====================================================
+ * V01 欢乐农场 —— 模板独立样式
+ * 坐标单位 mm（A4 210 × 297），--mm 由 JS 实时写入
+ * ===================================================== */
+
+[data-tpl="V01"] .ptag-num {
+  color: #d03c0b;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 72);
+  font-weight: 700;
+  text-shadow: rgba(255, 255, 255, 0.55) calc(var(--mm) * 0) calc(var(--mm) * 1.33714) calc(var(--mm) * 0);
+}
+[data-tpl="V01"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 100);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 78);
+  gap: calc(var(--mm) * 7);
+}
+
+[data-tpl="V01"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 42);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 26);
+  color: #3a4a2f;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 34);
+  letter-spacing: calc(var(--mm) * 1);
+}
+
+
+[data-tpl="V01"] .ptag-unit {
+  color: #e2452f;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 30);
+  padding-bottom: calc(var(--mm) * 8);
+}
+
+[data-tpl="V01"] .ptag-slogan {
+  left: calc(var(--mm) * 30);
+  top: calc(var(--mm) * 205);
+  width: calc(var(--mm) * 150);
+  height: calc(var(--mm) * 22);
+  color: #7c8a6d;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 24);
+}
+
+

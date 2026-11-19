@@ -1,0 +1,44 @@
+/* =====================================================
+ * V07 蔬菜派对 —— 模板独立样式
+ * ===================================================== */
+
+[data-tpl="V07"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 40);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 26);
+  color: #5a3f57;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 34);
+  letter-spacing: calc(var(--mm) * 1.5);
+}
+
+[data-tpl="V07"] .ptag-price {
+  left: calc(var(--mm) * 10);
+  top: calc(var(--mm) * 100);
+  width: calc(var(--mm) * 190);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 8);
+}
+[data-tpl="V07"] .ptag-num {
+  color: #f0603c;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 122);
+  text-shadow: 0 calc(var(--mm) * 1.5) 0 rgba(255, 255, 255, 0.6);
+}
+[data-tpl="V07"] .ptag-unit {
+  color: #f0603c;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 30);
+  padding-bottom: calc(var(--mm) * 9);
+}
+
+[data-tpl="V07"] .ptag-slogan {
+  left: calc(var(--mm) * 30);
+  top: calc(var(--mm) * 207);
+  width: calc(var(--mm) * 150);
+  height: calc(var(--mm) * 22);
+  color: #96808c;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 22);
+}

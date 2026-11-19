@@ -1,0 +1,44 @@
+/* =====================================================
+ * V05 田园采摘 —— 模板独立样式
+ * ===================================================== */
+
+[data-tpl="V05"] .ptag-name {
+  left: calc(var(--mm) * 30);
+  top: calc(var(--mm) * 42);
+  width: calc(var(--mm) * 150);
+  height: calc(var(--mm) * 26);
+  color: #3e5233;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 34);
+  letter-spacing: calc(var(--mm) * 1);
+}
+
+[data-tpl="V05"] .ptag-price {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 103);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 76);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="V05"] .ptag-num {
+  color: #3f9d5a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 114);
+  text-shadow: 0 calc(var(--mm) * 1.2) 0 rgba(255, 255, 255, 0.55);
+}
+[data-tpl="V05"] .ptag-unit {
+  color: #3f9d5a;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 28);
+  padding-bottom: calc(var(--mm) * 7);
+}
+
+[data-tpl="V05"] .ptag-slogan {
+  left: calc(var(--mm) * 35);
+  top: calc(var(--mm) * 208);
+  width: calc(var(--mm) * 140);
+  height: calc(var(--mm) * 22);
+  color: #7f946e;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 22);
+}

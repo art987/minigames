@@ -1,0 +1,44 @@
+/* =====================================================
+ * V02 兔兔菜园 —— 模板独立样式
+ * ===================================================== */
+
+[data-tpl="V02"] .ptag-name {
+  left: calc(var(--mm) * 30);
+  top: calc(var(--mm) * 40);
+  width: calc(var(--mm) * 150);
+  height: calc(var(--mm) * 26);
+  color: #4a5d3a;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 34);
+  letter-spacing: calc(var(--mm) * 1.5);
+}
+
+[data-tpl="V02"] .ptag-price {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 105);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 74);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="V02"] .ptag-num {
+  color: #f0862c;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 112);
+  text-shadow: 0 calc(var(--mm) * 1.4) calc(var(--mm) * 2) rgba(122, 74, 22, 0.18);
+}
+[data-tpl="V02"] .ptag-unit {
+  color: #f0862c;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 28);
+  padding-bottom: calc(var(--mm) * 6);
+}
+
+[data-tpl="V02"] .ptag-slogan {
+  left: calc(var(--mm) * 40);
+  top: calc(var(--mm) * 210);
+  width: calc(var(--mm) * 130);
+  height: calc(var(--mm) * 22);
+  color: #8a9a78;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 22);
+}

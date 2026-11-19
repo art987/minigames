@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>价签工坊 - A4 价格牌制作工具</title>
+<link rel="stylesheet" href="assets/css/style.css?v=17">
+<link rel="stylesheet" href="assets/css/templates/V01.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V02.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V03.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V04.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V05.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V06.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V07.css?v=6">
+<link rel="stylesheet" href="assets/css/templates/V08.css?v=6">
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-logo">🏷️</span>
+      <div>
+        <h1>价签工坊</h1>
+        <p>A4 价格牌 · 多商品轮播预览 · 下载打印</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="chip-btn" id="btnIndustry" title="点击更换行业">
+        <span>行业</span><span class="chip-value" id="industryValue">🥬 蔬菜</span><span class="chip-change">更换</span>
+      </button>
+      <button class="chip-btn" id="btnTemplate" title="点击更换模板">
+        <span>模板</span><span class="chip-value" id="templateValue">V01</span><span class="chip-change">更换</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="workspace">
+  <!-- 预览区：DOM 价签幻灯片 -->
+  <section class="preview-area">
+    <div class="stage" id="stage">
+      <button class="nav-btn prev" id="btnPrev" title="上一张">‹</button>
+      <div class="slide-frame" id="slideFrame">
+        <div class="slides" id="slides"><!-- 每条商品一张价签 --></div>
+      </div>
+      <button class="nav-btn next" id="btnNext" title="下一张">›</button>
+      <div class="carousel-foot">
+        <div class="dots" id="dots"></div>
+        <span class="page-info" id="pageInfo"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 商品信息（独立模块，卡片直接内联编辑） -->
+  <section class="panel panel-side">
+    <h2 class="panel-title">商品信息 <span class="panel-sub" id="prodCount"></span></h2>
+    <div class="product-list" id="productList"><!-- 商品卡片 --></div>
+    <button class="p-card-add" id="btnAddProduct" type="button">＋ 新增一条商品</button>
+  </section>
+
+  <!-- 下载（独立模块） -->
+  <section class="panel panel-side">
+    <h2 class="panel-title">下载当前价签</h2>
+    <button class="btn btn-accent" id="btnPng">⬇ 下载高清 PNG</button>
+    <button class="btn" id="btnPdf">⬇ 下载打印 PDF</button>
+    <p class="export-hint">PNG：2480×3508（A4 300dpi）<br>PDF：标准 A4 竖版 210×297mm</p>
+  </section>
+</main>
+
+<!-- 弹窗：选择行业 -->
+<div class="modal" id="modalIndustry">
+  <div class="modal-card modal-sm">
+    <div class="modal-head">
+      <div>
+        <h2>选择你的行业</h2>
+        <p class="modal-desc">之后可随时点击顶栏「行业」重新选择</p>
+      </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="industry-grid" id="industryGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 弹窗：选择模板 -->
+<div class="modal" id="modalTemplate">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h2 id="templateGridTitle">选择模板</h2>
+        <p class="modal-desc">不同模板有独立配色与版式，之后可随时更换</p>
+      </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="template-grid" id="templateGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 调试面板（仅 DEBUG_MODE 开启时可用）：点价签文字调样式，生成可覆盖的模板 CSS；按住标题栏可拖动 -->
+<div class="debug-panel hidden" id="debugPanel">
+  <div class="dbg-head" id="dbgHead">
+    <b id="dbgTitle">调整</b>
+    <button id="dbgClose" type="button">✕</button>
+  </div>
+  <div class="dbg-body">
+    <div class="dbg-grid">
+      <label>字体
+        <select id="dbgFont">
+          <option value="var(--font-kai)">东方大楷</option>
+          <option value="var(--font-douyin)">抖音黑体</option>
+          <option value="var(--font-zcool)">站酷快乐体</option>
+          <option value="var(--font-serif)">思源宋体</option>
+          <option value="">系统默认</option>
+        </select>
+      </label>
+      <label>字号 mm
+        <input type="number" id="dbgSize" step="0.5" min="2">
+      </label>
+      <label>粗细
+        <select id="dbgWeight">
+          <option value="400">常规</option>
+          <option value="700">加粗</option>
+          <option value="900">特粗</option>
+        </select>
+      </label>
+      <label>颜色
+        <input type="color" id="dbgColor">
+      </label>
+      <label>左右 mm
+        <input type="number" id="dbgLeft" step="0.5">
+      </label>
+      <label>上下 mm
+        <input type="number" id="dbgTop" step="0.5">
+      </label>
+    </div>
+    <p class="dbg-tip" id="dbgPosTip"></p>
+    <textarea id="dbgCss" rows="9" readonly spellcheck="false"></textarea>
+    <div class="dbg-actions">
+      <button class="btn" id="dbgCopy" type="button">复制 CSS</button>
+      <button class="btn" id="dbgReset" type="button">恢复默认</button>
+    </div>
+    <p class="dbg-tip">复制后粘贴覆盖 assets/css/templates/ 对应模板文件里的规则（宣传语的胶囊底样式在 .ptag-slogan-text，需手动调）</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/templates.js?v=5"></script>
+<script src="assets/js/render.js?v=17"></script>
+<script src="assets/js/app.js?v=17"></script>
+</body>
+</html>
