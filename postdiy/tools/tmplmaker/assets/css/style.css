@@ -678,7 +678,7 @@ body.debug-on .ptag-slogan:hover {
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ---------- å“åº”å¼ ---------- */
+
 @media (max-width: 900px) {
   .workspace { flex-direction: column; }
   .panel-side { width: 100%; }
