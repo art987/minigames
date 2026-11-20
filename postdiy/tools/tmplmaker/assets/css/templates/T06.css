@@ -1,0 +1,35 @@
+/* =====================================================
+ * T06 萌趣奶茶 —— 粉色熊兔奶茶，宣传语已烙在背景
+ * ===================================================== */
+
+[data-tpl="T06"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 92);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 22);
+  color: #a45a38;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  letter-spacing: calc(var(--mm) * 3);
+}
+
+[data-tpl="T06"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 118);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 52);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="T06"] .ptag-num {
+  color: #a45a38;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 76);
+}
+[data-tpl="T06"] .ptag-unit {
+  color: #a45a38;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 24);
+  padding-bottom: calc(var(--mm) * 6);
+}

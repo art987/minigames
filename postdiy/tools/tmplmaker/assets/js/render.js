@@ -66,16 +66,8 @@
     price.appendChild(num);
     price.appendChild(unit);
 
-    const slogan = document.createElement('div');
-    slogan.className = 'ptag-slogan' + (data.sloganEnabled ? '' : ' hidden');
-    const sText = document.createElement('span');
-    sText.className = 'ptag-slogan-text';
-    sText.textContent = (data.slogan || '').trim();
-    slogan.appendChild(sText);
-
     tag.appendChild(name);
     tag.appendChild(price);
-    tag.appendChild(slogan);
     return tag;
   }
 
@@ -176,6 +168,8 @@
         doc.querySelectorAll('.slides').forEach(function (el) {
           el.style.transition = 'none';
         });
+        // 导出图不能带价签上的删除按钮
+        doc.querySelectorAll('.ptag-del').forEach(function (el) { el.remove(); });
       }
     });
   }

@@ -1,0 +1,35 @@
+/* =====================================================
+ * B06 黑金焙艺 —— 黑金奢华，BAKERY 徽章已烙在顶部
+ * ===================================================== */
+
+[data-tpl="B06"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 64);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 24);
+  color: #d9b56a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 3);
+}
+
+[data-tpl="B06"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 96);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="B06"] .ptag-num {
+  color: #d9b56a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 104);
+}
+[data-tpl="B06"] .ptag-unit {
+  color: #d9b56a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 8);
+}

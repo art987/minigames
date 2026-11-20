@@ -1,0 +1,33 @@
+/* =====================================================
+ * V16 清新几何 —— 白底+大色块绿叶，宣传语已烙在背景
+ * ===================================================== */
+
+[data-tpl="V16"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 40);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 26);
+  color: #1c6b30;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 30);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="V16"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 76);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 88);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="V16"] .ptag-num {
+  color: #1c6b30;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 112);
+}
+[data-tpl="V16"] .ptag-unit {
+  color: #1c6b30;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 28);
+  padding-bottom: calc(var(--mm) * 9);
+}

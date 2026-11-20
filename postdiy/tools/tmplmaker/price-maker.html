@@ -3,16 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>价签工坊 - A4 价格牌制作工具</title>
-<link rel="stylesheet" href="assets/css/style.css?v=18">
-<link rel="stylesheet" href="assets/css/templates/V01.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V02.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V03.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V04.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V05.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V06.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V07.css?v=6">
-<link rel="stylesheet" href="assets/css/templates/V08.css?v=6">
+<title>价签工坊</title>
+<link rel="stylesheet" href="assets/css/style.css?v=22">
+<link rel="stylesheet" href="assets/css/templates/V09.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V10.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V11.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V12.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V13.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V14.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V15.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V16.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B08.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T07.css?v=1">
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 </head>
@@ -25,14 +40,6 @@
         <h1>价签工坊</h1>
         <p>A4 价格牌 · 多商品轮播预览 · 下载打印</p>
       </div>
-    </div>
-    <div class="topbar-actions">
-      <button class="chip-btn" id="btnIndustry" title="点击更换行业">
-       <span class="chip-change">更换行业</span>
-      </button>
-      <button class="chip-btn" id="btnTemplate" title="点击更换模板">
-        <span class="chip-change">更换模板</span>
-      </button>
     </div>
   </div>
 </header>
@@ -50,14 +57,15 @@
         <div class="dots" id="dots"></div>
         <span class="page-info" id="pageInfo"></span>
       </div>
+      <!-- 模板/商品操作按钮：放在预览舞台内部底部 -->
+      <div class="tpl-switch">
+        <button type="button" id="btnAddQuick" class="ts-add">添加商品</button>
+        <button type="button" id="btnManage" class="ts-manage">商品管理</button>
+        <button type="button" id="btnTplPrev">‹ 上一模板</button>
+        <button type="button" id="btnTplLib">模板库</button>
+        <button type="button" id="btnTplNext">下一模板 ›</button>
+      </div>
     </div>
-  </section>
-
-  <!-- 商品信息（独立模块，卡片直接内联编辑） -->
-  <section class="panel panel-side">
-    <h2 class="panel-title">商品信息 <span class="panel-sub" id="prodCount"></span></h2>
-    <div class="product-list" id="productList"><!-- 商品卡片 --></div>
-    <button class="p-card-add" id="btnAddProduct" type="button">＋ 新增一条商品</button>
   </section>
 
   <!-- 下载（独立模块） -->
@@ -69,13 +77,62 @@
   </section>
 </main>
 
+<!-- 弹窗：添加商品（商品卡片式，可一次新增多条，不展示已有商品） -->
+<div class="modal" id="modalAdd">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h2>添加商品</h2>
+        <p class="modal-desc">在卡片上填写商品信息，可「＋ 新增一条商品」一次加多条</p>
+      </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="product-list" id="draftList"><!-- 待添加的商品卡片 --></div>
+      <button class="p-card-add" id="btnAddDraft" type="button">＋ 新增一条商品</button>
+      <div class="form-actions add-foot">
+        <button class="btn btn-accent" id="qaConfirm" type="button">保存</button>
+        <button class="btn btn-green" id="qaManage" type="button">商品管理</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 弹窗：删除确认（替代系统 confirm） -->
+<div class="modal" id="modalConfirm">
+  <div class="modal-card confirm-card">
+    <p class="confirm-msg" id="confirmMsg"></p>
+    <div class="form-actions">
+      <button class="btn" id="confirmCancel" type="button">取消</button>
+      <button class="btn btn-danger" id="confirmOk" type="button">删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- 弹窗：商品管理（原商品信息面板搬入，卡片内联编辑） -->
+<div class="modal" id="modalProducts">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h2>商品管理 <span class="panel-sub" id="prodCount"></span></h2>
+        <p class="modal-desc">在卡片上直接修改，改完即生效；可复制 / 删除</p>
+      </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="product-list" id="productList"><!-- 商品卡片 --></div>
+      <button class="p-card-add" id="btnAddProduct" type="button">＋ 新增一条商品</button>
+    </div>
+  </div>
+</div>
+
 <!-- 弹窗：选择行业 -->
 <div class="modal" id="modalIndustry">
   <div class="modal-card modal-sm">
     <div class="modal-head">
       <div>
         <h2>选择你的行业</h2>
-        <p class="modal-desc">之后可随时点击顶栏「行业」重新选择</p>
+        <p class="modal-desc">选好行业后进入模板库挑选模板</p>
       </div>
       <button class="modal-close" data-close type="button">✕</button>
     </div>
@@ -91,11 +148,14 @@
     <div class="modal-head">
       <div>
         <h2 id="templateGridTitle">选择模板</h2>
-        <p class="modal-desc">不同模板有独立配色与版式，之后可随时更换</p>
       </div>
       <button class="modal-close" data-close type="button">✕</button>
     </div>
     <div class="modal-body">
+      <div class="ind-row">
+        <span>当前行业：<b id="curIndustry">蔬菜</b></span>
+        <button class="ind-change" id="btnChangeIndustry" type="button">更换行业</button>
+      </div>
       <div class="template-grid" id="templateGrid"></div>
     </div>
   </div>
@@ -150,8 +210,8 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="assets/js/templates.js?v=5"></script>
-<script src="assets/js/render.js?v=17"></script>
-<script src="assets/js/app.js?v=18"></script>
+<script src="assets/js/templates.js?v=9"></script>
+<script src="assets/js/render.js?v=20"></script>
+<script src="assets/js/app.js?v=24"></script>
 </body>
 </html>

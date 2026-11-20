@@ -1,0 +1,35 @@
+/* =====================================================
+ * B07 焙香案板 —— 水彩案板+面粉面包，宣传语已烙在背景
+ * ===================================================== */
+
+[data-tpl="B07"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 82);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 22);
+  color: #8a5424;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  letter-spacing: calc(var(--mm) * 3);
+}
+
+[data-tpl="B07"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 106);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 56);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="B07"] .ptag-num {
+  color: #8a5424;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 80);
+}
+[data-tpl="B07"] .ptag-unit {
+  color: #8a5424;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 24);
+  padding-bottom: calc(var(--mm) * 6);
+}

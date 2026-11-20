@@ -18,7 +18,7 @@
   // ---------- 状态 ----------
   let state = {
     industry: 'vegetable',
-    templateId: 'V01',
+    templateId: 'V09',
     products: [],
     index: 0
   };
@@ -28,9 +28,7 @@
       id: uid(),
       name: '新鲜蔬菜',
       price: '3.5',
-      unit: '元/斤',
-      slogan: '新鲜直达 · 自然好味',
-      sloganEnabled: true
+      unit: '元/斤'
     };
   }
 
@@ -51,9 +49,7 @@
           id: p.id || uid(),
           name: String(p.name || ''),
           price: String(p.price || ''),
-          unit: String(p.unit || ''),
-          slogan: String(p.slogan || ''),
-          sloganEnabled: p.sloganEnabled !== false
+          unit: String(p.unit || '')
         };
       });
       state.index = Math.min(saved.index || 0, state.products.length - 1);
@@ -116,53 +112,93 @@
         btn.addEventListener('click', function () {
           state.industry = ind.id;
           saveState();
-          renderIndustryModal();
-          updateTopbar();
           closeModal($('modalIndustry'));
-          openModal($('modalTemplate'));
+          openTemplateModal();
         });
       }
       grid.appendChild(btn);
     });
   }
 
-  // ---------- 模板弹窗 ----------
+  // ---------- 模板弹窗（缩略图带示范文字，底部选择按钮） ----------
   function renderTemplateModal() {
     const grid = $('templateGrid');
     grid.innerHTML = '';
-    window.TMPL_TEMPLATES.filter(function (t) { return t.industry === state.industry; })
-      .forEach(function (t) {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'template-card' + (t.id === state.templateId ? ' active' : '');
-        const img = document.createElement('img');
-        img.src = t.bg;
-        img.alt = t.title;
-        img.loading = 'lazy';
-        const label = document.createElement('span');
-        label.className = 't-name';
-        label.textContent = t.id + ' ' + t.title;
-        card.appendChild(img);
-        card.appendChild(label);
-        card.addEventListener('click', function () {
-          const changed = state.templateId !== t.id;
-          state.templateId = t.id;
-          saveState();
-          renderTemplateModal();
-          updateTopbar();
-          updateSide();
-          if (changed) rebuildSlides(true);
-          closeModal($('modalTemplate'));
-        });
-        grid.appendChild(card);
+    $('curIndustry').textContent = industryLabel(state.industry);
+    const list = window.TMPL_TEMPLATES.filter(function (t) { return t.industry === state.industry; });
+    list.forEach(function (t) {
+      const card = document.createElement('div');
+      card.className = 'template-card' + (t.id === state.templateId ? ' active' : '');
+
+      const label = document.createElement('span');
+      label.className = 't-name';
+      label.textContent = t.id + ' ' + t.title;
+
+      // 缩略预览：按该模板 CSS 渲染示范文字（小尺寸）
+      const preview = document.createElement('div');
+      preview.className = 'tpl-preview';
+      preview.appendChild(window.TMPLRender.buildTag(t, { name: '商品名称', price: '9.9', unit: '元/个' }));
+
+      const use = document.createElement('button');
+      use.type = 'button';
+      use.className = 'tpl-use';
+      use.textContent = t.id === state.templateId ? '✓ 使用中' : '选 择';
+      use.addEventListener('click', function () {
+        const changed = state.templateId !== t.id;
+        state.templateId = t.id;
+        saveState();
+        if (changed) rebuildSlides(true);
+        closeModal($('modalTemplate'));
+        showToast('已使用模板 ' + t.id + ' ' + t.title);
       });
+
+      card.appendChild(label);
+      card.appendChild(preview);
+      card.appendChild(use);
+      grid.appendChild(card);
+    });
     $('templateGridTitle').textContent =
-      '选择模板 · ' + industryLabel(state.industry) + '（' + window.TMPL_TEMPLATES.length + ' 款）';
+      '选择模板 · ' + industryLabel(state.industry) + '（' + list.length + ' 款）';
+    sizeModalTags();
+  }
+
+  /** 给弹窗里的缩略价签按容器宽设置 --mm 并自适应字号 */
+  function sizeModalTags() {
+    $('templateGrid').querySelectorAll('.tpl-preview').forEach(function (pv) {
+      const tag = pv.querySelector('.ptag');
+      const w = pv.clientWidth;
+      if (!tag || !w) return;
+      tag.style.width = w + 'px';
+      tag.style.height = (w * 297 / 210) + 'px';
+      tag.style.setProperty('--mm', (w / 210) + 'px');
+      window.TMPLRender.fitTag(tag);
+    });
+  }
+
+  function openTemplateModal() {
+    renderTemplateModal();
+    openModal($('modalTemplate'));
+    requestAnimationFrame(sizeModalTags);
   }
 
   function industryLabel(id) {
     const ind = window.TMPL_INDUSTRIES.find(function (i) { return i.id === id; });
     return ind ? ind.label : '';
+  }
+
+  // ---------- 模板切换（当前行业内循环） ----------
+  function industryTemplates() {
+    return window.TMPL_TEMPLATES.filter(function (t) { return t.industry === state.industry; });
+  }
+
+  function switchTemplate(dir) {
+    const list = industryTemplates();
+    let i = list.findIndex(function (t) { return t.id === state.templateId; });
+    i = (i + dir + list.length) % list.length;
+    state.templateId = list[i].id;
+    saveState();
+    rebuildSlides(true);
+    showToast('已切换到 ' + list[i].id + ' ' + list[i].title);
   }
 
   // ---------- 商品弹窗（卡片内联编辑，自动保存） ----------
@@ -192,13 +228,11 @@
   }
 
   /**
-   * 单位/宣传语字段：下拉选择，最后一项「自定义…」选中后变成输入框，
-   * 输入框旁 ↩ 可退回预设列表。
+   * 计价单位字段：下拉选择，最后一项「自定义…」选中后变成输入框。
+   * 历史自定义值（如 元/筐）会作为普通选项出现在下拉里，避免卡片展示成输入模式。
    */
-  function buildSelectField(p, kind) {
-    const presets = kind === 'unit' ? window.TMPL_UNITS : window.TMPL_SLOGANS;
-    const maxLen = kind === 'unit' ? 6 : 14;
-    const placeholder = kind === 'unit' ? '输入自定义单位' : '输入自定义宣传语';
+  function buildUnitField(p) {
+    const presets = window.TMPL_UNITS;
 
     const wrap = document.createElement('div');
     wrap.className = 'pc-field';
@@ -212,38 +246,52 @@
     const oc = document.createElement('option');
     oc.value = '__custom__'; oc.textContent = '自定义…';
     sel.appendChild(oc);
-    sel.value = presets.indexOf(p[kind]) >= 0 ? p[kind] : '__custom__';
+    // 自定义但历史保存过的值：直接作为选项展示
+    if (p.unit && presets.indexOf(p.unit) < 0) {
+      const oh = document.createElement('option');
+      oh.value = p.unit; oh.textContent = p.unit;
+      sel.insertBefore(oh, oc);
+      sel.value = p.unit;
+    } else {
+      sel.value = p.unit || presets[0];
+    }
 
     const input = document.createElement('input');
     input.type = 'text';
-    input.maxLength = maxLen;
-    input.placeholder = placeholder;
-    input.value = p[kind];
-    input.classList.toggle('hidden', sel.value !== '__custom__');
+    input.maxLength = 6;
+    input.placeholder = '输入自定义单位';
+    input.value = p.unit;
+    input.classList.add('hidden');
 
     const back = document.createElement('button');
     back.type = 'button';
-    back.className = 'pc-back' + (sel.value === '__custom__' ? '' : ' hidden');
+    back.className = 'pc-back hidden';
     back.title = '返回预设列表';
     back.textContent = '↩';
 
     sel.addEventListener('change', function () {
-      const custom = sel.value === '__custom__';
-      input.classList.toggle('hidden', !custom);
-      back.classList.toggle('hidden', !custom);
-      if (!custom) { p[kind] = sel.value; saveState(); schedulePreview(); }
-      else { input.focus(); }
+      if (sel.value === '__custom__') {
+        input.classList.remove('hidden');
+        back.classList.remove('hidden');
+        sel.classList.add('hidden');
+        input.focus();
+      } else {
+        p.unit = sel.value;
+        saveState();
+        schedulePreview();
+      }
     });
     input.addEventListener('input', function () {
-      p[kind] = input.value;
+      p.unit = input.value;
       saveState();
       schedulePreview();
     });
     back.addEventListener('click', function () {
-      p[kind] = presets[0];
-      sel.value = presets[0];
+      p.unit = presets[0];
       input.classList.add('hidden');
       back.classList.add('hidden');
+      sel.classList.remove('hidden');
+      sel.value = presets[0];
       saveState();
       schedulePreview();
     });
@@ -254,68 +302,123 @@
     return wrap;
   }
 
+  /** 构建商品编辑卡片（商品管理弹窗与添加商品弹窗共用） */
+  function buildProductCard(p, onCopy, onDelete) {
+    const card = document.createElement('div');
+    card.className = 'p-card';
+    card.dataset.id = p.id;
+
+    // 行1：名称 + 价格 + 计价单位
+    const grid = document.createElement('div');
+    grid.className = 'p-grid';
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.maxLength = 15;
+    nameInput.placeholder = '商品名称';
+    nameInput.value = p.name;
+    nameInput.addEventListener('input', function () {
+      p.name = nameInput.value;
+      saveState();
+      schedulePreview();
+    });
+    const priceInput = document.createElement('input');
+    priceInput.type = 'text';
+    priceInput.inputMode = 'decimal';
+    priceInput.placeholder = '价格';
+    priceInput.value = p.price;
+    priceInput.addEventListener('input', function () {
+      const cleaned = sanitizePrice(priceInput.value);
+      if (cleaned !== priceInput.value) priceInput.value = cleaned;
+      p.price = cleaned;
+      saveState();
+      schedulePreview();
+    });
+    grid.appendChild(nameInput);
+    grid.appendChild(priceInput);
+    grid.appendChild(buildUnitField(p));
+
+    // 行2：复制 / 删除（靠右）
+    const row = document.createElement('div');
+    row.className = 'p-row';
+
+    const ops = document.createElement('div');
+    ops.className = 'p-ops';
+    ops.appendChild(opBtn('复制', '复制这条商品', onCopy));
+    ops.appendChild(opBtn('删除', '删除这条商品', onDelete, 'danger'));
+
+    row.appendChild(ops);
+    card.appendChild(grid);
+    card.appendChild(row);
+    return card;
+  }
+
   function renderProductList() {
     const list = $('productList');
     list.innerHTML = '';
     state.products.forEach(function (p, i) {
-      const card = document.createElement('div');
-      card.className = 'p-card';
-      card.dataset.id = p.id;
-
-      // 行1：名称 + 价格 + 计价单位
-      const grid = document.createElement('div');
-      grid.className = 'p-grid';
-      const nameInput = document.createElement('input');
-      nameInput.type = 'text';
-      nameInput.maxLength = 15;
-      nameInput.placeholder = '商品名称';
-      nameInput.value = p.name;
-      nameInput.addEventListener('input', function () {
-        p.name = nameInput.value;
-        saveState();
-        schedulePreview();
-      });
-      const priceInput = document.createElement('input');
-      priceInput.type = 'text';
-      priceInput.inputMode = 'decimal';
-      priceInput.placeholder = '价格';
-      priceInput.value = p.price;
-      priceInput.addEventListener('input', function () {
-        const cleaned = sanitizePrice(priceInput.value);
-        if (cleaned !== priceInput.value) priceInput.value = cleaned;
-        p.price = cleaned;
-        saveState();
-        schedulePreview();
-      });
-      grid.appendChild(nameInput);
-      grid.appendChild(priceInput);
-      grid.appendChild(buildSelectField(p, 'unit'));
-
-      // 行2：宣传语 + 显示（靠左），复制 / 删除（靠右）
-      const row = document.createElement('div');
-      row.className = 'p-row';
-      row.appendChild(buildSelectField(p, 'slogan'));
-
-      const ops = document.createElement('div');
-      ops.className = 'p-ops';
-      const eye = opBtn(p.sloganEnabled ? '隐藏' : '显示', p.sloganEnabled ? '隐藏宣传语' : '显示宣传语', function () {
-        p.sloganEnabled = !p.sloganEnabled;
-        eye.textContent = p.sloganEnabled ? '隐藏' : '显示';
-        eye.title = p.sloganEnabled ? '隐藏宣传语' : '显示宣传语';
-        eye.classList.toggle('off', !p.sloganEnabled);
-        saveState();
-        schedulePreview();
-      });
-      eye.classList.toggle('off', !p.sloganEnabled);
-      ops.appendChild(eye);
-      ops.appendChild(opBtn('复制', '复制这条商品', function () { copyProduct(i); }));
-      ops.appendChild(opBtn('删除', '删除这条商品', function () { deleteProduct(i); }, 'danger'));
-
-      row.appendChild(ops);
-      card.appendChild(grid);
-      card.appendChild(row);
-      list.appendChild(card);
+      list.appendChild(buildProductCard(p,
+        function () { copyProduct(i); },
+        function () { deleteProduct(i); }
+      ));
     });
+  }
+
+  // ---------- 添加商品弹窗（卡片草稿，保存时才写入商品列表） ----------
+  let drafts = [];
+
+  function emptyDraft() {
+    return { id: uid(), name: '', price: '', unit: window.TMPL_UNITS[0] };
+  }
+
+  function renderDraftList() {
+    const list = $('draftList');
+    list.innerHTML = '';
+    drafts.forEach(function (p, i) {
+      list.appendChild(buildProductCard(p,
+        function () {
+          drafts.splice(i + 1, 0, Object.assign({}, p, { id: uid() }));
+          renderDraftList();
+        },
+        function () {
+          confirmDialog('确定删除这条未保存的商品吗？', function (ok) {
+            if (!ok) return;
+            drafts.splice(i, 1);
+            if (!drafts.length) drafts.push(emptyDraft());
+            renderDraftList();
+          });
+        }
+      ));
+    });
+  }
+
+  /** 保存全部草稿：返回保存条数（无有效商品返回 0 并提示） */
+  function saveDrafts() {
+    const valid = drafts.filter(function (d) { return d.name.trim(); });
+    if (!valid.length) {
+      showToast('请至少填写一条商品名称');
+      return 0;
+    }
+    valid.forEach(function (d) {
+      state.products.push(Object.assign(defaultProduct(), {
+        name: d.name.trim(),
+        price: sanitizePrice(d.price),
+        unit: d.unit
+      }));
+    });
+    state.index = state.products.length - valid.length; // 定位到第一条新商品
+    saveState();
+    rebuildSlides(true);
+    renderProductList();
+    drafts = [];
+    return valid.length;
+  }
+
+  function openQuickAdd() {
+    drafts = [emptyDraft()];
+    renderDraftList();
+    openModal($('modalAdd'));
+    const first = $('draftList').querySelector('input[type="text"]');
+    if (first) first.focus();
   }
 
   function copyProduct(i) {
@@ -334,12 +437,14 @@
       return;
     }
     const p = state.products[i];
-    if (!window.confirm('确定删除「' + (p.name || '未命名') + '」吗？')) return;
-    state.products.splice(i, 1);
-    if (state.index >= state.products.length) state.index = state.products.length - 1;
-    saveState();
-    renderProductList();
-    rebuildSlides(true);
+    confirmDialog('确定删除「' + (p.name || '未命名') + '」吗？删除后不可恢复', function (ok) {
+      if (!ok) return;
+      state.products.splice(i, 1);
+      if (state.index >= state.products.length) state.index = state.products.length - 1;
+      saveState();
+      renderProductList();
+      rebuildSlides(true);
+    });
   }
 
   function appendNewProduct() {
@@ -354,17 +459,29 @@
   }
 
   // ---------- 幻灯片 ----------
-  function buildSlide(product) {
+  function buildSlide(product, i) {
     const slide = document.createElement('div');
     slide.className = 'slide';
-    slide.appendChild(window.TMPLRender.buildTag(window.TMPLRender.tplById(state.templateId), product));
+    const tag = window.TMPLRender.buildTag(window.TMPLRender.tplById(state.templateId), product);
+    // 价签右上角删除按钮：点击弹确认后删除该商品
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'ptag-del';
+    del.textContent = '×';
+    del.title = '删除这条商品';
+    del.addEventListener('click', function (e) {
+      e.stopPropagation();
+      deleteProduct(i);
+    });
+    tag.appendChild(del);
+    slide.appendChild(tag);
     return slide;
   }
 
   function rebuildSlides(keepIndex) {
     const idx = keepIndex ? Math.min(state.index, state.products.length - 1) : state.index;
     slides.innerHTML = '';
-    state.products.forEach(function (p) { slides.appendChild(buildSlide(p)); });
+    state.products.forEach(function (p, i) { slides.appendChild(buildSlide(p, i)); });
     state.index = Math.max(0, idx);
     renderDots();
     updateSide();
@@ -435,7 +552,7 @@
   // ---------- 尺寸（A4 比例 + --mm 变量） ----------
   function sizeStage() {
     const availW = Math.max(120, stage.clientWidth - 130);
-    const availH = Math.max(150, stage.clientHeight - 88);
+    const availH = Math.max(150, stage.clientHeight - 128);
     let frameH = Math.min(availH, (availW * 297) / 210);
     let frameW = (frameH * 210) / 297;
     slideFrame.style.width = frameW + 'px';
@@ -450,14 +567,7 @@
     });
   }
 
-  // ---------- 右侧面板 / 顶栏 ----------
-  function updateTopbar() {
-    const ind = window.TMPL_INDUSTRIES.find(function (i) { return i.id === state.industry; });
-    $('industryValue').textContent = ind ? ind.emoji + ' ' + ind.label : '-';
-    const t = window.TMPLRender.tplById(state.templateId);
-    $('templateValue').textContent = t.id + ' ' + t.title;
-  }
-
+  // ---------- 右侧面板 ----------
   function updateSide() {
     prodCount.textContent = '共 ' + state.products.length + ' 条';
     updatePageInfo();
@@ -665,34 +775,37 @@
     const unit = dbgCollect('unit', tag);
     rule(tpl + ' .ptag-unit', typo(unit));
 
-    const sl = dbgCollect('slogan', tag);
-    rule(tpl + ' .ptag-slogan', box(sl, [
-      'color: ' + sl.color + ';',
-      sl.fontVar ? 'font-family: ' + sl.fontVar + ';' : '',
-      'font-size: ' + toMm(tag, sl.fontSize) + ';',
-      'font-weight: ' + sl.fontWeight + ';'
-    ]));
+    const slEl = tag.querySelector('.ptag-slogan');
+    if (slEl) {
+      const sl = dbgCollect('slogan', tag);
+      rule(tpl + ' .ptag-slogan', box(sl, [
+        'color: ' + sl.color + ';',
+        sl.fontVar ? 'font-family: ' + sl.fontVar + ';' : '',
+        'font-size: ' + toMm(tag, sl.fontSize) + ';',
+        'font-weight: ' + sl.fontWeight + ';'
+      ]));
 
-    // 胶囊底样式（仅 V03/V06 等有 pill 底的模板会产生实际属性）
-    const st = tag.querySelector('.ptag-slogan-text');
-    if (st) {
-      const cs = getComputedStyle(st);
-      const props = [];
-      if (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== 'transparent') {
-        props.push('background: ' + cs.backgroundColor + ';');
+      // 胶囊底样式（仅 V03/V06 等有 pill 底的模板会产生实际属性）
+      const st = tag.querySelector('.ptag-slogan-text');
+      if (st) {
+        const cs = getComputedStyle(st);
+        const props = [];
+        if (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== 'transparent') {
+          props.push('background: ' + cs.backgroundColor + ';');
+        }
+        if (cs.borderStyle !== 'none') {
+          props.push('border: calc(var(--mm) * ' + mmOf(tag, pxOf(st, 'borderTopWidth')) + ') ' + cs.borderStyle + ' ' + rgbToHex(cs.borderTopColor) + ';');
+        }
+        const rads = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius];
+        if (rads.some(function (r) { return parseFloat(r) > 0; })) {
+          props.push('border-radius: ' + rads.map(function (r) { return toMm(tag, parseFloat(r)); }).join(' ') + ';');
+        }
+        const pads = [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft];
+        if (pads.some(function (p) { return parseFloat(p) > 0; })) {
+          props.push('padding: ' + pads.map(function (p) { return toMm(tag, parseFloat(p)); }).join(' ') + ';');
+        }
+        rule(tpl + ' .ptag-slogan-text', props);
       }
-      if (cs.borderStyle !== 'none') {
-        props.push('border: calc(var(--mm) * ' + mmOf(tag, pxOf(st, 'borderTopWidth')) + ') ' + cs.borderStyle + ' ' + rgbToHex(cs.borderTopColor) + ';');
-      }
-      const rads = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius];
-      if (rads.some(function (r) { return parseFloat(r) > 0; })) {
-        props.push('border-radius: ' + rads.map(function (r) { return toMm(tag, parseFloat(r)); }).join(' ') + ';');
-      }
-      const pads = [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft];
-      if (pads.some(function (p) { return parseFloat(p) > 0; })) {
-        props.push('padding: ' + pads.map(function (p) { return toMm(tag, parseFloat(p)); }).join(' ') + ';');
-      }
-      rule(tpl + ' .ptag-slogan-text', props);
     }
     return out.join('\n');
   }
@@ -824,14 +937,71 @@
     });
   }
 
+  // ---------- 商品管理弹窗 ----------
+  function openManage() {
+    renderProductList();
+    openModal($('modalProducts'));
+  }
+
+  // ---------- 删除确认弹窗（替代系统 confirm） ----------
+  let confirmAction = null;
+  function confirmDialog(msg, onOk) {
+    $('confirmMsg').textContent = msg;
+    confirmAction = onOk;
+    openModal($('modalConfirm'));
+  }
+
   // ---------- 事件绑定 ----------
   function bindEvents() {
-    // 顶栏入口
-    $('btnIndustry').addEventListener('click', function () { renderIndustryModal(); openModal($('modalIndustry')); });
-    $('btnTemplate').addEventListener('click', function () { renderTemplateModal(); openModal($('modalTemplate')); });
+    // 添加商品 / 商品管理
+    $('btnAddQuick').addEventListener('click', openQuickAdd);
+    $('btnManage').addEventListener('click', openManage);
+    // 弹窗内新增一条草稿卡片
+    $('btnAddDraft').addEventListener('click', function () {
+      drafts.push(emptyDraft());
+      renderDraftList();
+      const inputs = $('draftList').querySelectorAll('.p-card:last-child input[type="text"]');
+      if (inputs[0]) inputs[0].focus();
+    });
+    // 保存：保存草稿并关闭弹窗
+    $('qaConfirm').addEventListener('click', function () {
+      const n = saveDrafts();
+      if (n) {
+        closeModal($('modalAdd'));
+        showToast('已添加 ' + n + ' 条商品');
+      }
+    });
+    // 商品管理：先保存，再打开管理弹窗
+    $('qaManage').addEventListener('click', function () {
+      const n = saveDrafts();
+      if (n) showToast('已添加 ' + n + ' 条商品');
+      closeModal($('modalAdd'));
+      openManage();
+    });
+
+    // 删除确认弹窗
+    $('confirmOk').addEventListener('click', function () {
+      closeModal($('modalConfirm'));
+      if (confirmAction) { const fn = confirmAction; confirmAction = null; fn(true); }
+    });
+    $('confirmCancel').addEventListener('click', function () {
+      confirmAction = null;
+      closeModal($('modalConfirm'));
+    });
+
+    // 模板切换按钮（预览区下方）
+    $('btnTplPrev').addEventListener('click', function () { switchTemplate(-1); });
+    $('btnTplNext').addEventListener('click', function () { switchTemplate(1); });
+    $('btnTplLib').addEventListener('click', openTemplateModal);
+    // 模板库弹窗内的更换行业
+    $('btnChangeIndustry').addEventListener('click', function () {
+      closeModal($('modalTemplate'));
+      renderIndustryModal();
+      openModal($('modalIndustry'));
+    });
 
     // 弹窗关闭
-    ['modalIndustry', 'modalTemplate'].forEach(function (id) { bindModalDismiss($(id)); });
+    ['modalIndustry', 'modalTemplate', 'modalAdd', 'modalProducts', 'modalConfirm'].forEach(function (id) { bindModalDismiss($(id)); });
 
     // 新增商品卡片
     $('btnAddProduct').addEventListener('click', appendNewProduct);
@@ -839,6 +1009,23 @@
     // 幻灯片
     btnPrev.addEventListener('click', function () { goTo(state.index - 1); });
     btnNext.addEventListener('click', function () { goTo(state.index + 1); });
+    // 触屏手势：左右滑动切换价签（手机端）
+    let touchX = null, touchY = null;
+    stage.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      const dy = e.changedTouches[0].clientY - touchY;
+      touchX = touchY = null;
+      // 横向滑动超过 40px 且明显大于纵向位移才切换，避免干扰上下滚动
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        goTo(state.index + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
     document.addEventListener('keydown', function (e) {
       if (document.querySelector('.modal.open')) return;
       if (e.key === 'ArrowLeft') goTo(state.index - 1);
@@ -865,7 +1052,10 @@
     if (!state.products.length) state.products = [defaultProduct()];
     rebuildSlides(true);
     renderProductList();
-    window.TMPLRender.ensureFonts().then(function () { sizeStage(); });
+    window.TMPLRender.ensureFonts().then(function () {
+      sizeStage();
+      sizeModalTags(); // 字体就绪后刷新模板库缩略图的字号自适应
+    });
 
     if (!restored) {
       // 首次访问：弹窗引导 选行业 → 选模板

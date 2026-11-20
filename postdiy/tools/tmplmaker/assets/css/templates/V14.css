@@ -1,0 +1,35 @@
+/* =====================================================
+ * V14 复古金框 —— 墨绿底+鎏金花框，宣传语已烙在上下
+ * ===================================================== */
+
+[data-tpl="V14"] .ptag-name {
+  left: calc(var(--mm) * 35);
+  top: calc(var(--mm) * 76);
+  width: calc(var(--mm) * 140);
+  height: calc(var(--mm) * 22);
+  color: #e8d9a8;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  letter-spacing: calc(var(--mm) * 3);
+}
+
+[data-tpl="V14"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 104);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 62);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="V14"] .ptag-num {
+  color: #ecdcbc;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 86);
+}
+[data-tpl="V14"] .ptag-unit {
+  color: #ecdcbc;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 7);
+}

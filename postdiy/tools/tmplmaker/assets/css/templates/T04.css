@@ -1,0 +1,33 @@
+/* =====================================================
+ * T04 果香柠檬 —— 黄绿水彩柠檬橙，清新留白版式
+ * ===================================================== */
+
+[data-tpl="T04"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 44);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 24);
+  color: #2e7d1f;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="T04"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 74);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="T04"] .ptag-num {
+  color: #2e7d1f;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 96);
+}
+[data-tpl="T04"] .ptag-unit {
+  color: #2e7d1f;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 8);
+}

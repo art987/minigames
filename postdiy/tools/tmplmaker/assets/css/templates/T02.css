@@ -1,0 +1,33 @@
+/* =====================================================
+ * T02 真果鲜茶 —— 柠檬青柠水彩，清新留白版式
+ * ===================================================== */
+
+[data-tpl="T02"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 62);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 24);
+  color: #3f7d1e;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="T02"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 92);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 62);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="T02"] .ptag-num {
+  color: #3f7d1e;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 88);
+}
+[data-tpl="T02"] .ptag-unit {
+  color: #3f7d1e;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 7);
+}

@@ -1,0 +1,35 @@
+/* =====================================================
+ * T01 温暖奶茶 —— 粉色奶茶 SWEET TIME，宣传语已烙在背景
+ * ===================================================== */
+
+[data-tpl="T01"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 88);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 24);
+  color: #a4573a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 3);
+}
+
+[data-tpl="T01"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 116);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 56);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="T01"] .ptag-num {
+  color: #a4573a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 80);
+}
+[data-tpl="T01"] .ptag-unit {
+  color: #a4573a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 24);
+  padding-bottom: calc(var(--mm) * 6);
+}

@@ -1,0 +1,34 @@
+/* =====================================================
+ * V15 水彩果园 —— 米色水彩+秋叶菜篮，宣传语已烙在顶部
+ * ===================================================== */
+
+[data-tpl="V15"] .ptag-name {
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 88);
+  width: calc(var(--mm) * 160);
+  height: calc(var(--mm) * 24);
+  color: #d4552a;
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="V15"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 118);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 58);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="V15"] .ptag-num {
+  color: #d4552a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 84);
+}
+[data-tpl="V15"] .ptag-unit {
+  color: #d4552a;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 24);
+  padding-bottom: calc(var(--mm) * 7);
+}

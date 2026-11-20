@@ -1,0 +1,35 @@
+/* =====================================================
+ * V09 黑板手绘 —— 深绿黑板+白粉笔字，宣传语已烙在背景
+ * ===================================================== */
+
+[data-tpl="V09"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 46);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 26);
+  color: #f2eee0;
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 30);
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="V09"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 82);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 88);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="V09"] .ptag-num {
+  color: #f2eee0;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 112);
+  text-shadow: 0 0 calc(var(--mm) * 2) rgba(0, 0, 0, 0.25);
+}
+[data-tpl="V09"] .ptag-unit {
+  color: #f2eee0;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 28);
+  padding-bottom: calc(var(--mm) * 9);
+}
