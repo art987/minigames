@@ -1,0 +1,31 @@
+/* 模板 F02（水果）— 默认占位样式，后续可调整 */
+[data-tpl="F02"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 80);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #c0392b;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 2);
+}
+[data-tpl="F02"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 118);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="F02"] .ptag-num {
+  color: #c0392b;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 100);
+}
+[data-tpl="F02"] .ptag-unit {
+  color: #c0392b;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 8);
+}

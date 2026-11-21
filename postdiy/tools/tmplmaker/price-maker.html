@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>价签工坊</title>
-<link rel="stylesheet" href="assets/css/style.css?v=22">
+<link rel="stylesheet" href="assets/css/style.css?v=44">
+<link rel="stylesheet" href="assets/css/templates/V01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/V08.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/V09.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/V10.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/V11.css?v=1">
@@ -13,6 +21,14 @@
 <link rel="stylesheet" href="assets/css/templates/V14.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/V15.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/V16.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/F08.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/B01.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/B02.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/B03.css?v=1">
@@ -21,6 +37,14 @@
 <link rel="stylesheet" href="assets/css/templates/B06.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/B07.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/B08.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B09.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B10.css?v=4">
+<link rel="stylesheet" href="assets/css/templates/B11.css?v=4">
+<link rel="stylesheet" href="assets/css/templates/B12.css?v=4">
+<link rel="stylesheet" href="assets/css/templates/B13.css?v=4">
+<link rel="stylesheet" href="assets/css/templates/B14.css?v=4">
+<link rel="stylesheet" href="assets/css/templates/B15.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/B16.css?v=4">
 <link rel="stylesheet" href="assets/css/templates/T01.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/T02.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/T03.css?v=1">
@@ -28,6 +52,31 @@
 <link rel="stylesheet" href="assets/css/templates/T05.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/T06.css?v=1">
 <link rel="stylesheet" href="assets/css/templates/T07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/T08.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/C08.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/M08.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl01.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl02.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl03.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl04.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl05.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl06.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl07.css?v=1">
+<link rel="stylesheet" href="assets/css/templates/Fl08.css?v=1">
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 </head>
@@ -71,8 +120,10 @@
   <!-- 下载（独立模块） -->
   <section class="panel panel-side">
     <h2 class="panel-title">下载当前价签</h2>
-    <button class="btn btn-accent" id="btnPng">⬇ 下载高清 PNG</button>
-    <button class="btn" id="btnPdf">⬇ 下载打印 PDF</button>
+    <div class="dl-row">
+      <button class="btn btn-accent" id="btnPng">⬇ 下载高清 PNG</button>
+      <button class="btn" id="btnPdf">⬇ 下载打印 PDF</button>
+    </div>
     <p class="export-hint">PNG：2480×3508（A4 300dpi）<br>PDF：标准 A4 竖版 210×297mm</p>
   </section>
 </main>
@@ -83,7 +134,6 @@
     <div class="modal-head">
       <div>
         <h2>添加商品</h2>
-        <p class="modal-desc">在卡片上填写商品信息，可「＋ 新增一条商品」一次加多条</p>
       </div>
       <button class="modal-close" data-close type="button">✕</button>
     </div>
@@ -114,8 +164,7 @@
   <div class="modal-card">
     <div class="modal-head">
       <div>
-        <h2>商品管理 <span class="panel-sub" id="prodCount"></span></h2>
-        <p class="modal-desc">在卡片上直接修改，改完即生效；可复制 / 删除</p>
+        <h2>商品管理 <span class="panel-sub prod-hint" id="prodCount">改完即生效</span></h2>
       </div>
       <button class="modal-close" data-close type="button">✕</button>
     </div>
@@ -123,6 +172,84 @@
       <div class="product-list" id="productList"><!-- 商品卡片 --></div>
       <button class="p-card-add" id="btnAddProduct" type="button">＋ 新增一条商品</button>
     </div>
+  </div>
+</div>
+
+<!-- 弹窗：单条商品快速编辑（铅笔按钮，只显示这一条） -->
+<div class="modal" id="modalEditOne">
+  <div class="modal-card modal-sm">
+    <div class="modal-head">
+      <div>
+        <h2>编辑商品 <span class="panel-sub" id="editOneBadge"></span></h2>
+      </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body eo-body">
+      <div class="eo-field">
+        <label class="eo-label" for="editOneName">商品名称</label>
+        <div class="eo-inputwrap">
+          <input type="text" id="editOneName" maxlength="15" placeholder="例如：新鲜蔬菜">
+          <button type="button" class="eo-clear hidden" id="editOneNameClear" title="清空">×</button>
+        </div>
+        <span class="eo-counter" id="editOneNameCount"></span>
+      </div>
+      <div class="eo-row">
+        <div class="eo-field eo-grow">
+          <label class="eo-label" for="editOnePrice">价格</label>
+          <input type="text" id="editOnePrice" inputmode="decimal" placeholder="0.00" readonly>
+        </div>
+        <div class="eo-field eo-unit">
+          <label class="eo-label">单位</label>
+          <div id="editOneUnitSlot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="eo-foot">
+      <button type="button" class="btn" id="editOneCancel">取消</button>
+      <button type="button" class="btn btn-accent" id="editOneSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 数字键盘：价格输入专用（替代系统键盘，只有数字和小数点） -->
+<div class="numkey hidden" id="numKey">
+  <div class="nk-display" id="nkDisplay">0</div>
+  <div class="nk-grid">
+    <button type="button" class="nk-btn" data-k="1">1</button>
+    <button type="button" class="nk-btn" data-k="2">2</button>
+    <button type="button" class="nk-btn" data-k="3">3</button>
+    <button type="button" class="nk-btn" data-k="4">4</button>
+    <button type="button" class="nk-btn" data-k="5">5</button>
+    <button type="button" class="nk-btn" data-k="6">6</button>
+    <button type="button" class="nk-btn" data-k="7">7</button>
+    <button type="button" class="nk-btn" data-k="8">8</button>
+    <button type="button" class="nk-btn" data-k="9">9</button>
+    <button type="button" class="nk-btn" data-k=".">.</button>
+    <button type="button" class="nk-btn" data-k="0">0</button>
+    <button type="button" class="nk-btn" data-k="del">⌫</button>
+  </div>
+  <div class="nk-bottom">
+    <button type="button" class="nk-btn nk-clear" id="nkClear">清空</button>
+    <button type="button" class="nk-ok" id="nkOk">确定</button>
+  </div>
+</div>
+
+<!-- 单位九宫格：替代原生下拉，最后一格是自定义 -->
+<div class="unitkey hidden" id="unitKey">
+  <div class="uk-grid">
+    <button type="button" class="uk-btn" data-u="元/斤">元/斤</button>
+    <button type="button" class="uk-btn" data-u="元/公斤">元/公斤</button>
+    <button type="button" class="uk-btn" data-u="元/个">元/个</button>
+    <button type="button" class="uk-btn" data-u="元/份">元/份</button>
+    <button type="button" class="uk-btn" data-u="元/盒">元/盒</button>
+    <button type="button" class="uk-btn" data-u="元/袋">元/袋</button>
+    <button type="button" class="uk-btn" data-u="元/把">元/把</button>
+    <button type="button" class="uk-btn" data-u="元/只">元/只</button>
+    <button type="button" class="uk-btn uk-custom" data-u="__custom__">自定义…</button>
+  </div>
+  <div class="uk-customrow hidden" id="ukCustomRow">
+    <input type="text" id="ukCustomInput" maxlength="6" placeholder="最多 6 个字">
+    <button type="button" class="uk-ok" id="ukCustomOk">确定</button>
   </div>
 </div>
 
@@ -146,16 +273,13 @@
 <div class="modal" id="modalTemplate">
   <div class="modal-card">
     <div class="modal-head">
-      <div>
-        <h2 id="templateGridTitle">选择模板</h2>
-      </div>
-      <button class="modal-close" data-close type="button">✕</button>
-    </div>
-    <div class="modal-body">
       <div class="ind-row">
         <span>当前行业：<b id="curIndustry">蔬菜</b></span>
         <button class="ind-change" id="btnChangeIndustry" type="button">更换行业</button>
       </div>
+      <button class="modal-close" data-close type="button">✕</button>
+    </div>
+    <div class="modal-body">
       <div class="template-grid" id="templateGrid"></div>
     </div>
   </div>
@@ -168,7 +292,7 @@
     <button id="dbgClose" type="button">✕</button>
   </div>
   <div class="dbg-body">
-    <div class="dbg-grid">
+    <div class="dbg-grid dbg-grid-top">
       <label>字体
         <select id="dbgFont">
           <option value="var(--font-kai)">东方大楷</option>
@@ -178,9 +302,6 @@
           <option value="">系统默认</option>
         </select>
       </label>
-      <label>字号
-        <input type="number" id="dbgSize" step="0.5" min="2">
-      </label>
       <label>粗细
         <select id="dbgWeight">
           <option value="400">常规</option>
@@ -188,17 +309,56 @@
           <option value="900">特粗</option>
         </select>
       </label>
-      <label>颜色
-        <input type="color" id="dbgColor">
-      </label>
-      <label>左右
-        <input type="number" id="dbgLeft" step="0.5">
-      </label>
-      <label>上下
-        <input type="number" id="dbgTop" step="0.5">
-      </label>
+    </div>
+    <div class="dbg-grid dbg-grid-row">
+      <div class="dbg-field" data-popup="size" role="button" tabindex="0">
+        <span class="dbg-fl">字号</span>
+        <span class="dbg-fv"><span id="dbgSizeVal">—</span><span class="dbg-unit-suf"> mm</span></span>
+      </div>
+      <div class="dbg-field" data-popup="color" role="button" tabindex="0">
+        <span class="dbg-fl">颜色</span>
+        <span class="dbg-fv"><span class="dbg-swatch" id="dbgSwatch"></span><span id="dbgColorVal">—</span></span>
+      </div>
+      <div class="dbg-field" data-popup="left" role="button" tabindex="0">
+        <span class="dbg-fl">左右</span>
+        <span class="dbg-fv"><span id="dbgLeftVal">—</span><span class="dbg-unit-suf"> mm</span></span>
+      </div>
+      <div class="dbg-field" data-popup="top" role="button" tabindex="0">
+        <span class="dbg-fl">上下</span>
+        <span class="dbg-fv"><span id="dbgTopVal">—</span><span class="dbg-unit-suf"> mm</span></span>
+      </div>
     </div>
     <p class="dbg-tip" id="dbgPosTip"></p>
+
+    <!-- 通用滑杆弹窗（字号 / 左右 / 上下 共用） -->
+    <div class="dbg-popup hidden" id="dbgPopupSlider">
+      <div class="dbg-popup-inner">
+        <div class="dbg-popup-title" id="dbgPopupTitle">字号</div>
+        <input type="range" id="dbgRangeSlider" min="2" max="120" step="0.5">
+        <div class="dbg-popup-val"><span id="dbgRangeVal">—</span><span class="dbg-unit-suf"> mm</span></div>
+      </div>
+    </div>
+
+    <!-- HSL 颜色弹窗 -->
+    <div class="dbg-popup hidden" id="dbgPopupColor">
+      <div class="dbg-popup-inner">
+        <div class="dbg-popup-title">颜色 · HSL</div>
+        <div class="dbg-hsl-row"><span class="dbg-hsl-label">色相</span><input type="range" id="dbgH" min="0" max="360"><span id="dbgHVal">0°</span></div>
+        <div class="dbg-hsl-row"><span class="dbg-hsl-label">饱和度</span><input type="range" id="dbgS" min="0" max="100"><span id="dbgSVal">0%</span></div>
+        <div class="dbg-hsl-row"><span class="dbg-hsl-label">亮度</span><input type="range" id="dbgL" min="0" max="100"><span id="dbgLVal">0%</span></div>
+        <div class="dbg-preview-bar">
+          <span class="dbg-preview-color" id="dbgPreviewColor"></span>
+          <span id="dbgHexVal">#000000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 隐藏的数值/颜色存储节点（JS 通过 id 读写，DOM 不显示） -->
+    <input type="number" id="dbgSize" step="0.5" min="2" hidden>
+    <input type="color" id="dbgColor" hidden>
+    <input type="number" id="dbgLeft" step="0.5" hidden>
+    <input type="number" id="dbgTop" step="0.5" hidden>
+
     <textarea id="dbgCss" rows="6" readonly spellcheck="false"></textarea>
     <div class="dbg-actions">
       <button class="btn" id="dbgCopy" type="button">复制模板CSS</button>
@@ -210,8 +370,8 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="assets/js/templates.js?v=9"></script>
-<script src="assets/js/render.js?v=20"></script>
-<script src="assets/js/app.js?v=24"></script>
+<script src="assets/js/templates.js?v=10"></script>
+<script src="assets/js/render.js?v=40"></script>
+<script src="assets/js/app.js?v=48"></script>
 </body>
 </html>

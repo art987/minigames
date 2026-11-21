@@ -1,0 +1,34 @@
+/* =====================================================
+ * B11 格纹萌趣 —— 黄格卡通面包人，烙印标题，纯价格牌
+ * ===================================================== */
+
+[data-tpl="B11"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 70);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 22);
+  color: #7a4a20;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 26);
+  letter-spacing: calc(var(--mm) * 1);
+}
+
+[data-tpl="B11"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 100);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="B11"] .ptag-num {
+  color: #7a4a20;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 112);
+  text-shadow: 0 calc(var(--mm) * 1) 0 rgba(255, 255, 255, 0.6);
+}
+[data-tpl="B11"] .ptag-unit {
+  color: #7a4a20;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 9);
+}

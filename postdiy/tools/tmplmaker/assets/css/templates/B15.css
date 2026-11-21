@@ -1,0 +1,34 @@
+/* =====================================================
+ * B15 橙黄小铺 —— 橙黄卡通（名称区空白，宣传语烙顶部）
+ * ===================================================== */
+
+[data-tpl="B15"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 68);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 24);
+  color: #7a4515;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 28);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="B15"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 96);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 56);
+  gap: calc(var(--mm) * 6);
+}
+[data-tpl="B15"] .ptag-num {
+  color: #b0591a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 80);
+  text-shadow: 0 calc(var(--mm) * 1) 0 rgba(255, 255, 255, 0.6);
+}
+[data-tpl="B15"] .ptag-unit {
+  color: #7a4515;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 24);
+  padding-bottom: calc(var(--mm) * 6);
+}

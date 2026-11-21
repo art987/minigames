@@ -1,0 +1,35 @@
+/* =====================================================
+ * B16 牛皮麦袋 —— 牛皮纸面粉袋素描，烙印标题，纯价格牌
+ * ===================================================== */
+
+[data-tpl="B16"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 86);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #5a3a20;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 24);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="B16"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 114);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="B16"] .ptag-num {
+  color: #5a3a20;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 98);
+}
+[data-tpl="B16"] .ptag-unit {
+  color: #5a3a20;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 9);
+}

@@ -1,0 +1,35 @@
+/* =====================================================
+ * B13 田园风车 —— 橙红田园素描，烙印标题，纯价格牌
+ * ===================================================== */
+
+[data-tpl="B13"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 64);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 22);
+  color: #9c3d1a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  letter-spacing: calc(var(--mm) * 2);
+}
+
+[data-tpl="B13"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 90);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 72);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="B13"] .ptag-num {
+  color: #9c3d1a;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 100);
+}
+[data-tpl="B13"] .ptag-unit {
+  color: #9c3d1a;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: calc(var(--mm) * 26);
+  padding-bottom: calc(var(--mm) * 8);
+}

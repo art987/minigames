@@ -1,35 +1,35 @@
-/* =====================================================
- * B01 欧式花框 —— 米色欧式花框+可颂，宣传语已烙在背景
- * ===================================================== */
+/* 模板 B01 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
 
 [data-tpl="B01"] .ptag-name {
   left: calc(var(--mm) * 25);
-  top: calc(var(--mm) * 40);
+  top: calc(var(--mm) * 38);
   width: calc(var(--mm) * 160);
   height: calc(var(--mm) * 24);
-  color: #8a4a1a;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 28);
+  color: #68891a;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 25);
+  font-weight: 400;
   letter-spacing: calc(var(--mm) * 3);
 }
 
 [data-tpl="B01"] .ptag-price {
-  left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 78);
+  left: calc(var(--mm) * 22);
+  top: calc(var(--mm) * 96.5);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 70);
   gap: calc(var(--mm) * 6);
 }
+
 [data-tpl="B01"] .ptag-num {
   color: #8a4a1a;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 96);
+  font-size: calc(var(--mm) * 65.5);
+  font-weight: 400;
 }
+
 [data-tpl="B01"] .ptag-unit {
   color: #8a4a1a;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 14.9);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 7);
 }

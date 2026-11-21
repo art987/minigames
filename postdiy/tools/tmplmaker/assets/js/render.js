@@ -151,27 +151,88 @@
   }
 
   // ---------- 导出（html2canvas） ----------
+  /** 获取背景图自然尺寸 */
+  function loadImgNatural(src) {
+    return new Promise(function (res) {
+      const img = new Image();
+      img.onload = function () { res({ w: img.naturalWidth, h: img.naturalHeight }); };
+      img.onerror = function () { res({ w: 0, h: 0 }); };
+      img.src = src;
+    });
+  }
+
   async function captureTag(tag, targetWidth) {
     await ensureFonts();
     const w = tag.offsetWidth;
     if (!w) throw new Error('价签尚未完成布局');
-    return window.html2canvas(tag, {
-      scale: targetWidth / w,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      logging: false,
-      width: w,
-      height: tag.offsetHeight,
-      windowWidth: Math.max(document.documentElement.clientWidth, w),
-      onclone: function (doc) {
-        // 克隆树里禁用过渡动画，确保一次成像
-        doc.querySelectorAll('.slides').forEach(function (el) {
-          el.style.transition = 'none';
-        });
-        // 导出图不能带价签上的删除按钮
-        doc.querySelectorAll('.ptag-del').forEach(function (el) { el.remove(); });
-      }
+
+    // 1. 取背景图自然尺寸
+    const bgMatch = (tag.style.backgroundImage || '').match(/url\(["']?(.+?)["']?\)/);
+    let naturalW = 0, naturalH = 0;
+    if (bgMatch) {
+      const nat = await loadImgNatural(bgMatch[1]);
+      naturalW = nat.w; naturalH = nat.h;
+    }
+    const finalW = naturalW > 0 ? Math.min(targetWidth, naturalW) : targetWidth;
+    const finalH = Math.round(tag.offsetHeight * (finalW / w));
+    const scale = finalW / w;
+
+    // 2. clone 原始 .ptag，放大到导出尺寸
+    //    - CSS 规则里的 calc(var(--mm)*N)：html2canvas 的 iframe 能正确解析 → 不用管
+    //    - 但 fitTag/fitPrice/调试面板写进 inline style 的"屏幕尺寸绝对 px"
+    //      不会跟着 --mm 缩放 → 必须逐个乘以 scale（这是之前字变小的根因）
+    const clone = tag.cloneNode(true);
+    clone.querySelectorAll('.ptag-badge, .ptag-ops, .ptag-edit, .ptag-del, .empty-label, .empty-btns, .empty-btn')
+      .forEach(function (el) { el.remove(); });
+
+    clone.style.width = finalW + 'px';
+    clone.style.height = finalH + 'px';
+    clone.style.setProperty('--mm', (finalW / 210) + 'px');
+    clone.style.backgroundSize = finalW + 'px ' + finalH + 'px';
+    clone.style.backgroundPosition = 'left top';
+    clone.style.backgroundRepeat = 'no-repeat';
+
+    // 3. 遍历 clone 的后代元素，把内联样式里的绝对 px 长度值乘以 scale
+    //    注意：只处理"后代"，clone 根节点的 width/height/backgroundSize 刚设好不能再被放大
+    const LEN_PROPS = ['font-size', 'left', 'top', 'right', 'bottom', 'width', 'height',
+      'letter-spacing', 'line-height', 'gap', 'column-gap', 'row-gap',
+      'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+      'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+      'border-width', 'border-radius'];
+    const pxRe = /^-?[\d.]+px$/;
+    clone.querySelectorAll('*').forEach(function (el) {
+      const inline = el.getAttribute('style');
+      if (!inline || inline.indexOf('px') === -1) return;
+      LEN_PROPS.forEach(function (prop) {
+        const v = el.style.getPropertyValue(prop);
+        if (v && pxRe.test(v.trim())) {
+          el.style.setProperty(prop, (parseFloat(v) * scale) + 'px');
+        }
+      });
+      // 内联的 calc() 保持原样 —— html2canvas iframe 会用放大后的 --mm 解析
     });
+
+    // 4. 挂到离屏 wrapper 截图
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:fixed;left:-99999px;top:0;width:' + finalW + 'px;height:' + finalH + 'px;'
+      + 'background:#ffffff;overflow:visible;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    try {
+      const canvas = await window.html2canvas(wrapper, {
+        scale: 1,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: finalW,
+        height: finalH,
+        windowWidth: finalW
+      });
+      return canvas;
+    } finally {
+      document.body.removeChild(wrapper);
+    }
   }
 
   window.TMPLRender = {

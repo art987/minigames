@@ -1,35 +1,35 @@
-/* =====================================================
- * B03 牛皮纸焙坊 —— 牛皮纸+红印章，宣传语已烙在背景
- * ===================================================== */
+/* 模板 B02 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
 
-[data-tpl="B03"] .ptag-name {
+[data-tpl="B02"] .ptag-name {
   left: calc(var(--mm) * 25);
-  top: calc(var(--mm) * 44);
+  top: calc(var(--mm) * 62);
   width: calc(var(--mm) * 160);
   height: calc(var(--mm) * 24);
-  color: #5f3215;
-  font-family: var(--font-serif);
+  color: #7d4a20;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 22);
   font-weight: 700;
-  font-size: calc(var(--mm) * 28);
   letter-spacing: calc(var(--mm) * 3);
 }
 
-[data-tpl="B03"] .ptag-price {
+[data-tpl="B02"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 84);
+  top: calc(var(--mm) * 96.5);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 76);
+  height: calc(var(--mm) * 80);
   gap: calc(var(--mm) * 6);
 }
-[data-tpl="B03"] .ptag-num {
-  color: #5f3215;
+
+[data-tpl="B02"] .ptag-num {
+  color: #7d4a20;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 63.4);
+  font-weight: 400;
 }
-[data-tpl="B03"] .ptag-unit {
-  color: #5f3215;
+
+[data-tpl="B02"] .ptag-unit {
+  color: #7d4a20;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 15.8);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 7);
 }
