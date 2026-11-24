@@ -1,31 +1,47 @@
-/* 模板 V05（蔬菜）— 默认占位样式，后续可调整 */
+/* =====================================================
+ * V05 萌趣农场 —— 卡通小农夫+菜篮，宣传语已烙在背景
+ * ===================================================== */
+
 [data-tpl="V05"] .ptag-name {
-  left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 80);
-  width: calc(var(--mm) * 180);
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 46);
+  width: calc(var(--mm) * 170);
   height: calc(var(--mm) * 24);
-  color: #2f6b2a;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 28);
+  color: #000000;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 16);
+  font-weight: 400;
   letter-spacing: calc(var(--mm) * 2);
 }
+
 [data-tpl="V05"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 78);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 80);
-  gap: calc(var(--mm) * 7);
+  height: calc(var(--mm) * 72);
+  gap: calc(var(--mm) * 6);
 }
 [data-tpl="V05"] .ptag-num {
-  color: #2f6b2a;
+  color: #2e7d3c;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 53);
+  font-weight: 400;
+  text-shadow: rgba(255, 255, 255, 0.6) calc(var(--mm) * 0) calc(var(--mm) * 1.43434) calc(var(--mm) * 0);
 }
 [data-tpl="V05"] .ptag-unit {
-  color: #2f6b2a;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+  color: #2e7d3c;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 15.8);
+  font-weight: 400;
+}
+
+[data-tpl="V05"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 160);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 13.4);
+  color: #386c23;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 13.4);
+  font-weight: 400;
 }

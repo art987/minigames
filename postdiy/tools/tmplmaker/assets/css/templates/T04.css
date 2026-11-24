@@ -1,33 +1,50 @@
-/* =====================================================
- * T04 果香柠檬 —— 黄绿水彩柠檬橙，清新留白版式
- * ===================================================== */
-
+/* 模板 T04（奶茶果茶）— 默认样式，可后续用调试面板调整 */
 [data-tpl="T04"] .ptag-name {
-  left: calc(var(--mm) * 25);
-  top: calc(var(--mm) * 44);
-  width: calc(var(--mm) * 160);
-  height: calc(var(--mm) * 24);
-  color: #2e7d1f;
-  font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 28);
-  letter-spacing: calc(var(--mm) * 2);
-}
-
-[data-tpl="T04"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 74);
+  top: calc(var(--mm) * 67.5);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 70);
-  gap: calc(var(--mm) * 6);
+  height: calc(var(--mm) * 24);
+  color: #000000;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 22);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 26.5);
+  padding-right: calc(var(--mm) * 26.5);
+}
+[data-tpl="T04"] .ptag-price {
+  left: calc(var(--mm) * 17);
+  top: calc(var(--mm) * 99);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
 }
 [data-tpl="T04"] .ptag-num {
-  color: #2e7d1f;
+  color: #f50f0f;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 96);
+  font-size: calc(var(--mm) * 51);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }
 [data-tpl="T04"] .ptag-unit {
-  color: #2e7d1f;
-  font-family: var(--font-kai);
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+  color: #d73333;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 700;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="T04"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 173.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 13.4);
+  color: #f13232;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 13.4);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }

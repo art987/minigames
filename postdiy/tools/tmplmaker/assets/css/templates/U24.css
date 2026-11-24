@@ -1,0 +1,53 @@
+/* 模板 U24（版式基准=用户调优后的 U01-U03，配色=背景图同色系采样） */
+
+[data-tpl="U24"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 62);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #ffffff;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 19.9);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2.5);
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="U24"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 104.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U24"] .ptag-num {
+  color: #ffffff;
+  font-size: calc(var(--mm) * 47);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 2.5);
+  padding-right: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U24"] .ptag-unit {
+  color: #dcd460;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 10.3);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="U24"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 189.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 7);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 2.5);
+  padding-right: calc(var(--mm) * 2.5);
+}

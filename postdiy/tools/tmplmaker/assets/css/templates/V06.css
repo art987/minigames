@@ -1,31 +1,46 @@
-/* 模板 V06（蔬菜）— 默认占位样式，后续可调整 */
+/* =====================================================
+ * V06 复古金框 —— 墨绿底+鎏金花框，宣传语已烙在上下
+ * ===================================================== */
+
 [data-tpl="V06"] .ptag-name {
-  left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 80);
-  width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 24);
-  color: #2f6b2a;
+  left: calc(var(--mm) * 35);
+  top: calc(var(--mm) * 86);
+  width: calc(var(--mm) * 140);
+  height: calc(var(--mm) * 22);
+  color: #e8d9a8;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 21);
   font-weight: 700;
-  font-size: calc(var(--mm) * 28);
-  letter-spacing: calc(var(--mm) * 2);
+  letter-spacing: calc(var(--mm) * 3);
 }
+
 [data-tpl="V06"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 125.5);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 80);
-  gap: calc(var(--mm) * 7);
+  height: calc(var(--mm) * 62);
+  gap: calc(var(--mm) * 6);
 }
 [data-tpl="V06"] .ptag-num {
-  color: #2f6b2a;
+  color: #ecdcbc;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 42.5);
+  font-weight: 400;
 }
 [data-tpl="V06"] .ptag-unit {
-  color: #2f6b2a;
+  color: #ecdcbc;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 9.5);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+}
+
+[data-tpl="V06"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 32.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 12.1);
+  color: #e7ccb6;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 8.5);
+  font-weight: 400;
 }

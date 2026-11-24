@@ -29,3 +29,13 @@
   font-size: calc(var(--mm) * 26);
   padding-bottom: calc(var(--mm) * 8);
 }
+[data-tpl="C04"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 168);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 14);
+  color: #3c2415;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: calc(var(--mm) * 12);
+}

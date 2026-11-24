@@ -1,0 +1,49 @@
+/* 模板 H17（家居家纺）— 默认占位样式，后续可调整 */
+[data-tpl="H17"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 67.5);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #6b2e2e;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 17.5);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 23);
+  padding-right: calc(var(--mm) * 23);
+}
+[data-tpl="H17"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 102);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="H17"] .ptag-num {
+  color: #743e3e;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 36.5);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="H17"] .ptag-unit {
+  color: #875d45;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 700;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="H17"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 181.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 14);
+  color: #715128;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 7);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}

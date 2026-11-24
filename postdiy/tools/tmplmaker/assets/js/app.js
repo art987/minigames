@@ -18,7 +18,7 @@
   // ---------- 状态 ----------
   let state = {
     industry: 'vegetable',
-    templateId: 'V09',
+    templateId: 'V01',
     products: [],
     index: 0
   };
@@ -988,6 +988,7 @@
       fontSize: pxOf(el, 'fontSize'),
       fontWeight: cs.fontWeight,
       letterSpacing: pxOf(el, 'letterSpacing'),
+      padX: pxOf(el, 'paddingLeft'),
       textShadow: cs.textShadow && cs.textShadow !== 'none' ? shadowToMm(cs.textShadow) : ''
     };
     if (key === 'num' || key === 'unit') {
@@ -1008,12 +1009,14 @@
       o[key] = {
         left: toMm(tag, v.left), top: toMm(tag, v.top),
         color: v.color, fontFamily: v.fontVar, fontWeight: v.fontWeight,
-        fontSize: toMm(tag, v.fontSize)
+        fontSize: toMm(tag, v.fontSize),
+        paddingLeft: toMm(tag, v.padX), paddingRight: toMm(tag, v.padX)
       };
     } else {
       o[key] = {
         color: v.color, fontFamily: v.fontVar, fontWeight: v.fontWeight,
-        fontSize: toMm(tag, v.fontSize)
+        fontSize: toMm(tag, v.fontSize),
+        paddingLeft: toMm(tag, v.padX), paddingRight: toMm(tag, v.padX)
       };
       o.price = { left: toMm(tag, v.priceLeft), top: toMm(tag, v.priceTop) };
     }
@@ -1022,7 +1025,7 @@
 
   function dbgGenCss(key, tag) {
     const tpl = '[data-tpl="' + tag.dataset.tpl + '"]';
-    const out = ['/* 模板 ' + tag.dataset.tpl + ' · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */'];
+    const out = ['/* 模板 ' + tag.dataset.tpl + ' · 全部规则（点击「覆盖CSS」写回 assets/css/templates/ 对应文件） */'];
     function rule(sel, props) {
       const ps = props.filter(Boolean);
       if (!ps.length) return;
@@ -1036,7 +1039,9 @@
         'color: ' + v.color + ';',
         v.fontVar ? 'font-family: ' + v.fontVar + ';' : '',
         'font-size: ' + toMm(tag, v.fontSize) + ';',
-        'font-weight: ' + v.fontWeight + ';'
+        'font-weight: ' + v.fontWeight + ';',
+        'padding-left: ' + toMm(tag, v.padX) + ';',
+        'padding-right: ' + toMm(tag, v.padX) + ';'
       ].concat(extra || []);
     }
     function box(v, extra) {
@@ -1054,7 +1059,9 @@
       name.fontVar ? 'font-family: ' + name.fontVar + ';' : '',
       'font-size: ' + toMm(tag, name.fontSize) + ';',
       'font-weight: ' + name.fontWeight + ';',
-      'letter-spacing: ' + toMm(tag, name.letterSpacing) + ';'
+      'letter-spacing: ' + toMm(tag, name.letterSpacing) + ';',
+      'padding-left: ' + toMm(tag, name.padX) + ';',
+      'padding-right: ' + toMm(tag, name.padX) + ';'
     ]));
 
     const num = dbgCollect('num', tag);
@@ -1075,11 +1082,16 @@
     const slEl = tag.querySelector('.ptag-slogan');
     if (slEl) {
       const sl = dbgCollect('slogan', tag);
-      rule(tpl + ' .ptag-slogan', box(sl, [
+      // 口号元素处于隐藏态（display:none）时计算宽高为 0，直接写会把模板文件搞坏；回退到默认几何
+      const slW = sl.width > 0 ? sl.width : 210;
+      const slH = sl.height > 0 ? sl.height : 14;
+      rule(tpl + ' .ptag-slogan', box(Object.assign({}, sl, { width: slW, height: slH }), [
         'color: ' + sl.color + ';',
         sl.fontVar ? 'font-family: ' + sl.fontVar + ';' : '',
         'font-size: ' + toMm(tag, sl.fontSize) + ';',
-        'font-weight: ' + sl.fontWeight + ';'
+        'font-weight: ' + sl.fontWeight + ';',
+        'padding-left: ' + toMm(tag, sl.padX) + ';',
+        'padding-right: ' + toMm(tag, sl.padX) + ';'
       ]));
 
       // 胶囊底样式（仅 V03/V06 等有 pill 底的模板会产生实际属性）
@@ -1107,6 +1119,24 @@
     return out.join('\n');
   }
 
+  // 字体/粗细宫格高亮同步（供 dbgFillInputs 调用，须与 dbgFillInputs 同作用域）
+  function dbgFontGridSync() {
+    const grid = document.getElementById('dbgFontGrid');
+    if (!grid) return;
+    const cur = $('dbgFont').value;
+    grid.querySelectorAll('.dbg-font-cell').forEach(function (cell) {
+      cell.classList.toggle('active', cell.dataset.val === cur);
+    });
+  }
+  function dbgWeightGridSync() {
+    const grid = document.getElementById('dbgWeightGrid');
+    if (!grid) return;
+    const cur = $('dbgWeight').value;
+    grid.querySelectorAll('.dbg-font-cell').forEach(function (cell) {
+      cell.classList.toggle('active', cell.dataset.val === cur);
+    });
+  }
+
   function dbgOpen(key, tag) {
     dbgKey = key;
     dbgTag = tag;
@@ -1120,9 +1150,12 @@
   function dbgFillInputs() {
     const v = dbgCollect(dbgKey, dbgTag);
     $('dbgFont').value = v.fontVar;
+    dbgFontGridSync();
     $('dbgSize').value = mmOf(dbgTag, v.fontSize);
-    $('dbgWeight').value = ['400', '700', '900'].indexOf(v.fontWeight) >= 0 ? v.fontWeight : '400';
+    $('dbgWeight').value = ['100', '300', '400', '700', '900'].indexOf(v.fontWeight) >= 0 ? v.fontWeight : '400';
+    dbgWeightGridSync();
     $('dbgColor').value = v.color;
+    $('dbgPadX').value = mmOf(dbgTag, v.padX);
     if (dbgKey === 'num' || dbgKey === 'unit') {
       $('dbgLeft').value = mmOf(dbgTag, v.priceLeft);
       $('dbgTop').value = mmOf(dbgTag, v.priceTop);
@@ -1141,6 +1174,7 @@
     $('dbgSizeVal').textContent = (+$('dbgSize').value || 0).toFixed(1);
     $('dbgLeftVal').textContent = (+$('dbgLeft').value || 0).toFixed(1);
     $('dbgTopVal').textContent = (+$('dbgTop').value || 0).toFixed(1);
+    $('dbgPadXVal').textContent = (+$('dbgPadX').value || 0).toFixed(1);
     const color = $('dbgColor').value || '#000000';
     $('dbgSwatch').style.background = color;
     $('dbgColorVal').textContent = color.toUpperCase();
@@ -1153,6 +1187,7 @@
     const L = parseFloat($('dbgLeft').value);
     const T = parseFloat($('dbgTop').value);
     const S = parseFloat($('dbgSize').value);
+    const P = parseFloat($('dbgPadX').value);
     if (dbgKey === 'num' || dbgKey === 'unit') {
       if (isFinite(L)) v.priceLeft = L * mm;
       if (isFinite(T)) v.priceTop = T * mm;
@@ -1161,6 +1196,7 @@
       if (isFinite(T)) v.top = T * mm;
     }
     if (isFinite(S) && S > 0) v.fontSize = S * mm;
+    if (isFinite(P) && P >= 0) v.padX = P * mm;
     v.fontWeight = $('dbgWeight').value;
     v.color = $('dbgColor').value;
     v.fontVar = $('dbgFont').value;
@@ -1210,40 +1246,129 @@
     });
     [['dbgFont', 'change'], ['dbgWeight', 'change'],
      ['dbgSize', 'input'], ['dbgColor', 'input'],
-     ['dbgLeft', 'input'], ['dbgTop', 'input']].forEach(function (pair) {
+     ['dbgLeft', 'input'], ['dbgTop', 'input'], ['dbgPadX', 'input']].forEach(function (pair) {
       $(pair[0]).addEventListener(pair[1], dbgGen);
     });
+    // 字体宫格（替代下拉选择，5 列）
+    const FONT_OPTIONS = [
+      ['东方大楷', 'var(--font-kai)'], ['抖音黑体', 'var(--font-douyin)'],
+      ['站酷快乐体', 'var(--font-zcool)'], ['思源宋体', 'var(--font-serif)'],
+      ['系统默认', ''],
+      ['Library 3 AM', 'var(--font-library)'],
+      ['Salt', 'var(--font-salt)'], ['Slim Joe', 'var(--font-slimjoe)'],
+      ['ZQK 涂鸦', 'var(--font-zqk)']
+    ];
+    $('dbgWeightGrid').querySelectorAll('.dbg-font-cell').forEach(function (cell) {
+      cell.addEventListener('click', function () {
+        $('dbgWeight').value = cell.dataset.val;
+        dbgWeightGridSync();
+        dbgGen();
+      });
+    });
+    FONT_OPTIONS.forEach(function (f) {
+      const cell = document.createElement('div');
+      cell.className = 'dbg-font-cell';
+      cell.dataset.val = f[1];
+      cell.textContent = f[0];
+      cell.addEventListener('click', function () {
+        $('dbgFont').value = f[1];
+        dbgFontGridSync();
+        dbgGen();
+      });
+      $('dbgFontGrid').appendChild(cell);
+    });
+    dbgFontGridSync();
     $('dbgClose').addEventListener('click', function () {
       $('debugPanel').classList.add('hidden');
     });
-    $('dbgCopy').addEventListener('click', function () {
-      const css = $('dbgCss').value;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(css).then(function () { showToast('CSS 已复制'); });
-      } else {
-        $('dbgCss').select();
-        document.execCommand('copy');
-        showToast('CSS 已复制');
+    // 写回接口地址：同源(8098)时走相对路径避免跨域；其它来源(file:///其它端口)走绝对地址
+    function dbgApiUrl() {
+      if (location.protocol === 'http:' && /^(localhost|127\.0\.0\.1):8098$/.test(location.host)) {
+        return '/api/save-css';
       }
-    });
-    $('dbgReset').addEventListener('click', function () {
+      return 'http://127.0.0.1:8098/api/save-css';
+    }
+    $('dbgCopy').addEventListener('click', function () {
       if (!dbgTag) return;
-      delete window.TMPL_DEBUG_OVERRIDES[dbgTag.dataset.tpl];
-      saveDebugOverrides();
-      slides.querySelectorAll('.ptag').forEach(function (t) {
-        if (t.dataset.tpl === dbgTag.dataset.tpl) {
-          t.querySelectorAll('.ptag-name, .ptag-num, .ptag-unit, .ptag-slogan, .ptag-price').forEach(function (el) {
-            el.removeAttribute('style');
-          });
-          // 背景图是内联样式，恢复它
-          const tpl = window.TMPLRender.tplById(t.dataset.tpl);
-          t.style.backgroundImage = 'url("' + tpl.bg + '")';
-          window.TMPLRender.fitTag(t);
+      const css = $('dbgCss').value;
+      const tpl = dbgTag.dataset.tpl;
+      fetch(dbgApiUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tpl: tpl, css: css })
+      }).then(function (r) { return r.json(); }).then(function (res) {
+        if (res.ok) {
+          // 覆盖成功后清掉该模板的 localStorage 调试覆盖，保证屏幕显示与 CSS 文件一致
+          delete window.TMPL_DEBUG_OVERRIDES[tpl];
+          saveDebugOverrides();
+          showToast('已覆盖 ' + res.file + '（替换 ' + res.replaced + ' 条 / 新增 ' + res.appended.length + ' 条，刷新页面生效）');
+        } else {
+          showToast('覆盖失败：' + res.error);
+        }
+      }).catch(function () {
+        // dev-server 不可用（如用静态服务打开）时退回复制
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(css).then(function () { showToast('写回服务不可用，已复制 CSS'); });
+        } else {
+          $('dbgCss').select();
+          document.execCommand('copy');
+          showToast('写回服务不可用，已复制 CSS');
         }
       });
-      dbgFillInputs();
-      dbgGen();
-      showToast('已恢复模板默认样式');
+    });
+    // 同步其它模板：把当前模板的全量 CSS 写到同前缀的其它模板文件
+    function dbgSyncTargets() {
+      const cur = dbgTag.dataset.tpl;
+      const prefix = cur.replace(/\d+$/, '');
+      return window.TMPL_TEMPLATES.map(function (t) { return t.id; })
+        .filter(function (id) { return id !== cur && id.replace(/\d+$/, '') === prefix; });
+    }
+    $('dbgReset').addEventListener('click', function () {
+      if (!dbgTag) return;
+      const targets = dbgSyncTargets();
+      $('dbgSyncText').textContent = '将模板 ' + dbgTag.dataset.tpl + ' 的全部样式同步到 ' + targets.join('、') + '，共 ' + targets.length + ' 个模板。';
+      $('dbgSyncModal').classList.remove('hidden');
+    });
+    $('dbgSyncCancel').addEventListener('click', function () {
+      $('dbgSyncModal').classList.add('hidden');
+    });
+    $('dbgSyncOk').addEventListener('click', function () {
+      $('dbgSyncModal').classList.add('hidden');
+      if (!dbgTag) return;
+      const src = dbgTag.dataset.tpl;
+      // 同步目标包含源模板自身，保证源文件也与面板当前状态一致
+      const targets = [src].concat(dbgSyncTargets());
+      let done = 0, fail = 0;
+      function check() {
+        if (done + fail < targets.length) return;
+        if (fail === 0) {
+          // 全部写成功后清掉这些模板的 localStorage 调试覆盖，
+          // 否则旧的临时覆盖会以内联样式压过新写的 CSS，造成"同步了但显示不一致"
+          targets.forEach(function (id) { delete window.TMPL_DEBUG_OVERRIDES[id]; });
+          saveDebugOverrides();
+          showToast('已同步到 ' + done + ' 个模板，页面即将刷新生效');
+          setTimeout(function () { location.reload(); }, 1200);
+        } else if (done === 0) {
+          showToast('写回失败：请确认 node dev-server.js 正在运行（端口 8098）');
+        } else {
+          showToast('同步完成：成功 ' + done + ' 个，失败 ' + fail + ' 个');
+        }
+      }
+      targets.forEach(function (id) {
+        // 关键：选择器里的模板号要换成目标模板号，否则改的仍是当前模板
+        const cssFor = $('dbgCss').value.split('data-tpl="' + src + '"').join('data-tpl="' + id + '"');
+        fetch(dbgApiUrl(), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tpl: id, css: cssFor })
+        }).then(function (r) { return r.json(); }).then(function (res) {
+          res.ok ? done++ : fail++;
+          check();
+        }).catch(function () {
+          fail++;
+          check();
+        });
+      });
     });
 
     // ---------- HSL ↔ hex 工具 ----------
@@ -1370,6 +1495,7 @@
       if (id === 'size') openSliderPopup(f, 'dbgSize', '字号', 2, 120, 0.5);
       else if (id === 'left') openSliderPopup(f, 'dbgLeft', '左右', -100, 200, 0.5);
       else if (id === 'top') openSliderPopup(f, 'dbgTop', '上下', -100, 200, 0.5);
+      else if (id === 'padx') openSliderPopup(f, 'dbgPadX', '左右内边距', 0, 60, 0.5);
       else if (id === 'color') openColorPopup();
     });
     panelBody.addEventListener('keydown', function (e) {

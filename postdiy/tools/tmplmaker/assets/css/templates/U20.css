@@ -1,0 +1,46 @@
+/* 模板 U20（版式基准=用户调优后的 U01-U03，配色=背景图同色系采样） */
+
+[data-tpl="U20"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 62);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #c97c1d;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 24);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U20"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 103);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U20"] .ptag-num {
+  color: #815218;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 50);
+  font-weight: 700;
+}
+
+[data-tpl="U20"] .ptag-unit {
+  color: #815218;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 11);
+  font-weight: 400;
+}
+
+[data-tpl="U20"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 192);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #c1a27b;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 18.5);
+  font-weight: 400;
+}

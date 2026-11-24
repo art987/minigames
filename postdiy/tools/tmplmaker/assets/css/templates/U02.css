@@ -1,0 +1,46 @@
+/* 模板 U02 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
+
+[data-tpl="U02"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 56.5);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 30.2);
+  color: #6b3d14;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 21.1);
+  font-weight: 900;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U02"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 106);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70.3);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U02"] .ptag-num {
+  color: #2f2418;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 46.5);
+  font-weight: 700;
+}
+
+[data-tpl="U02"] .ptag-unit {
+  color: #6d4b27;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 10.3);
+  font-weight: 400;
+}
+
+[data-tpl="U02"] .ptag-slogan {
+  left: calc(var(--mm) * 2);
+  top: calc(var(--mm) * 200);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 19.8);
+  color: #8b6755;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 400;
+}

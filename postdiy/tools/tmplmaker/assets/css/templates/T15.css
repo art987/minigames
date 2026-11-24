@@ -1,0 +1,50 @@
+/* 模板 T15（奶茶果茶）— 默认样式，可后续用调试面板调整 */
+[data-tpl="T15"] .ptag-name {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 54);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #000000;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 22);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 26.5);
+  padding-right: calc(var(--mm) * 26.5);
+}
+[data-tpl="T15"] .ptag-price {
+  left: calc(var(--mm) * 17);
+  top: calc(var(--mm) * 83);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="T15"] .ptag-num {
+  color: #f50f0f;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 65.5);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="T15"] .ptag-unit {
+  color: #d73333;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 700;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="T15"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 173.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 13.4);
+  color: #f13b32;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 13.4);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}

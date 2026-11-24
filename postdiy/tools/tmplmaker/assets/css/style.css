@@ -24,12 +24,36 @@
   src: url("../fonts/NotoSerifSC-Regular.ttf") format("truetype");
   font-display: swap;
 }
+@font-face {
+  font-family: "Library 3 AM";
+  src: url("../fonts/newfont/LIBRARY-3-AM/Library-3-am-3.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Salt";
+  src: url("../fonts/newfont/Salt-Bold/Salt-Bold-2.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Slim Joe";
+  src: url("../fonts/newfont/Slim-Joe/Slim-Joe-2.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "ZQK Scribbled";
+  src: url("../fonts/newfont/ZQKScribbled/ZQKScribbled-2.ttf") format("truetype");
+  font-display: swap;
+}
 
 :root {
   --font-kai: "Alimama DongFang DaKai", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-douyin: "Douyin Sans Bold", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-zcool: "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-library: "Library 3 AM", "Arial", sans-serif;
+  --font-salt: "Salt", "Arial Black", sans-serif;
+  --font-slimjoe: "Slim Joe", "Arial", sans-serif;
+  --font-zqk: "ZQK Scribbled", "Comic Sans MS", cursive;
   --bg: #ffffff;
   --panel: #ffffff;
   --border: #efefef;
@@ -198,10 +222,22 @@ body {
   line-height: 1.15;
   padding-bottom: 0;
 }
-.ptag .ptag-price .ptag-unit { padding-bottom: 0; }
+.ptag .ptag-price .ptag-unit { padding-bottom: 0; margin-left: calc(var(--mm) * 2); }
+/* 价格小数部分（点+小数位）默认为主字号的一半，并抬升到与整数顶部齐平
+   （基线 + 相对偏移：0.72em ≈ 数字 cap 高与自身高的差，任意字号/字体自适应） */
+.ptag .ptag-num .ptag-num-dec { font-size: 50%; position: relative; top: -0.72em; }
 .ptag .ptag-unit .u-char { display: block; }
 .ptag .ptag-unit .u-slash {transform: scaleX(2) scaleY(0.18);height: 0.8rem;}
 .ptag .ptag-slogan { white-space: nowrap; }
+/* 宣传口号默认位置与颜色（:where 零特异性兜底——模板 CSS 里任何同名规则都能覆盖它） */
+.ptag :where(.ptag-slogan:not(.hidden)) {
+  top: calc(var(--mm) * 168);
+  left: 0;
+  width: 100%;
+  color: #6b4423;
+  opacity: 0.85;
+  letter-spacing: calc(var(--mm) * 3);
+}
 .ptag .ptag-slogan-text { display: inline-block; line-height: 1.2; }
 
 /* å¹»ç¯ç‰‡ç¿»é¡µæŒ‰é’® */
@@ -940,6 +976,65 @@ body.debug-on .ptag-slogan:hover {
   grid-template-columns: 1fr 1fr;
   margin-bottom: 8px;
 }
+/* 字体宫格（替代下拉选择） */
+.dbg-font-grid,
+.dbg-weight-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 8px;
+}
+.dbg-font-cell {
+  padding: 6px 2px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.2;
+  word-break: break-all;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.dbg-font-cell:hover { border-color: #b9b9b9; }
+.dbg-font-cell.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #fff5f5;
+  font-weight: 700;
+}
+/* 同步其它模板确认弹窗 */
+.dbg-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+.dbg-modal.hidden { display: none; }
+.dbg-modal-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 16px;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+.dbg-modal-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.dbg-modal-text {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 6px;
+  word-break: break-all;
+}
+.dbg-modal-warn { font-size: 13px; color: #c0392b; font-weight: 700; margin: 0 0 14px; }
+.dbg-modal-actions { display: flex; gap: 10px; }
+.dbg-modal-actions .btn { flex: 1; margin: 0; }
+.dbg-modal-cancel { background: #f0f0f0; color: #555; }
+.dbg-modal-ok { background: #c0392b; color: #fff; }
 .dbg-grid-row {
   grid-template-columns: repeat(4, 1fr);
   margin-bottom: 8px;

@@ -50,7 +50,18 @@
     price.className = 'ptag-price';
     const num = document.createElement('span');
     num.className = 'ptag-num';
-    num.textContent = (data.price || '').trim();
+    const numText = (data.price || '').trim();
+    const dotIdx = numText.indexOf('.');
+    if (dotIdx >= 0) {
+      // 小数部分（点+小数位）减半显示，并与整数顶对齐
+      num.textContent = numText.slice(0, dotIdx);
+      const dec = document.createElement('span');
+      dec.className = 'ptag-num-dec';
+      dec.textContent = numText.slice(dotIdx);
+      num.appendChild(dec);
+    } else {
+      num.textContent = numText;
+    }
     const unit = document.createElement('span');
     unit.className = 'ptag-unit';
     const unitText = (data.unit || '').trim();
@@ -68,6 +79,20 @@
 
     tag.appendChild(name);
     tag.appendChild(price);
+
+    // 宣传口号：产品自选口号 > 模板自带口号组（slogans，每次渲染随机取一条） > 行业口号池 > 空
+    const sloganPool = (tpl.slogans && tpl.slogans.length) ? tpl.slogans
+                     : ((window.TMPL_SLOGAN_POOLS || {})[tpl.industry] || []);
+    const defaultSlogan = sloganPool.length
+      ? sloganPool[Math.floor(Math.random() * sloganPool.length)]
+      : '';
+    const sloganText = String((data && data.slogan) || defaultSlogan || '').trim();
+    const slogan = document.createElement('div');
+    slogan.className = 'ptag-slogan';
+    slogan.textContent = sloganText;
+    if (!sloganText) slogan.classList.add('hidden');
+    tag.appendChild(slogan);
+
     return tag;
   }
 

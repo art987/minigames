@@ -1,0 +1,46 @@
+/* 模板 U05 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
+
+[data-tpl="U05"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 62);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #000000;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 21.5);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U05"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 103);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U05"] .ptag-num {
+  color: #8c0808;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 53.5);
+  font-weight: 700;
+}
+
+[data-tpl="U05"] .ptag-unit {
+  color: #000000;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 10.3);
+  font-weight: 400;
+}
+
+[data-tpl="U05"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 192);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #a39362;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 18.5);
+  font-weight: 400;
+}

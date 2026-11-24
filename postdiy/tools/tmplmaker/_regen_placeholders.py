@@ -16,17 +16,11 @@ INDUSTRY_COLORS = {
     'coffee':    ((60, 36, 21),   (140, 90, 55)),    # 咖啡棕
     'meat':      ((146, 43, 33),  (210, 90, 70)),    # 血红
     'flower':    ((125, 60, 152), (200, 130, 220)),  # 紫粉
+    'home':      ((93, 107, 122), (183, 201, 211)),  # 蓝灰
 }
 
 # 目录+需要替换的占位图数字
-PLACEHOLDERS = {
-    'vegetable': range(1, 9),   # V01-V08
-    'fruit':     range(1, 9),
-    'tea':       [8],            # T08 占位
-    'coffee':    range(1, 9),
-    'meat':      range(1, 9),
-    'flower':    range(1, 9),
-}
+PLACEHOLDERS = {}  # 重要：现在所有行业的背景图都是真实素材，此脚本禁止再跑；如需新行业占位图，用 _gen_templates.py（只在文件不存在时生成）
 
 W, H = 1240, 1754  # 约 A4 半分辨率
 
@@ -74,8 +68,8 @@ for industry, nums in PLACEHOLDERS.items():
         if not os.path.exists(path):
             print(f'SKIP (不存在): {path}')
             continue
-        tpl_id_map = {'vegetable': 'V', 'fruit': 'F', 'tea': 'T', 
-                      'coffee': 'C', 'meat': 'M', 'flower': 'Fl'}
+        tpl_id_map = {'vegetable': 'V', 'fruit': 'F', 'tea': 'T',
+                      'coffee': 'C', 'meat': 'M', 'flower': 'Fl', 'home': 'H'}
         prefix = tpl_id_map[industry]
         tpl_id = f'{prefix}{n:02d}'
         img = make_grad(W, H, col1, col2)

@@ -4,15 +4,17 @@
   top: calc(var(--mm) * 80);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 24);
-  color: #c0392b;
-  font-family: var(--font-serif);
+  color: #190806;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 23.5);
   font-weight: 700;
-  font-size: calc(var(--mm) * 28);
   letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 18);
+  padding-right: calc(var(--mm) * 18);
 }
 [data-tpl="F04"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 106);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 80);
   gap: calc(var(--mm) * 7);
@@ -20,12 +22,29 @@
 [data-tpl="F04"] .ptag-num {
   color: #c0392b;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 42);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }
 [data-tpl="F04"] .ptag-unit {
   color: #c0392b;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 15.8);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="F04"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 180);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 15.9);
+  color: #d28004;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 11);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }

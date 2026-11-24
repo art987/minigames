@@ -1,31 +1,54 @@
-/* 模板 C01（咖啡饮品）— 默认占位样式，后续可调整 */
+/* 模板 C01 */
+
 [data-tpl="C01"] .ptag-name {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 80);
+  top: calc(var(--mm) * 94);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 24);
   color: #3c2415;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 21);
   font-weight: 700;
-  font-size: calc(var(--mm) * 28);
   letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 25.5);
+  padding-right: calc(var(--mm) * 25.5);
 }
+
 [data-tpl="C01"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 128.5);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 80);
   gap: calc(var(--mm) * 7);
 }
+
 [data-tpl="C01"] .ptag-num {
   color: #3c2415;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 64.8);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }
+
 [data-tpl="C01"] .ptag-unit {
   color: #3c2415;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 16.9);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="C01"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 59.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 19.2);
+  color: #6b4423;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 13.4);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }

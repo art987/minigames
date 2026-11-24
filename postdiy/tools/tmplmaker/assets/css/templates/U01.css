@@ -1,0 +1,46 @@
+/* 模板 U01 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
+
+[data-tpl="U01"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 75);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 22.4);
+  color: #000000;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 18.8);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U01"] .ptag-price {
+  left: calc(var(--mm) * 1);
+  top: calc(var(--mm) * 109.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 60.1);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U01"] .ptag-num {
+  color: #d62929;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 50);
+  font-weight: 700;
+}
+
+[data-tpl="U01"] .ptag-unit {
+  color: #2f2418;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 11);
+  font-weight: 700;
+}
+
+[data-tpl="U01"] .ptag-slogan {
+  left: calc(var(--mm) * 1);
+  top: calc(var(--mm) * 184);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #997970;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 14.5);
+  font-weight: 400;
+}

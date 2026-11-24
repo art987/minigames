@@ -1,35 +1,50 @@
-/* 模板 T03 · 全部规则（复制后覆盖 assets/css/templates/ 对应文件中的同名规则） */
-
+/* 模板 T03（奶茶果茶）— 默认样式，可后续用调试面板调整 */
 [data-tpl="T03"] .ptag-name {
-  left: calc(var(--mm) * 25);
-  top: calc(var(--mm) * 66);
-  width: calc(var(--mm) * 160);
-  height: calc(var(--mm) * 24);
-  color: #721d1d;
-  font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 23.5);
-  font-weight: 700;
-  letter-spacing: calc(var(--mm) * 3);
-}
-
-[data-tpl="T03"] .ptag-price {
-  left: calc(var(--mm) * 18);
-  top: calc(var(--mm) * 98);
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 67.5);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 62);
-  gap: calc(var(--mm) * 6);
-}
-
-[data-tpl="T03"] .ptag-num {
-  color: #c50717;
-  font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 50.4);
+  height: calc(var(--mm) * 24);
+  color: #000000;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 22);
   font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 26.5);
+  padding-right: calc(var(--mm) * 26.5);
+}
+[data-tpl="T03"] .ptag-price {
+  left: calc(var(--mm) * 17);
+  top: calc(var(--mm) * 99);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="T03"] .ptag-num {
+  color: #f50f0f;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 51);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="T03"] .ptag-unit {
+  color: #d73333;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 700;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }
 
-[data-tpl="T03"] .ptag-unit {
-  color: #b01111;
-  font-family: var(--font-serif);
-  font-size: calc(var(--mm) * 10);
-  font-weight: 700;
+[data-tpl="T03"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 173.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 13.4);
+  color: #f13232;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 13.4);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }

@@ -1,31 +1,46 @@
-/* 模板 V03（蔬菜）— 默认占位样式，后续可调整 */
+/* =====================================================
+ * V03 牛皮纸复古 —— 复古牛皮纸+墨绿版画，宣传语已烙在上下
+ * ===================================================== */
+
 [data-tpl="V03"] .ptag-name {
-  left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 80);
-  width: calc(var(--mm) * 180);
+  left: calc(var(--mm) * 25);
+  top: calc(var(--mm) * 99);
+  width: calc(var(--mm) * 160);
   height: calc(var(--mm) * 24);
-  color: #2f6b2a;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 28);
-  letter-spacing: calc(var(--mm) * 2);
+  color: #000000;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 21);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 3);
 }
+
 [data-tpl="V03"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 131);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 80);
-  gap: calc(var(--mm) * 7);
+  height: calc(var(--mm) * 60);
+  gap: calc(var(--mm) * 6);
 }
 [data-tpl="V03"] .ptag-num {
-  color: #2f6b2a;
+  color: #b41d1d;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
+  font-size: calc(var(--mm) * 49.3);
+  font-weight: 400;
 }
 [data-tpl="V03"] .ptag-unit {
-  color: #2f6b2a;
+  color: #1d4d2b;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 14.9);
   font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+}
+
+[data-tpl="V03"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 192);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 17);
+  color: #6c2323;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 11.8);
+  font-weight: 400;
 }

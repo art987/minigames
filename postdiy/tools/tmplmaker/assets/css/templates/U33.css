@@ -1,0 +1,46 @@
+/* 模板 U33（版式基准=用户调优后的 U01-U03，配色=背景图同色系采样） */
+
+[data-tpl="U33"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 80.5);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #f8e7be;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 18.7);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U33"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 103);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U33"] .ptag-num {
+  color: #ffc73d;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 47);
+  font-weight: 700;
+}
+
+[data-tpl="U33"] .ptag-unit {
+  color: #ffc73d;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 10.3);
+  font-weight: 400;
+}
+
+[data-tpl="U33"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 171);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #ead5a4;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 400;
+}

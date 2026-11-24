@@ -1,0 +1,46 @@
+/* 模板 U34（版式基准=用户调优后的 U01-U03，配色=背景图同色系采样） */
+
+[data-tpl="U34"] .ptag-name {
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 102);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #000000;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 21);
+  font-weight: 700;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+
+[data-tpl="U34"] .ptag-price {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 117.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 70);
+  gap: calc(var(--mm) * 0);
+}
+
+[data-tpl="U34"] .ptag-num {
+  color: #bd0000;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 47);
+  font-weight: 700;
+}
+
+[data-tpl="U34"] .ptag-unit {
+  color: #b30000;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 10.3);
+  font-weight: 700;
+}
+
+[data-tpl="U34"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 184);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #64a4d8;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 13.5);
+  font-weight: 400;
+}
