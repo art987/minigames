@@ -39,6 +39,37 @@ export interface AknConvertParams {
   sharpen: number
 }
 
+/** 智能衣片画布设定（新建向导产物；custom 区域无尺码预设时 sizeId 为 null） */
+export interface GarmentSpec {
+  /** 服装类型 id，见 data/garmentSpecs.ts */
+  garmentType: string
+  sizeId: string | null
+  fit: 'fitted' | 'regular' | 'loose'
+  /** 衣片类型 id，见 data/garmentSpecs.ts */
+  pieceId: string
+  /** 衣片实际宽度 cm */
+  widthCm: number
+  /** 衣片实际高度 cm */
+  heightCm: number
+  /** 横向针数 / 10cm */
+  stitchesPer10cm: number
+  /** 纵向行数 / 10cm */
+  rowsPer10cm: number
+  /** 预估模式：密度为预设估计值，非生产校准数据 */
+  estimated: boolean
+}
+
+/** compose 图层持久化结构（原始图片 Blob + 裁剪/定位参数） */
+export interface PersistedLayer {
+  name: string
+  image: Blob
+  t: { scale: number; x: number; y: number }
+  crop: { l: number; t: number; r: number; b: number }
+  /** 旋转角度（度，90 的倍数） */
+  rotation: number
+  visible: boolean
+}
+
 /** AKN 工程数据 */
 export interface AknProject {
   id: string
@@ -52,6 +83,12 @@ export interface AknProject {
   matrix: number[][]
   /** 色卡模式：auto=从图片自动提取；custom=使用用户自定义色卡绘制 */
   paletteMode?: 'auto' | 'custom'
+  /** 画布背景色（空针格颜色） */
+  canvasBg?: string
+  /** 智能衣片画布设定（旧工程无此字段） */
+  garment?: GarmentSpec | null
+  /** compose 图层（原始图片 + 裁剪/定位参数，旧工程无此字段） */
+  layers?: PersistedLayer[]
   /** 原始图片（本地 Blob，永不上传） */
   originalImage: Blob | null
   /** 原始图片预览缩略图 dataURL（可选，便于列表显示） */

@@ -81,5 +81,4 @@ tools/tmplmaker/**/*.css.bak
 tools/tmplmaker/.trae-html-share-packages/
 # 商业字体，版权原因不上传（仅本地使用）
 tools/tmplmaker/assets/fonts/newfont/
-# 家居家纺占位图（本地脚本可随时重建，替换真实图后再上传）
-tools/tmplmaker/assets/templates/home/
+tools/tmplmaker/.trae-html-share-packages/

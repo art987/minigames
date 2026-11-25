@@ -15,6 +15,7 @@ export default function KnitCanvas() {
   const palette = useWorkbench((s) => s.palette)
   const paintCell = useWorkbench((s) => s.paintCell)
   const gridVisible = useWorkbench((s) => s.showGrid)
+  const bgColor = useWorkbench((s) => s.bgColor)
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -41,7 +42,7 @@ export default function KnitCanvas() {
     const cx1 = Math.min(cols, Math.ceil((width - x0) / v.scale))
     const cy1 = Math.min(rows, Math.ceil((height - y0) / v.scale))
 
-    ctx.fillStyle = '#ffffff'
+    ctx.fillStyle = bgColor
     ctx.fillRect(x0, y0, w, h)
 
     for (let y = cy0; y < cy1; y++) {

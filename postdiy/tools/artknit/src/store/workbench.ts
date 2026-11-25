@@ -4,20 +4,31 @@
  * - 撤销/重做：绘制、色卡修改、应用方案、重新转换均可回退
  */
 import { create } from 'zustand'
-import type { AknColor, AknConvertParams, AknProjectMeta, AknPalette, AknProject } from '../types/akn'
+import type { AknColor, AknConvertParams, AknProjectMeta, AknPalette, AknProject, GarmentSpec, PersistedLayer } from '../types/akn'
 import {
   newId, saveProject, loadProject, deleteProject, listProjects,
   listPaletteSchemes, savePaletteScheme, deletePaletteScheme, seedPaletteSchemes,
 } from '../db/idb'
 import { convertImage, debounce, readImageFile, type SourceImage } from '../lib/convertClient'
+import { composeCanvasSize, fitPadded, fitScale, composeLayersToImageData, CROP_MIN, NO_CROP, type ComposeLayer, type ComposeTransform, type ComposeCrop } from '../lib/compose'
 
 const DEFAULT_PARAMS: AknConvertParams = {
   stitches: 100,
   rows: 100,
   colorCount: 8,
-  dithering: true,
+  dithering: false,
   algorithm: 'kmeans',
   sharpen: 20,
+}
+
+const DEFAULT_SETUP = {
+  stitches: 100,
+  rows: 100,
+  colorMode: 'auto' as 'auto' | 'scheme',
+  colorCount: 8,
+  schemeId: null as string | null,
+  /** 智能衣片画布设定（新建向导填写；null=尚未配置） */
+  garment: null as GarmentSpec | null,
 }
 
 /** 历史快照 */
@@ -28,6 +39,14 @@ interface Snapshot {
 }
 
 interface WorkbenchState {
+  /* 流程阶段：setup=设定画布 → compose=摆放裁切 → edit=编辑针织图案 */
+  stage: 'setup' | 'compose' | 'edit'
+  setup: typeof DEFAULT_SETUP
+  /** 图片图层（自底向上），支持多张图片分层摆放 */
+  layers: ComposeLayer[]
+  activeLayerId: string | null
+  /** 画布背景色（空针格与摆放松露出的区域） */
+  bgColor: string
   /* 当前工程 */
   projectId: string | null
   projectName: string
@@ -53,7 +72,18 @@ interface WorkbenchState {
   future: Snapshot[]
 
   setParams: (patch: Partial<AknConvertParams>) => void
-  setImage: (file: File) => Promise<void>
+  startNew: () => void
+  updateSetup: (patch: Partial<typeof DEFAULT_SETUP>) => void
+  importComposeImage: (file: File) => Promise<void>
+  setActiveLayer: (id: string) => void
+  setLayerT: (id: string, t: ComposeTransform) => void
+  setLayerCrop: (id: string, c: ComposeCrop) => void
+  patchLayer: (id: string, patch: Partial<ComposeLayer>) => void
+  toggleLayerVisible: (id: string) => void
+  removeLayer: (id: string) => void
+  setBgColor: (hex: string) => void
+  generatePattern: () => void
+  backToSetup: () => void
   paintCell: (row: number, col: number) => void
   setSelectedColorIndex: (i: number) => void
   setTool: (t: 'paint' | 'pick') => void
@@ -77,7 +107,6 @@ interface WorkbenchState {
   open: (id: string) => Promise<void>
   remove: (id: string) => Promise<void>
   refreshWorks: () => Promise<void>
-  newProject: () => void
   setShowGrid: (v: boolean) => void
   showToast: (msg: string) => void
 }
@@ -158,6 +187,11 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
   }
 
   return {
+    stage: 'setup',
+    setup: { ...DEFAULT_SETUP },
+    layers: [],
+    activeLayerId: null,
+    bgColor: '#FFFFFF',
     projectId: null,
     projectName: '未命名作品',
     params: { ...DEFAULT_PARAMS },
@@ -179,6 +213,102 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
     history: [],
     future: [],
 
+    /* ---------- 新建流程：setup → compose → edit ---------- */
+
+    startNew: () => {
+      set({
+      stage: 'setup',
+      setup: { ...DEFAULT_SETUP },
+      layers: [],
+      activeLayerId: null,
+      bgColor: '#FFFFFF',
+      projectId: null,
+      projectName: '未命名作品',
+      params: { ...DEFAULT_PARAMS },
+      palette: paletteFrom([]),
+      paletteMode: 'auto',
+      activeSchemeId: null,
+      matrix: [],
+      source: null,
+      sourceBlob: null,
+      thumbnail: null,
+      dirty: false,
+      selectedColorIndex: 0,
+      history: [],
+      future: [],
+    })
+    },
+
+    updateSetup: (patch) => set({ setup: { ...get().setup, ...patch } }),
+
+    importComposeImage: async (file) => {
+      const bitmap = await createImageBitmap(file)
+      const { CW, CH } = composeCanvasSize(get().setup)
+      // 初始摆放：留 20% 内边距完整显示，保证锚点可见可操作
+      const t = fitPadded({ width: bitmap.width, height: bitmap.height }, CW, CH)
+      const layer: ComposeLayer = {
+        id: newId(),
+        name: `图片 ${get().layers.length + 1}`,
+        bitmap, width: bitmap.width, height: bitmap.height,
+        t, crop: { ...NO_CROP }, visible: true, rotation: 0,
+      }
+      set({ layers: [...get().layers, layer], activeLayerId: layer.id, stage: 'compose' })
+      get().showToast('图片已导入，拖动边缘锚点裁切，右下角锚点缩放')
+    },
+
+    setActiveLayer: (id) => set({ activeLayerId: id }),
+
+    setLayerT: (id, t) => set({ layers: get().layers.map((l) => (l.id === id ? { ...l, t } : l)) }),
+
+    setLayerCrop: (id, c) => set({ layers: get().layers.map((l) => (l.id === id ? { ...l, crop: c } : l)) }),
+
+    patchLayer: (id, patch) =>
+      set({ layers: get().layers.map((l) => (l.id === id ? { ...l, ...patch } : l)), dirty: true }),
+
+    toggleLayerVisible: (id) =>
+      set({ layers: get().layers.map((l) => (l.id === id ? { ...l, visible: !l.visible } : l)) }),
+
+    removeLayer: (id) => {
+      const layers = get().layers.filter((l) => l.id !== id)
+      set({
+        layers,
+        activeLayerId: get().activeLayerId === id ? (layers[layers.length - 1]?.id ?? null) : get().activeLayerId,
+      })
+    },
+
+    setBgColor: (hex) => set({ bgColor: hex, dirty: true }),
+
+    backToSetup: () => set({ stage: 'setup' }),
+
+    generatePattern: () => {
+      const s = get()
+      if (s.layers.length === 0) return
+      const { CW, CH } = composeCanvasSize(s.setup)
+      const img = composeLayersToImageData(s.layers, s.bgColor, CW, CH)
+      const scheme = s.setup.colorMode === 'scheme' ? s.schemes.find((p) => p.id === s.setup.schemeId) : undefined
+      const colors = scheme ? scheme.colors.map((c) => ({ ...c })) : undefined
+      const params: AknConvertParams = {
+        ...s.params,
+        stitches: s.setup.stitches,
+        rows: s.setup.rows,
+        colorCount: colors ? colors.length : s.setup.colorCount,
+      }
+      set({
+        stage: 'edit',
+        source: img,
+        sourceBlob: null,
+        params,
+        busy: true,
+        dirty: true,
+        history: [],
+        future: [],
+      })
+      convertImage('full', img, params, colors).then((res) => {
+        if (res.matrix.length > 0) applyResult(res.matrix, res.palette)
+        else set({ busy: false })
+      })
+    },
+
     setParams: (patch) => {
       const params = { ...get().params, ...patch }
       set({ params, dirty: true })
@@ -189,22 +319,6 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
         if (res.matrix.length > 0) set({ matrix: res.matrix, dirty: true })
       })
       runFullDebounced!(source, params)
-    },
-
-    setImage: async (file) => {
-      const source = await readImageFile(file)
-      const ratio = source.height / source.width
-      const params = { ...get().params }
-      params.rows = Math.max(10, Math.round(params.stitches * ratio))
-      set({
-        source, sourceBlob: file, params, busy: true, dirty: true, selectedColorIndex: 0,
-        paletteMode: 'auto', activeSchemeId: null, history: [], future: [],
-      })
-      get().showToast('图片已加载，正在转换…')
-      convertImage('full', source, params).then((res) => {
-        if (res.matrix.length > 0) applyResult(res.matrix, res.palette)
-        else set({ busy: false })
-      })
     },
 
     paintCell: (row, col) => {
@@ -374,6 +488,22 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
 
     save: async () => {
       const s = get()
+      // 持久化 compose 图层：导出原始图片 Blob + 裁剪/定位参数
+      const layers: PersistedLayer[] = []
+      for (const l of s.layers) {
+        const canvas = document.createElement('canvas')
+        canvas.width = l.width
+        canvas.height = l.height
+        canvas.getContext('2d')!.drawImage(l.bitmap, 0, 0)
+        const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/png'))
+        if (blob) {
+          layers.push({
+            name: l.name, image: blob,
+            t: { ...l.t }, crop: { ...l.crop },
+            rotation: l.rotation, visible: l.visible,
+          })
+        }
+      }
       const project: AknProject = {
         id: s.projectId ?? newId(),
         name: s.projectName,
@@ -384,6 +514,9 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
         palette: s.palette,
         matrix: s.matrix,
         paletteMode: s.paletteMode,
+        canvasBg: s.bgColor,
+        garment: s.setup.garment,
+        layers,
         originalImage: s.sourceBlob,
         thumbnail: s.matrix.length ? makeThumbnail(s.matrix, s.palette.colors) : null,
       }
@@ -404,12 +537,32 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
           source = null
         }
       }
+      // 还原 compose 图层（原始图片 + 参数），便于回到第 2 步重新裁切摆放
+      const layers: ComposeLayer[] = []
+      for (const pl of p.layers ?? []) {
+        try {
+          const bitmap = await createImageBitmap(pl.image)
+          layers.push({
+            id: newId(), name: pl.name,
+            bitmap, width: bitmap.width, height: bitmap.height,
+            t: { ...pl.t }, crop: { ...pl.crop },
+            rotation: pl.rotation ?? 0, visible: pl.visible,
+          })
+        } catch {
+          /* 单张图片损坏时跳过 */
+        }
+      }
       set({
+        stage: 'edit',
         projectId: p.id,
         projectName: p.name,
+        setup: { ...DEFAULT_SETUP, garment: p.garment ?? null, stitches: p.params.stitches, rows: p.params.rows },
+        layers,
+        activeLayerId: layers[layers.length - 1]?.id ?? null,
         params: p.params,
         palette: p.palette,
         paletteMode: p.paletteMode ?? 'auto',
+        bgColor: p.canvasBg ?? '#FFFFFF',
         activeSchemeId: null,
         matrix: p.matrix,
         source,
@@ -433,25 +586,6 @@ export const useWorkbench = create<WorkbenchState>((set, get) => {
     refreshWorks: async () => {
       const works = await listProjects()
       set({ works })
-    },
-
-    newProject: () => {
-      set({
-        projectId: null,
-        projectName: '未命名作品',
-        params: { ...DEFAULT_PARAMS },
-        palette: paletteFrom([]),
-        paletteMode: 'auto',
-        activeSchemeId: null,
-        matrix: [],
-        source: null,
-        sourceBlob: null,
-        thumbnail: null,
-        dirty: false,
-        selectedColorIndex: 0,
-        history: [],
-        future: [],
-      })
     },
 
     setShowGrid: (v) => set({ showGrid: v }),

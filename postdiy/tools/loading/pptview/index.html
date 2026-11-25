@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>陪你逛国博 · 22件国宝一问一答</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#050607; --bg2:#0a0d10; --ink:#eef3f6; --sub:#9fb2bd;
+    --gold:#e8c88a; --gold2:#c9a25e; --line:rgba(255,255,255,.12);
+    --card:rgba(16,19,22,.92); --pill1:#e8c88a; --pill2:#7fa8a0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:"Noto Sans SC",system-ui,-apple-system,"PingFang SC",sans-serif;
+    background:#050607;
+    color:var(--ink); overflow:hidden;
+  }
+  /* 背景光斑 */
+  .glow{position:fixed;border-radius:50%;filter:blur(70px);opacity:.16;pointer-events:none;z-index:0}
+  .g1{width:420px;height:420px;background:#2f5d63;top:-120px;left:-100px}
+  .g2{width:380px;height:380px;background:#6b5426;bottom:-140px;right:-90px}
+
+  /* 顶栏 */
+  header{position:relative;z-index:5;display:flex;align-items:baseline;justify-content:space-between;
+    padding:18px 22px 6px}
+  header .title{font-family:"Noto Serif SC",serif;font-weight:900;font-size:21px;letter-spacing:2px}
+  header .title em{font-style:normal;color:var(--gold)}
+  header .progress{font-variant-numeric:tabular-nums;font-size:15px;color:var(--sub)}
+  header .progress b{color:var(--gold);font-size:20px;font-weight:700}
+  .subline{position:relative;z-index:5;padding:0 22px;color:var(--sub);font-size:12.5px;letter-spacing:1px}
+
+  /* 舞台 */
+  .stage{position:relative;z-index:2;height:calc(100% - 118px);perspective:1300px;overflow:hidden}
+  .track{position:absolute;inset:0;transform-style:preserve-3d}
+
+  .card{
+    position:absolute;left:50%;top:50%;width:min(350px,86vw);height:min(600px,78vh);
+    margin-left:calc(min(350px,86vw)/-2);margin-top:calc(min(600px,78vh)/-2);
+    background:var(--card);border:2px solid var(--line);border-radius:26px;
+    box-shadow:0 30px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    transform-style:preserve-3d;transition:transform .55s cubic-bezier(.22,.9,.28,1),opacity .5s,box-shadow .5s;
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .card .imgbox{position:relative;width:100%;height:48%;flex:none;overflow:hidden;border-radius:26px 26px 0 0;cursor:zoom-in;background:#000}
+  .card .imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .card.active .imgbox img{transform:scale(1.04)}
+  .card .watermark{position:absolute;right:14px;bottom:-18px;font-family:"Noto Serif SC",serif;
+    font-size:120px;font-weight:900;color:rgba(255,255,255,.05);line-height:1;pointer-events:none}
+
+  .card .body{flex:1;display:flex;flex-direction:column;padding:16px 18px 14px;overflow-y:auto;gap:10px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+  .pill{font-size:11px;letter-spacing:1px;padding:3px 10px;border-radius:999px;font-weight:500}
+  .pill.tag{color:#1a1407}
+  .pill.tag.slow{background:var(--pill1)}
+  .pill.tag.fast{background:var(--pill2);color:#0d1714}
+  .pill.meta{border:1px solid var(--line);color:var(--sub);font-weight:400}
+  .cname{font-family:"Noto Serif SC",serif;font-weight:700;font-size:27px;letter-spacing:1px;line-height:1.3}
+  .cmeta{font-size:12px;color:var(--sub);line-height:1.6}
+  .q{display:flex;font-size:15.5px;line-height:1.7;color:var(--gold)}
+  .ansbtn{margin-top:auto;align-self:center;border:1px solid var(--gold2);background:rgba(232,200,138,.1);
+    color:var(--gold);font-size:13px;padding:9px 22px;border-radius:12px;cursor:pointer;letter-spacing:1px;transition:.25s}
+  .ansbtn:hover{background:rgba(232,200,138,.2)}
+
+  /* 答案弹窗 */
+  .amodal{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.82);display:none;
+    align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(6px)}
+  .amodal.show{display:flex;animation:fadeIn .25s ease}
+  .amodal-card{position:relative;width:min(360px,88vw);height:70vh;display:flex;flex-direction:column;
+    background:#101316;border:2px solid var(--line);border-radius:22px;padding:26px 22px 22px;
+    box-shadow:0 30px 70px rgba(0,0,0,.7);
+    animation:pop .3s cubic-bezier(.22,.9,.3,1)}
+  @keyframes pop{from{transform:scale(.9) translateY(12px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .am-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:22px;cursor:pointer;display:grid;place-items:center}
+  .am-close:hover{background:rgba(232,200,138,.2)}
+  .am-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:22px;letter-spacing:1px;margin-bottom:10px}
+  .am-q{color:var(--gold);font-size:15px;line-height:1.7;margin-bottom:14px}
+  .am-a{flex:1;overflow-y:auto;font-size:16.5px;line-height:1.95;color:#d9e1e7}
+  .am-speak{margin-top:14px;align-self:center;border:1px solid var(--gold2);background:rgba(232,200,138,.12);
+    color:var(--gold);font-size:14px;padding:10px 22px;border-radius:12px;cursor:pointer;letter-spacing:1px;transition:.25s}
+  .am-speak:hover{background:rgba(232,200,138,.22)}
+  .am-speak.on{background:var(--gold);color:#1a1407}
+
+  /* 两侧箭头 */
+  .nav{position:absolute;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:12px}
+  .nav.left{left:10px}.nav.right{right:10px}
+  .nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);
+    color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center;transition:.25s}
+  .nav button:hover{background:rgba(232,200,138,.18);color:var(--gold)}
+  @media(max-width:600px){.nav.left{left:4px}.nav.right{right:4px}.nav button{width:38px;height:38px}}
+
+  /* 指示点 */
+  .dots{position:relative;z-index:5;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    padding:10px 16px 18px}
+  .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:.25s}
+  .dots i.on{background:var(--gold);transform:scale(1.35)}
+
+  /* 大图灯箱 */
+  .lightbox{position:fixed;inset:0;z-index:50;background:rgba(5,10,14,.94);
+    display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(6px)}
+  .lightbox.show{display:flex;animation:fadeIn .25s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lightbox img{max-width:92vw;max-height:86vh;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.7);object-fit:contain}
+  .lb-close{position:absolute;top:18px;right:20px;width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:24px;cursor:pointer;display:grid;place-items:center}
+  .lb-close:hover{background:rgba(232,200,138,.2)}
+
+  .hint{position:relative;z-index:5;text-align:center;color:var(--sub);font-size:11.5px;letter-spacing:1px;padding-bottom:10px}
+</style>
+</head>
+<body>
+  <div class="glow g1"></div><div class="glow g2"></div>
+
+  <header>
+    <div class="title">陪你逛国博 · <em>国宝问答卡</em></div>
+    <div class="progress"><b id="cur">01</b> / <span id="total">22</span></div>
+  </header>
+  <div class="subline">22 件镇馆之宝 · 先猜一猜，再点“看答案”</div>
+
+  <div class="stage" id="stage">
+    <div class="track" id="track"></div>
+    <div class="nav left"><button id="prev" aria-label="上一件">‹</button></div>
+    <div class="nav right"><button id="next" aria-label="下一件">›</button></div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">左右滑动 · 点击两侧箭头 · 键盘 ← → 切换 · 点图片看大图</div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="关闭">×</button>
+    <img id="lbImg" alt="文物大图">
+  </div>
+
+  <div class="amodal" id="amodal">
+    <div class="amodal-card">
+      <button class="am-close" id="amClose" aria-label="关闭">×</button>
+      <div class="am-name" id="amName"></div>
+      <div class="am-q" id="amQ"></div>
+      <div class="am-a" id="amA"></div>
+      <button class="am-speak" id="amSpeak">🔊 朗读讲解</button>
+    </div>
+  </div>
+
+<script>
+const BASE = "https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/";
+const IMG = [
+  "RQNBbMMv9o8R58xIptpcRgGRnED","J3IPbc7vSoQ5vKxpiepcSxAknHh","DoqubQb4Jom2k1xTXyicni0QnYe",
+  "DoBHbDchRouru3xgqQKcU9hfnpB","BRBEbBxEJoE4sgxl31Rcnts0nJg","HiPdbALtmoDyyJxEkblcZWvGnjh",
+  "BMOcbpZ5moFsfHxKCGxcWp0onIC","LsFYbGBw7oyomDxAm0Lcs9iLnFd","BvyWbeEtZofObsxwUnmcmYd3nYd",
+  "NZYmbBBmdocRhNxd8QWcPk8Bn1c","TJUObo4HvoRVXFxpTu1ciMWknfd","Fm5xbjAOXoox9XxFdlVcuKjunQe",
+  "QF2obbLR2omeTFxdCygcv3H7nBf","KF8fbUeYEo0D7WxXJBocB2Y0nnb","NRUwbCNjeo3PNRxc6BAcU5QonTh",
+  "YKGobAJPPogcTbxFdR2czjrFn9O","BOQhbVG15ogyHbxLvOXcOsZYn2f","DnK0bDOyjobnD2xvpFscQLaln8E",
+  "BEtxbWPasoiGROxG2sVceXVfnad","KwcHbHFSLoAGDBxcF9ScQAWjnlc","IAiybnso0ofrXqxn8GEc8peun0b",
+  "IBLnbhlKooc2brx4RiYcAMtZnfc"
+];
+
+const DATA = [
+  {n:"鹰形陶鼎", era:"新石器时代·仰韶文化，距今约六千年", place:"B1 远古时期", tag:"slow",
+   q:"这只鹰的肚子是空的，你猜它架在火上，是干什么用的？",
+   a:"它的肚子是空的，三条腿就是支架，架在火上就能煮东西。六千年前的先民把天天看见的鹰捏成了一口锅，既实用又好看，是中国最早的雕塑之一。"},
+  {n:"玉龙", era:"红山文化，距今约五千年", place:"B1 远古时期", tag:"slow",
+   q:"这条龙没有爪子、也没有角，古人为什么把它弯成一张弓的样子？",
+   a:"它用一整块墨绿色的玉料雕成，身子弯得像一张拉满的弓，头尾正好呼应。五千年前的北方先民已经在想象龙，所以它被称为“中华第一龙”。"},
+  {n:"鹳鱼石斧图彩陶缸", era:"新石器时代·仰韶文化", place:"B1 远古时期", tag:"fast",
+   q:"缸上这只鸟嘴里叼着一条鱼、旁边立着一把斧头，你觉得它在讲一个什么故事？",
+   a:"这是六千年前画在陶缸上的中国最早“绘画”之一：鹳鸟叼鱼、石斧带柄。有人说它记的是一场部落战争，也有人说是祈求捕鱼丰收，到今天还没有定论。"},
+  {n:"后母戊鼎", era:"商王武丁时期", place:"B1 夏商西周", tag:"slow",
+   q:"它重八百多公斤，你觉得这是一口做饭的锅，还是摆给祖先看的？",
+   a:"鼎本来是煮肉的锅，商代人却把它做成祭祀重器：谁家能用几口鼎，就代表谁的地位。这一件是已知中国古代最重的青铜器。"},
+  {n:"四羊方尊", era:"商代晚期", place:"B1 夏商西周", tag:"slow",
+   q:"四只羊为什么站在尊的四个角上，而不是排在正中间？",
+   a:"尊是装酒的礼器，羊在商代是祭祀里的贵重之物。四只卷角羊各守一角，羊头探出器身，整件器物一次浇铸成形，是商代青铜工艺的顶峰。"},
+  {n:"利簋", era:"西周早期", place:"B1 夏商西周", tag:"slow",
+   q:"这口铜簋的内底刻着33个字，古人为什么要把打仗的事刻在饭器上？",
+   a:"铭文记下武王伐纣发生在甲子日清晨，和史书完全对得上。作器的人叫利，因为参加了这场战争受赏，才铸了它。这是最早的“现场记录”。"},
+  {n:"妇好鸮尊", era:"商代晚期，妇好墓出土", place:"B1 夏商西周", tag:"slow",
+   q:"这是一只猫头鹰，商代人为什么把酒壶做成猛禽的样子？",
+   a:"鸮就是猫头鹰，商代人相信它能通神、守夜。酒从背上倒进去，盖子在脑后。墓主人妇好是商王武丁的妻子，也是能带兵打仗的女将军。"},
+  {n:"子龙鼎", era:"商末周初", place:"B1 夏商西周（或三层青铜器专题厅）", tag:"fast",
+   q:"它和刚才那口后母戊鼎都是鼎，你能一眼看出最大的不同在哪吗？",
+   a:"后母戊鼎是方的，四只柱足；子龙鼎是圆的，三只蹄形足，是已知商代最大的圆鼎。它早年流散到海外，2006年才被国家征集回国。"},
+  {n:"大盂鼎", era:"西周康王时期", place:"三层二号中央大厅·青铜器专题陈列", tag:"fast",
+   q:"这口鼎的内壁密密麻麻刻了291个字，古人为什么愿意写这么长？",
+   a:"铭文记下周康王册命贵族盂，还专门讲了“殷人酗酒误国”的教训，是西周最早的长篇记事之一。字迹端正，也是学西周书法最好的范本。"},
+  {n:"虢季子白盘", era:"西周宣王时期", place:"B1 夏商西周", tag:"fast",
+   q:"这么大一口铜盘，你觉得是洗手用的，还是能当浴缸？",
+   a:"大盘用来洗浴，小盘才是洗手洗脸的。盘底111字铭文记下子白在洛水之北打败猃狁、受周王赏赐，文辞押韵，可以和《诗经》对着读。"},
+  {n:"三星堆戴冠纵目面具", era:"商代，1986年三星堆二号祭祀坑出土", place:"B1 夏商西周", tag:"fast",
+   q:"它的眼睛像两根圆管一样凸出来，你觉得它在“看”什么？",
+   a:"古蜀人把眼睛做得夸张，是在想象一位能“看穿一切”的神。额上那道高高的冠饰，三件大面具里只有这一件才有，说明它供的可能是古蜀人的祖先神。"},
+  {n:"青铜冰鉴", era:"战国", place:"B1 春秋战国", tag:"slow",
+   q:"两千多年前没有冰箱，贵族的冰镇酒是怎么来的？",
+   a:"它是个双层的“冰箱”：外层放冰块，内层装酒，中间的空隙让冷气绕着酒走。能用上它，说明当时已经有专门藏冰的冰窖了。"},
+  {n:"错金银云纹青铜犀尊", era:"西汉", place:"B1 秦汉", tag:"slow",
+   q:"犀牛背上那个盖子打开，酒会从哪里流出来？",
+   a:"从它嘴里。这是一件做成犀牛形状的酒器，背上有盖、嘴部有流。身上用金丝银丝嵌出云纹，两千年前的工匠把犀牛做得像随时会走起来。"},
+  {n:"金缕玉衣", era:"西汉，中山怀王刘修", place:"B1 秦汉", tag:"slow",
+   q:"古人为什么要用一千多片玉，把逝者整个人包起来？",
+   a:"汉代人相信玉能让身体不腐，就用金丝把1203片玉片缀成一件“衣服”，只有诸侯王这一级才穿得起。这一件的主人是西汉中山怀王刘修。"},
+  {n:"阳陵虎符", era:"秦", place:"B1 秦汉", tag:"fast",
+   q:"这只小老虎从中间掰成两半，一半在皇帝手里，另一半在谁手里？",
+   a:"在阳陵守将手里。两半对合严丝合缝才能发兵，所以后来才有“符合”这个词。背上12字错金铭文写着“右在皇帝，左在阳陵”，这就是秦代的调兵凭证。"},
+  {n:"滇王之印", era:"西汉，云南晋宁石寨山出土", place:"B1 秦汉", tag:"fast",
+   q:"一枚只有拇指大的金印，为什么能证明一整个王国的存在？",
+   a:"蛇钮金印上刻着“滇王之印”四个字，是汉武帝赐给滇王的。司马迁写过“滇王降汉、赐王印”，两千年后这枚印真的从墓里挖了出来，书和实物对上了。"},
+  {n:"击鼓说唱俑", era:"东汉", place:"B1 秦汉", tag:"slow",
+   q:"看他的表情和姿势，你猜他靠什么吃饭？",
+   a:"他是汉代的俳优，就是说唱艺人。左手抱鼓、右手举槌，一只脚高高抬起，笑得眼睛都弯了——工匠把正在讲笑话的一瞬间留了下来。"},
+  {n:"青瓷莲花尊", era:"北朝", place:"B1 三国两晋南北朝", tag:"slow",
+   q:"一只装酒的瓶子，为什么从下到上都开满了莲花？",
+   a:"南北朝佛教盛行，莲花象征清净，于是连酒器和随葬品都做成莲花的样子。层层莲瓣向上翻卷，釉色青绿，是那个时期青瓷的最高水平。"},
+  {n:"青瓷香熏", era:"西晋", place:"B1 三国两晋南北朝", tag:"fast",
+   q:"这个圆球表面开了一圈三角孔，把香料放进去会怎么样？",
+   a:"烟会从三角孔里散出来，底下的托盘接住落下的灰。魏晋的士人讲究熏衣、熏被，连随身小香炉都做成盖着小鸟的球形，轻巧又好看。"},
+  {n:"三彩釉陶载乐骆驼", era:"唐", place:"B1 隋唐五代", tag:"slow",
+   q:"骆驼背上挤了五个人，他们为什么要在驼背上开一场音乐会？",
+   a:"五个汉人、胡人乐手围坐，中间一人在跳舞。唐三彩用低温釉烧出斑斓的颜色。骆驼载乐，正说明当年的丝绸之路上人来人往，音乐也是混着听的。"},
+  {n:"孝端皇后九龙九凤冠", era:"明·万历", place:"北16展厅「明礼华章」", tag:"slow",
+   q:"这顶帽子重2.3公斤，你觉得皇后平时会戴它出门吗？",
+   a:"不会。只有册封、祭庙、朝会这些大典才戴。冠上有九条金龙、九只点翠凤，镶115块宝石、4414颗珍珠，是万历皇帝皇后的礼帽。"},
+  {n:"霁青釉金彩海晏河清尊", era:"清", place:"B1 明清", tag:"slow",
+   q:"这只瓷尊肩膀上停着两只白色小鸟，名字里的“海晏河清”又是什么意思？",
+   a:"它是景德镇为圆明园海晏堂烧的陈设瓷，肩上的鸟是燕子。“海晏”指大海平静，“河清”指黄河变清，合起来就是天下太平的意思。"}
+];
+
+const track = document.getElementById("track");
+const dots = document.getElementById("dots");
+const curEl = document.getElementById("cur");
+document.getElementById("total").textContent = DATA.length;
+let current = 0;
+const cards = [];
+
+const lightbox = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+function openLb(src){ lbImg.src=src; lightbox.classList.add("show"); }
+function closeLb(){ lightbox.classList.remove("show"); lbImg.src=""; }
+document.getElementById("lbClose").addEventListener("click",closeLb);
+lightbox.addEventListener("click",e=>{ if(e.target===lightbox) closeLb(); });
+
+const amodal = document.getElementById("amodal");
+const amName = document.getElementById("amName");
+const amQ = document.getElementById("amQ");
+const amA = document.getElementById("amA");
+const amSpeak = document.getElementById("amSpeak");
+let speaking = false;
+let cur = null;
+
+function resetSpeak(){
+  speaking = false;
+  amSpeak.classList.remove("on");
+  amSpeak.textContent = "🔊 朗读讲解";
+  if("speechSynthesis" in window) speechSynthesis.cancel();
+}
+function speakAnswer(){
+  if(!("speechSynthesis" in window)){ amSpeak.textContent = "当前浏览器不支持朗读"; return; }
+  if(speaking){ resetSpeak(); return; }
+  const text = `这是${cur.n}。${cur.q}${cur.a}。`;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN"; u.rate = 1; u.pitch = 1;
+  u.onend = resetSpeak; u.onerror = resetSpeak;
+  speaking = true;
+  amSpeak.classList.add("on");
+  amSpeak.textContent = "⏹ 停止朗读";
+  speechSynthesis.speak(u);
+}
+amSpeak.addEventListener("click",speakAnswer);
+
+function openAnswer(i){
+  const d=DATA[i];
+  cur = d;
+  resetSpeak();
+  amName.textContent = String(i+1).padStart(2,"0") + " · " + d.n;
+  amQ.textContent = d.q;
+  amA.textContent = d.a;
+  amodal.classList.add("show");
+}
+function closeAnswer(){ resetSpeak(); amodal.classList.remove("show"); }
+document.getElementById("amClose").addEventListener("click",closeAnswer);
+amodal.addEventListener("click",e=>{ if(e.target===amodal) closeAnswer(); });
+
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeLb(); closeAnswer(); } });
+
+DATA.forEach((d,i)=>{
+  const el = document.createElement("div");
+  el.className = "card";
+  el.innerHTML = `
+    <div class="imgbox"><img src="${BASE+IMG[i]}" alt="${d.n}" draggable="false"></div>
+    <div class="body">
+      <div class="tags">
+        <span class="pill meta">${d.place}</span>
+      </div>
+      <div>
+        <div class="cname">${String(i+1).padStart(2,"0")} · ${d.n}</div>
+        <div class="cmeta">${d.era}</div>
+      </div>
+      <div class="q"><span>${d.q}</span></div>
+      <button class="ansbtn" id="btn${i}">看答案</button>
+    </div>
+    <div class="watermark">${String(i+1).padStart(2,"0")}</div>`;
+  track.appendChild(el);
+  cards.push(el);
+
+  const btn = el.querySelector(".ansbtn");
+  btn.addEventListener("click",ev=>{ ev.stopPropagation(); openAnswer(i); });
+
+  const img = el.querySelector(".imgbox img");
+  img.addEventListener("click",ev=>{ev.stopPropagation();openLb(img.src)});
+
+  const dot = document.createElement("i");
+  dot.addEventListener("click",()=>go(i));
+  dots.appendChild(dot);
+});
+
+function layout(){
+  const w = window.innerWidth;
+  const side = w < 600 ? 150 : 330;
+  cards.forEach((el,i)=>{
+    const d = i - current;
+    const ad = Math.abs(d);
+    let x=0, y=0, scale=1, rot=0, op=1, z=3, blur=0;
+    if(ad===0){x=0;scale=1;rot=0;op=1;z=3}
+    else if(ad===1){x=d*side;scale=.82;rot=-d*16;op=.5;z=2}
+    else if(ad===2){x=d*side*1.65;scale=.66;rot=-d*26;op=.5;z=1}
+    else {x=d*side*2.1;scale=.55;rot=-d*30;op=0;z=0}
+    el.style.transform=`translate3d(${x}px,${y}px,0) rotateY(${rot}deg) scale(${scale})`;
+    el.style.opacity=op;
+    el.style.zIndex=z;
+    el.classList.toggle("active",ad===0);
+    el.style.pointerEvents = ad<=1 ? "auto" : "none";
+  });
+  curEl.textContent = String(current+1).padStart(2,"0");
+  [...dots.children].forEach((dot,i)=>dot.classList.toggle("on",i===current));
+}
+
+function go(i){
+  i=Math.max(0,Math.min(DATA.length-1,i));
+  if(i===current)return;
+  closeAnswer(); current=i; layout();
+}
+
+document.getElementById("prev").addEventListener("click",()=>go(current-1));
+document.getElementById("next").addEventListener("click",()=>go(current+1));
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft")go(current-1);
+  if(e.key==="ArrowRight")go(current+1);
+});
+
+/* 触摸 / 鼠标拖拽 */
+let sx=0, sy=0, dragging=false;
+const stage=document.getElementById("stage");
+function start(x,y){sx=x;sy=y;dragging=true}
+function end(x,y){
+  if(!dragging)return; dragging=false;
+  const dx=x-sx, dy=y-sy;
+  if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)){ dx<0 ? go(current+1) : go(current-1); }
+}
+stage.addEventListener("touchstart",e=>start(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+stage.addEventListener("touchend",e=>end(e.changedTouches[0].clientX,e.changedTouches[0].clientY));
+stage.addEventListener("mousedown",e=>start(e.clientX,e.clientY));
+window.addEventListener("mouseup",e=>end(e.clientX,e.clientY));
+
+window.addEventListener("resize",layout);
+layout();
+</script>
+</body>
+</html>

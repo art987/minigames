@@ -627,7 +627,7 @@ body {
 /* è¡Œä¸šé€‰æ‹© */
 .industry-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(3, 1fr);  /* 固定三列，任何设备都不变 */
   gap: 12px;
 }
 .industry-item {
@@ -660,7 +660,7 @@ body {
 .ind-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;              /* 按钮紧跟在行业名后面 */
   padding: 10px 0;
   margin-bottom: 14px;
   margin-right: 20px;
@@ -1251,7 +1251,7 @@ body.debug-on .ptag-slogan:hover {
 
   /* stage 高度限制 —— 给底部按钮留空间 */
   .stage {
-    min-height: 380px;
+    min-height: 540px;   /* 主卡放大到 2/3 屏宽后（高约 1.41 倍宽），给足纵向空间 */
     padding: 36px 4px 140px; /* 顶部翻页按钮空间 + 底部操作栏空间 */
     overflow: visible;
   }
@@ -1335,7 +1335,7 @@ body.debug-on .ptag-slogan:hover {
 
   .stage {
     padding: 32px 2px 89px;
-    min-height: 330px;
+    min-height: 480px;
   }
   .nav-btn {width: 38px;height: 38px;font-size: 39px;}
 

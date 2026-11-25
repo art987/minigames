@@ -17,8 +17,8 @@
 
   // ---------- 状态 ----------
   let state = {
-    industry: 'vegetable',
-    templateId: 'V01',
+    industry: 'common',
+    templateId: 'G01',
     products: [],
     index: 0
   };
@@ -42,7 +42,7 @@
       const saved = JSON.parse(raw);
       if (!saved || !Array.isArray(saved.products) || !saved.products.length) return false;
       if (!window.TMPLRender.tplById(saved.templateId)) return false;
-      state.industry = saved.industry || 'vegetable';
+      state.industry = saved.industry || 'common';
       state.templateId = saved.templateId;
       state.products = saved.products.map(function (p) {
         return {
@@ -180,7 +180,7 @@
 
   function industryLabel(id) {
     const ind = window.TMPL_INDUSTRIES.find(function (i) { return i.id === id; });
-    return ind ? ind.label : '';
+    return ind ? (ind.emoji ? ind.emoji + ' ' : '') + ind.label : '';
   }
 
   // ---------- 模板切换（当前行业内循环） ----------
@@ -761,9 +761,9 @@
   function layoutSlides(instant) {
     slides.classList.toggle('no-anim', !!instant);
     const children = slides.children;
-    // 手机端降低侧卡偏移比例（否则超出 stage 被裁）
-    const side1 = window.innerWidth <= 768 ? 55 : 72;   // 相邻卡偏移%
-    const side2 = window.innerWidth <= 768 ? 90 : 130;  // 远端卡偏移%
+    // 手机端侧卡只露窄边（translateX 越小越贴近主卡身后），把宽度让给主卡
+    const side1 = window.innerWidth <= 768 ? 22 : 72;   // 相邻卡偏移%
+    const side2 = window.innerWidth <= 768 ? 48 : 130;  // 远端卡偏移%
     for (let i = 0; i < children.length; i++) {
       const off = i - state.index;
       const el = children[i];
@@ -823,31 +823,34 @@
     const H = stage.clientHeight;
 
     // 固定元素占用的水平空间
-    //   翻页按钮：左44 + 右44 + 边距
+    //   手机端：翻页按钮直接叠在侧卡上（absolute 定位），只预留极小空间
     const navBtnSize = isMobile ? 44 : 50;
-    const navMargin = isMobile ? 6 : 10;
-    const navTotal = (navBtnSize + navMargin) * 2; // 两侧合计
+    const navMargin = isMobile ? 4 : 10;
+    const navTotal = isMobile ? 8 : (navBtnSize + navMargin) * 2;
 
     // 两侧露出小卡占用的水平空间
     //   相邻卡 translateX(side1%) scale(0.8) ≈ side1% * 0.8
-    const sidePct = isMobile ? 0.55 * 0.8 : 0.72 * 0.8; // 相邻卡
+    //   手机端 side1 只露窄边（见 layoutSlides），主卡尽量放大
+    const sidePct = isMobile ? 0.22 * 0.8 : 0.72 * 0.8; // 相邻卡
     //   两侧都有 → 2 * sidePct
     const sideSpacePct = sidePct * 2;
 
     // frameW 必须满足：navTotal + frameW * (1 + sideSpacePct) <= W
     // → frameW <= (W - navTotal) / (1 + sideSpacePct)
     const availW = Math.max(120, (W - navTotal) / (1 + sideSpacePct));
-    // 垂直方向：stage padding 已预留底部操作栏空间，这里按可用高度算
-    const availH = Math.max(150, H - (isMobile ? 80 : 128));
+    // 垂直方向：底部圆点/操作栏为浮层，手机端少留一点
+    const availH = Math.max(150, H - (isMobile ? 70 : 128));
 
     // A4 比例约束
     let frameH = Math.min(availH, (availW * 297) / 210);
     let frameW = (frameH * 210) / 297;
 
-    // 手机端上限 — 不要大到超出屏幕
     if (isMobile) {
-      const maxW = Math.min(window.innerWidth - 24, 360);
-      if (frameW > maxW) { frameW = maxW; frameH = (frameW * 297) / 210; }
+      // 手机端目标：主卡宽度至少占屏幕 2/3（宽度优先，高度不够时由 capByH 兜底）
+      const target = (window.innerWidth - 16) * 2 / 3;
+      const capByH = (availH * 210) / 297;
+      frameW = Math.max(frameW, Math.min(target, capByH));
+      frameH = (frameW * 297) / 210;
     }
 
     slideFrame.style.width = frameW + 'px';

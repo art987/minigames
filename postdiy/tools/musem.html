@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>国博带娃文物卡｜一问一答</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:20px 0;
+}
+.wrap{
+  width:100%;
+  max-width:420px;
+  height:82vh;
+  position:relative;
+  perspective:1200px;
+}
+.card-container{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+.card{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#111;
+  border-radius:18px;
+  overflow:hidden;
+  transform-origin:center center;
+  transition:transform 0.4s ease,opacity 0.4s ease;
+  display:flex;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  border:1px solid #222;
+}
+.card.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0) scale(1);
+  z-index:10;
+}
+.card.prev{
+  transform:translateX(-85%) scale(0.82) rotateY(12deg);
+  opacity:0.45;
+  z-index:5;
+}
+.card.next{
+  transform:translateX(85%) scale(0.82) rotateY(-12deg);
+  opacity:0.45;
+  z-index:5;
+}
+.img-box{
+  width:100%;
+  flex:1;
+  background:#0a0a0a;
+  cursor:pointer;
+}
+.img-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain; /* 完整显示图片，不裁切 */
+  display:block;
+}
+.card-body{
+  padding:16px 18px;
+  flex-shrink:0;
+}
+.title{
+  font-size:28px;
+  font-weight:bold;
+  margin-bottom:6px;
+  color:#fff;
+}
+.info{
+  font-size:14px;
+  color:#aaa;
+  margin-bottom:14px;
+}
+.question{
+  font-size:17px;
+  color:#ffd782;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+.answer-wrap{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease;
+}
+.answer-wrap.open{
+  max-height:220px;
+}
+.answer{
+  font-size:15px;
+  color:#ddd;
+  line-height:1.55;
+}
+.btn-toggle{
+  margin-top:12px;
+  padding:8px 16px;
+  background:#222;
+  color:#fff;
+  border:1px solid #444;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+}
+.nav-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:rgba(40,40,40,0.75);
+  color:#fff;
+  border:none;
+  font-size:22px;
+  z-index:20;
+  cursor:pointer;
+}
+.arrow-left{left:-10px;}
+.arrow-right{right:-10px;}
+.dots{
+  display:flex;
+  gap:8px;
+  position:absolute;
+  bottom:-32px;
+  left:50%;
+  transform:translateX(-50%);
+}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#333;
+}
+.dot.active{background:#fff;}
+.progress{
+  position:absolute;
+  top:-28px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:14px;
+  color:#999;
+}
+/* 大图弹窗 */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.92);
+  z-index:999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+.modal.show{display:flex;}
+.modal img{
+  max-width:100%;
+  max-height:90vh;
+  object-fit:contain;
+}
+.modal-close{
+  position:absolute;
+  top:16px;
+  right:20px;
+  font-size:32px;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="progress" id="progress">1/22</div>
+  <div class="card-container" id="cardWrap"></div>
+  <button class="nav-arrow arrow-left" id="btnLeft">‹</button>
+  <button class="nav-arrow arrow-right" id="btnRight">›</button>
+  <div class="dots" id="dots"></div>
+</div>
+
+<!-- 大图弹窗 -->
+<div class="modal" id="modal">
+  <span class="modal-close" id="modalClose">×</span>
+  <img id="modalImg" src="" alt="">
+</div>
+
+<script>
+const data = [
+  {
+    title:"鹰形陶鼎",
+    info:"新石器时代·仰韶文化｜B1 远古时期",
+    imgUrl:"https://xxx/yingxingtaoding.jpg",
+    question:"这只鹰的肚子是空的，你猜它架在火上，是干什么用的？",
+    answer:"它的肚子是空的，三条腿就是支架，架在火上就能煮东西。六千年前的先民把天天看见的鹰捏成了一口锅，既实用又好看，是中国最早的雕塑之一。"
+  },
+  {
+    title:"玉龙",
+    info:"红山文化｜B1 远古时期",
+    imgUrl:"https://xxx/yulong.jpg",
+    question:"这条龙没有爪子、也没有角，古人为什么把它弯成一张弓的样子？",
+    answer:"它用一整块墨绿色的玉料雕成，身子弯得像一张拉满的弓，头尾正好呼应。五千年前的北方先民已经在想象龙，所以它被称为“中华第一龙”。"
+  },
+  {
+    title:"鹳鱼石斧图彩陶缸",
+    info:"新石器时代·仰韶文化｜B1 远古时期",
+    imgUrl:"https://xxx/guanyushifu.jpg",
+    question:"缸上这只鸟嘴里叼着一条鱼、旁边立着一把斧头，你觉得它在讲一个什么故事？",
+    answer:"这是六千年前画在陶缸上的中国最早“绘画”之一：鹳鸟叼鱼、石斧带柄。有人说它记的是一场部落战争，也有人说是祈求捕鱼丰收，到今天还没有定论。"
+  },
+  {
+    title:"后母戊鼎",
+    info:"商王武丁时期｜B1 夏商西周",
+    imgUrl:"https://xxx/houmowuding.jpg",
+    question:"它重八百多公斤，你觉得这是一口做饭的锅，还是摆给祖先看的？",
+    answer:"鼎本来是煮肉的锅，商代人却把它做成祭祀重器：谁家能用几口鼎，就代表谁的地位。这一件是已知中国古代最重的青铜器。"
+  },
+  {
+    title:"四羊方尊",
+    info:"商代晚期｜B1 夏商西周",
+    imgUrl:"https://xxx/siyangfangzun.jpg",
+    question:"四只羊为什么站在尊的四个角上，而不是排在正中间？",
+    answer:"尊是装酒的礼器，羊在商代是祭祀里的贵重之物。四只卷角羊各守一角，羊头探出器身，整件器物一次浇铸成形，是商代青铜工艺的顶峰。"
+  },
+  {
+    title:"利簋",
+    info:"西周早期｜B1 夏商西周",
+    imgUrl:"https://xxx/ligui.jpg",
+    question:"这口铜簋的内底刻着33个字，古人为什么要把打仗的事刻在饭器上？",
+    answer:"铭文记下武王伐纣发生在甲子日清晨，和史书完全对得上。作器的人叫利，因为参加了这场战争受赏，才铸了它。这是最早的“现场记录”。"
+  },
+  {
+    title:"妇好鸮尊",
+    info:"商代晚期，妇好墓出土｜B1 夏商西周",
+    imgUrl:"https://xxx/fuhaoxiaozun.jpg",
+    question:"这是一只猫头鹰，商代人为什么把酒壶做成猛禽的样子？",
+    answer:"鸮就是猫头鹰，商代人相信它能通神、守夜。酒从背上倒进去，盖子在脑后。墓主人妇好是商王武丁的妻子，也是能带兵打仗的女将军。"
+  },
+  {
+    title:"子龙鼎",
+    info:"商末周初｜B1 夏商西周",
+    imgUrl:"https://xxx/zilongding.jpg",
+    question:"它和刚才那口后母戊鼎都是鼎，你能一眼看出最大的不同在哪吗？",
+    answer:"后母戊鼎是方的，四只柱足；子龙鼎是圆的，三只蹄形足，是已知商代最大的圆鼎。它早年流散到海外，2006年才被国家征集回国。"
+  },
+  {
+    title:"大盂鼎",
+    info:"西周康王时期｜三层青铜器专题厅",
+    imgUrl:"https://xxx/dayuding.jpg",
+    question:"这口鼎的内壁密密麻麻刻了291个字，古人为什么愿意写这么长？",
+    answer:"铭文记下周康王册命贵族盂，还专门讲了“殷人酗酒误国”的教训，是西周最早的长篇记事之一。字迹端正，也是学西周书法最好的范本。"
+  },
+  {
+    title:"虢季子白盘",
+    info:"西周宣王时期｜B1 夏商西周",
+    imgUrl:"https://xxx/guojizibaipan.jpg",
+    question:"这么大一口铜盘，你觉得是洗手用的，还是能当浴缸？",
+    answer:"大盘用来洗浴，小盘才是洗手洗脸的。盘底111字铭文记下子白在洛水之北打败猃狁、受周王赏赐，文辞押韵，可以和《诗经》对着读。"
+  },
+  {
+    title:"三星堆戴冠纵目面具",
+    info:"商代｜B1 夏商西周",
+    imgUrl:"https://xxx/zongmumianju.jpg",
+    question:"它的眼睛像两根圆管一样凸出来，你觉得它在“看”什么？",
+    answer:"古蜀人把眼睛做得夸张，是在想象一位能“看穿一切”的神。额上那道高高的冠饰，三件大面具里只有这一件才有，说明它供的可能是古蜀人的祖先神。"
+  },
+  {
+    title:"青铜冰鉴",
+    info:"战国｜B1 春秋战国",
+    imgUrl:"https://xxx/bingjian.jpg",
+    question:"两千多年前没有冰箱，贵族的冰镇酒是怎么来的？",
+    answer:"它是个双层的“冰箱”：外层放冰块，内层装酒，中间的空隙让冷气绕着酒走。能用上它，说明当时已经有专门藏冰的冰窖了。"
+  },
+  {
+    title:"错金银云纹青铜犀尊",
+    info:"西汉｜B1 秦汉",
+    imgUrl:"https://xxx/xizun.jpg",
+    question:"犀牛背上那个盖子打开，酒会从哪里流出来？",
+    answer:"从它嘴里。这是一件做成犀牛形状的酒器，背上有盖、嘴部有流。身上用金丝银丝嵌出云纹，两千年前的工匠把犀牛做得像随时会走起来。"
+  },
+  {
+    title:"金缕玉衣",
+    info:"西汉，中山怀王刘修｜B1 秦汉",
+    imgUrl:"https://xxx/jinlvyuyi.jpg",
+    question:"古人为什么要用一千多片玉，把逝者整个人包起来？",
+    answer:"汉代人相信玉能让身体不腐，就用金丝把1203片玉片缀成一件“衣服”，只有诸侯王这一级才穿得起。这一件的主人是西汉中山怀王刘修。"
+  },
+  {
+    title:"阳陵虎符",
+    info:"秦｜B1 秦汉",
+    imgUrl:"https://xxx/hufu.jpg",
+    question:"这只小老虎从中间掰成两半，一半在皇帝手里，另一半在谁手里？",
+    answer:"在阳陵守将手里。两半对合严丝合缝才能发兵，所以后来才有“符合”这个词。背上12字错金铭文写着“右在皇帝，左在阳陵”，这就是秦代的调兵凭证。"
+  },
+  {
+    title:"滇王之印",
+    info:"西汉｜B1 秦汉",
+    imgUrl:"https://xxx/dianwangzhiyin.jpg",
+    question:"一枚只有拇指大的金印，为什么能证明一整个王国的存在？",
+    answer:"蛇钮金印上刻着“滇王之印”四个字，是汉武帝赐给滇王的。司马迁写过“滇王降汉、赐王印”，两千年后这枚印真的从墓里挖了出来，书和实物对上了。"
+  },
+  {
+    title:"击鼓说唱俑",
+    info:"东汉｜B1 秦汉",
+    imgUrl:"https://xxx/shuochangyong.jpg",
+    question:"看他的表情和姿势，你猜他靠什么吃饭？",
+    answer:"他是汉代的俳优，就是说唱艺人。左手抱鼓、右手举槌，一只脚高高抬起，笑得眼睛都弯了——工匠把正在讲笑话的一瞬间留了下来。"
+  },
+  {
+    title:"青瓷莲花尊",
+    info:"北朝｜B1 魏晋南北朝",
+    imgUrl:"https://xxx/lianhua zun.jpg",
+    question:"一只装酒的瓶子，为什么从下到上都开满了莲花？",
+    answer:"南北朝佛教盛行，莲花象征清净，于是连酒器和随葬品都做成莲花的样子。层层莲瓣向上翻卷，釉色青绿，是那个时期青瓷的最高水平。"
+  },
+  {
+    title:"青瓷香熏",
+    info:"西晋｜B1 魏晋南北朝",
+    imgUrl:"https://xxx/xiangxun.jpg",
+    question:"这个圆球表面开了一圈三角孔，把香料放进去会怎么样？",
+    answer:"烟会从三角孔里散出来，底下的托盘接住落下的灰。魏晋的士人讲究熏衣、熏被，连随身小香炉都做成盖着小鸟的球形，轻巧又好看。"
+  },
+  {
+    title:"三彩釉陶载乐骆驼",
+    info:"唐｜B1 隋唐五代",
+    imgUrl:"https://xxx/sancaituoluo.jpg",
+    question:"骆驼背上挤了五个人，他们为什么要在驼背上开一场音乐会？",
+    answer:"五个汉人、胡人乐手围坐，中间一人在跳舞。唐三彩用低温釉烧出斑斓的颜色。骆驼载乐，正说明当年的丝绸之路上人来人往，音乐也是混着听的。"
+  },
+  {
+    title:"孝端皇后九龙九凤冠",
+    info:"明·万历｜北16展厅",
+    imgUrl:"https://xxx/fengguan.jpg",
+    question:"这顶帽子重2.3公斤，你觉得皇后平时会戴它出门吗？",
+    answer:"不会。只有册封、祭庙、朝会这些大典才戴。冠上有九条金龙、九只点翠凤，镶115块宝石、4414颗珍珠，是万历皇帝皇后的礼帽。"
+  },
+  {
+    title:"霁青釉金彩海晏河清尊",
+    info:"清｜B1 明清",
+    imgUrl:"https://xxx/haiyanheqingzun.jpg",
+    question:"这只瓷尊肩膀上停着两只白色小鸟，名字里的“海晏河清”又是什么意思？",
+    answer:"它是景德镇为圆明园海晏堂烧的陈设瓷，肩上的鸟是燕子。“海晏”指大海平静，“河清”指黄河变清，合起来就是天下太平的意思。"
+  }
+];
+
+let currentIndex = 0;
+const cardWrap = document.getElementById('cardWrap');
+const dotsWrap = document.getElementById('dots');
+const progressDom = document.getElementById('progress');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
+
+// 渲染卡片
+function render(){
+  cardWrap.innerHTML = '';
+  dotsWrap.innerHTML = '';
+  progressDom.innerText = `${currentIndex+1}/${data.length}`;
+  data.forEach((item,idx)=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    if(idx === currentIndex) card.classList.add('active');
+    if(idx === currentIndex -1) card.classList.add('prev');
+    if(idx === currentIndex +1) card.classList.add('next');
+    card.innerHTML = `
+      <div class="img-box"><img src="${item.imgUrl}" alt="${item.title}"></div>
+      <div class="card-body">
+        <div class="title">${item.title}</div>
+        <div class="info">${item.info}</div>
+        <div class="question">❓ ${item.question}</div>
+        <div class="answer-wrap">
+          <div class="answer">${item.answer}</div>
+        </div>
+        <button class="btn-toggle">看答案</button>
+      </div>
+    `;
+    // 大图弹窗
+    card.querySelector('.img-box img').onclick = ()=>{
+      modalImg.src = item.imgUrl;
+      modal.classList.add('show');
+    }
+    // 展开答案
+    const toggleBtn = card.querySelector('.btn-toggle');
+    const ansWrap = card.querySelector('.answer-wrap');
+    toggleBtn.onclick = ()=>{
+      ansWrap.classList.toggle('open');
+      toggleBtn.innerText = ansWrap.classList.contains('open') ? '收起' : '看答案';
+    }
+    cardWrap.appendChild(card);
+    // 圆点
+    const dot = document.createElement('div');
+    dot.className = 'dot'+(idx===currentIndex?' active':'');
+    dot.onclick = ()=>goTo(idx);
+    dotsWrap.appendChild(dot);
+  })
+}
+function goTo(i){
+  currentIndex = Math.max(0,Math.min(i,data.length-1));
+  render();
+}
+document.getElementById('btnLeft').onclick = ()=>goTo(currentIndex-1);
+document.getElementById('btnRight').onclick = ()=>goTo(currentIndex+1);
+// 键盘
+document.onkeydown = e=>{
+  if(e.key==='ArrowLeft') goTo(currentIndex-1);
+  if(e.key==='ArrowRight') goTo(currentIndex+1);
+}
+// 触屏滑动
+let startX=0,moveX=0;
+cardWrap.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+cardWrap.addEventListener('touchmove',e=>moveX=e.touches[0].clientX);
+cardWrap.addEventListener('touchend',()=>{
+  const diff = moveX - startX;
+  if(Math.abs(diff)>40){
+    if(diff>0) goTo(currentIndex-1);
+    else goTo(currentIndex+1);
+  }
+  startX=moveX=0;
+})
+// 关闭大图
+modalClose.onclick = ()=>modal.classList.remove('show');
+modal.onclick = (e)=>{if(e.target===modal) modal.classList.remove('show');}
+document.onkeydown = e=>{
+  if(e.key==='Escape') modal.classList.remove('show');
+}
+render();
+</script>
+</body>
+</html>

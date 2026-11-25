@@ -3,16 +3,18 @@ import { useWorkbench } from './store/workbench'
 import KnitCanvas from './components/KnitCanvas'
 import ParamsPanel from './components/ParamsPanel'
 import PalettePanel from './components/PalettePanel'
-import ImageUploader from './components/ImageUploader'
 import WorkList from './components/WorkList'
+import SetupPanel from './components/SetupPanel'
+import ComposeView from './components/ComposeView'
 import { exportAkn, exportPatternPng, exportChartPng } from './lib/exporters'
 
 export default function App() {
+  const stage = useWorkbench((s) => s.stage)
   const projectName = useWorkbench((s) => s.projectName)
   const setProjectName = useWorkbench((s) => s.setProjectName)
   const matrix = useWorkbench((s) => s.matrix)
   const save = useWorkbench((s) => s.save)
-  const newProject = useWorkbench((s) => s.newProject)
+  const startNew = useWorkbench((s) => s.startNew)
   const dirty = useWorkbench((s) => s.dirty)
   const tool = useWorkbench((s) => s.tool)
   const setTool = useWorkbench((s) => s.setTool)
@@ -51,13 +53,14 @@ export default function App() {
     const s = useWorkbench.getState()
     if (s.matrix.length === 0) return
     if (kind === 'akn') exportAkn(s.projectName, s.params, s.palette.colors, s.matrix)
-    if (kind === 'png') exportPatternPng(s.palette.colors, s.matrix, s.projectName)
-    if (kind === 'chart') exportChartPng(s.palette.colors, s.matrix, s.projectName)
+    if (kind === 'png') exportPatternPng(s.palette.colors, s.matrix, s.projectName, s.bgColor)
+    if (kind === 'chart') exportChartPng(s.palette.colors, s.matrix, s.projectName, 16, s.bgColor)
     setShowExport(false)
     showToast('导出已开始下载')
   }
 
   const selectedColor = palette.colors.find((c) => c.index === selectedColorIndex)
+  const isEdit = stage === 'edit'
 
   return (
     <div className="flex h-screen flex-col bg-zinc-900 text-zinc-100">
@@ -111,7 +114,7 @@ export default function App() {
         <button onClick={() => setShowWorks((v) => !v)} className="rounded px-3 py-1.5 text-xs text-zinc-300 hover:bg-zinc-800">
           本地作品
         </button>
-        <button onClick={newProject} className="rounded px-3 py-1.5 text-xs text-zinc-300 hover:bg-zinc-800">
+        <button onClick={startNew} className="rounded px-3 py-1.5 text-xs text-zinc-300 hover:bg-zinc-800">
           新建
         </button>
         <button
@@ -124,29 +127,35 @@ export default function App() {
       </header>
 
       <div className="flex min-h-0 flex-1">
-        {/* 左侧：参数 + 色卡 */}
-        <aside className="w-72 shrink-0 space-y-5 overflow-y-auto border-r border-zinc-800 bg-zinc-950 p-4">
-          <section>
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">转换参数</h2>
-            <ParamsPanel />
-          </section>
-          {palette.colors.length > 0 && (
+        {/* 左侧：参数 + 色卡（仅编辑阶段） */}
+        {isEdit && (
+          <aside className="w-72 shrink-0 space-y-5 overflow-y-auto border-r border-zinc-800 bg-zinc-950 p-4">
             <section>
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">色卡</h2>
-              <PalettePanel />
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">转换参数</h2>
+              <ParamsPanel />
             </section>
-          )}
-        </aside>
+            {palette.colors.length > 0 && (
+              <section>
+                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">色卡</h2>
+                <PalettePanel />
+              </section>
+            )}
+          </aside>
+        )}
 
-        {/* 中央：画布 */}
+        {/* 中央：按阶段渲染 */}
         <main className="relative min-w-0 flex-1 bg-[#1e1e24]">
-          {matrix.length === 0 ? (
-            <ImageUploader />
+          {stage === 'setup' && <SetupPanel />}
+          {stage === 'compose' && <ComposeView />}
+          {isEdit && (matrix.length === 0 ? (
+            <div className="flex h-full items-center justify-center text-sm text-zinc-500">
+              还没有图案，点击右上角「新建」开始创作，或在「本地作品」中打开
+            </div>
           ) : (
             <KnitCanvas />
-          )}
+          ))}
           {/* 工具条 */}
-          {matrix.length > 0 && (
+          {isEdit && matrix.length > 0 && (
             <div className="absolute left-3 top-3 flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900/90 p-1.5 shadow-lg">
               <label className="relative h-7 w-7 cursor-pointer rounded border border-zinc-600" style={{ background: selectedColor?.hex ?? '#fff' }} title="当前画笔颜色" />
               <button

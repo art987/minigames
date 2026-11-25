@@ -36,8 +36,8 @@ export function exportAkn(
   downloadBlob(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }), `${sanitize(name)}.akn.json`)
 }
 
-/** 一格一像素的成品图案 PNG */
-export function exportPatternPng(colors: AknColor[], matrix: number[][], name: string) {
+/** 一格一像素的成品图案 PNG（空格用背景色填充） */
+export function exportPatternPng(colors: AknColor[], matrix: number[][], name: string, bgColor = '#ffffff') {
   const rows = matrix.length
   const cols = matrix[0]?.length ?? 0
   if (!rows || !cols) return
@@ -48,7 +48,7 @@ export function exportPatternPng(colors: AknColor[], matrix: number[][], name: s
   const colorMap = new Map(colors.map((c) => [c.index, c.hex]))
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      ctx.fillStyle = colorMap.get(matrix[y][x]) ?? '#ffffff'
+      ctx.fillStyle = colorMap.get(matrix[y][x]) ?? bgColor
       ctx.fillRect(x, y, 1, 1)
     }
   }
@@ -58,7 +58,7 @@ export function exportPatternPng(colors: AknColor[], matrix: number[][], name: s
 }
 
 /** 带行列号编织图纸 PNG（每 10 针/行加粗线，方便对照编织） */
-export function exportChartPng(colors: AknColor[], matrix: number[][], name: string, cell = 16) {
+export function exportChartPng(colors: AknColor[], matrix: number[][], name: string, cell = 16, bgColor = '#ffffff') {
   const rows = matrix.length
   const cols = matrix[0]?.length ?? 0
   if (!rows || !cols) return
@@ -67,14 +67,14 @@ export function exportChartPng(colors: AknColor[], matrix: number[][], name: str
   canvas.width = margin + cols * cell
   canvas.height = margin + rows * cell
   const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = '#ffffff'
+  ctx.fillStyle = bgColor
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   const colorMap = new Map(colors.map((c) => [c.index, c.hex]))
 
   // 格子
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      ctx.fillStyle = colorMap.get(matrix[y][x]) ?? '#ffffff'
+      ctx.fillStyle = colorMap.get(matrix[y][x]) ?? bgColor
       ctx.fillRect(margin + x * cell, margin + y * cell, cell, cell)
     }
   }
