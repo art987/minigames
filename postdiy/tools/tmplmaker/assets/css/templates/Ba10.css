@@ -1,41 +1,105 @@
 /* 模板 Ba10（母婴）— 默认占位样式，后续可调整 */
+
 [data-tpl="Ba10"] .ptag-name {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 80);
+  top: calc(var(--mm) * 94);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 24);
-  color: #6b4423;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 28);
+  height: calc(var(--mm) * 59.4);
+  color: #3e3b54;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 17.1);
+  font-weight: 400;
   letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 21);
+  padding-right: calc(var(--mm) * 21);
 }
+
 [data-tpl="Ba10"] .ptag-price {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 118);
+  top: calc(var(--mm) * 131);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 80);
   gap: calc(var(--mm) * 7);
 }
+
 [data-tpl="Ba10"] .ptag-num {
-  color: #6b4423;
-  font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 100);
-}
-[data-tpl="Ba10"] .ptag-unit {
-  color: #6b4423;
+  color: #af3131;
   font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 8);
+  font-size: calc(var(--mm) * 45);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
 }
+
+[data-tpl="Ba10"] .ptag-unit {
+  color: #23256c;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 8.5);
+  font-weight: 700;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
 [data-tpl="Ba10"] .ptag-slogan {
   left: calc(var(--mm) * 0);
-  top: calc(var(--mm) * 168);
+  top: calc(var(--mm) * 200);
   width: calc(var(--mm) * 210);
   height: calc(var(--mm) * 14);
-  color: #6b4423;
+  color: #96227d;
   font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 9.5);
   font-weight: 400;
-  font-size: calc(var(--mm) * 12);
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+[data-tpl="Ba10"] .ptag-qr-name {
+
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 113.0);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #3e3b54;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 17.1);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 25);
+  padding-right: calc(var(--mm) * 25);
+}
+
+[data-tpl="Ba10"] .ptag-qr-slogan {
+
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 221.0);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 14);
+  color: #96227d;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 9.5);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="Ba10"] .ptag-qr {
+  left: calc(var(--mm) * 65.0);
+  top: calc(var(--mm) * 139.0);
+  width: calc(var(--mm) * 80.0);
+  height: calc(var(--mm) * 80.0);
+  background: #ffffff;
+  border-radius: calc(var(--mm) * 2);
+}
+
+/* 二维码图（上传后的图片）：改 top/left 上下左右移动，改 width/height 缩放 */
+[data-tpl="Ba10"] .ptag-qr-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

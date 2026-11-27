@@ -88,6 +88,18 @@ function mergeCss(file, tpl, incoming) {
     }
   }
   fs.writeFileSync(file, text);
+  // 关键：同步 bump price-maker.html 里的全局模板 CSS 版本号（TMPL_CSS_V）。
+  // 模板样式表现在是按需动态加载，URL 里统一用 ?v=TMPL_CSS_V；
+  // Trae 内置浏览器等按 URL 缓存 CSS（无视 no-store），v 号不变就会一直用旧缓存。
+  try {
+    const htmlPath = path.join(ROOT, 'price-maker.html');
+    let html = fs.readFileSync(htmlPath, 'utf8');
+    const vre = /(window\.TMPL_CSS_V\s*=\s*)(\d+)/;
+    if (vre.test(html)) {
+      html = html.replace(vre, function (m, p1, p2) { return p1 + (Number(p2) + 1); });
+      fs.writeFileSync(htmlPath, html);
+    }
+  } catch (e) { /* 版本号 bump 失败不影响写回 */ }
   return { replaced: replaced, appended: appended };
 }
 
@@ -133,6 +145,9 @@ const server = http.createServer(function (req, res) {
   // 静态文件
   let p;
   try { p = decodeURIComponent(url.pathname); } catch (e) { p = '/'; }
+  // 兼容带目录前缀的访问：/tools/tmplmaker/xxx → /xxx
+  const PREFIX = '/tools/tmplmaker/';
+  if (p.toLowerCase().indexOf(PREFIX) === 0) p = p.slice(PREFIX.length - 1);
   if (p === '/') p = '/price-maker.html';
   const file = path.normalize(path.join(ROOT, p));
   if (file !== ROOT && file.indexOf(ROOT + path.sep) !== 0) {

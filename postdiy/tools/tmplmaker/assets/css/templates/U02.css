@@ -44,3 +44,47 @@
   font-size: calc(var(--mm) * 11.5);
   font-weight: 400;
 }
+
+[data-tpl="U02"] .ptag-qr {
+  left: calc(var(--mm) * 69.8);
+  top: calc(var(--mm) * 106.0);
+  width: calc(var(--mm) * 70.3);
+  height: calc(var(--mm) * 70.3);
+  background: #ffffff;
+  border-radius: calc(var(--mm) * 2);
+}
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+[data-tpl="U02"] .ptag-qr-name {
+
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 56.5);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 30.2);
+  color: #6b3d14;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 21.1);
+  font-weight: 900;
+  letter-spacing: calc(var(--mm) * 2.5);
+}
+[data-tpl="U02"] .ptag-qr-slogan {
+
+  left: calc(var(--mm) * 2);
+  top: calc(var(--mm) * 200);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 19.8);
+  color: #8b6755;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 11.5);
+  font-weight: 400;
+}
+
+/* 二维码图（上传后的图片）：改 top/left 上下左右移动，改 width/height 缩放 */
+[data-tpl="U02"] .ptag-qr-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

@@ -30,65 +30,95 @@
       || window.TMPL_TEMPLATES[0];
   }
 
+  // ---------- 渲染模式（价格标签 / 二维码展示牌） ----------
+  // app.js 在切换模式时调用 setMode；buildTag 按此决定渲染价格区还是二维码区
+  let renderMode = 'price';
+  function setMode(id) { renderMode = id === 'qr' ? 'qr' : 'price'; }
+
   // ---------- 构建价签 DOM ----------
   /**
-   * @param tpl  模板元数据 {id, title, bg}
-   * @param data {name, price, unit, slogan, sloganEnabled}
+   * @param tpl  模板元数据 {id, title, bg, industry}
+   * @param data {name, price, unit, slogan, sloganEnabled} 或 qr 模式 {name, qr, slogan}
    * @returns .ptag 元素（样式由 data-tpl 匹配的模板 CSS 控制）
    */
   function buildTag(tpl, data) {
+    const isQr = renderMode === 'qr';
     const tag = document.createElement('div');
     tag.className = 'ptag';
     tag.dataset.tpl = tpl.id;
     tag.style.backgroundImage = 'url("' + tpl.bg + '")';
 
     const name = document.createElement('div');
-    name.className = 'ptag-name';
+    // qr 模式加 ptag-qr-name：吃模板 CSS 里的二维码专属复制块（复制自价签样式，可独立微调）
+    name.className = isQr ? 'ptag-name ptag-qr-name' : 'ptag-name';
     name.textContent = (data.name || '').trim();
 
-    const price = document.createElement('div');
-    price.className = 'ptag-price';
-    const num = document.createElement('span');
-    num.className = 'ptag-num';
-    const numText = (data.price || '').trim();
-    const dotIdx = numText.indexOf('.');
-    if (dotIdx >= 0) {
-      // 小数部分（点+小数位）减半显示，并与整数顶对齐
-      num.textContent = numText.slice(0, dotIdx);
-      const dec = document.createElement('span');
-      dec.className = 'ptag-num-dec';
-      dec.textContent = numText.slice(dotIdx);
-      num.appendChild(dec);
-    } else {
-      num.textContent = numText;
-    }
-    const unit = document.createElement('span');
-    unit.className = 'ptag-unit';
-    const unitText = (data.unit || '').trim();
-    if (!unitText) unit.classList.add('hidden');
-    // 竖排：逐字堆叠，"/" 压扁成浅斜线，不做旋转
-    unitText.split('').forEach(function (ch) {
-      const c = document.createElement('span');
-      c.className = ch === '/' ? 'u-char u-slash' : 'u-char';
-      c.textContent = ch;
-      unit.appendChild(c);
-    });
-    if (!num.textContent) num.classList.add('hidden');
-    price.appendChild(num);
-    price.appendChild(unit);
-
     tag.appendChild(name);
-    tag.appendChild(price);
 
-    // 宣传口号：产品自选口号 > 模板自带口号组（slogans，每次渲染随机取一条） > 行业口号池 > 空
-    const sloganPool = (tpl.slogans && tpl.slogans.length) ? tpl.slogans
-                     : ((window.TMPL_SLOGAN_POOLS || {})[tpl.industry] || []);
+    if (isQr) {
+      // 二维码展示牌：白底容器 + 上传的二维码图（未上传时显示占位）
+      const qr = document.createElement('div');
+      qr.className = 'ptag-qr';
+      if (data.qr) {
+        const img = document.createElement('img');
+        img.className = 'ptag-qr-img';
+        img.alt = '二维码';
+        img.src = data.qr;
+        qr.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'ptag-qr-ph';
+        ph.textContent = '二维码';
+        qr.appendChild(ph);
+      }
+      tag.appendChild(qr);
+    } else {
+      const price = document.createElement('div');
+      price.className = 'ptag-price';
+      const num = document.createElement('span');
+      num.className = 'ptag-num';
+      const numText = (data.price || '').trim();
+      const dotIdx = numText.indexOf('.');
+      if (dotIdx >= 0) {
+        // 小数部分（点+小数位）减半显示，并与整数顶对齐
+        num.textContent = numText.slice(0, dotIdx);
+        const dec = document.createElement('span');
+        dec.className = 'ptag-num-dec';
+        dec.textContent = numText.slice(dotIdx);
+        num.appendChild(dec);
+      } else {
+        num.textContent = numText;
+      }
+      const unit = document.createElement('span');
+      unit.className = 'ptag-unit';
+      const unitText = (data.unit || '').trim();
+      if (!unitText) unit.classList.add('hidden');
+      // 竖排：逐字堆叠，"/" 压扁成浅斜线，不做旋转
+      unitText.split('').forEach(function (ch) {
+        const c = document.createElement('span');
+        c.className = ch === '/' ? 'u-char u-slash' : 'u-char';
+        c.textContent = ch;
+        unit.appendChild(c);
+      });
+      if (!num.textContent) num.classList.add('hidden');
+      price.appendChild(num);
+      price.appendChild(unit);
+      tag.appendChild(price);
+    }
+
+    // 宣传口号（qr 模式用扫码副文案池）：
+    // 产品自选口号 > 模板/模式口号池（每次渲染随机取一条） > 空
+    const qrPools = window.TMPL_QR_SLOGAN_POOLS || {};
+    const sloganPool = isQr
+      ? (qrPools[tpl.industry] || qrPools.common || [])
+      : ((tpl.slogans && tpl.slogans.length) ? tpl.slogans
+        : ((window.TMPL_SLOGAN_POOLS || {})[tpl.industry] || []));
     const defaultSlogan = sloganPool.length
       ? sloganPool[Math.floor(Math.random() * sloganPool.length)]
       : '';
     const sloganText = String((data && data.slogan) || defaultSlogan || '').trim();
     const slogan = document.createElement('div');
-    slogan.className = 'ptag-slogan';
+    slogan.className = isQr ? 'ptag-slogan ptag-qr-slogan' : 'ptag-slogan';
     slogan.textContent = sloganText;
     if (!sloganText) slogan.classList.add('hidden');
     tag.appendChild(slogan);
@@ -144,8 +174,14 @@
     const slogan = tag.querySelector('.ptag-slogan');
     const num = tag.querySelector('.ptag-num');
     const unit = tag.querySelector('.ptag-unit');
-    // 清掉旧的内联字号，回到模板 CSS 基准值
-    if (name) { name.style.fontSize = ''; fitBox(name, { checkHeight: true }); }
+    // 商品名称：统一规则——区域高度 = 画布高的 20%，文字垂直居中。
+    // 一行/两行/三行都以区域中线对称展开（用 % 高度，导出放大时自动等比）
+    if (name) {
+      name.style.fontSize = '';
+      name.style.maxHeight = '';
+      name.style.height = '20%';
+      name.style.alignItems = 'center';
+    }
     if (slogan) { slogan.style.fontSize = ''; fitBox(slogan); }
     if (num) num.style.fontSize = '';
     if (unit) unit.style.fontSize = '';
@@ -161,7 +197,7 @@
     if (!window.TMPL_DEBUG_ENABLED) return;
     const o = (window.TMPL_DEBUG_OVERRIDES || {})[tag.dataset.tpl];
     if (!o) return;
-    const map = { name: '.ptag-name', num: '.ptag-num', unit: '.ptag-unit', slogan: '.ptag-slogan' };
+    const map = { name: '.ptag-name', num: '.ptag-num', unit: '.ptag-unit', slogan: '.ptag-slogan', qr: '.ptag-qr', qrimg: '.ptag-qr-img' };
     Object.keys(map).forEach(function (key) {
       const el = tag.querySelector(map[key]);
       const st = o[key];
@@ -266,6 +302,7 @@
     buildTag: buildTag,
     fitTag: fitTag,
     applyDebugOverrides: applyDebugOverrides,
-    captureTag: captureTag
+    captureTag: captureTag,
+    setMode: setMode
   };
 })();

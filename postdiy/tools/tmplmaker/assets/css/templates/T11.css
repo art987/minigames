@@ -1,12 +1,12 @@
 /* 模板 T11（奶茶果茶）— 默认样式，可后续用调试面板调整 */
 [data-tpl="T11"] .ptag-name {
   left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 86);
+  top: calc(var(--mm) * 50);
   width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 24);
-  color: #000000;
+  height: calc(var(--mm) * 59.4);
+  color: #367c03;
   font-family: var(--font-zcool);
-  font-size: calc(var(--mm) * 23);
+  font-size: calc(var(--mm) * 20.5);
   font-weight: 400;
   letter-spacing: calc(var(--mm) * 2);
   padding-left: calc(var(--mm) * 26.5);
@@ -14,15 +14,15 @@
 }
 [data-tpl="T11"] .ptag-price {
   left: calc(var(--mm) * 17);
-  top: calc(var(--mm) * 125.5);
+  top: calc(var(--mm) * 99);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 80);
   gap: calc(var(--mm) * 7);
 }
 [data-tpl="T11"] .ptag-num {
-  color: #f50f0f;
+  color: #f62e28;
   font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 62.5);
+  font-size: calc(var(--mm) * 51);
   font-weight: 400;
   padding-left: calc(var(--mm) * 0);
   padding-right: calc(var(--mm) * 0);
@@ -38,6 +38,44 @@
 
 [data-tpl="T11"] .ptag-slogan {
   left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 173.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 13.4);
+  color: #ff4b14;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 11);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="T11"] .ptag-qr {
+  left: calc(var(--mm) * 67.0);
+  top: calc(var(--mm) * 125.5);
+  width: calc(var(--mm) * 80.0);
+  height: calc(var(--mm) * 80.0);
+  background: #ffffff;
+  border-radius: calc(var(--mm) * 2);
+}
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+[data-tpl="T11"] .ptag-qr-name {
+
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 86);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 24);
+  color: #000000;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 23);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2);
+  padding-left: calc(var(--mm) * 26.5);
+  padding-right: calc(var(--mm) * 26.5);
+}
+[data-tpl="T11"] .ptag-qr-slogan {
+
+  left: calc(var(--mm) * 0);
   top: calc(var(--mm) * 51.5);
   width: calc(var(--mm) * 210);
   height: calc(var(--mm) * 13.4);
@@ -47,4 +85,14 @@
   font-weight: 400;
   padding-left: calc(var(--mm) * 0);
   padding-right: calc(var(--mm) * 0);
+}
+
+/* 二维码图（上传后的图片）：改 top/left 上下左右移动，改 width/height 缩放 */
+[data-tpl="T11"] .ptag-qr-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

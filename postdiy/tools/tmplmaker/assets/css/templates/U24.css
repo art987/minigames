@@ -51,3 +51,51 @@
   padding-left: calc(var(--mm) * 2.5);
   padding-right: calc(var(--mm) * 2.5);
 }
+
+[data-tpl="U24"] .ptag-qr {
+  left: calc(var(--mm) * 70.0);
+  top: calc(var(--mm) * 104.5);
+  width: calc(var(--mm) * 70.0);
+  height: calc(var(--mm) * 70.0);
+  background: #ffffff;
+  border-radius: calc(var(--mm) * 2);
+}
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+[data-tpl="U24"] .ptag-qr-name {
+
+  left: calc(var(--mm) * 20);
+  top: calc(var(--mm) * 62);
+  width: calc(var(--mm) * 170);
+  height: calc(var(--mm) * 27);
+  color: #ffffff;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 19.9);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 2.5);
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="U24"] .ptag-qr-slogan {
+
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 189.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 22);
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 7);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 2.5);
+  padding-right: calc(var(--mm) * 2.5);
+}
+
+/* 二维码图（上传后的图片）：改 top/left 上下左右移动，改 width/height 缩放 */
+[data-tpl="U24"] .ptag-qr-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

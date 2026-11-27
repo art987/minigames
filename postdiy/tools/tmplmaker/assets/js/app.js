@@ -15,7 +15,98 @@
 
   const STORAGE_KEY = 'priceMakerStateV2';
 
+  // ============================================================
+  // 多模式管理（价格标签 / 二维码展示牌）
+  //   模式定义在 templates.js 的 window.TMPL_MODES；
+  //   首次进入弹出模式选择层，之后可点顶栏徽标重新选择；
+  //   选择结果存 localStorage，记住上次使用模式。
+  // ============================================================
+  const MODE_KEY = 'tmplmakerMode';
+  let currentMode = 'price';
+
+  function modeConfig(id) {
+    const modes = window.TMPL_MODES || {};
+    return modes[id] || modes.price;
+  }
+
+  function loadSavedMode() {
+    try { return localStorage.getItem(MODE_KEY) || ''; } catch (e) { return ''; }
+  }
+
+  function renderModeCards() {
+    const box = $('modeCards');
+    if (!box || !window.TMPL_MODES) return;
+    box.innerHTML = '';
+    Object.keys(window.TMPL_MODES).forEach(function (id) {
+      const m = window.TMPL_MODES[id];
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'mode-card';
+      card.innerHTML = '<span class="mc-emoji">' + m.emoji + '</span>'
+        + '<div class="mc-label">' + m.label + '</div>'
+        + '<div class="mc-desc">' + m.desc + '</div>';
+      card.addEventListener('click', function () { applyMode(id, true); });
+      box.appendChild(card);
+    });
+  }
+
+  /** 切换模式：更新徽标文案；remember=true 时写入 localStorage */
+  let booted = false;
+  function applyMode(id, remember) {
+    const switching = booted && id !== currentMode;
+    if (switching) saveState(); // 先把当前模式数据写回它自己的 key
+    currentMode = (window.TMPL_MODES && window.TMPL_MODES[id]) ? id : 'price';
+    if (remember) {
+      try { localStorage.setItem(MODE_KEY, currentMode); } catch (e) { /* 忽略 */ }
+    }
+    const m = modeConfig(currentMode);
+    const emoji = $('modeBadgeEmoji');
+    const label = $('modeBadgeLabel');
+    if (emoji) emoji.textContent = m.emoji;
+    if (label) label.textContent = m.label;
+    // 渲染引擎同步模式（决定渲染价格区还是二维码区）
+    if (window.TMPLRender && window.TMPLRender.setMode) window.TMPLRender.setMode(currentMode);
+    hideModeSelect();
+    if (switching) {
+      // 载入新模式自己的数据；没有则给默认商品
+      if (!loadState()) {
+        state.industry = 'common';
+        state.templateId = 'G01';
+        state.products = [defaultProduct()];
+        state.index = 0;
+      }
+      applyModeText();
+      rebuildSlides(true);
+      renderProductList();
+    }
+  }
+
+  /** 按当前模式刷新界面文案（按钮/弹窗标题/导出前缀） */
+  function applyModeText() {
+    const m = modeConfig(currentMode);
+    if ($('btnAddQuick')) $('btnAddQuick').textContent = m.addBtn;
+    if ($('btnManage')) $('btnManage').textContent = m.manageBtn;
+    if ($('btnAddDraft')) $('btnAddDraft').textContent = '＋ ' + m.addBtn;
+    if ($('btnAddProduct')) $('btnAddProduct').textContent = '＋ ' + m.addBtn;
+    if ($('modalAddTitle')) $('modalAddTitle').textContent = m.addModalTitle;
+    if ($('modalProductsTitle')) $('modalProductsTitle').textContent = m.manageBtn;
+    if ($('qaManage')) $('qaManage').textContent = m.manageBtn;
+  }
+
+  function showModeSelect() {
+    const ov = $('modeSelect');
+    if (ov) ov.hidden = false;
+  }
+  function hideModeSelect() {
+    const ov = $('modeSelect');
+    if (ov) ov.hidden = true;
+  }
+
   // ---------- 状态 ----------
+  // 各模式数据各存各的：价格标签用 priceMakerStateV2，二维码牌用 qrMakerStateV1
+  const STORAGE_KEYS = { price: 'priceMakerStateV2', qr: 'qrMakerStateV1' };
+  function stateKey() { return STORAGE_KEYS[currentMode] || STORAGE_KEYS.price; }
+
   let state = {
     industry: 'common',
     templateId: 'G01',
@@ -24,11 +115,16 @@
   };
 
   function defaultProduct() {
+    if (currentMode === 'qr') {
+      return { id: uid(), name: '店铺名称', price: '', unit: '', qr: '', slogan: '' };
+    }
     return {
       id: uid(),
       name: '新鲜蔬菜',
       price: '3.5',
-      unit: '元/斤'
+      unit: '元/斤',
+      qr: '',
+      slogan: ''
     };
   }
 
@@ -37,7 +133,7 @@
 
   function loadState() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(stateKey());
       if (!raw) return false;
       const saved = JSON.parse(raw);
       if (!saved || !Array.isArray(saved.products) || !saved.products.length) return false;
@@ -49,7 +145,9 @@
           id: p.id || uid(),
           name: String(p.name || ''),
           price: String(p.price || ''),
-          unit: String(p.unit || '')
+          unit: String(p.unit || ''),
+          qr: String(p.qr || ''),
+          slogan: String(p.slogan || '')
         };
       });
       state.index = Math.min(saved.index || 0, state.products.length - 1);
@@ -58,7 +156,7 @@
   }
 
   function saveState() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* 忽略 */ }
+    try { localStorage.setItem(stateKey(), JSON.stringify(state)); } catch (e) { /* 忽略 */ }
   }
 
   // ---------- DOM ----------
@@ -105,8 +203,7 @@
       btn.disabled = !ind.enabled;
       btn.innerHTML =
         '<span class="i-emoji">' + ind.emoji + '</span>' +
-        '<span class="i-label">' + ind.label + '</span>' +
-        '<span class="i-desc">' + ind.desc + '</span>';
+        '<span class="i-label">' + ind.label + '</span>';
       if (ind.enabled) {
         btn.addEventListener('click', function () {
           state.industry = ind.id;
@@ -121,42 +218,56 @@
 
   // ---------- 模板弹窗（缩略图带示范文字，底部选择按钮） ----------
   function renderTemplateModal() {
-    const grid = $('templateGrid');
-    grid.innerHTML = '';
-    $('curIndustry').textContent = industryLabel(state.industry);
-    const list = window.TMPL_TEMPLATES.filter(function (t) { return t.industry === state.industry; });
-    list.forEach(function (t) {
-      const card = document.createElement('div');
-      card.className = 'template-card' + (t.id === state.templateId ? ' active' : '');
+    // 站点加载优化：先把当前行业全部模板 CSS 按需加载完，再渲染缩略图
+    const list0 = window.TMPL_TEMPLATES.filter(function (t) { return t.industry === state.industry; });
+    return ensureTemplateCssAll(list0.map(function (t) { return t.id; })).then(function () {
+      const grid = $('templateGrid');
+      grid.innerHTML = '';
+      $('curIndustry').textContent = industryLabel(state.industry);
+      list0.forEach(function (t) {
+        const card = document.createElement('div');
+        card.className = 'template-card' + (t.id === state.templateId ? ' active' : '');
 
-      const label = document.createElement('span');
-      label.className = 't-name';
-      label.textContent = t.id + ' ' + t.title;
+        const label = document.createElement('span');
+        label.className = 't-name';
+        label.textContent = t.id + ' ' + t.title;
 
-      // 缩略预览：按该模板 CSS 渲染示范文字（小尺寸）
-      const preview = document.createElement('div');
-      preview.className = 'tpl-preview';
-      preview.appendChild(window.TMPLRender.buildTag(t, { name: '商品名称', price: '9.9', unit: '元/个' }));
+        // 缩略预览：按该模板 CSS 渲染示范文字（小尺寸），数据按当前模式给
+        const previewData = currentMode === 'qr'
+          ? { name: '店铺名称', qr: '' }
+          : { name: '商品名称', price: '9.9', unit: '元/个' };
+        const preview = document.createElement('div');
+        preview.className = 'tpl-preview';
+        preview.appendChild(window.TMPLRender.buildTag(t, previewData));
 
-      const use = document.createElement('button');
-      use.type = 'button';
-      use.className = 'tpl-use';
-      use.textContent = t.id === state.templateId ? '✓ 使用中' : '选 择';
-      use.addEventListener('click', function () {
-        const changed = state.templateId !== t.id;
-        state.templateId = t.id;
-        saveState();
-        if (changed) rebuildSlides(true);
-        closeModal($('modalTemplate'));
-        showToast('已使用模板 ' + t.id + ' ' + t.title);
+        // 背景图懒加载：滚到可视区附近才请求该模板背景
+        const tagEl = preview.querySelector('.ptag');
+        if (tagEl && lazyBgObserver) {
+          tagEl.dataset.bg = t.bg;
+          tagEl.style.backgroundImage = 'none';
+          lazyBgObserver.observe(tagEl);
+        }
+
+        const use = document.createElement('button');
+        use.type = 'button';
+        use.className = 'tpl-use';
+        use.textContent = t.id === state.templateId ? '✓ 使用中' : '选 择';
+        use.addEventListener('click', function () {
+          const changed = state.templateId !== t.id;
+          state.templateId = t.id;
+          saveState();
+          if (changed) rebuildSlides(true);
+          closeModal($('modalTemplate'));
+          showToast('已使用模板 ' + t.id + ' ' + t.title);
+        });
+
+        card.appendChild(label);
+        card.appendChild(preview);
+        card.appendChild(use);
+        grid.appendChild(card);
       });
-
-      card.appendChild(label);
-      card.appendChild(preview);
-      card.appendChild(use);
-      grid.appendChild(card);
+      sizeModalTags();
     });
-    sizeModalTags();
   }
 
   /** 给弹窗里的缩略价签按容器宽设置 --mm 并自适应字号 */
@@ -173,9 +284,10 @@
   }
 
   function openTemplateModal() {
-    renderTemplateModal();
-    openModal($('modalTemplate'));
-    requestAnimationFrame(sizeModalTags);
+    renderTemplateModal().then(function () {
+      openModal($('modalTemplate'));
+      requestAnimationFrame(sizeModalTags);
+    });
   }
 
   function industryLabel(id) {
@@ -441,7 +553,7 @@
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.maxLength = 15;
-    nameInput.placeholder = '商品名称';
+    nameInput.placeholder = currentMode === 'qr' ? '店铺名称' : '商品名称';
     nameInput.value = p.name;
     const nameClear = document.createElement('button');
     nameClear.type = 'button';
@@ -466,35 +578,43 @@
     nameWrap.appendChild(nameInput);
     nameWrap.appendChild(nameClear);
 
-    // 价格输入框：只读，点击弹数字键盘（确认才写回）
-    const priceInput = document.createElement('input');
-    priceInput.type = 'text';
-    priceInput.inputMode = 'decimal';
-    priceInput.placeholder = '价格';
-    priceInput.value = p.price;
-    priceInput.readOnly = true;
-    priceInput.className = 'p-price';
-    priceInput.addEventListener('click', function () {
-      openNumKey(priceInput, function (v) {
-        p.price = v;
-        priceInput.value = v;
-        saveState();
-        schedulePreview();
+    if (currentMode === 'qr') {
+      // 二维码展示牌：价格/单位区域替换为二维码上传字段（占 2-3 列）
+      grid.appendChild(nameWrap);
+      grid.appendChild(buildQrField(p));
+      // 店铺宣传口号：可从 6 个预设选择或自定义（独占一行）
+      grid.appendChild(buildSloganField(p));
+    } else {
+      // 价格输入框：只读，点击弹数字键盘（确认才写回）
+      const priceInput = document.createElement('input');
+      priceInput.type = 'text';
+      priceInput.inputMode = 'decimal';
+      priceInput.placeholder = '价格';
+      priceInput.value = p.price;
+      priceInput.readOnly = true;
+      priceInput.className = 'p-price';
+      priceInput.addEventListener('click', function () {
+        openNumKey(priceInput, function (v) {
+          p.price = v;
+          priceInput.value = v;
+          saveState();
+          schedulePreview();
+        });
       });
-    });
 
-    // 计量单位：点击弹九宫格（替代原生下拉）
-    const unitWrap = buildUnitField(p);
-    unitWrap.classList.add('p-unit');
-    unitWrap.addEventListener('click', function () {
-      openUnitKey(unitWrap, function (u) {
-        applyUnit(unitWrap, p, u);
+      // 计量单位：点击弹九宫格（替代原生下拉）
+      const unitWrap = buildUnitField(p);
+      unitWrap.classList.add('p-unit');
+      unitWrap.addEventListener('click', function () {
+        openUnitKey(unitWrap, function (u) {
+          applyUnit(unitWrap, p, u);
+        });
       });
-    });
 
-    grid.appendChild(nameWrap);
-    grid.appendChild(priceInput);
-    grid.appendChild(unitWrap);
+      grid.appendChild(nameWrap);
+      grid.appendChild(priceInput);
+      grid.appendChild(unitWrap);
+    }
 
     // 行2：复制 / 删除（靠右）
     const row = document.createElement('div');
@@ -511,6 +631,322 @@
     return card;
   }
 
+  /** qr 模式商品卡：二维码上传/预览/更换/删除字段（替代价格与单位输入） */
+  function buildQrField(p) {
+    const wrap = document.createElement('div');
+    wrap.className = 'p-qr-wrap';
+    wrap.classList.toggle('has-img', !!p.qr);
+
+    const pick = document.createElement('button');
+    pick.type = 'button';
+    pick.className = 'p-qr-field';
+
+    const img = document.createElement('img');
+    img.className = 'p-qr-img';
+    img.alt = '二维码';
+    if (p.qr) img.src = p.qr; else img.classList.add('hidden');
+
+    const txt = document.createElement('span');
+    txt.className = 'p-qr-txt';
+    txt.textContent = p.qr ? '已上传 · 点击更换' : '＋ 上传二维码图片';
+
+    pick.appendChild(img);
+    pick.appendChild(txt);
+    pick.addEventListener('click', function () {
+      pickQrImage(function (dataUrl) {
+        p.qr = dataUrl;
+        img.src = dataUrl;
+        img.classList.remove('hidden');
+        txt.textContent = '已上传 · 点击更换';
+        wrap.classList.add('has-img');
+        saveState();
+        schedulePreview();
+        showToast('二维码已上传');
+      });
+    });
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'p-qr-del' + (p.qr ? '' : ' hidden');
+    del.textContent = '删除';
+    del.title = '移除二维码';
+    del.addEventListener('click', function () {
+      p.qr = '';
+      img.removeAttribute('src');
+      img.classList.add('hidden');
+      txt.textContent = '＋ 上传二维码图片';
+      del.classList.add('hidden');
+      wrap.classList.remove('has-img');
+      saveState();
+      schedulePreview();
+    });
+
+    wrap.appendChild(pick);
+    wrap.appendChild(del);
+    return wrap;
+  }
+
+  /** 选择图片 → 裁剪成正方形 → 输出 800×800 PNG dataURL */
+  function pickQrImage(onDone) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.addEventListener('change', function () {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.onload = function () {
+          // 超大照片先降采样到 1600px，减轻裁剪层内存压力
+          const MAX = 1600;
+          const scale = Math.min(1, MAX / Math.max(img.naturalWidth, img.naturalHeight));
+          let src = String(reader.result);
+          if (scale < 1) {
+            const w = Math.max(1, Math.round(img.naturalWidth * scale));
+            const h = Math.max(1, Math.round(img.naturalHeight * scale));
+            const c = document.createElement('canvas');
+            c.width = w;
+            c.height = h;
+            c.getContext('2d').drawImage(img, 0, 0, w, h);
+            src = c.toDataURL('image/jpeg', 0.9);
+          }
+          openQrCropper(src, onDone);
+        };
+        img.onerror = function () { showToast('图片读取失败，请换一张试试'); };
+        img.src = String(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
+    input.click();
+  }
+
+  // ==================== 口号编辑字段（qr 模式商品卡） ====================
+  function sloganFieldText(v) {
+    return v ? '口号：' + v : '＋ 选择宣传口号（默认随机）';
+  }
+
+  /** qr 模式商品卡：宣传口号选择字段（独占一行） */
+  function buildSloganField(p) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'p-slogan-field' + (p.slogan ? ' has-value' : '');
+    btn.textContent = sloganFieldText(p.slogan);
+    btn.addEventListener('click', function () {
+      openSloganKey(btn, function (v) {
+        p.slogan = v;
+        btn.textContent = sloganFieldText(v);
+        btn.classList.toggle('has-value', !!v);
+        saveState();
+        schedulePreview();
+      });
+    });
+    return btn;
+  }
+
+  // ==================== 口号选择弹窗（与九宫格同风格） ====================
+  const sloganKey = $('sloganKey');
+  let skAnchor = null;   // 当前触发的口号字段
+  let skApply = null;    // function(v) 选中后的写回逻辑（v='' 表示随机）
+  function hideSloganKey() { sloganKey.classList.add('hidden'); }
+  function openSloganKey(anchorEl, applyFn) {
+    skAnchor = anchorEl;
+    skApply = applyFn;
+    // 按当前模板的行业渲染 6 个预设口号
+    const grid = $('skGrid');
+    grid.innerHTML = '';
+    const tpl = window.TMPLRender.tplById(state.templateId);
+    const pools = window.TMPL_QR_SLOGAN_POOLS || {};
+    const pool = pools[tpl.industry] || pools.common || [];
+    pool.forEach(function (s) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sk-btn';
+      b.textContent = s;
+      b.addEventListener('click', function () {
+        if (skApply) { const fn = skApply; skApply = null; fn(s); }
+        hideSloganKey();
+      });
+      grid.appendChild(b);
+    });
+    $('skCustomInput').value = '';
+    sloganKey.classList.remove('hidden');
+    // 定位：弹在触发框上方，放不下则翻到下方，并夹在视口内
+    const r = anchorEl.getBoundingClientRect();
+    const kw = sloganKey.offsetWidth || 320;
+    const kh = sloganKey.offsetHeight || 280;
+    let left = Math.max(8, Math.min(r.left, window.innerWidth - kw - 8));
+    let top = r.top - kh - 8;
+    if (top < 8) top = Math.min(window.innerHeight - kh - 8, r.bottom + 8);
+    if (top < 8) top = 8;
+    sloganKey.style.left = left + 'px';
+    sloganKey.style.top = top + 'px';
+  }
+  // 点弹窗和触发框以外的地方收起（与数字键盘一致）
+  document.addEventListener('mousedown', function (e) {
+    if (sloganKey.classList.contains('hidden')) return;
+    if (sloganKey.contains(e.target)) return;
+    if (skAnchor && (e.target === skAnchor || skAnchor.contains(e.target))) return;
+    hideSloganKey();
+  });
+
+  // ==================== 二维码裁剪层（全屏，手机端手势兼容） ====================
+  const cropLayer = $('cropLayer');
+  const cropStage = $('cropStage');
+  const cropImg = $('cropImg');
+  const cropMask = $('cropMask');
+  let cropState = null;   // {img, nw, nh, scale0, zoom, ox, oy, maskSize}
+  let cropDone = null;    // function(dataUrl) 裁剪完成回调
+
+  function hideCropper() {
+    cropLayer.classList.add('hidden');
+    cropState = null;
+  }
+
+  /** 打开裁剪层：dataUrl 原图，onDone 收到 800×800 PNG dataURL */
+  function openQrCropper(dataUrl, onDone) {
+    cropDone = onDone;
+    const img = new Image();
+    img.onload = function () {
+      cropLayer.classList.remove('hidden');
+      const stageW = cropStage.clientWidth;
+      const stageH = cropStage.clientHeight;
+      const maskSize = Math.floor(Math.min(stageW, stageH) * 0.82);
+      cropMask.style.width = maskSize + 'px';
+      cropMask.style.height = maskSize + 'px';
+      // 初始缩放：图片短边正好盖住裁剪框（cover）
+      const scale0 = maskSize / Math.min(img.naturalWidth, img.naturalHeight);
+      cropState = {
+        img: img,
+        nw: img.naturalWidth,
+        nh: img.naturalHeight,
+        scale0: scale0,
+        zoom: 1,
+        ox: (maskSize - img.naturalWidth * scale0) / 2,
+        oy: (maskSize - img.naturalHeight * scale0) / 2,
+        maskSize: maskSize
+      };
+      cropImg.src = dataUrl;
+      cropRender();
+    };
+    img.onerror = function () {
+      cropDone = null;
+      showToast('图片读取失败，请换一张试试');
+    };
+    img.src = dataUrl;
+  }
+
+  /** 按当前状态摆放图片（相对裁剪框定位，并约束图片盖住裁剪框） */
+  function cropRender() {
+    const s = cropState;
+    if (!s) return;
+    const scale = s.scale0 * s.zoom;
+    const rw = s.nw * scale;
+    const rh = s.nh * scale;
+    s.ox = Math.min(0, Math.max(s.maskSize - rw, s.ox));
+    s.oy = Math.min(0, Math.max(s.maskSize - rh, s.oy));
+    const mx = (cropStage.clientWidth - s.maskSize) / 2;
+    const my = (cropStage.clientHeight - s.maskSize) / 2;
+    cropImg.style.width = rw + 'px';
+    cropImg.style.height = rh + 'px';
+    cropImg.style.left = (mx + s.ox) + 'px';
+    cropImg.style.top = (my + s.oy) + 'px';
+  }
+
+  function setZoom(z) {
+    if (!cropState) return;
+    cropState.zoom = Math.min(4, Math.max(1, z));
+    cropRender();
+  }
+
+  // 拖动（鼠标 / 单指共用）
+  let cropDragging = false;
+  let cropLastX = 0;
+  let cropLastY = 0;
+  function ptDown(x, y) { cropDragging = true; cropLastX = x; cropLastY = y; }
+  function ptMove(x, y) {
+    if (!cropDragging || !cropState) return;
+    cropState.ox += x - cropLastX;
+    cropState.oy += y - cropLastY;
+    cropLastX = x;
+    cropLastY = y;
+    cropRender();
+  }
+
+  /** 确定：按裁剪框位置从原图取样，输出 800×800 PNG */
+  function cropConfirm() {
+    if (!cropState) return;
+    const s = cropState;
+    const scale = s.scale0 * s.zoom;
+    const OUT = 800;
+    const sx = -s.ox / scale;
+    const sy = -s.oy / scale;
+    const sw = s.maskSize / scale;
+    const canvas = document.createElement('canvas');
+    canvas.width = OUT;
+    canvas.height = OUT;
+    const g = canvas.getContext('2d');
+    g.fillStyle = '#ffffff'; // 白底兜底（PNG 透明二维码）
+    g.fillRect(0, 0, OUT, OUT);
+    g.drawImage(s.img, sx, sy, sw, sw, 0, 0, OUT, OUT);
+    const dataUrl = canvas.toDataURL('image/png');
+    hideCropper();
+    if (cropDone) { const fn = cropDone; cropDone = null; fn(dataUrl); }
+  }
+  function cropCancel() {
+    hideCropper();
+    cropDone = null;
+  }
+
+  // 测试钩子：动态 file input 无法自动化，浏览器实测用入口打开裁剪层
+  window.TMPL_QR_TEST = { openQrCropper: openQrCropper };
+
+  // 鼠标拖动 + 滚轮缩放
+  cropStage.addEventListener('mousedown', function (e) {
+    if (!cropState) return;
+    e.preventDefault();
+    ptDown(e.clientX, e.clientY);
+  });
+  window.addEventListener('mousemove', function (e) { ptMove(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', function () { cropDragging = false; });
+  cropStage.addEventListener('wheel', function (e) {
+    if (!cropState) return;
+    e.preventDefault();
+    setZoom(cropState.zoom * (e.deltaY < 0 ? 1.08 : 0.93));
+  }, { passive: false });
+
+  // 触摸：单指拖动 / 双指捏合缩放（touch-action:none 已阻止页面默认手势）
+  let pinchDist = 0;
+  function touchDist(e) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    return Math.hypot(dx, dy);
+  }
+  cropStage.addEventListener('touchstart', function (e) {
+    if (!cropState) return;
+    if (e.touches.length === 1) {
+      ptDown(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.touches.length >= 2) {
+      cropDragging = false;
+      pinchDist = touchDist(e);
+    }
+    e.preventDefault();
+  }, { passive: false });
+  cropStage.addEventListener('touchmove', function (e) {
+    if (!cropState) return;
+    if (e.touches.length === 1 && cropDragging) {
+      ptMove(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.touches.length >= 2 && pinchDist > 0) {
+      const d = touchDist(e);
+      setZoom(cropState.zoom * (d / pinchDist));
+      pinchDist = d;
+    }
+    e.preventDefault();
+  }, { passive: false });
+  cropStage.addEventListener('touchend', function (e) {
+    if (e.touches.length === 0) { cropDragging = false; pinchDist = 0; }
+  });
+
   function renderProductList() {
     const list = $('productList');
     list.innerHTML = '';
@@ -526,7 +962,10 @@
   let drafts = [];
 
   function emptyDraft() {
-    return { id: uid(), name: '', price: '', unit: window.TMPL_UNITS[0] };
+    if (currentMode === 'qr') {
+      return { id: uid(), name: '', price: '', unit: '', qr: '', slogan: '' };
+    }
+    return { id: uid(), name: '', price: '', unit: window.TMPL_UNITS[0], qr: '', slogan: '' };
   }
 
   function renderDraftList() {
@@ -670,17 +1109,48 @@
     const p = state.products[idx];
     if (!p) return;
     editOneIdx = idx;
-    editOneDraft = { name: p.name, price: p.price, unit: p.unit };
+    editOneDraft = { name: p.name, price: p.price, unit: p.unit, qr: p.qr || '', slogan: p.slogan || '' };
+    const isQr = currentMode === 'qr';
+    const m = modeConfig(currentMode);
+    $('editOneTitle').textContent = isQr ? m.editTitle : '编辑商品';
+    $('editOneNameLabel').textContent = isQr ? '店铺名称' : '商品名称';
+    $('editOneName').placeholder = isQr ? '例如：张记水果店' : '例如：新鲜蔬菜';
+    $('editOnePriceRow').classList.toggle('hidden', isQr);
+    $('editOneQrRow').classList.toggle('hidden', !isQr);
+    $('editOneSloganRow').classList.toggle('hidden', !isQr);
     $('editOneBadge').textContent = '第 ' + (idx + 1) + ' 条';
     $('editOneName').value = editOneDraft.name;
     $('editOnePrice').value = editOneDraft.price;
     const slot = $('editOneUnitSlot');
     slot.innerHTML = '';
     slot.appendChild(buildUnitField(editOneDraft));
+    if (isQr) {
+      refreshEditOneQr();
+      refreshEditOneSlogan();
+    }
     $('editOneNameCount').textContent = (editOneDraft.name || '').length + ' / 15';
     $('editOneNameClear').classList.toggle('hidden', !(editOneDraft.name || '').length);
     openModal($('modalEditOne'));
     requestAnimationFrame(function () { $('editOneName').focus(); });
+  }
+
+  /** 编辑弹窗内二维码字段的可视状态刷新 */
+  function refreshEditOneQr() {
+    const has = !!(editOneDraft && editOneDraft.qr);
+    const img = $('editOneQrImg');
+    if (has) img.src = editOneDraft.qr;
+    else img.removeAttribute('src');
+    img.classList.toggle('hidden', !has);
+    $('editOneQrTxt').textContent = has ? '已上传 · 点击更换' : '＋ 上传二维码图片';
+    $('editOneQrDel').classList.toggle('hidden', !has);
+  }
+
+  /** 编辑弹窗内口号字段的可视状态刷新 */
+  function refreshEditOneSlogan() {
+    const v = editOneDraft ? editOneDraft.slogan : '';
+    const btn = $('editOneSlogan');
+    btn.textContent = sloganFieldText(v);
+    btn.classList.toggle('has-value', !!v);
   }
 
   /** 构建"空白模板预览"slide —— 只有背景，中间放两个操作按钮 */
@@ -706,13 +1176,13 @@
     const btnAdd = document.createElement('button');
     btnAdd.type = 'button';
     btnAdd.className = 'empty-btn empty-btn-primary';
-    btnAdd.textContent = '＋ 添加商品';
+    btnAdd.textContent = '＋ ' + modeConfig(currentMode).addBtn;
     btnAdd.addEventListener('click', openQuickAdd);
 
     const btnManage = document.createElement('button');
     btnManage.type = 'button';
     btnManage.className = 'empty-btn';
-    btnManage.textContent = '商品管理';
+    btnManage.textContent = modeConfig(currentMode).manageBtn;
     btnManage.addEventListener('click', openManage);
 
     btns.appendChild(btnAdd);
@@ -724,7 +1194,76 @@
     return slide;
   }
 
+  // ---------- 站点加载优化：按需加载 ----------
+  // 模板 CSS 按需加载：HTML 不再引入全部 202 个模板样式表（首屏少 200 个请求），
+  // 用到哪个（当前模板 / 打开模板库时的当前行业）才动态插入 <link>
+  const tplCssReady = {};   // tplId -> true 样式表已就绪
+  const tplCssWaiter = {};  // tplId -> Promise 防止重复插入
+  function ensureTemplateCss(tplId) {
+    if (tplCssReady[tplId]) return Promise.resolve();
+    if (!tplCssWaiter[tplId]) {
+      tplCssWaiter[tplId] = new Promise(function (resolve) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'assets/css/templates/' + tplId + '.css?v=' + (window.TMPL_CSS_V || 1);
+        link.onload = function () { tplCssReady[tplId] = true; resolve(); };
+        link.onerror = function () { resolve(); }; // 失败也放行，不卡流程
+        document.head.appendChild(link);
+      });
+    }
+    return tplCssWaiter[tplId];
+  }
+  function ensureTemplateCssAll(ids) {
+    return Promise.all(ids.map(ensureTemplateCss));
+  }
+
+  // 导出库（jszip / html2canvas / jspdf）按需加载：首次点下载按钮才拉取
+  const scriptCache = {};
+  function loadScriptOnce(src) {
+    if (!scriptCache[src]) {
+      scriptCache[src] = new Promise(function (resolve, reject) {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = function () { scriptCache[src] = null; reject(new Error('加载失败: ' + src)); };
+        document.head.appendChild(s);
+      });
+    }
+    return scriptCache[src];
+  }
+  let exportLibsPromise = null;
+  function ensureExportLibs() {
+    if (!exportLibsPromise) {
+      exportLibsPromise = Promise.all([
+        loadScriptOnce('assets/vendor/jszip.min.js'),
+        loadScriptOnce('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'),
+        loadScriptOnce('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js')
+      ]).catch(function (e) { exportLibsPromise = null; throw e; });
+    }
+    return exportLibsPromise;
+  }
+
+  // 模板库缩略图背景懒加载：滚到可视区附近才请求背景图
+  const lazyBgObserver = ('IntersectionObserver' in window)
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          const el = en.target;
+          if (el.dataset.bg) {
+            el.style.backgroundImage = 'url("' + el.dataset.bg + '")';
+            el.removeAttribute('data-bg');
+          }
+          lazyBgObserver.unobserve(el);
+        });
+      }, { rootMargin: '300px' })
+    : null;
+
   function rebuildSlides(keepIndex) {
+    // 当前模板样式表未就绪时，先加载再重建（加载完成缓存住，后续直接同步执行）
+    if (!tplCssReady[state.templateId]) {
+      ensureTemplateCss(state.templateId).then(function () { rebuildSlides(keepIndex); });
+      return;
+    }
     const idx = keepIndex ? Math.min(state.index, state.products.length - 1) : state.index;
     slides.innerHTML = '';
     state.products.forEach(function (p, i) { slides.appendChild(buildSlide(p, i)); });
@@ -882,8 +1421,43 @@
   function fileBase() {
     const t = window.TMPLRender.tplById(state.templateId);
     const p = state.products[state.index] || {};
-    const name = (p.name || '价签').replace(/[\\/:*?"<>|\s]/g, '');
+    const name = (p.name || modeConfig(currentMode).exportPrefix).replace(/[\\/:*?"<>|\s]/g, '');
     return t.id + '_' + name;
+  }
+
+  /** 批量导出用的文件名：序号_商品名 */
+  function batchName(i) {
+    const p = state.products[i] || {};
+    const name = (p.name || '未命名').replace(/[\\/:*?"<>|\s]/g, '');
+    return String(i + 1).padStart(2, '0') + '_' + name;
+  }
+
+  /** 收集全部商品对应的价签 DOM（按商品顺序，跳过空模板卡） */
+  function allProductTags() {
+    return [...document.querySelectorAll('.slide .ptag')]
+      .filter(function (t) { return !t.closest('.empty-slide'); });
+  }
+
+  /** 批量导出公共流程：逐张 captureTag，onEach(i, tag, total, ctx)，ctx 为共享对象 */
+  async function exportEachTag(btn, onEach, ctx) {
+    ctx = ctx || {};
+    const tags = allProductTags();
+    if (!tags.length) { showToast('还没有可导出的商品价签'); return null; }
+    const label = btn.textContent;
+    btn.disabled = true;
+    try {
+      for (let i = 0; i < tags.length; i++) {
+        btn.textContent = '导出中 ' + (i + 1) + '/' + tags.length + '…';
+        await onEach(i, tags[i], tags.length, ctx);
+      }
+      return tags.length;
+    } catch (e) {
+      showToast('导出失败：' + (e && e.message ? e.message : e));
+      return null;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = label;
+    }
   }
 
   function downloadBlob(blob, filename) {
@@ -913,22 +1487,42 @@
   }
 
   async function exportPdf() {
-    const tag = activeTag();
-    if (!tag) return;
     if (!window.jspdf) { showToast('PDF 组件尚未加载完成，请稍后重试'); return; }
     const btn = $('btnPdf');
-    btn.disabled = true;
-    try {
+    const ctx = { pdf: null };
+    const n = await exportEachTag(btn, async function (i, tag, total, c) {
       const canvas = await window.TMPLRender.captureTag(tag, 2480);
       const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-      const pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      pdf.addImage(dataUrl, 'JPEG', 0, 0, 210, 297, undefined, 'fast');
-      pdf.save(fileBase() + '.pdf');
-      showToast('PDF 已下载（A4）');
-    } catch (e) {
-      showToast('导出失败：' + (e && e.message ? e.message : e));
+      if (!c.pdf) c.pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      else c.pdf.addPage('a4', 'portrait');
+      // 按背景比例最大化并居中
+      const ratio = canvas.height / canvas.width;
+      let w = 210, h = 210 * ratio;
+      if (h > 297) { h = 297; w = 297 / ratio; }
+      c.pdf.addImage(dataUrl, 'JPEG', (210 - w) / 2, (297 - h) / 2, w, h, undefined, 'fast');
+    }, ctx);
+    if (n === null || !ctx.pdf) return;
+    ctx.pdf.save(modeConfig(currentMode).exportPrefix + '_' + String(n).padStart(2, '0') + '张_' + window.TMPLRender.tplById(state.templateId).id + '.pdf');
+    showToast('PDF 已下载（' + n + ' 张 · A4 一页一签）');
+  }
+
+  async function exportAllZip() {
+    if (!window.JSZip) { showToast('打包组件尚未加载完成，请稍后重试'); return; }
+    const btn = $('btnZip');
+    const zip = new window.JSZip();
+    const n = await exportEachTag(btn, async function (i, tag) {
+      const canvas = await window.TMPLRender.captureTag(tag, 2480);
+      const blob = await new Promise(function (res) { canvas.toBlob(res, 'image/png'); });
+      zip.file(batchName(i) + '.png', blob);
+    });
+    if (n === null) return;
+    btn.textContent = '正在压缩…';
+    try {
+      const out = await zip.generateAsync({ type: 'blob' });
+      downloadBlob(out, modeConfig(currentMode).exportPrefix + '_' + String(n).padStart(2, '0') + '张_' + window.TMPLRender.tplById(state.templateId).id + '.zip');
+      showToast('已打包 ' + n + ' 张 PNG');
     } finally {
-      btn.disabled = false;
+      btn.textContent = '⬇ 全部打包';
     }
   }
 
@@ -942,8 +1536,8 @@
     catch (e) { return {}; }
   })();
 
-  const DEBUG_TARGETS = { name: '.ptag-name', num: '.ptag-num', unit: '.ptag-unit', slogan: '.ptag-slogan' };
-  const DEBUG_LABELS = { name: '商品名称', num: '价格数字', unit: '计价单位', slogan: '宣传语' };
+  const DEBUG_TARGETS = { name: '.ptag-name', num: '.ptag-num', unit: '.ptag-unit', slogan: '.ptag-slogan', qr: '.ptag-qr' };
+  const DEBUG_LABELS = { name: '商品名称', num: '价格数字', unit: '计价单位', slogan: '宣传语', qr: '二维码区' };
   let dbgKey = null;
   let dbgTag = null;
 
@@ -970,6 +1564,10 @@
     if (ff.indexOf('Douyin') >= 0) return 'var(--font-douyin)';
     if (ff.indexOf('ZCOOL') >= 0) return 'var(--font-zcool)';
     if (ff.indexOf('Noto') >= 0) return 'var(--font-serif)';
+    if (ff.indexOf('Library') >= 0) return 'var(--font-library)';
+    if (ff.indexOf('Salt') >= 0) return 'var(--font-salt)';
+    if (ff.indexOf('Slim Joe') >= 0) return 'var(--font-slimjoe)';
+    if (ff.indexOf('ZQK') >= 0) return 'var(--font-zqk)';
     return '';
   }
   function toMm(tag, px) {
@@ -1008,7 +1606,13 @@
   function dbgApply(key, tag, v) {
     const o = window.TMPL_DEBUG_OVERRIDES[tag.dataset.tpl] =
       window.TMPL_DEBUG_OVERRIDES[tag.dataset.tpl] || {};
-    if (key === 'name' || key === 'slogan') {
+    if (key === 'qr') {
+      // 二维码区（整个白框容器）：只调几何位置/尺寸
+      o.qr = {
+        left: toMm(tag, v.left), top: toMm(tag, v.top),
+        width: toMm(tag, v.width), height: toMm(tag, v.height)
+      };
+    } else if (key === 'name' || key === 'slogan') {
       o[key] = {
         left: toMm(tag, v.left), top: toMm(tag, v.top),
         color: v.color, fontFamily: v.fontVar, fontWeight: v.fontWeight,
@@ -1056,31 +1660,50 @@
       ].concat(extra || []);
     }
 
-    const name = dbgCollect('name', tag);
-    rule(tpl + ' .ptag-name', box(name, [
-      'color: ' + name.color + ';',
-      name.fontVar ? 'font-family: ' + name.fontVar + ';' : '',
-      'font-size: ' + toMm(tag, name.fontSize) + ';',
-      'font-weight: ' + name.fontWeight + ';',
-      'letter-spacing: ' + toMm(tag, name.letterSpacing) + ';',
-      'padding-left: ' + toMm(tag, name.padX) + ';',
-      'padding-right: ' + toMm(tag, name.padX) + ';'
-    ]));
+    // 二维码区（整个白框容器，qr 模式）：只生成几何规则
+    const qrBox = tag.querySelector('.ptag-qr');
+    // qr 模式下店铺名/口号元素是双类（ptag-name ptag-qr-name），模板文件里
+    // .ptag-qr-name 块排在 .ptag-name 之后且同优先级——必须写到 qr 块才有视觉效果
+    const isQr = !!qrBox;
+    const nameCls = isQr ? '.ptag-qr-name' : '.ptag-name';
+    const sloganCls = isQr ? '.ptag-qr-slogan' : '.ptag-slogan';
 
-    const num = dbgCollect('num', tag);
-    rule(tpl + ' .ptag-price', [
-      'left: ' + toMm(tag, num.priceLeft) + ';',
-      'top: ' + toMm(tag, num.priceTop) + ';',
-      'width: ' + toMm(tag, num.priceW) + ';',
-      'height: ' + toMm(tag, num.priceH) + ';',
-      'gap: ' + toMm(tag, num.gap) + ';'
-    ]);
-    rule(tpl + ' .ptag-num', typo(num, [
-      num.textShadow ? 'text-shadow: ' + num.textShadow + ';' : ''
-    ]));
+    if (qrBox) {
+      const qrv = dbgCollect('qr', tag);
+      rule(tpl + ' .ptag-qr', box(qrv, []));
+    }
 
-    const unit = dbgCollect('unit', tag);
-    rule(tpl + ' .ptag-unit', typo(unit));
+    // 名称区（qr 模式下 .ptag-name 也存在，双类复用；price 模式专属元素判空跳过）
+    if (tag.querySelector('.ptag-name')) {
+      const name = dbgCollect('name', tag);
+      rule(tpl + ' ' + nameCls, box(name, [
+        'color: ' + name.color + ';',
+        name.fontVar ? 'font-family: ' + name.fontVar + ';' : '',
+        'font-size: ' + toMm(tag, name.fontSize) + ';',
+        'font-weight: ' + name.fontWeight + ';',
+        'letter-spacing: ' + toMm(tag, name.letterSpacing) + ';',
+        'padding-left: ' + toMm(tag, name.padX) + ';',
+        'padding-right: ' + toMm(tag, name.padX) + ';'
+      ]));
+    }
+
+    // 价格区（qr 模式无 .ptag-num / .ptag-unit，跳过）
+    if (tag.querySelector('.ptag-num')) {
+      const num = dbgCollect('num', tag);
+      rule(tpl + ' .ptag-price', [
+        'left: ' + toMm(tag, num.priceLeft) + ';',
+        'top: ' + toMm(tag, num.priceTop) + ';',
+        'width: ' + toMm(tag, num.priceW) + ';',
+        'height: ' + toMm(tag, num.priceH) + ';',
+        'gap: ' + toMm(tag, num.gap) + ';'
+      ]);
+      rule(tpl + ' .ptag-num', typo(num, [
+        num.textShadow ? 'text-shadow: ' + num.textShadow + ';' : ''
+      ]));
+
+      const unit = dbgCollect('unit', tag);
+      rule(tpl + ' .ptag-unit', typo(unit));
+    }
 
     const slEl = tag.querySelector('.ptag-slogan');
     if (slEl) {
@@ -1088,7 +1711,7 @@
       // 口号元素处于隐藏态（display:none）时计算宽高为 0，直接写会把模板文件搞坏；回退到默认几何
       const slW = sl.width > 0 ? sl.width : 210;
       const slH = sl.height > 0 ? sl.height : 14;
-      rule(tpl + ' .ptag-slogan', box(Object.assign({}, sl, { width: slW, height: slH }), [
+      rule(tpl + ' ' + sloganCls, box(Object.assign({}, sl, { width: slW, height: slH }), [
         'color: ' + sl.color + ';',
         sl.fontVar ? 'font-family: ' + sl.fontVar + ';' : '',
         'font-size: ' + toMm(tag, sl.fontSize) + ';',
@@ -1294,6 +1917,10 @@
     $('dbgCopy').addEventListener('click', function () {
       if (!dbgTag) return;
       const css = $('dbgCss').value;
+      if (!css.trim()) {
+        showToast('CSS 为空，拒绝写回（请先在面板调整参数生成 CSS，再写回文件）');
+        return;
+      }
       const tpl = dbgTag.dataset.tpl;
       fetch(dbgApiUrl(), {
         method: 'POST',
@@ -1304,7 +1931,10 @@
           // 覆盖成功后清掉该模板的 localStorage 调试覆盖，保证屏幕显示与 CSS 文件一致
           delete window.TMPL_DEBUG_OVERRIDES[tpl];
           saveDebugOverrides();
-          showToast('已覆盖 ' + res.file + '（替换 ' + res.replaced + ' 条 / 新增 ' + res.appended.length + ' 条，刷新页面生效）');
+          showToast('已覆盖 ' + res.file + '，页面自动刷新…');
+          // dev-server 已同步 bump 该模板 CSS 的 ?v= 版本号；
+          // 用 ?fresh= 换新地址强制重新拉 HTML，绕开一切缓存（含无视 no-store 的内置浏览器）
+          setTimeout(function () { location.replace(location.pathname + '?fresh=' + Date.now()); }, 800);
         } else {
           showToast('覆盖失败：' + res.error);
         }
@@ -1326,21 +1956,73 @@
       return window.TMPL_TEMPLATES.map(function (t) { return t.id; })
         .filter(function (id) { return id !== cur && id.replace(/\d+$/, '') === prefix; });
     }
+    // 同步其它模板：弹出带预览的选择弹窗，用户勾选要同步的模板（默认全选）
     $('dbgReset').addEventListener('click', function () {
       if (!dbgTag) return;
       const targets = dbgSyncTargets();
-      $('dbgSyncText').textContent = '将模板 ' + dbgTag.dataset.tpl + ' 的全部样式同步到 ' + targets.join('、') + '，共 ' + targets.length + ' 个模板。';
-      $('dbgSyncModal').classList.remove('hidden');
+      $('dbgSyncText').textContent = '选择要把模板 ' + dbgTag.dataset.tpl + ' 的样式同步到哪些模板：';
+      const grid = $('syncPickGrid');
+      grid.innerHTML = '';
+      const previewData = currentMode === 'qr'
+        ? { name: '店铺名称', qr: '' }
+        : { name: '商品名称', price: '9.9', unit: '元/个' };
+      const metas = targets.map(function (id) { return window.TMPLRender.tplById(id); });
+      ensureTemplateCssAll(targets).then(function () {
+        targets.forEach(function (id, i) {
+          const card = document.createElement('div');
+          card.className = 'sync-pick-card sel';
+          card.dataset.id = id;
+          const pv = document.createElement('div');
+          pv.className = 'sync-pick-preview';
+          const tagEl = window.TMPLRender.buildTag(metas[i], previewData);
+          // 背景图懒加载（复用模板库的观察器）
+          if (lazyBgObserver) {
+            tagEl.dataset.bg = metas[i].bg;
+            tagEl.style.backgroundImage = 'none';
+            lazyBgObserver.observe(tagEl);
+          }
+          pv.appendChild(tagEl);
+          const lb = document.createElement('span');
+          lb.className = 'sync-pick-name';
+          lb.textContent = id;
+          card.appendChild(pv);
+          card.appendChild(lb);
+          card.addEventListener('click', function () { card.classList.toggle('sel'); });
+          grid.appendChild(card);
+        });
+        $('dbgSyncModal').classList.remove('hidden');
+        requestAnimationFrame(function () {
+          grid.querySelectorAll('.sync-pick-preview').forEach(function (pv) {
+            const tag = pv.querySelector('.ptag');
+            const w = pv.clientWidth;
+            if (!tag || !w) return;
+            tag.style.width = w + 'px';
+            tag.style.height = (w * 297 / 210) + 'px';
+            tag.style.setProperty('--mm', (w / 210) + 'px');
+            window.TMPLRender.fitTag(tag);
+          });
+        });
+      });
     });
     $('dbgSyncCancel').addEventListener('click', function () {
       $('dbgSyncModal').classList.add('hidden');
     });
     $('dbgSyncOk').addEventListener('click', function () {
-      $('dbgSyncModal').classList.add('hidden');
       if (!dbgTag) return;
+      if (!$('dbgCss').value.trim()) {
+        showToast('CSS 为空，拒绝同步（请先在面板调整参数生成 CSS）');
+        return;
+      }
+      const picked = Array.prototype.slice.call($('syncPickGrid').querySelectorAll('.sync-pick-card.sel'))
+        .map(function (c) { return c.dataset.id; });
+      if (!picked.length) {
+        showToast('请至少选择一个要同步的模板');
+        return;
+      }
+      $('dbgSyncModal').classList.add('hidden');
       const src = dbgTag.dataset.tpl;
       // 同步目标包含源模板自身，保证源文件也与面板当前状态一致
-      const targets = [src].concat(dbgSyncTargets());
+      const targets = [src].concat(picked);
       let done = 0, fail = 0;
       function check() {
         if (done + fail < targets.length) return;
@@ -1561,6 +2243,8 @@
     // 添加商品 / 商品管理
     $('btnAddQuick').addEventListener('click', openQuickAdd);
     $('btnManage').addEventListener('click', openManage);
+    // 顶栏模式徽标：重新打开模式选择层
+    $('btnModeSwitch').addEventListener('click', showModeSelect);
     // 弹窗内新增一条草稿卡片
     $('btnAddDraft').addEventListener('click', function () {
       drafts.push(emptyDraft());
@@ -1656,6 +2340,8 @@
         p.name = editOneDraft.name;
         p.price = editOneDraft.price;
         p.unit = editOneDraft.unit;
+        p.qr = editOneDraft.qr || '';
+        p.slogan = editOneDraft.slogan || '';
         saveState();
         schedulePreview();
         showToast('已保存');
@@ -1663,8 +2349,49 @@
       editOneDraft = null;
       hideNumKey();
       hideUnitKey();
+      hideSloganKey();
       closeModal($('modalEditOne'));
     });
+
+    // 编辑弹窗：二维码上传 / 移除（qr 模式）
+    $('editOneQrPick').addEventListener('click', function () {
+      pickQrImage(function (dataUrl) {
+        if (!editOneDraft) return;
+        editOneDraft.qr = dataUrl;
+        refreshEditOneQr();
+      });
+    });
+    $('editOneQrDel').addEventListener('click', function () {
+      if (!editOneDraft) return;
+      editOneDraft.qr = '';
+      refreshEditOneQr();
+    });
+
+    // 编辑弹窗：口号选择（qr 模式）
+    $('editOneSlogan').addEventListener('click', function () {
+      openSloganKey($('editOneSlogan'), function (v) {
+        if (!editOneDraft) return;
+        editOneDraft.slogan = v;
+        refreshEditOneSlogan();
+      });
+    });
+
+    // 口号弹窗：自定义输入确定
+    $('skCustomOk').addEventListener('click', function () {
+      const v = $('skCustomInput').value.trim();
+      if (!v) { showToast('请输入口号内容'); return; }
+      if (skApply) { const fn = skApply; skApply = null; fn(v); }
+      hideSloganKey();
+    });
+    // 口号弹窗：不固定（每次渲染随机取一条）
+    $('skRandom').addEventListener('click', function () {
+      if (skApply) { const fn = skApply; skApply = null; fn(''); }
+      hideSloganKey();
+    });
+
+    // 裁剪层：确定 / 取消
+    $('cropConfirm').addEventListener('click', cropConfirm);
+    $('cropCancel').addEventListener('click', cropCancel);
 
     // 新增商品卡片
     $('btnAddProduct').addEventListener('click', appendNewProduct);
@@ -1696,8 +2423,10 @@
     });
 
     // 导出
-    $('btnPng').addEventListener('click', exportPng);
-    $('btnPdf').addEventListener('click', exportPdf);
+    // 站点加载优化：导出库（jszip/html2canvas/jspdf）首次点下载时才加载
+    $('btnPng').addEventListener('click', function () { ensureExportLibs().then(exportPng).catch(function () { showToast('导出组件加载失败，请检查网络'); }); });
+    $('btnZip').addEventListener('click', function () { ensureExportLibs().then(exportAllZip).catch(function () { showToast('导出组件加载失败，请检查网络'); }); });
+    $('btnPdf').addEventListener('click', function () { ensureExportLibs().then(exportPdf).catch(function () { showToast('导出组件加载失败，请检查网络'); }); });
 
     // 尺寸监听
     if (window.ResizeObserver) {
@@ -1711,7 +2440,15 @@
   function init() {
     bindEvents();
     if (DEBUG_MODE) initDebug();
+    // 模式：有记录直接应用，没有则弹选择层（选择层浮于引导弹窗之上）
+    renderModeCards();
+    const savedMode = loadSavedMode();
+    if (savedMode) applyMode(savedMode, false);
+    else showModeSelect();
+    applyModeText();
     const restored = loadState();
+    if (!state.products.length) state.products = [defaultProduct()];
+    booted = true;
     if (!state.products.length) state.products = [defaultProduct()];
     rebuildSlides(true);
     renderProductList();

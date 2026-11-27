@@ -4,6 +4,68 @@
 
 [data-tpl="B11"] .ptag-name {
   left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 58);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 59.4);
+  color: #1c1107;
+  font-family: var(--font-zcool);
+  font-size: calc(var(--mm) * 17);
+  font-weight: 400;
+  letter-spacing: calc(var(--mm) * 1);
+  padding-left: calc(var(--mm) * 23);
+  padding-right: calc(var(--mm) * 23);
+}
+
+[data-tpl="B11"] .ptag-price {
+  left: calc(var(--mm) * 15);
+  top: calc(var(--mm) * 108.5);
+  width: calc(var(--mm) * 180);
+  height: calc(var(--mm) * 80);
+  gap: calc(var(--mm) * 7);
+}
+[data-tpl="B11"] .ptag-num {
+  color: #bf3131;
+  font-family: var(--font-douyin);
+  font-size: calc(var(--mm) * 64.2);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+  text-shadow: rgba(255, 255, 255, 0.6) calc(var(--mm) * 0) calc(var(--mm) * 1.42871) calc(var(--mm) * 0);
+}
+[data-tpl="B11"] .ptag-unit {
+  color: #7a4a20;
+  font-family: var(--font-kai);
+  font-size: calc(var(--mm) * 14.9);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+[data-tpl="B11"] .ptag-slogan {
+  left: calc(var(--mm) * 0);
+  top: calc(var(--mm) * 185.5);
+  width: calc(var(--mm) * 210);
+  height: calc(var(--mm) * 14);
+  color: #7a4a20;
+  font-family: var(--font-serif);
+  font-size: calc(var(--mm) * 12);
+  font-weight: 400;
+  padding-left: calc(var(--mm) * 0);
+  padding-right: calc(var(--mm) * 0);
+}
+
+[data-tpl="B11"] .ptag-qr {
+  left: calc(var(--mm) * 65.0);
+  top: calc(var(--mm) * 100.0);
+  width: calc(var(--mm) * 80.0);
+  height: calc(var(--mm) * 80.0);
+  background: #ffffff;
+  border-radius: calc(var(--mm) * 2);
+}
+
+/* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
+[data-tpl="B11"] .ptag-qr-name {
+
+  left: calc(var(--mm) * 15);
   top: calc(var(--mm) * 70);
   width: calc(var(--mm) * 180);
   height: calc(var(--mm) * 22);
@@ -12,33 +74,24 @@
   font-size: calc(var(--mm) * 26);
   letter-spacing: calc(var(--mm) * 1);
 }
+[data-tpl="B11"] .ptag-qr-slogan {
 
-[data-tpl="B11"] .ptag-price {
-  left: calc(var(--mm) * 15);
-  top: calc(var(--mm) * 100);
-  width: calc(var(--mm) * 180);
-  height: calc(var(--mm) * 80);
-  gap: calc(var(--mm) * 7);
-}
-[data-tpl="B11"] .ptag-num {
-  color: #7a4a20;
-  font-family: var(--font-douyin);
-  font-size: calc(var(--mm) * 112);
-  text-shadow: 0 calc(var(--mm) * 1) 0 rgba(255, 255, 255, 0.6);
-}
-[data-tpl="B11"] .ptag-unit {
-  color: #7a4a20;
-  font-family: var(--font-kai);
-  font-size: calc(var(--mm) * 26);
-  padding-bottom: calc(var(--mm) * 9);
-}
-[data-tpl="B11"] .ptag-slogan {
   left: calc(var(--mm) * 0);
-  top: calc(var(--mm) * 168);
+  top: calc(var(--mm) * 182.0);
   width: calc(var(--mm) * 210);
   height: calc(var(--mm) * 14);
   color: #7a4a20;
   font-family: var(--font-serif);
   font-weight: 400;
   font-size: calc(var(--mm) * 12);
+}
+
+/* 二维码图（上传后的图片）：改 top/left 上下左右移动，改 width/height 缩放 */
+[data-tpl="B11"] .ptag-qr-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

@@ -1036,8 +1036,50 @@ body.debug-on .ptag-slogan:hover {
 .dbg-modal-cancel { background: #f0f0f0; color: #555; }
 .dbg-modal-ok { background: #c0392b; color: #fff; }
 .dbg-grid-row {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   margin-bottom: 8px;
+}
+/* 同步其它模板：带预览的选择网格 */
+.dbg-sync-box {
+  width: min(560px, 92vw);
+}
+.sync-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 4px 2px;
+  margin: 10px 0;
+}
+.sync-pick-card {
+  border: 2px solid #e3e0d8;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 6px;
+  text-align: center;
+  background: #fff;
+  user-select: none;
+  opacity: 0.5;
+  transition: opacity 0.12s, border-color 0.12s;
+}
+.sync-pick-card.sel {
+  border-color: #e5484d;
+  opacity: 1;
+}
+.sync-pick-preview {
+  width: 100%;
+  aspect-ratio: 210 / 297;
+  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+}
+.sync-pick-name {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+  color: #888;
+  font-weight: 700;
 }
 .dbg-grid label {
   flex-direction: column;
@@ -1564,4 +1606,286 @@ body.debug-on .ptag-slogan:hover {
   .numkey, .unitkey { width: 216px; }
   .nk-btn {height: 35px;font-size: 18px;}
   .nk-ok { height: 40px; }
+}
+
+/* =====================================================
+ * 模式选择覆盖层（价格标签 / 二维码展示牌）
+ * ===================================================== */
+.mode-select {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(to right, #7e7e7e24 1px, transparent 1px),
+    linear-gradient(to bottom, #a5a5a514 1px, #00000000 1px);
+  background-size: 6px 6px;
+  background-color: #1e1e1ef5;
+  padding: 24px;
+}
+.mode-select[hidden] { display: none; }
+.mode-select-inner { text-align: center; max-width: 720px; width: 100%; }
+.ms-head { margin-bottom: 36px; }
+.ms-logo { font-size: 46px; display: block; margin-bottom: 12px; }
+.ms-head h1 { font-size: 30px; letter-spacing: 2px; color: #fff; }
+.ms-head p { margin-top: 10px; font-size: 14px; color: #9aa09a; }
+.mode-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.mode-card {
+  background: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  padding: 30px 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+.mode-card:hover {
+  transform: translateY(-4px);
+  border-color: #f00c0c;
+  box-shadow: 0 14px 36px rgba(240, 12, 12, 0.22);
+}
+.mode-card:active { transform: translateY(-1px); }
+.mc-emoji { font-size: 44px; display: block; }
+.mc-label { margin-top: 14px; font-size: 20px; font-weight: 700; color: #2f3a2e; letter-spacing: 1px; }
+.mc-desc { margin-top: 8px; font-size: 13px; color: #8a9484; line-height: 1.6; }
+
+/* 顶栏当前模式徽标 */
+.mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #ffffff2e;
+  border-radius: 999px;
+  background: #ffffff14;
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+.mode-badge:hover { border-color: #f00c0c; background: #f00c0c22; }
+.mode-badge .mb-change { font-size: 12px; color: #ff8a8a; }
+
+/* ---------- qr 模式：商品卡二维码上传字段 ---------- */
+.p-qr-wrap {
+  grid-column: 2 / -1; /* 占价格+单位两列的位置 */
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+.p-qr-field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 42px;
+  padding: 0 10px;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+  color: #8a9484;
+  text-align: left;
+}
+.p-qr-wrap.has-img .p-qr-field { border-color: #f00c0c66; color: #2f3a2e; }
+.p-qr-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  flex: none;
+}
+.p-qr-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.p-qr-del {
+  flex: none;
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+  color: #e03131;
+}
+/* 编辑弹窗内复用 qr 字段：覆盖商品卡网格的跨列设置 */
+.eo-qrwrap { grid-column: auto; display: flex; width: 100%; }
+
+/* ---------- qr 模式：宣传口号编辑字段 ---------- */
+.p-slogan-field {
+  grid-column: 1 / -1; /* 商品卡里独占一行 */
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+  color: #8a9484;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.p-slogan-field.has-value { border-color: #f00c0c66; color: #2f3a2e; }
+/* 编辑弹窗内不参与网格跨列 */
+.eo-field .p-slogan-field { grid-column: auto; width: 100%; }
+
+/* ---------- 口号选择弹窗（与九宫格同风格） ---------- */
+.slogankey {
+  position: fixed;
+  z-index: 500;
+  width: 320px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  padding: 12px;
+}
+.sk-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 10px; text-align: center; }
+.sk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.sk-btn {
+  height: 42px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  background: #f4f4f4;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: background .1s;
+}
+.sk-btn:active { background: #e0e0e0; }
+.sk-btn.active { background: #fdecec; color: #e03131; }
+.sk-customrow {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sk-customrow input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0 12px;
+  font-size: 14px;
+}
+.sk-customrow input:focus { border-color: #F56204; outline: none; }
+.sk-random {
+  width: 100%;
+  margin-top: 8px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: #8a9484;
+}
+.sk-random:active { color: #e03131; }
+
+/* ---------- 二维码裁剪层（全屏，手机端手势兼容） ---------- */
+.crop-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 600; /* 盖过所有弹窗（modal 400 / 键盘 500） */
+  display: flex;
+  flex-direction: column;
+  background: #141414;
+}
+.crop-layer[hidden] { display: none; }
+.crop-layer.hidden { display: none; }
+.crop-top {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+.crop-title { color: #fff; font-size: 15px; font-weight: 600; }
+.crop-btn {
+  min-width: 64px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #ffffff45;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+}
+.crop-btn.crop-ok { background: #e03131; border-color: #e03131; font-weight: 700; }
+.crop-btn:active { opacity: 0.8; }
+.crop-stage {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  touch-action: none; /* 关键：阻止浏览器默认滚动/缩放，手势全部接管 */
+  cursor: grab;
+}
+.crop-stage:active { cursor: grabbing; }
+.crop-stage img {
+  position: absolute;
+  transform-origin: left top;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.crop-mask {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px dashed #ffffffcc;
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+.crop-hint {
+  flex: none;
+  text-align: center;
+  color: #9a9a9a;
+  font-size: 12px;
+  padding: 12px 0 18px;
+}
+
+@media (max-width: 420px) {
+  .slogankey { width: calc(100vw - 24px); max-width: 320px; }
+  .crop-btn { min-width: 56px; }
+}
+
+/* ---------- 价签上的二维码区（qr 模式）----------
+ * 全局兜底样式：各模板 CSS（.ptag-qr 同名类）可按背景图配色覆盖精确定位 */
+.ptag :where(.ptag-qr) {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  right: 15%;
+  bottom: 24%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: calc(var(--mm) * 2.3) solid rgba(255, 255, 255, 0.2);
+  border-radius: calc(var(--mm) * 2);
+  overflow: hidden;
+}
+.ptag :where(.ptag-qr-img) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.ptag :where(.ptag-qr-ph) {
+  font-size: calc(var(--mm) * 7);
+  color: #b9b9b9;
+  letter-spacing: calc(var(--mm) * 1);
 }
