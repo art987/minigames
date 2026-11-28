@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国画视频教程库</title>
+<style>
+    :root {
+        --blue: #2b7de9;
+        --blue-light: #eaf3ff;
+        --text: #2c3e50;
+        --text-sub: #7a8a9a;
+        --bg: #f5f8fc;
+        --line: #e8eef5;
+        --side-w: 216px;
+        --top-h: 56px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    body { background: var(--bg); color: var(--text); }
+
+    /* 顶栏 */
+    header { position: fixed; top: 0; left: 0; right: 0; height: var(--top-h); background: #fff;
+             border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 18px; z-index: 100; }
+    header .logo { font-size: 18px; font-weight: 600; letter-spacing: 3px; }
+    header .logo span { color: var(--blue); }
+    header .extra { margin-left: auto; display: flex; gap: 10px; }
+    header .extra a { font-size: 13px; color: var(--text-sub); text-decoration: none; padding: 5px 12px;
+                      border: 1px solid var(--line); border-radius: 14px; transition: all .2s ease; }
+    header .extra a:hover { color: var(--blue); border-color: var(--blue); }
+
+    /* 左侧菜单 */
+    nav { position: fixed; top: var(--top-h); left: 0; bottom: 0; width: var(--side-w);
+          background: #fff; border-right: 1px solid var(--line); overflow-y: auto; padding: 10px 0 20px; }
+    .cat { margin-bottom: 2px; }
+    .cat-head { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px;
+                font-size: 15px; font-weight: 600; cursor: pointer; user-select: none; transition: background .15s ease; }
+    .cat-head:hover { background: var(--bg); }
+    .cat-head .arrow { font-size: 11px; color: var(--text-sub); transition: transform .2s ease; }
+    .cat.open .cat-head .arrow { transform: rotate(90deg); }
+    .cat-head .cat-count { font-size: 11px; font-weight: 400; color: var(--text-sub); }
+    .cat-body { display: none; }
+    .cat.open .cat-body { display: block; }
+    .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px 9px 26px;
+                 font-size: 13.5px; color: var(--text-sub); cursor: pointer; border-left: 3px solid transparent;
+                 transition: all .15s ease; }
+    .menu-item:hover { color: var(--blue); background: var(--bg); }
+    .menu-item.active { color: var(--blue); background: var(--blue-light); border-left-color: var(--blue); font-weight: 600; }
+    .menu-item .cnt { font-size: 11px; color: var(--text-sub); background: var(--bg); border-radius: 10px; padding: 1px 8px; }
+    .menu-item.active .cnt { background: #fff; color: var(--blue); }
+    .side-link { display: block; margin: 14px 16px 0; font-size: 13px; color: var(--text-sub); text-decoration: none;
+                 text-align: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 0; transition: all .2s ease; }
+    .side-link:hover { color: var(--blue); border-color: var(--blue); }
+
+    /* 内容区 */
+    main { margin-left: var(--side-w); margin-top: var(--top-h); padding: 20px 24px 60px; }
+    #sec-title { font-size: 20px; font-weight: 600; margin: 4px 0 4px; }
+    #sec-title em { font-style: normal; font-size: 13px; color: var(--text-sub); font-weight: 400; margin-left: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 16px; }
+    .cell { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; position: relative; }
+    .cell video, .cell img { width: 100%; height: 460px; object-fit: contain; background: #000; display: block; }
+    .cell img { background: #fff; }
+    .cell .cap { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.55); color: #fff;
+                 font-size: 13px; padding: 3px 12px; border-radius: 4px; letter-spacing: 1px; }
+    /* 播放提示遮罩（视频未播放时显示，点击/播放后消失） */
+    .cell .play-hint { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+                       pointer-events: none; color: rgba(255,255,255,.75); font-size: 40px;
+                       text-shadow: 0 2px 12px rgba(0,0,0,.6); background: rgba(0,0,0,.18); }
+
+    /* ===== 首页大类卡片 ===== */
+    .cat-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+                transition: box-shadow .2s ease, transform .2s ease; }
+    .cat-card:hover { box-shadow: 0 6px 20px rgba(43,125,233,.12); transform: translateY(-2px); }
+    .cat-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 14px; display: flex;
+                   align-items: center; justify-content: space-between; gap: 8px; }
+    .cat-card h3 .cnt { font-size: 12px; color: var(--text-sub); font-weight: 400;
+                        background: var(--bg); padding: 2px 10px; border-radius: 10px; white-space: nowrap; }
+    .cat-card .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cat-card .chip { font-size: 13px; color: var(--text-sub); border: 1px solid var(--line);
+                      border-radius: 14px; padding: 5px 13px; cursor: pointer; transition: all .15s ease; }
+    .cat-card .chip:hover { color: #fff; background: var(--blue); border-color: var(--blue); }
+
+    /* 移动端 */
+    #side-toggle { display: none; }
+    @media (max-width: 860px) {
+        #side-toggle { display: block; margin-right: 10px; background: none; border: 1px solid var(--line);
+                       border-radius: 6px; padding: 4px 10px; font-size: 15px; color: var(--text); cursor: pointer; }
+        nav { transform: translateX(-100%); transition: transform .25s ease; z-index: 99; }
+        nav.show { transform: translateX(0); box-shadow: 6px 0 20px rgba(0,0,0,.08); }
+        main { margin-left: 0; }
+        .cell video, .cell img { height: 300px; }
+    }
+
+    /* ===== 全屏播放弹窗（3D 横排卡片） ===== */
+    #pm { position: fixed; inset: 0; background: rgba(8,12,18,.94); z-index: 500; display: none; }
+    #pm.show { display: block; }
+    #pm-stage { position: absolute; left: 0; right: 0; top: 60px; bottom: 16px;
+                perspective: 1500px; transform-style: preserve-3d; }
+    .pm-card { position: absolute; left: 50%; top: 50%; width: min(58vw, 960px); height: 80vh;
+               border-radius: 12px; overflow: hidden; background: #000;
+               box-shadow: 0 20px 60px rgba(0,0,0,.55);
+               transition: transform .4s ease, opacity .4s ease; cursor: pointer; }
+    .pm-card video { width: 100%; height: 100%; object-fit: contain; display: block; }
+    #pm-title { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 130;
+                color: #fff; font-size: 16px; letter-spacing: 1px; white-space: nowrap; }
+    .pm-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 120;
+              background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28);
+              font-size: 15px; letter-spacing: 2px; padding: 15px 18px; border-radius: 10px; cursor: pointer;
+              transition: background .2s ease; user-select: none; }
+    .pm-btn:hover { background: rgba(255,255,255,.28); }
+    #pm-prev { left: 22px; }
+    #pm-next { right: 22px; }
+    #pm-mode { top: auto; bottom: 26px; right: 22px; transform: none; }
+
+    /* 视频卡片悬浮播放按钮（右上角，一行两个） */
+    .cell .vbtns { position: absolute; top: 8px; right: 8px; z-index: 6; display: flex; flex-direction: row;
+                   gap: 8px; opacity: 0; pointer-events: none; transition: opacity .18s ease; }
+    .cell:hover .vbtns { opacity: 1; }
+    .cell .vbtns button { pointer-events: auto; background: rgba(0,0,0,.62); color: #fff;
+                          border: 1px solid rgba(255,255,255,.45); font-size: 13px; letter-spacing: 1px;
+                          padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: background .2s ease; }
+    .cell .vbtns button:hover { background: rgba(43,125,233,.88); }
+    #pm-close { position: absolute; top: 14px; right: 18px; z-index: 140;
+                background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28);
+                font-size: 14px; padding: 7px 18px; border-radius: 18px; cursor: pointer;
+                transition: background .2s ease; }
+    #pm-close:hover { background: rgba(255,255,255,.28); }
+    @media (max-width: 860px) {
+        .pm-card { width: 86vw; height: 80vh; }
+        .pm-btn { padding: 11px 13px; font-size: 13px; }
+        #pm-prev { left: 8px; } #pm-next { right: 8px; }
+        #pm-mode { right: 8px; bottom: 18px; }
+        /* 触屏无 hover：悬浮按钮常显 */
+        .cell .vbtns { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <button id="side-toggle">目录</button>
+    <div class="logo">国画<span>视频教程库</span></div>
+    <div class="extra"><a href="admin.html" target="_blank">视频管理</a></div>
+</header>
+
+<nav id="sidebar"></nav>
+
+<main>
+    <div id="sec-title">欢迎使用</div>
+    <div class="grid" id="grid"></div>
+</main>
+
+<!-- 全屏播放弹窗 -->
+<div id="pm">
+    <div id="pm-title"></div>
+    <button id="pm-close">关闭</button>
+    <div id="pm-stage"></div>
+    <button class="pm-btn" id="pm-prev">上一个</button>
+    <button class="pm-btn" id="pm-next">下一个</button>
+    <button class="pm-btn" id="pm-mode">顺序播放</button>
+</div>
+
+<script>
+// 兜底目录：云目录（cnpv-catalog）加载失败时使用；成功后会被云端数据替换
+let DATA = [{"name": "皴擦点染描", "page": "pages/皴擦点染描.html", "sections": [{"id": "trace", "title": "描", "items": [{"t": "v", "s": "videos/05-技法/trace01.mp4", "l": "(一)高古游丝描"}, {"t": "v", "s": "videos/05-技法/trace02.mp4", "l": "（二）琴弦描"}, {"t": "v", "s": "videos/05-技法/trace03.mp4", "l": "（三）铁线描"}, {"t": "v", "s": "videos/05-技法/trace04.mp4", "l": "（四）混描"}, {"t": "v", "s": "videos/05-技法/trace05.mp4", "l": "（五）曹衣出水描"}, {"t": "v", "s": "videos/05-技法/trace06.mp4", "l": "（六）钉头鼠尾描"}, {"t": "v", "s": "videos/05-技法/trace07.mp4", "l": "（七）橛头描"}, {"t": "v", "s": "videos/05-技法/trace08.mp4", "l": "（八）兰叶描"}, {"t": "v", "s": "videos/05-技法/trace09.mp4", "l": "（九）折芦描"}, {"t": "v", "s": "videos/05-技法/trace10.mp4", "l": "（十）橄榄描"}, {"t": "v", "s": "videos/05-技法/trace11.mp4", "l": "（十一）枣核描"}, {"t": "v", "s": "videos/05-技法/trace12.mp4", "l": "（十二）柳叶描"}, {"t": "v", "s": "videos/05-技法/trace13.mp4", "l": "（十三）竹叶描"}, {"t": "v", "s": "videos/05-技法/trace14.mp4", "l": "（十四）战笔描"}, {"t": "v", "s": "videos/05-技法/trace15.mp4", "l": "（十五）减笔描"}, {"t": "v", "s": "videos/05-技法/trace16.mp4", "l": "（十六）枯柴描"}, {"t": "v", "s": "videos/05-技法/trace17.mp4", "l": "（十七）蚯蚓描"}, {"t": "v", "s": "videos/05-技法/trace18.mp4", "l": "（十八）行云流水描"}]}, {"id": "wrinkle", "title": "皴法", "items": [{"t": "v", "s": "videos/05-技法/wrinkletalk01.mp4", "l": "皴法概述（一）"}, {"t": "v", "s": "videos/05-技法/wrinkletalk02.mp4", "l": "皴法概述（二）"}, {"t": "v", "s": "videos/05-技法/wrinkletalk03.mp4", "l": "皴法概述（三）"}, {"t": "v", "s": "videos/05-技法/wrinkletalk04.mp4", "l": "皴法概述（四）"}, {"t": "v", "s": "videos/05-技法/wrinkle01-1.mp4", "l": "（一）雨点皴"}, {"t": "v", "s": "videos/05-技法/wrinkle01-2.mp4", "l": "（一）雨点皴"}, {"t": "v", "s": "videos/05-技法/wrinkle01-3.mp4", "l": "（一）雨点皴"}, {"t": "v", "s": "videos/05-技法/wrinkle02-1.mp4", "l": "(二)豆瓣皴"}, {"t": "v", "s": "videos/05-技法/wrinkle02-2.mp4", "l": "(二)豆瓣皴"}, {"t": "v", "s": "videos/05-技法/wrinkle02-3.mp4", "l": "(二)豆瓣皴"}, {"t": "v", "s": "videos/05-技法/wrinkle03-1.mp4", "l": "（三）披麻皴"}, {"t": "v", "s": "videos/05-技法/wrinkle03-2.mp4", "l": "（三）披麻皴"}, {"t": "v", "s": "videos/05-技法/wrinkle03-3.mp4", "l": "（三）披麻皴"}, {"t": "v", "s": "videos/05-技法/wrinkle04-1.mp4", "l": "（四）荷叶皴"}, {"t": "v", "s": "videos/05-技法/wrinkle04-2.mp4", "l": "（四）荷叶皴"}, {"t": "v", "s": "videos/05-技法/wrinkle05.mp4", "l": "（五）解索皴"}, {"t": "v", "s": "videos/05-技法/wrinkle06-1.mp4", "l": "（六）折带皴"}, {"t": "v", "s": "videos/05-技法/wrinkle06-2.mp4", "l": "（六）折带皴"}, {"t": "v", "s": "videos/05-技法/wrinkle06-3.mp4", "l": "（六）折带皴"}, {"t": "v", "s": "videos/05-技法/wrinkle06-4.mp4", "l": "（六）折带皴"}, {"t": "v", "s": "videos/05-技法/wrinkle07-1.mp4", "l": "（七）卷云皴"}, {"t": "v", "s": "videos/05-技法/wrinkle07-2.mp4", "l": "（七）卷云皴"}, {"t": "v", "s": "videos/05-技法/wrinkle07-3.mp4", "l": "（七）卷云皴"}, {"t": "v", "s": "videos/05-技法/wrinkle08-1.mp4", "l": "（八）牛毛皴"}, {"t": "v", "s": "videos/05-技法/wrinkle08-2.mp4", "l": "（八）牛毛皴"}, {"t": "v", "s": "videos/05-技法/wrinkle09-1.mp4", "l": "（九）斧劈皴-大斧劈"}, {"t": "v", "s": "videos/05-技法/wrinkle09-2.mp4", "l": "（九）斧劈皴-大斧劈"}, {"t": "v", "s": "videos/05-技法/wrinkle09-3.mp4", "l": "（九）斧劈皴-大斧劈"}, {"t": "v", "s": "videos/05-技法/wrinkle09-4.mp4", "l": "（九）斧劈皴-小斧劈"}, {"t": "v", "s": "videos/05-技法/wrinkle09-5.mp4", "l": "（九）斧劈皴-小斧劈"}, {"t": "v", "s": "videos/05-技法/wrinkle10.mp4", "l": "（十）乱柴皴"}, {"t": "v", "s": "videos/05-技法/wrinkle11.mp4", "l": "（十一）丁头皴"}, {"t": "v", "s": "videos/05-技法/wrinkle12-1.mp4", "l": "（十二）刮铁皴"}, {"t": "v", "s": "videos/05-技法/wrinkle12-2.mp4", "l": "（十二）刮铁皴"}, {"t": "v", "s": "videos/05-技法/wrinkle12-3.mp4", "l": "（十二）刮铁皴"}, {"t": "v", "s": "videos/05-技法/wrinkle12-4.mp4", "l": "（十二）刮铁皴"}, {"t": "v", "s": "videos/05-技法/wrinkle13-1.mp4", "l": "（十三）鱼鳞皴"}, {"t": "v", "s": "videos/05-技法/wrinkle13-2.mp4", "l": "（十三）鱼鳞皴"}, {"t": "v", "s": "videos/05-技法/wrinkle14.mp4", "l": "（十四）绳皴"}, {"t": "v", "s": "videos/05-技法/wrinkle15-1.mp4", "l": "（十五）矾头皴"}, {"t": "v", "s": "videos/05-技法/wrinkle15-2.mp4", "l": "（十五）矾头皴"}, {"t": "v", "s": "videos/05-技法/wrinkle15-3.mp4", "l": "（十五）矾头皴"}, {"t": "v", "s": "videos/05-技法/wrinkle16.mp4", "l": "（十六）马牙皴"}, {"t": "v", "s": "videos/05-技法/wrinkle17.mp4", "l": "（十六雨淋墙头皴"}, {"t": "v", "s": "videos/05-技法/skill01.mp4", "l": ""}]}, {"id": "moist", "title": "泼墨", "items": [{"t": "v", "s": "videos/05-技法/moist01.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist02.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist03.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist04.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist05.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist06.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist07.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist08.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist09.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist10.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist11.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist12.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist13.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist14.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist15.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist16.mp4", "l": ""}, {"t": "v", "s": "videos/05-技法/moist17.mp4", "l": ""}]}]}, {"name": "山石花鸟", "page": "pages/山石水草天.html", "sections": [{"id": "composition", "title": "构图", "items": [{"t": "i", "s": "assets/composition.jpg", "l": ""}, {"t": "v", "s": "videos/03-山石草木/composition-01.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/composition-02.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/composition-03.mp4", "l": ""}]}, {"id": "leaf", "title": "草", "items": [{"t": "v", "s": "videos/03-山石草木/grass01.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/grass02.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/grass03.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/reed01.mp4", "l": ""}]}, {"id": "leaf", "title": "夹叶", "items": [{"t": "v", "s": "videos/03-山石草木/leaf-01.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-02.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-03.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-04.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-05.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-06.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-07.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-08.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-09.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-10.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-11.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/leaf-12.mp4", "l": ""}]}, {"id": "stone", "title": "石头", "items": [{"t": "v", "s": "videos/03-山石草木/stone-01.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/stone-02.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/stone-03.mp4", "l": "圆溪石"}, {"t": "v", "s": "videos/03-山石草木/stone-04.mp4", "l": "角岩石"}, {"t": "v", "s": "videos/03-山石草木/stone-05.mp4", "l": "平台石"}, {"t": "v", "s": "videos/03-山石草木/stone-06.mp4", "l": "坡畔石"}, {"t": "v", "s": "videos/03-山石草木/stone-07.mp4", "l": "太湖石"}, {"t": "v", "s": "videos/03-山石草木/stone-08.mp4", "l": "太湖石"}, {"t": "v", "s": "videos/03-山石草木/stone-09.mp4", "l": ""}]}, {"id": "bird", "title": "鸟", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/bird-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-06.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-07.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-08.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-09.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-10.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-11.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-12.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/bird-13.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/hawk01.mp4", "l": ""}]}, {"id": "crane", "title": "鹤", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/crane-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-07.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/crane-06.mp4", "l": ""}]}, {"id": "swallow", "title": "燕", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-06.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/swallow-02.mp4", "l": ""}]}, {"id": "parrot", "title": "鹦鹉", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-06.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-07.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/parrot-08.mp4", "l": ""}]}, {"id": "magpie", "title": "喜鹊", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/magpie-06.mp4", "l": ""}]}, {"id": "sparrow", "title": "麻雀", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-04.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-05.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-06.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-07.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/sparrow-08.mp4", "l": ""}]}, {"id": "butterfly", "title": "蝴蝶", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/butterfly-01.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/butterfly-02.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/butterfly-03.mp4", "l": ""}, {"t": "v", "s": "videos/04-禽鸟鱼虫/butterfly-04.mp4", "l": ""}]}, {"id": "fish", "title": "鱼", "items": [{"t": "v", "s": "videos/04-禽鸟鱼虫/carp01.mp4", "l": ""}]}, {"id": "mountain", "title": "山", "items": [{"t": "v", "s": "videos/03-山石草木/landscape01.mp4", "l": ""}, {"t": "v", "s": "videos/03-山石草木/landscape02.mp4", "l": ""}]}]}, {"name": "花 卉", "page": "pages/花.html", "sections": [{"id": "plum_blossom", "title": "梅花", "items": [{"t": "v", "s": "videos/08-梅花专项/01.MP4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/02.MP4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/03.MP4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom01.MP4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom02.MP4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom05.MP4", "l": ""}, {"t": "v", "s": "videos/01-花卉/plumblossom06.mp4", "l": ""}]}, {"id": "orchid", "title": "兰花", "items": [{"t": "v", "s": "videos/01-花卉/orchid01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/orchid02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/orchid03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/orchid05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/orchid06.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/orchid04.mp4", "l": ""}]}, {"id": "bamboo", "title": "竹子", "items": [{"t": "v", "s": "videos/02-树木/bamboo01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/bamboo02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/bamboo03.mp4", "l": ""}]}, {"id": "Apricot_flower", "title": "杏花", "items": [{"t": "v", "s": "videos/01-花卉/apricot01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/apricot02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/apricot03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/apricot04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/apricot05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/apricot06.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/plum04.mp4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom03.mp4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom04.mp4", "l": ""}, {"t": "v", "s": "videos/08-梅花专项/01plumblossom06.mp4", "l": ""}]}, {"id": "peach_blossom", "title": "桃花", "items": [{"t": "v", "s": "videos/01-花卉/peach01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peach02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peach03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peach04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peach05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peach06.mp4", "l": ""}]}, {"id": "peony", "title": "牡丹", "items": [{"t": "v", "s": "videos/01-花卉/peony01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peony02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peony03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peony04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peony05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/peony06.mp4", "l": ""}]}, {"id": "pomegranate_blossom", "title": "石榴花", "items": [{"t": "v", "s": "videos/01-花卉/pomegranate01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/pomegranate02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/pomegranate03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/pomegranate04.mp4", "l": ""}]}, {"id": "lotus", "title": "荷花", "items": [{"t": "v", "s": "videos/01-花卉/lotus06.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus07.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus08.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/lotus09.mp4", "l": ""}]}, {"id": "sunflower", "title": "葵花", "items": [{"t": "v", "s": "videos/01-花卉/sunflower01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/sunflower02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/sunflower03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/sunflower04.mp4", "l": ""}]}, {"id": "osmanthus", "title": "桂花", "items": [{"t": "v", "s": "videos/01-花卉/osmanthus01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus06.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/osmanthus07.mp4", "l": ""}]}, {"id": "chrysanthemum", "title": "菊花", "items": [{"t": "v", "s": "videos/01-花卉/chrysanthemum01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/chrysanthemum02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/chrysanthemum03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/chrysanthemum04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/chrysanthemum05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/chrysanthemum06.mp4", "l": ""}]}, {"id": "hibiscus", "title": "芙蓉", "items": [{"t": "v", "s": "videos/01-花卉/hibiscus01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus06.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus07.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus08.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/hibiscus09.mp4", "l": ""}]}, {"id": "camellia", "title": "茶花", "items": [{"t": "v", "s": "videos/01-花卉/camellia01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/camellia02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/camellia03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/camellia04.mp4", "l": ""}]}, {"id": "narcissus", "title": "水仙", "items": [{"t": "v", "s": "videos/01-花卉/narcissus01.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/narcissus02.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/narcissus03.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/narcissus04.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/narcissus05.mp4", "l": ""}, {"t": "v", "s": "videos/01-花卉/narcissus06.mp4", "l": ""}]}]}, {"name": "树 木", "page": "pages/木.html", "sections": [{"id": "tree", "title": "树", "items": [{"t": "v", "s": "videos/02-树木/tree01.mp4", "l": ""}]}, {"id": "pine", "title": "松", "items": [{"t": "v", "s": "videos/02-树木/pine01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pine02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pine03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pine04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pine05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pine06.mp4", "l": ""}]}, {"id": "plantain", "title": "芭蕉", "items": [{"t": "v", "s": "videos/02-树木/plantain01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain07.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain08.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/plantain09.mp4", "l": ""}]}, {"id": "cypress", "title": "柏树", "items": [{"t": "v", "s": "videos/02-树木/cypress01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress07.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/cypress08.mp4", "l": ""}]}, {"id": "pushu", "title": "朴树", "items": [{"t": "v", "s": "videos/02-树木/pushu01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pushu02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pushu03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pushu04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/pushu05.mp4", "l": ""}]}, {"id": "ginkgo", "title": "银杏", "items": [{"t": "v", "s": "videos/02-树木/ginkgo01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/ginkgo02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/ginkgo03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/ginkgo04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/ginkgo05.mp4", "l": ""}]}, {"id": "parasol", "title": "梧桐", "items": [{"t": "v", "s": "videos/02-树木/parasol01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol07.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/parasol08.mp4", "l": ""}]}, {"id": "maple", "title": "枫树", "items": [{"t": "v", "s": "videos/02-树木/maple01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple07.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/maple08.mp4", "l": ""}]}, {"id": "willow", "title": "柳树", "items": [{"t": "v", "s": "videos/02-树木/willow01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/willow07.mp4", "l": ""}]}, {"id": "vine", "title": "藤蔓", "items": [{"t": "v", "s": "videos/02-树木/vine01.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine02.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine03.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine04.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine05.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine06.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/vine07.mp4", "l": ""}, {"t": "v", "s": "videos/02-树木/grape01.mp4", "l": ""}]}]}, {"name": "美 人", "page": "pages/美人.html", "sections": [{"id": "plum_blossom", "title": "美颜", "items": [{"t": "i", "s": "assets/face01.webp", "l": ""}, {"t": "v", "s": "videos/06-美人/face02.mp4", "l": ""}, {"t": "i", "s": "assets/face03.webp", "l": ""}, {"t": "v", "s": "videos/06-美人/face02.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/face04.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/face05.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/face06.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/face07.mp4", "l": ""}]}, {"id": "plum_blossom", "title": "其它", "items": [{"t": "v", "s": "videos/06-美人/beauty.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/beauty02.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/beauty03.mp4", "l": ""}, {"t": "v", "s": "videos/06-美人/beauty04.mp4", "l": ""}]}]}, {"name": "名家作品", "page": "pages/名家作品.html", "sections": [{"id": "muxi", "title": "牧溪", "items": [{"t": "v", "s": "videos/07-名家/muxi-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/muxi-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/muxi-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/muxi-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/muxi-02.mp4", "l": ""}]}, {"id": "xuwei", "title": "徐渭", "items": [{"t": "v", "s": "videos/07-名家/xuwei-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-06.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-07.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-08.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-09.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-10.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/xuwei-11.mp4", "l": "《十六花姨图》"}, {"t": "v", "s": "videos/07-名家/xuwei-12.mp4", "l": ""}]}, {"id": "zhengbanqiao", "title": "郑板桥", "items": [{"t": "v", "s": "videos/07-名家/zhengbanqiao-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-06.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-07.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-08.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhengbanqiao-09.mp4", "l": ""}]}, {"id": "renbonian", "title": "任伯年", "items": [{"t": "v", "s": "videos/07-名家/renbonian-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-06.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-07.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/renbonian-08.mp4", "l": ""}]}, {"id": "zhangdq", "title": "张大千", "items": [{"t": "v", "s": "videos/07-名家/zhangdaqian-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-00.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-06.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/zhangdaqian-07.mp4", "l": ""}]}, {"id": "qibaishi", "title": "齐白石", "items": [{"t": "v", "s": "videos/07-名家/qibaishi-01.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/qibaishi-02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/qibaishi-03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/qibaishi-04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/qibaishi-05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/qibaishi-06.mp4", "l": ""}]}, {"id": "fan", "title": "范曾", "items": [{"t": "v", "s": "videos/07-名家/fan02.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan03.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan04.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan05.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan06.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan07.mp4", "l": ""}, {"t": "v", "s": "videos/07-名家/fan01.mp4", "l": ""}]}, {"id": "wucangshuo", "title": "吴昌硕", "items": [{"t": "v", "s": "videos/07-名家/wucangshuo-01.mp4", "l": ""}]}]}];
+
+// 渲染左侧菜单（手风琴：同时只展开一个分类；云端目录加载后会重渲染）
+const nav = document.getElementById('sidebar');
+function renderNav() {
+    nav.innerHTML = '';
+DATA.forEach((cat, ci) => {
+    const div = document.createElement('div');
+    div.className = 'cat' + (ci === 0 ? ' open' : '');
+    const count = cat.sections.reduce((a, s) => a + s.items.filter(i => i.t === 'v').length, 0);
+    div.innerHTML = `<div class="cat-head"><span>${cat.name}</span><span class="cat-count">${count}个</span><span class="arrow">▶</span></div>
+                     <div class="cat-body"></div>`;
+    div.querySelector('.cat-head').addEventListener('click', () => {
+        const wasOpen = div.classList.contains('open');
+        document.querySelectorAll('.cat').forEach(c => c.classList.remove('open'));
+        if (!wasOpen) div.classList.add('open');
+    });
+    const body = div.querySelector('.cat-body');
+    cat.sections.forEach((sec, si) => {
+        const cnt = sec.items.filter(i => i.t === 'v').length;
+        const mi = document.createElement('div');
+        mi.className = 'menu-item';
+        mi.innerHTML = `<span>${sec.title}</span><span class="cnt">${cnt}</span>`;
+        mi.addEventListener('click', () => loadSection(ci, si, mi));
+        body.appendChild(mi);
+    });
+    nav.appendChild(div);
+});
+}
+renderNav();
+
+// ===== 视频源回退：默认 R2 主源（s），播放后 10 秒无回馈或出错时切七牛备用（f） =====
+// 注意：视频 preload=none，只有真正开始播放才拉流量；超时检测也只在播放后启动
+function attachVideoFallback(v, item) {
+    if (!item || !item.f) return;
+    let switched = false;
+    const useFallback = () => {
+        if (switched) return;
+        switched = true;
+        const t = v.currentTime;
+        v.src = item.f;
+        v.load();
+        v.addEventListener('loadedmetadata', () => { try { v.currentTime = t; } catch (e) {} }, { once: true });
+    };
+    v.addEventListener('error', useFallback);
+    // 开始播放后才启动 10 秒无回馈检测
+    v.addEventListener('play', () => {
+        const timer = setTimeout(() => { if (v.readyState < 2) useFallback(); }, 10000);
+        v.addEventListener('loadeddata', () => clearTimeout(timer), { once: true });
+    }, { once: true });
+}
+
+// ===== 动态目录：云数据库（cnpv-catalog）为主，localStorage 缓存加速，本地 DATA 兜底 =====
+const CATALOG_API = 'https://api.peacelove.top/cnpv-catalog';
+const CATALOG_CACHE = 'cnpv-catalog-cache';
+
+function applyCatalog(catalog) {
+    if (!Array.isArray(catalog) || !catalog.length) return;
+    DATA = catalog.map(cat => ({
+        name: cat.name,
+        sections: (cat.sections || []).map(sec => ({
+            id: sec.id,
+            title: sec.title,
+            items: (sec.items || []).map(it => ({ t: it.t, s: it.s, f: it.f, l: it.l }))
+        }))
+    }));
+    renderNav();
+    renderHome();
+}
+
+async function loadCatalog() {
+    let cached = null;
+    try { cached = JSON.parse(localStorage.getItem(CATALOG_CACHE) || 'null'); } catch (e) {}
+    if (cached && cached.catalog) applyCatalog(cached.catalog); // 先用缓存即时渲染
+    try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 6000);
+        const res = await fetch(CATALOG_API, { method: 'POST', signal: ctrl.signal });
+        clearTimeout(timer);
+        const json = await res.json();
+        if (json.success && json.data && Array.isArray(json.data.catalog) && json.data.catalog.length) {
+            if (!cached || cached.version !== json.data.version) {
+                try { localStorage.setItem(CATALOG_CACHE, JSON.stringify({ version: json.data.version, catalog: json.data.catalog })); } catch (e) {}
+            }
+            applyCatalog(json.data.catalog);
+        }
+    } catch (e) { /* 网络失败：保持缓存或本地兜底数据 */ }
+}
+loadCatalog();
+
+// 懒加载：点击栏目才生成视频标签（menuItem 为空时仅渲染内容，不联动菜单高亮）
+function loadSection(ci, si, menuItem) {
+    if (menuItem) {
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+        menuItem.classList.add('active');
+    }
+    const cat = DATA[ci], sec = cat.sections[si];
+    document.getElementById('sec-title').innerHTML =
+        `${cat.name} · ${sec.title}<em>${sec.items.filter(i => i.t === 'v').length} 个视频</em>`;
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    let videoIdx = -1;
+    sec.items.forEach(it => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (it.t === 'v') {
+            videoIdx++;
+            const vIdx = videoIdx; // 捕获当前索引，避免闭包读到循环结束后的值
+            const v = document.createElement('video');
+            // 带宽优化：preload=none，不点播不产生任何流量（每页 18 个视频不会批量拉流）
+            v.controls = true; v.muted = true; v.loop = true; v.preload = 'none'; v.playsInline = true;
+            v.src = it.s;
+            attachVideoFallback(v, it);
+            // 播放提示遮罩：首次播放后隐藏
+            const hint = document.createElement('div');
+            hint.className = 'play-hint';
+            hint.textContent = '▶';
+            v.addEventListener('play', () => hint.remove(), { once: true });
+            cell.appendChild(v);
+            cell.appendChild(hint);
+            // 悬浮按钮：小屏播放（div 内直接播） / 大屏播放（弹窗播放）
+            const btns = document.createElement('div');
+            btns.className = 'vbtns';
+            const bSmall = document.createElement('button');
+            bSmall.textContent = '小屏播放';
+            bSmall.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('#grid video').forEach(o => { if (o !== v) o.pause(); });
+                v.muted = false;
+                v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+            });
+            const bBig = document.createElement('button');
+            bBig.textContent = '大屏播放';
+            bBig.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openPlayer(ci, si, vIdx);
+            });
+            btns.appendChild(bSmall);
+            btns.appendChild(bBig);
+            cell.appendChild(btns);
+        } else {
+            const img = document.createElement('img');
+            img.src = it.s; img.loading = 'lazy';
+            if (it.f) img.addEventListener('error', () => { if (!img.dataset.fb) { img.dataset.fb = '1'; img.src = it.f; } });
+            cell.appendChild(img);
+        }
+        if (it.l) {
+            const cap = document.createElement('div');
+            cap.className = 'cap';
+            cap.textContent = it.l;
+            cell.appendChild(cap);
+        }
+        grid.appendChild(cell);
+    });
+    window.scrollTo({ top: 0 });
+    // 移动端：加载后收起侧栏
+    nav.classList.remove('show');
+}
+
+// ===== 首页：大类卡片，自动列出各二级分类入口 =====
+function renderHome() {
+    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+    document.getElementById('sec-title').innerHTML = '欢迎使用<em>点击类目卡片中的栏目开始学习</em>';
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    DATA.forEach((cat, ci) => {
+        const card = document.createElement('div');
+        card.className = 'cat-card';
+        const total = cat.sections.reduce((a, s) => a + s.items.filter(i => i.t === 'v').length, 0);
+        card.innerHTML = `<h3>${cat.name}<span class="cnt">${total} 个视频</span></h3><div class="chips"></div>`;
+        const chips = card.querySelector('.chips');
+        const catBody = nav.querySelectorAll('.cat')[ci];
+        const menuItems = catBody ? catBody.querySelectorAll('.menu-item') : [];
+        cat.sections.forEach((sec, si) => {
+            const cnt = sec.items.filter(i => i.t === 'v').length;
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            chip.textContent = `${sec.title} · ${cnt}`;
+            chip.addEventListener('click', () => {
+                // 展开对应大类并跳转到该栏目
+                document.querySelectorAll('.cat').forEach(c => c.classList.remove('open'));
+                if (catBody) catBody.classList.add('open');
+                loadSection(ci, si, menuItems[si] || null);
+            });
+            chips.appendChild(chip);
+        });
+        grid.appendChild(card);
+    });
+    window.scrollTo({ top: 0 });
+}
+renderHome();
+
+// 点击顶部 logo 返回首页
+const logo = document.querySelector('header .logo');
+logo.style.cursor = 'pointer';
+logo.addEventListener('click', renderHome);
+
+// ===== 全屏播放弹窗：3D 横排卡片 + 左右切换 + 手势滑动 =====
+const pm = document.getElementById('pm');
+const pmStage = document.getElementById('pm-stage');
+const pmTitle = document.getElementById('pm-title');
+let pmCatName = '', pmSecTitle = '', pmVids = [], pmEls = [], pmIdx = 0;
+let pmLoopMode = 'seq'; // 'seq' 顺序播放 | 'single' 单个循环
+const pmModeBtn = document.getElementById('pm-mode');
+
+function openPlayer(ci, si, start) {
+    // 弹窗播放时，暂停列表里所有正在播的视频
+    document.querySelectorAll('#grid video').forEach(v => v.pause());
+    const sec = DATA[ci].sections[si];
+    pmCatName = DATA[ci].name;
+    pmSecTitle = sec.title;
+    pmVids = sec.items.filter(it => it.t === 'v');
+    if (!pmVids.length) return;
+    // 每次打开弹窗重置为顺序播放
+    pmLoopMode = 'seq';
+    pmModeBtn.textContent = '顺序播放';
+    pmStage.innerHTML = '';
+    pmEls = pmVids.map((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'pm-card';
+        const v = document.createElement('video');
+        v.controls = true; v.playsInline = true; v.preload = 'auto';
+        // 顺序播放模式：播完自动接下一个
+        v.addEventListener('ended', () => {
+            if (pmLoopMode === 'seq' && pmIdx === i && pm.classList.contains('show')) goTo(pmIdx + 1);
+        });
+        card.appendChild(v);
+        pmStage.appendChild(card);
+        return { card, v };
+    });
+    pmIdx = start;
+    pm.classList.add('show');
+    renderPM();
+}
+
+// 右下角：单个循环 / 顺序播放 切换
+pmModeBtn.addEventListener('click', () => {
+    pmLoopMode = pmLoopMode === 'seq' ? 'single' : 'seq';
+    pmModeBtn.textContent = pmLoopMode === 'single' ? '单个循环' : '顺序播放';
+    const cur = pmEls[pmIdx];
+    if (cur) cur.v.loop = (pmLoopMode === 'single');
+});
+
+function closePM() {
+    pm.classList.remove('show');
+    pmEls.forEach(el => { el.v.pause(); el.v.removeAttribute('src'); el.v.load(); });
+}
+
+function goTo(i) {
+    const n = pmVids.length;
+    pmIdx = ((i % n) + n) % n;
+    renderPM();
+}
+
+function renderPM() {
+    const n = pmVids.length;
+    pmEls.forEach((el, i) => {
+        let d = (i - pmIdx + n) % n;
+        if (d > n / 2) d -= n;
+        const { card, v } = el;
+        if (Math.abs(d) > 3) {
+            card.style.display = 'none';
+            if (v.getAttribute('src')) { v.pause(); v.removeAttribute('src'); v.load(); }
+            return;
+        }
+        card.style.display = '';
+        card.style.zIndex = String(100 - Math.abs(d));
+        let tf;
+        if (d === 0) tf = 'translate(-50%, -50%) scale(1)';
+        else if (d === 1) tf = 'translate(calc(-50% + 52%), -50%) rotateY(-30deg) scale(.72)';
+        else if (d === -1) tf = 'translate(calc(-50% - 52%), -50%) rotateY(30deg) scale(.72)';
+        else if (d === 2) tf = 'translate(calc(-50% + 90%), -50%) rotateY(-30deg) scale(.45)';
+        else if (d === -2) tf = 'translate(calc(-50% - 90%), -50%) rotateY(30deg) scale(.45)';
+        else tf = d > 0 ? 'translate(calc(-50% + 130%), -50%) scale(.3)' : 'translate(calc(-50% - 130%), -50%) scale(.3)';
+        card.style.transform = tf;
+        card.style.opacity = Math.abs(d) >= 2 ? '.3' : Math.abs(d) === 1 ? '.55' : '1';
+        if (Math.abs(d) <= 1 && !v.getAttribute('src')) { v.src = pmVids[i].s; attachVideoFallback(v, pmVids[i]); v.load(); }
+        if (d === 0) {
+            v.muted = false;
+            v.loop = (pmLoopMode === 'single'); // 单个循环：当前视频 loop
+            v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+        } else { v.pause(); }
+    });
+    const cur = pmVids[pmIdx];
+    pmTitle.textContent = `${pmCatName} · ${pmSecTitle}${cur.l ? ' · ' + cur.l : ''}（${pmIdx + 1}/${n}）`;
+}
+
+document.getElementById('pm-prev').addEventListener('click', () => goTo(pmIdx - 1));
+document.getElementById('pm-next').addEventListener('click', () => goTo(pmIdx + 1));
+document.getElementById('pm-close').addEventListener('click', closePM);
+
+// 点击两侧卡片跳转到该卡片（居中卡片的控制条操作不受影响）
+pmStage.addEventListener('click', (e) => {
+    const card = e.target.closest('.pm-card');
+    if (!card) return;
+    const i = pmEls.findIndex(el => el.card === card);
+    if (i >= 0 && i !== pmIdx) goTo(i);
+});
+
+// 手势：左右滑动切换
+let pmTouchX = null;
+pmStage.addEventListener('touchstart', (e) => { pmTouchX = e.touches[0].clientX; }, { passive: true });
+pmStage.addEventListener('touchend', (e) => {
+    if (pmTouchX === null) return;
+    const dx = e.changedTouches[0].clientX - pmTouchX;
+    pmTouchX = null;
+    if (dx > 60) goTo(pmIdx - 1);       // 右滑 → 上一个
+    else if (dx < -60) goTo(pmIdx + 1); // 左滑 → 下一个
+}, { passive: true });
+
+// 键盘：左右方向键切换，Esc 关闭
+document.addEventListener('keydown', (e) => {
+    if (!pm.classList.contains('show')) return;
+    if (e.key === 'ArrowLeft') goTo(pmIdx - 1);
+    else if (e.key === 'ArrowRight') goTo(pmIdx + 1);
+    else if (e.key === 'Escape') closePM();
+});
+
+// 移动端侧栏开关
+document.getElementById('side-toggle').addEventListener('click', () => nav.classList.toggle('show'));
+</script>
+
+</body>
+</html>

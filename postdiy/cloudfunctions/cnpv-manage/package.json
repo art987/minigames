@@ -1,0 +1,9 @@
+{
+  "name": "cnpv-manage",
+  "version": "1.0.0",
+  "description": "国画视频库管理（类目/栏目/视频 CRUD，独立密码鉴权）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

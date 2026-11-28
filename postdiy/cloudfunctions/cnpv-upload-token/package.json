@@ -1,0 +1,9 @@
+{
+  "name": "cnpv-upload-token",
+  "version": "1.0.0",
+  "description": "国画视频库上传凭证（七牛上传token + R2预签名PUT）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

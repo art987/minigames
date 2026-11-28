@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国画视频库 · 管理后台</title>
+<style>
+    :root {
+        --blue: #2b7de9;
+        --blue-light: #eaf3ff;
+        --text: #2c3e50;
+        --text-sub: #7a8a9a;
+        --bg: #f5f8fc;
+        --line: #e8eef5;
+        --danger: #e5484d;
+        --ok: #2f9e63;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ===== 登录 ===== */
+    #login { max-width: 360px; margin: 12vh auto; background: #fff; border: 1px solid var(--line);
+             border-radius: 12px; padding: 32px 28px; }
+    #login h1 { font-size: 18px; margin-bottom: 4px; }
+    #login p { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
+    #login input { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+                   font-size: 14px; margin-bottom: 12px; outline: none; }
+    #login input:focus { border-color: var(--blue); }
+    #login button { width: 100%; padding: 11px; background: var(--blue); color: #fff; border: 0;
+                    border-radius: 8px; font-size: 15px; cursor: pointer; }
+    #login button:hover { background: #1f6ad0; }
+    #login .err { color: var(--danger); font-size: 13px; min-height: 18px; margin-bottom: 8px; }
+
+    /* ===== 主界面 ===== */
+    #app { display: none; }
+    header { background: #fff; border-bottom: 1px solid var(--line); padding: 0 20px; height: 54px;
+             display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 10; }
+    header .logo { font-weight: 600; font-size: 16px; }
+    header .tabs { display: flex; gap: 6px; margin-left: 12px; }
+    header .tabs button { border: 0; background: none; padding: 8px 14px; font-size: 14px; color: var(--text-sub);
+                          cursor: pointer; border-radius: 8px; }
+    header .tabs button.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+    header .right { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-sub); }
+    header .right button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 12px;
+                           cursor: pointer; font-size: 13px; }
+    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    .card h2 { font-size: 15px; margin-bottom: 12px; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    input, select { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px; outline: none; }
+    input:focus, select:focus { border-color: var(--blue); }
+    button.act { border: 0; background: var(--blue); color: #fff; border-radius: 8px; padding: 8px 14px;
+                 font-size: 13.5px; cursor: pointer; }
+    button.act:hover { background: #1f6ad0; }
+    button.ghost { border: 1px solid var(--line); background: #fff; color: var(--text-sub); border-radius: 8px;
+                   padding: 7px 12px; font-size: 13px; cursor: pointer; }
+    button.ghost:hover { color: var(--blue); border-color: var(--blue); }
+    button.danger { border: 1px solid #f2c4c5; background: #fff5f5; color: var(--danger); border-radius: 8px;
+                    padding: 7px 12px; font-size: 13px; cursor: pointer; }
+    button.danger:hover { background: #fde8e8; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    th { color: var(--text-sub); font-weight: 500; font-size: 12.5px; }
+    td input { width: 100%; min-width: 90px; }
+    .muted { color: var(--text-sub); font-size: 12.5px; }
+    .tree-item { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; }
+    .tree-item .head { display: flex; align-items: center; gap: 10px; }
+    .tree-item .head .name { font-weight: 600; font-size: 14.5px; }
+    .tree-item .head .grow { flex: 1; }
+    .tree-item .secs { margin-top: 8px; padding-left: 18px; }
+    .tree-item .sec { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13.5px; }
+    .status { font-size: 13px; min-height: 18px; margin-top: 8px; }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--danger); }
+
+    /* 上传 */
+    #up-files { margin-top: 12px; }
+    .up-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--line);
+               border-radius: 8px; margin-bottom: 6px; font-size: 13px; }
+    .up-item .bar { flex: 1; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+    .up-item .bar i { display: block; height: 100%; background: var(--blue); width: 0; transition: width .2s; }
+    .up-item .st { width: 150px; text-align: right; color: var(--text-sub); }
+    .up-item.ok .st { color: var(--ok); }
+    .up-item.fail .st { color: var(--danger); }
+    .inline-video { width: 120px; height: 80px; object-fit: contain; background: #000; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<!-- 登录 -->
+<div id="login">
+    <h1>国画视频库管理后台</h1>
+    <p>独立密码登录（cnpv 工具专用）</p>
+    <div class="err" id="login-err"></div>
+    <input id="lg-user" placeholder="账号" autocomplete="username">
+    <input id="lg-pass" type="password" placeholder="密码" autocomplete="current-password">
+    <button id="lg-btn">登 录</button>
+</div>
+
+<!-- 主界面 -->
+<div id="app">
+    <header>
+        <div class="logo">国画视频库 · 后台</div>
+        <div class="tabs">
+            <button data-tab="catalog" class="active">类目与栏目</button>
+            <button data-tab="videos">视频管理</button>
+            <button data-tab="upload">上传视频</button>
+        </div>
+        <div class="right"><span id="who"></span><button id="logout">退出</button></div>
+    </header>
+    <main>
+        <div id="msg" class="status"></div>
+
+        <!-- 类目与栏目 -->
+        <div class="panel active" id="panel-catalog">
+            <div class="card">
+                <h2>新增类目</h2>
+                <div class="row">
+                    <input id="new-cat-name" placeholder="类目名称" style="width:200px">
+                    <button class="act" id="add-cat">添加类目</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>类目结构 <span class="muted">（改名称/排序后点保存；删除类目会连同其下栏目和视频一起删除）</span></h2>
+                <div id="cat-tree">加载中...</div>
+            </div>
+        </div>
+
+        <!-- 视频管理 -->
+        <div class="panel" id="panel-videos">
+            <div class="card">
+                <div class="row">
+                    <select id="v-cat" style="min-width:150px"></select>
+                    <select id="v-sec" style="min-width:180px"></select>
+                    <button class="act" id="v-load">查看视频</button>
+                    <span class="muted">新增视频请用「上传视频」页</span>
+                </div>
+            </div>
+            <div class="card" id="v-move-bar" style="display:none">
+                <h2>移动所选视频</h2>
+                <div class="row">
+                    <label class="muted">目标：</label>
+                    <select id="mv-cat" style="min-width:150px"></select>
+                    <select id="mv-sec" style="min-width:180px"></select>
+                    <button class="act" id="mv-btn">移动所选</button>
+                    <span class="muted" id="mv-count">已选 0 个</span>
+                </div>
+            </div>
+            <div class="card" id="v-list-card" style="display:none">
+                <h2>视频列表</h2>
+                <table>
+                    <thead><tr><th style="width:34px"><input type="checkbox" id="v-selall" title="全选"></th>
+                        <th style="width:60px">预览</th><th>标题</th><th style="width:220px">文件</th>
+                        <th style="width:80px">上线</th><th style="width:80px">排序</th><th style="width:150px">操作</th></tr></thead>
+                    <tbody id="v-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 上传 -->
+        <div class="panel" id="panel-upload">
+            <div class="card">
+                <h2>上传到栏目（双云：R2 主源 + 七牛备用）</h2>
+                <div class="row">
+                    <select id="u-cat" style="min-width:150px"></select>
+                    <select id="u-sec" style="min-width:180px"></select>
+                    <input type="file" id="u-file" multiple accept="video/*,image/*">
+                </div>
+                <div class="muted" style="margin-top:8px">文件名（去扩展名）将作为视频标题，上传后可在「视频管理」改标题。单个文件建议 ≤ 200MB。</div>
+                <div id="up-files"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+const API = 'https://api.peacelove.top';
+const SS_KEY = 'cnpv-admin-auth';
+
+let auth = null;
+let categories = [];   // [{_id,name,order}]
+let sections = [];     // [{_id,categoryId,title,order}]
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function showMsg(text, ok) {
+    const el = $('msg');
+    el.textContent = text || '';
+    el.className = 'status ' + (ok ? 'ok' : 'err');
+    if (text) setTimeout(() => { if (el.textContent === text) el.textContent = ''; }, 4000);
+}
+
+async function api(fn, body) {
+    const res = await fetch(`${API}/${fn}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...auth, ...body })
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.message || '请求失败');
+    return json.data;
+}
+const manage = (action, actionData) => api('cnpv-manage', { action, actionData });
+
+// ===== 登录 =====
+async function doLogin() {
+    const user = $('lg-user').value.trim();
+    const pass = $('lg-pass').value;
+    if (!user || !pass) { $('login-err').textContent = '请输入账号和密码'; return; }
+    auth = { adminUserId: user, adminPassword: pass };
+    try {
+        await manage('verify');
+        sessionStorage.setItem(SS_KEY, JSON.stringify(auth));
+        enterApp();
+    } catch (e) {
+        $('login-err').textContent = e.message.includes('账号') ? '账号或密码错误' : ('登录失败: ' + e.message);
+        auth = null;
+    }
+}
+$('lg-btn').addEventListener('click', doLogin);
+$('lg-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function enterApp() {
+    $('login').style.display = 'none';
+    $('app').style.display = 'block';
+    $('who').textContent = '已登录';
+    loadCatalog();
+}
+$('logout').addEventListener('click', () => { sessionStorage.removeItem(SS_KEY); location.reload(); });
+
+// ===== Tab 切换 =====
+document.querySelectorAll('header .tabs button').forEach(b => {
+    b.addEventListener('click', () => {
+        document.querySelectorAll('header .tabs button').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        $('panel-' + b.dataset.tab).classList.add('active');
+    });
+});
+
+// ===== 数据加载 =====
+async function loadCatalog() {
+    try {
+        [categories, sections] = await Promise.all([manage('listCategories'), manage('listSections')]);
+        categories.sort((a, b) => (a.order - b.order) || a.name.localeCompare(b.name));
+        sections.sort((a, b) => (a.order - b.order) || a.title.localeCompare(b.title));
+        renderTree();
+        fillSelectors();
+    } catch (e) {
+        showMsg('加载失败: ' + e.message);
+    }
+}
+
+// ===== 类目树 =====
+function renderTree() {
+    const tree = $('cat-tree');
+    if (!categories.length) { tree.innerHTML = '<div class="muted">暂无类目</div>'; return; }
+    tree.innerHTML = categories.map(c => {
+        const secs = sections.filter(s => s.categoryId === c._id);
+        const catOpts = categories.map(x => `<option value="${x._id}" ${x._id === c._id ? 'disabled' : ''}>${esc(x.name)}</option>`).join('');
+        return `<div class="tree-item" data-id="${c._id}">
+            <div class="head">
+                <input class="cat-name" type="text" value="${esc(c.name)}" style="width:160px;font-weight:600">
+                <input class="cat-order" type="number" value="${c.order || 0}" style="width:70px" title="排序值（小的在前）">
+                <span class="grow"></span>
+                <button class="ghost save-cat">保存</button>
+                <button class="danger del-cat">删除类目</button>
+            </div>
+            <div class="secs">
+                ${secs.map((s, idx) => `<div class="sec" data-id="${s._id}">
+                    <span class="sec-title-text">${esc(s.title)}</span>
+                    <input class="sec-title" type="text" value="${esc(s.title)}" style="width:200px;display:none">
+                    <select class="sec-move-cat" title="移动到其它类目" style="max-width:130px">
+                        <option value="">移到类目…</option>${catOpts}
+                    </select>
+                    <span class="muted">${(videosCountCache[s._id] || '')}</span>
+                    <span class="grow"></span>
+                    <button class="ghost rename-sec">改名</button>
+                    <button class="ghost save-sec" style="display:none">保存</button>
+                    <button class="danger del-sec">删除</button>
+                    <button class="ghost up-sec" title="上移" ${idx === 0 ? 'disabled' : ''}>↑</button>
+                    <button class="ghost down-sec" title="下移" ${idx === secs.length - 1 ? 'disabled' : ''}>↓</button>
+                </div>`).join('')}
+                <div class="sec">
+                    <input class="new-sec-title" type="text" placeholder="新栏目名称" style="width:200px">
+                    <button class="ghost add-sec">添加栏目</button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    // 事件
+    tree.querySelectorAll('.tree-item').forEach(item => {
+        const catId = item.dataset.id;
+        item.querySelector('.save-cat').addEventListener('click', async () => {
+            try {
+                const name = item.querySelector('.cat-name').value.trim();
+                if (!name) return showMsg('类目名称不能为空');
+                await manage('updateCategory', { id: catId, name, order: Number(item.querySelector('.cat-order').value) });
+                showMsg('类目已保存', true); loadCatalog();
+            } catch (e) { showMsg(e.message); }
+        });
+        item.querySelector('.del-cat').addEventListener('click', async () => {
+            if (!confirm('确定删除该类目？其下所有栏目和视频都会被删除！')) return;
+            try { await manage('deleteCategory', { id: catId }); showMsg('已删除', true); loadCatalog(); }
+            catch (e) { showMsg(e.message); }
+        });
+        item.querySelectorAll('.sec[data-id]').forEach(secEl => {
+            const secId = secEl.dataset.id;
+            secEl.querySelector('.rename-sec').addEventListener('click', () => {
+                secEl.querySelector('.sec-title-text').style.display = 'none';
+                const inp = secEl.querySelector('.sec-title');
+                inp.style.display = '';
+                secEl.querySelector('.save-sec').style.display = '';
+                secEl.querySelector('.rename-sec').style.display = 'none';
+                inp.focus();
+            });
+            secEl.querySelector('.save-sec').addEventListener('click', async () => {
+                try {
+                    await manage('updateSection', { id: secId, title: secEl.querySelector('.sec-title').value.trim() });
+                    showMsg('栏目已保存', true); loadCatalog();
+                } catch (e) { showMsg(e.message); }
+            });
+            secEl.querySelector('.del-sec').addEventListener('click', async () => {
+                if (!confirm('确定删除该栏目及其所有视频记录？')) return;
+                try { await manage('deleteSection', { id: secId }); showMsg('已删除', true); loadCatalog(); }
+                catch (e) { showMsg(e.message); }
+            });
+            secEl.querySelector('.sec-move-cat').addEventListener('change', async () => {
+                const targetCatId = secEl.querySelector('.sec-move-cat').value;
+                if (!targetCatId || targetCatId === catId) return;
+                const targetCat = categories.find(c => c._id === targetCatId);
+                if (!confirm(`确定把栏目「${secEl.querySelector('.sec-title-text').textContent}」移动到「${targetCat.name}」？其下视频的一级分类会同步更新。`)) {
+                    secEl.querySelector('.sec-move-cat').value = '';
+                    return;
+                }
+                try {
+                    await manage('moveSection', { id: secId, categoryId: targetCatId });
+                    showMsg('栏目已移动', true); loadCatalog();
+                } catch (e) { showMsg(e.message); }
+            });
+            // 上移/下移：与相邻栏目交换顺序（order 重新按位置归一）
+            const moveSec = async (dir) => {
+                const sibs = sections.filter(s => s.categoryId === catId)
+                    .sort((a, b) => (a.order - b.order) || a.title.localeCompare(b.title));
+                const ids = sibs.map(s => s._id);
+                const i = ids.indexOf(secId);
+                const j = i + dir;
+                if (i < 0 || j < 0 || j >= ids.length) return;
+                [ids[i], ids[j]] = [ids[j], ids[i]];
+                try {
+                    await Promise.all(ids.map((id, pos) => {
+                        const s = sections.find(x => x._id === id);
+                        return manage('updateSection', { id, title: s.title, order: pos });
+                    }));
+                    showMsg('排序已更新', true); loadCatalog();
+                } catch (e) { showMsg(e.message); }
+            };
+            secEl.querySelector('.up-sec').addEventListener('click', () => moveSec(-1));
+            secEl.querySelector('.down-sec').addEventListener('click', () => moveSec(1));
+        });
+        item.querySelector('.add-sec').addEventListener('click', async () => {
+            const title = item.querySelector('.new-sec-title').value.trim();
+            if (!title) return showMsg('请输入栏目名称');
+            try {
+                await manage('addSection', { categoryId: catId, title, order: sections.filter(s => s.categoryId === catId).length });
+                showMsg('栏目已添加', true); loadCatalog();
+            } catch (e) { showMsg(e.message); }
+        });
+    });
+}
+let videosCountCache = {};
+
+$('add-cat').addEventListener('click', async () => {
+    const name = $('new-cat-name').value.trim();
+    if (!name) return showMsg('请输入类目名称');
+    try {
+        await manage('addCategory', { name, order: categories.length });
+        $('new-cat-name').value = '';
+        showMsg('类目已添加', true); loadCatalog();
+    } catch (e) { showMsg(e.message); }
+});
+
+// ===== 视频管理 =====
+function fillSelectors() {
+    const opts = categories.map(c => `<option value="${c._id}">${esc(c.name)}</option>`).join('');
+    for (const selId of ['v-cat', 'u-cat', 'mv-cat']) $(selId).innerHTML = opts;
+    onCatChange('v'); onCatChange('u'); onCatChange('mv');
+}
+function onCatChange(prefix) {
+    const catId = $(prefix + '-cat').value;
+    const secs = sections.filter(s => s.categoryId === catId);
+    $(prefix + '-sec').innerHTML = secs.map(s => `<option value="${s._id}">${esc(s.title)}</option>`).join('');
+}
+$('v-cat').addEventListener('change', () => onCatChange('v'));
+$('u-cat').addEventListener('change', () => onCatChange('u'));
+$('mv-cat').addEventListener('change', () => onCatChange('mv'));
+
+$('v-load').addEventListener('click', loadVideos);
+async function loadVideos() {
+    const sectionId = $('v-sec').value;
+    if (!sectionId) return showMsg('请选择类目和栏目');
+    try {
+        const vids = await manage('listVideos', { sectionId });
+        vids.sort((a, b) => (a.order - b.order));
+        const tbody = $('v-tbody');
+        tbody.innerHTML = vids.map(v => `<tr data-id="${v._id}">
+            <td><input type="checkbox" class="sel"></td>
+            <td>${v.type === 'v'
+                ? `<video class="inline-video" src="${esc(v.r2Url)}" muted preload="none" onerror="this.src='${esc(v.qiniuUrl)}'" onmouseover="this.play().catch(()=>{});" onmouseleave="this.pause();"></video>`
+                : `<img class="inline-video" src="${esc(v.r2Url)}" loading="lazy">`}</td>
+            <td><input class="title" value="${esc(v.title)}"></td>
+            <td class="muted" style="font-size:12px">${esc(v.fileKey || '')}</td>
+            <td><input class="online" type="checkbox" ${v.online !== false ? 'checked' : ''}></td>
+            <td><input class="order" type="number" value="${v.order || 0}" style="width:70px"></td>
+            <td>
+                <button class="ghost save-v">保存</button>
+                <button class="danger del-v">删除</button>
+            </td>
+        </tr>`).join('') || '<tr><td colspan="7" class="muted">该栏目暂无视频</td></tr>';
+        $('v-list-card').style.display = '';
+        $('v-move-bar').style.display = '';
+        updateMvCount();
+        tbody.querySelectorAll('tr[data-id]').forEach(tr => {
+            const id = tr.dataset.id;
+            tr.querySelector('.sel').addEventListener('change', updateMvCount);
+            tr.querySelector('.save-v').addEventListener('click', async () => {
+                try {
+                    await manage('updateVideo', {
+                        id, title: tr.querySelector('.title').value.trim(),
+                        online: tr.querySelector('.online').checked,
+                        order: Number(tr.querySelector('.order').value)
+                    });
+                    showMsg('已保存', true);
+                } catch (e) { showMsg(e.message); }
+            });
+            tr.querySelector('.del-v').addEventListener('click', async () => {
+                if (!confirm('确定删除该视频记录？（不会删除云端文件）')) return;
+                try { await manage('deleteVideo', { id }); showMsg('已删除', true); loadVideos(); }
+                catch (e) { showMsg(e.message); }
+            });
+        });
+    } catch (e) { showMsg(e.message); }
+}
+
+// ===== 移动所选视频（单个/多个） =====
+function updateMvCount() {
+    const n = document.querySelectorAll('#v-tbody .sel:checked').length;
+    $('mv-count').textContent = `已选 ${n} 个`;
+}
+$('v-selall').addEventListener('change', () => {
+    const on = $('v-selall').checked;
+    document.querySelectorAll('#v-tbody .sel').forEach(c => { c.checked = on; });
+    updateMvCount();
+});
+$('mv-btn').addEventListener('click', async () => {
+    const ids = [...document.querySelectorAll('#v-tbody .sel:checked')].map(c => c.closest('tr').dataset.id);
+    if (!ids.length) return showMsg('请先勾选要移动的视频');
+    const catId = $('mv-cat').value, secId = $('mv-sec').value;
+    const curCatId = $('v-cat').value, curSecId = $('v-sec').value;
+    if (catId === curCatId && secId === curSecId) return showMsg('目标栏目与当前栏目相同');
+    const catName = (categories.find(c => c._id === catId) || {}).name || '';
+    const secName = (sections.find(s => s._id === secId) || {}).title || '';
+    if (!confirm(`确定把 ${ids.length} 个视频移动到「${catName} / ${secName}」？`)) return;
+    try {
+        const r = await manage('moveVideos', { ids, categoryId: catId, sectionId: secId });
+        showMsg(`已移动 ${r.moved} 个视频`, true);
+        loadVideos();
+    } catch (e) { showMsg(e.message); }
+});
+
+// ===== 上传 =====
+$('u-file').addEventListener('change', async () => {
+    const sectionId = $('u-sec').value;
+    if (!sectionId) { showMsg('请先选择类目和栏目'); return; }
+    const sec = sections.find(s => s._id === sectionId);
+    const files = [...$('u-file').files];
+    if (!files.length) return;
+
+    // 已有视频数，新视频排在后面
+    let baseOrder = 0;
+    try { baseOrder = (await manage('listVideos', { sectionId })).length; } catch (e) {}
+
+    for (const f of files) {
+        const item = document.createElement('div');
+        item.className = 'up-item';
+        const title = f.name.replace(/\.[^.]+$/, '');
+        const ext = (f.name.match(/\.([^.]+)$/) || [,''])[1].toLowerCase();
+        const type = ['jpg','jpeg','png','gif','webp'].includes(ext) ? 'i' : 'v';
+        const date = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        const key = `cnpv/videos/${date.getFullYear()}${pad(date.getMonth()+1)}${pad(date.getDate())}-${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+        item.innerHTML = `<span style="width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(f.name)}">${esc(f.name)}</span>
+            <div class="bar"><i></i></div><span class="st">准备上传...</span>`;
+        $('up-files').prepend(item);
+        const bar = item.querySelector('.bar i'), st = item.querySelector('.st');
+
+        try {
+            // 1. 取凭证
+            const cred = await api('cnpv-upload-token', { key });
+            // 2. R2 主源（XHR 以获得进度）
+            await uploadPut(cred.r2.uploadUrl, f, p => { bar.style.width = (p * 50) + '%'; st.textContent = `R2 ${Math.round(p * 100)}%`; });
+            // 3. 七牛备用（表单上传）
+            await uploadQiniu(cred.qiniu.uploadUrl, cred.qiniu.token, key, f, p => { bar.style.width = (50 + p * 50) + '%'; st.textContent = `七牛 ${Math.round(p * 100)}%`; });
+            // 4. 落库
+            await manage('addVideo', {
+                categoryId: sec.categoryId, sectionId, title, fileKey: key, type,
+                r2Url: cred.r2.fileUrl, qiniuUrl: cred.qiniu.fileUrl,
+                online: true, order: baseOrder + files.indexOf(f),
+            });
+            item.classList.add('ok');
+            bar.style.width = '100%';
+            st.textContent = '✅ 上传成功';
+        } catch (e) {
+            item.classList.add('fail');
+            st.textContent = '❌ ' + e.message;
+        }
+    }
+    $('u-file').value = '';
+    showMsg('上传批次完成', true);
+});
+
+function uploadPut(url, file, onProgress) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', url);
+        xhr.upload.onprogress = e => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+        xhr.onload = () => xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error(`R2 ${xhr.status}`));
+        xhr.onerror = () => reject(new Error('R2 网络错误'));
+        xhr.send(file);
+    });
+}
+
+function uploadQiniu(uploadUrl, token, key, file, onProgress) {
+    return new Promise((resolve, reject) => {
+        const fd = new FormData();
+        fd.append('key', key);
+        fd.append('token', token);
+        fd.append('file', file);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', uploadUrl);
+        xhr.upload.onprogress = e => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+        xhr.onload = () => {
+            if (xhr.status === 200) return resolve();
+            let msg = `七牛 ${xhr.status}`;
+            try { msg += ' ' + JSON.parse(xhr.responseText).error; } catch (e) {}
+            reject(new Error(msg));
+        };
+        xhr.onerror = () => reject(new Error('七牛网络错误'));
+        xhr.send(fd);
+    });
+}
+
+// ===== 启动 =====
+(async function init() {
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(SS_KEY) || 'null');
+        if (saved && saved.adminUserId) {
+            auth = saved;
+            await manage('verify');
+            enterApp();
+        }
+    } catch (e) { sessionStorage.removeItem(SS_KEY); }
+})();
+</script>
+</body>
+</html>

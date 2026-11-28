@@ -54,21 +54,18 @@
 }
 
 [data-tpl="B01"] .ptag-qr {
-  left: calc(var(--mm) * 77.0);
-  top: calc(var(--mm) * 98.0);
-  width: calc(var(--mm) * 70.0);
-  height: calc(var(--mm) * 70.0);
-  background: #ffffff;
-  border-radius: calc(var(--mm) * 2);
+  left: calc(var(--mm) * 67.5);
+  top: calc(var(--mm) * 95);
+  width: calc(var(--mm) * 70);
+  height: calc(var(--mm) * 70);
 }
 
 /* ===== 二维码展示牌专属样式（复制自价签，可独立微调，不影响价签） ===== */
 [data-tpl="B01"] .ptag-qr-name {
-
   left: calc(var(--mm) * 25);
-  top: calc(var(--mm) * 38);
+  top: calc(var(--mm) * 26);
   width: calc(var(--mm) * 160);
-  height: calc(var(--mm) * 24);
+  height: calc(var(--mm) * 59.4);
   color: #672f14;
   font-family: var(--font-kai);
   font-size: calc(var(--mm) * 15.2);
@@ -78,7 +75,6 @@
   padding-right: calc(var(--mm) * 25);
 }
 [data-tpl="B01"] .ptag-qr-slogan {
-
   left: calc(var(--mm) * 0);
   top: calc(var(--mm) * 182.5);
   width: calc(var(--mm) * 210);

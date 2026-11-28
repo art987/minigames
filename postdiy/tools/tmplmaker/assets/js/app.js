@@ -227,6 +227,15 @@
       list0.forEach(function (t) {
         const card = document.createElement('div');
         card.className = 'template-card' + (t.id === state.templateId ? ' active' : '');
+        // 整卡可点：点击任意位置即选中模板并关闭弹窗
+        card.addEventListener('click', function () {
+          const changed = state.templateId !== t.id;
+          state.templateId = t.id;
+          saveState();
+          if (changed) rebuildSlides(true);
+          closeModal($('modalTemplate'));
+          showToast('已使用模板 ' + t.id + ' ' + t.title);
+        });
 
         const label = document.createElement('span');
         label.className = 't-name';
@@ -248,22 +257,8 @@
           lazyBgObserver.observe(tagEl);
         }
 
-        const use = document.createElement('button');
-        use.type = 'button';
-        use.className = 'tpl-use';
-        use.textContent = t.id === state.templateId ? '✓ 使用中' : '选 择';
-        use.addEventListener('click', function () {
-          const changed = state.templateId !== t.id;
-          state.templateId = t.id;
-          saveState();
-          if (changed) rebuildSlides(true);
-          closeModal($('modalTemplate'));
-          showToast('已使用模板 ' + t.id + ' ' + t.title);
-        });
-
         card.appendChild(label);
         card.appendChild(preview);
-        card.appendChild(use);
         grid.appendChild(card);
       });
       sizeModalTags();

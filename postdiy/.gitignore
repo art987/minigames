@@ -82,3 +82,7 @@ tools/tmplmaker/.trae-html-share-packages/
 # 商业字体，版权原因不上传（仅本地使用）
 tools/tmplmaker/assets/fonts/newfont/
 tools/tmplmaker/.trae-html-share-packages/
+
+# —— cnpv 国画视频库（大文件，托管在 R2/七牛，不上传 git） ——
+tools/cnpv/videos/
+tools/cnpv/sync-state.json

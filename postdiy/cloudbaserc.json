@@ -209,6 +209,39 @@
       "vpc": {},
       "installDependency": false,
       "deployMethod": "cos"
+    },
+    {
+      "name": "cnpv-catalog",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
+    },
+    {
+      "name": "cnpv-manage",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
+    },
+    {
+      "name": "cnpv-upload-token",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 15,
+      "memorySize": 256,
+      "environment": {},
+      "vpc": {},
+      "installDependency": false,
+      "deployMethod": "cos"
     }
   ]
 }

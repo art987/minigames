@@ -1,0 +1,9 @@
+{
+  "name": "cnpv-catalog",
+  "version": "1.0.0",
+  "description": "国画视频库公开目录（前台只读聚合）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
